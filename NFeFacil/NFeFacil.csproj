@@ -97,6 +97,10 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Configuracoes\ConfiguracoesCertificacao.cs" />
+    <Compile Include="Configuracoes\ConfiguracoesLocais.cs" />
+    <Compile Include="Configuracoes\ConfiguracoesSincronizacao.cs" />
+    <Compile Include="Configuracoes\TipoAppSincronizacao.cs" />
     <Compile Include="Extensoes.cs" />
     <Compile Include="IBGE\Estado.cs" />
     <Compile Include="IBGE\Estados.cs" />

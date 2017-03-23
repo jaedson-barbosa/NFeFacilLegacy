@@ -1,9 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using NFeFacil.ItensBD;
 
 namespace NFeFacil
 {
     public class DadosBaseContext : DbContext
     {
+        public DbSet<ClienteDI> Clientes { get; set; }
+        public DbSet<EmitenteDI> Emitentes { get; set; }
+        public DbSet<MotoristaDI> Motoristas { get; set; }
+        public DbSet<NFeDI> NotasFiscais { get; set; }
+        public DbSet<ProdutoDI> Produtos { get; set; }
+        public DbSet<ResultadoSincronizacaoCliente> ResultadosCliente { get; set; }
+        public DbSet<ResultadoSincronizacaoServidor> ResultadosServudir { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite("Data Source=dadosBase.db");

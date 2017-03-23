@@ -21,6 +21,8 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe
 
         public EnderecoCompleto(EnderecoCompleto other) : this(other.Logradouro, other.Numero, other.Bairro, other.CodigoMunicipio, other.NomeMunicipio, other.SiglaUF, other.CEP, other.Telefone, other.Complemento) { }
 
+        [XmlIgnore]
+        public int Id { get; set; }
         public string CEP { get; set; }
         [XmlElement("cPais")]
         public int CPais { get; set; } = 1058;

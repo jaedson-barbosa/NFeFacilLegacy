@@ -108,6 +108,10 @@
     <Compile Include="IBGE\Municipios.cs" />
     <Compile Include="IBGE\ProcessamentoXml.cs" />
     <Compile Include="IBGE\XML.cs" />
+    <Compile Include="ItensBD\ClienteDI.cs" />
+    <Compile Include="ItensBD\EmitenteDI.cs" />
+    <Compile Include="ItensBD\MotoristaDI.cs" />
+    <Compile Include="ItensBD\ProdutoDI.cs" />
     <Compile Include="Log\ILog.cs" />
     <Compile Include="Log\Popup.cs" />
     <Compile Include="Log\Saida.cs" />
@@ -116,6 +120,11 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20170323192246_Completa.cs" />
+    <Compile Include="Migrations\20170323192246_Completa.designer.cs">
+      <DependentUpon>20170323192246_Completa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\DadosBaseContextModelSnapshot.cs" />
     <Compile Include="Model.cs" />
     <Compile Include="ModeloXML\Enums.cs" />
     <Compile Include="ModeloXML\PartesProcesso\InfoProtocolo.cs" />
@@ -212,7 +221,10 @@
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\Transporte.cs" />
     <Compile Include="ModeloXML\PartesProcesso\ProtocoloNFe.cs" />
     <Compile Include="ModeloXML\Processo.cs" />
+    <Compile Include="ItensBD\NFeDI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ItensBD\ResultadoSincronizacaoCliente.cs" />
+    <Compile Include="ItensBD\ResultadoSincronizacaoServidor.cs" />
     <Compile Include="Validacao\ConjuntoAnalise.cs" />
     <Compile Include="Validacao\IValidavel.cs" />
     <Compile Include="Validacao\ValidadorDestinatario.cs" />
@@ -221,6 +233,28 @@
     <Compile Include="Validacao\ValidadorMotorista.cs" />
     <Compile Include="Validacao\ValidadorProduto.cs" />
     <Compile Include="Validacao\ValidarDados.cs" />
+    <Compile Include="WebService\AutorizarNota\CorpoRequest.cs" />
+    <Compile Include="WebService\AutorizarNota\CorpoResponse.cs" />
+    <Compile Include="WebService\AutorizarNota\Gerenciador.cs" />
+    <Compile Include="WebService\AutorizarNota\IAutorizaNFe.cs" />
+    <Compile Include="WebService\AutorizarNota\Request.cs" />
+    <Compile Include="WebService\AutorizarNota\Response.cs" />
+    <Compile Include="WebService\Conexao.cs" />
+    <Compile Include="WebService\ConjuntoServicos.cs" />
+    <Compile Include="WebService\ConsultarNota\CorpoRequest.cs" />
+    <Compile Include="WebService\ConsultarNota\CorpoResponse.cs" />
+    <Compile Include="WebService\ConsultarNota\Gerenciador.cs" />
+    <Compile Include="WebService\ConsultarNota\IConsultaNFe.cs" />
+    <Compile Include="WebService\ConsultarNota\Request.cs" />
+    <Compile Include="WebService\ConsultarNota\Response.cs" />
+    <Compile Include="WebService\DadosServico.cs" />
+    <Compile Include="WebService\GerenciadorGeral.cs" />
+    <Compile Include="WebService\RespostaAutorizarNota\CorpoRequest.cs" />
+    <Compile Include="WebService\RespostaAutorizarNota\CorpoResponse.cs" />
+    <Compile Include="WebService\RespostaAutorizarNota\Gerenciador.cs" />
+    <Compile Include="WebService\RespostaAutorizarNota\IRespostaAutorizaNFe.cs" />
+    <Compile Include="WebService\RespostaAutorizarNota\Request.cs" />
+    <Compile Include="WebService\RespostaAutorizarNota\Response.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -253,6 +287,7 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

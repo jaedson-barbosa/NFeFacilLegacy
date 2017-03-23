@@ -3,7 +3,7 @@ using NFeFacil.ItensBD;
 
 namespace NFeFacil
 {
-    public class DadosBaseContext : DbContext
+    public class AplicativoContext : DbContext
     {
         public DbSet<ClienteDI> Clientes { get; set; }
         public DbSet<EmitenteDI> Emitentes { get; set; }
@@ -15,7 +15,7 @@ namespace NFeFacil
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=dadosBase.db");
+            optionsBuilder.UseSqlite("Data Source=informacoes.db");
         }
     }
 }

@@ -7,8 +7,8 @@ using NFeFacil;
 
 namespace NFeFacil.Migrations
 {
-    [DbContext(typeof(DadosBaseContext))]
-    partial class DadosBaseContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(AplicativoContext))]
+    partial class AplicativoContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {

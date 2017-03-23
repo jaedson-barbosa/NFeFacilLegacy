@@ -120,11 +120,11 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\20170323192246_Completa.cs" />
-    <Compile Include="Migrations\20170323192246_Completa.designer.cs">
-      <DependentUpon>20170323192246_Completa.cs</DependentUpon>
+    <Compile Include="Migrations\20170323194631_MigracaoCompleta.cs" />
+    <Compile Include="Migrations\20170323194631_MigracaoCompleta.designer.cs">
+      <DependentUpon>20170323194631_MigracaoCompleta.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\DadosBaseContextModelSnapshot.cs" />
+    <Compile Include="Migrations\AplicativoContextModelSnapshot.cs" />
     <Compile Include="Model.cs" />
     <Compile Include="ModeloXML\Enums.cs" />
     <Compile Include="ModeloXML\PartesProcesso\InfoProtocolo.cs" />

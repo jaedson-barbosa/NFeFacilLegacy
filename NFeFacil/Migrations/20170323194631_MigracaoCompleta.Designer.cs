@@ -7,9 +7,9 @@ using NFeFacil;
 
 namespace NFeFacil.Migrations
 {
-    [DbContext(typeof(DadosBaseContext))]
-    [Migration("20170323192246_Completa")]
-    partial class Completa
+    [DbContext(typeof(AplicativoContext))]
+    [Migration("20170323194631_MigracaoCompleta")]
+    partial class MigracaoCompleta
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace NFeFacil.Migrations
 {
-    public partial class Completa : Migration
+    public partial class MigracaoCompleta : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

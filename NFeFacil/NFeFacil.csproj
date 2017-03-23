@@ -226,6 +226,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ItensBD\ResultadoSincronizacaoCliente.cs" />
     <Compile Include="ItensBD\ResultadoSincronizacaoServidor.cs" />
+    <Compile Include="Sincronizacao\Cliente\ClienteBrechaSeguranca.cs" />
+    <Compile Include="Sincronizacao\Cliente\ClienteConfiguracoes.cs" />
+    <Compile Include="Sincronizacao\Cliente\ClienteSincronizacaoDadosBase.cs" />
+    <Compile Include="Sincronizacao\Cliente\ClienteSincronizacaoNotas.cs" />
+    <Compile Include="Sincronizacao\Cliente\ConexaoComServidor.cs" />
+    <Compile Include="Sincronizacao\GerenciadorCliente.cs" />
     <Compile Include="Sincronizacao\GerenciadorServidor.cs" />
     <Compile Include="Sincronizacao\ItensSincronizados.cs" />
     <Compile Include="Sincronizacao\Pacotes\ConfiguracoesServidor.cs" />

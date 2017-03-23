@@ -103,6 +103,11 @@
     <Compile Include="IBGE\Municipios.cs" />
     <Compile Include="IBGE\ProcessamentoXml.cs" />
     <Compile Include="IBGE\XML.cs" />
+    <Compile Include="Log\ILog.cs" />
+    <Compile Include="Log\Popup.cs" />
+    <Compile Include="Log\Saida.cs" />
+    <Compile Include="Log\Titulos.cs" />
+    <Compile Include="Log\Toast.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -203,6 +208,14 @@
     <Compile Include="ModeloXML\PartesProcesso\ProtocoloNFe.cs" />
     <Compile Include="ModeloXML\Processo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Validacao\ConjuntoAnalise.cs" />
+    <Compile Include="Validacao\IValidavel.cs" />
+    <Compile Include="Validacao\ValidadorDestinatario.cs" />
+    <Compile Include="Validacao\ValidadorEmitente.cs" />
+    <Compile Include="Validacao\ValidadorEndereco.cs" />
+    <Compile Include="Validacao\ValidadorMotorista.cs" />
+    <Compile Include="Validacao\ValidadorProduto.cs" />
+    <Compile Include="Validacao\ValidarDados.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">

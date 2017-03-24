@@ -45,7 +45,7 @@ namespace NFeFacil.ViewModel
             {
                 using (var db = new AplicativoContext())
                 {
-                    return db.ResultadosServudir.GerarObs();
+                    return db.ResultadosServidor.GerarObs();
                 }
             }
         }

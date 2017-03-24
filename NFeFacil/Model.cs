@@ -11,7 +11,7 @@ namespace NFeFacil
         public DbSet<NFeDI> NotasFiscais { get; set; }
         public DbSet<ProdutoDI> Produtos { get; set; }
         public DbSet<ResultadoSincronizacaoCliente> ResultadosCliente { get; set; }
-        public DbSet<ResultadoSincronizacaoServidor> ResultadosServudir { get; set; }
+        public DbSet<ResultadoSincronizacaoServidor> ResultadosServidor { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

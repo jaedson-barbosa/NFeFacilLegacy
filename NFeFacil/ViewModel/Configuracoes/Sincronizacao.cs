@@ -88,23 +88,6 @@ namespace NFeFacil.ViewModel.Configuracoes
             }
         }
 
-        public double Raio
-        {
-            get
-            {
-                double tamanho;
-                if (View.GridCarregamento.ActualWidth < View.GridCarregamento.ActualHeight)
-                    tamanho = View.GridCarregamento.ActualWidth / 2;
-                else
-                    tamanho = View.GridCarregamento.ActualHeight / 2;
-                if (tamanho == 0) return 0;
-                else if (tamanho > 200) return 180;
-                else return tamanho - Thickness;
-            }
-        }
-
-        public double Thickness { get { return 16; } }
-
         public string StatusCliente
         {
             get

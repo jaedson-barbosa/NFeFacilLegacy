@@ -21,11 +21,6 @@ namespace NFeFacil.View
             get { return carTempo; }
         }
 
-        public Grid GridCarregamento
-        {
-            get { return grdCarTempo; }
-        }
-
         public Grid GridQR
         {
             get { return grdInfoImgQR; }
@@ -60,22 +55,17 @@ namespace NFeFacil.View
             else EsconderStkDadosBase.Begin();*/
         }
 
-        private void grdCarTempo_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            DataContextSincronização.OnProperyChanged("Raio");
-        }
-
         private async void grdQRTemporario_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             if (grdPrincipal.ActualWidth > 500)
             {
                 grdImgQR.Style = (Style)Resources["ImagemHorizontal"];
-                grdInfoImgQR.Style = (Style)Resources[nameof(InfoImagemHorizontal)];
+                grdInfoImgQR.Style = (Style)Resources["InfoImagemHorizontal"];
             }
             else
             {
                 grdImgQR.Style = (Style)Resources["ImagemVertical"];
-                grdInfoImgQR.Style = (Style)Resources[nameof(InfoImagemVertical)];
+                grdInfoImgQR.Style = (Style)Resources["InfoImagemVertical"];
             }
             await Task.Delay(100);
             DataContextSincronização.OnProperyChanged("QRGerado");

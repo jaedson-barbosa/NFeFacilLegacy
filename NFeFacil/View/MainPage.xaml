@@ -3,6 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:controles="using:NFeFacil.View.Controles"
       mc:Ignorable="d">
     <Page.Resources>
         <ResourceDictionary>
@@ -46,8 +47,7 @@
                     Style="{StaticResource Hamburguer}"
                     Click="btnHamburguer_Click">
                 <FontIcon FontFamily="Segoe MDL2 Assets"
-                          Glyph="&#xE700;"
-                          Margin="0" />
+                          Glyph="&#xE700;" />
             </Button>
             <SymbolIcon x:Name="symTitulo"
                         Symbol="Home"
@@ -65,46 +65,33 @@
                 <SolidColorBrush Color="{ThemeResource SystemChromeMediumColor}" />
             </SplitView.PaneBackground>
             <SplitView.Pane>
-                <Grid xmlns:controles="using:NFeFacil.View.Controles">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <ListView x:Name="lstFunções"
-                              Margin="0"
-                              ItemClick="AbrirFunção"
-                              IsItemClickEnabled="True">
-                        <controles:SplitViewItem x:Name="Início"
-                                                 Ícone="Home"
-                                                 TextoDoBotão="Início" />
-                        <controles:SplitViewItem x:Name="Consulta"
-                                                 Ícone="Zoom"
-                                                 TextoDoBotão="Consultar uma nota" />
-                        <controles:SplitViewItem x:Name="GerenciarDadosBase"
-                                                 Ícone="Manage"
-                                                 TextoDoBotão="Gerenciar dados base" />
-                        <controles:SplitViewItem x:Name="TelaNotaFiscal"
-                                                 Ícone="NewFolder"
-                                                 TextoDoBotão="Emitir nova nota" />
-                        <controles:SplitViewItem x:Name="NotasEmitidas"
-                                                 Ícone="Library"
-                                                 TextoDoBotão="Notas emitidas" />
-                        <controles:SplitViewItem x:Name="AnaliseVendasAnuais"
-                                                 Ícone="Filter"
-                                                 TextoDoBotão="Análise anual" />
-                    </ListView>
-                    <ListView x:Name="lstExtras"
-                              Margin="0"
-                              IsItemClickEnabled="True"
-                              Grid.Row="2"
-                              ItemClick="AbrirFunção"
-                              Canvas.ZIndex="1">
-                        <controles:SplitViewItem x:Name="Configurações"
-                                                 Ícone="Setting"
-                                                 TextoDoBotão="Configurações" />
-                    </ListView>
-                </Grid>
+                <ListView x:Name="lstFunções"
+                          Margin="0"
+                          ItemClick="AbrirFunção"
+                          IsItemClickEnabled="True">
+                    <controles:SplitViewItem x:Name="Inicio"
+                                             Icone="Home"
+                                             TextoDoBotao="Início" />
+                    <controles:SplitViewItem x:Name="Consulta"
+                                             Icone="Zoom"
+                                             TextoDoBotao="Consultar uma nota" />
+                    <controles:SplitViewItem x:Name="GerenciarDadosBase"
+                                             Icone="Manage"
+                                             TextoDoBotao="Gerenciar dados base" />
+                    <controles:SplitViewItem x:Name="TelaNotaFiscal"
+                                             Icone="NewFolder"
+                                             TextoDoBotao="Emitir nova nota" />
+                    <controles:SplitViewItem x:Name="NotasEmitidas"
+                                             Icone="Library"
+                                             TextoDoBotao="Notas emitidas" />
+                    <controles:SplitViewItem x:Name="AnaliseVendasAnuais"
+                                             Icone="Filter"
+                                             TextoDoBotao="Análise anual" />
+                    <controles:SplitViewItem x:Name="Configuracoes"
+                                             VerticalAlignment="Bottom"
+                                             Icone="Setting"
+                                             TextoDoBotao="Configurações" />
+                </ListView>
             </SplitView.Pane>
             <SplitView.Content>
                 <Frame Name="frmPrincipal">

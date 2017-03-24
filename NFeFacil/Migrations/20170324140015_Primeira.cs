@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace NFeFacil.Migrations
 {
-    public partial class MigracaoCompleta : Migration
+    public partial class Primeira : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -30,10 +31,8 @@ namespace NFeFacil.Migrations
                 name: "NotasFiscais",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                    Id = table.Column<string>(nullable: false),
                     DataEmissao = table.Column<string>(nullable: false),
-                    IdentificacaoNota = table.Column<string>(nullable: false),
                     NomeCliente = table.Column<string>(nullable: false),
                     NomeEmitente = table.Column<string>(nullable: false),
                     NumeroNota = table.Column<string>(nullable: false),
@@ -88,7 +87,7 @@ namespace NFeFacil.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ResultadosServudir",
+                name: "ResultadosServidor",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -99,7 +98,7 @@ namespace NFeFacil.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ResultadosServudir", x => x.Id);
+                    table.PrimaryKey("PK_ResultadosServidor", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -211,7 +210,7 @@ namespace NFeFacil.Migrations
                 name: "ResultadosCliente");
 
             migrationBuilder.DropTable(
-                name: "ResultadosServudir");
+                name: "ResultadosServidor");
 
             migrationBuilder.DropTable(
                 name: "EnderecoCompleto");

@@ -8,8 +8,8 @@ using NFeFacil;
 namespace NFeFacil.Migrations
 {
     [DbContext(typeof(AplicativoContext))]
-    [Migration("20170323194631_MigracaoCompleta")]
-    partial class MigracaoCompleta
+    [Migration("20170324140015_Primeira")]
+    partial class Primeira
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -102,13 +102,10 @@ namespace NFeFacil.Migrations
 
             modelBuilder.Entity("NFeFacil.ItensBD.NFeDI", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("DataEmissao")
-                        .IsRequired();
-
-                    b.Property<string>("IdentificacaoNota")
                         .IsRequired();
 
                     b.Property<string>("NomeCliente")
@@ -198,7 +195,7 @@ namespace NFeFacil.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ResultadosServudir");
+                    b.ToTable("ResultadosServidor");
                 });
 
             modelBuilder.Entity("NFeFacil.ModeloXML.PartesProcesso.PartesNFe.EnderecoCompleto", b =>

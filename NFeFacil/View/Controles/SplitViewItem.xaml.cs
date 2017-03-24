@@ -11,31 +11,11 @@ namespace NFeFacil.View.Controles
         {
             InitializeComponent();
         }
-        public string TextoDoBotão
-        {
-            get
-            {
-                return txtTexto.Text;
-            }
-            set
-            {
-                txtTexto.Text = value;
-            }
-        }
-        public Symbol Ícone
-        {
-            get
-            {
-                return íconeBotão.Symbol;
-            }
-            set
-            {
-                íconeBotão.Symbol = value;
-            }
-        }
+        public string TextoDoBotao { get; set; }
+        public Symbol Icone { get; set; }
         public static readonly DependencyProperty TextoDoBotãoProperty =
-            DependencyProperty.Register(nameof(TextoDoBotão), typeof(string), typeof(SplitViewItem), null);
+            DependencyProperty.Register(nameof(TextoDoBotao), typeof(string), typeof(SplitViewItem), null);
         public static readonly DependencyProperty ÍconeProperty =
-            DependencyProperty.Register(nameof(Ícone), typeof(Symbol), typeof(SplitViewItem), null);
+            DependencyProperty.Register(nameof(Icone), typeof(Symbol), typeof(SplitViewItem), null);
     }
 }

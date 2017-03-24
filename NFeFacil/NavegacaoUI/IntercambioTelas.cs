@@ -20,11 +20,16 @@ namespace NFeFacil.NavegacaoUI
             Log = new Saida();
         }
 
-        public void AbrirFunçao(Type classe, object parametro) => Abrir(classe, parametro);
+        public void AbrirFunçao(Type classe, object parametro = null) => Abrir(classe, parametro);
 
         public void AbrirFunçao(string tela, object parametro = null)
         {
-            var classe = Type.GetType($"NotaFacil.View.{tela}");
+            var classe = Type.GetType($"NFeFacil.View.{tela}");
+            if (classe == null)
+            {
+                new Saida().Escrever(TitulosComuns.ErroSimples, $"Tela ainda nao cadastrada. Nome: {tela}");
+                return;
+            }
             Abrir(classe, parametro);
         }
 
@@ -69,16 +74,7 @@ namespace NFeFacil.NavegacaoUI
         public void SeAtualizar(Telas atual, Symbol símbolo, string texto)
         {
             TelaAtual = atual;
-            if (atual == Telas.Configurações)
-            {
-                Main.IndexFunçãoExtra = 0;
-                Main.IndexFunçãoPrincipal = -1;
-            }
-            else
-            {
-                Main.IndexFunçãoExtra = -1;
-                Main.IndexFunçãoPrincipal = (int)atual;
-            }
+            Main.IndexFunçãoPrincipal = (int)atual;
             Main.Símbolo = símbolo;
             Main.Título = texto;
         }
@@ -136,7 +132,7 @@ namespace NFeFacil.NavegacaoUI
         EmitirNovaNota,
         NotasEmitidas,
         AnaliseVendasAnuais,
-        Configurações,
+        Configurações
     }
 
 }

@@ -33,17 +33,14 @@ namespace NFeFacil.View
             get { return lstFunções.SelectedIndex; }
             set { lstFunções.SelectedIndex = value; }
         }
-        public int IndexFunçãoExtra
-        {
-            get { return lstExtras.SelectedIndex; }
-            set { lstExtras.SelectedIndex = value; }
-        }
         public int UltimoIndex { get; private set; }
         #endregion
 
         public MainPage()
         {
             this.InitializeComponent();
+            Propriedades.Intercambio = new IntercambioTelas(this);
+            Propriedades.Intercambio.AbrirFunçao(typeof(Inicio));
         }
 
         private async static void InicarServerAsync() => await Propriedades.Server.IniciarServer().ConfigureAwait(false);
@@ -73,7 +70,6 @@ namespace NFeFacil.View
                 else
                 {
                     IndexFunçãoPrincipal = UltimoIndex;
-                    IndexFunçãoExtra = -1;
                     return;
                 }
             }

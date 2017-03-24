@@ -32,7 +32,7 @@
                 <Setter Property="Grid.ColumnSpan"
                         Value="1" />
             </Style>
-            <Style x:Name="InfoImagemHorizontal"
+            <Style x:Key="InfoImagemHorizontal"
                    TargetType="Grid">
                 <Setter Property="Grid.Row"
                         Value="0" />
@@ -54,7 +54,7 @@
                 <Setter Property="Grid.ColumnSpan"
                         Value="2" />
             </Style>
-            <Style x:Name="InfoImagemVertical"
+            <Style x:Key="InfoImagemVertical"
                    TargetType="Grid">
                 <Setter Property="Grid.Row"
                         Value="1" />
@@ -401,16 +401,12 @@
                 <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
                            TextAlignment="Center"
                            HorizontalAlignment="Center">Escaneie o código QR antes que o tempo acabe.</TextBlock>
-                <Grid x:Name="grdCarTempo"
-                      Grid.Row="1"
-                      SizeChanged="grdCarTempo_SizeChanged">
-                    <my:CarregamentoCircular x:Name="carTempo"
-                                             Radius="{Binding Raio}"
-                                             Fill="{StaticResource Normal}"
-                                             ActualValue="0"
-                                             MaxValue="30"
-                                             Thickness="{Binding Thickness}" />
-                </Grid>
+                <my:CarregamentoCircular x:Name="carTempo"
+                                         Grid.Row="1"
+                                         Fill="{StaticResource Normal}"
+                                         ActualValue="0"
+                                         MaxValue="30"
+                                         Thickness="16" />
                 <ListView x:Name="lstLogQRServidor"
                           HorizontalAlignment="Center"
                           HorizontalContentAlignment="Center"

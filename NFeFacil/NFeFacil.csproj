@@ -101,6 +101,11 @@
     <Compile Include="ImportacaoParaBanco\Importacao.cs" />
     <Compile Include="ImportacaoParaBanco\ImportarDadoBase.cs" />
     <Compile Include="ImportacaoParaBanco\ImportarNotaFiscal.cs" />
+    <Compile Include="Migrations\20170324140015_Primeira.cs" />
+    <Compile Include="Migrations\20170324140015_Primeira.designer.cs">
+      <DependentUpon>20170324140015_Primeira.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\AplicativoContextModelSnapshot.cs" />
     <Compile Include="NavegacaoUI\BarraStatus.cs" />
     <Compile Include="NavegacaoUI\IEsconde.cs" />
     <Compile Include="NavegacaoUI\IntercambioTelas.cs" />
@@ -160,6 +165,7 @@
     <Compile Include="View\Configuracoes.xaml.cs">
       <DependentUpon>Configuracoes.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Controles\ArcHelper.cs" />
     <Compile Include="View\Controles\CarregamentoCircular.xaml.cs">
       <DependentUpon>CarregamentoCircular.xaml</DependentUpon>
     </Compile>
@@ -175,14 +181,12 @@
     <Compile Include="View\Controles\SplitViewItem.xaml.cs">
       <DependentUpon>SplitViewItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Inicio.xaml.cs">
+      <DependentUpon>Inicio.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\20170323194631_MigracaoCompleta.cs" />
-    <Compile Include="Migrations\20170323194631_MigracaoCompleta.designer.cs">
-      <DependentUpon>20170323194631_MigracaoCompleta.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\AplicativoContextModelSnapshot.cs" />
     <Compile Include="Model.cs" />
     <Compile Include="ModeloXML\Enums.cs" />
     <Compile Include="ModeloXML\PartesProcesso\InfoProtocolo.cs" />
@@ -417,6 +421,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="View\Inicio.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -486,6 +494,7 @@
       <Name>Windows Mobile Extensions for the UWP</Name>
     </SDKReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

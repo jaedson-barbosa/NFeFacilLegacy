@@ -8,14 +8,16 @@
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
-	<Grid>
-		<Path x:Name="radialStrip" />
-		<TextBlock x:Name="Texto"
+	<Grid x:Name="grd">
+        <Path HorizontalAlignment="Center"
+              x:Name="radialStrip" />
+        <TextBlock x:Name="Texto"
 				   VerticalAlignment="Center"
 				   TextAlignment="Center"
 				   FontSize="24"
 				   FontWeight="Bold"
 				   TextWrapping="Wrap"
-				   MaxLines="2" />
+				   MaxLines="2"
+                   Canvas.ZIndex="1"/>
 	</Grid>
 </UserControl>

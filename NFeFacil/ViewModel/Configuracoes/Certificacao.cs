@@ -3,7 +3,7 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using static NFeFacil.Configuracoes.ConfiguracoesCertificacao;
 
-namespace NFeFacil.ViewModel.Configurações
+namespace NFeFacil.ViewModel.Configuracoes
 {
     public sealed class Certificacao
     {

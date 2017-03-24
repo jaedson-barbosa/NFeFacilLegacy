@@ -7,7 +7,7 @@ using System.ComponentModel;
 using System.Linq;
 using Windows.UI.Xaml;
 
-namespace NFeFacil.ViewModel
+namespace NFeFacil.ViewModel.ImpostosProduto
 {
     public class ISSQNDataContext : INotifyPropertyChanged, IImpostoDataContext
     {

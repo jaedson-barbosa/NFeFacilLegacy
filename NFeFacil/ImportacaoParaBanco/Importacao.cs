@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 
-namespace NFeFacil
+namespace NFeFacil.ImportacaoParaBanco
 {
     internal abstract class Importacao
     {

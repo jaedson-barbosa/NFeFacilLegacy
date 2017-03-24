@@ -3,7 +3,7 @@ using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.P
 using System.ComponentModel;
 using Windows.UI.Xaml.Controls;
 
-namespace NFeFacil.ViewModel
+namespace NFeFacil.ViewModel.ImpostosProduto
 {
     public sealed class ICMSDataContext : INotifyPropertyChanged, IImpostoDataContext
     {

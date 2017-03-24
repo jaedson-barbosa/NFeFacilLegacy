@@ -9,12 +9,12 @@ using System.Xml.Serialization;
 
 namespace NFeFacil.ViewModel
 {
-    public class IdentificaçãoDataContext : INotifyPropertyChanged
+    public class IdentificacaoDataContext : INotifyPropertyChanged
     {
         public Identificacao Ident { get; }
 
-        public IdentificaçãoDataContext() : base() { }
-        public IdentificaçãoDataContext(ref Identificacao ident)
+        public IdentificacaoDataContext() : base() { }
+        public IdentificacaoDataContext(ref Identificacao ident)
         {
             Ident = ident;
         }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 
-namespace NFeFacil
+namespace NFeFacil.ImportacaoParaBanco
 {
     internal sealed class ImportarDadoBase : Importacao
     {

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace NFeFacil
+namespace NFeFacil.ImportacaoParaBanco
 {
     internal sealed class ImportarNotaFiscal : Importacao
     {

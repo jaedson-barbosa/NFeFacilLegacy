@@ -1,6 +1,6 @@
 ﻿using NFeFacil.NavegacaoUI;
 using NFeFacil.View.Controles;
-using NFeFacil.ViewModel.Configurações;
+using NFeFacil.ViewModel.Configuracoes;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -14,7 +14,7 @@ namespace NFeFacil.View
     /// </summary>
     public sealed partial class Configuracoes : Page
     {
-        private readonly ViewModel.Configurações.Sincronizacao DataContextSincronização;
+        private readonly ViewModel.Configuracoes.Sincronizacao DataContextSincronização;
 
         public CarregamentoCircular Carregamento
         {
@@ -34,9 +34,9 @@ namespace NFeFacil.View
         public Configuracoes()
         {
             InitializeComponent();
-            pvtImportação.DataContext = new ViewModel.Configurações.Importacao();
+            pvtImportação.DataContext = new ViewModel.Configuracoes.Importacao();
             pvtCertificação.DataContext = new Certificacao();
-            DataContext = DataContextSincronização = new ViewModel.Configurações.Sincronizacao(this);
+            DataContext = DataContextSincronização = new ViewModel.Configuracoes.Sincronizacao(this);
             Propriedades.Intercambio.SeAtualizar(Telas.Configurações, Symbol.Setting, nameof(Configuracoes));
         }
 

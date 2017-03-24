@@ -1,10 +1,11 @@
-﻿using NFeFacil.Log;
+﻿using NFeFacil.ImportacaoParaBanco;
+using NFeFacil.Log;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 
-namespace NFeFacil.ViewModel.Configurações
+namespace NFeFacil.ViewModel.Configuracoes
 {
     public sealed class Importacao
     {

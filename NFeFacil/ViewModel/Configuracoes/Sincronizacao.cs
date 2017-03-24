@@ -16,7 +16,7 @@ using NFeFacil.Sincronizacao.Cliente;
 using NFeFacil.Sincronizacao;
 using NFeFacil.Sincronizacao.Pacotes;
 
-namespace NFeFacil.ViewModel.Configurações
+namespace NFeFacil.ViewModel.Configuracoes
 {
     public sealed class Sincronizacao : INotifyPropertyChanged
     {

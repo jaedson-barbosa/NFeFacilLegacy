@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using Windows.UI.Xaml.Controls;
 
-namespace NFeFacil.ViewModel
+namespace NFeFacil.ViewModel.ImpostosProduto
 {
     public sealed class IPIDataContext : INotifyPropertyChanged, IImpostoDataContext
     {

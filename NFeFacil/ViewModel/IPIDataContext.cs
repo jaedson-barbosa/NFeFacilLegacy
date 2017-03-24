@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
+using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
+using System.ComponentModel;
 using System.Linq;
 using Windows.UI.Xaml.Controls;
 
@@ -67,9 +69,6 @@ namespace NFeFacil.ViewModel
             }
         }
 
-        public Imposto ImpostoBruto
-        {
-            get { return Imposto; }
-        }
+        public Imposto ImpostoBruto => Imposto;
     }
 }

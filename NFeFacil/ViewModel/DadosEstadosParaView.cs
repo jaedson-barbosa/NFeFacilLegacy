@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using NFeFacil.IBGE;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace NFeFacil.ViewModel

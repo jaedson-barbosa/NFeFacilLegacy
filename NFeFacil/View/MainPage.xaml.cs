@@ -1,4 +1,8 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using NFeFacil.Log;
+using NFeFacil.NavegacaoUI;
+using NFeFacil.View.Controles;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x416
 
@@ -40,6 +44,46 @@ namespace NFeFacil.View
         public MainPage()
         {
             this.InitializeComponent();
+        }
+
+        private async static void InicarServerAsync() => await Propriedades.Server.IniciarServer().ConfigureAwait(false);
+
+        private void btnHamburguer_Click(object sender, RoutedEventArgs e) => hmbMenu.IsPaneOpen = !hmbMenu.IsPaneOpen;
+
+        private void AbrirFunção(object sender, ItemClickEventArgs e) => AbrirFunção((e.ClickedItem as SplitViewItem).Name);
+
+        private async void AbrirFunção(string tela)
+        {
+            if (FramePrincipal?.Content is IValida)
+            {
+                var validar = FramePrincipal.Content as IValida;
+                if (await validar.Verificar())
+                {
+                    if (FramePrincipal.Content is IEsconde)
+                    {
+                        var esconder = FramePrincipal.Content as IEsconde;
+                        await esconder.Esconder();
+                    }
+                    else
+                    {
+                        ILog log = new Saida();
+                        log.Escrever(TitulosComuns.ErroSimples, $"A tela {tela} ainda precisa implementar IEsconde!");
+                    }
+                }
+                else
+                {
+                    IndexFunçãoPrincipal = UltimoIndex;
+                    IndexFunçãoExtra = -1;
+                    return;
+                }
+            }
+            else if (FramePrincipal?.Content is IEsconde)
+            {
+                var esconder = FramePrincipal.Content as IEsconde;
+                await esconder.Esconder();
+            }
+            Propriedades.Intercambio.AbrirFunçao(tela);
+            UltimoIndex = IndexFunçãoPrincipal;
         }
     }
 }

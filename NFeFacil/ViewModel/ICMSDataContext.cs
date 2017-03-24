@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
+using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
+using System.ComponentModel;
 using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil.ViewModel
@@ -201,16 +203,10 @@ namespace NFeFacil.ViewModel
         public bool NormalPercentualDiferimento { get; private set; }
         public bool NormalValorICMSDiferido { get; private set; }
 
-        public Imposto ImpostoBruto
+        public Imposto ImpostoBruto => new ICMS()
         {
-            get
-            {
-                return new ICMS()
-                {
-                    Corpo = (ComumICMS)Simples ?? Normal
-                };
-            }
-        }
+            Corpo = (ComumICMS)Simples ?? Normal
+        };
 
         private void AttCamposNormal(bool modBC, bool pRedBC, bool vBC, bool pICMS, bool vICMS, bool ICMSST, bool vBCSTRet, bool vICMSSTRet, bool motDesICMS, bool vICMSDeson, bool vICMSOp, bool pDif, bool vICMSDif)
         {

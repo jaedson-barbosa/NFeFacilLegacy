@@ -1,4 +1,6 @@
-﻿using System;
+﻿using NFeFacil.IBGE;
+using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -24,13 +26,13 @@ namespace NFeFacil.ViewModel
         {
             get
             {
-                if (_DataEmissao == default(DateTime)) _DataEmissao = Ident.dataHoraEmissão.ToDateTime();
+                if (_DataEmissao == default(DateTime)) _DataEmissao = Convert.ToDateTime(Ident.DataHoraEmissão);
                 return _DataEmissao;
             }
             set
             {
                 _DataEmissao = new DateTime(value.Year, value.Month, value.Day, _DataEmissao.Hour, _DataEmissao.Minute, _DataEmissao.Second);
-                Ident.dataHoraEmissão = _DataEmissao.ToStringPersonalizado();
+                Ident.DataHoraEmissão = _DataEmissao.ToStringPersonalizado();
             }
         }
         [XmlIgnore]
@@ -38,13 +40,13 @@ namespace NFeFacil.ViewModel
         {
             get
             {
-                if (_DataEmissao == default(DateTime)) _DataEmissao = Ident.dataHoraEmissão.ToDateTime();
+                if (_DataEmissao == default(DateTime)) _DataEmissao = Convert.ToDateTime(Ident.DataHoraEmissão);
                 return  _DataEmissao.TimeOfDay;
             }
             set
             {
                 _DataEmissao = new DateTime(_DataEmissao.Year, _DataEmissao.Month, _DataEmissao.Day, value.Hours, value.Minutes, value.Seconds);
-                Ident.dataHoraEmissão = _DataEmissao.ToStringPersonalizado();
+                Ident.DataHoraEmissão = _DataEmissao.ToStringPersonalizado();
             }
         }
 
@@ -54,13 +56,13 @@ namespace NFeFacil.ViewModel
         {
             get
             {
-                if (_DataSaidaEntrada == default(DateTime)) _DataSaidaEntrada = Ident.dataHoraSaídaEntrada.ToDateTime();
+                if (_DataSaidaEntrada == default(DateTime)) _DataSaidaEntrada = Convert.ToDateTime(Ident.DataHoraSaídaEntrada);
                 return _DataSaidaEntrada;
             }
             set
             {
                 _DataSaidaEntrada = new DateTime(value.Year, value.Month, value.Day, _DataSaidaEntrada.Hour, _DataSaidaEntrada.Minute, _DataSaidaEntrada.Second);
-                Ident.dataHoraSaídaEntrada = _DataSaidaEntrada.ToStringPersonalizado();
+                Ident.DataHoraSaídaEntrada = _DataSaidaEntrada.ToStringPersonalizado();
             }
         }
         [XmlIgnore]
@@ -68,13 +70,13 @@ namespace NFeFacil.ViewModel
         {
             get
             {
-                if (_DataSaidaEntrada == default(DateTime)) _DataSaidaEntrada = Ident.dataHoraSaídaEntrada.ToDateTime();
+                if (_DataSaidaEntrada == default(DateTime)) _DataSaidaEntrada = Convert.ToDateTime(Ident.DataHoraSaídaEntrada);
                 return _DataSaidaEntrada.TimeOfDay;
             }
             set
             {
                 _DataSaidaEntrada = new DateTime(_DataSaidaEntrada.Year, _DataSaidaEntrada.Month, _DataSaidaEntrada.Day, value.Hours, value.Minutes, value.Seconds);
-                Ident.dataHoraSaídaEntrada = _DataSaidaEntrada.ToStringPersonalizado();
+                Ident.DataHoraSaídaEntrada = _DataSaidaEntrada.ToStringPersonalizado();
             }
         }
         [XmlIgnore]
@@ -82,11 +84,11 @@ namespace NFeFacil.ViewModel
         {
             get
             {
-                return Ident.identificadorDestino - 1;
+                return Ident.IdentificadorDestino - 1;
             }
             set
             {
-                Ident.identificadorDestino = (ushort)(value + 1);
+                Ident.IdentificadorDestino = (ushort)(value + 1);
             }
         }
         [XmlIgnore]
@@ -94,11 +96,11 @@ namespace NFeFacil.ViewModel
         {
             get
             {
-                return Ident.tipoImpressão - 1;
+                return Ident.TipoImpressão - 1;
             }
             set
             {
-                Ident.tipoImpressão = (ushort)(value + 1);
+                Ident.TipoImpressão = (ushort)(value + 1);
             }
         }
         [XmlIgnore]
@@ -106,11 +108,11 @@ namespace NFeFacil.ViewModel
         {
             get
             {
-                return Ident.finalidadeEmissão - 1;
+                return Ident.FinalidadeEmissão - 1;
             }
             set
             {
-                Ident.finalidadeEmissão = (ushort)(value + 1);
+                Ident.FinalidadeEmissão = (ushort)(value + 1);
             }
         }
 
@@ -125,12 +127,12 @@ namespace NFeFacil.ViewModel
         {
             get
             {
-                var nulo = Ident.códigoUF == default(ushort);
-                return !nulo ? _UFs.First(x => x.Codigo == Ident.códigoUF).Nome : null;
+                var nulo = Ident.CódigoUF == default(ushort);
+                return !nulo ? _UFs.First(x => x.Codigo == Ident.CódigoUF).Nome : null;
             }
             set
             {
-                Ident.códigoUF = _UFs.First(x => x.Nome == value).Codigo;
+                Ident.CódigoUF = _UFs.First(x => x.Nome == value).Codigo;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Municipios)));
             }
         }
@@ -142,7 +144,7 @@ namespace NFeFacil.ViewModel
                 if (UFEscolhida != null)
                 {
                     var escolhido = _UFs.First(x => x.Nome == UFEscolhida);
-                    return new ObservableCollection<Municipio>(Informacoes.IBGE.Municipios.Buscar(escolhido));
+                    return new ObservableCollection<Municipio>(IBGE.Municipios.Buscar(escolhido));
                 }
                 return new List<Municipio>();
             }
@@ -157,8 +159,8 @@ namespace NFeFacil.ViewModel
         {
             get
             {
-                if (Ident.codigoMunicípio != default(long))
-                    return _Municipios.FirstOrDefault(x => x.CodigoMunicípio == Ident.codigoMunicípio).Nome;
+                if (Ident.CodigoMunicípio != default(long))
+                    return _Municipios.FirstOrDefault(x => x.CodigoMunicípio == Ident.CodigoMunicípio).Nome;
                 else if (Municipios.Count() != 0)
                     return Municipios.First();
                 else
@@ -166,7 +168,7 @@ namespace NFeFacil.ViewModel
             }
             set
             {
-                Ident.codigoMunicípio = _Municipios.First(x => x.Nome == value).CodigoMunicípio;
+                Ident.CodigoMunicípio = _Municipios.First(x => x.Nome == value).CodigoMunicípio;
             }
         }
     }

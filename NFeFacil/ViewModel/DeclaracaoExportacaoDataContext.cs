@@ -1,11 +1,12 @@
-﻿using System.ComponentModel;
+﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
+using System.ComponentModel;
 using Windows.UI.Xaml;
 
 namespace NFeFacil.ViewModel
 {
     public sealed class DeclaracaoExportacaoDataContext : INotifyPropertyChanged
     {
-        public GrupoExportação Declaracao { get; }
+        public GrupoExportacao Declaracao { get; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -19,15 +20,15 @@ namespace NFeFacil.ViewModel
                 if (value)
                 {
                     VisibilidadeIndireta = Visibility.Visible;
-                    Declaracao.exportInd = new ExportaçãoIndireta();
+                    Declaracao.ExportInd = new ExportacaoIndireta();
                 }
                 else
                 {
                     VisibilidadeIndireta = Visibility.Collapsed;
-                    Declaracao.exportInd = null;
+                    Declaracao.ExportInd = null;
                 }
                 PropertyChanged(this, new PropertyChangedEventArgs(nameof(VisibilidadeIndireta)));
-                PropertyChanged(this, new PropertyChangedEventArgs(nameof(Declaracao.exportInd)));
+                PropertyChanged(this, new PropertyChangedEventArgs(nameof(Declaracao.ExportInd)));
             }
         }
 
@@ -35,7 +36,7 @@ namespace NFeFacil.ViewModel
 
         public DeclaracaoExportacaoDataContext()
         {
-            Declaracao = new GrupoExportação();
+            Declaracao = new GrupoExportacao();
         }
     }
 }

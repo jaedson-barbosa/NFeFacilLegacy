@@ -2,6 +2,8 @@
 using System.Linq;
 using Windows.UI.Xaml.Controls;
 using System.Collections.Generic;
+using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
+using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
 
 namespace NFeFacil.ViewModel
 {

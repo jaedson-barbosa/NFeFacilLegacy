@@ -1,4 +1,7 @@
-﻿using System;
+﻿using NFeFacil.IBGE;
+using NFeFacil.ModeloXML;
+using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -10,7 +13,7 @@ namespace NFeFacil.ViewModel
 {
     public sealed class ClienteDataContext : INotifyPropertyChanged
     {
-        public Destinatário Cliente { get; set; }
+        public Destinatario Cliente { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
         public void AttTudo()
         {
@@ -42,7 +45,7 @@ namespace NFeFacil.ViewModel
         [XmlIgnore]
         public int TipoOperação
         {
-            get { return (Cliente.endereço.xPais == "Brasil") ? 0 : 1; }
+            get { return (Cliente.endereço.XPais == "Brasil") ? 0 : 1; }
         }
 
         [XmlIgnore]
@@ -61,7 +64,7 @@ namespace NFeFacil.ViewModel
             get
             {
                 if (UFEscolhida != null)
-                    return Informacoes.IBGE.Municipios.Buscar(_UFs.First(x => x.Sigla == UFEscolhida));
+                    return IBGE.Municipios.Buscar(_UFs.First(x => x.Sigla == UFEscolhida));
                 else
                     return new List<Municipio>();
             }
@@ -79,11 +82,11 @@ namespace NFeFacil.ViewModel
         {
             get
             {
-                return Cliente.endereço.siglaUF;
+                return Cliente.endereço.SiglaUF;
             }
             set
             {
-                Cliente.endereço.siglaUF = value;
+                Cliente.endereço.SiglaUF = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Municipios)));
             }
         }
@@ -92,16 +95,16 @@ namespace NFeFacil.ViewModel
         {
             get
             {
-                if (!Municipios.Contains(Cliente.endereço.nomeMunicipio) && Municipios.Count(x => RemoverAcentuacao(x) == Cliente.endereço.nomeMunicipio) > 0)
-                    Cliente.endereço.nomeMunicipio = Municipios.First(x => RemoverAcentuacao(x) == Cliente.endereço.nomeMunicipio);
-                return Cliente.endereço.nomeMunicipio;
+                if (!Municipios.Contains(Cliente.endereço.NomeMunicipio) && Municipios.Count(x => RemoverAcentuacao(x) == Cliente.endereço.NomeMunicipio) > 0)
+                    Cliente.endereço.NomeMunicipio = Municipios.First(x => RemoverAcentuacao(x) == Cliente.endereço.NomeMunicipio);
+                return Cliente.endereço.NomeMunicipio;
             }
             set
             {
                 if (_Municipios.Count() != 0)
                 {
-                    Cliente.endereço.nomeMunicipio = value;
-                    Cliente.endereço.codigoMunicipio = _Municipios.First(x => x.Nome == value).CodigoMunicípio;
+                    Cliente.endereço.NomeMunicipio = value;
+                    Cliente.endereço.CodigoMunicipio = _Municipios.First(x => x.Nome == value).CodigoMunicípio;
                 }
             }
         }
@@ -112,7 +115,7 @@ namespace NFeFacil.ViewModel
         {
             get
             {
-                nacional = Cliente.endereço.xPais.ToLower() == "brasil" || string.IsNullOrEmpty(Cliente.endereço.xPais);
+                nacional = Cliente.endereço.XPais.ToLower() == "brasil" || string.IsNullOrEmpty(Cliente.endereço.XPais);
                 return nacional;
             }
             set
@@ -150,7 +153,7 @@ namespace NFeFacil.ViewModel
         }
 
         public ClienteDataContext() : base() { }
-        public ClienteDataContext(ref Destinatário dest)
+        public ClienteDataContext(ref Destinatario dest)
         {
             TipoDocumento = (int)dest.obterTipoDocumento;
             Cliente = dest;

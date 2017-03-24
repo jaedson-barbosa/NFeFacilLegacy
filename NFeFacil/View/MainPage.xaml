@@ -65,7 +65,7 @@
                 <SolidColorBrush Color="{ThemeResource SystemChromeMediumColor}" />
             </SplitView.PaneBackground>
             <SplitView.Pane>
-                <Grid xmlns:controles="using:NotaFacil.Assets.Controles">
+                <Grid xmlns:controles="using:NFeFacil.View.Controles">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />

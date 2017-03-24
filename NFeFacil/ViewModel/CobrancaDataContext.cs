@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Input;
 
@@ -8,33 +9,33 @@ namespace NFeFacil.ViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public Cobrança Cobranca { get; }
+        public Cobranca Cobranca { get; }
 
         public Fatura Fat
         {
             get
             {
-                if (Cobranca.fat == null)
+                if (Cobranca.Fat == null)
                 {
-                    Cobranca.fat = new Fatura();
+                    Cobranca.Fat = new Fatura();
                 }
-                return Cobranca.fat;
+                return Cobranca.Fat;
             }
             set
             {
-                Cobranca.fat = value;
+                Cobranca.Fat = value;
             }
         }
 
         public DuplicataDataContext NovaDuplicata { get; set; }
         public ObservableCollection<Duplicata> Duplicatas
         {
-            get { return Cobranca.dup.GerarObs(); }
+            get { return Cobranca.Dup.GerarObs(); }
         }
 
         public int IndexDuplicataEscolhida { get; set; }
 
-        public CobrancaDataContext(ref Cobrança cobranca)
+        public CobrancaDataContext(ref Cobranca cobranca)
         {
             Cobranca = cobranca;
             NovaDuplicata = new DuplicataDataContext();
@@ -47,7 +48,7 @@ namespace NFeFacil.ViewModel
 
         private void AdicionarDuplicata()
         {
-            Cobranca.dup.Add(NovaDuplicata._Duplicata);
+            Cobranca.Dup.Add(NovaDuplicata._Duplicata);
             PropertyChanged(this, new PropertyChangedEventArgs(nameof(Duplicatas)));
             NovaDuplicata = new DuplicataDataContext();
             PropertyChanged(this, new PropertyChangedEventArgs(nameof(NovaDuplicata)));
@@ -55,9 +56,9 @@ namespace NFeFacil.ViewModel
 
         private void RemoverDuplicata()
         {
-            if (IndexDuplicataEscolhida != -1 && Cobranca.dup.Count > 0)
+            if (IndexDuplicataEscolhida != -1 && Cobranca.Dup.Count > 0)
             {
-                Cobranca.dup.RemoveAt(IndexDuplicataEscolhida);
+                Cobranca.Dup.RemoveAt(IndexDuplicataEscolhida);
                 PropertyChanged(this, new PropertyChangedEventArgs(nameof(Duplicatas)));
             }
         }

@@ -10,7 +10,7 @@
                PrimaryButtonText="Adicionar"
                SecondaryButtonText="Cancelar">
     <ContentDialog.DataContext>
-        <VM:DeclaracaoImportaçãoDataContext />
+        <VM:DeclaracaoImportacaoDataContext />
     </ContentDialog.DataContext>
     <ContentDialog.Resources>
         <ResourceDictionary>

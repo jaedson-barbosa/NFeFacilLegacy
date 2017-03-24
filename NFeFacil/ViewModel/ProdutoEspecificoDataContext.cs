@@ -1,4 +1,6 @@
-﻿using System;
+﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
+using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -19,16 +21,16 @@ namespace NFeFacil.ViewModel
             }
         }
 
-        public ProdutoOuServiço Produto { get; set; }
+        public ProdutoOuServico Produto { get; set; }
 
-        public VeículosNovos Veiculo
+        public VeiculoNovo Veiculo
         {
-            get { return Produto.veicProd ?? (Produto.veicProd = new VeículosNovos()); }
+            get { return Produto.veicProd ?? (Produto.veicProd = new VeiculoNovo()); }
         }
 
-        public Combustível Comb
+        public Combustivel Comb
         {
-            get { return Produto.comb ?? (Produto.comb = new Combustível()); }
+            get { return Produto.comb ?? (Produto.comb = new Combustivel()); }
         }
 
         public ObservableCollection<TiposEspeciaisProduto> ListaTiposEspeciaisProduto
@@ -55,16 +57,16 @@ namespace NFeFacil.ViewModel
                     nameof(VisibilidadePapel));
                 if (value == TiposEspeciaisProduto.Veículo)
                 {
-                    Produto.veicProd = new VeículosNovos();
+                    Produto.veicProd = new VeiculoNovo();
                     Produto.comb = null;
                 }
                 else if (value == TiposEspeciaisProduto.Combustível)
                 {
                     Produto.veicProd = null;
-                    Produto.comb = new Combustível();
+                    Produto.comb = new Combustivel();
                 }
-                Produto.medicamentos = new List<Medicamentos>();
-                Produto.armas = new List<Armas>();
+                Produto.medicamentos = new List<Medicamento>();
+                Produto.armas = new List<Arma>();
                 Produto.nRECOPI = null;
                 OnPropertyChanged("Produto.veicProd", "Produto.comb", "Produto.nRECOPI", "ListaMedicamentos", "ListaArmamento" );
             }
@@ -76,26 +78,26 @@ namespace NFeFacil.ViewModel
         public bool VisibilidadeCombustivel { get; set; }
         public bool VisibilidadePapel { get; set; }
 
-        public ObservableCollection<Medicamentos> ListaMedicamentos
+        public ObservableCollection<Medicamento> ListaMedicamentos
         {
             get { return Produto.medicamentos.GerarObs(); }
         }
-        public Medicamentos NovoMedicamento { get; private set; }
+        public Medicamento NovoMedicamento { get; private set; }
         public int IndexMedicamentoSelecionado { get; set; }
 
 
-        public ObservableCollection<Armas> ListaArmamento
+        public ObservableCollection<Arma> ListaArmamento
         {
             get { return Produto.armas.GerarObs(); }
         }
-        public Armas NovoArmamento { get; private set; }
+        public Arma NovoArmamento { get; private set; }
         public int IndexArmamentoSelecionado { get; set; }
 
-        public ProdutoEspecificoDataContext(ProdutoOuServiço prod)
+        public ProdutoEspecificoDataContext(ProdutoOuServico prod)
         {
             Produto = prod;
-            NovoMedicamento = new Medicamentos();
-            NovoArmamento = new Armas();
+            NovoMedicamento = new Medicamento();
+            NovoArmamento = new Arma();
             AdicionarMedicamentoCommand = new ComandoSemParametros(AdicionarMedicamento, true);
             RemoverMedicamentoCommand = new ComandoSemParametros(RemoverMedicamento, true);
             AdicionarArmamentoCommand = new ComandoSemParametros(AdicionarArmamento, true);
@@ -111,7 +113,7 @@ namespace NFeFacil.ViewModel
         {
             Produto.medicamentos.Add(NovoMedicamento);
             OnPropertyChanged(nameof(ListaMedicamentos));
-            NovoMedicamento = new Medicamentos();
+            NovoMedicamento = new Medicamento();
             OnPropertyChanged(nameof(NovoMedicamento));
         }
 
@@ -128,7 +130,7 @@ namespace NFeFacil.ViewModel
         {
             Produto.armas.Add(NovoArmamento);
             OnPropertyChanged(nameof(ListaArmamento));
-            NovoArmamento = new Armas();
+            NovoArmamento = new Arma();
             OnPropertyChanged(nameof(NovoArmamento));
         }
 

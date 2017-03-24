@@ -121,7 +121,6 @@ namespace NFeFacil.ViewModel.Configurações
             get { return ConfiguracoesSincronizacao.SincronizarAutomaticamente; }
             set
             {
-                var reg = new RegistrarCliente();
                 if (value) RegistrarCliente.Registrar();
                 else RegistrarCliente.Desrregistrar();
                 ConfiguracoesSincronizacao.SincronizarAutomaticamente = value;

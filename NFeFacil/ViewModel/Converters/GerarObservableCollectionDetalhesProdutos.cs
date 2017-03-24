@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
+using System;
 using System.Collections.Generic;
 using Windows.UI.Xaml.Data;
 

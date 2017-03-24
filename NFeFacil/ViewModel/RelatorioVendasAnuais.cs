@@ -1,4 +1,8 @@
-﻿using NFeFacil.ViewModel.Itens;
+﻿using NFeFacil.ItensBD;
+using NFeFacil.ModeloXML;
+using NFeFacil.ModeloXML.PartesProcesso;
+using NFeFacil.ViewModel.Itens;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -15,10 +19,10 @@ namespace NFeFacil.ViewModel
         {
             get
             {
-                using (var tabela = new TabelaNFe())
+                using (var db = new AplicativoContext())
                 {
-                    var anos = from dado in tabela.RegistroCompleto()
-                               let ano = dado.DataEmissao.ToDateTime().Year
+                    var anos = from dado in db.NotasFiscais
+                               let ano = Convert.ToDateTime(dado.DataEmissao).Year
                                orderby ano ascending
                                select ano;
                     return anos.Distinct().GerarObs();
@@ -39,14 +43,16 @@ namespace NFeFacil.ViewModel
             }
         }
 
-        private async void AnoMudou()
+        private void AnoMudou()
         {
-            using (TabelaNFe tabela = new TabelaNFe())
+            using (var db = new AplicativoContext())
             {
-                notas = from c in await Task.WhenAll(from dado in tabela.RegistroCompleto()
-                                                     where dado.DataEmissao.ToDateTime().Year == anoEscolhido
-                                                     select tabela.Retornar(dado.ID))
-                        select c.nota ?? c.proc.NFe;
+                var pasta = new PastaNotasFiscais();
+                notas = from dado in db.NotasFiscais
+                        where Convert.ToDateTime(dado.DataEmissao).Year == anoEscolhido
+                        let tipo = (StatusNFe)dado.Status
+                        let xml = Task.Run(() => pasta.Retornar(dado.Id)).Result
+                        select tipo == StatusNFe.Emitido ? xml.FromXElement<Processo>().NFe : xml.FromXElement<NFe>();
             }
             PropertyChanged(this, new PropertyChangedEventArgs(nameof(ResultadoCliente)));
             PropertyChanged(this, new PropertyChangedEventArgs(nameof(ResultadoMes)));
@@ -65,8 +71,8 @@ namespace NFeFacil.ViewModel
                     }
                     foreach (var item in notas)
                     {
-                        var det = item.informações;
-                        var data = det.identificação.dataHoraEmissão.ToDateTime();
+                        var det = item.Informações;
+                        var data = Convert.ToDateTime(det.identificação.DataHoraEmissão);
                         foreach (var prod in det.produtos)
                         {
                             total[data.Month - 1].Quantidade += prod.produto.quantidadeComercializada;
@@ -94,11 +100,11 @@ namespace NFeFacil.ViewModel
                     var total = new List<TotalPorCliente>();
                     foreach (var item in notas)
                     {
-                        var det = item.informações;
+                        var det = item.Informações;
                         if (total.Count(x => x.Doc == det.destinatário.obterDocumento) == 0)
                             total.Add(new TotalPorCliente { Doc = det.destinatário.obterDocumento });
                         var tot = total.Single(x => x.Doc == det.destinatário.obterDocumento);
-                        tot.Mun = det.destinatário.endereço.nomeMunicipio;
+                        tot.Mun = det.destinatário.endereço.NomeMunicipio;
                         tot.Nome = det.destinatário.nome;
                         foreach (var prod in det.produtos)
                         {

@@ -1,4 +1,6 @@
-﻿namespace NFeFacil.ViewModel
+﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
+
+namespace NFeFacil.ViewModel
 {
     public interface IImpostoDataContext
     {

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NFeFacil.Sincronizacao.Pacotes
+﻿namespace NFeFacil.Sincronizacao.Pacotes
 {
     public sealed class InfoEstabelecerConexao
     {

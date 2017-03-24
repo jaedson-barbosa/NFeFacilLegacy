@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using NFeFacil.IBGE;
+using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
+using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -82,7 +85,7 @@ namespace NFeFacil.ViewModel
             get
             {
                 if (UFEscolhida != null)
-                    return Informacoes.IBGE.Municipios.Buscar(UFEscolhida).GerarObs();
+                    return IBGE.Municipios.Buscar(UFEscolhida).GerarObs();
                 return new ObservableCollection<Municipio>();
             }
         }
@@ -91,7 +94,7 @@ namespace NFeFacil.ViewModel
             get
             {
                 if (UFIncidEscolhida != null)
-                    return Informacoes.IBGE.Municipios.Buscar(UFIncidEscolhida).GerarObs();
+                    return IBGE.Municipios.Buscar(UFIncidEscolhida).GerarObs();
                 return new ObservableCollection<Municipio>();
             }
         }
@@ -149,9 +152,6 @@ namespace NFeFacil.ViewModel
         public Visibility VisibilidadeCodigoPais { get; private set; } = Visibility.Collapsed;
         public Visibility VisibilidadeMunicipioUFIncidencia { get; private set; }
 
-        public Imposto ImpostoBruto
-        {
-            get { return Imposto; }
-        }
+        public Imposto ImpostoBruto => Imposto;
     }
 }

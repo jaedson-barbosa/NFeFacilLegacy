@@ -1,4 +1,6 @@
-﻿using System;
+﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
+using NFeFacil.View.CaixasDialogo;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
@@ -9,7 +11,7 @@ namespace NFeFacil.ViewModel
     public sealed class CanaDataContext : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        public RegistroAquisiçãoCana Cana { get; }
+        public RegistroAquisicaoCana Cana { get; }
 
         public DateTimeOffset MesAnoReferencia
         {
@@ -77,7 +79,7 @@ namespace NFeFacil.ViewModel
             AdicionarDeducaoCommand = new ComandoSemParametros(AdicionarDeducao, true);
             RemoverDeducaoCommand = new ComandoComParametros<Deduções>(RemoverDeducao, new ObterDataContext<Deduções>());
         }
-        public CanaDataContext(ref RegistroAquisiçãoCana registro) : this()
+        public CanaDataContext(ref RegistroAquisicaoCana registro) : this()
         {
             Cana = registro;
         }

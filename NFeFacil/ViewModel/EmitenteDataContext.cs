@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using NFeFacil.IBGE;
+using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -39,7 +41,7 @@ namespace NFeFacil.ViewModel
             get
             {
                 if (UFEscolhida != null)
-                    return Informacoes.IBGE.Municipios.Buscar(_UFs.First(x => x.Sigla == UFEscolhida));
+                    return IBGE.Municipios.Buscar(_UFs.First(x => x.Sigla == UFEscolhida));
                 else
                     return new List<Municipio>();
             }
@@ -60,11 +62,11 @@ namespace NFeFacil.ViewModel
         {
             get
             {
-                return Emit.endereço.siglaUF;
+                return Emit.endereço.SiglaUF;
             }
             set
             {
-                Emit.endereço.siglaUF = value;
+                Emit.endereço.SiglaUF = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Municipios)));
             }
         }
@@ -74,8 +76,8 @@ namespace NFeFacil.ViewModel
         {
             get
             {
-                if (Emit.endereço.nomeMunicipio != null)
-                    return _Municipios.First(x => x.Nome == Emit.endereço.nomeMunicipio).Nome;
+                if (Emit.endereço.NomeMunicipio != null)
+                    return _Municipios.First(x => x.Nome == Emit.endereço.NomeMunicipio).Nome;
                 else
                     return null;
             }
@@ -83,8 +85,8 @@ namespace NFeFacil.ViewModel
             {
                 if (_Municipios.Count() != 0)
                 {
-                    Emit.endereço.nomeMunicipio = value;
-                    Emit.endereço.codigoMunicipio = _Municipios.First(x => x.Nome == value).CodigoMunicípio;
+                    Emit.endereço.NomeMunicipio = value;
+                    Emit.endereço.CodigoMunicipio = _Municipios.First(x => x.Nome == value).CodigoMunicípio;
                 }
             }
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
+using System;
 
 namespace NFeFacil.ViewModel
 {
@@ -10,12 +11,12 @@ namespace NFeFacil.ViewModel
         {
             get
             {
-                if (_Duplicata.dVenc == null) _Duplicata.dVenc = DateTimeOffset.Now.ToString("yyyy-MM-dd");
-                return DateTimeOffset.Parse(_Duplicata.dVenc);
+                if (_Duplicata.DVenc == null) _Duplicata.DVenc = DateTimeOffset.Now.ToString("yyyy-MM-dd");
+                return DateTimeOffset.Parse(_Duplicata.DVenc);
             }
             set
             {
-                _Duplicata.dVenc = value.ToString("yyyy-MM-dd");
+                _Duplicata.DVenc = value.ToString("yyyy-MM-dd");
             }
         }
 

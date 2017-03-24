@@ -1,10 +1,9 @@
 ﻿using NFeFacil.Log;
+using NFeFacil.View;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.UI.Core;
+using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil.NavegacaoUI
 {
@@ -39,32 +38,32 @@ namespace NFeFacil.NavegacaoUI
 
         private Dictionary<Type, object> TelasComParametroObrigatorio = new Dictionary<Type, object>
         {
-            {
-                typeof(TelaNotaFiscal),
-                new NotaComDados
-                {
-                    dados = new NFeDataItem
-                    {
-                        Status = (int)StatusNFe.EdiçãoCriação
-                    },
-                    nota = new NFe
-                    {
-                        informações = new Detalhes
-                        {
-                            identificação= new Identificacao(),
-                            emitente = new Emitente(),
-                            destinatário = new Destinatário(),
-                            produtos = new List<DetalhesProdutos>(),
-                            transp = new Transporte(),
-                            cobr = new Cobrança(),
-                            infAdic = new InformaçõesAdicionais(),
-                            exporta = new Exportação(),
-                            compra = new Compra(),
-                            cana = new RegistroAquisiçãoCana()
-                        }
-                    }
-                }
-            }
+            //{
+            //    typeof(TelaNotaFiscal),
+            //    new NotaComDados
+            //    {
+            //        dados = new NFeDataItem
+            //        {
+            //            Status = (int)StatusNFe.EdiçãoCriação
+            //        },
+            //        nota = new NFe
+            //        {
+            //            informações = new Detalhes
+            //            {
+            //                identificação= new Identificacao(),
+            //                emitente = new Emitente(),
+            //                destinatário = new Destinatário(),
+            //                produtos = new List<DetalhesProdutos>(),
+            //                transp = new Transporte(),
+            //                cobr = new Cobrança(),
+            //                infAdic = new InformaçõesAdicionais(),
+            //                exporta = new Exportação(),
+            //                compra = new Compra(),
+            //                cana = new RegistroAquisiçãoCana()
+            //            }
+            //        }
+            //    }
+            //}
         };
 
         public void SeAtualizar(Telas atual, Symbol símbolo, string texto)
@@ -100,9 +99,9 @@ namespace NFeFacil.NavegacaoUI
         public async void Retornar()
         {
             var frm = Main.FramePrincipal;
-            if (frm.Content is IVerificaAntesSair)
+            if (frm.Content is IValida)
             {
-                var retorna = frm.Content as IVerificaAntesSair;
+                var retorna = frm.Content as IValida;
                 if (await retorna.Verificar())
                 {
                     if (frm.Content is IEsconde)

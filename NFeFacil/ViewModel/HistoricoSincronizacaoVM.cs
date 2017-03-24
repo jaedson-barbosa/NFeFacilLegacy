@@ -1,6 +1,8 @@
-﻿using System.Collections.ObjectModel;
+﻿using NFeFacil.Configuracoes;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Windows.UI.ViewManagement;
+using static NFeFacil.Configuracoes.ConfiguracoesSincronizacao;
 
 namespace NFeFacil.ViewModel
 {
@@ -26,24 +28,24 @@ namespace NFeFacil.ViewModel
             get { return Tipo == TipoAppSincronizacao.Servidor; }
         }
 
-        public ObservableCollection<ResultClienteDataItem> ResultadosCliente
+        public ObservableCollection<ItensBD.ResultadoSincronizacaoCliente> ResultadosCliente
         {
             get
             {
-                using (var tabela = new TabelaResultCliente())
+                using (var db = new AplicativoContext())
                 {
-                    return tabela.RegistroCompleto().GerarObs();
+                    return db.ResultadosCliente.GerarObs();
                 }
             }
         }
 
-        public ObservableCollection<ResultServerDataItem> ResultadosServer
+        public ObservableCollection<ItensBD.ResultadoSincronizacaoServidor> ResultadosServer
         {
             get
             {
-                using (var tabela = new TabelaResultServer())
+                using (var db = new AplicativoContext())
                 {
-                    return tabela.RegistroCompleto().GerarObs();
+                    return db.ResultadosServudir.GerarObs();
                 }
             }
         }

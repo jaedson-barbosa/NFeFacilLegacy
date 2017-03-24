@@ -90,6 +90,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <PRIResource Include="Cadeias de caracteres\pt-BR\Resources.resw" />
     <None Include="project.json" />
     <None Include="Properties\ServiceReferences.Designer.ClientConfig" />
   </ItemGroup>
@@ -106,6 +107,7 @@
     <Compile Include="NavegacaoUI\IValida.cs" />
     <Compile Include="NavegacaoUI\QRCode.cs" />
     <Compile Include="Propriedades.cs" />
+    <Compile Include="RegistrarCliente.cs" />
     <Compile Include="Sincronizacao\Pacotes\InfoEstabelecerConexao.cs" />
     <Compile Include="ViewModel\CanaDataContext.cs" />
     <Compile Include="ViewModel\ClienteDataContext.cs" />
@@ -127,7 +129,7 @@
     <Compile Include="ViewModel\Converters\TextoComLabel.cs" />
     <Compile Include="ViewModel\DadosEstadosParaView.cs" />
     <Compile Include="ViewModel\DeclaracaoExportacaoDataContext.cs" />
-    <Compile Include="ViewModel\DeclaracaoImportaçãoDataContext.cs" />
+    <Compile Include="ViewModel\DeclaracaoImportacaoDataContext.cs" />
     <Compile Include="ViewModel\DuplicataDataContext.cs" />
     <Compile Include="ViewModel\EmitenteDataContext.cs" />
     <Compile Include="Extensoes.cs" />
@@ -156,6 +158,24 @@
     <Compile Include="Log\Saida.cs" />
     <Compile Include="Log\Titulos.cs" />
     <Compile Include="Log\Toast.cs" />
+    <Compile Include="View\Configuracoes.xaml.cs">
+      <DependentUpon>Configuracoes.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Controles\CarregamentoCircular.xaml.cs">
+      <DependentUpon>CarregamentoCircular.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Controles\Guia.xaml.cs">
+      <DependentUpon>Guia.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Controles\ItemPadrãoString.xaml.cs">
+      <DependentUpon>ItemPadrãoString.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Controles\ItemPadrãoSymbol.xaml.cs">
+      <DependentUpon>ItemPadrãoSymbol.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Controles\SplitViewItem.xaml.cs">
+      <DependentUpon>SplitViewItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -374,6 +394,30 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="View\Configuracoes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Controles\CarregamentoCircular.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Controles\Guia.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Controles\ItemPadrãoString.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Controles\ItemPadrãoSymbol.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Controles\SplitViewItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

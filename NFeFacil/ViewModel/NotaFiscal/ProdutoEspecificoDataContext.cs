@@ -7,7 +7,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
 
-namespace NFeFacil.ViewModel
+namespace NFeFacil.ViewModel.NotaFiscal
 {
     public sealed class ProdutoEspecificoDataContext : INotifyPropertyChanged
     {

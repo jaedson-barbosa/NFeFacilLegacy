@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
 
-namespace NFeFacil.ViewModel.ImpostosProduto
+namespace NFeFacil.ViewModel.NotaFiscal.ImpostosProduto
 {
     public sealed class COFINSDataContext : INotifyPropertyChanged, IImpostosUnidos
     {

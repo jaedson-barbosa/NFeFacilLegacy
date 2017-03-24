@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 
-namespace NFeFacil.ViewModel
+namespace NFeFacil.ViewModel.NotaFiscal
 {
     public sealed class ICMSTransporteDataContext : INotifyPropertyChanged
     {

@@ -6,7 +6,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Xml.Serialization;
 
-namespace NFeFacil.ViewModel
+namespace NFeFacil.ViewModel.NotaFiscal
 {
     public sealed class EmitenteDataContext : INotifyPropertyChanged
     {

@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace NFeFacil.ViewModel
+namespace NFeFacil.ViewModel.NotaFiscal
 {
     public sealed class ClienteDataContext : INotifyPropertyChanged
     {

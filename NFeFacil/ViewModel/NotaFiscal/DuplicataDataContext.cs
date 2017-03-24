@@ -1,7 +1,7 @@
 ﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using System;
 
-namespace NFeFacil.ViewModel
+namespace NFeFacil.ViewModel.NotaFiscal
 {
     public sealed class DuplicataDataContext
     {

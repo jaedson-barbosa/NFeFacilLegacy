@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using Windows.UI.Xaml;
 
-namespace NFeFacil.ViewModel
+namespace NFeFacil.ViewModel.NotaFiscal
 {
     public sealed class DeclaracaoExportacaoDataContext : INotifyPropertyChanged
     {

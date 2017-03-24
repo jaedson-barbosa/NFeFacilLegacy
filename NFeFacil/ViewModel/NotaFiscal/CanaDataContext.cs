@@ -6,7 +6,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Windows.Input;
 
-namespace NFeFacil.ViewModel
+namespace NFeFacil.ViewModel.NotaFiscal
 {
     public sealed class CanaDataContext : INotifyPropertyChanged
     {

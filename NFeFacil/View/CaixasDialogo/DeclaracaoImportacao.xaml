@@ -1,8 +1,8 @@
 ﻿<ContentDialog x:Class="NFeFacil.View.CaixasDialogo.DeclaracaoImportacao"
                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-               xmlns:local="using:NFeFacil.View.CaixasDialogo"
-               xmlns:VM="using:NFeFacil.ViewModel"
+               xmlns:VMRoot="using:NFeFacil.ViewModel"
+               xmlns:VM="using:NFeFacil.ViewModel.NotaFiscal"
                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                mc:Ignorable="d"
@@ -18,7 +18,7 @@
                 <ResourceDictionary Source="ms-appx:///Assets/Estilos/PivotPrincipal.xaml" />
                 <ResourceDictionary Source="ms-appx:///Assets/Estilos/Estilos.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <VM:DadosEstadosParaView x:Key="estados" />
+            <VMRoot:DadosEstadosParaView x:Key="estados" />
             <Style TargetType="ItemsControl"
                    BasedOn="{StaticResource ItensResponsivos}" />
         </ResourceDictionary>

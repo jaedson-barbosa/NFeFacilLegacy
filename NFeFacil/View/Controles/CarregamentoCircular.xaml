@@ -9,8 +9,10 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 	<Grid x:Name="grd">
-        <Path HorizontalAlignment="Center"
-              x:Name="radialStrip" />
+        <Path HorizontalAlignment="Right"
+              x:Name="radialStrip" Canvas.ZIndex="1" />
+        <Path HorizontalAlignment="Left"
+              x:Name="complemento" />
         <TextBlock x:Name="Texto"
 				   VerticalAlignment="Center"
 				   TextAlignment="Center"

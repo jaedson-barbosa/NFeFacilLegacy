@@ -41,8 +41,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <StackPanel x:Name="Cabeçalho"
-                    Orientation="Horizontal"
-                    Background="{StaticResource Normal}">
+                    Orientation="Horizontal">
             <Button x:Name="btnHamburguer"
                     Style="{StaticResource Hamburguer}"
                     Click="btnHamburguer_Click">

@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace NFeFacil.NavegacaoUI
+namespace NFeFacil.View
 {
     interface IValida
     {

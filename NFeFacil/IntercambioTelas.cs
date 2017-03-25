@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
 
-namespace NFeFacil.NavegacaoUI
+namespace NFeFacil
 {
     internal class IntercambioTelas
     {

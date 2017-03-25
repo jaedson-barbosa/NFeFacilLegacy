@@ -1,5 +1,4 @@
-﻿using NFeFacil.NavegacaoUI;
-using NFeFacil.View.Controles;
+﻿using NFeFacil.View.Controles;
 using NFeFacil.ViewModel.Configuracoes;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
@@ -12,7 +11,7 @@ namespace NFeFacil.View
     /// <summary>
     /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
     /// </summary>
-    public sealed partial class Configuracoes : Page
+    public sealed partial class Configuracoes : Page, IEsconde
     {
         private readonly ViewModel.Configuracoes.Sincronizacao DataContextSincronização;
 

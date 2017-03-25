@@ -106,11 +106,10 @@
       <DependentUpon>20170324140015_Primeira.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\AplicativoContextModelSnapshot.cs" />
-    <Compile Include="NavegacaoUI\BarraStatus.cs" />
-    <Compile Include="NavegacaoUI\IEsconde.cs" />
-    <Compile Include="NavegacaoUI\IntercambioTelas.cs" />
-    <Compile Include="NavegacaoUI\IValida.cs" />
-    <Compile Include="NavegacaoUI\QRCode.cs" />
+    <Compile Include="View\IEsconde.cs" />
+    <Compile Include="IntercambioTelas.cs" />
+    <Compile Include="View\IValida.cs" />
+    <Compile Include="View\QRCode.cs" />
     <Compile Include="Propriedades.cs" />
     <Compile Include="RegistrarCliente.cs" />
     <Compile Include="Sincronizacao\Pacotes\InfoEstabelecerConexao.cs" />

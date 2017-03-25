@@ -403,7 +403,7 @@
                            HorizontalAlignment="Center">Escaneie o código QR antes que o tempo acabe.</TextBlock>
                 <my:CarregamentoCircular x:Name="carTempo"
                                          Grid.Row="1"
-                                         Fill="{StaticResource Normal}"
+                                         Segmento="{StaticResource Normal}"
                                          ActualValue="0"
                                          MaxValue="30"
                                          Thickness="16" />

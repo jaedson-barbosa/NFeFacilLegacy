@@ -1,5 +1,4 @@
 ﻿using NFeFacil.Log;
-using NFeFacil.NavegacaoUI;
 using NFeFacil.Sincronizacao;
 
 namespace NFeFacil

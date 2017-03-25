@@ -2,62 +2,55 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:Controles="using:NFeFacil.View.Controles"
+      xmlns:controles="using:NFeFacil.View.Controles"
       x:Class="NFeFacil.View.Inicio"
       mc:Ignorable="d">
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition Height="3*" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-        <FlipView d:LayoutOverrides="LeftPosition, RightPosition">
-            <FlipView.Resources>
-                <ResourceDictionary>
-                    <Style TargetType="StackPanel">
-                        <Setter Property="VerticalAlignment"
-                                Value="Center" />
-                    </Style>
-                    <Style x:Key="Titulo"
-                           TargetType="TextBlock">
-                        <Setter Property="HorizontalAlignment"
-                                Value="Center" />
-                        <Setter Property="FontSize"
-                                Value="24" />
-                    </Style>
-                    <Style x:Key="Corpo"
-                           TargetType="TextBlock">
-                        <Setter Property="HorizontalAlignment"
-                                Value="Center" />
-                        <Setter Property="VerticalAlignment"
-                                Value="Center" />
-                        <Setter Property="FontSize"
-                                Value="36" />
-                        <Setter Property="FontWeight"
-                                Value="Bold" />
-                    </Style>
-                </ResourceDictionary>
-            </FlipView.Resources>
-            <StackPanel>
-                <TextBlock Style="{StaticResource Titulo}">
-                    <Run Text="Notas emitidas" /></TextBlock>
-                <TextBlock Style="{StaticResource Corpo}">
-                    <Run Text="654" /></TextBlock>
-            </StackPanel>
-            <StackPanel>
-                <TextBlock Style="{StaticResource Titulo}">
-                    <Run Text="Taxa de sucesso de conexão" /></TextBlock>
-            </StackPanel>
-        </FlipView>
-        <Controles:CarregamentoCircular Grid.Row="1"
-                                        Fill="Black"
-                                        Thickness="20"
-                                        MaxValue="100"
-                                        ActualValue="50"
-                                        Elemento="Beleza"
-                                        HorizontalAlignment="Stretch"
-                                        VerticalAlignment="Stretch" />
-    </Grid>
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Estilos/Estilos.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Storyboard x:Name="ocultarGrid">
+                <DoubleAnimation Duration="0:0:0.25"
+                                 To="0"
+                                 Storyboard.TargetProperty="(UIElement.Opacity)"
+                                 Storyboard.TargetName="root" />
+            </Storyboard>
+        </ResourceDictionary>
+    </Page.Resources>
+    <ScrollViewer x:Name="root" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                  ScrollViewer.VerticalScrollBarVisibility="Hidden">
+        <ItemsControl Margin="2" Style="{StaticResource ItensMedios}">
+            <controles:ItemPadrãoSymbol x:Name="GerenciarDadosBase"
+                                        Símbolo="Manage"
+                                        Título="Gerenciar dados base"
+                                        Descrição="Gerencie as informações fundamentais para a criação das notas fiscais, que são: Emissor, cliente, transportador e produto."
+                                        Tapped="AbrirFunção" />
+            <controles:ItemPadrãoSymbol x:Name="TelaNotaFiscal"
+                                        Símbolo="NewFolder"
+                                        Título="Emitir nova nota"
+                                        Descrição="Parte principal da aplicação. Aqui você pode criar uma nova nova fiscal e, posteriormente, transmití-la, imprimí-la e salvá-la."
+                                        Tapped="AbrirFunção" />
+            <controles:ItemPadrãoSymbol x:Name="NotasEmitidas"
+                                        Símbolo="Library"
+                                        Título="Notas emitidas"
+                                        Descrição="Visialize todas as notas transmitidas por esta aplicação e realize ações básicas, como imprimir, exportar ou cancelar."
+                                        Tapped="AbrirFunção" />
+            <controles:ItemPadrãoSymbol x:Name="Consulta"
+                                        Símbolo="Find"
+                                        Título="Consultar NF-e"
+                                        Descrição="Consulte dados básicos de qualquer nota fiscal emitida por qualquer aplicação usando apenas o código da NF-e."
+                                        Tapped="AbrirFunção" />
+            <controles:ItemPadrãoSymbol x:Name="AnaliseVendasAnuais"
+                                        Símbolo="Filter"
+                                        Título="Análise anual"
+                                        Descrição="Veja uma análise das vendas ocorridas em um ano, com a organização tanto por cliente quanto por mês."
+                                        Tapped="AbrirFunção" />
+            <controles:ItemPadrãoString x:Name="HistoricoSincronizacao"
+                                        Símbolo="&#xE81C;"
+                                        Título="Histórico de sincronização"
+                                        Descrição="Veja todos os detalhes de todas as requisições efetuadas/recebidas por esta aplicação."
+                                        Tapped="AbrirFunção" />
+        </ItemsControl>
+    </ScrollViewer>
 </Page>

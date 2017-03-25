@@ -1,6 +1,10 @@
 ﻿using NFeFacil.Log;
 using NFeFacil.NavegacaoUI;
 using NFeFacil.View.Controles;
+using System;
+using Windows.System.Profile;
+using Windows.UI.Core;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -39,14 +43,26 @@ namespace NFeFacil.View
         public MainPage()
         {
             this.InitializeComponent();
+            ProcessarAsync();
             Propriedades.Intercambio = new IntercambioTelas(this);
-            Propriedades.Intercambio.AbrirFunçao(typeof(Inicio));
+            AbrirFunção(nameof(Inicio));
+            SystemNavigationManager.GetForCurrentView().BackRequested += Propriedades.Intercambio.RetornoEvento;
+            if (NFeFacil.Configuracoes.ConfiguracoesSincronizacao.InícioAutomático) InicarServerAsync();
+        }
+
+        private static async void ProcessarAsync()
+        {
+            var familia = AnalyticsInfo.VersionInfo.DeviceFamily;
+            if (familia.Contains("Mobile"))
+                await StatusBar.GetForCurrentView().HideAsync();
+            else if (familia.Contains("Desktop"))
+                SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
+            else
+                new Saida().Escrever(TitulosComuns.ErroSimples, "Tipo não reconhecido de dispositivo, não é possível mudar a barra de título.");
         }
 
         private async static void InicarServerAsync() => await Propriedades.Server.IniciarServer().ConfigureAwait(false);
-
         private void btnHamburguer_Click(object sender, RoutedEventArgs e) => hmbMenu.IsPaneOpen = !hmbMenu.IsPaneOpen;
-
         private void AbrirFunção(object sender, ItemClickEventArgs e) => AbrirFunção((e.ClickedItem as SplitViewItem).Name);
 
         private async void AbrirFunção(string tela)

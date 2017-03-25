@@ -2,7 +2,7 @@
 using Windows.UI.Xaml.Media;
 using ZXing.Mobile;
 
-namespace NFeFacil.NavegacaoUI
+namespace NFeFacil.View
 {
     internal static class QRCode
     {

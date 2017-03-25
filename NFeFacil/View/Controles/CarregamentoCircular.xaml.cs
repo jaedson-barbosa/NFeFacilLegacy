@@ -16,7 +16,8 @@ namespace NFeFacil.View.Controles
         }
 
         public static readonly DependencyProperty ThicknessProperty = DependencyProperty.Register(nameof(Thickness), typeof(double), typeof(CarregamentoCircular), new PropertyMetadata(2.0, OnPropertyChanged));
-        public static readonly DependencyProperty FillProperty = DependencyProperty.Register(nameof(Fill), typeof(SolidColorBrush), typeof(CarregamentoCircular), new PropertyMetadata(default(Brush), OnPropertyChanged));
+        public static readonly DependencyProperty SegmentoProperty = DependencyProperty.Register(nameof(Segmento), typeof(SolidColorBrush), typeof(CarregamentoCircular), new PropertyMetadata(default(Brush), OnPropertyChanged));
+        public static readonly DependencyProperty CirculoCompletoProperty = DependencyProperty.Register(nameof(CirculoCompleto), typeof(SolidColorBrush), typeof(CarregamentoCircular), new PropertyMetadata(default(Brush), OnPropertyChanged));
         public static readonly DependencyProperty MaxValueProperty = DependencyProperty.Register(nameof(MaxValue), typeof(double), typeof(CarregamentoCircular), new PropertyMetadata(1.0, OnPropertyChanged));
         public static readonly DependencyProperty ActualValueProperty = DependencyProperty.Register(nameof(ActualValue), typeof(double), typeof(CarregamentoCircular), new PropertyMetadata(0.0, OnPropertyChanged));
         private static void OnPropertyChanged(object d, object e) => (d as CarregamentoCircular).Draw();
@@ -33,10 +34,16 @@ namespace NFeFacil.View.Controles
             set => SetValue(ThicknessProperty, value);
         }
 
-        public SolidColorBrush Fill
+        public SolidColorBrush Segmento
         {
-            get => (SolidColorBrush)GetValue(FillProperty);
-            set => SetValue(FillProperty, value);
+            get => (SolidColorBrush)GetValue(SegmentoProperty);
+            set => SetValue(SegmentoProperty, value);
+        }
+
+        public SolidColorBrush CirculoCompleto
+        {
+            get => (SolidColorBrush)GetValue(CirculoCompletoProperty);
+            set => SetValue(CirculoCompletoProperty, value);
         }
 
         public double MaxValue
@@ -54,8 +61,7 @@ namespace NFeFacil.View.Controles
         private double Tamanho;
         protected override Size MeasureOverride(Size availableSize)
         {
-            Tamanho = Math.Min(availableSize.Width, availableSize.Height);
-            grd.Width = grd.Height = Tamanho;
+            grd.Width = grd.Height = Tamanho = Math.Min(availableSize.Width, availableSize.Height);
             Draw();
             return availableSize;
         }
@@ -65,8 +71,11 @@ namespace NFeFacil.View.Controles
             if (Tamanho > 0)
             {
                 radialStrip.Data = ArcHelper.GetCircleSegment(CenterPoint, (Tamanho - Thickness) / 2, GetAngle());
-                radialStrip.Stroke = Fill;
+                radialStrip.Stroke = Segmento;
                 radialStrip.StrokeThickness = Thickness;
+                complemento.Data = ArcHelper.GetCircleSegment(CenterPoint, (Tamanho - Thickness) / 2, 359.999);
+                complemento.Stroke = CirculoCompleto;
+                complemento.StrokeThickness = Thickness;
             }
         }
 

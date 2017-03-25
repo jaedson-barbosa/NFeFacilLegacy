@@ -11,10 +11,10 @@ using Newtonsoft.Json;
 using NFeFacil.Log;
 using NFeFacil.Configuracoes;
 using static NFeFacil.Configuracoes.ConfiguracoesSincronizacao;
-using NFeFacil.NavegacaoUI;
 using NFeFacil.Sincronizacao.Cliente;
 using NFeFacil.Sincronizacao;
 using NFeFacil.Sincronizacao.Pacotes;
+using NFeFacil.View;
 
 namespace NFeFacil.ViewModel.Configuracoes
 {

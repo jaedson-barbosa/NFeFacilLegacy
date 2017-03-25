@@ -22,7 +22,7 @@ namespace NFeFacil.View
 
         public Grid GridQR
         {
-            get { return grdInfoImgQR; }
+            get { return grdImgQR; }
         }
 
         public Configuracoes()
@@ -56,18 +56,18 @@ namespace NFeFacil.View
 
         private async void grdQRTemporario_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            if (grdPrincipal.ActualWidth > 500)
-            {
-                grdImgQR.Style = (Style)Resources["ImagemHorizontal"];
-                grdInfoImgQR.Style = (Style)Resources["InfoImagemHorizontal"];
-            }
-            else
-            {
-                grdImgQR.Style = (Style)Resources["ImagemVertical"];
-                grdInfoImgQR.Style = (Style)Resources["InfoImagemVertical"];
-            }
-            await Task.Delay(100);
-            DataContextSincronização.OnProperyChanged("QRGerado");
+            //if (grdPrincipal.ActualWidth > 500)
+            //{
+            //    grdImgQR.Style = (Style)Resources["ImagemHorizontal"];
+            //    grdInfoImgQR.Style = (Style)Resources["InfoImagemHorizontal"];
+            //}
+            //else
+            //{
+            //    grdImgQR.Style = (Style)Resources["ImagemVertical"];
+            //    grdInfoImgQR.Style = (Style)Resources["InfoImagemVertical"];
+            //}
+            //await Task.Delay(100);
+            //DataContextSincronização.OnProperyChanged("QRGerado");
         }
     }
 }

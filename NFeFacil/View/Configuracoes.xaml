@@ -387,12 +387,13 @@
                 <RowDefinition />
                 <RowDefinition />
             </Grid.RowDefinitions>
+            <VisualStateManager.VisualStateGroups>
+            </VisualStateManager.VisualStateGroups>
             <Grid x:Name="grdImgQR">
                 <Image x:Name="imgQR"
-                       Grid.RowSpan="2"
                        Source="{Binding QRGerado, Mode=OneWay}" />
             </Grid>
-            <Grid x:Name="grdInfoImgQR">
+            <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition />

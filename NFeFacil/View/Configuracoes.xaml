@@ -28,6 +28,11 @@
     </Page.Resources>
     <Grid x:Name="grdPrincipal"
           Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <EdgeUIThemeTransition Edge="Bottom" />
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
                 <VisualState>
@@ -66,7 +71,7 @@
                                          To="0"
                                          Storyboard.TargetName="grdQRTemporario"
                                          Storyboard.TargetProperty="(UIElement.Opacity)" />
-                        <ObjectAnimationUsingKeyFrames BeginTime="0:0:1"
+                        <ObjectAnimationUsingKeyFrames BeginTime="0:0:2"
                                                        Storyboard.TargetName="grdQRTemporario"
                                                        Storyboard.TargetProperty="Visibility">
                             <DiscreteObjectKeyFrame KeyTime="0"
@@ -93,7 +98,7 @@
                                          To="0"
                                          Storyboard.TargetName="pvtPrincipal"
                                          Storyboard.TargetProperty="(UIElement.Opacity)" />
-                        <ObjectAnimationUsingKeyFrames BeginTime="0:0:1"
+                        <ObjectAnimationUsingKeyFrames BeginTime="0:0:2"
                                                        Storyboard.TargetName="pvtPrincipal"
                                                        Storyboard.TargetProperty="Visibility">
                             <DiscreteObjectKeyFrame KeyTime="0"
@@ -124,11 +129,6 @@
                 </PivotItem.Header>
                 <ScrollViewer VerticalScrollBarVisibility="Hidden">
                     <StackPanel>
-                        <StackPanel.ChildrenTransitions>
-                            <TransitionCollection>
-                                <EdgeUIThemeTransition Edge="Bottom" />
-                            </TransitionCollection>
-                        </StackPanel.ChildrenTransitions>
                         <RichTextBlock>
                             <Paragraph>
                                 <Run Text="Aqui você pode configurar tudo relacionado à sincronização entre dispositivos." />
@@ -217,11 +217,6 @@
                                     Command="{Binding GerarQRTemporárioCommand}">Gerar código QR temporário</Button>
                         </StackPanel>
                         <StackPanel Visibility="{Binding Path=IsCliente, Mode=OneWay, Converter={StaticResource boolView}}">
-                            <StackPanel.ChildrenTransitions>
-                                <TransitionCollection>
-                                    <EdgeUIThemeTransition Edge="Bottom" />
-                                </TransitionCollection>
-                            </StackPanel.ChildrenTransitions>
                             <RichTextBlock>
                                 <Paragraph>
                                     <Run>Já que este dispositivo servirá como cliente, conecte ele ao servidor lendo o código QR gerado pelo servidor apertando o botão abaixo.</Run>

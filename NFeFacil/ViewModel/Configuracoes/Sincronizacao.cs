@@ -154,6 +154,7 @@ namespace NFeFacil.ViewModel.Configuracoes
             OnProperyChanged(nameof(QRGerado));
             ValorAtual = 0;
             PropertyChanged(this, new PropertyChangedEventArgs("ValorAtual"));
+            await Task.Delay(500);
             MostrarQR = true;
             await Task.Delay(1000);
             while (ValorAtual <= ValorMaximo)

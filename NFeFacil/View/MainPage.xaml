@@ -36,24 +36,6 @@
         </ResourceDictionary>
     </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup>
-                <VisualState x:Name="Normal">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="800"></AdaptiveTrigger>
-                    </VisualState.StateTriggers>
-                </VisualState>
-                <VisualState x:Name="Vertical">
-                    <VisualState.Setters>
-                        <Setter Target="Cabeçalho.(UIElement.Opacity)"
-                                Value="0" />
-                    </VisualState.Setters>
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="0"></AdaptiveTrigger>
-                    </VisualState.StateTriggers>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />

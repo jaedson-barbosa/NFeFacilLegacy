@@ -13,61 +13,37 @@ namespace NFeFacil.View
     /// </summary>
     public sealed partial class Configuracoes : Page, IEsconde
     {
-        private readonly ViewModel.Configuracoes.Sincronizacao DataContextSincronização;
-
-        public CarregamentoCircular Carregamento
-        {
-            get { return carTempo; }
-        }
-
-        public Grid GridQR
-        {
-            get { return grdImgQR; }
-        }
-
         public Configuracoes()
         {
             InitializeComponent();
-            pvtImportação.DataContext = new ViewModel.Configuracoes.Importacao();
-            pvtCertificação.DataContext = new Certificacao();
-            DataContext = DataContextSincronização = new ViewModel.Configuracoes.Sincronizacao(this);
             Propriedades.Intercambio.SeAtualizar(Telas.Configurações, Symbol.Setting, nameof(Configuracoes));
         }
-
-        public async Task MostrarQRTemporario()
-        {
-            MostrarQR.Begin();
-            await Task.Delay(1000);
-        }
-
-        public void OcultarQRTemporario() => OcultarQR.Begin();
 
         public async Task Esconder()
         {
             OcultarGrid.Begin();
             await Task.Delay(250);
         }
+    }
 
-        private void tglSincronizarDadosBase_Toggled(object sender, RoutedEventArgs e)
+    public sealed class ExibicaoQR : StateTriggerBase
+    {
+        public bool Visivel { get; set; }
+
+        private ViewModel.Configuracoes.Sincronizacao contexto;
+        public ViewModel.Configuracoes.Sincronizacao Contexto
         {
-            /*if (tglSincronizarDadosBase.IsOn) MostrarStkDadosBase.Begin();
-            else EsconderStkDadosBase.Begin();*/
+            get => contexto;
+            set
+            {
+                contexto = value;
+                contexto.MostrarQRChanged += Contexto_MostrarQRChanged;
+            }
         }
 
-        private async void grdQRTemporario_SizeChanged(object sender, SizeChangedEventArgs e)
+        private void Contexto_MostrarQRChanged(ViewModel.Configuracoes.Sincronizacao sender, ViewModel.Configuracoes.Sincronizacao.MostrarQRChangeEventArgs args)
         {
-            //if (grdPrincipal.ActualWidth > 500)
-            //{
-            //    grdImgQR.Style = (Style)Resources["ImagemHorizontal"];
-            //    grdInfoImgQR.Style = (Style)Resources["InfoImagemHorizontal"];
-            //}
-            //else
-            //{
-            //    grdImgQR.Style = (Style)Resources["ImagemVertical"];
-            //    grdInfoImgQR.Style = (Style)Resources["InfoImagemVertical"];
-            //}
-            //await Task.Delay(100);
-            //DataContextSincronização.OnProperyChanged("QRGerado");
+            SetActive(Visivel == args.DadoAtual);
         }
     }
 }

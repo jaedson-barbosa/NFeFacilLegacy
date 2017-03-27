@@ -26,7 +26,6 @@ namespace NFeFacil.ViewModel.Configuracoes
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propriedade));
         }
 
-        private InfoEstabelecerConexao Pacote;
         private readonly ILog LogPopUp = new Popup();
 
         public bool IsCliente
@@ -83,8 +82,11 @@ namespace NFeFacil.ViewModel.Configuracoes
         {
             get
             {
-                if (Pacote == null) return null;
-                return QRCode.GerarQR(JsonConvert.SerializeObject(Pacote), (int)View.GridQR.ActualWidth, (int)View.GridQR.ActualHeight);
+                return QRCode.GerarQR(JsonConvert.SerializeObject(new InfoEstabelecerConexao
+                {
+                    IP = NetworkInformation.GetHostNames().First(x => x.IPInformation != null && x.Type == HostNameType.Ipv4).ToString(),
+                    SenhaTemporaria = SenhaTemporária = new Random().Next(1000, 10000)
+                }), 1920, 1920);
             }
         }
 
@@ -110,10 +112,8 @@ namespace NFeFacil.ViewModel.Configuracoes
             }
         }
 
-        private View.Configuracoes View;
-        public Sincronizacao(View.Configuracoes config)
+        public Sincronizacao()
         {
-            View = config;
             GerarQRTemporárioCommand = new ComandoSemParametros(GerarQRTemporário, true);
             LerQRTemporárioCommand = new ComandoSemParametros(LerQRTemporário, true);
             IniciarServidorCommand = new ComandoSemParametros(IniciarServidor, true);
@@ -125,32 +125,45 @@ namespace NFeFacil.ViewModel.Configuracoes
         public ICommand IniciarServidorCommand { get; }
         public ICommand SincronizarAgoraCommand { get; }
 
+        public double ValorMaximo { get; } = 30;
+        public double ValorAtual { get; private set; } = 0;
+
+        private bool mostrarQR;
+        public bool MostrarQR
+        {
+            get => mostrarQR;
+            set
+            {
+                mostrarQR = value;
+                MostrarQRChanged(this, new MostrarQRChangeEventArgs
+                {
+                    DadoAtual = value
+                });
+            }
+        }
+        public event MostrarQRChangedDelegate MostrarQRChanged;
+        public delegate void MostrarQRChangedDelegate(Sincronizacao sender, MostrarQRChangeEventArgs args);
+        public class MostrarQRChangeEventArgs : EventArgs
+        {
+            public bool DadoAtual { get; set; }
+        }
+
         public async void GerarQRTemporário()
         {
-            await View.MostrarQRTemporario();
-            var senhaTemp = new Random().Next(1000, 10000);
-            SenhaTemporária = senhaTemp;
-            var hosts = from host in NetworkInformation.GetHostNames()
-                        where host.IPInformation != null && host.Type == HostNameType.Ipv4
-                        select host;
-            Pacote = new InfoEstabelecerConexao
-            {
-                IP = hosts.First().ToString(),
-                SenhaTemporaria = senhaTemp
-            };
-            Propriedades.Server.AbrirBrecha(TimeSpan.FromSeconds(View.Carregamento.MaxValue));
+            Propriedades.Server.AbrirBrecha(TimeSpan.FromSeconds(ValorMaximo));
             OnProperyChanged(nameof(QRGerado));
-            if (View.Carregamento.ActualValue > 0) View.Carregamento.ActualValue = 0;
-            var tempoRestante = View.Carregamento.MaxValue;
-            while (tempoRestante >= 0)
+            ValorAtual = 0;
+            PropertyChanged(this, new PropertyChangedEventArgs("ValorAtual"));
+            MostrarQR = true;
+            await Task.Delay(1000);
+            while (ValorAtual <= ValorMaximo)
             {
-                View.Carregamento.ActualValue++;
-                View.Carregamento.Elemento = tempoRestante--.ToString();
-                await Task.Delay(1000);
+                ValorAtual += 0.05;
+                PropertyChanged(this, new PropertyChangedEventArgs("ValorAtual"));
+                await Task.Delay(50);
             }
-            View.OcultarQRTemporario();
-            Pacote = null;
-            OnProperyChanged(nameof(QRGerado));
+            MostrarQR = false;
+            await Task.Delay(1000);
         }
 
         public async void LerQRTemporário()

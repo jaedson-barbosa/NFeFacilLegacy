@@ -20,11 +20,11 @@ namespace NFeFacil.View
 
         private async void AbrirFunção(object sender, TappedRoutedEventArgs e)
         {
-            await Esconder();
+            await EsconderAsync();
             Propriedades.Intercambio.AbrirFunçao((sender as FrameworkElement).Name);
         }
 
-        public async Task Esconder()
+        public async Task EsconderAsync()
         {
             ocultarGrid.Begin();
             await Task.Delay(250);

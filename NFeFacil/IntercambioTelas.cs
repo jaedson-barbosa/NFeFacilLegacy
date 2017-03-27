@@ -103,7 +103,7 @@ namespace NFeFacil
                     if (frm.Content is IEsconde)
                     {
                         var esconde = frm.Content as IEsconde;
-                        await esconde.Esconder();
+                        await esconde.EsconderAsync();
                     }
                 }
                 else
@@ -114,7 +114,7 @@ namespace NFeFacil
             else if (frm.Content is IEsconde)
             {
                 var esconde = frm.Content as IEsconde;
-                await esconde.Esconder();
+                await esconde.EsconderAsync();
             }
 
             if (Main.FramePrincipal.CanGoBack)

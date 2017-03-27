@@ -14,7 +14,7 @@
                 <ResourceDictionary Source="ms-appx:///View/Estilos/Estilos.xaml" />
                 <ResourceDictionary Source="ms-appx:///View/Estilos/PivotPrincipal.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <Storyboard x:Name="OcultarGrid">
+            <Storyboard x:Name="ocultarGrid">
                 <DoubleAnimation Duration="0:0:0.25"
                                  To="0"
                                  Storyboard.TargetProperty="(UIElement.Opacity)"

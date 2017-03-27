@@ -40,13 +40,17 @@
                          InputScope="EmailNameOrAddress"
                          Header="Email" />
             </ItemsControl>
-            <TextBlock Text="Endereço"
-                       Style="{StaticResource TitleTextBlockStyle}" />
-            <ItemsControl Style="{StaticResource ItensResponsivos}">
+            <Grid>
+                <TextBlock Text="Endereço"
+                           Style="{StaticResource TitleTextBlockStyle}" />
                 <CheckBox Content="Nacional"
+                          HorizontalAlignment="Right"
+                          VerticalAlignment="Top"
                           IsChecked="{Binding Nacional}"
                           Checked="rdbNacional_Checked"
                           Unchecked="rdbNacional_Unchecked" />
+            </Grid>
+            <ItemsControl Style="{StaticResource ItensResponsivos}">
                 <ComboBox x:Name="cmbUF"
                           ItemsSource="{Binding Path=UFs, Mode=OneWay}"
                           SelectedItem="{Binding Path=UFEscolhida, Mode=TwoWay}"

@@ -106,6 +106,18 @@
       <DependentUpon>20170324140015_Primeira.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\AplicativoContextModelSnapshot.cs" />
+    <Compile Include="View\AdicionarDestinatario.xaml.cs">
+      <DependentUpon>AdicionarDestinatario.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AdicionarEmitente.xaml.cs">
+      <DependentUpon>AdicionarEmitente.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AdicionarMotorista.xaml.cs">
+      <DependentUpon>AdicionarMotorista.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AdicionarProduto.xaml.cs">
+      <DependentUpon>AdicionarProduto.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\IEsconde.cs" />
     <Compile Include="IntercambioTelas.cs" />
     <Compile Include="View\IValida.cs" />
@@ -396,6 +408,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="View\AdicionarDestinatario.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AdicionarEmitente.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AdicionarMotorista.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AdicionarProduto.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Configuracoes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

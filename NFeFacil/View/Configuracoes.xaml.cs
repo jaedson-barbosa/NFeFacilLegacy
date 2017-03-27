@@ -1,6 +1,4 @@
-﻿using NFeFacil.View.Controles;
-using NFeFacil.ViewModel.Configuracoes;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -19,9 +17,9 @@ namespace NFeFacil.View
             Propriedades.Intercambio.SeAtualizar(Telas.Configurações, Symbol.Setting, nameof(Configuracoes));
         }
 
-        public async Task Esconder()
+        public async Task EsconderAsync()
         {
-            OcultarGrid.Begin();
+            ocultarGrid.Begin();
             await Task.Delay(250);
         }
     }

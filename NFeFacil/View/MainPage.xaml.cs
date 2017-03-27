@@ -74,7 +74,7 @@ namespace NFeFacil.View
                     if (FramePrincipal.Content is IEsconde)
                     {
                         var esconder = FramePrincipal.Content as IEsconde;
-                        await esconder.Esconder();
+                        await esconder.EsconderAsync();
                     }
                     else
                     {
@@ -91,7 +91,7 @@ namespace NFeFacil.View
             else if (FramePrincipal?.Content is IEsconde)
             {
                 var esconder = FramePrincipal.Content as IEsconde;
-                await esconder.Esconder();
+                await esconder.EsconderAsync();
             }
             Propriedades.Intercambio.AbrirFunçao(tela);
             ultimoIndex = IndexHamburguer;

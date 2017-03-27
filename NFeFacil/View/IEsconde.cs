@@ -4,6 +4,6 @@ namespace NFeFacil.View
 {
     interface IEsconde
     {
-        Task Esconder();
+        Task EsconderAsync();
     }
 }

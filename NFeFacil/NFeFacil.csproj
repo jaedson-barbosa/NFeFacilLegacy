@@ -396,8 +396,8 @@
     <None Include="NFeFacil_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="IBGE\Estados.xml" />
-    <Content Include="IBGE\Municipios.xml" />
+    <EmbeddedResource Include="IBGE\Estados.xml" />
+    <EmbeddedResource Include="IBGE\Municipios.xml" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

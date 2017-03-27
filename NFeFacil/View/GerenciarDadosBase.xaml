@@ -58,7 +58,7 @@
                     </ListView.ItemTemplate>
                 </ListView>
             </PivotItem>
-            <PivotItem Header="Destinatário">
+            <PivotItem Header="Destinatario">
                 <ListView x:Name="lstDestinatários"
                           SelectionMode="Single"
                           Style="{StaticResource ListaCheia}">

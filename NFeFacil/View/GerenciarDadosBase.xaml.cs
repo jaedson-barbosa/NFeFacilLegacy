@@ -25,7 +25,7 @@ namespace NFeFacil.View
     /// <summary>
     /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
     /// </summary>
-    public sealed partial class GerenciarDadosBase : Page
+    public sealed partial class GerenciarDadosBase : Page, IEsconde
     {
         public GerenciarDadosBase()
         {
@@ -124,7 +124,7 @@ namespace NFeFacil.View
             return (Pivôs)Enum.Parse(typeof(Pivôs), tela);
         }
 
-        public async Task Esconder()
+        public async Task EsconderAsync()
         {
             ocultarGrid.Begin();
             await Task.Delay(250);

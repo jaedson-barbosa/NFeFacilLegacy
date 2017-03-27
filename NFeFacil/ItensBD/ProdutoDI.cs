@@ -2,7 +2,7 @@
 
 namespace NFeFacil.ItensBD
 {
-    public sealed class ProdutoDI : DadosBaseProdutoOuServico
+    public sealed class ProdutoDI : DadosBaseProdutoOuServico, IId
     {
         public int Id { get; set; }
         public ProdutoDI() { }

@@ -2,7 +2,7 @@
 
 namespace NFeFacil.ItensBD
 {
-    public sealed class ClienteDI : Destinatario
+    public sealed class ClienteDI : Destinatario, IId
     {
         public int Id { get; set; }
         public ClienteDI() { }

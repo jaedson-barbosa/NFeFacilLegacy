@@ -101,6 +101,7 @@
     <Compile Include="ImportacaoParaBanco\Importacao.cs" />
     <Compile Include="ImportacaoParaBanco\ImportarDadoBase.cs" />
     <Compile Include="ImportacaoParaBanco\ImportarNotaFiscal.cs" />
+    <Compile Include="ItensBD\IId.cs" />
     <Compile Include="Migrations\20170324140015_Primeira.cs" />
     <Compile Include="Migrations\20170324140015_Primeira.designer.cs">
       <DependentUpon>20170324140015_Primeira.cs</DependentUpon>
@@ -117,6 +118,9 @@
     </Compile>
     <Compile Include="View\AdicionarProduto.xaml.cs">
       <DependentUpon>AdicionarProduto.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\GerenciarDadosBase.xaml.cs">
+      <DependentUpon>GerenciarDadosBase.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\IEsconde.cs" />
     <Compile Include="IntercambioTelas.cs" />
@@ -447,6 +451,10 @@
     <Page Include="View\Controles\SplitViewItem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\GerenciarDadosBase.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Inicio.xaml">
       <SubType>Designer</SubType>

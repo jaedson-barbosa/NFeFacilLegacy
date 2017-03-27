@@ -1,0 +1,147 @@
+﻿<Page x:Class="NFeFacil.View.GerenciarDadosBase"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="using:NFeFacil.View"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d">
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Estilos/CoresDestaque.xaml" />
+                <ResourceDictionary Source="Estilos/PivotPrincipal.xaml" />
+                <ResourceDictionary Source="Estilos/Estilos.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Storyboard x:Name="ocultarGrid">
+                <DoubleAnimation Duration="0:0:0.25"
+                                 To="0"
+                                 Storyboard.TargetProperty="(UIElement.Opacity)"
+                                 Storyboard.TargetName="grdPrincipal" />
+            </Storyboard>
+            <Style TargetType="TextBlock"
+                   BasedOn="{StaticResource SubtitleTextBlockStyle}">
+                <Setter Property="HorizontalAlignment"
+                        Value="Center" />
+                <Setter Property="Margin"
+                        Value="2,4,2,2" />
+            </Style>
+        </ResourceDictionary>
+    </Page.Resources>
+    <Grid x:Name="grdPrincipal"
+          Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Pivot x:Name="pivôs">
+            <PivotItem Header="Emitente">
+                <ListView x:Name="lstEmitentes"
+                          SelectionMode="Single"
+                          Style="{StaticResource ListaCheia}">
+                    <ListView.Header>
+                        <Grid Background="{StaticResource MuitoVariada}">
+                            <TextBlock HorizontalAlignment="Left">Nome</TextBlock>
+                            <TextBlock HorizontalAlignment="Center">CNPJ</TextBlock>
+                            <TextBlock HorizontalAlignment="Right">Cidade</TextBlock>
+                        </Grid>
+                    </ListView.Header>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <TextBlock Text="{Binding nome}" />
+                                <TextBlock Text="{Binding CNPJ}"
+                                           HorizontalAlignment="Center" />
+                                <TextBlock Text="{Binding endereço.nomeMunicipio}"
+                                           HorizontalAlignment="Right" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </PivotItem>
+            <PivotItem Header="Destinatário">
+                <ListView x:Name="lstDestinatários"
+                          SelectionMode="Single"
+                          Style="{StaticResource ListaCheia}">
+                    <ListView.Header>
+                        <Grid Background="{StaticResource MuitoVariada}">
+                            <TextBlock HorizontalAlignment="Left">Nome</TextBlock>
+                            <TextBlock HorizontalAlignment="Center">Documento</TextBlock>
+                            <TextBlock HorizontalAlignment="Right">Cidade</TextBlock>
+                        </Grid>
+                    </ListView.Header>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <TextBlock Text="{Binding nome}" />
+                                <TextBlock Text="{Binding obterDocumento}"
+                                           HorizontalAlignment="Center" />
+                                <TextBlock Text="{Binding endereço.nomeMunicipio}"
+                                           HorizontalAlignment="Right" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </PivotItem>
+            <PivotItem Header="Motorista">
+                <ListView x:Name="lstMotoristas"
+                          SelectionMode="Single"
+                          Style="{StaticResource ListaCheia}">
+                    <ListView.Header>
+                        <Grid Background="{StaticResource MuitoVariada}">
+                            <TextBlock HorizontalAlignment="Left">Nome</TextBlock>
+                            <TextBlock HorizontalAlignment="Center">Documento</TextBlock>
+                            <TextBlock HorizontalAlignment="Right">Cidade</TextBlock>
+                        </Grid>
+                    </ListView.Header>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <TextBlock Text="{Binding nome}" />
+                                <TextBlock Text="{Binding obterDocumento}"
+                                           HorizontalAlignment="Center" />
+                                <TextBlock Text="{Binding xMun}"
+                                           HorizontalAlignment="Right" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </PivotItem>
+            <PivotItem Header="Produto">
+                <ListView x:Name="lstProdutos"
+                          SelectionMode="Single"
+                          Style="{StaticResource ListaCheia}">
+                    <ListView.Header>
+                        <Grid Background="{StaticResource MuitoVariada}">
+                            <TextBlock HorizontalAlignment="Left">Descrição</TextBlock>
+                            <TextBlock HorizontalAlignment="Right">Código</TextBlock>
+                        </Grid>
+                    </ListView.Header>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <TextBlock Text="{Binding descricao}" />
+                                <TextBlock Text="{Binding codigoProduto}"
+                                           HorizontalAlignment="Right" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </PivotItem>
+        </Pivot>
+        <CommandBar Grid.Row="1"
+                    Background="{StaticResource MuitoVariada}">
+            <AppBarButton x:Name="Adicionar"
+                          Icon="Add"
+                          Label="Adicionar"
+                          Click="Adicionar_Click" />
+            <AppBarButton x:Name="Deletar"
+                          Icon="Delete"
+                          Label="Deletar"
+                          Click="Deletar_Click" />
+            <AppBarButton x:Name="Editar"
+                          Icon="Edit"
+                          Label="Editar"
+                          Click="Editar_Click" />
+        </CommandBar>
+    </Grid>
+</Page>

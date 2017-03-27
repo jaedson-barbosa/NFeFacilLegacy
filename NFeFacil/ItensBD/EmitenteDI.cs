@@ -2,7 +2,7 @@
 
 namespace NFeFacil.ItensBD
 {
-    public sealed class EmitenteDI : Emitente
+    public sealed class EmitenteDI : Emitente, IId
     {
         public int Id { get; set; }
         public EmitenteDI() { }

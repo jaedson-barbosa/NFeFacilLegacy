@@ -26,7 +26,7 @@ namespace NFeFacil.View
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            DataContext = e.Parameter as ClienteDataContext;
+            DataContext = (ClienteDataContext)e.Parameter;
         }
 
         private void Confirmar_Click(object sender, RoutedEventArgs e)

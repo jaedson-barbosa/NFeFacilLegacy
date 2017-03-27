@@ -2,7 +2,7 @@
 
 namespace NFeFacil.ItensBD
 {
-    public sealed class MotoristaDI : Motorista
+    public sealed class MotoristaDI : Motorista, IId
     {
         public int Id { get; set; }
         public MotoristaDI() { }

@@ -1,5 +1,7 @@
-﻿using NFeFacil.Log;
+﻿using NFeFacil.ItensBD;
+using NFeFacil.Log;
 using NFeFacil.View;
+using NFeFacil.ViewModel.NotaFiscal;
 using System;
 using System.Collections.Generic;
 using Windows.UI.Core;
@@ -43,6 +45,10 @@ namespace NFeFacil
 
         private Dictionary<Type, object> TelasComParametroObrigatorio = new Dictionary<Type, object>
         {
+            { typeof(AdicionarDestinatario), new ClienteDataContext() },
+            { typeof(AdicionarEmitente), new EmitenteDataContext() },
+            { typeof(AdicionarMotorista), new MotoristaDataContext() },
+            { typeof(AdicionarProduto), new ProdutoDI() }
             //{
             //    typeof(TelaNotaFiscal),
             //    new NotaComDados

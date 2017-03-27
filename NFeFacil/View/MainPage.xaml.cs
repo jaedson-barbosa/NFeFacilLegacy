@@ -31,14 +31,14 @@ namespace NFeFacil.View
             get { return txtTitulo.Text; }
             set { txtTitulo.Text = value; }
         }
-        public int IndexFunçãoPrincipal
+        public int IndexHamburguer
         {
             get { return lstFunções.SelectedIndex; }
             set { lstFunções.SelectedIndex = value; }
         }
-        public int UltimoIndex { get; private set; }
         #endregion
 
+        private int ultimoIndex;
         public MainPage()
         {
             this.InitializeComponent();
@@ -84,7 +84,7 @@ namespace NFeFacil.View
                 }
                 else
                 {
-                    IndexFunçãoPrincipal = UltimoIndex;
+                    IndexHamburguer = ultimoIndex;
                     return;
                 }
             }
@@ -94,7 +94,7 @@ namespace NFeFacil.View
                 await esconder.Esconder();
             }
             Propriedades.Intercambio.AbrirFunçao(tela);
-            UltimoIndex = IndexFunçãoPrincipal;
+            ultimoIndex = IndexHamburguer;
         }
     }
 }

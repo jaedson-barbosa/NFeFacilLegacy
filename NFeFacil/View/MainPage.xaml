@@ -59,7 +59,8 @@
                        FontWeight="Bold" />
         </StackPanel>
         <SplitView x:Name="hmbMenu"
-                   Grid.Row="1">
+                   Grid.Row="1"
+                   IsTabStop="False">
             <SplitView.PaneBackground>
                 <SolidColorBrush Color="{ThemeResource SystemChromeMediumColor}" />
             </SplitView.PaneBackground>

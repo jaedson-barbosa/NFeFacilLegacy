@@ -20,7 +20,8 @@
     </Page.Resources>
     <ScrollViewer x:Name="root" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
                   ScrollViewer.VerticalScrollBarVisibility="Hidden">
-        <ItemsControl Margin="2" Style="{StaticResource ItensMedios}">
+        <ItemsControl Margin="2" Style="{StaticResource ItensMedios}"
+                      IsTabStop="False">
             <controles:ItemPadrãoSymbol x:Name="GerenciarDadosBase"
                                         Símbolo="Manage"
                                         Título="Gerenciar dados base"
@@ -50,6 +51,11 @@
                                         Símbolo="&#xE81C;"
                                         Título="Histórico de sincronização"
                                         Descrição="Veja todos os detalhes de todas as requisições efetuadas/recebidas por esta aplicação."
+                                        Tapped="AbrirFunção" />
+            <controles:ItemPadrãoSymbol x:Name="Configuracoes"
+                                        Símbolo="Setting"
+                                        Título="Configurações"
+                                        Descrição="Configure a sincronização entre dispositivos, defina o certificao padrão e importe notas fiscais e dados base."
                                         Tapped="AbrirFunção" />
         </ItemsControl>
     </ScrollViewer>

@@ -74,7 +74,7 @@ namespace NFeFacil
         public void SeAtualizar(Telas atual, Symbol símbolo, string texto)
         {
             TelaAtual = atual;
-            Main.IndexFunçãoPrincipal = (int)atual;
+            Main.IndexHamburguer = (int)atual;
             Main.Símbolo = símbolo;
             Main.Título = texto;
         }

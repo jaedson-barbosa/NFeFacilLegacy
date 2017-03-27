@@ -1,14 +1,13 @@
 ﻿<UserControl x:Class="NFeFacil.View.TelasDadosBase.TelaEmitente"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="using:NFeFacil.View.TelasDadosBase"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="ms-appx:///Assets/Estilos/Estilos.xaml" />
+                <ResourceDictionary Source="ms-appx:///View/Estilos/Estilos.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -16,40 +15,30 @@
                   xmlns:Ctrl="using:NFeFacil.Assets.Controles">
         <StackPanel>
             <TextBlock Text="Emitente"
-                       Margin="0,0,0,5"
                        Style="{StaticResource TitleTextBlockStyle}" />
             <ItemsControl Style="{StaticResource ItensResponsivos}">
-                <TextBox x:Name="txtNome"
-                         Text="{Binding Emit.nome, Mode=TwoWay}"
+                <TextBox Text="{Binding Emit.nome, Mode=TwoWay}"
                          InputScope="Text"
                          Header="Nome/Razão social *" />
-                <TextBox x:Name="txtNomeFantasia"
-                         Text="{Binding Emit.nomeFantasia, Mode=TwoWay}"
+                <TextBox Text="{Binding Emit.nomeFantasia, Mode=TwoWay}"
                          InputScope="Text"
                          Header="Nome fantasia" />
-                <TextBox x:Name="txtCNPJ"
-                         Text="{Binding Emit.CNPJ, Mode=TwoWay}"
+                <TextBox Text="{Binding Emit.CNPJ, Mode=TwoWay}"
                          InputScope="Number"
                          Header="CNPJ *" />
-                <TextBox x:Name="txtIE"
-                         Text="{Binding Emit.inscricaoEstadual, Mode=TwoWay}"
+                <TextBox Text="{Binding Emit.inscricaoEstadual, Mode=TwoWay}"
                          InputScope="Number"
                          Header="Inscrição estadual *" />
-                <TextBox x:Name="txtCNAEFiscal"
-                         Text="{Binding Emit.CNAE, Mode=TwoWay}"
+                <TextBox Text="{Binding Emit.CNAE, Mode=TwoWay}"
                          InputScope="Number"
                          Header="CNAE Fiscal" />
-                <TextBox x:Name="txtInscriçãoMunicipal"
-                         Text="{Binding Emit.IM, Mode=TwoWay}"
+                <TextBox Text="{Binding Emit.IM, Mode=TwoWay}"
                          InputScope="Number"
                          Header="Inscrição municipal" />
-                <TextBox x:Name="txtIESubstTribut"
-                         Text="{Binding Emit.IEST, Mode=TwoWay}"
+                <TextBox Text="{Binding Emit.IEST, Mode=TwoWay}"
                          InputScope="Number"
                          Header="Inscrição estadual (Subst. tributário)" />
-                <ComboBox x:Name="cmbCRT"
-                          SelectedIndex="{Binding RegimeTributario, Mode=TwoWay}"
-                          HorizontalAlignment="Stretch"
+                <ComboBox SelectedIndex="{Binding RegimeTributario, Mode=TwoWay}"
                           Header="Código do Regime Tributário *">
                     <ComboBoxItem Content="Simples Nacional" />
                     <ComboBoxItem Content="Simples Nacional, excesso sublimite de receita bruta" />
@@ -57,41 +46,30 @@
                 </ComboBox>
             </ItemsControl>
             <TextBlock Text="Endereço"
-                       Margin="0,0,0,5"
                        Style="{StaticResource TitleTextBlockStyle}" />
             <ItemsControl Style="{StaticResource ItensResponsivos}">
-                <ComboBox x:Name="cmbUF"
-                          ItemsSource="{Binding Path=UFs, Mode=OneWay}"
+                <ComboBox ItemsSource="{Binding Path=UFs, Mode=OneWay}"
                           SelectedItem="{Binding Path=UFEscolhida, Mode=TwoWay}"
-                          Header="Estado"
-                          HorizontalAlignment="Stretch" />
-                <ComboBox x:Name="cmbMunicípio"
-                          ItemsSource="{Binding Municipios, Mode=OneWay}"
+                          Header="Estado" />
+                <ComboBox ItemsSource="{Binding Municipios, Mode=OneWay}"
                           SelectedItem="{Binding Path=MunicipioEscolhido, Mode=TwoWay}"
-                          Header="Município"
-                          HorizontalAlignment="Stretch" />
-                <TextBox x:Name="txtLogradouro"
-                         Text="{Binding Path=Emit.endereço.logradouro, Mode=TwoWay}"
+                          Header="Município" />
+                <TextBox Text="{Binding Path=Emit.endereço.logradouro, Mode=TwoWay}"
                          InputScope="Text"
                          Header="Logradouro *" />
-                <TextBox x:Name="txtNúmero"
-                         Text="{Binding Path=Emit.endereço.numero, Mode=TwoWay}"
+                <TextBox Text="{Binding Path=Emit.endereço.numero, Mode=TwoWay}"
                          InputScope="Text"
                          Header="Número *" />
-                <TextBox x:Name="txtComplemento"
-                         Text="{Binding Path=Emit.endereço.complemento, Mode=TwoWay}"
+                <TextBox Text="{Binding Path=Emit.endereço.complemento, Mode=TwoWay}"
                          InputScope="Text"
                          Header="Complemento" />
-                <TextBox x:Name="txtBairro"
-                         Text="{Binding Path=Emit.endereço.bairro, Mode=TwoWay}"
+                <TextBox Text="{Binding Path=Emit.endereço.bairro, Mode=TwoWay}"
                          InputScope="Text"
                          Header="Bairro *" />
-                <TextBox x:Name="txtCEP"
-                         Text="{Binding Path=Emit.endereço.CEP, Mode=TwoWay}"
+                <TextBox Text="{Binding Path=Emit.endereço.CEP, Mode=TwoWay}"
                          InputScope="Number"
                          Header="CEP" />
-                <TextBox x:Name="txtTelefone"
-                         Text="{Binding Path=Emit.endereço.telefone, Mode=TwoWay}"
+                <TextBox Text="{Binding Path=Emit.endereço.telefone, Mode=TwoWay}"
                          InputScope="Number"
                          Header="Telefone" />
             </ItemsControl>

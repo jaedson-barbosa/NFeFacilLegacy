@@ -1,41 +1,34 @@
 ﻿<UserControl x:Class="NFeFacil.View.TelasDadosBase.TelaMotorista"
-			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="using:NFeFacil.View.TelasDadosBase"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:VM="using:NFeFacil.ViewModel"
-			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-			 mc:Ignorable="d">
-	<UserControl.Resources>
-		<ResourceDictionary>
-			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="ms-appx:///Assets/Estilos/Estilos.xaml" />
-			</ResourceDictionary.MergedDictionaries>
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///View/Estilos/Estilos.xaml" />
+            </ResourceDictionary.MergedDictionaries>
             <VM:DadosEstadosParaView x:Key="estados" />
         </ResourceDictionary>
-	</UserControl.Resources>
-	<ScrollViewer VerticalScrollBarVisibility="Hidden">
+    </UserControl.Resources>
+    <ScrollViewer VerticalScrollBarVisibility="Hidden">
         <StackPanel>
-            <TextBlock Text="Motorista"
-                       Style="{StaticResource TitleTextBlockStyle}" />
             <ItemsControl Style="{StaticResource ItensResponsivos}">
-                <TextBox x:Name="txtNome"
-                         Text="{Binding Motorista.nome, Mode=TwoWay}"
+                <TextBox Text="{Binding Motorista.nome, Mode=TwoWay}"
                          InputScope="Text"
                          Header="Nome/Razão social *" />
-                <ComboBox x:Name="cmbTipoDocumento"
-                          SelectedIndex="{Binding TipoDocumento, Mode=TwoWay}"
+                <ComboBox SelectedIndex="{Binding TipoDocumento, Mode=TwoWay}"
                           Header="Tipo">
                     <ComboBoxItem Content="CPF" />
                     <ComboBoxItem Content="CNPJ" />
                 </ComboBox>
-                <TextBox x:Name="txtDocumento"
-                         Text="{Binding Documento, Mode=TwoWay}"
+                <TextBox Text="{Binding Documento, Mode=TwoWay}"
                          InputScope="Number"
                          Header="Documento *" />
                 <Grid>
-                    <CheckBox x:Name="chkIsento"
-                              Content="Isento do ICMS"
+                    <CheckBox Content="Isento do ICMS"
                               Checked="chkIsento_Checked"
                               Unchecked="chkIsento_Unchecked"
                               HorizontalAlignment="Right"
@@ -50,16 +43,13 @@
             <TextBlock Text="Endereço"
                        Style="{StaticResource TitleTextBlockStyle}" />
             <ItemsControl Style="{StaticResource ItensResponsivos}">
-                <ComboBox x:Name="cmbUF"
-                          ItemsSource="{Binding Source={StaticResource estados}, Path=SiglasExpandida}"
+                <ComboBox ItemsSource="{Binding Source={StaticResource estados}, Path=SiglasExpandida}"
                           SelectedItem="{Binding Path=UFEscolhida, Mode=TwoWay}"
                           Header="Estado" />
-                <ComboBox x:Name="cmbMunicípio"
-                          ItemsSource="{Binding Municipios, Mode=OneWay}"
+                <ComboBox ItemsSource="{Binding Municipios, Mode=OneWay}"
                           SelectedItem="{Binding Path=Motorista.xMun, Mode=TwoWay}"
                           Header="Município" />
-                <TextBox x:Name="txtLogradouro"
-                         Text="{Binding Path=Motorista.xEnder, Mode=TwoWay}"
+                <TextBox Text="{Binding Path=Motorista.xEnder, Mode=TwoWay}"
                          InputScope="Text"
                          Header="Logradouro" />
             </ItemsControl>

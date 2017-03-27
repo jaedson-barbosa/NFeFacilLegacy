@@ -1,61 +1,53 @@
 ﻿<UserControl x:Class="NFeFacil.View.TelasDadosBase.TelaProduto"
-			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="using:NFeFacil.View.TelasDadosBase"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:VM="using:NFeFacil.ViewModel"
-			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-			 mc:Ignorable="d">
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="ms-appx:///Assets/Estilos/Estilos.xaml" />
+                <ResourceDictionary Source="ms-appx:///View/Estilos/Estilos.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <VM:DadosEstadosParaView x:Key="estados" />
         </ResourceDictionary>
     </UserControl.Resources>
     <ScrollViewer VerticalScrollBarVisibility="Hidden">
-        <StackPanel>
-            <TextBlock Text="Produto"
-                       Style="{StaticResource TitleTextBlockStyle}" />
-            <ItemsControl Style="{StaticResource ItensResponsivos}">
-                <TextBox x:Name="txtDescricao"
-                         Text="{Binding descricao, Mode=TwoWay}"
-                         InputScope="Text"
-                         Header="Descrição *" />
-                <TextBox x:Name="txtCodigo"
-                         Text="{Binding codigoProduto, Mode=TwoWay}"
-                         InputScope="Text"
-                         Header="Código *" />
-                <TextBox Text="{Binding codigoBarras, Mode=TwoWay}"
-                         InputScope="Number"
-                         Header="EAN" />
-                <TextBox Text="{Binding EXTIPI, Mode=TwoWay}"
-                         InputScope="Number"
-                         Header="EX TIPI" />
-                <TextBox Text="{Binding unidadeComercializacao, Mode=TwoWay}"
-                         InputScope="Text"
-                         Header="Unidade comercial" />
-                <TextBox Text="{Binding unidadeTributacao, Mode=TwoWay}"
-                         InputScope="Text"
-                         Header="Unidade tributária" />
-                <TextBox x:Name="txtCFOP"
-                         Text="{Binding CFOP, Mode=TwoWay}"
-                         InputScope="Number"
-                         Header="CFOP *" />
-                <TextBox Text="{Binding codigoBarrasTributo, Mode=TwoWay}"
-                         InputScope="Number"
-                         Header="EAN Unid. Tributável" />
-                <TextBox Text="{Binding NCM, Mode=TwoWay}"
-                         InputScope="Number"
-                         Header="NCM" />
-                <TextBox Text="{Binding valorUnitario, Mode=TwoWay}"
-                         InputScope="Number"
-                         Header="Valor unid. comercial" />
-                <TextBox Text="{Binding valorUnitarioTributo, Mode=TwoWay}"
-                         InputScope="Number"
-                         Header="Valor unid. tributária" />
-            </ItemsControl>
-        </StackPanel>
+        <ItemsControl Style="{StaticResource ItensResponsivos}">
+            <TextBox Text="{Binding descricao, Mode=TwoWay}"
+                     InputScope="Text"
+                     Header="Descrição *" />
+            <TextBox Text="{Binding codigoProduto, Mode=TwoWay}"
+                     InputScope="Text"
+                     Header="Código *" />
+            <TextBox Text="{Binding codigoBarras, Mode=TwoWay}"
+                     InputScope="Number"
+                     Header="EAN" />
+            <TextBox Text="{Binding EXTIPI, Mode=TwoWay}"
+                     InputScope="Number"
+                     Header="EX TIPI" />
+            <TextBox Text="{Binding unidadeComercializacao, Mode=TwoWay}"
+                     InputScope="Text"
+                     Header="Unidade comercial" />
+            <TextBox Text="{Binding unidadeTributacao, Mode=TwoWay}"
+                     InputScope="Text"
+                     Header="Unidade tributária" />
+            <TextBox Text="{Binding CFOP, Mode=TwoWay}"
+                     InputScope="Number"
+                     Header="CFOP *" />
+            <TextBox Text="{Binding codigoBarrasTributo, Mode=TwoWay}"
+                     InputScope="Number"
+                     Header="EAN Unid. Tributável" />
+            <TextBox Text="{Binding NCM, Mode=TwoWay}"
+                     InputScope="Number"
+                     Header="NCM" />
+            <TextBox Text="{Binding valorUnitario, Mode=TwoWay}"
+                     InputScope="Number"
+                     Header="Valor unid. comercial" />
+            <TextBox Text="{Binding valorUnitarioTributo, Mode=TwoWay}"
+                     InputScope="Number"
+                     Header="Valor unid. tributária" />
+        </ItemsControl>
     </ScrollViewer>
 </UserControl>

@@ -82,11 +82,23 @@ namespace NFeFacil.ViewModel.Configuracoes
         {
             get
             {
-                return QRCode.GerarQR(JsonConvert.SerializeObject(new InfoEstabelecerConexao
+                try
                 {
-                    IP = NetworkInformation.GetHostNames().First(x => x.IPInformation != null && x.Type == HostNameType.Ipv4).ToString(),
-                    SenhaTemporaria = SenhaTemporária = new Random().Next(1000, 10000)
-                }), 1920, 1920);
+                    var hosts = NetworkInformation.GetHostNames();
+                    if (hosts?.Count > 0)
+                    {
+                        return QRCode.GerarQR(JsonConvert.SerializeObject(new InfoEstabelecerConexao
+                        {
+                            IP = hosts.First(x => x.IPInformation != null && x.Type == HostNameType.Ipv4).ToString(),
+                            SenhaTemporaria = SenhaTemporária = new Random().Next(1000, 10000)
+                        }), 1920, 1920);
+                    }
+                    return null;
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
             }
         }
 

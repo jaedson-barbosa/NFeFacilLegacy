@@ -15,7 +15,6 @@
         <StackPanel>
             <ItemsControl Style="{StaticResource ItensResponsivos}">
                 <TextBox Text="{Binding Cliente.nome, Mode=TwoWay}"
-                         TextWrapping="Wrap"
                          InputScope="Text"
                          Header="Nome/Razão social *" />
                 <ComboBox SelectedIndex="{Binding TipoDocumento, Mode=TwoWay}"

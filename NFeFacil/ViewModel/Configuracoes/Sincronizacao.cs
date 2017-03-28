@@ -118,8 +118,8 @@ namespace NFeFacil.ViewModel.Configuracoes
             get { return ConfiguracoesSincronizacao.SincronizarAutomaticamente; }
             set
             {
-                if (value) RegistrarCliente.Registrar();
-                else RegistrarCliente.Desrregistrar();
+                if (value) RegistroClienteBackground.Registrar();
+                else RegistroClienteBackground.Desrregistrar();
                 ConfiguracoesSincronizacao.SincronizarAutomaticamente = value;
             }
         }

@@ -1,9 +1,9 @@
 ﻿using System.Linq;
 using Windows.ApplicationModel.Background;
 
-namespace NFeFacil
+namespace NFeFacil.Sincronizacao
 {
-    internal static class RegistrarCliente
+    internal static class RegistroClienteBackground
     {
         public static void Registrar()
         {

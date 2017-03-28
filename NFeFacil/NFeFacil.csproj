@@ -129,7 +129,7 @@
     <Compile Include="View\IValida.cs" />
     <Compile Include="View\QRCode.cs" />
     <Compile Include="Propriedades.cs" />
-    <Compile Include="RegistrarCliente.cs" />
+    <Compile Include="Sincronizacao\RegistrarCliente.cs" />
     <Compile Include="Sincronizacao\Pacotes\InfoEstabelecerConexao.cs" />
     <Compile Include="ViewModel\NotaFiscal\CanaDataContext.cs" />
     <Compile Include="ViewModel\NotaFiscal\ClienteDataContext.cs" />

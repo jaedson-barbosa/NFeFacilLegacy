@@ -6,7 +6,7 @@ namespace NFeFacil.WebService.RespostaAutorizarNota
     {
         public static async Task<Response> ObterRespostaAutorizacao(AutorizarNota.CorpoResponse recibo)
         {
-            using (var conexao = new Conexao<IRespostaAutorizaNFe>(ConjuntoServicos.RespostaAutorizar.endereco))
+            using (var conexao = new Conexao<IRespostaAutorizaNFe>(ConjuntoServicos.RespostaAutorizar.Endereco))
             {
                 var procura = conexao.EstabelecerConexão();
                 return await new GerenciadorGeral<Request, Response>(

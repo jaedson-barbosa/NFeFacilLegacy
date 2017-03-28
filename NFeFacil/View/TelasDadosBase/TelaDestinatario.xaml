@@ -41,7 +41,7 @@
                          Header="Email" />
             </ItemsControl>
             <Grid>
-                <TextBlock Text="Endereço"
+                <TextBlock Text="endereco"
                            Style="{StaticResource TitleTextBlockStyle}" />
                 <CheckBox Content="Nacional"
                           HorizontalAlignment="Right"
@@ -59,31 +59,31 @@
                           ItemsSource="{Binding Municipios}"
                           SelectedItem="{Binding Path=MunicipioEscolhido, Mode=TwoWay}"
                           Header="Município" />
-                <TextBox Text="{Binding Path=Cliente.endereço.logradouro, Mode=TwoWay}"
+                <TextBox Text="{Binding Path=Cliente.endereco.logradouro, Mode=TwoWay}"
                          InputScope="Text"
                          Header="Logradouro *" />
-                <TextBox Text="{Binding Path=Cliente.endereço.numero, Mode=TwoWay}"
+                <TextBox Text="{Binding Path=Cliente.endereco.numero, Mode=TwoWay}"
                          InputScope="Text"
                          Header="Número *" />
-                <TextBox Text="{Binding Path=Cliente.endereço.complemento, Mode=TwoWay}"
+                <TextBox Text="{Binding Path=Cliente.endereco.complemento, Mode=TwoWay}"
                          InputScope="Text"
                          Header="Complemento" />
-                <TextBox Text="{Binding Path=Cliente.endereço.bairro, Mode=TwoWay}"
+                <TextBox Text="{Binding Path=Cliente.endereco.bairro, Mode=TwoWay}"
                          InputScope="Text"
                          Header="Bairro *" />
                 <TextBox x:Name="txtCEP"
-                         Text="{Binding Path=Cliente.endereço.CEP, Mode=TwoWay}"
+                         Text="{Binding Path=Cliente.endereco.CEP, Mode=TwoWay}"
                          InputScope="Number"
                          Header="CEP" />
-                <TextBox Text="{Binding Path=Cliente.endereço.telefone, Mode=TwoWay}"
+                <TextBox Text="{Binding Path=Cliente.endereco.telefone, Mode=TwoWay}"
                          InputScope="Number"
                          Header="Telefone" />
                 <TextBox x:Name="txtNomePaís"
-                         Text="{Binding Path=Cliente.endereço.xPais, Mode=TwoWay}"
+                         Text="{Binding Path=Cliente.endereco.xPais, Mode=TwoWay}"
                          InputScope="Text"
                          Header="Nome do país" />
                 <TextBox x:Name="txtCódigoPaís"
-                         Text="{Binding Path=Cliente.endereço.cPais, Mode=TwoWay}"
+                         Text="{Binding Path=Cliente.endereco.cPais, Mode=TwoWay}"
                          InputScope="Number"
                          Header="Codigo do país" />
                 <HyperlinkButton Content="Códigos"

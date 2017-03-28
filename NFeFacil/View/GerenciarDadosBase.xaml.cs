@@ -1,4 +1,5 @@
-﻿using NFeFacil.ItensBD;
+﻿using Microsoft.EntityFrameworkCore;
+using NFeFacil.ItensBD;
 using NFeFacil.Log;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
@@ -32,17 +33,17 @@ namespace NFeFacil.View
             this.InitializeComponent();
             using (var db = new AplicativoContext())
             {
-                lstDestinatários.ItemsSource = db.Clientes.GerarObs();
-                lstEmitentes.ItemsSource = db.Emitentes.GerarObs();
-                lstMotoristas.ItemsSource = db.Motoristas.GerarObs();
-                lstProdutos.ItemsSource = db.Produtos.GerarObs();
+                lstDestinatários.ItemsSource = db.Clientes.Include(x => x.endereco).ToList();
+                lstEmitentes.ItemsSource = db.Emitentes.Include(x => x.endereco).ToList();
+                lstMotoristas.ItemsSource = db.Motoristas.ToList();
+                lstProdutos.ItemsSource = db.Produtos.ToList();
             }
             Propriedades.Intercambio.SeAtualizar(Telas.GerenciarDadosBase, Symbol.Manage, "Gerenciar dados base");
         }
 
         private void Adicionar_Click(object sender, RoutedEventArgs e)
         {
-            Propriedades.Intercambio.AbrirFunçao(DescobrirTela().ToString());
+            Propriedades.Intercambio.AbrirFunçao($"Adicionar{DescobrirTela()}");
         }
 
         private void Deletar_Click(object sender, RoutedEventArgs e)
@@ -66,7 +67,6 @@ namespace NFeFacil.View
                         if (emitente != null)
                         {
                             db.Remove(emitente);
-                            lstEmitentes.Items.Remove(emitente);
                         }
                         else erro = true;
                         break;
@@ -101,8 +101,11 @@ namespace NFeFacil.View
             switch (DescobrirTela())
             {
                 case Pivôs.Emitente:
-                    var emit = lstEmitentes.SelectedItem as Emitente;
-                    Propriedades.Intercambio.AbrirFunçao(typeof(AdicionarEmitente), new EmitenteDataContext(ref emit));
+                    Propriedades.Intercambio.AbrirFunçao(typeof(AdicionarEmitente), new GrupoViewBanco<EmitenteDI>
+                    {
+                        ItemBanco = lstEmitentes.SelectedItem as EmitenteDI,
+                        OperacaoRequirida = TipoOperacao.Edicao
+                    });
                     break;
                 case Pivôs.Destinatario:
                     var dest = lstDestinatários.SelectedItem as Destinatario;

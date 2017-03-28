@@ -7,7 +7,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
         public Destinatario() : base() { }
         public Destinatario(Destinatario other)
         {
-            endereço = new EnderecoCompleto(other.endereço);
+            endereco = new enderecoCompleto(other.endereco);
             indicadorIE = (ushort)other.indicadorIE;
             ISUF = other.ISUF;
             email = other.email;
@@ -26,7 +26,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
         public string nome { get; set; }
 
         [XmlElement(ElementName = "enderDest")]
-        public EnderecoCompleto endereço { get; set; } = new EnderecoCompleto();
+        public enderecoCompleto endereco { get; set; } = new enderecoCompleto();
 
         [XmlElement(ElementName = "indIEDest")]
         public int indicadorIE { get; set; } = 1;

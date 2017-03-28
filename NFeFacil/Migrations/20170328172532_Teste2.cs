@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace NFeFacil.Migrations
 {
-    public partial class Primeira : Migration
+    public partial class Teste2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -101,7 +102,7 @@ namespace NFeFacil.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "EnderecoCompleto",
+                name: "enderecoCompleto",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -120,7 +121,7 @@ namespace NFeFacil.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EnderecoCompleto", x => x.Id);
+                    table.PrimaryKey("PK_enderecoCompleto", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -133,7 +134,7 @@ namespace NFeFacil.Migrations
                     CPF = table.Column<string>(nullable: true),
                     ISUF = table.Column<string>(nullable: true),
                     email = table.Column<string>(nullable: true),
-                    endereçoId = table.Column<int>(nullable: true),
+                    enderecoId = table.Column<int>(nullable: true),
                     idEstrangeiro = table.Column<string>(nullable: true),
                     indicadorIE = table.Column<int>(nullable: false),
                     inscricaoEstadual = table.Column<string>(nullable: true),
@@ -143,9 +144,9 @@ namespace NFeFacil.Migrations
                 {
                     table.PrimaryKey("PK_Clientes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Clientes_EnderecoCompleto_endereçoId",
-                        column: x => x.endereçoId,
-                        principalTable: "EnderecoCompleto",
+                        name: "FK_Clientes_enderecoCompleto_enderecoId",
+                        column: x => x.enderecoId,
+                        principalTable: "enderecoCompleto",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -160,7 +161,7 @@ namespace NFeFacil.Migrations
                     CNPJ = table.Column<string>(nullable: true),
                     IEST = table.Column<string>(nullable: true),
                     IM = table.Column<string>(nullable: true),
-                    endereçoId = table.Column<int>(nullable: true),
+                    enderecoId = table.Column<int>(nullable: true),
                     inscricaoEstadual = table.Column<string>(nullable: true),
                     nome = table.Column<string>(nullable: true),
                     nomeFantasia = table.Column<string>(nullable: true),
@@ -170,22 +171,22 @@ namespace NFeFacil.Migrations
                 {
                     table.PrimaryKey("PK_Emitentes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Emitentes_EnderecoCompleto_endereçoId",
-                        column: x => x.endereçoId,
-                        principalTable: "EnderecoCompleto",
+                        name: "FK_Emitentes_enderecoCompleto_enderecoId",
+                        column: x => x.enderecoId,
+                        principalTable: "enderecoCompleto",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Clientes_endereçoId",
+                name: "IX_Clientes_enderecoId",
                 table: "Clientes",
-                column: "endereçoId");
+                column: "enderecoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Emitentes_endereçoId",
+                name: "IX_Emitentes_enderecoId",
                 table: "Emitentes",
-                column: "endereçoId");
+                column: "enderecoId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -212,7 +213,7 @@ namespace NFeFacil.Migrations
                 name: "ResultadosServidor");
 
             migrationBuilder.DropTable(
-                name: "EnderecoCompleto");
+                name: "enderecoCompleto");
         }
     }
 }

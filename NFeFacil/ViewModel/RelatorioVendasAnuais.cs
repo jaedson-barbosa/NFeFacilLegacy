@@ -104,7 +104,7 @@ namespace NFeFacil.ViewModel
                         if (total.Count(x => x.Doc == det.destinatário.obterDocumento) == 0)
                             total.Add(new TotalPorCliente { Doc = det.destinatário.obterDocumento });
                         var tot = total.Single(x => x.Doc == det.destinatário.obterDocumento);
-                        tot.Mun = det.destinatário.endereço.NomeMunicipio;
+                        tot.Mun = det.destinatário.endereco.NomeMunicipio;
                         tot.Nome = det.destinatário.nome;
                         foreach (var prod in det.produtos)
                         {

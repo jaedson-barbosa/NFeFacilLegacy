@@ -9,11 +9,11 @@ namespace NFeFacil.WebService
     {
         private ChannelFactory<T> CanalComunicação;
 
-        internal Conexao(string endereço)
+        internal Conexao(string endereco)
         {
             var bind = new BasicHttpBinding(BasicHttpSecurityMode.Transport);
             bind.Security.Transport.ClientCredentialType = HttpClientCredentialType.Certificate;
-            CanalComunicação = new ChannelFactory<T>(bind, new EndpointAddress(endereço));
+            CanalComunicação = new ChannelFactory<T>(bind, new EndpointAddress(endereco));
             CanalComunicação.Credentials.ClientCertificate.SetCertificate(StoreLocation.CurrentUser, StoreName.My, X509FindType.FindBySerialNumber, Certificado);
         }
 

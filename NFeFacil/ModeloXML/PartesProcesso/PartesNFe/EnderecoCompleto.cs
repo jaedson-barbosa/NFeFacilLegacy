@@ -2,11 +2,11 @@
 
 namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe
 {
-    public sealed class EnderecoCompleto : EnderecoBase
+    public sealed class enderecoCompleto : enderecoBase
     {
-        public EnderecoCompleto() { }
+        public enderecoCompleto() { }
 
-        public EnderecoCompleto(string logradouro, string número, string bairro, long codigoMunicípio, string nomeMunicípio, string siglaUF, string Cep = null, string telefone = null, string complemento = null)
+        public enderecoCompleto(string logradouro, string número, string bairro, long codigoMunicípio, string nomeMunicípio, string siglaUF, string Cep = null, string telefone = null, string complemento = null)
         {
             Logradouro = logradouro;
             Numero = número;
@@ -19,7 +19,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe
             Telefone = telefone;
         }
 
-        public EnderecoCompleto(EnderecoCompleto other) : this(other.Logradouro, other.Numero, other.Bairro, other.CodigoMunicipio, other.NomeMunicipio, other.SiglaUF, other.CEP, other.Telefone, other.Complemento) { }
+        public enderecoCompleto(enderecoCompleto other) : this(other.Logradouro, other.Numero, other.Bairro, other.CodigoMunicipio, other.NomeMunicipio, other.SiglaUF, other.CEP, other.Telefone, other.Complemento) { }
 
         [XmlIgnore]
         public int Id { get; set; }

@@ -7,7 +7,7 @@ namespace NFeFacil.WebService.AutorizarNota
     {
         public static async Task<Response> AutorizarAsync(NFe[] xmls, int UF)
         {
-            using (var conexao = new Conexao<IAutorizaNFe>(ConjuntoServicos.Autorizar.Endereco))
+            using (var conexao = new Conexao<IAutorizaNFe>(ConjuntoServicos.Autorizar.endereco))
             {
                 var autoriza = conexao.EstabelecerConexão();
                 return await new GerenciadorGeral<Request, Response>(

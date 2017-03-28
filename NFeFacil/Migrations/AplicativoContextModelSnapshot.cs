@@ -1,6 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
+using NFeFacil;
 
 namespace NFeFacil.Migrations
 {
@@ -25,7 +28,7 @@ namespace NFeFacil.Migrations
 
                     b.Property<string>("email");
 
-                    b.Property<int?>("endereçoId");
+                    b.Property<int?>("enderecoId");
 
                     b.Property<string>("idEstrangeiro");
 
@@ -37,7 +40,7 @@ namespace NFeFacil.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("endereçoId");
+                    b.HasIndex("enderecoId");
 
                     b.ToTable("Clientes");
                 });
@@ -55,7 +58,7 @@ namespace NFeFacil.Migrations
 
                     b.Property<string>("IM");
 
-                    b.Property<int?>("endereçoId");
+                    b.Property<int?>("enderecoId");
 
                     b.Property<string>("inscricaoEstadual");
 
@@ -67,7 +70,7 @@ namespace NFeFacil.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("endereçoId");
+                    b.HasIndex("enderecoId");
 
                     b.ToTable("Emitentes");
                 });
@@ -194,7 +197,7 @@ namespace NFeFacil.Migrations
                     b.ToTable("ResultadosServidor");
                 });
 
-            modelBuilder.Entity("NFeFacil.ModeloXML.PartesProcesso.PartesNFe.EnderecoCompleto", b =>
+            modelBuilder.Entity("NFeFacil.ModeloXML.PartesProcesso.PartesNFe.enderecoCompleto", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -223,21 +226,21 @@ namespace NFeFacil.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("EnderecoCompleto");
+                    b.ToTable("enderecoCompleto");
                 });
 
             modelBuilder.Entity("NFeFacil.ItensBD.ClienteDI", b =>
                 {
-                    b.HasOne("NFeFacil.ModeloXML.PartesProcesso.PartesNFe.EnderecoCompleto", "endereço")
+                    b.HasOne("NFeFacil.ModeloXML.PartesProcesso.PartesNFe.enderecoCompleto", "endereco")
                         .WithMany()
-                        .HasForeignKey("endereçoId");
+                        .HasForeignKey("enderecoId");
                 });
 
             modelBuilder.Entity("NFeFacil.ItensBD.EmitenteDI", b =>
                 {
-                    b.HasOne("NFeFacil.ModeloXML.PartesProcesso.PartesNFe.EnderecoCompleto", "endereço")
+                    b.HasOne("NFeFacil.ModeloXML.PartesProcesso.PartesNFe.enderecoCompleto", "endereco")
                         .WithMany()
-                        .HasForeignKey("endereçoId");
+                        .HasForeignKey("enderecoId");
                 });
         }
     }

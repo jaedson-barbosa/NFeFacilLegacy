@@ -5,6 +5,8 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using System.Threading.Tasks;
+using System.Linq;
+using NFeFacil.ItensBD;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -15,7 +17,8 @@ namespace NFeFacil.View
     /// </summary>
     public sealed partial class AdicionarEmitente : Page, IEsconde
     {
-        private EmitenteDataContext Emit => DataContext as EmitenteDataContext;
+        private EmitenteDI emitente;
+        private TipoOperacao tipoRequisitado;
         private ILog Log = new Popup();
 
         public AdicionarEmitente()
@@ -25,19 +28,30 @@ namespace NFeFacil.View
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            DataContext = (EmitenteDataContext)e.Parameter;
+            var parametro = (GrupoViewBanco<EmitenteDI>)e.Parameter;
+            emitente = parametro.ItemBanco ?? new EmitenteDI();
+            tipoRequisitado = parametro.OperacaoRequirida;
+            DataContext = new EmitenteDataContext(ref emitente);
         }
 
         private void Confirmar_Click(object sender, RoutedEventArgs e)
         {
-            if (new ValidadorEmitente(Emit.Emit).Validar(Log))
+            if (new ValidadorEmitente(emitente).Validar(Log))
             {
                 using (var db = new AplicativoContext())
                 {
-                    db.Add(new ItensBD.EmitenteDI(Emit.Emit));
+                    if (tipoRequisitado == TipoOperacao.Adicao)
+                    {
+                        db.Add(emitente);
+                        Log.Escrever(TitulosComuns.Sucesso, "Emitente salvo com sucesso.");
+                    }
+                    else
+                    {
+                        db.Update(emitente);
+                        Log.Escrever(TitulosComuns.Sucesso, "Emitente alterado com sucesso.");
+                    }
                     db.SaveChanges();
                 }
-                Log.Escrever(TitulosComuns.Sucesso, "Emitente salvo com sucesso.");
                 Propriedades.Intercambio.Retornar();
             }
         }

@@ -26,7 +26,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTrans
         public string inscricaoEstadual { get; set; }
         /// <summary>
         /// (Opcional)
-        /// Endereço Completo.
+        /// endereco Completo.
         /// </summary>
         public string xEnder { get; set; }
 

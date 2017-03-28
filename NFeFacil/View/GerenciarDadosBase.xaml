@@ -51,7 +51,7 @@
                                 <TextBlock Text="{Binding nome}" />
                                 <TextBlock Text="{Binding CNPJ}"
                                            HorizontalAlignment="Center" />
-                                <TextBlock Text="{Binding endereço.nomeMunicipio}"
+                                <TextBlock Text="{Binding endereco.NomeMunicipio}"
                                            HorizontalAlignment="Right" />
                             </Grid>
                         </DataTemplate>
@@ -75,7 +75,7 @@
                                 <TextBlock Text="{Binding nome}" />
                                 <TextBlock Text="{Binding obterDocumento}"
                                            HorizontalAlignment="Center" />
-                                <TextBlock Text="{Binding endereço.nomeMunicipio}"
+                                <TextBlock Text="{Binding endereco.nomeMunicipio}"
                                            HorizontalAlignment="Right" />
                             </Grid>
                         </DataTemplate>

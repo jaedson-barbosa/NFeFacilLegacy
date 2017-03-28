@@ -45,10 +45,10 @@ namespace NFeFacil
 
         private Dictionary<Type, object> TelasComParametroObrigatorio = new Dictionary<Type, object>
         {
-            { typeof(AdicionarDestinatario), new ClienteDataContext() },
-            { typeof(AdicionarEmitente), new EmitenteDataContext() },
-            { typeof(AdicionarMotorista), new MotoristaDataContext() },
-            { typeof(AdicionarProduto), new ProdutoDI() }
+            { typeof(AdicionarDestinatario), new GrupoViewBanco<ClienteDI>() },
+            { typeof(AdicionarEmitente), new GrupoViewBanco<EmitenteDI>() },
+            { typeof(AdicionarMotorista), new GrupoViewBanco<MotoristaDI>() },
+            { typeof(AdicionarProduto), new GrupoViewBanco<ProdutoDI>() }
             //{
             //    typeof(TelaNotaFiscal),
             //    new NotaComDados

@@ -17,7 +17,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe
         {
             var construtor = new StringBuilder();
             var estados = Estados.Buscar();
-            construtor.Append(estados.Single(x => x.Sigla == detalhes.emitente.endereço.SiglaUF).Codigo);
+            construtor.Append(estados.Single(x => x.Sigla == detalhes.emitente.endereco.SiglaUF).Codigo);
             var DataHoraEmissao = Convert.ToDateTime(detalhes.identificação.DataHoraEmissão);
             construtor.Append($"{DataHoraEmissao.Year.ToString().Substring(2)}{DataHoraEmissao.Month}");
             construtor.Append(detalhes.emitente.CNPJ);

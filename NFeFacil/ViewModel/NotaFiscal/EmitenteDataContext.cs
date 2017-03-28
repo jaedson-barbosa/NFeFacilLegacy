@@ -1,4 +1,5 @@
 ﻿using NFeFacil.IBGE;
+using NFeFacil.ItensBD;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -62,11 +63,11 @@ namespace NFeFacil.ViewModel.NotaFiscal
         {
             get
             {
-                return Emit.endereço.SiglaUF;
+                return Emit.endereco.SiglaUF;
             }
             set
             {
-                Emit.endereço.SiglaUF = value;
+                Emit.endereco.SiglaUF = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Municipios)));
             }
         }
@@ -76,8 +77,8 @@ namespace NFeFacil.ViewModel.NotaFiscal
         {
             get
             {
-                if (Emit.endereço.NomeMunicipio != null)
-                    return _Municipios.First(x => x.Nome == Emit.endereço.NomeMunicipio).Nome;
+                if (Emit.endereco.NomeMunicipio != null)
+                    return _Municipios.First(x => x.Nome == Emit.endereco.NomeMunicipio).Nome;
                 else
                     return null;
             }
@@ -85,8 +86,8 @@ namespace NFeFacil.ViewModel.NotaFiscal
             {
                 if (_Municipios.Count() != 0)
                 {
-                    Emit.endereço.NomeMunicipio = value;
-                    Emit.endereço.CodigoMunicipio = _Municipios.First(x => x.Nome == value).CodigoMunicípio;
+                    Emit.endereco.NomeMunicipio = value;
+                    Emit.endereco.CodigoMunicipio = _Municipios.First(x => x.Nome == value).CodigoMunicípio;
                 }
             }
         }
@@ -98,10 +99,8 @@ namespace NFeFacil.ViewModel.NotaFiscal
             set { Emit.regimeTributario = value + 1; }
         }
 
-        public EmitenteDataContext() : base() { }
-        public EmitenteDataContext(ref Emitente emit)
-        {
-            Emit = emit;
-        }
+        public EmitenteDataContext() => Emit = new Emitente();
+        public EmitenteDataContext(ref Emitente emit) => Emit = emit;
+        public EmitenteDataContext(ref EmitenteDI emit) => Emit = emit;
     }
 }

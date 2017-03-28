@@ -40,7 +40,7 @@
                              Header="Inscrição estadual" />
                 </Grid>
             </ItemsControl>
-            <TextBlock Text="Endereço"
+            <TextBlock Text="endereco"
                        Style="{StaticResource TitleTextBlockStyle}" />
             <ItemsControl Style="{StaticResource ItensResponsivos}">
                 <ComboBox ItemsSource="{Binding Source={StaticResource estados}, Path=SiglasExpandida}"

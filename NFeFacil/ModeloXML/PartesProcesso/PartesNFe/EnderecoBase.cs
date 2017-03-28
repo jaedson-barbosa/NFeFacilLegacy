@@ -2,7 +2,7 @@
 
 namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe
 {
-    public abstract class EnderecoBase
+    public abstract class enderecoBase
     {
         [XmlElement("xLgr")]
         public string Logradouro { get; set; }

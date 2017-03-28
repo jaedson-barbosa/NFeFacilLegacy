@@ -7,8 +7,11 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
         public Emitente() : base() { }
         public Emitente(Emitente other)
         {
+            CNPJ = other.CNPJ;
+            inscricaoEstadual = other.inscricaoEstadual;
+            nome = other.nome;
             nomeFantasia = other.nomeFantasia;
-            endereço = new EnderecoCompleto(other.endereço);
+            endereco = new enderecoCompleto(other.endereco);
             regimeTributario = other.regimeTributario;
             IEST = other.IEST;
             IM = other.IM;
@@ -21,7 +24,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
         public string nomeFantasia { get; set; }
 
         [XmlElement(ElementName = "enderEmit")]
-        public EnderecoCompleto endereço { get; set; } = new EnderecoCompleto();
+        public enderecoCompleto endereco { get; set; } = new enderecoCompleto();
 
         [XmlElement(ElementName = "IE")]
         public string inscricaoEstadual { get; set; }

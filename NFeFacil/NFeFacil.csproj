@@ -98,13 +98,14 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GrupoViewBanco.cs" />
     <Compile Include="ImportacaoParaBanco\Importacao.cs" />
     <Compile Include="ImportacaoParaBanco\ImportarDadoBase.cs" />
     <Compile Include="ImportacaoParaBanco\ImportarNotaFiscal.cs" />
     <Compile Include="ItensBD\IId.cs" />
-    <Compile Include="Migrations\20170324140015_Primeira.cs" />
-    <Compile Include="Migrations\20170324140015_Primeira.designer.cs">
-      <DependentUpon>20170324140015_Primeira.cs</DependentUpon>
+    <Compile Include="Migrations\20170328172532_Teste2.cs" />
+    <Compile Include="Migrations\20170328172532_Teste2.designer.cs">
+      <DependentUpon>20170328172532_Teste2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\AplicativoContextModelSnapshot.cs" />
     <Compile Include="View\AdicionarDestinatario.xaml.cs">

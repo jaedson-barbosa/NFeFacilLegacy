@@ -45,7 +45,7 @@
                     <ComboBoxItem Content="Regime Normal" />
                 </ComboBox>
             </ItemsControl>
-            <TextBlock Text="Endereço"
+            <TextBlock Text="endereco"
                        Style="{StaticResource TitleTextBlockStyle}" />
             <ItemsControl Style="{StaticResource ItensResponsivos}">
                 <ComboBox ItemsSource="{Binding Path=UFs, Mode=OneWay}"
@@ -54,22 +54,22 @@
                 <ComboBox ItemsSource="{Binding Municipios, Mode=OneWay}"
                           SelectedItem="{Binding Path=MunicipioEscolhido, Mode=TwoWay}"
                           Header="Município" />
-                <TextBox Text="{Binding Path=Emit.endereço.logradouro, Mode=TwoWay}"
+                <TextBox Text="{Binding Path=Emit.endereco.Logradouro, Mode=TwoWay}"
                          InputScope="Text"
                          Header="Logradouro *" />
-                <TextBox Text="{Binding Path=Emit.endereço.numero, Mode=TwoWay}"
+                <TextBox Text="{Binding Path=Emit.endereco.Numero, Mode=TwoWay}"
                          InputScope="Text"
                          Header="Número *" />
-                <TextBox Text="{Binding Path=Emit.endereço.complemento, Mode=TwoWay}"
+                <TextBox Text="{Binding Path=Emit.endereco.Complemento, Mode=TwoWay}"
                          InputScope="Text"
                          Header="Complemento" />
-                <TextBox Text="{Binding Path=Emit.endereço.bairro, Mode=TwoWay}"
+                <TextBox Text="{Binding Path=Emit.endereco.Bairro, Mode=TwoWay}"
                          InputScope="Text"
                          Header="Bairro *" />
-                <TextBox Text="{Binding Path=Emit.endereço.CEP, Mode=TwoWay}"
+                <TextBox Text="{Binding Path=Emit.endereco.CEP, Mode=TwoWay}"
                          InputScope="Number"
                          Header="CEP" />
-                <TextBox Text="{Binding Path=Emit.endereço.telefone, Mode=TwoWay}"
+                <TextBox Text="{Binding Path=Emit.endereco.Telefone, Mode=TwoWay}"
                          InputScope="Number"
                          Header="Telefone" />
             </ItemsControl>

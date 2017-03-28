@@ -6,7 +6,7 @@ namespace NFeFacil.WebService.ConsultarNota
     {
         public static async Task<Response> ConsultarAsync(string chaveNota, int UF)
         {
-            using (Conexao<IConsultaNFe> Conexao = new Conexao<IConsultaNFe>(ConjuntoServicos.Consultar.Endereco))
+            using (Conexao<IConsultaNFe> Conexao = new Conexao<IConsultaNFe>(ConjuntoServicos.Consultar.endereco))
             {
                 var consulta = Conexao.EstabelecerConexão();
                 return await new GerenciadorGeral<Request, Response>(

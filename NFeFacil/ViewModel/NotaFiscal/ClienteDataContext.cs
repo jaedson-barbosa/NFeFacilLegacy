@@ -45,7 +45,7 @@ namespace NFeFacil.ViewModel.NotaFiscal
         [XmlIgnore]
         public int TipoOperação
         {
-            get { return (Cliente.endereço.XPais == "Brasil") ? 0 : 1; }
+            get { return (Cliente.endereco.XPais == "Brasil") ? 0 : 1; }
         }
 
         [XmlIgnore]
@@ -82,11 +82,11 @@ namespace NFeFacil.ViewModel.NotaFiscal
         {
             get
             {
-                return Cliente.endereço.SiglaUF;
+                return Cliente.endereco.SiglaUF;
             }
             set
             {
-                Cliente.endereço.SiglaUF = value;
+                Cliente.endereco.SiglaUF = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Municipios)));
             }
         }
@@ -95,16 +95,16 @@ namespace NFeFacil.ViewModel.NotaFiscal
         {
             get
             {
-                if (!Municipios.Contains(Cliente.endereço.NomeMunicipio) && Municipios.Count(x => RemoverAcentuacao(x) == Cliente.endereço.NomeMunicipio) > 0)
-                    Cliente.endereço.NomeMunicipio = Municipios.First(x => RemoverAcentuacao(x) == Cliente.endereço.NomeMunicipio);
-                return Cliente.endereço.NomeMunicipio;
+                if (!Municipios.Contains(Cliente.endereco.NomeMunicipio) && Municipios.Count(x => RemoverAcentuacao(x) == Cliente.endereco.NomeMunicipio) > 0)
+                    Cliente.endereco.NomeMunicipio = Municipios.First(x => RemoverAcentuacao(x) == Cliente.endereco.NomeMunicipio);
+                return Cliente.endereco.NomeMunicipio;
             }
             set
             {
                 if (_Municipios.Count() != 0)
                 {
-                    Cliente.endereço.NomeMunicipio = value;
-                    Cliente.endereço.CodigoMunicipio = _Municipios.First(x => x.Nome == value).CodigoMunicípio;
+                    Cliente.endereco.NomeMunicipio = value;
+                    Cliente.endereco.CodigoMunicipio = _Municipios.First(x => x.Nome == value).CodigoMunicípio;
                 }
             }
         }
@@ -115,7 +115,7 @@ namespace NFeFacil.ViewModel.NotaFiscal
         {
             get
             {
-                nacional = Cliente.endereço.XPais.ToLower() == "brasil" || string.IsNullOrEmpty(Cliente.endereço.XPais);
+                nacional = Cliente.endereco.XPais.ToLower() == "brasil" || string.IsNullOrEmpty(Cliente.endereco.XPais);
                 return nacional;
             }
             set

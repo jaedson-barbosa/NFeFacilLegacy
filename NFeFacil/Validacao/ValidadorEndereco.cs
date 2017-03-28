@@ -3,11 +3,11 @@ using NFeFacil.ModeloXML.PartesProcesso.PartesNFe;
 
 namespace NFeFacil.Validacao
 {
-    internal sealed class ValidadorEndereco : IValidavel
+    internal sealed class Validadorendereco : IValidavel
     {
-        private EnderecoCompleto End;
+        private enderecoCompleto End;
 
-        public ValidadorEndereco(EnderecoCompleto end)
+        public Validadorendereco(enderecoCompleto end)
         {
             End = end;
         }
@@ -18,7 +18,7 @@ namespace NFeFacil.Validacao
                 new ConjuntoAnalise(string.IsNullOrEmpty(End.SiglaUF), "Não foi escolhida uma UF"),
                 new ConjuntoAnalise(string.IsNullOrEmpty(End.NomeMunicipio), "Não foi selecionado um município"),
                 new ConjuntoAnalise(string.IsNullOrEmpty(End.Logradouro), "Não foi informado o logradouro"),
-                new ConjuntoAnalise(string.IsNullOrEmpty(End.Numero), "Não foi informado o número do endereço"),
+                new ConjuntoAnalise(string.IsNullOrEmpty(End.Numero), "Não foi informado o número do endereco"),
                 new ConjuntoAnalise(string.IsNullOrEmpty(End.Bairro), "Não foi informado o bairro"));
         }
     }

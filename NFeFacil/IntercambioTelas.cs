@@ -1,7 +1,6 @@
 ﻿using NFeFacil.ItensBD;
 using NFeFacil.Log;
 using NFeFacil.View;
-using NFeFacil.ViewModel.NotaFiscal;
 using System;
 using System.Collections.Generic;
 using Windows.UI.Core;

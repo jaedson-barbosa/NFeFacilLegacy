@@ -16,7 +16,8 @@ namespace NFeFacil.View
     /// </summary>
     public sealed partial class AdicionarDestinatario : Page, IEsconde
     {
-        private ClienteDataContext Dest => DataContext as ClienteDataContext;
+        private ClienteDI cliente;
+        private TipoOperacao tipoRequisitado;
         private ILog Log = new Popup();
 
         public AdicionarDestinatario()
@@ -26,19 +27,30 @@ namespace NFeFacil.View
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            DataContext = (ClienteDataContext)e.Parameter;
+            var parametro = (GrupoViewBanco<ClienteDI>)e.Parameter;
+            cliente = parametro.ItemBanco ?? new ClienteDI();
+            tipoRequisitado = parametro.OperacaoRequirida;
+            DataContext = new ClienteDataContext(ref cliente);
         }
 
         private void Confirmar_Click(object sender, RoutedEventArgs e)
         {
-            if (new ValidadorDestinatario(Dest.Cliente).Validar(Log))
+            if (new ValidadorDestinatario(cliente).Validar(Log))
             {
                 using (var db = new AplicativoContext())
                 {
-                    db.Add(new ClienteDI(Dest.Cliente));
+                    if (tipoRequisitado == TipoOperacao.Adicao)
+                    {
+                        db.Add(cliente);
+                        Log.Escrever(TitulosComuns.Sucesso, "Cliente salvo com sucesso.");
+                    }
+                    else
+                    {
+                        db.Update(cliente);
+                        Log.Escrever(TitulosComuns.Sucesso, "Cliente alterado com sucesso.");
+                    }
                     db.SaveChanges();
                 }
-                Log.Escrever(TitulosComuns.Sucesso, "Cliente salvo com sucesso.");
                 Propriedades.Intercambio.Retornar();
             }
         }

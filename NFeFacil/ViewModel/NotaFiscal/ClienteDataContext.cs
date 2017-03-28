@@ -1,4 +1,5 @@
 ﻿using NFeFacil.IBGE;
+using NFeFacil.ItensBD;
 using NFeFacil.ModeloXML;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using System;
@@ -152,8 +153,13 @@ namespace NFeFacil.ViewModel.NotaFiscal
             }
         }
 
-        public ClienteDataContext() : base() { }
+        public ClienteDataContext() => Cliente = new Destinatario();
         public ClienteDataContext(ref Destinatario dest)
+        {
+            TipoDocumento = (int)dest.obterTipoDocumento;
+            Cliente = dest;
+        }
+        public ClienteDataContext(ref ClienteDI dest)
         {
             TipoDocumento = (int)dest.obterTipoDocumento;
             Cliente = dest;

@@ -1,23 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NFeFacil.ItensBD;
 using NFeFacil.Log;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
-using NFeFacil.ViewModel.NotaFiscal;
 using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -108,15 +96,25 @@ namespace NFeFacil.View
                     });
                     break;
                 case Pivôs.Destinatario:
-                    var dest = lstDestinatários.SelectedItem as Destinatario;
-                    Propriedades.Intercambio.AbrirFunçao(typeof(AdicionarDestinatario), new ClienteDataContext(ref dest));
+                    Propriedades.Intercambio.AbrirFunçao(typeof(AdicionarDestinatario), new GrupoViewBanco<ClienteDI>
+                    {
+                        ItemBanco = lstDestinatários.SelectedItem as ClienteDI,
+                        OperacaoRequirida = TipoOperacao.Edicao
+                    });
                     break;
                 case Pivôs.Motorista:
-                    var mot = lstMotoristas.SelectedItem as Motorista;
-                    Propriedades.Intercambio.AbrirFunçao(typeof(AdicionarMotorista), new MotoristaDataContext(ref mot));
+                    Propriedades.Intercambio.AbrirFunçao(typeof(AdicionarMotorista), new GrupoViewBanco<MotoristaDI>
+                    {
+                        ItemBanco = lstMotoristas.SelectedItem as MotoristaDI,
+                        OperacaoRequirida = TipoOperacao.Edicao
+                    });
                     break;
                 case Pivôs.Produto:
-                    Propriedades.Intercambio.AbrirFunçao(typeof(AdicionarProduto), lstProdutos.SelectedItem);
+                    Propriedades.Intercambio.AbrirFunçao(typeof(AdicionarProduto), new GrupoViewBanco<ProdutoDI>
+                    {
+                        ItemBanco = lstProdutos.SelectedItem as ProdutoDI,
+                        OperacaoRequirida = TipoOperacao.Edicao
+                    });
                     break;
             }
         }

@@ -1,4 +1,5 @@
 ﻿using NFeFacil.IBGE;
+using NFeFacil.ItensBD;
 using NFeFacil.ModeloXML;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
 using System;
@@ -83,10 +84,8 @@ namespace NFeFacil.ViewModel.NotaFiscal
             }
         }
 
-        public MotoristaDataContext() : base() { }
-        public MotoristaDataContext(ref Motorista motorista)
-        {
-            Motorista = motorista;
-        }
+        public MotoristaDataContext() => Motorista = new Motorista();
+        public MotoristaDataContext(ref Motorista motorista) => Motorista = motorista;
+        public MotoristaDataContext(ref MotoristaDI motorista) => Motorista = motorista;
     }
 }

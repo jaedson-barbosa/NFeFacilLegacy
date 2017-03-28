@@ -5,6 +5,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using System.Threading.Tasks;
+using NFeFacil.ItensBD;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -15,7 +16,8 @@ namespace NFeFacil.View
     /// </summary>
     public sealed partial class AdicionarMotorista : Page, IEsconde
     {
-        private MotoristaDataContext Transp => DataContext as MotoristaDataContext;
+        private MotoristaDI motorista;
+        private TipoOperacao tipoRequisitado;
         private ILog Log = new Popup();
 
         public AdicionarMotorista()
@@ -25,19 +27,30 @@ namespace NFeFacil.View
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            DataContext = (MotoristaDataContext)e.Parameter;
+            var parametro = (GrupoViewBanco<MotoristaDI>)e.Parameter;
+            motorista = parametro.ItemBanco ?? new MotoristaDI();
+            tipoRequisitado = parametro.OperacaoRequirida;
+            DataContext = new MotoristaDataContext(ref motorista);
         }
 
         private void Confirmar_Click(object sender, RoutedEventArgs e)
         {
-            if (new ValidadorMotorista(Transp.Motorista).Validar(Log))
+            if (new ValidadorMotorista(motorista).Validar(Log))
             {
                 using (var db = new AplicativoContext())
                 {
-                    db.Add(new ItensBD.MotoristaDI(Transp.Motorista));
+                    if (tipoRequisitado == TipoOperacao.Adicao)
+                    {
+                        db.Add(motorista);
+                        Log.Escrever(TitulosComuns.Sucesso, "Motorista salvo com sucesso.");
+                    }
+                    else
+                    {
+                        db.Update(motorista);
+                        Log.Escrever(TitulosComuns.Sucesso, "Motorista alterado com sucesso.");
+                    }
                     db.SaveChanges();
                 }
-                Log.Escrever(TitulosComuns.Sucesso, "Motorista salvo com sucesso.");
                 Propriedades.Intercambio.Retornar();
             }
         }

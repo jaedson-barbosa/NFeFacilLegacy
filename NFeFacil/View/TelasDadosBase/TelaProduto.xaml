@@ -8,7 +8,7 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="ms-appx:///View/Estilos/Estilos.xaml" />
+                <ResourceDictionary Source="ms-appx:///View/Estilos/GridResponsiva.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <VM:DadosEstadosParaView x:Key="estados" />
         </ResourceDictionary>

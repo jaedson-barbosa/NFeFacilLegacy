@@ -120,6 +120,7 @@
     <Compile Include="View\AdicionarProduto.xaml.cs">
       <DependentUpon>AdicionarProduto.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ExibicaoQR.cs" />
     <Compile Include="View\GerenciarDadosBase.xaml.cs">
       <DependentUpon>GerenciarDadosBase.xaml</DependentUpon>
     </Compile>
@@ -493,7 +494,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\Estilos\Estilos.xaml">
+    <Page Include="View\Estilos\GridResponsiva.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

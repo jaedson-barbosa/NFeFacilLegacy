@@ -16,7 +16,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="ms-appx:///Assets/Estilos/PivotPrincipal.xaml" />
-                <ResourceDictionary Source="ms-appx:///Assets/Estilos/Estilos.xaml" />
+                <ResourceDictionary Source="ms-appx:///Assets/Estilos/GridResponsiva.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <VMRoot:DadosEstadosParaView x:Key="estados" />
             <Style TargetType="ItemsControl"

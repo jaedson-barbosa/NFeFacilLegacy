@@ -10,7 +10,6 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Estilos/CoresDestaque.xaml" />
                 <ResourceDictionary Source="Estilos/PivotPrincipal.xaml" />
-                <ResourceDictionary Source="Estilos/Estilos.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Storyboard x:Name="ocultarGrid">
                 <DoubleAnimation Duration="0:0:0.25"
@@ -23,6 +22,20 @@
                 <Setter Property="Margin"
                         Value="10,4,10,2" />
             </Style>
+            <Style TargetType="ListView">
+                <Setter Property="SelectionMode"
+                        Value="Single" />
+                <Setter Property="Margin"
+                        Value="-12,-6,-12,0" />
+                <Setter Property="ItemContainerStyle">
+                    <Setter.Value>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment"
+                                    Value="Stretch" />
+                        </Style>
+                    </Setter.Value>
+                </Setter>
+            </Style>
         </ResourceDictionary>
     </Page.Resources>
     <Grid x:Name="grdPrincipal"
@@ -32,14 +45,6 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Pivot x:Name="pivôs">
-            <Pivot.Resources>
-                <Style TargetType="ListView" BasedOn="{StaticResource ListaCheia}">
-                    <Setter Property="SelectionMode"
-                            Value="Single" />
-                    <Setter Property="Margin"
-                            Value="-12,-6,-12,0" />
-                </Style>
-            </Pivot.Resources>
             <PivotItem Header="Emitente">
                 <ListView x:Name="lstEmitentes">
                     <ListView.Header>

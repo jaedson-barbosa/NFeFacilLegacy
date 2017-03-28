@@ -49,15 +49,4 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <Style x:Key="ListaCheia"
-           TargetType="ListView">
-        <Setter Property="ItemContainerStyle">
-            <Setter.Value>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="HorizontalContentAlignment"
-                            Value="Stretch" />
-                </Style>
-            </Setter.Value>
-        </Setter>
-    </Style>
 </ResourceDictionary>

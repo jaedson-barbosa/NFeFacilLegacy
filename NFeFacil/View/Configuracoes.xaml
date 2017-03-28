@@ -3,15 +3,16 @@
       xmlns:my="using:NFeFacil.View.Controles"
       xmlns:local="using:NFeFacil.View"
       xmlns:VM="using:NFeFacil.ViewModel.Configuracoes"
+      xmlns:Conversores="using:NFeFacil.ViewModel.Converters"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
     <Page.Resources>
-        <ResourceDictionary xmlns:Conversores="using:NFeFacil.ViewModel.Converters">
+        <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="ms-appx:///View/Estilos/CoresDestaque.xaml" />
-                <ResourceDictionary Source="ms-appx:///View/Estilos/Estilos.xaml" />
+                <ResourceDictionary Source="ms-appx:///View/Estilos/GridResponsiva.xaml" />
                 <ResourceDictionary Source="ms-appx:///View/Estilos/PivotPrincipal.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Storyboard x:Name="ocultarGrid">

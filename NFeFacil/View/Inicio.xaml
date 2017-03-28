@@ -8,7 +8,7 @@
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Estilos/Estilos.xaml" />
+                <ResourceDictionary Source="Estilos/GridResponsiva.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Storyboard x:Name="ocultarGrid">
                 <DoubleAnimation Duration="0:0:0.25"

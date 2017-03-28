@@ -27,15 +27,15 @@
                 <TextBox Text="{Binding Documento, Mode=TwoWay}"
                          InputScope="Number"
                          Header="Documento *" />
-                <Grid>
+                <Grid MinWidth="240">
                     <CheckBox Content="Isento do ICMS"
+                              Margin="0,-6,0,0"
                               Checked="chkIsento_Checked"
                               Unchecked="chkIsento_Unchecked"
                               HorizontalAlignment="Right"
                               VerticalAlignment="Top" />
                     <TextBox x:Name="txtIE"
                              Text="{Binding Motorista.inscricaoEstadual, Mode=TwoWay}"
-                             Margin="0,-6,0,0"
                              InputScope="Number"
                              Header="Inscrição estadual" />
                 </Grid>

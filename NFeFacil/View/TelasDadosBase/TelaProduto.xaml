@@ -15,37 +15,37 @@
     </UserControl.Resources>
     <ScrollViewer VerticalScrollBarVisibility="Hidden">
         <ItemsControl Style="{StaticResource ItensResponsivos}">
-            <TextBox Text="{Binding descricao, Mode=TwoWay}"
+            <TextBox Text="{Binding Descricao, Mode=TwoWay}"
                      InputScope="Text"
                      Header="Descrição *" />
-            <TextBox Text="{Binding codigoProduto, Mode=TwoWay}"
+            <TextBox Text="{Binding CodigoProduto, Mode=TwoWay}"
                      InputScope="Text"
                      Header="Código *" />
-            <TextBox Text="{Binding codigoBarras, Mode=TwoWay}"
+            <TextBox Text="{Binding CodigoBarras, Mode=TwoWay}"
                      InputScope="Number"
                      Header="EAN" />
             <TextBox Text="{Binding EXTIPI, Mode=TwoWay}"
                      InputScope="Number"
                      Header="EX TIPI" />
-            <TextBox Text="{Binding unidadeComercializacao, Mode=TwoWay}"
+            <TextBox Text="{Binding UnidadeComercializacao, Mode=TwoWay}"
                      InputScope="Text"
                      Header="Unidade comercial" />
-            <TextBox Text="{Binding unidadeTributacao, Mode=TwoWay}"
+            <TextBox Text="{Binding UnidadeTributacao, Mode=TwoWay}"
                      InputScope="Text"
                      Header="Unidade tributária" />
             <TextBox Text="{Binding CFOP, Mode=TwoWay}"
                      InputScope="Number"
                      Header="CFOP *" />
-            <TextBox Text="{Binding codigoBarrasTributo, Mode=TwoWay}"
+            <TextBox Text="{Binding CodigoBarrasTributo, Mode=TwoWay}"
                      InputScope="Number"
                      Header="EAN Unid. Tributável" />
             <TextBox Text="{Binding NCM, Mode=TwoWay}"
                      InputScope="Number"
                      Header="NCM" />
-            <TextBox Text="{Binding valorUnitario, Mode=TwoWay}"
+            <TextBox Text="{Binding ValorUnitario, Mode=TwoWay}"
                      InputScope="Number"
                      Header="Valor unid. comercial" />
-            <TextBox Text="{Binding valorUnitarioTributo, Mode=TwoWay}"
+            <TextBox Text="{Binding ValorUnitarioTributo, Mode=TwoWay}"
                      InputScope="Number"
                      Header="Valor unid. tributária" />
         </ItemsControl>

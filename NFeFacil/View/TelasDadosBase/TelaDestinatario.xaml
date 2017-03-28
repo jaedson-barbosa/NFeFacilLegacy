@@ -26,13 +26,18 @@
                 <TextBox Text="{Binding Documento, Mode=TwoWay}"
                          InputScope="Number"
                          Header="Documento *" />
-                <CheckBox Content="Isento do ICMS"
-                          Checked="chkIsento_Checked"
-                          Unchecked="chkIsento_Unchecked" />
-                <TextBox x:Name="txtIE"
-                         Text="{Binding Cliente.inscricaoEstadual, Mode=TwoWay}"
-                         InputScope="Number"
-                         Header="Inscrição estadual" />
+                <Grid MinWidth="240">
+                    <TextBox x:Name="txtIE"
+                             Text="{Binding Cliente.inscricaoEstadual, Mode=TwoWay}"
+                             InputScope="Number"
+                             Header="Inscrição estadual" />
+                    <CheckBox Content="Isento do ICMS"
+                              Margin="0,-6,0,0"
+                              HorizontalAlignment="Right"
+                              VerticalAlignment="Top"
+                              Checked="chkIsento_Checked"
+                              Unchecked="chkIsento_Unchecked" />
+                </Grid>
                 <TextBox Text="{Binding Cliente.ISUF, Mode=TwoWay}"
                          InputScope="Number"
                          Header="Inscrição na SUFRAMA" />
@@ -59,35 +64,33 @@
                           ItemsSource="{Binding Municipios}"
                           SelectedItem="{Binding Path=MunicipioEscolhido, Mode=TwoWay}"
                           Header="Município" />
-                <TextBox Text="{Binding Path=Cliente.endereco.logradouro, Mode=TwoWay}"
+                <TextBox Text="{Binding Path=Cliente.endereco.Logradouro, Mode=TwoWay}"
                          InputScope="Text"
                          Header="Logradouro *" />
-                <TextBox Text="{Binding Path=Cliente.endereco.numero, Mode=TwoWay}"
+                <TextBox Text="{Binding Path=Cliente.endereco.Numero, Mode=TwoWay}"
                          InputScope="Text"
                          Header="Número *" />
-                <TextBox Text="{Binding Path=Cliente.endereco.complemento, Mode=TwoWay}"
+                <TextBox Text="{Binding Path=Cliente.endereco.Complemento, Mode=TwoWay}"
                          InputScope="Text"
                          Header="Complemento" />
-                <TextBox Text="{Binding Path=Cliente.endereco.bairro, Mode=TwoWay}"
+                <TextBox Text="{Binding Path=Cliente.endereco.Bairro, Mode=TwoWay}"
                          InputScope="Text"
                          Header="Bairro *" />
                 <TextBox x:Name="txtCEP"
                          Text="{Binding Path=Cliente.endereco.CEP, Mode=TwoWay}"
                          InputScope="Number"
                          Header="CEP" />
-                <TextBox Text="{Binding Path=Cliente.endereco.telefone, Mode=TwoWay}"
+                <TextBox Text="{Binding Path=Cliente.endereco.Telefone, Mode=TwoWay}"
                          InputScope="Number"
                          Header="Telefone" />
                 <TextBox x:Name="txtNomePaís"
-                         Text="{Binding Path=Cliente.endereco.xPais, Mode=TwoWay}"
+                         Text="{Binding Path=Cliente.endereco.XPais, Mode=TwoWay}"
                          InputScope="Text"
                          Header="Nome do país" />
                 <TextBox x:Name="txtCódigoPaís"
-                         Text="{Binding Path=Cliente.endereco.cPais, Mode=TwoWay}"
+                         Text="{Binding Path=Cliente.endereco.CPais, Mode=TwoWay}"
                          InputScope="Number"
                          Header="Codigo do país" />
-                <HyperlinkButton Content="Códigos"
-                                 NavigateUri="http://www.lgncontabil.com.br/icms/Tabela-Codigo-de-Pais-do-BACEN.pdf" />
             </ItemsControl>
         </StackPanel>
     </ScrollViewer>

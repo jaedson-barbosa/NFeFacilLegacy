@@ -75,7 +75,7 @@
                                 <TextBlock Text="{Binding nome}" />
                                 <TextBlock Text="{Binding obterDocumento}"
                                            HorizontalAlignment="Center" />
-                                <TextBlock Text="{Binding endereco.nomeMunicipio}"
+                                <TextBlock Text="{Binding endereco.NomeMunicipio}"
                                            HorizontalAlignment="Right" />
                             </Grid>
                         </DataTemplate>
@@ -119,8 +119,8 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Grid>
-                                <TextBlock Text="{Binding descricao}" />
-                                <TextBlock Text="{Binding codigoProduto}"
+                                <TextBlock Text="{Binding Descricao}" />
+                                <TextBlock Text="{Binding CodigoProduto}"
                                            HorizontalAlignment="Right" />
                             </Grid>
                         </DataTemplate>

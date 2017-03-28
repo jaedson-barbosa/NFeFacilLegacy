@@ -46,7 +46,8 @@ namespace NFeFacil.View
                         if (cliente != null)
                         {
                             db.Remove(cliente);
-                            lstDestinatários.Items.Remove(cliente);
+                            db.SaveChanges();
+                            lstDestinatários.ItemsSource = db.Clientes.Include(x => x.endereco).ToList();
                         }
                         else erro = true;
                         break;
@@ -55,6 +56,8 @@ namespace NFeFacil.View
                         if (emitente != null)
                         {
                             db.Remove(emitente);
+                            db.SaveChanges();
+                            lstEmitentes.ItemsSource = db.Emitentes.Include(x => x.endereco).ToList();
                         }
                         else erro = true;
                         break;
@@ -63,7 +66,8 @@ namespace NFeFacil.View
                         if (motorista != null)
                         {
                             db.Remove(motorista);
-                            lstMotoristas.Items.Remove(motorista);
+                            db.SaveChanges();
+                            lstMotoristas.ItemsSource = db.Motoristas.ToList();
                         }
                         else erro = true;
                         break;
@@ -72,7 +76,8 @@ namespace NFeFacil.View
                         if (produto != null)
                         {
                             db.Remove(produto);
-                            lstProdutos.Items.Remove(produto);
+                            db.SaveChanges();
+                            lstProdutos.ItemsSource = db.Produtos.ToList();
                         }
                         else erro = true;
                         break;

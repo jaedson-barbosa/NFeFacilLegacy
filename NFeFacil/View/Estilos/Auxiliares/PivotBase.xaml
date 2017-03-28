@@ -1,7 +1,6 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:NFeFacil.View.Estilos.Auxiliares">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 	<Style x:Key="BaseComum" TargetType="Pivot">
 		<Setter Property="Margin"
 				Value="0" />
@@ -20,7 +19,7 @@
 	<Style x:Key="BaseComumItem"
 		   TargetType="PivotHeaderItem">
 		<Setter Property="MinHeight"
-				Value="48" />
+				Value="36" />
 		<Setter Property="MinWidth"
 				Value="48" />
 		<Setter Property="Height"

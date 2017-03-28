@@ -19,11 +19,9 @@
                                  Storyboard.TargetName="grdPrincipal" />
             </Storyboard>
             <Style TargetType="TextBlock"
-                   BasedOn="{StaticResource SubtitleTextBlockStyle}">
-                <Setter Property="HorizontalAlignment"
-                        Value="Center" />
+                   BasedOn="{StaticResource TitleTextBlockStyle}">
                 <Setter Property="Margin"
-                        Value="2,4,2,2" />
+                        Value="10,4,10,2" />
             </Style>
         </ResourceDictionary>
     </Page.Resources>
@@ -34,10 +32,16 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Pivot x:Name="pivôs">
+            <Pivot.Resources>
+                <Style TargetType="ListView" BasedOn="{StaticResource ListaCheia}">
+                    <Setter Property="SelectionMode"
+                            Value="Single" />
+                    <Setter Property="Margin"
+                            Value="-12,-6,-12,0" />
+                </Style>
+            </Pivot.Resources>
             <PivotItem Header="Emitente">
-                <ListView x:Name="lstEmitentes"
-                          SelectionMode="Single"
-                          Style="{StaticResource ListaCheia}">
+                <ListView x:Name="lstEmitentes">
                     <ListView.Header>
                         <Grid Background="{StaticResource MuitoVariada}">
                             <TextBlock HorizontalAlignment="Left">Nome</TextBlock>
@@ -59,9 +63,7 @@
                 </ListView>
             </PivotItem>
             <PivotItem Header="Destinatario">
-                <ListView x:Name="lstDestinatários"
-                          SelectionMode="Single"
-                          Style="{StaticResource ListaCheia}">
+                <ListView x:Name="lstDestinatários">
                     <ListView.Header>
                         <Grid Background="{StaticResource MuitoVariada}">
                             <TextBlock HorizontalAlignment="Left">Nome</TextBlock>
@@ -83,9 +85,7 @@
                 </ListView>
             </PivotItem>
             <PivotItem Header="Motorista">
-                <ListView x:Name="lstMotoristas"
-                          SelectionMode="Single"
-                          Style="{StaticResource ListaCheia}">
+                <ListView x:Name="lstMotoristas">
                     <ListView.Header>
                         <Grid Background="{StaticResource MuitoVariada}">
                             <TextBlock HorizontalAlignment="Left">Nome</TextBlock>
@@ -107,9 +107,7 @@
                 </ListView>
             </PivotItem>
             <PivotItem Header="Produto">
-                <ListView x:Name="lstProdutos"
-                          SelectionMode="Single"
-                          Style="{StaticResource ListaCheia}">
+                <ListView x:Name="lstProdutos">
                     <ListView.Header>
                         <Grid Background="{StaticResource MuitoVariada}">
                             <TextBlock HorizontalAlignment="Left">Descrição</TextBlock>

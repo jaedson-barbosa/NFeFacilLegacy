@@ -1,5 +1,4 @@
-﻿using System;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
+﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 
 namespace NFeFacil.ItensBD
 {

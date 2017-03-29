@@ -2,10 +2,10 @@
 
 namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto
 {
-    public abstract class DadosBaseProdutoOuServico
+    public class BaseProdutoOuServico
     {
-        public DadosBaseProdutoOuServico() { }
-        public DadosBaseProdutoOuServico(DadosBaseProdutoOuServico other)
+        public BaseProdutoOuServico() { }
+        public BaseProdutoOuServico(BaseProdutoOuServico other)
         {
             Descricao = other.Descricao;
             CodigoProduto = other.CodigoProduto;

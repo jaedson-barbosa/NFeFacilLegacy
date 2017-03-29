@@ -47,12 +47,12 @@ namespace NFeFacil.ViewModel.Configuracoes
             }
         }
 
-        public IEnumerable<TiposDadoBásico> TiposBásicos
+        public IEnumerable<TiposDadoBasico> TiposBásicos
         {
-            get => Enum.GetValues(typeof(TiposDadoBásico)).Cast<TiposDadoBásico>();
+            get => Enum.GetValues(typeof(TiposDadoBasico)).Cast<TiposDadoBasico>();
         }
 
-        public TiposDadoBásico TipoBásicoSelecionado { get; set; }
+        public TiposDadoBasico TipoBásicoSelecionado { get; set; }
 
         public Importacao()
         {

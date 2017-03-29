@@ -15,10 +15,10 @@ namespace NFeFacil.ImportacaoParaBanco
 {
     internal sealed class ImportarDadoBase : Importacao
     {
-        private TiposDadoBásico TipoDado;
+        private TiposDadoBasico TipoDado;
         private IReadOnlyList<StorageFile> arquivos;
 
-        public ImportarDadoBase(TiposDadoBásico tipoDado) : base(".xml")
+        public ImportarDadoBase(TiposDadoBasico tipoDado) : base(".xml")
         {
             TipoDado = tipoDado;
         }
@@ -35,14 +35,14 @@ namespace NFeFacil.ImportacaoParaBanco
             }));
             switch (TipoDado)
             {
-                case TiposDadoBásico.Emitente:
+                case TiposDadoBasico.Emitente:
                     return await AnaliseCompletaXml<Emitente, EmitenteDI>(listaXML, nameof(Emitente), "emit");
-                case TiposDadoBásico.Cliente:
+                case TiposDadoBasico.Cliente:
                     return await AnaliseCompletaXml<Destinatario, ClienteDI>(listaXML, nameof(Destinatario), "dest");
-                case TiposDadoBásico.Motorista:
+                case TiposDadoBasico.Motorista:
                     return await AnaliseCompletaXml<Motorista, MotoristaDI>(listaXML, nameof(Motorista), "transporta");
-                case TiposDadoBásico.Produto:
-                    return await AnaliseCompletaXml<DadosBaseProdutoOuServico, ProdutoDI>(listaXML, nameof(DadosBaseProdutoOuServico), "prod");
+                case TiposDadoBasico.Produto:
+                    return await AnaliseCompletaXml<BaseProdutoOuServico, ProdutoDI>(listaXML, nameof(BaseProdutoOuServico), "prod");
                 default:
                     return null;
             }
@@ -106,13 +106,5 @@ namespace NFeFacil.ImportacaoParaBanco
                     xmlBruto.Elements().Select(el => RemoverNamespace(el)) :
                     (object)xmlBruto.Value);
         }
-    }
-
-    public enum TiposDadoBásico
-    {
-        Emitente,
-        Cliente,
-        Motorista,
-        Produto
     }
 }

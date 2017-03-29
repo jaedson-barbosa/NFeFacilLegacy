@@ -102,6 +102,10 @@
     <Compile Include="ImportacaoParaBanco\Importacao.cs" />
     <Compile Include="ImportacaoParaBanco\ImportarDadoBase.cs" />
     <Compile Include="ImportacaoParaBanco\ImportarNotaFiscal.cs" />
+    <Compile Include="ImportacaoParaBanco\RelatorioImportacao.cs" />
+    <Compile Include="ImportacaoParaBanco\ResumoRelatorioImportacao.cs" />
+    <Compile Include="ImportacaoParaBanco\TiposDadoBasico.cs" />
+    <Compile Include="ImportacaoParaBanco\XmlNaoReconhecido.cs" />
     <Compile Include="ItensBD\IConverterDI.cs" />
     <Compile Include="ItensBD\IId.cs" />
     <Compile Include="Migrations\20170328172532_Teste2.cs" />
@@ -279,7 +283,7 @@
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesProdutoOuServico\Arma.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesProdutoOuServico\CIDE.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesProdutoOuServico\Combustivel.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\DadosBaseProdutoOuServico.cs" />
+    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\BaseProdutoOuServico.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesProdutoOuServico\DeclaracaoImportacao.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesProdutoOuServico\DIAdicao.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesProdutoOuServico\ExportacaoIndireta.cs" />

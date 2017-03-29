@@ -5,9 +5,9 @@ namespace NFeFacil.Validacao
 {
     public sealed class ValidadorProduto : IValidavel
     {
-        DadosBaseProdutoOuServico Prod;
+        BaseProdutoOuServico Prod;
 
-        public ValidadorProduto(DadosBaseProdutoOuServico prod)
+        public ValidadorProduto(BaseProdutoOuServico prod)
         {
             Prod = prod;
         }

@@ -7,7 +7,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
     public sealed class ProdutoOuServico
     {
         public ProdutoOuServico() { }
-        public ProdutoOuServico(DadosBaseProdutoOuServico other)
+        public ProdutoOuServico(BaseProdutoOuServico other)
         {
             CFOP = other.CFOP;
             codigoBarras = other.CodigoBarras;

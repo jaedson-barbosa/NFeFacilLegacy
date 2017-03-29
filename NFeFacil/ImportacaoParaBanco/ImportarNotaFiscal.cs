@@ -16,59 +16,48 @@ namespace NFeFacil.ImportacaoParaBanco
         {
             var arquivos = await ImportarArquivos();
             var retorno = new RelatorioImportacao();
+            Dictionary<NFeDI, XElement> conjuntos = new Dictionary<NFeDI, XElement>();
+            for (int i = 0; i < arquivos.Count; i++)
+            {
+                using (var stream = await arquivos[i].OpenStreamForReadAsync())
+                {
+                    var xmlAtual = XElement.Load(stream);
+                    if (xmlAtual.Name.LocalName != "nfeProc" && xmlAtual.Name.LocalName != "NFe")
+                    {
+                        retorno.Erros.Add(new XmlNaoReconhecido(arquivos[i].Name, xmlAtual.Name.LocalName, "nfeProc", "NFe"));
+                    }
+                    else
+                    {
+                        var diAtual = NFeDI.Converter(xmlAtual);
+                        if (conjuntos.Keys.Count(x => x.Id == diAtual.Id) == 0)
+                        {
+                            conjuntos.Add(diAtual, xmlAtual);
+                        }
+                        else
+                        {
+                            var atual = conjuntos.Single(x => x.Key.Id == diAtual.Id);
+                            if (atual.Key.Status < diAtual.Status)
+                            {
+                                conjuntos.Remove(atual.Key);
+                                conjuntos.Add(diAtual, xmlAtual);
+                            }
+                        }
+                    }
+                }
+            }
             using (var db = new AplicativoContext())
             {
                 PastaNotasFiscais pasta = new PastaNotasFiscais();
-                for (int i = 0; i < arquivos.Count; i++)
+                foreach (var item in conjuntos)
                 {
-                    using (var stream = await arquivos[i].OpenStreamForReadAsync())
-                    {
-                        var xml = XElement.Load(stream);
-                        if (xml.Name.LocalName != "nfeProc" && xml.Name.LocalName != "NFe")
-                        {
-                            retorno.Erros.Add(new XmlNaoReconhecido(arquivos[i].Name, xml.Name.LocalName));
-                            continue;
-                        }
-                        var nfeDI = NFeDI.Converter(xml);
-                        await pasta.AdicionarOuAtualizar(xml, nfeDI.Id);
-                        var quant = db.NotasFiscais.Count(x => x.Id == nfeDI.Id);
-                        if (quant == 1) db.Update(nfeDI);
-                        else db.Add(nfeDI);
-                    }
+                    await pasta.AdicionarOuAtualizar(item.Value, item.Key.Id);
+                    var quant = db.NotasFiscais.Count(x => x.Id == item.Key.Id);
+                    if (quant == 1) db.Update(item.Key);
+                    else db.Add(item.Key);
                 }
                 await db.SaveChangesAsync();
             }
             return retorno;
         }
-    }
-
-    internal struct XmlNaoReconhecido
-    {
-        public string NomeArquivo { get; }
-        public string TagRaiz { get; }
-        public string[] TagsEsperadas { get; }
-
-        public XmlNaoReconhecido(string nomeArquivo, string tagRaiz, params string[] tagsEsperadas)
-        {
-            NomeArquivo = nomeArquivo;
-            TagRaiz = tagRaiz;
-            TagsEsperadas = tagsEsperadas;
-        }
-    }
-
-    internal class RelatorioImportacao
-    {
-        public ResumoRelatorioImportacao Analise
-        {
-            get => Erros.Count == 0 ? ResumoRelatorioImportacao.Sucesso : ResumoRelatorioImportacao.Erro;
-        }
-
-        public List<XmlNaoReconhecido> Erros { get; set; } = new List<XmlNaoReconhecido>();
-    }
-
-    internal enum ResumoRelatorioImportacao
-    {
-        Sucesso,
-        Erro
     }
 }

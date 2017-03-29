@@ -3,12 +3,12 @@ using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 
 namespace NFeFacil.ItensBD
 {
-    public sealed class ProdutoDI : DadosBaseProdutoOuServico, IId, IConverterDI<DadosBaseProdutoOuServico>
+    public sealed class ProdutoDI : BaseProdutoOuServico, IId, IConverterDI<BaseProdutoOuServico>
     {
         public int Id { get; set; }
         public ProdutoDI() { }
-        public ProdutoDI(DadosBaseProdutoOuServico prod) : base(prod) { }
+        public ProdutoDI(BaseProdutoOuServico prod) : base(prod) { }
 
-        public IId Converter(DadosBaseProdutoOuServico item) => new ProdutoDI(item);
+        public IId Converter(BaseProdutoOuServico item) => new ProdutoDI(item);
     }
 }

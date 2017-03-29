@@ -102,6 +102,7 @@
     <Compile Include="ImportacaoParaBanco\Importacao.cs" />
     <Compile Include="ImportacaoParaBanco\ImportarDadoBase.cs" />
     <Compile Include="ImportacaoParaBanco\ImportarNotaFiscal.cs" />
+    <Compile Include="ItensBD\IConverterDI.cs" />
     <Compile Include="ItensBD\IId.cs" />
     <Compile Include="Migrations\20170328172532_Teste2.cs" />
     <Compile Include="Migrations\20170328172532_Teste2.designer.cs">

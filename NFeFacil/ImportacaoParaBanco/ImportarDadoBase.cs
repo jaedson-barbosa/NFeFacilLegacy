@@ -1,4 +1,5 @@
-﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
+﻿using NFeFacil.ItensBD;
+using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
 using System;
@@ -35,34 +36,34 @@ namespace NFeFacil.ImportacaoParaBanco
             switch (TipoDado)
             {
                 case TiposDadoBásico.Emitente:
-                    return await AnaliseCompletaXml<Emitente>(listaXML, "emit");
+                    return await AnaliseCompletaXml<Emitente, EmitenteDI>(listaXML, nameof(Emitente), "emit");
                 case TiposDadoBásico.Cliente:
-                    return await AnaliseCompletaXml<Destinatario>(listaXML, "dest");
+                    return await AnaliseCompletaXml<Destinatario, ClienteDI>(listaXML, nameof(Destinatario), "dest");
                 case TiposDadoBásico.Motorista:
-                    return await AnaliseCompletaXml<Motorista>(listaXML, "transporta");
+                    return await AnaliseCompletaXml<Motorista, MotoristaDI>(listaXML, nameof(Motorista), "transporta");
                 case TiposDadoBásico.Produto:
-                    return await AnaliseCompletaXml<DadosBaseProdutoOuServico>(listaXML, "prod");
+                    return await AnaliseCompletaXml<DadosBaseProdutoOuServico, ProdutoDI>(listaXML, nameof(DadosBaseProdutoOuServico), "prod");
                 default:
                     return null;
             }
         }
 
-        private async Task<RelatorioImportacao> AnaliseCompletaXml<Tipo>(XElement[] listaXML, string nomeSecundario) where Tipo : class
+        private async Task<RelatorioImportacao> AnaliseCompletaXml<TipoBase, TipoBanco>(XElement[] listaXML, string nomePrimario, string nomeSecundario) where TipoBase : class where TipoBanco : IId, IConverterDI<TipoBase>, new()
         {
             var retorno = new RelatorioImportacao();
             using (var db = new AplicativoContext())
             {
                 for (int i = 0; i < listaXML.Length; i++)
                 {
-                    var resultado = Busca(listaXML[i], nomeSecundario, nameof(Tipo));
+                    var resultado = RemoverNamespace(Busca(listaXML[i], nomePrimario, nomeSecundario));
                     if (resultado == null)
                     {
-                        retorno.Erros.Add(new XmlNaoReconhecido(arquivos[i].Name, listaXML[i].Name.LocalName, nomeSecundario, nameof(Tipo)));
+                        retorno.Erros.Add(new XmlNaoReconhecido(arquivos[i].Name, listaXML[i].Name.LocalName, nomeSecundario, nameof(TipoBase)));
                         continue;
                     }
                     var xml = resultado;
-                    xml.Name = nameof(Tipo);
-                    db.Add(xml.FromXElement<Tipo>());
+                    xml.Name = nomePrimario;
+                    db.Add(new TipoBanco().Converter(xml.FromXElement<TipoBase>()));
                 }
                 await db.SaveChangesAsync();
             }
@@ -95,6 +96,15 @@ namespace NFeFacil.ImportacaoParaBanco
                 }
             }
             return null;
+        }
+
+        private static XElement RemoverNamespace(XElement xmlBruto)
+        {
+            return new XElement(
+                xmlBruto.Name.LocalName,
+                xmlBruto.HasElements ?
+                    xmlBruto.Elements().Select(el => RemoverNamespace(el)) :
+                    (object)xmlBruto.Value);
         }
     }
 

@@ -1,6 +1,6 @@
 ﻿namespace NFeFacil.ItensBD
 {
-    internal interface IId
+    public interface IId
     {
         int Id { get; set; }
     }

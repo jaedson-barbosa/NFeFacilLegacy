@@ -21,10 +21,10 @@ namespace NFeFacil.Sincronizacao
             using (var db = new AplicativoContext())
             {
                 var pasta = new PastaNotasFiscais();
-                foreach (var item in notas.XMLs)
+                for (int i = 0; i < notas.XMLs.Length; i++)
                 {
-                    var nfeDI = NFeDI.Converter(item);
-                    await pasta.AdicionarOuAtualizar(item, nfeDI.Id);
+                    var nfeDI = NFeDI.Converter(notas.XMLs[i]);
+                    await pasta.AdicionarOuAtualizar(notas.XMLs[i], nfeDI.Id);
                     var quant = db.NotasFiscais.Count(x => x.Id == nfeDI.Id);
                     if (quant > 0) db.Update(nfeDI);
                     else db.Add(nfeDI);

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Windows.Storage;
@@ -41,17 +42,18 @@ namespace NFeFacil
             }
         }
 
-        public async Task<IEnumerable<XElement>> RegistroCompleto()
+        public async Task<XElement[]> RegistroCompleto()
         {
             var arqs = await PastaArquivos.GetFilesAsync();
-            var retorno = new List<XElement>();
-            foreach (var item in arqs)
+            var quantidade = arqs.Count(x => x.FileType == ".xml");
+            var retorno = new XElement[quantidade];
+            for (int i = 0; i < arqs.Count(); i++)
             {
-                if (item.FileType == ".xml")
+                if (arqs.ElementAt(i).FileType == ".xml")
                 {
-                    using (var stream = await item.OpenStreamForReadAsync())
+                    using (var stream = await arqs.ElementAt(i).OpenStreamForReadAsync())
                     {
-                        retorno.Add(XElement.Load(stream));
+                        retorno[i] = XElement.Load(stream);
                     }
                 }
             }

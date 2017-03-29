@@ -5,6 +5,6 @@ namespace NFeFacil.Sincronizacao.Pacotes
 {
     public sealed class NotasFiscais : PacoteBase
     {
-        public IEnumerable<XElement> XMLs { get; set; }
+        public XElement[] XMLs { get; set; }
     }
 }

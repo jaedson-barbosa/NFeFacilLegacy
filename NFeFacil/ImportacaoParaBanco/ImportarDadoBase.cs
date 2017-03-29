@@ -8,124 +8,93 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Xml.Serialization;
+using Windows.Storage;
 
 namespace NFeFacil.ImportacaoParaBanco
 {
     internal sealed class ImportarDadoBase : Importacao
     {
         private TiposDadoBásico TipoDado;
+        private IReadOnlyList<StorageFile> arquivos;
 
         public ImportarDadoBase(TiposDadoBásico tipoDado) : base(".xml")
         {
             TipoDado = tipoDado;
         }
 
-        public async Task Importar()
+        public async Task<RelatorioImportacao> Importar()
         {
-            var arquivos = await ImportarArquivos();
-            var XMLs = new List<XElement>();
-            foreach (var item in arquivos)
+            arquivos = await ImportarArquivos();
+            var listaXML = await Task.WhenAll(arquivos.Select(async x =>
             {
-                XMLs.Add(XElement.Load(await item.OpenStreamForReadAsync()));
+                using (var stream = await x.OpenStreamForReadAsync())
+                {
+                    return XElement.Load(stream);
+                }
+            }));
+            switch (TipoDado)
+            {
+                case TiposDadoBásico.Emitente:
+                    return await AnaliseCompletaXml<Emitente>(listaXML, "emit");
+                case TiposDadoBásico.Cliente:
+                    return await AnaliseCompletaXml<Destinatario>(listaXML, "dest");
+                case TiposDadoBásico.Motorista:
+                    return await AnaliseCompletaXml<Motorista>(listaXML, "transporta");
+                case TiposDadoBásico.Produto:
+                    return await AnaliseCompletaXml<DadosBaseProdutoOuServico>(listaXML, "prod");
+                default:
+                    return null;
             }
-            await ImportarDadosAsync(XMLs, TipoDado);
         }
 
-        public async Task ImportarDadosAsync(List<XElement> listaXML, TiposDadoBásico tipo)
+        private async Task<RelatorioImportacao> AnaliseCompletaXml<Tipo>(XElement[] listaXML, string nomeSecundario) where Tipo : class
         {
+            var retorno = new RelatorioImportacao();
             using (var db = new AplicativoContext())
             {
-                switch (tipo)
+                for (int i = 0; i < listaXML.Length; i++)
                 {
-                    case TiposDadoBásico.Emitente:
-                        {
-                            var xmlVálidosEmit = new List<XElement>();
-                            foreach (var item in listaXML)
-                            {
-                                var xml = RemoverNamespace(item);
-                                xml = Busca(xml, @"emit", nameof(Emitente));
-                                xml.Name = nameof(Emitente);
-                                xmlVálidosEmit.Add(xml);
-                            }
-                            db.AddRange(from x in xmlVálidosEmit
-                                        select FromXElement<Emitente>(x));
-                            break;
-                        }
-                    case TiposDadoBásico.Cliente:
-                        {
-                            var xmlVálidosDest = new List<XElement>();
-                            foreach (var item in listaXML)
-                            {
-                                var xml = RemoverNamespace(item);
-                                xml = Busca(xml, @"dest", nameof(Destinatario));
-                                xml.Name = nameof(Destinatario);
-                                xmlVálidosDest.Add(xml);
-                            }
-                            db.AddRange(from x in xmlVálidosDest
-                                        select FromXElement<Destinatario>(x));
-                            break;
-                        }
-                    case TiposDadoBásico.Motorista:
-                        {
-                            var xmlVálidosMot = new List<XElement>();
-                            foreach (var item in listaXML)
-                            {
-                                var xml = RemoverNamespace(item);
-                                xml = Busca(xml, @"transporta", nameof(Motorista));
-                                xml.Name = nameof(Motorista);
-                                xmlVálidosMot.Add(xml);
-                            }
-                            db.AddRange(from x in xmlVálidosMot
-                                        select FromXElement<Motorista>(x));
-                            break;
-                        }
-                    case TiposDadoBásico.Produto:
-                        {
-                            var xmlVálidosProd = new List<XElement>();
-                            foreach (var item in listaXML)
-                            {
-                                var xml = RemoverNamespace(item);
-                                xml = Busca(xml, "prod", nameof(DadosBaseProdutoOuServico));
-                                xml.Name = nameof(DadosBaseProdutoOuServico);
-                                xmlVálidosProd.Add(xml);
-                            }
-                            db.AddRange(from x in xmlVálidosProd
-                                        select FromXElement<DadosBaseProdutoOuServico>(x));
-                            break;
-                        }
+                    var resultado = Busca(listaXML[i], nomeSecundario, nameof(Tipo));
+                    if (resultado == null)
+                    {
+                        retorno.Erros.Add(new XmlNaoReconhecido(arquivos[i].Name, listaXML[i].Name.LocalName, nomeSecundario, nameof(Tipo)));
+                        continue;
+                    }
+                    var xml = resultado;
+                    xml.Name = nameof(Tipo);
+                    db.Add(xml.FromXElement<Tipo>());
                 }
                 await db.SaveChangesAsync();
             }
-        }
-
-        private XElement RemoverNamespace(XElement xmlBruto)
-        {
-            return new XElement(
-                xmlBruto.Name.LocalName,
-                xmlBruto.HasElements ?
-                    xmlBruto.Elements().Select(el => RemoverNamespace(el)) :
-                    (object)xmlBruto.Value);
+            return retorno;
         }
 
         private XElement Busca(XElement universo, params string[] nome)
         {
-            Func<XElement, bool> analise = x => nome.Contains(x.Name.LocalName);
-            if (analise(universo)) return universo;
-            var quantidade = universo.Elements().Count(analise);
-            if (quantidade == 1)
-                return universo.Elements().Single(analise);
-            else if (quantidade > 1)
-                throw new ArgumentException($"Existem {quantidade} nós diferentes com o nome pedido");
+            if (nome.Contains(universo.Name.LocalName))
+            {
+                return universo;
+            }
             else
-                foreach (var item in universo.Elements()) return Busca(item, nome);
-
-            throw new ArgumentException($"Não foi encontrado nó com o nome {nome}", nameof(universo));
-        }
-
-        private static T FromXElement<T>(XElement xElement)
-        {
-            var xmlSerializer = new XmlSerializer(typeof(T));
-            return (T)xmlSerializer.Deserialize(xElement.CreateReader());
+            {
+                var filhos = universo.Elements().ToArray();
+                for (int i = 0; i < filhos.Length; i++)
+                {
+                    if (nome.Contains(filhos[i].Name.LocalName))
+                    {
+                        return filhos[i];
+                    }
+                    else if (filhos[i].HasElements)
+                    {
+                        var resultadoProfundo = Busca(filhos[i], nome);
+                        if (resultadoProfundo != null)
+                        {
+                            return resultadoProfundo;
+                        }
+                    }
+                }
+            }
+            return null;
         }
     }
 

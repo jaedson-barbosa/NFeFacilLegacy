@@ -32,43 +32,33 @@
                     <StackPanel>
                         <ItemsControl Style="{StaticResource ItensResponsivos}">
                             <TextBox Text="{Binding QuantidadeComercializada, Mode=TwoWay}"
-                                     TextWrapping="Wrap"
                                      InputScope="Number"
                                      Header="Qtd. comercial" />
                             <TextBox Text="{Binding Seguro, Mode=TwoWay}"
-                                     TextWrapping="Wrap"
                                      InputScope="Number"
                                      Header="Seguro" />
                             <TextBox Text="{Binding Frete, Mode=TwoWay}"
-                                     TextWrapping="Wrap"
                                      InputScope="Number"
                                      Header="Frete" />
                             <TextBox Text="{Binding ValorTotal, Mode=TwoWay}"
-                                     TextWrapping="Wrap"
                                      InputScope="Number"
                                      Header="Total bruto" />
                             <TextBox Text="{Binding XPed, Mode=TwoWay}"
-                                     TextWrapping="Wrap"
                                      InputScope="Number"
                                      Header="Pedido de compra" />
                             <TextBox Text="{Binding QuantidadeTributada, Mode=TwoWay}"
-                                     TextWrapping="Wrap"
                                      InputScope="Number"
                                      Header="Qtd. tributária" />
                             <TextBox Text="{Binding Desconto, Mode=TwoWay}"
-                                     TextWrapping="Wrap"
                                      InputScope="Number"
                                      Header="Desconto" />
                             <TextBox Text="{Binding DespesasAcessórias, Mode=TwoWay}"
-                                     TextWrapping="Wrap"
                                      InputScope="Number"
                                      Header="Desp. acessórias" />
                             <TextBox Text="{Binding NFCI, Mode=TwoWay}"
-                                     TextWrapping="Wrap"
                                      InputScope="Number"
                                      Header="Nº de controle da FCI" />
                             <TextBox Text="{Binding NItemPed, Mode=TwoWay}"
-                                     TextWrapping="Wrap"
                                      InputScope="Number"
                                      Header="Nº do item do pedido" />
                             <ComboBox Header="O valor do item..."

@@ -1,6 +1,7 @@
 ﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
+using NFeFacil.ViewModel;
 using NFeFacil.ViewModel.NotaFiscal;
 using NFeFacil.ViewModel.NotaFiscal.ImpostosProduto;
 using System.Collections.Generic;
@@ -27,7 +28,7 @@ namespace NFeFacil.View
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             var Produto = e.Parameter as DetalhesProdutos;
-            DataContext = new ViewModel.ProdutoCompletoDataContext(Produto);
+            DataContext = new ProdutoCompletoDataContext(Produto);
         }
 
         private Impostos ImpostosFiltrados
@@ -53,9 +54,9 @@ namespace NFeFacil.View
 
         private void Salvar_Click(object sender, RoutedEventArgs e)
         {
-            var data = DataContext as DetalhesProdutos;
-            data.impostos = ImpostosFiltrados;
-            CoreApplication.Properties.Add("ProdutoPendente", data);
+            var data = DataContext as ProdutoCompletoDataContext;
+            data.ProdutoCompleto.impostos = ImpostosFiltrados;
+            CoreApplication.Properties.Add("ProdutoPendente", data.ProdutoCompleto);
             Propriedades.Intercambio.Retornar();
         }
 

@@ -233,8 +233,8 @@
                                                                 Click="btnRemoverItemProdutos_Click" />
                                             </MenuFlyout>
                                         </StackPanel.ContextFlyout>
-                                        <TextBlock Text="{Binding Path=Produto.descricao, ConverterParameter={StaticResource LabelDescricao}, Converter={StaticResource textoLabel}}" />
-                                        <TextBlock Text="{Binding Path=Produto.quantidadeComercializada, ConverterParameter={StaticResource LabelQuantidade}, Converter={StaticResource textoLabel}}" />
+                                        <TextBlock Text="{Binding Path=Produto.Descricao, ConverterParameter={StaticResource LabelDescricao}, Converter={StaticResource textoLabel}}" />
+                                        <TextBlock Text="{Binding Path=Produto.QuantidadeComercializada, ConverterParameter={StaticResource LabelQuantidade}, Converter={StaticResource textoLabel}}" />
                                     </StackPanel>
                                 </DataTemplate>
                             </ListView.ItemTemplate>

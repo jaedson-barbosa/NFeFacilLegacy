@@ -80,11 +80,11 @@
                         </ItemsControl>
                         <ItemsControl Style="{StaticResource ItensResponsivos}">
                             <TextBox Header="Série *"
-                                     Text="{Binding Ident.serie, Mode=TwoWay}" />
+                                     Text="{Binding Ident.Serie, Mode=TwoWay}" />
                             <TextBox Header="Número *"
-                                     Text="{Binding Ident.numero, Mode=TwoWay}" />
+                                     Text="{Binding Ident.Numero, Mode=TwoWay}" />
                             <ComboBox Header="Tipo de operação *"
-                                      SelectedIndex="{Binding Ident.tipoOperação, Mode=TwoWay}">
+                                      SelectedIndex="{Binding Ident.TipoOperação, Mode=TwoWay}">
                                 <ComboBoxItem Content="Entrada" />
                                 <ComboBoxItem Content="Saída" />
                             </ComboBox>
@@ -96,12 +96,12 @@
                                 <ComboBoxItem Content="Devolução de mercadoria" />
                             </ComboBox>
                             <ComboBox Header="Consumidor final *"
-                                      SelectedIndex="{Binding Ident.operaçãoConsumidorFinal, Mode=TwoWay}">
+                                      SelectedIndex="{Binding Ident.OperaçãoConsumidorFinal, Mode=TwoWay}">
                                 <ComboBoxItem Content="Não" />
                                 <ComboBoxItem Content="Sim" />
                             </ComboBox>
                             <ComboBox Header="Tipo de atendimento *"
-                                      SelectedIndex="{Binding Ident.indicadorPresença, Mode=TwoWay}">
+                                      SelectedIndex="{Binding Ident.IndicadorPresença, Mode=TwoWay}">
                                 <ComboBoxItem Content="Não se aplica" />
                                 <ComboBoxItem Content="Presencial" />
                                 <ComboBoxItem Content="Não presencial - Internet" />
@@ -112,7 +112,7 @@
                                       SelectedItem="{Binding Path=UFEscolhida, Mode=TwoWay}"
                                       PlaceholderText="Estado" />
                             <ComboBox Header="Forma de pagamento *"
-                                      SelectedIndex="{Binding Ident.formaPagamento, Mode=TwoWay}">
+                                      SelectedIndex="{Binding Ident.FormaPagamento, Mode=TwoWay}">
                                 <ComboBoxItem Content="Pagamento à vista" />
                                 <ComboBoxItem Content="Pagamento a prazo" />
                                 <ComboBoxItem Content="Outros" />
@@ -129,7 +129,7 @@
                                 <ComboBoxItem Content="Operação com o exterior" />
                             </ComboBox>
                             <TextBox Header="Natureza da operação *"
-                                     Text="{Binding Ident.naturezaDaOperação, Mode=TwoWay}" />
+                                     Text="{Binding Ident.NaturezaDaOperação, Mode=TwoWay}" />
                             <ComboBox Header="Município *"
                                       ItemsSource="{Binding Municipios}"
                                       SelectedItem="{Binding Path=MunicipioEscolhido, Mode=TwoWay}"
@@ -212,7 +212,7 @@
                                   PlaceholderText="Escolha um Produto">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding descricao}" />
+                                    <TextBlock Text="{Binding Descricao}" />
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
@@ -385,7 +385,7 @@
                               Header="Modalidade do frete" />
                     <Pivot>
                         <PivotItem Header="Motorista">
-                            <DadosBase:TelaMotorista />
+                            <DadosBase:TelaMotorista DataContext="{Binding Motorista}" />
                         </PivotItem>
                         <PivotItem Header="Veículo">
                             <ScrollViewer VerticalScrollBarVisibility="Hidden">
@@ -394,7 +394,7 @@
                                                 Margin="2"
                                                 MinWidth="300">
                                         <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Veículo</TextBlock>
-                                        <TextBox Text="{Binding placa, Mode=TwoWay}"
+                                        <TextBox Text="{Binding Placa, Mode=TwoWay}"
                                                  Header="Placa" />
                                         <ComboBox ItemsSource="{Binding Source={StaticResource estados}, Path=Siglas}"
                                                   SelectedItem="{Binding Path=UF, Mode=TwoWay}"
@@ -416,7 +416,7 @@
                                                    Style="{StaticResource SubtitleTextBlockStyle}">Reboque</TextBlock>
                                         <StackPanel DataContext="{Binding NovoReboque}"
                                                     Grid.Row="1">
-                                            <TextBox Text="{Binding placa, Mode=TwoWay}"
+                                            <TextBox Text="{Binding Placa, Mode=TwoWay}"
                                                      Header="Placa" />
                                             <ComboBox ItemsSource="{Binding Source={StaticResource estados}, Path=Siglas}"
                                                       SelectedItem="{Binding Path=UF, Mode=TwoWay}"
@@ -435,7 +435,7 @@
                                                       SelectedIndex="{Binding IndexReboqueSelecionado, Mode=TwoWay}">
                                                 <ListView.ItemTemplate>
                                                     <DataTemplate>
-                                                        <TextBlock Text="{Binding placa, Mode=OneTime}" />
+                                                        <TextBlock Text="{Binding Placa, Mode=OneTime}" />
                                                     </DataTemplate>
                                                 </ListView.ItemTemplate>
                                             </ListView>
@@ -535,13 +535,13 @@
                                 Symbol="List" />
                 </PivotItem.Header>
                 <StackPanel DataContext="{Binding Cobranca}">
-                    <TextBox Text="{Binding Fat.nFat, Mode=TwoWay}"
+                    <TextBox Text="{Binding Fat.NFat, Mode=TwoWay}"
                              Header="Número" />
-                    <TextBox Text="{Binding Fat.vOrig, Mode=TwoWay}"
+                    <TextBox Text="{Binding Fat.VOrig, Mode=TwoWay}"
                              Header="Valor original" />
-                    <TextBox Text="{Binding Fat.vDesc, Mode=TwoWay}"
+                    <TextBox Text="{Binding Fat.VDesc, Mode=TwoWay}"
                              Header="Valor do desconto" />
-                    <TextBox Text="{Binding Fat.vLiq, Mode=TwoWay}"
+                    <TextBox Text="{Binding Fat.VLiq, Mode=TwoWay}"
                              Header="Valor líquido" />
                     <Grid>
                         <Grid.RowDefinitions>
@@ -554,13 +554,13 @@
                         </Grid.ColumnDefinitions>
                         <StackPanel DataContext="{Binding NovaDuplicata}"
                                     Grid.RowSpan="2">
-                            <TextBox Text="{Binding _Duplicata.nDup, Mode=TwoWay}"
+                            <TextBox Text="{Binding _Duplicata.NDup, Mode=TwoWay}"
                                      Header="Número" />
                             <DatePicker Date="{Binding DVenc, Mode=TwoWay}"
                                         Header="Data vencimento"
                                         MinWidth="160"
                                         HorizontalAlignment="Stretch" />
-                            <TextBox Text="{Binding _Duplicata.dDup, Mode=TwoWay}"
+                            <TextBox Text="{Binding _Duplicata.DDup, Mode=TwoWay}"
                                      Header="Valor" />
                         </StackPanel>
                         <ListView ItemsSource="{Binding Duplicatas}"
@@ -618,11 +618,11 @@
                                 Grid.Column="1"
                                 Margin="2">
                         <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Compra</TextBlock>
-                        <TextBox Text="{Binding xNEmp, Mode=TwoWay}"
+                        <TextBox Text="{Binding XNEmp, Mode=TwoWay}"
                                  Header="Nota de empenho" />
-                        <TextBox Text="{Binding xPed, Mode=TwoWay}"
+                        <TextBox Text="{Binding XPed, Mode=TwoWay}"
                                  Header="Pedido" />
-                        <TextBox Text="{Binding xCont, Mode=TwoWay}"
+                        <TextBox Text="{Binding XCont, Mode=TwoWay}"
                                  Header="Contrato" />
                     </StackPanel>
                 </Grid>

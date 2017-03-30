@@ -16,7 +16,7 @@
     <ScrollViewer VerticalScrollBarVisibility="Hidden">
         <StackPanel>
             <ItemsControl Style="{StaticResource ItensResponsivos}">
-                <TextBox Text="{Binding Motorista.nome, Mode=TwoWay}"
+                <TextBox Text="{Binding Motorista.Nome, Mode=TwoWay}"
                          InputScope="Text"
                          Header="Nome/Razão social *" />
                 <ComboBox SelectedIndex="{Binding TipoDocumento, Mode=TwoWay}"
@@ -35,7 +35,7 @@
                               HorizontalAlignment="Right"
                               VerticalAlignment="Top" />
                     <TextBox x:Name="txtIE"
-                             Text="{Binding Motorista.inscricaoEstadual, Mode=TwoWay}"
+                             Text="{Binding Motorista.InscricaoEstadual, Mode=TwoWay}"
                              InputScope="Number"
                              Header="Inscrição estadual" />
                 </Grid>
@@ -47,9 +47,9 @@
                           SelectedItem="{Binding Path=UFEscolhida, Mode=TwoWay}"
                           Header="Estado" />
                 <ComboBox ItemsSource="{Binding Municipios, Mode=OneWay}"
-                          SelectedItem="{Binding Path=Motorista.xMun, Mode=TwoWay}"
+                          SelectedItem="{Binding Path=Motorista.XMun, Mode=TwoWay}"
                           Header="Município" />
-                <TextBox Text="{Binding Path=Motorista.xEnder, Mode=TwoWay}"
+                <TextBox Text="{Binding Path=Motorista.XEnder, Mode=TwoWay}"
                          InputScope="Text"
                          Header="Logradouro" />
             </ItemsControl>

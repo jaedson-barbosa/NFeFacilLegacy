@@ -9,6 +9,7 @@ using NFeFacil.Validacao;
 using NFeFacil.ViewModel.NotaFiscal;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -32,6 +33,7 @@ namespace NFeFacil.View
         public EmitenteDataContext Emitente { get; set; }
         public ClienteDataContext Destinatario { get; set; }
         public List<DetalhesProdutos> Produtos { get; set; }
+        public ObservableCollection<DetalhesProdutos> ProdutosObservableCollection => Produtos.GerarObs();
         public TransporteDataContext TransporteNota { get; set; }
         public CobrancaDataContext Cobranca { get; set; }
         public InformacoesAdicionais InformacoesAdicionais { get; set; }

@@ -13,7 +13,7 @@ namespace NFeFacil.ViewModel.NotaFiscal
     {
         public Transporte Transp { get; }
 
-        public MotoristaDataContext Transporta
+        public MotoristaDataContext Motorista
         {
             get
             {

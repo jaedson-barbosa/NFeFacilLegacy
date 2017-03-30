@@ -58,18 +58,18 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTotal
                         else { }
                     }
                 }
-                if (prod.inclusãoTotal == 1 && !temISSQN)
+                if (prod.InclusãoTotal == 1 && !temISSQN)
                 {
-                    vProd += prod.valorTotal;
-                    vFrete += prod.frete.ToDouble();
-                    vSeg += prod.seguro.ToDouble();
-                    vDesc += prod.desconto.ToDouble();
-                    vOutro += prod.despesasAcessórias.ToDouble();
+                    vProd += prod.ValorTotal;
+                    vFrete += prod.Frete.ToDouble();
+                    vSeg += prod.Seguro.ToDouble();
+                    vDesc += prod.Desconto.ToDouble();
+                    vOutro += prod.DespesasAcessórias.ToDouble();
                     vTotTrib += Produto.impostos.vTotTrib.ToDouble();
                 }
                 else if (temISSQN)
                 {
-                    vProdISSQN += prod.valorTotal;
+                    vProdISSQN += prod.ValorTotal;
                 }
                 else { }
             }

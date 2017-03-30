@@ -14,7 +14,7 @@ namespace NFeFacil.ViewModel
 {
     public sealed class ProdutoCompletoDataContext : INotifyPropertyChanged
     {
-        private DetalhesProdutos ProdutoCompleto { get; }
+        public DetalhesProdutos ProdutoCompleto { get; }
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(params string[] parametros)
@@ -26,7 +26,7 @@ namespace NFeFacil.ViewModel
         }
 
         public ObservableCollection<DeclaracaoImportacao> ListaDI => ProdutoCompleto.Produto.DI.GerarObs();
-        public ObservableCollection<GrupoExportacao> ListaGE => ProdutoCompleto.Produto.grupoExportação.GerarObs();
+        public ObservableCollection<GrupoExportacao> ListaGE => ProdutoCompleto.Produto.GrupoExportação.GerarObs();
 
         public bool AtivadopvtICMS { get; private set; } = true;
         public bool AtivadopvtISSQN { get; private set; } = false;
@@ -89,7 +89,7 @@ namespace NFeFacil.ViewModel
                 }
                 ProdutoCompleto.Produto.medicamentos = new List<Medicamento>();
                 ProdutoCompleto.Produto.armas = new List<Arma>();
-                ProdutoCompleto.Produto.nRECOPI = null;
+                ProdutoCompleto.Produto.NRECOPI = null;
                 OnPropertyChanged("Produto.veicProd", "Produto.comb", "Produto.nRECOPI", "ListaMedicamentos", "ListaArmamento");
             }
         }
@@ -157,7 +157,7 @@ namespace NFeFacil.ViewModel
             caixa.PrimaryButtonClick += (x, y) =>
             {
                 var data = x.DataContext as DeclaracaoExportacaoDataContext;
-                ProdutoCompleto.Produto.grupoExportação.Add(data.Declaracao);
+                ProdutoCompleto.Produto.GrupoExportação.Add(data.Declaracao);
                 OnPropertyChanged(nameof(ListaGE));
             };
             await caixa.ShowAsync();
@@ -171,7 +171,7 @@ namespace NFeFacil.ViewModel
 
         private void RemoverDeclaracaoExportacao(GrupoExportacao declaracao)
         {
-            ProdutoCompleto.Produto.grupoExportação.Remove(declaracao);
+            ProdutoCompleto.Produto.GrupoExportação.Remove(declaracao);
             OnPropertyChanged(nameof(ListaGE));
         }
 

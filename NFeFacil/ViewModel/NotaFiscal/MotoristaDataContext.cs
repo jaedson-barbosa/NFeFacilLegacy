@@ -64,7 +64,7 @@ namespace NFeFacil.ViewModel.NotaFiscal
         public int TipoDocumento { get; set; }
         public string Documento
         {
-            get { return Motorista.obterDocumento; }
+            get { return Motorista.Documento; }
             set
             {
                 switch ((TiposDocumento)TipoDocumento)

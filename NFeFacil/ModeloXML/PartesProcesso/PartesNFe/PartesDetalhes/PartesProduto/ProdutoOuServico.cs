@@ -10,32 +10,32 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
         public ProdutoOuServico(BaseProdutoOuServico other)
         {
             CFOP = other.CFOP;
-            codigoBarras = other.CodigoBarras;
-            codigoBarrasTributo = other.CodigoBarrasTributo;
-            codigoProduto = other.CodigoProduto;
-            descricao = other.Descricao;
+            CodigoBarras = other.CodigoBarras;
+            CodigoBarrasTributo = other.CodigoBarrasTributo;
+            CodigoProduto = other.CodigoProduto;
+            Descricao = other.Descricao;
             EXTIPI = other.EXTIPI;
             NCM = other.NCM;
-            unidadeComercializacao = other.UnidadeComercializacao;
-            unidadeTributacao = other.UnidadeTributacao;
-            valorUnitario = other.ValorUnitario;
-            valorUnitarioTributo = other.ValorUnitarioTributo;
+            UnidadeComercializacao = other.UnidadeComercializacao;
+            UnidadeTributacao = other.UnidadeTributacao;
+            ValorUnitario = other.ValorUnitario;
+            ValorUnitarioTributo = other.ValorUnitarioTributo;
         }
 
         /// <summary>
         /// Preencher com CFOP, caso se trate de itens não relacionados com mercadorias/produtos e que o contribuinte não possua codificação própria. Formato: ”CFOP9999”.
         /// </summary>
         [XmlElement(ElementName = "cProd")]
-        public string codigoProduto { get; set; }
+        public string CodigoProduto { get; set; }
 
         /// <summary>
         /// Não informar o conteúdo da TAG em caso de o Produto não possuir este código.
         /// </summary>
         [XmlElement(ElementName = "cEAN")]
-        public string codigoBarras { get; set; } = "";
+        public string CodigoBarras { get; set; } = "";
 
         [XmlElement(ElementName = "xProd")]
-        public string descricao { get; set; }
+        public string Descricao { get; set; }
 
         /// <summary>
         /// Obrigatória informação do NCM completo (8 dígitos).
@@ -66,78 +66,78 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
         /// Informar a unidade de comercialização do Produto.
         /// </summary>
         [XmlElement(ElementName = "uCom")]
-        public string unidadeComercializacao { get; set; }
+        public string UnidadeComercializacao { get; set; }
 
         /// <summary>
         /// Informar a quantidade de comercialização do Produto.
         /// </summary>
         [XmlElement(ElementName = "qCom")]
-        public double quantidadeComercializada { get; set; }
+        public double QuantidadeComercializada { get; set; }
 
         /// <summary>
         /// Informar o valor unitário de comercialização do Produto.
         /// </summary>
         [XmlElement(ElementName = "vUnCom")]
-        public double valorUnitario { get; set; }
+        public double ValorUnitario { get; set; }
 
         /// <summary>
         /// Valor Total Bruto dos Produtos ou Serviços.
         /// </summary>
         [XmlElement(ElementName = "vProd")]
-        public double valorTotal { get; set; }
+        public double ValorTotal { get; set; }
 
         /// <summary>
         /// GTIN (Global Trade Item Number) da unidade tributável, antigo código EAN ou código de barras.
         /// Não informar o conteúdo da TAG em caso de o Produto não possuir este código.
         /// </summary>
         [XmlElement(ElementName = "cEANTrib")]
-        public string codigoBarrasTributo { get; set; } = "";
+        public string CodigoBarrasTributo { get; set; } = "";
 
         /// <summary>
         /// Unidade Tributável.
         /// </summary>
         [XmlElement(ElementName = "uTrib")]
-        public string unidadeTributacao { get; set; }
+        public string UnidadeTributacao { get; set; }
 
         /// <summary>
         /// Informar a quantidade de tributação do Produto.
         /// </summary>
         [XmlElement(ElementName = "qTrib")]
-        public double quantidadeTributada { get; set; }
+        public double QuantidadeTributada { get; set; }
 
         /// <summary>
         /// Informar o valor unitário de tributação do Produto.
         /// </summary>
         [XmlElement(ElementName = "vUnTrib")]
-        public double valorUnitarioTributo { get; set; }
+        public double ValorUnitarioTributo { get; set; }
 
         /// <summary>
         /// (Opcional)
         /// Valor Total do Frete.
         /// </summary>
         [XmlElement(ElementName = "vFrete")]
-        public string frete { get; set; }
+        public string Frete { get; set; }
 
         /// <summary>
         /// (Opcional)
         /// Valor Total do Seguro.
         /// </summary>
         [XmlElement(ElementName = "vSeg")]
-        public string seguro { get; set; }
+        public string Seguro { get; set; }
 
         /// <summary>
         /// (Opcional)
         /// Valor do Desconto.
         /// </summary>
         [XmlElement(ElementName = "vDesc")]
-        public string desconto { get; set; }
+        public string Desconto { get; set; }
 
         /// <summary>
         /// (Opcional)
         /// Outras despesas acessórias.
         /// </summary>
         [XmlElement(ElementName = "vOutro")]
-        public string despesasAcessórias { get; set; }
+        public string DespesasAcessórias { get; set; }
 
         /// <summary>
         /// valor total da NF-e (vProd).
@@ -145,7 +145,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
         /// 1=Valor do item(vProd) compõe o valor total da NF-e.
         /// </summary>
         [XmlElement(ElementName = "indTot")]
-        public int inclusãoTotal { get; set; } = 1;
+        public int InclusãoTotal { get; set; } = 1;
 
         /// <summary>
         /// (Opcional)
@@ -159,26 +159,26 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
         /// Grupo de informações de exportação para o item.
         /// </summary>
         [XmlElement("detExport")]
-        public List<GrupoExportacao> grupoExportação { get; set; } = new List<GrupoExportacao>();
+        public List<GrupoExportacao> GrupoExportação { get; set; } = new List<GrupoExportacao>();
 
         /// <summary>
         /// (Opcional)
         /// Número do Pedido de Compra
         /// </summary>
-        public string xPed { get; set; }
+        public string XPed { get; set; }
 
         /// <summary>
         /// (Opcional)
         /// Número do item do pedido de compra, o campo é de livre uso do emissor.
         /// </summary>
-        public string nItemPed { get; set; }
+        public string NItemPed { get; set; }
 
         /// <summary>
         /// (Opcional)
         /// Número de controle da FCI - Ficha de Conteúdo de Importação.
         /// Ex.: B01F70AF-10BF-4B1F-848C-65FF57F616FE
         /// </summary>
-        public string nFCI { get; set; }
+        public string NFCI { get; set; }
 
         public VeiculoNovo veicProd;
 
@@ -190,6 +190,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
 
         public Combustivel comb;
 
-        public string nRECOPI { get; set; }
+        [XmlElement("nRECOPI")]
+        public string NRECOPI { get; set; }
     }
 }

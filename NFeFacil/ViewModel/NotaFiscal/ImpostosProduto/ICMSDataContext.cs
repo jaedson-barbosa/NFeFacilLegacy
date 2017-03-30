@@ -15,7 +15,7 @@ namespace NFeFacil.ViewModel.NotaFiscal.ImpostosProduto
         {
             for (int i = 0; i < parametros.Length; i++)
             {
-                PropertyChanged(this, new PropertyChangedEventArgs(parametros[i]));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(parametros[i]));
             }
         }
 

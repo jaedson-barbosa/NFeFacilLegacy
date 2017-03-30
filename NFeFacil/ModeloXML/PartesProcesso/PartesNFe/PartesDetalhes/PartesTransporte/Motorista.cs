@@ -7,11 +7,11 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTrans
         public Motorista() : base() { }
         public Motorista(Motorista other)
         {
-            xEnder = other.xEnder;
-            xMun = other.xMun;
+            XEnder = other.XEnder;
+            XMun = other.XMun;
             UF = other.UF;
-            nome = other.nome;
-            inscricaoEstadual = other.inscricaoEstadual;
+            Nome = other.Nome;
+            InscricaoEstadual = other.InscricaoEstadual;
             CPF = other.CPF;
             CNPJ = other.CNPJ;
         }
@@ -20,21 +20,21 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTrans
         public string CNPJ { get; set; }
 
         [XmlElement(ElementName = "xNome")]
-        public string nome { get; set; }
+        public string Nome { get; set; }
 
         [XmlElement(ElementName = "IE")]
-        public string inscricaoEstadual { get; set; }
+        public string InscricaoEstadual { get; set; }
         /// <summary>
         /// (Opcional)
         /// endereco Completo.
         /// </summary>
-        public string xEnder { get; set; }
+        public string XEnder { get; set; }
 
         /// <summary>
         /// (Opcional)
         /// Nome do município.
         /// </summary>
-        public string xMun { get; set; }
+        public string XMun { get; set; }
 
         /// <summary>
         /// (Opcional)
@@ -44,13 +44,13 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTrans
         public string UF { get; set; }
 
         [XmlIgnore]
-        public string obterDocumento
+        public string Documento
         {
             get { return CNPJ ?? CPF; }
         }
 
         [XmlIgnore]
-        public TiposDocumento obterTipoDocumento
+        public TiposDocumento TipoDocumento
         {
             get
             {

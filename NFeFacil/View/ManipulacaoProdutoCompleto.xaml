@@ -31,60 +31,49 @@
                 <ScrollViewer VerticalScrollBarVisibility="Hidden">
                     <StackPanel>
                         <ItemsControl Style="{StaticResource ItensResponsivos}">
-                            <TextBox Text="{Binding quantidadeComercializada, Mode=TwoWay}"
+                            <TextBox Text="{Binding QuantidadeComercializada, Mode=TwoWay}"
                                      TextWrapping="Wrap"
                                      InputScope="Number"
-                                     Header="Qtd. comercial"
-                                     Margin="0,0,0,5" />
-                            <TextBox Text="{Binding seguro, Mode=TwoWay}"
+                                     Header="Qtd. comercial" />
+                            <TextBox Text="{Binding Seguro, Mode=TwoWay}"
                                      TextWrapping="Wrap"
                                      InputScope="Number"
-                                     Header="Seguro"
-                                     Margin="0,0,0,5" />
-                            <TextBox Text="{Binding frete, Mode=TwoWay}"
+                                     Header="Seguro" />
+                            <TextBox Text="{Binding Frete, Mode=TwoWay}"
                                      TextWrapping="Wrap"
                                      InputScope="Number"
-                                     Header="Frete"
-                                     Margin="0,0,0,5" />
-                            <TextBox Text="{Binding valorTotal, Mode=TwoWay}"
+                                     Header="Frete" />
+                            <TextBox Text="{Binding ValorTotal, Mode=TwoWay}"
                                      TextWrapping="Wrap"
                                      InputScope="Number"
-                                     Header="Total bruto"
-                                     Margin="0,0,0,5" />
-                            <TextBox Text="{Binding xPed, Mode=TwoWay}"
+                                     Header="Total bruto" />
+                            <TextBox Text="{Binding XPed, Mode=TwoWay}"
                                      TextWrapping="Wrap"
                                      InputScope="Number"
-                                     Header="Pedido de compra"
-                                     Margin="0,0,0,5" />
-                            <TextBox Text="{Binding quantidadeTributada, Mode=TwoWay}"
+                                     Header="Pedido de compra" />
+                            <TextBox Text="{Binding QuantidadeTributada, Mode=TwoWay}"
                                      TextWrapping="Wrap"
                                      InputScope="Number"
-                                     Header="Qtd. tributária"
-                                     Margin="0,0,0,5" />
-                            <TextBox Text="{Binding desconto, Mode=TwoWay}"
+                                     Header="Qtd. tributária" />
+                            <TextBox Text="{Binding Desconto, Mode=TwoWay}"
                                      TextWrapping="Wrap"
                                      InputScope="Number"
-                                     Header="Desconto"
-                                     Margin="0,0,0,5" />
-                            <TextBox Text="{Binding despesasAcessórias, Mode=TwoWay}"
+                                     Header="Desconto" />
+                            <TextBox Text="{Binding DespesasAcessórias, Mode=TwoWay}"
                                      TextWrapping="Wrap"
                                      InputScope="Number"
-                                     Header="Desp. acessórias"
-                                     Margin="0,0,0,5" />
-                            <TextBox Text="{Binding nFCI, Mode=TwoWay}"
+                                     Header="Desp. acessórias" />
+                            <TextBox Text="{Binding NFCI, Mode=TwoWay}"
                                      TextWrapping="Wrap"
                                      InputScope="Number"
-                                     Header="Nº de controle da FCI"
-                                     Margin="0,0,0,5" />
-                            <TextBox Text="{Binding nItemPed, Mode=TwoWay}"
+                                     Header="Nº de controle da FCI" />
+                            <TextBox Text="{Binding NItemPed, Mode=TwoWay}"
                                      TextWrapping="Wrap"
                                      InputScope="Number"
-                                     Header="Nº do item do pedido"
-                                     Margin="0,0,0,5" />
+                                     Header="Nº do item do pedido" />
                             <ComboBox Header="O valor do item..."
-                                      SelectedIndex="{Binding inclusãoTotal, Mode=TwoWay}"
-                                      HorizontalAlignment="Stretch"
-                                      Margin="0,0,0,5">
+                                      SelectedIndex="{Binding InclusãoTotal, Mode=TwoWay}"
+                                      HorizontalAlignment="Stretch">
                                 <ComboBoxItem>Não compõe o valor total da NF-e</ComboBoxItem>
                                 <ComboBoxItem>compõe o valor total da NF-e</ComboBoxItem>
                             </ComboBox>
@@ -109,7 +98,7 @@
                     </Grid.RowDefinitions>
                     <TextBlock Text="Valor total dos tributos"
                                VerticalAlignment="Center" />
-                    <TextBox Text="{Binding impostos.vTotTrib, Mode=TwoWay}"
+                    <TextBox Text="{Binding ProdutoCompleto.impostos.vTotTrib, Mode=TwoWay}"
                              InputScope="Number"
                              Grid.Column="1"
                              Margin="5,0,0,0" />
@@ -957,7 +946,7 @@
                 </Grid>
             </PivotItem>
             <PivotItem Header="Info adicional">
-                <TextBox Text="{Binding infAdProd, Mode=TwoWay}"
+                <TextBox Text="{Binding ProdutoCompleto.infAdProd, Mode=TwoWay}"
                          TextWrapping="Wrap" />
             </PivotItem>
             <PivotItem Header="Importação">
@@ -1300,7 +1289,7 @@
                             </StackPanel>
                         </Grid>
                         <TextBox Visibility="{Binding VisibilidadePapel, Converter={StaticResource visibilidade}}"
-                                 Text="{Binding Produto.nRECOPI, Mode=TwoWay}"
+                                 Text="{Binding ProdutoCompleto.Produto.nRECOPI, Mode=TwoWay}"
                                  Header="Número de RECOPI" />
                     </StackPanel>
                 </ScrollViewer>

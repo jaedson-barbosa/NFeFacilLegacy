@@ -16,8 +16,8 @@ namespace NFeFacil.Validacao
         {
             return new ValidarDados().ValidarTudo(log,
                 new ConjuntoAnalise(string.IsNullOrEmpty(Mot.UF), "Não foi definido uma UF"),
-                new ConjuntoAnalise(string.IsNullOrEmpty(Mot.xMun), "Não foi definido um município"),
-                new ConjuntoAnalise(string.IsNullOrEmpty(Mot.nome), "Não foi informado o nome do motorista"));
+                new ConjuntoAnalise(string.IsNullOrEmpty(Mot.XMun), "Não foi definido um município"),
+                new ConjuntoAnalise(string.IsNullOrEmpty(Mot.Nome), "Não foi informado o nome do motorista"));
         }
     }
 }

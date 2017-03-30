@@ -14,11 +14,11 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTotal
         /// <param name="produtos">Lista com os produtos</param>
         public ICMSTot(IEnumerable<DetalhesProdutos> produtos)
         {
-            foreach (var produto in produtos)
+            foreach (var Produto in produtos)
             {
                 var temISSQN = false;
-                var prod = produto.produto;
-                foreach (var imposto in produto.impostos.impostos)
+                var prod = Produto.Produto;
+                foreach (var imposto in Produto.impostos.impostos)
                 {
                     if (imposto is ISSQN)
                     {
@@ -65,7 +65,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTotal
                     vSeg += prod.seguro.ToDouble();
                     vDesc += prod.desconto.ToDouble();
                     vOutro += prod.despesasAcessórias.ToDouble();
-                    vTotTrib += produto.impostos.vTotTrib.ToDouble();
+                    vTotTrib += Produto.impostos.vTotTrib.ToDouble();
                 }
                 else if (temISSQN)
                 {

@@ -15,7 +15,7 @@ namespace NFeFacil.View
     /// </summary>
     public sealed partial class AdicionarProduto : Page, IEsconde
     {
-        private ProdutoDI produto;
+        private ProdutoDI Produto;
         private TipoOperacao tipoRequisitado;
         private ILog Log = new Popup();
 
@@ -27,25 +27,25 @@ namespace NFeFacil.View
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             var parametro = (GrupoViewBanco<ProdutoDI>)e.Parameter;
-            produto = parametro.ItemBanco ?? new ProdutoDI();
+            Produto = parametro.ItemBanco ?? new ProdutoDI();
             tipoRequisitado = parametro.OperacaoRequirida;
-            DataContext = produto;
+            DataContext = Produto;
         }
 
         private void Confirmar_Click(object sender, RoutedEventArgs e)
         {
-            if (new ValidadorProduto(produto).Validar(Log))
+            if (new ValidadorProduto(Produto).Validar(Log))
             {
                 using (var db = new AplicativoContext())
                 {
                     if (tipoRequisitado == TipoOperacao.Adicao)
                     {
-                        db.Add(produto);
+                        db.Add(Produto);
                         Log.Escrever(TitulosComuns.Sucesso, "Produto salvo com sucesso.");
                     }
                     else
                     {
-                        db.Update(produto);
+                        db.Update(Produto);
                         Log.Escrever(TitulosComuns.Sucesso, "Produto alterado com sucesso.");
                     }
                     db.SaveChanges();

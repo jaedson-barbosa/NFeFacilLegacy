@@ -75,7 +75,7 @@ namespace NFeFacil.ViewModel
                         var data = Convert.ToDateTime(det.identificação.DataHoraEmissão);
                         foreach (var prod in det.produtos)
                         {
-                            total[data.Month - 1].Quantidade += prod.produto.quantidadeComercializada;
+                            total[data.Month - 1].Quantidade += prod.Produto.quantidadeComercializada;
                         }
                         total[data.Month - 1].Total += det.total.ICMSTot.vNF;
                     }
@@ -108,7 +108,7 @@ namespace NFeFacil.ViewModel
                         tot.Nome = det.destinatário.nome;
                         foreach (var prod in det.produtos)
                         {
-                            tot.Quantidade += prod.produto.quantidadeComercializada;
+                            tot.Quantidade += prod.Produto.quantidadeComercializada;
                         }
                         tot.Total += det.total.ICMSTot.vNF;
                     }

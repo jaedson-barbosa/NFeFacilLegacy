@@ -12,7 +12,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
         public int número;
 
         [XmlElement(ElementName = "prod")]
-        public ProdutoOuServico produto { get; set; } = new ProdutoOuServico();
+        public ProdutoOuServico Produto { get; set; } = new ProdutoOuServico();
 
         [XmlElement(ElementName = "imposto", Namespace = "http://www.portalfiscal.inf.br/nfe")]
         public Impostos impostos { get; set; } = new Impostos();

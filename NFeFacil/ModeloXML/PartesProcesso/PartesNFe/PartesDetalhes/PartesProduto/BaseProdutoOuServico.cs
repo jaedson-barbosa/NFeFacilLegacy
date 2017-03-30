@@ -27,7 +27,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
         public string CodigoProduto { get; set; }
 
         /// <summary>
-        /// Não informar o conteúdo da TAG em caso de o produto não possuir este código.
+        /// Não informar o conteúdo da TAG em caso de o Produto não possuir este código.
         /// </summary>
         [XmlElement(ElementName = "cEAN")]
         public string CodigoBarras { get; set; } = "";
@@ -37,7 +37,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
 
         /// <summary>
         /// Obrigatória informação do NCM completo (8 dígitos).
-        /// Em caso de item de serviço ou item que não tenham produto (ex. transferência de crédito), informar o valor 00 (dois zeros).
+        /// Em caso de item de serviço ou item que não tenham Produto (ex. transferência de crédito), informar o valor 00 (dois zeros).
         /// </summary>
         public string NCM { get; set; }
 
@@ -53,20 +53,20 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
         public string CFOP { get; set; }
 
         /// <summary>
-        /// Informar a unidade de comercialização do produto.
+        /// Informar a unidade de comercialização do Produto.
         /// </summary>
         [XmlElement(ElementName = "uCom")]
         public string UnidadeComercializacao { get; set; }
 
         /// <summary>
-        /// Informar o valor unitário de comercialização do produto.
+        /// Informar o valor unitário de comercialização do Produto.
         /// </summary>
         [XmlElement(ElementName = "vUnCom")]
         public double ValorUnitario { get; set; }
 
         /// <summary>
         /// GTIN (Global Trade Item Number) da unidade tributável, antigo código EAN ou código de barras.
-        /// Não informar o conteúdo da TAG em caso de o produto não possuir este código.
+        /// Não informar o conteúdo da TAG em caso de o Produto não possuir este código.
         /// </summary>
         [XmlElement(ElementName = "cEANTrib")]
         public string CodigoBarrasTributo { get; set; } = "";
@@ -78,7 +78,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
         public string UnidadeTributacao { get; set; }
 
         /// <summary>
-        /// Informar o valor unitário de tributação do produto.
+        /// Informar o valor unitário de tributação do Produto.
         /// </summary>
         [XmlElement(ElementName = "vUnTrib")]
         public double ValorUnitarioTributo { get; set; }

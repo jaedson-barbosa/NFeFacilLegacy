@@ -10,18 +10,18 @@ namespace NFeFacil.ImportacaoParaBanco
     {
         private string[] Extensão;
 
-        public Importacao(params string[] extensão)
+        protected Importacao(params string[] extensão)
         {
             Extensão = extensão;
         }
 
-        public async Task<StorageFile> ImportarArquivo()
+        protected async Task<StorageFile> ImportarArquivo()
         {
             var importar = CriarImportador();
             return await importar.PickSingleFileAsync();
         }
 
-        public async Task<IReadOnlyList<StorageFile>> ImportarArquivos()
+        protected async Task<IReadOnlyList<StorageFile>> ImportarArquivos()
         {
             var importar = CriarImportador();
             return await importar.PickMultipleFilesAsync();

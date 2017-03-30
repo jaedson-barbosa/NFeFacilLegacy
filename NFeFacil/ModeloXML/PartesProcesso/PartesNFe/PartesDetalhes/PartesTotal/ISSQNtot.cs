@@ -14,10 +14,10 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTotal
         /// <param name="produtos">Lista com os produtos</param>
         public ISSQNtot(IEnumerable<DetalhesProdutos> produtos)
         {
-            foreach (var produto in produtos)
+            foreach (var Produto in produtos)
             {
-                var prod = produto.produto;
-                foreach (var imposto in produto.impostos.impostos)
+                var prod = Produto.Produto;
+                foreach (var imposto in Produto.impostos.impostos)
                 {
                     if (imposto is ISSQN)
                     {

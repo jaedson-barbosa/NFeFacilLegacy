@@ -1,0 +1,39 @@
+﻿table,
+tbody {
+  width: 100%;
+}
+table {
+  border: 1px solid #000000;
+  border-collapse: collapse;
+}
+.sem-bordas {
+  border: none !important;
+}
+.sem-bordas-laterais {
+  border-left: none !important;
+  border-right: none !important;
+}
+.sem-borda-direita {
+  border-right: none !important;
+}
+.sem-borda-esquerda {
+  border-left: none !important;
+}
+.sem-borda-superior {
+  border-top: none;
+}
+.sem-borda-superior td {
+  border-top: none !important;
+}
+.sem-borda-superior-inferior {
+  border-top: none !important;
+  border-bottom: none !important;
+}
+.sem-borda-superior-inferior td {
+  border-top: none !important;
+  border-bottom: none !important;
+}
+.caixa {
+  border: 1px solid #000000;
+  padding: 0.03cm;
+}

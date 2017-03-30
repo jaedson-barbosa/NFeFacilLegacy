@@ -2,7 +2,7 @@
 {
     /// <summary>
     /// Grupo COFINS Substituição Tributária.
-    /// Só deve ser informado se o produto for sujeito a COFINS por ST (CST = 05).
+    /// Só deve ser informado se o Produto for sujeito a COFINS por ST (CST = 05).
     /// </summary>
     public class COFINSST : Imposto
     {

@@ -93,7 +93,7 @@ namespace NFeFacil.View
                 var esconder = FramePrincipal.Content as IEsconde;
                 await esconder.EsconderAsync();
             }
-            Propriedades.Intercambio.AbrirFunçao(tela);
+            Propriedades.Intercambio.AbrirFunçaoAsync(tela);
             ultimoIndex = IndexHamburguer;
         }
     }

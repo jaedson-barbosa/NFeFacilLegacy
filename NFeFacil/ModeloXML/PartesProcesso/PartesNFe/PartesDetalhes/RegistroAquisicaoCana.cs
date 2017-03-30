@@ -52,17 +52,17 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
         /// Grupo Fornecimento diário de cana.
         /// </summary>
         [XmlElement(nameof(forDia))]
-        public List<FornecimentoDiário> forDia= new List<FornecimentoDiário>();
+        public List<FornecimentoDiario> forDia= new List<FornecimentoDiario>();
 
         /// <summary>
         /// (Opcional)
         /// Grupo Deduções – Taxas e Contribuições.
         /// </summary>
         [XmlElement(nameof(deduc))]
-        public List<Deduções> deduc = new List<Deduções>();
+        public List<Deducoes> deduc = new List<Deducoes>();
     }
 
-    public sealed class FornecimentoDiário
+    public sealed class FornecimentoDiario
     {
         /// <summary>
         /// Dia.
@@ -75,7 +75,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
         public string qtde { get; set; }
     }
 
-    public sealed class Deduções
+    public sealed class Deducoes
     {
         /// <summary>
         /// Descrição da Dedução.

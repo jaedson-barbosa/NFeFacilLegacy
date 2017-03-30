@@ -4,16 +4,14 @@ using Windows.UI.Xaml;
 
 namespace NFeFacil.ViewModel
 {
-    public sealed class ComandoComParametros<Parametro> : ICommand
+    public sealed class ComandoComParametros<Parametro, ProcessoPropriedades> : ICommand where ProcessoPropriedades : IObterPropriedade<Parametro>, new()
     {
         private Action<Parametro> _action;
-        private IObterPropriedade<Parametro> _processarEntrada;
+        private IObterPropriedade<Parametro> _processarEntrada = new ProcessoPropriedades();
 
-        public ComandoComParametros(Action<Parametro> action,
-            IObterPropriedade<Parametro> processarEntrada)
+        public ComandoComParametros(Action<Parametro> action)
         {
             _action = action;
-            _processarEntrada = processarEntrada;
         }
 
         public event EventHandler CanExecuteChanged;
@@ -27,18 +25,14 @@ namespace NFeFacil.ViewModel
         Retorno ObterPropriedade(object elemento);
     }
 
-    public struct ObterDataContext<Parametro> : IObterPropriedade<Parametro>
+    public struct ObterDataContext<Retorno> : IObterPropriedade<Retorno>
     {
-        public Parametro ObterPropriedade(object elemento)
+        public Retorno ObterPropriedade(object elemento)
         {
-            if (!(elemento is FrameworkElement)) throw new ArgumentException();
-            var contexto = (elemento as FrameworkElement).DataContext;
-            return (Parametro)contexto;
+            if (elemento is FrameworkElement ok) return (Retorno)ok.DataContext;
+            else throw new ArgumentException();
         }
 
-        public bool TipoEsperado(object elemento)
-        {
-            return elemento is FrameworkElement;
-        }
+        public bool TipoEsperado(object elemento) => elemento is FrameworkElement;
     }
 }

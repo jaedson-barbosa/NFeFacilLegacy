@@ -10,7 +10,7 @@
                PrimaryButtonText="Adicionar"
                SecondaryButtonText="Cancelar">
     <ContentDialog.DataContext>
-        <detalhes:Deduções />
+        <detalhes:Deducoes />
     </ContentDialog.DataContext>
     <StackPanel>
         <TextBox Text="{Binding xDed, Mode=TwoWay}"

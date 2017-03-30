@@ -9,7 +9,7 @@
                PrimaryButtonText="Adicionar"
                SecondaryButtonText="Cancelar">
     <ContentDialog.DataContext>
-        <detalhes:FornecimentoDiário />
+        <detalhes:FornecimentoDiario />
     </ContentDialog.DataContext>
     <StackPanel>
         <TextBox Text="{Binding dia, Mode=TwoWay}"

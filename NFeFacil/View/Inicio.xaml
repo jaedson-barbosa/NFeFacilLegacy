@@ -25,9 +25,9 @@
             <controles:ItemPadrãoSymbol x:Name="GerenciarDadosBase"
                                         Símbolo="Manage"
                                         Título="Gerenciar dados base"
-                                        Descrição="Gerencie as informações fundamentais para a criação das notas fiscais, que são: Emissor, cliente, transportador e produto."
+                                        Descrição="Gerencie as informações fundamentais para a criação das notas fiscais, que são: Emissor, cliente, transportador e Produto."
                                         Tapped="AbrirFunção" />
-            <controles:ItemPadrãoSymbol x:Name="TelaNotaFiscal"
+            <controles:ItemPadrãoSymbol x:Name="ManipulacaoNotaFiscal"
                                         Símbolo="NewFolder"
                                         Título="Emitir nova nota"
                                         Descrição="Parte principal da aplicação. Aqui você pode criar uma nova nova fiscal e, posteriormente, transmití-la, imprimí-la e salvá-la."

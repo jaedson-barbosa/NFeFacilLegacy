@@ -31,7 +31,7 @@ namespace NFeFacil.View
 
         private void Adicionar_Click(object sender, RoutedEventArgs e)
         {
-            Propriedades.Intercambio.AbrirFunçao($"Adicionar{DescobrirTela()}");
+            Propriedades.Intercambio.AbrirFunçaoAsync($"Adicionar{DescobrirTela()}");
         }
 
         private void Deletar_Click(object sender, RoutedEventArgs e)
@@ -72,10 +72,10 @@ namespace NFeFacil.View
                         else erro = true;
                         break;
                     case Pivôs.Produto:
-                        var produto = lstProdutos.SelectedItem as ProdutoDI;
-                        if (produto != null)
+                        var Produto = lstProdutos.SelectedItem as ProdutoDI;
+                        if (Produto != null)
                         {
-                            db.Remove(produto);
+                            db.Remove(Produto);
                             db.SaveChanges();
                             lstProdutos.ItemsSource = db.Produtos.ToList();
                         }
@@ -94,28 +94,28 @@ namespace NFeFacil.View
             switch (DescobrirTela())
             {
                 case Pivôs.Emitente:
-                    Propriedades.Intercambio.AbrirFunçao(typeof(AdicionarEmitente), new GrupoViewBanco<EmitenteDI>
+                    Propriedades.Intercambio.AbrirFunçaoAsync(typeof(AdicionarEmitente), new GrupoViewBanco<EmitenteDI>
                     {
                         ItemBanco = lstEmitentes.SelectedItem as EmitenteDI,
                         OperacaoRequirida = TipoOperacao.Edicao
                     });
                     break;
                 case Pivôs.Destinatario:
-                    Propriedades.Intercambio.AbrirFunçao(typeof(AdicionarDestinatario), new GrupoViewBanco<ClienteDI>
+                    Propriedades.Intercambio.AbrirFunçaoAsync(typeof(AdicionarDestinatario), new GrupoViewBanco<ClienteDI>
                     {
                         ItemBanco = lstDestinatários.SelectedItem as ClienteDI,
                         OperacaoRequirida = TipoOperacao.Edicao
                     });
                     break;
                 case Pivôs.Motorista:
-                    Propriedades.Intercambio.AbrirFunçao(typeof(AdicionarMotorista), new GrupoViewBanco<MotoristaDI>
+                    Propriedades.Intercambio.AbrirFunçaoAsync(typeof(AdicionarMotorista), new GrupoViewBanco<MotoristaDI>
                     {
                         ItemBanco = lstMotoristas.SelectedItem as MotoristaDI,
                         OperacaoRequirida = TipoOperacao.Edicao
                     });
                     break;
                 case Pivôs.Produto:
-                    Propriedades.Intercambio.AbrirFunçao(typeof(AdicionarProduto), new GrupoViewBanco<ProdutoDI>
+                    Propriedades.Intercambio.AbrirFunçaoAsync(typeof(AdicionarProduto), new GrupoViewBanco<ProdutoDI>
                     {
                         ItemBanco = lstProdutos.SelectedItem as ProdutoDI,
                         OperacaoRequirida = TipoOperacao.Edicao

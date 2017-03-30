@@ -5,7 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
 
-namespace NFeFacil.ViewModel.NotaFiscal
+namespace NFeFacil.ViewModel.PartesProdutoCompleto
 {
     public class DeclaracaoImportacaoDataContext : INotifyPropertyChanged
     {

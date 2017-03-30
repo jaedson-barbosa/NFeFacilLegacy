@@ -91,6 +91,7 @@
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <PRIResource Include="Cadeias de caracteres\pt-BR\Resources.resw" />
+    <Content Include="DANFE\html\code128.ttf" />
     <None Include="project.json" />
     <None Include="Properties\ServiceReferences.Designer.ClientConfig" />
   </ItemGroup>
@@ -98,6 +99,25 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DANFE\Gerenciadores\GerenciadorExportacao.cs" />
+    <Compile Include="DANFE\Gerenciadores\GerenciadorImpressao.cs" />
+    <Compile Include="DANFE\Gerenciadores\GerenciadorWebView.cs" />
+    <Compile Include="DANFE\Modelos\Global\DadosAdicionais.cs" />
+    <Compile Include="DANFE\Modelos\Global\DadosCabecalho.cs" />
+    <Compile Include="DANFE\Modelos\Global\DadosCliente.cs" />
+    <Compile Include="DANFE\Modelos\Global\DadosDuplicata.cs" />
+    <Compile Include="DANFE\Modelos\Global\DadosImposto.cs" />
+    <Compile Include="DANFE\Modelos\Global\DadosMotorista.cs" />
+    <Compile Include="DANFE\Modelos\Global\DadosNFe.cs" />
+    <Compile Include="DANFE\Modelos\Global\DadosProduto.cs" />
+    <Compile Include="DANFE\Modelos\Local\DadosOutrasPaginas.cs" />
+    <Compile Include="DANFE\Modelos\Local\DadosPrimeiraPagina.cs" />
+    <Compile Include="DANFE\Modelos\Local\Geral.cs" />
+    <Compile Include="DANFE\Processamento\ConexãoDados.cs" />
+    <Compile Include="DANFE\Processamento\Dimensoes.cs" />
+    <Compile Include="DANFE\Processamento\NFeToDANFE.cs" />
+    <Compile Include="DANFE\Processamento\ViewDados.cs" />
+    <Compile Include="DANFE\Processamento\ViewUI.cs" />
     <Compile Include="GrupoViewBanco.cs" />
     <Compile Include="ImportacaoParaBanco\Importacao.cs" />
     <Compile Include="ImportacaoParaBanco\ImportarDadoBase.cs" />
@@ -113,6 +133,7 @@
       <DependentUpon>20170328172532_Teste2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\AplicativoContextModelSnapshot.cs" />
+    <Compile Include="ViewModel\ProdutoCompletoDataContext.cs" />
     <Compile Include="View\AdicionarDestinatario.xaml.cs">
       <DependentUpon>AdicionarDestinatario.xaml</DependentUpon>
     </Compile>
@@ -132,6 +153,13 @@
     <Compile Include="View\IEsconde.cs" />
     <Compile Include="IntercambioTelas.cs" />
     <Compile Include="View\IValida.cs" />
+    <Compile Include="View\ManipulacaoNotaFiscal.xaml.cs">
+      <DependentUpon>ManipulacaoNotaFiscal.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ManipulacaoProdutoCompleto.xaml.cs">
+      <DependentUpon>ManipulacaoProdutoCompleto.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\NotaComDados.cs" />
     <Compile Include="View\QRCode.cs" />
     <Compile Include="Propriedades.cs" />
     <Compile Include="Sincronizacao\RegistrarCliente.cs" />
@@ -154,8 +182,8 @@
     <Compile Include="ViewModel\Converters\BoolToVisibility.cs" />
     <Compile Include="ViewModel\Converters\TextoComLabel.cs" />
     <Compile Include="ViewModel\DadosEstadosParaView.cs" />
-    <Compile Include="ViewModel\NotaFiscal\DeclaracaoExportacaoDataContext.cs" />
-    <Compile Include="ViewModel\NotaFiscal\DeclaracaoImportacaoDataContext.cs" />
+    <Compile Include="ViewModel\PartesProdutoCompleto\DeclaracaoExportacaoDataContext.cs" />
+    <Compile Include="ViewModel\PartesProdutoCompleto\DeclaracaoImportacaoDataContext.cs" />
     <Compile Include="ViewModel\NotaFiscal\DuplicataDataContext.cs" />
     <Compile Include="ViewModel\NotaFiscal\EmitenteDataContext.cs" />
     <Compile Include="Extensoes.cs" />
@@ -309,7 +337,6 @@
     <Compile Include="ViewModel\NotaFiscal\MotoristaDataContext.cs" />
     <Compile Include="PastaNotasFiscais.cs" />
     <Compile Include="ViewModel\NotaFiscal\ImpostosProduto\PISDataContext.cs" />
-    <Compile Include="ViewModel\NotaFiscal\ProdutoEspecificoDataContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ItensBD\ResultadoSincronizacaoCliente.cs" />
     <Compile Include="ItensBD\ResultadoSincronizacaoServidor.cs" />
@@ -373,6 +400,9 @@
     <Compile Include="View\TelasDadosBase\TelaProduto.xaml.cs">
       <DependentUpon>TelaProduto.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ViewDANFE.xaml.cs">
+      <DependentUpon>ViewDANFE.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WebService\AutorizarNota\CorpoRequest.cs" />
     <Compile Include="WebService\AutorizarNota\CorpoResponse.cs" />
     <Compile Include="WebService\AutorizarNota\Gerenciador.cs" />
@@ -405,6 +435,14 @@
   <ItemGroup>
     <EmbeddedResource Include="IBGE\Estados.xml" />
     <EmbeddedResource Include="IBGE\Municipios.xml" />
+    <Content Include="DANFE\html\DadosDANFE.js" />
+    <Content Include="DANFE\html\DANFE.html" />
+    <Content Include="DANFE\html\Dimensões.css" />
+    <Content Include="DANFE\html\Elementos.css" />
+    <Content Include="DANFE\html\Fontes.css" />
+    <Content Include="DANFE\html\Pagina.css" />
+    <Content Include="DANFE\html\Pagina.html" />
+    <Content Include="DANFE\html\Tabela.css" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -511,6 +549,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="View\ManipulacaoNotaFiscal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ManipulacaoProdutoCompleto.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\TelasDadosBase\TelaDestinatario.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -526,6 +572,10 @@
     <Page Include="View\TelasDadosBase\TelaProduto.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\ViewDANFE.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

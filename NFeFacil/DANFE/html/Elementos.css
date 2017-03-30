@@ -1,0 +1,29 @@
+﻿.bloco {
+  margin-bottom: 0.2cm;
+}
+.bloco .campo {
+  vertical-align: top;
+  margin: 0;
+  padding: 0 0.15cm;
+  border: 1px solid #000000;
+  border-collapse: collapse;
+}
+.bloco .campo .conteudo {
+  width: 100%;
+  margin: 0.15cm 0 0 0;
+  display: block;
+}
+.bloco .campo .conteudo.duas-coluna {
+  width: 45%;
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+}
+.bloco .campo .conteudo.tres-colunas {
+  width: 30%;
+  display: inline-block;
+}
+.bloco .picote {
+  border: none;
+  border-bottom: 1px dashed #000000;
+}

@@ -3,14 +3,14 @@
     public sealed class Combustivel
     {
         /// <summary>
-        /// Código de produto da ANP.
+        /// Código de Produto da ANP.
         /// Utilizar a codificação de produtos do SIMP.
         /// </summary>
         public ulong cProdANP { get; set; }
 
         /// <summary>
         /// (Opcional)
-        /// Percentual de Gás Natural para o produto GLP.
+        /// Percentual de Gás Natural para o Produto GLP.
         /// </summary>
         public string pMixGN { get; set; }
 

@@ -28,7 +28,7 @@ namespace NFeFacil.ItensBD
                 NomeEmitente = nota.Informações.emitente.nome,
                 DataEmissao = nota.Informações.identificação.DataHoraEmissão,
                 NumeroNota = nota.Informações.identificação.Numero.ToString(),
-                Status = (int)StatusNFe.Validado
+                Status = nota.Signature!= null && nota.Signature.HasElements ? (int)StatusNFe.Assinado : (int)StatusNFe.Salvo
             };
         }
 
@@ -41,7 +41,7 @@ namespace NFeFacil.ItensBD
                 NomeEmitente = nota.NFe.Informações.emitente.nome,
                 DataEmissao = nota.NFe.Informações.identificação.DataHoraEmissão,
                 NumeroNota = nota.NFe.Informações.identificação.Numero.ToString(),
-                Status = (int)(nota.ProtNFe != null ? StatusNFe.Emitido : StatusNFe.Salvo)
+                Status = nota.ProtNFe != null ? (int)StatusNFe.Emitido : nota.NFe.Signature != null && nota.NFe.Signature.HasElements ? (int)StatusNFe.Assinado : (int)StatusNFe.Salvo
             };
         }
 

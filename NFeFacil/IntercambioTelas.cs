@@ -1,8 +1,12 @@
 ﻿using NFeFacil.ItensBD;
 using NFeFacil.Log;
+using NFeFacil.ModeloXML.PartesProcesso;
+using NFeFacil.ModeloXML.PartesProcesso.PartesNFe;
+using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using NFeFacil.View;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
 
@@ -21,9 +25,9 @@ namespace NFeFacil
             Log = new Saida();
         }
 
-        public void AbrirFunçao(Type classe, object parametro = null) => Abrir(classe, parametro);
+        public async Task AbrirFunçaoAsync(Type classe, object parametro = null) => await AbrirAsync(classe, parametro);
 
-        public void AbrirFunçao(string tela, object parametro = null)
+        public async Task AbrirFunçaoAsync(string tela, object parametro = null)
         {
             var classe = Type.GetType($"NFeFacil.View.{tela}");
             if (classe == null)
@@ -31,14 +35,19 @@ namespace NFeFacil
                 new Saida().Escrever(TitulosComuns.ErroSimples, $"Tela ainda nao cadastrada. Nome: {tela}");
                 return;
             }
-            Abrir(classe, parametro);
+            await AbrirAsync(classe, parametro);
         }
 
-        private void Abrir(Type tela, object parametro)
+        private async Task AbrirAsync(Type tela, object parametro)
         {
             if (tela == null) throw new ArgumentNullException(nameof(tela));
             if (TelasComParametroObrigatorio.ContainsKey(tela) && parametro == null)
                 TelasComParametroObrigatorio.TryGetValue(tela, out parametro);
+            if (Main.FramePrincipal.Content is IEsconde)
+            {
+                var esconde = Main.FramePrincipal.Content as IEsconde;
+                await esconde.EsconderAsync();
+            }
             Main.FramePrincipal.Navigate(tela, parametro);
         }
 
@@ -47,33 +56,33 @@ namespace NFeFacil
             { typeof(AdicionarDestinatario), new GrupoViewBanco<ClienteDI>() },
             { typeof(AdicionarEmitente), new GrupoViewBanco<EmitenteDI>() },
             { typeof(AdicionarMotorista), new GrupoViewBanco<MotoristaDI>() },
-            { typeof(AdicionarProduto), new GrupoViewBanco<ProdutoDI>() }
-            //{
-            //    typeof(TelaNotaFiscal),
-            //    new NotaComDados
-            //    {
-            //        dados = new NFeDataItem
-            //        {
-            //            Status = (int)StatusNFe.EdiçãoCriação
-            //        },
-            //        nota = new NFe
-            //        {
-            //            informações = new Detalhes
-            //            {
-            //                identificação= new Identificacao(),
-            //                emitente = new Emitente(),
-            //                destinatário = new Destinatário(),
-            //                produtos = new List<DetalhesProdutos>(),
-            //                transp = new Transporte(),
-            //                cobr = new Cobrança(),
-            //                infAdic = new InformaçõesAdicionais(),
-            //                exporta = new Exportação(),
-            //                compra = new Compra(),
-            //                cana = new RegistroAquisiçãoCana()
-            //            }
-            //        }
-            //    }
-            //}
+            { typeof(AdicionarProduto), new GrupoViewBanco<ProdutoDI>() },
+            {
+                typeof(ManipulacaoNotaFiscal),
+                new NotaComDados
+                {
+                    dados = new NFeDI
+                    {
+                        Status = (int)StatusNFe.EdiçãoCriação
+                    },
+                    nota = new NFe
+                    {
+                       Informações = new Detalhes
+                        {
+                            identificação= new Identificacao(),
+                            emitente = new Emitente(),
+                            destinatário = new Destinatario(),
+                            produtos = new List<DetalhesProdutos>(),
+                            transp = new Transporte(),
+                            cobr = new Cobranca(),
+                            infAdic = new InformacoesAdicionais(),
+                            exporta = new Exportacao(),
+                            compra = new Compra(),
+                            cana = new RegistroAquisicaoCana()
+                        }
+                    }
+                }
+            }
         };
 
         public void SeAtualizar(Telas atual, Symbol símbolo, string texto)
@@ -134,10 +143,9 @@ namespace NFeFacil
         Início,
         Consulta,
         GerenciarDadosBase,
-        EmitirNovaNota,
+        ManipularNota,
         NotasEmitidas,
         AnaliseVendasAnuais,
         Configurações
     }
-
 }

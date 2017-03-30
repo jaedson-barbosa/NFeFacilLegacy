@@ -23,12 +23,12 @@ namespace NFeFacil.ViewModel.NotaFiscal
             set { Cana.referencia = value.ToString("MM/yyyy"); }
         }
 
-        public ObservableCollection<FornecimentoDiário> ListaFornecimentoDiario
+        public ObservableCollection<ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.FornecimentoDiario> ListaFornecimentoDiario
         {
             get { return Cana.forDia.GerarObs(); }
         }
 
-        public ObservableCollection<Deduções> ListaDeducoes
+        public ObservableCollection<Deducoes> ListaDeducoes
         {
             get { return Cana.deduc.GerarObs(); }
         }
@@ -40,16 +40,16 @@ namespace NFeFacil.ViewModel.NotaFiscal
 
         public async void AdicionarFornecimento()
         {
-            var caixa = new FornecimentoDiario();
+            var caixa = new View.CaixasDialogo.FornecimentoDiario();
             caixa.PrimaryButtonClick += (x, y) =>
             {
-                Cana.forDia.Add(x.DataContext as FornecimentoDiário);
+                Cana.forDia.Add(x.DataContext as ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.FornecimentoDiario);
                 PropertyChanged(this, new PropertyChangedEventArgs(nameof(ListaFornecimentoDiario)));
             };
             await caixa.ShowAsync();
         }
 
-        public void RemoverFornecimento(FornecimentoDiário fornecimento)
+        public void RemoverFornecimento(ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.FornecimentoDiario fornecimento)
         {
             Cana.forDia.Remove(fornecimento);
             PropertyChanged(this, new PropertyChangedEventArgs(nameof(ListaFornecimentoDiario)));
@@ -60,13 +60,13 @@ namespace NFeFacil.ViewModel.NotaFiscal
             var caixa = new Deducao();
             caixa.PrimaryButtonClick += (x, y) =>
             {
-                Cana.deduc.Add(x.DataContext as Deduções);
+                Cana.deduc.Add(x.DataContext as Deducoes);
                 PropertyChanged(this, new PropertyChangedEventArgs(nameof(ListaDeducoes)));
             };
             await caixa.ShowAsync();
         }
 
-        public void RemoverDeducao(Deduções deducao)
+        public void RemoverDeducao(Deducoes deducao)
         {
             Cana.deduc.Remove(deducao);
             PropertyChanged(this, new PropertyChangedEventArgs(nameof(ListaDeducoes)));
@@ -75,9 +75,9 @@ namespace NFeFacil.ViewModel.NotaFiscal
         public CanaDataContext()
         {
             AdicionarFornecimentoCommand = new ComandoSemParametros(AdicionarFornecimento, true);
-            RemoverFornecimentoCommand = new ComandoComParametros<FornecimentoDiário>(RemoverFornecimento, new ObterDataContext<FornecimentoDiário>());
+            RemoverFornecimentoCommand = new ComandoComParametros<ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.FornecimentoDiario, ObterDataContext<ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.FornecimentoDiario>>(this.RemoverFornecimento);
             AdicionarDeducaoCommand = new ComandoSemParametros(AdicionarDeducao, true);
-            RemoverDeducaoCommand = new ComandoComParametros<Deduções>(RemoverDeducao, new ObterDataContext<Deduções>());
+            RemoverDeducaoCommand = new ComandoComParametros<Deducoes, ObterDataContext<Deducoes>>(RemoverDeducao);
         }
         public CanaDataContext(ref RegistroAquisicaoCana registro) : this()
         {

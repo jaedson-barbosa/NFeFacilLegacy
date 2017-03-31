@@ -5,7 +5,7 @@
       xmlns:DadosBase="using:NFeFacil.View.TelasDadosBase"
       xmlns:VM="using:NFeFacil.ViewModel"
       xmlns:Impostos="using:NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos"
-      xmlns:ImpostosContext="using:NFeFacil.ViewModel.NotaFiscal.ImpostosProduto"
+      xmlns:ImpostosContext="using:NFeFacil.ViewModel.PartesProdutoCompleto.ImpostosProduto"
       xmlns:Conversores="using:NFeFacil.ViewModel.Converters"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -644,17 +644,17 @@
                                                             Visibility="{Binding CalculoAliquotaST, Converter={StaticResource visibilidade}}">
                                                     <TextBox x:Name="txtVBCST"
                                                              Header="Valor da base de cálculo"
-                                                             Text="{Binding Path=Imposto.Corpo.vBC, Mode=TwoWay}"
+                                                             Text="{Binding Path=ImpostoST.Corpo.vBC, Mode=TwoWay}"
                                                              InputScope="Number"
                                                              Margin="0,0,0,5" />
                                                     <TextBox x:Name="txtPCOFINSST"
                                                              Header="Alíquota"
-                                                             Text="{Binding Path=Imposto.Corpo.pCOFINS, Mode=TwoWay}"
+                                                             Text="{Binding Path=ImpostoST.Corpo.pCOFINS, Mode=TwoWay}"
                                                              InputScope="Number" />
                                                 </StackPanel>
                                             </StackPanel>
                                             <StackPanel>
-                                                <TextBox Text="{Binding Path=Imposto.Corpo.vCOFINS, Mode=TwoWay}"
+                                                <TextBox Text="{Binding Path=ImpostoST.Corpo.vCOFINS, Mode=TwoWay}"
                                                          Header="Valor do COFINS"
                                                          InputScope="Number"
                                                          Margin="0,0,0,5" />
@@ -662,12 +662,12 @@
                                                             Visibility="{Binding CalculoValorST, Converter={StaticResource visibilidade}}">
                                                     <TextBox x:Name="txtQBCProdST"
                                                              Header="Quantidade total"
-                                                             Text="{Binding Path=Imposto.Corpo.qBCProd , Mode=TwoWay}"
+                                                             Text="{Binding Path=ImpostoST.Corpo.qBCProd , Mode=TwoWay}"
                                                              InputScope="Number"
                                                              Margin="0,0,0,5" />
                                                     <TextBox x:Name="txtVAliqProdST"
                                                              Header="Valor por unidade"
-                                                             Text="{Binding Path=Imposto.Corpo.vAliqProd, Mode=TwoWay}"
+                                                             Text="{Binding Path=ImpostoST.Corpo.vAliqProd, Mode=TwoWay}"
                                                              InputScope="Number" />
                                                 </StackPanel>
                                             </StackPanel>

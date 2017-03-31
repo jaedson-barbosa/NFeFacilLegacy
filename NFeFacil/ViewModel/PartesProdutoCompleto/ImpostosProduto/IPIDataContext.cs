@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using Windows.UI.Xaml.Controls;
 
-namespace NFeFacil.ViewModel.NotaFiscal.ImpostosProduto
+namespace NFeFacil.ViewModel.PartesProdutoCompleto.ImpostosProduto
 {
     public sealed class IPIDataContext : INotifyPropertyChanged, IImpostoDataContext
     {
@@ -26,14 +26,11 @@ namespace NFeFacil.ViewModel.NotaFiscal.ImpostosProduto
         private ComboBoxItem cstSelecionado;
         public ComboBoxItem CSTSelecionado
         {
-            get { return cstSelecionado; }
-            set
+            get => cstSelecionado; set
             {
                 cstSelecionado = value;
-                var tipoIPI = value.Content as string;
-                var tipoIPIString = tipoIPI.Substring(0, 2);
-                int[] ipiTrib = { 0, 49, 50, 99 };
-                if (ipiTrib.Contains(int.Parse(tipoIPIString)))
+                var tipoIPIString = (value.Content as string).Substring(0, 2);
+                if (new int[] { 0, 49, 50, 99 }.Contains(int.Parse(tipoIPIString)))
                 {
                     Imposto.Corpo = new IPITrib();
                     VisibilidadeIPI = true;
@@ -51,20 +48,11 @@ namespace NFeFacil.ViewModel.NotaFiscal.ImpostosProduto
         private ComboBoxItem tipoCalculo;
         public ComboBoxItem TipoCalculo
         {
-            get { return tipoCalculo; }
+            get => tipoCalculo;
             set
             {
                 tipoCalculo = value;
-                if (value.Content as string == "Por alíquota")
-                {
-                    CalculoAliquota = true;
-                    CalculoValor = false;
-                }
-                else
-                {
-                    CalculoAliquota = true;
-                    CalculoValor = false;
-                }
+                CalculoValor = !(CalculoAliquota = value.Content as string == "Por alíquota");
                 OnPropertyChanged(nameof(CalculoAliquota), nameof(CalculoValor));
             }
         }

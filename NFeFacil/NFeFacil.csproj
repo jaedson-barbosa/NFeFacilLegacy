@@ -167,7 +167,7 @@
     <Compile Include="ViewModel\NotaFiscal\CanaDataContext.cs" />
     <Compile Include="ViewModel\NotaFiscal\ClienteDataContext.cs" />
     <Compile Include="ViewModel\NotaFiscal\CobrancaDataContext.cs" />
-    <Compile Include="ViewModel\NotaFiscal\ImpostosProduto\COFINSDataContext.cs" />
+    <Compile Include="ViewModel\PartesProdutoCompleto\ImpostosProduto\COFINSDataContext.cs" />
     <Compile Include="ViewModel\ComandoComParametros.cs" />
     <Compile Include="ViewModel\ComandoSemParametros.cs" />
     <Compile Include="Configuracoes\ConfiguracoesCertificacao.cs" />
@@ -194,12 +194,12 @@
     <Compile Include="IBGE\Municipios.cs" />
     <Compile Include="IBGE\ProcessamentoXml.cs" />
     <Compile Include="IBGE\XML.cs" />
-    <Compile Include="ViewModel\NotaFiscal\ImpostosProduto\ICMSDataContext.cs" />
+    <Compile Include="ViewModel\PartesProdutoCompleto\ImpostosProduto\ICMSDataContext.cs" />
     <Compile Include="ViewModel\NotaFiscal\ICMSTransporteDataContext.cs" />
     <Compile Include="ViewModel\NotaFiscal\IdentificacaoDataContext.cs" />
-    <Compile Include="ViewModel\NotaFiscal\ImpostosProduto\IImpostoDataContext.cs" />
-    <Compile Include="ViewModel\NotaFiscal\ImpostosProduto\IPIDataContext.cs" />
-    <Compile Include="ViewModel\NotaFiscal\ImpostosProduto\ISSQNDataContext.cs" />
+    <Compile Include="ViewModel\PartesProdutoCompleto\ImpostosProduto\IImpostoDataContext.cs" />
+    <Compile Include="ViewModel\PartesProdutoCompleto\ImpostosProduto\IPIDataContext.cs" />
+    <Compile Include="ViewModel\PartesProdutoCompleto\ImpostosProduto\ISSQNDataContext.cs" />
     <Compile Include="ItensBD\ClienteDI.cs" />
     <Compile Include="ItensBD\EmitenteDI.cs" />
     <Compile Include="ItensBD\MotoristaDI.cs" />
@@ -336,7 +336,7 @@
     <Compile Include="ItensBD\NFeDI.cs" />
     <Compile Include="ViewModel\NotaFiscal\MotoristaDataContext.cs" />
     <Compile Include="PastaNotasFiscais.cs" />
-    <Compile Include="ViewModel\NotaFiscal\ImpostosProduto\PISDataContext.cs" />
+    <Compile Include="ViewModel\PartesProdutoCompleto\ImpostosProduto\PISDataContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ItensBD\ResultadoSincronizacaoCliente.cs" />
     <Compile Include="ItensBD\ResultadoSincronizacaoServidor.cs" />

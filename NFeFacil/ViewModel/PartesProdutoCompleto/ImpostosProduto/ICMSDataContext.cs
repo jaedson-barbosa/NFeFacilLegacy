@@ -3,7 +3,7 @@ using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.P
 using System.ComponentModel;
 using Windows.UI.Xaml.Controls;
 
-namespace NFeFacil.ViewModel.NotaFiscal.ImpostosProduto
+namespace NFeFacil.ViewModel.PartesProdutoCompleto.ImpostosProduto
 {
     public sealed class ICMSDataContext : INotifyPropertyChanged, IImpostoDataContext
     {
@@ -25,21 +25,11 @@ namespace NFeFacil.ViewModel.NotaFiscal.ImpostosProduto
         private int regimeSelecionado;
         public int RegimeSelecionado
         {
-            get { return regimeSelecionado; }
+            get => regimeSelecionado;
             set
             {
                 regimeSelecionado = value;
-                switch ((Regimes)value)
-                {
-                    case Regimes.SimplesNacional:
-                        GrupoRegimeNormal = false;
-                        GrupoSimplesNacional = true;
-                        break;
-                    case Regimes.RegimeNormal:
-                        GrupoRegimeNormal = true;
-                        GrupoSimplesNacional = false;
-                        break;
-                }
+                GrupoRegimeNormal = !(GrupoSimplesNacional = (Regimes)value == Regimes.SimplesNacional);
                 OnPropertyChanged(nameof(GrupoRegimeNormal), nameof(GrupoSimplesNacional));
                 Simples = null;
                 Normal = null;
@@ -50,12 +40,11 @@ namespace NFeFacil.ViewModel.NotaFiscal.ImpostosProduto
         private ComboBoxItem tipoICMSSimplesNacional;
         public ComboBoxItem TipoICMSSimplesNacional
         {
-            get { return tipoICMSSimplesNacional; }
+            get => tipoICMSSimplesNacional;
             set
             {
                 tipoICMSSimplesNacional = value;
-                var tipoICMS = value.Content as string;
-                var tipoICMSInt = int.Parse(tipoICMS.Substring(0, 3));
+                var tipoICMSInt = int.Parse((value.Content as string).Substring(0, 3));
                 switch (tipoICMSInt)
                 {
                     case 101:
@@ -130,7 +119,7 @@ namespace NFeFacil.ViewModel.NotaFiscal.ImpostosProduto
         private ComboBoxItem tipoICMSRegimeNormal;
         public ComboBoxItem TipoICMSRegimeNormal
         {
-            get { return tipoICMSRegimeNormal; }
+            get => tipoICMSRegimeNormal;
             set
             {
                 tipoICMSRegimeNormal = value;

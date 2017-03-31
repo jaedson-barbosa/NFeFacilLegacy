@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
 
-namespace NFeFacil.ViewModel.NotaFiscal.ImpostosProduto
+namespace NFeFacil.ViewModel.PartesProdutoCompleto.ImpostosProduto
 {
     public sealed class COFINSDataContext : INotifyPropertyChanged, IImpostosUnidos
     {
@@ -19,14 +19,8 @@ namespace NFeFacil.ViewModel.NotaFiscal.ImpostosProduto
         }
 
         private readonly ConjuntoCOFINS Conjunto = new ConjuntoCOFINS();
-        public COFINS Imposto
-        {
-            get { return Conjunto.COFINS; }
-        }
-        public COFINSST ImpostoST
-        {
-            get { return Conjunto.COFINSST; }
-        }
+        public COFINS Imposto => Conjunto.COFINS;
+        public COFINSST ImpostoST => Conjunto.COFINSST;
 
         public bool COFINS { get; private set; }
         public bool COFINSST { get; private set; }
@@ -39,30 +33,27 @@ namespace NFeFacil.ViewModel.NotaFiscal.ImpostosProduto
         private ComboBoxItem cstSelecionado;
         public ComboBoxItem CSTSelecionado
         {
-            get { return cstSelecionado; }
+            get => cstSelecionado;
             set
             {
                 cstSelecionado = value;
                 var tipoCOFINSString = (value.Content as string).Substring(0, 2);
                 var tipoCOFINSInt = int.Parse(tipoCOFINSString);
-                int[] pisAliq = { 1, 2 };
-                int[] pisValor = { 3 };
-                int[] pisNTrib = { 4, 5, 6, 7, 8, 9 };
-                if (pisAliq.Contains(tipoCOFINSInt))
+                if (new int[] { 1, 2 }.Contains(tipoCOFINSInt))
                 {
                     COFINS = true;
                     MudarTpCalc(TiposCalculo.PorAliquota);
                     Imposto.Corpo = new COFINSAliq();
                     ComboTipoCalculo = false;
                 }
-                else if (pisValor.Contains(tipoCOFINSInt))
+                else if (tipoCOFINSInt == 3)
                 {
                     COFINS = true;
                     MudarTpCalc(TiposCalculo.PorValor);
                     Imposto.Corpo = new COFINSQtde();
                     ComboTipoCalculo = false;
                 }
-                else if (pisNTrib.Contains(tipoCOFINSInt))
+                else if (new int[] { 4, 5, 6, 7, 8, 9 }.Contains(tipoCOFINSInt))
                 {
                     COFINS = false;
                     Imposto.Corpo = new COFINSNT();
@@ -82,7 +73,7 @@ namespace NFeFacil.ViewModel.NotaFiscal.ImpostosProduto
         private ComboBoxItem tipoCalculo;
         public ComboBoxItem TipoCalculo
         {
-            get { return tipoCalculo; }
+            get => tipoCalculo;
             set
             {
                 tipoCalculo = value;
@@ -94,24 +85,14 @@ namespace NFeFacil.ViewModel.NotaFiscal.ImpostosProduto
 
         private void MudarTpCalc(TiposCalculo tipo)
         {
-            switch (tipo)
-            {
-                case TiposCalculo.PorAliquota:
-                    CalculoAliquota = true;
-                    CalculoValor = false;
-                    break;
-                case TiposCalculo.PorValor:
-                    CalculoAliquota = false;
-                    CalculoValor = true;
-                    break;
-            }
+            CalculoValor = !(CalculoAliquota = tipo == TiposCalculo.PorAliquota);
             OnPropertyChanged(nameof(CalculoAliquota), nameof(CalculoValor));
         }
 
         private ComboBoxItem tipoCalculoST;
         public ComboBoxItem TipoCalculoST 
         {
-            get { return tipoCalculoST; }
+            get => tipoCalculoST;
             set
             {
                 tipoCalculoST = value;
@@ -123,24 +104,11 @@ namespace NFeFacil.ViewModel.NotaFiscal.ImpostosProduto
 
         private void MudarTpCalcST(TiposCalculo tipo)
         {
-            switch (tipo)
-            {
-                case TiposCalculo.PorAliquota:
-                    CalculoAliquotaST = true;
-                    CalculoValorST = false;
-                    break;
-                case TiposCalculo.PorValor:
-                    CalculoAliquotaST = false;
-                    CalculoValorST = true;
-                    break;
-            }
+            CalculoValorST = !(CalculoAliquotaST = tipo == TiposCalculo.PorAliquota);
             OnPropertyChanged(nameof(CalculoAliquotaST), nameof(CalculoValorST));
         }
 
-        public IEnumerable<Imposto> SepararImpostos()
-        {
-            return Conjunto.SepararImpostos();
-        }
+        public IEnumerable<Imposto> SepararImpostos() => Conjunto.SepararImpostos();
 
         private enum TiposCalculo
         {

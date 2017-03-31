@@ -2,7 +2,6 @@
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
 using System.ComponentModel;
 using System.Linq;
-using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil.ViewModel.PartesProdutoCompleto.ImpostosProduto
 {
@@ -23,13 +22,13 @@ namespace NFeFacil.ViewModel.PartesProdutoCompleto.ImpostosProduto
         public bool CalculoAliquota { get; private set; }
         public bool CalculoValor { get; private set; }
 
-        private ComboBoxItem cstSelecionado;
-        public ComboBoxItem CSTSelecionado
+        private string cstSelecionado;
+        public string CSTSelecionado
         {
             get => cstSelecionado; set
             {
                 cstSelecionado = value;
-                var tipoIPIString = (value.Content as string).Substring(0, 2);
+                var tipoIPIString = value.Substring(0, 2);
                 if (new int[] { 0, 49, 50, 99 }.Contains(int.Parse(tipoIPIString)))
                 {
                     Imposto.Corpo = new IPITrib();
@@ -45,14 +44,14 @@ namespace NFeFacil.ViewModel.PartesProdutoCompleto.ImpostosProduto
             }
         }
 
-        private ComboBoxItem tipoCalculo;
-        public ComboBoxItem TipoCalculo
+        private string tipoCalculo;
+        public string TipoCalculo
         {
             get => tipoCalculo;
             set
             {
                 tipoCalculo = value;
-                CalculoValor = !(CalculoAliquota = value.Content as string == "Por alíquota");
+                CalculoValor = !(CalculoAliquota = value == "Por alíquota");
                 OnPropertyChanged(nameof(CalculoAliquota), nameof(CalculoValor));
             }
         }

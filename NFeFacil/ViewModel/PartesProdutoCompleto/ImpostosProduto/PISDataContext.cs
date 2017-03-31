@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Linq;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 using System.Collections.Generic;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
@@ -38,13 +37,13 @@ namespace NFeFacil.ViewModel.PartesProdutoCompleto.ImpostosProduto
         public Visibility CalculoValorST { get; private set; } = Visibility.Collapsed;
 
         private string cstSelecionado;
-        public ComboBoxItem CSTSelecionado
+        public string CSTSelecionado
         {
-            get { return null; }
+            get => cstSelecionado;
             set
             {
-                cstSelecionado = value.Content as string;
-                var tipoPISString = cstSelecionado.Substring(0, 2);
+                cstSelecionado = value;
+                var tipoPISString = value.Substring(0, 2);
                 var tipoPISInt = int.Parse(tipoPISString);
                 int[] pisAliq = { 1, 2 };
                 int[] pisValor = { 3 };
@@ -93,13 +92,13 @@ namespace NFeFacil.ViewModel.PartesProdutoCompleto.ImpostosProduto
         }
 
         private string tipoCalculo;
-        public ComboBoxItem TipoCalculo
+        public string TipoCalculo
         {
-            get { return null; }
+            get => tipoCalculo;
             set
             {
-                tipoCalculo = value.Content as string;
-                MudarTipoCalculo(tipoCalculo == "Por alíquota" ? TiposCalculo.PorAliquota : TiposCalculo.PorValor);
+                tipoCalculo = value;
+                MudarTipoCalculo(value == "Por alíquota" ? TiposCalculo.PorAliquota : TiposCalculo.PorValor);
                 Imposto.Corpo = new PISOutr { CST = Imposto.Corpo.CST };
                 OnPropertyChanged(nameof(Imposto));
             }
@@ -122,14 +121,14 @@ namespace NFeFacil.ViewModel.PartesProdutoCompleto.ImpostosProduto
         }
 
         private string tipoCalculoST;
-        public ComboBoxItem TipoCalculoST
+        public string TipoCalculoST
         {
-            get { return null; }
+            get => tipoCalculoST;
             set
             {
-                tipoCalculoST = value.Content as string;
+                tipoCalculoST = value;
                 Conjunto.PISST = new PISST();
-                switch (tipoCalculoST == "Por alíquota" ? TiposCalculo.PorAliquota : TiposCalculo.PorValor)
+                switch (value == "Por alíquota" ? TiposCalculo.PorAliquota : TiposCalculo.PorValor)
                 {
                     case TiposCalculo.PorAliquota:
                         CalculoAliquotaST = Visibility.Visible;

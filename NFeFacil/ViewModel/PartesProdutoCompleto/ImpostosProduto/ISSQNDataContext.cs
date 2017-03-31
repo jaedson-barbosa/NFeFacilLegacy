@@ -1,7 +1,6 @@
 ﻿using NFeFacil.IBGE;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -24,35 +23,20 @@ namespace NFeFacil.ViewModel.PartesProdutoCompleto.ImpostosProduto
 
         public int exigISS
         {
-            get
-            {
-                return int.Parse(Imposto.indISS != null ? Imposto.indISS : "0") - 1;
-            }
-            set
-            {
-                Imposto.indISS = (value + 1).ToString();
-            }
+            get => int.Parse(Imposto.indISS ?? "0") - 1;
+            set => Imposto.indISS = (value + 1).ToString();
         }
 
         public int incent
         {
-            get
-            {
-                return int.Parse(Imposto.indIncentivo != null ? Imposto.indIncentivo : "0") - 1;
-            }
-            set
-            {
-                Imposto.indIncentivo = (value + 1).ToString();
-            }
+            get => int.Parse(Imposto.indIncentivo ?? "0") - 1;
+            set => Imposto.indIncentivo = (value + 1).ToString();
         }
 
         private Estado ufEscolhida;
         public Estado UFEscolhida
         {
-            get
-            {
-                return ufEscolhida;
-            }
+            get => ufEscolhida;
             set
             {
                 ufEscolhida = value;
@@ -63,7 +47,7 @@ namespace NFeFacil.ViewModel.PartesProdutoCompleto.ImpostosProduto
         private Estado ufIncidEscolhida;
         public Estado UFIncidEscolhida
         {
-            get { return ufIncidEscolhida; }
+            get => ufIncidEscolhida;
             set
             {
                 ufIncidEscolhida = value;
@@ -97,10 +81,7 @@ namespace NFeFacil.ViewModel.PartesProdutoCompleto.ImpostosProduto
                 var nulo = string.IsNullOrEmpty(Imposto.cMunFG);
                 return !nulo ? Municipios.Single(x => x.CodigoMunicípio.ToString() == Imposto.cMunFG) : null;
             }
-            set
-            {
-                Imposto.cMunFG = value.CodigoMunicípio.ToString();
-            }
+            set => Imposto.cMunFG = value.CodigoMunicípio.ToString();
         }
 
         public Municipio MunicipioIncidEscolhido
@@ -110,16 +91,13 @@ namespace NFeFacil.ViewModel.PartesProdutoCompleto.ImpostosProduto
                 var nulo = string.IsNullOrEmpty(Imposto.cMun);
                 return !nulo ? Municipios.Single(x => x.CodigoMunicípio.ToString() == Imposto.cMun) : null;
             }
-            set
-            {
-                Imposto.cMun = value.CodigoMunicípio.ToString();
-            }
+            set => Imposto.cMun = value.CodigoMunicípio.ToString();
         }
 
         private bool exterior;
         public bool Exterior
         {
-            get { return exterior; }
+            get => exterior;
             set
             {
                 exterior = value;

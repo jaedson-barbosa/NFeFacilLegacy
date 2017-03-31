@@ -29,7 +29,7 @@ namespace NFeFacil.View
             Propriedades.Intercambio.SeAtualizar(Telas.GerenciarDadosBase, Symbol.Manage, "Gerenciar dados base");
         }
 
-        private async Task Adicionar_ClickAsync(object sender, RoutedEventArgs e)
+        private async void Adicionar_ClickAsync(object sender, RoutedEventArgs e)
         {
             await Propriedades.Intercambio.AbrirFunçaoAsync($"Adicionar{DescobrirTela()}");
         }
@@ -89,7 +89,7 @@ namespace NFeFacil.View
             if (erro) new Popup().Escrever(TitulosComuns.ErroSimples, "Escolha ao menos um item.");
         }
 
-        private async Task Editar_ClickAsync(object sender, RoutedEventArgs e)
+        private async void Editar_ClickAsync(object sender, RoutedEventArgs e)
         {
             switch (DescobrirTela())
             {

@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using System.Linq;
-using Windows.UI.Xaml.Controls;
 using System.Collections.Generic;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
@@ -30,14 +29,14 @@ namespace NFeFacil.ViewModel.PartesProdutoCompleto.ImpostosProduto
         public bool CalculoAliquotaST { get; private set; }
         public bool CalculoValorST { get; private set; }
 
-        private ComboBoxItem cstSelecionado;
-        public ComboBoxItem CSTSelecionado
+        private string cstSelecionado;
+        public string CSTSelecionado
         {
             get => cstSelecionado;
             set
             {
                 cstSelecionado = value;
-                var tipoCOFINSString = (value.Content as string).Substring(0, 2);
+                var tipoCOFINSString = value.Substring(0, 2);
                 var tipoCOFINSInt = int.Parse(tipoCOFINSString);
                 if (new int[] { 1, 2 }.Contains(tipoCOFINSInt))
                 {
@@ -70,14 +69,14 @@ namespace NFeFacil.ViewModel.PartesProdutoCompleto.ImpostosProduto
             }
         }
 
-        private ComboBoxItem tipoCalculo;
-        public ComboBoxItem TipoCalculo
+        private string tipoCalculo;
+        public string TipoCalculo
         {
             get => tipoCalculo;
             set
             {
                 tipoCalculo = value;
-                MudarTpCalc(value.Content as string == "Por alíquota" ? TiposCalculo.PorAliquota : TiposCalculo.PorValor);
+                MudarTpCalc(value == "Por alíquota" ? TiposCalculo.PorAliquota : TiposCalculo.PorValor);
                 Imposto.Corpo = new COFINSOutr { CST = Imposto.Corpo.CST };
                 OnPropertyChanged(nameof(Imposto.Corpo));
             }
@@ -89,14 +88,14 @@ namespace NFeFacil.ViewModel.PartesProdutoCompleto.ImpostosProduto
             OnPropertyChanged(nameof(CalculoAliquota), nameof(CalculoValor));
         }
 
-        private ComboBoxItem tipoCalculoST;
-        public ComboBoxItem TipoCalculoST 
+        private string tipoCalculoST;
+        public string TipoCalculoST 
         {
             get => tipoCalculoST;
             set
             {
                 tipoCalculoST = value;
-                MudarTpCalcST(value.Content as string == "Por alíquota" ? TiposCalculo.PorAliquota : TiposCalculo.PorValor);
+                MudarTpCalcST(value == "Por alíquota" ? TiposCalculo.PorAliquota : TiposCalculo.PorValor);
                 Conjunto.COFINSST = new COFINSST();
                 OnPropertyChanged(nameof(ImpostoST));
             }

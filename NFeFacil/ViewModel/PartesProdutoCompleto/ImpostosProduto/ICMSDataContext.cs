@@ -1,7 +1,6 @@
 ﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
 using System.ComponentModel;
-using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil.ViewModel.PartesProdutoCompleto.ImpostosProduto
 {
@@ -37,14 +36,14 @@ namespace NFeFacil.ViewModel.PartesProdutoCompleto.ImpostosProduto
             }
         }
 
-        private ComboBoxItem tipoICMSSimplesNacional;
-        public ComboBoxItem TipoICMSSimplesNacional
+        private string tipoICMSSimplesNacional;
+        public string TipoICMSSimplesNacional
         {
             get => tipoICMSSimplesNacional;
             set
             {
                 tipoICMSSimplesNacional = value;
-                var tipoICMSInt = int.Parse((value.Content as string).Substring(0, 3));
+                var tipoICMSInt = int.Parse(value.Substring(0, 3));
                 switch (tipoICMSInt)
                 {
                     case 101:
@@ -116,15 +115,14 @@ namespace NFeFacil.ViewModel.PartesProdutoCompleto.ImpostosProduto
                 nameof(SimplesCreditoAproveitável));
         }
 
-        private ComboBoxItem tipoICMSRegimeNormal;
-        public ComboBoxItem TipoICMSRegimeNormal
+        private string tipoICMSRegimeNormal;
+        public string TipoICMSRegimeNormal
         {
             get => tipoICMSRegimeNormal;
             set
             {
                 tipoICMSRegimeNormal = value;
-                var tipoICMS = value.Content as string;
-                var tipoICMSString = tipoICMS.Substring(0, 2);
+                var tipoICMSString = value.Substring(0, 2);
                 var tipoICMSInt = int.Parse(tipoICMSString);
                 switch (tipoICMSInt)
                 {

@@ -121,6 +121,7 @@
                                         </ComboBox>
                                         <StackPanel Visibility="{Binding GrupoSimplesNacional, Converter={StaticResource visibilidade}}">
                                             <ComboBox SelectedValue="{Binding TipoICMSSimplesNacional, Mode=TwoWay}"
+                                                      SelectedValuePath="Content"
                                                       HorizontalAlignment="Stretch"
                                                       Header="Situação tributária">
                                                 <ComboBoxItem>101. Tributada com permissão de crédito</ComboBoxItem>
@@ -211,7 +212,8 @@
                                             </StackPanel>
                                         </StackPanel>
                                         <StackPanel Visibility="{Binding GrupoRegimeNormal, Converter={StaticResource visibilidade}}">
-                                            <ComboBox SelectedItem="{Binding TipoICMSRegimeNormal, Mode=TwoWay}"
+                                            <ComboBox SelectedValue="{Binding TipoICMSRegimeNormal, Mode=TwoWay}"
+                                                      SelectedValuePath="Content"
                                                       Header="Situação tributária"
                                                       HorizontalAlignment="Stretch">
                                                 <ComboBoxItem>00. Tributada integralmente</ComboBoxItem>
@@ -337,7 +339,8 @@
                                         <ComboBox Header="Situação tributária"
                                                   HorizontalAlignment="Stretch"
                                                   Margin="2,0,0,0"
-                                                  SelectedItem="{Binding CSTSelecionado, Mode=TwoWay}">
+                                                  SelectedValue="{Binding CSTSelecionado, Mode=TwoWay}"
+                                                  SelectedValuePath="Content">
                                             <ComboBoxItem>00=Entrada com recuperação de crédito</ComboBoxItem>
                                             <ComboBoxItem>01=Entrada tributada com alíquota zero</ComboBoxItem>
                                             <ComboBoxItem>02=Entrada isenta</ComboBoxItem>
@@ -378,7 +381,8 @@
                                                 <ComboBox HorizontalAlignment="Stretch"
                                                           Header="Tipo de cálculo"
                                                           Margin="0,0,0,5"
-                                                          SelectedItem="{Binding TipoCalculo, Mode=TwoWay}">
+                                                          SelectedValue="{Binding TipoCalculo, Mode=TwoWay}"
+                                                          SelectedValuePath="Content">
                                                     <ComboBoxItem>Por alíquota</ComboBoxItem>
                                                     <ComboBoxItem>Pelo valor por unidade</ComboBoxItem>
                                                 </ComboBox>
@@ -419,7 +423,8 @@
                                 </Grid.DataContext>
                                 <ScrollViewer VerticalScrollBarVisibility="Hidden">
                                     <StackPanel>
-                                        <ComboBox SelectedItem="{Binding CSTSelecionado, Mode=TwoWay}"
+                                        <ComboBox SelectedValue="{Binding CSTSelecionado, Mode=TwoWay}"
+                                                  SelectedValuePath="Content"
                                                   Header="Situação tributária"
                                                   HorizontalAlignment="Stretch">
                                             <ComboBoxItem>01=Operação Tributável (base de cálculo = valor da operação alíquota normal (cumulativo/não cumulativo))</ComboBoxItem>
@@ -463,7 +468,8 @@
                                                           Header="Tipo de cálculo"
                                                           HorizontalAlignment="Stretch"
                                                           Margin="0,0,0,5"
-                                                          SelectedItem="{Binding TipoCalculo, Mode=TwoWay}">
+                                                          SelectedValue="{Binding TipoCalculo, Mode=TwoWay}"
+                                                          SelectedValuePath="Content">
                                                     <ComboBoxItem>Por alíquota</ComboBoxItem>
                                                     <ComboBoxItem>Pelo valor por unidade</ComboBoxItem>
                                                 </ComboBox>
@@ -499,7 +505,8 @@
                                                       Style="{StaticResource ItensResponsivos}"
                                                       Margin="0,10,0,0">
                                             <StackPanel>
-                                                <ComboBox SelectedItem="{Binding TipoCalculoST, Mode=TwoWay}"
+                                                <ComboBox SelectedValue="{Binding TipoCalculoST, Mode=TwoWay}"
+                                                          SelectedValuePath="Content"
                                                           Header="Tipo de cálculo"
                                                           HorizontalAlignment="Stretch"
                                                           Margin="0,0,0,5">
@@ -544,7 +551,8 @@
                                 <ScrollViewer VerticalScrollBarVisibility="Hidden">
                                     <StackPanel>
                                         <ComboBox x:Name="cmbCST"
-                                                  SelectedItem="{Binding CSTSelecionado, Mode=TwoWay}"
+                                                  SelectedValue="{Binding CSTSelecionado, Mode=TwoWay}"
+                                                  SelectedValuePath="Content"
                                                   Header="Situação tributária"
                                                   HorizontalAlignment="Stretch">
                                             <ComboBoxItem>01=Operação Tributável (base de cálculo = valor da operação alíquota normal (cumulativo/não cumulativo))</ComboBoxItem>
@@ -586,7 +594,8 @@
                                                       Style="{StaticResource ItensResponsivos}">
                                             <StackPanel>
                                                 <ComboBox x:Name="cmbTipoCalculo"
-                                                          SelectedItem="{Binding TipoCalculo, Mode=TwoWay}"
+                                                          SelectedValue="{Binding TipoCalculo, Mode=TwoWay}"
+                                                          SelectedValuePath="Content"
                                                           Visibility="{Binding ComboTipoCalculo, Converter={StaticResource visibilidade}}"
                                                           Header="Tipo de cálculo"
                                                           HorizontalAlignment="Stretch"
@@ -634,6 +643,8 @@
                                                       Style="{StaticResource ItensResponsivos}">
                                             <StackPanel Margin="0,0,2,0">
                                                 <ComboBox x:Name="cmbTipoCalculoST"
+                                                          SelectedValue="{Binding TipoCalculoST, Mode=TwoWay}"
+                                                          SelectedValuePath="Content"
                                                           Header="Tipo de cálculo"
                                                           HorizontalAlignment="Stretch"
                                                           Margin="0,0,0,5">

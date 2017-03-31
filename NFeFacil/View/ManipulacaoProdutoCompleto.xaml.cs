@@ -2,7 +2,6 @@
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
 using NFeFacil.ViewModel;
-using NFeFacil.ViewModel.NotaFiscal;
 using NFeFacil.ViewModel.PartesProdutoCompleto.ImpostosProduto;
 using System.Collections.Generic;
 using System.Linq;

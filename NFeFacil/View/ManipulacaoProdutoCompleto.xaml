@@ -707,16 +707,16 @@
                                             <RowDefinition />
                                         </Grid.RowDefinitions>
                                         <StackPanel Margin="0,0,2,0">
-                                            <TextBlock>Valor da base de cálculo *</TextBlock>
                                             <TextBox Text="{Binding Imposto.vBC, Mode=TwoWay}"
+                                                     Header="Valor da base de cálculo *"
                                                      Margin="0,0,0,5"
                                                      InputScope="Number" />
-                                            <TextBlock>Valor do ISSQN *</TextBlock>
                                             <TextBox Text="{Binding Imposto.vISSQN, Mode=TwoWay}"
+                                                     Header="Valor do ISSQN *"
                                                      Margin="0,0,0,5"
                                                      InputScope="Number" />
-                                            <TextBlock>Exigibilidade do ISS *</TextBlock>
-                                            <ComboBox SelectedIndex="{Binding exigISS, Mode=TwoWay}"
+                                            <ComboBox SelectedIndex="{Binding ExigISS, Mode=TwoWay}"
+                                                      Header="Exigibilidade do ISS *"
                                                       HorizontalAlignment="Stretch"
                                                       Margin="0,0,0,5">
                                                 <ComboBoxItem>1=Exigível</ComboBoxItem>
@@ -727,9 +727,9 @@
                                                 <ComboBoxItem>6=Exigibilidade Suspensa por Decisão Judicial</ComboBoxItem>
                                                 <ComboBoxItem>7=Exigibilidade Suspensa por Processo Administrativo</ComboBoxItem>
                                             </ComboBox>
-                                            <TextBlock>UF *</TextBlock>
                                             <ComboBox ItemsSource="{Binding Source={StaticResource estados}, Path=EstadosCompletos}"
                                                       SelectedItem="{Binding Path=UFEscolhida, Mode=TwoWay}"
+                                                      Header="UF *"
                                                       HorizontalAlignment="Stretch"
                                                       Margin="0,0,0,5">
                                                 <ComboBox.ItemTemplate>
@@ -738,38 +738,38 @@
                                                     </DataTemplate>
                                                 </ComboBox.ItemTemplate>
                                             </ComboBox>
-                                            <TextBlock>Valor das deduções</TextBlock>
                                             <TextBox Text="{Binding Imposto.vDeducao, Mode=TwoWay}"
+                                                     Header="Valor das deduções"
                                                      Margin="0,0,0,5"
                                                      InputScope="Number" />
-                                            <TextBlock>Valor da retenção ISS</TextBlock>
                                             <TextBox Text="{Binding Imposto.vISSRet, Mode=TwoWay}"
+                                                     Header="Valor da retenção ISS"
                                                      Margin="0,0,0,5"
                                                      InputScope="Number" />
-                                            <TextBlock>Valor de outras retenções</TextBlock>
                                             <TextBox Text="{Binding Imposto.vOutro, Mode=TwoWay}"
+                                                     Header="Valor de outras retenções"
                                                      Margin="0,0,0,5"
                                                      InputScope="Number" />
                                         </StackPanel>
                                         <StackPanel Grid.Column="1"
                                                     Margin="2,0,0,0">
-                                            <TextBlock>Alíquota *</TextBlock>
                                             <TextBox Text="{Binding Imposto.vAliq, Mode=TwoWay}"
+                                                     Header="Alíquota *"
                                                      Margin="0,0,0,5"
                                                      InputScope="Number" />
-                                            <TextBlock>Lista de serviço *</TextBlock>
                                             <TextBox Text="{Binding Imposto.cListServ, Mode=TwoWay}"
+                                                     Header="Lista de serviço *"
                                                      Margin="0,0,0,5"
                                                      InputScope="Number" />
-                                            <TextBlock>Incentivo fiscal *</TextBlock>
-                                            <ComboBox SelectedIndex="{Binding incent, Mode=TwoWay}"
+                                            <ComboBox SelectedIndex="{Binding Incent, Mode=TwoWay}"
+                                                      Header="Incentivo fiscal *"
                                                       HorizontalAlignment="Stretch"
                                                       Margin="0,0,0,5">
                                                 <ComboBoxItem>Sim</ComboBoxItem>
                                                 <ComboBoxItem>Não</ComboBoxItem>
                                             </ComboBox>
-                                            <TextBlock>Município *</TextBlock>
                                             <ComboBox ItemsSource="{Binding Municipios}"
+                                                      Header="Município *"
                                                       SelectedItem="{Binding Path=MunicipioEscolhido, Mode=TwoWay}"
                                                       HorizontalAlignment="Stretch"
                                                       Margin="0,0,0,5">
@@ -779,16 +779,16 @@
                                                     </DataTemplate>
                                                 </ComboBox.ItemTemplate>
                                             </ComboBox>
-                                            <TextBlock>Valor desc. incondicionado</TextBlock>
                                             <TextBox Text="{Binding Imposto.vDescIncond, Mode=TwoWay}"
+                                                     Header="Valor desc. incondicionado"
                                                      Margin="0,0,0,5"
                                                      InputScope="Number" />
-                                            <TextBlock>Valor desc. condicionado</TextBlock>
                                             <TextBox Text="{Binding Imposto.vDescCond, Mode=TwoWay}"
+                                                     Header="Valor desc. condicionado"
                                                      Margin="0,0,0,5"
                                                      InputScope="Number" />
-                                            <TextBlock>Código do serviço</TextBlock>
                                             <TextBox Text="{Binding Imposto.cServico, Mode=TwoWay}"
+                                                     Header="Código do serviço"
                                                      Margin="0,0,0,5"
                                                      InputScope="Number" />
                                         </StackPanel>
@@ -799,9 +799,9 @@
                                         <StackPanel Visibility="{Binding VisibilidadeMunicipioUFIncidencia}"
                                                     Grid.Row="2"
                                                     Margin="0,0,2,0">
-                                            <TextBlock>UF de incidência</TextBlock>
                                             <ComboBox ItemsSource="{Binding Path=UFs}"
                                                       SelectedItem="{Binding Path=UFIncidEscolhida, Mode=TwoWay}"
+                                                      Header="UF de incidência"
                                                       HorizontalAlignment="Stretch"
                                                       Margin="0,0,0,5">
                                                 <ComboBox.ItemTemplate>
@@ -815,9 +815,9 @@
                                                     Grid.Column="1"
                                                     Visibility="{Binding VisibilidadeMunicipioUFIncidencia}"
                                                     Margin="2,0,0,0">
-                                            <TextBlock>Município de incidência</TextBlock>
                                             <ComboBox ItemsSource="{Binding MunicipiosIncid}"
                                                       SelectedItem="{Binding Path=MunicipioIncidEscolhido, Mode=TwoWay}"
+                                                      Header="Município de incidência"
                                                       HorizontalAlignment="Stretch"
                                                       Margin="0,0,0,5">
                                                 <ComboBox.ItemTemplate>
@@ -830,15 +830,15 @@
                                         <StackPanel Visibility="{Binding VisibilidadeCodigoPais}"
                                                     Grid.Row="3"
                                                     Grid.ColumnSpan="2">
-                                            <TextBlock>Código do país - tabela do BACEN</TextBlock>
                                             <TextBox Text="{Binding Imposto.cPais, Mode=TwoWay}"
+                                                     Header="Código do país - tabela do BACEN"
                                                      Margin="0,0,0,5"
                                                      InputScope="Number" />
                                         </StackPanel>
                                         <StackPanel Grid.Row="4"
                                                     Grid.ColumnSpan="2">
-                                            <TextBlock>Número do processo judicial ou administrativo</TextBlock>
                                             <TextBox Text="{Binding Imposto.nProcesso, Mode=TwoWay}"
+                                                     Header="Número do processo judicial ou administrativo"
                                                      Margin="0,0,0,5"
                                                      InputScope="Number" />
                                         </StackPanel>

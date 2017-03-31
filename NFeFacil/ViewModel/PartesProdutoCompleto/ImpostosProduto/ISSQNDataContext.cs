@@ -21,13 +21,13 @@ namespace NFeFacil.ViewModel.PartesProdutoCompleto.ImpostosProduto
 
         public ISSQN Imposto { get; } = new ISSQN();
 
-        public int exigISS
+        public int ExigISS
         {
             get => int.Parse(Imposto.indISS ?? "0") - 1;
             set => Imposto.indISS = (value + 1).ToString();
         }
 
-        public int incent
+        public int Incent
         {
             get => int.Parse(Imposto.indIncentivo ?? "0") - 1;
             set => Imposto.indIncentivo = (value + 1).ToString();

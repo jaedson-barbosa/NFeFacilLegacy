@@ -25,8 +25,8 @@ namespace NFeFacil.IBGE
             Codigo = ushort.Parse(proc.GetByName(nameof(Codigo)));
         }
 
-        public static bool operator == (Estado est1, Estado est2) => est1.Equals(est2);
-        public static bool operator != (Estado est1, Estado est2) => !est2.Equals(est2);
+        public static bool operator == (Estado est1, Estado est2) => est1?.Equals(est2) ?? false;
+        public static bool operator != (Estado est1, Estado est2) => !est2?.Equals(est2) ?? false;
 
         public override bool Equals(object obj)
         {

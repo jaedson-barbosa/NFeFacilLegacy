@@ -45,10 +45,7 @@ namespace NFeFacil.ViewModel.PartesProdutoCompleto.ImpostosProduto
                 cstSelecionado = value;
                 var tipoPISString = value.Substring(0, 2);
                 var tipoPISInt = int.Parse(tipoPISString);
-                int[] pisAliq = { 1, 2 };
-                int[] pisValor = { 3 };
-                int[] pisNTrib = { 4, 5, 6, 7, 8, 9 };
-                if (pisAliq.Contains(tipoPISInt))
+                if (new int[] { 1, 2 }.Contains(tipoPISInt))
                 {
                     MudarTipoCalculo(TiposCalculo.PorAliquota);
                     PIS = Visibility.Visible;
@@ -58,7 +55,7 @@ namespace NFeFacil.ViewModel.PartesProdutoCompleto.ImpostosProduto
                         Corpo = new PISAliq()
                     };
                 }
-                else if (pisValor.Contains(tipoPISInt))
+                else if (tipoPISInt == 3)
                 {
                     PIS = Visibility.Visible;
                     ComboTipoCalculo = Visibility.Collapsed;
@@ -68,7 +65,7 @@ namespace NFeFacil.ViewModel.PartesProdutoCompleto.ImpostosProduto
                         Corpo = new PISQtde()
                     };
                 }
-                else if (pisNTrib.Contains(tipoPISInt))
+                else if (new int[] { 4, 5, 6, 7, 8, 9 }.Contains(tipoPISInt))
                 {
                     PIS = Visibility.Collapsed;
                     Conjunto.PIS = new PIS()

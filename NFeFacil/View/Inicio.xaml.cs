@@ -20,8 +20,7 @@ namespace NFeFacil.View
 
         private async void AbrirFunção(object sender, TappedRoutedEventArgs e)
         {
-            await EsconderAsync();
-            Propriedades.Intercambio.AbrirFunçaoAsync((sender as FrameworkElement).Name);
+            await Propriedades.Intercambio.AbrirFunçaoAsync((sender as FrameworkElement).Name);
         }
 
         public async Task EsconderAsync()

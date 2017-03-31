@@ -66,34 +66,12 @@ namespace NFeFacil.View
 
         private async void AbrirFunção(string tela)
         {
-            if (FramePrincipal?.Content is IValida)
+            if (FramePrincipal?.Content is IValida validar && !await validar.Verificar())
             {
-                var validar = FramePrincipal.Content as IValida;
-                if (await validar.Verificar())
-                {
-                    if (FramePrincipal.Content is IEsconde)
-                    {
-                        var esconder = FramePrincipal.Content as IEsconde;
-                        await esconder.EsconderAsync();
-                    }
-                    else
-                    {
-                        ILog log = new Saida();
-                        log.Escrever(TitulosComuns.ErroSimples, $"A tela {tela} ainda precisa implementar IEsconde!");
-                    }
-                }
-                else
-                {
-                    IndexHamburguer = ultimoIndex;
-                    return;
-                }
+                IndexHamburguer = ultimoIndex;
+                return;
             }
-            else if (FramePrincipal?.Content is IEsconde)
-            {
-                var esconder = FramePrincipal.Content as IEsconde;
-                await esconder.EsconderAsync();
-            }
-            Propriedades.Intercambio.AbrirFunçaoAsync(tela);
+            await Propriedades.Intercambio.AbrirFunçaoAsync(tela);
             ultimoIndex = IndexHamburguer;
         }
     }

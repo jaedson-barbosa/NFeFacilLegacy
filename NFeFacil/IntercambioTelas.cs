@@ -43,10 +43,14 @@ namespace NFeFacil
             if (tela == null) throw new ArgumentNullException(nameof(tela));
             if (TelasComParametroObrigatorio.ContainsKey(tela) && parametro == null)
                 TelasComParametroObrigatorio.TryGetValue(tela, out parametro);
-            if (Main.FramePrincipal.Content is IEsconde)
+            if (Main.FramePrincipal.Content is IEsconde esconde)
             {
-                var esconde = Main.FramePrincipal.Content as IEsconde;
                 await esconde.EsconderAsync();
+            }
+            else
+            {
+                ILog log = new Saida();
+                log.Escrever(TitulosComuns.ErroSimples, $"A tela {tela} ainda precisa implementar IEsconde!");
             }
             Main.FramePrincipal.Navigate(tela, parametro);
         }

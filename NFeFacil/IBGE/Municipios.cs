@@ -6,49 +6,39 @@ namespace NFeFacil.IBGE
 {
     public static class Municipios
     {
-        internal static Dictionary<Estado, IEnumerable<Municipio>> MunicipiosPorEstado;
+        private static Dictionary<Estado, IEnumerable<Municipio>> MunicipiosCache;
 
-        public static IEnumerable<Municipio> Buscar(Estado estado)
+        public static IEnumerable<Municipio> Get(Estado est)
         {
-            if (estado == null)
-                throw new ArgumentNullException(nameof(estado));
-
-            if (MunicipiosPorEstado == null)
-                MunicipiosPorEstado = new Dictionary<Estado, IEnumerable<Municipio>>();
-
-            if (!MunicipiosPorEstado.Keys.Contains(estado))
-            {
-                var xml = new XML(nameof(Municipios)).Retornar();
-                var codigo = estado.Codigo.ToString(System.Globalization.CultureInfo.InvariantCulture);
-                MunicipiosPorEstado.Add(estado,
-                    from município in xml.Elements()
-                    let proc = new ProcessamentoXml(município)
-                    where proc.GetByIndex(0) == codigo
-                    select new Municipio(município));
-            }
-            return MunicipiosPorEstado[estado];
+            return MunicipiosCache[est];
         }
 
-        public static IEnumerable<Municipio> Buscar(string sigla)
+        public static IEnumerable<Municipio> Get(ushort codigo)
         {
-            if (sigla == null)
-                throw new ArgumentNullException(nameof(sigla));
+            return MunicipiosCache.First(x => x.Key.Codigo == codigo).Value;
+        }
 
-            if (MunicipiosPorEstado == null)
-                MunicipiosPorEstado = new Dictionary<Estado, IEnumerable<Municipio>>();
+        public static IEnumerable<Municipio> Get(string nomeSigla)
+        {
+            return MunicipiosCache.First(x => (nomeSigla.Length == 2 ? x.Key.Sigla : x.Key.Nome) == nomeSigla).Value;
+        }
 
-            var estado = Estados.Buscar().Single(x => x.Sigla == sigla);
-            if (!MunicipiosPorEstado.Keys.Contains(estado))
+        public static void Buscar()
+        {
+            if (MunicipiosCache == null)
             {
+                MunicipiosCache = new Dictionary<Estado, IEnumerable<Municipio>>();
                 var xml = new XML(nameof(Municipios)).Retornar();
-                var codigo = estado.Codigo.ToString(System.Globalization.CultureInfo.InvariantCulture);
-                MunicipiosPorEstado.Add(estado,
-                    from município in xml.Elements()
-                    let proc = new ProcessamentoXml(município)
-                    where proc.GetByIndex(0) == codigo
-                    select new Municipio(município));
+                var municipios = from município in xml.Elements()
+                                 let proc = new ProcessamentoXml(município)
+                                 select new Municipio(município);
+                foreach (var item in Estados.EstadosCache)
+                {
+                    MunicipiosCache.Add(item, from mun in municipios
+                                              where mun.CodigoUF == item.Codigo
+                                              select mun);
+                }
             }
-            return MunicipiosPorEstado[estado];
         }
     }
 }

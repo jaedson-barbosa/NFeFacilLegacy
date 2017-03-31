@@ -717,7 +717,7 @@
                                                 <ComboBoxItem>7=Exigibilidade Suspensa por Processo Administrativo</ComboBoxItem>
                                             </ComboBox>
                                             <TextBlock>UF *</TextBlock>
-                                            <ComboBox ItemsSource="{Binding Path=UFs}"
+                                            <ComboBox ItemsSource="{Binding Source={StaticResource estados}, Path=EstadosCompletos}"
                                                       SelectedItem="{Binding Path=UFEscolhida, Mode=TwoWay}"
                                                       HorizontalAlignment="Stretch"
                                                       Margin="0,0,0,5">

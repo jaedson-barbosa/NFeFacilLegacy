@@ -16,24 +16,10 @@ namespace NFeFacil.ViewModel.NotaFiscal
         public void AttTudo()
         {
             PropertyChanged(this, new PropertyChangedEventArgs(nameof(Emit)));
-            PropertyChanged(this, new PropertyChangedEventArgs(nameof(UFs)));
             PropertyChanged(this, new PropertyChangedEventArgs(nameof(Municipios)));
             PropertyChanged(this, new PropertyChangedEventArgs(nameof(UFEscolhida)));
             PropertyChanged(this, new PropertyChangedEventArgs(nameof(MunicipioEscolhido)));
             PropertyChanged(this, new PropertyChangedEventArgs(nameof(RegimeTributario)));
-        }
-
-        [XmlIgnore]
-        public IEnumerable<Estado> _UFs { get; } = Estados.Buscar();
-
-        [XmlIgnore]
-        public ObservableCollection<string> UFs
-        {
-            get
-            {
-                return (from uf in _UFs
-                        select uf.Sigla).GerarObs();
-            }
         }
 
         [XmlIgnore]
@@ -42,7 +28,7 @@ namespace NFeFacil.ViewModel.NotaFiscal
             get
             {
                 if (UFEscolhida != null)
-                    return IBGE.Municipios.Buscar(_UFs.First(x => x.Sigla == UFEscolhida));
+                    return IBGE.Municipios.Get(UFEscolhida);
                 else
                     return new List<Municipio>();
             }

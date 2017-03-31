@@ -46,15 +46,6 @@ namespace NFeFacil.ViewModel.NotaFiscal.ImpostosProduto
             }
         }
 
-        private IEnumerable<Estado> _UFs = Estados.Buscar();
-        public ObservableCollection<Estado> UFs
-        {
-            get
-            {
-                return new ObservableCollection<Estado>(_UFs);
-            }
-        }
-
         private Estado ufEscolhida;
         public Estado UFEscolhida
         {
@@ -85,7 +76,7 @@ namespace NFeFacil.ViewModel.NotaFiscal.ImpostosProduto
             get
             {
                 if (UFEscolhida != null)
-                    return IBGE.Municipios.Buscar(UFEscolhida).GerarObs();
+                    return IBGE.Municipios.Get(UFEscolhida).GerarObs();
                 return new ObservableCollection<Municipio>();
             }
         }
@@ -94,7 +85,7 @@ namespace NFeFacil.ViewModel.NotaFiscal.ImpostosProduto
             get
             {
                 if (UFIncidEscolhida != null)
-                    return IBGE.Municipios.Buscar(UFIncidEscolhida).GerarObs();
+                    return IBGE.Municipios.Get(UFIncidEscolhida).GerarObs();
                 return new ObservableCollection<Municipio>();
             }
         }

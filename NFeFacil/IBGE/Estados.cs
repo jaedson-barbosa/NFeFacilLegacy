@@ -7,16 +7,14 @@ namespace NFeFacil.IBGE
     {
         internal static IEnumerable<Estado> EstadosCache;
 
-        public static IEnumerable<Estado> Buscar()
+        public static void Buscar()
         {
             if (EstadosCache == null)
             {
-                var classe = new XML(nameof(Estados));
-                var xml = classe.Retornar();
+                var xml = new XML(nameof(Estados)).Retornar();
                 EstadosCache = from estado in xml.Elements()
-                                     select new Estado(estado);
+                               select new Estado(estado);
             }
-            return EstadosCache;
         }
     }
 }

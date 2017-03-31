@@ -116,23 +116,17 @@ namespace NFeFacil.ViewModel.NotaFiscal
             }
         }
 
-        private IEnumerable<Estado> _UFs = Estados.Buscar();
-        [XmlIgnore]
-        public IEnumerable<string> UFs
-        {
-            get { return from uf in _UFs select uf.Nome; }
-        }
         [XmlIgnore]
         public string UFEscolhida
         {
             get
             {
                 var nulo = Ident.CódigoUF == default(ushort);
-                return !nulo ? _UFs.First(x => x.Codigo == Ident.CódigoUF).Nome : null;
+                return !nulo ? Estados.EstadosCache.First(x => x.Codigo == Ident.CódigoUF).Nome : null;
             }
             set
             {
-                Ident.CódigoUF = _UFs.First(x => x.Nome == value).Codigo;
+                Ident.CódigoUF = Estados.EstadosCache.First(x => x.Nome == value).Codigo;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Municipios)));
             }
         }
@@ -143,8 +137,7 @@ namespace NFeFacil.ViewModel.NotaFiscal
             {
                 if (UFEscolhida != null)
                 {
-                    var escolhido = _UFs.First(x => x.Nome == UFEscolhida);
-                    return new ObservableCollection<Municipio>(IBGE.Municipios.Buscar(escolhido));
+                    return IBGE.Municipios.Get(UFEscolhida);
                 }
                 return new List<Municipio>();
             }

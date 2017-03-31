@@ -1,4 +1,5 @@
-﻿using NFeFacil.ItensBD;
+﻿using Microsoft.EntityFrameworkCore;
+using NFeFacil.ItensBD;
 using NFeFacil.Log;
 using NFeFacil.ModeloXML;
 using NFeFacil.ModeloXML.PartesProcesso;
@@ -74,9 +75,14 @@ namespace NFeFacil.View
             Propriedades.Intercambio.SeAtualizar(Telas.ManipularNota, Symbol.NewFolder, "Emitir nova nota");
             using (var db = new AplicativoContext())
             {
-                cmbDestinatarios.ItemsSource = db.Clientes.ToList();
-                cmbEmitentes.ItemsSource = db.Emitentes.ToList();
-                cmbProdutos.ItemsSource = db.Produtos.ToList();
+                cmbDestinatarios.ItemsSource = db.Clientes
+                    .Include(x => x.endereco)
+                    .ToList();
+                cmbEmitentes.ItemsSource = db.Emitentes
+                    .Include(x => x.endereco)
+                    .ToList();
+                cmbProdutos.ItemsSource = db.Produtos
+                    .ToList();
             }
         }
 

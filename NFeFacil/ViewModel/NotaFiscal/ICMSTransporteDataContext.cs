@@ -26,7 +26,7 @@ namespace NFeFacil.ViewModel.NotaFiscal
         {
             get
             {
-                return UFEscolhida != null ? IBGE.Municipios.Buscar(UFEscolhida).GerarObs() : new ObservableCollection<Municipio>();
+                return UFEscolhida != null ? IBGE.Municipios.Get(UFEscolhida).GerarObs() : new ObservableCollection<Municipio>();
             }
         }
 

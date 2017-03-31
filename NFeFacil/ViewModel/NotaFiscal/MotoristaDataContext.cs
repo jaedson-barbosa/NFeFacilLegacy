@@ -19,22 +19,6 @@ namespace NFeFacil.ViewModel.NotaFiscal
         public ObservableCollection<TiposDocumento> Tipos { get; } = Enum.GetValues(typeof(TiposDocumento)).Cast<TiposDocumento>().GerarObs();
 
         [XmlIgnore]
-        private IEnumerable<Estado> _UFs
-        {
-            get
-            {
-                var estados = Estados.Buscar().ToList();
-                var estado = new Estado
-                {
-                    Nome = "Exterior",
-                    Sigla = "EX"
-                };
-                estados.Add(estado);
-                return estados;
-            }
-        }
-
-        [XmlIgnore]
         public ObservableCollection<string> Municipios
         {
             get
@@ -42,7 +26,7 @@ namespace NFeFacil.ViewModel.NotaFiscal
                 if (string.IsNullOrEmpty(Motorista.UF))
                     return new ObservableCollection<string>();
                 else
-                    return (from mun in IBGE.Municipios.Buscar(_UFs.First(x => x.Sigla == Motorista.UF))
+                    return (from mun in IBGE.Municipios.Get(Motorista.UF)
                             select mun.Nome).GerarObs();
             }
         }

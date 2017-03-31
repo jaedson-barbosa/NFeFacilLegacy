@@ -26,6 +26,8 @@ namespace NFeFacil
             {
                 db.Database.Migrate();
             }
+            IBGE.Estados.Buscar();
+            IBGE.Municipios.Buscar();
         }
 
         /// <summary>

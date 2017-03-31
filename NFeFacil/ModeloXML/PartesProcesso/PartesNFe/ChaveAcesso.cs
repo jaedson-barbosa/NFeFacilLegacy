@@ -16,7 +16,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe
         internal string CriarChaveAcesso()
         {
             var construtor = new StringBuilder();
-            var estados = Estados.Buscar();
+            var estados = Estados.EstadosCache;
             construtor.Append(estados.Single(x => x.Sigla == detalhes.emitente.endereco.SiglaUF).Codigo);
             var DataHoraEmissao = Convert.ToDateTime(detalhes.identificação.DataHoraEmissão);
             construtor.Append($"{DataHoraEmissao.Year.ToString().Substring(2)}{DataHoraEmissao.Month}");

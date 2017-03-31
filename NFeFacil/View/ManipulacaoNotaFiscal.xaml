@@ -108,7 +108,7 @@
                                 <ComboBoxItem Content="Não presencial - Teleatendimento" />
                             </ComboBox>
                             <ComboBox Header="Estado *"
-                                      ItemsSource="{Binding Path=UFs}"
+                                      ItemsSource="{Binding Source={StaticResource estados}, Path=Nomes}"
                                       SelectedItem="{Binding Path=UFEscolhida, Mode=TwoWay}"
                                       PlaceholderText="Estado" />
                             <ComboBox Header="Forma de pagamento *"

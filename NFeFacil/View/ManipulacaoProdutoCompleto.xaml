@@ -1,7 +1,6 @@
 ﻿<Page x:Class="NFeFacil.View.ManipulacaoProdutoCompleto"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:local="using:NFeFacil.View"
       xmlns:DadosBase="using:NFeFacil.View.TelasDadosBase"
       xmlns:VM="using:NFeFacil.ViewModel"
       xmlns:Impostos="using:NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos"
@@ -148,15 +147,15 @@
                                                 <ComboBoxItem>7 - Estrangeira - Adquirida no mercado interno, sem similar nacional, constante lista CAMEX e gás natural</ComboBoxItem>
                                                 <ComboBoxItem>8 - Nacional, mercadoria ou bem com Conteúdo de Importação superior a 70%</ComboBoxItem>
                                             </ComboBox>
-                                            <TextBox Visibility="{Binding SimplesAliquotaAplicavel, Converter={StaticResource visibilidade}}"
+                                            <TextBox Visibility="{Binding SimplesGrupoFim, Converter={StaticResource visibilidade}}"
                                                      Text="{Binding Simples.pCredSN, Mode=TwoWay}"
                                                      Header="Alíquota aplicável de cálculo do crédito"
                                                      InputScope="Number" />
-                                            <TextBox Visibility="{Binding SimplesCreditoAproveitável, Converter={StaticResource visibilidade}}"
+                                            <TextBox Visibility="{Binding SimplesGrupoFim, Converter={StaticResource visibilidade}}"
                                                      Text="{Binding Simples.vCredICMSSN, Mode=TwoWay}"
                                                      Header="Crédito do ICMS que pode ser aproveitado"
                                                      InputScope="Number" />
-                                            <ComboBox Visibility="{Binding SimplesModalidadeBC, Converter={StaticResource visibilidade}}"
+                                            <ComboBox Visibility="{Binding SimplesGrupoInicio, Converter={StaticResource visibilidade}}"
                                                       SelectedIndex="{Binding Simples.modBCST, Mode=TwoWay}"
                                                       Header="Modalidade de determinação da BC do ICMS"
                                                       HorizontalAlignment="Stretch">
@@ -165,19 +164,19 @@
                                                 <ComboBoxItem>Preço Tabelado Máx (valor)</ComboBoxItem>
                                                 <ComboBoxItem>Valor da operação</ComboBoxItem>
                                             </ComboBox>
-                                            <TextBox Visibility="{Binding SimplesValorBC, Converter={StaticResource visibilidade}}"
+                                            <TextBox Visibility="{Binding SimplesGrupoInicio, Converter={StaticResource visibilidade}}"
                                                      Text="{Binding Simples.vBC, Mode=TwoWay}"
                                                      Header="Valor da BC do ICMS"
                                                      InputScope="Number" />
-                                            <TextBox Visibility="{Binding SimplesPercentualRedução, Converter={StaticResource visibilidade}}"
+                                            <TextBox Visibility="{Binding SimplesGrupoInicio, Converter={StaticResource visibilidade}}"
                                                      Text="{Binding Simples.pRedBC, Mode=TwoWay}"
                                                      Header="Percentual da Redução de BC"
                                                      InputScope="Number" />
-                                            <TextBox Visibility="{Binding SimplesAlíquota, Converter={StaticResource visibilidade}}"
+                                            <TextBox Visibility="{Binding SimplesGrupoInicio, Converter={StaticResource visibilidade}}"
                                                      Text="{Binding Simples.pICMS, Mode=TwoWay}"
                                                      Header="Alíquota do imposto"
                                                      InputScope="Number" />
-                                            <TextBox Visibility="{Binding SimplesValorICMS, Converter={StaticResource visibilidade}}"
+                                            <TextBox Visibility="{Binding SimplesGrupoInicio, Converter={StaticResource visibilidade}}"
                                                      Text="{Binding Simples.vICMS, Mode=TwoWay}"
                                                      Header="Valor do ICMS"
                                                      InputScope="Number" />
@@ -250,7 +249,7 @@
                                                      Header="Motivo da desoneração do ICMS"
                                                      InputScope="Number"
                                                      ToolTipService.ToolTip="3 p/ agropecuária; 9 p/ outros e 12 p/ fomento e desenv. agropecuário." />
-                                            <ComboBox Visibility="{Binding NormalModalidadeBCNormal, Converter={StaticResource visibilidade}}"
+                                            <ComboBox Visibility="{Binding NormalGrupoInicio, Converter={StaticResource visibilidade}}"
                                                       SelectedIndex="{Binding Normal.modBC, Mode=TwoWay}"
                                                       Header="Modalidade de determinação da BC do ICMS"
                                                       HorizontalAlignment="Stretch">
@@ -259,7 +258,7 @@
                                                 <ComboBoxItem>Preço Tabelado Máx (valor)</ComboBoxItem>
                                                 <ComboBoxItem>Valor da operação</ComboBoxItem>
                                             </ComboBox>
-                                            <TextBox Visibility="{Binding NormalValorBCNormal, Converter={StaticResource visibilidade}}"
+                                            <TextBox Visibility="{Binding NormalGrupoInicio, Converter={StaticResource visibilidade}}"
                                                      Text="{Binding Normal.vBC, Mode=TwoWay}"
                                                      Header="Valor da BC do ICMS"
                                                      InputScope="Number" />
@@ -267,31 +266,31 @@
                                                      Text="{Binding Normal.pRedBC, Mode=TwoWay}"
                                                      Header="Percentual da Redução de BC"
                                                      InputScope="Number" />
-                                            <TextBox Visibility="{Binding NormalAlíquotaNormal, Converter={StaticResource visibilidade}}"
+                                            <TextBox Visibility="{Binding NormalGrupoInicio, Converter={StaticResource visibilidade}}"
                                                      Text="{Binding Normal.pICMS, Mode=TwoWay}"
                                                      Header="Alíquota do imposto"
                                                      InputScope="Number" />
-                                            <TextBox Visibility="{Binding NormalValorICMSNormal, Converter={StaticResource visibilidade}}"
+                                            <TextBox Visibility="{Binding NormalGrupoInicio, Converter={StaticResource visibilidade}}"
                                                      Text="{Binding Normal.vICMS, Mode=TwoWay}"
                                                      Header="Valor do ICMS"
                                                      InputScope="Number" />
-                                            <TextBox Visibility="{Binding NormalValorBCICMSSTRetido, Converter={StaticResource visibilidade}}"
+                                            <TextBox Visibility="{Binding NormalGrupoMeio, Converter={StaticResource visibilidade}}"
                                                      Text="{Binding Normal.vBCSTRet, Mode=TwoWay}"
                                                      Header="Valor da BC do ICMS ST retido"
                                                      InputScope="Number" />
-                                            <TextBox Visibility="{Binding NormalValorICMSRetido, Converter={StaticResource visibilidade}}"
+                                            <TextBox Visibility="{Binding NormalGrupoMeio, Converter={StaticResource visibilidade}}"
                                                      Text="{Binding Normal.vICMSSTRet, Mode=TwoWay}"
                                                      Header="Valor do ICMS ST retido"
                                                      InputScope="Number" />
-                                            <TextBox Visibility="{Binding NormalValorICMSOperacao, Converter={StaticResource visibilidade}}"
+                                            <TextBox Visibility="{Binding NormalGrupoFim, Converter={StaticResource visibilidade}}"
                                                      Text="{Binding Normal.vICMSOp, Mode=TwoWay}"
                                                      Header="Valor do ICMS da Operação"
                                                      InputScope="Number" />
-                                            <TextBox Visibility="{Binding NormalPercentualDiferimento, Converter={StaticResource visibilidade}}"
+                                            <TextBox Visibility="{Binding NormalGrupoFim, Converter={StaticResource visibilidade}}"
                                                      Text="{Binding Normal.pDif, Mode=TwoWay}"
                                                      Header="Percentual do diferimento"
                                                      InputScope="Number" />
-                                            <TextBox Visibility="{Binding NormalValorICMSDiferido, Converter={StaticResource visibilidade}}"
+                                            <TextBox Visibility="{Binding NormalGrupoFim, Converter={StaticResource visibilidade}}"
                                                      Text="{Binding Normal.vICMSDif, Mode=TwoWay}"
                                                      Header="Valor do ICMS diferido"
                                                      InputScope="Number" />

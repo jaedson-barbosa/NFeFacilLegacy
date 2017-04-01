@@ -204,9 +204,6 @@
     <Compile Include="ItensBD\EmitenteDI.cs" />
     <Compile Include="ItensBD\MotoristaDI.cs" />
     <Compile Include="ItensBD\ProdutoDI.cs" />
-    <Compile Include="ViewModel\Itens\TotalBase.cs" />
-    <Compile Include="ViewModel\Itens\TotalPorCliente.cs" />
-    <Compile Include="ViewModel\Itens\TotalPorMes.cs" />
     <Compile Include="Log\ILog.cs" />
     <Compile Include="Log\Popup.cs" />
     <Compile Include="Log\Saida.cs" />

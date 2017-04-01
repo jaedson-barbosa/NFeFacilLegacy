@@ -123,5 +123,21 @@ namespace NFeFacil.ViewModel
                 else return null;
             }
         }
+
+        public sealed class TotalPorCliente
+        {
+            public double Quantidade { get; set; }
+            public double Total { get; set; }
+            public string Nome { get; set; }
+            public string Doc { get; set; }
+            public string Mun { get; set; }
+        }
+
+        public sealed class TotalPorMes
+        {
+            public double Quantidade { get; set; }
+            public double Total { get; set; }
+            public string Mês { get; set; }
+        }
     }
 }

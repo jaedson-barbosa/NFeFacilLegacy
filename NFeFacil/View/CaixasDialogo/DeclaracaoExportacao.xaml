@@ -1,19 +1,18 @@
-﻿<ContentDialog
-    x:Class="NFeFacil.View.CaixasDialogo.DeclaracaoExportacao"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:VM="using:NFeFacil.ViewModel.PartesProdutoCompleto"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Title="Adicionar dec. exportação"
-    PrimaryButtonText="Adicionar"
-    SecondaryButtonText="Cancelar">
+﻿<ContentDialog x:Class="NFeFacil.View.CaixasDialogo.DeclaracaoExportacao"
+               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:VM="using:NFeFacil.ViewModel.PartesProdutoCompleto"
+               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+               mc:Ignorable="d"
+               Title="Adicionar dec. exportação"
+               PrimaryButtonText="Adicionar"
+               SecondaryButtonText="Cancelar">
     <ContentDialog.DataContext>
         <VM:DeclaracaoExportacaoDataContext />
     </ContentDialog.DataContext>
     <StackPanel>
-        <TextBox Text="{Binding Declaracao.nDraw, Mode=TwoWay}"
+        <TextBox Text="{Binding Declaracao.NDraw, Mode=TwoWay}"
                  Header="Número do ato concessionário de Drawback" />
         <CheckBox IsChecked="{Binding ExportIndireta, Mode=TwoWay}">Exportação indireta</CheckBox>
         <Grid Visibility="{Binding VisibilidadeIndireta}">
@@ -25,15 +24,16 @@
                 <RowDefinition />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <TextBox Text="{Binding Declaracao.exportInd.nRE, Mode=TwoWay}"
+            <TextBox Text="{Binding Declaracao.ExportInd.NRE, Mode=TwoWay}"
                      Header="Número do registro de exportação"
                      Margin="0,0,0,5" />
-            <TextBox Text="{Binding Declaracao.exportInd.qExport, Mode=TwoWay}"
+            <TextBox Text="{Binding Declaracao.ExportInd.QExport, Mode=TwoWay}"
                      Grid.Column="1"
                      Header="Quantidade"
                      Margin="0,0,0,5" />
-            <TextBox Text="{Binding Declaracao.exportInd.chNFe, Mode=TwoWay}"
-                     Grid.Row="1" Grid.ColumnSpan="2"
+            <TextBox Text="{Binding Declaracao.ExportInd.ChNFe, Mode=TwoWay}"
+                     Grid.Row="1"
+                     Grid.ColumnSpan="2"
                      Header="Chave de acesso" />
         </Grid>
     </StackPanel>

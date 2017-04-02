@@ -15,8 +15,8 @@
     <ContentDialog.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="ms-appx:///Assets/Estilos/PivotPrincipal.xaml" />
-                <ResourceDictionary Source="ms-appx:///Assets/Estilos/GridResponsiva.xaml" />
+                <ResourceDictionary Source="ms-appx:///View/Estilos/PivotPrincipal.xaml" />
+                <ResourceDictionary Source="ms-appx:///View/Estilos/GridResponsiva.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <VMRoot:DadosEstadosParaView x:Key="estados" />
             <Style TargetType="ItemsControl"
@@ -27,13 +27,13 @@
         <Pivot>
             <PivotItem Header="Geral">
                 <ItemsControl>
-                    <TextBox Text="{Binding Declaracao.nDI, Mode=TwoWay}"
+                    <TextBox Text="{Binding Declaracao.NDI, Mode=TwoWay}"
                              Header="Número DI/DSI/DA/DRI-E"
                              Margin="0,0,0,10" />
-                    <TextBox Text="{Binding Declaracao.cExportador, Mode=TwoWay}"
+                    <TextBox Text="{Binding Declaracao.CExportador, Mode=TwoWay}"
                              Header="Código do exportador"
                              Margin="0,0,0,10" />
-                    <TextBox Text="{Binding Declaracao.vAFRMM, Mode=TwoWay}"
+                    <TextBox Text="{Binding Declaracao.VAFRMM, Mode=TwoWay}"
                              Header="Valor da AFRMM"
                              Margin="0,0,0,10" />
                     <DatePicker Date="{Binding dataRegistro, Mode=TwoWay}"
@@ -74,7 +74,7 @@
                               SelectedItem="{Binding Path=Declaracao.UFDesemb, Mode=TwoWay}"
                               Header="UF"
                               HorizontalAlignment="Stretch" />
-                    <TextBox Text="{Binding Declaracao.xLocDesemb, Mode=TwoWay}"
+                    <TextBox Text="{Binding Declaracao.XLocDesemb, Mode=TwoWay}"
                              Header="Local" />
                     <DatePicker Date="{Binding dataDesembaraco, Mode=TwoWay}"
                                 Header="Data"
@@ -105,13 +105,13 @@
                     </Grid.RowDefinitions>
                     <StackPanel DataContext="{Binding NovaAdicao}"
                                 Grid.RowSpan="2">
-                        <TextBox Text="{Binding nAdicao, Mode=TwoWay}"
+                        <TextBox Text="{Binding NAdicao, Mode=TwoWay}"
                                  Header="Número *" />
-                        <TextBox Text="{Binding cFabricante, Mode=TwoWay}"
+                        <TextBox Text="{Binding CFabricante, Mode=TwoWay}"
                                  Header="Cód. do fabricante *" />
-                        <TextBox Text="{Binding vDescDI, Mode=TwoWay}"
+                        <TextBox Text="{Binding VDescDI, Mode=TwoWay}"
                                  Header="Desconto" />
-                        <TextBox Text="{Binding nDraw, Mode=TwoWay}"
+                        <TextBox Text="{Binding NDraw, Mode=TwoWay}"
                                  Header="Número de Drawback" />
                     </StackPanel>
                     <ListView ItemsSource="{Binding Adicoes}"
@@ -120,7 +120,7 @@
                               Grid.ColumnSpan="2">
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding nAdicao, Mode=TwoWay}" />
+                                <TextBlock Text="{Binding NAdicao, Mode=TwoWay}" />
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>

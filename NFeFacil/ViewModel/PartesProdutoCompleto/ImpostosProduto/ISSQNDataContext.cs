@@ -1,9 +1,6 @@
-﻿using NFeFacil.IBGE;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
+﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using Windows.UI.Xaml;
 
 namespace NFeFacil.ViewModel.PartesProdutoCompleto.ImpostosProduto
@@ -13,18 +10,6 @@ namespace NFeFacil.ViewModel.PartesProdutoCompleto.ImpostosProduto
         public event PropertyChangedEventHandler PropertyChanged;
 
         public ISSQN Imposto { get; } = new ISSQN();
-
-        public int ExigISS
-        {
-            get => int.Parse(Imposto.indISS ?? "0") - 1;
-            set => Imposto.indISS = (value + 1).ToString();
-        }
-
-        public int Incent
-        {
-            get => int.Parse(Imposto.indIncentivo ?? "0") - 1;
-            set => Imposto.indIncentivo = (value + 1).ToString();
-        }
 
         private bool exterior;
         public bool Exterior

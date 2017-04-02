@@ -134,6 +134,7 @@
     </Compile>
     <Compile Include="Migrations\AplicativoContextModelSnapshot.cs" />
     <Compile Include="ViewModel\Converters\EstadoToMunicipios.cs" />
+    <Compile Include="ViewModel\Converters\ModificaValor.cs" />
     <Compile Include="ViewModel\ProdutoCompletoDataContext.cs" />
     <Compile Include="View\AdicionarDestinatario.xaml.cs">
       <DependentUpon>AdicionarDestinatario.xaml</DependentUpon>

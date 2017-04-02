@@ -164,7 +164,7 @@
     <Compile Include="View\ManipulacaoProdutoCompleto.xaml.cs">
       <DependentUpon>ManipulacaoProdutoCompleto.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\NotaComDados.cs" />
+    <Compile Include="NotaComDados.cs" />
     <Compile Include="View\QRCode.cs" />
     <Compile Include="Propriedades.cs" />
     <Compile Include="Sincronizacao\RegistrarCliente.cs" />

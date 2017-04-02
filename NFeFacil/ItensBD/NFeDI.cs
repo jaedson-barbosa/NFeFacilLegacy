@@ -1,6 +1,8 @@
 ﻿using NFeFacil.ModeloXML;
 using NFeFacil.ModeloXML.PartesProcesso;
+using System;
 using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace NFeFacil.ItensBD
@@ -49,6 +51,28 @@ namespace NFeFacil.ItensBD
         {
             if (xml.Name.LocalName == nameof(NFe)) return (NFeDI)xml.FromXElement<NFe>();
             else return (NFeDI)xml.FromXElement<Processo>();
+        }
+
+        internal async Task<NotaComDados> ConjuntoCompletoAsync()
+        {
+            var retorno = new NotaComDados();
+            var xml = await new PastaNotasFiscais().Retornar(Id);
+            try
+            {
+                if ((StatusNFe)Status == StatusNFe.Salvo)
+                    retorno.nota = xml.FromXElement<NFe>();
+                else
+                    retorno.proc = xml.FromXElement<Processo>();
+            }
+            catch (Exception)
+            {
+                if (xml.Name.LocalName == nameof(NFe))
+                    retorno.nota = xml.FromXElement<NFe>();
+                else
+                    retorno.proc = xml.FromXElement<Processo>();
+            }
+            retorno.dados = this;
+            return retorno;
         }
     }
 

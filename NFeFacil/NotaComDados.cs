@@ -2,7 +2,7 @@
 using NFeFacil.ModeloXML;
 using NFeFacil.ModeloXML.PartesProcesso;
 
-namespace NFeFacil.View
+namespace NFeFacil
 {
     internal sealed class NotaComDados
     {

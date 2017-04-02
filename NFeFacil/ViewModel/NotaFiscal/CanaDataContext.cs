@@ -28,11 +28,7 @@ namespace NFeFacil.ViewModel.NotaFiscal
             get { return Cana.forDia.GerarObs(); }
         }
 
-        public ObservableCollection<Deducoes> ListaDeducoes
-        {
-            get { return Cana.deduc.GerarObs(); }
-        }
-
+        public ObservableCollection<Deducoes> ListaDeducoes => Cana.deduc.GerarObs();
         public ICommand AdicionarFornecimentoCommand { get; }
         public ICommand RemoverFornecimentoCommand { get; }
         public ICommand AdicionarDeducaoCommand { get; }

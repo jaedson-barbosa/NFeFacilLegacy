@@ -19,14 +19,8 @@ namespace NFeFacil.ViewModel.PartesProdutoCompleto.ImpostosProduto
         }
 
         private ConjuntoPIS Conjunto = new ConjuntoPIS();
-        public PIS Imposto
-        {
-            get { return Conjunto.PIS; }
-        }
-        public PISST ImpostoST
-        {
-            get { return Conjunto.PISST; }
-        }
+        public PIS Imposto => Conjunto.PIS;
+        public PISST ImpostoST => Conjunto.PISST;
 
         public Visibility PIS { get; private set; } = Visibility.Collapsed;
         public Visibility CalculoAliquota { get; private set; } = Visibility.Collapsed;
@@ -144,7 +138,6 @@ namespace NFeFacil.ViewModel.PartesProdutoCompleto.ImpostosProduto
 
         private enum TiposCalculo
         {
-            SemCalculo,
             PorAliquota,
             PorValor
         }

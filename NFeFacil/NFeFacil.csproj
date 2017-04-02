@@ -133,6 +133,7 @@
       <DependentUpon>20170328172532_Teste2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\AplicativoContextModelSnapshot.cs" />
+    <Compile Include="ViewModel\Converters\EstadoToMunicipios.cs" />
     <Compile Include="ViewModel\ProdutoCompletoDataContext.cs" />
     <Compile Include="View\AdicionarDestinatario.xaml.cs">
       <DependentUpon>AdicionarDestinatario.xaml</DependentUpon>
@@ -145,6 +146,9 @@
     </Compile>
     <Compile Include="View\AdicionarProduto.xaml.cs">
       <DependentUpon>AdicionarProduto.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Consulta.xaml.cs">
+      <DependentUpon>Consulta.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ExibicaoQR.cs" />
     <Compile Include="View\GerenciarDadosBase.xaml.cs">
@@ -471,6 +475,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Configuracoes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Consulta.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

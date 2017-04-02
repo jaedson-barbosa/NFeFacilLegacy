@@ -16,6 +16,7 @@
                 <ResourceDictionary Source="Estilos/PivotPrincipal.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Conversores:BoolToVisibility x:Key="visibilidade" />
+            <Conversores:EstadoToMunicipios x:Key="obterMunicipio" />
             <VM:DadosEstadosParaView x:Key="estados" />
         </ResourceDictionary>
     </Page.Resources>
@@ -726,14 +727,14 @@
                                                 <ComboBoxItem>6=Exigibilidade Suspensa por Decisão Judicial</ComboBoxItem>
                                                 <ComboBoxItem>7=Exigibilidade Suspensa por Processo Administrativo</ComboBoxItem>
                                             </ComboBox>
-                                            <ComboBox ItemsSource="{Binding Source={StaticResource estados}, Path=EstadosCompletos}"
-                                                      SelectedItem="{Binding Path=UFEscolhida, Mode=TwoWay}"
+                                            <ComboBox x:Name="UFISSQN"
+                                                      ItemsSource="{Binding Source={StaticResource estados}, Path=EstadosCompletos}"
                                                       Header="UF *"
                                                       HorizontalAlignment="Stretch"
                                                       Margin="0,0,0,5">
                                                 <ComboBox.ItemTemplate>
                                                     <DataTemplate>
-                                                        <TextBlock Text="{Binding Nome, Mode=OneTime}" />
+                                                        <TextBlock Text="{Binding Nome}" />
                                                     </DataTemplate>
                                                 </ComboBox.ItemTemplate>
                                             </ComboBox>
@@ -767,14 +768,15 @@
                                                 <ComboBoxItem>Sim</ComboBoxItem>
                                                 <ComboBoxItem>Não</ComboBoxItem>
                                             </ComboBox>
-                                            <ComboBox ItemsSource="{Binding Municipios}"
+                                            <ComboBox ItemsSource="{Binding ElementName=UFISSQN, Path=SelectedItem, Converter={StaticResource obterMunicipio}}"
                                                       Header="Município *"
-                                                      SelectedItem="{Binding Path=MunicipioEscolhido, Mode=TwoWay}"
+                                                      SelectedValue="{Binding Path=Imposto.cMunFG, Mode=TwoWay}"
+                                                      SelectedValuePath="CodigoMunicípio"
                                                       HorizontalAlignment="Stretch"
                                                       Margin="0,0,0,5">
                                                 <ComboBox.ItemTemplate>
                                                     <DataTemplate>
-                                                        <TextBlock Text="{Binding Nome, Mode=OneTime}" />
+                                                        <TextBlock Text="{Binding Nome}" />
                                                     </DataTemplate>
                                                 </ComboBox.ItemTemplate>
                                             </ComboBox>
@@ -798,8 +800,8 @@
                                         <StackPanel Visibility="{Binding VisibilidadeMunicipioUFIncidencia}"
                                                     Grid.Row="2"
                                                     Margin="0,0,2,0">
-                                            <ComboBox ItemsSource="{Binding Path=UFs}"
-                                                      SelectedItem="{Binding Path=UFIncidEscolhida, Mode=TwoWay}"
+                                            <ComboBox x:Name="UFIncidISSQN" 
+                                                      ItemsSource="{Binding Source={StaticResource estados}, Path=EstadosCompletos}"
                                                       Header="UF de incidência"
                                                       HorizontalAlignment="Stretch"
                                                       Margin="0,0,0,5">
@@ -814,14 +816,15 @@
                                                     Grid.Column="1"
                                                     Visibility="{Binding VisibilidadeMunicipioUFIncidencia}"
                                                     Margin="2,0,0,0">
-                                            <ComboBox ItemsSource="{Binding MunicipiosIncid}"
-                                                      SelectedItem="{Binding Path=MunicipioIncidEscolhido, Mode=TwoWay}"
+                                            <ComboBox ItemsSource="{Binding ElementName=UFIncidISSQN, Path=SelectedItem, Converter={StaticResource obterMunicipio}}"
+                                                      SelectedValue="{Binding Path=Imposto.cMun, Mode=TwoWay}"
+                                                      SelectedValuePath="CodigoMunicípio"
                                                       Header="Município de incidência"
                                                       HorizontalAlignment="Stretch"
                                                       Margin="0,0,0,5">
                                                 <ComboBox.ItemTemplate>
                                                     <DataTemplate>
-                                                        <TextBlock Text="{Binding Nome, Mode=OneTime}" />
+                                                        <TextBlock Text="{Binding Nome}" />
                                                     </DataTemplate>
                                                 </ComboBox.ItemTemplate>
                                             </ComboBox>

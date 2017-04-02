@@ -11,13 +11,6 @@ namespace NFeFacil.ViewModel.PartesProdutoCompleto.ImpostosProduto
     public class ISSQNDataContext : INotifyPropertyChanged, IImpostoDataContext
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged(params string[] parametros)
-        {
-            for (int i = 0; i < parametros.Length; i++)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(parametros[i]));
-            }
-        }
 
         public ISSQN Imposto { get; } = new ISSQN();
 
@@ -33,75 +26,13 @@ namespace NFeFacil.ViewModel.PartesProdutoCompleto.ImpostosProduto
             set => Imposto.indIncentivo = (value + 1).ToString();
         }
 
-        private Estado ufEscolhida;
-        public Estado UFEscolhida
-        {
-            get => ufEscolhida;
-            set
-            {
-                ufEscolhida = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Municipios)));
-            }
-        }
-
-        private Estado ufIncidEscolhida;
-        public Estado UFIncidEscolhida
-        {
-            get => ufIncidEscolhida;
-            set
-            {
-                ufIncidEscolhida = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(MunicipiosIncid)));
-            }
-        }
-
-        public ObservableCollection<Municipio> Municipios
-        {
-            get
-            {
-                if (UFEscolhida != null)
-                    return IBGE.Municipios.Get(UFEscolhida).GerarObs();
-                return new ObservableCollection<Municipio>();
-            }
-        }
-        public ObservableCollection<Municipio> MunicipiosIncid
-        {
-            get
-            {
-                if (UFIncidEscolhida != null)
-                    return IBGE.Municipios.Get(UFIncidEscolhida).GerarObs();
-                return new ObservableCollection<Municipio>();
-            }
-        }
-
-        public Municipio MunicipioEscolhido
-        {
-            get
-            {
-                var nulo = string.IsNullOrEmpty(Imposto.cMunFG);
-                return !nulo ? Municipios.Single(x => x.CodigoMunicípio.ToString() == Imposto.cMunFG) : null;
-            }
-            set => Imposto.cMunFG = value.CodigoMunicípio.ToString();
-        }
-
-        public Municipio MunicipioIncidEscolhido
-        {
-            get
-            {
-                var nulo = string.IsNullOrEmpty(Imposto.cMun);
-                return !nulo ? Municipios.Single(x => x.CodigoMunicípio.ToString() == Imposto.cMun) : null;
-            }
-            set => Imposto.cMun = value.CodigoMunicípio.ToString();
-        }
-
         private bool exterior;
         public bool Exterior
         {
             get => exterior;
             set
             {
-                exterior = value;
-                if (value)
+                if (exterior = value)
                 {
                     VisibilidadeCodigoPais = Visibility.Visible;
                     VisibilidadeMunicipioUFIncidencia = Visibility.Collapsed;
@@ -114,7 +45,8 @@ namespace NFeFacil.ViewModel.PartesProdutoCompleto.ImpostosProduto
                     Imposto.cPais = null;
                     Imposto.cMun = null;
                 }
-                OnPropertyChanged(nameof(VisibilidadeCodigoPais), nameof(VisibilidadeMunicipioUFIncidencia));
+                PropertyChanged(this, new PropertyChangedEventArgs(nameof(VisibilidadeCodigoPais)));
+                PropertyChanged(this, new PropertyChangedEventArgs(nameof(VisibilidadeMunicipioUFIncidencia)));
             }
         }
 

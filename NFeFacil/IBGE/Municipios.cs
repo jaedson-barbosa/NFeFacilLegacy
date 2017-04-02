@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace NFeFacil.IBGE
@@ -9,16 +10,13 @@ namespace NFeFacil.IBGE
 
         public static IEnumerable<Municipio> Get(Estado est)
         {
+            if (est == null) return new ObservableCollection<Municipio>();
             return MunicipiosCache[est];
-        }
-
-        public static IEnumerable<Municipio> Get(ushort codigo)
-        {
-            return MunicipiosCache.First(x => x.Key.Codigo == codigo).Value;
         }
 
         public static IEnumerable<Municipio> Get(string nomeSigla)
         {
+            if (string.IsNullOrEmpty(nomeSigla)) return new ObservableCollection<Municipio>();
             return MunicipiosCache.First(x => (nomeSigla.Length == 2 ? x.Key.Sigla : x.Key.Nome) == nomeSigla).Value;
         }
 

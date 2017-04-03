@@ -14,7 +14,7 @@ namespace NFeFacil.View
     {
         public Inicio()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             Propriedades.Intercambio.SeAtualizar(Telas.Inicio, Symbol.Home, nameof(Inicio));
         }
 

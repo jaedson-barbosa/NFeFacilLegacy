@@ -9,7 +9,7 @@ namespace NFeFacil.View.Controles
     {
         public ItemPadrao()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         public string Titulo { get; set; }

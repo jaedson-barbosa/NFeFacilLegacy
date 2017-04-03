@@ -22,7 +22,7 @@ namespace NFeFacil.View
 
         public AdicionarMotorista()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -30,6 +30,17 @@ namespace NFeFacil.View
             var parametro = (GrupoViewBanco<MotoristaDI>)e.Parameter;
             motorista = parametro.ItemBanco ?? new MotoristaDI();
             tipoRequisitado = parametro.OperacaoRequirida;
+            switch (tipoRequisitado)
+            {
+                case TipoOperacao.Adicao:
+                    Propriedades.Intercambio.SeAtualizar(Telas.GerenciarDadosBase, Symbol.Add, "Adicionar motorista");
+                    break;
+                case TipoOperacao.Edicao:
+                    Propriedades.Intercambio.SeAtualizar(Telas.GerenciarDadosBase, Symbol.Edit, "Editar motorista");
+                    break;
+                default:
+                    break;
+            }
             DataContext = new MotoristaDataContext(ref motorista);
         }
 

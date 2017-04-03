@@ -18,7 +18,7 @@ namespace NFeFacil.View
         public Consulta()
         {
             InitializeComponent();
-            Propriedades.Intercambio.SeAtualizar(Telas.Consulta, Symbol.Zoom, "Consultar NFe");
+            Propriedades.Intercambio.SeAtualizar(Telas.Consulta, Symbol.Find, "Consultar NF-e");
             cmbUF.ItemsSource = Estados.EstadosCache.GerarObs();
         }
 

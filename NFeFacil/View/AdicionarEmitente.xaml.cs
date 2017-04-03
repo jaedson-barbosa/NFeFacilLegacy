@@ -22,7 +22,7 @@ namespace NFeFacil.View
 
         public AdicionarEmitente()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -30,6 +30,17 @@ namespace NFeFacil.View
             var parametro = (GrupoViewBanco<EmitenteDI>)e.Parameter;
             emitente = parametro.ItemBanco ?? new EmitenteDI();
             tipoRequisitado = parametro.OperacaoRequirida;
+            switch (tipoRequisitado)
+            {
+                case TipoOperacao.Adicao:
+                    Propriedades.Intercambio.SeAtualizar(Telas.GerenciarDadosBase, Symbol.Add, "Adicionar emitente");
+                    break;
+                case TipoOperacao.Edicao:
+                    Propriedades.Intercambio.SeAtualizar(Telas.GerenciarDadosBase, Symbol.Edit, "Editar emitente");
+                    break;
+                default:
+                    break;
+            }
             DataContext = new EmitenteDataContext(ref emitente);
         }
 

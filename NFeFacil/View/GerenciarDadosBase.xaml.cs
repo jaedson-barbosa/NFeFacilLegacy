@@ -18,7 +18,7 @@ namespace NFeFacil.View
     {
         public GerenciarDadosBase()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             using (var db = new AplicativoContext())
             {
                 lstDestinatários.ItemsSource = db.Clientes.Include(x => x.endereco).ToList();

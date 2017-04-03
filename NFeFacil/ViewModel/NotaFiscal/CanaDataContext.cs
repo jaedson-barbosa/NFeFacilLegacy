@@ -71,7 +71,7 @@ namespace NFeFacil.ViewModel.NotaFiscal
         public CanaDataContext()
         {
             AdicionarFornecimentoCommand = new ComandoSemParametros(AdicionarFornecimento, true);
-            RemoverFornecimentoCommand = new ComandoComParametros<ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.FornecimentoDiario, ObterDataContext<ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.FornecimentoDiario>>(this.RemoverFornecimento);
+            RemoverFornecimentoCommand = new ComandoComParametros<ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.FornecimentoDiario, ObterDataContext<ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.FornecimentoDiario>>(RemoverFornecimento);
             AdicionarDeducaoCommand = new ComandoSemParametros(AdicionarDeducao, true);
             RemoverDeducaoCommand = new ComandoComParametros<Deducoes, ObterDataContext<Deducoes>>(RemoverDeducao);
         }

@@ -21,7 +21,7 @@ namespace NFeFacil.View
 
         public AdicionarProduto()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -29,6 +29,17 @@ namespace NFeFacil.View
             var parametro = (GrupoViewBanco<ProdutoDI>)e.Parameter;
             Produto = parametro.ItemBanco ?? new ProdutoDI();
             tipoRequisitado = parametro.OperacaoRequirida;
+            switch (tipoRequisitado)
+            {
+                case TipoOperacao.Adicao:
+                    Propriedades.Intercambio.SeAtualizar(Telas.GerenciarDadosBase, Symbol.Add, "Adicionar produto");
+                    break;
+                case TipoOperacao.Edicao:
+                    Propriedades.Intercambio.SeAtualizar(Telas.GerenciarDadosBase, Symbol.Edit, "Editar produto");
+                    break;
+                default:
+                    break;
+            }
             DataContext = Produto;
         }
 

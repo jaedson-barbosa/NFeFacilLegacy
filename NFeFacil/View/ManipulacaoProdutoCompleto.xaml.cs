@@ -21,13 +21,14 @@ namespace NFeFacil.View
     {
         public ManipulacaoProdutoCompleto()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             var Produto = e.Parameter as DetalhesProdutos;
             DataContext = new ProdutoCompletoDataContext(Produto);
+            Propriedades.Intercambio.SeAtualizar(Telas.ManipularNota, Symbol.Add, "Adicionar produto");
         }
 
         private Impostos ImpostosFiltrados

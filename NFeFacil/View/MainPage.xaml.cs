@@ -40,7 +40,7 @@ namespace NFeFacil.View
         private int ultimoIndex;
         public MainPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             ProcessarAsync();
             Propriedades.Intercambio = new IntercambioTelas(this);
             AbrirFunção(nameof(Inicio));

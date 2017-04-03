@@ -12,7 +12,8 @@ namespace NFeFacil.View
     {
         public HistoricoSincronizacao()
         {
-            this.InitializeComponent();
+            InitializeComponent();
+            Propriedades.Intercambio.SeAtualizar(Telas.HistoricoSincronizacao, Symbol.Emoji, "Histórico de sincronização");
         }
 
         async Task IEsconde.EsconderAsync()

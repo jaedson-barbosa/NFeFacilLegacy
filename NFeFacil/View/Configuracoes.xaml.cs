@@ -13,7 +13,7 @@ namespace NFeFacil.View
         public Configuracoes()
         {
             InitializeComponent();
-            Propriedades.Intercambio.SeAtualizar(Telas.Configurações, Symbol.Setting, nameof(Configuracoes));
+            Propriedades.Intercambio.SeAtualizar(Telas.Configurações, Symbol.Setting, "Configurações");
         }
 
         public async Task EsconderAsync()

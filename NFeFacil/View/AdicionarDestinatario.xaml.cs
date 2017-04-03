@@ -22,7 +22,7 @@ namespace NFeFacil.View
 
         public AdicionarDestinatario()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -30,6 +30,17 @@ namespace NFeFacil.View
             var parametro = (GrupoViewBanco<ClienteDI>)e.Parameter;
             cliente = parametro.ItemBanco ?? new ClienteDI();
             tipoRequisitado = parametro.OperacaoRequirida;
+            switch (tipoRequisitado)
+            {
+                case TipoOperacao.Adicao:
+                    Propriedades.Intercambio.SeAtualizar(Telas.GerenciarDadosBase, Symbol.Add, "Adicionar cliente");
+                    break;
+                case TipoOperacao.Edicao:
+                    Propriedades.Intercambio.SeAtualizar(Telas.GerenciarDadosBase, Symbol.Edit, "Editar cliente");
+                    break;
+                default:
+                    break;
+            }
             DataContext = new ClienteDataContext(ref cliente);
         }
 

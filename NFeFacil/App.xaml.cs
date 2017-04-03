@@ -20,8 +20,8 @@ namespace NFeFacil
         /// </summary>
         public App()
         {
-            this.InitializeComponent();
-            this.Suspending += OnSuspending;
+            InitializeComponent();
+            Suspending += OnSuspending;
             using (var db = new AplicativoContext())
             {
                 db.Database.Migrate();

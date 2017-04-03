@@ -15,7 +15,7 @@ namespace NFeFacil.View
     {
         public NotasSalvas()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             using (var db = new AplicativoContext())
             {
                 lstNotas.ItemsSource = db.NotasFiscais.GerarObs();

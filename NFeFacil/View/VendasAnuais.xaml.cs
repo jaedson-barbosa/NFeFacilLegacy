@@ -12,8 +12,8 @@ namespace NFeFacil.View
     {
         public VendasAnuais()
         {
-            this.InitializeComponent();
-            Propriedades.Intercambio.SeAtualizar(Telas.VendasAnuais, Symbol.Filter, "Vendas anuais");
+            InitializeComponent();
+            Propriedades.Intercambio.SeAtualizar(Telas.VendasAnuais, Symbol.Calendar, "Vendas anuais");
         }
 
         public async Task EsconderAsync()

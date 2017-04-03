@@ -71,8 +71,7 @@ namespace NFeFacil.View
 
         public ManipulacaoNotaFiscal()
         {
-            this.InitializeComponent();
-            Propriedades.Intercambio.SeAtualizar(Telas.ManipularNota, Symbol.NewFolder, "Emitir nova nota");
+            InitializeComponent();
             using (var db = new AplicativoContext())
             {
                 cmbDestinatarios.ItemsSource = db.Clientes

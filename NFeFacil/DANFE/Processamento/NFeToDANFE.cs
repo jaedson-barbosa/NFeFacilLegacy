@@ -14,18 +14,27 @@ namespace NFeFacil.DANFE.Processamento
     {
         public static Geral Converter(Processo proc)
         {
+            var dadosAdicionais = GetExtras(proc.NFe.Informações.infAdic);
+            var dadosCabecalho = GetCabecalho(proc.NFe.Informações.identificação, proc.NFe.Informações.emitente);
+            var dadosCliente = GetCliente(proc.NFe.Informações.identificação, proc.NFe.Informações.destinatário);
+            var dadosImposto = GetImposto(proc.NFe.Informações.total);
+            var dadosMotorista = GetMotorista(proc.NFe.Informações.transp);
+            var dadosNFe = GetNFe(proc.NFe.Informações, proc.ProtNFe);
+            var dadosProdutos = (from p in proc.NFe.Informações.produtos
+                                 select GetProd(p)).ToArray();
+            var duplicatas = proc.NFe.Informações.cobr?.Dup;
+            var dadosDuplicatas = duplicatas != null ? (from d in duplicatas
+                                                        select GetDuplicata(d)).ToArray() : new DadosDuplicata[0];
             return new Geral
             {
-                _DadosAdicionais = GetExtras(proc.NFe.Informações.infAdic),
-                _DadosCabecalho = GetCabecalho(proc.NFe.Informações.identificação, proc.NFe.Informações.emitente),
-                _DadosCliente = GetCliente(proc.NFe.Informações.identificação, proc.NFe.Informações.destinatário),
-                _DadosImposto = GetImposto(proc.NFe.Informações.total),
-                _DadosMotorista = GetMotorista(proc.NFe.Informações.transp),
-                _DadosNFe = GetNFe(proc.NFe.Informações, proc.ProtNFe),
-                _DadosProdutos = (from p in proc.NFe.Informações.produtos
-                                  select GetProd(p)).ToArray(),
-                _Duplicatas = (from d in proc.NFe.Informações.cobr?.Dup
-                               select GetDuplicata(d)).ToArray()
+                _DadosAdicionais = dadosAdicionais,
+                _DadosCabecalho = dadosCabecalho,
+                _DadosCliente = dadosCliente,
+                _DadosImposto = dadosImposto,
+                _DadosMotorista = dadosMotorista,
+                _DadosNFe = dadosNFe,
+                _DadosProdutos = dadosProdutos,
+                _Duplicatas = dadosDuplicatas
             };
         }
 

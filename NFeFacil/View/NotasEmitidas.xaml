@@ -1,0 +1,48 @@
+﻿<Page x:Class="NFeFacil.View.NotasEmitidas"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:Conversores="using:NFeFacil.ViewModel.Converters"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d">
+    <Page.Resources>
+        <ResourceDictionary>
+            <Conversores:TextoComLabel x:Key="textoLabel" />
+            <x:String x:Key="LabelNomeEmitente">Nome emitente</x:String>
+            <x:String x:Key="LabelNomeCliente">Nome cliente</x:String>
+            <x:String x:Key="LabelData">Data emissão</x:String>
+            <Storyboard x:Name="OcultarGrid">
+                <DoubleAnimation Duration="0:0:0.25"
+                                 To="0"
+                                 Storyboard.TargetProperty="(UIElement.Opacity)"
+                                 Storyboard.TargetName="grdPrincipal" />
+            </Storyboard>
+        </ResourceDictionary>
+    </Page.Resources>
+    <Grid x:Name="grdPrincipal"
+          Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <ListView x:Name="lstNotas">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="0,5">
+                        <StackPanel.ContextFlyout>
+                            <MenuFlyout>
+                                <MenuFlyoutItem Click="RemoverAsync">Remover</MenuFlyoutItem>
+                                <MenuFlyoutItem Click="EditarAsync">Editar</MenuFlyoutItem>
+                            </MenuFlyout>
+                        </StackPanel.ContextFlyout>
+                        <TextBlock Text="{Binding Path=NomeEmitente, Mode=OneWay, ConverterParameter={StaticResource LabelNomeEmitente}, Converter={StaticResource textoLabel}}" />
+                        <TextBlock Grid.Row="1"
+                                   Text="{Binding Path=NomeCliente, Mode=OneWay, ConverterParameter={StaticResource LabelNomeCliente}, Converter={StaticResource textoLabel}}" />
+                        <TextBlock Grid.Row="2"
+                                   Text="{Binding Path=DataEmissao, Mode=OneWay, ConverterParameter={StaticResource LabelData}, Converter={StaticResource textoLabel}}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Page>

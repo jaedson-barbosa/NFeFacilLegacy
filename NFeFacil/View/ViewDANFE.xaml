@@ -5,7 +5,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <ScrollViewer>
+        <ScrollViewer Margin="0,0,0,48">
             <WebView x:Name="webView"
                      Source="ms-appx-web:///DANFE/html/DANFE.html" />
         </ScrollViewer>

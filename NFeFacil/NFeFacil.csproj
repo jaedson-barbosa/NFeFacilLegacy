@@ -165,6 +165,9 @@
       <DependentUpon>ManipulacaoProdutoCompleto.xaml</DependentUpon>
     </Compile>
     <Compile Include="NotaComDados.cs" />
+    <Compile Include="View\NotasEmitidas.xaml.cs">
+      <DependentUpon>NotasEmitidas.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\QRCode.cs" />
     <Compile Include="Propriedades.cs" />
     <Compile Include="Sincronizacao\RegistrarCliente.cs" />
@@ -560,6 +563,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ManipulacaoProdutoCompleto.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\NotasEmitidas.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -12,11 +12,16 @@
     <script>
         function TipoPage(atual, total) {
             if (total == 1) {
-                // Nesse caso não se deve fazer nada
+                if (quantidadeDup == 0) {
+                    DeletarFaturas();
+                }
             }
             else if (atual < 2) {
                 if ($("rodape") != null) {
                     $("rodape").remove();
+                }
+                if (quantidadeDup == 0) {
+                    DeletarFaturas();
                 }
             }
             else if (atual > 1 && atual < total) {
@@ -576,6 +581,8 @@
     </div>
     <!--Fatura-->
     <script>
+        this.quantidadeDup = 0;
+
         function DeletarFaturas() {
             if ($("faturas") != null){
                 $("faturas").remove();
@@ -586,6 +593,7 @@
             AddDupItemToLinha("NÚMERO", n);
             AddDupItemToLinha("NÚMERO", dataVenc);
             AddDupItemToLinha("NÚMERO", valor);
+            quantidadeDup += 1;
         }
 
         function AddDupItemToLinha(header, body) {
@@ -731,6 +739,12 @@
             DefinirTexto("fisco", dados.fisco);
         }
     </script>
+    <style>
+        #rodape {
+            position: absolute;
+            bottom: 0px;
+        }
+    </style>
     <div id="rodape" class="bloco rodape">
         <div class="conteudo negrito fonte-7-pontos">DADOS ADICIONAIS</div>
         <table id="dados_adicionais">

@@ -15,7 +15,7 @@ namespace NFeFacil.View
         public Inicio()
         {
             this.InitializeComponent();
-            Propriedades.Intercambio.SeAtualizar(Telas.Início, Symbol.Home, nameof(Inicio));
+            Propriedades.Intercambio.SeAtualizar(Telas.Inicio, Symbol.Home, nameof(Inicio));
         }
 
         private async void AbrirFunção(object sender, TappedRoutedEventArgs e)

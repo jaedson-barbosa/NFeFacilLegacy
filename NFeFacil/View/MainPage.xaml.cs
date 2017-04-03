@@ -1,5 +1,4 @@
 ﻿using NFeFacil.Log;
-using NFeFacil.View.Controles;
 using System;
 using Windows.System.Profile;
 using Windows.UI.Core;

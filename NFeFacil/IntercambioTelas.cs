@@ -7,6 +7,7 @@ using NFeFacil.View;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
 
@@ -21,7 +22,7 @@ namespace NFeFacil
         public IntercambioTelas(MainPage main)
         {
             Main = main;
-            TelaAtual = Telas.Início;
+            TelaAtual = Telas.Inicio;
             Log = new Saida();
         }
 
@@ -92,18 +93,26 @@ namespace NFeFacil
             }
         };
 
-        public void SeAtualizar(Telas atual, Symbol símbolo, string texto)
+        public async void SeAtualizar(Telas atual, Symbol símbolo, string texto)
         {
             System.Diagnostics.Debug.WriteLine(Main.FramePrincipal.BackStackDepth);
             TelaAtual = atual;
             Main.IndexHamburguer = (int)atual;
             Main.Símbolo = símbolo;
             Main.Título = texto;
+            if (atual == Telas.Inicio)
+            {
+                await Task.Delay(500);
+                Main.FramePrincipal.BackStack.Clear();
+                Main.FramePrincipal.ForwardStack.Clear();
+                CoreApplication.Properties.Clear();
+                GC.Collect();
+            }
         }
 
         public virtual void RetornoEvento(object sender, BackRequestedEventArgs e)
         {
-            if (TelaAtual != Telas.Início)
+            if (TelaAtual != Telas.Inicio)
             {
                 e.Handled = true;
                 Retornar();
@@ -148,16 +157,5 @@ namespace NFeFacil
                 Log.Escrever(TitulosComuns.ErroSimples, "Não é possível voltar para a tela anterior.");
             }
         }
-    }
-
-    public enum Telas
-    {
-        Início,
-        Consulta,
-        GerenciarDadosBase,
-        ManipularNota,
-        NotasSalvas,
-        VendasAnuais,
-        Configurações
     }
 }

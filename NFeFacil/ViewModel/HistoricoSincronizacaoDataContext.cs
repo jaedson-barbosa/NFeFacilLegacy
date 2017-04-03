@@ -18,15 +18,9 @@ namespace NFeFacil.ViewModel
             View.VisibleBoundsChanged += (x, y) => PropertyChanged(this, new PropertyChangedEventArgs("Vertical"));
         }
 
-        public bool IsCliente
-        {
-            get { return Tipo == TipoAppSincronizacao.Cliente; }
-        }
-
-        public bool IsServidor
-        {
-            get { return Tipo == TipoAppSincronizacao.Servidor; }
-        }
+        public bool IsCliente => Tipo == TipoAppSincronizacao.Cliente;
+        public bool IsServidor => Tipo == TipoAppSincronizacao.Servidor;
+        public bool Vertical => View.Orientation == ApplicationViewOrientation.Portrait;
 
         public ObservableCollection<ItensBD.ResultadoSincronizacaoCliente> ResultadosCliente
         {
@@ -50,12 +44,5 @@ namespace NFeFacil.ViewModel
             }
         }
 
-        public bool Vertical
-        {
-            get
-            {
-                return View.Orientation == ApplicationViewOrientation.Portrait;
-            }
-        }
     }
 }

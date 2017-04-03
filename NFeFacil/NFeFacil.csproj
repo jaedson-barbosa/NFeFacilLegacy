@@ -185,6 +185,7 @@
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\FornecimentoDiario.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\Observacao.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\ProcessoReferenciado.cs" />
+    <Compile Include="Telas.cs" />
     <Compile Include="ViewModel\Converters\EstadoToMunicipios.cs" />
     <Compile Include="ViewModel\Converters\ModificaValor.cs" />
     <Compile Include="ViewModel\IObterPropriedade.cs" />

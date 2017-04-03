@@ -18,9 +18,16 @@
             <Conversores:BoolToVisibility x:Key="boolVisibility" />
             <Conversores:BoolToIcon x:Key="icon" />
             <Conversores:TextoComLabel x:Key="label" />
+            <Storyboard x:Name="ocultarGrid">
+                <DoubleAnimation Duration="0:0:0.25"
+                                 To="0"
+                                 Storyboard.TargetProperty="(UIElement.Opacity)"
+                                 Storyboard.TargetName="grdPrincipal" />
+            </Storyboard>
         </ResourceDictionary>
     </Page.Resources>
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid x:Name="grdPrincipal"
+          Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <ListView Visibility="{Binding IsCliente, Converter={StaticResource boolVisibility}}"
                   ItemsSource="{Binding ResultadosCliente}"
                   Margin="0"

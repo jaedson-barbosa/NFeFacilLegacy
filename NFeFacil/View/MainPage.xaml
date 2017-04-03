@@ -70,27 +70,37 @@
                           ItemClick="AbrirFunção"
                           IsItemClickEnabled="True">
                     <controles:SplitViewItem x:Name="Inicio"
-                                             Icone="Home"
-                                             TextoDoBotao="Início" />
-                    <controles:SplitViewItem x:Name="Consulta"
-                                             Icone="Zoom"
-                                             TextoDoBotao="Consultar uma nota" />
+                                             Texto="Início">
+                        <SymbolIcon Symbol="Home"/>
+                    </controles:SplitViewItem>
                     <controles:SplitViewItem x:Name="GerenciarDadosBase"
-                                             Icone="Manage"
-                                             TextoDoBotao="Gerenciar dados base" />
-                    <controles:SplitViewItem x:Name="TelaNotaFiscal"
-                                             Icone="NewFolder"
-                                             TextoDoBotao="Emitir nova nota" />
-                    <controles:SplitViewItem x:Name="NotasEmitidas"
-                                             Icone="Library"
-                                             TextoDoBotao="Notas emitidas" />
-                    <controles:SplitViewItem x:Name="AnaliseVendasAnuais"
-                                             Icone="Filter"
-                                             TextoDoBotao="Análise anual" />
+                                             Texto="Gerenciar dados base">
+                        <SymbolIcon Symbol="Manage" />
+                    </controles:SplitViewItem>
+                    <controles:SplitViewItem x:Name="ManipulacaoNotaFiscal"
+                                             Texto="Criar nota fiscal">
+                        <SymbolIcon Symbol="Add" />
+                    </controles:SplitViewItem>
+                    <controles:SplitViewItem x:Name="NotasSalvas"
+                                             Texto="Notas salvas">
+                        <SymbolIcon Symbol="Library" />
+                    </controles:SplitViewItem>
+                    <controles:SplitViewItem x:Name="Consulta"
+                                             Texto="Consultar NF-e">
+                        <SymbolIcon Symbol="Find" />
+                    </controles:SplitViewItem>
+                    <controles:SplitViewItem x:Name="VendasAnuais"
+                                             Texto="Análise anual">
+                        <SymbolIcon Symbol="Calendar" />
+                    </controles:SplitViewItem>
+                    <controles:SplitViewItem x:Name="HistoricoSincronizacao"
+                                             Texto="Histórico de sincronização">
+                        <FontIcon Glyph="&#xE81C;" />
+                    </controles:SplitViewItem>
                     <controles:SplitViewItem x:Name="Configuracoes"
-                                             VerticalAlignment="Bottom"
-                                             Icone="Setting"
-                                             TextoDoBotao="Configurações" />
+                                             Texto="Configurações">
+                        <SymbolIcon Symbol="Setting" />
+                    </controles:SplitViewItem>
                 </ListView>
             </SplitView.Pane>
             <SplitView.Content>

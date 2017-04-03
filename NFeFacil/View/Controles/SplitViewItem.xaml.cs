@@ -5,17 +5,15 @@ using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil.View.Controles
 {
+    [Windows.UI.Xaml.Markup.ContentProperty(Name = "Icone")]
     public partial class SplitViewItem : UserControl
     {
         public SplitViewItem()
         {
             InitializeComponent();
         }
-        public string TextoDoBotao { get; set; }
-        public Symbol Icone { get; set; }
-        public static readonly DependencyProperty TextoDoBotãoProperty =
-            DependencyProperty.Register(nameof(TextoDoBotao), typeof(string), typeof(SplitViewItem), null);
-        public static readonly DependencyProperty ÍconeProperty =
-            DependencyProperty.Register(nameof(Icone), typeof(Symbol), typeof(SplitViewItem), null);
+
+        public string Texto { get; set; }
+        public IconElement Icone { get; set; }
     }
 }

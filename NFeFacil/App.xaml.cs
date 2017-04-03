@@ -28,6 +28,10 @@ namespace NFeFacil
             }
             IBGE.Estados.Buscar();
             IBGE.Municipios.Buscar();
+            if (Configuracoes.ConfiguracoesSincronizacao.InícioAutomático)
+            {
+                Propriedades.Server.IniciarServer().ConfigureAwait(false);
+            }
         }
 
         /// <summary>

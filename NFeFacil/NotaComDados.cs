@@ -9,5 +9,6 @@ namespace NFeFacil
         public NFe nota;
         public Processo proc;
         public NFeDI dados;
+        public TipoOperacao tipoRequisitado;
     }
 }

@@ -46,7 +46,6 @@ namespace NFeFacil.View
             Propriedades.Intercambio = new IntercambioTelas(this);
             AbrirFunção(nameof(Inicio));
             SystemNavigationManager.GetForCurrentView().BackRequested += Propriedades.Intercambio.RetornoEvento;
-            if (NFeFacil.Configuracoes.ConfiguracoesSincronizacao.InícioAutomático) InicarServerAsync();
         }
 
         private static async void ProcessarAsync()
@@ -60,9 +59,15 @@ namespace NFeFacil.View
                 new Saida().Escrever(TitulosComuns.ErroSimples, "Tipo não reconhecido de dispositivo, não é possível mudar a barra de título.");
         }
 
-        private async static void InicarServerAsync() => await Propriedades.Server.IniciarServer().ConfigureAwait(false);
-        private void btnHamburguer_Click(object sender, RoutedEventArgs e) => hmbMenu.IsPaneOpen = !hmbMenu.IsPaneOpen;
-        private void AbrirFunção(object sender, ItemClickEventArgs e) => AbrirFunção((e.ClickedItem as SplitViewItem).Name);
+        private void btnHamburguer_Click(object sender, RoutedEventArgs e)
+        {
+            hmbMenu.IsPaneOpen = !hmbMenu.IsPaneOpen;
+        }
+
+        private void AbrirFunção(object sender, ItemClickEventArgs e)
+        {
+            AbrirFunção((e.ClickedItem as FrameworkElement).Name);
+        }
 
         private async void AbrirFunção(string tela)
         {

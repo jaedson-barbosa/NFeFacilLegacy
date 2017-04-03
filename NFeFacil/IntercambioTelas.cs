@@ -38,7 +38,10 @@ namespace NFeFacil
         private async Task AbrirAsync(Type tela, object parametro)
         {
             if (TelasComParametroObrigatorio.ContainsKey(tela) && parametro == null)
+            {
                 TelasComParametroObrigatorio.TryGetValue(tela, out parametro);
+            }
+
             if (Main.FramePrincipal.Content != null)
             {
                 if (Main.FramePrincipal.Content is IEsconde esconde)
@@ -83,13 +86,15 @@ namespace NFeFacil
                             compra = new Compra(),
                             cana = new RegistroAquisicaoCana()
                         }
-                    }
+                    },
+                    tipoRequisitado = TipoOperacao.Adicao
                 }
             }
         };
 
         public void SeAtualizar(Telas atual, Symbol símbolo, string texto)
         {
+            System.Diagnostics.Debug.WriteLine(Main.FramePrincipal.BackStackDepth);
             TelaAtual = atual;
             Main.IndexHamburguer = (int)atual;
             Main.Símbolo = símbolo;
@@ -151,7 +156,7 @@ namespace NFeFacil
         Consulta,
         GerenciarDadosBase,
         ManipularNota,
-        NotasEmitidas,
+        NotasSalvas,
         VendasAnuais,
         Configurações
     }

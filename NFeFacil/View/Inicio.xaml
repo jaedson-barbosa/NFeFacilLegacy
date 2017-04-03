@@ -29,12 +29,12 @@
                                         Tapped="AbrirFunção" />
             <controles:ItemPadrãoSymbol x:Name="ManipulacaoNotaFiscal"
                                         Símbolo="Add"
-                                        Título="Emitir nova nota"
+                                        Título="Criar nota fiscal"
                                         Descrição="Parte principal da aplicação. Aqui você pode criar uma nova nova fiscal e, posteriormente, transmití-la, imprimí-la e salvá-la."
                                         Tapped="AbrirFunção" />
-            <controles:ItemPadrãoSymbol x:Name="NotasEmitidas"
+            <controles:ItemPadrãoSymbol x:Name="NotasSalvas"
                                         Símbolo="Library"
-                                        Título="Notas emitidas"
+                                        Título="Notas salvas"
                                         Descrição="Visialize todas as notas transmitidas por esta aplicação e realize ações básicas, como imprimir, exportar ou cancelar."
                                         Tapped="AbrirFunção" />
             <controles:ItemPadrãoSymbol x:Name="Consulta"

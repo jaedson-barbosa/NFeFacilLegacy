@@ -44,18 +44,8 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTrans
         public string UF { get; set; }
 
         [XmlIgnore]
-        public string Documento
-        {
-            get { return CNPJ ?? CPF; }
-        }
-
+        public string Documento => CNPJ ?? CPF;
         [XmlIgnore]
-        public TiposDocumento TipoDocumento
-        {
-            get
-            {
-                return !string.IsNullOrEmpty(CNPJ) ? TiposDocumento.CNPJ : TiposDocumento.CPF;
-            }
-        }
+        public TiposDocumento TipoDocumento => !string.IsNullOrEmpty(CNPJ) ? TiposDocumento.CNPJ : TiposDocumento.CPF;
     }
 }

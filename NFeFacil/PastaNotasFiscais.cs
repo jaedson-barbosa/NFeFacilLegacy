@@ -1,7 +1,4 @@
-﻿using NFeFacil.ItensBD;
-using NFeFacil.ModeloXML;
-using NFeFacil.ModeloXML.PartesProcesso;
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;

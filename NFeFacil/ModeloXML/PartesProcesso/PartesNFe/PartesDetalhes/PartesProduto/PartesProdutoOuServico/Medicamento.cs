@@ -24,14 +24,8 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
         [XmlIgnore]
         public DateTimeOffset DFab
         {
-            get
-            {
-                return dFab != null ? DateTimeOffset.Parse(dFab) : DateTimeOffset.Now;
-            }
-            set
-            {
-                dFab = value.ToString("yyyy-MM-dd");
-            }
+            get => dFab != null ? DateTimeOffset.Parse(dFab) : DateTimeOffset.Now;
+            set => dFab = value.ToString("yyyy-MM-dd");
         }
 
         /// <summary>
@@ -43,14 +37,8 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
         [XmlIgnore]
         public DateTimeOffset DVal
         {
-            get
-            {
-                return dVal != null ? DateTimeOffset.Parse(dVal) : DateTimeOffset.Now;
-            }
-            set
-            {
-                dVal = value.ToString("yyyy-MM-dd");
-            }
+            get => dVal != null ? DateTimeOffset.Parse(dVal) : DateTimeOffset.Now;
+            set => dVal = value.ToString("yyyy-MM-dd");
         }
 
         /// <summary>

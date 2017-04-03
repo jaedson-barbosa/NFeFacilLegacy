@@ -30,25 +30,21 @@ namespace NFeFacil.ViewModel.NotaFiscal
             PropertyChanged(this, new PropertyChangedEventArgs(nameof(Documento)));
         }
 
-        [XmlIgnore]
+
         public bool IsentoICMS
         {
-            get { return IndicadorIE != 1; }
-            set { IndicadorIE = value ? 2 : 1; }
-        }
-        [XmlIgnore]
-        public int IndicadorIE
-        {
-            get { return Cliente.indicadorIE - 1; }
-            set { Cliente.indicadorIE = value + 1; }
-        }
-        [XmlIgnore]
-        public int TipoOperação
-        {
-            get { return (Cliente.endereco.XPais == "Brasil") ? 0 : 1; }
+            get => IndicadorIE != 1;
+            set => IndicadorIE = value ? 2 : 1;
         }
 
-        [XmlIgnore]
+        public int IndicadorIE
+        {
+            get => Cliente.indicadorIE - 1;
+            set => Cliente.indicadorIE = value + 1;
+        }
+
+        public int TipoOperação => (Cliente.endereco.XPais == "Brasil") ? 0 : 1;
+
         public IEnumerable<Municipio> _Municipios
         {
             get
@@ -59,28 +55,19 @@ namespace NFeFacil.ViewModel.NotaFiscal
                     return new List<Municipio>();
             }
         }
-        [XmlIgnore]
-        public ObservableCollection<string> Municipios
-        {
-            get
-            {
-                return (from mun in _Municipios select mun.Nome).GerarObs();
-            }
-        }
-        [XmlIgnore]
+
+        public ObservableCollection<string> Municipios => (from mun in _Municipios select mun.Nome).GerarObs();
+
         public string UFEscolhida
         {
-            get
-            {
-                return Cliente.endereco.SiglaUF;
-            }
+            get => Cliente.endereco.SiglaUF;
             set
             {
                 Cliente.endereco.SiglaUF = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Municipios)));
             }
         }
-        [XmlIgnore]
+
         public string MunicipioEscolhido
         {
             get
@@ -100,7 +87,7 @@ namespace NFeFacil.ViewModel.NotaFiscal
         }
 
         private bool nacional = false;
-        [XmlIgnore]
+
         public bool Nacional
         {
             get
@@ -108,14 +95,11 @@ namespace NFeFacil.ViewModel.NotaFiscal
                 nacional = Cliente.endereco.XPais.ToLower() == "brasil" || string.IsNullOrEmpty(Cliente.endereco.XPais);
                 return nacional;
             }
-            set
-            {
-                nacional = value;
-            }
+            set => nacional = value;
         }
-        [XmlIgnore]
+
         public int TipoDocumento { get; set; }
-        [XmlIgnore]
+
         public string Documento
         {
             get { return Cliente.obterDocumento; }

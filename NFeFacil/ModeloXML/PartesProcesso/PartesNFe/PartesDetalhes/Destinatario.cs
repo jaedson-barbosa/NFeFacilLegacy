@@ -37,19 +37,9 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
         public string email { get; set; }
 
         [XmlIgnore]
-        public string obterDocumento
-        {
-            get { return (!string.IsNullOrEmpty(idEstrangeiro)) ? idEstrangeiro : (!string.IsNullOrEmpty(CNPJ)) ? CNPJ : CPF; }
-        }
-
+        public string obterDocumento => (!string.IsNullOrEmpty(idEstrangeiro)) ? idEstrangeiro : (!string.IsNullOrEmpty(CNPJ)) ? CNPJ : CPF;
         [XmlIgnore]
-        public TiposDocumento obterTipoDocumento
-        {
-            get
-            {
-                return (!string.IsNullOrEmpty(idEstrangeiro)) ? TiposDocumento.idEstrangeiro :
-                    (!string.IsNullOrEmpty(CNPJ)) ? TiposDocumento.CNPJ : TiposDocumento.CPF;
-            }
-        }
+        public TiposDocumento obterTipoDocumento => (!string.IsNullOrEmpty(idEstrangeiro)) ? TiposDocumento.idEstrangeiro :
+            (!string.IsNullOrEmpty(CNPJ)) ? TiposDocumento.CNPJ : TiposDocumento.CPF;
     }
 }

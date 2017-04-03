@@ -57,8 +57,8 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
         [XmlIgnore]
         public int TpComb
         {
-            get { return tpComb != null ? int.Parse(tpComb) : 0; }
-            set { tpComb = (value < 10) ? $"0{value}" : value.ToString(); }
+            get => tpComb != null ? int.Parse(tpComb) : 0;
+            set => tpComb = (value < 10) ? $"0{value}" : value.ToString();
         }
 
         /// <summary>
@@ -112,8 +112,8 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
         [XmlIgnore]
         public bool VINBool
         {
-            get { return VIN == 'R'; }
-            set { VIN = value ? 'R' : 'N'; }
+            get => VIN == 'R';
+            set => VIN = value ? 'R' : 'N';
         }
 
         /// <summary>
@@ -125,8 +125,8 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
         [XmlIgnore]
         public int CondVeic
         {
-            get { return condVeic - 1; }
-            set { condVeic = (ushort)(value + 1); }
+            get => condVeic - 1;
+            set => condVeic = (ushort)(value + 1);
         }
 
         /// <summary>
@@ -146,8 +146,8 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
         [XmlIgnore]
         public int CCorDENATRAN
         {
-            get { return cCorDENATRAN != null ? int.Parse(cCorDENATRAN) : 0; }
-            set { cCorDENATRAN = value < 10 ? $"0{value}" : value.ToString(); }
+            get => cCorDENATRAN != null ? int.Parse(cCorDENATRAN) : 0;
+            set => cCorDENATRAN = value < 10 ? $"0{value}" : value.ToString();
         }
 
         /// <summary>
@@ -165,8 +165,8 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
         [XmlIgnore]
         public int TpRest
         {
-            get { return tpRest != 9 ? tpRest : 5; }
-            set { tpRest = value != 5 ? value : 9; }
+            get => tpRest != 9 ? tpRest : 5;
+            set => tpRest = value != 5 ? value : 9;
         }
     }
 }

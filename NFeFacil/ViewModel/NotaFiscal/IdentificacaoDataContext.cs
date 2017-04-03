@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Xml.Serialization;
 
 namespace NFeFacil.ViewModel.NotaFiscal
 {
@@ -20,7 +19,7 @@ namespace NFeFacil.ViewModel.NotaFiscal
         public event PropertyChangedEventHandler PropertyChanged;
 
         private DateTime _DataEmissao = default(DateTime);
-        [XmlIgnore]
+
         public DateTimeOffset DataEmissao
         {
             get
@@ -34,7 +33,7 @@ namespace NFeFacil.ViewModel.NotaFiscal
                 Ident.DataHoraEmissão = _DataEmissao.ToStringPersonalizado();
             }
         }
-        [XmlIgnore]
+
         public TimeSpan HoraEmissao
         {
             get
@@ -50,7 +49,7 @@ namespace NFeFacil.ViewModel.NotaFiscal
         }
 
         private DateTime _DataSaidaEntrada = default(DateTime);
-        [XmlIgnore]
+
         public DateTimeOffset DataSaidaEntrada
         {
             get
@@ -64,7 +63,7 @@ namespace NFeFacil.ViewModel.NotaFiscal
                 Ident.DataHoraSaídaEntrada = _DataSaidaEntrada.ToStringPersonalizado();
             }
         }
-        [XmlIgnore]
+
         public TimeSpan HoraSaidaEntrada
         {
             get
@@ -78,7 +77,7 @@ namespace NFeFacil.ViewModel.NotaFiscal
                 Ident.DataHoraSaídaEntrada = _DataSaidaEntrada.ToStringPersonalizado();
             }
         }
-        [XmlIgnore]
+
         public int DestinoOperação
         {
             get
@@ -90,7 +89,7 @@ namespace NFeFacil.ViewModel.NotaFiscal
                 Ident.IdentificadorDestino = (ushort)(value + 1);
             }
         }
-        [XmlIgnore]
+
         public int TipoDanfe
         {
             get
@@ -102,7 +101,7 @@ namespace NFeFacil.ViewModel.NotaFiscal
                 Ident.TipoImpressão = (ushort)(value + 1);
             }
         }
-        [XmlIgnore]
+
         public int FinNFe
         {
             get
@@ -115,7 +114,7 @@ namespace NFeFacil.ViewModel.NotaFiscal
             }
         }
 
-        [XmlIgnore]
+
         public string UFEscolhida
         {
             get
@@ -141,12 +140,12 @@ namespace NFeFacil.ViewModel.NotaFiscal
                 return new List<Municipio>();
             }
         }
-        [XmlIgnore]
+
         public IEnumerable<string> Municipios
         {
             get { return from mon in _Municipios select mon.Nome; }
         }
-        [XmlIgnore]
+
         public string MunicipioEscolhido
         {
             get

@@ -89,14 +89,8 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTotal
         [XmlIgnore]
         public DateTimeOffset DCompet
         {
-            get
-            {
-                return string.IsNullOrEmpty(dCompet) ? DateTimeOffset.Now : DateTimeOffset.Parse(dCompet);
-            }
-            set
-            {
-                dCompet = value.ToString("yyyy-MM-dd");
-            }
+            get => string.IsNullOrEmpty(dCompet) ? DateTimeOffset.Now : DateTimeOffset.Parse(dCompet);
+            set => dCompet = value.ToString("yyyy-MM-dd");
         }
 
         /// <summary>
@@ -138,14 +132,8 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTotal
         [XmlIgnore]
         public int CRegTrib
         {
-            get
-            {
-                return string.IsNullOrEmpty(cRegTrib) ? -1 : int.Parse(cRegTrib) - 1;
-            }
-            set
-            {
-                cRegTrib = (value + 1).ToString();
-            }
+            get => string.IsNullOrEmpty(cRegTrib) ? -1 : int.Parse(cRegTrib) - 1;
+            set => cRegTrib = (value + 1).ToString();
         }
     }
 }

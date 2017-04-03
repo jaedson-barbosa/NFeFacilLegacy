@@ -56,21 +56,11 @@ namespace NFeFacil.ItensBD
         internal async Task<NotaComDados> ConjuntoCompletoAsync()
         {
             var retorno = new NotaComDados();
-            var xml = await new PastaNotasFiscais().Retornar(Id);
-            try
-            {
-                if ((StatusNFe)Status == StatusNFe.Salvo)
-                    retorno.nota = xml.FromXElement<NFe>();
-                else
-                    retorno.proc = xml.FromXElement<Processo>();
-            }
-            catch (Exception)
-            {
-                if (xml.Name.LocalName == nameof(NFe))
-                    retorno.nota = xml.FromXElement<NFe>();
-                else
-                    retorno.proc = xml.FromXElement<Processo>();
-            }
+            var pasta = new PastaNotasFiscais();
+            if (Status < 4)
+                retorno.nota = await pasta.Retornar<NFe>(Id);
+            else
+                retorno.proc = await pasta.Retornar<Processo>(Id);
             retorno.dados = this;
             return retorno;
         }

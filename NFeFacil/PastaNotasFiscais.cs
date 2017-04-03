@@ -1,4 +1,7 @@
-﻿using System;
+﻿using NFeFacil.ItensBD;
+using NFeFacil.ModeloXML;
+using NFeFacil.ModeloXML.PartesProcesso;
+using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -32,12 +35,12 @@ namespace NFeFacil
             catch (Exception) { throw; }
         }
 
-        public async Task<XElement> Retornar(string nome)
+        public async Task<T> Retornar<T>(string nome) where T : class
         {
             var arq = await PastaArquivos.GetFileAsync(nome + ".xml");
             using (var stream = await arq.OpenStreamForReadAsync())
             {
-                return XElement.Load(stream);
+                return stream.FromXElement<T>();
             }
         }
 

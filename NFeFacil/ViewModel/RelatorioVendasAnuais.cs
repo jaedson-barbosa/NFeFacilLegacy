@@ -47,11 +47,13 @@ namespace NFeFacil.ViewModel
             using (var db = new AplicativoContext())
             {
                 var pasta = new PastaNotasFiscais();
-                notas = from dado in db.NotasFiscais
-                        where Convert.ToDateTime(dado.DataEmissao).Year == anoEscolhido
-                        let tipo = (StatusNFe)dado.Status
-                        let xml = Task.Run(() => pasta.Retornar(dado.Id)).Result
-                        select tipo == StatusNFe.Emitido ? xml.FromXElement<Processo>().NFe : xml.FromXElement<NFe>();
+                var Obter = new Func<int, string, Task<NFe>>(async (tipo,id) =>
+                {
+                    return tipo < 4 ? await pasta.Retornar<NFe>(id) : (await pasta.Retornar<Processo>(id)).NFe;
+                });
+                notas = Task.WhenAll(from dado in db.NotasFiscais
+                                     where Convert.ToDateTime(dado.DataEmissao).Year == anoEscolhido
+                                     select Obter(dado.Status, dado.Id)).Result;
             }
             PropertyChanged(this, new PropertyChangedEventArgs(nameof(ResultadoCliente)));
             PropertyChanged(this, new PropertyChangedEventArgs(nameof(ResultadoMes)));

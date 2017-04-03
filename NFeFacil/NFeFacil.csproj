@@ -155,6 +155,9 @@
     <Compile Include="View\GerenciarDadosBase.xaml.cs">
       <DependentUpon>GerenciarDadosBase.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\HistoricoSincronizacao.xaml.cs">
+      <DependentUpon>HistoricoSincronizacao.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\IEsconde.cs" />
     <Compile Include="IntercambioTelas.cs" />
     <Compile Include="View\IValida.cs" />
@@ -195,7 +198,7 @@
     <Compile Include="ViewModel\NotaFiscal\DuplicataDataContext.cs" />
     <Compile Include="ViewModel\NotaFiscal\EmitenteDataContext.cs" />
     <Compile Include="Extensoes.cs" />
-    <Compile Include="ViewModel\HistoricoSincronizacaoVM.cs" />
+    <Compile Include="ViewModel\HistoricoSincronizacaoDataContext.cs" />
     <Compile Include="IBGE\Estado.cs" />
     <Compile Include="IBGE\Estados.cs" />
     <Compile Include="IBGE\Municipio.cs" />
@@ -515,6 +518,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="View\GerenciarDadosBase.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\HistoricoSincronizacao.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

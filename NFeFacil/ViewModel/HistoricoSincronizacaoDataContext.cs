@@ -6,13 +6,13 @@ using static NFeFacil.Configuracoes.ConfiguracoesSincronizacao;
 
 namespace NFeFacil.ViewModel
 {
-    public sealed class HistoricoSincronizacaoVM : INotifyPropertyChanged
+    public sealed class HistoricoSincronizacaoDataContext : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
         private ApplicationView View { get; }
 
-        public HistoricoSincronizacaoVM()
+        public HistoricoSincronizacaoDataContext()
         {
             View = ApplicationView.GetForCurrentView();
             View.VisibleBoundsChanged += (x, y) => PropertyChanged(this, new PropertyChangedEventArgs("Vertical"));

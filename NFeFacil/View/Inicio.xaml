@@ -28,7 +28,7 @@
                                         Descrição="Gerencie as informações fundamentais para a criação das notas fiscais, que são: Emissor, cliente, transportador e Produto."
                                         Tapped="AbrirFunção" />
             <controles:ItemPadrãoSymbol x:Name="ManipulacaoNotaFiscal"
-                                        Símbolo="NewFolder"
+                                        Símbolo="Add"
                                         Título="Emitir nova nota"
                                         Descrição="Parte principal da aplicação. Aqui você pode criar uma nova nova fiscal e, posteriormente, transmití-la, imprimí-la e salvá-la."
                                         Tapped="AbrirFunção" />
@@ -43,7 +43,7 @@
                                         Descrição="Consulte dados básicos de qualquer nota fiscal emitida por qualquer aplicação usando apenas o código da NF-e."
                                         Tapped="AbrirFunção" />
             <controles:ItemPadrãoSymbol x:Name="VendasAnuais"
-                                        Símbolo="Filter"
+                                        Símbolo="Calendar"
                                         Título="Análise anual"
                                         Descrição="Veja uma análise das vendas ocorridas em um ano, com a organização tanto por cliente quanto por mês."
                                         Tapped="AbrirFunção" />

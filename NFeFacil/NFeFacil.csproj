@@ -133,8 +133,17 @@
       <DependentUpon>20170328172532_Teste2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\AplicativoContextModelSnapshot.cs" />
+    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\Cartao.cs" />
+    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\Deducoes.cs" />
+    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\Duplicata.cs" />
+    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\Fatura.cs" />
+    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\FornecimentoDiario.cs" />
+    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\Observacao.cs" />
+    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\ProcessoReferenciado.cs" />
     <Compile Include="ViewModel\Converters\EstadoToMunicipios.cs" />
     <Compile Include="ViewModel\Converters\ModificaValor.cs" />
+    <Compile Include="ViewModel\IObterPropriedade.cs" />
+    <Compile Include="ViewModel\ObterDataContext.cs" />
     <Compile Include="ViewModel\ProdutoCompletoDataContext.cs" />
     <Compile Include="View\AdicionarDestinatario.xaml.cs">
       <DependentUpon>AdicionarDestinatario.xaml</DependentUpon>

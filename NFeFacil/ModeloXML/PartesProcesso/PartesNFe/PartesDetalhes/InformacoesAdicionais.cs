@@ -2,7 +2,7 @@
 
 namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
 {
-    public class InformacoesAdicionais
+    public sealed class InformacoesAdicionais
     {
         /// <summary>
         /// (Opcional)
@@ -21,7 +21,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
         /// Grupo Campo de uso livre do contribuinte.
         /// </summary>
         [XmlElement(nameof(obsCont))]
-        public Observação[] obsCont;
+        public Observacao[] obsCont;
 
         /// <summary>
         /// (Opcional)
@@ -29,31 +29,5 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
         /// </summary>
         [XmlElement(nameof(procRef))]
         public ProcessoReferenciado[] procRef;
-    }
-
-    public class Observação
-    {
-        /// <summary>
-        /// Identificação do campo.
-        /// </summary>
-        public string xCampo;
-
-        /// <summary>
-        /// Conteúdo do campo.
-        /// </summary>
-        public string xTexto;
-    }
-
-    public class ProcessoReferenciado
-    {
-        /// <summary>
-        /// Identificador do processo ou ato concessório.
-        /// </summary>
-        public string nProc;
-
-        /// <summary>
-        /// Indicador da origem do processo.
-        /// </summary>
-        public ushort indProc;
     }
 }

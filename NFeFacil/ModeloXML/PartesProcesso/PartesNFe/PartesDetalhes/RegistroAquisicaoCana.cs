@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 
 namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
 {
-    public class RegistroAquisicaoCana
+    public sealed class RegistroAquisicaoCana
     {
         /// <summary>
         /// Identificação da safra.
@@ -60,31 +60,5 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
         /// </summary>
         [XmlElement(nameof(deduc))]
         public List<Deducoes> deduc = new List<Deducoes>();
-    }
-
-    public sealed class FornecimentoDiario
-    {
-        /// <summary>
-        /// Dia.
-        /// </summary>
-        public string dia { get; set; }
-
-        /// <summary>
-        /// Quantidade.
-        /// </summary>
-        public string qtde { get; set; }
-    }
-
-    public sealed class Deducoes
-    {
-        /// <summary>
-        /// Descrição da Dedução.
-        /// </summary>
-        public string xDed { get; set; }
-
-        /// <summary>
-        /// Valor da Dedução.
-        /// </summary>
-        public string vDed { get; set; }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
 {
-    public class Compra
+    public sealed class Compra
     {
         /// <summary>
         /// (Opcional)

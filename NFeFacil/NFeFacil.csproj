@@ -205,6 +205,9 @@
     <Compile Include="View\Consulta.xaml.cs">
       <DependentUpon>Consulta.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Controles\ItemPadrao.xaml.cs">
+      <DependentUpon>ItemPadrao.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ExibicaoQR.cs" />
     <Compile Include="View\GerenciarDadosBase.xaml.cs">
       <DependentUpon>GerenciarDadosBase.xaml</DependentUpon>
@@ -283,12 +286,6 @@
     </Compile>
     <Compile Include="View\Controles\Guia.xaml.cs">
       <DependentUpon>Guia.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Controles\ItemPadrãoString.xaml.cs">
-      <DependentUpon>ItemPadrãoString.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Controles\ItemPadrãoSymbol.xaml.cs">
-      <DependentUpon>ItemPadrãoSymbol.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Controles\SplitViewItem.xaml.cs">
       <DependentUpon>SplitViewItem.xaml</DependentUpon>
@@ -552,13 +549,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\Controles\ItemPadrãoString.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="View\Controles\ItemPadrao.xaml">
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\Controles\ItemPadrãoSymbol.xaml">
       <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Controles\SplitViewItem.xaml">
       <Generator>MSBuild:Compile</Generator>

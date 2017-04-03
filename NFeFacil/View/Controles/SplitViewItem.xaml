@@ -9,6 +9,6 @@
                 VerticalAlignment="Center">
         <ContentControl Content="{x:Bind Icone}"
                         Margin="2,0,14,0" />
-        <TextBlock Text="{x:Bind TextoDoBotao}" />
+        <TextBlock Text="{x:Bind Texto}" />
     </StackPanel>
 </UserControl>

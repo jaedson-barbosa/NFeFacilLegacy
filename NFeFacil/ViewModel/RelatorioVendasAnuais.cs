@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace NFeFacil.ViewModel
 {
@@ -28,7 +27,7 @@ namespace NFeFacil.ViewModel
             }
         }
 
-        private IEnumerable<NFe> notas;
+        private List<NFe> notas;
 
         private int anoEscolhido;
         public int AnoEscolhido
@@ -41,18 +40,24 @@ namespace NFeFacil.ViewModel
             }
         }
 
-        private void AnoMudou()
+        private async void AnoMudou()
         {
             using (var db = new AplicativoContext())
             {
                 var pasta = new PastaNotasFiscais();
-                var Obter = new Func<int, string, Task<NFe>>(async (tipo,id) =>
+                notas = new List<NFe>();
+                foreach (var item in db.NotasFiscais)
                 {
-                    return tipo < 4 ? await pasta.Retornar<NFe>(id) : (await pasta.Retornar<Processo>(id)).NFe;
-                });
-                notas = Task.WhenAll(from dado in db.NotasFiscais
-                                     where Convert.ToDateTime(dado.DataEmissao).Year == anoEscolhido
-                                     select Obter(dado.Status, dado.Id)).Result;
+                    if (item.Status < 4)
+                    {
+                        notas.Add(await pasta.Retornar<NFe>(item.Id));
+                    }
+                    else
+                    {
+                        var proc = await pasta.Retornar<Processo>(item.Id);
+                        notas.Add(proc.NFe);
+                    }
+                }
             }
             PropertyChanged(this, new PropertyChangedEventArgs(nameof(ResultadoCliente)));
             PropertyChanged(this, new PropertyChangedEventArgs(nameof(ResultadoMes)));
@@ -87,7 +92,10 @@ namespace NFeFacil.ViewModel
                     });
                     return total.GerarObs();
                 }
-                else return null;
+                else
+                {
+                    return null;
+                }
             }
         }
 
@@ -118,9 +126,14 @@ namespace NFeFacil.ViewModel
                         Quantidade = total.Sum(x => x.Quantidade),
                         Total = total.Sum(x => x.Total)
                     });
-                    return total.GerarObs();
+                    return (from item in total
+                            orderby item.Total descending
+                            select item).GerarObs();
                 }
-                else return null;
+                else
+                {
+                    return null;
+                }
             }
         }
 

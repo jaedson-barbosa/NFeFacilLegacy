@@ -14,6 +14,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Estilos/GridResponsiva.xaml" />
                 <ResourceDictionary Source="Estilos/PivotPrincipal.xaml" />
+                <ResourceDictionary Source="Estilos/Tabela.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <VM:DadosEstadosParaView x:Key="estados" />
             <Storyboard x:Name="ocultarGrid">
@@ -655,26 +656,26 @@
                                      Text="{Binding Cana.vLiqFor, Mode=TwoWay}" />
                         </ItemsControl>
                         <ItemsControl Style="{StaticResource ItensResponsivos}">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
+                            <StackPanel>
                                 <TextBlock TextWrapping="Wrap"
                                            Margin="0,0,64,0"
-                                           Style="{StaticResource SubtitleTextBlockStyle}">Fornecimento diário de cana</TextBlock>
-                                <Button HorizontalAlignment="Right"
-                                        Command="{Binding AdicionarFornecimentoCommand}"
-                                        Padding="4">
-                                    <SymbolIcon Symbol="Add" />
-                                </Button>
-                                <ListView Grid.Row="1"
+                                           Style="{StaticResource TitleTextBlockStyle}">Fornecimento diário de cana</TextBlock>
+                                <ListView Margin="0"
                                           ItemsSource="{Binding ListaFornecimentoDiario}"
-                                          Style="{StaticResource ListaCheia}">
+                                          Style="{StaticResource PseudoTabela}">
                                     <ListView.Header>
                                         <Grid>
-                                            <TextBlock HorizontalAlignment="Left">Dia</TextBlock>
-                                            <TextBlock HorizontalAlignment="Right">Quantidade</TextBlock>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition />
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Dia</TextBlock>
+                                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Grid.Column="1">Quantidade</TextBlock>
+                                            <Button Style="{StaticResource BotaoAdd}"
+                                                    Grid.Column="1"
+                                                    Command="{Binding AdicionarFornecimentoCommand}">
+                                                <SymbolIcon Symbol="Add" />
+                                            </Button>
                                         </Grid>
                                     </ListView.Header>
                                     <ListView.ItemTemplate>
@@ -687,33 +688,37 @@
                                                                         CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}" />
                                                     </MenuFlyout>
                                                 </Grid.ContextFlyout>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
                                                 <TextBlock Text="{Binding dia, Mode=OneTime}" />
                                                 <TextBlock Text="{Binding qtde, Mode=OneTime}"
-                                                           HorizontalAlignment="Right" />
+                                                           Grid.Column="1" />
                                             </Grid>
                                         </DataTemplate>
                                     </ListView.ItemTemplate>
                                 </ListView>
-                            </Grid>
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
+                            </StackPanel>
+                            <StackPanel>
                                 <TextBlock TextWrapping="Wrap"
-                                           Style="{StaticResource SubtitleTextBlockStyle}">Deduções</TextBlock>
-                                <Button HorizontalAlignment="Right"
-                                        Command="{Binding AdicionarDeducaoCommand}"
-                                        Padding="4">
-                                    <SymbolIcon Symbol="Add" />
-                                </Button>
-                                <ListView Grid.Row="1"
+                                           Style="{StaticResource TitleTextBlockStyle}">Deduções</TextBlock>
+                                <ListView Margin="0"
                                           ItemsSource="{Binding ListaDeducoes}"
-                                          Style="{StaticResource ListaCheia}">
+                                          Style="{StaticResource PseudoTabela}">
                                     <ListView.Header>
                                         <Grid>
-                                            <TextBlock HorizontalAlignment="Left">Descrição</TextBlock>
-                                            <TextBlock HorizontalAlignment="Right">Valor</TextBlock>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition />
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Descrição</TextBlock>
+                                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Grid.Column="1">Valor</TextBlock>
+                                            <Button Style="{StaticResource BotaoAdd}"
+                                                    Grid.Column="1"
+                                                    Command="{Binding AdicionarDeducaoCommand}">
+                                                <SymbolIcon Symbol="Add" />
+                                            </Button>
                                         </Grid>
                                     </ListView.Header>
                                     <ListView.ItemTemplate>
@@ -726,14 +731,18 @@
                                                                         CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}" />
                                                     </MenuFlyout>
                                                 </Grid.ContextFlyout>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
                                                 <TextBlock Text="{Binding xDed, Mode=OneTime}" />
-                                                <TextBlock HorizontalAlignment="Right"
+                                                <TextBlock Grid.Column="1"
                                                            Text="{Binding vDed, Mode=OneTime}" />
                                             </Grid>
                                         </DataTemplate>
                                     </ListView.ItemTemplate>
                                 </ListView>
-                            </Grid>
+                            </StackPanel>
                         </ItemsControl>
                     </StackPanel>
                 </ScrollViewer>

@@ -15,7 +15,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Estilos/GridResponsiva.xaml" />
                 <ResourceDictionary Source="Estilos/PivotPrincipal.xaml" />
-                <ResourceDictionary Source="Estilos/CoresDestaque.xaml" />
+                <ResourceDictionary Source="Estilos/Tabela.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Conversores:BoolToVisibility x:Key="visibilidade" />
             <Conversores:EstadoToMunicipios x:Key="obterMunicipio" />
@@ -954,47 +954,20 @@
                          TextWrapping="Wrap" />
             </PivotItem>
             <PivotItem Header="Importação">
-                <PivotItem.Resources>
-                    <Style TargetType="ListView">
-                        <Setter Property="SelectionMode"
-                                Value="Single" />
-                        <Setter Property="Margin"
-                                Value="-12,-6,-12,0" />
-                        <Setter Property="ItemContainerStyle">
-                            <Setter.Value>
-                                <Style TargetType="ListViewItem">
-                                    <Setter Property="HorizontalContentAlignment"
-                                            Value="Stretch" />
-                                </Style>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </PivotItem.Resources>
-                <ListView ItemsSource="{Binding ListaDI}">
+                <ListView Style="{StaticResource PseudoTabela}" ItemsSource="{Binding ListaDI}">
                     <ListView.Header>
-                        <Grid Background="{StaticResource MuitoVariada}">
-                            <Grid.Resources>
-                                <Style TargetType="TextBlock"
-                                       BasedOn="{StaticResource TitleTextBlockStyle}">
-                                    <Setter Property="Margin"
-                                            Value="10,4,10,2" />
-                                </Style>
-                            </Grid.Resources>
+                        <Grid Style="{StaticResource Cabecalho}">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
-                            <TextBlock>CNPJ</TextBlock>
-                            <TextBlock Grid.Column="1">Número do Documento</TextBlock>
+                            <TextBlock Style="{StaticResource TextoCabecalho}">CNPJ</TextBlock>
+                            <TextBlock Style="{StaticResource TextoCabecalho}" Grid.Column="1">Número do Documento</TextBlock>
                             <Button Grid.Column="1"
-                                    Padding="4"
-                                    Width="64"
+                                    Style="{StaticResource BotaoAdd}"
                                     Command="{Binding AdicionarDeclaracaoImportacaoCommand}"
-                                    CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}"
-                                    HorizontalAlignment="Right"
-                                    VerticalAlignment="Stretch">
-                                <SymbolIcon Symbol="Add"
-                                            HorizontalAlignment="Center" />
+                                    CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">
+                                <SymbolIcon Symbol="Add" />
                             </Button>
                         </Grid>
                     </ListView.Header>
@@ -1020,41 +993,14 @@
                 </ListView>
             </PivotItem>
             <PivotItem Header="Exportação">
-                <PivotItem.Resources>
-                    <Style TargetType="ListView">
-                        <Setter Property="SelectionMode"
-                                Value="Single" />
-                        <Setter Property="Margin"
-                                Value="-12,-6,-12,0" />
-                        <Setter Property="ItemContainerStyle">
-                            <Setter.Value>
-                                <Style TargetType="ListViewItem">
-                                    <Setter Property="HorizontalContentAlignment"
-                                            Value="Stretch" />
-                                </Style>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </PivotItem.Resources>
-                <ListView ItemsSource="{Binding ListaGE}">
+                <ListView Style="{StaticResource PseudoTabela}" ItemsSource="{Binding ListaGE}">
                     <ListView.Header>
-                        <Grid Background="{StaticResource MuitoVariada}">
-                            <Grid.Resources>
-                                <Style TargetType="TextBlock"
-                                       BasedOn="{StaticResource TitleTextBlockStyle}">
-                                    <Setter Property="Margin"
-                                            Value="10,4,10,2" />
-                                </Style>
-                            </Grid.Resources>
-                            <TextBlock>Número do ato concessório de Drawback</TextBlock>
-                            <Button Padding="4"
-                                    Width="64"
+                        <Grid Style="{StaticResource Cabecalho}">
+                            <TextBlock Style="{StaticResource TextoCabecalho}">Número do ato concessório de Drawback</TextBlock>
+                            <Button Style="{StaticResource BotaoAdd}"
                                     Command="{Binding AdicionarDeclaracaoExportacaoCommand}"
-                                    CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}"
-                                    HorizontalAlignment="Right"
-                                    VerticalAlignment="Stretch">
-                                <SymbolIcon Symbol="Add"
-                                            HorizontalAlignment="Center" />
+                                    CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">
+                                <SymbolIcon Symbol="Add" />
                             </Button>
                         </Grid>
                     </ListView.Header>

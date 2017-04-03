@@ -19,5 +19,10 @@ namespace NFeFacil.ViewModel
         }
         public ObservableCollection<string> Nomes => Estados.EstadosCache.Select(x => x.Nome).GerarObs();
         public ObservableCollection<ushort> Codigos => Estados.EstadosCache.Select(x => x.Codigo).GerarObs();
+
+        public DadosEstadosParaView()
+        {
+
+        }
     }
 }

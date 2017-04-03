@@ -25,32 +25,31 @@ namespace NFeFacil
             Log = new Saida();
         }
 
-        public async Task AbrirFunçaoAsync(Type classe, object parametro = null) => await AbrirAsync(classe, parametro);
+        public async Task AbrirFunçaoAsync(Type classe, object parametro = null)
+        {
+            await AbrirAsync(classe, parametro);
+        }
 
         public async Task AbrirFunçaoAsync(string tela, object parametro = null)
         {
-            var classe = Type.GetType($"NFeFacil.View.{tela}");
-            if (classe == null)
-            {
-                new Saida().Escrever(TitulosComuns.ErroSimples, $"Tela ainda nao cadastrada. Nome: {tela}");
-                return;
-            }
-            await AbrirAsync(classe, parametro);
+            await AbrirAsync(Type.GetType($"NFeFacil.View.{tela}"), parametro);
         }
 
         private async Task AbrirAsync(Type tela, object parametro)
         {
-            if (tela == null) throw new ArgumentNullException(nameof(tela));
             if (TelasComParametroObrigatorio.ContainsKey(tela) && parametro == null)
                 TelasComParametroObrigatorio.TryGetValue(tela, out parametro);
-            if (Main.FramePrincipal.Content is IEsconde esconde)
+            if (Main.FramePrincipal.Content != null)
             {
-                await esconde.EsconderAsync();
-            }
-            else
-            {
-                ILog log = new Saida();
-                log.Escrever(TitulosComuns.ErroSimples, $"A tela {tela} ainda precisa implementar IEsconde!");
+                if (Main.FramePrincipal.Content is IEsconde esconde)
+                {
+                    await esconde.EsconderAsync();
+                }
+                else
+                {
+                    ILog log = new Saida();
+                    log.Escrever(TitulosComuns.ErroSimples, $"A tela {Main.FramePrincipal.Content} ainda precisa implementar IEsconde!");
+                }
             }
             Main.FramePrincipal.Navigate(tela, parametro);
         }
@@ -136,9 +135,13 @@ namespace NFeFacil
             }
 
             if (Main.FramePrincipal.CanGoBack)
+            {
                 Main.FramePrincipal.GoBack();
+            }
             else
+            {
                 Log.Escrever(TitulosComuns.ErroSimples, "Não é possível voltar para a tela anterior.");
+            }
         }
     }
 
@@ -149,7 +152,7 @@ namespace NFeFacil
         GerenciarDadosBase,
         ManipularNota,
         NotasEmitidas,
-        AnaliseVendasAnuais,
+        VendasAnuais,
         Configurações
     }
 }

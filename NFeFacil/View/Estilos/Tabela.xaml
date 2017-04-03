@@ -1,0 +1,44 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="using:NFeFacil.View.Estilos">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="CoresDestaque.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+    <Style x:Key="PseudoTabela"
+           TargetType="ListView">
+        <Setter Property="SelectionMode"
+                Value="None" />
+        <Setter Property="Margin"
+                Value="-12,-6,-12,0" />
+        <Setter Property="ItemContainerStyle">
+            <Setter.Value>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment"
+                            Value="Stretch" />
+                </Style>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="Cabecalho"
+           TargetType="Grid">
+        <Setter Property="Background"
+                Value="{StaticResource MuitoVariada}" />
+    </Style>
+    <Style x:Key="TextoCabecalho"
+           TargetType="TextBlock"
+           BasedOn="{StaticResource SubtitleTextBlockStyle}">
+        <Setter Property="Margin"
+                Value="10,4,10,2" />
+    </Style>
+    <Style x:Key="BotaoAdd"
+           TargetType="Button">
+        <Setter Property="Padding"
+                Value="4" />
+        <Setter Property="Width"
+                Value="64" />
+        <Setter Property="HorizontalAlignment"
+                Value="Right" />
+        <Setter Property="VerticalAlignment"
+                Value="Stretch" />
+    </Style>
+</ResourceDictionary>

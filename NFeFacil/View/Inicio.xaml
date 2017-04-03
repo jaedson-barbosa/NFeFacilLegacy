@@ -42,7 +42,7 @@
                                         Título="Consultar NF-e"
                                         Descrição="Consulte dados básicos de qualquer nota fiscal emitida por qualquer aplicação usando apenas o código da NF-e."
                                         Tapped="AbrirFunção" />
-            <controles:ItemPadrãoSymbol x:Name="AnaliseVendasAnuais"
+            <controles:ItemPadrãoSymbol x:Name="VendasAnuais"
                                         Símbolo="Filter"
                                         Título="Análise anual"
                                         Descrição="Veja uma análise das vendas ocorridas em um ano, com a organização tanto por cliente quanto por mês."

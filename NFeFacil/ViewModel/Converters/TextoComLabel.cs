@@ -1,5 +1,4 @@
 ﻿using System;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 
 namespace NFeFacil.ViewModel.Converters
@@ -13,7 +12,8 @@ namespace NFeFacil.ViewModel.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
-            return DependencyProperty.UnsetValue;
+            var str = value as string;
+            return str.Substring(str.IndexOf(':') + 1);
         }
     }
 }

@@ -26,7 +26,12 @@ namespace NFeFacil.ViewModel.Converters
         {
             if (value is int inteiro)
             {
-                return inteiro == 1;
+                int casoTrue = 1;
+                if (parameter is string parametro)
+                {
+                    casoTrue += int.Parse(parametro);
+                }
+                return inteiro == casoTrue;
             }
             else
             {

@@ -136,7 +136,7 @@
             <AppBarButton x:Name="Adicionar"
                           Icon="Add"
                           Label="Adicionar"
-                          Click="Adicionar_Click" />
+                          Click="Adicionar_ClickAsync" />
             <AppBarButton x:Name="Deletar"
                           Icon="Delete"
                           Label="Deletar"
@@ -144,7 +144,7 @@
             <AppBarButton x:Name="Editar"
                           Icon="Edit"
                           Label="Editar"
-                          Click="Editar_Click" />
+                          Click="Editar_ClickAsync" />
         </CommandBar>
     </Grid>
 </Page>

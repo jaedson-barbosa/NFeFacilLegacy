@@ -20,15 +20,14 @@ namespace NFeFacil.View
         {
             get { return frmPrincipal; }
         }
-        public Symbol Símbolo
+        public IconElement Icone
         {
-            get { return symTitulo.Symbol; }
-            set { symTitulo.Symbol = value; }
+            set => symTitulo.Content = value;
         }
-        public string Título
+        public string Titulo
         {
-            get { return txtTitulo.Text; }
-            set { txtTitulo.Text = value; }
+            get => txtTitulo.Text;
+            set => txtTitulo.Text = value;
         }
         public int IndexHamburguer
         {

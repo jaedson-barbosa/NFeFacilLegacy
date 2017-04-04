@@ -25,7 +25,7 @@ namespace NFeFacil.View.Estilos.Auxiliares
 
             colunas = Math.Floor(availableSize.Width / _maxWidth);
             if (colunas > 5) colunas = 5;
-            _maxWidth = Math.Ceiling(availableSize.Width / colunas);
+            _maxWidth = Math.Floor(availableSize.Width / colunas);
             linhas = Math.Ceiling(Children.Count / colunas);
             return new Size(_maxWidth * colunas, _maxHeight * linhas);
         }

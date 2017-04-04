@@ -93,21 +93,39 @@ namespace NFeFacil
             }
         };
 
-        public async void SeAtualizar(Telas atual, Symbol símbolo, string texto)
+        public void SeAtualizar(Telas atual, Symbol símbolo, string texto)
         {
-            System.Diagnostics.Debug.WriteLine(Main.FramePrincipal.BackStackDepth);
-            TelaAtual = atual;
-            Main.IndexHamburguer = (int)atual;
-            Main.Símbolo = símbolo;
-            Main.Título = texto;
+            Main.IndexHamburguer = (int)(TelaAtual = atual);
+            Main.Titulo = texto;
+            Main.Icone = new SymbolIcon(símbolo);
             if (atual == Telas.Inicio)
             {
-                await Task.Delay(500);
-                Main.FramePrincipal.BackStack.Clear();
-                Main.FramePrincipal.ForwardStack.Clear();
-                CoreApplication.Properties.Clear();
-                GC.Collect();
+                LimparMemoria();
             }
+        }
+
+        public void SeAtualizar(Telas atual, string glyph, string texto)
+        {
+            ;
+            Main.IndexHamburguer = (int)(TelaAtual = atual);
+            Main.Titulo = texto;
+            Main.Icone = new FontIcon
+            {
+                Glyph = "\uE81C",
+            };
+            if (atual == Telas.Inicio)
+            {
+                LimparMemoria();
+            }
+        }
+
+        private async void LimparMemoria()
+        {
+            await Task.Delay(500);
+            Main.FramePrincipal.BackStack.Clear();
+            Main.FramePrincipal.ForwardStack.Clear();
+            CoreApplication.Properties.Clear();
+            GC.Collect();
         }
 
         public virtual void RetornoEvento(object sender, BackRequestedEventArgs e)

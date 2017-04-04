@@ -48,9 +48,11 @@
                 <FontIcon FontFamily="Segoe MDL2 Assets"
                           Glyph="&#xE700;" />
             </Button>
-            <SymbolIcon x:Name="symTitulo"
-                        Symbol="Home"
-                        Margin="5,0" />
+            <ContentControl x:Name="symTitulo"
+                            VerticalAlignment="Center"
+                            Margin="5,0">
+                <FontIcon Glyph="&#xE81C;" />
+            </ContentControl>
             <TextBlock x:Name="txtTitulo"
                        Text="Nota Fácil"
                        Style="{StaticResource BodyTextBlockStyle}"

@@ -71,8 +71,8 @@ namespace NFeFacil.ViewModel.NotaFiscal
         {
             get
             {
-                if (!Municipios.Contains(Cliente.endereco.NomeMunicipio) && Municipios.Count(x => RemoverAcentuacao(x) == Cliente.endereco.NomeMunicipio) > 0)
-                    Cliente.endereco.NomeMunicipio = Municipios.First(x => RemoverAcentuacao(x) == Cliente.endereco.NomeMunicipio);
+                if (!Municipios.Contains(Cliente.endereco.NomeMunicipio) && Municipios.Count(x => x == Cliente.endereco.NomeMunicipio) > 0)
+                    Cliente.endereco.NomeMunicipio = Municipios.First(x => x == Cliente.endereco.NomeMunicipio);
                 return Cliente.endereco.NomeMunicipio;
             }
             set
@@ -135,14 +135,6 @@ namespace NFeFacil.ViewModel.NotaFiscal
         {
             TipoDocumento = (int)dest.obterTipoDocumento;
             Cliente = dest;
-        }
-
-        private static string RemoverAcentuacao(string text)
-        {
-            return new string(text
-                .Normalize(NormalizationForm.FormD)
-                .Where(x => char.IsLetter(x) || x == ' ')
-                .ToArray());
         }
     }
 }

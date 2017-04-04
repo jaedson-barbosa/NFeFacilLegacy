@@ -9,7 +9,12 @@ namespace NFeFacil.ViewModel.Converters
         {
             if (value is bool valor)
             {
-                return valor ? 1 : 0;
+                int casoTrue = 1;
+                if (parameter is string parametro)
+                {
+                    casoTrue += int.Parse(parametro);
+                }
+                return valor ? casoTrue : casoTrue - 1;
             }
             else
             {

@@ -27,7 +27,6 @@ namespace NFeFacil.IBGE
                 MunicipiosCache = new Dictionary<Estado, IEnumerable<Municipio>>();
                 var xml = new XML(nameof(Municipios)).Retornar();
                 var municipios = from município in xml.Elements()
-                                 let proc = new ProcessamentoXml(município)
                                  select new Municipio(município);
                 foreach (var item in Estados.EstadosCache)
                 {

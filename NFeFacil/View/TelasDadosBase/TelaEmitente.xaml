@@ -54,11 +54,10 @@
                        Style="{StaticResource TitleTextBlockStyle}" />
             <ItemsControl Style="{StaticResource ItensResponsivos}">
                 <ComboBox ItemsSource="{Binding Source={StaticResource estados}, Path=Siglas}"
-                          SelectedItem="{Binding Emit.endereco.SiglaUF, Mode=TwoWay}"
-                          x:Name="UFEscolhida"
+                          SelectedItem="{Binding EstadoSelecionado, Mode=TwoWay}"
                           Header="Estado" />
-                <ComboBox ItemsSource="{Binding ElementName=UFEscolhida, Path=SelectedItem, Converter={StaticResource obterMunicipios}, Mode=OneWay}"
-                          SelectedItem="{Binding Path=Emit.endereco.ConjuntoMunicipio, Mode=TwoWay}"
+                <ComboBox ItemsSource="{Binding EstadoSelecionado, Converter={StaticResource obterMunicipios}, Mode=OneWay}"
+                          SelectedItem="{Binding Path=ConjuntoMunicipio, Mode=TwoWay}"
                           DisplayMemberPath="Nome"
                           Header="Município" />
                 <TextBox Text="{Binding Path=Emit.endereco.Logradouro, Mode=TwoWay}"

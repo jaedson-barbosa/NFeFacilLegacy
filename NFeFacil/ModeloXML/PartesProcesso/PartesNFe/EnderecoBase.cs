@@ -21,26 +21,5 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe
         public string NomeMunicipio { get; set; }
         [XmlElement("UF")]
         public string SiglaUF { get; set; }
-        [NotMapped]
-        [XmlIgnore]
-        public Municipio ConjuntoMunicipio
-        {
-            get
-            {
-                if (CodigoMunicipio > 0)
-                {
-                    return Municipios.Get(SiglaUF).First(x => x.CodigoMunicípio == CodigoMunicipio);
-                }
-                else
-                {
-                    return null;
-                }
-            }
-            set
-            {
-                NomeMunicipio = value.Nome;
-                CodigoMunicipio = value.CodigoMunicípio;
-            }
-        }
     }
 }

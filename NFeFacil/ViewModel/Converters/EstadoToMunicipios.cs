@@ -21,12 +21,12 @@ namespace NFeFacil.ViewModel.Converters
             if (value is string str)
             {
                 tamanhoString = str.Length;
-                return Municipios.Get(str);
+                return Municipios.Get(str).GerarObs();
             }
             else if (value is Estado est)
             {
                 tamanhoString = null;
-                return Municipios.Get(est);
+                return Municipios.Get(est).GerarObs();
             }
             else
             {

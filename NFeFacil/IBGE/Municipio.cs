@@ -10,7 +10,7 @@ namespace NFeFacil.IBGE
     {
         public ushort CodigoUF { get; set; }
         public string Nome { get; set; }
-        public long CodigoMunicípio { get; set; }
+        public int CodigoMunicípio { get; set; }
 
         public Municipio() { }
 
@@ -19,7 +19,33 @@ namespace NFeFacil.IBGE
             ProcessamentoXml proc = xmlMunicípio;
             CodigoUF = ushort.Parse(proc.GetByIndex(0), CultureInfo.InvariantCulture);
             Nome = RemoverAcentuacao(proc.GetByIndex(1));
-            CodigoMunicípio = long.Parse(proc.GetByIndex(2));
+            CodigoMunicípio = int.Parse(proc.GetByIndex(2));
+        }
+
+        public static bool operator ==(Municipio mun1, Municipio mun2) {
+            return Equals(mun1, mun2);
+        }
+
+        public static bool operator !=(Municipio mun1, Municipio mun2)
+        {
+            return !Equals(mun1, mun2);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Municipio mun)
+            {
+                return GetHashCode() == mun.GetHashCode();
+            }
+            else
+            {
+                throw new ArgumentException();
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            return CodigoUF * CodigoMunicípio * Nome.Length;
         }
 
         private static string RemoverAcentuacao(string text)

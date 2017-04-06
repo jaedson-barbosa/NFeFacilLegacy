@@ -2,12 +2,10 @@
 using NFeFacil.ItensBD;
 using NFeFacil.ModeloXML;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
 
 namespace NFeFacil.ViewModel.NotaFiscal
 {

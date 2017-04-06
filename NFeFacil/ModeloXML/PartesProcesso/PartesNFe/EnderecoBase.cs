@@ -1,7 +1,4 @@
-﻿using NFeFacil.IBGE;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 
 namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe
 {

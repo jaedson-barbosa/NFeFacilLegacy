@@ -1,23 +1,27 @@
 ﻿using NFeFacil.IBGE;
 using NFeFacil.ItensBD;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Xml.Serialization;
 
 namespace NFeFacil.ViewModel.NotaFiscal
 {
     public sealed class EmitenteDataContext : INotifyPropertyChanged
     {
-        public Emitente Emit { get; set; }
+        private Emitente emit;
+
         public event PropertyChangedEventHandler PropertyChanged;
-        public void AttTudo()
+
+        public Emitente Emit
         {
-            PropertyChanged(this, new PropertyChangedEventArgs(nameof(Emit)));
-            PropertyChanged(this, new PropertyChangedEventArgs(nameof(EstadoSelecionado)));
-            PropertyChanged(this, new PropertyChangedEventArgs(nameof(ConjuntoMunicipio)));
+            get => emit;
+            set
+            {
+                emit = value;
+                PropertyChanged(this, new PropertyChangedEventArgs(nameof(Emit)));
+                PropertyChanged(this, new PropertyChangedEventArgs(nameof(EstadoSelecionado)));
+                PropertyChanged(this, new PropertyChangedEventArgs(nameof(ConjuntoMunicipio)));
+            }
         }
 
         public string EstadoSelecionado
@@ -38,10 +42,7 @@ namespace NFeFacil.ViewModel.NotaFiscal
                 {
                     return Municipios.Get(EstadoSelecionado).First(x => x.CodigoMunicípio == Emit.endereco.CodigoMunicipio);
                 }
-                else
-                {
-                    return null;
-                }
+                return null;
             }
             set
             {

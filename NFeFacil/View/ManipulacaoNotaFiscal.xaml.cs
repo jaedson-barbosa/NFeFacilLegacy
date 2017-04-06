@@ -140,15 +140,12 @@ namespace NFeFacil.View
             var selecionado = cmbEmitentes.SelectedValue as EmitenteDI;
             if (notaSalva != null)
             {
-                notaSalva.Informações.emitente = selecionado;
-                Emitente.Emit = notaSalva.Informações.emitente;
+                Emitente.Emit = notaSalva.Informações.emitente = selecionado;
             }
             else
             {
-                notaEmitida.NFe.Informações.emitente = selecionado;
-                Emitente.Emit = notaEmitida.NFe.Informações.emitente;
+                Emitente.Emit = notaEmitida.NFe.Informações.emitente = selecionado;
             }
-            Emitente.AttTudo();
         }
 
         private void cmbDestinatarios_SelectionChanged(object sender, SelectionChangedEventArgs e)

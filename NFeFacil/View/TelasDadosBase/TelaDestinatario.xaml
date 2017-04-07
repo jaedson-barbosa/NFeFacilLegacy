@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="NFeFacil.View.TelasDadosBase.TelaDestinatario"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:VM="using:NFeFacil.ViewModel"
+             xmlns:Conversores="using:NFeFacil.ViewModel.Converters"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -11,6 +12,8 @@
                 <ResourceDictionary Source="ms-appx:///View/Estilos/GridResponsiva.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <VM:DadosEstadosParaView x:Key="estados" />
+            <Conversores:EstadoToMunicipios x:Key="obterMunicipios" />
+            <Conversores:Invert x:Key="inverterBool" />
         </ResourceDictionary>
     </UserControl.Resources>
     <ScrollViewer VerticalScrollBarVisibility="Hidden">
@@ -29,16 +32,15 @@
                          InputScope="Number"
                          Header="Documento *" />
                 <Grid MinWidth="240">
-                    <TextBox x:Name="txtIE"
-                             Text="{Binding Cliente.inscricaoEstadual, Mode=TwoWay}"
+                    <TextBox Text="{Binding InscricaoEstadual, Mode=TwoWay}"
+                             IsEnabled="{Binding IsentoICMS, Converter={StaticResource inverterBool}}"
                              InputScope="Number"
                              Header="Inscrição estadual" />
                     <CheckBox Content="Isento do ICMS"
+                              IsChecked="{Binding IsentoICMS, Mode=TwoWay}"
                               Margin="0,-6,0,0"
                               HorizontalAlignment="Right"
-                              VerticalAlignment="Top"
-                              Checked="chkIsento_Checked"
-                              Unchecked="chkIsento_Unchecked" />
+                              VerticalAlignment="Top" />
                 </Grid>
                 <TextBox Text="{Binding Cliente.ISUF, Mode=TwoWay}"
                          InputScope="Number"
@@ -48,23 +50,22 @@
                          Header="Email" />
             </ItemsControl>
             <Grid>
-                <TextBlock Text="endereco"
+                <TextBlock Text="Endereço"
                            Style="{StaticResource TitleTextBlockStyle}" />
                 <CheckBox Content="Nacional"
                           HorizontalAlignment="Right"
                           VerticalAlignment="Top"
-                          IsChecked="{Binding Nacional}"
-                          Checked="rdbNacional_Checked"
-                          Unchecked="rdbNacional_Unchecked" />
+                          IsChecked="{Binding Nacional, Mode=TwoWay}" />
             </Grid>
             <ItemsControl Style="{StaticResource ItensResponsivos}">
-                <ComboBox x:Name="cmbUF"
+                <ComboBox IsEnabled="{Binding Nacional}"
                           ItemsSource="{Binding Source={StaticResource estados}, Path=Siglas}"
-                          SelectedItem="{Binding Path=UFEscolhida, Mode=TwoWay}"
+                          SelectedItem="{Binding EstadoSelecionado, Mode=TwoWay}"
                           Header="Estado" />
-                <ComboBox x:Name="cmbMunicípio"
-                          ItemsSource="{Binding Municipios}"
-                          SelectedItem="{Binding Path=MunicipioEscolhido, Mode=TwoWay}"
+                <ComboBox IsEnabled="{Binding Nacional}"
+                          ItemsSource="{Binding EstadoSelecionado, Converter={StaticResource obterMunicipios}}"
+                          SelectedItem="{Binding Path=ConjuntoMunicipio, Mode=TwoWay}"
+                          DisplayMemberPath="Nome"
                           Header="Município" />
                 <TextBox Text="{Binding Path=Cliente.endereco.Logradouro, Mode=TwoWay}"
                          InputScope="Text"
@@ -78,18 +79,18 @@
                 <TextBox Text="{Binding Path=Cliente.endereco.Bairro, Mode=TwoWay}"
                          InputScope="Text"
                          Header="Bairro *" />
-                <TextBox x:Name="txtCEP"
-                         Text="{Binding Path=Cliente.endereco.CEP, Mode=TwoWay}"
+                <TextBox IsEnabled="{Binding Nacional}"
+                         Text="{Binding Path=CEP, Mode=TwoWay}"
                          InputScope="Number"
                          Header="CEP" />
                 <TextBox Text="{Binding Path=Cliente.endereco.Telefone, Mode=TwoWay}"
                          InputScope="Number"
                          Header="Telefone" />
-                <TextBox x:Name="txtNomePaís"
-                         Text="{Binding Path=Cliente.endereco.XPais, Mode=TwoWay}"
+                <TextBox Text="{Binding Path=Cliente.endereco.XPais, Mode=TwoWay}"
+                         IsEnabled="{Binding Nacional, Converter={StaticResource inverterBool}}"
                          InputScope="Text"
                          Header="Nome do país" />
-                <TextBox x:Name="txtCódigoPaís"
+                <TextBox IsEnabled="{Binding Nacional, Converter={StaticResource inverterBool}}"
                          Text="{Binding Path=Cliente.endereco.CPais, Mode=TwoWay}"
                          InputScope="Number"
                          Header="Codigo do país" />

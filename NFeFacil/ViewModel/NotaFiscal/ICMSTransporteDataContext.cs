@@ -34,11 +34,11 @@ namespace NFeFacil.ViewModel.NotaFiscal
         {
             get
             {
-                return Municipios.Count > 0 ? Municipios.Single(x => x.CodigoMunicípio == long.Parse(ICMS.cMunFG)) : new Municipio();
+                return Municipios.Count > 0 ? Municipios.Single(x => x.Codigo == long.Parse(ICMS.cMunFG)) : new Municipio();
             }
             set
             {
-                ICMS.cMunFG = value.CodigoMunicípio.ToString();
+                ICMS.cMunFG = value.Codigo.ToString();
             }
         }
 

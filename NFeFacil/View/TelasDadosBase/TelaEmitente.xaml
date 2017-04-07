@@ -56,7 +56,7 @@
                 <ComboBox ItemsSource="{Binding Source={StaticResource estados}, Path=Siglas}"
                           SelectedItem="{Binding EstadoSelecionado, Mode=TwoWay}"
                           Header="Estado" />
-                <ComboBox ItemsSource="{Binding EstadoSelecionado, Converter={StaticResource obterMunicipios}, Mode=OneWay}"
+                <ComboBox ItemsSource="{Binding EstadoSelecionado, Converter={StaticResource obterMunicipios}}"
                           SelectedItem="{Binding Path=ConjuntoMunicipio, Mode=TwoWay}"
                           DisplayMemberPath="Nome"
                           Header="Município" />

@@ -153,15 +153,12 @@ namespace NFeFacil.View
             var selecionado = cmbDestinatarios.SelectedValue as ClienteDI;
             if (notaSalva != null)
             {
-                notaSalva.Informações.destinatário = selecionado;
-                Destinatario.Cliente = notaSalva.Informações.destinatário;
+                Destinatario.Cliente = notaSalva.Informações.destinatário = selecionado;
             }
             else
             {
-                notaEmitida.NFe.Informações.destinatário = selecionado;
-                Destinatario.Cliente = notaEmitida.NFe.Informações.destinatário;
+                Destinatario.Cliente = notaEmitida.NFe.Informações.destinatário = selecionado;
             }
-            Destinatario.AttTudo();
         }
 
         private void btnConfirmar_Click(object sender, RoutedEventArgs e)

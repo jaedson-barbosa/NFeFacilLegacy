@@ -2,8 +2,6 @@
 using NFeFacil.ItensBD;
 using NFeFacil.ModeloXML;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 
@@ -11,88 +9,96 @@ namespace NFeFacil.ViewModel.NotaFiscal
 {
     public sealed class ClienteDataContext : INotifyPropertyChanged
     {
-        public Destinatario Cliente { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
-        public void AttTudo()
+
+        private Destinatario cliente;
+        public Destinatario Cliente
         {
-            PropertyChanged(this, new PropertyChangedEventArgs(nameof(Cliente)));
-            PropertyChanged(this, new PropertyChangedEventArgs(nameof(IsentoICMS)));
-            PropertyChanged(this, new PropertyChangedEventArgs(nameof(IndicadorIE)));
-            PropertyChanged(this, new PropertyChangedEventArgs(nameof(TipoOperação)));
-            PropertyChanged(this, new PropertyChangedEventArgs(nameof(Municipios)));
-            PropertyChanged(this, new PropertyChangedEventArgs(nameof(UFEscolhida)));
-            PropertyChanged(this, new PropertyChangedEventArgs(nameof(MunicipioEscolhido)));
-            PropertyChanged(this, new PropertyChangedEventArgs(nameof(Nacional)));
-            PropertyChanged(this, new PropertyChangedEventArgs(nameof(TipoDocumento)));
-            PropertyChanged(this, new PropertyChangedEventArgs(nameof(Documento)));
-        }
-
-
-        public bool IsentoICMS
-        {
-            get => IndicadorIE != 1;
-            set => IndicadorIE = value ? 2 : 1;
-        }
-
-        public int IndicadorIE
-        {
-            get => Cliente.indicadorIE - 1;
-            set => Cliente.indicadorIE = value + 1;
-        }
-
-        public int TipoOperação => (Cliente.endereco.XPais == "Brasil") ? 0 : 1;
-
-        public IEnumerable<Municipio> _Municipios
-        {
-            get
+            get => cliente;
+            set
             {
-                if (UFEscolhida != null)
-                    return IBGE.Municipios.Get(UFEscolhida);
-                else
-                    return new List<Municipio>();
+                cliente = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Cliente)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsentoICMS)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(InscricaoEstadual)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CEP)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(EstadoSelecionado)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ConjuntoMunicipio)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Nacional)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TipoDocumento)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Documento)));
             }
         }
 
-        public ObservableCollection<string> Municipios => (from mun in _Municipios select mun.Nome).GerarObs();
+        public bool IsentoICMS
+        {
+            get => Cliente.indicadorIE != 1;
+            set
+            {
+                Cliente.indicadorIE = value ? 2 : 1;
+                Cliente.inscricaoEstadual = value ? "ISENTO" : string.Empty;
+                PropertyChanged(this, new PropertyChangedEventArgs(nameof(InscricaoEstadual)));
+                PropertyChanged(this, new PropertyChangedEventArgs(nameof(IsentoICMS)));
+            }
+        }
 
-        public string UFEscolhida
+        public string InscricaoEstadual
+        {
+            get => Cliente.inscricaoEstadual;
+            set => Cliente.inscricaoEstadual = value;
+        }
+
+        public string CEP
+        {
+            get => Cliente.endereco.CEP;
+            set => Cliente.endereco.CEP = value;
+        }
+
+        public string EstadoSelecionado
         {
             get => Cliente.endereco.SiglaUF;
             set
             {
                 Cliente.endereco.SiglaUF = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Municipios)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(EstadoSelecionado)));
             }
         }
 
-        public string MunicipioEscolhido
+        public Municipio ConjuntoMunicipio
         {
-            get
-            {
-                if (!Municipios.Contains(Cliente.endereco.NomeMunicipio) && Municipios.Count(x => x == Cliente.endereco.NomeMunicipio) > 0)
-                    Cliente.endereco.NomeMunicipio = Municipios.First(x => x == Cliente.endereco.NomeMunicipio);
-                return Cliente.endereco.NomeMunicipio;
-            }
+            get => Municipios.Get(EstadoSelecionado).FirstOrDefault(x => x.Codigo == Cliente.endereco.CodigoMunicipio);
             set
             {
-                if (_Municipios.Count() != 0)
-                {
-                    Cliente.endereco.NomeMunicipio = value;
-                    Cliente.endereco.CodigoMunicipio = _Municipios.First(x => x.Nome == value).CodigoMunicípio;
-                }
+                Cliente.endereco.NomeMunicipio = value?.Nome;
+                Cliente.endereco.CodigoMunicipio = value?.Codigo ?? 0;
             }
         }
 
-        private bool nacional = false;
-
+        private bool? nacional = null;
         public bool Nacional
         {
             get
             {
-                nacional = Cliente.endereco.XPais.ToLower() == "brasil" || string.IsNullOrEmpty(Cliente.endereco.XPais);
-                return nacional;
+                if (nacional == null)
+                {
+                    var xpais = Cliente.endereco.XPais;
+                    nacional = xpais.ToLower() == "brasil" || string.IsNullOrEmpty(xpais);
+                }
+                if (!nacional.Value)
+                {
+                    CEP = EstadoSelecionado = null;
+                    ConjuntoMunicipio = null;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CEP)));
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(EstadoSelecionado)));
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ConjuntoMunicipio)));
+                }
+                return nacional.Value;
             }
-            set => nacional = value;
+            set
+            {
+                nacional = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Nacional)));
+            }
         }
 
         public int TipoDocumento { get; set; }
@@ -102,24 +108,10 @@ namespace NFeFacil.ViewModel.NotaFiscal
             get { return Cliente.obterDocumento; }
             set
             {
-                switch ((TiposDocumento)TipoDocumento)
-                {
-                    case TiposDocumento.CPF:
-                        Cliente.CPF = value;
-                        Cliente.CNPJ = null;
-                        Cliente.idEstrangeiro = null;
-                        break;
-                    case TiposDocumento.CNPJ:
-                        Cliente.CPF = null;
-                        Cliente.CNPJ = value;
-                        Cliente.idEstrangeiro = null;
-                        break;
-                    case TiposDocumento.idEstrangeiro:
-                        Cliente.CPF = null;
-                        Cliente.CNPJ = null;
-                        Cliente.idEstrangeiro = value;
-                        break;
-                }
+                var tipo = (TiposDocumento)TipoDocumento;
+                Cliente.CPF = tipo == TiposDocumento.CPF ? value : null;
+                Cliente.CNPJ = tipo == TiposDocumento.CNPJ ? value : null;
+                Cliente.idEstrangeiro = tipo == TiposDocumento.idEstrangeiro ? value : null;
             }
         }
 

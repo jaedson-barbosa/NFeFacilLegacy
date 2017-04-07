@@ -151,7 +151,7 @@ namespace NFeFacil.ViewModel.NotaFiscal
             get
             {
                 if (Ident.CodigoMunicípio != default(long))
-                    return _Municipios.FirstOrDefault(x => x.CodigoMunicípio == Ident.CodigoMunicípio).Nome;
+                    return _Municipios.FirstOrDefault(x => x.Codigo == Ident.CodigoMunicípio).Nome;
                 else if (Municipios.Count() != 0)
                     return Municipios.First();
                 else
@@ -159,7 +159,7 @@ namespace NFeFacil.ViewModel.NotaFiscal
             }
             set
             {
-                Ident.CodigoMunicípio = _Municipios.First(x => x.Nome == value).CodigoMunicípio;
+                Ident.CodigoMunicípio = _Municipios.First(x => x.Nome == value).Codigo;
             }
         }
     }

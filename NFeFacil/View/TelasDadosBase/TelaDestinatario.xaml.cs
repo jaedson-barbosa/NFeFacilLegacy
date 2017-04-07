@@ -11,37 +11,5 @@ namespace NFeFacil.View.TelasDadosBase
         {
             InitializeComponent();
         }
-
-        private void rdbNacional_Checked(object sender, RoutedEventArgs e)
-        {
-            txtNomePaís.IsEnabled = false;
-            txtCódigoPaís.IsEnabled = false;
-
-            txtCEP.IsEnabled = true;
-            cmbUF.IsEnabled = true;
-            cmbMunicípio.IsEnabled = true;
-        }
-
-        private void rdbNacional_Unchecked(object sender, RoutedEventArgs e)
-        {
-            txtNomePaís.IsEnabled = true;
-            txtCódigoPaís.IsEnabled = true;
-
-            txtCEP.IsEnabled = false;
-            cmbUF.IsEnabled = false;
-            cmbMunicípio.IsEnabled = false;
-        }
-
-        private void chkIsento_Checked(object sender, RoutedEventArgs e)
-        {
-            txtIE.IsEnabled = false;
-            txtIE.Text = "ISENTO";
-        }
-
-        private void chkIsento_Unchecked(object sender, RoutedEventArgs e)
-        {
-            txtIE.IsEnabled = true;
-            txtIE.Text = string.Empty;
-        }
     }
 }

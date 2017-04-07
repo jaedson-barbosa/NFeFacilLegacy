@@ -103,6 +103,10 @@
                                              Texto="Configurações">
                         <SymbolIcon Symbol="Setting" />
                     </controles:SplitViewItem>
+                    <controles:SplitViewItem x:Name="Testes"
+                                             Texto="Testes">
+                        <SymbolIcon Symbol="Up" />
+                    </controles:SplitViewItem>
                 </ListView>
             </SplitView.Pane>
             <SplitView.Content>

@@ -11,13 +11,13 @@ namespace NFeFacil.ViewModel.NotaFiscal
         public event PropertyChangedEventHandler PropertyChanged;
         public ICMSTransporte ICMS { get; }
 
-        private Estado _estado;
+        private Estado ufEscolhida;
         public Estado UFEscolhida
         {
-            get { return _estado; }
+            get => ufEscolhida;
             set
             {
-                _estado = value;
+                ufEscolhida = value;
                 PropertyChanged(this, new PropertyChangedEventArgs("Municipios"));
             }
         }

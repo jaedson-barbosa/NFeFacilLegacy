@@ -18,25 +18,13 @@ namespace NFeFacil.ViewModel.NotaFiscal
             set
             {
                 emit = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Emit)));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(EstadoSelecionado)));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ConjuntoMunicipio)));
-            }
-        }
-
-        public string EstadoSelecionado
-        {
-            get => Emit.endereco.SiglaUF;
-            set
-            {
-                Emit.endereco.SiglaUF = value;
-                PropertyChanged(this, new PropertyChangedEventArgs(nameof(EstadoSelecionado)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(string.Empty));
             }
         }
 
         public Municipio ConjuntoMunicipio
         {
-            get => Municipios.Get(EstadoSelecionado).FirstOrDefault(x => x.Codigo == Emit.endereco.CodigoMunicipio);
+            get => Municipios.Get(Emit.endereco.SiglaUF).FirstOrDefault(x => x.Codigo == Emit.endereco.CodigoMunicipio);
             set
             {
                 Emit.endereco.NomeMunicipio = value?.Nome;

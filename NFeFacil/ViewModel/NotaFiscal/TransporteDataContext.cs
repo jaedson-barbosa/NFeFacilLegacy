@@ -21,10 +21,7 @@ namespace NFeFacil.ViewModel.NotaFiscal
                     Transp.transporta = new Motorista();
                 return new MotoristaDataContext(ref Transp.transporta);
             }
-            set
-            {
-                Transp.transporta = value.Motorista;
-            }
+            set => Transp.transporta = value.Motorista;
         }
 
         public Veiculo VeicTransp
@@ -35,10 +32,7 @@ namespace NFeFacil.ViewModel.NotaFiscal
                     Transp.veicTransp = new Veiculo();
                 return Transp.veicTransp;
             }
-            set
-            {
-                Transp.veicTransp = value;
-            }
+            set => Transp.veicTransp = value;
         }
 
         public ICMSTransporteDataContext RetTransp
@@ -49,10 +43,7 @@ namespace NFeFacil.ViewModel.NotaFiscal
                     Transp.retTransp = new ICMSTransporte();
                 return new ICMSTransporteDataContext(ref Transp.retTransp);
             }
-            set
-            {
-                Transp.retTransp = value.ICMS;
-            }
+            set => Transp.retTransp = value.ICMS;
         }
 
         public ObservableCollection<ModalidadesTransporte> Modalidades
@@ -65,21 +56,15 @@ namespace NFeFacil.ViewModel.NotaFiscal
 
         public ModalidadesTransporte ModFrete
         {
-            get { return (ModalidadesTransporte)Transp.modFrete; }
-            set { Transp.modFrete = (int)value; }
+            get => (ModalidadesTransporte)Transp.modFrete;
+            set => Transp.modFrete = (int)value;
         }
 
-        public ObservableCollection<Reboque> Reboques
-        {
-            get { return Transp.reboque.GerarObs(); }
-        }
+        public ObservableCollection<Reboque> Reboques => Transp.reboque.GerarObs();
         public Reboque NovoReboque { get; private set; }
         public int IndexReboqueSelecionado { get; set; }
 
-        public ObservableCollection<Volume> Volumes
-        {
-            get { return Transp.vol.GerarObs(); }
-        }
+        public ObservableCollection<Volume> Volumes => Transp.vol.GerarObs();
         public Volume VolumeSelecionado { get; set; }
 
         public TransporteDataContext() : base() { }

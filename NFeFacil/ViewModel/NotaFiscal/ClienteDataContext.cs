@@ -18,15 +18,7 @@ namespace NFeFacil.ViewModel.NotaFiscal
             set
             {
                 cliente = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Cliente)));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsentoICMS)));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(InscricaoEstadual)));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CEP)));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(EstadoSelecionado)));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ConjuntoMunicipio)));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Nacional)));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TipoDocumento)));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Documento)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(string.Empty));
             }
         }
 
@@ -37,36 +29,14 @@ namespace NFeFacil.ViewModel.NotaFiscal
             {
                 Cliente.indicadorIE = value ? 2 : 1;
                 Cliente.inscricaoEstadual = value ? "ISENTO" : null;
-                PropertyChanged(this, new PropertyChangedEventArgs(nameof(InscricaoEstadual)));
+                PropertyChanged(this, new PropertyChangedEventArgs(nameof(Cliente)));
                 PropertyChanged(this, new PropertyChangedEventArgs(nameof(IsentoICMS)));
-            }
-        }
-
-        public string InscricaoEstadual
-        {
-            get => Cliente.inscricaoEstadual;
-            set => Cliente.inscricaoEstadual = value;
-        }
-
-        public string CEP
-        {
-            get => Cliente.endereco.CEP;
-            set => Cliente.endereco.CEP = value;
-        }
-
-        public string EstadoSelecionado
-        {
-            get => Cliente.endereco.SiglaUF;
-            set
-            {
-                Cliente.endereco.SiglaUF = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(EstadoSelecionado)));
             }
         }
 
         public Municipio ConjuntoMunicipio
         {
-            get => Municipios.Get(EstadoSelecionado).FirstOrDefault(x => x.Codigo == Cliente.endereco.CodigoMunicipio);
+            get => Municipios.Get(Cliente.endereco.SiglaUF).FirstOrDefault(x => x.Codigo == Cliente.endereco.CodigoMunicipio);
             set
             {
                 Cliente.endereco.NomeMunicipio = value?.Nome;
@@ -86,10 +56,9 @@ namespace NFeFacil.ViewModel.NotaFiscal
                 }
                 if (!nacional.Value)
                 {
-                    CEP = EstadoSelecionado = null;
+                    Cliente.endereco.CEP = Cliente.endereco.SiglaUF = null;
                     ConjuntoMunicipio = null;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CEP)));
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(EstadoSelecionado)));
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Cliente)));
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ConjuntoMunicipio)));
                 }
                 return nacional.Value;

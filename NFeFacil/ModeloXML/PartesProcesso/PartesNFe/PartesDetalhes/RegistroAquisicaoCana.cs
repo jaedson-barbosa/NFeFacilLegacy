@@ -52,7 +52,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
         /// Grupo Fornecimento diário de cana.
         /// </summary>
         [XmlElement(nameof(forDia))]
-        public List<FornecimentoDiario> forDia= new List<FornecimentoDiario>();
+        public List<FornecimentoDiario> forDia { get; } = new List<FornecimentoDiario>();
 
         /// <summary>
         /// (Opcional)

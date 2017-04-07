@@ -32,7 +32,7 @@
                          InputScope="Number"
                          Header="Documento *" />
                 <Grid MinWidth="240">
-                    <TextBox Text="{Binding InscricaoEstadual, Mode=TwoWay}"
+                    <TextBox Text="{Binding Cliente.inscricaoEstadual, Mode=TwoWay}"
                              IsEnabled="{Binding IsentoICMS, Converter={StaticResource inverterBool}}"
                              InputScope="Number"
                              Header="Inscrição estadual" />
@@ -60,10 +60,10 @@
             <ItemsControl Style="{StaticResource ItensResponsivos}">
                 <ComboBox IsEnabled="{Binding Nacional}"
                           ItemsSource="{Binding Source={StaticResource estados}, Path=Siglas}"
-                          SelectedItem="{Binding EstadoSelecionado, Mode=TwoWay}"
+                          SelectedItem="{Binding Cliente.endereco.SiglaUF, Mode=TwoWay}"
                           Header="Estado" />
                 <ComboBox IsEnabled="{Binding Nacional}"
-                          ItemsSource="{Binding EstadoSelecionado, Converter={StaticResource obterMunicipios}}"
+                          ItemsSource="{Binding Cliente.endereco.SiglaUF, Converter={StaticResource obterMunicipios}}"
                           SelectedItem="{Binding Path=ConjuntoMunicipio, Mode=TwoWay}"
                           DisplayMemberPath="Nome"
                           Header="Município" />
@@ -80,7 +80,7 @@
                          InputScope="Text"
                          Header="Bairro *" />
                 <TextBox IsEnabled="{Binding Nacional}"
-                         Text="{Binding Path=CEP, Mode=TwoWay}"
+                         Text="{Binding Path=Cliente.endereco.CEP, Mode=TwoWay}"
                          InputScope="Number"
                          Header="CEP" />
                 <TextBox Text="{Binding Path=Cliente.endereco.Telefone, Mode=TwoWay}"

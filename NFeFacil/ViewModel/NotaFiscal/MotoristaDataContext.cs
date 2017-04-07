@@ -1,73 +1,75 @@
 ﻿using NFeFacil.ItensBD;
 using NFeFacil.ModeloXML;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
-using System;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Xml.Serialization;
 
 namespace NFeFacil.ViewModel.NotaFiscal
 {
     public sealed class MotoristaDataContext : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        public Motorista Motorista { get; }
 
-        public ObservableCollection<TiposDocumento> Tipos { get; } = Enum.GetValues(typeof(TiposDocumento)).Cast<TiposDocumento>().GerarObs();
-
-        [XmlIgnore]
-        public ObservableCollection<string> Municipios
+        private Motorista motorista;
+        public Motorista Motorista
         {
-            get
+            get => motorista;
+            set
             {
-                if (string.IsNullOrEmpty(Motorista.UF))
-                    return new ObservableCollection<string>();
-                else
-                    return (from mun in IBGE.Municipios.Get(Motorista.UF)
-                            select mun.Nome).GerarObs();
+                motorista = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(UFEscolhida)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TipoDocumento)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Documento)));
             }
         }
 
-        [XmlIgnore]
         public string UFEscolhida
         {
-            get
-            {
-                return Motorista.UF;
-            }
+            get => Motorista.UF;
             set
             {
                 Motorista.UF = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Municipios)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(UFEscolhida)));
             }
+        }
+
+        public bool IsentoICMS
+        {
+            get => Motorista.InscricaoEstadual == "ISENTO";
+            set
+            {
+                Motorista.InscricaoEstadual = value ? "ISENTO" : null;
+                PropertyChanged(this, new PropertyChangedEventArgs(nameof(InscricaoEstadual)));
+                PropertyChanged(this, new PropertyChangedEventArgs(nameof(IsentoICMS)));
+            }
+        }
+
+        public string InscricaoEstadual
+        {
+            get => Motorista.InscricaoEstadual;
+            set => Motorista.InscricaoEstadual = value;
         }
 
         public int TipoDocumento { get; set; }
         public string Documento
         {
-            get { return Motorista.Documento; }
-            set
+            get => Motorista.Documento; set
             {
-                switch ((TiposDocumento)TipoDocumento)
-                {
-                    case TiposDocumento.CPF:
-                        Motorista.CPF = value;
-                        Motorista.CNPJ = null;
-                        break;
-                    case TiposDocumento.CNPJ:
-                        Motorista.CPF = null;
-                        Motorista.CNPJ = value;
-                        break;
-                    case TiposDocumento.idEstrangeiro:
-                        new Exception("Não existe motorista extrangeiro.");
-                        break;
-                }
+                var tipo = (TiposDocumento)TipoDocumento;
+                Motorista.CPF = tipo == TiposDocumento.CPF ? value : null;
+                Motorista.CNPJ = tipo == TiposDocumento.CNPJ ? value : null;
             }
         }
 
         public MotoristaDataContext() => Motorista = new Motorista();
-        public MotoristaDataContext(ref Motorista motorista) => Motorista = motorista;
-        public MotoristaDataContext(ref MotoristaDI motorista) => Motorista = motorista;
+        public MotoristaDataContext(ref Motorista motorista)
+        {
+            Motorista = motorista;
+            TipoDocumento = (int)motorista.TipoDocumento;
+        }
+        public MotoristaDataContext(ref MotoristaDI motorista)
+        {
+            Motorista = motorista;
+            TipoDocumento = (int)motorista.TipoDocumento;
+        }
     }
 }

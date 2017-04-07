@@ -36,7 +36,7 @@ namespace NFeFacil.ViewModel.NotaFiscal
             set
             {
                 Cliente.indicadorIE = value ? 2 : 1;
-                Cliente.inscricaoEstadual = value ? "ISENTO" : string.Empty;
+                Cliente.inscricaoEstadual = value ? "ISENTO" : null;
                 PropertyChanged(this, new PropertyChangedEventArgs(nameof(InscricaoEstadual)));
                 PropertyChanged(this, new PropertyChangedEventArgs(nameof(IsentoICMS)));
             }

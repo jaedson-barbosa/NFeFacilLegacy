@@ -2,6 +2,7 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:VM="using:NFeFacil.ViewModel"
+             xmlns:Conversores="using:NFeFacil.ViewModel.Converters"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d">
@@ -11,6 +12,8 @@
                 <ResourceDictionary Source="ms-appx:///View/Estilos/GridResponsiva.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <VM:DadosEstadosParaView x:Key="estados" />
+            <Conversores:EstadoToMunicipios x:Key="obterMunicipios" />
+            <Conversores:Invert x:Key="inverterBool" />
         </ResourceDictionary>
     </UserControl.Resources>
     <ScrollViewer VerticalScrollBarVisibility="Hidden">
@@ -30,12 +33,11 @@
                 <Grid MinWidth="240">
                     <CheckBox Content="Isento do ICMS"
                               Margin="0,-6,0,0"
-                              Checked="chkIsento_Checked"
-                              Unchecked="chkIsento_Unchecked"
+                              IsChecked="{Binding IsentoICMS, Mode=TwoWay}"
                               HorizontalAlignment="Right"
                               VerticalAlignment="Top" />
-                    <TextBox x:Name="txtIE"
-                             Text="{Binding Motorista.InscricaoEstadual, Mode=TwoWay}"
+                    <TextBox Text="{Binding InscricaoEstadual, Mode=TwoWay}"
+                             IsEnabled="{Binding IsentoICMS, Converter={StaticResource inverterBool}}"
                              InputScope="Number"
                              Header="Inscrição estadual" />
                 </Grid>
@@ -44,10 +46,12 @@
                        Style="{StaticResource TitleTextBlockStyle}" />
             <ItemsControl Style="{StaticResource ItensResponsivos}">
                 <ComboBox ItemsSource="{Binding Source={StaticResource estados}, Path=SiglasExpandida}"
-                          SelectedItem="{Binding Path=UFEscolhida, Mode=TwoWay}"
+                          SelectedItem="{Binding UFEscolhida, Mode=TwoWay}"
                           Header="Estado" />
-                <ComboBox ItemsSource="{Binding Municipios, Mode=OneWay}"
-                          SelectedItem="{Binding Path=Motorista.XMun, Mode=TwoWay}"
+                <ComboBox ItemsSource="{Binding UFEscolhida, Converter={StaticResource obterMunicipios}}"
+                          SelectedValue="{Binding Path=Motorista.XMun, Mode=TwoWay}"
+                          SelectedValuePath="Nome"
+                          DisplayMemberPath="Nome"
                           Header="Município" />
                 <TextBox Text="{Binding Path=Motorista.XEnder, Mode=TwoWay}"
                          InputScope="Text"

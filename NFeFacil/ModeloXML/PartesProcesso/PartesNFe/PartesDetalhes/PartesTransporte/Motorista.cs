@@ -28,12 +28,14 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTrans
         /// (Opcional)
         /// endereco Completo.
         /// </summary>
+        [XmlElement("xEnder ")]
         public string XEnder { get; set; }
 
         /// <summary>
         /// (Opcional)
         /// Nome do município.
         /// </summary>
+        [XmlElement("xMun")]
         public string XMun { get; set; }
 
         /// <summary>

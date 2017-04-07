@@ -101,10 +101,10 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Grid>
-                                <TextBlock Text="{Binding nome}" />
-                                <TextBlock Text="{Binding obterDocumento}"
+                                <TextBlock Text="{Binding Nome}" />
+                                <TextBlock Text="{Binding Documento}"
                                            HorizontalAlignment="Center" />
-                                <TextBlock Text="{Binding xMun}"
+                                <TextBlock Text="{Binding XMun}"
                                            HorizontalAlignment="Right" />
                             </Grid>
                         </DataTemplate>

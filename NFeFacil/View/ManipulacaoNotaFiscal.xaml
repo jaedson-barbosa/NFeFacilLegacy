@@ -17,6 +17,7 @@
                 <ResourceDictionary Source="Estilos/Tabela.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <VM:DadosEstadosParaView x:Key="estados" />
+            <Conversores:ColecaoValida x:Key="getObs" />
             <Storyboard x:Name="ocultarGrid">
                 <DoubleAnimation Duration="0:0:0.25"
                                  To="0"
@@ -633,7 +634,7 @@
                     <ctrls:Guia Label="Cana"
                                 Symbol="More" />
                 </PivotItem.Header>
-                <ScrollViewer VerticalScrollBarVisibility="Hidden"
+                <ScrollViewer x:Name="rootCana" VerticalScrollBarVisibility="Hidden"
                               DataContext="{Binding Cana}">
                     <StackPanel>
                         <ItemsControl Style="{StaticResource ItensResponsivos}">
@@ -661,7 +662,7 @@
                                            Margin="0,0,64,0"
                                            Style="{StaticResource TitleTextBlockStyle}">Fornecimento diário de cana</TextBlock>
                                 <ListView Margin="0"
-                                          ItemsSource="{Binding ListaFornecimentoDiario}"
+                                          ItemsSource="{Binding Cana.forDia, Converter={StaticResource getObs}}"
                                           Style="{StaticResource PseudoTabela}">
                                     <ListView.Header>
                                         <Grid>
@@ -684,7 +685,7 @@
                                                 <Grid.ContextFlyout>
                                                     <MenuFlyout Placement="Bottom">
                                                         <MenuFlyoutItem Text="Remover"
-                                                                        Command="{Binding ElementName=RootElement, Path=DataContext.RemoverFornecimentoCommand}"
+                                                                        Command="{Binding ElementName=rootCana, Path=DataContext.RemoverFornecimentoCommand}"
                                                                         CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}" />
                                                     </MenuFlyout>
                                                 </Grid.ContextFlyout>
@@ -704,7 +705,7 @@
                                 <TextBlock TextWrapping="Wrap"
                                            Style="{StaticResource TitleTextBlockStyle}">Deduções</TextBlock>
                                 <ListView Margin="0"
-                                          ItemsSource="{Binding ListaDeducoes}"
+                                          ItemsSource="{Binding Cana.deduc, Converter={StaticResource getObs}}"
                                           Style="{StaticResource PseudoTabela}">
                                     <ListView.Header>
                                         <Grid>
@@ -727,7 +728,7 @@
                                                 <Grid.ContextFlyout>
                                                     <MenuFlyout Placement="Bottom">
                                                         <MenuFlyoutItem Text="Remover"
-                                                                        Command="{Binding ElementName=RootElement, Path=DataContext.RemoverDeducaoCommand}"
+                                                                        Command="{Binding ElementName=rootCana, Path=DataContext.RemoverDeducaoCommand}"
                                                                         CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}" />
                                                     </MenuFlyout>
                                                 </Grid.ContextFlyout>

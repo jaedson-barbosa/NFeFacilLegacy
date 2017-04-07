@@ -59,6 +59,6 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
         /// Grupo Deduções – Taxas e Contribuições.
         /// </summary>
         [XmlElement(nameof(deduc))]
-        public List<Deducoes> deduc = new List<Deducoes>();
+        public List<Deducoes> deduc { get; } = new List<Deducoes>();
     }
 }

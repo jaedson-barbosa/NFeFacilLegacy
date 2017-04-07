@@ -6,7 +6,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe
     {
         public enderecoCompleto() { }
 
-        public enderecoCompleto(string logradouro, string número, string bairro, long codigoMunicípio, string nomeMunicípio, string siglaUF, string Cep = null, string telefone = null, string complemento = null)
+        public enderecoCompleto(string logradouro, string número, string bairro, int codigoMunicípio, string nomeMunicípio, string siglaUF, string Cep = null, string telefone = null, string complemento = null)
         {
             Logradouro = logradouro;
             Numero = número;

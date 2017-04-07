@@ -13,7 +13,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe
         [XmlElement("xBairro")]
         public string Bairro { get; set; }
         [XmlElement("cMun")]
-        public long CodigoMunicipio { get; set; }
+        public int CodigoMunicipio { get; set; }
         [XmlElement("xMun")]
         public string NomeMunicipio { get; set; }
         [XmlElement("UF")]

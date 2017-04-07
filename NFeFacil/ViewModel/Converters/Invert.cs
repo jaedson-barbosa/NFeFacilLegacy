@@ -1,4 +1,5 @@
 ﻿using System;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 
 namespace NFeFacil.ViewModel.Converters
@@ -10,6 +11,10 @@ namespace NFeFacil.ViewModel.Converters
             if (value is bool booleano)
             {
                 return !booleano;
+            }
+            if (value is Visibility visibilidade)
+            {
+                return visibilidade == Visibility.Collapsed ? Visibility.Visible : Visibility.Collapsed;
             }
             else
             {

@@ -8,10 +8,9 @@ namespace NFeFacil.ViewModel.NotaFiscal
 {
     public sealed class EmitenteDataContext : INotifyPropertyChanged
     {
-        private Emitente emit;
-
         public event PropertyChangedEventHandler PropertyChanged;
 
+        private Emitente emit;
         public Emitente Emit
         {
             get => emit;

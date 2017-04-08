@@ -15,6 +15,7 @@
                 <ResourceDictionary Source="Estilos/GridResponsiva.xaml" />
                 <ResourceDictionary Source="Estilos/PivotPrincipal.xaml" />
                 <ResourceDictionary Source="Estilos/Tabela.xaml" />
+                <ResourceDictionary Source="Estilos/EstilosExtras.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <VM:DadosEstadosParaView x:Key="estados" />
             <Conversores:ColecaoValida x:Key="getObs" />
@@ -536,52 +537,45 @@
                     <ctrls:Guia Label="Cobrança"
                                 Symbol="List" />
                 </PivotItem.Header>
-                <StackPanel DataContext="{Binding Cobranca}">
-                    <TextBox Text="{Binding Fat.NFat, Mode=TwoWay}"
-                             Header="Número" />
-                    <TextBox Text="{Binding Fat.VOrig, Mode=TwoWay}"
-                             Header="Valor original" />
-                    <TextBox Text="{Binding Fat.VDesc, Mode=TwoWay}"
-                             Header="Valor do desconto" />
-                    <TextBox Text="{Binding Fat.VLiq, Mode=TwoWay}"
-                             Header="Valor líquido" />
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <StackPanel DataContext="{Binding NovaDuplicata}"
-                                    Grid.RowSpan="2">
-                            <TextBox Text="{Binding _Duplicata.NDup, Mode=TwoWay}"
-                                     Header="Número" />
-                            <DatePicker Date="{Binding DVenc, Mode=TwoWay}"
-                                        Header="Data vencimento"
-                                        MinWidth="160"
-                                        HorizontalAlignment="Stretch" />
-                            <TextBox Text="{Binding _Duplicata.DDup, Mode=TwoWay}"
-                                     Header="Valor" />
-                        </StackPanel>
-                        <ListView ItemsSource="{Binding Duplicatas}"
-                                  SelectedIndex="{Binding IndexDuplicataEscolhida, Mode=TwoWay}"
-                                  Grid.Column="1">
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding nDup, Mode=OneTime}" />
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
-                        <StackPanel Grid.Row="1"
-                                    Grid.Column="1">
-                            <Button HorizontalAlignment="Stretch"
-                                    Command="{Binding AdicionarDuplicataCommand}">Adicionar</Button>
-                            <Button HorizontalAlignment="Stretch"
-                                    Command="{Binding RemoverDuplicataCommand}">Remover</Button>
-                        </StackPanel>
-                    </Grid>
+                <StackPanel x:Name="rootCobranca"
+                            DataContext="{Binding Cobranca}">
+                    <ItemsControl Style="{StaticResource ItensResponsivos}">
+                        <TextBox Text="{Binding Fat.NFat, Mode=TwoWay}"
+                                 Header="Número" />
+                        <TextBox Text="{Binding Fat.VOrig, Mode=TwoWay}"
+                                 Header="Valor original" />
+                        <TextBox Text="{Binding Fat.VDesc, Mode=TwoWay}"
+                                 Header="Valor do desconto" />
+                        <TextBox Text="{Binding Fat.VLiq, Mode=TwoWay}"
+                                 Header="Valor líquido" />
+                    </ItemsControl>
+                    <TextBlock Style="{StaticResource TitleTextBlockStyle}">Duplicatas</TextBlock>
+                    <ListView ItemsSource="{Binding Cobranca.Dup, Converter={StaticResource getObs}}"
+                              Grid.Column="1"
+                              ItemContainerStyle="{StaticResource ItemFullWidth}">
+                        <ListView.Header>
+                            <Grid>
+                                <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Numero da duplicata</TextBlock>
+                                <Button Style="{StaticResource BotaoAdd}"
+                                        Command="{Binding AdicionarDuplicataCommand}">
+                                    <SymbolIcon Symbol="Add" />
+                                </Button>
+                            </Grid>
+                        </ListView.Header>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ContextFlyout>
+                                        <MenuFlyout>
+                                            <MenuFlyoutItem Command="{Binding ElementName=rootCobranca, Path=DataContext.RemoverDuplicataCommand}"
+                                                            CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Remover</MenuFlyoutItem>
+                                        </MenuFlyout>
+                                    </Grid.ContextFlyout>
+                                    <TextBlock Text="{Binding NDup, Mode=OneTime}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
                 </StackPanel>
             </PivotItem>
             <PivotItem>
@@ -634,7 +628,8 @@
                     <ctrls:Guia Label="Cana"
                                 Symbol="More" />
                 </PivotItem.Header>
-                <ScrollViewer x:Name="rootCana" VerticalScrollBarVisibility="Hidden"
+                <ScrollViewer x:Name="rootCana"
+                              VerticalScrollBarVisibility="Hidden"
                               DataContext="{Binding Cana}">
                     <StackPanel>
                         <ItemsControl Style="{StaticResource ItensResponsivos}">
@@ -661,9 +656,8 @@
                                 <TextBlock TextWrapping="Wrap"
                                            Margin="0,0,64,0"
                                            Style="{StaticResource TitleTextBlockStyle}">Fornecimento diário de cana</TextBlock>
-                                <ListView Margin="0"
-                                          ItemsSource="{Binding Cana.forDia, Converter={StaticResource getObs}}"
-                                          Style="{StaticResource PseudoTabela}">
+                                <ListView ItemsSource="{Binding Cana.forDia, Converter={StaticResource getObs}}"
+                                          ItemContainerStyle="{StaticResource ItemFullWidth}">
                                     <ListView.Header>
                                         <Grid>
                                             <Grid.ColumnDefinitions>
@@ -671,7 +665,8 @@
                                                 <ColumnDefinition />
                                             </Grid.ColumnDefinitions>
                                             <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Dia</TextBlock>
-                                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Grid.Column="1">Quantidade</TextBlock>
+                                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
+                                                       Grid.Column="1">Quantidade</TextBlock>
                                             <Button Style="{StaticResource BotaoAdd}"
                                                     Grid.Column="1"
                                                     Command="{Binding AdicionarFornecimentoCommand}">
@@ -704,9 +699,8 @@
                             <StackPanel>
                                 <TextBlock TextWrapping="Wrap"
                                            Style="{StaticResource TitleTextBlockStyle}">Deduções</TextBlock>
-                                <ListView Margin="0"
-                                          ItemsSource="{Binding Cana.deduc, Converter={StaticResource getObs}}"
-                                          Style="{StaticResource PseudoTabela}">
+                                <ListView ItemsSource="{Binding Cana.deduc, Converter={StaticResource getObs}}"
+                                          ItemContainerStyle="{StaticResource ItemFullWidth}">
                                     <ListView.Header>
                                         <Grid>
                                             <Grid.ColumnDefinitions>
@@ -714,7 +708,8 @@
                                                 <ColumnDefinition />
                                             </Grid.ColumnDefinitions>
                                             <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Descrição</TextBlock>
-                                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Grid.Column="1">Valor</TextBlock>
+                                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
+                                                       Grid.Column="1">Valor</TextBlock>
                                             <Button Style="{StaticResource BotaoAdd}"
                                                     Grid.Column="1"
                                                     Command="{Binding AdicionarDeducaoCommand}">

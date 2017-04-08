@@ -192,6 +192,7 @@
     <Compile Include="ViewModel\Converters\EstadoToMunicipios.cs" />
     <Compile Include="ViewModel\Converters\Invert.cs" />
     <Compile Include="ViewModel\Converters\ModificaValor.cs" />
+    <Compile Include="ViewModel\Converters\StringToDateTime.cs" />
     <Compile Include="ViewModel\IObterPropriedade.cs" />
     <Compile Include="ViewModel\ObterDataContext.cs" />
     <Compile Include="ViewModel\ProdutoCompletoDataContext.cs" />
@@ -206,6 +207,9 @@
     </Compile>
     <Compile Include="View\AdicionarProduto.xaml.cs">
       <DependentUpon>AdicionarProduto.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\CaixasDialogo\AdicionarDuplicata.xaml.cs">
+      <DependentUpon>AdicionarDuplicata.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Consulta.xaml.cs">
       <DependentUpon>Consulta.xaml</DependentUpon>
@@ -257,7 +261,6 @@
     <Compile Include="ViewModel\DadosEstadosParaView.cs" />
     <Compile Include="ViewModel\PartesProdutoCompleto\DeclaracaoExportacaoDataContext.cs" />
     <Compile Include="ViewModel\PartesProdutoCompleto\DeclaracaoImportacaoDataContext.cs" />
-    <Compile Include="ViewModel\NotaFiscal\DuplicataDataContext.cs" />
     <Compile Include="ViewModel\NotaFiscal\EmitenteDataContext.cs" />
     <Compile Include="Extensoes.cs" />
     <Compile Include="ViewModel\HistoricoSincronizacaoDataContext.cs" />
@@ -541,6 +544,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\CaixasDialogo\AdicionarDuplicata.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Configuracoes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -564,6 +571,11 @@
     <Page Include="View\Controles\SplitViewItem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Estilos\EstilosExtras.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="View\Estilos\Tabela.xaml">
       <SubType>Designer</SubType>

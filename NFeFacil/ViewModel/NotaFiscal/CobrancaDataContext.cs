@@ -1,5 +1,6 @@
 ﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
-using System.Collections.ObjectModel;
+using NFeFacil.View.CaixasDialogo;
+using System;
 using System.ComponentModel;
 using System.Windows.Input;
 
@@ -17,36 +18,31 @@ namespace NFeFacil.ViewModel.NotaFiscal
             set => Cobranca.Fat = value;
         }
 
-        public DuplicataDataContext NovaDuplicata { get; set; }
-        public ObservableCollection<Duplicata> Duplicatas => Cobranca.Dup.GerarObs();
-        public int IndexDuplicataEscolhida { get; set; }
-
         public CobrancaDataContext(ref Cobranca cobranca)
         {
             Cobranca = cobranca;
-            NovaDuplicata = new DuplicataDataContext();
             AdicionarDuplicataCommand = new ComandoSemParametros(AdicionarDuplicata, true);
-            RemoverDuplicataCommand = new ComandoSemParametros(RemoverDuplicata, true);
+            RemoverDuplicataCommand = new ComandoComParametros<Duplicata, ObterDataContext<Duplicata>>(RemoverDuplicata);
         }
 
         public ICommand AdicionarDuplicataCommand { get; }
         public ICommand RemoverDuplicataCommand { get; }
 
-        private void AdicionarDuplicata()
+        private async void AdicionarDuplicata()
         {
-            Cobranca.Dup.Add(NovaDuplicata._Duplicata);
-            PropertyChanged(this, new PropertyChangedEventArgs(nameof(Duplicatas)));
-            NovaDuplicata = new DuplicataDataContext();
-            PropertyChanged(this, new PropertyChangedEventArgs(nameof(NovaDuplicata)));
+            var caixa = new AdicionarDuplicata();
+            caixa.PrimaryButtonClick += (sender, e) =>
+              {
+                  Cobranca.Dup.Add(sender.DataContext as Duplicata);
+                  PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Cobranca"));
+              };
+            await caixa.ShowAsync();
         }
 
-        private void RemoverDuplicata()
+        private void RemoverDuplicata(Duplicata duplicata)
         {
-            if (IndexDuplicataEscolhida != -1 && Cobranca.Dup.Count > 0)
-            {
-                Cobranca.Dup.RemoveAt(IndexDuplicataEscolhida);
-                PropertyChanged(this, new PropertyChangedEventArgs(nameof(Duplicatas)));
-            }
+            Cobranca.Dup.Remove(duplicata);
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Cobranca"));
         }
     }
 }

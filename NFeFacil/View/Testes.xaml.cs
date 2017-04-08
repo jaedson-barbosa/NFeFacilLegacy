@@ -1,6 +1,4 @@
-﻿using NFeFacil.IBGE;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe;
-using System.Linq;
+﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe;
 using Windows.UI.Xaml.Controls;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238

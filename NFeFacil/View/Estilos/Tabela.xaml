@@ -3,21 +3,14 @@
                     xmlns:local="using:NFeFacil.View.Estilos">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="CoresDestaque.xaml" />
+        <ResourceDictionary Source="EstilosExtras.xaml" />
     </ResourceDictionary.MergedDictionaries>
     <Style x:Key="PseudoTabela"
            TargetType="ListView">
-        <Setter Property="SelectionMode"
-                Value="None" />
         <Setter Property="Margin"
                 Value="-12,-6,-12,0" />
-        <Setter Property="ItemContainerStyle">
-            <Setter.Value>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="HorizontalContentAlignment"
-                            Value="Stretch" />
-                </Style>
-            </Setter.Value>
-        </Setter>
+        <Setter Property="ItemContainerStyle"
+                Value="{StaticResource ItemFullWidth}" />
     </Style>
     <Style x:Key="Cabecalho"
            TargetType="Grid">

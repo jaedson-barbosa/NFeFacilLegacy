@@ -29,16 +29,16 @@ namespace NFeFacil.ViewModel.NotaFiscal
 
         public async void AdicionarFornecimento()
         {
-            var caixa = new View.CaixasDialogo.FornecimentoDiario();
+            var caixa = new AdicionarFornecimentoDiario();
             caixa.PrimaryButtonClick += (x, y) =>
             {
-                Cana.forDia.Add(x.DataContext as ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.FornecimentoDiario);
+                Cana.forDia.Add(x.DataContext as FornecimentoDiario);
                 PropertyChanged(this, new PropertyChangedEventArgs(nameof(Cana)));
             };
             await caixa.ShowAsync();
         }
 
-        public void RemoverFornecimento(ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.FornecimentoDiario fornecimento)
+        public void RemoverFornecimento(FornecimentoDiario fornecimento)
         {
             Cana.forDia.Remove(fornecimento);
             PropertyChanged(this, new PropertyChangedEventArgs(nameof(Cana)));
@@ -46,7 +46,7 @@ namespace NFeFacil.ViewModel.NotaFiscal
 
         public async void AdicionarDeducao()
         {
-            var caixa = new Deducao();
+            var caixa = new AdicionarDeducao();
             caixa.PrimaryButtonClick += (x, y) =>
             {
                 Cana.deduc.Add(x.DataContext as Deducoes);
@@ -64,7 +64,7 @@ namespace NFeFacil.ViewModel.NotaFiscal
         public CanaDataContext()
         {
             AdicionarFornecimentoCommand = new ComandoSemParametros(AdicionarFornecimento, true);
-            RemoverFornecimentoCommand = new ComandoComParametros<ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.FornecimentoDiario, ObterDataContext<ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.FornecimentoDiario>>(RemoverFornecimento);
+            RemoverFornecimentoCommand = new ComandoComParametros<FornecimentoDiario, ObterDataContext<FornecimentoDiario>>(RemoverFornecimento);
             AdicionarDeducaoCommand = new ComandoSemParametros(AdicionarDeducao, true);
             RemoverDeducaoCommand = new ComandoComParametros<Deducoes, ObterDataContext<Deducoes>>(RemoverDeducao);
         }

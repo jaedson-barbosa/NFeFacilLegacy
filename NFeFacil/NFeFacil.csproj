@@ -444,11 +444,11 @@
     <Compile Include="View\CaixasDialogo\DeclaracaoImportacao.xaml.cs">
       <DependentUpon>DeclaracaoImportacao.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\CaixasDialogo\Deducao.xaml.cs">
-      <DependentUpon>Deducao.xaml</DependentUpon>
+    <Compile Include="View\CaixasDialogo\AdicionarDeducao.xaml.cs">
+      <DependentUpon>AdicionarDeducao.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\CaixasDialogo\FornecimentoDiario.xaml.cs">
-      <DependentUpon>FornecimentoDiario.xaml</DependentUpon>
+    <Compile Include="View\CaixasDialogo\AdicionarFornecimentoDiario.xaml.cs">
+      <DependentUpon>AdicionarFornecimentoDiario.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Estilos\Auxiliares\BibliotecaCores.cs" />
     <Compile Include="View\Estilos\Auxiliares\PainelAdaptavel.cs" />
@@ -598,11 +598,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\CaixasDialogo\Deducao.xaml">
+    <Page Include="View\CaixasDialogo\AdicionarDeducao.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\CaixasDialogo\FornecimentoDiario.xaml">
+    <Page Include="View\CaixasDialogo\AdicionarFornecimentoDiario.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

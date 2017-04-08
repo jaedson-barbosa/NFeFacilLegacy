@@ -28,7 +28,7 @@ namespace NFeFacil.IBGE
         public static bool operator ==(Estado est1, Estado est2)
         {
             if ((object)est1 == null && (object)est2 == null) return true;
-            else if ((object)est1 == null && (object)est2 == null) return true;
+            else if ((object)est1 == null || (object)est2 == null) return false;
             else return est1.Equals(est2);
         }
         public static bool operator != (Estado est1, Estado est2) => !(est1 == est2);

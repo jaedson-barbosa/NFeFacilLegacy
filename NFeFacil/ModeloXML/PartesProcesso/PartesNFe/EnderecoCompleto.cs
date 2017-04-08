@@ -2,7 +2,6 @@
 
 namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe
 {
-    [PropertyChanged.ImplementPropertyChanged]
     public sealed class enderecoCompleto : enderecoBase
     {
         public enderecoCompleto() { }

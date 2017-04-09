@@ -30,12 +30,6 @@
         /// </summary>
         public string vPIS { get; set; }
 
-        public override bool IsValido
-        {
-            get
-            {
-                return NaoNulos(vBC, pPIS, qBCProd, vAliqProd, vPIS);
-            }
-        }
+        public override bool IsValido => NaoNulos(vBC, pPIS, qBCProd, vAliqProd, vPIS);
     }
 }

@@ -7,9 +7,6 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
         [XmlElement(nameof(COFINSAliq), Type = typeof(COFINSAliq)), XmlElement(nameof(COFINSNT), Type = typeof(COFINSNT)), XmlElement(nameof(COFINSOutr), Type = typeof(COFINSOutr)), XmlElement(nameof(COFINSQtde), Type = typeof(COFINSQtde))]
         public ComumCOFINS Corpo { get; set; }
 
-        public override bool IsValido
-        {
-            get { return Corpo.ToXElement(Corpo.GetType()).HasElements; }
-        }
+        public override bool IsValido => Corpo.ToXElement(Corpo.GetType()).HasElements;
     }
 }

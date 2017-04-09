@@ -7,9 +7,6 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
         [XmlElement(Type = typeof(PISAliq)), XmlElement(Type = typeof(PISNT)), XmlElement(Type = typeof(PISOutr)), XmlElement(Type = typeof(PISQtde))]
         public ComumPIS Corpo { get; set; }
 
-        public override bool IsValido
-        {
-            get { return Corpo.ToXElement(Corpo.GetType()).HasElements; }
-        }
+        public override bool IsValido => Corpo.ToXElement(Corpo.GetType()).HasElements;
     }
 }

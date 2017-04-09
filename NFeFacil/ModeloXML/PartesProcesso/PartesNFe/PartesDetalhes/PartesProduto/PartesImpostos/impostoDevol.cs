@@ -18,11 +18,7 @@
             }
         }
 
-        public override bool IsValido
-        {
-            get { return NaoNulos(pDevol, ipi); }
-        }
-
+        public override bool IsValido => NaoNulos(pDevol, ipi);
         public class IPIDevolvido
         {
             public string vIPIDevol { get; set; }

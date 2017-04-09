@@ -51,9 +51,6 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
             }
         }
 
-        public override bool IsValido
-        {
-            get { return Corpo.ToXElement(Corpo.GetType()).HasElements; }
-        }
+        public override bool IsValido => Corpo.ToXElement(Corpo.GetType()).HasElements;
     }
 }

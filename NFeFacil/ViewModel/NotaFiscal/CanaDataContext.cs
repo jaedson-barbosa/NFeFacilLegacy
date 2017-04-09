@@ -2,7 +2,6 @@
 using NFeFacil.View.CaixasDialogo;
 using System;
 using System.ComponentModel;
-using System.Globalization;
 using System.Windows.Input;
 
 namespace NFeFacil.ViewModel.NotaFiscal
@@ -11,16 +10,6 @@ namespace NFeFacil.ViewModel.NotaFiscal
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public RegistroAquisicaoCana Cana { get; }
-
-        public DateTimeOffset MesAnoReferencia
-        {
-            get
-            {
-                if (Cana.referencia == null) return DateTimeOffset.Now;
-                else return DateTimeOffset.ParseExact(Cana.referencia, "MM/yyyy", CultureInfo.InvariantCulture);
-            }
-            set { Cana.referencia = value.ToString("MM/yyyy"); }
-        }
 
         public ICommand AdicionarFornecimentoCommand { get; }
         public ICommand RemoverFornecimentoCommand { get; }

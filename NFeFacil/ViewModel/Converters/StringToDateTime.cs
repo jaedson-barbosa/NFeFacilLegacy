@@ -45,6 +45,17 @@ namespace NFeFacil.ViewModel.Converters
                         return DateTimeOffset.ParseExact(valor, formato, CultureInfo.InvariantCulture);
                     }
                 }
+                else if (targetType == typeof(TimeSpan))
+                {
+                    if (string.IsNullOrEmpty(valor))
+                    {
+                        return DateTime.Now.TimeOfDay;
+                    }
+                    else
+                    {
+                        
+                    }
+                }
             }
             throw new ArgumentException();
         }

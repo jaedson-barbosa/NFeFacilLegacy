@@ -6,28 +6,20 @@
              mc:Ignorable="d"
              d:DesignHeight="300"
              d:DesignWidth="400">
-    <GridViewItem Padding="25"
-                  HorizontalAlignment="Stretch"
-                  VerticalAlignment="Stretch"
-                  Background="#33000000"
+    <GridViewItem Padding="16"
+                  Background="{StaticResource ButtonBackground}"
                   Margin="0">
         <StackPanel>
-            <ContentControl VerticalContentAlignment="Center"
-                            HorizontalContentAlignment="Center"
-                            Height="100"
-                            IsTabStop="False">
-                <ContentControl Content="{x:Bind Icone}"
-                                RenderTransformOrigin="0.5,0.5"
-                                Width="24"
-                                Margin="36,30"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Top"
-                                Height="20">
-                    <ContentControl.RenderTransform>
-                        <CompositeTransform ScaleX="4"
-                                            ScaleY="4" />
-                    </ContentControl.RenderTransform>
-                </ContentControl>
+            <ContentControl Content="{x:Bind Icone}"
+                            RenderTransformOrigin="0.5,0.5"
+                            Width="24"
+                            Margin="36,30"
+                            HorizontalAlignment="Center"
+                            Height="20">
+                <ContentControl.RenderTransform>
+                    <CompositeTransform ScaleX="4"
+                                        ScaleY="4" />
+                </ContentControl.RenderTransform>
             </ContentControl>
             <TextBlock Text="{x:Bind Titulo}"
                        TextWrapping="Wrap"

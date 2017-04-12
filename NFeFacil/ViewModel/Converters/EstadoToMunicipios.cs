@@ -28,6 +28,10 @@ namespace NFeFacil.ViewModel.Converters
                 tamanhoString = null;
                 return Municipios.Get(est).GerarObs();
             }
+            else if (value is ushort codigo)
+            {
+                return Municipios.Get(codigo).GerarObs();
+            }
             else
             {
                 tamanhoString = null;
@@ -47,6 +51,10 @@ namespace NFeFacil.ViewModel.Converters
                 else if (targetType == typeof(Estado))
                 {
                     return Estados.EstadosCache.First(x => x.Codigo == municipios.First().CodigoUF);
+                }
+                else if (targetType == typeof(ushort))
+                {
+                    return municipios.First().CodigoUF;
                 }
             }
             throw new ArgumentException();

@@ -1,13 +1,10 @@
-﻿using NFeFacil.IBGE;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
+﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 
 namespace NFeFacil.ViewModel.NotaFiscal
 {
-    public class IdentificacaoDataContext : INotifyPropertyChanged
+    public class IdentificacaoDataContext
     {
         public Identificacao Ident { get; }
 
@@ -16,150 +13,66 @@ namespace NFeFacil.ViewModel.NotaFiscal
         {
             Ident = ident;
         }
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private DateTime _DataEmissao = default(DateTime);
 
         public DateTimeOffset DataEmissao
         {
             get
             {
-                if (_DataEmissao == default(DateTime)) _DataEmissao = Convert.ToDateTime(Ident.DataHoraEmissão);
-                return _DataEmissao;
+                if (string.IsNullOrEmpty(Ident.DataHoraEmissão))
+                {
+                    var agora = DateTime.Now;
+                    Ident.DataHoraEmissão = agora.ToStringPersonalizado();
+                    return agora;
+                }
+                return DateTimeOffset.Parse(Ident.DataHoraEmissão);
             }
             set
             {
-                _DataEmissao = new DateTime(value.Year, value.Month, value.Day, _DataEmissao.Hour, _DataEmissao.Minute, _DataEmissao.Second);
-                Ident.DataHoraEmissão = _DataEmissao.ToStringPersonalizado();
+                var anterior = DateTimeOffset.Parse(Ident.DataHoraEmissão);
+                var novo = new DateTime(value.Year, value.Month, value.Day, anterior.Hour, anterior.Minute, anterior.Second);
+                Ident.DataHoraEmissão = novo.ToStringPersonalizado();
             }
         }
 
         public TimeSpan HoraEmissao
         {
-            get
-            {
-                if (_DataEmissao == default(DateTime)) _DataEmissao = Convert.ToDateTime(Ident.DataHoraEmissão);
-                return  _DataEmissao.TimeOfDay;
-            }
+            get => DataEmissao.TimeOfDay;
             set
             {
-                _DataEmissao = new DateTime(_DataEmissao.Year, _DataEmissao.Month, _DataEmissao.Day, value.Hours, value.Minutes, value.Seconds);
-                Ident.DataHoraEmissão = _DataEmissao.ToStringPersonalizado();
+                var anterior = DateTimeOffset.Parse(Ident.DataHoraEmissão);
+                var novo = new DateTime(anterior.Year, anterior.Month, anterior.Day, value.Hours, value.Minutes, value.Seconds);
+                Ident.DataHoraEmissão = novo.ToStringPersonalizado();
             }
         }
-
-        private DateTime _DataSaidaEntrada = default(DateTime);
 
         public DateTimeOffset DataSaidaEntrada
         {
             get
             {
-                if (_DataSaidaEntrada == default(DateTime)) _DataSaidaEntrada = Convert.ToDateTime(Ident.DataHoraSaídaEntrada);
-                return _DataSaidaEntrada;
+                if (string.IsNullOrEmpty(Ident.DataHoraSaídaEntrada))
+                {
+                    var agora = DateTime.Now;
+                    Ident.DataHoraSaídaEntrada = agora.ToStringPersonalizado();
+                    return agora;
+                }
+                return DateTimeOffset.Parse(Ident.DataHoraSaídaEntrada);
             }
             set
             {
-                _DataSaidaEntrada = new DateTime(value.Year, value.Month, value.Day, _DataSaidaEntrada.Hour, _DataSaidaEntrada.Minute, _DataSaidaEntrada.Second);
-                Ident.DataHoraSaídaEntrada = _DataSaidaEntrada.ToStringPersonalizado();
+                var anterior = DateTimeOffset.Parse(Ident.DataHoraSaídaEntrada);
+                var novo = new DateTime(value.Year, value.Month, value.Day, anterior.Hour, anterior.Minute, anterior.Second);
+                Ident.DataHoraSaídaEntrada = novo.ToStringPersonalizado();
             }
         }
 
         public TimeSpan HoraSaidaEntrada
         {
-            get
-            {
-                if (_DataSaidaEntrada == default(DateTime)) _DataSaidaEntrada = Convert.ToDateTime(Ident.DataHoraSaídaEntrada);
-                return _DataSaidaEntrada.TimeOfDay;
-            }
+            get => DataSaidaEntrada.TimeOfDay;
             set
             {
-                _DataSaidaEntrada = new DateTime(_DataSaidaEntrada.Year, _DataSaidaEntrada.Month, _DataSaidaEntrada.Day, value.Hours, value.Minutes, value.Seconds);
-                Ident.DataHoraSaídaEntrada = _DataSaidaEntrada.ToStringPersonalizado();
-            }
-        }
-
-        public int DestinoOperação
-        {
-            get
-            {
-                return Ident.IdentificadorDestino - 1;
-            }
-            set
-            {
-                Ident.IdentificadorDestino = (ushort)(value + 1);
-            }
-        }
-
-        public int TipoDanfe
-        {
-            get
-            {
-                return Ident.TipoImpressão - 1;
-            }
-            set
-            {
-                Ident.TipoImpressão = (ushort)(value + 1);
-            }
-        }
-
-        public int FinNFe
-        {
-            get
-            {
-                return Ident.FinalidadeEmissão - 1;
-            }
-            set
-            {
-                Ident.FinalidadeEmissão = (ushort)(value + 1);
-            }
-        }
-
-
-        public string UFEscolhida
-        {
-            get
-            {
-                var nulo = Ident.CódigoUF == default(ushort);
-                return !nulo ? Estados.EstadosCache.First(x => x.Codigo == Ident.CódigoUF).Nome : null;
-            }
-            set
-            {
-                Ident.CódigoUF = Estados.EstadosCache.First(x => x.Nome == value).Codigo;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Municipios)));
-            }
-        }
-
-        private IEnumerable<Municipio> _Municipios
-        {
-            get
-            {
-                if (UFEscolhida != null)
-                {
-                    return IBGE.Municipios.Get(UFEscolhida);
-                }
-                return new List<Municipio>();
-            }
-        }
-
-        public IEnumerable<string> Municipios
-        {
-            get { return from mon in _Municipios select mon.Nome; }
-        }
-
-        public string MunicipioEscolhido
-        {
-            get
-            {
-                if (Ident.CodigoMunicípio != default(long))
-                    return _Municipios.FirstOrDefault(x => x.Codigo == Ident.CodigoMunicípio).Nome;
-                else if (Municipios.Count() != 0)
-                    return Municipios.First();
-                else
-                    return "";
-            }
-            set
-            {
-                Ident.CodigoMunicípio = _Municipios.First(x => x.Nome == value).Codigo;
+                var anterior = DateTimeOffset.Parse(Ident.DataHoraSaídaEntrada);
+                var novo = new DateTime(anterior.Year, anterior.Month, anterior.Day, value.Hours, value.Minutes, value.Seconds);
+                Ident.DataHoraSaídaEntrada = novo.ToStringPersonalizado();
             }
         }
     }

@@ -21,6 +21,7 @@
             <Conversores:ColecaoValida x:Key="getObs" />
             <Conversores:TextoComLabel x:Key="textoLabel" />
             <Conversores:StringToDateTime x:Key="data" />
+            <Conversores:ModificaValor x:Key="valorAlterado" />
             <Storyboard x:Name="ocultarGrid">
                 <DoubleAnimation Duration="0:0:0.25"
                                  To="0"
@@ -94,7 +95,7 @@
                                 <ComboBoxItem Content="Saída" />
                             </ComboBox>
                             <ComboBox Header="Finalidade de emissão *"
-                                      SelectedIndex="{Binding FinNFe, Mode=TwoWay}">
+                                      SelectedIndex="{Binding Ident.FinalidadeEmissão, Converter={StaticResource valorAlterado}, ConverterParameter='-1', Mode=TwoWay}">
                                 <ComboBoxItem Content="Normal" />
                                 <ComboBoxItem Content="Complementar" />
                                 <ComboBoxItem Content="De ajuste" />
@@ -113,8 +114,10 @@
                                 <ComboBoxItem Content="Não presencial - Teleatendimento" />
                             </ComboBox>
                             <ComboBox Header="Estado *"
-                                      ItemsSource="{Binding Source={StaticResource estados}, Path=Nomes}"
-                                      SelectedItem="{Binding Path=UFEscolhida, Mode=TwoWay}"
+                                      ItemsSource="{Binding Source={StaticResource estados}, Path=EstadosCompletos}"
+                                      SelectedValue="{Binding Path=Ident.CódigoUF, Mode=TwoWay}"
+                                      SelectedValuePath="Codigo"
+                                      DisplayMemberPath="Nome"
                                       PlaceholderText="Estado" />
                             <ComboBox Header="Forma de pagamento *"
                                       SelectedIndex="{Binding Ident.FormaPagamento, Mode=TwoWay}">
@@ -123,12 +126,12 @@
                                 <ComboBoxItem Content="Outros" />
                             </ComboBox>
                             <ComboBox Header="Tipo de NotaFácil.DANFE *"
-                                      SelectedIndex="{Binding TipoDanfe, Mode=TwoWay}">
+                                      SelectedIndex="{Binding Ident.TipoImpressão, Converter={StaticResource valorAlterado}, ConverterParameter='-1', Mode=TwoWay}">
                                 <ComboBoxItem Content="Retrato" />
                                 <ComboBoxItem Content="Paisagem" />
                             </ComboBox>
                             <ComboBox Header="Destino da operação *"
-                                      SelectedIndex="{Binding DestinoOperação, Mode=TwoWay}">
+                                      SelectedIndex="{Binding Ident.IdentificadorDestino, Converter={StaticResource valorAlterado}, ConverterParameter='-1', Mode=TwoWay}">
                                 <ComboBoxItem Content="Operação interna" />
                                 <ComboBoxItem Content="Operação interestadual" />
                                 <ComboBoxItem Content="Operação com o exterior" />
@@ -136,9 +139,10 @@
                             <TextBox Header="Natureza da operação *"
                                      Text="{Binding Ident.NaturezaDaOperação, Mode=TwoWay}" />
                             <ComboBox Header="Município *"
-                                      ItemsSource="{Binding Municipios}"
-                                      SelectedItem="{Binding Path=MunicipioEscolhido, Mode=TwoWay}"
-                                      PlaceholderText="Município" />
+                                      ItemsSource="{Binding Ident.CódigoUF, Converter={StaticResource obterMun}}"
+                                      DisplayMemberPath="Nome"
+                                      SelectedValue="{Binding Path=Ident.CodigoMunicípio, Mode=TwoWay}"
+                                      SelectedValuePath="Codigo"/>
                         </ItemsControl>
                     </StackPanel>
                 </ScrollViewer>

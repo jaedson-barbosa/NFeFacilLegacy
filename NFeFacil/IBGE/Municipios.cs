@@ -20,6 +20,12 @@ namespace NFeFacil.IBGE
             return MunicipiosCache.First(x => (nomeSigla.Length == 2 ? x.Key.Sigla : x.Key.Nome) == nomeSigla).Value;
         }
 
+        public static IEnumerable<Municipio> Get(ushort codigo)
+        {
+            if (codigo == 0) return new ObservableCollection<Municipio>();
+            return MunicipiosCache.First(x => x.Key.Codigo == codigo).Value;
+        }
+
         public static void Buscar()
         {
             if (MunicipiosCache == null)

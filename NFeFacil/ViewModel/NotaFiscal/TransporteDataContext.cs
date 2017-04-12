@@ -1,4 +1,5 @@
-﻿using NFeFacil.ModeloXML;
+﻿using NFeFacil.IBGE;
+using NFeFacil.ModeloXML;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
 using System;
@@ -13,46 +14,32 @@ namespace NFeFacil.ViewModel.NotaFiscal
     {
         public Transporte Transp { get; }
 
-        public MotoristaDataContext Motorista
+        private Estado ufEscolhida;
+        public Estado UFEscolhida
         {
             get
             {
-                if (Transp.transporta == null)
-                    Transp.transporta = new Motorista();
-                return new MotoristaDataContext(ref Transp.transporta);
+                if (!string.IsNullOrEmpty(Transp.retTransp.cMunFG) && ufEscolhida == null)
+                {
+                    foreach (var item in Estados.EstadosCache)
+                    {
+                        var lista = Municipios.Get(item);
+                        if (lista.Count(x => x.Codigo == int.Parse(Transp.retTransp.cMunFG)) > 0)
+                        {
+                            ufEscolhida = item;
+                        }
+                    }
+                }
+                return ufEscolhida;
             }
-            set => Transp.transporta = value.Motorista;
+            set
+            {
+                ufEscolhida = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("UFEscolhida"));
+            }
         }
 
-        public Veiculo VeicTransp
-        {
-            get
-            {
-                if (Transp.veicTransp == null)
-                    Transp.veicTransp = new Veiculo();
-                return Transp.veicTransp;
-            }
-            set => Transp.veicTransp = value;
-        }
-
-        public ICMSTransporteDataContext RetTransp
-        {
-            get
-            {
-                if (Transp.retTransp == null)
-                    Transp.retTransp = new ICMSTransporte();
-                return new ICMSTransporteDataContext(ref Transp.retTransp);
-            }
-            set => Transp.retTransp = value.ICMS;
-        }
-
-        public ObservableCollection<ModalidadesTransporte> Modalidades
-        {
-            get
-            {
-                return Enum.GetValues(typeof(ModalidadesTransporte)).Cast<ModalidadesTransporte>().GerarObs();
-            }
-        }
+        public ObservableCollection<ModalidadesTransporte> Modalidades => Extensoes.ObterItens<ModalidadesTransporte>();
 
         public ModalidadesTransporte ModFrete
         {
@@ -60,22 +47,14 @@ namespace NFeFacil.ViewModel.NotaFiscal
             set => Transp.modFrete = (int)value;
         }
 
-        public ObservableCollection<Reboque> Reboques => Transp.reboque.GerarObs();
-        public Reboque NovoReboque { get; private set; }
-        public int IndexReboqueSelecionado { get; set; }
-
-        public ObservableCollection<Volume> Volumes => Transp.vol.GerarObs();
-        public Volume VolumeSelecionado { get; set; }
-
         public TransporteDataContext() : base() { }
         public TransporteDataContext(ref Transporte transp)
         {
             Transp = transp;
-            NovoReboque = new Reboque();
             AdicionarReboqueCommand = new ComandoSemParametros(AdicionarReboque, true);
-            RemoverReboqueCommand = new ComandoSemParametros(RemoverReboque, true);
+            RemoverReboqueCommand = new ComandoComParametros<Reboque, ObterDataContext<Reboque>>(RemoverReboque);
             AdicionarVolumeCommand = new ComandoSemParametros(AdicionarVolume, true);
-            RemoverVolumeCommand = new ComandoSemParametros(RemoverVolume, true);
+            RemoverVolumeCommand = new ComandoComParametros<Volume, ObterDataContext<Volume>>(RemoverVolume);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -83,33 +62,34 @@ namespace NFeFacil.ViewModel.NotaFiscal
         public Transporte ObterTranporteNormalizado()
         {
             var transp = Transp;
-            transp.transporta = ÉDefault(Transp.transporta) ? new Motorista(Transp.transporta) : null;
-            transp.retTransp = ÉDefault(Transp.retTransp) ? new ICMSTransporte(ref Transp.retTransp) : null;
+            transp.transporta = NaoEDefault(Transp.transporta) ? Transp.transporta : null;
+            transp.veicTransp = NaoEDefault(Transp.veicTransp) ? Transp.veicTransp : null;
+            transp.retTransp = NaoEDefault(Transp.retTransp) ? Transp.retTransp : null;
             return transp;
         }
 
-        private static bool ÉDefault<T>(T valor) where T : class => valor != default(T) && valor != null;
+        private static bool NaoEDefault<T>(T valor) where T : class => valor != default(T) && valor != null;
 
         public ICommand AdicionarReboqueCommand { get; }
         public ICommand RemoverReboqueCommand { get; }
         public ICommand AdicionarVolumeCommand { get; }
         public ICommand RemoverVolumeCommand { get; }
 
-        private void AdicionarReboque()
+        private async void AdicionarReboque()
         {
-            Transp.reboque.Add(NovoReboque);
-            PropertyChanged(this, new PropertyChangedEventArgs(nameof(Reboques)));
-            NovoReboque = new Reboque();
-            PropertyChanged(this, new PropertyChangedEventArgs(nameof(NovoReboque)));
+            var add = new View.CaixasDialogo.AdicionarReboque();
+            add.PrimaryButtonClick += (x, y) =>
+            {
+                Transp.reboque.Add(x.DataContext as Reboque);
+                PropertyChanged(this, new PropertyChangedEventArgs(nameof(Transp)));
+            };
+            await add.ShowAsync();
         }
 
-        private void RemoverReboque()
+        private void RemoverReboque(Reboque reboque)
         {
-            if (IndexReboqueSelecionado != -1 && Transp.reboque.Count > 0)
-            {
-                Transp.reboque.RemoveAt(IndexReboqueSelecionado);
-                PropertyChanged(this, new PropertyChangedEventArgs(nameof(Reboques)));
-            }
+            Transp.reboque.Remove(reboque);
+            PropertyChanged(this, new PropertyChangedEventArgs(nameof(Transp)));
         }
 
         private async void AdicionarVolume()
@@ -117,20 +97,16 @@ namespace NFeFacil.ViewModel.NotaFiscal
             var add = new View.CaixasDialogo.AdicionarVolume();
             add.PrimaryButtonClick += (x,y)=>
             {
-                var vol = x.DataContext as Volume;
-                Transp.vol.Add(vol);
-                PropertyChanged(this, new PropertyChangedEventArgs(nameof(Volumes)));
+                Transp.vol.Add(x.DataContext as Volume);
+                PropertyChanged(this, new PropertyChangedEventArgs(nameof(Transp)));
             };
             await add.ShowAsync();
         }
 
-        private void RemoverVolume()
+        private void RemoverVolume(Volume volume)
         {
-            if (VolumeSelecionado != null && Transp.vol.Count > 0)
-            {
-                Transp.vol.Remove(VolumeSelecionado);
-                PropertyChanged(this, new PropertyChangedEventArgs(nameof(Volumes)));
-            }
+            Transp.vol.Remove(volume);
+            PropertyChanged(this, new PropertyChangedEventArgs(nameof(Transp)));
         }
     }
 }

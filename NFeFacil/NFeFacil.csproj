@@ -211,6 +211,9 @@
     <Compile Include="View\CaixasDialogo\AdicionarDuplicata.xaml.cs">
       <DependentUpon>AdicionarDuplicata.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\CaixasDialogo\AdicionarReboque.xaml.cs">
+      <DependentUpon>AdicionarReboque.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Consulta.xaml.cs">
       <DependentUpon>Consulta.xaml</DependentUpon>
     </Compile>
@@ -271,7 +274,6 @@
     <Compile Include="IBGE\ProcessamentoXml.cs" />
     <Compile Include="IBGE\XML.cs" />
     <Compile Include="ViewModel\PartesProdutoCompleto\ImpostosProduto\ICMSDataContext.cs" />
-    <Compile Include="ViewModel\NotaFiscal\ICMSTransporteDataContext.cs" />
     <Compile Include="ViewModel\NotaFiscal\IdentificacaoDataContext.cs" />
     <Compile Include="ViewModel\PartesProdutoCompleto\ImpostosProduto\IImpostoDataContext.cs" />
     <Compile Include="ViewModel\PartesProdutoCompleto\ImpostosProduto\IPIDataContext.cs" />
@@ -401,7 +403,6 @@
     <Compile Include="ModeloXML\PartesProcesso\ProtocoloNFe.cs" />
     <Compile Include="ModeloXML\Processo.cs" />
     <Compile Include="ItensBD\NFeDI.cs" />
-    <Compile Include="ViewModel\NotaFiscal\MotoristaDataContext.cs" />
     <Compile Include="PastaNotasFiscais.cs" />
     <Compile Include="ViewModel\PartesProdutoCompleto\ImpostosProduto\PISDataContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -455,6 +456,7 @@
     </Compile>
     <Compile Include="View\Estilos\Auxiliares\BibliotecaCores.cs" />
     <Compile Include="View\Estilos\Auxiliares\PainelAdaptavel.cs" />
+    <Compile Include="View\TelasDadosBase\ConverterDataContextMotorista.cs" />
     <Compile Include="View\TelasDadosBase\TelaDestinatario.xaml.cs">
       <DependentUpon>TelaDestinatario.xaml</DependentUpon>
     </Compile>
@@ -547,6 +549,10 @@
     <Page Include="View\CaixasDialogo\AdicionarDuplicata.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CaixasDialogo\AdicionarReboque.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Configuracoes.xaml">
       <SubType>Designer</SubType>

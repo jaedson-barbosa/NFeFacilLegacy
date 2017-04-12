@@ -41,7 +41,7 @@ namespace NFeFacil.View
                 default:
                     break;
             }
-            DataContext = new MotoristaDataContext(ref motorista);
+            DataContext = motorista;
         }
 
         private void Confirmar_Click(object sender, RoutedEventArgs e)

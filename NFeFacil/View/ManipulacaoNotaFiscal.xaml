@@ -383,7 +383,8 @@
                     <ctrls:Guia Label="Transporte"
                                 Symbol="Street" />
                 </PivotItem.Header>
-                <StackPanel DataContext="{Binding TransporteNota}">
+                <StackPanel DataContext="{Binding TransporteNota}"
+                            x:Name="rootTransporte">
                     <StackPanel.Resources>
                         <ResourceDictionary Source="Estilos/PivotSecundário.xaml" />
                     </StackPanel.Resources>
@@ -393,67 +394,54 @@
                               Header="Modalidade do frete" />
                     <Pivot>
                         <PivotItem Header="Motorista">
-                            <DadosBase:TelaMotorista DataContext="{Binding Motorista}" />
+                            <DadosBase:TelaMotorista DataContext="{Binding Transp.transporta}" />
                         </PivotItem>
                         <PivotItem Header="Veículo">
                             <ScrollViewer VerticalScrollBarVisibility="Hidden">
                                 <ItemsControl Style="{StaticResource ItensResponsivos}">
-                                    <StackPanel DataContext="{Binding VeicTransp, Mode=TwoWay}"
-                                                Margin="2"
+                                    <StackPanel Margin="2"
                                                 MinWidth="300">
                                         <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Veículo</TextBlock>
-                                        <TextBox Text="{Binding Placa, Mode=TwoWay}"
+                                        <TextBox Text="{Binding Transp.veicTransp.Placa, Mode=TwoWay}"
                                                  Header="Placa" />
                                         <ComboBox ItemsSource="{Binding Source={StaticResource estados}, Path=Siglas}"
-                                                  SelectedItem="{Binding Path=UF, Mode=TwoWay}"
+                                                  SelectedItem="{Binding Path=Transp.veicTransp.UF, Mode=TwoWay}"
                                                   Header="Estado"
                                                   HorizontalAlignment="Stretch" />
                                         <TextBox Header="RNTC"
-                                                 Text="{Binding RNTC, Mode=TwoWay}" />
+                                                 Text="{Binding Transp.veicTransp.RNTC, Mode=TwoWay}" />
                                     </StackPanel>
                                     <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition />
-                                            <ColumnDefinition />
-                                        </Grid.ColumnDefinitions>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition />
                                         </Grid.RowDefinitions>
-                                        <TextBlock Grid.ColumnSpan="2"
-                                                   Style="{StaticResource SubtitleTextBlockStyle}">Reboque</TextBlock>
-                                        <StackPanel DataContext="{Binding NovoReboque}"
-                                                    Grid.Row="1">
-                                            <TextBox Text="{Binding Placa, Mode=TwoWay}"
-                                                     Header="Placa" />
-                                            <ComboBox ItemsSource="{Binding Source={StaticResource estados}, Path=Siglas}"
-                                                      SelectedItem="{Binding Path=UF, Mode=TwoWay}"
-                                                      Header="Estado"
-                                                      HorizontalAlignment="Stretch" />
-                                            <TextBox Header="RNTC"
-                                                     Text="{Binding RNTC, Mode=TwoWay}" />
-                                        </StackPanel>
-                                        <Grid Grid.Column="1"
-                                              Grid.Row="1">
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition />
-                                                <RowDefinition Height="Auto" />
-                                            </Grid.RowDefinitions>
-                                            <ListView ItemsSource="{Binding Reboques}"
-                                                      SelectedIndex="{Binding IndexReboqueSelecionado, Mode=TwoWay}">
-                                                <ListView.ItemTemplate>
-                                                    <DataTemplate>
-                                                        <TextBlock Text="{Binding Placa, Mode=OneTime}" />
-                                                    </DataTemplate>
-                                                </ListView.ItemTemplate>
-                                            </ListView>
-                                            <StackPanel Grid.Row="1">
-                                                <Button HorizontalAlignment="Stretch"
-                                                        Command="{Binding AdicionarReboqueCommand}">Adicionar</Button>
-                                                <Button HorizontalAlignment="Stretch"
-                                                        Command="{Binding RemoverReboqueCommand}">Remover</Button>
-                                            </StackPanel>
-                                        </Grid>
+                                        <TextBlock Style="{StaticResource TitleTextBlockStyle}">Reboques</TextBlock>
+                                        <ListView ItemsSource="{Binding Transp.reboque, Converter={StaticResource getObs}}"
+                                                  Grid.Row="1"
+                                                  Style="{StaticResource ListaCheia}">
+                                            <ListView.Header>
+                                                <Grid>
+                                                    <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Placa</TextBlock>
+                                                    <Button Style="{StaticResource BotaoAdd}"
+                                                            Command="{Binding AdicionarReboqueCommand}">
+                                                        <SymbolIcon Symbol="Add" />
+                                                    </Button>
+                                                </Grid>
+                                            </ListView.Header>
+                                            <ListView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding Placa, Mode=OneTime}">
+                                                        <TextBlock.ContextFlyout>
+                                                            <MenuFlyout>
+                                                                <MenuFlyoutItem Command="{Binding ElementName=rootTransporte, Path=DataContext.RemoverReboqueCommand}"
+                                                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Remover</MenuFlyoutItem>
+                                                            </MenuFlyout>
+                                                        </TextBlock.ContextFlyout>
+                                                    </TextBlock>
+                                                </DataTemplate>
+                                            </ListView.ItemTemplate>
+                                        </ListView>
                                     </Grid>
                                     <StackPanel Margin="2">
                                         <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Info adicional</TextBlock>
@@ -466,73 +454,64 @@
                             </ScrollViewer>
                         </PivotItem>
                         <PivotItem Header="Volumes">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-                                <ListView ItemsSource="{Binding Volumes}"
-                                          SelectedItem="{Binding VolumeSelecionado, Mode=TwoWay}"
-                                          Grid.ColumnSpan="2"
-                                          Style="{StaticResource ListaCheia}">
-                                    <ListView.Header>
+                            <ListView ItemsSource="{Binding Transp.vol, Converter={StaticResource getObs}}"
+                                      Style="{StaticResource ListaCheia}">
+                                <ListView.Header>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Espécie</TextBlock>
+                                        <TextBlock Grid.Column="1"
+                                                   Style="{StaticResource SubtitleTextBlockStyle}">Marca</TextBlock>
+                                        <Button Grid.Column="1"
+                                                Style="{StaticResource BotaoAdd}"
+                                                Command="{Binding AdicionarVolumeCommand}">
+                                            <SymbolIcon Symbol="Add" />
+                                        </Button>
+                                    </Grid>
+                                </ListView.Header>
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
                                         <Grid>
-                                            <TextBlock>Espécie</TextBlock>
-                                            <TextBlock HorizontalAlignment="Right">Marca</TextBlock>
+                                            <Grid.ContextFlyout>
+                                                <MenuFlyout>
+                                                    <MenuFlyoutItem Command="{Binding ElementName=rootTransporte, Path=DataContext.RemoverVolumeCommand}"
+                                                                    CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Remover</MenuFlyoutItem>
+                                                </MenuFlyout>
+                                            </Grid.ContextFlyout>
+                                            <TextBlock Text="{Binding esp, Mode=OneTime}" />
+                                            <TextBlock HorizontalAlignment="Right"
+                                                       Text="{Binding marca, Mode=OneTime}" />
                                         </Grid>
-                                    </ListView.Header>
-                                    <ListView.ItemTemplate>
-                                        <DataTemplate>
-                                            <Grid>
-                                                <TextBlock Text="{Binding esp, Mode=OneTime}" />
-                                                <TextBlock HorizontalAlignment="Right"
-                                                           Text="{Binding marca, Mode=OneTime}" />
-                                            </Grid>
-                                        </DataTemplate>
-                                    </ListView.ItemTemplate>
-                                </ListView>
-                                <Button Grid.Row="1"
-                                        HorizontalAlignment="Stretch"
-                                        Command="{Binding AdicionarVolumeCommand}">Adicionar</Button>
-                                <Button Grid.Row="1"
-                                        Grid.Column="1"
-                                        HorizontalAlignment="Stretch"
-                                        Command="{Binding RemoverVolumeCommand}">Remover</Button>
-                            </Grid>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
                         </PivotItem>
                         <PivotItem Header="Retenção ICMS">
-                            <ItemsControl Style="{StaticResource ItensMedios}"
-                                          DataContext="{Binding RetTransp, Mode=TwoWay}">
-                                <TextBox Header="Valor do serviço" />
-                                <TextBox Header="BC da retenção do ICMS" />
-                                <TextBox Header="Alíquota da retenção" />
-                                <TextBox Header="Valor do ICMS retido" />
-                                <TextBox Header="CFOP" />
+                            <ItemsControl Style="{StaticResource ItensMedios}">
+                                <TextBox Header="Valor do serviço"
+                                         Text="{Binding Transp.retTransp.vServ, Mode=TwoWay}" />
+                                <TextBox Header="BC da retenção do ICMS"
+                                         Text="{Binding Transp.retTransp.vBCRet, Mode=TwoWay}"/>
+                                <TextBox Header="Alíquota da retenção"
+                                         Text="{Binding Transp.retTransp.pICMSRet, Mode=TwoWay}" />
+                                <TextBox Header="Valor do ICMS retido"
+                                         Text="{Binding Transp.retTransp.vICMSRet, Mode=TwoWay}" />
+                                <TextBox Header="CFOP"
+                                         Text="{Binding Transp.retTransp.CFOP, Mode=TwoWay}" />
                                 <ComboBox ItemsSource="{Binding Source={StaticResource estados}, Path=EstadosCompletos}"
                                           SelectedItem="{Binding Path=UFEscolhida, Mode=TwoWay}"
+                                          DisplayMemberPath="Nome"
                                           Header="Estado"
-                                          HorizontalAlignment="Stretch">
-                                    <ComboBox.ItemTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding Nome, Mode=OneTime}" />
-                                        </DataTemplate>
-                                    </ComboBox.ItemTemplate>
-                                </ComboBox>
+                                          HorizontalAlignment="Stretch" />
                                 <ComboBox ItemsSource="{Binding UFEscolhida, Converter={StaticResource obterMun}}"
-                                          SelectedValue="{Binding Path=ICMS.cMunFG, Mode=TwoWay}"
+                                          SelectedValue="{Binding Path=Transp.retTransp.cMunFG, Mode=TwoWay}"
                                           SelectedValuePath="Codigo"
+                                          DisplayMemberPath="Nome"
                                           Header="Município"
-                                          HorizontalAlignment="Stretch">
-                                    <ComboBox.ItemTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding Nome, Mode=OneWay}" />
-                                        </DataTemplate>
-                                    </ComboBox.ItemTemplate>
-                                </ComboBox>
+                                          HorizontalAlignment="Stretch" />
                             </ItemsControl>
                         </PivotItem>
                     </Pivot>

@@ -10,16 +10,14 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
         public string vagao { get; set; }
         public string balsa { get; set; }
 
-        public Motorista transporta;
-
-        public Veiculo veicTransp;
-
-        public ICMSTransporte retTransp;
+        public Motorista transporta { get; set; } = new Motorista();
+        public Veiculo veicTransp { get; set; } = new Veiculo();
+        public ICMSTransporte retTransp { get; set; } = new ICMSTransporte();
 
         [XmlElement(nameof(reboque))]
-        public List<Reboque> reboque = new List<Reboque>();
+        public List<Reboque> reboque { get; set; } = new List<Reboque>();
 
         [XmlElement(nameof(vol))]
-        public List<Volume> vol = new List<Volume>();
+        public List<Volume> vol { get; set; } = new List<Volume>();
     }
 }

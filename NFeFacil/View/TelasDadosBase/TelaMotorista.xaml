@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="NFeFacil.View.TelasDadosBase.TelaMotorista"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="using:NFeFacil.View.TelasDadosBase"
              xmlns:VM="using:NFeFacil.ViewModel"
              xmlns:Conversores="using:NFeFacil.ViewModel.Converters"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -14,9 +15,10 @@
             <VM:DadosEstadosParaView x:Key="estados" />
             <Conversores:EstadoToMunicipios x:Key="obterMunicipios" />
             <Conversores:Invert x:Key="inverterBool" />
+            <local:ConverterContextoMotorista x:Key="converter" />
         </ResourceDictionary>
     </UserControl.Resources>
-    <ScrollViewer VerticalScrollBarVisibility="Hidden">
+    <ScrollViewer VerticalScrollBarVisibility="Hidden" DataContext="{Binding Converter={StaticResource converter}}">
         <StackPanel>
             <ItemsControl Style="{StaticResource ItensResponsivos}">
                 <TextBox Text="{Binding Motorista.Nome, Mode=TwoWay}"
@@ -36,7 +38,7 @@
                               IsChecked="{Binding IsentoICMS, Mode=TwoWay}"
                               HorizontalAlignment="Right"
                               VerticalAlignment="Top" />
-                    <TextBox Text="{Binding InscricaoEstadual, Mode=TwoWay}"
+                    <TextBox Text="{Binding Motorista.InscricaoEstadual, Mode=TwoWay}"
                              IsEnabled="{Binding IsentoICMS, Converter={StaticResource inverterBool}}"
                              InputScope="Number"
                              Header="Inscrição estadual" />

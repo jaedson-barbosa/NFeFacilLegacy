@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 using System.Xml.Serialization;
@@ -60,6 +61,11 @@ namespace NFeFacil
         public static ObservableCollection<T> GerarObs<T>(this IEnumerable<T> aqui)
         {
             return new ObservableCollection<T>(aqui);
+        }
+
+        public static ObservableCollection<T> ObterItens<T>()
+        {
+            return Enum.GetValues(typeof(T)).Cast<T>().GerarObs();
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using NFeFacil.Log;
 using NFeFacil.Validacao;
-using NFeFacil.ViewModel.NotaFiscal;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;

@@ -1,6 +1,5 @@
 ﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using System;
-using System.ComponentModel;
 
 namespace NFeFacil.ViewModel.NotaFiscal
 {

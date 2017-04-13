@@ -264,7 +264,6 @@
     <Compile Include="ViewModel\DadosEstadosParaView.cs" />
     <Compile Include="ViewModel\PartesProdutoCompleto\DeclaracaoExportacaoDataContext.cs" />
     <Compile Include="ViewModel\PartesProdutoCompleto\DeclaracaoImportacaoDataContext.cs" />
-    <Compile Include="ViewModel\NotaFiscal\EmitenteDataContext.cs" />
     <Compile Include="Extensoes.cs" />
     <Compile Include="ViewModel\HistoricoSincronizacaoDataContext.cs" />
     <Compile Include="IBGE\Estado.cs" />
@@ -456,7 +455,8 @@
     </Compile>
     <Compile Include="View\Estilos\Auxiliares\BibliotecaCores.cs" />
     <Compile Include="View\Estilos\Auxiliares\PainelAdaptavel.cs" />
-    <Compile Include="View\TelasDadosBase\ConverterDataContextMotorista.cs" />
+    <Compile Include="View\TelasDadosBase\ConverterContextoEmitente.cs" />
+    <Compile Include="View\TelasDadosBase\ConverterContextoMotorista.cs" />
     <Compile Include="View\TelasDadosBase\TelaDestinatario.xaml.cs">
       <DependentUpon>TelaDestinatario.xaml</DependentUpon>
     </Compile>

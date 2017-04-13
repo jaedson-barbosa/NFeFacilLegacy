@@ -1,6 +1,5 @@
 ﻿using NFeFacil.Log;
 using NFeFacil.Validacao;
-using NFeFacil.ViewModel.NotaFiscal;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -41,7 +40,7 @@ namespace NFeFacil.View
                 default:
                     break;
             }
-            DataContext = new EmitenteDataContext(ref emitente);
+            DataContext = emitente;
         }
 
         private void Confirmar_Click(object sender, RoutedEventArgs e)

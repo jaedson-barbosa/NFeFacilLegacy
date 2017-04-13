@@ -18,7 +18,8 @@
             <local:ConverterContextoMotorista x:Key="converter" />
         </ResourceDictionary>
     </UserControl.Resources>
-    <ScrollViewer VerticalScrollBarVisibility="Hidden" DataContext="{Binding Converter={StaticResource converter}}">
+    <ScrollViewer VerticalScrollBarVisibility="Hidden"
+                  DataContext="{Binding Converter={StaticResource converter}}">
         <StackPanel>
             <ItemsControl Style="{StaticResource ItensResponsivos}">
                 <TextBox Text="{Binding Motorista.Nome, Mode=TwoWay}"

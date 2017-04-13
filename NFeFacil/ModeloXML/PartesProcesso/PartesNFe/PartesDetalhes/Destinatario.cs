@@ -3,7 +3,6 @@ using System.Xml.Serialization;
 
 namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
 {
-    [ImplementPropertyChanged]
     public class Destinatario
     {
         public Destinatario() : base() { }

@@ -245,7 +245,6 @@
     <Compile Include="Sincronizacao\RegistrarCliente.cs" />
     <Compile Include="Sincronizacao\Pacotes\InfoEstabelecerConexao.cs" />
     <Compile Include="ViewModel\NotaFiscal\CanaDataContext.cs" />
-    <Compile Include="ViewModel\NotaFiscal\ClienteDataContext.cs" />
     <Compile Include="ViewModel\NotaFiscal\CobrancaDataContext.cs" />
     <Compile Include="ViewModel\PartesProdutoCompleto\ImpostosProduto\COFINSDataContext.cs" />
     <Compile Include="ViewModel\ComandoComParametros.cs" />
@@ -455,6 +454,7 @@
     </Compile>
     <Compile Include="View\Estilos\Auxiliares\BibliotecaCores.cs" />
     <Compile Include="View\Estilos\Auxiliares\PainelAdaptavel.cs" />
+    <Compile Include="View\TelasDadosBase\ConverterContextoCliente.cs" />
     <Compile Include="View\TelasDadosBase\ConverterContextoEmitente.cs" />
     <Compile Include="View\TelasDadosBase\ConverterContextoMotorista.cs" />
     <Compile Include="View\TelasDadosBase\TelaDestinatario.xaml.cs">

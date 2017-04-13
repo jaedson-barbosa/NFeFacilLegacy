@@ -39,20 +39,9 @@ namespace NFeFacil.View.TelasDadosBase
             throw new ArgumentException();
         }
 
-        private sealed class EmitenteDataContext : INotifyPropertyChanged
+        private sealed class EmitenteDataContext
         {
-            public event PropertyChangedEventHandler PropertyChanged;
-
-            private Emitente emit;
-            public Emitente Emit
-            {
-                get => emit;
-                set
-                {
-                    emit = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(string.Empty));
-                }
-            }
+            public Emitente Emit { get; set; }
 
             public Municipio ConjuntoMunicipio
             {

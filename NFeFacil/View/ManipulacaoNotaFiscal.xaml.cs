@@ -32,7 +32,7 @@ namespace NFeFacil.View
         #region InformaçõesDaNota
         public IdentificacaoDataContext Dados { get; set; }
         public Emitente Emitente { get; set; }
-        public ClienteDataContext Destinatario { get; set; }
+        public Destinatario Destinatario { get; set; }
         public List<DetalhesProdutos> Produtos { get; set; }
         public ObservableCollection<DetalhesProdutos> ProdutosObservableCollection => Produtos.GerarObs();
         public TransporteDataContext TransporteNota { get; set; }
@@ -113,7 +113,7 @@ namespace NFeFacil.View
             StatusAtual = (StatusNFe)param.dados.Status;
             Dados = new IdentificacaoDataContext(ref nfe.identificação);
             Emitente = nfe.emitente;
-            Destinatario = new ClienteDataContext(ref nfe.destinatário);
+            Destinatario = nfe.destinatário;
             Produtos = nfe.produtos;
             TransporteNota = new TransporteDataContext(ref nfe.transp);
             Cobranca = new CobrancaDataContext(ref nfe.cobr);
@@ -154,12 +154,13 @@ namespace NFeFacil.View
             var selecionado = cmbDestinatarios.SelectedValue as ClienteDI;
             if (notaSalva != null)
             {
-                Destinatario.Cliente = notaSalva.Informações.destinatário = selecionado;
+                Destinatario = notaSalva.Informações.destinatário = selecionado;
             }
             else
             {
-                Destinatario.Cliente = notaEmitida.NFe.Informações.destinatário = selecionado;
+                Destinatario = notaEmitida.NFe.Informações.destinatário = selecionado;
             }
+            PropertyChanged(this, new PropertyChangedEventArgs("Destinatario"));
         }
 
         private void btnConfirmar_Click(object sender, RoutedEventArgs e)
@@ -172,7 +173,7 @@ namespace NFeFacil.View
                     {
                         identificação = Dados.Ident,
                         emitente = Emitente,
-                        destinatário = new Destinatario(Destinatario.Cliente),
+                        destinatário = Destinatario,
                         transp = TransporteNota.ObterTranporteNormalizado(),
                         produtos = Produtos,
                         total = Totais,
@@ -194,7 +195,7 @@ namespace NFeFacil.View
         {
             return new ValidarDados(
                 new ValidadorEmitente(Emitente),
-                new ValidadorDestinatario(Destinatario.Cliente)).ValidarTudo(Log);
+                new ValidadorDestinatario(Destinatario)).ValidarTudo(Log);
         }
 
         private async void btnSalvar_Click(object sender, RoutedEventArgs e)

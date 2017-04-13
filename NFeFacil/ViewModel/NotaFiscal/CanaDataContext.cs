@@ -11,10 +11,10 @@ namespace NFeFacil.ViewModel.NotaFiscal
         public event PropertyChangedEventHandler PropertyChanged;
         public RegistroAquisicaoCana Cana { get; }
 
-        public ICommand AdicionarFornecimentoCommand { get; }
-        public ICommand RemoverFornecimentoCommand { get; }
-        public ICommand AdicionarDeducaoCommand { get; }
-        public ICommand RemoverDeducaoCommand { get; }
+        public ICommand AdicionarFornecimentoCommand => new ComandoSemParametros(AdicionarFornecimento, true);
+        public ICommand RemoverFornecimentoCommand => new ComandoComParametros<FornecimentoDiario, ObterDataContext<FornecimentoDiario>>(RemoverFornecimento);
+        public ICommand AdicionarDeducaoCommand => new ComandoSemParametros(AdicionarDeducao, true);
+        public ICommand RemoverDeducaoCommand => new ComandoComParametros<Deducoes, ObterDataContext<Deducoes>>(RemoverDeducao);
 
         public async void AdicionarFornecimento()
         {
@@ -50,14 +50,7 @@ namespace NFeFacil.ViewModel.NotaFiscal
             PropertyChanged(this, new PropertyChangedEventArgs(nameof(Cana)));
         }
 
-        public CanaDataContext()
-        {
-            AdicionarFornecimentoCommand = new ComandoSemParametros(AdicionarFornecimento, true);
-            RemoverFornecimentoCommand = new ComandoComParametros<FornecimentoDiario, ObterDataContext<FornecimentoDiario>>(RemoverFornecimento);
-            AdicionarDeducaoCommand = new ComandoSemParametros(AdicionarDeducao, true);
-            RemoverDeducaoCommand = new ComandoComParametros<Deducoes, ObterDataContext<Deducoes>>(RemoverDeducao);
-        }
-        public CanaDataContext(ref RegistroAquisicaoCana registro) : this()
+        public CanaDataContext(ref RegistroAquisicaoCana registro)
         {
             Cana = registro;
         }

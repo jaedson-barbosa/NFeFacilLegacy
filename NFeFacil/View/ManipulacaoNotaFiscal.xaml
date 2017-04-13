@@ -230,7 +230,7 @@
                                 Click="btnAdicionarProduto_Click">Adicionar</Button>
                         <ListView Grid.Row="1"
                                   Grid.ColumnSpan="2"
-                                  ItemsSource="{Binding ProdutosObservableCollection}"
+                                  ItemsSource="{Binding Produtos, Converter={StaticResource getObs}}"
                                   Style="{StaticResource ListaCheia}">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
@@ -525,13 +525,13 @@
                 <StackPanel x:Name="rootCobranca"
                             DataContext="{Binding Cobranca}">
                     <ItemsControl Style="{StaticResource ItensResponsivos}">
-                        <TextBox Text="{Binding Fat.NFat, Mode=TwoWay}"
+                        <TextBox Text="{Binding Cobranca.Fat.NFat, Mode=TwoWay}"
                                  Header="Número" />
-                        <TextBox Text="{Binding Fat.VOrig, Mode=TwoWay}"
+                        <TextBox Text="{Binding Cobranca.Fat.VOrig, Mode=TwoWay}"
                                  Header="Valor original" />
-                        <TextBox Text="{Binding Fat.VDesc, Mode=TwoWay}"
+                        <TextBox Text="{Binding Cobranca.Fat.VDesc, Mode=TwoWay}"
                                  Header="Valor do desconto" />
-                        <TextBox Text="{Binding Fat.VLiq, Mode=TwoWay}"
+                        <TextBox Text="{Binding Cobranca.Fat.VLiq, Mode=TwoWay}"
                                  Header="Valor líquido" />
                     </ItemsControl>
                     <TextBlock Style="{StaticResource TitleTextBlockStyle}">Duplicatas</TextBlock>

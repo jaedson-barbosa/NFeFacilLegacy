@@ -12,21 +12,13 @@ namespace NFeFacil.ViewModel.NotaFiscal
 
         public Cobranca Cobranca { get; }
 
-        public Fatura Fat
-        {
-            get => Cobranca.Fat ?? (Cobranca.Fat = new Fatura());
-            set => Cobranca.Fat = value;
-        }
-
         public CobrancaDataContext(ref Cobranca cobranca)
         {
             Cobranca = cobranca;
-            AdicionarDuplicataCommand = new ComandoSemParametros(AdicionarDuplicata, true);
-            RemoverDuplicataCommand = new ComandoComParametros<Duplicata, ObterDataContext<Duplicata>>(RemoverDuplicata);
         }
 
-        public ICommand AdicionarDuplicataCommand { get; }
-        public ICommand RemoverDuplicataCommand { get; }
+        public ICommand AdicionarDuplicataCommand => new ComandoSemParametros(AdicionarDuplicata, true);
+        public ICommand RemoverDuplicataCommand => new ComandoComParametros<Duplicata, ObterDataContext<Duplicata>>(RemoverDuplicata);
 
         private async void AdicionarDuplicata()
         {

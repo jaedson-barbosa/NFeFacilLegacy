@@ -34,7 +34,6 @@ namespace NFeFacil.View
         public Emitente Emitente { get; set; }
         public Destinatario Destinatario { get; set; }
         public List<DetalhesProdutos> Produtos { get; set; }
-        public ObservableCollection<DetalhesProdutos> ProdutosObservableCollection => Produtos.GerarObs();
         public TransporteDataContext TransporteNota { get; set; }
         public CobrancaDataContext Cobranca { get; set; }
         public InformacoesAdicionais InformacoesAdicionais { get; set; }

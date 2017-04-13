@@ -51,10 +51,6 @@ namespace NFeFacil.ViewModel.NotaFiscal
         public TransporteDataContext(ref Transporte transp)
         {
             Transp = transp;
-            AdicionarReboqueCommand = new ComandoSemParametros(AdicionarReboque, true);
-            RemoverReboqueCommand = new ComandoComParametros<Reboque, ObterDataContext<Reboque>>(RemoverReboque);
-            AdicionarVolumeCommand = new ComandoSemParametros(AdicionarVolume, true);
-            RemoverVolumeCommand = new ComandoComParametros<Volume, ObterDataContext<Volume>>(RemoverVolume);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -70,10 +66,10 @@ namespace NFeFacil.ViewModel.NotaFiscal
 
         private static bool NaoEDefault<T>(T valor) where T : class => valor != default(T) && valor != null;
 
-        public ICommand AdicionarReboqueCommand { get; }
-        public ICommand RemoverReboqueCommand { get; }
-        public ICommand AdicionarVolumeCommand { get; }
-        public ICommand RemoverVolumeCommand { get; }
+        public ICommand AdicionarReboqueCommand => new ComandoSemParametros(AdicionarReboque, true);
+        public ICommand RemoverReboqueCommand => new ComandoComParametros<Reboque, ObterDataContext<Reboque>>(RemoverReboque);
+        public ICommand AdicionarVolumeCommand => new ComandoSemParametros(AdicionarVolume, true);
+        public ICommand RemoverVolumeCommand => new ComandoComParametros<Volume, ObterDataContext<Volume>>(RemoverVolume);
 
         private async void AdicionarReboque()
         {

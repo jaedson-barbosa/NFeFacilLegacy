@@ -1,5 +1,10 @@
-﻿using NFeFacil.IBGE;
+﻿using Microsoft.EntityFrameworkCore;
+using NFeFacil.IBGE;
+using NFeFacil.ItensBD;
+using NFeFacil.Log;
 using NFeFacil.ModeloXML;
+using NFeFacil.ModeloXML.PartesProcesso;
+using NFeFacil.ModeloXML.PartesProcesso.PartesNFe;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
 using System;
@@ -7,9 +12,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
+using Windows.ApplicationModel.Core;
+using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil.ViewModel
 {
@@ -24,9 +29,174 @@ namespace NFeFacil.ViewModel
             }
         }
 
-        #region Identificação
+        private Popup Log = new Popup();
+        private NFe notaSalva;
+        private Processo notaEmitida;
 
+        public bool BotaoConfirmarAtivado { get; private set; }
+        public bool BotaoSalvarAtivado { get; private set; }
+        public bool BotaoAssinarAtivado { get; private set; }
+        public bool BotaoTransmitirAtivado { get; private set; }
+        public bool BotaoGerarDANFEAtivado { get; private set; }
+
+        private StatusNFe status = StatusNFe.EdiçãoCriação;
+        private StatusNFe StatusAtual
+        {
+            get { return status; }
+            set
+            {
+                bool[] botoes =
+                {
+                    BotaoConfirmarAtivado,
+                    BotaoSalvarAtivado,
+                    BotaoAssinarAtivado,
+                    BotaoTransmitirAtivado,
+                    BotaoGerarDANFEAtivado
+                };
+                for (int i = 0; i < botoes.Length; i++)
+                {
+                    var valor = (int)value;
+                    botoes[i] = i == (valor >= botoes.Length ? botoes.Length - 1 : valor);
+                }
+                status = value;
+            }
+        }
+
+        public List<ClienteDI> ClientesDisponiveis { get; }
+        public List<EmitenteDI> EmitentesDisponiveis { get; }
+        public List<ProdutoDI> ProdutosDisponiveis { get; }
+        public List<MotoristaDI> MotoristasDisponiveis { get; }
+
+        private ClienteDI clienteSelecionado;
+        public ClienteDI ClienteSelecionado
+        {
+            get
+            {
+                if (clienteSelecionado == null)
+                {
+                    clienteSelecionado = ClientesDisponiveis.FirstOrDefault(x => x.obterDocumento == Destinatario.obterDocumento);
+                }
+                return clienteSelecionado;
+            }
+            set
+            {
+                Destinatario = clienteSelecionado = value;
+                OnPropertyChanged(nameof(Destinatario));
+            }
+        }
+
+        private EmitenteDI emitenteSelecionado;
+        public EmitenteDI EmitenteSelecionado
+        {
+            get
+            {
+                if (emitenteSelecionado == null)
+                {
+                    emitenteSelecionado = EmitentesDisponiveis.FirstOrDefault(x => x.CNPJ == Emitente.CNPJ);
+                }
+                return emitenteSelecionado;
+            }
+            set
+            {
+                Emitente = emitenteSelecionado = value;
+                OnPropertyChanged(nameof(Emitente));
+            }
+        }
+
+        private MotoristaDI motoristaSelecionado;
+        public MotoristaDI MotoristaSelecionado
+        {
+            get
+            {
+                if (motoristaSelecionado == null)
+                {
+                    motoristaSelecionado = MotoristasDisponiveis.FirstOrDefault(x => x.Documento == Transp?.transporta?.Documento);
+                }
+                return motoristaSelecionado;
+            }
+            set
+            {
+                Transp.transporta = motoristaSelecionado = value;
+                OnPropertyChanged(nameof(Transp));
+            }
+        }
+
+        public int IndexPivotSelecionado { get; set; } = 0;
+
+        internal NotaFiscalDataContext(NotaComDados param)
+        {
+            using (var db = new AplicativoContext())
+            {
+                ClientesDisponiveis = db.Clientes
+                    .Include(x => x.endereco)
+                    .ToList();
+                EmitentesDisponiveis = db.Emitentes
+                    .Include(x => x.endereco)
+                    .ToList();
+                ProdutosDisponiveis = db.Produtos
+                    .ToList();
+                MotoristasDisponiveis = db.Motoristas
+                    .ToList();
+            }
+
+            switch (param.tipoRequisitado)
+            {
+                case TipoOperacao.Adicao:
+                    Propriedades.Intercambio.SeAtualizar(Telas.ManipularNota, Symbol.Add, "Criar nota fiscal");
+                    break;
+                case TipoOperacao.Edicao:
+                    Propriedades.Intercambio.SeAtualizar(Telas.ManipularNota, Symbol.Edit, "Editar nota fiscal");
+                    break;
+            }
+            Detalhes nfe;
+            if (param.proc?.NFe != null)
+            {
+                nfe = param.proc.NFe.Informações;
+                notaEmitida = param.proc;
+            }
+            else
+            {
+                nfe = param.nota.Informações;
+                notaSalva = param.nota;
+            }
+            StatusAtual = (StatusNFe)param.dados.Status;
+            Ident = nfe.identificação;
+            Emitente = nfe.emitente;
+            Destinatario = nfe.destinatário;
+            Produtos = nfe.produtos;
+            Transp = nfe.transp ?? new Transporte();
+            Cobranca = nfe.cobr ?? new Cobranca();
+            InformacoesAdicionais = nfe.infAdic ?? new InformacoesAdicionais();
+            Exportacao = nfe.exporta ?? new Exportacao();
+            CompraNota = nfe.compra ?? new Compra();
+            Cana = nfe.cana ?? new RegistroAquisicaoCana();
+
+            if (CoreApplication.Properties.TryGetValue("ProdutoPendente", out object temp))
+            {
+                var detalhes = (DetalhesProdutos)temp;
+                detalhes.número = Produtos.Count + 1;
+                Produtos.Add(detalhes);
+                IndexPivotSelecionado = 3;
+                CoreApplication.Properties.Remove("ProdutoPendente");
+            }
+        }
+
+        #region Propriedades de contexto
+        public Emitente Emitente { get; set; }
+        public Destinatario Destinatario { get; set; }
+        public List<DetalhesProdutos> Produtos { get; set; }
+        public InformacoesAdicionais InformacoesAdicionais { get; set; }
+        public Exportacao Exportacao { get; set; }
+        public Compra CompraNota { get; set; }
+        public Total Totais { get; set; }
         public Identificacao Ident { get; }
+        public Transporte Transp { get; }
+        public Cobranca Cobranca { get; }
+        public RegistroAquisicaoCana Cana { get; }
+
+        #endregion
+
+        #region Identificação
 
         public DateTimeOffset DataEmissao
         {
@@ -93,8 +263,6 @@ namespace NFeFacil.ViewModel
         #endregion
 
         #region Transporte
-
-        public Transporte Transp { get; }
 
         private Estado ufEscolhida;
         public Estado UFEscolhida
@@ -172,8 +340,6 @@ namespace NFeFacil.ViewModel
 
         #region Cobrança
 
-        public Cobranca Cobranca { get; }
-
         public ICommand AdicionarDuplicataCommand => new ComandoSemParametros(AdicionarDuplicata, true);
         public ICommand RemoverDuplicataCommand => new ComandoComParametros<Duplicata, ObterDataContext<Duplicata>>(RemoverDuplicata);
 
@@ -197,8 +363,6 @@ namespace NFeFacil.ViewModel
         #endregion;
 
         #region Cana
-
-        public RegistroAquisicaoCana Cana { get; }
 
         public ICommand AdicionarFornecimentoCommand => new ComandoSemParametros(AdicionarFornecimento, true);
         public ICommand RemoverFornecimentoCommand => new ComandoComParametros<FornecimentoDiario, ObterDataContext<FornecimentoDiario>>(RemoverFornecimento);

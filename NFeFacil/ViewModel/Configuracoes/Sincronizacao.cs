@@ -154,7 +154,7 @@ namespace NFeFacil.ViewModel.Configuracoes
             }
         }
         public event MostrarQRChangedDelegate MostrarQRChanged;
-        public delegate void MostrarQRChangedDelegate(Sincronizacao sender, MostrarQRChangeEventArgs args);
+        public delegate void MostrarQRChangedDelegate(Sincronizacao sender, MostrarQRChangeEventArgs e);
         public class MostrarQRChangeEventArgs : EventArgs
         {
             public bool DadoAtual { get; set; }

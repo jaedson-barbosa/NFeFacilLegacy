@@ -37,10 +37,7 @@ namespace NFeFacil.IBGE
             {
                 return GetHashCode() == mun.GetHashCode();
             }
-            else
-            {
-                throw new ArgumentException();
-            }
+            return false;
         }
 
         public override int GetHashCode()

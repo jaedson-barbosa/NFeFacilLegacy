@@ -1,5 +1,4 @@
-﻿using PropertyChanged;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 
 namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
 {

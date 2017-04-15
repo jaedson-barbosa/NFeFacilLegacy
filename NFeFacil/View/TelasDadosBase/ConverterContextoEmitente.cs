@@ -2,7 +2,6 @@
 using NFeFacil.ItensBD;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using System;
-using System.ComponentModel;
 using System.Linq;
 using Windows.UI.Xaml.Data;
 

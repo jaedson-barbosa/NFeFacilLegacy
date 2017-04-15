@@ -245,8 +245,6 @@
     <Compile Include="Propriedades.cs" />
     <Compile Include="Sincronizacao\RegistrarCliente.cs" />
     <Compile Include="Sincronizacao\Pacotes\InfoEstabelecerConexao.cs" />
-    <Compile Include="ViewModel\NotaFiscal\CanaDataContext.cs" />
-    <Compile Include="ViewModel\NotaFiscal\CobrancaDataContext.cs" />
     <Compile Include="ViewModel\PartesProdutoCompleto\ImpostosProduto\COFINSDataContext.cs" />
     <Compile Include="ViewModel\ComandoComParametros.cs" />
     <Compile Include="ViewModel\ComandoSemParametros.cs" />
@@ -273,7 +271,6 @@
     <Compile Include="IBGE\ProcessamentoXml.cs" />
     <Compile Include="IBGE\XML.cs" />
     <Compile Include="ViewModel\PartesProdutoCompleto\ImpostosProduto\ICMSDataContext.cs" />
-    <Compile Include="ViewModel\NotaFiscal\IdentificacaoDataContext.cs" />
     <Compile Include="ViewModel\PartesProdutoCompleto\ImpostosProduto\IImpostoDataContext.cs" />
     <Compile Include="ViewModel\PartesProdutoCompleto\ImpostosProduto\IPIDataContext.cs" />
     <Compile Include="ViewModel\PartesProdutoCompleto\ImpostosProduto\ISSQNDataContext.cs" />
@@ -429,7 +426,6 @@
     <Compile Include="Sincronizacao\Servidor\ControllerSincronizacaoNotas.cs" />
     <Compile Include="Sincronizacao\Servidor\SenhaErrada.cs" />
     <Compile Include="Sincronizacao\Servidor\SupervisionarOperacao.cs" />
-    <Compile Include="ViewModel\NotaFiscal\TransporteDataContext.cs" />
     <Compile Include="Validacao\ConjuntoAnalise.cs" />
     <Compile Include="Validacao\IValidavel.cs" />
     <Compile Include="Validacao\ValidadorDestinatario.cs" />

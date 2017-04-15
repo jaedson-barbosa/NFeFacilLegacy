@@ -29,6 +29,18 @@ namespace NFeFacil.ViewModel
             }
         }
 
+        public Emitente Emitente { get; set; }
+        public Destinatario Destinatario { get; set; }
+        public List<DetalhesProdutos> Produtos { get; set; }
+        public InformacoesAdicionais InformacoesAdicionais { get; set; }
+        public Exportacao Exportacao { get; set; }
+        public Compra CompraNota { get; set; }
+        public Total Totais { get; set; }
+        public Identificacao Ident { get; }
+        public Transporte Transp { get; }
+        public Cobranca Cobranca { get; }
+        public RegistroAquisicaoCana Cana { get; }
+
         private Popup Log = new Popup();
         private NFe notaSalva;
         private Processo notaEmitida;
@@ -181,20 +193,23 @@ namespace NFeFacil.ViewModel
             }
         }
 
-        #region Propriedades de contexto
-        public Emitente Emitente { get; set; }
-        public Destinatario Destinatario { get; set; }
-        public List<DetalhesProdutos> Produtos { get; set; }
-        public InformacoesAdicionais InformacoesAdicionais { get; set; }
-        public Exportacao Exportacao { get; set; }
-        public Compra CompraNota { get; set; }
-        public Total Totais { get; set; }
-        public Identificacao Ident { get; }
-        public Transporte Transp { get; }
-        public Cobranca Cobranca { get; }
-        public RegistroAquisicaoCana Cana { get; }
+        public ICommand AdicionarProdutoCommand { get; }
+        public ICommand RemoverProdutoCommand { get; }
 
-        #endregion
+        public void AdicionarProduto() { }
+        public void RemoverProduto(DetalhesProdutos produto) { }
+
+        public ICommand ConfirmarCommand { get; }
+        public ICommand SalvarCommand { get; }
+        public ICommand AssinarCommand { get; }
+        public ICommand TransmitirCommand { get; }
+        public ICommand GerarDANFECommand { get; }
+
+        public void Confirmar() { }
+        public void Salvar() { }
+        public void Assinar() { }
+        public void Transmitir() { }
+        public void GerarDANFE() { }
 
         #region Identificação
 

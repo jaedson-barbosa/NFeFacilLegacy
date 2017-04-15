@@ -5,7 +5,6 @@ using Windows.ApplicationModel;
 
 namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
 {
-    [PropertyChanged.ImplementPropertyChanged]
     public class Identificacao
     {
         public Identificacao()

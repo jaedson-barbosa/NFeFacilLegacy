@@ -364,6 +364,16 @@ namespace NFeFacil.ViewModel
             }
         }
 
+        public ushort EstadoIdentificacao
+        {
+            get => Ident.CódigoUF;
+            set
+            {
+                Ident.CódigoUF = value;
+                OnPropertyChanged(nameof(EstadoIdentificacao));
+            }
+        }
+
         #endregion
 
         #region Transporte

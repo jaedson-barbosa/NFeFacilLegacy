@@ -2,6 +2,7 @@
 using NFeFacil.ItensBD;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using System;
+using System.ComponentModel;
 using System.Linq;
 using Windows.UI.Xaml.Data;
 
@@ -38,9 +39,19 @@ namespace NFeFacil.View.TelasDadosBase
             throw new ArgumentException();
         }
 
-        private sealed class EmitenteDataContext
+        private sealed class EmitenteDataContext : INotifyPropertyChanged
         {
             public Emitente Emit { get; set; }
+
+            public string EstadoSelecionado
+            {
+                get => Emit.endereco.SiglaUF;
+                set
+                {
+                    Emit.endereco.SiglaUF = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(EstadoSelecionado)));
+                }
+            }
 
             public Municipio ConjuntoMunicipio
             {
@@ -53,6 +64,8 @@ namespace NFeFacil.View.TelasDadosBase
             }
 
             public EmitenteDataContext(Emitente emit) => Emit = emit;
+
+            public event PropertyChangedEventHandler PropertyChanged;
         }
     }
 }

@@ -466,9 +466,6 @@
     <Compile Include="View\TelasDadosBase\TelaProduto.xaml.cs">
       <DependentUpon>TelaProduto.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Testes.xaml.cs">
-      <DependentUpon>Testes.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\VendasAnuais.xaml.cs">
       <DependentUpon>VendasAnuais.xaml</DependentUpon>
     </Compile>
@@ -668,10 +665,6 @@
     <Page Include="View\TelasDadosBase\TelaProduto.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\Testes.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\VendasAnuais.xaml">
       <SubType>Designer</SubType>

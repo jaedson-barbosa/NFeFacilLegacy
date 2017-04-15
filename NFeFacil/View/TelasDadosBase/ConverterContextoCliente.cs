@@ -53,6 +53,7 @@ namespace NFeFacil.View.TelasDadosBase
                 {
                     Cliente.indicadorIE = value ? 2 : 1;
                     Cliente.inscricaoEstadual = value ? "ISENTO" : null;
+                    PropertyChanged(this, new PropertyChangedEventArgs("IsentoICMS"));
                     PropertyChanged(this, new PropertyChangedEventArgs("InscricaoEstadual"));
                 }
             }

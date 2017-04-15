@@ -2,7 +2,6 @@
 
 namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe
 {
-    [PropertyChanged.ImplementPropertyChanged]
     public abstract class enderecoBase
     {
         [XmlElement("xLgr")]

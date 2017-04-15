@@ -115,7 +115,7 @@
                             </ComboBox>
                             <ComboBox Header="Estado *"
                                       ItemsSource="{Binding Source={StaticResource estados}, Path=EstadosCompletos}"
-                                      SelectedValue="{Binding Path=Ident.CódigoUF, Mode=TwoWay}"
+                                      SelectedValue="{Binding Path=EstadoIdentificacao, Mode=TwoWay}"
                                       SelectedValuePath="Codigo"
                                       DisplayMemberPath="Nome"
                                       PlaceholderText="Estado" />
@@ -139,7 +139,7 @@
                             <TextBox Header="Natureza da operação *"
                                      Text="{Binding Ident.NaturezaDaOperação, Mode=TwoWay}" />
                             <ComboBox Header="Município *"
-                                      ItemsSource="{Binding Ident.CódigoUF, Converter={StaticResource obterMun}}"
+                                      ItemsSource="{Binding EstadoIdentificacao, Converter={StaticResource obterMun}}"
                                       DisplayMemberPath="Nome"
                                       SelectedValue="{Binding Path=Ident.CodigoMunicípio, Mode=TwoWay}"
                                       SelectedValuePath="Codigo"/>

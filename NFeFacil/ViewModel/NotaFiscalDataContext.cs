@@ -239,7 +239,6 @@ namespace NFeFacil.ViewModel
             PropertyChanged(this, new PropertyChangedEventArgs(nameof(Cana)));
         }
 
-
         #endregion
     }
 }

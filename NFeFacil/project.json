@@ -6,7 +6,7 @@
     "PropertyChanged.Fody": "1.52.1",
     "Restup": "1.0.0",
     "System.ValueTuple": "4.3.0",
-    "ZXing.Net.Mobile": "2.1.47"
+    "ZXing.Net.Mobile": "2.2.9"
   },
   "frameworks": {
     "uap10.0": {}

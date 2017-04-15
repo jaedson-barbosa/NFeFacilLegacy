@@ -43,18 +43,19 @@ namespace NFeFacil.ViewModel.Converters
         {
             if (value is IEnumerable<Municipio> municipios)
             {
+                var codigoUF = municipios.First().CodigoUF;
                 if (targetType == typeof(string))
                 {
-                    var estado = Estados.EstadosCache.First(x => x.Codigo == municipios.First().CodigoUF);
+                    var estado = Estados.EstadosCache.First(x => x.Codigo == codigoUF);
                     return tamanhoString == 2 ? estado.Sigla : estado.Nome;
                 }
                 else if (targetType == typeof(Estado))
                 {
-                    return Estados.EstadosCache.First(x => x.Codigo == municipios.First().CodigoUF);
+                    return Estados.EstadosCache.First(x => x.Codigo == codigoUF);
                 }
                 else if (targetType == typeof(ushort))
                 {
-                    return municipios.First().CodigoUF;
+                    return codigoUF;
                 }
             }
             throw new ArgumentException();

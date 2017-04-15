@@ -6,7 +6,10 @@ using NFeFacil.ModeloXML;
 using NFeFacil.ModeloXML.PartesProcesso;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
+using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
+using NFeFacil.Validacao;
+using NFeFacil.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,7 +17,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
 using Windows.ApplicationModel.Core;
-using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil.ViewModel
 {
@@ -52,7 +54,7 @@ namespace NFeFacil.ViewModel
         public bool BotaoGerarDANFEAtivado { get; private set; }
 
         private StatusNFe status = StatusNFe.EdiçãoCriação;
-        private StatusNFe StatusAtual
+        internal StatusNFe StatusAtual
         {
             get { return status; }
             set
@@ -115,6 +117,8 @@ namespace NFeFacil.ViewModel
             }
         }
 
+        public ProdutoDI ProdutoSelecionado { get; set; }
+
         private MotoristaDI motoristaSelecionado;
         public MotoristaDI MotoristaSelecionado
         {
@@ -151,15 +155,6 @@ namespace NFeFacil.ViewModel
                     .ToList();
             }
 
-            switch (param.tipoRequisitado)
-            {
-                case TipoOperacao.Adicao:
-                    Propriedades.Intercambio.SeAtualizar(Telas.ManipularNota, Symbol.Add, "Criar nota fiscal");
-                    break;
-                case TipoOperacao.Edicao:
-                    Propriedades.Intercambio.SeAtualizar(Telas.ManipularNota, Symbol.Edit, "Editar nota fiscal");
-                    break;
-            }
             Detalhes nfe;
             if (param.proc?.NFe != null)
             {
@@ -193,23 +188,117 @@ namespace NFeFacil.ViewModel
             }
         }
 
-        public ICommand AdicionarProdutoCommand { get; }
-        public ICommand RemoverProdutoCommand { get; }
+        public ICommand AdicionarProdutoCommand => new ComandoSemParametros(AdicionarProduto, true);
+        public ICommand RemoverProdutoCommand => new ComandoComParametros<DetalhesProdutos, ObterDataContext<DetalhesProdutos>>(RemoverProduto);
 
-        public void AdicionarProduto() { }
-        public void RemoverProduto(DetalhesProdutos produto) { }
+        private async void AdicionarProduto()
+        {
+            var detCompleto = new DetalhesProdutos
+            {
+                Produto = ProdutoSelecionado != null ? new ProdutoOuServico(ProdutoSelecionado) : new ProdutoOuServico()
+            };
+            await Propriedades.Intercambio.AbrirFunçaoAsync(typeof(ManipulacaoProdutoCompleto), detCompleto);
+        }
 
-        public ICommand ConfirmarCommand { get; }
-        public ICommand SalvarCommand { get; }
-        public ICommand AssinarCommand { get; }
-        public ICommand TransmitirCommand { get; }
-        public ICommand GerarDANFECommand { get; }
+        private void RemoverProduto(DetalhesProdutos produto)
+        {
+            Produtos.Remove(produto);
+            OnPropertyChanged(nameof(Produtos));
+        }
 
-        public void Confirmar() { }
-        public void Salvar() { }
-        public void Assinar() { }
-        public void Transmitir() { }
-        public void GerarDANFE() { }
+        public ICommand ConfirmarCommand => new ComandoSemParametros(Confirmar, true);
+        public ICommand SalvarCommand => new ComandoSemParametros(Salvar, true);
+        public ICommand AssinarCommand => new ComandoSemParametros(Assinar, true);
+        public ICommand TransmitirCommand => new ComandoSemParametros(Transmitir, true);
+        public ICommand GerarDANFECommand => new ComandoSemParametros(GerarDANFE, true);
+
+        private void Confirmar()
+        {
+            if (notaEmitida != null)
+            {
+                Log.Escrever(TitulosComuns.ErroCatastrófico, "Comando não faz neste contexto.");
+            }
+            else
+            {
+                if (new ValidarDados(new ValidadorEmitente(Emitente),
+                    new ValidadorDestinatario(Destinatario)).ValidarTudo(Log))
+                {
+                    notaSalva = new NFe
+                    {
+                        Informações = new Detalhes
+                        {
+                            identificação = Ident,
+                            emitente = Emitente,
+                            destinatário = Destinatario,
+                            transp = ObterTranporteNormalizado(),
+                            produtos = Produtos,
+                            total = Totais,
+                            cobr = NaoEDefault(Cobranca),
+                            infAdic = NaoEDefault(InformacoesAdicionais),
+                            exporta = NaoEDefault(Exportacao),
+                            compra = NaoEDefault(CompraNota),
+                            cana = NaoEDefault(Cana)
+                        }
+                    };
+                    Log.Escrever(TitulosComuns.ValidaçãoConcluída, "A nota fiscal foi validada. Aparentemente, não há irregularidades");
+                    StatusAtual = StatusNFe.Validado;
+                }
+            }
+        }
+
+        private Transporte ObterTranporteNormalizado()
+        {
+            var transp = Transp;
+            transp.transporta = NaoEDefault(Transp.transporta);
+            transp.veicTransp = NaoEDefault(Transp.veicTransp);
+            transp.retTransp = NaoEDefault(Transp.retTransp);
+            return transp;
+        }
+
+        private static T NaoEDefault<T>(T valor) where T : class => valor != null && valor != default(T) ? valor : null;
+
+        private async void Salvar()
+        {
+            try
+            {
+                StatusAtual = StatusNFe.Salvo;
+                PastaNotasFiscais pasta = new PastaNotasFiscais();
+                var xml = notaSalva.ToXElement<NFe>();
+                var di = NFeDI.Converter(xml);
+                di.Status = (int)StatusAtual;
+                using (var db = new AplicativoContext())
+                {
+                    await pasta.AdicionarOuAtualizar(xml, di.Id);
+                    var quant = db.NotasFiscais.Count(x => x.Id == di.Id);
+                    if (quant == 1) db.Update(di);
+                    else db.Add(di);
+                }
+                Log.Escrever(TitulosComuns.Sucesso, "Nota fiscal salva com sucesso. Agora podes sair da aplicação sem perder esta NFe.");
+            }
+            catch (Exception erro)
+            {
+                Log.Escrever(TitulosComuns.ErroCatastrófico, erro.Message);
+                StatusAtual = StatusNFe.EdiçãoCriação;
+            }
+        }
+
+        private void Assinar()
+        {
+            Log.Escrever(TitulosComuns.ErroCatastrófico, "Função ainda não implementada.");
+            StatusAtual = StatusNFe.Assinado;
+        }
+
+        private void Transmitir()
+        {
+            Log.Escrever(TitulosComuns.ErroCatastrófico, "Função ainda não implementada.");
+            StatusAtual = StatusNFe.Emitido;
+        }
+
+        private async void GerarDANFE()
+        {
+            await Propriedades.Intercambio.AbrirFunçaoAsync(typeof(ViewDANFE), notaEmitida);
+            StatusAtual = StatusNFe.Impresso;
+        }
 
         #region Identificação
 

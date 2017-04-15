@@ -1286,7 +1286,7 @@
                             </StackPanel>
                         </Grid>
                         <TextBox Visibility="{Binding VisibilidadePapel, Converter={StaticResource visibilidade}}"
-                                 Text="{Binding ProdutoCompleto.Produto.nRECOPI, Mode=TwoWay}"
+                                 Text="{Binding ProdutoCompleto.Produto.NRECOPI, Mode=TwoWay}"
                                  Header="Número de RECOPI" />
                     </StackPanel>
                 </ScrollViewer>

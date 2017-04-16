@@ -1,6 +1,6 @@
 ﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 
-namespace NFeFacil.ViewModel.PartesProdutoCompleto.ImpostosProduto
+namespace NFeFacil.ViewModel.ImpostosProduto
 {
     public interface IImpostoDataContext
     {

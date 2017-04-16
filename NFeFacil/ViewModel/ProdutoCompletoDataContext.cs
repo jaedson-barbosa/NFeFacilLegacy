@@ -1,11 +1,9 @@
 ﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
-using NFeFacil.ViewModel.PartesProdutoCompleto;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Windows.Input;
 
 namespace NFeFacil.ViewModel
@@ -136,10 +134,10 @@ namespace NFeFacil.ViewModel
         private async void AdicionarDeclaracaoImportacao()
         {
             var caixa = new View.CaixasDialogo.DeclaracaoImportacao();
+            caixa.DataContext = new DeclaracaoImportacao();
             caixa.PrimaryButtonClick += (x, y) =>
             {
-                var data = x.DataContext as DeclaracaoImportacaoDataContext;
-                ProdutoCompleto.Produto.DI.Add(data.Declaracao);
+                ProdutoCompleto.Produto.DI.Add(x.DataContext as DeclaracaoImportacao);
                 OnPropertyChanged(nameof(ListaDI));
             };
             await caixa.ShowAsync();
@@ -148,10 +146,10 @@ namespace NFeFacil.ViewModel
         private async void AdicionarDeclaracaoExportacao()
         {
             var caixa = new View.CaixasDialogo.DeclaracaoExportacao();
+            caixa.DataContext = new GrupoExportacao();
             caixa.PrimaryButtonClick += (x, y) =>
             {
-                var data = x.DataContext as DeclaracaoExportacaoDataContext;
-                ProdutoCompleto.Produto.GrupoExportação.Add(data.Declaracao);
+                ProdutoCompleto.Produto.GrupoExportação.Add(x.DataContext as GrupoExportacao);
                 OnPropertyChanged(nameof(ListaGE));
             };
             await caixa.ShowAsync();

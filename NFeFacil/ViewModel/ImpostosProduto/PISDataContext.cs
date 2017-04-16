@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 
-namespace NFeFacil.ViewModel.PartesProdutoCompleto.ImpostosProduto
+namespace NFeFacil.ViewModel.ImpostosProduto
 {
     public sealed class PISDataContext : INotifyPropertyChanged, IImpostosUnidos
     {

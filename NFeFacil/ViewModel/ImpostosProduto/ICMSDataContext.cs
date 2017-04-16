@@ -2,7 +2,7 @@
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
 using System.ComponentModel;
 
-namespace NFeFacil.ViewModel.PartesProdutoCompleto.ImpostosProduto
+namespace NFeFacil.ViewModel.ImpostosProduto
 {
     public sealed class ICMSDataContext : INotifyPropertyChanged, IImpostoDataContext
     {

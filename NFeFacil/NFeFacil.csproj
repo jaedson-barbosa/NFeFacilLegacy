@@ -215,6 +215,8 @@
     <Compile Include="View\CaixasDialogo\AdicionarReboque.xaml.cs">
       <DependentUpon>AdicionarReboque.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\CaixasDialogo\ConverterContextoDeclaracaoExportacao.cs" />
+    <Compile Include="View\CaixasDialogo\ConverterContextoDeclaracaoImportacao.cs" />
     <Compile Include="View\Consulta.xaml.cs">
       <DependentUpon>Consulta.xaml</DependentUpon>
     </Compile>
@@ -245,7 +247,7 @@
     <Compile Include="Propriedades.cs" />
     <Compile Include="Sincronizacao\RegistrarCliente.cs" />
     <Compile Include="Sincronizacao\Pacotes\InfoEstabelecerConexao.cs" />
-    <Compile Include="ViewModel\PartesProdutoCompleto\ImpostosProduto\COFINSDataContext.cs" />
+    <Compile Include="ViewModel\ImpostosProduto\COFINSDataContext.cs" />
     <Compile Include="ViewModel\ComandoParametrizado.cs" />
     <Compile Include="ViewModel\ComandoSimples.cs" />
     <Compile Include="Configuracoes\ConfiguracoesCertificacao.cs" />
@@ -260,8 +262,6 @@
     <Compile Include="ViewModel\Converters\BoolToVisibility.cs" />
     <Compile Include="ViewModel\Converters\TextoComLabel.cs" />
     <Compile Include="ViewModel\DadosEstadosParaView.cs" />
-    <Compile Include="ViewModel\PartesProdutoCompleto\DeclaracaoExportacaoDataContext.cs" />
-    <Compile Include="ViewModel\PartesProdutoCompleto\DeclaracaoImportacaoDataContext.cs" />
     <Compile Include="Extensoes.cs" />
     <Compile Include="ViewModel\HistoricoSincronizacaoDataContext.cs" />
     <Compile Include="IBGE\Estado.cs" />
@@ -270,10 +270,10 @@
     <Compile Include="IBGE\Municipios.cs" />
     <Compile Include="IBGE\ProcessamentoXml.cs" />
     <Compile Include="IBGE\XML.cs" />
-    <Compile Include="ViewModel\PartesProdutoCompleto\ImpostosProduto\ICMSDataContext.cs" />
-    <Compile Include="ViewModel\PartesProdutoCompleto\ImpostosProduto\IImpostoDataContext.cs" />
-    <Compile Include="ViewModel\PartesProdutoCompleto\ImpostosProduto\IPIDataContext.cs" />
-    <Compile Include="ViewModel\PartesProdutoCompleto\ImpostosProduto\ISSQNDataContext.cs" />
+    <Compile Include="ViewModel\ImpostosProduto\ICMSDataContext.cs" />
+    <Compile Include="ViewModel\ImpostosProduto\IImpostoDataContext.cs" />
+    <Compile Include="ViewModel\ImpostosProduto\IPIDataContext.cs" />
+    <Compile Include="ViewModel\ImpostosProduto\ISSQNDataContext.cs" />
     <Compile Include="ItensBD\ClienteDI.cs" />
     <Compile Include="ItensBD\EmitenteDI.cs" />
     <Compile Include="ItensBD\MotoristaDI.cs" />
@@ -400,7 +400,7 @@
     <Compile Include="ModeloXML\Processo.cs" />
     <Compile Include="ItensBD\NFeDI.cs" />
     <Compile Include="PastaNotasFiscais.cs" />
-    <Compile Include="ViewModel\PartesProdutoCompleto\ImpostosProduto\PISDataContext.cs" />
+    <Compile Include="ViewModel\ImpostosProduto\PISDataContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ItensBD\ResultadoSincronizacaoCliente.cs" />
     <Compile Include="ItensBD\ResultadoSincronizacaoServidor.cs" />
@@ -511,7 +511,6 @@
     <Content Include="DANFE\html\Pagina.css" />
     <Content Include="DANFE\html\Pagina.html" />
     <Content Include="DANFE\html\Tabela.css" />
-    <Content Include="FodyWeavers.xml" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
     <Content Include="Assets\Square150x150Logo.scale-200.png" />

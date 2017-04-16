@@ -53,11 +53,7 @@ namespace NFeFacil.ViewModel
             get { return ProdutoCompleto.Produto.comb ?? (ProdutoCompleto.Produto.comb = new Combustivel()); }
         }
 
-        public ObservableCollection<TiposEspeciaisProduto> ListaTiposEspeciaisProduto
-        {
-            get { return Enum.GetValues(typeof(TiposEspeciaisProduto)).Cast<TiposEspeciaisProduto>().GerarObs(); }
-        }
-
+        public ObservableCollection<TiposEspeciaisProduto> ListaTiposEspeciaisProduto => Extensoes.ObterItens<TiposEspeciaisProduto>();
         private TiposEspeciaisProduto tipoEspecialProdutoSelecionado;
         public TiposEspeciaisProduto TipoEspecialProdutoSelecionado
         {
@@ -118,14 +114,14 @@ namespace NFeFacil.ViewModel
             ProdutoCompleto = produtoCompleto;
             NovoMedicamento = new Medicamento();
             NovoArmamento = new Arma();
-            AdicionarDeclaracaoImportacaoCommand = new ComandoSemParametros(AdicionarDeclaracaoImportacao, true);
-            AdicionarDeclaracaoExportacaoCommand = new ComandoSemParametros(AdicionarDeclaracaoExportacao, true);
-            RemoverDeclaracaoImportacaoCommand = new ComandoComParametros<DeclaracaoImportacao, ObterDataContext<DeclaracaoImportacao>>(RemoverDeclaracaoImportacao);
-            RemoverDeclaracaoExportacaoCommand = new ComandoComParametros<GrupoExportacao, ObterDataContext<GrupoExportacao>>(RemoverDeclaracaoExportacao);
-            AdicionarMedicamentoCommand = new ComandoSemParametros(AdicionarMedicamento, true);
-            RemoverMedicamentoCommand = new ComandoSemParametros(RemoverMedicamento, true);
-            AdicionarArmamentoCommand = new ComandoSemParametros(AdicionarArmamento, true);
-            RemoverArmamentoCommand = new ComandoSemParametros(RemoverArmamento, true);
+            AdicionarDeclaracaoImportacaoCommand = new ComandoSimples(AdicionarDeclaracaoImportacao, true);
+            AdicionarDeclaracaoExportacaoCommand = new ComandoSimples(AdicionarDeclaracaoExportacao, true);
+            RemoverDeclaracaoImportacaoCommand = new ComandoParametrizado<DeclaracaoImportacao, ObterDataContext<DeclaracaoImportacao>>(RemoverDeclaracaoImportacao);
+            RemoverDeclaracaoExportacaoCommand = new ComandoParametrizado<GrupoExportacao, ObterDataContext<GrupoExportacao>>(RemoverDeclaracaoExportacao);
+            AdicionarMedicamentoCommand = new ComandoSimples(AdicionarMedicamento, true);
+            RemoverMedicamentoCommand = new ComandoSimples(RemoverMedicamento, true);
+            AdicionarArmamentoCommand = new ComandoSimples(AdicionarArmamento, true);
+            RemoverArmamentoCommand = new ComandoSimples(RemoverArmamento, true);
         }
 
         public ICommand AdicionarDeclaracaoImportacaoCommand { get; }

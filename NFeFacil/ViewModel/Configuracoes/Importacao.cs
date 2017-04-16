@@ -56,8 +56,8 @@ namespace NFeFacil.ViewModel.Configuracoes
 
         public Importacao()
         {
-            ImportarNotaFiscalCommand = new ComandoSemParametros(ImportarNotaFiscal, true);
-            ImportarDadoBaseCommand = new ComandoSemParametros(ImportarDadoBase, true);
+            ImportarNotaFiscalCommand = new ComandoSimples(ImportarNotaFiscal, true);
+            ImportarDadoBaseCommand = new ComandoSimples(ImportarDadoBase, true);
         }
     }
 }

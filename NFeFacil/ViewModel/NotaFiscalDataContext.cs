@@ -188,8 +188,8 @@ namespace NFeFacil.ViewModel
             }
         }
 
-        public ICommand AdicionarProdutoCommand => new ComandoSemParametros(AdicionarProduto, true);
-        public ICommand RemoverProdutoCommand => new ComandoComParametros<DetalhesProdutos, ObterDataContext<DetalhesProdutos>>(RemoverProduto);
+        public ICommand AdicionarProdutoCommand => new ComandoSimples(AdicionarProduto, true);
+        public ICommand RemoverProdutoCommand => new ComandoParametrizado<DetalhesProdutos, ObterDataContext<DetalhesProdutos>>(RemoverProduto);
 
         private async void AdicionarProduto()
         {
@@ -206,11 +206,11 @@ namespace NFeFacil.ViewModel
             OnPropertyChanged(nameof(Produtos));
         }
 
-        public ICommand ConfirmarCommand => new ComandoSemParametros(Confirmar, true);
-        public ICommand SalvarCommand => new ComandoSemParametros(Salvar, true);
-        public ICommand AssinarCommand => new ComandoSemParametros(Assinar, true);
-        public ICommand TransmitirCommand => new ComandoSemParametros(Transmitir, true);
-        public ICommand GerarDANFECommand => new ComandoSemParametros(GerarDANFE, true);
+        public ICommand ConfirmarCommand => new ComandoSimples(Confirmar, true);
+        public ICommand SalvarCommand => new ComandoSimples(Salvar, true);
+        public ICommand AssinarCommand => new ComandoSimples(Assinar, true);
+        public ICommand TransmitirCommand => new ComandoSimples(Transmitir, true);
+        public ICommand GerarDANFECommand => new ComandoSimples(GerarDANFE, true);
 
         private void Confirmar()
         {
@@ -411,10 +411,10 @@ namespace NFeFacil.ViewModel
             set => Transp.modFrete = (int)value;
         }
 
-        public ICommand AdicionarReboqueCommand => new ComandoSemParametros(AdicionarReboque, true);
-        public ICommand RemoverReboqueCommand => new ComandoComParametros<Reboque, ObterDataContext<Reboque>>(RemoverReboque);
-        public ICommand AdicionarVolumeCommand => new ComandoSemParametros(AdicionarVolume, true);
-        public ICommand RemoverVolumeCommand => new ComandoComParametros<Volume, ObterDataContext<Volume>>(RemoverVolume);
+        public ICommand AdicionarReboqueCommand => new ComandoSimples(AdicionarReboque, true);
+        public ICommand RemoverReboqueCommand => new ComandoParametrizado<Reboque, ObterDataContext<Reboque>>(RemoverReboque);
+        public ICommand AdicionarVolumeCommand => new ComandoSimples(AdicionarVolume, true);
+        public ICommand RemoverVolumeCommand => new ComandoParametrizado<Volume, ObterDataContext<Volume>>(RemoverVolume);
 
         private async void AdicionarReboque()
         {
@@ -454,8 +454,8 @@ namespace NFeFacil.ViewModel
 
         #region Cobrança
 
-        public ICommand AdicionarDuplicataCommand => new ComandoSemParametros(AdicionarDuplicata, true);
-        public ICommand RemoverDuplicataCommand => new ComandoComParametros<Duplicata, ObterDataContext<Duplicata>>(RemoverDuplicata);
+        public ICommand AdicionarDuplicataCommand => new ComandoSimples(AdicionarDuplicata, true);
+        public ICommand RemoverDuplicataCommand => new ComandoParametrizado<Duplicata, ObterDataContext<Duplicata>>(RemoverDuplicata);
 
         private async void AdicionarDuplicata()
         {
@@ -478,10 +478,10 @@ namespace NFeFacil.ViewModel
 
         #region Cana
 
-        public ICommand AdicionarFornecimentoCommand => new ComandoSemParametros(AdicionarFornecimento, true);
-        public ICommand RemoverFornecimentoCommand => new ComandoComParametros<FornecimentoDiario, ObterDataContext<FornecimentoDiario>>(RemoverFornecimento);
-        public ICommand AdicionarDeducaoCommand => new ComandoSemParametros(AdicionarDeducao, true);
-        public ICommand RemoverDeducaoCommand => new ComandoComParametros<Deducoes, ObterDataContext<Deducoes>>(RemoverDeducao);
+        public ICommand AdicionarFornecimentoCommand => new ComandoSimples(AdicionarFornecimento, true);
+        public ICommand RemoverFornecimentoCommand => new ComandoParametrizado<FornecimentoDiario, ObterDataContext<FornecimentoDiario>>(RemoverFornecimento);
+        public ICommand AdicionarDeducaoCommand => new ComandoSimples(AdicionarDeducao, true);
+        public ICommand RemoverDeducaoCommand => new ComandoParametrizado<Deducoes, ObterDataContext<Deducoes>>(RemoverDeducao);
 
         public async void AdicionarFornecimento()
         {

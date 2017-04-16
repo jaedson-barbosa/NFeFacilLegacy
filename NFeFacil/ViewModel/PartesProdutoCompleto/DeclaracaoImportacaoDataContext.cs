@@ -76,15 +76,15 @@ namespace NFeFacil.ViewModel.PartesProdutoCompleto
         {
             Declaracao = new DeclaracaoImportacao();
             NovaAdicao = new DIAdicao();
-            AdicionarAdicaoCommand = new ComandoSemParametros(AdicionarAdicao, true);
-            RemoverAdicaoCommand = new ComandoSemParametros(RemoverAdicao, true);
+            AdicionarAdicaoCommand = new ComandoSimples(AdicionarAdicao, true);
+            RemoverAdicaoCommand = new ComandoSimples(RemoverAdicao, true);
         }
         public DeclaracaoImportacaoDataContext(ref DeclaracaoImportacao dec) : base()
         {
             Declaracao = dec;
             NovaAdicao = new DIAdicao();
-            AdicionarAdicaoCommand = new ComandoSemParametros(AdicionarAdicao, true);
-            RemoverAdicaoCommand = new ComandoSemParametros(RemoverAdicao, true);
+            AdicionarAdicaoCommand = new ComandoSimples(AdicionarAdicao, true);
+            RemoverAdicaoCommand = new ComandoSimples(RemoverAdicao, true);
         }
     }
 }

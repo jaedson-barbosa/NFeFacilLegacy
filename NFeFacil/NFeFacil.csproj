@@ -246,8 +246,8 @@
     <Compile Include="Sincronizacao\RegistrarCliente.cs" />
     <Compile Include="Sincronizacao\Pacotes\InfoEstabelecerConexao.cs" />
     <Compile Include="ViewModel\PartesProdutoCompleto\ImpostosProduto\COFINSDataContext.cs" />
-    <Compile Include="ViewModel\ComandoComParametros.cs" />
-    <Compile Include="ViewModel\ComandoSemParametros.cs" />
+    <Compile Include="ViewModel\ComandoParametrizado.cs" />
+    <Compile Include="ViewModel\ComandoSimples.cs" />
     <Compile Include="Configuracoes\ConfiguracoesCertificacao.cs" />
     <Compile Include="Configuracoes\ConfiguracoesLocais.cs" />
     <Compile Include="Configuracoes\ConfiguracoesSincronizacao.cs" />

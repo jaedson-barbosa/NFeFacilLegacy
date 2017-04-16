@@ -3,12 +3,12 @@ using System.Windows.Input;
 
 namespace NFeFacil.ViewModel
 {
-    public sealed class ComandoComParametros<Parametro, ProcessoPropriedades> : ICommand where ProcessoPropriedades : IObterPropriedade<Parametro>, new()
+    public sealed class ComandoParametrizado<Parametro, ProcessoPropriedades> : ICommand where ProcessoPropriedades : IObterPropriedade<Parametro>, new()
     {
         private Action<Parametro> _action;
         private IObterPropriedade<Parametro> _processarEntrada = new ProcessoPropriedades();
 
-        public ComandoComParametros(Action<Parametro> action)
+        public ComandoParametrizado(Action<Parametro> action)
         {
             _action = action;
         }

@@ -126,10 +126,10 @@ namespace NFeFacil.ViewModel.Configuracoes
 
         public Sincronizacao()
         {
-            GerarQRTemporárioCommand = new ComandoSemParametros(GerarQRTemporário, true);
-            LerQRTemporárioCommand = new ComandoSemParametros(LerQRTemporário, true);
-            IniciarServidorCommand = new ComandoSemParametros(IniciarServidor, true);
-            SincronizarAgoraCommand = new ComandoSemParametros(SincronizarAgora, true);
+            GerarQRTemporárioCommand = new ComandoSimples(GerarQRTemporário, true);
+            LerQRTemporárioCommand = new ComandoSimples(LerQRTemporário, true);
+            IniciarServidorCommand = new ComandoSimples(IniciarServidor, true);
+            SincronizarAgoraCommand = new ComandoSimples(SincronizarAgora, true);
         }
 
         public ICommand GerarQRTemporárioCommand { get; }

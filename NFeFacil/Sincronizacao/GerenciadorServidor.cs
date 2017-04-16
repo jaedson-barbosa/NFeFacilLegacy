@@ -55,12 +55,10 @@ namespace NFeFacil.Sincronizacao
             else
                 strExtra = $"Abrindo brecha na segurança por {tempoLimite.Seconds} segundos.";
             Log.Escrever(TitulosComuns.Log, strExtra);
-            IniciarContagemRegressivaAsync(tempoLimite);
         }
 
-        private async static void IniciarContagemRegressivaAsync(TimeSpan timeLimit)
+        internal void FecharBrecha()
         {
-            await Task.Delay(timeLimit);
             CoreApplication.Properties["BrechaAberta"] = false;
         }
     }

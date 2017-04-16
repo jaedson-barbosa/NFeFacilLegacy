@@ -30,7 +30,7 @@ namespace NFeFacil.ViewModel.Configuracoes
 
         public bool IsCliente
         {
-            get { return Tipo == TipoAppSincronizacao.Cliente; }
+            get => Tipo == TipoAppSincronizacao.Cliente;
             set
             {
                 Tipo = value ? TipoAppSincronizacao.Cliente : TipoAppSincronizacao.Servidor;
@@ -40,27 +40,22 @@ namespace NFeFacil.ViewModel.Configuracoes
             }
         }
 
-        public bool IsServidor
-        {
-            get { return !IsCliente; }
-        }
-
+        public bool IsServidor => !IsCliente;
         public bool SincronizarDadoBase
         {
-            get { return SincDadoBase; }
-            set { SincDadoBase = value; }
+            get => SincDadoBase;
+            set => SincDadoBase = value;
         }
 
         public bool SincronizarNotaFiscal
         {
-            get { return SincNotaFiscal; }
-            set { SincNotaFiscal = value; }
+            get => SincNotaFiscal;
+            set => SincNotaFiscal = value;
         }
 
         public bool IniciarAutomaticamente
         {
-            get { return InícioAutomático; }
-            set
+            get => InícioAutomático; set
             {
                 if (value != ServerRodando && value) IniciarServidor();
                 InícioAutomático = value;
@@ -68,16 +63,10 @@ namespace NFeFacil.ViewModel.Configuracoes
             }
         }
 
-        public bool IniciarManualmente
-        {
-            get { return !InícioAutomático; }
-        }
+        public bool IniciarManualmente => !InícioAutomático;
+        public bool ServerRodando => Propriedades.Server.Rodando;
 
-        public bool ServerRodando
-        {
-            get { return Propriedades.Server.Rodando; }
-        }
-
+        public InfoEstabelecerConexao Informacoes { get; private set; }
         public ImageSource QRGerado
         {
             get
@@ -87,11 +76,13 @@ namespace NFeFacil.ViewModel.Configuracoes
                     var hosts = NetworkInformation.GetHostNames();
                     if (hosts?.Count > 0)
                     {
-                        return QRCode.GerarQR(JsonConvert.SerializeObject(new InfoEstabelecerConexao
+                        Informacoes = new InfoEstabelecerConexao
                         {
                             IP = hosts.First(x => x.IPInformation != null && x.Type == HostNameType.Ipv4).ToString(),
                             SenhaTemporaria = SenhaTemporária = new Random().Next(1000, 10000)
-                        }), 1920, 1920);
+                        };
+                        OnProperyChanged(nameof(Informacoes));
+                        return QRCode.GerarQR(JsonConvert.SerializeObject(Informacoes), 1920, 1920);
                     }
                     return null;
                 }
@@ -130,14 +121,16 @@ namespace NFeFacil.ViewModel.Configuracoes
             LerQRTemporárioCommand = new ComandoSimples(LerQRTemporário, true);
             IniciarServidorCommand = new ComandoSimples(IniciarServidor, true);
             SincronizarAgoraCommand = new ComandoSimples(SincronizarAgora, true);
+            FecharBrechaSeguranca = new ComandoSimples(PararDeAceitarNovasConexoes, true);
         }
 
         public ICommand GerarQRTemporárioCommand { get; }
         public ICommand LerQRTemporárioCommand { get; }
         public ICommand IniciarServidorCommand { get; }
         public ICommand SincronizarAgoraCommand { get; }
+        public ICommand FecharBrechaSeguranca { get; }
 
-        public double ValorMaximo { get; } = 30;
+        public double ValorMaximo { get; } = 120;
         public double ValorAtual { get; private set; } = 0;
 
         private bool mostrarQR;
@@ -171,10 +164,16 @@ namespace NFeFacil.ViewModel.Configuracoes
             await Task.Delay(1000);
             while (ValorAtual <= ValorMaximo)
             {
-                ValorAtual += 0.05;
+                ValorAtual += 0.1;
                 PropertyChanged(this, new PropertyChangedEventArgs("ValorAtual"));
-                await Task.Delay(50);
+                await Task.Delay(100);
             }
+            PararDeAceitarNovasConexoes();
+        }
+
+        private async void PararDeAceitarNovasConexoes()
+        {
+            Propriedades.Server.FecharBrecha();
             MostrarQR = false;
             await Task.Delay(1000);
         }

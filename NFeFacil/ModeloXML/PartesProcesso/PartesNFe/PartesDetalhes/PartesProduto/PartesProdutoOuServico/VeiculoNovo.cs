@@ -122,13 +122,6 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
         /// </summary>
         public ushort condVeic;
 
-        [XmlIgnore]
-        public int CondVeic
-        {
-            get => condVeic - 1;
-            set => condVeic = (ushort)(value + 1);
-        }
-
         /// <summary>
         /// Código Marca Modelo.
         /// Utilizar Tabela RENAVAM.

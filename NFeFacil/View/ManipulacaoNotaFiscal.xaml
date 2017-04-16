@@ -330,7 +330,7 @@
                                 <TextBox Text="{Binding vCOFINS, Mode=TwoWay}"
                                          Header="Valor total do COFINS"
                                          IsReadOnly="True" />
-                                <DatePicker Date="{Binding DCompet, Mode=TwoWay}"
+                                <DatePicker Date="{Binding dCompet, Converter={StaticResource data}, ConverterParameter='yyyy-MM-dd', Mode=TwoWay}"
                                             Header="Data da prestação do serviço" />
                                 <TextBox Text="{Binding vDeducao, Mode=TwoWay}"
                                          Header="Dedução para redução da base de cálculo"
@@ -347,7 +347,7 @@
                                 <TextBox Text="{Binding vISSRet, Mode=TwoWay}"
                                          Header="Retenção ISS"
                                          IsReadOnly="True" />
-                                <ComboBox SelectedIndex="{Binding CRegTrib, Mode=TwoWay}"
+                                <ComboBox SelectedIndex="{Binding cRegTrib, Converter={StaticResource valorAlterado}, ConverterParameter='-1', Mode=TwoWay}"
                                           Header="Regime especial de tributação">
                                     <ComboBoxItem>Microempresa municipal</ComboBoxItem>
                                     <ComboBoxItem>Estimativa</ComboBoxItem>

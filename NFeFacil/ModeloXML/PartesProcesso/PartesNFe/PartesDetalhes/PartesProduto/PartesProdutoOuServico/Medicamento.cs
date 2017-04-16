@@ -21,25 +21,11 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
         /// </summary>
         public string dFab;
 
-        [XmlIgnore]
-        public DateTimeOffset DFab
-        {
-            get => dFab != null ? DateTimeOffset.Parse(dFab) : DateTimeOffset.Now;
-            set => dFab = value.ToString("yyyy-MM-dd");
-        }
-
         /// <summary>
         /// Database.Principal de validade.
         /// Formato: “AAAA-MM-DD”.
         /// </summary>
         public string dVal;
-
-        [XmlIgnore]
-        public DateTimeOffset DVal
-        {
-            get => dVal != null ? DateTimeOffset.Parse(dVal) : DateTimeOffset.Now;
-            set => dVal = value.ToString("yyyy-MM-dd");
-        }
 
         /// <summary>
         /// Preço máximo consumidor.

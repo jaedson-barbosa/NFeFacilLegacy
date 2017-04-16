@@ -86,13 +86,6 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTotal
         /// </summary>
         public string dCompet { get; set; }
 
-        [XmlIgnore]
-        public DateTimeOffset DCompet
-        {
-            get => string.IsNullOrEmpty(dCompet) ? DateTimeOffset.Now : DateTimeOffset.Parse(dCompet);
-            set => dCompet = value.ToString("yyyy-MM-dd");
-        }
-
         /// <summary>
         /// (Opcional)
         /// Informar o somatório do valor Valor total dedução para redução da Base de Cálculo (vDeducao) informado nos itens.
@@ -128,12 +121,5 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTotal
         /// Informar o Código do Regime Especial de Tributação.
         /// </summary>
         public string cRegTrib { get; set; }
-
-        [XmlIgnore]
-        public int CRegTrib
-        {
-            get => string.IsNullOrEmpty(cRegTrib) ? -1 : int.Parse(cRegTrib) - 1;
-            set => cRegTrib = (value + 1).ToString();
-        }
     }
 }

@@ -20,6 +20,7 @@
             <Conversores:BoolToVisibility x:Key="visibilidade" />
             <Conversores:EstadoToMunicipios x:Key="obterMunicipio" />
             <Conversores:ModificaValor x:Key="valorAlterado" />
+            <Conversores:StringToDateTime x:Key="data" />
             <VM:DadosEstadosParaView x:Key="estados" />
         </ResourceDictionary>
     </Page.Resources>
@@ -1117,7 +1118,7 @@
                                         Header="Espécie de veículo"
                                         Margin="0,0,0,5" />
                                 <CheckBox IsChecked="{Binding VINBool, Mode=TwoWay}">Chassi remarcado</CheckBox>
-                                <ComboBox SelectedIndex="{Binding CondVeic, Mode=TwoWay}"
+                                <ComboBox SelectedIndex="{Binding condVeic, Converter={StaticResource valorAlterado}, ConverterParameter='-1', Mode=TwoWay}"
                                           Header="Condição do veículo"
                                           Margin="0,0,0,5"
                                           HorizontalAlignment="Stretch">
@@ -1166,9 +1167,9 @@
                                          Header="Número do Lote" />
                                 <TextBox Text="{Binding qLote, Mode=TwoWay}"
                                          Header="Quantidade no lote" />
-                                <DatePicker Date="{Binding DFab,Mode=TwoWay}"
+                                <DatePicker Date="{Binding dFab, Converter={StaticResource data}, ConverterParameter='yyyy-MM-dd', Mode=TwoWay}"
                                             Header="Data de fabricação" />
-                                <DatePicker Date="{Binding DVal, Mode=TwoWay}"
+                                <DatePicker Date="{Binding dVal, Converter={StaticResource data}, ConverterParameter='yyyy-MM-dd', Mode=TwoWay}"
                                             Header="Data de validade" />
                                 <TextBox Text="{Binding vPMC,Mode=TwoWay}"
                                          Header="Preço máximo consumidor" />

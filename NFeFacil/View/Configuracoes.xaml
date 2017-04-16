@@ -370,14 +370,27 @@
                          IsReadOnly="True"
                          Header="Senha temporária"
                          Text="{Binding Informacoes.SenhaTemporaria}" />
-                <controles:ItemPadrao Grid.Row="1"
-                                      Grid.RowSpan="2"
-                                      Grid.Column="1"
-                                      Margin="4,0,0,0"
-                                      Titulo="Concluir"
-                                      Descricao="Parar de aceitar novas conexões com este servidor.">
-                    <SymbolIcon Symbol="Accept" />
-                </controles:ItemPadrao>
+                <Button Grid.Row="1"
+                        Grid.RowSpan="2"
+                        Grid.Column="1"
+                        Margin="4,0,0,0"
+                        VerticalAlignment="Stretch"
+                        Command="{Binding FecharBrechaSeguranca}">
+                    <StackPanel>
+                        <SymbolIcon Symbol="Accept"
+                                    Width="24"
+                                    Height="20"
+                                    Margin="36,30"
+                                    RenderTransformOrigin="0.5,0.5">
+                            <SymbolIcon.RenderTransform>
+                                <CompositeTransform ScaleX="4"
+                                                    ScaleY="4" />
+                            </SymbolIcon.RenderTransform>
+                        </SymbolIcon>
+                        <TextBlock TextAlignment="Center"
+                                   Style="{StaticResource BaseTextBlockStyle}">Finalizar</TextBlock>
+                    </StackPanel>
+                </Button>
                 <TextBlock Grid.Row="3"
                            Style="{StaticResource SubtitleTextBlockStyle}"
                            Margin="0,10,0,0"

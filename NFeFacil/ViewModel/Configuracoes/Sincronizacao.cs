@@ -153,6 +153,7 @@ namespace NFeFacil.ViewModel.Configuracoes
             public bool DadoAtual { get; set; }
         }
 
+        private bool brechaAberta = false;
         public async void GerarQRTemporário()
         {
             Propriedades.Server.AbrirBrecha(TimeSpan.FromSeconds(ValorMaximo));
@@ -162,7 +163,8 @@ namespace NFeFacil.ViewModel.Configuracoes
             await Task.Delay(500);
             MostrarQR = true;
             await Task.Delay(1000);
-            while (ValorAtual <= ValorMaximo)
+            brechaAberta = true;
+            while (ValorAtual <= ValorMaximo && brechaAberta)
             {
                 ValorAtual += 0.1;
                 PropertyChanged(this, new PropertyChangedEventArgs("ValorAtual"));
@@ -173,9 +175,13 @@ namespace NFeFacil.ViewModel.Configuracoes
 
         private async void PararDeAceitarNovasConexoes()
         {
-            Propriedades.Server.FecharBrecha();
-            MostrarQR = false;
-            await Task.Delay(1000);
+            if (brechaAberta)
+            {
+                Propriedades.Server.FecharBrecha();
+                MostrarQR = false;
+                await Task.Delay(1000);
+                brechaAberta = false;
+            }
         }
 
         public async void LerQRTemporário()

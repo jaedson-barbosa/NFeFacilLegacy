@@ -28,7 +28,7 @@ namespace NFeFacil.ViewModel.PartesProdutoCompleto
                     Declaracao.ExportInd = null;
                 }
                 PropertyChanged(this, new PropertyChangedEventArgs(nameof(VisibilidadeIndireta)));
-                PropertyChanged(this, new PropertyChangedEventArgs(nameof(Declaracao.ExportInd)));
+                PropertyChanged(this, new PropertyChangedEventArgs(nameof(Declaracao)));
             }
         }
 

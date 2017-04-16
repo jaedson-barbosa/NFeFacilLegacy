@@ -19,13 +19,13 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
         /// Database.Principal de fabricação.
         /// Formato: “AAAA-MM-DD”.
         /// </summary>
-        public string dFab;
+        public string dFab { get; set; }
 
         /// <summary>
         /// Database.Principal de validade.
         /// Formato: “AAAA-MM-DD”.
         /// </summary>
-        public string dVal;
+        public string dVal { get; set; }
 
         /// <summary>
         /// Preço máximo consumidor.

@@ -188,6 +188,7 @@
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\Observacao.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\ProcessoReferenciado.cs" />
     <Compile Include="Telas.cs" />
+    <Compile Include="ViewModel\ConfiguracoesDataContext.cs" />
     <Compile Include="ViewModel\Converters\ColecaoValida.cs" />
     <Compile Include="ViewModel\Converters\EstadoToMunicipios.cs" />
     <Compile Include="ViewModel\Converters\Invert.cs" />
@@ -257,9 +258,6 @@
     <Compile Include="Configuracoes\ConfiguracoesLocais.cs" />
     <Compile Include="Configuracoes\ConfiguracoesSincronizacao.cs" />
     <Compile Include="Configuracoes\TipoAppSincronizacao.cs" />
-    <Compile Include="ViewModel\Configuracoes\Certificacao.cs" />
-    <Compile Include="ViewModel\Configuracoes\Importacao.cs" />
-    <Compile Include="ViewModel\Configuracoes\Sincronizacao.cs" />
     <Compile Include="ViewModel\Converters\BoolToIcon.cs" />
     <Compile Include="ViewModel\Converters\BoolToInt.cs" />
     <Compile Include="ViewModel\Converters\BoolToVisibility.cs" />

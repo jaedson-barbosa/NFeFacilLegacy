@@ -8,8 +8,8 @@ namespace NFeFacil.View
     {
         public bool Visivel { get; set; }
 
-        private ViewModel.Configuracoes.Sincronizacao contexto;
-        public ViewModel.Configuracoes.Sincronizacao Contexto
+        private ViewModel.ConfiguracoesDataContext contexto;
+        public ViewModel.ConfiguracoesDataContext Contexto
         {
             get => contexto;
             set
@@ -19,7 +19,7 @@ namespace NFeFacil.View
             }
         }
 
-        private void Contexto_MostrarQRChanged(ViewModel.Configuracoes.Sincronizacao sender, ViewModel.Configuracoes.Sincronizacao.MostrarQRChangeEventArgs args)
+        private void Contexto_MostrarQRChanged(ViewModel.ConfiguracoesDataContext sender, ViewModel.ConfiguracoesDataContext.MostrarQRChangeEventArgs args)
         {
             SetActive(Visivel == args.DadoAtual);
         }

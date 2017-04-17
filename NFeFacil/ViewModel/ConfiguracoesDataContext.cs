@@ -266,7 +266,7 @@ namespace NFeFacil.ViewModel
 
         public string CertificadoEscolhido
         {
-            get => _Certificados.FirstOrDefault(x => x.SerialNumber == Certificado).Subject;
+            get => Certificado != null ? _Certificados.First(x => x.SerialNumber == Certificado).Subject : null;
             set => Certificado = _Certificados.Single(x => x.Subject == value).SerialNumber;
         }
 

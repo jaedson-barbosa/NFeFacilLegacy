@@ -66,13 +66,12 @@ namespace NFeFacil
             { typeof(AdicionarProduto), new GrupoViewBanco<ProdutoDI>() },
             {
                 typeof(ManipulacaoNotaFiscal),
-                new NotaComDados
+                new GrupoViewBanco<(NFeDI, object)>
                 {
-                    dados = new NFeDI
+                    ItemBanco = (new NFeDI
                     {
                         Status = (int)StatusNFe.EdiçãoCriação
-                    },
-                    nota = new NFe
+                    }, new NFe
                     {
                        Informações = new Detalhes
                         {
@@ -87,8 +86,8 @@ namespace NFeFacil
                             compra = new Compra(),
                             cana = new RegistroAquisicaoCana()
                         }
-                    },
-                    tipoRequisitado = TipoOperacao.Adicao
+                    }),
+                    OperacaoRequirida = TipoOperacao.Adicao
                 }
             }
         };

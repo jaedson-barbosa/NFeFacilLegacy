@@ -139,7 +139,7 @@ namespace NFeFacil.ViewModel
 
         public int IndexPivotSelecionado { get; set; } = 0;
 
-        internal NotaFiscalDataContext(NotaComDados param)
+        internal NotaFiscalDataContext(object param, StatusNFe status)
         {
             using (var db = new AplicativoContext())
             {
@@ -156,17 +156,22 @@ namespace NFeFacil.ViewModel
             }
 
             Detalhes nfe;
-            if (param.proc?.NFe != null)
+            if (param is Processo proc)
             {
-                nfe = param.proc.NFe.Informações;
-                notaEmitida = param.proc;
+                nfe = proc.NFe.Informações;
+                notaEmitida = proc;
+            }
+            else if (param is NFe nota)
+            {
+                nfe = nota.Informações;
+                notaSalva = nota;
             }
             else
             {
-                nfe = param.nota.Informações;
-                notaSalva = param.nota;
+                throw new ArgumentException();
             }
-            StatusAtual = (StatusNFe)param.dados.Status;
+
+            StatusAtual = status;
             Ident = nfe.identificação;
             Emitente = nfe.emitente;
             Destinatario = nfe.destinatário;

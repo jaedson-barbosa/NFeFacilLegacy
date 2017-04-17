@@ -243,7 +243,6 @@
     <Compile Include="View\ManipulacaoProdutoCompleto.xaml.cs">
       <DependentUpon>ManipulacaoProdutoCompleto.xaml</DependentUpon>
     </Compile>
-    <Compile Include="NotaComDados.cs" />
     <Compile Include="View\NotasSalvas.xaml.cs">
       <DependentUpon>NotasSalvas.xaml</DependentUpon>
     </Compile>

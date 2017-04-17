@@ -2,6 +2,7 @@
 using NFeFacil.ViewModel;
 using System;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -24,8 +25,8 @@ namespace NFeFacil.View
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var param = (NotaComDados)e.Parameter;
-            switch (param.tipoRequisitado)
+            var param = (GrupoViewBanco<(NFeDI, object)>)e.Parameter;
+            switch (param.OperacaoRequirida)
             {
                 case TipoOperacao.Adicao:
                     Propriedades.Intercambio.SeAtualizar(Telas.ManipularNota, Symbol.Add, "Criar nota fiscal");
@@ -36,7 +37,7 @@ namespace NFeFacil.View
                 default:
                     break;
             }
-            DataContext = contexto = new NotaFiscalDataContext(param);
+            DataContext = contexto = new NotaFiscalDataContext(param.ItemBanco.Item2, (StatusNFe)param.ItemBanco.Item1.Status);
         }
 
         async Task<bool> IValida.Verificar()

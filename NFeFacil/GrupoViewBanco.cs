@@ -2,7 +2,7 @@
 
 namespace NFeFacil
 {
-    internal struct GrupoViewBanco<TipoDado> where TipoDado : IId
+    internal struct GrupoViewBanco<TipoDado>
     {
         public TipoDado ItemBanco { get; set; }
         public TipoOperacao OperacaoRequirida { get; set; }

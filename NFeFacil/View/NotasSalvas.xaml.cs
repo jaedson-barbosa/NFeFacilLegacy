@@ -38,8 +38,11 @@ namespace NFeFacil.View
         private async void EditarAsync(object sender, RoutedEventArgs e)
         {
             var nota = (sender as FrameworkElement).DataContext as NFeDI;
-            var conjunto = await nota.ConjuntoCompletoAsync();
-            conjunto.tipoRequisitado = TipoOperacao.Edicao;
+            var conjunto = new GrupoViewBanco<(NFeDI, object)>
+            {
+                ItemBanco = (nota, await nota.ConjuntoCompletoAsync()),
+                OperacaoRequirida = TipoOperacao.Edicao
+            };
             await Propriedades.Intercambio.AbrirFunçaoAsync(typeof(ManipulacaoNotaFiscal), conjunto);
         }
 

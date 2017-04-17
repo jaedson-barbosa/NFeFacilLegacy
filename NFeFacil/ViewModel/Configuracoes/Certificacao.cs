@@ -18,30 +18,14 @@ namespace NFeFacil.ViewModel.Configuracoes
             }
         }
 
-        public IEnumerable<string> Certificados
-        {
-            get
-            {
-                var subjects = from c in _Certificados
-                               select c.Subject;
-                return subjects.Distinct().OrderBy(x => x);
-            }
-        }
+        public IEnumerable<string> Certificados => from c in _Certificados
+                                                   orderby c.Subject
+                                                   select c.Subject;
 
         public string CertificadoEscolhido
         {
-            get
-            {
-                try
-                {
-                    return _Certificados.Single(x => x.SerialNumber == Certificado).Subject;
-                }
-                catch (System.Exception)
-                {
-                    return null;
-                }
-            }
-            set { Certificado = _Certificados.Single(x => x.Subject == value).SerialNumber; }
+            get => _Certificados.FirstOrDefault(x => x.SerialNumber == Certificado).Subject;
+            set => Certificado = _Certificados.Single(x => x.Subject == value).SerialNumber;
         }
     }
 }

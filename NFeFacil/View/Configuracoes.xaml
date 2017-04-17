@@ -2,7 +2,6 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:my="using:NFeFacil.View.Controles"
       xmlns:local="using:NFeFacil.View"
-      xmlns:controles="using:NFeFacil.View.Controles"
       xmlns:VM="using:NFeFacil.ViewModel.Configuracoes"
       xmlns:Conversores="using:NFeFacil.ViewModel.Converters"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -224,9 +223,20 @@
                                     <Run>Já que este dispositivo servirá como cliente, conecte ele ao servidor lendo o código QR gerado pelo servidor apertando o botão abaixo.</Run>
                                 </Paragraph>
                             </RichTextBlock>
-                            <Button HorizontalAlignment="Stretch"
-                                    Margin="0,0,0,10"
-                                    Command="{Binding LerQRTemporárioCommand}">Ler código QR temporário</Button>
+                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
+                                       Margin="0,8,0,0">Conectar-se ao servidor</TextBlock>
+                            <StackPanel Orientation="Horizontal">
+                                <my:ItemPadrao Command="{Binding LerQRTemporárioCommand}"
+                                               Titulo="Automaticamente"
+                                               Descricao="Ler código QR temporário">
+                                    <SymbolIcon Symbol="Camera" />
+                                </my:ItemPadrao>
+                                <my:ItemPadrao Command="{Binding InserirDadosManualmenteCommand}"
+                                               Titulo="Manualmente"
+                                               Descricao="Digitar os dados do servidor">
+                                    <SymbolIcon Symbol="Keyboard" />
+                                </my:ItemPadrao>
+                            </StackPanel>
                             <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Status</TextBlock>
                             <TextBlock Margin="0,0,0,10"
                                        Text="{Binding StatusCliente, Mode=OneWay}" />

@@ -119,6 +119,7 @@ namespace NFeFacil.ViewModel.Configuracoes
         {
             GerarQRTemporárioCommand = new ComandoSimples(GerarQRTemporário, true);
             LerQRTemporárioCommand = new ComandoSimples(LerQRTemporário, true);
+            InserirDadosManualmenteCommand = new ComandoSimples(InserirDadosManualmente, true);
             IniciarServidorCommand = new ComandoSimples(IniciarServidor, true);
             SincronizarAgoraCommand = new ComandoSimples(SincronizarAgora, true);
             FecharBrechaSeguranca = new ComandoSimples(PararDeAceitarNovasConexoes, true);
@@ -126,6 +127,7 @@ namespace NFeFacil.ViewModel.Configuracoes
 
         public ICommand GerarQRTemporárioCommand { get; }
         public ICommand LerQRTemporárioCommand { get; }
+        public ICommand InserirDadosManualmenteCommand { get; }
         public ICommand IniciarServidorCommand { get; }
         public ICommand SincronizarAgoraCommand { get; }
         public ICommand FecharBrechaSeguranca { get; }
@@ -188,9 +190,27 @@ namespace NFeFacil.ViewModel.Configuracoes
         {
             var str = await QRCode.DecodificarQRAsync();
             var resultado = JsonConvert.DeserializeObject<InfoEstabelecerConexao>(str);
-            IPServidor = resultado.IP;
+            await EstabelecerConexaoAsync(resultado);
+        }
+
+        private async void InserirDadosManualmente()
+        {
+            var caixa = new View.CaixasDialogo.ConfigurarDadosConexao()
+            {
+                DataContext = new InfoEstabelecerConexao()
+            };
+            caixa.PrimaryButtonClick += async (sender, e) =>
+            {
+                await EstabelecerConexaoAsync(sender.DataContext as InfoEstabelecerConexao);
+            };
+            await caixa.ShowAsync();
+        }
+
+        private async Task EstabelecerConexaoAsync(InfoEstabelecerConexao info)
+        {
+            IPServidor = info.IP;
             var cliente = new ClienteBrechaSeguranca(LogPopUp);
-            await cliente.EstabelecerConexao(resultado.SenhaTemporaria);
+            await cliente.EstabelecerConexao(info.SenhaTemporaria);
         }
 
         public async void IniciarServidor()

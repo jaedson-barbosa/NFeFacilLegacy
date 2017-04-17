@@ -2,7 +2,6 @@
 using NFeFacil.Log;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Windows.Input;
 
@@ -15,7 +14,7 @@ namespace NFeFacil.ViewModel.Configuracoes
         public ICommand ImportarNotaFiscalCommand { get; }
         public ICommand ImportarDadoBaseCommand { get; }
 
-        public async void ImportarNotaFiscal()
+        private async void ImportarNotaFiscal()
         {
             var resultado = await new ImportarNotaFiscal().Importar();
             if (resultado.Analise == ResumoRelatorioImportacao.Sucesso)
@@ -31,7 +30,7 @@ namespace NFeFacil.ViewModel.Configuracoes
             }
         }
 
-        public async void ImportarDadoBase()
+        private async void ImportarDadoBase()
         {
             var resultado = await new ImportarDadoBase(TipoBásicoSelecionado).Importar();
             if (resultado.Analise == ResumoRelatorioImportacao.Sucesso)
@@ -47,11 +46,7 @@ namespace NFeFacil.ViewModel.Configuracoes
             }
         }
 
-        public IEnumerable<TiposDadoBasico> TiposBásicos
-        {
-            get => Enum.GetValues(typeof(TiposDadoBasico)).Cast<TiposDadoBasico>();
-        }
-
+        public IEnumerable<TiposDadoBasico> TiposBásicos => Extensoes.ObterItens<TiposDadoBasico>();
         public TiposDadoBasico TipoBásicoSelecionado { get; set; }
 
         public Importacao()

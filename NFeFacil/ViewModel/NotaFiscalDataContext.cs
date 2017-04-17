@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.ApplicationModel.Core;
 
@@ -25,9 +26,32 @@ namespace NFeFacil.ViewModel
         public event PropertyChangedEventHandler PropertyChanged;
         void OnPropertyChanged(params string[] parametros)
         {
-            for (int i = 0; i < parametros.Length; i++)
+            if (PropertyChanged == null)
             {
-                PropertyChanged(this, new PropertyChangedEventArgs(parametros[i]));
+                RegistrarFilaPropertyChanged(parametros);
+            }
+            else
+            {
+                for (int i = 0; i < parametros.Length; i++)
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs(parametros[i]));
+                }
+            }
+        }
+
+        async void RegistrarFilaPropertyChanged(string[] propriedades)
+        {
+            while (true)
+            {
+                if (PropertyChanged != null)
+                {
+                    for (int i = 0; i < propriedades.Length; i++)
+                    {
+                        PropertyChanged(this, new PropertyChangedEventArgs(propriedades[i]));
+                    }
+                    break;
+                }
+                await Task.Delay(500);
             }
         }
 
@@ -59,19 +83,16 @@ namespace NFeFacil.ViewModel
             get { return status; }
             set
             {
-                bool[] botoes =
-                {
-                    BotaoConfirmarAtivado,
-                    BotaoSalvarAtivado,
-                    BotaoAssinarAtivado,
-                    BotaoTransmitirAtivado,
-                    BotaoGerarDANFEAtivado
-                };
-                for (int i = 0; i < botoes.Length; i++)
-                {
-                    var valor = (int)value;
-                    botoes[i] = i == (valor >= botoes.Length ? botoes.Length - 1 : valor);
-                }
+                BotaoConfirmarAtivado = value == StatusNFe.EdiçãoCriação;
+                BotaoSalvarAtivado = value == StatusNFe.Validado;
+                BotaoAssinarAtivado = value == StatusNFe.Salvo;
+                BotaoTransmitirAtivado = value == StatusNFe.Assinado;
+                BotaoGerarDANFEAtivado = value == StatusNFe.Emitido;
+                OnPropertyChanged(nameof(BotaoConfirmarAtivado),
+                    nameof(BotaoSalvarAtivado),
+                    nameof(BotaoAssinarAtivado),
+                    nameof(BotaoTransmitirAtivado),
+                    nameof(BotaoGerarDANFEAtivado));
                 status = value;
             }
         }

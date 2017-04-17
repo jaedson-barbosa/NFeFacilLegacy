@@ -2,7 +2,6 @@
 using NFeFacil.ViewModel;
 using System;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;

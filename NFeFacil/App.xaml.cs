@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NFeFacil.View;
 using System;
+using System.Linq;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -39,9 +41,10 @@ namespace NFeFacil
         /// serão usados, por exemplo, quando o aplicativo for iniciado para abrir um arquivo específico.
         /// </summary>
         /// <param name="e">Detalhes sobre a solicitação e o processo de inicialização.</param>
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
             Frame rootFrame = Window.Current.Content as Frame;
+            Propriedades.Usuario = e.User;
 
             // Não repita a inicialização do aplicativo quando a Janela já tiver conteúdo,
             // apenas verifique se a janela está ativa

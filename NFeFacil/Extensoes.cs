@@ -53,11 +53,6 @@ namespace NFeFacil
             return dataHora.ToString(total);
         }
 
-        public static string ToStringPersonalizado(this DateTimeOffset dataHora)
-        {
-            return dataHora.ToString($"yyyy-MM-ddThh:mm:ss{TimeZoneInfo.Local.BaseUtcOffset.TotalHours}:00");
-        }
-
         public static ObservableCollection<T> GerarObs<T>(this IEnumerable<T> aqui)
         {
             return new ObservableCollection<T>(aqui);

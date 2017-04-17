@@ -28,6 +28,8 @@
     <Capability Name="internetClientServer" />
     <Capability Name="privateNetworkClientServer" />
     <uap:Capability Name="sharedUserCertificates" />
+    <uap:Capability Name="userAccountInformation" />
+    <uap:Capability Name="contacts" />
     <DeviceCapability Name="webcam" />
   </Capabilities>
 </Package>

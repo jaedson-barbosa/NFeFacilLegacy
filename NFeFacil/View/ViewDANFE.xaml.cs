@@ -1,4 +1,4 @@
-﻿using NFeFacil.DANFE.Gerenciadores;
+﻿using NFeFacil.DANFE;
 using NFeFacil.ModeloXML;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;

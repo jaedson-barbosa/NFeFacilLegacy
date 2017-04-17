@@ -5,7 +5,7 @@ using System;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 
-namespace NFeFacil.DANFE.Gerenciadores
+namespace NFeFacil.DANFE
 {
     public abstract class GerenciadorWebView
     {

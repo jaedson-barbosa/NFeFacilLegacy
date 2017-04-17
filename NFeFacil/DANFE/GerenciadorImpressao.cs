@@ -11,7 +11,7 @@ using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Printing;
 using Windows.UI.Xaml.Shapes;
 
-namespace NFeFacil.DANFE.Gerenciadores
+namespace NFeFacil.DANFE
 {
     public sealed class GerenciadorImpressao : GerenciadorWebView, IDisposable
     {

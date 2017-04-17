@@ -1,6 +1,4 @@
-﻿using NFeFacil.ItensBD;
-
-namespace NFeFacil
+﻿namespace NFeFacil
 {
     internal struct GrupoViewBanco<TipoDado>
     {

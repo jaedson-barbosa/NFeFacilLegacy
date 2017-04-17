@@ -8,7 +8,7 @@ using Windows.Storage.Pickers;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Controls;
 
-namespace NFeFacil.DANFE.Gerenciadores
+namespace NFeFacil.DANFE
 {
     public sealed class GerenciadorExportacao : GerenciadorWebView
     {

@@ -15,7 +15,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.ApplicationModel.Core;
 
@@ -26,32 +25,9 @@ namespace NFeFacil.ViewModel
         public event PropertyChangedEventHandler PropertyChanged;
         void OnPropertyChanged(params string[] parametros)
         {
-            if (PropertyChanged == null)
+            for (int i = 0; i < parametros.Length; i++)
             {
-                RegistrarFilaPropertyChanged(parametros);
-            }
-            else
-            {
-                for (int i = 0; i < parametros.Length; i++)
-                {
-                    PropertyChanged(this, new PropertyChangedEventArgs(parametros[i]));
-                }
-            }
-        }
-
-        async void RegistrarFilaPropertyChanged(string[] propriedades)
-        {
-            while (true)
-            {
-                if (PropertyChanged != null)
-                {
-                    for (int i = 0; i < propriedades.Length; i++)
-                    {
-                        PropertyChanged(this, new PropertyChangedEventArgs(propriedades[i]));
-                    }
-                    break;
-                }
-                await Task.Delay(500);
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(parametros[i]));
             }
         }
 

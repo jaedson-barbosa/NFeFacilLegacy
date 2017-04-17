@@ -146,9 +146,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DANFE\Gerenciadores\GerenciadorExportacao.cs" />
-    <Compile Include="DANFE\Gerenciadores\GerenciadorImpressao.cs" />
-    <Compile Include="DANFE\Gerenciadores\GerenciadorWebView.cs" />
+    <Compile Include="DANFE\GerenciadorExportacao.cs" />
+    <Compile Include="DANFE\GerenciadorImpressao.cs" />
+    <Compile Include="DANFE\GerenciadorWebView.cs" />
     <Compile Include="DANFE\Modelos\Global\DadosAdicionais.cs" />
     <Compile Include="DANFE\Modelos\Global\DadosCabecalho.cs" />
     <Compile Include="DANFE\Modelos\Global\DadosCliente.cs" />

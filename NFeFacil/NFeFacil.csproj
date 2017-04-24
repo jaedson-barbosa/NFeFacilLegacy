@@ -166,6 +166,7 @@
     <Compile Include="DANFE\Processamento\ViewDados.cs" />
     <Compile Include="DANFE\Processamento\ViewUI.cs" />
     <Compile Include="GrupoViewBanco.cs" />
+    <Compile Include="RegistrarCliente.cs" />
     <Compile Include="Telas.cs" />
     <Compile Include="ViewModel\ConfiguracoesDataContext.cs" />
     <Compile Include="ViewModel\Converters\ColecaoValida.cs" />
@@ -491,6 +492,10 @@
     </SDKReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Background\Background.csproj">
+      <Project>{c01c58ea-15a2-4c80-a021-da71cfc2baed}</Project>
+      <Name>Background</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BibliotecaCentral\BibliotecaCentral.csproj">
       <Project>{b59a85aa-2d60-4d5b-8104-dcb0a3f25019}</Project>
       <Name>BibliotecaCentral</Name>

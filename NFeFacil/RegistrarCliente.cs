@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Windows.ApplicationModel.Background;
 
-namespace BibliotecaCentral.Sincronizacao
+namespace NFeFacil
 {
     public static class RegistroClienteBackground
     {
@@ -15,7 +15,7 @@ namespace BibliotecaCentral.Sincronizacao
                 {
                     IsNetworkRequested = true,
                     Name = "BackgroundTaskCliente",
-                    TaskEntryPoint = "Background.Cliente"
+                    TaskEntryPoint = "Background.ClienteBackground"
                 };
                 socketTaskBuilder.SetTrigger(new TimeTrigger(15, false));
                 socketTaskBuilder.Register();

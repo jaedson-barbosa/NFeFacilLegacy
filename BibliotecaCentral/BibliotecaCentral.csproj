@@ -110,6 +110,7 @@
     <Compile Include="Configuracoes\ConfiguracoesLocais.cs" />
     <Compile Include="Configuracoes\ConfiguracoesSincronizacao.cs" />
     <Compile Include="Configuracoes\TipoAppSincronizacao.cs" />
+    <Compile Include="Extensoes.cs" />
     <Compile Include="IBGE\Estado.cs" />
     <Compile Include="IBGE\Estados.cs" />
     <Compile Include="IBGE\Municipio.cs" />
@@ -240,6 +241,7 @@
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\Transporte.cs" />
     <Compile Include="ModeloXML\PartesProcesso\ProtocoloNFe.cs" />
     <Compile Include="ModeloXML\Processo.cs" />
+    <Compile Include="PastaNotasFiscais.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Validacao\ConjuntoAnalise.cs" />
     <Compile Include="Validacao\IValidavel.cs" />

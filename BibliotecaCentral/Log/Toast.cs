@@ -1,7 +1,7 @@
 ﻿using Microsoft.Toolkit.Uwp.Notifications;
 using Windows.UI.Notifications;
 
-namespace NFeFacil.Log
+namespace BibliotecaCentral.Log
 {
     public sealed class Toast : ILog
     {

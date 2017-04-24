@@ -1,4 +1,4 @@
-﻿namespace NFeFacil.Log
+﻿namespace BibliotecaCentral.Log
 {
     public interface ILog
     {

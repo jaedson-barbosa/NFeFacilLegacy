@@ -3,7 +3,7 @@ using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
 using Windows.UI.Popups;
 
-namespace NFeFacil.Log
+namespace BibliotecaCentral.Log
 {
     public class Popup : ILog
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NFeFacil.Log
+namespace BibliotecaCentral.Log
 {
     public static class Titulos
     {

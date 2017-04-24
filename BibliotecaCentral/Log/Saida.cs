@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace NFeFacil.Log
+namespace BibliotecaCentral.Log
 {
     public class Saida : ILog
     {

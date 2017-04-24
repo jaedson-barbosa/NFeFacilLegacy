@@ -1,4 +1,5 @@
-﻿using BibliotecaCentral.ItensBD;
+﻿using BibliotecaCentral;
+using BibliotecaCentral.ItensBD;
 using BibliotecaCentral.Configuracoes;
 using System.Collections.ObjectModel;
 using System.ComponentModel;

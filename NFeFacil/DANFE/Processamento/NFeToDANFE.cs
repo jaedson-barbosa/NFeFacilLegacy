@@ -1,4 +1,5 @@
-﻿using NFeFacil.DANFE.Modelos.Global;
+﻿using BibliotecaCentral;
+using NFeFacil.DANFE.Modelos.Global;
 using NFeFacil.DANFE.Modelos.Local;
 using BibliotecaCentral.ModeloXML;
 using BibliotecaCentral.ModeloXML.PartesProcesso;

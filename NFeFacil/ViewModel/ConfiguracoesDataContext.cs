@@ -309,7 +309,7 @@ namespace NFeFacil.ViewModel
             }
         }
 
-        public IEnumerable<TiposDadoBasico> TiposBásicos => Extensoes.ObterItens<TiposDadoBasico>();
+        public IEnumerable<TiposDadoBasico> TiposBásicos => BibliotecaCentral.Extensoes.ObterItens<TiposDadoBasico>();
         public TiposDadoBasico TipoBásicoSelecionado { get; set; }
 
         #endregion

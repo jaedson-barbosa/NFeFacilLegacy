@@ -1,4 +1,5 @@
-﻿using BibliotecaCentral.IBGE;
+﻿using BibliotecaCentral;
+using BibliotecaCentral.IBGE;
 using BibliotecaCentral.WebService.ConsultarNota;
 using System;
 using System.Threading.Tasks;

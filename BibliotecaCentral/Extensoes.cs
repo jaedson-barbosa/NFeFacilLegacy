@@ -9,7 +9,7 @@ using System.Xml.Serialization;
 
 namespace BibliotecaCentral
 {
-    internal static class Extensoes
+    public static class Extensoes
     {
         public static XElement ToXElement<T>(this object obj, string nameSpace = "http://www.portalfiscal.inf.br/nfe") => ToXElement(obj, typeof(T), nameSpace);
 

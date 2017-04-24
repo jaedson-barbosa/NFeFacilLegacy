@@ -1,4 +1,5 @@
-﻿using BibliotecaCentral.IBGE;
+﻿using BibliotecaCentral;
+using BibliotecaCentral.IBGE;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

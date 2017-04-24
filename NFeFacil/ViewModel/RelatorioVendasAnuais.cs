@@ -1,4 +1,5 @@
-﻿using BibliotecaCentral.ModeloXML;
+﻿using BibliotecaCentral;
+using BibliotecaCentral.ModeloXML;
 using BibliotecaCentral.ModeloXML.PartesProcesso;
 using BibliotecaCentral.Repositorio;
 using System;

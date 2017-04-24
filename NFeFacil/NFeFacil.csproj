@@ -175,11 +175,6 @@
     <Compile Include="ImportacaoParaBanco\XmlNaoReconhecido.cs" />
     <Compile Include="ItensBD\IConverterDI.cs" />
     <Compile Include="ItensBD\IId.cs" />
-    <Compile Include="Migrations\20170328172532_Teste2.cs" />
-    <Compile Include="Migrations\20170328172532_Teste2.designer.cs">
-      <DependentUpon>20170328172532_Teste2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\AplicativoContextModelSnapshot.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\Cartao.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\Deducoes.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\Duplicata.cs" />
@@ -685,6 +680,9 @@
     <SDKReference Include="WindowsMobile, Version=10.0.15063.0">
       <Name>Windows Mobile Extensions for the UWP</Name>
     </SDKReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Migrations\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

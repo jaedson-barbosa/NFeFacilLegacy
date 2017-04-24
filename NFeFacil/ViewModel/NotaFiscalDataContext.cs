@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using BibliotecaCentral.IBGE;
+﻿using BibliotecaCentral.IBGE;
 using BibliotecaCentral.ItensBD;
 using BibliotecaCentral.Log;
 using BibliotecaCentral.ModeloXML;
@@ -141,18 +140,15 @@ namespace NFeFacil.ViewModel
 
         internal NotaFiscalDataContext(object param, StatusNFe status, TipoOperacao operacaoRequirida)
         {
-            using (var db = new AplicativoContext())
+            using (var clientes = new Clientes())
+            using (var emitentes = new Emitentes())
+            using (var motoristas = new Motoristas())
+            using (var produtos = new Produtos())
             {
-                ClientesDisponiveis = db.Clientes
-                    .Include(x => x.endereco)
-                    .ToList();
-                EmitentesDisponiveis = db.Emitentes
-                    .Include(x => x.endereco)
-                    .ToList();
-                ProdutosDisponiveis = db.Produtos
-                    .ToList();
-                MotoristasDisponiveis = db.Motoristas
-                    .ToList();
+                ClientesDisponiveis = clientes.Registro.ToList();
+                EmitentesDisponiveis = emitentes.Registro.ToList();
+                MotoristasDisponiveis = motoristas.Registro.ToList();
+                ProdutosDisponiveis = produtos.Registro.ToList();
             }
             OperacaoRequirida = operacaoRequirida;
 

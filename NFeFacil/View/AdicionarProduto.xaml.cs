@@ -1,10 +1,11 @@
-﻿using NFeFacil.ItensBD;
-using NFeFacil.Log;
-using NFeFacil.Validacao;
+﻿using BibliotecaCentral.ItensBD;
+using BibliotecaCentral.Log;
+using BibliotecaCentral.Validacao;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using System.Threading.Tasks;
+using BibliotecaCentral.Repositorio;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -47,19 +48,18 @@ namespace NFeFacil.View
         {
             if (new ValidadorProduto(Produto).Validar(Log))
             {
-                using (var db = new AplicativoContext())
+                using (var db = new Produtos())
                 {
                     if (tipoRequisitado == TipoOperacao.Adicao)
                     {
-                        db.Add(Produto);
+                        db.Adicionar(Produto);
                         Log.Escrever(TitulosComuns.Sucesso, "Produto salvo com sucesso.");
                     }
                     else
                     {
-                        db.Update(Produto);
+                        db.Atualizar(Produto);
                         Log.Escrever(TitulosComuns.Sucesso, "Produto alterado com sucesso.");
                     }
-                    db.SaveChanges();
                 }
                 Propriedades.Intercambio.Retornar();
             }

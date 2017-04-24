@@ -1,6 +1,6 @@
 ﻿using NFeFacil.DANFE.Modelos.Local;
 using NFeFacil.DANFE.Processamento;
-using NFeFacil.ModeloXML;
+using BibliotecaCentral.ModeloXML;
 using System;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;

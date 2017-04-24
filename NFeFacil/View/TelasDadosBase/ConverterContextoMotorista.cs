@@ -1,6 +1,6 @@
-﻿using NFeFacil.ItensBD;
-using NFeFacil.ModeloXML;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
+﻿using BibliotecaCentral.ItensBD;
+using BibliotecaCentral.ModeloXML;
+using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
 using System;
 using System.ComponentModel;
 using Windows.UI.Xaml.Data;

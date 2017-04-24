@@ -8,17 +8,17 @@ using Windows.Networking;
 using Windows.Networking.Connectivity;
 using Windows.UI.Xaml.Media;
 using Newtonsoft.Json;
-using NFeFacil.Log;
-using NFeFacil.Configuracoes;
-using NFeFacil.Sincronizacao.Cliente;
-using NFeFacil.Sincronizacao;
-using NFeFacil.Sincronizacao.Pacotes;
+using BibliotecaCentral.Log;
+using BibliotecaCentral.Configuracoes;
+using BibliotecaCentral.Sincronizacao.Cliente;
+using BibliotecaCentral.Sincronizacao;
+using BibliotecaCentral.Sincronizacao.Pacotes;
 using NFeFacil.View;
 using System.Security.Cryptography.X509Certificates;
 using System.Collections.Generic;
-using static NFeFacil.Configuracoes.ConfiguracoesSincronizacao;
-using static NFeFacil.Configuracoes.ConfiguracoesCertificacao;
-using NFeFacil.ImportacaoParaBanco;
+using static BibliotecaCentral.Configuracoes.ConfiguracoesSincronizacao;
+using static BibliotecaCentral.Configuracoes.ConfiguracoesCertificacao;
+using BibliotecaCentral.ImportacaoParaBanco;
 using System.Text;
 
 namespace NFeFacil.ViewModel
@@ -309,7 +309,7 @@ namespace NFeFacil.ViewModel
             }
         }
 
-        public IEnumerable<TiposDadoBasico> TiposBásicos => Extensoes.ObterItens<TiposDadoBasico>();
+        public IEnumerable<TiposDadoBasico> TiposBásicos => BibliotecaCentral.Extensoes.ObterItens<TiposDadoBasico>();
         public TiposDadoBasico TipoBásicoSelecionado { get; set; }
 
         #endregion

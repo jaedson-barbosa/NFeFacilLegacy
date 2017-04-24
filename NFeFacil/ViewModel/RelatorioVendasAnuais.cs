@@ -1,5 +1,7 @@
-﻿using NFeFacil.ModeloXML;
-using NFeFacil.ModeloXML.PartesProcesso;
+﻿using BibliotecaCentral;
+using BibliotecaCentral.ModeloXML;
+using BibliotecaCentral.ModeloXML.PartesProcesso;
+using BibliotecaCentral.Repositorio;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,9 +18,9 @@ namespace NFeFacil.ViewModel
         {
             get
             {
-                using (var db = new AplicativoContext())
+                using (var db = new NotasFiscais())
                 {
-                    var anos = from dado in db.NotasFiscais
+                    var anos = from dado in db.Registro
                                let ano = Convert.ToDateTime(dado.DataEmissao).Year
                                orderby ano ascending
                                select ano;
@@ -42,19 +44,18 @@ namespace NFeFacil.ViewModel
 
         private async void AnoMudou()
         {
-            using (var db = new AplicativoContext())
+            using (var db = new NotasFiscais())
             {
-                var pasta = new PastaNotasFiscais();
                 notas = new List<NFe>();
-                foreach (var item in db.NotasFiscais)
+                foreach (var item in await db.RegistroAsync())
                 {
-                    if (item.Status < 4)
+                    if (item.nota.Status < 4)
                     {
-                        notas.Add(await pasta.Retornar<NFe>(item.Id));
+                        notas.Add(item.xml.FromXElement<NFe>());
                     }
                     else
                     {
-                        var proc = await pasta.Retornar<Processo>(item.Id);
+                        var proc = item.xml.FromXElement<Processo>();
                         notas.Add(proc.NFe);
                     }
                 }

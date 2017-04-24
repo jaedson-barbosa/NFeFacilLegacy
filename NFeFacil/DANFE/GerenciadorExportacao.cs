@@ -1,4 +1,5 @@
-﻿using NFeFacil.ModeloXML;
+﻿using BibliotecaCentral.Log;
+using BibliotecaCentral.ModeloXML;
 using System;
 using System.IO;
 using System.IO.Compression;
@@ -40,7 +41,7 @@ namespace NFeFacil.DANFE
                 CommitButtonText = "Salvar aqui"
             };
             var destinationfolder = await picker.PickSingleFolderAsync();
-            Log.ILog log = new Log.Popup();
+            ILog log = new Popup();
             if (destinationfolder != null)
             {
                 await Task.Run(() =>
@@ -50,17 +51,17 @@ namespace NFeFacil.DANFE
                     try
                     {
                         ZipFile.CreateFromDirectory(caminhoOrigem, caminhoDestino, CompressionLevel.Optimal, false);
-                        log.Escrever(Log.TitulosComuns.Sucesso, "DANFE salvo com sucesso.");
+                        log.Escrever(TitulosComuns.Sucesso, "DANFE salvo com sucesso.");
                     }
                     catch (IOException)
                     {
-                        log.Escrever(Log.TitulosComuns.ErroSimples, "Este arquivo já foi salvo nesta pasta.");
+                        log.Escrever(TitulosComuns.ErroSimples, "Este arquivo já foi salvo nesta pasta.");
                     }
                 });
             }
             else
             {
-                log.Escrever(Log.TitulosComuns.OperaçãoCancelada, "Não foi escolhida nenhuma pasta para salvar o arquivo.");
+                log.Escrever(TitulosComuns.OperaçãoCancelada, "Não foi escolhida nenhuma pasta para salvar o arquivo.");
             }
         }
     }

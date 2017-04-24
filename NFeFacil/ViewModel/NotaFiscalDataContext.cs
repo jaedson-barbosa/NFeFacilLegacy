@@ -1,14 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NFeFacil.IBGE;
-using NFeFacil.ItensBD;
-using NFeFacil.Log;
-using NFeFacil.ModeloXML;
-using NFeFacil.ModeloXML.PartesProcesso;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
-using NFeFacil.Validacao;
+using BibliotecaCentral.IBGE;
+using BibliotecaCentral.ItensBD;
+using BibliotecaCentral.Log;
+using BibliotecaCentral.ModeloXML;
+using BibliotecaCentral.ModeloXML.PartesProcesso;
+using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe;
+using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
+using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
+using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
+using BibliotecaCentral.Validacao;
 using NFeFacil.View;
 using System;
 using System.Collections.Generic;
@@ -17,6 +17,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
 using Windows.ApplicationModel.Core;
+using BibliotecaCentral;
+using BibliotecaCentral.Repositorio;
 
 namespace NFeFacil.ViewModel
 {
@@ -135,8 +137,9 @@ namespace NFeFacil.ViewModel
         }
 
         public int IndexPivotSelecionado { get; set; } = 0;
+        private TipoOperacao OperacaoRequirida { get; }
 
-        internal NotaFiscalDataContext(object param, StatusNFe status)
+        internal NotaFiscalDataContext(object param, StatusNFe status, TipoOperacao operacaoRequirida)
         {
             using (var db = new AplicativoContext())
             {
@@ -151,6 +154,7 @@ namespace NFeFacil.ViewModel
                 MotoristasDisponiveis = db.Motoristas
                     .ToList();
             }
+            OperacaoRequirida = operacaoRequirida;
 
             Detalhes nfe;
             if (param is Processo proc)
@@ -259,21 +263,24 @@ namespace NFeFacil.ViewModel
 
         private static T NaoEDefault<T>(T valor) where T : class => valor != null && valor != default(T) ? valor : null;
 
-        private async void Salvar()
+        private void Salvar()
         {
             try
             {
                 StatusAtual = StatusNFe.Salvo;
-                PastaNotasFiscais pasta = new PastaNotasFiscais();
                 var xml = notaSalva.ToXElement<NFe>();
                 var di = NFeDI.Converter(xml);
                 di.Status = (int)StatusAtual;
-                using (var db = new AplicativoContext())
+                using (var db = new NotasFiscais())
                 {
-                    await pasta.AdicionarOuAtualizar(xml, di.Id);
-                    var quant = db.NotasFiscais.Count(x => x.Id == di.Id);
-                    if (quant == 1) db.Update(di);
-                    else db.Add(di);
+                    if (OperacaoRequirida == TipoOperacao.Adicao)
+                    {
+                        db.Adicionar((di, xml));
+                    }
+                    else
+                    {
+                        db.Atualizar((di, xml));
+                    }
                 }
                 Log.Escrever(TitulosComuns.Sucesso, "Nota fiscal salva com sucesso. Agora podes sair da aplicação sem perder esta NFe.");
             }

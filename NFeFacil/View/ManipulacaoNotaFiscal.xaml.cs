@@ -1,4 +1,4 @@
-﻿using NFeFacil.ItensBD;
+﻿using BibliotecaCentral.ItensBD;
 using NFeFacil.ViewModel;
 using System;
 using System.Threading.Tasks;
@@ -36,7 +36,7 @@ namespace NFeFacil.View
                 default:
                     break;
             }
-            DataContext = contexto = new NotaFiscalDataContext(param.ItemBanco.Item2, (StatusNFe)param.ItemBanco.Item1.Status);
+            DataContext = contexto = new NotaFiscalDataContext(param.ItemBanco.Item2, (StatusNFe)param.ItemBanco.Item1.Status, param.OperacaoRequirida);
         }
 
         async Task<bool> IValida.Verificar()

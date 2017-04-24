@@ -1,6 +1,6 @@
-﻿using NFeFacil.IBGE;
-using NFeFacil.ItensBD;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
+﻿using BibliotecaCentral.IBGE;
+using BibliotecaCentral.ItensBD;
+using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using System;
 using System.ComponentModel;
 using System.Linq;

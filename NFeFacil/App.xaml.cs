@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using BibliotecaCentral.Configuracoes;
 using NFeFacil.View;
 using System;
 using Windows.ApplicationModel;
@@ -22,13 +22,9 @@ namespace NFeFacil
         {
             InitializeComponent();
             Suspending += OnSuspending;
-            using (var db = new AplicativoContext())
-            {
-                db.Database.Migrate();
-            }
-            IBGE.Estados.Buscar();
-            IBGE.Municipios.Buscar();
-            if (Configuracoes.ConfiguracoesSincronizacao.InícioAutomático)
+            BibliotecaCentral.InicioGeral.IniciarBancoDados();
+            BibliotecaCentral.InicioGeral.IniciarIBGE();
+            if (ConfiguracoesSincronizacao.InícioAutomático)
             {
                 Propriedades.Server.IniciarServer().ConfigureAwait(false);
             }

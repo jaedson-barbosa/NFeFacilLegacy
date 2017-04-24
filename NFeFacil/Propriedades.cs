@@ -1,5 +1,5 @@
-﻿using NFeFacil.Log;
-using NFeFacil.Sincronizacao;
+﻿using BibliotecaCentral.Log;
+using BibliotecaCentral.Sincronizacao;
 using System;
 using System.Linq;
 using System.Threading.Tasks;

@@ -1,10 +1,11 @@
-﻿using NFeFacil.Log;
-using NFeFacil.Validacao;
+﻿using BibliotecaCentral.Log;
+using BibliotecaCentral.Validacao;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using System.Threading.Tasks;
-using NFeFacil.ItensBD;
+using BibliotecaCentral.ItensBD;
+using BibliotecaCentral.Repositorio;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -47,19 +48,18 @@ namespace NFeFacil.View
         {
             if (new ValidadorMotorista(motorista).Validar(Log))
             {
-                using (var db = new AplicativoContext())
+                using (var db = new Motoristas())
                 {
                     if (tipoRequisitado == TipoOperacao.Adicao)
                     {
-                        db.Add(motorista);
+                        db.Adicionar(motorista);
                         Log.Escrever(TitulosComuns.Sucesso, "Motorista salvo com sucesso.");
                     }
                     else
                     {
-                        db.Update(motorista);
+                        db.Atualizar(motorista);
                         Log.Escrever(TitulosComuns.Sucesso, "Motorista alterado com sucesso.");
                     }
-                    db.SaveChanges();
                 }
                 Propriedades.Intercambio.Retornar();
             }

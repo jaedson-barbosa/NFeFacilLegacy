@@ -57,7 +57,7 @@ namespace BibliotecaCentral.Sincronizacao
             Log.Escrever(TitulosComuns.Log, strExtra);
         }
 
-        internal void FecharBrecha()
+        public void FecharBrecha()
         {
             CoreApplication.Properties["BrechaAberta"] = false;
         }

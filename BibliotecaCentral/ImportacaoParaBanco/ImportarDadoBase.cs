@@ -12,7 +12,7 @@ using Windows.Storage;
 
 namespace BibliotecaCentral.ImportacaoParaBanco
 {
-    internal sealed class ImportarDadoBase : Importacao
+    public sealed class ImportarDadoBase : Importacao
     {
         private TiposDadoBasico TipoDado;
         private IReadOnlyList<StorageFile> arquivos;

@@ -1,10 +1,10 @@
 ﻿using NFeFacil.DANFE.Modelos.Global;
 using NFeFacil.DANFE.Modelos.Local;
-using NFeFacil.ModeloXML;
-using NFeFacil.ModeloXML.PartesProcesso;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
+using BibliotecaCentral.ModeloXML;
+using BibliotecaCentral.ModeloXML.PartesProcesso;
+using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe;
+using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
+using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 using System;
 using System.Linq;
 

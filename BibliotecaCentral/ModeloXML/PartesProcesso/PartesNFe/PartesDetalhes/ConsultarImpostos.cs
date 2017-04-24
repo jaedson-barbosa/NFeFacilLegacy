@@ -3,7 +3,7 @@ using System.Xml.Linq;
 
 namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
 {
-    internal struct ConsultarImpostos
+    public struct ConsultarImpostos
     {
         private XElement xml;
 

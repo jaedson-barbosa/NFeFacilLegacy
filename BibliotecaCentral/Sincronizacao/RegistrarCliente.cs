@@ -3,7 +3,7 @@ using Windows.ApplicationModel.Background;
 
 namespace BibliotecaCentral.Sincronizacao
 {
-    internal static class RegistroClienteBackground
+    public static class RegistroClienteBackground
     {
         public static void Registrar()
         {

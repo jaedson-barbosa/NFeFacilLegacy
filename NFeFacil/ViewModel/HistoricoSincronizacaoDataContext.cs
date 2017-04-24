@@ -1,8 +1,10 @@
-﻿using NFeFacil.Configuracoes;
+﻿using BibliotecaCentral.ItensBD;
+using BibliotecaCentral.Configuracoes;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Windows.UI.ViewManagement;
-using static NFeFacil.Configuracoes.ConfiguracoesSincronizacao;
+using static BibliotecaCentral.Configuracoes.ConfiguracoesSincronizacao;
+using BibliotecaCentral.Repositorio;
 
 namespace NFeFacil.ViewModel
 {
@@ -22,24 +24,24 @@ namespace NFeFacil.ViewModel
         public bool IsServidor => Tipo == TipoAppSincronizacao.Servidor;
         public bool Vertical => View.Orientation == ApplicationViewOrientation.Portrait;
 
-        public ObservableCollection<ItensBD.ResultadoSincronizacaoCliente> ResultadosCliente
+        public ObservableCollection<ResultadoSincronizacaoCliente> ResultadosCliente
         {
             get
             {
-                using (var db = new AplicativoContext())
+                using (var db = new ResultadosCliente())
                 {
-                    return db.ResultadosCliente.GerarObs();
+                    return db.Registro.GerarObs();
                 }
             }
         }
 
-        public ObservableCollection<ItensBD.ResultadoSincronizacaoServidor> ResultadosServer
+        public ObservableCollection<ResultadoSincronizacaoServidor> ResultadosServer
         {
             get
             {
-                using (var db = new AplicativoContext())
+                using (var db = new ResultadosServidor())
                 {
-                    return db.ResultadosServidor.GerarObs();
+                    return db.Registro.GerarObs();
                 }
             }
         }

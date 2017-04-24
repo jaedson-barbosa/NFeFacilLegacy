@@ -52,7 +52,7 @@ namespace BibliotecaCentral.ItensBD
             else return (NFeDI)xml.FromXElement<Processo>();
         }
 
-        internal async Task<object> ConjuntoCompletoAsync()
+        public async Task<object> ConjuntoCompletoAsync()
         {
             var pasta = new PastaNotasFiscais();
             if (Status < 4)
@@ -60,15 +60,5 @@ namespace BibliotecaCentral.ItensBD
             else
                 return await pasta.Retornar<Processo>(Id);
         }
-    }
-
-    internal enum StatusNFe
-    {
-        EdiçãoCriação,
-        Validado,
-        Salvo,
-        Assinado,
-        Emitido,
-        Impresso
     }
 }

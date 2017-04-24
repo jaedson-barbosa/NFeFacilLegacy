@@ -2,7 +2,7 @@
 
 namespace BibliotecaCentral.ImportacaoParaBanco
 {
-    internal class RelatorioImportacao
+    public class RelatorioImportacao
     {
         public ResumoRelatorioImportacao Analise
         {

@@ -5,7 +5,7 @@ namespace BibliotecaCentral.IBGE
 {
     public static class Estados
     {
-        internal static IEnumerable<Estado> EstadosCache;
+        public static IEnumerable<Estado> EstadosCache;
 
         public static void Buscar()
         {

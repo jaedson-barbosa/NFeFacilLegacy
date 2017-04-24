@@ -8,7 +8,7 @@ using System.Xml.Linq;
 
 namespace BibliotecaCentral.ImportacaoParaBanco
 {
-    internal sealed class ImportarNotaFiscal : Importacao
+    public sealed class ImportarNotaFiscal : Importacao
     {
         public ImportarNotaFiscal() : base(".xml") { }
 

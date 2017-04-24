@@ -1,11 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
-using NFeFacil.ItensBD;
-using NFeFacil.Log;
+﻿using BibliotecaCentral.ItensBD;
+using BibliotecaCentral.Log;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using BibliotecaCentral.Repositorio;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -19,12 +19,15 @@ namespace NFeFacil.View
         public GerenciarDadosBase()
         {
             InitializeComponent();
-            using (var db = new AplicativoContext())
+            using (var clientes = new Clientes())
+            using (var emitentes = new Emitentes())
+            using (var motoristas = new Motoristas())
+            using (var produtos = new Produtos())
             {
-                lstDestinatários.ItemsSource = db.Clientes.Include(x => x.endereco).ToList();
-                lstEmitentes.ItemsSource = db.Emitentes.Include(x => x.endereco).ToList();
-                lstMotoristas.ItemsSource = db.Motoristas.ToList();
-                lstProdutos.ItemsSource = db.Produtos.ToList();
+                lstDestinatários.ItemsSource = clientes.Registro.ToList();
+                lstEmitentes.ItemsSource = emitentes.Registro.ToList();
+                lstMotoristas.ItemsSource = motoristas.Registro.ToList();
+                lstProdutos.ItemsSource = produtos.Registro.ToList();
             }
             Propriedades.Intercambio.SeAtualizar(Telas.GerenciarDadosBase, Symbol.Manage, "Gerenciar dados base");
         }
@@ -36,57 +39,64 @@ namespace NFeFacil.View
 
         private void Deletar_Click(object sender, RoutedEventArgs e)
         {
-            bool erro = false;
-            using (var db = new AplicativoContext())
+            var telaEscolhida = DescobrirTela();
+            if (telaEscolhida == Pivôs.Destinatario)
             {
-                switch (DescobrirTela())
+                var cliente = lstDestinatários.SelectedItem as ClienteDI;
+                if (cliente != null)
                 {
-                    case Pivôs.Destinatario:
-                        var cliente = lstDestinatários.SelectedItem as ClienteDI;
-                        if (cliente != null)
-                        {
-                            db.Remove(cliente);
-                            db.SaveChanges();
-                            lstDestinatários.ItemsSource = db.Clientes.Include(x => x.endereco).ToList();
-                        }
-                        else erro = true;
-                        break;
-                    case Pivôs.Emitente:
-                        var emitente = lstEmitentes.SelectedItem as EmitenteDI;
-                        if (emitente != null)
-                        {
-                            db.Remove(emitente);
-                            db.SaveChanges();
-                            lstEmitentes.ItemsSource = db.Emitentes.Include(x => x.endereco).ToList();
-                        }
-                        else erro = true;
-                        break;
-                    case Pivôs.Motorista:
-                        var motorista = lstMotoristas.SelectedItem as MotoristaDI;
-                        if (motorista != null)
-                        {
-                            db.Remove(motorista);
-                            db.SaveChanges();
-                            lstMotoristas.ItemsSource = db.Motoristas.ToList();
-                        }
-                        else erro = true;
-                        break;
-                    case Pivôs.Produto:
-                        var Produto = lstProdutos.SelectedItem as ProdutoDI;
-                        if (Produto != null)
-                        {
-                            db.Remove(Produto);
-                            db.SaveChanges();
-                            lstProdutos.ItemsSource = db.Produtos.ToList();
-                        }
-                        else erro = true;
-                        break;
-                    default:
-                        break;
+                    using (var db = new Clientes())
+                    {
+                        db.Remover(cliente);
+                        db.SalvarMudancas();
+                        lstDestinatários.ItemsSource = db.Registro.ToList();
+                        return;
+                    }
                 }
-                db.SaveChanges();
             }
-            if (erro) new Popup().Escrever(TitulosComuns.ErroSimples, "Escolha ao menos um item.");
+            else if (telaEscolhida == Pivôs.Emitente)
+            {
+                var emitente = lstEmitentes.SelectedItem as EmitenteDI;
+                if (emitente != null)
+                {
+                    using (var db = new Emitentes())
+                    {
+                        db.Remover(emitente);
+                        db.SalvarMudancas();
+                        lstEmitentes.ItemsSource = db.Registro.ToList();
+                        return;
+                    }
+                }
+            }
+            else if (telaEscolhida == Pivôs.Motorista)
+            {
+                var motorista = lstMotoristas.SelectedItem as MotoristaDI;
+                if (motorista != null)
+                {
+                    using (var db = new Motoristas())
+                    {
+                        db.Remover(motorista);
+                        db.SalvarMudancas();
+                        lstMotoristas.ItemsSource = db.Registro.ToList();
+                        return;
+                    }
+                }
+            }
+            else
+            {
+                var Produto = lstProdutos.SelectedItem as ProdutoDI;
+                if (Produto != null)
+                {
+                    using (var db = new Produtos())
+                    {
+                        db.Remover(Produto);
+                        db.SalvarMudancas();
+                        lstProdutos.ItemsSource = db.Registro.ToList();
+                        return;
+                    }
+                }
+            }
+            new Popup().Escrever(TitulosComuns.ErroSimples, "Escolha ao menos um item.");
         }
 
         private async void Editar_ClickAsync(object sender, RoutedEventArgs e)

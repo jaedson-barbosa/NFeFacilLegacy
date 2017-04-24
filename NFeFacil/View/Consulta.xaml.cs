@@ -1,5 +1,5 @@
-﻿using NFeFacil.IBGE;
-using NFeFacil.WebService.ConsultarNota;
+﻿using BibliotecaCentral.IBGE;
+using BibliotecaCentral.WebService.ConsultarNota;
 using System;
 using System.Threading.Tasks;
 using Windows.UI.Popups;

@@ -1,8 +1,8 @@
-﻿using NFeFacil.ItensBD;
-using NFeFacil.Log;
-using NFeFacil.ModeloXML.PartesProcesso;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
+﻿using BibliotecaCentral.ItensBD;
+using BibliotecaCentral.Log;
+using BibliotecaCentral.ModeloXML.PartesProcesso;
+using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe;
+using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using NFeFacil.View;
 using System;
 using System.Collections.Generic;

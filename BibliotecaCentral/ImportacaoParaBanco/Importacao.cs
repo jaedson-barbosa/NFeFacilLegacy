@@ -6,7 +6,7 @@ using Windows.Storage.Pickers;
 
 namespace BibliotecaCentral.ImportacaoParaBanco
 {
-    internal abstract class Importacao
+    public abstract class Importacao
     {
         private string[] Extensão;
 

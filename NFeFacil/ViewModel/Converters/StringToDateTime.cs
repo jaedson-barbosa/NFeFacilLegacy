@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BibliotecaCentral.Log;
+using System;
 using System.Globalization;
 using Windows.UI.Xaml.Data;
 
@@ -21,7 +22,7 @@ namespace NFeFacil.ViewModel.Converters
                 }
                 else
                 {
-                    new Log.Saida().Escrever(Log.TitulosComuns.ErroSimples, "Formato não definido");
+                    new Saida().Escrever(TitulosComuns.ErroSimples, "Formato não definido");
                 }
                 if (targetType == typeof(DateTime))
                 {
@@ -58,7 +59,7 @@ namespace NFeFacil.ViewModel.Converters
             }
             else
             {
-                new Log.Saida().Escrever(Log.TitulosComuns.ErroSimples, "Formato não definido");
+                new Saida().Escrever(TitulosComuns.ErroSimples, "Formato não definido");
             }
             if (value is DateTime dataHora)
             {

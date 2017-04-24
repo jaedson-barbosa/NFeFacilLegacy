@@ -1,6 +1,6 @@
 ﻿namespace BibliotecaCentral.ImportacaoParaBanco
 {
-    internal struct XmlNaoReconhecido
+    public struct XmlNaoReconhecido
     {
         public string NomeArquivo { get; }
         public string TagRaiz { get; }

@@ -1,8 +1,8 @@
-﻿using NFeFacil.ItensBD;
-using System;
+﻿using BibliotecaCentral.ItensBD;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using System.Threading.Tasks;
+using BibliotecaCentral.Repositorio;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -16,9 +16,9 @@ namespace NFeFacil.View
         public NotasSalvas()
         {
             InitializeComponent();
-            using (var db = new AplicativoContext())
+            using (var db = new NotasFiscais())
             {
-                lstNotas.ItemsSource = db.NotasFiscais.GerarObs();
+                lstNotas.ItemsSource = db.Registro.GerarObs();
             }
             Propriedades.Intercambio.SeAtualizar(Telas.NotasSalvas, Symbol.Library, "Notas salvas");
         }
@@ -26,12 +26,11 @@ namespace NFeFacil.View
         private async void RemoverAsync(object sender, RoutedEventArgs e)
         {
             var nota = (sender as FrameworkElement).DataContext as NFeDI;
-            await new PastaNotasFiscais().Remover(nota.Id);
-            using (var db = new AplicativoContext())
+            using (var db = new NotasFiscais())
             {
-                db.Remove(nota);
-                await db.SaveChangesAsync();
-                lstNotas.ItemsSource = db.NotasFiscais.GerarObs();
+                await db.Remover(nota);
+                db.SalvarMudancas();
+                lstNotas.ItemsSource = db.Registro.GerarObs();
             }
         }
 

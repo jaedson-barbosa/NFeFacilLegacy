@@ -1,6 +1,6 @@
 ﻿namespace BibliotecaCentral.ImportacaoParaBanco
 {
-    internal enum ResumoRelatorioImportacao
+    public enum ResumoRelatorioImportacao
     {
         Sucesso,
         Erro

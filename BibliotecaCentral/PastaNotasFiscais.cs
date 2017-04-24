@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -41,18 +42,18 @@ namespace BibliotecaCentral
             }
         }
 
-        public async Task<XElement[]> RegistroCompleto()
+        public async Task<List<(string nome, XElement xml)>> RegistroCompleto()
         {
             var arqs = await PastaArquivos.GetFilesAsync();
             var quantidade = arqs.Count(x => x.FileType == ".xml");
-            var retorno = new XElement[quantidade];
+            var retorno = new List<(string nome, XElement xml)>();
             for (int i = 0; i < arqs.Count(); i++)
             {
-                if (arqs.ElementAt(i).FileType == ".xml")
+                if (arqs[i].FileType == ".xml")
                 {
-                    using (var stream = await arqs.ElementAt(i).OpenStreamForReadAsync())
+                    using (var stream = await arqs[i].OpenStreamForReadAsync())
                     {
-                        retorno[i] = XElement.Load(stream);
+                        retorno[i] = (arqs[i].Name, XElement.Load(stream));
                     }
                 }
             }

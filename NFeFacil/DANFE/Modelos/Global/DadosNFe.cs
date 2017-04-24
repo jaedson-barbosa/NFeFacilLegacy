@@ -1,4 +1,4 @@
-﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe;
+﻿using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe;
 
 namespace NFeFacil.DANFE.Modelos.Global
 {

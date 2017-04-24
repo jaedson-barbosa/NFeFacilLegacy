@@ -260,7 +260,6 @@
     <Compile Include="View\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model.cs" />
     <Compile Include="ViewModel\ImpostosProduto\PISDataContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\RelatorioVendasAnuais.cs" />
@@ -492,7 +491,12 @@
       <Name>Windows Mobile Extensions for the UWP</Name>
     </SDKReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\BibliotecaCentral\BibliotecaCentral.csproj">
+      <Project>{b59a85aa-2d60-4d5b-8104-dcb0a3f25019}</Project>
+      <Name>BibliotecaCentral</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

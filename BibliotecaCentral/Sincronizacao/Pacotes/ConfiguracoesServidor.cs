@@ -1,4 +1,4 @@
-﻿namespace NFeFacil.Sincronizacao.Pacotes
+﻿namespace BibliotecaCentral.Sincronizacao.Pacotes
 {
     public sealed class ConfiguracoesServidor : PacoteBase
     {

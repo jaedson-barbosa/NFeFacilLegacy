@@ -1,10 +1,10 @@
-﻿using static NFeFacil.Configuracoes.ConfiguracoesSincronizacao;
+﻿using static BibliotecaCentral.Configuracoes.ConfiguracoesSincronizacao;
 using Restup.Webserver.Attributes;
 using Restup.Webserver.Models.Contracts;
 using Restup.Webserver.Models.Schemas;
 using System;
 
-namespace NFeFacil.Sincronizacao.Servidor
+namespace BibliotecaCentral.Sincronizacao.Servidor
 {
     [RestController(InstanceCreationType.PerCall)]
     class ControllerConfiguracoes

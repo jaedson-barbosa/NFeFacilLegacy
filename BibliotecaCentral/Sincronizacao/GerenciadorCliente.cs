@@ -1,9 +1,9 @@
-﻿using NFeFacil.Log;
-using NFeFacil.Sincronizacao.Cliente;
+﻿using BibliotecaCentral.Log;
+using BibliotecaCentral.Sincronizacao.Cliente;
 using System;
 using System.Threading.Tasks;
 
-namespace NFeFacil.Sincronizacao
+namespace BibliotecaCentral.Sincronizacao
 {
     public sealed class GerenciadorCliente
     {

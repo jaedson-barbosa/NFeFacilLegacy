@@ -1,11 +1,11 @@
-﻿using NFeFacil.Sincronizacao.Pacotes;
+﻿using BibliotecaCentral.Sincronizacao.Pacotes;
 using Restup.Webserver.Attributes;
 using Restup.Webserver.Models.Contracts;
 using Restup.Webserver.Models.Schemas;
 using System;
 using System.Threading.Tasks;
 
-namespace NFeFacil.Sincronizacao.Servidor
+namespace BibliotecaCentral.Sincronizacao.Servidor
 {
     [RestController(InstanceCreationType.PerCall)]
     internal sealed class ControllerSincronizacaoNotas

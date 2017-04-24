@@ -1,10 +1,10 @@
-﻿using NFeFacil.ItensBD;
-using NFeFacil.Sincronizacao.Pacotes;
+﻿using BibliotecaCentral.ItensBD;
+using BibliotecaCentral.Sincronizacao.Pacotes;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NFeFacil.Sincronizacao
+namespace BibliotecaCentral.Sincronizacao
 {
     internal static class ProcessamentoNotas
     {

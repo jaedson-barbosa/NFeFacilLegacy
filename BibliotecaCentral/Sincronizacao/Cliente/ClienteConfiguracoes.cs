@@ -1,7 +1,7 @@
-﻿using static NFeFacil.Configuracoes.ConfiguracoesSincronizacao;
+﻿using static BibliotecaCentral.Configuracoes.ConfiguracoesSincronizacao;
 using System.Threading.Tasks;
 
-namespace NFeFacil.Sincronizacao.Cliente
+namespace BibliotecaCentral.Sincronizacao.Cliente
 {
     internal sealed class ClienteConfiguracoes : ConexaoComServidor
     {

@@ -1,7 +1,7 @@
-﻿using NFeFacil.ItensBD;
+﻿using BibliotecaCentral.ItensBD;
 using System.Collections.Generic;
 
-namespace NFeFacil.Sincronizacao.Pacotes
+namespace BibliotecaCentral.Sincronizacao.Pacotes
 {
     public sealed class DadosBase : PacoteBase
     {

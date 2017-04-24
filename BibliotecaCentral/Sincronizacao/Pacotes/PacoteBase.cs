@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NFeFacil.Sincronizacao.Pacotes
+namespace BibliotecaCentral.Sincronizacao.Pacotes
 {
     public abstract class PacoteBase
     {

@@ -1,9 +1,9 @@
-﻿using static NFeFacil.Configuracoes.ConfiguracoesSincronizacao;
-using NFeFacil.Log;
+﻿using static BibliotecaCentral.Configuracoes.ConfiguracoesSincronizacao;
+using BibliotecaCentral.Log;
 using System.Threading.Tasks;
-using NFeFacil.Sincronizacao.Pacotes;
+using BibliotecaCentral.Sincronizacao.Pacotes;
 
-namespace NFeFacil.Sincronizacao.Cliente
+namespace BibliotecaCentral.Sincronizacao.Cliente
 {
     public sealed class ClienteBrechaSeguranca : ConexaoComServidor
     {

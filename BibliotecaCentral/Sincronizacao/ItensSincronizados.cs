@@ -1,4 +1,4 @@
-﻿namespace NFeFacil.Sincronizacao
+﻿namespace BibliotecaCentral.Sincronizacao
 {
     internal struct ItensSincronizados
     {

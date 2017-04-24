@@ -1,6 +1,6 @@
 ﻿using System.Xml.Linq;
 
-namespace NFeFacil.Sincronizacao.Pacotes
+namespace BibliotecaCentral.Sincronizacao.Pacotes
 {
     public sealed class NotasFiscais : PacoteBase
     {

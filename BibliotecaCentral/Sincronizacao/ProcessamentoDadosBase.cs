@@ -1,7 +1,7 @@
-﻿using NFeFacil.Sincronizacao.Pacotes;
+﻿using BibliotecaCentral.Sincronizacao.Pacotes;
 using System.Threading.Tasks;
 
-namespace NFeFacil.Sincronizacao
+namespace BibliotecaCentral.Sincronizacao
 {
     internal static class ProcessamentoDadosBase
     {

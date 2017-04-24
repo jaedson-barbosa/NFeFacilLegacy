@@ -1,11 +1,11 @@
-﻿using static NFeFacil.Configuracoes.ConfiguracoesSincronizacao;
+﻿using static BibliotecaCentral.Configuracoes.ConfiguracoesSincronizacao;
 using Newtonsoft.Json;
-using NFeFacil.Sincronizacao.Pacotes;
+using BibliotecaCentral.Sincronizacao.Pacotes;
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace NFeFacil.Sincronizacao.Cliente
+namespace BibliotecaCentral.Sincronizacao.Cliente
 {
     public abstract class ConexaoComServidor
     {

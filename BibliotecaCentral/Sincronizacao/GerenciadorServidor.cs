@@ -1,12 +1,12 @@
-﻿using NFeFacil.Log;
-using NFeFacil.Sincronizacao.Servidor;
+﻿using BibliotecaCentral.Log;
+using BibliotecaCentral.Sincronizacao.Servidor;
 using Restup.Webserver.Http;
 using Restup.Webserver.Rest;
 using System;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 
-namespace NFeFacil.Sincronizacao
+namespace BibliotecaCentral.Sincronizacao
 {
     public sealed class GerenciadorServidor
     {

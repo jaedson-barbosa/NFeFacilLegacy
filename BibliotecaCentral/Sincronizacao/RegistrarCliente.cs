@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Windows.ApplicationModel.Background;
 
-namespace NFeFacil.Sincronizacao
+namespace BibliotecaCentral.Sincronizacao
 {
     internal static class RegistroClienteBackground
     {

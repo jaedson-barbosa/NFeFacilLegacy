@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NFeFacil.Sincronizacao.Servidor
+namespace BibliotecaCentral.Sincronizacao.Servidor
 {
     internal static class SupervisionarOperacao
     {

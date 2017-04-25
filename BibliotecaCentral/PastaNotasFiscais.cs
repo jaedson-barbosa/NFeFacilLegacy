@@ -42,6 +42,13 @@ namespace BibliotecaCentral
             }
         }
 
+        public async Task<IEnumerable<XElement>> RegistroCompletoRapidoAsync()
+        {
+            return from item in await PastaArquivos.GetFilesAsync()
+                   where item.FileType == ".xml"
+                   select XElement.Load(item.Path);
+        }
+
         public async Task<List<(string nome, XElement xml)>> RegistroCompleto()
         {
             var arqs = await PastaArquivos.GetFilesAsync();

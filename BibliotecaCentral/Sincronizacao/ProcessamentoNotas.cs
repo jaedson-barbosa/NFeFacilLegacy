@@ -12,7 +12,7 @@ namespace BibliotecaCentral.Sincronizacao
         {
             return new NotasFiscais()
             {
-                XMLs = (await new PastaNotasFiscais().RegistroCompleto()).Select(x => x.xml).ToArray()
+                XMLs = (await new PastaNotasFiscais().RegistroCompletoRapidoAsync()).ToArray()
             };
         }
 

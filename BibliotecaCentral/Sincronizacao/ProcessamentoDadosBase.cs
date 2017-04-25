@@ -25,6 +25,7 @@ namespace BibliotecaCentral.Sincronizacao
 
         public async Task SalvarAsync(DadosBase dados)
         {
+
             Contexto.Emitentes.AddRange(dados.Emitentes);
             Contexto.Clientes.AddRange(dados.Clientes);
             Contexto.Motoristas.AddRange(dados.Motoristas); ;

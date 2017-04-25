@@ -9,7 +9,9 @@ namespace Background
         public async void Run(IBackgroundTaskInstance taskInstance)
         {
             var deferral = taskInstance.GetDeferral();
-            var gerenc = new GerenciadorCliente(new Toast());
+            var toast = new Toast();
+            toast.Escrever(TitulosComuns.Iniciando, "Iniciando tarefa em background");
+            var gerenc = new GerenciadorCliente(toast);
             await gerenc.Sincronizar(DadosSincronizaveis.Tudo, true);
             deferral.Complete();
         }

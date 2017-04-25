@@ -74,13 +74,13 @@ namespace NFeFacil.ViewModel
             }
         }
 
-        public List<ClienteDI> ClientesDisponiveis { get; }
-        public List<EmitenteDI> EmitentesDisponiveis { get; }
-        public List<ProdutoDI> ProdutosDisponiveis { get; }
-        public List<MotoristaDI> MotoristasDisponiveis { get; }
+        public List<Destinatario> ClientesDisponiveis { get; }
+        public List<Emitente> EmitentesDisponiveis { get; }
+        public List<BaseProdutoOuServico> ProdutosDisponiveis { get; }
+        public List<Motorista> MotoristasDisponiveis { get; }
 
-        private ClienteDI clienteSelecionado;
-        public ClienteDI ClienteSelecionado
+        private Destinatario clienteSelecionado;
+        public Destinatario ClienteSelecionado
         {
             get
             {
@@ -97,8 +97,8 @@ namespace NFeFacil.ViewModel
             }
         }
 
-        private EmitenteDI emitenteSelecionado;
-        public EmitenteDI EmitenteSelecionado
+        private Emitente emitenteSelecionado;
+        public Emitente EmitenteSelecionado
         {
             get
             {
@@ -115,10 +115,10 @@ namespace NFeFacil.ViewModel
             }
         }
 
-        public ProdutoDI ProdutoSelecionado { get; set; }
+        public BaseProdutoOuServico ProdutoSelecionado { get; set; }
 
-        private MotoristaDI motoristaSelecionado;
-        public MotoristaDI MotoristaSelecionado
+        private Motorista motoristaSelecionado;
+        public Motorista MotoristaSelecionado
         {
             get
             {

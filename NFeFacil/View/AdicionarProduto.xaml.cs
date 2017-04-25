@@ -6,6 +6,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using System.Threading.Tasks;
 using BibliotecaCentral.Repositorio;
+using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -16,7 +17,7 @@ namespace NFeFacil.View
     /// </summary>
     public sealed partial class AdicionarProduto : Page, IEsconde
     {
-        private ProdutoDI Produto;
+        private BaseProdutoOuServico Produto;
         private TipoOperacao tipoRequisitado;
         private ILog Log = new Popup();
 
@@ -27,8 +28,8 @@ namespace NFeFacil.View
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var parametro = (GrupoViewBanco<ProdutoDI>)e.Parameter;
-            Produto = parametro.ItemBanco ?? new ProdutoDI();
+            var parametro = (GrupoViewBanco<BaseProdutoOuServico>)e.Parameter;
+            Produto = parametro.ItemBanco ?? new BaseProdutoOuServico();
             tipoRequisitado = parametro.OperacaoRequirida;
             switch (tipoRequisitado)
             {

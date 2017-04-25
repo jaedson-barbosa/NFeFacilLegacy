@@ -3,6 +3,8 @@ using BibliotecaCentral.Log;
 using BibliotecaCentral.ModeloXML.PartesProcesso;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
+using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
+using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
 using NFeFacil.View;
 using System;
 using System.Collections.Generic;
@@ -60,10 +62,10 @@ namespace NFeFacil
 
         private Dictionary<Type, object> TelasComParametroObrigatorio = new Dictionary<Type, object>
         {
-            { typeof(AdicionarDestinatario), new GrupoViewBanco<ClienteDI>() },
-            { typeof(AdicionarEmitente), new GrupoViewBanco<EmitenteDI>() },
-            { typeof(AdicionarMotorista), new GrupoViewBanco<MotoristaDI>() },
-            { typeof(AdicionarProduto), new GrupoViewBanco<ProdutoDI>() },
+            { typeof(AdicionarDestinatario), new GrupoViewBanco<Destinatario>() },
+            { typeof(AdicionarEmitente), new GrupoViewBanco<Emitente>() },
+            { typeof(AdicionarMotorista), new GrupoViewBanco<Motorista>() },
+            { typeof(AdicionarProduto), new GrupoViewBanco<BaseProdutoOuServico>() },
             {
                 typeof(ManipulacaoNotaFiscal),
                 new GrupoViewBanco<(NFeDI, object)>

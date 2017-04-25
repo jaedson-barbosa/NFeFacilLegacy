@@ -13,11 +13,7 @@ namespace NFeFacil.View.TelasDadosBase
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            if (value is MotoristaDI motorista)
-            {
-                return new MotoristaDataContext(motorista);
-            }
-            else if (value is Motorista motoristaSimples)
+            if (value is Motorista motoristaSimples)
             {
                 return new MotoristaDataContext(motoristaSimples);
             }
@@ -27,11 +23,7 @@ namespace NFeFacil.View.TelasDadosBase
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
             var contexto = (MotoristaDataContext)value;
-            if (targetType == typeof(MotoristaDI))
-            {
-                return contexto.Motorista as MotoristaDI;
-            }
-            else if (targetType == typeof(Motorista))
+            if (targetType == typeof(Motorista))
             {
                 return contexto.Motorista;
             }

@@ -14,11 +14,7 @@ namespace NFeFacil.View.TelasDadosBase
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            if (value is EmitenteDI emitente)
-            {
-                return new EmitenteDataContext(emitente);
-            }
-            else if (value is Emitente emitenteSimples)
+            if (value is Emitente emitenteSimples)
             {
                 return new EmitenteDataContext(emitenteSimples);
             }
@@ -28,11 +24,7 @@ namespace NFeFacil.View.TelasDadosBase
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
             var contexto = (EmitenteDataContext)value;
-            if (targetType == typeof(EmitenteDI))
-            {
-                return contexto.Emit as EmitenteDI;
-            }
-            else if (targetType == typeof(Emitente))
+            if (targetType == typeof(Emitente))
             {
                 return contexto.Emit;
             }

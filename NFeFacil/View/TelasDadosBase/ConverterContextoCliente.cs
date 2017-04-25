@@ -15,11 +15,7 @@ namespace NFeFacil.View.TelasDadosBase
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            if (value is ClienteDI cliente)
-            {
-                return new ClienteDataContext(cliente);
-            }
-            else if (value is Destinatario clienteSimples)
+            if (value is Destinatario clienteSimples)
             {
                 return new ClienteDataContext(clienteSimples);
             }
@@ -29,11 +25,7 @@ namespace NFeFacil.View.TelasDadosBase
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
             var contexto = (ClienteDataContext)value;
-            if (targetType == typeof(ClienteDI))
-            {
-                return contexto.Cliente as ClienteDI;
-            }
-            else if (targetType == typeof(Destinatario))
+            if (targetType == typeof(Destinatario))
             {
                 return contexto.Cliente;
             }

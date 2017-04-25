@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using BibliotecaCentral.Repositorio;
+using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
+using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
+using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -42,7 +45,7 @@ namespace NFeFacil.View
             var telaEscolhida = DescobrirTela();
             if (telaEscolhida == Pivôs.Destinatario)
             {
-                var cliente = lstDestinatários.SelectedItem as ClienteDI;
+                var cliente = lstDestinatários.SelectedItem as Destinatario;
                 if (cliente != null)
                 {
                     using (var db = new Clientes())
@@ -56,7 +59,7 @@ namespace NFeFacil.View
             }
             else if (telaEscolhida == Pivôs.Emitente)
             {
-                var emitente = lstEmitentes.SelectedItem as EmitenteDI;
+                var emitente = lstEmitentes.SelectedItem as Emitente;
                 if (emitente != null)
                 {
                     using (var db = new Emitentes())
@@ -70,7 +73,7 @@ namespace NFeFacil.View
             }
             else if (telaEscolhida == Pivôs.Motorista)
             {
-                var motorista = lstMotoristas.SelectedItem as MotoristaDI;
+                var motorista = lstMotoristas.SelectedItem as Motorista;
                 if (motorista != null)
                 {
                     using (var db = new Motoristas())
@@ -84,7 +87,7 @@ namespace NFeFacil.View
             }
             else
             {
-                var Produto = lstProdutos.SelectedItem as ProdutoDI;
+                var Produto = lstProdutos.SelectedItem as BaseProdutoOuServico;
                 if (Produto != null)
                 {
                     using (var db = new Produtos())
@@ -104,30 +107,30 @@ namespace NFeFacil.View
             switch (DescobrirTela())
             {
                 case Pivôs.Emitente:
-                    await Propriedades.Intercambio.AbrirFunçaoAsync(typeof(AdicionarEmitente), new GrupoViewBanco<EmitenteDI>
+                    await Propriedades.Intercambio.AbrirFunçaoAsync(typeof(AdicionarEmitente), new GrupoViewBanco<Emitente>
                     {
-                        ItemBanco = lstEmitentes.SelectedItem as EmitenteDI,
+                        ItemBanco = lstEmitentes.SelectedItem as Emitente,
                         OperacaoRequirida = TipoOperacao.Edicao
                     });
                     break;
                 case Pivôs.Destinatario:
-                    await Propriedades.Intercambio.AbrirFunçaoAsync(typeof(AdicionarDestinatario), new GrupoViewBanco<ClienteDI>
+                    await Propriedades.Intercambio.AbrirFunçaoAsync(typeof(AdicionarDestinatario), new GrupoViewBanco<Destinatario>
                     {
-                        ItemBanco = lstDestinatários.SelectedItem as ClienteDI,
+                        ItemBanco = lstDestinatários.SelectedItem as Destinatario,
                         OperacaoRequirida = TipoOperacao.Edicao
                     });
                     break;
                 case Pivôs.Motorista:
-                    await Propriedades.Intercambio.AbrirFunçaoAsync(typeof(AdicionarMotorista), new GrupoViewBanco<MotoristaDI>
+                    await Propriedades.Intercambio.AbrirFunçaoAsync(typeof(AdicionarMotorista), new GrupoViewBanco<Motorista>
                     {
-                        ItemBanco = lstMotoristas.SelectedItem as MotoristaDI,
+                        ItemBanco = lstMotoristas.SelectedItem as Motorista,
                         OperacaoRequirida = TipoOperacao.Edicao
                     });
                     break;
                 case Pivôs.Produto:
-                    await Propriedades.Intercambio.AbrirFunçaoAsync(typeof(AdicionarProduto), new GrupoViewBanco<ProdutoDI>
+                    await Propriedades.Intercambio.AbrirFunçaoAsync(typeof(AdicionarProduto), new GrupoViewBanco<BaseProdutoOuServico>
                     {
-                        ItemBanco = lstProdutos.SelectedItem as ProdutoDI,
+                        ItemBanco = lstProdutos.SelectedItem as BaseProdutoOuServico,
                         OperacaoRequirida = TipoOperacao.Edicao
                     });
                     break;

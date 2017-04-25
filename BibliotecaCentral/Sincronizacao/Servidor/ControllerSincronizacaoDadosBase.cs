@@ -17,10 +17,7 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
             {
                 if (senha != Configuracoes.ConfiguracoesSincronizacao.SenhaPermanente)
                     throw new SenhaErrada(senha);
-                using (var proc = new ProcessamentoDadosBase())
-                {
-                    await proc.SalvarAsync(pacote);
-                }
+                await ProcessamentoDadosBase.SalvarAsync(pacote);
                 return new PostResponse(PostResponse.ResponseStatus.Created);
             }, pacote.HoraRequisição, TipoDado.DadoBase);
         }
@@ -32,8 +29,7 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
             {
                 if (senha != Configuracoes.ConfiguracoesSincronizacao.SenhaPermanente)
                     throw new SenhaErrada(senha);
-                var proc = new ProcessamentoDadosBase();
-                return new GetResponse(GetResponse.ResponseStatus.OK, proc.Obter());
+                return new GetResponse(GetResponse.ResponseStatus.OK, ProcessamentoDadosBase.Obter());
             }, DateTime.Now, TipoDado.DadoBase);
         }
     }

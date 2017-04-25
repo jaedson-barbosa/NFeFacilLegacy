@@ -9,14 +9,11 @@ namespace BibliotecaCentral.Sincronizacao.Cliente
     {
         public async Task<ItensSincronizados> Sincronizar()
         {
-            using (var proc = new ProcessamentoDadosBase())
-            {
-                var envio = proc.Obter();
-                await Enviar(envio);
-                var receb = await Receber();
-                await proc.SalvarAsync(receb);
-                return new ItensSincronizados(CalcularTotal(envio), CalcularTotal(receb));
-            }
+            var envio = ProcessamentoDadosBase.Obter();
+            await Enviar(envio);
+            var receb = await Receber();
+            await ProcessamentoDadosBase.SalvarAsync(receb);
+            return new ItensSincronizados(CalcularTotal(envio), CalcularTotal(receb));
         }
 
         private int CalcularTotal(DadosBase dados)

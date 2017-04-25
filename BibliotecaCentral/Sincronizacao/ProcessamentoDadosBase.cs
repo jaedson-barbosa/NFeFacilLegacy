@@ -11,121 +11,101 @@ using System.Threading.Tasks;
 
 namespace BibliotecaCentral.Sincronizacao
 {
-    internal class ProcessamentoDadosBase : IDisposable
+    internal static class ProcessamentoDadosBase
     {
-        private AplicativoContext Contexto { get; }
-        internal ProcessamentoDadosBase()
+        public static DadosBase Obter()
         {
-            Contexto = new AplicativoContext();
-        }
-
-        public DadosBase Obter()
-        {
-            return new DadosBase
+            using (var Contexto = new AplicativoContext())
             {
-                Emitentes = Contexto.Emitentes.Include(x => x.endereco),
-                Clientes = Contexto.Clientes.Include(x => x.endereco),
-                Motoristas = Contexto.Motoristas,
-                Produtos = Contexto.Produtos
-            };
+                // O ToList serve para que os dados permaneçam salvos mesmo depois do Dispose
+                return new DadosBase
+                {
+                    Emitentes = Contexto.Emitentes.Include(x => x.endereco).ToList(),
+                    Clientes = Contexto.Clientes.Include(x => x.endereco).ToList(),
+                    Motoristas = Contexto.Motoristas.ToList(),
+                    Produtos = Contexto.Produtos.ToList()
+                };
+            }
         }
 
-        public async Task SalvarAsync(DadosBase dados)
+        public async static Task SalvarAsync(DadosBase dados)
         {
-            AdicionarEmitentes(dados.Emitentes);
-            AdicionarClientes(dados.Clientes);
-            AdicionarMotoristas(dados.Motoristas); ;
-            AdicionarProdutos(dados.Produtos);
-            await Contexto.SaveChangesAsync();
-        }
-
-        private void AdicionarEmitentes(IEnumerable<Emitente> emitentes)
-        {
-            var analise = from emit in emitentes
-                          group emit by Contexto.Emitentes.Count(x => x.CNPJ == emit.CNPJ) == 0;
-            foreach (var item in analise)
+            using (var Contexto = new AplicativoContext())
             {
-                if (item.Key)
+                AdicionarEmitentes(dados.Emitentes);
+                AdicionarClientes(dados.Clientes);
+                AdicionarMotoristas(dados.Motoristas); ;
+                AdicionarProdutos(dados.Produtos);
+                await Contexto.SaveChangesAsync();
+
+                void AdicionarEmitentes(IEnumerable<Emitente> emitentes)
                 {
-                    Contexto.AddRange(item);
-                }
-                else
-                {
-                    foreach (var emit in item)
+                    var analise = from emit in emitentes
+                                  group emit by Contexto.Emitentes.Count(x => x.CNPJ == emit.CNPJ) == 0;
+                    foreach (var item in analise)
                     {
-                        try
+                        if (item.Key)
                         {
-                            Contexto.Update(emit);
+                            Contexto.AddRange(item);
                         }
-                        catch (Exception e)
+                        else
                         {
-                            System.Diagnostics.Debug.WriteLine("Deu errado alguma coisa.");
+                            Contexto.UpdateRange(item);
                         }
                     }
                 }
-            }
-        }
 
-        private void AdicionarClientes(IEnumerable<Destinatario> clientes)
-        {
-            var analise = from cli in clientes
-                          group cli by Contexto.Clientes.Count(x => x.Documento == cli.Documento) == 0;
-            foreach (var item in analise)
-            {
-                if (item.Key)
+                void AdicionarClientes(IEnumerable<Destinatario> clientes)
                 {
-                    Contexto.AddRange(item);
-                }
-                else
-                {
-                    foreach (var cli in item)
+                    var analise = from cli in clientes
+                                  group cli by Contexto.Clientes.Count(x => x.Documento == cli.Documento) == 0;
+                    foreach (var item in analise)
                     {
-                        Contexto.Update(cli);
+                        if (item.Key)
+                        {
+                            Contexto.AddRange(item);
+                        }
+                        else
+                        {
+                            Contexto.UpdateRange(item);
+                        }
+                    }
+                }
+
+                void AdicionarMotoristas(IEnumerable<Motorista> motoristas)
+                {
+                    var analise = from mot in motoristas
+                                  group mot by Contexto.Motoristas.Count(x => x.Documento == mot.Documento) == 0;
+                    foreach (var item in analise)
+                    {
+                        if (item.Key)
+                        {
+                            Contexto.AddRange(item);
+                        }
+                        else
+                        {
+                            Contexto.UpdateRange(item);
+                        }
+                    }
+                }
+
+                void AdicionarProdutos(IEnumerable<BaseProdutoOuServico> produtos)
+                {
+                    var analise = from prod in produtos
+                                  group prod by Contexto.Produtos.Count(x => x.Descricao == prod.Descricao) == 0;
+                    foreach (var item in analise)
+                    {
+                        if (item.Key)
+                        {
+                            Contexto.AddRange(item);
+                        }
+                        else
+                        {
+                            Contexto.UpdateRange(item);
+                        }
                     }
                 }
             }
         }
-
-        private void AdicionarMotoristas(IEnumerable<Motorista> motoristas)
-        {
-            var analise = from mot in motoristas
-                          group mot by Contexto.Motoristas.Count(x => x.Documento == mot.Documento) == 0;
-            foreach (var item in analise)
-            {
-                if (item.Key)
-                {
-                    Contexto.AddRange(item);
-                }
-                else
-                {
-                    foreach (var mot in item)
-                    {
-                        Contexto.Update(mot);
-                    }
-                }
-            }
-        }
-
-        private void AdicionarProdutos(IEnumerable<BaseProdutoOuServico> produtos)
-        {
-            var analise = from prod in produtos
-                          group prod by Contexto.Produtos.Count(x => x.Descricao == prod.Descricao) == 0;
-            foreach (var item in analise)
-            {
-                if (item.Key)
-                {
-                    Contexto.AddRange(item);
-                }
-                else
-                {
-                    foreach (var prod in item)
-                    {
-                        Contexto.Update(prod);
-                    }
-                }
-            }
-        }
-
-        public void Dispose() => Contexto.Dispose();
     }
 }

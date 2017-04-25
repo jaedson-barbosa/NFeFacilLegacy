@@ -10,9 +10,15 @@ namespace Background
         {
             var deferral = taskInstance.GetDeferral();
             var toast = new Toast();
-            toast.Escrever(TitulosComuns.Iniciando, "Iniciando tarefa em background");
-            var gerenc = new GerenciadorCliente(toast);
-            await gerenc.Sincronizar(DadosSincronizaveis.Tudo, true);
+            try
+            {
+                toast.Escrever(TitulosComuns.Iniciando, "Iniciando sincronização em background.");
+                await new GerenciadorCliente(toast).Sincronizar(DadosSincronizaveis.Tudo, true);
+            }
+            catch (System.Exception e)
+            {
+                toast.Escrever(TitulosComuns.ErroCatastrófico, e.Message);
+            }
             deferral.Complete();
         }
     }

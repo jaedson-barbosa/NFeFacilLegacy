@@ -7,7 +7,7 @@ namespace BibliotecaCentral.Sincronizacao
 {
     public sealed class GerenciadorCliente
     {
-        private ILog Log;
+        private ILog Log { get; }
         public ItensBD.ResultadoSincronizacaoCliente Resultado { get; private set; }
 
         public GerenciadorCliente(ILog log)

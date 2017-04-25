@@ -8,8 +8,8 @@ using BibliotecaCentral;
 namespace BibliotecaCentral.Migrations
 {
     [DbContext(typeof(AplicativoContext))]
-    [Migration("20170425174658_Estavel2")]
-    partial class Estavel2
+    [Migration("20170425175859_Estavel3")]
+    partial class Estavel3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -116,11 +116,12 @@ namespace BibliotecaCentral.Migrations
 
             modelBuilder.Entity("BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Destinatario", b =>
                 {
-                    b.Property<string>("CPF");
+                    b.Property<string>("Documento")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("CNPJ");
 
-                    b.Property<string>("idEstrangeiro");
+                    b.Property<string>("CPF");
 
                     b.Property<string>("ISUF");
 
@@ -128,13 +129,15 @@ namespace BibliotecaCentral.Migrations
 
                     b.Property<int?>("enderecoId");
 
+                    b.Property<string>("idEstrangeiro");
+
                     b.Property<int>("indicadorIE");
 
                     b.Property<string>("inscricaoEstadual");
 
                     b.Property<string>("nome");
 
-                    b.HasKey("CPF", "CNPJ", "idEstrangeiro");
+                    b.HasKey("Documento");
 
                     b.HasIndex("enderecoId");
 
@@ -201,9 +204,12 @@ namespace BibliotecaCentral.Migrations
 
             modelBuilder.Entity("BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte.Motorista", b =>
                 {
-                    b.Property<string>("CPF");
+                    b.Property<string>("Documento")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("CNPJ");
+
+                    b.Property<string>("CPF");
 
                     b.Property<string>("InscricaoEstadual");
 
@@ -215,7 +221,7 @@ namespace BibliotecaCentral.Migrations
 
                     b.Property<string>("XMun");
 
-                    b.HasKey("CPF", "CNPJ");
+                    b.HasKey("Documento");
 
                     b.ToTable("Motoristas");
                 });

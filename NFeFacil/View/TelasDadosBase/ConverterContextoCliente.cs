@@ -110,7 +110,7 @@ namespace NFeFacil.View.TelasDadosBase
 
             public string Documento
             {
-                get { return Cliente.obterDocumento; }
+                get { return Cliente.Documento; }
                 set
                 {
                     var tipo = (TiposDocumento)TipoDocumento;

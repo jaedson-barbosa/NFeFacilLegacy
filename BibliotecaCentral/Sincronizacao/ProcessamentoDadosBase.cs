@@ -69,7 +69,7 @@ namespace BibliotecaCentral.Sincronizacao
         private void AdicionarClientes(IEnumerable<Destinatario> clientes)
         {
             var analise = from cli in clientes
-                          group cli by Contexto.Clientes.Count(x => x.obterDocumento == cli.obterDocumento) == 0;
+                          group cli by Contexto.Clientes.Count(x => x.Documento == cli.Documento) == 0;
             foreach (var item in analise)
             {
                 if (item.Key)

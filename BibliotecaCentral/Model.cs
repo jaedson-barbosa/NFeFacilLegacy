@@ -20,13 +20,5 @@ namespace BibliotecaCentral
         {
             optionsBuilder.UseSqlite("Data Source=informacoes.db");
         }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Destinatario>()
-                .HasKey(c => new { c.CPF, c.CNPJ, c.idEstrangeiro });
-            modelBuilder.Entity<Motorista>()
-                .HasKey(c => new { c.CPF, c.CNPJ });
-        }
     }
 }

@@ -62,7 +62,7 @@ namespace NFeFacil.DANFE.Processamento
         {
             return new DadosCliente
             {
-                DocCliente = dest.obterDocumento,
+                DocCliente = dest.Documento,
                 dataEmissao = Convert.ToDateTime(ident.DataHoraEmissão).ToString("dd-MM-yyyy"),
                 dataEntradaSaida = Convert.ToDateTime(ident.DataHoraSaídaEntrada).ToString("dd-MM-yyyy").Analisar(),
                 horaEntradaSaida = Convert.ToDateTime(ident.DataHoraSaídaEntrada).ToString("hh:mm:ss").Analisar(),

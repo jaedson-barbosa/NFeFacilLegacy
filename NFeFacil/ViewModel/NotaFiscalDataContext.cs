@@ -86,7 +86,7 @@ namespace NFeFacil.ViewModel
             {
                 if (clienteSelecionado == null)
                 {
-                    clienteSelecionado = ClientesDisponiveis.FirstOrDefault(x => x.obterDocumento == Destinatario.obterDocumento);
+                    clienteSelecionado = ClientesDisponiveis.FirstOrDefault(x => x.Documento == Destinatario.Documento);
                 }
                 return clienteSelecionado;
             }

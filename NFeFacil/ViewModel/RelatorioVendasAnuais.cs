@@ -110,9 +110,9 @@ namespace NFeFacil.ViewModel
                     foreach (var item in notas)
                     {
                         var det = item.Informações;
-                        if (total.Count(x => x.Doc == det.destinatário.obterDocumento) == 0)
-                            total.Add(new TotalPorCliente { Doc = det.destinatário.obterDocumento });
-                        var tot = total.Single(x => x.Doc == det.destinatário.obterDocumento);
+                        if (total.Count(x => x.Doc == det.destinatário.Documento) == 0)
+                            total.Add(new TotalPorCliente { Doc = det.destinatário.Documento });
+                        var tot = total.Single(x => x.Doc == det.destinatário.Documento);
                         tot.Mun = det.destinatário.endereco.NomeMunicipio;
                         tot.Nome = det.destinatário.nome;
                         foreach (var prod in det.produtos)

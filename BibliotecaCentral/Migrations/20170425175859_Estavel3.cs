@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BibliotecaCentral.Migrations
 {
-    public partial class Estavel2 : Migration
+    public partial class Estavel3 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -107,8 +107,9 @@ namespace BibliotecaCentral.Migrations
                 name: "Motoristas",
                 columns: table => new
                 {
-                    CPF = table.Column<string>(nullable: false),
-                    CNPJ = table.Column<string>(nullable: false),
+                    Documento = table.Column<string>(nullable: false),
+                    CNPJ = table.Column<string>(nullable: true),
+                    CPF = table.Column<string>(nullable: true),
                     InscricaoEstadual = table.Column<string>(nullable: true),
                     Nome = table.Column<string>(nullable: true),
                     UF = table.Column<string>(nullable: true),
@@ -117,26 +118,27 @@ namespace BibliotecaCentral.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Motoristas", x => new { x.CPF, x.CNPJ });
+                    table.PrimaryKey("PK_Motoristas", x => x.Documento);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Clientes",
                 columns: table => new
                 {
-                    CPF = table.Column<string>(nullable: false),
-                    CNPJ = table.Column<string>(nullable: false),
-                    idEstrangeiro = table.Column<string>(nullable: false),
+                    Documento = table.Column<string>(nullable: false),
+                    CNPJ = table.Column<string>(nullable: true),
+                    CPF = table.Column<string>(nullable: true),
                     ISUF = table.Column<string>(nullable: true),
                     email = table.Column<string>(nullable: true),
                     enderecoId = table.Column<int>(nullable: true),
+                    idEstrangeiro = table.Column<string>(nullable: true),
                     indicadorIE = table.Column<int>(nullable: false),
                     inscricaoEstadual = table.Column<string>(nullable: true),
                     nome = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Clientes", x => new { x.CPF, x.CNPJ, x.idEstrangeiro });
+                    table.PrimaryKey("PK_Clientes", x => x.Documento);
                     table.ForeignKey(
                         name: "FK_Clientes_enderecoCompleto_enderecoId",
                         column: x => x.enderecoId,

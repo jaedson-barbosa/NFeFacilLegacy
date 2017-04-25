@@ -136,9 +136,9 @@
     <Compile Include="Log\Saida.cs" />
     <Compile Include="Log\Titulos.cs" />
     <Compile Include="Log\Toast.cs" />
-    <Compile Include="Migrations\20170425174658_Estavel2.cs" />
-    <Compile Include="Migrations\20170425174658_Estavel2.designer.cs">
-      <DependentUpon>20170425174658_Estavel2.cs</DependentUpon>
+    <Compile Include="Migrations\20170425175859_Estavel3.cs" />
+    <Compile Include="Migrations\20170425175859_Estavel3.designer.cs">
+      <DependentUpon>20170425175859_Estavel3.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\AplicativoContextModelSnapshot.cs" />
     <Compile Include="Model.cs" />

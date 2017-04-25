@@ -80,7 +80,7 @@
                         <DataTemplate>
                             <Grid>
                                 <TextBlock Text="{Binding nome}" />
-                                <TextBlock Text="{Binding obterDocumento}"
+                                <TextBlock Text="{Binding Documento}"
                                            HorizontalAlignment="Center" />
                                 <TextBlock Text="{Binding endereco.NomeMunicipio}"
                                            HorizontalAlignment="Right" />

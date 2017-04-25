@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Xml.Serialization;
 
 namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte
 {
@@ -46,7 +47,22 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Pa
         public string UF { get; set; }
 
         [XmlIgnore]
-        public string Documento => CNPJ ?? CPF;
+        [Key]
+        public string Documento
+        {
+            get => CNPJ ?? CPF;
+            set
+            {
+                if (!string.IsNullOrEmpty(CNPJ))
+                {
+                    CNPJ = value;
+                }
+                else
+                {
+                    CPF = value;
+                }
+            }
+        }
         [XmlIgnore]
         public TiposDocumento TipoDocumento => !string.IsNullOrEmpty(CNPJ) ? TiposDocumento.CNPJ : TiposDocumento.CPF;
     }

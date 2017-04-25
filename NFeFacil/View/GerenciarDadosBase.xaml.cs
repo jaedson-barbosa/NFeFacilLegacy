@@ -1,5 +1,4 @@
-﻿using BibliotecaCentral.ItensBD;
-using BibliotecaCentral.Log;
+﻿using BibliotecaCentral.Log;
 using System;
 using System.Linq;
 using System.Threading.Tasks;

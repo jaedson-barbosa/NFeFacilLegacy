@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using BibliotecaCentral.ItensBD;
 using BibliotecaCentral.Log;
 using BibliotecaCentral.Validacao;
 using Windows.UI.Xaml;

@@ -1,5 +1,4 @@
 ﻿using BibliotecaCentral.IBGE;
-using BibliotecaCentral.ItensBD;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using System;
 using System.ComponentModel;

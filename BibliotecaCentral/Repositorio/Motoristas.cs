@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using BibliotecaCentral.ItensBD;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
 
 namespace BibliotecaCentral.Repositorio

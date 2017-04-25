@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using BibliotecaCentral.ItensBD;
 using Microsoft.EntityFrameworkCore;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 

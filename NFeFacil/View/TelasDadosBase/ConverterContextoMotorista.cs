@@ -1,5 +1,4 @@
-﻿using BibliotecaCentral.ItensBD;
-using BibliotecaCentral.ModeloXML;
+﻿using BibliotecaCentral.ModeloXML;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
 using System;
 using System.ComponentModel;

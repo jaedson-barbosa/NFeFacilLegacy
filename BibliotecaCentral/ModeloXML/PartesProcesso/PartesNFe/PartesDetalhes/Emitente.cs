@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Xml.Serialization;
 
 namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
 {
@@ -17,6 +18,7 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
             IM = other.IM;
             CNAE = other.CNAE;
         }
+        [Key]
         public string CNPJ { get; set; }
         [XmlElement(ElementName = "xNome")]
         public string nome { get; set; }

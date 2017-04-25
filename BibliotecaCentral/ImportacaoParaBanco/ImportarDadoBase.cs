@@ -35,19 +35,19 @@ namespace BibliotecaCentral.ImportacaoParaBanco
             switch (TipoDado)
             {
                 case TiposDadoBasico.Emitente:
-                    return await AnaliseCompletaXml<Emitente, EmitenteDI>(listaXML, nameof(Emitente), "emit");
+                    return await AnaliseCompletaXml<Emitente>(listaXML, nameof(Emitente), "emit");
                 case TiposDadoBasico.Cliente:
-                    return await AnaliseCompletaXml<Destinatario, ClienteDI>(listaXML, nameof(Destinatario), "dest");
+                    return await AnaliseCompletaXml<Destinatario>(listaXML, nameof(Destinatario), "dest");
                 case TiposDadoBasico.Motorista:
-                    return await AnaliseCompletaXml<Motorista, MotoristaDI>(listaXML, nameof(Motorista), "transporta");
+                    return await AnaliseCompletaXml<Motorista>(listaXML, nameof(Motorista), "transporta");
                 case TiposDadoBasico.Produto:
-                    return await AnaliseCompletaXml<BaseProdutoOuServico, ProdutoDI>(listaXML, nameof(BaseProdutoOuServico), "prod");
+                    return await AnaliseCompletaXml<BaseProdutoOuServico>(listaXML, nameof(BaseProdutoOuServico), "prod");
                 default:
                     return null;
             }
         }
 
-        private async Task<RelatorioImportacao> AnaliseCompletaXml<TipoBase, TipoBanco>(XElement[] listaXML, string nomePrimario, string nomeSecundario) where TipoBase : class where TipoBanco : IId, IConverterDI<TipoBase>, new()
+        private async Task<RelatorioImportacao> AnaliseCompletaXml<TipoBase>(XElement[] listaXML, string nomePrimario, string nomeSecundario) where TipoBase : class
         {
             var retorno = new RelatorioImportacao();
             using (var db = new AplicativoContext())
@@ -62,7 +62,7 @@ namespace BibliotecaCentral.ImportacaoParaBanco
                     }
                     var xml = resultado;
                     xml.Name = nomePrimario;
-                    db.Add(new TipoBanco().Converter(xml.FromXElement<TipoBase>()));
+                    db.Add(xml.FromXElement<TipoBase>());
                 }
                 await db.SaveChangesAsync();
             }

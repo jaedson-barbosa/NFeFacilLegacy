@@ -125,13 +125,9 @@
     <Compile Include="ImportacaoParaBanco\TiposDadoBasico.cs" />
     <Compile Include="ImportacaoParaBanco\XmlNaoReconhecido.cs" />
     <Compile Include="InicioGeral.cs" />
-    <Compile Include="ItensBD\ClienteDI.cs" />
-    <Compile Include="ItensBD\EmitenteDI.cs" />
     <Compile Include="ItensBD\IConverterDI.cs" />
     <Compile Include="ItensBD\IId.cs" />
-    <Compile Include="ItensBD\MotoristaDI.cs" />
     <Compile Include="ItensBD\NFeDI.cs" />
-    <Compile Include="ItensBD\ProdutoDI.cs" />
     <Compile Include="ItensBD\ResultadoSincronizacaoCliente.cs" />
     <Compile Include="ItensBD\ResultadoSincronizacaoServidor.cs" />
     <Compile Include="ItensBD\StatusNFe.cs" />

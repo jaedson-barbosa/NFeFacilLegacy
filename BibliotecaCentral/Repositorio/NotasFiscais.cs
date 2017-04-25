@@ -7,7 +7,7 @@ using BibliotecaCentral.ItensBD;
 
 namespace BibliotecaCentral.Repositorio
 {
-    public sealed class NotasFiscais : ConexaoBanco<(NFeDI nota, XElement xml), NFeDI>
+    public sealed class NotasFiscais : ConexaoBanco
     {
         public IEnumerable<NFeDI> Registro => Contexto.NotasFiscais;
 

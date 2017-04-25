@@ -3,7 +3,7 @@ using BibliotecaCentral.ItensBD;
 
 namespace BibliotecaCentral.Repositorio
 {
-    public sealed class ResultadosServidor : ConexaoBanco<ResultadoSincronizacaoServidor, ResultadoSincronizacaoServidor>
+    public sealed class ResultadosServidor : ConexaoBanco
     {
         public IEnumerable<ResultadoSincronizacaoServidor> Registro => Contexto.ResultadosServidor;
         public void Adicionar(ResultadoSincronizacaoServidor dado) => Contexto.Add(dado);

@@ -1,4 +1,7 @@
 ﻿using BibliotecaCentral.ItensBD;
+using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
+using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
+using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
 using BibliotecaCentral.Sincronizacao.Pacotes;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -36,7 +39,7 @@ namespace BibliotecaCentral.Sincronizacao
             await Contexto.SaveChangesAsync();
         }
 
-        private void AdicionarEmitentes(IEnumerable<EmitenteDI> emitentes)
+        private void AdicionarEmitentes(IEnumerable<Emitente> emitentes)
         {
             var analise = from emit in emitentes
                           group emit by Contexto.Emitentes.Count(x => x.CNPJ == emit.CNPJ) == 0;
@@ -52,7 +55,6 @@ namespace BibliotecaCentral.Sincronizacao
                     {
                         try
                         {
-                            emit.Id = AcharId(emit.CNPJ);
                             Contexto.Update(emit);
                         }
                         catch (Exception e)
@@ -64,12 +66,7 @@ namespace BibliotecaCentral.Sincronizacao
             }
         }
 
-        private int AcharId(string CNPJ)
-        {
-            return Contexto.Emitentes.Include(x => x.endereco).First(x => x.CNPJ == CNPJ).Id;
-        }
-
-        private void AdicionarClientes(IEnumerable<ClienteDI> clientes)
+        private void AdicionarClientes(IEnumerable<Destinatario> clientes)
         {
             var analise = from cli in clientes
                           group cli by Contexto.Clientes.Count(x => x.obterDocumento == cli.obterDocumento) == 0;
@@ -83,14 +80,13 @@ namespace BibliotecaCentral.Sincronizacao
                 {
                     foreach (var cli in item)
                     {
-                        cli.Id = Contexto.Clientes.First(x => x.obterDocumento == cli.obterDocumento).Id;
                         Contexto.Update(cli);
                     }
                 }
             }
         }
 
-        private void AdicionarMotoristas(IEnumerable<MotoristaDI> motoristas)
+        private void AdicionarMotoristas(IEnumerable<Motorista> motoristas)
         {
             var analise = from mot in motoristas
                           group mot by Contexto.Motoristas.Count(x => x.Documento == mot.Documento) == 0;
@@ -104,14 +100,13 @@ namespace BibliotecaCentral.Sincronizacao
                 {
                     foreach (var mot in item)
                     {
-                        mot.Id = Contexto.Motoristas.First(x => x.Documento == mot.Documento).Id;
                         Contexto.Update(mot);
                     }
                 }
             }
         }
 
-        private void AdicionarProdutos(IEnumerable<ProdutoDI> produtos)
+        private void AdicionarProdutos(IEnumerable<BaseProdutoOuServico> produtos)
         {
             var analise = from prod in produtos
                           group prod by Contexto.Produtos.Count(x => x.Descricao == prod.Descricao) == 0;
@@ -125,7 +120,6 @@ namespace BibliotecaCentral.Sincronizacao
                 {
                     foreach (var prod in item)
                     {
-                        prod.Id = Contexto.Produtos.First(x => x.Descricao == prod.Descricao).Id;
                         Contexto.Update(prod);
                     }
                 }

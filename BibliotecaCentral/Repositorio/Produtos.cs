@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using BibliotecaCentral.ItensBD;
+using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 
 namespace BibliotecaCentral.Repositorio
 {
-    public sealed class Produtos : ConexaoBanco<ProdutoDI, ProdutoDI>
+    public sealed class Produtos : ConexaoBanco
     {
-        public IEnumerable<ProdutoDI> Registro => Contexto.Produtos;
-        public void Adicionar(ProdutoDI dado) => Contexto.Add(dado);
-        public void Atualizar(ProdutoDI dado) => Contexto.Update(dado);
-        public void Remover(ProdutoDI dado) => Contexto.Remove(dado);
+        public IEnumerable<BaseProdutoOuServico> Registro => Contexto.Produtos;
+        public void Adicionar(BaseProdutoOuServico dado) => Contexto.Add(dado);
+        public void Atualizar(BaseProdutoOuServico dado) => Contexto.Update(dado);
+        public void Remover(BaseProdutoOuServico dado) => Contexto.Remove(dado);
     }
 }

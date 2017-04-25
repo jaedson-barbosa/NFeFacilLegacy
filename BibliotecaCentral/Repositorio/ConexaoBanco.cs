@@ -2,7 +2,7 @@
 
 namespace BibliotecaCentral.Repositorio
 {
-    public abstract class ConexaoBanco<TipoDadoEntrada, TipoDadoRetorno> : IDisposable where TipoDadoRetorno : class
+    public abstract class ConexaoBanco : IDisposable
     {
         protected AplicativoContext Contexto { get; }
 

@@ -1,14 +1,15 @@
 ﻿using BibliotecaCentral.ItensBD;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 
 namespace BibliotecaCentral.Repositorio
 {
-    public sealed class Clientes : ConexaoBanco<ClienteDI, ClienteDI>
+    public sealed class Clientes : ConexaoBanco
     {
-        public IEnumerable<ClienteDI> Registro => Contexto.Clientes.Include(x => x.endereco);
-        public void Adicionar(ClienteDI cliente) => Contexto.Add(cliente);
-        public void Atualizar(ClienteDI cliente) => Contexto.Update(cliente);
-        public void Remover(ClienteDI dado) => Contexto.Remove(dado);
+        public IEnumerable<Destinatario> Registro => Contexto.Clientes.Include(x => x.endereco);
+        public void Adicionar(Destinatario cliente) => Contexto.Add(cliente);
+        public void Atualizar(Destinatario cliente) => Contexto.Update(cliente);
+        public void Remover(Destinatario dado) => Contexto.Remove(dado);
     }
 }

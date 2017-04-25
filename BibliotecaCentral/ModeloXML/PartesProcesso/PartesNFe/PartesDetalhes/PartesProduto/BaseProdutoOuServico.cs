@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Xml.Serialization;
 
 namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto
 {
@@ -33,6 +34,7 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Pa
         public string CodigoBarras { get; set; } = "";
 
         [XmlElement(ElementName = "xProd")]
+        [Key]
         public string Descricao { get; set; }
 
         /// <summary>

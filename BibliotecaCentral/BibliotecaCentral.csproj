@@ -136,6 +136,11 @@
     <Compile Include="Log\Saida.cs" />
     <Compile Include="Log\Titulos.cs" />
     <Compile Include="Log\Toast.cs" />
+    <Compile Include="Migrations\20170425174658_Estavel2.cs" />
+    <Compile Include="Migrations\20170425174658_Estavel2.designer.cs">
+      <DependentUpon>20170425174658_Estavel2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\AplicativoContextModelSnapshot.cs" />
     <Compile Include="Model.cs" />
     <Compile Include="ModeloXML\Enums.cs" />
     <Compile Include="ModeloXML\PartesProcesso\InfoProtocolo.cs" />
@@ -329,9 +334,7 @@
   <ItemGroup>
     <EmbeddedResource Include="IBGE\Municipios.xml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

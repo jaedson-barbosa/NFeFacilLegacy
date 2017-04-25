@@ -1,34 +1,37 @@
 ﻿using BibliotecaCentral.Sincronizacao.Pacotes;
+using System;
 using System.Threading.Tasks;
 
 namespace BibliotecaCentral.Sincronizacao
 {
-    internal static class ProcessamentoDadosBase
+    internal class ProcessamentoDadosBase : IDisposable
     {
-        public static DadosBase Obter()
+        private AplicativoContext Contexto { get; }
+        internal ProcessamentoDadosBase()
         {
-            using (var db = new AplicativoContext())
-            {
-                return new DadosBase
-                {
-                    Emitentes = db.Emitentes,
-                    Clientes = db.Clientes,
-                    Motoristas = db.Motoristas,
-                    Produtos = db.Produtos
-                };
-            }
+            Contexto = new AplicativoContext();
         }
 
-        public static async Task SalvarAsync(DadosBase dados)
+        public DadosBase Obter()
         {
-            using (var db = new AplicativoContext())
+            return new DadosBase
             {
-                db.Emitentes.AddRange(dados.Emitentes);
-                db.Clientes.AddRange(dados.Clientes);
-                db.Motoristas.AddRange(dados.Motoristas); ;
-                db.Produtos.AddRange(dados.Produtos);
-                await db.SaveChangesAsync();
-            }
+                Emitentes = Contexto.Emitentes,
+                Clientes = Contexto.Clientes,
+                Motoristas = Contexto.Motoristas,
+                Produtos = Contexto.Produtos
+            };
         }
+
+        public async Task SalvarAsync(DadosBase dados)
+        {
+            Contexto.Emitentes.AddRange(dados.Emitentes);
+            Contexto.Clientes.AddRange(dados.Clientes);
+            Contexto.Motoristas.AddRange(dados.Motoristas); ;
+            Contexto.Produtos.AddRange(dados.Produtos);
+            await Contexto.SaveChangesAsync();
+        }
+
+        public void Dispose() => Contexto.Dispose();
     }
 }

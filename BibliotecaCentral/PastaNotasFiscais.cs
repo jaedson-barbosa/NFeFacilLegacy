@@ -53,7 +53,7 @@ namespace BibliotecaCentral
                 {
                     using (var stream = await arqs[i].OpenStreamForReadAsync())
                     {
-                        retorno[i] = (arqs[i].Name, XElement.Load(stream));
+                        retorno.Add((arqs[i].Name, XElement.Load(stream)));
                     }
                 }
             }

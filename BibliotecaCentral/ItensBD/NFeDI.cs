@@ -32,7 +32,7 @@ namespace BibliotecaCentral.ItensBD
                     NomeEmitente = nota.Informações.emitente.nome,
                     DataEmissao = nota.Informações.identificação.DataHoraEmissão,
                     NumeroNota = nota.Informações.identificação.Numero.ToString(),
-                    Status = nota.Signature != null && nota.Signature.HasElements ? (int)StatusNFe.Assinado : (int)StatusNFe.Salvo
+                    Status = nota.Signature != null && nota.Signature.HasChildNodes ? (int)StatusNFe.Assinado : (int)StatusNFe.Salvo
                 };
             }
             else
@@ -45,7 +45,7 @@ namespace BibliotecaCentral.ItensBD
                     NomeEmitente = nota.NFe.Informações.emitente.nome,
                     DataEmissao = nota.NFe.Informações.identificação.DataHoraEmissão,
                     NumeroNota = nota.NFe.Informações.identificação.Numero.ToString(),
-                    Status = nota.ProtNFe != null ? (int)StatusNFe.Emitido : nota.NFe.Signature != null && nota.NFe.Signature.HasElements ? (int)StatusNFe.Assinado : (int)StatusNFe.Salvo
+                    Status = nota.ProtNFe != null ? (int)StatusNFe.Emitido : nota.NFe.Signature != null && nota.NFe.Signature.HasChildNodes ? (int)StatusNFe.Assinado : (int)StatusNFe.Salvo
                 };
             }
         }

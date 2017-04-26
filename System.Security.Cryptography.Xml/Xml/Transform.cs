@@ -14,7 +14,6 @@
 // Once the Transform chain is constructed, call TransformToOctetStream to convert some sort of input type to an octet
 // stream. (We only bother implementing that much now since every use of transform chains in XmlDsig ultimately yields something to hash).
 
-using System.IO;
 using System.Xml;
 
 namespace System.Security.Cryptography.Xml

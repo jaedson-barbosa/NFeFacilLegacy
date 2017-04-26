@@ -5,9 +5,9 @@ using System.Xml;
 
 namespace BibliotecaCentral.Assinatura
 {
-    public sealed class AssinaXML
+    internal static class AssinaXML
     {
-        public XmlElement AssinarXML(XmlDocument xml, X509Certificate2 certificado)
+        public static XmlElement AssinarXML(XmlDocument xml, X509Certificate2 certificado)
         {
             var elemento = xml.GetElementsByTagName("infNFe")[0] as XmlElement;
             var id = elemento.Attributes.GetNamedItem("Id").Value;

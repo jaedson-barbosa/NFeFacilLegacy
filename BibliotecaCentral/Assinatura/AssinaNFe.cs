@@ -15,11 +15,12 @@ namespace BibliotecaCentral.Assinatura
         {
             if (Nota.Signature?.HasChildNodes ?? false)
             {
-                var loja = new X509Store(StoreName.My, StoreLocation.CurrentUser);
-                loja.Open(OpenFlags.ReadOnly);
-                var certs = loja.Certificates.Find(X509FindType.FindBySerialNumber, Configuracoes.ConfiguracoesCertificacao.Certificado, true);
-                Nota.Signature = AssinaXML.AssinarXML(Nota.ToXmlElement(Nota.GetType()), certs[0]);
+                throw new System.Exception("A NFe já está assinada");
             }
+            var loja = new X509Store(StoreName.My, StoreLocation.CurrentUser);
+            loja.Open(OpenFlags.ReadOnly);
+            var certs = loja.Certificates.Find(X509FindType.FindBySerialNumber, Configuracoes.ConfiguracoesCertificacao.Certificado, true);
+            Nota.Signature = AssinaXML.AssinarXML(Nota.ToXmlElement(Nota.GetType()), certs[0]);
         }
     }
 }

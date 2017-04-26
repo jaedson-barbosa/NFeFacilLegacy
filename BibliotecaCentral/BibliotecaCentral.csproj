@@ -244,6 +244,7 @@
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\Transporte.cs" />
     <Compile Include="ModeloXML\PartesProcesso\ProtocoloNFe.cs" />
     <Compile Include="ModeloXML\Processo.cs" />
+    <Compile Include="Repositorio\MudancaOtimizadaBancoDados.cs" />
     <Compile Include="PastaNotasFiscais.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositorio\Clientes.cs" />

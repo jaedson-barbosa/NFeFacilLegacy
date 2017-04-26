@@ -3,7 +3,6 @@ using Restup.Webserver.Attributes;
 using Restup.Webserver.Models.Contracts;
 using Restup.Webserver.Models.Schemas;
 using System;
-using System.Threading.Tasks;
 
 namespace BibliotecaCentral.Sincronizacao.Servidor
 {
@@ -11,13 +10,13 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
     internal sealed class ControllerSincronizacaoDadosBase
     {
         [UriFormat("/Dados/POST/{senha}")]
-        public async Task<IPostResponse> ClienteServidorAsync(int senha, [FromContent] DadosBase pacote)
+        public IPostResponse ClienteServidorAsync(int senha, [FromContent] DadosBase pacote)
         {
-            return await SupervisionarOperacao.Iniciar(async () =>
+            return SupervisionarOperacao.Iniciar(() =>
             {
                 if (senha != Configuracoes.ConfiguracoesSincronizacao.SenhaPermanente)
                     throw new SenhaErrada(senha);
-                await ProcessamentoDadosBase.SalvarAsync(pacote);
+                ProcessamentoDadosBase.Salvar(pacote);
                 return new PostResponse(PostResponse.ResponseStatus.Created);
             }, pacote.HoraRequisição, TipoDado.DadoBase);
         }

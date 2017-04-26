@@ -45,17 +45,9 @@ namespace BibliotecaCentral.ImportacaoParaBanco
                     }
                 }
             }
-            using (var db = new AplicativoContext())
+            using (var db = new Repositorio.MudancaOtimizadaBancoDados())
             {
-                PastaNotasFiscais pasta = new PastaNotasFiscais();
-                foreach (var item in conjuntos)
-                {
-                    await pasta.AdicionarOuAtualizar(item.Value, item.Key.Id);
-                    var quant = db.NotasFiscais.Count(x => x.Id == item.Key.Id);
-                    if (quant == 1) db.Update(item.Key);
-                    else db.Add(item.Key);
-                }
-                await db.SaveChangesAsync();
+                await db.AdicionarNotasFiscais(conjuntos);
             }
             return retorno;
         }

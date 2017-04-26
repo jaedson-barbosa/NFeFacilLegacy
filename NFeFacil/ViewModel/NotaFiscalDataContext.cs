@@ -271,11 +271,11 @@ namespace NFeFacil.ViewModel
                 {
                     if (OperacaoRequirida == TipoOperacao.Adicao)
                     {
-                        db.Adicionar((di, xml));
+                        db.Adicionar(di, xml);
                     }
                     else
                     {
-                        db.Atualizar((di, xml));
+                        db.Atualizar(di, xml);
                     }
                 }
                 Log.Escrever(TitulosComuns.Sucesso, "Nota fiscal salva com sucesso. Agora podes sair da aplicação sem perder esta NFe.");

@@ -31,40 +31,41 @@ namespace BibliotecaCentral.ImportacaoParaBanco
                     return XElement.Load(stream);
                 }
             }));
-            switch (TipoDado)
+            using (var db = new Repositorio.MudancaOtimizadaBancoDados())
             {
-                case TiposDadoBasico.Emitente:
-                    return await AnaliseCompletaXml<Emitente>(listaXML, nameof(Emitente), "emit");
-                case TiposDadoBasico.Cliente:
-                    return await AnaliseCompletaXml<Destinatario>(listaXML, nameof(Destinatario), "dest");
-                case TiposDadoBasico.Motorista:
-                    return await AnaliseCompletaXml<Motorista>(listaXML, nameof(Motorista), "transporta");
-                case TiposDadoBasico.Produto:
-                    return await AnaliseCompletaXml<BaseProdutoOuServico>(listaXML, nameof(BaseProdutoOuServico), "prod");
-                default:
-                    return null;
+                switch (TipoDado)
+                {
+                    case TiposDadoBasico.Emitente:
+                        return AnaliseCompletaXml<Emitente>(listaXML, nameof(Emitente), "emit", db.AdicionarEmitentes);
+                    case TiposDadoBasico.Cliente:
+                        return AnaliseCompletaXml<Destinatario>(listaXML, nameof(Destinatario), "dest", db.AdicionarClientes);
+                    case TiposDadoBasico.Motorista:
+                        return AnaliseCompletaXml<Motorista>(listaXML, nameof(Motorista), "transporta", db.AdicionarMotoristas);
+                    case TiposDadoBasico.Produto:
+                        return AnaliseCompletaXml<BaseProdutoOuServico>(listaXML, nameof(BaseProdutoOuServico), "prod", db.AdicionarProdutos);
+                    default:
+                        return null;
+                }
             }
         }
 
-        private async Task<RelatorioImportacao> AnaliseCompletaXml<TipoBase>(XElement[] listaXML, string nomePrimario, string nomeSecundario) where TipoBase : class
+        private RelatorioImportacao AnaliseCompletaXml<TipoBase>(XElement[] listaXML, string nomePrimario, string nomeSecundario, Action<IEnumerable<TipoBase>> Adicionar) where TipoBase : class
         {
             var retorno = new RelatorioImportacao();
-            using (var db = new AplicativoContext())
+            var add = new List<TipoBase>();
+            for (int i = 0; i < listaXML.Length; i++)
             {
-                for (int i = 0; i < listaXML.Length; i++)
+                var resultado = RemoverNamespace(Busca(listaXML[i], nomePrimario, nomeSecundario));
+                if (resultado == null)
                 {
-                    var resultado = RemoverNamespace(Busca(listaXML[i], nomePrimario, nomeSecundario));
-                    if (resultado == null)
-                    {
-                        retorno.Erros.Add(new XmlNaoReconhecido(arquivos[i].Name, listaXML[i].Name.LocalName, nomeSecundario, nameof(TipoBase)));
-                        continue;
-                    }
-                    var xml = resultado;
-                    xml.Name = nomePrimario;
-                    db.Add(xml.FromXElement<TipoBase>());
+                    retorno.Erros.Add(new XmlNaoReconhecido(arquivos[i].Name, listaXML[i].Name.LocalName, nomeSecundario, nameof(TipoBase)));
+                    continue;
                 }
-                await db.SaveChangesAsync();
+                var xml = resultado;
+                xml.Name = nomePrimario;
+                add.Add(xml.FromXElement<TipoBase>());
             }
+            Adicionar(add);
             return retorno;
         }
 

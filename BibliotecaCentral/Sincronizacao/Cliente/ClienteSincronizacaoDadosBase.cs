@@ -12,7 +12,7 @@ namespace BibliotecaCentral.Sincronizacao.Cliente
             var envio = ProcessamentoDadosBase.Obter();
             await Enviar(envio);
             var receb = await Receber();
-            await ProcessamentoDadosBase.SalvarAsync(receb);
+            ProcessamentoDadosBase.Salvar(receb);
             return new ItensSincronizados(CalcularTotal(envio), CalcularTotal(receb));
         }
 

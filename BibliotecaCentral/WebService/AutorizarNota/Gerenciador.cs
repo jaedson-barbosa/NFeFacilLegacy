@@ -5,7 +5,7 @@ namespace BibliotecaCentral.WebService.AutorizarNota
 {
     public static class Gerenciador
     {
-        public static async Task<Response> AutorizarAsync(NFe[] xmls, int UF)
+        public static async Task<Response> AutorizarAsync(int UF, params NFe[] xmls)
         {
             using (var conexao = new Conexao<IAutorizaNFe>(ConjuntoServicos.Autorizar.Endereco))
             {

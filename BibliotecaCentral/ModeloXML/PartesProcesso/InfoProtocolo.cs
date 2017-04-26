@@ -2,6 +2,7 @@
 {
     public sealed class InfoProtocolo
     {
+        public string Id;
         public int tpAmb;
         public string verAplic;
         public string chNFe;

@@ -289,14 +289,30 @@ namespace NFeFacil.ViewModel
 
         private void Assinar()
         {
-            Log.Escrever(TitulosComuns.ErroCatastrófico, "Função ainda não implementada.");
+            var assina = new BibliotecaCentral.Assinatura.AssinaNFe(notaSalva);
+            assina.Assinar();
             StatusAtual = StatusNFe.Assinado;
         }
 
-        private void Transmitir()
+        private async void Transmitir()
         {
-            Log.Escrever(TitulosComuns.ErroCatastrófico, "Função ainda não implementada.");
-            StatusAtual = StatusNFe.Emitido;
+            var estado = Estados.EstadosCache.First(x => x.Sigla == notaSalva.Informações.emitente.endereco.SiglaUF);
+            var resultadoTransmissao = await BibliotecaCentral.WebService.AutorizarNota.Gerenciador.AutorizarAsync(estado.Codigo, notaSalva);
+            if (resultadoTransmissao.retEnviNFe.cStat == 100)
+            {
+                var resultadoResposta = await BibliotecaCentral.WebService.RespostaAutorizarNota.Gerenciador.ObterRespostaAutorizacao(resultadoTransmissao.retEnviNFe);
+                notaEmitida = new Processo()
+                {
+                    NFe = notaSalva,
+                    ProtNFe = resultadoResposta.retConsReciNFe.protNFe
+                };
+                Log.Escrever(TitulosComuns.Sucesso, resultadoResposta.retConsReciNFe.xMotivo);
+                StatusAtual = StatusNFe.Emitido;
+            }
+            else
+            {
+                Log.Escrever(TitulosComuns.ErroSimples, $"A NFe não foi aceita. Mensagem de retorno: \n{resultadoTransmissao.retEnviNFe.xMotivo}");
+            }
         }
 
         private async void GerarDANFE()

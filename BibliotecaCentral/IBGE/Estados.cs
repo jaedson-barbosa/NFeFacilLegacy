@@ -7,7 +7,7 @@ namespace BibliotecaCentral.IBGE
     {
         public static IEnumerable<Estado> EstadosCache;
 
-        public static void Buscar()
+        internal static void Buscar()
         {
             if (EstadosCache == null)
             {

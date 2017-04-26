@@ -26,7 +26,7 @@ namespace BibliotecaCentral.IBGE
             return MunicipiosCache.First(x => x.Key.Codigo == codigo).Value;
         }
 
-        public static void Buscar()
+        internal static void Buscar()
         {
             if (MunicipiosCache == null)
             {

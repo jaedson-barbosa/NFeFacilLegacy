@@ -68,7 +68,7 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
         public ushort IdentificadorDestino { get; set; } = 1;
 
         [XmlElement(ElementName = "cMunFG")]
-        public long CodigoMunicípio { get; set; }
+        public int CodigoMunicípio { get; set; }
 
         [XmlElement(ElementName = "tpImp")]
         public ushort TipoImpressão { get; set; } = 1;

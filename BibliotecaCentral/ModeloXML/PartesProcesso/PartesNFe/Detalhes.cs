@@ -25,68 +25,68 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe
         }
 
         [XmlElement(ElementName = "ide")]
-        public Identificacao identificação;
+        public Identificacao identificação { get; set; }
 
         [XmlElement(ElementName = "emit")]
-        public Emitente emitente;
+        public Emitente emitente { get; set; }
 
         [XmlElement("dest")]
-        public Destinatario destinatário;
+        public Destinatario destinatário { get; set; }
 
         /// <summary>
         /// (Opcional)
         /// Identificação do Local de retirada.
         /// </summary>
-        public RetiradaOuEntrega retirada;
+        public RetiradaOuEntrega retirada { get; set; }
 
         /// <summary>
         /// (Opcional)
         /// Identificação do Local de entrega.
         /// </summary>
-        public RetiradaOuEntrega entrega;
+        public RetiradaOuEntrega entrega { get; set; }
 
         [XmlElement(ElementName = "det", Namespace = "http://www.portalfiscal.inf.br/nfe")]
-        public List<DetalhesProdutos> produtos;
+        public List<DetalhesProdutos> produtos { get; set; }
 
-        public Total total;
+        public Total total { get; set; }
 
-        public Transporte transp;
+        public Transporte transp { get; set; }
 
         /// <summary>
         /// (Opcional)
         /// Grupo Cobrança.
         /// </summary>
-        public Cobranca cobr;
+        public Cobranca cobr { get; set; }
 
         /// <summary>
         /// (Opcional)
         /// Grupo de Formas de Pagamento.
         /// </summary>
         [XmlElement(nameof(pag))]
-        public Pagamento[] pag;
+        public Pagamento[] pag { get; set; }
 
         /// <summary>
         /// (Opcional)
         /// Grupo de Informações Adicionais.
         /// </summary>
-        public InformacoesAdicionais infAdic;
+        public InformacoesAdicionais infAdic { get; set; }
 
         /// <summary>
         /// (Opcional)
         /// Grupo Exportação.
         /// </summary>
-        public Exportacao exporta;
+        public Exportacao exporta { get; set; }
 
         /// <summary>
         /// (Opcional)
         /// Grupo Compra.
         /// </summary>
-        public Compra compra;
+        public Compra compra { get; set; }
 
         /// <summary>
         /// (Opcional)
         /// Grupo Cana.
         /// </summary>
-        public RegistroAquisicaoCana cana;
+        public RegistroAquisicaoCana cana { get; set; }
     }
 }

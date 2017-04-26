@@ -28,22 +28,6 @@ namespace BibliotecaCentral
             }
         }
 
-        internal static XmlDocument ToXmlElement(this object obj, Type T, string nameSpace = "http://www.portalfiscal.inf.br/nfe")
-        {
-            var memoryStream = new MemoryStream();
-            using (var streamWriter = new StreamWriter(memoryStream))
-            {
-                var name = new XmlSerializerNamespaces();
-                name.Add(string.Empty, string.Empty);
-                name.Add(string.Empty, nameSpace);
-                var xmlSerializer = new XmlSerializer(T);
-                xmlSerializer.Serialize(streamWriter, obj, name);
-                var xml = new XmlDocument();
-                xml.Load(memoryStream);
-                return xml;
-            }
-        }
-
         public static T FromXElement<T>(this Stream streamXMl)
         {
             var xmlSerializer = new XmlSerializer(typeof(T));

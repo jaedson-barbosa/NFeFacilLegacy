@@ -32,45 +32,28 @@ namespace NFeFacil.ViewModel
             }
         }
 
-        public Emitente Emitente { get; set; }
-        public Destinatario Destinatario { get; set; }
-        public List<DetalhesProdutos> Produtos { get; set; }
-        public InformacoesAdicionais InformacoesAdicionais { get; set; }
-        public Exportacao Exportacao { get; set; }
-        public Compra CompraNota { get; set; }
-        public Total Totais { get; set; }
-        public Identificacao Ident { get; }
-        public Transporte Transp { get; }
-        public Cobranca Cobranca { get; }
-        public RegistroAquisicaoCana Cana { get; }
-
         private Popup Log = new Popup();
-        private NFe notaSalva;
-        private Processo notaEmitida;
+        public NFe NotaSalva { get; private set; }
+        private Processo NotaEmitida;
 
-        public bool BotaoConfirmarAtivado { get; private set; }
-        public bool BotaoSalvarAtivado { get; private set; }
-        public bool BotaoAssinarAtivado { get; private set; }
-        public bool BotaoTransmitirAtivado { get; private set; }
-        public bool BotaoGerarDANFEAtivado { get; private set; }
+        public bool BotaoConfirmarAtivado => status == StatusNFe.EdiçãoCriação;
+        public bool BotaoSalvarAtivado => status == StatusNFe.Validado;
+        public bool BotaoAssinarAtivado => status == StatusNFe.Salvo;
+        public bool BotaoTransmitirAtivado => status == StatusNFe.Assinado;
+        public bool BotaoGerarDANFEAtivado => status == StatusNFe.Emitido;
 
         private StatusNFe status = StatusNFe.EdiçãoCriação;
         internal StatusNFe StatusAtual
         {
-            get { return status; }
+            get => status;
             set
             {
-                BotaoConfirmarAtivado = value == StatusNFe.EdiçãoCriação;
-                BotaoSalvarAtivado = value == StatusNFe.Validado;
-                BotaoAssinarAtivado = value == StatusNFe.Salvo;
-                BotaoTransmitirAtivado = value == StatusNFe.Assinado;
-                BotaoGerarDANFEAtivado = value == StatusNFe.Emitido;
+                status = value;
                 OnPropertyChanged(nameof(BotaoConfirmarAtivado),
                     nameof(BotaoSalvarAtivado),
                     nameof(BotaoAssinarAtivado),
                     nameof(BotaoTransmitirAtivado),
                     nameof(BotaoGerarDANFEAtivado));
-                status = value;
             }
         }
 
@@ -86,14 +69,14 @@ namespace NFeFacil.ViewModel
             {
                 if (clienteSelecionado == null)
                 {
-                    clienteSelecionado = ClientesDisponiveis.FirstOrDefault(x => x.Documento == Destinatario.Documento);
+                    clienteSelecionado = ClientesDisponiveis.FirstOrDefault(x => x.Documento == NotaSalva.Informações.destinatário.Documento);
                 }
                 return clienteSelecionado;
             }
             set
             {
-                Destinatario = clienteSelecionado = value;
-                OnPropertyChanged(nameof(Destinatario));
+                NotaSalva.Informações.destinatário = clienteSelecionado = value;
+                OnPropertyChanged(nameof(NotaSalva));
             }
         }
 
@@ -104,14 +87,14 @@ namespace NFeFacil.ViewModel
             {
                 if (emitenteSelecionado == null)
                 {
-                    emitenteSelecionado = EmitentesDisponiveis.FirstOrDefault(x => x.CNPJ == Emitente.CNPJ);
+                    emitenteSelecionado = EmitentesDisponiveis.FirstOrDefault(x => x.CNPJ == NotaSalva.Informações.emitente.CNPJ);
                 }
                 return emitenteSelecionado;
             }
             set
             {
-                Emitente = emitenteSelecionado = value;
-                OnPropertyChanged(nameof(Emitente));
+                NotaSalva.Informações.emitente = emitenteSelecionado = value;
+                OnPropertyChanged(nameof(NotaSalva));
             }
         }
 
@@ -124,21 +107,21 @@ namespace NFeFacil.ViewModel
             {
                 if (motoristaSelecionado == null)
                 {
-                    motoristaSelecionado = MotoristasDisponiveis.FirstOrDefault(x => x.Documento == Transp?.transporta?.Documento);
+                    motoristaSelecionado = MotoristasDisponiveis.FirstOrDefault(x => x.Documento == NotaSalva.Informações.transp?.transporta?.Documento);
                 }
                 return motoristaSelecionado;
             }
             set
             {
-                Transp.transporta = motoristaSelecionado = value;
-                OnPropertyChanged(nameof(Transp));
+                NotaSalva.Informações.transp.transporta = motoristaSelecionado = value;
+                OnPropertyChanged(nameof(NotaSalva));
             }
         }
 
         public int IndexPivotSelecionado { get; set; } = 0;
         private TipoOperacao OperacaoRequirida { get; }
 
-        internal NotaFiscalDataContext(object param, StatusNFe status, TipoOperacao operacaoRequirida)
+        internal NotaFiscalDataContext(ref ConjuntoManipuladorNFe Dados)
         {
             using (var clientes = new Clientes())
             using (var emitentes = new Emitentes())
@@ -150,43 +133,31 @@ namespace NFeFacil.ViewModel
                 MotoristasDisponiveis = motoristas.Registro.ToList();
                 ProdutosDisponiveis = produtos.Registro.ToList();
             }
-            OperacaoRequirida = operacaoRequirida;
+            OperacaoRequirida = Dados.OperacaoRequirida;
 
-            Detalhes nfe;
-            if (param is Processo proc)
-            {
-                nfe = proc.NFe.Informações;
-                notaEmitida = proc;
-            }
-            else if (param is NFe nota)
-            {
-                nfe = nota.Informações;
-                notaSalva = nota;
-            }
-            else
-            {
-                throw new ArgumentException();
-            }
-
-            StatusAtual = status;
-            Ident = nfe.identificação;
-            Emitente = nfe.emitente;
-            Destinatario = nfe.destinatário;
-            Produtos = nfe.produtos;
-            Transp = nfe.transp ?? new Transporte();
-            Cobranca = nfe.cobr ?? new Cobranca();
-            InformacoesAdicionais = nfe.infAdic ?? new InformacoesAdicionais();
-            Exportacao = nfe.exporta ?? new Exportacao();
-            CompraNota = nfe.compra ?? new Compra();
-            Cana = nfe.cana ?? new RegistroAquisicaoCana();
+            StatusAtual = Dados.StatusAtual;
 
             if (CoreApplication.Properties.TryGetValue("ProdutoPendente", out object temp))
             {
                 var detalhes = (DetalhesProdutos)temp;
-                detalhes.número = Produtos.Count + 1;
-                Produtos.Add(detalhes);
+                detalhes.número = Dados.NotaSalva.Informações.produtos.Count + 1;
+                Dados.NotaSalva.Informações.produtos.Add(detalhes);
                 IndexPivotSelecionado = 3;
                 CoreApplication.Properties.Remove("ProdutoPendente");
+            }
+
+            if (Dados.NotaEmitida != null)
+            {
+                NotaEmitida = Dados.NotaEmitida;
+                NotaSalva = NotaEmitida.NFe;
+            }
+            else if (Dados.NotaSalva != null)
+            {
+                NotaSalva = Dados.NotaSalva;
+            }
+            else
+            {
+                throw new ArgumentException();
             }
         }
 
@@ -204,42 +175,42 @@ namespace NFeFacil.ViewModel
 
         private void RemoverProduto(DetalhesProdutos produto)
         {
-            Produtos.Remove(produto);
+            NotaSalva.Informações.produtos.Remove(produto);
             OnPropertyChanged(nameof(Produtos));
         }
 
         public ICommand ConfirmarCommand => new ComandoSimples(Confirmar, true);
-        public ICommand SalvarCommand => new ComandoSimples(Salvar, true);
+        public ICommand SalvarCommand => new ComandoSimples(SalvarAsync, true);
         public ICommand AssinarCommand => new ComandoSimples(Assinar, true);
         public ICommand TransmitirCommand => new ComandoSimples(Transmitir, true);
         public ICommand GerarDANFECommand => new ComandoSimples(GerarDANFE, true);
 
         private void Confirmar()
         {
-            if (notaEmitida != null)
+            if (NotaEmitida != null)
             {
                 Log.Escrever(TitulosComuns.ErroCatastrófico, "Comando não faz neste contexto.");
             }
             else
             {
-                if (new ValidarDados(new ValidadorEmitente(Emitente),
-                    new ValidadorDestinatario(Destinatario)).ValidarTudo(Log))
+                if (new ValidarDados(new ValidadorEmitente(NotaSalva.Informações.emitente),
+                    new ValidadorDestinatario(NotaSalva.Informações.destinatário)).ValidarTudo(Log))
                 {
-                    notaSalva = new NFe
+                    NotaSalva = new NFe
                     {
                         Informações = new Detalhes
                         {
-                            identificação = Ident,
-                            emitente = Emitente,
-                            destinatário = Destinatario,
+                            identificação = NotaSalva.Informações.identificação,
+                            emitente = NotaSalva.Informações.emitente,
+                            destinatário = NotaSalva.Informações.destinatário,
                             transp = ObterTranporteNormalizado(),
-                            produtos = Produtos,
-                            total = Totais,
-                            cobr = NaoEDefault(Cobranca),
-                            infAdic = NaoEDefault(InformacoesAdicionais),
-                            exporta = NaoEDefault(Exportacao),
-                            compra = NaoEDefault(CompraNota),
-                            cana = NaoEDefault(Cana)
+                            produtos = NotaSalva.Informações.produtos,
+                            total = NotaSalva.Informações.total,
+                            cobr = NaoEDefault(NotaSalva.Informações.cobr),
+                            infAdic = NaoEDefault(NotaSalva.Informações.infAdic),
+                            exporta = NaoEDefault(NotaSalva.Informações.exporta),
+                            compra = NaoEDefault(NotaSalva.Informações.compra),
+                            cana = NaoEDefault(NotaSalva.Informações.cana)
                         }
                     };
                     Log.Escrever(TitulosComuns.ValidaçãoConcluída, "A nota fiscal foi validada. Aparentemente, não há irregularidades");
@@ -250,32 +221,32 @@ namespace NFeFacil.ViewModel
 
         private Transporte ObterTranporteNormalizado()
         {
-            var transp = Transp;
-            transp.transporta = NaoEDefault(Transp.transporta);
-            transp.veicTransp = NaoEDefault(Transp.veicTransp);
-            transp.retTransp = NaoEDefault(Transp.retTransp);
+            var transp = NotaSalva.Informações.transp;
+            transp.transporta = NaoEDefault(NotaSalva.Informações.transp.transporta);
+            transp.veicTransp = NaoEDefault(NotaSalva.Informações.transp.veicTransp);
+            transp.retTransp = NaoEDefault(NotaSalva.Informações.transp.retTransp);
             return transp;
         }
 
         private static T NaoEDefault<T>(T valor) where T : class => valor != null && valor != default(T) ? valor : null;
 
-        private void Salvar()
+        private async void SalvarAsync()
         {
             try
             {
                 StatusAtual = StatusNFe.Salvo;
-                var xml = notaSalva.ToXElement<NFe>();
+                var xml = NotaSalva.ToXElement<NFe>();
                 var di = NFeDI.Converter(xml);
-                di.Status = (int)StatusAtual;
+                di.Status = (int)StatusNFe.Salvo;
                 using (var db = new NotasFiscais())
                 {
                     if (OperacaoRequirida == TipoOperacao.Adicao)
                     {
-                        db.Adicionar(di, xml);
+                        await db.Adicionar(di, xml);
                     }
                     else
                     {
-                        db.Atualizar(di, xml);
+                        await db.Atualizar(di, xml);
                     }
                 }
                 Log.Escrever(TitulosComuns.Sucesso, "Nota fiscal salva com sucesso. Agora podes sair da aplicação sem perder esta NFe.");
@@ -289,21 +260,21 @@ namespace NFeFacil.ViewModel
 
         private void Assinar()
         {
-            var assina = new BibliotecaCentral.Assinatura.AssinaNFe(notaSalva);
+            var assina = new BibliotecaCentral.Assinatura.AssinaNFe(NotaSalva);
             assina.Assinar();
             StatusAtual = StatusNFe.Assinado;
         }
 
         private async void Transmitir()
         {
-            var estado = Estados.EstadosCache.First(x => x.Sigla == notaSalva.Informações.emitente.endereco.SiglaUF);
-            var resultadoTransmissao = await BibliotecaCentral.WebService.AutorizarNota.Gerenciador.AutorizarAsync(estado.Codigo, notaSalva);
+            var estado = Estados.EstadosCache.First(x => x.Sigla == NotaSalva.Informações.emitente.endereco.SiglaUF);
+            var resultadoTransmissao = await BibliotecaCentral.WebService.AutorizarNota.Gerenciador.AutorizarAsync(estado.Codigo, NotaSalva);
             if (resultadoTransmissao.retEnviNFe.cStat == 100)
             {
                 var resultadoResposta = await BibliotecaCentral.WebService.RespostaAutorizarNota.Gerenciador.ObterRespostaAutorizacao(resultadoTransmissao.retEnviNFe);
-                notaEmitida = new Processo()
+                NotaEmitida = new Processo()
                 {
-                    NFe = notaSalva,
+                    NFe = NotaSalva,
                     ProtNFe = resultadoResposta.retConsReciNFe.protNFe
                 };
                 Log.Escrever(TitulosComuns.Sucesso, resultadoResposta.retConsReciNFe.xMotivo);
@@ -317,7 +288,7 @@ namespace NFeFacil.ViewModel
 
         private async void GerarDANFE()
         {
-            await Propriedades.Intercambio.AbrirFunçaoAsync(typeof(ViewDANFE), notaEmitida);
+            await Propriedades.Intercambio.AbrirFunçaoAsync(typeof(ViewDANFE), NotaEmitida);
             StatusAtual = StatusNFe.Impresso;
         }
 
@@ -327,19 +298,19 @@ namespace NFeFacil.ViewModel
         {
             get
             {
-                if (string.IsNullOrEmpty(Ident.DataHoraEmissão))
+                if (string.IsNullOrEmpty(NotaSalva.Informações.identificação.DataHoraEmissão))
                 {
                     var agora = DateTime.Now;
-                    Ident.DataHoraEmissão = agora.ToStringPersonalizado();
+                    NotaSalva.Informações.identificação.DataHoraEmissão = agora.ToStringPersonalizado();
                     return agora;
                 }
-                return DateTimeOffset.Parse(Ident.DataHoraEmissão);
+                return DateTimeOffset.Parse(NotaSalva.Informações.identificação.DataHoraEmissão);
             }
             set
             {
-                var anterior = DateTimeOffset.Parse(Ident.DataHoraEmissão);
+                var anterior = DateTimeOffset.Parse(NotaSalva.Informações.identificação.DataHoraEmissão);
                 var novo = new DateTime(value.Year, value.Month, value.Day, anterior.Hour, anterior.Minute, anterior.Second);
-                Ident.DataHoraEmissão = novo.ToStringPersonalizado();
+                NotaSalva.Informações.identificação.DataHoraEmissão = novo.ToStringPersonalizado();
             }
         }
 
@@ -348,9 +319,9 @@ namespace NFeFacil.ViewModel
             get => DataEmissao.TimeOfDay;
             set
             {
-                var anterior = DateTimeOffset.Parse(Ident.DataHoraEmissão);
+                var anterior = DateTimeOffset.Parse(NotaSalva.Informações.identificação.DataHoraEmissão);
                 var novo = new DateTime(anterior.Year, anterior.Month, anterior.Day, value.Hours, value.Minutes, value.Seconds);
-                Ident.DataHoraEmissão = novo.ToStringPersonalizado();
+                NotaSalva.Informações.identificação.DataHoraEmissão = novo.ToStringPersonalizado();
             }
         }
 
@@ -358,19 +329,19 @@ namespace NFeFacil.ViewModel
         {
             get
             {
-                if (string.IsNullOrEmpty(Ident.DataHoraSaídaEntrada))
+                if (string.IsNullOrEmpty(NotaSalva.Informações.identificação.DataHoraSaídaEntrada))
                 {
                     var agora = DateTime.Now;
-                    Ident.DataHoraSaídaEntrada = agora.ToStringPersonalizado();
+                    NotaSalva.Informações.identificação.DataHoraSaídaEntrada = agora.ToStringPersonalizado();
                     return agora;
                 }
-                return DateTimeOffset.Parse(Ident.DataHoraSaídaEntrada);
+                return DateTimeOffset.Parse(NotaSalva.Informações.identificação.DataHoraSaídaEntrada);
             }
             set
             {
-                var anterior = DateTimeOffset.Parse(Ident.DataHoraSaídaEntrada);
+                var anterior = DateTimeOffset.Parse(NotaSalva.Informações.identificação.DataHoraSaídaEntrada);
                 var novo = new DateTime(value.Year, value.Month, value.Day, anterior.Hour, anterior.Minute, anterior.Second);
-                Ident.DataHoraSaídaEntrada = novo.ToStringPersonalizado();
+                NotaSalva.Informações.identificação.DataHoraSaídaEntrada = novo.ToStringPersonalizado();
             }
         }
 
@@ -379,18 +350,18 @@ namespace NFeFacil.ViewModel
             get => DataSaidaEntrada.TimeOfDay;
             set
             {
-                var anterior = DateTimeOffset.Parse(Ident.DataHoraSaídaEntrada);
+                var anterior = DateTimeOffset.Parse(NotaSalva.Informações.identificação.DataHoraSaídaEntrada);
                 var novo = new DateTime(anterior.Year, anterior.Month, anterior.Day, value.Hours, value.Minutes, value.Seconds);
-                Ident.DataHoraSaídaEntrada = novo.ToStringPersonalizado();
+                NotaSalva.Informações.identificação.DataHoraSaídaEntrada = novo.ToStringPersonalizado();
             }
         }
 
         public ushort EstadoIdentificacao
         {
-            get => Ident.CódigoUF;
+            get => NotaSalva.Informações.identificação.CódigoUF;
             set
             {
-                Ident.CódigoUF = value;
+                NotaSalva.Informações.identificação.CódigoUF = value;
                 OnPropertyChanged(nameof(EstadoIdentificacao));
             }
         }
@@ -404,12 +375,12 @@ namespace NFeFacil.ViewModel
         {
             get
             {
-                if (!string.IsNullOrEmpty(Transp.retTransp.cMunFG) && ufEscolhida == null)
+                if (!string.IsNullOrEmpty(NotaSalva.Informações.transp.retTransp.cMunFG) && ufEscolhida == null)
                 {
                     foreach (var item in Estados.EstadosCache)
                     {
                         var lista = Municipios.Get(item);
-                        if (lista.Count(x => x.Codigo == int.Parse(Transp.retTransp.cMunFG)) > 0)
+                        if (lista.Count(x => x.Codigo == int.Parse(NotaSalva.Informações.transp.retTransp.cMunFG)) > 0)
                         {
                             ufEscolhida = item;
                         }
@@ -428,8 +399,8 @@ namespace NFeFacil.ViewModel
 
         public ModalidadesTransporte ModFrete
         {
-            get => (ModalidadesTransporte)Transp.modFrete;
-            set => Transp.modFrete = (int)value;
+            get => (ModalidadesTransporte)NotaSalva.Informações.transp.modFrete;
+            set => NotaSalva.Informações.transp.modFrete = (int)value;
         }
 
         public ICommand AdicionarReboqueCommand => new ComandoSimples(AdicionarReboque, true);
@@ -442,16 +413,16 @@ namespace NFeFacil.ViewModel
             var add = new View.CaixasDialogo.AdicionarReboque();
             add.PrimaryButtonClick += (x, y) =>
             {
-                Transp.reboque.Add(x.DataContext as Reboque);
-                PropertyChanged(this, new PropertyChangedEventArgs(nameof(Transp)));
+                NotaSalva.Informações.transp.reboque.Add(x.DataContext as Reboque);
+                PropertyChanged(this, new PropertyChangedEventArgs(nameof(NotaSalva)));
             };
             await add.ShowAsync();
         }
 
         private void RemoverReboque(Reboque reboque)
         {
-            Transp.reboque.Remove(reboque);
-            PropertyChanged(this, new PropertyChangedEventArgs(nameof(Transp)));
+            NotaSalva.Informações.transp.reboque.Remove(reboque);
+            PropertyChanged(this, new PropertyChangedEventArgs(nameof(NotaSalva)));
         }
 
         private async void AdicionarVolume()
@@ -459,16 +430,16 @@ namespace NFeFacil.ViewModel
             var add = new View.CaixasDialogo.AdicionarVolume();
             add.PrimaryButtonClick += (x, y) =>
             {
-                Transp.vol.Add(x.DataContext as Volume);
-                PropertyChanged(this, new PropertyChangedEventArgs(nameof(Transp)));
+                NotaSalva.Informações.transp.vol.Add(x.DataContext as Volume);
+                PropertyChanged(this, new PropertyChangedEventArgs(nameof(NotaSalva)));
             };
             await add.ShowAsync();
         }
 
         private void RemoverVolume(Volume volume)
         {
-            Transp.vol.Remove(volume);
-            PropertyChanged(this, new PropertyChangedEventArgs(nameof(Transp)));
+            NotaSalva.Informações.transp.vol.Remove(volume);
+            PropertyChanged(this, new PropertyChangedEventArgs(nameof(NotaSalva)));
         }
 
         #endregion
@@ -483,7 +454,7 @@ namespace NFeFacil.ViewModel
             var caixa = new View.CaixasDialogo.AdicionarDuplicata();
             caixa.PrimaryButtonClick += (sender, e) =>
             {
-                Cobranca.Dup.Add(sender.DataContext as Duplicata);
+                NotaSalva.Informações.cobr.Dup.Add(sender.DataContext as Duplicata);
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Cobranca"));
             };
             await caixa.ShowAsync();
@@ -491,7 +462,7 @@ namespace NFeFacil.ViewModel
 
         private void RemoverDuplicata(Duplicata duplicata)
         {
-            Cobranca.Dup.Remove(duplicata);
+            NotaSalva.Informações.cobr.Dup.Remove(duplicata);
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Cobranca"));
         }
 
@@ -509,16 +480,16 @@ namespace NFeFacil.ViewModel
             var caixa = new View.CaixasDialogo.AdicionarFornecimentoDiario();
             caixa.PrimaryButtonClick += (x, y) =>
             {
-                Cana.forDia.Add(x.DataContext as FornecimentoDiario);
-                PropertyChanged(this, new PropertyChangedEventArgs(nameof(Cana)));
+                NotaSalva.Informações.cana.forDia.Add(x.DataContext as FornecimentoDiario);
+                PropertyChanged(this, new PropertyChangedEventArgs(nameof(NotaSalva)));
             };
             await caixa.ShowAsync();
         }
 
         public void RemoverFornecimento(FornecimentoDiario fornecimento)
         {
-            Cana.forDia.Remove(fornecimento);
-            PropertyChanged(this, new PropertyChangedEventArgs(nameof(Cana)));
+            NotaSalva.Informações.cana.forDia.Remove(fornecimento);
+            PropertyChanged(this, new PropertyChangedEventArgs(nameof(NotaSalva)));
         }
 
         public async void AdicionarDeducao()
@@ -526,16 +497,16 @@ namespace NFeFacil.ViewModel
             var caixa = new View.CaixasDialogo.AdicionarDeducao();
             caixa.PrimaryButtonClick += (x, y) =>
             {
-                Cana.deduc.Add(x.DataContext as Deducoes);
-                PropertyChanged(this, new PropertyChangedEventArgs(nameof(Cana)));
+                NotaSalva.Informações.cana.deduc.Add(x.DataContext as Deducoes);
+                PropertyChanged(this, new PropertyChangedEventArgs(nameof(NotaSalva)));
             };
             await caixa.ShowAsync();
         }
 
         public void RemoverDeducao(Deducoes deducao)
         {
-            Cana.deduc.Remove(deducao);
-            PropertyChanged(this, new PropertyChangedEventArgs(nameof(Cana)));
+            NotaSalva.Informações.cana.deduc.Remove(deducao);
+            PropertyChanged(this, new PropertyChangedEventArgs(nameof(NotaSalva)));
         }
 
         #endregion

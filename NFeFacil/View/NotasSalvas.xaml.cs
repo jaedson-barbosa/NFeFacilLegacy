@@ -4,6 +4,8 @@ using Windows.UI.Xaml.Controls;
 using System.Threading.Tasks;
 using BibliotecaCentral.Repositorio;
 using BibliotecaCentral;
+using BibliotecaCentral.ModeloXML.PartesProcesso;
+using BibliotecaCentral.ModeloXML;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -38,11 +40,19 @@ namespace NFeFacil.View
         private async void EditarAsync(object sender, RoutedEventArgs e)
         {
             var nota = (sender as FrameworkElement).DataContext as NFeDI;
-            var conjunto = new GrupoViewBanco<(NFeDI, object)>
+            var conjunto = new ConjuntoManipuladorNFe
             {
-                ItemBanco = (nota, await nota.ConjuntoCompletoAsync()),
+                StatusAtual = (StatusNFe)nota.Status,
                 OperacaoRequirida = TipoOperacao.Edicao
             };
+            if (nota.Status < 4)
+            {
+                conjunto.NotaSalva = (await nota.ConjuntoCompletoAsync()) as NFe;
+            }
+            else
+            {
+                conjunto.NotaEmitida = (await nota.ConjuntoCompletoAsync()) as Processo;
+            }
             await Propriedades.Intercambio.AbrirFunçaoAsync(typeof(ManipulacaoNotaFiscal), conjunto);
         }
 

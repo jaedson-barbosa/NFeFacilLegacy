@@ -24,7 +24,7 @@ namespace NFeFacil.View
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var param = (GrupoViewBanco<(NFeDI, object)>)e.Parameter;
+            var param = (ConjuntoManipuladorNFe)e.Parameter;
             switch (param.OperacaoRequirida)
             {
                 case TipoOperacao.Adicao:
@@ -36,7 +36,7 @@ namespace NFeFacil.View
                 default:
                     break;
             }
-            DataContext = contexto = new NotaFiscalDataContext(param.ItemBanco.Item2, (StatusNFe)param.ItemBanco.Item1.Status, param.OperacaoRequirida);
+            DataContext = contexto = new NotaFiscalDataContext(ref param);
         }
 
         async Task<bool> IValida.Verificar()

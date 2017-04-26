@@ -201,6 +201,7 @@
     </Compile>
     <Compile Include="View\CaixasDialogo\ConverterContextoDeclaracaoExportacao.cs" />
     <Compile Include="View\CaixasDialogo\ConverterContextoDeclaracaoImportacao.cs" />
+    <Compile Include="View\ConjuntoManipuladorNFe.cs" />
     <Compile Include="View\Consulta.xaml.cs">
       <DependentUpon>Consulta.xaml</DependentUpon>
     </Compile>

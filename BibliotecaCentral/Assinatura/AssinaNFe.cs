@@ -1,5 +1,6 @@
 ﻿using BibliotecaCentral.ModeloXML.PartesProcesso;
 using System.Security.Cryptography.X509Certificates;
+using System.Xml;
 
 namespace BibliotecaCentral.Assinatura
 {
@@ -20,7 +21,9 @@ namespace BibliotecaCentral.Assinatura
             var loja = new X509Store(StoreName.My, StoreLocation.CurrentUser);
             loja.Open(OpenFlags.ReadOnly);
             var certs = loja.Certificates.Find(X509FindType.FindBySerialNumber, Configuracoes.ConfiguracoesCertificacao.Certificado, true);
-            Nota.Signature = AssinaXML.AssinarXML(Nota.ToXmlElement(Nota.GetType()), certs[0]);
+            var xml = new XmlDocument();
+            xml.Load(Nota.ToXElement<NFe>().CreateReader());
+            Nota.Signature = AssinaXML.AssinarXML(xml, certs[0]);
         }
     }
 }

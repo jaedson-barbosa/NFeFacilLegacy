@@ -86,28 +86,28 @@
                         </ItemsControl>
                         <ItemsControl Style="{StaticResource ItensResponsivos}">
                             <TextBox Header="Série *"
-                                     Text="{Binding Ident.Serie, Mode=TwoWay}" />
+                                     Text="{Binding NotaSalva.Informações.identificação.Serie, Mode=TwoWay}" />
                             <TextBox Header="Número *"
-                                     Text="{Binding Ident.Numero, Mode=TwoWay}" />
+                                     Text="{Binding NotaSalva.Informações.identificação.Numero, Mode=TwoWay}" />
                             <ComboBox Header="Tipo de operação *"
-                                      SelectedIndex="{Binding Ident.TipoOperação, Mode=TwoWay}">
+                                      SelectedIndex="{Binding NotaSalva.Informações.identificação.TipoOperação, Mode=TwoWay}">
                                 <ComboBoxItem Content="Entrada" />
                                 <ComboBoxItem Content="Saída" />
                             </ComboBox>
                             <ComboBox Header="Finalidade de emissão *"
-                                      SelectedIndex="{Binding Ident.FinalidadeEmissão, Converter={StaticResource valorAlterado}, ConverterParameter='-1', Mode=TwoWay}">
+                                      SelectedIndex="{Binding NotaSalva.Informações.identificação.FinalidadeEmissão, Converter={StaticResource valorAlterado}, ConverterParameter='-1', Mode=TwoWay}">
                                 <ComboBoxItem Content="Normal" />
                                 <ComboBoxItem Content="Complementar" />
                                 <ComboBoxItem Content="De ajuste" />
                                 <ComboBoxItem Content="Devolução de mercadoria" />
                             </ComboBox>
                             <ComboBox Header="Consumidor final *"
-                                      SelectedIndex="{Binding Ident.OperaçãoConsumidorFinal, Mode=TwoWay}">
+                                      SelectedIndex="{Binding NotaSalva.Informações.identificação.OperaçãoConsumidorFinal, Mode=TwoWay}">
                                 <ComboBoxItem Content="Não" />
                                 <ComboBoxItem Content="Sim" />
                             </ComboBox>
                             <ComboBox Header="Tipo de atendimento *"
-                                      SelectedIndex="{Binding Ident.IndicadorPresença, Mode=TwoWay}">
+                                      SelectedIndex="{Binding NotaSalva.Informações.identificação.IndicadorPresença, Mode=TwoWay}">
                                 <ComboBoxItem Content="Não se aplica" />
                                 <ComboBoxItem Content="Presencial" />
                                 <ComboBoxItem Content="Não presencial - Internet" />
@@ -120,28 +120,28 @@
                                       DisplayMemberPath="Nome"
                                       PlaceholderText="Estado" />
                             <ComboBox Header="Forma de pagamento *"
-                                      SelectedIndex="{Binding Ident.FormaPagamento, Mode=TwoWay}">
+                                      SelectedIndex="{Binding NotaSalva.Informações.identificação.FormaPagamento, Mode=TwoWay}">
                                 <ComboBoxItem Content="Pagamento à vista" />
                                 <ComboBoxItem Content="Pagamento a prazo" />
                                 <ComboBoxItem Content="Outros" />
                             </ComboBox>
                             <ComboBox Header="Tipo de NotaFácil.DANFE *"
-                                      SelectedIndex="{Binding Ident.TipoImpressão, Converter={StaticResource valorAlterado}, ConverterParameter='-1', Mode=TwoWay}">
+                                      SelectedIndex="{Binding NotaSalva.Informações.identificação.TipoImpressão, Converter={StaticResource valorAlterado}, ConverterParameter='-1', Mode=TwoWay}">
                                 <ComboBoxItem Content="Retrato" />
                                 <ComboBoxItem Content="Paisagem" />
                             </ComboBox>
                             <ComboBox Header="Destino da operação *"
-                                      SelectedIndex="{Binding Ident.IdentificadorDestino, Converter={StaticResource valorAlterado}, ConverterParameter='-1', Mode=TwoWay}">
+                                      SelectedIndex="{Binding NotaSalva.Informações.identificação.IdentificadorDestino, Converter={StaticResource valorAlterado}, ConverterParameter='-1', Mode=TwoWay}">
                                 <ComboBoxItem Content="Operação interna" />
                                 <ComboBoxItem Content="Operação interestadual" />
                                 <ComboBoxItem Content="Operação com o exterior" />
                             </ComboBox>
                             <TextBox Header="Natureza da operação *"
-                                     Text="{Binding Ident.NaturezaDaOperação, Mode=TwoWay}" />
+                                     Text="{Binding NotaSalva.Informações.identificação.NaturezaDaOperação, Mode=TwoWay}" />
                             <ComboBox Header="Município *"
-                                      ItemsSource="{Binding EstadoIdentificacao, Converter={StaticResource obterMun}}"
                                       DisplayMemberPath="Nome"
-                                      SelectedValue="{Binding Path=Ident.CodigoMunicípio, Mode=TwoWay}"
+                                      ItemsSource="{Binding EstadoIdentificacao, Converter={StaticResource obterMun}}"
+                                      SelectedValue="{Binding NotaSalva.Informações.identificação.CodigoMunicípio, Mode=TwoWay}"
                                       SelectedValuePath="Codigo"/>
                         </ItemsControl>
                     </StackPanel>
@@ -166,7 +166,7 @@
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
-                        <DadosBase:TelaEmitente DataContext="{Binding Emitente}"
+                        <DadosBase:TelaEmitente DataContext="{Binding NotaSalva.Informações.emitente}"
                                                 Margin="0,0,0,10" />
                     </StackPanel>
                 </ScrollViewer>
@@ -190,7 +190,7 @@
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
-                        <DadosBase:TelaDestinatario DataContext="{Binding Destinatario}"
+                        <DadosBase:TelaDestinatario DataContext="{Binding NotaSalva.Informações.destinatário}"
                                                     Margin="0,0,0,10" />
                     </StackPanel>
                 </ScrollViewer>
@@ -215,6 +215,8 @@
                             <RowDefinition />
                         </Grid.RowDefinitions>
                         <ComboBox x:Name="cmbProdutos"
+                                  ItemsSource="{Binding ProdutosDisponiveis}"
+                                  SelectedItem="{Binding ProdutoSelecionado, Mode=TwoWay}"
                                   HorizontalAlignment="Stretch"
                                   Margin="0,0,2,0"
                                   PlaceholderText="Escolha um Produto">
@@ -230,7 +232,7 @@
                                 Command="{Binding AdicionarProdutoCommand}">Adicionar</Button>
                         <ListView Grid.Row="1"
                                   Grid.ColumnSpan="2"
-                                  ItemsSource="{Binding Produtos, Converter={StaticResource getObs}}"
+                                  ItemsSource="{Binding NotaSalva.Informações.produtos, Converter={StaticResource getObs}}"
                                   Style="{StaticResource ListaCheia}">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
@@ -258,7 +260,7 @@
                 </PivotItem.Header>
                 <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Hidden">
                     <ScrollViewer VerticalScrollBarVisibility="Hidden"
-                                  DataContext="{Binding Totais}">
+                                  DataContext="{Binding NotaSalva.Informações.total}">
                         <StackPanel>
                             <TextBlock Style="{StaticResource TitleTextBlockStyle}">ICMS</TextBlock>
                             <ItemsControl DataContext="{Binding ICMSTot}"
@@ -394,7 +396,7 @@
                               Header="Modalidade do frete" />
                     <Pivot>
                         <PivotItem Header="Motorista">
-                            <DadosBase:TelaMotorista DataContext="{Binding Transp.transporta}" />
+                            <DadosBase:TelaMotorista DataContext="{Binding NotaSalva.Informações.transp.transporta}" />
                         </PivotItem>
                         <PivotItem Header="Veículo">
                             <ScrollViewer VerticalScrollBarVisibility="Hidden">
@@ -402,14 +404,14 @@
                                     <StackPanel Margin="2"
                                                 MinWidth="300">
                                         <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Veículo</TextBlock>
-                                        <TextBox Text="{Binding Transp.veicTransp.Placa, Mode=TwoWay}"
+                                        <TextBox Text="{Binding NotaSalva.Informações.transp.veicTransp.Placa, Mode=TwoWay}"
                                                  Header="Placa" />
                                         <ComboBox ItemsSource="{Binding Source={StaticResource estados}, Path=Siglas}"
                                                   SelectedItem="{Binding Path=Transp.veicTransp.UF, Mode=TwoWay}"
                                                   Header="Estado"
                                                   HorizontalAlignment="Stretch" />
                                         <TextBox Header="RNTC"
-                                                 Text="{Binding Transp.veicTransp.RNTC, Mode=TwoWay}" />
+                                                 Text="{Binding NotaSalva.Informações.transp.veicTransp.RNTC, Mode=TwoWay}" />
                                     </StackPanel>
                                     <Grid>
                                         <Grid.RowDefinitions>
@@ -417,7 +419,7 @@
                                             <RowDefinition />
                                         </Grid.RowDefinitions>
                                         <TextBlock Style="{StaticResource TitleTextBlockStyle}">Reboques</TextBlock>
-                                        <ListView ItemsSource="{Binding Transp.reboque, Converter={StaticResource getObs}}"
+                                        <ListView ItemsSource="{Binding NotaSalva.Informações.transp.reboque, Converter={StaticResource getObs}}"
                                                   Grid.Row="1"
                                                   Style="{StaticResource ListaCheia}">
                                             <ListView.Header>
@@ -445,16 +447,16 @@
                                     </Grid>
                                     <StackPanel Margin="2">
                                         <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Info adicional</TextBlock>
-                                        <TextBox Text="{Binding Transp.balsa, Mode=TwoWay}"
+                                        <TextBox Text="{Binding NotaSalva.Informações.transp.balsa, Mode=TwoWay}"
                                                  Header="Identificação da balsa" />
-                                        <TextBox Text="{Binding Transp.vagao, Mode=TwoWay}"
+                                        <TextBox Text="{Binding NotaSalva.Informações.transp.vagao, Mode=TwoWay}"
                                                  Header="Identificação do vagão" />
                                     </StackPanel>
                                 </ItemsControl>
                             </ScrollViewer>
                         </PivotItem>
                         <PivotItem Header="Volumes">
-                            <ListView ItemsSource="{Binding Transp.vol, Converter={StaticResource getObs}}"
+                            <ListView ItemsSource="{Binding NotaSalva.Informações.transp.vol, Converter={StaticResource getObs}}"
                                       Style="{StaticResource ListaCheia}">
                                 <ListView.Header>
                                     <Grid>
@@ -492,15 +494,15 @@
                         <PivotItem Header="Retenção ICMS">
                             <ItemsControl Style="{StaticResource ItensMedios}">
                                 <TextBox Header="Valor do serviço"
-                                         Text="{Binding Transp.retTransp.vServ, Mode=TwoWay}" />
+                                         Text="{Binding NotaSalva.Informações.transp.retTransp.vServ, Mode=TwoWay}" />
                                 <TextBox Header="BC da retenção do ICMS"
-                                         Text="{Binding Transp.retTransp.vBCRet, Mode=TwoWay}"/>
+                                         Text="{Binding NotaSalva.Informações.transp.retTransp.vBCRet, Mode=TwoWay}"/>
                                 <TextBox Header="Alíquota da retenção"
-                                         Text="{Binding Transp.retTransp.pICMSRet, Mode=TwoWay}" />
+                                         Text="{Binding NotaSalva.Informações.transp.retTransp.pICMSRet, Mode=TwoWay}" />
                                 <TextBox Header="Valor do ICMS retido"
-                                         Text="{Binding Transp.retTransp.vICMSRet, Mode=TwoWay}" />
+                                         Text="{Binding NotaSalva.Informações.transp.retTransp.vICMSRet, Mode=TwoWay}" />
                                 <TextBox Header="CFOP"
-                                         Text="{Binding Transp.retTransp.CFOP, Mode=TwoWay}" />
+                                         Text="{Binding NotaSalva.Informações.transp.retTransp.CFOP, Mode=TwoWay}" />
                                 <ComboBox ItemsSource="{Binding Source={StaticResource estados}, Path=EstadosCompletos}"
                                           SelectedItem="{Binding Path=UFEscolhida, Mode=TwoWay}"
                                           DisplayMemberPath="Nome"
@@ -524,17 +526,17 @@
                 </PivotItem.Header>
                 <StackPanel x:Name="rootCobranca">
                     <ItemsControl Style="{StaticResource ItensResponsivos}">
-                        <TextBox Text="{Binding Cobranca.Fat.NFat, Mode=TwoWay}"
+                        <TextBox Text="{Binding NotaSalva.Informações.cobr.Fat.NFat, Mode=TwoWay}"
                                  Header="Número" />
-                        <TextBox Text="{Binding Cobranca.Fat.VOrig, Mode=TwoWay}"
+                        <TextBox Text="{Binding NotaSalva.Informações.cobr.Fat.VOrig, Mode=TwoWay}"
                                  Header="Valor original" />
-                        <TextBox Text="{Binding Cobranca.Fat.VDesc, Mode=TwoWay}"
+                        <TextBox Text="{Binding NotaSalva.Informações.cobr.Fat.VDesc, Mode=TwoWay}"
                                  Header="Valor do desconto" />
-                        <TextBox Text="{Binding Cobranca.Fat.VLiq, Mode=TwoWay}"
+                        <TextBox Text="{Binding NotaSalva.Informações.cobr.Fat.VLiq, Mode=TwoWay}"
                                  Header="Valor líquido" />
                     </ItemsControl>
                     <TextBlock Style="{StaticResource TitleTextBlockStyle}">Duplicatas</TextBlock>
-                    <ListView ItemsSource="{Binding Cobranca.Dup, Converter={StaticResource getObs}}"
+                    <ListView ItemsSource="{Binding NotaSalva.Informações.cobr.Dup, Converter={StaticResource getObs}}"
                               Grid.Column="1"
                               ItemContainerStyle="{StaticResource ItemFullWidth}">
                         <ListView.Header>
@@ -567,7 +569,7 @@
                     <ctrls:Guia Label="Informações adicionais"
                                 Symbol="Comment" />
                 </PivotItem.Header>
-                <StackPanel DataContext="{Binding InformacoesAdicionais}">
+                <StackPanel DataContext="{Binding NotaSalva.Informações.infAdic}">
                     <TextBox Text="{Binding infAdFisco, Mode=TwoWay}"
                              Header="Informações adicionais de interesse do fisco" />
                     <TextBox Text="{Binding infCpl, Mode=TwoWay}"
@@ -584,7 +586,7 @@
                         <ColumnDefinition />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <StackPanel DataContext="{Binding Exportacao}"
+                    <StackPanel DataContext="{Binding NotaSalva.Informações.exporta}"
                                 Margin="2">
                         <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Exportação</TextBlock>
                         <TextBox Text="{Binding UFSaidaPais, Mode=TwoWay}"
@@ -594,7 +596,7 @@
                         <TextBox Text="{Binding xLocDespacho, Mode=TwoWay}"
                                  Header="DadosBase de despacho" />
                     </StackPanel>
-                    <StackPanel DataContext="{Binding CompraNota}"
+                    <StackPanel DataContext="{Binding NotaSalva.Informações.compra}"
                                 Grid.Column="1"
                                 Margin="2">
                         <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Compra</TextBlock>
@@ -617,29 +619,29 @@
                     <StackPanel>
                         <ItemsControl Style="{StaticResource ItensResponsivos}">
                             <TextBox Header="Safra"
-                                     Text="{Binding Cana.safra, Mode=TwoWay}" />
+                                     Text="{Binding NotaSalva.Informações.cana.safra, Mode=TwoWay}" />
                             <DatePicker DayVisible="False"
-                                        Date="{Binding Cana.referencia, ConverterParameter='MM/yyyy', Converter={StaticResource data}, Mode=TwoWay}"
+                                        Date="{Binding NotaSalva.Informações.cana.referencia, ConverterParameter='MM/yyyy', Converter={StaticResource data}, Mode=TwoWay}"
                                         Header="Mês e ano de referência" />
                             <TextBox Header="Quant. total do mês"
-                                     Text="{Binding Cana.qTotMes, Mode=TwoWay}" />
+                                     Text="{Binding NotaSalva.Informações.cana.qTotMes, Mode=TwoWay}" />
                             <TextBox Header="Quant. total anterior"
-                                     Text="{Binding Cana.qTotAnt, Mode=TwoWay}" />
+                                     Text="{Binding NotaSalva.Informações.cana.qTotAnt, Mode=TwoWay}" />
                             <TextBox Header="Quant. total geral"
-                                     Text="{Binding Cana.qTotGer, Mode=TwoWay}" />
+                                     Text="{Binding NotaSalva.Informações.cana.qTotGer, Mode=TwoWay}" />
                             <TextBox Header="Valor dos fornecimentos"
-                                     Text="{Binding Cana.vFor, Mode=TwoWay}" />
+                                     Text="{Binding NotaSalva.Informações.cana.vFor, Mode=TwoWay}" />
                             <TextBox Header="Valor total da dedução"
-                                     Text="{Binding Cana.vTotDed, Mode=TwoWay}" />
+                                     Text="{Binding NotaSalva.Informações.cana.vTotDed, Mode=TwoWay}" />
                             <TextBox Header="Valor líquido dos fornecimentos"
-                                     Text="{Binding Cana.vLiqFor, Mode=TwoWay}" />
+                                     Text="{Binding NotaSalva.Informações.cana.vLiqFor, Mode=TwoWay}" />
                         </ItemsControl>
                         <ItemsControl Style="{StaticResource ItensResponsivos}">
                             <StackPanel>
                                 <TextBlock TextWrapping="Wrap"
                                            Margin="0,0,64,0"
                                            Style="{StaticResource TitleTextBlockStyle}">Fornecimento diário de cana</TextBlock>
-                                <ListView ItemsSource="{Binding Cana.forDia, Converter={StaticResource getObs}}"
+                                <ListView ItemsSource="{Binding NotaSalva.Informações.cana.forDia, Converter={StaticResource getObs}}"
                                           ItemContainerStyle="{StaticResource ItemFullWidth}">
                                     <ListView.Header>
                                         <Grid>
@@ -682,7 +684,7 @@
                             <StackPanel>
                                 <TextBlock TextWrapping="Wrap"
                                            Style="{StaticResource TitleTextBlockStyle}">Deduções</TextBlock>
-                                <ListView ItemsSource="{Binding Cana.deduc, Converter={StaticResource getObs}}"
+                                <ListView ItemsSource="{Binding NotaSalva.Informações.cana.deduc, Converter={StaticResource getObs}}"
                                           ItemContainerStyle="{StaticResource ItemFullWidth}">
                                     <ListView.Header>
                                         <Grid>

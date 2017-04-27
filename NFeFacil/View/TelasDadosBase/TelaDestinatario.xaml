@@ -34,17 +34,13 @@
                 <TextBox Text="{Binding Documento, Mode=TwoWay}"
                          InputScope="Number"
                          Header="Documento *" />
-                <Grid MinWidth="240">
-                    <TextBox Text="{Binding InscricaoEstadual, Mode=TwoWay}"
-                             IsEnabled="{Binding IsentoICMS, Converter={StaticResource inverterBool}}"
-                             InputScope="Number"
-                             Header="Inscrição estadual" />
-                    <CheckBox Content="Isento do ICMS"
-                              IsChecked="{Binding IsentoICMS, Mode=TwoWay}"
-                              Margin="0,-6,0,0"
-                              HorizontalAlignment="Right"
-                              VerticalAlignment="Top" />
-                </Grid>
+                <ComboBox Header="Indicador da IE"
+                          ItemsSource="{Binding IndicadoresIE}"
+                          SelectedItem="{Binding IndicadorIESelecionado, Mode=TwoWay}" />
+                <TextBox Text="{Binding InscricaoEstadual, Mode=TwoWay}"
+                         IsEnabled="{Binding IsentoICMS, Converter={StaticResource inverterBool}}"
+                         InputScope="Number"
+                         Header="Inscrição estadual" />
                 <TextBox Text="{Binding Cliente.ISUF, Mode=TwoWay}"
                          InputScope="Number"
                          Header="Inscrição na SUFRAMA" />

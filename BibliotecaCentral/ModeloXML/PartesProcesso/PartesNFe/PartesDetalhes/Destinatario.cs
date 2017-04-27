@@ -30,10 +30,10 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
         public enderecoCompleto endereco { get; set; } = new enderecoCompleto();
 
         [XmlElement(ElementName = "indIEDest")]
-        public int indicadorIE { get; set; } = 1;
+        public int indicadorIE { get; set; } = 9;
 
         [XmlElement(ElementName = "IE")]
-        public string inscricaoEstadual { get; set; }
+        public string inscricaoEstadual { get; set; } = string.Empty;
         public string ISUF { get; set; }
         public string email { get; set; }
 

@@ -2,6 +2,7 @@
 using BibliotecaCentral.ModeloXML;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using Windows.UI.Xaml.Data;
@@ -37,18 +38,34 @@ namespace NFeFacil.View.TelasDadosBase
 
             public Destinatario Cliente { get; set; }
 
-            public bool IsentoICMS
+            public ObservableCollection<IndicadorIE> IndicadoresIE => BibliotecaCentral.Extensoes.ObterItens<IndicadorIE>();
+            public IndicadorIE IndicadorIESelecionado
             {
-                get => Cliente.indicadorIE != 1;
+                get => (IndicadorIE)Cliente.indicadorIE;
                 set
                 {
-                    Cliente.indicadorIE = value ? 2 : 1;
-                    Cliente.inscricaoEstadual = value ? "ISENTO" : null;
+                    Cliente.indicadorIE = (int)value;
+                    switch (value)
+                    {
+                        case IndicadorIE.Contribuinte:
+                            IsentoICMS = false;
+                            Cliente.inscricaoEstadual = string.Empty;
+                            break;
+                        case IndicadorIE.Isento:
+                            IsentoICMS = true;
+                            Cliente.inscricaoEstadual = null;
+                            break;
+                        case IndicadorIE.Não_Contribuinte:
+                            IsentoICMS = true;
+                            Cliente.inscricaoEstadual = null;
+                            break;
+                    }
                     PropertyChanged(this, new PropertyChangedEventArgs("IsentoICMS"));
                     PropertyChanged(this, new PropertyChangedEventArgs("InscricaoEstadual"));
                 }
             }
 
+            public bool IsentoICMS { get; set; }
             public string InscricaoEstadual
             {
                 get => Cliente.inscricaoEstadual;
@@ -123,6 +140,13 @@ namespace NFeFacil.View.TelasDadosBase
             {
                 TipoDocumento = (int)dest.obterTipoDocumento;
                 Cliente = dest;
+            }
+
+            public enum IndicadorIE
+            {
+                Contribuinte = 1,
+                Isento = 2,
+                Não_Contribuinte = 9
             }
         }
     }

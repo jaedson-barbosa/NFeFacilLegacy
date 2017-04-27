@@ -15,7 +15,6 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe
 
         internal string CriarChaveAcesso()
         {
-            var construtor = new StringBuilder();
             var codigoUF = Estados.EstadosCache.Single(x => x.Sigla == detalhes.emitente.endereco.SiglaUF).Codigo;
             var dhEmissao = Convert.ToDateTime(detalhes.identificação.DataHoraEmissão).ToString("yyMM");
             var CNPJEmitente = detalhes.emitente.CNPJ;
@@ -25,38 +24,28 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe
             var tipoEmissao = detalhes.identificação.TipoEmissão;
 
             var random = new Random();
-            var randomico = detalhes.identificação.ChaveNF = $"{random.Next(100, 1000)}{random.Next(100, 1000)}{random.Next(10, 100)}";
-            construtor.Append(codigoUF);
-            construtor.Append(dhEmissao);
-            construtor.Append(CNPJEmitente);
-            construtor.Append(modeloIdentificacao);
-            construtor.Append(serie);
-            construtor.Append(numero);
-            construtor.Append(tipoEmissao);
-            construtor.Append(randomico);
+            var randomico = detalhes.identificação.ChaveNF = $"{random.Next(1000, 10000)}{random.Next(1000, 10000)}";
+            var chave = $"{codigoUF}{dhEmissao}{CNPJEmitente}{modeloIdentificacao}{serie}{numero}{tipoEmissao}{randomico}";
 
-            var dv = CalcularDV(construtor);
-            construtor.Append(dv);
-            return construtor.ToString();
+            var dv = detalhes.identificação.DígitoVerificador = CalcularDV(chave);
+            return chave + dv;
         }
 
-        private static int CalcularDV(StringBuilder chave)
+        private static int CalcularDV(string chave)
         {
-            var soma = 0; // Vai guardar a Soma
-            var mod = -1; // Vai guardar o Resto da divisão
-            var peso = 2; // vai guardar o peso de multiplicacao
+            int soma = 0; // Vai guardar a Soma
+            sbyte peso = 2; // vai guardar o peso de multiplicacao
             //percorrendo cada caracter da chave da direita para esquerda para fazer os calculos com o pesso
-            for (int i = chave.Length - 1; i != -1; i--)
+            for (int i = chave.Length - 1; i >= 0; i--, peso++)
             {
-                soma += chave[i] * peso;
-                //sempre que for 9 voltamos o pesso a 2
-                if (peso < 9) peso++;
-                else peso = 2;
+                if (peso == 10) peso = 2;
+                sbyte atual = sbyte.Parse(chave[i].ToString());
+                soma += atual * peso;
             }
             //Agora que tenho a soma vamos pegar o resto da divisão por 11
-            mod = soma % 11;
+            var resto = soma % 11;
             //Aqui temos uma regrinha, se o resto da divisão for 0 ou 1 então o dv vai ser 0
-            return mod == 0 || mod == 1 ? 0 : 11 - mod;
+            return (resto == 0 || resto == 1) ? 0 : 11 - resto;
         }
     }
 }

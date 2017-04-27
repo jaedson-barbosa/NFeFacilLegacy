@@ -7,7 +7,8 @@
       xmlns:Conversores="using:NFeFacil.ViewModel.Converters"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      mc:Ignorable="d">
+      mc:Ignorable="d"
+      x:Name="root">
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -240,7 +241,7 @@
                                         <StackPanel.ContextFlyout>
                                             <MenuFlyout Placement="Bottom">
                                                 <MenuFlyoutItem Text="Remover"
-                                                                Command="{Binding RemoverProdutoCommand}"
+                                                                Command="{Binding ElementName=root, Path=DataContext.RemoverProdutoCommand}"
                                                                 CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}"/>
                                             </MenuFlyout>
                                         </StackPanel.ContextFlyout>

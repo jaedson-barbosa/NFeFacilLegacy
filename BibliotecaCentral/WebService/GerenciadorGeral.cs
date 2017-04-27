@@ -39,11 +39,11 @@ namespace BibliotecaCentral.WebService
             return xmlResultado.FromXElement<Resposta>();
         }
 
-        internal async Task<Resposta> EnviarAsync(Envio envio, int UF)
+        internal async Task<Resposta> EnviarAsync(Envio envio, int UF, Func<XElement, object> TratarXml = null)
         {
             var xml = envio.ToXElement<Envio>(Caminhos.Servico);
             var resultado = await ProcessarAsync(
-                ProcessarMensagem(xml,
+                ProcessarMensagem(TratarXml != null ? TratarXml(xml) : xml,
                 Caminhos.Servico,
                 Caminhos.Metodo,
                 UF));

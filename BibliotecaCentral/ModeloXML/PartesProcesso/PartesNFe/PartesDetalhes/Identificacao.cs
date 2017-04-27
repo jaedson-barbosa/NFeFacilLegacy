@@ -77,7 +77,7 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
         public ushort TipoEmissão { get; set; } = 1;
 
         [XmlElement(ElementName = "cDV", Order = 14)]
-        public ushort DígitoVerificador { get; set; }
+        public int DígitoVerificador { get; set; }
 
         [XmlElement(ElementName = "tpAmb", Order = 15)]
         public ushort TipoAmbiente { get; set; } = 2;

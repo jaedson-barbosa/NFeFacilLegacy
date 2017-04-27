@@ -1,5 +1,7 @@
 ﻿using BibliotecaCentral.ModeloXML.PartesProcesso;
+using System.Linq;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace BibliotecaCentral.WebService.AutorizarNota
 {

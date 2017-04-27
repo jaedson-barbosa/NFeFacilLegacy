@@ -9,7 +9,7 @@ namespace BibliotecaCentral.WebService.AutorizarNota
         public string versao { get; set; }
         public int idLote { get; set; }
         public int indSinc { get; set; }
-        [XmlElement(ElementName = nameof(NFe), Namespace = "http://www.portalfiscal.inf.br/nfe")]
+        [XmlElement(ElementName = nameof(NFe), Namespace = "http://www.portalfiscal.inf.br/nfe", IsNullable = false)]
         public NFe[] NFe { get; set; }
 
         public CorpoRequest(NFe[] xmls, int numeroPrimeiraNota)

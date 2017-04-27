@@ -49,9 +49,10 @@ namespace BibliotecaCentral
         {
             double horas = TimeZoneInfo.Local.BaseUtcOffset.TotalHours;
             string total = "yyyy-MM-ddThh:mm:ss";
+            total = dataHora.ToString(total);
             if (horas < 0) total += '-';
             total += $"{Math.Abs(horas).ToString().PadLeft(2, '0')}:00";
-            return dataHora.ToString(total);
+            return total;
         }
 
         public static ObservableCollection<T> GerarObs<T>(this IEnumerable<T> aqui)

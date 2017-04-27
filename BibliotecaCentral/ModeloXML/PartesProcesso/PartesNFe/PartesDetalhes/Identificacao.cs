@@ -9,9 +9,9 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
     {
         public Identificacao()
         {
-            DataHoraEmissão = DateTime.Now.ToString($"yyyy-MM-ddTHH:mm:ss{TimeZoneInfo.Local.BaseUtcOffset.TotalHours}:00");
-            DataHoraSaídaEntrada = DataHoraEmissão;
+            DataHoraSaídaEntrada = DataHoraEmissão = DateTime.Now.ToStringPersonalizado();
         }
+
         public Identificacao(Identificacao other)
         {
             CódigoUF = other.CódigoUF;
@@ -34,67 +34,67 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
             IndicadorPresença = other.IndicadorPresença;
         }
 
-        [XmlElement(ElementName = "cUF")]
+        [XmlElement(ElementName = "cUF", Order = 0)]
         public ushort CódigoUF { get; set; }
 
-        [XmlElement(ElementName = "cNF")]
+        [XmlElement(ElementName = "cNF", Order = 1)]
         public string ChaveNF { get; set; }
 
-        [XmlElement(ElementName = "natOp")]
+        [XmlElement(ElementName = "natOp", Order = 2)]
         public string NaturezaDaOperação { get; set; }
 
-        [XmlElement(ElementName = "indPag")]
+        [XmlElement(ElementName = "indPag", Order = 3)]
         public ushort FormaPagamento { get; set; } = 0;
 
-        [XmlElement(ElementName = "mod")]
+        [XmlElement(ElementName = "mod", Order = 4)]
         public ushort Modelo { get; set; } = 55;
 
-        [XmlElement(ElementName = "serie")]
+        [XmlElement(ElementName = "serie", Order = 5)]
         public ushort Serie { get; set; } = 1;
 
-        [XmlElement(ElementName = "nNF")]
-        public ulong Numero { get; set; }
+        [XmlElement(ElementName = "nNF", Order = 6)]
+        public long Numero { get; set; }
 
-        [XmlElement(ElementName = "dhEmi")]
+        [XmlElement(ElementName = "dhEmi", Order = 7)]
         public string DataHoraEmissão { get; set; }
 
-        [XmlElement(ElementName = "dhSaiEnt")]
+        [XmlElement(ElementName = "dhSaiEnt", Order = 8)]
         public string DataHoraSaídaEntrada { get; set; }
 
-        [XmlElement(ElementName = "tpNF")]
+        [XmlElement(ElementName = "tpNF", Order = 9)]
         public ushort TipoOperação { get; set; } = 1;
 
-        [XmlElement(ElementName = "idDest")]
+        [XmlElement(ElementName = "idDest", Order = 10)]
         public ushort IdentificadorDestino { get; set; } = 1;
 
-        [XmlElement(ElementName = "cMunFG")]
+        [XmlElement(ElementName = "cMunFG", Order = 11)]
         public int CodigoMunicípio { get; set; }
 
-        [XmlElement(ElementName = "tpImp")]
+        [XmlElement(ElementName = "tpImp", Order = 12)]
         public ushort TipoImpressão { get; set; } = 1;
 
-        [XmlElement(ElementName = "tpEmis")]
+        [XmlElement(ElementName = "tpEmis", Order = 13)]
         public ushort TipoEmissão { get; set; } = 1;
 
-        [XmlElement(ElementName = "cDV")]
+        [XmlElement(ElementName = "cDV", Order = 14)]
         public ushort DígitoVerificador { get; set; }
 
-        [XmlElement(ElementName = "tpAmb")]
+        [XmlElement(ElementName = "tpAmb", Order = 15)]
         public ushort TipoAmbiente { get; set; } = 2;
 
-        [XmlElement(ElementName = "finNFe")]
+        [XmlElement(ElementName = "finNFe", Order = 16)]
         public ushort FinalidadeEmissão { get; set; } = 1;
 
-        [XmlElement(ElementName = "indFinal")]
+        [XmlElement(ElementName = "indFinal", Order = 17)]
         public ushort OperaçãoConsumidorFinal { get; set; } = 1;
 
-        [XmlElement(ElementName = "indPres")]
+        [XmlElement(ElementName = "indPres", Order = 18)]
         public ushort IndicadorPresença { get; set; } = 1;
 
-        [XmlElement(ElementName = "procEmi")]
+        [XmlElement(ElementName = "procEmi", Order = 19)]
         public ushort ProcessoEmissão { get; set; } = 0;
 
-        [XmlElement(ElementName = "verProc")]
+        [XmlElement(ElementName = "verProc", Order = 20)]
         public string VersaoAplicativo { get; set; } = VersãoAplicativo();
 
         private static string VersãoAplicativo()
@@ -103,7 +103,7 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
             return $"{version.Major}.{version.Minor}.{version.Build}";
         }
 
-        [XmlElement("NFref")]
+        [XmlElement("NFref", Order = 21)]
         public DocumentoFiscalReferenciado[] DocumentosReferenciados { get; set; }
     }
 }

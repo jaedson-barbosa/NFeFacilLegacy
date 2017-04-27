@@ -2,7 +2,7 @@
 
 namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe
 {
-    public sealed class enderecoCompleto : enderecoBase
+    public sealed class enderecoCompleto
     {
         public enderecoCompleto() { }
 
@@ -23,6 +23,20 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe
 
         [XmlIgnore]
         public int Id { get; set; }
+        [XmlElement("xLgr")]
+        public string Logradouro { get; set; }
+        [XmlElement("nro")]
+        public string Numero { get; set; }
+        [XmlElement("xCpl")]
+        public string Complemento { get; set; }
+        [XmlElement("xBairro")]
+        public string Bairro { get; set; }
+        [XmlElement("cMun")]
+        public int CodigoMunicipio { get; set; }
+        [XmlElement("xMun")]
+        public string NomeMunicipio { get; set; }
+        [XmlElement("UF")]
+        public string SiglaUF { get; set; }
         public string CEP { get; set; }
         [XmlElement("cPais")]
         public int CPais { get; set; } = 1058;

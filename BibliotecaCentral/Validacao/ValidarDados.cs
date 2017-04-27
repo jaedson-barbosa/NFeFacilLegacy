@@ -27,7 +27,7 @@ namespace BibliotecaCentral.Validacao
             {
                 if (item.EstáErrado)
                 {
-                    log.Escrever(TitulosComuns.ErroSimples, item.Mensagem);
+                    log?.Escrever(TitulosComuns.ErroSimples, item.Mensagem);
                     return false;
                 }
             }

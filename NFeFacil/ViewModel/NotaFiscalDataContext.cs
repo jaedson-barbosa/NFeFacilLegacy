@@ -18,6 +18,7 @@ using System.Windows.Input;
 using Windows.ApplicationModel.Core;
 using BibliotecaCentral;
 using BibliotecaCentral.Repositorio;
+using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTotal;
 
 namespace NFeFacil.ViewModel
 {
@@ -144,6 +145,7 @@ namespace NFeFacil.ViewModel
                 Dados.NotaSalva.Informações.produtos.Add(detalhes);
                 IndexPivotSelecionado = 3;
                 CoreApplication.Properties.Remove("ProdutoPendente");
+                Dados.NotaSalva.Informações.total = new Total(Dados.NotaSalva.Informações.produtos);
             }
 
             if (Dados.NotaEmitida != null)
@@ -153,7 +155,10 @@ namespace NFeFacil.ViewModel
             }
             else if (Dados.NotaSalva != null)
             {
+                if (Dados.NotaSalva.Informações.total == null)
+                    Dados.NotaSalva.Informações.total = new Total(Dados.NotaSalva.Informações.produtos);
                 NotaSalva = Dados.NotaSalva;
+                DesnormalizarNFe();
             }
             else
             {
@@ -196,45 +201,83 @@ namespace NFeFacil.ViewModel
                 if (new ValidarDados(new ValidadorEmitente(NotaSalva.Informações.emitente),
                     new ValidadorDestinatario(NotaSalva.Informações.destinatário)).ValidarTudo(Log))
                 {
-                    NotaSalva = new NFe
-                    {
-                        Informações = new Detalhes
-                        {
-                            identificação = NotaSalva.Informações.identificação,
-                            emitente = NotaSalva.Informações.emitente,
-                            destinatário = NotaSalva.Informações.destinatário,
-                            transp = ObterTranporteNormalizado(),
-                            produtos = NotaSalva.Informações.produtos,
-                            total = NotaSalva.Informações.total,
-                            cobr = NaoEDefault(NotaSalva.Informações.cobr),
-                            infAdic = NaoEDefault(NotaSalva.Informações.infAdic),
-                            exporta = NaoEDefault(NotaSalva.Informações.exporta),
-                            compra = NaoEDefault(NotaSalva.Informações.compra),
-                            cana = NaoEDefault(NotaSalva.Informações.cana)
-                        }
-                    };
+                    NormalizarNFe();
                     Log.Escrever(TitulosComuns.ValidaçãoConcluída, "A nota fiscal foi validada. Aparentemente, não há irregularidades");
                     StatusAtual = StatusNFe.Validado;
                 }
             }
         }
 
-        private Transporte ObterTranporteNormalizado()
+        private bool nfeNormalizado = false;
+        private void NormalizarNFe()
         {
-            var transp = NotaSalva.Informações.transp;
-            transp.transporta = NaoEDefault(NotaSalva.Informações.transp.transporta);
-            transp.veicTransp = NaoEDefault(NotaSalva.Informações.transp.veicTransp);
-            transp.retTransp = NaoEDefault(NotaSalva.Informações.transp.retTransp);
-            return transp;
+            if (!nfeNormalizado)
+            {
+                NormalizarTranporte();
+                NotaSalva.Informações.identificação = NotaSalva.Informações.identificação;
+                NotaSalva.Informações.emitente = NotaSalva.Informações.emitente;
+                NotaSalva.Informações.destinatário = NotaSalva.Informações.destinatário;
+                NotaSalva.Informações.produtos = NotaSalva.Informações.produtos;
+                NotaSalva.Informações.total = NotaSalva.Informações.total;
+                NotaSalva.Informações.cobr = NotaSalva.Informações.cobr?.Fat.ToXElement<Fatura>().HasElements ?? false ? NotaSalva.Informações.cobr : null;
+                NotaSalva.Informações.infAdic = NotaSalva.Informações.infAdic?.ToXElement<InformacoesAdicionais>().HasElements ?? false ? NotaSalva.Informações.infAdic : null;
+                NotaSalva.Informações.exporta = new ValidadorExportacao(NotaSalva.Informações.exporta).Validar(null) ? NotaSalva.Informações.exporta : null;
+                NotaSalva.Informações.compra = NotaSalva.Informações.compra?.ToXElement<Compra>().HasElements ?? false ? NotaSalva.Informações.compra : null;
+                NotaSalva.Informações.cana = NotaSalva.Informações.cana?.ToXElement<RegistroAquisicaoCana>().HasElements ?? false ? NotaSalva.Informações.cana : null;
+                nfeNormalizado = true;
+            }
         }
 
-        private static T NaoEDefault<T>(T valor) where T : class => valor != null && valor != default(T) ? valor : null;
+        private void DesnormalizarNFe()
+        {
+            DesnormalizarTransporte();
+            NotaSalva.Informações.identificação = NotaSalva.Informações.identificação;
+            NotaSalva.Informações.emitente = NotaSalva.Informações.emitente;
+            NotaSalva.Informações.destinatário = NotaSalva.Informações.destinatário;
+            NotaSalva.Informações.produtos = NotaSalva.Informações.produtos;
+            NotaSalva.Informações.total.ISSQNtot = NotaSalva.Informações.total.ISSQNtot.ToXElement<ISSQNtot>().Elements().Count(x => x.Value != "0") > 0 ? NotaSalva.Informações.total.ISSQNtot : null;
+            NotaSalva.Informações.total.retTrib = NotaSalva.Informações.total.retTrib.ToXElement<RetTrib>().HasElements ? NotaSalva.Informações.total.retTrib : null;
+            NotaSalva.Informações.cobr = InserirDefault(NotaSalva.Informações.cobr);
+            NotaSalva.Informações.infAdic = InserirDefault(NotaSalva.Informações.infAdic);
+            NotaSalva.Informações.exporta = InserirDefault(NotaSalva.Informações.exporta);
+            NotaSalva.Informações.compra = InserirDefault(NotaSalva.Informações.compra);
+            NotaSalva.Informações.cana = InserirDefault(NotaSalva.Informações.cana);
+            nfeNormalizado = false;
+        }
+
+        private bool transporteNormalizado = false;
+        private void NormalizarTranporte()
+        {
+            if (NotaSalva.Informações.transp != null && !transporteNormalizado)
+            {
+                NotaSalva.Informações.transp.transporta = NotaSalva.Informações.transp.transporta?.ToXElement<Motorista>().HasElements ?? false ? NotaSalva.Informações.transp.transporta : null;
+                NotaSalva.Informações.transp.veicTransp = NotaSalva.Informações.transp.veicTransp?.ToXElement<Veiculo>().HasElements ?? false ? NotaSalva.Informações.transp.veicTransp : null;
+                NotaSalva.Informações.transp.retTransp = NotaSalva.Informações.transp.retTransp?.ToXElement<ICMSTransporte>().HasElements ?? false ? NotaSalva.Informações.transp.retTransp : null;
+                transporteNormalizado = true;
+            }
+        }
+
+        private void DesnormalizarTransporte()
+        {
+            if (NotaSalva.Informações.transp == null)
+            {
+                NotaSalva.Informações.transp = new Transporte();
+            }
+            NotaSalva.Informações.transp.transporta = InserirDefault(NotaSalva.Informações.transp.transporta);
+            NotaSalva.Informações.transp.veicTransp = InserirDefault(NotaSalva.Informações.transp.veicTransp);
+            NotaSalva.Informações.transp.retTransp = InserirDefault(NotaSalva.Informações.transp.retTransp);
+            transporteNormalizado = false;
+        }
+
+        private static T RemoverDefault<T>(T valor) where T : class => valor != null && valor != default(T) ? valor : null;
+        private static T InserirDefault<T>(T valor) where T : class => valor ?? default(T);
 
         private async void SalvarAsync()
         {
             try
             {
                 StatusAtual = StatusNFe.Salvo;
+                NormalizarNFe();
                 var xml = NotaSalva.ToXElement<NFe>();
                 var di = NFeDI.Converter(xml);
                 di.Status = (int)StatusNFe.Salvo;
@@ -268,17 +311,25 @@ namespace NFeFacil.ViewModel
         private async void Transmitir()
         {
             var estado = Estados.EstadosCache.First(x => x.Sigla == NotaSalva.Informações.emitente.endereco.SiglaUF);
+            NormalizarNFe();
             var resultadoTransmissao = await BibliotecaCentral.WebService.AutorizarNota.Gerenciador.AutorizarAsync(estado.Codigo, NotaSalva);
-            if (resultadoTransmissao.retEnviNFe.cStat == 100)
+            if (resultadoTransmissao.retEnviNFe.cStat == 103)
             {
                 var resultadoResposta = await BibliotecaCentral.WebService.RespostaAutorizarNota.Gerenciador.ObterRespostaAutorizacao(resultadoTransmissao.retEnviNFe);
-                NotaEmitida = new Processo()
+                if (resultadoResposta.retConsReciNFe.protNFe.InfProt.cStat == 100)
                 {
-                    NFe = NotaSalva,
-                    ProtNFe = resultadoResposta.retConsReciNFe.protNFe
-                };
-                Log.Escrever(TitulosComuns.Sucesso, resultadoResposta.retConsReciNFe.xMotivo);
-                StatusAtual = StatusNFe.Emitido;
+                    NotaEmitida = new Processo()
+                    {
+                        NFe = NotaSalva,
+                        ProtNFe = resultadoResposta.retConsReciNFe.protNFe
+                    };
+                    Log.Escrever(TitulosComuns.Sucesso, resultadoResposta.retConsReciNFe.xMotivo);
+                    StatusAtual = StatusNFe.Emitido;
+                }
+                else
+                {
+                    Log.Escrever(TitulosComuns.ErroSimples, $"A nota fiscal foi processada, mas recusada. Mensagem de retorno: \n{resultadoResposta.retConsReciNFe.protNFe.InfProt.xMotivo}");
+                }
             }
             else
             {

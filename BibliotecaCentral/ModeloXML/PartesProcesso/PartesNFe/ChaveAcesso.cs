@@ -16,17 +16,27 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe
         internal string CriarChaveAcesso()
         {
             var construtor = new StringBuilder();
-            construtor.Append(Estados.EstadosCache.Single(x => x.Sigla == detalhes.emitente.endereco.SiglaUF).Codigo);
-            var DataHoraEmissao = Convert.ToDateTime(detalhes.identificação.DataHoraEmissão);
-            construtor.Append($"{DataHoraEmissao.Year.ToString().Substring(2)}{DataHoraEmissao.Month}");
-            construtor.Append(detalhes.emitente.CNPJ);
-            construtor.Append(detalhes.identificação.Modelo);
-            construtor.Append(detalhes.identificação.Serie.ToString().PadLeft(3, '0'));
-            construtor.Append(detalhes.identificação.Numero.ToString().PadLeft(9, '0'));
-            construtor.Append(detalhes.identificação.TipoEmissão);
-            var rnd = new Random();
-            construtor.Append($"{rnd.Next(100, 1000)}{rnd.Next(100, 1000)}{rnd.Next(10, 100)}");
-            construtor.Append(CalcularDV(construtor));
+            var codigoUF = Estados.EstadosCache.Single(x => x.Sigla == detalhes.emitente.endereco.SiglaUF).Codigo;
+            var dhEmissao = Convert.ToDateTime(detalhes.identificação.DataHoraEmissão).ToString("yyMM");
+            var CNPJEmitente = detalhes.emitente.CNPJ;
+            var modeloIdentificacao = detalhes.identificação.Modelo;
+            var serie = detalhes.identificação.Serie.ToString().PadLeft(3, '0');
+            var numero = detalhes.identificação.Numero.ToString().PadLeft(9, '0');
+            var tipoEmissao = detalhes.identificação.TipoEmissão;
+
+            var random = new Random();
+            var randomico = detalhes.identificação.ChaveNF = $"{random.Next(100, 1000)}{random.Next(100, 1000)}{random.Next(10, 100)}";
+            construtor.Append(codigoUF);
+            construtor.Append(dhEmissao);
+            construtor.Append(CNPJEmitente);
+            construtor.Append(modeloIdentificacao);
+            construtor.Append(serie);
+            construtor.Append(numero);
+            construtor.Append(tipoEmissao);
+            construtor.Append(randomico);
+
+            var dv = CalcularDV(construtor);
+            construtor.Append(dv);
             return construtor.ToString();
         }
 

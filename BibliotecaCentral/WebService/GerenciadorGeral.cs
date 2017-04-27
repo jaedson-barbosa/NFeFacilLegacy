@@ -1,4 +1,5 @@
-﻿using System.ServiceModel;
+﻿using System;
+using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.Threading.Tasks;
 using System.Xml;
@@ -42,7 +43,7 @@ namespace BibliotecaCentral.WebService
         {
             var xml = envio.ToXElement<Envio>(Caminhos.Servico);
             var resultado = await ProcessarAsync(
-                ProcessarMensagem(xml.CreateReader(),
+                ProcessarMensagem(xml,
                 Caminhos.Servico,
                 Caminhos.Metodo,
                 UF));
@@ -51,7 +52,7 @@ namespace BibliotecaCentral.WebService
             return xmlResultado.FromXElement<Resposta>();
         }
 
-        private static Message ProcessarMensagem(XmlReader corpo, string servico, string metodo, int UF)
+        private static Message ProcessarMensagem(object corpo, string servico, string metodo, int UF)
         {
             var envio = Message.CreateMessage(MessageVersion.Soap11, metodo, corpo);
             var header = new MessageHeader<Cabeçalho>(new Cabeçalho(UF, "3.10"));

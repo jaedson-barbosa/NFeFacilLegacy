@@ -284,6 +284,7 @@
     <Compile Include="Validacao\ValidadorDestinatario.cs" />
     <Compile Include="Validacao\ValidadorEmitente.cs" />
     <Compile Include="Validacao\ValidadorEndereco.cs" />
+    <Compile Include="Validacao\ValidadorExportacao.cs" />
     <Compile Include="Validacao\ValidadorMotorista.cs" />
     <Compile Include="Validacao\ValidadorProduto.cs" />
     <Compile Include="Validacao\ValidarDados.cs" />

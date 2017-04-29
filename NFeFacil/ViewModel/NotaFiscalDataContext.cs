@@ -19,6 +19,7 @@ using Windows.ApplicationModel.Core;
 using BibliotecaCentral;
 using BibliotecaCentral.Repositorio;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTotal;
+using System.Threading.Tasks;
 
 namespace NFeFacil.ViewModel
 {
@@ -37,19 +38,18 @@ namespace NFeFacil.ViewModel
         public NFe NotaSalva { get; private set; }
         private Processo NotaEmitida;
 
-        public bool BotaoConfirmarAtivado => status == StatusNFe.EdiçãoCriação;
-        public bool BotaoSalvarAtivado => status == StatusNFe.Validado;
-        public bool BotaoAssinarAtivado => status == StatusNFe.Salvo;
-        public bool BotaoTransmitirAtivado => status == StatusNFe.Assinado;
-        public bool BotaoGerarDANFEAtivado => status == StatusNFe.Emitido;
+        public bool BotaoConfirmarAtivado => StatusAtual == StatusNFe.EdiçãoCriação;
+        public bool BotaoSalvarAtivado => StatusAtual == StatusNFe.Validado;
+        public bool BotaoAssinarAtivado => StatusAtual == StatusNFe.Salvo;
+        public bool BotaoTransmitirAtivado => StatusAtual == StatusNFe.Assinado;
+        public bool BotaoGerarDANFEAtivado => StatusAtual == StatusNFe.Emitido;
 
-        private StatusNFe status = StatusNFe.EdiçãoCriação;
         internal StatusNFe StatusAtual
         {
-            get => status;
+            get => Conjunto.StatusAtual;
             set
             {
-                status = value;
+                Conjunto.StatusAtual = value;
                 OnPropertyChanged(nameof(BotaoConfirmarAtivado),
                     nameof(BotaoSalvarAtivado),
                     nameof(BotaoAssinarAtivado),
@@ -120,7 +120,8 @@ namespace NFeFacil.ViewModel
         }
 
         public int IndexPivotSelecionado { get; set; } = 0;
-        private TipoOperacao OperacaoRequirida { get; }
+        private TipoOperacao OperacaoRequirida => Conjunto.OperacaoRequirida;
+        ConjuntoManipuladorNFe Conjunto { get; }
 
         internal NotaFiscalDataContext(ref ConjuntoManipuladorNFe Dados)
         {
@@ -134,9 +135,8 @@ namespace NFeFacil.ViewModel
                 MotoristasDisponiveis = motoristas.Registro.ToList();
                 ProdutosDisponiveis = produtos.Registro.ToList();
             }
-            OperacaoRequirida = Dados.OperacaoRequirida;
 
-            StatusAtual = Dados.StatusAtual;
+            Conjunto = Dados;
 
             if (CoreApplication.Properties.TryGetValue("ProdutoPendente", out object temp))
             {
@@ -158,7 +158,6 @@ namespace NFeFacil.ViewModel
                 if (Dados.NotaSalva.Informações.total == null)
                     Dados.NotaSalva.Informações.total = new Total(Dados.NotaSalva.Informações.produtos);
                 NotaSalva = Dados.NotaSalva;
-                DesnormalizarNFe();
             }
             else
             {
@@ -185,7 +184,13 @@ namespace NFeFacil.ViewModel
         }
 
         public ICommand ConfirmarCommand => new ComandoSimples(Confirmar, true);
-        public ICommand SalvarCommand => new ComandoSimples(SalvarAsync, true);
+        public ICommand SalvarCommand => new ComandoSimples(async () =>
+        {
+            NormalizarNFe();
+            StatusAtual = StatusNFe.Salvo;
+            await SalvarAsync();
+            Log.Escrever(TitulosComuns.Sucesso, "Nota fiscal salva com sucesso. Agora podes sair da aplicação sem perder esta NFe.");
+        }, true);
         public ICommand AssinarCommand => new ComandoSimples(Assinar, true);
         public ICommand TransmitirCommand => new ComandoSimples(Transmitir, true);
         public ICommand GerarDANFECommand => new ComandoSimples(GerarDANFE, true);
@@ -214,11 +219,8 @@ namespace NFeFacil.ViewModel
             if (!nfeNormalizado)
             {
                 NormalizarTranporte();
-                NotaSalva.Informações.identificação = NotaSalva.Informações.identificação;
-                NotaSalva.Informações.emitente = NotaSalva.Informações.emitente;
-                NotaSalva.Informações.destinatário = NotaSalva.Informações.destinatário;
-                NotaSalva.Informações.produtos = NotaSalva.Informações.produtos;
-                NotaSalva.Informações.total = NotaSalva.Informações.total;
+                NotaSalva.Informações.total.ISSQNtot = NotaSalva.Informações.total.ISSQNtot.ToXElement<ISSQNtot>().Elements().Count(x => x.Value != "0") > 0 ? NotaSalva.Informações.total.ISSQNtot : null;
+                NotaSalva.Informações.total.retTrib = NotaSalva.Informações.total.retTrib.ToXElement<RetTrib>().HasElements ? NotaSalva.Informações.total.retTrib : null;
                 NotaSalva.Informações.cobr = NotaSalva.Informações.cobr?.Fat.ToXElement<Fatura>().HasElements ?? false ? NotaSalva.Informações.cobr : null;
                 NotaSalva.Informações.infAdic = NotaSalva.Informações.infAdic?.ToXElement<InformacoesAdicionais>().HasElements ?? false ? NotaSalva.Informações.infAdic : null;
                 NotaSalva.Informações.exporta = new ValidadorExportacao(NotaSalva.Informações.exporta).Validar(null) ? NotaSalva.Informações.exporta : null;
@@ -228,90 +230,51 @@ namespace NFeFacil.ViewModel
             }
         }
 
-        private void DesnormalizarNFe()
-        {
-            DesnormalizarTransporte();
-            NotaSalva.Informações.identificação = NotaSalva.Informações.identificação;
-            NotaSalva.Informações.emitente = NotaSalva.Informações.emitente;
-            NotaSalva.Informações.destinatário = NotaSalva.Informações.destinatário;
-            NotaSalva.Informações.produtos = NotaSalva.Informações.produtos;
-            NotaSalva.Informações.total.ISSQNtot = NotaSalva.Informações.total.ISSQNtot.ToXElement<ISSQNtot>().Elements().Count(x => x.Value != "0") > 0 ? NotaSalva.Informações.total.ISSQNtot : null;
-            NotaSalva.Informações.total.retTrib = NotaSalva.Informações.total.retTrib.ToXElement<RetTrib>().HasElements ? NotaSalva.Informações.total.retTrib : null;
-            NotaSalva.Informações.cobr = InserirDefault(NotaSalva.Informações.cobr);
-            NotaSalva.Informações.infAdic = InserirDefault(NotaSalva.Informações.infAdic);
-            NotaSalva.Informações.exporta = InserirDefault(NotaSalva.Informações.exporta);
-            NotaSalva.Informações.compra = InserirDefault(NotaSalva.Informações.compra);
-            NotaSalva.Informações.cana = InserirDefault(NotaSalva.Informações.cana);
-            nfeNormalizado = false;
-        }
-
-        private bool transporteNormalizado = false;
         private void NormalizarTranporte()
         {
-            if (NotaSalva.Informações.transp != null && !transporteNormalizado)
-            {
-                NotaSalva.Informações.transp.transporta = NotaSalva.Informações.transp.transporta?.ToXElement<Motorista>().HasElements ?? false ? NotaSalva.Informações.transp.transporta : null;
-                NotaSalva.Informações.transp.veicTransp = NotaSalva.Informações.transp.veicTransp?.ToXElement<Veiculo>().HasElements ?? false ? NotaSalva.Informações.transp.veicTransp : null;
-                NotaSalva.Informações.transp.retTransp = NotaSalva.Informações.transp.retTransp?.ToXElement<ICMSTransporte>().HasElements ?? false ? NotaSalva.Informações.transp.retTransp : null;
-                transporteNormalizado = true;
-            }
-        }
-
-        private void DesnormalizarTransporte()
-        {
-            if (NotaSalva.Informações.transp == null)
-            {
-                NotaSalva.Informações.transp = new Transporte();
-            }
-            NotaSalva.Informações.transp.transporta = InserirDefault(NotaSalva.Informações.transp.transporta);
-            NotaSalva.Informações.transp.veicTransp = InserirDefault(NotaSalva.Informações.transp.veicTransp);
-            NotaSalva.Informações.transp.retTransp = InserirDefault(NotaSalva.Informações.transp.retTransp);
-            transporteNormalizado = false;
+            NotaSalva.Informações.transp.transporta = NotaSalva.Informações.transp.transporta?.ToXElement<Motorista>().HasElements ?? false ? NotaSalva.Informações.transp.transporta : null;
+            NotaSalva.Informações.transp.veicTransp = NotaSalva.Informações.transp.veicTransp?.ToXElement<Veiculo>().HasElements ?? false ? NotaSalva.Informações.transp.veicTransp : null;
+            NotaSalva.Informações.transp.retTransp = NotaSalva.Informações.transp.retTransp?.ToXElement<ICMSTransporte>().HasElements ?? false ? NotaSalva.Informações.transp.retTransp : null;
         }
 
         private static T RemoverDefault<T>(T valor) where T : class => valor != null && valor != default(T) ? valor : null;
         private static T InserirDefault<T>(T valor) where T : class => valor ?? default(T);
 
-        private async void SalvarAsync()
+        private async Task SalvarAsync()
         {
-            try
+            bool usarNotaSalva = StatusAtual != StatusNFe.Emitido && StatusAtual != StatusNFe.Impresso;
+            var xml = usarNotaSalva ? NotaSalva.ToXElement<NFe>() : NotaEmitida.ToXElement<Processo>();
+            var di = usarNotaSalva ? new NFeDI(NotaSalva) : new NFeDI(NotaEmitida);
+            di.Status = (int)StatusAtual;
+            using (var db = new NotasFiscais())
             {
-                StatusAtual = StatusNFe.Salvo;
-                NormalizarNFe();
-                var xml = NotaSalva.ToXElement<NFe>();
-                var di = NFeDI.Converter(xml);
-                di.Status = (int)StatusNFe.Salvo;
-                using (var db = new NotasFiscais())
+                if (OperacaoRequirida == TipoOperacao.Adicao && usarNotaSalva)
                 {
-                    if (OperacaoRequirida == TipoOperacao.Adicao)
-                    {
-                        await db.Adicionar(di, xml);
-                    }
-                    else
-                    {
-                        await db.Atualizar(di, xml);
-                    }
+                    await db.Adicionar(di, xml);
                 }
-                Log.Escrever(TitulosComuns.Sucesso, "Nota fiscal salva com sucesso. Agora podes sair da aplicação sem perder esta NFe.");
-            }
-            catch (Exception erro)
-            {
-                Log.Escrever(TitulosComuns.ErroCatastrófico, erro.Message);
-                StatusAtual = StatusNFe.EdiçãoCriação;
+                else if (OperacaoRequirida == TipoOperacao.Adicao && !usarNotaSalva)
+                {
+                    throw new Exception("Comando não reconhecido;");
+                }
+                else
+                {
+                    await db.Atualizar(di, xml);
+                }
             }
         }
 
-        private void Assinar()
+        private async void Assinar()
         {
+            NormalizarNFe();
             var assina = new BibliotecaCentral.Assinatura.AssinaNFe(NotaSalva);
             assina.Assinar();
             StatusAtual = StatusNFe.Assinado;
+            await SalvarAsync();
         }
 
         private async void Transmitir()
         {
             var estado = Estados.EstadosCache.First(x => x.Sigla == NotaSalva.Informações.emitente.endereco.SiglaUF);
-            NormalizarNFe();
             var resultadoTransmissao = await BibliotecaCentral.WebService.AutorizarNota.Gerenciador.AutorizarAsync(estado.Codigo, NotaSalva);
             if (resultadoTransmissao.retEnviNFe.cStat == 103)
             {
@@ -325,6 +288,7 @@ namespace NFeFacil.ViewModel
                     };
                     Log.Escrever(TitulosComuns.Sucesso, resultadoResposta.retConsReciNFe.xMotivo);
                     StatusAtual = StatusNFe.Emitido;
+                    await SalvarAsync();
                 }
                 else
                 {
@@ -341,6 +305,7 @@ namespace NFeFacil.ViewModel
         {
             await Propriedades.Intercambio.AbrirFunçaoAsync(typeof(ViewDANFE), NotaEmitida);
             StatusAtual = StatusNFe.Impresso;
+            await SalvarAsync();
         }
 
         #region Identificação

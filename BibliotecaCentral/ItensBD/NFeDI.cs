@@ -24,30 +24,32 @@ namespace BibliotecaCentral.ItensBD
         {
             if (xml.Name.LocalName == nameof(NFe))
             {
-                var nota = xml.FromXElement<NFe>();
-                return new NFeDI
-                {
-                    Id = nota.Informações.Id,
-                    NomeCliente = nota.Informações.destinatário.nome,
-                    NomeEmitente = nota.Informações.emitente.nome,
-                    DataEmissao = nota.Informações.identificação.DataHoraEmissão,
-                    NumeroNota = nota.Informações.identificação.Numero.ToString(),
-                    Status = nota.Signature != null && nota.Signature.HasChildNodes ? (int)StatusNFe.Assinado : (int)StatusNFe.Salvo
-                };
+                return new NFeDI(xml.FromXElement<NFe>());
             }
             else
             {
-                var nota = xml.FromXElement<Processo>();
-                return new NFeDI
-                {
-                    Id = nota.NFe.Informações.Id,
-                    NomeCliente = nota.NFe.Informações.destinatário.nome,
-                    NomeEmitente = nota.NFe.Informações.emitente.nome,
-                    DataEmissao = nota.NFe.Informações.identificação.DataHoraEmissão,
-                    NumeroNota = nota.NFe.Informações.identificação.Numero.ToString(),
-                    Status = nota.ProtNFe != null ? (int)StatusNFe.Emitido : nota.NFe.Signature != null && nota.NFe.Signature.HasChildNodes ? (int)StatusNFe.Assinado : (int)StatusNFe.Salvo
-                };
+                return new NFeDI(xml.FromXElement<Processo>());
             }
+        }
+
+        public NFeDI() { }
+        public NFeDI(NFe nota)
+        {
+            Id = nota.Informações.Id;
+            NomeCliente = nota.Informações.destinatário.nome;
+            NomeEmitente = nota.Informações.emitente.nome;
+            DataEmissao = nota.Informações.identificação.DataHoraEmissão;
+            NumeroNota = nota.Informações.identificação.Numero.ToString();
+            Status = nota.Signature != null && nota.Signature.HasChildNodes ? (int)StatusNFe.Assinado : (int)StatusNFe.Salvo;
+        }
+        public NFeDI(Processo nota)
+        {
+            Id = nota.NFe.Informações.Id;
+            NomeCliente = nota.NFe.Informações.destinatário.nome;
+            NomeEmitente = nota.NFe.Informações.emitente.nome;
+            DataEmissao = nota.NFe.Informações.identificação.DataHoraEmissão;
+            NumeroNota = nota.NFe.Informações.identificação.Numero.ToString();
+            Status = nota.ProtNFe != null ? (int)StatusNFe.Emitido : nota.NFe.Signature != null && nota.NFe.Signature.HasChildNodes ? (int)StatusNFe.Assinado : (int)StatusNFe.Salvo;
         }
 
         public async Task<object> ConjuntoCompletoAsync()

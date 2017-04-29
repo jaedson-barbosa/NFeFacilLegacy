@@ -40,9 +40,9 @@ namespace NFeFacil
 
         private async Task AbrirAsync(Type tela, object parametro)
         {
-            if (TelasComParametroObrigatorio.ContainsKey(tela) && parametro == null)
+            if (TelasComParametroObrigatorio.Contains(tela) && parametro == null)
             {
-                TelasComParametroObrigatorio.TryGetValue(tela, out parametro);
+                ObterValorPadrao(tela, out parametro);
             }
 
             if (Main.FramePrincipal.Content != null)
@@ -60,21 +60,42 @@ namespace NFeFacil
             Main.FramePrincipal.Navigate(tela, parametro);
         }
 
-        private Dictionary<Type, object> TelasComParametroObrigatorio = new Dictionary<Type, object>
+        private List<Type> TelasComParametroObrigatorio = new List<Type>
         {
-            { typeof(AdicionarDestinatario), new GrupoViewBanco<Destinatario>() },
-            { typeof(AdicionarEmitente), new GrupoViewBanco<Emitente>() },
-            { typeof(AdicionarMotorista), new GrupoViewBanco<Motorista>() },
-            { typeof(AdicionarProduto), new GrupoViewBanco<BaseProdutoOuServico>() },
+            typeof(AdicionarDestinatario),
+            typeof(AdicionarEmitente),
+            typeof(AdicionarMotorista),
+            typeof(AdicionarProduto),
+            typeof(ManipulacaoNotaFiscal)
+        };
+
+        private void ObterValorPadrao(Type tipo, out object retorno)
+        {
+            if (tipo == typeof(AdicionarDestinatario))
             {
-                typeof(ManipulacaoNotaFiscal),
-                new ConjuntoManipuladorNFe
+                retorno = new GrupoViewBanco<Destinatario>();
+            }
+            else if (tipo == typeof(AdicionarEmitente))
+            {
+                retorno = new GrupoViewBanco<Emitente>();
+            }
+            else if (tipo == typeof(AdicionarMotorista))
+            {
+                retorno = new GrupoViewBanco<Motorista>();
+            }
+            else if (tipo == typeof(AdicionarProduto))
+            {
+                retorno = new GrupoViewBanco<BaseProdutoOuServico>();
+            }
+            else if (tipo == typeof(ManipulacaoNotaFiscal))
+            {
+                retorno = new ConjuntoManipuladorNFe
                 {
-                    NotaSalva =  new NFe
+                    NotaSalva = new NFe()
                     {
-                       Informações = new Detalhes
+                        Informações = new Detalhes()
                         {
-                            identificação= new Identificacao(),
+                            identificação = new Identificacao(),
                             emitente = new Emitente(),
                             destinatário = new Destinatario(),
                             produtos = new List<DetalhesProdutos>(),
@@ -88,9 +109,13 @@ namespace NFeFacil
                     },
                     OperacaoRequirida = TipoOperacao.Adicao,
                     StatusAtual = StatusNFe.EdiçãoCriação
-                }
+                };
             }
-        };
+            else
+            {
+                throw new ArgumentException("Valor padrão desse tipo não cadastrado");
+            }
+        }
 
         public void SeAtualizar(Telas atual, Symbol símbolo, string texto)
         {

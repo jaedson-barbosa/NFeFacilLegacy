@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace BibliotecaCentral.Repositorio
 {
@@ -11,7 +12,12 @@ namespace BibliotecaCentral.Repositorio
             Contexto = new AplicativoContext();
         }
 
-        public void SalvarMudancas() => Contexto.SaveChanges();
+        public void SalvarMudancas()
+        {
+            try { Contexto.SaveChanges(); }
+            catch (DbUpdateConcurrencyException) { }
+            catch (Exception exc) { throw exc; }
+        }
 
         public void Dispose()
         {

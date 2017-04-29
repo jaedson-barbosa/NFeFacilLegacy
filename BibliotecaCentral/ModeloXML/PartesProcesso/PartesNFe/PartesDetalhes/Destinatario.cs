@@ -33,7 +33,7 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
         public int indicadorIE { get; set; } = 9;
 
         [XmlElement(ElementName = "IE")]
-        public string inscricaoEstadual { get; set; } = string.Empty;
+        public string inscricaoEstadual { get; set; }
         public string ISUF { get; set; }
         public string email { get; set; }
 

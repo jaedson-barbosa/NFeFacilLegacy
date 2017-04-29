@@ -29,7 +29,7 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Pa
         /// (Opcional)
         /// endereco Completo.
         /// </summary>
-        [XmlElement("xEnder ")]
+        [XmlElement("xEnder")]
         public string XEnder { get; set; }
 
         /// <summary>

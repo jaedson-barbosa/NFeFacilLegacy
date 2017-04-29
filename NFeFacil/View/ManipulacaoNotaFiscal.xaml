@@ -408,7 +408,7 @@
                                         <TextBox Text="{Binding NotaSalva.Informações.transp.veicTransp.Placa, Mode=TwoWay}"
                                                  Header="Placa" />
                                         <ComboBox ItemsSource="{Binding Source={StaticResource estados}, Path=Siglas}"
-                                                  SelectedItem="{Binding Path=Transp.veicTransp.UF, Mode=TwoWay}"
+                                                  SelectedItem="{Binding Path=NotaSalva.Informações.transp.veicTransp.UF, Mode=TwoWay}"
                                                   Header="Estado"
                                                   HorizontalAlignment="Stretch" />
                                         <TextBox Header="RNTC"

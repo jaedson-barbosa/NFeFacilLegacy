@@ -28,16 +28,5 @@
         /// Código do município de ocorrência do fato gerador do ICMS do transporte.
         /// </summary>
         public string cMunFG { get; set; }
-
-        public ICMSTransporte() { }
-        public ICMSTransporte(ref ICMSTransporte other)
-        {
-            vServ = other.vServ;
-            vBCRet = other.vBCRet;
-            pICMSRet = other.pICMSRet;
-            vICMSRet = other.vICMSRet;
-            CFOP = other.CFOP;
-            cMunFG = other.cMunFG;
-        }
     }
 }

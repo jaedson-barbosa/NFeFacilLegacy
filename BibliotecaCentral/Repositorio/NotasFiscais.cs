@@ -25,23 +25,23 @@ namespace BibliotecaCentral.Repositorio
 
         public async Task Adicionar(NFeDI nota, XElement xml)
         {
+            Contexto.Add(nota);
             PastaNotasFiscais pasta = new PastaNotasFiscais();
             await pasta.AdicionarOuAtualizar(xml, nota.Id);
-            Contexto.Add(nota);
         }
 
         public async Task Atualizar(NFeDI nota, XElement xml)
         {
+            Contexto.Update(nota);
             PastaNotasFiscais pasta = new PastaNotasFiscais();
             await pasta.AdicionarOuAtualizar(xml, nota.Id);
-            Contexto.Update(nota);
         }
 
         public async Task Remover(NFeDI nota)
         {
+            Contexto.Remove(nota);
             PastaNotasFiscais pasta = new PastaNotasFiscais();
             await pasta.Remover(nota.Id);
-            Contexto.Remove(nota);
         }
     }
 }

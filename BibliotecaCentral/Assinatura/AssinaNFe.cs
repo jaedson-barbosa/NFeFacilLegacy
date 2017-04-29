@@ -16,7 +16,8 @@ namespace BibliotecaCentral.Assinatura
         {
             if (Nota.Signature?.HasChildNodes ?? false)
             {
-                throw new System.Exception("A NFe já está assinada");
+                //throw new System.Exception("A NFe já está assinada");
+                return;
             }
             var loja = new X509Store(StoreName.My, StoreLocation.CurrentUser);
             loja.Open(OpenFlags.ReadOnly);

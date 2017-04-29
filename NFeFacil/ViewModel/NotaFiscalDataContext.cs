@@ -248,13 +248,9 @@ namespace NFeFacil.ViewModel
             di.Status = (int)StatusAtual;
             using (var db = new NotasFiscais())
             {
-                if (OperacaoRequirida == TipoOperacao.Adicao && usarNotaSalva)
+                if (StatusAtual == StatusNFe.Salvo || StatusAtual == StatusNFe.EdiçãoCriação)
                 {
                     await db.Adicionar(di, xml);
-                }
-                else if (OperacaoRequirida == TipoOperacao.Adicao && !usarNotaSalva)
-                {
-                    throw new Exception("Comando não reconhecido;");
                 }
                 else
                 {
@@ -297,7 +293,7 @@ namespace NFeFacil.ViewModel
             }
             else
             {
-                Log.Escrever(TitulosComuns.ErroSimples, $"A NFe não foi aceita. Mensagem de retorno: \n{resultadoTransmissao.retEnviNFe.xMotivo}");
+                Log.Escrever(TitulosComuns.ErroSimples, $"A NFe não foi aceita. Mensagem de retorno: \n{resultadoTransmissao.retEnviNFe.xMotivo}\nPor favor, exporte esta nota fiscal e envie o XML gerado para o desenvolvedor do aplicativo para que o erro possa ser corrigido.");
             }
         }
 

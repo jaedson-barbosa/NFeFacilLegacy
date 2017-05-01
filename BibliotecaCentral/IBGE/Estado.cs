@@ -2,27 +2,17 @@
 
 namespace BibliotecaCentral.IBGE
 {
-    public class Estado
+    public struct Estado
     {
         public string Nome { get; set; }
         public string Sigla { get; set; }
         public ushort Codigo { get; set; }
 
-        public Estado() { }
-
-        public Estado(string nome, string sigla, string codigo)
-        {
-            Nome = nome;
-            Sigla = sigla;
-            Codigo = ushort.Parse(codigo);
-        }
-
         public Estado(XElement xmlEstado)
         {
-            ProcessamentoXml proc = new ProcessamentoXml(xmlEstado);
-            Nome = proc.GetByName(nameof(Nome));
-            Sigla = proc.GetByName(nameof(Sigla));
-            Codigo = ushort.Parse(proc.GetByName(nameof(Codigo)));
+            Nome = xmlEstado.Element(nameof(Nome)).Value;
+            Sigla = xmlEstado.Element(nameof(Sigla)).Value;
+            Codigo = ushort.Parse(xmlEstado.Element(nameof(Codigo)).Value);
         }
 
         public static bool operator ==(Estado est1, Estado est2)

@@ -6,7 +6,7 @@ using System.Xml.Linq;
 
 namespace BibliotecaCentral.IBGE
 {
-    public class Municipio
+    public sealed class Municipio
     {
         public ushort CodigoUF { get; set; }
         public string Nome { get; set; }
@@ -16,10 +16,14 @@ namespace BibliotecaCentral.IBGE
 
         public Municipio(XElement xmlMunicípio)
         {
-            ProcessamentoXml proc = new ProcessamentoXml(xmlMunicípio);
-            CodigoUF = ushort.Parse(proc.GetByIndex(0), CultureInfo.InvariantCulture);
-            Nome = RemoverAcentuacao(proc.GetByIndex(1));
-            Codigo = int.Parse(proc.GetByIndex(2));
+            var elementos = xmlMunicípio.Elements().GetEnumerator();
+            elementos.MoveNext();
+            CodigoUF = ushort.Parse(elementos.Current.Value, CultureInfo.InvariantCulture);
+            elementos.MoveNext();
+            Nome = RemoverAcentuacao(elementos.Current.Value);
+            elementos.MoveNext();
+            Codigo = int.Parse(elementos.Current.Value);
+            elementos.Dispose();
         }
 
         public static bool operator ==(Municipio mun1, Municipio mun2) {

@@ -115,7 +115,6 @@
     <Compile Include="IBGE\Estados.cs" />
     <Compile Include="IBGE\Municipio.cs" />
     <Compile Include="IBGE\Municipios.cs" />
-    <Compile Include="IBGE\ProcessamentoXml.cs" />
     <Compile Include="IBGE\XML.cs" />
     <Compile Include="ImportacaoParaBanco\Importacao.cs" />
     <Compile Include="ImportacaoParaBanco\ImportarDadoBase.cs" />

@@ -30,7 +30,7 @@ namespace NFeFacil.View
             var codigo = txtCodigo.Text;
             try
             {
-                var resp = await Gerenciador.ConsultarAsync(false, codigo, cmbUF.SelectedItem as Estado);
+                var resp = await Gerenciador.ConsultarAsync(false, codigo, (Estado)cmbUF.SelectedItem);
                 DataContext = resp;
             }
             catch (Exception erro)

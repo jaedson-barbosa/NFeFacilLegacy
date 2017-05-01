@@ -138,9 +138,9 @@
     <Compile Include="Log\Saida.cs" />
     <Compile Include="Log\Titulos.cs" />
     <Compile Include="Log\Toast.cs" />
-    <Compile Include="Migrations\20170425175859_Estavel3.cs" />
-    <Compile Include="Migrations\20170425175859_Estavel3.designer.cs">
-      <DependentUpon>20170425175859_Estavel3.cs</DependentUpon>
+    <Compile Include="Migrations\20170501125147_Estavel5.cs" />
+    <Compile Include="Migrations\20170501125147_Estavel5.designer.cs">
+      <DependentUpon>20170501125147_Estavel5.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\AplicativoContextModelSnapshot.cs" />
     <Compile Include="Model.cs" />
@@ -344,6 +344,7 @@
       <Name>System.Security.Cryptography.Xml</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

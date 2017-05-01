@@ -43,5 +43,13 @@ namespace BibliotecaCentral.Repositorio
             PastaNotasFiscais pasta = new PastaNotasFiscais();
             await pasta.Remover(nota.Id);
         }
+
+        public long ObterNovoNumero(string cnpjEmitente, ushort serieNota)
+        {
+            return (from nota in Contexto.NotasFiscais
+                    where nota.CNPJEmitente == cnpjEmitente
+                    where nota.SerieNota == serieNota
+                    select nota.NumeroNota).Max() + 1;
+        }
     }
 }

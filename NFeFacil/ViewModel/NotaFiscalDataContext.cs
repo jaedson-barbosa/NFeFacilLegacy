@@ -183,6 +183,7 @@ namespace NFeFacil.ViewModel
             OnPropertyChanged(nameof(Produtos));
         }
 
+        public ICommand ObterNovoNumeroCommand => new ComandoSimples(ObterNovoNumero, true);
         public ICommand ConfirmarCommand => new ComandoSimples(Confirmar, true);
         public ICommand SalvarCommand => new ComandoSimples(async () =>
         {
@@ -194,6 +195,22 @@ namespace NFeFacil.ViewModel
         public ICommand AssinarCommand => new ComandoSimples(Assinar, true);
         public ICommand TransmitirCommand => new ComandoSimples(Transmitir, true);
         public ICommand GerarDANFECommand => new ComandoSimples(GerarDANFE, true);
+
+        private void ObterNovoNumero()
+        {
+            if (NotaSalva.Informações.emitente.CNPJ == null)
+            {
+                Log.Escrever(TitulosComuns.ErroSimples, "Primeiro escolha o emitente da nota fiscal.\n");
+            }
+            else
+            {
+                using (var notasFiscais = new NotasFiscais())
+                {
+                    NotaSalva.Informações.identificação.Numero = notasFiscais.ObterNovoNumero(NotaSalva.Informações.emitente.CNPJ, NotaSalva.Informações.identificação.Serie);
+                    OnPropertyChanged(nameof(NotaSalva));
+                }
+            }
+        }
 
         private void Confirmar()
         {
@@ -218,7 +235,10 @@ namespace NFeFacil.ViewModel
         {
             if (!nfeNormalizado)
             {
-                NormalizarTranporte();
+                NotaSalva.Informações.transp.transporta = NotaSalva.Informações.transp.transporta?.ToXElement<Motorista>().HasElements ?? false ? NotaSalva.Informações.transp.transporta : null;
+                NotaSalva.Informações.transp.veicTransp = NotaSalva.Informações.transp.veicTransp?.ToXElement<Veiculo>().HasElements ?? false ? NotaSalva.Informações.transp.veicTransp : null;
+                NotaSalva.Informações.transp.retTransp = NotaSalva.Informações.transp.retTransp?.ToXElement<ICMSTransporte>().HasElements ?? false ? NotaSalva.Informações.transp.retTransp : null;
+
                 NotaSalva.Informações.total.ISSQNtot = NotaSalva.Informações.total.ISSQNtot.ToXElement<ISSQNtot>().Elements().Count(x => x.Value != "0") > 0 ? NotaSalva.Informações.total.ISSQNtot : null;
                 NotaSalva.Informações.total.retTrib = NotaSalva.Informações.total.retTrib.ToXElement<RetTrib>().HasElements ? NotaSalva.Informações.total.retTrib : null;
                 NotaSalva.Informações.cobr = NotaSalva.Informações.cobr?.Fat.ToXElement<Fatura>().HasElements ?? false ? NotaSalva.Informações.cobr : null;
@@ -229,16 +249,6 @@ namespace NFeFacil.ViewModel
                 nfeNormalizado = true;
             }
         }
-
-        private void NormalizarTranporte()
-        {
-            NotaSalva.Informações.transp.transporta = NotaSalva.Informações.transp.transporta?.ToXElement<Motorista>().HasElements ?? false ? NotaSalva.Informações.transp.transporta : null;
-            NotaSalva.Informações.transp.veicTransp = NotaSalva.Informações.transp.veicTransp?.ToXElement<Veiculo>().HasElements ?? false ? NotaSalva.Informações.transp.veicTransp : null;
-            NotaSalva.Informações.transp.retTransp = NotaSalva.Informações.transp.retTransp?.ToXElement<ICMSTransporte>().HasElements ?? false ? NotaSalva.Informações.transp.retTransp : null;
-        }
-
-        private static T RemoverDefault<T>(T valor) where T : class => valor != null && valor != default(T) ? valor : null;
-        private static T InserirDefault<T>(T valor) where T : class => valor ?? default(T);
 
         private async Task SalvarAsync()
         {

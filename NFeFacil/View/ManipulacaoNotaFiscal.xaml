@@ -90,6 +90,14 @@
                                      Text="{Binding NotaSalva.Informações.identificação.Serie, Mode=TwoWay}" />
                             <TextBox Header="Número *"
                                      Text="{Binding NotaSalva.Informações.identificação.Numero, Mode=TwoWay}" />
+                            <Button Command="{Binding ObterNovoNumeroCommand}"
+                                    VerticalAlignment="Bottom">
+                                <StackPanel Orientation="Horizontal">
+                                    <SymbolIcon Symbol="Refresh"
+                                                Margin="4,0" />
+                                    <TextBlock>Obter próximo número</TextBlock>
+                                </StackPanel>
+                            </Button>
                             <ComboBox Header="Tipo de operação *"
                                       SelectedIndex="{Binding NotaSalva.Informações.identificação.TipoOperação, Mode=TwoWay}">
                                 <ComboBoxItem Content="Entrada" />

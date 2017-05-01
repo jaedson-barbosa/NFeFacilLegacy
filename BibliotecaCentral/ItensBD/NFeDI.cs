@@ -10,9 +10,13 @@ namespace BibliotecaCentral.ItensBD
     {
         public string Id { get; set; }
         [Required]
-        public string NumeroNota { get; set; }
+        public long NumeroNota { get; set; }
+        [Required]
+        public ushort SerieNota { get; set; }
         [Required]
         public string NomeEmitente { get; set; }
+        [Required]
+        public string CNPJEmitente { get; set; }
         [Required]
         public string NomeCliente { get; set; }
         [Required]
@@ -38,8 +42,10 @@ namespace BibliotecaCentral.ItensBD
             Id = nota.Informações.Id;
             NomeCliente = nota.Informações.destinatário.nome;
             NomeEmitente = nota.Informações.emitente.nome;
+            CNPJEmitente = nota.Informações.emitente.CNPJ;
             DataEmissao = nota.Informações.identificação.DataHoraEmissão;
-            NumeroNota = nota.Informações.identificação.Numero.ToString();
+            NumeroNota = nota.Informações.identificação.Numero;
+            SerieNota = nota.Informações.identificação.Serie;
             Status = nota.Signature != null && nota.Signature.HasChildNodes ? (int)StatusNFe.Assinado : (int)StatusNFe.Salvo;
         }
         public NFeDI(Processo nota)
@@ -47,8 +53,10 @@ namespace BibliotecaCentral.ItensBD
             Id = nota.NFe.Informações.Id;
             NomeCliente = nota.NFe.Informações.destinatário.nome;
             NomeEmitente = nota.NFe.Informações.emitente.nome;
+            CNPJEmitente = nota.NFe.Informações.emitente.CNPJ;
             DataEmissao = nota.NFe.Informações.identificação.DataHoraEmissão;
-            NumeroNota = nota.NFe.Informações.identificação.Numero.ToString();
+            NumeroNota = nota.NFe.Informações.identificação.Numero;
+            SerieNota = nota.NFe.Informações.identificação.Serie;
             Status = nota.ProtNFe != null ? (int)StatusNFe.Emitido : nota.NFe.Signature != null && nota.NFe.Signature.HasChildNodes ? (int)StatusNFe.Assinado : (int)StatusNFe.Salvo;
         }
 

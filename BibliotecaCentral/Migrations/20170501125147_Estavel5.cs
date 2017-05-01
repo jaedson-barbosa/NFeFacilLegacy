@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BibliotecaCentral.Migrations
 {
-    public partial class Estavel3 : Migration
+    public partial class Estavel5 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,10 +13,12 @@ namespace BibliotecaCentral.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
+                    CNPJEmitente = table.Column<string>(nullable: false),
                     DataEmissao = table.Column<string>(nullable: false),
                     NomeCliente = table.Column<string>(nullable: false),
                     NomeEmitente = table.Column<string>(nullable: false),
-                    NumeroNota = table.Column<string>(nullable: false),
+                    NumeroNota = table.Column<long>(nullable: false),
+                    SerieNota = table.Column<ushort>(nullable: false),
                     Status = table.Column<int>(nullable: false)
                 },
                 constraints: table =>

@@ -1,6 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
+using BibliotecaCentral;
 
 namespace BibliotecaCentral.Migrations
 {
@@ -17,6 +20,9 @@ namespace BibliotecaCentral.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("CNPJEmitente")
+                        .IsRequired();
+
                     b.Property<string>("DataEmissao")
                         .IsRequired();
 
@@ -26,8 +32,9 @@ namespace BibliotecaCentral.Migrations
                     b.Property<string>("NomeEmitente")
                         .IsRequired();
 
-                    b.Property<string>("NumeroNota")
-                        .IsRequired();
+                    b.Property<long>("NumeroNota");
+
+                    b.Property<ushort>("SerieNota");
 
                     b.Property<int>("Status");
 

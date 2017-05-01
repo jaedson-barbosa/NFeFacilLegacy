@@ -8,8 +8,8 @@ using BibliotecaCentral;
 namespace BibliotecaCentral.Migrations
 {
     [DbContext(typeof(AplicativoContext))]
-    [Migration("20170425175859_Estavel3")]
-    partial class Estavel3
+    [Migration("20170501125147_Estavel5")]
+    partial class Estavel5
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,6 +21,9 @@ namespace BibliotecaCentral.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("CNPJEmitente")
+                        .IsRequired();
+
                     b.Property<string>("DataEmissao")
                         .IsRequired();
 
@@ -30,8 +33,9 @@ namespace BibliotecaCentral.Migrations
                     b.Property<string>("NomeEmitente")
                         .IsRequired();
 
-                    b.Property<string>("NumeroNota")
-                        .IsRequired();
+                    b.Property<long>("NumeroNota");
+
+                    b.Property<ushort>("SerieNota");
 
                     b.Property<int>("Status");
 

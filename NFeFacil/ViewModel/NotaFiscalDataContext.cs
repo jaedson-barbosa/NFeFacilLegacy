@@ -287,11 +287,18 @@ namespace NFeFacil.ViewModel
 
         private async void Assinar()
         {
-            NormalizarNFe();
-            var assina = new BibliotecaCentral.Assinatura.AssinaNFe(NotaSalva);
-            assina.Assinar();
-            StatusAtual = StatusNFe.Assinado;
-            await SalvarAsync();
+            try
+            {
+                NormalizarNFe();
+                var assina = new BibliotecaCentral.Assinatura.AssinaNFe(NotaSalva);
+                assina.Assinar();
+                StatusAtual = StatusNFe.Assinado;
+                await SalvarAsync();
+            }
+            catch (Exception e)
+            {
+                Log.Escrever(TitulosComuns.ErroSimples, e.Message);
+            }
         }
 
         private async void Transmitir()

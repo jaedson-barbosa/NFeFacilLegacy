@@ -1,10 +1,12 @@
 ﻿using System;
-using static BibliotecaCentral.Configuracoes.ConfiguracoesLocais;
+using Windows.Storage;
 
 namespace BibliotecaCentral.Configuracoes
 {
     public static class ConfiguracoesSincronizacao
     {
+        private static ApplicationDataContainer Pasta = ApplicationData.Current.LocalSettings;
+
         public static TipoAppSincronizacao Tipo
         {
             get

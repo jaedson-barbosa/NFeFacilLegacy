@@ -1,7 +1,6 @@
 ﻿using BibliotecaCentral.IBGE;
 using System;
 using System.Linq;
-using System.Text;
 
 namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe
 {

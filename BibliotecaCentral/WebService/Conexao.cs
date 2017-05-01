@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel;
-using static BibliotecaCentral.Configuracoes.ConfiguracoesCertificacao;
 
 namespace BibliotecaCentral.WebService
 {
@@ -14,7 +13,8 @@ namespace BibliotecaCentral.WebService
             var bind = new BasicHttpBinding(BasicHttpSecurityMode.Transport);
             bind.Security.Transport.ClientCredentialType = HttpClientCredentialType.Certificate;
             CanalComunicação = new ChannelFactory<T>(bind, new EndpointAddress(endereco));
-            CanalComunicação.Credentials.ClientCertificate.SetCertificate(StoreLocation.CurrentUser, StoreName.My, X509FindType.FindBySerialNumber, Certificado);
+            var repo = new Repositorio.Certificados();
+            CanalComunicação.Credentials.ClientCertificate.SetCertificate(StoreLocation.CurrentUser, StoreName.My, X509FindType.FindBySerialNumber, repo.Escolhido);
         }
 
         public void Dispose()

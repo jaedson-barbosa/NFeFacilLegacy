@@ -21,7 +21,8 @@ namespace BibliotecaCentral.Assinatura
             }
             var loja = new X509Store(StoreName.My, StoreLocation.CurrentUser);
             loja.Open(OpenFlags.ReadOnly);
-            var certs = loja.Certificates.Find(X509FindType.FindBySerialNumber, Configuracoes.ConfiguracoesCertificacao.Certificado, true);
+            var repo = new Repositorio.Certificados();
+            var certs = loja.Certificates.Find(X509FindType.FindBySerialNumber, repo.Escolhido, true);
             var xml = new XmlDocument();
             xml.Load(Nota.ToXElement<NFe>().CreateReader());
             Nota.Signature = AssinaXML.AssinarXML(xml, certs[0]);

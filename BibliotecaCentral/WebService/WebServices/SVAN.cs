@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BibliotecaCentral.WebService.WebServices
+﻿namespace BibliotecaCentral.WebService.WebServices
 {
     internal struct SVAN : IWebService
     {
@@ -17,5 +11,7 @@ namespace BibliotecaCentral.WebService.WebServices
         public string AutorizarHomologacao => "https://hom.sefazvirtual.fazenda.gov.br/NfeAutorizacao/NfeAutorizacao.asmx";
         public string RespostaAutorizarHomologacao => "https://hom.sefazvirtual.fazenda.gov.br/NfeRetAutorizacao/NfeRetAutorizacao.asmx";
         public string RecepcaoEventoHomologacao => "https://hom.sefazvirtual.fazenda.gov.br/RecepcaoEvento/RecepcaoEvento.asmx";
+
+        public string VersaoRecepcaoEvento => "1.00";
     }
 }

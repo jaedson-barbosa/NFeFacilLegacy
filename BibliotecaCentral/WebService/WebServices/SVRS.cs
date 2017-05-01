@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BibliotecaCentral.WebService.WebServices
+﻿namespace BibliotecaCentral.WebService.WebServices
 {
     internal struct SVRS : IWebService
     {
@@ -17,5 +11,7 @@ namespace BibliotecaCentral.WebService.WebServices
         public string AutorizarHomologacao => "https://nfe-homologacao.svrs.rs.gov.br/ws/NfeAutorizacao/NFeAutorizacao.asmx";
         public string RespostaAutorizarHomologacao => "https://nfe-homologacao.svrs.rs.gov.br/ws/NfeRetAutorizacao/NFeRetAutorizacao.asmx";
         public string RecepcaoEventoHomologacao => "https://nfe-homologacao.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento.asmx";
+
+        public string VersaoRecepcaoEvento => "1.00";
     }
 }

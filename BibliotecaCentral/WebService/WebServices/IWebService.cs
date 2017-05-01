@@ -11,5 +11,7 @@
         string AutorizarHomologacao { get; }
         string RespostaAutorizarHomologacao { get; }
         string RecepcaoEventoHomologacao { get; }
+
+        string VersaoRecepcaoEvento { get; }
     }
 }

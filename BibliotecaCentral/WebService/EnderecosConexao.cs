@@ -62,7 +62,33 @@ namespace BibliotecaCentral.WebService
             }
             else
             {
-                throw new Exception("Estado ainda não suportado por esta aplicação.");
+                switch (siglaUF)
+                {
+                    case "AM":
+                        return new AM();
+                    case "BA":
+                        return new BA();
+                    case "CE":
+                        return new CE();
+                    case "GO":
+                        return new GO();
+                    case "MG":
+                        return new MG();
+                    case "MS":
+                        return new MS();
+                    case "MT":
+                        return new MT();
+                    case "PE":
+                        return new PE();
+                    case "PR":
+                        return new PR();
+                    case "RS":
+                        return new RS();
+                    case "SP":
+                        return new SP();
+                    default:
+                        throw new Exception("Estado ainda não cadastrado no aplicativo.");
+                }
             }
         }
 

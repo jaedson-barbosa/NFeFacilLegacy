@@ -7,22 +7,20 @@ namespace BibliotecaCentral.IBGE
     {
         private XElement Xml;
 
-        public ProcessamentoXml(XElement xml)
+        internal ProcessamentoXml(XElement xml)
         {
             Xml = xml;
         }
 
-        public string GetByName(string nome) => Xml.Element(nome).Value;
+        internal string GetByName(string nome)
+        {
+            return Xml.Element(nome).Value;
+        }
 
-        public string GetByIndex(int index)
+        internal string GetByIndex(int index)
         {
             var elementos = Xml.Elements();
             return elementos.ElementAt(index).Value;
-        }
-
-        public static implicit operator ProcessamentoXml(XElement xml)
-        {
-            return new ProcessamentoXml(xml);
         }
     }
 }

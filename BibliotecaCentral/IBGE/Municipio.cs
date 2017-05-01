@@ -16,7 +16,7 @@ namespace BibliotecaCentral.IBGE
 
         public Municipio(XElement xmlMunicípio)
         {
-            ProcessamentoXml proc = xmlMunicípio;
+            ProcessamentoXml proc = new ProcessamentoXml(xmlMunicípio);
             CodigoUF = ushort.Parse(proc.GetByIndex(0), CultureInfo.InvariantCulture);
             Nome = RemoverAcentuacao(proc.GetByIndex(1));
             Codigo = int.Parse(proc.GetByIndex(2));

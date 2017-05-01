@@ -744,7 +744,7 @@
             </CommandBar.Background>
             <AppBarButton IsEnabled="{Binding BotaoConfirmarAtivado}"
                           Icon="Accept"
-                          Label="Confirmar"
+                          Label="Confirmar e validar"
                           Command="{Binding ConfirmarCommand}" />
             <AppBarButton IsEnabled="{Binding BotaoSalvarAtivado}"
                           Icon="Save"

@@ -19,7 +19,7 @@ namespace BibliotecaCentral.IBGE
 
         public Estado(XElement xmlEstado)
         {
-            ProcessamentoXml proc = xmlEstado;
+            ProcessamentoXml proc = new ProcessamentoXml(xmlEstado);
             Nome = proc.GetByName(nameof(Nome));
             Sigla = proc.GetByName(nameof(Sigla));
             Codigo = ushort.Parse(proc.GetByName(nameof(Codigo)));

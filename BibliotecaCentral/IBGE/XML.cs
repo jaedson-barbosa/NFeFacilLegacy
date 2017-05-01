@@ -14,9 +14,7 @@ namespace BibliotecaCentral.IBGE
         {
             if (!nome.Contains(".xml")) nome += ".xml";
             NomeArquivo = nome;
-
-            var info = GetType().GetTypeInfo();
-            assembly = info.Assembly;
+            assembly = GetType().GetTypeInfo().Assembly;
         }
 
         public XElement Retornar()

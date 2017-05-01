@@ -61,8 +61,8 @@ namespace BibliotecaCentral.WebService
 
         private struct Cabeçalho : IXmlSerializable
         {
-            public int cUF { get; set; }
-            public string versaoDados { get; set; }
+            private int cUF { get; set; }
+            private string versaoDados { get; set; }
 
             public Cabeçalho(int cUF, string versao)
             {

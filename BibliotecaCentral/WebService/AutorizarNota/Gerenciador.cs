@@ -16,7 +16,7 @@ namespace BibliotecaCentral.WebService.AutorizarNota
                     autoriza.nfeAutorizacaoLote, autoriza.nfeAutorizacaoLoteAsync,
                     conjunto).EnviarAsync(new Request
                     {
-                        enviNFe = new CorpoRequest(xmls, (int)xmls[0].Informações.identificação.Numero)
+                        enviNFe = new CorpoRequest(xmls, xmls[0].Informações.identificação.Numero)
                     }, UF.Codigo);
             }
         }

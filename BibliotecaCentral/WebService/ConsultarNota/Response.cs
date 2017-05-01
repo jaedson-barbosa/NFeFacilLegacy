@@ -2,7 +2,7 @@
 
 namespace BibliotecaCentral.WebService.ConsultarNota
 {
-    [XmlRoot("nfeConsultaNF2Result", Namespace = ConjuntoServicos.ConsultarServico)]
+    [XmlRoot("nfeConsultaNF2Result", Namespace = EnderecosConexao.ConsultarServico)]
     public struct Response
     {
         [XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe")]

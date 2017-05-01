@@ -297,10 +297,10 @@ namespace NFeFacil.ViewModel
         private async void Transmitir()
         {
             var estado = Estados.EstadosCache.First(x => x.Sigla == NotaSalva.Informações.emitente.endereco.SiglaUF);
-            var resultadoTransmissao = await BibliotecaCentral.WebService.AutorizarNota.Gerenciador.AutorizarAsync(estado.Codigo, NotaSalva);
+            var resultadoTransmissao = await BibliotecaCentral.WebService.AutorizarNota.Gerenciador.AutorizarAsync(AmbienteTestes, estado, NotaSalva);
             if (resultadoTransmissao.retEnviNFe.cStat == 103)
             {
-                var resultadoResposta = await BibliotecaCentral.WebService.RespostaAutorizarNota.Gerenciador.ObterRespostaAutorizacao(resultadoTransmissao.retEnviNFe);
+                var resultadoResposta = await BibliotecaCentral.WebService.RespostaAutorizarNota.Gerenciador.ObterRespostaAutorizacao(AmbienteTestes, resultadoTransmissao.retEnviNFe);
                 if (resultadoResposta.retConsReciNFe.protNFe.InfProt.cStat == 100)
                 {
                     NotaEmitida = new Processo()

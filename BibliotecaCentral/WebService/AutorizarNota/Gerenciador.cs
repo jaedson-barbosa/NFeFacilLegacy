@@ -1,21 +1,23 @@
-﻿using BibliotecaCentral.ModeloXML.PartesProcesso;
+﻿using BibliotecaCentral.IBGE;
+using BibliotecaCentral.ModeloXML.PartesProcesso;
 using System.Threading.Tasks;
 
 namespace BibliotecaCentral.WebService.AutorizarNota
 {
     public static class Gerenciador
     {
-        public static async Task<Response> AutorizarAsync(int UF, params NFe[] xmls)
+        public static async Task<Response> AutorizarAsync(bool teste, Estado UF, params NFe[] xmls)
         {
-            using (var conexao = new Conexao<IAutorizaNFe>(ConjuntoServicos.Autorizar.Endereco))
+            var conjunto = new EnderecosConexao(UF.Sigla).ObterConjuntoConexao(teste, Operacoes.Autorizar);
+            using (var conexao = new Conexao<IAutorizaNFe>(conjunto.Endereco))
             {
                 var autoriza = conexao.EstabelecerConexão();
                 return await new GerenciadorGeral<Request, Response>(
                     autoriza.nfeAutorizacaoLote, autoriza.nfeAutorizacaoLoteAsync,
-                    ConjuntoServicos.Autorizar).EnviarAsync(new Request
+                    conjunto).EnviarAsync(new Request
                     {
                         enviNFe = new CorpoRequest(xmls, (int)xmls[0].Informações.identificação.Numero)
-                    }, UF);
+                    }, UF.Codigo);
             }
         }
     }

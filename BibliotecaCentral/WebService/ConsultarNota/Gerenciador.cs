@@ -1,20 +1,22 @@
-﻿using System.Threading.Tasks;
+﻿using BibliotecaCentral.IBGE;
+using System.Threading.Tasks;
 
 namespace BibliotecaCentral.WebService.ConsultarNota
 {
     public static class Gerenciador
     {
-        public static async Task<Response> ConsultarAsync(string chaveNota, int UF)
+        public static async Task<Response> ConsultarAsync(bool teste, string chaveNota, Estado UF)
         {
-            using (Conexao<IConsultaNFe> Conexao = new Conexao<IConsultaNFe>(ConjuntoServicos.Consultar.Endereco))
+            var conjunto = new EnderecosConexao(UF.Sigla).ObterConjuntoConexao(teste, Operacoes.Consultar);
+            using (Conexao<IConsultaNFe> Conexao = new Conexao<IConsultaNFe>(conjunto.Endereco))
             {
                 var consulta = Conexao.EstabelecerConexão();
                 return await new GerenciadorGeral<Request, Response>(
                     consulta.Consultar, consulta.ConsultarAsync,
-                    ConjuntoServicos.Consultar).EnviarAsync(new Request
+                    conjunto).EnviarAsync(new Request
                     {
                         consSitNFe = new CorpoRequest(chaveNota)
-                    }, UF);
+                    }, UF.Codigo);
             }
         }
     }

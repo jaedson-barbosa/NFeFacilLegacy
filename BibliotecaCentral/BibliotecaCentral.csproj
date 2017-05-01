@@ -294,7 +294,6 @@
     <Compile Include="WebService\AutorizarNota\Request.cs" />
     <Compile Include="WebService\AutorizarNota\Response.cs" />
     <Compile Include="WebService\Conexao.cs" />
-    <Compile Include="WebService\ConjuntoServicos.cs" />
     <Compile Include="WebService\ConsultarNota\CorpoRequest.cs" />
     <Compile Include="WebService\ConsultarNota\CorpoResponse.cs" />
     <Compile Include="WebService\ConsultarNota\Gerenciador.cs" />
@@ -310,6 +309,9 @@
     <Compile Include="WebService\RespostaAutorizarNota\IRespostaAutorizaNFe.cs" />
     <Compile Include="WebService\RespostaAutorizarNota\Request.cs" />
     <Compile Include="WebService\RespostaAutorizarNota\Response.cs" />
+    <Compile Include="WebService\WebServices\IWebService.cs" />
+    <Compile Include="WebService\WebServices\SVAN.cs" />
+    <Compile Include="WebService\WebServices\SVRS.cs" />
     <EmbeddedResource Include="Properties\BibliotecaCentral.rd.xml" />
   </ItemGroup>
   <ItemGroup>

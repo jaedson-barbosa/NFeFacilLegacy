@@ -2,7 +2,7 @@
 
 namespace BibliotecaCentral.WebService.AutorizarNota
 {
-    [XmlRoot("nfeDadosMsg", Namespace = ConjuntoServicos.AutorizarServico)]
+    [XmlRoot("nfeDadosMsg", Namespace = EnderecosConexao.AutorizarServico)]
     public struct Request
     {
         [XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe")]

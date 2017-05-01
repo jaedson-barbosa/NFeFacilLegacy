@@ -9,7 +9,7 @@ namespace BibliotecaCentral.Log
             switch (título)
             {
                 case TitulosComuns.Atenção:
-                    return "Atenção"
+                    return "Atenção";
                 case TitulosComuns.Sucesso:
                     return "Sucesso";
                 case TitulosComuns.ErroSimples:

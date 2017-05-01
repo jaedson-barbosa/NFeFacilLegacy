@@ -4,14 +4,14 @@ using System.Threading.Tasks;
 
 namespace BibliotecaCentral.WebService.ConsultarNota
 {
-    [ServiceContract(Namespace = ConjuntoServicos.ConsultarServico)]
+    [ServiceContract(Namespace = EnderecosConexao.ConsultarServico)]
     public interface IConsultaNFe
     {
-        [OperationContract(Action = ConjuntoServicos.ConsultarMetodo, ReplyAction = "*")]
+        [OperationContract(Action = EnderecosConexao.ConsultarMetodo, ReplyAction = "*")]
         [XmlSerializerFormat(SupportFaults = true, Style = OperationFormatStyle.Document)]
         Message Consultar(Message request);
 
-        [OperationContract(Action = ConjuntoServicos.ConsultarMetodo, ReplyAction = "*")]
+        [OperationContract(Action = EnderecosConexao.ConsultarMetodo, ReplyAction = "*")]
         Task<Message> ConsultarAsync(Message request);
     }
 }

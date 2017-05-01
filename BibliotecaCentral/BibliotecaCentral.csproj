@@ -313,7 +313,7 @@
     <Compile Include="WebService\WebServices\BA.cs" />
     <Compile Include="WebService\WebServices\CE.cs" />
     <Compile Include="WebService\WebServices\GO.cs" />
-    <Compile Include="WebService\WebServices\IWebService.cs" />
+    <Compile Include="WebService\IWebService.cs" />
     <Compile Include="WebService\WebServices\MG.cs" />
     <Compile Include="WebService\WebServices\MS.cs" />
     <Compile Include="WebService\WebServices\MT.cs" />

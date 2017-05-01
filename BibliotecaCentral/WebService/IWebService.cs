@@ -1,4 +1,4 @@
-﻿namespace BibliotecaCentral.WebService.WebServices
+﻿namespace BibliotecaCentral.WebService
 {
     internal interface IWebService
     {

@@ -8,6 +8,8 @@ namespace BibliotecaCentral.Log
         {
             switch (título)
             {
+                case TitulosComuns.Atenção:
+                    return "Atenção"
                 case TitulosComuns.Sucesso:
                     return "Sucesso";
                 case TitulosComuns.ErroSimples:
@@ -36,6 +38,7 @@ namespace BibliotecaCentral.Log
 
     public enum TitulosComuns
     {
+        Atenção,
         Sucesso,
         ErroSimples,
         ErroCatastrófico,

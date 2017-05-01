@@ -249,21 +249,38 @@ namespace NFeFacil.ViewModel
             }
         }
 
+        private bool ambienteTestes;
+        public bool AmbienteTestes
+        {
+            get => ambienteTestes;
+            set
+            {
+                ambienteTestes = value;
+                if (ambienteTestes)
+                {
+                    Log.Escrever(TitulosComuns.Atenção, "Notas feitas no ambiente de testes não são salvas e não tem valor fiscal.");
+                }
+            }
+        }
+
         private async Task SalvarAsync()
         {
-            bool usarNotaSalva = StatusAtual != StatusNFe.Emitido && StatusAtual != StatusNFe.Impresso;
-            var xml = usarNotaSalva ? NotaSalva.ToXElement<NFe>() : NotaEmitida.ToXElement<Processo>();
-            var di = usarNotaSalva ? new NFeDI(NotaSalva) : new NFeDI(NotaEmitida);
-            di.Status = (int)StatusAtual;
-            using (var db = new NotasFiscais())
+            if (!AmbienteTestes)
             {
-                if (StatusAtual == StatusNFe.Salvo || StatusAtual == StatusNFe.EdiçãoCriação)
+                bool usarNotaSalva = StatusAtual != StatusNFe.Emitido && StatusAtual != StatusNFe.Impresso;
+                var xml = usarNotaSalva ? NotaSalva.ToXElement<NFe>() : NotaEmitida.ToXElement<Processo>();
+                var di = usarNotaSalva ? new NFeDI(NotaSalva) : new NFeDI(NotaEmitida);
+                di.Status = (int)StatusAtual;
+                using (var db = new NotasFiscais())
                 {
-                    await db.Adicionar(di, xml);
-                }
-                else
-                {
-                    await db.Atualizar(di, xml);
+                    if (StatusAtual == StatusNFe.Salvo || StatusAtual == StatusNFe.EdiçãoCriação)
+                    {
+                        await db.Adicionar(di, xml);
+                    }
+                    else
+                    {
+                        await db.Atualizar(di, xml);
+                    }
                 }
             }
         }

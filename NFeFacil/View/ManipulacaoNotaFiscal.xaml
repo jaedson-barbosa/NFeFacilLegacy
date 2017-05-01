@@ -42,7 +42,8 @@
             </Style>
         </ResourceDictionary>
     </Page.Resources>
-    <Grid x:Name="grdPrincipal" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid x:Name="grdPrincipal"
+          Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="Auto" />
@@ -151,7 +152,7 @@
                                       DisplayMemberPath="Nome"
                                       ItemsSource="{Binding EstadoIdentificacao, Converter={StaticResource obterMun}}"
                                       SelectedValue="{Binding NotaSalva.Informações.identificação.CodigoMunicípio, Mode=TwoWay}"
-                                      SelectedValuePath="Codigo"/>
+                                      SelectedValuePath="Codigo" />
                         </ItemsControl>
                     </StackPanel>
                 </ScrollViewer>
@@ -250,7 +251,7 @@
                                             <MenuFlyout Placement="Bottom">
                                                 <MenuFlyoutItem Text="Remover"
                                                                 Command="{Binding ElementName=root, Path=DataContext.RemoverProdutoCommand}"
-                                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}"/>
+                                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}" />
                                             </MenuFlyout>
                                         </StackPanel.ContextFlyout>
                                         <TextBlock Text="{Binding Path=Produto.Descricao, ConverterParameter={StaticResource LabelDescricao}, Converter={StaticResource textoLabel}}" />
@@ -448,8 +449,7 @@
                                                                 <MenuFlyoutItem Command="{Binding ElementName=rootTransporte, Path=DataContext.RemoverReboqueCommand}"
                                                                                 CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Remover</MenuFlyoutItem>
                                                             </MenuFlyout>
-                                                        </TextBlock.ContextFlyout>
-                                                    </TextBlock>
+                                                        </TextBlock.ContextFlyout></TextBlock>
                                                 </DataTemplate>
                                             </ListView.ItemTemplate>
                                         </ListView>
@@ -505,7 +505,7 @@
                                 <TextBox Header="Valor do serviço"
                                          Text="{Binding NotaSalva.Informações.transp.retTransp.vServ, Mode=TwoWay}" />
                                 <TextBox Header="BC da retenção do ICMS"
-                                         Text="{Binding NotaSalva.Informações.transp.retTransp.vBCRet, Mode=TwoWay}"/>
+                                         Text="{Binding NotaSalva.Informações.transp.retTransp.vBCRet, Mode=TwoWay}" />
                                 <TextBox Header="Alíquota da retenção"
                                          Text="{Binding NotaSalva.Informações.transp.retTransp.pICMSRet, Mode=TwoWay}" />
                                 <TextBox Header="Valor do ICMS retido"
@@ -762,6 +762,10 @@
                           Icon="Document"
                           Label="Gerar DANFE"
                           Command="{Binding GerarDANFECommand}" />
+            <CommandBar.SecondaryCommands>
+                <AppBarToggleButton Label="Usar ambiente de testes"
+                                    IsChecked="{Binding AmbienteTestes}" />
+            </CommandBar.SecondaryCommands>
         </CommandBar>
     </Grid>
 </Page>

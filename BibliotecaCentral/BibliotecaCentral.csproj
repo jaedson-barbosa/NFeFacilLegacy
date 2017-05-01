@@ -302,6 +302,7 @@
     <Compile Include="WebService\ConsultarNota\Request.cs" />
     <Compile Include="WebService\ConsultarNota\Response.cs" />
     <Compile Include="WebService\DadosServico.cs" />
+    <Compile Include="WebService\EnderecosConexao.cs" />
     <Compile Include="WebService\GerenciadorGeral.cs" />
     <Compile Include="WebService\RespostaAutorizarNota\CorpoRequest.cs" />
     <Compile Include="WebService\RespostaAutorizarNota\CorpoResponse.cs" />

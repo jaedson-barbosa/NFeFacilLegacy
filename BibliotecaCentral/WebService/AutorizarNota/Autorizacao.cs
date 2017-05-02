@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace BibliotecaCentral.WebService.AutorizarNota
 {
-    public static class Gerenciador
+    public static class Autorizacao
     {
         public static async Task<Response> AutorizarAsync(bool teste, Estado UF, params NFe[] xmls)
         {

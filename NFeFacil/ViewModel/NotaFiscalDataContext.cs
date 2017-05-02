@@ -19,6 +19,8 @@ using BibliotecaCentral;
 using BibliotecaCentral.Repositorio;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTotal;
 using System.Threading.Tasks;
+using BibliotecaCentral.WebService.AutorizarNota;
+using BibliotecaCentral.WebService.RespostaAutorizarNota;
 
 namespace NFeFacil.ViewModel
 {
@@ -304,10 +306,10 @@ namespace NFeFacil.ViewModel
         private async void Transmitir()
         {
             var estado = Estados.EstadosCache.First(x => x.Sigla == NotaSalva.Informações.emitente.endereco.SiglaUF);
-            var resultadoTransmissao = await BibliotecaCentral.WebService.AutorizarNota.Gerenciador.AutorizarAsync(AmbienteTestes, estado, NotaSalva);
+            var resultadoTransmissao = await Autorizacao.AutorizarAsync(AmbienteTestes, estado, NotaSalva);
             if (resultadoTransmissao.retEnviNFe.cStat == 103)
             {
-                var resultadoResposta = await BibliotecaCentral.WebService.RespostaAutorizarNota.Gerenciador.ObterRespostaAutorizacao(AmbienteTestes, resultadoTransmissao.retEnviNFe);
+                var resultadoResposta = await RespostaAutorizacao.ObterRespostaAutorizacao(AmbienteTestes, resultadoTransmissao.retEnviNFe);
                 if (resultadoResposta.retConsReciNFe.protNFe.InfProt.cStat == 100)
                 {
                     NotaEmitida = new Processo()

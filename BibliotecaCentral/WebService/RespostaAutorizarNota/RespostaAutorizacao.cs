@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace BibliotecaCentral.WebService.RespostaAutorizarNota
 {
-    public static class Gerenciador
+    public static class RespostaAutorizacao
     {
         public static async Task<Response> ObterRespostaAutorizacao(bool teste, AutorizarNota.CorpoResponse recibo)
         {

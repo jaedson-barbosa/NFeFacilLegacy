@@ -13,19 +13,14 @@ namespace BibliotecaCentral.WebService
         internal delegate Message EnvioSíncrono(Message envio);
         internal delegate Task<Message> EnvioAssícrono(Message envio);
 
-        private EnvioSíncrono Processar { get; }
-        private EnvioAssícrono ProcessarAsync { get; }
-
         private DadosServico Caminhos { get; }
 
-        internal GerenciadorGeral(EnvioSíncrono sinc, EnvioAssícrono assinc, DadosServico caminhos)
+        internal GerenciadorGeral(DadosServico caminhos)
         {
-            Processar = sinc;
-            ProcessarAsync = assinc;
             Caminhos = caminhos;
         }
 
-        internal Resposta Enviar(Envio envio, int UF)
+        internal Resposta Enviar(Envio envio, int UF, EnvioSíncrono Processar)
         {
             var xml = envio.ToXElement<Envio>(Caminhos.Servico);
             var resultado = Processar(
@@ -38,7 +33,7 @@ namespace BibliotecaCentral.WebService
             return xmlResultado.FromXElement<Resposta>();
         }
 
-        internal async Task<Resposta> EnviarAsync(Envio envio, int UF)
+        internal async Task<Resposta> EnviarAsync(Envio envio, int UF, EnvioAssícrono ProcessarAsync)
         {
             var xml = envio.ToXElement<Envio>(Caminhos.Servico);
             var resultado = await ProcessarAsync(

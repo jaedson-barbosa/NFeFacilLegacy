@@ -11,13 +11,11 @@ namespace BibliotecaCentral.WebService.RespostaAutorizarNota
             var conjunto = new EnderecosConexao(estado.Sigla).ObterConjuntoConexao(teste, Operacoes.RespostaAutorizar);
             using (var conexao = new Conexao<IRespostaAutorizaNFe>(conjunto.Endereco))
             {
-                var procura = conexao.EstabelecerConexão();
-                return await new GerenciadorGeral<Request, Response>(
-                    procura.nfeRetAutorizacaoLote, procura.nfeRetAutorizacaoLoteAsync,
-                    conjunto).EnviarAsync(new Request
+                return await new GerenciadorGeral<Request, Response>(conjunto)
+                    .EnviarAsync(new Request
                     {
                         consReciNFe = new CorpoRequest(recibo.tpAmb, recibo.infRec.nRec)
-                    }, recibo.cUF);
+                    }, recibo.cUF, conexao.EstabelecerConexão().nfeRetAutorizacaoLoteAsync);
             }
         }
     }

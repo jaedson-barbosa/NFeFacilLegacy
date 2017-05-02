@@ -10,13 +10,11 @@ namespace BibliotecaCentral.WebService.ConsultarNota
             var conjunto = new EnderecosConexao(UF.Sigla).ObterConjuntoConexao(teste, Operacoes.Consultar);
             using (Conexao<IConsultaNFe> Conexao = new Conexao<IConsultaNFe>(conjunto.Endereco))
             {
-                var consulta = Conexao.EstabelecerConexão();
-                return await new GerenciadorGeral<Request, Response>(
-                    consulta.Consultar, consulta.ConsultarAsync,
-                    conjunto).EnviarAsync(new Request
+                return await new GerenciadorGeral<Request, Response>(conjunto)
+                    .EnviarAsync(new Request
                     {
                         consSitNFe = new CorpoRequest(chaveNota)
-                    }, UF.Codigo);
+                    }, UF.Codigo, Conexao.EstabelecerConexão().ConsultarAsync);
             }
         }
     }

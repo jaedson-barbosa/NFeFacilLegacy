@@ -79,12 +79,14 @@
                             <StackPanel>
                                 <TextBlock Text="Data e hora de emissão *" />
                                 <DatePicker Date="{Binding DataEmissao, Mode=TwoWay}" />
-                                <TimePicker Time="{Binding HoraEmissao, Mode=TwoWay}" />
+                                <TimePicker Time="{Binding HoraEmissao, Mode=TwoWay}"
+                                            Margin="0,2,0,0" />
                             </StackPanel>
                             <StackPanel>
                                 <TextBlock Text="Data e hora de saída/entrada" />
                                 <DatePicker Date="{Binding DataSaidaEntrada, Mode=TwoWay}" />
-                                <TimePicker Time="{Binding HoraSaidaEntrada, Mode=TwoWay}" />
+                                <TimePicker Time="{Binding HoraSaidaEntrada, Mode=TwoWay}"
+                                            Margin="0,2,0,0" />
                             </StackPanel>
                         </ItemsControl>
                         <ItemsControl Style="{StaticResource ItensResponsivos}">
@@ -191,7 +193,6 @@
                         <TextBlock Text="Escolha um cliente já cadastrado ou insira os valores manualmente nos campos abaixo."
                                    TextWrapping="Wrap" />
                         <ComboBox ItemsSource="{Binding ClientesDisponiveis}"
-                                  Grid.Column="1"
                                   HorizontalAlignment="Stretch"
                                   SelectedItem="{Binding ClienteSelecionado, Mode=TwoWay}">
                             <ComboBox.ItemTemplate>
@@ -564,7 +565,6 @@
                     </ItemsControl>
                     <TextBlock Style="{StaticResource TitleTextBlockStyle}">Duplicatas</TextBlock>
                     <ListView ItemsSource="{Binding NotaSalva.Informações.cobr.Dup, Converter={StaticResource getObs}}"
-                              Grid.Column="1"
                               ItemContainerStyle="{StaticResource ItemFullWidth}">
                         <ListView.Header>
                             <Grid>

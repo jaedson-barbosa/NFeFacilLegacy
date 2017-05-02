@@ -10,7 +10,7 @@ namespace BibliotecaCentral.IBGE
 
         public static IEnumerable<Municipio> Get(Estado est)
         {
-            if (est == null) return new ObservableCollection<Municipio>();
+            if (est == null || est.Codigo == 0) return new ObservableCollection<Municipio>();
             return MunicipiosCache[est];
         }
 

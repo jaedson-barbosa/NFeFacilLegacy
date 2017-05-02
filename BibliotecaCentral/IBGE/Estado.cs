@@ -37,7 +37,7 @@ namespace BibliotecaCentral.IBGE
 
         public override int GetHashCode()
         {
-            return Nome.GetHashCode() + Sigla.GetHashCode() + Codigo.GetHashCode();
+            return Nome?.GetHashCode() ?? 0 + Sigla?.GetHashCode() ?? 0 + Codigo.GetHashCode();
         }
     }
 }

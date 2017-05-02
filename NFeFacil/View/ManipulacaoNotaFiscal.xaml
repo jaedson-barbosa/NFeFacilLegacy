@@ -49,7 +49,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Pivot x:Name="pvtPrincipal">
-            <PivotItem>
+            <PivotItem IsEnabled="{Binding ManipulacaoAtivada}">
                 <PivotItem.Header>
                     <ctrls:Guia Symbol="Tag"
                                 Label="Dados" />
@@ -157,7 +157,7 @@
                     </StackPanel>
                 </ScrollViewer>
             </PivotItem>
-            <PivotItem>
+            <PivotItem IsEnabled="{Binding ManipulacaoAtivada}">
                 <PivotItem.Header>
                     <ctrls:Guia Label="Emitente"
                                 Symbol="Contact" />
@@ -181,7 +181,7 @@
                     </StackPanel>
                 </ScrollViewer>
             </PivotItem>
-            <PivotItem>
+            <PivotItem IsEnabled="{Binding ManipulacaoAtivada}">
                 <PivotItem.Header>
                     <ctrls:Guia Label="Cliente"
                                 Symbol="People" />
@@ -205,7 +205,7 @@
                     </StackPanel>
                 </ScrollViewer>
             </PivotItem>
-            <PivotItem>
+            <PivotItem IsEnabled="{Binding ManipulacaoAtivada}">
                 <PivotItem.Header>
                     <ctrls:Guia Label="Produtos"
                                 Symbol="Shop" />
@@ -263,7 +263,7 @@
                     </Grid>
                 </ScrollViewer>
             </PivotItem>
-            <PivotItem>
+            <PivotItem IsEnabled="{Binding ManipulacaoAtivada}">
                 <PivotItem.Header>
                     <ctrls:Guia Label="Totais"
                                 Symbol="List" />
@@ -401,14 +401,17 @@
                         <ResourceDictionary Source="Estilos/PivotSecundário.xaml" />
                     </StackPanel.Resources>
                     <ComboBox ItemsSource="{Binding Modalidades}"
+                              IsEnabled="{Binding ManipulacaoAtivada}"
                               SelectedItem="{Binding ModFrete, Mode=TwoWay}"
                               HorizontalAlignment="Stretch"
                               Header="Modalidade do frete" />
                     <Pivot>
-                        <PivotItem Header="Motorista">
+                        <PivotItem Header="Motorista"
+                                   IsEnabled="{Binding ManipulacaoAtivada}">
                             <DadosBase:TelaMotorista DataContext="{Binding NotaSalva.Informações.transp.transporta}" />
                         </PivotItem>
-                        <PivotItem Header="Veículo">
+                        <PivotItem Header="Veículo"
+                                   IsEnabled="{Binding ManipulacaoAtivada}">
                             <ScrollViewer VerticalScrollBarVisibility="Hidden">
                                 <ItemsControl Style="{StaticResource ItensResponsivos}">
                                     <StackPanel Margin="2"
@@ -464,7 +467,8 @@
                                 </ItemsControl>
                             </ScrollViewer>
                         </PivotItem>
-                        <PivotItem Header="Volumes">
+                        <PivotItem Header="Volumes"
+                                   IsEnabled="{Binding ManipulacaoAtivada}">
                             <ListView ItemsSource="{Binding NotaSalva.Informações.transp.vol, Converter={StaticResource getObs}}"
                                       Style="{StaticResource ListaCheia}">
                                 <ListView.Header>
@@ -500,7 +504,8 @@
                                 </ListView.ItemTemplate>
                             </ListView>
                         </PivotItem>
-                        <PivotItem Header="Retenção ICMS">
+                        <PivotItem Header="Retenção ICMS"
+                                   IsEnabled="{Binding ManipulacaoAtivada}">
                             <ItemsControl Style="{StaticResource ItensMedios}">
                                 <TextBox Header="Valor do serviço"
                                          Text="{Binding NotaSalva.Informações.transp.retTransp.vServ, Mode=TwoWay}" />
@@ -518,7 +523,7 @@
                                           Header="Estado"
                                           HorizontalAlignment="Stretch" />
                                 <ComboBox ItemsSource="{Binding UFEscolhida, Converter={StaticResource obterMun}}"
-                                          SelectedValue="{Binding Path=Transp.retTransp.cMunFG, Mode=TwoWay}"
+                                          SelectedValue="{Binding Path=NotaSalva.Informações.transp.retTransp.cMunFG, Mode=TwoWay}"
                                           SelectedValuePath="Codigo"
                                           DisplayMemberPath="Nome"
                                           Header="Município"
@@ -528,7 +533,7 @@
                     </Pivot>
                 </StackPanel>
             </PivotItem>
-            <PivotItem>
+            <PivotItem IsEnabled="{Binding ManipulacaoAtivada}">
                 <PivotItem.Header>
                     <ctrls:Guia Label="Cobrança"
                                 Symbol="List" />
@@ -573,7 +578,7 @@
                     </ListView>
                 </StackPanel>
             </PivotItem>
-            <PivotItem>
+            <PivotItem IsEnabled="{Binding ManipulacaoAtivada}">
                 <PivotItem.Header>
                     <ctrls:Guia Label="Informações adicionais"
                                 Symbol="Comment" />
@@ -585,7 +590,7 @@
                              Header="Informações complementares de interesse do contribuinte" />
                 </StackPanel>
             </PivotItem>
-            <PivotItem>
+            <PivotItem IsEnabled="{Binding ManipulacaoAtivada}">
                 <PivotItem.Header>
                     <ctrls:Guia Label="Exportação e compras"
                                 Symbol="Switch" />
@@ -618,7 +623,7 @@
                     </StackPanel>
                 </Grid>
             </PivotItem>
-            <PivotItem>
+            <PivotItem IsEnabled="{Binding ManipulacaoAtivada}">
                 <PivotItem.Header>
                     <ctrls:Guia Label="Cana"
                                 Symbol="More" />

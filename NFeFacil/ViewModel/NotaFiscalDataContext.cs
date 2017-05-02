@@ -39,11 +39,12 @@ namespace NFeFacil.ViewModel
         public NFe NotaSalva { get; private set; }
         private Processo NotaEmitida;
 
+        public bool ManipulacaoAtivada => StatusAtual == StatusNFe.EdiçãoCriação;
         public bool BotaoConfirmarAtivado => StatusAtual == StatusNFe.EdiçãoCriação;
         public bool BotaoSalvarAtivado => StatusAtual == StatusNFe.Validado;
         public bool BotaoAssinarAtivado => StatusAtual == StatusNFe.Salvo;
         public bool BotaoTransmitirAtivado => StatusAtual == StatusNFe.Assinado;
-        public bool BotaoGerarDANFEAtivado => StatusAtual == StatusNFe.Emitido;
+        public bool BotaoGerarDANFEAtivado => StatusAtual == StatusNFe.Emitido || StatusAtual == StatusNFe.Impresso;
 
         internal StatusNFe StatusAtual
         {
@@ -51,7 +52,8 @@ namespace NFeFacil.ViewModel
             set
             {
                 Conjunto.StatusAtual = value;
-                OnPropertyChanged(nameof(BotaoConfirmarAtivado),
+                OnPropertyChanged(nameof(ManipulacaoAtivada),
+                    nameof(BotaoConfirmarAtivado),
                     nameof(BotaoSalvarAtivado),
                     nameof(BotaoAssinarAtivado),
                     nameof(BotaoTransmitirAtivado),
@@ -228,26 +230,6 @@ namespace NFeFacil.ViewModel
                     Log.Escrever(TitulosComuns.ValidaçãoConcluída, "A nota fiscal foi validada. Aparentemente, não há irregularidades");
                     StatusAtual = StatusNFe.Validado;
                 }
-            }
-        }
-
-        private bool nfeNormalizado = false;
-        private void NormalizarNFe()
-        {
-            if (!nfeNormalizado)
-            {
-                NotaSalva.Informações.transp.transporta = NotaSalva.Informações.transp.transporta?.ToXElement<Motorista>().HasElements ?? false ? NotaSalva.Informações.transp.transporta : null;
-                NotaSalva.Informações.transp.veicTransp = NotaSalva.Informações.transp.veicTransp?.ToXElement<Veiculo>().HasElements ?? false ? NotaSalva.Informações.transp.veicTransp : null;
-                NotaSalva.Informações.transp.retTransp = NotaSalva.Informações.transp.retTransp?.ToXElement<ICMSTransporte>().HasElements ?? false ? NotaSalva.Informações.transp.retTransp : null;
-
-                NotaSalva.Informações.total.ISSQNtot = NotaSalva.Informações.total.ISSQNtot.ToXElement<ISSQNtot>().Elements().Count(x => x.Value != "0") > 0 ? NotaSalva.Informações.total.ISSQNtot : null;
-                NotaSalva.Informações.total.retTrib = NotaSalva.Informações.total.retTrib.ToXElement<RetTrib>().HasElements ? NotaSalva.Informações.total.retTrib : null;
-                NotaSalva.Informações.cobr = NotaSalva.Informações.cobr?.Fat.ToXElement<Fatura>().HasElements ?? false ? NotaSalva.Informações.cobr : null;
-                NotaSalva.Informações.infAdic = NotaSalva.Informações.infAdic?.ToXElement<InformacoesAdicionais>().HasElements ?? false ? NotaSalva.Informações.infAdic : null;
-                NotaSalva.Informações.exporta = new ValidadorExportacao(NotaSalva.Informações.exporta).Validar(null) ? NotaSalva.Informações.exporta : null;
-                NotaSalva.Informações.compra = NotaSalva.Informações.compra?.ToXElement<Compra>().HasElements ?? false ? NotaSalva.Informações.compra : null;
-                NotaSalva.Informações.cana = NotaSalva.Informações.cana?.ToXElement<RegistroAquisicaoCana>().HasElements ?? false ? NotaSalva.Informações.cana : null;
-                nfeNormalizado = true;
             }
         }
 
@@ -557,5 +539,25 @@ namespace NFeFacil.ViewModel
         }
 
         #endregion
+
+        private bool nfeNormalizado = false;
+        private void NormalizarNFe()
+        {
+            if (!nfeNormalizado)
+            {
+                NotaSalva.Informações.transp.transporta = NotaSalva.Informações.transp.transporta?.ToXElement<Motorista>().HasElements ?? false ? NotaSalva.Informações.transp.transporta : null;
+                NotaSalva.Informações.transp.veicTransp = NotaSalva.Informações.transp.veicTransp?.ToXElement<Veiculo>().HasElements ?? false ? NotaSalva.Informações.transp.veicTransp : null;
+                NotaSalva.Informações.transp.retTransp = NotaSalva.Informações.transp.retTransp?.ToXElement<ICMSTransporte>().HasElements ?? false ? NotaSalva.Informações.transp.retTransp : null;
+
+                NotaSalva.Informações.total.ISSQNtot = NotaSalva.Informações.total.ISSQNtot.ToXElement<ISSQNtot>().Elements().Count(x => x.Value != "0") > 0 ? NotaSalva.Informações.total.ISSQNtot : null;
+                NotaSalva.Informações.total.retTrib = NotaSalva.Informações.total.retTrib.ToXElement<RetTrib>().HasElements ? NotaSalva.Informações.total.retTrib : null;
+                NotaSalva.Informações.cobr = NotaSalva.Informações.cobr?.Fat.ToXElement<Fatura>().HasElements ?? false ? NotaSalva.Informações.cobr : null;
+                NotaSalva.Informações.infAdic = NotaSalva.Informações.infAdic?.ToXElement<InformacoesAdicionais>().HasElements ?? false ? NotaSalva.Informações.infAdic : null;
+                NotaSalva.Informações.exporta = new ValidadorExportacao(NotaSalva.Informações.exporta).Validar(null) ? NotaSalva.Informações.exporta : null;
+                NotaSalva.Informações.compra = NotaSalva.Informações.compra?.ToXElement<Compra>().HasElements ?? false ? NotaSalva.Informações.compra : null;
+                NotaSalva.Informações.cana = NotaSalva.Informações.cana?.ToXElement<RegistroAquisicaoCana>().HasElements ?? false ? NotaSalva.Informações.cana : null;
+                nfeNormalizado = true;
+            }
+        }
     }
 }

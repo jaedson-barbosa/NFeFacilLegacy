@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace BibliotecaCentral.WebService
 {
-    internal sealed class EnderecosConexao
+    internal struct EnderecosConexao
     {
         private string siglaUF;
 

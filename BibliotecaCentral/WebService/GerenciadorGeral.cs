@@ -8,7 +8,7 @@ using System.Xml.Serialization;
 
 namespace BibliotecaCentral.WebService
 {
-    internal sealed class GerenciadorGeral<Envio, Resposta>
+    internal struct GerenciadorGeral<Envio, Resposta>
     {
         internal delegate Message EnvioSíncrono(Message envio);
         internal delegate Task<Message> EnvioAssícrono(Message envio);

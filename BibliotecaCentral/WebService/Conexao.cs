@@ -4,7 +4,7 @@ using System.ServiceModel;
 
 namespace BibliotecaCentral.WebService
 {
-    internal sealed class Conexao<T> : IDisposable
+    internal struct Conexao<T> : IDisposable
     {
         private ChannelFactory<T> CanalComunicação;
 

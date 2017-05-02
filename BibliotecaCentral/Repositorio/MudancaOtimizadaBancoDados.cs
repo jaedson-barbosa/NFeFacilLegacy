@@ -9,7 +9,7 @@ using System.Xml.Linq;
 
 namespace BibliotecaCentral.Repositorio
 {
-    internal class MudancaOtimizadaBancoDados : ConexaoBanco
+    internal sealed class MudancaOtimizadaBancoDados : ConexaoBanco
     {
         internal void AdicionarEmitentes(IEnumerable<Emitente> emitentes)
         {

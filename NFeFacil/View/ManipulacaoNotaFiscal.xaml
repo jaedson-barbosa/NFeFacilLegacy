@@ -126,12 +126,6 @@
                                 <ComboBoxItem Content="Não presencial - Internet" />
                                 <ComboBoxItem Content="Não presencial - Teleatendimento" />
                             </ComboBox>
-                            <ComboBox Header="Estado *"
-                                      ItemsSource="{Binding Source={StaticResource estados}, Path=EstadosCompletos}"
-                                      SelectedValue="{Binding Path=EstadoIdentificacao, Mode=TwoWay}"
-                                      SelectedValuePath="Codigo"
-                                      DisplayMemberPath="Nome"
-                                      PlaceholderText="Estado" />
                             <ComboBox Header="Forma de pagamento *"
                                       SelectedIndex="{Binding NotaSalva.Informações.identificação.FormaPagamento, Mode=TwoWay}">
                                 <ComboBoxItem Content="Pagamento à vista" />
@@ -151,6 +145,12 @@
                             </ComboBox>
                             <TextBox Header="Natureza da operação *"
                                      Text="{Binding NotaSalva.Informações.identificação.NaturezaDaOperação, Mode=TwoWay}" />
+                            <ComboBox Header="Estado *"
+                                      ItemsSource="{Binding Source={StaticResource estados}, Path=EstadosCompletos}"
+                                      SelectedValue="{Binding Path=EstadoIdentificacao, Mode=TwoWay}"
+                                      SelectedValuePath="Codigo"
+                                      DisplayMemberPath="Nome"
+                                      PlaceholderText="Estado" />
                             <ComboBox Header="Município *"
                                       DisplayMemberPath="Nome"
                                       ItemsSource="{Binding EstadoIdentificacao, Converter={StaticResource obterMun}}"

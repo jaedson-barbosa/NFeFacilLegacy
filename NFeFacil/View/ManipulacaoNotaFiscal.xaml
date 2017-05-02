@@ -596,12 +596,101 @@
                     <ctrls:Guia Label="Informações adicionais"
                                 Symbol="Comment" />
                 </PivotItem.Header>
-                <StackPanel DataContext="{Binding NotaSalva.Informações.infAdic}">
-                    <TextBox Text="{Binding infAdFisco, Mode=TwoWay}"
-                             Header="Informações adicionais de interesse do fisco" />
-                    <TextBox Text="{Binding infCpl, Mode=TwoWay}"
-                             Header="Informações complementares de interesse do contribuinte" />
-                </StackPanel>
+                <ItemsControl Style="{StaticResource ItensResponsivos}">
+                    <StackPanel DataContext="{Binding NotaSalva.Informações.infAdic}">
+                        <TextBlock Style="{StaticResource TitleTextBlockStyle}">Informações adicionais</TextBlock>
+                        <TextBox Text="{Binding infAdFisco, Mode=TwoWay}"
+                                 Header="Informações adicionais de interesse do fisco" />
+                        <TextBox Text="{Binding infCpl, Mode=TwoWay}"
+                                 Header="Informações complementares de interesse do contribuinte" />
+                    </StackPanel>
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource TitleTextBlockStyle}">Observações do contribuinte</TextBlock>
+                        <ListView Style="{StaticResource ListaCheia}"
+                                  ItemsSource="{Binding NotaSalva.Informações.infAdic.obsCont, Converter={StaticResource getObs}}">
+                            <ListView.Header>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Nome</TextBlock>
+                                    <TextBlock Grid.Column="1"
+                                               Style="{StaticResource SubtitleTextBlockStyle}">Observação</TextBlock>
+                                    <Button Grid.Column="1"
+                                            Command="{Binding AdicionarObsContribuinteCommand}"
+                                            Style="{StaticResource BotaoAdd}">
+                                        <SymbolIcon Symbol="Add" />
+                                    </Button>
+                                </Grid>
+                            </ListView.Header>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.ContextFlyout>
+                                            <MenuFlyout>
+                                                <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.RemoverObsContribuinteCommand}"
+                                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Remover</MenuFlyoutItem>
+                                            </MenuFlyout>
+                                        </Grid.ContextFlyout>
+                                        <TextBlock TextWrapping="Wrap"
+                                                   Text="{Binding xCampo}" />
+                                        <TextBlock Grid.Column="1"
+                                                   TextWrapping="Wrap"
+                                                   Text="{Binding xTexto}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackPanel>
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource TitleTextBlockStyle}">Processos referenciados</TextBlock>
+                        <ListView Style="{StaticResource ListaCheia}"
+                                  ItemsSource="{Binding NotaSalva.Informações.infAdic.procRef, Converter={StaticResource getObs}}">
+                            <ListView.Header>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Identificador</TextBlock>
+                                    <TextBlock Grid.Column="1"
+                                               Style="{StaticResource SubtitleTextBlockStyle}">Origem do processo</TextBlock>
+                                    <Button Grid.Column="1"
+                                            Command="{Binding AdicionarProcReferenciadoCommand}"
+                                            Style="{StaticResource BotaoAdd}">
+                                        <SymbolIcon Symbol="Add" />
+                                    </Button>
+                                </Grid>
+                            </ListView.Header>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.ContextFlyout>
+                                            <MenuFlyout>
+                                                <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.RemoverProcReferenciadoCommand}"
+                                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Remover</MenuFlyoutItem>
+                                            </MenuFlyout>
+                                        </Grid.ContextFlyout>
+                                        <TextBlock TextWrapping="Wrap"
+                                                   Text="{Binding nProc}" />
+                                        <TextBlock Grid.Column="1"
+                                                   TextWrapping="Wrap"
+                                                   Text="{Binding indProc}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackPanel>
+                </ItemsControl>
             </PivotItem>
             <PivotItem IsEnabled="{Binding ManipulacaoAtivada}">
                 <PivotItem.Header>

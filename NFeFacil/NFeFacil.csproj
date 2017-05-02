@@ -193,6 +193,12 @@
     <Compile Include="View\CaixasDialogo\AdicionarDuplicata.xaml.cs">
       <DependentUpon>AdicionarDuplicata.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\CaixasDialogo\AdicionarObservacaoContribuinte.xaml.cs">
+      <DependentUpon>AdicionarObservacaoContribuinte.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\CaixasDialogo\AdicionarProcessoReferenciado.xaml.cs">
+      <DependentUpon>AdicionarProcessoReferenciado.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\CaixasDialogo\AdicionarReboque.xaml.cs">
       <DependentUpon>AdicionarReboque.xaml</DependentUpon>
     </Compile>
@@ -201,6 +207,7 @@
     </Compile>
     <Compile Include="View\CaixasDialogo\ConverterContextoDeclaracaoExportacao.cs" />
     <Compile Include="View\CaixasDialogo\ConverterContextoDeclaracaoImportacao.cs" />
+    <Compile Include="View\CaixasDialogo\ConverterContextoProcessoReferenciado.cs" />
     <Compile Include="View\ConjuntoManipuladorNFe.cs" />
     <Compile Include="View\Consulta.xaml.cs">
       <DependentUpon>Consulta.xaml</DependentUpon>
@@ -346,6 +353,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\CaixasDialogo\AdicionarDuplicata.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CaixasDialogo\AdicionarObservacaoContribuinte.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CaixasDialogo\AdicionarProcessoReferenciado.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

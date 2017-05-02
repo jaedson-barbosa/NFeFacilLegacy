@@ -5,11 +5,11 @@
         /// <summary>
         /// Identificação do campo.
         /// </summary>
-        public string xCampo;
+        public string xCampo { get; set; }
 
         /// <summary>
         /// Conteúdo do campo.
         /// </summary>
-        public string xTexto;
+        public string xTexto { get; set; }
     }
 }

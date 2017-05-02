@@ -1,0 +1,20 @@
+﻿<ContentDialog x:Class="NFeFacil.View.CaixasDialogo.AdicionarObservacaoContribuinte"
+               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:caminho="using:BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes"
+               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+               mc:Ignorable="d"
+               Title="Adicionar obs. contribuinte"
+               PrimaryButtonText="Adicionar"
+               SecondaryButtonText="Cancelar">
+    <ContentDialog.DataContext>
+        <caminho:Observacao />
+    </ContentDialog.DataContext>
+    <StackPanel>
+        <TextBox Header="Identificação"
+                 Text="{Binding xCampo, Mode=TwoWay}" />
+        <TextBox Header="Conteúdo"
+                 Text="{Binding xTexto, Mode=TwoWay}" />
+    </StackPanel>
+</ContentDialog>

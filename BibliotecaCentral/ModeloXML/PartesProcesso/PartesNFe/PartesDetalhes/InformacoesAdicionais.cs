@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using System.Collections.Generic;
+using System.Xml.Serialization;
 
 namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
 {
@@ -21,13 +22,20 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
         /// Grupo Campo de uso livre do contribuinte.
         /// </summary>
         [XmlElement(nameof(obsCont))]
-        public Observacao[] obsCont;
+        public List<Observacao> obsCont { get; } = new List<Observacao>();
+
+        /// <summary>
+        /// (Opcional)
+        /// Grupo Campo de uso livre do Fisco
+        /// </summary>
+        [XmlElement(nameof(obsFisco))]
+        public List<Observacao> obsFisco;
 
         /// <summary>
         /// (Opcional)
         /// Grupo Processo referenciado.
         /// </summary>
         [XmlElement(nameof(procRef))]
-        public ProcessoReferenciado[] procRef;
+        public List<ProcessoReferenciado> procRef { get; } = new List<ProcessoReferenciado>();
     }
 }

@@ -185,7 +185,7 @@ namespace NFeFacil.ViewModel
         private void RemoverProduto(DetalhesProdutos produto)
         {
             NotaSalva.Informações.produtos.Remove(produto);
-            OnPropertyChanged(nameof(Produtos));
+            OnPropertyChanged(nameof(NotaSalva));
         }
 
         public ICommand ObterNovoNumeroCommand => new ComandoSimples(ObterNovoNumero, true);
@@ -527,6 +527,49 @@ namespace NFeFacil.ViewModel
         {
             NotaSalva.Informações.cana.deduc.Remove(deducao);
             PropertyChanged(this, new PropertyChangedEventArgs(nameof(NotaSalva)));
+        }
+
+        #endregion
+
+        #region InformacoesAdicionais
+
+        public ICommand AdicionarObsContribuinteCommand => new ComandoSimples(AdicionarObsContribuinte, true);
+        public ICommand RemoverObsContribuinteCommand => new ComandoParametrizado<Observacao, ObterDataContext<Observacao>>(RemoverObsContribuinte);
+        public ICommand AdicionarProcReferenciadoCommand => new ComandoSimples(AdicionarProcReferenciado, true);
+        public ICommand RemoverProcReferenciadoCommand => new ComandoParametrizado<ProcessoReferenciado, ObterDataContext<ProcessoReferenciado>>(RemoverProcReferenciado);
+
+        private async void AdicionarObsContribuinte()
+        {
+            var caixa = new View.CaixasDialogo.AdicionarObservacaoContribuinte();
+            caixa.PrimaryButtonClick += (x, y) =>
+            {
+                NotaSalva.Informações.infAdic.obsCont.Add((Observacao)x.DataContext);
+                OnPropertyChanged(nameof(NotaSalva));
+            };
+            await caixa.ShowAsync();
+        }
+
+        private void RemoverObsContribuinte(Observacao obs)
+        {
+            NotaSalva.Informações.infAdic.obsCont.Remove(obs);
+            OnPropertyChanged(nameof(NotaSalva));
+        }
+
+        private async void AdicionarProcReferenciado()
+        {
+            var caixa = new View.CaixasDialogo.AdicionarProcessoReferenciado();
+            caixa.PrimaryButtonClick += (x, y) =>
+            {
+                NotaSalva.Informações.infAdic.procRef.Add((ProcessoReferenciado)x.DataContext);
+                OnPropertyChanged(nameof(NotaSalva));
+            };
+            await caixa.ShowAsync();
+        }
+
+        private void RemoverProcReferenciado(ProcessoReferenciado proc)
+        {
+            NotaSalva.Informações.infAdic.procRef.Remove(proc);
+            OnPropertyChanged(nameof(NotaSalva));
         }
 
         #endregion

@@ -5,11 +5,11 @@
         /// <summary>
         /// Identificador do processo ou ato concessório.
         /// </summary>
-        public string nProc;
+        public string nProc { get; set; }
 
         /// <summary>
         /// Indicador da origem do processo.
         /// </summary>
-        public ushort indProc;
+        public int indProc { get; set; }
     }
 }

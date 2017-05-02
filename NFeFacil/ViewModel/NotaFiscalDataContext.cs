@@ -21,6 +21,7 @@ using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Partes
 using System.Threading.Tasks;
 using BibliotecaCentral.WebService.AutorizarNota;
 using BibliotecaCentral.WebService.RespostaAutorizarNota;
+using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesIdentificacao;
 
 namespace NFeFacil.ViewModel
 {
@@ -384,6 +385,34 @@ namespace NFeFacil.ViewModel
                 NotaSalva.Informações.identificação.CódigoUF = value;
                 OnPropertyChanged(nameof(EstadoIdentificacao));
             }
+        }
+
+        public string TempNFeReferenciada { get; set; }
+        public ICommand AdicionarNFeReferenciadaCommand => new ComandoSimples(AdicionarNFeReferenciada, true);
+        public ICommand RemoverNFeReferenciadaCommand => new ComandoParametrizado<DocumentoFiscalReferenciado, ObterDataContext<DocumentoFiscalReferenciado>>(RemoverNFeReferenciada);
+
+        private void AdicionarNFeReferenciada()
+        {
+            if (string.IsNullOrEmpty(TempNFeReferenciada))
+            {
+                Log.Escrever(TitulosComuns.ErroSimples, "Primeiro insira a referência a uma NFe no campo ao lado.");
+            }
+            else
+            {
+                NotaSalva.Informações.identificação.DocumentosReferenciados.Add(new DocumentoFiscalReferenciado
+                {
+                    refNFe = TempNFeReferenciada
+                });
+                OnPropertyChanged(nameof(NotaSalva));
+                TempNFeReferenciada = string.Empty;
+                OnPropertyChanged(nameof(TempNFeReferenciada));
+            }
+        }
+
+        private void RemoverNFeReferenciada(DocumentoFiscalReferenciado doc)
+        {
+            NotaSalva.Informações.identificação.DocumentosReferenciados.Remove(doc);
+            OnPropertyChanged(nameof(NotaSalva));
         }
 
         #endregion

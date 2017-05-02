@@ -8,7 +8,7 @@
     <Style x:Key="PseudoTabela"
            TargetType="ListView">
         <Setter Property="Margin"
-                Value="-12,-6,-12,0" />
+                Value="-12,-5,-12,0" />
         <Setter Property="ItemContainerStyle"
                 Value="{StaticResource ItemFullWidth}" />
     </Style>

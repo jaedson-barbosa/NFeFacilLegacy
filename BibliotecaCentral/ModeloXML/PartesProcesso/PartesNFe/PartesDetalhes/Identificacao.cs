@@ -1,5 +1,6 @@
 ﻿using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesIdentificacao;
 using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 using Windows.ApplicationModel;
 
@@ -104,6 +105,6 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
         }
 
         [XmlElement("NFref", Order = 21)]
-        public DocumentoFiscalReferenciado[] DocumentosReferenciados { get; set; }
+        public List<DocumentoFiscalReferenciado> DocumentosReferenciados { get; } = new List<DocumentoFiscalReferenciado>();
     }
 }

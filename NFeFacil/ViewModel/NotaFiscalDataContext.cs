@@ -40,7 +40,8 @@ namespace NFeFacil.ViewModel
         private Processo NotaEmitida;
 
         public bool ManipulacaoAtivada => StatusAtual == StatusNFe.EdiçãoCriação;
-        public bool BotaoConfirmarAtivado => StatusAtual == StatusNFe.EdiçãoCriação;
+        public bool BotaoEditarVisivel => StatusAtual == StatusNFe.Validado || StatusAtual == StatusNFe.Salvo || StatusAtual == StatusNFe.Assinado;
+        public bool BotaoConfirmarVisivel => StatusAtual == StatusNFe.EdiçãoCriação;
         public bool BotaoSalvarAtivado => StatusAtual == StatusNFe.Validado;
         public bool BotaoAssinarAtivado => StatusAtual == StatusNFe.Salvo;
         public bool BotaoTransmitirAtivado => StatusAtual == StatusNFe.Assinado;
@@ -53,7 +54,8 @@ namespace NFeFacil.ViewModel
             {
                 Conjunto.StatusAtual = value;
                 OnPropertyChanged(nameof(ManipulacaoAtivada),
-                    nameof(BotaoConfirmarAtivado),
+                    nameof(BotaoEditarVisivel),
+                    nameof(BotaoConfirmarVisivel),
                     nameof(BotaoSalvarAtivado),
                     nameof(BotaoAssinarAtivado),
                     nameof(BotaoTransmitirAtivado),
@@ -187,6 +189,7 @@ namespace NFeFacil.ViewModel
         }
 
         public ICommand ObterNovoNumeroCommand => new ComandoSimples(ObterNovoNumero, true);
+        public ICommand LiberarEdicaoCommand => new ComandoSimples(LiberarEdicao, true);
         public ICommand ConfirmarCommand => new ComandoSimples(Confirmar, true);
         public ICommand SalvarCommand => new ComandoSimples(async () =>
         {
@@ -213,6 +216,16 @@ namespace NFeFacil.ViewModel
                     OnPropertyChanged(nameof(NotaSalva));
                 }
             }
+        }
+
+        private void LiberarEdicao()
+        {
+            if (StatusAtual == StatusNFe.Assinado)
+            {
+                NotaSalva.Signature = null;
+            }
+            StatusAtual = StatusNFe.EdiçãoCriação;
+            Log.Escrever(TitulosComuns.Sucesso, "As alterações só terão efeito quando a nota fiscal for novamente salva.");
         }
 
         private void Confirmar()
@@ -243,28 +256,6 @@ namespace NFeFacil.ViewModel
                 if (ambienteTestes)
                 {
                     Log.Escrever(TitulosComuns.Atenção, "Notas feitas no ambiente de testes não são salvas e não tem valor fiscal.");
-                }
-            }
-        }
-
-        private async Task SalvarAsync()
-        {
-            if (!AmbienteTestes)
-            {
-                bool usarNotaSalva = StatusAtual != StatusNFe.Emitido && StatusAtual != StatusNFe.Impresso;
-                var xml = usarNotaSalva ? NotaSalva.ToXElement<NFe>() : NotaEmitida.ToXElement<Processo>();
-                var di = usarNotaSalva ? new NFeDI(NotaSalva) : new NFeDI(NotaEmitida);
-                di.Status = (int)StatusAtual;
-                using (var db = new NotasFiscais())
-                {
-                    if (StatusAtual == StatusNFe.Salvo || StatusAtual == StatusNFe.EdiçãoCriação)
-                    {
-                        await db.Adicionar(di, xml);
-                    }
-                    else
-                    {
-                        await db.Atualizar(di, xml);
-                    }
                 }
             }
         }
@@ -557,6 +548,28 @@ namespace NFeFacil.ViewModel
                 NotaSalva.Informações.compra = NotaSalva.Informações.compra?.ToXElement<Compra>().HasElements ?? false ? NotaSalva.Informações.compra : null;
                 NotaSalva.Informações.cana = NotaSalva.Informações.cana?.ToXElement<RegistroAquisicaoCana>().HasElements ?? false ? NotaSalva.Informações.cana : null;
                 nfeNormalizado = true;
+            }
+        }
+
+        private async Task SalvarAsync()
+        {
+            if (!AmbienteTestes)
+            {
+                bool usarNotaSalva = StatusAtual != StatusNFe.Emitido && StatusAtual != StatusNFe.Impresso;
+                var xml = usarNotaSalva ? NotaSalva.ToXElement<NFe>() : NotaEmitida.ToXElement<Processo>();
+                var di = usarNotaSalva ? new NFeDI(NotaSalva) : new NFeDI(NotaEmitida);
+                di.Status = (int)StatusAtual;
+                using (var db = new NotasFiscais())
+                {
+                    if (StatusAtual == StatusNFe.Salvo || StatusAtual == StatusNFe.EdiçãoCriação)
+                    {
+                        await db.Adicionar(di, xml);
+                    }
+                    else
+                    {
+                        await db.Atualizar(di, xml);
+                    }
+                }
             }
         }
     }

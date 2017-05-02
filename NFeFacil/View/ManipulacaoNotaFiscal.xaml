@@ -18,6 +18,7 @@
                 <ResourceDictionary Source="Estilos/EstilosExtras.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <VM:DadosEstadosParaView x:Key="estados" />
+            <Conversores:BoolToVisibility x:Key="visibilidade" />
             <Conversores:EstadoToMunicipios x:Key="obterMun" />
             <Conversores:ColecaoValida x:Key="getObs" />
             <Conversores:TextoComLabel x:Key="textoLabel" />
@@ -747,7 +748,11 @@
             <CommandBar.Background>
                 <SolidColorBrush Color="{ThemeResource SystemChromeLowColor}" />
             </CommandBar.Background>
-            <AppBarButton IsEnabled="{Binding BotaoConfirmarAtivado}"
+            <AppBarButton Visibility="{Binding BotaoEditarVisivel, Converter={StaticResource visibilidade}}"
+                          Icon="Edit"
+                          Label="Editar"
+                          Command="{Binding LiberarEdicaoCommand}" />
+            <AppBarButton IsEnabled="{Binding BotaoConfirmarVisivel, Converter={StaticResource visibilidade}}"
                           Icon="Accept"
                           Label="Confirmar e validar"
                           Command="{Binding ConfirmarCommand}" />

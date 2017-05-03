@@ -4,10 +4,12 @@
       xmlns:Conversores="using:NFeFacil.ViewModel.Converters"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      mc:Ignorable="d">
+      mc:Ignorable="d"
+      x:Name="root">
     <Page.Resources>
         <ResourceDictionary>
             <Conversores:TextoComLabel x:Key="textoLabel" />
+            <Conversores:BoolToVisibility x:Key="visibilidade" />
             <x:String x:Key="LabelNomeEmitente">Nome emitente</x:String>
             <x:String x:Key="LabelNomeCliente">Nome cliente</x:String>
             <x:String x:Key="LabelData">Data emissão</x:String>
@@ -25,14 +27,22 @@
             <RowDefinition />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <ListView x:Name="lstNotas">
+        <ListView x:Name="lstNotas"
+                  ItemsSource="{Binding NotasSalvas}"
+                  SelectionMode="Extended">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Margin="0,5">
                         <StackPanel.ContextFlyout>
                             <MenuFlyout>
-                                <MenuFlyoutItem Click="RemoverAsync">Remover</MenuFlyoutItem>
-                                <MenuFlyoutItem Click="EditarAsync">Editar</MenuFlyoutItem>
+                                <MenuFlyoutItem Command="{Binding DataContext.RemoverCommand, ElementName=root}"
+                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Remover apenas esta nota</MenuFlyoutItem>
+                                <MenuFlyoutItem Visibility="{Binding DataContext.ExibirRemoverSelecionados, ElementName=root, Converter={StaticResource visibilidade}}"
+                                                Command="{Binding DataContext.RemoverSelecionadosCommand, ElementName=root}"
+                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Remover selecionados</MenuFlyoutItem>
+                                <MenuFlyoutItem Visibility="{Binding DataContext.ExibirEditar, ElementName=root, Converter={StaticResource visibilidade}}"
+                                                Command="{Binding DataContext.EditarCommand, ElementName=root}"
+                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Editar</MenuFlyoutItem>
                             </MenuFlyout>
                         </StackPanel.ContextFlyout>
                         <TextBlock Text="{Binding Path=NomeEmitente, Mode=OneWay, ConverterParameter={StaticResource LabelNomeEmitente}, Converter={StaticResource textoLabel}}" />

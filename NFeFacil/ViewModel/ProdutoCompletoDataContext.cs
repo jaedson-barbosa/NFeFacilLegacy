@@ -113,14 +113,14 @@ namespace NFeFacil.ViewModel
             ProdutoCompleto = produtoCompleto;
             NovoMedicamento = new Medicamento();
             NovoArmamento = new Arma();
-            AdicionarDeclaracaoImportacaoCommand = new ComandoSimples(AdicionarDeclaracaoImportacao, true);
-            AdicionarDeclaracaoExportacaoCommand = new ComandoSimples(AdicionarDeclaracaoExportacao, true);
-            RemoverDeclaracaoImportacaoCommand = new ComandoParametrizado<DeclaracaoImportacao, ObterDataContext<DeclaracaoImportacao>>(RemoverDeclaracaoImportacao);
-            RemoverDeclaracaoExportacaoCommand = new ComandoParametrizado<GrupoExportacao, ObterDataContext<GrupoExportacao>>(RemoverDeclaracaoExportacao);
-            AdicionarMedicamentoCommand = new ComandoSimples(AdicionarMedicamento, true);
-            RemoverMedicamentoCommand = new ComandoSimples(RemoverMedicamento, true);
-            AdicionarArmamentoCommand = new ComandoSimples(AdicionarArmamento, true);
-            RemoverArmamentoCommand = new ComandoSimples(RemoverArmamento, true);
+            AdicionarDeclaracaoImportacaoCommand = new Comando(AdicionarDeclaracaoImportacao, true);
+            AdicionarDeclaracaoExportacaoCommand = new Comando(AdicionarDeclaracaoExportacao, true);
+            RemoverDeclaracaoImportacaoCommand = new Comando<DeclaracaoImportacao, ObterDataContext<DeclaracaoImportacao>>(RemoverDeclaracaoImportacao);
+            RemoverDeclaracaoExportacaoCommand = new Comando<GrupoExportacao, ObterDataContext<GrupoExportacao>>(RemoverDeclaracaoExportacao);
+            AdicionarMedicamentoCommand = new Comando(AdicionarMedicamento, true);
+            RemoverMedicamentoCommand = new Comando(RemoverMedicamento, true);
+            AdicionarArmamentoCommand = new Comando(AdicionarArmamento, true);
+            RemoverArmamentoCommand = new Comando(RemoverArmamento, true);
         }
 
         public ICommand AdicionarDeclaracaoImportacaoCommand { get; }

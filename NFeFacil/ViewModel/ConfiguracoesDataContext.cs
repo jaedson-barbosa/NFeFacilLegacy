@@ -122,14 +122,14 @@ namespace NFeFacil.ViewModel
 
         public ConfiguracoesDataContext()
         {
-            GerarQRTemporárioCommand = new ComandoSimples(GerarQRTemporário, true);
-            LerQRTemporárioCommand = new ComandoSimples(LerQRTemporário, true);
-            InserirDadosManualmenteCommand = new ComandoSimples(InserirDadosManualmente, true);
-            IniciarServidorCommand = new ComandoSimples(IniciarServidor, true);
-            SincronizarAgoraCommand = new ComandoSimples(SincronizarAgora, true);
-            FecharBrechaSeguranca = new ComandoSimples(PararDeAceitarNovasConexoes, true);
-            ImportarNotaFiscalCommand = new ComandoSimples(ImportarNotaFiscal, true);
-            ImportarDadoBaseCommand = new ComandoSimples(ImportarDadoBase, true);
+            GerarQRTemporárioCommand = new Comando(GerarQRTemporário, true);
+            LerQRTemporárioCommand = new Comando(LerQRTemporário, true);
+            InserirDadosManualmenteCommand = new Comando(InserirDadosManualmente, true);
+            IniciarServidorCommand = new Comando(IniciarServidor, true);
+            SincronizarAgoraCommand = new Comando(SincronizarAgora, true);
+            FecharBrechaSeguranca = new Comando(PararDeAceitarNovasConexoes, true);
+            ImportarNotaFiscalCommand = new Comando(ImportarNotaFiscal, true);
+            ImportarDadoBaseCommand = new Comando(ImportarDadoBase, true);
         }
 
         public ICommand GerarQRTemporárioCommand { get; }

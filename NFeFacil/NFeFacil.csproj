@@ -176,6 +176,7 @@
     <Compile Include="ViewModel\Converters\StringToDateTime.cs" />
     <Compile Include="ViewModel\IObterPropriedade.cs" />
     <Compile Include="ViewModel\NotaFiscalDataContext.cs" />
+    <Compile Include="ViewModel\NotasSalvasDataContext.cs" />
     <Compile Include="ViewModel\ObterDataContext.cs" />
     <Compile Include="ViewModel\ProdutoCompletoDataContext.cs" />
     <Compile Include="View\AdicionarDestinatario.xaml.cs">
@@ -237,8 +238,7 @@
     <Compile Include="View\QRCode.cs" />
     <Compile Include="Propriedades.cs" />
     <Compile Include="ViewModel\ImpostosProduto\COFINSDataContext.cs" />
-    <Compile Include="ViewModel\ComandoParametrizado.cs" />
-    <Compile Include="ViewModel\ComandoSimples.cs" />
+    <Compile Include="ViewModel\Comando.cs" />
     <Compile Include="ViewModel\Converters\BoolToIcon.cs" />
     <Compile Include="ViewModel\Converters\BoolToInt.cs" />
     <Compile Include="ViewModel\Converters\BoolToVisibility.cs" />

@@ -99,8 +99,8 @@ namespace NFeFacil.View.CaixasDialogo
             {
                 Declaracao = dec;
                 NovaAdicao = new DIAdicao();
-                AdicionarAdicaoCommand = new ComandoSimples(AdicionarAdicao, true);
-                RemoverAdicaoCommand = new ComandoSimples(RemoverAdicao, true);
+                AdicionarAdicaoCommand = new Comando(AdicionarAdicao, true);
+                RemoverAdicaoCommand = new Comando(RemoverAdicao, true);
             }
         }
     }

@@ -134,6 +134,7 @@
     <Compile Include="Log\Popup.cs" />
     <Compile Include="Log\Saida.cs" />
     <Compile Include="Log\Titulos.cs" />
+    <Compile Include="Log\TitulosComuns.cs" />
     <Compile Include="Log\Toast.cs" />
     <Compile Include="Migrations\20170501125147_Estavel5.cs" />
     <Compile Include="Migrations\20170501125147_Estavel5.designer.cs">

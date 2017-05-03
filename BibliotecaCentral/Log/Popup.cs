@@ -5,10 +5,10 @@ using Windows.UI.Popups;
 
 namespace BibliotecaCentral.Log
 {
-    public class Popup : ILog
+    public struct Popup : ILog
     {
-        private CoreDispatcherPriority Prioridade = CoreDispatcherPriority.Normal;
-        private CoreDispatcher Dispachante { get; } = CoreApplication.MainView.CoreWindow.Dispatcher;
+        private CoreDispatcherPriority Prioridade => CoreDispatcherPriority.Normal;
+        private CoreDispatcher Dispachante => CoreApplication.MainView.CoreWindow.Dispatcher;
 
         public async void Escrever(TitulosComuns título, string texto)
         {

@@ -2,7 +2,7 @@
 
 namespace BibliotecaCentral.Log
 {
-    public class Saida : ILog
+    public struct Saida : ILog
     {
         public void Escrever(TitulosComuns título, string texto)
         {

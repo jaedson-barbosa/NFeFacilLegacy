@@ -3,7 +3,7 @@ using Windows.UI.Notifications;
 
 namespace BibliotecaCentral.Log
 {
-    public sealed class Toast : ILog
+    public struct Toast : ILog
     {
         public void Escrever(TitulosComuns título, string texto)
         {

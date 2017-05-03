@@ -2,9 +2,9 @@
 
 namespace BibliotecaCentral.Log
 {
-    public static class Titulos
+    internal static class Titulos
     {
-        public static string ObterString(TitulosComuns título)
+        internal static string ObterString(TitulosComuns título)
         {
             switch (título)
             {
@@ -34,20 +34,5 @@ namespace BibliotecaCentral.Log
                     throw new Exception($"Existe um título comum que não foi analisado: {título}.");
             }
         }
-    }
-
-    public enum TitulosComuns
-    {
-        Atenção,
-        Sucesso,
-        ErroSimples,
-        ErroCatastrófico,
-        Iniciando,
-        Lendo,
-        Processando,
-        Finalizando,
-        Log,
-        ValidaçãoConcluída,
-        OperaçãoCancelada
     }
 }

@@ -175,13 +175,15 @@
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
-                                <TextBox Text="{Binding TempNFeReferenciada, Mode=TwoWay}" />
+                                <TextBox Header="Chave de acesso"
+                                         Text="{Binding TempNFeReferenciada, Mode=TwoWay}" />
                                 <Button Grid.Column="1"
                                         Command="{Binding AdicionarNFeReferenciadaCommand}"
-                                        Style="{StaticResource BotaoAdd}">
+                                        Style="{StaticResource BotaoAdd}"
+                                        VerticalAlignment="Bottom">
                                     <SymbolIcon Symbol="Add" />
                                 </Button>
-                                <ListView ItemsSource="{Binding NotaSalva.Informações.identificação.DocumentosReferenciados}"
+                                <ListView ItemsSource="{Binding NotaSalva.Informações.identificação.DocumentosReferenciados, Converter={StaticResource getObs}}"
                                           Style="{StaticResource ListaCheia}"
                                           Grid.Row="1"
                                           Grid.ColumnSpan="2">

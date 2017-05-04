@@ -16,7 +16,7 @@ using BibliotecaCentral.Sincronizacao.Pacotes;
 using NFeFacil.View;
 using System.Collections.Generic;
 using static BibliotecaCentral.Configuracoes.ConfiguracoesSincronizacao;
-using BibliotecaCentral.ImportacaoParaBanco;
+using BibliotecaCentral.Importacao;
 using System.Text;
 
 namespace NFeFacil.ViewModel
@@ -31,7 +31,7 @@ namespace NFeFacil.ViewModel
 
         private readonly ILog LogPopUp = new Popup();
 
-#region Sincronização
+        #region Sincronização
 
         public bool IsCliente
         {
@@ -255,8 +255,8 @@ namespace NFeFacil.ViewModel
 
         public string CertificadoEscolhido
         {
-            get => repo.Escolhido != null ? repo.Registro.First(x => x.SerialNumber == repo.Escolhido).Subject : null;
-            set => repo.Escolhido = repo.Registro.First(x => x.Subject == value).SerialNumber;
+            get => repo.SerialEscolhido != null ? repo.Registro.First(x => x.SerialNumber == repo.SerialEscolhido).Subject : null;
+            set => repo.SerialEscolhido = repo.Registro.First(x => x.Subject == value).SerialNumber;
         }
 
         #endregion
@@ -268,7 +268,7 @@ namespace NFeFacil.ViewModel
 
         private async void ImportarNotaFiscal()
         {
-            var resultado = await new ImportarNotaFiscal().Importar();
+            var resultado = await new ImportarNotaFiscal().ImportarAsync();
             if (resultado.Analise == ResumoRelatorioImportacao.Sucesso)
             {
                 LogPopUp.Escrever(TitulosComuns.Sucesso, "As notas fiscais foram importadas com sucesso.");
@@ -284,7 +284,7 @@ namespace NFeFacil.ViewModel
 
         private async void ImportarDadoBase()
         {
-            var resultado = await new ImportarDadoBase(TipoBásicoSelecionado).Importar();
+            var resultado = await new ImportarDadoBase(TipoBásicoSelecionado).ImportarAsync();
             if (resultado.Analise == ResumoRelatorioImportacao.Sucesso)
             {
                 LogPopUp.Escrever(TitulosComuns.Sucesso, "As informações base foram importadas com sucesso.");

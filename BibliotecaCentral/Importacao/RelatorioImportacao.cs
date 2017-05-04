@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
-namespace BibliotecaCentral.ImportacaoParaBanco
+namespace BibliotecaCentral.Importacao
 {
     public class RelatorioImportacao
     {
@@ -9,6 +10,6 @@ namespace BibliotecaCentral.ImportacaoParaBanco
             get => Erros.Count == 0 ? ResumoRelatorioImportacao.Sucesso : ResumoRelatorioImportacao.Erro;
         }
 
-        public List<XmlNaoReconhecido> Erros { get; set; } = new List<XmlNaoReconhecido>();
+        public List<Exception> Erros { get; set; } = new List<Exception>();
     }
 }

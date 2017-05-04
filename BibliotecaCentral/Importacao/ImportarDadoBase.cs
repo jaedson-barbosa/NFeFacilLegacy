@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using Windows.Storage;
 
-namespace BibliotecaCentral.ImportacaoParaBanco
+namespace BibliotecaCentral.Importacao
 {
     public sealed class ImportarDadoBase : Importacao
     {
@@ -21,7 +21,7 @@ namespace BibliotecaCentral.ImportacaoParaBanco
             TipoDado = tipoDado;
         }
 
-        public async Task<RelatorioImportacao> Importar()
+        public override async Task<RelatorioImportacao> ImportarAsync()
         {
             arquivos = await ImportarArquivos();
             var listaXML = await Task.WhenAll(arquivos.Select(async x =>

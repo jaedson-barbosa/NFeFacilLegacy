@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 
-namespace BibliotecaCentral.ImportacaoParaBanco
+namespace BibliotecaCentral.Importacao
 {
     public abstract class Importacao
     {
@@ -36,5 +36,7 @@ namespace BibliotecaCentral.ImportacaoParaBanco
             foreach (var item in Extensão) importar.FileTypeFilter.Add(item);
             return importar;
         }
+
+        public abstract Task<RelatorioImportacao> ImportarAsync();
     }
 }

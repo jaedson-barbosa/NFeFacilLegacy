@@ -1,4 +1,4 @@
-﻿namespace BibliotecaCentral.ImportacaoParaBanco
+﻿namespace BibliotecaCentral.Importacao
 {
     public enum TiposDadoBasico
     {

@@ -6,13 +6,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace BibliotecaCentral.ImportacaoParaBanco
+namespace BibliotecaCentral.Importacao
 {
     public sealed class ImportarNotaFiscal : Importacao
     {
         public ImportarNotaFiscal() : base(".xml") { }
 
-        public async Task<RelatorioImportacao> Importar()
+        public override async Task<RelatorioImportacao> ImportarAsync()
         {
             var arquivos = await ImportarArquivos();
             var retorno = new RelatorioImportacao();

@@ -1,42 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
+using System.Threading.Tasks;
 using Windows.Storage;
-using Windows.Storage.Pickers;
 
 namespace BibliotecaCentral.Repositorio
 {
     public sealed class Certificados
     {
-        private ApplicationDataContainer pasta = ApplicationData.Current.LocalSettings;
+        private StorageFolder PastaArquivos = ApplicationData.Current.LocalFolder;
 
-        public IEnumerable<X509Certificate2> Registro
+        public async Task<IEnumerable<X509Certificate2>> ObterRegistroAsync(FonteCertificacao fonte)
         {
-            get
+            switch (fonte)
             {
-                var loja = new X509Store(StoreName.My, StoreLocation.CurrentUser);
-                loja.Open(OpenFlags.ReadOnly);
-                return loja.Certificates.Cast<X509Certificate2>();
+                case FonteCertificacao.PastaApp:
+                    return from arq in await PastaArquivos.GetFilesAsync()
+                           where arq.FileType == ".pfx"
+                           select new X509Certificate2(arq.Path);
+                case FonteCertificacao.RepositorioWindows:
+                    var loja = new X509Store(StoreName.My, StoreLocation.CurrentUser);
+                    loja.Open(OpenFlags.ReadOnly);
+                    return loja.Certificates.Cast<X509Certificate2>();
+                default:
+                    throw new Exception("Fonte de certificação desconhecida.");
             }
-        }
-
-        public string Escolhido
-        {
-            get { return pasta.Values[nameof(Escolhido)] as string; }
-            set { pasta.Values[nameof(Escolhido)] = value; }
-        }
-
-        public async System.Threading.Tasks.Task<X509Certificate2> CertificadoEscolhidoAsync()
-        {
-            //FileOpenPicker abrir = new FileOpenPicker
-            //{
-            //    SuggestedStartLocation = PickerLocationId.Downloads,
-            //};
-            //abrir.FileTypeFilter.Add(".pfx");
-            //var arq = await abrir.PickSingleFileAsync();
-            return new X509Certificate2(@"C:\Users\jaeds\AppData\Local\Packages\f85d4d3f-0a9a-44a0-8c0c-582b27cac00a_jnfgjghanf488\LocalState\SEVERINO ALVES.pfx", "12345678");
         }
     }
 }

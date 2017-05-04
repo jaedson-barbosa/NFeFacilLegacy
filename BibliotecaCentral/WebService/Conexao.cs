@@ -14,7 +14,7 @@ namespace BibliotecaCentral.WebService
             bind.Security.Transport.ClientCredentialType = HttpClientCredentialType.Certificate;
             CanalComunicação = new ChannelFactory<T>(bind, new EndpointAddress(endereco));
             var repo = new Repositorio.Certificados();
-            CanalComunicação.Credentials.ClientCertificate.SetCertificate(StoreLocation.CurrentUser, StoreName.My, X509FindType.FindBySerialNumber, repo.Escolhido);
+            CanalComunicação.Credentials.ClientCertificate.SetCertificate(StoreLocation.CurrentUser, StoreName.My, X509FindType.FindBySerialNumber, repo.SerialEscolhido);
         }
 
         public void Dispose()

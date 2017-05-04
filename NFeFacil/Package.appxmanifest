@@ -37,6 +37,7 @@
     <uap:Capability Name="sharedUserCertificates" />
     <uap:Capability Name="userAccountInformation" />
     <uap:Capability Name="contacts" />
+    <uap:Capability Name="picturesLibrary" />
     <DeviceCapability Name="webcam" />
   </Capabilities>
 </Package>

@@ -42,7 +42,14 @@ namespace NFeFacil.View
             InitializeComponent();
             ProcessarAsync();
             Propriedades.Intercambio = new IntercambioTelas(this);
+            Teste();
             AbrirFunção(nameof(Inicio));
+        }
+
+        async void Teste()
+        {
+            var repo = new BibliotecaCentral.Repositorio.Certificados();
+            var sub = (await repo.CertificadoEscolhidoAsync()).Subject;
             SystemNavigationManager.GetForCurrentView().BackRequested += Propriedades.Intercambio.RetornoEvento;
         }
 

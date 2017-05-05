@@ -25,11 +25,11 @@ namespace BibliotecaCentral.WebService.ConsultarNota
         public async Task<Response> ConsultarAsync(bool teste, string chaveNota)
         {
             var conjunto = new EnderecosConexao(UF.Sigla).ObterConjuntoConexao(teste, Operacoes.Consultar);
-            return await new GerenciadorGeral<Request, Response>()
-                .EnviarAsync(new RequisicaoSOAP<Request>(new Cabecalho(UF.Codigo, "3.10"), new Request
+            return await new GerenciadorGeral<Request, Response>(UF, conjunto)
+                .EnviarAsync(new Request
                 {
                     consSitNFe = new CorpoRequest(chaveNota)
-                }, conjunto));
+                });
         }
     }
 }

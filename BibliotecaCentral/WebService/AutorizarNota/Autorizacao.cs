@@ -26,11 +26,11 @@ namespace BibliotecaCentral.WebService.AutorizarNota
         public async Task<Response> AutorizarAsync(bool teste, params NFe[] xmls)
         {
             var conjunto = new EnderecosConexao(UF.Sigla).ObterConjuntoConexao(teste, Operacoes.Autorizar);
-            return await new GerenciadorGeral<Request, Response>()
-                .EnviarAsync(new RequisicaoSOAP<Request>(new Cabecalho(UF.Codigo, "3.10"), new Request
+            return await new GerenciadorGeral<Request, Response>(UF, conjunto)
+                .EnviarAsync(new Request
                 {
                     enviNFe = new CorpoRequest(xmls, xmls[0].Informações.identificação.Numero)
-                }, conjunto));
+                });
         }
     }
 }

@@ -4,9 +4,26 @@ using System.Threading.Tasks;
 
 namespace BibliotecaCentral.WebService.AutorizarNota
 {
-    public static class Autorizacao
+    public struct Autorizacao
     {
-        public static async Task<Response> AutorizarAsync(bool teste, Estado UF, params NFe[] xmls)
+        Estado UF { get; }
+
+        public Autorizacao(Estado estado)
+        {
+            UF = estado;
+        }
+
+        public Autorizacao(string siglaOuNome)
+        {
+            UF = Estados.Buscar(siglaOuNome);
+        }
+
+        public Autorizacao(ushort codigo)
+        {
+            UF = Estados.Buscar(codigo);
+        }
+
+        public async Task<Response> AutorizarAsync(bool teste, params NFe[] xmls)
         {
             var conjunto = new EnderecosConexao(UF.Sigla).ObterConjuntoConexao(teste, Operacoes.Autorizar);
             return await new GerenciadorGeral<Request, Response>()

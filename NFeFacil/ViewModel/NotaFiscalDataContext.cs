@@ -247,14 +247,13 @@ namespace NFeFacil.ViewModel
             }
         }
 
-        private bool ambienteTestes;
         public bool AmbienteTestes
         {
-            get => ambienteTestes;
+            get => NotaSalva.Informações.identificação.TipoAmbiente == 2;
             set
             {
-                ambienteTestes = value;
-                if (ambienteTestes)
+                NotaSalva.Informações.identificação.TipoAmbiente = (ushort)(value ? 2 : 1);
+                if (value)
                 {
                     Log.Escrever(TitulosComuns.Atenção, "Notas feitas no ambiente de testes não são salvas e não tem valor fiscal.");
                 }
@@ -267,7 +266,7 @@ namespace NFeFacil.ViewModel
             {
                 NormalizarNFe();
                 var assina = new BibliotecaCentral.Assinatura.AssinaNFe(NotaSalva);
-                assina.AssinarAsync();
+                await assina.AssinarAsync();
                 StatusAtual = StatusNFe.Assinado;
                 await SalvarAsync();
             }
@@ -279,11 +278,10 @@ namespace NFeFacil.ViewModel
 
         private async void Transmitir()
         {
-            var estado = Estados.Buscar(NotaSalva.Informações.emitente.endereco.SiglaUF);
-            var resultadoTransmissao = await Autorizacao.AutorizarAsync(AmbienteTestes, estado, NotaSalva);
+            var resultadoTransmissao = await new Autorizacao(NotaSalva.Informações.emitente.endereco.SiglaUF).AutorizarAsync(AmbienteTestes, NotaSalva);
             if (resultadoTransmissao.retEnviNFe.cStat == 103)
             {
-                var resultadoResposta = await RespostaAutorizacao.ObterRespostaAutorizacao(AmbienteTestes, resultadoTransmissao.retEnviNFe);
+                var resultadoResposta = await new RespostaAutorizacao(resultadoTransmissao.retEnviNFe).ObterRespostaAutorizacao(AmbienteTestes);
                 if (resultadoResposta.retConsReciNFe.protNFe.InfProt.cStat == 100)
                 {
                     NotaEmitida = new Processo()

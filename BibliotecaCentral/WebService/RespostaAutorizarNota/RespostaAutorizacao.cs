@@ -1,17 +1,25 @@
-﻿using System.Threading.Tasks;
+﻿using BibliotecaCentral.IBGE;
+using System.Threading.Tasks;
 
 namespace BibliotecaCentral.WebService.RespostaAutorizarNota
 {
-    public static class RespostaAutorizacao
+    public struct RespostaAutorizacao
     {
-        public static async Task<Response> ObterRespostaAutorizacao(bool teste, AutorizarNota.CorpoResponse recibo)
+        AutorizarNota.CorpoResponse Recibo { get; }
+        Estado UF => Estados.Buscar(Recibo.cUF);
+
+        public RespostaAutorizacao(AutorizarNota.CorpoResponse recibo)
         {
-            var estado = IBGE.Estados.Buscar(recibo.cUF);
-            var conjunto = new EnderecosConexao(estado.Sigla).ObterConjuntoConexao(teste, Operacoes.RespostaAutorizar);
+            Recibo = recibo;
+        }
+
+        public async Task<Response> ObterRespostaAutorizacao(bool teste)
+        {
+            var conjunto = new EnderecosConexao(UF.Sigla).ObterConjuntoConexao(teste, Operacoes.RespostaAutorizar);
             return await new GerenciadorGeral<Request, Response>()
-                .EnviarAsync(new RequisicaoSOAP<Request>(new Cabecalho(recibo.cUF, "3.10"), new Request
+                .EnviarAsync(new RequisicaoSOAP<Request>(new Cabecalho(UF.Codigo, "3.10"), new Request
                 {
-                    consReciNFe = new CorpoRequest(recibo.tpAmb, recibo.infRec.nRec)
+                    consReciNFe = new CorpoRequest(Recibo.tpAmb, Recibo.infRec.nRec)
                 }, conjunto));
         }
     }

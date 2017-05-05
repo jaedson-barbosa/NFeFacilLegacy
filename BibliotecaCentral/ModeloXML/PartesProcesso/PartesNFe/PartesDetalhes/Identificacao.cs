@@ -81,7 +81,7 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
         public int DígitoVerificador { get; set; }
 
         [XmlElement(ElementName = "tpAmb", Order = 15)]
-        public ushort TipoAmbiente { get; set; } = 2;
+        public ushort TipoAmbiente { get; set; } = 1;
 
         [XmlElement(ElementName = "finNFe", Order = 16)]
         public ushort FinalidadeEmissão { get; set; } = 1;

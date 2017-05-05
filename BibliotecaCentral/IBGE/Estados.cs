@@ -16,5 +16,8 @@ namespace BibliotecaCentral.IBGE
                                select new Estado(estado);
             }
         }
+
+        public static Estado Buscar(ushort codigo) => EstadosCache.First(x => x.Codigo == codigo);
+        public static Estado Buscar(string sigla) => EstadosCache.First(x => x.Sigla == sigla);
     }
 }

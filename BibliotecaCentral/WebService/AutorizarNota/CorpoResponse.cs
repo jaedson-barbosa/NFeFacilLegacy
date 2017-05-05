@@ -10,7 +10,7 @@ namespace BibliotecaCentral.WebService.AutorizarNota
         public string verAplic { get; set; }
         public int cStat { get; set; }
         public string xMotivo { get; set; }
-        public int cUF { get; set; }
+        public ushort cUF { get; set; }
         public string dhRecbto { get; set; }
         public Recibo infRec { get; set; }
 

@@ -18,7 +18,6 @@ namespace BibliotecaCentral.WebService
             var proxy = new HttpClient(handler);
             proxy.DefaultRequestHeaders.Add("SOAPAction", requisicao.Enderecos.Metodo);
             var resposta = await proxy.PostAsync(requisicao.Enderecos.Endereco, requisicao.ObterConteudoRequisicao());
-            var textoRetorno = await resposta.Content.ReadAsStringAsync();
             return ObterConteudoCorpo(XElement.Load(await resposta.Content.ReadAsStreamAsync())).FromXElement<Resposta>();
 
             XNode ObterConteudoCorpo(XElement soap)

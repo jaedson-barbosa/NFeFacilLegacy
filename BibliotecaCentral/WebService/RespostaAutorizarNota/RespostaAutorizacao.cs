@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace BibliotecaCentral.WebService.RespostaAutorizarNota
 {
@@ -7,7 +6,7 @@ namespace BibliotecaCentral.WebService.RespostaAutorizarNota
     {
         public static async Task<Response> ObterRespostaAutorizacao(bool teste, AutorizarNota.CorpoResponse recibo)
         {
-            var estado = IBGE.Estados.EstadosCache.First(x => x.Codigo == recibo.cUF);
+            var estado = IBGE.Estados.Buscar(recibo.cUF);
             var conjunto = new EnderecosConexao(estado.Sigla).ObterConjuntoConexao(teste, Operacoes.RespostaAutorizar);
             return await new GerenciadorGeral<Request, Response>()
                 .EnviarAsync(new RequisicaoSOAP<Request>(new Cabecalho(recibo.cUF, "3.10"), new Request

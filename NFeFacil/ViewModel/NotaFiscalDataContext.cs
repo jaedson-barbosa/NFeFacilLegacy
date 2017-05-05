@@ -279,7 +279,7 @@ namespace NFeFacil.ViewModel
 
         private async void Transmitir()
         {
-            var estado = Estados.EstadosCache.First(x => x.Sigla == NotaSalva.Informações.emitente.endereco.SiglaUF);
+            var estado = Estados.Buscar(NotaSalva.Informações.emitente.endereco.SiglaUF);
             var resultadoTransmissao = await Autorizacao.AutorizarAsync(AmbienteTestes, estado, NotaSalva);
             if (resultadoTransmissao.retEnviNFe.cStat == 103)
             {

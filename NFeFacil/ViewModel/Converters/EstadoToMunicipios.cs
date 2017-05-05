@@ -47,12 +47,12 @@ namespace NFeFacil.ViewModel.Converters
                 var codigoUF = municipios.First().CodigoUF;
                 if (targetType == typeof(string))
                 {
-                    var estado = Estados.EstadosCache.First(x => x.Codigo == codigoUF);
+                    var estado = Estados.Buscar(codigoUF);
                     return tamanhoString == 2 ? estado.Sigla : estado.Nome;
                 }
                 else if (targetType == typeof(Estado))
                 {
-                    return Estados.EstadosCache.First(x => x.Codigo == codigoUF);
+                    return Estados.Buscar(codigoUF);
                 }
                 else if (targetType == typeof(ushort))
                 {

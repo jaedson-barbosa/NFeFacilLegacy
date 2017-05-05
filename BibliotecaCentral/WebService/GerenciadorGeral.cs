@@ -1,6 +1,4 @@
 ﻿using System.Net.Http;
-using System.ServiceModel;
-using System.ServiceModel.Channels;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -9,34 +7,24 @@ namespace BibliotecaCentral.WebService
 {
     internal struct GerenciadorGeral<Envio, Resposta>
     {
-        internal delegate Task<Message> EnvioAssícrono(Message envio);
-
-        private DadosServico Caminhos { get; }
-
-        internal GerenciadorGeral(DadosServico caminhos)
+        internal async Task<Resposta> EnviarAsync(RequisicaoSOAP<Envio> requisicao)
         {
-            Caminhos = caminhos;
-        }
+            var repo = new Repositorio.Certificados();
+            var handler = new HttpClientHandler()
+            {
+                ClientCertificateOptions = ClientCertificateOption.Automatic
+            };
+            handler.ClientCertificates.Add(await repo.ObterCertificadoEscolhidoAsync());
+            var proxy = new HttpClient(handler);
+            proxy.DefaultRequestHeaders.Add("SOAPAction", requisicao.Enderecos.Metodo);
+            var resposta = await proxy.PostAsync(requisicao.Enderecos.Endereco, requisicao.ObterConteudoRequisicao());
+            var textoRetorno = await resposta.Content.ReadAsStringAsync();
+            return ObterConteudoCorpo(XElement.Load(await resposta.Content.ReadAsStreamAsync())).FromXElement<Resposta>();
 
-        internal async Task<Resposta> EnviarAsync(Envio envio, int UF, EnvioAssícrono ProcessarAsync)
-        {
-            var xml = envio.ToXElement<Envio>(Caminhos.Servico);
-            var resultado = await ProcessarAsync(
-                ProcessarMensagem(xml,
-                Caminhos.Servico,
-                Caminhos.Metodo,
-                UF));
-            var stringXml = await resultado.GetReaderAtBodyContents().ReadOuterXmlAsync();
-            var xmlResultado = XElement.Parse(stringXml);
-            return xmlResultado.FromXElement<Resposta>();
-        }
-
-        private static Message ProcessarMensagem(object corpo, string servico, string metodo, int UF)
-        {
-            var envio = Message.CreateMessage(MessageVersion.Soap11, metodo, corpo);
-            var header = new MessageHeader<Cabecalho>(new Cabecalho(UF, "3.10"));
-            envio.Headers.Add(header.GetUntypedHeader("nfeCabecMsg", servico));
-            return envio;
+            XNode ObterConteudoCorpo(XElement soap)
+            {
+                return soap.Element(XName.Get("Body", "http://schemas.xmlsoap.org/soap/envelope/")).FirstNode;
+            }
         }
     }
 
@@ -44,20 +32,20 @@ namespace BibliotecaCentral.WebService
     {
         Cabecalho cabecalho;
         TipoCorpo corpo;
-        DadosServico conjunto;
+        internal DadosServico Enderecos { get; }
 
         internal RequisicaoSOAP(Cabecalho cabec, TipoCorpo corpo, DadosServico dados)
         {
             cabecalho = cabec;
             this.corpo = corpo;
-            conjunto = dados;
+            Enderecos = dados;
         }
 
         internal HttpContent ObterConteudoRequisicao()
         {
             string texto = string.Format(
                 Extensoes.ObterRecurso("RequisicaoSOAP"),
-                conjunto.Servico,
+                Enderecos.Servico,
                 cabecalho.CodigoUF,
                 cabecalho.VersaoDados,
                 corpo.ToXElement<TipoCorpo>().ToString(SaveOptions.DisableFormatting));

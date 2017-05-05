@@ -112,7 +112,7 @@
     <Compile Include="Sincronizacao\ConfiguracoesSincronizacao.cs" />
     <Compile Include="Sincronizacao\TipoAppSincronizacao.cs" />
     <Compile Include="Extensoes.cs" />
-    <Compile Include="FonteCertificacao.cs" />
+    <Compile Include="Certificacao\FonteCertificacao.cs" />
     <Compile Include="IBGE\Estado.cs" />
     <Compile Include="IBGE\Estados.cs" />
     <Compile Include="IBGE\Municipio.cs" />

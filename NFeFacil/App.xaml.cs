@@ -1,4 +1,4 @@
-﻿using BibliotecaCentral.Configuracoes;
+﻿using BibliotecaCentral.Sincronizacao;
 using NFeFacil.View;
 using System;
 using Windows.ApplicationModel;

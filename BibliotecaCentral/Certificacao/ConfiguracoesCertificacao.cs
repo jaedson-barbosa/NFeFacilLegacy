@@ -1,6 +1,6 @@
 ﻿using Windows.Storage;
 
-namespace BibliotecaCentral.Configuracoes
+namespace BibliotecaCentral.Certificacao
 {
     public sealed class ConfiguracoesCertificacao
     {

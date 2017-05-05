@@ -1,4 +1,4 @@
-﻿using static BibliotecaCentral.Configuracoes.ConfiguracoesSincronizacao;
+﻿using static BibliotecaCentral.Sincronizacao.ConfiguracoesSincronizacao;
 using Restup.Webserver.Attributes;
 using Restup.Webserver.Models.Contracts;
 using Restup.Webserver.Models.Schemas;

@@ -3,7 +3,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Security.Cryptography.Xml;
 using System.Xml;
 
-namespace BibliotecaCentral.Assinatura
+namespace BibliotecaCentral.Certificacao
 {
     internal static class AssinaXML
     {

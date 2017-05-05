@@ -17,11 +17,11 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
             {
                 if ((bool)CoreApplication.Properties["BrechaAberta"])
                 {
-                    if (senha != Configuracoes.ConfiguracoesSincronizacao.SenhaTemporária)
+                    if (senha != ConfiguracoesSincronizacao.SenhaTemporária)
                         throw new SenhaErrada(senha);
                     return new GetResponse(GetResponse.ResponseStatus.OK, new InfoSegurancaConexao
                     {
-                        Senha = Configuracoes.ConfiguracoesSincronizacao.SenhaPermanente
+                        Senha = ConfiguracoesSincronizacao.SenhaPermanente
                     });
                 }
                 else

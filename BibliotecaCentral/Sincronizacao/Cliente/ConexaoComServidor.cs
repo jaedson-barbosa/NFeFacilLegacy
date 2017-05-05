@@ -1,4 +1,4 @@
-﻿using static BibliotecaCentral.Configuracoes.ConfiguracoesSincronizacao;
+﻿using static BibliotecaCentral.Sincronizacao.ConfiguracoesSincronizacao;
 using Newtonsoft.Json;
 using BibliotecaCentral.Sincronizacao.Pacotes;
 using System.IO;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.UI.Xaml.Controls;
 
-namespace BibliotecaCentral.Repositorio
+namespace BibliotecaCentral.Certificacao
 {
     public sealed class Certificados
     {
@@ -28,7 +28,7 @@ namespace BibliotecaCentral.Repositorio
 
         public async Task<X509Certificate2> ObterCertificadoEscolhidoAsync()
         {
-            var config = new Configuracoes.ConfiguracoesCertificacao();
+            var config = new ConfiguracoesCertificacao();
             if (config.FonteEscolhida == FonteCertificacao.RepositorioWindows)
             {
                 var loja = new X509Store(StoreName.My, StoreLocation.CurrentUser);

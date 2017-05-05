@@ -1,4 +1,4 @@
-﻿using static BibliotecaCentral.Configuracoes.ConfiguracoesSincronizacao;
+﻿using static BibliotecaCentral.Sincronizacao.ConfiguracoesSincronizacao;
 using System.Threading.Tasks;
 using System.Linq;
 using BibliotecaCentral.Sincronizacao.Pacotes;

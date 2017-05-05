@@ -3,7 +3,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using System.Xml;
 
-namespace BibliotecaCentral.Assinatura
+namespace BibliotecaCentral.Certificacao
 {
     public sealed class AssinaNFe
     {
@@ -23,7 +23,7 @@ namespace BibliotecaCentral.Assinatura
             xml.Load(Nota.ToXElement<NFe>().CreateReader());
             var loja = new X509Store(StoreName.My, StoreLocation.CurrentUser);
             loja.Open(OpenFlags.ReadOnly);
-            var cert = await new Repositorio.Certificados().ObterCertificadoEscolhidoAsync();
+            var cert = await new Certificados().ObterCertificadoEscolhidoAsync();
             Nota.Signature = AssinaXML.AssinarXML(xml, cert);
         }
     }

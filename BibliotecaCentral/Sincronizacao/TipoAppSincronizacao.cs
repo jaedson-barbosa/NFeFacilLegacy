@@ -1,4 +1,4 @@
-﻿namespace BibliotecaCentral.Configuracoes
+﻿namespace BibliotecaCentral.Sincronizacao
 {
     public enum TipoAppSincronizacao
     {

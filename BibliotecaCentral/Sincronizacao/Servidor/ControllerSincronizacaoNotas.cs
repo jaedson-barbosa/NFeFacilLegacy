@@ -15,7 +15,7 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
         {
             return await SupervisionarOperacao.Iniciar(async () =>
             {
-                if (senha != Configuracoes.ConfiguracoesSincronizacao.SenhaPermanente)
+                if (senha != ConfiguracoesSincronizacao.SenhaPermanente)
                     throw new SenhaErrada(senha);
                 await ProcessamentoNotas.SalvarAsync(pacote);
                 return new PostResponse(PostResponse.ResponseStatus.Created);
@@ -27,7 +27,7 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
         {
             return await SupervisionarOperacao.Iniciar(async () =>
             {
-                if (senha != Configuracoes.ConfiguracoesSincronizacao.SenhaPermanente)
+                if (senha != ConfiguracoesSincronizacao.SenhaPermanente)
                     throw new SenhaErrada(senha);
                 return new GetResponse(GetResponse.ResponseStatus.OK, await ProcessamentoNotas.ObterAsync());
             }, DateTime.Now, TipoDado.NotaFiscal);

@@ -14,7 +14,7 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
         {
             return SupervisionarOperacao.Iniciar(() =>
             {
-                if (senha != Configuracoes.ConfiguracoesSincronizacao.SenhaPermanente)
+                if (senha != ConfiguracoesSincronizacao.SenhaPermanente)
                     throw new SenhaErrada(senha);
                 ProcessamentoDadosBase.Salvar(pacote);
                 return new PostResponse(PostResponse.ResponseStatus.Created);
@@ -26,7 +26,7 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
         {
             return SupervisionarOperacao.Iniciar(() =>
             {
-                if (senha != Configuracoes.ConfiguracoesSincronizacao.SenhaPermanente)
+                if (senha != ConfiguracoesSincronizacao.SenhaPermanente)
                     throw new SenhaErrada(senha);
                 return new GetResponse(GetResponse.ResponseStatus.OK, ProcessamentoDadosBase.Obter());
             }, DateTime.Now, TipoDado.DadoBase);

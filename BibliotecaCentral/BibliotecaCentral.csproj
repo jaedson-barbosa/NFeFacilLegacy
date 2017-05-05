@@ -106,11 +106,11 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Assinatura\AssinaNFe.cs" />
-    <Compile Include="Assinatura\AssinaXML.cs" />
-    <Compile Include="Configuracoes\ConfiguracoesCertificacao.cs" />
-    <Compile Include="Configuracoes\ConfiguracoesSincronizacao.cs" />
-    <Compile Include="Configuracoes\TipoAppSincronizacao.cs" />
+    <Compile Include="Certificacao\AssinaNFe.cs" />
+    <Compile Include="Certificacao\AssinaXML.cs" />
+    <Compile Include="Certificacao\ConfiguracoesCertificacao.cs" />
+    <Compile Include="Sincronizacao\ConfiguracoesSincronizacao.cs" />
+    <Compile Include="Sincronizacao\TipoAppSincronizacao.cs" />
     <Compile Include="Extensoes.cs" />
     <Compile Include="FonteCertificacao.cs" />
     <Compile Include="IBGE\Estado.cs" />
@@ -247,7 +247,7 @@
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\Transporte.cs" />
     <Compile Include="ModeloXML\PartesProcesso\ProtocoloNFe.cs" />
     <Compile Include="ModeloXML\Processo.cs" />
-    <Compile Include="Repositorio\Certificados.cs" />
+    <Compile Include="Certificacao\Certificados.cs" />
     <Compile Include="Repositorio\MudancaOtimizadaBancoDados.cs" />
     <Compile Include="PastaNotasFiscais.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

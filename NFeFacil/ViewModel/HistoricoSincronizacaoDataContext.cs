@@ -1,10 +1,10 @@
 ﻿using BibliotecaCentral;
 using BibliotecaCentral.ItensBD;
-using BibliotecaCentral.Configuracoes;
+using BibliotecaCentral.Sincronizacao;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Windows.UI.ViewManagement;
-using static BibliotecaCentral.Configuracoes.ConfiguracoesSincronizacao;
+using static BibliotecaCentral.Sincronizacao.ConfiguracoesSincronizacao;
 using BibliotecaCentral.Repositorio;
 
 namespace NFeFacil.ViewModel

@@ -19,7 +19,7 @@ namespace BibliotecaCentral.WebService
 
         internal async Task<Resposta> EnviarAsync(Envio corpo)
         {
-            var repo = new Repositorio.Certificados();
+            var repo = new Certificacao.Certificados();
             var handler = new HttpClientHandler()
             {
                 ClientCertificateOptions = ClientCertificateOption.Automatic

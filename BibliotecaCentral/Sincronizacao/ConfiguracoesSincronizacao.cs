@@ -1,7 +1,7 @@
 ﻿using System;
 using Windows.Storage;
 
-namespace BibliotecaCentral.Configuracoes
+namespace BibliotecaCentral.Sincronizacao
 {
     public static class ConfiguracoesSincronizacao
     {

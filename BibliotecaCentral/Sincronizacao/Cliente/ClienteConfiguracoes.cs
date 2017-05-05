@@ -1,4 +1,4 @@
-﻿using static BibliotecaCentral.Configuracoes.ConfiguracoesSincronizacao;
+﻿using static BibliotecaCentral.Sincronizacao.ConfiguracoesSincronizacao;
 using System.Threading.Tasks;
 
 namespace BibliotecaCentral.Sincronizacao.Cliente

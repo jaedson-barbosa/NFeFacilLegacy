@@ -18,6 +18,10 @@ using System.Collections.Generic;
 using static BibliotecaCentral.Configuracoes.ConfiguracoesSincronizacao;
 using BibliotecaCentral.Importacao;
 using System.Text;
+using BibliotecaCentral.Repositorio;
+using System.Security.Cryptography.X509Certificates;
+using System.Collections.ObjectModel;
+using BibliotecaCentral;
 
 namespace NFeFacil.ViewModel
 {
@@ -130,6 +134,13 @@ namespace NFeFacil.ViewModel
             FecharBrechaSeguranca = new Comando(PararDeAceitarNovasConexoes, true);
             ImportarNotaFiscalCommand = new Comando(ImportarNotaFiscal, true);
             ImportarDadoBaseCommand = new Comando(ImportarDadoBase, true);
+            Task.Run(InicarItensAsync).Wait();
+        }
+
+        async Task InicarItensAsync()
+        {
+            CertificadosRepositorio = repo.ObterRegistroRepositorio().GerarObs();
+            NomesCertificadosPasta = (await repo.ObterRegistroPastaAsync()).GerarObs();
         }
 
         public ICommand GerarQRTemporárioCommand { get; }
@@ -247,17 +258,59 @@ namespace NFeFacil.ViewModel
 
         #region Certificação
 
-        private BibliotecaCentral.Repositorio.Certificados repo = new BibliotecaCentral.Repositorio.Certificados();
+        private Certificados repo = new Certificados();
+        private ConfiguracoesCertificacao config = new ConfiguracoesCertificacao();
 
-        public IEnumerable<string> Certificados => from c in repo.Registro
-                                                   orderby c.Subject
-                                                   select c.Subject;
+        public ObservableCollection<X509Certificate2> CertificadosRepositorio { get; private set; }
+        public ObservableCollection<string> NomesCertificadosPasta { get; private set; }
 
-        public string CertificadoEscolhido
+        public bool UsarRepositorioWindows
         {
-            get => repo.SerialEscolhido != null ? repo.Registro.First(x => x.SerialNumber == repo.SerialEscolhido).Subject : null;
-            set => repo.SerialEscolhido = repo.Registro.First(x => x.Subject == value).SerialNumber;
+            get => config.FonteEscolhida == FonteCertificacao.RepositorioWindows;
+            set
+            {
+                config.FonteEscolhida = value ? FonteCertificacao.RepositorioWindows : FonteCertificacao.PastaApp;
+                OnProperyChanged(nameof(UsarRepositorioWindows));
+            }
         }
+
+        public bool UsarPastaApp
+        {
+            get => !UsarRepositorioWindows;
+            set
+            {
+                UsarRepositorioWindows = !value;
+                OnProperyChanged(nameof(UsarPastaApp));
+            }
+        }
+
+        public object CertificadoEscolhido
+        {
+            get
+            {
+                if (config.CertificadoEscolhido != null)
+                {
+                    if (UsarRepositorioWindows)
+                    {
+                        return CertificadosRepositorio.First(x => x.SerialNumber == config.CertificadoEscolhido);
+                    }
+                    else
+                    {
+                        return NomesCertificadosPasta.FirstOrDefault(x => x == config.CertificadoEscolhido);
+                    }
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            set => config.CertificadoEscolhido = value is string ? value as string : (value as X509Certificate2).SerialNumber;
+        }
+
+        public ICommand ImportarCertificado => new Comando(async () =>
+        {
+            await new ImportarCertificado().ImportarAsync();
+        }, true);
 
         #endregion
 
@@ -277,7 +330,11 @@ namespace NFeFacil.ViewModel
             {
                 StringBuilder stringErros = new StringBuilder();
                 stringErros.AppendLine("As seguintes notas fiscais não foram reconhecidas por terem a tag raiz diferente de nfeProc e de NFe.");
-                resultado.Erros.ForEach(x => stringErros.AppendLine($"Nome arquivo: {x.NomeArquivo}; Tag raiz: Encontrada: {x.TagRaiz}"));
+                resultado.Erros.ForEach(y =>
+                {
+                    var x = y as XmlNaoReconhecido;
+                    stringErros.AppendLine($"Nome arquivo: {x.NomeArquivo}; Tag raiz: Encontrada: {x.TagRaiz}");
+                });
                 LogPopUp.Escrever(TitulosComuns.ErroSimples, stringErros.ToString());
             }
         }
@@ -293,7 +350,11 @@ namespace NFeFacil.ViewModel
             {
                 StringBuilder stringErros = new StringBuilder();
                 stringErros.AppendLine("Os seguintes dados base não foram reconhecidos por terem a tag raiz diferente do esperado.");
-                resultado.Erros.ForEach(x => stringErros.AppendLine($"Nome arquivo: {x.NomeArquivo}; Tag raiz encontrada: {x.TagRaiz}; Tags raiz esperadas: {x.TagsEsperadas[0]} ou {x.TagsEsperadas[1]}"));
+                resultado.Erros.ForEach(y =>
+                {
+                    var x = y as XmlNaoReconhecido;
+                    stringErros.AppendLine($"Nome arquivo: {x.NomeArquivo}; Tag raiz encontrada: {x.TagRaiz}; Tags raiz esperadas: {x.TagsEsperadas[0]} ou {x.TagsEsperadas[1]}");
+                });
                 LogPopUp.Escrever(TitulosComuns.ErroSimples, stringErros.ToString());
             }
         }

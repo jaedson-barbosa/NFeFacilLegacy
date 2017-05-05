@@ -24,6 +24,7 @@
             <Conversores:BoolToVisibility x:Key="boolView"></Conversores:BoolToVisibility>
             <Conversores:BoolToIcon x:Key="boolIcon"></Conversores:BoolToIcon>
             <Conversores:BoolToInt x:Key="boolInt"></Conversores:BoolToInt>
+            <Conversores:Invert x:Key="inverter" />
             <VM:ConfiguracoesDataContext x:Key="contexto" />
         </ResourceDictionary>
     </Page.Resources>
@@ -257,23 +258,24 @@
                     <my:Guia Symbol="Permissions"
                              Label="Certificado" />
                 </PivotItem.Header>
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <RichTextBlock Style="{StaticResource BodyRichTextBlockStyle}">
-                        <Paragraph>
-                            <Run Text="Escolha o certificado que será usado para realizar a conexão com os servidores da SEFAZ e para a assinatura das notas fiscais." />
-                        </Paragraph>
-                        <Paragraph>
-                            <Run Text="Você pode usar os certificados instalados na pasta pessoal de certificados do usuário. Você só precisa escolher um dos certificados exibidos logo abaixo." />
-                        </Paragraph>
-                    </RichTextBlock>
-                    <ListView Grid.Row="1"
-                              ItemsSource="{Binding Certificados, Mode=OneWay}"
-                              SelectedItem="{Binding CertificadoEscolhido, Mode=TwoWay}" />
-                </Grid>
+                <StackPanel>
+                    <TextBlock Style="{StaticResource BodyTextBlockStyle}">Escolha o certificado que será usado para realizar a conexão com os servidores da SEFAZ e para a assinatura das notas fiscais.</TextBlock>
+                    <RadioButton GroupName="FonteCert"
+                                 IsChecked="{Binding UsarRepositorioWindows, Mode=TwoWay}">Usar repositório de certificados do Windows</RadioButton>
+                    <RadioButton GroupName="FonteCert"
+                                 IsChecked="{Binding UsarPastaApp, Mode=TwoWay}">Usar pasta interna do aplicativo para certificados</RadioButton>
+                    <StackPanel Visibility="{Binding UsarRepositorioWindows, Converter={StaticResource boolView}}">
+                        <ListView ItemsSource="{Binding CertificadosRepositorio, Mode=OneWay}"
+                                  SelectedItem="{Binding CertificadoEscolhido, Mode=TwoWay}"
+                                  DisplayMemberPath="Subject"/>
+                    </StackPanel>
+                    <StackPanel Visibility="{Binding UsarPastaApp, Converter={StaticResource boolView}}">
+                        <TextBlock>Para que possam existir certificados nesta pasta, primeiro você deve importar os certificados que serão usados dentro dela.</TextBlock>
+                        <Button Command="{Binding ImportarCertificado}">Importar certificado</Button>
+                        <ListView ItemsSource="{Binding NomesCertificadosPasta, Mode=OneWay}"
+                                  SelectedItem="{Binding CertificadoEscolhido, Mode=TwoWay}" />
+                    </StackPanel>
+                </StackPanel>
             </PivotItem>
             <PivotItem>
                 <PivotItem.Header>

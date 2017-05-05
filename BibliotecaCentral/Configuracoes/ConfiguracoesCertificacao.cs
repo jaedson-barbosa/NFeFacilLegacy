@@ -9,13 +9,13 @@ namespace BibliotecaCentral.Configuracoes
         public FonteCertificacao FonteEscolhida
         {
             get => (FonteCertificacao)(Pasta.Values[nameof(FonteEscolhida)] ?? (FonteEscolhida = FonteCertificacao.RepositorioWindows));
-            set => Pasta.Values[nameof(FonteEscolhida)] = value;
+            set => Pasta.Values[nameof(FonteEscolhida)] = (int)value;
         }
 
-        public string SerialEscolhido
+        public string CertificadoEscolhido
         {
-            get => Pasta.Values[nameof(SerialEscolhido)] as string;
-            set => Pasta.Values[nameof(SerialEscolhido)] = value;
+            get => Pasta.Values[nameof(CertificadoEscolhido)] as string;
+            set => Pasta.Values[nameof(CertificadoEscolhido)] = value;
         }
     }
 }

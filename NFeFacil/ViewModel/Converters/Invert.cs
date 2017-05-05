@@ -24,7 +24,18 @@ namespace NFeFacil.ViewModel.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
-            throw new NotImplementedException();
+            if (value is bool booleano)
+            {
+                return !booleano;
+            }
+            if (value is Visibility visibilidade)
+            {
+                return visibilidade == Visibility.Collapsed ? Visibility.Visible : Visibility.Collapsed;
+            }
+            else
+            {
+                throw new ArgumentException();
+            }
         }
     }
 }

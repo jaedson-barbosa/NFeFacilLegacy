@@ -6,7 +6,7 @@
     "ZXing.Net.Mobile": "2.2.9"
   },
   "frameworks": {
-    "uap10.0.15063": {}
+    "uap10.0.14393": {}
   },
   "runtimes": {
     "win10-arm": {},

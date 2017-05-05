@@ -26,17 +26,16 @@ namespace Internal.Cryptography
         {
             if (hashAlgorithm is SHA1)
                 return SHA1;
-            if (hashAlgorithm is SHA256)
+            else if (hashAlgorithm is SHA256)
                 return SHA256;
-            if (hashAlgorithm is SHA384)
+            else if (hashAlgorithm is SHA384)
                 return SHA384;
-            if (hashAlgorithm is SHA512)
+            else if (hashAlgorithm is SHA512)
                 return SHA512;
-            if (hashAlgorithm is MD5)
+            else if (hashAlgorithm is MD5)
                 return MD5;
-
-            // Fallback to ToString() which can be extended by derived classes
-            return hashAlgorithm.ToString();
+            else
+                return hashAlgorithm.ToString();
         }
 
         /// <summary>

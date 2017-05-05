@@ -2,7 +2,7 @@
 
 namespace NFeFacil.DANFE.Modelos.Local
 {
-    public sealed class Geral
+    public struct Geral
     {
         public DadosAdicionais _DadosAdicionais;
         public DadosCabecalho _DadosCabecalho;

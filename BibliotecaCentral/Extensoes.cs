@@ -63,5 +63,11 @@ namespace BibliotecaCentral
         {
             return Enum.GetValues(typeof(T)).Cast<T>().GerarObs();
         }
+
+        internal static string ObterRecurso(string recurso)
+        {
+            var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+            return loader.GetString(recurso);
+        }
     }
 }

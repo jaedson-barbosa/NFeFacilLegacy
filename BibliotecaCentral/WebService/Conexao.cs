@@ -13,8 +13,8 @@ namespace BibliotecaCentral.WebService
             var bind = new BasicHttpBinding(BasicHttpSecurityMode.Transport);
             bind.Security.Transport.ClientCredentialType = HttpClientCredentialType.Certificate;
             CanalComunicação = new ChannelFactory<T>(bind, new EndpointAddress(endereco));
-            var repo = new Repositorio.Certificados();
-            CanalComunicação.Credentials.ClientCertificate.SetCertificate(StoreLocation.CurrentUser, StoreName.My, X509FindType.FindBySerialNumber, repo.SerialEscolhido);
+            var repo = new Configuracoes.ConfiguracoesCertificacao();
+            CanalComunicação.Credentials.ClientCertificate.SetCertificate(StoreLocation.CurrentUser, StoreName.My, X509FindType.FindBySerialNumber, repo.CertificadoEscolhido);
         }
 
         public void Dispose()

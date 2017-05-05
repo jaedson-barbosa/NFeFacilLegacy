@@ -1,16 +1,14 @@
-﻿using System.ServiceModel;
+﻿using System.Net.Http;
+using System.ServiceModel;
 using System.ServiceModel.Channels;
+using System.Text;
 using System.Threading.Tasks;
-using System.Xml;
 using System.Xml.Linq;
-using System.Xml.Schema;
-using System.Xml.Serialization;
 
 namespace BibliotecaCentral.WebService
 {
     internal struct GerenciadorGeral<Envio, Resposta>
     {
-        internal delegate Message EnvioSíncrono(Message envio);
         internal delegate Task<Message> EnvioAssícrono(Message envio);
 
         private DadosServico Caminhos { get; }
@@ -18,19 +16,6 @@ namespace BibliotecaCentral.WebService
         internal GerenciadorGeral(DadosServico caminhos)
         {
             Caminhos = caminhos;
-        }
-
-        internal Resposta Enviar(Envio envio, int UF, EnvioSíncrono Processar)
-        {
-            var xml = envio.ToXElement<Envio>(Caminhos.Servico);
-            var resultado = Processar(
-                ProcessarMensagem(xml.CreateReader(),
-                Caminhos.Servico,
-                Caminhos.Metodo,
-                UF));
-            var stringXml = resultado.GetReaderAtBodyContents().ReadOuterXml();
-            var xmlResultado = XElement.Parse(stringXml);
-            return xmlResultado.FromXElement<Resposta>();
         }
 
         internal async Task<Resposta> EnviarAsync(Envio envio, int UF, EnvioAssícrono ProcessarAsync)
@@ -49,29 +34,46 @@ namespace BibliotecaCentral.WebService
         private static Message ProcessarMensagem(object corpo, string servico, string metodo, int UF)
         {
             var envio = Message.CreateMessage(MessageVersion.Soap11, metodo, corpo);
-            var header = new MessageHeader<Cabeçalho>(new Cabeçalho(UF, "3.10"));
+            var header = new MessageHeader<Cabecalho>(new Cabecalho(UF, "3.10"));
             envio.Headers.Add(header.GetUntypedHeader("nfeCabecMsg", servico));
             return envio;
         }
+    }
 
-        private struct Cabeçalho : IXmlSerializable
+    internal struct RequisicaoSOAP<TipoCorpo>
+    {
+        Cabecalho cabecalho;
+        TipoCorpo corpo;
+        DadosServico conjunto;
+
+        internal RequisicaoSOAP(Cabecalho cabec, TipoCorpo corpo, DadosServico dados)
         {
-            private int cUF { get; set; }
-            private string versaoDados { get; set; }
+            cabecalho = cabec;
+            this.corpo = corpo;
+            conjunto = dados;
+        }
 
-            public Cabeçalho(int cUF, string versao)
-            {
-                this.cUF = cUF;
-                versaoDados = versao;
-            }
+        internal HttpContent ObterConteudoRequisicao()
+        {
+            string texto = string.Format(
+                Extensoes.ObterRecurso("RequisicaoSOAP"),
+                conjunto.Servico,
+                cabecalho.CodigoUF,
+                cabecalho.VersaoDados,
+                corpo.ToXElement<TipoCorpo>().ToString(SaveOptions.DisableFormatting));
+            return new StringContent(texto, Encoding.UTF8, "text/xml");
+        }
+    }
 
-            public XmlSchema GetSchema() => null;
-            public void ReadXml(XmlReader reader) { }
-            public void WriteXml(XmlWriter writer)
-            {
-                writer.WriteElementString(nameof(versaoDados), versaoDados);
-                writer.WriteElementString(nameof(cUF), cUF.ToString());
-            }
+    public struct Cabecalho
+    {
+        public int CodigoUF { get; set; }
+        public string VersaoDados { get; set; }
+
+        public Cabecalho(int cUF, string versao)
+        {
+            this.CodigoUF = cUF;
+            VersaoDados = versao;
         }
     }
 }

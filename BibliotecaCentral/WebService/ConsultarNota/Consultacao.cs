@@ -28,23 +28,14 @@ namespace BibliotecaCentral.WebService.ConsultarNota
             handler.ClientCertificates.Add(await repo.ObterCertificadoEscolhidoAsync());
             var proxy = new HttpClient(handler);
             proxy.DefaultRequestHeaders.Add("SOAPAction", conjunto.Metodo);
-            string texto =
-                "<?xml version=\"1.0\" encoding=\"utf-8\"?>" +
-                "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">" +
-                    "<soap:Header>" +
-                        $"<nfeCabecMsg xmlns=\"{conjunto.Servico}\">" +
-                            "<cUF>25</cUF>" +
-                            "<versaoDados>3.10</versaoDados>" +
-                        "</nfeCabecMsg>" +
-                    "</soap:Header>" +
-                    "<soap:Body>" +
-                        new Request
-                        {
-                            consSitNFe = new CorpoRequest(chaveNota)
-                        }.ToXElement<Request>().ToString(SaveOptions.DisableFormatting) +
-                    "</soap:Body>" +
-                "</soap:Envelope>";
-            var resposta = await proxy.PostAsync(conjunto.Endereco, new StringContent(texto, Encoding.UTF8, "text/xml"));
+            string texto = string.Format(Extensoes.ObterRecurso("RequisicaoSOAP"),
+                conjunto.Servico,
+                25, "3.10", new Request
+                {
+                    consSitNFe = new CorpoRequest(chaveNota)
+                }.ToXElement<Request>().ToString(SaveOptions.DisableFormatting));
+            var resposta = await proxy.PostAsync(conjunto.Endereco, new StringContent(Extensoes.ObterRecurso("RequisicaoSOAP"), Encoding.UTF8, "text/xml"));
+            var textoRetorno = await resposta.Content.ReadAsStringAsync();
             return ObterConteudoCorpo(XElement.Load(await resposta.Content.ReadAsStreamAsync())).FromXElement<Response>();
         }
 

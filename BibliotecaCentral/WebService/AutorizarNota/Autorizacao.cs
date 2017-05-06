@@ -23,10 +23,10 @@ namespace BibliotecaCentral.WebService.AutorizarNota
             UF = Estados.Buscar(codigo);
         }
 
-        public async Task<CorpoResponse> AutorizarAsync(bool teste, params NFe[] xmls)
+        public async Task<RetEnviNFe> AutorizarAsync(bool teste, params NFe[] xmls)
         {
-            return await new GerenciadorGeral<CorpoRequest, CorpoResponse>(UF, Operacoes.Autorizar, teste)
-                .EnviarAsync(new CorpoRequest(xmls, xmls[0].Informações.identificação.Numero));
+            return await new GerenciadorGeral<EnviNFe, RetEnviNFe>(UF, Operacoes.Autorizar, teste)
+                .EnviarAsync(new EnviNFe(xmls, xmls[0].Informações.identificação.Numero));
         }
     }
 }

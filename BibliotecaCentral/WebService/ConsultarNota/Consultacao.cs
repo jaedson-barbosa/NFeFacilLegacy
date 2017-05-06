@@ -22,10 +22,10 @@ namespace BibliotecaCentral.WebService.ConsultarNota
             UF = Estados.Buscar(codigo);
         }
 
-        public async Task<CorpoResponse> ConsultarAsync(bool teste, string chaveNota)
+        public async Task<RetConsSitNFe> ConsultarAsync(bool teste, string chaveNota)
         {
-            return await new GerenciadorGeral<CorpoRequest, CorpoResponse>(UF, Operacoes.Consultar, teste)
-                .EnviarAsync(new CorpoRequest(chaveNota));
+            return await new GerenciadorGeral<ConsSitNFe, RetConsSitNFe>(UF, Operacoes.Consultar, teste)
+                .EnviarAsync(new ConsSitNFe(chaveNota));
         }
     }
 }

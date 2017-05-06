@@ -5,18 +5,18 @@ namespace BibliotecaCentral.WebService.RespostaAutorizarNota
 {
     public struct RespostaAutorizacao
     {
-        AutorizarNota.CorpoResponse Recibo { get; }
+        AutorizarNota.RetEnviNFe Recibo { get; }
         Estado UF => Estados.Buscar(Recibo.cUF);
 
-        public RespostaAutorizacao(AutorizarNota.CorpoResponse recibo)
+        public RespostaAutorizacao(AutorizarNota.RetEnviNFe recibo)
         {
             Recibo = recibo;
         }
 
-        public async Task<CorpoResponse> ObterRespostaAutorizacao(bool teste)
+        public async Task<RetConsReciNFe> ObterRespostaAutorizacao(bool teste)
         {
-            return await new GerenciadorGeral<CorpoRequest, CorpoResponse>(UF, Operacoes.RespostaAutorizar, teste)
-                .EnviarAsync(new CorpoRequest(Recibo.tpAmb, Recibo.infRec.nRec));
+            return await new GerenciadorGeral<ConsReciNFe, RetConsReciNFe>(UF, Operacoes.RespostaAutorizar, teste)
+                .EnviarAsync(new ConsReciNFe(Recibo.tpAmb, Recibo.infRec.nRec));
         }
     }
 }

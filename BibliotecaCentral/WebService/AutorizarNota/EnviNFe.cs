@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 namespace BibliotecaCentral.WebService.AutorizarNota
 {
     [XmlRoot("enviNFe", Namespace = "http://www.portalfiscal.inf.br/nfe")]
-    public struct CorpoRequest
+    public struct EnviNFe
     {
         [XmlAttribute]
         public string versao { get; set; }
@@ -13,7 +13,7 @@ namespace BibliotecaCentral.WebService.AutorizarNota
         [XmlElement(ElementName = nameof(NFe), Namespace = "http://www.portalfiscal.inf.br/nfe", IsNullable = false)]
         public NFe[] NFe { get; set; }
 
-        public CorpoRequest(NFe[] xmls, long numeroPrimeiraNota)
+        public EnviNFe(NFe[] xmls, long numeroPrimeiraNota)
         {
             versao = "3.10";
             idLote = numeroPrimeiraNota;

@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 namespace BibliotecaCentral.WebService.RespostaAutorizarNota
 {
     [XmlRoot("retConsReciNFe", Namespace = "http://www.portalfiscal.inf.br/nfe")]
-    public struct CorpoResponse
+    public struct RetConsReciNFe
     {
         [XmlAttribute]
         public string versao { get; set; }

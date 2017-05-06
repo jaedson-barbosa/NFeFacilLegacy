@@ -39,7 +39,7 @@ namespace NFeFacil.DANFE
             }
             finally
             {
-                UI.DefinirDimensoesView(original);
+                UI.DefinirDimensoesView(original.largura, original.altura);
             }
         }
 

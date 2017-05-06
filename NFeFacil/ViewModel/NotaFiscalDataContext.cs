@@ -352,9 +352,7 @@ namespace NFeFacil.ViewModel
             {
                 if (string.IsNullOrEmpty(NotaSalva.Informações.identificação.DataHoraSaídaEntrada))
                 {
-                    var agora = DateTime.Now;
-                    NotaSalva.Informações.identificação.DataHoraSaídaEntrada = agora.ToStringPersonalizado();
-                    return agora;
+                    return DataEmissao;
                 }
                 return DateTimeOffset.Parse(NotaSalva.Informações.identificação.DataHoraSaídaEntrada);
             }

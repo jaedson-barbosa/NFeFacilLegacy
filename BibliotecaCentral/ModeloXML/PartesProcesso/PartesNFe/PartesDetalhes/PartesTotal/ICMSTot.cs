@@ -55,7 +55,6 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Pa
                             var alterar = new ConsultarImpostos(xmlImposto);
                             vCOFINS = alterar.AgregarValor(nameof(vCOFINS), vCOFINS);
                         }
-                        else { }
                     }
                 }
                 if (prod.InclusãoTotal == 1 && !temISSQN)
@@ -71,7 +70,6 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Pa
                 {
                     vProdISSQN += prod.ValorTotal;
                 }
-                else { }
             }
         }
 

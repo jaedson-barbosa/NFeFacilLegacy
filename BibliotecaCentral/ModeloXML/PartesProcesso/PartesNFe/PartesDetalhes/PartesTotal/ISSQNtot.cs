@@ -40,7 +40,6 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Pa
                             var alterar = new ConsultarImpostos(xmlImposto);
                             vCOFINS = alterar.AgregarValor(nameof(vCOFINS), vCOFINS);
                         }
-                        else { }
                     }
                 }
                 vServ += prod.ValorTotal;

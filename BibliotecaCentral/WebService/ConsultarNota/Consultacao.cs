@@ -24,8 +24,7 @@ namespace BibliotecaCentral.WebService.ConsultarNota
 
         public async Task<Response> ConsultarAsync(bool teste, string chaveNota)
         {
-            var conjunto = new EnderecosConexao(UF.Sigla).ObterConjuntoConexao(teste, Operacoes.Consultar);
-            return await new GerenciadorGeral<Request, Response>(UF, conjunto)
+            return await new GerenciadorGeral<Request, Response>(UF, Operacoes.Consultar, teste)
                 .EnviarAsync(new Request
                 {
                     consSitNFe = new CorpoRequest(chaveNota)

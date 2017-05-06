@@ -22,6 +22,7 @@ using System.Threading.Tasks;
 using BibliotecaCentral.WebService.AutorizarNota;
 using BibliotecaCentral.WebService.RespostaAutorizarNota;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesIdentificacao;
+using BibliotecaCentral.WebService;
 
 namespace NFeFacil.ViewModel
 {

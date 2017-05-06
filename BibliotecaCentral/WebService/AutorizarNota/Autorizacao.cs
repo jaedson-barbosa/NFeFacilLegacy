@@ -25,8 +25,7 @@ namespace BibliotecaCentral.WebService.AutorizarNota
 
         public async Task<Response> AutorizarAsync(bool teste, params NFe[] xmls)
         {
-            var conjunto = new EnderecosConexao(UF.Sigla).ObterConjuntoConexao(teste, Operacoes.Autorizar);
-            return await new GerenciadorGeral<Request, Response>(UF, conjunto)
+            return await new GerenciadorGeral<Request, Response>(UF, Operacoes.Autorizar, teste)
                 .EnviarAsync(new Request
                 {
                     enviNFe = new CorpoRequest(xmls, xmls[0].Informações.identificação.Numero)

@@ -12,7 +12,7 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
         [UriFormat("/Configuracoes/GET/{senha}")]
         public IGetResponse Get(int senha)
         {
-            return SupervisionarOperacao.Iniciar(() =>
+            return SupervisorOperacao.Supervisionar(() =>
             {
                 if (senha != SenhaPermanente)
                     throw new SenhaErrada(senha);

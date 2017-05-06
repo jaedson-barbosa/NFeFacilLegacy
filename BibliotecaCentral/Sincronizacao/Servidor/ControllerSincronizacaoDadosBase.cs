@@ -12,7 +12,7 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
         [UriFormat("/Dados/POST/{senha}")]
         public IPostResponse ClienteServidorAsync(int senha, [FromContent] DadosBase pacote)
         {
-            return SupervisionarOperacao.Iniciar(() =>
+            return SupervisorOperacao.Supervisionar(() =>
             {
                 if (senha != ConfiguracoesSincronizacao.SenhaPermanente)
                     throw new SenhaErrada(senha);
@@ -24,7 +24,7 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
         [UriFormat("/Dados/GET/{senha}")]
         public IGetResponse ServidorCliente(int senha)
         {
-            return SupervisionarOperacao.Iniciar(() =>
+            return SupervisorOperacao.Supervisionar(() =>
             {
                 if (senha != ConfiguracoesSincronizacao.SenhaPermanente)
                     throw new SenhaErrada(senha);

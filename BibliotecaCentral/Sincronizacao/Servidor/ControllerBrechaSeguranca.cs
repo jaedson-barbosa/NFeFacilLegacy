@@ -13,7 +13,7 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
         [UriFormat("/BrechaSeguranca/GET/{senha}")]
         public IGetResponse Get(int senha)
         {
-            return SupervisionarOperacao.Iniciar(() =>
+            return SupervisorOperacao.Supervisionar(() =>
             {
                 if ((bool)CoreApplication.Properties["BrechaAberta"])
                 {

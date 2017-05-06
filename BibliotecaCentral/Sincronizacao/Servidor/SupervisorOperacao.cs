@@ -2,9 +2,9 @@
 
 namespace BibliotecaCentral.Sincronizacao.Servidor
 {
-    internal static class SupervisionarOperacao
+    internal static class SupervisorOperacao
     {
-        public static Retorno Iniciar<Retorno>(Func<Retorno> operacaoSupervisionada, DateTime momentoRequisicao, TipoDado tipo)
+        public static Retorno Supervisionar<Retorno>(Func<Retorno> operacao, DateTime momentoRequisicao, TipoDado tipo)
         {
             using (var db = new AplicativoContext())
             {
@@ -15,7 +15,7 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
                 };
                 try
                 {
-                    var resultado = operacaoSupervisionada();
+                    var resultado = operacao();
                     item.SucessoSolicitacao = true;
                     db.Add(item);
                     db.SaveChanges();

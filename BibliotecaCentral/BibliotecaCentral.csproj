@@ -272,7 +272,7 @@
     <Compile Include="Sincronizacao\Servidor\ControllerSincronizacaoDadosBase.cs" />
     <Compile Include="Sincronizacao\Servidor\ControllerSincronizacaoNotas.cs" />
     <Compile Include="Sincronizacao\Servidor\SenhaErrada.cs" />
-    <Compile Include="Sincronizacao\Servidor\SupervisionarOperacao.cs" />
+    <Compile Include="Sincronizacao\Servidor\SupervisorOperacao.cs" />
     <Compile Include="Validacao\ConjuntoAnalise.cs" />
     <Compile Include="Validacao\IValidavel.cs" />
     <Compile Include="Validacao\ValidadorDestinatario.cs" />

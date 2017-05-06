@@ -13,7 +13,7 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
         [UriFormat("/Notas/POST/{senha}")]
         public async Task<IPostResponse> ClienteServidor(int senha, [FromContent] NotasFiscais pacote)
         {
-            return await SupervisionarOperacao.Iniciar(async () =>
+            return await SupervisorOperacao.Supervisionar(async () =>
             {
                 if (senha != ConfiguracoesSincronizacao.SenhaPermanente)
                     throw new SenhaErrada(senha);
@@ -25,7 +25,7 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
         [UriFormat("/Notas/GET/{senha}")]
         public async Task<IGetResponse> ServidorCliente(int senha)
         {
-            return await SupervisionarOperacao.Iniciar(async () =>
+            return await SupervisorOperacao.Supervisionar(async () =>
             {
                 if (senha != ConfiguracoesSincronizacao.SenhaPermanente)
                     throw new SenhaErrada(senha);

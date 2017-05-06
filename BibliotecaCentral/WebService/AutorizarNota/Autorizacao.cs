@@ -25,11 +25,8 @@ namespace BibliotecaCentral.WebService.AutorizarNota
 
         public async Task<Response> AutorizarAsync(bool teste, params NFe[] xmls)
         {
-            return await new GerenciadorGeral<Request, Response>(UF, Operacoes.Autorizar, teste)
-                .EnviarAsync(new Request
-                {
-                    enviNFe = new CorpoRequest(xmls, xmls[0].Informações.identificação.Numero)
-                });
+            return await new GerenciadorGeral<CorpoRequest, Response>(UF, Operacoes.Autorizar, teste)
+                .EnviarAsync(new CorpoRequest(xmls, xmls[0].Informações.identificação.Numero));
         }
     }
 }

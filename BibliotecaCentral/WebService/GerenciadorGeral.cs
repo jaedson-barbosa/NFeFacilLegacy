@@ -13,7 +13,7 @@ namespace BibliotecaCentral.WebService
 
         public GerenciadorGeral(Estado uf, Operacoes operacao, bool teste)
         {
-            enderecos = new EnderecosConexao(uf.Sigla).ObterConjuntoConexao(teste, Operacoes.Autorizar);
+            enderecos = new EnderecosConexao(uf.Sigla).ObterConjuntoConexao(teste, operacao);
             cabecalho = (uf.Codigo, "3.10");
         }
 

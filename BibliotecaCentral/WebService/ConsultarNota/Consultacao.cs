@@ -24,11 +24,8 @@ namespace BibliotecaCentral.WebService.ConsultarNota
 
         public async Task<Response> ConsultarAsync(bool teste, string chaveNota)
         {
-            return await new GerenciadorGeral<Request, Response>(UF, Operacoes.Consultar, teste)
-                .EnviarAsync(new Request
-                {
-                    consSitNFe = new CorpoRequest(chaveNota)
-                });
+            return await new GerenciadorGeral<CorpoRequest, Response>(UF, Operacoes.Consultar, teste)
+                .EnviarAsync(new CorpoRequest(chaveNota));
         }
     }
 }

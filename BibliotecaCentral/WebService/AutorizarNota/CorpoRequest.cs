@@ -3,6 +3,7 @@ using System.Xml.Serialization;
 
 namespace BibliotecaCentral.WebService.AutorizarNota
 {
+    [XmlRoot("enviNFe", Namespace = "http://www.portalfiscal.inf.br/nfe")]
     public struct CorpoRequest
     {
         [XmlAttribute]

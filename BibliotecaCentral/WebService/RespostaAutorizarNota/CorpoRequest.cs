@@ -2,6 +2,7 @@
 
 namespace BibliotecaCentral.WebService.RespostaAutorizarNota
 {
+    [XmlRoot("consReciNFe", Namespace = "http://www.portalfiscal.inf.br/nfe")]
     public struct CorpoRequest
     {
         [XmlAttribute]

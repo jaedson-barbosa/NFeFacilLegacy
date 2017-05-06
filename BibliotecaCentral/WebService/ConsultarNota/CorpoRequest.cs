@@ -2,6 +2,7 @@
 
 namespace BibliotecaCentral.WebService.ConsultarNota
 {
+    [XmlRoot("consSitNFe", Namespace = "http://www.portalfiscal.inf.br/nfe")]
     public struct CorpoRequest
     {
         [XmlAttribute]

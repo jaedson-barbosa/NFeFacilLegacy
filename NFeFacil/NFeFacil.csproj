@@ -252,7 +252,6 @@
     <Compile Include="View\Configuracoes.xaml.cs">
       <DependentUpon>Configuracoes.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Controles\ArcHelper.cs" />
     <Compile Include="View\Controles\CarregamentoCircular.xaml.cs">
       <DependentUpon>CarregamentoCircular.xaml</DependentUpon>
     </Compile>

@@ -107,7 +107,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Certificacao\AssinaNFe.cs" />
-    <Compile Include="Certificacao\AssinaXML.cs" />
     <Compile Include="Certificacao\ConfiguracoesCertificacao.cs" />
     <Compile Include="Sincronizacao\ConfiguracoesSincronizacao.cs" />
     <Compile Include="Sincronizacao\TipoAppSincronizacao.cs" />

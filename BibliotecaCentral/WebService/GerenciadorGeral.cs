@@ -17,6 +17,20 @@ namespace BibliotecaCentral.WebService
             cabecalho = (uf.Codigo, "3.10");
         }
 
+        public GerenciadorGeral(string siglaOuNome, Operacoes operacao, bool teste)
+        {
+            var uf = Estados.Buscar(siglaOuNome);
+            enderecos = new EnderecosConexao(uf.Sigla).ObterConjuntoConexao(teste, operacao);
+            cabecalho = (uf.Codigo, "3.10");
+        }
+
+        public GerenciadorGeral(ushort codigo, Operacoes operacao, bool teste)
+        {
+            var uf = Estados.Buscar(codigo);
+            enderecos = new EnderecosConexao(uf.Sigla).ObterConjuntoConexao(teste, operacao);
+            cabecalho = (uf.Codigo, "3.10");
+        }
+
         public async Task<Resposta> EnviarAsync(Envio corpo)
         {
             var repo = new Certificacao.Certificados();

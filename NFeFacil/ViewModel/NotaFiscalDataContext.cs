@@ -279,10 +279,12 @@ namespace NFeFacil.ViewModel
 
         private async void Transmitir()
         {
-            var resultadoTransmissao = await new Autorizacao(NotaSalva.Informações.emitente.endereco.SiglaUF).AutorizarAsync(AmbienteTestes, NotaSalva);
+            var resultadoTransmissao = await new GerenciadorGeral<EnviNFe, RetEnviNFe>(NotaSalva.Informações.emitente.endereco.SiglaUF, Operacoes.Autorizar, AmbienteTestes)
+                .EnviarAsync(new EnviNFe(NotaSalva.Informações.identificação.Numero, NotaSalva));
             if (resultadoTransmissao.cStat == 103)
             {
-                var resultadoResposta = await new RespostaAutorizacao(resultadoTransmissao).ObterRespostaAutorizacao(AmbienteTestes);
+                var resultadoResposta = await new GerenciadorGeral<ConsReciNFe, RetConsReciNFe>(resultadoTransmissao.cUF, Operacoes.RespostaAutorizar, AmbienteTestes)
+                    .EnviarAsync(new ConsReciNFe(resultadoTransmissao.tpAmb, resultadoTransmissao.infRec.nRec));
                 if (resultadoResposta.protNFe.InfProt.cStat == 100)
                 {
                     NotaEmitida = new Processo()

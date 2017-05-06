@@ -13,7 +13,7 @@ namespace BibliotecaCentral.WebService.AutorizarNota
         [XmlElement(ElementName = nameof(NFe), Namespace = "http://www.portalfiscal.inf.br/nfe", IsNullable = false)]
         public NFe[] NFe { get; set; }
 
-        public EnviNFe(NFe[] xmls, long numeroPrimeiraNota)
+        public EnviNFe(long numeroPrimeiraNota, params NFe[] xmls)
         {
             versao = "3.10";
             idLote = numeroPrimeiraNota;

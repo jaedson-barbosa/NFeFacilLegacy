@@ -1,5 +1,6 @@
 ﻿using BibliotecaCentral;
 using BibliotecaCentral.IBGE;
+using BibliotecaCentral.WebService;
 using BibliotecaCentral.WebService.ConsultarNota;
 using System;
 using System.Threading.Tasks;
@@ -30,7 +31,8 @@ namespace NFeFacil.View
             var codigo = txtCodigo.Text;
             try
             {
-                var resp = await new Consultacao((Estado)cmbUF.SelectedItem).ConsultarAsync(false, codigo);
+                var resp = await new GerenciadorGeral<ConsSitNFe, RetConsSitNFe>((Estado)cmbUF.SelectedItem, Operacoes.Consultar, false)
+                    .EnviarAsync(new ConsSitNFe(codigo));
                 DataContext = resp;
             }
             catch (Exception erro)

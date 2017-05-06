@@ -35,7 +35,8 @@ namespace BibliotecaCentral.WebService
 
             XNode ObterConteudoCorpo(XElement soap)
             {
-                return soap.Element(XName.Get("Body", "http://schemas.xmlsoap.org/soap/envelope/")).FirstNode;
+                var casca = soap.Element(XName.Get("Body", "http://schemas.xmlsoap.org/soap/envelope/")).FirstNode as XElement;
+                return casca.FirstNode;
             }
         }
 

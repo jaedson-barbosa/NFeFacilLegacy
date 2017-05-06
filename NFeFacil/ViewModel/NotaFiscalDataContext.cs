@@ -280,28 +280,28 @@ namespace NFeFacil.ViewModel
         private async void Transmitir()
         {
             var resultadoTransmissao = await new Autorizacao(NotaSalva.Informações.emitente.endereco.SiglaUF).AutorizarAsync(AmbienteTestes, NotaSalva);
-            if (resultadoTransmissao.retEnviNFe.cStat == 103)
+            if (resultadoTransmissao.cStat == 103)
             {
-                var resultadoResposta = await new RespostaAutorizacao(resultadoTransmissao.retEnviNFe).ObterRespostaAutorizacao(AmbienteTestes);
-                if (resultadoResposta.retConsReciNFe.protNFe.InfProt.cStat == 100)
+                var resultadoResposta = await new RespostaAutorizacao(resultadoTransmissao).ObterRespostaAutorizacao(AmbienteTestes);
+                if (resultadoResposta.protNFe.InfProt.cStat == 100)
                 {
                     NotaEmitida = new Processo()
                     {
                         NFe = NotaSalva,
-                        ProtNFe = resultadoResposta.retConsReciNFe.protNFe
+                        ProtNFe = resultadoResposta.protNFe
                     };
-                    Log.Escrever(TitulosComuns.Sucesso, resultadoResposta.retConsReciNFe.xMotivo);
+                    Log.Escrever(TitulosComuns.Sucesso, resultadoResposta.xMotivo);
                     StatusAtual = StatusNFe.Emitido;
                     await SalvarAsync();
                 }
                 else
                 {
-                    Log.Escrever(TitulosComuns.ErroSimples, $"A nota fiscal foi processada, mas recusada. Mensagem de retorno: \n{resultadoResposta.retConsReciNFe.protNFe.InfProt.xMotivo}");
+                    Log.Escrever(TitulosComuns.ErroSimples, $"A nota fiscal foi processada, mas recusada. Mensagem de retorno: \n{resultadoResposta.protNFe.InfProt.xMotivo}");
                 }
             }
             else
             {
-                Log.Escrever(TitulosComuns.ErroSimples, $"A NFe não foi aceita. Mensagem de retorno: \n{resultadoTransmissao.retEnviNFe.xMotivo}\nPor favor, exporte esta nota fiscal e envie o XML gerado para o desenvolvedor do aplicativo para que o erro possa ser corrigido.");
+                Log.Escrever(TitulosComuns.ErroSimples, $"A NFe não foi aceita. Mensagem de retorno: \n{resultadoTransmissao.xMotivo}\nPor favor, exporte esta nota fiscal e envie o XML gerado para o desenvolvedor do aplicativo para que o erro possa ser corrigido.");
             }
         }
 

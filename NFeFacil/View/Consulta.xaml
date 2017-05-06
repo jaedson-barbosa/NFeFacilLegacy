@@ -92,18 +92,18 @@
                     BorderBrush="Black"
                     Margin="0" />
             <TextBox IsReadOnly="True"
-                     Text="{Binding retConsSitNFe.cStat, Mode=OneWay}"
+                     Text="{Binding cStat, Mode=OneWay}"
                      Grid.Row="2"
                      Header="Código do status"
                      Margin="0,0,2,0" />
             <TextBox IsReadOnly="True"
-                     Text="{Binding retConsSitNFe.cUF, Mode=OneWay}"
+                     Text="{Binding cUF, Mode=OneWay}"
                      Grid.Row="2"
                      Grid.Column="1"
                      Header="UF que atendeu"
                      Margin="2,0,0,0" />
             <TextBox IsReadOnly="True"
-                     Text="{Binding retConsSitNFe.xMotivo, Mode=OneWay}"
+                     Text="{Binding xMotivo, Mode=OneWay}"
                      Grid.Row="3"
                      Grid.ColumnSpan="2"
                      Header="Descrição do status"

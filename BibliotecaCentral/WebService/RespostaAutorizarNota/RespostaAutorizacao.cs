@@ -13,9 +13,9 @@ namespace BibliotecaCentral.WebService.RespostaAutorizarNota
             Recibo = recibo;
         }
 
-        public async Task<Response> ObterRespostaAutorizacao(bool teste)
+        public async Task<CorpoResponse> ObterRespostaAutorizacao(bool teste)
         {
-            return await new GerenciadorGeral<CorpoRequest, Response>(UF, Operacoes.RespostaAutorizar, teste)
+            return await new GerenciadorGeral<CorpoRequest, CorpoResponse>(UF, Operacoes.RespostaAutorizar, teste)
                 .EnviarAsync(new CorpoRequest(Recibo.tpAmb, Recibo.infRec.nRec));
         }
     }

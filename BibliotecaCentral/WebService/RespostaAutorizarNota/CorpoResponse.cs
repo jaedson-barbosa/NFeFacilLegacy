@@ -3,14 +3,7 @@ using System.Xml.Serialization;
 
 namespace BibliotecaCentral.WebService.RespostaAutorizarNota
 {
-    /*    <tpAmb>1</tpAmb>
-    <verAplic>SVRS201601160932</verAplic>
-    <nRec>253002481313326</nRec>
-    <cStat>517</cStat>
-    <xMotivo>Rejeicao: Falha no schema XML – inexiste atributo versao na tag raiz da mensagem</xMotivo>
-    <cUF>25</cUF>
-    <dhRecbto>2017-03-12T15:28:46-03:00</dhRecbto>
-*/
+    [XmlRoot("retConsReciNFe", Namespace = "http://www.portalfiscal.inf.br/nfe")]
     public struct CorpoResponse
     {
         [XmlAttribute]

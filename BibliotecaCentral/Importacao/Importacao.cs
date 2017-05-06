@@ -37,6 +37,6 @@ namespace BibliotecaCentral.Importacao
             return importar;
         }
 
-        public abstract Task<RelatorioImportacao> ImportarAsync();
+        public abstract Task<List<Exception>> ImportarAsync();
     }
 }

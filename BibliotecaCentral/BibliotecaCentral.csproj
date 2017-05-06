@@ -122,8 +122,6 @@
     <Compile Include="Importacao\ImportarCertificado.cs" />
     <Compile Include="Importacao\ImportarDadoBase.cs" />
     <Compile Include="Importacao\ImportarNotaFiscal.cs" />
-    <Compile Include="Importacao\RelatorioImportacao.cs" />
-    <Compile Include="Importacao\ResumoRelatorioImportacao.cs" />
     <Compile Include="Importacao\TiposDadoBasico.cs" />
     <Compile Include="Importacao\XmlNaoReconhecido.cs" />
     <Compile Include="InicioGeral.cs" />

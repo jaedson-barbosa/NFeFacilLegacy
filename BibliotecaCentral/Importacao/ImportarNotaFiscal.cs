@@ -12,10 +12,10 @@ namespace BibliotecaCentral.Importacao
     {
         public ImportarNotaFiscal() : base(".xml") { }
 
-        public override async Task<RelatorioImportacao> ImportarAsync()
+        public override async Task<List<Exception>> ImportarAsync()
         {
             var arquivos = await ImportarArquivos();
-            var retorno = new RelatorioImportacao();
+            var retorno = new List<Exception>();
             Dictionary<NFeDI, XElement> conjuntos = new Dictionary<NFeDI, XElement>();
             for (int i = 0; i < arquivos.Count; i++)
             {
@@ -24,7 +24,7 @@ namespace BibliotecaCentral.Importacao
                     var xmlAtual = XElement.Load(stream);
                     if (xmlAtual.Name.LocalName != "nfeProc" && xmlAtual.Name.LocalName != "NFe")
                     {
-                        retorno.Erros.Add(new XmlNaoReconhecido(arquivos[i].Name, xmlAtual.Name.LocalName, "nfeProc", "NFe"));
+                        retorno.Add(new XmlNaoReconhecido(arquivos[i].Name, xmlAtual.Name.LocalName, "nfeProc", "NFe"));
                     }
                     else
                     {

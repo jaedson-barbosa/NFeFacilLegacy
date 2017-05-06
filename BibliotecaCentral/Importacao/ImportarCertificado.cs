@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Pickers;
@@ -11,9 +12,9 @@ namespace BibliotecaCentral.Importacao
 
         public ImportarCertificado() : base(".pfx") { }
 
-        public override async Task<RelatorioImportacao> ImportarAsync()
+        public override async Task<List<Exception>> ImportarAsync()
         {
-            var retorno = new RelatorioImportacao();
+            var retorno = new List<Exception>();
             FileOpenPicker abrir = new FileOpenPicker
             {
                 SuggestedStartLocation = PickerLocationId.Downloads,
@@ -22,7 +23,7 @@ namespace BibliotecaCentral.Importacao
             var arq = await abrir.PickSingleFileAsync();
             if (arq == null)
             {
-                retorno.Erros.Add(new Exception("Nenhum arquivo foi selecionado."));
+                retorno.Add(new Exception("Nenhum arquivo foi selecionado."));
             }
             else
             {

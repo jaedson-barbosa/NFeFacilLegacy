@@ -172,7 +172,7 @@ namespace NFeFacil.ViewModel
         }
 
         public ICommand AdicionarProdutoCommand => new Comando(AdicionarProduto, true);
-        public ICommand RemoverProdutoCommand => new Comando<DetalhesProdutos, ObterDataContext<DetalhesProdutos>>(RemoverProduto);
+        public ICommand RemoverProdutoCommand => new Comando<DetalhesProdutos>(RemoverProduto);
 
         private async void AdicionarProduto()
         {
@@ -389,7 +389,7 @@ namespace NFeFacil.ViewModel
 
         public string TempNFeReferenciada { get; set; }
         public ICommand AdicionarNFeReferenciadaCommand => new Comando(AdicionarNFeReferenciada, true);
-        public ICommand RemoverNFeReferenciadaCommand => new Comando<DocumentoFiscalReferenciado, ObterDataContext<DocumentoFiscalReferenciado>>(RemoverNFeReferenciada);
+        public ICommand RemoverNFeReferenciadaCommand => new Comando<DocumentoFiscalReferenciado>(RemoverNFeReferenciada);
 
         private void AdicionarNFeReferenciada()
         {
@@ -453,9 +453,9 @@ namespace NFeFacil.ViewModel
         }
 
         public ICommand AdicionarReboqueCommand => new Comando(AdicionarReboque, true);
-        public ICommand RemoverReboqueCommand => new Comando<Reboque, ObterDataContext<Reboque>>(RemoverReboque);
+        public ICommand RemoverReboqueCommand => new Comando<Reboque>(RemoverReboque);
         public ICommand AdicionarVolumeCommand => new Comando(AdicionarVolume, true);
-        public ICommand RemoverVolumeCommand => new Comando<Volume, ObterDataContext<Volume>>(RemoverVolume);
+        public ICommand RemoverVolumeCommand => new Comando<Volume>(RemoverVolume);
 
         private async void AdicionarReboque()
         {
@@ -496,7 +496,7 @@ namespace NFeFacil.ViewModel
         #region Cobrança
 
         public ICommand AdicionarDuplicataCommand => new Comando(AdicionarDuplicata, true);
-        public ICommand RemoverDuplicataCommand => new Comando<Duplicata, ObterDataContext<Duplicata>>(RemoverDuplicata);
+        public ICommand RemoverDuplicataCommand => new Comando<Duplicata>(RemoverDuplicata);
 
         private async void AdicionarDuplicata()
         {
@@ -520,9 +520,9 @@ namespace NFeFacil.ViewModel
         #region Cana
 
         public ICommand AdicionarFornecimentoCommand => new Comando(AdicionarFornecimento, true);
-        public ICommand RemoverFornecimentoCommand => new Comando<FornecimentoDiario, ObterDataContext<FornecimentoDiario>>(RemoverFornecimento);
+        public ICommand RemoverFornecimentoCommand => new Comando<FornecimentoDiario>(RemoverFornecimento);
         public ICommand AdicionarDeducaoCommand => new Comando(AdicionarDeducao, true);
-        public ICommand RemoverDeducaoCommand => new Comando<Deducoes, ObterDataContext<Deducoes>>(RemoverDeducao);
+        public ICommand RemoverDeducaoCommand => new Comando<Deducoes>(RemoverDeducao);
 
         public async void AdicionarFornecimento()
         {
@@ -563,9 +563,9 @@ namespace NFeFacil.ViewModel
         #region InformacoesAdicionais
 
         public ICommand AdicionarObsContribuinteCommand => new Comando(AdicionarObsContribuinte, true);
-        public ICommand RemoverObsContribuinteCommand => new Comando<Observacao, ObterDataContext<Observacao>>(RemoverObsContribuinte);
+        public ICommand RemoverObsContribuinteCommand => new Comando<Observacao>(RemoverObsContribuinte);
         public ICommand AdicionarProcReferenciadoCommand => new Comando(AdicionarProcReferenciado, true);
-        public ICommand RemoverProcReferenciadoCommand => new Comando<ProcessoReferenciado, ObterDataContext<ProcessoReferenciado>>(RemoverProcReferenciado);
+        public ICommand RemoverProcReferenciadoCommand => new Comando<ProcessoReferenciado>(RemoverProcReferenciado);
 
         private async void AdicionarObsContribuinte()
         {

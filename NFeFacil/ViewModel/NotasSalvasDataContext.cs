@@ -22,8 +22,8 @@ namespace NFeFacil.ViewModel
         public bool ExibirEditar => (ItensSelecionados?.Count ?? 0) <= 1;
         public bool ExibirRemoverSelecionados => (ItensSelecionados?.Count ?? 0) > 1;
 
-        public ICommand EditarCommand { get; } = new Comando<NFeDI, ObterDataContext<NFeDI>>(Editar);
-        public ICommand RemoverCommand => new Comando<NFeDI, ObterDataContext<NFeDI>>(Remover);
+        public ICommand EditarCommand { get; } = new Comando<NFeDI>(Editar);
+        public ICommand RemoverCommand => new Comando<NFeDI>(Remover);
         public ICommand RemoverSelecionadosCommand => new Comando(RemoverSelecionados, true);
 
         public NotasSalvasDataContext(ref ListView lista)

@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace BibliotecaCentral.WebService.RespostaAutorizarNota
+namespace BibliotecaCentral.WebService.Pacotes
 {
     [XmlRoot("consReciNFe", Namespace = "http://www.portalfiscal.inf.br/nfe")]
     public struct ConsReciNFe

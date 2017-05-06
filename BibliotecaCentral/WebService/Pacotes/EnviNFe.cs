@@ -1,7 +1,7 @@
 ﻿using BibliotecaCentral.ModeloXML.PartesProcesso;
 using System.Xml.Serialization;
 
-namespace BibliotecaCentral.WebService.AutorizarNota
+namespace BibliotecaCentral.WebService.Pacotes
 {
     [XmlRoot("enviNFe", Namespace = "http://www.portalfiscal.inf.br/nfe")]
     public struct EnviNFe

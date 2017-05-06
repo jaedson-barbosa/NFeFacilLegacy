@@ -19,8 +19,7 @@ using BibliotecaCentral;
 using BibliotecaCentral.Repositorio;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTotal;
 using System.Threading.Tasks;
-using BibliotecaCentral.WebService.AutorizarNota;
-using BibliotecaCentral.WebService.RespostaAutorizarNota;
+using BibliotecaCentral.WebService.Pacotes;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesIdentificacao;
 using BibliotecaCentral.WebService;
 

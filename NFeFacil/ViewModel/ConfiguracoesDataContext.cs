@@ -18,7 +18,6 @@ using System.Collections.Generic;
 using static BibliotecaCentral.Sincronizacao.ConfiguracoesSincronizacao;
 using BibliotecaCentral.Importacao;
 using System.Text;
-using BibliotecaCentral.Repositorio;
 using System.Security.Cryptography.X509Certificates;
 using System.Collections.ObjectModel;
 using BibliotecaCentral;

@@ -10,7 +10,6 @@ using Windows.UI.Xaml.Media;
 using Newtonsoft.Json;
 using BibliotecaCentral.Log;
 using BibliotecaCentral.Certificacao;
-using BibliotecaCentral.Sincronizacao.Cliente;
 using BibliotecaCentral.Sincronizacao;
 using BibliotecaCentral.Sincronizacao.Pacotes;
 using NFeFacil.View;
@@ -226,7 +225,7 @@ namespace NFeFacil.ViewModel
         private async Task EstabelecerConexaoAsync(InfoEstabelecerConexao info)
         {
             IPServidor = info.IP;
-            var cliente = new ClienteBrechaSeguranca(LogPopUp);
+            var cliente = new GerenciadorCliente(LogPopUp);
             await cliente.EstabelecerConexao(info.SenhaTemporaria);
         }
 

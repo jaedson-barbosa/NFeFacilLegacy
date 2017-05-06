@@ -256,11 +256,6 @@
     <Compile Include="Repositorio\Produtos.cs" />
     <Compile Include="Repositorio\ResultadosCliente.cs" />
     <Compile Include="Repositorio\ResultadosServidor.cs" />
-    <Compile Include="Sincronizacao\Cliente\ClienteBrechaSeguranca.cs" />
-    <Compile Include="Sincronizacao\Cliente\ClienteConfiguracoes.cs" />
-    <Compile Include="Sincronizacao\Cliente\ClienteSincronizacaoDadosBase.cs" />
-    <Compile Include="Sincronizacao\Cliente\ClienteSincronizacaoNotas.cs" />
-    <Compile Include="Sincronizacao\Cliente\ConexaoComServidor.cs" />
     <Compile Include="Sincronizacao\GerenciadorCliente.cs" />
     <Compile Include="Sincronizacao\GerenciadorServidor.cs" />
     <Compile Include="Sincronizacao\ItensSincronizados.cs" />

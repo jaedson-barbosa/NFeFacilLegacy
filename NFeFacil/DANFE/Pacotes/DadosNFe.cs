@@ -1,6 +1,6 @@
 ﻿using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe;
 
-namespace NFeFacil.DANFE.Modelos.Global
+namespace NFeFacil.DANFE.Pacotes
 {
     public sealed class DadosNFe
     {

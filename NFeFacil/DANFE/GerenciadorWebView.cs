@@ -1,4 +1,4 @@
-﻿using NFeFacil.DANFE.Modelos.Local;
+﻿using NFeFacil.DANFE.Pacotes;
 using NFeFacil.DANFE.Processamento;
 using BibliotecaCentral.ModeloXML;
 using System;

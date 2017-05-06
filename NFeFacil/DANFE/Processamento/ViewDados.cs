@@ -1,5 +1,4 @@
-﻿using NFeFacil.DANFE.Modelos.Global;
-using NFeFacil.DANFE.Modelos.Local;
+﻿using NFeFacil.DANFE.Pacotes;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

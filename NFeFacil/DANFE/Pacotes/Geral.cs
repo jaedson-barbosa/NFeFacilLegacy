@@ -1,6 +1,4 @@
-﻿using NFeFacil.DANFE.Modelos.Global;
-
-namespace NFeFacil.DANFE.Modelos.Local
+﻿namespace NFeFacil.DANFE.Pacotes
 {
     public struct Geral
     {

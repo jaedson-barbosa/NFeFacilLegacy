@@ -1,4 +1,4 @@
-﻿namespace NFeFacil.DANFE.Modelos.Global
+﻿namespace NFeFacil.DANFE.Pacotes
 {
     public sealed class DadosDuplicata
     {

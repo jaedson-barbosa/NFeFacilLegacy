@@ -1,7 +1,6 @@
-﻿using NFeFacil.DANFE.Modelos.Global;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace NFeFacil.DANFE.Modelos.Local
+namespace NFeFacil.DANFE.Pacotes
 {
     public struct DadosPrimeiraPagina
     {

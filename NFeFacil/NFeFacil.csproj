@@ -162,7 +162,6 @@
     <Compile Include="DANFE\Pacotes\Geral.cs" />
     <Compile Include="DANFE\Processamento\ConexãoDados.cs" />
     <Compile Include="DANFE\Processamento\Dimensoes.cs" />
-    <Compile Include="DANFE\Processamento\NFeToDANFE.cs" />
     <Compile Include="DANFE\Processamento\ViewDados.cs" />
     <Compile Include="DANFE\Processamento\ViewUI.cs" />
     <Compile Include="GrupoViewBanco.cs" />

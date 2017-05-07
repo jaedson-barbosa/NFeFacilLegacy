@@ -108,9 +108,9 @@
   <ItemGroup>
     <Compile Include="Certificacao\AssinaNFe.cs" />
     <Compile Include="Certificacao\ConfiguracoesCertificacao.cs" />
-    <Compile Include="Migrations\20170506191400_Estavel8.cs" />
-    <Compile Include="Migrations\20170506191400_Estavel8.designer.cs">
-      <DependentUpon>20170506191400_Estavel8.cs</DependentUpon>
+    <Compile Include="Migrations\20170507035744_Estavel9.cs" />
+    <Compile Include="Migrations\20170507035744_Estavel9.designer.cs">
+      <DependentUpon>20170507035744_Estavel9.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\AplicativoContextModelSnapshot.cs" />
     <Compile Include="Sincronizacao\ConfiguracoesSincronizacao.cs" />

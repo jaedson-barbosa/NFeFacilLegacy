@@ -1,23 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
 using System.Xml.Serialization;
 
 namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
 {
-    public class Destinatario
+    public sealed class Destinatario
     {
-        public Destinatario() : base() { }
-        public Destinatario(Destinatario other)
-        {
-            endereco = new enderecoCompleto(other.endereco);
-            indicadorIE = (ushort)other.indicadorIE;
-            ISUF = other.ISUF;
-            email = other.email;
-            nome = other.nome;
-            inscricaoEstadual = other.inscricaoEstadual;
-            CPF = other.CPF;
-            CNPJ = other.CNPJ;
-            idEstrangeiro = other.idEstrangeiro;
-        }
+        [XmlIgnore]
+        public Guid Id { get; set; }
 
         public string CPF { get; set; }
         public string CNPJ { get; set; }
@@ -38,7 +27,6 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
         public string email { get; set; }
 
         [XmlIgnore]
-        [Key]
         public string Documento
         {
             get => idEstrangeiro ?? CNPJ ?? CPF;

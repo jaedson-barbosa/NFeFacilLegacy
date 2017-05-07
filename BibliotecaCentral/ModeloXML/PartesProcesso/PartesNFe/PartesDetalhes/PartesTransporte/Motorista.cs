@@ -1,21 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
 using System.Xml.Serialization;
 
 namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte
 {
-    public class Motorista
+    public sealed class Motorista
     {
-        public Motorista() : base() { }
-        public Motorista(Motorista other)
-        {
-            XEnder = other.XEnder;
-            XMun = other.XMun;
-            UF = other.UF;
-            Nome = other.Nome;
-            InscricaoEstadual = other.InscricaoEstadual;
-            CPF = other.CPF;
-            CNPJ = other.CNPJ;
-        }
+        [XmlIgnore]
+        public Guid Id { get; set; }
 
         public string CPF { get; set; }
         public string CNPJ { get; set; }
@@ -47,7 +38,6 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Pa
         public string UF { get; set; }
 
         [XmlIgnore]
-        [Key]
         public string Documento
         {
             get => CNPJ ?? CPF;

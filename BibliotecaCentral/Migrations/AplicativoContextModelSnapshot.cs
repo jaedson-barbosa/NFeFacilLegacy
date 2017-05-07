@@ -1,6 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
+using BibliotecaCentral;
 
 namespace BibliotecaCentral.Migrations
 {
@@ -116,12 +119,14 @@ namespace BibliotecaCentral.Migrations
 
             modelBuilder.Entity("BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Destinatario", b =>
                 {
-                    b.Property<string>("Documento")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("CNPJ");
 
                     b.Property<string>("CPF");
+
+                    b.Property<string>("Documento");
 
                     b.Property<string>("ISUF");
 
@@ -137,7 +142,7 @@ namespace BibliotecaCentral.Migrations
 
                     b.Property<string>("nome");
 
-                    b.HasKey("Documento");
+                    b.HasKey("Id");
 
                     b.HasIndex("enderecoId");
 
@@ -146,10 +151,12 @@ namespace BibliotecaCentral.Migrations
 
             modelBuilder.Entity("BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Emitente", b =>
                 {
-                    b.Property<string>("CNPJ")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("CNAE");
+
+                    b.Property<string>("CNPJ");
 
                     b.Property<string>("IEST");
 
@@ -165,7 +172,7 @@ namespace BibliotecaCentral.Migrations
 
                     b.Property<int>("regimeTributario");
 
-                    b.HasKey("CNPJ");
+                    b.HasKey("Id");
 
                     b.HasIndex("enderecoId");
 
@@ -174,7 +181,7 @@ namespace BibliotecaCentral.Migrations
 
             modelBuilder.Entity("BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.BaseProdutoOuServico", b =>
                 {
-                    b.Property<string>("Descricao")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("CFOP");
@@ -184,6 +191,8 @@ namespace BibliotecaCentral.Migrations
                     b.Property<string>("CodigoBarrasTributo");
 
                     b.Property<string>("CodigoProduto");
+
+                    b.Property<string>("Descricao");
 
                     b.Property<string>("EXTIPI");
 
@@ -197,19 +206,21 @@ namespace BibliotecaCentral.Migrations
 
                     b.Property<double>("ValorUnitarioTributo");
 
-                    b.HasKey("Descricao");
+                    b.HasKey("Id");
 
                     b.ToTable("Produtos");
                 });
 
             modelBuilder.Entity("BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte.Motorista", b =>
                 {
-                    b.Property<string>("Documento")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("CNPJ");
 
                     b.Property<string>("CPF");
+
+                    b.Property<string>("Documento");
 
                     b.Property<string>("InscricaoEstadual");
 
@@ -221,7 +232,7 @@ namespace BibliotecaCentral.Migrations
 
                     b.Property<string>("XMun");
 
-                    b.HasKey("Documento");
+                    b.HasKey("Id");
 
                     b.ToTable("Motoristas");
                 });

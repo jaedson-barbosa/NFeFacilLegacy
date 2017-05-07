@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BibliotecaCentral.Migrations
 {
-    public partial class Estavel8 : Migration
+    public partial class Estavel9 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -86,11 +87,12 @@ namespace BibliotecaCentral.Migrations
                 name: "Produtos",
                 columns: table => new
                 {
-                    Descricao = table.Column<string>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
                     CFOP = table.Column<string>(nullable: true),
                     CodigoBarras = table.Column<string>(nullable: true),
                     CodigoBarrasTributo = table.Column<string>(nullable: true),
                     CodigoProduto = table.Column<string>(nullable: true),
+                    Descricao = table.Column<string>(nullable: true),
                     EXTIPI = table.Column<string>(nullable: true),
                     NCM = table.Column<string>(nullable: true),
                     UnidadeComercializacao = table.Column<string>(nullable: true),
@@ -100,16 +102,17 @@ namespace BibliotecaCentral.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Produtos", x => x.Descricao);
+                    table.PrimaryKey("PK_Produtos", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Motoristas",
                 columns: table => new
                 {
-                    Documento = table.Column<string>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
                     CNPJ = table.Column<string>(nullable: true),
                     CPF = table.Column<string>(nullable: true),
+                    Documento = table.Column<string>(nullable: true),
                     InscricaoEstadual = table.Column<string>(nullable: true),
                     Nome = table.Column<string>(nullable: true),
                     UF = table.Column<string>(nullable: true),
@@ -118,16 +121,17 @@ namespace BibliotecaCentral.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Motoristas", x => x.Documento);
+                    table.PrimaryKey("PK_Motoristas", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Clientes",
                 columns: table => new
                 {
-                    Documento = table.Column<string>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
                     CNPJ = table.Column<string>(nullable: true),
                     CPF = table.Column<string>(nullable: true),
+                    Documento = table.Column<string>(nullable: true),
                     ISUF = table.Column<string>(nullable: true),
                     email = table.Column<string>(nullable: true),
                     enderecoId = table.Column<Guid>(nullable: true),
@@ -138,7 +142,7 @@ namespace BibliotecaCentral.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Clientes", x => x.Documento);
+                    table.PrimaryKey("PK_Clientes", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Clientes_enderecoCompleto_enderecoId",
                         column: x => x.enderecoId,
@@ -151,8 +155,9 @@ namespace BibliotecaCentral.Migrations
                 name: "Emitentes",
                 columns: table => new
                 {
-                    CNPJ = table.Column<string>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
                     CNAE = table.Column<string>(nullable: true),
+                    CNPJ = table.Column<string>(nullable: true),
                     IEST = table.Column<string>(nullable: true),
                     IM = table.Column<string>(nullable: true),
                     enderecoId = table.Column<Guid>(nullable: true),
@@ -163,7 +168,7 @@ namespace BibliotecaCentral.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Emitentes", x => x.CNPJ);
+                    table.PrimaryKey("PK_Emitentes", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Emitentes_enderecoCompleto_enderecoId",
                         column: x => x.enderecoId,

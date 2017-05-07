@@ -9,7 +9,7 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
     [RestController(InstanceCreationType.PerCall)]
     class ControllerConfiguracoes
     {
-        [UriFormat("/Configuracoes/GET/{senha}")]
+        [UriFormat("/Configuracoes/{senha}")]
         public IGetResponse Get(int senha)
         {
             return SupervisorOperacao.Supervisionar(() =>

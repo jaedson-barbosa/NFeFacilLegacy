@@ -9,7 +9,7 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
     [RestController(InstanceCreationType.PerCall)]
     internal sealed class ControllerSincronizacaoDadosBase
     {
-        [UriFormat("/Dados/POST/{senha}")]
+        [UriFormat("/Dados/{senha}")]
         public IPostResponse ClienteServidorAsync(int senha, [FromContent] DadosBase pacote)
         {
             return SupervisorOperacao.Supervisionar(() =>
@@ -21,7 +21,7 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
             }, pacote.HoraRequisição, TipoDado.DadoBase);
         }
 
-        [UriFormat("/Dados/GET/{senha}")]
+        [UriFormat("/Dados/{senha}")]
         public IGetResponse ServidorCliente(int senha)
         {
             return SupervisorOperacao.Supervisionar(() =>

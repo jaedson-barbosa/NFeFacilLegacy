@@ -84,7 +84,7 @@ namespace BibliotecaCentral.Migrations
 
             modelBuilder.Entity("BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.enderecoCompleto", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Bairro");
@@ -127,7 +127,7 @@ namespace BibliotecaCentral.Migrations
 
                     b.Property<string>("email");
 
-                    b.Property<int?>("enderecoId");
+                    b.Property<Guid?>("enderecoId");
 
                     b.Property<string>("idEstrangeiro");
 
@@ -155,7 +155,7 @@ namespace BibliotecaCentral.Migrations
 
                     b.Property<string>("IM");
 
-                    b.Property<int?>("enderecoId");
+                    b.Property<Guid?>("enderecoId");
 
                     b.Property<string>("inscricaoEstadual");
 

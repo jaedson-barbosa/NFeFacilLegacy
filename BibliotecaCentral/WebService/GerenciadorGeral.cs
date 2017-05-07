@@ -40,12 +40,14 @@ namespace BibliotecaCentral.WebService
             };
             handler.ClientCertificates.Add(await repo.ObterCertificadoEscolhidoAsync());
 
-            var proxy = new HttpClient(handler);
-            proxy.DefaultRequestHeaders.Add("SOAPAction", enderecos.Metodo);
+            using (var proxy = new HttpClient(handler, true))
+            {
+                proxy.DefaultRequestHeaders.Add("SOAPAction", enderecos.Metodo);
 
-            var resposta = await proxy.PostAsync(enderecos.Endereco, ObterConteudoRequisicao(corpo));
-            var xml = XElement.Load(await resposta.Content.ReadAsStreamAsync());
-            return ObterConteudoCorpo(xml).FromXElement<Resposta>();
+                var resposta = await proxy.PostAsync(enderecos.Endereco, ObterConteudoRequisicao(corpo));
+                var xml = XElement.Load(await resposta.Content.ReadAsStreamAsync());
+                return ObterConteudoCorpo(xml).FromXElement<Resposta>();
+            }
 
             XNode ObterConteudoCorpo(XElement soap)
             {

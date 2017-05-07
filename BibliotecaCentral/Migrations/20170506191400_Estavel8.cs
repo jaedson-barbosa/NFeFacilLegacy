@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BibliotecaCentral.Migrations
 {
-    public partial class Estavel5 : Migration
+    public partial class Estavel8 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -64,8 +64,7 @@ namespace BibliotecaCentral.Migrations
                 name: "enderecoCompleto",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                    Id = table.Column<Guid>(nullable: false),
                     Bairro = table.Column<string>(nullable: true),
                     CEP = table.Column<string>(nullable: true),
                     CPais = table.Column<int>(nullable: false),
@@ -131,7 +130,7 @@ namespace BibliotecaCentral.Migrations
                     CPF = table.Column<string>(nullable: true),
                     ISUF = table.Column<string>(nullable: true),
                     email = table.Column<string>(nullable: true),
-                    enderecoId = table.Column<int>(nullable: true),
+                    enderecoId = table.Column<Guid>(nullable: true),
                     idEstrangeiro = table.Column<string>(nullable: true),
                     indicadorIE = table.Column<int>(nullable: false),
                     inscricaoEstadual = table.Column<string>(nullable: true),
@@ -156,7 +155,7 @@ namespace BibliotecaCentral.Migrations
                     CNAE = table.Column<string>(nullable: true),
                     IEST = table.Column<string>(nullable: true),
                     IM = table.Column<string>(nullable: true),
-                    enderecoId = table.Column<int>(nullable: true),
+                    enderecoId = table.Column<Guid>(nullable: true),
                     inscricaoEstadual = table.Column<string>(nullable: true),
                     nome = table.Column<string>(nullable: true),
                     nomeFantasia = table.Column<string>(nullable: true),

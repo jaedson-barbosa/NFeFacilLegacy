@@ -5,7 +5,8 @@ using Newtonsoft.Json;
 using System;
 using System.Threading.Tasks;
 using System.Linq;
-using System.IO;
+using System.Net.Http;
+using System.Text;
 
 namespace BibliotecaCentral.Sincronizacao
 {
@@ -21,7 +22,7 @@ namespace BibliotecaCentral.Sincronizacao
 
         public async Task EstabelecerConexao(int senha)
         {
-            var info = await EnviarAsync<InfoSegurancaConexao>("BrechaSeguranca", Método.GET, senha, null);
+            var info = await EnviarAsync<InfoSegurancaConexao>("BrechaSeguranca", HttpMethod.Get, senha, null);
             SenhaPermanente = info.Senha;
             Log.Escrever(TitulosComuns.Sucesso, "Chave de segurança decodificada e salva com sucesso.");
         }
@@ -77,14 +78,14 @@ namespace BibliotecaCentral.Sincronizacao
 
             async Task<ConfiguracoesServidor> ObterConfiguracoes()
             {
-                return await EnviarAsync<Pacotes.ConfiguracoesServidor>($"Configuracoes", Método.GET, SenhaPermanente, null);
+                return await EnviarAsync<ConfiguracoesServidor>($"Configuracoes", HttpMethod.Get, SenhaPermanente, null);
             }
 
             async Task<ItensSincronizados> SincronizarDadosBase()
             {
                 var envio = ProcessamentoDadosBase.Obter();
-                await EnviarAsync<string>($"Dados", Método.POST, SenhaPermanente, envio);
-                var receb = await EnviarAsync<DadosBase>($"Dados", Método.GET, SenhaPermanente, null);
+                await EnviarAsync<string>($"Dados", HttpMethod.Post, SenhaPermanente, envio);
+                var receb = await EnviarAsync<DadosBase>($"Dados", HttpMethod.Get, SenhaPermanente, null);
                 ProcessamentoDadosBase.Salvar(receb);
                 return new ItensSincronizados(CalcularTotal(envio), CalcularTotal(receb));
 
@@ -97,48 +98,27 @@ namespace BibliotecaCentral.Sincronizacao
             async Task<ItensSincronizados> SincronizarNotas()
             {
                 var envio = await ProcessamentoNotas.ObterAsync();
-                await EnviarAsync<string>("Notas", Método.POST, SenhaPermanente, envio);
-                var receb = await EnviarAsync<NotasFiscais>("Notas", Método.GET, SenhaPermanente, null).ConfigureAwait(false);
+                await EnviarAsync<string>("Notas", HttpMethod.Post, SenhaPermanente, envio);
+                var receb = await EnviarAsync<NotasFiscais>("Notas", HttpMethod.Get, SenhaPermanente, null).ConfigureAwait(false);
                 await ProcessamentoNotas.SalvarAsync(receb);
                 return new ItensSincronizados(envio.XMLs.Count(), receb.XMLs.Count());
             }
         }
 
-        async Task<T> EnviarAsync<T>(string nomeMétodo, Método metodoConexao, int senha, PacoteBase corpo) where T : class
+        async Task<T> EnviarAsync<T>(string nomeMetodo, HttpMethod metodo, int senha, PacoteBase corpo)
         {
-            // Define os parâmetros básicos da requisição
-            string caminho = $"http://{IPServidor}:8080/{nomeMétodo}/{metodoConexao.ToString()}/{senha}";
-            var webRequest = System.Net.WebRequest.CreateHttp(caminho);
-            webRequest.Accept = "application/json";
-            webRequest.Method = metodoConexao.ToString();
-
-            // Caso a requisição deva ter um corpo ele deve ser enviado
-            if (metodoConexao == Método.POST && corpo != null)
+            string caminho = $"http://{IPServidor}:8080/{nomeMetodo}/{senha}";
+            using (var proxy = new HttpClient())
             {
-                webRequest.ContentType = "application/json";
-                var json = JsonConvert.SerializeObject(corpo);
-                var requestStream = await webRequest.GetRequestStreamAsync();
-                using (var streamWriter = new StreamWriter(requestStream))
+                var mensagem = new HttpRequestMessage(metodo, caminho);
+                if (metodo == HttpMethod.Post && corpo != null)
                 {
-                    await streamWriter.WriteAsync(json);
+                    var json = JsonConvert.SerializeObject(corpo);
+                    mensagem.Content = new StringContent(json, Encoding.UTF8, "application/json");
                 }
+                var resposta = await proxy.SendAsync(mensagem);
+                return JsonConvert.DeserializeObject<T>(await resposta.Content.ReadAsStringAsync());
             }
-
-            // Caso tudo dê certo, a resposta vem aqui
-            using (var response = await webRequest.GetResponseAsync())
-            {
-                using (var streamReader = new StreamReader(response.GetResponseStream()))
-                {
-                    if (typeof(T) == typeof(string)) return await streamReader.ReadToEndAsync() as T;
-                    else return JsonConvert.DeserializeObject<T>(await streamReader.ReadToEndAsync());
-                }
-            }
-        }
-
-        enum Método
-        {
-            GET,
-            POST
         }
     }
 

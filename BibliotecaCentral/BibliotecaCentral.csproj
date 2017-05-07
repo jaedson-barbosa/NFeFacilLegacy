@@ -108,6 +108,11 @@
   <ItemGroup>
     <Compile Include="Certificacao\AssinaNFe.cs" />
     <Compile Include="Certificacao\ConfiguracoesCertificacao.cs" />
+    <Compile Include="Migrations\20170506191400_Estavel8.cs" />
+    <Compile Include="Migrations\20170506191400_Estavel8.designer.cs">
+      <DependentUpon>20170506191400_Estavel8.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\AplicativoContextModelSnapshot.cs" />
     <Compile Include="Sincronizacao\ConfiguracoesSincronizacao.cs" />
     <Compile Include="Sincronizacao\TipoAppSincronizacao.cs" />
     <Compile Include="Extensoes.cs" />
@@ -136,11 +141,6 @@
     <Compile Include="Log\Titulos.cs" />
     <Compile Include="Log\TitulosComuns.cs" />
     <Compile Include="Log\Toast.cs" />
-    <Compile Include="Migrations\20170501125147_Estavel5.cs" />
-    <Compile Include="Migrations\20170501125147_Estavel5.designer.cs">
-      <DependentUpon>20170501125147_Estavel5.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\AplicativoContextModelSnapshot.cs" />
     <Compile Include="Model.cs" />
     <Compile Include="ModeloXML\Enums.cs" />
     <Compile Include="ModeloXML\PartesProcesso\InfoProtocolo.cs" />

@@ -106,13 +106,26 @@
                 </ListView>
             </SplitView.Pane>
             <SplitView.Content>
-                <Frame Name="frmPrincipal">
-                    <Frame.ContentTransitions>
-                        <TransitionCollection>
-                            <EntranceThemeTransition />
-                        </TransitionCollection>
-                    </Frame.ContentTransitions>
-                </Frame>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Frame Name="frmPrincipal" />
+                    <Border x:Name="grdAvisoRotacao"
+                            Visibility="Collapsed"
+                            Background="{StaticResource MuitoVariada}"
+                            BorderBrush="{StaticResource Normal}"
+                            BorderThickness="0,2,0,0"
+                            VerticalAlignment="Bottom"
+                            Grid.Row="1">
+                        <TextBlock TextWrapping="Wrap"
+                                   Margin="8,4"
+                                   TextAlignment="Justify">
+                            <Run FontStyle="Italic">Por favor, esta orientação de tela não é a mais adequada para visualização desta página, por favor, </Run>
+                            <Run FontWeight="Bold">rotacione seu dispositivo para a orientação horizontal.</Run></TextBlock>
+                    </Border>
+                </Grid>
             </SplitView.Content>
         </SplitView>
     </Grid>

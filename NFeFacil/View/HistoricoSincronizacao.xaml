@@ -153,16 +153,5 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Border Background="{StaticResource MuitoVariada}"
-                BorderBrush="{StaticResource Normal}"
-                Canvas.ZIndex="1"
-                VerticalAlignment="Bottom"
-                Visibility="{Binding Vertical, Converter={StaticResource boolVisibility}}"
-                BorderThickness="0,4,0,0">
-            <TextBlock FontWeight="Bold"
-                       TextWrapping="Wrap"
-                       Text="Por favor, para melhor visualização dos resultados, utilize o dispositivo na horizontal."
-                       Margin="10" />
-        </Border>
     </Grid>
 </Page>

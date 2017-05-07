@@ -17,13 +17,12 @@ namespace NFeFacil
 {
     internal class IntercambioTelas
     {
-        private MainPage Main;
+        private MainPage Main => MainPage.Current;
         private Telas TelaAtual;
         private ILog Log;
 
-        public IntercambioTelas(MainPage main)
+        public IntercambioTelas()
         {
-            Main = main;
             TelaAtual = Telas.Inicio;
             Log = new Saida();
         }
@@ -117,30 +116,38 @@ namespace NFeFacil
             }
         }
 
-        public void SeAtualizar(Telas atual, Symbol símbolo, string texto)
+        private void SeAtualizarBase(Telas atual, string texto)
         {
             Main.IndexHamburguer = (int)(TelaAtual = atual);
             Main.Titulo = texto;
-            Main.Icone = new SymbolIcon(símbolo);
+            if (TelasHorizontais.Contains(atual))
+            {
+                Main.AvisoOrentacaoHabilitado = true;
+            }
+            else
+            {
+                Main.AvisoOrentacaoHabilitado = false;
+            }
+
             if (atual == Telas.Inicio)
             {
                 LimparMemoria();
             }
         }
 
+        public void SeAtualizar(Telas atual, Symbol símbolo, string texto)
+        {
+            SeAtualizarBase(atual, texto);
+            Main.Icone = new SymbolIcon(símbolo);
+        }
+
         public void SeAtualizar(Telas atual, string glyph, string texto)
         {
-            ;
-            Main.IndexHamburguer = (int)(TelaAtual = atual);
-            Main.Titulo = texto;
+            SeAtualizarBase(atual, texto);
             Main.Icone = new FontIcon
             {
                 Glyph = "\uE81C",
             };
-            if (atual == Telas.Inicio)
-            {
-                LimparMemoria();
-            }
         }
 
         private async void LimparMemoria()
@@ -152,7 +159,7 @@ namespace NFeFacil
             GC.Collect();
         }
 
-        public virtual void RetornoEvento(object sender, BackRequestedEventArgs e)
+        public void RetornoEvento(object sender, BackRequestedEventArgs e)
         {
             if (TelaAtual != Telas.Inicio)
             {
@@ -199,5 +206,12 @@ namespace NFeFacil
                 Log.Escrever(TitulosComuns.ErroSimples, "Não é possível voltar para a tela anterior.");
             }
         }
+
+        private List<Telas> TelasHorizontais = new List<Telas>(3)
+        {
+            Telas.GerenciarDadosBase,
+            Telas.HistoricoSincronizacao,
+            Telas.NotasSalvas
+        };
     }
 }

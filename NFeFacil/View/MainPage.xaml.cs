@@ -16,34 +16,67 @@ namespace NFeFacil.View
     public sealed partial class MainPage : Page
     {
         #region Propriedades públicas
-        public Frame FramePrincipal
-        {
-            get { return frmPrincipal; }
-        }
-        public IconElement Icone
+        internal Frame FramePrincipal => frmPrincipal;
+        internal IconElement Icone
         {
             set => symTitulo.Content = value;
         }
-        public string Titulo
+        internal string Titulo
         {
             get => txtTitulo.Text;
             set => txtTitulo.Text = value;
         }
-        public int IndexHamburguer
+        internal int IndexHamburguer
         {
             get { return lstFunções.SelectedIndex; }
             set { lstFunções.SelectedIndex = value; }
         }
+        private bool avisoOrentacaoHabilitado;
+        internal bool AvisoOrentacaoHabilitado
+        {
+            get => avisoOrentacaoHabilitado;
+            set
+            {
+                avisoOrentacaoHabilitado = value;
+                AnalisarOrientacao();
+            }
+        }
         #endregion
+
+        internal static MainPage Current { get; private set; }
+
+        private ApplicationView View { get; }
 
         private int ultimoIndex;
         public MainPage()
         {
             InitializeComponent();
+            Current = this;
+            View = ApplicationView.GetForCurrentView();
+            View.VisibleBoundsChanged += (x, y) => AnalisarOrientacao();
             ProcessarAsync();
-            Propriedades.Intercambio = new IntercambioTelas(this);
+            Propriedades.Intercambio = new IntercambioTelas();
             SystemNavigationManager.GetForCurrentView().BackRequested += Propriedades.Intercambio.RetornoEvento;
             AbrirFunção(nameof(Inicio));
+        }
+
+        private void AnalisarOrientacao()
+        {
+            if (AvisoOrentacaoHabilitado)
+            {
+                if (View.Orientation == ApplicationViewOrientation.Landscape)
+                {
+                    grdAvisoRotacao.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    grdAvisoRotacao.Visibility = Visibility.Visible;
+                }
+            }
+            else
+            {
+                grdAvisoRotacao.Visibility = Visibility.Collapsed;
+            }
         }
 
         private static async void ProcessarAsync()

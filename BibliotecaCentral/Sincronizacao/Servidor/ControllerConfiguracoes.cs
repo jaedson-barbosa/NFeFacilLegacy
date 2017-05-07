@@ -9,10 +9,10 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
     [RestController(InstanceCreationType.PerCall)]
     class ControllerConfiguracoes
     {
-        [UriFormat("/Configuracoes/GET/{senha}")]
+        [UriFormat("/Configuracoes/{senha}")]
         public IGetResponse Get(int senha)
         {
-            return SupervisionarOperacao.Iniciar(() =>
+            return SupervisorOperacao.Supervisionar(() =>
             {
                 if (senha != SenhaPermanente)
                     throw new SenhaErrada(senha);

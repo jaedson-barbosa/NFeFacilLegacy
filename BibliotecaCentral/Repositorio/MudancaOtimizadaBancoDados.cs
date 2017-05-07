@@ -88,9 +88,10 @@ namespace BibliotecaCentral.Repositorio
                 if (item.Key) Contexto.AddRange(item);
                 else Contexto.UpdateRange(item);
             }
+
+            PastaNotasFiscais pasta = new PastaNotasFiscais();
             foreach (var item in notas)
             {
-                PastaNotasFiscais pasta = new PastaNotasFiscais();
                 await pasta.AdicionarOuAtualizar(item.Value, item.Key.Id);
             }
         }

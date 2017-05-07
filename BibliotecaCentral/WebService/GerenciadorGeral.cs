@@ -6,18 +6,32 @@ using System.Xml.Linq;
 
 namespace BibliotecaCentral.WebService
 {
-    internal struct GerenciadorGeral<Envio, Resposta>
+    public struct GerenciadorGeral<Envio, Resposta>
     {
-        DadosServico Enderecos { get; }
+        DadosServico enderecos;
         (int CodigoUF, string VersaoDados) cabecalho;
 
-        internal GerenciadorGeral(Estado uf, DadosServico enderecos)
+        public GerenciadorGeral(Estado uf, Operacoes operacao, bool teste)
         {
-            Enderecos = enderecos;
+            enderecos = new EnderecosConexao(uf.Sigla).ObterConjuntoConexao(teste, operacao);
             cabecalho = (uf.Codigo, "3.10");
         }
 
-        internal async Task<Resposta> EnviarAsync(Envio corpo)
+        public GerenciadorGeral(string siglaOuNome, Operacoes operacao, bool teste)
+        {
+            var uf = Estados.Buscar(siglaOuNome);
+            enderecos = new EnderecosConexao(uf.Sigla).ObterConjuntoConexao(teste, operacao);
+            cabecalho = (uf.Codigo, "3.10");
+        }
+
+        public GerenciadorGeral(ushort codigo, Operacoes operacao, bool teste)
+        {
+            var uf = Estados.Buscar(codigo);
+            enderecos = new EnderecosConexao(uf.Sigla).ObterConjuntoConexao(teste, operacao);
+            cabecalho = (uf.Codigo, "3.10");
+        }
+
+        public async Task<Resposta> EnviarAsync(Envio corpo)
         {
             var repo = new Certificacao.Certificados();
             var handler = new HttpClientHandler()
@@ -26,16 +40,19 @@ namespace BibliotecaCentral.WebService
             };
             handler.ClientCertificates.Add(await repo.ObterCertificadoEscolhidoAsync());
 
-            var proxy = new HttpClient(handler);
-            proxy.DefaultRequestHeaders.Add("SOAPAction", Enderecos.Metodo);
+            using (var proxy = new HttpClient(handler, true))
+            {
+                proxy.DefaultRequestHeaders.Add("SOAPAction", enderecos.Metodo);
 
-            var resposta = await proxy.PostAsync(Enderecos.Endereco, ObterConteudoRequisicao(corpo));
-            var xml = XElement.Load(await resposta.Content.ReadAsStreamAsync());
-            return ObterConteudoCorpo(xml).FromXElement<Resposta>();
+                var resposta = await proxy.PostAsync(enderecos.Endereco, ObterConteudoRequisicao(corpo));
+                var xml = XElement.Load(await resposta.Content.ReadAsStreamAsync());
+                return ObterConteudoCorpo(xml).FromXElement<Resposta>();
+            }
 
             XNode ObterConteudoCorpo(XElement soap)
             {
-                return soap.Element(XName.Get("Body", "http://schemas.xmlsoap.org/soap/envelope/")).FirstNode;
+                var casca = soap.Element(XName.Get("Body", "http://schemas.xmlsoap.org/soap/envelope/")).FirstNode as XElement;
+                return casca.FirstNode;
             }
         }
 
@@ -43,7 +60,7 @@ namespace BibliotecaCentral.WebService
         {
             string texto = string.Format(
                 Extensoes.ObterRecurso("RequisicaoSOAP"),
-                Enderecos.Servico,
+                enderecos.Servico,
                 cabecalho.CodigoUF,
                 cabecalho.VersaoDados,
                 corpo.ToXElement<Envio>().ToString(SaveOptions.DisableFormatting));

@@ -1,25 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
 using System.Xml.Serialization;
 
 namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto
 {
     public class BaseProdutoOuServico
     {
-        public BaseProdutoOuServico() { }
-        public BaseProdutoOuServico(BaseProdutoOuServico other)
-        {
-            Descricao = other.Descricao;
-            CodigoProduto = other.CodigoProduto;
-            CodigoBarras = other.CodigoBarras;
-            CodigoBarrasTributo = other.CodigoBarrasTributo;
-            EXTIPI = other.EXTIPI;
-            NCM = other.NCM;
-            UnidadeComercializacao = other.UnidadeComercializacao;
-            ValorUnitario = other.ValorUnitario;
-            UnidadeTributacao = other.UnidadeTributacao;
-            ValorUnitarioTributo = other.ValorUnitarioTributo;
-            CFOP = other.CFOP;
-        }
+        [XmlIgnore]
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Preencher com CFOP, caso se trate de itens não relacionados com mercadorias/produtos e que o contribuinte não possua codificação própria. Formato: ”CFOP9999”.
@@ -34,7 +21,6 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Pa
         public string CodigoBarras { get; set; } = "";
 
         [XmlElement(ElementName = "xProd")]
-        [Key]
         public string Descricao { get; set; }
 
         /// <summary>

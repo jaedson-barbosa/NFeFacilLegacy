@@ -14,36 +14,28 @@ namespace NFeFacil.DANFE.Processamento
             webView = view;
         }
 
-        public async Task<Dimensoes> ObterDimensoesWeb(bool deveSerInt)
+        public async Task<(double largura, double altura)> ObterDimensoesWeb(bool deveSerInt)
         {
             var widthString = await webView.InvokeScriptAsync("eval", new[] { "document.body.scrollWidth.toString()" });
             var heightString = await webView.InvokeScriptAsync("eval", new[] { "document.body.scrollHeight.toString()" });
-            return new Dimensoes
-            {
-                Largura = deveSerInt ? int.Parse(widthString) : double.Parse(widthString),
-                Altura = deveSerInt ? int.Parse(heightString) : double.Parse(heightString)
-            };
+            return (deveSerInt ? int.Parse(widthString) : double.Parse(widthString), deveSerInt ? int.Parse(heightString) : double.Parse(heightString));
         }
 
-        public Dimensoes ObterDimensoesView()
+        public (double largura, double altura) ObterDimensoesView()
         {
-            return new Dimensoes
-            {
-                Largura = webView.ActualWidth,
-                Altura = webView.ActualHeight
-            };
+            return (webView.ActualWidth, webView.ActualHeight);
         }
 
-        public void DefinirDimensoesView(Dimensoes dimensoes)
+        public void DefinirDimensoesView(double largura, double altura)
         {
-            webView.Width = dimensoes.Largura;
-            webView.Height = dimensoes.Altura;
+            webView.Width = largura;
+            webView.Height = altura;
         }
 
         public async Task CaptureWebView(IRandomAccessStream output)
         {
             var dimensoes = await ObterDimensoesWeb(true);
-            DefinirDimensoesView(dimensoes);
+            DefinirDimensoesView(dimensoes.largura, dimensoes.altura);
             webView.UpdateLayout();
 
             await webView.CapturePreviewToStreamAsync(output);

@@ -100,8 +100,8 @@ namespace NFeFacil.DANFE
                 }
                 paginas.Add(new Rectangle
                 {
-                    Height = dimensoes.Altura,
-                    Width = dimensoes.Largura,
+                    Height = dimensoes.altura,
+                    Width = dimensoes.largura,
                     Margin = new Thickness(4),
                     Fill = new ImageBrush
                     {

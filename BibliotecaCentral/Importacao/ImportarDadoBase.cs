@@ -21,7 +21,7 @@ namespace BibliotecaCentral.Importacao
             TipoDado = tipoDado;
         }
 
-        public override async Task<RelatorioImportacao> ImportarAsync()
+        public override async Task<List<Exception>> ImportarAsync()
         {
             arquivos = await ImportarArquivos();
             var listaXML = await Task.WhenAll(arquivos.Select(async x =>
@@ -49,16 +49,16 @@ namespace BibliotecaCentral.Importacao
             }
         }
 
-        private RelatorioImportacao AnaliseCompletaXml<TipoBase>(XElement[] listaXML, string nomePrimario, string nomeSecundario, Action<IEnumerable<TipoBase>> Adicionar) where TipoBase : class
+        private List<Exception> AnaliseCompletaXml<TipoBase>(XElement[] listaXML, string nomePrimario, string nomeSecundario, Action<IEnumerable<TipoBase>> Adicionar) where TipoBase : class
         {
-            var retorno = new RelatorioImportacao();
+            var retorno = new List<Exception>();
             var add = new List<TipoBase>();
             for (int i = 0; i < listaXML.Length; i++)
             {
                 var resultado = RemoverNamespace(Busca(listaXML[i], nomePrimario, nomeSecundario));
                 if (resultado == null)
                 {
-                    retorno.Erros.Add(new XmlNaoReconhecido(arquivos[i].Name, listaXML[i].Name.LocalName, nomeSecundario, nameof(TipoBase)));
+                    retorno.Add(new XmlNaoReconhecido(arquivos[i].Name, listaXML[i].Name.LocalName, nomeSecundario, nameof(TipoBase)));
                     continue;
                 }
                 var xml = resultado;

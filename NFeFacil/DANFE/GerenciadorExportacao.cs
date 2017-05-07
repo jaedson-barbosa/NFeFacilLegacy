@@ -28,7 +28,7 @@ namespace NFeFacil.DANFE
                     await UI.CaptureWebView(stream);
                 }
             });
-            await CriarArquivoZipAsync(imagens, $"NFe{Dados._DadosNFe.Chave}");
+            await CriarArquivoZipAsync(imagens, $"NFe{Chave}");
             await imagens.DeleteAsync(StorageDeleteOption.PermanentDelete);
         }
 

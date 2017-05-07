@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 
@@ -15,15 +14,14 @@ namespace BibliotecaCentral
 
         public static XElement ToXElement(this object obj, Type T, string nameSpace = "http://www.portalfiscal.inf.br/nfe")
         {
-            var memoryStream = new MemoryStream();
-            using (var streamWriter = new StreamWriter(memoryStream))
+            using (var memoryStream = new MemoryStream())
             {
                 var name = new XmlSerializerNamespaces();
                 name.Add(string.Empty, string.Empty);
                 name.Add(string.Empty, nameSpace);
                 var xmlSerializer = new XmlSerializer(T);
-                xmlSerializer.Serialize(streamWriter, obj, name);
-                return XElement.Parse(Encoding.UTF8.GetString(memoryStream.ToArray()));
+                xmlSerializer.Serialize(memoryStream, obj, name);
+                return XElement.Load(memoryStream);
             }
         }
 
@@ -36,7 +34,10 @@ namespace BibliotecaCentral
         public static T FromXElement<T>(this XNode xElement)
         {
             var xmlSerializer = new XmlSerializer(typeof(T));
-            return (T)xmlSerializer.Deserialize(xElement.CreateReader());
+            using (var reader = xElement.CreateReader())
+            {
+                return (T)xmlSerializer.Deserialize(reader);
+            }
         }
 
         public static double ToDouble(this string str)

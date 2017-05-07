@@ -18,7 +18,7 @@ namespace BibliotecaCentral
             using (var stream = await arq.OpenStreamForWriteAsync())
             {
                 xml.Save(stream);
-                await stream.FlushAsync();
+                stream.Flush();
             }
         }
 

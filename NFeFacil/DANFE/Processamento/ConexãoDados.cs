@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using NFeFacil.DANFE.Modelos.Local;
+using NFeFacil.DANFE.Pacotes;
 using System;
 using System.Collections.Generic;
 using System.Linq;

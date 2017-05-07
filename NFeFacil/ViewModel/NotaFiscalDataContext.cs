@@ -19,9 +19,9 @@ using BibliotecaCentral;
 using BibliotecaCentral.Repositorio;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTotal;
 using System.Threading.Tasks;
-using BibliotecaCentral.WebService.AutorizarNota;
-using BibliotecaCentral.WebService.RespostaAutorizarNota;
+using BibliotecaCentral.WebService.Pacotes;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesIdentificacao;
+using BibliotecaCentral.WebService;
 
 namespace NFeFacil.ViewModel
 {
@@ -172,7 +172,7 @@ namespace NFeFacil.ViewModel
         }
 
         public ICommand AdicionarProdutoCommand => new Comando(AdicionarProduto, true);
-        public ICommand RemoverProdutoCommand => new Comando<DetalhesProdutos, ObterDataContext<DetalhesProdutos>>(RemoverProduto);
+        public ICommand RemoverProdutoCommand => new Comando<DetalhesProdutos>(RemoverProduto);
 
         private async void AdicionarProduto()
         {
@@ -278,29 +278,31 @@ namespace NFeFacil.ViewModel
 
         private async void Transmitir()
         {
-            var resultadoTransmissao = await new Autorizacao(NotaSalva.Informações.emitente.endereco.SiglaUF).AutorizarAsync(AmbienteTestes, NotaSalva);
-            if (resultadoTransmissao.retEnviNFe.cStat == 103)
+            var resultadoTransmissao = await new GerenciadorGeral<EnviNFe, RetEnviNFe>(NotaSalva.Informações.emitente.endereco.SiglaUF, Operacoes.Autorizar, AmbienteTestes)
+                .EnviarAsync(new EnviNFe(NotaSalva.Informações.identificação.Numero, NotaSalva));
+            if (resultadoTransmissao.cStat == 103)
             {
-                var resultadoResposta = await new RespostaAutorizacao(resultadoTransmissao.retEnviNFe).ObterRespostaAutorizacao(AmbienteTestes);
-                if (resultadoResposta.retConsReciNFe.protNFe.InfProt.cStat == 100)
+                var resultadoResposta = await new GerenciadorGeral<ConsReciNFe, RetConsReciNFe>(resultadoTransmissao.cUF, Operacoes.RespostaAutorizar, AmbienteTestes)
+                    .EnviarAsync(new ConsReciNFe(resultadoTransmissao.tpAmb, resultadoTransmissao.infRec.nRec));
+                if (resultadoResposta.protNFe.InfProt.cStat == 100)
                 {
                     NotaEmitida = new Processo()
                     {
                         NFe = NotaSalva,
-                        ProtNFe = resultadoResposta.retConsReciNFe.protNFe
+                        ProtNFe = resultadoResposta.protNFe
                     };
-                    Log.Escrever(TitulosComuns.Sucesso, resultadoResposta.retConsReciNFe.xMotivo);
+                    Log.Escrever(TitulosComuns.Sucesso, resultadoResposta.xMotivo);
                     StatusAtual = StatusNFe.Emitido;
                     await SalvarAsync();
                 }
                 else
                 {
-                    Log.Escrever(TitulosComuns.ErroSimples, $"A nota fiscal foi processada, mas recusada. Mensagem de retorno: \n{resultadoResposta.retConsReciNFe.protNFe.InfProt.xMotivo}");
+                    Log.Escrever(TitulosComuns.ErroSimples, $"A nota fiscal foi processada, mas recusada. Mensagem de retorno: \n{resultadoResposta.protNFe.InfProt.xMotivo}");
                 }
             }
             else
             {
-                Log.Escrever(TitulosComuns.ErroSimples, $"A NFe não foi aceita. Mensagem de retorno: \n{resultadoTransmissao.retEnviNFe.xMotivo}\nPor favor, exporte esta nota fiscal e envie o XML gerado para o desenvolvedor do aplicativo para que o erro possa ser corrigido.");
+                Log.Escrever(TitulosComuns.ErroSimples, $"A NFe não foi aceita. Mensagem de retorno: \n{resultadoTransmissao.xMotivo}\nPor favor, exporte esta nota fiscal e envie o XML gerado para o desenvolvedor do aplicativo para que o erro possa ser corrigido.");
             }
         }
 
@@ -350,9 +352,7 @@ namespace NFeFacil.ViewModel
             {
                 if (string.IsNullOrEmpty(NotaSalva.Informações.identificação.DataHoraSaídaEntrada))
                 {
-                    var agora = DateTime.Now;
-                    NotaSalva.Informações.identificação.DataHoraSaídaEntrada = agora.ToStringPersonalizado();
-                    return agora;
+                    return DataEmissao;
                 }
                 return DateTimeOffset.Parse(NotaSalva.Informações.identificação.DataHoraSaídaEntrada);
             }
@@ -387,7 +387,7 @@ namespace NFeFacil.ViewModel
 
         public string TempNFeReferenciada { get; set; }
         public ICommand AdicionarNFeReferenciadaCommand => new Comando(AdicionarNFeReferenciada, true);
-        public ICommand RemoverNFeReferenciadaCommand => new Comando<DocumentoFiscalReferenciado, ObterDataContext<DocumentoFiscalReferenciado>>(RemoverNFeReferenciada);
+        public ICommand RemoverNFeReferenciadaCommand => new Comando<DocumentoFiscalReferenciado>(RemoverNFeReferenciada);
 
         private void AdicionarNFeReferenciada()
         {
@@ -451,9 +451,9 @@ namespace NFeFacil.ViewModel
         }
 
         public ICommand AdicionarReboqueCommand => new Comando(AdicionarReboque, true);
-        public ICommand RemoverReboqueCommand => new Comando<Reboque, ObterDataContext<Reboque>>(RemoverReboque);
+        public ICommand RemoverReboqueCommand => new Comando<Reboque>(RemoverReboque);
         public ICommand AdicionarVolumeCommand => new Comando(AdicionarVolume, true);
-        public ICommand RemoverVolumeCommand => new Comando<Volume, ObterDataContext<Volume>>(RemoverVolume);
+        public ICommand RemoverVolumeCommand => new Comando<Volume>(RemoverVolume);
 
         private async void AdicionarReboque()
         {
@@ -494,7 +494,7 @@ namespace NFeFacil.ViewModel
         #region Cobrança
 
         public ICommand AdicionarDuplicataCommand => new Comando(AdicionarDuplicata, true);
-        public ICommand RemoverDuplicataCommand => new Comando<Duplicata, ObterDataContext<Duplicata>>(RemoverDuplicata);
+        public ICommand RemoverDuplicataCommand => new Comando<Duplicata>(RemoverDuplicata);
 
         private async void AdicionarDuplicata()
         {
@@ -518,9 +518,9 @@ namespace NFeFacil.ViewModel
         #region Cana
 
         public ICommand AdicionarFornecimentoCommand => new Comando(AdicionarFornecimento, true);
-        public ICommand RemoverFornecimentoCommand => new Comando<FornecimentoDiario, ObterDataContext<FornecimentoDiario>>(RemoverFornecimento);
+        public ICommand RemoverFornecimentoCommand => new Comando<FornecimentoDiario>(RemoverFornecimento);
         public ICommand AdicionarDeducaoCommand => new Comando(AdicionarDeducao, true);
-        public ICommand RemoverDeducaoCommand => new Comando<Deducoes, ObterDataContext<Deducoes>>(RemoverDeducao);
+        public ICommand RemoverDeducaoCommand => new Comando<Deducoes>(RemoverDeducao);
 
         public async void AdicionarFornecimento()
         {
@@ -561,9 +561,9 @@ namespace NFeFacil.ViewModel
         #region InformacoesAdicionais
 
         public ICommand AdicionarObsContribuinteCommand => new Comando(AdicionarObsContribuinte, true);
-        public ICommand RemoverObsContribuinteCommand => new Comando<Observacao, ObterDataContext<Observacao>>(RemoverObsContribuinte);
+        public ICommand RemoverObsContribuinteCommand => new Comando<Observacao>(RemoverObsContribuinte);
         public ICommand AdicionarProcReferenciadoCommand => new Comando(AdicionarProcReferenciado, true);
-        public ICommand RemoverProcReferenciadoCommand => new Comando<ProcessoReferenciado, ObterDataContext<ProcessoReferenciado>>(RemoverProcReferenciado);
+        public ICommand RemoverProcReferenciadoCommand => new Comando<ProcessoReferenciado>(RemoverProcReferenciado);
 
         private async void AdicionarObsContribuinte()
         {

@@ -10,10 +10,10 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
     [RestController(InstanceCreationType.PerCall)]
     internal sealed class ControllerSincronizacaoNotas
     {
-        [UriFormat("/Notas/POST/{senha}")]
+        [UriFormat("/Notas/{senha}")]
         public async Task<IPostResponse> ClienteServidor(int senha, [FromContent] NotasFiscais pacote)
         {
-            return await SupervisionarOperacao.Iniciar(async () =>
+            return await SupervisorOperacao.Supervisionar(async () =>
             {
                 if (senha != ConfiguracoesSincronizacao.SenhaPermanente)
                     throw new SenhaErrada(senha);
@@ -22,10 +22,10 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
             }, pacote.HoraRequisição, TipoDado.NotaFiscal);
         }
 
-        [UriFormat("/Notas/GET/{senha}")]
+        [UriFormat("/Notas/{senha}")]
         public async Task<IGetResponse> ServidorCliente(int senha)
         {
-            return await SupervisionarOperacao.Iniciar(async () =>
+            return await SupervisorOperacao.Supervisionar(async () =>
             {
                 if (senha != ConfiguracoesSincronizacao.SenhaPermanente)
                     throw new SenhaErrada(senha);

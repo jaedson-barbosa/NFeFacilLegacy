@@ -10,7 +10,6 @@ using Windows.UI.Xaml.Media;
 using Newtonsoft.Json;
 using BibliotecaCentral.Log;
 using BibliotecaCentral.Certificacao;
-using BibliotecaCentral.Sincronizacao.Cliente;
 using BibliotecaCentral.Sincronizacao;
 using BibliotecaCentral.Sincronizacao.Pacotes;
 using NFeFacil.View;
@@ -18,7 +17,6 @@ using System.Collections.Generic;
 using static BibliotecaCentral.Sincronizacao.ConfiguracoesSincronizacao;
 using BibliotecaCentral.Importacao;
 using System.Text;
-using BibliotecaCentral.Repositorio;
 using System.Security.Cryptography.X509Certificates;
 using System.Collections.ObjectModel;
 using BibliotecaCentral;
@@ -227,7 +225,7 @@ namespace NFeFacil.ViewModel
         private async Task EstabelecerConexaoAsync(InfoEstabelecerConexao info)
         {
             IPServidor = info.IP;
-            var cliente = new ClienteBrechaSeguranca(LogPopUp);
+            var cliente = new GerenciadorCliente(LogPopUp);
             await cliente.EstabelecerConexao(info.SenhaTemporaria);
         }
 
@@ -322,7 +320,7 @@ namespace NFeFacil.ViewModel
         private async void ImportarNotaFiscal()
         {
             var resultado = await new ImportarNotaFiscal().ImportarAsync();
-            if (resultado.Analise == ResumoRelatorioImportacao.Sucesso)
+            if (resultado.Count == 0)
             {
                 LogPopUp.Escrever(TitulosComuns.Sucesso, "As notas fiscais foram importadas com sucesso.");
             }
@@ -330,7 +328,7 @@ namespace NFeFacil.ViewModel
             {
                 StringBuilder stringErros = new StringBuilder();
                 stringErros.AppendLine("As seguintes notas fiscais não foram reconhecidas por terem a tag raiz diferente de nfeProc e de NFe.");
-                resultado.Erros.ForEach(y =>
+                resultado.ForEach(y =>
                 {
                     var x = y as XmlNaoReconhecido;
                     stringErros.AppendLine($"Nome arquivo: {x.NomeArquivo}; Tag raiz: Encontrada: {x.TagRaiz}");
@@ -342,7 +340,7 @@ namespace NFeFacil.ViewModel
         private async void ImportarDadoBase()
         {
             var resultado = await new ImportarDadoBase(TipoBásicoSelecionado).ImportarAsync();
-            if (resultado.Analise == ResumoRelatorioImportacao.Sucesso)
+            if (resultado.Count == 0)
             {
                 LogPopUp.Escrever(TitulosComuns.Sucesso, "As informações base foram importadas com sucesso.");
             }
@@ -350,7 +348,7 @@ namespace NFeFacil.ViewModel
             {
                 StringBuilder stringErros = new StringBuilder();
                 stringErros.AppendLine("Os seguintes dados base não foram reconhecidos por terem a tag raiz diferente do esperado.");
-                resultado.Erros.ForEach(y =>
+                resultado.ForEach(y =>
                 {
                     var x = y as XmlNaoReconhecido;
                     stringErros.AppendLine($"Nome arquivo: {x.NomeArquivo}; Tag raiz encontrada: {x.TagRaiz}; Tags raiz esperadas: {x.TagsEsperadas[0]} ou {x.TagsEsperadas[1]}");

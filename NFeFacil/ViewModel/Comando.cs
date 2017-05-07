@@ -19,14 +19,21 @@ namespace NFeFacil.ViewModel
         public void Execute(object parameter) => _action?.Invoke();
     }
 
-    public sealed class Comando<Parametro, ProcessoPropriedades> : ICommand where ProcessoPropriedades : IObterPropriedade<Parametro>, new()
+    public sealed class Comando<Parametro> : ICommand
     {
         private Action<Parametro> _action;
-        private IObterPropriedade<Parametro> _processarEntrada = new ProcessoPropriedades();
+        private IObterPropriedade<Parametro> _processarEntrada;
 
         public Comando(Action<Parametro> action)
         {
             _action = action;
+            _processarEntrada = new ObterDataContext<Parametro>();
+        }
+
+        public Comando(Action<Parametro> action, IObterPropriedade<Parametro> processa)
+        {
+            _action = action;
+            _processarEntrada = processa;
         }
 
         public event EventHandler CanExecuteChanged;

@@ -1,24 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
 using System.Xml.Serialization;
 
 namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
 {
-    public class Emitente
+    public sealed class Emitente
     {
-        public Emitente() : base() { }
-        public Emitente(Emitente other)
-        {
-            CNPJ = other.CNPJ;
-            inscricaoEstadual = other.inscricaoEstadual;
-            nome = other.nome;
-            nomeFantasia = other.nomeFantasia;
-            endereco = new enderecoCompleto(other.endereco);
-            regimeTributario = other.regimeTributario;
-            IEST = other.IEST;
-            IM = other.IM;
-            CNAE = other.CNAE;
-        }
-        [Key]
+        [XmlIgnore]
+        public Guid Id { get; set; }
+
         public string CNPJ { get; set; }
         [XmlElement(ElementName = "xNome")]
         public string nome { get; set; }

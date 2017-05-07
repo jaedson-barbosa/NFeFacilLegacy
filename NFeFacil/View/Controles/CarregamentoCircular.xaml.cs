@@ -57,10 +57,38 @@ namespace NFeFacil.View.Controles
         {
             if (Tamanho > 0)
             {
-                radialStrip.Data = ArcHelper.GetCircleSegment(CenterPoint, (Tamanho - Thickness) / 2, GetAngle());
+                radialStrip.Data = GetCircleSegment(CenterPoint, (Tamanho - Thickness) / 2, GetAngle());
                 radialStrip.Stroke = Segmento;
                 radialStrip.StrokeThickness = Thickness;
             }
+        }
+
+        private static Geometry GetCircleSegment(Point centerPoint, double radius, double angle)
+        {
+            var pathGeometry = new PathGeometry();
+            var pathFigure = new PathFigure
+            {
+                StartPoint = new Point(centerPoint.X, centerPoint.Y - radius),
+                IsClosed = false
+            };
+            pathFigure.Segments.Add(new ArcSegment
+            {
+                IsLargeArc = angle > 180.0,
+                Point = ScaleUnitCirclePoint(centerPoint),
+                Size = new Size(radius, radius),
+                SweepDirection = SweepDirection.Clockwise
+            });
+            pathGeometry.Figures.Add(pathFigure);
+
+            return pathGeometry;
+
+            Point ScaleUnitCirclePoint(Point origin)
+            {
+                var retorno = new Point(origin.X + Math.Sin(GrauParaRadiano(angle)) * radius, origin.Y - Math.Cos(GrauParaRadiano(angle)) * radius);
+                return retorno;
+            }
+
+            double GrauParaRadiano(double grau) => Math.PI * grau / 180;
         }
 
         private Point CenterPoint => new Point(Tamanho / 2, Tamanho / 2);

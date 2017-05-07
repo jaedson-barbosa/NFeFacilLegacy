@@ -105,7 +105,7 @@ namespace BibliotecaCentral.WebService
         internal const string RecepcaoEventoMetodo = "http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento/nfeRecepcaoEvento";
     }
 
-    internal enum Operacoes
+    public enum Operacoes
     {
         Consultar,
         Autorizar,

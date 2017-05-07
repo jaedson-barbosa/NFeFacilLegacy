@@ -1,5 +1,4 @@
 ﻿using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesIdentificacao;
-using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using Windows.ApplicationModel;
@@ -8,11 +7,7 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
 {
     public class Identificacao
     {
-        public Identificacao()
-        {
-            DataHoraSaídaEntrada = DataHoraEmissão = DateTime.Now.ToStringPersonalizado();
-        }
-
+        public Identificacao() { }
         public Identificacao(Identificacao other)
         {
             CódigoUF = other.CódigoUF;

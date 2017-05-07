@@ -10,10 +10,10 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
     [RestController(InstanceCreationType.PerCall)]
     internal sealed class ControllerBrechaSeguranca
     {
-        [UriFormat("/BrechaSeguranca/GET/{senha}")]
+        [UriFormat("/BrechaSeguranca/{senha}")]
         public IGetResponse Get(int senha)
         {
-            return SupervisionarOperacao.Iniciar(() =>
+            return SupervisorOperacao.Supervisionar(() =>
             {
                 if ((bool)CoreApplication.Properties["BrechaAberta"])
                 {

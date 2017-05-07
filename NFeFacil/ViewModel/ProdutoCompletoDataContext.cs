@@ -115,8 +115,8 @@ namespace NFeFacil.ViewModel
             NovoArmamento = new Arma();
             AdicionarDeclaracaoImportacaoCommand = new Comando(AdicionarDeclaracaoImportacao, true);
             AdicionarDeclaracaoExportacaoCommand = new Comando(AdicionarDeclaracaoExportacao, true);
-            RemoverDeclaracaoImportacaoCommand = new Comando<DeclaracaoImportacao, ObterDataContext<DeclaracaoImportacao>>(RemoverDeclaracaoImportacao);
-            RemoverDeclaracaoExportacaoCommand = new Comando<GrupoExportacao, ObterDataContext<GrupoExportacao>>(RemoverDeclaracaoExportacao);
+            RemoverDeclaracaoImportacaoCommand = new Comando<DeclaracaoImportacao>(RemoverDeclaracaoImportacao);
+            RemoverDeclaracaoExportacaoCommand = new Comando<GrupoExportacao>(RemoverDeclaracaoExportacao);
             AdicionarMedicamentoCommand = new Comando(AdicionarMedicamento, true);
             RemoverMedicamentoCommand = new Comando(RemoverMedicamento, true);
             AdicionarArmamentoCommand = new Comando(AdicionarArmamento, true);

@@ -12,7 +12,7 @@
     <DefaultLanguage>pt-BR</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.15063.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.15063.0</TargetPlatformMinVersion>
+    <TargetPlatformMinVersion>10.0.14393.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -107,8 +107,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Certificacao\AssinaNFe.cs" />
-    <Compile Include="Certificacao\AssinaXML.cs" />
     <Compile Include="Certificacao\ConfiguracoesCertificacao.cs" />
+    <Compile Include="Migrations\20170507035744_Estavel9.cs" />
+    <Compile Include="Migrations\20170507035744_Estavel9.designer.cs">
+      <DependentUpon>20170507035744_Estavel9.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\AplicativoContextModelSnapshot.cs" />
     <Compile Include="Sincronizacao\ConfiguracoesSincronizacao.cs" />
     <Compile Include="Sincronizacao\TipoAppSincronizacao.cs" />
     <Compile Include="Extensoes.cs" />
@@ -122,8 +126,6 @@
     <Compile Include="Importacao\ImportarCertificado.cs" />
     <Compile Include="Importacao\ImportarDadoBase.cs" />
     <Compile Include="Importacao\ImportarNotaFiscal.cs" />
-    <Compile Include="Importacao\RelatorioImportacao.cs" />
-    <Compile Include="Importacao\ResumoRelatorioImportacao.cs" />
     <Compile Include="Importacao\TiposDadoBasico.cs" />
     <Compile Include="Importacao\XmlNaoReconhecido.cs" />
     <Compile Include="InicioGeral.cs" />
@@ -139,11 +141,6 @@
     <Compile Include="Log\Titulos.cs" />
     <Compile Include="Log\TitulosComuns.cs" />
     <Compile Include="Log\Toast.cs" />
-    <Compile Include="Migrations\20170501125147_Estavel5.cs" />
-    <Compile Include="Migrations\20170501125147_Estavel5.designer.cs">
-      <DependentUpon>20170501125147_Estavel5.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\AplicativoContextModelSnapshot.cs" />
     <Compile Include="Model.cs" />
     <Compile Include="ModeloXML\Enums.cs" />
     <Compile Include="ModeloXML\PartesProcesso\InfoProtocolo.cs" />
@@ -259,11 +256,6 @@
     <Compile Include="Repositorio\Produtos.cs" />
     <Compile Include="Repositorio\ResultadosCliente.cs" />
     <Compile Include="Repositorio\ResultadosServidor.cs" />
-    <Compile Include="Sincronizacao\Cliente\ClienteBrechaSeguranca.cs" />
-    <Compile Include="Sincronizacao\Cliente\ClienteConfiguracoes.cs" />
-    <Compile Include="Sincronizacao\Cliente\ClienteSincronizacaoDadosBase.cs" />
-    <Compile Include="Sincronizacao\Cliente\ClienteSincronizacaoNotas.cs" />
-    <Compile Include="Sincronizacao\Cliente\ConexaoComServidor.cs" />
     <Compile Include="Sincronizacao\GerenciadorCliente.cs" />
     <Compile Include="Sincronizacao\GerenciadorServidor.cs" />
     <Compile Include="Sincronizacao\ItensSincronizados.cs" />
@@ -280,7 +272,7 @@
     <Compile Include="Sincronizacao\Servidor\ControllerSincronizacaoDadosBase.cs" />
     <Compile Include="Sincronizacao\Servidor\ControllerSincronizacaoNotas.cs" />
     <Compile Include="Sincronizacao\Servidor\SenhaErrada.cs" />
-    <Compile Include="Sincronizacao\Servidor\SupervisionarOperacao.cs" />
+    <Compile Include="Sincronizacao\Servidor\SupervisorOperacao.cs" />
     <Compile Include="Validacao\ConjuntoAnalise.cs" />
     <Compile Include="Validacao\IValidavel.cs" />
     <Compile Include="Validacao\ValidadorDestinatario.cs" />
@@ -290,24 +282,15 @@
     <Compile Include="Validacao\ValidadorMotorista.cs" />
     <Compile Include="Validacao\ValidadorProduto.cs" />
     <Compile Include="Validacao\ValidarDados.cs" />
-    <Compile Include="WebService\AutorizarNota\CorpoRequest.cs" />
-    <Compile Include="WebService\AutorizarNota\CorpoResponse.cs" />
-    <Compile Include="WebService\AutorizarNota\Autorizacao.cs" />
-    <Compile Include="WebService\AutorizarNota\Request.cs" />
-    <Compile Include="WebService\AutorizarNota\Response.cs" />
-    <Compile Include="WebService\ConsultarNota\CorpoRequest.cs" />
-    <Compile Include="WebService\ConsultarNota\CorpoResponse.cs" />
-    <Compile Include="WebService\ConsultarNota\Consultacao.cs" />
-    <Compile Include="WebService\ConsultarNota\Request.cs" />
-    <Compile Include="WebService\ConsultarNota\Response.cs" />
+    <Compile Include="WebService\Pacotes\EnviNFe.cs" />
+    <Compile Include="WebService\Pacotes\RetEnviNFe.cs" />
+    <Compile Include="WebService\Pacotes\ConsSitNFe.cs" />
+    <Compile Include="WebService\Pacotes\RetConsSitNFe.cs" />
     <Compile Include="WebService\DadosServico.cs" />
     <Compile Include="WebService\EnderecosConexao.cs" />
     <Compile Include="WebService\GerenciadorGeral.cs" />
-    <Compile Include="WebService\RespostaAutorizarNota\CorpoRequest.cs" />
-    <Compile Include="WebService\RespostaAutorizarNota\CorpoResponse.cs" />
-    <Compile Include="WebService\RespostaAutorizarNota\RespostaAutorizacao.cs" />
-    <Compile Include="WebService\RespostaAutorizarNota\Request.cs" />
-    <Compile Include="WebService\RespostaAutorizarNota\Response.cs" />
+    <Compile Include="WebService\Pacotes\ConsReciNFe.cs" />
+    <Compile Include="WebService\Pacotes\RetConsReciNFe.cs" />
     <Compile Include="WebService\WebServices\AM.cs" />
     <Compile Include="WebService\WebServices\BA.cs" />
     <Compile Include="WebService\WebServices\CE.cs" />
@@ -356,9 +339,7 @@
       <Name>System.Security.Cryptography.Xml</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="WebService\CancelarNota\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

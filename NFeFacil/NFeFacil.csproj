@@ -12,7 +12,7 @@
     <DefaultLanguage>pt-BR</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.15063.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.15063.0</TargetPlatformMinVersion>
+    <TargetPlatformMinVersion>10.0.14393.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -149,20 +149,18 @@
     <Compile Include="DANFE\GerenciadorExportacao.cs" />
     <Compile Include="DANFE\GerenciadorImpressao.cs" />
     <Compile Include="DANFE\GerenciadorWebView.cs" />
-    <Compile Include="DANFE\Modelos\Global\DadosAdicionais.cs" />
-    <Compile Include="DANFE\Modelos\Global\DadosCabecalho.cs" />
-    <Compile Include="DANFE\Modelos\Global\DadosCliente.cs" />
-    <Compile Include="DANFE\Modelos\Global\DadosDuplicata.cs" />
-    <Compile Include="DANFE\Modelos\Global\DadosImposto.cs" />
-    <Compile Include="DANFE\Modelos\Global\DadosMotorista.cs" />
-    <Compile Include="DANFE\Modelos\Global\DadosNFe.cs" />
-    <Compile Include="DANFE\Modelos\Global\DadosProduto.cs" />
-    <Compile Include="DANFE\Modelos\Local\DadosOutrasPaginas.cs" />
-    <Compile Include="DANFE\Modelos\Local\DadosPrimeiraPagina.cs" />
-    <Compile Include="DANFE\Modelos\Local\Geral.cs" />
+    <Compile Include="DANFE\Pacotes\DadosAdicionais.cs" />
+    <Compile Include="DANFE\Pacotes\DadosCabecalho.cs" />
+    <Compile Include="DANFE\Pacotes\DadosCliente.cs" />
+    <Compile Include="DANFE\Pacotes\DadosDuplicata.cs" />
+    <Compile Include="DANFE\Pacotes\DadosImposto.cs" />
+    <Compile Include="DANFE\Pacotes\DadosMotorista.cs" />
+    <Compile Include="DANFE\Pacotes\DadosNFe.cs" />
+    <Compile Include="DANFE\Pacotes\DadosProduto.cs" />
+    <Compile Include="DANFE\Pacotes\DadosOutrasPaginas.cs" />
+    <Compile Include="DANFE\Pacotes\DadosPrimeiraPagina.cs" />
+    <Compile Include="DANFE\Pacotes\Geral.cs" />
     <Compile Include="DANFE\Processamento\ConexãoDados.cs" />
-    <Compile Include="DANFE\Processamento\Dimensoes.cs" />
-    <Compile Include="DANFE\Processamento\NFeToDANFE.cs" />
     <Compile Include="DANFE\Processamento\ViewDados.cs" />
     <Compile Include="DANFE\Processamento\ViewUI.cs" />
     <Compile Include="GrupoViewBanco.cs" />
@@ -252,7 +250,6 @@
     <Compile Include="View\Configuracoes.xaml.cs">
       <DependentUpon>Configuracoes.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Controles\ArcHelper.cs" />
     <Compile Include="View\Controles\CarregamentoCircular.xaml.cs">
       <DependentUpon>CarregamentoCircular.xaml</DependentUpon>
     </Compile>

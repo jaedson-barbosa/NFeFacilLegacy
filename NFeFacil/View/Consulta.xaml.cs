@@ -26,7 +26,6 @@ namespace NFeFacil.View
 
         private async void btnAnalisar_Click(object sender, RoutedEventArgs e)
         {
-            Aparecer.Begin();
             btnAnalisar.IsEnabled = false;
             var codigo = txtCodigo.Text;
             try
@@ -42,7 +41,7 @@ namespace NFeFacil.View
             }
             btnAnalisar.IsEnabled = true;
             await Task.Delay(1000);
-            Esconder.Begin();
+            OcultarCarregamento.Begin();
             lstOqAcontece.Items.Clear();
         }
 

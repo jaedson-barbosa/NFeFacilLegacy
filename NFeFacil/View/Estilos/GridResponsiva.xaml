@@ -8,7 +8,7 @@
                 <Setter Property="ItemContainerTransitions">
                     <Setter.Value>
                         <TransitionCollection>
-                            <RepositionThemeTransition IsStaggeringEnabled="False" />
+                            <ReorderThemeTransition />
                         </TransitionCollection>
                     </Setter.Value>
                 </Setter>

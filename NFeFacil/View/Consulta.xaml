@@ -1,116 +1,173 @@
-﻿<Page x:Class="NFeFacil.View.Consulta"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<Page xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
+      xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
+      xmlns:Media="using:Microsoft.Xaml.Interactions.Media"
+      x:Class="NFeFacil.View.Consulta"
       mc:Ignorable="d">
     <Page.Resources>
         <ResourceDictionary>
-            <Storyboard x:Name="Aparecer">
-                <DoubleAnimation Duration="0:0:1"
-                                 To="0"
-                                 Storyboard.TargetProperty="(UIElement.Opacity)"
-                                 Storyboard.TargetName="grdManipulação"
-                                 EnableDependentAnimation="True" />
-                <DoubleAnimation Duration="0:0:1"
-                                 To="1"
-                                 Storyboard.TargetProperty="(UIElement.Opacity)"
-                                 Storyboard.TargetName="grdCarregando"
-                                 EnableDependentAnimation="True" />
-            </Storyboard>
-            <Storyboard x:Name="Esconder">
-                <DoubleAnimation Duration="0:0:1"
-                                 To="1"
-                                 Storyboard.TargetProperty="(UIElement.Opacity)"
-                                 Storyboard.TargetName="grdManipulação"
-                                 EnableDependentAnimation="True" />
-                <DoubleAnimation Duration="0:0:1"
-                                 To="0"
-                                 Storyboard.TargetProperty="(UIElement.Opacity)"
-                                 Storyboard.TargetName="grdCarregando"
-                                 EnableDependentAnimation="True" />
-            </Storyboard>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Estilos/CoresDestaque.xaml" />
+            </ResourceDictionary.MergedDictionaries>
             <Storyboard x:Name="OcultarGrid">
-                <DoubleAnimation Duration="0:0:0.25"
-                                 To="0"
-                                 Storyboard.TargetProperty="(UIElement.Opacity)"
-                                 Storyboard.TargetName="grdPrincipal" />
+                <FadeOutThemeAnimation TargetName="grdPrincipal"
+                                       Duration="0:0:0.25" />
+            </Storyboard>
+            <Storyboard x:Key="MostrarCarregamento">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)"
+                                               Storyboard.TargetName="grdManipulação">
+                    <SplineDoubleKeyFrame KeyTime="0:0:0.5"
+                                          Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)"
+                                               Storyboard.TargetName="grdCarregando">
+                    <SplineDoubleKeyFrame KeyTime="0"
+                                          Value="0" />
+                    <SplineDoubleKeyFrame KeyTime="0:0:0.5"
+                                          Value="1" />
+                </DoubleAnimationUsingKeyFrames>
+                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)"
+                                               Storyboard.TargetName="grdManipulação">
+                    <DiscreteObjectKeyFrame KeyTime="0:0:0.5">
+                        <DiscreteObjectKeyFrame.Value>
+                            <Visibility>Collapsed</Visibility>
+                        </DiscreteObjectKeyFrame.Value>
+                    </DiscreteObjectKeyFrame>
+                </ObjectAnimationUsingKeyFrames>
+                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)"
+                                               Storyboard.TargetName="grdCarregando">
+                    <DiscreteObjectKeyFrame KeyTime="0">
+                        <DiscreteObjectKeyFrame.Value>
+                            <Visibility>Visible</Visibility>
+                        </DiscreteObjectKeyFrame.Value>
+                    </DiscreteObjectKeyFrame>
+                    <DiscreteObjectKeyFrame KeyTime="0:0:0.5">
+                        <DiscreteObjectKeyFrame.Value>
+                            <Visibility>Visible</Visibility>
+                        </DiscreteObjectKeyFrame.Value>
+                    </DiscreteObjectKeyFrame>
+                </ObjectAnimationUsingKeyFrames>
+            </Storyboard>
+            <Storyboard x:Name="OcultarCarregamento">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)"
+                                               Storyboard.TargetName="grdManipulação">
+                    <SplineDoubleKeyFrame KeyTime="0"
+                                          Value="0" />
+                    <SplineDoubleKeyFrame KeyTime="0:0:0.5"
+                                          Value="1" />
+                </DoubleAnimationUsingKeyFrames>
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)"
+                                               Storyboard.TargetName="grdCarregando">
+                    <SplineDoubleKeyFrame KeyTime="0:0:0.5"
+                                          Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)"
+                                               Storyboard.TargetName="grdManipulação">
+                    <DiscreteObjectKeyFrame KeyTime="0">
+                        <DiscreteObjectKeyFrame.Value>
+                            <Visibility>Visible</Visibility>
+                        </DiscreteObjectKeyFrame.Value>
+                    </DiscreteObjectKeyFrame>
+                    <DiscreteObjectKeyFrame KeyTime="0:0:0.5">
+                        <DiscreteObjectKeyFrame.Value>
+                            <Visibility>Visible</Visibility>
+                        </DiscreteObjectKeyFrame.Value>
+                    </DiscreteObjectKeyFrame>
+                </ObjectAnimationUsingKeyFrames>
+                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)"
+                                               Storyboard.TargetName="grdCarregando">
+                    <DiscreteObjectKeyFrame KeyTime="0:0:0.5">
+                        <DiscreteObjectKeyFrame.Value>
+                            <Visibility>Collapsed</Visibility>
+                        </DiscreteObjectKeyFrame.Value>
+                    </DiscreteObjectKeyFrame>
+                </ObjectAnimationUsingKeyFrames>
             </Storyboard>
         </ResourceDictionary>
     </Page.Resources>
     <Grid x:Name="grdPrincipal"
           Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-          Padding="5">
-        <Grid x:Name="grdManipulação">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
+          Padding="4">
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <EntranceThemeTransition IsStaggeringEnabled="True" />
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <TextBox x:Name="txtCodigo"
+                 TextWrapping="Wrap"
+                 Text="25160812931158000164550010000002501800004989"
+                 Grid.ColumnSpan="2" />
+        <ComboBox x:Name="cmbUF"
+                  HorizontalAlignment="Stretch"
+                  PlaceholderText="UF"
+                  Grid.Row="1"
+                  Margin="0,4,0,8">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Nome}" />
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <Button x:Name="btnAnalisar"
+                Content="Analisar nota"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Click="btnAnalisar_Click"
+                Grid.Column="2"
+                Grid.Row="1"
+                Margin="0,4,0,8">
+            <Interactivity:Interaction.Behaviors>
+                <Core:EventTriggerBehavior EventName="Click">
+                    <Media:ControlStoryboardAction Storyboard="{StaticResource MostrarCarregamento}" />
+                </Core:EventTriggerBehavior>
+            </Interactivity:Interaction.Behaviors>
+        </Button>
+        <Grid x:Name="grdManipulação"
+              Visibility="Collapsed"
+              Opacity="0"
+              Grid.ColumnSpan="2"
+              Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Grid Grid.ColumnSpan="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="3*" />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <TextBox x:Name="txtCodigo"
-                         TextWrapping="Wrap"
-                         Text="25160812931158000164550010000002501800004989"
-                         VerticalAlignment="Top" />
-                <ComboBox x:Name="cmbUF"
-                          HorizontalAlignment="Stretch"
-                          Grid.Column="1"
-                          VerticalAlignment="Stretch"
-                          PlaceholderText="UF">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Nome}" />
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-                <Button x:Name="btnAnalisar"
-                        Content="Analisar nota"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch"
-                        Click="btnAnalisar_Click"
-                        Grid.Column="2" />
-            </Grid>
-            <TextBlock Grid.Row="1"
-                       Margin="0,10,0,5"
-                       Style="{StaticResource SubtitleTextBlockStyle}"
-                       Grid.ColumnSpan="2">Resposta</TextBlock>
-            <Border Grid.Row="1"
-                    Grid.ColumnSpan="2"
-                    VerticalAlignment="Bottom"
-                    BorderThickness="0,2,0,0"
-                    Padding="0"
-                    BorderBrush="Black"
-                    Margin="0" />
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
             <TextBox IsReadOnly="True"
                      Text="{Binding cStat, Mode=OneWay}"
-                     Grid.Row="2"
                      Header="Código do status"
                      Margin="0,0,2,0" />
             <TextBox IsReadOnly="True"
                      Text="{Binding cUF, Mode=OneWay}"
-                     Grid.Row="2"
                      Grid.Column="1"
                      Header="UF que atendeu"
                      Margin="2,0,0,0" />
             <TextBox IsReadOnly="True"
                      Text="{Binding xMotivo, Mode=OneWay}"
-                     Grid.Row="3"
+                     Grid.Row="1"
                      Grid.ColumnSpan="2"
                      Header="Descrição do status"
                      Margin="0,5,0,0" />
         </Grid>
         <Grid x:Name="grdCarregando"
-              Opacity="0">
+              Visibility="Collapsed"
+              Opacity="0"
+              Grid.ColumnSpan="2"
+              Grid.Row="2">
             <ProgressRing RenderTransformOrigin="0.5,0.5"
                           IsActive="True">
                 <ProgressRing.RenderTransform>

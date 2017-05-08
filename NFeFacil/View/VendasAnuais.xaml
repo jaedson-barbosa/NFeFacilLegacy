@@ -26,15 +26,25 @@
     </Page.Resources>
     <Grid x:Name="grdPrincipal"
           Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="113*" />
+            <RowDefinition Height="15*" />
+        </Grid.RowDefinitions>
+        <Grid.Transitions>
+            <TransitionCollection>
+                <EntranceThemeTransition IsStaggeringEnabled="True" />
+            </TransitionCollection>
+        </Grid.Transitions>
         <ComboBox HorizontalAlignment="Right"
                   Canvas.ZIndex="1"
                   ItemsSource="{Binding AnosDisponiveis, Mode=OneTime}"
                   SelectedItem="{Binding AnoEscolhido, Mode=TwoWay}"
                   PlaceholderText="Ano analisado"
                   MinWidth="160"
-                  Margin="10" />
+                  Margin="0,10,10,0" />
         <Pivot Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-               Margin="0,5,0,0">
+               Margin="0,5,0,0"
+               Grid.RowSpan="2">
             <PivotItem>
                 <PivotItem.Header>
                     <Controles:Guia Symbol="Calendar"

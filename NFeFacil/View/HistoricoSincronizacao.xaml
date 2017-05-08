@@ -28,6 +28,11 @@
     </Page.Resources>
     <Grid x:Name="grdPrincipal"
           Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <EntranceThemeTransition IsStaggeringEnabled="True" />
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
         <ListView Visibility="{Binding IsCliente, Converter={StaticResource boolVisibility}}"
                   ItemsSource="{Binding ResultadosCliente}"
                   Margin="0"

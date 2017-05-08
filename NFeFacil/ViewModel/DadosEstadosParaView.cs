@@ -7,23 +7,23 @@ namespace NFeFacil.ViewModel
 {
     public sealed class DadosEstadosParaView
     {
-        public ObservableCollection<Estado> EstadosCompletos { get; } = Estados.EstadosCache.GerarObs();
-        public ObservableCollection<string> Siglas => Estados.EstadosCache.Select(x => x.Sigla).GerarObs();
-        public ObservableCollection<string> SiglasExpandida
-        {
-            get
-            {
-                var estados = Siglas;
-                estados.Add("EX");
-                return estados;
-            }
-        }
-        public ObservableCollection<string> Nomes => Estados.EstadosCache.Select(x => x.Nome).GerarObs();
-        public ObservableCollection<ushort> Codigos => Estados.EstadosCache.Select(x => x.Codigo).GerarObs();
+        public ObservableCollection<Estado> EstadosCompletos { get; }
+        public ObservableCollection<string> Siglas { get; }
+        public ObservableCollection<string> SiglasExpandida { get; }
+        public ObservableCollection<string> Nomes { get; }
+        public ObservableCollection<ushort> Codigos { get; }
 
         public DadosEstadosParaView()
         {
+            var estados = Estados.EstadosCache;
+            EstadosCompletos = Estados.EstadosCache.GerarObs();
+            Siglas = Estados.EstadosCache.Select(x => x.Sigla).GerarObs();
+            Nomes = Estados.EstadosCache.Select(x => x.Nome).GerarObs();
+            Codigos = Estados.EstadosCache.Select(x => x.Codigo).GerarObs();
 
+            var siglas = Siglas;
+            siglas.Add("EX");
+            SiglasExpandida = siglas;
         }
     }
 }

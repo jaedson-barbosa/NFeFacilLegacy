@@ -166,41 +166,86 @@
                             </StackPanel>
                         </PivotItem>
                         <PivotItem Header="Notas fiscais referenciadas">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-                                <TextBox Header="Chave de acesso"
-                                         Text="{Binding TempNFeReferenciada, Mode=TwoWay}" />
-                                <Button Grid.Column="1"
-                                        Command="{Binding AdicionarNFeReferenciadaCommand}"
-                                        Style="{StaticResource BotaoAdd}"
-                                        VerticalAlignment="Bottom">
-                                    <SymbolIcon Symbol="Add" />
-                                </Button>
-                                <ListView ItemsSource="{Binding NotaSalva.Informações.identificação.DocumentosReferenciados, Converter={StaticResource getObs}}"
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource TitleTextBlockStyle}">Eletrônicas</TextBlock>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBox Header="Chave de acesso de uma NF-e ou NFC-e"
+                                             Text="{Binding TempNFeReferenciada, Mode=TwoWay}" />
+                                    <Button Grid.Column="1"
+                                            Command="{Binding AdicionarNFeReferenciadaCommand}"
+                                            Style="{StaticResource BotaoAdd}"
+                                            VerticalAlignment="Bottom">
+                                        <SymbolIcon Symbol="Add" />
+                                    </Button>
+                                </Grid>
+                                <ListView ItemsSource="{Binding NFesReferenciadas}"
                                           Style="{StaticResource ListaCheia}"
                                           Grid.Row="1"
                                           Grid.ColumnSpan="2">
+                                    <ListView.Header>
+                                        <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Referencia</TextBlock>
+                                    </ListView.Header>
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding refNFe}">
                                                 <TextBlock.ContextFlyout>
                                                     <MenuFlyout>
-                                                        <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.RemoverNFeReferenciadaCommand}"
+                                                        <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.RemoverDocReferenciadoCommand}"
                                                                         CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Remover</MenuFlyoutItem>
                                                     </MenuFlyout>
-                                                </TextBlock.ContextFlyout>
-                                            </TextBlock>
+                                                </TextBlock.ContextFlyout></TextBlock>
                                         </DataTemplate>
                                     </ListView.ItemTemplate>
                                 </ListView>
-                            </Grid>
+                                <Grid Margin="0,16,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Style="{StaticResource TitleTextBlockStyle}">Modelo 1/1A</TextBlock>
+                                    <Button Grid.Column="1"
+                                            Command="{Binding AdicionarNFReferenciadaCommand}"
+                                            Style="{StaticResource BotaoAdd}"
+                                            VerticalAlignment="Bottom">
+                                        <SymbolIcon Symbol="Add" />
+                                    </Button>
+                                </Grid>
+                                <ListView ItemsSource="{Binding NFsReferenciadas}"
+                                          Style="{StaticResource ListaCheia}"
+                                          Grid.Row="2"
+                                          Grid.ColumnSpan="2">
+                                    <ListView.Header>
+                                        <Grid>
+                                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">CNPJ</TextBlock>
+                                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
+                                                       HorizontalAlignment="Center">Serie</TextBlock>
+                                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
+                                                       HorizontalAlignment="Right">Numero</TextBlock>
+                                        </Grid>
+                                    </ListView.Header>
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Grid.ContextFlyout>
+                                                    <MenuFlyout>
+                                                        <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.RemoverDocReferenciadoCommand}"
+                                                                        CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Remover</MenuFlyoutItem>
+                                                    </MenuFlyout>
+                                                </Grid.ContextFlyout>
+                                                <TextBlock Text="{Binding refNF.CNPJ}" />
+                                                <TextBlock HorizontalAlignment="Center"
+                                                           Text="{Binding refNF.Serie}" />
+                                                <TextBlock HorizontalAlignment="Right"
+                                                           Text="{Binding refNF.NNF}" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </StackPanel>
                         </PivotItem>
                     </Pivot>
                 </ScrollViewer>

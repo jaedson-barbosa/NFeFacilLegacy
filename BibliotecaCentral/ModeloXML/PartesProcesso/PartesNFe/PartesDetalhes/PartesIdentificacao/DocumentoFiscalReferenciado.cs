@@ -9,7 +9,7 @@
         /// Referencia uma NF-e (modelo 55) emitida anteriormente, vinculada a NF-e atual, ou uma NFC-e (modelo 65).
         /// </summary>
         public string refNFe { get; set; }
-        public NF1AReferenciada refNF;
+        public NF1AReferenciada refNF { get; set; }
         public NFProdutorRuralReferenciada refNFP;
         public CupomFiscalReferenciado refECF;
     }

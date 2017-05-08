@@ -192,6 +192,9 @@
     <Compile Include="View\CaixasDialogo\AdicionarDuplicata.xaml.cs">
       <DependentUpon>AdicionarDuplicata.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\CaixasDialogo\AdicionarNF1AReferenciada.xaml.cs">
+      <DependentUpon>AdicionarNF1AReferenciada.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\CaixasDialogo\AdicionarObservacaoContribuinte.xaml.cs">
       <DependentUpon>AdicionarObservacaoContribuinte.xaml</DependentUpon>
     </Compile>
@@ -353,6 +356,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\CaixasDialogo\AdicionarDuplicata.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CaixasDialogo\AdicionarNF1AReferenciada.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

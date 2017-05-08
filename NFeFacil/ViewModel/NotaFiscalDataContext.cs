@@ -387,7 +387,11 @@ namespace NFeFacil.ViewModel
 
         public string TempNFeReferenciada { get; set; }
         public ICommand AdicionarNFeReferenciadaCommand => new Comando(AdicionarNFeReferenciada, true);
-        public ICommand RemoverNFeReferenciadaCommand => new Comando<DocumentoFiscalReferenciado>(RemoverNFeReferenciada);
+        public ICommand AdicionarNFReferenciadaCommand => new Comando(AdicionarNFReferenciada, true);
+        public ICommand RemoverDocReferenciadoCommand => new Comando<DocumentoFiscalReferenciado>(RemoverDocReferenciado);
+
+        public ObservableCollection<DocumentoFiscalReferenciado> NFesReferenciadas => NotaSalva.Informações.identificação.DocumentosReferenciados.Where(x => !string.IsNullOrEmpty(x.refNFe)).GerarObs();
+        public ObservableCollection<DocumentoFiscalReferenciado> NFsReferenciadas => NotaSalva.Informações.identificação.DocumentosReferenciados.Where(x => x.refNF != null).GerarObs();
 
         private void AdicionarNFeReferenciada()
         {
@@ -401,16 +405,32 @@ namespace NFeFacil.ViewModel
                 {
                     refNFe = TempNFeReferenciada
                 });
-                OnPropertyChanged(nameof(NotaSalva));
+                OnPropertyChanged(nameof(NFesReferenciadas));
                 TempNFeReferenciada = string.Empty;
                 OnPropertyChanged(nameof(TempNFeReferenciada));
             }
         }
 
-        private void RemoverNFeReferenciada(DocumentoFiscalReferenciado doc)
+        private async void AdicionarNFReferenciada()
+        {
+            var caixa = new View.CaixasDialogo.AdicionarNF1AReferenciada();
+            caixa.PrimaryButtonClick += (x, y) =>
+            {
+                var contexto = (NF1AReferenciada)x.DataContext;
+                NotaSalva.Informações.identificação.DocumentosReferenciados.Add(new DocumentoFiscalReferenciado
+                {
+                    refNF = contexto
+                });
+                OnPropertyChanged(nameof(NFsReferenciadas));
+            };
+            await caixa.ShowAsync();
+        }
+
+        private void RemoverDocReferenciado(DocumentoFiscalReferenciado doc)
         {
             NotaSalva.Informações.identificação.DocumentosReferenciados.Remove(doc);
-            OnPropertyChanged(nameof(NotaSalva));
+            OnPropertyChanged(nameof(NFesReferenciadas));
+            OnPropertyChanged(nameof(NFsReferenciadas));
         }
 
         #endregion

@@ -965,7 +965,15 @@
                           Command="{Binding GerarDANFECommand}" />
             <CommandBar.SecondaryCommands>
                 <AppBarToggleButton Label="Usar ambiente de testes"
+                                    IsEnabled="{Binding ManipulacaoAtivada}"
                                     IsChecked="{Binding AmbienteTestes, Mode=TwoWay}" />
+                <AppBarButton Label="Exportar XML"
+                              IsEnabled="{Binding BotaoExportarXMLAtivado}"
+                              Command="{Binding ExportarXMLCommand}">
+                    <AppBarButton.Icon>
+                        <FontIcon Glyph="&#xEDE1;" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
             </CommandBar.SecondaryCommands>
         </CommandBar>
     </Grid>

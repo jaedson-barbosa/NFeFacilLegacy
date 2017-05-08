@@ -22,6 +22,8 @@ using System.Threading.Tasks;
 using BibliotecaCentral.WebService.Pacotes;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesIdentificacao;
 using BibliotecaCentral.WebService;
+using Windows.Storage.Pickers;
+using System.IO;
 
 namespace NFeFacil.ViewModel
 {
@@ -47,6 +49,7 @@ namespace NFeFacil.ViewModel
         public bool BotaoAssinarAtivado => StatusAtual == StatusNFe.Salvo;
         public bool BotaoTransmitirAtivado => StatusAtual == StatusNFe.Assinado;
         public bool BotaoGerarDANFEAtivado => StatusAtual == StatusNFe.Emitido || StatusAtual == StatusNFe.Impresso;
+        public bool BotaoExportarXMLAtivado => StatusAtual != StatusNFe.EdiçãoCriação;
 
         internal StatusNFe StatusAtual
         {
@@ -60,7 +63,8 @@ namespace NFeFacil.ViewModel
                     nameof(BotaoSalvarAtivado),
                     nameof(BotaoAssinarAtivado),
                     nameof(BotaoTransmitirAtivado),
-                    nameof(BotaoGerarDANFEAtivado));
+                    nameof(BotaoGerarDANFEAtivado),
+                    nameof(BotaoExportarXMLAtivado));
             }
         }
 
@@ -202,6 +206,7 @@ namespace NFeFacil.ViewModel
         public ICommand AssinarCommand => new Comando(Assinar, true);
         public ICommand TransmitirCommand => new Comando(Transmitir, true);
         public ICommand GerarDANFECommand => new Comando(GerarDANFE, true);
+        public ICommand ExportarXMLCommand => new Comando(ExportarXML, true);
 
         private void ObterNovoNumero()
         {
@@ -303,6 +308,28 @@ namespace NFeFacil.ViewModel
             else
             {
                 Log.Escrever(TitulosComuns.ErroSimples, $"A NFe não foi aceita. Mensagem de retorno: \n{resultadoTransmissao.xMotivo}\nPor favor, exporte esta nota fiscal e envie o XML gerado para o desenvolvedor do aplicativo para que o erro possa ser corrigido.");
+            }
+        }
+
+        private async void ExportarXML()
+        {
+            FileSavePicker salvador = new FileSavePicker
+            {
+                DefaultFileExtension = ".xml",
+                SuggestedFileName = $"{NotaSalva.Informações.Id}.xml",
+                SuggestedStartLocation = PickerLocationId.DocumentsLibrary
+            };
+            salvador.FileTypeChoices.Add("Arquivo XML", new List<string> { ".xml" });
+            var arquivo = await salvador.PickSaveFileAsync();
+            if (arquivo != null)
+            {
+                var xml = UsarNotaSalva ? NotaSalva.ToXElement<NFe>() : NotaEmitida.ToXElement<Processo>();
+                using (var stream = await arquivo.OpenStreamForWriteAsync())
+                {
+                    xml.Save(stream);
+                    await stream.FlushAsync();
+                }
+                Log.Escrever(TitulosComuns.Sucesso, $"Nota fiscal exportada com sucesso para o caminho: {arquivo.Path}");
             }
         }
 
@@ -641,13 +668,13 @@ namespace NFeFacil.ViewModel
             }
         }
 
+        private bool UsarNotaSalva => StatusAtual != StatusNFe.Emitido && StatusAtual != StatusNFe.Impresso;
         private async Task SalvarAsync()
         {
             if (!AmbienteTestes)
             {
-                bool usarNotaSalva = StatusAtual != StatusNFe.Emitido && StatusAtual != StatusNFe.Impresso;
-                var xml = usarNotaSalva ? NotaSalva.ToXElement<NFe>() : NotaEmitida.ToXElement<Processo>();
-                var di = usarNotaSalva ? new NFeDI(NotaSalva) : new NFeDI(NotaEmitida);
+                var xml = UsarNotaSalva ? NotaSalva.ToXElement<NFe>() : NotaEmitida.ToXElement<Processo>();
+                var di = UsarNotaSalva ? new NFeDI(NotaSalva) : new NFeDI(NotaEmitida);
                 di.Status = (int)StatusAtual;
                 using (var db = new NotasFiscais())
                 {

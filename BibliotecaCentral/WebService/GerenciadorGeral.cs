@@ -52,7 +52,7 @@ namespace BibliotecaCentral.WebService
             XElement ObterConteudoCorpo(XElement soap)
             {
                 var casca = soap.Element(XName.Get("Body", "http://schemas.xmlsoap.org/soap/envelope/")).FirstNode as XElement;
-                return casca.FirstNode as XElement;
+                return casca.FirstNode;
             }
         }
 

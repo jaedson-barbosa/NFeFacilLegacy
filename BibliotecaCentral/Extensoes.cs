@@ -32,8 +32,7 @@ namespace BibliotecaCentral
             return (T)xmlSerializer.Deserialize(streamXMl);
         }
 
-        private static Log.ILog log { get; } = new Log.Popup();
-        public static T FromXElement<T>(this XElement xElement)
+        public static T FromXElement<T>(this XNode xElement)
         {
             var xmlSerializer = new XmlSerializer(typeof(T));
             using (var reader = xElement.CreateReader())

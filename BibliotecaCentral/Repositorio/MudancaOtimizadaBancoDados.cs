@@ -11,6 +11,9 @@ namespace BibliotecaCentral.Repositorio
 {
     internal sealed class MudancaOtimizadaBancoDados : ConexaoBanco
     {
+        internal MudancaOtimizadaBancoDados() : base() { }
+        internal MudancaOtimizadaBancoDados(AplicativoContext contexto) : base(contexto) { }
+
         internal void AdicionarEmitentes(IEnumerable<Emitente> emitentes)
         {
             var analise = from emit in emitentes

@@ -12,24 +12,64 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
         [UriFormat("/Dados/{senha}")]
         public IPostResponse ClienteServidorAsync(int senha, [FromContent] DadosBase pacote)
         {
-            return SupervisorOperacao.Supervisionar(() =>
+            using (var db = new AplicativoContext())
             {
-                if (senha != ConfiguracoesSincronizacao.SenhaPermanente)
-                    throw new SenhaErrada(senha);
-                ProcessamentoDadosBase.Salvar(pacote);
-                return new PostResponse(PostResponse.ResponseStatus.Created);
-            }, pacote.HoraRequisição, TipoDado.DadoBase);
+                var item = new ItensBD.ResultadoSincronizacaoServidor()
+                {
+                    MomentoRequisicao = pacote.HoraRequisição,
+                    TipoDadoSolicitado = (int)TipoDado.DadoBase
+                };
+                try
+                {
+                    if (senha != ConfiguracoesSincronizacao.SenhaPermanente)
+                        throw new SenhaErrada(senha);
+                    new ProcessamentoDadosBase(db).Salvar(pacote);
+                    var resposta = new PostResponse(PostResponse.ResponseStatus.Created);
+
+                    item.SucessoSolicitacao = true;
+                    db.Add(item);
+                    db.SaveChanges();
+                    return resposta;
+                }
+                catch (Exception e)
+                {
+                    item.SucessoSolicitacao = false;
+                    db.Add(item);
+                    db.SaveChanges();
+                    throw e;
+                }
+            }
         }
 
         [UriFormat("/Dados/{senha}")]
         public IGetResponse ServidorCliente(int senha)
         {
-            return SupervisorOperacao.Supervisionar(() =>
+            using (var db = new AplicativoContext())
             {
-                if (senha != ConfiguracoesSincronizacao.SenhaPermanente)
-                    throw new SenhaErrada(senha);
-                return new GetResponse(GetResponse.ResponseStatus.OK, ProcessamentoDadosBase.Obter());
-            }, DateTime.Now, TipoDado.DadoBase);
+                var item = new ItensBD.ResultadoSincronizacaoServidor()
+                {
+                    MomentoRequisicao = DateTime.Now,
+                    TipoDadoSolicitado = (int)TipoDado.DadoBase
+                };
+                try
+                {
+                    if (senha != ConfiguracoesSincronizacao.SenhaPermanente)
+                        throw new SenhaErrada(senha);
+                    var resposta = new GetResponse(GetResponse.ResponseStatus.OK, new ProcessamentoDadosBase(db).Obter());
+
+                    item.SucessoSolicitacao = true;
+                    db.Add(item);
+                    db.SaveChanges();
+                    return resposta;
+                }
+                catch (Exception e)
+                {
+                    item.SucessoSolicitacao = false;
+                    db.Add(item);
+                    db.SaveChanges();
+                    throw e;
+                }
+            }
         }
     }
 }

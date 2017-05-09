@@ -21,12 +21,12 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
                     db.SaveChanges();
                     return resultado;
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
                     item.SucessoSolicitacao = false;
                     db.Add(item);
                     db.SaveChanges();
-                    throw;
+                    throw e;
                 }
             }
         }

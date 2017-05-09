@@ -6,21 +6,25 @@ using System.Xml.Linq;
 
 namespace BibliotecaCentral.Sincronizacao
 {
-    internal static class ProcessamentoNotas
+    internal class ProcessamentoNotas
     {
-        public async static Task<NotasFiscais> ObterAsync()
+        private AplicativoContext Contexto { get; }
+
+        internal ProcessamentoNotas(AplicativoContext contexto)
+        {
+            Contexto = contexto;
+        }
+
+        public async Task<NotasFiscais> ObterAsync()
         {
             var regXml = await new PastaNotasFiscais().RegistroCompleto();
             var dici = new Dictionary<NFeDI, XElement>(regXml.Count);
-            using (var db = new AplicativoContext())
+            for (int i = 0; i < regXml.Count; i++)
             {
-                for (int i = 0; i < regXml.Count; i++)
+                var di = Contexto.NotasFiscais.Find(regXml[i].nome);
+                if (di != null)
                 {
-                    var di = db.NotasFiscais.Find(regXml[i].nome);
-                    if (di != null)
-                    {
-                        dici.Add(di, regXml[i].xml);
-                    }
+                    dici.Add(di, regXml[i].xml);
                 }
             }
 
@@ -30,12 +34,10 @@ namespace BibliotecaCentral.Sincronizacao
             };
         }
 
-        public async static Task SalvarAsync(NotasFiscais notas)
+        public async Task SalvarAsync(NotasFiscais notas)
         {
-            using (var db = new Repositorio.MudancaOtimizadaBancoDados())
-            {
-                await db.AdicionarNotasFiscais(notas.Duplas);
-            }
+            var db = new Repositorio.MudancaOtimizadaBancoDados(Contexto);
+            await db.AdicionarNotasFiscais(notas.Duplas);
         }
     }
 }

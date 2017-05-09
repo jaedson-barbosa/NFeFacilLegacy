@@ -34,29 +34,29 @@ namespace BibliotecaCentral.Sincronizacao
                 ItensSincronizados quantNotas = new ItensSincronizados(), quantDados = new ItensSincronizados();
 
                 var config = await EnviarAsync<ConfiguracoesServidor>($"Configuracoes", HttpMethod.Get, SenhaPermanente, null);
-                if (config.Notas && config.DadosBase && sincronizar == DadosSincronizaveis.Tudo)
-                {
-                    quantNotas = await SincronizarNotas();
-                    quantDados = await SincronizarDadosBase();
-                    Log.Escrever(TitulosComuns.Sucesso, "Foram sincronizados tanto notas fiscais quanto dados base para criação das notas fiscais.");
-                }
-                else if (config.Notas && sincronizar == DadosSincronizaveis.Tudo || sincronizar == DadosSincronizaveis.NotasFiscais)
-                {
-                    quantNotas = await SincronizarNotas();
-                    Log.Escrever(TitulosComuns.Sucesso, "Apenas as notas fiscais puderam ser sincronizadas porque o servidor bloqueou a sincronização de dados base.");
-                }
-                else if (config.DadosBase && sincronizar == DadosSincronizaveis.Tudo || sincronizar == DadosSincronizaveis.DadosBase)
-                {
-                    quantDados = await SincronizarDadosBase();
-                    Log.Escrever(TitulosComuns.Sucesso, "Apenas os dados base puderam ser sincronizados porque o servidor bloqueou a sincronização de notas fiscais.");
-                }
-                else
-                {
-                    Log.Escrever(TitulosComuns.ErroSimples, "Nada pôde ser sincronizado porque o servidor bloqueou a sincronização do tipo de dado solicitado(s).");
-                }
-
                 using (var db = new AplicativoContext())
                 {
+                    if (config.Notas && config.DadosBase && sincronizar == DadosSincronizaveis.Tudo)
+                    {
+                        quantNotas = await SincronizarNotas(db);
+                        quantDados = await SincronizarDadosBase(db);
+                        Log.Escrever(TitulosComuns.Sucesso, "Foram sincronizados tanto notas fiscais quanto dados base para criação das notas fiscais.");
+                    }
+                    else if (config.Notas && sincronizar == DadosSincronizaveis.Tudo || sincronizar == DadosSincronizaveis.NotasFiscais)
+                    {
+                        quantNotas = await SincronizarNotas(db);
+                        Log.Escrever(TitulosComuns.Sucesso, "Apenas as notas fiscais puderam ser sincronizadas porque o servidor bloqueou a sincronização de dados base.");
+                    }
+                    else if (config.DadosBase && sincronizar == DadosSincronizaveis.Tudo || sincronizar == DadosSincronizaveis.DadosBase)
+                    {
+                        quantDados = await SincronizarDadosBase(db);
+                        Log.Escrever(TitulosComuns.Sucesso, "Apenas os dados base puderam ser sincronizados porque o servidor bloqueou a sincronização de notas fiscais.");
+                    }
+                    else
+                    {
+                        Log.Escrever(TitulosComuns.ErroSimples, "Nada pôde ser sincronizado porque o servidor bloqueou a sincronização do tipo de dado solicitado(s).");
+                    }
+
                     db.Add(new ItensBD.ResultadoSincronizacaoCliente
                     {
                         PodeSincronizarDadoBase = config.DadosBase,
@@ -76,12 +76,13 @@ namespace BibliotecaCentral.Sincronizacao
                 Log.Escrever(TitulosComuns.ErroCatastrófico, $"Erro: {e.Message}");
             }
 
-            async Task<ItensSincronizados> SincronizarDadosBase()
+            async Task<ItensSincronizados> SincronizarDadosBase(AplicativoContext contexto)
             {
-                var envio = ProcessamentoDadosBase.Obter();
-                await EnviarAsync<string>($"Dados", HttpMethod.Post, SenhaPermanente, envio);
+                var proc = new ProcessamentoDadosBase(contexto);
                 var receb = await EnviarAsync<DadosBase>($"Dados", HttpMethod.Get, SenhaPermanente, null);
-                ProcessamentoDadosBase.Salvar(receb);
+                proc.Salvar(receb);
+                var envio = proc.Obter();
+                await EnviarAsync<string>($"Dados", HttpMethod.Post, SenhaPermanente, envio);
                 return new ItensSincronizados(CalcularTotal(envio), CalcularTotal(receb));
 
                 int CalcularTotal(DadosBase dados)
@@ -90,12 +91,13 @@ namespace BibliotecaCentral.Sincronizacao
                 }
             }
 
-            async Task<ItensSincronizados> SincronizarNotas()
+            async Task<ItensSincronizados> SincronizarNotas(AplicativoContext contexto)
             {
-                var envio = await ProcessamentoNotas.ObterAsync();
+                var proc = new ProcessamentoNotas(contexto);
+                var envio = await proc.ObterAsync();
                 await EnviarAsync<string>("Notas", HttpMethod.Post, SenhaPermanente, envio);
                 var receb = await EnviarAsync<NotasFiscais>("Notas", HttpMethod.Get, SenhaPermanente, null).ConfigureAwait(false);
-                await ProcessamentoNotas.SalvarAsync(receb);
+                await proc.SalvarAsync(receb);
                 return new ItensSincronizados(envio.Duplas.Count, receb.Duplas.Count);
             }
         }

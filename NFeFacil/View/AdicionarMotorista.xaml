@@ -6,17 +6,12 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
     <Page.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Estilos/CoresDestaque.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-            <Storyboard x:Name="ocultarGrid">
-                <DoubleAnimation Duration="0:0:0.25"
-                                 To="0"
-                                 Storyboard.TargetProperty="(UIElement.Opacity)"
-                                 Storyboard.TargetName="grdPrincipal" />
-            </Storyboard>
-        </ResourceDictionary>
+        <Storyboard x:Name="ocultarGrid">
+            <DoubleAnimation Duration="0:0:0.25"
+                             To="0"
+                             Storyboard.TargetProperty="(UIElement.Opacity)"
+                             Storyboard.TargetName="grdPrincipal" />
+        </Storyboard>
     </Page.Resources>
     <Grid x:Name="grdPrincipal"
           Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -25,8 +20,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <telasDadosBase:TelaMotorista />
-        <CommandBar Background="{StaticResource MuitoVariada}"
-                    Grid.Row="1">
+        <CommandBar Grid.Row="1">
             <AppBarButton x:Name="Confirmar"
                           Icon="Accept"
                           Label="Confirmar"

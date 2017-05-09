@@ -108,6 +108,13 @@
   <ItemGroup>
     <Compile Include="Certificacao\AssinaNFe.cs" />
     <Compile Include="Certificacao\ConfiguracoesCertificacao.cs" />
+    <Compile Include="ItensBD\RegistroMudanca.cs" />
+    <Compile Include="Migrations\20170509172430_Alpha.cs" />
+    <Compile Include="Migrations\20170509172430_Alpha.designer.cs">
+      <DependentUpon>20170509172430_Alpha.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\AplicativoContextModelSnapshot.cs" />
+    <Compile Include="Repositorio\MudancaOtimizadaBancoDados.cs" />
     <Compile Include="Sincronizacao\ConfiguracoesSincronizacao.cs" />
     <Compile Include="Sincronizacao\TipoAppSincronizacao.cs" />
     <Compile Include="Extensoes.cs" />
@@ -238,7 +245,6 @@
     <Compile Include="ModeloXML\PartesProcesso\ProtocoloNFe.cs" />
     <Compile Include="ModeloXML\Processo.cs" />
     <Compile Include="Certificacao\Certificados.cs" />
-    <Compile Include="Repositorio\MudancaOtimizadaBancoDados.cs" />
     <Compile Include="PastaNotasFiscais.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositorio\Clientes.cs" />
@@ -332,9 +338,7 @@
       <Name>System.Security.Cryptography.Xml</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

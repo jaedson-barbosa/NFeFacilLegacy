@@ -1,5 +1,6 @@
 ﻿using BibliotecaCentral.ModeloXML;
 using BibliotecaCentral.ModeloXML.PartesProcesso;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -8,7 +9,10 @@ namespace BibliotecaCentral.ItensBD
 {
     public sealed class NFeDI
     {
-        public string Id { get; set; }
+        public Guid Id { get; set; }
+
+        [Required]
+        public string IdNotaFiscal { get; set; }
         [Required]
         public long NumeroNota { get; set; }
         [Required]
@@ -39,7 +43,7 @@ namespace BibliotecaCentral.ItensBD
         public NFeDI() { }
         public NFeDI(NFe nota)
         {
-            Id = nota.Informações.Id;
+            IdNotaFiscal = nota.Informações.Id;
             NomeCliente = nota.Informações.destinatário.nome;
             NomeEmitente = nota.Informações.emitente.nome;
             CNPJEmitente = nota.Informações.emitente.CNPJ;
@@ -50,7 +54,7 @@ namespace BibliotecaCentral.ItensBD
         }
         public NFeDI(Processo nota)
         {
-            Id = nota.NFe.Informações.Id;
+            IdNotaFiscal = nota.NFe.Informações.Id;
             NomeCliente = nota.NFe.Informações.destinatário.nome;
             NomeEmitente = nota.NFe.Informações.emitente.nome;
             CNPJEmitente = nota.NFe.Informações.emitente.CNPJ;
@@ -64,9 +68,9 @@ namespace BibliotecaCentral.ItensBD
         {
             var pasta = new PastaNotasFiscais();
             if (Status < 4)
-                return await pasta.Retornar<NFe>(Id);
+                return await pasta.Retornar<NFe>(IdNotaFiscal);
             else
-                return await pasta.Retornar<Processo>(Id);
+                return await pasta.Retornar<Processo>(IdNotaFiscal);
         }
     }
 }

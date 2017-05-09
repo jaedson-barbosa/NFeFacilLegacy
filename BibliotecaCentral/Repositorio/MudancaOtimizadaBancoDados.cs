@@ -18,15 +18,22 @@ namespace BibliotecaCentral.Repositorio
         {
             var analise = from emit in emitentes
                           group emit by Contexto.Emitentes.Count(x => x.CNPJ == emit.CNPJ) == 0;
+            var repo = new Emitentes(Contexto);
             foreach (var item in analise)
             {
                 if (item.Key)
                 {
-                    Contexto.AddRange(item);
+                    foreach (var subitem in item)
+                    {
+                        repo.Adicionar(subitem);
+                    }
                 }
                 else
                 {
-                    Contexto.UpdateRange(item);
+                    foreach (var subitem in item)
+                    {
+                        repo.Atualizar(subitem);
+                    }
                 }
             }
         }
@@ -35,15 +42,22 @@ namespace BibliotecaCentral.Repositorio
         {
             var analise = from cli in clientes
                           group cli by Contexto.Clientes.Count(x => x.Documento == cli.Documento) == 0;
+            var repo = new Clientes(Contexto);
             foreach (var item in analise)
             {
                 if (item.Key)
                 {
-                    Contexto.AddRange(item);
+                    foreach (var subitem in item)
+                    {
+                        repo.Adicionar(subitem);
+                    }
                 }
                 else
                 {
-                    Contexto.UpdateRange(item);
+                    foreach (var subitem in item)
+                    {
+                        repo.Atualizar(subitem);
+                    }
                 }
             }
         }
@@ -52,15 +66,22 @@ namespace BibliotecaCentral.Repositorio
         {
             var analise = from mot in motoristas
                           group mot by Contexto.Motoristas.Count(x => x.Documento == mot.Documento) == 0;
+            var repo = new Motoristas(Contexto);
             foreach (var item in analise)
             {
                 if (item.Key)
                 {
-                    Contexto.AddRange(item);
+                    foreach (var subitem in item)
+                    {
+                        repo.Adicionar(subitem);
+                    }
                 }
                 else
                 {
-                    Contexto.UpdateRange(item);
+                    foreach (var subitem in item)
+                    {
+                        repo.Atualizar(subitem);
+                    }
                 }
             }
         }
@@ -69,15 +90,22 @@ namespace BibliotecaCentral.Repositorio
         {
             var analise = from prod in produtos
                           group prod by Contexto.Produtos.Count(x => x.Descricao == prod.Descricao) == 0;
+            var repo = new Produtos(Contexto);
             foreach (var item in analise)
             {
                 if (item.Key)
                 {
-                    Contexto.AddRange(item);
+                    foreach (var subitem in item)
+                    {
+                        repo.Adicionar(subitem);
+                    }
                 }
                 else
                 {
-                    Contexto.UpdateRange(item);
+                    foreach (var subitem in item)
+                    {
+                        repo.Atualizar(subitem);
+                    }
                 }
             }
         }
@@ -85,17 +113,24 @@ namespace BibliotecaCentral.Repositorio
         internal async Task AdicionarNotasFiscais(IDictionary<NFeDI, XElement> notas)
         {
             var analise = from nota in notas
-                          group nota.Key by Contexto.NotasFiscais.Count(x => x.Id == nota.Key.Id) == 0;
+                          group nota by Contexto.NotasFiscais.Count(x => x.Id == nota.Key.Id) == 0;
+            var repo = new NotasFiscais(Contexto);
             foreach (var item in analise)
             {
-                if (item.Key) Contexto.AddRange(item);
-                else Contexto.UpdateRange(item);
-            }
-
-            PastaNotasFiscais pasta = new PastaNotasFiscais();
-            foreach (var item in notas)
-            {
-                await pasta.AdicionarOuAtualizar(item.Value, item.Key.Id);
+                if (item.Key)
+                {
+                    foreach (var subitem in item)
+                    {
+                        await repo.Adicionar(subitem.Key, subitem.Value);
+                    }
+                }
+                else
+                {
+                    foreach (var subitem in item)
+                    {
+                        await repo.Atualizar(subitem.Key, subitem.Value);
+                    }
+                }
             }
         }
     }

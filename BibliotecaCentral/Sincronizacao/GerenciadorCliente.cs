@@ -33,7 +33,7 @@ namespace BibliotecaCentral.Sincronizacao
             {
                 ItensSincronizados quantNotas = new ItensSincronizados(), quantDados = new ItensSincronizados();
 
-                var config = await ObterConfiguracoes();
+                var config = await EnviarAsync<ConfiguracoesServidor>($"Configuracoes", HttpMethod.Get, SenhaPermanente, null);
                 if (config.Notas && config.DadosBase && sincronizar == DadosSincronizaveis.Tudo)
                 {
                     quantNotas = await SincronizarNotas();
@@ -48,7 +48,7 @@ namespace BibliotecaCentral.Sincronizacao
                 else if (config.DadosBase && sincronizar == DadosSincronizaveis.Tudo || sincronizar == DadosSincronizaveis.DadosBase)
                 {
                     quantDados = await SincronizarDadosBase();
-                    Log.Escrever(TitulosComuns.Sucesso, "Apenas os dados base puderam ser sincronizados porque o servidor bloqueou a sincronização de dados base.");
+                    Log.Escrever(TitulosComuns.Sucesso, "Apenas os dados base puderam ser sincronizados porque o servidor bloqueou a sincronização de notas fiscais.");
                 }
                 else
                 {
@@ -74,11 +74,6 @@ namespace BibliotecaCentral.Sincronizacao
             catch (Exception e)
             {
                 Log.Escrever(TitulosComuns.ErroCatastrófico, $"Erro: {e.Message}");
-            }
-
-            async Task<ConfiguracoesServidor> ObterConfiguracoes()
-            {
-                return await EnviarAsync<ConfiguracoesServidor>($"Configuracoes", HttpMethod.Get, SenhaPermanente, null);
             }
 
             async Task<ItensSincronizados> SincronizarDadosBase()

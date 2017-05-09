@@ -49,10 +49,10 @@ namespace BibliotecaCentral.WebService
                 return ObterConteudoCorpo(xml).FromXElement<Resposta>();
             }
 
-            XNode ObterConteudoCorpo(XElement soap)
+            XElement ObterConteudoCorpo(XElement soap)
             {
                 var casca = soap.Element(XName.Get("Body", "http://schemas.xmlsoap.org/soap/envelope/")).FirstNode as XElement;
-                return casca.FirstNode;
+                return casca.FirstNode as XElement;
             }
         }
 

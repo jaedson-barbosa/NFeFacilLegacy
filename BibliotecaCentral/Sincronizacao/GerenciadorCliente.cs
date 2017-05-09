@@ -96,7 +96,7 @@ namespace BibliotecaCentral.Sincronizacao
                 await EnviarAsync<string>("Notas", HttpMethod.Post, SenhaPermanente, envio);
                 var receb = await EnviarAsync<NotasFiscais>("Notas", HttpMethod.Get, SenhaPermanente, null).ConfigureAwait(false);
                 await ProcessamentoNotas.SalvarAsync(receb);
-                return new ItensSincronizados(envio.XMLs.Count(), receb.XMLs.Count());
+                return new ItensSincronizados(envio.Duplas.Count, receb.Duplas.Count);
             }
         }
 

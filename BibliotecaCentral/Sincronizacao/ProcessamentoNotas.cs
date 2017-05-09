@@ -1,8 +1,8 @@
 ﻿using BibliotecaCentral.ItensBD;
 using BibliotecaCentral.Sincronizacao.Pacotes;
-using System;
-using System.Linq;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace BibliotecaCentral.Sincronizacao
 {
@@ -10,26 +10,31 @@ namespace BibliotecaCentral.Sincronizacao
     {
         public async static Task<NotasFiscais> ObterAsync()
         {
+            var regXml = await new PastaNotasFiscais().RegistroCompleto();
+            var dici = new Dictionary<NFeDI, XElement>(regXml.Count);
+            using (var db = new AplicativoContext())
+            {
+                for (int i = 0; i < regXml.Count; i++)
+                {
+                    var di = db.NotasFiscais.Find(regXml[i].nome);
+                    if (di != null)
+                    {
+                        dici.Add(di, regXml[i].xml);
+                    }
+                }
+            }
+
             return new NotasFiscais()
             {
-                XMLs = (await new PastaNotasFiscais().RegistroCompletoRapidoAsync()).ToArray()
+                Duplas = dici
             };
         }
 
         public async static Task SalvarAsync(NotasFiscais notas)
         {
-            using (var db = new AplicativoContext())
+            using (var db = new Repositorio.MudancaOtimizadaBancoDados())
             {
-                var pasta = new PastaNotasFiscais();
-                for (int i = 0; i < notas.XMLs.Length; i++)
-                {
-                    var nfeDI = NFeDI.Converter(notas.XMLs[i]);
-                    await pasta.AdicionarOuAtualizar(notas.XMLs[i], nfeDI.Id);
-                    var quant = db.NotasFiscais.Count(x => x.Id == nfeDI.Id);
-                    if (quant > 0) db.Update(nfeDI);
-                    else db.Add(nfeDI);
-                }
-                db.SaveChanges();
+                await db.AdicionarNotasFiscais(notas.Duplas);
             }
         }
     }

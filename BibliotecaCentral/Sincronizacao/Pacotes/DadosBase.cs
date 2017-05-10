@@ -7,9 +7,9 @@ namespace BibliotecaCentral.Sincronizacao.Pacotes
 {
     public sealed class DadosBase : PacoteBase
     {
-        public IEnumerable<Emitente> Emitentes { get; set; }
-        public IEnumerable<Destinatario> Clientes { get; set; }
-        public IEnumerable<Motorista> Motoristas { get; set; }
-        public IEnumerable<BaseProdutoOuServico> Produtos { get; set; }
+        public List<Emitente> Emitentes { get; set; }
+        public List<Destinatario> Clientes { get; set; }
+        public List<Motorista> Motoristas { get; set; }
+        public List<BaseProdutoOuServico> Produtos { get; set; }
     }
 }

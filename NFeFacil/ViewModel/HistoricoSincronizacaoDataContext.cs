@@ -2,16 +2,13 @@
 using BibliotecaCentral.ItensBD;
 using BibliotecaCentral.Sincronizacao;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using static BibliotecaCentral.Sincronizacao.ConfiguracoesSincronizacao;
 using BibliotecaCentral.Repositorio;
 
 namespace NFeFacil.ViewModel
 {
-    public sealed class HistoricoSincronizacaoDataContext : INotifyPropertyChanged
+    public sealed class HistoricoSincronizacaoDataContext
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public bool IsCliente => Tipo == TipoAppSincronizacao.Cliente;
         public bool IsServidor => Tipo == TipoAppSincronizacao.Servidor;
 
@@ -36,6 +33,5 @@ namespace NFeFacil.ViewModel
                 }
             }
         }
-
     }
 }

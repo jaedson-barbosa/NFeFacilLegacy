@@ -88,7 +88,7 @@ namespace BibliotecaCentral.Sincronizacao
 
                 int CalcularTotal(DadosBase dados)
                 {
-                    return dados.Clientes.Count() + dados.Emitentes.Count() + dados.Motoristas.Count() + dados.Produtos.Count();
+                    return dados.Clientes.Count + dados.Emitentes.Count + dados.Motoristas.Count + dados.Produtos.Count;
                 }
             }
 

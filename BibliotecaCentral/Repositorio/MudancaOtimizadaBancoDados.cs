@@ -4,7 +4,6 @@ using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Partes
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
@@ -15,98 +14,56 @@ namespace BibliotecaCentral.Repositorio
         internal MudancaOtimizadaBancoDados() : base() { }
         internal MudancaOtimizadaBancoDados(AplicativoContext contexto) : base(contexto) { }
 
-        internal void AdicionarEmitentes(IEnumerable<Emitente> emitentes)
+        internal void AdicionarEmitentes(List<Emitente> emitentes)
         {
-            var analise = from emit in emitentes
-                          group emit by Contexto.Emitentes.Count(x => x.CNPJ == emit.CNPJ) == 0;
-            foreach (var item in analise)
-            {
-                var grupo = item.Select(x => { x.UltimaData = DateTime.Now; return x; });
-                if (item.Key)
-                {
-                    Contexto.AddRange(grupo);
-                }
-                else
-                {
-                    Contexto.UpdateRange(grupo);
-                }
-            }
+            emitentes.ForEach(x => x.UltimaData = DateTime.Now);
+            var existem = emitentes.FindAll(x => Contexto.Emitentes.Find(x.Id) != null);
+            var naoExistem = emitentes.FindAll(x => Contexto.Emitentes.Find(x.Id) == null);
+            Contexto.AddRange();
+            Contexto.UpdateRange(existem);
         }
 
-        internal void AdicionarClientes(IEnumerable<Destinatario> clientes)
+        internal void AdicionarClientes(List<Destinatario> clientes)
         {
-            var analise = from cli in clientes
-                          group cli by Contexto.Clientes.Count(x => x.Documento == cli.Documento) == 0;
-            foreach (var item in analise)
-            {
-                var grupo = item.Select(x => { x.UltimaData = DateTime.Now; return x; });
-                if (item.Key)
-                {
-                    Contexto.AddRange(grupo);
-                }
-                else
-                {
-                    Contexto.UpdateRange(grupo);
-                }
-            }
+            clientes.ForEach(x => x.UltimaData = DateTime.Now);
+            var existem = clientes.FindAll(x => Contexto.Clientes.Find(x.Id) != null);
+            var naoExistem = clientes.FindAll(x => Contexto.Clientes.Find(x.Id) == null);
+            Contexto.AddRange(naoExistem);
+            Contexto.UpdateRange(existem);
         }
 
-        internal void AdicionarMotoristas(IEnumerable<Motorista> motoristas)
+        internal void AdicionarMotoristas(List<Motorista> motoristas)
         {
-            var analise = from mot in motoristas
-                          group mot by Contexto.Motoristas.Count(x => x.Documento == mot.Documento) == 0;
-            foreach (var item in analise)
-            {
-                var grupo = item.Select(x => { x.UltimaData = DateTime.Now; return x; });
-                if (item.Key)
-                {
-                    Contexto.AddRange(grupo);
-                }
-                else
-                {
-                    Contexto.UpdateRange(grupo);
-                }
-            }
+            motoristas.ForEach(x => x.UltimaData = DateTime.Now);
+            var existem = motoristas.FindAll(x => Contexto.Motoristas.Find(x.Id) != null);
+            var naoExistem = motoristas.FindAll(x => Contexto.Motoristas.Find(x.Id) == null);
+            Contexto.AddRange(naoExistem);
+            Contexto.UpdateRange(existem);
         }
 
-        internal void AdicionarProdutos(IEnumerable<BaseProdutoOuServico> produtos)
+        internal void AdicionarProdutos(List<BaseProdutoOuServico> produtos)
         {
-            var analise = from prod in produtos
-                          group prod by Contexto.Produtos.Count(x => x.Descricao == prod.Descricao) == 0;
-            foreach (var item in analise)
-            {
-                var grupo = item.Select(x => { x.UltimaData = DateTime.Now; return x; });
-                if (item.Key)
-                {
-                    Contexto.AddRange(grupo);
-                }
-                else
-                {
-                    Contexto.UpdateRange(grupo);
-                }
-            }
+            produtos.ForEach(x => x.UltimaData = DateTime.Now);
+            var existem = produtos.FindAll(x => Contexto.Produtos.Find(x.Id) != null);
+            var naoExistem = produtos.FindAll(x => Contexto.Produtos.Find(x.Id) == null);
+            Contexto.AddRange(naoExistem);
+            Contexto.UpdateRange(existem);
         }
 
-        internal async Task AdicionarNotasFiscais(IDictionary<NFeDI, XElement> notas)
+        internal async Task AdicionarNotasFiscais(Dictionary<NFeDI, XElement> notas)
         {
-            var analise = from nota in notas
-                          group nota.Key by Contexto.NotasFiscais.Count(x => x.Id == nota.Key.Id) == 0;
-            foreach (var item in analise)
-            {
-                var grupo = item.Select(x => { x.UltimaData = DateTime.Now; return x; });
-                if (item.Key)
-                {
-                    Contexto.AddRange(grupo);
-                }
-                else
-                {
-                    Contexto.UpdateRange(grupo);
-                }
-            }
-
             var pasta = new PastaNotasFiscais();
             foreach (var item in notas)
             {
+                item.Key.UltimaData = DateTime.Now;
+                if (Contexto.NotasFiscais.Find(item.Key.Id) != null)
+                {
+                    Contexto.Update(item.Key);
+                }
+                else
+                {
+                    Contexto.Add(item.Key);
+                }
                 await pasta.AdicionarOuAtualizar(item.Value, item.Key.Id);
             }
         }

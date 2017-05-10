@@ -9,72 +9,49 @@ namespace BibliotecaCentral.Repositorio
 {
     public sealed class NotasFiscais : ConexaoBanco
     {
-        private PastaNotasFiscais pasta { get; }
+        private PastaNotasFiscais Pasta { get; }
 
         public NotasFiscais() : base()
         {
-            pasta = new PastaNotasFiscais();
+            Pasta = new PastaNotasFiscais();
         }
 
-        internal NotasFiscais(AplicativoContext contexto) : base()
+        internal NotasFiscais(AplicativoContext contexto) : base(contexto)
         {
-            pasta = new PastaNotasFiscais();
+            Pasta = new PastaNotasFiscais();
         }
 
         public IEnumerable<NFeDI> Registro => Contexto.NotasFiscais;
 
         public async Task<IEnumerable<(NFeDI nota, XElement xml)>> RegistroAsync()
         {
-            PastaNotasFiscais pasta = new PastaNotasFiscais();
-            var registroXml = await pasta.RegistroCompleto();
+            var registroXml = await Pasta.RegistroCompleto();
             var retorno = new List<(NFeDI nota, XElement xml)>();
             foreach (var item in Registro)
             {
-                retorno.Add((item, registroXml.First(x => x.nome == item.IdNotaFiscal).xml));
+                retorno.Add((item, registroXml.First(x => x.nome == item.Id).xml));
             }
             return retorno;
         }
 
         public async Task Adicionar(NFeDI nota, XElement xml)
         {
-            Contexto.Add(new RegistroMudanca
-            {
-                Id = Contexto.Add(nota).Entity.Id,
-                MomentoMudanca = DateTime.Now,
-                TipoDadoModificado = (int)TipoDado.NotaFiscal,
-                TipoOperacaoRealizada = (int)TipoOperacao.Adicao
-            });
-
-            PastaNotasFiscais pasta = new PastaNotasFiscais();
-            await pasta.AdicionarOuAtualizar(xml, nota.IdNotaFiscal);
+            nota.UltimaData = DateTime.Now;
+            var add = Contexto.Add(nota);
+            await Pasta.AdicionarOuAtualizar(xml, nota.Id);
         }
 
         public async Task Atualizar(NFeDI nota, XElement xml)
         {
-            Contexto.Add(new RegistroMudanca
-            {
-                Id = Contexto.Update(nota).Entity.Id,
-                MomentoMudanca = DateTime.Now,
-                TipoDadoModificado = (int)TipoDado.NotaFiscal,
-                TipoOperacaoRealizada = (int)TipoOperacao.Edicao
-            });
-
-            PastaNotasFiscais pasta = new PastaNotasFiscais();
-            await pasta.AdicionarOuAtualizar(xml, nota.IdNotaFiscal);
+            nota.UltimaData = DateTime.Now;
+            Contexto.Update(nota);
+            await Pasta.AdicionarOuAtualizar(xml, nota.Id);
         }
 
         public async Task Remover(NFeDI nota)
         {
-            Contexto.Add(new RegistroMudanca
-            {
-                Id = Contexto.Remove(nota).Entity.Id,
-                MomentoMudanca = DateTime.Now,
-                TipoDadoModificado = (int)TipoDado.NotaFiscal,
-                TipoOperacaoRealizada = (int)TipoOperacao.Remocao
-            });
-
-            PastaNotasFiscais pasta = new PastaNotasFiscais();
-            await pasta.Remover(nota.IdNotaFiscal);
+            Contexto.Remove(nota);
+            await Pasta.Remover(nota.Id);
         }
 
         public long ObterNovoNumero(string cnpjEmitente, ushort serieNota)

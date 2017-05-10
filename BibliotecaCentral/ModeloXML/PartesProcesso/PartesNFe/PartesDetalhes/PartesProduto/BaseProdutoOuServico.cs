@@ -8,6 +8,9 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Pa
         [XmlIgnore]
         public Guid Id { get; set; }
 
+        [XmlIgnore]
+        public DateTime UltimaData { get; set; }
+
         /// <summary>
         /// Preencher com CFOP, caso se trate de itens não relacionados com mercadorias/produtos e que o contribuinte não possua codificação própria. Formato: ”CFOP9999”.
         /// </summary>

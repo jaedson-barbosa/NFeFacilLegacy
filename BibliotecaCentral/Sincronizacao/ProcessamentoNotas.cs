@@ -1,7 +1,9 @@
 ﻿using BibliotecaCentral.ItensBD;
 using BibliotecaCentral.Sincronizacao.Pacotes;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 using System.Xml.Linq;
 
 namespace BibliotecaCentral.Sincronizacao
@@ -15,17 +17,16 @@ namespace BibliotecaCentral.Sincronizacao
             Contexto = contexto;
         }
 
-        public async Task<NotasFiscais> ObterAsync()
+        public async Task<NotasFiscais> ObterAsync(DateTime minimo)
         {
-            var regXml = await new PastaNotasFiscais().RegistroCompleto();
-            var dici = new Dictionary<NFeDI, XElement>(regXml.Count);
-            for (int i = 0; i < regXml.Count; i++)
+            var pasta = new PastaNotasFiscais();
+            var dici = new Dictionary<NFeDI, XElement>();
+            foreach (var item in from item in Contexto.NotasFiscais
+                                 where item.UltimaData > minimo
+                                 select item)
             {
-                var di = Contexto.NotasFiscais.Find(regXml[i].nome);
-                if (di != null)
-                {
-                    dici.Add(di, regXml[i].xml);
-                }
+                var nota = Contexto.NotasFiscais.Find(item.Id);
+                dici.Add(nota, await pasta.Retornar(nota.Id));
             }
 
             return new NotasFiscais()

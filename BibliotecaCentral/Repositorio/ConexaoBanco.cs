@@ -18,9 +18,7 @@ namespace BibliotecaCentral.Repositorio
 
         public void SalvarMudancas()
         {
-            try { Contexto.SaveChanges(); }
-            catch (DbUpdateConcurrencyException) { }
-            catch (Exception exc) { throw exc; }
+            Contexto.SaveChanges();
         }
 
         public void Dispose()

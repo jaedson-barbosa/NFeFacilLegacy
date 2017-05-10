@@ -29,8 +29,20 @@ namespace BibliotecaCentral
                 var arq = await PastaArquivos.GetFileAsync(nome + ".xml");
                 await arq.DeleteAsync(StorageDeleteOption.PermanentDelete);
             }
-            catch (FileNotFoundException) { }
+            catch (FileNotFoundException)
+            {
+                new Log.Popup().Escrever(Log.TitulosComuns.ErroSimples, $"O arquivo {nome} não foi encontrado.");
+            }
             catch (Exception) { throw; }
+        }
+
+        internal async Task<XElement> Retornar(string nome)
+        {
+            var arq = await PastaArquivos.GetFileAsync(nome + ".xml");
+            using (var stream = await arq.OpenStreamForReadAsync())
+            {
+                return XElement.Load(stream);
+            }
         }
 
         public async Task<T> Retornar<T>(string nome) where T : class

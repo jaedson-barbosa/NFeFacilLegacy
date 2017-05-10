@@ -4,6 +4,7 @@ using Restup.Webserver.Models.Contracts;
 using Restup.Webserver.Models.Schemas;
 using System;
 using System.Threading.Tasks;
+using BibliotecaCentral.ItensBD;
 
 namespace BibliotecaCentral.Sincronizacao.Servidor
 {
@@ -15,7 +16,7 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
         {
             using (var db = new AplicativoContext())
             {
-                var item = new ItensBD.ResultadoSincronizacaoServidor()
+                var item = new ResultadoSincronizacaoServidor()
                 {
                     MomentoRequisicao = pacote.HoraRequisição,
                     TipoDadoSolicitado = (int)TipoDado.NotaFiscal
@@ -42,12 +43,29 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
             }
         }
 
-        [UriFormat("/Notas/{senha}")]
-        public async Task<IGetResponse> ServidorCliente(int senha)
+        [UriFormat("/Notas/{senha}/{ultimaSincronizacaoCliente}")]
+        public async Task<IGetResponse> ServidorCliente(int senha, string ultimaSincronizacaoCliente)
         {
             using (var db = new AplicativoContext())
             {
-                var item = new ItensBD.ResultadoSincronizacaoServidor()
+                DateTime sincCliente = DateTime.Parse(ultimaSincronizacaoCliente);
+                ResultadoSincronizacaoServidor resultadoCorrespondente = null;
+                double diferencaCorrespondente = 0;
+                foreach (var result in db.ResultadosServidor)
+                {
+                    if (result.SucessoSolicitacao
+                        && result.TipoDadoSolicitado == (int)TipoDado.NotaFiscal
+                        && result.MomentoRequisicao < sincCliente)
+                    {
+                        var diferenca = (sincCliente - result.MomentoRequisicao).TotalSeconds;
+                        if (diferenca < diferencaCorrespondente)
+                        {
+                            resultadoCorrespondente = result;
+                            diferencaCorrespondente = diferenca;
+                        }
+                    }
+                }
+                var item = new ResultadoSincronizacaoServidor()
                 {
                     MomentoRequisicao = DateTime.Now,
                     TipoDadoSolicitado = (int)TipoDado.NotaFiscal
@@ -56,7 +74,9 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
                 {
                     if (senha != ConfiguracoesSincronizacao.SenhaPermanente)
                         throw new SenhaErrada(senha);
-                    var resposta = new GetResponse(GetResponse.ResponseStatus.OK, await new ProcessamentoNotas(db).ObterAsync());
+                    var resposta = new GetResponse(GetResponse.ResponseStatus.OK,
+                        await new ProcessamentoNotas(db)
+                        .ObterAsync(resultadoCorrespondente?.MomentoRequisicao ?? DateTime.MinValue));
 
                     item.SucessoSolicitacao = true;
                     db.Add(item);

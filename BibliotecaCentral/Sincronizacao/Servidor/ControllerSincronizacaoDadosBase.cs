@@ -1,4 +1,5 @@
-﻿using BibliotecaCentral.Sincronizacao.Pacotes;
+﻿using BibliotecaCentral.ItensBD;
+using BibliotecaCentral.Sincronizacao.Pacotes;
 using Restup.Webserver.Attributes;
 using Restup.Webserver.Models.Contracts;
 using Restup.Webserver.Models.Schemas;
@@ -41,12 +42,30 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
             }
         }
 
-        [UriFormat("/Dados/{senha}")]
-        public IGetResponse ServidorCliente(int senha)
+        [UriFormat("/Dados/{senha}/{ultimaSincronizacaoCliente}")]
+        public IGetResponse ServidorCliente(int senha, long ultimaSincronizacaoCliente)
         {
             using (var db = new AplicativoContext())
             {
-                var item = new ItensBD.ResultadoSincronizacaoServidor()
+                DateTime sincCliente = DateTime.FromBinary(ultimaSincronizacaoCliente);
+                ResultadoSincronizacaoServidor resultadoCorrespondente = null;
+                double diferencaCorrespondente = 0;
+                foreach (var result in db.ResultadosServidor)
+                {
+                    if (result.SucessoSolicitacao
+                        && result.TipoDadoSolicitado == (int)TipoDado.DadoBase
+                        && result.MomentoRequisicao < sincCliente)
+                    {
+                        var diferenca = (sincCliente - result.MomentoRequisicao).TotalSeconds;
+                        if (diferenca < diferencaCorrespondente)
+                        {
+                            resultadoCorrespondente = result;
+                            diferencaCorrespondente = diferenca;
+                        }
+                    }
+                }
+
+                var item = new ResultadoSincronizacaoServidor()
                 {
                     MomentoRequisicao = DateTime.Now,
                     TipoDadoSolicitado = (int)TipoDado.DadoBase
@@ -55,7 +74,9 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
                 {
                     if (senha != ConfiguracoesSincronizacao.SenhaPermanente)
                         throw new SenhaErrada(senha);
-                    var resposta = new GetResponse(GetResponse.ResponseStatus.OK, new ProcessamentoDadosBase(db).Obter());
+                    var resposta = new GetResponse(GetResponse.ResponseStatus.OK,
+                        new ProcessamentoDadosBase(db)
+                        .Obter(resultadoCorrespondente?.MomentoRequisicao ?? DateTime.MinValue));
 
                     item.SucessoSolicitacao = true;
                     db.Add(item);

@@ -17,16 +17,13 @@ namespace BibliotecaCentral.Migrations
 
             modelBuilder.Entity("BibliotecaCentral.ItensBD.NFeDI", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("CNPJEmitente")
                         .IsRequired();
 
                     b.Property<string>("DataEmissao")
-                        .IsRequired();
-
-                    b.Property<string>("IdNotaFiscal")
                         .IsRequired();
 
                     b.Property<string>("NomeCliente")
@@ -41,25 +38,11 @@ namespace BibliotecaCentral.Migrations
 
                     b.Property<int>("Status");
 
+                    b.Property<DateTime>("UltimaData");
+
                     b.HasKey("Id");
 
                     b.ToTable("NotasFiscais");
-                });
-
-            modelBuilder.Entity("BibliotecaCentral.ItensBD.RegistroMudanca", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("MomentoMudanca");
-
-                    b.Property<int>("TipoDadoModificado");
-
-                    b.Property<int>("TipoOperacaoRealizada");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("MudancasBanco");
                 });
 
             modelBuilder.Entity("BibliotecaCentral.ItensBD.ResultadoSincronizacaoCliente", b =>
@@ -149,6 +132,8 @@ namespace BibliotecaCentral.Migrations
 
                     b.Property<string>("ISUF");
 
+                    b.Property<DateTime>("UltimaData");
+
                     b.Property<string>("email");
 
                     b.Property<Guid?>("enderecoId");
@@ -180,6 +165,8 @@ namespace BibliotecaCentral.Migrations
                     b.Property<string>("IEST");
 
                     b.Property<string>("IM");
+
+                    b.Property<DateTime>("UltimaData");
 
                     b.Property<Guid?>("enderecoId");
 
@@ -217,6 +204,8 @@ namespace BibliotecaCentral.Migrations
 
                     b.Property<string>("NCM");
 
+                    b.Property<DateTime>("UltimaData");
+
                     b.Property<string>("UnidadeComercializacao");
 
                     b.Property<string>("UnidadeTributacao");
@@ -246,6 +235,8 @@ namespace BibliotecaCentral.Migrations
                     b.Property<string>("Nome");
 
                     b.Property<string>("UF");
+
+                    b.Property<DateTime>("UltimaData");
 
                     b.Property<string>("XEnder");
 

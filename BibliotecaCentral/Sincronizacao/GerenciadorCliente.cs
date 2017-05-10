@@ -29,8 +29,8 @@ namespace BibliotecaCentral.Sincronizacao
 
         public async Task Sincronizar(DadosSincronizaveis sincronizar, bool isBackground)
         {
-            try
-            {
+            //try
+            //{
                 ItensSincronizados quantNotas = new ItensSincronizados(), quantDados = new ItensSincronizados();
 
                 var config = await EnviarAsync<ConfiguracoesServidor>($"Configuracoes", HttpMethod.Get, SenhaPermanente, null);
@@ -70,19 +70,20 @@ namespace BibliotecaCentral.Sincronizacao
                     });
                     await db.SaveChangesAsync();
                 }
-            }
-            catch (Exception e)
-            {
-                Log.Escrever(TitulosComuns.ErroCatastrófico, $"Erro: {e.Message}");
-            }
+            //}
+            //catch (Exception e)
+            //{
+            //    Log.Escrever(TitulosComuns.ErroCatastrófico, $"Erro: {e.Message}");
+            //}
 
             async Task<ItensSincronizados> SincronizarDadosBase(AplicativoContext contexto)
             {
+                var momento = contexto.ResultadosCliente.Count(x => x.PodeSincronizarDadoBase) > 0 ? contexto.ResultadosCliente.Last(x => x.PodeSincronizarDadoBase).MomentoSincronizacao : DateTime.MinValue;
                 var proc = new ProcessamentoDadosBase(contexto);
                 var receb = await EnviarAsync<DadosBase>($"Dados", HttpMethod.Get, SenhaPermanente, null);
-                proc.Salvar(receb);
-                var envio = proc.Obter();
+                var envio = proc.Obter(momento);
                 await EnviarAsync<string>($"Dados", HttpMethod.Post, SenhaPermanente, envio);
+                proc.Salvar(receb);
                 return new ItensSincronizados(CalcularTotal(envio), CalcularTotal(receb));
 
                 int CalcularTotal(DadosBase dados)
@@ -93,18 +94,20 @@ namespace BibliotecaCentral.Sincronizacao
 
             async Task<ItensSincronizados> SincronizarNotas(AplicativoContext contexto)
             {
+                var momento = contexto.ResultadosCliente.Count(x => x.PodeSincronizarNota) > 0 ? contexto.ResultadosCliente.Last(x => x.PodeSincronizarNota).MomentoSincronizacao : DateTime.MinValue;
                 var proc = new ProcessamentoNotas(contexto);
-                var envio = await proc.ObterAsync();
+                var receb = await EnviarAsync<NotasFiscais>("Notas", HttpMethod.Get, SenhaPermanente, null, momento.ToBinary().ToString()).ConfigureAwait(false);
+                var envio = await proc.ObterAsync(momento);
                 await EnviarAsync<string>("Notas", HttpMethod.Post, SenhaPermanente, envio);
-                var receb = await EnviarAsync<NotasFiscais>("Notas", HttpMethod.Get, SenhaPermanente, null).ConfigureAwait(false);
                 await proc.SalvarAsync(receb);
                 return new ItensSincronizados(envio.Duplas.Count, receb.Duplas.Count);
             }
         }
 
-        async Task<T> EnviarAsync<T>(string nomeMetodo, HttpMethod metodo, int senha, PacoteBase corpo)
+        async Task<T> EnviarAsync<T>(string nomeMetodo, HttpMethod metodo, int senha, PacoteBase corpo, string parametro = null)
         {
             string caminho = $"http://{IPServidor}:8080/{nomeMetodo}/{senha}";
+            if (!string.IsNullOrEmpty(parametro)) caminho += $"/{parametro}";
             using (var proxy = new HttpClient())
             {
                 var mensagem = new HttpRequestMessage(metodo, caminho);
@@ -114,7 +117,8 @@ namespace BibliotecaCentral.Sincronizacao
                     mensagem.Content = new StringContent(json, Encoding.UTF8, "application/json");
                 }
                 var resposta = await proxy.SendAsync(mensagem);
-                return JsonConvert.DeserializeObject<T>(await resposta.Content.ReadAsStringAsync());
+                var texto = await resposta.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<T>(texto);
             }
         }
     }

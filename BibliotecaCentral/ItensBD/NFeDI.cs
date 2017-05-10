@@ -9,10 +9,9 @@ namespace BibliotecaCentral.ItensBD
 {
     public sealed class NFeDI
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; }
 
-        [Required]
-        public string IdNotaFiscal { get; set; }
+        public DateTime UltimaData { get; set; }
         [Required]
         public long NumeroNota { get; set; }
         [Required]
@@ -43,7 +42,7 @@ namespace BibliotecaCentral.ItensBD
         public NFeDI() { }
         public NFeDI(NFe nota)
         {
-            IdNotaFiscal = nota.Informações.Id;
+            Id = nota.Informações.Id;
             NomeCliente = nota.Informações.destinatário.nome;
             NomeEmitente = nota.Informações.emitente.nome;
             CNPJEmitente = nota.Informações.emitente.CNPJ;
@@ -54,7 +53,7 @@ namespace BibliotecaCentral.ItensBD
         }
         public NFeDI(Processo nota)
         {
-            IdNotaFiscal = nota.NFe.Informações.Id;
+            Id = nota.NFe.Informações.Id;
             NomeCliente = nota.NFe.Informações.destinatário.nome;
             NomeEmitente = nota.NFe.Informações.emitente.nome;
             CNPJEmitente = nota.NFe.Informações.emitente.CNPJ;
@@ -68,9 +67,9 @@ namespace BibliotecaCentral.ItensBD
         {
             var pasta = new PastaNotasFiscais();
             if (Status < 4)
-                return await pasta.Retornar<NFe>(IdNotaFiscal);
+                return await pasta.Retornar<NFe>(Id);
             else
-                return await pasta.Retornar<Processo>(IdNotaFiscal);
+                return await pasta.Retornar<Processo>(Id);
         }
     }
 }

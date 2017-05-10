@@ -1,5 +1,6 @@
 ﻿using BibliotecaCentral.Sincronizacao.Pacotes;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 
 namespace BibliotecaCentral.Sincronizacao
@@ -13,15 +14,25 @@ namespace BibliotecaCentral.Sincronizacao
             Contexto = contexto;
         }
 
-        internal DadosBase Obter()
+        internal DadosBase Obter(DateTime minimo)
         {
             // O ToList serve para que os dados permaneçam salvos mesmo depois do Dispose
             return new DadosBase
             {
-                Emitentes = Contexto.Emitentes.Include(x => x.endereco).ToList(),
-                Clientes = Contexto.Clientes.Include(x => x.endereco).ToList(),
-                Motoristas = Contexto.Motoristas.ToList(),
-                Produtos = Contexto.Produtos.ToList()
+                Emitentes = Contexto.Emitentes
+                .Where(x => x.UltimaData > minimo)
+                .Include(x => x.endereco)
+                .ToList(),
+                Clientes = Contexto.Clientes
+                .Where(x => x.UltimaData > minimo)
+                .Include(x => x.endereco)
+                .ToList(),
+                Motoristas = Contexto.Motoristas
+                .Where(x => x.UltimaData > minimo)
+                .ToList(),
+                Produtos = Contexto.Produtos
+                .Where(x => x.UltimaData > minimo)
+                .ToList()
             };
         }
 

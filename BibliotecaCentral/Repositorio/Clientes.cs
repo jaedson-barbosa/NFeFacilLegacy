@@ -14,35 +14,19 @@ namespace BibliotecaCentral.Repositorio
         public IEnumerable<Destinatario> Registro => Contexto.Clientes.Include(x => x.endereco);
         public void Adicionar(Destinatario cliente)
         {
-            Contexto.Add(new RegistroMudanca
-            {
-                Id = Contexto.Add(cliente).Entity.Id,
-                MomentoMudanca = DateTime.Now,
-                TipoDadoModificado = (int)TipoDado.Cliente,
-                TipoOperacaoRealizada = (int)TipoOperacao.Adicao
-            });
+            cliente.UltimaData = DateTime.Now;
+            Contexto.Add(cliente);
         }
 
         public void Atualizar(Destinatario cliente)
         {
-            Contexto.Add(new RegistroMudanca
-            {
-                Id = Contexto.Update(cliente).Entity.Id,
-                MomentoMudanca = DateTime.Now,
-                TipoDadoModificado = (int)TipoDado.Cliente,
-                TipoOperacaoRealizada = (int)TipoOperacao.Edicao
-            });
+            cliente.UltimaData = DateTime.Now;
+            Contexto.Update(cliente);
         }
 
         public void Remover(Destinatario cliente)
         {
-            Contexto.Add(new RegistroMudanca
-            {
-                Id = Contexto.Remove(cliente).Entity.Id,
-                MomentoMudanca = DateTime.Now,
-                TipoDadoModificado = (int)TipoDado.Cliente,
-                TipoOperacaoRealizada = (int)TipoOperacao.Remocao
-            });
+            Contexto.Remove(cliente);
         }
     }
 }

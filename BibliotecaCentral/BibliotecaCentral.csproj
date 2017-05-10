@@ -108,10 +108,9 @@
   <ItemGroup>
     <Compile Include="Certificacao\AssinaNFe.cs" />
     <Compile Include="Certificacao\ConfiguracoesCertificacao.cs" />
-    <Compile Include="ItensBD\RegistroMudanca.cs" />
-    <Compile Include="Migrations\20170509172430_Alpha.cs" />
-    <Compile Include="Migrations\20170509172430_Alpha.designer.cs">
-      <DependentUpon>20170509172430_Alpha.cs</DependentUpon>
+    <Compile Include="Migrations\20170510143541_Alpla1.1.cs" />
+    <Compile Include="Migrations\20170510143541_Alpla1.1.designer.cs">
+      <DependentUpon>20170510143541_Alpla1.1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\AplicativoContextModelSnapshot.cs" />
     <Compile Include="Repositorio\MudancaOtimizadaBancoDados.cs" />

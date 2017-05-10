@@ -8,6 +8,9 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Pa
         [XmlIgnore]
         public Guid Id { get; set; }
 
+        [XmlIgnore]
+        public DateTime UltimaData { get; set; }
+
         public string CPF { get; set; }
         public string CNPJ { get; set; }
 

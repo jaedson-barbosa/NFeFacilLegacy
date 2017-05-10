@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
-using BibliotecaCentral.ItensBD;
 using System;
 
 namespace BibliotecaCentral.Repositorio
@@ -13,33 +12,17 @@ namespace BibliotecaCentral.Repositorio
         public IEnumerable<BaseProdutoOuServico> Registro => Contexto.Produtos;
         public void Adicionar(BaseProdutoOuServico dado)
         {
-            Contexto.Add(new RegistroMudanca
-            {
-                Id = Contexto.Add(dado).Entity.Id,
-                MomentoMudanca = DateTime.Now,
-                TipoDadoModificado = (int)TipoDado.Produto,
-                TipoOperacaoRealizada = (int)TipoOperacao.Adicao
-            });
+            dado.UltimaData = DateTime.Now;
+            Contexto.Add(dado);
         }
         public void Atualizar(BaseProdutoOuServico dado)
         {
-            Contexto.Add(new RegistroMudanca
-            {
-                Id = Contexto.Update(dado).Entity.Id,
-                MomentoMudanca = DateTime.Now,
-                TipoDadoModificado = (int)TipoDado.Produto,
-                TipoOperacaoRealizada = (int)TipoOperacao.Edicao
-            });
+            dado.UltimaData = DateTime.Now;
+            Contexto.Update(dado);
         }
         public void Remover(BaseProdutoOuServico dado)
         {
-            Contexto.Add(new RegistroMudanca
-            {
-                Id = Contexto.Remove(dado).Entity.Id,
-                MomentoMudanca = DateTime.Now,
-                TipoDadoModificado = (int)TipoDado.Produto,
-                TipoOperacaoRealizada = (int)TipoOperacao.Remocao
-            });
+            Contexto.Remove(dado);
         }
     }
 }

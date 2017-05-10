@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BibliotecaCentral.Migrations
 {
-    public partial class Alpha : Migration
+    public partial class Alpla11 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,33 +11,19 @@ namespace BibliotecaCentral.Migrations
                 name: "NotasFiscais",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<string>(nullable: false),
                     CNPJEmitente = table.Column<string>(nullable: false),
                     DataEmissao = table.Column<string>(nullable: false),
-                    IdNotaFiscal = table.Column<string>(nullable: false),
                     NomeCliente = table.Column<string>(nullable: false),
                     NomeEmitente = table.Column<string>(nullable: false),
                     NumeroNota = table.Column<long>(nullable: false),
                     SerieNota = table.Column<ushort>(nullable: false),
-                    Status = table.Column<int>(nullable: false)
+                    Status = table.Column<int>(nullable: false),
+                    UltimaData = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_NotasFiscais", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "MudancasBanco",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    MomentoMudanca = table.Column<DateTime>(nullable: false),
-                    TipoDadoModificado = table.Column<int>(nullable: false),
-                    TipoOperacaoRealizada = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MudancasBanco", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -109,6 +95,7 @@ namespace BibliotecaCentral.Migrations
                     Descricao = table.Column<string>(nullable: true),
                     EXTIPI = table.Column<string>(nullable: true),
                     NCM = table.Column<string>(nullable: true),
+                    UltimaData = table.Column<DateTime>(nullable: false),
                     UnidadeComercializacao = table.Column<string>(nullable: true),
                     UnidadeTributacao = table.Column<string>(nullable: true),
                     ValorUnitario = table.Column<double>(nullable: false),
@@ -130,6 +117,7 @@ namespace BibliotecaCentral.Migrations
                     InscricaoEstadual = table.Column<string>(nullable: true),
                     Nome = table.Column<string>(nullable: true),
                     UF = table.Column<string>(nullable: true),
+                    UltimaData = table.Column<DateTime>(nullable: false),
                     XEnder = table.Column<string>(nullable: true),
                     XMun = table.Column<string>(nullable: true)
                 },
@@ -147,6 +135,7 @@ namespace BibliotecaCentral.Migrations
                     CPF = table.Column<string>(nullable: true),
                     Documento = table.Column<string>(nullable: true),
                     ISUF = table.Column<string>(nullable: true),
+                    UltimaData = table.Column<DateTime>(nullable: false),
                     email = table.Column<string>(nullable: true),
                     enderecoId = table.Column<Guid>(nullable: true),
                     idEstrangeiro = table.Column<string>(nullable: true),
@@ -174,6 +163,7 @@ namespace BibliotecaCentral.Migrations
                     CNPJ = table.Column<string>(nullable: true),
                     IEST = table.Column<string>(nullable: true),
                     IM = table.Column<string>(nullable: true),
+                    UltimaData = table.Column<DateTime>(nullable: false),
                     enderecoId = table.Column<Guid>(nullable: true),
                     inscricaoEstadual = table.Column<string>(nullable: true),
                     nome = table.Column<string>(nullable: true),
@@ -206,9 +196,6 @@ namespace BibliotecaCentral.Migrations
         {
             migrationBuilder.DropTable(
                 name: "NotasFiscais");
-
-            migrationBuilder.DropTable(
-                name: "MudancasBanco");
 
             migrationBuilder.DropTable(
                 name: "ResultadosCliente");

@@ -15,7 +15,7 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
         {
             using (var db = new AplicativoContext())
             {
-                var item = new ItensBD.ResultadoSincronizacaoServidor()
+                var item = new ResultadoSincronizacaoServidor()
                 {
                     MomentoRequisicao = pacote.HoraRequisição,
                     TipoDadoSolicitado = (int)TipoDado.DadoBase
@@ -47,27 +47,9 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
         {
             using (var db = new AplicativoContext())
             {
-                DateTime sincCliente = DateTime.FromBinary(ultimaSincronizacaoCliente);
-                ResultadoSincronizacaoServidor resultadoCorrespondente = null;
-                double diferencaCorrespondente = 0;
-                foreach (var result in db.ResultadosServidor)
-                {
-                    if (result.SucessoSolicitacao
-                        && result.TipoDadoSolicitado == (int)TipoDado.DadoBase
-                        && result.MomentoRequisicao < sincCliente)
-                    {
-                        var diferenca = (sincCliente - result.MomentoRequisicao).TotalSeconds;
-                        if (diferenca < diferencaCorrespondente)
-                        {
-                            resultadoCorrespondente = result;
-                            diferencaCorrespondente = diferenca;
-                        }
-                    }
-                }
-
+                DateTime momento = DateTime.FromBinary(ultimaSincronizacaoCliente);
                 var item = new ResultadoSincronizacaoServidor()
                 {
-                    MomentoRequisicao = DateTime.Now,
                     TipoDadoSolicitado = (int)TipoDado.DadoBase
                 };
                 try
@@ -75,10 +57,10 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
                     if (senha != ConfiguracoesSincronizacao.SenhaPermanente)
                         throw new SenhaErrada(senha);
                     var resposta = new GetResponse(GetResponse.ResponseStatus.OK,
-                        new ProcessamentoDadosBase(db)
-                        .Obter(resultadoCorrespondente?.MomentoRequisicao ?? DateTime.MinValue));
+                        new ProcessamentoDadosBase(db).Obter(momento.AddSeconds(-10)));
 
                     item.SucessoSolicitacao = true;
+                    item.MomentoRequisicao = DateTime.Now;
                     db.Add(item);
                     db.SaveChanges();
                     return resposta;
@@ -86,6 +68,7 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
                 catch (Exception e)
                 {
                     item.SucessoSolicitacao = false;
+                    item.MomentoRequisicao = DateTime.Now;
                     db.Add(item);
                     db.SaveChanges();
                     throw e;

@@ -9,17 +9,7 @@ namespace BibliotecaCentral.Repositorio
 {
     public sealed class NotasFiscais : ConexaoBanco
     {
-        private PastaNotasFiscais Pasta { get; }
-
-        public NotasFiscais() : base()
-        {
-            Pasta = new PastaNotasFiscais();
-        }
-
-        internal NotasFiscais(AplicativoContext contexto) : base(contexto)
-        {
-            Pasta = new PastaNotasFiscais();
-        }
+        private PastaNotasFiscais Pasta { get; } = new PastaNotasFiscais();
 
         public IEnumerable<NFeDI> Registro => Contexto.NotasFiscais;
 

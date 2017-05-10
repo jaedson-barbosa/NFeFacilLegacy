@@ -6,20 +6,20 @@ namespace BibliotecaCentral.Repositorio
 {
     public sealed class Motoristas : ConexaoBanco
     {
-        public Motoristas() : base(){ }
-        internal Motoristas(AplicativoContext contexto) : base(contexto) { }
-
         public IEnumerable<Motorista> Registro => Contexto.Motoristas;
+
         public void Adicionar(Motorista dado)
         {
             dado.UltimaData = DateTime.Now;
             Contexto.Add(dado);
         }
+
         public void Atualizar(Motorista dado)
         {
             dado.UltimaData = DateTime.Now;
             Contexto.Update(dado);
         }
+
         public void Remover(Motorista dado)
         {
             Contexto.Remove(dado);

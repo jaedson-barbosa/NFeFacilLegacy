@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 
 namespace BibliotecaCentral.Repositorio
 {
@@ -11,6 +10,7 @@ namespace BibliotecaCentral.Repositorio
         {
             Contexto = new AplicativoContext();
         }
+
         protected ConexaoBanco(AplicativoContext contexto)
         {
             Contexto = contexto;

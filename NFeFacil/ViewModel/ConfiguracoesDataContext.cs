@@ -217,7 +217,7 @@ namespace NFeFacil.ViewModel
             };
             caixa.PrimaryButtonClick += async (sender, e) =>
             {
-                await EstabelecerConexaoAsync(sender.DataContext as InfoEstabelecerConexao);
+                await EstabelecerConexaoAsync((InfoEstabelecerConexao)sender.DataContext);
             };
             await caixa.ShowAsync();
         }

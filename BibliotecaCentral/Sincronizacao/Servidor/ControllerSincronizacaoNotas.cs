@@ -3,78 +3,102 @@ using Restup.Webserver.Attributes;
 using Restup.Webserver.Models.Contracts;
 using Restup.Webserver.Models.Schemas;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using BibliotecaCentral.ItensBD;
+using Microsoft.EntityFrameworkCore;
 
 namespace BibliotecaCentral.Sincronizacao.Servidor
 {
     [RestController(InstanceCreationType.PerCall)]
     internal sealed class ControllerSincronizacaoNotas
     {
+        private AplicativoContext DB { get; }
+        internal ControllerSincronizacaoNotas()
+        {
+            DB = new AplicativoContext();
+            DB.ChangeTracker.AutoDetectChangesEnabled = false;
+            DB.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+        }
+
         [UriFormat("/Notas/{senha}")]
         public async Task<IPostResponse> ClienteServidor(int senha, [FromContent] NotasFiscais pacote)
         {
-            using (var db = new AplicativoContext())
+            var item = new ResultadoSincronizacaoServidor()
             {
-                var item = new ResultadoSincronizacaoServidor()
-                {
-                    MomentoRequisicao = DateTime.Now,
-                    TipoDadoSolicitado = (int)TipoDado.NotaFiscal
-                };
-                try
-                {
-                    if (senha != ConfiguracoesSincronizacao.SenhaPermanente)
-                        throw new SenhaErrada(senha);
-                    await new ProcessamentoNotas(db).SalvarAsync(pacote);
-                    var resposta = new PostResponse(PostResponse.ResponseStatus.Created);
+                MomentoRequisicao = DateTime.Now,
+                TipoDadoSolicitado = (int)TipoDado.NotaFiscal
+            };
+            try
+            {
+                if (senha != ConfiguracoesSincronizacao.SenhaPermanente)
+                    throw new SenhaErrada(senha);
 
-                    item.SucessoSolicitacao = true;
-                    db.Add(item);
-                    db.SaveChanges();
-                    return resposta;
-                }
-                catch (Exception e)
-                {
-                    item.SucessoSolicitacao = false;
-                    db.Add(item);
-                    db.SaveChanges();
-                    throw e;
-                }
+                await new Repositorio.MudancaOtimizadaBancoDados(DB)
+                    .AdicionarNotasFiscais(pacote.DIs.Zip(pacote.XMLs, (di, xml) => new { di, xml })
+                    .ToDictionary(x => x.di, x => x.xml));
+                var resposta = new PostResponse(PostResponse.ResponseStatus.Created);
+
+                item.SucessoSolicitacao = true;
+                DB.Add(item);
+                DB.SaveChanges();
+                return resposta;
+            }
+            catch (Exception e)
+            {
+                item.SucessoSolicitacao = false;
+                DB.Add(item);
+                DB.SaveChanges();
+                throw e;
+            }
+            finally
+            {
+                DB.Dispose();
             }
         }
 
         [UriFormat("/Notas/{senha}/{ultimaSincronizacaoCliente}")]
         public async Task<IGetResponse> ServidorCliente(int senha, long ultimaSincronizacaoCliente)
         {
-            using (var db = new AplicativoContext())
+            DateTime momento = DateTime.FromBinary(ultimaSincronizacaoCliente);
+            if (ultimaSincronizacaoCliente > 10) momento = momento.AddSeconds(-10);
+            var item = new ResultadoSincronizacaoServidor()
             {
-                DateTime momento = DateTime.FromBinary(ultimaSincronizacaoCliente);
-                if (ultimaSincronizacaoCliente > 10) momento = momento.AddSeconds(-10);
-                var item = new ResultadoSincronizacaoServidor()
-                {
-                    TipoDadoSolicitado = (int)TipoDado.NotaFiscal
-                };
-                try
-                {
-                    if (senha != ConfiguracoesSincronizacao.SenhaPermanente)
-                        throw new SenhaErrada(senha);
-                    var resposta = new GetResponse(GetResponse.ResponseStatus.OK,
-                        await new ProcessamentoNotas(db).ObterAsync(momento));
+                TipoDadoSolicitado = (int)TipoDado.NotaFiscal
+            };
+            try
+            {
+                if (senha != ConfiguracoesSincronizacao.SenhaPermanente)
+                    throw new SenhaErrada(senha);
 
-                    item.SucessoSolicitacao = true;
-                    item.MomentoRequisicao = DateTime.Now;
-                    db.Add(item);
-                    db.SaveChanges();
-                    return resposta;
-                }
-                catch (Exception e)
-                {
-                    item.SucessoSolicitacao = false;
-                    item.MomentoRequisicao = DateTime.Now;
-                    db.Add(item);
-                    db.SaveChanges();
-                    throw e;
-                }
+                var conjunto = from nota in DB.NotasFiscais
+                               where nota.UltimaData > momento
+                               join xml in await new PastaNotasFiscais().Registro() on nota.Id equals xml.nome
+                               select new { DI = nota, XML = xml.xml };
+                var resposta = new GetResponse(GetResponse.ResponseStatus.OK,
+                    new NotasFiscais
+                    {
+                        DIs = conjunto.Select(x => x.DI).ToList(),
+                        XMLs = conjunto.Select(x => x.XML).ToList()
+                    });
+
+                item.SucessoSolicitacao = true;
+                item.MomentoRequisicao = DateTime.Now;
+                DB.Add(item);
+                DB.SaveChanges();
+                return resposta;
+            }
+            catch (Exception e)
+            {
+                item.SucessoSolicitacao = false;
+                item.MomentoRequisicao = DateTime.Now;
+                DB.Add(item);
+                DB.SaveChanges();
+                throw e;
+            }
+            finally
+            {
+                DB.Dispose();
             }
         }
     }

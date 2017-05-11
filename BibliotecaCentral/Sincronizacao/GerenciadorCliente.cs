@@ -8,13 +8,14 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using BibliotecaCentral.ItensBD;
+using Microsoft.EntityFrameworkCore;
 
 namespace BibliotecaCentral.Sincronizacao
 {
     public sealed class GerenciadorCliente
     {
         private ILog Log { get; }
-        public ItensBD.ResultadoSincronizacaoCliente Resultado { get; private set; }
+        public ResultadoSincronizacaoCliente Resultado { get; private set; }
 
         public GerenciadorCliente(ILog log)
         {
@@ -80,11 +81,20 @@ namespace BibliotecaCentral.Sincronizacao
             async Task<ItensSincronizados> SincronizarDadosBase(AplicativoContext contexto)
             {
                 var momento = contexto.ResultadosCliente.Count(x => x.PodeSincronizarDadoBase) > 0 ? contexto.ResultadosCliente.Last(x => x.PodeSincronizarDadoBase).MomentoSincronizacao : DateTime.MinValue;
-                var proc = new ProcessamentoDadosBase(contexto);
                 var receb = await EnviarAsync<DadosBase>($"Dados", HttpMethod.Get, SenhaPermanente, null, momento.ToBinary().ToString());
-                var envio = proc.Obter(momento);
+                var envio = new DadosBase
+                {
+                    Emitentes = contexto.Emitentes.Where(x => x.UltimaData > momento).Include(x => x.endereco).ToList(),
+                    Clientes = contexto.Clientes.Where(x => x.UltimaData > momento).Include(x => x.endereco).ToList(),
+                    Motoristas = contexto.Motoristas.Where(x => x.UltimaData > momento).ToList(),
+                    Produtos = contexto.Produtos.Where(x => x.UltimaData > momento).ToList()
+                }; ;
                 await EnviarAsync<string>($"Dados", HttpMethod.Post, SenhaPermanente, envio);
-                proc.Salvar(receb);
+                var Mudanca = new Repositorio.MudancaOtimizadaBancoDados(contexto);
+                Mudanca.AdicionarEmitentes(receb.Emitentes);
+                Mudanca.AdicionarClientes(receb.Clientes);
+                Mudanca.AdicionarMotoristas(receb.Motoristas); ;
+                Mudanca.AdicionarProdutos(receb.Produtos);
                 return new ItensSincronizados(CalcularTotal(envio), CalcularTotal(receb));
 
                 int CalcularTotal(DadosBase dados)
@@ -96,13 +106,24 @@ namespace BibliotecaCentral.Sincronizacao
             async Task<ItensSincronizados> SincronizarNotas(AplicativoContext contexto)
             {
                 var momento = contexto.ResultadosCliente.Count(x => x.PodeSincronizarNota) > 0 ? contexto.ResultadosCliente.Last(x => x.PodeSincronizarNota).MomentoSincronizacao : DateTime.MinValue;
-                var proc = new ProcessamentoNotas(contexto);
                 var receb = await EnviarAsync<NotasFiscais>("Notas", HttpMethod.Get, SenhaPermanente, null, momento.ToBinary().ToString());
-                var quantRecebida = receb.DIs.Count;
-                var envio = await proc.ObterAsync(momento);
+
+                var conjunto = from item in contexto.NotasFiscais
+                               where item.UltimaData > momento
+                               join xml in await new PastaNotasFiscais().Registro() on item.Id equals xml.nome
+                               select new { DI = item, XML = xml.xml };
+                var envio = new NotasFiscais
+                {
+                    DIs = conjunto.Select(x => x.DI).ToList(),
+                    XMLs = conjunto.Select(x => x.XML).ToList()
+                };
+
                 await EnviarAsync<string>("Notas", HttpMethod.Post, SenhaPermanente, envio);
-                await proc.SalvarAsync(receb);
-                return new ItensSincronizados(envio.DIs.Count, quantRecebida);
+                await new Repositorio.MudancaOtimizadaBancoDados(contexto)
+                    .AdicionarNotasFiscais(receb.DIs.Zip(receb.XMLs, (di, xml) => new { di, xml })
+                    .ToDictionary(x => x.di, x => x.xml));
+
+                return new ItensSincronizados(envio.DIs.Count, receb.DIs.Count);
             }
         }
 

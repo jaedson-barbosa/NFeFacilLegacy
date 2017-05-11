@@ -53,7 +53,7 @@ namespace BibliotecaCentral
             }
         }
 
-        public async Task<List<(string nome, XElement xml)>> RegistroCompleto()
+        public async Task<List<(string nome, XElement xml)>> Registro()
         {
             var arqs = await PastaArquivos.GetFilesAsync();
             var quantidade = arqs.Count(x => x.FileType == ".xml");

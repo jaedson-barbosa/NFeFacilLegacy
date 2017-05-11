@@ -15,7 +15,7 @@ namespace BibliotecaCentral.Repositorio
 
         public async Task<IEnumerable<(NFeDI nota, XElement xml)>> RegistroAsync()
         {
-            var registroXml = await Pasta.RegistroCompleto();
+            var registroXml = await Pasta.Registro();
             var retorno = new List<(NFeDI nota, XElement xml)>();
             foreach (var item in Registro)
             {

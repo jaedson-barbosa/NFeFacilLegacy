@@ -263,8 +263,6 @@
     <Compile Include="Sincronizacao\Pacotes\InfoEstabelecerConexao.cs" />
     <Compile Include="Sincronizacao\Pacotes\InfoSegurancaConexao.cs" />
     <Compile Include="Sincronizacao\Pacotes\IPacote.cs" />
-    <Compile Include="Sincronizacao\ProcessamentoDadosBase.cs" />
-    <Compile Include="Sincronizacao\ProcessamentoNotas.cs" />
     <Compile Include="Sincronizacao\Servidor\ControllerInformacoes.cs" />
     <Compile Include="Sincronizacao\Servidor\ControllerSincronizacaoDadosBase.cs" />
     <Compile Include="Sincronizacao\Servidor\ControllerSincronizacaoNotas.cs" />

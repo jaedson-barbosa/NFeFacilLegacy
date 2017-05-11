@@ -2,6 +2,7 @@
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,11 @@ namespace BibliotecaCentral.Repositorio
 {
     internal sealed class MudancaOtimizadaBancoDados : ConexaoBanco
     {
-        internal MudancaOtimizadaBancoDados() : base() { }
+        internal MudancaOtimizadaBancoDados() : base()
+        {
+            Contexto.ChangeTracker.AutoDetectChangesEnabled = false;
+            Contexto.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+        }
         internal MudancaOtimizadaBancoDados(AplicativoContext contexto) : base(contexto) { }
 
         internal void AdicionarEmitentes(List<Emitente> emitentes)
@@ -49,6 +54,14 @@ namespace BibliotecaCentral.Repositorio
             var naoExistem = produtos.FindAll(x => Contexto.Produtos.Find(x.Id) == null);
             Contexto.AddRange(naoExistem);
             Contexto.UpdateRange(existem);
+        }
+
+        internal void AdicionarProdutosAnaliseCompleta(List<BaseProdutoOuServico> produtos)
+        {
+            for (int i = 0; i < produtos.Count; i++)
+            {
+
+            }
         }
 
         internal async Task AdicionarNotasFiscais(Dictionary<NFeDI, XElement> notas)

@@ -8,7 +8,7 @@ using BibliotecaCentral;
 namespace BibliotecaCentral.Migrations
 {
     [DbContext(typeof(AplicativoContext))]
-    [Migration("20170510184626_Beta")]
+    [Migration("20170511140505_Beta")]
     partial class Beta
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

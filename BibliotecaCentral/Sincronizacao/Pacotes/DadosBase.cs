@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace BibliotecaCentral.Sincronizacao.Pacotes
 {
-    public sealed class DadosBase : PacoteBase
+    public struct DadosBase : IPacote
     {
         public List<Emitente> Emitentes { get; set; }
         public List<Destinatario> Clientes { get; set; }

@@ -1,6 +1,6 @@
 ﻿namespace BibliotecaCentral.Sincronizacao.Pacotes
 {
-    public sealed class ConfiguracoesServidor : PacoteBase
+    public struct ConfiguracoesServidor : IPacote
     {
         public bool Notas;
         public bool DadosBase;

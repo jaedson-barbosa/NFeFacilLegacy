@@ -4,7 +4,7 @@ using System.Xml.Linq;
 
 namespace BibliotecaCentral.Sincronizacao.Pacotes
 {
-    public sealed class NotasFiscais : PacoteBase
+    public struct NotasFiscais : IPacote
     {
         public List<NFeDI> DIs { get; set; }
         public List<XElement> XMLs { get; set; }

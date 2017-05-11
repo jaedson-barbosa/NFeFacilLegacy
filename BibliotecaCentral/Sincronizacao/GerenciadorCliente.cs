@@ -106,7 +106,7 @@ namespace BibliotecaCentral.Sincronizacao
             }
         }
 
-        async Task<T> EnviarAsync<T>(string nomeMetodo, HttpMethod metodo, int senha, PacoteBase corpo, string parametro = null)
+        async Task<T> EnviarAsync<T>(string nomeMetodo, HttpMethod metodo, int senha, IPacote corpo, string parametro = null)
         {
             string caminho = $"http://{IPServidor}:8080/{nomeMetodo}/{senha}";
             if (!string.IsNullOrEmpty(parametro)) caminho += $"/{parametro}";

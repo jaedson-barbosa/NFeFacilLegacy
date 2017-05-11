@@ -1,6 +1,6 @@
 ﻿namespace BibliotecaCentral.Sincronizacao.Pacotes
 {
-    public sealed class InfoSegurancaConexao : PacoteBase
+    public struct InfoSegurancaConexao : IPacote
     {
         public int Senha { get; set; }
     }

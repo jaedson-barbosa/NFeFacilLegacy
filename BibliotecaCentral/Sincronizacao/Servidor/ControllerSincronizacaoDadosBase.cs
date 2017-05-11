@@ -17,7 +17,7 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
             {
                 var item = new ResultadoSincronizacaoServidor()
                 {
-                    MomentoRequisicao = pacote.HoraRequisição,
+                    MomentoRequisicao = DateTime.Now,
                     TipoDadoSolicitado = (int)TipoDado.DadoBase
                 };
                 try

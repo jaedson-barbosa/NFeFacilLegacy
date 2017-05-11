@@ -29,11 +29,53 @@ namespace BibliotecaCentral.Repositorio
             Contexto.UpdateRange(existem);
         }
 
+        internal void AnalisarAdicionarEmitentes(List<Emitente> emitentes)
+        {
+            var existem = new List<Emitente>();
+            var naoExistem = new List<Emitente>();
+            foreach (var emit in emitentes)
+            {
+                var busca = Contexto.Emitentes.FirstOrDefault(x => x.CNPJ == emit.CNPJ);
+                if (busca != default(Emitente))
+                {
+                    emit.Id = busca.Id;
+                    existem.Add(emit);
+                }
+                else
+                {
+                    naoExistem.Add(emit);
+                }
+            }
+            Contexto.AddRange(naoExistem);
+            Contexto.UpdateRange(existem);
+        }
+
         internal void AdicionarClientes(List<Destinatario> clientes)
         {
             clientes.ForEach(x => x.UltimaData = DateTime.Now);
             var existem = clientes.FindAll(x => Contexto.Clientes.Find(x.Id) != null);
             var naoExistem = clientes.FindAll(x => Contexto.Clientes.Find(x.Id) == null);
+            Contexto.AddRange(naoExistem);
+            Contexto.UpdateRange(existem);
+        }
+
+        internal void AnalisarAdicionarClientes(List<Destinatario> clientes)
+        {
+            var existem = new List<Destinatario>();
+            var naoExistem = new List<Destinatario>();
+            foreach (var dest in clientes)
+            {
+                var busca = Contexto.Clientes.FirstOrDefault(x => x.Documento == dest.Documento);
+                if (busca != default(Destinatario))
+                {
+                    dest.Id = busca.Id;
+                    existem.Add(dest);
+                }
+                else
+                {
+                    naoExistem.Add(dest);
+                }
+            }
             Contexto.AddRange(naoExistem);
             Contexto.UpdateRange(existem);
         }
@@ -47,6 +89,29 @@ namespace BibliotecaCentral.Repositorio
             Contexto.UpdateRange(existem);
         }
 
+        internal void AnalisarAdicionarMotoristas(List<Motorista> motoristas)
+        {
+            var existem = new List<Motorista>();
+            var naoExistem = new List<Motorista>();
+            foreach (var mot in motoristas)
+            {
+                var busca = Contexto.Motoristas.FirstOrDefault(x => x.Documento == mot.Documento
+                || x.InscricaoEstadual == mot.InscricaoEstadual
+                || (x.Nome == mot.Nome && x.XEnder == mot.XEnder));
+                if (busca != default(Motorista))
+                {
+                    mot.Id = busca.Id;
+                    existem.Add(mot);
+                }
+                else
+                {
+                    naoExistem.Add(mot);
+                }
+            }
+            Contexto.AddRange(naoExistem);
+            Contexto.UpdateRange(existem);
+        }
+
         internal void AdicionarProdutos(List<BaseProdutoOuServico> produtos)
         {
             produtos.ForEach(x => x.UltimaData = DateTime.Now);
@@ -56,12 +121,26 @@ namespace BibliotecaCentral.Repositorio
             Contexto.UpdateRange(existem);
         }
 
-        internal void AdicionarProdutosAnaliseCompleta(List<BaseProdutoOuServico> produtos)
+        internal void AnalisarAdicionarProdutos(List<BaseProdutoOuServico> produtos)
         {
-            for (int i = 0; i < produtos.Count; i++)
+            var existem = new List<BaseProdutoOuServico>();
+            var naoExistem = new List<BaseProdutoOuServico>();
+            foreach (var prod in produtos)
             {
-
+                var busca = Contexto.Produtos.FirstOrDefault(x => x.Descricao == prod.Descricao
+                || (x.CodigoProduto == prod.CodigoProduto && x.CFOP == prod.CFOP));
+                if (busca != default(BaseProdutoOuServico))
+                {
+                    prod.Id = busca.Id;
+                    existem.Add(prod);
+                }
+                else
+                {
+                    naoExistem.Add(prod);
+                }
             }
+            Contexto.AddRange(naoExistem);
+            Contexto.UpdateRange(existem);
         }
 
         internal async Task AdicionarNotasFiscais(Dictionary<NFeDI, XElement> notas)

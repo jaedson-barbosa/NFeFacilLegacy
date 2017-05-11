@@ -78,7 +78,7 @@ namespace BibliotecaCentral.Importacao
                 }
                 catch (Exception e)
                 {
-                    continue;
+                    retorno.Add(e);
                 }
             }
             using (var db = new Repositorio.MudancaOtimizadaBancoDados())

@@ -330,8 +330,10 @@ namespace NFeFacil.ViewModel
                 stringErros.AppendLine("As seguintes notas fiscais não foram reconhecidas por terem a tag raiz diferente de nfeProc e de NFe.");
                 resultado.ForEach(y =>
                 {
-                    var x = y as XmlNaoReconhecido;
-                    stringErros.AppendLine($"Nome arquivo: {x.NomeArquivo}; Tag raiz: Encontrada: {x.TagRaiz}");
+                    if (y is XmlNaoReconhecido x)
+                    {
+                        stringErros.AppendLine($"Nome arquivo: {x.NomeArquivo}; Tag raiz: Encontrada: {x.TagRaiz}");
+                    }
                 });
                 LogPopUp.Escrever(TitulosComuns.ErroSimples, stringErros.ToString());
             }

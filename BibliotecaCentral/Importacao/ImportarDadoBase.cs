@@ -36,13 +36,13 @@ namespace BibliotecaCentral.Importacao
                 switch (TipoDado)
                 {
                     case TiposDadoBasico.Emitente:
-                        return AnaliseCompletaXml<Emitente>(listaXML, nameof(Emitente), "emit", db.AdicionarEmitentes);
+                        return AnaliseCompletaXml<Emitente>(listaXML, nameof(Emitente), "emit", db.AnalisarAdicionarEmitentes);
                     case TiposDadoBasico.Cliente:
-                        return AnaliseCompletaXml<Destinatario>(listaXML, nameof(Destinatario), "dest", db.AdicionarClientes);
+                        return AnaliseCompletaXml<Destinatario>(listaXML, nameof(Destinatario), "dest", db.AnalisarAdicionarClientes);
                     case TiposDadoBasico.Motorista:
-                        return AnaliseCompletaXml<Motorista>(listaXML, nameof(Motorista), "transporta", db.AdicionarMotoristas);
+                        return AnaliseCompletaXml<Motorista>(listaXML, nameof(Motorista), "transporta", db.AnalisarAdicionarMotoristas);
                     case TiposDadoBasico.Produto:
-                        return AnaliseCompletaXml<BaseProdutoOuServico>(listaXML, nameof(BaseProdutoOuServico), "prod", db.AdicionarProdutos);
+                        return AnaliseCompletaXml<BaseProdutoOuServico>(listaXML, nameof(BaseProdutoOuServico), "prod", db.AnalisarAdicionarProdutos);
                     default:
                         return null;
                 }

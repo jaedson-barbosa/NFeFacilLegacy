@@ -20,17 +20,21 @@ namespace BibliotecaCentral.Sincronizacao
             return new DadosBase
             {
                 Emitentes = Contexto.Emitentes
+                .AsNoTracking()
                 .Where(x => x.UltimaData > minimo)
                 .Include(x => x.endereco)
                 .ToList(),
                 Clientes = Contexto.Clientes
+                .AsNoTracking()
                 .Where(x => x.UltimaData > minimo)
                 .Include(x => x.endereco)
                 .ToList(),
                 Motoristas = Contexto.Motoristas
+                .AsNoTracking()
                 .Where(x => x.UltimaData > minimo)
                 .ToList(),
                 Produtos = Contexto.Produtos
+                .AsNoTracking()
                 .Where(x => x.UltimaData > minimo)
                 .ToList()
             };

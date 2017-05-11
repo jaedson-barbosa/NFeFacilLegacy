@@ -81,7 +81,7 @@ namespace BibliotecaCentral.Sincronizacao
             {
                 var momento = contexto.ResultadosCliente.Count(x => x.PodeSincronizarDadoBase) > 0 ? contexto.ResultadosCliente.Last(x => x.PodeSincronizarDadoBase).MomentoSincronizacao : DateTime.MinValue;
                 var proc = new ProcessamentoDadosBase(contexto);
-                var receb = await EnviarAsync<DadosBase>($"Dados", HttpMethod.Get, SenhaPermanente, null);
+                var receb = await EnviarAsync<DadosBase>($"Dados", HttpMethod.Get, SenhaPermanente, null, momento.ToBinary().ToString());
                 var envio = proc.Obter(momento);
                 await EnviarAsync<string>($"Dados", HttpMethod.Post, SenhaPermanente, envio);
                 proc.Salvar(receb);

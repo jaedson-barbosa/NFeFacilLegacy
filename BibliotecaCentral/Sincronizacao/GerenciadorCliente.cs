@@ -7,8 +7,6 @@ using System.Threading.Tasks;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
-using System.Collections.Generic;
-using System.Xml.Linq;
 using BibliotecaCentral.ItensBD;
 
 namespace BibliotecaCentral.Sincronizacao

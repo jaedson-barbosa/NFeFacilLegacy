@@ -5,8 +5,6 @@ using Restup.Webserver.Models.Schemas;
 using System;
 using System.Threading.Tasks;
 using BibliotecaCentral.ItensBD;
-using System.Collections.Generic;
-using System.Xml.Linq;
 
 namespace BibliotecaCentral.Sincronizacao.Servidor
 {

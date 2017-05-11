@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BibliotecaCentral.Migrations
 {
-    public partial class Alpla11 : Migration
+    public partial class Beta : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

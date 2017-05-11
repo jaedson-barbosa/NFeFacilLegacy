@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Collections.Generic;
+using System.Xml.Linq;
+using BibliotecaCentral.ItensBD;
 
 namespace BibliotecaCentral.Sincronizacao
 {
@@ -29,8 +32,8 @@ namespace BibliotecaCentral.Sincronizacao
 
         public async Task Sincronizar(DadosSincronizaveis sincronizar, bool isBackground)
         {
-            //try
-            //{
+            try
+            {
                 ItensSincronizados quantNotas = new ItensSincronizados(), quantDados = new ItensSincronizados();
 
                 var config = await EnviarAsync<ConfiguracoesServidor>($"Configuracoes", HttpMethod.Get, SenhaPermanente, null);
@@ -57,7 +60,7 @@ namespace BibliotecaCentral.Sincronizacao
                         Log.Escrever(TitulosComuns.ErroSimples, "Nada pôde ser sincronizado porque o servidor bloqueou a sincronização do tipo de dado solicitado(s).");
                     }
 
-                    db.Add(new ItensBD.ResultadoSincronizacaoCliente
+                    db.Add(new ResultadoSincronizacaoCliente
                     {
                         PodeSincronizarDadoBase = config.DadosBase,
                         PodeSincronizarNota = config.Notas,
@@ -65,16 +68,16 @@ namespace BibliotecaCentral.Sincronizacao
                         NumeroDadosRecebidos = quantDados.Recebidos,
                         NumeroNotasEnviadas = quantNotas.Enviados,
                         NumeroNotasRecebidas = quantNotas.Recebidos,
-                        MomentoSincronizacao = config.HoraRequisição,
+                        MomentoSincronizacao = DateTime.Now,
                         SincronizacaoAutomatica = isBackground
                     });
-                    await db.SaveChangesAsync();
+                    db.SaveChanges();
                 }
-            //}
-            //catch (Exception e)
-            //{
-            //    Log.Escrever(TitulosComuns.ErroCatastrófico, $"Erro: {e.Message}");
-            //}
+            }
+            catch (Exception e)
+            {
+                Log.Escrever(TitulosComuns.ErroCatastrófico, $"Erro: {e.Message}");
+            }
 
             async Task<ItensSincronizados> SincronizarDadosBase(AplicativoContext contexto)
             {
@@ -96,11 +99,12 @@ namespace BibliotecaCentral.Sincronizacao
             {
                 var momento = contexto.ResultadosCliente.Count(x => x.PodeSincronizarNota) > 0 ? contexto.ResultadosCliente.Last(x => x.PodeSincronizarNota).MomentoSincronizacao : DateTime.MinValue;
                 var proc = new ProcessamentoNotas(contexto);
-                var receb = await EnviarAsync<NotasFiscais>("Notas", HttpMethod.Get, SenhaPermanente, null, momento.ToBinary().ToString()).ConfigureAwait(false);
+                var receb = await EnviarAsync<NotasFiscais>("Notas", HttpMethod.Get, SenhaPermanente, null, momento.ToBinary().ToString());
+                var quantRecebida = receb.DIs.Count;
                 var envio = await proc.ObterAsync(momento);
                 await EnviarAsync<string>("Notas", HttpMethod.Post, SenhaPermanente, envio);
                 await proc.SalvarAsync(receb);
-                return new ItensSincronizados(envio.Duplas.Count, receb.Duplas.Count);
+                return new ItensSincronizados(envio.DIs.Count, quantRecebida);
             }
         }
 

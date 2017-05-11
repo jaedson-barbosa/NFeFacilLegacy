@@ -48,6 +48,7 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
             using (var db = new AplicativoContext())
             {
                 DateTime momento = DateTime.FromBinary(ultimaSincronizacaoCliente);
+                if (ultimaSincronizacaoCliente > 10) momento = momento.AddSeconds(-10);
                 var item = new ResultadoSincronizacaoServidor()
                 {
                     TipoDadoSolicitado = (int)TipoDado.DadoBase
@@ -57,7 +58,7 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
                     if (senha != ConfiguracoesSincronizacao.SenhaPermanente)
                         throw new SenhaErrada(senha);
                     var resposta = new GetResponse(GetResponse.ResponseStatus.OK,
-                        new ProcessamentoDadosBase(db).Obter(momento.AddSeconds(-10)));
+                        new ProcessamentoDadosBase(db).Obter(momento));
 
                     item.SucessoSolicitacao = true;
                     item.MomentoRequisicao = DateTime.Now;

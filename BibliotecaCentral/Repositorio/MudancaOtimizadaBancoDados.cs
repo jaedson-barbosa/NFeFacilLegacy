@@ -4,6 +4,7 @@ using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Partes
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
@@ -19,7 +20,7 @@ namespace BibliotecaCentral.Repositorio
             emitentes.ForEach(x => x.UltimaData = DateTime.Now);
             var existem = emitentes.FindAll(x => Contexto.Emitentes.Find(x.Id) != null);
             var naoExistem = emitentes.FindAll(x => Contexto.Emitentes.Find(x.Id) == null);
-            Contexto.AddRange();
+            Contexto.AddRange(naoExistem);
             Contexto.UpdateRange(existem);
         }
 
@@ -56,7 +57,7 @@ namespace BibliotecaCentral.Repositorio
             foreach (var item in notas)
             {
                 item.Key.UltimaData = DateTime.Now;
-                if (Contexto.NotasFiscais.Find(item.Key.Id) != null)
+                if (Contexto.NotasFiscais.Count(x => x.Id == item.Key.Id) > 0)
                 {
                     Contexto.Update(item.Key);
                 }

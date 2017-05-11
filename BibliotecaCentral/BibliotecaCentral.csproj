@@ -108,13 +108,14 @@
   <ItemGroup>
     <Compile Include="Certificacao\AssinaNFe.cs" />
     <Compile Include="Certificacao\ConfiguracoesCertificacao.cs" />
-    <Compile Include="Migrations\20170510143541_Alpla1.1.cs" />
-    <Compile Include="Migrations\20170510143541_Alpla1.1.designer.cs">
-      <DependentUpon>20170510143541_Alpla1.1.cs</DependentUpon>
+    <Compile Include="Migrations\20170510184626_Beta.cs" />
+    <Compile Include="Migrations\20170510184626_Beta.designer.cs">
+      <DependentUpon>20170510184626_Beta.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\AplicativoContextModelSnapshot.cs" />
     <Compile Include="Repositorio\MudancaOtimizadaBancoDados.cs" />
     <Compile Include="Sincronizacao\ConfiguracoesSincronizacao.cs" />
+    <Compile Include="Sincronizacao\Pacotes\NotasFiscais.cs" />
     <Compile Include="Sincronizacao\TipoAppSincronizacao.cs" />
     <Compile Include="Extensoes.cs" />
     <Compile Include="Certificacao\FonteCertificacao.cs" />
@@ -261,7 +262,6 @@
     <Compile Include="Sincronizacao\Pacotes\DadosBase.cs" />
     <Compile Include="Sincronizacao\Pacotes\InfoEstabelecerConexao.cs" />
     <Compile Include="Sincronizacao\Pacotes\InfoSegurancaConexao.cs" />
-    <Compile Include="Sincronizacao\Pacotes\NotasFiscais.cs" />
     <Compile Include="Sincronizacao\Pacotes\PacoteBase.cs" />
     <Compile Include="Sincronizacao\ProcessamentoDadosBase.cs" />
     <Compile Include="Sincronizacao\ProcessamentoNotas.cs" />

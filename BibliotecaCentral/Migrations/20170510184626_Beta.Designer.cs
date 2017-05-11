@@ -8,8 +8,8 @@ using BibliotecaCentral;
 namespace BibliotecaCentral.Migrations
 {
     [DbContext(typeof(AplicativoContext))]
-    [Migration("20170510143541_Alpla1.1")]
-    partial class Alpla11
+    [Migration("20170510184626_Beta")]
+    partial class Beta
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

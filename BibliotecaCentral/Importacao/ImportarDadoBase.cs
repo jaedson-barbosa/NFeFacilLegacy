@@ -49,7 +49,7 @@ namespace BibliotecaCentral.Importacao
             }
         }
 
-        private List<Exception> AnaliseCompletaXml<TipoBase>(XElement[] listaXML, string nomePrimario, string nomeSecundario, Action<IEnumerable<TipoBase>> Adicionar) where TipoBase : class
+        private List<Exception> AnaliseCompletaXml<TipoBase>(XElement[] listaXML, string nomePrimario, string nomeSecundario, Action<List<TipoBase>> Adicionar) where TipoBase : class
         {
             var retorno = new List<Exception>();
             var add = new List<TipoBase>();

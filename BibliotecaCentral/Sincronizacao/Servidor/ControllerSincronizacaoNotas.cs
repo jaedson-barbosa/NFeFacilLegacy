@@ -5,6 +5,8 @@ using Restup.Webserver.Models.Schemas;
 using System;
 using System.Threading.Tasks;
 using BibliotecaCentral.ItensBD;
+using System.Collections.Generic;
+using System.Xml.Linq;
 
 namespace BibliotecaCentral.Sincronizacao.Servidor
 {
@@ -18,7 +20,7 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
             {
                 var item = new ResultadoSincronizacaoServidor()
                 {
-                    MomentoRequisicao = pacote.HoraRequisição,
+                    MomentoRequisicao = DateTime.Now,
                     TipoDadoSolicitado = (int)TipoDado.NotaFiscal
                 };
                 try
@@ -44,11 +46,12 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
         }
 
         [UriFormat("/Notas/{senha}/{ultimaSincronizacaoCliente}")]
-        public async Task<IGetResponse> ServidorCliente(int senha, string ultimaSincronizacaoCliente)
+        public async Task<IGetResponse> ServidorCliente(int senha, long ultimaSincronizacaoCliente)
         {
             using (var db = new AplicativoContext())
             {
-                DateTime momento = DateTime.Parse(ultimaSincronizacaoCliente);
+                DateTime momento = DateTime.FromBinary(ultimaSincronizacaoCliente);
+                if (ultimaSincronizacaoCliente > 10) momento = momento.AddSeconds(-10);
                 var item = new ResultadoSincronizacaoServidor()
                 {
                     TipoDadoSolicitado = (int)TipoDado.NotaFiscal
@@ -58,7 +61,7 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
                     if (senha != ConfiguracoesSincronizacao.SenhaPermanente)
                         throw new SenhaErrada(senha);
                     var resposta = new GetResponse(GetResponse.ResponseStatus.OK,
-                        await new ProcessamentoNotas(db).ObterAsync(momento.AddSeconds(-10)));
+                        await new ProcessamentoNotas(db).ObterAsync(momento));
 
                     item.SucessoSolicitacao = true;
                     item.MomentoRequisicao = DateTime.Now;

@@ -6,6 +6,7 @@ namespace BibliotecaCentral.Sincronizacao.Pacotes
 {
     public sealed class NotasFiscais : PacoteBase
     {
-        public Dictionary<NFeDI, XElement> Duplas { get; set; }
+        public List<NFeDI> DIs { get; set; }
+        public List<XElement> XMLs { get; set; }
     }
 }

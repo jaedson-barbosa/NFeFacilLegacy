@@ -28,8 +28,7 @@ namespace BibliotecaCentral.Sincronizacao
             var rest = new RestRouteHandler();
 
             Log.Escrever(TitulosComuns.Processando, "Registrando e configurando servidor.");
-            rest.RegisterController<ControllerBrechaSeguranca>();
-            rest.RegisterController<ControllerConfiguracoes>();
+            rest.RegisterController<ControllerInformacoes>();
             rest.RegisterController<ControllerSincronizacaoNotas>();
             rest.RegisterController<ControllerSincronizacaoDadosBase>();
 

@@ -265,8 +265,7 @@
     <Compile Include="Sincronizacao\Pacotes\PacoteBase.cs" />
     <Compile Include="Sincronizacao\ProcessamentoDadosBase.cs" />
     <Compile Include="Sincronizacao\ProcessamentoNotas.cs" />
-    <Compile Include="Sincronizacao\Servidor\ControllerBrechaSeguranca.cs" />
-    <Compile Include="Sincronizacao\Servidor\ControllerConfiguracoes.cs" />
+    <Compile Include="Sincronizacao\Servidor\ControllerInformacoes.cs" />
     <Compile Include="Sincronizacao\Servidor\ControllerSincronizacaoDadosBase.cs" />
     <Compile Include="Sincronizacao\Servidor\ControllerSincronizacaoNotas.cs" />
     <Compile Include="Sincronizacao\Servidor\SenhaErrada.cs" />

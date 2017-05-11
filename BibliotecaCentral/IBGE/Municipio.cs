@@ -26,15 +26,6 @@ namespace BibliotecaCentral.IBGE
             elementos.Dispose();
         }
 
-        public static bool operator ==(Municipio mun1, Municipio mun2) {
-            return Equals(mun1, mun2);
-        }
-
-        public static bool operator !=(Municipio mun1, Municipio mun2)
-        {
-            return !Equals(mun1, mun2);
-        }
-
         public override bool Equals(object obj)
         {
             if (obj is Municipio mun)

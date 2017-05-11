@@ -82,6 +82,7 @@ namespace BibliotecaCentral.Sincronizacao
             {
                 var momento = contexto.ResultadosCliente.Count(x => x.PodeSincronizarDadoBase) > 0 ? contexto.ResultadosCliente.Last(x => x.PodeSincronizarDadoBase).MomentoSincronizacao : DateTime.MinValue;
                 var receb = await EnviarAsync<DadosBase>($"Dados", HttpMethod.Get, SenhaPermanente, null, momento.ToBinary().ToString());
+
                 var envio = new DadosBase
                 {
                     Emitentes = contexto.Emitentes.Where(x => x.UltimaData > momento).Include(x => x.endereco).ToList(),
@@ -89,6 +90,7 @@ namespace BibliotecaCentral.Sincronizacao
                     Motoristas = contexto.Motoristas.Where(x => x.UltimaData > momento).ToList(),
                     Produtos = contexto.Produtos.Where(x => x.UltimaData > momento).ToList()
                 }; ;
+
                 await EnviarAsync<string>($"Dados", HttpMethod.Post, SenhaPermanente, envio);
                 var Mudanca = new Repositorio.MudancaOtimizadaBancoDados(contexto);
                 Mudanca.AdicionarEmitentes(receb.Emitentes);

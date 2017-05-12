@@ -132,6 +132,103 @@ namespace BibliotecaCentral.Sincronizacao
             }
         }
 
+        public async Task SincronizarTudo(DadosSincronizaveis sincronizar)
+        {
+            try
+            {
+                ItensSincronizados quantNotas = new ItensSincronizados(), quantDados = new ItensSincronizados();
+
+                var config = await EnviarAsync<ConfiguracoesServidor>($"Configuracoes", HttpMethod.Get, SenhaPermanente, null);
+                using (var db = new AplicativoContext())
+                {
+                    db.ChangeTracker.AutoDetectChangesEnabled = false;
+                    db.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+
+                    if (config.Notas && config.DadosBase && sincronizar == DadosSincronizaveis.Tudo)
+                    {
+                        quantNotas = await SincronizarNotas(db);
+                        quantDados = await SincronizarDadosBase(db);
+                        Log.Escrever(TitulosComuns.Sucesso, "Foram sincronizados tanto notas fiscais quanto dados base para criação das notas fiscais.");
+                    }
+                    else if (config.Notas && sincronizar == DadosSincronizaveis.Tudo || sincronizar == DadosSincronizaveis.NotasFiscais)
+                    {
+                        quantNotas = await SincronizarNotas(db);
+                        Log.Escrever(TitulosComuns.Sucesso, "Apenas as notas fiscais puderam ser sincronizadas porque o servidor bloqueou a sincronização de dados base.");
+                    }
+                    else if (config.DadosBase && sincronizar == DadosSincronizaveis.Tudo || sincronizar == DadosSincronizaveis.DadosBase)
+                    {
+                        quantDados = await SincronizarDadosBase(db);
+                        Log.Escrever(TitulosComuns.Sucesso, "Apenas os dados base puderam ser sincronizados porque o servidor bloqueou a sincronização de notas fiscais.");
+                    }
+                    else
+                    {
+                        Log.Escrever(TitulosComuns.ErroSimples, "Nada pôde ser sincronizado porque o servidor bloqueou a sincronização do tipo de dado solicitado(s).");
+                    }
+
+                    db.Add(new ResultadoSincronizacaoCliente
+                    {
+                        PodeSincronizarDadoBase = config.DadosBase,
+                        PodeSincronizarNota = config.Notas,
+                        NumeroDadosEnviados = quantDados.Enviados,
+                        NumeroDadosRecebidos = quantDados.Recebidos,
+                        NumeroNotasEnviadas = quantNotas.Enviados,
+                        NumeroNotasRecebidas = quantNotas.Recebidos,
+                        MomentoSincronizacao = DateTime.Now,
+                        SincronizacaoAutomatica = false
+                    });
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Escrever(TitulosComuns.ErroCatastrófico, $"Erro: {e.Message}");
+            }
+
+            async Task<ItensSincronizados> SincronizarDadosBase(AplicativoContext contexto)
+            {
+                var envio = new DadosBase
+                {
+                    Emitentes = contexto.Emitentes.Include(x => x.endereco).ToList(),
+                    Clientes = contexto.Clientes.Include(x => x.endereco).ToList(),
+                    Motoristas = contexto.Motoristas.ToList(),
+                    Produtos = contexto.Produtos.ToList()
+                }; ;
+                var receb = await EnviarAsync<DadosBase>($"DadosCompleto", HttpMethod.Get, SenhaPermanente, envio);
+
+                var Mudanca = new Repositorio.MudancaOtimizadaBancoDados(contexto);
+                Mudanca.AnalisarAdicionarEmitentes(receb.Emitentes);
+                Mudanca.AnalisarAdicionarClientes(receb.Clientes);
+                Mudanca.AnalisarAdicionarMotoristas(receb.Motoristas); ;
+                Mudanca.AnalisarAdicionarProdutos(receb.Produtos);
+
+                return new ItensSincronizados(CalcularTotal(envio), CalcularTotal(receb));
+
+                int CalcularTotal(DadosBase dados)
+                {
+                    return dados.Clientes.Count + dados.Emitentes.Count + dados.Motoristas.Count + dados.Produtos.Count;
+                }
+            }
+
+            async Task<ItensSincronizados> SincronizarNotas(AplicativoContext contexto)
+            {
+                var conjunto = from item in contexto.NotasFiscais
+                               join xml in await new PastaNotasFiscais().Registro() on item.Id equals xml.nome
+                               select new { DI = item, XML = xml.xml };
+                var envio = new NotasFiscais
+                {
+                    DIs = conjunto.Select(x => x.DI).ToList(),
+                    XMLs = conjunto.Select(x => x.XML).ToList()
+                };
+                var receb = await EnviarAsync<NotasFiscais>("NotasCompleto", HttpMethod.Get, SenhaPermanente, envio);
+
+                await new Repositorio.MudancaOtimizadaBancoDados(contexto)
+                    .AdicionarNotasFiscais(receb.DIs.Zip(receb.XMLs, (di, xml) => new { di, xml })
+                    .ToDictionary(x => x.di, x => x.xml));
+
+                return new ItensSincronizados(envio.DIs.Count, receb.DIs.Count);
+            }
+        }
+
         async Task<T> EnviarAsync<T>(string nomeMetodo, HttpMethod metodo, int senha, IPacote corpo, string parametro = null)
         {
             string caminho = $"http://{IPServidor}:8080/{nomeMetodo}/{senha}";

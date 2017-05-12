@@ -101,5 +101,50 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
                 DB.Dispose();
             }
         }
+
+        [UriFormat("/NotasCompleto/{senha}")]
+        public async Task<IGetResponse> SincronizacaoCompleta(int senha, [FromContent] NotasFiscais pacote)
+        {
+            var item = new ResultadoSincronizacaoServidor()
+            {
+                MomentoRequisicao = DateTime.Now,
+                TipoDadoSolicitado = (int)TipoDado.NotaFiscal
+            };
+            try
+            {
+                if (senha != ConfiguracoesSincronizacao.SenhaPermanente)
+                    throw new SenhaErrada(senha);
+
+                await new Repositorio.MudancaOtimizadaBancoDados(DB)
+                    .AdicionarNotasFiscais(pacote.DIs.Zip(pacote.XMLs, (di, xml) => new { di, xml })
+                    .ToDictionary(x => x.di, x => x.xml));
+
+                var conjunto = from nota in DB.NotasFiscais
+                               join xml in await new PastaNotasFiscais().Registro() on nota.Id equals xml.nome
+                               select new { DI = nota, XML = xml.xml };
+                var resposta = new GetResponse(GetResponse.ResponseStatus.OK,
+                    new NotasFiscais
+                    {
+                        DIs = conjunto.Select(x => x.DI).ToList(),
+                        XMLs = conjunto.Select(x => x.XML).ToList()
+                    });
+
+                item.SucessoSolicitacao = true;
+                DB.Add(item);
+                DB.SaveChanges();
+                return resposta;
+            }
+            catch (Exception e)
+            {
+                item.SucessoSolicitacao = false;
+                DB.Add(item);
+                DB.SaveChanges();
+                throw e;
+            }
+            finally
+            {
+                DB.Dispose();
+            }
+        }
     }
 }

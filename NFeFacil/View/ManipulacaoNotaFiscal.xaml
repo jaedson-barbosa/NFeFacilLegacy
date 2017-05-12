@@ -57,7 +57,7 @@
         <Pivot x:Name="pvtPrincipal">
             <PivotItem IsEnabled="{Binding ManipulacaoAtivada}">
                 <PivotItem.Header>
-                    <ctrls:Guia Label="Dados">
+                    <ctrls:Guia Label="Identificação">
                         <SymbolIcon Symbol="Tag" />
                     </ctrls:Guia>
                 </PivotItem.Header>
@@ -366,7 +366,7 @@
             <PivotItem IsEnabled="{Binding ManipulacaoAtivada}">
                 <PivotItem.Header>
                     <ctrls:Guia Label="Totais">
-                        <SymbolIcon Symbol="List" />
+                        <SymbolIcon Symbol="Calculator" />
                     </ctrls:Guia>
                 </PivotItem.Header>
                 <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Hidden">
@@ -495,7 +495,7 @@
             <PivotItem>
                 <PivotItem.Header>
                     <ctrls:Guia Label="Transporte">
-                        <SymbolIcon Symbol="Street" />
+                        <FontIcon Glyph="&#xE806;" />
                     </ctrls:Guia>
                 </PivotItem.Header>
                 <StackPanel x:Name="rootTransporte">
@@ -651,7 +651,7 @@
             <PivotItem IsEnabled="{Binding ManipulacaoAtivada}">
                 <PivotItem.Header>
                     <ctrls:Guia Label="Cobrança">
-                        <SymbolIcon Symbol="List" />
+                        <FontIcon Glyph="&#xE825;" />
                     </ctrls:Guia>
                 </PivotItem.Header>
                 <StackPanel x:Name="rootCobranca">
@@ -798,7 +798,7 @@
             <PivotItem IsEnabled="{Binding ManipulacaoAtivada}">
                 <PivotItem.Header>
                     <ctrls:Guia Label="Exportação e compras">
-                        <SymbolIcon Symbol="Switch" />
+                        <SymbolIcon Symbol="World" />
                     </ctrls:Guia>
                 </PivotItem.Header>
                 <Grid>
@@ -831,8 +831,8 @@
             </PivotItem>
             <PivotItem IsEnabled="{Binding ManipulacaoAtivada}">
                 <PivotItem.Header>
-                    <ctrls:Guia Label="Cana">
-                        <BitmapIcon UriSource="ms-appx:///Assets/sugar-cane-hi.png" />
+                    <ctrls:Guia Label="Cana-de-açúcar">
+                        <BitmapIcon UriSource="ms-appx:///Assets/CanaAcucar.png" />
                     </ctrls:Guia>
                 </PivotItem.Header>
                 <ScrollViewer x:Name="rootCana"

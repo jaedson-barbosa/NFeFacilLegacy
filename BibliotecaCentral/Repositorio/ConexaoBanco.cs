@@ -11,11 +11,6 @@ namespace BibliotecaCentral.Repositorio
             Contexto = new AplicativoContext();
         }
 
-        protected ConexaoBanco(AplicativoContext contexto)
-        {
-            Contexto = contexto;
-        }
-
         public void SalvarMudancas()
         {
             Contexto.SaveChanges();

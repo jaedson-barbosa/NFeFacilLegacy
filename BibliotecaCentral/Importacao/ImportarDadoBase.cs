@@ -31,21 +31,23 @@ namespace BibliotecaCentral.Importacao
                     return XElement.Load(stream);
                 }
             }));
-            using (var db = new Repositorio.MudancaOtimizadaBancoDados())
+            using (var db = new AplicativoContext())
             {
+                var repo = new Repositorio.MudancaOtimizadaBancoDados(db);
                 switch (TipoDado)
                 {
                     case TiposDadoBasico.Emitente:
-                        return AnaliseCompletaXml<Emitente>(listaXML, nameof(Emitente), "emit", db.AnalisarAdicionarEmitentes);
+                        return AnaliseCompletaXml<Emitente>(listaXML, nameof(Emitente), "emit", repo.AnalisarAdicionarEmitentes);
                     case TiposDadoBasico.Cliente:
-                        return AnaliseCompletaXml<Destinatario>(listaXML, nameof(Destinatario), "dest", db.AnalisarAdicionarClientes);
+                        return AnaliseCompletaXml<Destinatario>(listaXML, nameof(Destinatario), "dest", repo.AnalisarAdicionarClientes);
                     case TiposDadoBasico.Motorista:
-                        return AnaliseCompletaXml<Motorista>(listaXML, nameof(Motorista), "transporta", db.AnalisarAdicionarMotoristas);
+                        return AnaliseCompletaXml<Motorista>(listaXML, nameof(Motorista), "transporta", repo.AnalisarAdicionarMotoristas);
                     case TiposDadoBasico.Produto:
-                        return AnaliseCompletaXml<BaseProdutoOuServico>(listaXML, nameof(BaseProdutoOuServico), "prod", db.AnalisarAdicionarProdutos);
+                        return AnaliseCompletaXml<BaseProdutoOuServico>(listaXML, nameof(BaseProdutoOuServico), "prod", repo.AnalisarAdicionarProdutos);
                     default:
                         return null;
                 }
+                db.SaveChanges();
             }
         }
 

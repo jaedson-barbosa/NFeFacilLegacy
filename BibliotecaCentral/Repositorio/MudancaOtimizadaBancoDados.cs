@@ -11,14 +11,15 @@ using System.Xml.Linq;
 
 namespace BibliotecaCentral.Repositorio
 {
-    internal sealed class MudancaOtimizadaBancoDados : ConexaoBanco
+    internal sealed class MudancaOtimizadaBancoDados
     {
-        internal MudancaOtimizadaBancoDados() : base()
+        private AplicativoContext Contexto { get; }
+        internal MudancaOtimizadaBancoDados(AplicativoContext contexto)
         {
+            Contexto = contexto;
             Contexto.ChangeTracker.AutoDetectChangesEnabled = false;
             Contexto.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
-        internal MudancaOtimizadaBancoDados(AplicativoContext contexto) : base(contexto) { }
 
         internal void AdicionarEmitentes(List<Emitente> emitentes)
         {

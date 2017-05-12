@@ -81,9 +81,11 @@ namespace BibliotecaCentral.Importacao
                     retorno.Add(e);
                 }
             }
-            using (var db = new Repositorio.MudancaOtimizadaBancoDados())
+            using (var db = new AplicativoContext())
             {
-                await db.AdicionarNotasFiscais(conjuntos);
+                var repo = new Repositorio.MudancaOtimizadaBancoDados(db);
+                await repo.AdicionarNotasFiscais(conjuntos);
+                db.SaveChanges();
             }
             return retorno;
         }

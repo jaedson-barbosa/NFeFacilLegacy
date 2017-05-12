@@ -107,7 +107,7 @@ namespace NFeFacil
                         }
                     },
                     OperacaoRequirida = TipoOperacao.Adicao,
-                    StatusAtual = StatusNFe.EdiçãoCriação
+                    StatusAtual = StatusNFe.Edição
                 };
             }
             else

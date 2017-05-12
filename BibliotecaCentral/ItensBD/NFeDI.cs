@@ -49,7 +49,7 @@ namespace BibliotecaCentral.ItensBD
             DataEmissao = nota.Informações.identificação.DataHoraEmissão;
             NumeroNota = nota.Informações.identificação.Numero;
             SerieNota = nota.Informações.identificação.Serie;
-            Status = nota.Signature != null && nota.Signature.HasChildNodes ? (int)StatusNFe.Assinado : (int)StatusNFe.Salvo;
+            Status = nota.Signature != null && nota.Signature.HasChildNodes ? (int)StatusNFe.Assinada : (int)StatusNFe.Salva;
         }
         public NFeDI(Processo nota)
         {
@@ -60,7 +60,7 @@ namespace BibliotecaCentral.ItensBD
             DataEmissao = nota.NFe.Informações.identificação.DataHoraEmissão;
             NumeroNota = nota.NFe.Informações.identificação.Numero;
             SerieNota = nota.NFe.Informações.identificação.Serie;
-            Status = nota.ProtNFe != null ? (int)StatusNFe.Emitido : nota.NFe.Signature != null && nota.NFe.Signature.HasChildNodes ? (int)StatusNFe.Assinado : (int)StatusNFe.Salvo;
+            Status = nota.ProtNFe != null ? (int)StatusNFe.Emitida : nota.NFe.Signature != null && nota.NFe.Signature.HasChildNodes ? (int)StatusNFe.Assinada : (int)StatusNFe.Salva;
         }
 
         public async Task<object> ConjuntoCompletoAsync()

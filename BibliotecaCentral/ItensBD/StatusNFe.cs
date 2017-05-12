@@ -2,11 +2,11 @@
 {
     public enum StatusNFe
     {
-        EdiçãoCriação,
-        Validado,
-        Salvo,
-        Assinado,
-        Emitido,
-        Impresso
+        Edição,
+        Validada,
+        Salva,
+        Assinada,
+        Emitida,
+        Impressa
     }
 }

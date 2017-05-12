@@ -42,14 +42,14 @@ namespace NFeFacil.ViewModel
         public NFe NotaSalva { get; private set; }
         private Processo NotaEmitida;
 
-        public bool ManipulacaoAtivada => StatusAtual == StatusNFe.EdiçãoCriação;
-        public bool BotaoEditarVisivel => StatusAtual == StatusNFe.Validado || StatusAtual == StatusNFe.Salvo || StatusAtual == StatusNFe.Assinado;
-        public bool BotaoConfirmarVisivel => StatusAtual == StatusNFe.EdiçãoCriação;
-        public bool BotaoSalvarAtivado => StatusAtual == StatusNFe.Validado;
-        public bool BotaoAssinarAtivado => StatusAtual == StatusNFe.Salvo;
-        public bool BotaoTransmitirAtivado => StatusAtual == StatusNFe.Assinado;
-        public bool BotaoGerarDANFEAtivado => StatusAtual == StatusNFe.Emitido || StatusAtual == StatusNFe.Impresso;
-        public bool BotaoExportarXMLAtivado => StatusAtual != StatusNFe.EdiçãoCriação;
+        public bool ManipulacaoAtivada => StatusAtual == StatusNFe.Edição;
+        public bool BotaoEditarVisivel => StatusAtual == StatusNFe.Validada || StatusAtual == StatusNFe.Salva || StatusAtual == StatusNFe.Assinada;
+        public bool BotaoConfirmarVisivel => StatusAtual == StatusNFe.Edição;
+        public bool BotaoSalvarAtivado => StatusAtual == StatusNFe.Validada;
+        public bool BotaoAssinarAtivado => StatusAtual == StatusNFe.Salva;
+        public bool BotaoTransmitirAtivado => StatusAtual == StatusNFe.Assinada;
+        public bool BotaoGerarDANFEAtivado => StatusAtual == StatusNFe.Emitida || StatusAtual == StatusNFe.Impressa;
+        public bool BotaoExportarXMLAtivado => StatusAtual != StatusNFe.Edição;
 
         internal StatusNFe StatusAtual
         {
@@ -199,7 +199,7 @@ namespace NFeFacil.ViewModel
         public ICommand SalvarCommand => new Comando(async () =>
         {
             NormalizarNFe();
-            StatusAtual = StatusNFe.Salvo;
+            StatusAtual = StatusNFe.Salva;
             await SalvarAsync();
             Log.Escrever(TitulosComuns.Sucesso, "Nota fiscal salva com sucesso. Agora podes sair da aplicação sem perder esta NFe.");
         }, true);
@@ -226,11 +226,11 @@ namespace NFeFacil.ViewModel
 
         private void LiberarEdicao()
         {
-            if (StatusAtual == StatusNFe.Assinado)
+            if (StatusAtual == StatusNFe.Assinada)
             {
                 NotaSalva.Signature = null;
             }
-            StatusAtual = StatusNFe.EdiçãoCriação;
+            StatusAtual = StatusNFe.Edição;
             Log.Escrever(TitulosComuns.Sucesso, "As alterações só terão efeito quando a nota fiscal for novamente salva.");
         }
 
@@ -247,7 +247,7 @@ namespace NFeFacil.ViewModel
                 {
                     NormalizarNFe();
                     Log.Escrever(TitulosComuns.ValidaçãoConcluída, "A nota fiscal foi validada. Aparentemente, não há irregularidades");
-                    StatusAtual = StatusNFe.Validado;
+                    StatusAtual = StatusNFe.Validada;
                 }
             }
         }
@@ -272,7 +272,7 @@ namespace NFeFacil.ViewModel
                 NormalizarNFe();
                 var assina = new BibliotecaCentral.Certificacao.AssinaNFe(NotaSalva);
                 await assina.AssinarAsync();
-                StatusAtual = StatusNFe.Assinado;
+                StatusAtual = StatusNFe.Assinada;
                 await SalvarAsync();
             }
             catch (Exception e)
@@ -297,7 +297,7 @@ namespace NFeFacil.ViewModel
                         ProtNFe = resultadoResposta.protNFe
                     };
                     Log.Escrever(TitulosComuns.Sucesso, resultadoResposta.xMotivo);
-                    StatusAtual = StatusNFe.Emitido;
+                    StatusAtual = StatusNFe.Emitida;
                     await SalvarAsync();
                 }
                 else
@@ -336,7 +336,7 @@ namespace NFeFacil.ViewModel
         private async void GerarDANFE()
         {
             await Propriedades.Intercambio.AbrirFunçaoAsync(typeof(ViewDANFE), NotaEmitida);
-            StatusAtual = StatusNFe.Impresso;
+            StatusAtual = StatusNFe.Impressa;
             await SalvarAsync();
         }
 
@@ -668,7 +668,7 @@ namespace NFeFacil.ViewModel
             }
         }
 
-        private bool UsarNotaSalva => StatusAtual != StatusNFe.Emitido && StatusAtual != StatusNFe.Impresso;
+        private bool UsarNotaSalva => StatusAtual != StatusNFe.Emitida && StatusAtual != StatusNFe.Impressa;
         private async Task SalvarAsync()
         {
             if (!AmbienteTestes)
@@ -678,7 +678,7 @@ namespace NFeFacil.ViewModel
                 di.Status = (int)StatusAtual;
                 using (var db = new NotasFiscais())
                 {
-                    if (StatusAtual == StatusNFe.Salvo || StatusAtual == StatusNFe.EdiçãoCriação)
+                    if (StatusAtual == StatusNFe.Salva || StatusAtual == StatusNFe.Edição)
                     {
                         await db.Adicionar(di, xml);
                     }

@@ -42,7 +42,7 @@ namespace NFeFacil.View
         async Task<bool> IValida.Verificar()
         {
             var retorno = true;
-            if (contexto.StatusAtual == StatusNFe.EdiçãoCriação)
+            if (contexto.StatusAtual == StatusNFe.Edição)
             {
                 var mensagem = new MessageDialog("Se você sair agora, os dados serão perdidos, se tiver certeza, escolha Sair, caso contrário, Cancelar.", "Atenção");
                 mensagem.Commands.Add(new UICommand("Sair"));

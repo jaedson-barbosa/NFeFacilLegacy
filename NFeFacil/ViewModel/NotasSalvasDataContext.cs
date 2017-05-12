@@ -7,8 +7,10 @@ using NFeFacil.View;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Input;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Data;
 
 namespace NFeFacil.ViewModel
 {
@@ -17,7 +19,22 @@ namespace NFeFacil.ViewModel
         public event PropertyChangedEventHandler PropertyChanged;
 
         public IList<object> ItensSelecionados { get; set; }
-        public ObservableCollection<NFeDI> NotasSalvas { get; set; }
+
+        public ICollectionView NotasSalvas
+        {
+            get
+            {
+                using (var db = new NotasFiscais())
+                {
+                    return new CollectionViewSource()
+                    {
+                        IsSourceGrouped = true,
+                        Source = from nota in db.Registro
+                                 group nota by ((StatusNFe)nota.Status).ToString()
+                    }.View;
+                }
+            }
+        }
 
         public bool ExibirEditar => (ItensSelecionados?.Count ?? 0) <= 1;
         public bool ExibirRemoverSelecionados => (ItensSelecionados?.Count ?? 0) > 1;
@@ -34,10 +51,6 @@ namespace NFeFacil.ViewModel
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ExibirEditar)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ExibirRemoverSelecionados)));
             };
-            using (var db = new NotasFiscais())
-            {
-                NotasSalvas = db.Registro.GerarObs();
-            }
         }
 
         private async static void Editar(NFeDI nota)
@@ -64,7 +77,6 @@ namespace NFeFacil.ViewModel
             {
                 await db.Remover(nota);
                 db.SalvarMudancas();
-                NotasSalvas = db.Registro.GerarObs();
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(NotasSalvas)));
             }
         }
@@ -78,7 +90,6 @@ namespace NFeFacil.ViewModel
                     await db.Remover(ItensSelecionados[i] as NFeDI);
                 }
                 db.SalvarMudancas();
-                NotasSalvas = db.Registro.GerarObs();
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(NotasSalvas)));
             }
         }

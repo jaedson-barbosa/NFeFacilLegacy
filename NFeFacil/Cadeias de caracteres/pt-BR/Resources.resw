@@ -123,10 +123,7 @@
   <data name="txtConexaoServidor.Text" xml:space="preserve">
     <value>Para garantir a total segurança do sistema de sincronização é gerado um servidor temporário que serve para liberar o acesso ao servidor permanente. Para se conectar ao servidor leia o código QR abaixo usando o leitor QR do aplicativo no dispositivo cliente. O código QR permanece válido para estabelecer a conexão por apenas 1 minuto após pressionar o botão abaixo.</value>
   </data>
-  <data name="txtInicializaçãoAutomatica.Text" xml:space="preserve">
-    <value>Com isto ativado você não mais precisará apertar o botão acima para iniciar o server, já que ele sempre iniciará junto à aplicação.</value>
-  </data>
   <data name="txtInicializaçãoServidor.Text" xml:space="preserve">
-    <value>Para que haja sincronização de dados deve haver um servidor. Já que este dispositivo será o servidor da rede local, clique o botão abaixo para que ele seja iniciado. Por enquanto ele só funciona enquanto este aplicativo permanecer aberto.</value>
+    <value>Para que haja sincronização de dados deve haver um servidor. Já que este dispositivo será o servidor da rede local, clique o botão abaixo para que ele o servidor inicie. Se quiser, ligue a inicialização automática para que o servidor inicie sempre junto à aplicação.</value>
   </data>
 </root>

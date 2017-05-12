@@ -134,8 +134,8 @@ namespace NFeFacil.ViewModel
                 });
             }
         }
-        public event MostrarQRChangedDelegate MostrarQRChanged;
 
+        public event MostrarQRChangedDelegate MostrarQRChanged;
         public delegate void MostrarQRChangedDelegate(ConfigSincronizacaoDataContext sender, MostrarQRChangeEventArgs e);
         public class MostrarQRChangeEventArgs : EventArgs
         {

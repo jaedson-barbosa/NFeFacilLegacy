@@ -66,6 +66,12 @@
                                   Tapped="AbrirFunção">
                 <SymbolIcon Symbol="Setting" />
             </controles:ItemPadrao>
+            <controles:ItemPadrao x:Name="ConfigSincronizacao"
+                                  Titulo="Config. de sincronização"
+                                  Descricao="Configure a sincronização entre dispositivos, adicione novos dispositivos ao servidor ou se conecte a um servidor."
+                                  Tapped="AbrirFunção">
+                <SymbolIcon Symbol="Sync" />
+            </controles:ItemPadrao>
         </ItemsControl>
     </ScrollViewer>
 </Page>

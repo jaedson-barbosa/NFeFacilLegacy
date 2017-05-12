@@ -11,6 +11,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Estilos/CoresDestaque.xaml" />
+                <ResourceDictionary Source="Estilos/GridResponsiva.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <VM:ConfigSincronizacaoDataContext x:Key="contexto" />
             <conversores:BoolToVisibility x:Key="boolView" />
@@ -173,32 +174,34 @@
                             Command="{Binding GerarQRTemporárioCommand}">Gerar código QR temporário</Button>
                 </StackPanel>
                 <StackPanel Visibility="{Binding Path=IsCliente, Converter={StaticResource boolView}}">
-                    <RichTextBlock>
-                        <Paragraph>
-                            <Run>Já que este dispositivo servirá como cliente, conecte ele ao servidor lendo o código QR gerado pelo servidor apertando o botão abaixo.</Run>
-                        </Paragraph>
-                    </RichTextBlock>
-                    <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
-                               Margin="0,8,0,0">Conectar-se ao servidor</TextBlock>
-                    <StackPanel Orientation="Horizontal">
+                    <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Registro em servidor</TextBlock>
+                    <ItemsControl Style="{StaticResource ItensMedios}">
                         <my:ItemPadrao Command="{Binding LerQRTemporárioCommand}"
                                        Titulo="Automaticamente"
-                                       Descricao="Ler código QR temporário">
+                                       Descricao="Ler código QR temporário com os dados para conexão">
                             <SymbolIcon Symbol="Camera" />
                         </my:ItemPadrao>
                         <my:ItemPadrao Command="{Binding InserirDadosManualmenteCommand}"
                                        Titulo="Manualmente"
-                                       Descricao="Digitar os dados do servidor">
+                                       Descricao="Digitar o IP e a senha temporária do servidor">
                             <SymbolIcon Symbol="Keyboard" />
                         </my:ItemPadrao>
-                    </StackPanel>
-                    <TextBlock Margin="0,5,0,0"
-                               Style="{StaticResource SubtitleTextBlockStyle}">Sincronizar</TextBlock>
+                    </ItemsControl>
+                    <TextBlock Margin="0,8,0,0"
+                               Style="{StaticResource SubtitleTextBlockStyle}">Sincronização básica</TextBlock>
+                    <TextBlock TextWrapping="Wrap">Com a sincronização básica apenas os dados modificados ou adicionados após a última sincronização são transferidos, sendo a recomendada para a maioria dos casos.</TextBlock>
                     <Button HorizontalAlignment="Stretch"
-                            Command="{Binding SincronizarAgoraCommand}">Sincronizar agora</Button>
+                            Command="{Binding SincronizarAgoraCommand}">Sincronizar</Button>
                     <ToggleSwitch HorizontalAlignment="Stretch"
-                                  Header="Sincronizar automaticamente a cada 15 minutos"
-                                  IsOn="{Binding SincronizarAutomaticamente, Mode=TwoWay}" />
+                                  IsOn="{Binding SincronizarAutomaticamente, Mode=TwoWay}"
+                                  Header="Modo de sincronização"
+                                  OnContent="Automaticamente (a cada 15min)"
+                                  OffContent="Manualmente (usando o botão)" />
+                    <TextBlock Margin="0,8,0,0"
+                               Style="{StaticResource SubtitleTextBlockStyle}">Sincronização completa</TextBlock>
+                    <TextBlock TextWrapping="Wrap">Na sincronização completa todos os dados existentes no servidor e neste dispositivo serão transferidos e passados por análise, sendo portanto mais lenta e indicada apenas quando o servidor é trocado.</TextBlock>
+                    <Button HorizontalAlignment="Stretch"
+                            Command="{Binding SincronizarTudoCommand}">Sincronizar tudo</Button>
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>

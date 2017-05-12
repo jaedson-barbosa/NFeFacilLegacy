@@ -110,6 +110,7 @@ namespace NFeFacil.ViewModel
             IniciarServidorCommand = new Comando(IniciarServidor, true);
             SincronizarAgoraCommand = new Comando(SincronizarAgora, true);
             FecharBrechaSeguranca = new Comando(PararDeAceitarNovasConexoes, true);
+            SincronizarTudoCommand = new Comando(SincronizarTudo, true);
         }
 
         public ICommand GerarQRTemporárioCommand { get; }
@@ -118,6 +119,7 @@ namespace NFeFacil.ViewModel
         public ICommand IniciarServidorCommand { get; }
         public ICommand SincronizarAgoraCommand { get; }
         public ICommand FecharBrechaSeguranca { get; }
+        public ICommand SincronizarTudoCommand { get; }
 
         public double ValorMaximo { get; } = 120;
         public double ValorAtual { get; private set; } = 0;
@@ -222,6 +224,12 @@ namespace NFeFacil.ViewModel
         {
             var gerenc = new GerenciadorCliente(LogPopUp);
             await gerenc.Sincronizar(DadosSincronizaveis.Tudo, false);
+        }
+
+        private async void SincronizarTudo()
+        {
+            var gerenc = new GerenciadorCliente(LogPopUp);
+            await gerenc.SincronizarTudo(DadosSincronizaveis.Tudo);
         }
     }
 

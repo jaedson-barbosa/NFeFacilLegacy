@@ -20,7 +20,8 @@ namespace BibliotecaCentral.IBGE
         public static Estado Buscar(ushort codigo) => EstadosCache.First(x => x.Codigo == codigo);
         public static Estado Buscar(string siglaOuNome)
         {
-            return EstadosCache.First(x => (siglaOuNome.Length == 2 ? x.Sigla : x.Nome) == siglaOuNome);
+            bool isSigla = siglaOuNome.Length == 2;
+            return EstadosCache.First(x => isSigla ? x.Sigla == siglaOuNome : x.Nome == siglaOuNome);
         }
     }
 }

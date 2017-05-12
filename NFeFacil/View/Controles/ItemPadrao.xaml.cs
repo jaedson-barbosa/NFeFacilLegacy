@@ -1,12 +1,14 @@
 ﻿using System.Windows.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Markup;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
 namespace NFeFacil.View.Controles
 {
-    [Windows.UI.Xaml.Markup.ContentProperty(Name = "Icone")]
+    [ContentProperty(Name = "Icone")]
     public sealed partial class ItemPadrao : UserControl
     {
         public ItemPadrao()
@@ -25,7 +27,7 @@ namespace NFeFacil.View.Controles
         public string Descricao { get; set; }
         public IconElement Icone { get; set; }
 
-        private void Tocado(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        private void Tocado(object sender, TappedRoutedEventArgs e)
         {
             
             if (Command?.CanExecute(null) ?? false)

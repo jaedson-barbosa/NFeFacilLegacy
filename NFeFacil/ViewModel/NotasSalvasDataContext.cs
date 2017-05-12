@@ -22,16 +22,15 @@ namespace NFeFacil.ViewModel
         {
             get
             {
-                //using (var db = new NotasFiscais())
-                //{
-                //    return new CollectionViewSource()
-                //    {
-                //        IsSourceGrouped = true,
-                //        Source = from nota in db.Registro
-                //                 group nota by ((StatusNFe)nota.Status).ToString()
-                //    }.View;
-                //}
-                return null;
+                using (var db = new NotasFiscais())
+                {
+                    return new CollectionViewSource()
+                    {
+                        IsSourceGrouped = true,
+                        Source = from nota in db.Registro
+                                 group nota by ((StatusNFe)nota.Status).ToString()
+                    }.View;
+                }
             }
         }
 

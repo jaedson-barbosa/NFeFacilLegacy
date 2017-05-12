@@ -57,8 +57,9 @@
         <Pivot x:Name="pvtPrincipal">
             <PivotItem IsEnabled="{Binding ManipulacaoAtivada}">
                 <PivotItem.Header>
-                    <ctrls:Guia Symbol="Tag"
-                                Label="Dados" />
+                    <ctrls:Guia Label="Dados">
+                        <SymbolIcon Symbol="Tag" />
+                    </ctrls:Guia>
                 </PivotItem.Header>
                 <PivotItem.Resources>
                     <ResourceDictionary Source="Estilos/PivotSecundário.xaml" />
@@ -257,8 +258,9 @@
             </PivotItem>
             <PivotItem IsEnabled="{Binding ManipulacaoAtivada}">
                 <PivotItem.Header>
-                    <ctrls:Guia Label="Emitente"
-                                Symbol="Contact" />
+                    <ctrls:Guia Label="Emitente">
+                        <SymbolIcon Symbol="Contact" />
+                    </ctrls:Guia>
                 </PivotItem.Header>
                 <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Hidden">
                     <StackPanel>
@@ -280,8 +282,9 @@
             </PivotItem>
             <PivotItem IsEnabled="{Binding ManipulacaoAtivada}">
                 <PivotItem.Header>
-                    <ctrls:Guia Label="Cliente"
-                                Symbol="People" />
+                    <ctrls:Guia Label="Cliente">
+                        <SymbolIcon Symbol="People" />
+                    </ctrls:Guia>
                 </PivotItem.Header>
                 <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Hidden">
                     <StackPanel>
@@ -303,8 +306,9 @@
             </PivotItem>
             <PivotItem IsEnabled="{Binding ManipulacaoAtivada}">
                 <PivotItem.Header>
-                    <ctrls:Guia Label="Produtos"
-                                Symbol="Shop" />
+                    <ctrls:Guia Label="Produtos">
+                        <SymbolIcon Symbol="Shop" />
+                    </ctrls:Guia>
                 </PivotItem.Header>
                 <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Hidden">
                     <Grid>
@@ -361,8 +365,9 @@
             </PivotItem>
             <PivotItem IsEnabled="{Binding ManipulacaoAtivada}">
                 <PivotItem.Header>
-                    <ctrls:Guia Label="Totais"
-                                Symbol="List" />
+                    <ctrls:Guia Label="Totais">
+                        <SymbolIcon Symbol="List" />
+                    </ctrls:Guia>
                 </PivotItem.Header>
                 <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Hidden">
                     <ScrollViewer VerticalScrollBarVisibility="Hidden"
@@ -489,8 +494,9 @@
             </PivotItem>
             <PivotItem>
                 <PivotItem.Header>
-                    <ctrls:Guia Label="Transporte"
-                                Symbol="Street" />
+                    <ctrls:Guia Label="Transporte">
+                        <SymbolIcon Symbol="Street" />
+                    </ctrls:Guia>
                 </PivotItem.Header>
                 <StackPanel x:Name="rootTransporte">
                     <StackPanel.Resources>
@@ -644,8 +650,9 @@
             </PivotItem>
             <PivotItem IsEnabled="{Binding ManipulacaoAtivada}">
                 <PivotItem.Header>
-                    <ctrls:Guia Label="Cobrança"
-                                Symbol="List" />
+                    <ctrls:Guia Label="Cobrança">
+                        <SymbolIcon Symbol="List" />
+                    </ctrls:Guia>
                 </PivotItem.Header>
                 <StackPanel x:Name="rootCobranca">
                     <ItemsControl Style="{StaticResource ItensResponsivos}">
@@ -688,8 +695,9 @@
             </PivotItem>
             <PivotItem IsEnabled="{Binding ManipulacaoAtivada}">
                 <PivotItem.Header>
-                    <ctrls:Guia Label="Informações adicionais"
-                                Symbol="Comment" />
+                    <ctrls:Guia Label="Informações adicionais">
+                        <SymbolIcon Symbol="Comment" />
+                    </ctrls:Guia>
                 </PivotItem.Header>
                 <ItemsControl Style="{StaticResource ItensResponsivos}">
                     <StackPanel DataContext="{Binding NotaSalva.Informações.infAdic}">
@@ -789,8 +797,9 @@
             </PivotItem>
             <PivotItem IsEnabled="{Binding ManipulacaoAtivada}">
                 <PivotItem.Header>
-                    <ctrls:Guia Label="Exportação e compras"
-                                Symbol="Switch" />
+                    <ctrls:Guia Label="Exportação e compras">
+                        <SymbolIcon Symbol="Switch" />
+                    </ctrls:Guia>
                 </PivotItem.Header>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -822,8 +831,9 @@
             </PivotItem>
             <PivotItem IsEnabled="{Binding ManipulacaoAtivada}">
                 <PivotItem.Header>
-                    <ctrls:Guia Label="Cana"
-                                Symbol="More" />
+                    <ctrls:Guia Label="Cana">
+                        <BitmapIcon UriSource="ms-appx:///Assets/sugar-cane-hi.png" />
+                    </ctrls:Guia>
                 </PivotItem.Header>
                 <ScrollViewer x:Name="rootCana"
                               VerticalScrollBarVisibility="Hidden">

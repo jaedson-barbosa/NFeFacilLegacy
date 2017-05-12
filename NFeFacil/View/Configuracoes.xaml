@@ -35,8 +35,9 @@
         <Pivot x:Name="pvtPrincipal">
             <PivotItem>
                 <PivotItem.Header>
-                    <my:Guia Symbol="Permissions"
-                             Label="Certificado" />
+                    <my:Guia Label="Certificado">
+                        <SymbolIcon Symbol="Permissions" />
+                    </my:Guia>
                 </PivotItem.Header>
                 <StackPanel>
                     <StackPanel.ChildrenTransitions>
@@ -64,8 +65,9 @@
             </PivotItem>
             <PivotItem>
                 <PivotItem.Header>
-                    <my:Guia Symbol="Import"
-                             Label="Importar" />
+                    <my:Guia Label="Importar">
+                        <SymbolIcon Symbol="Import" />
+                    </my:Guia>
                 </PivotItem.Header>
                 <ScrollViewer VerticalScrollBarVisibility="Hidden">
                     <StackPanel>

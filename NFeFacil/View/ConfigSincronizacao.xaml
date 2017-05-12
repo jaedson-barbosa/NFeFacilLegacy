@@ -199,9 +199,6 @@
                             <SymbolIcon Symbol="Keyboard" />
                         </my:ItemPadrao>
                     </StackPanel>
-                    <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Status</TextBlock>
-                    <TextBlock Margin="0,0,0,10"
-                               Text="{Binding StatusCliente, Mode=OneWay}" />
                     <TextBlock Margin="0,5,0,0"
                                Style="{StaticResource SubtitleTextBlockStyle}">Sincronizar</TextBlock>
                     <Button HorizontalAlignment="Stretch"

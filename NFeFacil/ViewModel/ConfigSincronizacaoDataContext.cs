@@ -34,7 +34,6 @@ namespace NFeFacil.ViewModel
                 Tipo = value ? TipoAppSincronizacao.Cliente : TipoAppSincronizacao.Servidor;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsServidor)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsCliente)));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(StatusCliente)));
             }
         }
 
@@ -88,17 +87,6 @@ namespace NFeFacil.ViewModel
                 {
                     return null;
                 }
-            }
-        }
-
-        public string StatusCliente
-        {
-            get
-            {
-                if (!string.IsNullOrEmpty(IPServidor) && SenhaPermanente != default(int))
-                    return "Servidor já cadastrado";
-                else
-                    return "Não há nenhum servidor cadastrado";
             }
         }
 

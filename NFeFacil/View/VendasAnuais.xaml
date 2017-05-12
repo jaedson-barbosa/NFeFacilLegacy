@@ -47,8 +47,9 @@
                Grid.RowSpan="2">
             <PivotItem>
                 <PivotItem.Header>
-                    <Controles:Guia Symbol="Calendar"
-                                    Label="Meses" />
+                    <Controles:Guia Label="Meses">
+                        <SymbolIcon Symbol="Calendar" />
+                    </Controles:Guia>
                 </PivotItem.Header>
                 <ListView ItemsSource="{Binding ResultadoMes}"
                           Style="{StaticResource PseudoTabela}">
@@ -86,8 +87,9 @@
             </PivotItem>
             <PivotItem>
                 <PivotItem.Header>
-                    <Controles:Guia Symbol="People"
-                                    Label="Clientes" />
+                    <Controles:Guia Label="Clientes">
+                        <SymbolIcon Symbol="People" />
+                    </Controles:Guia>
                 </PivotItem.Header>
                 <ListView ItemsSource="{Binding ResultadoCliente}"
                           Style="{StaticResource PseudoTabela}">

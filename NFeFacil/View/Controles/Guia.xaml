@@ -10,11 +10,12 @@
 			 MaxHeight="96"
 			 IsTabStop="False">
 	<StackPanel Background="Transparent">
-		<SymbolIcon HorizontalAlignment="Center"
-					Margin="0,8,0,0"
-					Symbol="{Binding Symbol}" />
-		<TextBlock Style="{StaticResource CaptionTextBlockStyle}"
-				   Text="{Binding Label}"
+        <ContentControl HorizontalAlignment="Center"
+                        Margin="0,8,0,0"
+                        Content="{x:Bind Icone}"
+                        Height="24" />
+        <TextBlock Style="{StaticResource CaptionTextBlockStyle}"
+				   Text="{x:Bind Label}"
 				   FontFamily="Segoe UI"
 				   LineStackingStrategy="BlockLineHeight"
 				   LineHeight="14"

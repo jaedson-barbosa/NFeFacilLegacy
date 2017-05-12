@@ -13,6 +13,7 @@ using BibliotecaCentral.Sincronizacao;
 using BibliotecaCentral.Sincronizacao.Pacotes;
 using static BibliotecaCentral.Sincronizacao.ConfiguracoesSincronizacao;
 using NFeFacil.View;
+using Windows.UI.Xaml;
 
 namespace NFeFacil.ViewModel
 {
@@ -221,6 +222,27 @@ namespace NFeFacil.ViewModel
         {
             var gerenc = new GerenciadorCliente(LogPopUp);
             await gerenc.Sincronizar(DadosSincronizaveis.Tudo, false);
+        }
+    }
+
+    public sealed class ExibicaoQR : StateTriggerBase
+    {
+        public bool Visivel { get; set; }
+
+        private ConfigSincronizacaoDataContext contexto;
+        public ConfigSincronizacaoDataContext Contexto
+        {
+            get => contexto;
+            set
+            {
+                contexto = value;
+                contexto.MostrarQRChanged += Contexto_MostrarQRChanged;
+            }
+        }
+
+        private void Contexto_MostrarQRChanged(ConfigSincronizacaoDataContext sender, ConfigSincronizacaoDataContext.MostrarQRChangeEventArgs args)
+        {
+            SetActive(Visivel == args.DadoAtual);
         }
     }
 }

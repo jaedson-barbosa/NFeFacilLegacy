@@ -222,7 +222,6 @@
     <Compile Include="View\Controles\ItemPadrao.xaml.cs">
       <DependentUpon>ItemPadrao.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ExibicaoQR.cs" />
     <Compile Include="View\GerenciarDadosBase.xaml.cs">
       <DependentUpon>GerenciarDadosBase.xaml</DependentUpon>
     </Compile>

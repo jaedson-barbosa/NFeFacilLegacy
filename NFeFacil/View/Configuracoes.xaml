@@ -10,14 +10,13 @@
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Estilos/CoresDestaque.xaml" />
                 <ResourceDictionary Source="ms-appx:///View/Estilos/GridResponsiva.xaml" />
                 <ResourceDictionary Source="ms-appx:///View/Estilos/PivotPrincipal.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Storyboard x:Name="ocultarGrid">
-                <DoubleAnimation Duration="0:0:0.25"
-                                 To="0"
-                                 Storyboard.TargetProperty="(UIElement.Opacity)"
-                                 Storyboard.TargetName="grdPrincipal" />
+                <FadeOutThemeAnimation Duration="0:0:0.25"
+                                       TargetName="main" />
             </Storyboard>
             <Conversores:BoolToVisibility x:Key="boolView"></Conversores:BoolToVisibility>
         </ResourceDictionary>
@@ -25,98 +24,105 @@
     <Page.DataContext>
         <VM:ConfiguracoesDataContext />
     </Page.DataContext>
-    <Grid x:Name="grdPrincipal"
-          Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid.ChildrenTransitions>
-            <TransitionCollection>
-                <EntranceThemeTransition IsStaggeringEnabled="True" />
-            </TransitionCollection>
-        </Grid.ChildrenTransitions>
-        <Pivot x:Name="pvtPrincipal">
-            <PivotItem>
-                <PivotItem.Header>
-                    <my:Guia Label="Certificado">
-                        <SymbolIcon Symbol="Permissions" />
-                    </my:Guia>
-                </PivotItem.Header>
+    <Pivot x:Name="main"
+           Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <PivotItem>
+            <PivotItem.Header>
+                <my:Guia Label="Certificado">
+                    <SymbolIcon Symbol="Permissions" />
+                </my:Guia>
+            </PivotItem.Header>
+            <StackPanel>
+                <StackPanel.ChildrenTransitions>
+                    <TransitionCollection>
+                        <EntranceThemeTransition IsStaggeringEnabled="True" />
+                    </TransitionCollection>
+                </StackPanel.ChildrenTransitions>
+                <TextBlock Style="{StaticResource BodyTextBlockStyle}">Escolha o certificado que será usado para realizar a conexão com os servidores da SEFAZ e para a assinatura das notas fiscais.</TextBlock>
+                <RadioButton GroupName="FonteCert"
+                             IsChecked="{Binding UsarRepositorioWindows, Mode=TwoWay}">Usar repositório de certificados do Windows</RadioButton>
+                <RadioButton GroupName="FonteCert"
+                             IsChecked="{Binding UsarPastaApp, Mode=TwoWay}">Usar pasta interna do aplicativo para certificados</RadioButton>
+                <ListView Visibility="{Binding UsarRepositorioWindows, Converter={StaticResource boolView}}"
+                          ItemsSource="{Binding CertificadosRepositorio, Mode=OneWay}"
+                          SelectedItem="{Binding CertificadoEscolhido, Mode=TwoWay}"
+                          DisplayMemberPath="Subject"
+                          BorderThickness="2"
+                          BorderBrush="{StaticResource Normal}">
+                    <ListView.Header>
+                        <TextBlock TextAlignment="Center"
+                                   Style="{StaticResource SubtitleTextBlockStyle}">Certificados</TextBlock>
+                    </ListView.Header>
+                </ListView>
+                <StackPanel Visibility="{Binding UsarPastaApp, Converter={StaticResource boolView}}">
+                    <TextBlock TextWrapping="Wrap">Para que possam existir certificados nesta pasta, primeiro você deve importá-los. Caso o certificado seja protegido por senha, quando necessário, ela será solicitada.</TextBlock>
+                    <Button Command="{Binding ImportarCertificado}"
+                            HorizontalAlignment="Stretch">Importar certificado</Button>
+                    <ListView ItemsSource="{Binding NomesCertificadosPasta, Mode=OneWay}"
+                              SelectedItem="{Binding CertificadoEscolhido, Mode=TwoWay}"
+                              BorderThickness="2"
+                              BorderBrush="{StaticResource Normal}">
+                        <ListView.Header>
+                            <TextBlock TextAlignment="Center"
+                                       Style="{StaticResource SubtitleTextBlockStyle}">Certificados</TextBlock>
+                        </ListView.Header>
+                    </ListView>
+                </StackPanel>
+            </StackPanel>
+        </PivotItem>
+        <PivotItem>
+            <PivotItem.Header>
+                <my:Guia Label="Importar">
+                    <SymbolIcon Symbol="Import" />
+                </my:Guia>
+            </PivotItem.Header>
+            <ScrollViewer VerticalScrollBarVisibility="Hidden">
                 <StackPanel>
                     <StackPanel.ChildrenTransitions>
                         <TransitionCollection>
                             <EntranceThemeTransition IsStaggeringEnabled="True" />
                         </TransitionCollection>
                     </StackPanel.ChildrenTransitions>
-                    <TextBlock Style="{StaticResource BodyTextBlockStyle}">Escolha o certificado que será usado para realizar a conexão com os servidores da SEFAZ e para a assinatura das notas fiscais.</TextBlock>
-                    <RadioButton GroupName="FonteCert"
-                                 IsChecked="{Binding UsarRepositorioWindows, Mode=TwoWay}">Usar repositório de certificados do Windows</RadioButton>
-                    <RadioButton GroupName="FonteCert"
-                                 IsChecked="{Binding UsarPastaApp, Mode=TwoWay}">Usar pasta interna do aplicativo para certificados</RadioButton>
-                    <StackPanel Visibility="{Binding UsarRepositorioWindows, Converter={StaticResource boolView}}">
-                        <ListView ItemsSource="{Binding CertificadosRepositorio, Mode=OneWay}"
-                                  SelectedItem="{Binding CertificadoEscolhido, Mode=TwoWay}"
-                                  DisplayMemberPath="Subject"/>
-                    </StackPanel>
-                    <StackPanel Visibility="{Binding UsarPastaApp, Converter={StaticResource boolView}}">
-                        <TextBlock>Para que possam existir certificados nesta pasta, primeiro você deve importar os certificados que serão usados dentro dela.</TextBlock>
-                        <Button Command="{Binding ImportarCertificado}">Importar certificado</Button>
-                        <ListView ItemsSource="{Binding NomesCertificadosPasta, Mode=OneWay}"
-                                  SelectedItem="{Binding CertificadoEscolhido, Mode=TwoWay}" />
-                    </StackPanel>
+                    <RichTextBlock Margin="0">
+                        <Paragraph>
+                            <Run Text="Você também pode importar informações, como emitentes ou clientes, cadastrados em outros aplicativos ou notas fiscais emitidas por qualquer programa." />
+                        </Paragraph>
+                    </RichTextBlock>
+                    <ItemsControl Style="{StaticResource ItensResponsivos}">
+                        <StackPanel Margin="2">
+                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
+                                       Margin="0,10,0,0">Importar dado base</TextBlock>
+                            <RichTextBlock>
+                                <Paragraph>
+                                    <Run Text="Escolha o tipo de dado que você quer importar e clique em Importar. Então, uma caixa de diálogo será aberta e você poderá escolher em quais arquivos XML estão as informações desejadas." />
+                                </Paragraph>
+                                <Paragraph>
+                                    <Run Text="Por favor, para evitar erros, após clicar em Abrir na caixa que se abrirá espere até a mensagem de sucesso ser exibida." />
+                                </Paragraph>
+                            </RichTextBlock>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <ComboBox ItemsSource="{Binding TiposBásicos, Mode=OneTime}"
+                                          SelectedItem="{Binding TipoBásicoSelecionado, Mode=TwoWay}"
+                                          HorizontalAlignment="Stretch" />
+                                <Button Grid.Column="1"
+                                        HorizontalAlignment="Stretch"
+                                        Command="{Binding ImportarDadoBaseCommand}">Importar</Button>
+                            </Grid>
+                        </StackPanel>
+                        <StackPanel Margin="2">
+                            <TextBlock Margin="0,10,0,0"
+                                       Style="{StaticResource SubtitleTextBlockStyle}">Importar nota fiscal</TextBlock>
+                            <TextBlock TextWrapping="Wrap">Para importar notas fiscais você só precisa clicar no botão abaixo e, na janela que se abrirá, escolha as notas fiscais que deverão ser importadas.</TextBlock>
+                            <Button HorizontalAlignment="Stretch"
+                                    Command="{Binding ImportarNotaFiscalCommand}">Importar</Button>
+                        </StackPanel>
+                    </ItemsControl>
                 </StackPanel>
-            </PivotItem>
-            <PivotItem>
-                <PivotItem.Header>
-                    <my:Guia Label="Importar">
-                        <SymbolIcon Symbol="Import" />
-                    </my:Guia>
-                </PivotItem.Header>
-                <ScrollViewer VerticalScrollBarVisibility="Hidden">
-                    <StackPanel>
-                        <StackPanel.ChildrenTransitions>
-                            <TransitionCollection>
-                                <EntranceThemeTransition IsStaggeringEnabled="True" />
-                            </TransitionCollection>
-                        </StackPanel.ChildrenTransitions>
-                        <RichTextBlock Margin="0">
-                            <Paragraph>
-                                <Run Text="Você também pode importar informações, como emitentes ou clientes, cadastrados em outros aplicativos ou notas fiscais emitidas por qualquer programa." />
-                            </Paragraph>
-                        </RichTextBlock>
-                        <ItemsControl Style="{StaticResource ItensResponsivos}">
-                            <StackPanel Margin="2">
-                                <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
-                                           Margin="0,10,0,0">Importar dado base</TextBlock>
-                                <RichTextBlock>
-                                    <Paragraph>
-                                        <Run Text="Escolha o tipo de dado que você quer importar e clique em Importar. Então, uma caixa de diálogo será aberta e você poderá escolher em quais arquivos XML estão as informações desejadas." />
-                                    </Paragraph>
-                                    <Paragraph>
-                                        <Run Text="Por favor, para evitar erros, após clicar em Abrir na caixa que se abrirá espere até a mensagem de sucesso ser exibida." />
-                                    </Paragraph>
-                                </RichTextBlock>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition />
-                                        <ColumnDefinition />
-                                    </Grid.ColumnDefinitions>
-                                    <ComboBox ItemsSource="{Binding TiposBásicos, Mode=OneTime}"
-                                              SelectedItem="{Binding TipoBásicoSelecionado, Mode=TwoWay}"
-                                              HorizontalAlignment="Stretch" />
-                                    <Button Grid.Column="1"
-                                            HorizontalAlignment="Stretch"
-                                            Command="{Binding ImportarDadoBaseCommand}">Importar</Button>
-                                </Grid>
-                            </StackPanel>
-                            <StackPanel Margin="2">
-                                <TextBlock Margin="0,10,0,0"
-                                           Style="{StaticResource SubtitleTextBlockStyle}">Importar nota fiscal</TextBlock>
-                                <TextBlock TextWrapping="Wrap">Para importar notas fiscais você só precisa clicar no botão abaixo e, na janela que se abrirá, escolha as notas fiscais que deverão ser importadas.</TextBlock>
-                                <Button HorizontalAlignment="Stretch"
-                                        Command="{Binding ImportarNotaFiscalCommand}">Importar</Button>
-                            </StackPanel>
-                        </ItemsControl>
-                    </StackPanel>
-                </ScrollViewer>
-            </PivotItem>
-        </Pivot>
-    </Grid>
+            </ScrollViewer>
+        </PivotItem>
+    </Pivot>
 </Page>

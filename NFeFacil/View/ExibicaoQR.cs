@@ -1,4 +1,5 @@
-﻿using Windows.UI.Xaml;
+﻿using NFeFacil.ViewModel;
+using Windows.UI.Xaml;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -8,8 +9,8 @@ namespace NFeFacil.View
     {
         public bool Visivel { get; set; }
 
-        private ViewModel.ConfiguracoesDataContext contexto;
-        public ViewModel.ConfiguracoesDataContext Contexto
+        private ConfigSincronizacaoDataContext contexto;
+        public ConfigSincronizacaoDataContext Contexto
         {
             get => contexto;
             set
@@ -19,7 +20,7 @@ namespace NFeFacil.View
             }
         }
 
-        private void Contexto_MostrarQRChanged(ViewModel.ConfiguracoesDataContext sender, ViewModel.ConfiguracoesDataContext.MostrarQRChangeEventArgs args)
+        private void Contexto_MostrarQRChanged(ConfigSincronizacaoDataContext sender, ConfigSincronizacaoDataContext.MostrarQRChangeEventArgs args)
         {
             SetActive(Visivel == args.DadoAtual);
         }

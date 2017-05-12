@@ -169,6 +169,7 @@
     <Compile Include="GrupoViewBanco.cs" />
     <Compile Include="RegistrarCliente.cs" />
     <Compile Include="Telas.cs" />
+    <Compile Include="ViewModel\ConfigSincronizacaoDataContext.cs" />
     <Compile Include="ViewModel\ConfiguracoesDataContext.cs" />
     <Compile Include="ViewModel\Converters\ColecaoValida.cs" />
     <Compile Include="ViewModel\Converters\EstadoToMunicipios.cs" />
@@ -291,6 +292,9 @@
     </Compile>
     <Compile Include="View\Estilos\Auxiliares\BibliotecaCores.cs" />
     <Compile Include="View\Estilos\Auxiliares\PainelAdaptavel.cs" />
+    <Compile Include="View\ConfigSincronizacao.xaml.cs">
+      <DependentUpon>ConfigSincronizacao.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\TelasDadosBase\ClienteDataContext.cs" />
     <Compile Include="View\TelasDadosBase\ConverterContextoCliente.cs" />
     <Compile Include="View\TelasDadosBase\ConverterContextoEmitente.cs" />
@@ -481,6 +485,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\NotasSalvas.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ConfigSincronizacao.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

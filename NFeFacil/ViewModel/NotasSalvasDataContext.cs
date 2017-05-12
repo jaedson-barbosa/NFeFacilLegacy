@@ -1,11 +1,9 @@
-﻿using BibliotecaCentral;
-using BibliotecaCentral.ItensBD;
+﻿using BibliotecaCentral.ItensBD;
 using BibliotecaCentral.ModeloXML;
 using BibliotecaCentral.ModeloXML.PartesProcesso;
 using BibliotecaCentral.Repositorio;
 using NFeFacil.View;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;

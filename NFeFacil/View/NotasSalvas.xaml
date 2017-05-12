@@ -32,7 +32,7 @@
                   SelectionMode="Extended">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Margin="0,5">
+                    <StackPanel Margin="0,4">
                         <StackPanel.ContextFlyout>
                             <MenuFlyout>
                                 <MenuFlyoutItem Command="{Binding DataContext.RemoverCommand, ElementName=root}"

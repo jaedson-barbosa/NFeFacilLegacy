@@ -4,7 +4,7 @@ namespace BibliotecaCentral.Repositorio
 {
     public abstract class ConexaoBanco : IDisposable
     {
-        protected AplicativoContext Contexto { get; }
+        internal AplicativoContext Contexto { get; }
 
         public ConexaoBanco()
         {

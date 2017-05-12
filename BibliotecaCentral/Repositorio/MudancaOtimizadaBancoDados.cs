@@ -35,15 +35,22 @@ namespace BibliotecaCentral.Repositorio
             var naoExistem = new List<Emitente>();
             foreach (var emit in emitentes)
             {
-                var busca = Contexto.Emitentes.FirstOrDefault(x => x.CNPJ == emit.CNPJ);
-                if (busca != default(Emitente))
+                if (emit.Id != null && Contexto.Emitentes.Find(emit.Id) != null)
                 {
-                    emit.Id = busca.Id;
                     existem.Add(emit);
                 }
                 else
                 {
-                    naoExistem.Add(emit);
+                    var busca = Contexto.Emitentes.FirstOrDefault(x => x.CNPJ == emit.CNPJ);
+                    if (busca != default(Emitente))
+                    {
+                        emit.Id = busca.Id;
+                        existem.Add(emit);
+                    }
+                    else
+                    {
+                        naoExistem.Add(emit);
+                    }
                 }
             }
             Contexto.AddRange(naoExistem);
@@ -65,15 +72,22 @@ namespace BibliotecaCentral.Repositorio
             var naoExistem = new List<Destinatario>();
             foreach (var dest in clientes)
             {
-                var busca = Contexto.Clientes.FirstOrDefault(x => x.Documento == dest.Documento);
-                if (busca != default(Destinatario))
+                if (dest.Id != null && Contexto.Clientes.Find(dest.Id) != null)
                 {
-                    dest.Id = busca.Id;
                     existem.Add(dest);
                 }
                 else
                 {
-                    naoExistem.Add(dest);
+                    var busca = Contexto.Clientes.FirstOrDefault(x => x.Documento == dest.Documento);
+                    if (busca != default(Destinatario))
+                    {
+                        dest.Id = busca.Id;
+                        existem.Add(dest);
+                    }
+                    else
+                    {
+                        naoExistem.Add(dest);
+                    }
                 }
             }
             Contexto.AddRange(naoExistem);
@@ -95,17 +109,24 @@ namespace BibliotecaCentral.Repositorio
             var naoExistem = new List<Motorista>();
             foreach (var mot in motoristas)
             {
-                var busca = Contexto.Motoristas.FirstOrDefault(x => x.Documento == mot.Documento
-                || x.InscricaoEstadual == mot.InscricaoEstadual
-                || (x.Nome == mot.Nome && x.XEnder == mot.XEnder));
-                if (busca != default(Motorista))
+                if (mot.Id != null && Contexto.Motoristas.Find(mot.Id) != null)
                 {
-                    mot.Id = busca.Id;
                     existem.Add(mot);
                 }
                 else
                 {
-                    naoExistem.Add(mot);
+                    var busca = Contexto.Motoristas.FirstOrDefault(x => x.Documento == mot.Documento
+                        || x.InscricaoEstadual == mot.InscricaoEstadual
+                        || (x.Nome == mot.Nome && x.XEnder == mot.XEnder));
+                    if (busca != default(Motorista))
+                    {
+                        mot.Id = busca.Id;
+                        existem.Add(mot);
+                    }
+                    else
+                    {
+                        naoExistem.Add(mot);
+                    }
                 }
             }
             Contexto.AddRange(naoExistem);
@@ -127,16 +148,23 @@ namespace BibliotecaCentral.Repositorio
             var naoExistem = new List<BaseProdutoOuServico>();
             foreach (var prod in produtos)
             {
-                var busca = Contexto.Produtos.FirstOrDefault(x => x.Descricao == prod.Descricao
-                || (x.CodigoProduto == prod.CodigoProduto && x.CFOP == prod.CFOP));
-                if (busca != default(BaseProdutoOuServico))
+                if (prod.Id != null && Contexto.Produtos.Find(prod.Id) != null)
                 {
-                    prod.Id = busca.Id;
                     existem.Add(prod);
                 }
                 else
                 {
-                    naoExistem.Add(prod);
+                    var busca = Contexto.Produtos.FirstOrDefault(x => x.Descricao == prod.Descricao
+                        || (x.CodigoProduto == prod.CodigoProduto && x.CFOP == prod.CFOP));
+                    if (busca != default(BaseProdutoOuServico))
+                    {
+                        prod.Id = busca.Id;
+                        existem.Add(prod);
+                    }
+                    else
+                    {
+                        naoExistem.Add(prod);
+                    }
                 }
             }
             Contexto.AddRange(naoExistem);

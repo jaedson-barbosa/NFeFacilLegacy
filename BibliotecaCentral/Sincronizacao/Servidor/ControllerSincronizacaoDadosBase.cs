@@ -100,5 +100,51 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
                 DB.Dispose();
             }
         }
+
+        [UriFormat("/DadosCompleto/{senha}")]
+        public IGetResponse SincronizacaoCompleta(int senha, [FromContent] DadosBase pacote)
+        {
+            var item = new ResultadoSincronizacaoServidor()
+            {
+                MomentoRequisicao = DateTime.Now,
+                TipoDadoSolicitado = (int)TipoDado.DadoBase
+            };
+            try
+            {
+                if (senha != ConfiguracoesSincronizacao.SenhaPermanente)
+                    throw new SenhaErrada(senha);
+
+                var Mudanca = new Repositorio.MudancaOtimizadaBancoDados(DB);
+                Mudanca.AnalisarAdicionarEmitentes(pacote.Emitentes);
+                Mudanca.AnalisarAdicionarClientes(pacote.Clientes);
+                Mudanca.AnalisarAdicionarMotoristas(pacote.Motoristas);
+                Mudanca.AnalisarAdicionarProdutos(pacote.Produtos);
+
+                var resposta = new GetResponse(GetResponse.ResponseStatus.OK,
+                    new DadosBase
+                    {
+                        Emitentes = DB.Emitentes.Include(x => x.endereco).ToList(),
+                        Clientes = DB.Clientes.Include(x => x.endereco).ToList(),
+                        Motoristas = DB.Motoristas.ToList(),
+                        Produtos = DB.Produtos.ToList()
+                    });
+
+                item.SucessoSolicitacao = true;
+                DB.Add(item);
+                DB.SaveChanges();
+                return resposta;
+            }
+            catch (Exception e)
+            {
+                item.SucessoSolicitacao = false;
+                DB.Add(item);
+                DB.SaveChanges();
+                throw e;
+            }
+            finally
+            {
+                DB.Dispose();
+            }
+        }
     }
 }

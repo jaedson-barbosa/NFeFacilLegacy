@@ -116,7 +116,7 @@ namespace NFeFacil
             }
         }
 
-        private void SeAtualizarBase(Telas atual, string texto)
+        private async void SeAtualizarBase(Telas atual, string texto)
         {
             Main.IndexHamburguer = (int)(TelaAtual = atual);
             Main.Titulo = texto;
@@ -131,7 +131,11 @@ namespace NFeFacil
 
             if (atual == Telas.Inicio)
             {
-                LimparMemoria();
+                await Task.Delay(500);
+                Main.FramePrincipal.BackStack.Clear();
+                Main.FramePrincipal.ForwardStack.Clear();
+                CoreApplication.Properties.Clear();
+                GC.Collect();
             }
         }
 
@@ -146,17 +150,8 @@ namespace NFeFacil
             SeAtualizarBase(atual, texto);
             Main.Icone = new FontIcon
             {
-                Glyph = "\uE81C",
+                Glyph = glyph,
             };
-        }
-
-        private async void LimparMemoria()
-        {
-            await Task.Delay(500);
-            Main.FramePrincipal.BackStack.Clear();
-            Main.FramePrincipal.ForwardStack.Clear();
-            CoreApplication.Properties.Clear();
-            GC.Collect();
         }
 
         public void RetornoEvento(object sender, BackRequestedEventArgs e)

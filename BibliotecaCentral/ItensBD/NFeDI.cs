@@ -63,7 +63,7 @@ namespace BibliotecaCentral.ItensBD
             Status = nota.ProtNFe != null ? (int)StatusNFe.Emitida : nota.NFe.Signature != null && nota.NFe.Signature.HasChildNodes ? (int)StatusNFe.Assinada : (int)StatusNFe.Salva;
         }
 
-        public async Task<object> ConjuntoCompletoAsync()
+        public async Task<object> ObjetoCompletoAsync()
         {
             var pasta = new PastaNotasFiscais();
             if (Status < 4)

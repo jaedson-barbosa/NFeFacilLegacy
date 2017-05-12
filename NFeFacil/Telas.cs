@@ -9,6 +9,7 @@
         Consulta,
         VendasAnuais,
         HistoricoSincronizacao,
-        Configurações
+        Configurações,
+        ConfigSincronizacao
     }
 }

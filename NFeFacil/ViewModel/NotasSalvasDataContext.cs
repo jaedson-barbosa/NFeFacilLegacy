@@ -61,11 +61,11 @@ namespace NFeFacil.ViewModel
             };
             if (nota.Status < 4)
             {
-                conjunto.NotaSalva = (await nota.ConjuntoCompletoAsync()) as NFe;
+                conjunto.NotaSalva = (await nota.ObjetoCompletoAsync()) as NFe;
             }
             else
             {
-                conjunto.NotaEmitida = (await nota.ConjuntoCompletoAsync()) as Processo;
+                conjunto.NotaEmitida = (await nota.ObjetoCompletoAsync()) as Processo;
             }
             await Propriedades.Intercambio.AbrirFunçaoAsync(typeof(ManipulacaoNotaFiscal), conjunto);
         }

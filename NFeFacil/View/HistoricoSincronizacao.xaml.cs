@@ -13,7 +13,7 @@ namespace NFeFacil.View
         public HistoricoSincronizacao()
         {
             InitializeComponent();
-            Propriedades.Intercambio.SeAtualizar(Telas.HistoricoSincronizacao, "&#xE81C;", "Histórico de sincronização");
+            Propriedades.Intercambio.SeAtualizar(Telas.HistoricoSincronizacao, "\uE81C", "Histórico de sincronização");
         }
 
         async Task IEsconde.EsconderAsync()

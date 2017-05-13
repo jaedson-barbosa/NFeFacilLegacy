@@ -22,7 +22,7 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
             {
                 try
                 {
-                    if (GerenciadorServidor.BrechaAberta)
+                    if (GerenciadorServidor.Current.BrechaAberta)
                     {
                         if (senha != SenhaTemporária)
                             throw new SenhaErrada(senha);

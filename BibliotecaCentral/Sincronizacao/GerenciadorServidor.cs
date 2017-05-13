@@ -9,10 +9,12 @@ namespace BibliotecaCentral.Sincronizacao
 {
     public sealed class GerenciadorServidor
     {
+        public static GerenciadorServidor Current { get; } = new GerenciadorServidor(new Saida());
+
         public bool Rodando { get; private set; } = false;
         private ILog Log;
 
-        public GerenciadorServidor(ILog log)
+        private GerenciadorServidor(ILog log)
         {
             Log = log;
         }
@@ -40,7 +42,7 @@ namespace BibliotecaCentral.Sincronizacao
             Rodando = true;
         }
 
-        public static bool BrechaAberta { get; private set; }
+        public bool BrechaAberta { get; private set; }
 
         public void AbrirBrecha(TimeSpan tempoLimite)
         {

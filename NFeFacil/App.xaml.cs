@@ -26,7 +26,7 @@ namespace NFeFacil
             BibliotecaCentral.InicioGeral.IniciarIBGE();
             if (ConfiguracoesSincronizacao.InícioAutomático)
             {
-                Propriedades.Server.IniciarServer().ConfigureAwait(false);
+                GerenciadorServidor.Current.IniciarServer().ConfigureAwait(false);
             }
         }
 

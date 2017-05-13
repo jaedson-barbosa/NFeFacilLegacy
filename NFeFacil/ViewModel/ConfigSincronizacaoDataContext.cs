@@ -51,7 +51,7 @@ namespace NFeFacil.ViewModel
             set => InícioAutomático = value;
         }
 
-        public bool ServerRodando => Propriedades.Server.Rodando;
+        public bool ServerRodando => GerenciadorServidor.Current.Rodando;
 
         public bool SincronizarAutomaticamente
         {
@@ -118,7 +118,7 @@ namespace NFeFacil.ViewModel
         {
             try
             {
-                await Propriedades.Server.IniciarServer();
+                await GerenciadorServidor.Current.IniciarServer();
                 OnProperyChanged(nameof(ServerRodando));
             }
             catch (COMException)

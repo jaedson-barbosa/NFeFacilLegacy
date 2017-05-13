@@ -46,7 +46,7 @@ namespace NFeFacil.ViewModel
         private bool brechaAberta = false;
         public async void AbrirBrecha()
         {
-            Propriedades.Server.AbrirBrecha(TimeSpan.FromSeconds(ValorMaximo));
+            GerenciadorServidor.Current.AbrirBrecha(TimeSpan.FromSeconds(ValorMaximo));
             await Task.Delay(200);
             //A geração do QR é feita no método assíncrono para não paralisar a tela.
             QRGerado = QRCode.GerarQR(JsonConvert.SerializeObject(Informacoes), 1920, 1920);
@@ -65,7 +65,7 @@ namespace NFeFacil.ViewModel
         {
             if (brechaAberta)
             {
-                Propriedades.Server.FecharBrecha();
+                GerenciadorServidor.Current.FecharBrecha();
                 await Task.Delay(1000);
                 brechaAberta = false;
             }

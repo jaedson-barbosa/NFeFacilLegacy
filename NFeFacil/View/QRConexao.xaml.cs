@@ -1,4 +1,5 @@
 ﻿using BibliotecaCentral.Log;
+using BibliotecaCentral.Sincronizacao;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 
@@ -24,7 +25,7 @@ namespace NFeFacil.View
 
         public async Task<bool> Verificar()
         {
-            if (BibliotecaCentral.Sincronizacao.GerenciadorServidor.BrechaAberta)
+            if (GerenciadorServidor.Current.BrechaAberta)
             {
                 new Popup().Escrever(TitulosComuns.Atenção, "Para voltar, primeiro aperte no botão que está presente no meio do carregamento circular para que conexões de novos dispositivos não sejam mais aceitas.");
                 return false;

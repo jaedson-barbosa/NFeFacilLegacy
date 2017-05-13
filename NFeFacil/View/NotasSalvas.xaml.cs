@@ -14,7 +14,7 @@ namespace NFeFacil.View
         public NotasSalvas()
         {
             InitializeComponent();
-            Propriedades.Intercambio.SeAtualizar(Telas.NotasSalvas, Symbol.Library, "Notas salvas");
+            MainPage.Current.SeAtualizar(Telas.NotasSalvas, Symbol.Library, "Notas salvas");
             DataContext = new NotasSalvasDataContext(ref lstNotas);
         }
 

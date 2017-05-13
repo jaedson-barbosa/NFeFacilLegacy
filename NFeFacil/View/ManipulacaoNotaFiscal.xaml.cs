@@ -28,10 +28,10 @@ namespace NFeFacil.View
             switch (param.OperacaoRequirida)
             {
                 case TipoOperacao.Adicao:
-                    Propriedades.Intercambio.SeAtualizar(Telas.ManipularNota, Symbol.Add, "Criar nota fiscal");
+                    MainPage.Current.SeAtualizar(Telas.ManipularNota, Symbol.Add, "Criar nota fiscal");
                     break;
                 case TipoOperacao.Edicao:
-                    Propriedades.Intercambio.SeAtualizar(Telas.ManipularNota, Symbol.Edit, "Editar nota fiscal");
+                    MainPage.Current.SeAtualizar(Telas.ManipularNota, Symbol.Edit, "Editar nota fiscal");
                     break;
                 default:
                     break;

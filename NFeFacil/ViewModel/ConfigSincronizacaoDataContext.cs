@@ -84,7 +84,7 @@ namespace NFeFacil.ViewModel
 
         private async void ExibirQR()
         {
-            await Propriedades.Intercambio.AbrirFunçaoAsync(typeof(View.QRConexao));
+            await MainPage.Current.AbrirFunçaoAsync(typeof(View.QRConexao));
         }
 
         public async void LerQRTemporário()

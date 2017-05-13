@@ -15,12 +15,12 @@ namespace NFeFacil.View
         public Inicio()
         {
             InitializeComponent();
-            Propriedades.Intercambio.SeAtualizar(Telas.Inicio, Symbol.Home, nameof(Inicio));
+            MainPage.Current.SeAtualizar(Telas.Inicio, Symbol.Home, nameof(Inicio));
         }
 
         private async void AbrirFunção(object sender, TappedRoutedEventArgs e)
         {
-            await Propriedades.Intercambio.AbrirFunçaoAsync((sender as FrameworkElement).Name);
+            await MainPage.Current.AbrirFunçaoAsync((sender as FrameworkElement).Name);
         }
 
         public async Task EsconderAsync()

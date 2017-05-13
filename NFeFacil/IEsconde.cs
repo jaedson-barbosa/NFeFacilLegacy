@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace NFeFacil.View
+namespace NFeFacil
 {
     interface IEsconde
     {

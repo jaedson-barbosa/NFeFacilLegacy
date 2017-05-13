@@ -217,7 +217,7 @@
     <Compile Include="View\CaixasDialogo\ConverterContextoDeclaracaoExportacao.cs" />
     <Compile Include="View\CaixasDialogo\ConverterContextoDeclaracaoImportacao.cs" />
     <Compile Include="View\CaixasDialogo\ConverterContextoProcessoReferenciado.cs" />
-    <Compile Include="View\ConjuntoManipuladorNFe.cs" />
+    <Compile Include="ConjuntoManipuladorNFe.cs" />
     <Compile Include="View\Consulta.xaml.cs">
       <DependentUpon>Consulta.xaml</DependentUpon>
     </Compile>
@@ -230,9 +230,8 @@
     <Compile Include="View\HistoricoSincronizacao.xaml.cs">
       <DependentUpon>HistoricoSincronizacao.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\IEsconde.cs" />
-    <Compile Include="IntercambioTelas.cs" />
-    <Compile Include="View\IValida.cs" />
+    <Compile Include="IEsconde.cs" />
+    <Compile Include="IValida.cs" />
     <Compile Include="View\ManipulacaoNotaFiscal.xaml.cs">
       <DependentUpon>ManipulacaoNotaFiscal.xaml</DependentUpon>
     </Compile>
@@ -270,7 +269,7 @@
     <Compile Include="View\Inicio.xaml.cs">
       <DependentUpon>Inicio.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\MainPage.xaml.cs">
+    <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\ImpostosProduto\PISDataContext.cs" />
@@ -436,7 +435,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\MainPage.xaml">
+    <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

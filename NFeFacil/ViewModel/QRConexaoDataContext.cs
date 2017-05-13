@@ -69,7 +69,7 @@ namespace NFeFacil.ViewModel
                 await Task.Delay(1000);
                 brechaAberta = false;
             }
-            Propriedades.Intercambio.Retornar();
+            MainPage.Current.Retornar();
         }
     }
 }

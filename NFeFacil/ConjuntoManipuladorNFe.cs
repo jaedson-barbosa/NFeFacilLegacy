@@ -2,7 +2,7 @@
 using BibliotecaCentral.ModeloXML;
 using BibliotecaCentral.ModeloXML.PartesProcesso;
 
-namespace NFeFacil.View
+namespace NFeFacil
 {
     internal sealed class ConjuntoManipuladorNFe
     {

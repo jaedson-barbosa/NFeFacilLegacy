@@ -13,7 +13,7 @@ namespace NFeFacil.View
         public VendasAnuais()
         {
             InitializeComponent();
-            Propriedades.Intercambio.SeAtualizar(Telas.VendasAnuais, Symbol.Calendar, "Vendas anuais");
+            MainPage.Current.SeAtualizar(Telas.VendasAnuais, Symbol.Calendar, "Vendas anuais");
         }
 
         public async Task EsconderAsync()

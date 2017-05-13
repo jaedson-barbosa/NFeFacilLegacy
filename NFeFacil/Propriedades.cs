@@ -7,8 +7,6 @@ namespace NFeFacil
 {
     internal static class Propriedades
     {
-        internal static IntercambioTelas Intercambio { get; set; }
-
         private static User usuario;
         internal static User Usuario
         {

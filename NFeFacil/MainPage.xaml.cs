@@ -5,19 +5,85 @@ using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
-using NFeFacil.View;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Windows.System.Profile;
 using Windows.UI.Core;
+using Windows.UI.ViewManagement;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+
+// O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x416
 
 namespace NFeFacil
 {
-    internal class IntercambioTelas
+    /// <summary>
+    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
+    /// </summary>
+    public sealed partial class MainPage : Page
     {
-        private MainPage Main => MainPage.Current;
         private ILog Log = new Saida();
+        private bool avisoOrentacaoHabilitado;
+
+        private bool AvisoOrentacaoHabilitado
+        {
+            get => avisoOrentacaoHabilitado;
+            set
+            {
+                avisoOrentacaoHabilitado = value;
+                AnalisarOrientacao(ApplicationView.GetForCurrentView());
+            }
+        }
+
+        internal static MainPage Current { get; private set; }
+
+        public MainPage()
+        {
+            InitializeComponent();
+            Current = this;
+            AnalisarBarraTituloAsync();
+            ApplicationView.GetForCurrentView().VisibleBoundsChanged += (x, y) => AnalisarOrientacao(x);
+            SystemNavigationManager.GetForCurrentView().BackRequested += (x,e) =>
+            {
+                e.Handled = true;
+                Retornar();
+            };
+            AbrirInicio();
+        }
+
+        async void AbrirInicio() => await AbrirFunçaoAsync(nameof(View.Inicio));
+
+        private void AnalisarOrientacao(ApplicationView sender)
+        {
+            if (AvisoOrentacaoHabilitado)
+            {
+                if (sender.Orientation == ApplicationViewOrientation.Landscape)
+                {
+                    grdAvisoRotacao.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    grdAvisoRotacao.Visibility = Visibility.Visible;
+                }
+            }
+            else
+            {
+                grdAvisoRotacao.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private static async void AnalisarBarraTituloAsync()
+        {
+            var familia = AnalyticsInfo.VersionInfo.DeviceFamily;
+            if (familia.Contains("Mobile"))
+                await StatusBar.GetForCurrentView().HideAsync();
+            else if (familia.Contains("Desktop"))
+                SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
+            else
+                new Saida().Escrever(TitulosComuns.ErroSimples, "Tipo não reconhecido de dispositivo, não é possível mudar a barra de título.");
+        }
+
 
         public async Task AbrirFunçaoAsync(string tela, object parametro = null)
         {
@@ -31,48 +97,48 @@ namespace NFeFacil
                 ObterValorPadrao(tela, out parametro);
             }
 
-            if (Main.FramePrincipal.Content != null)
+            if (frmPrincipal.Content != null)
             {
-                if (Main.FramePrincipal.Content is IEsconde esconde)
+                if (frmPrincipal.Content is IEsconde esconde)
                 {
                     await esconde.EsconderAsync();
                 }
                 else
                 {
-                    Log.Escrever(TitulosComuns.ErroSimples, $"A tela {Main.FramePrincipal.Content} ainda precisa implementar IEsconde!");
+                    Log.Escrever(TitulosComuns.ErroSimples, $"A tela {frmPrincipal.Content} precisa implementar IEsconde.");
                 }
             }
-            Main.FramePrincipal.Navigate(tela, parametro);
+            frmPrincipal.Navigate(tela, parametro);
         }
 
         private List<Type> TelasComParametroObrigatorio = new List<Type>
         {
-            typeof(AdicionarDestinatario),
-            typeof(AdicionarEmitente),
-            typeof(AdicionarMotorista),
-            typeof(AdicionarProduto),
-            typeof(ManipulacaoNotaFiscal)
+            typeof(View.AdicionarDestinatario),
+            typeof(View.AdicionarEmitente),
+            typeof(View.AdicionarMotorista),
+            typeof(View.AdicionarProduto),
+            typeof(View.ManipulacaoNotaFiscal)
         };
 
         private void ObterValorPadrao(Type tipo, out object retorno)
         {
-            if (tipo == typeof(AdicionarDestinatario))
+            if (tipo == typeof(View.AdicionarDestinatario))
             {
                 retorno = new GrupoViewBanco<Destinatario>();
             }
-            else if (tipo == typeof(AdicionarEmitente))
+            else if (tipo == typeof(View.AdicionarEmitente))
             {
                 retorno = new GrupoViewBanco<Emitente>();
             }
-            else if (tipo == typeof(AdicionarMotorista))
+            else if (tipo == typeof(View.AdicionarMotorista))
             {
                 retorno = new GrupoViewBanco<Motorista>();
             }
-            else if (tipo == typeof(AdicionarProduto))
+            else if (tipo == typeof(View.AdicionarProduto))
             {
                 retorno = new GrupoViewBanco<BaseProdutoOuServico>();
             }
-            else if (tipo == typeof(ManipulacaoNotaFiscal))
+            else if (tipo == typeof(View.ManipulacaoNotaFiscal))
             {
                 retorno = new ConjuntoManipuladorNFe
                 {
@@ -105,30 +171,24 @@ namespace NFeFacil
 
         public void SeAtualizar(Telas atual, Symbol símbolo, string texto)
         {
-            Main.Titulo = texto;
-            Main.AvisoOrentacaoHabilitado = TelasHorizontais.Contains(atual);
-            Main.Icone = new SymbolIcon(símbolo);
+            txtTitulo.Text = texto;
+            AvisoOrentacaoHabilitado = TelasHorizontais.Contains(atual);
+            symTitulo.Content = new SymbolIcon(símbolo);
         }
 
         public void SeAtualizar(Telas atual, string glyph, string texto)
         {
-            Main.Titulo = texto;
-            Main.AvisoOrentacaoHabilitado = TelasHorizontais.Contains(atual);
-            Main.Icone = new FontIcon
+            txtTitulo.Text = texto;
+            AvisoOrentacaoHabilitado = TelasHorizontais.Contains(atual);
+            symTitulo.Content = new FontIcon
             {
                 Glyph = glyph,
             };
         }
 
-        public void RetornoEvento(object sender, BackRequestedEventArgs e)
-        {
-            e.Handled = true;
-            Retornar();
-        }
-
         public async void Retornar()
         {
-            var frm = Main.FramePrincipal;
+            var frm = frmPrincipal;
             if (frm.Content is IValida retorna)
             {
                 if (await retorna.Verificar())
@@ -148,9 +208,9 @@ namespace NFeFacil
                 await esconde.EsconderAsync();
             }
 
-            if (Main.FramePrincipal.CanGoBack)
+            if (frmPrincipal.CanGoBack)
             {
-                Main.FramePrincipal.GoBack();
+                frmPrincipal.GoBack();
             }
             else
             {

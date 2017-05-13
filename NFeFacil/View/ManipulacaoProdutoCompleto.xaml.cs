@@ -28,7 +28,7 @@ namespace NFeFacil.View
         {
             var Produto = e.Parameter as DetalhesProdutos;
             DataContext = new ProdutoCompletoDataContext(Produto);
-            Propriedades.Intercambio.SeAtualizar(Telas.ManipularNota, Symbol.Add, "Adicionar produto");
+            MainPage.Current.SeAtualizar(Telas.ManipularNota, Symbol.Add, "Adicionar produto");
         }
 
         private Impostos ImpostosFiltrados
@@ -57,12 +57,12 @@ namespace NFeFacil.View
             var data = DataContext as ProdutoCompletoDataContext;
             data.ProdutoCompleto.impostos = ImpostosFiltrados;
             CoreApplication.Properties.Add("ProdutoPendente", data.ProdutoCompleto);
-            Propriedades.Intercambio.Retornar();
+            MainPage.Current.Retornar();
         }
 
         private void Cancelar_Click(object sender, RoutedEventArgs e)
         {
-            Propriedades.Intercambio.Retornar();
+            MainPage.Current.Retornar();
         }
     }
 }

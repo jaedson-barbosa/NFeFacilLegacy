@@ -31,12 +31,12 @@ namespace NFeFacil.View
                 lstMotoristas.ItemsSource = motoristas.Registro.ToList();
                 lstProdutos.ItemsSource = produtos.Registro.ToList();
             }
-            Propriedades.Intercambio.SeAtualizar(Telas.GerenciarDadosBase, Symbol.Manage, "Gerenciar dados base");
+            MainPage.Current.SeAtualizar(Telas.GerenciarDadosBase, Symbol.Manage, "Gerenciar dados base");
         }
 
         private async void Adicionar_ClickAsync(object sender, RoutedEventArgs e)
         {
-            await Propriedades.Intercambio.AbrirFunçaoAsync($"Adicionar{DescobrirTela()}");
+            await MainPage.Current.AbrirFunçaoAsync($"Adicionar{DescobrirTela()}");
         }
 
         private void Deletar_Click(object sender, RoutedEventArgs e)
@@ -106,28 +106,28 @@ namespace NFeFacil.View
             switch (DescobrirTela())
             {
                 case Pivôs.Emitente:
-                    await Propriedades.Intercambio.AbrirFunçaoAsync(typeof(AdicionarEmitente), new GrupoViewBanco<Emitente>
+                    await MainPage.Current.AbrirFunçaoAsync(typeof(AdicionarEmitente), new GrupoViewBanco<Emitente>
                     {
                         ItemBanco = lstEmitentes.SelectedItem as Emitente,
                         OperacaoRequirida = TipoOperacao.Edicao
                     });
                     break;
                 case Pivôs.Destinatario:
-                    await Propriedades.Intercambio.AbrirFunçaoAsync(typeof(AdicionarDestinatario), new GrupoViewBanco<Destinatario>
+                    await MainPage.Current.AbrirFunçaoAsync(typeof(AdicionarDestinatario), new GrupoViewBanco<Destinatario>
                     {
                         ItemBanco = lstDestinatários.SelectedItem as Destinatario,
                         OperacaoRequirida = TipoOperacao.Edicao
                     });
                     break;
                 case Pivôs.Motorista:
-                    await Propriedades.Intercambio.AbrirFunçaoAsync(typeof(AdicionarMotorista), new GrupoViewBanco<Motorista>
+                    await MainPage.Current.AbrirFunçaoAsync(typeof(AdicionarMotorista), new GrupoViewBanco<Motorista>
                     {
                         ItemBanco = lstMotoristas.SelectedItem as Motorista,
                         OperacaoRequirida = TipoOperacao.Edicao
                     });
                     break;
                 case Pivôs.Produto:
-                    await Propriedades.Intercambio.AbrirFunçaoAsync(typeof(AdicionarProduto), new GrupoViewBanco<BaseProdutoOuServico>
+                    await MainPage.Current.AbrirFunçaoAsync(typeof(AdicionarProduto), new GrupoViewBanco<BaseProdutoOuServico>
                     {
                         ItemBanco = lstProdutos.SelectedItem as BaseProdutoOuServico,
                         OperacaoRequirida = TipoOperacao.Edicao

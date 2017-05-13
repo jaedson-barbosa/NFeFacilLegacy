@@ -184,7 +184,7 @@ namespace NFeFacil.ViewModel
             {
                 Produto = ProdutoSelecionado != null ? new ProdutoOuServico(ProdutoSelecionado) : new ProdutoOuServico()
             };
-            await Propriedades.Intercambio.AbrirFunçaoAsync(typeof(ManipulacaoProdutoCompleto), detCompleto);
+            await MainPage.Current.AbrirFunçaoAsync(typeof(ManipulacaoProdutoCompleto), detCompleto);
         }
 
         private void RemoverProduto(DetalhesProdutos produto)
@@ -335,7 +335,7 @@ namespace NFeFacil.ViewModel
 
         private async void GerarDANFE()
         {
-            await Propriedades.Intercambio.AbrirFunçaoAsync(typeof(ViewDANFE), NotaEmitida);
+            await MainPage.Current.AbrirFunçaoAsync(typeof(ViewDANFE), NotaEmitida);
             StatusAtual = StatusNFe.Impressa;
             await SalvarAsync();
         }

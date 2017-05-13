@@ -12,14 +12,6 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
     [RestController(InstanceCreationType.PerCall)]
     internal sealed class ControllerSincronizacaoDadosBase
     {
-        private AplicativoContext DB { get; }
-        internal ControllerSincronizacaoDadosBase()
-        {
-            DB = new AplicativoContext();
-            DB.ChangeTracker.AutoDetectChangesEnabled = false;
-            DB.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
-        }
-
         [UriFormat("/Dados/{senha}")]
         public IPostResponse ClienteServidorAsync(int senha, [FromContent] DadosBase pacote)
         {
@@ -28,33 +20,32 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
                 MomentoRequisicao = DateTime.Now,
                 TipoDadoSolicitado = (int)TipoDado.DadoBase
             };
-            try
+            using (var DB = new AplicativoContext())
             {
-                if (senha != ConfiguracoesSincronizacao.SenhaPermanente)
-                    throw new SenhaErrada(senha);
+                try
+                {
+                    if (senha != ConfiguracoesSincronizacao.SenhaPermanente)
+                        throw new SenhaErrada(senha);
 
-                var Mudanca = new Repositorio.MudancaOtimizadaBancoDados(DB);
-                Mudanca.AdicionarEmitentes(pacote.Emitentes);
-                Mudanca.AdicionarClientes(pacote.Clientes);
-                Mudanca.AdicionarMotoristas(pacote.Motoristas);
-                Mudanca.AdicionarProdutos(pacote.Produtos);
-                var resposta = new PostResponse(PostResponse.ResponseStatus.Created);
+                    var Mudanca = new Repositorio.MudancaOtimizadaBancoDados(DB);
+                    Mudanca.AdicionarEmitentes(pacote.Emitentes);
+                    Mudanca.AdicionarClientes(pacote.Clientes);
+                    Mudanca.AdicionarMotoristas(pacote.Motoristas);
+                    Mudanca.AdicionarProdutos(pacote.Produtos);
+                    var resposta = new PostResponse(PostResponse.ResponseStatus.Created);
 
-                item.SucessoSolicitacao = true;
-                DB.Add(item);
-                DB.SaveChanges();
-                return resposta;
-            }
-            catch (Exception e)
-            {
-                item.SucessoSolicitacao = false;
-                DB.Add(item);
-                DB.SaveChanges();
-                throw e;
-            }
-            finally
-            {
-                DB.Dispose();
+                    item.SucessoSolicitacao = true;
+                    DB.Add(item);
+                    DB.SaveChanges();
+                    return resposta;
+                }
+                catch (Exception e)
+                {
+                    item.SucessoSolicitacao = false;
+                    DB.Add(item);
+                    DB.SaveChanges();
+                    throw e;
+                }
             }
         }
 
@@ -67,37 +58,36 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
             {
                 TipoDadoSolicitado = (int)TipoDado.DadoBase
             };
-            try
+            using (var DB = new AplicativoContext())
             {
-                if (senha != ConfiguracoesSincronizacao.SenhaPermanente)
-                    throw new SenhaErrada(senha);
+                try
+                {
+                    if (senha != ConfiguracoesSincronizacao.SenhaPermanente)
+                        throw new SenhaErrada(senha);
 
-                var resposta = new GetResponse(GetResponse.ResponseStatus.OK,
-                    new DadosBase
-                    {
-                        Emitentes = DB.Emitentes.Where(x => x.UltimaData > momento).Include(x => x.endereco).ToList(),
-                        Clientes = DB.Clientes.Where(x => x.UltimaData > momento).Include(x => x.endereco).ToList(),
-                        Motoristas = DB.Motoristas.Where(x => x.UltimaData > momento).ToList(),
-                        Produtos = DB.Produtos.Where(x => x.UltimaData > momento).ToList()
-                    });
+                    var resposta = new GetResponse(GetResponse.ResponseStatus.OK,
+                        new DadosBase
+                        {
+                            Emitentes = DB.Emitentes.Where(x => x.UltimaData > momento).Include(x => x.endereco).ToList(),
+                            Clientes = DB.Clientes.Where(x => x.UltimaData > momento).Include(x => x.endereco).ToList(),
+                            Motoristas = DB.Motoristas.Where(x => x.UltimaData > momento).ToList(),
+                            Produtos = DB.Produtos.Where(x => x.UltimaData > momento).ToList()
+                        });
 
-                item.SucessoSolicitacao = true;
-                item.MomentoRequisicao = DateTime.Now;
-                DB.Add(item);
-                DB.SaveChanges();
-                return resposta;
-            }
-            catch (Exception e)
-            {
-                item.SucessoSolicitacao = false;
-                item.MomentoRequisicao = DateTime.Now;
-                DB.Add(item);
-                DB.SaveChanges();
-                throw e;
-            }
-            finally
-            {
-                DB.Dispose();
+                    item.SucessoSolicitacao = true;
+                    item.MomentoRequisicao = DateTime.Now;
+                    DB.Add(item);
+                    DB.SaveChanges();
+                    return resposta;
+                }
+                catch (Exception e)
+                {
+                    item.SucessoSolicitacao = false;
+                    item.MomentoRequisicao = DateTime.Now;
+                    DB.Add(item);
+                    DB.SaveChanges();
+                    throw e;
+                }
             }
         }
 
@@ -109,41 +99,40 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
                 MomentoRequisicao = DateTime.Now,
                 TipoDadoSolicitado = (int)TipoDado.DadoBase
             };
-            try
+            using (var DB = new AplicativoContext())
             {
-                if (senha != ConfiguracoesSincronizacao.SenhaPermanente)
-                    throw new SenhaErrada(senha);
+                try
+                {
+                    if (senha != ConfiguracoesSincronizacao.SenhaPermanente)
+                        throw new SenhaErrada(senha);
 
-                var Mudanca = new Repositorio.MudancaOtimizadaBancoDados(DB);
-                Mudanca.AnalisarAdicionarEmitentes(pacote.Emitentes);
-                Mudanca.AnalisarAdicionarClientes(pacote.Clientes);
-                Mudanca.AnalisarAdicionarMotoristas(pacote.Motoristas);
-                Mudanca.AnalisarAdicionarProdutos(pacote.Produtos);
+                    var Mudanca = new Repositorio.MudancaOtimizadaBancoDados(DB);
+                    Mudanca.AnalisarAdicionarEmitentes(pacote.Emitentes);
+                    Mudanca.AnalisarAdicionarClientes(pacote.Clientes);
+                    Mudanca.AnalisarAdicionarMotoristas(pacote.Motoristas);
+                    Mudanca.AnalisarAdicionarProdutos(pacote.Produtos);
 
-                var resposta = new GetResponse(GetResponse.ResponseStatus.OK,
-                    new DadosBase
-                    {
-                        Emitentes = DB.Emitentes.Include(x => x.endereco).ToList(),
-                        Clientes = DB.Clientes.Include(x => x.endereco).ToList(),
-                        Motoristas = DB.Motoristas.ToList(),
-                        Produtos = DB.Produtos.ToList()
-                    });
+                    var resposta = new GetResponse(GetResponse.ResponseStatus.OK,
+                        new DadosBase
+                        {
+                            Emitentes = DB.Emitentes.Include(x => x.endereco).ToList(),
+                            Clientes = DB.Clientes.Include(x => x.endereco).ToList(),
+                            Motoristas = DB.Motoristas.ToList(),
+                            Produtos = DB.Produtos.ToList()
+                        });
 
-                item.SucessoSolicitacao = true;
-                DB.Add(item);
-                DB.SaveChanges();
-                return resposta;
-            }
-            catch (Exception e)
-            {
-                item.SucessoSolicitacao = false;
-                DB.Add(item);
-                DB.SaveChanges();
-                throw e;
-            }
-            finally
-            {
-                DB.Dispose();
+                    item.SucessoSolicitacao = true;
+                    DB.Add(item);
+                    DB.SaveChanges();
+                    return resposta;
+                }
+                catch (Exception e)
+                {
+                    item.SucessoSolicitacao = false;
+                    DB.Add(item);
+                    DB.SaveChanges();
+                    throw e;
+                }
             }
         }
     }

@@ -2,7 +2,6 @@
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,8 +16,6 @@ namespace BibliotecaCentral.Repositorio
         internal MudancaOtimizadaBancoDados(AplicativoContext contexto)
         {
             Contexto = contexto;
-            Contexto.ChangeTracker.AutoDetectChangesEnabled = false;
-            Contexto.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
 
         internal void AdicionarEmitentes(List<Emitente> emitentes)

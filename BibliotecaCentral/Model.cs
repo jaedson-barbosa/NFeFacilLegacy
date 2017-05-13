@@ -16,6 +16,12 @@ namespace BibliotecaCentral
         public DbSet<ResultadoSincronizacaoCliente> ResultadosCliente { get; set; }
         public DbSet<ResultadoSincronizacaoServidor> ResultadosServidor { get; set; }
 
+        public AplicativoContext()
+        {
+            ChangeTracker.AutoDetectChangesEnabled = false;
+            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite("Data Source=informacoes.db");

@@ -38,9 +38,6 @@ namespace BibliotecaCentral.Sincronizacao
                 var config = await EnviarAsync<ConfiguracoesServidor>($"Configuracoes", HttpMethod.Get, SenhaPermanente, null);
                 using (var db = new AplicativoContext())
                 {
-                    db.ChangeTracker.AutoDetectChangesEnabled = false;
-                    db.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
-
                     if (config.Notas && config.DadosBase && sincronizar == DadosSincronizaveis.Tudo)
                     {
                         quantNotas = await SincronizarNotas(db);
@@ -141,9 +138,6 @@ namespace BibliotecaCentral.Sincronizacao
                 var config = await EnviarAsync<ConfiguracoesServidor>($"Configuracoes", HttpMethod.Get, SenhaPermanente, null);
                 using (var db = new AplicativoContext())
                 {
-                    db.ChangeTracker.AutoDetectChangesEnabled = false;
-                    db.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
-
                     if (config.Notas && config.DadosBase && sincronizar == DadosSincronizaveis.Tudo)
                     {
                         quantNotas = await SincronizarNotas(db);

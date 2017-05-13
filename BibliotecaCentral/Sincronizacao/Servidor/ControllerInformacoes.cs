@@ -5,21 +5,12 @@ using Restup.Webserver.Models.Contracts;
 using Restup.Webserver.Models.Schemas;
 using System;
 using Windows.ApplicationModel.Core;
-using Microsoft.EntityFrameworkCore;
 
 namespace BibliotecaCentral.Sincronizacao.Servidor
 {
     [RestController(InstanceCreationType.PerCall)]
     internal sealed class ControllerInformacoes
     {
-        private AplicativoContext DB { get; }
-        internal ControllerInformacoes()
-        {
-            DB = new AplicativoContext();
-            DB.ChangeTracker.AutoDetectChangesEnabled = false;
-            DB.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
-        }
-
         [UriFormat("/BrechaSeguranca/{senha}")]
         public IGetResponse BrechaSeguranca(int senha)
         {
@@ -28,41 +19,40 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
                 MomentoRequisicao = DateTime.Now,
                 TipoDadoSolicitado = (int)TipoDado.SenhaDeAcesso
             };
-            try
+            using (var DB = new AplicativoContext())
             {
-                if ((bool)CoreApplication.Properties["BrechaAberta"])
+                try
                 {
-                    if (senha != SenhaTemporária)
-                        throw new SenhaErrada(senha);
-
-                    var resposta = new GetResponse(GetResponse.ResponseStatus.OK, new InfoSegurancaConexao
+                    if ((bool)CoreApplication.Properties["BrechaAberta"])
                     {
-                        Senha = ConfiguracoesSincronizacao.SenhaPermanente
-                    });
+                        if (senha != SenhaTemporária)
+                            throw new SenhaErrada(senha);
 
-                    item.SucessoSolicitacao = true;
-                    DB.Add(item);
-                    DB.SaveChanges();
-                    return resposta;
+                        var resposta = new GetResponse(GetResponse.ResponseStatus.OK, new InfoSegurancaConexao
+                        {
+                            Senha = SenhaPermanente
+                        });
+
+                        item.SucessoSolicitacao = true;
+                        DB.Add(item);
+                        DB.SaveChanges();
+                        return resposta;
+                    }
+                    else
+                    {
+                        item.SucessoSolicitacao = true;
+                        DB.Add(item);
+                        DB.SaveChanges();
+                        return new GetResponse(GetResponse.ResponseStatus.NotFound);
+                    }
                 }
-                else
+                catch (Exception e)
                 {
-                    item.SucessoSolicitacao = true;
+                    item.SucessoSolicitacao = false;
                     DB.Add(item);
                     DB.SaveChanges();
-                    return new GetResponse(GetResponse.ResponseStatus.NotFound);
+                    throw e;
                 }
-            }
-            catch (Exception e)
-            {
-                item.SucessoSolicitacao = false;
-                DB.Add(item);
-                DB.SaveChanges();
-                throw e;
-            }
-            finally
-            {
-                DB.Dispose();
             }
         }
 
@@ -74,32 +64,31 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
                 MomentoRequisicao = DateTime.Now,
                 TipoDadoSolicitado = (int)TipoDado.Configuracao
             };
-            try
+            using (var DB = new AplicativoContext())
             {
-                if (senha != SenhaPermanente)
-                    throw new SenhaErrada(senha);
-
-                var resposta = new GetResponse(GetResponse.ResponseStatus.OK, new Pacotes.ConfiguracoesServidor
+                try
                 {
-                    DadosBase = SincDadoBase,
-                    Notas = SincNotaFiscal
-                });
+                    if (senha != SenhaPermanente)
+                        throw new SenhaErrada(senha);
 
-                item.SucessoSolicitacao = true;
-                DB.Add(item);
-                DB.SaveChanges();
-                return resposta;
-            }
-            catch (Exception e)
-            {
-                item.SucessoSolicitacao = false;
-                DB.Add(item);
-                DB.SaveChanges();
-                throw e;
-            }
-            finally
-            {
-                DB.Dispose();
+                    var resposta = new GetResponse(GetResponse.ResponseStatus.OK, new Pacotes.ConfiguracoesServidor
+                    {
+                        DadosBase = SincDadoBase,
+                        Notas = SincNotaFiscal
+                    });
+
+                    item.SucessoSolicitacao = true;
+                    DB.Add(item);
+                    DB.SaveChanges();
+                    return resposta;
+                }
+                catch (Exception e)
+                {
+                    item.SucessoSolicitacao = false;
+                    DB.Add(item);
+                    DB.SaveChanges();
+                    throw e;
+                }
             }
         }
     }

@@ -31,7 +31,8 @@ namespace BibliotecaCentral.Importacao
                     return XElement.Load(stream);
                 }
             }));
-            using (var db = new AplicativoContext())
+            var db = new AplicativoContext();
+            try
             {
                 var repo = new Repositorio.MudancaOtimizadaBancoDados(db);
                 switch (TipoDado)
@@ -47,7 +48,11 @@ namespace BibliotecaCentral.Importacao
                     default:
                         return null;
                 }
+            }
+            finally
+            {
                 db.SaveChanges();
+                db.Dispose();
             }
         }
 

@@ -6,21 +6,12 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using BibliotecaCentral.ItensBD;
-using Microsoft.EntityFrameworkCore;
 
 namespace BibliotecaCentral.Sincronizacao.Servidor
 {
     [RestController(InstanceCreationType.PerCall)]
     internal sealed class ControllerSincronizacaoNotas
     {
-        private AplicativoContext DB { get; }
-        internal ControllerSincronizacaoNotas()
-        {
-            DB = new AplicativoContext();
-            DB.ChangeTracker.AutoDetectChangesEnabled = false;
-            DB.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
-        }
-
         [UriFormat("/Notas/{senha}")]
         public async Task<IPostResponse> ClienteServidor(int senha, [FromContent] NotasFiscais pacote)
         {
@@ -29,31 +20,30 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
                 MomentoRequisicao = DateTime.Now,
                 TipoDadoSolicitado = (int)TipoDado.NotaFiscal
             };
-            try
+            using (var DB = new AplicativoContext())
             {
-                if (senha != ConfiguracoesSincronizacao.SenhaPermanente)
-                    throw new SenhaErrada(senha);
+                try
+                {
+                    if (senha != ConfiguracoesSincronizacao.SenhaPermanente)
+                        throw new SenhaErrada(senha);
 
-                await new Repositorio.MudancaOtimizadaBancoDados(DB)
-                    .AdicionarNotasFiscais(pacote.DIs.Zip(pacote.XMLs, (di, xml) => new { di, xml })
-                    .ToDictionary(x => x.di, x => x.xml));
-                var resposta = new PostResponse(PostResponse.ResponseStatus.Created);
+                    await new Repositorio.MudancaOtimizadaBancoDados(DB)
+                        .AdicionarNotasFiscais(pacote.DIs.Zip(pacote.XMLs, (di, xml) => new { di, xml })
+                        .ToDictionary(x => x.di, x => x.xml));
+                    var resposta = new PostResponse(PostResponse.ResponseStatus.Created);
 
-                item.SucessoSolicitacao = true;
-                DB.Add(item);
-                DB.SaveChanges();
-                return resposta;
-            }
-            catch (Exception e)
-            {
-                item.SucessoSolicitacao = false;
-                DB.Add(item);
-                DB.SaveChanges();
-                throw e;
-            }
-            finally
-            {
-                DB.Dispose();
+                    item.SucessoSolicitacao = true;
+                    DB.Add(item);
+                    DB.SaveChanges();
+                    return resposta;
+                }
+                catch (Exception e)
+                {
+                    item.SucessoSolicitacao = false;
+                    DB.Add(item);
+                    DB.SaveChanges();
+                    throw e;
+                }
             }
         }
 
@@ -66,39 +56,38 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
             {
                 TipoDadoSolicitado = (int)TipoDado.NotaFiscal
             };
-            try
+            using (var DB = new AplicativoContext())
             {
-                if (senha != ConfiguracoesSincronizacao.SenhaPermanente)
-                    throw new SenhaErrada(senha);
+                try
+                {
+                    if (senha != ConfiguracoesSincronizacao.SenhaPermanente)
+                        throw new SenhaErrada(senha);
 
-                var conjunto = from nota in DB.NotasFiscais
-                               where nota.UltimaData > momento
-                               join xml in await new PastaNotasFiscais().Registro() on nota.Id equals xml.nome
-                               select new { DI = nota, XML = xml.xml };
-                var resposta = new GetResponse(GetResponse.ResponseStatus.OK,
-                    new NotasFiscais
-                    {
-                        DIs = conjunto.Select(x => x.DI).ToList(),
-                        XMLs = conjunto.Select(x => x.XML).ToList()
-                    });
+                    var conjunto = from nota in DB.NotasFiscais
+                                   where nota.UltimaData > momento
+                                   join xml in await new PastaNotasFiscais().Registro() on nota.Id equals xml.nome
+                                   select new { DI = nota, XML = xml.xml };
+                    var resposta = new GetResponse(GetResponse.ResponseStatus.OK,
+                        new NotasFiscais
+                        {
+                            DIs = conjunto.Select(x => x.DI).ToList(),
+                            XMLs = conjunto.Select(x => x.XML).ToList()
+                        });
 
-                item.SucessoSolicitacao = true;
-                item.MomentoRequisicao = DateTime.Now;
-                DB.Add(item);
-                DB.SaveChanges();
-                return resposta;
-            }
-            catch (Exception e)
-            {
-                item.SucessoSolicitacao = false;
-                item.MomentoRequisicao = DateTime.Now;
-                DB.Add(item);
-                DB.SaveChanges();
-                throw e;
-            }
-            finally
-            {
-                DB.Dispose();
+                    item.SucessoSolicitacao = true;
+                    item.MomentoRequisicao = DateTime.Now;
+                    DB.Add(item);
+                    DB.SaveChanges();
+                    return resposta;
+                }
+                catch (Exception e)
+                {
+                    item.SucessoSolicitacao = false;
+                    item.MomentoRequisicao = DateTime.Now;
+                    DB.Add(item);
+                    DB.SaveChanges();
+                    throw e;
+                }
             }
         }
 
@@ -110,40 +99,39 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
                 MomentoRequisicao = DateTime.Now,
                 TipoDadoSolicitado = (int)TipoDado.NotaFiscal
             };
-            try
+            using (var DB = new AplicativoContext())
             {
-                if (senha != ConfiguracoesSincronizacao.SenhaPermanente)
-                    throw new SenhaErrada(senha);
+                try
+                {
+                    if (senha != ConfiguracoesSincronizacao.SenhaPermanente)
+                        throw new SenhaErrada(senha);
 
-                await new Repositorio.MudancaOtimizadaBancoDados(DB)
-                    .AdicionarNotasFiscais(pacote.DIs.Zip(pacote.XMLs, (di, xml) => new { di, xml })
-                    .ToDictionary(x => x.di, x => x.xml));
+                    await new Repositorio.MudancaOtimizadaBancoDados(DB)
+                        .AdicionarNotasFiscais(pacote.DIs.Zip(pacote.XMLs, (di, xml) => new { di, xml })
+                        .ToDictionary(x => x.di, x => x.xml));
 
-                var conjunto = from nota in DB.NotasFiscais
-                               join xml in await new PastaNotasFiscais().Registro() on nota.Id equals xml.nome
-                               select new { DI = nota, XML = xml.xml };
-                var resposta = new GetResponse(GetResponse.ResponseStatus.OK,
-                    new NotasFiscais
-                    {
-                        DIs = conjunto.Select(x => x.DI).ToList(),
-                        XMLs = conjunto.Select(x => x.XML).ToList()
-                    });
+                    var conjunto = from nota in DB.NotasFiscais
+                                   join xml in await new PastaNotasFiscais().Registro() on nota.Id equals xml.nome
+                                   select new { DI = nota, XML = xml.xml };
+                    var resposta = new GetResponse(GetResponse.ResponseStatus.OK,
+                        new NotasFiscais
+                        {
+                            DIs = conjunto.Select(x => x.DI).ToList(),
+                            XMLs = conjunto.Select(x => x.XML).ToList()
+                        });
 
-                item.SucessoSolicitacao = true;
-                DB.Add(item);
-                DB.SaveChanges();
-                return resposta;
-            }
-            catch (Exception e)
-            {
-                item.SucessoSolicitacao = false;
-                DB.Add(item);
-                DB.SaveChanges();
-                throw e;
-            }
-            finally
-            {
-                DB.Dispose();
+                    item.SucessoSolicitacao = true;
+                    DB.Add(item);
+                    DB.SaveChanges();
+                    return resposta;
+                }
+                catch (Exception e)
+                {
+                    item.SucessoSolicitacao = false;
+                    DB.Add(item);
+                    DB.SaveChanges();
+                    throw e;
+                }
             }
         }
     }

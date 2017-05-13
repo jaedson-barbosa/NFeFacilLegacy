@@ -9,7 +9,6 @@ using NFeFacil.View;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
 
@@ -18,26 +17,14 @@ namespace NFeFacil
     internal class IntercambioTelas
     {
         private MainPage Main => MainPage.Current;
-        private Telas TelaAtual;
-        private ILog Log;
-
-        public IntercambioTelas()
-        {
-            TelaAtual = Telas.Inicio;
-            Log = new Saida();
-        }
-
-        public async Task AbrirFunçaoAsync(Type classe, object parametro = null)
-        {
-            await AbrirAsync(classe, parametro);
-        }
+        private ILog Log = new Saida();
 
         public async Task AbrirFunçaoAsync(string tela, object parametro = null)
         {
-            await AbrirAsync(Type.GetType($"NFeFacil.View.{tela}"), parametro);
+            await AbrirFunçaoAsync(Type.GetType($"NFeFacil.View.{tela}"), parametro);
         }
 
-        private async Task AbrirAsync(Type tela, object parametro)
+        public async Task AbrirFunçaoAsync(Type tela, object parametro = null)
         {
             if (TelasComParametroObrigatorio.Contains(tela) && parametro == null)
             {
@@ -52,8 +39,7 @@ namespace NFeFacil
                 }
                 else
                 {
-                    ILog log = new Saida();
-                    log.Escrever(TitulosComuns.ErroSimples, $"A tela {Main.FramePrincipal.Content} ainda precisa implementar IEsconde!");
+                    Log.Escrever(TitulosComuns.ErroSimples, $"A tela {Main.FramePrincipal.Content} ainda precisa implementar IEsconde!");
                 }
             }
             Main.FramePrincipal.Navigate(tela, parametro);
@@ -112,42 +98,22 @@ namespace NFeFacil
             }
             else
             {
-                throw new ArgumentException("Valor padrão desse tipo não cadastrado");
-            }
-        }
-
-        private async void SeAtualizarBase(Telas atual, string texto)
-        {
-            TelaAtual = atual;
-            Main.Titulo = texto;
-            if (TelasHorizontais.Contains(atual))
-            {
-                Main.AvisoOrentacaoHabilitado = true;
-            }
-            else
-            {
-                Main.AvisoOrentacaoHabilitado = false;
-            }
-
-            if (atual == Telas.Inicio)
-            {
-                await Task.Delay(500);
-                Main.FramePrincipal.BackStack.Clear();
-                Main.FramePrincipal.ForwardStack.Clear();
-                CoreApplication.Properties.Clear();
-                GC.Collect();
+                retorno = null;
+                Log.Escrever(TitulosComuns.ErroSimples, "Valor padrão desse tipo não cadastrado");
             }
         }
 
         public void SeAtualizar(Telas atual, Symbol símbolo, string texto)
         {
-            SeAtualizarBase(atual, texto);
+            Main.Titulo = texto;
+            Main.AvisoOrentacaoHabilitado = TelasHorizontais.Contains(atual);
             Main.Icone = new SymbolIcon(símbolo);
         }
 
         public void SeAtualizar(Telas atual, string glyph, string texto)
         {
-            SeAtualizarBase(atual, texto);
+            Main.Titulo = texto;
+            Main.AvisoOrentacaoHabilitado = TelasHorizontais.Contains(atual);
             Main.Icone = new FontIcon
             {
                 Glyph = glyph,
@@ -156,15 +122,8 @@ namespace NFeFacil
 
         public void RetornoEvento(object sender, BackRequestedEventArgs e)
         {
-            if (TelaAtual != Telas.Inicio)
-            {
-                e.Handled = true;
-                Retornar();
-            }
-            else
-            {
-                Log.Escrever(TitulosComuns.Log, "O usuário já está no início.");
-            }
+            e.Handled = true;
+            Retornar();
         }
 
         public async void Retornar()

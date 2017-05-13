@@ -17,8 +17,7 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <StackPanel Name="Cabeçalho"
-                    Orientation="Horizontal"
+        <StackPanel Orientation="Horizontal"
                     Height="48">
             <ContentControl Name="symTitulo"
                             VerticalAlignment="Center"

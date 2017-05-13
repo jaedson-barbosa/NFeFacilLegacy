@@ -33,7 +33,10 @@ namespace NFeFacil.ViewModel
                     SenhaTemporaria = ConfiguracoesSincronizacao.SenhaTemporária = new Random().Next(1000, 10000)
                 };
             }
-            Informacoes = new InfoEstabelecerConexao();
+            else
+            {
+                Informacoes = new InfoEstabelecerConexao();
+            }
             FecharBrechaSeguranca = new Comando(PararDeAceitarNovasConexoes, true);
             AbrirBrecha();
         }

@@ -32,16 +32,8 @@
                     <EntranceThemeTransition IsStaggeringEnabled="True" />
                 </TransitionCollection>
             </StackPanel.ChildrenTransitions>
-            <RichTextBlock>
-                <Paragraph>
-                    <Run Text="Aqui você pode configurar tudo relacionado à sincronização entre dispositivos." />
-                </Paragraph>
-                <Paragraph>
-                    <Run Text="Este aplicativo pode usar qualquer dispositivo para servir como o servidor." />
-                    <Run Text="Os &quot;clientes&quot; poderão enviar e receber informações do servidor, de forma a manter todos os dispositivos sempre sincronizados." />
-                </Paragraph>
-            </RichTextBlock>
-            <TextBlock>Este dispositivo será um:</TextBlock>
+            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Função deste dispositivo</TextBlock>
+            <TextBlock>Em cada rede local recomenda-se que só haja um servidor e que os clientes sejam conectados apenas a ele.</TextBlock>
             <StackPanel Orientation="Horizontal"
                         Margin="0,0,0,8">
                 <RadioButton Content="Servidor"
@@ -67,7 +59,6 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <Button HorizontalAlignment="Stretch"
-                            IsEnabled="{Binding IniciarManualmente}"
                             Command="{Binding IniciarServidorCommand}"
                             Margin="0,0,4,0">Iniciar servidor</Button>
                     <ToggleSwitch  Grid.Column="1"

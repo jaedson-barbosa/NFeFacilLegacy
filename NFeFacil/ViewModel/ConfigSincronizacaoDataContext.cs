@@ -31,8 +31,8 @@ namespace NFeFacil.ViewModel
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsCliente)));
             }
         }
-
         public bool IsServidor => !IsCliente;
+
         public bool SincronizarDadoBase
         {
             get => SincDadoBase;
@@ -47,15 +47,10 @@ namespace NFeFacil.ViewModel
 
         public bool IniciarAutomaticamente
         {
-            get => InícioAutomático; set
-            {
-                if (value != ServerRodando && value) IniciarServidor();
-                InícioAutomático = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IniciarManualmente)));
-            }
+            get => InícioAutomático;
+            set => InícioAutomático = value;
         }
 
-        public bool IniciarManualmente => !InícioAutomático;
         public bool ServerRodando => Propriedades.Server.Rodando;
 
         public bool SincronizarAutomaticamente

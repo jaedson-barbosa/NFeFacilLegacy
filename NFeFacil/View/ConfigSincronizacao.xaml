@@ -13,16 +13,18 @@
                 <ResourceDictionary Source="Estilos/CoresDestaque.xaml" />
                 <ResourceDictionary Source="Estilos/GridResponsiva.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <VM:ConfigSincronizacaoDataContext x:Key="contexto" />
             <conversores:BoolToVisibility x:Key="boolView" />
+            <conversores:Invert x:Key="inverter" />
             <Storyboard x:Name="ocultarGrid">
                 <FadeOutThemeAnimation TargetName="main"
                                        Duration="0:0:0.25" />
             </Storyboard>
         </ResourceDictionary>
     </Page.Resources>
-    <Grid DataContext="{StaticResource contexto}"
-          x:Name="main">
+    <Page.DataContext>
+        <VM:ConfigSincronizacaoDataContext />
+    </Page.DataContext>
+    <Grid x:Name="main">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
                 <VisualState>
@@ -78,8 +80,7 @@
                                          Storyboard.TargetProperty="(UIElement.Opacity)" />
                     </Storyboard>
                     <VisualState.StateTriggers>
-                        <VM:ExibicaoQR Visivel="False"
-                                          Contexto="{StaticResource contexto}" />
+                        <StateTrigger IsActive="{Binding MostrarQR, Converter={StaticResource inverter}}" />
                     </VisualState.StateTriggers>
                 </VisualState>
                 <VisualState>
@@ -105,8 +106,7 @@
                                          Storyboard.TargetProperty="(UIElement.Opacity)" />
                     </Storyboard>
                     <VisualState.StateTriggers>
-                        <VM:ExibicaoQR Visivel="True"
-                                          Contexto="{StaticResource contexto}" />
+                        <StateTrigger IsActive="{Binding MostrarQR}" />
                     </VisualState.StateTriggers>
                 </VisualState>
             </VisualStateGroup>

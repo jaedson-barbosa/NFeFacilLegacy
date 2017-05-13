@@ -131,29 +131,19 @@ namespace NFeFacil.ViewModel
             set
             {
                 mostrarQR = value;
-                MostrarQRChanged(this, new MostrarQRChangeEventArgs
-                {
-                    DadoAtual = value
-                });
+                PropertyChanged(this, new PropertyChangedEventArgs(nameof(MostrarQR)));
             }
-        }
-
-        public event MostrarQRChangedDelegate MostrarQRChanged;
-        public delegate void MostrarQRChangedDelegate(ConfigSincronizacaoDataContext sender, MostrarQRChangeEventArgs e);
-        public class MostrarQRChangeEventArgs : EventArgs
-        {
-            public bool DadoAtual { get; set; }
         }
 
         private bool brechaAberta = false;
         public async void GerarQRTemporário()
         {
+            MostrarQR = true;
             Propriedades.Server.AbrirBrecha(TimeSpan.FromSeconds(ValorMaximo));
             OnProperyChanged(nameof(QRGerado));
             ValorAtual = 0;
             PropertyChanged(this, new PropertyChangedEventArgs("ValorAtual"));
             await Task.Delay(500);
-            MostrarQR = true;
             await Task.Delay(1000);
             brechaAberta = true;
             while (ValorAtual <= ValorMaximo && brechaAberta)
@@ -230,27 +220,6 @@ namespace NFeFacil.ViewModel
         {
             var gerenc = new GerenciadorCliente(LogPopUp);
             await gerenc.SincronizarTudo(DadosSincronizaveis.Tudo);
-        }
-    }
-
-    public sealed class ExibicaoQR : StateTriggerBase
-    {
-        public bool Visivel { get; set; }
-
-        private ConfigSincronizacaoDataContext contexto;
-        public ConfigSincronizacaoDataContext Contexto
-        {
-            get => contexto;
-            set
-            {
-                contexto = value;
-                contexto.MostrarQRChanged += Contexto_MostrarQRChanged;
-            }
-        }
-
-        private void Contexto_MostrarQRChanged(ConfigSincronizacaoDataContext sender, ConfigSincronizacaoDataContext.MostrarQRChangeEventArgs args)
-        {
-            SetActive(Visivel == args.DadoAtual);
         }
     }
 }

@@ -3,134 +3,47 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:controles="using:NFeFacil.View.Controles"
       mc:Ignorable="d">
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Estilos/CoresDestaque.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <Style x:Key="Hamburguer"
-                   TargetType="Button">
-                <Setter Property="FontSize"
-                        Value="16" />
-                <Setter Property="FontFamily"
-                        Value="{StaticResource SymbolThemeFontFamily}" />
-                <Setter Property="MinHeight"
-                        Value="48" />
-                <Setter Property="MinWidth"
-                        Value="48" />
-                <Setter Property="Padding"
-                        Value="0" />
-                <Setter Property="HorizontalContentAlignment"
-                        Value="Center" />
-                <Setter Property="VerticalContentAlignment"
-                        Value="Center" />
-                <Setter Property="Background"
-                        Value="Transparent" />
-                <Setter Property="Foreground"
-                        Value="{ThemeResource SystemControlForegroundBaseHighBrush}" />
-                <Setter Property="UseSystemFocusVisuals"
-                        Value="True" />
-            </Style>
         </ResourceDictionary>
     </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <StackPanel x:Name="Cabeçalho"
-                    Orientation="Horizontal">
-            <Button x:Name="btnHamburguer"
-                    Style="{StaticResource Hamburguer}"
-                    Click="btnHamburguer_Click">
-                <FontIcon FontFamily="Segoe MDL2 Assets"
-                          Glyph="&#xE700;" />
-            </Button>
-            <ContentControl x:Name="symTitulo"
+        <StackPanel Name="Cabeçalho"
+                    Orientation="Horizontal"
+                    Height="48">
+            <ContentControl Name="symTitulo"
                             VerticalAlignment="Center"
                             Margin="5,0">
-                <FontIcon Glyph="&#xE81C;" />
+                <FontIcon Glyph="&#xE81C;"
+                          Margin="4,0,8,0" />
             </ContentControl>
-            <TextBlock x:Name="txtTitulo"
-                       Text="Nota Fácil"
-                       Style="{StaticResource BodyTextBlockStyle}"
-                       Margin="0"
-                       VerticalAlignment="Center"
-                       FontWeight="Bold" />
+            <TextBlock Name="txtTitulo"
+                       Style="{StaticResource TitleTextBlockStyle}"
+                       VerticalAlignment="Center">Nota Fácil</TextBlock>
         </StackPanel>
-        <SplitView x:Name="hmbMenu"
-                   Grid.Row="1"
-                   IsTabStop="False">
-            <SplitView.PaneBackground>
-                <SolidColorBrush Color="{ThemeResource SystemChromeMediumColor}" />
-            </SplitView.PaneBackground>
-            <SplitView.Pane>
-                <ListView x:Name="lstFunções"
-                          Margin="0"
-                          ItemClick="AbrirFunção"
-                          IsItemClickEnabled="True">
-                    <controles:SplitViewItem x:Name="Inicio"
-                                             Texto="Início">
-                        <SymbolIcon Symbol="Home"/>
-                    </controles:SplitViewItem>
-                    <controles:SplitViewItem x:Name="GerenciarDadosBase"
-                                             Texto="Gerenciar dados base">
-                        <SymbolIcon Symbol="Manage" />
-                    </controles:SplitViewItem>
-                    <controles:SplitViewItem x:Name="ManipulacaoNotaFiscal"
-                                             Texto="Criar nota fiscal">
-                        <SymbolIcon Symbol="Add" />
-                    </controles:SplitViewItem>
-                    <controles:SplitViewItem x:Name="NotasSalvas"
-                                             Texto="Notas salvas">
-                        <SymbolIcon Symbol="Library" />
-                    </controles:SplitViewItem>
-                    <controles:SplitViewItem x:Name="Consulta"
-                                             Texto="Consultar NF-e">
-                        <SymbolIcon Symbol="Find" />
-                    </controles:SplitViewItem>
-                    <controles:SplitViewItem x:Name="VendasAnuais"
-                                             Texto="Análise anual">
-                        <SymbolIcon Symbol="Calendar" />
-                    </controles:SplitViewItem>
-                    <controles:SplitViewItem x:Name="HistoricoSincronizacao"
-                                             Texto="Histórico de sincronização">
-                        <FontIcon Glyph="&#xE81C;" />
-                    </controles:SplitViewItem>
-                    <controles:SplitViewItem x:Name="Configuracoes"
-                                             Texto="Configurações">
-                        <SymbolIcon Symbol="Setting" />
-                    </controles:SplitViewItem>
-                    <controles:SplitViewItem x:Name="ConfigSincronizacao"
-                                             Texto="Config. de sincronização">
-                        <SymbolIcon Symbol="Sync" />
-                    </controles:SplitViewItem>
-                </ListView>
-            </SplitView.Pane>
-            <SplitView.Content>
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Frame Name="frmPrincipal" />
-                    <Border x:Name="grdAvisoRotacao"
-                            Visibility="Collapsed"
-                            Background="{StaticResource MuitoVariada}"
-                            BorderBrush="{StaticResource Normal}"
-                            BorderThickness="0,2,0,0"
-                            VerticalAlignment="Bottom"
-                            Grid.Row="1">
-                        <TextBlock TextWrapping="Wrap"
-                                   Margin="8,4"
-                                   TextAlignment="Justify">
+        <Frame Name="frmPrincipal"
+               Grid.Row="1" />
+        <Border Name="grdAvisoRotacao"
+                Visibility="Collapsed"
+                Background="{StaticResource MuitoVariada}"
+                BorderBrush="{StaticResource Normal}"
+                BorderThickness="0,2,0,0"
+                VerticalAlignment="Bottom"
+                Grid.Row="2">
+            <TextBlock TextWrapping="Wrap"
+                       Margin="8,4"
+                       TextAlignment="Justify">
                             <Run FontStyle="Italic">Por favor, esta orientação de tela não é a mais adequada para visualização desta página, por favor, </Run>
                             <Run FontWeight="Bold">rotacione seu dispositivo para a orientação horizontal.</Run></TextBlock>
-                    </Border>
-                </Grid>
-            </SplitView.Content>
-        </SplitView>
+        </Border>
     </Grid>
 </Page>

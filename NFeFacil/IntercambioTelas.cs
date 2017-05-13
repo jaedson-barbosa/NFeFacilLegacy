@@ -118,7 +118,7 @@ namespace NFeFacil
 
         private async void SeAtualizarBase(Telas atual, string texto)
         {
-            Main.IndexHamburguer = (int)(TelaAtual = atual);
+            TelaAtual = atual;
             Main.Titulo = texto;
             if (TelasHorizontais.Contains(atual))
             {

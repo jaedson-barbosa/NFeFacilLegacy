@@ -26,11 +26,6 @@ namespace NFeFacil.View
             get => txtTitulo.Text;
             set => txtTitulo.Text = value;
         }
-        internal int IndexHamburguer
-        {
-            get { return lstFunções.SelectedIndex; }
-            set { lstFunções.SelectedIndex = value; }
-        }
         private bool avisoOrentacaoHabilitado;
         internal bool AvisoOrentacaoHabilitado
         {
@@ -47,18 +42,19 @@ namespace NFeFacil.View
 
         private ApplicationView View { get; }
 
-        private int ultimoIndex;
         public MainPage()
         {
             InitializeComponent();
             Current = this;
             View = ApplicationView.GetForCurrentView();
             View.VisibleBoundsChanged += (x, y) => AnalisarOrientacao();
-            ProcessarAsync();
+            AnalisarBarraTituloAsync();
             Propriedades.Intercambio = new IntercambioTelas();
             SystemNavigationManager.GetForCurrentView().BackRequested += Propriedades.Intercambio.RetornoEvento;
-            AbrirFunção(nameof(Inicio));
+            AbrirInicio();
         }
+
+        async void AbrirInicio() => await Propriedades.Intercambio.AbrirFunçaoAsync(nameof(Inicio));
 
         private void AnalisarOrientacao()
         {
@@ -79,7 +75,7 @@ namespace NFeFacil.View
             }
         }
 
-        private static async void ProcessarAsync()
+        private static async void AnalisarBarraTituloAsync()
         {
             var familia = AnalyticsInfo.VersionInfo.DeviceFamily;
             if (familia.Contains("Mobile"))
@@ -88,27 +84,6 @@ namespace NFeFacil.View
                 SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
             else
                 new Saida().Escrever(TitulosComuns.ErroSimples, "Tipo não reconhecido de dispositivo, não é possível mudar a barra de título.");
-        }
-
-        private void btnHamburguer_Click(object sender, RoutedEventArgs e)
-        {
-            hmbMenu.IsPaneOpen = !hmbMenu.IsPaneOpen;
-        }
-
-        private void AbrirFunção(object sender, ItemClickEventArgs e)
-        {
-            AbrirFunção((e.ClickedItem as FrameworkElement).Name);
-        }
-
-        private async void AbrirFunção(string tela)
-        {
-            if (FramePrincipal?.Content is IValida validar && !await validar.Verificar())
-            {
-                IndexHamburguer = ultimoIndex;
-                return;
-            }
-            await Propriedades.Intercambio.AbrirFunçaoAsync(tela);
-            ultimoIndex = IndexHamburguer;
         }
     }
 }

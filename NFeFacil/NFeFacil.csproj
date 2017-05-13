@@ -182,6 +182,8 @@
     <Compile Include="ViewModel\NotasSalvasDataContext.cs" />
     <Compile Include="ViewModel\ObterDataContext.cs" />
     <Compile Include="ViewModel\ProdutoCompletoDataContext.cs" />
+    <Compile Include="ViewModel\QRCode.cs" />
+    <Compile Include="ViewModel\QRConexaoDataContext.cs" />
     <Compile Include="View\AdicionarDestinatario.xaml.cs">
       <DependentUpon>AdicionarDestinatario.xaml</DependentUpon>
     </Compile>
@@ -240,7 +242,6 @@
     <Compile Include="View\NotasSalvas.xaml.cs">
       <DependentUpon>NotasSalvas.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\QRCode.cs" />
     <Compile Include="Propriedades.cs" />
     <Compile Include="ViewModel\ImpostosProduto\COFINSDataContext.cs" />
     <Compile Include="ViewModel\Comando.cs" />
@@ -294,6 +295,9 @@
     <Compile Include="View\Estilos\Auxiliares\PainelAdaptavel.cs" />
     <Compile Include="View\ConfigSincronizacao.xaml.cs">
       <DependentUpon>ConfigSincronizacao.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\QRConexao.xaml.cs">
+      <DependentUpon>QRConexao.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\TelasDadosBase\ClienteDataContext.cs" />
     <Compile Include="View\TelasDadosBase\ConverterContextoCliente.cs" />
@@ -489,6 +493,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ConfigSincronizacao.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\QRConexao.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -10,11 +10,9 @@
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Estilos/CoresDestaque.xaml" />
                 <ResourceDictionary Source="Estilos/GridResponsiva.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <conversores:BoolToVisibility x:Key="boolView" />
-            <conversores:Invert x:Key="inverter" />
             <Storyboard x:Name="ocultarGrid">
                 <FadeOutThemeAnimation TargetName="main"
                                        Duration="0:0:0.25" />
@@ -24,273 +22,98 @@
     <Page.DataContext>
         <VM:ConfigSincronizacaoDataContext />
     </Page.DataContext>
-    <Grid x:Name="main">
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup>
-                <VisualState>
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="800"></AdaptiveTrigger>
-                    </VisualState.StateTriggers>
-                </VisualState>
-                <VisualState>
-                    <VisualState.Setters>
-                        <Setter Target="grdInfoImgQR.(Grid.Row)"
-                                Value="1" />
-                        <Setter Target="imgQR.(Grid.Row)"
-                                Value="0" />
-                        <Setter Target="grdInfoImgQR.(Grid.Column)"
-                                Value="0" />
-                        <Setter Target="imgQR.(Grid.Column)"
-                                Value="0" />
-                        <Setter Target="grdInfoImgQR.(Grid.RowSpan)"
-                                Value="1" />
-                        <Setter Target="imgQR.(Grid.RowSpan)"
-                                Value="1" />
-                        <Setter Target="grdInfoImgQR.(Grid.ColumnSpan)"
-                                Value="2" />
-                        <Setter Target="imgQR.(Grid.ColumnSpan)"
-                                Value="2" />
-                    </VisualState.Setters>
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowHeight="580"></AdaptiveTrigger>
-                    </VisualState.StateTriggers>
-                </VisualState>
-            </VisualStateGroup>
-            <VisualStateGroup>
-                <VisualState>
-                    <Storyboard>
-                        <DoubleAnimation Duration="0:0:1"
-                                         To="0"
-                                         Storyboard.TargetName="grdQRTemporario"
-                                         Storyboard.TargetProperty="(UIElement.Opacity)" />
-                        <ObjectAnimationUsingKeyFrames BeginTime="0:0:2"
-                                                       Storyboard.TargetName="grdQRTemporario"
-                                                       Storyboard.TargetProperty="Visibility">
-                            <DiscreteObjectKeyFrame KeyTime="0"
-                                                    Value="Collapsed" />
-                        </ObjectAnimationUsingKeyFrames>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="grdPrincipal"
-                                                       Storyboard.TargetProperty="Visibility">
-                            <DiscreteObjectKeyFrame KeyTime="0"
-                                                    Value="Visible" />
-                        </ObjectAnimationUsingKeyFrames>
-                        <DoubleAnimation Duration="0:0:1"
-                                         To="1"
-                                         Storyboard.TargetName="grdPrincipal"
-                                         Storyboard.TargetProperty="(UIElement.Opacity)" />
-                    </Storyboard>
-                    <VisualState.StateTriggers>
-                        <StateTrigger IsActive="{Binding MostrarQR, Converter={StaticResource inverter}}" />
-                    </VisualState.StateTriggers>
-                </VisualState>
-                <VisualState>
-                    <Storyboard>
-                        <DoubleAnimation Duration="0:0:1"
-                                         To="0"
-                                         Storyboard.TargetName="grdPrincipal"
-                                         Storyboard.TargetProperty="(UIElement.Opacity)" />
-                        <ObjectAnimationUsingKeyFrames BeginTime="0:0:2"
-                                                       Storyboard.TargetName="grdPrincipal"
-                                                       Storyboard.TargetProperty="Visibility">
-                            <DiscreteObjectKeyFrame KeyTime="0"
-                                                    Value="Collapsed" />
-                        </ObjectAnimationUsingKeyFrames>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="grdQRTemporario"
-                                                       Storyboard.TargetProperty="Visibility">
-                            <DiscreteObjectKeyFrame KeyTime="0"
-                                                    Value="Visible" />
-                        </ObjectAnimationUsingKeyFrames>
-                        <DoubleAnimation Duration="0:0:1"
-                                         To="1"
-                                         Storyboard.TargetName="grdQRTemporario"
-                                         Storyboard.TargetProperty="(UIElement.Opacity)" />
-                    </Storyboard>
-                    <VisualState.StateTriggers>
-                        <StateTrigger IsActive="{Binding MostrarQR}" />
-                    </VisualState.StateTriggers>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
-        <ScrollViewer x:Name="grdPrincipal"
-                      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-                      VerticalScrollBarVisibility="Hidden"
-                      Margin="4,0">
-            <StackPanel>
-                <StackPanel.ChildrenTransitions>
-                    <TransitionCollection>
-                        <EntranceThemeTransition IsStaggeringEnabled="True" />
-                    </TransitionCollection>
-                </StackPanel.ChildrenTransitions>
-                <RichTextBlock>
-                    <Paragraph>
-                        <Run Text="Aqui você pode configurar tudo relacionado à sincronização entre dispositivos." />
-                    </Paragraph>
-                    <Paragraph>
-                        <Run Text="Este aplicativo pode usar qualquer dispositivo para servir como o servidor." />
-                        <Run Text="Os &quot;clientes&quot; poderão enviar e receber informações do servidor, de forma a manter todos os dispositivos sempre sincronizados." />
-                    </Paragraph>
-                </RichTextBlock>
-                <TextBlock>Este dispositivo será um:</TextBlock>
-                <StackPanel Orientation="Horizontal"
-                            Margin="0,0,0,8">
-                    <RadioButton Content="Servidor"
-                                 GroupName="TipoApp"
-                                 IsChecked="{Binding IsServidor, Mode=OneWay}" />
-                    <RadioButton Content="Cliente"
-                                 GroupName="TipoApp"
-                                 IsChecked="{Binding IsCliente, Mode=TwoWay}" />
-                </StackPanel>
-                <StackPanel Visibility="{Binding Path=IsServidor, Converter={StaticResource boolView}}">
-                    <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Dados liberados para sincronização</TextBlock>
-                    <ToggleSwitch Header="Elementos básicos para criação da nota"
-                                  IsOn="{Binding SincronizarDadoBase, Mode=TwoWay}" />
-                    <ToggleSwitch Header="Notas fiscais"
-                                  IsOn="{Binding SincronizarNotaFiscal, Mode=TwoWay}" />
-                    <TextBlock Margin="0,8,0,0"
-                               Style="{StaticResource SubtitleTextBlockStyle}">Inicialização do servidor</TextBlock>
-                    <TextBlock TextWrapping="Wrap"
-                               x:Uid="txtInicializaçãoServidor" />
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <Button HorizontalAlignment="Stretch"
-                                IsEnabled="{Binding IniciarManualmente}"
-                                Command="{Binding IniciarServidorCommand}"
-                                Margin="0,0,4,0">Iniciar servidor</Button>
-                        <ToggleSwitch  Grid.Column="1"
-                                       IsOn="{Binding IniciarAutomaticamente, Mode=TwoWay}"
-                                       OnContent="Iniciar junto à aplicação"
-                                       OffContent="Iniciar manualmente" />
-                    </Grid>
-                    <TextBlock Margin="0,8,0,0"
-                               Style="{StaticResource SubtitleTextBlockStyle}">Conexão ao servidor</TextBlock>
-                    <TextBlock TextWrapping="Wrap"
-                               x:Uid="txtConexaoServidor" />
-                    <Button HorizontalAlignment="Stretch"
-                            IsEnabled="{Binding ServerRodando}"
-                            Margin="0,0,0,10"
-                            Command="{Binding GerarQRTemporárioCommand}">Gerar código QR temporário</Button>
-                </StackPanel>
-                <StackPanel Visibility="{Binding Path=IsCliente, Converter={StaticResource boolView}}">
-                    <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Registro em servidor</TextBlock>
-                    <ItemsControl Style="{StaticResource ItensMedios}">
-                        <my:ItemPadrao Command="{Binding LerQRTemporárioCommand}"
-                                       Titulo="Automaticamente"
-                                       Descricao="Ler código QR temporário com os dados para conexão">
-                            <SymbolIcon Symbol="Camera" />
-                        </my:ItemPadrao>
-                        <my:ItemPadrao Command="{Binding InserirDadosManualmenteCommand}"
-                                       Titulo="Manualmente"
-                                       Descricao="Digitar o IP e a senha temporária do servidor">
-                            <SymbolIcon Symbol="Keyboard" />
-                        </my:ItemPadrao>
-                    </ItemsControl>
-                    <TextBlock Margin="0,8,0,0"
-                               Style="{StaticResource SubtitleTextBlockStyle}">Sincronização básica</TextBlock>
-                    <TextBlock TextWrapping="Wrap">Com a sincronização básica apenas os dados modificados ou adicionados após a última sincronização são transferidos, sendo a recomendada para a maioria dos casos.</TextBlock>
-                    <Button HorizontalAlignment="Stretch"
-                            Command="{Binding SincronizarAgoraCommand}">Sincronizar</Button>
-                    <ToggleSwitch HorizontalAlignment="Stretch"
-                                  IsOn="{Binding SincronizarAutomaticamente, Mode=TwoWay}"
-                                  Header="Modo de sincronização"
-                                  OnContent="Automaticamente (a cada 15min)"
-                                  OffContent="Manualmente (usando o botão)" />
-                    <TextBlock Margin="0,8,0,0"
-                               Style="{StaticResource SubtitleTextBlockStyle}">Sincronização completa</TextBlock>
-                    <TextBlock TextWrapping="Wrap">Na sincronização completa todos os dados existentes no servidor e neste dispositivo serão transferidos e passados por análise, sendo portanto mais lenta e indicada apenas quando o servidor é trocado.</TextBlock>
-                    <Button HorizontalAlignment="Stretch"
-                            Command="{Binding SincronizarTudoCommand}">Sincronizar tudo</Button>
-                </StackPanel>
+    <ScrollViewer x:Name="main"
+                  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                  VerticalScrollBarVisibility="Hidden"
+                  Margin="4,0">
+        <StackPanel>
+            <StackPanel.ChildrenTransitions>
+                <TransitionCollection>
+                    <EntranceThemeTransition IsStaggeringEnabled="True" />
+                </TransitionCollection>
+            </StackPanel.ChildrenTransitions>
+            <RichTextBlock>
+                <Paragraph>
+                    <Run Text="Aqui você pode configurar tudo relacionado à sincronização entre dispositivos." />
+                </Paragraph>
+                <Paragraph>
+                    <Run Text="Este aplicativo pode usar qualquer dispositivo para servir como o servidor." />
+                    <Run Text="Os &quot;clientes&quot; poderão enviar e receber informações do servidor, de forma a manter todos os dispositivos sempre sincronizados." />
+                </Paragraph>
+            </RichTextBlock>
+            <TextBlock>Este dispositivo será um:</TextBlock>
+            <StackPanel Orientation="Horizontal"
+                        Margin="0,0,0,8">
+                <RadioButton Content="Servidor"
+                             GroupName="TipoApp"
+                             IsChecked="{Binding IsServidor, Mode=OneWay}" />
+                <RadioButton Content="Cliente"
+                             GroupName="TipoApp"
+                             IsChecked="{Binding IsCliente, Mode=TwoWay}" />
             </StackPanel>
-        </ScrollViewer>
-        <Grid x:Name="grdQRTemporario"
-              Opacity="0"
-              Visibility="Collapsed">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <Image x:Name="imgQR"
-                   Grid.RowSpan="2"
-                   Source="{Binding QRGerado}" />
-            <Grid x:Name="grdInfoImgQR"
-                  Grid.Column="1"
-                  Grid.RowSpan="2">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <TextBlock Grid.ColumnSpan="2"
-                           TextWrapping="Wrap">
-                    <Run Text="Leia o código QR ou insira estes dados no dispositivo que será conectado. " />
-                    <Run Text="Você pode parar também clicando no botão do meio do anel de carregamento."
-                         FontWeight="Bold" /></TextBlock>
-                <TextBox Grid.Row="1"
-                         IsReadOnly="True"
-                         TextWrapping="Wrap"
-                         Header="IP"
-                         Text="{Binding Informacoes.IP}" />
-                <TextBox Grid.Row="1"
-                         Grid.Column="1"
-                         IsReadOnly="True"
-                         TextWrapping="Wrap"
-                         Header="Senha temporária"
-                         Text="{Binding Informacoes.SenhaTemporaria}" />
-                <TextBlock Grid.Row="3"
-                           Style="{StaticResource SubtitleTextBlockStyle}"
-                           Margin="0,4,0,0"
-                           Grid.ColumnSpan="2">Tempo restante</TextBlock>
-                <my:CarregamentoCircular Grid.Row="4"
-                                         Grid.ColumnSpan="2"
-                                         Segmento="{StaticResource Normal}"
-                                         ActualValue="{Binding ValorAtual}"
-                                         MaxValue="{Binding ValorMaximo, Mode=OneTime}"
-                                         Thickness="16" />
-                <Button Grid.Row="4"
-                        Grid.ColumnSpan="2"
-                        VerticalAlignment="Center"
-                        Command="{Binding FecharBrechaSeguranca}"
-                        HorizontalAlignment="Center"
-                        Background="{x:Null}">
-                    <StackPanel>
-                        <SymbolIcon Symbol="Stop"
-                                    Width="20"
-                                    Height="20"
-                                    Margin="20,24"
-                                    RenderTransformOrigin="0.5,0.5">
-                            <SymbolIcon.RenderTransform>
-                                <CompositeTransform ScaleX="4"
-                                                    ScaleY="4" />
-                            </SymbolIcon.RenderTransform>
-                        </SymbolIcon>
-                    </StackPanel>
-                </Button>
-                <ListView HorizontalAlignment="Center"
-                          HorizontalContentAlignment="Center"
-                          Grid.Row="5"
-                          Grid.ColumnSpan="2">
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="MinHeight"
-                                    Value="32" />
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                </ListView>
-            </Grid>
-        </Grid>
-    </Grid>
+            <StackPanel Visibility="{Binding Path=IsServidor, Converter={StaticResource boolView}}">
+                <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Dados liberados para sincronização</TextBlock>
+                <ToggleSwitch Header="Elementos básicos para criação da nota"
+                              IsOn="{Binding SincronizarDadoBase, Mode=TwoWay}" />
+                <ToggleSwitch Header="Notas fiscais"
+                              IsOn="{Binding SincronizarNotaFiscal, Mode=TwoWay}" />
+                <TextBlock Margin="0,8,0,0"
+                           Style="{StaticResource SubtitleTextBlockStyle}">Inicialização do servidor</TextBlock>
+                <TextBlock TextWrapping="Wrap"
+                           x:Uid="txtInicializaçãoServidor" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Button HorizontalAlignment="Stretch"
+                            IsEnabled="{Binding IniciarManualmente}"
+                            Command="{Binding IniciarServidorCommand}"
+                            Margin="0,0,4,0">Iniciar servidor</Button>
+                    <ToggleSwitch  Grid.Column="1"
+                                   IsOn="{Binding IniciarAutomaticamente, Mode=TwoWay}"
+                                   OnContent="Iniciar junto à aplicação"
+                                   OffContent="Iniciar manualmente" />
+                </Grid>
+                <TextBlock Margin="0,8,0,0"
+                           Style="{StaticResource SubtitleTextBlockStyle}">Conexão ao servidor</TextBlock>
+                <TextBlock TextWrapping="Wrap"
+                           x:Uid="txtConexaoServidor" />
+                <Button HorizontalAlignment="Stretch"
+                        IsEnabled="{Binding ServerRodando}"
+                        Margin="0,0,0,10"
+                        Command="{Binding ExibirQRCommand}">Gerar código QR temporário</Button>
+            </StackPanel>
+            <StackPanel Visibility="{Binding Path=IsCliente, Converter={StaticResource boolView}}">
+                <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Registro em servidor</TextBlock>
+                <ItemsControl Style="{StaticResource ItensMedios}">
+                    <my:ItemPadrao Command="{Binding LerQRTemporárioCommand}"
+                                   Titulo="Automaticamente"
+                                   Descricao="Ler código QR temporário com os dados para conexão">
+                        <SymbolIcon Symbol="Camera" />
+                    </my:ItemPadrao>
+                    <my:ItemPadrao Command="{Binding InserirDadosManualmenteCommand}"
+                                   Titulo="Manualmente"
+                                   Descricao="Digitar o IP e a senha temporária do servidor">
+                        <SymbolIcon Symbol="Keyboard" />
+                    </my:ItemPadrao>
+                </ItemsControl>
+                <TextBlock Margin="0,8,0,0"
+                           Style="{StaticResource SubtitleTextBlockStyle}">Sincronização básica</TextBlock>
+                <TextBlock TextWrapping="Wrap">Com a sincronização básica apenas os dados modificados ou adicionados após a última sincronização são transferidos, sendo a recomendada para a maioria dos casos.</TextBlock>
+                <Button HorizontalAlignment="Stretch"
+                        Command="{Binding SincronizarAgoraCommand}">Sincronizar</Button>
+                <ToggleSwitch HorizontalAlignment="Stretch"
+                              IsOn="{Binding SincronizarAutomaticamente, Mode=TwoWay}"
+                              Header="Modo de sincronização"
+                              OnContent="Automaticamente (a cada 15min)"
+                              OffContent="Manualmente (usando o botão)" />
+                <TextBlock Margin="0,8,0,0"
+                           Style="{StaticResource SubtitleTextBlockStyle}">Sincronização completa</TextBlock>
+                <TextBlock TextWrapping="Wrap">Na sincronização completa todos os dados existentes no servidor e neste dispositivo serão transferidos e passados por análise, sendo portanto mais lenta e indicada apenas quando o servidor é trocado.</TextBlock>
+                <Button HorizontalAlignment="Stretch"
+                        Command="{Binding SincronizarTudoCommand}">Sincronizar tudo</Button>
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
 </Page>

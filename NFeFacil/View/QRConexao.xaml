@@ -1,0 +1,145 @@
+﻿<Page x:Class="NFeFacil.View.QRConexao"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:my="using:NFeFacil.View.Controles"
+      xmlns:VM="using:NFeFacil.ViewModel"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d">
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Estilos/CoresDestaque.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Storyboard x:Name="ocultarGrid">
+                <FadeOutThemeAnimation Duration="0:0:0.25"
+                                       TargetName="main" />
+            </Storyboard>
+        </ResourceDictionary>
+    </Page.Resources>
+    <Page.DataContext>
+        <VM:QRConexaoDataContext />
+    </Page.DataContext>
+    <Grid x:Name="main">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="800"></AdaptiveTrigger>
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState>
+                    <VisualState.Setters>
+                        <Setter Target="grdInfoImgQR.(Grid.Row)"
+                                Value="1" />
+                        <Setter Target="imgQR.(Grid.Row)"
+                                Value="0" />
+                        <Setter Target="grdInfoImgQR.(Grid.Column)"
+                                Value="0" />
+                        <Setter Target="imgQR.(Grid.Column)"
+                                Value="0" />
+                        <Setter Target="grdInfoImgQR.(Grid.RowSpan)"
+                                Value="1" />
+                        <Setter Target="imgQR.(Grid.RowSpan)"
+                                Value="1" />
+                        <Setter Target="grdInfoImgQR.(Grid.ColumnSpan)"
+                                Value="2" />
+                        <Setter Target="imgQR.(Grid.ColumnSpan)"
+                                Value="2" />
+                    </VisualState.Setters>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowHeight="580"></AdaptiveTrigger>
+                    </VisualState.StateTriggers>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <EntranceThemeTransition IsStaggeringEnabled="True" />
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Image x:Name="imgQR"
+               Grid.RowSpan="2"
+               Source="{Binding QRGerado}" />
+        <Grid x:Name="grdInfoImgQR"
+              Grid.Column="1"
+              Grid.RowSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.ColumnSpan="2"
+                       TextWrapping="Wrap">
+                    <Run Text="Leia o código QR ou insira estes dados no dispositivo que será conectado. " />
+                    <Run Text="Você pode parar também clicando no botão do meio do anel de carregamento."
+                         FontWeight="Bold" /></TextBlock>
+            <TextBox Grid.Row="1"
+                     IsReadOnly="True"
+                     TextWrapping="Wrap"
+                     Header="IP"
+                     Text="{Binding Informacoes.IP}" />
+            <TextBox Grid.Row="1"
+                     Grid.Column="1"
+                     IsReadOnly="True"
+                     TextWrapping="Wrap"
+                     Header="Senha temporária"
+                     Text="{Binding Informacoes.SenhaTemporaria}" />
+            <TextBlock Grid.Row="3"
+                       Style="{StaticResource SubtitleTextBlockStyle}"
+                       Margin="0,4,0,0"
+                       Grid.ColumnSpan="2">Tempo restante</TextBlock>
+            <my:CarregamentoCircular Grid.Row="4"
+                                     Grid.ColumnSpan="2"
+                                     Segmento="{StaticResource Normal}"
+                                     ActualValue="{Binding ValorAtual}"
+                                     MaxValue="{Binding ValorMaximo, Mode=OneTime}"
+                                     Thickness="16" />
+            <Button Grid.Row="4"
+                    Grid.ColumnSpan="2"
+                    VerticalAlignment="Center"
+                    Command="{Binding FecharBrechaSeguranca}"
+                    HorizontalAlignment="Center"
+                    Background="{x:Null}">
+                <StackPanel>
+                    <SymbolIcon Symbol="Stop"
+                                Width="20"
+                                Height="20"
+                                Margin="20,24"
+                                RenderTransformOrigin="0.5,0.5">
+                        <SymbolIcon.RenderTransform>
+                            <CompositeTransform ScaleX="4"
+                                                ScaleY="4" />
+                        </SymbolIcon.RenderTransform>
+                    </SymbolIcon>
+                </StackPanel>
+            </Button>
+            <ListView HorizontalAlignment="Center"
+                      HorizontalContentAlignment="Center"
+                      Grid.Row="5"
+                      Grid.ColumnSpan="2">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="MinHeight"
+                                Value="32" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+        </Grid>
+    </Grid>
+</Page>

@@ -4,7 +4,6 @@ using Restup.Webserver.Attributes;
 using Restup.Webserver.Models.Contracts;
 using Restup.Webserver.Models.Schemas;
 using System;
-using Windows.ApplicationModel.Core;
 
 namespace BibliotecaCentral.Sincronizacao.Servidor
 {
@@ -23,7 +22,7 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
             {
                 try
                 {
-                    if ((bool)CoreApplication.Properties["BrechaAberta"])
+                    if (GerenciadorServidor.BrechaAberta)
                     {
                         if (senha != SenhaTemporária)
                             throw new SenhaErrada(senha);

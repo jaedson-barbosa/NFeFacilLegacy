@@ -1,19 +1,13 @@
 ﻿using System;
-using System.Linq;
-using Windows.UI.Xaml.Media;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Windows.Networking;
-using Windows.Networking.Connectivity;
 using Newtonsoft.Json;
 using BibliotecaCentral.Log;
 using BibliotecaCentral.Sincronizacao;
 using BibliotecaCentral.Sincronizacao.Pacotes;
 using static BibliotecaCentral.Sincronizacao.ConfiguracoesSincronizacao;
-using NFeFacil.View;
-using Windows.UI.Xaml;
 
 namespace NFeFacil.ViewModel
 {
@@ -64,33 +58,6 @@ namespace NFeFacil.ViewModel
         public bool IniciarManualmente => !InícioAutomático;
         public bool ServerRodando => Propriedades.Server.Rodando;
 
-        public InfoEstabelecerConexao Informacoes { get; private set; }
-        public ImageSource QRGerado
-        {
-            get
-            {
-                try
-                {
-                    var hosts = NetworkInformation.GetHostNames();
-                    if (hosts?.Count > 0)
-                    {
-                        Informacoes = new InfoEstabelecerConexao
-                        {
-                            IP = hosts.First(x => x.IPInformation != null && x.Type == HostNameType.Ipv4).ToString(),
-                            SenhaTemporaria = SenhaTemporária = new Random().Next(1000, 10000)
-                        };
-                        OnProperyChanged(nameof(Informacoes));
-                        return QRCode.GerarQR(JsonConvert.SerializeObject(Informacoes), 1920, 1920);
-                    }
-                    return null;
-                }
-                catch (Exception)
-                {
-                    return null;
-                }
-            }
-        }
-
         public bool SincronizarAutomaticamente
         {
             get { return ConfiguracoesSincronizacao.SincronizarAutomaticamente; }
@@ -104,16 +71,15 @@ namespace NFeFacil.ViewModel
 
         public ConfigSincronizacaoDataContext()
         {
-            GerarQRTemporárioCommand = new Comando(GerarQRTemporário, true);
+            ExibirQRCommand = new Comando(ExibirQR, true);
             LerQRTemporárioCommand = new Comando(LerQRTemporário, true);
             InserirDadosManualmenteCommand = new Comando(InserirDadosManualmente, true);
             IniciarServidorCommand = new Comando(IniciarServidor, true);
             SincronizarAgoraCommand = new Comando(SincronizarAgora, true);
-            FecharBrechaSeguranca = new Comando(PararDeAceitarNovasConexoes, true);
             SincronizarTudoCommand = new Comando(SincronizarTudo, true);
         }
 
-        public ICommand GerarQRTemporárioCommand { get; }
+        public ICommand ExibirQRCommand { get; }
         public ICommand LerQRTemporárioCommand { get; }
         public ICommand InserirDadosManualmenteCommand { get; }
         public ICommand IniciarServidorCommand { get; }
@@ -121,49 +87,9 @@ namespace NFeFacil.ViewModel
         public ICommand FecharBrechaSeguranca { get; }
         public ICommand SincronizarTudoCommand { get; }
 
-        public double ValorMaximo { get; } = 120;
-        public double ValorAtual { get; private set; } = 0;
-
-        private bool mostrarQR;
-        public bool MostrarQR
+        private async void ExibirQR()
         {
-            get => mostrarQR;
-            set
-            {
-                mostrarQR = value;
-                PropertyChanged(this, new PropertyChangedEventArgs(nameof(MostrarQR)));
-            }
-        }
-
-        private bool brechaAberta = false;
-        public async void GerarQRTemporário()
-        {
-            MostrarQR = true;
-            Propriedades.Server.AbrirBrecha(TimeSpan.FromSeconds(ValorMaximo));
-            OnProperyChanged(nameof(QRGerado));
-            ValorAtual = 0;
-            PropertyChanged(this, new PropertyChangedEventArgs("ValorAtual"));
-            await Task.Delay(500);
-            await Task.Delay(1000);
-            brechaAberta = true;
-            while (ValorAtual <= ValorMaximo && brechaAberta)
-            {
-                ValorAtual += 0.1;
-                PropertyChanged(this, new PropertyChangedEventArgs("ValorAtual"));
-                await Task.Delay(100);
-            }
-            PararDeAceitarNovasConexoes();
-        }
-
-        private async void PararDeAceitarNovasConexoes()
-        {
-            if (brechaAberta)
-            {
-                Propriedades.Server.FecharBrecha();
-                MostrarQR = false;
-                await Task.Delay(1000);
-                brechaAberta = false;
-            }
+            await Propriedades.Intercambio.AbrirFunçaoAsync(typeof(View.QRConexao));
         }
 
         public async void LerQRTemporário()

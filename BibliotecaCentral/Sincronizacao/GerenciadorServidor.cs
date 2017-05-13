@@ -4,7 +4,6 @@ using Restup.Webserver.Http;
 using Restup.Webserver.Rest;
 using System;
 using System.Threading.Tasks;
-using Windows.ApplicationModel.Core;
 
 namespace BibliotecaCentral.Sincronizacao
 {
@@ -20,10 +19,6 @@ namespace BibliotecaCentral.Sincronizacao
 
         public async Task IniciarServer()
         {
-            if (CoreApplication.Properties.ContainsKey("BrechaAberta"))
-            {
-                CoreApplication.Properties.Add("BrechaAberta", false);
-            }
             Log.Escrever(TitulosComuns.Iniciando, "Criando servidor REST");
             var rest = new RestRouteHandler();
 
@@ -45,9 +40,11 @@ namespace BibliotecaCentral.Sincronizacao
             Rodando = true;
         }
 
+        public static bool BrechaAberta { get; private set; }
+
         public void AbrirBrecha(TimeSpan tempoLimite)
         {
-            CoreApplication.Properties["BrechaAberta"] = true;
+            BrechaAberta = true;
             string strExtra;
             if (tempoLimite.Minutes == 1)
                 strExtra = "Abrindo brecha na segurança por um minuto.";
@@ -58,7 +55,7 @@ namespace BibliotecaCentral.Sincronizacao
 
         public void FecharBrecha()
         {
-            CoreApplication.Properties["BrechaAberta"] = false;
+            BrechaAberta = false;
         }
     }
 }

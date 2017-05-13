@@ -170,14 +170,12 @@ namespace NFeFacil
         public async void Retornar()
         {
             var frm = Main.FramePrincipal;
-            if (frm.Content is IValida)
+            if (frm.Content is IValida retorna)
             {
-                var retorna = frm.Content as IValida;
                 if (await retorna.Verificar())
                 {
-                    if (frm.Content is IEsconde)
+                    if (frm.Content is IEsconde esconde)
                     {
-                        var esconde = frm.Content as IEsconde;
                         await esconde.EsconderAsync();
                     }
                 }
@@ -186,9 +184,8 @@ namespace NFeFacil
                     return;
                 }
             }
-            else if (frm.Content is IEsconde)
+            else if (frm.Content is IEsconde esconde)
             {
-                var esconde = frm.Content as IEsconde;
                 await esconde.EsconderAsync();
             }
 

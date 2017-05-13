@@ -4,6 +4,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFeFacil", "NFeFacil\NFeFacil.csproj", "{89DDBE2A-16B6-464E-AC64-EE01589A3415}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B59A85AA-2D60-4D5B-8104-DCB0A3F25019} = {B59A85AA-2D60-4D5B-8104-DCB0A3F25019}
+		{C01C58EA-15A2-4C80-A021-DA71CFC2BAED} = {C01C58EA-15A2-4C80-A021-DA71CFC2BAED}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BibliotecaCentral", "BibliotecaCentral\BibliotecaCentral.csproj", "{B59A85AA-2D60-4D5B-8104-DCB0A3F25019}"
 EndProject

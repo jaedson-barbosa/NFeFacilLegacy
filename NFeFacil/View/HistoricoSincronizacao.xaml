@@ -44,7 +44,11 @@
                         <ColumnDefinition />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Style="{StaticResource TextoCabecalho}">Detalhes</TextBlock>
+                    <TextBlock Style="{StaticResource TextoCabecalho}">Data e hora</TextBlock>
+                    <TextBlock Grid.Column="1"
+                               Style="{StaticResource TextoCabecalho}">Notas fiscais</TextBlock>
+                    <TextBlock Grid.Column="2"
+                               Style="{StaticResource TextoCabecalho}">Dados base</TextBlock>
                 </Grid>
             </ListView.Header>
             <ListView.ItemTemplate>
@@ -63,9 +67,9 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="{Binding MomentoSincronizacao}" />
                         <TextBlock Grid.Column="1"
-                                   Text="{Binding NumeroNotasEnviadas}" />
+                                   Text="{Binding NumeroNotasTrafegadas}" />
                         <TextBlock Grid.Row="2"
-                                   Text="{Binding NumeroDadosEnviados}" />
+                                   Text="{Binding NumeroDadosBaseTrafegados}" />
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
@@ -82,8 +86,10 @@
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <TextBlock Style="{StaticResource TextoCabecalho}">Data e hora</TextBlock>
-                    <TextBlock Style="{StaticResource TextoCabecalho}" Grid.Column="1">Tipo de dado</TextBlock>
-                    <TextBlock Style="{StaticResource TextoCabecalho}" Grid.Column="2">Sucesso</TextBlock>
+                    <TextBlock Style="{StaticResource TextoCabecalho}"
+                               Grid.Column="1">Tipo de dado</TextBlock>
+                    <TextBlock Style="{StaticResource TextoCabecalho}"
+                               Grid.Column="2">Sucesso</TextBlock>
                 </Grid>
             </ListView.Header>
             <ListView.ItemTemplate>

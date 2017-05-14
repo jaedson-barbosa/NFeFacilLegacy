@@ -22,7 +22,7 @@
                   Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
                   ScrollViewer.VerticalScrollBarVisibility="Hidden">
         <ItemsControl Style="{StaticResource ItensMedios}"
-                      Margin="0,-2,0,0"
+                      Margin="0"
                       IsTabStop="False">
             <controles:ItemPadrao x:Name="GerenciarDadosBase"
                                   Titulo="Gerenciar dados base"
@@ -54,12 +54,6 @@
                                   Tapped="AbrirFunção">
                 <SymbolIcon Symbol="Calendar" />
             </controles:ItemPadrao>
-            <controles:ItemPadrao x:Name="HistoricoSincronizacao"
-                                  Titulo="Histórico de sincronização"
-                                  Descricao="Veja todos os detalhes de todas as requisições efetuadas/recebidas por esta aplicação."
-                                  Tapped="AbrirFunção">
-                <FontIcon Glyph="&#xE81C;" />
-            </controles:ItemPadrao>
             <controles:ItemPadrao x:Name="Configuracoes"
                                   Titulo="Configurações"
                                   Descricao="Configure a sincronização entre dispositivos, defina o certificao padrão e importe notas fiscais e dados base."
@@ -67,10 +61,16 @@
                 <SymbolIcon Symbol="Setting" />
             </controles:ItemPadrao>
             <controles:ItemPadrao x:Name="ConfigSincronizacao"
-                                  Titulo="Config. de sincronização"
+                                  Titulo="Sincronização"
                                   Descricao="Configure a sincronização entre dispositivos, adicione novos dispositivos ao servidor ou se conecte a um servidor."
                                   Tapped="AbrirFunção">
                 <SymbolIcon Symbol="Sync" />
+            </controles:ItemPadrao>
+            <controles:ItemPadrao x:Name="HistoricoSincronizacao"
+                                  Titulo="Histórico de sincronização"
+                                  Descricao="Veja todos os detalhes de todas as requisições efetuadas/recebidas por esta aplicação."
+                                  Tapped="AbrirFunção">
+                <FontIcon Glyph="&#xE81C;" />
             </controles:ItemPadrao>
         </ItemsControl>
     </ScrollViewer>

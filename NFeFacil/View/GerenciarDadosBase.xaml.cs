@@ -8,6 +8,7 @@ using BibliotecaCentral.Repositorio;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
+using BibliotecaCentral.Importacao;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -22,14 +23,20 @@ namespace NFeFacil.View
         {
             InitializeComponent();
             using (var clientes = new Clientes())
+            {
+                lstDestinatários.ItemsSource = clientes.Registro;
+            }
             using (var emitentes = new Emitentes())
+            {
+                lstEmitentes.ItemsSource = emitentes.Registro;
+            }
             using (var motoristas = new Motoristas())
+            {
+                lstMotoristas.ItemsSource = motoristas.Registro;
+            }
             using (var produtos = new Produtos())
             {
-                lstDestinatários.ItemsSource = clientes.Registro.ToList();
-                lstEmitentes.ItemsSource = emitentes.Registro.ToList();
-                lstMotoristas.ItemsSource = motoristas.Registro.ToList();
-                lstProdutos.ItemsSource = produtos.Registro.ToList();
+                lstProdutos.ItemsSource = produtos.Registro;
             }
             MainPage.Current.SeAtualizar(Telas.GerenciarDadosBase, Symbol.Manage, "Gerenciar dados base");
         }
@@ -42,7 +49,7 @@ namespace NFeFacil.View
         private void Deletar_Click(object sender, RoutedEventArgs e)
         {
             var telaEscolhida = DescobrirTela();
-            if (telaEscolhida == Pivôs.Destinatario)
+            if (telaEscolhida == TiposDadoBasico.Cliente)
             {
                 var cliente = lstDestinatários.SelectedItem as Destinatario;
                 if (cliente != null)
@@ -56,7 +63,7 @@ namespace NFeFacil.View
                     }
                 }
             }
-            else if (telaEscolhida == Pivôs.Emitente)
+            else if (telaEscolhida == TiposDadoBasico.Emitente)
             {
                 var emitente = lstEmitentes.SelectedItem as Emitente;
                 if (emitente != null)
@@ -70,7 +77,7 @@ namespace NFeFacil.View
                     }
                 }
             }
-            else if (telaEscolhida == Pivôs.Motorista)
+            else if (telaEscolhida == TiposDadoBasico.Motorista)
             {
                 var motorista = lstMotoristas.SelectedItem as Motorista;
                 if (motorista != null)
@@ -105,28 +112,28 @@ namespace NFeFacil.View
         {
             switch (DescobrirTela())
             {
-                case Pivôs.Emitente:
+                case TiposDadoBasico.Emitente:
                     await MainPage.Current.AbrirFunçaoAsync(typeof(AdicionarEmitente), new GrupoViewBanco<Emitente>
                     {
                         ItemBanco = lstEmitentes.SelectedItem as Emitente,
                         OperacaoRequirida = TipoOperacao.Edicao
                     });
                     break;
-                case Pivôs.Destinatario:
+                case TiposDadoBasico.Cliente:
                     await MainPage.Current.AbrirFunçaoAsync(typeof(AdicionarDestinatario), new GrupoViewBanco<Destinatario>
                     {
                         ItemBanco = lstDestinatários.SelectedItem as Destinatario,
                         OperacaoRequirida = TipoOperacao.Edicao
                     });
                     break;
-                case Pivôs.Motorista:
+                case TiposDadoBasico.Motorista:
                     await MainPage.Current.AbrirFunçaoAsync(typeof(AdicionarMotorista), new GrupoViewBanco<Motorista>
                     {
                         ItemBanco = lstMotoristas.SelectedItem as Motorista,
                         OperacaoRequirida = TipoOperacao.Edicao
                     });
                     break;
-                case Pivôs.Produto:
+                case TiposDadoBasico.Produto:
                     await MainPage.Current.AbrirFunçaoAsync(typeof(AdicionarProduto), new GrupoViewBanco<BaseProdutoOuServico>
                     {
                         ItemBanco = lstProdutos.SelectedItem as BaseProdutoOuServico,
@@ -136,24 +143,16 @@ namespace NFeFacil.View
             }
         }
 
-        private Pivôs DescobrirTela()
+        private TiposDadoBasico DescobrirTela()
         {
             var tela = (pivôs.SelectedItem as PivotItem).Header as string;
-            return (Pivôs)Enum.Parse(typeof(Pivôs), tela);
+            return (TiposDadoBasico)Enum.Parse(typeof(TiposDadoBasico), tela);
         }
 
         public async Task EsconderAsync()
         {
             ocultarGrid.Begin();
             await Task.Delay(250);
-        }
-
-        private enum Pivôs
-        {
-            Destinatario,
-            Emitente,
-            Motorista,
-            Produto
         }
     }
 }

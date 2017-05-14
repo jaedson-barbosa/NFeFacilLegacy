@@ -17,14 +17,12 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal"
+        <StackPanel Background="{StaticResource Variada}"
+                    Orientation="Horizontal"
                     Height="48">
             <ContentControl Name="symTitulo"
                             VerticalAlignment="Center"
-                            Margin="5,0">
-                <FontIcon Glyph="&#xE81C;"
-                          Margin="4,0,8,0" />
-            </ContentControl>
+                            Margin="16,0" />
             <TextBlock Name="txtTitulo"
                        Style="{StaticResource TitleTextBlockStyle}"
                        VerticalAlignment="Center">Nota Fácil</TextBlock>

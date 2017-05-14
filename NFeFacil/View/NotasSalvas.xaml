@@ -29,7 +29,7 @@
         </Grid.RowDefinitions>
         <ListView x:Name="lstNotas"
                   ItemsSource="{Binding NotasSalvas}"
-                  SelectionMode="Extended">
+                  SelectionMode="Multiple">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Margin="0,4">

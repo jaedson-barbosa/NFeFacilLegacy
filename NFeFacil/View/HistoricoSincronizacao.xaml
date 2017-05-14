@@ -40,15 +40,11 @@
             <ListView.Header>
                 <Grid Style="{StaticResource Cabecalho}">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*" />
                         <ColumnDefinition />
                         <ColumnDefinition />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Style="{StaticResource TextoCabecalho}">Detalhes da requisição</TextBlock>
-                    <TextBlock Style="{StaticResource TextoCabecalho}" Grid.Column="1">Notas liberadas</TextBlock>
-                    <TextBlock Style="{StaticResource TextoCabecalho}" Grid.Column="2">Dados base liberados</TextBlock>
-                    <TextBlock Style="{StaticResource TextoCabecalho}" Grid.Column="3">Segundo plano</TextBlock>
+                    <TextBlock Style="{StaticResource TextoCabecalho}">Detalhes</TextBlock>
                 </Grid>
             </ListView.Header>
             <ListView.ItemTemplate>
@@ -61,60 +57,15 @@
                             </Style>
                         </Grid.Resources>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*" />
                             <ColumnDefinition />
                             <ColumnDefinition />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-                        <TextBlock Text="{Binding MomentoSincronizacao, ConverterParameter='Data e hora', Converter={StaticResource label}}" />
-                        <TextBlock Grid.Row="1"
-                                   Text="{Binding NumeroNotasEnviadas, ConverterParameter='Notas enviadas', Converter={StaticResource label}}" />
+                        <TextBlock Text="{Binding MomentoSincronizacao}" />
+                        <TextBlock Grid.Column="1"
+                                   Text="{Binding NumeroNotasEnviadas}" />
                         <TextBlock Grid.Row="2"
-                                   Text="{Binding NumeroNotasRecebidas, ConverterParameter='Notas recebidas', Converter={StaticResource label}}" />
-                        <TextBlock Grid.Row="3"
-                                   Text="{Binding NumeroDadosEnviados, ConverterParameter='Dados base enviados', Converter={StaticResource label}}" />
-                        <TextBlock Grid.Row="4"
-                                   Text="{Binding NumeroDadosRecebidos, ConverterParameter='Dados base recebidos', Converter={StaticResource label}}" />
-                        <SymbolIcon Grid.Column="1"
-                                    Grid.RowSpan="5"
-                                    Symbol="{Binding PodeSincronizarNota, Converter={StaticResource icon}}"
-                                    RenderTransformOrigin="0.5,0.5"
-                                    Width="24"
-                                    Height="24">
-                            <SymbolIcon.RenderTransform>
-                                <CompositeTransform ScaleX="4"
-                                                    ScaleY="4" />
-                            </SymbolIcon.RenderTransform>
-                        </SymbolIcon>
-                        <SymbolIcon Grid.Column="2"
-                                    Grid.RowSpan="5"
-                                    Symbol="{Binding PodeSincronizarDadoBase, Converter={StaticResource icon}}"
-                                    RenderTransformOrigin="0.5,0.5"
-                                    Width="24"
-                                    Height="24">
-                            <SymbolIcon.RenderTransform>
-                                <CompositeTransform ScaleX="4"
-                                                    ScaleY="4" />
-                            </SymbolIcon.RenderTransform>
-                        </SymbolIcon>
-                        <SymbolIcon Grid.Column="3"
-                                    Grid.RowSpan="5"
-                                    Symbol="{Binding SincronizacaoAutomatica, Converter={StaticResource icon}}"
-                                    RenderTransformOrigin="0.5,0.5"
-                                    Width="24"
-                                    Height="24">
-                            <SymbolIcon.RenderTransform>
-                                <CompositeTransform ScaleX="4"
-                                                    ScaleY="4" />
-                            </SymbolIcon.RenderTransform>
-                        </SymbolIcon>
+                                   Text="{Binding NumeroDadosEnviados}" />
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
@@ -130,9 +81,9 @@
                         <ColumnDefinition />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Style="{StaticResource TextoCabecalho}">Momento de recebimento da requisição</TextBlock>
-                    <TextBlock Style="{StaticResource TextoCabecalho}" Grid.Column="1">Tipo de dado solicitado</TextBlock>
-                    <TextBlock Style="{StaticResource TextoCabecalho}" Grid.Column="2">Processamento obteve sucesso</TextBlock>
+                    <TextBlock Style="{StaticResource TextoCabecalho}">Data e hora</TextBlock>
+                    <TextBlock Style="{StaticResource TextoCabecalho}" Grid.Column="1">Tipo de dado</TextBlock>
+                    <TextBlock Style="{StaticResource TextoCabecalho}" Grid.Column="2">Sucesso</TextBlock>
                 </Grid>
             </ListView.Header>
             <ListView.ItemTemplate>

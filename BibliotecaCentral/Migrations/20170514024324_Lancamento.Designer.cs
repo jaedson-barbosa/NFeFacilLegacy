@@ -8,13 +8,13 @@ using BibliotecaCentral;
 namespace BibliotecaCentral.Migrations
 {
     [DbContext(typeof(AplicativoContext))]
-    [Migration("20170511140505_Beta")]
-    partial class Beta
+    [Migration("20170514024324_Lancamento")]
+    partial class Lancamento
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .HasAnnotation("ProductVersion", "1.1.1");
+                .HasAnnotation("ProductVersion", "1.1.2");
 
             modelBuilder.Entity("BibliotecaCentral.ItensBD.NFeDI", b =>
                 {
@@ -53,17 +53,9 @@ namespace BibliotecaCentral.Migrations
 
                     b.Property<DateTime>("MomentoSincronizacao");
 
-                    b.Property<int>("NumeroDadosEnviados");
+                    b.Property<int>("NumeroDadosBaseTrafegados");
 
-                    b.Property<int>("NumeroDadosRecebidos");
-
-                    b.Property<int>("NumeroNotasEnviadas");
-
-                    b.Property<int>("NumeroNotasRecebidas");
-
-                    b.Property<bool>("PodeSincronizarDadoBase");
-
-                    b.Property<bool>("PodeSincronizarNota");
+                    b.Property<int>("NumeroNotasTrafegadas");
 
                     b.Property<bool>("SincronizacaoAutomatica");
 

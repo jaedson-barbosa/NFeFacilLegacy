@@ -6,12 +6,8 @@ namespace BibliotecaCentral.ItensBD
     {
         public int Id { get; set; }
         public DateTime MomentoSincronizacao { get; set; }
-        public int NumeroNotasEnviadas { get; set; }
-        public int NumeroNotasRecebidas { get; set; }
-        public int NumeroDadosEnviados { get; set; }
-        public int NumeroDadosRecebidos { get; set; }
+        public int NumeroNotasTrafegadas { get; set; }
+        public int NumeroDadosBaseTrafegados { get; set; }
         public bool SincronizacaoAutomatica { get; set; }
-        public bool PodeSincronizarNota { get; set; }
-        public bool PodeSincronizarDadoBase { get; set; }
     }
 }

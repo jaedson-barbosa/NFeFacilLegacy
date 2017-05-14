@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BibliotecaCentral.Migrations
 {
-    public partial class Beta : Migration
+    public partial class Lancamento : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -33,12 +33,8 @@ namespace BibliotecaCentral.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     MomentoSincronizacao = table.Column<DateTime>(nullable: false),
-                    NumeroDadosEnviados = table.Column<int>(nullable: false),
-                    NumeroDadosRecebidos = table.Column<int>(nullable: false),
-                    NumeroNotasEnviadas = table.Column<int>(nullable: false),
-                    NumeroNotasRecebidas = table.Column<int>(nullable: false),
-                    PodeSincronizarDadoBase = table.Column<bool>(nullable: false),
-                    PodeSincronizarNota = table.Column<bool>(nullable: false),
+                    NumeroDadosBaseTrafegados = table.Column<int>(nullable: false),
+                    NumeroNotasTrafegadas = table.Column<int>(nullable: false),
                     SincronizacaoAutomatica = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>

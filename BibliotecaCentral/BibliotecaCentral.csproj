@@ -108,9 +108,9 @@
   <ItemGroup>
     <Compile Include="Certificacao\AssinaNFe.cs" />
     <Compile Include="Certificacao\ConfiguracoesCertificacao.cs" />
-    <Compile Include="Migrations\20170511140505_Beta.cs" />
-    <Compile Include="Migrations\20170511140505_Beta.designer.cs">
-      <DependentUpon>20170511140505_Beta.cs</DependentUpon>
+    <Compile Include="Migrations\20170514024324_Lancamento.cs" />
+    <Compile Include="Migrations\20170514024324_Lancamento.designer.cs">
+      <DependentUpon>20170514024324_Lancamento.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\AplicativoContextModelSnapshot.cs" />
     <Compile Include="Repositorio\MudancaOtimizadaBancoDados.cs" />

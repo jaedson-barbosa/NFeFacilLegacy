@@ -61,12 +61,8 @@ namespace BibliotecaCentral.Sincronizacao
 
                     db.Add(new ResultadoSincronizacaoCliente
                     {
-                        PodeSincronizarDadoBase = config.DadosBase,
-                        PodeSincronizarNota = config.Notas,
-                        NumeroDadosEnviados = quantDados.Enviados,
-                        NumeroDadosRecebidos = quantDados.Recebidos,
-                        NumeroNotasEnviadas = quantNotas.Enviados,
-                        NumeroNotasRecebidas = quantNotas.Recebidos,
+                        NumeroDadosBaseTrafegados = quantDados.Enviados + quantDados.Recebidos,
+                        NumeroNotasTrafegadas = quantNotas.Enviados + quantNotas.Recebidos,
                         MomentoSincronizacao = DateTime.Now,
                         SincronizacaoAutomatica = isBackground
                     });
@@ -80,7 +76,7 @@ namespace BibliotecaCentral.Sincronizacao
 
             async Task<ItensSincronizados> SincronizarDadosBase(AplicativoContext contexto)
             {
-                var momento = contexto.ResultadosCliente.Count(x => x.PodeSincronizarDadoBase) > 0 ? contexto.ResultadosCliente.Last(x => x.PodeSincronizarDadoBase).MomentoSincronizacao : DateTime.MinValue;
+                var momento = contexto.ResultadosCliente.Count(x => x.NumeroDadosBaseTrafegados > 0) > 0 ? contexto.ResultadosCliente.Last(x => x.NumeroDadosBaseTrafegados > 0).MomentoSincronizacao : DateTime.MinValue;
                 var receb = await EnviarAsync<DadosBase>($"Dados", HttpMethod.Get, SenhaPermanente, null, momento.ToBinary().ToString());
 
                 var envio = new DadosBase
@@ -107,7 +103,7 @@ namespace BibliotecaCentral.Sincronizacao
 
             async Task<ItensSincronizados> SincronizarNotas(AplicativoContext contexto)
             {
-                var momento = contexto.ResultadosCliente.Count(x => x.PodeSincronizarNota) > 0 ? contexto.ResultadosCliente.Last(x => x.PodeSincronizarNota).MomentoSincronizacao : DateTime.MinValue;
+                var momento = contexto.ResultadosCliente.Count(x => x.NumeroNotasTrafegadas > 0) > 0 ? contexto.ResultadosCliente.Last(x => x.NumeroNotasTrafegadas > 0).MomentoSincronizacao : DateTime.MinValue;
                 var receb = await EnviarAsync<NotasFiscais>("Notas", HttpMethod.Get, SenhaPermanente, null, momento.ToBinary().ToString());
 
                 var conjunto = from item in contexto.NotasFiscais
@@ -161,12 +157,8 @@ namespace BibliotecaCentral.Sincronizacao
 
                     db.Add(new ResultadoSincronizacaoCliente
                     {
-                        PodeSincronizarDadoBase = config.DadosBase,
-                        PodeSincronizarNota = config.Notas,
-                        NumeroDadosEnviados = quantDados.Enviados,
-                        NumeroDadosRecebidos = quantDados.Recebidos,
-                        NumeroNotasEnviadas = quantNotas.Enviados,
-                        NumeroNotasRecebidas = quantNotas.Recebidos,
+                        NumeroDadosBaseTrafegados = quantDados.Enviados + quantDados.Recebidos,
+                        NumeroNotasTrafegadas = quantNotas.Enviados + quantNotas.Recebidos,
                         MomentoSincronizacao = DateTime.Now,
                         SincronizacaoAutomatica = false
                     });

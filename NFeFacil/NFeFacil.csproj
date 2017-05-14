@@ -263,9 +263,6 @@
     <Compile Include="View\Controles\Guia.xaml.cs">
       <DependentUpon>Guia.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Controles\SplitViewItem.xaml.cs">
-      <DependentUpon>SplitViewItem.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\Inicio.xaml.cs">
       <DependentUpon>Inicio.xaml</DependentUpon>
     </Compile>
@@ -408,10 +405,6 @@
     <Page Include="View\Controles\ItemPadrao.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Controles\SplitViewItem.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Estilos\EstilosExtras.xaml">
       <SubType>Designer</SubType>

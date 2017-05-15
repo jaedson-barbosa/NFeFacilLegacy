@@ -8,7 +8,9 @@ using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Partes
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Core;
 using Windows.System.Profile;
+using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -44,6 +46,7 @@ namespace NFeFacil
             Current = this;
             AnalisarBarraTituloAsync();
             ApplicationView.GetForCurrentView().VisibleBoundsChanged += (x, y) => AnalisarOrientacao(x);
+            btnRetornar.Click += (x, y) => Retornar();
             SystemNavigationManager.GetForCurrentView().BackRequested += (x,e) =>
             {
                 e.Handled = true;
@@ -73,15 +76,37 @@ namespace NFeFacil
             }
         }
 
-        private static async void AnalisarBarraTituloAsync()
+        private void AnalisarBarraTituloAsync()
         {
             var familia = AnalyticsInfo.VersionInfo.DeviceFamily;
             if (familia.Contains("Mobile"))
-                await StatusBar.GetForCurrentView().HideAsync();
+            {
+                btnRetornar.Visibility = Visibility.Collapsed;
+                var barra = StatusBar.GetForCurrentView();
+                var cor = new View.Estilos.Auxiliares.BibliotecaCores().Cor1;
+                barra.BackgroundColor = cor;
+                barra.BackgroundOpacity = 1;
+            }
             else if (familia.Contains("Desktop"))
-                SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
+            {
+                CoreApplicationViewTitleBar tb = CoreApplication.GetCurrentView().TitleBar;
+                tb.ExtendViewIntoTitleBar = true;
+                tb.IsVisibleChanged += (sender, e) => TitleBar.Visibility = sender.IsVisible ? Visibility.Visible : Visibility.Collapsed;
+                tb.LayoutMetricsChanged += (sender, e) => TitleBar.Height = sender.Height;
+                Window.Current.SetTitleBar(MainTitleBar);
+                Window.Current.Activated += (sender, e) => TitleBar.Opacity = e.WindowActivationState != CoreWindowActivationState.Deactivated ? 1 : 0.5;
+
+                var novoTB = ApplicationView.GetForCurrentView().TitleBar;
+                var corBackground = new Color { A = 0 };
+                novoTB.ButtonBackgroundColor = corBackground;
+                novoTB.ButtonInactiveBackgroundColor = corBackground;
+                novoTB.ButtonHoverBackgroundColor = new Color { A = 50 };
+                novoTB.ButtonPressedBackgroundColor = new Color { A = 100 };
+            }
             else
+            {
                 new Saida().Escrever(TitulosComuns.ErroSimples, "Tipo não reconhecido de dispositivo, não é possível mudar a barra de título.");
+            }
         }
 
 

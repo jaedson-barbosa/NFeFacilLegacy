@@ -45,7 +45,7 @@
         <Setter Property="ItemsPanel">
             <Setter.Value>
                 <ItemsPanelTemplate>
-                    <aux:PainelAdaptavel TamanhoDesejado="256" />
+                    <aux:PainelAdaptavel TamanhoDesejado="200" />
                 </ItemsPanelTemplate>
             </Setter.Value>
         </Setter>

@@ -17,16 +17,34 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <StackPanel Background="{StaticResource Variada}"
-                    Orientation="Horizontal"
-                    Height="40">
-            <ContentControl Name="symTitulo"
-                            VerticalAlignment="Center"
-                            Margin="16,0" />
-            <TextBlock Name="txtTitulo"
-                       Style="{StaticResource TitleTextBlockStyle}"
-                       VerticalAlignment="Center">Nota Fácil</TextBlock>
-        </StackPanel>
+        <Grid x:Name="TitleBar"
+              Background="{StaticResource PoucoVariada}"
+              Height="40">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Button x:Name="btnRetornar"
+                    Background="#00000000"
+                    Margin="0"
+                    Width="48"
+                    VerticalAlignment="Stretch"
+                    BorderThickness="0">
+                <SymbolIcon Symbol="Back" />
+            </Button>
+            <StackPanel x:Name="MainTitleBar"
+                        Grid.Column="1"
+                        Orientation="Horizontal"
+                        Background="#00000000">
+                <ContentControl Name="symTitulo"
+                                VerticalAlignment="Center"
+                                Margin="16,0" />
+                <TextBlock Name="txtTitulo"
+                           Style="{StaticResource BodyTextBlockStyle}"
+                           VerticalAlignment="Center"
+                           FontWeight="Bold">Nota Fácil</TextBlock>
+            </StackPanel>
+        </Grid>
         <Frame Name="frmPrincipal"
                Grid.Row="1" />
         <Border Name="grdAvisoRotacao"

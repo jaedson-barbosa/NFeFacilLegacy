@@ -406,11 +406,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Estilos\EstilosExtras.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Page>
     <Page Include="View\Estilos\Tabela.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

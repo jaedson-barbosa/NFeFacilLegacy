@@ -19,7 +19,7 @@
         </Grid.RowDefinitions>
         <StackPanel Background="{StaticResource Variada}"
                     Orientation="Horizontal"
-                    Height="48">
+                    Height="40">
             <ContentControl Name="symTitulo"
                             VerticalAlignment="Center"
                             Margin="16,0" />

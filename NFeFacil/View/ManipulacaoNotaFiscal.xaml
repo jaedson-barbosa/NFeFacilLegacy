@@ -15,7 +15,6 @@
                 <ResourceDictionary Source="Estilos/GridResponsiva.xaml" />
                 <ResourceDictionary Source="Estilos/PivotPrincipal.xaml" />
                 <ResourceDictionary Source="Estilos/Tabela.xaml" />
-                <ResourceDictionary Source="Estilos/EstilosExtras.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <VM:DadosEstadosParaView x:Key="estados" />
             <Conversores:BoolToVisibility x:Key="visibilidade" />

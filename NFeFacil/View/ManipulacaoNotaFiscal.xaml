@@ -44,11 +44,11 @@
     </Page.Resources>
     <Grid x:Name="grdPrincipal"
           Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid.ChildrenTransitions>
+        <Grid.Transitions>
             <TransitionCollection>
                 <EntranceThemeTransition />
             </TransitionCollection>
-        </Grid.ChildrenTransitions>
+        </Grid.Transitions>
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="Auto" />

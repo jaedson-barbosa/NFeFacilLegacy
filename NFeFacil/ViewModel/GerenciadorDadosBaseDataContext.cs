@@ -5,6 +5,7 @@ using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Partes
 using BibliotecaCentral.Repositorio;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace NFeFacil.ViewModel
@@ -13,57 +14,15 @@ namespace NFeFacil.ViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void OnPropertyChanged(params string[] nomes)
+        private void OnPropertyChanged(string nome)
         {
-            for (int i = 0; i < nomes.Length; i++)
-            {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nomes[i]));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nome));
         }
 
-        public ObservableCollection<Emitente> Emitentes
-        {
-            get
-            {
-                using (var db = new Emitentes())
-                {
-                    return db.Registro.GerarObs();
-                }
-            }
-        }
-
-        public ObservableCollection<Destinatario> Clientes
-        {
-            get
-            {
-                using (var db = new Clientes())
-                {
-                    return db.Registro.GerarObs();
-                }
-            }
-        }
-
-        public ObservableCollection<Motorista> Motoristas
-        {
-            get
-            {
-                using (var db = new Motoristas())
-                {
-                    return db.Registro.GerarObs();
-                }
-            }
-        }
-
-        public ObservableCollection<BaseProdutoOuServico> Produtos
-        {
-            get
-            {
-                using (var db = new Produtos())
-                {
-                    return db.Registro.GerarObs();
-                }
-            }
-        }
+        public ObservableCollection<Emitente> Emitentes { get; private set; }
+        public ObservableCollection<Destinatario> Clientes { get; private set; }
+        public ObservableCollection<Motorista> Motoristas { get; private set; }
+        public ObservableCollection<BaseProdutoOuServico> Produtos { get; private set; }
 
         public ICommand AdicionarEmitenteCommand { get; }
         public ICommand EditarEmitenteCommand { get; }
@@ -98,6 +57,52 @@ namespace NFeFacil.ViewModel
             AdicionarProdutoCommand = new Comando(AdicionarProduto);
             EditarProdutoCommand = new Comando<BaseProdutoOuServico>(EditarProduto);
             RemoverProdutoCommand = new Comando<BaseProdutoOuServico>(RemoverProduto);
+
+            DefinirAsync();
+
+            async void DefinirAsync()
+            {
+                await DefinirEmitentesAsync();
+                await DefinirClientesAsync();
+                await DefinirMotoristasAsync();
+                await DefinirProdutosAsync();
+            }
+        }
+
+        private async Task DefinirEmitentesAsync()
+        {
+            using (var db = new Emitentes())
+            {
+                Emitentes = await Task.Run(() => db.Registro.GerarObs());
+                OnPropertyChanged(nameof(Emitentes));
+            }
+        }
+
+        private async Task DefinirClientesAsync()
+        {
+            using (var db = new Clientes())
+            {
+                Clientes = await Task.Run(() => db.Registro.GerarObs());
+                OnPropertyChanged(nameof(Clientes));
+            }
+        }
+
+        private async Task DefinirMotoristasAsync()
+        {
+            using (var db = new Motoristas())
+            {
+                Motoristas = await Task.Run(() => db.Registro.GerarObs());
+                OnPropertyChanged(nameof(Motoristas));
+            }
+        }
+
+        private async Task DefinirProdutosAsync()
+        {
+            using (var db = new Produtos())
+            {
+                Produtos = await Task.Run(() => db.Registro.GerarObs());
+                OnPropertyChanged(nameof(Produtos));
+            }
         }
 
         private async void AdicionarEmitente()
@@ -114,13 +119,13 @@ namespace NFeFacil.ViewModel
             });
         }
 
-        private void RemoverEmitente(Emitente emit)
+        private async void RemoverEmitente(Emitente emit)
         {
             using (var db = new Emitentes())
             {
                 db.Remover(emit);
                 db.SalvarMudancas();
-                OnPropertyChanged(nameof(Emitentes));
+                await DefinirEmitentesAsync();
             }
         }
 
@@ -138,13 +143,13 @@ namespace NFeFacil.ViewModel
             });
         }
 
-        private void RemoverCliente(Destinatario dest)
+        private async void RemoverCliente(Destinatario dest)
         {
             using (var db = new Clientes())
             {
                 db.Remover(dest);
                 db.SalvarMudancas();
-                OnPropertyChanged(nameof(Clientes));
+                await DefinirClientesAsync();
             }
         }
 
@@ -162,13 +167,13 @@ namespace NFeFacil.ViewModel
             });
         }
 
-        private void RemoverMotorista(Motorista mot)
+        private async void RemoverMotorista(Motorista mot)
         {
             using (var db = new Motoristas())
             {
                 db.Remover(mot);
                 db.SalvarMudancas();
-                OnPropertyChanged(nameof(Motoristas));
+                await DefinirMotoristasAsync();
             }
         }
 
@@ -186,13 +191,13 @@ namespace NFeFacil.ViewModel
             });
         }
 
-        private void RemoverProduto(BaseProdutoOuServico prod)
+        private async void RemoverProduto(BaseProdutoOuServico prod)
         {
             using (var db = new Produtos())
             {
                 db.Remover(prod);
                 db.SalvarMudancas();
-                OnPropertyChanged(nameof(Produtos));
+                await DefinirProdutosAsync();
             }
         }
     }

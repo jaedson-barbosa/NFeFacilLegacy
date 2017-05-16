@@ -99,10 +99,9 @@ namespace NFeFacil
             }
             else
             {
-                new Saida().Escrever(TitulosComuns.ErroSimples, "Tipo não reconhecido de dispositivo, não é possível mudar a barra de título.");
+                Log.Escrever(TitulosComuns.ErroSimples, "Tipo não reconhecido de dispositivo, não é possível mudar a barra de título.");
             }
         }
-
 
         public async Task AbrirFunçaoAsync(string tela, object parametro = null)
         {

@@ -5,14 +5,6 @@
         <ResourceDictionary>
             <Style x:Key="ListaItemsPadrao"
                    TargetType="ItemsControl">
-                <Setter Property="ItemContainerTransitions">
-                    <Setter.Value>
-                        <TransitionCollection>
-                            <EntranceThemeTransition IsStaggeringEnabled="True" />
-                            <RepositionThemeTransition />
-                        </TransitionCollection>
-                    </Setter.Value>
-                </Setter>
                 <Setter Property="ItemContainerStyle">
                     <Setter.Value>
                         <Style TargetType="FrameworkElement">
@@ -31,6 +23,13 @@
     <Style x:Key="ItensResponsivos"
            TargetType="ItemsControl"
            BasedOn="{StaticResource ListaItemsPadrao}">
+        <Setter Property="ItemContainerTransitions">
+            <Setter.Value>
+                <TransitionCollection>
+                    <EntranceThemeTransition />
+                </TransitionCollection>
+            </Setter.Value>
+        </Setter>
         <Setter Property="ItemsPanel">
             <Setter.Value>
                 <ItemsPanelTemplate>
@@ -42,6 +41,14 @@
     <Style x:Key="ItensMedios"
            TargetType="ItemsControl"
            BasedOn="{StaticResource ListaItemsPadrao}">
+        <Setter Property="ItemContainerTransitions">
+            <Setter.Value>
+                <TransitionCollection>
+                    <EntranceThemeTransition IsStaggeringEnabled="True" />
+                    <RepositionThemeTransition />
+                </TransitionCollection>
+            </Setter.Value>
+        </Setter>
         <Setter Property="ItemsPanel">
             <Setter.Value>
                 <ItemsPanelTemplate>

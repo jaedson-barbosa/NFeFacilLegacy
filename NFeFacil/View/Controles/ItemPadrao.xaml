@@ -5,18 +5,20 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              d:DesignHeight="300"
-             d:DesignWidth="400">
+             d:DesignWidth="400"
+             Tapped="Tocado"
+             ToolTipService.ToolTip="{x:Bind Descricao}">
     <GridViewItem Padding="16"
                   Background="{StaticResource ButtonBackground}"
-                  Margin="0"
-                  Tapped="Tocado">
+                  Margin="0">
         <StackPanel>
             <ContentControl Content="{x:Bind Icone}"
                             RenderTransformOrigin="0.5,0.5"
                             Width="24"
-                            Margin="36,30"
+                            Height="20"
+                            Margin="30"
                             HorizontalAlignment="Center"
-                            Height="20">
+                            HorizontalContentAlignment="Center">
                 <ContentControl.RenderTransform>
                     <CompositeTransform ScaleX="4"
                                         ScaleY="4" />
@@ -24,11 +26,9 @@
             </ContentControl>
             <TextBlock Text="{x:Bind Titulo}"
                        TextWrapping="Wrap"
-                       Style="{StaticResource BodyTextBlockStyle}"
-                       TextAlignment="Center" />
-            <TextBlock Text="{x:Bind Descricao}"
-                       TextWrapping="Wrap"
-                       Style="{StaticResource CaptionTextBlockStyle}" />
+                       Style="{StaticResource BaseTextBlockStyle}"
+                       TextAlignment="Center"
+                       Margin="0,4,0,0" />
         </StackPanel>
     </GridViewItem>
 </UserControl>

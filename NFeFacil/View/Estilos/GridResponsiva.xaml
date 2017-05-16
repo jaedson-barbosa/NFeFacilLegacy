@@ -23,13 +23,6 @@
     <Style x:Key="ItensResponsivos"
            TargetType="ItemsControl"
            BasedOn="{StaticResource ListaItemsPadrao}">
-        <Setter Property="ItemContainerTransitions">
-            <Setter.Value>
-                <TransitionCollection>
-                    <EntranceThemeTransition />
-                </TransitionCollection>
-            </Setter.Value>
-        </Setter>
         <Setter Property="ItemsPanel">
             <Setter.Value>
                 <ItemsPanelTemplate>

@@ -23,6 +23,13 @@
     <Style x:Key="ItensResponsivos"
            TargetType="ItemsControl"
            BasedOn="{StaticResource ListaItemsPadrao}">
+        <Setter Property="ItemContainerTransitions">
+            <Setter.Value>
+                <TransitionCollection>
+                    <RepositionThemeTransition IsStaggeringEnabled="False" />
+                </TransitionCollection>
+            </Setter.Value>
+        </Setter>
         <Setter Property="ItemsPanel">
             <Setter.Value>
                 <ItemsPanelTemplate>
@@ -38,7 +45,7 @@
             <Setter.Value>
                 <TransitionCollection>
                     <EntranceThemeTransition IsStaggeringEnabled="True" />
-                    <RepositionThemeTransition />
+                    <RepositionThemeTransition IsStaggeringEnabled="False" />
                 </TransitionCollection>
             </Setter.Value>
         </Setter>

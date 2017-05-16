@@ -1,13 +1,12 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="using:NFeFacil.View.Estilos">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="CoresDestaque.xaml" />
     </ResourceDictionary.MergedDictionaries>
     <Style x:Key="PseudoTabela"
            TargetType="ListView">
         <Setter Property="Margin"
-                Value="-12,-5,-12,0" />
+                Value="-12,-6,-12,0" />
         <Setter Property="ItemContainerStyle"
                 Value="{StaticResource ItemFullWidth}" />
     </Style>

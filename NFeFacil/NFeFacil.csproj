@@ -177,6 +177,7 @@
     <Compile Include="ViewModel\Converters\Invert.cs" />
     <Compile Include="ViewModel\Converters\ModificaValor.cs" />
     <Compile Include="ViewModel\Converters\StringToDateTime.cs" />
+    <Compile Include="ViewModel\GerenciadorDadosBaseDataContext.cs" />
     <Compile Include="ViewModel\IObterPropriedade.cs" />
     <Compile Include="ViewModel\NotaFiscalDataContext.cs" />
     <Compile Include="ViewModel\NotasSalvasDataContext.cs" />

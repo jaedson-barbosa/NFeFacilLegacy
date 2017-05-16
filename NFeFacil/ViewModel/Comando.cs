@@ -8,7 +8,7 @@ namespace NFeFacil.ViewModel
         private Action _action;
         private bool _canExecute;
 
-        public Comando(Action action, bool canExecute)
+        public Comando(Action action, bool canExecute = true)
         {
             _action = action;
             _canExecute = canExecute;

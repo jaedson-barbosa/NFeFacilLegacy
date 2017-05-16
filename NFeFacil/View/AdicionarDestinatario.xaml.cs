@@ -27,8 +27,20 @@ namespace NFeFacil.View
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var parametro = (GrupoViewBanco<Destinatario>)e.Parameter;
-            cliente = parametro.ItemBanco ?? new Destinatario();
+            GrupoViewBanco<Destinatario> parametro;
+            if (e.Parameter == null)
+            {
+                parametro = new GrupoViewBanco<Destinatario>
+                {
+                    ItemBanco = new Destinatario(),
+                    OperacaoRequirida = TipoOperacao.Adicao
+                };
+            }
+            else
+            {
+                parametro = (GrupoViewBanco<Destinatario>)e.Parameter;
+            }
+            cliente = parametro.ItemBanco;
             tipoRequisitado = parametro.OperacaoRequirida;
             switch (tipoRequisitado)
             {
@@ -37,8 +49,6 @@ namespace NFeFacil.View
                     break;
                 case TipoOperacao.Edicao:
                     MainPage.Current.SeAtualizar(Telas.GerenciarDadosBase, Symbol.Edit, "Editar cliente");
-                    break;
-                default:
                     break;
             }
             DataContext = cliente;

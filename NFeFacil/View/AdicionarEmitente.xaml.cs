@@ -27,8 +27,20 @@ namespace NFeFacil.View
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var parametro = (GrupoViewBanco<Emitente>)e.Parameter;
-            emitente = parametro.ItemBanco ?? new Emitente();
+            GrupoViewBanco<Emitente> parametro;
+            if (e.Parameter == null)
+            {
+                parametro = new GrupoViewBanco<Emitente>
+                {
+                    ItemBanco = new Emitente(),
+                    OperacaoRequirida = TipoOperacao.Adicao
+                };
+            }
+            else
+            {
+                parametro = (GrupoViewBanco<Emitente>)e.Parameter;
+            }
+            emitente = parametro.ItemBanco;
             tipoRequisitado = parametro.OperacaoRequirida;
             switch (tipoRequisitado)
             {
@@ -37,8 +49,6 @@ namespace NFeFacil.View
                     break;
                 case TipoOperacao.Edicao:
                     MainPage.Current.SeAtualizar(Telas.GerenciarDadosBase, Symbol.Edit, "Editar emitente");
-                    break;
-                default:
                     break;
             }
             DataContext = emitente;

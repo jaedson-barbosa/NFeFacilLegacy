@@ -27,8 +27,20 @@ namespace NFeFacil.View
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var parametro = (GrupoViewBanco<Motorista>)e.Parameter;
-            motorista = parametro.ItemBanco ?? new Motorista();
+            GrupoViewBanco<Motorista> parametro;
+            if (e.Parameter == null)
+            {
+                parametro = new GrupoViewBanco<Motorista>
+                {
+                    ItemBanco = new Motorista(),
+                    OperacaoRequirida = TipoOperacao.Adicao
+                };
+            }
+            else
+            {
+                parametro = (GrupoViewBanco<Motorista>)e.Parameter;
+            }
+            motorista = parametro.ItemBanco;
             tipoRequisitado = parametro.OperacaoRequirida;
             switch (tipoRequisitado)
             {
@@ -37,8 +49,6 @@ namespace NFeFacil.View
                     break;
                 case TipoOperacao.Edicao:
                     MainPage.Current.SeAtualizar(Telas.GerenciarDadosBase, Symbol.Edit, "Editar motorista");
-                    break;
-                default:
                     break;
             }
             DataContext = motorista;

@@ -1,5 +1,4 @@
 ﻿using BibliotecaCentral.Sincronizacao;
-using NFeFacil.View;
 using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;

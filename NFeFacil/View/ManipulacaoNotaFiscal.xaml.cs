@@ -33,8 +33,6 @@ namespace NFeFacil.View
                 case TipoOperacao.Edicao:
                     MainPage.Current.SeAtualizar(Telas.ManipularNota, Symbol.Edit, "Editar nota fiscal");
                     break;
-                default:
-                    break;
             }
             DataContext = contexto = new NotaFiscalDataContext(ref param);
         }

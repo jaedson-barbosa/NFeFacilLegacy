@@ -1,10 +1,4 @@
-﻿using BibliotecaCentral.ItensBD;
-using BibliotecaCentral.Log;
-using BibliotecaCentral.ModeloXML.PartesProcesso;
-using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe;
-using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
-using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
-using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
+﻿using BibliotecaCentral.Log;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -55,7 +49,7 @@ namespace NFeFacil
             AbrirInicio();
         }
 
-        async void AbrirInicio() => await AbrirFunçaoAsync(nameof(View.Inicio));
+        async void AbrirInicio() => await AbrirFunçaoAsync(typeof(View.Inicio));
 
         private void AnalisarOrientacao(ApplicationView sender)
         {
@@ -117,11 +111,6 @@ namespace NFeFacil
 
         public async Task AbrirFunçaoAsync(Type tela, object parametro = null)
         {
-            if (TelasComParametroObrigatorio.Contains(tela) && parametro == null)
-            {
-                ObterValorPadrao(tela, out parametro);
-            }
-
             if (frmPrincipal.Content != null)
             {
                 if (frmPrincipal.Content is IEsconde esconde)
@@ -134,64 +123,6 @@ namespace NFeFacil
                 }
             }
             frmPrincipal.Navigate(tela, parametro);
-        }
-
-        private List<Type> TelasComParametroObrigatorio = new List<Type>
-        {
-            typeof(View.AdicionarDestinatario),
-            typeof(View.AdicionarEmitente),
-            typeof(View.AdicionarMotorista),
-            typeof(View.AdicionarProduto),
-            typeof(View.ManipulacaoNotaFiscal)
-        };
-
-        private void ObterValorPadrao(Type tipo, out object retorno)
-        {
-            if (tipo == typeof(View.AdicionarDestinatario))
-            {
-                retorno = new GrupoViewBanco<Destinatario>();
-            }
-            else if (tipo == typeof(View.AdicionarEmitente))
-            {
-                retorno = new GrupoViewBanco<Emitente>();
-            }
-            else if (tipo == typeof(View.AdicionarMotorista))
-            {
-                retorno = new GrupoViewBanco<Motorista>();
-            }
-            else if (tipo == typeof(View.AdicionarProduto))
-            {
-                retorno = new GrupoViewBanco<BaseProdutoOuServico>();
-            }
-            else if (tipo == typeof(View.ManipulacaoNotaFiscal))
-            {
-                retorno = new ConjuntoManipuladorNFe
-                {
-                    NotaSalva = new NFe()
-                    {
-                        Informações = new Detalhes()
-                        {
-                            identificação = new Identificacao(),
-                            emitente = new Emitente(),
-                            destinatário = new Destinatario(),
-                            produtos = new List<DetalhesProdutos>(),
-                            transp = new Transporte(),
-                            cobr = new Cobranca(),
-                            infAdic = new InformacoesAdicionais(),
-                            exporta = new Exportacao(),
-                            compra = new Compra(),
-                            cana = new RegistroAquisicaoCana()
-                        }
-                    },
-                    OperacaoRequirida = TipoOperacao.Adicao,
-                    StatusAtual = StatusNFe.Edição
-                };
-            }
-            else
-            {
-                retorno = null;
-                Log.Escrever(TitulosComuns.ErroSimples, "Valor padrão desse tipo não cadastrado");
-            }
         }
 
         public void SeAtualizar(Telas atual, Symbol símbolo, string texto)

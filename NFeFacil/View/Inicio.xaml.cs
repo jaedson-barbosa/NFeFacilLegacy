@@ -1,4 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using BibliotecaCentral.ItensBD;
+using BibliotecaCentral.ModeloXML.PartesProcesso;
+using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe;
+using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -21,6 +26,32 @@ namespace NFeFacil.View
         private async void AbrirFunção(object sender, TappedRoutedEventArgs e)
         {
             await MainPage.Current.AbrirFunçaoAsync((sender as FrameworkElement).Name);
+        }
+
+        private async void CriarNotaFiscal(object sender, TappedRoutedEventArgs e)
+        {
+            await MainPage.Current.AbrirFunçaoAsync(typeof(ManipulacaoNotaFiscal),
+                new ConjuntoManipuladorNFe
+                {
+                    NotaSalva = new NFe()
+                    {
+                        Informações = new Detalhes()
+                        {
+                            identificação = new Identificacao(),
+                            emitente = new Emitente(),
+                            destinatário = new Destinatario(),
+                            produtos = new List<DetalhesProdutos>(),
+                            transp = new Transporte(),
+                            cobr = new Cobranca(),
+                            infAdic = new InformacoesAdicionais(),
+                            exporta = new Exportacao(),
+                            compra = new Compra(),
+                            cana = new RegistroAquisicaoCana()
+                        }
+                    },
+                    OperacaoRequirida = TipoOperacao.Adicao,
+                    StatusAtual = StatusNFe.Edição
+                });
         }
 
         public async Task EsconderAsync()

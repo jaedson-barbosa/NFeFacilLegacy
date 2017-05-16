@@ -4,33 +4,47 @@ using BibliotecaCentral.Sincronizacao;
 using System.Collections.ObjectModel;
 using static BibliotecaCentral.Sincronizacao.ConfiguracoesSincronizacao;
 using BibliotecaCentral.Repositorio;
+using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace NFeFacil.ViewModel
 {
-    public sealed class HistoricoSincronizacaoDataContext
+    public sealed class HistoricoSincronizacaoDataContext : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public bool IsCliente => Tipo == TipoAppSincronizacao.Cliente;
         public bool IsServidor => Tipo == TipoAppSincronizacao.Servidor;
 
-        public ObservableCollection<ResultadoSincronizacaoCliente> ResultadosCliente
+        public ObservableCollection<ResultadoSincronizacaoCliente> ResultadosCliente { get; private set; }
+        public ObservableCollection<ResultadoSincronizacaoServidor> ResultadosServidor { get; private set; }
+
+        public HistoricoSincronizacaoDataContext()
         {
-            get
+            DefinirTudo();
+
+            async void DefinirTudo()
             {
-                using (var db = new ResultadosCliente())
-                {
-                    return db.Registro.GerarObs();
-                }
+                await DefinirResultadosClienteAsync();
+                await DefinirResultadosServidorAsync();
             }
         }
 
-        public ObservableCollection<ResultadoSincronizacaoServidor> ResultadosServer
+        private async Task DefinirResultadosClienteAsync()
         {
-            get
+            using (var db = new ResultadosCliente())
             {
-                using (var db = new ResultadosServidor())
-                {
-                    return db.Registro.GerarObs();
-                }
+                ResultadosCliente = await Task.Run(() => db.Registro.GerarObs());
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ResultadosCliente)));
+            }
+        }
+
+        private async Task DefinirResultadosServidorAsync()
+        {
+            using (var db = new ResultadosServidor())
+            {
+                ResultadosServidor = await Task.Run(() => db.Registro.GerarObs());
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ResultadosServidor)));
             }
         }
     }

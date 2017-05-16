@@ -17,7 +17,7 @@
                     <Setter.Value>
                         <Style TargetType="FrameworkElement">
                             <Setter Property="Margin"
-                                    Value="2" />
+                                    Value="4" />
                             <Setter Property="HorizontalAlignment"
                                     Value="Stretch" />
                             <Setter Property="VerticalAlignment"
@@ -45,7 +45,7 @@
         <Setter Property="ItemsPanel">
             <Setter.Value>
                 <ItemsPanelTemplate>
-                    <aux:PainelAdaptavel TamanhoDesejado="256" />
+                    <aux:PainelAdaptavel TamanhoDesejado="200" />
                 </ItemsPanelTemplate>
             </Setter.Value>
         </Setter>

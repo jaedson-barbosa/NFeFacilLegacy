@@ -6,9 +6,6 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
-    <Page.DataContext>
-        <VM:HistoricoSincronizacaoDataContext />
-    </Page.DataContext>
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -16,8 +13,6 @@
                 <ResourceDictionary Source="Estilos/Tabela.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Conversores:BoolToVisibility x:Key="boolVisibility" />
-            <Conversores:BoolToIcon x:Key="icon" />
-            <Conversores:TextoComLabel x:Key="label" />
             <Storyboard x:Name="ocultarGrid">
                 <DoubleAnimation Duration="0:0:0.25"
                                  To="0"
@@ -75,7 +70,7 @@
             </ListView.ItemTemplate>
         </ListView>
         <ListView Visibility="{Binding IsServidor, Converter={StaticResource boolVisibility}}"
-                  ItemsSource="{Binding ResultadosServer}"
+                  ItemsSource="{Binding ResultadosServidor}"
                   Margin="0"
                   Style="{StaticResource PseudoTabela}">
             <ListView.Header>

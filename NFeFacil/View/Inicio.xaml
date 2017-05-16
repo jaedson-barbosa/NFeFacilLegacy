@@ -20,9 +20,9 @@
     </Page.Resources>
     <ScrollViewer x:Name="root"
                   Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-                  ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                  ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                  Margin="2">
         <ItemsControl Style="{StaticResource ItensMedios}"
-                      Margin="0"
                       IsTabStop="False">
             <controles:ItemPadrao x:Name="GerenciarDadosBase"
                                   Titulo="Gerenciar dados base"

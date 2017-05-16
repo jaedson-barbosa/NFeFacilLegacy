@@ -57,9 +57,16 @@ namespace NFeFacil.View.Controles
         {
             if (Tamanho > 0)
             {
-                radialStrip.Data = GetCircleSegment(CenterPoint, (Tamanho - Thickness) / 2, GetAngle());
+                radialStrip.Data = GetCircleSegment(new Point(Tamanho / 2, Tamanho / 2), (Tamanho - Thickness) / 2, GetAngle());
                 radialStrip.Stroke = Segmento;
                 radialStrip.StrokeThickness = Thickness;
+            }
+
+            double GetAngle()
+            {
+                var angle = ActualValue / MaxValue * 360;
+                if (angle >= 360) angle = 359.999;
+                return angle;
             }
         }
 
@@ -89,14 +96,6 @@ namespace NFeFacil.View.Controles
             }
 
             double GrauParaRadiano(double grau) => Math.PI * grau / 180;
-        }
-
-        private Point CenterPoint => new Point(Tamanho / 2, Tamanho / 2);
-        private double GetAngle()
-        {
-            var angle = ActualValue / MaxValue * 360;
-            if (angle >= 360) angle = 359.999;
-            return angle;
         }
     }
 }

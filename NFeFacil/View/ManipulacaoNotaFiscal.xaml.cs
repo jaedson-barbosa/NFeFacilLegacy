@@ -36,8 +36,6 @@ namespace NFeFacil.View
         {
             ocultarGrid.Begin();
             await Task.Delay(250);
-            DataContext = null;
-            Content = null;
         }
     }
 }

@@ -24,10 +24,11 @@ using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Partes
 using BibliotecaCentral.WebService;
 using Windows.Storage.Pickers;
 using System.IO;
+using Windows.UI.Popups;
 
 namespace NFeFacil.ViewModel
 {
-    public sealed class NotaFiscalDataContext : INotifyPropertyChanged
+    public sealed class NotaFiscalDataContext : INotifyPropertyChanged, IValida
     {
         public event PropertyChangedEventHandler PropertyChanged;
         void OnPropertyChanged(params string[] parametros)
@@ -688,6 +689,19 @@ namespace NFeFacil.ViewModel
                     }
                 }
             }
+        }
+
+        async Task<bool> IValida.Verificar()
+        {
+            var retorno = true;
+            if (StatusAtual == StatusNFe.Edição)
+            {
+                var mensagem = new MessageDialog("Se você sair agora, os dados serão perdidos, se tiver certeza, escolha Sair, caso contrário, Cancelar.", "Atenção");
+                mensagem.Commands.Add(new UICommand("Sair"));
+                mensagem.Commands.Add(new UICommand("Cancelar", x => retorno = false));
+                await mensagem.ShowAsync();
+            }
+            return retorno;
         }
     }
 }

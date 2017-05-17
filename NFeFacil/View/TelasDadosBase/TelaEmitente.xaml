@@ -21,8 +21,6 @@
     <ScrollViewer VerticalScrollBarVisibility="Hidden"
                   DataContext="{Binding Converter={StaticResource converter}}">
         <StackPanel>
-            <TextBlock Text="Emitente"
-                       Style="{StaticResource TitleTextBlockStyle}" />
             <ItemsControl Style="{StaticResource ItensResponsivos}">
                 <TextBox Text="{Binding Emit.nome, Mode=TwoWay}"
                          InputScope="Text"
@@ -52,8 +50,9 @@
                     <ComboBoxItem Content="Regime Normal" />
                 </ComboBox>
             </ItemsControl>
-            <TextBlock Text="endereco"
-                       Style="{StaticResource TitleTextBlockStyle}" />
+            <TextBlock Text="Endereço"
+                       Style="{StaticResource TitleTextBlockStyle}"
+                       Margin="4,0,0,0" />
             <ItemsControl Style="{StaticResource ItensResponsivos}">
                 <ComboBox ItemsSource="{Binding Source={StaticResource estados}, Path=Siglas}"
                           SelectedItem="{Binding EstadoSelecionado, Mode=TwoWay}"

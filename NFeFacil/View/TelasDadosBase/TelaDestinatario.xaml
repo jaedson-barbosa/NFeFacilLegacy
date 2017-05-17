@@ -50,7 +50,8 @@
             </ItemsControl>
             <Grid>
                 <TextBlock Text="Endereço"
-                           Style="{StaticResource TitleTextBlockStyle}" />
+                           Style="{StaticResource TitleTextBlockStyle}"
+                           Margin="4,0,0,0" />
                 <CheckBox Content="Nacional"
                           HorizontalAlignment="Right"
                           VerticalAlignment="Top"

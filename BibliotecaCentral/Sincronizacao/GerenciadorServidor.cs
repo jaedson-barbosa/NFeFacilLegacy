@@ -42,7 +42,7 @@ namespace BibliotecaCentral.Sincronizacao
             Rodando = true;
         }
 
-        public bool BrechaAberta { get; private set; }
+        internal bool BrechaAberta { get; private set; }
 
         public void AbrirBrecha(TimeSpan tempoLimite)
         {

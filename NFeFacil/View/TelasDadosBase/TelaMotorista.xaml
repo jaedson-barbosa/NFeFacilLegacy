@@ -45,8 +45,9 @@
                              Header="Inscrição estadual" />
                 </Grid>
             </ItemsControl>
-            <TextBlock Text="endereco"
-                       Style="{StaticResource TitleTextBlockStyle}" />
+            <TextBlock Text="Endereço"
+                       Style="{StaticResource TitleTextBlockStyle}"
+                       Margin="4,0,0,0" />
             <ItemsControl Style="{StaticResource ItensResponsivos}">
                 <ComboBox ItemsSource="{Binding Source={StaticResource estados}, Path=SiglasExpandida}"
                           SelectedItem="{Binding UFEscolhida, Mode=TwoWay}"

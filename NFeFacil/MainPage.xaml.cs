@@ -124,11 +124,18 @@ namespace NFeFacil
             frmPrincipal.Navigate(tela, parametro);
         }
 
-        public void SeAtualizar(Telas atual, Symbol símbolo, string texto)
+        public async void SeAtualizar(Telas atual, Symbol símbolo, string texto)
         {
             txtTitulo.Text = texto;
             AvisoOrentacaoHabilitado = TelasHorizontais.Contains(atual);
             symTitulo.Content = new SymbolIcon(símbolo);
+
+            if (atual == Telas.Inicio)
+            {
+                await Task.Delay(1000);
+                frmPrincipal.BackStack.Clear();
+                frmPrincipal.ForwardStack.Clear();
+            }
         }
 
         public void SeAtualizar(Telas atual, string glyph, string texto)
@@ -147,6 +154,20 @@ namespace NFeFacil
             if (frm.Content is IValida retorna)
             {
                 if (await retorna.Verificar())
+                {
+                    if (frm.Content is IEsconde esconde)
+                    {
+                        await esconde.EsconderAsync();
+                    }
+                }
+                else
+                {
+                    return;
+                }
+            }
+            else if ((frm.Content as FrameworkElement).DataContext is IValida retornaDC)
+            {
+                if (await retornaDC.Verificar())
                 {
                     if (frm.Content is IEsconde esconde)
                     {

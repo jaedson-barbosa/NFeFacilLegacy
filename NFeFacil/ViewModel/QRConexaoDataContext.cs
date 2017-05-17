@@ -1,4 +1,5 @@
-﻿using BibliotecaCentral.Sincronizacao;
+﻿using BibliotecaCentral.Log;
+using BibliotecaCentral.Sincronizacao;
 using BibliotecaCentral.Sincronizacao.Pacotes;
 using Newtonsoft.Json;
 using System;
@@ -12,7 +13,7 @@ using Windows.UI.Xaml.Media;
 
 namespace NFeFacil.ViewModel
 {
-    public sealed class QRConexaoDataContext : INotifyPropertyChanged
+    public sealed class QRConexaoDataContext : INotifyPropertyChanged, IValida
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -70,6 +71,19 @@ namespace NFeFacil.ViewModel
                 brechaAberta = false;
             }
             MainPage.Current.Retornar();
+        }
+
+        public async Task<bool> Verificar()
+        {
+            if (brechaAberta)
+            {
+                new Popup().Escrever(TitulosComuns.Atenção, "Para voltar, primeiro aperte no botão que está presente no meio do carregamento circular para que conexões de novos dispositivos não sejam mais aceitas.");
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
     }
 }

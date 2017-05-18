@@ -20,7 +20,7 @@ namespace NFeFacil.View
         public Inicio()
         {
             InitializeComponent();
-            MainPage.Current.SeAtualizar(Telas.Inicio, Symbol.Home, nameof(Inicio));
+            MainPage.Current.SeAtualizar(Symbol.Home, nameof(Inicio));
         }
 
         private void AbrirFunção(object sender, TappedRoutedEventArgs e)

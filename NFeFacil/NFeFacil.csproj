@@ -170,7 +170,6 @@
     <Compile Include="DANFE\Processamento\ViewUI.cs" />
     <Compile Include="GrupoViewBanco.cs" />
     <Compile Include="RegistrarCliente.cs" />
-    <Compile Include="Telas.cs" />
     <Compile Include="ViewModel\ConfigSincronizacaoDataContext.cs" />
     <Compile Include="ViewModel\ConfiguracoesDataContext.cs" />
     <Compile Include="ViewModel\Converters\ColecaoValida.cs" />

@@ -15,7 +15,7 @@ namespace NFeFacil
     /// <summary>
     /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
     /// </summary>
-    public sealed partial class MainPage : ContentPresenter
+    public sealed partial class MainPage : Page
     {
         private ILog Log = new Saida();
         internal static MainPage Current { get; private set; }
@@ -73,13 +73,13 @@ namespace NFeFacil
             frmPrincipal.Navigate(tela, parametro);
         }
 
-        public void SeAtualizar(Telas atual, Symbol símbolo, string texto)
+        public void SeAtualizar(Symbol símbolo, string texto)
         {
             txtTitulo.Text = texto;
             symTitulo.Content = new SymbolIcon(símbolo);
         }
 
-        public void SeAtualizar(Telas atual, string glyph, string texto)
+        public void SeAtualizar(string glyph, string texto)
         {
             txtTitulo.Text = texto;
             symTitulo.Content = new FontIcon

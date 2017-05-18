@@ -44,10 +44,10 @@ namespace NFeFacil.View
             switch (tipoRequisitado)
             {
                 case TipoOperacao.Adicao:
-                    MainPage.Current.SeAtualizar(Telas.GerenciarDadosBase, Symbol.Add, "Adicionar emitente");
+                    MainPage.Current.SeAtualizar(Symbol.Add, "Adicionar emitente");
                     break;
                 case TipoOperacao.Edicao:
-                    MainPage.Current.SeAtualizar(Telas.GerenciarDadosBase, Symbol.Edit, "Editar emitente");
+                    MainPage.Current.SeAtualizar(Symbol.Edit, "Editar emitente");
                     break;
             }
             DataContext = emitente;

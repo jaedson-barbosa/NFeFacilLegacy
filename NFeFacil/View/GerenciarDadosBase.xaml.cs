@@ -12,7 +12,7 @@ namespace NFeFacil.View
         public GerenciarDadosBase()
         {
             InitializeComponent();
-            MainPage.Current.SeAtualizar(Telas.GerenciarDadosBase, Symbol.Manage, "Gerenciar dados base");
+            MainPage.Current.SeAtualizar(Symbol.Manage, "Gerenciar dados base");
         }
     }
 }

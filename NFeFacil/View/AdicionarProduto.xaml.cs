@@ -44,10 +44,10 @@ namespace NFeFacil.View
             switch (tipoRequisitado)
             {
                 case TipoOperacao.Adicao:
-                    MainPage.Current.SeAtualizar(Telas.GerenciarDadosBase, Symbol.Add, "Adicionar produto");
+                    MainPage.Current.SeAtualizar(Symbol.Add, "Adicionar produto");
                     break;
                 case TipoOperacao.Edicao:
-                    MainPage.Current.SeAtualizar(Telas.GerenciarDadosBase, Symbol.Edit, "Editar produto");
+                    MainPage.Current.SeAtualizar(Symbol.Edit, "Editar produto");
                     break;
             }
             DataContext = Produto;

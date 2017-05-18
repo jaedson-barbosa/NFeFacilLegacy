@@ -22,16 +22,6 @@ namespace NFeFacil
         private ILog Log = new Saida();
         private bool avisoOrentacaoHabilitado;
 
-        private bool AvisoOrentacaoHabilitado
-        {
-            get => avisoOrentacaoHabilitado;
-            set
-            {
-                avisoOrentacaoHabilitado = value;
-                AnalisarOrientacao(ApplicationView.GetForCurrentView());
-            }
-        }
-
         internal static MainPage Current { get; private set; }
 
         public MainPage()
@@ -39,7 +29,6 @@ namespace NFeFacil
             InitializeComponent();
             Current = this;
             AnalisarBarraTituloAsync();
-            ApplicationView.GetForCurrentView().VisibleBoundsChanged += (x, y) => AnalisarOrientacao(x);
             btnRetornar.Click += (x, y) => Retornar();
             SystemNavigationManager.GetForCurrentView().BackRequested += (x,e) =>
             {
@@ -47,25 +36,6 @@ namespace NFeFacil
                 Retornar();
             };
             AbrirFunçao(typeof(View.Inicio));
-        }
-
-        private void AnalisarOrientacao(ApplicationView sender)
-        {
-            if (AvisoOrentacaoHabilitado)
-            {
-                if (sender.Orientation == ApplicationViewOrientation.Landscape)
-                {
-                    grdAvisoRotacao.Visibility = Visibility.Collapsed;
-                }
-                else
-                {
-                    grdAvisoRotacao.Visibility = Visibility.Visible;
-                }
-            }
-            else
-            {
-                grdAvisoRotacao.Visibility = Visibility.Collapsed;
-            }
         }
 
         private void AnalisarBarraTituloAsync()
@@ -108,27 +78,18 @@ namespace NFeFacil
 
         public void AbrirFunçao(Type tela, object parametro = null)
         {
-            frmPrincipal.Navigate(tela, parametro);
+            frmPrincipal.Navigate(tela, parametro, new Windows.UI.Xaml.Media.Animation.DrillInNavigationTransitionInfo());
         }
 
-        public async void SeAtualizar(Telas atual, Symbol símbolo, string texto)
+        public void SeAtualizar(Telas atual, Symbol símbolo, string texto)
         {
             txtTitulo.Text = texto;
-            AvisoOrentacaoHabilitado = TelasHorizontais.Contains(atual);
             symTitulo.Content = new SymbolIcon(símbolo);
-
-            if (atual == Telas.Inicio)
-            {
-                await Task.Delay(1000);
-                frmPrincipal.BackStack.Clear();
-                frmPrincipal.ForwardStack.Clear();
-            }
         }
 
         public void SeAtualizar(Telas atual, string glyph, string texto)
         {
             txtTitulo.Text = texto;
-            AvisoOrentacaoHabilitado = TelasHorizontais.Contains(atual);
             symTitulo.Content = new FontIcon
             {
                 Glyph = glyph,
@@ -162,12 +123,5 @@ namespace NFeFacil
                 Log.Escrever(TitulosComuns.ErroSimples, "Não é possível voltar para a tela anterior.");
             }
         }
-
-        private List<Telas> TelasHorizontais = new List<Telas>(3)
-        {
-            Telas.GerenciarDadosBase,
-            Telas.HistoricoSincronizacao,
-            Telas.NotasSalvas
-        };
     }
 }

@@ -15,7 +15,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid x:Name="TitleBar"
               Background="{StaticResource PoucoVariada}"
@@ -46,19 +45,12 @@
             </StackPanel>
         </Grid>
         <Frame Name="frmPrincipal"
-               Grid.Row="1" />
-        <Border Name="grdAvisoRotacao"
-                Visibility="Collapsed"
-                Background="{StaticResource MuitoVariada}"
-                BorderBrush="{StaticResource Normal}"
-                BorderThickness="0,2,0,0"
-                VerticalAlignment="Bottom"
-                Grid.Row="2">
-            <TextBlock TextWrapping="Wrap"
-                       Margin="8,4"
-                       TextAlignment="Justify">
-                            <Run FontStyle="Italic">Por favor, esta orientação de tela não é a mais adequada para visualização desta página, por favor, </Run>
-                            <Run FontWeight="Bold">rotacione seu dispositivo para a orientação horizontal.</Run></TextBlock>
-        </Border>
+               Grid.Row="1">
+            <Frame.ContentTransitions>
+                <TransitionCollection>
+                    <NavigationThemeTransition />
+                </TransitionCollection>
+            </Frame.ContentTransitions>
+        </Frame>
     </Grid>
 </Page>

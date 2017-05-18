@@ -6,14 +6,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-    <Page.Resources>
-        <Storyboard x:Name="ocultarGrid">
-            <DoubleAnimation Duration="0:0:0.25"
-                             To="0"
-                             Storyboard.TargetProperty="(UIElement.Opacity)"
-                             Storyboard.TargetName="grdPrincipal" />
-        </Storyboard>
-    </Page.Resources>
     <Grid x:Name="grdPrincipal"
           Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.ChildrenTransitions>

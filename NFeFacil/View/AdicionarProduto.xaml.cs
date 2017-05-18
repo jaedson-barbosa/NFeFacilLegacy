@@ -14,7 +14,7 @@ namespace NFeFacil.View
     /// <summary>
     /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
     /// </summary>
-    public sealed partial class AdicionarProduto : Page, IEsconde
+    public sealed partial class AdicionarProduto : Page
     {
         private BaseProdutoOuServico Produto;
         private TipoOperacao tipoRequisitado;
@@ -78,12 +78,6 @@ namespace NFeFacil.View
         private void Cancelar_Click(object sender, RoutedEventArgs e)
         {
             MainPage.Current.Retornar();
-        }
-
-        public async Task EsconderAsync()
-        {
-            ocultarGrid.Begin();
-            await Task.Delay(250);
         }
     }
 }

@@ -105,14 +105,14 @@ namespace NFeFacil.ViewModel
             }
         }
 
-        private async void AdicionarEmitente()
+        private void AdicionarEmitente()
         {
-            await MainPage.Current.AbrirFunçaoAsync(typeof(View.AdicionarEmitente));
+            MainPage.Current.AbrirFunçao(typeof(View.AdicionarEmitente));
         }
 
-        private async void EditarEmitente(Emitente emit)
+        private void EditarEmitente(Emitente emit)
         {
-            await MainPage.Current.AbrirFunçaoAsync(typeof(View.AdicionarEmitente), new GrupoViewBanco<Emitente>
+            MainPage.Current.AbrirFunçao(typeof(View.AdicionarEmitente), new GrupoViewBanco<Emitente>
             {
                 ItemBanco = emit,
                 OperacaoRequirida = TipoOperacao.Edicao
@@ -129,14 +129,14 @@ namespace NFeFacil.ViewModel
             }
         }
 
-        private async void AdicionarCliente()
+        private void AdicionarCliente()
         {
-            await MainPage.Current.AbrirFunçaoAsync(typeof(View.AdicionarDestinatario));
+            MainPage.Current.AbrirFunçao(typeof(View.AdicionarDestinatario));
         }
 
-        private async void EditarCliente(Destinatario dest)
+        private void EditarCliente(Destinatario dest)
         {
-            await MainPage.Current.AbrirFunçaoAsync(typeof(View.AdicionarDestinatario), new GrupoViewBanco<Destinatario>
+            MainPage.Current.AbrirFunçao(typeof(View.AdicionarDestinatario), new GrupoViewBanco<Destinatario>
             {
                 ItemBanco = dest,
                 OperacaoRequirida = TipoOperacao.Edicao
@@ -153,14 +153,14 @@ namespace NFeFacil.ViewModel
             }
         }
 
-        private async void AdicionarMotorista()
+        private void AdicionarMotorista()
         {
-            await MainPage.Current.AbrirFunçaoAsync(typeof(View.AdicionarMotorista));
+            MainPage.Current.AbrirFunçao(typeof(View.AdicionarMotorista));
         }
 
-        private async void EditarMotorista(Motorista mot)
+        private void EditarMotorista(Motorista mot)
         {
-            await MainPage.Current.AbrirFunçaoAsync(typeof(View.AdicionarMotorista), new GrupoViewBanco<Motorista>
+            MainPage.Current.AbrirFunçao(typeof(View.AdicionarMotorista), new GrupoViewBanco<Motorista>
             {
                 ItemBanco = mot,
                 OperacaoRequirida = TipoOperacao.Edicao
@@ -177,14 +177,14 @@ namespace NFeFacil.ViewModel
             }
         }
 
-        private async void AdicionarProduto()
+        private void AdicionarProduto()
         {
-            await MainPage.Current.AbrirFunçaoAsync(typeof(View.AdicionarProduto));
+            MainPage.Current.AbrirFunçao(typeof(View.AdicionarProduto));
         }
 
-        private async void EditarProduto(BaseProdutoOuServico prod)
+        private void EditarProduto(BaseProdutoOuServico prod)
         {
-            await MainPage.Current.AbrirFunçaoAsync(typeof(View.AdicionarProduto), new GrupoViewBanco<BaseProdutoOuServico>
+            MainPage.Current.AbrirFunçao(typeof(View.AdicionarProduto), new GrupoViewBanco<BaseProdutoOuServico>
             {
                 ItemBanco = prod,
                 OperacaoRequirida = TipoOperacao.Edicao

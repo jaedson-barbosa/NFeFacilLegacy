@@ -13,10 +13,6 @@
                 <ResourceDictionary Source="Estilos/PivotPrincipal.xaml" />
                 <ResourceDictionary Source="Estilos/Tabela.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <Storyboard x:Name="ocultarGrid">
-                <FadeOutThemeAnimation Duration="0:0:0.25"
-                                       TargetName="grdPrincipal" />
-            </Storyboard>
             <Style TargetType="TextBlock"
                    BasedOn="{StaticResource TextoCabecalho}" />
         </ResourceDictionary>

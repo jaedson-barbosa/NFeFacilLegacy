@@ -179,13 +179,13 @@ namespace NFeFacil.ViewModel
         public ICommand AdicionarProdutoCommand => new Comando(AdicionarProduto, true);
         public ICommand RemoverProdutoCommand => new Comando<DetalhesProdutos>(RemoverProduto);
 
-        private async void AdicionarProduto()
+        private void AdicionarProduto()
         {
             var detCompleto = new DetalhesProdutos
             {
                 Produto = ProdutoSelecionado != null ? new ProdutoOuServico(ProdutoSelecionado) : new ProdutoOuServico()
             };
-            await MainPage.Current.AbrirFunçaoAsync(typeof(ManipulacaoProdutoCompleto), detCompleto);
+            MainPage.Current.AbrirFunçao(typeof(ManipulacaoProdutoCompleto), detCompleto);
         }
 
         private void RemoverProduto(DetalhesProdutos produto)
@@ -336,7 +336,7 @@ namespace NFeFacil.ViewModel
 
         private async void GerarDANFE()
         {
-            await MainPage.Current.AbrirFunçaoAsync(typeof(ViewDANFE), NotaEmitida);
+            MainPage.Current.AbrirFunçao(typeof(ViewDANFE), NotaEmitida);
             StatusAtual = StatusNFe.Impressa;
             await SalvarAsync();
         }

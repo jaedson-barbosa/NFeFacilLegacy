@@ -14,10 +14,6 @@
                 <ResourceDictionary Source="ms-appx:///View/Estilos/GridResponsiva.xaml" />
                 <ResourceDictionary Source="ms-appx:///View/Estilos/PivotPrincipal.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <Storyboard x:Name="ocultarGrid">
-                <FadeOutThemeAnimation Duration="0:0:0.25"
-                                       TargetName="main" />
-            </Storyboard>
             <Conversores:BoolToVisibility x:Key="boolView"></Conversores:BoolToVisibility>
         </ResourceDictionary>
     </Page.Resources>

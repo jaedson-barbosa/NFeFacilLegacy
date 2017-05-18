@@ -8,18 +8,12 @@ namespace NFeFacil.View
     /// <summary>
     /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
     /// </summary>
-    public sealed partial class Configuracoes : Page, IEsconde
+    public sealed partial class Configuracoes : Page
     {
         public Configuracoes()
         {
             InitializeComponent();
             MainPage.Current.SeAtualizar(Telas.Configurações, Symbol.Setting, "Configurações");
-        }
-
-        public async Task EsconderAsync()
-        {
-            ocultarGrid.Begin();
-            await Task.Delay(250);
         }
     }
 }

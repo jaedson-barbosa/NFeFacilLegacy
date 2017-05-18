@@ -232,7 +232,6 @@
     <Compile Include="View\HistoricoSincronizacao.xaml.cs">
       <DependentUpon>HistoricoSincronizacao.xaml</DependentUpon>
     </Compile>
-    <Compile Include="IEsconde.cs" />
     <Compile Include="IValida.cs" />
     <Compile Include="View\ManipulacaoNotaFiscal.xaml.cs">
       <DependentUpon>ManipulacaoNotaFiscal.xaml</DependentUpon>

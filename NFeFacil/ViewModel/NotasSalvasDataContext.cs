@@ -66,7 +66,7 @@ namespace NFeFacil.ViewModel
             {
                 conjunto.NotaEmitida = (await nota.ObjetoCompletoAsync()) as Processo;
             }
-            await MainPage.Current.AbrirFunçaoAsync(typeof(ManipulacaoNotaFiscal), conjunto);
+            MainPage.Current.AbrirFunçao(typeof(ManipulacaoNotaFiscal), conjunto);
         }
 
         private async void Remover(NFeDI nota)

@@ -23,12 +23,6 @@
             <Conversores:TextoComLabel x:Key="textoLabel" />
             <Conversores:StringToDateTime x:Key="data" />
             <Conversores:ModificaValor x:Key="valorAlterado" />
-            <Storyboard x:Name="ocultarGrid">
-                <DoubleAnimation Duration="0:0:0.25"
-                                 To="0"
-                                 Storyboard.TargetProperty="(UIElement.Opacity)"
-                                 Storyboard.TargetName="grdPrincipal" />
-            </Storyboard>
             <Style x:Key="ListaCheia"
                    TargetType="ListView">
                 <Setter Property="ItemContainerStyle">

@@ -10,7 +10,7 @@ namespace NFeFacil.View
     /// <summary>
     /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
     /// </summary>
-    public sealed partial class ManipulacaoNotaFiscal : Page, IEsconde
+    public sealed partial class ManipulacaoNotaFiscal : Page
     {
         public ManipulacaoNotaFiscal()
         {
@@ -30,12 +30,6 @@ namespace NFeFacil.View
                     break;
             }
             DataContext = new NotaFiscalDataContext(ref param);
-        }
-
-        async Task IEsconde.EsconderAsync()
-        {
-            ocultarGrid.Begin();
-            await Task.Delay(250);
         }
     }
 }

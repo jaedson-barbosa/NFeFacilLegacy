@@ -8,18 +8,12 @@ namespace NFeFacil.View
     /// <summary>
     /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
     /// </summary>
-    public sealed partial class ConfigSincronizacao : Page, IEsconde
+    public sealed partial class ConfigSincronizacao : Page
     {
         public ConfigSincronizacao()
         {
             InitializeComponent();
             MainPage.Current.SeAtualizar(Telas.ConfigSincronizacao, Symbol.Sync, "Sincronização");
-        }
-
-        public async Task EsconderAsync()
-        {
-            ocultarGrid.Begin();
-            await Task.Delay(250);
         }
     }
 }

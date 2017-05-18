@@ -46,10 +46,8 @@ namespace NFeFacil
                 e.Handled = true;
                 Retornar();
             };
-            AbrirInicio();
+            AbrirFunçao(typeof(View.Inicio));
         }
-
-        async void AbrirInicio() => await AbrirFunçaoAsync(typeof(View.Inicio));
 
         private void AnalisarOrientacao(ApplicationView sender)
         {
@@ -103,24 +101,13 @@ namespace NFeFacil
             }
         }
 
-        public async Task AbrirFunçaoAsync(string tela, object parametro = null)
+        public void AbrirFunçao(string tela, object parametro = null)
         {
-            await AbrirFunçaoAsync(Type.GetType($"NFeFacil.View.{tela}"), parametro);
+            AbrirFunçao(Type.GetType($"NFeFacil.View.{tela}"), parametro);
         }
 
-        public async Task AbrirFunçaoAsync(Type tela, object parametro = null)
+        public void AbrirFunçao(Type tela, object parametro = null)
         {
-            if (frmPrincipal.Content != null)
-            {
-                if (frmPrincipal.Content is IEsconde esconde)
-                {
-                    await esconde.EsconderAsync();
-                }
-                else
-                {
-                    Log.Escrever(TitulosComuns.ErroSimples, $"A tela {frmPrincipal.Content} precisa implementar IEsconde.");
-                }
-            }
             frmPrincipal.Navigate(tela, parametro);
         }
 
@@ -153,40 +140,22 @@ namespace NFeFacil
             var frm = frmPrincipal;
             if (frm.Content is IValida retorna)
             {
-                if (await retorna.Verificar())
-                {
-                    if (frm.Content is IEsconde esconde)
-                    {
-                        await esconde.EsconderAsync();
-                    }
-                }
-                else
+                if (!await retorna.Verificar())
                 {
                     return;
                 }
             }
             else if ((frm.Content as FrameworkElement).DataContext is IValida retornaDC)
             {
-                if (await retornaDC.Verificar())
-                {
-                    if (frm.Content is IEsconde esconde)
-                    {
-                        await esconde.EsconderAsync();
-                    }
-                }
-                else
+                if (!await retornaDC.Verificar())
                 {
                     return;
                 }
             }
-            else if (frm.Content is IEsconde esconde)
-            {
-                await esconde.EsconderAsync();
-            }
 
             if (frmPrincipal.CanGoBack)
             {
-                frmPrincipal.GoBack();
+                frmPrincipal.GoBack(new Windows.UI.Xaml.Media.Animation.DrillInNavigationTransitionInfo());
             }
             else
             {

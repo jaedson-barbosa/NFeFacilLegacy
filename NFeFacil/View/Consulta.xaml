@@ -9,10 +9,6 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Estilos/CoresDestaque.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <Storyboard x:Name="OcultarGrid">
-                <FadeOutThemeAnimation TargetName="grdPrincipal"
-                                       Duration="0:0:0.25" />
-            </Storyboard>
             <Storyboard x:Name="MostrarCarregamento">
                 <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)"
                                                Storyboard.TargetName="grdManipulação">

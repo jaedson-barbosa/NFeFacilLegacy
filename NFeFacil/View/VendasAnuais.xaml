@@ -16,12 +16,6 @@
                 <ResourceDictionary Source="Estilos/PivotPrincipal.xaml" />
                 <ResourceDictionary Source="Estilos/Tabela.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <Storyboard x:Name="ocultarGrid">
-                <DoubleAnimation Duration="0:0:0.25"
-                                 To="0"
-                                 Storyboard.TargetProperty="(UIElement.Opacity)"
-                                 Storyboard.TargetName="grdPrincipal" />
-            </Storyboard>
         </ResourceDictionary>
     </Page.Resources>
     <Grid x:Name="grdPrincipal"

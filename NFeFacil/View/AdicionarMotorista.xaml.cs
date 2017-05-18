@@ -70,13 +70,13 @@ namespace NFeFacil.View
                         Log.Escrever(TitulosComuns.Sucesso, "Motorista alterado com sucesso.");
                     }
                 }
-                App.Retornar();
+                BarraTitulo.Current.Retornar();
             }
         }
 
         private void Cancelar_Click(object sender, RoutedEventArgs e)
         {
-            App.Retornar();
+            BarraTitulo.Current.Retornar();
         }
     }
 }

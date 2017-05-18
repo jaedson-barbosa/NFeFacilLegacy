@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="NFeFacil.View.Controles.BarraTitulo"
+﻿<UserControl x:Class="NFeFacil.BarraTitulo"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,7 +7,7 @@
              d:DesignHeight="48"
              d:DesignWidth="400">
     <UserControl.Resources>
-        <ResourceDictionary Source="ms-appx:///View/Estilos/CoresDestaque.xaml" />
+        <ResourceDictionary Source="View/Estilos/CoresDestaque.xaml" />
     </UserControl.Resources>
     <Grid x:Name="TitleBar"
           Background="{StaticResource PoucoVariada}"
@@ -28,13 +28,13 @@
                     Grid.Column="1"
                     Orientation="Horizontal"
                     Background="#00000000">
-            <ContentControl Content="{x:Bind Icone}"
+            <ContentControl Name="symTitulo"
                             VerticalAlignment="Center"
                             Margin="16,0" />
-            <TextBlock Text="{x:Bind Texto}"
+            <TextBlock Name="txtTitulo"
                        Style="{StaticResource BodyTextBlockStyle}"
                        VerticalAlignment="Center"
-                       FontWeight="Bold" />
+                       FontWeight="Bold">Nota Fácil</TextBlock>
         </StackPanel>
     </Grid>
 </UserControl>

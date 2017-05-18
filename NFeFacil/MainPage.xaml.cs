@@ -15,7 +15,7 @@ namespace NFeFacil
     /// <summary>
     /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
     /// </summary>
-    public sealed partial class MainPage : Page
+    public sealed partial class MainPage : ContentPresenter
     {
         private ILog Log = new Saida();
         internal static MainPage Current { get; private set; }
@@ -51,6 +51,7 @@ namespace NFeFacil
                 tb.ExtendViewIntoTitleBar = true;
                 tb.IsVisibleChanged += (sender, e) => TitleBar.Visibility = sender.IsVisible ? Visibility.Visible : Visibility.Collapsed;
                 tb.LayoutMetricsChanged += (sender, e) => TitleBar.Height = sender.Height;
+
                 Window.Current.SetTitleBar(MainTitleBar);
                 Window.Current.Activated += (sender, e) => TitleBar.Opacity = e.WindowActivationState != CoreWindowActivationState.Deactivated ? 1 : 0.5;
 

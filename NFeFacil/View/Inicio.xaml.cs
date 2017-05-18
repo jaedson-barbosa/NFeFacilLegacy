@@ -3,7 +3,6 @@ using BibliotecaCentral.ModeloXML.PartesProcesso;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;

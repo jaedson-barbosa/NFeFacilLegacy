@@ -1,7 +1,5 @@
 ﻿using BibliotecaCentral.Log;
 using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.System.Profile;
 using Windows.UI;
@@ -20,8 +18,6 @@ namespace NFeFacil
     public sealed partial class MainPage : Page
     {
         private ILog Log = new Saida();
-        private bool avisoOrentacaoHabilitado;
-
         internal static MainPage Current { get; private set; }
 
         public MainPage()
@@ -98,15 +94,14 @@ namespace NFeFacil
 
         public async void Retornar()
         {
-            var frm = frmPrincipal;
-            if (frm.Content is IValida retorna)
+            if (frmPrincipal.Content is IValida retorna)
             {
                 if (!await retorna.Verificar())
                 {
                     return;
                 }
             }
-            else if ((frm.Content as FrameworkElement).DataContext is IValida retornaDC)
+            else if ((frmPrincipal.Content as FrameworkElement).DataContext is IValida retornaDC)
             {
                 if (!await retornaDC.Verificar())
                 {

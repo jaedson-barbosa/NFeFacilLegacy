@@ -151,7 +151,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="BarraTitulo.xaml.cs">
+    <Compile Include="View\Controles\BarraTitulo.xaml.cs">
       <DependentUpon>BarraTitulo.xaml</DependentUpon>
     </Compile>
     <Compile Include="DANFE\GerenciadorExportacao.cs" />
@@ -347,7 +347,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="BarraTitulo.xaml">
+    <Page Include="View\Controles\BarraTitulo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

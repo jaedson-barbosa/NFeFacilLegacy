@@ -57,12 +57,12 @@ namespace NFeFacil.View
             var data = DataContext as ProdutoCompletoDataContext;
             data.ProdutoCompleto.impostos = ImpostosFiltrados;
             CoreApplication.Properties.Add("ProdutoPendente", data.ProdutoCompleto);
-            BarraTitulo.Current.Retornar();
+            App.Retornar();
         }
 
         private void Cancelar_Click(object sender, RoutedEventArgs e)
         {
-            BarraTitulo.Current.Retornar();
+            App.Retornar();
         }
     }
 }

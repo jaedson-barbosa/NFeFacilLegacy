@@ -1,5 +1,4 @@
-﻿using BibliotecaCentral.Log;
-using BibliotecaCentral.Sincronizacao;
+﻿using BibliotecaCentral.Sincronizacao;
 using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -38,7 +37,6 @@ namespace NFeFacil
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
             Frame rootFrame = Window.Current.Content as Frame;
-
             Propriedades.Usuario = e.User;
 
             // Não repita a inicialização do aplicativo quando a Janela já tiver conteúdo,
@@ -66,7 +64,7 @@ namespace NFeFacil
                     // Quando a pilha de navegação não for restaurada, navegar para a primeira página,
                     // configurando a nova página passando as informações necessárias como um parâmetro
                     // parâmetro
-                    rootFrame.Navigate(typeof(View.Inicio), e.Arguments);
+                    rootFrame.Navigate(typeof(MainPage), e.Arguments);
                 }
                 // Verifique se a janela atual está ativa
                 Window.Current.Activate();
@@ -95,34 +93,6 @@ namespace NFeFacil
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Salvar o estado do aplicativo e parar qualquer atividade em segundo plano
             deferral.Complete();
-        }
-
-        public static async void Retornar()
-        {
-            var frmPrincipal = Window.Current.Content as Frame;
-            if (frmPrincipal.Content is IValida retorna)
-            {
-                if (!await retorna.Verificar())
-                {
-                    return;
-                }
-            }
-            else if ((frmPrincipal.Content as FrameworkElement).DataContext is IValida retornaDC)
-            {
-                if (!await retornaDC.Verificar())
-                {
-                    return;
-                }
-            }
-
-            if (frmPrincipal.CanGoBack)
-            {
-                frmPrincipal.GoBack(new Windows.UI.Xaml.Media.Animation.DrillInNavigationTransitionInfo());
-            }
-            else
-            {
-                new Saida().Escrever(TitulosComuns.ErroSimples, "Não é possível voltar para a tela anterior.");
-            }
         }
     }
 }

@@ -25,9 +25,6 @@ using BibliotecaCentral.WebService;
 using Windows.Storage.Pickers;
 using System.IO;
 using Windows.UI.Popups;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media.Animation;
 
 namespace NFeFacil.ViewModel
 {
@@ -188,7 +185,7 @@ namespace NFeFacil.ViewModel
             {
                 Produto = ProdutoSelecionado != null ? new ProdutoOuServico(ProdutoSelecionado) : new ProdutoOuServico()
             };
-            AbrirFuncao(typeof(ManipulacaoProdutoCompleto), detCompleto);
+            MainPage.Current.AbrirFunçao(typeof(ManipulacaoProdutoCompleto), detCompleto);
         }
 
         private void RemoverProduto(DetalhesProdutos produto)
@@ -339,15 +336,9 @@ namespace NFeFacil.ViewModel
 
         private async void GerarDANFE()
         {
-            AbrirFuncao(typeof(ViewDANFE), NotaEmitida);
+            MainPage.Current.AbrirFunçao(typeof(ViewDANFE), NotaEmitida);
             StatusAtual = StatusNFe.Impressa;
             await SalvarAsync();
-        }
-
-        private static void AbrirFuncao(Type tela, object parametro)
-        {
-            (Window.Current.Content as Frame)
-                .Navigate(tela, parametro, new DrillInNavigationTransitionInfo());
         }
 
         #region Identificação

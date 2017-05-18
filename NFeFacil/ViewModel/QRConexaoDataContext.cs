@@ -70,7 +70,7 @@ namespace NFeFacil.ViewModel
                 await Task.Delay(1000);
                 brechaAberta = false;
             }
-            BarraTitulo.Current.Retornar();
+            MainPage.Current.Retornar();
         }
 
         public async Task<bool> Verificar()

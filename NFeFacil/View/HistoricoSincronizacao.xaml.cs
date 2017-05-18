@@ -12,7 +12,7 @@ namespace NFeFacil.View
         public HistoricoSincronizacao()
         {
             InitializeComponent();
-            BarraTitulo.Current.SeAtualizar(Telas.HistoricoSincronizacao, "\uE81C", "Histórico de sincronização");
+            MainPage.Current.SeAtualizar(Telas.HistoricoSincronizacao, "\uE81C", "Histórico de sincronização");
         }
     }
 }

@@ -13,7 +13,7 @@ namespace NFeFacil.View
         public NotasSalvas()
         {
             InitializeComponent();
-            BarraTitulo.Current.SeAtualizar(Telas.NotasSalvas, Symbol.Library, "Notas salvas");
+            MainPage.Current.SeAtualizar(Telas.NotasSalvas, Symbol.Library, "Notas salvas");
             DataContext = new NotasSalvasDataContext(ref lstNotas);
         }
     }

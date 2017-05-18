@@ -12,7 +12,7 @@ namespace NFeFacil.View
         public Configuracoes()
         {
             InitializeComponent();
-            BarraTitulo.Current.SeAtualizar(Telas.Configurações, Symbol.Setting, "Configurações");
+            MainPage.Current.SeAtualizar(Telas.Configurações, Symbol.Setting, "Configurações");
         }
     }
 }

@@ -8,9 +8,6 @@ using BibliotecaCentral.Log;
 using BibliotecaCentral.Sincronizacao;
 using BibliotecaCentral.Sincronizacao.Pacotes;
 using static BibliotecaCentral.Sincronizacao.ConfiguracoesSincronizacao;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media.Animation;
 
 namespace NFeFacil.ViewModel
 {
@@ -87,8 +84,7 @@ namespace NFeFacil.ViewModel
 
         private void ExibirQR()
         {
-            (Window.Current.Content as Frame)
-                .Navigate(typeof(View.QRConexao), null, new DrillInNavigationTransitionInfo());
+            MainPage.Current.AbrirFunçao(typeof(View.QRConexao));
         }
 
         public async void LerQRTemporário()

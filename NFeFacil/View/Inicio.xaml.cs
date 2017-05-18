@@ -2,12 +2,10 @@
 using BibliotecaCentral.ModeloXML.PartesProcesso;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
-using System;
 using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media.Animation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -21,17 +19,17 @@ namespace NFeFacil.View
         public Inicio()
         {
             InitializeComponent();
-            BarraTitulo.Current.SeAtualizar(Telas.Inicio, Symbol.Home, nameof(Inicio));
+            MainPage.Current.SeAtualizar(Telas.Inicio, Symbol.Home, nameof(Inicio));
         }
 
         private void AbrirFunção(object sender, TappedRoutedEventArgs e)
         {
-            Frame.Navigate(Type.GetType($"NFeFacil.View.{(sender as FrameworkElement).Name}"), null, new DrillInNavigationTransitionInfo());
+            MainPage.Current.AbrirFunçao((sender as FrameworkElement).Name);
         }
 
         private void CriarNotaFiscal(object sender, TappedRoutedEventArgs e)
         {
-            Frame.Navigate(typeof(ManipulacaoNotaFiscal),
+            MainPage.Current.AbrirFunçao(typeof(ManipulacaoNotaFiscal),
                 new ConjuntoManipuladorNFe
                 {
                     NotaSalva = new NFe()
@@ -52,7 +50,7 @@ namespace NFeFacil.View
                     },
                     OperacaoRequirida = TipoOperacao.Adicao,
                     StatusAtual = StatusNFe.Edição
-                }, new DrillInNavigationTransitionInfo());
+                });
         }
     }
 }

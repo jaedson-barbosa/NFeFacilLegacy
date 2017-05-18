@@ -3,14 +3,10 @@ using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
 using BibliotecaCentral.Repositorio;
-using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media.Animation;
 
 namespace NFeFacil.ViewModel
 {
@@ -111,18 +107,12 @@ namespace NFeFacil.ViewModel
 
         private void AdicionarEmitente()
         {
-            AbrirFuncao(typeof(View.AdicionarEmitente));
-        }
-
-        private static void AbrirFuncao(Type tela, object parametro = null)
-        {
-            (Window.Current.Content as Frame)
-                .Navigate(tela, parametro, new DrillInNavigationTransitionInfo());
+            MainPage.Current.AbrirFunçao(typeof(View.AdicionarEmitente));
         }
 
         private void EditarEmitente(Emitente emit)
         {
-            AbrirFuncao(typeof(View.AdicionarEmitente), new GrupoViewBanco<Emitente>
+            MainPage.Current.AbrirFunçao(typeof(View.AdicionarEmitente), new GrupoViewBanco<Emitente>
             {
                 ItemBanco = emit,
                 OperacaoRequirida = TipoOperacao.Edicao
@@ -141,12 +131,12 @@ namespace NFeFacil.ViewModel
 
         private void AdicionarCliente()
         {
-            AbrirFuncao(typeof(View.AdicionarDestinatario));
+            MainPage.Current.AbrirFunçao(typeof(View.AdicionarDestinatario));
         }
 
         private void EditarCliente(Destinatario dest)
         {
-            AbrirFuncao(typeof(View.AdicionarDestinatario), new GrupoViewBanco<Destinatario>
+            MainPage.Current.AbrirFunçao(typeof(View.AdicionarDestinatario), new GrupoViewBanco<Destinatario>
             {
                 ItemBanco = dest,
                 OperacaoRequirida = TipoOperacao.Edicao
@@ -165,12 +155,12 @@ namespace NFeFacil.ViewModel
 
         private void AdicionarMotorista()
         {
-            AbrirFuncao(typeof(View.AdicionarMotorista));
+            MainPage.Current.AbrirFunçao(typeof(View.AdicionarMotorista));
         }
 
         private void EditarMotorista(Motorista mot)
         {
-            AbrirFuncao(typeof(View.AdicionarMotorista), new GrupoViewBanco<Motorista>
+            MainPage.Current.AbrirFunçao(typeof(View.AdicionarMotorista), new GrupoViewBanco<Motorista>
             {
                 ItemBanco = mot,
                 OperacaoRequirida = TipoOperacao.Edicao
@@ -189,12 +179,12 @@ namespace NFeFacil.ViewModel
 
         private void AdicionarProduto()
         {
-            AbrirFuncao(typeof(View.AdicionarProduto));
+            MainPage.Current.AbrirFunçao(typeof(View.AdicionarProduto));
         }
 
         private void EditarProduto(BaseProdutoOuServico prod)
         {
-            AbrirFuncao(typeof(View.AdicionarProduto), new GrupoViewBanco<BaseProdutoOuServico>
+            MainPage.Current.AbrirFunçao(typeof(View.AdicionarProduto), new GrupoViewBanco<BaseProdutoOuServico>
             {
                 ItemBanco = prod,
                 OperacaoRequirida = TipoOperacao.Edicao

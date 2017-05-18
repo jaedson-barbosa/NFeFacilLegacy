@@ -12,7 +12,7 @@ namespace NFeFacil.View
         public ConfigSincronizacao()
         {
             InitializeComponent();
-            BarraTitulo.Current.SeAtualizar(Telas.ConfigSincronizacao, Symbol.Sync, "Sincronização");
+            MainPage.Current.SeAtualizar(Telas.ConfigSincronizacao, Symbol.Sync, "Sincronização");
         }
     }
 }

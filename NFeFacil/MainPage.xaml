@@ -48,7 +48,9 @@
                Grid.Row="1">
             <Frame.ContentTransitions>
                 <TransitionCollection>
-                    <NavigationThemeTransition />
+                    <NavigationThemeTransition>
+                        <DrillInNavigationTransitionInfo />
+                    </NavigationThemeTransition>
                 </TransitionCollection>
             </Frame.ContentTransitions>
         </Frame>

@@ -67,14 +67,9 @@ namespace NFeFacil
             }
         }
 
-        public void AbrirFunçao(string tela, object parametro = null)
-        {
-            AbrirFunçao(Type.GetType($"NFeFacil.View.{tela}"), parametro);
-        }
-
         public void AbrirFunçao(Type tela, object parametro = null)
         {
-            frmPrincipal.Navigate(tela, parametro, new Windows.UI.Xaml.Media.Animation.DrillInNavigationTransitionInfo());
+            frmPrincipal.Navigate(tela, parametro);
         }
 
         public void SeAtualizar(Telas atual, Symbol símbolo, string texto)

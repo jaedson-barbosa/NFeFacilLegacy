@@ -2,6 +2,7 @@
 using BibliotecaCentral.ModeloXML.PartesProcesso;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
+using System;
 using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -24,7 +25,7 @@ namespace NFeFacil.View
 
         private void AbrirFunção(object sender, TappedRoutedEventArgs e)
         {
-            MainPage.Current.AbrirFunçao((sender as FrameworkElement).Name);
+            MainPage.Current.AbrirFunçao(Type.GetType($"NFeFacil.View.{(sender as FrameworkElement).Name}"));
         }
 
         private void CriarNotaFiscal(object sender, TappedRoutedEventArgs e)

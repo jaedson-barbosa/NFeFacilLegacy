@@ -29,11 +29,6 @@
                 </my:Guia>
             </PivotItem.Header>
             <StackPanel>
-                <StackPanel.ChildrenTransitions>
-                    <TransitionCollection>
-                        <EntranceThemeTransition IsStaggeringEnabled="True" />
-                    </TransitionCollection>
-                </StackPanel.ChildrenTransitions>
                 <TextBlock Style="{StaticResource BodyTextBlockStyle}">Escolha o certificado que será usado para realizar a conexão com os servidores da SEFAZ e para a assinatura das notas fiscais.</TextBlock>
                 <RadioButton GroupName="FonteCert"
                              IsChecked="{Binding UsarRepositorioWindows, Mode=TwoWay}">Usar repositório de certificados do Windows</RadioButton>
@@ -74,11 +69,6 @@
             </PivotItem.Header>
             <ScrollViewer VerticalScrollBarVisibility="Hidden">
                 <StackPanel>
-                    <StackPanel.ChildrenTransitions>
-                        <TransitionCollection>
-                            <EntranceThemeTransition IsStaggeringEnabled="True" />
-                        </TransitionCollection>
-                    </StackPanel.ChildrenTransitions>
                     <RichTextBlock Margin="0">
                         <Paragraph>
                             <Run Text="Você também pode importar informações, como emitentes ou clientes, cadastrados em outros aplicativos ou notas fiscais emitidas por qualquer programa." />

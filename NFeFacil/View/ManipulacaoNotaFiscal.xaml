@@ -38,11 +38,6 @@
     </Page.Resources>
     <Grid x:Name="grdPrincipal"
           Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid.Transitions>
-            <TransitionCollection>
-                <EntranceThemeTransition />
-            </TransitionCollection>
-        </Grid.Transitions>
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="Auto" />

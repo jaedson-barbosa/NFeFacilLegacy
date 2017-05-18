@@ -24,11 +24,6 @@
             <RowDefinition Height="113*" />
             <RowDefinition Height="15*" />
         </Grid.RowDefinitions>
-        <Grid.Transitions>
-            <TransitionCollection>
-                <EntranceThemeTransition IsStaggeringEnabled="True" />
-            </TransitionCollection>
-        </Grid.Transitions>
         <ComboBox HorizontalAlignment="Right"
                   Canvas.ZIndex="1"
                   ItemsSource="{Binding AnosDisponiveis, Mode=OneTime}"

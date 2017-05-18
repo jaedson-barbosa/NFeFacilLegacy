@@ -22,11 +22,6 @@
     </Page.DataContext>
     <Pivot x:Name="grdPrincipal"
            Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Pivot.Transitions>
-            <TransitionCollection>
-                <EntranceThemeTransition IsStaggeringEnabled="True" />
-            </TransitionCollection>
-        </Pivot.Transitions>
         <PivotItem Header="Emitente">
             <ListView ItemsSource="{Binding Emitentes}"
                       Style="{StaticResource PseudoTabela}">

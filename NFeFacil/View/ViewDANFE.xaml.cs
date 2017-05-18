@@ -20,7 +20,7 @@ namespace NFeFacil.View
         public ViewDANFE()
         {
             InitializeComponent();
-            MainPage.Current.SeAtualizar(Telas.ManipularNota, Symbol.View, "Visualizar DANFE");
+            BarraTitulo.Current.SeAtualizar(Telas.ManipularNota, Symbol.View, "Visualizar DANFE");
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

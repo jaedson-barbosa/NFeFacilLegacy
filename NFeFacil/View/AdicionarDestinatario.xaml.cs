@@ -44,10 +44,10 @@ namespace NFeFacil.View
             switch (tipoRequisitado)
             {
                 case TipoOperacao.Adicao:
-                    MainPage.Current.SeAtualizar(Telas.GerenciarDadosBase, Symbol.Add, "Adicionar cliente");
+                    BarraTitulo.Current.SeAtualizar(Telas.GerenciarDadosBase, Symbol.Add, "Adicionar cliente");
                     break;
                 case TipoOperacao.Edicao:
-                    MainPage.Current.SeAtualizar(Telas.GerenciarDadosBase, Symbol.Edit, "Editar cliente");
+                    BarraTitulo.Current.SeAtualizar(Telas.GerenciarDadosBase, Symbol.Edit, "Editar cliente");
                     break;
             }
             DataContext = cliente;
@@ -70,13 +70,13 @@ namespace NFeFacil.View
                         Log.Escrever(TitulosComuns.Sucesso, "Cliente alterado com sucesso.");
                     }
                 }
-                MainPage.Current.Retornar();
+                BarraTitulo.Current.Retornar();
             }
         }
 
         private void Cancelar_Click(object sender, RoutedEventArgs e)
         {
-            MainPage.Current.Retornar();
+            BarraTitulo.Current.Retornar();
         }
     }
 }

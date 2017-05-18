@@ -7,8 +7,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Media.Animation;
 
 namespace NFeFacil.ViewModel
 {
@@ -66,7 +68,8 @@ namespace NFeFacil.ViewModel
             {
                 conjunto.NotaEmitida = (await nota.ObjetoCompletoAsync()) as Processo;
             }
-            MainPage.Current.AbrirFunçao(typeof(ManipulacaoNotaFiscal), conjunto);
+            (Window.Current.Content as Frame)
+                .Navigate(typeof(ManipulacaoNotaFiscal), conjunto, new DrillInNavigationTransitionInfo());
         }
 
         private async void Remover(NFeDI nota)

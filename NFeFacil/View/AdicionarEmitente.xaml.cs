@@ -44,10 +44,10 @@ namespace NFeFacil.View
             switch (tipoRequisitado)
             {
                 case TipoOperacao.Adicao:
-                    MainPage.Current.SeAtualizar(Telas.GerenciarDadosBase, Symbol.Add, "Adicionar emitente");
+                    BarraTitulo.Current.SeAtualizar(Telas.GerenciarDadosBase, Symbol.Add, "Adicionar emitente");
                     break;
                 case TipoOperacao.Edicao:
-                    MainPage.Current.SeAtualizar(Telas.GerenciarDadosBase, Symbol.Edit, "Editar emitente");
+                    BarraTitulo.Current.SeAtualizar(Telas.GerenciarDadosBase, Symbol.Edit, "Editar emitente");
                     break;
             }
             DataContext = emitente;
@@ -70,13 +70,13 @@ namespace NFeFacil.View
                         Log.Escrever(TitulosComuns.Sucesso, "Emitente alterado com sucesso.");
                     }
                 }
-                MainPage.Current.Retornar();
+                BarraTitulo.Current.Retornar();
             }
         }
 
         private void Cancelar_Click(object sender, RoutedEventArgs e)
         {
-            MainPage.Current.Retornar();
+            BarraTitulo.Current.Retornar();
         }
     }
 }

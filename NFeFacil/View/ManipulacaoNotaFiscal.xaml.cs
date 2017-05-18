@@ -22,10 +22,10 @@ namespace NFeFacil.View
             switch (param.OperacaoRequirida)
             {
                 case TipoOperacao.Adicao:
-                    MainPage.Current.SeAtualizar(Telas.ManipularNota, Symbol.Add, "Criar nota fiscal");
+                    BarraTitulo.Current.SeAtualizar(Telas.ManipularNota, Symbol.Add, "Criar nota fiscal");
                     break;
                 case TipoOperacao.Edicao:
-                    MainPage.Current.SeAtualizar(Telas.ManipularNota, Symbol.Edit, "Editar nota fiscal");
+                    BarraTitulo.Current.SeAtualizar(Telas.ManipularNota, Symbol.Edit, "Editar nota fiscal");
                     break;
             }
             DataContext = new NotaFiscalDataContext(ref param);

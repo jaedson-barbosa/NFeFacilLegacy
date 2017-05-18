@@ -44,10 +44,10 @@ namespace NFeFacil.View
             switch (tipoRequisitado)
             {
                 case TipoOperacao.Adicao:
-                    MainPage.Current.SeAtualizar(Telas.GerenciarDadosBase, Symbol.Add, "Adicionar produto");
+                    BarraTitulo.Current.SeAtualizar(Telas.GerenciarDadosBase, Symbol.Add, "Adicionar produto");
                     break;
                 case TipoOperacao.Edicao:
-                    MainPage.Current.SeAtualizar(Telas.GerenciarDadosBase, Symbol.Edit, "Editar produto");
+                    BarraTitulo.Current.SeAtualizar(Telas.GerenciarDadosBase, Symbol.Edit, "Editar produto");
                     break;
             }
             DataContext = Produto;
@@ -70,13 +70,13 @@ namespace NFeFacil.View
                         Log.Escrever(TitulosComuns.Sucesso, "Produto alterado com sucesso.");
                     }
                 }
-                MainPage.Current.Retornar();
+                BarraTitulo.Current.Retornar();
             }
         }
 
         private void Cancelar_Click(object sender, RoutedEventArgs e)
         {
-            MainPage.Current.Retornar();
+            BarraTitulo.Current.Retornar();
         }
     }
 }

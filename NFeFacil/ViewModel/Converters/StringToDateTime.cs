@@ -20,10 +20,6 @@ namespace NFeFacil.ViewModel.Converters
                 {
                     formato = parametro;
                 }
-                else
-                {
-                    new Saida().Escrever(TitulosComuns.ErroSimples, "Formato não definido");
-                }
                 if (targetType == typeof(DateTime))
                 {
                     if (string.IsNullOrEmpty(valor))
@@ -56,10 +52,6 @@ namespace NFeFacil.ViewModel.Converters
             if (parameter is string parametro)
             {
                 formato = parametro;
-            }
-            else
-            {
-                new Saida().Escrever(TitulosComuns.ErroSimples, "Formato não definido");
             }
             if (value is DateTime dataHora)
             {

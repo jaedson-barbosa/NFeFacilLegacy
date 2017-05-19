@@ -17,7 +17,6 @@ namespace NFeFacil
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private ILog Log = new Saida();
         internal static MainPage Current { get; private set; }
 
         public MainPage()
@@ -62,10 +61,6 @@ namespace NFeFacil
                 novoTB.ButtonInactiveBackgroundColor = corBackground;
                 novoTB.ButtonHoverBackgroundColor = new Color { A = 50 };
                 novoTB.ButtonPressedBackgroundColor = new Color { A = 100 };
-            }
-            else
-            {
-                Log.Escrever(TitulosComuns.ErroSimples, "Tipo não reconhecido de dispositivo, não é possível mudar a barra de título.");
             }
         }
 

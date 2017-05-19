@@ -31,6 +31,7 @@ namespace NFeFacil
                 e.Handled = true;
                 Retornar();
             };
+            frmPrincipal.CacheSize = 4;
             AbrirFunçao(typeof(View.Inicio));
         }
 
@@ -107,11 +108,11 @@ namespace NFeFacil
 
             if (frmPrincipal.CanGoBack)
             {
-                frmPrincipal.GoBack(new Windows.UI.Xaml.Media.Animation.DrillInNavigationTransitionInfo());
+                frmPrincipal.GoBack();
             }
             else
             {
-                Log.Escrever(TitulosComuns.ErroSimples, "Não é possível voltar para a tela anterior.");
+                Application.Current.Exit();
             }
         }
     }

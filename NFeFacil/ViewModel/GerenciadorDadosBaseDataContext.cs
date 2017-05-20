@@ -1,7 +1,5 @@
 ﻿using BibliotecaCentral;
 using BibliotecaCentral.ItensBD;
-using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
-using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
 using BibliotecaCentral.Repositorio;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -21,8 +19,8 @@ namespace NFeFacil.ViewModel
 
         public ObservableCollection<EmitenteDI> Emitentes { get; private set; }
         public ObservableCollection<ClienteDI> Clientes { get; private set; }
-        public ObservableCollection<Motorista> Motoristas { get; private set; }
-        public ObservableCollection<BaseProdutoOuServico> Produtos { get; private set; }
+        public ObservableCollection<MotoristaDI> Motoristas { get; private set; }
+        public ObservableCollection<ProdutoDI> Produtos { get; private set; }
 
         public ICommand AdicionarEmitenteCommand { get; }
         public ICommand EditarEmitenteCommand { get; }
@@ -51,12 +49,12 @@ namespace NFeFacil.ViewModel
             RemoverClienteCommand = new Comando<ClienteDI>(RemoverCliente);
 
             AdicionarMotoristaCommand = new Comando(AdicionarMotorista);
-            EditarMotoristaCommand = new Comando<Motorista>(EditarMotorista);
-            RemoverMotoristaCommand = new Comando<Motorista>(RemoverMotorista);
+            EditarMotoristaCommand = new Comando<MotoristaDI>(EditarMotorista);
+            RemoverMotoristaCommand = new Comando<MotoristaDI>(RemoverMotorista);
 
             AdicionarProdutoCommand = new Comando(AdicionarProduto);
-            EditarProdutoCommand = new Comando<BaseProdutoOuServico>(EditarProduto);
-            RemoverProdutoCommand = new Comando<BaseProdutoOuServico>(RemoverProduto);
+            EditarProdutoCommand = new Comando<ProdutoDI>(EditarProduto);
+            RemoverProdutoCommand = new Comando<ProdutoDI>(RemoverProduto);
 
             DefinirAsync();
 
@@ -158,16 +156,16 @@ namespace NFeFacil.ViewModel
             MainPage.Current.AbrirFunçao(typeof(View.AdicionarMotorista));
         }
 
-        private void EditarMotorista(Motorista mot)
+        private void EditarMotorista(MotoristaDI mot)
         {
-            MainPage.Current.AbrirFunçao(typeof(View.AdicionarMotorista), new GrupoViewBanco<Motorista>
+            MainPage.Current.AbrirFunçao(typeof(View.AdicionarMotorista), new GrupoViewBanco<MotoristaDI>
             {
                 ItemBanco = mot,
                 OperacaoRequirida = TipoOperacao.Edicao
             });
         }
 
-        private async void RemoverMotorista(Motorista mot)
+        private async void RemoverMotorista(MotoristaDI mot)
         {
             using (var db = new Motoristas())
             {
@@ -182,16 +180,16 @@ namespace NFeFacil.ViewModel
             MainPage.Current.AbrirFunçao(typeof(View.AdicionarProduto));
         }
 
-        private void EditarProduto(BaseProdutoOuServico prod)
+        private void EditarProduto(ProdutoDI prod)
         {
-            MainPage.Current.AbrirFunçao(typeof(View.AdicionarProduto), new GrupoViewBanco<BaseProdutoOuServico>
+            MainPage.Current.AbrirFunçao(typeof(View.AdicionarProduto), new GrupoViewBanco<ProdutoDI>
             {
                 ItemBanco = prod,
                 OperacaoRequirida = TipoOperacao.Edicao
             });
         }
 
-        private async void RemoverProduto(BaseProdutoOuServico prod)
+        private async void RemoverProduto(ProdutoDI prod)
         {
             using (var db = new Produtos())
             {

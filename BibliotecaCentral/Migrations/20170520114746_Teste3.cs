@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BibliotecaCentral.Migrations
 {
-    public partial class Teste2 : Migration
+    public partial class Teste3 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -70,6 +70,25 @@ namespace BibliotecaCentral.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Motoristas",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    CNPJ = table.Column<string>(nullable: true),
+                    CPF = table.Column<string>(nullable: true),
+                    InscricaoEstadual = table.Column<string>(nullable: true),
+                    Nome = table.Column<string>(nullable: true),
+                    UF = table.Column<string>(nullable: true),
+                    UltimaData = table.Column<DateTime>(nullable: false),
+                    XEnder = table.Column<string>(nullable: true),
+                    XMun = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Motoristas", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "NotasFiscais",
                 columns: table => new
                 {
@@ -86,6 +105,29 @@ namespace BibliotecaCentral.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_NotasFiscais", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Produtos",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    CFOP = table.Column<string>(nullable: true),
+                    CodigoBarras = table.Column<string>(nullable: true),
+                    CodigoBarrasTributo = table.Column<string>(nullable: true),
+                    CodigoProduto = table.Column<string>(nullable: true),
+                    Descricao = table.Column<string>(nullable: true),
+                    EXTIPI = table.Column<string>(nullable: true),
+                    NCM = table.Column<string>(nullable: true),
+                    UltimaData = table.Column<DateTime>(nullable: false),
+                    UnidadeComercializacao = table.Column<string>(nullable: true),
+                    UnidadeTributacao = table.Column<string>(nullable: true),
+                    ValorUnitario = table.Column<double>(nullable: false),
+                    ValorUnitarioTributo = table.Column<double>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Produtos", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -118,49 +160,6 @@ namespace BibliotecaCentral.Migrations
                 {
                     table.PrimaryKey("PK_ResultadosServidor", x => x.Id);
                 });
-
-            migrationBuilder.CreateTable(
-                name: "Produtos",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    CFOP = table.Column<string>(nullable: true),
-                    CodigoBarras = table.Column<string>(nullable: true),
-                    CodigoBarrasTributo = table.Column<string>(nullable: true),
-                    CodigoProduto = table.Column<string>(nullable: true),
-                    Descricao = table.Column<string>(nullable: true),
-                    EXTIPI = table.Column<string>(nullable: true),
-                    NCM = table.Column<string>(nullable: true),
-                    UltimaData = table.Column<DateTime>(nullable: false),
-                    UnidadeComercializacao = table.Column<string>(nullable: true),
-                    UnidadeTributacao = table.Column<string>(nullable: true),
-                    ValorUnitario = table.Column<double>(nullable: false),
-                    ValorUnitarioTributo = table.Column<double>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Produtos", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Motoristas",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    CNPJ = table.Column<string>(nullable: true),
-                    CPF = table.Column<string>(nullable: true),
-                    Documento = table.Column<string>(nullable: true),
-                    InscricaoEstadual = table.Column<string>(nullable: true),
-                    Nome = table.Column<string>(nullable: true),
-                    UF = table.Column<string>(nullable: true),
-                    UltimaData = table.Column<DateTime>(nullable: false),
-                    XEnder = table.Column<string>(nullable: true),
-                    XMun = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Motoristas", x => x.Id);
-                });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -172,19 +171,19 @@ namespace BibliotecaCentral.Migrations
                 name: "Emitentes");
 
             migrationBuilder.DropTable(
+                name: "Motoristas");
+
+            migrationBuilder.DropTable(
                 name: "NotasFiscais");
+
+            migrationBuilder.DropTable(
+                name: "Produtos");
 
             migrationBuilder.DropTable(
                 name: "ResultadosCliente");
 
             migrationBuilder.DropTable(
                 name: "ResultadosServidor");
-
-            migrationBuilder.DropTable(
-                name: "Produtos");
-
-            migrationBuilder.DropTable(
-                name: "Motoristas");
         }
     }
 }

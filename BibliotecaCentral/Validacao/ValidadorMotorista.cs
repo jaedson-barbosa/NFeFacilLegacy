@@ -1,4 +1,5 @@
-﻿using BibliotecaCentral.Log;
+﻿using BibliotecaCentral.ItensBD;
+using BibliotecaCentral.Log;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
 
 namespace BibliotecaCentral.Validacao
@@ -10,6 +11,11 @@ namespace BibliotecaCentral.Validacao
         public ValidadorMotorista(Motorista mot)
         {
             Mot = mot;
+        }
+
+        public ValidadorMotorista(MotoristaDI mot)
+        {
+            Mot = mot.ToMotorista();
         }
 
         public bool Validar(ILog log)

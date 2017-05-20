@@ -1,26 +1,26 @@
 ﻿using System.Collections.Generic;
-using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
 using System;
+using BibliotecaCentral.ItensBD;
 
 namespace BibliotecaCentral.Repositorio
 {
     public sealed class Motoristas : ConexaoBanco
     {
-        public IEnumerable<Motorista> Registro => Contexto.Motoristas;
+        public IEnumerable<MotoristaDI> Registro => Contexto.Motoristas;
 
-        public void Adicionar(Motorista dado)
+        public void Adicionar(MotoristaDI dado)
         {
             dado.UltimaData = DateTime.Now;
             Contexto.Add(dado);
         }
 
-        public void Atualizar(Motorista dado)
+        public void Atualizar(MotoristaDI dado)
         {
             dado.UltimaData = DateTime.Now;
             Contexto.Update(dado);
         }
 
-        public void Remover(Motorista dado)
+        public void Remover(MotoristaDI dado)
         {
             Contexto.Remove(dado);
         }

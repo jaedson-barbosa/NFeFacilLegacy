@@ -1,6 +1,4 @@
 ﻿using BibliotecaCentral.ItensBD;
-using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
-using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
 using System.Collections.Generic;
 
 namespace BibliotecaCentral.Sincronizacao.Pacotes
@@ -9,7 +7,7 @@ namespace BibliotecaCentral.Sincronizacao.Pacotes
     {
         public List<EmitenteDI> Emitentes { get; set; }
         public List<ClienteDI> Clientes { get; set; }
-        public List<Motorista> Motoristas { get; set; }
-        public List<BaseProdutoOuServico> Produtos { get; set; }
+        public List<MotoristaDI> Motoristas { get; set; }
+        public List<ProdutoDI> Produtos { get; set; }
     }
 }

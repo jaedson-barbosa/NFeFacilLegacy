@@ -1,6 +1,4 @@
 ﻿using BibliotecaCentral.ItensBD;
-using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
-using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -91,7 +89,7 @@ namespace BibliotecaCentral.Repositorio
             Contexto.UpdateRange(existem);
         }
 
-        internal void AdicionarMotoristas(List<Motorista> motoristas)
+        internal void AdicionarMotoristas(List<MotoristaDI> motoristas)
         {
             motoristas.ForEach(x => x.UltimaData = DateTime.Now);
             var existem = motoristas.FindAll(x => Contexto.Motoristas.Find(x.Id) != null);
@@ -100,10 +98,10 @@ namespace BibliotecaCentral.Repositorio
             Contexto.UpdateRange(existem);
         }
 
-        internal void AnalisarAdicionarMotoristas(List<Motorista> motoristas)
+        internal void AnalisarAdicionarMotoristas(List<MotoristaDI> motoristas)
         {
-            var existem = new List<Motorista>();
-            var naoExistem = new List<Motorista>();
+            var existem = new List<MotoristaDI>();
+            var naoExistem = new List<MotoristaDI>();
             foreach (var mot in motoristas)
             {
                 if (mot.Id != null && Contexto.Motoristas.Find(mot.Id) != null)
@@ -112,10 +110,10 @@ namespace BibliotecaCentral.Repositorio
                 }
                 else
                 {
-                    var busca = Contexto.Motoristas.FirstOrDefault(x => x.Documento == mot.Documento
+                    var busca = Contexto.Motoristas.FirstOrDefault(x => (x.CPF == mot.CPF || x.CNPJ == mot.CNPJ)
                         || x.InscricaoEstadual == mot.InscricaoEstadual
                         || (x.Nome == mot.Nome && x.XEnder == mot.XEnder));
-                    if (busca != default(Motorista))
+                    if (busca != default(MotoristaDI))
                     {
                         mot.Id = busca.Id;
                         existem.Add(mot);
@@ -130,7 +128,7 @@ namespace BibliotecaCentral.Repositorio
             Contexto.UpdateRange(existem);
         }
 
-        internal void AdicionarProdutos(List<BaseProdutoOuServico> produtos)
+        internal void AdicionarProdutos(List<ProdutoDI> produtos)
         {
             produtos.ForEach(x => x.UltimaData = DateTime.Now);
             var existem = produtos.FindAll(x => Contexto.Produtos.Find(x.Id) != null);
@@ -139,10 +137,10 @@ namespace BibliotecaCentral.Repositorio
             Contexto.UpdateRange(existem);
         }
 
-        internal void AnalisarAdicionarProdutos(List<BaseProdutoOuServico> produtos)
+        internal void AnalisarAdicionarProdutos(List<ProdutoDI> produtos)
         {
-            var existem = new List<BaseProdutoOuServico>();
-            var naoExistem = new List<BaseProdutoOuServico>();
+            var existem = new List<ProdutoDI>();
+            var naoExistem = new List<ProdutoDI>();
             foreach (var prod in produtos)
             {
                 if (prod.Id != null && Contexto.Produtos.Find(prod.Id) != null)
@@ -153,7 +151,7 @@ namespace BibliotecaCentral.Repositorio
                 {
                     var busca = Contexto.Produtos.FirstOrDefault(x => x.Descricao == prod.Descricao
                         || (x.CodigoProduto == prod.CodigoProduto && x.CFOP == prod.CFOP));
-                    if (busca != default(BaseProdutoOuServico))
+                    if (busca != default(ProdutoDI))
                     {
                         prod.Id = busca.Id;
                         existem.Add(prod);

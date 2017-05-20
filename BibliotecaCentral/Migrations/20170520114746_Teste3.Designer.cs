@@ -8,8 +8,8 @@ using BibliotecaCentral;
 namespace BibliotecaCentral.Migrations
 {
     [DbContext(typeof(AplicativoContext))]
-    [Migration("20170520015247_Teste2")]
-    partial class Teste2
+    [Migration("20170520114746_Teste3")]
+    partial class Teste3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -116,6 +116,32 @@ namespace BibliotecaCentral.Migrations
                     b.ToTable("Emitentes");
                 });
 
+            modelBuilder.Entity("BibliotecaCentral.ItensBD.MotoristaDI", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("CNPJ");
+
+                    b.Property<string>("CPF");
+
+                    b.Property<string>("InscricaoEstadual");
+
+                    b.Property<string>("Nome");
+
+                    b.Property<string>("UF");
+
+                    b.Property<DateTime>("UltimaData");
+
+                    b.Property<string>("XEnder");
+
+                    b.Property<string>("XMun");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Motoristas");
+                });
+
             modelBuilder.Entity("BibliotecaCentral.ItensBD.NFeDI", b =>
                 {
                     b.Property<string>("Id")
@@ -144,6 +170,40 @@ namespace BibliotecaCentral.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("NotasFiscais");
+                });
+
+            modelBuilder.Entity("BibliotecaCentral.ItensBD.ProdutoDI", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("CFOP");
+
+                    b.Property<string>("CodigoBarras");
+
+                    b.Property<string>("CodigoBarrasTributo");
+
+                    b.Property<string>("CodigoProduto");
+
+                    b.Property<string>("Descricao");
+
+                    b.Property<string>("EXTIPI");
+
+                    b.Property<string>("NCM");
+
+                    b.Property<DateTime>("UltimaData");
+
+                    b.Property<string>("UnidadeComercializacao");
+
+                    b.Property<string>("UnidadeTributacao");
+
+                    b.Property<double>("ValorUnitario");
+
+                    b.Property<double>("ValorUnitarioTributo");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Produtos");
                 });
 
             modelBuilder.Entity("BibliotecaCentral.ItensBD.ResultadoSincronizacaoCliente", b =>
@@ -178,68 +238,6 @@ namespace BibliotecaCentral.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ResultadosServidor");
-                });
-
-            modelBuilder.Entity("BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.BaseProdutoOuServico", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("CFOP");
-
-                    b.Property<string>("CodigoBarras");
-
-                    b.Property<string>("CodigoBarrasTributo");
-
-                    b.Property<string>("CodigoProduto");
-
-                    b.Property<string>("Descricao");
-
-                    b.Property<string>("EXTIPI");
-
-                    b.Property<string>("NCM");
-
-                    b.Property<DateTime>("UltimaData");
-
-                    b.Property<string>("UnidadeComercializacao");
-
-                    b.Property<string>("UnidadeTributacao");
-
-                    b.Property<double>("ValorUnitario");
-
-                    b.Property<double>("ValorUnitarioTributo");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Produtos");
-                });
-
-            modelBuilder.Entity("BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte.Motorista", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("CNPJ");
-
-                    b.Property<string>("CPF");
-
-                    b.Property<string>("Documento");
-
-                    b.Property<string>("InscricaoEstadual");
-
-                    b.Property<string>("Nome");
-
-                    b.Property<string>("UF");
-
-                    b.Property<DateTime>("UltimaData");
-
-                    b.Property<string>("XEnder");
-
-                    b.Property<string>("XMun");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Motoristas");
                 });
         }
     }

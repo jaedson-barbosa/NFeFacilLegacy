@@ -42,9 +42,9 @@ namespace BibliotecaCentral.Importacao
                     case TiposDadoBasico.Cliente:
                         return AnaliseCompletaXml<Destinatario>(listaXML, nameof(Destinatario), "dest", x=> repo.AnalisarAdicionarClientes(x.Select(dest => new ItensBD.ClienteDI(dest)).ToList()));
                     case TiposDadoBasico.Motorista:
-                        return AnaliseCompletaXml<Motorista>(listaXML, nameof(Motorista), "transporta", repo.AnalisarAdicionarMotoristas);
+                        return AnaliseCompletaXml<Motorista>(listaXML, nameof(Motorista), "transporta", x => repo.AnalisarAdicionarMotoristas(x.Select(mot => new ItensBD.MotoristaDI(mot)).ToList()));
                     case TiposDadoBasico.Produto:
-                        return AnaliseCompletaXml<BaseProdutoOuServico>(listaXML, nameof(BaseProdutoOuServico), "prod", repo.AnalisarAdicionarProdutos);
+                        return AnaliseCompletaXml<ProdutoOuServico>(listaXML, nameof(ProdutoOuServico), "prod", x=> repo.AnalisarAdicionarProdutos(x.Select(prod => new ItensBD.ProdutoDI(prod)).ToList()));
                     default:
                         return null;
                 }

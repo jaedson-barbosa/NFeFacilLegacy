@@ -4,7 +4,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using BibliotecaCentral.Repositorio;
-using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
+using BibliotecaCentral.ItensBD;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -15,7 +15,7 @@ namespace NFeFacil.View
     /// </summary>
     public sealed partial class AdicionarMotorista : Page
     {
-        private Motorista motorista;
+        private MotoristaDI motorista;
         private TipoOperacao tipoRequisitado;
         private ILog Log = new Popup();
 
@@ -26,18 +26,18 @@ namespace NFeFacil.View
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            GrupoViewBanco<Motorista> parametro;
+            GrupoViewBanco<MotoristaDI> parametro;
             if (e.Parameter == null)
             {
-                parametro = new GrupoViewBanco<Motorista>
+                parametro = new GrupoViewBanco<MotoristaDI>
                 {
-                    ItemBanco = new Motorista(),
+                    ItemBanco = new MotoristaDI(),
                     OperacaoRequirida = TipoOperacao.Adicao
                 };
             }
             else
             {
-                parametro = (GrupoViewBanco<Motorista>)e.Parameter;
+                parametro = (GrupoViewBanco<MotoristaDI>)e.Parameter;
             }
             motorista = parametro.ItemBanco;
             tipoRequisitado = parametro.OperacaoRequirida;

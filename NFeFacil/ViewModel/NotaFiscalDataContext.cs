@@ -71,8 +71,8 @@ namespace NFeFacil.ViewModel
 
         public List<ClienteDI> ClientesDisponiveis { get; }
         public List<EmitenteDI> EmitentesDisponiveis { get; }
-        public List<BaseProdutoOuServico> ProdutosDisponiveis { get; }
-        public List<Motorista> MotoristasDisponiveis { get; }
+        public List<ProdutoDI> ProdutosDisponiveis { get; }
+        public List<MotoristaDI> MotoristasDisponiveis { get; }
 
         private ClienteDI clienteSelecionado;
         public ClienteDI ClienteSelecionado
@@ -116,22 +116,27 @@ namespace NFeFacil.ViewModel
             }
         }
 
-        public BaseProdutoOuServico ProdutoSelecionado { get; set; }
+        public ProdutoDI ProdutoSelecionado { get; set; }
 
-        private Motorista motoristaSelecionado;
-        public Motorista MotoristaSelecionado
+        private MotoristaDI motoristaSelecionado;
+        public MotoristaDI MotoristaSelecionado
         {
             get
             {
                 if (motoristaSelecionado == null)
                 {
-                    motoristaSelecionado = MotoristasDisponiveis.FirstOrDefault(x => x.Documento == NotaSalva.Informações.transp?.transporta?.Documento);
+                    motoristaSelecionado = MotoristasDisponiveis.FirstOrDefault(x =>
+                    {
+                        var mot = NotaSalva.Informações.transp?.transporta;
+                        return x.CPF == mot.CPF || x.CNPJ == mot.CNPJ;
+                    });
                 }
                 return motoristaSelecionado;
             }
             set
             {
-                NotaSalva.Informações.transp.transporta = motoristaSelecionado = value;
+                motoristaSelecionado = value;
+                NotaSalva.Informações.transp.transporta = value.ToMotorista();
                 OnPropertyChanged(nameof(NotaSalva));
             }
         }
@@ -189,7 +194,7 @@ namespace NFeFacil.ViewModel
         {
             var detCompleto = new DetalhesProdutos
             {
-                Produto = ProdutoSelecionado != null ? new ProdutoOuServico(ProdutoSelecionado) : new ProdutoOuServico()
+                Produto = ProdutoSelecionado != null ? ProdutoSelecionado.ToProdutoOuServico() : new ProdutoOuServico()
             };
             MainPage.Current.AbrirFunçao(typeof(ManipulacaoProdutoCompleto), detCompleto);
         }

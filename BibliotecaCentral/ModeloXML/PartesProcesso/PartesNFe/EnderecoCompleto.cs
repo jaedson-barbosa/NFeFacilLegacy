@@ -1,5 +1,4 @@
-﻿using System;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 
 namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe
 {
@@ -22,8 +21,6 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe
 
         public enderecoCompleto(enderecoCompleto other) : this(other.Logradouro, other.Numero, other.Bairro, other.CodigoMunicipio, other.NomeMunicipio, other.SiglaUF, other.CEP, other.Telefone, other.Complemento) { }
 
-        [XmlIgnore]
-        public Guid Id { get; set; }
         [XmlElement("xLgr")]
         public string Logradouro { get; set; }
         [XmlElement("nro")]

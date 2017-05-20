@@ -1,5 +1,4 @@
 ﻿using BibliotecaCentral.ItensBD;
-using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
 using System;
@@ -18,7 +17,7 @@ namespace BibliotecaCentral.Repositorio
             Contexto = contexto;
         }
 
-        internal void AdicionarEmitentes(List<Emitente> emitentes)
+        internal void AdicionarEmitentes(List<EmitenteDI> emitentes)
         {
             emitentes.ForEach(x => x.UltimaData = DateTime.Now);
             var existem = emitentes.FindAll(x => Contexto.Emitentes.Find(x.Id) != null);
@@ -27,10 +26,10 @@ namespace BibliotecaCentral.Repositorio
             Contexto.UpdateRange(existem);
         }
 
-        internal void AnalisarAdicionarEmitentes(List<Emitente> emitentes)
+        internal void AnalisarAdicionarEmitentes(List<EmitenteDI> emitentes)
         {
-            var existem = new List<Emitente>();
-            var naoExistem = new List<Emitente>();
+            var existem = new List<EmitenteDI>();
+            var naoExistem = new List<EmitenteDI>();
             foreach (var emit in emitentes)
             {
                 if (emit.Id != null && Contexto.Emitentes.Find(emit.Id) != null)
@@ -40,7 +39,7 @@ namespace BibliotecaCentral.Repositorio
                 else
                 {
                     var busca = Contexto.Emitentes.FirstOrDefault(x => x.CNPJ == emit.CNPJ);
-                    if (busca != default(Emitente))
+                    if (busca != default(EmitenteDI))
                     {
                         emit.Id = busca.Id;
                         existem.Add(emit);
@@ -55,7 +54,7 @@ namespace BibliotecaCentral.Repositorio
             Contexto.UpdateRange(existem);
         }
 
-        internal void AdicionarClientes(List<Destinatario> clientes)
+        internal void AdicionarClientes(List<ClienteDI> clientes)
         {
             clientes.ForEach(x => x.UltimaData = DateTime.Now);
             var existem = clientes.FindAll(x => Contexto.Clientes.Find(x.Id) != null);
@@ -64,10 +63,10 @@ namespace BibliotecaCentral.Repositorio
             Contexto.UpdateRange(existem);
         }
 
-        internal void AnalisarAdicionarClientes(List<Destinatario> clientes)
+        internal void AnalisarAdicionarClientes(List<ClienteDI> clientes)
         {
-            var existem = new List<Destinatario>();
-            var naoExistem = new List<Destinatario>();
+            var existem = new List<ClienteDI>();
+            var naoExistem = new List<ClienteDI>();
             foreach (var dest in clientes)
             {
                 if (dest.Id != null && Contexto.Clientes.Find(dest.Id) != null)
@@ -76,8 +75,8 @@ namespace BibliotecaCentral.Repositorio
                 }
                 else
                 {
-                    var busca = Contexto.Clientes.FirstOrDefault(x => x.Documento == dest.Documento);
-                    if (busca != default(Destinatario))
+                    var busca = Contexto.Clientes.FirstOrDefault(x => x.CPF == dest.CPF || x.CNPJ == dest.CNPJ || x.IdEstrangeiro == dest.IdEstrangeiro);
+                    if (busca != default(ClienteDI))
                     {
                         dest.Id = busca.Id;
                         existem.Add(dest);

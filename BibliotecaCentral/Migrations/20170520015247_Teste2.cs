@@ -3,10 +3,72 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BibliotecaCentral.Migrations
 {
-    public partial class Lancamento : Migration
+    public partial class Teste2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Clientes",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Bairro = table.Column<string>(nullable: true),
+                    CEP = table.Column<string>(nullable: true),
+                    CNPJ = table.Column<string>(nullable: true),
+                    CPF = table.Column<string>(nullable: true),
+                    CPais = table.Column<int>(nullable: false),
+                    CodigoMunicipio = table.Column<int>(nullable: false),
+                    Complemento = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    ISUF = table.Column<string>(nullable: true),
+                    IdEstrangeiro = table.Column<string>(nullable: true),
+                    IndicadorIE = table.Column<int>(nullable: false),
+                    InscricaoEstadual = table.Column<string>(nullable: true),
+                    Logradouro = table.Column<string>(nullable: true),
+                    Nome = table.Column<string>(nullable: true),
+                    NomeMunicipio = table.Column<string>(nullable: true),
+                    Numero = table.Column<string>(nullable: true),
+                    SiglaUF = table.Column<string>(nullable: true),
+                    Telefone = table.Column<string>(nullable: true),
+                    UltimaData = table.Column<DateTime>(nullable: false),
+                    XPais = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Clientes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Emitentes",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Bairro = table.Column<string>(nullable: true),
+                    CEP = table.Column<string>(nullable: true),
+                    CNAE = table.Column<string>(nullable: true),
+                    CNPJ = table.Column<string>(nullable: true),
+                    CPais = table.Column<int>(nullable: false),
+                    CodigoMunicipio = table.Column<int>(nullable: false),
+                    Complemento = table.Column<string>(nullable: true),
+                    IEST = table.Column<string>(nullable: true),
+                    IM = table.Column<string>(nullable: true),
+                    InscricaoEstadual = table.Column<string>(nullable: true),
+                    Logradouro = table.Column<string>(nullable: true),
+                    Nome = table.Column<string>(nullable: true),
+                    NomeFantasia = table.Column<string>(nullable: true),
+                    NomeMunicipio = table.Column<string>(nullable: true),
+                    Numero = table.Column<string>(nullable: true),
+                    RegimeTributario = table.Column<int>(nullable: false),
+                    SiglaUF = table.Column<string>(nullable: true),
+                    Telefone = table.Column<string>(nullable: true),
+                    UltimaData = table.Column<DateTime>(nullable: false),
+                    XPais = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Emitentes", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "NotasFiscais",
                 columns: table => new
@@ -58,28 +120,6 @@ namespace BibliotecaCentral.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "enderecoCompleto",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    Bairro = table.Column<string>(nullable: true),
-                    CEP = table.Column<string>(nullable: true),
-                    CPais = table.Column<int>(nullable: false),
-                    CodigoMunicipio = table.Column<int>(nullable: false),
-                    Complemento = table.Column<string>(nullable: true),
-                    Logradouro = table.Column<string>(nullable: true),
-                    NomeMunicipio = table.Column<string>(nullable: true),
-                    Numero = table.Column<string>(nullable: true),
-                    SiglaUF = table.Column<string>(nullable: true),
-                    Telefone = table.Column<string>(nullable: true),
-                    XPais = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_enderecoCompleto", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Produtos",
                 columns: table => new
                 {
@@ -121,75 +161,16 @@ namespace BibliotecaCentral.Migrations
                 {
                     table.PrimaryKey("PK_Motoristas", x => x.Id);
                 });
-
-            migrationBuilder.CreateTable(
-                name: "Clientes",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    CNPJ = table.Column<string>(nullable: true),
-                    CPF = table.Column<string>(nullable: true),
-                    Documento = table.Column<string>(nullable: true),
-                    ISUF = table.Column<string>(nullable: true),
-                    UltimaData = table.Column<DateTime>(nullable: false),
-                    email = table.Column<string>(nullable: true),
-                    enderecoId = table.Column<Guid>(nullable: true),
-                    idEstrangeiro = table.Column<string>(nullable: true),
-                    indicadorIE = table.Column<int>(nullable: false),
-                    inscricaoEstadual = table.Column<string>(nullable: true),
-                    nome = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Clientes", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Clientes_enderecoCompleto_enderecoId",
-                        column: x => x.enderecoId,
-                        principalTable: "enderecoCompleto",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Emitentes",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    CNAE = table.Column<string>(nullable: true),
-                    CNPJ = table.Column<string>(nullable: true),
-                    IEST = table.Column<string>(nullable: true),
-                    IM = table.Column<string>(nullable: true),
-                    UltimaData = table.Column<DateTime>(nullable: false),
-                    enderecoId = table.Column<Guid>(nullable: true),
-                    inscricaoEstadual = table.Column<string>(nullable: true),
-                    nome = table.Column<string>(nullable: true),
-                    nomeFantasia = table.Column<string>(nullable: true),
-                    regimeTributario = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Emitentes", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Emitentes_enderecoCompleto_enderecoId",
-                        column: x => x.enderecoId,
-                        principalTable: "enderecoCompleto",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Clientes_enderecoId",
-                table: "Clientes",
-                column: "enderecoId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Emitentes_enderecoId",
-                table: "Emitentes",
-                column: "enderecoId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Clientes");
+
+            migrationBuilder.DropTable(
+                name: "Emitentes");
+
             migrationBuilder.DropTable(
                 name: "NotasFiscais");
 
@@ -200,19 +181,10 @@ namespace BibliotecaCentral.Migrations
                 name: "ResultadosServidor");
 
             migrationBuilder.DropTable(
-                name: "Clientes");
-
-            migrationBuilder.DropTable(
-                name: "Emitentes");
-
-            migrationBuilder.DropTable(
                 name: "Produtos");
 
             migrationBuilder.DropTable(
                 name: "Motoristas");
-
-            migrationBuilder.DropTable(
-                name: "enderecoCompleto");
         }
     }
 }

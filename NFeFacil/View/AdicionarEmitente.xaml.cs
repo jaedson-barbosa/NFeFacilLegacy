@@ -4,7 +4,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using BibliotecaCentral.Repositorio;
-using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
+using BibliotecaCentral.ItensBD;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -15,7 +15,7 @@ namespace NFeFacil.View
     /// </summary>
     public sealed partial class AdicionarEmitente : Page
     {
-        private Emitente emitente;
+        private EmitenteDI emitente;
         private TipoOperacao tipoRequisitado;
         private ILog Log = new Popup();
 
@@ -26,18 +26,18 @@ namespace NFeFacil.View
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            GrupoViewBanco<Emitente> parametro;
+            GrupoViewBanco<EmitenteDI> parametro;
             if (e.Parameter == null)
             {
-                parametro = new GrupoViewBanco<Emitente>
+                parametro = new GrupoViewBanco<EmitenteDI>
                 {
-                    ItemBanco = new Emitente(),
+                    ItemBanco = new EmitenteDI(),
                     OperacaoRequirida = TipoOperacao.Adicao
                 };
             }
             else
             {
-                parametro = (GrupoViewBanco<Emitente>)e.Parameter;
+                parametro = (GrupoViewBanco<EmitenteDI>)e.Parameter;
             }
             emitente = parametro.ItemBanco;
             tipoRequisitado = parametro.OperacaoRequirida;

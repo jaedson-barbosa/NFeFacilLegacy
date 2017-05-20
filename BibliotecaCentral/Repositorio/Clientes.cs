@@ -1,27 +1,26 @@
 ﻿using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
-using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using System;
+using BibliotecaCentral.ItensBD;
 
 namespace BibliotecaCentral.Repositorio
 {
     public sealed class Clientes : ConexaoBanco
     {
-        public IEnumerable<Destinatario> Registro => Contexto.Clientes.Include(x => x.endereco);
+        public IEnumerable<ClienteDI> Registro => Contexto.Clientes;
 
-        public void Adicionar(Destinatario cliente)
+        public void Adicionar(ClienteDI cliente)
         {
             cliente.UltimaData = DateTime.Now;
             Contexto.Add(cliente);
         }
 
-        public void Atualizar(Destinatario cliente)
+        public void Atualizar(ClienteDI cliente)
         {
             cliente.UltimaData = DateTime.Now;
             Contexto.Update(cliente);
         }
 
-        public void Remover(Destinatario cliente)
+        public void Remover(ClienteDI cliente)
         {
             Contexto.Remove(cliente);
         }

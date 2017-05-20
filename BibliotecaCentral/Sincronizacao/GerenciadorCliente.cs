@@ -8,7 +8,6 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using BibliotecaCentral.ItensBD;
-using Microsoft.EntityFrameworkCore;
 
 namespace BibliotecaCentral.Sincronizacao
 {
@@ -81,8 +80,8 @@ namespace BibliotecaCentral.Sincronizacao
 
                 var envio = new DadosBase
                 {
-                    Emitentes = contexto.Emitentes.Where(x => x.UltimaData > momento).Include(x => x.endereco).ToList(),
-                    Clientes = contexto.Clientes.Where(x => x.UltimaData > momento).Include(x => x.endereco).ToList(),
+                    Emitentes = contexto.Emitentes.Where(x => x.UltimaData > momento).ToList(),
+                    Clientes = contexto.Clientes.Where(x => x.UltimaData > momento).ToList(),
                     Motoristas = contexto.Motoristas.Where(x => x.UltimaData > momento).ToList(),
                     Produtos = contexto.Produtos.Where(x => x.UltimaData > momento).ToList()
                 }; ;
@@ -174,8 +173,8 @@ namespace BibliotecaCentral.Sincronizacao
             {
                 var envio = new DadosBase
                 {
-                    Emitentes = contexto.Emitentes.Include(x => x.endereco).ToList(),
-                    Clientes = contexto.Clientes.Include(x => x.endereco).ToList(),
+                    Emitentes = contexto.Emitentes.ToList(),
+                    Clientes = contexto.Clientes.ToList(),
                     Motoristas = contexto.Motoristas.ToList(),
                     Produtos = contexto.Produtos.ToList()
                 }; ;

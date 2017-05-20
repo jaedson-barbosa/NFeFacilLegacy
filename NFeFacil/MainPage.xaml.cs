@@ -1,5 +1,4 @@
-﻿using BibliotecaCentral.Log;
-using System;
+﻿using System;
 using Windows.ApplicationModel.Core;
 using Windows.System.Profile;
 using Windows.UI;

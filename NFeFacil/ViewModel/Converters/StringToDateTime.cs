@@ -1,5 +1,4 @@
-﻿using BibliotecaCentral.Log;
-using System;
+﻿using System;
 using System.Globalization;
 using Windows.UI.Xaml.Data;
 

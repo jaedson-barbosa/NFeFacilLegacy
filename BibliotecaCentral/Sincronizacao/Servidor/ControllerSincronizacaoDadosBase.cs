@@ -1,6 +1,5 @@
 ﻿using BibliotecaCentral.ItensBD;
 using BibliotecaCentral.Sincronizacao.Pacotes;
-using Microsoft.EntityFrameworkCore;
 using Restup.Webserver.Attributes;
 using Restup.Webserver.Models.Contracts;
 using Restup.Webserver.Models.Schemas;
@@ -68,8 +67,8 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
                     var resposta = new GetResponse(GetResponse.ResponseStatus.OK,
                         new DadosBase
                         {
-                            Emitentes = DB.Emitentes.Where(x => x.UltimaData > momento).Include(x => x.endereco).ToList(),
-                            Clientes = DB.Clientes.Where(x => x.UltimaData > momento).Include(x => x.endereco).ToList(),
+                            Emitentes = DB.Emitentes.Where(x => x.UltimaData > momento).ToList(),
+                            Clientes = DB.Clientes.Where(x => x.UltimaData > momento).ToList(),
                             Motoristas = DB.Motoristas.Where(x => x.UltimaData > momento).ToList(),
                             Produtos = DB.Produtos.Where(x => x.UltimaData > momento).ToList()
                         });
@@ -115,8 +114,8 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
                     var resposta = new GetResponse(GetResponse.ResponseStatus.OK,
                         new DadosBase
                         {
-                            Emitentes = DB.Emitentes.Include(x => x.endereco).ToList(),
-                            Clientes = DB.Clientes.Include(x => x.endereco).ToList(),
+                            Emitentes = DB.Emitentes.ToList(),
+                            Clientes = DB.Clientes.ToList(),
                             Motoristas = DB.Motoristas.ToList(),
                             Produtos = DB.Produtos.ToList()
                         });

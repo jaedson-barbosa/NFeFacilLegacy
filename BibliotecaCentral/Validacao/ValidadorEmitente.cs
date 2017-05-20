@@ -1,4 +1,5 @@
-﻿using BibliotecaCentral.Log;
+﻿using BibliotecaCentral.ItensBD;
+using BibliotecaCentral.Log;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 
 namespace BibliotecaCentral.Validacao
@@ -10,6 +11,11 @@ namespace BibliotecaCentral.Validacao
         public ValidadorEmitente(Emitente emit)
         {
             Emit = emit;
+        }
+
+        public ValidadorEmitente(EmitenteDI emit)
+        {
+            Emit = emit.ToEmitente();
         }
 
         public bool Validar(ILog log)

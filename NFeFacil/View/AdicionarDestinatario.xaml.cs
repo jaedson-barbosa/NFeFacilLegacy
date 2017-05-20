@@ -4,7 +4,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using BibliotecaCentral.Repositorio;
-using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
+using BibliotecaCentral.ItensBD;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -15,7 +15,7 @@ namespace NFeFacil.View
     /// </summary>
     public sealed partial class AdicionarDestinatario : Page
     {
-        private Destinatario cliente;
+        private ClienteDI cliente;
         private TipoOperacao tipoRequisitado;
         private ILog Log = new Popup();
 
@@ -26,18 +26,18 @@ namespace NFeFacil.View
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            GrupoViewBanco<Destinatario> parametro;
+            GrupoViewBanco<ClienteDI> parametro;
             if (e.Parameter == null)
             {
-                parametro = new GrupoViewBanco<Destinatario>
+                parametro = new GrupoViewBanco<ClienteDI>
                 {
-                    ItemBanco = new Destinatario(),
+                    ItemBanco = new ClienteDI(),
                     OperacaoRequirida = TipoOperacao.Adicao
                 };
             }
             else
             {
-                parametro = (GrupoViewBanco<Destinatario>)e.Parameter;
+                parametro = (GrupoViewBanco<ClienteDI>)e.Parameter;
             }
             cliente = parametro.ItemBanco;
             tipoRequisitado = parametro.OperacaoRequirida;

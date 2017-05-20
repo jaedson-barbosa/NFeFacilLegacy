@@ -69,31 +69,36 @@ namespace NFeFacil.ViewModel
             }
         }
 
-        public List<Destinatario> ClientesDisponiveis { get; }
-        public List<Emitente> EmitentesDisponiveis { get; }
+        public List<ClienteDI> ClientesDisponiveis { get; }
+        public List<EmitenteDI> EmitentesDisponiveis { get; }
         public List<BaseProdutoOuServico> ProdutosDisponiveis { get; }
         public List<Motorista> MotoristasDisponiveis { get; }
 
-        private Destinatario clienteSelecionado;
-        public Destinatario ClienteSelecionado
+        private ClienteDI clienteSelecionado;
+        public ClienteDI ClienteSelecionado
         {
             get
             {
                 if (clienteSelecionado == null)
                 {
-                    clienteSelecionado = ClientesDisponiveis.FirstOrDefault(x => x.Documento == NotaSalva.Informações.destinatário.Documento);
+                    clienteSelecionado = ClientesDisponiveis.FirstOrDefault(x =>
+                    {
+                        var dest = NotaSalva.Informações.destinatário;
+                        return x.CPF == dest.CPF || x.CNPJ == dest.CNPJ || x.IdEstrangeiro == dest.idEstrangeiro;
+                    });
                 }
                 return clienteSelecionado;
             }
             set
             {
-                NotaSalva.Informações.destinatário = clienteSelecionado = value;
+                clienteSelecionado = value;
+                NotaSalva.Informações.destinatário = value.ToDestinatario();
                 OnPropertyChanged(nameof(NotaSalva));
             }
         }
 
-        private Emitente emitenteSelecionado;
-        public Emitente EmitenteSelecionado
+        private EmitenteDI emitenteSelecionado;
+        public EmitenteDI EmitenteSelecionado
         {
             get
             {
@@ -105,7 +110,8 @@ namespace NFeFacil.ViewModel
             }
             set
             {
-                NotaSalva.Informações.emitente = emitenteSelecionado = value;
+                emitenteSelecionado = value;
+                NotaSalva.Informações.emitente = value.ToEmitente();
                 OnPropertyChanged(nameof(NotaSalva));
             }
         }

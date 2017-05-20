@@ -12,7 +12,7 @@
     <DefaultLanguage>pt-BR</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.15063.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.14393.0</TargetPlatformMinVersion>
+    <TargetPlatformMinVersion>10.0.15063.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -51,7 +51,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <OutputPath>bin\x86\Release\</OutputPath>
     <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <NoWarn>;2008</NoWarn>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>x86</PlatformTarget>
@@ -109,9 +109,11 @@
   <ItemGroup>
     <Compile Include="Certificacao\AssinaNFe.cs" />
     <Compile Include="Certificacao\ConfiguracoesCertificacao.cs" />
-    <Compile Include="Migrations\20170514024324_Lancamento.cs" />
-    <Compile Include="Migrations\20170514024324_Lancamento.designer.cs">
-      <DependentUpon>20170514024324_Lancamento.cs</DependentUpon>
+    <Compile Include="ItensBD\ClienteDI.cs" />
+    <Compile Include="ItensBD\EmitenteDI.cs" />
+    <Compile Include="Migrations\20170520015247_Teste2.cs" />
+    <Compile Include="Migrations\20170520015247_Teste2.designer.cs">
+      <DependentUpon>20170520015247_Teste2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\AplicativoContextModelSnapshot.cs" />
     <Compile Include="Repositorio\MudancaOtimizadaBancoDados.cs" />

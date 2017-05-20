@@ -1,16 +1,9 @@
-﻿using System;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 
 namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
 {
     public sealed class Emitente
     {
-        [XmlIgnore]
-        public Guid Id { get; set; }
-
-        [XmlIgnore]
-        public DateTime UltimaData { get; set; }
-
         public string CNPJ { get; set; }
         [XmlElement(ElementName = "xNome")]
         public string nome { get; set; }

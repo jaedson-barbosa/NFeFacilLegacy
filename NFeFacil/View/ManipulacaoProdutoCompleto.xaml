@@ -962,8 +962,8 @@
                                 <ColumnDefinition />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
-                            <TextBlock Style="{StaticResource TextoCabecalho}">CNPJ</TextBlock>
-                            <TextBlock Style="{StaticResource TextoCabecalho}" Grid.Column="1">Número do Documento</TextBlock>
+                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">CNPJ</TextBlock>
+                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Grid.Column="1">Número do Documento</TextBlock>
                             <Button Grid.Column="1"
                                     Style="{StaticResource BotaoAdd}"
                                     Command="{Binding AdicionarDeclaracaoImportacaoCommand}"
@@ -997,7 +997,7 @@
                 <ListView Style="{StaticResource PseudoTabela}" ItemsSource="{Binding ListaGE}">
                     <ListView.Header>
                         <Grid Style="{StaticResource Cabecalho}">
-                            <TextBlock Style="{StaticResource TextoCabecalho}">Número do ato concessório de Drawback</TextBlock>
+                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Número do ato concessório de Drawback</TextBlock>
                             <Button Style="{StaticResource BotaoAdd}"
                                     Command="{Binding AdicionarDeclaracaoExportacaoCommand}"
                                     CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">

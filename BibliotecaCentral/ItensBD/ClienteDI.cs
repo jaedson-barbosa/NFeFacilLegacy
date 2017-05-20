@@ -28,6 +28,9 @@ namespace BibliotecaCentral.ItensBD
         public string XPais { get; set; } = "Brasil";
         public string Telefone { get; set; }
 
+        [System.ComponentModel.DataAnnotations.Schema.NotMapped]
+        public string Documento => CPF ?? CNPJ ?? IdEstrangeiro;
+
         public ClienteDI() { }
         public ClienteDI(ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Destinatario other)
         {

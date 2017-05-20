@@ -49,10 +49,10 @@
                                 <ColumnDefinition />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
-                            <TextBlock Style="{StaticResource TextoCabecalho}">Mês</TextBlock>
-                            <TextBlock Style="{StaticResource TextoCabecalho}"
+                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Mês</TextBlock>
+                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
                                        Grid.Column="1">Quantidade</TextBlock>
-                            <TextBlock Style="{StaticResource TextoCabecalho}"
+                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
                                        Grid.Column="2">Valor total</TextBlock>
                         </Grid>
                     </ListView.Header>
@@ -91,14 +91,14 @@
                                 <ColumnDefinition />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
-                            <TextBlock Style="{StaticResource TextoCabecalho}">Nome</TextBlock>
-                            <TextBlock Style="{StaticResource TextoCabecalho}"
+                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Nome</TextBlock>
+                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
                                        Grid.Column="1">Quantidade</TextBlock>
-                            <TextBlock Style="{StaticResource TextoCabecalho}"
+                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
                                        Grid.Column="2">Municipio</TextBlock>
-                            <TextBlock Style="{StaticResource TextoCabecalho}"
+                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
                                        Grid.Column="3">Documento</TextBlock>
-                            <TextBlock Style="{StaticResource TextoCabecalho}"
+                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
                                        Grid.Column="4">Total</TextBlock>
                         </Grid>
                     </ListView.Header>

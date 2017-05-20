@@ -28,11 +28,11 @@
                         <ColumnDefinition />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Style="{StaticResource TextoCabecalho}">Data e hora</TextBlock>
+                    <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Data e hora</TextBlock>
                     <TextBlock Grid.Column="1"
-                               Style="{StaticResource TextoCabecalho}">Notas fiscais</TextBlock>
+                               Style="{StaticResource SubtitleTextBlockStyle}">Notas fiscais</TextBlock>
                     <TextBlock Grid.Column="2"
-                               Style="{StaticResource TextoCabecalho}">Dados base</TextBlock>
+                               Style="{StaticResource SubtitleTextBlockStyle}">Dados base</TextBlock>
                 </Grid>
             </ListView.Header>
             <ListView.ItemTemplate>
@@ -69,10 +69,10 @@
                         <ColumnDefinition />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Style="{StaticResource TextoCabecalho}">Data e hora</TextBlock>
-                    <TextBlock Style="{StaticResource TextoCabecalho}"
+                    <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Data e hora</TextBlock>
+                    <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
                                Grid.Column="1">Tipo de dado</TextBlock>
-                    <TextBlock Style="{StaticResource TextoCabecalho}"
+                    <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
                                Grid.Column="2">Sucesso</TextBlock>
                 </Grid>
             </ListView.Header>

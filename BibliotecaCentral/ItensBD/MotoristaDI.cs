@@ -15,6 +15,9 @@ namespace BibliotecaCentral.ItensBD
         public string XMun { get; set; }
         public string UF { get; set; }
 
+        [System.ComponentModel.DataAnnotations.Schema.NotMapped]
+        public string Documento => CPF ?? CNPJ;
+
         public MotoristaDI() { }
         public MotoristaDI(ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte.Motorista other)
         {

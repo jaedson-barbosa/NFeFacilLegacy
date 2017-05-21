@@ -15,6 +15,7 @@ namespace BibliotecaCentral
         public static void IniciarIBGE()
         {
             IBGE.Estados.Buscar();
+            IBGE.Municipios.Buscar();
         }
     }
 }

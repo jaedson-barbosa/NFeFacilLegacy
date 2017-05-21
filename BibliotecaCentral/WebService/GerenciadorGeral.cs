@@ -38,6 +38,7 @@ namespace BibliotecaCentral.WebService
             {
                 ClientCertificateOptions = ClientCertificateOption.Automatic
             };
+            //handler.UseDefaultCredentials = true;
             handler.ClientCertificates.Add(await repo.ObterCertificadoEscolhidoAsync());
 
             using (var proxy = new HttpClient(handler, true))

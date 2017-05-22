@@ -9,10 +9,10 @@
     <StackPanel Orientation="Horizontal" Margin="-12,0,0,0">
         <ContentPresenter VerticalAlignment="Center"
                           Content="{x:Bind Icone}"
-                          Width="40"
-                          Margin="4" />
+                          Width="20"
+                          Margin="14,4" />
         <TextBlock VerticalAlignment="Center"
-                   Style="{StaticResource BaseTextBlockStyle}"
+                   Style="{StaticResource BodyTextBlockStyle}"
                    Text="{x:Bind Descricao}" />
     </StackPanel>
 </UserControl>

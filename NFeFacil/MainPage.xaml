@@ -15,11 +15,8 @@
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="grupoTamanhoTela">
                 <VisualState x:Name="TelaGrande">
-                    <VisualState.Setters>
-                        
-                    </VisualState.Setters>
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="720" />
+                        <AdaptiveTrigger MinWindowWidth="760" />
                     </VisualState.StateTriggers>
                 </VisualState>
                 <VisualState x:Name="TelaPequena">
@@ -89,8 +86,9 @@
                 </Grid.ColumnDefinitions>
                 <ContentPresenter x:Name="menuPermanente"
                                   Visibility="Collapsed"
-                                  MinWidth="360"
-                                  Margin="16, 16, 0, 16"
+                                  MinWidth="256"
+                                  Margin="16, 0, 0, 0"
+                                  Padding="0,16,0,16"
                                   BorderBrush="{StaticResource Normal}"
                                   BorderThickness="0,0,2,0" />
                 <Frame Name="frmPrincipal"

@@ -22,21 +22,15 @@ namespace NFeFacil.View
         {
             get
             {
-                var lista = new ListView();
-                lista.ItemsSource = new ObservableCollection<Controles.ItemHambuguer>
+                var lista = new ListView()
                 {
-                    new Controles.ItemHambuguer
+                    ItemsSource = new ObservableCollection<Controles.ItemHambuguer>
                     {
-                        Icone = new SymbolIcon(Symbol.Permissions),
-                        Descricao = "Certificação"
+                        new Controles.ItemHambuguer(Symbol.Permissions, "Certificação"),
+                        new Controles.ItemHambuguer(Symbol.Import, "Importação")
                     },
-                    new Controles.ItemHambuguer
-                    {
-                        Icone = new SymbolIcon(Symbol.Import),
-                        Descricao = "Importação"
-                    }
+                    SelectedIndex = 0
                 };
-                lista.SelectedIndex = 0;
                 main.SelectionChanged += (sender, e) => lista.SelectedIndex = main.SelectedIndex;
                 lista.SelectionChanged += (sender, e) => main.SelectedIndex = lista.SelectedIndex;
                 return lista;

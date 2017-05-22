@@ -176,6 +176,7 @@
     <Compile Include="DANFE\Processamento\ViewDados.cs" />
     <Compile Include="DANFE\Processamento\ViewUI.cs" />
     <Compile Include="GrupoViewBanco.cs" />
+    <Compile Include="IHambuguer.cs" />
     <Compile Include="RegistrarCliente.cs" />
     <Compile Include="ViewModel\ConfigSincronizacaoDataContext.cs" />
     <Compile Include="ViewModel\ConfiguracoesDataContext.cs" />

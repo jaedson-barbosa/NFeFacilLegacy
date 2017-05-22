@@ -72,6 +72,48 @@ namespace NFeFacil
         {
             txtTitulo.Text = texto;
             symTitulo.Content = new SymbolIcon(símbolo);
+            UIElement conteudo = null;
+            if (frmPrincipal.Content is IHambuguer hambuguer)
+            {
+                menuPermanente.Visibility = btnHambuguer.Visibility = Visibility.Visible;
+                conteudo = hambuguer.ConteudoMenu;
+
+                if (Window.Current.Bounds.Width >= 720)
+                {
+                    AtualizarPosicaoMenu("TelaGrande");
+                }
+                else
+                {
+                    AtualizarPosicaoMenu("TelaPequena");
+                }
+
+                grupoTamanhoTela.CurrentStateChanging += TamanhoTelaMudou;
+            }
+            else
+            {
+                menuPermanente.Visibility = btnHambuguer.Visibility = Visibility.Collapsed;
+                menuPermanente.Content = splitView.Pane = null;
+                grupoTamanhoTela.CurrentStateChanging -= TamanhoTelaMudou;
+            }
+
+            void TamanhoTelaMudou(object sender, VisualStateChangedEventArgs e)
+            {
+                AtualizarPosicaoMenu(e.NewState.Name);
+            }
+
+            void AtualizarPosicaoMenu(string novoEstado)
+            {
+                if (novoEstado == "TelaGrande")
+                {
+                    splitView.Pane = null;
+                    menuPermanente.Content = conteudo;
+                }
+                else
+                {
+                    menuPermanente.Content = null;
+                    splitView.Pane = conteudo;
+                }
+            }
         }
 
         public void SeAtualizar(string glyph, string texto)
@@ -108,6 +150,11 @@ namespace NFeFacil
             {
                 Application.Current.Exit();
             }
+        }
+
+        private void btnHambuguer_Click(object sender, RoutedEventArgs e)
+        {
+            splitView.IsPaneOpen = !splitView.IsPaneOpen;
         }
     }
 }

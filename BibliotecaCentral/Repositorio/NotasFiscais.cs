@@ -11,7 +11,9 @@ namespace BibliotecaCentral.Repositorio
     {
         private PastaNotasFiscais Pasta { get; } = new PastaNotasFiscais();
 
-        public IEnumerable<NFeDI> Registro => Contexto.NotasFiscais;
+        public IEnumerable<NFeDI> Registro => from not in Contexto.NotasFiscais
+                                              orderby not.DataEmissao descending
+                                              select not;
 
         public async Task<IEnumerable<(NFeDI nota, XElement xml)>> RegistroAsync()
         {

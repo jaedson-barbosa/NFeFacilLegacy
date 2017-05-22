@@ -1,12 +1,15 @@
 ﻿using System.Collections.Generic;
 using System;
+using System.Linq;
 using BibliotecaCentral.ItensBD;
 
 namespace BibliotecaCentral.Repositorio
 {
     public sealed class Produtos : ConexaoBanco
     {
-        public IEnumerable<ProdutoDI> Registro => Contexto.Produtos;
+        public IEnumerable<ProdutoDI> Registro => from prod in Contexto.Produtos
+                                                  orderby prod.Descricao
+                                                  select prod;
 
         public void Adicionar(ProdutoDI dado)
         {

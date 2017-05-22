@@ -259,7 +259,7 @@
                                   SelectedItem="{Binding EmitenteSelecionado, Mode=TwoWay}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding nome}" />
+                                    <TextBlock Text="{Binding Nome}" />
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
@@ -283,7 +283,7 @@
                                   SelectedItem="{Binding ClienteSelecionado, Mode=TwoWay}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding nome}" />
+                                    <TextBlock Text="{Binding Nome}" />
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
@@ -503,13 +503,8 @@
                                            TextWrapping="Wrap" />
                                 <ComboBox ItemsSource="{Binding MotoristasDisponiveis}"
                                           HorizontalAlignment="Stretch"
-                                          SelectedItem="{Binding MotoristaSelecionado, Mode=TwoWay}">
-                                    <ComboBox.ItemTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding Nome}" />
-                                        </DataTemplate>
-                                    </ComboBox.ItemTemplate>
-                                </ComboBox>
+                                          SelectedItem="{Binding MotoristaSelecionado, Mode=TwoWay}"
+                                          DisplayMemberPath="Nome" />
                                 <DadosBase:TelaMotorista DataContext="{Binding NotaSalva.Informações.transp.transporta}" />
                             </StackPanel>
                         </PivotItem>

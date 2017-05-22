@@ -1,12 +1,15 @@
 ﻿using System.Collections.Generic;
 using System;
+using System.Linq;
 using BibliotecaCentral.ItensBD;
 
 namespace BibliotecaCentral.Repositorio
 {
     public sealed class Clientes : ConexaoBanco
     {
-        public IEnumerable<ClienteDI> Registro => Contexto.Clientes;
+        public IEnumerable<ClienteDI> Registro => from cli in Contexto.Clientes
+                                                  orderby cli.Nome
+                                                  select cli;
 
         public void Adicionar(ClienteDI cliente)
         {

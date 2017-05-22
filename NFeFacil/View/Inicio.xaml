@@ -16,7 +16,7 @@
     <ScrollViewer x:Name="root"
                   Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
                   ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                  Margin="2">
+                  Margin="8">
         <ItemsControl Style="{StaticResource ItensMedios}"
                       IsTabStop="False">
             <controles:ItemPadrao x:Name="GerenciarDadosBase"

@@ -90,7 +90,7 @@
                 <ContentPresenter x:Name="menuPermanente"
                                   Visibility="Collapsed"
                                   MinWidth="360"
-                                  Margin="16"
+                                  Margin="16, 16, 0, 16"
                                   BorderBrush="{StaticResource Normal}"
                                   BorderThickness="0,0,2,0" />
                 <Frame Name="frmPrincipal"

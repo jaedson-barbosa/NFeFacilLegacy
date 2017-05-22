@@ -91,6 +91,7 @@ namespace NFeFacil
             }
             else
             {
+                splitView.CompactPaneLength = 0;
                 menuPermanente.Visibility = btnHambuguer.Visibility = Visibility.Collapsed;
                 menuPermanente.Content = splitView.Pane = null;
                 grupoTamanhoTela.CurrentStateChanging -= TamanhoTelaMudou;
@@ -106,11 +107,13 @@ namespace NFeFacil
                 if (novoEstado == "TelaGrande")
                 {
                     splitView.Pane = null;
+                    splitView.CompactPaneLength = 0;
                     menuPermanente.Content = conteudo;
                 }
                 else
                 {
                     menuPermanente.Content = null;
+                    splitView.CompactPaneLength = 48;
                     splitView.Pane = conteudo;
                 }
             }

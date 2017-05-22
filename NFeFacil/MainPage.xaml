@@ -79,7 +79,8 @@
             </StackPanel>
         </Grid>
         <SplitView x:Name="splitView"
-                   Grid.Row="1">
+                   Grid.Row="1"
+                   DisplayMode="CompactOverlay">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"
@@ -89,8 +90,7 @@
                 <ContentPresenter x:Name="menuPermanente"
                                   Visibility="Collapsed"
                                   MinWidth="360"
-                                  Margin="8,8,0,8"
-                                  Padding="8"
+                                  Margin="16"
                                   BorderBrush="{StaticResource Normal}"
                                   BorderThickness="0,0,2,0" />
                 <Frame Name="frmPrincipal"

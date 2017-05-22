@@ -22,21 +22,25 @@ namespace NFeFacil.View
         {
             get
             {
-                var lista = new ListView();
-                lista.ItemsSource = new ObservableCollection<Controles.ItemHambuguer>
+                var lista = new ListView()
                 {
-                    new Controles.ItemHambuguer(Symbol.Tag, "Identificação"),
-                    new Controles.ItemHambuguer(Symbol.People, "Emitente"),
-                    new Controles.ItemHambuguer(Symbol.People, "Cliente"),
-                    new Controles.ItemHambuguer(Symbol.Shop, "Produtos"),
-                    new Controles.ItemHambuguer(Symbol.Calculator, "Totais"),
-                    new Controles.ItemHambuguer("\uE806", "Transporte"),
-                    new Controles.ItemHambuguer("\uE825", "Cobrança"),
-                    new Controles.ItemHambuguer(Symbol.Comment, "Informações adicionais"),
-                    new Controles.ItemHambuguer(Symbol.World, "Exportação e compras"),
-                    new Controles.ItemHambuguer(new Uri("ms-appx:///Assets/CanaAcucar.png"), "Cana-de-açúcar")
+                    ItemsSource = new ObservableCollection<Controles.ItemHambuguer>
+                    {
+                        new Controles.ItemHambuguer(Symbol.Tag, "Identificação"),
+                        new Controles.ItemHambuguer(Symbol.People, "Emitente"),
+                        new Controles.ItemHambuguer(Symbol.People, "Cliente"),
+                        new Controles.ItemHambuguer(Symbol.Shop, "Produtos"),
+                        new Controles.ItemHambuguer(Symbol.Calculator, "Totais"),
+                        new Controles.ItemHambuguer("\uE806", "Transporte"),
+                        new Controles.ItemHambuguer("\uE825", "Cobrança"),
+                        new Controles.ItemHambuguer(Symbol.Comment, "Informações adicionais"),
+                        new Controles.ItemHambuguer(Symbol.World, "Exportação e compras"),
+                        new Controles.ItemHambuguer(new Uri("ms-appx:///Assets/CanaAcucar.png"), "Cana-de-açúcar")
+                    },
+                    SelectedIndex = 0
                 };
-
+                pvtPrincipal.SelectionChanged += (sender, e) => lista.SelectedIndex = pvtPrincipal.SelectedIndex;
+                lista.SelectionChanged += (sender, e) => pvtPrincipal.SelectedIndex = lista.SelectedIndex;
                 return lista;
             }
         }

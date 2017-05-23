@@ -11,7 +11,7 @@
     <script src="DadosDANFE.js"></script>
     <style>
         body{
-            margin: 0.25cm;
+            margin: 0.5cm;
             padding: 0px;
         }
     </style>
@@ -80,7 +80,7 @@
 <body>
     <style>
         #parteInicial {
-            height: 25.24cm;
+            height: 24.74cm;
         }
     </style>
     <div id="parteInicial">
@@ -169,7 +169,7 @@
                                 DOCUMENTO AUXILIAR DA NOTA FISCAL ELETRÔNICA
                             </div>
                             <div class="conteudo">
-                                <div class="conteudo duas-coluna fonte-5-pontos">
+                                <div class="conteudo duas-coluna fonte-7-pontos">
                                     0 - ENTRADA <br />
                                     1 - SAÍDA
                                 </div>
@@ -177,7 +177,7 @@
                                     <span id="tpEmissao" class="caixa">{!}</span>
                                 </div>
                             </div>
-                            <div id="detalhes" class="conteudo negrito fonte-7-pontos">
+                            <div id="detalhes" class="conteudo negrito">
                                 Nr: {0} <br />
                                 Série: {1} <br />
                                 Folha: {2}/{3} <br />
@@ -185,7 +185,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="campo quadro-codigo-de-barras-da-chave">
+                        <td class="campo cnpj-emitente">
                             <style>
                                 @font-face {
                                     font-family: 'Code128';
@@ -195,28 +195,37 @@
 
                                 #codigoBarras {
                                     font-family: 'Code128';
-                                    font-size: 36px;
+                                    font-size: 24px;
                                 }
                             </style>
+                            <div class="conteudo fonte-5-pontos">CONTROLE DO FISCO</div>
                             <div class="conteudo centralizado" id="codigoBarras">{!}</div>
                         </td>
                     </tr>
                     <tr>
-                        <td class="campo codigo-de-barras-da-chave">
+                        <td class="campo cnpj-emitente">
                             <div class="conteudo negrito fonte-5-pontos">
                                 CHAVE DE ACESSO DA NF-e
                             </div>
-                            <div id="chave" class="conteudo negrito">
+                            <div id="chave" class="conteudo negrito centralizado fonte-8-pontos">
                                 {!}
                             </div>
-                            <div class="conteudo centralizado fonte-7-pontos">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="campo cnpj-emitente">
+                            <div class="conteudo">
                                 Consulta de autenticidade no portal nacional da NF-e www.nfe.fazenda.gov.br/portal ou
                                 no site da Sefaz autorizadora
                             </div>
                         </td>
                     </tr>
                     <tr>
-                        <td class="campo codigo-de-barras-da-chave">
+                        <td colspan="2" class="campo">
+                            <div class="conteudo fonte-5-pontos">NATUREZA DA OPERAÇÃO</div>
+                            <div id="natOp" class="conteudo">{!}</div>
+                        </td>
+                        <td class="campo cnpj-emitente">
                             <div class="conteudo fonte-5-pontos">PROTOCOLO DE AUTORIZAÇÃO DE USO</div>
                             <div id="processo" class="conteudo">
                                 {0}
@@ -228,12 +237,6 @@
             </table>
             <table class="sem-borda-superior">
                 <thead>
-                    <tr>
-                        <td colspan="3" class="campo natureza-de-operacao">
-                            <div class="conteudo fonte-5-pontos">NATUREZA DA OPERAÇÃO</div>
-                            <div id="natOp" class="conteudo">{!}</div>
-                        </td>
-                    </tr>
                     <tr>
                         <td class="campo inscricao-estadual-emitente">
                             <div class="conteudo fonte-5-pontos">INSCRIÇÃO ESTADUAL</div>
@@ -351,6 +354,101 @@
                     <td class="campo hora-entrada-saida">
                         <div class="conteudo fonte-5-pontos">HORA ENTRADA / SAÍDA</div>
                         <div id="horaEntradaSaida" class="conteudo">
+                            {!}
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <!--Impostos-->
+        <script>
+            function AttImposto(info) {
+                var dados = new DadosImposto();
+                dados.Att(info);
+                DefinirTexto("baseCalculoICMS", dados.baseCalculoICMS);
+                DefinirTexto("valorICMS", dados.valorICMS);
+                DefinirTexto("baseCalculoICMSST", dados.baseCalculoICMSST);
+                DefinirTexto("valorICMSST", dados.valorICMSST);
+                DefinirTexto("valorTotalProdutos", dados.valorTotalProdutos);
+                DefinirTexto("valorFrete", dados.valorFrete);
+                DefinirTexto("valorSeguro", dados.valorSeguro);
+                DefinirTexto("desconto", dados.desconto);
+                DefinirTexto("despesasAcessorias", dados.despesasAcessorias);
+                DefinirTexto("valorIPI", dados.valorIPI);
+                DefinirTexto("totalNota", dados.totalNota);
+            }
+        </script>
+        <div id="imposto" class="bloco">
+            <div class="conteudo negrito fonte-7-pontos">CÁLCULO DO IMPOSTO</div>
+            <table>
+                <tr>
+                    <td class="campo base-calculo-icms">
+                        <div class="conteudo fonte-5-pontos">BASE DE CÁLCULO ICMS</div>
+                        <div id="baseCalculoICMS" class="conteudo">
+                            {!}
+                        </div>
+                    </td>
+                    <td class="campo valor-do-icms">
+                        <div class="conteudo fonte-5-pontos">VALOR DO ICMS</div>
+                        <div id="valorICMS" class="conteudo">
+                            {!}
+                        </div>
+                    </td>
+                    <td class="campo base-de-cálculo-do-icms-st">
+                        <div class="conteudo fonte-5-pontos">BASE DE CÁLCULO ICMS ST</div>
+                        <div id="baseCalculoICMSST" class="conteudo">
+                            {!}
+                        </div>
+                    </td>
+                    <td class="campo valor-do-icms-st">
+                        <div class="conteudo fonte-5-pontos">VALOR DO ICMS ST</div>
+                        <div id="valorICMSST" class="conteudo">
+                            {!}
+                        </div>
+                    </td>
+                    <td class="campo valor-total-dos-produtos">
+                        <div class="conteudo fonte-5-pontos">VALOR TOTAL DOS PRODUTOS</div>
+                        <div id="valorTotalProdutos" class="conteudo">
+                            {!}
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <table class="sem-borda-superior">
+                <tr>
+                    <td class="campo valor-do-frete">
+                        <div class="conteudo fonte-5-pontos">VALOR DO FRETE</div>
+                        <div id="valorFrete" class="conteudo">
+                            {!}
+                        </div>
+                    </td>
+                    <td class="campo valor-do-seguro">
+                        <div class="conteudo fonte-5-pontos">VALOR DO SEGURO</div>
+                        <div id="valorSeguro" class="conteudo">
+                            {!}
+                        </div>
+                    </td>
+                    <td class="campo desconto">
+                        <div class="conteudo fonte-5-pontos">DESCONTO</div>
+                        <div id="desconto" class="conteudo">
+                            {!}
+                        </div>
+                    </td>
+                    <td class="campo outras-despesas-acessórias">
+                        <div class="conteudo fonte-5-pontos">OUTRAS DESPESAS ACESSÓRIAS</div>
+                        <div id="despesasAcessorias" class="conteudo">
+                            {!}
+                        </div>
+                    </td>
+                    <td class="campo valor-do-ipi">
+                        <div class="conteudo fonte-5-pontos">VALOR DO IPI</div>
+                        <div id="valorIPI" class="conteudo">
+                            {!}
+                        </div>
+                    </td>
+                    <td class="campo valor-total-da-nota">
+                        <div class="conteudo fonte-5-pontos">VALOR TOTAL DA NOTA</div>
+                        <div id="totalNota" class="conteudo">
                             {!}
                         </div>
                     </td>
@@ -498,101 +596,6 @@
                     <td class="campo peso-liquido-transportador">
                         <div class="conteudo fonte-5-pontos">PESO LÍQUIDO</div>
                         <div id="pesoLiquidoVolume" class="conteudo">
-                            {!}
-                        </div>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <!--Impostos-->
-        <script>
-            function AttImposto(info) {
-                var dados = new DadosImposto();
-                dados.Att(info);
-                DefinirTexto("baseCalculoICMS", dados.baseCalculoICMS);
-                DefinirTexto("valorICMS", dados.valorICMS);
-                DefinirTexto("baseCalculoICMSST", dados.baseCalculoICMSST);
-                DefinirTexto("valorICMSST", dados.valorICMSST);
-                DefinirTexto("valorTotalProdutos", dados.valorTotalProdutos);
-                DefinirTexto("valorFrete", dados.valorFrete);
-                DefinirTexto("valorSeguro", dados.valorSeguro);
-                DefinirTexto("desconto", dados.desconto);
-                DefinirTexto("despesasAcessorias", dados.despesasAcessorias);
-                DefinirTexto("valorIPI", dados.valorIPI);
-                DefinirTexto("totalNota", dados.totalNota);
-            }
-        </script>
-        <div id="imposto" class="bloco">
-            <div class="conteudo negrito fonte-7-pontos">CÁLCULO DO IMPOSTO</div>
-            <table>
-                <tr>
-                    <td class="campo base-calculo-icms">
-                        <div class="conteudo fonte-5-pontos">BASE DE CÁLCULO ICMS</div>
-                        <div id="baseCalculoICMS" class="conteudo">
-                            {!}
-                        </div>
-                    </td>
-                    <td class="campo valor-do-icms">
-                        <div class="conteudo fonte-5-pontos">VALOR DO ICMS</div>
-                        <div id="valorICMS" class="conteudo">
-                            {!}
-                        </div>
-                    </td>
-                    <td class="campo base-de-cálculo-do-icms-st">
-                        <div class="conteudo fonte-5-pontos">BASE DE CÁLCULO ICMS ST</div>
-                        <div id="baseCalculoICMSST" class="conteudo">
-                            {!}
-                        </div>
-                    </td>
-                    <td class="campo valor-do-icms-st">
-                        <div class="conteudo fonte-5-pontos">VALOR DO ICMS ST</div>
-                        <div id="valorICMSST" class="conteudo">
-                            {!}
-                        </div>
-                    </td>
-                    <td class="campo valor-total-dos-produtos">
-                        <div class="conteudo fonte-5-pontos">VALOR TOTAL DOS PRODUTOS</div>
-                        <div id="valorTotalProdutos" class="conteudo">
-                            {!}
-                        </div>
-                    </td>
-                </tr>
-            </table>
-            <table class="sem-borda-superior">
-                <tr>
-                    <td class="campo valor-do-frete">
-                        <div class="conteudo fonte-5-pontos">VALOR DO FRETE</div>
-                        <div id="valorFrete" class="conteudo">
-                            {!}
-                        </div>
-                    </td>
-                    <td class="campo valor-do-seguro">
-                        <div class="conteudo fonte-5-pontos">VALOR DO SEGURO</div>
-                        <div id="valorSeguro" class="conteudo">
-                            {!}
-                        </div>
-                    </td>
-                    <td class="campo desconto">
-                        <div class="conteudo fonte-5-pontos">DESCONTO</div>
-                        <div id="desconto" class="conteudo">
-                            {!}
-                        </div>
-                    </td>
-                    <td class="campo outras-despesas-acessórias">
-                        <div class="conteudo fonte-5-pontos">OUTRAS DESPESAS ACESSÓRIAS</div>
-                        <div id="despesasAcessorias" class="conteudo">
-                            {!}
-                        </div>
-                    </td>
-                    <td class="campo valor-do-ipi">
-                        <div class="conteudo fonte-5-pontos">VALOR DO IPI</div>
-                        <div id="valorIPI" class="conteudo">
-                            {!}
-                        </div>
-                    </td>
-                    <td class="campo valor-total-da-nota">
-                        <div class="conteudo fonte-5-pontos">VALOR TOTAL DA NOTA</div>
-                        <div id="totalNota" class="conteudo">
                             {!}
                         </div>
                     </td>

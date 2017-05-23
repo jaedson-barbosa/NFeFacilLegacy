@@ -5,6 +5,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Threading.Tasks;
 using Windows.Storage;
+using Windows.Storage.AccessCache;
 using Windows.Storage.Pickers;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Controls;
@@ -19,7 +20,7 @@ namespace NFeFacil.DANFE
         public async Task Salvar()
         {
             const string nome = "Imagens";
-            var imagens = await ApplicationData.Current.LocalFolder.CreateFolderAsync(nome);
+            var imagens = await ApplicationData.Current.LocalFolder.CreateFolderAsync(nome, CreationCollisionOption.ReplaceExisting);
             await ObterPaginasWeb(async i =>
             {
                 var arquivo = await imagens.CreateFileAsync($"Página {i + 1}.png");
@@ -40,10 +41,12 @@ namespace NFeFacil.DANFE
                 ViewMode = PickerViewMode.List,
                 CommitButtonText = "Salvar aqui"
             };
+            picker.FileTypeFilter.Add(".zip");
             var destinationfolder = await picker.PickSingleFolderAsync();
             ILog log = new Popup();
             if (destinationfolder != null)
             {
+                StorageApplicationPermissions.FutureAccessList.AddOrReplace("PickedFolderToken", destinationfolder);
                 await Task.Run(() =>
                 {
                     var caminhoOrigem = sourcefolder.Path;

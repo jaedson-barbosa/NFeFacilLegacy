@@ -37,7 +37,7 @@ namespace NFeFacil.DANFE.Processamento
             var dimensoes = await ObterDimensoesWeb(true);
             DefinirDimensoesView(dimensoes.largura, dimensoes.altura);
             webView.UpdateLayout();
-
+            
             await webView.CapturePreviewToStreamAsync(output);
             await output.FlushAsync();
         }

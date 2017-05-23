@@ -180,8 +180,8 @@ namespace NFeFacil.DANFE.Processamento
                 {
                     DocCliente = dest.Documento,
                     dataEmissao = Convert.ToDateTime(ident.DataHoraEmissão).ToString("dd-MM-yyyy"),
-                    dataEntradaSaida = Analisar(Convert.ToDateTime(ident.DataHoraSaídaEntrada).ToString("dd-MM-yyyy")),
-                    horaEntradaSaida = Analisar(Convert.ToDateTime(ident.DataHoraSaídaEntrada).ToString("hh:mm:ss")),
+                    dataEntradaSaida = !string.IsNullOrEmpty(ident.DataHoraSaídaEntrada) ? Analisar(Convert.ToDateTime(ident.DataHoraSaídaEntrada).ToString("dd-MM-yyyy")) : string.Empty,
+                    horaEntradaSaida = !string.IsNullOrEmpty(ident.DataHoraSaídaEntrada) ? Analisar(Convert.ToDateTime(ident.DataHoraSaídaEntrada).ToString("hh:mm:ss")) : string.Empty,
                     Endereco = dest.endereco,
                     IECliente = Analisar(dest.inscricaoEstadual),
                     nomeCliente = dest.nome

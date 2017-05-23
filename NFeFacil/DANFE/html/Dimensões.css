@@ -18,24 +18,12 @@
 
 /*Campo dados da NF-e*/
 .campo.quadro-identificacao-emitente {
-    width: 10cm;
+    width: 8.4cm;
     height: 3.92cm;
 }
 .campo.quadro-descricao-danfe {
-    width: 2.54cm;
+    width: auto;
     height: 3.92cm;
-}
-.campo.quadro-codigo-de-barras-da-chave {
-    width: 8cm;
-    height: 1.48cm;
-}
-.campo.codigo-de-barras-da-chave {
-    width: 11.5cm;
-    height: 1cm;
-}
-.campo.chave-de-acesso {
-    width: 12.7cm;
-    height: 0.85cm;
 }
 .campo.natureza-de-operacao {
     width: 7.87cm;

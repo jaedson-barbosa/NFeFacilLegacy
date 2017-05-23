@@ -41,7 +41,7 @@ namespace NFeFacil.DANFE.Pacotes
             {
                 Bairro = end.Bairro,
                 CEP = end.CEP,
-                Fone = end.Telefone,
+                Fone = end.Telefone == null ? string.Empty : end.Telefone,
                 Logradouro = end.Logradouro,
                 Municipio = end.NomeMunicipio,
                 Numero = end.Numero,

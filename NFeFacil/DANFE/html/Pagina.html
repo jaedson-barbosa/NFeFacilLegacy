@@ -126,7 +126,14 @@
                 DefinirTexto("nome", dados.NomeEmitente);
                 DefinirTexto("tpEmissao", dados.TipoEmissao);
                 DefinirTextos("detalhes", [dados.NumeroNota, dados.SerieNota, dados.PaginaAtual, dados.QuantPaginas]);
-                DefinirTexto("chave", dados.Chave);
+
+                var novaChave = "";
+                var grupos = [];
+                for (var i = 0; i < 44; i += 4) {
+                    novaChave += dados.Chave.substr(i, 4) + " ";
+                }
+                
+                DefinirTexto("chave", novaChave);
                 DefinirTextos("processo", [dados.NumeroProtocolo, dados.DataHoraRecibo]);
                 DefinirTexto("natOp", dados.NatOp);
                 DefinirTexto("IE", dados.IE);

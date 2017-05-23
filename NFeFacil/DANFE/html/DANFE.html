@@ -52,7 +52,6 @@
         function CriarFrame(função) {
             var frm = document.createElement("iframe");
             frm.src = "Pagina.html";
-            frm.className = "page";
             frm.scrolling = "no";
             frm.frameBorder = 0;
             frm.onload = função;
@@ -63,6 +62,30 @@
             return frame.srcElement.contentWindow;
         }
     </script>
+    <style>
+        body {
+            margin: 0px;
+            padding: 0px;
+            border: 0px;
+            background-color: #fff;
+        }
+
+        iframe {
+            margin: 0px;
+            border: 0px;
+            padding: 0px;
+            background-color: #fff;
+            width: 210mm;
+            height: 297mm;
+            display: block;
+            page-break-after: always;
+            overflow-y: no-display;
+        }
+
+            iframe:last-of-type {
+                page-break-after: auto;
+            }
+    </style>
 </head>
 <body></body>
 </html>

@@ -342,7 +342,6 @@
     <Content Include="DANFE\html\Dimensões.css" />
     <Content Include="DANFE\html\Elementos.css" />
     <Content Include="DANFE\html\Fontes.css" />
-    <Content Include="DANFE\html\Pagina.css" />
     <Content Include="DANFE\html\Pagina.html" />
     <Content Include="DANFE\html\Tabela.css" />
     <Content Include="Properties\Default.rd.xml" />

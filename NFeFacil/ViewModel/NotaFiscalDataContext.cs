@@ -160,16 +160,6 @@ namespace NFeFacil.ViewModel
 
             Conjunto = Dados;
 
-            if (CoreApplication.Properties.TryGetValue("ProdutoPendente", out object temp))
-            {
-                var detalhes = (DetalhesProdutos)temp;
-                detalhes.número = Dados.NotaSalva.Informações.produtos.Count + 1;
-                Dados.NotaSalva.Informações.produtos.Add(detalhes);
-                IndexPivotSelecionado = 3;
-                CoreApplication.Properties.Remove("ProdutoPendente");
-                Dados.NotaSalva.Informações.total = new Total(Dados.NotaSalva.Informações.produtos);
-            }
-
             if (Dados.NotaEmitida != null)
             {
                 NotaEmitida = Dados.NotaEmitida;
@@ -692,7 +682,14 @@ namespace NFeFacil.ViewModel
                 {
                     if (StatusAtual == StatusNFe.Salva || StatusAtual == StatusNFe.Edição)
                     {
-                        await db.Adicionar(di, xml);
+                        if (Conjunto.OperacaoRequirida == TipoOperacao.Adicao)
+                        {
+                            await db.Adicionar(di, xml);
+                        }
+                        else
+                        {
+                            await db.Atualizar(di, xml);
+                        }
                     }
                     else
                     {

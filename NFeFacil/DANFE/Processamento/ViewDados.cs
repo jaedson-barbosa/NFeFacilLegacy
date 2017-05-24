@@ -114,15 +114,6 @@ namespace NFeFacil.DANFE.Processamento
             }
         }
 
-        public async Task ExibirTodasAsPáginas()
-        {
-            await conec.AddPrimeiraPage(dadosPrimeiraPagina);
-            foreach (var item in dadosOutrasPaginas)
-            {
-                await conec.AddOutraPage(item);
-            }
-        }
-
         public async Task ExibirUmaPágina(int index)
         {
             await conec.ApagarCorpo();

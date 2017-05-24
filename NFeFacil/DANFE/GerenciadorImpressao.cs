@@ -30,7 +30,7 @@ namespace NFeFacil.DANFE
             RegistrarImpressão();
             webView.NavigationCompleted += async (x, y) =>
             {
-                await ExibiçãoDados.ExibirTodasAsPáginas();
+                await ExibiçãoDados.ExibirUmaPágina(0);
                 OnPaginasCarregadas();
             };
         }
@@ -86,31 +86,10 @@ namespace NFeFacil.DANFE
         }
         #endregion
 
-        public async Task Imprimir()
+        public async Task Imprimir(UIElement rect)
         {
             paginas.Clear();
-            await ObterPaginasWeb(async i =>
-            {
-                var dimensoes = await UI.ObterDimensoesWeb(false);
-                var imagem = new BitmapImage();
-                using (InMemoryRandomAccessStream stream = new InMemoryRandomAccessStream())
-                {
-                    await UI.CaptureWebView(stream);
-                    await imagem.SetSourceAsync(stream);
-                }
-                paginas.Add(new Rectangle
-                {
-                    Height = dimensoes.altura,
-                    Width = dimensoes.largura,
-                    Margin = new Thickness(4),
-                    Fill = new ImageBrush
-                    {
-                        ImageSource = imagem,
-                        Stretch = Stretch.UniformToFill,
-                        AlignmentY = AlignmentY.Top
-                    }
-                });
-            });
+            paginas.Add(rect);
             await PrintManager.ShowPrintUIAsync();
         }
 

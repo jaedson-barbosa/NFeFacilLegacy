@@ -20,20 +20,13 @@ namespace NFeFacil.DANFE
             UI = new ViewUI(ref webView);
         }
 
-        protected async Task ObterPaginasWeb(Func<int, Task> açaoCadaView)
+        protected async Task ObterPaginasWeb(Action<int> açaoCadaView)
         {
             var original = UI.ObterDimensoesView();
-            try
+            for (int i = 0; i < ExibiçãoDados.TotalPaginas; i++)
             {
-                for (int i = 0; i < ExibiçãoDados.TotalPaginas; i++)
-                {
-                    await ExibiçãoDados.ExibirUmaPágina(i);
-                    await açaoCadaView?.Invoke(i);
-                }
-            }
-            finally
-            {
-                UI.DefinirDimensoesView(original.largura, original.altura);
+                await ExibiçãoDados.ExibirUmaPágina(i);
+                açaoCadaView?.Invoke(i);
             }
         }
     }

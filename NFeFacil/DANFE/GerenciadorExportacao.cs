@@ -4,31 +4,41 @@ using System;
 using System.IO;
 using System.IO.Compression;
 using System.Threading.Tasks;
+using Windows.Graphics.Imaging;
 using Windows.Storage;
 using Windows.Storage.AccessCache;
 using Windows.Storage.Pickers;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Shapes;
 
 namespace NFeFacil.DANFE
 {
     public sealed class GerenciadorExportacao : GerenciadorWebView
     {
-        public GerenciadorExportacao(Processo processo, ref WebView webView) : base(processo, ref webView)
-        { }
+        private Rectangle retangulo;
 
-        public async Task Salvar()
+        public GerenciadorExportacao(Processo processo, ref WebView webView, ref Rectangle retangulo) : base(processo, ref webView)
+        {
+            this.retangulo = retangulo;
+        }
+
+        public async Task Salvar(byte[] pixels)
         {
             const string nome = "Imagens";
             var imagens = await ApplicationData.Current.LocalFolder.CreateFolderAsync(nome, CreationCollisionOption.ReplaceExisting);
-            await ObterPaginasWeb(async i =>
+
+            var arquivo = await imagens.CreateFileAsync($"Página 0.png");
+            using (IRandomAccessStream stream = await arquivo.OpenAsync(FileAccessMode.ReadWrite))
             {
-                var arquivo = await imagens.CreateFileAsync($"Página {i + 1}.png");
-                using (IRandomAccessStream stream = await arquivo.OpenAsync(FileAccessMode.ReadWrite))
-                {
-                    await UI.CaptureWebView(stream);
-                }
-            });
+                BitmapEncoder encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.PngEncoderId, stream);
+                encoder.SetPixelData(BitmapPixelFormat.Bgra8,
+                                 BitmapAlphaMode.Ignore,
+                                 (uint)retangulo.Width, (uint)retangulo.Height,
+                                 0, 0, pixels);
+                await encoder.FlushAsync();
+            }
+
             await CriarArquivoZipAsync(imagens, $"NFe{Chave}");
             await imagens.DeleteAsync(StorageDeleteOption.PermanentDelete);
         }

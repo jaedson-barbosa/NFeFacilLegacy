@@ -4,13 +4,22 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <ScrollViewer Margin="0,0,0,48">
-            <WebView x:Name="webView"
-                     Source="ms-appx-web:///DANFE/html/DANFE.html" />
+    <Grid>
+        <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                      VerticalScrollBarVisibility="Auto">
+            <StackPanel Orientation="Horizontal">
+                <WebView x:Name="webView"
+                         Width="{x:Bind Largura}"
+                         Height="{x:Bind Altura}"
+                         Source="ms-appx-web:///DANFE/html/DANFE.html" />
+                <Rectangle x:Name="Retangulo"
+                           Width="{x:Bind Largura}"
+                           Height="{x:Bind Altura}" />
+            </StackPanel>
         </ScrollViewer>
-        <CommandBar VerticalAlignment="Bottom"
-                    Canvas.ZIndex="1">
+    </Grid>
+    <Page.BottomAppBar>
+        <CommandBar>
             <AppBarButton x:Name="btnImprimir"
                           Label="Imprimir"
                           Click="btnImprimir_Click"
@@ -26,5 +35,5 @@
                           IsEnabled="False"
                           Click="btnSalvar_Click" />
         </CommandBar>
-    </Grid>
+    </Page.BottomAppBar>
 </Page>

@@ -17,6 +17,7 @@
                 <StackPanel x:Name="NovoDANFE"
                             Padding="{x:Bind MargemPadrao}">
                     <partes:Canhoto />
+                    <partes:DadosNFe />
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>

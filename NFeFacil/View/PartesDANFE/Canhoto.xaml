@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    d:DesignHeight="60"
+    d:DesignHeight="100"
     d:DesignWidth="800">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -17,42 +17,59 @@
                 <Setter Property="Padding"
                         Value="6,1,1,1" />
             </Style>
+            <Style TargetType="TextBlock">
+                <Setter Property="FontFamily"
+                        Value="Times New Roman" />
+            </Style>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="{x:Bind Coluna0}" />
-            <ColumnDefinition Width="{x:Bind Coluna1}" />
-            <ColumnDefinition Width="{x:Bind Coluna2}" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="{Binding Source={StaticResource dimensoes}, Path=AlturaLinhaPadrao}" />
-            <RowDefinition Height="{Binding Source={StaticResource dimensoes}, Path=AlturaLinhaPadrao}" />
-        </Grid.RowDefinitions>
-        <Border Grid.ColumnSpan="2"
-                BorderThickness="1">
-            <TextBlock FontSize="6">RECEBEMOS DE SEVERINO ALVES SERAFIM ME OS PRODUTOS/SERVIÇOS CONSTANTES DA NOTA FISCAL INDICADA AO LADO</TextBlock>
-        </Border>
-        <Border Grid.Row="1"
-                BorderThickness="1,0,1,1">
-            <TextBlock FontSize="6">DATA DE RECEBIMENTO</TextBlock>
-        </Border>
-        <Border Grid.Row="1"
-                Grid.Column="1"
-                BorderThickness="0,0,1,1">
-            <TextBlock FontSize="6">IDENTIFICAÇÃO E ASSINATURA DO RECEBEDOR</TextBlock>
-        </Border>
-        <Border Grid.Column="2"
-                Grid.RowSpan="2"
-                BorderThickness="0,1,1,1">
-            <StackPanel>
-                <TextBlock FontSize="9"
+    <StackPanel Margin="{Binding Source={StaticResource dimensoes},Path=MargemBloco}">
+        <Grid BorderThickness="1"
+              CornerRadius="2"
+              BorderBrush="Black">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="{x:Bind Coluna0}" />
+                <ColumnDefinition Width="{x:Bind Coluna1}" />
+                <ColumnDefinition Width="{x:Bind Coluna2}" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="{Binding Source={StaticResource dimensoes}, Path=AlturaLinhaPadrao}" />
+                <RowDefinition Height="{Binding Source={StaticResource dimensoes}, Path=AlturaLinhaPadrao}" />
+            </Grid.RowDefinitions>
+            <Border Grid.ColumnSpan="2"
+                    BorderThickness="0,0,1,1">
+                <TextBlock FontSize="8">RECEBEMOS DE SEVERINO ALVES SERAFIM ME OS PRODUTOS/SERVIÇOS CONSTANTES DA NOTA FISCAL INDICADA AO LADO</TextBlock>
+            </Border>
+            <Border Grid.Row="1"
+                    BorderThickness="0,0,1,0">
+                <TextBlock FontSize="8">DATA DE RECEBIMENTO</TextBlock>
+            </Border>
+            <Border Grid.Row="1"
+                    Grid.Column="1"
+                    BorderThickness="0,0,1,0">
+                <TextBlock FontSize="8">IDENTIFICAÇÃO E ASSINATURA DO RECEBEDOR</TextBlock>
+            </Border>
+            <StackPanel Grid.Column="2"
+                        Grid.RowSpan="2"
+                        Padding="6,1,1,1">
+                <TextBlock FontSize="10"
                            TextAlignment="Center"
                            FontWeight="Bold">NF-e</TextBlock>
                 <TextBlock FontSize="12"
                            Margin="0,4,0,8">Nº 000.000.275</TextBlock>
                 <TextBlock FontSize="12">Série: 1</TextBlock>
             </StackPanel>
-        </Border>
-    </Grid>
+        </Grid>
+        <Path Margin="0,4"
+              Height="1"
+              Stroke="Black"
+              StrokeThickness="1"
+              StrokeDashArray="4 4"
+              Stretch="UniformToFill">
+            <Path.Data>
+                <LineGeometry StartPoint="0,0"
+                              EndPoint="1,0" />
+            </Path.Data>
+        </Path>
+    </StackPanel>
 </UserControl>

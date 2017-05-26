@@ -305,6 +305,10 @@
     <Compile Include="View\PartesDANFE\Canhoto.xaml.cs">
       <DependentUpon>Canhoto.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\PartesDANFE\DadosNFe.xaml.cs">
+      <DependentUpon>DadosNFe.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PartesDANFE\DimensoesPadrao.cs" />
     <Compile Include="View\QRConexao.xaml.cs">
       <DependentUpon>QRConexao.xaml</DependentUpon>
     </Compile>
@@ -500,6 +504,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\PartesDANFE\Canhoto.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PartesDANFE\DadosNFe.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

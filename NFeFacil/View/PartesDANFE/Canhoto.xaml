@@ -15,7 +15,7 @@
                 <Setter Property="BorderBrush"
                         Value="Black" />
                 <Setter Property="Padding"
-                        Value="{Binding Source={StaticResource dimensoes}, Path=PaddingCampoPadrao}" />
+                        Value="6,1,1,1" />
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -26,35 +26,32 @@
             <ColumnDefinition Width="{x:Bind Coluna2}" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="{Binding Source={StaticResource dimensoes}, Path=AlturaLinhaPadrao}" />
+            <RowDefinition Height="{Binding Source={StaticResource dimensoes}, Path=AlturaLinhaPadrao}" />
         </Grid.RowDefinitions>
-        <Border Grid.ColumnSpan="2" BorderThickness="1">
-            <TextBlock FontSize="8"
-                       Height="{Binding Source={StaticResource dimensoes}, Path=AlturaLinhaPadrao}">RECEBEMOS DE SEVERINO ALVES SERAFIM ME OS PRODUTOS/SERVIÇOS CONSTANTES DA NOTA FISCAL INDICADA AO LADO</TextBlock>
+        <Border Grid.ColumnSpan="2"
+                BorderThickness="1">
+            <TextBlock FontSize="6">RECEBEMOS DE SEVERINO ALVES SERAFIM ME OS PRODUTOS/SERVIÇOS CONSTANTES DA NOTA FISCAL INDICADA AO LADO</TextBlock>
         </Border>
         <Border Grid.Row="1"
                 BorderThickness="1,0,1,1">
-            <TextBlock FontSize="8"
-                       Height="{Binding Source={StaticResource dimensoes}, Path=AlturaLinhaPadrao}">DATA DE RECEBIMENTO</TextBlock>
+            <TextBlock FontSize="6">DATA DE RECEBIMENTO</TextBlock>
         </Border>
         <Border Grid.Row="1"
                 Grid.Column="1"
                 BorderThickness="0,0,1,1">
-            <TextBlock FontSize="8"
-                       Height="{Binding Source={StaticResource dimensoes}, Path=AlturaLinhaPadrao}">IDENTIFICAÇÃO E ASSINATURA DO RECEBEDOR</TextBlock>
+            <TextBlock FontSize="6">IDENTIFICAÇÃO E ASSINATURA DO RECEBEDOR</TextBlock>
         </Border>
         <Border Grid.Column="2"
                 Grid.RowSpan="2"
                 BorderThickness="0,1,1,1">
             <StackPanel>
+                <TextBlock FontSize="9"
+                           TextAlignment="Center"
+                           FontWeight="Bold">NF-e</TextBlock>
                 <TextBlock FontSize="12"
-                           FontWeight="Black"
-                           TextAlignment="Center">NF-e</TextBlock>
-                <TextBlock FontSize="12"
-                           FontWeight="Bold">Nº 000.000.275</TextBlock>
-                <TextBlock FontSize="12"
-                           FontWeight="Bold">Série: 1</TextBlock>
+                           Margin="0,4,0,8">Nº 000.000.275</TextBlock>
+                <TextBlock FontSize="12">Série: 1</TextBlock>
             </StackPanel>
         </Border>
     </Grid>

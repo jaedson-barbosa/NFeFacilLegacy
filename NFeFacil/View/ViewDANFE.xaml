@@ -2,6 +2,7 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:partes="using:NFeFacil.View.PartesDANFE"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
     <Grid>
@@ -9,12 +10,14 @@
                       VerticalScrollBarVisibility="Auto">
             <StackPanel Orientation="Horizontal">
                 <WebView x:Name="webView"
+                         UseLayoutRounding="False"
                          Width="{x:Bind Largura}"
                          Height="{x:Bind Altura}"
                          Source="ms-appx-web:///DANFE/html/DANFE.html" />
-                <Rectangle x:Name="Retangulo"
-                           Width="{x:Bind Largura}"
-                           Height="{x:Bind Altura}" />
+                <StackPanel x:Name="NovoDANFE"
+                            Padding="{x:Bind MargemPadrao}">
+                    <partes:Canhoto />
+                </StackPanel>
             </StackPanel>
         </ScrollViewer>
     </Grid>
@@ -29,11 +32,6 @@
                               Glyph="&#xE749;" />
                 </AppBarButton.Icon>
             </AppBarButton>
-            <AppBarButton x:Name="btnSalvar"
-                          Label="Salvar imagem"
-                          Icon="Save"
-                          IsEnabled="False"
-                          Click="btnSalvar_Click" />
         </CommandBar>
     </Page.BottomAppBar>
 </Page>

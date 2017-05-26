@@ -3,13 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.Graphics.Printing;
-using Windows.Storage.Streams;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Printing;
-using Windows.UI.Xaml.Shapes;
 
 namespace NFeFacil.DANFE
 {
@@ -81,6 +77,7 @@ namespace NFeFacil.DANFE
             printTask = args.Request.CreatePrintTask("Print", x =>
             {
                 printTask.Options.MediaSize = PrintMediaSize.IsoA4;
+                printTask.Options.PrintQuality = PrintQuality.High;
                 x.SetSource(printDocSource);
             });
         }

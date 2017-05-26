@@ -158,7 +158,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DANFE\GerenciadorExportacao.cs" />
     <Compile Include="DANFE\GerenciadorImpressao.cs" />
     <Compile Include="DANFE\GerenciadorWebView.cs" />
     <Compile Include="DANFE\Pacotes\DadosAdicionais.cs" />
@@ -302,6 +301,9 @@
     <Compile Include="View\Estilos\Auxiliares\PainelAdaptavel.cs" />
     <Compile Include="View\ConfigSincronizacao.xaml.cs">
       <DependentUpon>ConfigSincronizacao.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PartesDANFE\Canhoto.xaml.cs">
+      <DependentUpon>Canhoto.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\QRConexao.xaml.cs">
       <DependentUpon>QRConexao.xaml</DependentUpon>
@@ -494,6 +496,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ConfigSincronizacao.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PartesDANFE\Canhoto.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -8,40 +8,7 @@
              d:DesignHeight="300"
              d:DesignWidth="400">
     <UserControl.Resources>
-        <ResourceDictionary>
-            <local:DimensoesPadrao x:Key="dimensoes" />
-            <Style TargetType="StackPanel"
-                   x:Key="ColunaComPadding">
-                <Setter Property="Padding"
-                        Value="4,2,2,2" />
-            </Style>
-            <Style TargetType="StackPanel"
-                   x:Key="ColunaEstilizada"
-                   BasedOn="{StaticResource ColunaComPadding}">
-                <Setter Property="BorderBrush"
-                        Value="Black" />
-            </Style>
-            <Style TargetType="TextBlock">
-                <Setter Property="FontFamily"
-                        Value="Times New Roman" />
-            </Style>
-            <Style TargetType="TextBlock"
-                   x:Key="Cabecalho">
-                <Setter Property="FontFamily"
-                        Value="Times New Roman" />
-                <Setter Property="FontSize"
-                        Value="8" />
-            </Style>
-            <Style TargetType="TextBlock"
-                   x:Key="Conteudo">
-                <Setter Property="FontFamily"
-                        Value="Times New Roman" />
-                <Setter Property="FontSize"
-                        Value="12" />
-                <Setter Property="Margin"
-                        Value="0,3,0,0" />
-            </Style>
-        </ResourceDictionary>
+        <ResourceDictionary Source="EstilosPadrao.xaml" />
     </UserControl.Resources>
     <StackPanel BorderThickness="1"
                 CornerRadius="2"
@@ -58,8 +25,9 @@
                 <RowDefinition Height="{x:Bind Linha0}" />
                 <RowDefinition Height="{Binding Source={StaticResource dimensoes}, Path=AlturaLinhaPadrao}" />
             </Grid.RowDefinitions>
-            <StackPanel Style="{StaticResource ColunaComPadding}">
+            <StackPanel Padding="{StaticResource PaddingPadrao}">
                 <TextBlock TextAlignment="Center"
+                           FontSize="16"
                            FontWeight="Bold"
                            Margin="0,10">SEVERINO ALVES SERAFIM ME</TextBlock>
                 <TextBlock FontSize="12">SÍTIO BARRA, S/N</TextBlock>
@@ -70,10 +38,11 @@
             </StackPanel>
             <StackPanel Grid.Column="1"
                         BorderThickness="1,0,0,0"
-                        Style="{StaticResource ColunaEstilizada}">
+                        BorderBrush="Black"
+                        Padding="{StaticResource PaddingPadrao}">
                 <TextBlock FontWeight="Bold"
                            TextAlignment="Center"
-                           FontSize="20">DANFE</TextBlock>
+                           FontSize="16">DANFE</TextBlock>
                 <TextBlock FontSize="10"
                            TextWrapping="Wrap">DOCUMENTO AUXILIAR DA NOTA FISCAL ELETRÔNICA</TextBlock>
                 <Grid Margin="0,2">
@@ -85,9 +54,9 @@
                         <RowDefinition />
                         <RowDefinition />
                     </Grid.RowDefinitions>
-                    <TextBlock FontSize="8">0 - ENTRADA</TextBlock>
+                    <TextBlock FontSize="10">0 - ENTRADA</TextBlock>
                     <TextBlock Grid.Row="1"
-                               FontSize="8">1 - SAÍDA</TextBlock>
+                               FontSize="10">1 - SAÍDA</TextBlock>
                     <Border BorderThickness="1"
                             BorderBrush="Black"
                             HorizontalAlignment="Center"
@@ -96,7 +65,8 @@
                             Grid.RowSpan="2"
                             CornerRadius="2">
                         <TextBlock FontWeight="Bold"
-                                   Margin="2,0,1,0">1</TextBlock>
+                                   Margin="2,1,1,1"
+                                   FontSize="12">1</TextBlock>
                     </Border>
                 </Grid>
                 <TextBlock FontSize="12"
@@ -110,8 +80,9 @@
                         BorderThickness="1,0,0,0"
                         BorderBrush="Black">
                 <StackPanel BorderThickness="0,0,0,1"
-                            Style="{StaticResource ColunaEstilizada}">
-                    <TextBlock FontSize="8">CONTROLE DO FISCO</TextBlock>
+                            BorderBrush="Black"
+                            Padding="{StaticResource PaddingPadrao}">
+                    <TextBlock Style="{StaticResource Cabecalho}">CONTROLE DO FISCO</TextBlock>
                     <TextBlock FontFamily="ms-appx:/DANFE/html/code128.ttf#Code 128"
                                FontSize="24"
                                TextAlignment="Center"
@@ -119,28 +90,31 @@
                                Margin="0,2">25170512931158000164550010000003061984020000</TextBlock>
                 </StackPanel>
                 <StackPanel BorderThickness="0,0,0,1"
-                            Style="{StaticResource ColunaEstilizada}">
-                    <TextBlock FontSize="8">CHAVE DE ACESSO DA NF-e</TextBlock>
-                    <TextBlock FontSize="12"
+                            BorderBrush="Black"
+                            Padding="{StaticResource PaddingPadrao}">
+                    <TextBlock Style="{StaticResource Cabecalho}">CHAVE DE ACESSO DA NF-e</TextBlock>
+                    <TextBlock FontSize="10"
                                TextAlignment="Center"
                                FontWeight="Bold"
                                Margin="0,2">2517 0512 9311 5800 0164 5500 1000 0003 0619 8402 0000</TextBlock>
                 </StackPanel>
                 <TextBlock FontSize="12"
-                           Margin="6,2,2,2"
+                           Margin="{StaticResource PaddingPadrao}"
                            TextWrapping="Wrap">Consulta de autenticidade no portal nacional da NF-e www.nfe.fazenda.gov.br/portal ou no site da Sefaz autorizadora</TextBlock>
             </StackPanel>
             <StackPanel Grid.ColumnSpan="2"
                         Grid.Row="1"
                         BorderThickness="0,1,0,0"
-                        Style="{StaticResource ColunaEstilizada}">
+                        BorderBrush="Black"
+                        Padding="{StaticResource PaddingPadrao}">
                 <TextBlock Style="{StaticResource Cabecalho}">NATUREZA DA OPERAÇÃO</TextBlock>
                 <TextBlock Style="{StaticResource Conteudo}">VENDA</TextBlock>
             </StackPanel>
             <StackPanel Grid.Column="2"
                         Grid.Row="1"
                         BorderThickness="1,1,0,0"
-                        Style="{StaticResource ColunaEstilizada}">
+                        BorderBrush="Black"
+                        Padding="{StaticResource PaddingPadrao}">
                 <TextBlock Style="{StaticResource Cabecalho}">PROTOCOLO DE AUTORIZAÇÃO DE USO</TextBlock>
                 <TextBlock Style="{StaticResource Conteudo}">325170008500346 2017-05-19 09:38:05-03:00</TextBlock>
             </StackPanel>
@@ -154,19 +128,19 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="{Binding Source={StaticResource dimensoes}, Path=AlturaLinhaPadrao}" />
             </Grid.RowDefinitions>
-            <StackPanel Style="{StaticResource ColunaComPadding}">
+            <StackPanel Padding="{StaticResource PaddingPadrao}">
                 <TextBlock Style="{StaticResource Cabecalho}">INSCRIÇÃO ESTADUAL</TextBlock>
                 <TextBlock Style="{StaticResource Conteudo}">161813470</TextBlock>
             </StackPanel>
             <StackPanel Grid.Column="1"
                         BorderThickness="1,0,1,0"
                         BorderBrush="Black"
-                        Style="{StaticResource ColunaComPadding}">
+                        Padding="{StaticResource PaddingPadrao}">
                 <TextBlock Style="{StaticResource Cabecalho}">INSCR.ESTADUAL SUBSTITUTO</TextBlock>
                 <TextBlock Style="{StaticResource Conteudo}"></TextBlock>
             </StackPanel>
             <StackPanel Grid.Column="2"
-                        Style="{StaticResource ColunaComPadding}">
+                        Padding="{StaticResource PaddingPadrao}">
                 <TextBlock Style="{StaticResource Cabecalho}">CNPJ</TextBlock>
                 <TextBlock Style="{StaticResource Conteudo}">12931158000164</TextBlock>
             </StackPanel>

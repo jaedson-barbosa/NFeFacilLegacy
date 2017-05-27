@@ -1,4 +1,5 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -6,6 +7,12 @@ namespace NFeFacil.View.PartesDANFE
 {
     public sealed partial class DadosNFe : UserControl
     {
+        public GridLength Coluna0 => DimensoesPadrao.CentimeterToLength(7.5);
+        public GridLength Coluna1 => DimensoesPadrao.CentimeterToLength(3.5);
+        public GridLength Coluna2 => DimensoesPadrao.CentimeterToLength(8);
+
+        public GridLength Linha0 => DimensoesPadrao.CentimeterToLength(3.4);
+
         public DadosNFe()
         {
             this.InitializeComponent();

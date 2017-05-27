@@ -15,7 +15,7 @@
                 <Setter Property="BorderBrush"
                         Value="Black" />
                 <Setter Property="Padding"
-                        Value="6,1,1,1" />
+                        Value="4,2,2,2" />
             </Style>
             <Style TargetType="TextBlock">
                 <Setter Property="FontFamily"
@@ -26,7 +26,8 @@
     <StackPanel Margin="{Binding Source={StaticResource dimensoes},Path=MargemBloco}">
         <Grid BorderThickness="1"
               CornerRadius="2"
-              BorderBrush="Black">
+              BorderBrush="Black"
+              Margin="{Binding Source={StaticResource dimensoes},Path=MargemBloco}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="{x:Bind Coluna0}" />
                 <ColumnDefinition Width="{x:Bind Coluna1}" />
@@ -57,11 +58,10 @@
                            FontWeight="Bold">NF-e</TextBlock>
                 <TextBlock FontSize="12"
                            Margin="0,4,0,8">Nº 000.000.275</TextBlock>
-                <TextBlock FontSize="12">Série: 1</TextBlock>
+                <TextBlock FontSize="12">Série 1</TextBlock>
             </StackPanel>
         </Grid>
-        <Path Margin="0,4"
-              Height="1"
+        <Path Height="1"
               Stroke="Black"
               StrokeThickness="1"
               StrokeDashArray="4 4"

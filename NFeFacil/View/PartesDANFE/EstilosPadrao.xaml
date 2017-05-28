@@ -17,6 +17,17 @@
                 Value="8" />
     </Style>
     <Style TargetType="TextBlock"
+           x:Key="DescritivoBloco">
+        <Setter Property="Margin"
+                Value="4,0,0,1" />
+        <Setter Property="FontFamily"
+                Value="Times New Roman" />
+        <Setter Property="FontWeight"
+                Value="Bold" />
+        <Setter Property="FontSize"
+                Value="10" />
+    </Style>
+    <Style TargetType="TextBlock"
            x:Key="Conteudo">
         <Setter Property="FontFamily"
                 Value="Times New Roman" />

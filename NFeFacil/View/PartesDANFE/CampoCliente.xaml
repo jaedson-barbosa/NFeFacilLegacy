@@ -7,5 +7,112 @@
              mc:Ignorable="d"
              d:DesignHeight="300"
              d:DesignWidth="400">
-    <Grid></Grid>
+    <UserControl.Resources>
+        <ResourceDictionary Source="EstilosPadrao.xaml" />
+    </UserControl.Resources>
+    <StackPanel Margin="{Binding Source={StaticResource dimensoes}, Path=MargemBloco}">
+        <TextBlock Style="{StaticResource DescritivoBloco}">DESTINATÁRIO/REMETENTE</TextBlock>
+        <Grid BorderThickness="1"
+              BorderBrush="Black"
+              CornerRadius="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="{Binding Source={StaticResource dimensoes}, Path=AlturaLinhaPadrao}" />
+                <RowDefinition Height="{Binding Source={StaticResource dimensoes}, Path=AlturaLinhaPadrao}" />
+                <RowDefinition Height="{Binding Source={StaticResource dimensoes}, Path=AlturaLinhaPadrao}" />
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="{x:Bind Coluna00}" />
+                    <ColumnDefinition Width="{x:Bind Coluna01}" />
+                    <ColumnDefinition Width="{x:Bind Coluna3}" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Padding="{StaticResource PaddingPadrao}">
+                    <TextBlock Style="{StaticResource Cabecalho}">NOME/RAZÃO SOCIAL</TextBlock>
+                    <TextBlock Style="{StaticResource Conteudo}">IMPÉRIO COMÉRCIO DE MATERIAL DE CONSTRUÇÃO</TextBlock>
+                </StackPanel>
+                <StackPanel Padding="{StaticResource PaddingPadrao}"
+                            Grid.Column="1"
+                            BorderThickness="1,0,1,0"
+                            BorderBrush="Black">
+                    <TextBlock Style="{StaticResource Cabecalho}">CNPJ/CPF</TextBlock>
+                    <TextBlock Style="{StaticResource Conteudo}">22.156.596/0001-56</TextBlock>
+                </StackPanel>
+                <StackPanel Padding="{StaticResource PaddingPadrao}"
+                            Grid.Column="2">
+                    <TextBlock Style="{StaticResource Cabecalho}">DATA DA EMISSÃO</TextBlock>
+                    <TextBlock Style="{StaticResource Conteudo}">01/11/2016</TextBlock>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="1"
+                  BorderThickness="0,1,0,1"
+                  BorderBrush="Black">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="{x:Bind Coluna10}" />
+                    <ColumnDefinition Width="{x:Bind Coluna11}" />
+                    <ColumnDefinition Width="{x:Bind Coluna12}" />
+                    <ColumnDefinition Width="{x:Bind Coluna3}" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Padding="{StaticResource PaddingPadrao}">
+                    <TextBlock Style="{StaticResource Cabecalho}">ENDEREÇO</TextBlock>
+                    <TextBlock Style="{StaticResource Conteudo}">Rodovia PB 075 Km 20, S/N</TextBlock>
+                </StackPanel>
+                <StackPanel Padding="{StaticResource PaddingPadrao}"
+                            Grid.Column="1"
+                            BorderThickness="1,0,1,0"
+                            BorderBrush="Black">
+                    <TextBlock Style="{StaticResource Cabecalho}">BAIRRO/DISTRITO</TextBlock>
+                    <TextBlock Style="{StaticResource Conteudo}">CENTRO</TextBlock>
+                </StackPanel>
+                <StackPanel Padding="{StaticResource PaddingPadrao}"
+                            Grid.Column="2"
+                            BorderThickness="0,0,1,0"
+                            BorderBrush="Black">
+                    <TextBlock Style="{StaticResource Cabecalho}">CEP</TextBlock>
+                    <TextBlock Style="{StaticResource Conteudo}">58208-000</TextBlock>
+                </StackPanel>
+                <StackPanel Padding="{StaticResource PaddingPadrao}"
+                            Grid.Column="3">
+                    <TextBlock Style="{StaticResource Cabecalho}">DATA DE ENTRADA/SAÍDA</TextBlock>
+                    <TextBlock Style="{StaticResource Conteudo}"></TextBlock>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="{x:Bind Coluna20}" />
+                    <ColumnDefinition Width="{x:Bind Coluna21}" />
+                    <ColumnDefinition Width="{x:Bind Coluna22}" />
+                    <ColumnDefinition Width="{x:Bind Coluna23}" />
+                    <ColumnDefinition Width="{x:Bind Coluna3}" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Padding="{StaticResource PaddingPadrao}">
+                    <TextBlock Style="{StaticResource Cabecalho}">MUNICÍPIO</TextBlock>
+                    <TextBlock Style="{StaticResource Conteudo}">Cuitegi</TextBlock>
+                </StackPanel>
+                <StackPanel Padding="{StaticResource PaddingPadrao}"
+                            Grid.Column="1"
+                            BorderThickness="1,0,1,0"
+                            BorderBrush="Black">
+                    <TextBlock Style="{StaticResource Cabecalho}">FONE/FAX</TextBlock>
+                    <TextBlock Style="{StaticResource Conteudo}">36811174</TextBlock>
+                </StackPanel>
+                <StackPanel Padding="{StaticResource PaddingPadrao}"
+                            Grid.Column="2">
+                    <TextBlock Style="{StaticResource Cabecalho}">UF</TextBlock>
+                    <TextBlock Style="{StaticResource Conteudo}">PB</TextBlock>
+                </StackPanel>
+                <StackPanel Padding="{StaticResource PaddingPadrao}"
+                            Grid.Column="3"
+                            BorderThickness="1,0,1,0"
+                            BorderBrush="Black">
+                    <TextBlock Style="{StaticResource Cabecalho}">INSCRIÇÃO ESTADUAL</TextBlock>
+                    <TextBlock Style="{StaticResource Conteudo}">162533071</TextBlock>
+                </StackPanel>
+                <StackPanel Padding="{StaticResource PaddingPadrao}"
+                            Grid.Column="4">
+                    <TextBlock Style="{StaticResource Cabecalho}">HORA DE ENTRADA/SAÍDA</TextBlock>
+                    <TextBlock Style="{StaticResource Conteudo}"></TextBlock>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </StackPanel>
 </UserControl>

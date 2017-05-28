@@ -7,11 +7,11 @@ namespace NFeFacil.View.PartesDANFE
 {
     public sealed partial class DadosNFe : UserControl
     {
-        public GridLength Coluna0 => DimensoesPadrao.CentimeterToLength(7.5);
-        public GridLength Coluna1 => DimensoesPadrao.CentimeterToLength(3.5);
-        public GridLength Coluna2 => DimensoesPadrao.CentimeterToLength(8);
+        GridLength Coluna0 => DimensoesPadrao.CentimeterToLength(7.5);
+        GridLength Coluna1 => DimensoesPadrao.CentimeterToLength(3.5);
+        GridLength Coluna2 => DimensoesPadrao.CentimeterToLength(8);
 
-        public GridLength Linha0 => DimensoesPadrao.CentimeterToLength(3.4);
+        GridLength Linha0 => DimensoesPadrao.CentimeterToLength(3.4);
 
         public DadosNFe()
         {

@@ -19,7 +19,7 @@
     <Style TargetType="TextBlock"
            x:Key="DescritivoBloco">
         <Setter Property="Margin"
-                Value="4,0,0,1" />
+                Value="4,0,0,0" />
         <Setter Property="FontFamily"
                 Value="Times New Roman" />
         <Setter Property="FontWeight"

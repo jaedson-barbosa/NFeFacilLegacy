@@ -7,7 +7,7 @@ namespace NFeFacil.View.PartesDANFE
     public sealed class DimensoesPadrao
     {
         public GridLength AlturaLinhaPadrao => CentimeterToLength(0.85);
-        public Thickness MargemBloco => new Thickness(0, 0, 0, CentimeterToPixel(0.2));
+        public Thickness MargemBloco => new Thickness(0, 0, 0, CentimeterToPixel(0.1));
         double LarguraTotal => CentimeterToPixel(19);
 
         static double CentimeterToPixel(double Centimeter)

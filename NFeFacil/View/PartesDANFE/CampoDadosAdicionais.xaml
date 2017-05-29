@@ -1,0 +1,39 @@
+﻿<UserControl x:Class="NFeFacil.View.PartesDANFE.CampoDadosAdicionais"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignHeight="300"
+             d:DesignWidth="400">
+    <UserControl.Resources>
+        <ResourceDictionary Source="EstilosPadrao.xaml" />
+    </UserControl.Resources>
+    <StackPanel Margin="{Binding Source={StaticResource dimensoes}, Path=MargemBloco}">
+        <TextBlock Style="{StaticResource DescritivoBloco}">DADOS ADICIONAIS</TextBlock>
+        <Grid BorderThickness="1"
+              BorderBrush="Black"
+              CornerRadius="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="{x:Bind AlturaCampo}" />
+            </Grid.RowDefinitions>
+            <StackPanel Padding="{StaticResource PaddingPadrao}"
+                        BorderThickness="0,0,1,0"
+                        BorderBrush="Black">
+                <TextBlock Style="{StaticResource Cabecalho}">INFORMAÇÕES COMPLEMENTARES</TextBlock>
+                <TextBlock Style="{StaticResource Conteudo}"
+                           FontSize="8"></TextBlock>
+            </StackPanel>
+            <StackPanel Padding="{StaticResource PaddingPadrao}"
+                        Grid.Column="1">
+                <TextBlock Style="{StaticResource Cabecalho}">RESERVADO AO FISCO</TextBlock>
+                <TextBlock Style="{StaticResource Conteudo}"
+                           FontSize="8"></TextBlock>
+            </StackPanel>
+        </Grid>
+    </StackPanel>
+</UserControl>

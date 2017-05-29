@@ -23,6 +23,7 @@
         </StackPanel>
         <StackPanel Padding="{x:Bind MargemPadrao}" Grid.Row="2">
             <partes:CampoISSQN />
+            <partes:CampoDadosAdicionais />
         </StackPanel>
     </Grid>
 </UserControl>

@@ -21,5 +21,8 @@
             <partes:CampoImposto />
             <partes:CampoTransporte />
         </StackPanel>
+        <StackPanel Padding="{x:Bind MargemPadrao}" Grid.Row="2">
+            <partes:CampoISSQN />
+        </StackPanel>
     </Grid>
 </UserControl>

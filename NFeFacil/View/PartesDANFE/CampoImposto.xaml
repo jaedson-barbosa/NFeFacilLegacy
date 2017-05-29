@@ -9,8 +9,8 @@
     <UserControl.Resources>
         <ResourceDictionary Source="EstilosPadrao.xaml" />
     </UserControl.Resources>
-    <StackPanel Margin="{Binding Source={StaticResource dimensoes},Path=MargemBloco}"
-                Width="{x:Bind LarguraTotal}">
+    <StackPanel Margin="{Binding Source={StaticResource dimensoes}, Path=MargemBloco}"
+                Width="{Binding Source={StaticResource dimensoes}, Path=LarguraTotal}">
         <TextBlock Style="{StaticResource DescritivoBloco}">CÁLCULO DO IMPOSTO</TextBlock>
         <Grid BorderThickness="1"
               BorderBrush="Black"

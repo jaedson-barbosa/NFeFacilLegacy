@@ -36,4 +36,9 @@
         <Setter Property="Margin"
                 Value="0,3,0,0" />
     </Style>
+    <Style TargetType="TextBlock"
+           x:Key="ConteudoNumerico" BasedOn="{StaticResource Conteudo}">
+        <Setter Property="TextAlignment"
+                Value="Right" />
+    </Style>
 </ResourceDictionary>

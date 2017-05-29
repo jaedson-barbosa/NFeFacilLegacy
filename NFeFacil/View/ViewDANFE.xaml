@@ -19,6 +19,7 @@
                     <partes:Canhoto />
                     <partes:DadosNFe />
                     <partes:CampoCliente />
+                    <partes:CampoImposto />
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>

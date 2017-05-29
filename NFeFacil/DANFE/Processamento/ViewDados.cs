@@ -121,7 +121,7 @@ namespace NFeFacil.DANFE.Processamento
             else await conec.AddOutraPage(dadosOutrasPaginas[index - 1]);
         }
 
-        private static Geral Converter(Processo proc)
+        internal static Geral Converter(Processo proc)
         {
             var dadosAdicionais = GetExtras(proc.NFe.Informações.infAdic);
             var dadosCabecalho = GetCabecalho(proc.NFe.Informações.identificação, proc.NFe.Informações.emitente);
@@ -159,9 +159,9 @@ namespace NFeFacil.DANFE.Processamento
             {
                 return new DadosCabecalho
                 {
-                    nomeEmitente = emit.nome,
-                    serieNota = ident.Serie.ToString(),
-                    numeroNota = ident.Numero.ToString()
+                    NomeEmitente = emit.nome,
+                    SerieNota = ident.Serie.ToString(),
+                    NumeroNota = ident.Numero.ToString("000,000,000")
                 };
             }
 

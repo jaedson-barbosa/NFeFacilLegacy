@@ -2,8 +2,8 @@
 {
     public sealed class DadosCabecalho
     {
-        public string nomeEmitente;
-        public string numeroNota;
-        public string serieNota;
+        public string NomeEmitente { get; set; }
+        public string NumeroNota { get; set; }
+        public string SerieNota { get; set; }
     }
 }

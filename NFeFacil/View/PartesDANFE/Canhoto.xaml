@@ -27,7 +27,7 @@
                     BorderThickness="0,0,1,1"
                     BorderBrush="Black"
                     Padding="{StaticResource PaddingPadrao}">
-                <TextBlock FontSize="8">RECEBEMOS DE SEVERINO ALVES SERAFIM ME OS PRODUTOS/SERVIÇOS CONSTANTES DA NOTA FISCAL INDICADA AO LADO</TextBlock>
+                <TextBlock FontSize="8">RECEBEMOS DE <Run Text="{Binding NomeEmitente}" /> OS PRODUTOS/SERVIÇOS CONSTANTES DA NOTA FISCAL INDICADA AO LADO</TextBlock>
             </Border>
             <Border Grid.Row="1"
                     BorderThickness="0,0,1,0"
@@ -49,8 +49,8 @@
                            TextAlignment="Center"
                            FontWeight="Bold">NF-e</TextBlock>
                 <TextBlock FontSize="12"
-                           Margin="0,4,0,8">Nº 000.000.275</TextBlock>
-                <TextBlock FontSize="12">Série 1</TextBlock>
+                           Margin="0,4,0,8">Nº <Run Text="{Binding NumeroNota}" /></TextBlock>
+                <TextBlock FontSize="12">Série <Run Text="{Binding SerieNota}" /></TextBlock>
             </StackPanel>
         </Grid>
         <Path Height="1"

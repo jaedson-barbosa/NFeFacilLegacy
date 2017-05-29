@@ -15,7 +15,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <StackPanel Padding="{x:Bind MargemPadrao}">
-            <partes:Canhoto />
+            <partes:Canhoto DataContext="{x:Bind ContextoCanhoto}" />
             <partes:DadosNFe />
             <partes:CampoCliente />
             <partes:CampoImposto />

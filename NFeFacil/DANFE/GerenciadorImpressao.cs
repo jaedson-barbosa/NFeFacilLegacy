@@ -1,34 +1,21 @@
-﻿using BibliotecaCentral.ModeloXML;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.Graphics.Printing;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Printing;
 
 namespace NFeFacil.DANFE
 {
-    public sealed class GerenciadorImpressao : GerenciadorWebView, IDisposable
+    public sealed class GerenciadorImpressao : IDisposable
     {
-        public event EventHandler PaginasCarregadas;
-        private void OnPaginasCarregadas()
-        {
-            PaginasCarregadas?.Invoke(this, new EventArgs());
-        }
-
         private PrintDocument printDoc;
         private IPrintDocumentSource printDocSource;
         private List<UIElement> paginas = new List<UIElement>();
 
-        public GerenciadorImpressao(Processo processo, ref WebView webView) : base(processo, ref webView)
+        public GerenciadorImpressao()
         {
             RegistrarImpressão();
-            webView.NavigationCompleted += async (x, y) =>
-            {
-                await ExibiçãoDados.ExibirUmaPágina(0);
-                OnPaginasCarregadas();
-            };
         }
 
         private void RegistrarImpressão()

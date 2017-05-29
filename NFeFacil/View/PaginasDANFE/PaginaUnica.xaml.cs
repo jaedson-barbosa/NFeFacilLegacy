@@ -1,4 +1,6 @@
-﻿using Windows.UI.Xaml;
+﻿using NFeFacil.DANFE.Pacotes;
+using NFeFacil.DANFE.Processamento;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
@@ -12,9 +14,12 @@ namespace NFeFacil.View.PaginasDANFE
 
         Thickness MargemPadrao => new Thickness(CentimeterToPixel(1));
 
-        public PaginaUnica()
+        DadosCabecalho ContextoCanhoto { get; }
+
+        public PaginaUnica(BibliotecaCentral.ModeloXML.Processo processo)
         {
             this.InitializeComponent();
+            ContextoCanhoto = ViewDados.Converter(processo)._DadosCabecalho;
         }
 
         static double CentimeterToPixel(double Centimeter)

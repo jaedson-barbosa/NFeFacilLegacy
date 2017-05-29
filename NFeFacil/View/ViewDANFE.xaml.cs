@@ -13,7 +13,6 @@ namespace NFeFacil.View
     /// </summary>
     public sealed partial class ViewDANFE : Page
     {
-        private Processo processo;
         private GerenciadorImpressao gerenciadorImpressão;
 
         public double Largura => CentimeterToPixel(21);
@@ -31,18 +30,21 @@ namespace NFeFacil.View
         public ViewDANFE()
         {
             InitializeComponent();
-            MainPage.Current.SeAtualizar(Symbol.View, "Visualizar DANFE");
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            processo = (Processo)e.Parameter;
-            gerenciadorImpressão = new GerenciadorImpressao(processo, ref webView);
-            gerenciadorImpressão.PaginasCarregadas += (x, y) => btnImprimir.IsEnabled = true;
+            MainPage.Current.SeAtualizar(Symbol.View, "Visualizar DANFE");
+
+            gerenciadorImpressão = new GerenciadorImpressao();
+
+            var processo = (Processo)e.Parameter;
+            stk.Children.Add(new PaginasDANFE.PaginaUnica(processo));
+            btnImprimir.IsEnabled = true;
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e) => Dispose();
-        private async void btnImprimir_Click(object sender, RoutedEventArgs e) => await gerenciadorImpressão.Imprimir(NovoDANFE);
+        private async void btnImprimir_Click(object sender, RoutedEventArgs e) => await gerenciadorImpressão.Imprimir(stk.Children[0]);
         public void Dispose() => gerenciadorImpressão.Dispose();
     }
 }

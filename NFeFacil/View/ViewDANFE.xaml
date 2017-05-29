@@ -20,6 +20,7 @@
                     <partes:DadosNFe />
                     <partes:CampoCliente />
                     <partes:CampoImposto />
+                    <partes:CampoTransporte />
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>

@@ -308,6 +308,9 @@
     <Compile Include="View\PartesDANFE\CampoImposto.xaml.cs">
       <DependentUpon>CampoImposto.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\PartesDANFE\CampoTransporte.xaml.cs">
+      <DependentUpon>CampoTransporte.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\PartesDANFE\Canhoto.xaml.cs">
       <DependentUpon>Canhoto.xaml</DependentUpon>
     </Compile>
@@ -514,6 +517,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\PartesDANFE\CampoImposto.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PartesDANFE\CampoTransporte.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

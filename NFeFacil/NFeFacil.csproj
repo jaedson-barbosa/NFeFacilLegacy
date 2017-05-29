@@ -302,6 +302,9 @@
     <Compile Include="View\ConfigSincronizacao.xaml.cs">
       <DependentUpon>ConfigSincronizacao.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\PaginasDANFE\PaginaUnica.xaml.cs">
+      <DependentUpon>PaginaUnica.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\PartesDANFE\CampoCliente.xaml.cs">
       <DependentUpon>CampoCliente.xaml</DependentUpon>
     </Compile>
@@ -509,6 +512,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ConfigSincronizacao.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PaginasDANFE\PaginaUnica.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

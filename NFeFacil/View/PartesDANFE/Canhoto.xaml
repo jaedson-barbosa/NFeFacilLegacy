@@ -15,9 +15,9 @@
               BorderBrush="Black"
               Margin="{Binding Source={StaticResource dimensoes},Path=MargemBloco}">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="{x:Bind Coluna0}" />
-                <ColumnDefinition Width="{x:Bind Coluna1}" />
-                <ColumnDefinition Width="{x:Bind Coluna2}" />
+                <ColumnDefinition />
+                <ColumnDefinition Width="{x:Bind ColunaMeio}" />
+                <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="{Binding Source={StaticResource dimensoes}, Path=AlturaLinhaPadrao}" />

@@ -19,8 +19,6 @@ namespace NFeFacil.View
         public double Largura => CentimeterToPixel(21);
         public double Altura => CentimeterToPixel(29.7);
 
-        public Thickness MargemPadrao => new Thickness(CentimeterToPixel(1));
-
         private byte[] Pixels;
 
         double CentimeterToPixel(double Centimeter)

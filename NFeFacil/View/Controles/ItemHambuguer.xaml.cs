@@ -8,33 +8,33 @@ namespace NFeFacil.View.Controles
     [Windows.UI.Xaml.Markup.ContentProperty(Name = nameof(Icone))]
     public sealed partial class ItemHambuguer : UserControl
     {
-        public ItemHambuguer()
-        {
-            this.InitializeComponent();
-        }
-
-        public ItemHambuguer(string glyph, string descricao) : this()
+        public ItemHambuguer(string glyph, string descricao)
         {
             Icone = new FontIcon()
             {
                 Glyph = glyph
             };
             Descricao = descricao;
+            this.InitializeComponent();
+
         }
 
-        public ItemHambuguer(Symbol simbolo, string descricao) : this()
+        public ItemHambuguer(Symbol simbolo, string descricao)
         {
             Icone = new SymbolIcon(simbolo);
             Descricao = descricao;
+            this.InitializeComponent();
+
         }
 
-        public ItemHambuguer(Uri uri, string descricao) : this()
+        public ItemHambuguer(Uri uri, string descricao)
         {
             Icone = new BitmapIcon()
             {
                 UriSource = uri
             };
             Descricao = descricao;
+            this.InitializeComponent();
         }
 
         public IconElement Icone { get; set; }

@@ -18,6 +18,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="{Binding Source={StaticResource dimensoes}, Path=AlturaLinhaPadrao}" />
                 <RowDefinition Height="{Binding Source={StaticResource dimensoes}, Path=AlturaLinhaPadrao}" />
+                <RowDefinition Height="{Binding Source={StaticResource dimensoes}, Path=AlturaLinhaPadrao}" />
             </Grid.RowDefinitions>
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -64,7 +65,8 @@
                     <TextBlock Style="{StaticResource Conteudo}">082.069.274-33</TextBlock>
                 </StackPanel>
             </Grid>
-            <Grid BorderThickness="0,0,0,1"
+            <Grid Grid.Row="1"
+                  BorderThickness="0,1,0,1"
                   BorderBrush="Black">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="{x:Bind Coluna10}" />
@@ -96,7 +98,8 @@
                     <TextBlock Style="{StaticResource Conteudo}"></TextBlock>
                 </StackPanel>
             </Grid>
-            <Grid Width="{Binding Source={StaticResource dimensoes}, Path=LarguraTotal}">
+            <Grid Grid.Row="2"
+                  Width="{Binding Source={StaticResource dimensoes}, Path=LarguraTotal}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />

@@ -20,6 +20,7 @@
             <partes:CampoCliente />
             <partes:CampoImposto />
             <partes:CampoTransporte />
+            <partes:CampoProdutos />
         </StackPanel>
         <StackPanel Padding="{x:Bind MargemPadrao}" Grid.Row="2">
             <partes:CampoISSQN />

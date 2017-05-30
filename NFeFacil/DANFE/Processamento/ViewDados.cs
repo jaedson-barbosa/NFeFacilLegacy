@@ -257,19 +257,19 @@ namespace NFeFacil.DANFE.Processamento
                 return new DadosProduto
                 {
                     CFOP = prod.Produto.CFOP,
-                    cProd = prod.Produto.CodigoProduto,
+                    CProd = prod.Produto.CodigoProduto,
                     CSTICMS = prod.impostos.GetCSTICMS(),
                     NCM = prod.Produto.NCM,
-                    qCom = prod.Produto.QuantidadeComercializada.ToString(),
-                    uCom = prod.Produto.UnidadeComercializacao,
-                    vUnCom = prod.Produto.ValorUnitario.ToString(),
-                    vUnTrib = prod.Produto.ValorUnitarioTributo.ToString(),
-                    vProd = prod.Produto.ValorTotal.ToString(),
-                    xProd = prod.Produto.Descricao,
-                    pICMS = consult.AgregarValor("pICMS", 0).ToString(),
-                    vICMS = consult.AgregarValor("vICMS", 0).ToString(),
-                    pIPI = consult.AgregarValor("pIPI", 0).ToString(),
-                    vIPI = consult.AgregarValor("vIPI", 0).ToString()
+                    QCom = prod.Produto.QuantidadeComercializada.ToString(),
+                    UCom = prod.Produto.UnidadeComercializacao,
+                    VUnCom = prod.Produto.ValorUnitario.ToString(),
+                    BCICMS = consult.AgregarValor("vBC", 0).ToString(),
+                    VProd = prod.Produto.ValorTotal.ToString(),
+                    XProd = prod.Produto.Descricao,
+                    PICMS = consult.AgregarValor("pICMS", 0).ToString(),
+                    VICMS = consult.AgregarValor("vICMS", 0).ToString(),
+                    PIPI = consult.AgregarValor("pIPI", 0).ToString(),
+                    VIPI = consult.AgregarValor("vIPI", 0).ToString()
                 };
             }
 

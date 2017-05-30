@@ -20,7 +20,7 @@
             <partes:CampoCliente DataContext="{x:Bind ContextoCliente}" />
             <partes:CampoImposto DataContext="{x:Bind ContextoImposto}" />
             <partes:CampoTransporte DataContext="{x:Bind ContextoTransporte}" />
-            <partes:CampoProdutos />
+            <partes:CampoProdutos DataContext="{x:Bind Produtos}" />
         </StackPanel>
         <StackPanel Padding="{x:Bind MargemPadrao}" Grid.Row="2">
             <partes:CampoISSQN />

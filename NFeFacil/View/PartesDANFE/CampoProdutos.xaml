@@ -1,20 +1,27 @@
 ﻿<UserControl x:Class="NFeFacil.View.PartesDANFE.CampoProdutos"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="using:NFeFacil.View.PartesDANFE"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              d:DesignHeight="300"
              d:DesignWidth="720">
     <UserControl.Resources>
-        <ResourceDictionary Source="EstilosPadrao.xaml" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="EstilosPadrao.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <local:DimensoesCampoProdutos x:Key="dimensoesLocal" />
+        </ResourceDictionary>
     </UserControl.Resources>
     <StackPanel Margin="{Binding Source={StaticResource dimensoes}, Path=MargemBloco}">
         <TextBlock Style="{StaticResource DescritivoBloco}">DADOS DO PRODUTO/SERVIÇO</TextBlock>
         <Border BorderThickness="1"
                 BorderBrush="Black"
                 CornerRadius="2">
-            <ListView SelectionMode="None">
+            <ListView SelectionMode="None"
+                      ItemsSource="{Binding}">
                 <ListView.Header>
                     <Grid>
                         <Grid.Resources>
@@ -27,14 +34,17 @@
                             </Style>
                         </Grid.Resources>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="{x:Bind Coluna0}" />
-                            <ColumnDefinition Width="{x:Bind Coluna1}" />
-                            <ColumnDefinition Width="{x:Bind Coluna2}" />
-                            <ColumnDefinition Width="{x:Bind ColunaGeral3}" />
-                            <ColumnDefinition Width="{x:Bind ColunaGeral4}" />
-                            <ColumnDefinition Width="{x:Bind ColunaGeral5}" />
-                            <ColumnDefinition Width="{x:Bind ColunaGeral6}" />
+                            <ColumnDefinition Width="{Binding Source={StaticResource dimensoesLocal}, Path=Coluna0}" />
+                            <ColumnDefinition Width="{Binding Source={StaticResource dimensoesLocal}, Path=Coluna1}" />
+                            <ColumnDefinition Width="{Binding Source={StaticResource dimensoesLocal}, Path=Coluna2}" />
+                            <ColumnDefinition Width="{Binding Source={StaticResource dimensoesLocal}, Path=ColunaGeral3}" />
+                            <ColumnDefinition Width="{Binding Source={StaticResource dimensoesLocal}, Path=ColunaGeral4}" />
+                            <ColumnDefinition Width="{Binding Source={StaticResource dimensoesLocal}, Path=ColunaGeral5}" />
+                            <ColumnDefinition Width="{Binding Source={StaticResource dimensoesLocal}, Path=ColunaGeral6}" />
                         </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="{Binding Source={StaticResource dimensoesLocal}, Path=LinhaPadrao}" />
+                        </Grid.RowDefinitions>
                         <Border BorderThickness="0,0,1,0"
                                 BorderBrush="Black">
                             <TextBlock>CÓDIGO</TextBlock>
@@ -100,13 +110,25 @@
                                     BorderBrush="Black">
                                 <TextBlock TextWrapping="Wrap">ALÍQ. ICMS</TextBlock>
                             </Border>
-                            <TextBlock Grid.Column="1" TextWrapping="Wrap">ALÍQ. IPI</TextBlock>
+                            <TextBlock Grid.Column="1"
+                                       TextWrapping="Wrap">ALÍQ. IPI</TextBlock>
                         </Grid>
                     </Grid>
                 </ListView.Header>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment"
+                                Value="Stretch" />
+                        <Setter Property="Padding"
+                                Value="0" />
+                        <Setter Property="MinHeight"
+                                Value="0" />
+                    </Style>
+                </ListView.ItemContainerStyle>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid>
+                        <Grid BorderThickness="0,1,0,0"
+                              BorderBrush="Black">
                             <Grid.Resources>
                                 <Style TargetType="TextBlock"
                                        BasedOn="{StaticResource Cabecalho}">
@@ -116,37 +138,43 @@
                                             Value="Center" />
                                     <Setter Property="TextWrapping"
                                             Value="Wrap" />
+                                    <Setter Property="FontSize"
+                                            Value="10" />
                                 </Style>
                             </Grid.Resources>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="{Binding Coluna0}" />
-                                <ColumnDefinition Width="{Binding Coluna1}" />
-                                <ColumnDefinition Width="{Binding Coluna2}" />
-                                <ColumnDefinition Width="{Binding ColunaGeral3}" />
-                                <ColumnDefinition Width="{Binding ColunaGeral4}" />
-                                <ColumnDefinition Width="{Binding ColunaGeral5}" />
-                                <ColumnDefinition Width="{Binding ColunaGeral6}" />
+                                <ColumnDefinition Width="{Binding Source={StaticResource dimensoesLocal}, Path=Coluna0}" />
+                                <ColumnDefinition Width="{Binding Source={StaticResource dimensoesLocal}, Path=Coluna1}" />
+                                <ColumnDefinition Width="{Binding Source={StaticResource dimensoesLocal}, Path=Coluna2}" />
+                                <ColumnDefinition Width="{Binding Source={StaticResource dimensoesLocal}, Path=ColunaGeral3}" />
+                                <ColumnDefinition Width="{Binding Source={StaticResource dimensoesLocal}, Path=ColunaGeral4}" />
+                                <ColumnDefinition Width="{Binding Source={StaticResource dimensoesLocal}, Path=ColunaGeral5}" />
+                                <ColumnDefinition Width="{Binding Source={StaticResource dimensoesLocal}, Path=ColunaGeral6}" />
                             </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="{Binding Source={StaticResource dimensoesLocal}, Path=LinhaPadrao}" />
+                            </Grid.RowDefinitions>
                             <Border BorderThickness="0,0,1,0"
                                     BorderBrush="Black">
-                                <TextBlock>001</TextBlock>
+                                <TextBlock Text="{Binding CProd}" />
                             </Border>
-                            <TextBlock Grid.Column="1">AREIA LAVADA</TextBlock>
+                            <TextBlock Grid.Column="1"
+                                       Text="{Binding XProd}" />
                             <Border Grid.Column="2"
                                     BorderThickness="1,0,1,0"
                                     BorderBrush="Black">
-                                <TextBlock>25059000</TextBlock>
+                                <TextBlock Text="{Binding NCM}" />
                             </Border>
                             <Grid Grid.Column="3">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition />
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock>0400</TextBlock>
+                                <TextBlock Text="{Binding CSTICMS}" />
                                 <Border Grid.Column="1"
                                         BorderThickness="1,0,1,0"
                                         BorderBrush="Black">
-                                    <TextBlock>5120</TextBlock>
+                                    <TextBlock Text="{Binding CFOP}" />
                                 </Border>
                             </Grid>
                             <Grid Grid.Column="4">
@@ -154,11 +182,11 @@
                                     <ColumnDefinition />
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock>MT CUB</TextBlock>
+                                <TextBlock Text="{Binding UCom}" />
                                 <Border Grid.Column="1"
                                         BorderThickness="1,0,1,0"
                                         BorderBrush="Black">
-                                    <TextBlock>6,0000</TextBlock>
+                                    <TextBlock Text="{Binding QCom}" />
                                 </Border>
                             </Grid>
                             <Grid Grid.Column="5">
@@ -169,19 +197,21 @@
                                     <ColumnDefinition />
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock>15,0000</TextBlock>
+                                <TextBlock Text="{Binding VUnCom}" />
                                 <Border Grid.Column="1"
                                         BorderThickness="1,0,1,0"
                                         BorderBrush="Black">
-                                    <TextBlock>90,00</TextBlock>
+                                    <TextBlock Text="{Binding VProd}" />
                                 </Border>
-                                <TextBlock Grid.Column="2"></TextBlock>
+                                <TextBlock Grid.Column="2"
+                                           Text="{Binding BCICMS}" />
                                 <Border Grid.Column="3"
                                         BorderThickness="1,0,1,0"
                                         BorderBrush="Black">
-                                    <TextBlock></TextBlock>
+                                    <TextBlock Text="{Binding VICMS}" />
                                 </Border>
-                                <TextBlock Grid.Column="4"></TextBlock>
+                                <TextBlock Grid.Column="4"
+                                           Text="{Binding VIPI}" />
                             </Grid>
                             <Grid Grid.Column="6">
                                 <Grid.ColumnDefinitions>
@@ -190,9 +220,10 @@
                                 </Grid.ColumnDefinitions>
                                 <Border BorderThickness="1,0,1,0"
                                         BorderBrush="Black">
-                                    <TextBlock></TextBlock>
+                                    <TextBlock Text="{Binding PICMS}" />
                                 </Border>
-                                <TextBlock Grid.Column="1"></TextBlock>
+                                <TextBlock Grid.Column="1"
+                                           Text="{Binding PIPI}" />
                             </Grid>
                         </Grid>
                     </DataTemplate>

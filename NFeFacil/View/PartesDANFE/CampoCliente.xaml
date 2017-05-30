@@ -27,19 +27,22 @@
                 </Grid.ColumnDefinitions>
                 <StackPanel Padding="{StaticResource PaddingPadrao}">
                     <TextBlock Style="{StaticResource Cabecalho}">NOME/RAZÃO SOCIAL</TextBlock>
-                    <TextBlock Style="{StaticResource Conteudo}">IMPÉRIO COMÉRCIO DE MATERIAL DE CONSTRUÇÃO</TextBlock>
+                    <TextBlock Style="{StaticResource Conteudo}"
+                               Text="{Binding NomeCliente}" />
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="1"
                             BorderThickness="1,0,1,0"
                             BorderBrush="Black">
                     <TextBlock Style="{StaticResource Cabecalho}">CNPJ/CPF</TextBlock>
-                    <TextBlock Style="{StaticResource Conteudo}">22.156.596/0001-56</TextBlock>
+                    <TextBlock Style="{StaticResource Conteudo}"
+                               Text="{Binding DocCliente}" />
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="2">
                     <TextBlock Style="{StaticResource Cabecalho}">DATA DA EMISSÃO</TextBlock>
-                    <TextBlock Style="{StaticResource Conteudo}">01/11/2016</TextBlock>
+                    <TextBlock Style="{StaticResource Conteudo}"
+                               Text="{Binding DataEmissao}" />
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="1"
@@ -53,26 +56,29 @@
                 </Grid.ColumnDefinitions>
                 <StackPanel Padding="{StaticResource PaddingPadrao}">
                     <TextBlock Style="{StaticResource Cabecalho}">ENDEREÇO</TextBlock>
-                    <TextBlock Style="{StaticResource Conteudo}">Rodovia PB 075 Km 20, S/N</TextBlock>
+                    <TextBlock Style="{StaticResource Conteudo}"><Run Text="{Binding Endereco.Logradouro}" />, <Run Text="{Binding Endereco.Numero}"/></TextBlock>
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="1"
                             BorderThickness="1,0,1,0"
                             BorderBrush="Black">
                     <TextBlock Style="{StaticResource Cabecalho}">BAIRRO/DISTRITO</TextBlock>
-                    <TextBlock Style="{StaticResource Conteudo}">CENTRO</TextBlock>
+                    <TextBlock Style="{StaticResource Conteudo}"
+                               Text="{Binding Endereco.Bairro}"/>
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="2"
                             BorderThickness="0,0,1,0"
                             BorderBrush="Black">
                     <TextBlock Style="{StaticResource Cabecalho}">CEP</TextBlock>
-                    <TextBlock Style="{StaticResource Conteudo}">58208-000</TextBlock>
+                    <TextBlock Style="{StaticResource Conteudo}"
+                               Text="{Binding Endereco.CEP}" />
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="3">
                     <TextBlock Style="{StaticResource Cabecalho}">DATA DE ENTRADA/SAÍDA</TextBlock>
-                    <TextBlock Style="{StaticResource Conteudo}"></TextBlock>
+                    <TextBlock Style="{StaticResource Conteudo}"
+                               Text="{Binding DataEntradaSaida}" />
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="2">
@@ -85,31 +91,36 @@
                 </Grid.ColumnDefinitions>
                 <StackPanel Padding="{StaticResource PaddingPadrao}">
                     <TextBlock Style="{StaticResource Cabecalho}">MUNICÍPIO</TextBlock>
-                    <TextBlock Style="{StaticResource Conteudo}">Cuitegi</TextBlock>
+                    <TextBlock Style="{StaticResource Conteudo}"
+                               Text="{Binding Endereco.Municipio}" />
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="1"
                             BorderThickness="1,0,1,0"
                             BorderBrush="Black">
                     <TextBlock Style="{StaticResource Cabecalho}">FONE/FAX</TextBlock>
-                    <TextBlock Style="{StaticResource Conteudo}">36811174</TextBlock>
+                    <TextBlock Style="{StaticResource Conteudo}"
+                               Text="{Binding Endereco.Fone}" />
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="2">
                     <TextBlock Style="{StaticResource Cabecalho}">UF</TextBlock>
-                    <TextBlock Style="{StaticResource Conteudo}">PB</TextBlock>
+                    <TextBlock Style="{StaticResource Conteudo}"
+                               Text="{Binding Endereco.UF}" />
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="3"
                             BorderThickness="1,0,1,0"
                             BorderBrush="Black">
                     <TextBlock Style="{StaticResource Cabecalho}">INSCRIÇÃO ESTADUAL</TextBlock>
-                    <TextBlock Style="{StaticResource Conteudo}">162533071</TextBlock>
+                    <TextBlock Style="{StaticResource Conteudo}"
+                               Text="{Binding IECliente}" />
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="4">
                     <TextBlock Style="{StaticResource Cabecalho}">HORA DE ENTRADA/SAÍDA</TextBlock>
-                    <TextBlock Style="{StaticResource Conteudo}"></TextBlock>
+                    <TextBlock Style="{StaticResource Conteudo}"
+                               Text="{Binding HoraEntradaSaida}" />
                 </StackPanel>
             </Grid>
         </Grid>

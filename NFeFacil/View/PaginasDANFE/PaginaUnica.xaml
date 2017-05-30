@@ -17,7 +17,7 @@
         <StackPanel Padding="{x:Bind MargemPadrao}">
             <partes:Canhoto DataContext="{x:Bind ContextoCanhoto}" />
             <partes:DadosNFe />
-            <partes:CampoCliente />
+            <partes:CampoCliente DataContext="{x:Bind ContextoCliente}" />
             <partes:CampoImposto />
             <partes:CampoTransporte />
             <partes:CampoProdutos />

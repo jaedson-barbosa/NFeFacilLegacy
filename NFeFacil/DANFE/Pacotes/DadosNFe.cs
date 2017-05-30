@@ -1,6 +1,4 @@
-﻿using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe;
-
-namespace NFeFacil.DANFE.Pacotes
+﻿namespace NFeFacil.DANFE.Pacotes
 {
     public sealed class DadosNFe
     {
@@ -22,31 +20,6 @@ namespace NFeFacil.DANFE.Pacotes
         {
             QuantPaginas = totPagina.ToString();
             PaginaAtual = paginaAtual.ToString();
-        }
-    }
-
-    public sealed class Endereço
-    {
-        public string UF;
-        public string Municipio;
-        public string CEP;
-        public string Bairro;
-        public string Logradouro;
-        public string Numero;
-        public string Fone;
-
-        public static implicit operator Endereço (enderecoCompleto end)
-        {
-            return new Endereço
-            {
-                Bairro = end.Bairro,
-                CEP = end.CEP,
-                Fone = end.Telefone == null ? string.Empty : end.Telefone,
-                Logradouro = end.Logradouro,
-                Municipio = end.NomeMunicipio,
-                Numero = end.Numero,
-                UF = end.SiglaUF
-            };
         }
     }
 }

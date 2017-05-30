@@ -28,12 +28,14 @@
                 <TextBlock TextAlignment="Center"
                            FontSize="16"
                            FontWeight="Bold"
-                           Margin="0,10">SEVERINO ALVES SERAFIM ME</TextBlock>
-                <TextBlock FontSize="12">SÍTIO BARRA, S/N</TextBlock>
-                <TextBlock FontSize="12">ZONA RURAL</TextBlock>
-                <TextBlock FontSize="12">CUITEGI - PB</TextBlock>
-                <TextBlock FontSize="12">CEP: 58208-000</TextBlock>
-                <TextBlock FontSize="12">FONE: (83) 98885-6440</TextBlock>
+                           Margin="0,10"
+                           Text="{Binding NomeEmitente}" />
+                <TextBlock FontSize="12"><Run Text="{Binding Endereco.Logradouro}" />, <Run Text="{Binding Endereco.Numero}" /></TextBlock>
+                <TextBlock FontSize="12"
+                           Text="{Binding Endereco.Bairro}"/>
+                <TextBlock FontSize="12"><Run Text="{Binding Endereco.Municipio}" /> - <Run Text="{Binding Endereco.UF}" /></TextBlock>
+                <TextBlock FontSize="12">CEP: <Run Text="{Binding Endereco.CEP}" /></TextBlock>
+                <TextBlock FontSize="12">FONE: <Run Text="{Binding Endereco.Fone}" /></TextBlock>
             </StackPanel>
             <StackPanel Grid.Column="1"
                         BorderThickness="1,0,0,0"
@@ -65,15 +67,16 @@
                             CornerRadius="2">
                         <TextBlock FontWeight="Bold"
                                    Margin="2,1,1,1"
-                                   FontSize="12">1</TextBlock>
+                                   FontSize="12"
+                                   Text="{Binding TipoEmissao}" />
                     </Border>
                 </Grid>
                 <TextBlock FontSize="12"
-                           FontWeight="Bold">Nº: 000.000.275</TextBlock>
+                           FontWeight="Bold">Nº: <Run Text="{Binding NumeroNota}" /></TextBlock>
                 <TextBlock FontSize="12"
-                           FontWeight="Bold">Série: 1</TextBlock>
+                           FontWeight="Bold">Série: <Run Text="{Binding SerieNota}" /></TextBlock>
                 <TextBlock FontSize="12"
-                           FontWeight="Bold">Folha: 1/1</TextBlock>
+                           FontWeight="Bold">Folha: <Run Text="{Binding PaginaAtual}" />/<Run Text="{Binding QuantPaginas}" /></TextBlock>
             </StackPanel>
             <StackPanel Grid.Column="2"
                         BorderThickness="1,0,0,0"
@@ -86,7 +89,8 @@
                                FontSize="24"
                                TextAlignment="Center"
                                FontWeight="Light"
-                               Margin="0,2">25170512931158000164550010000003061984020000</TextBlock>
+                               Margin="0,2"
+                               Text="{Binding Chave}" />
                 </StackPanel>
                 <StackPanel BorderThickness="0,0,0,1"
                             BorderBrush="Black"
@@ -95,7 +99,8 @@
                     <TextBlock FontSize="10"
                                TextAlignment="Center"
                                FontWeight="Bold"
-                               Margin="0,2">2517 0512 9311 5800 0164 5500 1000 0003 0619 8402 0000</TextBlock>
+                               Margin="0,2"
+                               Text="{Binding ChaveComMascara}" />
                 </StackPanel>
                 <TextBlock FontSize="12"
                            Margin="{StaticResource PaddingPadrao}"
@@ -107,7 +112,8 @@
                         BorderBrush="Black"
                         Padding="{StaticResource PaddingPadrao}">
                 <TextBlock Style="{StaticResource Cabecalho}">NATUREZA DA OPERAÇÃO</TextBlock>
-                <TextBlock Style="{StaticResource Conteudo}">VENDA</TextBlock>
+                <TextBlock Style="{StaticResource Conteudo}"
+                           Text="{Binding NatOp}" />
             </StackPanel>
             <StackPanel Grid.Column="2"
                         Grid.Row="1"
@@ -115,7 +121,7 @@
                         BorderBrush="Black"
                         Padding="{StaticResource PaddingPadrao}">
                 <TextBlock Style="{StaticResource Cabecalho}">PROTOCOLO DE AUTORIZAÇÃO DE USO</TextBlock>
-                <TextBlock Style="{StaticResource Conteudo}">325170008500346 2017-05-19 09:38:05-03:00</TextBlock>
+                <TextBlock Style="{StaticResource Conteudo}"><Run Text="{Binding NumeroProtocolo}" /> <Run Text="{Binding DataHoraRecibo}" /></TextBlock>
             </StackPanel>
         </Grid>
         <Grid>
@@ -129,19 +135,22 @@
             </Grid.RowDefinitions>
             <StackPanel Padding="{StaticResource PaddingPadrao}">
                 <TextBlock Style="{StaticResource Cabecalho}">INSCRIÇÃO ESTADUAL</TextBlock>
-                <TextBlock Style="{StaticResource Conteudo}">161813470</TextBlock>
+                <TextBlock Style="{StaticResource Conteudo}"
+                           Text="{Binding IE}" />
             </StackPanel>
             <StackPanel Grid.Column="1"
                         BorderThickness="1,0,1,0"
                         BorderBrush="Black"
                         Padding="{StaticResource PaddingPadrao}">
                 <TextBlock Style="{StaticResource Cabecalho}">INSCR.ESTADUAL SUBSTITUTO</TextBlock>
-                <TextBlock Style="{StaticResource Conteudo}"></TextBlock>
+                <TextBlock Style="{StaticResource Conteudo}"
+                           Text="{Binding IEST}" />
             </StackPanel>
             <StackPanel Grid.Column="2"
                         Padding="{StaticResource PaddingPadrao}">
                 <TextBlock Style="{StaticResource Cabecalho}">CNPJ</TextBlock>
-                <TextBlock Style="{StaticResource Conteudo}">12931158000164</TextBlock>
+                <TextBlock Style="{StaticResource Conteudo}"
+                           Text="{Binding CNPJEmit}" />
             </StackPanel>
         </Grid>
     </StackPanel>

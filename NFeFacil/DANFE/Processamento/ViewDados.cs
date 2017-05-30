@@ -226,10 +226,12 @@ namespace NFeFacil.DANFE.Processamento
                 return new DadosNFe
                 {
                     Chave = codigoBarras,
+                    ChaveComMascara = AplicarMascaraChave(codigoBarras),
                     CNPJEmit = detalhes.emitente.CNPJ,
                     DataHoraRecibo = prot.InfProt.dhRecbto.Replace('T', ' '),
                     Endereco = detalhes.emitente.endereco,
                     IE = detalhes.emitente.inscricaoEstadual,
+                    IEST = detalhes.emitente.IEST,
                     NatOp = detalhes.identificação.NaturezaDaOperação,
                     NomeEmitente = detalhes.emitente.nome,
                     NumeroNota = detalhes.identificação.Numero.ToString(),
@@ -237,6 +239,16 @@ namespace NFeFacil.DANFE.Processamento
                     SerieNota = detalhes.identificação.Serie.ToString(),
                     TipoEmissao = detalhes.identificação.TipoEmissão.ToString(),
                 };
+
+                string AplicarMascaraChave(string original)
+                {
+                    var novaChave = "";
+                    for (var i = 0; i < 44; i += 4)
+                    {
+                        novaChave += original.Substring(i, 4) + " ";
+                    }
+                    return novaChave;
+                }
             }
 
             DadosProduto GetProd(DetalhesProdutos prod)

@@ -152,10 +152,10 @@ namespace NFeFacil.DANFE.Processamento
             {
                 return issqn != null ? new DadosISSQN
                 {
-                    BC = issqn.vBC.ToString(),
+                    BC = issqn.vBC.ToString("N2"),
                     IM = emit.IM,
-                    TotalServiços = issqn.vServ.ToString(),
-                    ValorISSQN = issqn.vISS.ToString()
+                    TotalServiços = issqn.vServ.ToString("N2"),
+                    ValorISSQN = issqn.vISS.ToString("N2")
                 } : new DadosISSQN();
             }
 
@@ -182,7 +182,7 @@ namespace NFeFacil.DANFE.Processamento
             {
                 return new DadosCliente
                 {
-                    DocCliente = dest.Documento,
+                    DocCliente = AplicatMascaraDocumento(dest.Documento),
                     DataEmissao = Convert.ToDateTime(ident.DataHoraEmissão).ToString("dd-MM-yyyy"),
                     DataEntradaSaida = !string.IsNullOrEmpty(ident.DataHoraSaídaEntrada) ? Analisar(Convert.ToDateTime(ident.DataHoraSaídaEntrada).ToString("dd-MM-yyyy")) : string.Empty,
                     HoraEntradaSaida = !string.IsNullOrEmpty(ident.DataHoraSaídaEntrada) ? Analisar(Convert.ToDateTime(ident.DataHoraSaídaEntrada).ToString("hh:mm:ss")) : string.Empty,
@@ -196,17 +196,17 @@ namespace NFeFacil.DANFE.Processamento
             {
                 return new DadosImposto
                 {
-                    BaseCalculoICMS = tot.ICMSTot.vBC.ToString("0.00"),
-                    BaseCalculoICMSST = tot.ICMSTot.vBCST.ToString("0.00"),
-                    Desconto = tot.ICMSTot.vDesc.ToString("0.00"),
-                    DespesasAcessorias = tot.ICMSTot.vOutro.ToString("0.00"),
-                    TotalNota = tot.ICMSTot.vNF.ToString("0.00"),
-                    ValorFrete = tot.ICMSTot.vFrete.ToString("0.00"),
-                    ValorICMS = tot.ICMSTot.vICMS.ToString("0.00"),
-                    ValorICMSST = tot.ICMSTot.vST.ToString("0.00"),
-                    ValorIPI = tot.ICMSTot.vIPI.ToString("0.00"),
-                    ValorSeguro = tot.ICMSTot.vSeg.ToString("0.00"),
-                    ValorTotalProdutos = tot.ICMSTot.vProd.ToString("0.00")
+                    BaseCalculoICMS = tot.ICMSTot.vBC.ToString("N2"),
+                    BaseCalculoICMSST = tot.ICMSTot.vBCST.ToString("N2"),
+                    Desconto = tot.ICMSTot.vDesc.ToString("N2"),
+                    DespesasAcessorias = tot.ICMSTot.vOutro.ToString("N2"),
+                    TotalNota = tot.ICMSTot.vNF.ToString("N2"),
+                    ValorFrete = tot.ICMSTot.vFrete.ToString("N2"),
+                    ValorICMS = tot.ICMSTot.vICMS.ToString("N2"),
+                    ValorICMSST = tot.ICMSTot.vST.ToString("N2"),
+                    ValorIPI = tot.ICMSTot.vIPI.ToString("N2"),
+                    ValorSeguro = tot.ICMSTot.vSeg.ToString("N2"),
+                    ValorTotalProdutos = tot.ICMSTot.vProd.ToString("N2")
                 };
             }
 
@@ -215,22 +215,39 @@ namespace NFeFacil.DANFE.Processamento
                 return new DadosMotorista
                 {
                     CodigoANTT = Analisar(transp.veicTransp?.RNTC),
-                    DocumentoMotorista = Analisar(transp.transporta?.Documento),
+                    DocumentoMotorista = transp.transporta?.Documento != null ? AplicatMascaraDocumento(transp.transporta?.Documento) : null,
                     EnderecoMotorista = Analisar(transp.transporta?.XEnder),
                     EspecieVolume = Analisar(transp.vol.FirstOrDefault()?.esp),
                     IEMotorista = Analisar(transp.transporta?.InscricaoEstadual),
                     MarcaVolume = Analisar(transp.vol.FirstOrDefault()?.marca),
-                    ModalidadeFrete = transp.modFrete.ToString(),
+                    ModalidadeFrete = ObterModalidadeCompleta(transp.modFrete),
                     MunicipioMotorista = Analisar(transp.transporta?.XMun),
                     NomeMotorista = Analisar(transp.transporta?.Nome),
                     NumeroVolume = Analisar(transp.vol.FirstOrDefault()?.nVol),
-                    PesoBrutoVolume = Analisar(transp.vol.FirstOrDefault()?.pesoB),
-                    PesoLiquidoVolume = Analisar(transp.vol.FirstOrDefault()?.pesoL),
+                    PesoBrutoVolume = transp.vol.FirstOrDefault()?.pesoB.ToString("N3"),
+                    PesoLiquidoVolume = transp.vol.FirstOrDefault()?.pesoL.ToString("N3"),
                     Placa = Analisar(transp.veicTransp?.Placa),
                     QuantidadeVolume = Analisar(transp.vol.FirstOrDefault()?.qVol),
                     UfMotorista = Analisar(transp.transporta?.UF),
                     UfPlaca = Analisar(transp.veicTransp?.UF)
                 };
+
+                string ObterModalidadeCompleta(int modalidade)
+                {
+                    switch (modalidade)
+                    {
+                        case 0:
+                            return "0 – Emitente";
+                        case 1:
+                            return "1 – Dest/Rem";
+                        case 2:
+                            return "2 – Terceiros";
+                        case 9:
+                            return "9 – Sem Frete";
+                        default:
+                            return "Erro";
+                    }
+                }
             }
 
             DadosNFe GetNFe(Detalhes detalhes, ProtocoloNFe prot)
@@ -240,14 +257,14 @@ namespace NFeFacil.DANFE.Processamento
                 {
                     Chave = codigoBarras,
                     ChaveComMascara = AplicarMascaraChave(codigoBarras),
-                    CNPJEmit = detalhes.emitente.CNPJ,
+                    CNPJEmit = AplicatMascaraDocumento(detalhes.emitente.CNPJ),
                     DataHoraRecibo = prot.InfProt.dhRecbto.Replace('T', ' '),
                     Endereco = detalhes.emitente.endereco,
                     IE = detalhes.emitente.inscricaoEstadual,
                     IEST = detalhes.emitente.IEST,
                     NatOp = detalhes.identificação.NaturezaDaOperação,
                     NomeEmitente = detalhes.emitente.nome,
-                    NumeroNota = detalhes.identificação.Numero.ToString(),
+                    NumeroNota = detalhes.identificação.Numero.ToString("000,000,000"),
                     NumeroProtocolo = prot.InfProt.nProt.ToString(),
                     SerieNota = detalhes.identificação.Serie.ToString(),
                     TipoEmissao = detalhes.identificação.TipoEmissão.ToString(),
@@ -273,16 +290,16 @@ namespace NFeFacil.DANFE.Processamento
                     CProd = prod.Produto.CodigoProduto,
                     CSTICMS = prod.impostos.GetCSTICMS(),
                     NCM = prod.Produto.NCM,
-                    QCom = prod.Produto.QuantidadeComercializada.ToString(),
+                    QCom = prod.Produto.QuantidadeComercializada.ToString("N4"),
                     UCom = prod.Produto.UnidadeComercializacao,
-                    VUnCom = prod.Produto.ValorUnitario.ToString(),
-                    BCICMS = consult.AgregarValor("vBC", 0).ToString(),
-                    VProd = prod.Produto.ValorTotal.ToString(),
+                    VUnCom = prod.Produto.ValorUnitario.ToString("N4"),
+                    BCICMS = consult.AgregarValor("vBC", 0).ToString("N2"),
+                    VProd = prod.Produto.ValorTotal.ToString("N2"),
                     XProd = prod.Produto.Descricao,
-                    PICMS = consult.AgregarValor("pICMS", 0).ToString(),
-                    VICMS = consult.AgregarValor("vICMS", 0).ToString(),
-                    PIPI = consult.AgregarValor("pIPI", 0).ToString(),
-                    VIPI = consult.AgregarValor("vIPI", 0).ToString()
+                    PICMS = consult.AgregarValor("pICMS", 0).ToString("N2"),
+                    VICMS = consult.AgregarValor("vICMS", 0).ToString("N2"),
+                    PIPI = consult.AgregarValor("pIPI", 0).ToString("N2"),
+                    VIPI = consult.AgregarValor("vIPI", 0).ToString("N2")
                 };
             }
 
@@ -297,6 +314,26 @@ namespace NFeFacil.DANFE.Processamento
             }
 
             string Analisar(object str) => str != null ? (string)str : string.Empty;
+
+            string AplicatMascaraDocumento(string original)
+            {
+                original = original.Trim();
+                if(original.Length == 14)
+                {
+                    // É CNPJ
+                    return $"{original.Substring(0, 2)}.{original.Substring(2,3)}.{original.Substring(5, 3)}/{original.Substring(8, 4)}.{original.Substring(12, 2)}";
+                }
+                else if (original.Length == 11)
+                {
+                    // É CPF
+                    return $"{original.Substring(0, 3)}.{original.Substring(3, 3)}.{original.Substring(6, 3)}-{original.Substring(9, 2)}";
+                }
+                else
+                {
+                    // Não é nem CNPJ nem CPF
+                    return original;
+                }
+            }
         }
     }
 }

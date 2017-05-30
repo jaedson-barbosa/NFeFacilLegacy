@@ -33,36 +33,42 @@
                             BorderThickness="0,0,1,0"
                             BorderBrush="Black">
                     <TextBlock Style="{StaticResource Cabecalho}">RAZÃO SOCIAL</TextBlock>
-                    <TextBlock Style="{StaticResource Conteudo}">LUIZ ANTONIO GONÇALVES E SILVA</TextBlock>
+                    <TextBlock Style="{StaticResource Conteudo}"
+                               Text="{Binding NomeMotorista}" />
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="1">
                     <TextBlock Style="{StaticResource Cabecalho}">FRETE POR CONTA</TextBlock>
-                    <TextBlock Style="{StaticResource Conteudo}">2 - TERCEIROS</TextBlock>
+                    <TextBlock Style="{StaticResource Conteudo}"
+                               Text="{Binding ModalidadeFrete}" />
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="2"
                             BorderThickness="1,0,1,0"
                             BorderBrush="Black">
                     <TextBlock Style="{StaticResource Cabecalho}">CÓDIGO ANTT</TextBlock>
-                    <TextBlock Style="{StaticResource Conteudo}"></TextBlock>
+                    <TextBlock Style="{StaticResource Conteudo}"
+                               Text="{Binding CodigoANTT}" />
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="3">
                     <TextBlock Style="{StaticResource Cabecalho}">PLACA DO VEÍCULO</TextBlock>
-                    <TextBlock Style="{StaticResource Conteudo}">BPA1732</TextBlock>
+                    <TextBlock Style="{StaticResource Conteudo}"
+                               Text="{Binding Placa}" />
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="4"
                             BorderThickness="1,0,1,0"
                             BorderBrush="Black">
                     <TextBlock Style="{StaticResource Cabecalho}">UF</TextBlock>
-                    <TextBlock Style="{StaticResource Conteudo}">PB</TextBlock>
+                    <TextBlock Style="{StaticResource Conteudo}"
+                               Text="{Binding UfPlaca}" />
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="5">
                     <TextBlock Style="{StaticResource Cabecalho}">CNPJ/CPF</TextBlock>
-                    <TextBlock Style="{StaticResource Conteudo}">082.069.274-33</TextBlock>
+                    <TextBlock Style="{StaticResource Conteudo}"
+                               Text="{Binding DocumentoMotorista}" />
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="1"
@@ -78,24 +84,28 @@
                             BorderThickness="0,0,1,0"
                             BorderBrush="Black">
                     <TextBlock Style="{StaticResource Cabecalho}">ENDEREÇO</TextBlock>
-                    <TextBlock Style="{StaticResource Conteudo}">RUA ALICE CARNEIRO - 369</TextBlock>
+                    <TextBlock Style="{StaticResource Conteudo}"
+                               Text="{Binding EnderecoMotorista}" />
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="1">
                     <TextBlock Style="{StaticResource Cabecalho}">MUNICÍPIO</TextBlock>
-                    <TextBlock Style="{StaticResource Conteudo}">Alagoinha</TextBlock>
+                    <TextBlock Style="{StaticResource Conteudo}"
+                               Text="{Binding MunicipioMotorista}" />
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="2"
                             BorderThickness="1,0,1,0"
                             BorderBrush="Black">
                     <TextBlock Style="{StaticResource Cabecalho}">UF</TextBlock>
-                    <TextBlock Style="{StaticResource Conteudo}">PB</TextBlock>
+                    <TextBlock Style="{StaticResource Conteudo}"
+                               Text="{Binding UfMotorista}" />
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="3">
                     <TextBlock Style="{StaticResource Cabecalho}">INSCRIÇÃO ESTADUAL</TextBlock>
-                    <TextBlock Style="{StaticResource Conteudo}"></TextBlock>
+                    <TextBlock Style="{StaticResource Conteudo}"
+                               Text="{Binding IEMotorista}" />
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="2"
@@ -112,36 +122,42 @@
                             BorderThickness="0,0,1,0"
                             BorderBrush="Black">
                     <TextBlock Style="{StaticResource Cabecalho}">QUANTIDADE</TextBlock>
-                    <TextBlock Style="{StaticResource Conteudo}"></TextBlock>
+                    <TextBlock Style="{StaticResource Conteudo}"
+                               Text="{Binding QuantidadeVolume}" />
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="1">
                     <TextBlock Style="{StaticResource Cabecalho}">ESPÉCIE</TextBlock>
-                    <TextBlock Style="{StaticResource Conteudo}"></TextBlock>
+                    <TextBlock Style="{StaticResource Conteudo}"
+                               Text="{Binding EspecieVolume}" />
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="2"
                             BorderThickness="1,0,1,0"
                             BorderBrush="Black">
                     <TextBlock Style="{StaticResource Cabecalho}">MARCA</TextBlock>
-                    <TextBlock Style="{StaticResource Conteudo}"></TextBlock>
+                    <TextBlock Style="{StaticResource Conteudo}"
+                               Text="{Binding MarcaVolume}" />
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="3">
                     <TextBlock Style="{StaticResource Cabecalho}">NUMERAÇÃO</TextBlock>
-                    <TextBlock Style="{StaticResource Conteudo}"></TextBlock>
+                    <TextBlock Style="{StaticResource Conteudo}"
+                               Text="{Binding NumeroVolume}" />
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="4"
                             BorderThickness="1,0,1,0"
                             BorderBrush="Black">
                     <TextBlock Style="{StaticResource Cabecalho}">PESO BRUTO</TextBlock>
-                    <TextBlock Style="{StaticResource Conteudo}"></TextBlock>
+                    <TextBlock Style="{StaticResource Conteudo}"
+                               Text="{Binding PesoBrutoVolume}" />
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="5">
                     <TextBlock Style="{StaticResource Cabecalho}">PESO LÍQUIDO</TextBlock>
-                    <TextBlock Style="{StaticResource Conteudo}"></TextBlock>
+                    <TextBlock Style="{StaticResource Conteudo}"
+                               Text="{Binding PesoLiquidoVolume}" />
                 </StackPanel>
             </Grid>
         </Grid>

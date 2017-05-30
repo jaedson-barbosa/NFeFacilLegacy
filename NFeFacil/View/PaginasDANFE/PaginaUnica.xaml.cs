@@ -18,6 +18,7 @@ namespace NFeFacil.View.PaginasDANFE
         DadosAdicionais ContextoDadosAdicionais { get; }
         DadosCliente ContextoCliente { get; }
         DadosImposto ContextoImposto { get; }
+        DadosMotorista ContextoTransporte { get; }
 
         public PaginaUnica(BibliotecaCentral.ModeloXML.Processo processo)
         {
@@ -27,6 +28,7 @@ namespace NFeFacil.View.PaginasDANFE
             ContextoDadosAdicionais = geral._DadosAdicionais;
             ContextoCliente = geral._DadosCliente;
             ContextoImposto = geral._DadosImposto;
+            ContextoTransporte = geral._DadosMotorista;
         }
 
         static double CentimeterToPixel(double Centimeter)

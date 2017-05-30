@@ -2,21 +2,21 @@
 {
     public sealed class DadosMotorista
     {
-        public string nomeMotorista;
-        public string modalidadeFrete;
-        public string codigoANTT;
-        public string placa;
-        public string ufPlaca;
-        public string documentoMotorista;
-        public string enderecoMotorista;
-        public string municipioMotorista;
-        public string ufMotorista;
-        public string IEMotorista;
-        public string quantidadeVolume;
-        public string especieVolume;
-        public string marcaVolume;
-        public string numeroVolume;
-        public string pesoBrutoVolume;
-        public string pesoLiquidoVolume;
+        public string NomeMotorista { get; set; }
+        public string ModalidadeFrete { get; set; }
+        public string CodigoANTT { get; set; }
+        public string Placa { get; set; }
+        public string UfPlaca { get; set; }
+        public string DocumentoMotorista { get; set; }
+        public string EnderecoMotorista { get; set; }
+        public string MunicipioMotorista { get; set; }
+        public string UfMotorista { get; set; }
+        public string IEMotorista { get; set; }
+        public string QuantidadeVolume { get; set; }
+        public string EspecieVolume { get; set; }
+        public string MarcaVolume { get; set; }
+        public string NumeroVolume { get; set; }
+        public string PesoBrutoVolume { get; set; }
+        public string PesoLiquidoVolume { get; set; }
     }
 }

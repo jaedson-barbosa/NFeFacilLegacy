@@ -201,22 +201,22 @@ namespace NFeFacil.DANFE.Processamento
             {
                 return new DadosMotorista
                 {
-                    codigoANTT = Analisar(transp.veicTransp?.RNTC),
-                    documentoMotorista = Analisar(transp.transporta?.Documento),
-                    enderecoMotorista = Analisar(transp.transporta?.XEnder),
-                    especieVolume = Analisar(transp.vol.FirstOrDefault()?.esp),
+                    CodigoANTT = Analisar(transp.veicTransp?.RNTC),
+                    DocumentoMotorista = Analisar(transp.transporta?.Documento),
+                    EnderecoMotorista = Analisar(transp.transporta?.XEnder),
+                    EspecieVolume = Analisar(transp.vol.FirstOrDefault()?.esp),
                     IEMotorista = Analisar(transp.transporta?.InscricaoEstadual),
-                    marcaVolume = Analisar(transp.vol.FirstOrDefault()?.marca),
-                    modalidadeFrete = transp.modFrete.ToString(),
-                    municipioMotorista = Analisar(transp.transporta?.XMun),
-                    nomeMotorista = Analisar(transp.transporta?.Nome),
-                    numeroVolume = Analisar(transp.vol.FirstOrDefault()?.nVol),
-                    pesoBrutoVolume = Analisar(transp.vol.FirstOrDefault()?.pesoB),
-                    pesoLiquidoVolume = Analisar(transp.vol.FirstOrDefault()?.pesoL),
-                    placa = Analisar(transp.veicTransp?.Placa),
-                    quantidadeVolume = Analisar(transp.vol.FirstOrDefault()?.qVol),
-                    ufMotorista = Analisar(transp.transporta?.UF),
-                    ufPlaca = Analisar(transp.veicTransp?.UF)
+                    MarcaVolume = Analisar(transp.vol.FirstOrDefault()?.marca),
+                    ModalidadeFrete = transp.modFrete.ToString(),
+                    MunicipioMotorista = Analisar(transp.transporta?.XMun),
+                    NomeMotorista = Analisar(transp.transporta?.Nome),
+                    NumeroVolume = Analisar(transp.vol.FirstOrDefault()?.nVol),
+                    PesoBrutoVolume = Analisar(transp.vol.FirstOrDefault()?.pesoB),
+                    PesoLiquidoVolume = Analisar(transp.vol.FirstOrDefault()?.pesoL),
+                    Placa = Analisar(transp.veicTransp?.Placa),
+                    QuantidadeVolume = Analisar(transp.vol.FirstOrDefault()?.qVol),
+                    UfMotorista = Analisar(transp.transporta?.UF),
+                    UfPlaca = Analisar(transp.veicTransp?.UF)
                 };
             }
 

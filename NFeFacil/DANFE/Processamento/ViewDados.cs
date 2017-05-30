@@ -15,7 +15,7 @@ namespace NFeFacil.DANFE.Processamento
     {
         internal static Geral Converter(Processo proc)
         {
-            var dadosAdicionais = GetExtras(proc.NFe.Informações.infAdic);
+            var dadosAdicionais = GetExtras(proc.NFe.Informações.infAdic, proc.NFe.Informações.cobr);
             var dadosCabecalho = GetCabecalho(proc.NFe.Informações.identificação, proc.NFe.Informações.emitente);
             var dadosCliente = GetCliente(proc.NFe.Informações.identificação, proc.NFe.Informações.destinatário);
             var dadosImposto = GetImposto(proc.NFe.Informações.total);
@@ -50,12 +50,13 @@ namespace NFeFacil.DANFE.Processamento
                 } : new DadosISSQN();
             }
 
-            DadosAdicionais GetExtras(InformacoesAdicionais extras)
+            DadosAdicionais GetExtras(InformacoesAdicionais extras, Cobranca cobr)
             {
                 return new DadosAdicionais
                 {
                     Dados = extras?.infCpl,
                     Fisco = extras?.infAdFisco,
+                    Duplicatas = cobr?.Dup
                 };
             }
 

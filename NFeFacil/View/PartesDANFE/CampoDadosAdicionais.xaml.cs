@@ -16,6 +16,19 @@ namespace NFeFacil.View.PartesDANFE
             set
             {
                 LimparBloco();
+                if (value.Duplicatas != null && value.Duplicatas.Count > 0)
+                {
+                    var paragrafo = new Paragraph();
+                    paragrafo.Inlines.Add(new Run() { Text = "  DE INTERESSE DO CONTRIBUINTE:" });
+                    paragrafo.Inlines.Add(new LineBreak());
+                    for (int i = 0; i < value.Duplicatas.Count; i++)
+                    {
+                        var dup = value.Duplicatas[i];
+                        paragrafo.Inlines.Add(new Run { Text = $"Duplicata - Num.: {dup.NDup}, Vec.: {dup.DVenc}, Valor: {dup.DDup.ToString("N2")}" });
+                        paragrafo.Inlines.Add(new LineBreak());
+                    }
+                    bloco.Blocks.Add(paragrafo);
+                }
                 if (value.Dados != null)
                 {
                     var paragrafo = new Paragraph();

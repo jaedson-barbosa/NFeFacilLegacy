@@ -15,11 +15,14 @@ namespace NFeFacil.View.PaginasDANFE
         Thickness MargemPadrao => new Thickness(CentimeterToPixel(1));
 
         DadosCabecalho ContextoCanhoto { get; }
+        DadosAdicionais ContextoDadosAdicionais { get; }
 
         public PaginaUnica(BibliotecaCentral.ModeloXML.Processo processo)
         {
             this.InitializeComponent();
-            ContextoCanhoto = ViewDados.Converter(processo)._DadosCabecalho;
+            var geral = ViewDados.Converter(processo);
+            ContextoCanhoto = geral._DadosCabecalho;
+            ContextoDadosAdicionais = geral._DadosAdicionais;
         }
 
         static double CentimeterToPixel(double Centimeter)

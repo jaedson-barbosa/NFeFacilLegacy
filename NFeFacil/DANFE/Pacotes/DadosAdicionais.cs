@@ -2,7 +2,7 @@
 {
     public sealed class DadosAdicionais
     {
-        public string dados = "";
-        public string fisco = "";
+        public string Dados { get; set; } = "";
+        public string Fisco { get; set; } = "";
     }
 }

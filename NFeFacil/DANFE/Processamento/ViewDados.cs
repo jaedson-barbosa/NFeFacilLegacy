@@ -150,8 +150,8 @@ namespace NFeFacil.DANFE.Processamento
             {
                 return new DadosAdicionais
                 {
-                    dados = Analisar(extras?.infCpl),
-                    fisco = Analisar(extras?.infAdFisco),
+                    Dados = Analisar(extras?.infCpl),
+                    Fisco = Analisar(extras?.infAdFisco),
                 };
             }
 

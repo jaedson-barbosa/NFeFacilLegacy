@@ -20,6 +20,9 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="{Binding Source={StaticResource dimensoes}, Path=AlturaLinhaPadrao}" />
+            </Grid.RowDefinitions>
             <StackPanel Padding="{StaticResource PaddingPadrao}"
                         BorderThickness="0,0,1,0"
                         BorderBrush="Black">

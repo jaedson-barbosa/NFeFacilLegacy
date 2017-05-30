@@ -18,6 +18,7 @@
             <partes:Canhoto DataContext="{x:Bind ContextoCanhoto}" />
             <partes:DadosNFe DataContext="{x:Bind ContextoNFe}" />
             <partes:CampoCliente DataContext="{x:Bind ContextoCliente}" />
+            <partes:CampoFatura DataContext="{x:Bind ContextoGeral.Fatura}" />
             <partes:CampoImposto DataContext="{x:Bind ContextoImposto}" />
             <partes:CampoTransporte DataContext="{x:Bind ContextoTransporte}" />
             <partes:CampoProdutos DataContext="{x:Bind Produtos}" />

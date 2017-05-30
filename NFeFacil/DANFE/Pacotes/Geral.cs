@@ -11,5 +11,6 @@
         public DadosProduto[] _DadosProdutos;
         public DadosDuplicata[] _Duplicatas;
         public DadosISSQN _DadosISSQN;
+        public string Fatura { get; set; }
     }
 }

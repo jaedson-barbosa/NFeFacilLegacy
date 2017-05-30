@@ -308,6 +308,9 @@
     <Compile Include="View\PartesDANFE\CampoDadosAdicionais.xaml.cs">
       <DependentUpon>CampoDadosAdicionais.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\PartesDANFE\CampoFatura.xaml.cs">
+      <DependentUpon>CampoFatura.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\PartesDANFE\CampoImposto.xaml.cs">
       <DependentUpon>CampoImposto.xaml</DependentUpon>
     </Compile>
@@ -523,6 +526,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\PartesDANFE\CampoDadosAdicionais.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PartesDANFE\CampoFatura.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

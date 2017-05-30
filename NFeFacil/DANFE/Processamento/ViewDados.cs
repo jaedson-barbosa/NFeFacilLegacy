@@ -27,6 +27,8 @@ namespace NFeFacil.DANFE.Processamento
             var dadosDuplicatas = duplicatas != null ? (from d in duplicatas
                                                         select GetDuplicata(d)).ToArray() : new DadosDuplicata[0];
             var dadosISSQN = GetISSQN(proc.NFe.Informações.emitente, proc.NFe.Informações.total.ISSQNtot);
+            var fatura = GetFatura(proc.NFe.Informações.cobr);
+
             return new Geral
             {
                 _DadosAdicionais = dadosAdicionais,
@@ -36,8 +38,23 @@ namespace NFeFacil.DANFE.Processamento
                 _DadosMotorista = dadosMotorista,
                 _DadosNFe = dadosNFe,
                 _DadosProdutos = dadosProdutos,
-                _Duplicatas = dadosDuplicatas
+                _Duplicatas = dadosDuplicatas,
+                _DadosISSQN = dadosISSQN,
+                Fatura = fatura
             };
+
+            string GetFatura(Cobranca cobranca)
+            {
+                if (cobranca?.Fat == null)
+                {
+                    return "PAGAMENTO A VISTA";
+                }
+                else
+                {
+                    var fat = cobranca.Fat;
+                    return $"PAGAMENTO A PRAZO - Num.: {fat.NFat}, V. orig.: {fat.VOrig.ToString("N2")}, V. desc.: {fat.VDesc.ToString("N2")}, V. liq.: {fat.VLiq.ToString("N2")}";
+                }
+            }
 
             DadosISSQN GetISSQN(Emitente emit, ISSQNtot issqn)
             {

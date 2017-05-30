@@ -1,5 +1,7 @@
-﻿using Windows.UI.Xaml;
+﻿using System;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Data;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -24,5 +26,25 @@ namespace NFeFacil.View.PartesDANFE
         public GridLength ColunaGeral6 => DimensoesPadrao.CentimeterToLength(1.5);
 
         public GridLength LinhaPadrao => DimensoesPadrao.CentimeterToLength(0.55);
+    }
+
+    public sealed class EsconderCasoNulo : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            if (value is string str)
+            {
+                return string.IsNullOrEmpty(str) ? Visibility.Collapsed : Visibility.Visible;
+            }
+            else
+            {
+                return value == null ? Visibility.Collapsed : Visibility.Visible;
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

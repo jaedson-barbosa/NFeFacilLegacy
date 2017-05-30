@@ -13,6 +13,7 @@
                 <ResourceDictionary Source="EstilosPadrao.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <local:DimensoesCampoProdutos x:Key="dimensoesLocal" />
+            <local:EsconderCasoNulo x:Key="linhaInfoAdicional" />
         </ResourceDictionary>
     </UserControl.Resources>
     <StackPanel Margin="{Binding Source={StaticResource dimensoes}, Path=MargemBloco}">
@@ -158,8 +159,13 @@
                                     BorderBrush="Black">
                                 <TextBlock Text="{Binding CProd}" />
                             </Border>
-                            <TextBlock Grid.Column="1"
-                                       Text="{Binding XProd}" />
+                            <StackPanel Grid.Column="1"
+                                        VerticalAlignment="Center">
+                                <TextBlock Text="{Binding XProd}" />
+                                <TextBlock Text="{Binding InfoAdicional}"
+                                           TextWrapping="Wrap"
+                                           Visibility="{Binding InfoAdicional, Converter={StaticResource linhaInfoAdicional}}" />
+                            </StackPanel>
                             <Border Grid.Column="2"
                                     BorderThickness="1,0,1,0"
                                     BorderBrush="Black">

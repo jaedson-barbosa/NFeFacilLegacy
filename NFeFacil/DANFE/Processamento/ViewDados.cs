@@ -299,7 +299,8 @@ namespace NFeFacil.DANFE.Processamento
                     PICMS = consult.AgregarValor("pICMS", 0).ToString("N2"),
                     VICMS = consult.AgregarValor("vICMS", 0).ToString("N2"),
                     PIPI = consult.AgregarValor("pIPI", 0).ToString("N2"),
-                    VIPI = consult.AgregarValor("vIPI", 0).ToString("N2")
+                    VIPI = consult.AgregarValor("vIPI", 0).ToString("N2"),
+                    InfoAdicional = prod.infAdProd
                 };
             }
 

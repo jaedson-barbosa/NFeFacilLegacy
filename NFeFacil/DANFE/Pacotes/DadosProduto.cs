@@ -16,5 +16,6 @@
         public string VIPI { get; set; }
         public string PICMS { get; set; }
         public string PIPI { get; set; }
+        public string InfoAdicional { get; set; }
     }
 }

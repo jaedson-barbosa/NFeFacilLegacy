@@ -21,6 +21,7 @@ namespace NFeFacil.View.PaginasDANFE
         DadosMotorista ContextoTransporte { get; }
         DadosNFe ContextoNFe { get; }
         DadosProduto[] Produtos { get; }
+        DadosISSQN ContextoISSQN { get; }
 
         public PaginaUnica(BibliotecaCentral.ModeloXML.Processo processo)
         {
@@ -33,6 +34,7 @@ namespace NFeFacil.View.PaginasDANFE
             ContextoTransporte = geral._DadosMotorista;
             ContextoNFe = geral._DadosNFe;
             Produtos = geral._DadosProdutos;
+            ContextoISSQN = geral._DadosISSQN;
         }
 
         static double CentimeterToPixel(double Centimeter)

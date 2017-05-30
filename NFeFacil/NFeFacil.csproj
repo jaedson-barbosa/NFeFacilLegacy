@@ -164,6 +164,7 @@
     <Compile Include="DANFE\Pacotes\DadosCliente.cs" />
     <Compile Include="DANFE\Pacotes\DadosDuplicata.cs" />
     <Compile Include="DANFE\Pacotes\DadosImposto.cs" />
+    <Compile Include="DANFE\Pacotes\DadosISSQN.cs" />
     <Compile Include="DANFE\Pacotes\DadosMotorista.cs" />
     <Compile Include="DANFE\Pacotes\DadosNFe.cs" />
     <Compile Include="DANFE\Pacotes\DadosProduto.cs" />

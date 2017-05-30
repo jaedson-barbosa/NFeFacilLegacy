@@ -10,5 +10,6 @@
         public DadosNFe _DadosNFe;
         public DadosProduto[] _DadosProdutos;
         public DadosDuplicata[] _Duplicatas;
+        public DadosISSQN _DadosISSQN;
     }
 }

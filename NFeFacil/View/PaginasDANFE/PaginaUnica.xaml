@@ -23,7 +23,7 @@
             <partes:CampoProdutos DataContext="{x:Bind Produtos}" />
         </StackPanel>
         <StackPanel Padding="{x:Bind MargemPadrao}" Grid.Row="2">
-            <partes:CampoISSQN />
+            <partes:CampoISSQN DataContext="{x:Bind ContextoISSQN}" />
             <partes:CampoDadosAdicionais DataContext="{x:Bind ContextoDadosAdicionais}" />
         </StackPanel>
     </Grid>

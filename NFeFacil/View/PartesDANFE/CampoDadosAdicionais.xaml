@@ -9,7 +9,7 @@
     <UserControl.Resources>
         <ResourceDictionary Source="EstilosPadrao.xaml" />
     </UserControl.Resources>
-    <StackPanel Margin="{Binding Source={StaticResource dimensoes}, Path=MargemBloco}">
+    <StackPanel>
         <TextBlock Style="{StaticResource DescritivoBloco}">DADOS ADICIONAIS</TextBlock>
         <Grid BorderThickness="1"
               BorderBrush="Black"

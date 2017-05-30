@@ -4,6 +4,7 @@ using BibliotecaCentral.ModeloXML.PartesProcesso;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
+using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTotal;
 using NFeFacil.DANFE.Pacotes;
 using System;
 using System.Collections.Generic;
@@ -134,6 +135,7 @@ namespace NFeFacil.DANFE.Processamento
             var duplicatas = proc.NFe.Informações.cobr?.Dup;
             var dadosDuplicatas = duplicatas != null ? (from d in duplicatas
                                                         select GetDuplicata(d)).ToArray() : new DadosDuplicata[0];
+            var dadosISSQN = GetISSQN(proc.NFe.Informações.emitente, proc.NFe.Informações.total.ISSQNtot);
             return new Geral
             {
                 _DadosAdicionais = dadosAdicionais,
@@ -145,6 +147,17 @@ namespace NFeFacil.DANFE.Processamento
                 _DadosProdutos = dadosProdutos,
                 _Duplicatas = dadosDuplicatas
             };
+
+            DadosISSQN GetISSQN(Emitente emit, ISSQNtot issqn)
+            {
+                return issqn != null ? new DadosISSQN
+                {
+                    BC = issqn.vBC.ToString(),
+                    IM = emit.IM,
+                    TotalServiços = issqn.vServ.ToString(),
+                    ValorISSQN = issqn.vISS.ToString()
+                } : new DadosISSQN();
+            }
 
             DadosAdicionais GetExtras(InformacoesAdicionais extras)
             {

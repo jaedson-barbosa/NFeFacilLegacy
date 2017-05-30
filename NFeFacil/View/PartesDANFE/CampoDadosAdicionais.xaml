@@ -24,17 +24,17 @@
             <StackPanel Padding="{StaticResource PaddingPadrao}"
                         BorderThickness="0,0,1,0"
                         BorderBrush="Black">
-                <TextBlock Style="{StaticResource Cabecalho}">INFORMAÇÕES COMPLEMENTARES</TextBlock>
-                <TextBlock Style="{StaticResource Conteudo}"
-                           FontSize="8"
-                           Text="{Binding Dados}" />
+                <RichTextBlock x:Name="bloco" FontFamily="Times New Roman"
+                               FontSize="8">
+                    <Paragraph>
+                        <Run FontSize="10">INFORMAÇÕES COMPLEMENTARES</Run>
+                    </Paragraph>
+                </RichTextBlock>
             </StackPanel>
             <StackPanel Padding="{StaticResource PaddingPadrao}"
                         Grid.Column="1">
-                <TextBlock Style="{StaticResource Cabecalho}">RESERVADO AO FISCO</TextBlock>
-                <TextBlock Style="{StaticResource Conteudo}"
-                           FontSize="8"
-                           Text="{Binding Fisco}" />
+                <TextBlock Style="{StaticResource Cabecalho}"
+                           FontSize="10">RESERVADO AO FISCO</TextBlock>
             </StackPanel>
         </Grid>
     </StackPanel>

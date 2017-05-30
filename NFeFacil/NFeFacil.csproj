@@ -149,7 +149,7 @@
     <Content Include="Assets\Wide310x150Logo.scale-125.png" />
     <Content Include="Assets\Wide310x150Logo.scale-150.png" />
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
-    <Content Include="DANFE\html\code128.ttf" />
+    <Content Include="DANFE\code128.ttf" />
     <None Include="NFeFacil_TemporaryKey.pfx" />
     <None Include="project.json" />
     <None Include="Properties\ServiceReferences.Designer.ClientConfig" />
@@ -168,13 +168,9 @@
     <Compile Include="DANFE\Pacotes\DadosMotorista.cs" />
     <Compile Include="DANFE\Pacotes\DadosNFe.cs" />
     <Compile Include="DANFE\Pacotes\DadosProduto.cs" />
-    <Compile Include="DANFE\Pacotes\DadosOutrasPaginas.cs" />
-    <Compile Include="DANFE\Pacotes\DadosPrimeiraPagina.cs" />
     <Compile Include="DANFE\Pacotes\Endereço.cs" />
     <Compile Include="DANFE\Pacotes\Geral.cs" />
-    <Compile Include="DANFE\Processamento\ConexãoDados.cs" />
     <Compile Include="DANFE\Processamento\ViewDados.cs" />
-    <Compile Include="DANFE\Processamento\ViewUI.cs" />
     <Compile Include="GrupoViewBanco.cs" />
     <Compile Include="IHambuguer.cs" />
     <Compile Include="RegistrarCliente.cs" />
@@ -365,13 +361,6 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DANFE\html\DadosDANFE.js" />
-    <Content Include="DANFE\html\DANFE.html" />
-    <Content Include="DANFE\html\Dimensões.css" />
-    <Content Include="DANFE\html\Elementos.css" />
-    <Content Include="DANFE\html\Fontes.css" />
-    <Content Include="DANFE\html\Pagina.html" />
-    <Content Include="DANFE\html\Tabela.css" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
     <Content Include="Assets\Square150x150Logo.scale-200.png" />

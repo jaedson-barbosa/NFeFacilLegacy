@@ -85,7 +85,7 @@
                             BorderBrush="Black"
                             Padding="{StaticResource PaddingPadrao}">
                     <TextBlock Style="{StaticResource Cabecalho}">CONTROLE DO FISCO</TextBlock>
-                    <TextBlock FontFamily="ms-appx:/DANFE/html/code128.ttf#Code 128"
+                    <TextBlock FontFamily="ms-appx:/DANFE/code128.ttf#Code 128"
                                FontSize="24"
                                TextAlignment="Center"
                                FontWeight="Light"

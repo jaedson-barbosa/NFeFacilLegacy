@@ -18,7 +18,7 @@
             <partes:Canhoto DataContext="{x:Bind ContextoCanhoto}" />
             <partes:DadosNFe />
             <partes:CampoCliente DataContext="{x:Bind ContextoCliente}" />
-            <partes:CampoImposto />
+            <partes:CampoImposto DataContext="{x:Bind ContextoImposto}" />
             <partes:CampoTransporte />
             <partes:CampoProdutos />
         </StackPanel>

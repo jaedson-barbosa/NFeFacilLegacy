@@ -183,17 +183,17 @@ namespace NFeFacil.DANFE.Processamento
             {
                 return new DadosImposto
                 {
-                    baseCalculoICMS = tot.ICMSTot.vBC.ToString(),
-                    baseCalculoICMSST = tot.ICMSTot.vBCST.ToString(),
-                    desconto = tot.ICMSTot.vDesc.ToString(),
-                    despesasAcessorias = tot.ICMSTot.vOutro.ToString(),
-                    totalNota = tot.ICMSTot.vNF.ToString(),
-                    valorFrete = tot.ICMSTot.vFrete.ToString(),
-                    valorICMS = tot.ICMSTot.vICMS.ToString(),
-                    valorICMSST = tot.ICMSTot.vST.ToString(),
-                    valorIPI = tot.ICMSTot.vIPI.ToString(),
-                    valorSeguro = tot.ICMSTot.vSeg.ToString(),
-                    valorTotalProdutos = tot.ICMSTot.vProd.ToString()
+                    BaseCalculoICMS = tot.ICMSTot.vBC.ToString("0.00"),
+                    BaseCalculoICMSST = tot.ICMSTot.vBCST.ToString("0.00"),
+                    Desconto = tot.ICMSTot.vDesc.ToString("0.00"),
+                    DespesasAcessorias = tot.ICMSTot.vOutro.ToString("0.00"),
+                    TotalNota = tot.ICMSTot.vNF.ToString("0.00"),
+                    ValorFrete = tot.ICMSTot.vFrete.ToString("0.00"),
+                    ValorICMS = tot.ICMSTot.vICMS.ToString("0.00"),
+                    ValorICMSST = tot.ICMSTot.vST.ToString("0.00"),
+                    ValorIPI = tot.ICMSTot.vIPI.ToString("0.00"),
+                    ValorSeguro = tot.ICMSTot.vSeg.ToString("0.00"),
+                    ValorTotalProdutos = tot.ICMSTot.vProd.ToString("0.00")
                 };
             }
 

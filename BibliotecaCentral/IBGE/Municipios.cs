@@ -20,7 +20,7 @@ namespace BibliotecaCentral.IBGE
         public static IEnumerable<Municipio> Get(string nomeSigla)
         {
             if (string.IsNullOrEmpty(nomeSigla)) return new ObservableCollection<Municipio>();
-            var estado = Estados.EstadosCache.First(x => (nomeSigla.Length == 2 ? x.Sigla : x.Nome) == nomeSigla);
+            var estado = Estados.EstadosCache.FirstOrDefault(x => (nomeSigla.Length == 2 ? x.Sigla : x.Nome) == nomeSigla);
             return from mun in MunicipiosCache
                    where mun.CodigoUF == estado.Codigo
                    select mun;

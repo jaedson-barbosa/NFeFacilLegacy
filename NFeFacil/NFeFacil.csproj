@@ -333,13 +333,8 @@
     <Compile Include="View\QRConexao.xaml.cs">
       <DependentUpon>QRConexao.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\TelasDadosBase\ClienteDataContext.cs" />
-    <Compile Include="View\TelasDadosBase\ConverterContextoCliente.cs" />
     <Compile Include="View\TelasDadosBase\ConverterContextoMotorista.cs" />
     <Compile Include="View\TelasDadosBase\MotoristaDataContext.cs" />
-    <Compile Include="View\TelasDadosBase\TelaDestinatario.xaml.cs">
-      <DependentUpon>TelaDestinatario.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\TelasDadosBase\TelaMotorista.xaml.cs">
       <DependentUpon>TelaMotorista.xaml</DependentUpon>
     </Compile>
@@ -560,10 +555,6 @@
     <Page Include="View\QRConexao.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\TelasDadosBase\TelaDestinatario.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\TelasDadosBase\TelaMotorista.xaml">
       <Generator>MSBuild:Compile</Generator>

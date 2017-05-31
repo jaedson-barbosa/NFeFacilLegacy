@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BibliotecaCentral.ModeloXML;
+using System;
 
 namespace BibliotecaCentral.ItensBD
 {
@@ -30,6 +31,10 @@ namespace BibliotecaCentral.ItensBD
 
         [System.ComponentModel.DataAnnotations.Schema.NotMapped]
         public string Documento => CPF ?? CNPJ ?? IdEstrangeiro;
+
+        [System.ComponentModel.DataAnnotations.Schema.NotMapped]
+        public TiposDocumento TipoDocumento => (!string.IsNullOrEmpty(IdEstrangeiro)) ? TiposDocumento.idEstrangeiro :
+            (!string.IsNullOrEmpty(CNPJ)) ? TiposDocumento.CNPJ : TiposDocumento.CPF;
 
         public ClienteDI() { }
         public ClienteDI(ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Destinatario other)

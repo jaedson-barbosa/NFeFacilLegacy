@@ -78,13 +78,10 @@ namespace NFeFacil.ViewModel
         {
             get
             {
-                if (clienteSelecionado == null)
+                var dest = NotaSalva.Informações.destinatário;
+                if (clienteSelecionado == null && dest != null)
                 {
-                    clienteSelecionado = ClientesDisponiveis.FirstOrDefault(x =>
-                    {
-                        var dest = NotaSalva.Informações.destinatário;
-                        return x.CPF == dest.CPF || x.CNPJ == dest.CNPJ || x.IdEstrangeiro == dest.idEstrangeiro;
-                    });
+                    clienteSelecionado = ClientesDisponiveis.FirstOrDefault(x => x.Documento == dest.Documento);
                 }
                 return clienteSelecionado;
             }
@@ -101,9 +98,10 @@ namespace NFeFacil.ViewModel
         {
             get
             {
-                if (emitenteSelecionado == null)
+                var emit = NotaSalva.Informações.emitente;
+                if (emitenteSelecionado == null && emit != null)
                 {
-                    emitenteSelecionado = EmitentesDisponiveis.FirstOrDefault(x => x.CNPJ == NotaSalva.Informações.emitente.CNPJ);
+                    emitenteSelecionado = EmitentesDisponiveis.FirstOrDefault(x => x.CNPJ == emit.CNPJ);
                 }
                 return emitenteSelecionado;
             }
@@ -122,13 +120,10 @@ namespace NFeFacil.ViewModel
         {
             get
             {
-                if (motoristaSelecionado == null)
+                var mot = NotaSalva.Informações.transp?.transporta;
+                if (motoristaSelecionado == null && mot != null)
                 {
-                    motoristaSelecionado = MotoristasDisponiveis.FirstOrDefault(x =>
-                    {
-                        var mot = NotaSalva.Informações.transp?.transporta;
-                        return x.CPF == mot.CPF || x.CNPJ == mot.CNPJ;
-                    });
+                    motoristaSelecionado = MotoristasDisponiveis.FirstOrDefault(x => x.Documento == mot.Documento);
                 }
                 return motoristaSelecionado;
             }

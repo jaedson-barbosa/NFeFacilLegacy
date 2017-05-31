@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BibliotecaCentral.ModeloXML;
+using System;
 
 namespace BibliotecaCentral.ItensBD
 {
@@ -17,6 +18,9 @@ namespace BibliotecaCentral.ItensBD
 
         [System.ComponentModel.DataAnnotations.Schema.NotMapped]
         public string Documento => CPF ?? CNPJ;
+
+        [System.ComponentModel.DataAnnotations.Schema.NotMapped]
+        public TiposDocumento TipoDocumento => !string.IsNullOrEmpty(CNPJ) ? TiposDocumento.CNPJ : TiposDocumento.CPF;
 
         public MotoristaDI() { }
         public MotoristaDI(ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte.Motorista other)

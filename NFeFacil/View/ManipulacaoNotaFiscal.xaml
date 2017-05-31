@@ -453,7 +453,6 @@
                                   HorizontalAlignment="Stretch"
                                   SelectedItem="{Binding MotoristaSelecionado, Mode=TwoWay}"
                                   DisplayMemberPath="Nome" />
-                        <DadosBase:TelaMotorista DataContext="{Binding NotaSalva.Informações.transp.transporta}" />
                     </StackPanel>
                 </PivotItem>
                 <PivotItem Header="Veículo"

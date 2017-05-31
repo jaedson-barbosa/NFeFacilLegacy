@@ -1,17 +1,71 @@
 ﻿<Page x:Class="NFeFacil.View.AdicionarMotorista"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:telasDadosBase="using:NFeFacil.View.TelasDadosBase"
+      xmlns:VM="using:NFeFacil.ViewModel"
+      xmlns:Conversores="using:NFeFacil.ViewModel.Converters"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///View/Estilos/GridResponsiva.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <VM:DadosEstadosParaView x:Key="estados" />
+            <Conversores:EstadoToMunicipios x:Key="obterMunicipios" />
+            <Conversores:Invert x:Key="inverterBool" />
+        </ResourceDictionary>
+    </Page.Resources>
     <Grid x:Name="grdPrincipal"
           Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <telasDadosBase:TelaMotorista />
+        <ScrollViewer VerticalScrollBarVisibility="Hidden">
+            <StackPanel>
+                <ItemsControl Style="{StaticResource ItensResponsivos}">
+                    <TextBox Text="{Binding Motorista.Nome, Mode=TwoWay}"
+                             InputScope="Text"
+                             Header="Nome/Razão social *" />
+                    <ComboBox SelectedIndex="{Binding TipoDocumento, Mode=TwoWay}"
+                              Header="Tipo">
+                        <ComboBoxItem Content="CPF" />
+                        <ComboBoxItem Content="CNPJ" />
+                    </ComboBox>
+                    <TextBox Text="{Binding Documento, Mode=TwoWay}"
+                             InputScope="Number"
+                             Header="Documento *" />
+                    <Grid MinWidth="240">
+                        <CheckBox Content="Isento do ICMS"
+                                  Margin="0,-6,0,0"
+                                  IsChecked="{Binding IsentoICMS, Mode=TwoWay}"
+                                  HorizontalAlignment="Right"
+                                  VerticalAlignment="Top" />
+                        <TextBox Text="{Binding Motorista.InscricaoEstadual, Mode=TwoWay}"
+                                 IsEnabled="{Binding IsentoICMS, Converter={StaticResource inverterBool}}"
+                                 InputScope="Number"
+                                 Header="Inscrição estadual" />
+                    </Grid>
+                </ItemsControl>
+                <TextBlock Text="Endereço"
+                           Style="{StaticResource TitleTextBlockStyle}"
+                           Margin="4,0,0,0" />
+                <ItemsControl Style="{StaticResource ItensResponsivos}">
+                    <ComboBox ItemsSource="{Binding Source={StaticResource estados}, Path=SiglasExpandida}"
+                              SelectedItem="{Binding UFEscolhida, Mode=TwoWay}"
+                              Header="Estado" />
+                    <ComboBox ItemsSource="{Binding UFEscolhida, Converter={StaticResource obterMunicipios}}"
+                              SelectedValue="{Binding Path=Motorista.XMun, Mode=TwoWay}"
+                              SelectedValuePath="Nome"
+                              DisplayMemberPath="Nome"
+                              Header="Município" />
+                    <TextBox Text="{Binding Path=Motorista.XEnder, Mode=TwoWay}"
+                             InputScope="Text"
+                             Header="Logradouro" />
+                </ItemsControl>
+            </StackPanel>
+        </ScrollViewer>
         <CommandBar Grid.Row="1">
             <AppBarButton x:Name="Confirmar"
                           Icon="Accept"

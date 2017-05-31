@@ -73,7 +73,7 @@ namespace BibliotecaCentral.Repositorio
                 }
                 else
                 {
-                    var busca = Contexto.Clientes.FirstOrDefault(x => x.CPF == dest.CPF || x.CNPJ == dest.CNPJ || x.IdEstrangeiro == dest.IdEstrangeiro);
+                    var busca = Contexto.Clientes.FirstOrDefault(x => x.Documento == dest.Documento);
                     if (busca != default(ClienteDI))
                     {
                         dest.Id = busca.Id;
@@ -110,8 +110,7 @@ namespace BibliotecaCentral.Repositorio
                 }
                 else
                 {
-                    var busca = Contexto.Motoristas.FirstOrDefault(x => (x.CPF == mot.CPF || x.CNPJ == mot.CNPJ)
-                        || x.InscricaoEstadual == mot.InscricaoEstadual
+                    var busca = Contexto.Motoristas.FirstOrDefault(x => x.Documento == mot.Documento
                         || (x.Nome == mot.Nome && x.XEnder == mot.XEnder));
                     if (busca != default(MotoristaDI))
                     {

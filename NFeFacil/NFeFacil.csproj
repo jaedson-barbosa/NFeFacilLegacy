@@ -335,15 +335,10 @@
     </Compile>
     <Compile Include="View\TelasDadosBase\ClienteDataContext.cs" />
     <Compile Include="View\TelasDadosBase\ConverterContextoCliente.cs" />
-    <Compile Include="View\TelasDadosBase\ConverterContextoEmitente.cs" />
     <Compile Include="View\TelasDadosBase\ConverterContextoMotorista.cs" />
-    <Compile Include="View\TelasDadosBase\EmitenteDataContext.cs" />
     <Compile Include="View\TelasDadosBase\MotoristaDataContext.cs" />
     <Compile Include="View\TelasDadosBase\TelaDestinatario.xaml.cs">
       <DependentUpon>TelaDestinatario.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\TelasDadosBase\TelaEmitente.xaml.cs">
-      <DependentUpon>TelaEmitente.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\TelasDadosBase\TelaMotorista.xaml.cs">
       <DependentUpon>TelaMotorista.xaml</DependentUpon>
@@ -567,10 +562,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\TelasDadosBase\TelaDestinatario.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\TelasDadosBase\TelaEmitente.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

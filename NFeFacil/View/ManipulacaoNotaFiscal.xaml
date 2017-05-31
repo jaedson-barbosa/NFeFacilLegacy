@@ -237,8 +237,7 @@
         <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Hidden"
                       IsEnabled="{Binding ManipulacaoAtivada}">
             <StackPanel>
-                <TextBlock Text="Escolha um emitente já cadastrado ou insira os valores manualmente nos campos abaixo."
-                           TextWrapping="Wrap" />
+                <TextBlock Text="Escolha um emitente já cadastrado." />
                 <ComboBox ItemsSource="{Binding EmitentesDisponiveis}"
                           HorizontalAlignment="Stretch"
                           SelectedItem="{Binding EmitenteSelecionado, Mode=TwoWay}">
@@ -248,8 +247,6 @@
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
-                <DadosBase:TelaEmitente DataContext="{Binding NotaSalva.Informações.emitente}"
-                                        Margin="0,0,0,10" />
             </StackPanel>
         </ScrollViewer>
         <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Hidden"

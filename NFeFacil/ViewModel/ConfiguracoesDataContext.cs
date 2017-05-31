@@ -117,6 +117,10 @@ namespace NFeFacil.ViewModel
                     {
                         stringErros.AppendLine($"Nome arquivo: {x.NomeArquivo}; Tag raiz: Encontrada: {x.TagRaiz}");
                     }
+                    else
+                    {
+                        stringErros.AppendLine($"Mensagem erro: {y.Message}.");
+                    }
                 });
                 LogPopUp.Escrever(TitulosComuns.ErroSimples, stringErros.ToString());
             }

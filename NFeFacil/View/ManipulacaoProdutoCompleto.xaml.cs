@@ -5,10 +5,10 @@ using NFeFacil.ViewModel;
 using NFeFacil.ViewModel.ImpostosProduto;
 using System.Collections.Generic;
 using System.Linq;
-using Windows.ApplicationModel.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using System.Collections.ObjectModel;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -17,7 +17,7 @@ namespace NFeFacil.View
     /// <summary>
     /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
     /// </summary>
-    public sealed partial class ManipulacaoProdutoCompleto : Page
+    public sealed partial class ManipulacaoProdutoCompleto : Page, IHambuguer
     {
         public ManipulacaoProdutoCompleto()
         {
@@ -28,7 +28,7 @@ namespace NFeFacil.View
         {
             var Produto = e.Parameter as DetalhesProdutos;
             DataContext = new ProdutoCompletoDataContext(Produto);
-            MainPage.Current.SeAtualizar(Telas.ManipularNota, Symbol.Add, "Adicionar produto");
+            MainPage.Current.SeAtualizar(Symbol.Add, "Adicionar produto");
         }
 
         private Impostos ImpostosFiltrados
@@ -52,11 +52,42 @@ namespace NFeFacil.View
             }
         }
 
+        public ListView ConteudoMenu
+        {
+            get
+            {
+                var lista = new ListView()
+                {
+                    ItemsSource = new ObservableCollection<Controles.ItemHambuguer>
+                    {
+                        new Controles.ItemHambuguer(Symbol.Tag, "Dados"),
+                        new Controles.ItemHambuguer("\uE825", "Tributos"),
+                        new Controles.ItemHambuguer(Symbol.Comment, "Info adicional"),
+                        new Controles.ItemHambuguer(Symbol.World, "Importação"),
+                        new Controles.ItemHambuguer(Symbol.World, "Exportação"),
+                        new Controles.ItemHambuguer(Symbol.Target, "Produto específico")
+                    },
+                    SelectedIndex = 0
+                };
+                main.SelectionChanged += (sender, e) => lista.SelectedIndex = main.SelectedIndex;
+                lista.SelectionChanged += (sender, e) => main.SelectedIndex = lista.SelectedIndex;
+                return lista;
+            }
+        }
+
         private void Salvar_Click(object sender, RoutedEventArgs e)
         {
+            var parametro = Frame.BackStack[Frame.BackStack.Count - 1].Parameter as ConjuntoManipuladorNFe;
+            var info = parametro.NotaSalva.Informações;
+
             var data = DataContext as ProdutoCompletoDataContext;
             data.ProdutoCompleto.impostos = ImpostosFiltrados;
-            CoreApplication.Properties.Add("ProdutoPendente", data.ProdutoCompleto);
+
+            var detalhes = data.ProdutoCompleto;
+            detalhes.número = info.produtos.Count + 1;
+            info.produtos.Add(detalhes);
+            info.total = new Total(info.produtos);
+
             MainPage.Current.Retornar();
         }
 

@@ -5,8 +5,6 @@
     </ResourceDictionary.MergedDictionaries>
     <Style x:Key="PseudoTabela"
            TargetType="ListView">
-        <Setter Property="Margin"
-                Value="-12,-6,-12,0" />
         <Setter Property="ItemContainerStyle"
                 Value="{StaticResource ItemFullWidth}" />
     </Style>
@@ -14,15 +12,13 @@
            TargetType="Grid">
         <Setter Property="Background"
                 Value="{StaticResource MuitoVariada}" />
-    </Style>
-    <Style x:Key="TextoCabecalho"
-           TargetType="TextBlock"
-           BasedOn="{StaticResource SubtitleTextBlockStyle}">
-        <Setter Property="Margin"
+        <Setter Property="Padding"
                 Value="8,4,8,2" />
     </Style>
     <Style x:Key="BotaoAdd"
            TargetType="Button">
+        <Setter Property="Margin"
+                Value="8,0,0,0" />
         <Setter Property="Padding"
                 Value="4" />
         <Setter Property="Width"

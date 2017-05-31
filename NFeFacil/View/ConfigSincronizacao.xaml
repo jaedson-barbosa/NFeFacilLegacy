@@ -13,10 +13,6 @@
                 <ResourceDictionary Source="Estilos/GridResponsiva.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <conversores:BoolToVisibility x:Key="boolView" />
-            <Storyboard x:Name="ocultarGrid">
-                <FadeOutThemeAnimation TargetName="main"
-                                       Duration="0:0:0.25" />
-            </Storyboard>
         </ResourceDictionary>
     </Page.Resources>
     <Page.DataContext>
@@ -27,11 +23,6 @@
                   VerticalScrollBarVisibility="Hidden"
                   Margin="4,0">
         <StackPanel>
-            <StackPanel.ChildrenTransitions>
-                <TransitionCollection>
-                    <EntranceThemeTransition IsStaggeringEnabled="True" />
-                </TransitionCollection>
-            </StackPanel.ChildrenTransitions>
             <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Função deste dispositivo</TextBlock>
             <TextBlock>Em cada rede local recomenda-se que só haja um servidor e que os clientes sejam conectados apenas a ele.</TextBlock>
             <StackPanel Orientation="Horizontal"

@@ -17,7 +17,7 @@ namespace BibliotecaCentral.Importacao
         {
             var arquivos = await ImportarArquivos();
             var retorno = new List<Exception>();
-            Dictionary<NFeDI, XElement> conjuntos = new Dictionary<NFeDI, XElement>();
+            List<NFeDI> conjuntos = new List<NFeDI>();
             for (int i = 0; i < arquivos.Count; i++)
             {
                 try
@@ -60,17 +60,17 @@ namespace BibliotecaCentral.Importacao
                             }
 
                             var diAtual = NFeDI.Converter(xmlAtual);
-                            if (conjuntos.Keys.Count(x => x.Id == diAtual.Id) == 0)
+                            if (conjuntos.Count(x => x.Id == diAtual.Id) == 0)
                             {
-                                conjuntos.Add(diAtual, xmlAtual);
+                                conjuntos.Add(diAtual);
                             }
                             else
                             {
-                                var atual = conjuntos.Single(x => x.Key.Id == diAtual.Id);
-                                if (atual.Key.Status < diAtual.Status)
+                                var atual = conjuntos.Single(x => x.Id == diAtual.Id);
+                                if (atual.Status < diAtual.Status)
                                 {
-                                    conjuntos.Remove(atual.Key);
-                                    conjuntos.Add(diAtual, xmlAtual);
+                                    conjuntos.Remove(atual);
+                                    conjuntos.Add(diAtual);
                                 }
                             }
                         }
@@ -84,7 +84,7 @@ namespace BibliotecaCentral.Importacao
             using (var db = new AplicativoContext())
             {
                 var repo = new Repositorio.MudancaOtimizadaBancoDados(db);
-                await repo.AdicionarNotasFiscais(conjuntos);
+                repo.AdicionarNotasFiscais(conjuntos);
                 db.SaveChanges();
             }
             return retorno;

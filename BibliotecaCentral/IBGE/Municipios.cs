@@ -6,40 +6,40 @@ namespace BibliotecaCentral.IBGE
 {
     public static class Municipios
     {
-        private static Dictionary<Estado, IEnumerable<Municipio>> MunicipiosCache;
+        private static IEnumerable<Municipio> MunicipiosCache { get; set; }
 
         public static IEnumerable<Municipio> Get(Estado est)
         {
             if (est == null || est.Codigo == 0) return new ObservableCollection<Municipio>();
-            return MunicipiosCache[est];
+            var estados = Estados.EstadosCache;
+            return from mun in MunicipiosCache
+                   where mun.CodigoUF == est.Codigo
+                   select mun;
         }
 
         public static IEnumerable<Municipio> Get(string nomeSigla)
         {
             if (string.IsNullOrEmpty(nomeSigla)) return new ObservableCollection<Municipio>();
-            return MunicipiosCache.First(x => (nomeSigla.Length == 2 ? x.Key.Sigla : x.Key.Nome) == nomeSigla).Value;
+            var estado = Estados.EstadosCache.FirstOrDefault(x => (nomeSigla.Length == 2 ? x.Sigla : x.Nome) == nomeSigla);
+            return from mun in MunicipiosCache
+                   where mun.CodigoUF == estado.Codigo
+                   select mun;
         }
 
         public static IEnumerable<Municipio> Get(ushort codigo)
         {
             if (codigo == 0) return new ObservableCollection<Municipio>();
-            return MunicipiosCache.First(x => x.Key.Codigo == codigo).Value;
+            return from mun in MunicipiosCache
+                   where mun.CodigoUF == codigo
+                   select mun;
         }
 
         internal static void Buscar()
         {
             if (MunicipiosCache == null)
             {
-                MunicipiosCache = new Dictionary<Estado, IEnumerable<Municipio>>();
-                var xml = new XML(nameof(Municipios)).Retornar();
-                var municipios = from município in xml.Elements()
-                                 select new Municipio(município);
-                foreach (var item in Estados.EstadosCache)
-                {
-                    MunicipiosCache.Add(item, from mun in municipios
-                                              where mun.CodigoUF == item.Codigo
-                                              select mun);
-                }
+                MunicipiosCache = from município in new XML(nameof(Municipios)).Retornar().Elements()
+                                  select new Municipio(município);
             }
         }
     }

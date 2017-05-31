@@ -33,13 +33,13 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Pa
         /// (Opcional)
         /// Peso Líquido (em kg).
         /// </summary>
-        public string pesoL { get; set; }
+        public double pesoL { get; set; }
 
         /// <summary>
         /// (Opcional)
         /// Peso Bruto (em kg).
         /// </summary>
-        public string pesoB { get; set; }
+        public double pesoB { get; set; }
 
         /// <summary>
         /// (Opcional)

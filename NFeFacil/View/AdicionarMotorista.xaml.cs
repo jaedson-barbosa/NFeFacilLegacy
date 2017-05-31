@@ -3,9 +3,10 @@ using BibliotecaCentral.Validacao;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using System.Threading.Tasks;
 using BibliotecaCentral.Repositorio;
-using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
+using BibliotecaCentral.ItensBD;
+using System.ComponentModel;
+using BibliotecaCentral.ModeloXML;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -14,9 +15,9 @@ namespace NFeFacil.View
     /// <summary>
     /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
     /// </summary>
-    public sealed partial class AdicionarMotorista : Page, IEsconde
+    public sealed partial class AdicionarMotorista : Page
     {
-        private Motorista motorista;
+        private MotoristaDI motorista;
         private TipoOperacao tipoRequisitado;
         private ILog Log = new Popup();
 
@@ -27,31 +28,31 @@ namespace NFeFacil.View
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            GrupoViewBanco<Motorista> parametro;
+            GrupoViewBanco<MotoristaDI> parametro;
             if (e.Parameter == null)
             {
-                parametro = new GrupoViewBanco<Motorista>
+                parametro = new GrupoViewBanco<MotoristaDI>
                 {
-                    ItemBanco = new Motorista(),
+                    ItemBanco = new MotoristaDI(),
                     OperacaoRequirida = TipoOperacao.Adicao
                 };
             }
             else
             {
-                parametro = (GrupoViewBanco<Motorista>)e.Parameter;
+                parametro = (GrupoViewBanco<MotoristaDI>)e.Parameter;
             }
             motorista = parametro.ItemBanco;
             tipoRequisitado = parametro.OperacaoRequirida;
             switch (tipoRequisitado)
             {
                 case TipoOperacao.Adicao:
-                    MainPage.Current.SeAtualizar(Telas.GerenciarDadosBase, Symbol.Add, "Adicionar motorista");
+                    MainPage.Current.SeAtualizar(Symbol.Add, "Adicionar motorista");
                     break;
                 case TipoOperacao.Edicao:
-                    MainPage.Current.SeAtualizar(Telas.GerenciarDadosBase, Symbol.Edit, "Editar motorista");
+                    MainPage.Current.SeAtualizar(Symbol.Edit, "Editar motorista");
                     break;
             }
-            DataContext = motorista;
+            DataContext = new MotoristaDataContext(ref motorista);
         }
 
         private void Confirmar_Click(object sender, RoutedEventArgs e)
@@ -80,10 +81,49 @@ namespace NFeFacil.View
             MainPage.Current.Retornar();
         }
 
-        public async Task EsconderAsync()
+        private sealed class MotoristaDataContext : INotifyPropertyChanged
         {
-            ocultarGrid.Begin();
-            await Task.Delay(250);
+            public event PropertyChangedEventHandler PropertyChanged;
+
+            public MotoristaDI Motorista { get; set; }
+
+            public string UFEscolhida
+            {
+                get => Motorista.UF;
+                set
+                {
+                    Motorista.UF = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(UFEscolhida)));
+                }
+            }
+
+            public bool IsentoICMS
+            {
+                get => Motorista.InscricaoEstadual == "ISENTO";
+                set
+                {
+                    Motorista.InscricaoEstadual = value ? "ISENTO" : null;
+                    PropertyChanged(this, new PropertyChangedEventArgs(nameof(Motorista)));
+                    PropertyChanged(this, new PropertyChangedEventArgs(nameof(IsentoICMS)));
+                }
+            }
+
+            public int TipoDocumento { get; set; }
+            public string Documento
+            {
+                get => Motorista.Documento; set
+                {
+                    var tipo = (TiposDocumento)TipoDocumento;
+                    Motorista.CPF = tipo == TiposDocumento.CPF ? value : null;
+                    Motorista.CNPJ = tipo == TiposDocumento.CNPJ ? value : null;
+                }
+            }
+
+            public MotoristaDataContext(ref MotoristaDI motorista)
+            {
+                Motorista = motorista;
+                TipoDocumento = (int)motorista.TipoDocumento;
+            }
         }
     }
 }

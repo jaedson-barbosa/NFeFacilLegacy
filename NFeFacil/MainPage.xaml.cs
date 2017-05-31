@@ -1,7 +1,4 @@
-﻿using BibliotecaCentral.Log;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System;
 using Windows.ApplicationModel.Core;
 using Windows.System.Profile;
 using Windows.UI;
@@ -19,19 +16,6 @@ namespace NFeFacil
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private ILog Log = new Saida();
-        private bool avisoOrentacaoHabilitado;
-
-        private bool AvisoOrentacaoHabilitado
-        {
-            get => avisoOrentacaoHabilitado;
-            set
-            {
-                avisoOrentacaoHabilitado = value;
-                AnalisarOrientacao(ApplicationView.GetForCurrentView());
-            }
-        }
-
         internal static MainPage Current { get; private set; }
 
         public MainPage()
@@ -39,35 +23,14 @@ namespace NFeFacil
             InitializeComponent();
             Current = this;
             AnalisarBarraTituloAsync();
-            ApplicationView.GetForCurrentView().VisibleBoundsChanged += (x, y) => AnalisarOrientacao(x);
             btnRetornar.Click += (x, y) => Retornar();
             SystemNavigationManager.GetForCurrentView().BackRequested += (x,e) =>
             {
                 e.Handled = true;
                 Retornar();
             };
-            AbrirInicio();
-        }
-
-        async void AbrirInicio() => await AbrirFunçaoAsync(typeof(View.Inicio));
-
-        private void AnalisarOrientacao(ApplicationView sender)
-        {
-            if (AvisoOrentacaoHabilitado)
-            {
-                if (sender.Orientation == ApplicationViewOrientation.Landscape)
-                {
-                    grdAvisoRotacao.Visibility = Visibility.Collapsed;
-                }
-                else
-                {
-                    grdAvisoRotacao.Visibility = Visibility.Visible;
-                }
-            }
-            else
-            {
-                grdAvisoRotacao.Visibility = Visibility.Collapsed;
-            }
+            frmPrincipal.CacheSize = 4;
+            AbrirFunçao(typeof(View.Inicio));
         }
 
         private void AnalisarBarraTituloAsync()
@@ -87,6 +50,7 @@ namespace NFeFacil
                 tb.ExtendViewIntoTitleBar = true;
                 tb.IsVisibleChanged += (sender, e) => TitleBar.Visibility = sender.IsVisible ? Visibility.Visible : Visibility.Collapsed;
                 tb.LayoutMetricsChanged += (sender, e) => TitleBar.Height = sender.Height;
+
                 Window.Current.SetTitleBar(MainTitleBar);
                 Window.Current.Activated += (sender, e) => TitleBar.Opacity = e.WindowActivationState != CoreWindowActivationState.Deactivated ? 1 : 0.5;
 
@@ -97,51 +61,67 @@ namespace NFeFacil
                 novoTB.ButtonHoverBackgroundColor = new Color { A = 50 };
                 novoTB.ButtonPressedBackgroundColor = new Color { A = 100 };
             }
-            else
-            {
-                Log.Escrever(TitulosComuns.ErroSimples, "Tipo não reconhecido de dispositivo, não é possível mudar a barra de título.");
-            }
         }
 
-        public async Task AbrirFunçaoAsync(string tela, object parametro = null)
+        public void AbrirFunçao(Type tela, object parametro = null)
         {
-            await AbrirFunçaoAsync(Type.GetType($"NFeFacil.View.{tela}"), parametro);
-        }
-
-        public async Task AbrirFunçaoAsync(Type tela, object parametro = null)
-        {
-            if (frmPrincipal.Content != null)
-            {
-                if (frmPrincipal.Content is IEsconde esconde)
-                {
-                    await esconde.EsconderAsync();
-                }
-                else
-                {
-                    Log.Escrever(TitulosComuns.ErroSimples, $"A tela {frmPrincipal.Content} precisa implementar IEsconde.");
-                }
-            }
             frmPrincipal.Navigate(tela, parametro);
         }
 
-        public async void SeAtualizar(Telas atual, Symbol símbolo, string texto)
+        public void SeAtualizar(Symbol símbolo, string texto)
         {
             txtTitulo.Text = texto;
-            AvisoOrentacaoHabilitado = TelasHorizontais.Contains(atual);
             symTitulo.Content = new SymbolIcon(símbolo);
-
-            if (atual == Telas.Inicio)
+            UIElement conteudo = null;
+            if (frmPrincipal.Content is IHambuguer hambuguer)
             {
-                await Task.Delay(1000);
-                frmPrincipal.BackStack.Clear();
-                frmPrincipal.ForwardStack.Clear();
+                menuPermanente.Visibility = btnHambuguer.Visibility = Visibility.Visible;
+                conteudo = hambuguer.ConteudoMenu;
+
+                if (Window.Current.Bounds.Width >= 720)
+                {
+                    AtualizarPosicaoMenu("TelaGrande");
+                }
+                else
+                {
+                    AtualizarPosicaoMenu("TelaPequena");
+                }
+
+                grupoTamanhoTela.CurrentStateChanging += TamanhoTelaMudou;
+            }
+            else
+            {
+                splitView.CompactPaneLength = 0;
+                menuPermanente.Visibility = btnHambuguer.Visibility = Visibility.Collapsed;
+                menuPermanente.Content = splitView.Pane = null;
+                grupoTamanhoTela.CurrentStateChanging -= TamanhoTelaMudou;
+            }
+
+            void TamanhoTelaMudou(object sender, VisualStateChangedEventArgs e)
+            {
+                AtualizarPosicaoMenu(e.NewState.Name);
+            }
+
+            void AtualizarPosicaoMenu(string novoEstado)
+            {
+                if (novoEstado == "TelaGrande")
+                {
+                    splitView.Pane = null;
+                    splitView.CompactPaneLength = 0;
+                    menuPermanente.Content = conteudo;
+                }
+                else
+                {
+                    menuPermanente.Content = null;
+                    splitView.CompactPaneLength = 48;
+                    splitView.Pane = conteudo;
+                }
             }
         }
 
-        public void SeAtualizar(Telas atual, string glyph, string texto)
+        public void SeAtualizar(string glyph, string texto)
         {
             txtTitulo.Text = texto;
-            AvisoOrentacaoHabilitado = TelasHorizontais.Contains(atual);
             symTitulo.Content = new FontIcon
             {
                 Glyph = glyph,
@@ -150,38 +130,19 @@ namespace NFeFacil
 
         public async void Retornar()
         {
-            var frm = frmPrincipal;
-            if (frm.Content is IValida retorna)
+            if (frmPrincipal.Content is IValida retorna)
             {
-                if (await retorna.Verificar())
-                {
-                    if (frm.Content is IEsconde esconde)
-                    {
-                        await esconde.EsconderAsync();
-                    }
-                }
-                else
+                if (!await retorna.Verificar())
                 {
                     return;
                 }
             }
-            else if ((frm.Content as FrameworkElement).DataContext is IValida retornaDC)
+            else if ((frmPrincipal.Content as FrameworkElement).DataContext is IValida retornaDC)
             {
-                if (await retornaDC.Verificar())
-                {
-                    if (frm.Content is IEsconde esconde)
-                    {
-                        await esconde.EsconderAsync();
-                    }
-                }
-                else
+                if (!await retornaDC.Verificar())
                 {
                     return;
                 }
-            }
-            else if (frm.Content is IEsconde esconde)
-            {
-                await esconde.EsconderAsync();
             }
 
             if (frmPrincipal.CanGoBack)
@@ -190,15 +151,13 @@ namespace NFeFacil
             }
             else
             {
-                Log.Escrever(TitulosComuns.ErroSimples, "Não é possível voltar para a tela anterior.");
+                Application.Current.Exit();
             }
         }
 
-        private List<Telas> TelasHorizontais = new List<Telas>(3)
+        private void btnHambuguer_Click(object sender, RoutedEventArgs e)
         {
-            Telas.GerenciarDadosBase,
-            Telas.HistoricoSincronizacao,
-            Telas.NotasSalvas
-        };
+            splitView.IsPaneOpen = !splitView.IsPaneOpen;
+        }
     }
 }

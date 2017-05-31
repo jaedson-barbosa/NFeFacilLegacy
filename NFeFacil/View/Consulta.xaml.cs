@@ -15,12 +15,12 @@ namespace NFeFacil.View
     /// <summary>
     /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
     /// </summary>
-    public sealed partial class Consulta : Page, IEsconde
+    public sealed partial class Consulta : Page
     {
         public Consulta()
         {
             InitializeComponent();
-            MainPage.Current.SeAtualizar(Telas.Consulta, Symbol.Find, "Consultar NF-e");
+            MainPage.Current.SeAtualizar(Symbol.Find, "Consultar NF-e");
             cmbUF.ItemsSource = Estados.EstadosCache.GerarObs();
         }
 
@@ -44,12 +44,6 @@ namespace NFeFacil.View
             await Task.Delay(1000);
             OcultarCarregamento.Begin();
             lstOqAcontece.Items.Clear();
-        }
-
-        async Task IEsconde.EsconderAsync()
-        {
-            OcultarGrid.Begin();
-            await Task.Delay(250);
         }
     }
 }

@@ -2,7 +2,6 @@
 using BibliotecaCentral.ModeloXML.PartesProcesso;
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace BibliotecaCentral.ItensBD
@@ -26,21 +25,23 @@ namespace BibliotecaCentral.ItensBD
         public string DataEmissao { get; set; }
         [Required]
         public int Status { get; set; }
+        [Required]
+        public string XML { get; set; }
 
         public static NFeDI Converter(XElement xml)
         {
             if (xml.Name.LocalName == nameof(NFe))
             {
-                return new NFeDI(xml.FromXElement<NFe>());
+                return new NFeDI(xml.FromXElement<NFe>(), xml.ToString());
             }
             else
             {
-                return new NFeDI(xml.FromXElement<Processo>());
+                return new NFeDI(xml.FromXElement<Processo>(), xml.ToString());
             }
         }
 
         public NFeDI() { }
-        public NFeDI(NFe nota)
+        public NFeDI(NFe nota, string xml)
         {
             Id = nota.Informações.Id;
             NomeCliente = nota.Informações.destinatário.nome;
@@ -50,8 +51,9 @@ namespace BibliotecaCentral.ItensBD
             NumeroNota = nota.Informações.identificação.Numero;
             SerieNota = nota.Informações.identificação.Serie;
             Status = nota.Signature != null && nota.Signature.HasChildNodes ? (int)StatusNFe.Assinada : (int)StatusNFe.Salva;
+            XML = xml;
         }
-        public NFeDI(Processo nota)
+        public NFeDI(Processo nota, string xml)
         {
             Id = nota.NFe.Informações.Id;
             NomeCliente = nota.NFe.Informações.destinatário.nome;
@@ -61,15 +63,7 @@ namespace BibliotecaCentral.ItensBD
             NumeroNota = nota.NFe.Informações.identificação.Numero;
             SerieNota = nota.NFe.Informações.identificação.Serie;
             Status = nota.ProtNFe != null ? (int)StatusNFe.Emitida : nota.NFe.Signature != null && nota.NFe.Signature.HasChildNodes ? (int)StatusNFe.Assinada : (int)StatusNFe.Salva;
-        }
-
-        public async Task<object> ObjetoCompletoAsync()
-        {
-            var pasta = new PastaNotasFiscais();
-            if (Status < 4)
-                return await pasta.Retornar<NFe>(Id);
-            else
-                return await pasta.Retornar<Processo>(Id);
+            XML = xml;
         }
     }
 }

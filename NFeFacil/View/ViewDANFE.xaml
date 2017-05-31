@@ -4,18 +4,15 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid.ChildrenTransitions>
-            <TransitionCollection>
-                <EntranceThemeTransition IsStaggeringEnabled="True" />
-            </TransitionCollection>
-        </Grid.ChildrenTransitions>
-        <ScrollViewer Margin="0,0,0,48">
-            <WebView x:Name="webView"
-                     Source="ms-appx-web:///DANFE/html/DANFE.html" />
+    <Grid>
+        <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                      VerticalScrollBarVisibility="Auto">
+            <StackPanel Orientation="Horizontal"
+                        x:Name="stk" />
         </ScrollViewer>
-        <CommandBar VerticalAlignment="Bottom"
-                    Canvas.ZIndex="1">
+    </Grid>
+    <Page.BottomAppBar>
+        <CommandBar>
             <AppBarButton x:Name="btnImprimir"
                           Label="Imprimir"
                           Click="btnImprimir_Click"
@@ -25,11 +22,6 @@
                               Glyph="&#xE749;" />
                 </AppBarButton.Icon>
             </AppBarButton>
-            <AppBarButton x:Name="btnSalvar"
-                          Label="Salvar imagem"
-                          Icon="Save"
-                          IsEnabled="False"
-                          Click="btnSalvar_Click" />
         </CommandBar>
-    </Grid>
+    </Page.BottomAppBar>
 </Page>

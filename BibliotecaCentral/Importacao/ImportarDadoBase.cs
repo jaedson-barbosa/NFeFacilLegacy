@@ -38,13 +38,13 @@ namespace BibliotecaCentral.Importacao
                 switch (TipoDado)
                 {
                     case TiposDadoBasico.Emitente:
-                        return AnaliseCompletaXml<Emitente>(listaXML, nameof(Emitente), "emit", repo.AnalisarAdicionarEmitentes);
+                        return AnaliseCompletaXml<Emitente>(listaXML, nameof(Emitente), "emit", x => repo.AnalisarAdicionarEmitentes(x.Select(emit => new ItensBD.EmitenteDI(emit)).ToList()));
                     case TiposDadoBasico.Cliente:
-                        return AnaliseCompletaXml<Destinatario>(listaXML, nameof(Destinatario), "dest", repo.AnalisarAdicionarClientes);
+                        return AnaliseCompletaXml<Destinatario>(listaXML, nameof(Destinatario), "dest", x=> repo.AnalisarAdicionarClientes(x.Select(dest => new ItensBD.ClienteDI(dest)).ToList()));
                     case TiposDadoBasico.Motorista:
-                        return AnaliseCompletaXml<Motorista>(listaXML, nameof(Motorista), "transporta", repo.AnalisarAdicionarMotoristas);
+                        return AnaliseCompletaXml<Motorista>(listaXML, nameof(Motorista), "transporta", x => repo.AnalisarAdicionarMotoristas(x.Select(mot => new ItensBD.MotoristaDI(mot)).ToList()));
                     case TiposDadoBasico.Produto:
-                        return AnaliseCompletaXml<BaseProdutoOuServico>(listaXML, nameof(BaseProdutoOuServico), "prod", repo.AnalisarAdicionarProdutos);
+                        return AnaliseCompletaXml<ProdutoOuServico>(listaXML, nameof(ProdutoOuServico), "prod", x=> repo.AnalisarAdicionarProdutos(x.Select(prod => new ItensBD.ProdutoDI(prod)).ToList()));
                     default:
                         return null;
                 }

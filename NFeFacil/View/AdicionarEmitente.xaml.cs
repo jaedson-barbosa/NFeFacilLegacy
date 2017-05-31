@@ -3,9 +3,11 @@ using BibliotecaCentral.Validacao;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using System.Threading.Tasks;
 using BibliotecaCentral.Repositorio;
-using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
+using BibliotecaCentral.ItensBD;
+using System.ComponentModel;
+using BibliotecaCentral.IBGE;
+using System.Linq;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -14,9 +16,9 @@ namespace NFeFacil.View
     /// <summary>
     /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
     /// </summary>
-    public sealed partial class AdicionarEmitente : Page, IEsconde
+    public sealed partial class AdicionarEmitente : Page
     {
-        private Emitente emitente;
+        private EmitenteDI emitente;
         private TipoOperacao tipoRequisitado;
         private ILog Log = new Popup();
 
@@ -27,31 +29,31 @@ namespace NFeFacil.View
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            GrupoViewBanco<Emitente> parametro;
+            GrupoViewBanco<EmitenteDI> parametro;
             if (e.Parameter == null)
             {
-                parametro = new GrupoViewBanco<Emitente>
+                parametro = new GrupoViewBanco<EmitenteDI>
                 {
-                    ItemBanco = new Emitente(),
+                    ItemBanco = new EmitenteDI(),
                     OperacaoRequirida = TipoOperacao.Adicao
                 };
             }
             else
             {
-                parametro = (GrupoViewBanco<Emitente>)e.Parameter;
+                parametro = (GrupoViewBanco<EmitenteDI>)e.Parameter;
             }
             emitente = parametro.ItemBanco;
             tipoRequisitado = parametro.OperacaoRequirida;
             switch (tipoRequisitado)
             {
                 case TipoOperacao.Adicao:
-                    MainPage.Current.SeAtualizar(Telas.GerenciarDadosBase, Symbol.Add, "Adicionar emitente");
+                    MainPage.Current.SeAtualizar(Symbol.Add, "Adicionar emitente");
                     break;
                 case TipoOperacao.Edicao:
-                    MainPage.Current.SeAtualizar(Telas.GerenciarDadosBase, Symbol.Edit, "Editar emitente");
+                    MainPage.Current.SeAtualizar(Symbol.Edit, "Editar emitente");
                     break;
             }
-            DataContext = emitente;
+            DataContext = new EmitenteDataContext(ref emitente);
         }
 
         private void Confirmar_Click(object sender, RoutedEventArgs e)
@@ -80,10 +82,33 @@ namespace NFeFacil.View
             MainPage.Current.Retornar();
         }
 
-        public async Task EsconderAsync()
+        private sealed class EmitenteDataContext : INotifyPropertyChanged
         {
-            ocultarGrid.Begin();
-            await Task.Delay(250);
+            public EmitenteDI Emit { get; set; }
+
+            public string EstadoSelecionado
+            {
+                get => Emit.SiglaUF;
+                set
+                {
+                    Emit.SiglaUF = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(EstadoSelecionado)));
+                }
+            }
+
+            public Municipio ConjuntoMunicipio
+            {
+                get => Municipios.Get(Emit.SiglaUF).FirstOrDefault(x => x.Codigo == Emit.CodigoMunicipio);
+                set
+                {
+                    Emit.NomeMunicipio = value?.Nome;
+                    Emit.CodigoMunicipio = value?.Codigo ?? 0;
+                }
+            }
+
+            public EmitenteDataContext(ref EmitenteDI emit) => Emit = emit;
+
+            public event PropertyChangedEventHandler PropertyChanged;
         }
     }
 }

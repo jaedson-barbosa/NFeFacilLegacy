@@ -8,9 +8,9 @@
              d:DesignWidth="400"
              Tapped="Tocado"
              ToolTipService.ToolTip="{x:Bind Descricao}">
-    <GridViewItem Padding="16"
-                  Background="{StaticResource ButtonBackground}"
-                  Margin="0">
+    <GridViewItem Margin="8"
+                  Padding="8"
+                  Background="{StaticResource ButtonBackground}">
         <StackPanel>
             <ContentControl Content="{x:Bind Icone}"
                             RenderTransformOrigin="0.5,0.5"

@@ -14,7 +14,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
-using Windows.ApplicationModel.Core;
 using BibliotecaCentral;
 using BibliotecaCentral.Repositorio;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTotal;
@@ -69,63 +68,69 @@ namespace NFeFacil.ViewModel
             }
         }
 
-        public List<Destinatario> ClientesDisponiveis { get; }
-        public List<Emitente> EmitentesDisponiveis { get; }
-        public List<BaseProdutoOuServico> ProdutosDisponiveis { get; }
-        public List<Motorista> MotoristasDisponiveis { get; }
+        public List<ClienteDI> ClientesDisponiveis { get; }
+        public List<EmitenteDI> EmitentesDisponiveis { get; }
+        public List<ProdutoDI> ProdutosDisponiveis { get; }
+        public List<MotoristaDI> MotoristasDisponiveis { get; }
 
-        private Destinatario clienteSelecionado;
-        public Destinatario ClienteSelecionado
+        private ClienteDI clienteSelecionado;
+        public ClienteDI ClienteSelecionado
         {
             get
             {
-                if (clienteSelecionado == null)
+                var dest = NotaSalva.Informações.destinatário;
+                if (clienteSelecionado == null && dest != null)
                 {
-                    clienteSelecionado = ClientesDisponiveis.FirstOrDefault(x => x.Documento == NotaSalva.Informações.destinatário.Documento);
+                    clienteSelecionado = ClientesDisponiveis.FirstOrDefault(x => x.Documento == dest.Documento);
                 }
                 return clienteSelecionado;
             }
             set
             {
-                NotaSalva.Informações.destinatário = clienteSelecionado = value;
+                clienteSelecionado = value;
+                NotaSalva.Informações.destinatário = value.ToDestinatario();
                 OnPropertyChanged(nameof(NotaSalva));
             }
         }
 
-        private Emitente emitenteSelecionado;
-        public Emitente EmitenteSelecionado
+        private EmitenteDI emitenteSelecionado;
+        public EmitenteDI EmitenteSelecionado
         {
             get
             {
-                if (emitenteSelecionado == null)
+                var emit = NotaSalva.Informações.emitente;
+                if (emitenteSelecionado == null && emit != null)
                 {
-                    emitenteSelecionado = EmitentesDisponiveis.FirstOrDefault(x => x.CNPJ == NotaSalva.Informações.emitente.CNPJ);
+                    emitenteSelecionado = EmitentesDisponiveis.FirstOrDefault(x => x.CNPJ == emit.CNPJ);
                 }
                 return emitenteSelecionado;
             }
             set
             {
-                NotaSalva.Informações.emitente = emitenteSelecionado = value;
+                emitenteSelecionado = value;
+                NotaSalva.Informações.emitente = value.ToEmitente();
                 OnPropertyChanged(nameof(NotaSalva));
             }
         }
 
-        public BaseProdutoOuServico ProdutoSelecionado { get; set; }
+        public ProdutoDI ProdutoSelecionado { get; set; }
 
-        private Motorista motoristaSelecionado;
-        public Motorista MotoristaSelecionado
+        private MotoristaDI motoristaSelecionado;
+        public MotoristaDI MotoristaSelecionado
         {
             get
             {
-                if (motoristaSelecionado == null)
+                var mot = NotaSalva.Informações.transp?.transporta;
+                if (motoristaSelecionado == null && mot != null)
                 {
-                    motoristaSelecionado = MotoristasDisponiveis.FirstOrDefault(x => x.Documento == NotaSalva.Informações.transp?.transporta?.Documento);
+                    motoristaSelecionado = MotoristasDisponiveis.FirstOrDefault(x => x.Documento == mot.Documento);
                 }
                 return motoristaSelecionado;
             }
             set
             {
-                NotaSalva.Informações.transp.transporta = motoristaSelecionado = value;
+                motoristaSelecionado = value;
+                NotaSalva.Informações.transp.transporta = value.ToMotorista();
                 OnPropertyChanged(nameof(NotaSalva));
             }
         }
@@ -149,16 +154,6 @@ namespace NFeFacil.ViewModel
 
             Conjunto = Dados;
 
-            if (CoreApplication.Properties.TryGetValue("ProdutoPendente", out object temp))
-            {
-                var detalhes = (DetalhesProdutos)temp;
-                detalhes.número = Dados.NotaSalva.Informações.produtos.Count + 1;
-                Dados.NotaSalva.Informações.produtos.Add(detalhes);
-                IndexPivotSelecionado = 3;
-                CoreApplication.Properties.Remove("ProdutoPendente");
-                Dados.NotaSalva.Informações.total = new Total(Dados.NotaSalva.Informações.produtos);
-            }
-
             if (Dados.NotaEmitida != null)
             {
                 NotaEmitida = Dados.NotaEmitida;
@@ -179,13 +174,13 @@ namespace NFeFacil.ViewModel
         public ICommand AdicionarProdutoCommand => new Comando(AdicionarProduto, true);
         public ICommand RemoverProdutoCommand => new Comando<DetalhesProdutos>(RemoverProduto);
 
-        private async void AdicionarProduto()
+        private void AdicionarProduto()
         {
             var detCompleto = new DetalhesProdutos
             {
-                Produto = ProdutoSelecionado != null ? new ProdutoOuServico(ProdutoSelecionado) : new ProdutoOuServico()
+                Produto = ProdutoSelecionado != null ? ProdutoSelecionado.ToProdutoOuServico() : new ProdutoOuServico()
             };
-            await MainPage.Current.AbrirFunçaoAsync(typeof(ManipulacaoProdutoCompleto), detCompleto);
+            MainPage.Current.AbrirFunçao(typeof(ManipulacaoProdutoCompleto), detCompleto);
         }
 
         private void RemoverProduto(DetalhesProdutos produto)
@@ -197,11 +192,11 @@ namespace NFeFacil.ViewModel
         public ICommand ObterNovoNumeroCommand => new Comando(ObterNovoNumero, true);
         public ICommand LiberarEdicaoCommand => new Comando(LiberarEdicao, true);
         public ICommand ConfirmarCommand => new Comando(Confirmar, true);
-        public ICommand SalvarCommand => new Comando(async () =>
+        public ICommand SalvarCommand => new Comando(() =>
         {
             NormalizarNFe();
             StatusAtual = StatusNFe.Salva;
-            await SalvarAsync();
+            SalvarAsync();
             Log.Escrever(TitulosComuns.Sucesso, "Nota fiscal salva com sucesso. Agora podes sair da aplicação sem perder esta NFe.");
         }, true);
         public ICommand AssinarCommand => new Comando(Assinar, true);
@@ -274,7 +269,7 @@ namespace NFeFacil.ViewModel
                 var assina = new BibliotecaCentral.Certificacao.AssinaNFe(NotaSalva);
                 await assina.AssinarAsync();
                 StatusAtual = StatusNFe.Assinada;
-                await SalvarAsync();
+                SalvarAsync();
             }
             catch (Exception e)
             {
@@ -299,7 +294,7 @@ namespace NFeFacil.ViewModel
                     };
                     Log.Escrever(TitulosComuns.Sucesso, resultadoResposta.xMotivo);
                     StatusAtual = StatusNFe.Emitida;
-                    await SalvarAsync();
+                    SalvarAsync();
                 }
                 else
                 {
@@ -334,11 +329,11 @@ namespace NFeFacil.ViewModel
             }
         }
 
-        private async void GerarDANFE()
+        private void GerarDANFE()
         {
-            await MainPage.Current.AbrirFunçaoAsync(typeof(ViewDANFE), NotaEmitida);
+            MainPage.Current.AbrirFunçao(typeof(ViewDANFE), NotaEmitida);
             StatusAtual = StatusNFe.Impressa;
-            await SalvarAsync();
+            SalvarAsync();
         }
 
         #region Identificação
@@ -670,22 +665,29 @@ namespace NFeFacil.ViewModel
         }
 
         private bool UsarNotaSalva => StatusAtual != StatusNFe.Emitida && StatusAtual != StatusNFe.Impressa;
-        private async Task SalvarAsync()
+        private void SalvarAsync()
         {
             if (!AmbienteTestes)
             {
                 var xml = UsarNotaSalva ? NotaSalva.ToXElement<NFe>() : NotaEmitida.ToXElement<Processo>();
-                var di = UsarNotaSalva ? new NFeDI(NotaSalva) : new NFeDI(NotaEmitida);
+                var di = UsarNotaSalva ? new NFeDI(NotaSalva, xml.ToString()) : new NFeDI(NotaEmitida, xml.ToString());
                 di.Status = (int)StatusAtual;
                 using (var db = new NotasFiscais())
                 {
                     if (StatusAtual == StatusNFe.Salva || StatusAtual == StatusNFe.Edição)
                     {
-                        await db.Adicionar(di, xml);
+                        if (Conjunto.OperacaoRequirida == TipoOperacao.Adicao)
+                        {
+                            db.Adicionar(di);
+                        }
+                        else
+                        {
+                            db.Atualizar(di);
+                        }
                     }
                     else
                     {
-                        await db.Atualizar(di, xml);
+                        db.Atualizar(di);
                     }
                 }
             }

@@ -1,6 +1,4 @@
-﻿using System.IO;
-using System.Linq;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Xml.Linq;
 
 namespace BibliotecaCentral.IBGE
@@ -19,17 +17,10 @@ namespace BibliotecaCentral.IBGE
 
         public XElement Retornar()
         {
-            var str = GetStreamRecurso("BibliotecaCentral.IBGE." + NomeArquivo);
-            return XElement.Load(str);
-        }
-
-        private Stream GetStreamRecurso(string uri)
-        {
-            var recursos = assembly.GetManifestResourceNames();
-            if (recursos.Contains(uri))
-                return assembly.GetManifestResourceStream(uri);
-            else
-                throw new FileNotFoundException("O arquivo especificado não está presente no assembly atual.", uri);
+            using (var stream = assembly.GetManifestResourceStream("BibliotecaCentral.IBGE." + NomeArquivo))
+            {
+                return XElement.Load(stream);
+            }
         }
     }
 }

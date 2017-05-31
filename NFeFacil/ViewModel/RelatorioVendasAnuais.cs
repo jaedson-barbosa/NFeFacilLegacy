@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace NFeFacil.ViewModel
 {
@@ -53,14 +54,14 @@ namespace NFeFacil.ViewModel
             }
         }
 
-        private async void AnoMudou()
+        private void AnoMudou()
         {
             IEnumerable<NFe> notas;
             using (var db = new NotasFiscais())
             {
-                notas = from item in await db.RegistroAsync()
-                        let xml = item.xml
-                        let usarNFe = item.nota.Status < 4
+                notas = from item in db.Registro
+                        let xml = XElement.Parse(item.XML)
+                        let usarNFe = item.Status < 4
                         let nota = usarNFe ? xml.FromXElement<NFe>() : (xml.FromXElement<Processo>()).NFe
                         select nota;
             }

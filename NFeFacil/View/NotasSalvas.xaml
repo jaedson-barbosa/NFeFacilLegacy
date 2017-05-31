@@ -13,12 +13,6 @@
             <x:String x:Key="LabelNomeEmitente">Nome emitente</x:String>
             <x:String x:Key="LabelNomeCliente">Nome cliente</x:String>
             <x:String x:Key="LabelData">Data emissão</x:String>
-            <Storyboard x:Name="ocultarGrid">
-                <DoubleAnimation Duration="0:0:0.25"
-                                 To="0"
-                                 Storyboard.TargetProperty="(UIElement.Opacity)"
-                                 Storyboard.TargetName="grdPrincipal" />
-            </Storyboard>
         </ResourceDictionary>
     </Page.Resources>
     <Grid x:Name="grdPrincipal"

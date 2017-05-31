@@ -26,17 +26,19 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x86\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP;CODE_ANALYSIS</DefineConstants>
     <NoWarn>;2008</NoWarn>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>false</UseDotNetNativeToolchain>
+    <EnableGatekeeperAnalysis>false</EnableGatekeeperAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
-    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <DefineConstants>NETFX_CORE;WINDOWS_UWP;CODE_ANALYSIS;CODE_ANALYSIS</DefineConstants>
     <Optimize>true</Optimize>
     <NoWarn>;2008</NoWarn>
     <DebugType>pdbonly</DebugType>
@@ -45,6 +47,7 @@
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
     <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+    <EnableGatekeeperAnalysis>true</EnableGatekeeperAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
     <DebugSymbols>true</DebugSymbols>
@@ -59,7 +62,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
     <OutputPath>bin\ARM\Release\</OutputPath>
-    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <DefineConstants>NETFX_CORE;WINDOWS_UWP;CODE_ANALYSIS</DefineConstants>
     <Optimize>true</Optimize>
     <NoWarn>;2008</NoWarn>
     <DebugType>pdbonly</DebugType>
@@ -68,21 +71,25 @@
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
     <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+    <EnableGatekeeperAnalysis>true</EnableGatekeeperAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x64\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP;CODE_ANALYSIS</DefineConstants>
     <NoWarn>;2008</NoWarn>
     <DebugType>full</DebugType>
     <PlatformTarget>x64</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
+    <Optimize>false</Optimize>
+    <UseDotNetNativeToolchain>false</UseDotNetNativeToolchain>
+    <EnableGatekeeperAnalysis>false</EnableGatekeeperAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>bin\x64\Release\</OutputPath>
-    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <DefineConstants>NETFX_CORE;WINDOWS_UWP;CODE_ANALYSIS</DefineConstants>
     <Optimize>true</Optimize>
     <NoWarn>;2008</NoWarn>
     <DebugType>pdbonly</DebugType>
@@ -90,8 +97,8 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
-    <UseDotNetNativeToolchain>false</UseDotNetNativeToolchain>
-    <EnableGatekeeperAnalysis>false</EnableGatekeeperAnalysis>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+    <EnableGatekeeperAnalysis>true</EnableGatekeeperAnalysis>
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
@@ -142,7 +149,7 @@
     <Content Include="Assets\Wide310x150Logo.scale-125.png" />
     <Content Include="Assets\Wide310x150Logo.scale-150.png" />
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
-    <Content Include="DANFE\html\code128.ttf" />
+    <Content Include="DANFE\code128.ttf" />
     <None Include="NFeFacil_TemporaryKey.pfx" />
     <None Include="project.json" />
     <None Include="Properties\ServiceReferences.Designer.ClientConfig" />
@@ -151,26 +158,22 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DANFE\GerenciadorExportacao.cs" />
     <Compile Include="DANFE\GerenciadorImpressao.cs" />
-    <Compile Include="DANFE\GerenciadorWebView.cs" />
     <Compile Include="DANFE\Pacotes\DadosAdicionais.cs" />
     <Compile Include="DANFE\Pacotes\DadosCabecalho.cs" />
     <Compile Include="DANFE\Pacotes\DadosCliente.cs" />
     <Compile Include="DANFE\Pacotes\DadosDuplicata.cs" />
     <Compile Include="DANFE\Pacotes\DadosImposto.cs" />
+    <Compile Include="DANFE\Pacotes\DadosISSQN.cs" />
     <Compile Include="DANFE\Pacotes\DadosMotorista.cs" />
     <Compile Include="DANFE\Pacotes\DadosNFe.cs" />
     <Compile Include="DANFE\Pacotes\DadosProduto.cs" />
-    <Compile Include="DANFE\Pacotes\DadosOutrasPaginas.cs" />
-    <Compile Include="DANFE\Pacotes\DadosPrimeiraPagina.cs" />
+    <Compile Include="DANFE\Pacotes\Endereço.cs" />
     <Compile Include="DANFE\Pacotes\Geral.cs" />
-    <Compile Include="DANFE\Processamento\ConexãoDados.cs" />
     <Compile Include="DANFE\Processamento\ViewDados.cs" />
-    <Compile Include="DANFE\Processamento\ViewUI.cs" />
     <Compile Include="GrupoViewBanco.cs" />
+    <Compile Include="IHambuguer.cs" />
     <Compile Include="RegistrarCliente.cs" />
-    <Compile Include="Telas.cs" />
     <Compile Include="ViewModel\ConfigSincronizacaoDataContext.cs" />
     <Compile Include="ViewModel\ConfiguracoesDataContext.cs" />
     <Compile Include="ViewModel\Converters\ColecaoValida.cs" />
@@ -223,6 +226,9 @@
     <Compile Include="View\Consulta.xaml.cs">
       <DependentUpon>Consulta.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Controles\ItemHambuguer.xaml.cs">
+      <DependentUpon>ItemHambuguer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Controles\ItemPadrao.xaml.cs">
       <DependentUpon>ItemPadrao.xaml</DependentUpon>
     </Compile>
@@ -232,7 +238,6 @@
     <Compile Include="View\HistoricoSincronizacao.xaml.cs">
       <DependentUpon>HistoricoSincronizacao.xaml</DependentUpon>
     </Compile>
-    <Compile Include="IEsconde.cs" />
     <Compile Include="IValida.cs" />
     <Compile Include="View\ManipulacaoNotaFiscal.xaml.cs">
       <DependentUpon>ManipulacaoNotaFiscal.xaml</DependentUpon>
@@ -243,7 +248,6 @@
     <Compile Include="View\NotasSalvas.xaml.cs">
       <DependentUpon>NotasSalvas.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Propriedades.cs" />
     <Compile Include="ViewModel\ImpostosProduto\COFINSDataContext.cs" />
     <Compile Include="ViewModel\Comando.cs" />
     <Compile Include="ViewModel\Converters\BoolToIcon.cs" />
@@ -294,26 +298,39 @@
     <Compile Include="View\ConfigSincronizacao.xaml.cs">
       <DependentUpon>ConfigSincronizacao.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\PaginasDANFE\PaginaUnica.xaml.cs">
+      <DependentUpon>PaginaUnica.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PartesDANFE\CampoCliente.xaml.cs">
+      <DependentUpon>CampoCliente.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PartesDANFE\CampoDadosAdicionais.xaml.cs">
+      <DependentUpon>CampoDadosAdicionais.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PartesDANFE\CampoFatura.xaml.cs">
+      <DependentUpon>CampoFatura.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PartesDANFE\CampoImposto.xaml.cs">
+      <DependentUpon>CampoImposto.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PartesDANFE\CampoISSQN.xaml.cs">
+      <DependentUpon>CampoISSQN.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PartesDANFE\CampoProdutos.xaml.cs">
+      <DependentUpon>CampoProdutos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PartesDANFE\CampoTransporte.xaml.cs">
+      <DependentUpon>CampoTransporte.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PartesDANFE\Canhoto.xaml.cs">
+      <DependentUpon>Canhoto.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PartesDANFE\DadosNFe.xaml.cs">
+      <DependentUpon>DadosNFe.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PartesDANFE\DimensoesPadrao.cs" />
     <Compile Include="View\QRConexao.xaml.cs">
       <DependentUpon>QRConexao.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\TelasDadosBase\ClienteDataContext.cs" />
-    <Compile Include="View\TelasDadosBase\ConverterContextoCliente.cs" />
-    <Compile Include="View\TelasDadosBase\ConverterContextoEmitente.cs" />
-    <Compile Include="View\TelasDadosBase\ConverterContextoMotorista.cs" />
-    <Compile Include="View\TelasDadosBase\EmitenteDataContext.cs" />
-    <Compile Include="View\TelasDadosBase\MotoristaDataContext.cs" />
-    <Compile Include="View\TelasDadosBase\TelaDestinatario.xaml.cs">
-      <DependentUpon>TelaDestinatario.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\TelasDadosBase\TelaEmitente.xaml.cs">
-      <DependentUpon>TelaEmitente.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\TelasDadosBase\TelaMotorista.xaml.cs">
-      <DependentUpon>TelaMotorista.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\TelasDadosBase\TelaProduto.xaml.cs">
-      <DependentUpon>TelaProduto.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\VendasAnuais.xaml.cs">
       <DependentUpon>VendasAnuais.xaml</DependentUpon>
@@ -328,14 +345,6 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DANFE\html\DadosDANFE.js" />
-    <Content Include="DANFE\html\DANFE.html" />
-    <Content Include="DANFE\html\Dimensões.css" />
-    <Content Include="DANFE\html\Elementos.css" />
-    <Content Include="DANFE\html\Fontes.css" />
-    <Content Include="DANFE\html\Pagina.css" />
-    <Content Include="DANFE\html\Pagina.html" />
-    <Content Include="DANFE\html\Tabela.css" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
     <Content Include="Assets\Square150x150Logo.scale-200.png" />
@@ -403,6 +412,10 @@
     <Page Include="View\Controles\Guia.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Controles\ItemHambuguer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Controles\ItemPadrao.xaml">
       <SubType>Designer</SubType>
@@ -485,25 +498,54 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\PaginasDANFE\PaginaUnica.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PartesDANFE\CampoCliente.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PartesDANFE\CampoDadosAdicionais.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PartesDANFE\CampoFatura.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PartesDANFE\CampoImposto.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PartesDANFE\CampoISSQN.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PartesDANFE\CampoProdutos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PartesDANFE\CampoTransporte.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PartesDANFE\Canhoto.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PartesDANFE\DadosNFe.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PartesDANFE\EstilosPadrao.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
     <Page Include="View\QRConexao.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\TelasDadosBase\TelaDestinatario.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\TelasDadosBase\TelaEmitente.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\TelasDadosBase\TelaMotorista.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\TelasDadosBase\TelaProduto.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\VendasAnuais.xaml">
       <SubType>Designer</SubType>

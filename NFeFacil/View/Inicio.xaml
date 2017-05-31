@@ -4,24 +4,19 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:controles="using:NFeFacil.View.Controles"
       x:Class="NFeFacil.View.Inicio"
+      NavigationCacheMode="Enabled"
       mc:Ignorable="d">
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Estilos/GridResponsiva.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <Storyboard x:Name="ocultarGrid">
-                <DoubleAnimation Duration="0:0:0.25"
-                                 To="0"
-                                 Storyboard.TargetProperty="(UIElement.Opacity)"
-                                 Storyboard.TargetName="root" />
-            </Storyboard>
         </ResourceDictionary>
     </Page.Resources>
     <ScrollViewer x:Name="root"
                   Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
                   ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                  Margin="2">
+                  Margin="8">
         <ItemsControl Style="{StaticResource ItensMedios}"
                       IsTabStop="False">
             <controles:ItemPadrao x:Name="GerenciarDadosBase"

@@ -1,38 +1,21 @@
-﻿using BibliotecaCentral.ModeloXML;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.Graphics.Printing;
-using Windows.Storage.Streams;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Printing;
-using Windows.UI.Xaml.Shapes;
 
 namespace NFeFacil.DANFE
 {
-    public sealed class GerenciadorImpressao : GerenciadorWebView, IDisposable
+    public sealed class GerenciadorImpressao : IDisposable
     {
-        public event EventHandler PaginasCarregadas;
-        private void OnPaginasCarregadas()
-        {
-            PaginasCarregadas?.Invoke(this, new EventArgs());
-        }
-
         private PrintDocument printDoc;
         private IPrintDocumentSource printDocSource;
         private List<UIElement> paginas = new List<UIElement>();
 
-        public GerenciadorImpressao(Processo processo, ref WebView webView) : base(processo, ref webView)
+        public GerenciadorImpressao()
         {
             RegistrarImpressão();
-            webView.NavigationCompleted += async (x, y) =>
-            {
-                await ExibiçãoDados.ExibirTodasAsPáginas();
-                OnPaginasCarregadas();
-            };
         }
 
         private void RegistrarImpressão()
@@ -81,36 +64,16 @@ namespace NFeFacil.DANFE
             printTask = args.Request.CreatePrintTask("Print", x =>
             {
                 printTask.Options.MediaSize = PrintMediaSize.IsoA4;
+                printTask.Options.PrintQuality = PrintQuality.High;
                 x.SetSource(printDocSource);
             });
         }
         #endregion
 
-        public async Task Imprimir()
+        public async Task Imprimir(UIElement rect)
         {
             paginas.Clear();
-            await ObterPaginasWeb(async i =>
-            {
-                var dimensoes = await UI.ObterDimensoesWeb(false);
-                var imagem = new BitmapImage();
-                using (InMemoryRandomAccessStream stream = new InMemoryRandomAccessStream())
-                {
-                    await UI.CaptureWebView(stream);
-                    await imagem.SetSourceAsync(stream);
-                }
-                paginas.Add(new Rectangle
-                {
-                    Height = dimensoes.altura,
-                    Width = dimensoes.largura,
-                    Margin = new Thickness(4),
-                    Fill = new ImageBrush
-                    {
-                        ImageSource = imagem,
-                        Stretch = Stretch.UniformToFill,
-                        AlignmentY = AlignmentY.Top
-                    }
-                });
-            });
+            paginas.Add(rect);
             await PrintManager.ShowPrintUIAsync();
         }
 

@@ -1,10 +1,7 @@
 ﻿using BibliotecaCentral.Sincronizacao;
-using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Navigation;
 
 namespace NFeFacil
 {
@@ -36,49 +33,16 @@ namespace NFeFacil
         /// <param name="e">Detalhes sobre a solicitação e o processo de inicialização.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
-            Frame rootFrame = Window.Current.Content as Frame;
-            Propriedades.Usuario = e.User;
-
-            // Não repita a inicialização do aplicativo quando a Janela já tiver conteúdo,
-            // apenas verifique se a janela está ativa
+            var rootFrame = Window.Current.Content as MainPage;
             if (rootFrame == null)
             {
-                // Crie um Quadro para atuar como o contexto de navegação e navegue para a primeira página
-                rootFrame = new Frame();
-
-                rootFrame.NavigationFailed += OnNavigationFailed;
-
-                if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
-                {
-                    // TODO: Carregue o estado do aplicativo suspenso anteriormente
-                }
-
-                // Coloque o quadro na Janela atual
-                Window.Current.Content = rootFrame;
+                Window.Current.Content = rootFrame = new MainPage();
             }
 
             if (e.PrelaunchActivated == false)
             {
-                if (rootFrame.Content == null)
-                {
-                    // Quando a pilha de navegação não for restaurada, navegar para a primeira página,
-                    // configurando a nova página passando as informações necessárias como um parâmetro
-                    // parâmetro
-                    rootFrame.Navigate(typeof(MainPage), e.Arguments);
-                }
-                // Verifique se a janela atual está ativa
                 Window.Current.Activate();
             }
-        }
-
-        /// <summary>
-        /// Chamado quando ocorre uma falha na Navegação para uma determinada página
-        /// </summary>
-        /// <param name="sender">O Quadro com navegação com falha</param>
-        /// <param name="e">Detalhes sobre a falha na navegação</param>
-        void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
-        {
-            throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
         }
 
         /// <summary>

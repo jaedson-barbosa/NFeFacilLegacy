@@ -6,22 +6,6 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Pa
 {
     public sealed class ProdutoOuServico
     {
-        public ProdutoOuServico() { }
-        public ProdutoOuServico(BaseProdutoOuServico other)
-        {
-            CFOP = other.CFOP;
-            CodigoBarras = other.CodigoBarras;
-            CodigoBarrasTributo = other.CodigoBarrasTributo;
-            CodigoProduto = other.CodigoProduto;
-            Descricao = other.Descricao;
-            EXTIPI = other.EXTIPI;
-            NCM = other.NCM;
-            UnidadeComercializacao = other.UnidadeComercializacao;
-            UnidadeTributacao = other.UnidadeTributacao;
-            ValorUnitario = other.ValorUnitario;
-            ValorUnitarioTributo = other.ValorUnitarioTributo;
-        }
-
         /// <summary>
         /// Preencher com CFOP, caso se trate de itens não relacionados com mercadorias/produtos e que o contribuinte não possua codificação própria. Formato: ”CFOP9999”.
         /// </summary>

@@ -13,31 +13,38 @@ namespace NFeFacil.View
     /// </summary>
     public sealed partial class ViewDANFE : Page
     {
-        private Processo processo;
         private GerenciadorImpressao gerenciadorImpressão;
-        private GerenciadorExportacao gerenciadorExportação;
+
+        public double Largura => CentimeterToPixel(21);
+        public double Altura => CentimeterToPixel(29.7);
+
+        private byte[] Pixels;
+
+        double CentimeterToPixel(double Centimeter)
+        {
+            //96 é a constante usada pelo CSS e 2.54 é a quantidade de cm de uma polegada
+            const double fator = 96 / 2.54;
+            return Centimeter * fator;
+        }
 
         public ViewDANFE()
         {
             InitializeComponent();
-            MainPage.Current.SeAtualizar(Telas.ManipularNota, Symbol.View, "Visualizar DANFE");
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            processo = (Processo)e.Parameter;
-            gerenciadorImpressão = new GerenciadorImpressao(processo, ref webView);
-            gerenciadorExportação = new GerenciadorExportacao(processo, ref webView);
-            gerenciadorImpressão.PaginasCarregadas += (x, y) =>
-            {
-                btnImprimir.IsEnabled = true;
-                btnSalvar.IsEnabled = true;
-            };
+            MainPage.Current.SeAtualizar(Symbol.View, "Visualizar DANFE");
+
+            gerenciadorImpressão = new GerenciadorImpressao();
+
+            var processo = (Processo)e.Parameter;
+            stk.Children.Add(new PaginasDANFE.PaginaUnica(processo));
+            btnImprimir.IsEnabled = true;
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e) => Dispose();
-        private async void btnImprimir_Click(object sender, RoutedEventArgs e) => await gerenciadorImpressão.Imprimir();
-        private async void btnSalvar_Click(object sender, RoutedEventArgs e) => await gerenciadorExportação.Salvar();
+        private async void btnImprimir_Click(object sender, RoutedEventArgs e) => await gerenciadorImpressão.Imprimir(stk.Children[0]);
         public void Dispose() => gerenciadorImpressão.Dispose();
     }
 }

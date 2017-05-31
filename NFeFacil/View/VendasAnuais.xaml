@@ -16,12 +16,6 @@
                 <ResourceDictionary Source="Estilos/PivotPrincipal.xaml" />
                 <ResourceDictionary Source="Estilos/Tabela.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <Storyboard x:Name="ocultarGrid">
-                <DoubleAnimation Duration="0:0:0.25"
-                                 To="0"
-                                 Storyboard.TargetProperty="(UIElement.Opacity)"
-                                 Storyboard.TargetName="grdPrincipal" />
-            </Storyboard>
         </ResourceDictionary>
     </Page.Resources>
     <Grid x:Name="grdPrincipal"
@@ -30,11 +24,6 @@
             <RowDefinition Height="113*" />
             <RowDefinition Height="15*" />
         </Grid.RowDefinitions>
-        <Grid.Transitions>
-            <TransitionCollection>
-                <EntranceThemeTransition IsStaggeringEnabled="True" />
-            </TransitionCollection>
-        </Grid.Transitions>
         <ComboBox HorizontalAlignment="Right"
                   Canvas.ZIndex="1"
                   ItemsSource="{Binding AnosDisponiveis, Mode=OneTime}"
@@ -60,10 +49,10 @@
                                 <ColumnDefinition />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
-                            <TextBlock Style="{StaticResource TextoCabecalho}">Mês</TextBlock>
-                            <TextBlock Style="{StaticResource TextoCabecalho}"
+                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Mês</TextBlock>
+                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
                                        Grid.Column="1">Quantidade</TextBlock>
-                            <TextBlock Style="{StaticResource TextoCabecalho}"
+                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
                                        Grid.Column="2">Valor total</TextBlock>
                         </Grid>
                     </ListView.Header>
@@ -102,14 +91,14 @@
                                 <ColumnDefinition />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
-                            <TextBlock Style="{StaticResource TextoCabecalho}">Nome</TextBlock>
-                            <TextBlock Style="{StaticResource TextoCabecalho}"
+                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Nome</TextBlock>
+                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
                                        Grid.Column="1">Quantidade</TextBlock>
-                            <TextBlock Style="{StaticResource TextoCabecalho}"
+                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
                                        Grid.Column="2">Municipio</TextBlock>
-                            <TextBlock Style="{StaticResource TextoCabecalho}"
+                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
                                        Grid.Column="3">Documento</TextBlock>
-                            <TextBlock Style="{StaticResource TextoCabecalho}"
+                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
                                        Grid.Column="4">Total</TextBlock>
                         </Grid>
                     </ListView.Header>

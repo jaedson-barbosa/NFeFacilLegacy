@@ -1,15 +1,21 @@
-﻿using BibliotecaCentral.Log;
+﻿using BibliotecaCentral.ItensBD;
+using BibliotecaCentral.Log;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 
 namespace BibliotecaCentral.Validacao
 {
     public sealed class ValidadorProduto : IValidavel
     {
-        BaseProdutoOuServico Prod;
+        ProdutoOuServico Prod;
 
-        public ValidadorProduto(BaseProdutoOuServico prod)
+        public ValidadorProduto(ProdutoOuServico prod)
         {
             Prod = prod;
+        }
+
+        public ValidadorProduto(ProdutoDI prod)
+        {
+            Prod = prod.ToProdutoOuServico();
         }
 
         public bool Validar(ILog log)

@@ -13,12 +13,8 @@
                 <ResourceDictionary Source="Estilos/PivotPrincipal.xaml" />
                 <ResourceDictionary Source="Estilos/Tabela.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <Storyboard x:Name="ocultarGrid">
-                <FadeOutThemeAnimation Duration="0:0:0.25"
-                                       TargetName="grdPrincipal" />
-            </Storyboard>
             <Style TargetType="TextBlock"
-                   BasedOn="{StaticResource TextoCabecalho}" />
+                   BasedOn="{StaticResource SubtitleTextBlockStyle}" />
         </ResourceDictionary>
     </Page.Resources>
     <Page.DataContext>
@@ -26,29 +22,35 @@
     </Page.DataContext>
     <Pivot x:Name="grdPrincipal"
            Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Pivot.Transitions>
-            <TransitionCollection>
-                <EntranceThemeTransition IsStaggeringEnabled="True" />
-            </TransitionCollection>
-        </Pivot.Transitions>
         <PivotItem Header="Emitente">
             <ListView ItemsSource="{Binding Emitentes}"
                       Style="{StaticResource PseudoTabela}">
                 <ListView.Header>
                     <Grid Style="{StaticResource Cabecalho}">
-                        <TextBlock HorizontalAlignment="Left">Nome</TextBlock>
-                        <TextBlock HorizontalAlignment="Center">CNPJ</TextBlock>
-                        <TextBlock HorizontalAlignment="Right"
-                                   Margin="0,0,80,0">Cidade</TextBlock>
-                        <Button Command="{Binding AdicionarEmitenteCommand}"
-                                Style="{StaticResource BotaoAdd}">
-                            <SymbolIcon Symbol="Add" />
-                        </Button>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock>Nome</TextBlock>
+                        <TextBlock Grid.Column="1">CNPJ</TextBlock>
+                        <StackPanel Grid.Column="1"
+                                    HorizontalAlignment="Right"
+                                    Orientation="Horizontal">
+                            <TextBlock>Cidade</TextBlock>
+                            <Button Command="{Binding AdicionarEmitenteCommand}"
+                                    Style="{StaticResource BotaoAdd}">
+                                <SymbolIcon Symbol="Add" />
+                            </Button>
+                        </StackPanel>
                     </Grid>
                 </ListView.Header>
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
                             <Grid.ContextFlyout>
                                 <MenuFlyout>
                                     <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.EditarEmitenteCommand}"
@@ -57,10 +59,12 @@
                                                     CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Remover</MenuFlyoutItem>
                                 </MenuFlyout>
                             </Grid.ContextFlyout>
-                            <TextBlock Text="{Binding nome}" />
+                            <TextBlock TextWrapping="Wrap"
+                                       Text="{Binding Nome}" />
                             <TextBlock Text="{Binding CNPJ}"
-                                       HorizontalAlignment="Center" />
-                            <TextBlock Text="{Binding endereco.NomeMunicipio}"
+                                       Grid.Column="1" />
+                            <TextBlock Text="{Binding NomeMunicipio}"
+                                       Grid.Column="1"
                                        HorizontalAlignment="Right" />
                         </Grid>
                     </DataTemplate>
@@ -72,19 +76,30 @@
                       Style="{StaticResource PseudoTabela}">
                 <ListView.Header>
                     <Grid Style="{StaticResource Cabecalho}">
-                        <TextBlock HorizontalAlignment="Left">Nome</TextBlock>
-                        <TextBlock HorizontalAlignment="Center">Documento</TextBlock>
-                        <TextBlock HorizontalAlignment="Right"
-                                   Margin="10,4,80,2">Cidade</TextBlock>
-                        <Button Command="{Binding AdicionarClienteCommand}"
-                                Style="{StaticResource BotaoAdd}">
-                            <SymbolIcon Symbol="Add" />
-                        </Button>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock>Nome</TextBlock>
+                        <TextBlock Grid.Column="1">Documento</TextBlock>
+                        <StackPanel Orientation="Horizontal"
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Right">
+                            <TextBlock>Cidade</TextBlock>
+                            <Button Command="{Binding AdicionarClienteCommand}"
+                                    Style="{StaticResource BotaoAdd}">
+                                <SymbolIcon Symbol="Add" />
+                            </Button>
+                        </StackPanel>
                     </Grid>
                 </ListView.Header>
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
                             <Grid.ContextFlyout>
                                 <MenuFlyout>
                                     <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.EditarClienteCommand}"
@@ -93,10 +108,12 @@
                                                     CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Remover</MenuFlyoutItem>
                                 </MenuFlyout>
                             </Grid.ContextFlyout>
-                            <TextBlock Text="{Binding nome}" />
-                            <TextBlock Text="{Binding Documento}"
-                                       HorizontalAlignment="Center" />
-                            <TextBlock Text="{Binding endereco.NomeMunicipio}"
+                            <TextBlock Text="{Binding Nome}"
+                                       TextWrapping="Wrap" />
+                            <TextBlock Grid.Column="1"
+                                       Text="{Binding Documento}" />
+                            <TextBlock Grid.Column="1"
+                                       Text="{Binding NomeMunicipio}"
                                        HorizontalAlignment="Right" />
                         </Grid>
                     </DataTemplate>
@@ -108,19 +125,30 @@
                       Style="{StaticResource PseudoTabela}">
                 <ListView.Header>
                     <Grid Style="{StaticResource Cabecalho}">
-                        <TextBlock HorizontalAlignment="Left">Nome</TextBlock>
-                        <TextBlock HorizontalAlignment="Center">Documento</TextBlock>
-                        <TextBlock HorizontalAlignment="Right"
-                                   Margin="10,4,80,2">Cidade</TextBlock>
-                        <Button Command="{Binding AdicionarMotoristaCommand}"
-                                Style="{StaticResource BotaoAdd}">
-                            <SymbolIcon Symbol="Add" />
-                        </Button>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock>Nome</TextBlock>
+                        <TextBlock Grid.Column="1">Documento</TextBlock>
+                        <StackPanel Orientation="Horizontal"
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Right">
+                            <TextBlock>Cidade</TextBlock>
+                            <Button Command="{Binding AdicionarMotoristaCommand}"
+                                    Style="{StaticResource BotaoAdd}">
+                                <SymbolIcon Symbol="Add" />
+                            </Button>
+                        </StackPanel>
                     </Grid>
                 </ListView.Header>
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
                             <Grid.ContextFlyout>
                                 <MenuFlyout>
                                     <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.EditarMotoristaCommand}"
@@ -129,10 +157,12 @@
                                                     CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Remover</MenuFlyoutItem>
                                 </MenuFlyout>
                             </Grid.ContextFlyout>
-                            <TextBlock Text="{Binding Nome}" />
-                            <TextBlock Text="{Binding Documento}"
-                                       HorizontalAlignment="Center" />
-                            <TextBlock Text="{Binding XMun}"
+                            <TextBlock Text="{Binding Nome}"
+                                       TextWrapping="Wrap" />
+                            <TextBlock Grid.Column="1"
+                                       Text="{Binding Documento}" />
+                            <TextBlock Grid.Column="1"
+                                       Text="{Binding XMun}"
                                        HorizontalAlignment="Right" />
                         </Grid>
                     </DataTemplate>
@@ -143,14 +173,16 @@
             <ListView ItemsSource="{Binding Produtos}"
                       Style="{StaticResource PseudoTabela}">
                 <ListView.Header>
-                    <Grid Background="{StaticResource MuitoVariada}">
-                        <TextBlock HorizontalAlignment="Left">Descrição</TextBlock>
-                        <TextBlock HorizontalAlignment="Right"
-                                   Margin="10,4,80,2">Código</TextBlock>
-                        <Button Command="{Binding AdicionarProdutoCommand}"
-                                Style="{StaticResource BotaoAdd}">
-                            <SymbolIcon Symbol="Add" />
-                        </Button>
+                    <Grid Style="{StaticResource Cabecalho}">
+                        <TextBlock>Descrição</TextBlock>
+                        <StackPanel Orientation="Horizontal"
+                                    HorizontalAlignment="Right">
+                            <TextBlock>Código</TextBlock>
+                            <Button Command="{Binding AdicionarProdutoCommand}"
+                                    Style="{StaticResource BotaoAdd}">
+                                <SymbolIcon Symbol="Add" />
+                            </Button>
+                        </StackPanel>
                     </Grid>
                 </ListView.Header>
                 <ListView.ItemTemplate>

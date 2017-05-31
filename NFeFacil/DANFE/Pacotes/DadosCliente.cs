@@ -2,12 +2,12 @@
 {
     public sealed class DadosCliente
     {
-        public string nomeCliente;
-        public string DocCliente;
-        public string dataEmissao;
-        public string dataEntradaSaida;
-        public string IECliente;
-        public string horaEntradaSaida;
-        public Endereço Endereco;
+        public string NomeCliente { get; set; }
+        public string DocCliente { get; set; }
+        public string DataEmissao { get; set; }
+        public string DataEntradaSaida { get; set; }
+        public string IECliente { get; set; }
+        public string HoraEntradaSaida { get; set; }
+        public Endereço Endereco { get; set; }
     }
 }

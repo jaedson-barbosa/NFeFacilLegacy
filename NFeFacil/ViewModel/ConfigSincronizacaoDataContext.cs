@@ -82,9 +82,9 @@ namespace NFeFacil.ViewModel
         public ICommand FecharBrechaSeguranca { get; }
         public ICommand SincronizarTudoCommand { get; }
 
-        private async void ExibirQR()
+        private void ExibirQR()
         {
-            await MainPage.Current.AbrirFunçaoAsync(typeof(View.QRConexao));
+            MainPage.Current.AbrirFunçao(typeof(View.QRConexao));
         }
 
         public async void LerQRTemporário()

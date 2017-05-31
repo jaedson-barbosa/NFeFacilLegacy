@@ -9,27 +9,27 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
         /// Número da Fatura.
         /// </summary>
         [XmlElement("nFat")]
-        public string NFat { get; set; }
+        public int NFat { get; set; }
 
         /// <summary>
         /// (Opcional)
         /// Valor Original da Fatura.
         /// </summary>
         [XmlElement("vOrig")]
-        public string VOrig { get; set; }
+        public double VOrig { get; set; }
 
         /// <summary>
         /// (Opcional)
         /// Valor do desconto.
         /// </summary>
         [XmlElement("vDesc")]
-        public string VDesc { get; set; }
+        public double VDesc { get; set; }
 
         /// <summary>
         /// (Opcional)
         /// Valor Líquido da Fatura.
         /// </summary>
         [XmlElement("vLiq")]
-        public string VLiq { get; set; }
+        public double VLiq { get; set; }
     }
 }

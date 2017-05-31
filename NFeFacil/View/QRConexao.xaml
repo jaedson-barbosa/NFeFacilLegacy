@@ -11,10 +11,6 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Estilos/CoresDestaque.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <Storyboard x:Name="ocultarGrid">
-                <FadeOutThemeAnimation Duration="0:0:0.25"
-                                       TargetName="main" />
-            </Storyboard>
         </ResourceDictionary>
     </Page.Resources>
     <Page.DataContext>
@@ -53,11 +49,6 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <Grid.ChildrenTransitions>
-            <TransitionCollection>
-                <EntranceThemeTransition IsStaggeringEnabled="True" />
-            </TransitionCollection>
-        </Grid.ChildrenTransitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition />

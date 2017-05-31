@@ -12,28 +12,58 @@
         </ResourceDictionary>
     </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="grupoTamanhoTela">
+                <VisualState x:Name="TelaGrande">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="760" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="TelaPequena">
+                    <VisualState.Setters>
+                        <Setter Target="ColunaHamburguer.Width"
+                                Value="Auto" />
+                        <Setter Target="ColunaMenuPermanente.Width"
+                                Value="0" />
+                    </VisualState.Setters>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid x:Name="TitleBar"
               Background="{StaticResource PoucoVariada}"
               Height="40">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="0"
+                                  x:Name="ColunaHamburguer" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Button x:Name="btnRetornar"
                     Background="#00000000"
-                    Margin="0"
-                    Width="48"
                     VerticalAlignment="Stretch"
+                    Width="48"
                     BorderThickness="0">
                 <SymbolIcon Symbol="Back" />
             </Button>
+            <Button x:Name="btnHambuguer"
+                    Grid.Column="1"
+                    VerticalAlignment="Stretch"
+                    Visibility="Collapsed"
+                    Background="#00000000"
+                    Width="48"
+                    BorderThickness="0"
+                    Click="btnHambuguer_Click">
+                <FontIcon Glyph="&#xE700;" />
+            </Button>
             <StackPanel x:Name="MainTitleBar"
-                        Grid.Column="1"
+                        Grid.Column="2"
                         Orientation="Horizontal"
                         Background="#00000000">
                 <ContentControl Name="symTitulo"
@@ -45,20 +75,33 @@
                            FontWeight="Bold">Nota Fácil</TextBlock>
             </StackPanel>
         </Grid>
-        <Frame Name="frmPrincipal"
-               Grid.Row="1" />
-        <Border Name="grdAvisoRotacao"
-                Visibility="Collapsed"
-                Background="{StaticResource MuitoVariada}"
-                BorderBrush="{StaticResource Normal}"
-                BorderThickness="0,2,0,0"
-                VerticalAlignment="Bottom"
-                Grid.Row="2">
-            <TextBlock TextWrapping="Wrap"
-                       Margin="8,4"
-                       TextAlignment="Justify">
-                            <Run FontStyle="Italic">Por favor, esta orientação de tela não é a mais adequada para visualização desta página, por favor, </Run>
-                            <Run FontWeight="Bold">rotacione seu dispositivo para a orientação horizontal.</Run></TextBlock>
-        </Border>
+        <SplitView x:Name="splitView"
+                   Grid.Row="1"
+                   DisplayMode="CompactOverlay">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"
+                                      x:Name="ColunaMenuPermanente" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <ContentPresenter x:Name="menuPermanente"
+                                  Visibility="Collapsed"
+                                  MinWidth="256"
+                                  Margin="16, 0, 0, 0"
+                                  Padding="0,16,0,16"
+                                  BorderBrush="{StaticResource Normal}"
+                                  BorderThickness="0,0,2,0" />
+                <Frame Name="frmPrincipal"
+                       Grid.Column="1">
+                    <Frame.ContentTransitions>
+                        <TransitionCollection>
+                            <NavigationThemeTransition>
+                                <DrillInNavigationTransitionInfo />
+                            </NavigationThemeTransition>
+                        </TransitionCollection>
+                    </Frame.ContentTransitions>
+                </Frame>
+            </Grid>
+        </SplitView>
     </Grid>
 </Page>

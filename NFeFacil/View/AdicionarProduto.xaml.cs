@@ -3,9 +3,8 @@ using BibliotecaCentral.Validacao;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using System.Threading.Tasks;
 using BibliotecaCentral.Repositorio;
-using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
+using BibliotecaCentral.ItensBD;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -14,9 +13,9 @@ namespace NFeFacil.View
     /// <summary>
     /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
     /// </summary>
-    public sealed partial class AdicionarProduto : Page, IEsconde
+    public sealed partial class AdicionarProduto : Page
     {
-        private BaseProdutoOuServico Produto;
+        private ProdutoDI Produto;
         private TipoOperacao tipoRequisitado;
         private ILog Log = new Popup();
 
@@ -27,28 +26,28 @@ namespace NFeFacil.View
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            GrupoViewBanco<BaseProdutoOuServico> parametro;
+            GrupoViewBanco<ProdutoDI> parametro;
             if (e.Parameter == null)
             {
-                parametro = new GrupoViewBanco<BaseProdutoOuServico>
+                parametro = new GrupoViewBanco<ProdutoDI>
                 {
-                    ItemBanco = new BaseProdutoOuServico(),
+                    ItemBanco = new ProdutoDI(),
                     OperacaoRequirida = TipoOperacao.Adicao
                 };
             }
             else
             {
-                parametro = (GrupoViewBanco<BaseProdutoOuServico>)e.Parameter;
+                parametro = (GrupoViewBanco<ProdutoDI>)e.Parameter;
             }
-            Produto = parametro.ItemBanco ?? new BaseProdutoOuServico();
+            Produto = parametro.ItemBanco;
             tipoRequisitado = parametro.OperacaoRequirida;
             switch (tipoRequisitado)
             {
                 case TipoOperacao.Adicao:
-                    MainPage.Current.SeAtualizar(Telas.GerenciarDadosBase, Symbol.Add, "Adicionar produto");
+                    MainPage.Current.SeAtualizar(Symbol.Add, "Adicionar produto");
                     break;
                 case TipoOperacao.Edicao:
-                    MainPage.Current.SeAtualizar(Telas.GerenciarDadosBase, Symbol.Edit, "Editar produto");
+                    MainPage.Current.SeAtualizar(Symbol.Edit, "Editar produto");
                     break;
             }
             DataContext = Produto;
@@ -78,12 +77,6 @@ namespace NFeFacil.View
         private void Cancelar_Click(object sender, RoutedEventArgs e)
         {
             MainPage.Current.Retornar();
-        }
-
-        public async Task EsconderAsync()
-        {
-            ocultarGrid.Begin();
-            await Task.Delay(250);
         }
     }
 }

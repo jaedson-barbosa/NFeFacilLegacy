@@ -8,8 +8,8 @@ using BibliotecaCentral;
 namespace BibliotecaCentral.Migrations
 {
     [DbContext(typeof(AplicativoContext))]
-    [Migration("20170520114746_Teste3")]
-    partial class Teste3
+    [Migration("20170531175625_Lancamento")]
+    partial class Lancamento
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -166,6 +166,9 @@ namespace BibliotecaCentral.Migrations
                     b.Property<int>("Status");
 
                     b.Property<DateTime>("UltimaData");
+
+                    b.Property<string>("XML")
+                        .IsRequired();
 
                     b.HasKey("Id");
 

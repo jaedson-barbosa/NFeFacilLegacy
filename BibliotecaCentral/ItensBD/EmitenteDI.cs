@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
+using System;
 
 namespace BibliotecaCentral.ItensBD
 {
@@ -29,7 +30,7 @@ namespace BibliotecaCentral.ItensBD
         public string Telefone { get; set; }
 
         public EmitenteDI() { }
-        public EmitenteDI(ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Emitente other)
+        public EmitenteDI(Emitente other)
         {
             CNPJ = other.CNPJ;
             Nome = other.nome;
@@ -53,9 +54,9 @@ namespace BibliotecaCentral.ItensBD
             Telefone = other.endereco.Telefone;
         }
 
-        public ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Emitente ToEmitente()
+        public Emitente ToEmitente()
         {
-            return new ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Emitente
+            return new Emitente
             {
                 CNPJ = CNPJ,
                 nome = Nome,

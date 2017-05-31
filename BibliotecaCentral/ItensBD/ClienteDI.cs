@@ -1,4 +1,5 @@
 ﻿using BibliotecaCentral.ModeloXML;
+using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using System;
 
 namespace BibliotecaCentral.ItensBD
@@ -37,7 +38,7 @@ namespace BibliotecaCentral.ItensBD
             (!string.IsNullOrEmpty(CNPJ)) ? TiposDocumento.CNPJ : TiposDocumento.CPF;
 
         public ClienteDI() { }
-        public ClienteDI(ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Destinatario other)
+        public ClienteDI(Destinatario other)
         {
             CPF = other.CPF;
             CNPJ = other.CNPJ;
@@ -61,9 +62,9 @@ namespace BibliotecaCentral.ItensBD
             Telefone = other.endereco.Telefone;
         }
 
-        public ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Destinatario ToDestinatario()
+        public Destinatario ToDestinatario()
         {
-            return new ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Destinatario
+            return new Destinatario
             {
                 CPF = CPF,
                 CNPJ = CNPJ,

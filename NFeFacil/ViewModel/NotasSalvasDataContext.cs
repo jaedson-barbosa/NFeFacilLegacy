@@ -1,4 +1,5 @@
-﻿using BibliotecaCentral.ItensBD;
+﻿using BibliotecaCentral;
+using BibliotecaCentral.ItensBD;
 using BibliotecaCentral.ModeloXML;
 using BibliotecaCentral.ModeloXML.PartesProcesso;
 using BibliotecaCentral.Repositorio;
@@ -7,6 +8,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
+using System.Xml.Linq;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 
@@ -51,7 +53,7 @@ namespace NFeFacil.ViewModel
             };
         }
 
-        private async static void Editar(NFeDI nota)
+        private static void Editar(NFeDI nota)
         {
             var conjunto = new ConjuntoManipuladorNFe
             {
@@ -60,32 +62,32 @@ namespace NFeFacil.ViewModel
             };
             if (nota.Status < 4)
             {
-                conjunto.NotaSalva = (await nota.ObjetoCompletoAsync()) as NFe;
+                conjunto.NotaSalva = XElement.Parse(nota.XML).FromXElement<NFe>();
             }
             else
             {
-                conjunto.NotaEmitida = (await nota.ObjetoCompletoAsync()) as Processo;
+                conjunto.NotaEmitida = XElement.Parse(nota.XML).FromXElement<Processo>();
             }
             MainPage.Current.AbrirFunçao(typeof(ManipulacaoNotaFiscal), conjunto);
         }
 
-        private async void Remover(NFeDI nota)
+        private void Remover(NFeDI nota)
         {
             using (var db = new NotasFiscais())
             {
-                await db.Remover(nota);
+                db.Remover(nota);
                 db.SalvarMudancas();
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(NotasSalvas)));
             }
         }
 
-        private async void RemoverSelecionados()
+        private void RemoverSelecionados()
         {
             using (var db = new NotasFiscais())
             {
                 for (int i = 0; i < ItensSelecionados.Count; i++)
                 {
-                    await db.Remover(ItensSelecionados[i] as NFeDI);
+                    db.Remover(ItensSelecionados[i] as NFeDI);
                 }
                 db.SalvarMudancas();
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(NotasSalvas)));

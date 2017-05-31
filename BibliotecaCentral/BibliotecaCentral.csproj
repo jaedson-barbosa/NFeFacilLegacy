@@ -113,9 +113,9 @@
     <Compile Include="ItensBD\EmitenteDI.cs" />
     <Compile Include="ItensBD\MotoristaDI.cs" />
     <Compile Include="ItensBD\ProdutoDI.cs" />
-    <Compile Include="Migrations\20170520114746_Teste3.cs" />
-    <Compile Include="Migrations\20170520114746_Teste3.designer.cs">
-      <DependentUpon>20170520114746_Teste3.cs</DependentUpon>
+    <Compile Include="Migrations\20170531175625_Lancamento.cs" />
+    <Compile Include="Migrations\20170531175625_Lancamento.designer.cs">
+      <DependentUpon>20170531175625_Lancamento.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\AplicativoContextModelSnapshot.cs" />
     <Compile Include="Repositorio\MudancaOtimizadaBancoDados.cs" />
@@ -249,7 +249,6 @@
     <Compile Include="ModeloXML\PartesProcesso\ProtocoloNFe.cs" />
     <Compile Include="ModeloXML\Processo.cs" />
     <Compile Include="Certificacao\Certificados.cs" />
-    <Compile Include="PastaNotasFiscais.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositorio\Clientes.cs" />
     <Compile Include="Repositorio\ConexaoBanco.cs" />

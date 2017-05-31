@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace BibliotecaCentral.Repositorio
 {
@@ -165,21 +163,19 @@ namespace BibliotecaCentral.Repositorio
             Contexto.UpdateRange(existem);
         }
 
-        internal async Task AdicionarNotasFiscais(Dictionary<NFeDI, XElement> notas)
+        internal void AdicionarNotasFiscais(List<NFeDI> notas)
         {
-            var pasta = new PastaNotasFiscais();
             foreach (var item in notas)
             {
-                item.Key.UltimaData = DateTime.Now;
-                if (Contexto.NotasFiscais.Count(x => x.Id == item.Key.Id) > 0)
+                item.UltimaData = DateTime.Now;
+                if (Contexto.NotasFiscais.Count(x => x.Id == item.Id) > 0)
                 {
-                    Contexto.Update(item.Key);
+                    Contexto.Update(item);
                 }
                 else
                 {
-                    Contexto.Add(item.Key);
+                    Contexto.Add(item);
                 }
-                await pasta.AdicionarOuAtualizar(item.Value, item.Key.Id);
             }
         }
     }

@@ -163,6 +163,9 @@ namespace BibliotecaCentral.Migrations
 
                     b.Property<DateTime>("UltimaData");
 
+                    b.Property<string>("XML")
+                        .IsRequired();
+
                     b.HasKey("Id");
 
                     b.ToTable("NotasFiscais");

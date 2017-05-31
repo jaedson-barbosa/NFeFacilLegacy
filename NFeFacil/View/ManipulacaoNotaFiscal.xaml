@@ -550,7 +550,7 @@
                 </PivotItem>
                 <PivotItem Header="Retenção ICMS"
                            IsEnabled="{Binding ManipulacaoAtivada}">
-                    <ItemsControl Style="{StaticResource ItensMedios}">
+                    <ItemsControl Style="{StaticResource ItensResponsivos}">
                         <TextBox Header="Valor do serviço"
                                  Text="{Binding NotaSalva.Informações.transp.retTransp.vServ, Mode=TwoWay}" />
                         <TextBox Header="BC da retenção do ICMS"

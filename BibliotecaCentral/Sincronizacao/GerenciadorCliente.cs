@@ -107,18 +107,15 @@ namespace BibliotecaCentral.Sincronizacao
 
                 var conjunto = from item in contexto.NotasFiscais
                                where item.UltimaData > momento
-                               join xml in await new PastaNotasFiscais().Registro() on item.Id equals xml.nome
-                               select new { DI = item, XML = xml.xml };
+                               select item;
                 var envio = new NotasFiscais
                 {
-                    DIs = conjunto.Select(x => x.DI).ToList(),
-                    XMLs = conjunto.Select(x => x.XML).ToList()
+                    DIs = conjunto.ToList(),
                 };
 
                 await EnviarAsync<string>("Notas", HttpMethod.Post, SenhaPermanente, envio);
-                await new Repositorio.MudancaOtimizadaBancoDados(contexto)
-                    .AdicionarNotasFiscais(receb.DIs.Zip(receb.XMLs, (di, xml) => new { di, xml })
-                    .ToDictionary(x => x.di, x => x.xml));
+                new Repositorio.MudancaOtimizadaBancoDados(contexto)
+                    .AdicionarNotasFiscais(receb.DIs);
 
                 return new ItensSincronizados(envio.DIs.Count, receb.DIs.Count);
             }
@@ -196,19 +193,14 @@ namespace BibliotecaCentral.Sincronizacao
 
             async Task<ItensSincronizados> SincronizarNotas(AplicativoContext contexto)
             {
-                var conjunto = from item in contexto.NotasFiscais
-                               join xml in await new PastaNotasFiscais().Registro() on item.Id equals xml.nome
-                               select new { DI = item, XML = xml.xml };
                 var envio = new NotasFiscais
                 {
-                    DIs = conjunto.Select(x => x.DI).ToList(),
-                    XMLs = conjunto.Select(x => x.XML).ToList()
+                    DIs = contexto.NotasFiscais.ToList(),
                 };
                 var receb = await EnviarAsync<NotasFiscais>("NotasCompleto", HttpMethod.Get, SenhaPermanente, envio);
 
-                await new Repositorio.MudancaOtimizadaBancoDados(contexto)
-                    .AdicionarNotasFiscais(receb.DIs.Zip(receb.XMLs, (di, xml) => new { di, xml })
-                    .ToDictionary(x => x.di, x => x.xml));
+                new Repositorio.MudancaOtimizadaBancoDados(contexto)
+                    .AdicionarNotasFiscais(receb.DIs);
 
                 return new ItensSincronizados(envio.DIs.Count, receb.DIs.Count);
             }

@@ -1,4 +1,5 @@
 ﻿using BibliotecaCentral.ModeloXML;
+using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
 using System;
 
 namespace BibliotecaCentral.ItensBD
@@ -23,7 +24,7 @@ namespace BibliotecaCentral.ItensBD
         public TiposDocumento TipoDocumento => !string.IsNullOrEmpty(CNPJ) ? TiposDocumento.CNPJ : TiposDocumento.CPF;
 
         public MotoristaDI() { }
-        public MotoristaDI(ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte.Motorista other)
+        public MotoristaDI(Motorista other)
         {
             CPF = other.CPF;
             CNPJ = other.CNPJ;
@@ -34,9 +35,9 @@ namespace BibliotecaCentral.ItensBD
             UF = other.UF;
         }
 
-        public ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte.Motorista ToMotorista()
+        public Motorista ToMotorista()
         {
-            return new ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte.Motorista
+            return new Motorista
             {
                 CPF = CPF,
                 CNPJ = CNPJ,

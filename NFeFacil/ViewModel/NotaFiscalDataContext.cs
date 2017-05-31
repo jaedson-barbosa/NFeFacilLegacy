@@ -192,11 +192,11 @@ namespace NFeFacil.ViewModel
         public ICommand ObterNovoNumeroCommand => new Comando(ObterNovoNumero, true);
         public ICommand LiberarEdicaoCommand => new Comando(LiberarEdicao, true);
         public ICommand ConfirmarCommand => new Comando(Confirmar, true);
-        public ICommand SalvarCommand => new Comando(async () =>
+        public ICommand SalvarCommand => new Comando(() =>
         {
             NormalizarNFe();
             StatusAtual = StatusNFe.Salva;
-            await SalvarAsync();
+            SalvarAsync();
             Log.Escrever(TitulosComuns.Sucesso, "Nota fiscal salva com sucesso. Agora podes sair da aplicação sem perder esta NFe.");
         }, true);
         public ICommand AssinarCommand => new Comando(Assinar, true);
@@ -269,7 +269,7 @@ namespace NFeFacil.ViewModel
                 var assina = new BibliotecaCentral.Certificacao.AssinaNFe(NotaSalva);
                 await assina.AssinarAsync();
                 StatusAtual = StatusNFe.Assinada;
-                await SalvarAsync();
+                SalvarAsync();
             }
             catch (Exception e)
             {
@@ -294,7 +294,7 @@ namespace NFeFacil.ViewModel
                     };
                     Log.Escrever(TitulosComuns.Sucesso, resultadoResposta.xMotivo);
                     StatusAtual = StatusNFe.Emitida;
-                    await SalvarAsync();
+                    SalvarAsync();
                 }
                 else
                 {
@@ -329,11 +329,11 @@ namespace NFeFacil.ViewModel
             }
         }
 
-        private async void GerarDANFE()
+        private void GerarDANFE()
         {
             MainPage.Current.AbrirFunçao(typeof(ViewDANFE), NotaEmitida);
             StatusAtual = StatusNFe.Impressa;
-            await SalvarAsync();
+            SalvarAsync();
         }
 
         #region Identificação
@@ -665,12 +665,12 @@ namespace NFeFacil.ViewModel
         }
 
         private bool UsarNotaSalva => StatusAtual != StatusNFe.Emitida && StatusAtual != StatusNFe.Impressa;
-        private async Task SalvarAsync()
+        private void SalvarAsync()
         {
             if (!AmbienteTestes)
             {
                 var xml = UsarNotaSalva ? NotaSalva.ToXElement<NFe>() : NotaEmitida.ToXElement<Processo>();
-                var di = UsarNotaSalva ? new NFeDI(NotaSalva) : new NFeDI(NotaEmitida);
+                var di = UsarNotaSalva ? new NFeDI(NotaSalva, xml.ToString()) : new NFeDI(NotaEmitida, xml.ToString());
                 di.Status = (int)StatusAtual;
                 using (var db = new NotasFiscais())
                 {
@@ -678,16 +678,16 @@ namespace NFeFacil.ViewModel
                     {
                         if (Conjunto.OperacaoRequirida == TipoOperacao.Adicao)
                         {
-                            await db.Adicionar(di, xml);
+                            db.Adicionar(di);
                         }
                         else
                         {
-                            await db.Atualizar(di, xml);
+                            db.Atualizar(di);
                         }
                     }
                     else
                     {
-                        await db.Atualizar(di, xml);
+                        db.Atualizar(di);
                     }
                 }
             }

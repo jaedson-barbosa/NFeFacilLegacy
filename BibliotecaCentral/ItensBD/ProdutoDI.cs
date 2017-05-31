@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
+using System;
 
 namespace BibliotecaCentral.ItensBD
 {
@@ -20,7 +21,7 @@ namespace BibliotecaCentral.ItensBD
         public double ValorUnitarioTributo { get; set; }
 
         public ProdutoDI() { }
-        public ProdutoDI(ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.ProdutoOuServico other)
+        public ProdutoDI(ProdutoOuServico other)
         {
             CodigoProduto = other.CodigoProduto;
             CodigoBarras = other.CodigoBarras;
@@ -35,9 +36,9 @@ namespace BibliotecaCentral.ItensBD
             ValorUnitarioTributo = other.ValorUnitarioTributo;
         }
 
-        public ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.ProdutoOuServico ToProdutoOuServico()
+        public ProdutoOuServico ToProdutoOuServico()
         {
-            return new ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.ProdutoOuServico
+            return new ProdutoOuServico
             {
                 CodigoProduto = CodigoProduto,
                 CodigoBarras = CodigoBarras,

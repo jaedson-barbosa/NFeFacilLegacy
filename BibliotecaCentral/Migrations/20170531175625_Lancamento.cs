@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BibliotecaCentral.Migrations
 {
-    public partial class Teste3 : Migration
+    public partial class Lancamento : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -100,7 +100,8 @@ namespace BibliotecaCentral.Migrations
                     NumeroNota = table.Column<long>(nullable: false),
                     SerieNota = table.Column<ushort>(nullable: false),
                     Status = table.Column<int>(nullable: false),
-                    UltimaData = table.Column<DateTime>(nullable: false)
+                    UltimaData = table.Column<DateTime>(nullable: false),
+                    XML = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {

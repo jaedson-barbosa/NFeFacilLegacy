@@ -31,11 +31,9 @@
     </Application>
   </Applications>
   <Capabilities>
-    <Capability Name="internetClient" />
     <Capability Name="internetClientServer" />
     <Capability Name="privateNetworkClientServer" />
     <uap:Capability Name="sharedUserCertificates" />
-    <uap:Capability Name="userAccountInformation" />
     <DeviceCapability Name="webcam" />
   </Capabilities>
 </Package>

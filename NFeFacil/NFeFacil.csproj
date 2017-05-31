@@ -248,7 +248,6 @@
     <Compile Include="View\NotasSalvas.xaml.cs">
       <DependentUpon>NotasSalvas.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Propriedades.cs" />
     <Compile Include="ViewModel\ImpostosProduto\COFINSDataContext.cs" />
     <Compile Include="ViewModel\Comando.cs" />
     <Compile Include="ViewModel\Converters\BoolToIcon.cs" />

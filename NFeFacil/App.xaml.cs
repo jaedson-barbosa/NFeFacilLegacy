@@ -33,8 +33,6 @@ namespace NFeFacil
         /// <param name="e">Detalhes sobre a solicitação e o processo de inicialização.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
-            Propriedades.Usuario = e.User;
-
             var rootFrame = Window.Current.Content as MainPage;
             if (rootFrame == null)
             {

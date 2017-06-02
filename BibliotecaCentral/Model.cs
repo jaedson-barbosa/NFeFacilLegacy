@@ -12,6 +12,7 @@ namespace BibliotecaCentral
         public DbSet<NFeDI> NotasFiscais { get; set; }
         public DbSet<ResultadoSincronizacaoCliente> ResultadosCliente { get; set; }
         public DbSet<ResultadoSincronizacaoServidor> ResultadosServidor { get; set; }
+        public DbSet<Certificado> Certificados { get; set; }
 
         public AplicativoContext()
         {

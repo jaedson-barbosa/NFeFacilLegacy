@@ -9,7 +9,7 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Pa
         /// (Opcional)
         /// Quantidade de volumes transportados.
         /// </summary>
-        public string qVol { get; set; }
+        public double qVol { get; set; }
 
         /// <summary>
         /// (Opcional)

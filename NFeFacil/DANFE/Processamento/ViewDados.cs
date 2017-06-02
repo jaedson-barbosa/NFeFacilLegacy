@@ -121,42 +121,68 @@ namespace NFeFacil.DANFE.Processamento
 
             DadosMotorista GetMotorista(Transporte transp)
             {
-                return new DadosMotorista
+                var retorno = new DadosMotorista
                 {
                     CodigoANTT = Analisar(transp.veicTransp?.RNTC),
                     DocumentoMotorista = transp.transporta?.Documento != null ? AplicatMascaraDocumento(transp.transporta?.Documento) : null,
                     EnderecoMotorista = Analisar(transp.transporta?.XEnder),
                     EspecieVolume = Analisar(transp.vol.FirstOrDefault()?.esp),
                     IEMotorista = Analisar(transp.transporta?.InscricaoEstadual),
-                    MarcaVolume = Analisar(transp.vol.FirstOrDefault()?.marca),
-                    ModalidadeFrete = ObterModalidadeCompleta(transp.modFrete),
                     MunicipioMotorista = Analisar(transp.transporta?.XMun),
                     NomeMotorista = Analisar(transp.transporta?.Nome),
-                    NumeroVolume = Analisar(transp.vol.FirstOrDefault()?.nVol),
-                    PesoBrutoVolume = transp.vol.FirstOrDefault()?.pesoB.ToString("N3"),
-                    PesoLiquidoVolume = transp.vol.FirstOrDefault()?.pesoL.ToString("N3"),
                     Placa = Analisar(transp.veicTransp?.Placa),
-                    QuantidadeVolume = Analisar(transp.vol.FirstOrDefault()?.qVol),
                     UfMotorista = Analisar(transp.transporta?.UF),
                     UfPlaca = Analisar(transp.veicTransp?.UF)
                 };
 
-                string ObterModalidadeCompleta(int modalidade)
+                if (transp.vol.Count == 0)
                 {
-                    switch (modalidade)
-                    {
-                        case 0:
-                            return "0 – Emitente";
-                        case 1:
-                            return "1 – Dest/Rem";
-                        case 2:
-                            return "2 – Terceiros";
-                        case 9:
-                            return "9 – Sem Frete";
-                        default:
-                            return "Erro";
-                    }
+                    retorno.EspecieVolume = string.Empty;
+                    retorno.MarcaVolume = string.Empty;
+                    retorno.NumeroVolume = string.Empty;
+                    retorno.PesoBrutoVolume = string.Empty;
+                    retorno.PesoLiquidoVolume = string.Empty;
+                    retorno.QuantidadeVolume = string.Empty;
                 }
+                else if (transp.vol.Count == 1)
+                {
+                    retorno.EspecieVolume = transp.vol[0].esp;
+                    retorno.MarcaVolume = transp.vol[0].marca;
+                    retorno.NumeroVolume = transp.vol[0].nVol;
+                    retorno.PesoBrutoVolume = transp.vol[0].pesoB.ToString("N3");
+                    retorno.PesoLiquidoVolume = transp.vol[0].pesoL.ToString("N3");
+                    retorno.QuantidadeVolume = transp.vol[0].qVol.ToString("N3");
+                }
+                else
+                {
+                    retorno.EspecieVolume = string.Empty;
+                    retorno.MarcaVolume = string.Empty;
+                    retorno.NumeroVolume = string.Empty;
+                    retorno.PesoBrutoVolume = transp.vol.Sum(x => x.pesoB).ToString("N3");
+                    retorno.PesoLiquidoVolume = transp.vol.Sum(x => x.pesoL).ToString("N3");
+                    retorno.QuantidadeVolume = transp.vol.Sum(x => x.qVol).ToString("N3");
+                }
+
+                switch (transp.modFrete)
+                {
+                    case 0:
+                        retorno.ModalidadeFrete = "0 – Emitente";
+                        break;
+                    case 1:
+                        retorno.ModalidadeFrete = "1 – Dest/Rem";
+                        break;
+                    case 2:
+                        retorno.ModalidadeFrete = "2 – Terceiros";
+                        break;
+                    case 9:
+                        retorno.ModalidadeFrete = "9 – Sem Frete";
+                        break;
+                    default:
+                        retorno.ModalidadeFrete = "Erro";
+                        break;
+                }
+
+                return retorno;
             }
 
             DadosNFe GetNFe(Detalhes detalhes, ProtocoloNFe prot)

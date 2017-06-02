@@ -3,7 +3,6 @@ using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Newtonsoft.Json;
 using BibliotecaCentral.Log;
 using BibliotecaCentral.Sincronizacao;
 using BibliotecaCentral.Sincronizacao.Pacotes;
@@ -90,7 +89,12 @@ namespace NFeFacil.ViewModel
         public async void LerQRTemporário()
         {
             var str = await QRCode.DecodificarQRAsync();
-            var resultado = JsonConvert.DeserializeObject<InfoEstabelecerConexao>(str);
+            var partes = str.Split(':');
+            var resultado = new InfoEstabelecerConexao
+            {
+                IP = partes[0],
+                SenhaTemporaria = int.Parse(partes[1])
+            };
             await EstabelecerConexaoAsync(resultado);
         }
 

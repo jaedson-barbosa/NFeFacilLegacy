@@ -9,8 +9,8 @@ using BibliotecaCentral.Importacao;
 using System.Text;
 using System.Security.Cryptography.X509Certificates;
 using System.Collections.ObjectModel;
-using System.Threading.Tasks;
 using BibliotecaCentral;
+using BibliotecaCentral.ItensBD;
 
 namespace NFeFacil.ViewModel
 {
@@ -26,13 +26,8 @@ namespace NFeFacil.ViewModel
         {
             ImportarNotaFiscalCommand = new Comando(ImportarNotaFiscal, true);
             ImportarDadoBaseCommand = new Comando(ImportarDadoBase, true);
-            Task.Run(InicarItensAsync).Wait();
-        }
-
-        async Task InicarItensAsync()
-        {
             CertificadosRepositorio = repo.ObterRegistroRepositorio().GerarObs();
-            NomesCertificadosPasta = (await repo.ObterRegistroPastaAsync()).GerarObs();
+            CertificadosBanco = repo.ObterRegistroBanco().GerarObs();
         }
 
         private readonly ILog LogPopUp = new Popup();
@@ -43,7 +38,7 @@ namespace NFeFacil.ViewModel
         private ConfiguracoesCertificacao config = new ConfiguracoesCertificacao();
 
         public ObservableCollection<X509Certificate2> CertificadosRepositorio { get; private set; }
-        public ObservableCollection<string> NomesCertificadosPasta { get; private set; }
+        public ObservableCollection<Certificado> CertificadosBanco { get; private set; }
 
         public bool UsarRepositorioWindows
         {
@@ -65,33 +60,18 @@ namespace NFeFacil.ViewModel
             }
         }
 
-        public object CertificadoEscolhido
+        public string CertificadoEscolhido
         {
-            get
-            {
-                if (config.CertificadoEscolhido != null)
-                {
-                    if (UsarRepositorioWindows)
-                    {
-                        return CertificadosRepositorio.First(x => x.SerialNumber == config.CertificadoEscolhido);
-                    }
-                    else
-                    {
-                        return NomesCertificadosPasta.FirstOrDefault(x => x == config.CertificadoEscolhido);
-                    }
-                }
-                else
-                {
-                    return null;
-                }
-            }
-            set => config.CertificadoEscolhido = value is string ? value as string : (value as X509Certificate2).SerialNumber;
+            get => config.CertificadoEscolhido;
+            set => config.CertificadoEscolhido = value;
         }
 
-        public ICommand ImportarCertificado => new Comando(async () =>
+        public ICommand ImportarCertificado => new Comando(async () => await new ImportarCertificado().ImportarAsync());
+
+        public ICommand ImportarCertificadoRemoto => new Comando(() =>
         {
-            await new ImportarCertificado().ImportarAsync();
-        }, true);
+
+        });
 
         #endregion
 

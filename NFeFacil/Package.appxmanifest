@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="f85d4d3f-0a9a-44a0-8c0c-582b27cac00a" Publisher="CN=Jaedson Barbosa Serafim" Version="1.1.3.0" />
-  <mp:PhoneIdentity PhoneProductId="f85d4d3f-0a9a-44a0-8c0c-582b27cac00a" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Identity Name="642Jabasoft.NFeFcil" Publisher="CN=C2D7C8B5-576A-4555-BF26-0D4B12E8FBC1" Version="1.1.1.0" />
+  <mp:PhoneIdentity PhoneProductId="5fe3da84-a899-474f-9ff7-ce8de0436cd9" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>NFeFacil</DisplayName>
-    <PublisherDisplayName>jaeds</PublisherDisplayName>
+    <DisplayName>NFe Fácil</DisplayName>
+    <PublisherDisplayName>Jabasoft</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>
@@ -15,7 +15,7 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="NFeFacil.App">
-      <uap:VisualElements DisplayName="NFeFacil" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="NFeFacil" BackgroundColor="transparent">
+      <uap:VisualElements DisplayName="NFe Fácil" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="NFeFacil" BackgroundColor="transparent">
         <uap:LockScreen Notification="badge" BadgeLogo="Assets\BadgeLogo.png" />
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square310x310Logo="Assets\LargeTile.png" Square71x71Logo="Assets\SmallTile.png">
         </uap:DefaultTile>
@@ -33,7 +33,6 @@
   <Capabilities>
     <Capability Name="internetClientServer" />
     <Capability Name="privateNetworkClientServer" />
-    <uap:Capability Name="sharedUserCertificates" />
     <DeviceCapability Name="webcam" />
   </Capabilities>
 </Package>

@@ -1,7 +1,6 @@
 ﻿using BibliotecaCentral.Log;
 using BibliotecaCentral.Sincronizacao;
 using BibliotecaCentral.Sincronizacao.Pacotes;
-using Newtonsoft.Json;
 using System;
 using System.ComponentModel;
 using System.Linq;
@@ -50,7 +49,7 @@ namespace NFeFacil.ViewModel
             GerenciadorServidor.Current.AbrirBrecha(TimeSpan.FromSeconds(ValorMaximo));
             await Task.Delay(200);
             //A geração do QR é feita no método assíncrono para não paralisar a tela.
-            QRGerado = QRCode.GerarQR(JsonConvert.SerializeObject(Informacoes), 1920, 1920);
+            QRGerado = QRCode.GerarQR($"{Informacoes.IP}:{Informacoes.SenhaTemporaria}", 1920, 1920);
             PropertyChanged(this, new PropertyChangedEventArgs(nameof(QRGerado)));
             brechaAberta = true;
             while (ValorAtual <= ValorMaximo && brechaAberta)

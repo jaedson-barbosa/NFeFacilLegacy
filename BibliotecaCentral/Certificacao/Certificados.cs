@@ -1,17 +1,12 @@
-﻿using System;
+﻿using BibliotecaCentral.ItensBD;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
-using System.Threading.Tasks;
-using Windows.Storage;
-using Windows.UI.Xaml.Controls;
 
 namespace BibliotecaCentral.Certificacao
 {
     public sealed class Certificados
     {
-        private StorageFolder PastaArquivos = ApplicationData.Current.LocalFolder;
-
         public IEnumerable<X509Certificate2> ObterRegistroRepositorio()
         {
             var loja = new X509Store(StoreName.My, StoreLocation.CurrentUser);
@@ -19,14 +14,15 @@ namespace BibliotecaCentral.Certificacao
             return loja.Certificates.Cast<X509Certificate2>();
         }
 
-        public async Task<IEnumerable<string>> ObterRegistroPastaAsync()
+        public IEnumerable<Certificado> ObterRegistroBanco()
         {
-            return from arq in await PastaArquivos.GetFilesAsync()
-                   where arq.FileType == ".pfx"
-                   select arq.DisplayName;
+            using (var contexto = new AplicativoContext())
+            {
+                return contexto.Certificados;
+            }
         }
 
-        public async Task<X509Certificate2> ObterCertificadoEscolhidoAsync()
+        public X509Certificate2 ObterCertificadoEscolhido()
         {
             var config = new ConfiguracoesCertificacao();
             if (config.FonteEscolhida == FonteCertificacao.RepositorioWindows)
@@ -37,28 +33,12 @@ namespace BibliotecaCentral.Certificacao
             }
             else
             {
-                var arq = await PastaArquivos.GetFileAsync(config.CertificadoEscolhido+".pfx");
-                return new X509Certificate2(arq.Path, await InputTextDialogAsync("Senha do certificado"));
+                using (var contexto = new AplicativoContext())
+                {
+                    var id = config.CertificadoEscolhido;
+                    return new X509Certificate2(contexto.Certificados.Find(id).Data);
+                }
             }
-        }
-
-        private async Task<string> InputTextDialogAsync(string title)
-        {
-            TextBox inputTextBox = new TextBox()
-            {
-                AcceptsReturn = false,
-                Height = 32
-            };
-            ContentDialog dialog = new ContentDialog();
-            dialog.Content = inputTextBox;
-            dialog.Title = title;
-            dialog.IsSecondaryButtonEnabled = false;
-            dialog.PrimaryButtonText = "Ok";
-            dialog.SecondaryButtonText = "Cancelar";
-            if (await dialog.ShowAsync() == ContentDialogResult.Primary)
-                return inputTextBox.Text;
-            else
-                return "";
         }
     }
 }

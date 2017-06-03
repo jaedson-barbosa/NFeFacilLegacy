@@ -36,7 +36,5 @@ namespace BibliotecaCentral.Importacao
             foreach (var item in Extensão) importar.FileTypeFilter.Add(item);
             return importar;
         }
-
-        public abstract Task<List<Exception>> ImportarAsync();
     }
 }

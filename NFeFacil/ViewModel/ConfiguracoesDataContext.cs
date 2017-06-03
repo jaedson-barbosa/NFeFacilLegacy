@@ -41,11 +41,8 @@ namespace NFeFacil.ViewModel
             set => config.CertificadoEscolhido = value;
         }
 
-        public ICommand ImportarCertificado => new Comando(async () => await new ImportarCertificado().ImportarAsync());
-        public ICommand ImportarCertificadoRemoto => new Comando(async () =>
-        {
-            await new ImportarCertificadoLAN(() => OnProperyChanged(nameof(CertificadosRepositorio))).ShowAsync();
-        });
+        public ICommand ImportarCertificado => new Comando(async () => await new ImportarCertificado().ImportarAsync(AttLista));
+        public ICommand ImportarCertificadoRemoto => new Comando(async () => await new ImportarCertificadoLAN(AttLista).ShowAsync());
         public ICommand InstalarRepositorioRemoto => new Comando(async () => await ExportarRepositorioRemoto.Exportar(LogPopUp));
         public ICommand RemoverCertificado => new Comando<X509Certificate2>(x =>
         {
@@ -56,6 +53,11 @@ namespace NFeFacil.ViewModel
             }
             OnProperyChanged(nameof(CertificadosRepositorio));
         });
+
+        void AttLista()
+        {
+            OnProperyChanged(nameof(CertificadosRepositorio));
+        }
 
         #endregion
 

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Windows.Storage.Pickers;
@@ -11,20 +10,15 @@ namespace BibliotecaCentral.Importacao
     {
         public ImportarCertificado() : base(".pfx") { }
 
-        public override async Task<List<Exception>> ImportarAsync()
+        public async Task ImportarAsync(Action attLista)
         {
-            var retorno = new List<Exception>();
             FileOpenPicker abrir = new FileOpenPicker
             {
                 SuggestedStartLocation = PickerLocationId.Downloads,
             };
             abrir.FileTypeFilter.Add(".pfx");
             var arq = await abrir.PickSingleFileAsync();
-            if (arq == null)
-            {
-                retorno.Add(new Exception("Nenhum arquivo foi selecionado."));
-            }
-            else
+            if (arq != null)
             {
                 var cert = new X509Certificate2(arq.Path, await InputTextDialogAsync("Senha do certificado"));
                 using (var loja = new X509Store())
@@ -32,8 +26,8 @@ namespace BibliotecaCentral.Importacao
                     loja.Open(OpenFlags.ReadWrite);
                     loja.Add(cert);
                 }
+                attLista();
             }
-            return retorno;
         }
 
         private async Task<string> InputTextDialogAsync(string title)
@@ -43,12 +37,14 @@ namespace BibliotecaCentral.Importacao
                 AcceptsReturn = false,
                 Height = 32
             };
-            ContentDialog dialog = new ContentDialog();
-            dialog.Content = inputTextBox;
-            dialog.Title = title;
-            dialog.IsSecondaryButtonEnabled = false;
-            dialog.PrimaryButtonText = "Ok";
-            dialog.SecondaryButtonText = "Cancelar";
+            ContentDialog dialog = new ContentDialog()
+            {
+                Content = inputTextBox,
+                Title = title,
+                IsSecondaryButtonEnabled = false,
+                PrimaryButtonText = "Ok",
+                SecondaryButtonText = "Cancelar"
+            };
             if (await dialog.ShowAsync() == ContentDialogResult.Primary)
                 return inputTextBox.Text;
             else

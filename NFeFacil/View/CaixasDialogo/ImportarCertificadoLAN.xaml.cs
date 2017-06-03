@@ -45,7 +45,19 @@ namespace NFeFacil.View.CaixasDialogo
             }
         }
 
-        private async void Importar(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        private void Importar(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            if (lstCertificados.SelectedIndex == -1)
+            {
+                args.Cancel = true;
+            }
+            else
+            {
+                Importar();
+            }
+        }
+
+        async void Importar()
         {
             try
             {

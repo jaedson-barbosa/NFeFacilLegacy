@@ -12,7 +12,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
-            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*" />
@@ -34,9 +33,5 @@
                   Grid.ColumnSpan="3"
                   DisplayMemberPath="Nome"
                   SelectedValuePath="NumeroSerial" />
-        <ProgressBar x:Name="barProgresso"
-                     Grid.Row="2"
-                     Height="24"
-                     Grid.ColumnSpan="3" />
     </Grid>
 </ContentDialog>

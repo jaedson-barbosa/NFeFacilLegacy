@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BibliotecaCentral.Log;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Net.Http;
@@ -15,26 +16,30 @@ namespace NFeFacil.View.CaixasDialogo
     {
         const string ObterCertificados = "ObterCertificados";
         const string ObterCertificado = "ObterCertificado";
+        ILog log = new Popup();
 
         public ImportarCertificadoLAN()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private async void Localizar(object sender, RoutedEventArgs e)
         {
-            using (var cliente = new HttpClient())
+            try
             {
-                barProgresso.Value = 0;
-                var resposta = await cliente.GetAsync(new Uri($"http://{txtIP.Text}:{txtPorta.Text}/{ObterCertificados}"));
-                barProgresso.Value = 50;
-                using (var stream = await resposta.Content.ReadAsStreamAsync())
+                using (var cliente = new HttpClient())
                 {
-                    var conjunto = new XmlSerializer(typeof(Certificados)).Deserialize(stream) as Certificados;
-                    barProgresso.Value = 75;
-                    lstCertificados.ItemsSource = new ObservableCollection<Certificados.CertificadoPrimitivo>(conjunto.Certificado);
-                    barProgresso.Value = 100;
+                    var resposta = await cliente.GetAsync(new Uri($"http://{txtIP.Text}:{txtPorta.Text}/{ObterCertificados}"));
+                    using (var stream = await resposta.Content.ReadAsStreamAsync())
+                    {
+                        var conjunto = new XmlSerializer(typeof(Certificados)).Deserialize(stream) as Certificados;
+                        lstCertificados.ItemsSource = new ObservableCollection<Certificados.CertificadoPrimitivo>(conjunto.Certificado);
+                    }
                 }
+            }
+            catch (Exception erro)
+            {
+                log.Escrever(TitulosComuns.ErroSimples, erro.Message);
             }
         }
 
@@ -45,23 +50,20 @@ namespace NFeFacil.View.CaixasDialogo
                 var serial = (string)lstCertificados.SelectedValue;
                 using (var cliente = new HttpClient())
                 {
-                    barProgresso.Value = 0;
                     var resposta = await cliente.GetAsync(new Uri($"http://{txtIP.Text}:{txtPorta.Text}/{ObterCertificado}/{serial}"));
-                    barProgresso.Value = 50;
                     var bytes = await resposta.Content.ReadAsByteArrayAsync();
-                    barProgresso.Value = 75;
                     var cert = new X509Certificate2(bytes);
                     using (var loja = new X509Store())
                     {
                         loja.Open(OpenFlags.ReadWrite);
                         loja.Add(cert);
                     }
-                    barProgresso.Value = 100;
                 }
             }
-            catch (Exception)
+            catch (Exception erro)
             {
                 args.Cancel = true;
+                log.Escrever(TitulosComuns.ErroSimples, erro.Message);
             }
         }
 

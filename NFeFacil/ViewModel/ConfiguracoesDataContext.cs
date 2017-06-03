@@ -24,7 +24,6 @@ namespace NFeFacil.ViewModel
         {
             ImportarNotaFiscalCommand = new Comando(ImportarNotaFiscal, true);
             ImportarDadoBaseCommand = new Comando(ImportarDadoBase, true);
-            CertificadosRepositorio = repo.ObterRegistroRepositorio();
         }
 
         private readonly ILog LogPopUp = new Popup();
@@ -34,7 +33,7 @@ namespace NFeFacil.ViewModel
         private Certificados repo = new Certificados();
         private ConfiguracoesCertificacao config = new ConfiguracoesCertificacao();
 
-        public ObservableCollection<X509Certificate2> CertificadosRepositorio { get; private set; }
+        public ObservableCollection<X509Certificate2> CertificadosRepositorio => repo.ObterRegistroRepositorio();
 
         public string CertificadoEscolhido
         {
@@ -43,8 +42,16 @@ namespace NFeFacil.ViewModel
         }
 
         public ICommand ImportarCertificado => new Comando(async () => await new ImportarCertificado().ImportarAsync());
-
         public ICommand ImportarCertificadoRemoto => new Comando(async () => await new ImportarCertificadoLAN().ShowAsync());
+        public ICommand RemoverCertificado => new Comando<X509Certificate2>(x =>
+        {
+            using (var loja = new X509Store())
+            {
+                loja.Open(OpenFlags.ReadWrite);
+                loja.Remove(x);
+            }
+            OnProperyChanged(nameof(CertificadosRepositorio));
+        });
 
         #endregion
 

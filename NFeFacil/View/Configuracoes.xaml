@@ -25,12 +25,11 @@
               Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <StackPanel>
             <TextBlock Style="{StaticResource BodyTextBlockStyle}">Escolha o certificado que será usado para realizar a conexão com os servidores da SEFAZ e para a assinatura das notas fiscais.</TextBlock>
-            <RadioButton GroupName="FonteCert"
-                         IsChecked="{Binding UsarRepositorioWindows, Mode=TwoWay}">Usar repositório de certificados do Windows</RadioButton>
-            <RadioButton GroupName="FonteCert"
-                         IsChecked="{Binding UsarPastaApp, Mode=TwoWay}">Usar pasta interna do aplicativo para certificados</RadioButton>
-            <ListView Visibility="{Binding UsarRepositorioWindows, Converter={StaticResource boolView}}"
-                      ItemsSource="{Binding CertificadosRepositorio, Mode=OneWay}"
+            <Button Command="{Binding ImportarCertificado}"
+                    HorizontalAlignment="Stretch">Importar certificado A1</Button>
+            <Button Command="{Binding ImportarCertificadoRemoto}"
+                    HorizontalAlignment="Stretch">Importar certificado de repositório remoto</Button>
+            <ListView ItemsSource="{Binding CertificadosRepositorio, Mode=OneWay}"
                       DisplayMemberPath="Subject"
                       SelectedValue="{Binding CertificadoEscolhido, Mode=TwoWay}"
                       SelectedValuePath="SerialNumber"
@@ -41,24 +40,6 @@
                                Style="{StaticResource SubtitleTextBlockStyle}">Certificados</TextBlock>
                 </ListView.Header>
             </ListView>
-            <StackPanel Visibility="{Binding UsarPastaApp, Converter={StaticResource boolView}}">
-                <TextBlock TextWrapping="Wrap">Para que possam existir certificados nesta pasta, primeiro você deve importá-los. Caso o certificado seja protegido por senha, quando necessário, ela será solicitada.</TextBlock>
-                <Button Command="{Binding ImportarCertificado}"
-                        HorizontalAlignment="Stretch">Importar certificado A1</Button>
-                <Button Command="{Binding ImportarCertificadoRemoto}"
-                        HorizontalAlignment="Stretch">Importar certificado de repositório remoto</Button>
-                <ListView ItemsSource="{Binding CertificadosBanco, Mode=OneWay}"
-                          DisplayMemberPath="Nome"
-                          SelectedValue="{Binding CertificadoEscolhido, Mode=TwoWay}"
-                          SelectedValuePath="NumeroSerial"
-                          BorderThickness="2"
-                          BorderBrush="{StaticResource Normal}">
-                    <ListView.Header>
-                        <TextBlock TextAlignment="Center"
-                                   Style="{StaticResource SubtitleTextBlockStyle}">Certificados</TextBlock>
-                    </ListView.Header>
-                </ListView>
-            </StackPanel>
         </StackPanel>
         <ScrollViewer VerticalScrollBarVisibility="Hidden">
             <StackPanel>

@@ -27,14 +27,10 @@ namespace BibliotecaCentral.Importacao
             else
             {
                 var cert = new X509Certificate2(arq.Path, await InputTextDialogAsync("Senha do certificado"));
-                using (var contexto = new AplicativoContext())
+                using (var loja = new X509Store())
                 {
-                    contexto.Certificados.Add(new ItensBD.Certificado
-                    {
-                        Data = cert.Export(X509ContentType.SerializedCert),
-                        Nome = cert.Subject,
-                        NumeroSerial = cert.SerialNumber
-                    });
+                    loja.Open(OpenFlags.ReadWrite);
+                    loja.Add(cert);
                 }
             }
             return retorno;

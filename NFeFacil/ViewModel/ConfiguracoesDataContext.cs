@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Linq;
 using System.Windows.Input;
 using BibliotecaCentral.Log;
 using BibliotecaCentral.Certificacao;
@@ -9,8 +8,7 @@ using BibliotecaCentral.Importacao;
 using System.Text;
 using System.Security.Cryptography.X509Certificates;
 using System.Collections.ObjectModel;
-using BibliotecaCentral;
-using BibliotecaCentral.ItensBD;
+using NFeFacil.View.CaixasDialogo;
 
 namespace NFeFacil.ViewModel
 {
@@ -26,8 +24,7 @@ namespace NFeFacil.ViewModel
         {
             ImportarNotaFiscalCommand = new Comando(ImportarNotaFiscal, true);
             ImportarDadoBaseCommand = new Comando(ImportarDadoBase, true);
-            CertificadosRepositorio = repo.ObterRegistroRepositorio().GerarObs();
-            CertificadosBanco = repo.ObterRegistroBanco().GerarObs();
+            CertificadosRepositorio = repo.ObterRegistroRepositorio();
         }
 
         private readonly ILog LogPopUp = new Popup();
@@ -38,27 +35,6 @@ namespace NFeFacil.ViewModel
         private ConfiguracoesCertificacao config = new ConfiguracoesCertificacao();
 
         public ObservableCollection<X509Certificate2> CertificadosRepositorio { get; private set; }
-        public ObservableCollection<Certificado> CertificadosBanco { get; private set; }
-
-        public bool UsarRepositorioWindows
-        {
-            get => config.FonteEscolhida == FonteCertificacao.RepositorioWindows;
-            set
-            {
-                config.FonteEscolhida = value ? FonteCertificacao.RepositorioWindows : FonteCertificacao.PastaApp;
-                OnProperyChanged(nameof(UsarRepositorioWindows));
-            }
-        }
-
-        public bool UsarPastaApp
-        {
-            get => !UsarRepositorioWindows;
-            set
-            {
-                UsarRepositorioWindows = !value;
-                OnProperyChanged(nameof(UsarPastaApp));
-            }
-        }
 
         public string CertificadoEscolhido
         {
@@ -68,10 +44,7 @@ namespace NFeFacil.ViewModel
 
         public ICommand ImportarCertificado => new Comando(async () => await new ImportarCertificado().ImportarAsync());
 
-        public ICommand ImportarCertificadoRemoto => new Comando(() =>
-        {
-
-        });
+        public ICommand ImportarCertificadoRemoto => new Comando(async () => await new ImportarCertificadoLAN().ShowAsync());
 
         #endregion
 

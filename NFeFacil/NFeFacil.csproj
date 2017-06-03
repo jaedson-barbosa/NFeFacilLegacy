@@ -224,6 +224,9 @@
     <Compile Include="View\CaixasDialogo\ConverterContextoDeclaracaoImportacao.cs" />
     <Compile Include="View\CaixasDialogo\ConverterContextoProcessoReferenciado.cs" />
     <Compile Include="ConjuntoManipuladorNFe.cs" />
+    <Compile Include="View\CaixasDialogo\ImportarCertificadoLAN.xaml.cs">
+      <DependentUpon>ImportarCertificadoLAN.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Consulta.xaml.cs">
       <DependentUpon>Consulta.xaml</DependentUpon>
     </Compile>
@@ -396,6 +399,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\CaixasDialogo\ConfigurarDadosConexao.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CaixasDialogo\ImportarCertificadoLAN.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,5 +1,4 @@
-﻿using BibliotecaCentral.ItensBD;
-using System.Collections.Generic;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 
@@ -7,37 +6,21 @@ namespace BibliotecaCentral.Certificacao
 {
     public sealed class Certificados
     {
-        public IEnumerable<X509Certificate2> ObterRegistroRepositorio()
+        public ObservableCollection<X509Certificate2> ObterRegistroRepositorio()
         {
-            var loja = new X509Store(StoreName.My, StoreLocation.CurrentUser);
-            loja.Open(OpenFlags.ReadOnly);
-            return loja.Certificates.Cast<X509Certificate2>();
-        }
-
-        public IEnumerable<Certificado> ObterRegistroBanco()
-        {
-            using (var contexto = new AplicativoContext())
+            using (var loja = new X509Store())
             {
-                return contexto.Certificados;
+                loja.Open(OpenFlags.ReadOnly);
+                return new ObservableCollection<X509Certificate2>(loja.Certificates.Cast<X509Certificate2>());
             }
         }
 
         public X509Certificate2 ObterCertificadoEscolhido()
         {
-            var config = new ConfiguracoesCertificacao();
-            if (config.FonteEscolhida == FonteCertificacao.RepositorioWindows)
+            using (var loja = new X509Store())
             {
-                var loja = new X509Store(StoreName.My, StoreLocation.CurrentUser);
                 loja.Open(OpenFlags.ReadOnly);
-                return loja.Certificates.Find(X509FindType.FindBySerialNumber, config.CertificadoEscolhido, true)[0];
-            }
-            else
-            {
-                using (var contexto = new AplicativoContext())
-                {
-                    var id = config.CertificadoEscolhido;
-                    return new X509Certificate2(contexto.Certificados.Find(id).Data);
-                }
+                return loja.Certificates.Find(X509FindType.FindBySerialNumber, new ConfiguracoesCertificacao().CertificadoEscolhido, true)[0];
             }
         }
     }

@@ -36,7 +36,6 @@ namespace BibliotecaCentral.Importacao
             return retorno;
         }
 
-
         private async Task<string> InputTextDialogAsync(string title)
         {
             TextBox inputTextBox = new TextBox()

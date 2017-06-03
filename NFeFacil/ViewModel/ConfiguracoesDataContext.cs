@@ -42,7 +42,11 @@ namespace NFeFacil.ViewModel
         }
 
         public ICommand ImportarCertificado => new Comando(async () => await new ImportarCertificado().ImportarAsync());
-        public ICommand ImportarCertificadoRemoto => new Comando(async () => await new ImportarCertificadoLAN().ShowAsync());
+        public ICommand ImportarCertificadoRemoto => new Comando(async () =>
+        {
+            await new ImportarCertificadoLAN(() => OnProperyChanged(nameof(CertificadosRepositorio))).ShowAsync();
+        });
+        public ICommand InstalarRepositorioRemoto => new Comando(async () => await ExportarRepositorioRemoto.Exportar(LogPopUp));
         public ICommand RemoverCertificado => new Comando<X509Certificate2>(x =>
         {
             using (var loja = new X509Store())

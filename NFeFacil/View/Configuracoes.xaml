@@ -28,6 +28,9 @@
                     HorizontalAlignment="Stretch">Importar certificado A1</Button>
             <Button Command="{Binding ImportarCertificadoRemoto}"
                     HorizontalAlignment="Stretch">Importar certificado de repositório remoto</Button>
+            <Button Command="{Binding InstalarRepositorioRemoto}"
+                    HorizontalAlignment="Stretch"
+                    ToolTipService.ToolTip="Mas atenção, ele só funciona em computadores">"Instalar" repositório remoto</Button>
             <ListView ItemsSource="{Binding CertificadosRepositorio, Mode=OneWay}"
                       SelectedValue="{Binding CertificadoEscolhido, Mode=TwoWay}"
                       SelectedValuePath="SerialNumber"

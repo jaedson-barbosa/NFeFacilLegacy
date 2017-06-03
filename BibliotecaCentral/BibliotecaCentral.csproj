@@ -109,6 +109,7 @@
   <ItemGroup>
     <Compile Include="Certificacao\AssinaNFe.cs" />
     <Compile Include="Certificacao\ConfiguracoesCertificacao.cs" />
+    <Compile Include="Certificacao\ExportarRepositorioRemoto.cs" />
     <Compile Include="ItensBD\ClienteDI.cs" />
     <Compile Include="ItensBD\EmitenteDI.cs" />
     <Compile Include="ItensBD\MotoristaDI.cs" />
@@ -118,6 +119,7 @@
       <DependentUpon>20170603122440_Loja1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\AplicativoContextModelSnapshot.cs" />
+    <Compile Include="RecursoInserido.cs" />
     <Compile Include="Repositorio\MudancaOtimizadaBancoDados.cs" />
     <Compile Include="Sincronizacao\ConfiguracoesSincronizacao.cs" />
     <Compile Include="Sincronizacao\Pacotes\NotasFiscais.cs" />
@@ -338,7 +340,9 @@
       <Name>System.Security.Cryptography.Xml</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Certificacao\RepositorioRemoto.zip" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

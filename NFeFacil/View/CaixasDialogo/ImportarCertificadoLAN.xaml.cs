@@ -17,10 +17,12 @@ namespace NFeFacil.View.CaixasDialogo
         const string ObterCertificados = "ObterCertificados";
         const string ObterCertificado = "ObterCertificado";
         ILog log = new Popup();
+        Action AttListas { get; }
 
-        public ImportarCertificadoLAN()
+        public ImportarCertificadoLAN(Action attListas)
         {
             InitializeComponent();
+            AttListas = attListas;
         }
 
         private async void Localizar(object sender, RoutedEventArgs e)
@@ -59,6 +61,7 @@ namespace NFeFacil.View.CaixasDialogo
                         loja.Add(cert);
                     }
                 }
+                AttListas();
             }
             catch (Exception erro)
             {

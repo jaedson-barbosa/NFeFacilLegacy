@@ -2,15 +2,15 @@
 {
     public struct Geral
     {
-        public DadosAdicionais _DadosAdicionais;
-        public DadosCabecalho _DadosCabecalho;
-        public DadosCliente _DadosCliente;
-        public DadosImposto _DadosImposto;
-        public DadosMotorista _DadosMotorista;
-        public DadosNFe _DadosNFe;
-        public DadosProduto[] _DadosProdutos;
-        public DadosDuplicata[] _Duplicatas;
-        public DadosISSQN _DadosISSQN;
+        public DadosAdicionais _DadosAdicionais { get; set; }
+        public DadosCabecalho _DadosCabecalho { get; set; }
+        public DadosCliente _DadosCliente { get; set; }
+        public DadosImposto _DadosImposto { get; set; }
+        public DadosMotorista _DadosMotorista { get; set; }
+        public DadosNFe _DadosNFe { get; set; }
+        public DadosProduto[] _DadosProdutos { get; set; }
+        public DadosDuplicata[] _Duplicatas { get; set; }
+        public DadosISSQN _DadosISSQN { get; set; }
         public string Fatura { get; set; }
     }
 }

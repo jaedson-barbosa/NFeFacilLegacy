@@ -7,7 +7,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil.View.PaginasDANFE
 {
-    public sealed partial class PaginaUnica : UserControl
+    public sealed partial class PaginaPrincipal : UserControl
     {
         double LarguraPagina => CentimeterToPixel(21);
         double AlturaPagina => CentimeterToPixel(29.7);
@@ -24,7 +24,7 @@ namespace NFeFacil.View.PaginasDANFE
         DadosISSQN ContextoISSQN { get; }
         Geral ContextoGeral { get; }
 
-        public PaginaUnica(BibliotecaCentral.ModeloXML.Processo processo)
+        public PaginaPrincipal(BibliotecaCentral.ModeloXML.Processo processo)
         {
             this.InitializeComponent();
             var geral = ViewDados.Converter(processo);

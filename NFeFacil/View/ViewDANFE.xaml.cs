@@ -39,7 +39,7 @@ namespace NFeFacil.View
             gerenciadorImpressão = new GerenciadorImpressao();
 
             var processo = (Processo)e.Parameter;
-            stk.Children.Add(new PaginasDANFE.PaginaUnica(processo));
+            stk.Children.Add(new PaginasDANFE.PaginaPrincipal(processo));
             btnImprimir.IsEnabled = true;
         }
 

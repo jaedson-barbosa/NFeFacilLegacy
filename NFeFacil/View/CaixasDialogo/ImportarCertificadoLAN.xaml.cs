@@ -77,7 +77,6 @@ namespace NFeFacil.View.CaixasDialogo
             }
             catch (Exception erro)
             {
-                args.Cancel = true;
                 log.Escrever(TitulosComuns.ErroSimples, erro.Message);
             }
         }

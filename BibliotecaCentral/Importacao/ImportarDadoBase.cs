@@ -21,7 +21,7 @@ namespace BibliotecaCentral.Importacao
             TipoDado = tipoDado;
         }
 
-        public override async Task<List<Exception>> ImportarAsync()
+        public async Task<List<Exception>> ImportarAsync()
         {
             arquivos = await ImportarArquivos();
             var listaXML = await Task.WhenAll(arquivos.Select(async x =>

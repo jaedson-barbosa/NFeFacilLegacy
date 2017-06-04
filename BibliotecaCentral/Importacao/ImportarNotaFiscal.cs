@@ -13,7 +13,7 @@ namespace BibliotecaCentral.Importacao
     {
         public ImportarNotaFiscal() : base(".xml") { }
 
-        public override async Task<List<Exception>> ImportarAsync()
+        public async Task<List<Exception>> ImportarAsync()
         {
             var arquivos = await ImportarArquivos();
             var retorno = new List<Exception>();

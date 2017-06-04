@@ -26,6 +26,7 @@ namespace NFeFacil.View.PartesDANFE
         public GridLength ColunaGeral6 => DimensoesPadrao.CentimeterToLength(1.5);
 
         public GridLength LinhaPadrao => DimensoesPadrao.CentimeterToLength(0.55);
+        public double AlturaPadrao => LinhaPadrao.Value;
     }
 
     public sealed class EsconderCasoNulo : IValueConverter

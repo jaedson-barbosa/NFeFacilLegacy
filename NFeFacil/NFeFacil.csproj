@@ -302,6 +302,9 @@
     <Compile Include="View\ConfigSincronizacao.xaml.cs">
       <DependentUpon>ConfigSincronizacao.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\PaginasDANFE\PaginaExtra.xaml.cs">
+      <DependentUpon>PaginaExtra.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\PaginasDANFE\PaginaPrincipal.xaml.cs">
       <DependentUpon>PaginaPrincipal.xaml</DependentUpon>
     </Compile>
@@ -333,6 +336,9 @@
       <DependentUpon>DadosNFe.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\PartesDANFE\DimensoesPadrao.cs" />
+    <Compile Include="View\PartesDANFE\ItemProduto.xaml.cs">
+      <DependentUpon>ItemProduto.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\QRConexao.xaml.cs">
       <DependentUpon>QRConexao.xaml</DependentUpon>
     </Compile>
@@ -507,6 +513,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\PaginasDANFE\PaginaExtra.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\PaginasDANFE\PaginaPrincipal.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -551,6 +561,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="View\PartesDANFE\ItemProduto.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\QRConexao.xaml">
       <SubType>Designer</SubType>

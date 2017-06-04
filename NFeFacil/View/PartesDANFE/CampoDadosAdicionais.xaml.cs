@@ -11,6 +11,8 @@ namespace NFeFacil.View.PartesDANFE
     {
         GridLength AlturaCampo => DimensoesPadrao.CentimeterToLength(3.2);
 
+        public RichTextBlock CampoObservacoes => bloco;
+
         public DadosAdicionais ContextoComplexo
         {
             set
@@ -18,7 +20,7 @@ namespace NFeFacil.View.PartesDANFE
                 LimparBloco();
                 if (value.Duplicatas != null && value.Duplicatas.Count > 0)
                 {
-                    var paragrafo = new Paragraph();
+                    var paragrafo = new Paragraph() { FontSize = 8 };
                     paragrafo.Inlines.Add(new Run() { Text = "  DE INTERESSE DO CONTRIBUINTE:" });
                     paragrafo.Inlines.Add(new LineBreak());
                     for (int i = 0; i < value.Duplicatas.Count; i++)
@@ -31,7 +33,7 @@ namespace NFeFacil.View.PartesDANFE
                 }
                 if (value.Dados != null)
                 {
-                    var paragrafo = new Paragraph();
+                    var paragrafo = new Paragraph() { FontSize = 8 };
                     paragrafo.Inlines.Add(new Run() { Text = "  DE INTERESSE DO CONTRIBUINTE:" });
                     paragrafo.Inlines.Add(new LineBreak());
                     paragrafo.Inlines.Add(new Run() { Text = value.Dados });
@@ -39,7 +41,7 @@ namespace NFeFacil.View.PartesDANFE
                 }
                 if (value.Fisco != null)
                 {
-                    var paragrafo = new Paragraph();
+                    var paragrafo = new Paragraph() { FontSize = 8 };
                     paragrafo.Inlines.Add(new Run() { Text = "  DE INTERESSE DO FISCO:" });
                     paragrafo.Inlines.Add(new LineBreak());
                     paragrafo.Inlines.Add(new Run() { Text = value.Fisco });

@@ -11,7 +11,7 @@
           Height="{x:Bind AlturaPagina}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition />
+            <RowDefinition x:Name="espacoParaProdutos" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <StackPanel Padding="{x:Bind MargemPadrao}">
@@ -21,11 +21,11 @@
             <partes:CampoFatura DataContext="{x:Bind ContextoGeral.Fatura}" />
             <partes:CampoImposto DataContext="{x:Bind ContextoImposto}" />
             <partes:CampoTransporte DataContext="{x:Bind ContextoTransporte}" />
-            <partes:CampoProdutos DataContext="{x:Bind Produtos}" />
+            <partes:CampoProdutos Loaded="CampoProdutos_Loaded" />
         </StackPanel>
         <StackPanel Padding="{x:Bind MargemPadrao}" Grid.Row="2">
             <partes:CampoISSQN DataContext="{x:Bind ContextoISSQN}" />
-            <partes:CampoDadosAdicionais ContextoComplexo="{x:Bind ContextoDadosAdicionais}" />
+            <partes:CampoDadosAdicionais x:Name="infoAdicional" ContextoComplexo="{x:Bind ContextoDadosAdicionais}" />
         </StackPanel>
     </Grid>
 </UserControl>

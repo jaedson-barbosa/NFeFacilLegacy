@@ -22,7 +22,6 @@ namespace NFeFacil.View
 
         double CentimeterToPixel(double Centimeter)
         {
-            //96 é a constante usada pelo CSS e 2.54 é a quantidade de cm de uma polegada
             const double fator = 96 / 2.54;
             return Centimeter * fator;
         }
@@ -39,7 +38,7 @@ namespace NFeFacil.View
             gerenciadorImpressão = new GerenciadorImpressao();
 
             var processo = (Processo)e.Parameter;
-            stk.Children.Add(new PaginasDANFE.PaginaPrincipal(processo));
+            stk.Children.Add(new PaginasDANFE.PaginaPrincipal(processo, stk.Children));
             btnImprimir.IsEnabled = true;
         }
 

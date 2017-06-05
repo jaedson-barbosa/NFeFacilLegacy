@@ -14,7 +14,7 @@ namespace NFeFacil.View.PaginasDANFE
         double LarguraPagina => CentimeterToPixel(21);
         double AlturaPagina => CentimeterToPixel(29.7);
 
-        public PaginaExtra(IEnumerable<DadosProduto> produtos, RichTextBlock infoAdicional)
+        public PaginaExtra(IEnumerable<DadosProduto> produtos, RichTextBlock infoAdicional, UIElementCollection paiPaginas)
         {
             this.InitializeComponent();
         }

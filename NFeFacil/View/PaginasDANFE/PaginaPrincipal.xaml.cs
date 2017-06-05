@@ -1,5 +1,6 @@
 ﻿using NFeFacil.DANFE.Pacotes;
 using NFeFacil.DANFE.Processamento;
+using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -20,11 +21,12 @@ namespace NFeFacil.View.PaginasDANFE
         DadosImposto ContextoImposto { get; }
         DadosMotorista ContextoTransporte { get; }
         DadosNFe ContextoNFe { get; }
-        DadosProduto[] Produtos { get; }
         DadosISSQN ContextoISSQN { get; }
         Geral ContextoGeral { get; }
 
-        public PaginaPrincipal(BibliotecaCentral.ModeloXML.Processo processo)
+        UIElementCollection PaiPaginas { get; }
+
+        public PaginaPrincipal(BibliotecaCentral.ModeloXML.Processo processo, UIElementCollection paiPaginas)
         {
             this.InitializeComponent();
             var geral = ViewDados.Converter(processo);
@@ -34,15 +36,34 @@ namespace NFeFacil.View.PaginasDANFE
             ContextoImposto = geral._DadosImposto;
             ContextoTransporte = geral._DadosMotorista;
             ContextoNFe = geral._DadosNFe;
-            Produtos = geral._DadosProdutos;
             ContextoISSQN = geral._DadosISSQN;
             ContextoGeral = geral;
+
+            PaiPaginas = paiPaginas;
         }
 
         static double CentimeterToPixel(double Centimeter)
         {
             const double fator = 96 / 2.54;
             return Centimeter * fator;
+        }
+
+        private void CampoProdutos_Loaded(object sender, RoutedEventArgs e)
+        {
+            double total = 0, maximo = espacoParaProdutos.ActualHeight;
+            var produtosNestaPagina = ContextoGeral._DadosProdutos.TakeWhile(x =>
+            {
+                var item = new PartesDANFE.ItemProduto() { DataContext = x };
+                item.Measure(new Windows.Foundation.Size(PartesDANFE.DimensoesPadrao.LarguraTotalStatic, espacoParaProdutos.ActualHeight));
+                total += item.DesiredSize.Height;
+                return total <= maximo;
+            });
+            ((FrameworkElement)sender).DataContext = produtosNestaPagina.ToArray();
+            if (ContextoGeral._DadosProdutos.Length - produtosNestaPagina.Count() > 0)
+            {
+                var produtosRestantes = ContextoGeral._DadosProdutos.Except(produtosNestaPagina);
+                PaiPaginas.Add(new PaginaExtra(produtosRestantes, infoAdicional.CampoObservacoes, PaiPaginas));
+            }
         }
     }
 }

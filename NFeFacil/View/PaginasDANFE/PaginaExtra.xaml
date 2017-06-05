@@ -8,23 +8,26 @@
     <UserControl.Resources>
         <ResourceDictionary Source="ms-appx:///View/PartesDANFE/EstilosPadrao.xaml" />
     </UserControl.Resources>
-    <Grid Width="{x:Bind LarguraPagina}"
+    <Grid x:Name="grd"
+          Width="{x:Bind LarguraPagina}"
           Height="{x:Bind AlturaPagina}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition x:Name="espacoParaProdutos" />
+            <RowDefinition Height="Auto"
+                           x:Name="espacoParaInfo" />
         </Grid.RowDefinitions>
-        <partes:CampoProdutos x:Name="produtos" />
-        <StackPanel x:Name="campoInfoAdicional"
+        <partes:CampoProdutos x:Name="campoProdutos" />
+        <StackPanel x:Name="geralCampoInfo"
                     Padding="{StaticResource PaddingPadrao}"
                     Grid.Row="1"
-                    BorderThickness="0,0,1,0"
-                    BorderBrush="Black">
+                    BorderThickness="1"
+                    BorderBrush="Black"
+                    CornerRadius="2">
             <Border BorderThickness="0,0,0,1"
                     BorderBrush="Black">
                 <TextBlock>CONTINUAÇÃO INFORMAÇÕES COMPLEMENTARES</TextBlock>
             </Border>
-            <RichTextBlockOverflow x:Name="bloco" />
+            <RichTextBlockOverflow x:Name="campoInfo" />
         </StackPanel>
     </Grid>
 </UserControl>

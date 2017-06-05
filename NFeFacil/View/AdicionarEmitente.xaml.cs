@@ -5,9 +5,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using BibliotecaCentral.Repositorio;
 using BibliotecaCentral.ItensBD;
-using System.ComponentModel;
-using BibliotecaCentral.IBGE;
-using System.Linq;
+using NFeFacil.ViewModel;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -80,35 +78,6 @@ namespace NFeFacil.View
         private void Cancelar_Click(object sender, RoutedEventArgs e)
         {
             MainPage.Current.Retornar();
-        }
-
-        private sealed class EmitenteDataContext : INotifyPropertyChanged
-        {
-            public EmitenteDI Emit { get; set; }
-
-            public string EstadoSelecionado
-            {
-                get => Emit.SiglaUF;
-                set
-                {
-                    Emit.SiglaUF = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(EstadoSelecionado)));
-                }
-            }
-
-            public Municipio ConjuntoMunicipio
-            {
-                get => Municipios.Get(Emit.SiglaUF).FirstOrDefault(x => x.Codigo == Emit.CodigoMunicipio);
-                set
-                {
-                    Emit.NomeMunicipio = value?.Nome;
-                    Emit.CodigoMunicipio = value?.Codigo ?? 0;
-                }
-            }
-
-            public EmitenteDataContext(ref EmitenteDI emit) => Emit = emit;
-
-            public event PropertyChangedEventHandler PropertyChanged;
         }
     }
 }

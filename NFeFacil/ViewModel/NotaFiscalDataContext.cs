@@ -644,6 +644,48 @@ namespace NFeFacil.ViewModel
 
         #endregion
 
+        #region Emitente
+
+        public ICommand ExibirEmitente => new Comando(async () =>
+        {
+            if (EmitenteSelecionado != null)
+            {
+                var caixa = new View.CaixasDialogo.DetalheEmitenteAtual()
+                {
+                    ManipulacaoAtivada = false,
+                    DataContext = new EmitenteDataContext(ref emitenteSelecionado)
+                };
+                await caixa.ShowAsync();
+            }
+            else
+            {
+                Log.Escrever(TitulosComuns.ErroSimples, "Este emitente não está cadastrado no banco de dados.");
+            }
+        });
+
+        public ICommand EditarEmitente => new Comando(async () =>
+        {
+            if (EmitenteSelecionado != null)
+            {
+
+                var caixa = new View.CaixasDialogo.DetalheEmitenteAtual()
+                {
+                    ManipulacaoAtivada = false,
+                    DataContext = new EmitenteDataContext(ref emitenteSelecionado)
+                };
+                if (await caixa.ShowAsync() == Windows.UI.Xaml.Controls.ContentDialogResult.Primary)
+                {
+                    EmitenteSelecionado = ((EmitenteDataContext)caixa.DataContext).Emit;
+                }
+            }
+            else
+            {
+                Log.Escrever(TitulosComuns.ErroSimples, "Este emitente não está cadastrado no banco de dados.");
+            }
+        });
+
+        #endregion
+
         private bool nfeNormalizado = false;
         private void NormalizarNFe()
         {

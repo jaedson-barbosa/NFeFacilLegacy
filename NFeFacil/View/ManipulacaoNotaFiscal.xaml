@@ -233,19 +233,25 @@
                 </PivotItem>
             </Pivot>
         </ScrollViewer>
-        <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                      IsEnabled="{Binding ManipulacaoAtivada}">
+        <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Hidden">
             <StackPanel>
                 <TextBlock Text="Escolha um emitente já cadastrado." />
                 <ComboBox ItemsSource="{Binding EmitentesDisponiveis}"
                           HorizontalAlignment="Stretch"
-                          SelectedItem="{Binding EmitenteSelecionado, Mode=TwoWay}">
+                          SelectedItem="{Binding EmitenteSelecionado, Mode=TwoWay}"
+                          IsEnabled="{Binding ManipulacaoAtivada}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Nome}" />
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
+                <StackPanel Orientation="Horizontal">
+                    <Button Margin="0,0,8,0"
+                            Command="{Binding ExibirEmitente}">Exibir</Button>
+                    <Button Command="{Binding EditarEmitente}"
+                            IsEnabled="{Binding ManipulacaoAtivada}">Editar</Button>
+                </StackPanel>
             </StackPanel>
         </ScrollViewer>
         <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Hidden"

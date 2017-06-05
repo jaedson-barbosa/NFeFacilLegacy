@@ -23,9 +23,11 @@
             <partes:CampoTransporte DataContext="{x:Bind ContextoTransporte}" />
             <partes:CampoProdutos Loaded="CampoProdutos_Loaded" />
         </StackPanel>
-        <StackPanel Padding="{x:Bind MargemPadrao}" Grid.Row="2">
+        <StackPanel Padding="{x:Bind MargemPadrao}"
+                    Grid.Row="2">
             <partes:CampoISSQN DataContext="{x:Bind ContextoISSQN}" />
-            <partes:CampoDadosAdicionais x:Name="infoAdicional" ContextoComplexo="{x:Bind ContextoDadosAdicionais}" />
+            <partes:CampoDadosAdicionais x:Name="infoAdicional"
+                                         ContextoComplexo="{x:Bind ContextoDadosAdicionais}" />
         </StackPanel>
     </Grid>
 </UserControl>

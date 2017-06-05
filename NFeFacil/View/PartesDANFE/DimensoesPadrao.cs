@@ -11,7 +11,7 @@ namespace NFeFacil.View.PartesDANFE
         public double LarguraTotal => LarguraTotalStatic;
         internal static double LarguraTotalStatic => CentimeterToPixel(19);
 
-        static double CentimeterToPixel(double Centimeter)
+        internal static double CentimeterToPixel(double Centimeter)
         {
             const double fator = 96 / 2.54;
             return Centimeter * fator;

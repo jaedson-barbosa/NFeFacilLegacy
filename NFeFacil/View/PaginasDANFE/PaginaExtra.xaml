@@ -10,7 +10,8 @@
     </UserControl.Resources>
     <Grid x:Name="grd"
           Width="{x:Bind LarguraPagina}"
-          Height="{x:Bind AlturaPagina}">
+          Height="{x:Bind AlturaPagina}"
+          Padding="{x:Bind MargemPadrao}">
         <Grid.RowDefinitions>
             <RowDefinition x:Name="espacoParaProdutos" />
             <RowDefinition Height="Auto"

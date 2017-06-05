@@ -10,10 +10,9 @@ namespace NFeFacil.View.PaginasDANFE
 {
     public sealed partial class PaginaPrincipal : UserControl
     {
-        double LarguraPagina => CentimeterToPixel(21);
-        double AlturaPagina => CentimeterToPixel(29.7);
-
-        Thickness MargemPadrao => new Thickness(CentimeterToPixel(1));
+        double LarguraPagina => PartesDANFE.DimensoesPadrao.CentimeterToPixel(21);
+        double AlturaPagina => PartesDANFE.DimensoesPadrao.CentimeterToPixel(29.7);
+        Thickness MargemPadrao => new Thickness(PartesDANFE.DimensoesPadrao.CentimeterToPixel(1));
 
         DadosCabecalho ContextoCanhoto { get; }
         DadosAdicionais ContextoDadosAdicionais { get; }
@@ -40,12 +39,6 @@ namespace NFeFacil.View.PaginasDANFE
             ContextoGeral = geral;
 
             PaiPaginas = paiPaginas;
-        }
-
-        static double CentimeterToPixel(double Centimeter)
-        {
-            const double fator = 96 / 2.54;
-            return Centimeter * fator;
         }
 
         private void CampoProdutos_Loaded(object sender, RoutedEventArgs e)

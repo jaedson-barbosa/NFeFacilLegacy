@@ -1,6 +1,8 @@
 ﻿using NFeFacil.DANFE.Pacotes;
+using NFeFacil.View.PartesDANFE;
 using System.Collections.Generic;
 using System.Linq;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
@@ -12,8 +14,9 @@ namespace NFeFacil.View.PaginasDANFE
     /// </summary>
     public sealed partial class PaginaExtra : UserControl
     {
-        double LarguraPagina => CentimeterToPixel(21);
-        double AlturaPagina => CentimeterToPixel(29.7);
+        double LarguraPagina => DimensoesPadrao.CentimeterToPixel(21);
+        double AlturaPagina => DimensoesPadrao.CentimeterToPixel(29.7);
+        Thickness MargemPadrao => new Thickness(DimensoesPadrao.CentimeterToPixel(1));
 
         public PaginaExtra(IEnumerable<DadosProduto> produtos, RichTextBlock infoAdicional, UIElementCollection paiPaginas, MotivoCriacaoPaginaExtra motivo)
         {
@@ -73,12 +76,6 @@ namespace NFeFacil.View.PaginasDANFE
                     paiPaginas.Add(new PaginaExtra(produtosRestantes, infoAdicional, paiPaginas, MotivoCriacaoPaginaExtra.Produtos));
                 }
             }
-        }
-
-        static double CentimeterToPixel(double Centimeter)
-        {
-            const double fator = 96 / 2.54;
-            return Centimeter * fator;
         }
     }
 }

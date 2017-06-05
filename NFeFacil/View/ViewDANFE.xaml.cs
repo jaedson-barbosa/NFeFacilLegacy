@@ -15,16 +15,10 @@ namespace NFeFacil.View
     {
         private GerenciadorImpressao gerenciadorImpressão;
 
-        public double Largura => CentimeterToPixel(21);
-        public double Altura => CentimeterToPixel(29.7);
+        public double Largura => PartesDANFE.DimensoesPadrao.CentimeterToPixel(21);
+        public double Altura => PartesDANFE.DimensoesPadrao.CentimeterToPixel(29.7);
 
         private byte[] Pixels;
-
-        double CentimeterToPixel(double Centimeter)
-        {
-            const double fator = 96 / 2.54;
-            return Centimeter * fator;
-        }
 
         public ViewDANFE()
         {

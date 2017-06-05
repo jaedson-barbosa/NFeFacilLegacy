@@ -108,9 +108,6 @@
                 </StackPanel>
             </ScrollViewer>
             <Grid>
-                <Grid.Resources>
-                    <ResourceDictionary Source="Estilos/PivotSecundário.xaml" />
-                </Grid.Resources>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />

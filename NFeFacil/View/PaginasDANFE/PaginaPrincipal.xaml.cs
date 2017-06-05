@@ -59,10 +59,25 @@ namespace NFeFacil.View.PaginasDANFE
                 return total <= maximo;
             });
             ((FrameworkElement)sender).DataContext = produtosNestaPagina.ToArray();
-            if (ContextoGeral._DadosProdutos.Length - produtosNestaPagina.Count() > 0)
+
+            bool excessoProdutos = ContextoGeral._DadosProdutos.Length - produtosNestaPagina.Count() > 0;
+            bool excessoObservacao = infoAdicional.CampoObservacoes.HasOverflowContent;
+
+            if (excessoProdutos)
             {
                 var produtosRestantes = ContextoGeral._DadosProdutos.Except(produtosNestaPagina);
-                PaiPaginas.Add(new PaginaExtra(produtosRestantes, infoAdicional.CampoObservacoes, PaiPaginas));
+                if (excessoObservacao)
+                {
+                    PaiPaginas.Add(new PaginaExtra(produtosRestantes, infoAdicional.CampoObservacoes, PaiPaginas, MotivoCriacaoPaginaExtra.Ambos));
+                }
+                else
+                {
+                    PaiPaginas.Add(new PaginaExtra(produtosRestantes, infoAdicional.CampoObservacoes, PaiPaginas, MotivoCriacaoPaginaExtra.Produtos));
+                }
+            }
+            else if (excessoObservacao)
+            {
+                PaiPaginas.Add(new PaginaExtra(null, infoAdicional.CampoObservacoes, PaiPaginas, MotivoCriacaoPaginaExtra.Observacao));
             }
         }
     }

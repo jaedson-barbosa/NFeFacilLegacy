@@ -302,6 +302,7 @@
     <Compile Include="View\ConfigSincronizacao.xaml.cs">
       <DependentUpon>ConfigSincronizacao.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\PaginasDANFE\MotivoCriacaoPaginaExtra.cs" />
     <Compile Include="View\PaginasDANFE\PaginaExtra.xaml.cs">
       <DependentUpon>PaginaExtra.xaml</DependentUpon>
     </Compile>

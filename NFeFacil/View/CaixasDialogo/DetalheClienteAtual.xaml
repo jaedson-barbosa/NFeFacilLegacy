@@ -22,7 +22,8 @@
     </ContentDialog.Resources>
     <ScrollViewer VerticalScrollBarVisibility="Hidden">
         <StackPanel>
-            <ItemsControl Style="{StaticResource ItensResponsivos}">
+            <ItemsControl Style="{StaticResource ItensResponsivos}"
+                          IsEnabled="{x:Bind ManipulacaoAtivada}">
                 <TextBox Text="{Binding Cliente.Nome, Mode=TwoWay}"
                          InputScope="Text"
                          Header="Nome/Razão social *" />
@@ -56,9 +57,11 @@
                 <CheckBox Content="Nacional"
                           HorizontalAlignment="Right"
                           VerticalAlignment="Top"
+                          IsEnabled="{x:Bind ManipulacaoAtivada}"
                           IsChecked="{Binding Nacional, Mode=TwoWay}" />
             </Grid>
-            <ItemsControl Style="{StaticResource ItensResponsivos}">
+            <ItemsControl Style="{StaticResource ItensResponsivos}"
+                          IsEnabled="{x:Bind ManipulacaoAtivada}">
                 <ComboBox IsEnabled="{Binding Nacional}"
                           ItemsSource="{Binding Source={StaticResource estados}, Path=Siglas}"
                           SelectedItem="{Binding UFEscolhida, Mode=TwoWay}"

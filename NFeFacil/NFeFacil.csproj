@@ -186,6 +186,7 @@
     <Compile Include="ViewModel\EmitenteDataContext.cs" />
     <Compile Include="ViewModel\GerenciadorDadosBaseDataContext.cs" />
     <Compile Include="ViewModel\IObterPropriedade.cs" />
+    <Compile Include="ViewModel\MotoristaDataContext.cs" />
     <Compile Include="ViewModel\NotaFiscalDataContext.cs" />
     <Compile Include="ViewModel\NotasSalvasDataContext.cs" />
     <Compile Include="ViewModel\ObterDataContext.cs" />
@@ -231,6 +232,9 @@
     </Compile>
     <Compile Include="View\CaixasDialogo\DetalheEmitenteAtual.xaml.cs">
       <DependentUpon>DetalheEmitenteAtual.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\CaixasDialogo\DetalheMotoristaAtual.xaml.cs">
+      <DependentUpon>DetalheMotoristaAtual.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\CaixasDialogo\ImportarCertificadoLAN.xaml.cs">
       <DependentUpon>ImportarCertificadoLAN.xaml</DependentUpon>
@@ -419,6 +423,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\CaixasDialogo\DetalheEmitenteAtual.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CaixasDialogo\DetalheMotoristaAtual.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

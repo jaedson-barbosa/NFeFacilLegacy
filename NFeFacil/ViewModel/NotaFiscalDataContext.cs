@@ -702,6 +702,35 @@ namespace NFeFacil.ViewModel
 
         #endregion
 
+        #region Motorista
+
+        public ICommand ExibirMotorista => new Comando(async () =>
+        {
+            var emit = motoristaSelecionado ?? new MotoristaDI(NotaSalva.Informações.transp.transporta);
+            var caixa = new View.CaixasDialogo.DetalheMotoristaAtual()
+            {
+                ManipulacaoAtivada = false,
+                DataContext = new MotoristaDataContext(ref emit)
+            };
+            await caixa.ShowAsync();
+        });
+
+        public ICommand EditarMotorista => new Comando(async () =>
+        {
+            var emit = motoristaSelecionado ?? new MotoristaDI(NotaSalva.Informações.transp.transporta);
+            var caixa = new View.CaixasDialogo.DetalheMotoristaAtual()
+            {
+                ManipulacaoAtivada = true,
+                DataContext = new MotoristaDataContext(ref emit)
+            };
+            if (await caixa.ShowAsync() == Windows.UI.Xaml.Controls.ContentDialogResult.Primary)
+            {
+                MotoristaSelecionado = ((MotoristaDataContext)caixa.DataContext).Motorista;
+            }
+        });
+
+        #endregion
+
         private bool nfeNormalizado = false;
         private void NormalizarNFe()
         {

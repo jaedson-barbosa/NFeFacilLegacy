@@ -259,12 +259,12 @@
                     </StackPanel>
                 </StackPanel>
             </ScrollViewer>
-            <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                          IsEnabled="{Binding ManipulacaoAtivada}">
+            <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Hidden">
                 <StackPanel>
                     <TextBlock Text="Escolha um cliente já cadastrado." />
                     <ComboBox ItemsSource="{Binding ClientesDisponiveis}"
                               HorizontalAlignment="Stretch"
+                              IsEnabled="{Binding ManipulacaoAtivada}"
                               SelectedItem="{Binding ClienteSelecionado, Mode=TwoWay}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
@@ -460,15 +460,21 @@
                           HorizontalAlignment="Stretch"
                           Header="Modalidade do frete" />
                 <Pivot Margin="0,4,0,0">
-                    <PivotItem Header="Motorista"
-                               IsEnabled="{Binding ManipulacaoAtivada}">
+                    <PivotItem Header="Motorista">
                         <StackPanel>
                             <TextBlock Text="Escolha um motorista já cadastrado ou insira os valores manualmente nos campos abaixo."
                                        TextWrapping="Wrap" />
                             <ComboBox ItemsSource="{Binding MotoristasDisponiveis}"
                                       HorizontalAlignment="Stretch"
+                                      IsEnabled="{Binding ManipulacaoAtivada}"
                                       SelectedItem="{Binding MotoristaSelecionado, Mode=TwoWay}"
                                       DisplayMemberPath="Nome" />
+                            <StackPanel Orientation="Horizontal">
+                                <Button Margin="0,0,8,0"
+                                        Command="{Binding ExibirMotorista}">Exibir</Button>
+                                <Button Command="{Binding EditarMotorista}"
+                                        IsEnabled="{Binding ManipulacaoAtivada}">Editar</Button>
+                            </StackPanel>
                         </StackPanel>
                     </PivotItem>
                     <PivotItem Header="Veículo"

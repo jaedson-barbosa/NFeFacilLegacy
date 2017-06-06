@@ -26,13 +26,6 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
 
         /// <summary>
         /// (Opcional)
-        /// Grupo Campo de uso livre do Fisco
-        /// </summary>
-        [XmlElement(nameof(obsFisco))]
-        public List<Observacao> obsFisco;
-
-        /// <summary>
-        /// (Opcional)
         /// Grupo Processo referenciado.
         /// </summary>
         [XmlElement(nameof(procRef))]

@@ -30,25 +30,7 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
         public string email { get; set; }
 
         [XmlIgnore]
-        public string Documento
-        {
-            get => idEstrangeiro ?? CNPJ ?? CPF;
-            set
-            {
-                if (!string.IsNullOrEmpty(idEstrangeiro))
-                {
-                    idEstrangeiro = value;
-                }
-                else if (!string.IsNullOrEmpty(CNPJ))
-                {
-                    CNPJ = value;
-                }
-                else
-                {
-                    CPF = value;
-                }
-            }
-        }
+        public string Documento => idEstrangeiro ?? CNPJ ?? CPF;
         [XmlIgnore]
         public TiposDocumento obterTipoDocumento => (!string.IsNullOrEmpty(idEstrangeiro)) ? TiposDocumento.idEstrangeiro :
             (!string.IsNullOrEmpty(CNPJ)) ? TiposDocumento.CNPJ : TiposDocumento.CPF;

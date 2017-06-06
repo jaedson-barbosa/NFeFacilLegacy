@@ -34,21 +34,7 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Pa
         public string UF { get; set; }
 
         [XmlIgnore]
-        public string Documento
-        {
-            get => CNPJ ?? CPF;
-            set
-            {
-                if (!string.IsNullOrEmpty(CNPJ))
-                {
-                    CNPJ = value;
-                }
-                else
-                {
-                    CPF = value;
-                }
-            }
-        }
+        public string Documento => CNPJ ?? CPF;
         [XmlIgnore]
         public TiposDocumento TipoDocumento => !string.IsNullOrEmpty(CNPJ) ? TiposDocumento.CNPJ : TiposDocumento.CPF;
     }

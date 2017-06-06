@@ -741,7 +741,7 @@ namespace NFeFacil.ViewModel
             NotaSalva.Informações.total.ISSQNtot = NotaSalva.Informações.total.ISSQNtot.ToXElement<ISSQNtot>().Elements().Count(x => x.Value != "0") > 0 ? NotaSalva.Informações.total.ISSQNtot : null;
             NotaSalva.Informações.total.retTrib = NotaSalva.Informações.total.retTrib.ToXElement<RetTrib>().HasElements ? NotaSalva.Informações.total.retTrib : null;
             NotaSalva.Informações.cobr = ValidarFatura(NotaSalva.Informações.cobr?.Fat) ? NotaSalva.Informações.cobr : null;
-            NotaSalva.Informações.infAdic = NotaSalva.Informações.infAdic?.ToXElement<InformacoesAdicionais>().HasElements ?? false ? NotaSalva.Informações.infAdic : null;
+            NotaSalva.Informações.infAdic = ValidarInfoAdicional(NotaSalva.Informações.infAdic) ? NotaSalva.Informações.infAdic : null;
             NotaSalva.Informações.exporta = new ValidadorExportacao(NotaSalva.Informações.exporta).Validar(null) ? NotaSalva.Informações.exporta : null;
             NotaSalva.Informações.compra = NotaSalva.Informações.compra?.ToXElement<Compra>().HasElements ?? false ? NotaSalva.Informações.compra : null;
             NotaSalva.Informações.cana = NotaSalva.Informações.cana?.ToXElement<RegistroAquisicaoCana>().HasElements ?? false ? NotaSalva.Informações.cana : null;
@@ -750,17 +750,45 @@ namespace NFeFacil.ViewModel
 
             bool ValidarFatura(Fatura fat)
             {
-                var bools = new bool[4]
+                if (fat == null)
                 {
-                    string.IsNullOrEmpty(fat?.NFat),
-                    string.IsNullOrEmpty(fat?.VDesc),
-                    string.IsNullOrEmpty(fat?.VLiq),
-                    string.IsNullOrEmpty(fat?.VOrig)
-                };
-                return bools.Count(x => x) <= 1;
+                    return false;
+                }
+                else
+                {
+                    var errados = new bool[4]
+                    {
+                        string.IsNullOrEmpty(fat.NFat) && int.Parse(fat.NFat) == 0,
+                        string.IsNullOrEmpty(fat.VDesc) && double.Parse(fat.VDesc) == 0,
+                        string.IsNullOrEmpty(fat.VLiq) && double.Parse(fat.VLiq) == 0,
+                        string.IsNullOrEmpty(fat.VOrig) && double.Parse(fat.VOrig) == 0
+                    };
+                    return errados.Count(x => x) <= 2;
+                }
+            }
+
+            bool ValidarInfoAdicional(InformacoesAdicionais info)
+            {
+                if (info == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    var errados = new bool[3]
+                    {
+                        string.IsNullOrEmpty(info.infCpl),
+                        info.obsCont.Count == 0,
+                        info.procRef.Count == 0
+                    };
+                    return errados.Count(x => x) < 3;
+                }
             }
         }
 
+        /// <summary>
+        /// Analisa os campos opcionais e, caso necessário, instancia novos objetos
+        /// </summary>
         void DesnormalizarNFe()
         {
             if (NotaSalva.Informações.transp.transporta == null)

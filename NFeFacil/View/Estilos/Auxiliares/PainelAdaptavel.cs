@@ -33,8 +33,7 @@ namespace NFeFacil.View.Estilos.Auxiliares
             var tamanho = new Size(_maxWidth, _maxHeight);
             double maxX = (colunas - 1) * _maxWidth;
 
-            double x = 0;
-            double y = 0;
+            double x = 0, y = 0;
             for (int k = 0; k < Children.Count; k++)
             {
                 var inicio = new Point(x, y);

@@ -78,16 +78,9 @@ namespace NFeFacil
                 menuPermanente.Visibility = btnHambuguer.Visibility = Visibility.Visible;
                 conteudo = hambuguer.ConteudoMenu;
 
-                if (Window.Current.Bounds.Width >= 720)
-                {
-                    AtualizarPosicaoMenu("TelaGrande");
-                }
-                else
-                {
-                    AtualizarPosicaoMenu("TelaPequena");
-                }
+                AtualizarPosicaoMenu(Window.Current.Bounds.Width >= 720);
 
-                grupoTamanhoTela.CurrentStateChanging += TamanhoTelaMudou;
+                grupoTamanhoTela.CurrentStateChanged += TamanhoTelaMudou;
             }
             else
             {
@@ -99,12 +92,12 @@ namespace NFeFacil
 
             void TamanhoTelaMudou(object sender, VisualStateChangedEventArgs e)
             {
-                AtualizarPosicaoMenu(e.NewState.Name);
+                AtualizarPosicaoMenu(e.NewState.Name == "TelaGrande");
             }
 
-            void AtualizarPosicaoMenu(string novoEstado)
+            void AtualizarPosicaoMenu(bool telaGrande)
             {
-                if (novoEstado == "TelaGrande")
+                if (telaGrande)
                 {
                     splitView.Pane = null;
                     splitView.CompactPaneLength = 0;

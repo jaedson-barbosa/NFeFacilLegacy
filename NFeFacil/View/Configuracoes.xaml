@@ -20,7 +20,7 @@
         <VM:ConfiguracoesDataContext />
     </Page.DataContext>
     <FlipView x:Name="main"
-              Margin="16"
+              Padding="16"
               Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <StackPanel>
             <TextBlock Style="{StaticResource BodyTextBlockStyle}">Escolha o certificado que será usado para realizar a conexão com os servidores da SEFAZ e para a assinatura das notas fiscais.</TextBlock>

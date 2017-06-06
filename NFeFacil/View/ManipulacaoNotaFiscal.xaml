@@ -267,6 +267,12 @@
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
+                <StackPanel Orientation="Horizontal">
+                    <Button Margin="0,0,8,0"
+                            Command="{Binding ExibirCliente}">Exibir</Button>
+                    <Button Command="{Binding EditarCliente}"
+                            IsEnabled="{Binding ManipulacaoAtivada}">Editar</Button>
+                </StackPanel>
             </StackPanel>
         </ScrollViewer>
         <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Hidden"
@@ -448,7 +454,7 @@
                       SelectedItem="{Binding ModFrete, Mode=TwoWay}"
                       HorizontalAlignment="Stretch"
                       Header="Modalidade do frete" />
-            <Pivot>
+            <Pivot Margin="0,4,0,0">
                 <PivotItem Header="Motorista"
                            IsEnabled="{Binding ManipulacaoAtivada}">
                     <StackPanel>

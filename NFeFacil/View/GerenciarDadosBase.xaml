@@ -21,10 +21,11 @@
         <VM:GerenciadorDadosBaseDataContext />
     </Page.DataContext>
     <Pivot x:Name="grdPrincipal"
+           Margin="16"
            Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <PivotItem Header="Emitente">
-            <ListView ItemsSource="{Binding Emitentes}"
-                      Style="{StaticResource PseudoTabela}">
+            <ListView ItemsSource="{Binding Emitentes}" Margin="0,4,0,0"
+                      ItemContainerStyle="{StaticResource ItemFullWidth}">
                 <ListView.Header>
                     <Grid Style="{StaticResource Cabecalho}">
                         <Grid.ColumnDefinitions>
@@ -73,7 +74,7 @@
         </PivotItem>
         <PivotItem Header="Destinatario">
             <ListView ItemsSource="{Binding Clientes}"
-                      Style="{StaticResource PseudoTabela}">
+                      ItemContainerStyle="{StaticResource ItemFullWidth}">
                 <ListView.Header>
                     <Grid Style="{StaticResource Cabecalho}">
                         <Grid.ColumnDefinitions>
@@ -122,7 +123,7 @@
         </PivotItem>
         <PivotItem Header="Motorista">
             <ListView ItemsSource="{Binding Motoristas}"
-                      Style="{StaticResource PseudoTabela}">
+                      ItemContainerStyle="{StaticResource ItemFullWidth}">
                 <ListView.Header>
                     <Grid Style="{StaticResource Cabecalho}">
                         <Grid.ColumnDefinitions>
@@ -171,7 +172,7 @@
         </PivotItem>
         <PivotItem Header="Produto">
             <ListView ItemsSource="{Binding Produtos}"
-                      Style="{StaticResource PseudoTabela}">
+                      ItemContainerStyle="{StaticResource ItemFullWidth}">
                 <ListView.Header>
                     <Grid Style="{StaticResource Cabecalho}">
                         <TextBlock>Descrição</TextBlock>

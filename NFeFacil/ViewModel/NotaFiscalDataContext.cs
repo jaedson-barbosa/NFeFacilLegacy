@@ -662,12 +662,41 @@ namespace NFeFacil.ViewModel
             var emit = emitenteSelecionado ?? new EmitenteDI(NotaSalva.Informações.emitente);
             var caixa = new View.CaixasDialogo.DetalheEmitenteAtual()
             {
-                ManipulacaoAtivada = false,
+                ManipulacaoAtivada = true,
                 DataContext = new EmitenteDataContext(ref emit)
             };
             if (await caixa.ShowAsync() == Windows.UI.Xaml.Controls.ContentDialogResult.Primary)
             {
                 EmitenteSelecionado = ((EmitenteDataContext)caixa.DataContext).Emit;
+            }
+        });
+
+        #endregion
+
+        #region Cliente
+
+        public ICommand ExibirCliente => new Comando(async () =>
+        {
+            var emit = clienteSelecionado ?? new ClienteDI(NotaSalva.Informações.destinatário);
+            var caixa = new View.CaixasDialogo.DetalheClienteAtual()
+            {
+                ManipulacaoAtivada = false,
+                DataContext = new ClienteDataContext(ref emit)
+            };
+            await caixa.ShowAsync();
+        });
+
+        public ICommand EditarCliente => new Comando(async () =>
+        {
+            var emit = clienteSelecionado ?? new ClienteDI(NotaSalva.Informações.destinatário);
+            var caixa = new View.CaixasDialogo.DetalheClienteAtual()
+            {
+                ManipulacaoAtivada = true,
+                DataContext = new ClienteDataContext(ref emit)
+            };
+            if (await caixa.ShowAsync() == Windows.UI.Xaml.Controls.ContentDialogResult.Primary)
+            {
+                ClienteSelecionado = ((ClienteDataContext)caixa.DataContext).Cliente;
             }
         });
 

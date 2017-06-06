@@ -3,11 +3,6 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="CoresDestaque.xaml" />
     </ResourceDictionary.MergedDictionaries>
-    <Style x:Key="PseudoTabela"
-           TargetType="ListView">
-        <Setter Property="ItemContainerStyle"
-                Value="{StaticResource ItemFullWidth}" />
-    </Style>
     <Style x:Key="Cabecalho"
            TargetType="Grid">
         <Setter Property="Background"

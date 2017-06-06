@@ -175,6 +175,7 @@
     <Compile Include="GrupoViewBanco.cs" />
     <Compile Include="IHambuguer.cs" />
     <Compile Include="RegistrarCliente.cs" />
+    <Compile Include="ViewModel\ClienteDataContext.cs" />
     <Compile Include="ViewModel\ConfigSincronizacaoDataContext.cs" />
     <Compile Include="ViewModel\ConfiguracoesDataContext.cs" />
     <Compile Include="ViewModel\Converters\ColecaoValida.cs" />
@@ -225,6 +226,9 @@
     <Compile Include="View\CaixasDialogo\ConverterContextoDeclaracaoImportacao.cs" />
     <Compile Include="View\CaixasDialogo\ConverterContextoProcessoReferenciado.cs" />
     <Compile Include="ConjuntoManipuladorNFe.cs" />
+    <Compile Include="View\CaixasDialogo\DetalheClienteAtual.xaml.cs">
+      <DependentUpon>DetalheClienteAtual.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\CaixasDialogo\DetalheEmitenteAtual.xaml.cs">
       <DependentUpon>DetalheEmitenteAtual.xaml</DependentUpon>
     </Compile>
@@ -407,6 +411,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\CaixasDialogo\ConfigurarDadosConexao.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CaixasDialogo\DetalheClienteAtual.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

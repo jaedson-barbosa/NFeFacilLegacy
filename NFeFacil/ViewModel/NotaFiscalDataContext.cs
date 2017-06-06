@@ -738,15 +738,45 @@ namespace NFeFacil.ViewModel
             NotaSalva.Informações.transp.veicTransp = NotaSalva.Informações.transp.veicTransp?.ToXElement<Veiculo>().HasElements ?? false ? NotaSalva.Informações.transp.veicTransp : null;
             NotaSalva.Informações.transp.retTransp = NotaSalva.Informações.transp.retTransp?.ToXElement<ICMSTransporte>().HasElements ?? false ? NotaSalva.Informações.transp.retTransp : null;
 
-            NotaSalva.Informações.total.ISSQNtot = NotaSalva.Informações.total.ISSQNtot.ToXElement<ISSQNtot>().Elements().Count(x => x.Value != "0") > 0 ? NotaSalva.Informações.total.ISSQNtot : null;
-            NotaSalva.Informações.total.retTrib = NotaSalva.Informações.total.retTrib.ToXElement<RetTrib>().HasElements ? NotaSalva.Informações.total.retTrib : null;
+            NotaSalva.Informações.total.ISSQNtot = ValidarISSQN(NotaSalva.Informações.total.ISSQNtot) ? NotaSalva.Informações.total.ISSQNtot : null;
+            NotaSalva.Informações.total.retTrib = ValidarRetencaoTributaria(NotaSalva.Informações.total.retTrib) ? NotaSalva.Informações.total.retTrib : null;
             NotaSalva.Informações.cobr = ValidarFatura(NotaSalva.Informações.cobr?.Fat) ? NotaSalva.Informações.cobr : null;
             NotaSalva.Informações.infAdic = ValidarInfoAdicional(NotaSalva.Informações.infAdic) ? NotaSalva.Informações.infAdic : null;
             NotaSalva.Informações.exporta = new ValidadorExportacao(NotaSalva.Informações.exporta).Validar(null) ? NotaSalva.Informações.exporta : null;
-            NotaSalva.Informações.compra = NotaSalva.Informações.compra?.ToXElement<Compra>().HasElements ?? false ? NotaSalva.Informações.compra : null;
-            NotaSalva.Informações.cana = NotaSalva.Informações.cana?.ToXElement<RegistroAquisicaoCana>().HasElements ?? false ? NotaSalva.Informações.cana : null;
+            NotaSalva.Informações.compra = ValidarCompra(NotaSalva.Informações.compra) ? NotaSalva.Informações.compra : null;
+            NotaSalva.Informações.cana = ValidarCana(NotaSalva.Informações.cana) ? NotaSalva.Informações.cana : null;
 
             OnPropertyChanged(nameof(NotaSalva));
+
+            bool ValidarISSQN(ISSQNtot tot)
+            {
+                if (tot == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    return !string.IsNullOrEmpty(tot.dCompet);
+                }
+            }
+
+            bool ValidarRetencaoTributaria(RetTrib ret)
+            {
+                if (ret == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    return !(string.IsNullOrEmpty(ret.vBCIRRF)
+                        && string.IsNullOrEmpty(ret.vBCRetPrev)
+                        && string.IsNullOrEmpty(ret.vIRRF)
+                        && string.IsNullOrEmpty(ret.vRetCOFINS)
+                        && string.IsNullOrEmpty(ret.vRetCSLL)
+                        && string.IsNullOrEmpty(ret.vRetPIS)
+                        && string.IsNullOrEmpty(ret.vRetPrev));
+                }
+            }
 
             bool ValidarFatura(Fatura fat)
             {
@@ -756,14 +786,41 @@ namespace NFeFacil.ViewModel
                 }
                 else
                 {
-                    var errados = new bool[4]
+                    var erradosAnaliseSuperficial = new bool[4]
                     {
-                        string.IsNullOrEmpty(fat.NFat) && int.Parse(fat.NFat) == 0,
-                        string.IsNullOrEmpty(fat.VDesc) && double.Parse(fat.VDesc) == 0,
-                        string.IsNullOrEmpty(fat.VLiq) && double.Parse(fat.VLiq) == 0,
-                        string.IsNullOrEmpty(fat.VOrig) && double.Parse(fat.VOrig) == 0
+                        string.IsNullOrEmpty(fat.NFat),
+                        string.IsNullOrEmpty(fat.VDesc),
+                        string.IsNullOrEmpty(fat.VLiq),
+                        string.IsNullOrEmpty(fat.VOrig)
                     };
-                    return errados.Count(x => x) <= 2;
+                    var erradosAnaliseProfunda = new bool[4]
+                    {
+                        int.Parse(fat.NFat) == 0,
+                        double.Parse(fat.VDesc) == 0,
+                        double.Parse(fat.VLiq) == 0,
+                        double.Parse(fat.VOrig) == 0
+                    };
+                    if (erradosAnaliseSuperficial.Count(x => x) == 4)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        int quantNaoNulos = 0;
+                        int quantErrados = 0;
+                        for (int i = 0; i < 4; i++)
+                        {
+                            if (!erradosAnaliseSuperficial[i])
+                            {
+                                quantNaoNulos++;
+                                if (erradosAnaliseProfunda[i])
+                                {
+                                    quantErrados++;
+                                }
+                            }
+                        }
+                        return quantNaoNulos - quantErrados >= 1;
+                    }
                 }
             }
 
@@ -782,6 +839,32 @@ namespace NFeFacil.ViewModel
                         info.procRef.Count == 0
                     };
                     return errados.Count(x => x) < 3;
+                }
+            }
+
+            bool ValidarCompra(Compra compra)
+            {
+                if (compra == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    return !(string.IsNullOrEmpty(compra.XCont)
+                        && string.IsNullOrEmpty(compra.XNEmp)
+                        && string.IsNullOrEmpty(compra.XPed));
+                }
+            }
+
+            bool ValidarCana(RegistroAquisicaoCana cana)
+            {
+                if (cana == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    return cana.forDia.Count > 0;
                 }
             }
         }

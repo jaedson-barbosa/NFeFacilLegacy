@@ -1,9 +1,7 @@
 ﻿<Page x:Class="NFeFacil.View.VendasAnuais"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:local="using:NFeFacil.View"
       xmlns:VM="using:NFeFacil.ViewModel"
-      xmlns:Controles="using:NFeFacil.View.Controles"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
@@ -13,33 +11,24 @@
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Estilos/PivotPrincipal.xaml" />
                 <ResourceDictionary Source="Estilos/Tabela.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
-    <Grid x:Name="grdPrincipal"
-          Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="113*" />
-            <RowDefinition Height="15*" />
-        </Grid.RowDefinitions>
-        <ComboBox HorizontalAlignment="Right"
-                  Canvas.ZIndex="1"
-                  ItemsSource="{Binding AnosDisponiveis, Mode=OneTime}"
-                  SelectedItem="{Binding AnoEscolhido, Mode=TwoWay}"
-                  PlaceholderText="Ano analisado"
-                  MinWidth="160"
-                  Margin="0,10,10,0" />
-        <Pivot Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-               Margin="0,5,0,0"
-               Grid.RowSpan="2">
-            <PivotItem>
-                <PivotItem.Header>
-                    <Controles:Guia Label="Meses">
-                        <SymbolIcon Symbol="Calendar" />
-                    </Controles:Guia>
-                </PivotItem.Header>
+    <StackPanel x:Name="grdPrincipal"
+                Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <StackPanel Orientation="Horizontal"
+                    Padding="16,16,16,4">
+            <TextBlock Margin="0,0,4,0"
+                       VerticalAlignment="Center">Ano analisado:</TextBlock>
+            <ComboBox ItemsSource="{Binding AnosDisponiveis, Mode=OneTime}"
+                      SelectedItem="{Binding AnoEscolhido, Mode=TwoWay}"
+                      MinWidth="160" />
+        </StackPanel>
+        <FlipView x:Name="flipView"
+                  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                  Padding="16,0,16,16">
+            <ScrollViewer VerticalScrollBarVisibility="Hidden">
                 <ListView ItemsSource="{Binding ResultadoMes}"
                           Style="{StaticResource PseudoTabela}">
                     <ListView.Header>
@@ -73,13 +62,8 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-            </PivotItem>
-            <PivotItem>
-                <PivotItem.Header>
-                    <Controles:Guia Label="Clientes">
-                        <SymbolIcon Symbol="People" />
-                    </Controles:Guia>
-                </PivotItem.Header>
+            </ScrollViewer>
+            <ScrollViewer VerticalScrollBarVisibility="Hidden">
                 <ListView ItemsSource="{Binding ResultadoCliente}"
                           Style="{StaticResource PseudoTabela}">
                     <ListView.Header>
@@ -132,7 +116,7 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-            </PivotItem>
-        </Pivot>
-    </Grid>
+            </ScrollViewer>
+        </FlipView>
+    </StackPanel>
 </Page>

@@ -274,9 +274,6 @@
     <Compile Include="View\Controles\CarregamentoCircular.xaml.cs">
       <DependentUpon>CarregamentoCircular.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Controles\Guia.xaml.cs">
-      <DependentUpon>Guia.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\Inicio.xaml.cs">
       <DependentUpon>Inicio.xaml</DependentUpon>
     </Compile>
@@ -430,10 +427,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Controles\CarregamentoCircular.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\Controles\Guia.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

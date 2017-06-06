@@ -30,7 +30,7 @@
                   Padding="16,0,16,16">
             <ScrollViewer VerticalScrollBarVisibility="Hidden">
                 <ListView ItemsSource="{Binding ResultadoMes}"
-                          Style="{StaticResource PseudoTabela}">
+                          ItemContainerStyle="{StaticResource ItemFullWidth}">
                     <ListView.Header>
                         <Grid Style="{StaticResource Cabecalho}">
                             <Grid.ColumnDefinitions>
@@ -65,7 +65,7 @@
             </ScrollViewer>
             <ScrollViewer VerticalScrollBarVisibility="Hidden">
                 <ListView ItemsSource="{Binding ResultadoCliente}"
-                          Style="{StaticResource PseudoTabela}">
+                          ItemContainerStyle="{StaticResource ItemFullWidth}">
                     <ListView.Header>
                         <Grid Style="{StaticResource Cabecalho}">
                             <Grid.ColumnDefinitions>

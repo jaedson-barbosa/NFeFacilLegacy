@@ -20,7 +20,7 @@
         <ListView Visibility="{Binding IsCliente, Converter={StaticResource boolVisibility}}"
                   ItemsSource="{Binding ResultadosCliente}"
                   Margin="0"
-                  Style="{StaticResource PseudoTabela}">
+                  ItemContainerStyle="{StaticResource ItemFullWidth}">
             <ListView.Header>
                 <Grid Style="{StaticResource Cabecalho}">
                     <Grid.ColumnDefinitions>
@@ -61,7 +61,7 @@
         <ListView Visibility="{Binding IsServidor, Converter={StaticResource boolVisibility}}"
                   ItemsSource="{Binding ResultadosServidor}"
                   Margin="0"
-                  Style="{StaticResource PseudoTabela}">
+                  ItemContainerStyle="{StaticResource ItemFullWidth}">
             <ListView.Header>
                 <Grid Style="{StaticResource Cabecalho}">
                     <Grid.ColumnDefinitions>

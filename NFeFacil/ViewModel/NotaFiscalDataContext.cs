@@ -227,6 +227,7 @@ namespace NFeFacil.ViewModel
                 NotaSalva.Signature = null;
             }
             StatusAtual = StatusNFe.Edição;
+            DesnormalizarNFe();
             Log.Escrever(TitulosComuns.Sucesso, "As alterações só terão efeito quando a nota fiscal for novamente salva.");
         }
 
@@ -731,24 +732,71 @@ namespace NFeFacil.ViewModel
 
         #endregion
 
-        private bool nfeNormalizado = false;
         private void NormalizarNFe()
         {
-            if (!nfeNormalizado)
-            {
-                NotaSalva.Informações.transp.transporta = NotaSalva.Informações.transp.transporta?.ToXElement<Motorista>().HasElements ?? false ? NotaSalva.Informações.transp.transporta : null;
-                NotaSalva.Informações.transp.veicTransp = NotaSalva.Informações.transp.veicTransp?.ToXElement<Veiculo>().HasElements ?? false ? NotaSalva.Informações.transp.veicTransp : null;
-                NotaSalva.Informações.transp.retTransp = NotaSalva.Informações.transp.retTransp?.ToXElement<ICMSTransporte>().HasElements ?? false ? NotaSalva.Informações.transp.retTransp : null;
+            NotaSalva.Informações.transp.transporta = NotaSalva.Informações.transp.transporta?.ToXElement<Motorista>().HasElements ?? false ? NotaSalva.Informações.transp.transporta : null;
+            NotaSalva.Informações.transp.veicTransp = NotaSalva.Informações.transp.veicTransp?.ToXElement<Veiculo>().HasElements ?? false ? NotaSalva.Informações.transp.veicTransp : null;
+            NotaSalva.Informações.transp.retTransp = NotaSalva.Informações.transp.retTransp?.ToXElement<ICMSTransporte>().HasElements ?? false ? NotaSalva.Informações.transp.retTransp : null;
 
-                NotaSalva.Informações.total.ISSQNtot = NotaSalva.Informações.total.ISSQNtot.ToXElement<ISSQNtot>().Elements().Count(x => x.Value != "0") > 0 ? NotaSalva.Informações.total.ISSQNtot : null;
-                NotaSalva.Informações.total.retTrib = NotaSalva.Informações.total.retTrib.ToXElement<RetTrib>().HasElements ? NotaSalva.Informações.total.retTrib : null;
-                NotaSalva.Informações.cobr = NotaSalva.Informações.cobr?.Fat.ToXElement<Fatura>().HasElements ?? false ? NotaSalva.Informações.cobr : null;
-                NotaSalva.Informações.infAdic = NotaSalva.Informações.infAdic?.ToXElement<InformacoesAdicionais>().HasElements ?? false ? NotaSalva.Informações.infAdic : null;
-                NotaSalva.Informações.exporta = new ValidadorExportacao(NotaSalva.Informações.exporta).Validar(null) ? NotaSalva.Informações.exporta : null;
-                NotaSalva.Informações.compra = NotaSalva.Informações.compra?.ToXElement<Compra>().HasElements ?? false ? NotaSalva.Informações.compra : null;
-                NotaSalva.Informações.cana = NotaSalva.Informações.cana?.ToXElement<RegistroAquisicaoCana>().HasElements ?? false ? NotaSalva.Informações.cana : null;
-                nfeNormalizado = true;
+            NotaSalva.Informações.total.ISSQNtot = NotaSalva.Informações.total.ISSQNtot.ToXElement<ISSQNtot>().Elements().Count(x => x.Value != "0") > 0 ? NotaSalva.Informações.total.ISSQNtot : null;
+            NotaSalva.Informações.total.retTrib = NotaSalva.Informações.total.retTrib.ToXElement<RetTrib>().HasElements ? NotaSalva.Informações.total.retTrib : null;
+            NotaSalva.Informações.cobr = ValidarFatura(NotaSalva.Informações.cobr?.Fat) ? NotaSalva.Informações.cobr : null;
+            NotaSalva.Informações.infAdic = NotaSalva.Informações.infAdic?.ToXElement<InformacoesAdicionais>().HasElements ?? false ? NotaSalva.Informações.infAdic : null;
+            NotaSalva.Informações.exporta = new ValidadorExportacao(NotaSalva.Informações.exporta).Validar(null) ? NotaSalva.Informações.exporta : null;
+            NotaSalva.Informações.compra = NotaSalva.Informações.compra?.ToXElement<Compra>().HasElements ?? false ? NotaSalva.Informações.compra : null;
+            NotaSalva.Informações.cana = NotaSalva.Informações.cana?.ToXElement<RegistroAquisicaoCana>().HasElements ?? false ? NotaSalva.Informações.cana : null;
+
+            OnPropertyChanged(nameof(NotaSalva));
+
+            bool ValidarFatura(Fatura fat)
+            {
+                var bools = new bool[4]
+                {
+                    string.IsNullOrEmpty(fat?.NFat),
+                    string.IsNullOrEmpty(fat?.VDesc),
+                    string.IsNullOrEmpty(fat?.VLiq),
+                    string.IsNullOrEmpty(fat?.VOrig)
+                };
+                return bools.Count(x => x) <= 1;
             }
+        }
+
+        void DesnormalizarNFe()
+        {
+            if (NotaSalva.Informações.transp.transporta == null)
+            {
+                NotaSalva.Informações.transp.transporta = new Motorista();
+            }
+            if (NotaSalva.Informações.transp.veicTransp == null)
+            {
+                NotaSalva.Informações.transp.veicTransp = new Veiculo();
+            }
+            if (NotaSalva.Informações.transp.retTransp == null)
+            {
+                NotaSalva.Informações.transp.retTransp = new ICMSTransporte();
+            }
+
+            if (NotaSalva.Informações.cobr == null)
+            {
+                NotaSalva.Informações.cobr = new Cobranca();
+            }
+            if (NotaSalva.Informações.infAdic == null)
+            {
+                NotaSalva.Informações.infAdic = new InformacoesAdicionais();
+            }
+            if (NotaSalva.Informações.exporta == null)
+            {
+                NotaSalva.Informações.exporta = new Exportacao();
+            }
+            if (NotaSalva.Informações.compra == null)
+            {
+                NotaSalva.Informações.compra = new Compra();
+            }
+            if (NotaSalva.Informações.cana == null)
+            {
+                NotaSalva.Informações.cana = new RegistroAquisicaoCana();
+            }
+            OnPropertyChanged(nameof(NotaSalva));
         }
 
         private bool UsarNotaSalva => StatusAtual != StatusNFe.Emitida && StatusAtual != StatusNFe.Impressa;
@@ -761,16 +809,9 @@ namespace NFeFacil.ViewModel
                 di.Status = (int)StatusAtual;
                 using (var db = new NotasFiscais())
                 {
-                    if (StatusAtual == StatusNFe.Salva || StatusAtual == StatusNFe.Edição)
+                    if(db.Registro.Count(x => x.Id == di.Id) == 0)
                     {
-                        if (Conjunto.OperacaoRequirida == TipoOperacao.Adicao)
-                        {
-                            db.Adicionar(di);
-                        }
-                        else
-                        {
-                            db.Atualizar(di);
-                        }
+                        db.Adicionar(di);
                     }
                     else
                     {

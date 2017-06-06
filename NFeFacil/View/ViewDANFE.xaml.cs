@@ -18,8 +18,6 @@ namespace NFeFacil.View
         public double Largura => PartesDANFE.DimensoesPadrao.CentimeterToPixel(21);
         public double Altura => PartesDANFE.DimensoesPadrao.CentimeterToPixel(29.7);
 
-        private byte[] Pixels;
-
         public ViewDANFE()
         {
             InitializeComponent();

@@ -52,7 +52,7 @@ namespace NFeFacil.DANFE.Processamento
                 else
                 {
                     var fat = cobranca.Fat;
-                    return $"PAGAMENTO A PRAZO - Num.: {fat.NFat}, V. orig.: {fat.VOrig.ToString("N2")}, V. desc.: {fat.VDesc.ToString("N2")}, V. liq.: {fat.VLiq.ToString("N2")}";
+                    return $"PAGAMENTO A PRAZO - Num.: {fat.NFat}, V. orig.: {double.Parse(fat.VOrig).ToString("N2")}, V. desc.: {double.Parse(fat.VDesc).ToString("N2")}, V. liq.: {double.Parse(fat.VLiq).ToString("N2")}";
                 }
             }
 

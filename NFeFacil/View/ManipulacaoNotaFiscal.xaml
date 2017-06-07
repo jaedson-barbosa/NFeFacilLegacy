@@ -18,20 +18,8 @@
             <Conversores:BoolToVisibility x:Key="visibilidade" />
             <Conversores:EstadoToMunicipios x:Key="obterMun" />
             <Conversores:ColecaoValida x:Key="getObs" />
-            <Conversores:TextoComLabel x:Key="textoLabel" />
             <Conversores:StringToDateTime x:Key="data" />
             <Conversores:ModificaValor x:Key="valorAlterado" />
-            <Style x:Key="ListaCheia"
-                   TargetType="ListView">
-                <Setter Property="ItemContainerStyle">
-                    <Setter.Value>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="HorizontalContentAlignment"
-                                    Value="Stretch" />
-                        </Style>
-                    </Setter.Value>
-                </Setter>
-            </Style>
         </ResourceDictionary>
     </Page.Resources>
     <Grid>
@@ -172,7 +160,7 @@
                                 </Button>
                             </Grid>
                             <ListView ItemsSource="{Binding NFesReferenciadas}"
-                                      Style="{StaticResource ListaCheia}"
+                                      ItemContainerStyle="{StaticResource ItemFullWidth}"
                                       Grid.Row="1"
                                       Grid.ColumnSpan="2">
                                 <ListView.Header>
@@ -204,7 +192,7 @@
                                 </Button>
                             </Grid>
                             <ListView ItemsSource="{Binding NFsReferenciadas}"
-                                      Style="{StaticResource ListaCheia}"
+                                      ItemContainerStyle="{StaticResource ItemFullWidth}"
                                       Grid.Row="2"
                                       Grid.ColumnSpan="2">
                                 <ListView.Header>
@@ -283,10 +271,6 @@
             <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Hidden"
                           IsEnabled="{Binding ManipulacaoAtivada}">
                 <Grid>
-                    <Grid.Resources>
-                        <x:String x:Key="LabelDescricao">Descrição</x:String>
-                        <x:String x:Key="LabelQuantidade">Quant. comercializada</x:String>
-                    </Grid.Resources>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition />
@@ -314,7 +298,26 @@
                     <ListView Grid.Row="1"
                               Grid.ColumnSpan="2"
                               ItemsSource="{Binding NotaSalva.Informações.produtos, Converter={StaticResource getObs}}"
-                              Style="{StaticResource ListaCheia}">
+                              ItemContainerStyle="{StaticResource ItemFullWidth}">
+                        <ListView.Header>
+                            <Grid Style="{StaticResource Cabecalho}">
+                                <Grid.Resources>
+                                    <Style TargetType="TextBlock"
+                                           BasedOn="{StaticResource SubtitleTextBlockStyle}">
+                                        <Setter Property="TextAlignment"
+                                                Value="Center" />
+                                        <Setter Property="VerticalAlignment"
+                                                Value="Center" />
+                                    </Style>
+                                </Grid.Resources>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock>Descrição</TextBlock>
+                                <TextBlock Grid.Column="1">Quantidade</TextBlock>
+                            </Grid>
+                        </ListView.Header>
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Margin="0,5">
@@ -325,8 +328,8 @@
                                                             CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}" />
                                         </MenuFlyout>
                                     </StackPanel.ContextFlyout>
-                                    <TextBlock Text="{Binding Path=Produto.Descricao, ConverterParameter={StaticResource LabelDescricao}, Converter={StaticResource textoLabel}}" />
-                                    <TextBlock Text="{Binding Path=Produto.QuantidadeComercializada, ConverterParameter={StaticResource LabelQuantidade}, Converter={StaticResource textoLabel}}" />
+                                    <TextBlock Text="{Binding Produto.Descricao}" />
+                                    <TextBlock Text="{Binding Produto.QuantidadeComercializada}" />
                                 </StackPanel>
                             </DataTemplate>
                         </ListView.ItemTemplate>
@@ -501,7 +504,7 @@
                                     <TextBlock Style="{StaticResource TitleTextBlockStyle}">Reboques</TextBlock>
                                     <ListView ItemsSource="{Binding NotaSalva.Informações.transp.reboque, Converter={StaticResource getObs}}"
                                               Grid.Row="1"
-                                              Style="{StaticResource ListaCheia}">
+                                              ItemContainerStyle="{StaticResource ItemFullWidth}">
                                         <ListView.Header>
                                             <Grid>
                                                 <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Placa</TextBlock>
@@ -537,7 +540,7 @@
                     <PivotItem Header="Volumes"
                                IsEnabled="{Binding ManipulacaoAtivada}">
                         <ListView ItemsSource="{Binding NotaSalva.Informações.transp.vol, Converter={StaticResource getObs}}"
-                                  Style="{StaticResource ListaCheia}">
+                                  ItemContainerStyle="{StaticResource ItemFullWidth}">
                             <ListView.Header>
                                 <Grid>
                                     <Grid.ColumnDefinitions>
@@ -652,7 +655,7 @@
                     </StackPanel>
                     <StackPanel>
                         <TextBlock Style="{StaticResource TitleTextBlockStyle}">Observações do contribuinte</TextBlock>
-                        <ListView Style="{StaticResource ListaCheia}"
+                        <ListView ItemContainerStyle="{StaticResource ItemFullWidth}"
                                   ItemsSource="{Binding NotaSalva.Informações.infAdic.obsCont, Converter={StaticResource getObs}}">
                             <ListView.Header>
                                 <Grid>
@@ -695,7 +698,7 @@
                     </StackPanel>
                     <StackPanel>
                         <TextBlock Style="{StaticResource TitleTextBlockStyle}">Processos referenciados</TextBlock>
-                        <ListView Style="{StaticResource ListaCheia}"
+                        <ListView ItemContainerStyle="{StaticResource ItemFullWidth}"
                                   ItemsSource="{Binding NotaSalva.Informações.infAdic.procRef, Converter={StaticResource getObs}}">
                             <ListView.Header>
                                 <Grid>

@@ -269,7 +269,6 @@
     <Compile Include="ViewModel\Converters\BoolToIcon.cs" />
     <Compile Include="ViewModel\Converters\BoolToInt.cs" />
     <Compile Include="ViewModel\Converters\BoolToVisibility.cs" />
-    <Compile Include="ViewModel\Converters\TextoComLabel.cs" />
     <Compile Include="ViewModel\DadosEstadosParaView.cs" />
     <Compile Include="ViewModel\HistoricoSincronizacaoDataContext.cs" />
     <Compile Include="ViewModel\ImpostosProduto\ICMSDataContext.cs" />

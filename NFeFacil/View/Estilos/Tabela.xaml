@@ -7,8 +7,10 @@
            TargetType="Grid">
         <Setter Property="Background"
                 Value="{StaticResource MuitoVariada}" />
-        <Setter Property="Padding"
-                Value="8,4,8,2" />
+        <Setter Property="Height"
+                Value="44" />
+        <Setter Property="CornerRadius"
+                Value="22,22,0,0" />
     </Style>
     <Style x:Key="BotaoAdd"
            TargetType="Button">
@@ -23,9 +25,63 @@
         <Setter Property="VerticalAlignment"
                 Value="Stretch" />
     </Style>
+    <ControlTemplate x:Key="BotaoCabecalho"
+                     TargetType="Button">
+        <Grid x:Name="RootGrid">
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal">
+                        <Storyboard>
+                            <PointerUpThemeAnimation Storyboard.TargetName="RootGrid" />
+                        </Storyboard>
+                    </VisualState>
+                    <VisualState x:Name="PointerOver">
+                        <Storyboard>
+                            <PointerUpThemeAnimation Storyboard.TargetName="RootGrid" />
+                        </Storyboard>
+                        <VisualState.Setters>
+                            <Setter Target="ContentPresenter.BorderBrush"
+                                    Value="{ThemeResource SystemControlHighlightBaseMediumLowBrush}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="Pressed">
+                        <Storyboard>
+                            <PointerDownThemeAnimation Storyboard.TargetName="RootGrid" />
+                        </Storyboard>
+                        <VisualState.Setters>
+                            <Setter Target="ContentPresenter.Background"
+                                    Value="{StaticResource PoucoVariada}" />
+                            <Setter Target="ContentPresenter.BorderBrush"
+                                    Value="{ThemeResource SystemControlHighlightTransparentBrush}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="Disabled">
+                        <VisualState.Setters>
+                            <Setter Target="ContentPresenter.Background"
+                                    Value="{StaticResource MuitoVariada}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+            <ContentPresenter x:Name="ContentPresenter"
+                              Background="{StaticResource Variada}"
+                              AutomationProperties.AccessibilityView="Raw"
+                              BorderBrush="{TemplateBinding BorderBrush}"
+                              BorderThickness="{TemplateBinding BorderThickness}"
+                              CornerRadius="0,22,0,0"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              ContentTransitions="{TemplateBinding ContentTransitions}"
+                              Content="{TemplateBinding Content}"
+                              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              Padding="{TemplateBinding Padding}"
+                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+        </Grid>
+    </ControlTemplate>
     <Style x:Key="ItemFullWidth"
            TargetType="ListViewItem">
         <Setter Property="HorizontalContentAlignment"
                 Value="Stretch" />
+        <Setter Property="Padding"
+                Value="0" />
     </Style>
 </ResourceDictionary>

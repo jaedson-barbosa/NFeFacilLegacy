@@ -13,9 +13,17 @@
                 <ResourceDictionary Source="Estilos/Tabela.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Conversores:BoolToVisibility x:Key="boolVisibility" />
+            <Style TargetType="TextBlock"
+                   BasedOn="{StaticResource SubtitleTextBlockStyle}">
+                <Setter Property="TextAlignment"
+                        Value="Center" />
+                <Setter Property="VerticalAlignment"
+                        Value="Center" />
+            </Style>
         </ResourceDictionary>
     </Page.Resources>
     <Grid x:Name="grdPrincipal"
+          Padding="16"
           Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <ListView Visibility="{Binding IsCliente, Converter={StaticResource boolVisibility}}"
                   ItemsSource="{Binding ResultadosCliente}"
@@ -28,16 +36,14 @@
                         <ColumnDefinition />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Data e hora</TextBlock>
-                    <TextBlock Grid.Column="1"
-                               Style="{StaticResource SubtitleTextBlockStyle}">Notas fiscais</TextBlock>
-                    <TextBlock Grid.Column="2"
-                               Style="{StaticResource SubtitleTextBlockStyle}">Dados base</TextBlock>
+                    <TextBlock>Data e hora</TextBlock>
+                    <TextBlock Grid.Column="1">Notas fiscais</TextBlock>
+                    <TextBlock Grid.Column="2">Dados base</TextBlock>
                 </Grid>
             </ListView.Header>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Grid Margin="0,5,0,5">
+                    <Grid Margin="0,4">
                         <Grid.Resources>
                             <Style TargetType="TextBlock">
                                 <Setter Property="TextAlignment"
@@ -69,16 +75,14 @@
                         <ColumnDefinition />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Data e hora</TextBlock>
-                    <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
-                               Grid.Column="1">Tipo de dado</TextBlock>
-                    <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
-                               Grid.Column="2">Sucesso</TextBlock>
+                    <TextBlock>Data e hora</TextBlock>
+                    <TextBlock Grid.Column="1">Tipo de dado</TextBlock>
+                    <TextBlock Grid.Column="2">Sucesso</TextBlock>
                 </Grid>
             </ListView.Header>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Grid Margin="0,1,0,1">
+                    <Grid Margin="0,4">
                         <Grid.Resources>
                             <Style TargetType="TextBlock">
                                 <Setter Property="TextAlignment"

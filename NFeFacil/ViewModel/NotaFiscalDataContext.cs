@@ -735,7 +735,7 @@ namespace NFeFacil.ViewModel
         private void NormalizarNFe()
         {
             NotaSalva.Informações.transp.transporta = NotaSalva.Informações.transp.transporta?.ToXElement<Motorista>().HasElements ?? false ? NotaSalva.Informações.transp.transporta : null;
-            NotaSalva.Informações.transp.veicTransp = NotaSalva.Informações.transp.veicTransp?.ToXElement<Veiculo>().HasElements ?? false ? NotaSalva.Informações.transp.veicTransp : null;
+            NotaSalva.Informações.transp.veicTransp = ValidarVeiculo(NotaSalva.Informações.transp.veicTransp) ? NotaSalva.Informações.transp.veicTransp : null;
             NotaSalva.Informações.transp.retTransp = NotaSalva.Informações.transp.retTransp?.ToXElement<ICMSTransporte>().HasElements ?? false ? NotaSalva.Informações.transp.retTransp : null;
 
             NotaSalva.Informações.total.ISSQNtot = ValidarISSQN(NotaSalva.Informações.total.ISSQNtot) ? NotaSalva.Informações.total.ISSQNtot : null;
@@ -747,6 +747,11 @@ namespace NFeFacil.ViewModel
             NotaSalva.Informações.cana = ValidarCana(NotaSalva.Informações.cana) ? NotaSalva.Informações.cana : null;
 
             OnPropertyChanged(nameof(NotaSalva));
+
+            bool ValidarVeiculo(Veiculo veic)
+            {
+                return StringsNaoNulas(veic.Placa, veic.UF);
+            }
 
             bool ValidarISSQN(ISSQNtot tot)
             {
@@ -768,13 +773,8 @@ namespace NFeFacil.ViewModel
                 }
                 else
                 {
-                    return !(string.IsNullOrEmpty(ret.vBCIRRF)
-                        && string.IsNullOrEmpty(ret.vBCRetPrev)
-                        && string.IsNullOrEmpty(ret.vIRRF)
-                        && string.IsNullOrEmpty(ret.vRetCOFINS)
-                        && string.IsNullOrEmpty(ret.vRetCSLL)
-                        && string.IsNullOrEmpty(ret.vRetPIS)
-                        && string.IsNullOrEmpty(ret.vRetPrev));
+                    return StringsNaoNulas(ret.vBCIRRF, ret.vBCRetPrev, ret.vIRRF, ret.vRetCOFINS,
+                        ret.vRetCSLL, ret.vRetPIS, ret.vRetPrev);
                 }
             }
 
@@ -850,9 +850,7 @@ namespace NFeFacil.ViewModel
                 }
                 else
                 {
-                    return !(string.IsNullOrEmpty(compra.XCont)
-                        && string.IsNullOrEmpty(compra.XNEmp)
-                        && string.IsNullOrEmpty(compra.XPed));
+                    return StringsNaoNulas(compra.XCont, compra.XNEmp, compra.XPed);
                 }
             }
 
@@ -866,6 +864,18 @@ namespace NFeFacil.ViewModel
                 {
                     return cana.forDia.Count > 0;
                 }
+            }
+
+            bool StringsNaoNulas(params string[] strings)
+            {
+                for (int i = 0; i < strings.Length; i++)
+                {
+                    if (string.IsNullOrEmpty(strings[i]))
+                    {
+                        return false;
+                    }
+                }
+                return true;
             }
         }
 

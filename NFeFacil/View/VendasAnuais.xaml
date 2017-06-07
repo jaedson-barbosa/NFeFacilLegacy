@@ -15,59 +15,102 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
-    <StackPanel x:Name="grdPrincipal"
-                Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <StackPanel Orientation="Horizontal"
-                    Padding="16,16,16,4">
-            <TextBlock Margin="0,0,4,0"
-                       VerticalAlignment="Center">Ano analisado:</TextBlock>
-            <ComboBox ItemsSource="{Binding AnosDisponiveis, Mode=OneTime}"
-                      SelectedItem="{Binding AnoEscolhido, Mode=TwoWay}"
-                      MinWidth="160" />
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <StackPanel Padding="16">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Margin="0,0,4,0"
+                           VerticalAlignment="Center">Ano analisado:</TextBlock>
+                <ComboBox ItemsSource="{Binding AnosDisponiveis, Mode=OneTime}"
+                          SelectedItem="{Binding AnoEscolhido, Mode=TwoWay}"
+                          MinWidth="160" />
+            </StackPanel>
+            <TextBlock>Quantidade total: <Run Text="{Binding QuantTotal}" /></TextBlock>
+            <TextBlock>Valor total: <Run Text="{Binding ValorTotal}" /></TextBlock>
         </StackPanel>
         <FlipView x:Name="flipView"
                   Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-                  Padding="16,0,16,16">
-            <ScrollViewer VerticalScrollBarVisibility="Hidden">
-                <ListView ItemsSource="{Binding ResultadoMes}"
-                          ItemContainerStyle="{StaticResource ItemFullWidth}">
-                    <ListView.Header>
-                        <Grid Style="{StaticResource Cabecalho}">
+                  Padding="16,0,16,16"
+                  Grid.Row="1">
+            <FlipView.Resources>
+                <Style TargetType="TextBlock"
+                       BasedOn="{StaticResource SubtitleTextBlockStyle}" />
+            </FlipView.Resources>
+            <ListView ItemsSource="{Binding ResultadoMes}"
+                      ItemContainerStyle="{StaticResource ItemFullWidth}">
+                <ListView.Header>
+                    <Grid Style="{StaticResource Cabecalho}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock TextAlignment="Center"
+                                   VerticalAlignment="Center">Mês</TextBlock>
+                        <TextBlock TextAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Grid.Column="1">Quantidade</TextBlock>
+                        <TextBlock TextAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Grid.Column="2">Valor total</TextBlock>
+                    </Grid>
+                </ListView.Header>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition />
                                 <ColumnDefinition />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
-                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Mês</TextBlock>
-                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
-                                       Grid.Column="1">Quantidade</TextBlock>
-                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
-                                       Grid.Column="2">Valor total</TextBlock>
+                            <TextBlock TextAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       Text="{Binding Mês}" />
+                            <TextBlock TextAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       Text="{Binding Quantidade}"
+                                       Grid.Column="1" />
+                            <TextBlock TextAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       Text="{Binding Total}"
+                                       Grid.Column="2" />
                         </Grid>
-                    </ListView.Header>
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Text="{Binding Mês}" />
-                                <TextBlock Text="{Binding Quantidade}"
-                                           Grid.Column="1" />
-                                <TextBlock Text="{Binding Total}"
-                                           Grid.Column="2" />
-                            </Grid>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </ScrollViewer>
-            <ScrollViewer VerticalScrollBarVisibility="Hidden">
-                <ListView ItemsSource="{Binding ResultadoCliente}"
-                          ItemContainerStyle="{StaticResource ItemFullWidth}">
-                    <ListView.Header>
-                        <Grid Style="{StaticResource Cabecalho}">
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <ListView ItemsSource="{Binding ResultadoCliente}"
+                      ItemContainerStyle="{StaticResource ItemFullWidth}">
+                <ListView.Header>
+                    <Grid Style="{StaticResource Cabecalho}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*" />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock TextAlignment="Center"
+                                   VerticalAlignment="Center">Nome</TextBlock>
+                        <TextBlock TextAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Grid.Column="1">Quantidade</TextBlock>
+                        <TextBlock TextAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Grid.Column="2">Municipio</TextBlock>
+                        <TextBlock TextAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Grid.Column="3">Documento</TextBlock>
+                        <TextBlock TextAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Grid.Column="4">Total</TextBlock>
+                    </Grid>
+                </ListView.Header>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="3*" />
                                 <ColumnDefinition />
@@ -75,48 +118,34 @@
                                 <ColumnDefinition />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
-                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Nome</TextBlock>
-                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
-                                       Grid.Column="1">Quantidade</TextBlock>
-                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
-                                       Grid.Column="2">Municipio</TextBlock>
-                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
-                                       Grid.Column="3">Documento</TextBlock>
-                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
-                                       Grid.Column="4">Total</TextBlock>
+                            <TextBlock TextWrapping="Wrap"
+                                       TextAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       Text="{Binding Nome}" />
+                            <TextBlock TextWrapping="Wrap"
+                                       TextAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       Text="{Binding Quantidade}"
+                                       Grid.Column="1" />
+                            <TextBlock TextWrapping="Wrap"
+                                       TextAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       Text="{Binding Mun}"
+                                       Grid.Column="2" />
+                            <TextBlock TextWrapping="Wrap"
+                                       TextAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       Text="{Binding Doc}"
+                                       Grid.Column="3" />
+                            <TextBlock TextWrapping="Wrap"
+                                       TextAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       Text="{Binding Total}"
+                                       Grid.Column="4" />
                         </Grid>
-                    </ListView.Header>
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <Grid.Resources>
-                                    <Style TargetType="TextBlock">
-                                        <Setter Property="TextWrapping"
-                                                Value="Wrap" />
-                                    </Style>
-                                </Grid.Resources>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="3*" />
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Column="0"
-                                           Text="{Binding Nome}" />
-                                <TextBlock Grid.Column="1"
-                                           Text="{Binding Quantidade}" />
-                                <TextBlock Grid.Column="2"
-                                           Text="{Binding Mun}" />
-                                <TextBlock Grid.Column="3"
-                                           Text="{Binding Doc}" />
-                                <TextBlock Grid.Column="4"
-                                           Text="{Binding Total}" />
-                            </Grid>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </ScrollViewer>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </FlipView>
-    </StackPanel>
+    </Grid>
 </Page>

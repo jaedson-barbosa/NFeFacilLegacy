@@ -84,6 +84,6 @@
         <Setter Property="Padding"
                 Value="0" />
         <Setter Property="MinHeight"
-                Value="16" />
+                Value="24" />
     </Style>
 </ResourceDictionary>

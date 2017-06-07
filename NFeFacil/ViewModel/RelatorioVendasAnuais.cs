@@ -19,6 +19,9 @@ namespace NFeFacil.ViewModel
         public ObservableCollection<TotalPorMes> ResultadoMes { get; private set; }
         public ObservableCollection<TotalPorCliente> ResultadoCliente { get; private set; }
 
+        public double QuantTotal { get; private set; }
+        public double ValorTotal { get; private set; }
+
         public RelatorioVendasAnuais()
         {
             using (var db = new NotasFiscais())
@@ -66,16 +69,16 @@ namespace NFeFacil.ViewModel
                     }
                     tot.Total += det.total.ICMSTot.vNF;
                 }
-                totalCliente.Add(new TotalPorCliente
-                {
-                    Nome = "Total",
-                    Quantidade = totalCliente.Sum(x => x.Quantidade),
-                    Total = totalCliente.Sum(x => x.Total)
-                });
                 ResultadoCliente = (from item in totalCliente
                                     orderby item.Total descending
                                     select item).GerarObs();
                 PropertyChanged(this, new PropertyChangedEventArgs(nameof(ResultadoCliente)));
+
+                QuantTotal = totalCliente.Sum(x => x.Quantidade);
+                PropertyChanged(this, new PropertyChangedEventArgs(nameof(QuantTotal)));
+
+                ValorTotal = totalCliente.Sum(x => x.Total);
+                PropertyChanged(this, new PropertyChangedEventArgs(nameof(ValorTotal)));
 
                 var totalMes = new List<TotalPorMes>(12);
                 for (int i = 1; i < 13; i++)
@@ -92,12 +95,6 @@ namespace NFeFacil.ViewModel
                     }
                     totalMes[data.Month - 1].Total += det.total.ICMSTot.vNF;
                 }
-                totalMes.Add(new TotalPorMes
-                {
-                    Mês = "Total",
-                    Quantidade = totalMes.Sum(x => x.Quantidade),
-                    Total = totalMes.Sum(x => x.Total)
-                });
                 ResultadoMes = totalMes.GerarObs();
                 PropertyChanged(this, new PropertyChangedEventArgs(nameof(ResultadoMes)));
             }

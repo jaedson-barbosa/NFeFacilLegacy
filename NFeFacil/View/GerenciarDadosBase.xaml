@@ -50,8 +50,7 @@
             </ListView.Header>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Grid BorderThickness="0,1,0,0"
-                          BorderBrush="{StaticResource MuitoVariada}">
+                    <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="2*" />
                             <ColumnDefinition />

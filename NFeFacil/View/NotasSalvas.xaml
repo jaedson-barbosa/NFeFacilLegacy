@@ -8,54 +8,83 @@
       x:Name="root">
     <Page.Resources>
         <ResourceDictionary>
-            <Conversores:TextoComLabel x:Key="textoLabel" />
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Estilos/Tabela.xaml" />
+            </ResourceDictionary.MergedDictionaries>
             <Conversores:BoolToVisibility x:Key="visibilidade" />
-            <x:String x:Key="LabelNomeEmitente">Nome emitente</x:String>
-            <x:String x:Key="LabelNomeCliente">Nome cliente</x:String>
-            <x:String x:Key="LabelData">Data emissão</x:String>
         </ResourceDictionary>
     </Page.Resources>
-    <Grid x:Name="grdPrincipal"
-          Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <ListView x:Name="lstNotas"
-                  ItemsSource="{Binding NotasSalvas}"
-                  SelectionMode="Multiple">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Margin="0,4">
-                        <StackPanel.ContextFlyout>
-                            <MenuFlyout>
-                                <MenuFlyoutItem Command="{Binding DataContext.RemoverCommand, ElementName=root}"
-                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Remover apenas esta nota</MenuFlyoutItem>
-                                <MenuFlyoutItem Visibility="{Binding DataContext.ExibirRemoverSelecionados, ElementName=root, Converter={StaticResource visibilidade}}"
-                                                Command="{Binding DataContext.RemoverSelecionadosCommand, ElementName=root}"
-                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Remover selecionados</MenuFlyoutItem>
-                                <MenuFlyoutItem Visibility="{Binding DataContext.ExibirEditar, ElementName=root, Converter={StaticResource visibilidade}}"
-                                                Command="{Binding DataContext.EditarCommand, ElementName=root}"
-                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Editar</MenuFlyoutItem>
-                            </MenuFlyout>
-                        </StackPanel.ContextFlyout>
-                        <TextBlock Text="{Binding Path=NomeEmitente, Mode=OneWay, ConverterParameter={StaticResource LabelNomeEmitente}, Converter={StaticResource textoLabel}}" />
-                        <TextBlock Grid.Row="1"
-                                   Text="{Binding Path=NomeCliente, Mode=OneWay, ConverterParameter={StaticResource LabelNomeCliente}, Converter={StaticResource textoLabel}}" />
-                        <TextBlock Grid.Row="2"
-                                   Text="{Binding Path=DataEmissao, Mode=OneWay, ConverterParameter={StaticResource LabelData}, Converter={StaticResource textoLabel}}" />
-                    </StackPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-            <ListView.GroupStyle>
-                <GroupStyle>
-                    <GroupStyle.HeaderTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Key}" />
-                        </DataTemplate>
-                    </GroupStyle.HeaderTemplate>
-                </GroupStyle>
-            </ListView.GroupStyle>
-        </ListView>
-    </Grid>
+    <ListView x:Name="lstNotas"
+              Padding="16"
+              Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+              ItemsSource="{Binding NotasSalvas}"
+              ItemContainerStyle="{StaticResource ItemFullWidth}"
+              SelectionMode="Multiple">
+        <ListView.Header>
+            <Grid Style="{StaticResource Cabecalho}">
+                <Grid.Resources>
+                    <Style TargetType="TextBlock"
+                           BasedOn="{StaticResource SubtitleTextBlockStyle}">
+                        <Setter Property="TextAlignment"
+                                Value="Center" />
+                        <Setter Property="VerticalAlignment"
+                                Value="Center" />
+                    </Style>
+                </Grid.Resources>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock>Emitente</TextBlock>
+                <TextBlock Grid.Column="1">Cliente</TextBlock>
+                <TextBlock Grid.Column="2">Data</TextBlock>
+            </Grid>
+        </ListView.Header>
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.ContextFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Command="{Binding DataContext.RemoverCommand, ElementName=root}"
+                                            CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Remover apenas esta nota</MenuFlyoutItem>
+                            <MenuFlyoutItem Visibility="{Binding DataContext.ExibirRemoverSelecionados, ElementName=root, Converter={StaticResource visibilidade}}"
+                                            Command="{Binding DataContext.RemoverSelecionadosCommand, ElementName=root}"
+                                            CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Remover selecionados</MenuFlyoutItem>
+                            <MenuFlyoutItem Visibility="{Binding DataContext.ExibirEditar, ElementName=root, Converter={StaticResource visibilidade}}"
+                                            Command="{Binding DataContext.EditarCommand, ElementName=root}"
+                                            CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Editar</MenuFlyoutItem>
+                        </MenuFlyout>
+                    </Grid.ContextFlyout>
+                    <Grid.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextAlignment"
+                                    Value="Center" />
+                            <Setter Property="VerticalAlignment"
+                                    Value="Center" />
+                        </Style>
+                    </Grid.Resources>
+                    <TextBlock Text="{Binding NomeEmitente}" />
+                    <TextBlock Grid.Column="1"
+                               Text="{Binding NomeCliente}" />
+                    <TextBlock Grid.Column="2"
+                               Text="{Binding DataEmissao}" />
+                </Grid>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+        <ListView.GroupStyle>
+            <GroupStyle>
+                <GroupStyle.HeaderTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Key}" />
+                    </DataTemplate>
+                </GroupStyle.HeaderTemplate>
+            </GroupStyle>
+        </ListView.GroupStyle>
+    </ListView>
 </Page>

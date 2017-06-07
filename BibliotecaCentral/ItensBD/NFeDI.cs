@@ -47,7 +47,7 @@ namespace BibliotecaCentral.ItensBD
             NomeCliente = nota.Informações.destinatário.nome;
             NomeEmitente = nota.Informações.emitente.nome;
             CNPJEmitente = nota.Informações.emitente.CNPJ;
-            DataEmissao = nota.Informações.identificação.DataHoraEmissão;
+            DataEmissao = DateTime.Parse(nota.Informações.identificação.DataHoraEmissão).ToString("yyyy-MM-dd hh:mm:ss");
             NumeroNota = nota.Informações.identificação.Numero;
             SerieNota = nota.Informações.identificação.Serie;
             Status = nota.Signature != null && nota.Signature.HasChildNodes ? (int)StatusNFe.Assinada : (int)StatusNFe.Salva;
@@ -59,7 +59,7 @@ namespace BibliotecaCentral.ItensBD
             NomeCliente = nota.NFe.Informações.destinatário.nome;
             NomeEmitente = nota.NFe.Informações.emitente.nome;
             CNPJEmitente = nota.NFe.Informações.emitente.CNPJ;
-            DataEmissao = nota.NFe.Informações.identificação.DataHoraEmissão;
+            DataEmissao = DateTime.Parse(nota.NFe.Informações.identificação.DataHoraEmissão).ToString("yyyy-MM-dd hh:mm:ss");
             NumeroNota = nota.NFe.Informações.identificação.Numero;
             SerieNota = nota.NFe.Informações.identificação.Serie;
             Status = nota.ProtNFe != null ? (int)StatusNFe.Emitida : nota.NFe.Signature != null && nota.NFe.Signature.HasChildNodes ? (int)StatusNFe.Assinada : (int)StatusNFe.Salva;

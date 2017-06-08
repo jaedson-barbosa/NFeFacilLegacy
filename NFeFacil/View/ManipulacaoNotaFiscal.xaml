@@ -33,112 +33,86 @@
                 <PivotItem Header="NFe"
                            IsEnabled="{Binding ManipulacaoAtivada}">
                     <ScrollViewer>
-                        <StackPanel>
-                            <StackPanel.Resources>
-                                <Style TargetType="TextBox">
-                                    <Setter Property="HorizontalAlignment"
-                                            Value="Stretch" />
-                                </Style>
-                                <Style TargetType="ComboBox">
-                                    <Setter Property="HorizontalAlignment"
-                                            Value="Stretch" />
-                                </Style>
-                                <Style TargetType="DatePicker">
-                                    <Setter Property="HorizontalAlignment"
-                                            Value="Stretch" />
-                                </Style>
-                                <Style TargetType="TimePicker">
-                                    <Setter Property="HorizontalAlignment"
-                                            Value="Stretch" />
-                                </Style>
-                            </StackPanel.Resources>
-                            <ItemsControl Style="{StaticResource ItensResponsivos}">
-                                <StackPanel>
-                                    <TextBlock Text="Data e hora de emissão *" />
-                                    <DatePicker Date="{Binding DataEmissao, Mode=TwoWay}" />
-                                    <TimePicker Time="{Binding HoraEmissao, Mode=TwoWay}"
-                                                Margin="0,2,0,0" />
-                                </StackPanel>
-                                <StackPanel>
-                                    <TextBlock Text="Data e hora de saída/entrada" />
-                                    <DatePicker Date="{Binding DataSaidaEntrada, Mode=TwoWay}" />
-                                    <TimePicker Time="{Binding HoraSaidaEntrada, Mode=TwoWay}"
-                                                Margin="0,2,0,0" />
-                                </StackPanel>
-                            </ItemsControl>
-                            <ItemsControl Style="{StaticResource ItensResponsivos}">
-                                <TextBox Header="Série *"
-                                         Text="{Binding NotaSalva.Informações.identificação.Serie, Mode=TwoWay}" />
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-                                    <TextBox Header="Número *"
-                                             Text="{Binding NotaSalva.Informações.identificação.Numero, Mode=TwoWay}" />
-                                    <Button Command="{Binding ObterNovoNumeroCommand}"
-                                            Grid.Column="1"
-                                            ToolTipService.ToolTip="Obter próximo número"
-                                            VerticalAlignment="Bottom">
-                                        <SymbolIcon Symbol="Refresh" />
-                                    </Button>
-                                </Grid>
-                                <ComboBox Header="Tipo de operação *"
-                                          SelectedIndex="{Binding NotaSalva.Informações.identificação.TipoOperação, Mode=TwoWay}">
-                                    <ComboBoxItem Content="Entrada" />
-                                    <ComboBoxItem Content="Saída" />
-                                </ComboBox>
-                                <ComboBox Header="Finalidade de emissão *"
-                                          SelectedIndex="{Binding NotaSalva.Informações.identificação.FinalidadeEmissão, Converter={StaticResource valorAlterado}, ConverterParameter='-1', Mode=TwoWay}">
-                                    <ComboBoxItem Content="Normal" />
-                                    <ComboBoxItem Content="Complementar" />
-                                    <ComboBoxItem Content="De ajuste" />
-                                    <ComboBoxItem Content="Devolução de mercadoria" />
-                                </ComboBox>
-                                <ComboBox Header="Consumidor final *"
-                                          SelectedIndex="{Binding NotaSalva.Informações.identificação.OperaçãoConsumidorFinal, Mode=TwoWay}">
-                                    <ComboBoxItem Content="Não" />
-                                    <ComboBoxItem Content="Sim" />
-                                </ComboBox>
-                                <ComboBox Header="Tipo de atendimento *"
-                                          SelectedIndex="{Binding NotaSalva.Informações.identificação.IndicadorPresença, Mode=TwoWay}">
-                                    <ComboBoxItem Content="Não se aplica" />
-                                    <ComboBoxItem Content="Presencial" />
-                                    <ComboBoxItem Content="Não presencial - Internet" />
-                                    <ComboBoxItem Content="Não presencial - Teleatendimento" />
-                                </ComboBox>
-                                <ComboBox Header="Forma de pagamento *"
-                                          SelectedIndex="{Binding NotaSalva.Informações.identificação.FormaPagamento, Mode=TwoWay}">
-                                    <ComboBoxItem Content="Pagamento à vista" />
-                                    <ComboBoxItem Content="Pagamento a prazo" />
-                                    <ComboBoxItem Content="Outros" />
-                                </ComboBox>
-                                <ComboBox Header="Tipo de NotaFácil.DANFE *"
-                                          SelectedIndex="{Binding NotaSalva.Informações.identificação.TipoImpressão, Converter={StaticResource valorAlterado}, ConverterParameter='-1', Mode=TwoWay}">
-                                    <ComboBoxItem Content="Retrato" />
-                                    <ComboBoxItem Content="Paisagem" />
-                                </ComboBox>
-                                <ComboBox Header="Destino da operação *"
-                                          SelectedIndex="{Binding NotaSalva.Informações.identificação.IdentificadorDestino, Converter={StaticResource valorAlterado}, ConverterParameter='-1', Mode=TwoWay}">
-                                    <ComboBoxItem Content="Operação interna" />
-                                    <ComboBoxItem Content="Operação interestadual" />
-                                    <ComboBoxItem Content="Operação com o exterior" />
-                                </ComboBox>
-                                <TextBox Header="Natureza da operação *"
-                                         Text="{Binding NotaSalva.Informações.identificação.NaturezaDaOperação, Mode=TwoWay}" />
-                                <ComboBox Header="Estado *"
-                                          ItemsSource="{Binding Source={StaticResource estados}, Path=EstadosCompletos}"
-                                          SelectedValue="{Binding Path=EstadoIdentificacao, Mode=TwoWay}"
-                                          SelectedValuePath="Codigo"
-                                          DisplayMemberPath="Nome"
-                                          PlaceholderText="Estado" />
-                                <ComboBox Header="Município *"
-                                          DisplayMemberPath="Nome"
-                                          ItemsSource="{Binding EstadoIdentificacao, Converter={StaticResource obterMun}}"
-                                          SelectedValue="{Binding NotaSalva.Informações.identificação.CodigoMunicípio, Mode=TwoWay}"
-                                          SelectedValuePath="Codigo" />
-                            </ItemsControl>
-                        </StackPanel>
+                        <ItemsControl Style="{StaticResource ItensResponsivos}">
+                            <DatePicker Header="Data de emissão"
+                                        Date="{Binding DataEmissao, Mode=TwoWay}" />
+                            <TimePicker Header="Hora de emissão"
+                                        Time="{Binding HoraEmissao, Mode=TwoWay}" />
+                            <DatePicker Header="Data de saída/entrada"
+                                        Date="{Binding DataSaidaEntrada, Mode=TwoWay}" />
+                            <TimePicker Header="Hora de saída/entrada"
+                                        Time="{Binding HoraSaidaEntrada, Mode=TwoWay}" />
+                            <TextBox Header="Série *"
+                                     Text="{Binding NotaSalva.Informações.identificação.Serie, Mode=TwoWay}" />
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBox Header="Número *"
+                                         Text="{Binding NotaSalva.Informações.identificação.Numero, Mode=TwoWay}" />
+                                <Button Command="{Binding ObterNovoNumeroCommand}"
+                                        Grid.Column="1"
+                                        ToolTipService.ToolTip="Obter próximo número"
+                                        VerticalAlignment="Bottom">
+                                    <SymbolIcon Symbol="Refresh" />
+                                </Button>
+                            </Grid>
+                            <ComboBox Header="Tipo de operação *"
+                                      SelectedIndex="{Binding NotaSalva.Informações.identificação.TipoOperação, Mode=TwoWay}">
+                                <ComboBoxItem Content="Entrada" />
+                                <ComboBoxItem Content="Saída" />
+                            </ComboBox>
+                            <ComboBox Header="Finalidade de emissão *"
+                                      SelectedIndex="{Binding NotaSalva.Informações.identificação.FinalidadeEmissão, Converter={StaticResource valorAlterado}, ConverterParameter='-1', Mode=TwoWay}">
+                                <ComboBoxItem Content="Normal" />
+                                <ComboBoxItem Content="Complementar" />
+                                <ComboBoxItem Content="De ajuste" />
+                                <ComboBoxItem Content="Devolução de mercadoria" />
+                            </ComboBox>
+                            <ComboBox Header="Consumidor final *"
+                                      SelectedIndex="{Binding NotaSalva.Informações.identificação.OperaçãoConsumidorFinal, Mode=TwoWay}">
+                                <ComboBoxItem Content="Não" />
+                                <ComboBoxItem Content="Sim" />
+                            </ComboBox>
+                            <ComboBox Header="Tipo de atendimento *"
+                                      SelectedIndex="{Binding NotaSalva.Informações.identificação.IndicadorPresença, Mode=TwoWay}">
+                                <ComboBoxItem Content="Não se aplica" />
+                                <ComboBoxItem Content="Presencial" />
+                                <ComboBoxItem Content="Não presencial - Internet" />
+                                <ComboBoxItem Content="Não presencial - Teleatendimento" />
+                            </ComboBox>
+                            <ComboBox Header="Forma de pagamento *"
+                                      SelectedIndex="{Binding NotaSalva.Informações.identificação.FormaPagamento, Mode=TwoWay}">
+                                <ComboBoxItem Content="Pagamento à vista" />
+                                <ComboBoxItem Content="Pagamento a prazo" />
+                                <ComboBoxItem Content="Outros" />
+                            </ComboBox>
+                            <ComboBox Header="Tipo de NotaFácil.DANFE *"
+                                      SelectedIndex="{Binding NotaSalva.Informações.identificação.TipoImpressão, Converter={StaticResource valorAlterado}, ConverterParameter='-1', Mode=TwoWay}">
+                                <ComboBoxItem Content="Retrato" />
+                                <ComboBoxItem Content="Paisagem" />
+                            </ComboBox>
+                            <ComboBox Header="Destino da operação *"
+                                      SelectedIndex="{Binding NotaSalva.Informações.identificação.IdentificadorDestino, Converter={StaticResource valorAlterado}, ConverterParameter='-1', Mode=TwoWay}">
+                                <ComboBoxItem Content="Operação interna" />
+                                <ComboBoxItem Content="Operação interestadual" />
+                                <ComboBoxItem Content="Operação com o exterior" />
+                            </ComboBox>
+                            <TextBox Header="Natureza da operação *"
+                                     Text="{Binding NotaSalva.Informações.identificação.NaturezaDaOperação, Mode=TwoWay}" />
+                            <ComboBox Header="Estado *"
+                                      ItemsSource="{Binding Source={StaticResource estados}, Path=EstadosCompletos}"
+                                      SelectedValue="{Binding Path=EstadoIdentificacao, Mode=TwoWay}"
+                                      SelectedValuePath="Codigo"
+                                      DisplayMemberPath="Nome"
+                                      PlaceholderText="Estado" />
+                            <ComboBox Header="Município *"
+                                      DisplayMemberPath="Nome"
+                                      ItemsSource="{Binding EstadoIdentificacao, Converter={StaticResource obterMun}}"
+                                      SelectedValue="{Binding NotaSalva.Informações.identificação.CodigoMunicípio, Mode=TwoWay}"
+                                      SelectedValuePath="Codigo" />
+                        </ItemsControl>
                     </ScrollViewer>
                 </PivotItem>
                 <PivotItem Header="Notas fiscais referenciadas"
@@ -255,6 +229,14 @@
                         </StackPanel>
                     </StackPanel>
                 </PivotItem>
+                <PivotItem Header="Local de retirada">
+                    <StackPanel>
+                        <CheckBox>Diferente do endereço do emitente</CheckBox>
+                        <ItemsControl Style="{StaticResource ItensResponsivos}">
+                            
+                        </ItemsControl>
+                    </StackPanel>
+                </PivotItem>
             </Pivot>
             <Pivot Margin="16">
                 <PivotItem Header="Cliente">
@@ -270,6 +252,12 @@
                             <Button Command="{Binding EditarCliente}"
                                     IsEnabled="{Binding ManipulacaoAtivada}">Editar</Button>
                         </StackPanel>
+                    </StackPanel>
+                </PivotItem>
+                <PivotItem Header="Local de entrega">
+                    <StackPanel>
+                        <CheckBox>Diferente do endereço do cliente</CheckBox>
+                        <ItemsControl Style="{StaticResource ItensResponsivos}"></ItemsControl>
                     </StackPanel>
                 </PivotItem>
             </Pivot>

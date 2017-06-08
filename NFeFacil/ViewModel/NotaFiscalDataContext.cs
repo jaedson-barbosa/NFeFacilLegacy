@@ -642,7 +642,7 @@ namespace NFeFacil.ViewModel
 
         public ICommand ExibirEmitente => new Comando(async () =>
         {
-            var emit = emitenteSelecionado ?? new EmitenteDI(NotaSalva.Informações.emitente);
+            var emit = new EmitenteDI(NotaSalva.Informações.emitente);
             var caixa = new View.CaixasDialogo.DetalheEmitenteAtual()
             {
                 ManipulacaoAtivada = false,
@@ -653,7 +653,7 @@ namespace NFeFacil.ViewModel
 
         public ICommand EditarEmitente => new Comando(async () =>
         {
-            var emit = emitenteSelecionado ?? new EmitenteDI(NotaSalva.Informações.emitente);
+            var emit = new EmitenteDI(NotaSalva.Informações.emitente);
             var caixa = new View.CaixasDialogo.DetalheEmitenteAtual()
             {
                 ManipulacaoAtivada = true,
@@ -671,7 +671,7 @@ namespace NFeFacil.ViewModel
 
         public ICommand ExibirCliente => new Comando(async () =>
         {
-            var emit = clienteSelecionado ?? new ClienteDI(NotaSalva.Informações.destinatário);
+            var emit = new ClienteDI(NotaSalva.Informações.destinatário);
             var caixa = new View.CaixasDialogo.DetalheClienteAtual()
             {
                 ManipulacaoAtivada = false,
@@ -682,7 +682,7 @@ namespace NFeFacil.ViewModel
 
         public ICommand EditarCliente => new Comando(async () =>
         {
-            var emit = clienteSelecionado ?? new ClienteDI(NotaSalva.Informações.destinatário);
+            var emit = new ClienteDI(NotaSalva.Informações.destinatário);
             var caixa = new View.CaixasDialogo.DetalheClienteAtual()
             {
                 ManipulacaoAtivada = true,
@@ -700,7 +700,7 @@ namespace NFeFacil.ViewModel
 
         public ICommand ExibirMotorista => new Comando(async () =>
         {
-            var emit = motoristaSelecionado ?? new MotoristaDI(NotaSalva.Informações.transp.transporta);
+            var emit = new MotoristaDI(NotaSalva.Informações.transp.transporta);
             var caixa = new View.CaixasDialogo.DetalheMotoristaAtual()
             {
                 ManipulacaoAtivada = false,
@@ -711,7 +711,7 @@ namespace NFeFacil.ViewModel
 
         public ICommand EditarMotorista => new Comando(async () =>
         {
-            var emit = motoristaSelecionado ?? new MotoristaDI(NotaSalva.Informações.transp.transporta);
+            var emit = new MotoristaDI(NotaSalva.Informações.transp.transporta);
             var caixa = new View.CaixasDialogo.DetalheMotoristaAtual()
             {
                 ManipulacaoAtivada = true,

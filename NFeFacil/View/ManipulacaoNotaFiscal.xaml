@@ -239,25 +239,62 @@
                     </Grid>
                 </PivotItem>
             </Pivot>
-            <StackPanel Padding="16">
-                <TextBlock Text="Escolha um emitente já cadastrado." />
-                <ComboBox ItemsSource="{Binding EmitentesDisponiveis}"
-                          HorizontalAlignment="Stretch"
-                          SelectedItem="{Binding EmitenteSelecionado, Mode=TwoWay}"
-                          IsEnabled="{Binding ManipulacaoAtivada}">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Nome}" />
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-                <StackPanel Orientation="Horizontal">
-                    <Button Margin="0,0,8,0"
-                            Command="{Binding ExibirEmitente}">Exibir</Button>
-                    <Button Command="{Binding EditarEmitente}"
-                            IsEnabled="{Binding ManipulacaoAtivada}">Editar</Button>
-                </StackPanel>
-            </StackPanel>
+            <Pivot Margin="16">
+                <PivotItem Header="Emitente">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <ListView Margin="0,8"
+                                  ItemsSource="{Binding EmitentesDisponiveis}"
+                                  SelectedItem="{Binding EmitenteSelecionado, Mode=TwoWay}"
+                                  IsEnabled="{Binding ManipulacaoAtivada}"
+                                  ItemContainerStyle="{StaticResource ItemFullWidth}">
+                            <ListView.Header>
+                                <Grid Style="{StaticResource Cabecalho}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*" />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Style="{StaticResource TextoCabecalho}">Nome</TextBlock>
+                                    <TextBlock Grid.Column="1"
+                                               Style="{StaticResource TextoCabecalho}">CNPJ</TextBlock>
+                                    <TextBlock Grid.Column="2"
+                                               Style="{StaticResource TextoCabecalho}">Cidade</TextBlock>
+                                </Grid>
+                            </ListView.Header>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="2*" />
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock TextWrapping="Wrap"
+                                                   Text="{Binding Nome}" />
+                                        <TextBlock TextWrapping="Wrap"
+                                                   Text="{Binding CNPJ}"
+                                                   Grid.Column="1" />
+                                        <TextBlock TextWrapping="Wrap"
+                                                   Text="{Binding NomeMunicipio}"
+                                                   Grid.Column="2" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                        <StackPanel Grid.Row="1"
+                                    Orientation="Horizontal">
+                            <Button Margin="0,0,8,0"
+                                    Command="{Binding ExibirEmitente}">Exibir</Button>
+                            <Button Command="{Binding EditarEmitente}"
+                                    IsEnabled="{Binding ManipulacaoAtivada}">Editar</Button>
+                        </StackPanel>
+                    </Grid>
+                </PivotItem>
+            </Pivot>
             <StackPanel Padding="16">
                 <TextBlock Text="Escolha um cliente já cadastrado." />
                 <ComboBox ItemsSource="{Binding ClientesDisponiveis}"

@@ -85,4 +85,12 @@
         <Setter Property="MinHeight"
                 Value="24" />
     </Style>
+    <Style x:Key="TextoCabecalho"
+           TargetType="TextBlock"
+           BasedOn="{StaticResource SubtitleTextBlockStyle}">
+        <Setter Property="TextAlignment"
+                Value="Center" />
+        <Setter Property="VerticalAlignment"
+                Value="Center" />
+    </Style>
 </ResourceDictionary>

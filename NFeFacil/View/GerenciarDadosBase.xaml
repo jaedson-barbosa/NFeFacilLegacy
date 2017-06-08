@@ -14,7 +14,12 @@
                 <ResourceDictionary Source="Estilos/Tabela.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Style TargetType="TextBlock"
-                   BasedOn="{StaticResource SubtitleTextBlockStyle}" />
+                   BasedOn="{StaticResource SubtitleTextBlockStyle}">
+                <Setter Property="TextAlignment"
+                        Value="Center" />
+                <Setter Property="VerticalAlignment"
+                        Value="Center" />
+            </Style>
         </ResourceDictionary>
     </Page.Resources>
     <Page.DataContext>
@@ -31,19 +36,14 @@
                         <ColumnDefinition Width="2*" />
                         <ColumnDefinition />
                         <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock TextAlignment="Center"
-                               VerticalAlignment="Center">Nome</TextBlock>
-                    <TextBlock Grid.Column="1"
-                               TextAlignment="Center"
-                               VerticalAlignment="Center">CNPJ</TextBlock>
-                    <TextBlock Grid.Column="2"
-                               TextAlignment="Center"
-                               VerticalAlignment="Center">Cidade</TextBlock>
-                    <Button Grid.Column="2"
+                    <TextBlock>Nome</TextBlock>
+                    <TextBlock Grid.Column="1">CNPJ</TextBlock>
+                    <TextBlock Grid.Column="2">Cidade</TextBlock>
+                    <Button Grid.Column="3"
                             Command="{Binding AdicionarEmitenteCommand}"
-                            Style="{StaticResource BotaoAdd}"
-                            Template="{StaticResource BotaoCabecalho}">
+                            Style="{StaticResource BotaoAdd}">
                         <SymbolIcon Symbol="Add" />
                     </Button>
                 </Grid>
@@ -65,14 +65,11 @@
                             </MenuFlyout>
                         </Grid.ContextFlyout>
                         <TextBlock TextWrapping="Wrap"
-                                   TextAlignment="Center"
                                    Text="{Binding Nome}" />
                         <TextBlock TextWrapping="Wrap"
-                                   TextAlignment="Center"
                                    Text="{Binding CNPJ}"
                                    Grid.Column="1" />
                         <TextBlock TextWrapping="Wrap"
-                                   TextAlignment="Center"
                                    Text="{Binding NomeMunicipio}"
                                    Grid.Column="2" />
                     </Grid>
@@ -87,19 +84,14 @@
                         <ColumnDefinition Width="2*" />
                         <ColumnDefinition />
                         <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock TextAlignment="Center"
-                               VerticalAlignment="Center">Nome</TextBlock>
-                    <TextBlock Grid.Column="1"
-                               TextAlignment="Center"
-                               VerticalAlignment="Center">Documento</TextBlock>
-                    <TextBlock Grid.Column="2"
-                               TextAlignment="Center"
-                               VerticalAlignment="Center">Cidade</TextBlock>
-                    <Button Grid.Column="2"
+                    <TextBlock>Nome</TextBlock>
+                    <TextBlock Grid.Column="1">Documento</TextBlock>
+                    <TextBlock Grid.Column="2">Cidade</TextBlock>
+                    <Button Grid.Column="3"
                             Command="{Binding AdicionarClienteCommand}"
-                            Style="{StaticResource BotaoAdd}"
-                            Template="{StaticResource BotaoCabecalho}">
+                            Style="{StaticResource BotaoAdd}">
                         <SymbolIcon Symbol="Add" />
                     </Button>
                 </Grid>
@@ -121,17 +113,11 @@
                             </MenuFlyout>
                         </Grid.ContextFlyout>
                         <TextBlock TextWrapping="Wrap"
-                                   TextAlignment="Center"
-                                   VerticalAlignment="Center"
                                    Text="{Binding Nome}" />
                         <TextBlock TextWrapping="Wrap"
-                                   TextAlignment="Center"
-                                   VerticalAlignment="Center"
                                    Text="{Binding Documento}"
                                    Grid.Column="1" />
                         <TextBlock TextWrapping="Wrap"
-                                   TextAlignment="Center"
-                                   VerticalAlignment="Center"
                                    Text="{Binding NomeMunicipio}"
                                    Grid.Column="2" />
                     </Grid>
@@ -146,19 +132,14 @@
                         <ColumnDefinition Width="2*" />
                         <ColumnDefinition />
                         <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock TextAlignment="Center"
-                               VerticalAlignment="Center">Nome</TextBlock>
-                    <TextBlock TextAlignment="Center"
-                               VerticalAlignment="Center"
-                               Grid.Column="1">Documento</TextBlock>
-                    <TextBlock TextAlignment="Center"
-                               VerticalAlignment="Center"
-                               Grid.Column="2">Cidade</TextBlock>
+                    <TextBlock>Nome</TextBlock>
+                    <TextBlock Grid.Column="1">Documento</TextBlock>
+                    <TextBlock Grid.Column="2">Cidade</TextBlock>
                     <Button Command="{Binding AdicionarMotoristaCommand}"
                             Style="{StaticResource BotaoAdd}"
-                            Template="{StaticResource BotaoCabecalho}"
-                            Grid.Column="2">
+                            Grid.Column="3">
                         <SymbolIcon Symbol="Add" />
                     </Button>
                 </Grid>
@@ -180,17 +161,11 @@
                             </MenuFlyout>
                         </Grid.ContextFlyout>
                         <TextBlock TextWrapping="Wrap"
-                                   TextAlignment="Center"
-                                   VerticalAlignment="Center"
                                    Text="{Binding Nome}" />
                         <TextBlock TextWrapping="Wrap"
-                                   TextAlignment="Center"
-                                   VerticalAlignment="Center"
                                    Text="{Binding Documento}"
                                    Grid.Column="1" />
                         <TextBlock TextWrapping="Wrap"
-                                   TextAlignment="Center"
-                                   VerticalAlignment="Center"
                                    Text="{Binding XMun}"
                                    Grid.Column="2" />
                     </Grid>
@@ -204,16 +179,13 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock TextAlignment="Center"
-                               VerticalAlignment="Center">Código</TextBlock>
-                    <TextBlock TextAlignment="Center"
-                               VerticalAlignment="Center"
-                               Grid.Column="1">Descrição</TextBlock>
+                    <TextBlock>Código</TextBlock>
+                    <TextBlock Grid.Column="1">Descrição</TextBlock>
                     <Button Command="{Binding AdicionarProdutoCommand}"
                             Style="{StaticResource BotaoAdd}"
-                            Template="{StaticResource BotaoCabecalho}"
-                            Grid.Column="1">
+                            Grid.Column="2">
                         <SymbolIcon Symbol="Add" />
                     </Button>
                 </Grid>
@@ -233,12 +205,8 @@
                                                 CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Remover</MenuFlyoutItem>
                             </MenuFlyout>
                         </Grid.ContextFlyout>
-                        <TextBlock TextAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   Text="{Binding CodigoProduto}" />
+                        <TextBlock Text="{Binding CodigoProduto}" />
                         <TextBlock TextWrapping="Wrap"
-                                   TextAlignment="Center"
-                                   VerticalAlignment="Center"
                                    Text="{Binding Descricao}"
                                    Grid.Column="1" />
                     </Grid>

@@ -220,6 +220,9 @@
     <Compile Include="View\CaixasDialogo\AdicionarReboque.xaml.cs">
       <DependentUpon>AdicionarReboque.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\CaixasDialogo\AdicionarReferenciaEletronica.xaml.cs">
+      <DependentUpon>AdicionarReferenciaEletronica.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\CaixasDialogo\ConfigurarDadosConexao.xaml.cs">
       <DependentUpon>ConfigurarDadosConexao.xaml</DependentUpon>
     </Compile>
@@ -412,6 +415,10 @@
     <Page Include="View\CaixasDialogo\AdicionarReboque.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\CaixasDialogo\AdicionarReferenciaEletronica.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\CaixasDialogo\ConfigurarDadosConexao.xaml">
       <SubType>Designer</SubType>

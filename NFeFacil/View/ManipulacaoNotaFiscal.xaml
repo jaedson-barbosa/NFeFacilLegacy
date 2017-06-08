@@ -29,10 +29,10 @@
         </Grid.RowDefinitions>
         <FlipView x:Name="pvtPrincipal"
                   Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-            <ScrollViewer Padding="16">
-                <Pivot>
-                    <PivotItem Header="NFe"
-                               IsEnabled="{Binding ManipulacaoAtivada}">
+            <Pivot Margin="16">
+                <PivotItem Header="NFe"
+                           IsEnabled="{Binding ManipulacaoAtivada}">
+                    <ScrollViewer>
                         <StackPanel>
                             <StackPanel.Resources>
                                 <Style TargetType="TextBox">
@@ -139,92 +139,106 @@
                                           SelectedValuePath="Codigo" />
                             </ItemsControl>
                         </StackPanel>
-                    </PivotItem>
-                    <PivotItem Header="Notas fiscais referenciadas"
-                               IsEnabled="{Binding ManipulacaoAtivada}">
-                        <StackPanel>
-                            <TextBlock Style="{StaticResource TitleTextBlockStyle}">Eletrônicas</TextBlock>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <TextBox Header="Chave de acesso de uma NF-e ou NFC-e"
-                                         Text="{Binding TempNFeReferenciada, Mode=TwoWay}" />
-                                <Button Grid.Column="1"
-                                        Command="{Binding AdicionarNFeReferenciadaCommand}"
-                                        Style="{StaticResource BotaoAdd}"
-                                        VerticalAlignment="Bottom">
-                                    <SymbolIcon Symbol="Add" />
-                                </Button>
-                            </Grid>
-                            <ListView ItemsSource="{Binding NFesReferenciadas}"
-                                      ItemContainerStyle="{StaticResource ItemFullWidth}"
-                                      Grid.Row="1"
-                                      Grid.ColumnSpan="2">
-                                <ListView.Header>
-                                    <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Referencia</TextBlock>
-                                </ListView.Header>
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding refNFe}">
-                                            <TextBlock.ContextFlyout>
-                                                <MenuFlyout>
-                                                    <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.RemoverDocReferenciadoCommand}"
-                                                                    CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Remover</MenuFlyoutItem>
-                                                </MenuFlyout>
-                                            </TextBlock.ContextFlyout></TextBlock>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                            <Grid Margin="0,16,0,0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Style="{StaticResource TitleTextBlockStyle}">Modelo 1/1A</TextBlock>
-                                <Button Grid.Column="1"
-                                        Command="{Binding AdicionarNFReferenciadaCommand}"
-                                        Style="{StaticResource BotaoAdd}"
-                                        VerticalAlignment="Bottom">
-                                    <SymbolIcon Symbol="Add" />
-                                </Button>
-                            </Grid>
-                            <ListView ItemsSource="{Binding NFsReferenciadas}"
-                                      ItemContainerStyle="{StaticResource ItemFullWidth}"
-                                      Grid.Row="2"
-                                      Grid.ColumnSpan="2">
-                                <ListView.Header>
+                    </ScrollViewer>
+                </PivotItem>
+                <PivotItem Header="Notas fiscais referenciadas"
+                           IsEnabled="{Binding ManipulacaoAtivada}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <TextBlock Style="{StaticResource TitleTextBlockStyle}">Eletrônicas</TextBlock>
+                        <ListView ItemsSource="{Binding NFesReferenciadas}"
+                                  ItemContainerStyle="{StaticResource ItemFullWidth}"
+                                  Grid.Row="1">
+                            <ListView.Header>
+                                <Grid Style="{StaticResource Cabecalho}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
+                                               VerticalAlignment="Center"
+                                               TextAlignment="Center">Referência</TextBlock>
+                                    <Button Command="{Binding AdicionarNFeReferenciadaCommand}"
+                                            Style="{StaticResource BotaoAdd}"
+                                            Grid.Column="1">
+                                        <SymbolIcon Symbol="Add" />
+                                    </Button>
+                                </Grid>
+                            </ListView.Header>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding refNFe}">
+                                        <TextBlock.ContextFlyout>
+                                            <MenuFlyout>
+                                                <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.RemoverDocReferenciadoCommand}"
+                                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Remover</MenuFlyoutItem>
+                                            </MenuFlyout>
+                                        </TextBlock.ContextFlyout></TextBlock>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                        <TextBlock Grid.Row="2"
+                                   Style="{StaticResource TitleTextBlockStyle}">Modelo 1/1A</TextBlock>
+                        <ListView ItemsSource="{Binding NFsReferenciadas}"
+                                  ItemContainerStyle="{StaticResource ItemFullWidth}"
+                                  Grid.Row="3">
+                            <ListView.Header>
+                                <Grid Style="{StaticResource Cabecalho}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
+                                               TextAlignment="Center"
+                                               VerticalAlignment="Center">CNPJ</TextBlock>
+                                    <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
+                                               TextAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               Grid.Column="1">Serie</TextBlock>
+                                    <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
+                                               TextAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               Grid.Column="2">Numero</TextBlock>
+                                    <Button Grid.Column="3"
+                                            Command="{Binding AdicionarNFReferenciadaCommand}"
+                                            Style="{StaticResource BotaoAdd}">
+                                        <SymbolIcon Symbol="Add" />
+                                    </Button>
+                                </Grid>
+                            </ListView.Header>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
                                     <Grid>
-                                        <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">CNPJ</TextBlock>
-                                        <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
-                                                   HorizontalAlignment="Center">Serie</TextBlock>
-                                        <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
-                                                   HorizontalAlignment="Right">Numero</TextBlock>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.ContextFlyout>
+                                            <MenuFlyout>
+                                                <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.RemoverDocReferenciadoCommand}"
+                                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Remover</MenuFlyoutItem>
+                                            </MenuFlyout>
+                                        </Grid.ContextFlyout>
+                                        <TextBlock Text="{Binding refNF.CNPJ}" />
+                                        <TextBlock Grid.Column="1"
+                                                   Text="{Binding refNF.Serie}" />
+                                        <TextBlock Grid.Column="2"
+                                                   Text="{Binding refNF.NNF}" />
                                     </Grid>
-                                </ListView.Header>
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <Grid>
-                                            <Grid.ContextFlyout>
-                                                <MenuFlyout>
-                                                    <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.RemoverDocReferenciadoCommand}"
-                                                                    CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Remover</MenuFlyoutItem>
-                                                </MenuFlyout>
-                                            </Grid.ContextFlyout>
-                                            <TextBlock Text="{Binding refNF.CNPJ}" />
-                                            <TextBlock HorizontalAlignment="Center"
-                                                       Text="{Binding refNF.Serie}" />
-                                            <TextBlock HorizontalAlignment="Right"
-                                                       Text="{Binding refNF.NNF}" />
-                                        </Grid>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </StackPanel>
-                    </PivotItem>
-                </Pivot>
-            </ScrollViewer>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Grid>
+                </PivotItem>
+            </Pivot>
             <StackPanel Padding="16">
                 <TextBlock Text="Escolha um emitente já cadastrado." />
                 <ComboBox ItemsSource="{Binding EmitentesDisponiveis}"
@@ -456,13 +470,18 @@
                     </PivotItem>
                 </Pivot>
             </ScrollViewer>
-            <StackPanel Padding="16">
+            <Grid Padding="16">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
                 <ComboBox ItemsSource="{Binding Modalidades}"
                           IsEnabled="{Binding ManipulacaoAtivada}"
                           SelectedItem="{Binding ModFrete, Mode=TwoWay}"
                           HorizontalAlignment="Stretch"
                           Header="Modalidade do frete" />
-                <Pivot Margin="0,4,0,0">
+                <Pivot Grid.Row="1"
+                       Margin="0,4,0,0">
                     <PivotItem Header="Motorista">
                         <StackPanel>
                             <TextBlock Text="Escolha um motorista já cadastrado ou insira os valores manualmente nos campos abaixo."
@@ -499,15 +518,17 @@
                     </PivotItem>
                     <PivotItem Header="Reboques">
                         <ListView ItemsSource="{Binding NotaSalva.Informações.transp.reboque, Converter={StaticResource getObs}}"
-                                  Grid.Row="1"
+                                  Margin="0,8,0,0"
                                   ItemContainerStyle="{StaticResource ItemFullWidth}">
                             <ListView.Header>
-                                <Grid>
+                                <Grid Style="{StaticResource Cabecalho}">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition />
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Placa</TextBlock>
+                                    <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
+                                               TextAlignment="Center"
+                                               VerticalAlignment="Center">Placa</TextBlock>
                                     <Button Grid.Column="1"
                                             IsEnabled="{Binding ManipulacaoAtivada}"
                                             Style="{StaticResource BotaoAdd}"
@@ -531,19 +552,24 @@
                         </ListView>
                     </PivotItem>
                     <PivotItem Header="Volumes"
+                               Margin="0,8,0,0"
                                IsEnabled="{Binding ManipulacaoAtivada}">
                         <ListView ItemsSource="{Binding NotaSalva.Informações.transp.vol, Converter={StaticResource getObs}}"
                                   ItemContainerStyle="{StaticResource ItemFullWidth}">
                             <ListView.Header>
-                                <Grid>
+                                <Grid Style="{StaticResource Cabecalho}">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition />
                                         <ColumnDefinition />
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Espécie</TextBlock>
+                                    <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
+                                               TextAlignment="Center"
+                                               VerticalAlignment="Center">Espécie</TextBlock>
                                     <TextBlock Grid.Column="1"
-                                               Style="{StaticResource SubtitleTextBlockStyle}">Marca</TextBlock>
+                                               Style="{StaticResource SubtitleTextBlockStyle}"
+                                               TextAlignment="Center"
+                                               VerticalAlignment="Center">Marca</TextBlock>
                                     <Button Grid.Column="2"
                                             IsEnabled="{Binding ManipulacaoAtivada}"
                                             Style="{StaticResource BotaoAdd}"
@@ -597,7 +623,7 @@
                         </ItemsControl>
                     </PivotItem>
                 </Pivot>
-            </StackPanel>
+            </Grid>
             <Pivot Margin="16">
                 <PivotItem Header="Fatura">
                     <ItemsControl Style="{StaticResource ItensResponsivos}"
@@ -613,16 +639,20 @@
                     </ItemsControl>
                 </PivotItem>
                 <PivotItem Header="Duplicatas">
-                    <ListView ItemsSource="{Binding NotaSalva.Informações.cobr.Dup, Converter={StaticResource getObs}}"
+                    <ListView Margin="0,8,0,0"
+                              ItemsSource="{Binding NotaSalva.Informações.cobr.Dup, Converter={StaticResource getObs}}"
                               ItemContainerStyle="{StaticResource ItemFullWidth}">
                         <ListView.Header>
-                            <Grid>
+                            <Grid Style="{StaticResource Cabecalho}">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Numero da duplicata</TextBlock>
-                                <Button Grid.Column="1" Style="{StaticResource BotaoAdd}"
+                                <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
+                                           TextAlignment="Center"
+                                           VerticalAlignment="Center">Numero da duplicata</TextBlock>
+                                <Button Grid.Column="1"
+                                        Style="{StaticResource BotaoAdd}"
                                         IsEnabled="{Binding ManipulacaoAtivada}"
                                         Command="{Binding AdicionarDuplicataCommand}">
                                     <SymbolIcon Symbol="Add" />
@@ -660,18 +690,23 @@
                 </PivotItem>
                 <PivotItem Header="Observações do contribuinte"
                            IsEnabled="{Binding ManipulacaoAtivada}">
-                    <ListView ItemContainerStyle="{StaticResource ItemFullWidth}"
+                    <ListView Margin="0,8,0,0"
+                              ItemContainerStyle="{StaticResource ItemFullWidth}"
                               ItemsSource="{Binding NotaSalva.Informações.infAdic.obsCont, Converter={StaticResource getObs}}">
                         <ListView.Header>
-                            <Grid>
+                            <Grid Style="{StaticResource Cabecalho}">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition />
                                     <ColumnDefinition />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Nome</TextBlock>
+                                <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
+                                           TextAlignment="Center"
+                                           VerticalAlignment="Center">Nome</TextBlock>
                                 <TextBlock Grid.Column="1"
-                                           Style="{StaticResource SubtitleTextBlockStyle}">Observação</TextBlock>
+                                           Style="{StaticResource SubtitleTextBlockStyle}"
+                                           TextAlignment="Center"
+                                           VerticalAlignment="Center">Observação</TextBlock>
                                 <Button Grid.Column="2"
                                         Command="{Binding AdicionarObsContribuinteCommand}"
                                         Style="{StaticResource BotaoAdd}">
@@ -704,18 +739,23 @@
                 </PivotItem>
                 <PivotItem Header="Processos referenciados"
                            IsEnabled="{Binding ManipulacaoAtivada}">
-                    <ListView ItemContainerStyle="{StaticResource ItemFullWidth}"
+                    <ListView Margin="0,8,0,0"
+                              ItemContainerStyle="{StaticResource ItemFullWidth}"
                               ItemsSource="{Binding NotaSalva.Informações.infAdic.procRef, Converter={StaticResource getObs}}">
                         <ListView.Header>
-                            <Grid>
+                            <Grid Style="{StaticResource Cabecalho}">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition />
                                     <ColumnDefinition />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Identificador</TextBlock>
+                                <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
+                                           TextAlignment="Center"
+                                           VerticalAlignment="Center">Identificador</TextBlock>
                                 <TextBlock Grid.Column="1"
-                                           Style="{StaticResource SubtitleTextBlockStyle}">Origem do processo</TextBlock>
+                                           TextAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           Style="{StaticResource SubtitleTextBlockStyle}">Origem</TextBlock>
                                 <Button Grid.Column="2"
                                         Command="{Binding AdicionarProcReferenciadoCommand}"
                                         Style="{StaticResource BotaoAdd}">
@@ -771,9 +811,9 @@
                     </StackPanel>
                 </PivotItem>
             </Pivot>
-            <Pivot>
+            <Pivot Margin="16">
                 <PivotItem Header="Geral">
-                    <ScrollViewer Padding="16">
+                    <ScrollViewer>
                         <ItemsControl Style="{StaticResource ItensResponsivos}"
                                       IsEnabled="{Binding ManipulacaoAtivada}">
                             <TextBox Header="Safra"
@@ -797,18 +837,22 @@
                     </ScrollViewer>
                 </PivotItem>
                 <PivotItem Header="Fornecimento diário de cana">
-                    <ListView Margin="16"
+                    <ListView Margin="0,8,0,0"
                               ItemsSource="{Binding NotaSalva.Informações.cana.forDia, Converter={StaticResource getObs}}"
                               ItemContainerStyle="{StaticResource ItemFullWidth}">
                         <ListView.Header>
-                            <Grid>
+                            <Grid Style="{StaticResource Cabecalho}">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition />
                                     <ColumnDefinition />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Dia</TextBlock>
                                 <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
+                                           TextAlignment="Center"
+                                           VerticalAlignment="Center">Dia</TextBlock>
+                                <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
+                                           TextAlignment="Center"
+                                           VerticalAlignment="Center"
                                            Grid.Column="1">Quantidade</TextBlock>
                                 <Button Style="{StaticResource BotaoAdd}"
                                         IsEnabled="{Binding ManipulacaoAtivada}"
@@ -842,18 +886,22 @@
                     </ListView>
                 </PivotItem>
                 <PivotItem Header="Deduções">
-                    <ListView Margin="16"
+                    <ListView Margin="0,8,0,0"
                               ItemsSource="{Binding NotaSalva.Informações.cana.deduc, Converter={StaticResource getObs}}"
                               ItemContainerStyle="{StaticResource ItemFullWidth}">
                         <ListView.Header>
-                            <Grid>
+                            <Grid Style="{StaticResource Cabecalho}">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition />
                                     <ColumnDefinition />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Descrição</TextBlock>
                                 <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
+                                           TextAlignment="Center"
+                                           VerticalAlignment="Center">Descrição</TextBlock>
+                                <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
+                                           TextAlignment="Center"
+                                           VerticalAlignment="Center"
                                            Grid.Column="1">Valor</TextBlock>
                                 <Button Style="{StaticResource BotaoAdd}"
                                         IsEnabled="{Binding ManipulacaoAtivada}"

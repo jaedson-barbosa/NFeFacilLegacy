@@ -409,7 +409,6 @@ namespace NFeFacil.ViewModel
             }
         }
 
-        public string TempNFeReferenciada { get; set; }
         public ICommand AdicionarNFeReferenciadaCommand => new Comando(AdicionarNFeReferenciada, true);
         public ICommand AdicionarNFReferenciadaCommand => new Comando(AdicionarNFReferenciada, true);
         public ICommand RemoverDocReferenciadoCommand => new Comando<DocumentoFiscalReferenciado>(RemoverDocReferenciado);
@@ -417,37 +416,31 @@ namespace NFeFacil.ViewModel
         public ObservableCollection<DocumentoFiscalReferenciado> NFesReferenciadas => NotaSalva.Informações.identificação.DocumentosReferenciados.Where(x => !string.IsNullOrEmpty(x.refNFe)).GerarObs();
         public ObservableCollection<DocumentoFiscalReferenciado> NFsReferenciadas => NotaSalva.Informações.identificação.DocumentosReferenciados.Where(x => x.refNF != null).GerarObs();
 
-        private void AdicionarNFeReferenciada()
+        private async void AdicionarNFeReferenciada()
         {
-            if (string.IsNullOrEmpty(TempNFeReferenciada))
-            {
-                Log.Escrever(TitulosComuns.ErroSimples, "Primeiro insira a referência a uma NFe no campo ao lado.");
-            }
-            else
+            var caixa = new View.CaixasDialogo.AdicionarReferenciaEletronica();
+            if (await caixa.ShowAsync() == Windows.UI.Xaml.Controls.ContentDialogResult.Primary)
             {
                 NotaSalva.Informações.identificação.DocumentosReferenciados.Add(new DocumentoFiscalReferenciado
                 {
-                    refNFe = TempNFeReferenciada
+                    refNFe = caixa.Chave
                 });
                 OnPropertyChanged(nameof(NFesReferenciadas));
-                TempNFeReferenciada = string.Empty;
-                OnPropertyChanged(nameof(TempNFeReferenciada));
             }
         }
 
         private async void AdicionarNFReferenciada()
         {
             var caixa = new View.CaixasDialogo.AdicionarNF1AReferenciada();
-            caixa.PrimaryButtonClick += (x, y) =>
+            if (await caixa.ShowAsync() == Windows.UI.Xaml.Controls.ContentDialogResult.Primary)
             {
-                var contexto = (NF1AReferenciada)x.DataContext;
+                var contexto = (NF1AReferenciada)caixa.DataContext;
                 NotaSalva.Informações.identificação.DocumentosReferenciados.Add(new DocumentoFiscalReferenciado
                 {
                     refNF = contexto
                 });
                 OnPropertyChanged(nameof(NFsReferenciadas));
-            };
-            await caixa.ShowAsync();
+            }
         }
 
         private void RemoverDocReferenciado(DocumentoFiscalReferenciado doc)

@@ -59,6 +59,7 @@ namespace NFeFacil.ViewModel
                 Conjunto.StatusAtual = value;
                 OnPropertyChanged(nameof(ManipulacaoAtivada),
                     nameof(EdicaoEnderecoRetiradaAtivado),
+                    nameof(EdicaoEnderecoEntregaAtivado),
                     nameof(BotaoEditarVisivel),
                     nameof(BotaoConfirmarVisivel),
                     nameof(BotaoSalvarAtivado),
@@ -733,7 +734,7 @@ namespace NFeFacil.ViewModel
         public bool exteriorEnderecoRetirada;
         public bool ExteriorEnderecoRetirada
         {
-            get => Retirada.SiglaUF == "EX";
+            get => Retirada != null ? Retirada.SiglaUF == "EX" : false;
             set
             {
                 exteriorEnderecoRetirada = value;
@@ -810,6 +811,96 @@ namespace NFeFacil.ViewModel
                 {
                     NotaSalva.Informações.Retirada.CodigoMunicipio = value.Codigo;
                     NotaSalva.Informações.Retirada.NomeMunicipio = value.Nome;
+                }
+            }
+        }
+
+        #endregion
+
+        #region Endereço de entrega
+
+        public RetiradaOuEntrega Entrega => NotaSalva.Informações.Entrega;
+
+        public bool exteriorEnderecoEntrega;
+        public bool ExteriorEnderecoEntrega
+        {
+            get => Entrega != null ? Entrega.SiglaUF == "EX" : false;
+            set
+            {
+                exteriorEnderecoEntrega = value;
+                if (value)
+                {
+                    Entrega.CodigoMunicipio = 9999999;
+                    Entrega.NomeMunicipio = "EXTERIOR";
+                    Entrega.SiglaUF = "EX";
+                }
+                else
+                {
+                    Entrega.CodigoMunicipio = 0;
+                    Entrega.NomeMunicipio = null;
+                    Entrega.SiglaUF = null;
+                }
+                OnPropertyChanged(nameof(ExteriorEnderecoEntrega));
+            }
+        }
+
+        public bool EnderecoEntregaAtivado
+        {
+            get => Entrega != null;
+            set
+            {
+                NotaSalva.Informações.Entrega = value ? new RetiradaOuEntrega() : null;
+                OnPropertyChanged(nameof(Entrega), nameof(EdicaoEnderecoEntregaAtivado), nameof(TipoDocumentoEnderecoEmitente),
+                    nameof(DocumentoEnderecoEmitente), nameof(UFEscolhidaEnderecoEmitente), nameof(ConjuntoMunicipioEnderecoEmitente));
+            }
+        }
+
+        public bool EdicaoEnderecoEntregaAtivado => EnderecoEntregaAtivado && ManipulacaoAtivada;
+
+        TiposDocumento tipoDocumentoEnderecoCliente;
+        public int TipoDocumentoEnderecoCliente
+        {
+            get => (int)(tipoDocumentoEnderecoCliente = string.IsNullOrEmpty(Entrega?.CNPJ) ? TiposDocumento.CPF : TiposDocumento.CNPJ);
+            set => tipoDocumentoEnderecoCliente = (TiposDocumento)value;
+        }
+
+        public string DocumentoEnderecoCliente
+        {
+            get => tipoDocumentoEnderecoCliente == TiposDocumento.CNPJ ? Entrega.CNPJ : Entrega?.CPF;
+            set
+            {
+                if (tipoDocumentoEnderecoCliente == TiposDocumento.CPF)
+                {
+                    Entrega.CNPJ = null;
+                    Entrega.CPF = value;
+                }
+                else
+                {
+                    Entrega.CPF = null;
+                    Entrega.CNPJ = value;
+                }
+            }
+        }
+
+        public string UFEscolhidaEnderecoCliente
+        {
+            get => Entrega?.SiglaUF;
+            set
+            {
+                NotaSalva.Informações.Entrega.SiglaUF = value;
+                OnPropertyChanged(nameof(UFEscolhidaEnderecoCliente));
+            }
+        }
+
+        public Municipio ConjuntoMunicipioEnderecoCliente
+        {
+            get => Municipios.Get(UFEscolhidaEnderecoCliente).FirstOrDefault(x => x.Codigo == NotaSalva.Informações.Entrega.CodigoMunicipio);
+            set
+            {
+                if (value != null)
+                {
+                    NotaSalva.Informações.Entrega.CodigoMunicipio = value.Codigo;
+                    NotaSalva.Informações.Entrega.NomeMunicipio = value.Nome;
                 }
             }
         }

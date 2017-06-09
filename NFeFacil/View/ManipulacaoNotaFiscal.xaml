@@ -288,8 +288,41 @@
                 </PivotItem>
                 <PivotItem Header="Local de entrega">
                     <StackPanel>
-                        <CheckBox>Diferente do endereço do cliente</CheckBox>
-                        <ItemsControl Style="{StaticResource ItensResponsivos}"></ItemsControl>
+                        <CheckBox IsChecked="{Binding EnderecoEntregaAtivado, Mode=TwoWay}"
+                                  IsEnabled="{Binding ManipulacaoAtivada}">Diferente do endereço do Cliente</CheckBox>
+                        <ItemsControl Style="{StaticResource ItensResponsivos}"
+                                      IsEnabled="{Binding EdicaoEnderecoEntregaAtivado}">
+                            <CheckBox IsChecked="{Binding ExteriorEnderecoEntrega, Mode=TwoWay}">Exterior</CheckBox>
+                            <ComboBox SelectedIndex="{Binding TipoDocumentoEnderecoCliente, Mode=TwoWay}"
+                                      Header="Tipo">
+                                <ComboBoxItem Content="CPF" />
+                                <ComboBoxItem Content="CNPJ" />
+                            </ComboBox>
+                            <TextBox Text="{Binding DocumentoEnderecoCliente, Mode=TwoWay}"
+                                     InputScope="Number"
+                                     Header="Documento *" />
+                            <TextBox Text="{Binding Path=Entrega.Logradouro, Mode=TwoWay}"
+                                     InputScope="Text"
+                                     Header="Logradouro *" />
+                            <TextBox Text="{Binding Path=Entrega.Numero, Mode=TwoWay}"
+                                     InputScope="Text"
+                                     Header="Número *" />
+                            <TextBox Text="{Binding Path=Entrega.Complemento, Mode=TwoWay}"
+                                     InputScope="Text"
+                                     Header="Complemento" />
+                            <TextBox Text="{Binding Path=Entrega.Bairro, Mode=TwoWay}"
+                                     InputScope="Text"
+                                     Header="Bairro *" />
+                            <ComboBox ItemsSource="{Binding Source={StaticResource estados}, Path=Siglas}"
+                                      SelectedItem="{Binding UFEscolhidaEnderecoCliente, Mode=TwoWay}"
+                                      IsEnabled="{Binding ExteriorEnderecoEntrega, Converter={StaticResource inverter}}"
+                                      Header="Estado" />
+                            <ComboBox ItemsSource="{Binding UFEscolhidaEnderecoCliente, Converter={StaticResource obterMun}}"
+                                      SelectedItem="{Binding Path=ConjuntoMunicipioEnderecoCliente, Mode=TwoWay}"
+                                      IsEnabled="{Binding ExteriorEnderecoEntrega, Converter={StaticResource inverter}}"
+                                      DisplayMemberPath="Nome"
+                                      Header="Município" />
+                        </ItemsControl>
                     </StackPanel>
                 </PivotItem>
             </Pivot>

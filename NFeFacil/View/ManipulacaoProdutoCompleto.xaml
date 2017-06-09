@@ -730,33 +730,23 @@
                         </ScrollViewer>
                     </PivotItem>
                     <PivotItem Header="Imposto de importação">
-                        <ScrollViewer VerticalScrollBarVisibility="Hidden">
-                            <ScrollViewer.DataContext>
+                        <ItemsControl Style="{StaticResource ItensResponsivos}">
+                            <ItemsControl.DataContext>
                                 <Impostos:II />
-                            </ScrollViewer.DataContext>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <StackPanel>
-                                    <TextBox InputScope="Number"
-                                             Header="Valor da base de cálculo *"
-                                             Text="{Binding vBC, Mode=TwoWay}" />
-                                    <TextBox InputScope="Number"
-                                             Header="Valor do IOF *"
-                                             Text="{Binding vIOF, Mode=TwoWay}" />
-                                </StackPanel>
-                                <StackPanel Grid.Column="1">
-                                    <TextBox InputScope="Number"
-                                             Header="Valor despesas aduaneiras *"
-                                             Text="{Binding vDespAdu, Mode=TwoWay}" />
-                                    <TextBox InputScope="Number"
-                                             Header="Valor do imposto *"
-                                             Text="{Binding vII, Mode=TwoWay}" />
-                                </StackPanel>
-                            </Grid>
-                        </ScrollViewer>
+                            </ItemsControl.DataContext>
+                            <TextBox InputScope="Number"
+                                     Header="Valor da base de cálculo *"
+                                     Text="{Binding vBC, Mode=TwoWay}" />
+                            <TextBox InputScope="Number"
+                                     Header="Valor do IOF *"
+                                     Text="{Binding vIOF, Mode=TwoWay}" />
+                            <TextBox InputScope="Number"
+                                     Header="Valor despesas aduaneiras *"
+                                     Text="{Binding vDespAdu, Mode=TwoWay}" />
+                            <TextBox InputScope="Number"
+                                     Header="Valor do imposto *"
+                                     Text="{Binding vII, Mode=TwoWay}" />
+                        </ItemsControl>
                     </PivotItem>
                     <PivotItem Header="IPI Devolvido">
                         <StackPanel>
@@ -777,7 +767,7 @@
                             <ScrollViewer.DataContext>
                                 <Impostos:ICMSUFDest />
                             </ScrollViewer.DataContext>
-                            <StackPanel>
+                            <ItemsControl Style="{StaticResource ItensResponsivos}">
                                 <TextBox Header="Percentual ICMS relativo ao FCP na UF de destino"
                                          Text="{Binding pFCPUFDest, Mode=TwoWay}"
                                          InputScope="Number" />
@@ -811,7 +801,7 @@
                                 <TextBox Header="Valor ICMS relativo ao FCP da UF de destino"
                                          Text="{Binding vFCPUFDest, Mode=TwoWay}"
                                          InputScope="Number" />
-                            </StackPanel>
+                            </ItemsControl>
                         </ScrollViewer>
                     </PivotItem>
                 </Pivot>

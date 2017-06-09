@@ -1,7 +1,6 @@
 ﻿using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
 using System.ComponentModel;
-using Windows.UI.Xaml;
 
 namespace NFeFacil.ViewModel.ImpostosProduto
 {
@@ -19,14 +18,14 @@ namespace NFeFacil.ViewModel.ImpostosProduto
             {
                 if (exterior = value)
                 {
-                    VisibilidadeCodigoPais = Visibility.Visible;
-                    VisibilidadeMunicipioUFIncidencia = Visibility.Collapsed;
+                    VisibilidadeCodigoPais = true;
+                    VisibilidadeMunicipioUFIncidencia = false;
                     Imposto.cMun = "9999999";
                 }
                 else
                 {
-                    VisibilidadeCodigoPais = Visibility.Collapsed;
-                    VisibilidadeMunicipioUFIncidencia = Visibility.Visible;
+                    VisibilidadeCodigoPais = false;
+                    VisibilidadeMunicipioUFIncidencia = true;
                     Imposto.cPais = null;
                     Imposto.cMun = null;
                 }
@@ -35,8 +34,8 @@ namespace NFeFacil.ViewModel.ImpostosProduto
             }
         }
 
-        public Visibility VisibilidadeCodigoPais { get; private set; } = Visibility.Collapsed;
-        public Visibility VisibilidadeMunicipioUFIncidencia { get; private set; }
+        public bool VisibilidadeCodigoPais { get; private set; }
+        public bool VisibilidadeMunicipioUFIncidencia { get; private set; } = true;
 
         public Imposto ImpostoBruto => Imposto;
     }

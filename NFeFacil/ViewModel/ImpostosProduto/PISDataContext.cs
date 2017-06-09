@@ -23,12 +23,12 @@ namespace NFeFacil.ViewModel.ImpostosProduto
         public PISST ImpostoST => Conjunto.PISST;
 
         public Visibility PIS { get; private set; } = Visibility.Collapsed;
-        public Visibility CalculoAliquota { get; private set; } = Visibility.Collapsed;
-        public Visibility CalculoValor { get; private set; } = Visibility.Collapsed;
-        public Visibility ComboTipoCalculo { get; private set; } = Visibility.Collapsed;
+        public bool CalculoAliquota { get; private set; }
+        public bool CalculoValor { get; private set; }
+        public bool ComboTipoCalculo { get; private set; }
         public Visibility PISST { get; private set; } = Visibility.Collapsed;
-        public Visibility CalculoAliquotaST { get; private set; } = Visibility.Collapsed;
-        public Visibility CalculoValorST { get; private set; } = Visibility.Collapsed;
+        public bool CalculoAliquotaST { get; private set; }
+        public bool CalculoValorST { get; private set; }
 
         private string cstSelecionado;
         public string CSTSelecionado
@@ -43,7 +43,7 @@ namespace NFeFacil.ViewModel.ImpostosProduto
                 {
                     MudarTipoCalculo(TiposCalculo.PorAliquota);
                     PIS = Visibility.Visible;
-                    ComboTipoCalculo = Visibility.Collapsed;
+                    ComboTipoCalculo = false;
                     Conjunto.PIS = new PIS()
                     {
                         Corpo = new PISAliq()
@@ -52,7 +52,7 @@ namespace NFeFacil.ViewModel.ImpostosProduto
                 else if (tipoPISInt == 3)
                 {
                     PIS = Visibility.Visible;
-                    ComboTipoCalculo = Visibility.Collapsed;
+                    ComboTipoCalculo = false;
                     MudarTipoCalculo(TiposCalculo.PorValor);
                     Conjunto.PIS = new PIS()
                     {
@@ -70,7 +70,7 @@ namespace NFeFacil.ViewModel.ImpostosProduto
                 else
                 {
                     PIS = Visibility.Visible;
-                    ComboTipoCalculo = Visibility.Visible;
+                    ComboTipoCalculo = false;
                     Conjunto.PIS = new PIS()
                     {
                         Corpo = new PISOutr()
@@ -100,12 +100,12 @@ namespace NFeFacil.ViewModel.ImpostosProduto
             switch (tipo)
             {
                 case TiposCalculo.PorAliquota:
-                    CalculoAliquota = Visibility.Visible;
-                    CalculoValor = Visibility.Collapsed;
+                    CalculoAliquota = true;
+                    CalculoValor = false;
                     break;
                 case TiposCalculo.PorValor:
-                    CalculoAliquota = Visibility.Collapsed;
-                    CalculoValor = Visibility.Visible;
+                    CalculoAliquota = false;
+                    CalculoValor = true;
                     break;
             }
             OnPropertyChanged(nameof(CalculoAliquota), nameof(CalculoValor));
@@ -122,12 +122,12 @@ namespace NFeFacil.ViewModel.ImpostosProduto
                 switch (value == "Por alíquota" ? TiposCalculo.PorAliquota : TiposCalculo.PorValor)
                 {
                     case TiposCalculo.PorAliquota:
-                        CalculoAliquotaST = Visibility.Visible;
-                        CalculoValorST = Visibility.Collapsed;
+                        CalculoAliquotaST = true;
+                        CalculoValorST = false;
                         break;
                     case TiposCalculo.PorValor:
-                        CalculoAliquotaST = Visibility.Collapsed;
-                        CalculoValorST = Visibility.Visible;
+                        CalculoAliquotaST = false;
+                        CalculoValorST = true;
                         break;
                 }
                 OnPropertyChanged(nameof(ImpostoST), nameof(CalculoAliquotaST), nameof(CalculoValorST));

@@ -760,13 +760,8 @@
                                                   ItemsSource="{Binding Source={StaticResource estados}, Path=EstadosCompletos}"
                                                   Header="UF *"
                                                   HorizontalAlignment="Stretch"
-                                                  Margin="0,0,0,5">
-                                            <ComboBox.ItemTemplate>
-                                                <DataTemplate>
-                                                    <TextBlock Text="{Binding Nome}" />
-                                                </DataTemplate>
-                                            </ComboBox.ItemTemplate>
-                                        </ComboBox>
+                                                  DisplayMemberPath="Nome"
+                                                  Margin="0,0,0,5" />
                                         <TextBox Text="{Binding Imposto.vDeducao, Mode=TwoWay}"
                                                  Header="Valor das deduções"
                                                  Margin="0,0,0,5"
@@ -802,13 +797,8 @@
                                                   SelectedValue="{Binding Path=Imposto.cMunFG, Mode=TwoWay}"
                                                   SelectedValuePath="CodigoMunicípio"
                                                   HorizontalAlignment="Stretch"
-                                                  Margin="0,0,0,5">
-                                            <ComboBox.ItemTemplate>
-                                                <DataTemplate>
-                                                    <TextBlock Text="{Binding Nome}" />
-                                                </DataTemplate>
-                                            </ComboBox.ItemTemplate>
-                                        </ComboBox>
+                                                  DisplayMemberPath="Nome"
+                                                  Margin="0,0,0,5" />
                                         <TextBox Text="{Binding Imposto.vDescIncond, Mode=TwoWay}"
                                                  Header="Valor desc. incondicionado"
                                                  Margin="0,0,0,5"
@@ -833,13 +823,8 @@
                                                   ItemsSource="{Binding Source={StaticResource estados}, Path=EstadosCompletos}"
                                                   Header="UF de incidência"
                                                   HorizontalAlignment="Stretch"
-                                                  Margin="0,0,0,5">
-                                            <ComboBox.ItemTemplate>
-                                                <DataTemplate>
-                                                    <TextBlock Text="{Binding Nome, Mode=OneTime}" />
-                                                </DataTemplate>
-                                            </ComboBox.ItemTemplate>
-                                        </ComboBox>
+                                                  DisplayMemberPath="Nome"
+                                                  Margin="0,0,0,5" />
                                     </StackPanel>
                                     <StackPanel Grid.Row="2"
                                                 Grid.Column="1"
@@ -850,13 +835,8 @@
                                                   SelectedValuePath="CodigoMunicípio"
                                                   Header="Município de incidência"
                                                   HorizontalAlignment="Stretch"
-                                                  Margin="0,0,0,5">
-                                            <ComboBox.ItemTemplate>
-                                                <DataTemplate>
-                                                    <TextBlock Text="{Binding Nome}" />
-                                                </DataTemplate>
-                                            </ComboBox.ItemTemplate>
-                                        </ComboBox>
+                                                  DisplayMemberPath="Nome"
+                                                  Margin="0,0,0,5" />
                                     </StackPanel>
                                     <StackPanel Visibility="{Binding VisibilidadeCodigoPais}"
                                                 Grid.Row="3"
@@ -985,14 +965,14 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
                             <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">CNPJ</TextBlock>
-                        <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
+                        <TextBlock Style="{StaticResource TextoCabecalho}">CNPJ</TextBlock>
+                        <TextBlock Style="{StaticResource TextoCabecalho}"
                                    Grid.Column="1">Número do Documento</TextBlock>
-                        <Button Grid.Column="1"
+                        <Button Grid.Column="2"
                                 Style="{StaticResource BotaoAdd}"
-                                Command="{Binding AdicionarDeclaracaoImportacaoCommand}"
-                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">
+                                Command="{Binding AdicionarDeclaracaoImportacaoCommand}">
                             <SymbolIcon Symbol="Add" />
                         </Button>
                     </Grid>
@@ -1021,10 +1001,14 @@
                       ItemsSource="{Binding ListaGE}">
                 <ListView.Header>
                     <Grid Style="{StaticResource Cabecalho}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
                         <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Número do ato concessório de Drawback</TextBlock>
-                        <Button Style="{StaticResource BotaoAdd}"
-                                Command="{Binding AdicionarDeclaracaoExportacaoCommand}"
-                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">
+                        <Button Grid.Column="1"
+                                Style="{StaticResource BotaoAdd}"
+                                Command="{Binding AdicionarDeclaracaoExportacaoCommand}">
                             <SymbolIcon Symbol="Add" />
                         </Button>
                     </Grid>

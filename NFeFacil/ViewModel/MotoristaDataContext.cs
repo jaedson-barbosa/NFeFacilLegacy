@@ -34,7 +34,8 @@ namespace NFeFacil.ViewModel
         public int TipoDocumento { get; set; }
         public string Documento
         {
-            get => Motorista.Documento; set
+            get => Motorista.Documento;
+            set
             {
                 var tipo = (TiposDocumento)TipoDocumento;
                 Motorista.CPF = tipo == TiposDocumento.CPF ? value : null;

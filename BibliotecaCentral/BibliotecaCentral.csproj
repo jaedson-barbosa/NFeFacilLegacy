@@ -153,7 +153,6 @@
     <Compile Include="ModeloXML\PartesProcesso\NFe.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\ChaveAcesso.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\Detalhes.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\EnderecoBase.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\EnderecoCompleto.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\Cartao.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\Cobranca.cs" />

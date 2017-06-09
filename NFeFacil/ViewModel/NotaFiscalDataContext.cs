@@ -58,6 +58,7 @@ namespace NFeFacil.ViewModel
             {
                 Conjunto.StatusAtual = value;
                 OnPropertyChanged(nameof(ManipulacaoAtivada),
+                    nameof(EdicaoEnderecoRetiradaAtivado),
                     nameof(BotaoEditarVisivel),
                     nameof(BotaoConfirmarVisivel),
                     nameof(BotaoSalvarAtivado),
@@ -725,6 +726,96 @@ namespace NFeFacil.ViewModel
 
         #endregion
 
+        #region Endereço de retirada
+
+        public RetiradaOuEntrega Retirada => NotaSalva.Informações.Retirada;
+
+        public bool exteriorEnderecoRetirada;
+        public bool ExteriorEnderecoRetirada
+        {
+            get => Retirada.SiglaUF == "EX";
+            set
+            {
+                exteriorEnderecoRetirada = value;
+                if (value)
+                {
+                    Retirada.CodigoMunicipio = 9999999;
+                    Retirada.NomeMunicipio = "EXTERIOR";
+                    Retirada.SiglaUF = "EX";
+                }
+                else
+                {
+                    Retirada.CodigoMunicipio = 0;
+                    Retirada.NomeMunicipio = null;
+                    Retirada.SiglaUF = null;
+                }
+                OnPropertyChanged(nameof(ExteriorEnderecoRetirada));
+            }
+        }
+
+        public bool EnderecoRetiradaAtivado
+        {
+            get => Retirada != null;
+            set
+            {
+                NotaSalva.Informações.Retirada = value ? new RetiradaOuEntrega() : null;
+                OnPropertyChanged(nameof(Retirada), nameof(EdicaoEnderecoRetiradaAtivado), nameof(TipoDocumentoEnderecoEmitente),
+                    nameof(DocumentoEnderecoEmitente), nameof(UFEscolhidaEnderecoEmitente), nameof(ConjuntoMunicipioEnderecoEmitente));
+            }
+        }
+
+        public bool EdicaoEnderecoRetiradaAtivado => EnderecoRetiradaAtivado && ManipulacaoAtivada;
+
+        TiposDocumento tipoDocumentoEnderecoEmitente;
+        public int TipoDocumentoEnderecoEmitente
+        {
+            get => (int)(tipoDocumentoEnderecoEmitente = string.IsNullOrEmpty(Retirada?.CNPJ) ? TiposDocumento.CPF : TiposDocumento.CNPJ);
+            set => tipoDocumentoEnderecoEmitente = (TiposDocumento)value;
+        }
+
+        public string DocumentoEnderecoEmitente
+        {
+            get => tipoDocumentoEnderecoEmitente == TiposDocumento.CNPJ ? Retirada.CNPJ : Retirada?.CPF;
+            set
+            {
+                if (tipoDocumentoEnderecoEmitente == TiposDocumento.CPF)
+                {
+                    Retirada.CNPJ = null;
+                    Retirada.CPF = value;
+                }
+                else
+                {
+                    Retirada.CPF = null;
+                    Retirada.CNPJ = value;
+                }
+            }
+        }
+
+        public string UFEscolhidaEnderecoEmitente
+        {
+            get => Retirada?.SiglaUF;
+            set
+            {
+                NotaSalva.Informações.Retirada.SiglaUF = value;
+                OnPropertyChanged(nameof(UFEscolhidaEnderecoEmitente));
+            }
+        }
+
+        public Municipio ConjuntoMunicipioEnderecoEmitente
+        {
+            get => Municipios.Get(UFEscolhidaEnderecoEmitente).FirstOrDefault(x => x.Codigo == NotaSalva.Informações.Retirada.CodigoMunicipio);
+            set
+            {
+                if (value != null)
+                {
+                    NotaSalva.Informações.Retirada.CodigoMunicipio = value.Codigo;
+                    NotaSalva.Informações.Retirada.NomeMunicipio = value.Nome;
+                }
+            }
+        }
+
+        #endregion
+
         private void NormalizarNFe()
         {
             NotaSalva.Informações.transp.transporta = NotaSalva.Informações.transp.transporta?.ToXElement<Motorista>().HasElements ?? false ? NotaSalva.Informações.transp.transporta : null;
@@ -743,7 +834,14 @@ namespace NFeFacil.ViewModel
 
             bool ValidarVeiculo(Veiculo veic)
             {
-                return StringsNaoNulas(veic.Placa, veic.UF);
+                if (veic == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    return StringsNaoNulas(veic.Placa, veic.UF);
+                }
             }
 
             bool ValidarISSQN(ISSQNtot tot)
@@ -779,41 +877,20 @@ namespace NFeFacil.ViewModel
                 }
                 else
                 {
-                    var erradosAnaliseSuperficial = new bool[4]
-                    {
-                        string.IsNullOrEmpty(fat.NFat),
-                        string.IsNullOrEmpty(fat.VDesc),
-                        string.IsNullOrEmpty(fat.VLiq),
-                        string.IsNullOrEmpty(fat.VOrig)
-                    };
-                    var erradosAnaliseProfunda = new bool[4]
-                    {
-                        int.Parse(fat.NFat) == 0,
-                        double.Parse(fat.VDesc) == 0,
-                        double.Parse(fat.VLiq) == 0,
-                        double.Parse(fat.VOrig) == 0
-                    };
-                    if (erradosAnaliseSuperficial.Count(x => x) == 4)
-                    {
-                        return false;
-                    }
-                    else
-                    {
-                        int quantNaoNulos = 0;
-                        int quantErrados = 0;
-                        for (int i = 0; i < 4; i++)
-                        {
-                            if (!erradosAnaliseSuperficial[i])
-                            {
-                                quantNaoNulos++;
-                                if (erradosAnaliseProfunda[i])
-                                {
-                                    quantErrados++;
-                                }
-                            }
-                        }
-                        return quantNaoNulos - quantErrados >= 1;
-                    }
+                    int errados = 0;
+                    if (string.IsNullOrEmpty(fat.NFat)) errados++;
+                    else if (int.Parse(fat.NFat) == 0) errados++;
+
+                    if (string.IsNullOrEmpty(fat.VDesc)) errados++;
+                    else if (int.Parse(fat.VDesc) == 0) errados++;
+
+                    if (string.IsNullOrEmpty(fat.VLiq)) errados++;
+                    else if (int.Parse(fat.VLiq) == 0) errados++;
+
+                    if (string.IsNullOrEmpty(fat.VOrig)) errados++;
+                    else if (int.Parse(fat.VOrig) == 0) errados++;
+
+                    return errados <= 2;
                 }
             }
 

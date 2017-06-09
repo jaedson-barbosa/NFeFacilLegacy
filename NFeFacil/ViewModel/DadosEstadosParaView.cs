@@ -21,9 +21,10 @@ namespace NFeFacil.ViewModel
             Nomes = Estados.EstadosCache.Select(x => x.Nome).GerarObs();
             Codigos = Estados.EstadosCache.Select(x => x.Codigo).GerarObs();
 
-            var siglas = Siglas;
-            siglas.Add("EX");
-            SiglasExpandida = siglas;
+            var siglas = new string[Siglas.Count + 1];
+            Siglas.CopyTo(siglas, 0);
+            siglas[siglas.Length - 1] = "EX";
+            SiglasExpandida = siglas.GerarObs();
         }
     }
 }

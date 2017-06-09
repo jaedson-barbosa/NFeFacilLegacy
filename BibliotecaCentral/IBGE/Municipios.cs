@@ -21,7 +21,8 @@ namespace BibliotecaCentral.IBGE
         {
             if (string.IsNullOrEmpty(nomeSigla)) return new ObservableCollection<Municipio>();
             var estado = Estados.EstadosCache.FirstOrDefault(x => (nomeSigla.Length == 2 ? x.Sigla : x.Nome) == nomeSigla);
-            return from mun in MunicipiosCache
+            if (estado == null) return new ObservableCollection<Municipio>();
+            else return from mun in MunicipiosCache
                    where mun.CodigoUF == estado.Codigo
                    select mun;
         }

@@ -37,15 +37,15 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe
         /// (Opcional)
         /// Identificação do Local de retirada.
         /// </summary>
-        [XmlElement(Order = 3)]
-        public RetiradaOuEntrega retirada { get; set; }
+        [XmlElement("retirada", Order = 3)]
+        public RetiradaOuEntrega Retirada { get; set; }
 
         /// <summary>
         /// (Opcional)
         /// Identificação do Local de entrega.
         /// </summary>
-        [XmlElement(Order = 4)]
-        public RetiradaOuEntrega entrega { get; set; }
+        [XmlElement("entrega", Order = 4)]
+        public RetiradaOuEntrega Entrega { get; set; }
 
         [XmlElement(ElementName = "det", Namespace = "http://www.portalfiscal.inf.br/nfe", Order = 5)]
         public List<DetalhesProdutos> produtos { get; set; }

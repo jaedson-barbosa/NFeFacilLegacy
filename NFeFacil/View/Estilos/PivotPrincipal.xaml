@@ -351,7 +351,8 @@
             <Setter.Value>
                 <ControlTemplate TargetType="PivotHeaderItem">
                     <Grid x:Name="Grid"
-                          CornerRadius="22">
+                          CornerRadius="22"
+                          Background="Transparent">
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="SelectionStates">
                                 <VisualState x:Name="Selected">

@@ -855,7 +855,7 @@
                             <ColumnDefinition />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Número do ato concessório de Drawback</TextBlock>
+                        <TextBlock Style="{StaticResource TextoCabecalho}">Número do ato concessório de Drawback</TextBlock>
                         <Button Grid.Column="1"
                                 Style="{StaticResource BotaoAdd}"
                                 Command="{Binding AdicionarDeclaracaoExportacaoCommand}">

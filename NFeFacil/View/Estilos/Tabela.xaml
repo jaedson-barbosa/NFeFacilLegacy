@@ -7,7 +7,7 @@
            TargetType="Grid">
         <Setter Property="Background"
                 Value="{StaticResource MuitoVariada}" />
-        <Setter Property="Height"
+        <Setter Property="MinHeight"
                 Value="44" />
         <Setter Property="CornerRadius"
                 Value="22,22,0,0" />

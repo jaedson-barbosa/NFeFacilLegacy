@@ -102,12 +102,7 @@ namespace System.Security.Cryptography.Xml
         {
             _c14nDoc.WriteHash(hash, _ancMgr);
             byte[] dados = CanonicalizationDispatcher.DadosCompleto.ToArray();
-            var res = hash.ComputeHash(dados, 0, dados.Length);
-            foreach (var item in res)
-            {
-                Diagnostics.Debug.WriteLine(item);
-            }
-            return res;
+            return hash.ComputeHash(dados, 0, dados.Length);
         }
     }
 }

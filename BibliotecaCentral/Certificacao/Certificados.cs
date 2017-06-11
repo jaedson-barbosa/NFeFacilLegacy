@@ -10,20 +10,18 @@ namespace BibliotecaCentral.Certificacao
     {
         public async static Task<ObservableCollection<CertificadoFundamental>> ObterRegistroRepositorioAsync()
         {
-            using (var loja = new X509Store())
+            if (string.IsNullOrEmpty(ConfiguracoesCertificacao.IPServidorCertificacao))
             {
-                loja.Open(OpenFlags.ReadOnly);
-                IEnumerable<CertificadoFundamental> certs;
-                if (string.IsNullOrEmpty(ConfiguracoesCertificacao.IPServidorCertificacao))
+                using (var loja = new X509Store())
                 {
-                    certs = from X509Certificate2 cert in loja.Certificates
-                            select new CertificadoFundamental(cert.Subject, cert.SerialNumber);
+                    loja.Open(OpenFlags.ReadOnly);
+                    return (from X509Certificate2 cert in loja.Certificates
+                            select new CertificadoFundamental(cert.Subject, cert.SerialNumber)).GerarObs();
                 }
-                else
-                {
-                    certs = await ServidorCertificacao.ObterCertificados();
-                }
-                return new ObservableCollection<CertificadoFundamental>(certs);
+            }
+            else
+            {
+                return (await ServidorCertificacao.ObterCertificados()).GerarObs();
             }
         }
 

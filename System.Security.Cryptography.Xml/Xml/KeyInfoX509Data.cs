@@ -19,12 +19,6 @@ namespace System.Security.Cryptography.Xml
 
         public KeyInfoX509Data() { }
 
-        public KeyInfoX509Data(byte[] rgbCert)
-        {
-            X509Certificate2 certificate = new X509Certificate2(rgbCert);
-            AddCertificate(certificate);
-        }
-
         public KeyInfoX509Data(X509Certificate2 cert)
         {
             AddCertificate(cert);
@@ -33,11 +27,6 @@ namespace System.Security.Cryptography.Xml
         //
         // public properties
         //
-
-        public ArrayList Certificates
-        {
-            get { return _certificates; }
-        }
 
         public void AddCertificate(X509Certificate2 certificate)
         {

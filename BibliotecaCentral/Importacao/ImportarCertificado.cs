@@ -10,17 +10,16 @@ namespace BibliotecaCentral.Importacao
     {
         public ImportarCertificado() : base(".pfx") { }
 
-        public async Task ImportarAsync(Action attLista)
+        public async Task ImportarEAdicionarAsync(Action attLista)
         {
             FileOpenPicker abrir = new FileOpenPicker
             {
                 SuggestedStartLocation = PickerLocationId.Downloads,
             };
             abrir.FileTypeFilter.Add(".pfx");
-            var arq = await abrir.PickSingleFileAsync();
-            if (arq != null)
+            var cert = await Importar();
+            if (cert != null)
             {
-                var cert = new X509Certificate2(arq.Path, await InputTextDialogAsync("Senha do certificado"));
                 using (var loja = new X509Store())
                 {
                     loja.Open(OpenFlags.ReadWrite);
@@ -30,7 +29,25 @@ namespace BibliotecaCentral.Importacao
             }
         }
 
-        public static async Task<string> InputTextDialogAsync(string title)
+        internal async Task<X509Certificate2> Importar()
+        {
+            FileOpenPicker abrir = new FileOpenPicker
+            {
+                SuggestedStartLocation = PickerLocationId.Downloads,
+            };
+            abrir.FileTypeFilter.Add(".pfx");
+            var arq = await abrir.PickSingleFileAsync();
+            if (arq != null)
+            {
+                return new X509Certificate2(arq.Path, await InputTextDialogAsync("Senha do certificado"));
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+            public static async Task<string> InputTextDialogAsync(string title)
         {
             TextBox inputTextBox = new TextBox()
             {

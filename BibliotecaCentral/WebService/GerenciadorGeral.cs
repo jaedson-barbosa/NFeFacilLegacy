@@ -33,14 +33,11 @@ namespace BibliotecaCentral.WebService
 
         public async Task<Resposta> EnviarAsync(Envio corpo)
         {
-            var repo = new Certificacao.Certificados();
             var handler = new HttpClientHandler()
             {
                 ClientCertificateOptions = ClientCertificateOption.Automatic
-            };
-            handler.UseDefaultCredentials = false;
-            
-            var cert = repo.ObterCertificadoEscolhido();
+            };            
+            var cert = Certificacao.Certificados.ObterCertificadoEscolhido();
             handler.ClientCertificates.Add(cert);
             
             using (var proxy = new HttpClient(handler, true))

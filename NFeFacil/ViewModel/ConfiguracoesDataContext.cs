@@ -39,19 +39,20 @@ namespace NFeFacil.ViewModel
             set => ConfiguracoesCertificacao.CertificadoEscolhido = value;
         }
 
-        public ICommand ImportarCertificado => new Comando(async () => await new ImportarCertificado().ImportarAsync(AttLista));
+        public ICommand ImportarCertificado => new Comando(async () => await new ImportarCertificado().ImportarEAdicionarAsync(AttLista));
         public ICommand ConectarServidor => new Comando(async () =>
         {
             if (await ServidorCertificacao.Conectar()) AttLista();
         });
         public ICommand EsquecerServidor => new Comando(() => ServidorCertificacao.Esquecer());
         public ICommand InstalarServidor => new Comando(async () => await ServidorCertificacao.Exportar(LogPopUp));
-        public ICommand RemoverCertificado => new Comando<X509Certificate2>(x =>
+        public ICommand RemoverCertificado => new Comando<CertificadoFundamental>(x =>
         {
             using (var loja = new X509Store())
             {
                 loja.Open(OpenFlags.ReadWrite);
-                loja.Remove(x);
+                var cert = loja.Certificates.Find(X509FindType.FindBySerialNumber, x.SerialNumber, true)[0];
+                loja.Remove(cert);
             }
             OnProperyChanged(nameof(Certificados));
         });

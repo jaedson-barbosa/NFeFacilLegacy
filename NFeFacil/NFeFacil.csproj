@@ -239,9 +239,6 @@
     <Compile Include="View\CaixasDialogo\DetalheMotoristaAtual.xaml.cs">
       <DependentUpon>DetalheMotoristaAtual.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\CaixasDialogo\ImportarCertificadoLAN.xaml.cs">
-      <DependentUpon>ImportarCertificadoLAN.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\Consulta.xaml.cs">
       <DependentUpon>Consulta.xaml</DependentUpon>
     </Compile>
@@ -433,10 +430,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\CaixasDialogo\DetalheMotoristaAtual.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\CaixasDialogo\ImportarCertificadoLAN.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

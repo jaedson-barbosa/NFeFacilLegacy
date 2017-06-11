@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.7
+VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFeFacil", "NFeFacil\NFeFacil.csproj", "{89DDBE2A-16B6-464E-AC64-EE01589A3415}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -14,6 +14,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Background", "Background\Background.csproj", "{C01C58EA-15A2-4C80-A021-DA71CFC2BAED}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Security.Cryptography.Xml", "System.Security.Cryptography.Xml\System.Security.Cryptography.Xml.csproj", "{05DC9912-EACD-43EE-97D4-C645F12C0B4F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServidorCertificacaoConsole", "ServidorCertificacaoConsole\ServidorCertificacaoConsole.csproj", "{7B11C77F-4D88-4D5D-97A8-6B84212B2C31}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -95,6 +97,22 @@ Global
 		{05DC9912-EACD-43EE-97D4-C645F12C0B4F}.Release|x64.Build.0 = Release|x64
 		{05DC9912-EACD-43EE-97D4-C645F12C0B4F}.Release|x86.ActiveCfg = Release|x86
 		{05DC9912-EACD-43EE-97D4-C645F12C0B4F}.Release|x86.Build.0 = Release|x86
+		{7B11C77F-4D88-4D5D-97A8-6B84212B2C31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B11C77F-4D88-4D5D-97A8-6B84212B2C31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B11C77F-4D88-4D5D-97A8-6B84212B2C31}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{7B11C77F-4D88-4D5D-97A8-6B84212B2C31}.Debug|ARM.Build.0 = Debug|Any CPU
+		{7B11C77F-4D88-4D5D-97A8-6B84212B2C31}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7B11C77F-4D88-4D5D-97A8-6B84212B2C31}.Debug|x64.Build.0 = Debug|Any CPU
+		{7B11C77F-4D88-4D5D-97A8-6B84212B2C31}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7B11C77F-4D88-4D5D-97A8-6B84212B2C31}.Debug|x86.Build.0 = Debug|Any CPU
+		{7B11C77F-4D88-4D5D-97A8-6B84212B2C31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B11C77F-4D88-4D5D-97A8-6B84212B2C31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B11C77F-4D88-4D5D-97A8-6B84212B2C31}.Release|ARM.ActiveCfg = Release|Any CPU
+		{7B11C77F-4D88-4D5D-97A8-6B84212B2C31}.Release|ARM.Build.0 = Release|Any CPU
+		{7B11C77F-4D88-4D5D-97A8-6B84212B2C31}.Release|x64.ActiveCfg = Release|Any CPU
+		{7B11C77F-4D88-4D5D-97A8-6B84212B2C31}.Release|x64.Build.0 = Release|Any CPU
+		{7B11C77F-4D88-4D5D-97A8-6B84212B2C31}.Release|x86.ActiveCfg = Release|Any CPU
+		{7B11C77F-4D88-4D5D-97A8-6B84212B2C31}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

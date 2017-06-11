@@ -26,12 +26,14 @@
             <TextBlock Style="{StaticResource BodyTextBlockStyle}">Escolha o certificado que será usado para realizar a conexão com os servidores da SEFAZ e para a assinatura das notas fiscais.</TextBlock>
             <Button Command="{Binding ImportarCertificado}"
                     HorizontalAlignment="Stretch">Importar certificado A1</Button>
-            <Button Command="{Binding ImportarCertificadoRemoto}"
-                    HorizontalAlignment="Stretch">Importar certificado de repositório remoto</Button>
-            <Button Command="{Binding InstalarRepositorioRemoto}"
+            <Button Command="{Binding ConectarServidor}"
+                    HorizontalAlignment="Stretch">Conectar a servidor de certificação</Button>
+            <Button Command="{Binding EsquecerServidor}"
+                    HorizontalAlignment="Stretch">Esquecer servidor de certificação</Button>
+            <Button Command="{Binding InstalarServidor}"
                     HorizontalAlignment="Stretch"
-                    ToolTipService.ToolTip="Mas atenção, ele só funciona em computadores">"Instalar" repositório remoto</Button>
-            <ListView ItemsSource="{Binding CertificadosRepositorio, Mode=OneWay}"
+                    ToolTipService.ToolTip="Mas atenção, ele só funciona em computadores">Instalar servidor de certificação</Button>
+            <ListView ItemsSource="{Binding ListaCertificados, Mode=OneWay}"
                       SelectedValue="{Binding CertificadoEscolhido, Mode=TwoWay}"
                       SelectedValuePath="SerialNumber"
                       BorderThickness="2"

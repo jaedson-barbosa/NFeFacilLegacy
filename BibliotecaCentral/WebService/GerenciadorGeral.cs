@@ -38,13 +38,14 @@ namespace BibliotecaCentral.WebService
             {
                 ClientCertificateOptions = ClientCertificateOption.Automatic
             };
-            //handler.UseDefaultCredentials = true;
-            handler.ClientCertificates.Add(repo.ObterCertificadoEscolhido());
-
+            handler.UseDefaultCredentials = false;
+            
+            var cert = repo.ObterCertificadoEscolhido();
+            handler.ClientCertificates.Add(cert);
+            
             using (var proxy = new HttpClient(handler, true))
             {
                 proxy.DefaultRequestHeaders.Add("SOAPAction", enderecos.Metodo);
-
                 var resposta = await proxy.PostAsync(enderecos.Endereco, ObterConteudoRequisicao(corpo));
                 var xml = XElement.Load(await resposta.Content.ReadAsStreamAsync());
                 return ObterConteudoCorpo(xml).FromXElement<Resposta>();

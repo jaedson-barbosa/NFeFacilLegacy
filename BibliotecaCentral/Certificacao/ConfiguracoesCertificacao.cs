@@ -2,14 +2,20 @@
 
 namespace BibliotecaCentral.Certificacao
 {
-    public sealed class ConfiguracoesCertificacao
+    public static class ConfiguracoesCertificacao
     {
         private static ApplicationDataContainer Pasta = ApplicationData.Current.LocalSettings;
 
-        public string CertificadoEscolhido
+        public static string CertificadoEscolhido
         {
             get => Pasta.Values[nameof(CertificadoEscolhido)] as string;
             set => Pasta.Values[nameof(CertificadoEscolhido)] = value;
+        }
+
+        public static string IPServidorCertificacao
+        {
+            get => Pasta.Values[nameof(IPServidorCertificacao)] as string;
+            set => Pasta.Values[nameof(IPServidorCertificacao)] = value;
         }
     }
 }

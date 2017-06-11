@@ -8,7 +8,6 @@ using BibliotecaCentral.Importacao;
 using System.Text;
 using System.Security.Cryptography.X509Certificates;
 using System.Collections.ObjectModel;
-using NFeFacil.View.CaixasDialogo;
 
 namespace NFeFacil.ViewModel
 {
@@ -24,26 +23,29 @@ namespace NFeFacil.ViewModel
         {
             ImportarNotaFiscalCommand = new Comando(ImportarNotaFiscal, true);
             ImportarDadoBaseCommand = new Comando(ImportarDadoBase, true);
+
+            AttLista();
         }
 
         private readonly ILog LogPopUp = new Popup();
 
         #region Certificação
 
-        private Certificados repo = new Certificados();
-        private ConfiguracoesCertificacao config = new ConfiguracoesCertificacao();
-
-        public ObservableCollection<X509Certificate2> CertificadosRepositorio => repo.ObterRegistroRepositorio();
+        public ObservableCollection<CertificadoFundamental> ListaCertificados { get; private set; }
 
         public string CertificadoEscolhido
         {
-            get => config.CertificadoEscolhido;
-            set => config.CertificadoEscolhido = value;
+            get => ConfiguracoesCertificacao.CertificadoEscolhido;
+            set => ConfiguracoesCertificacao.CertificadoEscolhido = value;
         }
 
         public ICommand ImportarCertificado => new Comando(async () => await new ImportarCertificado().ImportarAsync(AttLista));
-        public ICommand ImportarCertificadoRemoto => new Comando(async () => await new ImportarCertificadoLAN(AttLista).ShowAsync());
-        public ICommand InstalarRepositorioRemoto => new Comando(async () => await ExportarRepositorioRemoto.Exportar(LogPopUp));
+        public ICommand ConectarServidor => new Comando(async () =>
+        {
+            if (await ServidorCertificacao.Conectar()) AttLista();
+        });
+        public ICommand EsquecerServidor => new Comando(() => ServidorCertificacao.Esquecer());
+        public ICommand InstalarServidor => new Comando(async () => await ServidorCertificacao.Exportar(LogPopUp));
         public ICommand RemoverCertificado => new Comando<X509Certificate2>(x =>
         {
             using (var loja = new X509Store())
@@ -51,12 +53,20 @@ namespace NFeFacil.ViewModel
                 loja.Open(OpenFlags.ReadWrite);
                 loja.Remove(x);
             }
-            OnProperyChanged(nameof(CertificadosRepositorio));
+            OnProperyChanged(nameof(Certificados));
         });
 
-        void AttLista()
+        async void AttLista()
         {
-            OnProperyChanged(nameof(CertificadosRepositorio));
+            try
+            {
+                ListaCertificados = await Certificados.ObterRegistroRepositorioAsync();
+                OnProperyChanged(nameof(Certificados));
+            }
+            catch (Exception e)
+            {
+                LogPopUp.Escrever(TitulosComuns.ErroSimples, e.Message);
+            }
         }
 
         #endregion

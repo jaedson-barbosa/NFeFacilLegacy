@@ -1,26 +1,38 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
+using System.Threading.Tasks;
 
 namespace BibliotecaCentral.Certificacao
 {
-    public sealed class Certificados
+    public static class Certificados
     {
-        public ObservableCollection<X509Certificate2> ObterRegistroRepositorio()
+        public async static Task<ObservableCollection<CertificadoFundamental>> ObterRegistroRepositorioAsync()
         {
             using (var loja = new X509Store())
             {
                 loja.Open(OpenFlags.ReadOnly);
-                return new ObservableCollection<X509Certificate2>(loja.Certificates.Cast<X509Certificate2>());
+                IEnumerable<CertificadoFundamental> certs;
+                if (string.IsNullOrEmpty(ConfiguracoesCertificacao.IPServidorCertificacao))
+                {
+                    certs = from X509Certificate2 cert in loja.Certificates
+                            select new CertificadoFundamental(cert.Subject, cert.SerialNumber);
+                }
+                else
+                {
+                    certs = await ServidorCertificacao.ObterCertificados();
+                }
+                return new ObservableCollection<CertificadoFundamental>(certs);
             }
         }
 
-        public X509Certificate2 ObterCertificadoEscolhido()
+        public static X509Certificate2 ObterCertificadoEscolhido()
         {
             using (var loja = new X509Store())
             {
                 loja.Open(OpenFlags.ReadOnly);
-                return loja.Certificates.Find(X509FindType.FindBySerialNumber, new ConfiguracoesCertificacao().CertificadoEscolhido, true)[0];
+                return loja.Certificates.Find(X509FindType.FindBySerialNumber, ConfiguracoesCertificacao.CertificadoEscolhido, true)[0];
             }
         }
     }

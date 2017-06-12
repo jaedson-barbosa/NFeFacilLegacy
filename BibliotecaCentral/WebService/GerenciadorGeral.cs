@@ -33,14 +33,11 @@ namespace BibliotecaCentral.WebService
 
         public async Task<Resposta> EnviarAsync(Envio corpo)
         {
-            var handler = new HttpClientHandler()
+            using (var proxy = new HttpClient(new HttpClientHandler()
             {
-                ClientCertificateOptions = ClientCertificateOption.Automatic
-            };            
-            var cert = Certificacao.Certificados.ObterCertificadoEscolhido();
-            handler.ClientCertificates.Add(cert);
-            
-            using (var proxy = new HttpClient(handler, true))
+                ClientCertificateOptions = ClientCertificateOption.Automatic,
+                UseDefaultCredentials = true
+            }, true))
             {
                 proxy.DefaultRequestHeaders.Add("SOAPAction", enderecos.Metodo);
                 var resposta = await proxy.PostAsync(enderecos.Endereco, ObterConteudoRequisicao(corpo));

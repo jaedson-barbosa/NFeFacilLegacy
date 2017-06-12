@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
+using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.UI.Xaml.Controls;
 
@@ -39,7 +40,10 @@ namespace BibliotecaCentral.Importacao
             var arq = await abrir.PickSingleFileAsync();
             if (arq != null)
             {
-                return new X509Certificate2(arq.Path, await InputTextDialogAsync("Senha do certificado"));
+                var pasta = ApplicationData.Current.TemporaryFolder;
+                var novoArq = await arq.CopyAsync(pasta, arq.Name, NameCollisionOption.ReplaceExisting);
+                var senha = await InputTextDialogAsync("Senha do certificado");
+                return new X509Certificate2(novoArq.Path, senha, X509KeyStorageFlags.PersistKeySet);
             }
             else
             {
@@ -47,7 +51,7 @@ namespace BibliotecaCentral.Importacao
             }
         }
 
-            public static async Task<string> InputTextDialogAsync(string title)
+        public static async Task<string> InputTextDialogAsync(string title)
         {
             TextBox inputTextBox = new TextBox()
             {

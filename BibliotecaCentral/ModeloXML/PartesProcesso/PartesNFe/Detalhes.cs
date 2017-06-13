@@ -10,18 +10,14 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe
         [XmlAttribute(AttributeName = "versao")]
         public string Versão = "3.10";
 
-        private string chaveAcesso;
         [XmlAttribute(AttributeName = "Id")]
         public string Id
         {
             get
             {
-                return $"NFe{chaveAcesso ?? (chaveAcesso = new ChaveAcesso(this).CriarChaveAcesso())}";
+                return $"NFe{new ChaveAcesso(this).CriarChaveAcesso()}";
             }
-            set
-            {
-                chaveAcesso = value.Substring(value.IndexOf('e') + 1);
-            }
+            set { }
         }
 
         [XmlElement(ElementName = "ide", Order = 0)]

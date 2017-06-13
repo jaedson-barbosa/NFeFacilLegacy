@@ -21,8 +21,12 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe
             var numero = detalhes.identificação.Numero.ToString().PadLeft(9, '0');
             var tipoEmissao = detalhes.identificação.TipoEmissão;
 
-            var random = new Random();
-            var randomico = detalhes.identificação.ChaveNF = $"{random.Next(1000, 10000)}{random.Next(1000, 10000)}";
+            if (string.IsNullOrEmpty(detalhes.identificação.ChaveNF))
+            {
+                var random = new Random();
+                detalhes.identificação.ChaveNF = $"{random.Next(1000, 10000)}{random.Next(1000, 10000)}";
+            }
+            var randomico = detalhes.identificação.ChaveNF;
             var chave = $"{codigoUF}{dhEmissao}{CNPJEmitente}{modeloIdentificacao}{serie}{numero}{tipoEmissao}{randomico}";
 
             var dv = detalhes.identificação.DígitoVerificador = CalcularDV(chave);

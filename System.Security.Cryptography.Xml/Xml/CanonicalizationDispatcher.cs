@@ -14,9 +14,9 @@ namespace System.Security.Cryptography.Xml
     {
         public static void Write(XmlNode node, StringBuilder strBuilder, C14NAncestralNamespaceContextManager anc)
         {
-            if (node is ICanonicalizableNode)
+            if (node is ICanonicalizableNode canonicalizableNode)
             {
-                ((ICanonicalizableNode)node).Write(strBuilder, anc);
+                canonicalizableNode.Write(strBuilder, anc);
             }
             else
             {
@@ -24,22 +24,16 @@ namespace System.Security.Cryptography.Xml
             }
         }
 
-        public static void WriteHash(XmlNode node, HashAlgorithm hash, C14NAncestralNamespaceContextManager anc)
+        public static void WriteHash(XmlNode node, HashAlgorithm hash, C14NAncestralNamespaceContextManager anc, List<byte> conjuntoDados)
         {
-            if (node is ICanonicalizableNode)
+            if (node is ICanonicalizableNode canonicalizableNode)
             {
-                ((ICanonicalizableNode)node).WriteHash(hash, anc);
+                canonicalizableNode.WriteHash(hash, anc, conjuntoDados);
             }
             else
             {
                 throw new ArgumentException();
             }
-        }
-
-        internal static List<byte> DadosCompleto { get; } = new List<byte>();
-        internal static void AddTransform(this byte[] dados)
-        {
-            DadosCompleto.AddRange(dados);
         }
     }
 }

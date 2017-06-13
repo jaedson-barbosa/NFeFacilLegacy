@@ -4,6 +4,7 @@
 
 using System.Xml;
 using System.Text;
+using System.Collections.Generic;
 
 namespace System.Security.Cryptography.Xml
 {
@@ -31,15 +32,15 @@ namespace System.Security.Cryptography.Xml
             strBuilder.Append("\"");
         }
 
-        public void WriteHash(HashAlgorithm hash, C14NAncestralNamespaceContextManager anc)
+        public void WriteHash(HashAlgorithm hash, C14NAncestralNamespaceContextManager anc, List<byte> conjuntoDados)
         {
             UTF8Encoding utf8 = new UTF8Encoding(false);
             byte[] rgbData = utf8.GetBytes(" " + Name + "=\"");
-            rgbData.AddTransform();
+            conjuntoDados.AddRange(rgbData);
             rgbData = utf8.GetBytes(Utils.EscapeAttributeValue(Value));
-            rgbData.AddTransform();
+            conjuntoDados.AddRange(rgbData);
             rgbData = utf8.GetBytes("\"");
-            rgbData.AddTransform();
+            conjuntoDados.AddRange(rgbData);
         }
     }
 }

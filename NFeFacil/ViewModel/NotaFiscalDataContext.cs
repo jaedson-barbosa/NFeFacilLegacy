@@ -286,6 +286,7 @@ namespace NFeFacil.ViewModel
                 .EnviarAsync(new EnviNFe(NotaSalva.Informações.identificação.Numero, NotaSalva));
             if (resultadoTransmissao.cStat == 103)
             {
+                await Task.Delay(new TimeSpan(0, 0, 10));
                 var resultadoResposta = await new GerenciadorGeral<ConsReciNFe, RetConsReciNFe>(resultadoTransmissao.cUF, Operacoes.RespostaAutorizar, AmbienteTestes)
                     .EnviarAsync(new ConsReciNFe(resultadoTransmissao.tpAmb, resultadoTransmissao.infRec.nRec));
                 if (resultadoResposta.protNFe.InfProt.cStat == 100)

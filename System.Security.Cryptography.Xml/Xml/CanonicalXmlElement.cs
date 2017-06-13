@@ -5,6 +5,7 @@
 using System.Xml;
 using System.Text;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace System.Security.Cryptography.Xml
 {
@@ -96,7 +97,7 @@ namespace System.Security.Cryptography.Xml
             }
         }
 
-        public void WriteHash(HashAlgorithm hash, C14NAncestralNamespaceContextManager anc)
+        public void WriteHash(HashAlgorithm hash, C14NAncestralNamespaceContextManager anc, List<byte> conjuntoDados)
         {
             Hashtable nsLocallyDeclared = new Hashtable();
             SortedList nsListToRender = new SortedList(new NamespaceSortOrder());
@@ -139,17 +140,17 @@ namespace System.Security.Cryptography.Xml
             {
                 anc.GetNamespacesToRender(this, attrListToRender, nsListToRender, nsLocallyDeclared);
                 rgbData = utf8.GetBytes("<" + Name);
-                rgbData.AddTransform();
+                conjuntoDados.AddRange(rgbData);
                 foreach (object attr in nsListToRender.GetKeyList())
                 {
-                    (attr as CanonicalXmlAttribute).WriteHash(hash, anc);
+                    (attr as CanonicalXmlAttribute).WriteHash(hash, anc, conjuntoDados);
                 }
                 foreach (object attr in attrListToRender.GetKeyList())
                 {
-                    (attr as CanonicalXmlAttribute).WriteHash(hash, anc);
+                    (attr as CanonicalXmlAttribute).WriteHash(hash, anc, conjuntoDados);
                 }
                 rgbData = utf8.GetBytes(">");
-                rgbData.AddTransform();
+                conjuntoDados.AddRange(rgbData);
             }
 
             anc.EnterElementContext();
@@ -159,7 +160,7 @@ namespace System.Security.Cryptography.Xml
             XmlNodeList childNodes = ChildNodes;
             foreach (XmlNode childNode in childNodes)
             {
-                CanonicalizationDispatcher.WriteHash(childNode, hash, anc);
+                CanonicalizationDispatcher.WriteHash(childNode, hash, anc, conjuntoDados);
             }
 
             anc.ExitElementContext();
@@ -167,7 +168,7 @@ namespace System.Security.Cryptography.Xml
             if (IsInNodeSet)
             {
                 rgbData = utf8.GetBytes("</" + Name + ">");
-                rgbData.AddTransform();
+                conjuntoDados.AddRange(rgbData);
             }
         }
     }

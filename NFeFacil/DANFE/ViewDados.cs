@@ -28,7 +28,7 @@ namespace NFeFacil.DANFE
             var dadosProdutos = ObterProdutos();
             var dadosDuplicatas = ObterDuplicatas();
             var dadosISSQN = GetISSQN();
-            var fatura = GetFatura(Dados.NFe.Informações.cobr);
+            var fatura = GetFatura();
 
             return new Geral
             {
@@ -250,19 +250,6 @@ namespace NFeFacil.DANFE
             }
         }
 
-        string GetFatura(Cobranca cobranca)
-        {
-            if (cobranca?.Fat == null)
-            {
-                return "PAGAMENTO A VISTA";
-            }
-            else
-            {
-                var fat = cobranca.Fat;
-                return $"PAGAMENTO A PRAZO - Num.: {fat.NFat}, V. orig.: {double.Parse(fat.VOrig).ToString("N2")}, V. desc.: {double.Parse(fat.VDesc).ToString("N2")}, V. liq.: {double.Parse(fat.VLiq).ToString("N2")}";
-            }
-        }
-
         DadosISSQN GetISSQN()
         {
             var emit = Dados.NFe.Informações.emitente;
@@ -274,6 +261,20 @@ namespace NFeFacil.DANFE
                 TotalServiços = issqn.vServ.ToString("N2"),
                 ValorISSQN = issqn.vISS.ToString("N2")
             } : new DadosISSQN();
+        }
+
+        string GetFatura()
+        {
+            var cobranca = Dados.NFe.Informações.cobr;
+            if (cobranca?.Fat == null)
+            {
+                return "PAGAMENTO A VISTA";
+            }
+            else
+            {
+                var fat = cobranca.Fat;
+                return $"PAGAMENTO A PRAZO - Num.: {fat.NFat}, V. orig.: {double.Parse(fat.VOrig).ToString("N2")}, V. desc.: {double.Parse(fat.VDesc).ToString("N2")}, V. liq.: {double.Parse(fat.VLiq).ToString("N2")}";
+            }
         }
 
         string Analisar(object str) => str != null ? (string)str : string.Empty;

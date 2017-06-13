@@ -2,6 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
+using System.Collections.Generic;
 using System.Text;
 
 namespace System.Security.Cryptography.Xml
@@ -17,6 +18,6 @@ namespace System.Security.Cryptography.Xml
         }
 
         void Write(StringBuilder strBuilder, C14NAncestralNamespaceContextManager anc);
-        void WriteHash(HashAlgorithm hash, C14NAncestralNamespaceContextManager anc);
+        void WriteHash(HashAlgorithm hash, C14NAncestralNamespaceContextManager anc, List<byte> conjuntoDados);
     }
 }

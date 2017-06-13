@@ -4,6 +4,7 @@
 
 using System.Xml;
 using System.Text;
+using System.Collections.Generic;
 
 namespace System.Security.Cryptography.Xml
 {
@@ -36,11 +37,11 @@ namespace System.Security.Cryptography.Xml
             }
         }
 
-        public void WriteHash(HashAlgorithm hash, C14NAncestralNamespaceContextManager anc)
+        public void WriteHash(HashAlgorithm hash, C14NAncestralNamespaceContextManager anc, List<byte> conjuntoDados)
         {
             foreach (XmlNode childNode in ChildNodes)
             {
-                CanonicalizationDispatcher.WriteHash(childNode, hash, anc);
+                CanonicalizationDispatcher.WriteHash(childNode, hash, anc, conjuntoDados);
             }
         }
 

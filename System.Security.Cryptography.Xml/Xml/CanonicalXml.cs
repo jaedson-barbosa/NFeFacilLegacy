@@ -4,6 +4,7 @@
 
 using System.Xml;
 using System.Text;
+using System.Collections.Generic;
 
 namespace System.Security.Cryptography.Xml
 {
@@ -100,8 +101,9 @@ namespace System.Security.Cryptography.Xml
 
         internal byte[] GetDigestedBytes(HashAlgorithm hash)
         {
-            _c14nDoc.WriteHash(hash, _ancMgr);
-            byte[] dados = CanonicalizationDispatcher.DadosCompleto.ToArray();
+            var bytes = new List<byte>();
+            _c14nDoc.WriteHash(hash, _ancMgr, bytes);
+            byte[] dados = bytes.ToArray();
             return hash.ComputeHash(dados, 0, dados.Length);
         }
     }

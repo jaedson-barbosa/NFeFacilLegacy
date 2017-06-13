@@ -11,28 +11,15 @@ namespace System.Security.Cryptography.Xml
     public class KeyInfoX509Data
     {
         // An array of certificates representing the certificate chain 
-        private ArrayList _certificates = null;
+        public X509Certificate2 Certificate { get; }
 
         //
         // public constructors
         //
 
-        public KeyInfoX509Data() { }
-
         public KeyInfoX509Data(X509Certificate2 cert)
         {
-            AddCertificate(cert);
-        }
-
-        //
-        // public properties
-        //
-
-        public void AddCertificate(X509Certificate2 certificate)
-        {
-            if (_certificates == null)
-                _certificates = new ArrayList();
-            _certificates.Add(certificate);
+            Certificate = cert;
         }
 
 
@@ -51,19 +38,9 @@ namespace System.Security.Cryptography.Xml
         {
             XmlElement x509DataElement = xmlDocument.CreateElement("X509Data", SignedXml.XmlDsigNamespaceUrl);
 
-            if (_certificates != null)
-            {
-                foreach (X509Certificate2 certificate in _certificates)
-                {
-                    XmlElement x509Element = xmlDocument.CreateElement("X509Certificate", SignedXml.XmlDsigNamespaceUrl);
-                    x509Element.AppendChild(xmlDocument.CreateTextNode(Convert.ToBase64String(certificate.RawData)));
-                    x509DataElement.AppendChild(x509Element);
-                }
-            }
-            else
-            {
-                throw new InvalidOperationException();
-            }
+            XmlElement x509Element = xmlDocument.CreateElement("X509Certificate", SignedXml.XmlDsigNamespaceUrl);
+            x509Element.AppendChild(xmlDocument.CreateTextNode(Convert.ToBase64String(Certificate.RawData)));
+            x509DataElement.AppendChild(x509Element);
 
             return x509DataElement;
         }

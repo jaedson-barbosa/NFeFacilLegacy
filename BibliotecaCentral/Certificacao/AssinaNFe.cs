@@ -52,7 +52,7 @@ namespace BibliotecaCentral.Certificacao
                 {
                     X509Data = new DadosChave
                     {
-                        X509Certificate = signedXml.KeyInfo.GetXml().Value
+                        X509Certificate = Convert.ToBase64String(signedXml.KeyInfo.KeyInfoClause.Certificate.RawData)
                     }
                 },
                 SignedInfo = new ModeloXML.PartesProcesso.SignedInfo

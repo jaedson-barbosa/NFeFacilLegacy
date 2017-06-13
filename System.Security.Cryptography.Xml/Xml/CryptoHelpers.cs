@@ -17,8 +17,6 @@ namespace System.Security.Cryptography.Xml
                     return new XmlDsigC14NTransform();
                 case "http://www.w3.org/2000/09/xmldsig#enveloped-signature":
                     return new XmlDsigEnvelopedSignatureTransform();
-                case "http://www.w3.org/2000/09/xmldsig# X509Data":
-                    return new KeyInfoX509Data();
                 case "http://www.w3.org/2000/09/xmldsig#rsa-sha1":
                     return new RSASignatureDescription();
                 case "http://www.w3.org/2000/09/xmldsig#sha1":

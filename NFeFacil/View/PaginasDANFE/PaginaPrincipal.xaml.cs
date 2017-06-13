@@ -1,5 +1,5 @@
-﻿using NFeFacil.DANFE.Pacotes;
-using NFeFacil.DANFE.Processamento;
+﻿using NFeFacil.DANFE;
+using NFeFacil.DANFE.Pacotes;
 using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -28,7 +28,7 @@ namespace NFeFacil.View.PaginasDANFE
         public PaginaPrincipal(BibliotecaCentral.ModeloXML.Processo processo, UIElementCollection paiPaginas)
         {
             this.InitializeComponent();
-            var geral = ViewDados.Converter(processo);
+            var geral = new ViewDados(processo).ObterDadosConvertidos();
             ContextoCanhoto = geral._DadosCabecalho;
             ContextoDadosAdicionais = geral._DadosAdicionais;
             ContextoCliente = geral._DadosCliente;

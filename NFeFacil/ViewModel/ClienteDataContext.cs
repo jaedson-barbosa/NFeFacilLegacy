@@ -24,7 +24,7 @@ namespace NFeFacil.ViewModel
                 {
                     case IndicadorIE.Contribuinte:
                         IsentoICMS = false;
-                        Cliente.InscricaoEstadual = string.Empty;
+                        if (Cliente.InscricaoEstadual == null) InscricaoEstadual = string.Empty;
                         break;
                     case IndicadorIE.Isento:
                         IsentoICMS = true;

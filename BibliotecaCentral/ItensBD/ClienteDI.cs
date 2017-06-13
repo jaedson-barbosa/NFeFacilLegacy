@@ -40,6 +40,11 @@ namespace BibliotecaCentral.ItensBD
         public ClienteDI() { }
         public ClienteDI(Destinatario other)
         {
+            if (other.indicadorIE == 9 && !string.IsNullOrEmpty(other.inscricaoEstadual))
+            {
+                other.indicadorIE = 1;
+            }
+
             CPF = other.CPF;
             CNPJ = other.CNPJ;
             IdEstrangeiro = other.idEstrangeiro;

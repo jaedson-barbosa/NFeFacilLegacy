@@ -8,8 +8,9 @@ namespace BibliotecaCentral.ModeloXML
     {
         [XmlAttribute]
         public string versao = "3.10";
+        [XmlElement(nameof(NFe), Order = 0)]
         public NFe NFe { get; set; }
-        [XmlElement("protNFe")]
+        [XmlElement("protNFe", Order = 1)]
         public ProtocoloNFe ProtNFe { get; set; }
     }
 }

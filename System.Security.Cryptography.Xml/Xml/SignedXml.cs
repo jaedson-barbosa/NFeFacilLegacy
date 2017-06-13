@@ -214,30 +214,14 @@ namespace System.Security.Cryptography.Xml
         private void BuildDigestedReferences()
         {
             // Default the DigestMethod and Canonicalization
-            ArrayList references = SignedInfo.References;
-            // Reset the cache
-            _refProcessed = new bool[references.Count];
-            _refLevelCache = new int[references.Count];
-
-            ReferenceLevelSortOrder sortOrder = new ReferenceLevelSortOrder();
-            sortOrder.References = references;
-            // Don't alter the order of the references array list
-            ArrayList sortedReferences = new ArrayList();
-            foreach (Reference reference in references)
-            {
-                sortedReferences.Add(reference);
-            }
-            sortedReferences.Sort(sortOrder);
+            Reference reference = SignedInfo.Reference;
 
             CanonicalXmlNodeList nodeList = new CanonicalXmlNodeList();
-            foreach (Reference reference in sortedReferences)
-            {
-                // If no DigestMethod has yet been set, default it to sha1
-                if (reference.DigestMethod == null)
-                    reference.DigestMethod = XmlDsigSHA1Url;
+            // If no DigestMethod has yet been set, default it to sha1
+            if (reference.DigestMethod == null)
+                reference.DigestMethod = XmlDsigSHA1Url;
 
-                reference.UpdateHashValue(_containingDocument, nodeList);
-            }
+            reference.UpdateHashValue(_containingDocument, nodeList);
         }
     }
 }

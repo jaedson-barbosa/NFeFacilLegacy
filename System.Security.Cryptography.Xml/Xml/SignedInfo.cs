@@ -13,7 +13,7 @@ namespace System.Security.Cryptography.Xml
         private string _canonicalizationMethod;
         private string _signatureMethod;
         private string _signatureLength;
-        private ArrayList _references;
+        private Reference _reference;
         private SignedXml _signedXml = null;
         private Transform _canonicalizationMethodTransform = null;
 
@@ -21,11 +21,6 @@ namespace System.Security.Cryptography.Xml
         {
             get { return _signedXml; }
             set { _signedXml = value; }
-        }
-
-        public SignedInfo()
-        {
-            _references = new ArrayList();
         }
 
         //
@@ -88,9 +83,9 @@ namespace System.Security.Cryptography.Xml
             }
         }
 
-        public ArrayList References
+        public Reference Reference
         {
-            get { return _references; }
+            get { return _reference; }
         }
 
         //
@@ -127,11 +122,8 @@ namespace System.Security.Cryptography.Xml
             signedInfoElement.AppendChild(signatureMethodElement);
 
             // Add the references
-            for (int i = 0; i < _references.Count; ++i)
-            {
-                Reference reference = (Reference)_references[i];
-                signedInfoElement.AppendChild(reference.GetXml(document));
-            }
+            Reference reference = _reference;
+            signedInfoElement.AppendChild(reference.GetXml(document));
 
             return signedInfoElement;
         }
@@ -142,7 +134,7 @@ namespace System.Security.Cryptography.Xml
                 throw new ArgumentNullException(nameof(reference));
 
             reference.SignedXml = SignedXml;
-            _references.Add(reference);
+            _reference = reference;
         }
     }
 }

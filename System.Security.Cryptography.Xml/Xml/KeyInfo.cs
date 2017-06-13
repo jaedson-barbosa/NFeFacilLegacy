@@ -9,12 +9,7 @@ namespace System.Security.Cryptography.Xml
 {
     public class KeyInfo
     {
-        private ArrayList _keyInfoClauses;
-
-        public KeyInfo()
-        {
-            _keyInfoClauses = new ArrayList();
-        }
+        public KeyInfoX509Data KeyInfoClause { get; set; }
 
         public XmlElement GetXml()
         {
@@ -29,20 +24,12 @@ namespace System.Security.Cryptography.Xml
             XmlElement keyInfoElement = xmlDocument.CreateElement("KeyInfo", SignedXml.XmlDsigNamespaceUrl);
 
             // Add all the clauses that go underneath it
-            for (int i = 0; i < _keyInfoClauses.Count; ++i)
+            XmlElement xmlElement = KeyInfoClause.GetXml(xmlDocument);
+            if (xmlElement != null)
             {
-                XmlElement xmlElement = ((KeyInfoX509Data)_keyInfoClauses[i]).GetXml(xmlDocument);
-                if (xmlElement != null)
-                {
-                    keyInfoElement.AppendChild(xmlElement);
-                }
+                keyInfoElement.AppendChild(xmlElement);
             }
             return keyInfoElement;
-        }
-
-        public void AddClause(KeyInfoX509Data clause)
-        {
-            _keyInfoClauses.Add(clause);
         }
     }
 }

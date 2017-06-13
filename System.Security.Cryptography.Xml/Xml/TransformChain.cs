@@ -15,6 +15,7 @@
 // stream. (We only bother implementing that much now since every use of transform chains in XmlDsig ultimately yields something to hash).
 
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 
@@ -22,13 +23,13 @@ namespace System.Security.Cryptography.Xml
 {
     // This class represents an ordered chain of transforms
 
-    public class TransformChain
+    public class TransformChain : IEnumerable<Transform>
     {
-        private ArrayList _transforms;
+        private List<Transform> _transforms;
 
         public TransformChain()
         {
-            _transforms = new ArrayList();
+            _transforms = new List<Transform>();
         }
 
         public void Add(Transform transform)
@@ -38,6 +39,11 @@ namespace System.Security.Cryptography.Xml
         }
 
         public IEnumerator GetEnumerator()
+        {
+            return _transforms.GetEnumerator();
+        }
+
+        IEnumerator<Transform> IEnumerable<Transform>.GetEnumerator()
         {
             return _transforms.GetEnumerator();
         }

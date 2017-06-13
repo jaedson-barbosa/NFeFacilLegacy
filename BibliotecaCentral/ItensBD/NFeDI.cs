@@ -50,7 +50,7 @@ namespace BibliotecaCentral.ItensBD
             DataEmissao = DateTime.Parse(nota.Informações.identificação.DataHoraEmissão).ToString("yyyy-MM-dd hh:mm:ss");
             NumeroNota = nota.Informações.identificação.Numero;
             SerieNota = nota.Informações.identificação.Serie;
-            Status = nota.Signature != null && nota.Signature.HasChildNodes ? (int)StatusNFe.Assinada : (int)StatusNFe.Salva;
+            Status = nota.Signature != null && nota.Signature != null ? (int)StatusNFe.Assinada : (int)StatusNFe.Salva;
             XML = xml;
         }
         public NFeDI(Processo nota, string xml)
@@ -62,7 +62,7 @@ namespace BibliotecaCentral.ItensBD
             DataEmissao = DateTime.Parse(nota.NFe.Informações.identificação.DataHoraEmissão).ToString("yyyy-MM-dd hh:mm:ss");
             NumeroNota = nota.NFe.Informações.identificação.Numero;
             SerieNota = nota.NFe.Informações.identificação.Serie;
-            Status = nota.ProtNFe != null ? (int)StatusNFe.Emitida : nota.NFe.Signature != null && nota.NFe.Signature.HasChildNodes ? (int)StatusNFe.Assinada : (int)StatusNFe.Salva;
+            Status = nota.ProtNFe != null ? (int)StatusNFe.Emitida : nota.NFe.Signature != null ? (int)StatusNFe.Assinada : (int)StatusNFe.Salva;
             XML = xml;
         }
     }

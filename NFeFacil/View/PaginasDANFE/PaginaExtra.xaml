@@ -13,14 +13,16 @@
           Height="{x:Bind AlturaPagina}"
           Padding="{x:Bind MargemPadrao}">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition x:Name="espacoParaProdutos" />
             <RowDefinition Height="Auto"
                            x:Name="espacoParaInfo" />
         </Grid.RowDefinitions>
-        <partes:CampoProdutos x:Name="campoProdutos" />
+        <partes:DadosNFe DataContext="{x:Bind ContextoNFe}" />
+        <partes:CampoProdutos x:Name="campoProdutos" Grid.Row="1" />
         <StackPanel x:Name="geralCampoInfo"
                     Padding="{StaticResource PaddingPadrao}"
-                    Grid.Row="1"
+                    Grid.Row="2"
                     BorderThickness="1"
                     BorderBrush="Black"
                     CornerRadius="2">

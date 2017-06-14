@@ -170,6 +170,7 @@
     <Compile Include="DANFE\Pacotes\DadosProduto.cs" />
     <Compile Include="DANFE\Pacotes\Endereço.cs" />
     <Compile Include="DANFE\Pacotes\Geral.cs" />
+    <Compile Include="DANFE\Pacotes\ItemDadosAdicionais.cs" />
     <Compile Include="DANFE\ViewDados.cs" />
     <Compile Include="GrupoViewBanco.cs" />
     <Compile Include="IHambuguer.cs" />

@@ -68,16 +68,16 @@ namespace NFeFacil.View.PaginasDANFE
                 var produtosRestantes = ContextoGeral._DadosProdutos.Except(produtosNestaPagina);
                 if (excessoObservacao)
                 {
-                    PaiPaginas.Add(new PaginaExtra(produtosRestantes, infoAdicional.CampoObservacoes, PaiPaginas, MotivoCriacaoPaginaExtra.Ambos, this));
+                    PaiPaginas.Add(new PaginaExtra(ContextoNFe, produtosRestantes, infoAdicional.CampoObservacoes, PaiPaginas, MotivoCriacaoPaginaExtra.Ambos, this));
                 }
                 else
                 {
-                    PaiPaginas.Add(new PaginaExtra(produtosRestantes, infoAdicional.CampoObservacoes, PaiPaginas, MotivoCriacaoPaginaExtra.Produtos, this));
+                    PaiPaginas.Add(new PaginaExtra(ContextoNFe, produtosRestantes, infoAdicional.CampoObservacoes, PaiPaginas, MotivoCriacaoPaginaExtra.Produtos, this));
                 }
             }
             else if (excessoObservacao)
             {
-                PaiPaginas.Add(new PaginaExtra(null, infoAdicional.CampoObservacoes, PaiPaginas, MotivoCriacaoPaginaExtra.Observacao, this));
+                PaiPaginas.Add(new PaginaExtra(ContextoNFe, null, infoAdicional.CampoObservacoes, PaiPaginas, MotivoCriacaoPaginaExtra.Observacao, this));
             }
             else
             {

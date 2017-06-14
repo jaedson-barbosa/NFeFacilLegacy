@@ -4,6 +4,7 @@ using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 using NFeFacil.DANFE.Pacotes;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace NFeFacil.DANFE
@@ -50,12 +51,30 @@ namespace NFeFacil.DANFE
             var extras = Dados.NFe.Informações.infAdic;
             var cobr = Dados.NFe.Informações.cobr;
             var entrega = Dados.NFe.Informações.Entrega;
-            return new DadosAdicionais
+            var retirada = Dados.NFe.Informações.Retirada;
+
+            var itens = new List<ItemDadosAdicionais>();
+            if (retirada != null)
             {
-                Dados = $"Endereço de entrega: {entrega.Logradouro} - {entrega.Bairro} - {entrega.NomeMunicipio}/{entrega.SiglaUF}.", //extras?.infCpl,
-                Fisco = extras?.infAdFisco,
-                Duplicatas = cobr?.Dup
-            };
+                itens.Add(new ItemDadosAdicionais("ENDEREÇO DE RETIRADA:", $"{retirada.Logradouro}, {retirada.Numero}", retirada.Bairro, $"{retirada.NomeMunicipio} - {retirada.SiglaUF}", retirada.CNPJ != null ? $"CNPJ: {AplicatMascaraDocumento(retirada.CNPJ)}" : $"CPF: {AplicatMascaraDocumento(retirada.CPF)}"));
+            }
+            if (entrega != null)
+            {
+                itens.Add(new ItemDadosAdicionais("ENDEREÇO DE ENTREGA:", $"{entrega.Logradouro}, {entrega.Numero}", entrega.Bairro, $"{entrega.NomeMunicipio} - {entrega.SiglaUF}", entrega.CNPJ != null ? $"CNPJ: {AplicatMascaraDocumento(entrega.CNPJ)}" : $"CPF: {AplicatMascaraDocumento(entrega.CPF)}"));
+            }
+            if (cobr?.Dup != null)
+            {
+                itens.Add(new ItemDadosAdicionais("DUPLICATAS:", cobr.Dup.Select(dup => $"Duplicata - Num.: {dup.NDup}, Vec.: {dup.DVenc}, Valor: {dup.DDup.ToString("N2")}")));
+            }
+            if (extras?.infCpl != null)
+            {
+                itens.Add(new ItemDadosAdicionais("DE INTERESSE DO CONTRIBUINTE:", extras.infCpl));
+            }
+            if (extras?.infAdFisco != null)
+            {
+                itens.Add(new ItemDadosAdicionais("DE INTERESSE DO FISCO:", extras.infAdFisco));
+            }
+            return new DadosAdicionais(itens);
         }
 
         DadosCabecalho GetCabecalho()

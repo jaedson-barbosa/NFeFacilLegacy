@@ -1,4 +1,6 @@
 ﻿using NFeFacil.DANFE.Pacotes;
+using System.Collections.Generic;
+using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
@@ -18,36 +20,25 @@ namespace NFeFacil.View.PartesDANFE
             set
             {
                 LimparBloco();
-                if (value.Duplicatas != null && value.Duplicatas.Count > 0)
+                for (int i = 0; i < value.Itens.Count; i++)
                 {
-                    var paragrafo = new Paragraph() { FontSize = 8 };
-                    paragrafo.Inlines.Add(new Run() { Text = "  DE INTERESSE DO CONTRIBUINTE:" });
-                    paragrafo.Inlines.Add(new LineBreak());
-                    for (int i = 0; i < value.Duplicatas.Count; i++)
-                    {
-                        var dup = value.Duplicatas[i];
-                        paragrafo.Inlines.Add(new Run { Text = $"Duplicata - Num.: {dup.NDup}, Vec.: {dup.DVenc}, Valor: {dup.DDup.ToString("N2")}" });
-                        paragrafo.Inlines.Add(new LineBreak());
-                    }
-                    bloco.Blocks.Add(paragrafo);
-                }
-                if (value.Dados != null)
-                {
-                    var paragrafo = new Paragraph() { FontSize = 8 };
-                    paragrafo.Inlines.Add(new Run() { Text = "  DE INTERESSE DO CONTRIBUINTE:" });
-                    paragrafo.Inlines.Add(new LineBreak());
-                    paragrafo.Inlines.Add(new Run() { Text = value.Dados });
-                    bloco.Blocks.Add(paragrafo);
-                }
-                if (value.Fisco != null)
-                {
-                    var paragrafo = new Paragraph() { FontSize = 8 };
-                    paragrafo.Inlines.Add(new Run() { Text = "  DE INTERESSE DO FISCO:" });
-                    paragrafo.Inlines.Add(new LineBreak());
-                    paragrafo.Inlines.Add(new Run() { Text = value.Fisco });
+                    var paragrafo = CriarParagrafo(value.Itens[i]);
                     bloco.Blocks.Add(paragrafo);
                 }
             }
+        }
+
+        Paragraph CriarParagrafo(ItemDadosAdicionais item)
+        {
+            var paragrafo = new Paragraph() { FontSize = 8 };
+            paragrafo.Inlines.Add(new Run() { Text = item.Titulo });
+            paragrafo.Inlines.Add(new LineBreak());
+            foreach (var linha in item.Linhas)
+            {
+                paragrafo.Inlines.Add(new Run { Text = $"  {linha}" });
+                paragrafo.Inlines.Add(new LineBreak());
+            }
+            return paragrafo;
         }
 
         public CampoDadosAdicionais()

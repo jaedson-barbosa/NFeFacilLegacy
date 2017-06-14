@@ -3,6 +3,7 @@ using BibliotecaCentral.ModeloXML;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using NFeFacil.View.PaginasDANFE;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -30,8 +31,19 @@ namespace NFeFacil.View
             gerenciadorImpressão = new GerenciadorImpressao();
 
             var processo = (Processo)e.Parameter;
-            stk.Children.Add(new PaginasDANFE.PaginaPrincipal(processo, stk.Children));
+            var principal = new PaginasDANFE.PaginaPrincipal(processo, stk.Children);
+            principal.PaginasCarregadas += Principal_PaginasCarregadas;
+            stk.Children.Add(principal);
             btnImprimir.IsEnabled = true;
+        }
+
+        private void Principal_PaginasCarregadas(object sender, System.EventArgs e)
+        {
+            var filhos = stk.Children;
+            for (int i = 0; i < filhos.Count; i++)
+            {
+                ((IPagina)filhos[i]).DefinirPagina(i + 1, filhos.Count);
+            }
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e) => Dispose();

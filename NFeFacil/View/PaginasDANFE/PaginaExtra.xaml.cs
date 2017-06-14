@@ -12,13 +12,13 @@ namespace NFeFacil.View.PaginasDANFE
     /// <summary>
     /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
     /// </summary>
-    public sealed partial class PaginaExtra : UserControl
+    public sealed partial class PaginaExtra : UserControl, IPagina
     {
         double LarguraPagina => DimensoesPadrao.CentimeterToPixel(21);
         double AlturaPagina => DimensoesPadrao.CentimeterToPixel(29.7);
         Thickness MargemPadrao => new Thickness(DimensoesPadrao.CentimeterToPixel(1));
 
-        public PaginaExtra(IEnumerable<DadosProduto> produtos, RichTextBlock infoAdicional, UIElementCollection paiPaginas, MotivoCriacaoPaginaExtra motivo)
+        public PaginaExtra(IEnumerable<DadosProduto> produtos, RichTextBlock infoAdicional, UIElementCollection paiPaginas, MotivoCriacaoPaginaExtra motivo, PaginaPrincipal principal)
         {
             this.InitializeComponent();
             if (motivo == MotivoCriacaoPaginaExtra.Ambos)
@@ -26,8 +26,8 @@ namespace NFeFacil.View.PaginasDANFE
                 double total = 0, maximo = espacoParaProdutos.ActualHeight;
                 var produtosNestaPagina = produtos.TakeWhile(x =>
                 {
-                    var item = new PartesDANFE.ItemProduto() { DataContext = x };
-                    item.Measure(new Windows.Foundation.Size(PartesDANFE.DimensoesPadrao.LarguraTotalStatic, espacoParaProdutos.ActualHeight));
+                    var item = new ItemProduto() { DataContext = x };
+                    item.Measure(new Windows.Foundation.Size(DimensoesPadrao.LarguraTotalStatic, espacoParaProdutos.ActualHeight));
                     total += item.DesiredSize.Height;
                     return total <= maximo;
                 });
@@ -38,7 +38,7 @@ namespace NFeFacil.View.PaginasDANFE
                 if (excessoProdutos)
                 {
                     var produtosRestantes = produtos.Except(produtosNestaPagina);
-                    paiPaginas.Add(new PaginaExtra(produtosRestantes, infoAdicional, paiPaginas, MotivoCriacaoPaginaExtra.Ambos));
+                    paiPaginas.Add(new PaginaExtra(produtosRestantes, infoAdicional, paiPaginas, MotivoCriacaoPaginaExtra.Ambos, principal));
                 }
                 else
                 {
@@ -47,7 +47,7 @@ namespace NFeFacil.View.PaginasDANFE
                     {
                         infoAdicional.OverflowContentTarget = null;
                         grd.Children.Remove(geralCampoInfo);
-                        paiPaginas.Add(new PaginaExtra(null, infoAdicional, paiPaginas, MotivoCriacaoPaginaExtra.Observacao));
+                        paiPaginas.Add(new PaginaExtra(null, infoAdicional, paiPaginas, MotivoCriacaoPaginaExtra.Observacao, principal));
                     }
                 }
             }
@@ -73,9 +73,15 @@ namespace NFeFacil.View.PaginasDANFE
                 if (excessoProdutos)
                 {
                     var produtosRestantes = produtos.Except(produtosNestaPagina);
-                    paiPaginas.Add(new PaginaExtra(produtosRestantes, infoAdicional, paiPaginas, MotivoCriacaoPaginaExtra.Produtos));
+                    paiPaginas.Add(new PaginaExtra(produtosRestantes, infoAdicional, paiPaginas, MotivoCriacaoPaginaExtra.Produtos, principal));
                 }
             }
+            principal.OnPaginaCarregada();
+        }
+
+        public void DefinirPagina(int atual, int total)
+        {
+            
         }
     }
 }

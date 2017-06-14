@@ -149,7 +149,6 @@
     <Content Include="Assets\Wide310x150Logo.scale-125.png" />
     <Content Include="Assets\Wide310x150Logo.scale-150.png" />
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
-    <Content Include="DANFE\code128.ttf" />
     <None Include="NFeFacil_StoreKey.pfx" />
     <None Include="NFeFacil_TemporaryKey.pfx" />
     <None Include="project.json" />
@@ -310,6 +309,7 @@
     <Compile Include="View\ConfigSincronizacao.xaml.cs">
       <DependentUpon>ConfigSincronizacao.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\PaginasDANFE\IPagina.cs" />
     <Compile Include="View\PaginasDANFE\MotivoCriacaoPaginaExtra.cs" />
     <Compile Include="View\PaginasDANFE\PaginaExtra.xaml.cs">
       <DependentUpon>PaginaExtra.xaml</DependentUpon>
@@ -604,6 +604,10 @@
     <ProjectReference Include="..\BibliotecaCentral\BibliotecaCentral.csproj">
       <Project>{b59a85aa-2d60-4d5b-8104-dcb0a3f25019}</Project>
       <Name>BibliotecaCentral</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CodigoBarras\CodigoBarras.csproj">
+      <Project>{7c6695ea-1ac5-470b-98ad-aaed185c6f9f}</Project>
+      <Name>CodigoBarras</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

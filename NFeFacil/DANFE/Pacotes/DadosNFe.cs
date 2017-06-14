@@ -1,6 +1,9 @@
-﻿namespace NFeFacil.DANFE.Pacotes
+﻿using System.ComponentModel;
+using Windows.UI.Xaml.Media;
+
+namespace NFeFacil.DANFE.Pacotes
 {
-    public sealed class DadosNFe
+    public sealed class DadosNFe : INotifyPropertyChanged
     {
         public string NomeEmitente { get; set; }
         public string TipoEmissao { get; set; }
@@ -18,10 +21,14 @@
         public string CNPJEmit { get; set; }
         public Endereço Endereco { get; set; }
 
-        public void DefinirPagina(int totPagina, int paginaAtual)
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void DefinirPagina(int paginaAtual, int total)
         {
-            QuantPaginas = totPagina.ToString();
             PaginaAtual = paginaAtual.ToString();
+            QuantPaginas = total.ToString();
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PaginaAtual)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(QuantPaginas)));
         }
     }
 }

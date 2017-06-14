@@ -1,5 +1,6 @@
 ﻿using NFeFacil.DANFE;
 using NFeFacil.DANFE.Pacotes;
+using System;
 using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -8,7 +9,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil.View.PaginasDANFE
 {
-    public sealed partial class PaginaPrincipal : UserControl
+    public sealed partial class PaginaPrincipal : UserControl, IPagina
     {
         double LarguraPagina => PartesDANFE.DimensoesPadrao.CentimeterToPixel(21);
         double AlturaPagina => PartesDANFE.DimensoesPadrao.CentimeterToPixel(29.7);
@@ -25,6 +26,12 @@ namespace NFeFacil.View.PaginasDANFE
 
         UIElementCollection PaiPaginas { get; }
 
+        public event EventHandler PaginasCarregadas;
+        public void OnPaginaCarregada()
+        {
+            PaginasCarregadas?.Invoke(this, null);
+        }
+
         public PaginaPrincipal(BibliotecaCentral.ModeloXML.Processo processo, UIElementCollection paiPaginas)
         {
             this.InitializeComponent();
@@ -37,7 +44,7 @@ namespace NFeFacil.View.PaginasDANFE
             ContextoNFe = geral._DadosNFe;
             ContextoISSQN = geral._DadosISSQN;
             ContextoGeral = geral;
-
+            
             PaiPaginas = paiPaginas;
         }
 
@@ -61,17 +68,26 @@ namespace NFeFacil.View.PaginasDANFE
                 var produtosRestantes = ContextoGeral._DadosProdutos.Except(produtosNestaPagina);
                 if (excessoObservacao)
                 {
-                    PaiPaginas.Add(new PaginaExtra(produtosRestantes, infoAdicional.CampoObservacoes, PaiPaginas, MotivoCriacaoPaginaExtra.Ambos));
+                    PaiPaginas.Add(new PaginaExtra(produtosRestantes, infoAdicional.CampoObservacoes, PaiPaginas, MotivoCriacaoPaginaExtra.Ambos, this));
                 }
                 else
                 {
-                    PaiPaginas.Add(new PaginaExtra(produtosRestantes, infoAdicional.CampoObservacoes, PaiPaginas, MotivoCriacaoPaginaExtra.Produtos));
+                    PaiPaginas.Add(new PaginaExtra(produtosRestantes, infoAdicional.CampoObservacoes, PaiPaginas, MotivoCriacaoPaginaExtra.Produtos, this));
                 }
             }
             else if (excessoObservacao)
             {
-                PaiPaginas.Add(new PaginaExtra(null, infoAdicional.CampoObservacoes, PaiPaginas, MotivoCriacaoPaginaExtra.Observacao));
+                PaiPaginas.Add(new PaginaExtra(null, infoAdicional.CampoObservacoes, PaiPaginas, MotivoCriacaoPaginaExtra.Observacao, this));
             }
+            else
+            {
+                OnPaginaCarregada();
+            }
+        }
+
+        public void DefinirPagina(int atual, int total)
+        {
+            ContextoNFe.DefinirPagina(atual, total);
         }
     }
 }

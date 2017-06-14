@@ -21,14 +21,13 @@
         <partes:DadosNFe DataContext="{x:Bind ContextoNFe}" />
         <partes:CampoProdutos x:Name="campoProdutos" Grid.Row="1" />
         <StackPanel x:Name="geralCampoInfo"
-                    Padding="{StaticResource PaddingPadrao}"
                     Grid.Row="2"
                     BorderThickness="1"
                     BorderBrush="Black"
                     CornerRadius="2">
             <Border BorderThickness="0,0,0,1"
                     BorderBrush="Black">
-                <TextBlock>CONTINUAÇÃO INFORMAÇÕES COMPLEMENTARES</TextBlock>
+                <TextBlock Margin="{StaticResource PaddingPadrao}">CONTINUAÇÃO INFORMAÇÕES COMPLEMENTARES</TextBlock>
             </Border>
             <RichTextBlockOverflow x:Name="campoInfo" />
         </StackPanel>

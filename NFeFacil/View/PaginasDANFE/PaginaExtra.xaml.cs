@@ -56,10 +56,13 @@ namespace NFeFacil.View.PaginasDANFE
             else if (motivo == MotivoCriacaoPaginaExtra.Observacao)
             {
                 grd.Children.Remove(campoProdutos);
+                espacoParaProdutos.Height = new GridLength(0);
                 infoAdicional.OverflowContentTarget = campoInfo;
             }
             else
             {
+                grd.Children.Remove(geralCampoInfo);
+
                 double total = 0, maximo = espacoParaProdutos.ActualHeight;
                 var produtosNestaPagina = produtos.TakeWhile(x =>
                 {

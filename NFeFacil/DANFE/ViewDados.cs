@@ -49,9 +49,10 @@ namespace NFeFacil.DANFE
         {
             var extras = Dados.NFe.Informações.infAdic;
             var cobr = Dados.NFe.Informações.cobr;
+            var entrega = Dados.NFe.Informações.Entrega;
             return new DadosAdicionais
             {
-                Dados = extras?.infCpl,
+                Dados = $"Endereço de entrega: {entrega.Logradouro} - {entrega.Bairro} - {entrega.NomeMunicipio}/{entrega.SiglaUF}.", //extras?.infCpl,
                 Fisco = extras?.infAdFisco,
                 Duplicatas = cobr?.Dup
             };

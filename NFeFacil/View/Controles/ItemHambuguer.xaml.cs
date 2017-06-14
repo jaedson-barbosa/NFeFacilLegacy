@@ -15,7 +15,7 @@ namespace NFeFacil.View.Controles
                 Glyph = glyph
             };
             Descricao = descricao;
-            this.InitializeComponent();
+            InitializeComponent();
 
         }
 
@@ -23,7 +23,7 @@ namespace NFeFacil.View.Controles
         {
             Icone = new SymbolIcon(simbolo);
             Descricao = descricao;
-            this.InitializeComponent();
+            InitializeComponent();
 
         }
 
@@ -34,7 +34,7 @@ namespace NFeFacil.View.Controles
                 UriSource = uri
             };
             Descricao = descricao;
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         public IconElement Icone { get; set; }

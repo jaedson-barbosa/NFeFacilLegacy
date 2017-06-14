@@ -8,7 +8,7 @@ namespace NFeFacil.View.PartesDANFE
     {
         public CampoFatura()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

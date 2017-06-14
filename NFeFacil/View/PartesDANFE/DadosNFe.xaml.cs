@@ -15,7 +15,7 @@ namespace NFeFacil.View.PartesDANFE
 
         public DadosNFe()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

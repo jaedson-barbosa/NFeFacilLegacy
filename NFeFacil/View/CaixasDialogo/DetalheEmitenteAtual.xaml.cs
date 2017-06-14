@@ -10,7 +10,7 @@ namespace NFeFacil.View.CaixasDialogo
 
         public DetalheEmitenteAtual()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

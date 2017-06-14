@@ -10,7 +10,7 @@ namespace BibliotecaCentral.CaixasDialogo
 
         public ConectarServidor()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

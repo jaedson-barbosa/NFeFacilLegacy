@@ -8,7 +8,7 @@ namespace NFeFacil.View.CaixasDialogo
     {
         public AdicionarObservacaoContribuinte()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

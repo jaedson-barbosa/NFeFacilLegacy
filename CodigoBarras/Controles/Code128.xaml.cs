@@ -46,7 +46,7 @@ namespace CodigoBarras.Controles
 
         public Code128()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

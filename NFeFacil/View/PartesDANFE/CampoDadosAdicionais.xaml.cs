@@ -1,6 +1,4 @@
 ﻿using NFeFacil.DANFE.Pacotes;
-using System.Collections.Generic;
-using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
@@ -43,7 +41,7 @@ namespace NFeFacil.View.PartesDANFE
 
         public CampoDadosAdicionais()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private void LimparBloco()

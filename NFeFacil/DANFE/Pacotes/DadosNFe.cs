@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using Windows.UI.Xaml.Media;
 
 namespace NFeFacil.DANFE.Pacotes
 {

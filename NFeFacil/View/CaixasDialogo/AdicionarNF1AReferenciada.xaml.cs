@@ -8,7 +8,7 @@ namespace NFeFacil.View.CaixasDialogo
     {
         public AdicionarNF1AReferenciada()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

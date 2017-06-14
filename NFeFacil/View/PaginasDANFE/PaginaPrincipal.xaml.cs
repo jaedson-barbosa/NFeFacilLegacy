@@ -34,7 +34,7 @@ namespace NFeFacil.View.PaginasDANFE
 
         public PaginaPrincipal(BibliotecaCentral.ModeloXML.Processo processo, UIElementCollection paiPaginas)
         {
-            this.InitializeComponent();
+            InitializeComponent();
             var geral = new ViewDados(processo).ObterDadosConvertidos();
             ContextoCanhoto = geral._DadosCabecalho;
             ContextoDadosAdicionais = geral._DadosAdicionais;

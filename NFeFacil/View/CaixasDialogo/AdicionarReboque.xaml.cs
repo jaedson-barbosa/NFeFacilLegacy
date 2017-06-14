@@ -8,7 +8,7 @@ namespace NFeFacil.View.CaixasDialogo
     {
         public AdicionarReboque()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

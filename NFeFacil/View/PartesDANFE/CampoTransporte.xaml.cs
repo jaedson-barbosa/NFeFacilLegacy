@@ -20,7 +20,7 @@ namespace NFeFacil.View.PartesDANFE
 
         public CampoTransporte()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

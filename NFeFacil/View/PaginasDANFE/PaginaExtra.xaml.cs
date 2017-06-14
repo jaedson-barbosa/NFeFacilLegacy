@@ -21,7 +21,7 @@ namespace NFeFacil.View.PaginasDANFE
 
         public PaginaExtra(DadosNFe cabecalho, IEnumerable<DadosProduto> produtos, RichTextBlock infoAdicional, UIElementCollection paiPaginas, MotivoCriacaoPaginaExtra motivo, PaginaPrincipal principal)
         {
-            this.InitializeComponent();
+            InitializeComponent();
             ContextoNFe = cabecalho;
             if (motivo == MotivoCriacaoPaginaExtra.Ambos)
             {

@@ -8,7 +8,7 @@ namespace NFeFacil.View.PartesDANFE
     {
         public CampoISSQN()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

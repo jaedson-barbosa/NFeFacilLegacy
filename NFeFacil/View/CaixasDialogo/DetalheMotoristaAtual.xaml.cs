@@ -10,7 +10,7 @@ namespace NFeFacil.View.CaixasDialogo
 
         public DetalheMotoristaAtual()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

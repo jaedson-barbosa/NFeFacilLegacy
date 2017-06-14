@@ -8,7 +8,7 @@ namespace NFeFacil.View.CaixasDialogo
     {
         public AdicionarDuplicata()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

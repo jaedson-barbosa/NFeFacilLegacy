@@ -11,7 +11,7 @@ namespace NFeFacil.View.PartesDANFE
     {
         public CampoProdutos()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 

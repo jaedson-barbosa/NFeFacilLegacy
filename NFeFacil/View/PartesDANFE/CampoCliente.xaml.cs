@@ -23,7 +23,7 @@ namespace NFeFacil.View.PartesDANFE
 
         public CampoCliente()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

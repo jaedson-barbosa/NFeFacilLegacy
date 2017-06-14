@@ -8,7 +8,7 @@ namespace NFeFacil.View.CaixasDialogo
     {
         public AdicionarProcessoReferenciado()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

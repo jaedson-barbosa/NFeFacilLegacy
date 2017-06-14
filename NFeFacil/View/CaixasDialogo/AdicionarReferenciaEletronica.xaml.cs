@@ -10,7 +10,7 @@ namespace NFeFacil.View.CaixasDialogo
 
         public AdicionarReferenciaEletronica()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             DataContext = string.Empty;
         }
     }

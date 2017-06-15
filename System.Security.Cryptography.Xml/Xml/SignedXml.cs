@@ -39,22 +39,11 @@ namespace System.Security.Cryptography.Xml
         // public constructors
         //
 
-        public SignedXml(XmlDocument document)
+        public SignedXml(XmlElement element)
         {
-            if (document == null)
-                throw new ArgumentNullException(nameof(document));
-            Initialize(document.DocumentElement);
-        }
+            if (element == null)
+                throw new ArgumentNullException(nameof(element));
 
-        public SignedXml(XmlElement elem)
-        {
-            if (elem == null)
-                throw new ArgumentNullException(nameof(elem));
-            Initialize(elem);
-        }
-
-        private void Initialize(XmlElement element)
-        {
             _containingDocument = element?.OwnerDocument;
             _context = element;
             m_signature = new Signature();
@@ -89,18 +78,12 @@ namespace System.Security.Cryptography.Xml
             // Load the key
             var key = KeyInfo.GetRSAPrivateKey();
 
-            // Check the signature algorithm associated with the key so that we can accordingly set the signature method
-            if (m_signature.SignatureMethod == null)
-            {
-                m_signature.SignatureMethod = XmlDsigRSASHA1Url;
-            }
+            m_signature.SignatureMethod = XmlDsigRSASHA1Url;
 
             // See if there is a signature description class defined in the Config file
-            var signatureDescription = new RSASignatureDescription();
-            HashAlgorithm hashAlg = signatureDescription.CreateDigest();
-            byte[] hashvalue = GetC14NDigest(hashAlg);
-            var asymmetricSignatureFormatter = signatureDescription.CreateFormatter(key);
-            m_signature.SignatureValue = asymmetricSignatureFormatter.CreateSignature(hashvalue);
+            byte[] hashvalue = GetC14NDigest(SHA1.Create());
+            var asymmetricSignatureFormatter = new LocalSignatureFormatter(key, HashAlgorithmName.SHA1);
+            m_signature.SignatureValue = asymmetricSignatureFormatter.SignHash(hashvalue);
         }
 
 

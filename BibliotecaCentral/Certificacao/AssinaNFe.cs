@@ -31,7 +31,6 @@ namespace BibliotecaCentral.Certificacao
             var id = elemento.Attributes.GetNamedItem("Id").Value;
             var signedXml = new SignedXml(elemento)
             {
-                SigningKey = certificado.GetRSAPrivateKey(),
                 KeyInfo = certificado
             };
 

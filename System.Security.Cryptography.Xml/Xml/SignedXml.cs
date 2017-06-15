@@ -13,7 +13,6 @@ namespace System.Security.Cryptography.Xml
     {
         private Signature m_signature;
 
-        private AsymmetricAlgorithm _signingKey;
         private XmlDocument _containingDocument = null;
 
         private bool[] _refProcessed = null;
@@ -56,11 +55,9 @@ namespace System.Security.Cryptography.Xml
 
         private void Initialize(XmlElement element)
         {
-            _containingDocument = (element == null ? null : element.OwnerDocument);
+            _containingDocument = element?.OwnerDocument;
             _context = element;
             m_signature = new Signature();
-            m_signature.SignedXml = this;
-            _signingKey = null;
 
             _safeCanonicalizationMethods = new Collection<string>(new List<string> { XmlDsigC14NTransformUrl });
         }
@@ -69,22 +66,12 @@ namespace System.Security.Cryptography.Xml
         // public properties
         //
 
-        public AsymmetricAlgorithm SigningKey
-        {
-            get { return _signingKey; }
-            set { _signingKey = value; }
-        }
-
         public Signature Signature
         {
             get { return m_signature; }
         }
 
-        public X509Certificate2 KeyInfo
-        {
-            get { return m_signature.KeyInfo; }
-            set { m_signature.KeyInfo = value; }
-        }
+        public X509Certificate2 KeyInfo { get; set; }
 
         //
         // public methods
@@ -100,27 +87,19 @@ namespace System.Security.Cryptography.Xml
             BuildDigestedReferences();
 
             // Load the key
-            AsymmetricAlgorithm key = SigningKey;
+            var key = KeyInfo.GetRSAPrivateKey();
 
             // Check the signature algorithm associated with the key so that we can accordingly set the signature method
             if (m_signature.SignatureMethod == null)
             {
-                if (key is RSA)
-                {
-                    // Default to RSA-SHA1
-                    m_signature.SignatureMethod = XmlDsigRSASHA1Url;
-                }
-                else
-                {
-                    throw new CryptographicException();
-                }
+                m_signature.SignatureMethod = XmlDsigRSASHA1Url;
             }
 
             // See if there is a signature description class defined in the Config file
-            RSASignatureDescription signatureDescription = CryptoHelpers.CreateFromName(m_signature.SignatureMethod) as RSASignatureDescription;
+            var signatureDescription = new RSASignatureDescription();
             HashAlgorithm hashAlg = signatureDescription.CreateDigest();
             byte[] hashvalue = GetC14NDigest(hashAlg);
-            RSAPKCS1SignatureFormatter asymmetricSignatureFormatter = signatureDescription.CreateFormatter(key);
+            var asymmetricSignatureFormatter = signatureDescription.CreateFormatter(key);
             m_signature.SignatureValue = asymmetricSignatureFormatter.CreateSignature(hashvalue);
         }
 
@@ -132,7 +111,7 @@ namespace System.Security.Cryptography.Xml
         private byte[] GetC14NDigest(HashAlgorithm hash)
         {
             bool isKeyedHashAlgorithm = hash is KeyedHashAlgorithm;
-            string baseUri = (_containingDocument == null ? null : _containingDocument.BaseURI);
+            string baseUri = _containingDocument?.BaseURI;
             XmlDocument doc = Utils.PreProcessElementInput(m_signature.GetXml());
 
             // Add non default namespaces in scope

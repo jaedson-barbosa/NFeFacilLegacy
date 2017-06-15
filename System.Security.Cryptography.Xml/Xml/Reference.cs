@@ -113,22 +113,16 @@ namespace System.Security.Cryptography.Xml
             if (transform == null)
                 throw new ArgumentNullException(nameof(transform));
 
-            transform.Reference = this;
             TransformChain.Add(transform);
-        }
-
-        internal void UpdateHashValue(XmlDocument document, CanonicalXmlNodeList refList)
-        {
-            DigestValue = CalculateHashValue(document, refList);
         }
 
         // What we want to do is pump the input throug the TransformChain and then 
         // hash the output of the chain document is the document context for resolving relative references
-        internal byte[] CalculateHashValue(XmlDocument document, CanonicalXmlNodeList refList)
+        internal void UpdateHashValue(XmlDocument document, CanonicalXmlNodeList refList)
         {
             // refList is a list of elements that might be targets of references
             // Now's the time to create our hashing algorithm
-            _hashAlgorithm = CryptoHelpers.CreateFromName(_digestMethod) as HashAlgorithm;
+            _hashAlgorithm = SHA1.Create();
 
             // Let's go get the target.
             string baseUri = document.BaseURI;
@@ -195,7 +189,7 @@ namespace System.Security.Cryptography.Xml
                     hashInputStream.Dispose();
             }
 
-            return hashval;
+            DigestValue = hashval;
         }
     }
 }

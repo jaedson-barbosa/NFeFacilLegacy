@@ -7,20 +7,18 @@ namespace System.Security.Cryptography.Xml
 {
     internal class RSASignatureDescription
     {
-        const string HashAlgorithm = "SHA1";
         private string FormatterAlgorithm { get; }
         private string DigestAlgorithm { get; }
 
         public RSASignatureDescription()
         {
             FormatterAlgorithm = typeof(RSAPKCS1SignatureFormatter).AssemblyQualifiedName;
-            DigestAlgorithm = HashAlgorithm;
+            DigestAlgorithm = "SHA1";
         }
 
-        public RSAPKCS1SignatureFormatter CreateFormatter(AsymmetricAlgorithm key)
+        public RSAPKCS1SignatureFormatter CreateFormatter(RSA key)
         {
-            var item = new RSAPKCS1SignatureFormatter();
-            item.SetKey(key);
+            var item = new RSAPKCS1SignatureFormatter(key);
             item.SetHashAlgorithm(DigestAlgorithm);
             return item;
         }

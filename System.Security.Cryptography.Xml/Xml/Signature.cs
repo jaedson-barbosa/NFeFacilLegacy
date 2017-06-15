@@ -16,14 +16,6 @@ namespace System.Security.Cryptography.Xml
         private Reference _reference;
         private Transform _canonicalizationMethodTransform = null;
         private byte[] _signatureValue;
-        private X509Certificate2 _keyInfo;
-        private SignedXml _signedXml = null;
-
-        internal SignedXml SignedXml
-        {
-            get { return _signedXml; }
-            set { _signedXml = value; }
-        }
 
         //
         // public properties
@@ -35,12 +27,6 @@ namespace System.Security.Cryptography.Xml
             set { _signatureValue = value; }
         }
 
-        public X509Certificate2 KeyInfo
-        {
-            get => _keyInfo;
-            set => _keyInfo = value;
-        }
-
         public string CanonicalizationMethod
         {
             get
@@ -50,10 +36,6 @@ namespace System.Security.Cryptography.Xml
                     return SignedXml.XmlDsigC14NTransformUrl;
                 return _canonicalizationMethod;
             }
-            set
-            {
-                _canonicalizationMethod = value;
-            }
         }
 
         public Transform CanonicalizationMethodObject
@@ -62,9 +44,17 @@ namespace System.Security.Cryptography.Xml
             {
                 if (_canonicalizationMethodTransform == null)
                 {
-                    _canonicalizationMethodTransform = CryptoHelpers.CreateFromName(CanonicalizationMethod) as Transform;
-                    _canonicalizationMethodTransform.SignedXml = SignedXml;
-                    _canonicalizationMethodTransform.Reference = null;
+                    switch (CanonicalizationMethod)
+                    {
+                        case "http://www.w3.org/TR/2001/REC-xml-c14n-20010315":
+                            _canonicalizationMethodTransform = new XmlDsigC14NTransform();
+                            break;
+                        case "http://www.w3.org/2000/09/xmldsig#enveloped-signature":
+                            _canonicalizationMethodTransform = new XmlDsigEnvelopedSignatureTransform();
+                            break;
+                        default:
+                            throw new ArgumentException();
+                    }
                 }
                 return _canonicalizationMethodTransform;
             }

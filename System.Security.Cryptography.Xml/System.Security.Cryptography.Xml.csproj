@@ -118,7 +118,6 @@
     <Compile Include="Xml\CanonicalXmlElement.cs" />
     <Compile Include="Xml\CanonicalXmlNodeList.cs" />
     <Compile Include="Xml\CanonicalXmlText.cs" />
-    <Compile Include="Xml\CryptoHelpers.cs" />
     <Compile Include="Xml\ICanonicalizableNode.cs" />
     <Compile Include="Xml\NamespaceFrame.cs" />
     <Compile Include="Xml\NamespaceSortOrder.cs" />

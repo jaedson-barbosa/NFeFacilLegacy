@@ -11,16 +11,9 @@ namespace System.Security.Cryptography
         private RSA _rsaKey;
         private string _algName;
 
-        public RSAPKCS1SignatureFormatter() { }
-
-        public RSAPKCS1SignatureFormatter(AsymmetricAlgorithm key)
+        public RSAPKCS1SignatureFormatter(RSA key)
         {
-            _rsaKey = (RSA)key ?? throw new ArgumentNullException(nameof(key));
-        }
-
-        public void SetKey(AsymmetricAlgorithm key)
-        {
-            _rsaKey = (RSA)key ?? throw new ArgumentNullException(nameof(key));
+            _rsaKey = key;
         }
 
         public void SetHashAlgorithm(string strName)

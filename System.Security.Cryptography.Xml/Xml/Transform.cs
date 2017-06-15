@@ -21,20 +21,6 @@ namespace System.Security.Cryptography.Xml
     public abstract class Transform
     {
         private string _algorithm;
-        private SignedXml _signedXml = null;
-        private Reference _reference = null;
-
-        internal SignedXml SignedXml
-        {
-            get { return _signedXml; }
-            set { _signedXml = value; }
-        }
-
-        internal Reference Reference
-        {
-            get { return _reference; }
-            set { _reference = value; }
-        }
 
         //
         // public properties

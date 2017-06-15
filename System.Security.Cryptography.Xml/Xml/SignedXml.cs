@@ -60,7 +60,6 @@ namespace System.Security.Cryptography.Xml
             _context = element;
             m_signature = new Signature();
             m_signature.SignedXml = this;
-            m_signature.SignedInfo = new SignedInfo();
             _signingKey = null;
 
             _safeCanonicalizationMethods = new Collection<string>(new List<string> { XmlDsigC14NTransformUrl });
@@ -81,11 +80,6 @@ namespace System.Security.Cryptography.Xml
             get { return m_signature; }
         }
 
-        public SignedInfo SignedInfo
-        {
-            get { return m_signature.SignedInfo; }
-        }
-
         public X509Certificate2 KeyInfo
         {
             get { return m_signature.KeyInfo; }
@@ -98,7 +92,7 @@ namespace System.Security.Cryptography.Xml
 
         public void AddReference(Reference reference)
         {
-            m_signature.SignedInfo.Reference = reference;
+            m_signature.Reference = reference;
         }
 
         public void ComputeSignature()
@@ -109,12 +103,12 @@ namespace System.Security.Cryptography.Xml
             AsymmetricAlgorithm key = SigningKey;
 
             // Check the signature algorithm associated with the key so that we can accordingly set the signature method
-            if (SignedInfo.SignatureMethod == null)
+            if (m_signature.SignatureMethod == null)
             {
                 if (key is RSA)
                 {
                     // Default to RSA-SHA1
-                    SignedInfo.SignatureMethod = XmlDsigRSASHA1Url;
+                    m_signature.SignatureMethod = XmlDsigRSASHA1Url;
                 }
                 else
                 {
@@ -123,7 +117,7 @@ namespace System.Security.Cryptography.Xml
             }
 
             // See if there is a signature description class defined in the Config file
-            RSASignatureDescription signatureDescription = CryptoHelpers.CreateFromName(SignedInfo.SignatureMethod) as RSASignatureDescription;
+            RSASignatureDescription signatureDescription = CryptoHelpers.CreateFromName(m_signature.SignatureMethod) as RSASignatureDescription;
             HashAlgorithm hashAlg = signatureDescription.CreateDigest();
             byte[] hashvalue = GetC14NDigest(hashAlg);
             RSAPKCS1SignatureFormatter asymmetricSignatureFormatter = signatureDescription.CreateFormatter(key);
@@ -139,13 +133,13 @@ namespace System.Security.Cryptography.Xml
         {
             bool isKeyedHashAlgorithm = hash is KeyedHashAlgorithm;
             string baseUri = (_containingDocument == null ? null : _containingDocument.BaseURI);
-            XmlDocument doc = Utils.PreProcessElementInput(SignedInfo.GetXml());
+            XmlDocument doc = Utils.PreProcessElementInput(m_signature.GetXml());
 
             // Add non default namespaces in scope
             CanonicalXmlNodeList namespaces = (_context == null ? null : Utils.GetPropagatedAttributes(_context));
             Utils.AddNamespaces(doc.DocumentElement, namespaces);
 
-            Transform c14nMethodTransform = SignedInfo.CanonicalizationMethodObject;
+            Transform c14nMethodTransform = m_signature.CanonicalizationMethodObject;
 
             c14nMethodTransform.LoadInput(doc);
             return c14nMethodTransform.GetDigestedOutput(hash);
@@ -154,7 +148,7 @@ namespace System.Security.Cryptography.Xml
         private void BuildDigestedReferences()
         {
             // Default the DigestMethod and Canonicalization
-            Reference reference = SignedInfo.Reference;
+            Reference reference = m_signature.Reference;
 
             CanonicalXmlNodeList nodeList = new CanonicalXmlNodeList();
             // If no DigestMethod has yet been set, default it to sha1

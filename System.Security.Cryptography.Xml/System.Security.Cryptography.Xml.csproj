@@ -125,7 +125,6 @@
     <Compile Include="Xml\Reference.cs" />
     <Compile Include="Xml\RSASignatureDescription.cs" />
     <Compile Include="Xml\Signature.cs" />
-    <Compile Include="Xml\SignedInfo.cs" />
     <Compile Include="Xml\SignedXml.cs" />
     <Compile Include="Xml\Transform.cs" />
     <Compile Include="Xml\TransformChain.cs" />

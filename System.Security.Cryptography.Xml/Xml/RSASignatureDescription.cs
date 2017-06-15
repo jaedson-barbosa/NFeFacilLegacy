@@ -27,9 +27,7 @@ namespace System.Security.Cryptography.Xml
 
         public HashAlgorithm CreateDigest()
         {
-#pragma warning disable CA5350 // Do not use insecure cryptographic algorithm SHA1.
             return SHA1.Create();
-#pragma warning restore CA5350 // Do not use insecure cryptographic algorithm SHA1.
         }
     }
 }

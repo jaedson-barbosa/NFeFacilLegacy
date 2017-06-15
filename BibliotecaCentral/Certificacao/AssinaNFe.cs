@@ -52,25 +52,25 @@ namespace BibliotecaCentral.Certificacao
                         X509Certificate = Convert.ToBase64String(signedXml.KeyInfo.RawData)
                     }
                 },
-                SignedInfo = new ModeloXML.PartesProcesso.SignedInfo
+                SignedInfo = new SignedInfo
                 {
                     CanonicalizationMethod = new Algoritmo
                     {
-                        Algorithm = signedXml.SignedInfo.CanonicalizationMethod
+                        Algorithm = signedXml.Signature.CanonicalizationMethod
                     },
                     SignatureMethod = new Algoritmo
                     {
-                        Algorithm = signedXml.SignedInfo.SignatureMethod
+                        Algorithm = signedXml.Signature.SignatureMethod
                     },
                     Reference = new Referencia
                     {
                         DigestMethod = new Algoritmo
                         {
-                            Algorithm = signedXml.SignedInfo.Reference.DigestMethod
+                            Algorithm = signedXml.Signature.Reference.DigestMethod
                         },
-                        DigestValue = Convert.ToBase64String(signedXml.SignedInfo.Reference.DigestValue),
-                        URI = signedXml.SignedInfo.Reference.Uri,
-                        Transforms = (from t in signedXml.SignedInfo.Reference.TransformChain
+                        DigestValue = Convert.ToBase64String(signedXml.Signature.Reference.DigestValue),
+                        URI = signedXml.Signature.Reference.Uri,
+                        Transforms = (from t in signedXml.Signature.Reference.TransformChain
                                      select new Algoritmo
                                      {
                                          Algorithm = t.Algorithm

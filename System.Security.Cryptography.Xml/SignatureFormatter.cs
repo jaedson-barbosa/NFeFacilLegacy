@@ -4,12 +4,12 @@
 
 namespace System.Security.Cryptography
 {
-    public class LocalSignatureFormatter
+    public class SignatureFormatter
     {
         private RSA _rsaKey;
         private HashAlgorithmName _algName;
 
-        public LocalSignatureFormatter(RSA rsaKey, HashAlgorithmName hashAlgorithm)
+        public SignatureFormatter(RSA rsaKey, HashAlgorithmName hashAlgorithm)
         {
             _rsaKey = rsaKey;
             _algName = hashAlgorithm;

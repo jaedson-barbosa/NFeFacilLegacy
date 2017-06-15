@@ -60,7 +60,7 @@ namespace System.Security.Cryptography.Xml
             get { return m_signature; }
         }
 
-        public X509Certificate2 KeyInfo { get; set; }
+        public RSA Key { get; set; }
 
         //
         // public methods
@@ -76,13 +76,11 @@ namespace System.Security.Cryptography.Xml
             BuildDigestedReferences();
 
             // Load the key
-            var key = KeyInfo.GetRSAPrivateKey();
-
             m_signature.SignatureMethod = XmlDsigRSASHA1Url;
 
             // See if there is a signature description class defined in the Config file
             byte[] hashvalue = GetC14NDigest(SHA1.Create());
-            var asymmetricSignatureFormatter = new LocalSignatureFormatter(key, HashAlgorithmName.SHA1);
+            var asymmetricSignatureFormatter = new SignatureFormatter(Key, HashAlgorithmName.SHA1);
             m_signature.SignatureValue = asymmetricSignatureFormatter.SignHash(hashvalue);
         }
 

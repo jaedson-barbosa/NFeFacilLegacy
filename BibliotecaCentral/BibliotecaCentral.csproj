@@ -335,12 +335,6 @@
     <EmbeddedResource Include="IBGE\Municipios.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\System.Security.Cryptography.Xml\System.Security.Cryptography.Xml.csproj">
-      <Project>{05DC9912-EACD-43EE-97D4-C645F12C0B4F}</Project>
-      <Name>System.Security.Cryptography.Xml</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Certificacao\RepositorioRemoto.zip" />
   </ItemGroup>
   <ItemGroup>
@@ -348,6 +342,12 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\System.Security.Cryptography.Xml\System.Security.Cryptography.csproj">
+      <Project>{05dc9912-eacd-43ee-97d4-c645f12c0b4f}</Project>
+      <Name>System.Security.Cryptography</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

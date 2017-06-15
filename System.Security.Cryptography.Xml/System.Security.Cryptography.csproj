@@ -7,8 +7,8 @@
     <ProjectGuid>{05DC9912-EACD-43EE-97D4-C645F12C0B4F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>System.Security.Cryptography.Xml</RootNamespace>
-    <AssemblyName>System.Security.Cryptography.Xml</AssemblyName>
+    <RootNamespace>System.Security.Cryptography</RootNamespace>
+    <AssemblyName>System.Security.Cryptography</AssemblyName>
     <DefaultLanguage>pt-BR</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.15063.0</TargetPlatformVersion>

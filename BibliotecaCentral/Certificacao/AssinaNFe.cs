@@ -31,7 +31,7 @@ namespace BibliotecaCentral.Certificacao
             var id = elemento.Attributes.GetNamedItem("Id").Value;
             var signedXml = new SignedXml(elemento)
             {
-                KeyInfo = certificado
+                Key = certificado.GetRSAPrivateKey()
             };
 
             Reference reference = new Reference($"#{id}", signedXml);
@@ -48,7 +48,7 @@ namespace BibliotecaCentral.Certificacao
                 {
                     X509Data = new DadosChave
                     {
-                        X509Certificate = Convert.ToBase64String(signedXml.KeyInfo.RawData)
+                        X509Certificate = Convert.ToBase64String(certificado.RawData)
                     }
                 },
                 SignedInfo = new SignedInfo

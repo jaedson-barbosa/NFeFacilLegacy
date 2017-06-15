@@ -120,8 +120,6 @@
     <Compile Include="Xml\CanonicalXmlText.cs" />
     <Compile Include="Xml\CryptoHelpers.cs" />
     <Compile Include="Xml\ICanonicalizableNode.cs" />
-    <Compile Include="Xml\KeyInfo.cs" />
-    <Compile Include="Xml\KeyInfoX509Data.cs" />
     <Compile Include="Xml\NamespaceFrame.cs" />
     <Compile Include="Xml\NamespaceSortOrder.cs" />
     <Compile Include="Xml\Reference.cs" />

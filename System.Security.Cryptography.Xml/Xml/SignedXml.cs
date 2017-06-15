@@ -2,9 +2,9 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Security.Cryptography.X509Certificates;
 using System.Xml;
 
 namespace System.Security.Cryptography.Xml
@@ -86,7 +86,7 @@ namespace System.Security.Cryptography.Xml
             get { return m_signature.SignedInfo; }
         }
 
-        public KeyInfo KeyInfo
+        public X509Certificate2 KeyInfo
         {
             get { return m_signature.KeyInfo; }
             set { m_signature.KeyInfo = value; }
@@ -98,7 +98,7 @@ namespace System.Security.Cryptography.Xml
 
         public void AddReference(Reference reference)
         {
-            m_signature.SignedInfo.AddReference(reference);
+            m_signature.SignedInfo.Reference = reference;
         }
 
         public void ComputeSignature()
@@ -114,8 +114,7 @@ namespace System.Security.Cryptography.Xml
                 if (key is RSA)
                 {
                     // Default to RSA-SHA1
-                    if (SignedInfo.SignatureMethod == null)
-                        SignedInfo.SignatureMethod = XmlDsigRSASHA1Url;
+                    SignedInfo.SignatureMethod = XmlDsigRSASHA1Url;
                 }
                 else
                 {
@@ -150,65 +149,6 @@ namespace System.Security.Cryptography.Xml
 
             c14nMethodTransform.LoadInput(doc);
             return c14nMethodTransform.GetDigestedOutput(hash);
-        }
-
-        private int GetReferenceLevel(int index, ArrayList references)
-        {
-            if (_refProcessed[index]) return _refLevelCache[index];
-            _refProcessed[index] = true;
-            Reference reference = (Reference)references[index];
-            if (reference.Uri == null || reference.Uri.Length == 0 || (reference.Uri.Length > 0 && reference.Uri[0] != '#'))
-            {
-                _refLevelCache[index] = 0;
-                return 0;
-            }
-            if (reference.Uri.Length > 0 && reference.Uri[0] == '#')
-            {
-                string idref = Utils.ExtractIdFromLocalUri(reference.Uri);
-                if (idref == "xpointer(/)")
-                {
-                    _refLevelCache[index] = 0;
-                    return 0;
-                }
-                // Then the reference points to an object tag
-                _refLevelCache[index] = 0;
-                return 0;
-            }
-            // Malformed reference
-            throw new CryptographicException();
-        }
-
-        private class ReferenceLevelSortOrder : IComparer
-        {
-            private ArrayList _references = null;
-            public ReferenceLevelSortOrder() { }
-
-            public ArrayList References
-            {
-                get { return _references; }
-                set { _references = value; }
-            }
-
-            public int Compare(object a, object b)
-            {
-                Reference referenceA = a as Reference;
-                Reference referenceB = b as Reference;
-
-                // Get the indexes
-                int iIndexA = 0;
-                int iIndexB = 0;
-                int i = 0;
-                foreach (Reference reference in References)
-                {
-                    if (reference == referenceA) iIndexA = i;
-                    if (reference == referenceB) iIndexB = i;
-                    i++;
-                }
-
-                int iLevelA = referenceA.SignedXml.GetReferenceLevel(iIndexA, References);
-                int iLevelB = referenceB.SignedXml.GetReferenceLevel(iIndexB, References);
-                return iLevelA.CompareTo(iLevelB);
-            }
         }
 
         private void BuildDigestedReferences()

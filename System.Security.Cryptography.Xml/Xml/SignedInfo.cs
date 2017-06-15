@@ -26,15 +26,6 @@ namespace System.Security.Cryptography.Xml
         // public properties
         //
 
-        public string Id
-        {
-            get { return _id; }
-            set
-            {
-                _id = value;
-            }
-        }
-
         public string CanonicalizationMethod
         {
             get
@@ -73,18 +64,10 @@ namespace System.Security.Cryptography.Xml
             }
         }
 
-        public string SignatureLength
-        {
-            get { return _signatureLength; }
-            set
-            {
-                _signatureLength = value;
-            }
-        }
-
         public Reference Reference
         {
             get { return _reference; }
+            set => _reference = value;
         }
 
         //
@@ -125,15 +108,6 @@ namespace System.Security.Cryptography.Xml
             signedInfoElement.AppendChild(reference.GetXml(document));
 
             return signedInfoElement;
-        }
-
-        public void AddReference(Reference reference)
-        {
-            if (reference == null)
-                throw new ArgumentNullException(nameof(reference));
-
-            reference.SignedXml = SignedXml;
-            _reference = reference;
         }
     }
 }

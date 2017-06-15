@@ -21,11 +21,12 @@ namespace System.Security.Cryptography.Xml
         // public constructors
         //
 
-        public Reference(string uri)
+        public Reference(string uri, SignedXml main)
         {
             _transformChain = new TransformChain();
             _uri = uri;
             _digestMethod = SignedXml.XmlDsigSHA1Url;
+            _signedXml = main;
         }
 
         //
@@ -82,13 +83,6 @@ namespace System.Security.Cryptography.Xml
         //
         // public methods
         //
-
-        public XmlElement GetXml()
-        {
-            XmlDocument document = new XmlDocument();
-            document.PreserveWhitespace = true;
-            return GetXml(document);
-        }
 
         internal XmlElement GetXml(XmlDocument document)
         {

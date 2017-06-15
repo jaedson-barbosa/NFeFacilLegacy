@@ -7,8 +7,6 @@ namespace System.Security.Cryptography.Xml
 {
     internal static class CryptoHelpers
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA5350", Justification = "SHA1 needed for compat.")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA5351", Justification = "HMACMD5 needed for compat.")]
         public static object CreateFromName(string name)
         {
             switch (name)

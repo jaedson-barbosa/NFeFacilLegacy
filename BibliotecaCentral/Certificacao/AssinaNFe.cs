@@ -32,13 +32,10 @@ namespace BibliotecaCentral.Certificacao
             var signedXml = new SignedXml(elemento)
             {
                 SigningKey = certificado.GetRSAPrivateKey(),
-                KeyInfo = new KeyInfo()
-                {
-                    KeyInfoClause = new KeyInfoX509Data(certificado)
-                }
+                KeyInfo = certificado
             };
 
-            Reference reference = new Reference($"#{id}");
+            Reference reference = new Reference($"#{id}", signedXml);
             reference.AddTransform(new XmlDsigEnvelopedSignatureTransform());
             reference.AddTransform(new XmlDsigC14NTransform());
             signedXml.AddReference(reference);
@@ -52,7 +49,7 @@ namespace BibliotecaCentral.Certificacao
                 {
                     X509Data = new DadosChave
                     {
-                        X509Certificate = Convert.ToBase64String(signedXml.KeyInfo.KeyInfoClause.Certificate.RawData)
+                        X509Certificate = Convert.ToBase64String(signedXml.KeyInfo.RawData)
                     }
                 },
                 SignedInfo = new ModeloXML.PartesProcesso.SignedInfo

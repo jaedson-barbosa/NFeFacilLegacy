@@ -264,13 +264,13 @@ namespace NFeFacil.ViewModel
             }
         }
 
-        private void Assinar()
+        private async void Assinar()
         {
             try
             {
                 NormalizarNFe();
                 var assina = new BibliotecaCentral.Certificacao.AssinaNFe(NotaSalva);
-                assina.Assinar();
+                await assina.Assinar();
                 StatusAtual = StatusNFe.Assinada;
                 SalvarAsync();
             }

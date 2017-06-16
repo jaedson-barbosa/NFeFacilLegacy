@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Comum.Primitivos;
+using System;
 using System.ComponentModel;
 using System.Windows.Input;
 using BibliotecaCentral.Log;
@@ -8,6 +9,7 @@ using BibliotecaCentral.Importacao;
 using System.Text;
 using System.Security.Cryptography.X509Certificates;
 using System.Collections.ObjectModel;
+using BibliotecaCentral.Certificacao.LAN;
 
 namespace NFeFacil.ViewModel
 {
@@ -31,7 +33,7 @@ namespace NFeFacil.ViewModel
 
         #region Certificação
 
-        public ObservableCollection<CertificadoFundamental> ListaCertificados { get; private set; }
+        public ObservableCollection<CertificadoExibicao> ListaCertificados { get; private set; }
 
         public string CertificadoEscolhido
         {
@@ -42,11 +44,11 @@ namespace NFeFacil.ViewModel
         public ICommand ImportarCertificado => new Comando(async () => await new ImportarCertificado().ImportarEAdicionarAsync(AttLista));
         public ICommand ConectarServidor => new Comando(async () =>
         {
-            if (await ServidorCertificacao.Conectar()) AttLista();
+            if (await InformacoesConexao.Cadastrar()) AttLista();
         });
-        public ICommand EsquecerServidor => new Comando(() => ServidorCertificacao.Esquecer());
-        public ICommand InstalarServidor => new Comando(async () => await ServidorCertificacao.Exportar(LogPopUp));
-        public ICommand RemoverCertificado => new Comando<CertificadoFundamental>(x =>
+        public ICommand EsquecerServidor => new Comando(() => InformacoesConexao.Esquecer());
+        public ICommand InstalarServidor => new Comando(async () => await new Exportacao(LogPopUp).Exportar("RepositorioRemoto", "Arquivo comprimido", "zip"));
+        public ICommand RemoverCertificado => new Comando<CertificadoExibicao>(x =>
         {
             using (var loja = new X509Store())
             {
@@ -61,7 +63,7 @@ namespace NFeFacil.ViewModel
         {
             try
             {
-                ListaCertificados = await Certificados.ObterRegistroRepositorioAsync();
+                ListaCertificados = await new Certificados().ObterCertificadosAsync();
                 OnProperyChanged(nameof(Certificados));
             }
             catch (Exception e)

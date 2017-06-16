@@ -2,17 +2,13 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-using System.Security.Cryptography.X509Certificates;
 using System.Xml;
 
 namespace System.Security.Cryptography.Xml
 {
     public class Signature
     {
-        private string _id;
-        private string _canonicalizationMethod;
         private string _signatureMethod;
-        private string _signatureLength;
         private Reference _reference;
         private Transform _canonicalizationMethodTransform = null;
         private byte[] _signatureValue;
@@ -27,16 +23,9 @@ namespace System.Security.Cryptography.Xml
             set { _signatureValue = value; }
         }
 
-        public string CanonicalizationMethod
-        {
-            get
-            {
+        public string CanonicalizationMethod =>
                 // Default the canonicalization method to C14N
-                if (_canonicalizationMethod == null)
-                    return SignedXml.XmlDsigC14NTransformUrl;
-                return _canonicalizationMethod;
-            }
-        }
+                SignedXml.XmlDsigC14NTransformUrl;
 
         public Transform CanonicalizationMethodObject
         {
@@ -83,8 +72,6 @@ namespace System.Security.Cryptography.Xml
             };
             // Create the root element
             XmlElement signedInfoElement = document.CreateElement("SignedInfo", SignedXml.XmlDsigNamespaceUrl);
-            if (!string.IsNullOrEmpty(_id))
-                signedInfoElement.SetAttribute("Id", _id);
 
             // Add the canonicalization method, defaults to SignedXml.XmlDsigNamespaceUrl
             XmlElement canonicalizationMethodElement = CanonicalizationMethodObject.GetXml(document, "CanonicalizationMethod");
@@ -93,14 +80,6 @@ namespace System.Security.Cryptography.Xml
             // Add the signature method
             XmlElement signatureMethodElement = document.CreateElement("SignatureMethod", SignedXml.XmlDsigNamespaceUrl);
             signatureMethodElement.SetAttribute("Algorithm", _signatureMethod);
-            // Add HMACOutputLength tag if we have one
-            if (_signatureLength != null)
-            {
-                XmlElement hmacLengthElement = document.CreateElement(null, "HMACOutputLength", SignedXml.XmlDsigNamespaceUrl);
-                XmlText outputLength = document.CreateTextNode(_signatureLength);
-                hmacLengthElement.AppendChild(outputLength);
-                signatureMethodElement.AppendChild(hmacLengthElement);
-            }
 
             signedInfoElement.AppendChild(signatureMethodElement);
 

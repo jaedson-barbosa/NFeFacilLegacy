@@ -4,7 +4,6 @@
 
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Security.Cryptography.X509Certificates;
 using System.Xml;
 
 namespace System.Security.Cryptography.Xml
@@ -14,9 +13,6 @@ namespace System.Security.Cryptography.Xml
         private Signature m_signature;
 
         private XmlDocument _containingDocument = null;
-
-        private bool[] _refProcessed = null;
-        private int[] _refLevelCache = null;
 
         internal XmlElement _context = null;
 

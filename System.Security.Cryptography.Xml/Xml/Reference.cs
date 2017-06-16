@@ -10,6 +10,7 @@ namespace System.Security.Cryptography.Xml
     public class Reference
     {
         private string _uri;
+        string tag;
         private TransformChain _transformChain;
         private string _digestMethod;
         private byte[] _digestValue;
@@ -21,10 +22,11 @@ namespace System.Security.Cryptography.Xml
         // public constructors
         //
 
-        public Reference(string uri, SignedXml main)
+        public Reference(string uri, string tagASerAplicada, SignedXml main)
         {
             _transformChain = new TransformChain();
             _uri = uri;
+            tag = tagASerAplicada;
             _digestMethod = SignedXml.XmlDsigSHA1Url;
             _signedXml = main;
         }
@@ -140,7 +142,7 @@ namespace System.Security.Cryptography.Xml
                     // referenced by an Id = attribute. Go find the relevant object
                     bool discardComments = true;
                     string idref = Utils.GetIdFromLocalUri(_uri, out discardComments);
-                    XmlElement elem = document.GetElementsByTagName("infNFe")[0] as XmlElement;
+                    XmlElement elem = document.GetElementsByTagName(tag)[0] as XmlElement;
                     if (elem != null)
                         _namespaces = Utils.GetPropagatedAttributes(elem.ParentNode as XmlElement);
 

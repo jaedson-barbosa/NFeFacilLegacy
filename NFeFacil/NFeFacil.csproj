@@ -610,6 +610,10 @@
       <Project>{7c6695ea-1ac5-470b-98ad-aaed185c6f9f}</Project>
       <Name>CodigoBarras</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Comum\Comum.csproj">
+      <Project>{066bae5a-a3a9-490c-91b7-75d5b6827d95}</Project>
+      <Name>Comum</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

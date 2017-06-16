@@ -1,36 +1,64 @@
-﻿using System.Collections.ObjectModel;
+﻿using Comum.Primitivos;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
 namespace BibliotecaCentral.Certificacao
 {
-    public static class Certificados
+    public class Certificados
     {
-        public async static Task<ObservableCollection<CertificadoFundamental>> ObterRegistroRepositorioAsync()
+        public async Task<ObservableCollection<CertificadoExibicao>> ObterCertificadosAsync()
         {
-            if (string.IsNullOrEmpty(ConfiguracoesCertificacao.IPServidorCertificacao))
+            if (Atual == Origem.Local)
             {
                 using (var loja = new X509Store())
                 {
                     loja.Open(OpenFlags.ReadOnly);
                     return (from X509Certificate2 cert in loja.Certificates
-                            select new CertificadoFundamental(cert.Subject, cert.SerialNumber)).GerarObs();
+                            select new CertificadoExibicao
+                            {
+                                Subject = cert.Subject,
+                                SerialNumber = cert.SerialNumber
+                            }).GerarObs();
                 }
             }
             else
             {
-                return (await ServidorCertificacao.ObterCertificados()).GerarObs();
+                var operacoes = new LAN.OperacoesServidor(ConfiguracoesCertificacao.IPServidorCertificacao);
+                return (await operacoes.ObterCertificados()).GerarObs();
             }
         }
 
-        public static X509Certificate2 ObterCertificadoEscolhido()
+        public async Task<CertificadoAssinatura> ObterCertificadoEscolhidoAsync()
         {
-            using (var loja = new X509Store())
+            var serial = ConfiguracoesCertificacao.CertificadoEscolhido;
+            if (Atual == Origem.Local)
             {
-                loja.Open(OpenFlags.ReadOnly);
-                return loja.Certificates.Find(X509FindType.FindBySerialNumber, ConfiguracoesCertificacao.CertificadoEscolhido, true)[0];
+                using (var loja = new X509Store())
+                {
+                    loja.Open(OpenFlags.ReadOnly);
+                    var cert = loja.Certificates.Find(X509FindType.FindBySerialNumber, serial, true)[0];
+                    return new CertificadoAssinatura
+                    {
+                        ChavePrivada = cert.GetRSAPrivateKey(),
+                        RawData = cert.RawData
+                    };
+                }
             }
+            else
+            {
+                var operacoes = new LAN.OperacoesServidor(ConfiguracoesCertificacao.IPServidorCertificacao);
+                return await operacoes.ObterCertificado(serial);
+            }
+        }
+
+        Origem Atual => string.IsNullOrEmpty(ConfiguracoesCertificacao.IPServidorCertificacao) ? Origem.Local : Origem.LAN;
+
+        private enum Origem
+        {
+            Local,
+            LAN
         }
     }
 }

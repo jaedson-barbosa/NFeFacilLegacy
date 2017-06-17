@@ -18,12 +18,12 @@ namespace BibliotecaCentral.Migrations
                 nullable: false,
                 defaultValue: false);
 
-            migrationBuilder.Sql("UPDATE NotasFiscais SET Impressa = true, Status = 4 WHERE Status = 5");
+            migrationBuilder.Sql("UPDATE NotasFiscais SET Impressa = 1, Status = 4 WHERE Status = 5");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.Sql("UPDATE NotasFiscais SET Status = 5 WHERE Impressa = true");
+            migrationBuilder.Sql("UPDATE NotasFiscais SET Status = 5 WHERE Impressa = 1");
 
             migrationBuilder.DropColumn(
                 name: "Exportada",

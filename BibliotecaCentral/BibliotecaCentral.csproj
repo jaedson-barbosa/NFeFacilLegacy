@@ -286,6 +286,7 @@
     <Compile Include="Validacao\ValidadorProduto.cs" />
     <Compile Include="Validacao\ValidarDados.cs" />
     <Compile Include="WebService\Pacotes\EnviNFe.cs" />
+    <Compile Include="WebService\Pacotes\EnvEvento.cs" />
     <Compile Include="WebService\Pacotes\RetEnviNFe.cs" />
     <Compile Include="WebService\Pacotes\ConsSitNFe.cs" />
     <Compile Include="WebService\Pacotes\RetConsSitNFe.cs" />

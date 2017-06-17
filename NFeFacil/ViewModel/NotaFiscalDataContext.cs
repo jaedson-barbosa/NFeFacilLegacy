@@ -29,6 +29,8 @@ namespace NFeFacil.ViewModel
 {
     public sealed class NotaFiscalDataContext : INotifyPropertyChanged, IValida
     {
+        const string NomeClienteHomologacao = "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL";
+
         public event PropertyChangedEventHandler PropertyChanged;
         void OnPropertyChanged(params string[] parametros)
         {
@@ -91,6 +93,10 @@ namespace NFeFacil.ViewModel
             {
                 clienteSelecionado = value;
                 NotaSalva.Informações.destinatário = value.ToDestinatario();
+                if (AmbienteTestes)
+                {
+                    NotaSalva.Informações.destinatário.nome = NomeClienteHomologacao;
+                }
                 OnPropertyChanged(nameof(NotaSalva));
             }
         }
@@ -123,7 +129,7 @@ namespace NFeFacil.ViewModel
             get
             {
                 var mot = NotaSalva.Informações.transp?.transporta;
-                if (motoristaSelecionado == null && mot != null)
+                if (motoristaSelecionado == null && mot != null && mot.Documento != null)
                 {
                     motoristaSelecionado = MotoristasDisponiveis.FirstOrDefault(x => x.Documento == mot.Documento);
                 }
@@ -237,7 +243,7 @@ namespace NFeFacil.ViewModel
         {
             if (NotaEmitida != null)
             {
-                Log.Escrever(TitulosComuns.ErroCatastrófico, "Comando não faz neste contexto.");
+                Log.Escrever(TitulosComuns.ErroCatastrófico, "Comando não faz parte deste contexto.");
             }
             else
             {
@@ -259,7 +265,12 @@ namespace NFeFacil.ViewModel
                 NotaSalva.Informações.identificação.TipoAmbiente = (ushort)(value ? 2 : 1);
                 if (value)
                 {
-                    Log.Escrever(TitulosComuns.Atenção, "Notas feitas no ambiente de testes não são salvas e não tem valor fiscal.");
+                    NotaSalva.Informações.destinatário.nome = NomeClienteHomologacao;
+                    Log.Escrever(TitulosComuns.Atenção, $"O nome do cliente foi alterado para que a nota seja aceita pela SEFAZ, o novo valor é {NomeClienteHomologacao}.");
+                }
+                else
+                {
+                    Log.Escrever(TitulosComuns.Atenção, "Verifique se o nome do cliente está correto.");
                 }
             }
         }
@@ -1085,21 +1096,18 @@ namespace NFeFacil.ViewModel
         private bool UsarNotaSalva => StatusAtual != StatusNFe.Emitida && StatusAtual != StatusNFe.Impressa;
         private void SalvarAsync()
         {
-            if (!AmbienteTestes)
+            var xml = UsarNotaSalva ? NotaSalva.ToXElement<NFe>() : NotaEmitida.ToXElement<Processo>();
+            var di = UsarNotaSalva ? new NFeDI(NotaSalva, xml.ToString()) : new NFeDI(NotaEmitida, xml.ToString());
+            di.Status = (int)StatusAtual;
+            using (var db = new NotasFiscais())
             {
-                var xml = UsarNotaSalva ? NotaSalva.ToXElement<NFe>() : NotaEmitida.ToXElement<Processo>();
-                var di = UsarNotaSalva ? new NFeDI(NotaSalva, xml.ToString()) : new NFeDI(NotaEmitida, xml.ToString());
-                di.Status = (int)StatusAtual;
-                using (var db = new NotasFiscais())
+                if (db.Registro.Count(x => x.Id == di.Id) == 0)
                 {
-                    if(db.Registro.Count(x => x.Id == di.Id) == 0)
-                    {
-                        db.Adicionar(di);
-                    }
-                    else
-                    {
-                        db.Atualizar(di);
-                    }
+                    db.Adicionar(di);
+                }
+                else
+                {
+                    db.Atualizar(di);
                 }
             }
         }

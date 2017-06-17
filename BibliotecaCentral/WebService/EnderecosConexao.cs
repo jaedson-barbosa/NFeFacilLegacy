@@ -19,6 +19,7 @@ namespace BibliotecaCentral.WebService
             string end;
             string metodo;
             string servico;
+            string versao = conjunto.VersaoRecepcaoEvento;
             switch (operacaoRequirida)
             {
                 case Operacoes.Consultar:
@@ -44,7 +45,7 @@ namespace BibliotecaCentral.WebService
                 default:
                     throw new ArgumentException();
             }
-            return new DadosServico(end, servico, metodo); ;
+            return new DadosServico(end, servico, metodo, versao);
         }
 
         private IWebService ObterEnderecoConexao()

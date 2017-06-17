@@ -7,7 +7,7 @@ using System.Xml;
 
 namespace BibliotecaCentral.Certificacao
 {
-    public sealed class AssinaturaXML
+    public struct AssinaturaXML
     {
         XmlDocument xml;
         string tag;

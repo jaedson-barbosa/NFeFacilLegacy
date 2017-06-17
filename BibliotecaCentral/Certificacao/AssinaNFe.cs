@@ -1,14 +1,10 @@
-﻿using Comum.Primitivos;
-using BibliotecaCentral.ModeloXML.PartesProcesso;
-using System;
-using System.Linq;
-using System.Security.Cryptography.Xml;
+﻿using BibliotecaCentral.ModeloXML.PartesProcesso;
 using System.Threading.Tasks;
 using System.Xml;
 
 namespace BibliotecaCentral.Certificacao
 {
-    public sealed class AssinaNFe
+    public struct AssinaNFe
     {
         private NFe Nota;
 

@@ -1,16 +1,19 @@
 ﻿namespace BibliotecaCentral.WebService
 {
-    internal struct DadosServico
+    public struct DadosServico
     {
-        internal string Endereco { get; }
-        internal string Servico { get; }
-        internal string Metodo { get; }
+        public string Endereco { get; }
+        public string Servico { get; }
+        public string Metodo { get; }
 
-        internal DadosServico(string endereco, string servico, string metodo)
+        public string VersaoRecepcaoEvento { get; }
+
+        internal DadosServico(string endereco, string servico, string metodo, string versaoEvento)
         {
             Endereco = endereco;
             Servico = servico;
             Metodo = metodo;
+            VersaoRecepcaoEvento = versaoEvento;
         }
     }
 }

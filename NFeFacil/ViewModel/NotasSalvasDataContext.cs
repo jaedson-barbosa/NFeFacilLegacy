@@ -62,6 +62,8 @@ namespace NFeFacil.ViewModel
             var conjunto = new ConjuntoManipuladorNFe
             {
                 StatusAtual = (StatusNFe)nota.Status,
+                Impressa = nota.Impressa,
+                Exportada = nota.Exportada,
                 OperacaoRequirida = TipoOperacao.Edicao
             };
             if (nota.Status < 4)

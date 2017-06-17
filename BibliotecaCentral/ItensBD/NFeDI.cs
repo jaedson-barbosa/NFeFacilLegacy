@@ -28,6 +28,9 @@ namespace BibliotecaCentral.ItensBD
         [Required]
         public string XML { get; set; }
 
+        public bool Impressa { get; set; }
+        public bool Exportada { get; set; }
+
         public static NFeDI Converter(XElement xml)
         {
             if (xml.Name.LocalName == nameof(NFe))

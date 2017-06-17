@@ -50,7 +50,7 @@ namespace NFeFacil.ViewModel
         public bool BotaoSalvarAtivado => StatusAtual == StatusNFe.Validada;
         public bool BotaoAssinarAtivado => StatusAtual == StatusNFe.Salva;
         public bool BotaoTransmitirAtivado => StatusAtual == StatusNFe.Assinada;
-        public bool BotaoGerarDANFEAtivado => StatusAtual == StatusNFe.Emitida || StatusAtual == StatusNFe.Impressa;
+        public bool BotaoGerarDANFEAtivado => StatusAtual == StatusNFe.Emitida;
         public bool BotaoExportarXMLAtivado => StatusAtual != StatusNFe.Edição;
 
         internal StatusNFe StatusAtual
@@ -341,13 +341,14 @@ namespace NFeFacil.ViewModel
                     await stream.FlushAsync();
                 }
                 Log.Escrever(TitulosComuns.Sucesso, $"Nota fiscal exportada com sucesso para o caminho: {arquivo.Path}");
+                Conjunto.Exportada = true;
             }
         }
 
         private void GerarDANFE()
         {
             MainPage.Current.AbrirFunçao(typeof(ViewDANFE), NotaEmitida);
-            StatusAtual = StatusNFe.Impressa;
+            Conjunto.Impressa = true;
             SalvarAsync();
         }
 
@@ -1093,12 +1094,14 @@ namespace NFeFacil.ViewModel
             OnPropertyChanged(nameof(NotaSalva));
         }
 
-        private bool UsarNotaSalva => StatusAtual != StatusNFe.Emitida && StatusAtual != StatusNFe.Impressa;
+        private bool UsarNotaSalva => StatusAtual != StatusNFe.Emitida && StatusAtual != StatusNFe.Cancelada;
         private void SalvarAsync()
         {
             var xml = UsarNotaSalva ? NotaSalva.ToXElement<NFe>() : NotaEmitida.ToXElement<Processo>();
             var di = UsarNotaSalva ? new NFeDI(NotaSalva, xml.ToString()) : new NFeDI(NotaEmitida, xml.ToString());
             di.Status = (int)StatusAtual;
+            di.Exportada = Conjunto.Exportada;
+            di.Impressa = Conjunto.Impressa;
             using (var db = new NotasFiscais())
             {
                 if (db.Registro.Count(x => x.Id == di.Id) == 0)

@@ -124,6 +124,10 @@
     <Compile Include="Migrations\20170603122440_Loja1.designer.cs">
       <DependentUpon>20170603122440_Loja1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20170617125032_CancelamentoAdicionado.cs" />
+    <Compile Include="Migrations\20170617125032_CancelamentoAdicionado.designer.cs">
+      <DependentUpon>20170617125032_CancelamentoAdicionado.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\AplicativoContextModelSnapshot.cs" />
     <Compile Include="RecursoInserido.cs" />
     <Compile Include="Repositorio\MudancaOtimizadaBancoDados.cs" />

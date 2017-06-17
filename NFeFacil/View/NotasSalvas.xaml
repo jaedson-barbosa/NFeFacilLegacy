@@ -60,7 +60,7 @@
                                             Command="{Binding DataContext.EditarCommand, ElementName=root}"
                                             CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Editar</MenuFlyoutItem>
                             <MenuFlyoutItem Command="{Binding DataContext.CancelarCommand, ElementName=root}"
-                                            CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Editar</MenuFlyoutItem>
+                                            CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Cancelar</MenuFlyoutItem>
                         </MenuFlyout>
                     </Grid.ContextFlyout>
                     <Grid.Resources>

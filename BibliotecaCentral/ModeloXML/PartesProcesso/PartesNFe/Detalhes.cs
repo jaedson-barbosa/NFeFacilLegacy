@@ -15,10 +15,13 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe
         {
             get
             {
-                return $"NFe{new ChaveAcesso(this).CriarChaveAcesso()}";
+                return $"NFe{ChaveAcesso}";
             }
             set { }
         }
+
+        [XmlIgnore]
+        public string ChaveAcesso => new ChaveAcesso(this).CriarChaveAcesso();
 
         [XmlElement(ElementName = "ide", Order = 0)]
         public Identificacao identificação { get; set; }

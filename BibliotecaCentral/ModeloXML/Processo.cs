@@ -6,8 +6,8 @@ namespace BibliotecaCentral.ModeloXML
     [XmlRoot(ElementName = "nfeProc", Namespace = "http://www.portalfiscal.inf.br/nfe")]
     public sealed class Processo
     {
-        [XmlAttribute]
-        public string versao = "3.10";
+        [XmlAttribute("versao")]
+        public string Versao { get; set; } = "3.10";
         [XmlElement(nameof(NFe), Order = 0)]
         public NFe NFe { get; set; }
         [XmlElement("protNFe", Order = 1)]

@@ -1,6 +1,7 @@
 ﻿using BibliotecaCentral;
 using BibliotecaCentral.IBGE;
 using BibliotecaCentral.ItensBD;
+using BibliotecaCentral.Log;
 using BibliotecaCentral.ModeloXML;
 using BibliotecaCentral.ModeloXML.PartesProcesso;
 using BibliotecaCentral.Repositorio;
@@ -45,7 +46,7 @@ namespace NFeFacil.ViewModel
         public ICommand EditarCommand { get; } = new Comando<NFeDI>(Editar);
         public ICommand RemoverCommand => new Comando<NFeDI>(Remover);
         public ICommand RemoverSelecionadosCommand => new Comando(RemoverSelecionados, true);
-        //public ICommand CancelarCommand => new Comando<NFeDI>(Cancelar);
+        public ICommand CancelarCommand => new Comando<NFeDI>(Cancelar);
 
         public NotasSalvasDataContext(ref ListView lista)
         {
@@ -100,12 +101,17 @@ namespace NFeFacil.ViewModel
             }
         }
 
-        private async void Cancelar()
+        async void Cancelar(NFeDI di)
         {
-            var estado = Estados.EstadosCache.First(x => x.Sigla == "PB");
-            var gerenciador = new GerenciadorGeral<EnvEvento, string>(estado, Operacoes.RecepcaoEvento, false);
-            var envio = new EnvEvento(gerenciador.Enderecos.VersaoRecepcaoEvento, new InformacoesEvento(estado.Codigo, "12931158000164", "25170612931158000164550010000005001832947268", "1.00", 325170010216389, "Nota fiscal emitida erroneamente no ambiente de produção por falha no emissor."));
-            var resposta = await gerenciador.EnviarAsync(envio);
+            var processo = XElement.Parse(di.XML).FromXElement<Processo>();
+            if (await new OperacoesNotaEmitida(processo).Cancelar())
+            {
+                di.Status = (int)StatusNFe.Cancelada;
+                using (var db = new NotasFiscais())
+                {
+                    db.Atualizar(di);
+                }
+            }
         }
     }
 }

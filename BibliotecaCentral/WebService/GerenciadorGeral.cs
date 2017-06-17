@@ -9,26 +9,26 @@ namespace BibliotecaCentral.WebService
     public struct GerenciadorGeral<Envio, Resposta>
     {
         public DadosServico Enderecos { get; }
-        (int CodigoUF, string VersaoDados) cabecalho;
+        (int CodigoUF, string VersaoDados) Cabecalho { get; }
 
         public GerenciadorGeral(Estado uf, Operacoes operacao, bool teste)
         {
             Enderecos = new EnderecosConexao(uf.Sigla).ObterConjuntoConexao(teste, operacao);
-            cabecalho = (uf.Codigo, "1.00");
+            Cabecalho = (uf.Codigo, operacao == Operacoes.RecepcaoEvento ? Enderecos.VersaoRecepcaoEvento : "3.10");
         }
 
         public GerenciadorGeral(string siglaOuNome, Operacoes operacao, bool teste)
         {
             var uf = Estados.Buscar(siglaOuNome);
             Enderecos = new EnderecosConexao(uf.Sigla).ObterConjuntoConexao(teste, operacao);
-            cabecalho = (uf.Codigo, "3.10");
+            Cabecalho = (uf.Codigo, "3.10");
         }
 
         public GerenciadorGeral(ushort codigo, Operacoes operacao, bool teste)
         {
             var uf = Estados.Buscar(codigo);
             Enderecos = new EnderecosConexao(uf.Sigla).ObterConjuntoConexao(teste, operacao);
-            cabecalho = (uf.Codigo, "3.10");
+            Cabecalho = (uf.Codigo, "3.10");
         }
 
         public async Task<Resposta> EnviarAsync(Envio corpo)
@@ -57,8 +57,8 @@ namespace BibliotecaCentral.WebService
             string texto = string.Format(
                 Extensoes.ObterRecurso("RequisicaoSOAP"),
                 Enderecos.Servico,
-                cabecalho.CodigoUF,
-                cabecalho.VersaoDados,
+                Cabecalho.CodigoUF,
+                Cabecalho.VersaoDados,
                 corpo.ToXElement<Envio>().ToString(SaveOptions.DisableFormatting));
             return new StringContent(texto, Encoding.UTF8, "text/xml");
         }

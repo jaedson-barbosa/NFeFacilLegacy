@@ -98,7 +98,7 @@ namespace NFeFacil.DANFE
                 DocCliente = AplicatMascaraDocumento(dest.Documento),
                 DataEmissao = Convert.ToDateTime(ident.DataHoraEmissão).ToString("dd-MM-yyyy"),
                 DataEntradaSaida = !string.IsNullOrEmpty(ident.DataHoraSaídaEntrada) ? Analisar(Convert.ToDateTime(ident.DataHoraSaídaEntrada).ToString("dd-MM-yyyy")) : string.Empty,
-                HoraEntradaSaida = !string.IsNullOrEmpty(ident.DataHoraSaídaEntrada) ? Analisar(Convert.ToDateTime(ident.DataHoraSaídaEntrada).ToString("hh:mm:ss")) : string.Empty,
+                HoraEntradaSaida = !string.IsNullOrEmpty(ident.DataHoraSaídaEntrada) ? Analisar(Convert.ToDateTime(ident.DataHoraSaídaEntrada).ToString("HH:mm:ss")) : string.Empty,
                 Endereco = dest.endereco,
                 IECliente = Analisar(dest.inscricaoEstadual),
                 NomeCliente = dest.nome

@@ -55,7 +55,6 @@ namespace NFeFacil.ViewModel
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ExibirEditar)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ExibirRemoverSelecionados)));
             };
-            Cancelar();
         }
 
         private static void Editar(NFeDI nota)

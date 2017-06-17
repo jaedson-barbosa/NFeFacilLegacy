@@ -132,6 +132,10 @@
     <Compile Include="Migrations\20170617125032_CancelamentoAdicionado.designer.cs">
       <DependentUpon>20170617125032_CancelamentoAdicionado.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20170617182941_RegistroCancelamentoAdicionado.cs" />
+    <Compile Include="Migrations\20170617182941_RegistroCancelamentoAdicionado.designer.cs">
+      <DependentUpon>20170617182941_RegistroCancelamentoAdicionado.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\AplicativoContextModelSnapshot.cs" />
     <Compile Include="OperacoesNotaEmitida.cs" />
     <Compile Include="RecursoInserido.cs" />

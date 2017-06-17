@@ -1,10 +1,12 @@
 ﻿using BibliotecaCentral.WebService.Pacotes;
+using System.ComponentModel.DataAnnotations;
 using System.Xml.Serialization;
 
 namespace BibliotecaCentral.ItensBD
 {
     public sealed class RegistroCancelamento
     {
+        [Key]
         public string ChaveNFe { get; set; }
         public int TipoAmbiente { get; set; }
         public string DataHoraEvento { get; set; }

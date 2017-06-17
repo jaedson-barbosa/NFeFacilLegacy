@@ -90,10 +90,10 @@ namespace BibliotecaCentral.WebService.Pacotes
         [XmlElement("detEvento")]
         public DetalhamentoEvento DetEvento { get; set; }
 
-        public InformacoesEvento(int cOrgao, string CNPJ, string chaveNFe, string versaoEvento, ulong numeroProtocolo, string justificativa)
+        public InformacoesEvento(int cOrgao, string CNPJ, string chaveNFe, string versaoEvento, ulong numeroProtocolo, string justificativa, int tipoAmbiente)
         {
             this.COrgao = cOrgao;
-            TpAmb = 1;
+            TpAmb = tipoAmbiente;
             this.CNPJ = CNPJ;
             ChNFe = chaveNFe;
             DhEvento = DateTime.Now.ToStringPersonalizado();

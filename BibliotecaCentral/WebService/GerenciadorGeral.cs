@@ -9,26 +9,30 @@ namespace BibliotecaCentral.WebService
     public struct GerenciadorGeral<Envio, Resposta>
     {
         public DadosServico Enderecos { get; }
-        (int CodigoUF, string VersaoDados) Cabecalho { get; }
+        int CodigoUF { get; }
+        string VersaoDados{get;}
 
         public GerenciadorGeral(Estado uf, Operacoes operacao, bool teste)
         {
             Enderecos = new EnderecosConexao(uf.Sigla).ObterConjuntoConexao(teste, operacao);
-            Cabecalho = (uf.Codigo, operacao == Operacoes.RecepcaoEvento ? Enderecos.VersaoRecepcaoEvento : "3.10");
+            CodigoUF = uf.Codigo;
+            VersaoDados = operacao == Operacoes.RecepcaoEvento ? Enderecos.VersaoRecepcaoEvento : "3.10";
         }
 
         public GerenciadorGeral(string siglaOuNome, Operacoes operacao, bool teste)
         {
             var uf = Estados.Buscar(siglaOuNome);
             Enderecos = new EnderecosConexao(uf.Sigla).ObterConjuntoConexao(teste, operacao);
-            Cabecalho = (uf.Codigo, "3.10");
+            CodigoUF = uf.Codigo;
+            VersaoDados = operacao == Operacoes.RecepcaoEvento ? Enderecos.VersaoRecepcaoEvento : "3.10";
         }
 
         public GerenciadorGeral(ushort codigo, Operacoes operacao, bool teste)
         {
             var uf = Estados.Buscar(codigo);
             Enderecos = new EnderecosConexao(uf.Sigla).ObterConjuntoConexao(teste, operacao);
-            Cabecalho = (uf.Codigo, "3.10");
+            CodigoUF = uf.Codigo;
+            VersaoDados = operacao == Operacoes.RecepcaoEvento ? Enderecos.VersaoRecepcaoEvento : "3.10";
         }
 
         public async Task<Resposta> EnviarAsync(Envio corpo)
@@ -57,8 +61,8 @@ namespace BibliotecaCentral.WebService
             string texto = string.Format(
                 Extensoes.ObterRecurso("RequisicaoSOAP"),
                 Enderecos.Servico,
-                Cabecalho.CodigoUF,
-                Cabecalho.VersaoDados,
+                CodigoUF,
+                VersaoDados,
                 corpo.ToXElement<Envio>().ToString(SaveOptions.DisableFormatting));
             return new StringContent(texto, Encoding.UTF8, "text/xml");
         }

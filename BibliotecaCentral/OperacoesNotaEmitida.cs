@@ -38,25 +38,27 @@ namespace BibliotecaCentral
             {
                 if (!string.IsNullOrEmpty(entrada.Conteudo))
                 {
-                    var infoEvento = new InformacoesEvento(estado, cnpj, chave, versao, nProtocolo, entrada.Conteudo);
+                    var infoEvento = new InformacoesEvento(estado, cnpj, chave, versao, nProtocolo, entrada.Conteudo, tipoAmbiente);
                     var envio = new EnvEvento(gerenciador.Enderecos.VersaoRecepcaoEvento, infoEvento);
                     var resposta = await gerenciador.EnviarAsync(envio);
-
-                    using (var contexto = new AplicativoContext())
+                    if (resposta.RetEvento[0].InfEvento.CStat == 135)
                     {
-                        contexto.Cancelamentos.Add(new RegistroCancelamento()
+                        using (var contexto = new AplicativoContext())
                         {
-                            ChaveNFe = chave,
-                            DataHoraEvento = resposta.RetEvento[0].InfEvento.DhRegEvento,
-                            TipoAmbiente = tipoAmbiente,
-                            XML = new ProcEventoCancelamento()
+                            contexto.Cancelamentos.Add(new RegistroCancelamento()
                             {
-                                Eventos = envio.Eventos,
-                                RetEvento = resposta.RetEvento,
-                                Versao = resposta.Versao
-                            }.ToXElement<ProcEventoCancelamento>().ToString()
-                        });
-                        contexto.SaveChanges();
+                                ChaveNFe = chave,
+                                DataHoraEvento = resposta.RetEvento[0].InfEvento.DhRegEvento,
+                                TipoAmbiente = tipoAmbiente,
+                                XML = new ProcEventoCancelamento()
+                                {
+                                    Eventos = envio.Eventos,
+                                    RetEvento = resposta.RetEvento,
+                                    Versao = resposta.Versao
+                                }.ToXElement<ProcEventoCancelamento>().ToString()
+                            });
+                            contexto.SaveChanges();
+                        }
                     }
 
                     Log.Escrever(TitulosComuns.Sucesso, "NFe cancelada com sucesso.");

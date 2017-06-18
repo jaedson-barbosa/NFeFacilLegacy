@@ -20,23 +20,22 @@ namespace NFeFacil.ViewModel
         {
             get
             {
-                using (var db = new NotasFiscais())
+                using (var db = new AplicativoContext())
                 {
+                    var source = from nota in db.NotasFiscais
+                                 orderby nota.DataEmissao descending
+                                 let item = new NFeView(nota, this)
+                                 group item by item.Status;
                     return new CollectionViewSource()
                     {
                         IsSourceGrouped = true,
-                        Source = from nota in db.Registro
-                                 group nota by ((StatusNFe)nota.Status).ToString()
+                        Source = source
                     }.View;
                 }
             }
         }
 
-        public ICommand EditarCommand { get; } = new Comando<NFeDI>(Editar);
-        public ICommand RemoverCommand => new Comando<NFeDI>(Remover);
-        public ICommand CancelarCommand => new Comando<NFeDI>(Cancelar);
-
-        private static void Editar(NFeDI nota)
+        public void Editar(NFeDI nota)
         {
             var conjunto = new ConjuntoManipuladorNFe
             {
@@ -56,7 +55,7 @@ namespace NFeFacil.ViewModel
             MainPage.Current.AbrirFunçao(typeof(ManipulacaoNotaFiscal), conjunto);
         }
 
-        private void Remover(NFeDI nota)
+        public void Remover(NFeDI nota)
         {
             using (var db = new NotasFiscais())
             {
@@ -66,7 +65,7 @@ namespace NFeFacil.ViewModel
             }
         }
 
-        async void Cancelar(NFeDI di)
+        public async void Cancelar(NFeDI di)
         {
             var processo = XElement.Parse(di.XML).FromXElement<Processo>();
             if (await new OperacoesNotaEmitida(processo).Cancelar())
@@ -77,6 +76,34 @@ namespace NFeFacil.ViewModel
                     db.Atualizar(di);
                 }
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(NotasSalvas)));
+            }
+        }
+
+        sealed class NFeView
+        {
+            public NFeDI Nota { get; }
+
+            public StatusNFe Status { get; set; }
+
+            public bool PodeCancelar => Status == StatusNFe.Emitida;
+
+            public ICommand EditarCommand { get; }
+            public ICommand RemoverCommand { get; }
+            public ICommand CancelarCommand { get; }
+
+            public NFeView(NFeDI nota, NotasSalvasDataContext geral)
+            {
+                Nota = nota;
+                Status = (StatusNFe)nota.Status;
+                
+                EditarCommand = new Comando<NFeDI>(geral.Editar);
+                RemoverCommand = new Comando<NFeDI>(geral.Remover);
+                CancelarCommand = new Comando<NFeDI>(geral.Cancelar);
+            }
+
+            public static implicit operator NFeDI(NFeView nota)
+            {
+                return nota.Nota;
             }
         }
     }

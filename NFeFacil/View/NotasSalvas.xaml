@@ -53,11 +53,12 @@
                     </Grid.ColumnDefinitions>
                     <Grid.ContextFlyout>
                         <MenuFlyout>
-                            <MenuFlyoutItem Command="{Binding DataContext.RemoverCommand, ElementName=root}"
+                            <MenuFlyoutItem Command="{Binding RemoverCommand}"
                                             CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Remover apenas esta nota</MenuFlyoutItem>
-                            <MenuFlyoutItem Command="{Binding DataContext.EditarCommand, ElementName=root}"
+                            <MenuFlyoutItem Command="{Binding EditarCommand}"
                                             CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Editar</MenuFlyoutItem>
-                            <MenuFlyoutItem Command="{Binding DataContext.CancelarCommand, ElementName=root}"
+                            <MenuFlyoutItem IsEnabled="{Binding PodeCancelar}"
+                                            Command="{Binding CancelarCommand}"
                                             CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Cancelar</MenuFlyoutItem>
                         </MenuFlyout>
                     </Grid.ContextFlyout>
@@ -69,11 +70,11 @@
                                     Value="Center" />
                         </Style>
                     </Grid.Resources>
-                    <TextBlock Text="{Binding NomeEmitente}" />
+                    <TextBlock Text="{Binding Nota.NomeEmitente}" />
                     <TextBlock Grid.Column="1"
-                               Text="{Binding NomeCliente}" />
+                               Text="{Binding Nota.NomeCliente}" />
                     <TextBlock Grid.Column="2"
-                               Text="{Binding DataEmissao}" />
+                               Text="{Binding Nota.DataEmissao}" />
                 </Grid>
             </DataTemplate>
         </ListView.ItemTemplate>

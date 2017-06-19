@@ -65,6 +65,7 @@ namespace NFeFacil.DANFE
             {
                 printTask.Options.MediaSize = PrintMediaSize.IsoA4;
                 printTask.Options.PrintQuality = PrintQuality.High;
+                printTask.Options.ColorMode = PrintColorMode.Monochrome;
                 x.SetSource(printDocSource);
             });
         }

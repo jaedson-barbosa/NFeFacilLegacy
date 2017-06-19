@@ -53,13 +53,10 @@
                     </Grid.ColumnDefinitions>
                     <Grid.ContextFlyout>
                         <MenuFlyout>
-                            <MenuFlyoutItem Command="{Binding RemoverCommand}"
-                                            CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Remover apenas esta nota</MenuFlyoutItem>
-                            <MenuFlyoutItem Command="{Binding EditarCommand}"
-                                            CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Editar</MenuFlyoutItem>
+                            <MenuFlyoutItem Command="{Binding RemoverCommand}">Remover</MenuFlyoutItem>
+                            <MenuFlyoutItem Command="{Binding EditarCommand}">Editar</MenuFlyoutItem>
                             <MenuFlyoutItem IsEnabled="{Binding PodeCancelar}"
-                                            Command="{Binding CancelarCommand}"
-                                            CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Cancelar</MenuFlyoutItem>
+                                            Command="{Binding CancelarCommand}">Cancelar</MenuFlyoutItem>
                         </MenuFlyout>
                     </Grid.ContextFlyout>
                     <Grid.Resources>

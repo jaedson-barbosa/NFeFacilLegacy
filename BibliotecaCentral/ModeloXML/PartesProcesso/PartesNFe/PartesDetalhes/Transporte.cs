@@ -10,13 +10,13 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
         public int modFrete { get; set; }
 
         [XmlElement(Order = 1)]
-        public Motorista transporta { get; set; } = new Motorista();
+        public Motorista transporta { get; set; }
 
         [XmlElement(Order = 2)]
-        public ICMSTransporte retTransp { get; set; } = new ICMSTransporte();
+        public ICMSTransporte retTransp { get; set; }
 
         [XmlElement(Order = 3)]
-        public Veiculo veicTransp { get; set; } = new Veiculo();
+        public Veiculo veicTransp { get; set; }
 
         [XmlElement(nameof(reboque), Order = 4)]
         public List<Reboque> reboque { get; set; } = new List<Reboque>();

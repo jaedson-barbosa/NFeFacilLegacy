@@ -1,5 +1,6 @@
 ﻿using Comum.Pacotes;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -64,7 +65,6 @@ namespace ServidorCertificacaoConsole
                         break;
                     case Comum.NomesMetodos.EnviarRequisicao:
                         var conteudo = requisicao.Substring(requisicao.IndexOf("\r\n\r\n") + 4);
-                        conteudo = conteudo.Replace("&lt;", "<").Replace("&gt;", ">");
                         var xml = XElement.Parse(conteudo);
                         var envio = Desserializar<RequisicaoEnvioDTO>(xml);
                         await metodos.EnviarRequisicaoAsync(stream, envio);
@@ -95,15 +95,12 @@ namespace ServidorCertificacaoConsole
 
         static string ReadToEnd(NetworkStream stream)
         {
-            var bytes = new byte[1];
-            StringBuilder construtor = new StringBuilder();
+            var bytes = new List<byte>();
             while (stream.DataAvailable)
             {
-                stream.Read(bytes, 0, bytes.Length);
-                var str = Encoding.UTF8.GetString(bytes);
-                construtor.Append(str);
+                bytes.Add((byte)stream.ReadByte());
             }
-            return construtor.ToString();
+            return Encoding.UTF8.GetString(bytes.ToArray());
         }
 
         static T Desserializar<T>(XElement xml)

@@ -59,10 +59,13 @@ namespace BibliotecaCentral
                             });
                             contexto.SaveChanges();
                         }
+                        Log.Escrever(TitulosComuns.Sucesso, "NFe cancelada com sucesso.");
+                        return true;
                     }
-
-                    Log.Escrever(TitulosComuns.Sucesso, "NFe cancelada com sucesso.");
-                    return true;
+                    else
+                    {
+                        Log.Escrever(TitulosComuns.ErroSimples, resposta.RetEvento[0].InfEvento.XMotivo);
+                    }
                 }
                 else
                 {

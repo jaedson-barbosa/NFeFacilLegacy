@@ -31,8 +31,10 @@ namespace ServidorCertificacaoConsole
                 });
             }
             var xml = Serializar(retorno);
-            EscreverCabecalho(stream, xml.ToString().Length);
-            xml.Save(stream, SaveOptions.DisableFormatting);
+
+            var data = Encoding.UTF8.GetBytes(xml.ToString());
+            EscreverCabecalho(stream, data.Length);
+            stream.Write(data, 0, data.Length);
         }
 
         public void ObterChaveCertificado(Stream stream, string serial)
@@ -44,8 +46,10 @@ namespace ServidorCertificacaoConsole
                 RawData = cert.RawData
             };
             var xml = Serializar(obj);
-            EscreverCabecalho(stream, xml.ToString().Length);
-            xml.Save(stream, SaveOptions.DisableFormatting);
+
+            var data = Encoding.UTF8.GetBytes(xml.ToString());
+            EscreverCabecalho(stream, data.Length);
+            stream.Write(data, 0, data.Length);
         }
 
         public async Task EnviarRequisicaoAsync(Stream stream, RequisicaoEnvioDTO req)
@@ -60,14 +64,16 @@ namespace ServidorCertificacaoConsole
                 var resposta = await proxy.PostAsync(req.Uri,
                     new StringContent(req.Conteudo.ToString(SaveOptions.DisableFormatting), Encoding.UTF8, "text/xml"));
                 var xml = ObterConteudoCorpo(XElement.Load(await resposta.Content.ReadAsStreamAsync()));
-                EscreverCabecalho(stream, xml.ToString().Length);
-                xml.Save(stream, SaveOptions.DisableFormatting);
+
+                var data = Encoding.UTF8.GetBytes(xml.ToString());
+                EscreverCabecalho(stream, data.Length);
+                stream.Write(data, 0, data.Length);
             }
 
-            XElement ObterConteudoCorpo(XElement soap)
+            XNode ObterConteudoCorpo(XElement soap)
             {
                 var casca = soap.Element(XName.Get("Body", "http://schemas.xmlsoap.org/soap/envelope/")).FirstNode as XElement;
-                return (XElement)casca.FirstNode;
+                return casca.FirstNode;
             }
         }
 

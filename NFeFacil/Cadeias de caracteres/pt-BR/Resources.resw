@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="RequisicaoSOAP" xml:space="preserve">
-    <value>&lt;soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"&gt;&lt;soap:Header&gt;&lt;nfeCabecMsg xmlns="{0}"&gt;&lt;cUF&gt;{1}&lt;/cUF&gt;&lt;versaoDados&gt;{2}&lt;/versaoDados&gt;&lt;/nfeCabecMsg&gt;&lt;/soap:Header&gt;&lt;soap:Body&gt; &lt;nfeDadosMsg xmlns="{0}"&gt;{3}&lt;/nfeDadosMsg&gt;&lt;/soap:Body&gt;&lt;/soap:Envelope&gt;</value>
+    <value>&lt;soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"&gt;&lt;soap:Header&gt;&lt;nfeCabecMsg xmlns="{0}"&gt;&lt;cUF&gt;{1}&lt;/cUF&gt;&lt;versaoDados&gt;{2}&lt;/versaoDados&gt;&lt;/nfeCabecMsg&gt;&lt;/soap:Header&gt;&lt;soap:Body&gt;&lt;nfeDadosMsg xmlns="{0}"&gt;{3}&lt;/nfeDadosMsg&gt;&lt;/soap:Body&gt;&lt;/soap:Envelope&gt;</value>
   </data>
   <data name="txtConexaoServidor.Text" xml:space="preserve">
     <value>Para garantir a total segurança do sistema de sincronização é gerado um servidor temporário que serve para liberar o acesso ao servidor permanente. Para se conectar ao servidor leia o código QR abaixo usando o leitor QR do aplicativo no dispositivo cliente. O código QR permanece válido para estabelecer a conexão por apenas 1 minuto após pressionar o botão abaixo.</value>

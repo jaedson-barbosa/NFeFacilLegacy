@@ -40,7 +40,12 @@ namespace ServidorCertificacaoConsole
         public void ObterChaveCertificado(Stream stream, string serial)
         {
             var cert = Loja.Certificates.Find(X509FindType.FindBySerialNumber, serial, true)[0];
-            var xml = Serializar(cert.GetRSAPrivateKey().ExportParameters(true));
+            var obj = new CertificadoAssinaturaDTO()
+            {
+                ParametrosChavePrivada = cert.GetRSAPrivateKey().ExportParameters(true),
+                RawData = cert.RawData
+            };
+            var xml = Serializar(obj);
 
             var data = Encoding.UTF8.GetBytes(xml.ToString());
             EscreverCabecalho(stream, data.Length);
@@ -55,13 +60,9 @@ namespace ServidorCertificacaoConsole
                 UseDefaultCredentials = true
             }, true))
             {
-                for (int i = 0; i < req.Cabecalhos.Length; i++)
-                {
-                    var atual = req.Cabecalhos[i];
-                    proxy.DefaultRequestHeaders.Add(atual.Nome, atual.Valor);
-                }
+                proxy.DefaultRequestHeaders.Add(req.Cabecalho.Nome, req.Cabecalho.Valor);
                 var resposta = await proxy.PostAsync(req.Uri,
-                    new StringContent(req.Conteudo, Encoding.UTF8, "text/xml"));
+                    new StringContent(req.Conteudo.ToString(SaveOptions.DisableFormatting), Encoding.UTF8, "text/xml"));
                 var xml = ObterConteudoCorpo(XElement.Load(await resposta.Content.ReadAsStreamAsync()));
 
                 var data = Encoding.UTF8.GetBytes(xml.ToString());

@@ -1,4 +1,7 @@
-﻿using BibliotecaCentral.IBGE;
+﻿using BibliotecaCentral.Certificacao;
+using BibliotecaCentral.Certificacao.LAN;
+using BibliotecaCentral.IBGE;
+using Comum.Pacotes;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,16 +40,35 @@ namespace BibliotecaCentral.WebService
 
         public async Task<Resposta> EnviarAsync(Envio corpo)
         {
-            using (var proxy = new HttpClient(new HttpClientHandler()
+            var ip = ConfiguracoesCertificacao.IPServidorCertificacao;
+            if (string.IsNullOrEmpty(ip))
             {
-                ClientCertificateOptions = ClientCertificateOption.Automatic,
-                UseDefaultCredentials = true
-            }, true))
+                using (var proxy = new HttpClient(new HttpClientHandler()
+                {
+                    ClientCertificateOptions = ClientCertificateOption.Automatic,
+                    UseDefaultCredentials = true
+                }, true))
+                {
+                    proxy.DefaultRequestHeaders.Add("SOAPAction", Enderecos.Metodo);
+                    var conteudo = new StringContent(ObterConteudoRequisicao(corpo), Encoding.UTF8, "text/xml");
+                    var resposta = await proxy.PostAsync(Enderecos.Endereco, conteudo);
+                    var xml = XElement.Load(await resposta.Content.ReadAsStreamAsync());
+                    return ObterConteudoCorpo(xml).FromXElement<Resposta>();
+                }
+            }
+            else
             {
-                proxy.DefaultRequestHeaders.Add("SOAPAction", Enderecos.Metodo);
-                var resposta = await proxy.PostAsync(Enderecos.Endereco, ObterConteudoRequisicao(corpo));
-                var xml = XElement.Load(await resposta.Content.ReadAsStreamAsync());
-                return ObterConteudoCorpo(xml).FromXElement<Resposta>();
+                var op = new OperacoesServidor(ip);
+                return await op.EnviarRequisicaoIntermediada<Resposta>(new RequisicaoEnvioDTO()
+                {
+                    Cabecalho = new CabecalhoRequisicao()
+                    {
+                        Nome = "SOAPAction",
+                        Valor = Enderecos.Metodo
+                    },
+                    Conteudo = XElement.Parse(ObterConteudoRequisicao(corpo)),
+                    Uri = Enderecos.Endereco
+                });
             }
 
             XNode ObterConteudoCorpo(XElement soap)
@@ -56,15 +78,11 @@ namespace BibliotecaCentral.WebService
             }
         }
 
-        HttpContent ObterConteudoRequisicao(Envio corpo)
+        string ObterConteudoRequisicao(Envio corpo)
         {
-            string texto = string.Format(
-                Extensoes.ObterRecurso("RequisicaoSOAP"),
-                Enderecos.Servico,
-                CodigoUF,
-                VersaoDados,
+            return string.Format(Extensoes.ObterRecurso("RequisicaoSOAP"),
+                Enderecos.Servico, CodigoUF, VersaoDados,
                 corpo.ToXElement<Envio>().ToString(SaveOptions.DisableFormatting));
-            return new StringContent(texto, Encoding.UTF8, "text/xml");
         }
     }
 }

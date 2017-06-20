@@ -352,9 +352,6 @@
     <EmbeddedResource Include="IBGE\Municipios.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Certificacao\LAN\Arquivos\RepositorioRemoto.zip" />
-  </ItemGroup>
-  <ItemGroup>
     <Page Include="CaixasDialogo\ConectarServidor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -374,7 +371,9 @@
       <Name>System.Security.Cryptography</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Certificacao\LAN\Arquivos\ServidorCertificacao.zip" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

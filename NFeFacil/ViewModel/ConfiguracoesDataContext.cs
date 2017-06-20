@@ -47,7 +47,7 @@ namespace NFeFacil.ViewModel
             if (await InformacoesConexao.Cadastrar()) AttLista();
         });
         public ICommand EsquecerServidor => new Comando(() => InformacoesConexao.Esquecer());
-        public ICommand InstalarServidor => new Comando(async () => await new Exportacao(LogPopUp).Exportar("RepositorioRemoto", "Arquivo comprimido", "zip"));
+        public ICommand InstalarServidor => new Comando(async () => await new Exportacao(LogPopUp).Exportar("ServidorCertificacao", "Servidor de certificação", "Arquivo comprimido", "zip"));
         public ICommand RemoverCertificado => new Comando<CertificadoExibicao>(x =>
         {
             using (var loja = new X509Store())
@@ -56,7 +56,7 @@ namespace NFeFacil.ViewModel
                 var cert = loja.Certificates.Find(X509FindType.FindBySerialNumber, x.SerialNumber, true)[0];
                 loja.Remove(cert);
             }
-            OnProperyChanged(nameof(Certificados));
+            OnProperyChanged(nameof(ListaCertificados));
         });
 
         async void AttLista()
@@ -64,7 +64,8 @@ namespace NFeFacil.ViewModel
             try
             {
                 ListaCertificados = await new Certificados().ObterCertificadosAsync();
-                OnProperyChanged(nameof(Certificados));
+                OnProperyChanged(nameof(ListaCertificados));
+                OnProperyChanged(nameof(CertificadoEscolhido));
             }
             catch (Exception e)
             {

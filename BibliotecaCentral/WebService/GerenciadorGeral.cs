@@ -40,8 +40,7 @@ namespace BibliotecaCentral.WebService
 
         public async Task<Resposta> EnviarAsync(Envio corpo)
         {
-            var ip = ConfiguracoesCertificacao.IPServidorCertificacao;
-            if (string.IsNullOrEmpty(ip))
+            if (ConfiguracoesCertificacao.Origem == OrigemCertificado.Importado)
             {
                 using (var proxy = new HttpClient(new HttpClientHandler()
                 {
@@ -58,7 +57,7 @@ namespace BibliotecaCentral.WebService
             }
             else
             {
-                var op = new OperacoesServidor(ip);
+                var op = new OperacoesServidor();
                 return await op.EnviarRequisicaoIntermediada<Resposta>(new RequisicaoEnvioDTO()
                 {
                     Cabecalho = new CabecalhoRequisicao()

@@ -37,7 +37,7 @@ namespace NFeFacil.ViewModel
         public ObservableCollection<CertificadoExibicao> ListaCertificados { get; private set; }
 
         public bool InstalacaoLiberada => AnalyticsInfo.VersionInfo.DeviceFamily.Contains("Desktop");
-        public bool ServidorCadastrado => !string.IsNullOrEmpty(ConfiguracoesCertificacao.IPServidorCertificacao);
+        public bool ServidorCadastrado => ConfiguracoesCertificacao.Origem == OrigemCertificado.Servidor;
 
         public ICommand ImportarCertificado => new Comando(async () => await new ImportarCertificado().ImportarEAdicionarAsync(AttLista));
         public ICommand ConectarServidor => new Comando(async () =>

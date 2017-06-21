@@ -10,9 +10,21 @@ using System.Xml.Serialization;
 
 namespace BibliotecaCentral.Certificacao.LAN
 {
-    public sealed class OperacoesServidor
+    public struct OperacoesServidor
     {
         string ip;
+        public string Ip
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(ip))
+                {
+                    ip = ConfiguracoesCertificacao.IPServidorCertificacao;
+                }
+                return ip;
+            }
+            set => ip = value;
+        }
 
         public OperacoesServidor(string ip)
         {
@@ -35,7 +47,7 @@ namespace BibliotecaCentral.Certificacao.LAN
         {
             using (var cliente = new HttpClient())
             {
-                StringBuilder construtorCaminho = new StringBuilder($"http://{ip}:8080");
+                StringBuilder construtorCaminho = new StringBuilder($"http://{Ip}:8080");
                 for (int i = 0; i < parametros.Length; i++)
                 {
                     construtorCaminho.Append('/');
@@ -54,7 +66,7 @@ namespace BibliotecaCentral.Certificacao.LAN
         {
             using (var cliente = new HttpClient())
             {
-                var uri = new Uri($"http://{ip}:8080/{Comum.NomesMetodos.EnviarRequisicao}");
+                var uri = new Uri($"http://{Ip}:8080/{Comum.NomesMetodos.EnviarRequisicao}");
                 var xml = envio.ToXElement<RequisicaoEnvioDTO>().ToString(SaveOptions.DisableFormatting);
                 var conteudo = new StringContent(xml, Encoding.UTF8, "text/xml");
                 var resposta = await cliente.PostAsync(uri, conteudo);

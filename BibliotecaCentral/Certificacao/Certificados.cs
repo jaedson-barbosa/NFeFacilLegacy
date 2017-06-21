@@ -25,7 +25,7 @@ namespace BibliotecaCentral.Certificacao
             }
             else
             {
-                var operacoes = new LAN.OperacoesServidor(ConfiguracoesCertificacao.IPServidorCertificacao);
+                var operacoes = new LAN.OperacoesServidor();
                 return (await operacoes.ObterCertificados()).GerarObs();
             }
         }
@@ -47,7 +47,7 @@ namespace BibliotecaCentral.Certificacao
             }
             else
             {
-                var operacoes = new LAN.OperacoesServidor(ConfiguracoesCertificacao.IPServidorCertificacao);
+                var operacoes = new LAN.OperacoesServidor();
                 return await operacoes.ObterCertificado(serial);
             }
         }

@@ -119,8 +119,14 @@ namespace NFeFacil.ViewModel
                 stringErros.AppendLine("Os seguintes dados base não foram reconhecidos por terem a tag raiz diferente do esperado.");
                 resultado.ForEach(y =>
                 {
-                    var x = y as XmlNaoReconhecido;
-                    stringErros.AppendLine($"Nome arquivo: {x.NomeArquivo}; Tag raiz encontrada: {x.TagRaiz}; Tags raiz esperadas: {x.TagsEsperadas[0]} ou {x.TagsEsperadas[1]}");
+                    if (y is XmlNaoReconhecido x)
+                    {
+                        stringErros.AppendLine($"Nome arquivo: {x.NomeArquivo}; Tag raiz encontrada: {x.TagRaiz}; Tags raiz esperadas: {x.TagsEsperadas[0]} ou {x.TagsEsperadas[1]}");
+                    }
+                    else
+                    {
+                        stringErros.AppendLine($"Mensagem erro: {y.Message}.");
+                    }
                 });
                 LogPopUp.Escrever(TitulosComuns.ErroSimples, stringErros.ToString());
             }

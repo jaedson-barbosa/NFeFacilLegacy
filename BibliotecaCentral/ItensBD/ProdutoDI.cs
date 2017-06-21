@@ -21,7 +21,7 @@ namespace BibliotecaCentral.ItensBD
         public double ValorUnitarioTributo { get; set; }
 
         public ProdutoDI() { }
-        public ProdutoDI(ProdutoOuServico other)
+        public ProdutoDI(Importacao.ImportarDadoBase.ProdutoOuServicoGenerico other)
         {
             CodigoProduto = other.CodigoProduto;
             CodigoBarras = other.CodigoBarras;

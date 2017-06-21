@@ -13,7 +13,7 @@ namespace BibliotecaCentral.ItensBD
         public string CNPJ { get; set; }
         public string IdEstrangeiro { get; set; }
         public string Nome { get; set; }
-        public int IndicadorIE { get; set; } = 9;
+        public int IndicadorIE { get; set; }
         public string InscricaoEstadual { get; set; }
         public string ISUF { get; set; }
         public string Email { get; set; }
@@ -26,8 +26,8 @@ namespace BibliotecaCentral.ItensBD
         public string NomeMunicipio { get; set; }
         public string SiglaUF { get; set; }
         public string CEP { get; set; }
-        public int CPais { get; set; } = 1058;
-        public string XPais { get; set; } = "Brasil";
+        public int CPais { get; set; }
+        public string XPais { get; set; }
         public string Telefone { get; set; }
 
         [System.ComponentModel.DataAnnotations.Schema.NotMapped]
@@ -40,9 +40,16 @@ namespace BibliotecaCentral.ItensBD
         public ClienteDI() { }
         public ClienteDI(Destinatario other)
         {
-            if (other.indicadorIE == 9 && !string.IsNullOrEmpty(other.inscricaoEstadual))
+            if (other.indicadorIE == 9)
             {
-                other.indicadorIE = 1;
+                if (!string.IsNullOrEmpty(other.inscricaoEstadual))
+                {
+                    other.indicadorIE = 1;
+                }
+                else
+                {
+                    other.indicadorIE = 9;
+                }
             }
 
             CPF = other.CPF;

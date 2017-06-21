@@ -64,12 +64,13 @@ namespace BibliotecaCentral.Importacao
             {
                 try
                 {
-                    var resultado = RemoverNamespace(Busca(listaXML[i], nomePrimario, nomeSecundario));
+                    var resultado = Busca(listaXML[i], nomePrimario, nomeSecundario);
                     if (resultado == null)
                     {
                         retorno.Add(new XmlNaoReconhecido(arquivos[i].Name, listaXML[i].Name.LocalName, nomeSecundario, nameof(TipoBase)));
                         continue;
                     }
+                    resultado = RemoverNamespace(resultado);
                     var xml = resultado;
                     xml.Name = nomePrimario;
                     add.Add(xml.FromXElement<TipoBase>());

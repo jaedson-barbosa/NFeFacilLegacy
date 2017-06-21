@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace BibliotecaCentral.Certificacao
 {
-    public class Certificados
+    public static class Certificados
     {
-        public async Task<ObservableCollection<CertificadoExibicao>> ObterCertificadosAsync()
+        public static async Task<ObservableCollection<CertificadoExibicao>> ObterCertificadosAsync(OrigemCertificado origem)
         {
-            if (Atual == Origem.Local)
+            if (origem == OrigemCertificado.Importado)
             {
                 using (var loja = new X509Store())
                 {
@@ -30,10 +30,9 @@ namespace BibliotecaCentral.Certificacao
             }
         }
 
-        public async Task<CertificadoAssinatura> ObterCertificadoEscolhidoAsync()
+        public static async Task<CertificadoAssinatura> ObterCertificadoEscolhidoAsync(string serial, OrigemCertificado origem)
         {
-            var serial = ConfiguracoesCertificacao.CertificadoEscolhido;
-            if (Atual == Origem.Local)
+            if (origem == OrigemCertificado.Importado)
             {
                 using (var loja = new X509Store())
                 {
@@ -51,14 +50,6 @@ namespace BibliotecaCentral.Certificacao
                 var operacoes = new LAN.OperacoesServidor(ConfiguracoesCertificacao.IPServidorCertificacao);
                 return await operacoes.ObterCertificado(serial);
             }
-        }
-
-        Origem Atual => string.IsNullOrEmpty(ConfiguracoesCertificacao.IPServidorCertificacao) ? Origem.Local : Origem.LAN;
-
-        private enum Origem
-        {
-            Local,
-            LAN
         }
     }
 }

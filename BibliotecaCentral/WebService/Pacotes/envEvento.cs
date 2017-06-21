@@ -31,7 +31,7 @@ namespace BibliotecaCentral.WebService.Pacotes
         }
     }
 
-    public struct Evento
+    public sealed class Evento : ISignature
     {
         [XmlAttribute("versao")]
         public string Versao { get; set; }
@@ -46,14 +46,7 @@ namespace BibliotecaCentral.WebService.Pacotes
         {
             Versao = versao;
             InfEvento = infEvento;
-
-            var xml = new XmlDocument();
-            using (var reader = infEvento.ToXElement<InformacoesEvento>().CreateReader())
-            {
-                xml.Load(reader);
-                var cert = Task.Run(() => new Certificados().ObterCertificadoEscolhidoAsync()).Result;
-                Signature = new AssinaturaXML(xml, "infEvento", infEvento.Id).AssinarXML(cert);
-            }
+            Task.Run(() => new AssinaFacil(this).Assinar(infEvento.Id)).Wait();
         }
     }
 

@@ -113,7 +113,10 @@
     <Compile Include="CaixasDialogo\EntradaTexto.xaml.cs">
       <DependentUpon>EntradaTexto.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Certificacao\AssinaNFe.cs" />
+    <Compile Include="CaixasDialogo\SelecaoCertificado.xaml.cs">
+      <DependentUpon>SelecaoCertificado.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Certificacao\AssinaFacil.cs" />
     <Compile Include="Certificacao\AssinaturaXML.cs" />
     <Compile Include="Certificacao\LAN\Exportacao.cs" />
     <Compile Include="Certificacao\LAN\InformacoesConexao.cs" />
@@ -357,6 +360,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CaixasDialogo\EntradaTexto.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CaixasDialogo\SelecaoCertificado.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

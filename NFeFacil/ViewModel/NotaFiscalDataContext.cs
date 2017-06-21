@@ -280,8 +280,8 @@ namespace NFeFacil.ViewModel
             try
             {
                 NormalizarNFe();
-                var assina = new BibliotecaCentral.Certificacao.AssinaNFe(NotaSalva);
-                await assina.Assinar();
+                var assina = new BibliotecaCentral.Certificacao.AssinaFacil(NotaSalva);
+                await assina.Assinar(NotaSalva.Informações.Id);
                 StatusAtual = StatusNFe.Assinada;
                 Salvar();
             }

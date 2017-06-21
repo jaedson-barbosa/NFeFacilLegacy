@@ -10,6 +10,7 @@ using System.Text;
 using System.Security.Cryptography.X509Certificates;
 using System.Collections.ObjectModel;
 using BibliotecaCentral.Certificacao.LAN;
+using Windows.System.Profile;
 
 namespace NFeFacil.ViewModel
 {
@@ -35,11 +36,8 @@ namespace NFeFacil.ViewModel
 
         public ObservableCollection<CertificadoExibicao> ListaCertificados { get; private set; }
 
-        public string CertificadoEscolhido
-        {
-            get => ConfiguracoesCertificacao.CertificadoEscolhido;
-            set => ConfiguracoesCertificacao.CertificadoEscolhido = value;
-        }
+        public bool InstalacaoLiberada => AnalyticsInfo.VersionInfo.DeviceFamily.Contains("Desktop");
+        public bool ServidorCadastrado => !string.IsNullOrEmpty(ConfiguracoesCertificacao.IPServidorCertificacao);
 
         public ICommand ImportarCertificado => new Comando(async () => await new ImportarCertificado().ImportarEAdicionarAsync(AttLista));
         public ICommand ConectarServidor => new Comando(async () =>
@@ -63,9 +61,9 @@ namespace NFeFacil.ViewModel
         {
             try
             {
-                ListaCertificados = await new Certificados().ObterCertificadosAsync();
+                ListaCertificados = await Certificados.ObterCertificadosAsync(OrigemCertificado.Importado);
+                OnProperyChanged(nameof(ServidorCadastrado));
                 OnProperyChanged(nameof(ListaCertificados));
-                OnProperyChanged(nameof(CertificadoEscolhido));
             }
             catch (Exception e)
             {

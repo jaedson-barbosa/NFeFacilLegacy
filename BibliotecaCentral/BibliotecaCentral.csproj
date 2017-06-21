@@ -122,6 +122,7 @@
     <Compile Include="Certificacao\LAN\InformacoesConexao.cs" />
     <Compile Include="Certificacao\ConfiguracoesCertificacao.cs" />
     <Compile Include="Certificacao\LAN\OperacoesServidor.cs" />
+    <Compile Include="Certificacao\OrigemCertificado.cs" />
     <Compile Include="ItensBD\ClienteDI.cs" />
     <Compile Include="ItensBD\EmitenteDI.cs" />
     <Compile Include="ItensBD\MotoristaDI.cs" />

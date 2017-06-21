@@ -9,13 +9,48 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
 using System.Xml.Linq;
+using Windows.UI;
 using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Media;
 
 namespace NFeFacil.ViewModel
 {
     public sealed class NotasSalvasDataContext : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+
+        private bool exibirNotasExportadas = true;
+        public bool ExibirNotasExportadas
+        {
+            get => exibirNotasExportadas;
+            set
+            {
+                exibirNotasExportadas = value;
+                AttNotasSalvas();
+            }
+        }
+
+        private bool exibirNotasImpressas = true;
+        public bool ExibirNotasImpressas
+        {
+            get => exibirNotasImpressas;
+            set
+            {
+                exibirNotasImpressas = value;
+                AttNotasSalvas();
+            }
+        }
+
+        private bool exibirRestante = true;
+        public bool ExibirRestante
+        {
+            get => exibirRestante;
+            set
+            {
+                exibirRestante = value;
+                AttNotasSalvas();
+            }
+        }
 
         public ICollectionView NotasSalvas
         {
@@ -24,6 +59,7 @@ namespace NFeFacil.ViewModel
                 using (var db = new AplicativoContext())
                 {
                     var source = from nota in db.NotasFiscais
+                                 where AnalisarNota(nota)
                                  orderby nota.DataEmissao descending
                                  let item = new NFeView(nota, AttNotasSalvas)
                                  group item by item.Status;
@@ -36,6 +72,14 @@ namespace NFeFacil.ViewModel
             }
         }
 
+        bool AnalisarNota(NFeDI nota)
+        {
+            if (ExibirNotasImpressas && nota.Impressa) return true;
+            else if (ExibirNotasExportadas && nota.Exportada) return true;
+            else if (ExibirRestante) return true;
+            else return false;
+        }
+
         void AttNotasSalvas()
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(NotasSalvas)));
@@ -44,26 +88,50 @@ namespace NFeFacil.ViewModel
         sealed class NFeView
         {
             public NFeDI Nota { get; }
-
             public StatusNFe Status { get; set; }
-
             public bool PodeCancelar => Status == StatusNFe.Emitida;
 
-            Action NotasSalvas { get; }
-
+            Action AtualizarNotasSalvas { get; }
             public ICommand EditarCommand { get; }
             public ICommand RemoverCommand { get; }
             public ICommand CancelarCommand { get; }
+
+            public Brush Background { get; }
 
             public NFeView(NFeDI nota, Action attNotasSalvas)
             {
                 Nota = nota;
                 Status = (StatusNFe)nota.Status;
-                NotasSalvas = attNotasSalvas;
+                AtualizarNotasSalvas = attNotasSalvas;
 
                 EditarCommand = new Comando(Editar);
                 RemoverCommand = new Comando(Remover);
                 CancelarCommand = new Comando(Cancelar);
+
+                Background = DefinirBackground();
+            }
+
+            Brush DefinirBackground()
+            {
+                Color cor;
+                if (Nota.Exportada && Nota.Impressa)
+                {
+                    cor = Colors.Green;
+                }
+                else if (Nota.Exportada)
+                {
+                    cor = Colors.Blue;
+                }
+                else if (Nota.Impressa)
+                {
+                    cor = Colors.Yellow;
+                }
+                else
+                {
+                    cor = Colors.Red;
+                }
+                cor.A = 100;
+                return new SolidColorBrush(cor);
             }
 
             public void Editar()
@@ -92,7 +160,7 @@ namespace NFeFacil.ViewModel
                 {
                     db.Remover(Nota);
                     db.SalvarMudancas();
-                    NotasSalvas();
+                    AtualizarNotasSalvas();
                 }
             }
 
@@ -106,7 +174,7 @@ namespace NFeFacil.ViewModel
                     {
                         db.Atualizar(Nota);
                     }
-                    NotasSalvas();
+                    AtualizarNotasSalvas();
                 }
             }
         }

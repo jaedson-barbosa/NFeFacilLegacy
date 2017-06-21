@@ -45,7 +45,7 @@
         </ListView.Header>
         <ListView.ItemTemplate>
             <DataTemplate>
-                <Grid>
+                <Grid Background="{Binding Background}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="2*" />
                         <ColumnDefinition Width="2*" />
@@ -85,4 +85,23 @@
             </GroupStyle>
         </ListView.GroupStyle>
     </ListView>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarToggleButton IsChecked="{Binding ExibirNotasExportadas, Mode=TwoWay}"
+                                Label="Exibir exportadas">
+                <AppBarToggleButton.Icon>
+                    <FontIcon Glyph="&#xEDE1;" />
+                </AppBarToggleButton.Icon>
+            </AppBarToggleButton>
+            <AppBarToggleButton IsChecked="{Binding ExibirNotasImpressas, Mode=TwoWay}"
+                                Label="Exibir impressas">
+                <AppBarToggleButton.Icon>
+                    <FontIcon Glyph="&#xE749;" />
+                </AppBarToggleButton.Icon>
+            </AppBarToggleButton>
+            <AppBarToggleButton IsChecked="{Binding ExibirRestante, Mode=TwoWay}"
+                                Label="Exibir restante"
+                                Icon="More" />
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>

@@ -204,7 +204,7 @@ namespace NFeFacil.ViewModel
         {
             NormalizarNFe();
             StatusAtual = StatusNFe.Salva;
-            SalvarAsync();
+            Salvar();
             Log.Escrever(TitulosComuns.Sucesso, "Nota fiscal salva com sucesso. Agora podes sair da aplicação sem perder esta NFe.");
         }, true);
         public ICommand AssinarCommand => new Comando(Assinar, true);
@@ -283,7 +283,7 @@ namespace NFeFacil.ViewModel
                 var assina = new BibliotecaCentral.Certificacao.AssinaNFe(NotaSalva);
                 await assina.Assinar();
                 StatusAtual = StatusNFe.Assinada;
-                SalvarAsync();
+                Salvar();
             }
             catch (Exception e)
             {
@@ -309,7 +309,7 @@ namespace NFeFacil.ViewModel
                     };
                     Log.Escrever(TitulosComuns.Sucesso, resultadoResposta.xMotivo);
                     StatusAtual = StatusNFe.Emitida;
-                    SalvarAsync();
+                    Salvar();
                 }
                 else
                 {
@@ -342,6 +342,7 @@ namespace NFeFacil.ViewModel
                 }
                 Log.Escrever(TitulosComuns.Sucesso, $"Nota fiscal exportada com sucesso para o caminho: {arquivo.Path}");
                 Conjunto.Exportada = true;
+                Salvar();
             }
         }
 
@@ -349,7 +350,7 @@ namespace NFeFacil.ViewModel
         {
             MainPage.Current.AbrirFunçao(typeof(ViewDANFE), NotaEmitida);
             Conjunto.Impressa = true;
-            SalvarAsync();
+            Salvar();
         }
 
         #region Identificação
@@ -1095,7 +1096,7 @@ namespace NFeFacil.ViewModel
         }
 
         private bool UsarNotaSalva => StatusAtual != StatusNFe.Emitida && StatusAtual != StatusNFe.Cancelada;
-        private void SalvarAsync()
+        private void Salvar()
         {
             var xml = UsarNotaSalva ? NotaSalva.ToXElement<NFe>() : NotaEmitida.ToXElement<Processo>();
             var di = UsarNotaSalva ? new NFeDI(NotaSalva, xml.ToString()) : new NFeDI(NotaEmitida, xml.ToString());

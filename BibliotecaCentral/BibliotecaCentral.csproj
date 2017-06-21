@@ -118,6 +118,7 @@
     </Compile>
     <Compile Include="Certificacao\AssinaFacil.cs" />
     <Compile Include="Certificacao\AssinaturaXML.cs" />
+    <Compile Include="Certificacao\ISignature.cs" />
     <Compile Include="Certificacao\LAN\Exportacao.cs" />
     <Compile Include="Certificacao\LAN\InformacoesConexao.cs" />
     <Compile Include="Certificacao\ConfiguracoesCertificacao.cs" />

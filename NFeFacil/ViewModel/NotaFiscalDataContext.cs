@@ -16,7 +16,6 @@ using System.Linq;
 using System.Windows.Input;
 using BibliotecaCentral;
 using BibliotecaCentral.Repositorio;
-using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTotal;
 using System.Threading.Tasks;
 using BibliotecaCentral.WebService.Pacotes;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesIdentificacao;
@@ -43,6 +42,8 @@ namespace NFeFacil.ViewModel
         private Popup Log = new Popup();
         public NFe NotaSalva { get; private set; }
         private Processo NotaEmitida;
+
+        AnalisadorNFe Analisador { get; }
 
         public bool ManipulacaoAtivada => StatusAtual == StatusNFe.Edição;
         public bool BotaoEditarVisivel => StatusAtual == StatusNFe.Validada || StatusAtual == StatusNFe.Salva || StatusAtual == StatusNFe.Assinada;
@@ -177,6 +178,8 @@ namespace NFeFacil.ViewModel
             {
                 throw new ArgumentException();
             }
+
+            Analisador = new AnalisadorNFe(NotaSalva);
         }
 
         public ICommand AdicionarProdutoCommand => new Comando(AdicionarProduto, true);
@@ -202,7 +205,7 @@ namespace NFeFacil.ViewModel
         public ICommand ConfirmarCommand => new Comando(Confirmar, true);
         public ICommand SalvarCommand => new Comando(() =>
         {
-            NormalizarNFe();
+            Analisador.Normalizar();
             StatusAtual = StatusNFe.Salva;
             Salvar();
             Log.Escrever(TitulosComuns.Sucesso, "Nota fiscal salva com sucesso. Agora podes sair da aplicação sem perder esta NFe.");
@@ -235,7 +238,7 @@ namespace NFeFacil.ViewModel
                 NotaSalva.Signature = null;
             }
             StatusAtual = StatusNFe.Edição;
-            DesnormalizarNFe();
+            Analisador.Desnormalizar();
             Log.Escrever(TitulosComuns.Sucesso, "As alterações só terão efeito quando a nota fiscal for novamente salva.");
         }
 
@@ -250,7 +253,7 @@ namespace NFeFacil.ViewModel
                 if (new ValidarDados(new ValidadorEmitente(NotaSalva.Informações.emitente),
                     new ValidadorDestinatario(NotaSalva.Informações.destinatário)).ValidarTudo(Log))
                 {
-                    NormalizarNFe();
+                    Analisador.Normalizar();
                     Log.Escrever(TitulosComuns.ValidaçãoConcluída, "A nota fiscal foi validada. Aparentemente, não há irregularidades");
                     StatusAtual = StatusNFe.Validada;
                 }
@@ -279,7 +282,7 @@ namespace NFeFacil.ViewModel
         {
             try
             {
-                NormalizarNFe();
+                Analisador.Normalizar();
                 var assina = new BibliotecaCentral.Certificacao.AssinaFacil(NotaSalva);
                 await assina.Assinar(NotaSalva.Informações.Id);
                 StatusAtual = StatusNFe.Assinada;
@@ -920,180 +923,6 @@ namespace NFeFacil.ViewModel
         }
 
         #endregion
-
-        private void NormalizarNFe()
-        {
-            NotaSalva.Informações.transp.transporta = NotaSalva.Informações.transp.transporta?.ToXElement<Motorista>().HasElements ?? false ? NotaSalva.Informações.transp.transporta : null;
-            NotaSalva.Informações.transp.veicTransp = ValidarVeiculo(NotaSalva.Informações.transp.veicTransp) ? NotaSalva.Informações.transp.veicTransp : null;
-            NotaSalva.Informações.transp.retTransp = NotaSalva.Informações.transp.retTransp?.ToXElement<ICMSTransporte>().HasElements ?? false ? NotaSalva.Informações.transp.retTransp : null;
-
-            NotaSalva.Informações.total.ISSQNtot = ValidarISSQN(NotaSalva.Informações.total.ISSQNtot) ? NotaSalva.Informações.total.ISSQNtot : null;
-            NotaSalva.Informações.total.retTrib = ValidarRetencaoTributaria(NotaSalva.Informações.total.retTrib) ? NotaSalva.Informações.total.retTrib : null;
-            NotaSalva.Informações.cobr = ValidarFatura(NotaSalva.Informações.cobr?.Fat) ? NotaSalva.Informações.cobr : null;
-            NotaSalva.Informações.infAdic = ValidarInfoAdicional(NotaSalva.Informações.infAdic) ? NotaSalva.Informações.infAdic : null;
-            NotaSalva.Informações.exporta = new ValidadorExportacao(NotaSalva.Informações.exporta).Validar(null) ? NotaSalva.Informações.exporta : null;
-            NotaSalva.Informações.compra = ValidarCompra(NotaSalva.Informações.compra) ? NotaSalva.Informações.compra : null;
-            NotaSalva.Informações.cana = ValidarCana(NotaSalva.Informações.cana) ? NotaSalva.Informações.cana : null;
-
-            OnPropertyChanged(nameof(NotaSalva));
-
-            bool ValidarVeiculo(Veiculo veic)
-            {
-                if (veic == null)
-                {
-                    return false;
-                }
-                else
-                {
-                    return StringsNaoNulas(veic.Placa, veic.UF);
-                }
-            }
-
-            bool ValidarISSQN(ISSQNtot tot)
-            {
-                if (tot == null)
-                {
-                    return false;
-                }
-                else
-                {
-                    return !string.IsNullOrEmpty(tot.dCompet);
-                }
-            }
-
-            bool ValidarRetencaoTributaria(RetTrib ret)
-            {
-                if (ret == null)
-                {
-                    return false;
-                }
-                else
-                {
-                    return StringsNaoNulas(ret.vBCIRRF, ret.vBCRetPrev, ret.vIRRF, ret.vRetCOFINS,
-                        ret.vRetCSLL, ret.vRetPIS, ret.vRetPrev);
-                }
-            }
-
-            bool ValidarFatura(Fatura fat)
-            {
-                if (fat == null)
-                {
-                    return false;
-                }
-                else
-                {
-                    int errados = 0;
-                    if (string.IsNullOrEmpty(fat.NFat)) errados++;
-                    else if (int.Parse(fat.NFat) == 0) errados++;
-
-                    if (string.IsNullOrEmpty(fat.VDesc)) errados++;
-                    else if (int.Parse(fat.VDesc) == 0) errados++;
-
-                    if (string.IsNullOrEmpty(fat.VLiq)) errados++;
-                    else if (int.Parse(fat.VLiq) == 0) errados++;
-
-                    if (string.IsNullOrEmpty(fat.VOrig)) errados++;
-                    else if (int.Parse(fat.VOrig) == 0) errados++;
-
-                    return errados <= 2;
-                }
-            }
-
-            bool ValidarInfoAdicional(InformacoesAdicionais info)
-            {
-                if (info == null)
-                {
-                    return false;
-                }
-                else
-                {
-                    var errados = new bool[3]
-                    {
-                        string.IsNullOrEmpty(info.infCpl),
-                        info.obsCont.Count == 0,
-                        info.procRef.Count == 0
-                    };
-                    return errados.Count(x => x) < 3;
-                }
-            }
-
-            bool ValidarCompra(Compra compra)
-            {
-                if (compra == null)
-                {
-                    return false;
-                }
-                else
-                {
-                    return StringsNaoNulas(compra.XCont, compra.XNEmp, compra.XPed);
-                }
-            }
-
-            bool ValidarCana(RegistroAquisicaoCana cana)
-            {
-                if (cana == null)
-                {
-                    return false;
-                }
-                else
-                {
-                    return cana.forDia.Count > 0;
-                }
-            }
-
-            bool StringsNaoNulas(params string[] strings)
-            {
-                for (int i = 0; i < strings.Length; i++)
-                {
-                    if (string.IsNullOrEmpty(strings[i]))
-                    {
-                        return false;
-                    }
-                }
-                return true;
-            }
-        }
-
-        /// <summary>
-        /// Analisa os campos opcionais e, caso necessário, instancia novos objetos
-        /// </summary>
-        void DesnormalizarNFe()
-        {
-            if (NotaSalva.Informações.transp.transporta == null)
-            {
-                NotaSalva.Informações.transp.transporta = new Motorista();
-            }
-            if (NotaSalva.Informações.transp.veicTransp == null)
-            {
-                NotaSalva.Informações.transp.veicTransp = new Veiculo();
-            }
-            if (NotaSalva.Informações.transp.retTransp == null)
-            {
-                NotaSalva.Informações.transp.retTransp = new ICMSTransporte();
-            }
-
-            if (NotaSalva.Informações.cobr == null)
-            {
-                NotaSalva.Informações.cobr = new Cobranca();
-            }
-            if (NotaSalva.Informações.infAdic == null)
-            {
-                NotaSalva.Informações.infAdic = new InformacoesAdicionais();
-            }
-            if (NotaSalva.Informações.exporta == null)
-            {
-                NotaSalva.Informações.exporta = new Exportacao();
-            }
-            if (NotaSalva.Informações.compra == null)
-            {
-                NotaSalva.Informações.compra = new Compra();
-            }
-            if (NotaSalva.Informações.cana == null)
-            {
-                NotaSalva.Informações.cana = new RegistroAquisicaoCana();
-            }
-            OnPropertyChanged(nameof(NotaSalva));
-        }
 
         private bool UsarNotaSalva => StatusAtual != StatusNFe.Emitida && StatusAtual != StatusNFe.Cancelada;
         private void Salvar()

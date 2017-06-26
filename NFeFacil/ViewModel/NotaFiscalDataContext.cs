@@ -533,21 +533,6 @@ namespace NFeFacil.ViewModel
             Analisador = new AnalisadorNFe(NotaSalva);
         }
 
-        void AdicionarProduto()
-        {
-            var detCompleto = new DetalhesProdutos
-            {
-                Produto = ProdutoSelecionado != null ? ProdutoSelecionado.ToProdutoOuServico() : new ProdutoOuServico()
-            };
-            MainPage.Current.AbrirFunçao(typeof(ManipulacaoProdutoCompleto), detCompleto);
-        }
-
-        void RemoverProduto(DetalhesProdutos produto)
-        {
-            NotaSalva.Informações.produtos.Remove(produto);
-            OnPropertyChanged(nameof(NotaSalva));
-        }
-
         void ObterNovoNumero()
         {
             if (NotaSalva.Informações.emitente.CNPJ == null)
@@ -558,7 +543,9 @@ namespace NFeFacil.ViewModel
             {
                 using (var notasFiscais = new NotasFiscais())
                 {
-                    NotaSalva.Informações.identificação.Numero = notasFiscais.ObterNovoNumero(NotaSalva.Informações.emitente.CNPJ, NotaSalva.Informações.identificação.Serie);
+                    var cnpj = NotaSalva.Informações.emitente.CNPJ;
+                    var serie = NotaSalva.Informações.identificação.Serie;
+                    NotaSalva.Informações.identificação.Numero = notasFiscais.ObterNovoNumero(cnpj, serie);
                     OnPropertyChanged(nameof(NotaSalva));
                 }
             }
@@ -635,6 +622,23 @@ namespace NFeFacil.ViewModel
             MainPage.Current.AbrirFunçao(typeof(ViewDANFE), NotaEmitida);
             Conjunto.Impressa = true;
             AtualizarDI();
+        }
+
+        #region Adição e remoção básica
+
+        void AdicionarProduto()
+        {
+            var detCompleto = new DetalhesProdutos
+            {
+                Produto = ProdutoSelecionado != null ? ProdutoSelecionado.ToProdutoOuServico() : new ProdutoOuServico()
+            };
+            MainPage.Current.AbrirFunçao(typeof(ManipulacaoProdutoCompleto), detCompleto);
+        }
+
+        void RemoverProduto(DetalhesProdutos produto)
+        {
+            NotaSalva.Informações.produtos.Remove(produto);
+            OnPropertyChanged(nameof(NotaSalva));
         }
 
         async void AdicionarNFeReferenciada()
@@ -782,6 +786,10 @@ namespace NFeFacil.ViewModel
             OnPropertyChanged(nameof(NotaSalva));
         }
 
+        #endregion
+
+        #region Exibição e edição básica
+
         async void ExibirEmitente()
         {
             var emit = new EmitenteDI(NotaSalva.Informações.emitente);
@@ -857,6 +865,8 @@ namespace NFeFacil.ViewModel
             }
         }
 
+        #endregion
+
         private void AtualizarDI()
         {
             var di = ObterDI();
@@ -866,7 +876,7 @@ namespace NFeFacil.ViewModel
                 {
                     db.Adicionar(di);
                 }
-                else
+                else if (db.Registro.First(x => x.Id == di.Id) != di)
                 {
                     db.Atualizar(di);
                 }

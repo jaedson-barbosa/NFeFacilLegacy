@@ -11,7 +11,6 @@ namespace NFeFacil.ViewModel
         public ObservableCollection<string> Siglas { get; }
         public ObservableCollection<string> SiglasExpandida { get; }
         public ObservableCollection<string> Nomes { get; }
-        public ObservableCollection<ushort> Codigos { get; }
 
         public DadosEstadosParaView()
         {
@@ -19,7 +18,6 @@ namespace NFeFacil.ViewModel
             EstadosCompletos = Estados.EstadosCache.GerarObs();
             Siglas = Estados.EstadosCache.Select(x => x.Sigla).GerarObs();
             Nomes = Estados.EstadosCache.Select(x => x.Nome).GerarObs();
-            Codigos = Estados.EstadosCache.Select(x => x.Codigo).GerarObs();
 
             var siglas = new string[Siglas.Count + 1];
             Siglas.CopyTo(siglas, 0);

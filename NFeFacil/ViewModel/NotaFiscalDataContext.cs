@@ -38,6 +38,9 @@ namespace NFeFacil.ViewModel
         private Popup Log = new Popup();
         public NFe NotaSalva { get; private set; }
         private Processo NotaEmitida;
+        AnalisadorNFe Analisador { get; }
+        OperacoesNotaSalva OperacoesNota { get; }
+        ConjuntoManipuladorNFe Conjunto { get; }
 
         public bool ManipulacaoAtivada => StatusAtual == StatusNFe.Edição;
         public bool BotaoEditarVisivel => StatusAtual == StatusNFe.Validada || StatusAtual == StatusNFe.Salva || StatusAtual == StatusNFe.Assinada;
@@ -66,6 +69,8 @@ namespace NFeFacil.ViewModel
                     nameof(BotaoExportarXMLAtivado));
             }
         }
+
+        #region Dados base
 
         public List<ClienteDI> ClientesDisponiveis { get; }
         public List<EmitenteDI> EmitentesDisponiveis { get; }
@@ -138,9 +143,7 @@ namespace NFeFacil.ViewModel
             }
         }
 
-        AnalisadorNFe Analisador { get; }
-        OperacoesNotaSalva OperacoesNota { get; }
-        ConjuntoManipuladorNFe Conjunto { get; }
+        #endregion
 
         internal NotaFiscalDataContext(ref ConjuntoManipuladorNFe Dados)
         {
@@ -197,13 +200,7 @@ namespace NFeFacil.ViewModel
         public ICommand ObterNovoNumeroCommand => new Comando(ObterNovoNumero);
         public ICommand LiberarEdicaoCommand => new Comando(LiberarEdicao);
         public ICommand ConfirmarCommand => new Comando(Confirmar);
-        public ICommand SalvarCommand => new Comando(() =>
-        {
-            Analisador.Normalizar();
-            StatusAtual = StatusNFe.Salva;
-            Salvar();
-            Log.Escrever(TitulosComuns.Sucesso, "Nota fiscal salva com sucesso. Agora podes sair da aplicação sem perder esta NFe.");
-        }, true);
+        public ICommand SalvarCommand => new Comando(Salvar);
         public ICommand AssinarCommand => new Comando(Assinar);
         public ICommand TransmitirCommand => new Comando(Transmitir);
         public ICommand GerarDANFECommand => new Comando(GerarDANFE);
@@ -247,6 +244,14 @@ namespace NFeFacil.ViewModel
             }
         }
 
+        void Salvar()
+        {
+            Analisador.Normalizar();
+            StatusAtual = StatusNFe.Salva;
+            AtualizarDI();
+            Log.Escrever(TitulosComuns.Sucesso, "Nota fiscal salva com sucesso. Agora podes sair da aplicação sem perder esta NFe.");
+        }
+
         public bool AmbienteTestes
         {
             get => NotaSalva.Informações.identificação.TipoAmbiente == 2;
@@ -270,7 +275,7 @@ namespace NFeFacil.ViewModel
             if (await OperacoesNota.Assinar(NotaSalva))
             {
                 StatusAtual = StatusNFe.Assinada;
-                Salvar();
+                AtualizarDI();
             }
         }
 
@@ -286,7 +291,7 @@ namespace NFeFacil.ViewModel
                 };
                 Log.Escrever(TitulosComuns.Sucesso, resposta.motivo);
                 StatusAtual = StatusNFe.Emitida;
-                Salvar();
+                AtualizarDI();
             }
         }
 
@@ -297,7 +302,7 @@ namespace NFeFacil.ViewModel
             {
                 Log.Escrever(TitulosComuns.Sucesso, $"Nota fiscal exportada com sucesso.");
                 Conjunto.Exportada = true;
-                Salvar();
+                AtualizarDI();
             }
         }
 
@@ -305,7 +310,7 @@ namespace NFeFacil.ViewModel
         {
             MainPage.Current.AbrirFunçao(typeof(ViewDANFE), NotaEmitida);
             Conjunto.Impressa = true;
-            Salvar();
+            AtualizarDI();
         }
 
         #region Identificação
@@ -878,7 +883,7 @@ namespace NFeFacil.ViewModel
         #endregion
 
         private bool UsarNotaSalva => StatusAtual != StatusNFe.Emitida && StatusAtual != StatusNFe.Cancelada;
-        private void Salvar()
+        private void AtualizarDI()
         {
             var xml = UsarNotaSalva ? NotaSalva.ToXElement<NFe>() : NotaEmitida.ToXElement<Processo>();
             var di = UsarNotaSalva ? new NFeDI(NotaSalva, xml.ToString()) : new NFeDI(NotaEmitida, xml.ToString());

@@ -55,22 +55,29 @@ namespace NFeFacil.View
 
         private void Confirmar_Click(object sender, RoutedEventArgs e)
         {
-            if (new ValidadorProduto(Produto).Validar(Log))
+            try
             {
-                using (var db = new Produtos())
+                if (new ValidadorProduto(Produto).Validar(Log))
                 {
-                    if (tipoRequisitado == TipoOperacao.Adicao)
+                    using (var db = new Produtos())
                     {
-                        db.Adicionar(Produto);
-                        Log.Escrever(TitulosComuns.Sucesso, "Produto salvo com sucesso.");
+                        if (tipoRequisitado == TipoOperacao.Adicao)
+                        {
+                            db.Adicionar(Produto);
+                            Log.Escrever(TitulosComuns.Sucesso, "Produto salvo com sucesso.");
+                        }
+                        else
+                        {
+                            db.Atualizar(Produto);
+                            Log.Escrever(TitulosComuns.Sucesso, "Produto alterado com sucesso.");
+                        }
                     }
-                    else
-                    {
-                        db.Atualizar(Produto);
-                        Log.Escrever(TitulosComuns.Sucesso, "Produto alterado com sucesso.");
-                    }
+                    MainPage.Current.Retornar();
                 }
-                MainPage.Current.Retornar();
+            }
+            catch (System.Exception erro)
+            {
+                erro.ManipularErro();
             }
         }
 

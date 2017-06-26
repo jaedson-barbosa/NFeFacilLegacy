@@ -173,6 +173,7 @@
     <Compile Include="DANFE\Pacotes\ItemDadosAdicionais.cs" />
     <Compile Include="DANFE\ViewDados.cs" />
     <Compile Include="GrupoViewBanco.cs" />
+    <Compile Include="Helpers.cs" />
     <Compile Include="IHambuguer.cs" />
     <Compile Include="RegistrarCliente.cs" />
     <Compile Include="ViewModel\ClienteDataContext.cs" />

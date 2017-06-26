@@ -1,11 +1,14 @@
-﻿using BibliotecaCentral.IBGE;
+﻿using BibliotecaCentral;
+using BibliotecaCentral.IBGE;
 using BibliotecaCentral.ItensBD;
 using BibliotecaCentral.Log;
 using BibliotecaCentral.ModeloXML;
 using BibliotecaCentral.ModeloXML.PartesProcesso;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
+using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesIdentificacao;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
+using BibliotecaCentral.Repositorio;
 using BibliotecaCentral.Validacao;
 using NFeFacil.View;
 using System;
@@ -14,10 +17,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
-using BibliotecaCentral;
-using BibliotecaCentral.Repositorio;
 using System.Threading.Tasks;
-using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesIdentificacao;
 using Windows.UI.Popups;
 using System.Xml.Linq;
 using Windows.UI.Xaml.Controls;
@@ -47,7 +47,7 @@ namespace NFeFacil.ViewModel
         public NFe NotaSalva { get; private set; }
 
         public bool ManipulacaoAtivada => StatusAtual == StatusNFe.Edição;
-        public bool BotaoEditarVisivel => StatusAtual == StatusNFe.Validada || StatusAtual == StatusNFe.Salva || StatusAtual == StatusNFe.Assinada;
+        public bool BotaoEditarVisivel => StatusAtual == (StatusNFe.Validada | StatusNFe.Salva | StatusNFe.Assinada);
         public bool BotaoConfirmarVisivel => StatusAtual == StatusNFe.Edição;
         public bool BotaoSalvarAtivado => StatusAtual == StatusNFe.Validada;
         public bool BotaoAssinarAtivado => StatusAtual == StatusNFe.Salva;

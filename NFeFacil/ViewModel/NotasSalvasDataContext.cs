@@ -19,39 +19,6 @@ namespace NFeFacil.ViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private bool exibirNotasExportadas = true;
-        public bool ExibirNotasExportadas
-        {
-            get => exibirNotasExportadas;
-            set
-            {
-                exibirNotasExportadas = value;
-                AttNotasSalvas();
-            }
-        }
-
-        private bool exibirNotasImpressas = true;
-        public bool ExibirNotasImpressas
-        {
-            get => exibirNotasImpressas;
-            set
-            {
-                exibirNotasImpressas = value;
-                AttNotasSalvas();
-            }
-        }
-
-        private bool exibirRestante = true;
-        public bool ExibirRestante
-        {
-            get => exibirRestante;
-            set
-            {
-                exibirRestante = value;
-                AttNotasSalvas();
-            }
-        }
-
         public ICollectionView NotasSalvas
         {
             get
@@ -59,7 +26,6 @@ namespace NFeFacil.ViewModel
                 using (var db = new AplicativoContext())
                 {
                     var source = from nota in db.NotasFiscais
-                                 where AnalisarNota(nota)
                                  orderby nota.DataEmissao descending
                                  let item = new NFeView(nota, AttNotasSalvas)
                                  group item by item.Status;
@@ -70,14 +36,6 @@ namespace NFeFacil.ViewModel
                     }.View;
                 }
             }
-        }
-
-        bool AnalisarNota(NFeDI nota)
-        {
-            if (ExibirNotasImpressas && nota.Impressa) return true;
-            else if (ExibirNotasExportadas && nota.Exportada) return true;
-            else if (ExibirRestante) return true;
-            else return false;
         }
 
         void AttNotasSalvas()

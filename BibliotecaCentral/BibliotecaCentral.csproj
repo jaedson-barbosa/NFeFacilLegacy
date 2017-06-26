@@ -143,6 +143,7 @@
     </Compile>
     <Compile Include="Migrations\AplicativoContextModelSnapshot.cs" />
     <Compile Include="OperacoesNotaEmitida.cs" />
+    <Compile Include="OperacoesNotaSalva.cs" />
     <Compile Include="RecursoInserido.cs" />
     <Compile Include="Repositorio\MudancaOtimizadaBancoDados.cs" />
     <Compile Include="Sincronizacao\ConfiguracoesSincronizacao.cs" />

@@ -43,8 +43,6 @@ namespace NFeFacil.ViewModel
         public NFe NotaSalva { get; private set; }
         private Processo NotaEmitida;
 
-        AnalisadorNFe Analisador { get; }
-
         public bool ManipulacaoAtivada => StatusAtual == StatusNFe.Edição;
         public bool BotaoEditarVisivel => StatusAtual == StatusNFe.Validada || StatusAtual == StatusNFe.Salva || StatusAtual == StatusNFe.Assinada;
         public bool BotaoConfirmarVisivel => StatusAtual == StatusNFe.Edição;
@@ -144,8 +142,8 @@ namespace NFeFacil.ViewModel
             }
         }
 
-        public int IndexPivotSelecionado { get; set; } = 0;
-        private TipoOperacao OperacaoRequirida => Conjunto.OperacaoRequirida;
+        AnalisadorNFe Analisador { get; }
+        OperacoesNotaSalva OperacoesNota { get; }
         ConjuntoManipuladorNFe Conjunto { get; }
 
         internal NotaFiscalDataContext(ref ConjuntoManipuladorNFe Dados)
@@ -200,9 +198,9 @@ namespace NFeFacil.ViewModel
             OnPropertyChanged(nameof(NotaSalva));
         }
 
-        public ICommand ObterNovoNumeroCommand => new Comando(ObterNovoNumero, true);
-        public ICommand LiberarEdicaoCommand => new Comando(LiberarEdicao, true);
-        public ICommand ConfirmarCommand => new Comando(Confirmar, true);
+        public ICommand ObterNovoNumeroCommand => new Comando(ObterNovoNumero);
+        public ICommand LiberarEdicaoCommand => new Comando(LiberarEdicao);
+        public ICommand ConfirmarCommand => new Comando(Confirmar);
         public ICommand SalvarCommand => new Comando(() =>
         {
             Analisador.Normalizar();
@@ -210,10 +208,10 @@ namespace NFeFacil.ViewModel
             Salvar();
             Log.Escrever(TitulosComuns.Sucesso, "Nota fiscal salva com sucesso. Agora podes sair da aplicação sem perder esta NFe.");
         }, true);
-        public ICommand AssinarCommand => new Comando(Assinar, true);
-        public ICommand TransmitirCommand => new Comando(Transmitir, true);
-        public ICommand GerarDANFECommand => new Comando(GerarDANFE, true);
-        public ICommand ExportarXMLCommand => new Comando(ExportarXML, true);
+        public ICommand AssinarCommand => new Comando(Assinar);
+        public ICommand TransmitirCommand => new Comando(Transmitir);
+        public ICommand GerarDANFECommand => new Comando(GerarDANFE);
+        public ICommand ExportarXMLCommand => new Comando(ExportarXML);
 
         private void ObterNovoNumero()
         {
@@ -280,70 +278,35 @@ namespace NFeFacil.ViewModel
 
         private async void Assinar()
         {
-            try
+            if (await OperacoesNota.Assinar(NotaSalva))
             {
-                Analisador.Normalizar();
-                var assina = new BibliotecaCentral.Certificacao.AssinaFacil(NotaSalva);
-                await assina.Assinar(NotaSalva.Informações.Id);
                 StatusAtual = StatusNFe.Assinada;
                 Salvar();
-            }
-            catch (Exception e)
-            {
-                Log.Escrever(TitulosComuns.ErroSimples, e.Message);
             }
         }
 
         private async void Transmitir()
         {
-            var resultadoTransmissao = await new GerenciadorGeral<EnviNFe, RetEnviNFe>(NotaSalva.Informações.emitente.endereco.SiglaUF, Operacoes.Autorizar, AmbienteTestes)
-                .EnviarAsync(new EnviNFe(NotaSalva.Informações.identificação.Numero, NotaSalva));
-            if (resultadoTransmissao.cStat == 103)
+            var resposta = await OperacoesNota.Transmitir(NotaSalva, AmbienteTestes);
+            if (resposta.sucesso)
             {
-                await Task.Delay(new TimeSpan(0, 0, 10));
-                var resultadoResposta = await new GerenciadorGeral<ConsReciNFe, RetConsReciNFe>(resultadoTransmissao.cUF, Operacoes.RespostaAutorizar, AmbienteTestes)
-                    .EnviarAsync(new ConsReciNFe(resultadoTransmissao.tpAmb, resultadoTransmissao.infRec.nRec));
-                if (resultadoResposta.protNFe.InfProt.cStat == 100)
+                NotaEmitida = new Processo()
                 {
-                    NotaEmitida = new Processo()
-                    {
-                        NFe = NotaSalva,
-                        ProtNFe = resultadoResposta.protNFe
-                    };
-                    Log.Escrever(TitulosComuns.Sucesso, resultadoResposta.xMotivo);
-                    StatusAtual = StatusNFe.Emitida;
-                    Salvar();
-                }
-                else
-                {
-                    Log.Escrever(TitulosComuns.ErroSimples, $"A nota fiscal foi processada, mas recusada. Mensagem de retorno: \n{resultadoResposta.protNFe.InfProt.xMotivo}");
-                }
-            }
-            else
-            {
-                Log.Escrever(TitulosComuns.ErroSimples, $"A NFe não foi aceita. Mensagem de retorno: \n{resultadoTransmissao.xMotivo}\nPor favor, exporte esta nota fiscal e envie o XML gerado para o desenvolvedor do aplicativo para que o erro possa ser corrigido.");
+                    NFe = NotaSalva,
+                    ProtNFe = resposta.protocolo
+                };
+                Log.Escrever(TitulosComuns.Sucesso, resposta.motivo);
+                StatusAtual = StatusNFe.Emitida;
+                Salvar();
             }
         }
 
         private async void ExportarXML()
         {
-            FileSavePicker salvador = new FileSavePicker
+            var xml = UsarNotaSalva ? NotaSalva.ToXElement<NFe>() : NotaEmitida.ToXElement<Processo>();
+            if (await OperacoesNota.Exportar(xml, NotaSalva.Informações.Id))
             {
-                DefaultFileExtension = ".xml",
-                SuggestedFileName = $"{NotaSalva.Informações.Id}.xml",
-                SuggestedStartLocation = PickerLocationId.DocumentsLibrary
-            };
-            salvador.FileTypeChoices.Add("Arquivo XML", new List<string> { ".xml" });
-            var arquivo = await salvador.PickSaveFileAsync();
-            if (arquivo != null)
-            {
-                var xml = UsarNotaSalva ? NotaSalva.ToXElement<NFe>() : NotaEmitida.ToXElement<Processo>();
-                using (var stream = await arquivo.OpenStreamForWriteAsync())
-                {
-                    xml.Save(stream);
-                    await stream.FlushAsync();
-                }
-                Log.Escrever(TitulosComuns.Sucesso, $"Nota fiscal exportada com sucesso para o caminho: {arquivo.Path}");
+                Log.Escrever(TitulosComuns.Sucesso, $"Nota fiscal exportada com sucesso.");
                 Conjunto.Exportada = true;
                 Salvar();
             }
@@ -486,6 +449,7 @@ namespace NFeFacil.ViewModel
                         if (lista.Count(x => x.Codigo == int.Parse(NotaSalva.Informações.transp.retTransp.cMunFG)) > 0)
                         {
                             ufEscolhida = item;
+                            break;
                         }
                     }
                 }

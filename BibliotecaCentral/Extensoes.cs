@@ -77,7 +77,7 @@ namespace BibliotecaCentral
 
         internal static void ManipularErro(this Exception erro)
         {
-            Log.Escrever(TitulosComuns.ErroSimples, erro.Message);
+            Log.Escrever(TitulosComuns.Erro, erro.Message);
         }
     }
 }

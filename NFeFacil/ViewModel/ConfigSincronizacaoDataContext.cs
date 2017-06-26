@@ -144,7 +144,7 @@ namespace NFeFacil.ViewModel
             }
             catch (COMException)
             {
-                LogPopUp.Escrever(TitulosComuns.ErroSimples, "O servidor já está ativo.");
+                LogPopUp.Escrever(TitulosComuns.Erro, "O servidor já está ativo.");
             }
             catch (Exception ex)
             {

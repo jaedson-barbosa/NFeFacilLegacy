@@ -99,7 +99,7 @@ namespace NFeFacil.ViewModel
                         stringErros.AppendLine($"Mensagem erro: {y.Message}.");
                     }
                 });
-                LogPopUp.Escrever(TitulosComuns.ErroSimples, stringErros.ToString());
+                LogPopUp.Escrever(TitulosComuns.Erro, stringErros.ToString());
             }
         }
 
@@ -125,7 +125,7 @@ namespace NFeFacil.ViewModel
                         stringErros.AppendLine($"Mensagem erro: {y.Message}.");
                     }
                 });
-                LogPopUp.Escrever(TitulosComuns.ErroSimples, stringErros.ToString());
+                LogPopUp.Escrever(TitulosComuns.Erro, stringErros.ToString());
             }
         }
 

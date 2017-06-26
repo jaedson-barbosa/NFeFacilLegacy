@@ -64,12 +64,12 @@ namespace BibliotecaCentral
                     }
                     else
                     {
-                        Log.Escrever(TitulosComuns.ErroSimples, resposta.RetEvento[0].InfEvento.XMotivo);
+                        Log.Escrever(TitulosComuns.Erro, resposta.RetEvento[0].InfEvento.XMotivo);
                     }
                 }
                 else
                 {
-                    Log.Escrever(TitulosComuns.ErroSimples, "Nenhum motivo foi informado.");
+                    Log.Escrever(TitulosComuns.Erro, "Nenhum motivo foi informado.");
                 }
             }
             return false;

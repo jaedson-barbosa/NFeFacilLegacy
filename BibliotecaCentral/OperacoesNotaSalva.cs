@@ -34,7 +34,7 @@ namespace BibliotecaCentral
             }
             catch (Exception e)
             {
-                Log.Escrever(TitulosComuns.ErroSimples, e.Message);
+                e.ManipularErro();
             }
             return false;
         }
@@ -63,7 +63,7 @@ namespace BibliotecaCentral
             }
             catch (Exception e)
             {
-                Log.Escrever(TitulosComuns.ErroSimples, e.Message);
+                e.ManipularErro();
             }
             return false;
         }
@@ -85,17 +85,17 @@ namespace BibliotecaCentral
                     }
                     else
                     {
-                        Log.Escrever(TitulosComuns.ErroSimples, $"A nota fiscal foi processada, mas recusada. Mensagem de retorno: \n{resultadoResposta.protNFe.InfProt.xMotivo}");
+                        Log.Escrever(TitulosComuns.Erro, $"A nota fiscal foi processada, mas recusada. Mensagem de retorno: \n{resultadoResposta.protNFe.InfProt.xMotivo}");
                     }
                 }
                 else
                 {
-                    Log.Escrever(TitulosComuns.ErroSimples, $"A NFe não foi aceita. Mensagem de retorno: \n{resultadoTransmissao.xMotivo}\nPor favor, exporte esta nota fiscal e envie o XML gerado para o desenvolvedor do aplicativo para que o erro possa ser corrigido.");
+                    Log.Escrever(TitulosComuns.Erro, $"A NFe não foi aceita. Mensagem de retorno: \n{resultadoTransmissao.xMotivo}\nPor favor, exporte esta nota fiscal e envie o XML gerado para o desenvolvedor do aplicativo para que o erro possa ser corrigido.");
                 }
             }
             catch (Exception e)
             {
-                Log.Escrever(TitulosComuns.ErroSimples, e.Message);
+                e.ManipularErro();
             }
             return (false, null, null);
         }

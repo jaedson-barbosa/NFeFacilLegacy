@@ -53,7 +53,7 @@ namespace BibliotecaCentral.Sincronizacao
                 }
                 else
                 {
-                    Log.Escrever(TitulosComuns.ErroSimples, "Nada pôde ser sincronizado porque o servidor bloqueou a sincronização do tipo de dado solicitado(s).");
+                    Log.Escrever(TitulosComuns.Erro, "Nada pôde ser sincronizado porque o servidor bloqueou a sincronização do tipo de dado solicitado(s).");
                 }
 
                 db.Add(new ResultadoSincronizacaoCliente
@@ -139,7 +139,7 @@ namespace BibliotecaCentral.Sincronizacao
                 }
                 else
                 {
-                    Log.Escrever(TitulosComuns.ErroSimples, "Nada pôde ser sincronizado porque o servidor bloqueou a sincronização do tipo de dado solicitado(s).");
+                    Log.Escrever(TitulosComuns.Erro, "Nada pôde ser sincronizado porque o servidor bloqueou a sincronização do tipo de dado solicitado(s).");
                 }
 
                 db.Add(new ResultadoSincronizacaoCliente

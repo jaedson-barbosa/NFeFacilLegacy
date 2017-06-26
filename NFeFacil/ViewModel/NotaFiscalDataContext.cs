@@ -213,7 +213,7 @@ namespace NFeFacil.ViewModel
         {
             if (NotaSalva.Informações.emitente.CNPJ == null)
             {
-                Log.Escrever(TitulosComuns.ErroSimples, "Primeiro escolha o emitente da nota fiscal.\n");
+                Log.Escrever(TitulosComuns.Erro, "Primeiro escolha o emitente da nota fiscal.\n");
             }
             else
             {
@@ -238,19 +238,12 @@ namespace NFeFacil.ViewModel
 
         private void Confirmar()
         {
-            if (NotaEmitida != null)
+            if (new ValidarDados(new ValidadorEmitente(NotaSalva.Informações.emitente),
+                new ValidadorDestinatario(NotaSalva.Informações.destinatário)).ValidarTudo(Log))
             {
-                Log.Escrever(TitulosComuns.ErroCatastrófico, "Comando não faz parte deste contexto.");
-            }
-            else
-            {
-                if (new ValidarDados(new ValidadorEmitente(NotaSalva.Informações.emitente),
-                    new ValidadorDestinatario(NotaSalva.Informações.destinatário)).ValidarTudo(Log))
-                {
-                    Analisador.Normalizar();
-                    Log.Escrever(TitulosComuns.ValidaçãoConcluída, "A nota fiscal foi validada. Aparentemente, não há irregularidades");
-                    StatusAtual = StatusNFe.Validada;
-                }
+                Analisador.Normalizar();
+                Log.Escrever(TitulosComuns.ValidaçãoConcluída, "A nota fiscal foi validada. Aparentemente, não há irregularidades");
+                StatusAtual = StatusNFe.Validada;
             }
         }
 

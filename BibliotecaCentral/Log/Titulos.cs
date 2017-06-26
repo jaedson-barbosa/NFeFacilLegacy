@@ -10,10 +10,8 @@
                     return "Atenção";
                 case TitulosComuns.Sucesso:
                     return "Sucesso";
-                case TitulosComuns.ErroSimples:
-                    return "Erro simples";
-                case TitulosComuns.ErroCatastrófico:
-                    return "Erro catastrófico";
+                case TitulosComuns.Erro:
+                    return "Erro";
                 case TitulosComuns.Iniciando:
                     return "Iniciando";
                 case TitulosComuns.Log:

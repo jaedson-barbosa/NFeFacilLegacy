@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BibliotecaCentral.Log;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -70,6 +71,13 @@ namespace BibliotecaCentral
         {
             var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
             return loader.GetString(recurso);
+        }
+
+        static ILog Log = new Popup();
+
+        internal static void ManipularErro(this Exception erro)
+        {
+            Log.Escrever(TitulosComuns.ErroSimples, erro.Message);
         }
     }
 }

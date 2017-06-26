@@ -17,11 +17,7 @@ using System.Windows.Input;
 using BibliotecaCentral;
 using BibliotecaCentral.Repositorio;
 using System.Threading.Tasks;
-using BibliotecaCentral.WebService.Pacotes;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesIdentificacao;
-using BibliotecaCentral.WebService;
-using Windows.Storage.Pickers;
-using System.IO;
 using Windows.UI.Popups;
 
 namespace NFeFacil.ViewModel

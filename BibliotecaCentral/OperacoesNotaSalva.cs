@@ -1,5 +1,4 @@
 ﻿using BibliotecaCentral.Log;
-using BibliotecaCentral.ModeloXML;
 using BibliotecaCentral.ModeloXML.PartesProcesso;
 using BibliotecaCentral.Validacao;
 using BibliotecaCentral.WebService;
@@ -7,8 +6,6 @@ using BibliotecaCentral.WebService.Pacotes;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Windows.Storage.Pickers;

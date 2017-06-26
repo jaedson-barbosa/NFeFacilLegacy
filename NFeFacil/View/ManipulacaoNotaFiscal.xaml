@@ -224,8 +224,8 @@
                                   DisplayMemberPath="Nome" />
                         <StackPanel Orientation="Horizontal">
                             <Button Margin="0,0,8,0"
-                                    Command="{Binding ExibirEmitente}">Exibir</Button>
-                            <Button Command="{Binding EditarEmitente}"
+                                    Command="{Binding ExibirEmitenteCommand}">Exibir</Button>
+                            <Button Command="{Binding EditarEmitenteCommand}"
                                     IsEnabled="{Binding ManipulacaoAtivada}">Editar</Button>
                         </StackPanel>
                     </StackPanel>
@@ -280,8 +280,8 @@
                                   DisplayMemberPath="Nome" />
                         <StackPanel Orientation="Horizontal">
                             <Button Margin="0,0,8,0"
-                                    Command="{Binding ExibirCliente}">Exibir</Button>
-                            <Button Command="{Binding EditarCliente}"
+                                    Command="{Binding ExibirClienteCommand}">Exibir</Button>
+                            <Button Command="{Binding EditarClienteCommand}"
                                     IsEnabled="{Binding ManipulacaoAtivada}">Editar</Button>
                         </StackPanel>
                     </StackPanel>
@@ -542,8 +542,8 @@
                                       DisplayMemberPath="Nome" />
                             <StackPanel Orientation="Horizontal">
                                 <Button Margin="0,0,8,0"
-                                        Command="{Binding ExibirMotorista}">Exibir</Button>
-                                <Button Command="{Binding EditarMotorista}"
+                                        Command="{Binding ExibirMotoristaCommand}">Exibir</Button>
+                                <Button Command="{Binding EditarMotoristaCommand}"
                                         IsEnabled="{Binding ManipulacaoAtivada}">Editar</Button>
                             </StackPanel>
                         </StackPanel>
@@ -1018,7 +1018,6 @@
                                     IsEnabled="{Binding ManipulacaoAtivada}"
                                     IsChecked="{Binding AmbienteTestes, Mode=TwoWay}" />
                 <AppBarButton Label="Exportar XML"
-                              IsEnabled="{Binding BotaoExportarXMLAtivado}"
                               Command="{Binding ExportarXMLCommand}">
                     <AppBarButton.Icon>
                         <FontIcon Glyph="&#xEDE1;" />

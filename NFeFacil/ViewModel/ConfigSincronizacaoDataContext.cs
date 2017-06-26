@@ -7,16 +7,13 @@ using BibliotecaCentral.Log;
 using BibliotecaCentral.Sincronizacao;
 using BibliotecaCentral.Sincronizacao.Pacotes;
 using static BibliotecaCentral.Sincronizacao.ConfiguracoesSincronizacao;
+using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil.ViewModel
 {
     public sealed class ConfigSincronizacaoDataContext : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        public void OnProperyChanged(string propriedade)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propriedade));
-        }
 
         private readonly ILog LogPopUp = new Popup();
 
@@ -54,12 +51,19 @@ namespace NFeFacil.ViewModel
 
         public bool SincronizarAutomaticamente
         {
-            get { return ConfiguracoesSincronizacao.SincronizarAutomaticamente; }
+            get => ConfiguracoesSincronizacao.SincronizarAutomaticamente;
             set
             {
-                if (value) RegistroClienteBackground.Registrar();
-                else RegistroClienteBackground.Desrregistrar();
-                ConfiguracoesSincronizacao.SincronizarAutomaticamente = value;
+                try
+                {
+                    if (value) RegistroClienteBackground.Registrar();
+                    else RegistroClienteBackground.Desrregistrar();
+                    ConfiguracoesSincronizacao.SincronizarAutomaticamente = value;
+                }
+                catch (Exception e)
+                {
+                    e.ManipularErro();
+                }
             }
         }
 
@@ -88,27 +92,40 @@ namespace NFeFacil.ViewModel
 
         public async void LerQRTemporário()
         {
-            var str = await QRCode.DecodificarQRAsync();
-            var partes = str.Split(':');
-            var resultado = new InfoEstabelecerConexao
+            try
             {
-                IP = partes[0],
-                SenhaTemporaria = int.Parse(partes[1])
-            };
-            await EstabelecerConexaoAsync(resultado);
+                var str = await QRCode.DecodificarQRAsync();
+                var partes = str.Split(':');
+                var resultado = new InfoEstabelecerConexao
+                {
+                    IP = partes[0],
+                    SenhaTemporaria = int.Parse(partes[1])
+                };
+                await EstabelecerConexaoAsync(resultado);
+            }
+            catch (Exception e)
+            {
+                e.ManipularErro();
+            }
         }
 
         private async void InserirDadosManualmente()
         {
-            var caixa = new View.CaixasDialogo.ConfigurarDadosConexao()
+            try
             {
-                DataContext = new InfoEstabelecerConexao()
-            };
-            caixa.PrimaryButtonClick += async (sender, e) =>
+                var caixa = new View.CaixasDialogo.ConfigurarDadosConexao()
+                {
+                    DataContext = new InfoEstabelecerConexao()
+                };
+                if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+                {
+                    await EstabelecerConexaoAsync((InfoEstabelecerConexao)caixa.DataContext);
+                }
+            }
+            catch (Exception e)
             {
-                await EstabelecerConexaoAsync((InfoEstabelecerConexao)sender.DataContext);
-            };
-            await caixa.ShowAsync();
+                e.ManipularErro();
+            }
         }
 
         private async Task EstabelecerConexaoAsync(InfoEstabelecerConexao info)
@@ -123,7 +140,7 @@ namespace NFeFacil.ViewModel
             try
             {
                 await GerenciadorServidor.Current.IniciarServer();
-                OnProperyChanged(nameof(ServerRodando));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ServerRodando)));
             }
             catch (COMException)
             {
@@ -131,20 +148,34 @@ namespace NFeFacil.ViewModel
             }
             catch (Exception ex)
             {
-                LogPopUp.Escrever(TitulosComuns.ErroCatastrófico, ex.StackTrace);
+                ex.ManipularErro();
             }
         }
 
         public async void SincronizarAgora()
         {
-            var gerenc = new GerenciadorCliente(LogPopUp);
-            await gerenc.Sincronizar(DadosSincronizaveis.Tudo, false);
+            try
+            {
+                var gerenc = new GerenciadorCliente(LogPopUp);
+                await gerenc.Sincronizar(DadosSincronizaveis.Tudo, false);
+            }
+            catch (Exception e)
+            {
+                e.ManipularErro();
+            }
         }
 
         private async void SincronizarTudo()
         {
-            var gerenc = new GerenciadorCliente(LogPopUp);
-            await gerenc.SincronizarTudo(DadosSincronizaveis.Tudo);
+            try
+            {
+                var gerenc = new GerenciadorCliente(LogPopUp);
+                await gerenc.SincronizarTudo(DadosSincronizaveis.Tudo);
+            }
+            catch (Exception e)
+            {
+                e.ManipularErro();
+            }
         }
     }
 }

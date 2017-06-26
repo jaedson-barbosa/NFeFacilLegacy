@@ -12,7 +12,7 @@ namespace BibliotecaCentral.Importacao
     {
         public ImportarCertificado() : base(".pfx") { }
 
-        public async Task ImportarEAdicionarAsync(Action attLista)
+        public async Task<bool> ImportarEAdicionarAsync()
         {
             FileOpenPicker abrir = new FileOpenPicker
             {
@@ -27,11 +27,15 @@ namespace BibliotecaCentral.Importacao
                     loja.Open(OpenFlags.ReadWrite);
                     loja.Add(cert);
                 }
-                attLista();
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
-        internal async Task<X509Certificate2> Importar()
+        async Task<X509Certificate2> Importar()
         {
             FileOpenPicker abrir = new FileOpenPicker
             {

@@ -19,7 +19,8 @@ namespace BibliotecaCentral.Certificacao
                             select new CertificadoExibicao
                             {
                                 Subject = cert.Subject,
-                                SerialNumber = cert.SerialNumber
+                                SerialNumber = cert.SerialNumber,
+                                Local = true
                             }).GerarObs();
                 }
             }

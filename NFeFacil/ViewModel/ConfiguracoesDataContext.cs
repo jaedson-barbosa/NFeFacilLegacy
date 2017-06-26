@@ -17,10 +17,6 @@ namespace NFeFacil.ViewModel
     public sealed class ConfiguracoesDataContext : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        public void OnProperyChanged(string propriedade)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propriedade));
-        }
 
         public ConfiguracoesDataContext()
         {
@@ -39,7 +35,10 @@ namespace NFeFacil.ViewModel
         public bool InstalacaoLiberada => AnalyticsInfo.VersionInfo.DeviceFamily.Contains("Desktop");
         public bool ServidorCadastrado => ConfiguracoesCertificacao.Origem == OrigemCertificado.Servidor;
 
-        public ICommand ImportarCertificado => new Comando(async () => await new ImportarCertificado().ImportarEAdicionarAsync(AttLista));
+        public ICommand ImportarCertificado => new Comando(async () =>
+        {
+            if (await new ImportarCertificado().ImportarEAdicionarAsync()) AttLista();
+        });
         public ICommand ConectarServidor => new Comando(async () =>
         {
             if (await InformacoesConexao.Cadastrar()) AttLista();
@@ -54,7 +53,7 @@ namespace NFeFacil.ViewModel
                 var cert = loja.Certificates.Find(X509FindType.FindBySerialNumber, x.SerialNumber, true)[0];
                 loja.Remove(cert);
             }
-            OnProperyChanged(nameof(ListaCertificados));
+            AttLista();
         });
 
         async void AttLista()
@@ -62,12 +61,12 @@ namespace NFeFacil.ViewModel
             try
             {
                 ListaCertificados = await Certificados.ObterCertificadosAsync(OrigemCertificado.Importado);
-                OnProperyChanged(nameof(ServidorCadastrado));
-                OnProperyChanged(nameof(ListaCertificados));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ServidorCadastrado)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ListaCertificados)));
             }
             catch (Exception e)
             {
-                LogPopUp.Escrever(TitulosComuns.ErroSimples, e.Message);
+                e.ManipularErro();
             }
         }
 

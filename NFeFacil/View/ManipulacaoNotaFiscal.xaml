@@ -3,6 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:VM="using:NFeFacil.ViewModel"
       xmlns:Conversores="using:NFeFacil.ViewModel.Converters"
+      xmlns:controles="using:NFeFacil.View.Controles"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d"
@@ -43,15 +44,17 @@
                                         Date="{Binding DataSaidaEntrada, Mode=TwoWay}" />
                             <TimePicker Header="Hora de saída/entrada"
                                         Time="{Binding HoraSaidaEntrada, Mode=TwoWay}" />
-                            <TextBox Header="Série *"
-                                     Text="{Binding NotaSalva.Informações.identificação.Serie, Mode=TwoWay}" />
+                            <controles:EntradaNumerica Header="Série *"
+                                                       Format="3"
+                                                       Number="{Binding NotaSalva.Informações.identificação.Serie, Mode=TwoWay}" />
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <TextBox Header="Número *"
-                                         Text="{Binding NotaSalva.Informações.identificação.Numero, Mode=TwoWay}" />
+                                <controles:EntradaNumerica Header="Número *"
+                                                           Format="9"
+                                                           Number="{Binding NotaSalva.Informações.identificação.Numero, Mode=TwoWay}" />
                                 <Button Command="{Binding ObterNovoNumeroCommand}"
                                         Grid.Column="1"
                                         ToolTipService.ToolTip="Obter próximo número"

@@ -15,14 +15,38 @@ namespace NFeFacil.View.Controles
         string original = string.Empty;
         CultureInfo culturaPadrao = CultureInfo.InvariantCulture;
 
-        public string Format { get; set; }
+        string formatoOriginal;
+        string formatoProcessado;
+        public string Format
+        {
+            get => formatoOriginal;
+            set
+            {
+                formatoOriginal = value;
+                if (formatoOriginal.Contains(":"))
+                {
+                    var partesFormato = value.Split(':');
+                    formatoProcessado = $"{Criar(partesFormato[0])}.{Criar(partesFormato[1])}";
+                }
+                else
+                {
+                    formatoProcessado = Criar(formatoOriginal);
+                }
+
+                string Criar(string tamanho)
+                {
+                    return new string('0', int.Parse(tamanho));
+                }
+            }
+        }
+
         public string Header { get; set; }
         public double Number
         {
             get => (double)GetValue(NumberProperty);
             set
             {
-                var texto = value.ToString(Format, culturaPadrao);
+                var texto = value.ToString(formatoProcessado, culturaPadrao);
                 txtNumber.Text = texto;
                 SetValue(NumberProperty, double.Parse(texto, culturaPadrao));
             }

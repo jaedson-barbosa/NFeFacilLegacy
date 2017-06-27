@@ -243,6 +243,9 @@
     <Compile Include="View\Consulta.xaml.cs">
       <DependentUpon>Consulta.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Controles\EntradaNumerica.xaml.cs">
+      <DependentUpon>EntradaNumerica.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Controles\ItemHambuguer.xaml.cs">
       <DependentUpon>ItemHambuguer.xaml</DependentUpon>
     </Compile>
@@ -446,6 +449,10 @@
     <Page Include="View\Controles\CarregamentoCircular.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Controles\EntradaNumerica.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Controles\ItemHambuguer.xaml">
       <SubType>Designer</SubType>

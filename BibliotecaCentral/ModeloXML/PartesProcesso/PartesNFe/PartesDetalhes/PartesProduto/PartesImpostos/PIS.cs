@@ -7,6 +7,19 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Pa
         [XmlElement(Type = typeof(PISAliq)), XmlElement(Type = typeof(PISNT)), XmlElement(Type = typeof(PISOutr)), XmlElement(Type = typeof(PISQtde))]
         public ComumPIS Corpo { get; set; }
 
-        public override bool IsValido => Corpo.ToXElement(Corpo.GetType()).HasElements;
+        public override bool IsValido
+        {
+            get
+            {
+                if (Corpo != null)
+                {
+                    return Corpo.ToXElement(Corpo.GetType()).HasElements;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
     }
 }

@@ -564,12 +564,20 @@ namespace NFeFacil.ViewModel
 
         void Confirmar()
         {
-            if (new ValidarDados(new ValidadorEmitente(NotaSalva.Informações.emitente),
-                new ValidadorDestinatario(NotaSalva.Informações.destinatário)).ValidarTudo(Log))
+            try
             {
-                Analisador.Normalizar();
-                Log.Escrever(TitulosComuns.ValidaçãoConcluída, "A nota fiscal foi validada. Aparentemente, não há irregularidades");
-                StatusAtual = StatusNFe.Validada;
+                if (new ValidarDados(new ValidadorEmitente(NotaSalva.Informações.emitente),
+                    new ValidadorDestinatario(NotaSalva.Informações.destinatário)).ValidarTudo(Log))
+                {
+                    NotaSalva.Informações.AtualizarChave();
+                    Analisador.Normalizar();
+                    Log.Escrever(TitulosComuns.ValidaçãoConcluída, "A nota fiscal foi validada. Aparentemente, não há irregularidades");
+                    StatusAtual = StatusNFe.Validada;
+                }
+            }
+            catch (Exception e)
+            {
+                e.ManipularErro();
             }
         }
 
@@ -869,17 +877,24 @@ namespace NFeFacil.ViewModel
 
         private void AtualizarDI()
         {
-            var di = ObterDI();
-            using (var db = new NotasFiscais())
+            try
             {
-                if (db.Registro.Count(x => x.Id == di.Id) == 0)
+                var di = ObterDI();
+                using (var db = new NotasFiscais())
                 {
-                    db.Adicionar(di);
+                    if (db.Registro.Count(x => x.Id == di.Id) == 0)
+                    {
+                        db.Adicionar(di);
+                    }
+                    else if (db.Registro.First(x => x.Id == di.Id) != di)
+                    {
+                        db.Atualizar(di);
+                    }
                 }
-                else if (db.Registro.First(x => x.Id == di.Id) != di)
-                {
-                    db.Atualizar(di);
-                }
+            }
+            catch (Exception e)
+            {
+                e.ManipularErro();
             }
         }
 

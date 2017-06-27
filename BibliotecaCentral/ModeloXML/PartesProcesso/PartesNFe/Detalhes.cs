@@ -15,13 +15,25 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe
         {
             get
             {
+                if (ChaveAcesso == null)
+                {
+                    AtualizarChave();
+                }
                 return $"NFe{ChaveAcesso}";
             }
-            set { }
+            set
+            {
+                ChaveAcesso = value.Remove(0, 3);
+            }
         }
 
         [XmlIgnore]
-        public string ChaveAcesso => new ChaveAcesso(this).CriarChaveAcesso();
+        public string ChaveAcesso { get; set; }
+
+        public void AtualizarChave()
+        {
+            ChaveAcesso = new ChaveAcesso(this).CriarChaveAcesso();
+        }
 
         [XmlElement(ElementName = "ide", Order = 0)]
         public Identificacao identificação { get; set; }

@@ -14,18 +14,18 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
         /// Valor Original da Fatura.
         /// </summary>
         [XmlElement("vOrig")]
-        public string VOrig { get; set; }
+        public double VOrig { get; set; }
 
         /// <summary>
         /// Valor do desconto.
         /// </summary>
         [XmlElement("vDesc")]
-        public string VDesc { get; set; }
+        public double VDesc { get; set; }
 
         /// <summary>
         /// Valor Líquido da Fatura.
         /// </summary>
         [XmlElement("vLiq")]
-        public string VLiq { get; set; }
+        public double VLiq { get; set; }
     }
 }

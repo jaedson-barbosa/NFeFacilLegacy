@@ -116,14 +116,9 @@ namespace BibliotecaCentral.Validacao
                 if (string.IsNullOrEmpty(fat.NFat)) errados++;
                 else if (int.Parse(fat.NFat) == 0) errados++;
 
-                if (string.IsNullOrEmpty(fat.VDesc)) errados++;
-                else if (int.Parse(fat.VDesc) == 0) errados++;
-
-                if (string.IsNullOrEmpty(fat.VLiq)) errados++;
-                else if (int.Parse(fat.VLiq) == 0) errados++;
-
-                if (string.IsNullOrEmpty(fat.VOrig)) errados++;
-                else if (int.Parse(fat.VOrig) == 0) errados++;
+                if (fat.VDesc == 0) errados++;
+                if (fat.VLiq == 0) errados++;
+                if (fat.VOrig == 0) errados++;
 
                 return errados <= 2;
             }

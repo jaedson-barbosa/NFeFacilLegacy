@@ -226,12 +226,12 @@ namespace NFeFacil.ViewModel
         {
             get
             {
-                if (!string.IsNullOrEmpty(NotaSalva.Informações.transp.retTransp.cMunFG) && ufEscolhida == null)
+                if (NotaSalva.Informações.transp.retTransp.cMunFG != 0 && ufEscolhida == null)
                 {
                     foreach (var item in Estados.EstadosCache)
                     {
                         var lista = Municipios.Get(item);
-                        if (lista.Count(x => x.Codigo == int.Parse(NotaSalva.Informações.transp.retTransp.cMunFG)) > 0)
+                        if (lista.Count(x => x.Codigo == NotaSalva.Informações.transp.retTransp.cMunFG) > 0)
                         {
                             ufEscolhida = item;
                             break;
@@ -252,7 +252,7 @@ namespace NFeFacil.ViewModel
         public ModalidadesTransporte ModFrete
         {
             get => (ModalidadesTransporte)NotaSalva.Informações.transp.modFrete;
-            set => NotaSalva.Informações.transp.modFrete = (int)value;
+            set => NotaSalva.Informações.transp.modFrete = (byte)value;
         }
         #endregion
 

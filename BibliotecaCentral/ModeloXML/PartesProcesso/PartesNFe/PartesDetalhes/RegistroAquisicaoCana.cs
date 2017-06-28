@@ -21,32 +21,32 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
         /// <summary>
         /// Quantidade Total do Mês.
         /// </summary>
-        public string qTotMes { get; set; }
+        public double qTotMes { get; set; }
 
         /// <summary>
         /// Quantidade Total Anterior.
         /// </summary>
-        public string qTotAnt { get; set; }
+        public double qTotAnt { get; set; }
 
         /// <summary>
         /// Quantidade Total Geral.
         /// </summary>
-        public string qTotGer { get; set; }
+        public double qTotGer { get; set; }
 
         /// <summary>
         /// Valor dos Fornecimentos.
         /// </summary>
-        public string vFor { get; set; }
+        public double vFor { get; set; }
 
         /// <summary>
         /// Valor Total da Dedução.
         /// </summary>
-        public string vTotDed { get; set; }
+        public double vTotDed { get; set; }
 
         /// <summary>
         /// Valor Líquido dos Fornecimentos.
         /// </summary>
-        public string vLiqFor { get; set; }
+        public double vLiqFor { get; set; }
 
         /// <summary>
         /// Grupo Fornecimento diário de cana.

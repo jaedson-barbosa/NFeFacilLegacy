@@ -7,7 +7,7 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
     public class Transporte
     {
         [XmlElement(Order = 0)]
-        public int modFrete { get; set; }
+        public byte modFrete { get; set; }
 
         [XmlElement(Order = 1)]
         public Motorista transporta { get; set; }

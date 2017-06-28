@@ -99,7 +99,7 @@ namespace BibliotecaCentral.Validacao
             }
             else
             {
-                return StringsNaoNulas(ret.vBCIRRF, ret.vBCRetPrev, ret.vIRRF, ret.vRetCOFINS,
+                return NumerosNaoNulos(ret.vBCIRRF, ret.vBCRetPrev, ret.vIRRF, ret.vRetCOFINS,
                     ret.vRetCSLL, ret.vRetPIS, ret.vRetPrev);
             }
         }
@@ -169,6 +169,18 @@ namespace BibliotecaCentral.Validacao
             {
                 return cana.forDia.Count > 0;
             }
+        }
+
+        bool NumerosNaoNulos(params double[] numeros)
+        {
+            for (int i = 0; i < numeros.Length; i++)
+            {
+                if (numeros[i] != 0)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         bool StringsNaoNulas(params string[] strings)

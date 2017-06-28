@@ -5,36 +5,36 @@
         /// <summary>
         /// Informar o valor do PIS retido.
         /// </summary>
-        public string vRetPIS { get; set; }
+        public double vRetPIS { get; set; }
 
         /// <summary>
         /// Informar o valor COFINS do retido.
         /// </summary>
-        public string vRetCOFINS { get; set; }
+        public double vRetCOFINS { get; set; }
 
         /// <summary>
         /// Informar o valor do CSLL retido.
         /// </summary>
-        public string vRetCSLL { get; set; }
+        public double vRetCSLL { get; set; }
 
         /// <summary>
         /// Informar o valor do BC IRRF retido.
         /// </summary>
-        public string vBCIRRF { get; set; }
+        public double vBCIRRF { get; set; }
 
         /// <summary>
         /// Informar o valor do IRRF retido.
         /// </summary>
-        public string vIRRF { get; set; }
+        public double vIRRF { get; set; }
 
         /// <summary>
         /// Informar o valor da BC da retenção da Previdência retido.
         /// </summary>
-        public string vBCRetPrev { get; set; }
+        public double vBCRetPrev { get; set; }
 
         /// <summary>
         /// Informar o valor da retenção da Previdência retido.
         /// </summary>
-        public string vRetPrev { get; set; }
+        public double vRetPrev { get; set; }
     }
 }

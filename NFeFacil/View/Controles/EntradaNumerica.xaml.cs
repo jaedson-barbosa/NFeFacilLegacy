@@ -22,6 +22,12 @@ namespace NFeFacil.View.Controles
             set => txtNumber.InputScope = value;
         }
 
+        public bool IsReadOnly
+        {
+            get => txtNumber.IsReadOnly;
+            set => txtNumber.IsReadOnly = value;
+        }
+
         string formatoProcessado;
         public string Format
         {
@@ -81,7 +87,7 @@ namespace NFeFacil.View.Controles
 
         public static readonly DependencyProperty FormatProperty = DependencyProperty.Register("Format", typeof(string), typeof(EntradaNumerica), new PropertyMetadata(null));
         public static readonly DependencyProperty HeaderProperty = DependencyProperty.Register("Header", typeof(string), typeof(EntradaNumerica), new PropertyMetadata(null));
-        public static readonly DependencyProperty NumberProperty = DependencyProperty.Register("Number", typeof(double), typeof(EntradaNumerica), new PropertyMetadata(null, NumeroMudou));
+        public static readonly DependencyProperty NumberProperty = DependencyProperty.Register("Number", typeof(double), typeof(EntradaNumerica), new PropertyMetadata(0, NumeroMudou));
 
         static void NumeroMudou(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
@@ -111,10 +117,19 @@ namespace NFeFacil.View.Controles
             if (!string.IsNullOrEmpty(original))
             {
                 input.Text = original;
+                if (original == "0")
+                {
+                    input.SelectionLength = original.Length;
+                }
             }
             else
             {
-                input.Text = Number.ToString(culturaPadrao);
+                var texto = Number.ToString(culturaPadrao);
+                input.Text = texto;
+                if (texto == "0")
+                {
+                    input.SelectionLength = texto.Length;
+                }
             }
         }
 

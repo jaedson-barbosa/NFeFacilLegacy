@@ -34,7 +34,7 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
         public ushort CódigoUF { get; set; }
 
         [XmlElement(ElementName = "cNF", Order = 1)]
-        public string ChaveNF { get; set; }
+        public int ChaveNF { get; set; }
 
         [XmlElement(ElementName = "natOp", Order = 2)]
         public string NaturezaDaOperação { get; set; }

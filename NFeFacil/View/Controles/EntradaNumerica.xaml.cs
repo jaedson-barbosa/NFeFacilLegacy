@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -14,6 +15,12 @@ namespace NFeFacil.View.Controles
         Regex regex = new Regex(@"[^\d,.]");
         string original = string.Empty;
         CultureInfo culturaPadrao = CultureInfo.InvariantCulture;
+
+        public InputScope InputScope
+        {
+            get => txtNumber.InputScope;
+            set => txtNumber.InputScope = value;
+        }
 
         string formatoProcessado;
         public string Format
@@ -52,13 +59,22 @@ namespace NFeFacil.View.Controles
             set
             {
                 var texto = DefinirTexto(value);
-                SetValue(NumberProperty, double.Parse(texto, culturaPadrao));
+                var parseado = double.Parse(texto, culturaPadrao);
+                SetValue(NumberProperty, parseado);
             }
         }
 
         public string DefinirTexto(double value)
         {
-            var texto = value.ToString(formatoProcessado, culturaPadrao);
+            string texto;
+            if (string.IsNullOrEmpty(formatoProcessado))
+            {
+                texto = value.ToString(culturaPadrao);
+            }
+            else
+            {
+                texto = value.ToString(formatoProcessado, culturaPadrao);
+            }
             txtNumber.Text = texto;
             return texto;
         }

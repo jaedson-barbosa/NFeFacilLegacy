@@ -245,9 +245,9 @@
                                 <ComboBoxItem Content="CPF" />
                                 <ComboBoxItem Content="CNPJ" />
                             </ComboBox>
-                            <TextBox Text="{Binding DocumentoEnderecoEmitente, Mode=TwoWay}"
-                                     InputScope="Number"
-                                     Header="Documento *" />
+                            <controles:EntradaNumerica Number="{Binding DocumentoEnderecoEmitente, Mode=TwoWay}"
+                                                       InputScope="Number"
+                                                       Header="Documento *" />
                             <TextBox Text="{Binding Path=Retirada.Logradouro, Mode=TwoWay}"
                                      InputScope="Text"
                                      Header="Logradouro *" />

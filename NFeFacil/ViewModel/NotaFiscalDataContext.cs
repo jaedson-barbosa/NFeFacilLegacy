@@ -302,20 +302,24 @@ namespace NFeFacil.ViewModel
             set => tipoDocumentoEnderecoEmitente = (TiposDocumento)value;
         }
 
-        public string DocumentoEnderecoEmitente
+        public long DocumentoEnderecoEmitente
         {
-            get => tipoDocumentoEnderecoEmitente == TiposDocumento.CNPJ ? Retirada.CNPJ : Retirada?.CPF;
+            get
+            {
+                long.TryParse(tipoDocumentoEnderecoEmitente == TiposDocumento.CNPJ ? Retirada.CNPJ : Retirada?.CPF, out long retorno);
+                return retorno;
+            }
             set
             {
                 if (tipoDocumentoEnderecoEmitente == TiposDocumento.CPF)
                 {
                     Retirada.CNPJ = null;
-                    Retirada.CPF = value;
+                    Retirada.CPF = value.ToString();
                 }
                 else
                 {
                     Retirada.CPF = null;
-                    Retirada.CNPJ = value;
+                    Retirada.CNPJ = value.ToString();
                 }
             }
         }

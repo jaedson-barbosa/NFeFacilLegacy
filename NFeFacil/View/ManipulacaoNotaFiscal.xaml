@@ -301,9 +301,9 @@
                                 <ComboBoxItem Content="CPF" />
                                 <ComboBoxItem Content="CNPJ" />
                             </ComboBox>
-                            <TextBox Text="{Binding DocumentoEnderecoCliente, Mode=TwoWay}"
-                                     InputScope="Number"
-                                     Header="Documento *" />
+                            <controles:EntradaNumerica Number="{Binding DocumentoEnderecoCliente, Mode=TwoWay}"
+                                                       InputScope="Number"
+                                                       Header="Documento *" />
                             <TextBox Text="{Binding Path=Entrega.Logradouro, Mode=TwoWay}"
                                      InputScope="Text"
                                      Header="Logradouro *" />

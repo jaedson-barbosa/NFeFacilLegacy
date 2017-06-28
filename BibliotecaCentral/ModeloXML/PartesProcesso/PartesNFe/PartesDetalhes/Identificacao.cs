@@ -49,7 +49,7 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
         public ushort Serie { get; set; } = 1;
 
         [XmlElement(ElementName = "nNF", Order = 6)]
-        public int Numero { get; set; }
+        public long Numero { get; set; }
 
         [XmlElement(ElementName = "dhEmi", Order = 7)]
         public string DataHoraEmissão { get; set; }

@@ -15,14 +15,14 @@ namespace NFeFacil.View.Controles
         string original = string.Empty;
         CultureInfo culturaPadrao = CultureInfo.InvariantCulture;
 
-        string formatoOriginal;
         string formatoProcessado;
         public string Format
         {
-            get => formatoOriginal;
+            get => (string)GetValue(FormatProperty);
             set
             {
-                formatoOriginal = value;
+                var formatoOriginal = value;
+                SetValue(FormatProperty, value);
                 if (formatoOriginal.Contains(":"))
                 {
                     var partesFormato = value.Split(':');
@@ -40,21 +40,38 @@ namespace NFeFacil.View.Controles
             }
         }
 
-        public string Header { get; set; }
+        public string Header
+        {
+            get => (string)GetValue(HeaderProperty);
+            set => SetValue(HeaderProperty, value);
+        }
+
         public double Number
         {
             get => (double)GetValue(NumberProperty);
             set
             {
-                var texto = value.ToString(formatoProcessado, culturaPadrao);
-                txtNumber.Text = texto;
+                var texto = DefinirTexto(value);
                 SetValue(NumberProperty, double.Parse(texto, culturaPadrao));
             }
         }
 
+        public string DefinirTexto(double value)
+        {
+            var texto = value.ToString(formatoProcessado, culturaPadrao);
+            txtNumber.Text = texto;
+            return texto;
+        }
+
         public static readonly DependencyProperty FormatProperty = DependencyProperty.Register("Format", typeof(string), typeof(EntradaNumerica), new PropertyMetadata(null));
         public static readonly DependencyProperty HeaderProperty = DependencyProperty.Register("Header", typeof(string), typeof(EntradaNumerica), new PropertyMetadata(null));
-        public static readonly DependencyProperty NumberProperty = DependencyProperty.Register("Number", typeof(double), typeof(EntradaNumerica), new PropertyMetadata(null));
+        public static readonly DependencyProperty NumberProperty = DependencyProperty.Register("Number", typeof(double), typeof(EntradaNumerica), new PropertyMetadata(null, NumeroMudou));
+
+        static void NumeroMudou(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+        {
+            var input = (EntradaNumerica)sender;
+            input.DefinirTexto((double)args.NewValue);
+        }
 
         public EntradaNumerica()
         {

@@ -1,7 +1,7 @@
 ﻿<ContentDialog x:Class="NFeFacil.View.CaixasDialogo.AdicionarVolume"
                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-               xmlns:local="using:NFeFacil.View.CaixasDialogo"
+               xmlns:controles="using:NFeFacil.View.Controles"
                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                mc:Ignorable="d"
@@ -9,18 +9,21 @@
                PrimaryButtonText="Adicionar"
                SecondaryButtonText="Cancelar">
     <StackPanel>
-        <TextBox Text="{Binding qVol, Mode=TwoWay}"
-                 Header="Quantidade" />
+        <controles:EntradaNumerica Format="15"
+                                   Number="{Binding qVol, Mode=TwoWay}"
+                                   Header="Quantidade" />
         <TextBox Text="{Binding esp, Mode=TwoWay}"
                  Header="Espécie" />
         <TextBox Text="{Binding marca, Mode=TwoWay}"
                  Header="Marca" />
         <TextBox Text="{Binding nVol, Mode=TwoWay}"
                  Header="Numeração" />
-        <TextBox Text="{Binding pesoL, Mode=TwoWay}"
-                 Header="Peso líquido (Kg)" />
-        <TextBox Text="{Binding pesoB, Mode=TwoWay}"
-                 Header="Peso bruto (Kg)" />
+        <controles:EntradaNumerica Format="12:3"
+                                   Number="{Binding pesoL, Mode=TwoWay}"
+                                   Header="Peso líquido (Kg)" />
+        <controles:EntradaNumerica Format="12:3"
+                                   Number="{Binding pesoB, Mode=TwoWay}"
+                                   Header="Peso bruto (Kg)" />
         <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
                    Margin="0,10,0,0">Lacres</TextBlock>
         <TextBox x:Name="intLacre"

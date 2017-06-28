@@ -64,7 +64,7 @@ namespace NFeFacil.DANFE
             }
             if (cobr?.Dup != null)
             {
-                itens.Add(new ItemDadosAdicionais("DUPLICATAS:", cobr.Dup.Select(dup => $"Duplicata - Num.: {dup.NDup}, Vec.: {dup.DVenc}, Valor: {dup.DDup.ToString("N2")}")));
+                itens.Add(new ItemDadosAdicionais("DUPLICATAS:", cobr.Dup.Select(dup => $"Duplicata - Num.: {dup.NDup}, Vec.: {dup.DVenc}, Valor: {dup.VDup.ToString("N2")}")));
             }
             if (extras?.infCpl != null)
             {
@@ -265,7 +265,7 @@ namespace NFeFacil.DANFE
                 {
                     data = dup.DVenc,
                     n = dup.NDup,
-                    valor = dup.DDup
+                    valor = dup.VDup
                 };
             }
         }

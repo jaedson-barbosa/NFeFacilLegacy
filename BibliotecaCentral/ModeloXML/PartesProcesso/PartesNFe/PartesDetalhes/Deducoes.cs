@@ -10,6 +10,6 @@
         /// <summary>
         /// Valor da Dedução.
         /// </summary>
-        public string vDed { get; set; }
+        public double vDed { get; set; }
     }
 }

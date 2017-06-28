@@ -8,7 +8,7 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Pa
         /// Número do Registro de Exportação.
         /// </summary>
         [XmlElement("nRE")]
-        public ulong NRE { get; set; }
+        public long NRE { get; set; }
 
         /// <summary>
         /// Chave de Acesso da NF-e recebida para exportação;

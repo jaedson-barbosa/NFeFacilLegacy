@@ -9,11 +9,11 @@ namespace NFeFacil.View.CaixasDialogo
 {
     public sealed partial class AdicionarVolume : ContentDialog
     {
-        public Volume vol = new Volume();
+        public Volume vol => DataContext as Volume;
         public AdicionarVolume()
         {
             InitializeComponent();
-            DataContext = vol;
+            DataContext = new Volume();
         }
 
         private void btnAddLacre_Click(object sender, RoutedEventArgs e)

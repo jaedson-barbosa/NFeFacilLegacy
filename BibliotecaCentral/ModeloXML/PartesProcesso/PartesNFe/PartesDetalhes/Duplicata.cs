@@ -22,7 +22,7 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
         /// <summary>
         /// Valor da duplicata.
         /// </summary>
-        [XmlElement("dDup")]
-        public double DDup { get; set; }
+        [XmlElement("vDup")]
+        public double VDup { get; set; }
     }
 }

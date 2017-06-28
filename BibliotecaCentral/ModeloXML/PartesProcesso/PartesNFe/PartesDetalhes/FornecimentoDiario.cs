@@ -5,11 +5,11 @@
         /// <summary>
         /// Dia.
         /// </summary>
-        public string dia { get; set; }
+        public int dia { get; set; }
 
         /// <summary>
         /// Quantidade.
         /// </summary>
-        public string qtde { get; set; }
+        public double qtde { get; set; }
     }
 }

@@ -66,13 +66,13 @@ namespace NFeFacil.DANFE
             {
                 itens.Add(new ItemDadosAdicionais("DUPLICATAS:", cobr.Dup.Select(dup => $"Duplicata - Num.: {dup.NDup}, Vec.: {dup.DVenc}, Valor: {dup.VDup.ToString("N2")}")));
             }
-            if (extras?.infCpl != null)
+            if (extras?.InfCpl != null)
             {
-                itens.Add(new ItemDadosAdicionais("DE INTERESSE DO CONTRIBUINTE:", extras.infCpl));
+                itens.Add(new ItemDadosAdicionais("DE INTERESSE DO CONTRIBUINTE:", extras.InfCpl));
             }
-            if (extras?.infAdFisco != null)
+            if (extras?.InfAdFisco != null)
             {
-                itens.Add(new ItemDadosAdicionais("DE INTERESSE DO FISCO:", extras.infAdFisco));
+                itens.Add(new ItemDadosAdicionais("DE INTERESSE DO FISCO:", extras.InfAdFisco));
             }
             return new DadosAdicionais(itens);
         }
@@ -83,7 +83,7 @@ namespace NFeFacil.DANFE
             var emit = Dados.NFe.Informações.emitente;
             return new DadosCabecalho
             {
-                NomeEmitente = emit.nome,
+                NomeEmitente = emit.Nome,
                 SerieNota = ident.Serie.ToString(),
                 NumeroNota = ident.Numero.ToString("000,000,000")
             };
@@ -99,9 +99,9 @@ namespace NFeFacil.DANFE
                 DataEmissao = Convert.ToDateTime(ident.DataHoraEmissão).ToString("dd-MM-yyyy"),
                 DataEntradaSaida = !string.IsNullOrEmpty(ident.DataHoraSaídaEntrada) ? Analisar(Convert.ToDateTime(ident.DataHoraSaídaEntrada).ToString("dd-MM-yyyy")) : string.Empty,
                 HoraEntradaSaida = !string.IsNullOrEmpty(ident.DataHoraSaídaEntrada) ? Analisar(Convert.ToDateTime(ident.DataHoraSaídaEntrada).ToString("HH:mm:ss")) : string.Empty,
-                Endereco = dest.endereco,
-                IECliente = Analisar(dest.inscricaoEstadual),
-                NomeCliente = dest.nome
+                Endereco = dest.Endereco,
+                IECliente = Analisar(dest.InscricaoEstadual),
+                NomeCliente = dest.Nome
             };
         }
 
@@ -110,17 +110,17 @@ namespace NFeFacil.DANFE
             var tot = Dados.NFe.Informações.total;
             return new DadosImposto
             {
-                BaseCalculoICMS = tot.ICMSTot.vBC.ToString("N2"),
-                BaseCalculoICMSST = tot.ICMSTot.vBCST.ToString("N2"),
-                Desconto = tot.ICMSTot.vDesc.ToString("N2"),
-                DespesasAcessorias = tot.ICMSTot.vOutro.ToString("N2"),
-                TotalNota = tot.ICMSTot.vNF.ToString("N2"),
-                ValorFrete = tot.ICMSTot.vFrete.ToString("N2"),
-                ValorICMS = tot.ICMSTot.vICMS.ToString("N2"),
-                ValorICMSST = tot.ICMSTot.vST.ToString("N2"),
-                ValorIPI = tot.ICMSTot.vIPI.ToString("N2"),
-                ValorSeguro = tot.ICMSTot.vSeg.ToString("N2"),
-                ValorTotalProdutos = tot.ICMSTot.vProd.ToString("N2")
+                BaseCalculoICMS = tot.ICMSTot.VBC.ToString("N2"),
+                BaseCalculoICMSST = tot.ICMSTot.VBCST.ToString("N2"),
+                Desconto = tot.ICMSTot.VDesc.ToString("N2"),
+                DespesasAcessorias = tot.ICMSTot.VOutro.ToString("N2"),
+                TotalNota = tot.ICMSTot.VNF.ToString("N2"),
+                ValorFrete = tot.ICMSTot.VFrete.ToString("N2"),
+                ValorICMS = tot.ICMSTot.VICMS.ToString("N2"),
+                ValorICMSST = tot.ICMSTot.VST.ToString("N2"),
+                ValorIPI = tot.ICMSTot.VIPI.ToString("N2"),
+                ValorSeguro = tot.ICMSTot.VSeg.ToString("N2"),
+                ValorTotalProdutos = tot.ICMSTot.VProd.ToString("N2")
             };
         }
 
@@ -129,19 +129,19 @@ namespace NFeFacil.DANFE
             var transp = Dados.NFe.Informações.transp;
             var retorno = new DadosMotorista
             {
-                CodigoANTT = Analisar(transp.veicTransp?.RNTC),
-                DocumentoMotorista = transp.transporta?.Documento != null ? AplicatMascaraDocumento(transp.transporta?.Documento) : null,
-                EnderecoMotorista = Analisar(transp.transporta?.XEnder),
-                EspecieVolume = Analisar(transp.vol.FirstOrDefault()?.esp),
-                IEMotorista = Analisar(transp.transporta?.InscricaoEstadual),
-                MunicipioMotorista = Analisar(transp.transporta?.XMun),
-                NomeMotorista = Analisar(transp.transporta?.Nome),
-                Placa = Analisar(transp.veicTransp?.Placa),
-                UfMotorista = Analisar(transp.transporta?.UF),
-                UfPlaca = Analisar(transp.veicTransp?.UF)
+                CodigoANTT = Analisar(transp.VeicTransp?.RNTC),
+                DocumentoMotorista = transp.Transporta?.Documento != null ? AplicatMascaraDocumento(transp.Transporta?.Documento) : null,
+                EnderecoMotorista = Analisar(transp.Transporta?.XEnder),
+                EspecieVolume = Analisar(transp.Vol.FirstOrDefault()?.Esp),
+                IEMotorista = Analisar(transp.Transporta?.InscricaoEstadual),
+                MunicipioMotorista = Analisar(transp.Transporta?.XMun),
+                NomeMotorista = Analisar(transp.Transporta?.Nome),
+                Placa = Analisar(transp.VeicTransp?.Placa),
+                UfMotorista = Analisar(transp.Transporta?.UF),
+                UfPlaca = Analisar(transp.VeicTransp?.UF)
             };
 
-            if (transp.vol.Count == 0)
+            if (transp.Vol.Count == 0)
             {
                 retorno.EspecieVolume = string.Empty;
                 retorno.MarcaVolume = string.Empty;
@@ -150,26 +150,26 @@ namespace NFeFacil.DANFE
                 retorno.PesoLiquidoVolume = string.Empty;
                 retorno.QuantidadeVolume = string.Empty;
             }
-            else if (transp.vol.Count == 1)
+            else if (transp.Vol.Count == 1)
             {
-                retorno.EspecieVolume = transp.vol[0].esp;
-                retorno.MarcaVolume = transp.vol[0].marca;
-                retorno.NumeroVolume = transp.vol[0].nVol;
-                retorno.PesoBrutoVolume = transp.vol[0].pesoB.ToString("N3");
-                retorno.PesoLiquidoVolume = transp.vol[0].pesoL.ToString("N3");
-                retorno.QuantidadeVolume = transp.vol[0].qVol.ToString("N3");
+                retorno.EspecieVolume = transp.Vol[0].Esp;
+                retorno.MarcaVolume = transp.Vol[0].Marca;
+                retorno.NumeroVolume = transp.Vol[0].NVol;
+                retorno.PesoBrutoVolume = transp.Vol[0].PesoB.ToString("N3");
+                retorno.PesoLiquidoVolume = transp.Vol[0].PesoL.ToString("N3");
+                retorno.QuantidadeVolume = transp.Vol[0].QVol.ToString("N3");
             }
             else
             {
                 retorno.EspecieVolume = string.Empty;
                 retorno.MarcaVolume = string.Empty;
                 retorno.NumeroVolume = string.Empty;
-                retorno.PesoBrutoVolume = transp.vol.Sum(x => x.pesoB).ToString("N3");
-                retorno.PesoLiquidoVolume = transp.vol.Sum(x => x.pesoL).ToString("N3");
-                retorno.QuantidadeVolume = transp.vol.Sum(x => x.qVol).ToString("N3");
+                retorno.PesoBrutoVolume = transp.Vol.Sum(x => x.PesoB).ToString("N3");
+                retorno.PesoLiquidoVolume = transp.Vol.Sum(x => x.PesoL).ToString("N3");
+                retorno.QuantidadeVolume = transp.Vol.Sum(x => x.QVol).ToString("N3");
             }
 
-            switch (transp.modFrete)
+            switch (transp.ModFrete)
             {
                 case 0:
                     retorno.ModalidadeFrete = "0 – Emitente";
@@ -202,11 +202,11 @@ namespace NFeFacil.DANFE
                 ChaveComMascara = AplicarMascaraChave(codigoBarras),
                 CNPJEmit = AplicatMascaraDocumento(detalhes.emitente.CNPJ),
                 DataHoraRecibo = prot.InfProt.dhRecbto.Replace('T', ' '),
-                Endereco = detalhes.emitente.endereco,
-                IE = detalhes.emitente.inscricaoEstadual,
+                Endereco = detalhes.emitente.Endereco,
+                IE = detalhes.emitente.InscricaoEstadual,
                 IEST = detalhes.emitente.IEST,
                 NatOp = detalhes.identificação.NaturezaDaOperação,
-                NomeEmitente = detalhes.emitente.nome,
+                NomeEmitente = detalhes.emitente.Nome,
                 NumeroNota = detalhes.identificação.Numero.ToString("000,000,000"),
                 NumeroProtocolo = prot.InfProt.nProt.ToString(),
                 SerieNota = detalhes.identificação.Serie.ToString(),
@@ -276,10 +276,10 @@ namespace NFeFacil.DANFE
             var issqn = Dados.NFe.Informações.total.ISSQNtot;
             return issqn != null ? new DadosISSQN
             {
-                BC = issqn.vBC.ToString("N2"),
+                BC = issqn.VBC.ToString("N2"),
                 IM = emit.IM,
-                TotalServiços = issqn.vServ.ToString("N2"),
-                ValorISSQN = issqn.vISS.ToString("N2")
+                TotalServiços = issqn.VServ.ToString("N2"),
+                ValorISSQN = issqn.VISS.ToString("N2")
             } : new DadosISSQN();
         }
 
@@ -302,6 +302,26 @@ namespace NFeFacil.DANFE
         string AplicatMascaraDocumento(string original)
         {
             original = original.Trim();
+            if (original.Length == 14)
+            {
+                // É CNPJ
+                return $"{original.Substring(0, 2)}.{original.Substring(2, 3)}.{original.Substring(5, 3)}/{original.Substring(8, 4)}.{original.Substring(12, 2)}";
+            }
+            else if (original.Length == 11)
+            {
+                // É CPF
+                return $"{original.Substring(0, 3)}.{original.Substring(3, 3)}.{original.Substring(6, 3)}-{original.Substring(9, 2)}";
+            }
+            else
+            {
+                // Não é nem CNPJ nem CPF
+                return original;
+            }
+        }
+
+        string AplicatMascaraDocumento(long numero)
+        {
+            var original = numero.ToString();
             if (original.Length == 14)
             {
                 // É CNPJ

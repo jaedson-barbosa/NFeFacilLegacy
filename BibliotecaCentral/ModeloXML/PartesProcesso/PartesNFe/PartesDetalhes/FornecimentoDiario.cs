@@ -1,15 +1,19 @@
-﻿namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
+﻿using System.Xml.Serialization;
+
+namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
 {
     public sealed class FornecimentoDiario
     {
         /// <summary>
         /// Dia.
         /// </summary>
-        public int dia { get; set; }
+        [XmlElement("dia", Order = 0)]
+        public int Dia { get; set; }
 
         /// <summary>
         /// Quantidade.
         /// </summary>
-        public double qtde { get; set; }
+        [XmlElement("qtde", Order = 1)]
+        public double Qtde { get; set; }
     }
 }

@@ -12,13 +12,13 @@ namespace BibliotecaCentral.ItensBD
 
         public DateTime UltimaData { get; set; }
         [Required]
-        public long NumeroNota { get; set; }
+        public int NumeroNota { get; set; }
         [Required]
         public ushort SerieNota { get; set; }
         [Required]
         public string NomeEmitente { get; set; }
         [Required]
-        public string CNPJEmitente { get; set; }
+        public long CNPJEmitente { get; set; }
         [Required]
         public string NomeCliente { get; set; }
         [Required]
@@ -47,8 +47,8 @@ namespace BibliotecaCentral.ItensBD
         public NFeDI(NFe nota, string xml)
         {
             Id = nota.Informações.Id;
-            NomeCliente = nota.Informações.destinatário.nome;
-            NomeEmitente = nota.Informações.emitente.nome;
+            NomeCliente = nota.Informações.destinatário.Nome;
+            NomeEmitente = nota.Informações.emitente.Nome;
             CNPJEmitente = nota.Informações.emitente.CNPJ;
             DataEmissao = DateTime.Parse(nota.Informações.identificação.DataHoraEmissão).ToString("yyyy-MM-dd HH:mm:ss");
             NumeroNota = nota.Informações.identificação.Numero;
@@ -59,8 +59,8 @@ namespace BibliotecaCentral.ItensBD
         public NFeDI(Processo nota, string xml)
         {
             Id = nota.NFe.Informações.Id;
-            NomeCliente = nota.NFe.Informações.destinatário.nome;
-            NomeEmitente = nota.NFe.Informações.emitente.nome;
+            NomeCliente = nota.NFe.Informações.destinatário.Nome;
+            NomeEmitente = nota.NFe.Informações.emitente.Nome;
             CNPJEmitente = nota.NFe.Informações.emitente.CNPJ;
             DataEmissao = DateTime.Parse(nota.NFe.Informações.identificação.DataHoraEmissão).ToString("yyyy-MM-dd HH:mm:ss");
             NumeroNota = nota.NFe.Informações.identificação.Numero;

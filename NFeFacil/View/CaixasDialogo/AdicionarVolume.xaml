@@ -12,17 +12,17 @@
         <controles:EntradaNumerica Format="15"
                                    Number="{Binding qVol, Mode=TwoWay}"
                                    Header="Quantidade" />
-        <TextBox Text="{Binding esp, Mode=TwoWay}"
+        <TextBox Text="{Binding Esp, Mode=TwoWay}"
                  Header="Espécie" />
-        <TextBox Text="{Binding marca, Mode=TwoWay}"
+        <TextBox Text="{Binding Marca, Mode=TwoWay}"
                  Header="Marca" />
-        <TextBox Text="{Binding nVol, Mode=TwoWay}"
+        <TextBox Text="{Binding NVol, Mode=TwoWay}"
                  Header="Numeração" />
         <controles:EntradaNumerica Format="12:3"
-                                   Number="{Binding pesoL, Mode=TwoWay}"
+                                   Number="{Binding PesoL, Mode=TwoWay}"
                                    Header="Peso líquido (Kg)" />
         <controles:EntradaNumerica Format="12:3"
-                                   Number="{Binding pesoB, Mode=TwoWay}"
+                                   Number="{Binding PesoB, Mode=TwoWay}"
                                    Header="Peso bruto (Kg)" />
         <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
                    Margin="0,10,0,0">Lacres</TextBlock>
@@ -31,7 +31,7 @@
         <ListView x:Name="lstLacres">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding nLacre}" />
+                    <TextBlock Text="{Binding NLacre}" />
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

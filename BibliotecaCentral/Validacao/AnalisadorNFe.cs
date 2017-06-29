@@ -17,12 +17,12 @@ namespace BibliotecaCentral.Validacao
 
         public void Normalizar()
         {
-            Nota.Informações.transp.transporta = Nota.Informações.transp.transporta?.ToXElement<Motorista>().HasElements ?? false ? Nota.Informações.transp.transporta : null;
-            Nota.Informações.transp.veicTransp = ValidarVeiculo(Nota.Informações.transp.veicTransp) ? Nota.Informações.transp.veicTransp : null;
-            Nota.Informações.transp.retTransp = Nota.Informações.transp.retTransp?.ToXElement<ICMSTransporte>().HasElements ?? false ? Nota.Informações.transp.retTransp : null;
+            Nota.Informações.transp.Transporta = Nota.Informações.transp.Transporta?.ToXElement<Motorista>().HasElements ?? false ? Nota.Informações.transp.Transporta : null;
+            Nota.Informações.transp.VeicTransp = ValidarVeiculo(Nota.Informações.transp.VeicTransp) ? Nota.Informações.transp.VeicTransp : null;
+            Nota.Informações.transp.RetTransp = Nota.Informações.transp.RetTransp?.ToXElement<ICMSTransporte>().HasElements ?? false ? Nota.Informações.transp.RetTransp : null;
 
             Nota.Informações.total.ISSQNtot = ValidarISSQN(Nota.Informações.total.ISSQNtot) ? Nota.Informações.total.ISSQNtot : null;
-            Nota.Informações.total.retTrib = ValidarRetencaoTributaria(Nota.Informações.total.retTrib) ? Nota.Informações.total.retTrib : null;
+            Nota.Informações.total.RetTrib = ValidarRetencaoTributaria(Nota.Informações.total.RetTrib) ? Nota.Informações.total.RetTrib : null;
             Nota.Informações.cobr = ValidarFatura(Nota.Informações.cobr?.Fat) ? Nota.Informações.cobr : null;
             Nota.Informações.infAdic = ValidarInfoAdicional(Nota.Informações.infAdic) ? Nota.Informações.infAdic : null;
             Nota.Informações.exporta = new ValidadorExportacao(Nota.Informações.exporta).Validar(null) ? Nota.Informações.exporta : null;
@@ -32,17 +32,17 @@ namespace BibliotecaCentral.Validacao
 
         public void Desnormalizar()
         {
-            if (Nota.Informações.transp.transporta == null)
+            if (Nota.Informações.transp.Transporta == null)
             {
-                Nota.Informações.transp.transporta = new Motorista();
+                Nota.Informações.transp.Transporta = new Motorista();
             }
-            if (Nota.Informações.transp.veicTransp == null)
+            if (Nota.Informações.transp.VeicTransp == null)
             {
-                Nota.Informações.transp.veicTransp = new Veiculo();
+                Nota.Informações.transp.VeicTransp = new Veiculo();
             }
-            if (Nota.Informações.transp.retTransp == null)
+            if (Nota.Informações.transp.RetTransp == null)
             {
-                Nota.Informações.transp.retTransp = new ICMSTransporte();
+                Nota.Informações.transp.RetTransp = new ICMSTransporte();
             }
 
             if (Nota.Informações.cobr == null)
@@ -87,7 +87,7 @@ namespace BibliotecaCentral.Validacao
             }
             else
             {
-                return !string.IsNullOrEmpty(tot.dCompet);
+                return !string.IsNullOrEmpty(tot.DCompet);
             }
         }
 
@@ -99,8 +99,8 @@ namespace BibliotecaCentral.Validacao
             }
             else
             {
-                return NumerosNaoNulos(ret.vBCIRRF, ret.vBCRetPrev, ret.vIRRF, ret.vRetCOFINS,
-                    ret.vRetCSLL, ret.vRetPIS, ret.vRetPrev);
+                return NumerosNaoNulos(ret.VBCIRRF, ret.VBCRetPrev, ret.VIRRF, ret.VRetCOFINS,
+                    ret.VRetCSLL, ret.VRetPIS, ret.VRetPrev);
             }
         }
 
@@ -134,9 +134,9 @@ namespace BibliotecaCentral.Validacao
             {
                 var errados = new bool[3]
                 {
-                        string.IsNullOrEmpty(info.infCpl),
-                        info.obsCont.Count == 0,
-                        info.procRef.Count == 0
+                        string.IsNullOrEmpty(info.InfCpl),
+                        info.ObsCont.Count == 0,
+                        info.ProcRef.Count == 0
                 };
                 return errados.Count(x => x) < 3;
             }
@@ -162,7 +162,7 @@ namespace BibliotecaCentral.Validacao
             }
             else
             {
-                return cana.forDia.Count > 0;
+                return cana.ForDia.Count > 0;
             }
         }
 

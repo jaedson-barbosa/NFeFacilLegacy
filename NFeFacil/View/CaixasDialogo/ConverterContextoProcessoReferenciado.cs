@@ -32,8 +32,8 @@ namespace NFeFacil.View.CaixasDialogo
 
             public int Origem
             {
-                get => Processo.indProc == 9 ? 4 : Processo.indProc;
-                set => Processo.indProc = value == 4 ? 9 : value;
+                get => Processo.IndProc == 9 ? 4 : Processo.IndProc;
+                set => Processo.IndProc = value == 4 ? 9 : value;
             }
 
             public ProcessoReferenciadoDataContext(ref ProcessoReferenciado proc) => Processo = proc;

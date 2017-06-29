@@ -30,15 +30,15 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Pa
                         if (imposto is ICMS)
                         {
                             var alterar = new ConsultarImpostos(xmlImposto);
-                            vBC = alterar.AgregarValor(nameof(vBC), vBC);
-                            vICMS = alterar.AgregarValor(nameof(vICMS), vICMS);
-                            vICMSDeson = alterar.AgregarValor(nameof(vICMSDeson), vICMSDeson);
-                            vBCST = alterar.AgregarValor(nameof(vBCST), vBCST);
-                            vST = alterar.AgregarValor("vICMSST", vST);
+                            VBC = alterar.AgregarValor(nameof(VBC), VBC);
+                            VICMS = alterar.AgregarValor(nameof(VICMS), VICMS);
+                            VICMSDeson = alterar.AgregarValor(nameof(VICMSDeson), VICMSDeson);
+                            VBCST = alterar.AgregarValor(nameof(VBCST), VBCST);
+                            VST = alterar.AgregarValor("vICMSST", VST);
                         }
                         else if (imposto is II)
                         {
-                            vII += double.Parse((imposto as II).vII);
+                            VII += double.Parse((imposto as II).vII);
                         }
                         else if (imposto is IPI && (imposto as IPI).Corpo is IPITrib)
                         {
@@ -48,23 +48,23 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Pa
                         else if (imposto is PIS)
                         {
                             var alterar = new ConsultarImpostos(xmlImposto);
-                            vPIS = alterar.AgregarValor(nameof(vPIS), vPIS);
+                            VPIS = alterar.AgregarValor(nameof(VPIS), VPIS);
                         }
                         else if (imposto is COFINS)
                         {
                             var alterar = new ConsultarImpostos(xmlImposto);
-                            vCOFINS = alterar.AgregarValor(nameof(vCOFINS), vCOFINS);
+                            VCOFINS = alterar.AgregarValor(nameof(VCOFINS), VCOFINS);
                         }
                     }
                 }
                 if (prod.InclusãoTotal == 1 && !temISSQN)
                 {
-                    vProd += prod.ValorTotal;
-                    vFrete += prod.Frete.ToDouble();
-                    vSeg += prod.Seguro.ToDouble();
-                    vDesc += prod.Desconto.ToDouble();
-                    vOutro += prod.DespesasAcessórias.ToDouble();
-                    vTotTrib += Produto.impostos.vTotTrib.ToDouble();
+                    VProd += prod.ValorTotal;
+                    VFrete += prod.Frete.ToDouble();
+                    VSeg += prod.Seguro.ToDouble();
+                    VDesc += prod.Desconto.ToDouble();
+                    VOutro += prod.DespesasAcessórias.ToDouble();
+                    VTotTrib += Produto.impostos.vTotTrib.ToDouble();
                 }
                 else if (temISSQN)
                 {
@@ -76,84 +76,99 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Pa
         /// <summary>
         /// Informar o somatório da BC do ICMS (vBC) informado nos itens.
         /// </summary>
-        public double vBC { get; set; }
+        [XmlElement("vBC", Order = 0)]
+        public double VBC { get; set; }
 
         /// <summary>
         /// Informar o somatório de ICMS (vICMS) informado nos itens.
         /// </summary>
-        public double vICMS { get; set; }
+        [XmlElement("vICMS", Order = 1)]
+        public double VICMS { get; set; }
 
         /// <summary>
         /// Informar o somatório do Valor do ICMS desonerado (vICMSDeson) informado nos itens.
         /// </summary>
-        public double vICMSDeson { get; set; }
+        [XmlElement("vICMSDeson", Order = 2)]
+        public double VICMSDeson { get; set; }
 
         /// <summary>
         /// Informar o somatório da BC ST (vBCST) informado nos itens.
         /// </summary>
-        public double vBCST { get; set; }
+        [XmlElement("vBCST", Order = 3)]
+        public double VBCST { get; set; }
 
         /// <summary>
         /// Informar o somatório do ICMS ST (vICMSST)informado nos itens.
         /// </summary>
-        public double vST { get; set; }
+        [XmlElement("vST", Order = 4)]
+        public double VST { get; set; }
 
         /// <summary>
         /// Informar o somatório de valor dos produtos (vProd) dos itens que tenham indicador de totalização = 1 (indTot).
         /// Os valores dos itens sujeitos ao ISSQN não devem ser acumulados neste campo.
         /// </summary>
-        public double vProd { get; set; }
+        [XmlElement("vProd", Order = 5)]
+        public double VProd { get; set; }
 
         /// <summary>
         /// Informar o somatório de valor do Frete (vFrete) informado nos itens.
         /// </summary>
-        public double vFrete { get; set; }
+        [XmlElement("vFrete", Order = 6)]
+        public double VFrete { get; set; }
 
         /// <summary>
         /// Informar o somatório valor do Seguro (vSeg) informado nos itens.
         /// </summary>
-        public double vSeg { get; set; }
+        [XmlElement("vSeg", Order = 7)]
+        public double VSeg { get; set; }
 
         /// <summary>
         /// Informar o somatório do Desconto (vDesc) informado nos itens.
         /// </summary>
-        public double vDesc { get; set; }
+        [XmlElement("vDesc", Order = 8)]
+        public double VDesc { get; set; }
 
         /// <summary>
         /// Informar o somatório de II (vII) informado nos itens.
         /// </summary>
-        public double vII { get; set; }
+        [XmlElement("vII", Order = 9)]
+        public double VII { get; set; }
 
         /// <summary>
         /// Informar o somatório de IPI (vIPI) informado nos itens.
         /// </summary>
-        public double vIPI { get; set; }
+        [XmlElement("vIPI", Order = 10)]
+        public double VIPI { get; set; }
 
         /// <summary>
         /// Informar o somatório de PIS (vPIS) informado nos itens sujeitos ao ICMS.
         /// </summary>
-        public double vPIS { get; set; }
+        [XmlElement("vPIS", Order = 11)]
+        public double VPIS { get; set; }
 
         /// <summary>
         /// Informar o somatório de PIS (vPIS) informado nos itens sujeitos ao ICMS.
         /// </summary>
-        public double vCOFINS { get; set; }
+        [XmlElement("vCOFINS", Order = 12)]
+        public double VCOFINS { get; set; }
 
         /// <summary>
         /// Informar o somatório de vOutro (vOutro) informado nos itens.
         /// </summary>
-        public double vOutro { get; set; }
+        [XmlElement("vOutro", Order = 13)]
+        public double VOutro { get; set; }
 
         /// <summary>
         /// Informar o valor total a NF.
         /// Acrescentar o valor dos Serviços informados no grupo do ISSQN.
         /// </summary>
-        public double vNF
+        [XmlElement("vNF", Order = 14)]
+        public double VNF
         {
             get
             {
-                var valores = new List<double> { vBC, vICMS, vICMSDeson, vBCST, vST, vProd, vFrete, vSeg, vII, vIPI, vPIS, vCOFINS, vOutro, vTotTrib, vProdISSQN };
-                return valores.Sum() - vDesc;
+                var valores = new List<double> { VBC, VICMS, VICMSDeson, VBCST, VST, VProd, VFrete, VSeg, VII, VIPI, VPIS, VCOFINS, VOutro, VTotTrib, vProdISSQN };
+                return valores.Sum() - VDesc;
             }
             set { }
         }
@@ -163,9 +178,9 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Pa
         /// informar o somatório do valor total aproximado dos tributos (vTotTrib) informado nos itens.
         /// Deve considerar valor de itens sujeitos ao ISSQN também.
         /// </summary>
-        public double vTotTrib { get; set; }
+        [XmlElement("vTotTrib", Order = 15)]
+        public double VTotTrib { get; set; }
 
-        [XmlIgnore]
-        private double vProdISSQN { get; set; }
+        double vProdISSQN;
     }
 }

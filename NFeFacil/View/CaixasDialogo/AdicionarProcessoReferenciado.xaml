@@ -16,7 +16,7 @@
         <Caminho:ProcessoReferenciado />
     </ContentDialog.DataContext>
     <StackPanel DataContext="{Binding Converter={StaticResource converter}}">
-        <TextBox Text="{Binding Processo.nProc, Mode=TwoWay}" />
+        <TextBox Text="{Binding Processo.NProc, Mode=TwoWay}" />
         <ComboBox SelectedIndex="{Binding Origem, Mode=TwoWay}">
             <ComboBoxItem>SEFAZ</ComboBoxItem>
             <ComboBoxItem>Justiça Federal</ComboBoxItem>

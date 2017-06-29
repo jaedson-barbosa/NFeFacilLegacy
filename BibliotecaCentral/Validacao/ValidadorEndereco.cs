@@ -5,9 +5,9 @@ namespace BibliotecaCentral.Validacao
 {
     internal sealed class Validadorendereco : IValidavel
     {
-        private enderecoCompleto End;
+        private EnderecoCompleto End;
 
-        public Validadorendereco(enderecoCompleto end)
+        public Validadorendereco(EnderecoCompleto end)
         {
             End = end;
         }

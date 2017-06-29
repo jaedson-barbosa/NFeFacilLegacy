@@ -13,10 +13,10 @@
         <detalhes:Deducoes />
     </ContentDialog.DataContext>
     <StackPanel>
-        <TextBox Text="{Binding xDed, Mode=TwoWay}"
+        <TextBox Text="{Binding XDed, Mode=TwoWay}"
                  Header="Descrição" />
         <controles:EntradaNumerica Format="13:2"
-                                   Number="{Binding vDed, Mode=TwoWay}"
+                                   Number="{Binding VDed, Mode=TwoWay}"
                                    Header="Valor" />
     </StackPanel>
 </ContentDialog>

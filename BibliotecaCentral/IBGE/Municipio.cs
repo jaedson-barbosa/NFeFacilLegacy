@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
@@ -8,7 +7,7 @@ namespace BibliotecaCentral.IBGE
 {
     public sealed class Municipio
     {
-        public ushort CodigoUF { get; set; }
+        public byte CodigoUF { get; set; }
         public string Nome { get; set; }
         public int Codigo { get; set; }
 
@@ -18,7 +17,7 @@ namespace BibliotecaCentral.IBGE
         {
             var elementos = xmlMunicípio.Elements().GetEnumerator();
             elementos.MoveNext();
-            CodigoUF = ushort.Parse(elementos.Current.Value, CultureInfo.InvariantCulture);
+            CodigoUF = byte.Parse(elementos.Current.Value);
             elementos.MoveNext();
             Nome = RemoverAcentuacao(elementos.Current.Value);
             elementos.MoveNext();

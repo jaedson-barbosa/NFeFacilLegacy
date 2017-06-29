@@ -18,8 +18,8 @@ namespace NFeFacil.View.CaixasDialogo
 
         private void btnAddLacre_Click(object sender, RoutedEventArgs e)
         {
-            vol.lacres.Add(new Lacre { nLacre = intLacre.Text });
-            lstLacres.ItemsSource = new ObservableCollection<Lacre>(vol.lacres);
+            vol.Lacres.Add(new Lacre { NLacre = intLacre.Text });
+            lstLacres.ItemsSource = new ObservableCollection<Lacre>(vol.Lacres);
             intLacre.Text = "";
         }
 
@@ -27,8 +27,8 @@ namespace NFeFacil.View.CaixasDialogo
         {
             if (lstLacres.SelectedIndex != -1)
             {
-                vol.lacres.RemoveAt(lstLacres.SelectedIndex);
-                lstLacres.ItemsSource = new ObservableCollection<Lacre>(vol.lacres);
+                vol.Lacres.RemoveAt(lstLacres.SelectedIndex);
+                lstLacres.ItemsSource = new ObservableCollection<Lacre>(vol.Lacres);
             }
         }
     }

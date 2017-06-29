@@ -63,7 +63,7 @@ namespace BibliotecaCentral.WebService.Pacotes
         public int TpAmb { get; set; }
 
         [XmlElement]
-        public string CNPJ { get; set; }
+        public long CNPJ { get; set; }
 
         [XmlElement("chNFe")]
         public string ChNFe { get; set; }
@@ -83,7 +83,7 @@ namespace BibliotecaCentral.WebService.Pacotes
         [XmlElement("detEvento")]
         public DetalhamentoEvento DetEvento { get; set; }
 
-        public InformacoesEvento(int cOrgao, string CNPJ, string chaveNFe, string versaoEvento, ulong numeroProtocolo, string justificativa, int tipoAmbiente)
+        public InformacoesEvento(int cOrgao, long CNPJ, string chaveNFe, string versaoEvento, ulong numeroProtocolo, string justificativa, int tipoAmbiente)
         {
             this.COrgao = cOrgao;
             TpAmb = tipoAmbiente;

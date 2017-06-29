@@ -40,38 +40,38 @@ namespace BibliotecaCentral.ItensBD
         public ClienteDI() { }
         public ClienteDI(Destinatario other)
         {
-            if (other.indicadorIE == 9)
+            if (other.IndicadorIE == 9)
             {
-                if (!string.IsNullOrEmpty(other.inscricaoEstadual))
+                if (!string.IsNullOrEmpty(other.InscricaoEstadual))
                 {
-                    other.indicadorIE = 1;
+                    other.IndicadorIE = 1;
                 }
                 else
                 {
-                    other.indicadorIE = 9;
+                    other.IndicadorIE = 9;
                 }
             }
 
             CPF = other.CPF;
             CNPJ = other.CNPJ;
-            IdEstrangeiro = other.idEstrangeiro;
-            Nome = other.nome;
-            IndicadorIE = other.indicadorIE;
-            InscricaoEstadual = other.inscricaoEstadual;
+            IdEstrangeiro = other.IdEstrangeiro;
+            Nome = other.Nome;
+            IndicadorIE = other.IndicadorIE;
+            InscricaoEstadual = other.InscricaoEstadual;
             ISUF = other.ISUF;
-            Email = other.email;
+            Email = other.Email;
 
-            Logradouro = other.endereco.Logradouro;
-            Numero = other.endereco.Numero;
-            Complemento = other.endereco.Complemento;
-            Bairro = other.endereco.Bairro;
-            CodigoMunicipio = other.endereco.CodigoMunicipio;
-            NomeMunicipio = other.endereco.NomeMunicipio;
-            SiglaUF = other.endereco.SiglaUF;
-            CEP = other.endereco.CEP;
-            CPais = other.endereco.CPais;
-            XPais = other.endereco.XPais;
-            Telefone = other.endereco.Telefone;
+            Logradouro = other.Endereco.Logradouro;
+            Numero = other.Endereco.Numero;
+            Complemento = other.Endereco.Complemento;
+            Bairro = other.Endereco.Bairro;
+            CodigoMunicipio = other.Endereco.CodigoMunicipio;
+            NomeMunicipio = other.Endereco.NomeMunicipio;
+            SiglaUF = other.Endereco.SiglaUF;
+            CEP = other.Endereco.CEP;
+            CPais = other.Endereco.CPais;
+            XPais = other.Endereco.XPais;
+            Telefone = other.Endereco.Telefone;
         }
 
         public Destinatario ToDestinatario()
@@ -80,13 +80,13 @@ namespace BibliotecaCentral.ItensBD
             {
                 CPF = CPF,
                 CNPJ = CNPJ,
-                idEstrangeiro = IdEstrangeiro,
-                nome = Nome,
-                indicadorIE = IndicadorIE,
-                inscricaoEstadual = InscricaoEstadual,
+                IdEstrangeiro = IdEstrangeiro,
+                Nome = Nome,
+                IndicadorIE = IndicadorIE,
+                InscricaoEstadual = InscricaoEstadual,
                 ISUF = ISUF,
-                email = Email,
-                endereco = new ModeloXML.PartesProcesso.PartesNFe.enderecoCompleto
+                Email = Email,
+                Endereco = new ModeloXML.PartesProcesso.PartesNFe.EnderecoCompleto
                 {
                     Logradouro = Logradouro,
                     Numero = Numero,

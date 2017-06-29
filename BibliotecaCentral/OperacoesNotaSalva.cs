@@ -72,7 +72,7 @@ namespace BibliotecaCentral
         {
             try
             {
-                var resultadoTransmissao = await new GerenciadorGeral<EnviNFe, RetEnviNFe>(nota.Informações.emitente.endereco.SiglaUF, Operacoes.Autorizar, homologacao)
+                var resultadoTransmissao = await new GerenciadorGeral<EnviNFe, RetEnviNFe>(nota.Informações.emitente.Endereco.SiglaUF, Operacoes.Autorizar, homologacao)
                     .EnviarAsync(new EnviNFe(nota.Informações.identificação.Numero, nota));
                 if (resultadoTransmissao.cStat == 103)
                 {

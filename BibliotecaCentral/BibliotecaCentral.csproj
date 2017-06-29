@@ -195,7 +195,6 @@
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\InformacoesAdicionais.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\Observacao.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\Pagamento.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesIdentificacao\CupomFiscalReferenciado.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesIdentificacao\DocumentoFiscalReferenciado.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesIdentificacao\NF1AReferenciada.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesIdentificacao\NFProdutorRuralReferenciada.cs" />

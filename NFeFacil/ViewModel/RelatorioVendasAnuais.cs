@@ -63,10 +63,10 @@ namespace NFeFacil.ViewModel
                         if (totalCliente.Count(x => x.Doc == det.destinatário.Documento) == 0)
                             totalCliente.Add(new TotalPorCliente { Doc = det.destinatário.Documento });
                         var tot = totalCliente.Single(x => x.Doc == det.destinatário.Documento);
-                        tot.Mun = det.destinatário.endereco.NomeMunicipio;
-                        tot.Nome = det.destinatário.nome;
+                        tot.Mun = det.destinatário.Endereco.NomeMunicipio;
+                        tot.Nome = det.destinatário.Nome;
                         tot.Quantidade = det.produtos.Sum(prod => prod.Produto.QuantidadeComercializada);
-                        tot.Total += det.total.ICMSTot.vNF;
+                        tot.Total += det.total.ICMSTot.VNF;
                     }
                     ResultadoCliente = (from item in totalCliente
                                         orderby item.Total descending
@@ -76,7 +76,7 @@ namespace NFeFacil.ViewModel
                     QuantTotal = notas.Sum(x => x.Informações.produtos.Sum(prod => prod.Produto.QuantidadeComercializada));
                     PropertyChanged(this, new PropertyChangedEventArgs(nameof(QuantTotal)));
 
-                    ValorTotal = notas.Sum(x => x.Informações.total.ICMSTot.vNF);
+                    ValorTotal = notas.Sum(x => x.Informações.total.ICMSTot.VNF);
                     PropertyChanged(this, new PropertyChangedEventArgs(nameof(ValorTotal)));
 
                     var totalMes = new List<TotalPorMes>(12);
@@ -89,7 +89,7 @@ namespace NFeFacil.ViewModel
                         var det = item.Informações;
                         var data = Convert.ToDateTime(det.identificação.DataHoraEmissão);
                         totalMes[data.Month - 1].Quantidade = det.produtos.Sum(prod => prod.Produto.QuantidadeComercializada);
-                        totalMes[data.Month - 1].Total += det.total.ICMSTot.vNF;
+                        totalMes[data.Month - 1].Total += det.total.ICMSTot.VNF;
                     }
                     ResultadoMes = totalMes.GerarObs();
                     PropertyChanged(this, new PropertyChangedEventArgs(nameof(ResultadoMes)));

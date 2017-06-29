@@ -14,10 +14,10 @@
     </ContentDialog.DataContext>
     <StackPanel>
         <controles:EntradaNumerica Format="2"
-                                   Number="{Binding dia, Mode=TwoWay}"
+                                   Number="{Binding Dia, Mode=TwoWay}"
                                    Header="Dia" />
         <controles:EntradaNumerica Format="11:10"
-                                   Number="{Binding qtde, Mode=TwoWay}"
+                                   Number="{Binding Qtde, Mode=TwoWay}"
                                    Header="Quantidade" />
     </StackPanel>
 </ContentDialog>

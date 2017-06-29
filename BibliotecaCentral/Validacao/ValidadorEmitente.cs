@@ -20,10 +20,10 @@ namespace BibliotecaCentral.Validacao
 
         public bool Validar(ILog log)
         {
-            return new ValidarDados(new Validadorendereco(Emit.endereco)).ValidarTudo(log,
-                new ConjuntoAnalise(string.IsNullOrEmpty(Emit.nome), "Não foi informado o nome do emitente"),
-                new ConjuntoAnalise(string.IsNullOrEmpty(Emit.CNPJ), "Não foi informado o CNPJ do emitente"),
-                new ConjuntoAnalise(string.IsNullOrEmpty(Emit.inscricaoEstadual), "Não foi informada a inscrição estadual do emitente"));
+            return new ValidarDados(new Validadorendereco(Emit.Endereco)).ValidarTudo(log,
+                new ConjuntoAnalise(string.IsNullOrEmpty(Emit.Nome), "Não foi informado o nome do emitente"),
+                new ConjuntoAnalise(Emit.CNPJ == 0, "Não foi informado o CNPJ do emitente"),
+                new ConjuntoAnalise(string.IsNullOrEmpty(Emit.InscricaoEstadual), "Não foi informada a inscrição estadual do emitente"));
         }
     }
 }

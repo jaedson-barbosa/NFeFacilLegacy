@@ -8,10 +8,10 @@ namespace BibliotecaCentral.ItensBD
         public Guid Id { get; set; }
         public DateTime UltimaData { get; set; }
 
-        public string CNPJ { get; set; }
+        public long CNPJ { get; set; }
         public string Nome { get; set; }
         public string NomeFantasia { get; set; }
-        public string InscricaoEstadual { get; set; }
+        public long InscricaoEstadual { get; set; }
         public string IEST { get; set; }
         public string IM { get; set; }
         public string CNAE { get; set; }
@@ -24,7 +24,7 @@ namespace BibliotecaCentral.ItensBD
         public int CodigoMunicipio { get; set; }
         public string NomeMunicipio { get; set; }
         public string SiglaUF { get; set; }
-        public string CEP { get; set; }
+        public int CEP { get; set; }
         public int CPais { get; set; } = 1058;
         public string XPais { get; set; } = "Brasil";
         public string Telefone { get; set; }
@@ -33,25 +33,25 @@ namespace BibliotecaCentral.ItensBD
         public EmitenteDI(Emitente other)
         {
             CNPJ = other.CNPJ;
-            Nome = other.nome;
-            NomeFantasia = other.nomeFantasia;
-            InscricaoEstadual = other.inscricaoEstadual;
+            Nome = other.Nome;
+            NomeFantasia = other.NomeFantasia;
+            InscricaoEstadual = other.InscricaoEstadual;
             IEST = other.IEST;
             IM = other.IM;
             CNAE = other.CNAE;
-            RegimeTributario = other.regimeTributario;
+            RegimeTributario = other.RegimeTributario;
 
-            Logradouro = other.endereco.Logradouro;
-            Numero = other.endereco.Numero;
-            Complemento = other.endereco.Complemento;
-            Bairro = other.endereco.Bairro;
-            CodigoMunicipio = other.endereco.CodigoMunicipio;
-            NomeMunicipio = other.endereco.NomeMunicipio;
-            SiglaUF = other.endereco.SiglaUF;
-            CEP = other.endereco.CEP;
-            CPais = other.endereco.CPais;
-            XPais = other.endereco.XPais;
-            Telefone = other.endereco.Telefone;
+            Logradouro = other.Endereco.Logradouro;
+            Numero = other.Endereco.Numero;
+            Complemento = other.Endereco.Complemento;
+            Bairro = other.Endereco.Bairro;
+            CodigoMunicipio = other.Endereco.CodigoMunicipio;
+            NomeMunicipio = other.Endereco.NomeMunicipio;
+            SiglaUF = other.Endereco.SiglaUF;
+            CEP = int.Parse(other.Endereco.CEP);
+            CPais = other.Endereco.CPais;
+            XPais = other.Endereco.XPais;
+            Telefone = other.Endereco.Telefone;
         }
 
         public Emitente ToEmitente()
@@ -59,14 +59,14 @@ namespace BibliotecaCentral.ItensBD
             return new Emitente
             {
                 CNPJ = CNPJ,
-                nome = Nome,
-                nomeFantasia = NomeFantasia,
-                inscricaoEstadual = InscricaoEstadual,
+                Nome = Nome,
+                NomeFantasia = NomeFantasia,
+                InscricaoEstadual = InscricaoEstadual,
                 IEST = IEST,
                 IM = IM,
                 CNAE = CNAE,
-                regimeTributario = RegimeTributario,
-                endereco = new ModeloXML.PartesProcesso.PartesNFe.enderecoCompleto
+                RegimeTributario = RegimeTributario,
+                Endereco = new ModeloXML.PartesProcesso.PartesNFe.EnderecoCompleto
                 {
                     Logradouro = Logradouro,
                     Numero = Numero,
@@ -75,7 +75,7 @@ namespace BibliotecaCentral.ItensBD
                     CodigoMunicipio = CodigoMunicipio,
                     NomeMunicipio = NomeMunicipio,
                     SiglaUF = SiglaUF,
-                    CEP = CEP,
+                    CEP = CEP.ToString(),
                     CPais = CPais,
                     XPais = XPais,
                     Telefone = Telefone

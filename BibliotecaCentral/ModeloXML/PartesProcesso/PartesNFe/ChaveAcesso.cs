@@ -13,7 +13,7 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe
 
         internal string CriarChaveAcesso()
         {
-            var codigoUF = Estados.Buscar(detalhes.emitente.endereco.SiglaUF).Codigo;
+            var codigoUF = Estados.Buscar(detalhes.emitente.Endereco.SiglaUF).Codigo;
             var dhEmissao = Convert.ToDateTime(detalhes.identificação.DataHoraEmissão).ToString("yyMM");
             var CNPJEmitente = detalhes.emitente.CNPJ;
             var modeloIdentificacao = detalhes.identificação.Modelo;

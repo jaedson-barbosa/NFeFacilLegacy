@@ -50,9 +50,9 @@ namespace NFeFacil.View
                             produtos = new List<DetalhesProdutos>(),
                             transp = new Transporte()
                             {
-                                transporta = new Motorista(),
-                                retTransp = new ICMSTransporte(),
-                                veicTransp = new Veiculo()
+                                Transporta = new Motorista(),
+                                RetTransp = new ICMSTransporte(),
+                                VeicTransp = new Veiculo()
                             },
                             cobr = new Cobranca(),
                             infAdic = new InformacoesAdicionais(),

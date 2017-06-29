@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTotal;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
+using System.Xml.Serialization;
 
 namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
 {
@@ -10,6 +11,15 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
     /// </summary>
     public class Total
     {
+        [XmlElement(Order = 0)]
+        public ICMSTot ICMSTot { get; set; }
+
+        [XmlElement(Order = 1)]
+        public ISSQNtot ISSQNtot { get; set; }
+
+        [XmlElement("retTrib", Order = 2)]
+        public RetTrib RetTrib { get; set; }
+
         public Total() { }
         public Total(List<DetalhesProdutos> produtos)
         {
@@ -19,10 +29,7 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
             ISSQNtot = new ISSQNtot(from p in produtos
                                     where p.impostos.impostos.Count(x => x is ISSQN) > 0
                                     select p);
-            retTrib = new RetTrib();
+            RetTrib = new RetTrib();
         }
-        public ICMSTot ICMSTot { get; set; }
-        public ISSQNtot ISSQNtot { get; set; }
-        public RetTrib retTrib { get; set; }
     }
 }

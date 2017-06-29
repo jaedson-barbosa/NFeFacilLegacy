@@ -3,8 +3,13 @@
     /// <summary>
     /// Grupo de Partilha do ICMS entre a UF de origem e UF de destino ou a UF definida na legislação. 
     /// </summary>
-    public class ICMSPart : RegimeNormal
+    public class ICMSPart : ComumICMS, IRegimeNormal
     {
+        /// <summary>
+        /// Tributação do ICMS.
+        /// </summary>
+        public string CST { get; set; }
+
         /// <summary>
         /// Modalidade de determinação da BC do ICMS.
         /// </summary>

@@ -6,8 +6,8 @@ namespace NFeFacil.ViewModel.ImpostosProduto
 {
     public sealed class ICMSDataContext : INotifyPropertyChanged, IImpostoDataContext
     {
-        public SimplesNacional Simples { get; private set; }
-        public RegimeNormal Normal { get; private set; }
+        public ISimplesNacional Simples { get; private set; }
+        public IRegimeNormal Normal { get; private set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged(params string[] parametros)
@@ -174,7 +174,7 @@ namespace NFeFacil.ViewModel.ImpostosProduto
 
         public Imposto ImpostoBruto => new ICMS()
         {
-            Corpo = (ComumICMS)Simples ?? Normal
+            Corpo = (ComumICMS)Simples ?? (ComumICMS)Normal
         };
 
         private void AttCamposNormal(bool pRedBC, bool grupoInicio, bool ICMSST, bool grupoMeio, bool motDesICMS, bool vICMSDeson, bool grupoFim)

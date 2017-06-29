@@ -231,12 +231,12 @@ namespace NFeFacil.DANFE
 
             DadosProduto GetProd(DetalhesProdutos prod)
             {
-                var consult = new ConsultarImpostos(prod.impostos.ToXElement<Impostos>());
+                var consult = new ConsultarImpostos(prod.Impostos.ToXElement<Impostos>());
                 return new DadosProduto
                 {
                     CFOP = prod.Produto.CFOP,
                     CProd = prod.Produto.CodigoProduto,
-                    CSTICMS = prod.impostos.GetCSTICMS(),
+                    CSTICMS = prod.Impostos.GetCSTICMS(),
                     NCM = prod.Produto.NCM,
                     QCom = prod.Produto.QuantidadeComercializada.ToString("N4"),
                     UCom = prod.Produto.UnidadeComercializacao,
@@ -248,7 +248,7 @@ namespace NFeFacil.DANFE
                     VICMS = consult.AgregarValor("vICMS", 0).ToString("N2"),
                     PIPI = consult.AgregarValor("pIPI", 0).ToString("N2"),
                     VIPI = consult.AgregarValor("vIPI", 0).ToString("N2"),
-                    InfoAdicional = prod.infAdProd
+                    InfoAdicional = prod.InfAdProd
                 };
             }
         }

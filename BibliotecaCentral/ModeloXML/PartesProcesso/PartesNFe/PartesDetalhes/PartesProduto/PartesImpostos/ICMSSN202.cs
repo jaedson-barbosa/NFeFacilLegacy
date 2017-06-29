@@ -1,7 +1,12 @@
 ﻿namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos
 {
-    public class ICMSSN202 : SimplesNacional
+    public class ICMSSN202 : ComumICMS, ISimplesNacional
     {
+        /// <summary>
+        /// Código de Situação da Operação – Simples Nacional.
+        /// </summary>
+        public string CSOSN { get; set; }
+
         /// <summary>
         /// Modalidade de determinação da BC do ICMS ST.
         /// </summary>

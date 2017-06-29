@@ -1,4 +1,6 @@
-﻿namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos
+﻿using System.Xml.Serialization;
+
+namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos
 {
     /// <summary>
     /// O preenchimento dos campos do grupo de ICMS são variáveis e dependem do CST ou do CSOSN do item de Produto.
@@ -9,6 +11,7 @@
         /// <summary>
         /// Origem da mercadoria.
         /// </summary>
-        public int orig { get; set; }
+        [XmlElement("orig", Order = 0)]
+        public int Orig { get; set; }
     }
 }

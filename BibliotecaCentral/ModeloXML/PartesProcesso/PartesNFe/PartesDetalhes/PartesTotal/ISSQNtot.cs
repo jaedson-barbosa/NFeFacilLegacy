@@ -16,7 +16,7 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Pa
             foreach (var Produto in produtos)
             {
                 var prod = Produto.Produto;
-                foreach (var imposto in Produto.impostos.impostos)
+                foreach (var imposto in Produto.Impostos.impostos)
                 {
                     if (imposto is ISSQN)
                     {

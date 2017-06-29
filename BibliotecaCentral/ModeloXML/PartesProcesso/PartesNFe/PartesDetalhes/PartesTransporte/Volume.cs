@@ -51,7 +51,7 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Pa
         /// (Opcional)
         /// Grupo lacres.
         /// </summary>
-        [XmlElement("lacres", Order = 6]
+        [XmlElement("lacres", Order = 6)]
         public List<Lacre> Lacres { get; set; } = new List<Lacre>();
     }
 

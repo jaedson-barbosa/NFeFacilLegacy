@@ -1,10 +1,10 @@
 ﻿namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos
 {
-    public class SimplesNacional : ComumICMS
+    public interface IRegimeNormal
     {
         /// <summary>
-        /// Código de Situação da Operação – Simples Nacional.
+        /// Tributação do ICMS.
         /// </summary>
-        public string CSOSN { get; set; }
+        string CST { get; set; }
     }
 }

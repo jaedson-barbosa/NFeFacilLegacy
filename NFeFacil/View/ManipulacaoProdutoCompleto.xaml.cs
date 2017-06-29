@@ -81,10 +81,10 @@ namespace NFeFacil.View
             var info = parametro.NotaSalva.Informações;
 
             var data = DataContext as ProdutoCompletoDataContext;
-            data.ProdutoCompleto.impostos = ImpostosFiltrados;
+            data.ProdutoCompleto.Impostos = ImpostosFiltrados;
 
             var detalhes = data.ProdutoCompleto;
-            detalhes.número = info.produtos.Count + 1;
+            detalhes.Número = info.produtos.Count + 1;
             info.produtos.Add(detalhes);
             info.total = new Total(info.produtos);
 

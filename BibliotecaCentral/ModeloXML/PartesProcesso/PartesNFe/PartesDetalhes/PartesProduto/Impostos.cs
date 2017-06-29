@@ -22,10 +22,10 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Pa
         {
             foreach (var item in impostos)
             {
-                if (item is ICMS)
+                if (item is ICMS icms)
                 {
-                    if ((item as ICMS).Corpo is RegimeNormal) return ((RegimeNormal)((ICMS)item).Corpo).CST;
-                    else if ((item as ICMS).Corpo is SimplesNacional) return ((SimplesNacional)((ICMS)item).Corpo).CSOSN;
+                    if (icms.Corpo is IRegimeNormal normal) return normal.CST;
+                    else if (icms.Corpo is ISimplesNacional simples) return simples.CSOSN;
                 }
             }
             return null;

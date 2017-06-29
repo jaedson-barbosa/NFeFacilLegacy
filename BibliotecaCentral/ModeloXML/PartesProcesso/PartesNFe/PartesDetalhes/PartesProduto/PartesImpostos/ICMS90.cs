@@ -1,7 +1,12 @@
 ﻿namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos
 {
-    public class ICMS90 : RegimeNormal
+    public class ICMS90 : ComumICMS, IRegimeNormal
     {
+        /// <summary>
+        /// Tributação do ICMS.
+        /// </summary>
+        public string CST { get; set; }
+
         /// <summary>
         /// Modalidade de determinação da BC do ICMS.
         /// </summary>

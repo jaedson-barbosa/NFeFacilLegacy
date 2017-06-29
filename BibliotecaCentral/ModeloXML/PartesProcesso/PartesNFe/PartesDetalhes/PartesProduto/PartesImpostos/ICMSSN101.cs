@@ -1,7 +1,12 @@
 ﻿namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos
 {
-    public class ICMSSN101 : SimplesNacional
+    public class ICMSSN101 : ComumICMS, ISimplesNacional
     {
+        /// <summary>
+        /// Código de Situação da Operação – Simples Nacional.
+        /// </summary>
+        public string CSOSN { get; set; }
+
         /// <summary>
         /// Alíquota aplicável de cálculo do crédito (Simples Nacional).
         /// </summary>

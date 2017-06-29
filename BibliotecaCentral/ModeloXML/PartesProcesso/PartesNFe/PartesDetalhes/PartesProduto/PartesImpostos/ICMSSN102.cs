@@ -3,5 +3,11 @@
     /// <summary>
     /// Grupo CRT=1 – Simples Nacional e CSOSN=102, 103, 300 ou 400.
     /// </summary>
-    public class ICMSSN102 : SimplesNacional { }
+    public class ICMSSN102 : ComumICMS, ISimplesNacional
+    {
+        /// <summary>
+        /// Código de Situação da Operação – Simples Nacional.
+        /// </summary>
+        public string CSOSN { get; set; }
+    }
 }

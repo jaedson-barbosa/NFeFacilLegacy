@@ -18,7 +18,7 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Pa
             {
                 var temISSQN = false;
                 var prod = Produto.Produto;
-                foreach (var imposto in Produto.impostos.impostos)
+                foreach (var imposto in Produto.Impostos.impostos)
                 {
                     if (imposto is ISSQN)
                     {
@@ -64,7 +64,7 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Pa
                     VSeg += prod.Seguro.ToDouble();
                     VDesc += prod.Desconto.ToDouble();
                     VOutro += prod.DespesasAcessórias.ToDouble();
-                    VTotTrib += Produto.impostos.vTotTrib.ToDouble();
+                    VTotTrib += Produto.Impostos.vTotTrib.ToDouble();
                 }
                 else if (temISSQN)
                 {

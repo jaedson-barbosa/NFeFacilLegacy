@@ -32,10 +32,11 @@
                 <TextBox Text="{Binding NomeFantasia, Mode=TwoWay}"
                          InputScope="Text"
                          Header="Nome fantasia" />
-                <controles:EntradaNumerica Format="14"
-                                           Number="{Binding CNPJ, Mode=TwoWay}"
+                <controles:EntradaRestrita Pattern="[^\d]"
+                                           Text="{Binding CNPJ, Mode=TwoWay}"
                                            Header="CNPJ *" />
-                <controles:EntradaNumerica Number="{Binding InscricaoEstadual, Mode=TwoWay}"
+                <controles:EntradaRestrita Pattern="[^\d]"
+                                           Text="{Binding InscricaoEstadual, Mode=TwoWay}"
                                            Header="Inscrição estadual *" />
                 <controles:EntradaRestrita Pattern="[^\d]"
                                            Text="{Binding CNAE, Mode=TwoWay}"
@@ -77,8 +78,8 @@
                 <TextBox Text="{Binding Path=Emit.Bairro, Mode=TwoWay}"
                          InputScope="Text"
                          Header="Bairro *" />
-                <controles:EntradaNumerica Format="8"
-                                           Number="{Binding Path=Emit.CEP, Mode=TwoWay}"
+                <controles:EntradaRestrita Pattern="[^\d]"
+                                           Text="{Binding Path=Emit.CEP, Mode=TwoWay}"
                                            Header="CEP" />
                 <controles:EntradaRestrita Pattern="[^\d]"
                                            Text="{Binding Path=Emit.Telefone, Mode=TwoWay}"

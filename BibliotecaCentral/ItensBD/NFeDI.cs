@@ -18,7 +18,7 @@ namespace BibliotecaCentral.ItensBD
         [Required]
         public string NomeEmitente { get; set; }
         [Required]
-        public long CNPJEmitente { get; set; }
+        public string CNPJEmitente { get; set; }
         [Required]
         public string NomeCliente { get; set; }
         [Required]
@@ -49,7 +49,7 @@ namespace BibliotecaCentral.ItensBD
             Id = nota.Informações.Id;
             NomeCliente = nota.Informações.destinatário.Nome;
             NomeEmitente = nota.Informações.emitente.Nome;
-            CNPJEmitente = nota.Informações.emitente.CNPJ;
+            CNPJEmitente = nota.Informações.emitente.CNPJ.ToString();
             DataEmissao = DateTime.Parse(nota.Informações.identificação.DataHoraEmissão).ToString("yyyy-MM-dd HH:mm:ss");
             NumeroNota = nota.Informações.identificação.Numero;
             SerieNota = nota.Informações.identificação.Serie;
@@ -61,7 +61,7 @@ namespace BibliotecaCentral.ItensBD
             Id = nota.NFe.Informações.Id;
             NomeCliente = nota.NFe.Informações.destinatário.Nome;
             NomeEmitente = nota.NFe.Informações.emitente.Nome;
-            CNPJEmitente = nota.NFe.Informações.emitente.CNPJ;
+            CNPJEmitente = nota.NFe.Informações.emitente.CNPJ.ToString();
             DataEmissao = DateTime.Parse(nota.NFe.Informações.identificação.DataHoraEmissão).ToString("yyyy-MM-dd HH:mm:ss");
             NumeroNota = nota.NFe.Informações.identificação.Numero;
             SerieNota = nota.NFe.Informações.identificação.Serie;

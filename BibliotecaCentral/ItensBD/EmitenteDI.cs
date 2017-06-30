@@ -8,10 +8,10 @@ namespace BibliotecaCentral.ItensBD
         public Guid Id { get; set; }
         public DateTime UltimaData { get; set; }
 
-        public long CNPJ { get; set; }
+        public string CNPJ { get; set; }
         public string Nome { get; set; }
         public string NomeFantasia { get; set; }
-        public long InscricaoEstadual { get; set; }
+        public string InscricaoEstadual { get; set; }
         public string IEST { get; set; }
         public string IM { get; set; }
         public string CNAE { get; set; }
@@ -24,7 +24,7 @@ namespace BibliotecaCentral.ItensBD
         public int CodigoMunicipio { get; set; }
         public string NomeMunicipio { get; set; }
         public string SiglaUF { get; set; }
-        public int CEP { get; set; }
+        public string CEP { get; set; }
         public int CPais { get; set; } = 1058;
         public string XPais { get; set; } = "Brasil";
         public string Telefone { get; set; }
@@ -32,10 +32,10 @@ namespace BibliotecaCentral.ItensBD
         public EmitenteDI() { }
         public EmitenteDI(Emitente other)
         {
-            CNPJ = other.CNPJ;
+            CNPJ = other.CNPJ.ToString();
             Nome = other.Nome;
             NomeFantasia = other.NomeFantasia;
-            InscricaoEstadual = other.InscricaoEstadual;
+            InscricaoEstadual = other.InscricaoEstadual.ToString();
             IEST = other.IEST;
             IM = other.IM;
             CNAE = other.CNAE;
@@ -48,7 +48,7 @@ namespace BibliotecaCentral.ItensBD
             CodigoMunicipio = other.Endereco.CodigoMunicipio;
             NomeMunicipio = other.Endereco.NomeMunicipio;
             SiglaUF = other.Endereco.SiglaUF;
-            CEP = int.Parse(other.Endereco.CEP);
+            CEP = other.Endereco.CEP;
             CPais = other.Endereco.CPais;
             XPais = other.Endereco.XPais;
             Telefone = other.Endereco.Telefone;
@@ -58,10 +58,10 @@ namespace BibliotecaCentral.ItensBD
         {
             return new Emitente
             {
-                CNPJ = CNPJ,
+                CNPJ = long.Parse(CNPJ),
                 Nome = Nome,
                 NomeFantasia = NomeFantasia,
-                InscricaoEstadual = InscricaoEstadual,
+                InscricaoEstadual = long.Parse(InscricaoEstadual),
                 IEST = IEST,
                 IM = IM,
                 CNAE = CNAE,

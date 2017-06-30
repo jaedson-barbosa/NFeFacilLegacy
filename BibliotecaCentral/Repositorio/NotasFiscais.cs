@@ -31,7 +31,7 @@ namespace BibliotecaCentral.Repositorio
         public int ObterNovoNumero(long cnpjEmitente, ushort serieNota)
         {
             return (from nota in Contexto.NotasFiscais
-                    where nota.CNPJEmitente == cnpjEmitente
+                    where nota.CNPJEmitente == cnpjEmitente.ToString()
                     where nota.SerieNota == serieNota
                     select nota.NumeroNota).Max() + 1;
         }

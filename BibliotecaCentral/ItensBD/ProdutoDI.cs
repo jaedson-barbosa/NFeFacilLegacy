@@ -14,7 +14,7 @@ namespace BibliotecaCentral.ItensBD
         public string Descricao { get; set; }
         public string NCM { get; set; }
         public string EXTIPI { get; set; }
-        public int CFOP { get; set; }
+        public string CFOP { get; set; }
         public string UnidadeComercializacao { get; set; }
         public double ValorUnitario { get; set; }
         public string CodigoBarrasTributo { get; set; } = "";
@@ -29,7 +29,7 @@ namespace BibliotecaCentral.ItensBD
             Descricao = other.Descricao;
             NCM = other.NCM;
             EXTIPI = other.EXTIPI;
-            CFOP = other.CFOP;
+            CFOP = other.CFOP.ToString();
             UnidadeComercializacao = other.UnidadeComercializacao;
             ValorUnitario = other.ValorUnitario;
             CodigoBarrasTributo = other.CodigoBarrasTributo;
@@ -46,7 +46,7 @@ namespace BibliotecaCentral.ItensBD
                 Descricao = Descricao,
                 NCM = NCM,
                 EXTIPI = EXTIPI,
-                CFOP = CFOP,
+                CFOP = int.Parse(CFOP),
                 UnidadeComercializacao = UnidadeComercializacao,
                 ValorUnitario = ValorUnitario,
                 CodigoBarrasTributo = CodigoBarrasTributo,

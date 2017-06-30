@@ -92,7 +92,7 @@ namespace NFeFacil.ViewModel
                 var emit = NotaSalva.Informações.emitente;
                 if (emitenteSelecionado == null && emit != null)
                 {
-                    emitenteSelecionado = EmitentesDisponiveis.FirstOrDefault(x => x.CNPJ == emit.CNPJ);
+                    emitenteSelecionado = EmitentesDisponiveis.FirstOrDefault(x => long.Parse(x.CNPJ) == emit.CNPJ);
                 }
                 return emitenteSelecionado;
             }

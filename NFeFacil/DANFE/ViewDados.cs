@@ -2,6 +2,7 @@
 using BibliotecaCentral.ModeloXML;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
+using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
 using NFeFacil.DANFE.Pacotes;
 using System;
 using System.Collections.Generic;
@@ -203,7 +204,7 @@ namespace NFeFacil.DANFE
                 CNPJEmit = AplicatMascaraDocumento(detalhes.emitente.CNPJ),
                 DataHoraRecibo = prot.InfProt.dhRecbto.Replace('T', ' '),
                 Endereco = detalhes.emitente.Endereco,
-                IE = detalhes.emitente.InscricaoEstadual,
+                IE = detalhes.emitente.InscricaoEstadual.ToString(),
                 IEST = detalhes.emitente.IEST,
                 NatOp = detalhes.identificação.NaturezaDaOperação,
                 NomeEmitente = detalhes.emitente.Nome,
@@ -234,9 +235,9 @@ namespace NFeFacil.DANFE
                 var consult = new ConsultarImpostos(prod.Impostos.ToXElement<Impostos>());
                 return new DadosProduto
                 {
-                    CFOP = prod.Produto.CFOP,
+                    CFOP = prod.Produto.CFOP.ToString(),
                     CProd = prod.Produto.CodigoProduto,
-                    CSTICMS = prod.Impostos.GetCSTICMS(),
+                    CSTICMS = GetCSTICMS(),
                     NCM = prod.Produto.NCM,
                     QCom = prod.Produto.QuantidadeComercializada.ToString("N4"),
                     UCom = prod.Produto.UnidadeComercializacao,
@@ -250,6 +251,20 @@ namespace NFeFacil.DANFE
                     VIPI = consult.AgregarValor("vIPI", 0).ToString("N2"),
                     InfoAdicional = prod.InfAdProd
                 };
+
+
+                string GetCSTICMS()
+                {
+                    foreach (var item in prod.Impostos.impostos)
+                    {
+                        if (item is ICMS icms)
+                        {
+                            if (icms.Corpo is IRegimeNormal normal) return normal.CST;
+                            else if (icms.Corpo is ISimplesNacional simples) return simples.CSOSN;
+                        }
+                    }
+                    return null;
+                }
             }
         }
 

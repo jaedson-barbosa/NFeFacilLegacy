@@ -23,7 +23,7 @@ namespace BibliotecaCentral.Validacao
             return new ValidarDados().ValidarTudo(log,
                 new ConjuntoAnalise(string.IsNullOrEmpty(Prod.CodigoProduto), "Não foi informado o código do Produto"),
                 new ConjuntoAnalise(string.IsNullOrEmpty(Prod.Descricao), "Não foi informada uma breve descrição do Produto"),
-                new ConjuntoAnalise(string.IsNullOrEmpty(Prod.CFOP), "Não foi informado o CFOP do Produto"));
+                new ConjuntoAnalise(Prod.CFOP == 0, "Não foi informado o CFOP do Produto"));
         }
     }
 }

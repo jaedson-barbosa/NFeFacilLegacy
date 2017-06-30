@@ -31,9 +31,10 @@
                 <TextBox Text="{Binding Declaracao.CExportador, Mode=TwoWay}"
                          Header="Código do exportador"
                          Margin="0,0,0,10" />
-                <TextBox Text="{Binding Declaracao.VAFRMM, Mode=TwoWay}"
-                         Header="Valor da AFRMM"
-                         Margin="0,0,0,10" />
+                <controles:EntradaRestrita Pattern="[^\d.,]"
+                                           Text="{Binding Declaracao.VAFRMM, Mode=TwoWay}"
+                                           Header="Valor da AFRMM"
+                                           Margin="0,0,0,10" />
                 <DatePicker Date="{Binding dataRegistro, Mode=TwoWay}"
                             Header="Data registro"
                             MinWidth="150"
@@ -86,8 +87,9 @@
                           SelectedItem="{Binding Path=Declaracao.UFTerceiro, Mode=TwoWay}"
                           Header="UF"
                           HorizontalAlignment="Stretch" />
-                <TextBox Text="{Binding Declaracao.CNPJ, Mode=TwoWay}"
-                         Header="CNPJ" />
+                <controles:EntradaRestrita Pattern="[^\d]"
+                                           Text="{Binding Declaracao.CNPJ, Mode=TwoWay}"
+                                           Header="CNPJ" />
             </ItemsControl>
         </PivotItem>
         <PivotItem Header="Adições">
@@ -103,14 +105,17 @@
                 </Grid.RowDefinitions>
                 <StackPanel DataContext="{Binding NovaAdicao}"
                             Grid.RowSpan="2">
-                    <TextBox Text="{Binding NAdicao, Mode=TwoWay}"
-                             Header="Número *" />
+                    <controles:EntradaNumerica Format="3"
+                                               Number="{Binding NAdicao, Mode=TwoWay}"
+                                               Header="Número *" />
                     <TextBox Text="{Binding CFabricante, Mode=TwoWay}"
                              Header="Cód. do fabricante *" />
-                    <TextBox Text="{Binding VDescDI, Mode=TwoWay}"
-                             Header="Desconto" />
-                    <TextBox Text="{Binding NDraw, Mode=TwoWay}"
-                             Header="Número de Drawback" />
+                    <controles:EntradaRestrita Pattern="[^\d.,]"
+                                               Text="{Binding VDescDI, Mode=TwoWay}"
+                                               Header="Desconto" />
+                    <controles:EntradaRestrita Pattern="[^\d]"
+                                               Text="{Binding NDraw, Mode=TwoWay}"
+                                               Header="Número de Drawback" />
                 </StackPanel>
                 <ListView ItemsSource="{Binding Adicoes}"
                           SelectedIndex="{Binding IndexAdicaoSelecionada, Mode=TwoWay}"

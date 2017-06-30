@@ -4,6 +4,7 @@
       xmlns:VM="using:NFeFacil.ViewModel"
       xmlns:Impostos="using:BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos"
       xmlns:ImpostosContext="using:NFeFacil.ViewModel.ImpostosProduto"
+      xmlns:controles="using:NFeFacil.View.Controles"
       xmlns:Conversores="using:NFeFacil.ViewModel.Converters"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -35,75 +36,75 @@
                           DataContext="{Binding ProdutoCompleto.Produto}">
                 <StackPanel>
                     <ItemsControl Style="{StaticResource ItensResponsivos}">
-                        <TextBox Text="{Binding QuantidadeComercializada, Mode=TwoWay}"
-                                 InputScope="Number"
-                                 Header="Qtd. comercial" />
-                        <TextBox Text="{Binding Seguro, Mode=TwoWay}"
-                                 InputScope="Number"
-                                 Header="Seguro" />
-                        <TextBox Text="{Binding Frete, Mode=TwoWay}"
-                                 InputScope="Number"
-                                 Header="Frete" />
-                        <TextBox Text="{Binding ValorTotal, Mode=TwoWay}"
-                                 InputScope="Number"
-                                 Header="Total bruto" />
-                        <TextBox Text="{Binding XPed, Mode=TwoWay}"
-                                 InputScope="Number"
-                                 Header="Pedido de compra" />
-                        <TextBox Text="{Binding QuantidadeTributada, Mode=TwoWay}"
-                                 InputScope="Number"
-                                 Header="Qtd. tributária" />
-                        <TextBox Text="{Binding Desconto, Mode=TwoWay}"
-                                 InputScope="Number"
-                                 Header="Desconto" />
-                        <TextBox Text="{Binding DespesasAcessórias, Mode=TwoWay}"
-                                 InputScope="Number"
-                                 Header="Desp. acessórias" />
-                        <TextBox Text="{Binding NFCI, Mode=TwoWay}"
-                                 InputScope="Number"
-                                 Header="Nº de controle da FCI" />
-                        <TextBox Text="{Binding NItemPed, Mode=TwoWay}"
-                                 InputScope="Number"
-                                 Header="Nº do item do pedido" />
+                        <TextBox Text="{Binding CodigoProduto, Mode=TwoWay}"
+                                 InputScope="Text"
+                                 Header="Código *" />
+                        <controles:EntradaRestrita Pattern="[^\d]"
+                                                   Text="{Binding CodigoBarras, Mode=TwoWay}"
+                                                   Header="EAN" />
+                        <TextBox Text="{Binding Descricao, Mode=TwoWay}"
+                                 InputScope="Text"
+                                 Header="Descrição *" />
+                        <controles:EntradaRestrita Pattern="[^\d]"
+                                                   Text="{Binding NCM, Mode=TwoWay}"
+                                                   Header="NCM" />
+                        <controles:EntradaRestrita Pattern="[^\d]"
+                                                   Text="{Binding EXTIPI, Mode=TwoWay}"
+                                                   Header="EX TIPI" />
+                        <controles:EntradaNumerica Format="4"
+                                                   Number="{Binding CFOP, Mode=TwoWay}"
+                                                   Header="CFOP *" />
+                        <TextBox Text="{Binding UnidadeComercializacao, Mode=TwoWay}"
+                                 InputScope="Text"
+                                 Header="Unidade comercial" />
+                        <controles:EntradaNumerica Format="11:4"
+                                                   Number="{Binding QuantidadeComercializada, Mode=TwoWay}"
+                                                   Header="Qtd. comercial" />
+                        <controles:EntradaNumerica Format="11:10"
+                                                   Number="{Binding ValorUnitario, Mode=TwoWay}"
+                                                   Header="Valor unid. comercial" />
+                        <controles:EntradaNumerica Format="13:2"
+                                                   Number="{Binding ValorTotal, Mode=TwoWay}"
+                                                   Header="Total bruto" />
+                        <controles:EntradaRestrita Pattern="[^\d]"
+                                                   Text="{Binding CodigoBarrasTributo, Mode=TwoWay}"
+                                                   Header="EAN Unid. Tributável" />
+                        <TextBox Text="{Binding UnidadeTributacao, Mode=TwoWay}"
+                                 InputScope="Text"
+                                 Header="Unidade tributária" />
+                        <controles:EntradaNumerica Format="11:4"
+                                                   Number="{Binding QuantidadeTributada, Mode=TwoWay}"
+                                                   Header="Qtd. tributária" />
+                        <controles:EntradaNumerica Format="11:10"
+                                                   Number="{Binding ValorUnitarioTributo, Mode=TwoWay}"
+                                                   Header="Valor unid. tributária" />
+                        <controles:EntradaRestrita Pattern="[^\d]"
+                                                   Text="{Binding Frete, Mode=TwoWay}"
+                                                   Header="Frete" />
+                        <controles:EntradaRestrita Pattern="[^\d]"
+                                                   Text="{Binding Seguro, Mode=TwoWay}"
+                                                   Header="Seguro" />
+                        <controles:EntradaRestrita Pattern="[^\d]"
+                                                   Text="{Binding Desconto, Mode=TwoWay}"
+                                                   Header="Desconto" />
+                        <controles:EntradaRestrita Pattern="[^\d]"
+                                                   Text="{Binding DespesasAcessórias, Mode=TwoWay}"
+                                                   Header="Desp. acessórias" />
                         <ComboBox Header="O valor do item..."
                                   SelectedIndex="{Binding InclusãoTotal, Mode=TwoWay}"
                                   HorizontalAlignment="Stretch">
                             <ComboBoxItem>Não compõe o valor total da NF-e</ComboBoxItem>
                             <ComboBoxItem>compõe o valor total da NF-e</ComboBoxItem>
                         </ComboBox>
-                        <TextBox Text="{Binding Descricao, Mode=TwoWay}"
-                                 InputScope="Text"
-                                 Header="Descrição *" />
-                        <TextBox Text="{Binding CodigoProduto, Mode=TwoWay}"
-                                 InputScope="Text"
-                                 Header="Código *" />
-                        <TextBox Text="{Binding CodigoBarras, Mode=TwoWay}"
+                        <TextBox Text="{Binding XPed, Mode=TwoWay}"
                                  InputScope="Number"
-                                 Header="EAN" />
-                        <TextBox Text="{Binding EXTIPI, Mode=TwoWay}"
+                                 Header="Pedido de compra" />
+                        <controles:EntradaRestrita Pattern="[^\d]"
+                                                   Text="{Binding NItemPed, Mode=TwoWay}"
+                                                   Header="Nº do item do pedido" />
+                        <TextBox Text="{Binding NFCI, Mode=TwoWay}"
                                  InputScope="Number"
-                                 Header="EX TIPI" />
-                        <TextBox Text="{Binding UnidadeComercializacao, Mode=TwoWay}"
-                                 InputScope="Text"
-                                 Header="Unidade comercial" />
-                        <TextBox Text="{Binding UnidadeTributacao, Mode=TwoWay}"
-                                 InputScope="Text"
-                                 Header="Unidade tributária" />
-                        <TextBox Text="{Binding CFOP, Mode=TwoWay}"
-                                 InputScope="Number"
-                                 Header="CFOP *" />
-                        <TextBox Text="{Binding CodigoBarrasTributo, Mode=TwoWay}"
-                                 InputScope="Number"
-                                 Header="EAN Unid. Tributável" />
-                        <TextBox Text="{Binding NCM, Mode=TwoWay}"
-                                 InputScope="Number"
-                                 Header="NCM" />
-                        <TextBox Text="{Binding ValorUnitario, Mode=TwoWay}"
-                                 InputScope="Number"
-                                 Header="Valor unid. comercial" />
-                        <TextBox Text="{Binding ValorUnitarioTributo, Mode=TwoWay}"
-                                 InputScope="Number"
-                                 Header="Valor unid. tributária" />
+                                 Header="Nº de controle da FCI" />
                     </ItemsControl>
                 </StackPanel>
             </ScrollViewer>
@@ -806,7 +807,7 @@
                     </PivotItem>
                 </Pivot>
             </Grid>
-            <TextBox Text="{Binding ProdutoCompleto.infAdProd, Mode=TwoWay}"
+            <TextBox Text="{Binding ProdutoCompleto.InfAdProd, Mode=TwoWay}"
                      TextWrapping="Wrap" />
             <ListView ItemContainerStyle="{StaticResource ItemFullWidth}"
                       ItemsSource="{Binding ListaDI}">
@@ -841,7 +842,7 @@
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <TextBlock Text="{Binding CNPJ, Mode=TwoWay}" />
-                            <TextBlock Text="{Binding nDI, Mode=TwoWay}"
+                            <TextBlock Text="{Binding NDI, Mode=TwoWay}"
                                        Grid.Column="1" />
                         </Grid>
                     </DataTemplate>
@@ -927,10 +928,12 @@
                                      Header="Capacidade max. de tração" />
                             <TextBox Text="{Binding dist, Mode=TwoWay}"
                                      Header="Distância entre eixos" />
-                            <TextBox Text="{Binding anoFab, Mode=TwoWay}"
-                                     Header="Ano de fabricação" />
-                            <TextBox Text="{Binding anoMod, Mode=TwoWay}"
-                                     Header="Ano do modelo" />
+                            <controles:EntradaNumerica Format="4"
+                                                       Number="{Binding anoFab, Mode=TwoWay}"
+                                                       Header="Ano de fabricação" />
+                            <controles:EntradaNumerica Format="4"
+                                                       Number="{Binding anoMod, Mode=TwoWay}"
+                                                       Header="Ano do modelo" />
                             <TextBox Text="{Binding tpPint, Mode=TwoWay}"
                                      Header="Tipo de pintura" />
                             <ComboBox SelectedValue="{Binding tpVeic, Mode=TwoWay}"
@@ -963,23 +966,26 @@
                                 <ComboBoxItem>Inacabado</ComboBoxItem>
                                 <ComboBoxItem>Semi-acabado</ComboBoxItem>
                             </ComboBox>
-                            <TextBox Text="{Binding cMod, Mode=TwoWay}"
-                                     Header="Código da marca/modelo" />
+                            <controles:EntradaNumerica Format="6"
+                                                       Number="{Binding cMod, Mode=TwoWay}"
+                                                       Header="Código da marca/modelo" />
                             <Slider Value="{Binding CCorDENATRAN,Mode=TwoWay}"
                                     Minimum="01"
                                     Maximum="16"
                                     Header="Código da cor - DENATRAN" />
-                            <TextBox Text="{Binding lota,Mode=TwoWay}"
-                                     Header="Lotação" />
-                            <ComboBox SelectedIndex="{Binding TpRest, Mode=TwoWay}"
+                            <controles:EntradaNumerica Format="3"
+                                                       Number="{Binding lota,Mode=TwoWay}"
+                                                       Header="Lotação" />
+                            <ComboBox SelectedValue="{Binding TpRest, Mode=TwoWay}"
+                                      SelectedValuePath="Tag"
                                       Header="Restrição"
                                       HorizontalAlignment="Stretch">
-                                <ComboBoxItem>Não há</ComboBoxItem>
-                                <ComboBoxItem>Alienação fiduciária</ComboBoxItem>
-                                <ComboBoxItem>Arrendamento mercantil</ComboBoxItem>
-                                <ComboBoxItem>Reserva de domínio</ComboBoxItem>
-                                <ComboBoxItem>Penhor de veículos</ComboBoxItem>
-                                <ComboBoxItem>Outras</ComboBoxItem>
+                                <ComboBoxItem Tag="0">Não há</ComboBoxItem>
+                                <ComboBoxItem Tag="1">Alienação fiduciária</ComboBoxItem>
+                                <ComboBoxItem Tag="2">Arrendamento mercantil</ComboBoxItem>
+                                <ComboBoxItem Tag="3">Reserva de domínio</ComboBoxItem>
+                                <ComboBoxItem Tag="4">Penhor de veículos</ComboBoxItem>
+                                <ComboBoxItem Tag="9">Outras</ComboBoxItem>
                             </ComboBox>
                         </ItemsControl>
                     </Grid>
@@ -995,16 +1001,18 @@
                         </Grid.RowDefinitions>
                         <StackPanel DataContext="{Binding NovoMedicamento}"
                                     Grid.RowSpan="2">
-                            <TextBox Text="{Binding nLote, Mode=TwoWay}"
+                            <TextBox Text="{Binding NLote, Mode=TwoWay}"
                                      Header="Número do Lote" />
-                            <TextBox Text="{Binding qLote, Mode=TwoWay}"
-                                     Header="Quantidade no lote" />
-                            <DatePicker Date="{Binding dFab, Converter={StaticResource data}, ConverterParameter='yyyy-MM-dd', Mode=TwoWay}"
+                            <controles:EntradaNumerica Format="8:3"
+                                                       Number="{Binding QLote, Mode=TwoWay}"
+                                                       Header="Quantidade no lote" />
+                            <DatePicker Date="{Binding DFab, Converter={StaticResource data}, ConverterParameter='yyyy-MM-dd', Mode=TwoWay}"
                                         Header="Data de fabricação" />
-                            <DatePicker Date="{Binding dVal, Converter={StaticResource data}, ConverterParameter='yyyy-MM-dd', Mode=TwoWay}"
+                            <DatePicker Date="{Binding DVal, Converter={StaticResource data}, ConverterParameter='yyyy-MM-dd', Mode=TwoWay}"
                                         Header="Data de validade" />
-                            <TextBox Text="{Binding vPMC,Mode=TwoWay}"
-                                     Header="Preço máximo consumidor" />
+                            <controles:EntradaNumerica Format="13:2"
+                                                       Number="{Binding VPMC,Mode=TwoWay}"
+                                                       Header="Preço máximo consumidor" />
                         </StackPanel>
                         <ListView ItemsSource="{Binding ListaMedicamentos}"
                                   SelectedIndex="{Binding IndexMedicamentoSelecionado, Mode=TwoWay}"
@@ -1039,17 +1047,17 @@
                         </Grid.RowDefinitions>
                         <StackPanel DataContext="{Binding NovoArmamento}"
                                     Grid.RowSpan="2">
-                            <ComboBox SelectedIndex="{Binding tpArma, Mode=TwoWay}"
+                            <ComboBox SelectedIndex="{Binding TpArma, Mode=TwoWay}"
                                       Header="Tipo de arma"
                                       HorizontalAlignment="Stretch">
                                 <ComboBoxItem>Uso permitido</ComboBoxItem>
                                 <ComboBoxItem>Uso restrito</ComboBoxItem>
                             </ComboBox>
-                            <TextBox Text="{Binding nSerie, Mode=TwoWay}"
+                            <TextBox Text="{Binding NSerie, Mode=TwoWay}"
                                      Header="Série da arma" />
-                            <TextBox Text="{Binding nCano, Mode=TwoWay}"
+                            <TextBox Text="{Binding NCano, Mode=TwoWay}"
                                      Header="Série do cano" />
-                            <TextBox Text="{Binding descr, Mode=TwoWay}"
+                            <TextBox Text="{Binding Descr, Mode=TwoWay}"
                                      Header="Descrição" />
                         </StackPanel>
                         <ListView ItemsSource="{Binding ListaArmamento}"
@@ -1075,15 +1083,29 @@
                                 HorizontalAlignment="Stretch">Remover</Button>
                     </Grid>
                     <Grid Visibility="{Binding VisibilidadeCombustivel, Converter={StaticResource visibilidade}}">
-                        <StackPanel DataContext="{Binding Comb}">
-                            <TextBox Text="{Binding cProdANP, Mode=TwoWay}"
-                                     Header="Código ANP *" />
-                            <TextBox Text="{Binding CODIF, Mode=TwoWay}"
-                                     Header="CODIF" />
-                            <TextBox Text="{Binding qTemp, Mode=TwoWay}"
-                                     Header="Quantidade faturada em temp. ambiente" />
-                            <TextBox Text="{Binding pMixGN, Mode=TwoWay}"
-                                     Header="Quantidade de gás natural" />
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.ColumnSpan="2"
+                                    DataContext="{Binding Comb}">
+                            <controles:EntradaNumerica Format="9"
+                                                       Number="{Binding CProdANP, Mode=TwoWay}"
+                                                       Header="Código ANP *" />
+                            <controles:EntradaRestrita Pattern="[^\d]"
+                                                       Text="{Binding CODIF, Mode=TwoWay}"
+                                                       Header="CODIF" />
+                            <controles:EntradaRestrita Pattern="[^\d.,]"
+                                                       Text="{Binding QTemp, Mode=TwoWay}"
+                                                       Header="Quantidade faturada em temp. ambiente" />
+                            <controles:EntradaRestrita Pattern="[^\d.,]"
+                                                       Text="{Binding PMixGN, Mode=TwoWay}"
+                                                       Header="Quantidade de gás natural" />
                             <ComboBox ItemsSource="{Binding Source={StaticResource estados}, Path=Siglas}"
                                       SelectedItem="{Binding UFCons, Mode=TwoWay}"
                                       Header="UF *"
@@ -1094,18 +1116,30 @@
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
-                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">CIDE</TextBlock>
-                            <TextBox Text="{Binding CIDE.qBCProd, Mode=TwoWay}"
-                                     Header="Base de cálculo" />
-                            <TextBox Text="{Binding CIDE.vAliqProd, Mode=TwoWay}"
-                                     Header="Alíquota" />
-                            <TextBox Text="{Binding CIDE.vCIDE, Mode=TwoWay}"
-                                     Header="Valor" />
+                        </StackPanel>
+                        <TextBlock Grid.Row="1"
+                                   Style="{StaticResource SubtitleTextBlockStyle}">CIDE</TextBlock>
+                        <CheckBox Grid.Row="1"
+                                  Grid.Column="1"
+                                  IsChecked="{Binding UsarCIDE, Mode=TwoWay}">Ativado</CheckBox>
+                        <StackPanel Grid.Row="2"
+                                    Grid.ColumnSpan="2"
+                                    Visibility="{Binding UsarCIDE, Converter={StaticResource visibilidade}}">
+                            <controles:EntradaNumerica Format="12:4"
+                                                       Number="{Binding Comb.CIDE.QBCProd, Mode=TwoWay}"
+                                                       Header="Base de cálculo" />
+                            <controles:EntradaNumerica Format="11:4"
+                                                       Number="{Binding Comb.CIDE.VAliqProd, Mode=TwoWay}"
+                                                       Header="Alíquota" />
+                            <controles:EntradaNumerica Format="13:2"
+                                                       Number="{Binding Comb.CIDE.VCIDE, Mode=TwoWay}"
+                                                       Header="Valor" />
                         </StackPanel>
                     </Grid>
-                    <TextBox Visibility="{Binding VisibilidadePapel, Converter={StaticResource visibilidade}}"
-                             Text="{Binding ProdutoCompleto.Produto.NRECOPI, Mode=TwoWay}"
-                             Header="Número de RECOPI" />
+                    <controles:EntradaRestrita Pattern="[^\d]"
+                                               Visibility="{Binding VisibilidadePapel, Converter={StaticResource visibilidade}}"
+                                               Text="{Binding ProdutoCompleto.Produto.NRECOPI, Mode=TwoWay}"
+                                               Header="Número de RECOPI" />
                 </StackPanel>
             </ScrollViewer>
         </FlipView>

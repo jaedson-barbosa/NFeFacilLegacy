@@ -47,7 +47,7 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Pa
         /// Código Fiscal de Operações e Prestações.
         /// </summary>
         [XmlElement(Order = 6)]
-        public string CFOP { get; set; }
+        public int CFOP { get; set; }
 
         /// <summary>
         /// Informar a unidade de comercialização do Produto.

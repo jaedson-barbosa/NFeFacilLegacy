@@ -14,7 +14,7 @@ namespace BibliotecaCentral.ItensBD
         public string Descricao { get; set; }
         public string NCM { get; set; }
         public string EXTIPI { get; set; }
-        public string CFOP { get; set; }
+        public int CFOP { get; set; }
         public string UnidadeComercializacao { get; set; }
         public double ValorUnitario { get; set; }
         public string CodigoBarrasTributo { get; set; } = "";
@@ -87,7 +87,7 @@ namespace BibliotecaCentral.ItensBD
             /// <summary>
             /// Código Fiscal de Operações e Prestações.
             /// </summary>
-            public string CFOP { get; set; }
+            public int CFOP { get; set; }
 
             /// <summary>
             /// Informar a unidade de comercialização do Produto.

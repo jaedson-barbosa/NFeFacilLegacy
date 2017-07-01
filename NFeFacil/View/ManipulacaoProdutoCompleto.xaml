@@ -32,7 +32,7 @@
         <FlipView x:Name="main"
                   Padding="16"
                   Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-            <ScrollViewer VerticalScrollBarVisibility="Hidden"
+            <ScrollViewer
                           DataContext="{Binding ProdutoCompleto.Produto}">
                 <StackPanel>
                     <ItemsControl Style="{StaticResource ItensResponsivos}">
@@ -136,7 +136,7 @@
                        Grid.ColumnSpan="2">
                     <PivotItem IsEnabled="{Binding AtivadopvtICMS}"
                                Header="ICMS">
-                        <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                        <ScrollViewer>
                             <ScrollViewer.DataContext>
                                 <ImpostosContext:ICMSDataContext />
                             </ScrollViewer.DataContext>
@@ -150,19 +150,19 @@
                                 </ComboBox>
                                 <StackPanel Visibility="{Binding GrupoSimplesNacional, Converter={StaticResource visibilidade}}">
                                     <ComboBox SelectedValue="{Binding TipoICMSSimplesNacional, Mode=TwoWay}"
-                                              SelectedValuePath="Content"
+                                              SelectedValuePath="Tag"
                                               HorizontalAlignment="Stretch"
                                               Header="Situação tributária">
-                                        <ComboBoxItem>101. Tributada com permissão de crédito</ComboBoxItem>
-                                        <ComboBoxItem>102. Tributada sem permissão de crédito</ComboBoxItem>
-                                        <ComboBoxItem>103. Isenção para faixa de receita bruta</ComboBoxItem>
-                                        <ComboBoxItem>201. Tributada com permissão de crédito e com cobrança do ICMS por subst. tributária</ComboBoxItem>
-                                        <ComboBoxItem>202. Tributada sem permissão de crédito e com cobrança do ICMS por subst. tributária</ComboBoxItem>
-                                        <ComboBoxItem>203. Isenção para faixa de receita bruta e com cobrança do ICMS por subst. tributária</ComboBoxItem>
-                                        <ComboBoxItem>300. Imune</ComboBoxItem>
-                                        <ComboBoxItem>400. Não tributada</ComboBoxItem>
-                                        <ComboBoxItem>500. ICMS cobrado anteriormente por subst. tributária ou por antecipação</ComboBoxItem>
-                                        <ComboBoxItem>900. Outros</ComboBoxItem>
+                                        <ComboBoxItem Tag="101">101. Tributada com permissão de crédito</ComboBoxItem>
+                                        <ComboBoxItem Tag="102">102. Tributada sem permissão de crédito</ComboBoxItem>
+                                        <ComboBoxItem Tag="103">103. Isenção para faixa de receita bruta</ComboBoxItem>
+                                        <ComboBoxItem Tag="201">201. Tributada com permissão de crédito e com cobrança do ICMS por subst. tributária</ComboBoxItem>
+                                        <ComboBoxItem Tag="202">202. Tributada sem permissão de crédito e com cobrança do ICMS por subst. tributária</ComboBoxItem>
+                                        <ComboBoxItem Tag="203">203. Isenção para faixa de receita bruta e com cobrança do ICMS por subst. tributária</ComboBoxItem>
+                                        <ComboBoxItem Tag="300">300. Imune</ComboBoxItem>
+                                        <ComboBoxItem Tag="400">400. Não tributada</ComboBoxItem>
+                                        <ComboBoxItem Tag="500">500. ICMS cobrado anteriormente por subst. tributária ou por antecipação</ComboBoxItem>
+                                        <ComboBoxItem Tag="900">900. Outros</ComboBoxItem>
                                     </ComboBox>
                                     <ComboBox SelectedIndex="{Binding Simples.orig, Mode=TwoWay}"
                                               Header="Origem"
@@ -177,15 +177,15 @@
                                         <ComboBoxItem>7 - Estrangeira - Adquirida no mercado interno, sem similar nacional, constante lista CAMEX e gás natural</ComboBoxItem>
                                         <ComboBoxItem>8 - Nacional, mercadoria ou bem com Conteúdo de Importação superior a 70%</ComboBoxItem>
                                     </ComboBox>
-                                    <TextBox Visibility="{Binding SimplesGrupoFim, Converter={StaticResource visibilidade}}"
+                                    <TextBox IsEnabled="{Binding SimplesGrupoFim}"
                                              Text="{Binding Simples.pCredSN, Mode=TwoWay}"
                                              Header="Alíquota aplicável de cálculo do crédito"
                                              InputScope="Number" />
-                                    <TextBox Visibility="{Binding SimplesGrupoFim, Converter={StaticResource visibilidade}}"
+                                    <TextBox IsEnabled="{Binding SimplesGrupoFim}"
                                              Text="{Binding Simples.vCredICMSSN, Mode=TwoWay}"
                                              Header="Crédito do ICMS que pode ser aproveitado"
                                              InputScope="Number" />
-                                    <ComboBox Visibility="{Binding SimplesGrupoInicio, Converter={StaticResource visibilidade}}"
+                                    <ComboBox IsEnabled="{Binding SimplesGrupoInicio}"
                                               SelectedIndex="{Binding Simples.modBCST, Mode=TwoWay}"
                                               Header="Modalidade de determinação da BC do ICMS"
                                               HorizontalAlignment="Stretch">
@@ -194,19 +194,19 @@
                                         <ComboBoxItem>Preço Tabelado Máx (valor)</ComboBoxItem>
                                         <ComboBoxItem>Valor da operação</ComboBoxItem>
                                     </ComboBox>
-                                    <TextBox Visibility="{Binding SimplesGrupoInicio, Converter={StaticResource visibilidade}}"
+                                    <TextBox IsEnabled="{Binding SimplesGrupoInicio}"
                                              Text="{Binding Simples.vBC, Mode=TwoWay}"
                                              Header="Valor da BC do ICMS"
                                              InputScope="Number" />
-                                    <TextBox Visibility="{Binding SimplesGrupoInicio, Converter={StaticResource visibilidade}}"
+                                    <TextBox IsEnabled="{Binding SimplesGrupoInicio}"
                                              Text="{Binding Simples.pRedBC, Mode=TwoWay}"
                                              Header="Percentual da Redução de BC"
                                              InputScope="Number" />
-                                    <TextBox Visibility="{Binding SimplesGrupoInicio, Converter={StaticResource visibilidade}}"
+                                    <TextBox IsEnabled="{Binding SimplesGrupoInicio}"
                                              Text="{Binding Simples.pICMS, Mode=TwoWay}"
                                              Header="Alíquota do imposto"
                                              InputScope="Number" />
-                                    <TextBox Visibility="{Binding SimplesGrupoInicio, Converter={StaticResource visibilidade}}"
+                                    <TextBox IsEnabled="{Binding SimplesGrupoInicio}"
                                              Text="{Binding Simples.vICMS, Mode=TwoWay}"
                                              Header="Valor do ICMS"
                                              InputScope="Number" />
@@ -245,17 +245,17 @@
                                               SelectedValuePath="Content"
                                               Header="Situação tributária"
                                               HorizontalAlignment="Stretch">
-                                        <ComboBoxItem>00. Tributada integralmente</ComboBoxItem>
-                                        <ComboBoxItem>10. Tributada e com cobrança do ICMS por substituição tributária</ComboBoxItem>
-                                        <ComboBoxItem>20. Com redução de base de cálculo</ComboBoxItem>
-                                        <ComboBoxItem>30. Isenta ou não tributada e com cobrança do ICMS por substituição tributária</ComboBoxItem>
-                                        <ComboBoxItem>40. Isenta</ComboBoxItem>
-                                        <ComboBoxItem>41. Não tributada</ComboBoxItem>
-                                        <ComboBoxItem>50. Suspensão</ComboBoxItem>
-                                        <ComboBoxItem>51. Diferimento</ComboBoxItem>
-                                        <ComboBoxItem>60. ICMS cobrado anteriormente por substituição tributária</ComboBoxItem>
-                                        <ComboBoxItem>70. Com redução de base de cálculo e cobrança do ICMS por substituição tributária</ComboBoxItem>
-                                        <ComboBoxItem>90. Outros</ComboBoxItem>
+                                        <ComboBoxItem Tag="00">00. Tributada integralmente</ComboBoxItem>
+                                        <ComboBoxItem Tag="10">10. Tributada e com cobrança do ICMS por substituição tributária</ComboBoxItem>
+                                        <ComboBoxItem Tag="20">20. Com redução de base de cálculo</ComboBoxItem>
+                                        <ComboBoxItem Tag="30">30. Isenta ou não tributada e com cobrança do ICMS por substituição tributária</ComboBoxItem>
+                                        <ComboBoxItem Tag="40">40. Isenta</ComboBoxItem>
+                                        <ComboBoxItem Tag="41">41. Não tributada</ComboBoxItem>
+                                        <ComboBoxItem Tag="50">50. Suspensão</ComboBoxItem>
+                                        <ComboBoxItem Tag="51">51. Diferimento</ComboBoxItem>
+                                        <ComboBoxItem Tag="60">60. ICMS cobrado anteriormente por substituição tributária</ComboBoxItem>
+                                        <ComboBoxItem Tag="70">70. Com redução de base de cálculo e cobrança do ICMS por substituição tributária</ComboBoxItem>
+                                        <ComboBoxItem Tag="90">90. Outros</ComboBoxItem>
                                     </ComboBox>
                                     <ComboBox SelectedIndex="{Binding Normal.orig, Mode=TwoWay}"
                                               Header="Origem"
@@ -270,16 +270,16 @@
                                         <ComboBoxItem>7 - Estrangeira - Adquirida no mercado interno, sem similar nacional, constante lista CAMEX e gás natural</ComboBoxItem>
                                         <ComboBoxItem>8 - Nacional, mercadoria ou bem com Conteúdo de Importação superior a 70%</ComboBoxItem>
                                     </ComboBox>
-                                    <TextBox Visibility="{Binding NormalValorICMSDesonerado, Converter={StaticResource visibilidade}}"
+                                    <TextBox IsEnabled="{Binding NormalValorICMSDesonerado}"
                                              Text="{Binding Normal.vICMSDeson, Mode=TwoWay}"
                                              Header="Valor do ICMS desonerado"
                                              InputScope="Number" />
-                                    <TextBox Visibility="{Binding NormalMotivoDesoneração, Converter={StaticResource visibilidade}}"
+                                    <TextBox IsEnabled="{Binding NormalMotivoDesoneração}"
                                              Text="{Binding Normal.motDesICMS, Mode=TwoWay}"
                                              Header="Motivo da desoneração do ICMS"
                                              InputScope="Number"
                                              ToolTipService.ToolTip="3 p/ agropecuária; 9 p/ outros e 12 p/ fomento e desenv. agropecuário." />
-                                    <ComboBox Visibility="{Binding NormalGrupoInicio, Converter={StaticResource visibilidade}}"
+                                    <ComboBox IsEnabled="{Binding NormalGrupoInicio}"
                                               SelectedIndex="{Binding Normal.modBC, Mode=TwoWay}"
                                               Header="Modalidade de determinação da BC do ICMS"
                                               HorizontalAlignment="Stretch">
@@ -288,39 +288,39 @@
                                         <ComboBoxItem>Preço Tabelado Máx (valor)</ComboBoxItem>
                                         <ComboBoxItem>Valor da operação</ComboBoxItem>
                                     </ComboBox>
-                                    <TextBox Visibility="{Binding NormalGrupoInicio, Converter={StaticResource visibilidade}}"
+                                    <TextBox IsEnabled="{Binding NormalGrupoInicio}"
                                              Text="{Binding Normal.vBC, Mode=TwoWay}"
                                              Header="Valor da BC do ICMS"
                                              InputScope="Number" />
-                                    <TextBox Visibility="{Binding NormalPercentualReduçãoNormal, Converter={StaticResource visibilidade}}"
+                                    <TextBox IsEnabled="{Binding NormalPercentualReduçãoNormal}"
                                              Text="{Binding Normal.pRedBC, Mode=TwoWay}"
                                              Header="Percentual da Redução de BC"
                                              InputScope="Number" />
-                                    <TextBox Visibility="{Binding NormalGrupoInicio, Converter={StaticResource visibilidade}}"
+                                    <TextBox IsEnabled="{Binding NormalGrupoInicio}"
                                              Text="{Binding Normal.pICMS, Mode=TwoWay}"
                                              Header="Alíquota do imposto"
                                              InputScope="Number" />
-                                    <TextBox Visibility="{Binding NormalGrupoInicio, Converter={StaticResource visibilidade}}"
+                                    <TextBox IsEnabled="{Binding NormalGrupoInicio}"
                                              Text="{Binding Normal.vICMS, Mode=TwoWay}"
                                              Header="Valor do ICMS"
                                              InputScope="Number" />
-                                    <TextBox Visibility="{Binding NormalGrupoMeio, Converter={StaticResource visibilidade}}"
+                                    <TextBox IsEnabled="{Binding NormalGrupoMeio}"
                                              Text="{Binding Normal.vBCSTRet, Mode=TwoWay}"
                                              Header="Valor da BC do ICMS ST retido"
                                              InputScope="Number" />
-                                    <TextBox Visibility="{Binding NormalGrupoMeio, Converter={StaticResource visibilidade}}"
+                                    <TextBox IsEnabled="{Binding NormalGrupoMeio}"
                                              Text="{Binding Normal.vICMSSTRet, Mode=TwoWay}"
                                              Header="Valor do ICMS ST retido"
                                              InputScope="Number" />
-                                    <TextBox Visibility="{Binding NormalGrupoFim, Converter={StaticResource visibilidade}}"
+                                    <TextBox IsEnabled="{Binding NormalGrupoFim}"
                                              Text="{Binding Normal.vICMSOp, Mode=TwoWay}"
                                              Header="Valor do ICMS da Operação"
                                              InputScope="Number" />
-                                    <TextBox Visibility="{Binding NormalGrupoFim, Converter={StaticResource visibilidade}}"
+                                    <TextBox IsEnabled="{Binding NormalGrupoFim}"
                                              Text="{Binding Normal.pDif, Mode=TwoWay}"
                                              Header="Percentual do diferimento"
                                              InputScope="Number" />
-                                    <TextBox Visibility="{Binding NormalGrupoFim, Converter={StaticResource visibilidade}}"
+                                    <TextBox IsEnabled="{Binding NormalGrupoFim}"
                                              Text="{Binding Normal.vICMSDif, Mode=TwoWay}"
                                              Header="Valor do ICMS diferido"
                                              InputScope="Number" />
@@ -358,7 +358,7 @@
                         </ScrollViewer>
                     </PivotItem>
                     <PivotItem Header="IPI">
-                        <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                        <ScrollViewer>
                             <ScrollViewer.DataContext>
                                 <ImpostosContext:IPIDataContext />
                             </ScrollViewer.DataContext>
@@ -366,21 +366,21 @@
                                 <ComboBox Header="Situação tributária"
                                           HorizontalAlignment="Stretch"
                                           SelectedValue="{Binding CSTSelecionado, Mode=TwoWay}"
-                                          SelectedValuePath="Content">
-                                    <ComboBoxItem>00=Entrada com recuperação de crédito</ComboBoxItem>
-                                    <ComboBoxItem>01=Entrada tributada com alíquota zero</ComboBoxItem>
-                                    <ComboBoxItem>02=Entrada isenta</ComboBoxItem>
-                                    <ComboBoxItem>03=Entrada não-tributada</ComboBoxItem>
-                                    <ComboBoxItem>04=Entrada imune</ComboBoxItem>
-                                    <ComboBoxItem>05=Entrada com suspensão</ComboBoxItem>
-                                    <ComboBoxItem>49=Outras entradas</ComboBoxItem>
-                                    <ComboBoxItem>50=Saída tributada</ComboBoxItem>
-                                    <ComboBoxItem>51=Saída tributada com alíquota zero</ComboBoxItem>
-                                    <ComboBoxItem>52=Saída isenta</ComboBoxItem>
-                                    <ComboBoxItem>53=Saída não-tributada</ComboBoxItem>
-                                    <ComboBoxItem>54=Saída imune</ComboBoxItem>
-                                    <ComboBoxItem>55=Saída com suspensão</ComboBoxItem>
-                                    <ComboBoxItem>99=Outras saídas</ComboBoxItem>
+                                          SelectedValuePath="Tag">
+                                    <ComboBoxItem Tag="00">00=Entrada com recuperação de crédito</ComboBoxItem>
+                                    <ComboBoxItem Tag="01">01=Entrada tributada com alíquota zero</ComboBoxItem>
+                                    <ComboBoxItem Tag="02">02=Entrada isenta</ComboBoxItem>
+                                    <ComboBoxItem Tag="03">03=Entrada não-tributada</ComboBoxItem>
+                                    <ComboBoxItem Tag="04">04=Entrada imune</ComboBoxItem>
+                                    <ComboBoxItem Tag="05">05=Entrada com suspensão</ComboBoxItem>
+                                    <ComboBoxItem Tag="49">49=Outras entradas</ComboBoxItem>
+                                    <ComboBoxItem Tag="50">50=Saída tributada</ComboBoxItem>
+                                    <ComboBoxItem Tag="51">51=Saída tributada com alíquota zero</ComboBoxItem>
+                                    <ComboBoxItem Tag="52">52=Saída isenta</ComboBoxItem>
+                                    <ComboBoxItem Tag="53">53=Saída não-tributada</ComboBoxItem>
+                                    <ComboBoxItem Tag="54">54=Saída imune</ComboBoxItem>
+                                    <ComboBoxItem Tag="55">55=Saída com suspensão</ComboBoxItem>
+                                    <ComboBoxItem Tag="99">99=Outras saídas</ComboBoxItem>
                                 </ComboBox>
                                 <ItemsControl Style="{StaticResource ItensResponsivos}">
                                     <TextBox Text="{Binding Imposto.clEnq, Mode=TwoWay}"
@@ -397,40 +397,41 @@
                                     <TextBox Header="Código do selo de controle"
                                              Text="{Binding Imposto.cSelo, Mode=TwoWay}" />
                                 </ItemsControl>
-                                <ItemsControl Visibility="{Binding VisibilidadeIPI, Converter={StaticResource visibilidade}}"
-                                              Style="{StaticResource ItensResponsivos}">
+                                <ItemsControl Style="{StaticResource ItensResponsivos}">
                                     <ComboBox HorizontalAlignment="Stretch"
                                               Header="Tipo de cálculo"
                                               SelectedValue="{Binding TipoCalculo, Mode=TwoWay}"
-                                              SelectedValuePath="Content">
+                                              SelectedValuePath="Content"
+                                              IsEnabled="{Binding ComboTipoCalculo}">
                                         <ComboBoxItem>Por alíquota</ComboBoxItem>
                                         <ComboBoxItem>Pelo valor por unidade</ComboBoxItem>
                                     </ComboBox>
-                                    <StackPanel Visibility="{Binding CalculoAliquota, Converter={StaticResource visibilidade}}">
-                                        <TextBox Text="{Binding Path=Imposto.Corpo.vBC, Mode=TwoWay}"
-                                                 Header="Valor da base de cálculo"
-                                                 InputScope="Number" />
-                                        <TextBox Text="{Binding Path=Imposto.Corpo.pIPI, Mode=TwoWay}"
-                                                 Header="Alíquota"
-                                                 InputScope="Number" />
-                                    </StackPanel>
+                                    <TextBox Text="{Binding Path=Imposto.Corpo.vBC, Mode=TwoWay}"
+                                             Header="Valor da base de cálculo"
+                                             InputScope="Number"
+                                             IsEnabled="{Binding CalculoAliquota}" />
+                                    <TextBox Text="{Binding Path=Imposto.Corpo.pIPI, Mode=TwoWay}"
+                                             Header="Alíquota"
+                                             InputScope="Number"
+                                             IsEnabled="{Binding CalculoAliquota}" />
+                                    <TextBox Text="{Binding Path=Imposto.Corpo.qUnid, Mode=TwoWay}"
+                                             Header="Quantidade total"
+                                             InputScope="Number"
+                                             IsEnabled="{Binding CalculoValor}" />
+                                    <TextBox Text="{Binding Path=Imposto.Corpo.vUnid, Mode=TwoWay}"
+                                             Header="Valor por unidade"
+                                             InputScope="Number"
+                                             IsEnabled="{Binding CalculoValor}" />
                                     <TextBox Text="{Binding Path=Imposto.Corpo.vIPI, Mode=TwoWay}"
                                              Header="Valor do IPI"
-                                             InputScope="Number" />
-                                    <StackPanel Visibility="{Binding CalculoValor, Converter={StaticResource visibilidade}}">
-                                        <TextBox Text="{Binding Path=Imposto.Corpo.qUnid, Mode=TwoWay}"
-                                                 Header="Quantidade total"
-                                                 InputScope="Number" />
-                                        <TextBox Text="{Binding Path=Imposto.Corpo.vUnid, Mode=TwoWay}"
-                                                 Header="Valor por unidade"
-                                                 InputScope="Number" />
-                                    </StackPanel>
+                                             InputScope="Number"
+                                             IsEnabled="{Binding Valor}" />
                                 </ItemsControl>
                             </StackPanel>
                         </ScrollViewer>
                     </PivotItem>
                     <PivotItem Header="PIS">
-                        <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                        <ScrollViewer>
                             <ScrollViewer.DataContext>
                                 <ImpostosContext:PISDataContext />
                             </ScrollViewer.DataContext>
@@ -473,8 +474,7 @@
                                     <ComboBoxItem Tag="98">98=Outras Operações de Entrada</ComboBoxItem>
                                     <ComboBoxItem Tag="99">99=Outras Operações</ComboBoxItem>
                                 </ComboBox>
-                                <ItemsControl Visibility="{Binding PIS}"
-                                              Style="{StaticResource ItensResponsivos}">
+                                <ItemsControl Style="{StaticResource ItensResponsivos}">
                                     <ComboBox IsEnabled="{Binding ComboTipoCalculo}"
                                               Header="Tipo de cálculo"
                                               SelectedValue="{Binding TipoCalculo, Mode=TwoWay}"
@@ -490,9 +490,6 @@
                                              Text="{Binding Path=Imposto.Corpo.pPIS, Mode=TwoWay}"
                                              InputScope="Number"
                                              IsEnabled="{Binding CalculoAliquota}" />
-                                    <TextBox Header="Valor do PIS"
-                                             Text="{Binding Path=Imposto.Corpo.vPIS, Mode=TwoWay}"
-                                             InputScope="Number" />
                                     <TextBox Header="Quantidade total"
                                              Text="{Binding Path=Imposto.Corpo.qBCProd, Mode=TwoWay}"
                                              InputScope="Number"
@@ -501,12 +498,15 @@
                                              Text="{Binding Path=Imposto.Corpo.vAliqProd, Mode=TwoWay}"
                                              InputScope="Number"
                                              IsEnabled="{Binding CalculoValor}" />
+                                    <TextBox Header="Valor do PIS"
+                                             Text="{Binding Path=Imposto.Corpo.vPIS, Mode=TwoWay}"
+                                             InputScope="Number"
+                                             IsEnabled="{Binding Valor}" />
                                 </ItemsControl>
-                                <TextBlock Visibility="{Binding PISST}"
-                                           Style="{StaticResource TitleTextBlockStyle}">PIS ST</TextBlock>
-                                <ItemsControl Visibility="{Binding PISST}"
-                                              Style="{StaticResource ItensResponsivos}">
-                                    <ComboBox SelectedValue="{Binding TipoCalculoST, Mode=TwoWay}"
+                                <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">PIS ST</TextBlock>
+                                <ItemsControl Style="{StaticResource ItensResponsivos}">
+                                    <ComboBox IsEnabled="{Binding ComboTipoCalculoST}"
+                                              SelectedValue="{Binding TipoCalculoST, Mode=TwoWay}"
                                               SelectedValuePath="Content"
                                               Header="Tipo de cálculo">
                                         <ComboBoxItem>Por alíquota</ComboBoxItem>
@@ -520,9 +520,6 @@
                                              Text="{Binding Path=ImpostoST.pPIS, Mode=TwoWay}"
                                              InputScope="Number"
                                              IsEnabled="{Binding CalculoAliquotaST}" />
-                                    <TextBox Text="{Binding Path=ImpostoST.vPIS, Mode=TwoWay}"
-                                             Header="Valor do PIS"
-                                             InputScope="Number" />
                                     <TextBox Header="Quantidade total"
                                              Text="{Binding Path=ImpostoST.qBCProd , Mode=TwoWay}"
                                              InputScope="Number"
@@ -531,12 +528,16 @@
                                              Text="{Binding Path=ImpostoST.vAliqProd, Mode=TwoWay}"
                                              InputScope="Number"
                                              IsEnabled="{Binding CalculoValorST}" />
+                                    <TextBox Text="{Binding Path=ImpostoST.vPIS, Mode=TwoWay}"
+                                             Header="Valor do PIS"
+                                             InputScope="Number"
+                                             IsEnabled="{Binding ValorST}" />
                                 </ItemsControl>
                             </StackPanel>
                         </ScrollViewer>
                     </PivotItem>
                     <PivotItem Header="COFINS">
-                        <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                        <ScrollViewer>
                             <ScrollViewer.DataContext>
                                 <ImpostosContext:COFINSDataContext />
                             </ScrollViewer.DataContext>
@@ -579,73 +580,73 @@
                                     <ComboBoxItem>98=Outras Operações de Entrada</ComboBoxItem>
                                     <ComboBoxItem>99=Outras Operações</ComboBoxItem>
                                 </ComboBox>
-                                <ItemsControl Visibility="{Binding COFINS, Converter={StaticResource visibilidade}}"
-                                              Style="{StaticResource ItensResponsivos}">
+                                <ItemsControl Style="{StaticResource ItensResponsivos}">
                                     <ComboBox SelectedValue="{Binding TipoCalculo, Mode=TwoWay}"
                                               SelectedValuePath="Content"
-                                              Visibility="{Binding ComboTipoCalculo, Converter={StaticResource visibilidade}}"
+                                              IsEnabled="{Binding ComboTipoCalculo}"
                                               Header="Tipo de cálculo"
                                               HorizontalAlignment="Stretch">
                                         <ComboBoxItem>Por alíquota</ComboBoxItem>
                                         <ComboBoxItem>Pelo valor por unidade</ComboBoxItem>
                                     </ComboBox>
-                                    <StackPanel Visibility="{Binding CalculoAliquota, Converter={StaticResource visibilidade}}">
-                                        <TextBox Header="Valor da base de cálculo"
-                                                 Text="{Binding Path=Imposto.Corpo.vBC, Mode=TwoWay}"
-                                                 InputScope="Number" />
-                                        <TextBox Header="Alíquota"
-                                                 Text="{Binding Path=Imposto.Corpo.pCOFINS, Mode=TwoWay}"
-                                                 InputScope="Number" />
-                                    </StackPanel>
+                                    <TextBox Header="Valor da base de cálculo"
+                                             Text="{Binding Path=Imposto.Corpo.vBC, Mode=TwoWay}"
+                                             InputScope="Number"
+                                             IsEnabled="{Binding CalculoAliquota}" />
+                                    <TextBox Header="Alíquota"
+                                             Text="{Binding Path=Imposto.Corpo.pCOFINS, Mode=TwoWay}"
+                                             InputScope="Number"
+                                             IsEnabled="{Binding CalculoAliquota}" />
                                     <TextBox Header="Valor do COFINS"
                                              Text="{Binding Path=Imposto.Corpo.vCOFINS, Mode=TwoWay}"
-                                             InputScope="Number" />
-                                    <StackPanel Visibility="{Binding CalculoValor, Converter={StaticResource visibilidade}}">
-                                        <TextBox Header="Quantidade total"
-                                                 Text="{Binding Path=Imposto.Corpo.qBCProd, Mode=TwoWay}"
-                                                 InputScope="Number" />
-                                        <TextBox Header="Valor por unidade"
-                                                 Text="{Binding Path=Imposto.Corpo.vAliqProd, Mode=TwoWay}"
-                                                 InputScope="Number" />
-                                    </StackPanel>
+                                             InputScope="Number"
+                                             IsEnabled="{Binding Valor}" />
+                                    <TextBox Header="Quantidade total"
+                                             Text="{Binding Path=Imposto.Corpo.qBCProd, Mode=TwoWay}"
+                                             InputScope="Number"
+                                             IsEnabled="{Binding CalculoValor}" />
+                                    <TextBox Header="Valor por unidade"
+                                             Text="{Binding Path=Imposto.Corpo.vAliqProd, Mode=TwoWay}"
+                                             InputScope="Number"
+                                             IsEnabled="{Binding CalculoValor}" />
                                 </ItemsControl>
-                                <TextBlock Visibility="{Binding COFINSST, Converter={StaticResource visibilidade}}"
-                                           Style="{StaticResource TitleTextBlockStyle}">COFINS ST</TextBlock>
-                                <ItemsControl Visibility="{Binding COFINSST, Converter={StaticResource visibilidade}}"
-                                              Style="{StaticResource ItensResponsivos}">
+                                <TextBlock Style="{StaticResource TitleTextBlockStyle}">COFINS ST</TextBlock>
+                                <ItemsControl Style="{StaticResource ItensResponsivos}">
                                     <ComboBox SelectedValue="{Binding TipoCalculoST, Mode=TwoWay}"
                                               SelectedValuePath="Content"
+                                              IsEnabled="{Binding ComboTipoCalculoST}"
                                               Header="Tipo de cálculo"
                                               HorizontalAlignment="Stretch">
                                         <ComboBoxItem>Por alíquota</ComboBoxItem>
                                         <ComboBoxItem>Pelo valor por unidade</ComboBoxItem>
                                     </ComboBox>
-                                    <StackPanel Visibility="{Binding CalculoAliquotaST, Converter={StaticResource visibilidade}}">
-                                        <TextBox Header="Valor da base de cálculo"
-                                                 Text="{Binding Path=ImpostoST.Corpo.vBC, Mode=TwoWay}"
-                                                 InputScope="Number" />
-                                        <TextBox Header="Alíquota"
-                                                 Text="{Binding Path=ImpostoST.Corpo.pCOFINS, Mode=TwoWay}"
-                                                 InputScope="Number" />
-                                    </StackPanel>
+                                    <TextBox Header="Valor da base de cálculo"
+                                             Text="{Binding Path=ImpostoST.Corpo.vBC, Mode=TwoWay}"
+                                             InputScope="Number"
+                                             IsEnabled="{Binding CalculoAliquotaST}" />
+                                    <TextBox Header="Alíquota"
+                                             Text="{Binding Path=ImpostoST.Corpo.pCOFINS, Mode=TwoWay}"
+                                             InputScope="Number"
+                                             IsEnabled="{Binding CalculoAliquotaST}" />
                                     <TextBox Text="{Binding Path=ImpostoST.Corpo.vCOFINS, Mode=TwoWay}"
                                              Header="Valor do COFINS"
-                                             InputScope="Number" />
-                                    <StackPanel Visibility="{Binding CalculoValorST, Converter={StaticResource visibilidade}}">
-                                        <TextBox Header="Quantidade total"
-                                                 Text="{Binding Path=ImpostoST.Corpo.qBCProd , Mode=TwoWay}"
-                                                 InputScope="Number" />
-                                        <TextBox Header="Valor por unidade"
-                                                 Text="{Binding Path=ImpostoST.Corpo.vAliqProd, Mode=TwoWay}"
-                                                 InputScope="Number" />
-                                    </StackPanel>
+                                             InputScope="Number"
+                                             IsEnabled="{Binding ValorST}" />
+                                    <TextBox Header="Quantidade total"
+                                             Text="{Binding Path=ImpostoST.Corpo.qBCProd , Mode=TwoWay}"
+                                             InputScope="Number"
+                                             IsEnabled="{Binding CalculoValorST}" />
+                                    <TextBox Header="Valor por unidade"
+                                             Text="{Binding Path=ImpostoST.Corpo.vAliqProd, Mode=TwoWay}"
+                                             InputScope="Number"
+                                             IsEnabled="{Binding CalculoValorST}" />
                                 </ItemsControl>
                             </StackPanel>
                         </ScrollViewer>
                     </PivotItem>
                     <PivotItem IsEnabled="{Binding AtivadopvtISSQN}"
                                Header="ISSQN">
-                        <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                        <ScrollViewer>
                             <ScrollViewer.DataContext>
                                 <ImpostosContext:ISSQNDataContext />
                             </ScrollViewer.DataContext>
@@ -764,7 +765,7 @@
                     </PivotItem>
                     <PivotItem IsEnabled="{Binding AtivadopvtICMSInterestadual}"
                                Header="ICMS interestadual">
-                        <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                        <ScrollViewer>
                             <ScrollViewer.DataContext>
                                 <Impostos:ICMSUFDest />
                             </ScrollViewer.DataContext>
@@ -878,7 +879,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <ScrollViewer VerticalScrollBarVisibility="Hidden">
+            <ScrollViewer>
                 <StackPanel>
                     <ComboBox ItemsSource="{Binding ListaTiposEspeciaisProduto, Mode=OneTime}"
                               SelectedItem="{Binding TipoEspecialProdutoSelecionado, Mode=TwoWay}"

@@ -18,29 +18,29 @@ namespace NFeFacil.ViewModel.ImpostosProduto
 
         public IPI Imposto { get; } = new IPI();
 
-        public bool VisibilidadeIPI { get; private set; }
         public bool CalculoAliquota { get; private set; }
         public bool CalculoValor { get; private set; }
+        public bool Valor { get; private set; }
+        public bool ComboTipoCalculo { get; private set; }
 
-        private string cstSelecionado;
-        public string CSTSelecionado
+        public int CSTSelecionado
         {
-            get => cstSelecionado; set
+            get => Imposto.Corpo != null ? int.Parse(Imposto.Corpo.CST) : -1;
+            set
             {
-                cstSelecionado = value;
-                var tipoIPIString = value.Substring(0, 2);
-                if (new int[] { 0, 49, 50, 99 }.Contains(int.Parse(tipoIPIString)))
+                if (new int[] { 0, 49, 50, 99 }.Contains(value))
                 {
                     Imposto.Corpo = new IPITrib();
-                    VisibilidadeIPI = true;
+                    Valor = ComboTipoCalculo = true;
+                    CalculoAliquota = CalculoValor = false;
                 }
                 else
                 {
                     Imposto.Corpo = new IPINT();
-                    VisibilidadeIPI = false;
+                    Valor = ComboTipoCalculo = CalculoAliquota = CalculoValor = false;
                 }
-                Imposto.Corpo.CST = tipoIPIString;
-                OnPropertyChanged(nameof(Imposto.Corpo), nameof(VisibilidadeIPI));
+                Imposto.Corpo.CST = value.ToString("F2");
+                OnPropertyChanged(nameof(Imposto), nameof(Valor), nameof(ComboTipoCalculo));
             }
         }
 

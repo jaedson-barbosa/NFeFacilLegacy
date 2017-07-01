@@ -9,6 +9,7 @@ namespace NFeFacil.ViewModel.ImpostosProduto
     public sealed class COFINSDataContext : INotifyPropertyChanged, IImpostosUnidos
     {
         public event PropertyChangedEventHandler PropertyChanged;
+
         public void OnPropertyChanged(params string[] parametros)
         {
             for (int i = 0; i < parametros.Length; i++)
@@ -21,51 +22,86 @@ namespace NFeFacil.ViewModel.ImpostosProduto
         public COFINS Imposto => Conjunto.COFINS;
         public COFINSST ImpostoST => Conjunto.COFINSST;
 
-        public bool COFINS { get; private set; }
-        public bool COFINSST { get; private set; }
-        public bool ComboTipoCalculo { get; private set; }
         public bool CalculoAliquota { get; private set; }
         public bool CalculoValor { get; private set; }
+        public bool Valor { get; private set; }
+        public bool ComboTipoCalculo { get; private set; }
+
         public bool CalculoAliquotaST { get; private set; }
         public bool CalculoValorST { get; private set; }
+        public bool ValorST { get; private set; }
+        public bool ComboTipoCalculoST { get; private set; }
 
-        private string cstSelecionado;
-        public string CSTSelecionado
+        public int CSTSelecionado
         {
-            get => cstSelecionado;
+            get => Imposto.Corpo != null ? int.Parse(Imposto.Corpo.CST) : -1;
             set
             {
-                cstSelecionado = value;
-                var tipoCOFINSString = value.Substring(0, 2);
-                var tipoCOFINSInt = int.Parse(tipoCOFINSString);
-                if (new int[] { 1, 2 }.Contains(tipoCOFINSInt))
+                if (new int[] { 1, 2 }.Contains(value))
                 {
-                    COFINS = true;
-                    MudarTpCalc(TiposCalculo.PorAliquota);
-                    Imposto.Corpo = new COFINSAliq();
+                    CalculoAliquota = true;
+                    CalculoValor = false;
+                    Valor = true;
                     ComboTipoCalculo = false;
+                    Conjunto.COFINS = new COFINS()
+                    {
+                        Corpo = new COFINSAliq()
+                    };
                 }
-                else if (tipoCOFINSInt == 3)
+                else if (value == 3)
                 {
-                    COFINS = true;
-                    MudarTpCalc(TiposCalculo.PorValor);
-                    Imposto.Corpo = new COFINSQtde();
+                    CalculoAliquota = false;
+                    CalculoValor = true;
+                    Valor = true;
                     ComboTipoCalculo = false;
+                    Conjunto.COFINS = new COFINS()
+                    {
+                        Corpo = new COFINSQtde()
+                    };
                 }
-                else if (new int[] { 4, 5, 6, 7, 8, 9 }.Contains(tipoCOFINSInt))
+                else if (new int[] { 4, 5, 6, 7, 8, 9 }.Contains(value))
                 {
-                    COFINS = false;
-                    Imposto.Corpo = new COFINSNT();
+                    CalculoAliquota = false;
+                    CalculoValor = false;
+                    Valor = false;
+                    ComboTipoCalculo = false;
+                    Conjunto.COFINS = new COFINS()
+                    {
+                        Corpo = new COFINSNT()
+                    };
                 }
                 else
                 {
-                    COFINS = true;
-                    Imposto.Corpo = new COFINSOutr();
+                    CalculoAliquota = false;
+                    CalculoValor = false;
+                    Valor = true;
                     ComboTipoCalculo = true;
+                    Conjunto.COFINS = new COFINS()
+                    {
+                        Corpo = new COFINSOutr()
+                    };
                 }
-                COFINSST = tipoCOFINSInt == 5;
-                Imposto.Corpo.CST = tipoCOFINSString;
-                OnPropertyChanged(nameof(COFINS), nameof(Imposto.Corpo), nameof(ComboTipoCalculo), nameof(COFINSST));
+                Imposto.Corpo.CST = value.ToString("F2");
+
+                CalculoAliquotaST = false;
+                CalculoValorST = false;
+                if (value == 5)
+                {
+                    ValorST = true;
+                    ComboTipoCalculoST = true;
+                    Conjunto.COFINSST = new COFINSST();
+                }
+                else
+                {
+                    ValorST = false;
+                    ComboTipoCalculoST = false;
+                    Conjunto.COFINSST = null;
+                }
+
+                OnPropertyChanged(nameof(CalculoAliquota), nameof(CalculoValor), nameof(Valor),
+                    nameof(ComboTipoCalculo), nameof(ComboTipoCalculoST),
+                    nameof(CalculoAliquotaST), nameof(CalculoValorST), nameof(ValorST),
+                    nameof(Imposto), nameof(ImpostoST));
             }
         }
 
@@ -76,35 +112,43 @@ namespace NFeFacil.ViewModel.ImpostosProduto
             set
             {
                 tipoCalculo = value;
-                MudarTpCalc(value == "Por alíquota" ? TiposCalculo.PorAliquota : TiposCalculo.PorValor);
+                switch (value == "Por alíquota" ? TiposCalculo.PorAliquota : TiposCalculo.PorValor)
+                {
+                    case TiposCalculo.PorAliquota:
+                        CalculoAliquota = true;
+                        CalculoValor = false;
+                        break;
+                    case TiposCalculo.PorValor:
+                        CalculoAliquota = false;
+                        CalculoValor = true;
+                        break;
+                }
                 Imposto.Corpo = new COFINSOutr { CST = Imposto.Corpo.CST };
-                OnPropertyChanged(nameof(Imposto.Corpo));
+                OnPropertyChanged(nameof(Imposto), nameof(CalculoAliquota), nameof(CalculoValor));
             }
         }
 
-        private void MudarTpCalc(TiposCalculo tipo)
-        {
-            CalculoValor = !(CalculoAliquota = tipo == TiposCalculo.PorAliquota);
-            OnPropertyChanged(nameof(CalculoAliquota), nameof(CalculoValor));
-        }
-
         private string tipoCalculoST;
-        public string TipoCalculoST 
+        public string TipoCalculoST
         {
             get => tipoCalculoST;
             set
             {
                 tipoCalculoST = value;
-                MudarTpCalcST(value == "Por alíquota" ? TiposCalculo.PorAliquota : TiposCalculo.PorValor);
                 Conjunto.COFINSST = new COFINSST();
-                OnPropertyChanged(nameof(ImpostoST));
+                switch (value == "Por alíquota" ? TiposCalculo.PorAliquota : TiposCalculo.PorValor)
+                {
+                    case TiposCalculo.PorAliquota:
+                        CalculoAliquotaST = true;
+                        CalculoValorST = false;
+                        break;
+                    case TiposCalculo.PorValor:
+                        CalculoAliquotaST = false;
+                        CalculoValorST = true;
+                        break;
+                }
+                OnPropertyChanged(nameof(ImpostoST), nameof(CalculoAliquotaST), nameof(CalculoValorST));
             }
-        }
-
-        private void MudarTpCalcST(TiposCalculo tipo)
-        {
-            CalculoValorST = !(CalculoAliquotaST = tipo == TiposCalculo.PorAliquota);
-            OnPropertyChanged(nameof(CalculoAliquotaST), nameof(CalculoValorST));
         }
 
         public IEnumerable<Imposto> SepararImpostos() => Conjunto.SepararImpostos();

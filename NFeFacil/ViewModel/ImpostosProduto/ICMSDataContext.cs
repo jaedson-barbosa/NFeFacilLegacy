@@ -36,15 +36,12 @@ namespace NFeFacil.ViewModel.ImpostosProduto
             }
         }
 
-        private string tipoICMSSimplesNacional;
-        public string TipoICMSSimplesNacional
+        public int TipoICMSSimplesNacional
         {
-            get => tipoICMSSimplesNacional;
+            get => Simples != null ? int.Parse(Simples.CSOSN) : -1;
             set
             {
-                tipoICMSSimplesNacional = value;
-                var tipoICMSInt = int.Parse(value.Substring(0, 3));
-                switch (tipoICMSInt)
+                switch (value)
                 {
                     case 101:
                         AttVisibilidadeSimplesNacional(false, false, true);
@@ -87,7 +84,7 @@ namespace NFeFacil.ViewModel.ImpostosProduto
                         Simples = new ICMSSN900();
                         break;
                 }
-                Simples.CSOSN = tipoICMSInt.ToString();
+                Simples.CSOSN = value.ToString("F3");
                 OnPropertyChanged(nameof(Simples));
             }
         }
@@ -103,16 +100,12 @@ namespace NFeFacil.ViewModel.ImpostosProduto
             OnPropertyChanged(nameof(SimplesGrupoInicio), nameof(SimplesICMSST), nameof(SimplesGrupoFim));
         }
 
-        private string tipoICMSRegimeNormal;
-        public string TipoICMSRegimeNormal
+        public int TipoICMSRegimeNormal
         {
-            get => tipoICMSRegimeNormal;
+            get => Normal != null ? int.Parse(Normal.CST) : -1;
             set
             {
-                tipoICMSRegimeNormal = value;
-                var tipoICMSString = value.Substring(0, 2);
-                var tipoICMSInt = int.Parse(tipoICMSString);
-                switch (tipoICMSInt)
+                switch (value)
                 {
                     case 0:
                         Normal = new ICMS00();
@@ -159,7 +152,7 @@ namespace NFeFacil.ViewModel.ImpostosProduto
                         AttCamposNormal(true, true, true, false, true, true, false);
                         break;
                 }
-                Normal.CST = tipoICMSString;
+                Normal.CST = value.ToString("F2");
                 OnPropertyChanged(nameof(Normal));
             }
         }
@@ -171,12 +164,6 @@ namespace NFeFacil.ViewModel.ImpostosProduto
         public bool NormalICMSSTNormal { get; private set; }
         public bool NormalGrupoMeio { get; private set; }
         public bool NormalGrupoFim { get; private set; }
-
-        public Imposto ImpostoBruto => new ICMS()
-        {
-            Corpo = (ComumICMS)Simples ?? (ComumICMS)Normal
-        };
-
         private void AttCamposNormal(bool pRedBC, bool grupoInicio, bool ICMSST, bool grupoMeio, bool motDesICMS, bool vICMSDeson, bool grupoFim)
         {
             NormalValorICMSDesonerado = vICMSDeson;
@@ -190,5 +177,10 @@ namespace NFeFacil.ViewModel.ImpostosProduto
                 nameof(NormalGrupoInicio), nameof(NormalPercentualReduçãoNormal),
                 nameof(NormalICMSSTNormal), nameof(NormalGrupoMeio), nameof(NormalGrupoFim));
         }
+
+        public Imposto ImpostoBruto => new ICMS()
+        {
+            Corpo = (ComumICMS)Simples ?? (ComumICMS)Normal
+        };
     }
 }

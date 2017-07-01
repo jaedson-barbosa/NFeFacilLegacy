@@ -36,20 +36,8 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Pa
         /// </summary>
         public string cEnq { get; set; }
 
-        private ComumIPI corpo;
         [XmlElement(nameof(IPINT), Type = typeof(IPINT)), XmlElement(nameof(IPITrib), Type = typeof(IPITrib))]
-        public ComumIPI Corpo
-        {
-            get
-            {
-                if (corpo == null) corpo = new IPITrib();
-                return corpo;
-            }
-            set
-            {
-                corpo = value;
-            }
-        }
+        public ComumIPI Corpo { get; set; }
 
         public override bool IsValido => Corpo.ToXElement(Corpo.GetType()).HasElements;
     }

@@ -5,13 +5,28 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Pa
 {
     public class ICMSUFDest : Imposto
     {
+        [XmlElement(Order = 0)]
         public string vBCUFDest { get; set; }
+
+        [XmlElement(Order = 1)]
         public string pFCPUFDest { get; set; }
+
+        [XmlElement(Order = 2)]
         public string pICMSUFDest { get; set; }
+
+        [XmlElement(Order = 3)]
         public string pICMSInter { get; set; }
+
+        [XmlElement(Order = 4)]
         public string pICMSInterPart { get; set; }
+
+        [XmlElement(Order = 5)]
         public string vFCPUFDest { get; set; }
+
+        [XmlElement(Order = 6)]
         public string vICMSUFDest { get; set; }
+
+        [XmlElement(Order = 7)]
         public string vICMSUFRemet { get; set; }
 
         [XmlIgnore]

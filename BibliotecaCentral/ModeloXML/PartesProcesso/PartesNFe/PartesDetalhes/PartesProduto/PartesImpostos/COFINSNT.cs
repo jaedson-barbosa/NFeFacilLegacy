@@ -3,5 +3,5 @@
     /// <summary>
     /// Grupo COFINS não tributado.
     /// </summary>
-    public class COFINSNT : ComumCOFINS { }
+    public sealed class COFINSNT : ComumCOFINS { }
 }

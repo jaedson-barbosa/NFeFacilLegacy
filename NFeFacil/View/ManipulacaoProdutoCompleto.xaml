@@ -177,42 +177,45 @@
                                         <ComboBoxItem>7 - Estrangeira - Adquirida no mercado interno, sem similar nacional, constante lista CAMEX e gás natural</ComboBoxItem>
                                         <ComboBoxItem>8 - Nacional, mercadoria ou bem com Conteúdo de Importação superior a 70%</ComboBoxItem>
                                     </ComboBox>
-                                    <TextBox IsEnabled="{Binding SimplesGrupoFim}"
-                                             Text="{Binding Simples.pCredSN, Mode=TwoWay}"
-                                             Header="Alíquota aplicável de cálculo do crédito"
-                                             InputScope="Number" />
-                                    <TextBox IsEnabled="{Binding SimplesGrupoFim}"
-                                             Text="{Binding Simples.vCredICMSSN, Mode=TwoWay}"
-                                             Header="Crédito do ICMS que pode ser aproveitado"
-                                             InputScope="Number" />
-                                    <ComboBox IsEnabled="{Binding SimplesGrupoInicio}"
-                                              SelectedIndex="{Binding Simples.modBCST, Mode=TwoWay}"
-                                              Header="Modalidade de determinação da BC do ICMS"
-                                              HorizontalAlignment="Stretch">
-                                        <ComboBoxItem>Margem Valor Agregado (%)</ComboBoxItem>
-                                        <ComboBoxItem>Pauta (Valor)</ComboBoxItem>
-                                        <ComboBoxItem>Preço Tabelado Máx (valor)</ComboBoxItem>
-                                        <ComboBoxItem>Valor da operação</ComboBoxItem>
-                                    </ComboBox>
-                                    <TextBox IsEnabled="{Binding SimplesGrupoInicio}"
-                                             Text="{Binding Simples.vBC, Mode=TwoWay}"
-                                             Header="Valor da BC do ICMS"
-                                             InputScope="Number" />
-                                    <TextBox IsEnabled="{Binding SimplesGrupoInicio}"
-                                             Text="{Binding Simples.pRedBC, Mode=TwoWay}"
-                                             Header="Percentual da Redução de BC"
-                                             InputScope="Number" />
-                                    <TextBox IsEnabled="{Binding SimplesGrupoInicio}"
-                                             Text="{Binding Simples.pICMS, Mode=TwoWay}"
-                                             Header="Alíquota do imposto"
-                                             InputScope="Number" />
-                                    <TextBox IsEnabled="{Binding SimplesGrupoInicio}"
-                                             Text="{Binding Simples.vICMS, Mode=TwoWay}"
-                                             Header="Valor do ICMS"
-                                             InputScope="Number" />
-                                    <StackPanel Visibility="{Binding SimplesICMSST, Converter={StaticResource visibilidade}}">
-                                        <TextBlock Text="ICMS ST"
-                                                   Style="{StaticResource SubtitleTextBlockStyle}" />
+                                    <ItemsControl Style="{StaticResource ItensResponsivos}">
+                                        <TextBox IsEnabled="{Binding SimplesGrupoFim}"
+                                                 Text="{Binding Simples.pCredSN, Mode=TwoWay}"
+                                                 Header="Alíquota aplicável de cálculo do crédito"
+                                                 InputScope="Number" />
+                                        <TextBox IsEnabled="{Binding SimplesGrupoFim}"
+                                                 Text="{Binding Simples.vCredICMSSN, Mode=TwoWay}"
+                                                 Header="Crédito do ICMS que pode ser aproveitado"
+                                                 InputScope="Number" />
+                                        <ComboBox IsEnabled="{Binding SimplesGrupoInicio}"
+                                                  SelectedIndex="{Binding Simples.modBCST, Mode=TwoWay}"
+                                                  Header="Modalidade de determinação da BC do ICMS"
+                                                  HorizontalAlignment="Stretch">
+                                            <ComboBoxItem>Margem Valor Agregado (%)</ComboBoxItem>
+                                            <ComboBoxItem>Pauta (Valor)</ComboBoxItem>
+                                            <ComboBoxItem>Preço Tabelado Máx (valor)</ComboBoxItem>
+                                            <ComboBoxItem>Valor da operação</ComboBoxItem>
+                                        </ComboBox>
+                                        <TextBox IsEnabled="{Binding SimplesGrupoInicio}"
+                                                 Text="{Binding Simples.vBC, Mode=TwoWay}"
+                                                 Header="Valor da BC do ICMS"
+                                                 InputScope="Number" />
+                                        <TextBox IsEnabled="{Binding SimplesGrupoInicio}"
+                                                 Text="{Binding Simples.pRedBC, Mode=TwoWay}"
+                                                 Header="Percentual da Redução de BC"
+                                                 InputScope="Number" />
+                                        <TextBox IsEnabled="{Binding SimplesGrupoInicio}"
+                                                 Text="{Binding Simples.pICMS, Mode=TwoWay}"
+                                                 Header="Alíquota do imposto"
+                                                 InputScope="Number" />
+                                        <TextBox IsEnabled="{Binding SimplesGrupoInicio}"
+                                                 Text="{Binding Simples.vICMS, Mode=TwoWay}"
+                                                 Header="Valor do ICMS"
+                                                 InputScope="Number" />
+                                    </ItemsControl>
+                                    <TextBlock Text="ICMS ST"
+                                               Style="{StaticResource SubtitleTextBlockStyle}" />
+                                    <ItemsControl Style="{StaticResource ItensResponsivos}"
+                                                  IsEnabled="{Binding SimplesICMSST}">
                                         <ComboBox SelectedIndex="{Binding Simples.modBCST, Mode=TwoWay}"
                                                   Header="Modalidade de determinação da BC do ICMS ST"
                                                   HorizontalAlignment="Stretch">
@@ -238,7 +241,7 @@
                                         <TextBox Text="{Binding Simples.vICMSST, Mode=TwoWay}"
                                                  Header="Valor do ICMS ST"
                                                  InputScope="Number" />
-                                    </StackPanel>
+                                    </ItemsControl>
                                 </StackPanel>
                                 <StackPanel Visibility="{Binding GrupoRegimeNormal, Converter={StaticResource visibilidade}}">
                                     <ComboBox SelectedValue="{Binding TipoICMSRegimeNormal, Mode=TwoWay}"
@@ -270,63 +273,66 @@
                                         <ComboBoxItem>7 - Estrangeira - Adquirida no mercado interno, sem similar nacional, constante lista CAMEX e gás natural</ComboBoxItem>
                                         <ComboBoxItem>8 - Nacional, mercadoria ou bem com Conteúdo de Importação superior a 70%</ComboBoxItem>
                                     </ComboBox>
-                                    <TextBox IsEnabled="{Binding NormalValorICMSDesonerado}"
-                                             Text="{Binding Normal.vICMSDeson, Mode=TwoWay}"
-                                             Header="Valor do ICMS desonerado"
-                                             InputScope="Number" />
-                                    <TextBox IsEnabled="{Binding NormalMotivoDesoneração}"
-                                             Text="{Binding Normal.motDesICMS, Mode=TwoWay}"
-                                             Header="Motivo da desoneração do ICMS"
-                                             InputScope="Number"
-                                             ToolTipService.ToolTip="3 p/ agropecuária; 9 p/ outros e 12 p/ fomento e desenv. agropecuário." />
-                                    <ComboBox IsEnabled="{Binding NormalGrupoInicio}"
-                                              SelectedIndex="{Binding Normal.modBC, Mode=TwoWay}"
-                                              Header="Modalidade de determinação da BC do ICMS"
-                                              HorizontalAlignment="Stretch">
-                                        <ComboBoxItem>Margem Valor Agregado (%)</ComboBoxItem>
-                                        <ComboBoxItem>Pauta (Valor)</ComboBoxItem>
-                                        <ComboBoxItem>Preço Tabelado Máx (valor)</ComboBoxItem>
-                                        <ComboBoxItem>Valor da operação</ComboBoxItem>
-                                    </ComboBox>
-                                    <TextBox IsEnabled="{Binding NormalGrupoInicio}"
-                                             Text="{Binding Normal.vBC, Mode=TwoWay}"
-                                             Header="Valor da BC do ICMS"
-                                             InputScope="Number" />
-                                    <TextBox IsEnabled="{Binding NormalPercentualReduçãoNormal}"
-                                             Text="{Binding Normal.pRedBC, Mode=TwoWay}"
-                                             Header="Percentual da Redução de BC"
-                                             InputScope="Number" />
-                                    <TextBox IsEnabled="{Binding NormalGrupoInicio}"
-                                             Text="{Binding Normal.pICMS, Mode=TwoWay}"
-                                             Header="Alíquota do imposto"
-                                             InputScope="Number" />
-                                    <TextBox IsEnabled="{Binding NormalGrupoInicio}"
-                                             Text="{Binding Normal.vICMS, Mode=TwoWay}"
-                                             Header="Valor do ICMS"
-                                             InputScope="Number" />
-                                    <TextBox IsEnabled="{Binding NormalGrupoMeio}"
-                                             Text="{Binding Normal.vBCSTRet, Mode=TwoWay}"
-                                             Header="Valor da BC do ICMS ST retido"
-                                             InputScope="Number" />
-                                    <TextBox IsEnabled="{Binding NormalGrupoMeio}"
-                                             Text="{Binding Normal.vICMSSTRet, Mode=TwoWay}"
-                                             Header="Valor do ICMS ST retido"
-                                             InputScope="Number" />
-                                    <TextBox IsEnabled="{Binding NormalGrupoFim}"
-                                             Text="{Binding Normal.vICMSOp, Mode=TwoWay}"
-                                             Header="Valor do ICMS da Operação"
-                                             InputScope="Number" />
-                                    <TextBox IsEnabled="{Binding NormalGrupoFim}"
-                                             Text="{Binding Normal.pDif, Mode=TwoWay}"
-                                             Header="Percentual do diferimento"
-                                             InputScope="Number" />
-                                    <TextBox IsEnabled="{Binding NormalGrupoFim}"
-                                             Text="{Binding Normal.vICMSDif, Mode=TwoWay}"
-                                             Header="Valor do ICMS diferido"
-                                             InputScope="Number" />
-                                    <StackPanel Visibility="{Binding NormalICMSSTNormal, Converter={StaticResource visibilidade}}">
-                                        <TextBlock Text="ICMS ST"
-                                                   Style="{StaticResource SubtitleTextBlockStyle}" />
+                                    <ItemsControl Style="{StaticResource ItensResponsivos}">
+                                        <TextBox IsEnabled="{Binding NormalValorICMSDesonerado}"
+                                                 Text="{Binding Normal.vICMSDeson, Mode=TwoWay}"
+                                                 Header="Valor do ICMS desonerado"
+                                                 InputScope="Number" />
+                                        <TextBox IsEnabled="{Binding NormalMotivoDesoneração}"
+                                                 Text="{Binding Normal.motDesICMS, Mode=TwoWay}"
+                                                 Header="Motivo da desoneração do ICMS"
+                                                 InputScope="Number"
+                                                 ToolTipService.ToolTip="3 p/ agropecuária; 9 p/ outros e 12 p/ fomento e desenv. agropecuário." />
+                                        <ComboBox IsEnabled="{Binding NormalGrupoInicio}"
+                                                  SelectedIndex="{Binding Normal.modBC, Mode=TwoWay}"
+                                                  Header="Modalidade de determinação da BC do ICMS"
+                                                  HorizontalAlignment="Stretch">
+                                            <ComboBoxItem>Margem Valor Agregado (%)</ComboBoxItem>
+                                            <ComboBoxItem>Pauta (Valor)</ComboBoxItem>
+                                            <ComboBoxItem>Preço Tabelado Máx (valor)</ComboBoxItem>
+                                            <ComboBoxItem>Valor da operação</ComboBoxItem>
+                                        </ComboBox>
+                                        <TextBox IsEnabled="{Binding NormalGrupoInicio}"
+                                                 Text="{Binding Normal.vBC, Mode=TwoWay}"
+                                                 Header="Valor da BC do ICMS"
+                                                 InputScope="Number" />
+                                        <TextBox IsEnabled="{Binding NormalPercentualReduçãoNormal}"
+                                                 Text="{Binding Normal.pRedBC, Mode=TwoWay}"
+                                                 Header="Percentual da Redução de BC"
+                                                 InputScope="Number" />
+                                        <TextBox IsEnabled="{Binding NormalGrupoInicio}"
+                                                 Text="{Binding Normal.pICMS, Mode=TwoWay}"
+                                                 Header="Alíquota do imposto"
+                                                 InputScope="Number" />
+                                        <TextBox IsEnabled="{Binding NormalGrupoInicio}"
+                                                 Text="{Binding Normal.vICMS, Mode=TwoWay}"
+                                                 Header="Valor do ICMS"
+                                                 InputScope="Number" />
+                                        <TextBox IsEnabled="{Binding NormalGrupoMeio}"
+                                                 Text="{Binding Normal.vBCSTRet, Mode=TwoWay}"
+                                                 Header="Valor da BC do ICMS ST retido"
+                                                 InputScope="Number" />
+                                        <TextBox IsEnabled="{Binding NormalGrupoMeio}"
+                                                 Text="{Binding Normal.vICMSSTRet, Mode=TwoWay}"
+                                                 Header="Valor do ICMS ST retido"
+                                                 InputScope="Number" />
+                                        <TextBox IsEnabled="{Binding NormalGrupoFim}"
+                                                 Text="{Binding Normal.vICMSOp, Mode=TwoWay}"
+                                                 Header="Valor do ICMS da Operação"
+                                                 InputScope="Number" />
+                                        <TextBox IsEnabled="{Binding NormalGrupoFim}"
+                                                 Text="{Binding Normal.pDif, Mode=TwoWay}"
+                                                 Header="Percentual do diferimento"
+                                                 InputScope="Number" />
+                                        <TextBox IsEnabled="{Binding NormalGrupoFim}"
+                                                 Text="{Binding Normal.vICMSDif, Mode=TwoWay}"
+                                                 Header="Valor do ICMS diferido"
+                                                 InputScope="Number" />
+                                    </ItemsControl>
+                                    <TextBlock Text="ICMS ST"
+                                               Style="{StaticResource SubtitleTextBlockStyle}" />
+                                    <ItemsControl Style="{StaticResource ItensResponsivos}"
+                                                  IsEnabled="{Binding NormalICMSSTNormal}">
                                         <ComboBox SelectedIndex="{Binding Normal.modBCST, Mode=TwoWay}"
                                                   Header="Modalidade de determinação da BC do ICMS ST"
                                                   HorizontalAlignment="Stretch">
@@ -352,7 +358,7 @@
                                         <TextBox Text="{Binding Normal.vICMSST, Mode=TwoWay}"
                                                  Header="Valor do ICMS ST"
                                                  InputScope="Number" />
-                                    </StackPanel>
+                                    </ItemsControl>
                                 </StackPanel>
                             </StackPanel>
                         </ScrollViewer>
@@ -753,7 +759,7 @@
                     <PivotItem Header="IPI Devolvido">
                         <StackPanel>
                             <StackPanel.DataContext>
-                                <Impostos:impostoDevol />
+                                <Impostos:ImpostoDevol />
                             </StackPanel.DataContext>
                             <TextBox Header="Percentual da mercadoria devolvida *"
                                      Text="{Binding pDevol, Mode=TwoWay}"

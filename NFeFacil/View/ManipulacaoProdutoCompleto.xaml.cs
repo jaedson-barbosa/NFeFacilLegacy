@@ -54,7 +54,7 @@ namespace NFeFacil.View
                     }
                 }
                 return new Impostos(from i in lista
-                                    where i.IsValido
+                                    where i != null && i.IsValido
                                     select i);
             }
         }

@@ -4,7 +4,10 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Pa
 {
     public sealed class PIS : Imposto
     {
-        [XmlElement(Type = typeof(PISAliq)), XmlElement(Type = typeof(PISNT)), XmlElement(Type = typeof(PISOutr)), XmlElement(Type = typeof(PISQtde))]
+        [XmlElement(nameof(PISAliq), Type = typeof(PISAliq), Order = 0),
+            XmlElement(nameof(PISNT), Type = typeof(PISNT), Order = 0),
+            XmlElement(nameof(PISOutr), Type = typeof(PISOutr), Order = 0),
+            XmlElement(nameof(PISQtde), Type = typeof(PISQtde), Order = 0)]
         public ComumPIS Corpo { get; set; }
 
         public override bool IsValido

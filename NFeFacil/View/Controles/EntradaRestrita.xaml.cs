@@ -47,13 +47,13 @@ namespace NFeFacil.View.Controles
             txtNumber.Text = value;
         }
 
-        public static readonly DependencyProperty HeaderProperty = DependencyProperty.Register("Header", typeof(string), typeof(EntradaNumerica), new PropertyMetadata(null));
-        public static readonly DependencyProperty TextProperty = DependencyProperty.Register("Text", typeof(string), typeof(EntradaNumerica), new PropertyMetadata(null, NumeroMudou));
+        public static readonly DependencyProperty HeaderProperty = DependencyProperty.Register("Header", typeof(string), typeof(EntradaRestrita), new PropertyMetadata(null));
+        public static readonly DependencyProperty TextProperty = DependencyProperty.Register("Text", typeof(string), typeof(EntradaRestrita), new PropertyMetadata(null, NumeroMudou));
 
         static void NumeroMudou(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
-            var input = (EntradaNumerica)sender;
-            input.DefinirTexto((double)args.NewValue);
+            var input = (EntradaRestrita)sender;
+            input.DefinirTexto((string)args.NewValue);
         }
 
         public EntradaRestrita()

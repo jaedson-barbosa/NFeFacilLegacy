@@ -574,22 +574,22 @@
                     <PivotItem Header="Veículo"
                                IsEnabled="{Binding ManipulacaoAtivada}">
                         <ItemsControl Style="{StaticResource ItensResponsivos}">
-                            <TextBox Text="{Binding NotaSalva.Informações.transp.veicTransp.Placa, Mode=TwoWay}"
+                            <TextBox Text="{Binding NotaSalva.Informações.transp.VeicTransp.Placa, Mode=TwoWay}"
                                      Header="Placa" />
                             <ComboBox ItemsSource="{Binding Source={StaticResource estados}, Path=Siglas}"
-                                      SelectedItem="{Binding Path=NotaSalva.Informações.transp.veicTransp.UF, Mode=TwoWay}"
+                                      SelectedItem="{Binding Path=NotaSalva.Informações.transp.VeicTransp.UF, Mode=TwoWay}"
                                       Header="Estado"
                                       HorizontalAlignment="Stretch" />
                             <TextBox Header="RNTC"
-                                     Text="{Binding NotaSalva.Informações.transp.veicTransp.RNTC, Mode=TwoWay}" />
-                            <TextBox Text="{Binding NotaSalva.Informações.transp.balsa, Mode=TwoWay}"
+                                     Text="{Binding NotaSalva.Informações.transp.VeicTransp.RNTC, Mode=TwoWay}" />
+                            <TextBox Text="{Binding NotaSalva.Informações.transp.Balsa, Mode=TwoWay}"
                                      Header="Identificação da balsa" />
-                            <TextBox Text="{Binding NotaSalva.Informações.transp.vagao, Mode=TwoWay}"
+                            <TextBox Text="{Binding NotaSalva.Informações.transp.Vagao, Mode=TwoWay}"
                                      Header="Identificação do vagão" />
                         </ItemsControl>
                     </PivotItem>
                     <PivotItem Header="Reboques">
-                        <ListView ItemsSource="{Binding NotaSalva.Informações.transp.reboque, Converter={StaticResource getObs}}"
+                        <ListView ItemsSource="{Binding NotaSalva.Informações.transp.Reboque, Converter={StaticResource getObs}}"
                                   Margin="0,8,0,0"
                                   ItemContainerStyle="{StaticResource ItemFullWidth}">
                             <ListView.Header>
@@ -626,7 +626,7 @@
                     <PivotItem Header="Volumes"
                                Margin="0,8,0,0"
                                IsEnabled="{Binding ManipulacaoAtivada}">
-                        <ListView ItemsSource="{Binding NotaSalva.Informações.transp.vol, Converter={StaticResource getObs}}"
+                        <ListView ItemsSource="{Binding NotaSalva.Informações.transp.Vol, Converter={StaticResource getObs}}"
                                   ItemContainerStyle="{StaticResource ItemFullWidth}">
                             <ListView.Header>
                                 <Grid Style="{StaticResource Cabecalho}">
@@ -673,26 +673,26 @@
                         <ItemsControl Style="{StaticResource ItensResponsivos}">
                             <controles:EntradaNumerica Header="Valor do serviço"
                                                        Format="13:2"
-                                                       Number="{Binding NotaSalva.Informações.transp.retTransp.VServ, Mode=TwoWay}" />
+                                                       Number="{Binding NotaSalva.Informações.transp.RetTransp.VServ, Mode=TwoWay}" />
                             <controles:EntradaNumerica Header="BC da retenção do ICMS"
                                                        Format="13:2"
-                                                       Number="{Binding NotaSalva.Informações.transp.retTransp.VBCRet, Mode=TwoWay}" />
+                                                       Number="{Binding NotaSalva.Informações.transp.RetTransp.VBCRet, Mode=TwoWay}" />
                             <controles:EntradaNumerica Header="Alíquota da retenção"
                                                        Format="3:4"
-                                                       Number="{Binding NotaSalva.Informações.transp.retTransp.PICMSRet, Mode=TwoWay}" />
+                                                       Number="{Binding NotaSalva.Informações.transp.RetTransp.PICMSRet, Mode=TwoWay}" />
                             <controles:EntradaNumerica Header="Valor do ICMS retido"
                                                        Format="13:2"
-                                                       Number="{Binding NotaSalva.Informações.transp.retTransp.VICMSRet, Mode=TwoWay}" />
+                                                       Number="{Binding NotaSalva.Informações.transp.RetTransp.VICMSRet, Mode=TwoWay}" />
                             <controles:EntradaNumerica Header="CFOP"
                                                        Format="4"
-                                                       Number="{Binding NotaSalva.Informações.transp.retTransp.CFOP, Mode=TwoWay}" />
+                                                       Number="{Binding NotaSalva.Informações.transp.RetTransp.CFOP, Mode=TwoWay}" />
                             <ComboBox ItemsSource="{Binding Source={StaticResource estados}, Path=EstadosCompletos}"
                                       SelectedItem="{Binding Path=UFEscolhida, Mode=TwoWay}"
                                       DisplayMemberPath="Nome"
                                       Header="Estado"
                                       HorizontalAlignment="Stretch" />
                             <ComboBox ItemsSource="{Binding UFEscolhida, Converter={StaticResource obterMun}}"
-                                      SelectedValue="{Binding Path=NotaSalva.Informações.transp.retTransp.CMunFG, Mode=TwoWay}"
+                                      SelectedValue="{Binding Path=NotaSalva.Informações.transp.RetTransp.CMunFG, Mode=TwoWay}"
                                       SelectedValuePath="Codigo"
                                       DisplayMemberPath="Nome"
                                       Header="Município"

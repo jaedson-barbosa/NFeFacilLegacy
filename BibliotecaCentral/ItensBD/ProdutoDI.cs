@@ -46,7 +46,7 @@ namespace BibliotecaCentral.ItensBD
                 Descricao = Descricao,
                 NCM = NCM,
                 EXTIPI = EXTIPI,
-                CFOP = int.Parse(CFOP),
+                CFOP = !string.IsNullOrEmpty(CFOP) ? int.Parse(CFOP) : 0,
                 UnidadeComercializacao = UnidadeComercializacao,
                 ValorUnitario = ValorUnitario,
                 CodigoBarrasTributo = CodigoBarrasTributo,

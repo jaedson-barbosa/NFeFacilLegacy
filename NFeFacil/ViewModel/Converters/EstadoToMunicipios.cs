@@ -29,7 +29,7 @@ namespace NFeFacil.ViewModel.Converters
                 tamanhoString = null;
                 return Municipios.Get(est).GerarObs();
             }
-            else if (value is ushort codigo)
+            else if (value is byte codigo)
             {
                 return Municipios.Get(codigo).GerarObs();
             }

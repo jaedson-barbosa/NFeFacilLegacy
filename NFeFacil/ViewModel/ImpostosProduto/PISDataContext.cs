@@ -30,16 +30,12 @@ namespace NFeFacil.ViewModel.ImpostosProduto
         public bool CalculoAliquotaST { get; private set; }
         public bool CalculoValorST { get; private set; }
 
-        private string cstSelecionado;
-        public string CSTSelecionado
+        public int CSTSelecionado
         {
-            get => cstSelecionado;
+            get => Imposto.Corpo != null ? int.Parse(Imposto.Corpo.CST) : -1;
             set
             {
-                cstSelecionado = value;
-                var tipoPISString = value.Substring(0, 2);
-                var tipoPISInt = int.Parse(tipoPISString);
-                if (new int[] { 1, 2 }.Contains(tipoPISInt))
+                if (new int[] { 1, 2 }.Contains(value))
                 {
                     MudarTipoCalculo(TiposCalculo.PorAliquota);
                     PIS = Visibility.Visible;
@@ -49,7 +45,7 @@ namespace NFeFacil.ViewModel.ImpostosProduto
                         Corpo = new PISAliq()
                     };
                 }
-                else if (tipoPISInt == 3)
+                else if (value == 3)
                 {
                     PIS = Visibility.Visible;
                     ComboTipoCalculo = false;
@@ -59,7 +55,7 @@ namespace NFeFacil.ViewModel.ImpostosProduto
                         Corpo = new PISQtde()
                     };
                 }
-                else if (new int[] { 4, 5, 6, 7, 8, 9 }.Contains(tipoPISInt))
+                else if (new int[] { 4, 5, 6, 7, 8, 9 }.Contains(value))
                 {
                     PIS = Visibility.Collapsed;
                     Conjunto.PIS = new PIS()
@@ -76,9 +72,9 @@ namespace NFeFacil.ViewModel.ImpostosProduto
                         Corpo = new PISOutr()
                     };
                 }
-                PISST = tipoPISInt == 5 ? Visibility.Visible : Visibility.Collapsed;
+                PISST = value == 5 ? Visibility.Visible : Visibility.Collapsed;
                 OnPropertyChanged(nameof(PIS), nameof(PISST), nameof(ComboTipoCalculo), nameof(Imposto));
-                Imposto.Corpo.CST = tipoPISString;
+                Imposto.Corpo.CST = value.ToString("F2");
             }
         }
 

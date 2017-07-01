@@ -181,7 +181,6 @@
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\ChaveAcesso.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\Detalhes.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\EnderecoCompleto.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\Cartao.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\Cobranca.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\Compra.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\ConsultarImpostos.cs" />
@@ -196,7 +195,6 @@
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\Identificacao.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\InformacoesAdicionais.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\Observacao.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\Pagamento.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesIdentificacao\DocumentoFiscalReferenciado.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesIdentificacao\NF1AReferenciada.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesIdentificacao\NFProdutorRuralReferenciada.cs" />

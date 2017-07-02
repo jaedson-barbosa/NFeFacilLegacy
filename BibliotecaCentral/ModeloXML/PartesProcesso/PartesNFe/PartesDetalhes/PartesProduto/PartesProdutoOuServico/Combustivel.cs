@@ -43,7 +43,7 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Pa
         /// (Opcional)
         /// Grupo de informações da CIDE.
         /// </summary>
-        [XmlElement(Order = 0)]
+        [XmlElement(Order = 5)]
         public CIDE CIDE { get; set; }
     }
 }

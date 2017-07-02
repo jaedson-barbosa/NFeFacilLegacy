@@ -81,7 +81,7 @@ namespace NFeFacil.ViewModel.ImpostosProduto
                         Corpo = new COFINSOutr()
                     };
                 }
-                Imposto.Corpo.CST = value.ToString("F2");
+                Imposto.Corpo.CST = value.ToString("00");
 
                 CalculoAliquotaST = false;
                 CalculoValorST = false;

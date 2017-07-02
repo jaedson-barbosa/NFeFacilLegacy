@@ -39,7 +39,7 @@ namespace NFeFacil.ViewModel.ImpostosProduto
                     Imposto.Corpo = new IPINT();
                     Valor = ComboTipoCalculo = CalculoAliquota = CalculoValor = false;
                 }
-                Imposto.Corpo.CST = value.ToString("F2");
+                Imposto.Corpo.CST = value.ToString("00");
                 OnPropertyChanged(nameof(Imposto), nameof(Valor), nameof(ComboTipoCalculo));
             }
         }

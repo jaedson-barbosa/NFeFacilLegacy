@@ -19,7 +19,7 @@ namespace BibliotecaCentral.Validacao
         {
             Nota.Informações.transp.Transporta = Nota.Informações.transp.Transporta?.ToXElement<Motorista>().HasElements ?? false ? Nota.Informações.transp.Transporta : null;
             Nota.Informações.transp.VeicTransp = ValidarVeiculo(Nota.Informações.transp.VeicTransp) ? Nota.Informações.transp.VeicTransp : null;
-            Nota.Informações.transp.RetTransp = Nota.Informações.transp.RetTransp?.ToXElement<ICMSTransporte>().HasElements ?? false ? Nota.Informações.transp.RetTransp : null;
+            Nota.Informações.transp.RetTransp = ValidarRetencaoTransporte(Nota.Informações.transp.RetTransp) ? Nota.Informações.transp.RetTransp : null;
 
             Nota.Informações.total.ISSQNtot = ValidarISSQN(Nota.Informações.total.ISSQNtot) ? Nota.Informações.total.ISSQNtot : null;
             Nota.Informações.total.RetTrib = ValidarRetencaoTributaria(Nota.Informações.total.RetTrib) ? Nota.Informações.total.RetTrib : null;
@@ -76,6 +76,19 @@ namespace BibliotecaCentral.Validacao
             else
             {
                 return StringsNaoNulas(veic.Placa, veic.UF);
+            }
+        }
+
+        bool ValidarRetencaoTransporte(ICMSTransporte icms)
+        {
+            if (icms == null)
+            {
+                return false;
+            }
+            else
+            {
+                return (icms.VServ != 0 || icms.VBCRet != 0 || icms.PICMSRet != 0 || icms.VICMSRet != 0)
+                    && icms.CFOP != 0 && icms.CMunFG != 0;
             }
         }
 

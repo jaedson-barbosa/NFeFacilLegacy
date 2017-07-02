@@ -539,6 +539,7 @@ namespace NFeFacil.ViewModel
 
             Conjunto = Dados;
             Analisador = new AnalisadorNFe(NotaSalva);
+            OperacoesNota = new OperacoesNotaSalva(Log, Analisador);
         }
 
         void ObterNovoNumero()

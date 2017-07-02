@@ -39,7 +39,7 @@ namespace NFeFacil.View.Controles
                 if (formatoOriginal.Contains(":"))
                 {
                     var partesFormato = value.Split(':');
-                    formatoProcessado = $"{Criar(partesFormato[0])}.{Criar(partesFormato[1])}";
+                    formatoProcessado = $"0.{Criar(partesFormato[1])}";/*Criar(partesFormato[0])*/
                 }
                 else
                 {

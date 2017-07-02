@@ -84,7 +84,7 @@ namespace NFeFacil.ViewModel.ImpostosProduto
                         Simples = new ICMSSN900();
                         break;
                 }
-                Simples.CSOSN = value.ToString("F3");
+                Simples.CSOSN = value.ToString("000");
                 OnPropertyChanged(nameof(Simples));
             }
         }
@@ -152,7 +152,7 @@ namespace NFeFacil.ViewModel.ImpostosProduto
                         AttCamposNormal(true, true, true, false, true, true, false);
                         break;
                 }
-                Normal.CST = value.ToString("F2");
+                Normal.CST = value.ToString("00");
                 OnPropertyChanged(nameof(Normal));
             }
         }

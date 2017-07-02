@@ -12,7 +12,7 @@ namespace NFeFacil.DANFE.Pacotes
         public string Numero { get; set; }
         public string Fone { get; set; }
 
-        public static implicit operator Endereço (enderecoCompleto end)
+        public static implicit operator Endereço (EnderecoCompleto end)
         {
             return new Endereço
             {

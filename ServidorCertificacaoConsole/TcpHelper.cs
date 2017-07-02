@@ -1,10 +1,14 @@
-﻿using System;
-using System.IO;
+﻿using Comum.Pacotes;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Xml.Linq;
+using System.Xml.Serialization;
 
 namespace ServidorCertificacaoConsole
 {
@@ -28,60 +32,83 @@ namespace ServidorCertificacaoConsole
         {
             if (Listener != null && Accept)
             {
-                var metodos = new Metodos();
                 while (true)
                 {
-                    using (var client = await Listener.AcceptTcpClientAsync())
-                    {
-                        var stream = client.GetStream();
-                        using (StreamReader leitor = new StreamReader(stream))
-                        {
-                            try
-                            {
-                                var parametro = leitor.ReadLine();
-                                var parametros = parametro.Split(' ')[1].Replace('/', ' ').Trim().Split(' ');
-
-                                var nomeMetodo = parametros[0];
-                                var parametroMetodo = parametros.Length == 1 ? null : WebUtility.UrlDecode(parametros[1]);
-
-                                Console.WriteLine($"Nome metodo: {nomeMetodo}; parametro: {parametroMetodo}");
-
-                                switch (nomeMetodo)
-                                {
-                                    case "ObterCertificados":
-                                        metodos.ObterCertificados(stream);
-                                        break;
-                                    case "ObterCertificado":
-                                        if (parametroMetodo != null)
-                                        {
-                                            metodos.ObterCertificado(stream, parametroMetodo);
-                                            break;
-                                        }
-                                        else
-                                        {
-                                            throw new Exception();
-                                        }
-                                    default:
-                                        throw new Exception();
-                                }
-                            }
-                            catch (Exception e0)
-                            {
-                                try
-                                {
-                                    var data = Encoding.UTF8.GetBytes($"HTTP/1.1 200 OK\r\nContent-Length: {e0.Message.Length}\r\nConnection: close\r\n\r\n{e0.Message}");
-                                    stream.Write(data, 0, data.Length);
-                                }
-                                catch (Exception e)
-                                {
-                                    Console.WriteLine(e.Message);
-                                }
-                            }
-
-                            stream.Flush();
-                        }
-                    }
+                    var client = await Listener.AcceptTcpClientAsync();
+                    ThreadPool.QueueUserWorkItem(ProcessarRequisicao, client);
                 }
+            }
+        }
+
+        async static void ProcessarRequisicao(object obj)
+        {
+            var client = (TcpClient)obj;
+            var stream = client.GetStream();
+            var metodos = new Metodos();
+            try
+            {
+                var requisicao = ReadToEnd(stream);
+
+                var primeiraLinha = requisicao.Substring(0, requisicao.IndexOf("\r\n"));
+                var parametros = primeiraLinha.Split(' ')[1].Replace('/', ' ').Trim().Split(' ');
+                var nomeMetodo = parametros[0];
+                Console.WriteLine($"Nome metodo: {nomeMetodo};");
+                switch (nomeMetodo)
+                {
+                    case Comum.NomesMetodos.ObterCertificados:
+                        metodos.ObterCertificados(stream);
+                        break;
+                    case Comum.NomesMetodos.ObterChaveCertificado:
+                        var parametroMetodo = parametros.Length == 1 ? null : WebUtility.UrlDecode(parametros[1]);
+                        Console.WriteLine($"Parametro: {parametroMetodo}");
+                        metodos.ObterChaveCertificado(stream, parametroMetodo);
+                        break;
+                    case Comum.NomesMetodos.EnviarRequisicao:
+                        var conteudo = requisicao.Substring(requisicao.IndexOf("\r\n\r\n") + 4);
+                        var xml = XElement.Parse(conteudo);
+                        var envio = Desserializar<RequisicaoEnvioDTO>(xml);
+                        await metodos.EnviarRequisicaoAsync(stream, envio);
+                        break;
+                    default:
+                        throw new Exception("Método não reconhecido.");
+                }
+            }
+            catch (Exception e0)
+            {
+                try
+                {
+                    var data = Encoding.UTF8.GetBytes($"HTTP/1.1 200 OK\r\nContent-Length: {e0.Message.Length}\r\nConnection: close\r\n\r\n{e0.Message}");
+                    stream.Write(data, 0, data.Length);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
+            finally
+            {
+                stream.Flush();
+                stream.Dispose();
+                client.Dispose();
+            }
+        }
+
+        static string ReadToEnd(NetworkStream stream)
+        {
+            var bytes = new List<byte>();
+            while (stream.DataAvailable)
+            {
+                bytes.Add((byte)stream.ReadByte());
+            }
+            return Encoding.UTF8.GetString(bytes.ToArray());
+        }
+
+        static T Desserializar<T>(XElement xml)
+        {
+            var xmlSerializer = new XmlSerializer(typeof(T));
+            using (var reader = xml.CreateReader())
+            {
+                return (T)xmlSerializer.Deserialize(reader);
             }
         }
     }

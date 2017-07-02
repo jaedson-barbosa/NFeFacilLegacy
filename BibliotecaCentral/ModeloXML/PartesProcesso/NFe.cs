@@ -1,11 +1,12 @@
-﻿using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe;
+﻿using BibliotecaCentral.Certificacao;
+using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe;
 using System.Xml;
 using System.Xml.Serialization;
 
 namespace BibliotecaCentral.ModeloXML.PartesProcesso
 {
     [XmlRoot(nameof(NFe), Namespace = "http://www.portalfiscal.inf.br/nfe")]
-    public sealed class NFe
+    public sealed class NFe : ISignature
     {
         [XmlElement("infNFe")]
         public Detalhes Informações { get; set; }

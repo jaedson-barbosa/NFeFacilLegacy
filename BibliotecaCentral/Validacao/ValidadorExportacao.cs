@@ -17,7 +17,7 @@ namespace BibliotecaCentral.Validacao
             if (Exportacao == null) return false;
             return new ValidarDados().ValidarTudo(log,
                 new ConjuntoAnalise(string.IsNullOrEmpty(Exportacao.UFSaidaPais), "Não foi definida uma UF de saída."),
-                new ConjuntoAnalise(string.IsNullOrEmpty(Exportacao.xLocExporta), "Não foi definido o local de exportação"));
+                new ConjuntoAnalise(string.IsNullOrEmpty(Exportacao.XLocExporta), "Não foi definido o local de exportação"));
         }
     }
 }

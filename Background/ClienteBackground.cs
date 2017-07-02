@@ -16,10 +16,7 @@ namespace Background
                 toast.Escrever(TitulosComuns.Iniciando, "Iniciando sincronização em background.");
                 Task.Run(() => new GerenciadorCliente(toast).Sincronizar(DadosSincronizaveis.Tudo, true)).Wait();
             }
-            catch (System.Exception e)
-            {
-                toast.Escrever(TitulosComuns.ErroCatastrófico, e.Message);
-            }
+            catch (System.Exception) { }
             deferral.Complete();
         }
     }

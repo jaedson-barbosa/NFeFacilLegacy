@@ -1,6 +1,6 @@
 ﻿namespace BibliotecaCentral.ModeloXML
 {
-    public enum TiposDocumento
+    public enum TiposDocumento : byte
     {
         CPF,
         CNPJ,

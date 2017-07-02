@@ -32,41 +32,41 @@ namespace BibliotecaCentral.ItensBD
         public EmitenteDI() { }
         public EmitenteDI(Emitente other)
         {
-            CNPJ = other.CNPJ;
-            Nome = other.nome;
-            NomeFantasia = other.nomeFantasia;
-            InscricaoEstadual = other.inscricaoEstadual;
+            CNPJ = other.CNPJ.ToString();
+            Nome = other.Nome;
+            NomeFantasia = other.NomeFantasia;
+            InscricaoEstadual = other.InscricaoEstadual.ToString();
             IEST = other.IEST;
             IM = other.IM;
             CNAE = other.CNAE;
-            RegimeTributario = other.regimeTributario;
+            RegimeTributario = other.RegimeTributario;
 
-            Logradouro = other.endereco.Logradouro;
-            Numero = other.endereco.Numero;
-            Complemento = other.endereco.Complemento;
-            Bairro = other.endereco.Bairro;
-            CodigoMunicipio = other.endereco.CodigoMunicipio;
-            NomeMunicipio = other.endereco.NomeMunicipio;
-            SiglaUF = other.endereco.SiglaUF;
-            CEP = other.endereco.CEP;
-            CPais = other.endereco.CPais;
-            XPais = other.endereco.XPais;
-            Telefone = other.endereco.Telefone;
+            Logradouro = other.Endereco.Logradouro;
+            Numero = other.Endereco.Numero;
+            Complemento = other.Endereco.Complemento;
+            Bairro = other.Endereco.Bairro;
+            CodigoMunicipio = other.Endereco.CodigoMunicipio;
+            NomeMunicipio = other.Endereco.NomeMunicipio;
+            SiglaUF = other.Endereco.SiglaUF;
+            CEP = other.Endereco.CEP;
+            CPais = other.Endereco.CPais;
+            XPais = other.Endereco.XPais;
+            Telefone = other.Endereco.Telefone;
         }
 
         public Emitente ToEmitente()
         {
             return new Emitente
             {
-                CNPJ = CNPJ,
-                nome = Nome,
-                nomeFantasia = NomeFantasia,
-                inscricaoEstadual = InscricaoEstadual,
+                CNPJ = long.Parse(CNPJ),
+                Nome = Nome,
+                NomeFantasia = NomeFantasia,
+                InscricaoEstadual = long.Parse(InscricaoEstadual),
                 IEST = IEST,
                 IM = IM,
                 CNAE = CNAE,
-                regimeTributario = RegimeTributario,
-                endereco = new ModeloXML.PartesProcesso.PartesNFe.enderecoCompleto
+                RegimeTributario = RegimeTributario,
+                Endereco = new ModeloXML.PartesProcesso.PartesNFe.EnderecoCompleto
                 {
                     Logradouro = Logradouro,
                     Numero = Numero,
@@ -75,7 +75,7 @@ namespace BibliotecaCentral.ItensBD
                     CodigoMunicipio = CodigoMunicipio,
                     NomeMunicipio = NomeMunicipio,
                     SiglaUF = SiglaUF,
-                    CEP = CEP,
+                    CEP = CEP.ToString(),
                     CPais = CPais,
                     XPais = XPais,
                     Telefone = Telefone

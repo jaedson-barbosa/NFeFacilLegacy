@@ -11,46 +11,40 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Pa
         /// (Opcional)
         /// Classe de enquadramento do IPI para Cigarros e Bebidas.
         /// </summary>
+        [XmlElement(Order = 0)]
         public string clEnq { get; set; }
 
         /// <summary>
         /// (Opcional)
         /// CNPJ do produtor da mercadoria, quando diferente do emitente. Somente para os casos de exportação direta ou indireta.
         /// </summary>
+        [XmlElement(Order = 1)]
         public string CNPJProd { get; set; }
 
         /// <summary>
         /// (Opcional)
         /// Código do selo de controle IPI.
         /// </summary>
+        [XmlElement(Order = 2)]
         public string cSelo { get; set; }
 
         /// <summary>
         /// (Opcional)
         /// Quantidade de selos de controle.
         /// </summary>
+        [XmlElement(Order = 3)]
         public string qSelo { get; set; }
 
         /// <summary>
         /// Código de Enquadramento Legal do IPI.
         /// </summary>
+        [XmlElement(Order = 4)]
         public string cEnq { get; set; }
 
-        private ComumIPI corpo;
-        [XmlElement(nameof(IPINT), Type = typeof(IPINT)), XmlElement(nameof(IPITrib), Type = typeof(IPITrib))]
-        public ComumIPI Corpo
-        {
-            get
-            {
-                if (corpo == null) corpo = new IPITrib();
-                return corpo;
-            }
-            set
-            {
-                corpo = value;
-            }
-        }
+        [XmlElement(nameof(IPINT), Type = typeof(IPINT), Order = 5),
+            XmlElement(nameof(IPITrib), Type = typeof(IPITrib), Order = 5)]
+        public ComumIPI Corpo { get; set; }
 
-        public override bool IsValido => Corpo.ToXElement(Corpo.GetType()).HasElements;
+        public override bool IsValido => Corpo != null ? Corpo.ToXElement(Corpo.GetType()).HasElements : false;
     }
 }

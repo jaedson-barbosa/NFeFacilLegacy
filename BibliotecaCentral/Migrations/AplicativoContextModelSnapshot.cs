@@ -149,6 +149,10 @@ namespace BibliotecaCentral.Migrations
                     b.Property<string>("DataEmissao")
                         .IsRequired();
 
+                    b.Property<bool>("Exportada");
+
+                    b.Property<bool>("Impressa");
+
                     b.Property<string>("NomeCliente")
                         .IsRequired();
 
@@ -203,6 +207,22 @@ namespace BibliotecaCentral.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Produtos");
+                });
+
+            modelBuilder.Entity("BibliotecaCentral.ItensBD.RegistroCancelamento", b =>
+                {
+                    b.Property<string>("ChaveNFe")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("DataHoraEvento");
+
+                    b.Property<int>("TipoAmbiente");
+
+                    b.Property<string>("XML");
+
+                    b.HasKey("ChaveNFe");
+
+                    b.ToTable("Cancelamentos");
                 });
 
             modelBuilder.Entity("BibliotecaCentral.ItensBD.ResultadoSincronizacaoCliente", b =>

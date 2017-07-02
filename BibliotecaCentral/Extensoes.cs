@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BibliotecaCentral.Log;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -49,7 +50,7 @@ namespace BibliotecaCentral
         public static string ToStringPersonalizado(this DateTime dataHora)
         {
             double horas = TimeZoneInfo.Local.BaseUtcOffset.TotalHours;
-            string total = "yyyy-MM-ddThh:mm:ss";
+            string total = "yyyy-MM-ddTHH:mm:ss";
             total = dataHora.ToString(total);
             if (horas < 0) total += '-';
             total += $"{Math.Abs(horas).ToString().PadLeft(2, '0')}:00";
@@ -70,6 +71,13 @@ namespace BibliotecaCentral
         {
             var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
             return loader.GetString(recurso);
+        }
+
+        static ILog Log = new Popup();
+
+        internal static void ManipularErro(this Exception erro)
+        {
+            Log.Escrever(TitulosComuns.Erro, erro.Message);
         }
     }
 }

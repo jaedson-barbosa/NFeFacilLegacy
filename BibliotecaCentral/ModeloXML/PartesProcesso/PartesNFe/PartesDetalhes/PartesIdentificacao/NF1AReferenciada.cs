@@ -4,15 +4,6 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Pa
 {
     public sealed class NF1AReferenciada
     {
-        [XmlElement(Order = 2)]
-        public string CNPJ { get; set; }
-
-        /// <summary>
-        /// Modelo do Documento Fiscal.
-        /// </summary>
-        [XmlElement("mod", Order = 3)]
-        public string Mod { get; set; } = "01";
-
         /// <summary>
         /// Código da UF do emitente.
         /// </summary>
@@ -25,16 +16,25 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Pa
         [XmlElement(Order = 1)]
         public string AAMM { get; set; }
 
+        [XmlElement(Order = 2)]
+        public long CNPJ { get; set; }
+
+        /// <summary>
+        /// Modelo do Documento Fiscal.
+        /// </summary>
+        [XmlElement("mod", Order = 3)]
+        public string Mod { get; set; } = "01";
+
         /// <summary>
         /// Informar zero se não utilizada Série do documento fiscal.
         /// </summary>
         [XmlElement("serie", Order = 4)]
-        public uint Serie { get; set; }
+        public int Serie { get; set; }
 
         /// <summary>
         /// Número do Documento Fiscal.
         /// </summary>
         [XmlElement("nNF", Order = 5)]
-        public string NNF { get; set; }
+        public int NNF { get; set; }
     }
 }

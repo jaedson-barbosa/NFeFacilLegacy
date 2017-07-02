@@ -12,7 +12,7 @@ namespace NFeFacil.View.CaixasDialogo
         {
             if (value is GrupoExportacao grupo)
             {
-                return new DeclaracaoExportacaoDataContext(grupo);
+                return new DeclaracaoExportacaoDataContext(ref grupo);
             }
             throw new ArgumentException();
         }
@@ -56,7 +56,7 @@ namespace NFeFacil.View.CaixasDialogo
 
             public Visibility VisibilidadeIndireta { get; private set; } = Visibility.Collapsed;
 
-            public DeclaracaoExportacaoDataContext(GrupoExportacao grupo)
+            public DeclaracaoExportacaoDataContext(ref GrupoExportacao grupo)
             {
                 Declaracao = grupo;
             }

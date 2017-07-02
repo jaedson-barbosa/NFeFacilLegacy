@@ -1,11 +1,15 @@
 ﻿<Page x:Class="NFeFacil.View.NotasSalvas"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:VM="using:NFeFacil.ViewModel"
       xmlns:Conversores="using:NFeFacil.ViewModel.Converters"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d"
       x:Name="root">
+    <Page.DataContext>
+        <VM:NotasSalvasDataContext />
+    </Page.DataContext>
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -14,12 +18,10 @@
             <Conversores:BoolToVisibility x:Key="visibilidade" />
         </ResourceDictionary>
     </Page.Resources>
-    <ListView x:Name="lstNotas"
-              Padding="16"
+    <ListView Padding="16"
               Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
               ItemsSource="{Binding NotasSalvas}"
-              ItemContainerStyle="{StaticResource ItemFullWidth}"
-              SelectionMode="Multiple">
+              ItemContainerStyle="{StaticResource ItemFullWidth}">
         <ListView.Header>
             <Grid Style="{StaticResource Cabecalho}">
                 <Grid.Resources>
@@ -43,7 +45,7 @@
         </ListView.Header>
         <ListView.ItemTemplate>
             <DataTemplate>
-                <Grid>
+                <Grid Background="{Binding Background}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="2*" />
                         <ColumnDefinition Width="2*" />
@@ -51,16 +53,10 @@
                     </Grid.ColumnDefinitions>
                     <Grid.ContextFlyout>
                         <MenuFlyout>
-                            <MenuFlyoutItem Command="{Binding DataContext.RemoverCommand, ElementName=root}"
-                                            CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Remover apenas esta nota</MenuFlyoutItem>
-                            <MenuFlyoutItem Visibility="{Binding DataContext.ExibirRemoverSelecionados, ElementName=root, Converter={StaticResource visibilidade}}"
-                                            Command="{Binding DataContext.RemoverSelecionadosCommand, ElementName=root}"
-                                            CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Remover selecionados</MenuFlyoutItem>
-                            <MenuFlyoutItem Visibility="{Binding DataContext.ExibirEditar, ElementName=root, Converter={StaticResource visibilidade}}"
-                                            Command="{Binding DataContext.EditarCommand, ElementName=root}"
-                                            CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Editar</MenuFlyoutItem>
-                            <MenuFlyoutItem Command="{Binding DataContext.CancelarCommand, ElementName=root}"
-                                            CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Editar</MenuFlyoutItem>
+                            <MenuFlyoutItem Command="{Binding RemoverCommand}">Remover</MenuFlyoutItem>
+                            <MenuFlyoutItem Command="{Binding EditarCommand}">Editar</MenuFlyoutItem>
+                            <MenuFlyoutItem IsEnabled="{Binding PodeCancelar}"
+                                            Command="{Binding CancelarCommand}">Cancelar</MenuFlyoutItem>
                         </MenuFlyout>
                     </Grid.ContextFlyout>
                     <Grid.Resources>
@@ -71,11 +67,11 @@
                                     Value="Center" />
                         </Style>
                     </Grid.Resources>
-                    <TextBlock Text="{Binding NomeEmitente}" />
+                    <TextBlock Text="{Binding Nota.NomeEmitente}" />
                     <TextBlock Grid.Column="1"
-                               Text="{Binding NomeCliente}" />
+                               Text="{Binding Nota.NomeCliente}" />
                     <TextBlock Grid.Column="2"
-                               Text="{Binding DataEmissao}" />
+                               Text="{Binding Nota.DataEmissao}" />
                 </Grid>
             </DataTemplate>
         </ListView.ItemTemplate>

@@ -15,9 +15,24 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe
         {
             get
             {
-                return $"NFe{new ChaveAcesso(this).CriarChaveAcesso()}";
+                if (ChaveAcesso == null)
+                {
+                    AtualizarChave();
+                }
+                return $"NFe{ChaveAcesso}";
             }
-            set { }
+            set
+            {
+                ChaveAcesso = value.Remove(0, 3);
+            }
+        }
+
+        [XmlIgnore]
+        public string ChaveAcesso { get; set; }
+
+        public void AtualizarChave()
+        {
+            ChaveAcesso = new ChaveAcesso(this).CriarChaveAcesso();
         }
 
         [XmlElement(ElementName = "ide", Order = 0)]
@@ -61,37 +76,30 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe
 
         /// <summary>
         /// (Opcional)
-        /// Grupo de Formas de Pagamento.
-        /// </summary>
-        [XmlElement(nameof(pag), Order = 9)]
-        public Pagamento[] pag { get; set; }
-
-        /// <summary>
-        /// (Opcional)
         /// Grupo de Informações Adicionais.
         /// </summary>
-        [XmlElement(Order = 10)]
+        [XmlElement(Order = 9)]
         public InformacoesAdicionais infAdic { get; set; }
 
         /// <summary>
         /// (Opcional)
         /// Grupo Exportação.
         /// </summary>
-        [XmlElement(Order = 11)]
+        [XmlElement(Order = 10)]
         public Exportacao exporta { get; set; }
 
         /// <summary>
         /// (Opcional)
         /// Grupo Compra.
         /// </summary>
-        [XmlElement(Order = 12)]
+        [XmlElement(Order = 11)]
         public Compra compra { get; set; }
 
         /// <summary>
         /// (Opcional)
         /// Grupo Cana.
         /// </summary>
-        [XmlElement(Order = 13)]
+        [XmlElement(Order = 12)]
         public RegistroAquisicaoCana cana { get; set; }
     }
 }

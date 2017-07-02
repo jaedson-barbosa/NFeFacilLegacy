@@ -3,8 +3,6 @@ using BibliotecaCentral.ItensBD;
 using BibliotecaCentral.Sincronizacao;
 using System.Collections.ObjectModel;
 using static BibliotecaCentral.Sincronizacao.ConfiguracoesSincronizacao;
-using BibliotecaCentral.Repositorio;
-using System.Threading.Tasks;
 using System.ComponentModel;
 
 namespace NFeFacil.ViewModel
@@ -21,30 +19,10 @@ namespace NFeFacil.ViewModel
 
         public HistoricoSincronizacaoDataContext()
         {
-            DefinirTudo();
-
-            async void DefinirTudo()
+            using (var db = new AplicativoContext())
             {
-                await DefinirResultadosClienteAsync();
-                await DefinirResultadosServidorAsync();
-            }
-        }
-
-        private async Task DefinirResultadosClienteAsync()
-        {
-            using (var db = new ResultadosCliente())
-            {
-                ResultadosCliente = await Task.Run(() => db.Registro.GerarObs());
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ResultadosCliente)));
-            }
-        }
-
-        private async Task DefinirResultadosServidorAsync()
-        {
-            using (var db = new ResultadosServidor())
-            {
-                ResultadosServidor = await Task.Run(() => db.Registro.GerarObs());
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ResultadosServidor)));
+                ResultadosCliente = db.ResultadosCliente.GerarObs();
+                ResultadosServidor = db.ResultadosServidor.GerarObs();
             }
         }
     }

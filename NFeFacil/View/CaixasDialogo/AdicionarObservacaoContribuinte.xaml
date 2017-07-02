@@ -13,8 +13,8 @@
     </ContentDialog.DataContext>
     <StackPanel>
         <TextBox Header="Identificação"
-                 Text="{Binding xCampo, Mode=TwoWay}" />
+                 Text="{Binding XCampo, Mode=TwoWay}" />
         <TextBox Header="Conteúdo"
-                 Text="{Binding xTexto, Mode=TwoWay}" />
+                 Text="{Binding XTexto, Mode=TwoWay}" />
     </StackPanel>
 </ContentDialog>

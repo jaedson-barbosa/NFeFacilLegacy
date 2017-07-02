@@ -13,7 +13,7 @@ namespace BibliotecaCentral.ItensBD
         public string CNPJ { get; set; }
         public string IdEstrangeiro { get; set; }
         public string Nome { get; set; }
-        public int IndicadorIE { get; set; } = 9;
+        public int IndicadorIE { get; set; }
         public string InscricaoEstadual { get; set; }
         public string ISUF { get; set; }
         public string Email { get; set; }
@@ -26,8 +26,8 @@ namespace BibliotecaCentral.ItensBD
         public string NomeMunicipio { get; set; }
         public string SiglaUF { get; set; }
         public string CEP { get; set; }
-        public int CPais { get; set; } = 1058;
-        public string XPais { get; set; } = "Brasil";
+        public int CPais { get; set; }
+        public string XPais { get; set; }
         public string Telefone { get; set; }
 
         [System.ComponentModel.DataAnnotations.Schema.NotMapped]
@@ -40,31 +40,38 @@ namespace BibliotecaCentral.ItensBD
         public ClienteDI() { }
         public ClienteDI(Destinatario other)
         {
-            if (other.indicadorIE == 9 && !string.IsNullOrEmpty(other.inscricaoEstadual))
+            if (other.IndicadorIE == 9)
             {
-                other.indicadorIE = 1;
+                if (!string.IsNullOrEmpty(other.InscricaoEstadual))
+                {
+                    other.IndicadorIE = 1;
+                }
+                else
+                {
+                    other.IndicadorIE = 9;
+                }
             }
 
             CPF = other.CPF;
             CNPJ = other.CNPJ;
-            IdEstrangeiro = other.idEstrangeiro;
-            Nome = other.nome;
-            IndicadorIE = other.indicadorIE;
-            InscricaoEstadual = other.inscricaoEstadual;
+            IdEstrangeiro = other.IdEstrangeiro;
+            Nome = other.Nome;
+            IndicadorIE = other.IndicadorIE;
+            InscricaoEstadual = other.InscricaoEstadual;
             ISUF = other.ISUF;
-            Email = other.email;
+            Email = other.Email;
 
-            Logradouro = other.endereco.Logradouro;
-            Numero = other.endereco.Numero;
-            Complemento = other.endereco.Complemento;
-            Bairro = other.endereco.Bairro;
-            CodigoMunicipio = other.endereco.CodigoMunicipio;
-            NomeMunicipio = other.endereco.NomeMunicipio;
-            SiglaUF = other.endereco.SiglaUF;
-            CEP = other.endereco.CEP;
-            CPais = other.endereco.CPais;
-            XPais = other.endereco.XPais;
-            Telefone = other.endereco.Telefone;
+            Logradouro = other.Endereco.Logradouro;
+            Numero = other.Endereco.Numero;
+            Complemento = other.Endereco.Complemento;
+            Bairro = other.Endereco.Bairro;
+            CodigoMunicipio = other.Endereco.CodigoMunicipio;
+            NomeMunicipio = other.Endereco.NomeMunicipio;
+            SiglaUF = other.Endereco.SiglaUF;
+            CEP = other.Endereco.CEP;
+            CPais = other.Endereco.CPais;
+            XPais = other.Endereco.XPais;
+            Telefone = other.Endereco.Telefone;
         }
 
         public Destinatario ToDestinatario()
@@ -73,13 +80,13 @@ namespace BibliotecaCentral.ItensBD
             {
                 CPF = CPF,
                 CNPJ = CNPJ,
-                idEstrangeiro = IdEstrangeiro,
-                nome = Nome,
-                indicadorIE = IndicadorIE,
-                inscricaoEstadual = InscricaoEstadual,
+                IdEstrangeiro = IdEstrangeiro,
+                Nome = Nome,
+                IndicadorIE = IndicadorIE,
+                InscricaoEstadual = InscricaoEstadual,
                 ISUF = ISUF,
-                email = Email,
-                endereco = new ModeloXML.PartesProcesso.PartesNFe.enderecoCompleto
+                Email = Email,
+                Endereco = new ModeloXML.PartesProcesso.PartesNFe.EnderecoCompleto
                 {
                     Logradouro = Logradouro,
                     Numero = Numero,

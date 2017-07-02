@@ -31,25 +31,25 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
         }
 
         [XmlElement(ElementName = "cUF", Order = 0)]
-        public ushort CódigoUF { get; set; }
+        public byte CódigoUF { get; set; }
 
         [XmlElement(ElementName = "cNF", Order = 1)]
-        public string ChaveNF { get; set; }
+        public int ChaveNF { get; set; }
 
         [XmlElement(ElementName = "natOp", Order = 2)]
         public string NaturezaDaOperação { get; set; }
 
         [XmlElement(ElementName = "indPag", Order = 3)]
-        public ushort FormaPagamento { get; set; } = 0;
+        public byte FormaPagamento { get; set; } = 0;
 
         [XmlElement(ElementName = "mod", Order = 4)]
-        public ushort Modelo { get; set; } = 55;
+        public byte Modelo { get; set; } = 55;
 
         [XmlElement(ElementName = "serie", Order = 5)]
         public ushort Serie { get; set; } = 1;
 
         [XmlElement(ElementName = "nNF", Order = 6)]
-        public long Numero { get; set; }
+        public int Numero { get; set; }
 
         [XmlElement(ElementName = "dhEmi", Order = 7)]
         public string DataHoraEmissão { get; set; }
@@ -58,37 +58,37 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
         public string DataHoraSaídaEntrada { get; set; }
 
         [XmlElement(ElementName = "tpNF", Order = 9)]
-        public ushort TipoOperação { get; set; } = 1;
+        public byte TipoOperação { get; set; } = 1;
 
         [XmlElement(ElementName = "idDest", Order = 10)]
-        public ushort IdentificadorDestino { get; set; } = 1;
+        public byte IdentificadorDestino { get; set; } = 1;
 
         [XmlElement(ElementName = "cMunFG", Order = 11)]
         public int CodigoMunicípio { get; set; }
 
         [XmlElement(ElementName = "tpImp", Order = 12)]
-        public ushort TipoImpressão { get; set; } = 1;
+        public byte TipoImpressão { get; set; } = 1;
 
         [XmlElement(ElementName = "tpEmis", Order = 13)]
-        public ushort TipoEmissão { get; set; } = 1;
+        public byte TipoEmissão { get; set; } = 1;
 
         [XmlElement(ElementName = "cDV", Order = 14)]
         public int DígitoVerificador { get; set; }
 
         [XmlElement(ElementName = "tpAmb", Order = 15)]
-        public ushort TipoAmbiente { get; set; } = 1;
+        public byte TipoAmbiente { get; set; } = 1;
 
         [XmlElement(ElementName = "finNFe", Order = 16)]
-        public ushort FinalidadeEmissão { get; set; } = 1;
+        public byte FinalidadeEmissão { get; set; } = 1;
 
         [XmlElement(ElementName = "indFinal", Order = 17)]
-        public ushort OperaçãoConsumidorFinal { get; set; } = 1;
+        public byte OperaçãoConsumidorFinal { get; set; } = 1;
 
         [XmlElement(ElementName = "indPres", Order = 18)]
-        public ushort IndicadorPresença { get; set; } = 1;
+        public byte IndicadorPresença { get; set; } = 1;
 
         [XmlElement(ElementName = "procEmi", Order = 19)]
-        public ushort ProcessoEmissão { get; set; } = 0;
+        public byte ProcessoEmissão { get; set; } = 0;
 
         [XmlElement(ElementName = "verProc", Order = 20)]
         public string VersaoAplicativo { get; set; } = VersãoAplicativo();

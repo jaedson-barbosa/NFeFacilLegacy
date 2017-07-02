@@ -8,6 +8,14 @@ namespace NFeFacil.ViewModel.ImpostosProduto
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public void OnPropertyChanged(params string[] parametros)
+        {
+            for (int i = 0; i < parametros.Length; i++)
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(parametros[i]));
+            }
+        }
+
         public ISSQN Imposto { get; } = new ISSQN();
 
         private bool exterior;
@@ -29,8 +37,7 @@ namespace NFeFacil.ViewModel.ImpostosProduto
                     Imposto.cPais = null;
                     Imposto.cMun = null;
                 }
-                PropertyChanged(this, new PropertyChangedEventArgs(nameof(VisibilidadeCodigoPais)));
-                PropertyChanged(this, new PropertyChangedEventArgs(nameof(VisibilidadeMunicipioUFIncidencia)));
+                OnPropertyChanged(nameof(VisibilidadeCodigoPais), nameof(VisibilidadeMunicipioUFIncidencia));
             }
         }
 

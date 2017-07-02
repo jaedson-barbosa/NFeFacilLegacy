@@ -12,7 +12,7 @@ namespace NFeFacil.View.CaixasDialogo
         {
             if (value is ProcessoReferenciado proc)
             {
-                return new ProcessoReferenciadoDataContext(proc);
+                return new ProcessoReferenciadoDataContext(ref proc);
             }
             throw new ArgumentException();
         }
@@ -32,11 +32,11 @@ namespace NFeFacil.View.CaixasDialogo
 
             public int Origem
             {
-                get => Processo.indProc == 9 ? 4 : Processo.indProc;
-                set => Processo.indProc = value == 4 ? 9 : value;
+                get => Processo.IndProc == 9 ? 4 : Processo.IndProc;
+                set => Processo.IndProc = value == 4 ? 9 : value;
             }
 
-            public ProcessoReferenciadoDataContext(ProcessoReferenciado proc) => Processo = proc;
+            public ProcessoReferenciadoDataContext(ref ProcessoReferenciado proc) => Processo = proc;
         }
     }
 }

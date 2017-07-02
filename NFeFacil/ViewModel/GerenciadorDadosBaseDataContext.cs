@@ -3,7 +3,6 @@ using BibliotecaCentral.ItensBD;
 using BibliotecaCentral.Repositorio;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace NFeFacil.ViewModel
@@ -56,50 +55,12 @@ namespace NFeFacil.ViewModel
             EditarProdutoCommand = new Comando<ProdutoDI>(EditarProduto);
             RemoverProdutoCommand = new Comando<ProdutoDI>(RemoverProduto);
 
-            DefinirAsync();
-
-            async void DefinirAsync()
+            using (var db = new AplicativoContext())
             {
-                await DefinirEmitentesAsync();
-                await DefinirClientesAsync();
-                await DefinirMotoristasAsync();
-                await DefinirProdutosAsync();
-            }
-        }
-
-        private async Task DefinirEmitentesAsync()
-        {
-            using (var db = new Emitentes())
-            {
-                Emitentes = await Task.Run(() => db.Registro.GerarObs());
-                OnPropertyChanged(nameof(Emitentes));
-            }
-        }
-
-        private async Task DefinirClientesAsync()
-        {
-            using (var db = new Clientes())
-            {
-                Clientes = await Task.Run(() => db.Registro.GerarObs());
-                OnPropertyChanged(nameof(Clientes));
-            }
-        }
-
-        private async Task DefinirMotoristasAsync()
-        {
-            using (var db = new Motoristas())
-            {
-                Motoristas = await Task.Run(() => db.Registro.GerarObs());
-                OnPropertyChanged(nameof(Motoristas));
-            }
-        }
-
-        private async Task DefinirProdutosAsync()
-        {
-            using (var db = new Produtos())
-            {
-                Produtos = await Task.Run(() => db.Registro.GerarObs());
-                OnPropertyChanged(nameof(Produtos));
+                Emitentes = db.Emitentes.GerarObs();
+                Clientes = db.Clientes.GerarObs();
+                Motoristas = db.Motoristas.GerarObs();
+                Produtos = db.Produtos.GerarObs();
             }
         }
 
@@ -117,13 +78,13 @@ namespace NFeFacil.ViewModel
             });
         }
 
-        private async void RemoverEmitente(EmitenteDI emit)
+        private void RemoverEmitente(EmitenteDI emit)
         {
             using (var db = new Emitentes())
             {
                 db.Remover(emit);
                 db.SalvarMudancas();
-                await DefinirEmitentesAsync();
+                Emitentes = db.Registro.GerarObs();
             }
         }
 
@@ -141,13 +102,13 @@ namespace NFeFacil.ViewModel
             });
         }
 
-        private async void RemoverCliente(ClienteDI dest)
+        private void RemoverCliente(ClienteDI dest)
         {
             using (var db = new Clientes())
             {
                 db.Remover(dest);
                 db.SalvarMudancas();
-                await DefinirClientesAsync();
+                Clientes = db.Registro.GerarObs();
             }
         }
 
@@ -165,13 +126,13 @@ namespace NFeFacil.ViewModel
             });
         }
 
-        private async void RemoverMotorista(MotoristaDI mot)
+        private void RemoverMotorista(MotoristaDI mot)
         {
             using (var db = new Motoristas())
             {
                 db.Remover(mot);
                 db.SalvarMudancas();
-                await DefinirMotoristasAsync();
+                Motoristas = db.Registro.GerarObs();
             }
         }
 
@@ -189,13 +150,13 @@ namespace NFeFacil.ViewModel
             });
         }
 
-        private async void RemoverProduto(ProdutoDI prod)
+        private void RemoverProduto(ProdutoDI prod)
         {
             using (var db = new Produtos())
             {
                 db.Remover(prod);
                 db.SalvarMudancas();
-                await DefinirProdutosAsync();
+                Produtos = db.Registro.GerarObs();
             }
         }
     }

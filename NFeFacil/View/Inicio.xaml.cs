@@ -2,6 +2,7 @@
 using BibliotecaCentral.ModeloXML.PartesProcesso;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
+using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
 using System;
 using System.Collections.Generic;
 using Windows.UI.Xaml;
@@ -47,7 +48,12 @@ namespace NFeFacil.View
                             emitente = new Emitente(),
                             destinatário = new Destinatario(),
                             produtos = new List<DetalhesProdutos>(),
-                            transp = new Transporte(),
+                            transp = new Transporte()
+                            {
+                                Transporta = new Motorista(),
+                                RetTransp = new ICMSTransporte(),
+                                VeicTransp = new Veiculo()
+                            },
                             cobr = new Cobranca(),
                             infAdic = new InformacoesAdicionais(),
                             exporta = new Exportacao(),

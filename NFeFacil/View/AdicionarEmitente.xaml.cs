@@ -56,22 +56,29 @@ namespace NFeFacil.View
 
         private void Confirmar_Click(object sender, RoutedEventArgs e)
         {
-            if (new ValidadorEmitente(emitente).Validar(Log))
+            try
             {
-                using (var db = new Emitentes())
+                if (new ValidadorEmitente(emitente).Validar(Log))
                 {
-                    if (tipoRequisitado == TipoOperacao.Adicao)
+                    using (var db = new Emitentes())
                     {
-                        db.Adicionar(emitente);
-                        Log.Escrever(TitulosComuns.Sucesso, "Emitente salvo com sucesso.");
+                        if (tipoRequisitado == TipoOperacao.Adicao)
+                        {
+                            db.Adicionar(emitente);
+                            Log.Escrever(TitulosComuns.Sucesso, "Emitente salvo com sucesso.");
+                        }
+                        else
+                        {
+                            db.Atualizar(emitente);
+                            Log.Escrever(TitulosComuns.Sucesso, "Emitente alterado com sucesso.");
+                        }
                     }
-                    else
-                    {
-                        db.Atualizar(emitente);
-                        Log.Escrever(TitulosComuns.Sucesso, "Emitente alterado com sucesso.");
-                    }
+                    MainPage.Current.Retornar();
                 }
-                MainPage.Current.Retornar();
+            }
+            catch (System.Exception erro)
+            {
+                erro.ManipularErro();
             }
         }
 

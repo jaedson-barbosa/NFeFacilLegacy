@@ -1,4 +1,7 @@
-﻿using BibliotecaCentral.IBGE;
+﻿using BibliotecaCentral.Certificacao;
+using BibliotecaCentral.Certificacao.LAN;
+using BibliotecaCentral.IBGE;
+using Comum.Pacotes;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,40 +12,62 @@ namespace BibliotecaCentral.WebService
     public struct GerenciadorGeral<Envio, Resposta>
     {
         public DadosServico Enderecos { get; }
-        (int CodigoUF, string VersaoDados) cabecalho;
+        int CodigoUF { get; }
+        string VersaoDados{get;}
 
         public GerenciadorGeral(Estado uf, Operacoes operacao, bool teste)
         {
             Enderecos = new EnderecosConexao(uf.Sigla).ObterConjuntoConexao(teste, operacao);
-            cabecalho = (uf.Codigo, "1.00");
+            CodigoUF = uf.Codigo;
+            VersaoDados = operacao == Operacoes.RecepcaoEvento ? Enderecos.VersaoRecepcaoEvento : "3.10";
         }
 
         public GerenciadorGeral(string siglaOuNome, Operacoes operacao, bool teste)
         {
             var uf = Estados.Buscar(siglaOuNome);
             Enderecos = new EnderecosConexao(uf.Sigla).ObterConjuntoConexao(teste, operacao);
-            cabecalho = (uf.Codigo, "3.10");
+            CodigoUF = uf.Codigo;
+            VersaoDados = operacao == Operacoes.RecepcaoEvento ? Enderecos.VersaoRecepcaoEvento : "3.10";
         }
 
         public GerenciadorGeral(ushort codigo, Operacoes operacao, bool teste)
         {
             var uf = Estados.Buscar(codigo);
             Enderecos = new EnderecosConexao(uf.Sigla).ObterConjuntoConexao(teste, operacao);
-            cabecalho = (uf.Codigo, "3.10");
+            CodigoUF = uf.Codigo;
+            VersaoDados = operacao == Operacoes.RecepcaoEvento ? Enderecos.VersaoRecepcaoEvento : "3.10";
         }
 
         public async Task<Resposta> EnviarAsync(Envio corpo)
         {
-            using (var proxy = new HttpClient(new HttpClientHandler()
+            if (ConfiguracoesCertificacao.Origem == OrigemCertificado.Importado)
             {
-                ClientCertificateOptions = ClientCertificateOption.Automatic,
-                UseDefaultCredentials = true
-            }, true))
+                using (var proxy = new HttpClient(new HttpClientHandler()
+                {
+                    ClientCertificateOptions = ClientCertificateOption.Automatic,
+                    UseDefaultCredentials = true
+                }, true))
+                {
+                    proxy.DefaultRequestHeaders.Add("SOAPAction", Enderecos.Metodo);
+                    var conteudo = new StringContent(ObterConteudoRequisicao(corpo), Encoding.UTF8, "text/xml");
+                    var resposta = await proxy.PostAsync(Enderecos.Endereco, conteudo);
+                    var xml = XElement.Load(await resposta.Content.ReadAsStreamAsync());
+                    return ObterConteudoCorpo(xml).FromXElement<Resposta>();
+                }
+            }
+            else
             {
-                proxy.DefaultRequestHeaders.Add("SOAPAction", Enderecos.Metodo);
-                var resposta = await proxy.PostAsync(Enderecos.Endereco, ObterConteudoRequisicao(corpo));
-                var xml = XElement.Load(await resposta.Content.ReadAsStreamAsync());
-                return ObterConteudoCorpo(xml).FromXElement<Resposta>();
+                var op = new OperacoesServidor();
+                return await op.EnviarRequisicaoIntermediada<Resposta>(new RequisicaoEnvioDTO()
+                {
+                    Cabecalho = new CabecalhoRequisicao()
+                    {
+                        Nome = "SOAPAction",
+                        Valor = Enderecos.Metodo
+                    },
+                    Conteudo = XElement.Parse(ObterConteudoRequisicao(corpo)),
+                    Uri = Enderecos.Endereco
+                });
             }
 
             XNode ObterConteudoCorpo(XElement soap)
@@ -52,15 +77,11 @@ namespace BibliotecaCentral.WebService
             }
         }
 
-        HttpContent ObterConteudoRequisicao(Envio corpo)
+        string ObterConteudoRequisicao(Envio corpo)
         {
-            string texto = string.Format(
-                Extensoes.ObterRecurso("RequisicaoSOAP"),
-                Enderecos.Servico,
-                cabecalho.CodigoUF,
-                cabecalho.VersaoDados,
+            return string.Format(Extensoes.ObterRecurso("RequisicaoSOAP"),
+                Enderecos.Servico, CodigoUF, VersaoDados,
                 corpo.ToXElement<Envio>().ToString(SaveOptions.DisableFormatting));
-            return new StringContent(texto, Encoding.UTF8, "text/xml");
         }
     }
 }

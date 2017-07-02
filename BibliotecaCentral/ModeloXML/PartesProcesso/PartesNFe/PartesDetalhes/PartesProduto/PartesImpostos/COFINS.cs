@@ -4,7 +4,10 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Pa
 {
     public sealed class COFINS : Imposto
     {
-        [XmlElement(nameof(COFINSAliq), Type = typeof(COFINSAliq)), XmlElement(nameof(COFINSNT), Type = typeof(COFINSNT)), XmlElement(nameof(COFINSOutr), Type = typeof(COFINSOutr)), XmlElement(nameof(COFINSQtde), Type = typeof(COFINSQtde))]
+        [XmlElement(nameof(COFINSAliq), Type = typeof(COFINSAliq), Order = 0),
+            XmlElement(nameof(COFINSNT), Type = typeof(COFINSNT), Order = 0),
+            XmlElement(nameof(COFINSOutr), Type = typeof(COFINSOutr), Order = 0),
+            XmlElement(nameof(COFINSQtde), Type = typeof(COFINSQtde), Order = 0)]
         public ComumCOFINS Corpo { get; set; }
 
         public override bool IsValido => Corpo.ToXElement(Corpo.GetType()).HasElements;

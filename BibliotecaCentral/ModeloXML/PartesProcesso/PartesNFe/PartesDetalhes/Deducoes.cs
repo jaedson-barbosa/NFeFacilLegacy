@@ -1,15 +1,19 @@
-﻿namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
+﻿using System.Xml.Serialization;
+
+namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
 {
     public sealed class Deducoes
     {
         /// <summary>
         /// Descrição da Dedução.
         /// </summary>
-        public string xDed { get; set; }
+        [XmlElement("xDed", Order = 0)]
+        public string XDed { get; set; }
 
         /// <summary>
         /// Valor da Dedução.
         /// </summary>
-        public string vDed { get; set; }
+        [XmlElement("vDed", Order = 1)]
+        public double VDed { get; set; }
     }
 }

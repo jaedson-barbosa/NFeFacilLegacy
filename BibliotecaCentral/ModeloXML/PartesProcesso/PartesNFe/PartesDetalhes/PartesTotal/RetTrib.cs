@@ -1,40 +1,49 @@
-﻿namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTotal
+﻿using System.Xml.Serialization;
+
+namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTotal
 {
     public sealed class RetTrib
     {
         /// <summary>
         /// Informar o valor do PIS retido.
         /// </summary>
-        public string vRetPIS { get; set; }
+        [XmlElement("vRetPIS", Order = 0)]
+        public double VRetPIS { get; set; }
 
         /// <summary>
         /// Informar o valor COFINS do retido.
         /// </summary>
-        public string vRetCOFINS { get; set; }
+        [XmlElement("vRetCOFINS", Order = 1)]
+        public double VRetCOFINS { get; set; }
 
         /// <summary>
         /// Informar o valor do CSLL retido.
         /// </summary>
-        public string vRetCSLL { get; set; }
+        [XmlElement("vRetCSLL", Order = 2)]
+        public double VRetCSLL { get; set; }
 
         /// <summary>
         /// Informar o valor do BC IRRF retido.
         /// </summary>
-        public string vBCIRRF { get; set; }
+        [XmlElement("vBCIRRF", Order = 3)]
+        public double VBCIRRF { get; set; }
 
         /// <summary>
         /// Informar o valor do IRRF retido.
         /// </summary>
-        public string vIRRF { get; set; }
+        [XmlElement("vIRRF", Order = 4)]
+        public double VIRRF { get; set; }
 
         /// <summary>
         /// Informar o valor da BC da retenção da Previdência retido.
         /// </summary>
-        public string vBCRetPrev { get; set; }
+        [XmlElement("vBCRetPrev", Order = 5)]
+        public double VBCRetPrev { get; set; }
 
         /// <summary>
         /// Informar o valor da retenção da Previdência retido.
         /// </summary>
-        public string vRetPrev { get; set; }
+        [XmlElement("vRetPrev", Order = 6)]
+        public double VRetPrev { get; set; }
     }
 }

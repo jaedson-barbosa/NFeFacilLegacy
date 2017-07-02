@@ -56,22 +56,29 @@ namespace NFeFacil.View
 
         private void Confirmar_Click(object sender, RoutedEventArgs e)
         {
-            if (new ValidadorMotorista(motorista).Validar(Log))
+            try
             {
-                using (var db = new Motoristas())
+                if (new ValidadorMotorista(motorista).Validar(Log))
                 {
-                    if (tipoRequisitado == TipoOperacao.Adicao)
+                    using (var db = new Motoristas())
                     {
-                        db.Adicionar(motorista);
-                        Log.Escrever(TitulosComuns.Sucesso, "Motorista salvo com sucesso.");
+                        if (tipoRequisitado == TipoOperacao.Adicao)
+                        {
+                            db.Adicionar(motorista);
+                            Log.Escrever(TitulosComuns.Sucesso, "Motorista salvo com sucesso.");
+                        }
+                        else
+                        {
+                            db.Atualizar(motorista);
+                            Log.Escrever(TitulosComuns.Sucesso, "Motorista alterado com sucesso.");
+                        }
                     }
-                    else
-                    {
-                        db.Atualizar(motorista);
-                        Log.Escrever(TitulosComuns.Sucesso, "Motorista alterado com sucesso.");
-                    }
+                    MainPage.Current.Retornar();
                 }
-                MainPage.Current.Retornar();
+            }
+            catch (System.Exception erro)
+            {
+                erro.ManipularErro();
             }
         }
 

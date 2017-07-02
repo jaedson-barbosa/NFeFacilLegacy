@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BibliotecaCentral.CaixasDialogo;
+using System;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Windows.Storage;
@@ -11,7 +12,7 @@ namespace BibliotecaCentral.Importacao
     {
         public ImportarCertificado() : base(".pfx") { }
 
-        public async Task ImportarEAdicionarAsync(Action attLista)
+        public async Task<bool> ImportarEAdicionarAsync()
         {
             FileOpenPicker abrir = new FileOpenPicker
             {
@@ -26,11 +27,15 @@ namespace BibliotecaCentral.Importacao
                     loja.Open(OpenFlags.ReadWrite);
                     loja.Add(cert);
                 }
-                attLista();
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
-        internal async Task<X509Certificate2> Importar()
+        async Task<X509Certificate2> Importar()
         {
             FileOpenPicker abrir = new FileOpenPicker
             {
@@ -42,34 +47,21 @@ namespace BibliotecaCentral.Importacao
             {
                 var pasta = ApplicationData.Current.TemporaryFolder;
                 var novoArq = await arq.CopyAsync(pasta, arq.Name, NameCollisionOption.ReplaceExisting);
-                var senha = await InputTextDialogAsync("Senha do certificado");
-                return new X509Certificate2(novoArq.Path, senha, X509KeyStorageFlags.PersistKeySet);
+                var entrada = new EntradaTexto("Adicionar certificado", "Senha");
+                if (await entrada.ShowAsync() == ContentDialogResult.Primary)
+                {
+                    var senha = entrada.Conteudo;
+                    if (!string.IsNullOrEmpty(senha))
+                    {
+                        return new X509Certificate2(novoArq.Path, senha, X509KeyStorageFlags.PersistKeySet);
+                    }
+                    else
+                    {
+                        return new X509Certificate2(novoArq.Path);
+                    }
+                }
             }
-            else
-            {
-                return null;
-            }
-        }
-
-        public static async Task<string> InputTextDialogAsync(string title)
-        {
-            TextBox inputTextBox = new TextBox()
-            {
-                AcceptsReturn = false,
-                Height = 32
-            };
-            ContentDialog dialog = new ContentDialog()
-            {
-                Content = inputTextBox,
-                Title = title,
-                IsSecondaryButtonEnabled = false,
-                PrimaryButtonText = "Ok",
-                SecondaryButtonText = "Cancelar"
-            };
-            if (await dialog.ShowAsync() == ContentDialogResult.Primary)
-                return inputTextBox.Text;
-            else
-                return "";
+            return null;
         }
     }
 }

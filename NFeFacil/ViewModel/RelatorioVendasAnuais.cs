@@ -46,61 +46,62 @@ namespace NFeFacil.ViewModel
 
         private void AnoMudou()
         {
-            using (var db = new NotasFiscais())
+            try
             {
-                var notas = from item in db.Registro
-                        let xml = XElement.Parse(item.XML)
-                        let usarNFe = item.Status < 4
-                        let nota = usarNFe ? xml.FromXElement<NFe>() : (xml.FromXElement<Processo>()).NFe
-                        select nota;
-
-                var totalCliente = new List<TotalPorCliente>();
-                foreach (var item in notas)
+                using (var db = new NotasFiscais())
                 {
-                    var det = item.Informações;
-                    if (totalCliente.Count(x => x.Doc == det.destinatário.Documento) == 0)
-                        totalCliente.Add(new TotalPorCliente { Doc = det.destinatário.Documento });
-                    var tot = totalCliente.Single(x => x.Doc == det.destinatário.Documento);
-                    tot.Mun = det.destinatário.endereco.NomeMunicipio;
-                    tot.Nome = det.destinatário.nome;
-                    foreach (var prod in det.produtos)
+                    var notas = from item in db.Registro
+                                let xml = XElement.Parse(item.XML)
+                                let usarNFe = item.Status < 4
+                                let nota = usarNFe ? xml.FromXElement<NFe>() : (xml.FromXElement<Processo>()).NFe
+                                select nota;
+
+                    var totalCliente = new List<TotalPorCliente>();
+                    foreach (var item in notas)
                     {
-                        tot.Quantidade += prod.Produto.QuantidadeComercializada;
+                        var det = item.Informações;
+                        if (totalCliente.Count(x => x.Doc == det.destinatário.Documento) == 0)
+                            totalCliente.Add(new TotalPorCliente { Doc = det.destinatário.Documento });
+                        var tot = totalCliente.Single(x => x.Doc == det.destinatário.Documento);
+                        tot.Mun = det.destinatário.Endereco.NomeMunicipio;
+                        tot.Nome = det.destinatário.Nome;
+                        tot.Quantidade = det.produtos.Sum(prod => prod.Produto.QuantidadeComercializada);
+                        tot.Total += det.total.ICMSTot.VNF;
                     }
-                    tot.Total += det.total.ICMSTot.vNF;
-                }
-                ResultadoCliente = (from item in totalCliente
-                                    orderby item.Total descending
-                                    select item).GerarObs();
-                PropertyChanged(this, new PropertyChangedEventArgs(nameof(ResultadoCliente)));
+                    ResultadoCliente = (from item in totalCliente
+                                        orderby item.Total descending
+                                        select item).GerarObs();
+                    PropertyChanged(this, new PropertyChangedEventArgs(nameof(ResultadoCliente)));
 
-                QuantTotal = totalCliente.Sum(x => x.Quantidade);
-                PropertyChanged(this, new PropertyChangedEventArgs(nameof(QuantTotal)));
+                    QuantTotal = notas.Sum(x => x.Informações.produtos.Sum(prod => prod.Produto.QuantidadeComercializada));
+                    PropertyChanged(this, new PropertyChangedEventArgs(nameof(QuantTotal)));
 
-                ValorTotal = totalCliente.Sum(x => x.Total);
-                PropertyChanged(this, new PropertyChangedEventArgs(nameof(ValorTotal)));
+                    ValorTotal = notas.Sum(x => x.Informações.total.ICMSTot.VNF);
+                    PropertyChanged(this, new PropertyChangedEventArgs(nameof(ValorTotal)));
 
-                var totalMes = new List<TotalPorMes>(12);
-                for (int i = 1; i < 13; i++)
-                {
-                    totalMes.Add(new TotalPorMes { Mês = i.ToString() });
-                }
-                foreach (var item in notas)
-                {
-                    var det = item.Informações;
-                    var data = Convert.ToDateTime(det.identificação.DataHoraEmissão);
-                    foreach (var prod in det.produtos)
+                    var totalMes = new List<TotalPorMes>(12);
+                    for (int i = 1; i < 13; i++)
                     {
-                        totalMes[data.Month - 1].Quantidade += prod.Produto.QuantidadeComercializada;
+                        totalMes.Add(new TotalPorMes { Mês = i.ToString() });
                     }
-                    totalMes[data.Month - 1].Total += det.total.ICMSTot.vNF;
+                    foreach (var item in notas)
+                    {
+                        var det = item.Informações;
+                        var data = Convert.ToDateTime(det.identificação.DataHoraEmissão);
+                        totalMes[data.Month - 1].Quantidade = det.produtos.Sum(prod => prod.Produto.QuantidadeComercializada);
+                        totalMes[data.Month - 1].Total += det.total.ICMSTot.VNF;
+                    }
+                    ResultadoMes = totalMes.GerarObs();
+                    PropertyChanged(this, new PropertyChangedEventArgs(nameof(ResultadoMes)));
                 }
-                ResultadoMes = totalMes.GerarObs();
-                PropertyChanged(this, new PropertyChangedEventArgs(nameof(ResultadoMes)));
+            }
+            catch (Exception e)
+            {
+                e.ManipularErro();
             }
         }
 
-        public sealed class TotalPorCliente
+        public struct TotalPorCliente
         {
             public double Quantidade { get; set; }
             public double Total { get; set; }

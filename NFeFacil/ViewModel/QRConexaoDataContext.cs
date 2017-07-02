@@ -1,11 +1,9 @@
-﻿using BibliotecaCentral.Log;
-using BibliotecaCentral.Sincronizacao;
+﻿using BibliotecaCentral.Sincronizacao;
 using BibliotecaCentral.Sincronizacao.Pacotes;
 using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using Windows.Networking;
 using Windows.Networking.Connectivity;
 using Windows.UI.Xaml.Media;
@@ -24,44 +22,56 @@ namespace NFeFacil.ViewModel
 
         public QRConexaoDataContext()
         {
-            var hosts = NetworkInformation.GetHostNames();
-            if (hosts.Count > 0)
+            try
             {
-                Informacoes = new InfoEstabelecerConexao
+                var hosts = NetworkInformation.GetHostNames();
+                if (hosts.Count > 0)
                 {
-                    IP = hosts.First(x => x.IPInformation != null && x.Type == HostNameType.Ipv4).ToString(),
-                    SenhaTemporaria = ConfiguracoesSincronizacao.SenhaTemporária = new Random().Next(1000, 10000)
-                };
+                    Informacoes = new InfoEstabelecerConexao
+                    {
+                        IP = hosts.First(x => x.IPInformation != null && x.Type == HostNameType.Ipv4).ToString(),
+                        SenhaTemporaria = ConfiguracoesSincronizacao.SenhaTemporária = new Random().Next(1000, 10000)
+                    };
+                }
+                else
+                {
+                    Informacoes = new InfoEstabelecerConexao();
+                }
+                AbrirBrecha();
             }
-            else
+            catch (Exception e)
             {
-                Informacoes = new InfoEstabelecerConexao();
+                e.ManipularErro();
             }
-            FecharBrechaSeguranca = new Comando(PararDeAceitarNovasConexoes, true);
-            AbrirBrecha();
         }
-
-        public ICommand FecharBrechaSeguranca { get; }
 
         private bool brechaAberta = false;
         public async void AbrirBrecha()
         {
-            GerenciadorServidor.Current.AbrirBrecha(TimeSpan.FromSeconds(ValorMaximo));
-            await Task.Delay(200);
-            //A geração do QR é feita no método assíncrono para não paralisar a tela.
-            QRGerado = QRCode.GerarQR($"{Informacoes.IP}:{Informacoes.SenhaTemporaria}", 1920, 1920);
-            PropertyChanged(this, new PropertyChangedEventArgs(nameof(QRGerado)));
-            brechaAberta = true;
-            while (ValorAtual <= ValorMaximo && brechaAberta)
+            try
             {
-                ValorAtual += 0.1;
-                PropertyChanged(this, new PropertyChangedEventArgs("ValorAtual"));
-                await Task.Delay(100);
+                GerenciadorServidor.Current.AbrirBrecha(TimeSpan.FromSeconds(ValorMaximo));
+                await Task.Delay(200);
+                //A geração do QR é feita no método assíncrono para não paralisar a tela.
+                QRGerado = QRCode.GerarQR($"{Informacoes.IP}:{Informacoes.SenhaTemporaria}", 1920, 1920);
+                PropertyChanged(this, new PropertyChangedEventArgs(nameof(QRGerado)));
+                brechaAberta = true;
+                while (ValorAtual <= ValorMaximo && brechaAberta)
+                {
+                    ValorAtual += 0.1;
+                    PropertyChanged(this, new PropertyChangedEventArgs("ValorAtual"));
+                    await Task.Delay(100);
+                }
+                await PararDeAceitarNovasConexoes();
+                MainPage.Current.Retornar();
             }
-            PararDeAceitarNovasConexoes();
+            catch (Exception e)
+            {
+                e.ManipularErro();
+            }
         }
 
-        private async void PararDeAceitarNovasConexoes()
+        private async Task PararDeAceitarNovasConexoes()
         {
             if (brechaAberta)
             {
@@ -69,20 +79,15 @@ namespace NFeFacil.ViewModel
                 await Task.Delay(1000);
                 brechaAberta = false;
             }
-            MainPage.Current.Retornar();
         }
 
         public async Task<bool> Verificar()
         {
             if (brechaAberta)
             {
-                new Popup().Escrever(TitulosComuns.Atenção, "Para voltar, primeiro aperte no botão que está presente no meio do carregamento circular para que conexões de novos dispositivos não sejam mais aceitas.");
-                return false;
+                await PararDeAceitarNovasConexoes();
             }
-            else
-            {
-                return true;
-            }
+            return true;
         }
     }
 }

@@ -38,16 +38,23 @@ namespace NFeFacil.View
                 var lista = new List<Imposto>();
                 for (int i = 0; i < pvtImpostos.Items.Count; i++)
                 {
-                    var contexto = ((pvtImpostos.Items[i] as PivotItem).Content as FrameworkElement).DataContext;
-                    if (contexto is Imposto)
-                        lista.Add(contexto as Imposto);
-                    else if (contexto is IImpostoDataContext)
-                        lista.Add((contexto as IImpostoDataContext).ImpostoBruto);
-                    else if (contexto is IImpostosUnidos)
-                        lista.AddRange((contexto as IImpostosUnidos).SepararImpostos());
+                    var filho = (pvtImpostos.Items[i] as PivotItem).Content as FrameworkElement;
+                    var contexto = filho.DataContext;
+                    if (contexto is Imposto imposto)
+                    {
+                        lista.Add(imposto);
+                    }
+                    else if (contexto is IImpostoDataContext impostoContexto)
+                    {
+                        lista.Add(impostoContexto.ImpostoBruto);
+                    }
+                    else if (contexto is IImpostosUnidos impostos)
+                    {
+                        lista.AddRange(impostos.SepararImpostos());
+                    }
                 }
                 return new Impostos(from i in lista
-                                    where i.IsValido
+                                    where i != null && i.IsValido
                                     select i);
             }
         }
@@ -81,10 +88,10 @@ namespace NFeFacil.View
             var info = parametro.NotaSalva.Informações;
 
             var data = DataContext as ProdutoCompletoDataContext;
-            data.ProdutoCompleto.impostos = ImpostosFiltrados;
+            data.ProdutoCompleto.Impostos = ImpostosFiltrados;
 
             var detalhes = data.ProdutoCompleto;
-            detalhes.número = info.produtos.Count + 1;
+            detalhes.Número = info.produtos.Count + 1;
             info.produtos.Add(detalhes);
             info.total = new Total(info.produtos);
 

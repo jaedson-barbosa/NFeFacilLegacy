@@ -7,7 +7,7 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Pa
         /// <summary>
         /// Tipo da operação.
         /// </summary>
-        public ushort tpOp { get; set; }
+        public byte tpOp { get; set; }
 
         /// <summary>
         /// Chassi do veículo.
@@ -79,12 +79,12 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Pa
         /// <summary>
         /// Ano Modelo de Fabricação.
         /// </summary>
-        public uint anoMod { get; set; }
+        public short anoMod { get; set; }
 
         /// <summary>
         /// Ano de Fabricação.
         /// </summary>
-        public uint anoFab { get; set; }
+        public short anoFab { get; set; }
 
         /// <summary>
         /// Tipo de Pintura.
@@ -95,13 +95,13 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Pa
         /// Tipo de Veículo.
         /// Utilizar Tabela RENAVAM.
         /// </summary>
-        public string tpVeic { get; set; }
+        public byte tpVeic { get; set; }
 
         /// <summary>
         /// Espécie de Veículo. 
         /// Utilizar Tabela RENAVAM.
         /// </summary>
-        public ushort espVeic { get; set; }
+        public byte espVeic { get; set; }
 
         /// <summary>
         /// Informa-se o veículo tem VIN (chassi) remarcado.
@@ -120,13 +120,13 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Pa
         /// Condição do Veículo.
         /// 1=Acabado; 2=Inacabado; 3=Semiacabado
         /// </summary>
-        public ushort condVeic;
+        public byte condVeic;
 
         /// <summary>
         /// Código Marca Modelo.
         /// Utilizar Tabela RENAVAM.
         /// </summary>
-        public string cMod { get; set; }
+        public int cMod { get; set; }
 
         /// <summary>
         /// Segundo as regras de pré-cadastro do DENATRAN (v2.0)
@@ -134,32 +134,19 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Pa
         /// 07=GRENÁ, 08=LARANJA, 09=MARROM, 10=PRATA, 11=PRETA, 12=ROSA,
         /// 13=ROXA, 14=VERDE, 15=VERMELHA, 16=FANTASIA 151b
         /// </summary>
-        public string cCorDENATRAN;
-
-        [XmlIgnore]
-        public int CCorDENATRAN
-        {
-            get => cCorDENATRAN != null ? int.Parse(cCorDENATRAN) : 0;
-            set => cCorDENATRAN = value < 10 ? $"0{value}" : value.ToString();
-        }
+        [XmlElement("cCorDENATRAN")]
+        public byte CCorDENATRAN;
 
         /// <summary>
         /// Capacidade máxima de lotação, inclusive o motorista.
         /// </summary>
-        public string lota { get; set; }
+        public short lota { get; set; }
 
         /// <summary>
         /// Restrição:
         /// 0=Não há; 1=Alienação Fiduciária; 2=Arrendamento Mercantil;
         /// 3=Reserva de Domínio; 4=Penhor de Veículos; 9=Outras.
         /// </summary>
-        public int tpRest;
-
-        [XmlIgnore]
-        public int TpRest
-        {
-            get => tpRest != 9 ? tpRest : 5;
-            set => tpRest = value != 5 ? value : 9;
-        }
+        public byte tpRest { get; set; }
     }
 }

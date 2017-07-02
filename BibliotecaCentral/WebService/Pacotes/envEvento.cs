@@ -31,7 +31,7 @@ namespace BibliotecaCentral.WebService.Pacotes
         }
     }
 
-    public struct Evento
+    public sealed class Evento : ISignature
     {
         [XmlAttribute("versao")]
         public string Versao { get; set; }
@@ -46,14 +46,7 @@ namespace BibliotecaCentral.WebService.Pacotes
         {
             Versao = versao;
             InfEvento = infEvento;
-
-            var xml = new XmlDocument();
-            using (var reader = infEvento.ToXElement<InformacoesEvento>().CreateReader())
-            {
-                xml.Load(reader);
-                var cert = Task.Run(() => new Certificados().ObterCertificadoEscolhidoAsync()).Result;
-                Signature = new AssinaturaXML(xml, "infEvento", infEvento.Id).AssinarXML(cert);
-            }
+            Task.Run(() => new AssinaFacil(this).Assinar(infEvento.Id)).Wait();
         }
     }
 
@@ -70,7 +63,7 @@ namespace BibliotecaCentral.WebService.Pacotes
         public int TpAmb { get; set; }
 
         [XmlElement]
-        public string CNPJ { get; set; }
+        public long CNPJ { get; set; }
 
         [XmlElement("chNFe")]
         public string ChNFe { get; set; }
@@ -90,10 +83,10 @@ namespace BibliotecaCentral.WebService.Pacotes
         [XmlElement("detEvento")]
         public DetalhamentoEvento DetEvento { get; set; }
 
-        public InformacoesEvento(int cOrgao, string CNPJ, string chaveNFe, string versaoEvento, ulong numeroProtocolo, string justificativa)
+        public InformacoesEvento(int cOrgao, long CNPJ, string chaveNFe, string versaoEvento, ulong numeroProtocolo, string justificativa, int tipoAmbiente)
         {
             this.COrgao = cOrgao;
-            TpAmb = 1;
+            TpAmb = tipoAmbiente;
             this.CNPJ = CNPJ;
             ChNFe = chaveNFe;
             DhEvento = DateTime.Now.ToStringPersonalizado();

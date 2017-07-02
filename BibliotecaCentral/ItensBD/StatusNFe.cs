@@ -7,6 +7,6 @@
         Salva,
         Assinada,
         Emitida,
-        Impressa
+        Cancelada
     }
 }

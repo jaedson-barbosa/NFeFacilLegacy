@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace BibliotecaCentral.Log
+﻿namespace BibliotecaCentral.Log
 {
     internal static class Titulos
     {
@@ -12,26 +10,16 @@ namespace BibliotecaCentral.Log
                     return "Atenção";
                 case TitulosComuns.Sucesso:
                     return "Sucesso";
-                case TitulosComuns.ErroSimples:
-                    return "Erro simples";
-                case TitulosComuns.ErroCatastrófico:
-                    return "Erro catastrófico";
+                case TitulosComuns.Erro:
+                    return "Erro";
                 case TitulosComuns.Iniciando:
                     return "Iniciando";
-                case TitulosComuns.Lendo:
-                    return "Lendo";
-                case TitulosComuns.Processando:
-                    return "Processando";
-                case TitulosComuns.Finalizando:
-                    return "Finalizando";
                 case TitulosComuns.Log:
                     return nameof(Log);
                 case TitulosComuns.ValidaçãoConcluída:
                     return "Tudo certo";
-                case TitulosComuns.OperaçãoCancelada:
-                    return "Operação cancelada";
                 default:
-                    throw new Exception($"Existe um título comum que não foi analisado: {título}.");
+                    return null;
             }
         }
     }

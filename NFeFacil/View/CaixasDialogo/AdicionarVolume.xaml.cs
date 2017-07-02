@@ -9,17 +9,17 @@ namespace NFeFacil.View.CaixasDialogo
 {
     public sealed partial class AdicionarVolume : ContentDialog
     {
-        public Volume vol = new Volume();
+        public Volume vol => DataContext as Volume;
         public AdicionarVolume()
         {
             InitializeComponent();
-            DataContext = vol;
+            DataContext = new Volume();
         }
 
         private void btnAddLacre_Click(object sender, RoutedEventArgs e)
         {
-            vol.lacres.Add(new Lacre { nLacre = intLacre.Text });
-            lstLacres.ItemsSource = new ObservableCollection<Lacre>(vol.lacres);
+            vol.Lacres.Add(new Lacre { NLacre = intLacre.Text });
+            lstLacres.ItemsSource = new ObservableCollection<Lacre>(vol.Lacres);
             intLacre.Text = "";
         }
 
@@ -27,8 +27,8 @@ namespace NFeFacil.View.CaixasDialogo
         {
             if (lstLacres.SelectedIndex != -1)
             {
-                vol.lacres.RemoveAt(lstLacres.SelectedIndex);
-                lstLacres.ItemsSource = new ObservableCollection<Lacre>(vol.lacres);
+                vol.Lacres.RemoveAt(lstLacres.SelectedIndex);
+                lstLacres.ItemsSource = new ObservableCollection<Lacre>(vol.Lacres);
             }
         }
     }

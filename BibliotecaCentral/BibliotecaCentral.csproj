@@ -110,21 +110,42 @@
     <Compile Include="CaixasDialogo\ConectarServidor.xaml.cs">
       <DependentUpon>ConectarServidor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Certificacao\AssinaNFe.cs" />
+    <Compile Include="CaixasDialogo\EntradaTexto.xaml.cs">
+      <DependentUpon>EntradaTexto.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CaixasDialogo\SelecaoCertificado.xaml.cs">
+      <DependentUpon>SelecaoCertificado.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Certificacao\AssinaFacil.cs" />
     <Compile Include="Certificacao\AssinaturaXML.cs" />
+    <Compile Include="Certificacao\ISignature.cs" />
     <Compile Include="Certificacao\LAN\Exportacao.cs" />
     <Compile Include="Certificacao\LAN\InformacoesConexao.cs" />
     <Compile Include="Certificacao\ConfiguracoesCertificacao.cs" />
     <Compile Include="Certificacao\LAN\OperacoesServidor.cs" />
+    <Compile Include="Certificacao\OrigemCertificado.cs" />
     <Compile Include="ItensBD\ClienteDI.cs" />
     <Compile Include="ItensBD\EmitenteDI.cs" />
     <Compile Include="ItensBD\MotoristaDI.cs" />
     <Compile Include="ItensBD\ProdutoDI.cs" />
+    <Compile Include="ItensBD\RegistroCancelamento.cs" />
     <Compile Include="Migrations\20170603122440_Loja1.cs" />
     <Compile Include="Migrations\20170603122440_Loja1.designer.cs">
       <DependentUpon>20170603122440_Loja1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20170617125032_CancelamentoAdicionado.cs" />
+    <Compile Include="Migrations\20170617125032_CancelamentoAdicionado.designer.cs">
+      <DependentUpon>20170617125032_CancelamentoAdicionado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20170617182941_RegistroCancelamentoAdicionado.cs" />
+    <Compile Include="Migrations\20170617182941_RegistroCancelamentoAdicionado.designer.cs">
+      <DependentUpon>20170617182941_RegistroCancelamentoAdicionado.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\AplicativoContextModelSnapshot.cs" />
+    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\IRegimeNormal.cs" />
+    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\ISimplesNacional.cs" />
+    <Compile Include="OperacoesNotaEmitida.cs" />
+    <Compile Include="OperacoesNotaSalva.cs" />
     <Compile Include="RecursoInserido.cs" />
     <Compile Include="Repositorio\MudancaOtimizadaBancoDados.cs" />
     <Compile Include="Sincronizacao\ConfiguracoesSincronizacao.cs" />
@@ -160,7 +181,6 @@
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\ChaveAcesso.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\Detalhes.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\EnderecoCompleto.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\Cartao.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\Cobranca.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\Compra.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\ConsultarImpostos.cs" />
@@ -175,8 +195,6 @@
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\Identificacao.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\InformacoesAdicionais.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\Observacao.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\Pagamento.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesIdentificacao\CupomFiscalReferenciado.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesIdentificacao\DocumentoFiscalReferenciado.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesIdentificacao\NF1AReferenciada.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesIdentificacao\NFProdutorRuralReferenciada.cs" />
@@ -227,8 +245,6 @@
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\PISOutr.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\PISQtde.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\PISST.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\RegimeNormal.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\SimplesNacional.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesProdutoOuServico\Arma.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesProdutoOuServico\CIDE.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesProdutoOuServico\Combustivel.cs" />
@@ -276,6 +292,7 @@
     <Compile Include="Sincronizacao\Servidor\ControllerSincronizacaoDadosBase.cs" />
     <Compile Include="Sincronizacao\Servidor\ControllerSincronizacaoNotas.cs" />
     <Compile Include="Sincronizacao\Servidor\SenhaErrada.cs" />
+    <Compile Include="Validacao\AnalisadorNFe.cs" />
     <Compile Include="Validacao\ConjuntoAnalise.cs" />
     <Compile Include="Validacao\IValidavel.cs" />
     <Compile Include="Validacao\ValidadorDestinatario.cs" />
@@ -287,6 +304,7 @@
     <Compile Include="Validacao\ValidarDados.cs" />
     <Compile Include="WebService\Pacotes\EnviNFe.cs" />
     <Compile Include="WebService\Pacotes\EnvEvento.cs" />
+    <Compile Include="WebService\Pacotes\RetEnvEvento.cs" />
     <Compile Include="WebService\Pacotes\RetEnviNFe.cs" />
     <Compile Include="WebService\Pacotes\ConsSitNFe.cs" />
     <Compile Include="WebService\Pacotes\RetConsSitNFe.cs" />
@@ -338,10 +356,15 @@
     <EmbeddedResource Include="IBGE\Municipios.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Certificacao\LAN\Arquivos\RepositorioRemoto.zip" />
-  </ItemGroup>
-  <ItemGroup>
     <Page Include="CaixasDialogo\ConectarServidor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CaixasDialogo\EntradaTexto.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CaixasDialogo\SelecaoCertificado.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -356,7 +379,9 @@
       <Name>System.Security.Cryptography</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Certificacao\LAN\Arquivos\ServidorCertificacao.zip" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

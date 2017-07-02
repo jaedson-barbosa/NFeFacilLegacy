@@ -40,7 +40,7 @@ namespace NFeFacil.ViewModel
             }
         }
 
-        public bool IsentoICMS { get; set; }
+        public bool IsentoICMS { get; private set; }
         public string InscricaoEstadual
         {
             get => Cliente.InscricaoEstadual;

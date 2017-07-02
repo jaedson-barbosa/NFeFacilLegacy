@@ -3,5 +3,5 @@
     /// <summary>
     /// Grupo PIS não tributado.
     /// </summary>
-    public class PISNT : ComumPIS { }
+    public sealed class PISNT : ComumPIS { }
 }

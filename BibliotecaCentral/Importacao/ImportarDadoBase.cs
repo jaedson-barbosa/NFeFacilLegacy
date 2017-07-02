@@ -1,5 +1,4 @@
 ﻿using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
-using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
 using System;
 using System.Collections.Generic;
@@ -8,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Windows.Storage;
+using static BibliotecaCentral.ItensBD.ProdutoDI;
 
 namespace BibliotecaCentral.Importacao
 {
@@ -44,7 +44,7 @@ namespace BibliotecaCentral.Importacao
                     case TiposDadoBasico.Motorista:
                         return AnaliseCompletaXml<Motorista>(listaXML, nameof(Motorista), "transporta", x => repo.AnalisarAdicionarMotoristas(x.Select(mot => new ItensBD.MotoristaDI(mot)).ToList()));
                     case TiposDadoBasico.Produto:
-                        return AnaliseCompletaXml<ProdutoOuServico>(listaXML, nameof(ProdutoOuServico), "prod", x=> repo.AnalisarAdicionarProdutos(x.Select(prod => new ItensBD.ProdutoDI(prod)).ToList()));
+                        return AnaliseCompletaXml<ProdutoOuServicoGenerico>(listaXML, nameof(ProdutoOuServicoGenerico), "prod", x=> repo.AnalisarAdicionarProdutos(x.Select(prod => new ItensBD.ProdutoDI(prod)).ToList()));
                     default:
                         return null;
                 }
@@ -62,15 +62,23 @@ namespace BibliotecaCentral.Importacao
             var add = new List<TipoBase>();
             for (int i = 0; i < listaXML.Length; i++)
             {
-                var resultado = RemoverNamespace(Busca(listaXML[i], nomePrimario, nomeSecundario));
-                if (resultado == null)
+                try
                 {
-                    retorno.Add(new XmlNaoReconhecido(arquivos[i].Name, listaXML[i].Name.LocalName, nomeSecundario, nameof(TipoBase)));
-                    continue;
+                    var resultado = Busca(listaXML[i], nomePrimario, nomeSecundario);
+                    if (resultado == null)
+                    {
+                        retorno.Add(new XmlNaoReconhecido(arquivos[i].Name, listaXML[i].Name.LocalName, nomeSecundario, nameof(TipoBase)));
+                        continue;
+                    }
+                    resultado = RemoverNamespace(resultado);
+                    var xml = resultado;
+                    xml.Name = nomePrimario;
+                    add.Add(xml.FromXElement<TipoBase>());
                 }
-                var xml = resultado;
-                xml.Name = nomePrimario;
-                add.Add(xml.FromXElement<TipoBase>());
+                catch (Exception e)
+                {
+                    retorno.Add(e);
+                }
             }
             Adicionar(add);
             return retorno;

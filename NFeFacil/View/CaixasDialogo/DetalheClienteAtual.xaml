@@ -2,6 +2,7 @@
                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                xmlns:VM="using:NFeFacil.ViewModel"
+               xmlns:controles="using:NFeFacil.View.Controles"
                xmlns:Conversores="using:NFeFacil.ViewModel.Converters"
                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -33,19 +34,19 @@
                     <ComboBoxItem Content="CNPJ" />
                     <ComboBoxItem Content="ID Estrangeiro" />
                 </ComboBox>
-                <TextBox Text="{Binding Documento, Mode=TwoWay}"
-                         InputScope="Number"
-                         Header="Documento *" />
+                <controles:EntradaRestrita Pattern="[^\d]"
+                                           Text="{Binding Documento, Mode=TwoWay}"
+                                           Header="Documento *" />
                 <ComboBox Header="Indicador da IE"
                           ItemsSource="{Binding IndicadoresIE}"
                           SelectedItem="{Binding IndicadorIESelecionado, Mode=TwoWay}" />
-                <TextBox Text="{Binding InscricaoEstadual, Mode=TwoWay}"
-                         IsEnabled="{Binding IsentoICMS, Converter={StaticResource inverterBool}}"
-                         InputScope="Number"
-                         Header="Inscrição estadual" />
-                <TextBox Text="{Binding Cliente.ISUF, Mode=TwoWay}"
-                         InputScope="Number"
-                         Header="Inscrição na SUFRAMA" />
+                <controles:EntradaRestrita Pattern="[^\d]"
+                                           Text="{Binding InscricaoEstadual, Mode=TwoWay}"
+                                           IsEnabled="{Binding IsentoICMS, Converter={StaticResource inverterBool}}"
+                                           Header="Inscrição estadual" />
+                <controles:EntradaRestrita Pattern="[^\d]"
+                                           Text="{Binding Cliente.ISUF, Mode=TwoWay}"
+                                           Header="Inscrição na SUFRAMA" />
                 <TextBox Text="{Binding Cliente.Email, Mode=TwoWay}"
                          InputScope="EmailNameOrAddress"
                          Header="Email" />
@@ -83,21 +84,21 @@
                 <TextBox Text="{Binding Path=Cliente.Bairro, Mode=TwoWay}"
                          InputScope="Text"
                          Header="Bairro *" />
-                <TextBox IsEnabled="{Binding Nacional}"
-                         Text="{Binding Path=Cliente.CEP, Mode=TwoWay}"
-                         InputScope="Number"
-                         Header="CEP" />
-                <TextBox Text="{Binding Path=Cliente.Telefone, Mode=TwoWay}"
-                         InputScope="Number"
-                         Header="Telefone" />
+                <controles:EntradaRestrita Pattern="[^\d]"
+                                           IsEnabled="{Binding Nacional}"
+                                           Text="{Binding Path=Cliente.CEP, Mode=TwoWay}"
+                                           Header="CEP" />
+                <controles:EntradaRestrita Pattern="[^\d]"
+                                           Text="{Binding Path=Cliente.Telefone, Mode=TwoWay}"
+                                           Header="Telefone" />
                 <TextBox Text="{Binding Path=Cliente.XPais, Mode=TwoWay}"
                          IsEnabled="{Binding Nacional, Converter={StaticResource inverterBool}}"
                          InputScope="Text"
                          Header="Nome do país" />
-                <TextBox IsEnabled="{Binding Nacional, Converter={StaticResource inverterBool}}"
-                         Text="{Binding Path=Cliente.CPais, Mode=TwoWay}"
-                         InputScope="Number"
-                         Header="Codigo do país" />
+                <controles:EntradaRestrita Pattern="[^\d]"
+                                           IsEnabled="{Binding Nacional, Converter={StaticResource inverterBool}}"
+                                           Text="{Binding Path=Cliente.CPais, Mode=TwoWay}"
+                                           Header="Codigo do país" />
             </ItemsControl>
         </StackPanel>
     </ScrollViewer>

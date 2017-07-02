@@ -69,7 +69,6 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition />
-                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
@@ -101,36 +100,6 @@
                                      ActualValue="{Binding ValorAtual}"
                                      MaxValue="{Binding ValorMaximo, Mode=OneTime}"
                                      Thickness="16" />
-            <Button Grid.Row="4"
-                    Grid.ColumnSpan="2"
-                    VerticalAlignment="Center"
-                    Command="{Binding FecharBrechaSeguranca}"
-                    HorizontalAlignment="Center"
-                    Background="{x:Null}">
-                <StackPanel>
-                    <SymbolIcon Symbol="Stop"
-                                Width="20"
-                                Height="20"
-                                Margin="20,24"
-                                RenderTransformOrigin="0.5,0.5">
-                        <SymbolIcon.RenderTransform>
-                            <CompositeTransform ScaleX="4"
-                                                ScaleY="4" />
-                        </SymbolIcon.RenderTransform>
-                    </SymbolIcon>
-                </StackPanel>
-            </Button>
-            <ListView HorizontalAlignment="Center"
-                      HorizontalContentAlignment="Center"
-                      Grid.Row="5"
-                      Grid.ColumnSpan="2">
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="ListViewItem">
-                        <Setter Property="MinHeight"
-                                Value="32" />
-                    </Style>
-                </ListView.ItemContainerStyle>
-            </ListView>
         </Grid>
     </Grid>
 </Page>

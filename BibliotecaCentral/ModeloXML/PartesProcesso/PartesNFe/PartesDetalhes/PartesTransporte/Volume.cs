@@ -9,44 +9,50 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Pa
         /// (Opcional)
         /// Quantidade de volumes transportados.
         /// </summary>
-        public double qVol { get; set; }
+        [XmlElement("qVol", Order = 0)]
+        public long QVol { get; set; }
 
         /// <summary>
         /// (Opcional)
         /// Espécie dos volumes transportados.
         /// </summary>
-        public string esp { get; set; }
+        [XmlElement("esp", Order = 1)]
+        public string Esp { get; set; }
 
         /// <summary>
         /// (Opcional)
         /// Marca dos volumes transportados.
         /// </summary>
-        public string marca { get; set; }
+        [XmlElement("marca", Order = 2)]
+        public string Marca { get; set; }
 
         /// <summary>
         /// (Opcional)
         /// Numeração dos volumes transportados.
         /// </summary>
-        public string nVol { get; set; }
+        [XmlElement("nVol", Order = 3)]
+        public string NVol { get; set; }
 
         /// <summary>
         /// (Opcional)
         /// Peso Líquido (em kg).
         /// </summary>
-        public double pesoL { get; set; }
+        [XmlElement("pesoL", Order = 4)]
+        public double PesoL { get; set; }
 
         /// <summary>
         /// (Opcional)
         /// Peso Bruto (em kg).
         /// </summary>
-        public double pesoB { get; set; }
+        [XmlElement("pesoB", Order = 5)]
+        public double PesoB { get; set; }
 
         /// <summary>
         /// (Opcional)
         /// Grupo lacres.
         /// </summary>
-        [XmlElement(nameof(lacres))]
-        public List<Lacre> lacres = new List<Lacre>();
+        [XmlElement("lacres", Order = 6)]
+        public List<Lacre> Lacres { get; set; } = new List<Lacre>();
     }
 
     public struct Lacre
@@ -54,6 +60,7 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Pa
         /// <summary>
         /// Número do lacre.
         /// </summary>
-        public string nLacre { get; set; }
+        [XmlElement("nLacre")]
+        public string NLacre { get; set; }
     }
 }

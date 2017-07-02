@@ -10,16 +10,13 @@ using System.Text;
 using System.Security.Cryptography.X509Certificates;
 using System.Collections.ObjectModel;
 using BibliotecaCentral.Certificacao.LAN;
+using Windows.System.Profile;
 
 namespace NFeFacil.ViewModel
 {
     public sealed class ConfiguracoesDataContext : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        public void OnProperyChanged(string propriedade)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propriedade));
-        }
 
         public ConfiguracoesDataContext()
         {
@@ -35,19 +32,19 @@ namespace NFeFacil.ViewModel
 
         public ObservableCollection<CertificadoExibicao> ListaCertificados { get; private set; }
 
-        public string CertificadoEscolhido
-        {
-            get => ConfiguracoesCertificacao.CertificadoEscolhido;
-            set => ConfiguracoesCertificacao.CertificadoEscolhido = value;
-        }
+        public bool InstalacaoLiberada => AnalyticsInfo.VersionInfo.DeviceFamily.Contains("Desktop");
+        public bool ServidorCadastrado => ConfiguracoesCertificacao.Origem == OrigemCertificado.Servidor;
 
-        public ICommand ImportarCertificado => new Comando(async () => await new ImportarCertificado().ImportarEAdicionarAsync(AttLista));
+        public ICommand ImportarCertificado => new Comando(async () =>
+        {
+            if (await new ImportarCertificado().ImportarEAdicionarAsync()) AttLista();
+        });
         public ICommand ConectarServidor => new Comando(async () =>
         {
             if (await InformacoesConexao.Cadastrar()) AttLista();
         });
         public ICommand EsquecerServidor => new Comando(() => InformacoesConexao.Esquecer());
-        public ICommand InstalarServidor => new Comando(async () => await new Exportacao(LogPopUp).Exportar("RepositorioRemoto", "Arquivo comprimido", "zip"));
+        public ICommand InstalarServidor => new Comando(async () => await new Exportacao(LogPopUp).Exportar("ServidorCertificacao", "Servidor de certificação", "Arquivo comprimido", "zip"));
         public ICommand RemoverCertificado => new Comando<CertificadoExibicao>(x =>
         {
             using (var loja = new X509Store())
@@ -56,19 +53,20 @@ namespace NFeFacil.ViewModel
                 var cert = loja.Certificates.Find(X509FindType.FindBySerialNumber, x.SerialNumber, true)[0];
                 loja.Remove(cert);
             }
-            OnProperyChanged(nameof(Certificados));
+            AttLista();
         });
 
         async void AttLista()
         {
             try
             {
-                ListaCertificados = await new Certificados().ObterCertificadosAsync();
-                OnProperyChanged(nameof(Certificados));
+                ListaCertificados = await Certificados.ObterCertificadosAsync(OrigemCertificado.Importado);
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ServidorCadastrado)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ListaCertificados)));
             }
             catch (Exception e)
             {
-                LogPopUp.Escrever(TitulosComuns.ErroSimples, e.Message);
+                e.ManipularErro();
             }
         }
 
@@ -101,7 +99,7 @@ namespace NFeFacil.ViewModel
                         stringErros.AppendLine($"Mensagem erro: {y.Message}.");
                     }
                 });
-                LogPopUp.Escrever(TitulosComuns.ErroSimples, stringErros.ToString());
+                LogPopUp.Escrever(TitulosComuns.Erro, stringErros.ToString());
             }
         }
 
@@ -118,10 +116,16 @@ namespace NFeFacil.ViewModel
                 stringErros.AppendLine("Os seguintes dados base não foram reconhecidos por terem a tag raiz diferente do esperado.");
                 resultado.ForEach(y =>
                 {
-                    var x = y as XmlNaoReconhecido;
-                    stringErros.AppendLine($"Nome arquivo: {x.NomeArquivo}; Tag raiz encontrada: {x.TagRaiz}; Tags raiz esperadas: {x.TagsEsperadas[0]} ou {x.TagsEsperadas[1]}");
+                    if (y is XmlNaoReconhecido x)
+                    {
+                        stringErros.AppendLine($"Nome arquivo: {x.NomeArquivo}; Tag raiz encontrada: {x.TagRaiz}; Tags raiz esperadas: {x.TagsEsperadas[0]} ou {x.TagsEsperadas[1]}");
+                    }
+                    else
+                    {
+                        stringErros.AppendLine($"Mensagem erro: {y.Message}.");
+                    }
                 });
-                LogPopUp.Escrever(TitulosComuns.ErroSimples, stringErros.ToString());
+                LogPopUp.Escrever(TitulosComuns.Erro, stringErros.ToString());
             }
         }
 

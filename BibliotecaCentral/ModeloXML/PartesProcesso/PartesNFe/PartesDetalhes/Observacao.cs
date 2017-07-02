@@ -1,15 +1,19 @@
-﻿namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
+﻿using System.Xml.Serialization;
+
+namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
 {
     public sealed class Observacao
     {
         /// <summary>
         /// Identificação do campo.
         /// </summary>
-        public string xCampo { get; set; }
+        [XmlElement("xCampo", Order = 0)]
+        public string XCampo { get; set; }
 
         /// <summary>
         /// Conteúdo do campo.
         /// </summary>
-        public string xTexto { get; set; }
+        [XmlElement("xTexto", Order = 1)]
+        public string XTexto { get; set; }
     }
 }

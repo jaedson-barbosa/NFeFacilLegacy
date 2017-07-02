@@ -52,6 +52,16 @@ namespace NFeFacil.ViewModel
             get { return ProdutoCompleto.Produto.comb ?? (ProdutoCompleto.Produto.comb = new Combustivel()); }
         }
 
+        public bool UsarCIDE
+        {
+            get => Comb.CIDE != null;
+            set
+            {
+                Comb.CIDE = value ? new CIDE() : null;
+                OnPropertyChanged(nameof(UsarCIDE), nameof(Comb));
+            }
+        }
+
         public ObservableCollection<TiposEspeciaisProduto> ListaTiposEspeciaisProduto => Extensoes.ObterItens<TiposEspeciaisProduto>();
         private TiposEspeciaisProduto tipoEspecialProdutoSelecionado;
         public TiposEspeciaisProduto TipoEspecialProdutoSelecionado

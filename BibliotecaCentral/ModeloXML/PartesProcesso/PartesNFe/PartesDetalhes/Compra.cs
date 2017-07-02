@@ -8,21 +8,21 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
         /// (Opcional)
         /// Nota de Empenho.
         /// </summary>
-        [XmlElement("xNEmp")]
+        [XmlElement("xNEmp", Order = 0)]
         public string XNEmp { get; set; }
 
         /// <summary>
         /// (Opcional)
         /// Pedido.
         /// </summary>
-        [XmlElement("xPed")]
+        [XmlElement("xPed", Order = 1)]
         public string XPed { get; set; }
 
         /// <summary>
         /// (Opcional)
         /// Contrato.
         /// </summary>
-        [XmlElement("xCont")]
+        [XmlElement("xCont", Order = 2)]
         public string XCont { get; set; }
     }
 }

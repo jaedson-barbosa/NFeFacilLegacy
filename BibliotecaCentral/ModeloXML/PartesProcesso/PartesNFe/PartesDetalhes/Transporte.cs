@@ -6,28 +6,28 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
 {
     public class Transporte
     {
-        [XmlElement(Order = 0)]
-        public int modFrete { get; set; }
+        [XmlElement("modFrete", Order = 0)]
+        public byte ModFrete { get; set; }
 
-        [XmlElement(Order = 1)]
-        public Motorista transporta { get; set; } = new Motorista();
+        [XmlElement("transporta", Order = 1)]
+        public Motorista Transporta { get; set; }
 
-        [XmlElement(Order = 2)]
-        public ICMSTransporte retTransp { get; set; } = new ICMSTransporte();
+        [XmlElement("retTransp", Order = 2)]
+        public ICMSTransporte RetTransp { get; set; }
 
-        [XmlElement(Order = 3)]
-        public Veiculo veicTransp { get; set; } = new Veiculo();
+        [XmlElement("veicTransp", Order = 3)]
+        public Veiculo VeicTransp { get; set; }
 
-        [XmlElement(nameof(reboque), Order = 4)]
-        public List<Reboque> reboque { get; set; } = new List<Reboque>();
+        [XmlElement("reboque", Order = 4)]
+        public List<Reboque> Reboque { get; set; } = new List<Reboque>();
 
-        [XmlElement(Order = 5)]
-        public string vagao { get; set; }
+        [XmlElement("vagao", Order = 5)]
+        public string Vagao { get; set; }
 
-        [XmlElement(Order = 6)]
-        public string balsa { get; set; }
+        [XmlElement("balsa", Order = 6)]
+        public string Balsa { get; set; }
 
-        [XmlElement(nameof(vol), Order = 7)]
-        public List<Volume> vol { get; set; } = new List<Volume>();
+        [XmlElement("vol", Order = 7)]
+        public List<Volume> Vol { get; set; } = new List<Volume>();
     }
 }

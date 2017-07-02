@@ -6,33 +6,32 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
     {
         [XmlElement(Order = 0)]
         public string CPF { get; set; }
+
         [XmlElement(Order = 1)]
         public string CNPJ { get; set; }
-        [XmlElement(Order = 2)]
-        public string idEstrangeiro { get; set; }
+
+        [XmlElement("idEstrangeiro", Order = 2)]
+        public string IdEstrangeiro { get; set; }
 
         [XmlElement(ElementName = "xNome", Order = 3)]
-        public string nome { get; set; }
+        public string Nome { get; set; }
 
         [XmlElement(ElementName = "enderDest", Order = 4)]
-        public enderecoCompleto endereco { get; set; } = new enderecoCompleto();
+        public EnderecoCompleto Endereco { get; set; } = new EnderecoCompleto();
 
         [XmlElement(ElementName = "indIEDest", Order = 5)]
-        public int indicadorIE { get; set; } = 9;
+        public int IndicadorIE { get; set; } = 9;
 
         [XmlElement(ElementName = "IE", Order = 6)]
-        public string inscricaoEstadual { get; set; }
+        public string InscricaoEstadual { get; set; }
 
         [XmlElement(Order = 7)]
         public string ISUF { get; set; }
 
-        [XmlElement(Order = 8)]
-        public string email { get; set; }
+        [XmlElement("email", Order = 8)]
+        public string Email { get; set; }
 
         [XmlIgnore]
-        public string Documento => idEstrangeiro ?? CNPJ ?? CPF;
-        [XmlIgnore]
-        public TiposDocumento obterTipoDocumento => (!string.IsNullOrEmpty(idEstrangeiro)) ? TiposDocumento.idEstrangeiro :
-            (!string.IsNullOrEmpty(CNPJ)) ? TiposDocumento.CNPJ : TiposDocumento.CPF;
+        public string Documento => IdEstrangeiro ?? CNPJ ?? CPF;
     }
 }

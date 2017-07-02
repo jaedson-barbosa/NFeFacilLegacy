@@ -57,13 +57,13 @@ namespace NFeFacil.View.CaixasDialogo
             public int transpInternacional
             {
                 get { return Declaracao.TpViaTransp - 1; }
-                set { Declaracao.TpViaTransp = (ushort)(value + 1); }
+                set { Declaracao.TpViaTransp = (byte)(value + 1); }
             }
 
             public int tipoImportacao
             {
                 get { return Declaracao.TpIntermedio - 1; }
-                set { Declaracao.TpIntermedio = (ushort)(value + 1); }
+                set { Declaracao.TpIntermedio = (byte)(value + 1); }
             }
 
             public ObservableCollection<DIAdicao> Adicoes

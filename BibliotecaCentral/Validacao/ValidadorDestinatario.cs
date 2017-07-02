@@ -20,8 +20,8 @@ namespace BibliotecaCentral.Validacao
 
         public bool Validar(ILog log)
         {
-            return new ValidarDados(new Validadorendereco(Dest.endereco)).ValidarTudo(log,
-                new ConjuntoAnalise(string.IsNullOrEmpty(Dest.nome), "Não foi informado o nome do cliente"),
+            return new ValidarDados(new Validadorendereco(Dest.Endereco)).ValidarTudo(log,
+                new ConjuntoAnalise(string.IsNullOrEmpty(Dest.Nome), "Não foi informado o nome do cliente"),
                 new ConjuntoAnalise(string.IsNullOrEmpty(Dest.Documento), "Não foi informado nenhum documento de identificação do cliente"));
         }
     }

@@ -147,11 +147,27 @@ namespace NFeFacil.ViewModel
             }
         }
 
+        IPIDataContext contextoIPI;
+        public IPIDataContext ContextoIPI
+        {
+            get
+            {
+                if (contextoIPI == null)
+                {
+                    contextoIPI = new IPIDataContext();
+                }
+                contextoIPI.ProdutoReferente = ProdutoCompleto.Produto;
+                return contextoIPI;
+            }
+        }
+
         public ProdutoCompletoDataContext(DetalhesProdutos produtoCompleto)
         {
             ProdutoCompleto = produtoCompleto;
-            ProdutoCompleto.Produto.DadoImpostoChanged += (x, y) => OnPropertyChanged(nameof(ContextoPIS));
-            ProdutoCompleto.Produto.DadoImpostoChanged += (x, y) => OnPropertyChanged(nameof(ContextoCOFINS));
+            ProdutoCompleto.Produto.DadoImpostoChanged += (x, y) =>
+            {
+                OnPropertyChanged(nameof(ContextoPIS), nameof(ContextoCOFINS), nameof(ContextoIPI));
+            };
             NovoMedicamento = new Medicamento();
             NovoArmamento = new Arma();
             AdicionarDeclaracaoImportacaoCommand = new Comando(AdicionarDeclaracaoImportacao, true);

@@ -171,11 +171,5 @@ namespace NFeFacil.ViewModel.ImpostosProduto
         }
 
         public IEnumerable<Imposto> SepararImpostos() => Conjunto.SepararImpostos();
-
-        private enum TiposCalculo
-        {
-            PorAliquota,
-            PorValor
-        }
     }
 }

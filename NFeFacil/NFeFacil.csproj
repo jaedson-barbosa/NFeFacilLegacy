@@ -186,8 +186,11 @@
     <Compile Include="ViewModel\Converters\StringToDateTime.cs" />
     <Compile Include="ViewModel\EmitenteDataContext.cs" />
     <Compile Include="ViewModel\GerenciadorDadosBaseDataContext.cs" />
+    <Compile Include="ViewModel\ImpostosProduto\ConteinerCOFINS.cs" />
+    <Compile Include="ViewModel\ImpostosProduto\ConteinerCOFINSST.cs" />
     <Compile Include="ViewModel\ImpostosProduto\ConteinerPIS.cs" />
     <Compile Include="ViewModel\ImpostosProduto\ConteinerPISST.cs" />
+    <Compile Include="ViewModel\ImpostosProduto\TiposCalculo.cs" />
     <Compile Include="ViewModel\IObterPropriedade.cs" />
     <Compile Include="ViewModel\MotoristaDataContext.cs" />
     <Compile Include="ViewModel\NotaFiscalDataContext.cs" />

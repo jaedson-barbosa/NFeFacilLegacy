@@ -133,10 +133,25 @@ namespace NFeFacil.ViewModel
             }
         }
 
+        COFINSDataContext contextoCOFINS;
+        public COFINSDataContext ContextoCOFINS
+        {
+            get
+            {
+                if (contextoCOFINS == null)
+                {
+                    contextoCOFINS = new COFINSDataContext();
+                }
+                contextoCOFINS.ProdutoReferente = ProdutoCompleto.Produto;
+                return contextoCOFINS;
+            }
+        }
+
         public ProdutoCompletoDataContext(DetalhesProdutos produtoCompleto)
         {
             ProdutoCompleto = produtoCompleto;
             ProdutoCompleto.Produto.DadoImpostoChanged += (x, y) => OnPropertyChanged(nameof(ContextoPIS));
+            ProdutoCompleto.Produto.DadoImpostoChanged += (x, y) => OnPropertyChanged(nameof(ContextoCOFINS));
             NovoMedicamento = new Medicamento();
             NovoArmamento = new Arma();
             AdicionarDeclaracaoImportacaoCommand = new Comando(AdicionarDeclaracaoImportacao, true);

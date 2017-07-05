@@ -8,19 +8,30 @@ namespace NFeFacil.ViewModel.ImpostosProduto
 {
     public sealed class COFINSDataContext : INotifyPropertyChanged, IImpostosUnidos
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        ProdutoOuServico produtoReferente;
+        internal ProdutoOuServico ProdutoReferente
+        {
+            get => produtoReferente;
+            set
+            {
+                produtoReferente = value;
+                AtualizarImposto();
+                AtualizarImpostoST();
+            }
+        }
 
+        public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged(params string[] parametros)
         {
             for (int i = 0; i < parametros.Length; i++)
             {
-                PropertyChanged(this, new PropertyChangedEventArgs(parametros[i]));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(parametros[i]));
             }
         }
 
-        private readonly ConjuntoCOFINS Conjunto = new ConjuntoCOFINS();
-        public COFINS Imposto => Conjunto.COFINS;
-        public COFINSST ImpostoST => Conjunto.COFINSST;
+        private ConjuntoCOFINS Conjunto = new ConjuntoCOFINS();
+        public ConteinerCOFINS Imposto { get; set; }
+        public ConteinerCOFINSST ImpostoST { get; set; }
 
         public bool CalculoAliquota { get; private set; }
         public bool CalculoValor { get; private set; }
@@ -34,7 +45,7 @@ namespace NFeFacil.ViewModel.ImpostosProduto
 
         public int CSTSelecionado
         {
-            get => Imposto.Corpo != null ? int.Parse(Imposto.Corpo.CST) : -1;
+            get => Conjunto.COFINS.Corpo != null ? int.Parse(Conjunto.COFINS.Corpo.CST) : -1;
             set
             {
                 if (new int[] { 1, 2 }.Contains(value))
@@ -43,10 +54,7 @@ namespace NFeFacil.ViewModel.ImpostosProduto
                     CalculoValor = false;
                     Valor = true;
                     ComboTipoCalculo = false;
-                    Conjunto.COFINS = new COFINS()
-                    {
-                        Corpo = new COFINSAliq()
-                    };
+                    Conjunto.COFINS.Corpo = new COFINSAliq();
                 }
                 else if (value == 3)
                 {
@@ -54,10 +62,7 @@ namespace NFeFacil.ViewModel.ImpostosProduto
                     CalculoValor = true;
                     Valor = true;
                     ComboTipoCalculo = false;
-                    Conjunto.COFINS = new COFINS()
-                    {
-                        Corpo = new COFINSQtde()
-                    };
+                    Conjunto.COFINS.Corpo = new COFINSQtde();
                 }
                 else if (new int[] { 4, 5, 6, 7, 8, 9 }.Contains(value))
                 {
@@ -65,10 +70,7 @@ namespace NFeFacil.ViewModel.ImpostosProduto
                     CalculoValor = false;
                     Valor = false;
                     ComboTipoCalculo = false;
-                    Conjunto.COFINS = new COFINS()
-                    {
-                        Corpo = new COFINSNT()
-                    };
+                    Conjunto.COFINS.Corpo = new COFINSNT();
                 }
                 else
                 {
@@ -76,12 +78,9 @@ namespace NFeFacil.ViewModel.ImpostosProduto
                     CalculoValor = false;
                     Valor = true;
                     ComboTipoCalculo = true;
-                    Conjunto.COFINS = new COFINS()
-                    {
-                        Corpo = new COFINSOutr()
-                    };
+                    Conjunto.COFINS.Corpo = new COFINSOutr();
                 }
-                Imposto.Corpo.CST = value.ToString("00");
+                Conjunto.COFINS.Corpo.CST = value.ToString("00");
 
                 CalculoAliquotaST = false;
                 CalculoValorST = false;
@@ -100,8 +99,9 @@ namespace NFeFacil.ViewModel.ImpostosProduto
 
                 OnPropertyChanged(nameof(CalculoAliquota), nameof(CalculoValor), nameof(Valor),
                     nameof(ComboTipoCalculo), nameof(ComboTipoCalculoST),
-                    nameof(CalculoAliquotaST), nameof(CalculoValorST), nameof(ValorST),
-                    nameof(Imposto), nameof(ImpostoST));
+                    nameof(CalculoAliquotaST), nameof(CalculoValorST), nameof(ValorST));
+                AtualizarImposto();
+                AtualizarImpostoST();
             }
         }
 
@@ -123,8 +123,9 @@ namespace NFeFacil.ViewModel.ImpostosProduto
                         CalculoValor = true;
                         break;
                 }
-                Imposto.Corpo = new COFINSOutr { CST = Imposto.Corpo.CST };
-                OnPropertyChanged(nameof(Imposto), nameof(CalculoAliquota), nameof(CalculoValor));
+                Conjunto.COFINS.Corpo = new COFINSOutr { CST = Conjunto.COFINS.Corpo.CST };
+                OnPropertyChanged(nameof(CalculoAliquota), nameof(CalculoValor));
+                AtualizarImposto();
             }
         }
 
@@ -147,16 +148,28 @@ namespace NFeFacil.ViewModel.ImpostosProduto
                         CalculoValorST = true;
                         break;
                 }
-                OnPropertyChanged(nameof(ImpostoST), nameof(CalculoAliquotaST), nameof(CalculoValorST));
+                OnPropertyChanged(nameof(CalculoAliquotaST), nameof(CalculoValorST));
+                AtualizarImpostoST();
             }
         }
 
-        public IEnumerable<Imposto> SepararImpostos() => Conjunto.SepararImpostos();
-
-        private enum TiposCalculo
+        void AtualizarImposto()
         {
-            PorAliquota,
-            PorValor
+            Imposto = new ConteinerCOFINS(() => OnPropertyChanged(nameof(Imposto)), Conjunto.COFINS.Corpo, ProdutoReferente);
+            OnPropertyChanged(nameof(Imposto));
         }
+
+        void AtualizarImpostoST()
+        {
+            ImpostoST = new ConteinerCOFINSST(() => OnPropertyChanged(nameof(ImpostoST)), Conjunto.COFINSST, ProdutoReferente);
+            OnPropertyChanged(nameof(ImpostoST));
+        }
+
+        public COFINSDataContext()
+        {
+            AtualizarImposto();
+        }
+
+        public IEnumerable<Imposto> SepararImpostos() => Conjunto.SepararImpostos();
     }
 }

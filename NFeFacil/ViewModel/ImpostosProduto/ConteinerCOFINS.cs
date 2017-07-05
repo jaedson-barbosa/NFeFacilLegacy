@@ -1,12 +1,11 @@
 ﻿using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
 using System;
-using System.ComponentModel;
 using System.Globalization;
 
 namespace NFeFacil.ViewModel.ImpostosProduto
 {
-    public sealed class ConteinerCOFINS : INotifyPropertyChanged
+    public sealed class ConteinerCOFINS
     {
         ComumCOFINS original;
         Action atulizarContexto;
@@ -173,8 +172,6 @@ namespace NFeFacil.ViewModel.ImpostosProduto
                 }
             }
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         public ConteinerCOFINS(Action atulizarContexto, ComumCOFINS original, ProdutoOuServico produto)
         {

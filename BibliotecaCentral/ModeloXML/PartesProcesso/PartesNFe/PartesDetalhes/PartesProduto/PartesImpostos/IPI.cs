@@ -45,6 +45,7 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Pa
             XmlElement(nameof(IPITrib), Type = typeof(IPITrib), Order = 5)]
         public ComumIPI Corpo { get; set; }
 
-        public override bool IsValido => Corpo != null ? Corpo.ToXElement(Corpo.GetType()).HasElements : false;
+        public override bool IsValido => Corpo != null && !string.IsNullOrEmpty(Corpo.CST)
+            && !string.IsNullOrEmpty(cEnq);
     }
 }

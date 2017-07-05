@@ -1,12 +1,11 @@
-﻿using System.ComponentModel;
-using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
+﻿using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 using System.Globalization;
 using System;
 
 namespace NFeFacil.ViewModel.ImpostosProduto
 {
-    public sealed class ConteinerPIS : INotifyPropertyChanged
+    public sealed class ConteinerPIS
     {
         ComumPIS original;
         Action atulizarContexto;
@@ -173,8 +172,6 @@ namespace NFeFacil.ViewModel.ImpostosProduto
                 }
             }
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         public ConteinerPIS(Action atulizarContexto, ComumPIS original, ProdutoOuServico produto)
         {

@@ -58,4 +58,9 @@ namespace NFeFacil.ViewModel.ImpostosProduto
 
         public Imposto ImpostoBruto => Imposto;
     }
+
+    public sealed class ConteinerIPI
+    {
+
+    }
 }

@@ -1,12 +1,11 @@
 ﻿using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
 using System;
-using System.ComponentModel;
 using System.Globalization;
 
 namespace NFeFacil.ViewModel.ImpostosProduto
 {
-    public sealed class ConteinerPISST : INotifyPropertyChanged
+    public sealed class ConteinerPISST
     {
         PISST original;
         Action atulizarContexto;
@@ -125,8 +124,6 @@ namespace NFeFacil.ViewModel.ImpostosProduto
                 }
             }
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         public ConteinerPISST(Action atulizarContexto, PISST original, ProdutoOuServico produto)
         {

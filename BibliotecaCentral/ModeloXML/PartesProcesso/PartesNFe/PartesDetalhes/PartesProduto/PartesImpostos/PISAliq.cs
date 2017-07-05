@@ -23,6 +23,6 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Pa
         /// Valor do PIS.
         /// </summary>
         [XmlElement(Order = 3)]
-        string vPIS { get; set; }
+        public string vPIS { get; set; }
     }
 }

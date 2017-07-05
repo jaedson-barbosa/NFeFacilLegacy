@@ -32,8 +32,7 @@
         <FlipView x:Name="main"
                   Padding="16"
                   Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-            <ScrollViewer
-                          DataContext="{Binding ProdutoCompleto.Produto}">
+            <ScrollViewer DataContext="{Binding ProdutoCompleto.Produto}">
                 <StackPanel>
                     <ItemsControl Style="{StaticResource ItensResponsivos}">
                         <TextBox Text="{Binding CodigoProduto, Mode=TwoWay}"
@@ -437,10 +436,7 @@
                         </ScrollViewer>
                     </PivotItem>
                     <PivotItem Header="PIS">
-                        <ScrollViewer>
-                            <ScrollViewer.DataContext>
-                                <ImpostosContext:PISDataContext />
-                            </ScrollViewer.DataContext>
+                        <ScrollViewer DataContext="{Binding ContextoPIS}">
                             <StackPanel>
                                 <ComboBox SelectedValue="{Binding CSTSelecionado, Mode=TwoWay}"
                                           SelectedValuePath="Tag"
@@ -489,23 +485,23 @@
                                         <ComboBoxItem>Pelo valor por unidade</ComboBoxItem>
                                     </ComboBox>
                                     <TextBox Header="Valor da base de cálculo"
-                                             Text="{Binding Path=Imposto.Corpo.vBC, Mode=TwoWay}"
+                                             Text="{Binding Path=Imposto.VBC, Mode=TwoWay}"
                                              InputScope="Number"
                                              IsEnabled="{Binding CalculoAliquota}" />
                                     <TextBox Header="Alíquota"
-                                             Text="{Binding Path=Imposto.Corpo.pPIS, Mode=TwoWay}"
+                                             Text="{Binding Path=Imposto.PPIS, Mode=TwoWay}"
                                              InputScope="Number"
                                              IsEnabled="{Binding CalculoAliquota}" />
                                     <TextBox Header="Quantidade total"
-                                             Text="{Binding Path=Imposto.Corpo.qBCProd, Mode=TwoWay}"
+                                             Text="{Binding Path=Imposto.QBCProd, Mode=TwoWay}"
                                              InputScope="Number"
                                              IsEnabled="{Binding CalculoValor}" />
                                     <TextBox Header="Valor por unidade"
-                                             Text="{Binding Path=Imposto.Corpo.vAliqProd, Mode=TwoWay}"
+                                             Text="{Binding Path=Imposto.VAliqProd, Mode=TwoWay}"
                                              InputScope="Number"
                                              IsEnabled="{Binding CalculoValor}" />
                                     <TextBox Header="Valor do PIS"
-                                             Text="{Binding Path=Imposto.Corpo.vPIS, Mode=TwoWay}"
+                                             Text="{Binding Path=Imposto.VPIS, Mode=TwoWay}"
                                              InputScope="Number"
                                              IsEnabled="{Binding Valor}" />
                                 </ItemsControl>
@@ -627,23 +623,23 @@
                                         <ComboBoxItem>Pelo valor por unidade</ComboBoxItem>
                                     </ComboBox>
                                     <TextBox Header="Valor da base de cálculo"
-                                             Text="{Binding Path=ImpostoST.Corpo.vBC, Mode=TwoWay}"
+                                             Text="{Binding Path=ImpostoST.vBC, Mode=TwoWay}"
                                              InputScope="Number"
                                              IsEnabled="{Binding CalculoAliquotaST}" />
                                     <TextBox Header="Alíquota"
-                                             Text="{Binding Path=ImpostoST.Corpo.pCOFINS, Mode=TwoWay}"
+                                             Text="{Binding Path=ImpostoST.pCOFINS, Mode=TwoWay}"
                                              InputScope="Number"
                                              IsEnabled="{Binding CalculoAliquotaST}" />
-                                    <TextBox Text="{Binding Path=ImpostoST.Corpo.vCOFINS, Mode=TwoWay}"
+                                    <TextBox Text="{Binding Path=ImpostoST.vCOFINS, Mode=TwoWay}"
                                              Header="Valor do COFINS"
                                              InputScope="Number"
                                              IsEnabled="{Binding ValorST}" />
                                     <TextBox Header="Quantidade total"
-                                             Text="{Binding Path=ImpostoST.Corpo.qBCProd , Mode=TwoWay}"
+                                             Text="{Binding Path=ImpostoST.qBCProd , Mode=TwoWay}"
                                              InputScope="Number"
                                              IsEnabled="{Binding CalculoValorST}" />
                                     <TextBox Header="Valor por unidade"
-                                             Text="{Binding Path=ImpostoST.Corpo.vAliqProd, Mode=TwoWay}"
+                                             Text="{Binding Path=ImpostoST.vAliqProd, Mode=TwoWay}"
                                              InputScope="Number"
                                              IsEnabled="{Binding CalculoValorST}" />
                                 </ItemsControl>

@@ -1,4 +1,5 @@
 ﻿using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
+using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
@@ -55,23 +56,50 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Pa
         [XmlElement(ElementName = "uCom", Order = 7)]
         public string UnidadeComercializacao { get; set; }
 
+        double quantidadeComercializada;
         /// <summary>
         /// Informar a quantidade de comercialização do Produto.
         /// </summary>
         [XmlElement(ElementName = "qCom", Order = 8)]
-        public double QuantidadeComercializada { get; set; }
+        public double QuantidadeComercializada
+        {
+            get => quantidadeComercializada;
+            set
+            {
+                quantidadeComercializada = value;
+                DadoImpostoChanged?.Invoke(this, null);
+            }
+        }
 
+        double valorUnitario;
         /// <summary>
         /// Informar o valor unitário de comercialização do Produto.
         /// </summary>
         [XmlElement(ElementName = "vUnCom", Order = 9)]
-        public double ValorUnitario { get; set; }
+        public double ValorUnitario
+        {
+            get => valorUnitario;
+            set
+            {
+                valorUnitario = value;
+                DadoImpostoChanged?.Invoke(this, null);
+            }
+        }
 
+        double valorTotal;
         /// <summary>
         /// Valor Total Bruto dos Produtos ou Serviços.
         /// </summary>
         [XmlElement(ElementName = "vProd", Order = 10)]
-        public double ValorTotal { get; set; }
+        public double ValorTotal
+        {
+            get => valorTotal;
+            set
+            {
+                valorTotal = value;
+                DadoImpostoChanged?.Invoke(this, null);
+            }
+        }
 
         /// <summary>
         /// GTIN (Global Trade Item Number) da unidade tributável, antigo código EAN ou código de barras.
@@ -86,17 +114,35 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Pa
         [XmlElement(ElementName = "uTrib", Order = 12)]
         public string UnidadeTributacao { get; set; }
 
+        double quantidadeTributada;
         /// <summary>
         /// Informar a quantidade de tributação do Produto.
         /// </summary>
         [XmlElement(ElementName = "qTrib", Order = 13)]
-        public double QuantidadeTributada { get; set; }
+        public double QuantidadeTributada
+        {
+            get => quantidadeTributada;
+            set
+            {
+                quantidadeTributada = value;
+                DadoImpostoChanged?.Invoke(this, null);
+            }
+        }
 
+        double valorUnitarioTributo;
         /// <summary>
         /// Informar o valor unitário de tributação do Produto.
         /// </summary>
         [XmlElement(ElementName = "vUnTrib", Order = 14)]
-        public double ValorUnitarioTributo { get; set; }
+        public double ValorUnitarioTributo
+        {
+            get => valorUnitarioTributo;
+            set
+            {
+                valorUnitarioTributo = value;
+                DadoImpostoChanged?.Invoke(this, null);
+            }
+        }
 
         /// <summary>
         /// (Opcional)
@@ -184,5 +230,7 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Pa
 
         [XmlElement("nRECOPI", Order = 29)]
         public string NRECOPI { get; set; }
+
+        public event EventHandler DadoImpostoChanged;
     }
 }

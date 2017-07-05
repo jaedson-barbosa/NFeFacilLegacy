@@ -8,17 +8,28 @@ namespace NFeFacil.ViewModel.ImpostosProduto
 {
     public sealed class PISDataContext : INotifyPropertyChanged, IImpostosUnidos
     {
+        ProdutoOuServico produtoReferente;
+        internal ProdutoOuServico ProdutoReferente
+        {
+            get => produtoReferente;
+            set
+            {
+                produtoReferente = value;
+                AtualizarImposto();
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged(params string[] parametros)
         {
             for (int i = 0; i < parametros.Length; i++)
             {
-                PropertyChanged(this, new PropertyChangedEventArgs(parametros[i]));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(parametros[i]));
             }
         }
 
         private ConjuntoPIS Conjunto = new ConjuntoPIS();
-        public PIS Imposto => Conjunto.PIS;
+        public ConteinerPIS Imposto { get; set; }
         public PISST ImpostoST => Conjunto.PISST;
 
         public bool CalculoAliquota { get; private set; }
@@ -33,7 +44,7 @@ namespace NFeFacil.ViewModel.ImpostosProduto
 
         public int CSTSelecionado
         {
-            get => Imposto.Corpo != null ? int.Parse(Imposto.Corpo.CST) : -1;
+            get => Conjunto.PIS.Corpo != null ? int.Parse(Conjunto.PIS.Corpo.CST) : -1;
             set
             {
                 if (new int[] { 1, 2 }.Contains(value))
@@ -42,10 +53,7 @@ namespace NFeFacil.ViewModel.ImpostosProduto
                     CalculoValor = false;
                     Valor = true;
                     ComboTipoCalculo = false;
-                    Conjunto.PIS = new PIS()
-                    {
-                        Corpo = new PISAliq()
-                    };
+                    Conjunto.PIS.Corpo = new PISAliq();
                 }
                 else if (value == 3)
                 {
@@ -53,10 +61,7 @@ namespace NFeFacil.ViewModel.ImpostosProduto
                     CalculoValor = true;
                     Valor = true;
                     ComboTipoCalculo = false;
-                    Conjunto.PIS = new PIS()
-                    {
-                        Corpo = new PISQtde()
-                    };
+                    Conjunto.PIS.Corpo = new PISQtde();
                 }
                 else if (new int[] { 4, 5, 6, 7, 8, 9 }.Contains(value))
                 {
@@ -64,10 +69,7 @@ namespace NFeFacil.ViewModel.ImpostosProduto
                     CalculoValor = false;
                     Valor = false;
                     ComboTipoCalculo = false;
-                    Conjunto.PIS = new PIS()
-                    {
-                        Corpo = new PISNT()
-                    };
+                    Conjunto.PIS.Corpo = new PISNT();
                 }
                 else
                 {
@@ -75,12 +77,9 @@ namespace NFeFacil.ViewModel.ImpostosProduto
                     CalculoValor = false;
                     Valor = true;
                     ComboTipoCalculo = true;
-                    Conjunto.PIS = new PIS()
-                    {
-                        Corpo = new PISOutr()
-                    };
+                    Conjunto.PIS.Corpo = new PISOutr();
                 }
-                Imposto.Corpo.CST = value.ToString("00");
+                Conjunto.PIS.Corpo.CST = value.ToString("00");
 
                 CalculoAliquotaST = false;
                 CalculoValorST = false;
@@ -100,7 +99,8 @@ namespace NFeFacil.ViewModel.ImpostosProduto
                 OnPropertyChanged(nameof(CalculoAliquota), nameof(CalculoValor), nameof(Valor),
                     nameof(ComboTipoCalculo), nameof(ComboTipoCalculoST),
                     nameof(CalculoAliquotaST), nameof(CalculoValorST), nameof(ValorST),
-                    nameof(Imposto), nameof(ImpostoST));
+                    nameof(ImpostoST));
+                AtualizarImposto();
             }
         }
 
@@ -122,8 +122,9 @@ namespace NFeFacil.ViewModel.ImpostosProduto
                         CalculoValor = true;
                         break;
                 }
-                Imposto.Corpo = new PISOutr { CST = Imposto.Corpo.CST };
-                OnPropertyChanged(nameof(Imposto), nameof(CalculoAliquota), nameof(CalculoValor));
+                Conjunto.PIS.Corpo = new PISOutr { CST = Conjunto.PIS.Corpo.CST };
+                OnPropertyChanged(nameof(CalculoAliquota), nameof(CalculoValor));
+                AtualizarImposto();
             }
         }
 
@@ -148,6 +149,17 @@ namespace NFeFacil.ViewModel.ImpostosProduto
                 }
                 OnPropertyChanged(nameof(ImpostoST), nameof(CalculoAliquotaST), nameof(CalculoValorST));
             }
+        }
+
+        void AtualizarImposto()
+        {
+            Imposto = new ConteinerPIS(() => OnPropertyChanged("Imposto"), Conjunto.PIS.Corpo, ProdutoReferente);
+            OnPropertyChanged("Imposto");
+        }
+
+        public PISDataContext()
+        {
+            AtualizarImposto();
         }
 
         public IEnumerable<Imposto> SepararImpostos() => Conjunto.SepararImpostos();

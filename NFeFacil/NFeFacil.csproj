@@ -186,6 +186,7 @@
     <Compile Include="ViewModel\Converters\StringToDateTime.cs" />
     <Compile Include="ViewModel\EmitenteDataContext.cs" />
     <Compile Include="ViewModel\GerenciadorDadosBaseDataContext.cs" />
+    <Compile Include="ViewModel\ImpostosProduto\ConteinerPIS.cs" />
     <Compile Include="ViewModel\IObterPropriedade.cs" />
     <Compile Include="ViewModel\MotoristaDataContext.cs" />
     <Compile Include="ViewModel\NotaFiscalDataContext.cs" />

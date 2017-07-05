@@ -1,6 +1,7 @@
 ﻿using BibliotecaCentral;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
+using NFeFacil.ViewModel.ImpostosProduto;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -118,9 +119,24 @@ namespace NFeFacil.ViewModel
         public Arma NovoArmamento { get; private set; }
         public int IndexArmamentoSelecionado { get; set; }
 
+        PISDataContext contextoPIS;
+        public PISDataContext ContextoPIS
+        {
+            get
+            {
+                if (contextoPIS == null)
+                {
+                    contextoPIS = new PISDataContext();
+                }
+                contextoPIS.ProdutoReferente = ProdutoCompleto.Produto;
+                return contextoPIS;
+            }
+        }
+
         public ProdutoCompletoDataContext(DetalhesProdutos produtoCompleto)
         {
             ProdutoCompleto = produtoCompleto;
+            ProdutoCompleto.Produto.DadoImpostoChanged += (x, y) => OnPropertyChanged(nameof(ContextoPIS));
             NovoMedicamento = new Medicamento();
             NovoArmamento = new Arma();
             AdicionarDeclaracaoImportacaoCommand = new Comando(AdicionarDeclaracaoImportacao, true);

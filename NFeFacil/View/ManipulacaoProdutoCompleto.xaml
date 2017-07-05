@@ -33,79 +33,77 @@
                   Padding="16"
                   Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
             <ScrollViewer DataContext="{Binding ProdutoCompleto.Produto}">
-                <StackPanel>
-                    <ItemsControl Style="{StaticResource ItensResponsivos}">
-                        <TextBox Text="{Binding CodigoProduto, Mode=TwoWay}"
-                                 InputScope="Text"
-                                 Header="Código *" />
-                        <controles:EntradaRestrita Pattern="[^\d]"
-                                                   Text="{Binding CodigoBarras, Mode=TwoWay}"
-                                                   Header="EAN" />
-                        <TextBox Text="{Binding Descricao, Mode=TwoWay}"
-                                 InputScope="Text"
-                                 Header="Descrição *" />
-                        <controles:EntradaRestrita Pattern="[^\d]"
-                                                   Text="{Binding NCM, Mode=TwoWay}"
-                                                   Header="NCM" />
-                        <controles:EntradaRestrita Pattern="[^\d]"
-                                                   Text="{Binding EXTIPI, Mode=TwoWay}"
-                                                   Header="EX TIPI" />
-                        <controles:EntradaNumerica Format="4"
-                                                   Number="{Binding CFOP, Mode=TwoWay}"
-                                                   Header="CFOP *" />
-                        <TextBox Text="{Binding UnidadeComercializacao, Mode=TwoWay}"
-                                 InputScope="Text"
-                                 Header="Unidade comercial" />
-                        <controles:EntradaNumerica Format="11:4"
-                                                   Number="{Binding QuantidadeComercializada, Mode=TwoWay}"
-                                                   Header="Qtd. comercial" />
-                        <controles:EntradaNumerica Format="11:10"
-                                                   Number="{Binding ValorUnitario, Mode=TwoWay}"
-                                                   Header="Valor unid. comercial" />
-                        <controles:EntradaNumerica Format="13:2"
-                                                   Number="{Binding ValorTotal, Mode=TwoWay}"
-                                                   Header="Total bruto" />
-                        <controles:EntradaRestrita Pattern="[^\d]"
-                                                   Text="{Binding CodigoBarrasTributo, Mode=TwoWay}"
-                                                   Header="EAN Unid. Tributável" />
-                        <TextBox Text="{Binding UnidadeTributacao, Mode=TwoWay}"
-                                 InputScope="Text"
-                                 Header="Unidade tributária" />
-                        <controles:EntradaNumerica Format="11:4"
-                                                   Number="{Binding QuantidadeTributada, Mode=TwoWay}"
-                                                   Header="Qtd. tributária" />
-                        <controles:EntradaNumerica Format="11:10"
-                                                   Number="{Binding ValorUnitarioTributo, Mode=TwoWay}"
-                                                   Header="Valor unid. tributária" />
-                        <controles:EntradaRestrita Pattern="[^\d]"
-                                                   Text="{Binding Frete, Mode=TwoWay}"
-                                                   Header="Frete" />
-                        <controles:EntradaRestrita Pattern="[^\d]"
-                                                   Text="{Binding Seguro, Mode=TwoWay}"
-                                                   Header="Seguro" />
-                        <controles:EntradaRestrita Pattern="[^\d]"
-                                                   Text="{Binding Desconto, Mode=TwoWay}"
-                                                   Header="Desconto" />
-                        <controles:EntradaRestrita Pattern="[^\d]"
-                                                   Text="{Binding DespesasAcessórias, Mode=TwoWay}"
-                                                   Header="Desp. acessórias" />
-                        <ComboBox Header="O valor do item..."
-                                  SelectedIndex="{Binding InclusãoTotal, Mode=TwoWay}"
-                                  HorizontalAlignment="Stretch">
-                            <ComboBoxItem>Não compõe o valor total da NF-e</ComboBoxItem>
-                            <ComboBoxItem>compõe o valor total da NF-e</ComboBoxItem>
-                        </ComboBox>
-                        <TextBox Text="{Binding XPed, Mode=TwoWay}"
-                                 InputScope="Number"
-                                 Header="Pedido de compra" />
-                        <controles:EntradaRestrita Pattern="[^\d]"
-                                                   Text="{Binding NItemPed, Mode=TwoWay}"
-                                                   Header="Nº do item do pedido" />
-                        <TextBox Text="{Binding NFCI, Mode=TwoWay}"
-                                 InputScope="Number"
-                                 Header="Nº de controle da FCI" />
-                    </ItemsControl>
-                </StackPanel>
+                <ItemsControl Style="{StaticResource ItensResponsivos}">
+                    <TextBox Text="{Binding CodigoProduto, Mode=TwoWay}"
+                             InputScope="Text"
+                             Header="Código *" />
+                    <controles:EntradaRestrita Pattern="[^\d]"
+                                               Text="{Binding CodigoBarras, Mode=TwoWay}"
+                                               Header="EAN" />
+                    <TextBox Text="{Binding Descricao, Mode=TwoWay}"
+                             InputScope="Text"
+                             Header="Descrição *" />
+                    <controles:EntradaRestrita Pattern="[^\d]"
+                                               Text="{Binding NCM, Mode=TwoWay}"
+                                               Header="NCM" />
+                    <controles:EntradaRestrita Pattern="[^\d]"
+                                               Text="{Binding EXTIPI, Mode=TwoWay}"
+                                               Header="EX TIPI" />
+                    <controles:EntradaNumerica Format="4"
+                                               Number="{Binding CFOP, Mode=TwoWay}"
+                                               Header="CFOP *" />
+                    <TextBox Text="{Binding UnidadeComercializacao, Mode=TwoWay}"
+                             InputScope="Text"
+                             Header="Unidade comercial" />
+                    <controles:EntradaNumerica Format="11:4"
+                                               Number="{Binding QuantidadeComercializada, Mode=TwoWay}"
+                                               Header="Qtd. comercial" />
+                    <controles:EntradaNumerica Format="11:10"
+                                               Number="{Binding ValorUnitario, Mode=TwoWay}"
+                                               Header="Valor unid. comercial" />
+                    <controles:EntradaNumerica Format="13:2"
+                                               Number="{Binding ValorTotal, Mode=TwoWay}"
+                                               Header="Total bruto" />
+                    <controles:EntradaRestrita Pattern="[^\d]"
+                                               Text="{Binding CodigoBarrasTributo, Mode=TwoWay}"
+                                               Header="EAN Unid. Tributável" />
+                    <TextBox Text="{Binding UnidadeTributacao, Mode=TwoWay}"
+                             InputScope="Text"
+                             Header="Unidade tributária" />
+                    <controles:EntradaNumerica Format="11:4"
+                                               Number="{Binding QuantidadeTributada, Mode=TwoWay}"
+                                               Header="Qtd. tributária" />
+                    <controles:EntradaNumerica Format="11:10"
+                                               Number="{Binding ValorUnitarioTributo, Mode=TwoWay}"
+                                               Header="Valor unid. tributária" />
+                    <controles:EntradaRestrita Pattern="[^\d]"
+                                               Text="{Binding Frete, Mode=TwoWay}"
+                                               Header="Frete" />
+                    <controles:EntradaRestrita Pattern="[^\d]"
+                                               Text="{Binding Seguro, Mode=TwoWay}"
+                                               Header="Seguro" />
+                    <controles:EntradaRestrita Pattern="[^\d]"
+                                               Text="{Binding Desconto, Mode=TwoWay}"
+                                               Header="Desconto" />
+                    <controles:EntradaRestrita Pattern="[^\d]"
+                                               Text="{Binding DespesasAcessórias, Mode=TwoWay}"
+                                               Header="Desp. acessórias" />
+                    <ComboBox Header="O valor do item..."
+                              SelectedIndex="{Binding InclusãoTotal, Mode=TwoWay}"
+                              HorizontalAlignment="Stretch">
+                        <ComboBoxItem>Não compõe o valor total da NF-e</ComboBoxItem>
+                        <ComboBoxItem>compõe o valor total da NF-e</ComboBoxItem>
+                    </ComboBox>
+                    <TextBox Text="{Binding XPed, Mode=TwoWay}"
+                             InputScope="Number"
+                             Header="Pedido de compra" />
+                    <controles:EntradaRestrita Pattern="[^\d]"
+                                               Text="{Binding NItemPed, Mode=TwoWay}"
+                                               Header="Nº do item do pedido" />
+                    <TextBox Text="{Binding NFCI, Mode=TwoWay}"
+                             InputScope="Number"
+                             Header="Nº de controle da FCI" />
+                </ItemsControl>
             </ScrollViewer>
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -515,22 +513,22 @@
                                         <ComboBoxItem>Pelo valor por unidade</ComboBoxItem>
                                     </ComboBox>
                                     <TextBox Header="Valor da base de cálculo"
-                                             Text="{Binding Path=ImpostoST.vBC, Mode=TwoWay}"
+                                             Text="{Binding Path=ImpostoST.VBC, Mode=TwoWay}"
                                              InputScope="Number"
                                              IsEnabled="{Binding CalculoAliquotaST}" />
                                     <TextBox Header="Alíquota"
-                                             Text="{Binding Path=ImpostoST.pPIS, Mode=TwoWay}"
+                                             Text="{Binding Path=ImpostoST.PPIS, Mode=TwoWay}"
                                              InputScope="Number"
                                              IsEnabled="{Binding CalculoAliquotaST}" />
                                     <TextBox Header="Quantidade total"
-                                             Text="{Binding Path=ImpostoST.qBCProd , Mode=TwoWay}"
+                                             Text="{Binding Path=ImpostoST.QBCProd , Mode=TwoWay}"
                                              InputScope="Number"
                                              IsEnabled="{Binding CalculoValorST}" />
                                     <TextBox Header="Valor por unidade"
-                                             Text="{Binding Path=ImpostoST.vAliqProd, Mode=TwoWay}"
+                                             Text="{Binding Path=ImpostoST.VAliqProd, Mode=TwoWay}"
                                              InputScope="Number"
                                              IsEnabled="{Binding CalculoValorST}" />
-                                    <TextBox Text="{Binding Path=ImpostoST.vPIS, Mode=TwoWay}"
+                                    <TextBox Text="{Binding Path=ImpostoST.VPIS, Mode=TwoWay}"
                                              Header="Valor do PIS"
                                              InputScope="Number"
                                              IsEnabled="{Binding ValorST}" />

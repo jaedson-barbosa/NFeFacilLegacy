@@ -16,6 +16,7 @@ namespace NFeFacil.ViewModel.ImpostosProduto
             {
                 produtoReferente = value;
                 AtualizarImposto();
+                AtualizarImpostoST();
             }
         }
 
@@ -30,7 +31,7 @@ namespace NFeFacil.ViewModel.ImpostosProduto
 
         private ConjuntoPIS Conjunto = new ConjuntoPIS();
         public ConteinerPIS Imposto { get; set; }
-        public PISST ImpostoST => Conjunto.PISST;
+        public ConteinerPISST ImpostoST { get; set; }
 
         public bool CalculoAliquota { get; private set; }
         public bool CalculoValor { get; private set; }
@@ -98,9 +99,9 @@ namespace NFeFacil.ViewModel.ImpostosProduto
 
                 OnPropertyChanged(nameof(CalculoAliquota), nameof(CalculoValor), nameof(Valor),
                     nameof(ComboTipoCalculo), nameof(ComboTipoCalculoST),
-                    nameof(CalculoAliquotaST), nameof(CalculoValorST), nameof(ValorST),
-                    nameof(ImpostoST));
+                    nameof(CalculoAliquotaST), nameof(CalculoValorST), nameof(ValorST));
                 AtualizarImposto();
+                AtualizarImpostoST();
             }
         }
 
@@ -147,14 +148,21 @@ namespace NFeFacil.ViewModel.ImpostosProduto
                         CalculoValorST = true;
                         break;
                 }
-                OnPropertyChanged(nameof(ImpostoST), nameof(CalculoAliquotaST), nameof(CalculoValorST));
+                OnPropertyChanged(nameof(CalculoAliquotaST), nameof(CalculoValorST));
+                AtualizarImpostoST();
             }
         }
 
         void AtualizarImposto()
         {
-            Imposto = new ConteinerPIS(() => OnPropertyChanged("Imposto"), Conjunto.PIS.Corpo, ProdutoReferente);
-            OnPropertyChanged("Imposto");
+            Imposto = new ConteinerPIS(() => OnPropertyChanged(nameof(Imposto)), Conjunto.PIS.Corpo, ProdutoReferente);
+            OnPropertyChanged(nameof(Imposto));
+        }
+
+        void AtualizarImpostoST()
+        {
+            ImpostoST = new ConteinerPISST(() => OnPropertyChanged(nameof(ImpostoST)), Conjunto.PISST, ProdutoReferente);
+            OnPropertyChanged(nameof(ImpostoST));
         }
 
         public PISDataContext()

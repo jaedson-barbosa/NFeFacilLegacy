@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using System.Linq;
-using Windows.UI.Xaml;
 using System.Collections.Generic;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;

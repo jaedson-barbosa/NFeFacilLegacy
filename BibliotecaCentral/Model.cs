@@ -13,6 +13,7 @@ namespace BibliotecaCentral
         public DbSet<ResultadoSincronizacaoCliente> ResultadosCliente { get; set; }
         public DbSet<ResultadoSincronizacaoServidor> ResultadosServidor { get; set; }
         public DbSet<RegistroCancelamento> Cancelamentos { get; set; }
+        public DbSet<Imagem> Imagens { get; set; }
 
         public AplicativoContext()
         {

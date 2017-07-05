@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using Windows.UI.Xaml.Media;
 
 namespace NFeFacil.DANFE.Pacotes
 {
@@ -19,6 +20,7 @@ namespace NFeFacil.DANFE.Pacotes
         public string IEST { get; set; }
         public string CNPJEmit { get; set; }
         public Endereço Endereco { get; set; }
+        public ImageSource Logotipo { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

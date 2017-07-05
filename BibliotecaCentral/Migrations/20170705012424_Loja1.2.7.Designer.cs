@@ -1,13 +1,17 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
+using BibliotecaCentral;
 
 namespace BibliotecaCentral.Migrations
 {
     [DbContext(typeof(AplicativoContext))]
-    partial class AplicativoContextModelSnapshot : ModelSnapshot
+    [Migration("20170705012424_Loja1.2.7")]
+    partial class Loja127
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2");

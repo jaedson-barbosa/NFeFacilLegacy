@@ -84,6 +84,13 @@
                              InputScope="Number"
                              Header="Telefone" />
                 </ItemsControl>
+                <TextBlock Text="Logotipo"
+                           Style="{StaticResource TitleTextBlockStyle}"
+                           Margin="4,0,0,0" />
+                <Image x:Name="imagem"
+                       Width="128"
+                       Height="128"
+                       HorizontalAlignment="Left" />
             </StackPanel>
         </ScrollViewer>
         <CommandBar Grid.Row="1">
@@ -95,6 +102,14 @@
                           Icon="Cancel"
                           Label="Cancelar"
                           Click="Cancelar_Click" />
+            <AppBarButton x:Name="ImportarLogotipo"
+                          Icon="Import"
+                          Label="Importar logotipo"
+                          Click="ImportarLogotipo_Click" />
+            <AppBarButton x:Name="ApagarLogotipo"
+                          Icon="Delete"
+                          Label="Apagar logotipo"
+                          Click="ApagarLogotipo_Click" />
         </CommandBar>
     </Grid>
 </Page>

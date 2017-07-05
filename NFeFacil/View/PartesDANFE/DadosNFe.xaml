@@ -25,19 +25,29 @@
                 <RowDefinition Height="{x:Bind Linha0}" />
                 <RowDefinition Height="{Binding Source={StaticResource dimensoes}, Path=AlturaLinhaPadrao}" />
             </Grid.RowDefinitions>
-            <StackPanel Padding="{StaticResource PaddingPadrao}">
-                <TextBlock TextAlignment="Center"
-                           FontSize="16"
-                           FontWeight="Bold"
-                           Margin="0,10"
-                           Text="{Binding NomeEmitente}" />
-                <TextBlock FontSize="12"><Run Text="{Binding Endereco.Logradouro}" />, <Run Text="{Binding Endereco.Numero}" /></TextBlock>
-                <TextBlock FontSize="12"
-                           Text="{Binding Endereco.Bairro}"/>
-                <TextBlock FontSize="12"><Run Text="{Binding Endereco.Municipio}" /> - <Run Text="{Binding Endereco.UF}" /></TextBlock>
-                <TextBlock FontSize="12">CEP: <Run Text="{Binding Endereco.CEP}" /></TextBlock>
-                <TextBlock FontSize="12">FONE: <Run Text="{Binding Endereco.Fone}" /></TextBlock>
-            </StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Image Source="{Binding Logotipo}" />
+                <StackPanel Grid.Column="1"
+                            Padding="{StaticResource PaddingPadrao}">
+                    <TextBlock TextAlignment="Center"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Margin="0,10"
+                               TextWrapping="Wrap"
+                               Text="{Binding NomeEmitente}" />
+                    <TextBlock FontSize="12"
+                               TextWrapping="Wrap"><Run Text="{Binding Endereco.Logradouro}" />, <Run Text="{Binding Endereco.Numero}" /></TextBlock>
+                    <TextBlock FontSize="12"
+                               Text="{Binding Endereco.Bairro}" />
+                    <TextBlock FontSize="12"><Run Text="{Binding Endereco.Municipio}" /> - <Run Text="{Binding Endereco.UF}" /></TextBlock>
+                    <TextBlock FontSize="12">CEP: <Run Text="{Binding Endereco.CEP}" /></TextBlock>
+                    <TextBlock FontSize="12">FONE: <Run Text="{Binding Endereco.Fone}" /></TextBlock>
+                </StackPanel>
+            </Grid>
             <StackPanel Grid.Column="1"
                         BorderThickness="1,0,0,0"
                         BorderBrush="Black"

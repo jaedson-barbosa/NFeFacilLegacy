@@ -126,6 +126,7 @@
     <Compile Include="Certificacao\OrigemCertificado.cs" />
     <Compile Include="ItensBD\ClienteDI.cs" />
     <Compile Include="ItensBD\EmitenteDI.cs" />
+    <Compile Include="ItensBD\Imagem.cs" />
     <Compile Include="ItensBD\MotoristaDI.cs" />
     <Compile Include="ItensBD\ProdutoDI.cs" />
     <Compile Include="ItensBD\RegistroCancelamento.cs" />
@@ -140,6 +141,10 @@
     <Compile Include="Migrations\20170617182941_RegistroCancelamentoAdicionado.cs" />
     <Compile Include="Migrations\20170617182941_RegistroCancelamentoAdicionado.designer.cs">
       <DependentUpon>20170617182941_RegistroCancelamentoAdicionado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20170705012424_Loja1.2.7.cs" />
+    <Compile Include="Migrations\20170705012424_Loja1.2.7.designer.cs">
+      <DependentUpon>20170705012424_Loja1.2.7.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\AplicativoContextModelSnapshot.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\IRegimeNormal.cs" />

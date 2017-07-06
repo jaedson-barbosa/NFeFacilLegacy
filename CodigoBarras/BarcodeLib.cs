@@ -49,7 +49,8 @@ namespace CodigoBarras
                 {
                     Fill = new SolidColorBrush(EncodedValue[pos] == '1' ? Colors.Black : Colors.White),
                     Width = 1,
-                    Height = 30
+                    Height = 30,
+                    UseLayoutRounding = false
                 };
             }
 

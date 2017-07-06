@@ -274,6 +274,9 @@
     <Compile Include="View\ManipulacaoProdutoCompleto.xaml.cs">
       <DependentUpon>ManipulacaoProdutoCompleto.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ManipulacaoRegistroVenda.xaml.cs">
+      <DependentUpon>ManipulacaoRegistroVenda.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\NotasSalvas.xaml.cs">
       <DependentUpon>NotasSalvas.xaml</DependentUpon>
     </Compile>
@@ -533,6 +536,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ManipulacaoProdutoCompleto.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ManipulacaoRegistroVenda.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -43,7 +43,7 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Pa
                         else if (imposto is IPI && (imposto as IPI).Corpo is IPITrib)
                         {
                             var vIPI = ((imposto as IPI).Corpo as IPITrib).vIPI;
-                            vIPI += vIPI != null ? double.Parse(vIPI) : 0;
+                            VIPI += !string.IsNullOrEmpty(vIPI) ? double.Parse(vIPI) : 0;
                         }
                         else if (imposto is PIS)
                         {
@@ -167,8 +167,8 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Pa
         {
             get
             {
-                var valores = new List<double> { VBC, VICMS, VICMSDeson, VBCST, VST, VProd, VFrete, VSeg, VII, VIPI, VPIS, VCOFINS, VOutro, VTotTrib, vProdISSQN };
-                return valores.Sum() - VDesc;
+                var valores = new double[] { VProd, VST, VFrete, VSeg, VOutro, VII, VIPI, vProdISSQN};
+                return valores.Sum() - (VDesc + VICMSDeson);
             }
             set { }
         }

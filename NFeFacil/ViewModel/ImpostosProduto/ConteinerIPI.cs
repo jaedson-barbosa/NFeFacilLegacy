@@ -131,7 +131,20 @@ namespace NFeFacil.ViewModel.ImpostosProduto
             this.atulizarContexto = atulizarContexto;
             if (this.original is IPITrib trib)
             {
-                VBC = produto.ValorTotal;
+                double extras = 0;
+                if (!string.IsNullOrEmpty(produto.Frete))
+                {
+                    extras += double.Parse(produto.Frete);
+                }
+                if (!string.IsNullOrEmpty(produto.Seguro))
+                {
+                    extras += double.Parse(produto.Seguro);
+                }
+                if (!string.IsNullOrEmpty(produto.DespesasAcessórias))
+                {
+                    extras += double.Parse(produto.DespesasAcessórias);
+                }
+                VBC = produto.ValorTotal + extras;
                 QUnid = produto.QuantidadeComercializada;
             }
             CalcularValor();

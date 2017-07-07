@@ -3,6 +3,8 @@
                     xmlns:aux="using:NFeFacil.View.Estilos.Auxiliares">
     <Style x:Key="ItensResponsivos"
            TargetType="ItemsControl">
+        <Setter Property="Margin"
+                Value="-4" />
         <Setter Property="ItemContainerTransitions">
             <Setter.Value>
                 <TransitionCollection>

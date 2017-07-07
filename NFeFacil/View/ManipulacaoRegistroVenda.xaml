@@ -14,30 +14,82 @@
     </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
           Margin="16">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.Setters>
+                        <Setter Target="grpGeral.(Grid.ColumnSpan)"
+                                Value="1" />
+                        <Setter Target="grpGeral.(Grid.RowSpan)"
+                                Value="2" />
+                        <Setter Target="lstProdutos.(Grid.ColumnSpan)"
+                                Value="1" />
+                        <Setter Target="lstProdutos.(Grid.RowSpan)"
+                                Value="2" />
+                        <Setter Target="lstProdutos.(Grid.Column)"
+                                Value="1" />
+                    </VisualState.Setters>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowHeight="0" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowHeight="680" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*" />
+            <ColumnDefinition />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <ItemsControl Style="{StaticResource ItensResponsivos}"
-                      Grid.ColumnSpan="2">
+        <Grid x:Name="grpGeral"
+              Grid.ColumnSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
             <ComboBox Header="Vendedor"
-                      MaxWidth="256" />
-            <CheckBox VerticalAlignment="Bottom">Vendido pelo emitente</CheckBox>
+                      HorizontalAlignment="Stretch" />
+            <CheckBox VerticalAlignment="Top"
+                      HorizontalAlignment="Right">Usar emitente</CheckBox>
             <ComboBox Header="Cliente"
-                      MaxWidth="256" />
-            <DatePicker Header="Data da venda"
-                        MinWidth="160"
-                        MaxWidth="256"
-                        MonthFormat="{}{month.integer} {month.abbreviated}" />
-            <TextBox Header="Desconto" />
-            <TextBox Header="Total" />
-        </ItemsControl>
-        <ListView Grid.Row="1"
+                      Grid.Row="1"
+                      HorizontalAlignment="Stretch" />
+            <ItemsControl Grid.Row="2"
+                          Style="{StaticResource ItensResponsivos}">
+                <DatePicker Header="Data da venda"
+                            MinWidth="156"
+                            MonthFormat="{}{month.integer} {month.abbreviated}" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Button VerticalAlignment="Stretch"
+                            Margin="0,2,2,0">
+                        <TextBlock TextAlignment="Center">
+                        <Run>Aplicar</Run>
+                        <LineBreak />
+                        <Run>desconto</Run></TextBlock>
+                    </Button>
+                    <TextBox Grid.Column="1"
+                             Header="Desconto %"
+                             IsReadOnly="True" />
+                </Grid>
+                <TextBox MaxLength="12"
+                         Header="Total" />
+            </ItemsControl>
+        </Grid>
+        <ListView x:Name="lstProdutos"
+                  Grid.Row="1"
                   Grid.ColumnSpan="2"
                   ItemContainerStyle="{StaticResource ItemFullWidth}">
             <ListView.Header>
@@ -60,4 +112,10 @@
                      TextWrapping="Wrap" />
         </ScrollViewer>
     </Grid>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Label="Criar nota fiscal"
+                          Icon="Page" />
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>

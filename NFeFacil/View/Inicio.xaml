@@ -25,6 +25,11 @@
                                   Tapped="AbrirFunção">
                 <SymbolIcon Symbol="Manage" />
             </controles:ItemPadrao>
+            <controles:ItemPadrao Titulo="Criar nova venda"
+                                  Descricao="Crie o registro de uma venda apenas com as informações básicas, depois, se você quiser, poderá emitir a nota fiscal facilmente."
+                                  Tapped="CriarVenda">
+                <SymbolIcon Symbol="Add" />
+            </controles:ItemPadrao>
             <controles:ItemPadrao Titulo="Criar nota fiscal"
                                   Descricao="Parte principal da aplicação. Aqui você pode criar uma nova nova fiscal e, posteriormente, transmití-la, imprimí-la e salvá-la."
                                   Tapped="CriarNotaFiscal">

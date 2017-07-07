@@ -65,5 +65,10 @@ namespace NFeFacil.View
                     StatusAtual = StatusNFe.Edição
                 });
         }
+
+        private void CriarVenda(object sender, TappedRoutedEventArgs e)
+        {
+            MainPage.Current.AbrirFunçao(typeof(ManipulacaoRegistroVenda));
+        }
     }
 }

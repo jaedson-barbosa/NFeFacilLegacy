@@ -12,13 +12,13 @@ namespace NFeFacil.View
     {
         public ManipulacaoRegistroVenda()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            base.OnNavigatedFrom(e);
-            this.Content = null;
+            base.OnNavigatedTo(e);
+            MainPage.Current.SeAtualizar("\uEC59", "Registro de venda");
         }
     }
 }

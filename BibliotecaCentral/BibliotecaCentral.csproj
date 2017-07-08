@@ -151,6 +151,7 @@
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\ISimplesNacional.cs" />
     <Compile Include="OperacoesNotaEmitida.cs" />
     <Compile Include="OperacoesNotaSalva.cs" />
+    <Compile Include="Propriedades.cs" />
     <Compile Include="RecursoInserido.cs" />
     <Compile Include="Repositorio\MudancaOtimizadaBancoDados.cs" />
     <Compile Include="Sincronizacao\ConfiguracoesSincronizacao.cs" />

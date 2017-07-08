@@ -43,6 +43,7 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="0"
                                   x:Name="ColunaHamburguer" />
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Button x:Name="btnRetornar"
@@ -59,7 +60,7 @@
                     Background="#00000000"
                     Width="48"
                     BorderThickness="0"
-                    Click="btnHambuguer_Click">
+                    Click="AbrirHamburguer">
                 <FontIcon Glyph="&#xE700;" />
             </Button>
             <StackPanel x:Name="MainTitleBar"
@@ -73,7 +74,15 @@
                            Style="{StaticResource BodyTextBlockStyle}"
                            VerticalAlignment="Center"
                            FontWeight="Bold">Nota Fácil</TextBlock>
+                <TextBlock x:Name="txtEmitente"
+                           VerticalAlignment="Center"
+                           Margin="4,0,0,0" />
             </StackPanel>
+            <ComboBox Grid.Column="3"
+                      x:Name="cmbEmitente"
+                      VerticalAlignment="Center"
+                      DisplayMemberPath="Nome"
+                      Margin="4,0,0,0" />
         </Grid>
         <SplitView x:Name="splitView"
                    Grid.Row="1"

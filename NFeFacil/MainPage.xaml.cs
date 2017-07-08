@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BibliotecaCentral.ItensBD;
+using System;
+using System.Linq;
 using Windows.ApplicationModel.Core;
 using Windows.System.Profile;
 using Windows.UI;
@@ -31,6 +33,10 @@ namespace NFeFacil
             };
             frmPrincipal.CacheSize = 4;
             AbrirFunçao(typeof(View.Inicio));
+            using (var db = new BibliotecaCentral.AplicativoContext())
+            {
+                BibliotecaCentral.Propriedades.Ativo = db.Emitentes.FirstOrDefault();
+            }
         }
 
         private void AnalisarBarraTituloAsync()
@@ -110,6 +116,8 @@ namespace NFeFacil
                     splitView.Pane = conteudo;
                 }
             }
+
+            AtualizarExibicaoExtra(frmPrincipal.Content is View.Inicio ? ExibicaoExtra.EscolherEmitente : ExibicaoExtra.ExibirEmitente);
         }
 
         public void SeAtualizar(string glyph, string texto)
@@ -119,6 +127,7 @@ namespace NFeFacil
             {
                 Glyph = glyph,
             };
+            AtualizarExibicaoExtra(ExibicaoExtra.ExibirEmitente);
         }
 
         public async void Retornar()
@@ -148,9 +157,59 @@ namespace NFeFacil
             }
         }
 
-        private void btnHambuguer_Click(object sender, RoutedEventArgs e)
+        private void AbrirHamburguer(object sender, RoutedEventArgs e)
         {
             splitView.IsPaneOpen = !splitView.IsPaneOpen;
+        }
+
+        void AtualizarExibicaoExtra(ExibicaoExtra ativa)
+        {
+            switch (ativa)
+            {
+                case ExibicaoExtra.ExibirEmitente:
+                    var emit = BibliotecaCentral.Propriedades.Ativo;
+                    if (emit != null)
+                    {
+                        txtEmitente.Text = emit.Nome;
+                    }
+                    else
+                    {
+                        txtEmitente.Text = null;
+                    }
+                    txtEmitente.Visibility = Visibility.Visible;
+                    cmbEmitente.Visibility = Visibility.Collapsed;
+                    cmbEmitente.SelectionChanged -= SelecaoMudou;
+                    cmbEmitente.ItemsSource = null;
+                    break;
+                case ExibicaoExtra.EscolherEmitente:
+                    using (var db = new BibliotecaCentral.AplicativoContext())
+                    {
+                        var emits = db.Emitentes;
+                        cmbEmitente.ItemsSource = emits;
+                        cmbEmitente.SelectionChanged += SelecaoMudou;
+                        if (cmbEmitente.SelectedIndex == -1) cmbEmitente.SelectedIndex = 0;
+                        txtEmitente.Text = string.Empty;
+                        txtEmitente.Visibility = Visibility.Collapsed;
+                        cmbEmitente.Visibility = Visibility.Visible;
+                    }
+                    break;
+                default:
+                    txtEmitente.Visibility = Visibility.Collapsed;
+                    cmbEmitente.Visibility = Visibility.Collapsed;
+                    break;
+            }
+
+            void SelecaoMudou(object sender, SelectionChangedEventArgs e)
+            {
+                var novoEmit = (EmitenteDI)e.AddedItems[0];
+                BibliotecaCentral.Propriedades.Ativo = novoEmit;
+            }
+        }
+
+        enum ExibicaoExtra
+        {
+            ExibirEmitente,
+            EscolherEmitente
         }
     }
 }

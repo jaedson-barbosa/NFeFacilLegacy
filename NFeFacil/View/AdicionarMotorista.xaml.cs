@@ -45,10 +45,10 @@ namespace NFeFacil.View
             switch (tipoRequisitado)
             {
                 case TipoOperacao.Adicao:
-                    MainPage.Current.SeAtualizar(Symbol.Add, "Adicionar motorista");
+                    MainPage.Current.SeAtualizar(Symbol.Add, "Motorista");
                     break;
                 case TipoOperacao.Edicao:
-                    MainPage.Current.SeAtualizar(Symbol.Edit, "Editar motorista");
+                    MainPage.Current.SeAtualizar(Symbol.Edit, "Motorista");
                     break;
             }
             DataContext = new MotoristaDataContext(ref motorista);

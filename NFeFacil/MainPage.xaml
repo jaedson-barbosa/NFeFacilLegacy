@@ -73,7 +73,7 @@
                 </Grid.ColumnDefinitions>
                 <ContentControl Name="symTitulo"
                                 VerticalAlignment="Center"
-                                Margin="16,0" />
+                                Margin="8,0" />
                 <TextBlock Name="txtTitulo"
                            Grid.Column="1"
                            Style="{StaticResource BodyTextBlockStyle}"

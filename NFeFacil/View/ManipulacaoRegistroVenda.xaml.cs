@@ -19,7 +19,7 @@ namespace NFeFacil.View
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            MainPage.Current.SeAtualizar("\uEC59", "Registro de venda");
+            MainPage.Current.SeAtualizar("\uEC59", "Venda");
         }
 
         private async void AdicionarProduto(object sender, Windows.UI.Xaml.RoutedEventArgs e)

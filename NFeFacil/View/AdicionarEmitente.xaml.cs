@@ -47,10 +47,10 @@ namespace NFeFacil.View
             switch (tipoRequisitado)
             {
                 case TipoOperacao.Adicao:
-                    MainPage.Current.SeAtualizar(Symbol.Add, "Adicionar emitente");
+                    MainPage.Current.SeAtualizar(Symbol.Add, "Emitente");
                     break;
                 case TipoOperacao.Edicao:
-                    MainPage.Current.SeAtualizar(Symbol.Edit, "Editar emitente");
+                    MainPage.Current.SeAtualizar(Symbol.Edit, "Emitente");
                     break;
             }
             DefinirImagem();

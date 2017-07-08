@@ -1,4 +1,5 @@
-﻿using BibliotecaCentral.ItensBD;
+﻿using BibliotecaCentral;
+using BibliotecaCentral.ItensBD;
 using System;
 using System.Linq;
 using Windows.ApplicationModel.Core;
@@ -33,9 +34,9 @@ namespace NFeFacil
             };
             frmPrincipal.CacheSize = 4;
             AbrirFunçao(typeof(View.Inicio));
-            using (var db = new BibliotecaCentral.AplicativoContext())
+            using (var db = new AplicativoContext())
             {
-                BibliotecaCentral.Propriedades.Ativo = db.Emitentes.FirstOrDefault();
+                Propriedades.EmitenteAtivo = db.Emitentes.FirstOrDefault();
             }
         }
 
@@ -52,9 +53,9 @@ namespace NFeFacil
             }
             else if (familia.Contains("Desktop"))
             {
+                Window.Current.CoreWindow.KeyDown += (x, y) => System.Diagnostics.Debug.WriteLine(y.VirtualKey);
                 CoreApplicationViewTitleBar tb = CoreApplication.GetCurrentView().TitleBar;
                 tb.ExtendViewIntoTitleBar = true;
-                tb.IsVisibleChanged += (sender, e) => TitleBar.Visibility = sender.IsVisible ? Visibility.Visible : Visibility.Collapsed;
                 tb.LayoutMetricsChanged += (sender, e) => TitleBar.Height = sender.Height;
 
                 Window.Current.SetTitleBar(MainTitleBar);
@@ -123,11 +124,15 @@ namespace NFeFacil
         public void SeAtualizar(string glyph, string texto)
         {
             txtTitulo.Text = texto;
-            symTitulo.Content = new FontIcon
+            symTitulo.Content = new FontIcon { Glyph = glyph };
+            if (glyph == "\uEC59")
             {
-                Glyph = glyph,
-            };
-            AtualizarExibicaoExtra(ExibicaoExtra.ExibirEmitente);
+                AtualizarExibicaoExtra(ExibicaoExtra.EscolherVendedor);
+            }
+            else
+            {
+                AtualizarExibicaoExtra(ExibicaoExtra.ExibirEmitente);
+            }
         }
 
         public async void Retornar()
@@ -167,32 +172,64 @@ namespace NFeFacil
             switch (ativa)
             {
                 case ExibicaoExtra.ExibirEmitente:
-                    var emit = BibliotecaCentral.Propriedades.Ativo;
+                    var emit = Propriedades.EmitenteAtivo;
                     if (emit != null)
                     {
-                        txtEscolhido.Text = emit.Nome;
+                        txtEscolhido.Text = emit.Nome.Substring(0, emit.Nome.IndexOf(' '));
                     }
                     else
                     {
                         txtEscolhido.Text = string.Empty;
                     }
                     txtEscolhido.Visibility = Visibility.Visible;
+                    txtTitulo.Visibility = Visibility.Visible;
                     cmbEscolha.Visibility = Visibility.Collapsed;
                     cmbEscolha.SelectionChanged -= SelecaoMudou;
                     cmbEscolha.ItemsSource = null;
                     break;
                 case ExibicaoExtra.EscolherEmitente:
-                    using (var db = new BibliotecaCentral.AplicativoContext())
+                    using (var db = new AplicativoContext())
                     {
-                        var emits = new EmitenteDI[] { new EmitenteDI { Nome = "Severino Alves Serafim ME" } }; //db.Emitentes;
-                        cmbEscolha.ItemsSource = emits;
+                        var emits = db.Emitentes;
+                        cmbEscolha.ItemsSource = emits.GerarObs();
                         cmbEscolha.SelectionChanged += SelecaoMudou;
                         if (cmbEscolha.SelectedIndex == -1 && emits.Count() > 0)
                         {
-                            cmbEscolha.SelectedIndex = 0;
+                            if (Propriedades.EmitenteAtivo != null)
+                            {
+                                cmbEscolha.SelectedItem = Propriedades.EmitenteAtivo;
+                            }
+                            else
+                            {
+                                cmbEscolha.SelectedIndex = 0;
+                            }
                         }
                         txtEscolhido.Text = string.Empty;
                         txtEscolhido.Visibility = Visibility.Collapsed;
+                        txtTitulo.Visibility = Visibility.Collapsed;
+                        cmbEscolha.Visibility = Visibility.Visible;
+                    }
+                    break;
+                case ExibicaoExtra.EscolherVendedor:
+                    using (var db = new AplicativoContext())
+                    {
+                        var vends = db.Vendedores;
+                        cmbEscolha.ItemsSource = vends.GerarObs();
+                        cmbEscolha.SelectionChanged += SelecaoMudou;
+                        if (cmbEscolha.SelectedIndex == -1 && vends.Count() > 0)
+                        {
+                            if (Propriedades.VendedorAtivo != null)
+                            {
+                                cmbEscolha.SelectedItem = Propriedades.VendedorAtivo;
+                            }
+                            else
+                            {
+                                cmbEscolha.SelectedIndex = 0;
+                            }
+                        }
+                        txtEscolhido.Text = string.Empty;
+                        txtEscolhido.Visibility = Visibility.Collapsed;
+                        txtTitulo.Visibility = Visibility.Visible;
                         cmbEscolha.Visibility = Visibility.Visible;
                     }
                     break;
@@ -204,14 +241,25 @@ namespace NFeFacil
 
             void SelecaoMudou(object sender, SelectionChangedEventArgs e)
             {
-                var novoEmit = (EmitenteDI)e.AddedItems[0];
-                BibliotecaCentral.Propriedades.Ativo = novoEmit;
+                if (e.AddedItems.Count == 1)
+                {
+                    var item = e.AddedItems[0];
+                    if (item is EmitenteDI novoEmit)
+                    {
+                        Propriedades.EmitenteAtivo = novoEmit;
+                    }
+                    else if (item is Vendedor vendedor)
+                    {
+                        Propriedades.VendedorAtivo = vendedor;
+                    }
+                }
             }
         }
 
         enum ExibicaoExtra
         {
             ExibirEmitente,
+            EscolherVendedor,
             EscolherEmitente
         }
     }

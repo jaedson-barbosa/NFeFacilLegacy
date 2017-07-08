@@ -20,7 +20,7 @@ namespace NFeFacil.View
         public Consulta()
         {
             InitializeComponent();
-            MainPage.Current.SeAtualizar(Symbol.Find, "Consultar NF-e");
+            MainPage.Current.SeAtualizar(Symbol.Find, "Consulta");
             cmbUF.ItemsSource = Estados.EstadosCache.GerarObs();
         }
 

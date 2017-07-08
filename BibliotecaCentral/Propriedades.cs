@@ -2,8 +2,9 @@
 
 namespace BibliotecaCentral
 {
-    public class Propriedades
+    public static class Propriedades
     {
-        public static EmitenteDI Ativo { get; set; }
+        public static EmitenteDI EmitenteAtivo { get; set; }
+        public static Vendedor VendedorAtivo { get; set; }
     }
 }

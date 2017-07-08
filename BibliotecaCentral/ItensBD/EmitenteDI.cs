@@ -82,5 +82,19 @@ namespace BibliotecaCentral.ItensBD
                 }
             };
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is EmitenteDI emit)
+            {
+                return CNPJ == emit.CNPJ;
+            }
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return CNPJ.GetHashCode();
+        }
     }
 }

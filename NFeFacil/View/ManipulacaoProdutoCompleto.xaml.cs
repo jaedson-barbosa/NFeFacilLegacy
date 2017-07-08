@@ -28,7 +28,7 @@ namespace NFeFacil.View
         {
             var Produto = e.Parameter as DetalhesProdutos;
             DataContext = new ProdutoCompletoDataContext(Produto);
-            MainPage.Current.SeAtualizar(Symbol.Add, "Adicionar produto");
+            MainPage.Current.SeAtualizar(Symbol.Add, "Produto");
         }
 
         private Impostos ImpostosFiltrados

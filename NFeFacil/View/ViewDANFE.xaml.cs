@@ -26,7 +26,7 @@ namespace NFeFacil.View
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            MainPage.Current.SeAtualizar(Symbol.View, "Visualizar DANFE");
+            MainPage.Current.SeAtualizar(Symbol.View, "DANFE");
 
             gerenciadorImpressão = new GerenciadorImpressao();
 

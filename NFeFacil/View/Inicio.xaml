@@ -4,7 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:controles="using:NFeFacil.View.Controles"
       x:Class="NFeFacil.View.Inicio"
-      NavigationCacheMode="Enabled"
+      NavigationCacheMode="Required"
       mc:Ignorable="d">
     <Page.Resources>
         <ResourceDictionary>

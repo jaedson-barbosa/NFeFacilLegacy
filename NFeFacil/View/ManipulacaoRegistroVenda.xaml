@@ -28,6 +28,8 @@
                                 Value="2" />
                         <Setter Target="lstProdutos.(Grid.Column)"
                                 Value="1" />
+                        <Setter Target="lstProdutos.Margin"
+                                Value="4,0,0,0" />
                     </VisualState.Setters>
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowHeight="0" />
@@ -89,6 +91,7 @@
             </ItemsControl>
         </Grid>
         <ListView x:Name="lstProdutos"
+                  Margin="0,2,0,0"
                   Grid.Row="1"
                   Grid.ColumnSpan="2"
                   ItemContainerStyle="{StaticResource ItemFullWidth}">

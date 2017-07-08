@@ -1,19 +1,23 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 
 namespace BibliotecaCentral.IBGE
 {
     public static class Estados
     {
-        public static IEnumerable<Estado> EstadosCache;
+        public static Estado[] EstadosCache;
 
         internal static void Buscar()
         {
             if (EstadosCache == null)
             {
                 var xml = new XML(nameof(Estados)).Retornar();
-                EstadosCache = from estado in xml.Elements()
-                               select new Estado(estado);
+                var filhos = xml.Elements().ToArray();
+                var quant = filhos.Length;
+                EstadosCache = new Estado[quant];
+                for (int i = 0; i < quant; i++)
+                {
+                    EstadosCache[i] = new Estado(filhos[i]);
+                }
             }
         }
 

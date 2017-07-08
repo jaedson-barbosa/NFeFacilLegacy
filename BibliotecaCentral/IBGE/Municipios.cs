@@ -6,7 +6,7 @@ namespace BibliotecaCentral.IBGE
 {
     public static class Municipios
     {
-        private static IEnumerable<Municipio> MunicipiosCache { get; set; }
+        private static Municipio[] MunicipiosCache { get; set; }
 
         public static IEnumerable<Municipio> Get(Estado est)
         {
@@ -39,8 +39,14 @@ namespace BibliotecaCentral.IBGE
         {
             if (MunicipiosCache == null)
             {
-                MunicipiosCache = from município in new XML(nameof(Municipios)).Retornar().Elements()
-                                  select new Municipio(município);
+                var xml = new XML(nameof(Municipios)).Retornar();
+                var filhos = xml.Elements().ToArray();
+                var quant = filhos.Length;
+                MunicipiosCache = new Municipio[quant];
+                for (int i = 0; i < quant; i++)
+                {
+                    MunicipiosCache[i] = new Municipio(filhos[i]);
+                }
             }
         }
     }

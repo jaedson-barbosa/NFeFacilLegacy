@@ -1,4 +1,5 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using System;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
@@ -19,6 +20,12 @@ namespace NFeFacil.View
         {
             base.OnNavigatedTo(e);
             MainPage.Current.SeAtualizar("\uEC59", "Registro de venda");
+        }
+
+        private async void AdicionarProduto(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            var caixa = new CaixasDialogo.RegistroVenda.AdicionarProduto();
+            await caixa.ShowAsync();
         }
     }
 }

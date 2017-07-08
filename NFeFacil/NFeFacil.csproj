@@ -198,6 +198,7 @@
     <Compile Include="ViewModel\NotasSalvasDataContext.cs" />
     <Compile Include="ViewModel\ObterDataContext.cs" />
     <Compile Include="ViewModel\ProdutoCompletoDataContext.cs" />
+    <Compile Include="ViewModel\ProdutoRegistroVenda.cs" />
     <Compile Include="ViewModel\QRCode.cs" />
     <Compile Include="ViewModel\QRConexaoDataContext.cs" />
     <Compile Include="View\AdicionarDestinatario.xaml.cs">
@@ -245,6 +246,9 @@
     </Compile>
     <Compile Include="View\CaixasDialogo\DetalheMotoristaAtual.xaml.cs">
       <DependentUpon>DetalheMotoristaAtual.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\CaixasDialogo\RegistroVenda\AdicionarProduto.xaml.cs">
+      <DependentUpon>AdicionarProduto.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Consulta.xaml.cs">
       <DependentUpon>Consulta.xaml</DependentUpon>
@@ -447,6 +451,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\CaixasDialogo\DetalheMotoristaAtual.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CaixasDialogo\RegistroVenda\AdicionarProduto.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -100,9 +100,10 @@
                     <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
                                Text="Produtos"
                                VerticalAlignment="Center"
-                               Margin="16,0,0,0" />
+                               HorizontalAlignment="Center" />
                     <Button Style="{StaticResource BotaoAdd}"
-                            HorizontalAlignment="Right">
+                            HorizontalAlignment="Right"
+                            Click="AdicionarProduto">
                         <SymbolIcon Symbol="Add" />
                     </Button>
                 </Grid>

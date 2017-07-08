@@ -44,7 +44,7 @@
                 <ColumnDefinition Width="0"
                                   x:Name="ColunaHamburguer" />
                 <ColumnDefinition Width="Auto" />
-                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <Button x:Name="btnRetornar"
                     Background="#00000000"
@@ -63,23 +63,29 @@
                     Click="AbrirHamburguer">
                 <FontIcon Glyph="&#xE700;" />
             </Button>
-            <StackPanel x:Name="MainTitleBar"
-                        Grid.Column="2"
-                        Orientation="Horizontal"
-                        Background="#00000000">
+            <Grid x:Name="MainTitleBar"
+                  Grid.Column="2"
+                  Background="#00000000">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
                 <ContentControl Name="symTitulo"
                                 VerticalAlignment="Center"
                                 Margin="16,0" />
                 <TextBlock Name="txtTitulo"
+                           Grid.Column="1"
                            Style="{StaticResource BodyTextBlockStyle}"
                            VerticalAlignment="Center"
                            FontWeight="Bold">Nota Fácil</TextBlock>
-                <TextBlock x:Name="txtEmitente"
+                <TextBlock x:Name="txtEscolhido"
+                           Grid.Column="2"
                            VerticalAlignment="Center"
                            Margin="4,0,0,0" />
-            </StackPanel>
+            </Grid>
             <ComboBox Grid.Column="3"
-                      x:Name="cmbEmitente"
+                      x:Name="cmbEscolha"
                       VerticalAlignment="Center"
                       DisplayMemberPath="Nome"
                       Margin="4,0,0,0" />

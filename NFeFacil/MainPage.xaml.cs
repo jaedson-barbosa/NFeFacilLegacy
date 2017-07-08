@@ -170,32 +170,35 @@ namespace NFeFacil
                     var emit = BibliotecaCentral.Propriedades.Ativo;
                     if (emit != null)
                     {
-                        txtEmitente.Text = emit.Nome;
+                        txtEscolhido.Text = emit.Nome;
                     }
                     else
                     {
-                        txtEmitente.Text = null;
+                        txtEscolhido.Text = string.Empty;
                     }
-                    txtEmitente.Visibility = Visibility.Visible;
-                    cmbEmitente.Visibility = Visibility.Collapsed;
-                    cmbEmitente.SelectionChanged -= SelecaoMudou;
-                    cmbEmitente.ItemsSource = null;
+                    txtEscolhido.Visibility = Visibility.Visible;
+                    cmbEscolha.Visibility = Visibility.Collapsed;
+                    cmbEscolha.SelectionChanged -= SelecaoMudou;
+                    cmbEscolha.ItemsSource = null;
                     break;
                 case ExibicaoExtra.EscolherEmitente:
                     using (var db = new BibliotecaCentral.AplicativoContext())
                     {
-                        var emits = db.Emitentes;
-                        cmbEmitente.ItemsSource = emits;
-                        cmbEmitente.SelectionChanged += SelecaoMudou;
-                        if (cmbEmitente.SelectedIndex == -1) cmbEmitente.SelectedIndex = 0;
-                        txtEmitente.Text = string.Empty;
-                        txtEmitente.Visibility = Visibility.Collapsed;
-                        cmbEmitente.Visibility = Visibility.Visible;
+                        var emits = new EmitenteDI[] { new EmitenteDI { Nome = "Severino Alves Serafim ME" } }; //db.Emitentes;
+                        cmbEscolha.ItemsSource = emits;
+                        cmbEscolha.SelectionChanged += SelecaoMudou;
+                        if (cmbEscolha.SelectedIndex == -1 && emits.Count() > 0)
+                        {
+                            cmbEscolha.SelectedIndex = 0;
+                        }
+                        txtEscolhido.Text = string.Empty;
+                        txtEscolhido.Visibility = Visibility.Collapsed;
+                        cmbEscolha.Visibility = Visibility.Visible;
                     }
                     break;
                 default:
-                    txtEmitente.Visibility = Visibility.Collapsed;
-                    cmbEmitente.Visibility = Visibility.Collapsed;
+                    txtEscolhido.Visibility = Visibility.Collapsed;
+                    cmbEscolha.Visibility = Visibility.Collapsed;
                     break;
             }
 

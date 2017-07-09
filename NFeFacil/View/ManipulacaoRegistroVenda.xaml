@@ -58,10 +58,6 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <ComboBox Header="Vendedor"
-                      HorizontalAlignment="Stretch" />
-            <CheckBox VerticalAlignment="Top"
-                      HorizontalAlignment="Right">Usar emitente</CheckBox>
             <ComboBox Header="Cliente"
                       Grid.Row="1"
                       HorizontalAlignment="Stretch" />
@@ -83,7 +79,7 @@
                         <Run>desconto</Run></TextBlock>
                     </Button>
                     <TextBox Grid.Column="1"
-                             Header="Desconto %"
+                             Header="Desconto"
                              IsReadOnly="True" />
                 </Grid>
                 <TextBox MaxLength="12"

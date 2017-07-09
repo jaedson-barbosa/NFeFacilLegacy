@@ -53,7 +53,7 @@ namespace BibliotecaCentral
             string total = "yyyy-MM-ddTHH:mm:ss";
             total = dataHora.ToString(total);
             if (horas < 0) total += '-';
-            total += $"{Math.Abs(horas).ToString().PadLeft(2, '0')}:00";
+            total += $"{Math.Abs(horas).ToString("00")}:00";
             return total;
         }
 

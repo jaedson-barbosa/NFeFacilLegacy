@@ -15,6 +15,8 @@ namespace BibliotecaCentral
         public DbSet<RegistroCancelamento> Cancelamentos { get; set; }
         public DbSet<Imagem> Imagens { get; set; }
         public DbSet<Vendedor> Vendedores { get; set; }
+        public DbSet<VeiculoDI> Veiculos { get; set; }
+        public DbSet<RegistroVenda> Vendas { get; set; }
 
         public AplicativoContext()
         {

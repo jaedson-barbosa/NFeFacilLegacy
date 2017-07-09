@@ -9,6 +9,8 @@ namespace BibliotecaCentral.ItensBD
         public Guid Id { get; set; }
         public DateTime UltimaData { get; set; }
 
+        public Guid IdVeiculo { get; set; }
+
         public string CPF { get; set; }
         public string CNPJ { get; set; }
         public string Nome { get; set; }

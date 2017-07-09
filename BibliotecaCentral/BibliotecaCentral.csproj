@@ -129,7 +129,10 @@
     <Compile Include="ItensBD\Imagem.cs" />
     <Compile Include="ItensBD\MotoristaDI.cs" />
     <Compile Include="ItensBD\ProdutoDI.cs" />
+    <Compile Include="ItensBD\ProdutoSimplesVenda.cs" />
     <Compile Include="ItensBD\RegistroCancelamento.cs" />
+    <Compile Include="ItensBD\RegistroVenda.cs" />
+    <Compile Include="ItensBD\VeiculoDI.cs" />
     <Compile Include="ItensBD\Vendedor.cs" />
     <Compile Include="Migrations\20170603122440_Loja1.cs" />
     <Compile Include="Migrations\20170603122440_Loja1.designer.cs">
@@ -150,6 +153,10 @@
     <Compile Include="Migrations\20170708170014_AdicionadoVendedores.cs" />
     <Compile Include="Migrations\20170708170014_AdicionadoVendedores.designer.cs">
       <DependentUpon>20170708170014_AdicionadoVendedores.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20170709190618_RegistroVeiculoEVenda.cs" />
+    <Compile Include="Migrations\20170709190618_RegistroVeiculoEVenda.designer.cs">
+      <DependentUpon>20170709190618_RegistroVeiculoEVenda.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\AplicativoContextModelSnapshot.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\IRegimeNormal.cs" />

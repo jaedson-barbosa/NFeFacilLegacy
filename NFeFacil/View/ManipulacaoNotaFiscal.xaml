@@ -20,7 +20,6 @@
             <Conversores:EstadoToMunicipios x:Key="obterMun" />
             <Conversores:ColecaoValida x:Key="getObs" />
             <Conversores:StringToDateTime x:Key="data" />
-            <Conversores:ModificaValor x:Key="valorAlterado" />
             <Conversores:Invert x:Key="inverter" />
         </ResourceDictionary>
     </Page.Resources>
@@ -68,11 +67,12 @@
                                 <ComboBoxItem Content="Saída" />
                             </ComboBox>
                             <ComboBox Header="Finalidade de emissão *"
-                                      SelectedIndex="{Binding NotaSalva.Informações.identificação.FinalidadeEmissão, Converter={StaticResource valorAlterado}, ConverterParameter='-1', Mode=TwoWay}">
-                                <ComboBoxItem Content="Normal" />
-                                <ComboBoxItem Content="Complementar" />
-                                <ComboBoxItem Content="De ajuste" />
-                                <ComboBoxItem Content="Devolução de mercadoria" />
+                                      SelectedValue="{Binding NotaSalva.Informações.identificação.FinalidadeEmissão, Mode=TwoWay}"
+                                      SelectedValuePath="Tag">
+                                <ComboBoxItem Tag="1" Content="Normal" />
+                                <ComboBoxItem Tag="2" Content="Complementar" />
+                                <ComboBoxItem Tag="3" Content="De ajuste" />
+                                <ComboBoxItem Tag="4" Content="Devolução de mercadoria" />
                             </ComboBox>
                             <ComboBox Header="Consumidor final *"
                                       SelectedIndex="{Binding NotaSalva.Informações.identificação.OperaçãoConsumidorFinal, Mode=TwoWay}">
@@ -93,10 +93,11 @@
                                 <ComboBoxItem Content="Outros" />
                             </ComboBox>
                             <ComboBox Header="Destino da operação *"
-                                      SelectedIndex="{Binding NotaSalva.Informações.identificação.IdentificadorDestino, Converter={StaticResource valorAlterado}, ConverterParameter='-1', Mode=TwoWay}">
-                                <ComboBoxItem Content="Operação interna" />
-                                <ComboBoxItem Content="Operação interestadual" />
-                                <ComboBoxItem Content="Operação com o exterior" />
+                                      SelectedValue="{Binding NotaSalva.Informações.identificação.IdentificadorDestino, Mode=TwoWay}"
+                                      SelectedValuePath="Tag">
+                                <ComboBoxItem Tag="1" Content="Operação interna" />
+                                <ComboBoxItem Tag="2" Content="Operação interestadual" />
+                                <ComboBoxItem Tag="3" Content="Operação com o exterior" />
                             </ComboBox>
                             <TextBox Header="Natureza da operação *"
                                      Text="{Binding NotaSalva.Informações.identificação.NaturezaDaOperação, Mode=TwoWay}" />
@@ -478,14 +479,15 @@
                                                        Number="{Binding VISSRet, Mode=TwoWay}"
                                                        Header="Retenção ISS"
                                                        IsReadOnly="True" />
-                            <ComboBox SelectedIndex="{Binding CRegTrib, Converter={StaticResource valorAlterado}, ConverterParameter='-1', Mode=TwoWay}"
+                            <ComboBox SelectedValue="{Binding CRegTrib, Mode=TwoWay}"
+                                      SelectedValuePath="Tag"
                                       Header="Regime especial de tributação">
-                                <ComboBoxItem>Microempresa municipal</ComboBoxItem>
-                                <ComboBoxItem>Estimativa</ComboBoxItem>
-                                <ComboBoxItem>Sociedade de profissionais</ComboBoxItem>
-                                <ComboBoxItem>Cooperativa</ComboBoxItem>
-                                <ComboBoxItem>Microempresário individual (MEI)</ComboBoxItem>
-                                <ComboBoxItem>Microempresário e empresa de pequeno porte</ComboBoxItem>
+                                <ComboBoxItem Tag="1">Microempresa municipal</ComboBoxItem>
+                                <ComboBoxItem Tag="2">Estimativa</ComboBoxItem>
+                                <ComboBoxItem Tag="3">Sociedade de profissionais</ComboBoxItem>
+                                <ComboBoxItem Tag="4">Cooperativa</ComboBoxItem>
+                                <ComboBoxItem Tag="5">Microempresário individual (MEI)</ComboBoxItem>
+                                <ComboBoxItem Tag="6">Microempresário e empresa de pequeno porte</ComboBoxItem>
                             </ComboBox>
                         </ItemsControl>
                     </PivotItem>

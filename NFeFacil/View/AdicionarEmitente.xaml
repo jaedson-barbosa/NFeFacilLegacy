@@ -13,7 +13,6 @@
             </ResourceDictionary.MergedDictionaries>
             <VM:DadosEstadosParaView x:Key="estados" />
             <Conversores:EstadoToMunicipios x:Key="obterMunicipios" />
-            <Conversores:ModificaValor x:Key="mudarValor" />
         </ResourceDictionary>
     </Page.Resources>
     <Grid x:Name="grdPrincipal"
@@ -47,11 +46,12 @@
                     <TextBox Text="{Binding IEST, Mode=TwoWay}"
                              InputScope="Number"
                              Header="Inscrição estadual (Subst. tributário)" />
-                    <ComboBox SelectedIndex="{Binding RegimeTributario, Mode=TwoWay, ConverterParameter='-1', Converter={StaticResource mudarValor}}"
+                    <ComboBox SelectedValue="{Binding RegimeTributario, Mode=TwoWay}"
+                              SelectedValuePath="Tag"
                               Header="Código do Regime Tributário *">
-                        <ComboBoxItem Content="Simples Nacional" />
-                        <ComboBoxItem Content="Simples Nacional, excesso sublimite de receita bruta" />
-                        <ComboBoxItem Content="Regime Normal" />
+                        <ComboBoxItem Tag="1" Content="Simples Nacional" />
+                        <ComboBoxItem Tag="2" Content="Simples Nacional, excesso sublimite de receita bruta" />
+                        <ComboBoxItem Tag="3" Content="Regime Normal" />
                     </ComboBox>
                 </ItemsControl>
                 <TextBlock Text="Endereço"

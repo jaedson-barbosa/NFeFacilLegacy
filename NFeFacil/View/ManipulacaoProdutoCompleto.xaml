@@ -19,7 +19,6 @@
             </ResourceDictionary.MergedDictionaries>
             <Conversores:BoolToVisibility x:Key="visibilidade" />
             <Conversores:EstadoToMunicipios x:Key="obterMunicipio" />
-            <Conversores:ModificaValor x:Key="valorAlterado" />
             <Conversores:StringToDateTime x:Key="data" />
             <VM:DadosEstadosParaView x:Key="estados" />
         </ResourceDictionary>
@@ -651,16 +650,17 @@
                                 <TextBox Text="{Binding Imposto.vISSQN, Mode=TwoWay}"
                                          Header="Valor do ISSQN *"
                                          InputScope="Number" />
-                                <ComboBox SelectedIndex="{Binding Imposto.indISS, ConverterParameter='-1', Converter={StaticResource valorAlterado}}"
+                                <ComboBox SelectedValue="{Binding Imposto.indISS, Mode=TwoWay}"
+                                          SelectedValuePath="Tag"
                                           Header="Exigibilidade do ISS *"
                                           HorizontalAlignment="Stretch">
-                                    <ComboBoxItem>1=Exigível</ComboBoxItem>
-                                    <ComboBoxItem>2=Não incidência</ComboBoxItem>
-                                    <ComboBoxItem>3=Isenção</ComboBoxItem>
-                                    <ComboBoxItem>4=Exportação</ComboBoxItem>
-                                    <ComboBoxItem>5=Imunidade</ComboBoxItem>
-                                    <ComboBoxItem>6=Exigibilidade Suspensa por Decisão Judicial</ComboBoxItem>
-                                    <ComboBoxItem>7=Exigibilidade Suspensa por Processo Administrativo</ComboBoxItem>
+                                    <ComboBoxItem Tag="1">1=Exigível</ComboBoxItem>
+                                    <ComboBoxItem Tag="2">2=Não incidência</ComboBoxItem>
+                                    <ComboBoxItem Tag="3">3=Isenção</ComboBoxItem>
+                                    <ComboBoxItem Tag="4">4=Exportação</ComboBoxItem>
+                                    <ComboBoxItem Tag="5">5=Imunidade</ComboBoxItem>
+                                    <ComboBoxItem Tag="6">6=Exigibilidade Suspensa por Decisão Judicial</ComboBoxItem>
+                                    <ComboBoxItem Tag="7">7=Exigibilidade Suspensa por Processo Administrativo</ComboBoxItem>
                                 </ComboBox>
                                 <ComboBox x:Name="UFISSQN"
                                           ItemsSource="{Binding Source={StaticResource estados}, Path=EstadosCompletos}"
@@ -682,11 +682,12 @@
                                 <TextBox Text="{Binding Imposto.cListServ, Mode=TwoWay}"
                                          Header="Lista de serviço *"
                                          InputScope="Number" />
-                                <ComboBox SelectedIndex="{Binding Imposto.indIncentivo, ConverterParameter='-1', Converter={StaticResource valorAlterado}}"
+                                <ComboBox SelectedValue="{Binding Imposto.indIncentivo, Mode=TwoWay}"
+                                          SelectedValuePath="Tag"
                                           Header="Incentivo fiscal *"
                                           HorizontalAlignment="Stretch">
-                                    <ComboBoxItem>Sim</ComboBoxItem>
-                                    <ComboBoxItem>Não</ComboBoxItem>
+                                    <ComboBoxItem Tag="1">Sim</ComboBoxItem>
+                                    <ComboBoxItem Tag="2">Não</ComboBoxItem>
                                 </ComboBox>
                                 <ComboBox ItemsSource="{Binding ElementName=UFISSQN, Path=SelectedItem, Converter={StaticResource obterMunicipio}}"
                                           Header="Município *"
@@ -954,12 +955,13 @@
                                     Maximum="6"
                                     Header="Espécie de veículo" />
                             <CheckBox IsChecked="{Binding VINBool, Mode=TwoWay}">Chassi remarcado</CheckBox>
-                            <ComboBox SelectedIndex="{Binding condVeic, Converter={StaticResource valorAlterado}, ConverterParameter='-1', Mode=TwoWay}"
+                            <ComboBox SelectedValue="{Binding condVeic, Mode=TwoWay}"
+                                      SelectedValuePath="Tag"
                                       Header="Condição do veículo"
                                       HorizontalAlignment="Stretch">
-                                <ComboBoxItem>Acabado</ComboBoxItem>
-                                <ComboBoxItem>Inacabado</ComboBoxItem>
-                                <ComboBoxItem>Semi-acabado</ComboBoxItem>
+                                <ComboBoxItem Tag="1">Acabado</ComboBoxItem>
+                                <ComboBoxItem Tag="2">Inacabado</ComboBoxItem>
+                                <ComboBoxItem Tag="3">Semi-acabado</ComboBoxItem>
                             </ComboBox>
                             <controles:EntradaNumerica Format="6"
                                                        Number="{Binding cMod, Mode=TwoWay}"

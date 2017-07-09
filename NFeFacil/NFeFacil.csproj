@@ -182,7 +182,6 @@
     <Compile Include="ViewModel\Converters\ColecaoValida.cs" />
     <Compile Include="ViewModel\Converters\EstadoToMunicipios.cs" />
     <Compile Include="ViewModel\Converters\Invert.cs" />
-    <Compile Include="ViewModel\Converters\ModificaValor.cs" />
     <Compile Include="ViewModel\Converters\StringToDateTime.cs" />
     <Compile Include="ViewModel\EmitenteDataContext.cs" />
     <Compile Include="ViewModel\GerenciadorDadosBaseDataContext.cs" />

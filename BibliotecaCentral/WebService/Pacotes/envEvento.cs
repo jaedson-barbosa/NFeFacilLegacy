@@ -29,8 +29,17 @@ namespace BibliotecaCentral.WebService.Pacotes
                 Eventos[i] = new Evento(versao, eventos[i]);
             }
         }
+
+        public async Task PrepararEventos()
+        {
+            for (int i = 0; i < Eventos.Length; i++)
+            {
+                await Eventos[i].Preparar();
+            }
+        }
     }
 
+    [XmlRoot("evento", Namespace = "http://www.portalfiscal.inf.br/nfe")]
     public sealed class Evento : ISignature
     {
         [XmlAttribute("versao")]
@@ -42,11 +51,16 @@ namespace BibliotecaCentral.WebService.Pacotes
         [XmlElement("Signature", Namespace = "http://www.w3.org/2000/09/xmldsig#")]
         public Assinatura Signature { get; set; }
 
+        public Evento() { }
         public Evento(string versao, InformacoesEvento infEvento)
         {
             Versao = versao;
             InfEvento = infEvento;
-            Task.Run(() => new AssinaFacil(this).Assinar(infEvento.Id)).Wait();
+        }
+
+        public async Task Preparar()
+        {
+            await new AssinaFacil(this).Assinar<Evento>(InfEvento.Id, "infEvento");
         }
     }
 

@@ -23,56 +23,65 @@ namespace BibliotecaCentral
 
         public async Task<bool> Cancelar()
         {
-            var estado = Processo.NFe.Informações.identificação.CódigoUF;
-            var tipoAmbiente = Processo.ProtNFe.InfProt.tpAmb;
-
-            var gerenciador = new GerenciadorGeral<EnvEvento, RetEnvEvento>(estado, Operacoes.RecepcaoEvento, tipoAmbiente == 2);
-
-            var cnpj = Processo.NFe.Informações.emitente.CNPJ;
-            var chave = Processo.NFe.Informações.ChaveAcesso;
-            var nProtocolo = Processo.ProtNFe.InfProt.nProt;
-            var versao = gerenciador.Enderecos.VersaoRecepcaoEvento;
-            var entrada = new EntradaTexto("Cancelar NFe", "Motivo");
-
-            if (await entrada.ShowAsync() == ContentDialogResult.Primary)
+            try
             {
-                if (!string.IsNullOrEmpty(entrada.Conteudo))
+                var estado = Processo.NFe.Informações.identificação.CódigoUF;
+                var tipoAmbiente = Processo.ProtNFe.InfProt.tpAmb;
+
+                var gerenciador = new GerenciadorGeral<EnvEvento, RetEnvEvento>(estado, Operacoes.RecepcaoEvento, tipoAmbiente == 2);
+
+                var cnpj = Processo.NFe.Informações.emitente.CNPJ;
+                var chave = Processo.NFe.Informações.ChaveAcesso;
+                var nProtocolo = Processo.ProtNFe.InfProt.nProt;
+                var versao = gerenciador.Enderecos.VersaoRecepcaoEvento;
+                var entrada = new EntradaTexto("Cancelar NFe", "Motivo");
+
+                if (await entrada.ShowAsync() == ContentDialogResult.Primary)
                 {
-                    var infoEvento = new InformacoesEvento(estado, cnpj, chave, versao, nProtocolo, entrada.Conteudo, tipoAmbiente);
-                    var envio = new EnvEvento(gerenciador.Enderecos.VersaoRecepcaoEvento, infoEvento);
-                    var resposta = await gerenciador.EnviarAsync(envio);
-                    if (resposta.RetEvento[0].InfEvento.CStat == 135)
+                    if (!string.IsNullOrEmpty(entrada.Conteudo))
                     {
-                        using (var contexto = new AplicativoContext())
+                        var infoEvento = new InformacoesEvento(estado, cnpj, chave, versao, nProtocolo, entrada.Conteudo, tipoAmbiente);
+                        var envio = new EnvEvento(gerenciador.Enderecos.VersaoRecepcaoEvento, infoEvento);
+                        await envio.PrepararEventos();
+                        var resposta = await gerenciador.EnviarAsync(envio);
+                        if (resposta.RetEvento[0].InfEvento.CStat == 135)
                         {
-                            contexto.Cancelamentos.Add(new RegistroCancelamento()
+                            using (var contexto = new AplicativoContext())
                             {
-                                ChaveNFe = chave,
-                                DataHoraEvento = resposta.RetEvento[0].InfEvento.DhRegEvento,
-                                TipoAmbiente = tipoAmbiente,
-                                XML = new ProcEventoCancelamento()
+                                contexto.Cancelamentos.Add(new RegistroCancelamento()
                                 {
-                                    Eventos = envio.Eventos,
-                                    RetEvento = resposta.RetEvento,
-                                    Versao = resposta.Versao
-                                }.ToXElement<ProcEventoCancelamento>().ToString()
-                            });
-                            contexto.SaveChanges();
+                                    ChaveNFe = chave,
+                                    DataHoraEvento = resposta.RetEvento[0].InfEvento.DhRegEvento,
+                                    TipoAmbiente = tipoAmbiente,
+                                    XML = new ProcEventoCancelamento()
+                                    {
+                                        Eventos = envio.Eventos,
+                                        RetEvento = resposta.RetEvento,
+                                        Versao = resposta.Versao
+                                    }.ToXElement<ProcEventoCancelamento>().ToString()
+                                });
+                                contexto.SaveChanges();
+                            }
+                            Log.Escrever(TitulosComuns.Sucesso, "NFe cancelada com sucesso.");
+                            return true;
                         }
-                        Log.Escrever(TitulosComuns.Sucesso, "NFe cancelada com sucesso.");
-                        return true;
+                        else
+                        {
+                            Log.Escrever(TitulosComuns.Erro, resposta.RetEvento[0].InfEvento.XMotivo);
+                        }
                     }
                     else
                     {
-                        Log.Escrever(TitulosComuns.Erro, resposta.RetEvento[0].InfEvento.XMotivo);
+                        Log.Escrever(TitulosComuns.Erro, "Nenhum motivo foi informado.");
                     }
                 }
-                else
-                {
-                    Log.Escrever(TitulosComuns.Erro, "Nenhum motivo foi informado.");
-                }
+                return false;
             }
-            return false;
+            catch (Exception e)
+            {
+                Log.Escrever(TitulosComuns.Erro, e.Message);
+                return false;
+            }
         }
     }
 }

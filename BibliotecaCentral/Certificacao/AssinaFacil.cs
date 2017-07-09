@@ -15,10 +15,10 @@ namespace BibliotecaCentral.Certificacao
             Nota = nfe;
         }
 
-        public async Task Assinar(string id)
+        public async Task Assinar<T>(string id, string tag)
         {
             var xml = new XmlDocument();
-            using (var reader = Nota.ToXElement<NFe>().CreateReader())
+            using (var reader = Nota.ToXElement<T>().CreateReader())
             {
                 xml.Load(reader);
                 var caixa = new CaixasDialogo.SelecaoCertificado();
@@ -27,7 +27,7 @@ namespace BibliotecaCentral.Certificacao
                     var serial = caixa.CertificadoEscolhido;
                     var origem = ConfiguracoesCertificacao.Origem;
                     var cert = await Certificados.ObterCertificadoEscolhidoAsync(serial, origem);
-                    Nota.Signature = new AssinaturaXML(xml, "infNFe", id).AssinarXML(cert);
+                    Nota.Signature = new AssinaturaXML(xml, tag, id).AssinarXML(cert);
                 }
             }
         }

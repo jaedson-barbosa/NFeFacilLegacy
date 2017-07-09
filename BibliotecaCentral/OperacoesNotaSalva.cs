@@ -29,7 +29,7 @@ namespace BibliotecaCentral
             {
                 Analisador.Normalizar();
                 var assina = new Certificacao.AssinaFacil(nota);
-                await assina.Assinar(nota.Informações.Id);
+                await assina.Assinar<NFe>(nota.Informações.Id, "infNFe");
                 return true;
             }
             catch (Exception e)

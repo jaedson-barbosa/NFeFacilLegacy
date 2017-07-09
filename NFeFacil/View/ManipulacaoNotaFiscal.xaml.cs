@@ -27,8 +27,8 @@ namespace NFeFacil.View
                     ItemsSource = new ObservableCollection<Controles.ItemHambuguer>
                     {
                         new Controles.ItemHambuguer(Symbol.Tag, "Identificação"),
-                        new Controles.ItemHambuguer(Symbol.People, "Emitente"),
                         new Controles.ItemHambuguer(Symbol.People, "Cliente"),
+                        new Controles.ItemHambuguer(Symbol.Street, "Retirada/Entrega"),
                         new Controles.ItemHambuguer(Symbol.Shop, "Produtos"),
                         new Controles.ItemHambuguer(Symbol.Calculator, "Totais"),
                         new Controles.ItemHambuguer("\uE806", "Transporte"),

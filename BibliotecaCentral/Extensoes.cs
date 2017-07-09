@@ -73,7 +73,7 @@ namespace BibliotecaCentral
             return loader.GetString(recurso);
         }
 
-        static ILog Log = new Popup();
+        static ILog Log = Popup.Current;
 
         internal static void ManipularErro(this Exception erro)
         {

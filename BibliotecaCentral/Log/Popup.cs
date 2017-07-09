@@ -5,18 +5,22 @@ using Windows.UI.Popups;
 
 namespace BibliotecaCentral.Log
 {
-    public struct Popup : ILog
+    public sealed class Popup : ILog
     {
-        private CoreDispatcherPriority Prioridade => CoreDispatcherPriority.Normal;
-        private CoreDispatcher Dispachante => CoreApplication.MainView.CoreWindow.Dispatcher;
+        const CoreDispatcherPriority Prioridade = CoreDispatcherPriority.Normal;
+
+        private Popup() { }
 
         public async void Escrever(TitulosComuns título, string texto)
         {
             var mensag = new MessageDialog(texto, Titulos.ObterString(título));
-            await Dispachante.RunAsync(Prioridade, async () =>
+            var dispachante = CoreApplication.MainView.CoreWindow.Dispatcher;
+            await dispachante.RunAsync(Prioridade, async () =>
             {
                 await mensag.ShowAsync();
             });
         }
+
+        public static readonly Popup Current = new Popup();
     }
 }

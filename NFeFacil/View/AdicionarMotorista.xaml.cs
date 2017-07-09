@@ -18,7 +18,7 @@ namespace NFeFacil.View
     {
         private MotoristaDI motorista;
         private TipoOperacao tipoRequisitado;
-        private ILog Log = new Popup();
+        private ILog Log = Popup.Current;
 
         public AdicionarMotorista()
         {

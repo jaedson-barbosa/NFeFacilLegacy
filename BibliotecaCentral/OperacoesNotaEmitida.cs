@@ -18,7 +18,7 @@ namespace BibliotecaCentral
         public OperacoesNotaEmitida(Processo processo, ILog log = null)
         {
             Processo = processo;
-            Log = log ?? new Popup();
+            Log = log ?? Popup.Current;
         }
 
         public async Task<bool> Cancelar()

@@ -20,7 +20,7 @@ namespace NFeFacil.View
     {
         private EmitenteDI emitente;
         private TipoOperacao tipoRequisitado;
-        private ILog Log = new Popup();
+        private ILog Log = Popup.Current;
 
         public AdicionarEmitente()
         {

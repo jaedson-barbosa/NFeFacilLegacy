@@ -1,4 +1,6 @@
-﻿using BibliotecaCentral.ItensBD;
+﻿using BibliotecaCentral;
+using BibliotecaCentral.ItensBD;
+using BibliotecaCentral.Log;
 using BibliotecaCentral.ModeloXML.PartesProcesso;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe;
 using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
@@ -37,15 +39,16 @@ namespace NFeFacil.View
 
         private void CriarNotaFiscal(object sender, TappedRoutedEventArgs e)
         {
-            MainPage.Current.AbrirFunçao(typeof(ManipulacaoNotaFiscal),
-                new ConjuntoManipuladorNFe
+            if (Propriedades.EmitenteAtivo != null)
+            {
+                var notaSimples = new ConjuntoManipuladorNFe
                 {
                     NotaSalva = new NFe()
                     {
                         Informações = new Detalhes()
                         {
                             identificação = new Identificacao(),
-                            emitente = new Emitente(),
+                            emitente = Propriedades.EmitenteAtivo.ToEmitente(),
                             destinatário = new Destinatario(),
                             produtos = new List<DetalhesProdutos>(),
                             transp = new Transporte()
@@ -63,7 +66,13 @@ namespace NFeFacil.View
                     },
                     OperacaoRequirida = TipoOperacao.Adicao,
                     StatusAtual = StatusNFe.Edição
-                });
+                };
+                MainPage.Current.AbrirFunçao(typeof(ManipulacaoNotaFiscal), notaSimples);
+            }
+            else
+            {
+                Popup.Current.Escrever(TitulosComuns.Erro, "Não foi escolhido um emitente ou não há nenhum emitente cadastrado.");
+            }
         }
 
         private void CriarVenda(object sender, TappedRoutedEventArgs e)

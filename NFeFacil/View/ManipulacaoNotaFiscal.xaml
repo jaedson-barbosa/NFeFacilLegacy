@@ -92,11 +92,6 @@
                                 <ComboBoxItem Content="Pagamento a prazo" />
                                 <ComboBoxItem Content="Outros" />
                             </ComboBox>
-                            <ComboBox Header="Tipo de NotaFácil.DANFE *"
-                                      SelectedIndex="{Binding NotaSalva.Informações.identificação.TipoImpressão, Converter={StaticResource valorAlterado}, ConverterParameter='-1', Mode=TwoWay}">
-                                <ComboBoxItem Content="Retrato" />
-                                <ComboBoxItem Content="Paisagem" />
-                            </ComboBox>
                             <ComboBox Header="Destino da operação *"
                                       SelectedIndex="{Binding NotaSalva.Informações.identificação.IdentificadorDestino, Converter={StaticResource valorAlterado}, ConverterParameter='-1', Mode=TwoWay}">
                                 <ComboBoxItem Content="Operação interna" />
@@ -206,22 +201,20 @@
                     </ListView>
                 </PivotItem>
             </Pivot>
+            <StackPanel Margin="16">
+                <ComboBox HorizontalAlignment="Stretch"
+                          ItemsSource="{Binding ClientesDisponiveis}"
+                          SelectedItem="{Binding ClienteSelecionado, Mode=TwoWay}"
+                          IsEnabled="{Binding ManipulacaoAtivada}"
+                          DisplayMemberPath="Nome" />
+                <StackPanel Orientation="Horizontal">
+                    <Button Margin="0,0,8,0"
+                            Command="{Binding ExibirClienteCommand}">Exibir</Button>
+                    <Button Command="{Binding EditarClienteCommand}"
+                            IsEnabled="{Binding ManipulacaoAtivada}">Editar</Button>
+                </StackPanel>
+            </StackPanel>
             <Pivot Margin="16">
-                <PivotItem Header="Emitente">
-                    <StackPanel>
-                        <ComboBox HorizontalAlignment="Stretch"
-                                  ItemsSource="{Binding EmitentesDisponiveis}"
-                                  SelectedItem="{Binding EmitenteSelecionado, Mode=TwoWay}"
-                                  IsEnabled="{Binding ManipulacaoAtivada}"
-                                  DisplayMemberPath="Nome" />
-                        <StackPanel Orientation="Horizontal">
-                            <Button Margin="0,0,8,0"
-                                    Command="{Binding ExibirEmitenteCommand}">Exibir</Button>
-                            <Button Command="{Binding EditarEmitenteCommand}"
-                                    IsEnabled="{Binding ManipulacaoAtivada}">Editar</Button>
-                        </StackPanel>
-                    </StackPanel>
-                </PivotItem>
                 <PivotItem Header="Local de retirada">
                     <StackPanel>
                         <CheckBox IsChecked="{Binding EnderecoRetiradaAtivado, Mode=TwoWay}"
@@ -258,23 +251,6 @@
                                       DisplayMemberPath="Nome"
                                       Header="Município" />
                         </ItemsControl>
-                    </StackPanel>
-                </PivotItem>
-            </Pivot>
-            <Pivot Margin="16">
-                <PivotItem Header="Cliente">
-                    <StackPanel>
-                        <ComboBox HorizontalAlignment="Stretch"
-                                  ItemsSource="{Binding ClientesDisponiveis}"
-                                  SelectedItem="{Binding ClienteSelecionado, Mode=TwoWay}"
-                                  IsEnabled="{Binding ManipulacaoAtivada}"
-                                  DisplayMemberPath="Nome" />
-                        <StackPanel Orientation="Horizontal">
-                            <Button Margin="0,0,8,0"
-                                    Command="{Binding ExibirClienteCommand}">Exibir</Button>
-                            <Button Command="{Binding EditarClienteCommand}"
-                                    IsEnabled="{Binding ManipulacaoAtivada}">Editar</Button>
-                        </StackPanel>
                     </StackPanel>
                 </PivotItem>
                 <PivotItem Header="Local de entrega">
@@ -1059,6 +1035,12 @@
                               Command="{Binding ExportarXMLCommand}">
                     <AppBarButton.Icon>
                         <FontIcon Glyph="&#xEDE1;" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarButton Label="Exibir emitente"
+                              Command="{Binding ExibirEmitenteCommand}">
+                    <AppBarButton.Icon>
+                        <SymbolIcon Symbol="People" />
                     </AppBarButton.Icon>
                 </AppBarButton>
             </CommandBar.SecondaryCommands>

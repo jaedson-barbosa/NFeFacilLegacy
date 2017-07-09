@@ -479,7 +479,6 @@ namespace NFeFacil.ViewModel
         public ICommand RemoverProcReferenciadoCommand => new Comando<ProcessoReferenciado>(RemoverProcReferenciado);
 
         public ICommand ExibirEmitenteCommand => new Comando(ExibirEmitente);
-        public ICommand EditarEmitenteCommand => new Comando(EditarEmitente);
         public ICommand ExibirClienteCommand => new Comando(ExibirCliente);
         public ICommand EditarClienteCommand => new Comando(EditarCliente);
         public ICommand ExibirMotoristaCommand => new Comando(ExibirMotorista);
@@ -487,7 +486,7 @@ namespace NFeFacil.ViewModel
 
         #endregion
 
-        Popup Log = new Popup();
+        Popup Log = Popup.Current;
         Processo NotaEmitida;
         AnalisadorNFe Analisador { get; }
         OperacoesNotaSalva OperacoesNota { get; }
@@ -816,20 +815,6 @@ namespace NFeFacil.ViewModel
                 DataContext = new EmitenteDataContext(ref emit)
             };
             await caixa.ShowAsync();
-        }
-
-        async void EditarEmitente()
-        {
-            var emit = new EmitenteDI(NotaSalva.Informações.emitente);
-            var caixa = new View.CaixasDialogo.DetalheEmitenteAtual()
-            {
-                ManipulacaoAtivada = true,
-                DataContext = new EmitenteDataContext(ref emit)
-            };
-            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
-            {
-                EmitenteSelecionado = ((EmitenteDataContext)caixa.DataContext).Emit;
-            }
         }
 
         async void ExibirCliente()

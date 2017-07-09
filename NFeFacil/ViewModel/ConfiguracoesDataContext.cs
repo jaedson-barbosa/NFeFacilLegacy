@@ -26,7 +26,7 @@ namespace NFeFacil.ViewModel
             AttLista();
         }
 
-        private readonly ILog LogPopUp = new Popup();
+        private readonly ILog LogPopUp = Popup.Current;
 
         #region Certificação
 

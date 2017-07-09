@@ -5,7 +5,7 @@ namespace NFeFacil
 {
     static class Helpers
     {
-        static ILog Log = new Popup();
+        static ILog Log = Popup.Current;
 
         public static void ManipularErro(this Exception erro)
         {

@@ -15,7 +15,7 @@ namespace NFeFacil.ViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private readonly ILog LogPopUp = new Popup();
+        private readonly ILog LogPopUp = Popup.Current;
 
         public bool IsCliente
         {

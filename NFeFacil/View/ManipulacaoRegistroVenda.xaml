@@ -114,7 +114,7 @@
     </Grid>
     <Page.BottomAppBar>
         <CommandBar>
-            <AppBarButton Label="Criar nota fiscal"
+            <AppBarButton Label="Criar NFe normal"
                           Icon="Page" />
         </CommandBar>
     </Page.BottomAppBar>

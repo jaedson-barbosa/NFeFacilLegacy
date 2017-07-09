@@ -18,7 +18,7 @@ namespace NFeFacil.View
     {
         private ClienteDI cliente;
         private TipoOperacao tipoRequisitado;
-        private ILog Log = new Popup();
+        private ILog Log = Popup.Current;
 
         public AdicionarDestinatario()
         {

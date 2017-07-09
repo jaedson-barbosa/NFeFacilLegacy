@@ -285,8 +285,6 @@
     </Compile>
     <Compile Include="ViewModel\ImpostosProduto\COFINSDataContext.cs" />
     <Compile Include="ViewModel\Comando.cs" />
-    <Compile Include="ViewModel\Converters\BoolToIcon.cs" />
-    <Compile Include="ViewModel\Converters\BoolToInt.cs" />
     <Compile Include="ViewModel\Converters\BoolToVisibility.cs" />
     <Compile Include="ViewModel\DadosEstadosParaView.cs" />
     <Compile Include="ViewModel\HistoricoSincronizacaoDataContext.cs" />

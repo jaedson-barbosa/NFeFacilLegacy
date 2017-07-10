@@ -12,6 +12,21 @@ namespace BibliotecaCentral.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2");
 
+            modelBuilder.Entity("BibliotecaCentral.ItensBD.AlteracaoEstoque", b =>
+                {
+                    b.Property<DateTime>("Id");
+
+                    b.Property<double>("Alteração");
+
+                    b.Property<Guid>("ProdutoRelacionado");
+
+                    b.Property<Guid>("RegistroVendaRelacionado");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Estoque");
+                });
+
             modelBuilder.Entity("BibliotecaCentral.ItensBD.ClienteDI", b =>
                 {
                     b.Property<Guid>("Id")

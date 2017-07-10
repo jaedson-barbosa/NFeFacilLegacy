@@ -8,13 +8,28 @@ using BibliotecaCentral;
 namespace BibliotecaCentral.Migrations
 {
     [DbContext(typeof(AplicativoContext))]
-    [Migration("20170709190618_RegistroVeiculoEVenda")]
-    partial class RegistroVeiculoEVenda
+    [Migration("20170710012356_Loja1.2.8")]
+    partial class Loja128
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2");
+
+            modelBuilder.Entity("BibliotecaCentral.ItensBD.AlteracaoEstoque", b =>
+                {
+                    b.Property<DateTime>("Id");
+
+                    b.Property<double>("Alteração");
+
+                    b.Property<Guid>("ProdutoRelacionado");
+
+                    b.Property<Guid>("RegistroVendaRelacionado");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Estoque");
+                });
 
             modelBuilder.Entity("BibliotecaCentral.ItensBD.ClienteDI", b =>
                 {
@@ -307,40 +322,6 @@ namespace BibliotecaCentral.Migrations
                     b.HasIndex("VendedorId");
 
                     b.ToTable("Vendas");
-                });
-
-            modelBuilder.Entity("BibliotecaCentral.ItensBD.ResultadoSincronizacaoCliente", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("MomentoSincronizacao");
-
-                    b.Property<int>("NumeroDadosBaseTrafegados");
-
-                    b.Property<int>("NumeroNotasTrafegadas");
-
-                    b.Property<bool>("SincronizacaoAutomatica");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ResultadosCliente");
-                });
-
-            modelBuilder.Entity("BibliotecaCentral.ItensBD.ResultadoSincronizacaoServidor", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("MomentoRequisicao");
-
-                    b.Property<bool>("SucessoSolicitacao");
-
-                    b.Property<int>("TipoDadoSolicitado");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ResultadosServidor");
                 });
 
             modelBuilder.Entity("BibliotecaCentral.ItensBD.VeiculoDI", b =>

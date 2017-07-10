@@ -124,6 +124,7 @@
     <Compile Include="Certificacao\ConfiguracoesCertificacao.cs" />
     <Compile Include="Certificacao\LAN\OperacoesServidor.cs" />
     <Compile Include="Certificacao\OrigemCertificado.cs" />
+    <Compile Include="ItensBD\AlteracaoEstoque.cs" />
     <Compile Include="ItensBD\ClienteDI.cs" />
     <Compile Include="ItensBD\EmitenteDI.cs" />
     <Compile Include="ItensBD\Imagem.cs" />
@@ -154,13 +155,9 @@
     <Compile Include="Migrations\20170708170014_AdicionadoVendedores.designer.cs">
       <DependentUpon>20170708170014_AdicionadoVendedores.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\20170709190618_RegistroVeiculoEVenda.cs" />
-    <Compile Include="Migrations\20170709190618_RegistroVeiculoEVenda.designer.cs">
-      <DependentUpon>20170709190618_RegistroVeiculoEVenda.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20170710004248_RemovidoRegistroSincronizacao.cs" />
-    <Compile Include="Migrations\20170710004248_RemovidoRegistroSincronizacao.designer.cs">
-      <DependentUpon>20170710004248_RemovidoRegistroSincronizacao.cs</DependentUpon>
+    <Compile Include="Migrations\20170710012356_Loja1.2.8.cs" />
+    <Compile Include="Migrations\20170710012356_Loja1.2.8.designer.cs">
+      <DependentUpon>20170710012356_Loja1.2.8.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\AplicativoContextModelSnapshot.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\IRegimeNormal.cs" />

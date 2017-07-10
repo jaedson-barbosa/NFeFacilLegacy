@@ -10,8 +10,6 @@ namespace BibliotecaCentral
         public DbSet<MotoristaDI> Motoristas { get; set; }
         public DbSet<ProdutoDI> Produtos { get; set; }
         public DbSet<NFeDI> NotasFiscais { get; set; }
-        public DbSet<ResultadoSincronizacaoCliente> ResultadosCliente { get; set; }
-        public DbSet<ResultadoSincronizacaoServidor> ResultadosServidor { get; set; }
         public DbSet<RegistroCancelamento> Cancelamentos { get; set; }
         public DbSet<Imagem> Imagens { get; set; }
         public DbSet<Vendedor> Vendedores { get; set; }

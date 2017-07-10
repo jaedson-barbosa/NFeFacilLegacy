@@ -25,6 +25,20 @@ namespace BibliotecaCentral.Sincronizacao
             }
         }
 
+        public static DateTime UltimaSincronizacao
+        {
+            get
+            {
+                var valor = Pasta.Values[nameof(UltimaSincronizacao)];
+                if (valor == null) return DateTime.MinValue;
+                else return (DateTime)valor;
+            }
+            set
+            {
+                Pasta.Values[nameof(UltimaSincronizacao)] = value;
+            }
+        }
+
         public static bool SincDadoBase
         {
             get

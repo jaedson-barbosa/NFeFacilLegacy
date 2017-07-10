@@ -158,6 +158,10 @@
     <Compile Include="Migrations\20170709190618_RegistroVeiculoEVenda.designer.cs">
       <DependentUpon>20170709190618_RegistroVeiculoEVenda.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20170710004248_RemovidoRegistroSincronizacao.cs" />
+    <Compile Include="Migrations\20170710004248_RemovidoRegistroSincronizacao.designer.cs">
+      <DependentUpon>20170710004248_RemovidoRegistroSincronizacao.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\AplicativoContextModelSnapshot.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\IRegimeNormal.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\ISimplesNacional.cs" />
@@ -184,8 +188,6 @@
     <Compile Include="Importacao\XmlNaoReconhecido.cs" />
     <Compile Include="InicioGeral.cs" />
     <Compile Include="ItensBD\NFeDI.cs" />
-    <Compile Include="ItensBD\ResultadoSincronizacaoCliente.cs" />
-    <Compile Include="ItensBD\ResultadoSincronizacaoServidor.cs" />
     <Compile Include="ItensBD\StatusNFe.cs" />
     <Compile Include="Log\ILog.cs" />
     <Compile Include="Log\Popup.cs" />
@@ -296,8 +298,6 @@
     <Compile Include="Repositorio\Motoristas.cs" />
     <Compile Include="Repositorio\NotasFiscais.cs" />
     <Compile Include="Repositorio\Produtos.cs" />
-    <Compile Include="Repositorio\ResultadosCliente.cs" />
-    <Compile Include="Repositorio\ResultadosServidor.cs" />
     <Compile Include="Sincronizacao\GerenciadorCliente.cs" />
     <Compile Include="Sincronizacao\GerenciadorServidor.cs" />
     <Compile Include="Sincronizacao\ItensSincronizados.cs" />

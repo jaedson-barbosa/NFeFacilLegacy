@@ -13,82 +13,35 @@ namespace BibliotecaCentral.Sincronizacao.Servidor
         [UriFormat("/BrechaSeguranca/{senha}")]
         public IGetResponse BrechaSeguranca(int senha)
         {
-            var item = new ItensBD.ResultadoSincronizacaoServidor()
+            if (GerenciadorServidor.Current.BrechaAberta)
             {
-                MomentoRequisicao = DateTime.Now,
-                TipoDadoSolicitado = (int)TipoDado.SenhaDeAcesso
-            };
-            using (var DB = new AplicativoContext())
+                if (senha != SenhaTemporária)
+                    throw new SenhaErrada(senha);
+
+                var resposta = new GetResponse(GetResponse.ResponseStatus.OK, new InfoSegurancaConexao
+                {
+                    Senha = SenhaPermanente
+                });
+
+                return resposta;
+            }
+            else
             {
-                try
-                {
-                    if (GerenciadorServidor.Current.BrechaAberta)
-                    {
-                        if (senha != SenhaTemporária)
-                            throw new SenhaErrada(senha);
-
-                        var resposta = new GetResponse(GetResponse.ResponseStatus.OK, new InfoSegurancaConexao
-                        {
-                            Senha = SenhaPermanente
-                        });
-
-                        item.SucessoSolicitacao = true;
-                        DB.Add(item);
-                        DB.SaveChanges();
-                        return resposta;
-                    }
-                    else
-                    {
-                        item.SucessoSolicitacao = true;
-                        DB.Add(item);
-                        DB.SaveChanges();
-                        return new GetResponse(GetResponse.ResponseStatus.NotFound);
-                    }
-                }
-                catch (Exception e)
-                {
-                    item.SucessoSolicitacao = false;
-                    DB.Add(item);
-                    DB.SaveChanges();
-                    throw e;
-                }
+                return new GetResponse(GetResponse.ResponseStatus.NotFound);
             }
         }
 
         [UriFormat("/Configuracoes/{senha}")]
         public IGetResponse Configuracoes(int senha)
         {
-            var item = new ItensBD.ResultadoSincronizacaoServidor()
-            {
-                MomentoRequisicao = DateTime.Now,
-                TipoDadoSolicitado = (int)TipoDado.Configuracao
-            };
-            using (var DB = new AplicativoContext())
-            {
-                try
-                {
-                    if (senha != SenhaPermanente)
-                        throw new SenhaErrada(senha);
+            if (senha != SenhaPermanente)
+                throw new SenhaErrada(senha);
 
-                    var resposta = new GetResponse(GetResponse.ResponseStatus.OK, new Pacotes.ConfiguracoesServidor
-                    {
-                        DadosBase = SincDadoBase,
-                        Notas = SincNotaFiscal
-                    });
-
-                    item.SucessoSolicitacao = true;
-                    DB.Add(item);
-                    DB.SaveChanges();
-                    return resposta;
-                }
-                catch (Exception e)
-                {
-                    item.SucessoSolicitacao = false;
-                    DB.Add(item);
-                    DB.SaveChanges();
-                    throw e;
-                }
-            }
+            return new GetResponse(GetResponse.ResponseStatus.OK, new ConfiguracoesServidor
+            {
+                DadosBase = SincDadoBase,
+                Notas = SincNotaFiscal
+            });
         }
     }
 }

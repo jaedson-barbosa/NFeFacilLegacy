@@ -9,7 +9,7 @@
                PrimaryButtonText="Adicionar"
                SecondaryButtonText="Cancelar">
     <ContentDialog.DataContext>
-        <VM:ProdutoRegistroVenda />
+        <VM:AdicionarProdutoVendaDataContext />
     </ContentDialog.DataContext>
     <ContentDialog.Resources>
         <ResourceDictionary>
@@ -43,7 +43,6 @@
                                FontWeight="Bold"
                                VerticalAlignment="Bottom">Nome</TextBlock>
                     <TextBlock Grid.Column="2"
-                               TextWrapping="Wrap"
                                FontWeight="Bold"
                                VerticalAlignment="Bottom">Estoque</TextBlock>
                     <TextBlock Grid.Column="3"
@@ -51,6 +50,24 @@
                                VerticalAlignment="Bottom">Preço</TextBlock>
                 </Grid>
             </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="1"
+                                   Text="{Binding Descricao}" />
+                        <TextBlock Grid.Column="2"
+                                   Text="{Binding QuantidadeEstoque}" />
+                        <TextBlock Grid.Column="3"
+                                   Text="{Binding ValorUnitario}" />
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
         <ItemsControl Grid.Row="2" Style="{StaticResource ItensResponsivos}">
             <TextBox Header="Quantidade" />

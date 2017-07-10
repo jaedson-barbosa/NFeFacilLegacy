@@ -197,7 +197,7 @@
     <Compile Include="ViewModel\NotasSalvasDataContext.cs" />
     <Compile Include="ViewModel\ObterDataContext.cs" />
     <Compile Include="ViewModel\ProdutoCompletoDataContext.cs" />
-    <Compile Include="ViewModel\ProdutoRegistroVenda.cs" />
+    <Compile Include="ViewModel\AdicionarProdutoVendaDataContext.cs" />
     <Compile Include="ViewModel\QRCode.cs" />
     <Compile Include="ViewModel\QRConexaoDataContext.cs" />
     <Compile Include="View\AdicionarDestinatario.xaml.cs">
@@ -267,9 +267,6 @@
     <Compile Include="View\GerenciarDadosBase.xaml.cs">
       <DependentUpon>GerenciarDadosBase.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\HistoricoSincronizacao.xaml.cs">
-      <DependentUpon>HistoricoSincronizacao.xaml</DependentUpon>
-    </Compile>
     <Compile Include="IValida.cs" />
     <Compile Include="View\ManipulacaoNotaFiscal.xaml.cs">
       <DependentUpon>ManipulacaoNotaFiscal.xaml</DependentUpon>
@@ -287,7 +284,6 @@
     <Compile Include="ViewModel\Comando.cs" />
     <Compile Include="ViewModel\Converters\BoolToVisibility.cs" />
     <Compile Include="ViewModel\DadosEstadosParaView.cs" />
-    <Compile Include="ViewModel\HistoricoSincronizacaoDataContext.cs" />
     <Compile Include="ViewModel\ImpostosProduto\ICMSDataContext.cs" />
     <Compile Include="ViewModel\ImpostosProduto\IImpostoDataContext.cs" />
     <Compile Include="ViewModel\ImpostosProduto\IPIDataContext.cs" />
@@ -489,10 +485,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="View\GerenciarDadosBase.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\HistoricoSincronizacao.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

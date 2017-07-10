@@ -1,5 +1,4 @@
-﻿using BibliotecaCentral.ModeloXML.PartesProcesso;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using System.Xml;
 using Windows.UI.Xaml.Controls;

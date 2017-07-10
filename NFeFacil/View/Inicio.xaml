@@ -65,12 +65,6 @@
                                   Tapped="AbrirFunção">
                 <SymbolIcon Symbol="Sync" />
             </controles:ItemPadrao>
-            <controles:ItemPadrao x:Name="HistoricoSincronizacao"
-                                  Titulo="Histórico de sincronização"
-                                  Descricao="Veja todos os detalhes de todas as requisições efetuadas/recebidas por esta aplicação."
-                                  Tapped="AbrirFunção">
-                <FontIcon Glyph="&#xE81C;" />
-            </controles:ItemPadrao>
         </ItemsControl>
     </ScrollViewer>
 </Page>

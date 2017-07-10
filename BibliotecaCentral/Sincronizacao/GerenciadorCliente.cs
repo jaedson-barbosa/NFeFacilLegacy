@@ -7,14 +7,12 @@ using System.Threading.Tasks;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
-using BibliotecaCentral.ItensBD;
 
 namespace BibliotecaCentral.Sincronizacao
 {
     public sealed class GerenciadorCliente
     {
         private ILog Log { get; }
-        public ResultadoSincronizacaoCliente Resultado { get; private set; }
 
         public GerenciadorCliente(ILog log)
         {
@@ -56,19 +54,12 @@ namespace BibliotecaCentral.Sincronizacao
                     Log.Escrever(TitulosComuns.Erro, "Nada pôde ser sincronizado porque o servidor bloqueou a sincronização do tipo de dado solicitado(s).");
                 }
 
-                db.Add(new ResultadoSincronizacaoCliente
-                {
-                    NumeroDadosBaseTrafegados = quantDados.Enviados + quantDados.Recebidos,
-                    NumeroNotasTrafegadas = quantNotas.Enviados + quantNotas.Recebidos,
-                    MomentoSincronizacao = DateTime.Now,
-                    SincronizacaoAutomatica = isBackground
-                });
                 db.SaveChanges();
             }
 
             async Task<ItensSincronizados> SincronizarDadosBase(AplicativoContext contexto)
             {
-                var momento = contexto.ResultadosCliente.Count(x => x.NumeroDadosBaseTrafegados > 0) > 0 ? contexto.ResultadosCliente.Last(x => x.NumeroDadosBaseTrafegados > 0).MomentoSincronizacao : DateTime.MinValue;
+                var momento = UltimaSincronizacao;
                 var receb = await EnviarAsync<DadosBase>($"Dados", HttpMethod.Get, SenhaPermanente, null, momento.ToBinary().ToString());
 
                 var envio = new DadosBase
@@ -95,7 +86,7 @@ namespace BibliotecaCentral.Sincronizacao
 
             async Task<ItensSincronizados> SincronizarNotas(AplicativoContext contexto)
             {
-                var momento = contexto.ResultadosCliente.Count(x => x.NumeroNotasTrafegadas > 0) > 0 ? contexto.ResultadosCliente.Last(x => x.NumeroNotasTrafegadas > 0).MomentoSincronizacao : DateTime.MinValue;
+                var momento = UltimaSincronizacao;
                 var receb = await EnviarAsync<NotasFiscais>("Notas", HttpMethod.Get, SenhaPermanente, null, momento.ToBinary().ToString());
 
                 var conjunto = from item in contexto.NotasFiscais
@@ -142,13 +133,6 @@ namespace BibliotecaCentral.Sincronizacao
                     Log.Escrever(TitulosComuns.Erro, "Nada pôde ser sincronizado porque o servidor bloqueou a sincronização do tipo de dado solicitado(s).");
                 }
 
-                db.Add(new ResultadoSincronizacaoCliente
-                {
-                    NumeroDadosBaseTrafegados = quantDados.Enviados + quantDados.Recebidos,
-                    NumeroNotasTrafegadas = quantNotas.Enviados + quantNotas.Recebidos,
-                    MomentoSincronizacao = DateTime.Now,
-                    SincronizacaoAutomatica = false
-                });
                 db.SaveChanges();
             }
 

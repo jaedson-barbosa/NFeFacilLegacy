@@ -51,18 +51,11 @@
             <ColumnDefinition />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <Grid x:Name="grpGeral"
-              Grid.ColumnSpan="2">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition />
-            </Grid.RowDefinitions>
+        <StackPanel x:Name="grpGeral"
+                    Grid.ColumnSpan="2">
             <ComboBox Header="Cliente"
-                      Grid.Row="1"
                       HorizontalAlignment="Stretch" />
-            <ItemsControl Grid.Row="2"
-                          Style="{StaticResource ItensResponsivos}">
+            <ItemsControl Style="{StaticResource ItensResponsivos}">
                 <DatePicker Header="Data da venda"
                             MinWidth="156"
                             MonthFormat="{}{month.integer} {month.abbreviated}" />
@@ -85,7 +78,7 @@
                 <TextBox MaxLength="12"
                          Header="Total" />
             </ItemsControl>
-        </Grid>
+        </StackPanel>
         <ListView x:Name="lstProdutos"
                   Margin="0,2,0,0"
                   Grid.Row="1"

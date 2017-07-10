@@ -13,12 +13,6 @@ namespace BibliotecaCentral.Migrations
             migrationBuilder.DropTable(
                 name: "ResultadosServidor");
 
-            migrationBuilder.AddColumn<bool>(
-                name: "AplicabilidadeEstoque",
-                table: "Produtos",
-                nullable: false,
-                defaultValue: false);
-
             migrationBuilder.AddColumn<Guid>(
                 name: "Veiculo",
                 table: "Motoristas",
@@ -29,9 +23,12 @@ namespace BibliotecaCentral.Migrations
                 name: "Estoque",
                 columns: table => new
                 {
-                    Id = table.Column<DateTime>(nullable: false),
-                    Alteração = table.Column<double>(nullable: false),
-                    ProdutoId = table.Column<Guid>(nullable: true)
+                    Id = table.Column<Guid>(nullable: false),
+                    LocalizacaoGenerica = table.Column<string>(nullable: true),
+                    Locação = table.Column<string>(nullable: true),
+                    Prateleira = table.Column<string>(nullable: true),
+                    ProdutoId = table.Column<Guid>(nullable: true),
+                    Segmento = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -109,6 +106,25 @@ namespace BibliotecaCentral.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AlteracaoEstoque",
+                columns: table => new
+                {
+                    Id = table.Column<DateTime>(nullable: false),
+                    Alteração = table.Column<double>(nullable: false),
+                    EstoqueId = table.Column<Guid>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AlteracaoEstoque", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AlteracaoEstoque_Estoque_EstoqueId",
+                        column: x => x.EstoqueId,
+                        principalTable: "Estoque",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ProdutoSimplesVenda",
                 columns: table => new
                 {
@@ -142,6 +158,11 @@ namespace BibliotecaCentral.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AlteracaoEstoque_EstoqueId",
+                table: "AlteracaoEstoque",
+                column: "EstoqueId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Estoque_ProdutoId",
@@ -187,7 +208,7 @@ namespace BibliotecaCentral.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Estoque");
+                name: "AlteracaoEstoque");
 
             migrationBuilder.DropTable(
                 name: "ProdutoSimplesVenda");
@@ -196,11 +217,10 @@ namespace BibliotecaCentral.Migrations
                 name: "Veiculos");
 
             migrationBuilder.DropTable(
-                name: "Vendas");
+                name: "Estoque");
 
-            migrationBuilder.DropColumn(
-                name: "AplicabilidadeEstoque",
-                table: "Produtos");
+            migrationBuilder.DropTable(
+                name: "Vendas");
 
             migrationBuilder.DropColumn(
                 name: "Veiculo",

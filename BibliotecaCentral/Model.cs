@@ -10,12 +10,12 @@ namespace BibliotecaCentral
         public DbSet<MotoristaDI> Motoristas { get; set; }
         public DbSet<Vendedor> Vendedores { get; set; }
         public DbSet<ProdutoDI> Produtos { get; set; }
+        public DbSet<Estoque> Estoque { get; set; }
         public DbSet<VeiculoDI> Veiculos { get; set; }
         public DbSet<NFeDI> NotasFiscais { get; set; }
         public DbSet<RegistroVenda> Vendas { get; set; }
         public DbSet<RegistroCancelamento> Cancelamentos { get; set; }
         public DbSet<Imagem> Imagens { get; set; }
-        public DbSet<AlteracaoEstoque> Estoque { get; set; }
 
         public AplicativoContext()
         {

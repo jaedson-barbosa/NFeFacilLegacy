@@ -18,13 +18,13 @@ namespace BibliotecaCentral.Migrations
 
                     b.Property<double>("Alteração");
 
-                    b.Property<Guid?>("ProdutoId");
+                    b.Property<Guid?>("EstoqueId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProdutoId");
+                    b.HasIndex("EstoqueId");
 
-                    b.ToTable("Estoque");
+                    b.ToTable("AlteracaoEstoque");
                 });
 
             modelBuilder.Entity("BibliotecaCentral.ItensBD.ClienteDI", b =>
@@ -127,6 +127,28 @@ namespace BibliotecaCentral.Migrations
                     b.ToTable("Emitentes");
                 });
 
+            modelBuilder.Entity("BibliotecaCentral.ItensBD.Estoque", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("LocalizacaoGenerica");
+
+                    b.Property<string>("Locação");
+
+                    b.Property<string>("Prateleira");
+
+                    b.Property<Guid?>("ProdutoId");
+
+                    b.Property<string>("Segmento");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProdutoId");
+
+                    b.ToTable("Estoque");
+                });
+
             modelBuilder.Entity("BibliotecaCentral.ItensBD.Imagem", b =>
                 {
                     b.Property<Guid>("Id")
@@ -208,8 +230,6 @@ namespace BibliotecaCentral.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<bool>("AplicabilidadeEstoque");
 
                     b.Property<string>("CFOP");
 
@@ -365,6 +385,13 @@ namespace BibliotecaCentral.Migrations
                 });
 
             modelBuilder.Entity("BibliotecaCentral.ItensBD.AlteracaoEstoque", b =>
+                {
+                    b.HasOne("BibliotecaCentral.ItensBD.Estoque")
+                        .WithMany("Alteracoes")
+                        .HasForeignKey("EstoqueId");
+                });
+
+            modelBuilder.Entity("BibliotecaCentral.ItensBD.Estoque", b =>
                 {
                     b.HasOne("BibliotecaCentral.ItensBD.ProdutoDI", "Produto")
                         .WithMany()

@@ -21,8 +21,6 @@ namespace BibliotecaCentral.ItensBD
         public string UnidadeTributacao { get; set; }
         public double ValorUnitarioTributo { get; set; }
 
-        public bool AplicabilidadeEstoque { get; set; }
-
         public ProdutoDI() { }
         public ProdutoDI(ProdutoOuServicoGenerico other)
         {

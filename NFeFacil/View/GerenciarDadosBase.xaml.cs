@@ -33,7 +33,8 @@ namespace NFeFacil.View
                         new Controles.ItemHambuguer(Symbol.People, "Emitentes"),
                         new Controles.ItemHambuguer(Symbol.People, "Clientes"),
                         new Controles.ItemHambuguer(Symbol.People, "Motoristas"),
-                        new Controles.ItemHambuguer(Symbol.Shop, "Produtos")
+                        new Controles.ItemHambuguer(Symbol.Shop, "Produtos"),
+                        new Controles.ItemHambuguer(Symbol.People, "Vendedores")
                     },
                     SelectedIndex = 0
                 };

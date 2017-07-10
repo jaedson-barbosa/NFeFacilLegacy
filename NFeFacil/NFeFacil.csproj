@@ -212,6 +212,9 @@
     <Compile Include="View\AdicionarProduto.xaml.cs">
       <DependentUpon>AdicionarProduto.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\AdicionarVendedor.xaml.cs">
+      <DependentUpon>AdicionarVendedor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\CaixasDialogo\AdicionarDuplicata.xaml.cs">
       <DependentUpon>AdicionarDuplicata.xaml</DependentUpon>
     </Compile>
@@ -404,6 +407,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\AdicionarProduto.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AdicionarVendedor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

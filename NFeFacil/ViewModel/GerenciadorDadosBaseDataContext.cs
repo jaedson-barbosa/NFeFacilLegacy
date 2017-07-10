@@ -1,6 +1,5 @@
 ﻿using BibliotecaCentral;
 using BibliotecaCentral.ItensBD;
-using BibliotecaCentral.Repositorio;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Input;
@@ -60,12 +59,17 @@ namespace NFeFacil.ViewModel
             EditarProdutoCommand = new Comando<ProdutoDI>(EditarProduto);
             RemoverProdutoCommand = new Comando<ProdutoDI>(RemoverProduto);
 
+            AdicionarVendedorCommand = new Comando(AdicionarVendedor);
+            EditarVendedorCommand = new Comando<Vendedor>(EditarVendedor);
+            RemoverVendedorCommand = new Comando<Vendedor>(RemoverVendedor);
+
             using (var db = new AplicativoContext())
             {
                 Emitentes = db.Emitentes.GerarObs();
                 Clientes = db.Clientes.GerarObs();
                 Motoristas = db.Motoristas.GerarObs();
                 Produtos = db.Produtos.GerarObs();
+                Vendedores = db.Vendedores.GerarObs();
             }
         }
 
@@ -162,6 +166,30 @@ namespace NFeFacil.ViewModel
                 db.Remove(prod);
                 db.SaveChanges();
                 Produtos = db.Produtos.GerarObs();
+            }
+        }
+
+        public void AdicionarVendedor()
+        {
+            MainPage.Current.AbrirFunçao(typeof(View.AdicionarVendedor));
+        }
+
+        public void EditarVendedor(Vendedor vend)
+        {
+            MainPage.Current.AbrirFunçao(typeof(View.AdicionarVendedor), new GrupoViewBanco<Vendedor>
+            {
+                ItemBanco = vend,
+                OperacaoRequirida = TipoOperacao.Edicao
+            });
+        }
+
+        public void RemoverVendedor(Vendedor vend)
+        {
+            using (var db = new AplicativoContext())
+            {
+                db.Remove(vend);
+                db.SaveChanges();
+                Vendedores = db.Vendedores.GerarObs();
             }
         }
     }

@@ -379,6 +379,8 @@ namespace BibliotecaCentral.Migrations
                     b.Property<string>("Nome")
                         .IsRequired();
 
+                    b.Property<DateTime>("UltimaData");
+
                     b.HasKey("Id");
 
                     b.ToTable("Vendedores");

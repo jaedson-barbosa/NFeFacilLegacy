@@ -8,7 +8,7 @@ using BibliotecaCentral;
 namespace BibliotecaCentral.Migrations
 {
     [DbContext(typeof(AplicativoContext))]
-    [Migration("20170710205742_Loja1.2.8")]
+    [Migration("20170710223427_Loja1.2.8")]
     partial class Loja128
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -382,6 +382,8 @@ namespace BibliotecaCentral.Migrations
 
                     b.Property<string>("Nome")
                         .IsRequired();
+
+                    b.Property<DateTime>("UltimaData");
 
                     b.HasKey("Id");
 

@@ -156,9 +156,9 @@
     <Compile Include="Migrations\20170708170014_AdicionadoVendedores.designer.cs">
       <DependentUpon>20170708170014_AdicionadoVendedores.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\20170710205742_Loja1.2.8.cs" />
-    <Compile Include="Migrations\20170710205742_Loja1.2.8.designer.cs">
-      <DependentUpon>20170710205742_Loja1.2.8.cs</DependentUpon>
+    <Compile Include="Migrations\20170710223427_Loja1.2.8.cs" />
+    <Compile Include="Migrations\20170710223427_Loja1.2.8.designer.cs">
+      <DependentUpon>20170710223427_Loja1.2.8.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\AplicativoContextModelSnapshot.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\IRegimeNormal.cs" />
@@ -313,6 +313,7 @@
     <Compile Include="Validacao\ValidadorExportacao.cs" />
     <Compile Include="Validacao\ValidadorMotorista.cs" />
     <Compile Include="Validacao\ValidadorProduto.cs" />
+    <Compile Include="Validacao\ValidadorVendedor.cs" />
     <Compile Include="Validacao\ValidarDados.cs" />
     <Compile Include="WebService\Pacotes\EnviNFe.cs" />
     <Compile Include="WebService\Pacotes\EnvEvento.cs" />

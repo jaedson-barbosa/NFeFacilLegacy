@@ -13,6 +13,12 @@ namespace BibliotecaCentral.Migrations
             migrationBuilder.DropTable(
                 name: "ResultadosServidor");
 
+            migrationBuilder.AddColumn<DateTime>(
+                name: "UltimaData",
+                table: "Vendedores",
+                nullable: false,
+                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+
             migrationBuilder.AddColumn<Guid>(
                 name: "Veiculo",
                 table: "Motoristas",
@@ -221,6 +227,10 @@ namespace BibliotecaCentral.Migrations
 
             migrationBuilder.DropTable(
                 name: "Vendas");
+
+            migrationBuilder.DropColumn(
+                name: "UltimaData",
+                table: "Vendedores");
 
             migrationBuilder.DropColumn(
                 name: "Veiculo",

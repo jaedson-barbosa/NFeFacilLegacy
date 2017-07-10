@@ -6,6 +6,7 @@ namespace BibliotecaCentral.ItensBD
     public sealed class Vendedor
     {
         public Guid Id { get; set; }
+        public DateTime UltimaData { get; set; }
 
         [Required]
         public string Nome { get; set; }

@@ -20,6 +20,7 @@ namespace NFeFacil.ViewModel
         public ObservableCollection<ClienteDI> Clientes { get; private set; }
         public ObservableCollection<MotoristaDI> Motoristas { get; private set; }
         public ObservableCollection<ProdutoDI> Produtos { get; private set; }
+        public ObservableCollection<Vendedor> Vendedores { get; private set; }
 
         public ICommand AdicionarEmitenteCommand { get; }
         public ICommand EditarEmitenteCommand { get; }
@@ -36,6 +37,10 @@ namespace NFeFacil.ViewModel
         public ICommand AdicionarProdutoCommand { get; }
         public ICommand EditarProdutoCommand { get; }
         public ICommand RemoverProdutoCommand { get; }
+
+        public ICommand AdicionarVendedorCommand { get; }
+        public ICommand EditarVendedorCommand { get; }
+        public ICommand RemoverVendedorCommand { get; }
 
         public GerenciadorDadosBaseDataContext()
         {
@@ -80,11 +85,11 @@ namespace NFeFacil.ViewModel
 
         private void RemoverEmitente(EmitenteDI emit)
         {
-            using (var db = new Emitentes())
+            using (var db = new AplicativoContext())
             {
-                db.Remover(emit);
-                db.SalvarMudancas();
-                Emitentes = db.Registro.GerarObs();
+                db.Remove(emit);
+                db.SaveChanges();
+                Emitentes = db.Emitentes.GerarObs();
             }
         }
 
@@ -104,11 +109,11 @@ namespace NFeFacil.ViewModel
 
         private void RemoverCliente(ClienteDI dest)
         {
-            using (var db = new Clientes())
+            using (var db = new AplicativoContext())
             {
-                db.Remover(dest);
-                db.SalvarMudancas();
-                Clientes = db.Registro.GerarObs();
+                db.Remove(dest);
+                db.SaveChanges();
+                Clientes = db.Clientes.GerarObs();
             }
         }
 
@@ -128,11 +133,11 @@ namespace NFeFacil.ViewModel
 
         private void RemoverMotorista(MotoristaDI mot)
         {
-            using (var db = new Motoristas())
+            using (var db = new AplicativoContext())
             {
-                db.Remover(mot);
-                db.SalvarMudancas();
-                Motoristas = db.Registro.GerarObs();
+                db.Remove(mot);
+                db.SaveChanges();
+                Motoristas = db.Motoristas.GerarObs();
             }
         }
 
@@ -152,11 +157,11 @@ namespace NFeFacil.ViewModel
 
         private void RemoverProduto(ProdutoDI prod)
         {
-            using (var db = new Produtos())
+            using (var db = new AplicativoContext())
             {
-                db.Remover(prod);
-                db.SalvarMudancas();
-                Produtos = db.Registro.GerarObs();
+                db.Remove(prod);
+                db.SaveChanges();
+                Produtos = db.Produtos.GerarObs();
             }
         }
     }

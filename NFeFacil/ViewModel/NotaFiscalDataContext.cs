@@ -549,13 +549,10 @@ namespace NFeFacil.ViewModel
             }
             else
             {
-                using (var notasFiscais = new NotasFiscais())
-                {
-                    var cnpj = NotaSalva.Informações.emitente.CNPJ;
-                    var serie = NotaSalva.Informações.identificação.Serie;
-                    NotaSalva.Informações.identificação.Numero = notasFiscais.ObterNovoNumero(cnpj, serie);
-                    OnPropertyChanged(nameof(NotaSalva));
-                }
+                var cnpj = NotaSalva.Informações.emitente.CNPJ;
+                var serie = NotaSalva.Informações.identificação.Serie;
+                NotaSalva.Informações.identificação.Numero = NotasFiscais.ObterNovoNumero(cnpj, serie);
+                OnPropertyChanged(nameof(NotaSalva));
             }
         }
 
@@ -874,16 +871,18 @@ namespace NFeFacil.ViewModel
             try
             {
                 var di = ObterDI();
-                using (var db = new NotasFiscais())
+                using (var db = new AplicativoContext())
                 {
-                    if (db.Registro.Count(x => x.Id == di.Id) == 0)
+                    di.UltimaData = DateTime.Now;
+                    if (db.NotasFiscais.Count(x => x.Id == di.Id) == 0)
                     {
-                        db.Adicionar(di);
+                        db.Add(di);
                     }
-                    else if (db.Registro.First(x => x.Id == di.Id) != di)
+                    else if (db.NotasFiscais.First(x => x.Id == di.Id) != di)
                     {
-                        db.Atualizar(di);
+                        db.Update(di);
                     }
+                    db.SaveChanges();
                 }
             }
             catch (Exception e)

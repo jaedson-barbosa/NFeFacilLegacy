@@ -213,5 +213,46 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <ListView ItemsSource="{Binding Vendedores}"
+                  ItemContainerStyle="{StaticResource ItemFullWidth}">
+            <ListView.Header>
+                <Grid Style="{StaticResource Cabecalho}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock>Nome</TextBlock>
+                    <TextBlock Grid.Column="1">CPF</TextBlock>
+                    <Button Command="{Binding AdicionarVendedorCommand}"
+                            Style="{StaticResource BotaoAdd}"
+                            Grid.Column="2">
+                        <SymbolIcon Symbol="Add" />
+                    </Button>
+                </Grid>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.ContextFlyout>
+                            <MenuFlyout>
+                                <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.EditarVendedorCommand}"
+                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Editar</MenuFlyoutItem>
+                                <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.RemoverVendedorCommand}"
+                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Remover</MenuFlyoutItem>
+                            </MenuFlyout>
+                        </Grid.ContextFlyout>
+                        <TextBlock Text="{Binding Nome}" />
+                        <TextBlock TextWrapping="Wrap"
+                                   Text="{Binding CPF}"
+                                   Grid.Column="1" />
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </FlipView>
 </Page>

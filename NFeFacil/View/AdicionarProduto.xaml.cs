@@ -5,6 +5,8 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using BibliotecaCentral.Repositorio;
 using BibliotecaCentral.ItensBD;
+using BibliotecaCentral;
+using System;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -59,18 +61,20 @@ namespace NFeFacil.View
             {
                 if (new ValidadorProduto(Produto).Validar(Log))
                 {
-                    using (var db = new Produtos())
+                    using (var db = new AplicativoContext())
                     {
+                        Produto.UltimaData = DateTime.Now;
                         if (tipoRequisitado == TipoOperacao.Adicao)
                         {
-                            db.Adicionar(Produto);
+                            db.Add(Produto);
                             Log.Escrever(TitulosComuns.Sucesso, "Produto salvo com sucesso.");
                         }
                         else
                         {
-                            db.Atualizar(Produto);
+                            db.Update(Produto);
                             Log.Escrever(TitulosComuns.Sucesso, "Produto alterado com sucesso.");
                         }
+                        db.SaveChanges();
                     }
                     MainPage.Current.Retornar();
                 }

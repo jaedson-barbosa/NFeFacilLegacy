@@ -24,9 +24,9 @@ namespace NFeFacil.ViewModel
 
         public RelatorioVendasAnuais()
         {
-            using (var db = new NotasFiscais())
+            using (var db = new AplicativoContext())
             {
-                AnosDisponiveis = (from dado in db.Registro
+                AnosDisponiveis = (from dado in db.NotasFiscais
                                    let ano = Convert.ToDateTime(dado.DataEmissao).Year
                                    orderby ano ascending
                                    select ano).Distinct().GerarObs();
@@ -48,9 +48,10 @@ namespace NFeFacil.ViewModel
         {
             try
             {
-                using (var db = new NotasFiscais())
+                using (var db = new AplicativoContext())
                 {
-                    var notas = from item in db.Registro
+                    var notas = from item in db.NotasFiscais
+                                where DateTime.Parse(item.DataEmissao).Year == AnoEscolhido
                                 let xml = XElement.Parse(item.XML)
                                 let usarNFe = item.Status < 4
                                 let nota = usarNFe ? xml.FromXElement<NFe>() : (xml.FromXElement<Processo>()).NFe

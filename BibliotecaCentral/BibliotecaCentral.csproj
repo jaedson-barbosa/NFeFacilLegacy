@@ -290,12 +290,8 @@
     <Compile Include="ModeloXML\Processo.cs" />
     <Compile Include="Certificacao\Certificados.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositorio\Clientes.cs" />
     <Compile Include="Repositorio\ConexaoBanco.cs" />
-    <Compile Include="Repositorio\Emitentes.cs" />
-    <Compile Include="Repositorio\Motoristas.cs" />
     <Compile Include="Repositorio\NotasFiscais.cs" />
-    <Compile Include="Repositorio\Produtos.cs" />
     <Compile Include="Sincronizacao\GerenciadorCliente.cs" />
     <Compile Include="Sincronizacao\GerenciadorServidor.cs" />
     <Compile Include="Sincronizacao\ItensSincronizados.cs" />

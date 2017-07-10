@@ -78,18 +78,20 @@ namespace NFeFacil.View
             {
                 if (new ValidadorEmitente(emitente).Validar(Log))
                 {
-                    using (var db = new Emitentes())
+                    using (var db = new AplicativoContext())
                     {
+                        emitente.UltimaData = DateTime.Now;
                         if (tipoRequisitado == TipoOperacao.Adicao)
                         {
-                            db.Adicionar(emitente);
+                            db.Add(emitente);
                             Log.Escrever(TitulosComuns.Sucesso, "Emitente salvo com sucesso.");
                         }
                         else
                         {
-                            db.Atualizar(emitente);
+                            db.Update(emitente);
                             Log.Escrever(TitulosComuns.Sucesso, "Emitente alterado com sucesso.");
                         }
+                        db.SaveChanges();
                     }
                     MainPage.Current.Retornar();
                 }

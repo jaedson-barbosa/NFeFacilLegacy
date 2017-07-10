@@ -114,10 +114,10 @@ namespace NFeFacil.ViewModel
 
             public void Remover()
             {
-                using (var db = new NotasFiscais())
+                using (var db = new AplicativoContext())
                 {
-                    db.Remover(Nota);
-                    db.SalvarMudancas();
+                    db.Remove(Nota);
+                    db.SaveChanges();
                     AtualizarNotasSalvas();
                 }
             }
@@ -128,9 +128,11 @@ namespace NFeFacil.ViewModel
                 if (await new OperacoesNotaEmitida(processo).Cancelar())
                 {
                     Nota.Status = (int)StatusNFe.Cancelada;
-                    using (var db = new NotasFiscais())
+                    using (var db = new AplicativoContext())
                     {
-                        db.Atualizar(Nota);
+                        Nota.UltimaData = DateTime.Now;
+                        db.Update(Nota);
+                        db.SaveChanges();
                     }
                     AtualizarNotasSalvas();
                 }

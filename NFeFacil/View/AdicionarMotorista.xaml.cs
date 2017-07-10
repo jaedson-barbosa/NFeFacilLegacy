@@ -6,6 +6,8 @@ using Windows.UI.Xaml.Navigation;
 using BibliotecaCentral.Repositorio;
 using BibliotecaCentral.ItensBD;
 using NFeFacil.ViewModel;
+using BibliotecaCentral;
+using System;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -60,18 +62,20 @@ namespace NFeFacil.View
             {
                 if (new ValidadorMotorista(motorista).Validar(Log))
                 {
-                    using (var db = new Motoristas())
+                    using (var db = new AplicativoContext())
                     {
+                        motorista.UltimaData = DateTime.Now;
                         if (tipoRequisitado == TipoOperacao.Adicao)
                         {
-                            db.Adicionar(motorista);
+                            db.Add(motorista);
                             Log.Escrever(TitulosComuns.Sucesso, "Motorista salvo com sucesso.");
                         }
                         else
                         {
-                            db.Atualizar(motorista);
+                            db.Update(motorista);
                             Log.Escrever(TitulosComuns.Sucesso, "Motorista alterado com sucesso.");
                         }
+                        db.SaveChanges();
                     }
                     MainPage.Current.Retornar();
                 }

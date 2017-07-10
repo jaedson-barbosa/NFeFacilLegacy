@@ -18,11 +18,11 @@ namespace BibliotecaCentral.Migrations
 
                     b.Property<double>("Alteração");
 
-                    b.Property<Guid>("ProdutoRelacionado");
-
-                    b.Property<Guid>("RegistroVendaRelacionado");
+                    b.Property<Guid?>("ProdutoId");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ProdutoId");
 
                     b.ToTable("Estoque");
                 });
@@ -148,8 +148,6 @@ namespace BibliotecaCentral.Migrations
 
                     b.Property<string>("CPF");
 
-                    b.Property<Guid>("IdVeiculo");
-
                     b.Property<string>("InscricaoEstadual");
 
                     b.Property<string>("Nome");
@@ -157,6 +155,8 @@ namespace BibliotecaCentral.Migrations
                     b.Property<string>("UF");
 
                     b.Property<DateTime>("UltimaData");
+
+                    b.Property<Guid>("Veiculo");
 
                     b.Property<string>("XEnder");
 
@@ -209,6 +209,8 @@ namespace BibliotecaCentral.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<bool>("AplicabilidadeEstoque");
+
                     b.Property<string>("CFOP");
 
                     b.Property<string>("CodigoBarras");
@@ -251,7 +253,7 @@ namespace BibliotecaCentral.Migrations
 
                     b.Property<string>("Nome");
 
-                    b.Property<Guid>("ProdutoBase");
+                    b.Property<Guid?>("ProdutoBaseId");
 
                     b.Property<double>("Quantidade");
 
@@ -266,6 +268,8 @@ namespace BibliotecaCentral.Migrations
                     b.Property<double>("ValorUnitario");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ProdutoBaseId");
 
                     b.HasIndex("RegistroVendaId");
 
@@ -303,6 +307,8 @@ namespace BibliotecaCentral.Migrations
 
                     b.Property<Guid?>("MotoristaId");
 
+                    b.Property<string>("NotaFiscalRelacionadaId");
+
                     b.Property<string>("Observações");
 
                     b.Property<Guid?>("VendedorId");
@@ -314,6 +320,8 @@ namespace BibliotecaCentral.Migrations
                     b.HasIndex("EmitenteId");
 
                     b.HasIndex("MotoristaId");
+
+                    b.HasIndex("NotaFiscalRelacionadaId");
 
                     b.HasIndex("VendedorId");
 
@@ -356,8 +364,19 @@ namespace BibliotecaCentral.Migrations
                     b.ToTable("Vendedores");
                 });
 
+            modelBuilder.Entity("BibliotecaCentral.ItensBD.AlteracaoEstoque", b =>
+                {
+                    b.HasOne("BibliotecaCentral.ItensBD.ProdutoDI", "Produto")
+                        .WithMany()
+                        .HasForeignKey("ProdutoId");
+                });
+
             modelBuilder.Entity("BibliotecaCentral.ItensBD.ProdutoSimplesVenda", b =>
                 {
+                    b.HasOne("BibliotecaCentral.ItensBD.ProdutoDI", "ProdutoBase")
+                        .WithMany()
+                        .HasForeignKey("ProdutoBaseId");
+
                     b.HasOne("BibliotecaCentral.ItensBD.RegistroVenda")
                         .WithMany("Produtos")
                         .HasForeignKey("RegistroVendaId");
@@ -376,6 +395,10 @@ namespace BibliotecaCentral.Migrations
                     b.HasOne("BibliotecaCentral.ItensBD.MotoristaDI", "Motorista")
                         .WithMany()
                         .HasForeignKey("MotoristaId");
+
+                    b.HasOne("BibliotecaCentral.ItensBD.NFeDI", "NotaFiscalRelacionada")
+                        .WithMany()
+                        .HasForeignKey("NotaFiscalRelacionadaId");
 
                     b.HasOne("BibliotecaCentral.ItensBD.Vendedor", "Vendedor")
                         .WithMany()

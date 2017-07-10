@@ -1,12 +1,11 @@
 ﻿using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
-using System;
 
 namespace BibliotecaCentral.ItensBD
 {
     public sealed class ProdutoSimplesVenda
     {
         public int Id { get; set; }
-        public Guid ProdutoBase { get; set; }
+        public ProdutoDI ProdutoBase { get; set; }
 
         public string Nome { get; set; }
         public string Unidade { get; set; }
@@ -24,7 +23,7 @@ namespace BibliotecaCentral.ItensBD
         public ProdutoSimplesVenda() { }
         public ProdutoSimplesVenda(ProdutoDI original)
         {
-            ProdutoBase = original.Id;
+            ProdutoBase = original;
             Nome = original.Descricao;
             Unidade = original.UnidadeComercializacao;
             ValorUnitario = original.ValorUnitario;

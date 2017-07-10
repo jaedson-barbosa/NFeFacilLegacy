@@ -13,8 +13,14 @@ namespace BibliotecaCentral.Migrations
             migrationBuilder.DropTable(
                 name: "ResultadosServidor");
 
+            migrationBuilder.AddColumn<bool>(
+                name: "AplicabilidadeEstoque",
+                table: "Produtos",
+                nullable: false,
+                defaultValue: false);
+
             migrationBuilder.AddColumn<Guid>(
-                name: "IdVeiculo",
+                name: "Veiculo",
                 table: "Motoristas",
                 nullable: false,
                 defaultValue: new Guid("00000000-0000-0000-0000-000000000000"));
@@ -25,12 +31,17 @@ namespace BibliotecaCentral.Migrations
                 {
                     Id = table.Column<DateTime>(nullable: false),
                     Alteração = table.Column<double>(nullable: false),
-                    ProdutoRelacionado = table.Column<Guid>(nullable: false),
-                    RegistroVendaRelacionado = table.Column<Guid>(nullable: false)
+                    ProdutoId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Estoque", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Estoque_Produtos_ProdutoId",
+                        column: x => x.ProdutoId,
+                        principalTable: "Produtos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -43,6 +54,7 @@ namespace BibliotecaCentral.Migrations
                     DescontoTotal = table.Column<double>(nullable: false),
                     EmitenteId = table.Column<Guid>(nullable: true),
                     MotoristaId = table.Column<Guid>(nullable: true),
+                    NotaFiscalRelacionadaId = table.Column<string>(nullable: true),
                     Observações = table.Column<string>(nullable: true),
                     VendedorId = table.Column<Guid>(nullable: true)
                 },
@@ -65,6 +77,12 @@ namespace BibliotecaCentral.Migrations
                         name: "FK_Vendas_Motoristas_MotoristaId",
                         column: x => x.MotoristaId,
                         principalTable: "Motoristas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Vendas_NotasFiscais_NotaFiscalRelacionadaId",
+                        column: x => x.NotaFiscalRelacionadaId,
+                        principalTable: "NotasFiscais",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -100,7 +118,7 @@ namespace BibliotecaCentral.Migrations
                     DespesasExtras = table.Column<double>(nullable: false),
                     Frete = table.Column<double>(nullable: false),
                     Nome = table.Column<string>(nullable: true),
-                    ProdutoBase = table.Column<Guid>(nullable: false),
+                    ProdutoBaseId = table.Column<Guid>(nullable: true),
                     Quantidade = table.Column<double>(nullable: false),
                     RegistroVendaId = table.Column<Guid>(nullable: true),
                     Seguro = table.Column<double>(nullable: false),
@@ -112,12 +130,28 @@ namespace BibliotecaCentral.Migrations
                 {
                     table.PrimaryKey("PK_ProdutoSimplesVenda", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_ProdutoSimplesVenda_Produtos_ProdutoBaseId",
+                        column: x => x.ProdutoBaseId,
+                        principalTable: "Produtos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_ProdutoSimplesVenda_Vendas_RegistroVendaId",
                         column: x => x.RegistroVendaId,
                         principalTable: "Vendas",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Estoque_ProdutoId",
+                table: "Estoque",
+                column: "ProdutoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProdutoSimplesVenda_ProdutoBaseId",
+                table: "ProdutoSimplesVenda",
+                column: "ProdutoBaseId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProdutoSimplesVenda_RegistroVendaId",
@@ -140,6 +174,11 @@ namespace BibliotecaCentral.Migrations
                 column: "MotoristaId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Vendas_NotaFiscalRelacionadaId",
+                table: "Vendas",
+                column: "NotaFiscalRelacionadaId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Vendas_VendedorId",
                 table: "Vendas",
                 column: "VendedorId");
@@ -160,7 +199,11 @@ namespace BibliotecaCentral.Migrations
                 name: "Vendas");
 
             migrationBuilder.DropColumn(
-                name: "IdVeiculo",
+                name: "AplicabilidadeEstoque",
+                table: "Produtos");
+
+            migrationBuilder.DropColumn(
+                name: "Veiculo",
                 table: "Motoristas");
 
             migrationBuilder.CreateTable(

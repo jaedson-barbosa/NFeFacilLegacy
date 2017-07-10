@@ -10,16 +10,18 @@ namespace BibliotecaCentral.ItensBD
         public DateTime UltimaData { get; set; }
 
         public string CodigoProduto { get; set; }
-        public string CodigoBarras { get; set; } = "";
+        public string CodigoBarras { get; set; } = string.Empty;
         public string Descricao { get; set; }
         public string NCM { get; set; }
         public string EXTIPI { get; set; }
         public string CFOP { get; set; }
         public string UnidadeComercializacao { get; set; }
         public double ValorUnitario { get; set; }
-        public string CodigoBarrasTributo { get; set; } = "";
+        public string CodigoBarrasTributo { get; set; } = string.Empty;
         public string UnidadeTributacao { get; set; }
         public double ValorUnitarioTributo { get; set; }
+
+        public bool AplicabilidadeEstoque { get; set; }
 
         public ProdutoDI() { }
         public ProdutoDI(ProdutoOuServicoGenerico other)

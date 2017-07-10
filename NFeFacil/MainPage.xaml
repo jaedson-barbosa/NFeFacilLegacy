@@ -41,7 +41,8 @@
               Height="40">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="0" />
+                <ColumnDefinition x:Name="ColunaHamburguer"
+                                  Width="0" />
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
@@ -65,8 +66,7 @@
             <ComboBox Grid.Column="2"
                       x:Name="cmbEscolha"
                       VerticalAlignment="Center"
-                      DisplayMemberPath="Nome"
-                      Margin="4,0,0,0" />
+                      DisplayMemberPath="Nome" />
             <Grid x:Name="MainTitleBar"
                   Grid.Column="3"
                   Background="#00000000">

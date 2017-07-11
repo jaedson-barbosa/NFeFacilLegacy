@@ -8,10 +8,17 @@
         {
             for (int i = 0; i < obrigatorios.Length; i++)
             {
-                if (obrigatorios[i] is string)
+                if (obrigatorios[i] is string str)
                 {
-                    var str = (string)obrigatorios[i];
                     if (string.IsNullOrWhiteSpace(str)) return false;
+                }
+                else if (obrigatorios[i] is int inteiro)
+                {
+                    if (inteiro == 0) return false;
+                }
+                else if (obrigatorios[i] is double quebrado)
+                {
+                    if (quebrado == 0) return false;
                 }
                 else if (obrigatorios[i] == null) return false;
             }

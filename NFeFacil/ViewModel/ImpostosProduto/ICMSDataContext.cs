@@ -109,47 +109,59 @@ namespace NFeFacil.ViewModel.ImpostosProduto
                 {
                     case 0:
                         Normal = new ICMS00();
-                        AttCamposNormal(false, true, false, false, false, false, false);
+                        AttCamposNormal(false, true, false, false, false, false);
                         break;
                     case 10:
                         Normal = new ICMS10();
-                        AttCamposNormal(false, true, true, false, false, false, false);
+                        AttCamposNormal(false, true, true, false, false, false);
+                        break;
+                    case 1010:
+                        Normal = new ICMSPart();
+                        AttCamposNormal(true, true, true, false, true, false, false, true);
                         break;
                     case 20:
                         Normal = new ICMS20();
-                        AttCamposNormal(true, true, false, false, true, true, false);
+                        AttCamposNormal(true, true, false, false, true, false);
                         break;
                     case 30:
                         Normal = new ICMS30();
-                        AttCamposNormal(false, false, true, false, true, true, false);
+                        AttCamposNormal(false, false, true, false, true, false);
                         break;
                     case 40:
                         Normal = new ICMS40();
-                        AttCamposNormal(false, false, false, false, true, true, false);
+                        AttCamposNormal(false, false, false, false, true, false);
                         break;
                     case 41:
                         Normal = new ICMS41();
-                        AttCamposNormal(false, false, false, false, true, true, false);
+                        AttCamposNormal(false, false, false, false, true, false);
+                        break;
+                    case 4141:
+                        Normal = new ICMSST();
+                        AttCamposNormal(false, false, false, true, false, false, true);
                         break;
                     case 50:
                         Normal = new ICMS50();
-                        AttCamposNormal(false, false, false, false, true, true, false);
+                        AttCamposNormal(false, false, false, false, true, false);
                         break;
                     case 51:
                         Normal = new ICMS51();
-                        AttCamposNormal(true, true, false, false, false, false, true);
+                        AttCamposNormal(true, true, false, false, false, true);
                         break;
                     case 60:
                         Normal = new ICMS60();
-                        AttCamposNormal(false, false, false, true, false, false, false);
+                        AttCamposNormal(false, false, false, true, false, false);
                         break;
                     case 70:
                         Normal = new ICMS70();
-                        AttCamposNormal(true, true, true, false, false, true, false);
+                        AttCamposNormal(true, true, true, false, true, false);
                         break;
                     case 90:
                         Normal = new ICMS90();
-                        AttCamposNormal(true, true, true, false, true, true, false);
+                        AttCamposNormal(true, true, true, false, true, false);
+                        break;
+                    case 9090:
+                        Normal = new ICMSPart();
+                        AttCamposNormal(true, true, true, false, true, false, false, true);
                         break;
                 }
                 Normal.CST = value.ToString("00");
@@ -157,25 +169,28 @@ namespace NFeFacil.ViewModel.ImpostosProduto
             }
         }
 
-        public bool NormalValorICMSDesonerado { get; private set; }
-        public bool NormalMotivoDesoneração { get; private set; }
+        public bool NormalICMSDesonerado { get; private set; }
         public bool NormalGrupoInicio { get; private set; }
         public bool NormalPercentualReduçãoNormal { get; private set; }
         public bool NormalICMSSTNormal { get; private set; }
         public bool NormalGrupoMeio { get; private set; }
         public bool NormalGrupoFim { get; private set; }
-        private void AttCamposNormal(bool pRedBC, bool grupoInicio, bool ICMSST, bool grupoMeio, bool motDesICMS, bool vICMSDeson, bool grupoFim)
+        public bool NormalICMSST { get; private set; }
+        public bool NormalICMSPart { get; private set; }
+        private void AttCamposNormal(bool pRedBC, bool grupoInicio, bool ICMSST, bool grupoMeio, bool icmsDeson, bool grupoFim, bool normalICMSST = false, bool normalICMSPart = false)
         {
-            NormalValorICMSDesonerado = vICMSDeson;
-            NormalMotivoDesoneração = motDesICMS;
+            NormalICMSDesonerado = icmsDeson;
             NormalGrupoInicio = grupoInicio;
             NormalPercentualReduçãoNormal = pRedBC;
             NormalICMSSTNormal = ICMSST;
             NormalGrupoMeio = grupoMeio;
             NormalGrupoFim = grupoFim;
-            OnPropertyChanged(nameof(NormalValorICMSDesonerado), nameof(NormalMotivoDesoneração),
+            NormalICMSST = normalICMSST;
+            NormalICMSPart = normalICMSPart;
+            OnPropertyChanged(nameof(NormalICMSDesonerado),
                 nameof(NormalGrupoInicio), nameof(NormalPercentualReduçãoNormal),
-                nameof(NormalICMSSTNormal), nameof(NormalGrupoMeio), nameof(NormalGrupoFim));
+                nameof(NormalICMSSTNormal), nameof(NormalGrupoMeio), nameof(NormalGrupoFim),
+                nameof(NormalICMSST), nameof(NormalICMSPart));
         }
 
         public Imposto ImpostoBruto => new ICMS()

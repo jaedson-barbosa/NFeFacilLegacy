@@ -1,48 +1,53 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Xml.Serialization;
 
 namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos
 {
-    public class ICMSUFDest : Imposto
+    public sealed class ICMSUFDest : Imposto
     {
-        [XmlElement(Order = 0)]
-        public string vBCUFDest { get; set; }
+        [XmlElement("vBCUFDest", Order = 0)]
+        public double VBCUFDest { get; set; }
 
-        [XmlElement(Order = 1)]
-        public string pFCPUFDest { get; set; }
+        [XmlElement("pFCPUFDest", Order = 1)]
+        public double PFCPUFDest { get; set; }
 
-        [XmlElement(Order = 2)]
-        public string pICMSUFDest { get; set; }
+        [XmlElement("pICMSUFDest", Order = 2)]
+        public double PICMSUFDest { get; set; }
 
-        [XmlElement(Order = 3)]
-        public string pICMSInter { get; set; }
+        [XmlElement("pICMSInter", Order = 3)]
+        public int PICMSInter { get; set; }
 
-        [XmlElement(Order = 4)]
-        public string pICMSInterPart { get; set; }
+        [XmlElement("pICMSInterPart", Order = 4)]
+        public int PICMSInterPart { get; set; }
 
-        [XmlElement(Order = 5)]
-        public string vFCPUFDest { get; set; }
+        [XmlElement("vFCPUFDest", Order = 5)]
+        public double VFCPUFDest { get; set; }
 
-        [XmlElement(Order = 6)]
-        public string vICMSUFDest { get; set; }
+        [XmlElement("vICMSUFDest", Order = 6)]
+        public double VICMSUFDest { get; set; }
 
-        [XmlElement(Order = 7)]
-        public string vICMSUFRemet { get; set; }
+        [XmlElement("vICMSUFRemet", Order = 7)]
+        public double VICMSUFRemet { get; set; }
 
-        [XmlIgnore]
-        public int PPPartilha
+        public override bool IsValido => NaoNulos(VBCUFDest, PFCPUFDest, PICMSUFDest, PICMSInter, PICMSInterPart, VFCPUFDest, VICMSUFDest, VICMSUFRemet);
+
+        public ICMSUFDest()
         {
-            get => pICMSInterPart == null ? -1 : new List<int> { 40, 60, 80, 100 }.IndexOf(int.Parse(pICMSInterPart));
-            set => pICMSInterPart = new List<int> { 40, 60, 80, 100 }[value].ToString();
+            switch (DateTime.Now.Year)
+            {
+                case 2016:
+                    PICMSInterPart = 40;
+                    break;
+                case 2017:
+                    PICMSInterPart = 60;
+                    break;
+                case 2018:
+                    PICMSInterPart = 80;
+                    break;
+                default:
+                    PICMSInterPart = 100;
+                    break;
+            }
         }
-
-        [XmlIgnore]
-        public int AInterestadual
-        {
-            get => pICMSInter == null ? -1 : new List<int> { 4, 7, 12 }.IndexOf(int.Parse(pICMSInter));
-            set => pICMSInter = new List<int> { 4, 7, 12 }[value].ToString();
-        }
-
-        public override bool IsValido => NaoNulos(vBCUFDest, pFCPUFDest, pICMSUFDest, pICMSInter, pICMSInterPart, vFCPUFDest, vICMSUFDest, vICMSUFRemet);
     }
 }

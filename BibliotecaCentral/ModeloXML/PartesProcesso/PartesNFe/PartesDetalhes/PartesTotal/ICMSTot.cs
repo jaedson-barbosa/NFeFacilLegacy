@@ -33,6 +33,9 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Pa
                             VBC = alterar.AgregarValor(nameof(VBC), VBC);
                             VICMS = alterar.AgregarValor(nameof(VICMS), VICMS);
                             VICMSDeson = alterar.AgregarValor(nameof(VICMSDeson), VICMSDeson);
+                            VFCPUFDest = alterar.AgregarValor(nameof(VFCPUFDest), VFCPUFDest);
+                            VICMSUFDest = alterar.AgregarValor(nameof(VICMSUFDest), VICMSUFDest);
+                            VICMSUFRemet = alterar.AgregarValor(nameof(VICMSUFRemet), VICMSUFRemet);
                             VBCST = alterar.AgregarValor(nameof(VBCST), VBCST);
                             VST = alterar.AgregarValor("vICMSST", VST);
                         }
@@ -92,13 +95,13 @@ namespace BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.Pa
         public double VICMSDeson { get; set; }
 
         [XmlElement("vFCPUFDest", Order = 3)]
-        public string VFCPUFDest { get;set;}
+        public double VFCPUFDest { get;set;}
 
         [XmlElement("vICMSUFDest", Order = 4)]
-        public string VICMSUFDest { get; set; }
+        public double VICMSUFDest { get; set; }
 
         [XmlElement("vICMSUFRemet", Order = 5)]
-        public string VICMSUFRemet { get; set; }
+        public double VICMSUFRemet { get; set; }
 
         /// <summary>
         /// Informar o somatório da BC ST (vBCST) informado nos itens.

@@ -45,10 +45,10 @@ namespace NFeFacil.View
             switch (tipoRequisitado)
             {
                 case TipoOperacao.Adicao:
-                    MainPage.Current.SeAtualizar(Symbol.Add, "Emitente");
+                    MainPage.Current.SeAtualizar(Symbol.Add, "Vendedor");
                     break;
                 case TipoOperacao.Edicao:
-                    MainPage.Current.SeAtualizar(Symbol.Edit, "Emitente");
+                    MainPage.Current.SeAtualizar(Symbol.Edit, "Vendedor");
                     break;
             }
             DataContext = vendedor;
@@ -66,12 +66,12 @@ namespace NFeFacil.View
                         if (tipoRequisitado == TipoOperacao.Adicao)
                         {
                             db.Add(vendedor);
-                            Log.Escrever(TitulosComuns.Sucesso, "Emitente salvo com sucesso.");
+                            Log.Escrever(TitulosComuns.Sucesso, "Vendedor salvo com sucesso.");
                         }
                         else
                         {
                             db.Update(vendedor);
-                            Log.Escrever(TitulosComuns.Sucesso, "Emitente alterado com sucesso.");
+                            Log.Escrever(TitulosComuns.Sucesso, "Vendedor alterado com sucesso.");
                         }
                         db.SaveChanges();
                     }

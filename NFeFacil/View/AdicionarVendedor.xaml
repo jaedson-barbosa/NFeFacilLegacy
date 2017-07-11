@@ -20,7 +20,7 @@
                                    Header="CPF"
                                    Number="{Binding CPF, Mode=TwoWay}" />
         <TextBox Header="Endereço"
-                 Text="{Binding Endereço}" />
+                 Text="{Binding Endereço, Mode=TwoWay}" />
     </ItemsControl>
     <Page.BottomAppBar>
         <CommandBar>

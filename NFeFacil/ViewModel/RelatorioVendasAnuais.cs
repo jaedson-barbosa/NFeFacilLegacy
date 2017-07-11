@@ -86,17 +86,20 @@ namespace NFeFacil.ViewModel
                     ValorTotal = notas.Sum(x => x.Informações.total.ICMSTot.VNF);
                     PropertyChanged(this, new PropertyChangedEventArgs(nameof(ValorTotal)));
 
-                    var totalMes = new List<TotalPorMes>(12);
-                    for (int i = 1; i < 13; i++)
+                    var gruposMeses = from nota in notas
+                                      let data = DateTime.Parse(nota.Informações.identificação.DataHoraEmissão)
+                                      group new { nota = nota, data = data.Month } by data.Month;
+                    var totalMes = new List<TotalPorMes>(gruposMeses.Count());
+                    foreach (var item in gruposMeses)
                     {
-                        totalMes.Add(new TotalPorMes { Mês = i.ToString() });
-                    }
-                    foreach (var item in notas)
-                    {
-                        var det = item.Informações;
-                        var data = Convert.ToDateTime(det.identificação.DataHoraEmissão);
-                        totalMes[data.Month - 1].Quantidade = det.produtos.Sum(prod => prod.Produto.QuantidadeComercializada);
-                        totalMes[data.Month - 1].Total += det.total.ICMSTot.VNF;
+                        var primeiro = item.First();
+                        var atual = new TotalPorMes
+                        {
+                            Mês = primeiro.data.ToString(),
+                            Quantidade = item.Sum(det => det.nota.Informações.produtos.Sum(prod => prod.Produto.QuantidadeComercializada)),
+                            Total = item.Sum(det => det.nota.Informações.total.ICMSTot.VNF)
+                        };
+                        totalMes.Add(atual);
                     }
                     ResultadoMes = totalMes.GerarObs();
                     PropertyChanged(this, new PropertyChangedEventArgs(nameof(ResultadoMes)));

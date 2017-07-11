@@ -79,7 +79,7 @@
                              Header="Bairro *" />
                     <TextBox Text="{Binding Path=Emit.CEP, Mode=TwoWay}"
                              InputScope="Number"
-                             Header="CEP" />
+                             Header="CEP *" />
                     <TextBox Text="{Binding Path=Emit.Telefone, Mode=TwoWay}"
                              InputScope="Number"
                              Header="Telefone" />

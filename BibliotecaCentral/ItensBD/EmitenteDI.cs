@@ -75,7 +75,7 @@ namespace BibliotecaCentral.ItensBD
                     CodigoMunicipio = CodigoMunicipio,
                     NomeMunicipio = NomeMunicipio,
                     SiglaUF = SiglaUF,
-                    CEP = CEP.ToString(),
+                    CEP = CEP,
                     CPais = CPais,
                     XPais = XPais,
                     Telefone = Telefone

@@ -80,7 +80,7 @@
                          Header="Bairro *" />
                 <controles:EntradaRestrita Pattern="[^\d]"
                                            Text="{Binding Path=Emit.CEP, Mode=TwoWay}"
-                                           Header="CEP" />
+                                           Header="CEP *" />
                 <controles:EntradaRestrita Pattern="[^\d]"
                                            Text="{Binding Path=Emit.Telefone, Mode=TwoWay}"
                                            Header="Telefone" />

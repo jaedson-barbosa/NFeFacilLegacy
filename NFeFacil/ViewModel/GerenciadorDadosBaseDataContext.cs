@@ -1,20 +1,12 @@
 ﻿using BibliotecaCentral;
 using BibliotecaCentral.ItensBD;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Windows.Input;
 
 namespace NFeFacil.ViewModel
 {
-    public sealed class GerenciadorDadosBaseDataContext : INotifyPropertyChanged
+    public sealed class GerenciadorDadosBaseDataContext
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void OnPropertyChanged(string nome)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nome));
-        }
-
         public ObservableCollection<EmitenteDI> Emitentes { get; private set; }
         public ObservableCollection<ClienteDI> Clientes { get; private set; }
         public ObservableCollection<MotoristaDI> Motoristas { get; private set; }
@@ -93,7 +85,7 @@ namespace NFeFacil.ViewModel
             {
                 db.Remove(emit);
                 db.SaveChanges();
-                Emitentes = db.Emitentes.GerarObs();
+                Emitentes.Remove(emit);
             }
         }
 
@@ -117,7 +109,7 @@ namespace NFeFacil.ViewModel
             {
                 db.Remove(dest);
                 db.SaveChanges();
-                Clientes = db.Clientes.GerarObs();
+                Clientes.Remove(dest);
             }
         }
 
@@ -141,7 +133,7 @@ namespace NFeFacil.ViewModel
             {
                 db.Remove(mot);
                 db.SaveChanges();
-                Motoristas = db.Motoristas.GerarObs();
+                Motoristas.Remove(mot);
             }
         }
 
@@ -165,7 +157,7 @@ namespace NFeFacil.ViewModel
             {
                 db.Remove(prod);
                 db.SaveChanges();
-                Produtos = db.Produtos.GerarObs();
+                Produtos.Remove(prod);
             }
         }
 
@@ -189,7 +181,7 @@ namespace NFeFacil.ViewModel
             {
                 db.Remove(vend);
                 db.SaveChanges();
-                Vendedores = db.Vendedores.GerarObs();
+                Vendedores.Remove(vend);
             }
         }
     }

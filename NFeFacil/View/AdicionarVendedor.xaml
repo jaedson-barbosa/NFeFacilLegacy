@@ -22,4 +22,16 @@
         <TextBox Header="Endereço"
                  Text="{Binding Endereço}" />
     </ItemsControl>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton x:Name="Confirmar"
+                          Icon="Accept"
+                          Label="Confirmar"
+                          Click="Confirmar_Click" />
+            <AppBarButton x:Name="Cancelar"
+                          Icon="Cancel"
+                          Label="Cancelar"
+                          Click="Cancelar_Click" />
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>

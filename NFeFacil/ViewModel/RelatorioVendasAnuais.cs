@@ -51,23 +51,29 @@ namespace NFeFacil.ViewModel
                 using (var db = new AplicativoContext())
                 {
                     var notas = from item in db.NotasFiscais
-                                where DateTime.Parse(item.DataEmissao).Year == AnoEscolhido
+                                let data = DateTime.Parse(item.DataEmissao)
+                                where data.Year == AnoEscolhido
+                                orderby data
                                 let xml = XElement.Parse(item.XML)
                                 let usarNFe = item.Status < 4
                                 let nota = usarNFe ? xml.FromXElement<NFe>() : (xml.FromXElement<Processo>()).NFe
                                 select nota;
 
                     var totalCliente = new List<TotalPorCliente>();
-                    foreach (var item in notas)
+                    var gruposClientes = from nota in notas
+                                         group nota by nota.Informações.destinatário.Documento;
+                    foreach (var item in gruposClientes)
                     {
-                        var det = item.Informações;
-                        if (totalCliente.Count(x => x.Doc == det.destinatário.Documento) == 0)
-                            totalCliente.Add(new TotalPorCliente { Doc = det.destinatário.Documento });
-                        var tot = totalCliente.Single(x => x.Doc == det.destinatário.Documento);
-                        tot.Mun = det.destinatário.Endereco.NomeMunicipio;
-                        tot.Nome = det.destinatário.Nome;
-                        tot.Quantidade = det.produtos.Sum(prod => prod.Produto.QuantidadeComercializada);
-                        tot.Total += det.total.ICMSTot.VNF;
+                        var det = item.Last().Informações;
+                        var atual = new TotalPorCliente
+                        {
+                            Doc = det.destinatário.Documento,
+                            Mun = det.destinatário.Endereco.NomeMunicipio,
+                            Nome = det.destinatário.Nome,
+                            Quantidade = item.Sum(x => x.Informações.produtos.Sum(prod => prod.Produto.QuantidadeComercializada)),
+                            Total = item.Sum(x => x.Informações.total.ICMSTot.VNF)
+                        };
+                        totalCliente.Add(atual);
                     }
                     ResultadoCliente = (from item in totalCliente
                                         orderby item.Total descending

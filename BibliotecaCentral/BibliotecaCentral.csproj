@@ -118,6 +118,27 @@
     </Compile>
     <Compile Include="Certificacao\AssinaFacil.cs" />
     <Compile Include="Certificacao\AssinaturaXML.cs" />
+    <Compile Include="Certificacao\CodigoNet\AttributeSortOrder.cs" />
+    <Compile Include="Certificacao\CodigoNet\C14NAncestralNamespaceContextManager.cs" />
+    <Compile Include="Certificacao\CodigoNet\CanonicalizationDispatcher.cs" />
+    <Compile Include="Certificacao\CodigoNet\CanonicalXml.cs" />
+    <Compile Include="Certificacao\CodigoNet\CanonicalXmlAttribute.cs" />
+    <Compile Include="Certificacao\CodigoNet\CanonicalXmlDocument.cs" />
+    <Compile Include="Certificacao\CodigoNet\CanonicalXmlElement.cs" />
+    <Compile Include="Certificacao\CodigoNet\CanonicalXmlNodeList.cs" />
+    <Compile Include="Certificacao\CodigoNet\CanonicalXmlText.cs" />
+    <Compile Include="Certificacao\CodigoNet\ICanonicalizableNode.cs" />
+    <Compile Include="Certificacao\CodigoNet\NamespaceFrame.cs" />
+    <Compile Include="Certificacao\CodigoNet\NamespaceSortOrder.cs" />
+    <Compile Include="Certificacao\CodigoNet\Reference.cs" />
+    <Compile Include="Certificacao\CodigoNet\Signature.cs" />
+    <Compile Include="Certificacao\CodigoNet\SignatureFormatter.cs" />
+    <Compile Include="Certificacao\CodigoNet\SignedXml.cs" />
+    <Compile Include="Certificacao\CodigoNet\Transform.cs" />
+    <Compile Include="Certificacao\CodigoNet\TransformChain.cs" />
+    <Compile Include="Certificacao\CodigoNet\Utils.cs" />
+    <Compile Include="Certificacao\CodigoNet\XmlDsigC14NTransform.cs" />
+    <Compile Include="Certificacao\CodigoNet\XmlDsigEnvelopedSignatureTransform.cs" />
     <Compile Include="Certificacao\ISignature.cs" />
     <Compile Include="Certificacao\LAN\Exportacao.cs" />
     <Compile Include="Certificacao\LAN\InformacoesConexao.cs" />
@@ -387,10 +408,6 @@
     <ProjectReference Include="..\Comum\Comum.csproj">
       <Project>{066bae5a-a3a9-490c-91b7-75d5b6827d95}</Project>
       <Name>Comum</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\System.Security.Cryptography.Xml\System.Security.Cryptography.csproj">
-      <Project>{05dc9912-eacd-43ee-97d4-c645f12c0b4f}</Project>
-      <Name>System.Security.Cryptography</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

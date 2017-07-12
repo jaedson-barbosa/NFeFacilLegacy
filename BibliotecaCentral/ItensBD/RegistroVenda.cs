@@ -6,6 +6,7 @@ namespace BibliotecaCentral.ItensBD
     public sealed class RegistroVenda
     {
         public Guid Id { get; set; }
+        public DateTime UltimaData { get; set; }
         public NFeDI NotaFiscalRelacionada { get; set; }
 
         public EmitenteDI Emitente { get; set; }

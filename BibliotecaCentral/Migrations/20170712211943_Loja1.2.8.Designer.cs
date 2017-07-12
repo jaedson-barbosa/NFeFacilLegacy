@@ -8,7 +8,7 @@ using BibliotecaCentral;
 namespace BibliotecaCentral.Migrations
 {
     [DbContext(typeof(AplicativoContext))]
-    [Migration("20170711211018_Loja.1.2.8")]
+    [Migration("20170712211943_Loja1.2.8")]
     partial class Loja128
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -271,8 +271,6 @@ namespace BibliotecaCentral.Migrations
 
                     b.Property<double>("Frete");
 
-                    b.Property<string>("Nome");
-
                     b.Property<Guid?>("ProdutoBaseId");
 
                     b.Property<double>("Quantidade");
@@ -282,10 +280,6 @@ namespace BibliotecaCentral.Migrations
                     b.Property<double>("Seguro");
 
                     b.Property<double>("TotalLíquido");
-
-                    b.Property<string>("Unidade");
-
-                    b.Property<double>("ValorUnitario");
 
                     b.HasKey("Id");
 
@@ -330,6 +324,8 @@ namespace BibliotecaCentral.Migrations
                     b.Property<string>("NotaFiscalRelacionadaId");
 
                     b.Property<string>("Observações");
+
+                    b.Property<DateTime>("UltimaData");
 
                     b.Property<Guid?>("VendedorId");
 

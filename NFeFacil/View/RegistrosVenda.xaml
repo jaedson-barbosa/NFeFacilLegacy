@@ -39,7 +39,6 @@
                 <Grid>
                     <Grid.ContextFlyout>
                         <MenuFlyout>
-                            <MenuFlyoutItem Click="Editar">Editar</MenuFlyoutItem>
                             <MenuFlyoutItem Click="Exibir">Exibir</MenuFlyoutItem>
                         </MenuFlyout>
                     </Grid.ContextFlyout>

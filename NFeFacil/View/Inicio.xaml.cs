@@ -74,10 +74,5 @@ namespace NFeFacil.View
                 Popup.Current.Escrever(TitulosComuns.Erro, "Não foi escolhido um emitente ou não há nenhum emitente cadastrado.");
             }
         }
-
-        private void CriarVenda(object sender, TappedRoutedEventArgs e)
-        {
-            MainPage.Current.AbrirFunçao(typeof(ManipulacaoRegistroVenda));
-        }
     }
 }

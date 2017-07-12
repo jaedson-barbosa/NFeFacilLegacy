@@ -1,5 +1,6 @@
 ﻿using BibliotecaCentral;
 using BibliotecaCentral.ItensBD;
+using BibliotecaCentral.Log;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -11,7 +12,9 @@ namespace NFeFacil.ViewModel
     public sealed class RegistroVendaDataContext : INotifyPropertyChanged
     {
         public RegistroVenda ItemBanco { get; }
-        public bool ManipulacaoAtivada { get; private set; }
+        TipoOperacao Operacao { get; }
+        ILog Log = Popup.Current;
+        public bool ManipulacaoAtivada { get; private set; } = true;
 
         public ObservableCollection<ProdutoSimplesVenda> ListaProdutos { get; private set; }
         public ObservableCollection<ClienteDI> Clientes { get; }
@@ -42,6 +45,24 @@ namespace NFeFacil.ViewModel
                 Produtos = new System.Collections.Generic.List<ProdutoSimplesVenda>(),
                 DataHoraVenda = DateTime.Now
             };
+            Operacao = TipoOperacao.Adicao;
+        }
+
+        internal RegistroVendaDataContext(RegistroVenda venda, TipoOperacao operacao)
+        {
+            AdicionarProdutoCommand = new Comando(AdicionarProduto);
+            RemoverProdutoCommand = new Comando<ProdutoSimplesVenda>(RemoverProduto);
+            EditarCommand = new Comando(Editar);
+            FinalizarCommand = new Comando(Finalizar);
+
+            using (var db = new AplicativoContext())
+            {
+                Clientes = db.Clientes.GerarObs();
+                Motoristas = db.Motoristas.GerarObs();
+            }
+
+            ItemBanco = venda;
+            Operacao = operacao;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -80,7 +101,21 @@ namespace NFeFacil.ViewModel
 
         void Finalizar()
         {
-            
+            using (var db = new AplicativoContext())
+            {
+                ItemBanco.UltimaData = DateTime.Now;
+                if (Operacao == TipoOperacao.Adicao)
+                {
+                    db.Add(ItemBanco);
+                    Log.Escrever(TitulosComuns.Sucesso, "Registro de venda salvo com sucesso.");
+                }
+                else
+                {
+                    db.Update(ItemBanco);
+                    Log.Escrever(TitulosComuns.Sucesso, "Registro de venda alterado com sucesso.");
+                }
+                db.SaveChanges();
+            }
         }
     }
 }

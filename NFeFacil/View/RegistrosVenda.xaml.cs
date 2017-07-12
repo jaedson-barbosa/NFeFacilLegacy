@@ -25,15 +25,16 @@ namespace NFeFacil.View
             MainPage.Current.SeAtualizar(Symbol.Library, "Vendas");
         }
 
-        private void Editar(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            var item = (MenuFlyoutItem)sender;
-
-        }
-
         private void Exibir(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-
+            var item = (MenuFlyoutItem)sender;
+            var venda = (RegistrosVenda)item.DataContext;
+            var conjunto = new GrupoViewBanco<RegistrosVenda>
+            {
+                ItemBanco = venda,
+                OperacaoRequirida = TipoOperacao.Edicao
+            };
+            MainPage.Current.AbrirFunçao(typeof(ManipulacaoRegistroVenda), conjunto);
         }
     }
 }

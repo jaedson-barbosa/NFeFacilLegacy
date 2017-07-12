@@ -52,6 +52,7 @@ namespace BibliotecaCentral.Migrations
                     MotoristaId = table.Column<Guid>(nullable: true),
                     NotaFiscalRelacionadaId = table.Column<string>(nullable: true),
                     Observações = table.Column<string>(nullable: true),
+                    UltimaData = table.Column<DateTime>(nullable: false),
                     VendedorId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
@@ -131,14 +132,11 @@ namespace BibliotecaCentral.Migrations
                     Desconto = table.Column<double>(nullable: false),
                     DespesasExtras = table.Column<double>(nullable: false),
                     Frete = table.Column<double>(nullable: false),
-                    Nome = table.Column<string>(nullable: true),
                     ProdutoBaseId = table.Column<Guid>(nullable: true),
                     Quantidade = table.Column<double>(nullable: false),
                     RegistroVendaId = table.Column<Guid>(nullable: true),
                     Seguro = table.Column<double>(nullable: false),
-                    TotalLíquido = table.Column<double>(nullable: false),
-                    Unidade = table.Column<string>(nullable: true),
-                    ValorUnitario = table.Column<double>(nullable: false)
+                    TotalLíquido = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
                 {

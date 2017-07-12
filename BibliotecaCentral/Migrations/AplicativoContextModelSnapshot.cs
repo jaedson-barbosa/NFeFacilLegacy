@@ -1,6 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
+using BibliotecaCentral;
 
 namespace BibliotecaCentral.Migrations
 {
@@ -267,8 +270,6 @@ namespace BibliotecaCentral.Migrations
 
                     b.Property<double>("Frete");
 
-                    b.Property<string>("Nome");
-
                     b.Property<Guid?>("ProdutoBaseId");
 
                     b.Property<double>("Quantidade");
@@ -278,10 +279,6 @@ namespace BibliotecaCentral.Migrations
                     b.Property<double>("Seguro");
 
                     b.Property<double>("TotalLíquido");
-
-                    b.Property<string>("Unidade");
-
-                    b.Property<double>("ValorUnitario");
 
                     b.HasKey("Id");
 
@@ -326,6 +323,8 @@ namespace BibliotecaCentral.Migrations
                     b.Property<string>("NotaFiscalRelacionadaId");
 
                     b.Property<string>("Observações");
+
+                    b.Property<DateTime>("UltimaData");
 
                     b.Property<Guid?>("VendedorId");
 

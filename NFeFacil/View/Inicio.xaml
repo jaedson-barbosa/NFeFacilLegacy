@@ -25,9 +25,10 @@
                                   Tapped="AbrirFunção">
                 <SymbolIcon Symbol="Manage" />
             </controles:ItemPadrao>
-            <controles:ItemPadrao Titulo="Criar nova venda"
+            <controles:ItemPadrao x:Name="ManipulacaoRegistroVenda"
+                                  Titulo="Criar nova venda"
                                   Descricao="Crie o registro de uma venda apenas com as informações básicas, depois, se você quiser, poderá emitir a nota fiscal facilmente."
-                                  Tapped="CriarVenda">
+                                  Tapped="AbrirFunção">
                 <SymbolIcon Symbol="Add" />
             </controles:ItemPadrao>
             <controles:ItemPadrao Titulo="Criar nota fiscal"
@@ -41,6 +42,10 @@
                                   Tapped="AbrirFunção">
                 <SymbolIcon Symbol="Library" />
             </controles:ItemPadrao>
+            <controles:ItemPadrao x:Name="RegistrosVenda"
+                                  Titulo="Vendas salvas"
+                                  Descricao="Veja todas as vendas feitas pela sua empresa e remova, visualize detalhes ou edite a respectiva venda."
+                                  Tapped="AbrirFunção" />
             <controles:ItemPadrao x:Name="Consulta"
                                   Titulo="Consultar NF-e"
                                   Descricao="Consulte dados básicos de qualquer nota fiscal emitida por qualquer aplicação usando apenas o código da NF-e."

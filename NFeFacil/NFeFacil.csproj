@@ -158,6 +158,11 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CodigoBarras\BarcodeLib.cs" />
+    <Compile Include="CodigoBarras\Code128.xaml.cs">
+      <DependentUpon>Code128.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CodigoBarras\Code128Symbologie.cs" />
     <Compile Include="DANFE\GerenciadorImpressao.cs" />
     <Compile Include="DANFE\Pacotes\DadosAdicionais.cs" />
     <Compile Include="DANFE\Pacotes\DadosCabecalho.cs" />
@@ -398,6 +403,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="CodigoBarras\Code128.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\AdicionarDestinatario.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -646,18 +655,12 @@
       <Project>{b59a85aa-2d60-4d5b-8104-dcb0a3f25019}</Project>
       <Name>BibliotecaCentral</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CodigoBarras\CodigoBarras.csproj">
-      <Project>{7c6695ea-1ac5-470b-98ad-aaed185c6f9f}</Project>
-      <Name>CodigoBarras</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Comum\Comum.csproj">
       <Project>{066bae5a-a3a9-490c-91b7-75d5b6827d95}</Project>
       <Name>Comum</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="CodigoBarras\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

@@ -1,17 +1,16 @@
 using System;
-using CodigoBarras.Symbologies;
 using Windows.UI;
 using Windows.UI.Xaml.Shapes;
 using Windows.UI.Xaml.Media;
 
-namespace CodigoBarras
+namespace NFeFacil.CodigoBarras
 {
     /// <summary>
     /// Generates a barcode image of a specified symbology from a string of data.
     /// </summary>
     public class Barcode
     {
-        private Code128 iBarcode;
+        private Code128Symbologie iBarcode;
         /// <summary>
         /// Gets or sets the raw data to encode.
         /// </summary>
@@ -37,7 +36,7 @@ namespace CodigoBarras
 
             EncodedValue = "";
 
-            iBarcode = new Code128(RawData, type);
+            iBarcode = new Code128Symbologie(RawData, type);
             EncodedValue = iBarcode.EncodedValue;
 
             var bars = new Rectangle[EncodedValue.Length];

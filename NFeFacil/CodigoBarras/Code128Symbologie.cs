@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CodigoBarras.Symbologies
+namespace NFeFacil.CodigoBarras
 {
-    internal class Code128
+    internal class Code128Symbologie
     {
         string RawData { get; }
         List<string[]> C128Code = new List<string[]>();
@@ -44,7 +44,7 @@ namespace CodigoBarras.Symbologies
         /// </summary>
         /// <param name="input">Data to encode.</param>
         /// <param name="type">Type of encoding to lock to. (Code 128A, Code 128B, Code 128C)</param>
-        public Code128(string input, Code128Types type)
+        public Code128Symbologie(string input, Code128Types type)
         {
             this.type = type;
         }

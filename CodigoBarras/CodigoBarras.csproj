@@ -106,12 +106,10 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="BarcodeCommon.cs" />
     <Compile Include="BarcodeLib.cs" />
     <Compile Include="Controles\Code128.xaml.cs">
       <DependentUpon>Code128.xaml</DependentUpon>
     </Compile>
-    <Compile Include="IBarcode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Symbologies\Code128.cs" />
     <EmbeddedResource Include="Properties\CodigoBarras.rd.xml" />

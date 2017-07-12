@@ -2,7 +2,6 @@
 using BibliotecaCentral.ItensBD;
 using BibliotecaCentral.ModeloXML;
 using BibliotecaCentral.ModeloXML.PartesProcesso;
-using BibliotecaCentral.Repositorio;
 using NFeFacil.View;
 using System;
 using System.ComponentModel;

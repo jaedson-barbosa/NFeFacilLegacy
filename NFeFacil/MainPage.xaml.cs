@@ -125,13 +125,32 @@ namespace NFeFacil
         {
             txtTitulo.Text = texto;
             symTitulo.Content = new FontIcon { Glyph = glyph };
-            if (glyph == "\uEC59")
+            AtualizarExibicaoExtra(ExibicaoExtra.ExibirEmitente);
+        }
+
+        public void SeAtualizarEspecial(string glyph, string texto, ExibicaoExtra extra, Vendedor emit)
+        {
+            txtTitulo.Text = texto;
+            symTitulo.Content = new FontIcon { Glyph = glyph };
+            if (extra == ExibicaoExtra.EscolherVendedor)
             {
                 AtualizarExibicaoExtra(ExibicaoExtra.EscolherVendedor);
             }
             else
             {
-                AtualizarExibicaoExtra(ExibicaoExtra.ExibirEmitente);
+                if (emit != null)
+                {
+                    txtEscolhido.Text = emit.Nome.Substring(0, emit.Nome.IndexOf(' '));
+                }
+                else
+                {
+                    txtEscolhido.Text = string.Empty;
+                }
+                txtEscolhido.Visibility = Visibility.Visible;
+                txtTitulo.Visibility = Visibility.Visible;
+                cmbEscolha.Visibility = Visibility.Collapsed;
+                cmbEscolha.SelectionChanged -= SelecaoMudou;
+                cmbEscolha.ItemsSource = null;
             }
         }
 
@@ -238,29 +257,30 @@ namespace NFeFacil
                     cmbEscolha.Visibility = Visibility.Collapsed;
                     break;
             }
+        }
 
-            void SelecaoMudou(object sender, SelectionChangedEventArgs e)
+        void SelecaoMudou(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count == 1)
             {
-                if (e.AddedItems.Count == 1)
+                var item = e.AddedItems[0];
+                if (item is EmitenteDI novoEmit)
                 {
-                    var item = e.AddedItems[0];
-                    if (item is EmitenteDI novoEmit)
-                    {
-                        Propriedades.EmitenteAtivo = novoEmit;
-                    }
-                    else if (item is Vendedor vendedor)
-                    {
-                        Propriedades.VendedorAtivo = vendedor;
-                    }
+                    Propriedades.EmitenteAtivo = novoEmit;
+                }
+                else if (item is Vendedor vendedor)
+                {
+                    Propriedades.VendedorAtivo = vendedor;
                 }
             }
         }
+    }
 
-        enum ExibicaoExtra
-        {
-            ExibirEmitente,
-            EscolherVendedor,
-            EscolherEmitente
-        }
+    public enum ExibicaoExtra
+    {
+        ExibirVendedor,
+        ExibirEmitente,
+        EscolherVendedor,
+        EscolherEmitente
     }
 }

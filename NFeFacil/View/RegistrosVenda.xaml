@@ -1,0 +1,60 @@
+﻿<Page x:Class="NFeFacil.View.RegistrosVenda"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:conversores="using:NFeFacil.ViewModel.Converters"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d">
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Estilos/Tabela.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <conversores:StringToDateTime x:Name="data" />
+        </ResourceDictionary>
+    </Page.Resources>
+    <ListView x:Name="lstVendas" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <ListView.Header>
+            <Grid Style="{StaticResource Cabecalho}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
+                           VerticalAlignment="Bottom"
+                           HorizontalAlignment="Center">Vendedor</TextBlock>
+                <TextBlock Grid.Column="1"
+                           Style="{StaticResource SubtitleTextBlockStyle}"
+                           VerticalAlignment="Bottom"
+                           HorizontalAlignment="Center">Cliente</TextBlock>
+                <TextBlock Grid.Column="2"
+                           Style="{StaticResource SubtitleTextBlockStyle}"
+                           VerticalAlignment="Bottom"
+                           HorizontalAlignment="Center">Data</TextBlock>
+            </Grid>
+        </ListView.Header>
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <Grid>
+                    <Grid.ContextFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Click="Editar">Editar</MenuFlyoutItem>
+                            <MenuFlyoutItem Click="Exibir">Exibir</MenuFlyoutItem>
+                        </MenuFlyout>
+                    </Grid.ContextFlyout>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="{Binding Vendedor.Nome}" />
+                    <TextBlock Grid.Column="1"
+                               Text="{Binding Cliente.Nome}" />
+                    <TextBlock Grid.Column="2"
+                               Text="{Binding DataHoraVenda, Converter={StaticResource data}, ConverterParameter='HH:mm:ss dd-MM-yyyy'}" />
+                </Grid>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+</Page>

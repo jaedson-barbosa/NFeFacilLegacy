@@ -11,7 +11,7 @@ namespace CodigoBarras
     /// </summary>
     public class Barcode
     {
-        private IBarcode iBarcode;
+        private Code128 iBarcode;
         /// <summary>
         /// Gets or sets the raw data to encode.
         /// </summary>

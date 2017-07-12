@@ -33,18 +33,11 @@ namespace BibliotecaCentral.Migrations
                     LocalizacaoGenerica = table.Column<string>(nullable: true),
                     Locação = table.Column<string>(nullable: true),
                     Prateleira = table.Column<string>(nullable: true),
-                    ProdutoId = table.Column<Guid>(nullable: true),
                     Segmento = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Estoque", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Estoque_Produtos_ProdutoId",
-                        column: x => x.ProdutoId,
-                        principalTable: "Produtos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -134,8 +127,7 @@ namespace BibliotecaCentral.Migrations
                 name: "ProdutoSimplesVenda",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                    Id = table.Column<Guid>(nullable: false),
                     Desconto = table.Column<double>(nullable: false),
                     DespesasExtras = table.Column<double>(nullable: false),
                     Frete = table.Column<double>(nullable: false),
@@ -169,11 +161,6 @@ namespace BibliotecaCentral.Migrations
                 name: "IX_AlteracaoEstoque_EstoqueId",
                 table: "AlteracaoEstoque",
                 column: "EstoqueId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Estoque_ProdutoId",
-                table: "Estoque",
-                column: "ProdutoId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProdutoSimplesVenda_ProdutoBaseId",

@@ -4,11 +4,31 @@ using System.Linq;
 
 namespace CodigoBarras.Symbologies
 {
-    internal class Code128 : BarcodeCommon, IBarcode
+    internal class Code128
     {
-        private List<string[]> C128Code = new List<string[]>();
-        private List<string> _FormattedData = new List<string>();
-        private Code128Types type;
+        string RawData { get; }
+        List<string[]> C128Code = new List<string[]>();
+        List<string> _FormattedData = new List<string>();
+        Code128Types type;
+
+        bool CheckNumericOnly()
+        {
+            if (RawData != null)
+            {
+                for (int i = 0; i < RawData.Length; i++)
+                {
+                    if (!char.IsNumber(RawData[i]))
+                    {
+                        return false;
+                    }
+                }
+            }
+            else
+            {
+                return false;
+            }
+            return true;
+        }
 
         public string EncodedValue
         {
@@ -24,7 +44,7 @@ namespace CodigoBarras.Symbologies
         /// </summary>
         /// <param name="input">Data to encode.</param>
         /// <param name="type">Type of encoding to lock to. (Code 128A, Code 128B, Code 128C)</param>
-        public Code128(string input, Code128Types type) : base(input)
+        public Code128(string input, Code128Types type)
         {
             this.type = type;
         }

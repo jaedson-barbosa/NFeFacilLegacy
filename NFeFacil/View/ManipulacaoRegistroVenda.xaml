@@ -1,6 +1,7 @@
 ﻿<Page x:Class="NFeFacil.View.ManipulacaoRegistroVenda"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:conversores="using:NFeFacil.ViewModel.Converters"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
@@ -10,6 +11,7 @@
                 <ResourceDictionary Source="Estilos/Tabela.xaml" />
                 <ResourceDictionary Source="Estilos/GridResponsiva.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <conversores:Invert x:Key="invert" />
         </ResourceDictionary>
     </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
@@ -51,20 +53,42 @@
             <ColumnDefinition />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <StackPanel x:Name="grpGeral"
-                    Grid.ColumnSpan="2">
+        <Grid x:Name="grpGeral"
+              Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
             <ComboBox Header="Cliente"
+                      IsEnabled="{Binding ManipulacaoAtivada}"
+                      ItemsSource="{Binding Clientes, Mode=OneTime}"
+                      SelectedItem="{Binding ItemBanco.Cliente, Mode=TwoWay}"
                       HorizontalAlignment="Stretch" />
-            <ItemsControl Style="{StaticResource ItensResponsivos}">
+            <ComboBox Grid.Column="1"
+                      Header="Motorista"
+                      IsEnabled="{Binding ManipulacaoAtivada}"
+                      ItemsSource="{Binding Motoristas, Mode=OneTime}"
+                      SelectedItem="{Binding ItemBanco.Motorista}"
+                      HorizontalAlignment="Stretch" />
+            <ItemsControl Grid.Row="1"
+                          Grid.ColumnSpan="2"
+                          Style="{StaticResource ItensResponsivos}">
                 <DatePicker Header="Data da venda"
+                            IsEnabled="{Binding ManipulacaoAtivada}"
                             MinWidth="156"
-                            MonthFormat="{}{month.integer} {month.abbreviated}" />
+                            MonthFormat="{}{month.integer} {month.abbreviated}"
+                            Date="{Binding ItemBanco.DataHoraVenda, Mode=TwoWay}" />
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <Button VerticalAlignment="Stretch"
+                            IsEnabled="{Binding ManipulacaoAtivada}"
                             Margin="0,2,2,0">
                         <TextBlock TextAlignment="Center">
                         <Run>Aplicar</Run>
@@ -73,41 +97,95 @@
                     </Button>
                     <TextBox Grid.Column="1"
                              Header="Desconto"
-                             IsReadOnly="True" />
+                             IsReadOnly="True"
+                             IsEnabled="{Binding ManipulacaoAtivada}"
+                             Text="{Binding ItemBanco.DescontoTotal}" />
                 </Grid>
                 <TextBox MaxLength="12"
+                         IsReadOnly="True"
+                         IsEnabled="{Binding ManipulacaoAtivada}"
                          Header="Total" />
             </ItemsControl>
-        </StackPanel>
+        </Grid>
         <ListView x:Name="lstProdutos"
-                  Margin="0,2,0,0"
+                  ItemsSource="{Binding ListaProdutos}"
                   Grid.Row="1"
                   Grid.ColumnSpan="2"
                   ItemContainerStyle="{StaticResource ItemFullWidth}">
             <ListView.Header>
                 <Grid Style="{StaticResource Cabecalho}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
                     <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
-                               Text="Produtos"
-                               VerticalAlignment="Center"
+                               Text="Nome"
+                               VerticalAlignment="Bottom"
                                HorizontalAlignment="Center" />
-                    <Button Style="{StaticResource BotaoAdd}"
-                            HorizontalAlignment="Right"
-                            Click="AdicionarProduto">
+                    <TextBlock Grid.Column="1"
+                               Style="{StaticResource SubtitleTextBlockStyle}"
+                               Text="Quantidade"
+                               VerticalAlignment="Bottom"
+                               HorizontalAlignment="Center" />
+                    <TextBlock Grid.Column="2"
+                               Style="{StaticResource SubtitleTextBlockStyle}"
+                               Text="Total"
+                               VerticalAlignment="Bottom"
+                               HorizontalAlignment="Center" />
+                    <Button Grid.Column="3"
+                            IsEnabled="{Binding ManipulacaoAtivada}"
+                            Style="{StaticResource BotaoAdd}">
                         <SymbolIcon Symbol="Add" />
                     </Button>
                 </Grid>
             </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ContextFlyout>
+                            <MenuFlyout>
+                                <MenuFlyoutItem Command="{Binding DataContext.RemoverProdutoCommand, ElementName=grpGeral}"
+                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}"
+                                                IsEnabled="{Binding ManipulacaoAtivada, ElementName=grpGeral}">Remover</MenuFlyoutItem>
+                            </MenuFlyout>
+                        </Grid.ContextFlyout>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding ProdutoBase.Descricao}" />
+                        <TextBlock Grid.Column="1"
+                                   Text="{Binding Quantidade}" />
+                        <TextBlock Grid.Column="2"
+                                   Text="{Binding TotalLíquido}" />
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
         <ScrollViewer Grid.Row="2"
                       Grid.ColumnSpan="2"
                       MaxHeight="80">
             <TextBox Header="Observações"
-                     TextWrapping="Wrap" />
+                     IsEnabled="{Binding ManipulacaoAtivada}"
+                     TextWrapping="Wrap"
+                     Text="{Binding ItemBanco.Observações, Mode=TwoWay}" />
         </ScrollViewer>
     </Grid>
     <Page.BottomAppBar>
         <CommandBar>
+            <AppBarButton Label="Editar"
+                          Icon="Edit"
+                          IsEnabled="{Binding ManipulacaoAtivada, Converter={StaticResource invert}}"
+                          Command="{Binding ManipulacaoAtivada}" />
+            <AppBarButton Label="Finalizar e registrar"
+                          Icon="Accept"
+                          IsEnabled="{Binding ManipulacaoAtivada}"
+                          Command="{Binding FinalizarCommand}" />
             <AppBarButton Label="Criar NFe normal"
+                          IsEnabled="False"
                           Icon="Page" />
         </CommandBar>
     </Page.BottomAppBar>

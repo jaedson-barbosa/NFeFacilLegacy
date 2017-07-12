@@ -156,9 +156,9 @@
     <Compile Include="Migrations\20170708170014_AdicionadoVendedores.designer.cs">
       <DependentUpon>20170708170014_AdicionadoVendedores.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\20170710223427_Loja1.2.8.cs" />
-    <Compile Include="Migrations\20170710223427_Loja1.2.8.designer.cs">
-      <DependentUpon>20170710223427_Loja1.2.8.cs</DependentUpon>
+    <Compile Include="Migrations\20170711211018_Loja.1.2.8.cs" />
+    <Compile Include="Migrations\20170711211018_Loja.1.2.8.designer.cs">
+      <DependentUpon>20170711211018_Loja.1.2.8.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\AplicativoContextModelSnapshot.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\ICMSST.cs" />

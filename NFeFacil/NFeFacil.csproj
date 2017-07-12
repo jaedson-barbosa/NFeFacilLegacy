@@ -200,6 +200,7 @@
     <Compile Include="ViewModel\AdicionarProdutoVendaDataContext.cs" />
     <Compile Include="ViewModel\QRCode.cs" />
     <Compile Include="ViewModel\QRConexaoDataContext.cs" />
+    <Compile Include="ViewModel\RegistroVendaDataContext.cs" />
     <Compile Include="View\AdicionarDestinatario.xaml.cs">
       <DependentUpon>AdicionarDestinatario.xaml</DependentUpon>
     </Compile>
@@ -367,6 +368,9 @@
     </Compile>
     <Compile Include="View\QRConexao.xaml.cs">
       <DependentUpon>QRConexao.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\RegistrosVenda.xaml.cs">
+      <DependentUpon>RegistrosVenda.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\VendasAnuais.xaml.cs">
       <DependentUpon>VendasAnuais.xaml</DependentUpon>
@@ -612,6 +616,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\RegistrosVenda.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\VendasAnuais.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -646,6 +654,9 @@
       <Project>{066bae5a-a3a9-490c-91b7-75d5b6827d95}</Project>
       <Name>Comum</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CodigoBarras\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

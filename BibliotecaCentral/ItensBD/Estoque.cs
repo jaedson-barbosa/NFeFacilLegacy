@@ -6,7 +6,6 @@ namespace BibliotecaCentral.ItensBD
     public sealed class Estoque
     {
         public Guid Id { get; set; }
-        public ProdutoDI Produto { get; set; }
 
         public string LocalizacaoGenerica { get; set; }
 

@@ -138,13 +138,9 @@ namespace BibliotecaCentral.Migrations
 
                     b.Property<string>("Prateleira");
 
-                    b.Property<Guid?>("ProdutoId");
-
                     b.Property<string>("Segmento");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ProdutoId");
 
                     b.ToTable("Estoque");
                 });
@@ -262,7 +258,7 @@ namespace BibliotecaCentral.Migrations
 
             modelBuilder.Entity("BibliotecaCentral.ItensBD.ProdutoSimplesVenda", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<double>("Desconto");
@@ -391,13 +387,6 @@ namespace BibliotecaCentral.Migrations
                     b.HasOne("BibliotecaCentral.ItensBD.Estoque")
                         .WithMany("Alteracoes")
                         .HasForeignKey("EstoqueId");
-                });
-
-            modelBuilder.Entity("BibliotecaCentral.ItensBD.Estoque", b =>
-                {
-                    b.HasOne("BibliotecaCentral.ItensBD.ProdutoDI", "Produto")
-                        .WithMany()
-                        .HasForeignKey("ProdutoId");
                 });
 
             modelBuilder.Entity("BibliotecaCentral.ItensBD.ProdutoSimplesVenda", b =>

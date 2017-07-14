@@ -93,6 +93,7 @@
                     </Grid.ColumnDefinitions>
                     <Button VerticalAlignment="Stretch"
                             IsEnabled="{Binding ManipulacaoAtivada}"
+                            Command="{Binding AplicarDescontoCommand}"
                             Margin="0,2,2,0">
                         <TextBlock TextAlignment="Center">
                         <Run>Aplicar</Run>

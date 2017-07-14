@@ -258,6 +258,9 @@
     <Compile Include="View\CaixasDialogo\RegistroVenda\AdicionarProduto.xaml.cs">
       <DependentUpon>AdicionarProduto.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\CaixasDialogo\RegistroVenda\CalculoDesconto.xaml.cs">
+      <DependentUpon>CalculoDesconto.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Consulta.xaml.cs">
       <DependentUpon>Consulta.xaml</DependentUpon>
     </Compile>
@@ -468,6 +471,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\CaixasDialogo\RegistroVenda\AdicionarProduto.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CaixasDialogo\RegistroVenda\CalculoDesconto.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -57,7 +57,8 @@ namespace NFeFacil.ViewModel
                             Codigo = item.CodigoProduto,
                             Nome = item.Descricao,
                             Estoque = est == null ? "Indisponível" : quant.ToString("N"),
-                            Preço = item.ValorUnitario.ToString("C")
+                            Preço = item.ValorUnitario.ToString("C"),
+                            PreçoDouble = item.ValorUnitario
                         };
                         ListaCompletaProdutos.Add(novoProd);
                     }
@@ -73,6 +74,7 @@ namespace NFeFacil.ViewModel
             public string Codigo { get; set; }
             public string Nome { get; set; }
             public string Estoque { get; set; }
+            public double PreçoDouble { get; set; }
             public string Preço { get; set; }
         }
     }

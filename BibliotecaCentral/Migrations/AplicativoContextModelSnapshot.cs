@@ -277,6 +277,8 @@ namespace BibliotecaCentral.Migrations
 
                     b.Property<double>("TotalLíquido");
 
+                    b.Property<double>("ValorUnitario");
+
                     b.HasKey("Id");
 
                     b.HasIndex("RegistroVendaId");

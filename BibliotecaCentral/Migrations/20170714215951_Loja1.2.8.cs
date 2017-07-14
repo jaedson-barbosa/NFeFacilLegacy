@@ -106,7 +106,8 @@ namespace BibliotecaCentral.Migrations
                     Quantidade = table.Column<double>(nullable: false),
                     RegistroVendaId = table.Column<Guid>(nullable: true),
                     Seguro = table.Column<double>(nullable: false),
-                    TotalLíquido = table.Column<double>(nullable: false)
+                    TotalLíquido = table.Column<double>(nullable: false),
+                    ValorUnitario = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
                 {

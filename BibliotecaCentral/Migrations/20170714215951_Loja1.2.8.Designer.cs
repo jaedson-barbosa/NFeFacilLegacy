@@ -8,7 +8,7 @@ using BibliotecaCentral;
 namespace BibliotecaCentral.Migrations
 {
     [DbContext(typeof(AplicativoContext))]
-    [Migration("20170714202644_Loja1.2.8")]
+    [Migration("20170714215951_Loja1.2.8")]
     partial class Loja128
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -280,6 +280,8 @@ namespace BibliotecaCentral.Migrations
                     b.Property<double>("Seguro");
 
                     b.Property<double>("TotalLíquido");
+
+                    b.Property<double>("ValorUnitario");
 
                     b.HasKey("Id");
 

@@ -8,6 +8,8 @@ namespace BibliotecaCentral.ItensBD
         public Guid Id { get; set; }
         public Guid IdBase { get; set; }
 
+        public double ValorUnitario { get; set; }
+
         public double Quantidade { get; set; }
         public double Frete { get; set; }
         public double Seguro { get; set; }
@@ -23,11 +25,7 @@ namespace BibliotecaCentral.ItensBD
 
         public void CalcularTotalLíquido()
         {
-            using (var db = new AplicativoContext())
-            {
-                var ProdutoBase = db.Produtos.Find(IdBase);
-                TotalLíquido = ProdutoBase.ValorUnitario * Quantidade + Frete + Seguro + DespesasExtras;
-            }
+            TotalLíquido = ValorUnitario * Quantidade + Frete + Seguro + DespesasExtras;
         }
 
         public ProdutoOuServico ToProdutoOuServico()

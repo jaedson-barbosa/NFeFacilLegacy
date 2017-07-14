@@ -26,6 +26,7 @@ namespace NFeFacil.ViewModel
         public ICommand RemoverProdutoCommand { get; }
         public ICommand EditarCommand { get; }
         public ICommand FinalizarCommand { get; }
+        public ICommand AplicarDescontoCommand { get; }
 
         AplicativoContext db = new AplicativoContext();
 
@@ -41,6 +42,7 @@ namespace NFeFacil.ViewModel
             RemoverProdutoCommand = new Comando<ExibicaoProdutoVenda>(RemoverProduto);
             EditarCommand = new Comando(Editar);
             FinalizarCommand = new Comando(Finalizar);
+            AplicarDescontoCommand = new Comando(AplicarDesconto);
 
             Clientes = db.Clientes.GerarObs();
             Motoristas = db.Motoristas.GerarObs();
@@ -64,6 +66,7 @@ namespace NFeFacil.ViewModel
             RemoverProdutoCommand = new Comando<ExibicaoProdutoVenda>(RemoverProduto);
             EditarCommand = new Comando(Editar);
             FinalizarCommand = new Comando(Finalizar);
+            AplicarDescontoCommand = new Comando(AplicarDesconto);
 
             db.AttachRange(venda.Produtos);
             Clientes = db.Clientes.GerarObs();
@@ -91,6 +94,7 @@ namespace NFeFacil.ViewModel
                 ListaProdutos.Remove(removido);
                 ItemBanco.Produtos.Remove(removido.Base);
             }
+            
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -104,6 +108,7 @@ namespace NFeFacil.ViewModel
                 var novoProdBanco = new ProdutoSimplesVenda
                 {
                     IdBase = contexto.ProdutoSelecionado.Base.Id,
+                    ValorUnitario = contexto.ProdutoSelecionado.PreçoDouble,
                     Quantidade = contexto.Quantidade,
                     Frete = contexto.Frete,
                     Seguro = contexto.Seguro,
@@ -156,6 +161,27 @@ namespace NFeFacil.ViewModel
             ListaProdutos.CollectionChanged -= ListaProdutos_CollectionChanged;
             PropertyChanged(this, new PropertyChangedEventArgs(nameof(ManipulacaoAtivada)));
             db.SaveChanges();
+        }
+
+        async void AplicarDesconto()
+        {
+            var caixa = new View.CaixasDialogo.RegistroVenda.CalculoDesconto(ItemBanco.Produtos);
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+            {
+                var prods = caixa.Produtos;
+                for (int i = 0; i < prods.Count; i++)
+                {
+                    var atual = prods[i];
+                    atual.CalcularTotalLíquido();
+                    for (int j = 0; j < ListaProdutos.Count; j++)
+                    {
+                        var antigo = ListaProdutos[i];
+                        antigo.Base = atual;
+                        antigo.TotalLíquido = atual.TotalLíquido.ToString("C");
+                        ListaProdutos[i] = antigo;
+                    }
+                }
+            }
         }
 
         public void Dispose()

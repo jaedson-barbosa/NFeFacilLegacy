@@ -906,7 +906,7 @@ namespace NFeFacil.ViewModel
 
         XElement ObterXML()
         {
-            bool UsarNotaSalva = StatusAtual != StatusNFe.Emitida && StatusAtual != StatusNFe.Cancelada;
+            bool UsarNotaSalva = StatusAtual != StatusNFe.Emitida;
             return UsarNotaSalva ? NotaSalva.ToXElement<NFe>() : NotaEmitida.ToXElement<Processo>();
         }
 

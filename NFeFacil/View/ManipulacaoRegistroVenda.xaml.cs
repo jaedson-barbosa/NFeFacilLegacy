@@ -1,5 +1,7 @@
-﻿using BibliotecaCentral.ItensBD;
+﻿using BibliotecaCentral;
+using BibliotecaCentral.ItensBD;
 using NFeFacil.ViewModel;
+using System;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -19,30 +21,22 @@ namespace NFeFacil.View
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            GrupoViewBanco<RegistroVenda> parametro;
-            if (e.Parameter == null)
+            RegistroVendaDataContext contexto;
+            if (e.Parameter is GrupoViewBanco<RegistroVenda> grupo)
             {
-                parametro = new GrupoViewBanco<RegistroVenda>
+                contexto = new RegistroVendaDataContext(grupo.ItemBanco);
+                using (var db = new AplicativoContext())
                 {
-                    ItemBanco = new RegistroVenda(),
-                    OperacaoRequirida = TipoOperacao.Adicao
-                };
+                    var nomeVendedor = grupo.ItemBanco.Vendedor != default(Guid) ? db.Vendedores.Find(grupo.ItemBanco.Vendedor).Nome : string.Empty;
+                    MainPage.Current.SeAtualizarEspecial("\uEC59", "Venda", ExibicaoExtra.ExibirVendedor, nomeVendedor);
+                }
             }
             else
             {
-                parametro = (GrupoViewBanco<RegistroVenda>)e.Parameter;
+                contexto = new RegistroVendaDataContext();
+                MainPage.Current.SeAtualizarEspecial("\uEC59", "Venda", ExibicaoExtra.EscolherVendedor, null);
             }
-            var venda = parametro.ItemBanco;
-            switch (parametro.OperacaoRequirida)
-            {
-                case TipoOperacao.Adicao:
-                    MainPage.Current.SeAtualizarEspecial("\uEC59", "Venda", ExibicaoExtra.EscolherVendedor, null);
-                    break;
-                case TipoOperacao.Edicao:
-                    MainPage.Current.SeAtualizarEspecial("\uEC59", "Venda", ExibicaoExtra.ExibirVendedor, venda.Vendedor);
-                    break;
-            }
-            DataContext = new RegistroVendaDataContext(venda, parametro.OperacaoRequirida);
+            DataContext = contexto;
         }
     }
 }

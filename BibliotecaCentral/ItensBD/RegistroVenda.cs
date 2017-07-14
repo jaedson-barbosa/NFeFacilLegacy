@@ -7,12 +7,12 @@ namespace BibliotecaCentral.ItensBD
     {
         public Guid Id { get; set; }
         public DateTime UltimaData { get; set; }
-        public NFeDI NotaFiscalRelacionada { get; set; }
+        public Guid NotaFiscalRelacionada { get; set; }
 
-        public EmitenteDI Emitente { get; set; }
-        public Vendedor Vendedor { get; set; }
-        public ClienteDI Cliente { get; set; }
-        public MotoristaDI Motorista { get; set; }
+        public Guid Emitente { get; set; }
+        public Guid Vendedor { get; set; }
+        public Guid Cliente { get; set; }
+        public Guid Motorista { get; set; }
         public List<ProdutoSimplesVenda> Produtos { get; set; }
         public DateTime DataHoraVenda { get; set; }
         public string Observações { get; set; }

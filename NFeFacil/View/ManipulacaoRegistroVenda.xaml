@@ -66,13 +66,17 @@
             <ComboBox Header="Cliente"
                       IsEnabled="{Binding ManipulacaoAtivada}"
                       ItemsSource="{Binding Clientes, Mode=OneTime}"
-                      SelectedItem="{Binding ItemBanco.Cliente, Mode=TwoWay}"
+                      DisplayMemberPath="Nome"
+                      SelectedValue="{Binding ItemBanco.Cliente, Mode=TwoWay}"
+                      SelectedValuePath="Id"
                       HorizontalAlignment="Stretch" />
             <ComboBox Grid.Column="1"
                       Header="Motorista"
                       IsEnabled="{Binding ManipulacaoAtivada}"
                       ItemsSource="{Binding Motoristas, Mode=OneTime}"
-                      SelectedItem="{Binding ItemBanco.Motorista}"
+                      DisplayMemberPath="Nome"
+                      SelectedValue="{Binding ItemBanco.Motorista}"
+                      SelectedValuePath="Id"
                       HorizontalAlignment="Stretch" />
             <ItemsControl Grid.Row="1"
                           Grid.ColumnSpan="2"
@@ -81,7 +85,7 @@
                             IsEnabled="{Binding ManipulacaoAtivada}"
                             MinWidth="156"
                             MonthFormat="{}{month.integer} {month.abbreviated}"
-                            Date="{Binding ItemBanco.DataHoraVenda, Mode=TwoWay}" />
+                            Date="{Binding DataHoraVenda, Mode=TwoWay}" />
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -136,7 +140,8 @@
                                HorizontalAlignment="Center" />
                     <Button Grid.Column="3"
                             IsEnabled="{Binding ManipulacaoAtivada}"
-                            Style="{StaticResource BotaoAdd}">
+                            Style="{StaticResource BotaoAdd}"
+                            Command="{Binding AdicionarProdutoCommand}">
                         <SymbolIcon Symbol="Add" />
                     </Button>
                 </Grid>
@@ -179,7 +184,7 @@
             <AppBarButton Label="Editar"
                           Icon="Edit"
                           IsEnabled="{Binding ManipulacaoAtivada, Converter={StaticResource invert}}"
-                          Command="{Binding ManipulacaoAtivada}" />
+                          Command="{Binding EditarCommand}" />
             <AppBarButton Label="Finalizar e registrar"
                           Icon="Accept"
                           IsEnabled="{Binding ManipulacaoAtivada}"

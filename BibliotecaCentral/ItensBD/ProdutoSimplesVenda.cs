@@ -6,7 +6,7 @@ namespace BibliotecaCentral.ItensBD
     public sealed class ProdutoSimplesVenda
     {
         public Guid Id { get; set; }
-        public ProdutoDI ProdutoBase { get; set; }
+        public Guid IdBase { get; set; }
 
         public double Quantidade { get; set; }
         public double Frete { get; set; }
@@ -18,18 +18,23 @@ namespace BibliotecaCentral.ItensBD
         public ProdutoSimplesVenda() { }
         public ProdutoSimplesVenda(ProdutoDI original)
         {
-            ProdutoBase = original;
+            IdBase = original.Id;
         }
 
         public void CalcularTotalLíquido()
         {
-            TotalLíquido = ProdutoBase.ValorUnitario * Quantidade + Frete + Seguro + DespesasExtras;
+            using (var db = new AplicativoContext())
+            {
+                var ProdutoBase = db.Produtos.Find(IdBase);
+                TotalLíquido = ProdutoBase.ValorUnitario * Quantidade + Frete + Seguro + DespesasExtras;
+            }
         }
 
         public ProdutoOuServico ToProdutoOuServico()
         {
             using (var db = new AplicativoContext())
             {
+                var ProdutoBase = db.Produtos.Find(IdBase);
                 return new ProdutoOuServico
                 {
                     CodigoProduto = ProdutoBase.CodigoProduto,

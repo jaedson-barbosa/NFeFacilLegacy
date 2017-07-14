@@ -177,10 +177,6 @@
     <Compile Include="Migrations\20170708170014_AdicionadoVendedores.designer.cs">
       <DependentUpon>20170708170014_AdicionadoVendedores.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\20170712211943_Loja1.2.8.cs" />
-    <Compile Include="Migrations\20170712211943_Loja1.2.8.designer.cs">
-      <DependentUpon>20170712211943_Loja1.2.8.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\AplicativoContextModelSnapshot.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\ICMSST.cs" />
     <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\IRegimeNormal.cs" />

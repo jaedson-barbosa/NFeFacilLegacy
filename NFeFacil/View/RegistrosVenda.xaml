@@ -10,10 +10,12 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Estilos/Tabela.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <conversores:StringToDateTime x:Name="data" />
         </ResourceDictionary>
     </Page.Resources>
-    <ListView x:Name="lstVendas" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <ListView ItemsSource="{x:Bind Vendas}"
+              Margin="16"
+              Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+              ItemContainerStyle="{StaticResource ItemFullWidth}">
         <ListView.Header>
             <Grid Style="{StaticResource Cabecalho}">
                 <Grid.ColumnDefinitions>
@@ -40,6 +42,7 @@
                     <Grid.ContextFlyout>
                         <MenuFlyout>
                             <MenuFlyoutItem Click="Exibir">Exibir</MenuFlyoutItem>
+                            <MenuFlyoutItem Click="Excluir">Excluir</MenuFlyoutItem>
                         </MenuFlyout>
                     </Grid.ContextFlyout>
                     <Grid.ColumnDefinitions>
@@ -47,11 +50,11 @@
                         <ColumnDefinition />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Text="{Binding Vendedor.Nome}" />
+                    <TextBlock Text="{Binding NomeVendedor}" />
                     <TextBlock Grid.Column="1"
-                               Text="{Binding Cliente.Nome}" />
+                               Text="{Binding NomeCliente}" />
                     <TextBlock Grid.Column="2"
-                               Text="{Binding DataHoraVenda, Converter={StaticResource data}, ConverterParameter='HH:mm:ss dd-MM-yyyy'}" />
+                               Text="{Binding DataHoraVenda}" />
                 </Grid>
             </DataTemplate>
         </ListView.ItemTemplate>

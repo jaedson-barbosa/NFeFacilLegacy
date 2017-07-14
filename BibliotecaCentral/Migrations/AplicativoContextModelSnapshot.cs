@@ -15,21 +15,6 @@ namespace BibliotecaCentral.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2");
 
-            modelBuilder.Entity("BibliotecaCentral.ItensBD.AlteracaoEstoque", b =>
-                {
-                    b.Property<DateTime>("Id");
-
-                    b.Property<double>("Alteração");
-
-                    b.Property<Guid?>("EstoqueId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EstoqueId");
-
-                    b.ToTable("AlteracaoEstoque");
-                });
-
             modelBuilder.Entity("BibliotecaCentral.ItensBD.ClienteDI", b =>
                 {
                     b.Property<Guid>("Id")
@@ -130,24 +115,6 @@ namespace BibliotecaCentral.Migrations
                     b.ToTable("Emitentes");
                 });
 
-            modelBuilder.Entity("BibliotecaCentral.ItensBD.Estoque", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("LocalizacaoGenerica");
-
-                    b.Property<string>("Locação");
-
-                    b.Property<string>("Prateleira");
-
-                    b.Property<string>("Segmento");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Estoque");
-                });
-
             modelBuilder.Entity("BibliotecaCentral.ItensBD.Imagem", b =>
                 {
                     b.Property<Guid>("Id")
@@ -176,8 +143,6 @@ namespace BibliotecaCentral.Migrations
                     b.Property<string>("UF");
 
                     b.Property<DateTime>("UltimaData");
-
-                    b.Property<Guid>("Veiculo");
 
                     b.Property<string>("XEnder");
 
@@ -259,36 +224,6 @@ namespace BibliotecaCentral.Migrations
                     b.ToTable("Produtos");
                 });
 
-            modelBuilder.Entity("BibliotecaCentral.ItensBD.ProdutoSimplesVenda", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<double>("Desconto");
-
-                    b.Property<double>("DespesasExtras");
-
-                    b.Property<double>("Frete");
-
-                    b.Property<Guid?>("ProdutoBaseId");
-
-                    b.Property<double>("Quantidade");
-
-                    b.Property<Guid?>("RegistroVendaId");
-
-                    b.Property<double>("Seguro");
-
-                    b.Property<double>("TotalLíquido");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProdutoBaseId");
-
-                    b.HasIndex("RegistroVendaId");
-
-                    b.ToTable("ProdutoSimplesVenda");
-                });
-
             modelBuilder.Entity("BibliotecaCentral.ItensBD.RegistroCancelamento", b =>
                 {
                     b.Property<string>("ChaveNFe")
@@ -305,60 +240,38 @@ namespace BibliotecaCentral.Migrations
                     b.ToTable("Cancelamentos");
                 });
 
-            modelBuilder.Entity("BibliotecaCentral.ItensBD.RegistroVenda", b =>
+            modelBuilder.Entity("BibliotecaCentral.ItensBD.ResultadoSincronizacaoCliente", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid?>("ClienteId");
+                    b.Property<DateTime>("MomentoSincronizacao");
 
-                    b.Property<DateTime>("DataHoraVenda");
+                    b.Property<int>("NumeroDadosBaseTrafegados");
 
-                    b.Property<double>("DescontoTotal");
+                    b.Property<int>("NumeroNotasTrafegadas");
 
-                    b.Property<Guid?>("EmitenteId");
-
-                    b.Property<Guid?>("MotoristaId");
-
-                    b.Property<string>("NotaFiscalRelacionadaId");
-
-                    b.Property<string>("Observações");
-
-                    b.Property<DateTime>("UltimaData");
-
-                    b.Property<Guid?>("VendedorId");
+                    b.Property<bool>("SincronizacaoAutomatica");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ClienteId");
-
-                    b.HasIndex("EmitenteId");
-
-                    b.HasIndex("MotoristaId");
-
-                    b.HasIndex("NotaFiscalRelacionadaId");
-
-                    b.HasIndex("VendedorId");
-
-                    b.ToTable("Vendas");
+                    b.ToTable("ResultadosCliente");
                 });
 
-            modelBuilder.Entity("BibliotecaCentral.ItensBD.VeiculoDI", b =>
+            modelBuilder.Entity("BibliotecaCentral.ItensBD.ResultadoSincronizacaoServidor", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Descricao");
+                    b.Property<DateTime>("MomentoRequisicao");
 
-                    b.Property<string>("Placa");
+                    b.Property<bool>("SucessoSolicitacao");
 
-                    b.Property<string>("RNTC");
-
-                    b.Property<string>("UF");
+                    b.Property<int>("TipoDadoSolicitado");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Veiculos");
+                    b.ToTable("ResultadosServidor");
                 });
 
             modelBuilder.Entity("BibliotecaCentral.ItensBD.Vendedor", b =>
@@ -374,52 +287,9 @@ namespace BibliotecaCentral.Migrations
                     b.Property<string>("Nome")
                         .IsRequired();
 
-                    b.Property<DateTime>("UltimaData");
-
                     b.HasKey("Id");
 
                     b.ToTable("Vendedores");
-                });
-
-            modelBuilder.Entity("BibliotecaCentral.ItensBD.AlteracaoEstoque", b =>
-                {
-                    b.HasOne("BibliotecaCentral.ItensBD.Estoque")
-                        .WithMany("Alteracoes")
-                        .HasForeignKey("EstoqueId");
-                });
-
-            modelBuilder.Entity("BibliotecaCentral.ItensBD.ProdutoSimplesVenda", b =>
-                {
-                    b.HasOne("BibliotecaCentral.ItensBD.ProdutoDI", "ProdutoBase")
-                        .WithMany()
-                        .HasForeignKey("ProdutoBaseId");
-
-                    b.HasOne("BibliotecaCentral.ItensBD.RegistroVenda")
-                        .WithMany("Produtos")
-                        .HasForeignKey("RegistroVendaId");
-                });
-
-            modelBuilder.Entity("BibliotecaCentral.ItensBD.RegistroVenda", b =>
-                {
-                    b.HasOne("BibliotecaCentral.ItensBD.ClienteDI", "Cliente")
-                        .WithMany()
-                        .HasForeignKey("ClienteId");
-
-                    b.HasOne("BibliotecaCentral.ItensBD.EmitenteDI", "Emitente")
-                        .WithMany()
-                        .HasForeignKey("EmitenteId");
-
-                    b.HasOne("BibliotecaCentral.ItensBD.MotoristaDI", "Motorista")
-                        .WithMany()
-                        .HasForeignKey("MotoristaId");
-
-                    b.HasOne("BibliotecaCentral.ItensBD.NFeDI", "NotaFiscalRelacionada")
-                        .WithMany()
-                        .HasForeignKey("NotaFiscalRelacionadaId");
-
-                    b.HasOne("BibliotecaCentral.ItensBD.Vendedor", "Vendedor")
-                        .WithMany()
-                        .HasForeignKey("VendedorId");
                 });
         }
     }

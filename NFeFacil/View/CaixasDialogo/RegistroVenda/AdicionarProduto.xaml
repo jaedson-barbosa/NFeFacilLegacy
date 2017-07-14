@@ -29,8 +29,9 @@
                  Text="{Binding Busca, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         <ListView ItemsSource="{Binding Produtos, Mode=OneTime}"
                   SelectedItem="{Binding ProdutoSelecionado, Mode=TwoWay}"
+                  ItemContainerStyle="{StaticResource ItemFullWidth}"
                   Grid.Row="1"
-                  Margin="0,2,0,0">
+                  Margin="0,2,0,4">
             <ListView.Header>
                 <Grid Style="{StaticResource Cabecalho}">
                     <Grid.ColumnDefinitions>

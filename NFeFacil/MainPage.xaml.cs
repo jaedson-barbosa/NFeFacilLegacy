@@ -128,7 +128,7 @@ namespace NFeFacil
             AtualizarExibicaoExtra(ExibicaoExtra.ExibirEmitente);
         }
 
-        public void SeAtualizarEspecial(string glyph, string texto, ExibicaoExtra extra, Vendedor emit)
+        public void SeAtualizarEspecial(string glyph, string texto, ExibicaoExtra extra, string nomeVendedor)
         {
             txtTitulo.Text = texto;
             symTitulo.Content = new FontIcon { Glyph = glyph };
@@ -138,9 +138,9 @@ namespace NFeFacil
             }
             else
             {
-                if (emit != null)
+                if (nomeVendedor != null)
                 {
-                    txtEscolhido.Text = emit.Nome.Substring(0, emit.Nome.IndexOf(' '));
+                    txtEscolhido.Text = nomeVendedor.Substring(0, nomeVendedor.IndexOf(' '));
                 }
                 else
                 {

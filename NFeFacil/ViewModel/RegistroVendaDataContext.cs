@@ -3,7 +3,9 @@ using BibliotecaCentral.ItensBD;
 using BibliotecaCentral.Log;
 using System;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Input;
 using Windows.UI.Xaml.Controls;
 
@@ -14,9 +16,9 @@ namespace NFeFacil.ViewModel
         public RegistroVenda ItemBanco { get; }
         TipoOperacao Operacao { get; }
         ILog Log = Popup.Current;
-        public bool ManipulacaoAtivada { get; private set; } = true;
+        public bool ManipulacaoAtivada { get; private set; }
 
-        public ObservableCollection<ProdutoSimplesVenda> ListaProdutos { get; private set; }
+        public ObservableCollection<ExibicaoProdutoVenda> ListaProdutos { get; private set; }
         public ObservableCollection<ClienteDI> Clientes { get; }
         public ObservableCollection<MotoristaDI> Motoristas { get; }
 
@@ -25,10 +27,16 @@ namespace NFeFacil.ViewModel
         public ICommand EditarCommand { get; }
         public ICommand FinalizarCommand { get; }
 
+        public DateTimeOffset DataHoraVenda
+        {
+            get => ItemBanco.DataHoraVenda;
+            set => ItemBanco.DataHoraVenda = value.DateTime;
+        }
+
         public RegistroVendaDataContext()
         {
             AdicionarProdutoCommand = new Comando(AdicionarProduto);
-            RemoverProdutoCommand = new Comando<ProdutoSimplesVenda>(RemoverProduto);
+            RemoverProdutoCommand = new Comando<ExibicaoProdutoVenda>(RemoverProduto);
             EditarCommand = new Comando(Editar);
             FinalizarCommand = new Comando(Finalizar);
 
@@ -38,20 +46,23 @@ namespace NFeFacil.ViewModel
                 Motoristas = db.Motoristas.GerarObs();
             }
 
+            ListaProdutos = new ObservableCollection<ExibicaoProdutoVenda>();
             ItemBanco = new RegistroVenda
             {
-                Emitente = Propriedades.EmitenteAtivo,
-                Cliente = Clientes[0],
+                Emitente = Propriedades.EmitenteAtivo.Id,
+                Cliente = Clientes[0].Id,
                 Produtos = new System.Collections.Generic.List<ProdutoSimplesVenda>(),
                 DataHoraVenda = DateTime.Now
             };
             Operacao = TipoOperacao.Adicao;
+
+            ManipulacaoAtivada = true;
         }
 
-        internal RegistroVendaDataContext(RegistroVenda venda, TipoOperacao operacao)
+        internal RegistroVendaDataContext(RegistroVenda venda)
         {
             AdicionarProdutoCommand = new Comando(AdicionarProduto);
-            RemoverProdutoCommand = new Comando<ProdutoSimplesVenda>(RemoverProduto);
+            RemoverProdutoCommand = new Comando<ExibicaoProdutoVenda>(RemoverProduto);
             EditarCommand = new Comando(Editar);
             FinalizarCommand = new Comando(Finalizar);
 
@@ -59,10 +70,25 @@ namespace NFeFacil.ViewModel
             {
                 Clientes = db.Clientes.GerarObs();
                 Motoristas = db.Motoristas.GerarObs();
+                ListaProdutos = new ObservableCollection<ExibicaoProdutoVenda>(from prod in venda.Produtos
+                                                                               select new ExibicaoProdutoVenda
+                                                                               {
+                                                                                   Base = prod,
+                                                                                   Descricao = db.Produtos.Find(prod.IdBase).Descricao,
+                                                                                   Quantidade = prod.Quantidade,
+                                                                                   TotalLíquido = prod.TotalLíquido.ToString("C")
+                                                                               });
             }
 
             ItemBanco = venda;
-            Operacao = operacao;
+            Operacao = TipoOperacao.Edicao;
+
+            ManipulacaoAtivada = false;
+        }
+
+        private void ListaProdutos_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -73,29 +99,37 @@ namespace NFeFacil.ViewModel
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
                 var contexto = (AdicionarProdutoVendaDataContext)caixa.DataContext;
-                var novoProd = new ProdutoSimplesVenda
+                var novoProdBanco = new ProdutoSimplesVenda
                 {
-                    ProdutoBase = contexto.ProdutoSelecionado.Base,
+                    IdBase = contexto.ProdutoSelecionado.Base.Id,
                     Quantidade = contexto.Quantidade,
                     Frete = contexto.Frete,
                     Seguro = contexto.Seguro,
                     DespesasExtras = contexto.DespesasExtras
                 };
-                novoProd.CalcularTotalLíquido();
-                ListaProdutos.Add(novoProd);
-                ItemBanco.Produtos.Add(novoProd);
+                novoProdBanco.CalcularTotalLíquido();
+                var novoProdExib = new ExibicaoProdutoVenda
+                {
+                    Base = novoProdBanco,
+                    Descricao = contexto.ProdutoSelecionado.Nome,
+                    Quantidade = novoProdBanco.Quantidade,
+                    TotalLíquido = novoProdBanco.TotalLíquido.ToString("C")
+                };
+                ListaProdutos.Add(novoProdExib);
+                ItemBanco.Produtos.Add(novoProdBanco);
             }
         }
 
-        void RemoverProduto(ProdutoSimplesVenda prod)
+        void RemoverProduto(ExibicaoProdutoVenda prod)
         {
             ListaProdutos.Remove(prod);
-            ItemBanco.Produtos.Remove(prod);
+            ItemBanco.Produtos.Remove(prod.Base);
         }
 
         void Editar()
         {
             ManipulacaoAtivada = true;
+            ListaProdutos.CollectionChanged += ListaProdutos_CollectionChanged;
             PropertyChanged(this, new PropertyChangedEventArgs(nameof(ManipulacaoAtivada)));
         }
 
@@ -114,8 +148,19 @@ namespace NFeFacil.ViewModel
                     db.Update(ItemBanco);
                     Log.Escrever(TitulosComuns.Sucesso, "Registro de venda alterado com sucesso.");
                 }
+                ManipulacaoAtivada = false;
+                ListaProdutos.CollectionChanged -= ListaProdutos_CollectionChanged;
+                PropertyChanged(this, new PropertyChangedEventArgs(nameof(ManipulacaoAtivada)));
                 db.SaveChanges();
             }
+        }
+
+        public struct ExibicaoProdutoVenda
+        {
+            public ProdutoSimplesVenda Base { get; set; }
+            public string Descricao { get; set; }
+            public double Quantidade { get; set; }
+            public string TotalLíquido { get; set; }
         }
     }
 }

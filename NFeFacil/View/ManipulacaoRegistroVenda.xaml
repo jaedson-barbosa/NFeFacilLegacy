@@ -153,7 +153,7 @@
                             <MenuFlyout>
                                 <MenuFlyoutItem Command="{Binding DataContext.RemoverProdutoCommand, ElementName=grpGeral}"
                                                 CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}"
-                                                IsEnabled="{Binding ManipulacaoAtivada, ElementName=grpGeral}">Remover</MenuFlyoutItem>
+                                                IsEnabled="{Binding DataContext.ManipulacaoAtivada, ElementName=grpGeral}">Remover</MenuFlyoutItem>
                             </MenuFlyout>
                         </Grid.ContextFlyout>
                         <Grid.ColumnDefinitions>
@@ -161,7 +161,7 @@
                             <ColumnDefinition />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="{Binding ProdutoBase.Descricao}" />
+                        <TextBlock Text="{Binding Descricao}" />
                         <TextBlock Grid.Column="1"
                                    Text="{Binding Quantidade}" />
                         <TextBlock Grid.Column="2"

@@ -38,5 +38,10 @@ namespace NFeFacil.View
             }
             DataContext = contexto;
         }
+
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            ((IDisposable)DataContext).Dispose();
+        }
     }
 }

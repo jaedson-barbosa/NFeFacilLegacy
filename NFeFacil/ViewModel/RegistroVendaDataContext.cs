@@ -11,7 +11,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil.ViewModel
 {
-    public sealed class RegistroVendaDataContext : INotifyPropertyChanged
+    public sealed class RegistroVendaDataContext : INotifyPropertyChanged, IDisposable
     {
         public RegistroVenda ItemBanco { get; }
         TipoOperacao Operacao { get; }
@@ -27,6 +27,8 @@ namespace NFeFacil.ViewModel
         public ICommand EditarCommand { get; }
         public ICommand FinalizarCommand { get; }
 
+        AplicativoContext db = new AplicativoContext();
+
         public DateTimeOffset DataHoraVenda
         {
             get => ItemBanco.DataHoraVenda;
@@ -40,11 +42,8 @@ namespace NFeFacil.ViewModel
             EditarCommand = new Comando(Editar);
             FinalizarCommand = new Comando(Finalizar);
 
-            using (var db = new AplicativoContext())
-            {
-                Clientes = db.Clientes.GerarObs();
-                Motoristas = db.Motoristas.GerarObs();
-            }
+            Clientes = db.Clientes.GerarObs();
+            Motoristas = db.Motoristas.GerarObs();
 
             ListaProdutos = new ObservableCollection<ExibicaoProdutoVenda>();
             ItemBanco = new RegistroVenda
@@ -66,19 +65,17 @@ namespace NFeFacil.ViewModel
             EditarCommand = new Comando(Editar);
             FinalizarCommand = new Comando(Finalizar);
 
-            using (var db = new AplicativoContext())
-            {
-                Clientes = db.Clientes.GerarObs();
-                Motoristas = db.Motoristas.GerarObs();
-                ListaProdutos = new ObservableCollection<ExibicaoProdutoVenda>(from prod in venda.Produtos
-                                                                               select new ExibicaoProdutoVenda
-                                                                               {
-                                                                                   Base = prod,
-                                                                                   Descricao = db.Produtos.Find(prod.IdBase).Descricao,
-                                                                                   Quantidade = prod.Quantidade,
-                                                                                   TotalLíquido = prod.TotalLíquido.ToString("C")
-                                                                               });
-            }
+            db.AttachRange(venda.Produtos);
+            Clientes = db.Clientes.GerarObs();
+            Motoristas = db.Motoristas.GerarObs();
+            ListaProdutos = (from prod in venda.Produtos
+                             select new ExibicaoProdutoVenda
+                             {
+                                 Base = prod,
+                                 Descricao = db.Produtos.Find(prod.IdBase).Descricao,
+                                 Quantidade = prod.Quantidade,
+                                 TotalLíquido = prod.TotalLíquido.ToString("C")
+                             }).GerarObs();
 
             ItemBanco = venda;
             Operacao = TipoOperacao.Edicao;
@@ -88,7 +85,12 @@ namespace NFeFacil.ViewModel
 
         private void ListaProdutos_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            
+            if (e.Action == NotifyCollectionChangedAction.Remove)
+            {
+                var removido = (ExibicaoProdutoVenda)e.OldItems[0];
+                ListaProdutos.Remove(removido);
+                ItemBanco.Produtos.Remove(removido.Base);
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -122,6 +124,10 @@ namespace NFeFacil.ViewModel
 
         void RemoverProduto(ExibicaoProdutoVenda prod)
         {
+            if (prod.Base.Id != default(Guid))
+            {
+                db.Remove(prod.Base);
+            }
             ListaProdutos.Remove(prod);
             ItemBanco.Produtos.Remove(prod.Base);
         }
@@ -135,24 +141,26 @@ namespace NFeFacil.ViewModel
 
         void Finalizar()
         {
-            using (var db = new AplicativoContext())
+            ItemBanco.UltimaData = DateTime.Now;
+            if (Operacao == TipoOperacao.Adicao)
             {
-                ItemBanco.UltimaData = DateTime.Now;
-                if (Operacao == TipoOperacao.Adicao)
-                {
-                    db.Add(ItemBanco);
-                    Log.Escrever(TitulosComuns.Sucesso, "Registro de venda salvo com sucesso.");
-                }
-                else
-                {
-                    db.Update(ItemBanco);
-                    Log.Escrever(TitulosComuns.Sucesso, "Registro de venda alterado com sucesso.");
-                }
-                ManipulacaoAtivada = false;
-                ListaProdutos.CollectionChanged -= ListaProdutos_CollectionChanged;
-                PropertyChanged(this, new PropertyChangedEventArgs(nameof(ManipulacaoAtivada)));
-                db.SaveChanges();
+                db.Add(ItemBanco);
+                Log.Escrever(TitulosComuns.Sucesso, "Registro de venda salvo com sucesso.");
             }
+            else
+            {
+                db.Update(ItemBanco);
+                Log.Escrever(TitulosComuns.Sucesso, "Registro de venda alterado com sucesso.");
+            }
+            ManipulacaoAtivada = false;
+            ListaProdutos.CollectionChanged -= ListaProdutos_CollectionChanged;
+            PropertyChanged(this, new PropertyChangedEventArgs(nameof(ManipulacaoAtivada)));
+            db.SaveChanges();
+        }
+
+        public void Dispose()
+        {
+            db.Dispose();
         }
 
         public struct ExibicaoProdutoVenda

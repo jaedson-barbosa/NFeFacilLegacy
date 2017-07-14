@@ -138,13 +138,13 @@ namespace NFeFacil
             }
             else
             {
-                if (nomeVendedor != null)
+                if (!string.IsNullOrEmpty(nomeVendedor))
                 {
                     txtEscolhido.Text = nomeVendedor.Substring(0, nomeVendedor.IndexOf(' '));
                 }
                 else
                 {
-                    txtEscolhido.Text = string.Empty;
+                    txtEscolhido.Text = "Indisponível";
                 }
                 txtEscolhido.Visibility = Visibility.Visible;
                 txtTitulo.Visibility = Visibility.Visible;

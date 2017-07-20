@@ -25,7 +25,7 @@ namespace BibliotecaCentral.ItensBD
 
         public void CalcularTotalLíquido()
         {
-            TotalLíquido = ValorUnitario * Quantidade + Frete + Seguro + DespesasExtras;
+            TotalLíquido = ValorUnitario * Quantidade + Frete + Seguro + DespesasExtras - Desconto;
         }
 
         public ProdutoOuServico ToProdutoOuServico()

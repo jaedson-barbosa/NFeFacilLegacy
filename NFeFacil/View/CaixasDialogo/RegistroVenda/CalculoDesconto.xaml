@@ -13,11 +13,15 @@
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <controles:EntradaNumerica Format="2:2"
-                                   Header="Desconto %"
-                                   Number="{x:Bind Porcentagem, Mode=TwoWay}" />
-        <controles:EntradaNumerica Format="13:2"
+        <Slider x:Name="sldDesconto"
+                Header="Desconto %"
+                StepFrequency="0.5"
+                ValueChanged="sldDesconto_ValueChanged" />
+        <controles:EntradaNumerica x:Name="txtValorDesejado"
+                                   Grid.Row="1"
+                                   Number="0"
+                                   Format="13:2"
                                    Header="Valor desejado"
-                                   Number="{x:Bind ValorDesejado, Mode=TwoWay}" />
+                                   NumeroChanged="ValorDesejadoChanged" />
     </Grid>
 </ContentDialog>

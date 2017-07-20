@@ -94,7 +94,6 @@ namespace NFeFacil.ViewModel
                 ListaProdutos.Remove(removido);
                 ItemBanco.Produtos.Remove(removido.Base);
             }
-            
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -179,6 +178,7 @@ namespace NFeFacil.ViewModel
                         antigo.Base = atual;
                         antigo.TotalLíquido = atual.TotalLíquido.ToString("C");
                         ListaProdutos[i] = antigo;
+                        ItemBanco.Produtos[i] = antigo.Base;
                     }
                 }
             }

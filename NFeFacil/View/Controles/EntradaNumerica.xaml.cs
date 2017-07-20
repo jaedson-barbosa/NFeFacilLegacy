@@ -16,6 +16,8 @@ namespace NFeFacil.View.Controles
         string original = string.Empty;
         CultureInfo culturaPadrao = CultureInfo.InvariantCulture;
 
+        public event NumeroChangedEventHandler NumeroChanged;
+
         public InputScope InputScope
         {
             get => txtNumber.InputScope;
@@ -61,7 +63,11 @@ namespace NFeFacil.View.Controles
 
         public double Number
         {
-            get => (double)GetValue(NumberProperty);
+            get
+            {
+                var retorno = (double)GetValue(NumberProperty);
+                return retorno;
+            }
             set
             {
                 var texto = DefinirTexto(value);
@@ -140,6 +146,7 @@ namespace NFeFacil.View.Controles
             {
                 original = input.Text;
                 Number = numero;
+                NumeroChanged?.Invoke(this, new NumeroChangedEventArgs(numero));
             }
             else
             {
@@ -160,6 +167,18 @@ namespace NFeFacil.View.Controles
                 input.Text = regex.Replace(texto, string.Empty, ocorrencias.Count - 1);
                 e.Handled = true;
             }
+        }
+    }
+
+    public delegate void NumeroChangedEventHandler(EntradaNumerica sender, NumeroChangedEventArgs e);
+
+    public sealed class NumeroChangedEventArgs : EventArgs
+    {
+        public double NovoNumero { get; }
+
+        public NumeroChangedEventArgs(double novoNumero)
+        {
+            NovoNumero = novoNumero;
         }
     }
 }

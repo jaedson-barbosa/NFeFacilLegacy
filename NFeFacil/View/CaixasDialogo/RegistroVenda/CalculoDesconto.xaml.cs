@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
 
 // O modelo de item de Caixa de Diálogo de Conteúdo está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -11,32 +12,12 @@ namespace NFeFacil.View.CaixasDialogo.RegistroVenda
     {
         public List<ProdutoSimplesVenda> Produtos { get; }
 
-        double porcentagem;
-        double Porcentagem
-        {
-            get => porcentagem;
-            set
-            {
-                porcentagem = value;
-                CalcularPelaPorcentagem(value);
-            }
-        }
-
-        double valorDesejado;
-        double ValorDesejado
-        {
-            get => valorDesejado;
-            set
-            {
-                porcentagem = value;
-                CalcularPeloValorDesejado(value);
-            }
-        }
-
         public CalculoDesconto(List<ProdutoSimplesVenda> produtos)
         {
-            this.InitializeComponent();
+            InitializeComponent();
             Produtos = produtos;
+            var valorDesejado = produtos.Sum(x => x.Quantidade * x.ValorUnitario);
+            txtValorDesejado.Number = valorDesejado;
         }
 
         void CalcularPelaPorcentagem(double porcentagem)
@@ -45,12 +26,13 @@ namespace NFeFacil.View.CaixasDialogo.RegistroVenda
             {
                 var atual = Produtos[i];
                 var valorOriginal = atual.ValorUnitario * atual.Quantidade;
-                var porcentagemUsada = (100 - porcentagem) / 100;
+                var porcentagemUsada = porcentagem / 100;
                 var desconto = valorOriginal * porcentagemUsada;
                 atual.Desconto = desconto;
                 atual.CalcularTotalLíquido();
             }
-            ValorDesejado = Produtos.Sum(x => x.Quantidade * x.ValorUnitario);
+            var valorDesejado = Produtos.Sum(x => x.Quantidade * x.ValorUnitario - x.Desconto);
+            txtValorDesejado.Number = valorDesejado;
         }
 
         void CalcularPeloValorDesejado(double valor)
@@ -65,7 +47,24 @@ namespace NFeFacil.View.CaixasDialogo.RegistroVenda
                 atual.Desconto = desconto;
                 atual.CalcularTotalLíquido();
             }
-            Porcentagem = 100 - (porcentagemDesejada * 100);
+            var porcentagem = 100 - (porcentagemDesejada * 100);
+            sldDesconto.Value = porcentagem;
+        }
+
+        private void ValorDesejadoChanged(Controles.EntradaNumerica sender, Controles.NumeroChangedEventArgs e)
+        {
+            if (Produtos != null)
+            {
+                CalcularPeloValorDesejado(e.NovoNumero);
+            }
+        }
+
+        private void sldDesconto_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+        {
+            if (Produtos != null)
+            {
+                CalcularPelaPorcentagem(e.NewValue);
+            }
         }
     }
 }

@@ -9,7 +9,8 @@
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="ms-appx:///View/Estilos/GridResponsiva.xaml" />
+                <ResourceDictionary Source="Estilos/GridResponsiva.xaml" />
+                <ResourceDictionary Source="Estilos/Tabela.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <VM:DadosEstadosParaView x:Key="estados" />
             <Conversores:EstadoToMunicipios x:Key="obterMunicipios" />
@@ -64,6 +65,45 @@
                              InputScope="Text"
                              Header="Logradouro" />
                 </ItemsControl>
+                <TextBlock Text="Veiculo"
+                           Style="{StaticResource TitleTextBlockStyle}"
+                           Margin="4,0,0,0" />
+                <ListView ItemsSource="{Binding Veiculos, Mode=OneTime}"
+                          SelectedValue="{Binding Motorista.Veiculo, Mode=TwoWay}"
+                          SelectedValuePath="Id"
+                          ItemContainerStyle="{StaticResource ItemFullWidth}">
+                    <ListView.Header>
+                        <Grid Style="{StaticResource Cabecalho}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Descrição</TextBlock>
+                            <TextBlock Grid.Column="1"
+                                       Style="{StaticResource SubtitleTextBlockStyle}">Placa</TextBlock>
+                            <Button Grid.Column="2"
+                                    Style="{StaticResource BotaoAdd}"
+                                    Command="{Binding AdicionarVeiculoCommand}">
+                                <SymbolIcon Symbol="Add" />
+                            </Button>
+                        </Grid>
+                    </ListView.Header>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock TextWrapping="Wrap"
+                                           Text="{Binding Descricao, Mode=OneTime}" />
+                                <TextBlock Grid.Column="1"
+                                           Text="{Binding Placa, Mode=OneTime}" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </StackPanel>
         </ScrollViewer>
         <CommandBar Grid.Row="1">

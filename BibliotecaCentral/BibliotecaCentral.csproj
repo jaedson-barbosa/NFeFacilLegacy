@@ -335,6 +335,7 @@
     <Compile Include="Validacao\ValidadorExportacao.cs" />
     <Compile Include="Validacao\ValidadorMotorista.cs" />
     <Compile Include="Validacao\ValidadorProduto.cs" />
+    <Compile Include="Validacao\ValidadorVeiculo.cs" />
     <Compile Include="Validacao\ValidadorVendedor.cs" />
     <Compile Include="Validacao\ValidarDados.cs" />
     <Compile Include="WebService\Pacotes\EnviNFe.cs" />

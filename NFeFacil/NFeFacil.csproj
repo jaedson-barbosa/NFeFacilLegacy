@@ -239,6 +239,9 @@
     <Compile Include="View\CaixasDialogo\AdicionarReferenciaEletronica.xaml.cs">
       <DependentUpon>AdicionarReferenciaEletronica.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\CaixasDialogo\AdicionarVeiculo.xaml.cs">
+      <DependentUpon>AdicionarVeiculo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\CaixasDialogo\ConfigurarDadosConexao.xaml.cs">
       <DependentUpon>ConfigurarDadosConexao.xaml</DependentUpon>
     </Compile>
@@ -451,6 +454,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\CaixasDialogo\AdicionarReferenciaEletronica.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CaixasDialogo\AdicionarVeiculo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

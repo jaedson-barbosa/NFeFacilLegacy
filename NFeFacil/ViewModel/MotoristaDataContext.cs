@@ -1,6 +1,11 @@
 ﻿using BibliotecaCentral.ItensBD;
 using System.ComponentModel;
 using BibliotecaCentral.ModeloXML;
+using System;
+using System.Collections.ObjectModel;
+using BibliotecaCentral;
+using Windows.UI.Xaml.Controls;
+using System.Windows.Input;
 
 namespace NFeFacil.ViewModel
 {
@@ -9,6 +14,10 @@ namespace NFeFacil.ViewModel
         public event PropertyChangedEventHandler PropertyChanged;
 
         public MotoristaDI Motorista { get; set; }
+
+        public ObservableCollection<VeiculoDI> Veiculos { get; }
+        public ICommand AdicionarVeiculoCommand { get; }
+        public ICommand RemoverVeiculoCommand { get; }
 
         public string UFEscolhida
         {
@@ -47,6 +56,34 @@ namespace NFeFacil.ViewModel
         {
             Motorista = motorista;
             TipoDocumento = (int)motorista.TipoDocumento;
+            using (var db = new AplicativoContext())
+            {
+                Veiculos = new ObservableCollection<VeiculoDI>(db.Veiculos);
+            }
+            AdicionarVeiculoCommand = new Comando(AdicionarVeiculo);
+            RemoverVeiculoCommand = new Comando<VeiculoDI>(RemoverVeiculo);
+        }
+
+        async void AdicionarVeiculo()
+        {
+            var caixa = new View.CaixasDialogo.AdicionarVeiculo();
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+            {
+                var veic = (VeiculoDI)caixa.DataContext;
+                using (var db = new AplicativoContext())
+                {
+                    db.Veiculos.Add(veic);
+                    db.SaveChanges();
+                    Veiculos.Add(veic);
+                }
+            }
+        }
+
+        void RemoverVeiculo(VeiculoDI veiculo)
+        {
+            using (var db = new AplicativoContext())
+                db.Veiculos.Remove(veiculo);
+            Veiculos.Remove(veiculo);
         }
     }
 }

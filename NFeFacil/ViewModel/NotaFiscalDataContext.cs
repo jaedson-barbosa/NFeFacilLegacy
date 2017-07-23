@@ -121,7 +121,17 @@ namespace NFeFacil.ViewModel
             set
             {
                 motoristaSelecionado = value;
-                NotaSalva.Informações.transp.Transporta = value.ToMotorista();
+                var transporte = NotaSalva.Informações.transp;
+                transporte.Transporta = value.ToMotorista();
+                if (value.Veiculo != default(Guid))
+                {
+                    using (var db = new AplicativoContext())
+                        transporte.VeicTransp = db.Veiculos.Find(value.Veiculo).ToVeiculo();
+                }
+                else
+                {
+                    transporte.VeicTransp = new Veiculo();
+                }
                 OnPropertyChanged(nameof(NotaSalva));
             }
         }

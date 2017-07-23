@@ -16,6 +16,7 @@ namespace NFeFacil.ViewModel
         public RegistroVenda ItemBanco { get; }
         TipoOperacao Operacao { get; }
         ILog Log = Popup.Current;
+        Action<ExibicaoExtra, Guid> AtualizarCabecalho;
         public bool ManipulacaoAtivada { get; private set; }
 
         public ObservableCollection<ExibicaoProdutoVenda> ListaProdutos { get; private set; }
@@ -36,13 +37,15 @@ namespace NFeFacil.ViewModel
             set => ItemBanco.DataHoraVenda = value.DateTime;
         }
 
-        public RegistroVendaDataContext()
+        public RegistroVendaDataContext(Action<ExibicaoExtra, Guid> atualizarCabecalho)
         {
             AdicionarProdutoCommand = new Comando(AdicionarProduto);
             RemoverProdutoCommand = new Comando<ExibicaoProdutoVenda>(RemoverProduto);
             EditarCommand = new Comando(Editar);
             FinalizarCommand = new Comando(Finalizar);
             AplicarDescontoCommand = new Comando(AplicarDesconto);
+
+            AtualizarCabecalho = atualizarCabecalho;
 
             Clientes = db.Clientes.GerarObs();
             Motoristas = db.Motoristas.GerarObs();
@@ -60,13 +63,15 @@ namespace NFeFacil.ViewModel
             ManipulacaoAtivada = true;
         }
 
-        internal RegistroVendaDataContext(RegistroVenda venda)
+        internal RegistroVendaDataContext(RegistroVenda venda, Action<ExibicaoExtra, Guid> atualizarCabecalho)
         {
             AdicionarProdutoCommand = new Comando(AdicionarProduto);
             RemoverProdutoCommand = new Comando<ExibicaoProdutoVenda>(RemoverProduto);
             EditarCommand = new Comando(Editar);
             FinalizarCommand = new Comando(Finalizar);
             AplicarDescontoCommand = new Comando(AplicarDesconto);
+
+            AtualizarCabecalho = atualizarCabecalho;
 
             db.AttachRange(venda.Produtos);
             Clientes = db.Clientes.GerarObs();
@@ -77,7 +82,6 @@ namespace NFeFacil.ViewModel
                                  Base = prod,
                                  Descricao = db.Produtos.Find(prod.IdBase).Descricao,
                                  Quantidade = prod.Quantidade,
-                                 TotalLíquido = prod.TotalLíquido.ToString("C")
                              }).GerarObs();
 
             ItemBanco = venda;
@@ -119,7 +123,6 @@ namespace NFeFacil.ViewModel
                     Base = novoProdBanco,
                     Descricao = contexto.ProdutoSelecionado.Nome,
                     Quantidade = novoProdBanco.Quantidade,
-                    TotalLíquido = novoProdBanco.TotalLíquido.ToString("C")
                 };
                 ListaProdutos.Add(novoProdExib);
                 ItemBanco.Produtos.Add(novoProdBanco);
@@ -141,11 +144,13 @@ namespace NFeFacil.ViewModel
             ManipulacaoAtivada = true;
             ListaProdutos.CollectionChanged += ListaProdutos_CollectionChanged;
             PropertyChanged(this, new PropertyChangedEventArgs(nameof(ManipulacaoAtivada)));
+            AtualizarCabecalho(ExibicaoExtra.EscolherVendedor, default(Guid));
         }
 
         void Finalizar()
         {
             ItemBanco.UltimaData = DateTime.Now;
+            ItemBanco.Vendedor = Propriedades.VendedorAtivo.Id;
             if (Operacao == TipoOperacao.Adicao)
             {
                 db.Add(ItemBanco);
@@ -160,6 +165,7 @@ namespace NFeFacil.ViewModel
             ListaProdutos.CollectionChanged -= ListaProdutos_CollectionChanged;
             PropertyChanged(this, new PropertyChangedEventArgs(nameof(ManipulacaoAtivada)));
             db.SaveChanges();
+            AtualizarCabecalho(ExibicaoExtra.ExibirVendedor, Propriedades.VendedorAtivo.Id);
         }
 
         async void AplicarDesconto()
@@ -172,15 +178,14 @@ namespace NFeFacil.ViewModel
                 {
                     var atual = prods[i];
                     atual.CalcularTotalLíquido();
-                    for (int j = 0; j < ListaProdutos.Count; j++)
-                    {
-                        var antigo = ListaProdutos[i];
-                        antigo.Base = atual;
-                        antigo.TotalLíquido = atual.TotalLíquido.ToString("C");
-                        ListaProdutos[i] = antigo;
-                        ItemBanco.Produtos[i] = antigo.Base;
-                    }
+                    var antigo = ListaProdutos[i];
+                    antigo.Base = atual;
+                    ListaProdutos[i] = antigo;
+                    ItemBanco.Produtos[i] = antigo.Base;
                 }
+                ItemBanco.DescontoTotal = prods.Sum(x => x.Desconto);
+                PropertyChanged(this, new PropertyChangedEventArgs(nameof(ItemBanco)));
+                PropertyChanged(this, new PropertyChangedEventArgs(nameof(ListaProdutos)));
             }
         }
 
@@ -194,7 +199,7 @@ namespace NFeFacil.ViewModel
             public ProdutoSimplesVenda Base { get; set; }
             public string Descricao { get; set; }
             public double Quantidade { get; set; }
-            public string TotalLíquido { get; set; }
+            public string TotalLíquido => Base.TotalLíquido.ToString("C");
         }
     }
 }

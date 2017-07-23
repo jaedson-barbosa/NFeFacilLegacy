@@ -140,7 +140,15 @@ namespace NFeFacil
             {
                 if (!string.IsNullOrEmpty(nomeVendedor))
                 {
-                    txtEscolhido.Text = nomeVendedor.Substring(0, nomeVendedor.IndexOf(' '));
+                    if (nomeVendedor.Contains(' '))
+                    {
+                        var indexEspaco = nomeVendedor.IndexOf(' ');
+                        txtEscolhido.Text = nomeVendedor.Substring(0, indexEspaco);
+                    }
+                    else
+                    {
+                        txtEscolhido.Text = nomeVendedor;
+                    }
                 }
                 else
                 {

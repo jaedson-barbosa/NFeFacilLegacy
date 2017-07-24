@@ -151,7 +151,6 @@
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
     <EmbeddedResource Include="Certificacao\LAN\Arquivos\ServidorCertificacao.zip" />
     <None Include="NFeFacil_StoreKey.pfx" />
-    <None Include="NFeFacil_TemporaryKey.pfx" />
     <None Include="project.json" />
     <None Include="Properties\ServiceReferences.Designer.ClientConfig" />
   </ItemGroup>

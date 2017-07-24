@@ -1,5 +1,5 @@
-﻿using BibliotecaCentral;
-using BibliotecaCentral.ItensBD;
+﻿using NFeFacil;
+using NFeFacil.ItensBD;
 using System;
 using System.Linq;
 using Windows.ApplicationModel.Core;

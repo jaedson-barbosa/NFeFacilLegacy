@@ -1,9 +1,9 @@
-﻿using BibliotecaCentral.ItensBD;
+﻿using NFeFacil.ItensBD;
 using System.ComponentModel;
-using BibliotecaCentral.ModeloXML;
+using NFeFacil.ModeloXML;
 using System;
 using System.Collections.ObjectModel;
-using BibliotecaCentral;
+using NFeFacil;
 using Windows.UI.Xaml.Controls;
 using System.Windows.Input;
 

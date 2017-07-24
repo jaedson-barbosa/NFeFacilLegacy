@@ -1,6 +1,6 @@
-﻿using BibliotecaCentral.ItensBD;
-using BibliotecaCentral.Log;
-using BibliotecaCentral.Validacao;
+﻿using NFeFacil.ItensBD;
+using NFeFacil.Log;
+using NFeFacil.Validacao;
 using Windows.UI.Xaml.Controls;
 
 // O modelo de item de Caixa de Diálogo de Conteúdo está documentado em https://go.microsoft.com/fwlink/?LinkId=234238

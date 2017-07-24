@@ -1,7 +1,7 @@
-﻿using BibliotecaCentral;
-using BibliotecaCentral.IBGE;
-using BibliotecaCentral.WebService;
-using BibliotecaCentral.WebService.Pacotes;
+﻿using NFeFacil;
+using NFeFacil.IBGE;
+using NFeFacil.WebService;
+using NFeFacil.WebService.Pacotes;
 using System;
 using System.Threading.Tasks;
 using Windows.UI.Popups;

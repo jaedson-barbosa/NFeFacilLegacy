@@ -19,7 +19,7 @@
   <Application>
     <Assembly Name="*Application*" Dynamic="Required All" />
   </Application>
-  <Library Name="BibliotecaCentral.dll">
-    <Namespace Name="BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos" XmlSerializer="Required All" />
+  <Library Name="NFeFacil.dll">
+    <Namespace Name="NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos" XmlSerializer="Required All" />
   </Library>
 </Directives>

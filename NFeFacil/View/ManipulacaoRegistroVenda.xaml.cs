@@ -1,5 +1,5 @@
-﻿using BibliotecaCentral;
-using BibliotecaCentral.ItensBD;
+﻿using NFeFacil;
+using NFeFacil.ItensBD;
 using NFeFacil.ViewModel;
 using System;
 using Windows.UI.Xaml.Controls;

@@ -1,4 +1,4 @@
-﻿using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe;
+﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe;
 
 namespace NFeFacil.DANFE.Pacotes
 {

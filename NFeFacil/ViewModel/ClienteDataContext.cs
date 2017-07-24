@@ -1,9 +1,9 @@
-﻿using BibliotecaCentral.ItensBD;
+﻿using NFeFacil.ItensBD;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
-using BibliotecaCentral.IBGE;
+using NFeFacil.IBGE;
 using System.Linq;
-using BibliotecaCentral.ModeloXML;
+using NFeFacil.ModeloXML;
 
 namespace NFeFacil.ViewModel
 {
@@ -13,7 +13,7 @@ namespace NFeFacil.ViewModel
 
         public ClienteDI Cliente { get; set; }
 
-        public ObservableCollection<IndicadorIE> IndicadoresIE => BibliotecaCentral.Extensoes.ObterItens<IndicadorIE>();
+        public ObservableCollection<IndicadorIE> IndicadoresIE => NFeFacil.Extensoes.ObterItens<IndicadorIE>();
         public IndicadorIE IndicadorIESelecionado
         {
             get => (IndicadorIE)Cliente.IndicadorIE;

@@ -3,6 +3,9 @@
     "Microsoft.EntityFrameworkCore.Sqlite": "1.1.2",
     "Microsoft.EntityFrameworkCore.Tools": "1.1.1",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.3.3",
+    "Microsoft.Toolkit.Uwp.Notifications": "1.5.1",
+    "Newtonsoft.Json": "10.0.3",
+    "Restup": "1.0.0",
     "System.ValueTuple": "4.3.1",
     "ZXing.Net.Mobile": "2.2.9"
   },

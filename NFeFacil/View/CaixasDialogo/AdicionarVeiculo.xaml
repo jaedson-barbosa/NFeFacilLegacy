@@ -1,7 +1,7 @@
 ﻿<ContentDialog x:Class="NFeFacil.View.CaixasDialogo.AdicionarVeiculo"
                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-               xmlns:vm="using:BibliotecaCentral.ItensBD"
+               xmlns:vm="using:NFeFacil.ItensBD"
                xmlns:VM="using:NFeFacil.ViewModel"
                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"

@@ -1,6 +1,6 @@
-﻿using BibliotecaCentral;
-using BibliotecaCentral.ModeloXML;
-using BibliotecaCentral.ModeloXML.PartesProcesso;
+﻿using NFeFacil;
+using NFeFacil.ModeloXML;
+using NFeFacil.ModeloXML.PartesProcesso;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;

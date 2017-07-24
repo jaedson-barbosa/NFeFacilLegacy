@@ -1,4 +1,4 @@
-﻿using BibliotecaCentral.Sincronizacao;
+﻿using NFeFacil.Sincronizacao;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
@@ -18,8 +18,8 @@ namespace NFeFacil
         {
             InitializeComponent();
             Suspending += OnSuspending;
-            BibliotecaCentral.InicioGeral.IniciarBancoDados();
-            BibliotecaCentral.InicioGeral.IniciarIBGE();
+            NFeFacil.InicioGeral.IniciarBancoDados();
+            NFeFacil.InicioGeral.IniciarIBGE();
             if (ConfiguracoesSincronizacao.InícioAutomático)
             {
                 GerenciadorServidor.Current.IniciarServer().ConfigureAwait(false);

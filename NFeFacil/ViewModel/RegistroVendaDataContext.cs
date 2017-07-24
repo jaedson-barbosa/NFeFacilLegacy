@@ -1,6 +1,6 @@
-﻿using BibliotecaCentral;
-using BibliotecaCentral.ItensBD;
-using BibliotecaCentral.Log;
+﻿using NFeFacil;
+using NFeFacil.ItensBD;
+using NFeFacil.Log;
 using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;

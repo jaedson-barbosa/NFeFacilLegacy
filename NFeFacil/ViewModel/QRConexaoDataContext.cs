@@ -1,5 +1,5 @@
-﻿using BibliotecaCentral.Sincronizacao;
-using BibliotecaCentral.Sincronizacao.Pacotes;
+﻿using NFeFacil.Sincronizacao;
+using NFeFacil.Sincronizacao.Pacotes;
 using System;
 using System.ComponentModel;
 using System.Linq;

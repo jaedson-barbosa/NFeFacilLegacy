@@ -3,7 +3,7 @@
                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                xmlns:controles="using:NFeFacil.View.Controles"
                xmlns:Conversores="using:NFeFacil.ViewModel.Converters"
-               xmlns:Detalhes="using:BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes"
+               xmlns:Detalhes="using:NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes"
                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                mc:Ignorable="d"

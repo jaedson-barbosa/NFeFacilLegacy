@@ -3,10 +3,10 @@ using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using BibliotecaCentral.Log;
-using BibliotecaCentral.Sincronizacao;
-using BibliotecaCentral.Sincronizacao.Pacotes;
-using static BibliotecaCentral.Sincronizacao.ConfiguracoesSincronizacao;
+using NFeFacil.Log;
+using NFeFacil.Sincronizacao;
+using NFeFacil.Sincronizacao.Pacotes;
+using static NFeFacil.Sincronizacao.ConfiguracoesSincronizacao;
 using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil.ViewModel

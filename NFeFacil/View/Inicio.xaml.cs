@@ -1,10 +1,10 @@
-﻿using BibliotecaCentral;
-using BibliotecaCentral.ItensBD;
-using BibliotecaCentral.Log;
-using BibliotecaCentral.ModeloXML.PartesProcesso;
-using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe;
-using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
-using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
+﻿using NFeFacil;
+using NFeFacil.ItensBD;
+using NFeFacil.Log;
+using NFeFacil.ModeloXML.PartesProcesso;
+using NFeFacil.ModeloXML.PartesProcesso.PartesNFe;
+using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
+using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
 using System;
 using System.Collections.Generic;
 using Windows.UI.Xaml;

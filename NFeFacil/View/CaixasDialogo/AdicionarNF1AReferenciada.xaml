@@ -4,7 +4,7 @@
                xmlns:VM="using:NFeFacil.ViewModel"
                xmlns:controles="using:NFeFacil.View.Controles"
                xmlns:conversores="using:NFeFacil.ViewModel.Converters"
-               xmlns:caminho="using:BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesIdentificacao"
+               xmlns:caminho="using:NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesIdentificacao"
                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                mc:Ignorable="d"

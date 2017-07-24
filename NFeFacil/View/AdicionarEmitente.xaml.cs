@@ -1,12 +1,12 @@
-﻿using BibliotecaCentral.Log;
-using BibliotecaCentral.Validacao;
+﻿using NFeFacil.Log;
+using NFeFacil.Validacao;
 using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using BibliotecaCentral.ItensBD;
+using NFeFacil.ItensBD;
 using NFeFacil.ViewModel;
-using BibliotecaCentral;
+using NFeFacil;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 

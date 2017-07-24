@@ -1,5 +1,5 @@
-﻿using BibliotecaCentral;
-using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
+﻿using NFeFacil;
+using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
 using NFeFacil.ViewModel;
 using System;
 using System.Collections.ObjectModel;
@@ -14,7 +14,7 @@ namespace NFeFacil.View.CaixasDialogo
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            if (value is BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesProdutoOuServico.DeclaracaoImportacao dec)
+            if (value is NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesProdutoOuServico.DeclaracaoImportacao dec)
             {
                 return new DeclaracaoImportacaoDataContext(ref dec);
             }
@@ -32,7 +32,7 @@ namespace NFeFacil.View.CaixasDialogo
 
         private sealed class DeclaracaoImportacaoDataContext : INotifyPropertyChanged
         {
-            public BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesProdutoOuServico.DeclaracaoImportacao Declaracao { get; }
+            public NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesProdutoOuServico.DeclaracaoImportacao Declaracao { get; }
 
             public DateTimeOffset dataRegistro
             {
@@ -95,7 +95,7 @@ namespace NFeFacil.View.CaixasDialogo
                 }
             }
 
-            public DeclaracaoImportacaoDataContext(ref BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesProdutoOuServico.DeclaracaoImportacao dec) : base()
+            public DeclaracaoImportacaoDataContext(ref NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesProdutoOuServico.DeclaracaoImportacao dec) : base()
             {
                 Declaracao = dec;
                 NovaAdicao = new DIAdicao();

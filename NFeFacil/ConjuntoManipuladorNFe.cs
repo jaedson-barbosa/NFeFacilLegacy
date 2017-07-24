@@ -1,6 +1,6 @@
-﻿using BibliotecaCentral.ItensBD;
-using BibliotecaCentral.ModeloXML;
-using BibliotecaCentral.ModeloXML.PartesProcesso;
+﻿using NFeFacil.ItensBD;
+using NFeFacil.ModeloXML;
+using NFeFacil.ModeloXML.PartesProcesso;
 
 namespace NFeFacil
 {

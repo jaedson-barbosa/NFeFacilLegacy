@@ -1,7 +1,7 @@
-﻿using BibliotecaCentral;
-using BibliotecaCentral.ItensBD;
-using BibliotecaCentral.Log;
-using BibliotecaCentral.Validacao;
+﻿using NFeFacil;
+using NFeFacil.ItensBD;
+using NFeFacil.Log;
+using NFeFacil.Validacao;
 using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;

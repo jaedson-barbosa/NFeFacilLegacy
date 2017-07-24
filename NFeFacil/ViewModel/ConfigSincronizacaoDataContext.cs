@@ -29,18 +29,6 @@ namespace NFeFacil.ViewModel
         }
         public bool IsServidor => !IsCliente;
 
-        public bool SincronizarDadoBase
-        {
-            get => SincDadoBase;
-            set => SincDadoBase = value;
-        }
-
-        public bool SincronizarNotaFiscal
-        {
-            get => SincNotaFiscal;
-            set => SincNotaFiscal = value;
-        }
-
         public bool IniciarAutomaticamente
         {
             get => InícioAutomático;
@@ -138,8 +126,7 @@ namespace NFeFacil.ViewModel
         {
             try
             {
-                var gerenc = new GerenciadorCliente(LogPopUp);
-                await gerenc.Sincronizar(DadosSincronizaveis.Tudo, false);
+                await new GerenciadorCliente(LogPopUp).Sincronizar();
             }
             catch (Exception e)
             {
@@ -151,8 +138,7 @@ namespace NFeFacil.ViewModel
         {
             try
             {
-                var gerenc = new GerenciadorCliente(LogPopUp);
-                await gerenc.SincronizarTudo(DadosSincronizaveis.Tudo);
+                await new GerenciadorCliente(LogPopUp).SincronizarTudo();
             }
             catch (Exception e)
             {

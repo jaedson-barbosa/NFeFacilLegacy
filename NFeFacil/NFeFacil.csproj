@@ -386,7 +386,6 @@
     <Compile Include="Sincronizacao\GerenciadorCliente.cs" />
     <Compile Include="Sincronizacao\GerenciadorServidor.cs" />
     <Compile Include="Sincronizacao\ItensSincronizados.cs" />
-    <Compile Include="Sincronizacao\Pacotes\ConfiguracoesServidor.cs" />
     <Compile Include="Sincronizacao\Pacotes\DadosBase.cs" />
     <Compile Include="Sincronizacao\Pacotes\InfoEstabelecerConexao.cs" />
     <Compile Include="Sincronizacao\Pacotes\InfoSegurancaConexao.cs" />

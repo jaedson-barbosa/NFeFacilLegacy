@@ -30,18 +30,5 @@ namespace NFeFacil.Sincronizacao.Servidor
                 return new GetResponse(GetResponse.ResponseStatus.NotFound);
             }
         }
-
-        [UriFormat("/Configuracoes/{senha}")]
-        public IGetResponse Configuracoes(int senha)
-        {
-            if (senha != SenhaPermanente)
-                throw new SenhaErrada(senha);
-
-            return new GetResponse(GetResponse.ResponseStatus.OK, new ConfiguracoesServidor
-            {
-                DadosBase = SincDadoBase,
-                Notas = SincNotaFiscal
-            });
-        }
     }
 }

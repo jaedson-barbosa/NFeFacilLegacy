@@ -35,11 +35,6 @@
                              IsChecked="{Binding IsCliente, Mode=TwoWay}" />
             </StackPanel>
             <StackPanel Visibility="{Binding Path=IsServidor, Converter={StaticResource boolView}}">
-                <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Dados liberados para sincronização</TextBlock>
-                <ToggleSwitch Header="Elementos básicos para criação da nota"
-                              IsOn="{Binding SincronizarDadoBase, Mode=TwoWay}" />
-                <ToggleSwitch Header="Notas fiscais"
-                              IsOn="{Binding SincronizarNotaFiscal, Mode=TwoWay}" />
                 <TextBlock Margin="0,8,0,0"
                            Style="{StaticResource SubtitleTextBlockStyle}">Inicialização do servidor</TextBlock>
                 <TextBlock TextWrapping="Wrap"

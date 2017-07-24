@@ -17,8 +17,6 @@ namespace NFeFacil.Sincronizacao
             set
             {
                 Pasta.Values[nameof(Tipo)] = (int)value;
-                SincDadoBase = default(bool);
-                SincNotaFiscal = default(bool);
                 SenhaPermanente = default(int);
                 SenhaTemporária = default(int);
                 IPServidor = null;
@@ -36,32 +34,6 @@ namespace NFeFacil.Sincronizacao
             set
             {
                 Pasta.Values[nameof(UltimaSincronizacao)] = value;
-            }
-        }
-
-        public static bool SincDadoBase
-        {
-            get
-            {
-                var tipo = Pasta.Values[nameof(SincDadoBase)];
-                return tipo == null ? SincDadoBase = false : (bool)tipo;
-            }
-            set
-            {
-                Pasta.Values[nameof(SincDadoBase)] = value;
-            }
-        }
-
-        public static bool SincNotaFiscal
-        {
-            get
-            {
-                var tipo = Pasta.Values[nameof(SincNotaFiscal)];
-                return tipo == null ? SincNotaFiscal = false : (bool)tipo;
-            }
-            set
-            {
-                Pasta.Values[nameof(SincNotaFiscal)] = value;
             }
         }
 

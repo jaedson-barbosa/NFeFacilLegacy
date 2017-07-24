@@ -26,34 +26,15 @@ namespace NFeFacil.Sincronizacao
             Log.Escrever(TitulosComuns.Sucesso, "Chave de segurança decodificada e salva com sucesso.");
         }
 
-        public async Task Sincronizar(DadosSincronizaveis sincronizar, bool isBackground)
+        public async Task Sincronizar()
         {
             ItensSincronizados quantNotas = new ItensSincronizados(), quantDados = new ItensSincronizados();
 
-            var config = await EnviarAsync<ConfiguracoesServidor>($"Configuracoes", HttpMethod.Get, SenhaPermanente, null);
             using (var db = new AplicativoContext())
             {
-                if (config.Notas && config.DadosBase && sincronizar == DadosSincronizaveis.Tudo)
-                {
-                    quantNotas = await SincronizarNotas(db);
-                    quantDados = await SincronizarDadosBase(db);
-                    Log.Escrever(TitulosComuns.Sucesso, "Foram sincronizados tanto notas fiscais quanto dados base para criação das notas fiscais.");
-                }
-                else if (config.Notas && sincronizar == DadosSincronizaveis.Tudo || sincronizar == DadosSincronizaveis.NotasFiscais)
-                {
-                    quantNotas = await SincronizarNotas(db);
-                    Log.Escrever(TitulosComuns.Sucesso, "Apenas as notas fiscais puderam ser sincronizadas porque o servidor bloqueou a sincronização de dados base.");
-                }
-                else if (config.DadosBase && sincronizar == DadosSincronizaveis.Tudo || sincronizar == DadosSincronizaveis.DadosBase)
-                {
-                    quantDados = await SincronizarDadosBase(db);
-                    Log.Escrever(TitulosComuns.Sucesso, "Apenas os dados base puderam ser sincronizados porque o servidor bloqueou a sincronização de notas fiscais.");
-                }
-                else
-                {
-                    Log.Escrever(TitulosComuns.Erro, "Nada pôde ser sincronizado porque o servidor bloqueou a sincronização do tipo de dado solicitado(s).");
-                }
-
+                quantNotas = await SincronizarNotas(db);
+                quantDados = await SincronizarDadosBase(db);
+                Log.Escrever(TitulosComuns.Sucesso, "Foram sincronizados tanto notas fiscais quanto dados base para criação das notas fiscais.");
                 db.SaveChanges();
             }
 
@@ -105,34 +86,15 @@ namespace NFeFacil.Sincronizacao
             }
         }
 
-        public async Task SincronizarTudo(DadosSincronizaveis sincronizar)
+        public async Task SincronizarTudo()
         {
             ItensSincronizados quantNotas = new ItensSincronizados(), quantDados = new ItensSincronizados();
 
-            var config = await EnviarAsync<ConfiguracoesServidor>($"Configuracoes", HttpMethod.Get, SenhaPermanente, null);
             using (var db = new AplicativoContext())
             {
-                if (config.Notas && config.DadosBase && sincronizar == DadosSincronizaveis.Tudo)
-                {
-                    quantNotas = await SincronizarNotas(db);
-                    quantDados = await SincronizarDadosBase(db);
-                    Log.Escrever(TitulosComuns.Sucesso, "Foram sincronizados tanto notas fiscais quanto dados base para criação das notas fiscais.");
-                }
-                else if (config.Notas && sincronizar == DadosSincronizaveis.Tudo || sincronizar == DadosSincronizaveis.NotasFiscais)
-                {
-                    quantNotas = await SincronizarNotas(db);
-                    Log.Escrever(TitulosComuns.Sucesso, "Apenas as notas fiscais puderam ser sincronizadas porque o servidor bloqueou a sincronização de dados base.");
-                }
-                else if (config.DadosBase && sincronizar == DadosSincronizaveis.Tudo || sincronizar == DadosSincronizaveis.DadosBase)
-                {
-                    quantDados = await SincronizarDadosBase(db);
-                    Log.Escrever(TitulosComuns.Sucesso, "Apenas os dados base puderam ser sincronizados porque o servidor bloqueou a sincronização de notas fiscais.");
-                }
-                else
-                {
-                    Log.Escrever(TitulosComuns.Erro, "Nada pôde ser sincronizado porque o servidor bloqueou a sincronização do tipo de dado solicitado(s).");
-                }
-
+                quantNotas = await SincronizarNotas(db);
+                quantDados = await SincronizarDadosBase(db);
+                Log.Escrever(TitulosComuns.Sucesso, "Foram sincronizados tanto notas fiscais quanto dados base para criação das notas fiscais.");
                 db.SaveChanges();
             }
 
@@ -193,12 +155,5 @@ namespace NFeFacil.Sincronizacao
                 return JsonConvert.DeserializeObject<T>(texto);
             }
         }
-    }
-
-    public enum DadosSincronizaveis
-    {
-        Tudo,
-        DadosBase,
-        NotasFiscais
     }
 }

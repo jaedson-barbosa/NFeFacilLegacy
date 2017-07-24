@@ -110,18 +110,5 @@ namespace NFeFacil.Sincronizacao
                 Pasta.Values[nameof(InícioAutomático)] = value;
             }
         }
-
-        public static bool SincronizarAutomaticamente
-        {
-            get
-            {
-                var tipo = Pasta.Values[nameof(SincronizarAutomaticamente)];
-                return tipo == null ? SincronizarAutomaticamente = false : (bool)tipo;
-            }
-            set
-            {
-                Pasta.Values[nameof(SincronizarAutomaticamente)] = value;
-            }
-        }
     }
 }

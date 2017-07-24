@@ -49,24 +49,6 @@ namespace NFeFacil.ViewModel
 
         public bool ServerRodando => GerenciadorServidor.Current.Rodando;
 
-        public bool SincronizarAutomaticamente
-        {
-            get => ConfiguracoesSincronizacao.SincronizarAutomaticamente;
-            set
-            {
-                try
-                {
-                    if (value) RegistroClienteBackground.Registrar();
-                    else RegistroClienteBackground.Desrregistrar();
-                    ConfiguracoesSincronizacao.SincronizarAutomaticamente = value;
-                }
-                catch (Exception e)
-                {
-                    e.ManipularErro();
-                }
-            }
-        }
-
         public ConfigSincronizacaoDataContext()
         {
             ExibirQRCommand = new Comando(ExibirQR, true);

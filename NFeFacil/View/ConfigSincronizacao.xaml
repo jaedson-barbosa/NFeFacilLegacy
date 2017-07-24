@@ -85,11 +85,6 @@
                 <TextBlock TextWrapping="Wrap">Com a sincronização básica apenas os dados modificados ou adicionados após a última sincronização são transferidos, sendo a recomendada para a maioria dos casos.</TextBlock>
                 <Button HorizontalAlignment="Stretch"
                         Command="{Binding SincronizarAgoraCommand}">Sincronizar</Button>
-                <ToggleSwitch HorizontalAlignment="Stretch"
-                              IsOn="{Binding SincronizarAutomaticamente, Mode=TwoWay}"
-                              Header="Modo de sincronização"
-                              OnContent="Automaticamente (a cada 15min)"
-                              OffContent="Manualmente (usando o botão)" />
                 <TextBlock Margin="0,8,0,0"
                            Style="{StaticResource SubtitleTextBlockStyle}">Sincronização completa</TextBlock>
                 <TextBlock TextWrapping="Wrap">Na sincronização completa todos os dados existentes no servidor e neste dispositivo serão transferidos e passados por análise, sendo portanto mais lenta e indicada apenas quando o servidor é trocado.</TextBlock>

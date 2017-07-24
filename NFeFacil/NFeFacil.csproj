@@ -379,7 +379,6 @@
     <Compile Include="OperacoesNotaSalva.cs" />
     <Compile Include="Propriedades.cs" />
     <Compile Include="RecursoInserido.cs" />
-    <Compile Include="RegistrarCliente.cs" />
     <Compile Include="Repositorio\ConexaoBanco.cs" />
     <Compile Include="Repositorio\MudancaOtimizadaBancoDados.cs" />
     <Compile Include="Repositorio\NotasFiscais.cs" />

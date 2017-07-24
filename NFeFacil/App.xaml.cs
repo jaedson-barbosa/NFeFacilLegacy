@@ -1,4 +1,5 @@
-﻿using NFeFacil.Sincronizacao;
+﻿using Microsoft.EntityFrameworkCore;
+using NFeFacil.Sincronizacao;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
@@ -18,8 +19,12 @@ namespace NFeFacil
         {
             InitializeComponent();
             Suspending += OnSuspending;
-            NFeFacil.InicioGeral.IniciarBancoDados();
-            NFeFacil.InicioGeral.IniciarIBGE();
+            using (var db = new AplicativoContext())
+            {
+                db.Database.Migrate();
+            }
+            IBGE.Estados.Buscar();
+            IBGE.Municipios.Buscar();
             if (ConfiguracoesSincronizacao.InícioAutomático)
             {
                 GerenciadorServidor.Current.IniciarServer().ConfigureAwait(false);

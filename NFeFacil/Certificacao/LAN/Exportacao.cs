@@ -28,7 +28,7 @@ namespace NFeFacil.Certificacao.LAN
             {
                 using (var stream = await arquivo.OpenStreamForWriteAsync())
                 {
-                    var recurso = new RecursoInserido().Retornar($"NFeFacil.Certificacao.LAN.Arquivos.{nomeOriginal}.{extensao}");
+                    var recurso = Extensoes.Retornar(this, $"NFeFacil.Certificacao.LAN.Arquivos.{nomeOriginal}.{extensao}");
                     recurso.CopyTo(stream);
                 }
                 log.Escrever(TitulosComuns.Sucesso, "Arquivo salvo com sucesso, inicie o repositório remoto com o Iniciar.bat");

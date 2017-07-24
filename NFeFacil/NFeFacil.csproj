@@ -231,7 +231,6 @@
     <Compile Include="Importacao\ImportarNotaFiscal.cs" />
     <Compile Include="Importacao\TiposDadoBasico.cs" />
     <Compile Include="Importacao\XmlNaoReconhecido.cs" />
-    <Compile Include="InicioGeral.cs" />
     <Compile Include="ItensBD\AlteracaoEstoque.cs" />
     <Compile Include="ItensBD\ClienteDI.cs" />
     <Compile Include="ItensBD\EmitenteDI.cs" />
@@ -250,7 +249,6 @@
     <Compile Include="Log\Popup.cs" />
     <Compile Include="Log\Titulos.cs" />
     <Compile Include="Log\TitulosComuns.cs" />
-    <Compile Include="Log\Toast.cs" />
     <Compile Include="Migrations\20170603122440_Loja1.cs" />
     <Compile Include="Migrations\20170603122440_Loja1.Designer.cs">
       <DependentUpon>20170603122440_Loja1.cs</DependentUpon>
@@ -378,7 +376,6 @@
     <Compile Include="OperacoesNotaEmitida.cs" />
     <Compile Include="OperacoesNotaSalva.cs" />
     <Compile Include="Propriedades.cs" />
-    <Compile Include="RecursoInserido.cs" />
     <Compile Include="Repositorio\ConexaoBanco.cs" />
     <Compile Include="Repositorio\MudancaOtimizadaBancoDados.cs" />
     <Compile Include="Repositorio\NotasFiscais.cs" />

@@ -7,7 +7,7 @@ namespace NFeFacil.Certificacao.LAN
     {
         public async static Task<bool> Cadastrar()
         {
-            var caixa = new CaixasDialogo.ConectarServidor();
+            var caixa = new View.CaixasDialogo.ConectarServidor();
             if (await caixa.ShowAsync() == Windows.UI.Xaml.Controls.ContentDialogResult.Primary)
             {
                 var ip = caixa.IP;

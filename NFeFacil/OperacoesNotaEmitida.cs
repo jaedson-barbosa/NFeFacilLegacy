@@ -1,4 +1,4 @@
-﻿using NFeFacil.CaixasDialogo;
+﻿using NFeFacil.View.CaixasDialogo;
 using NFeFacil.ItensBD;
 using NFeFacil.Log;
 using NFeFacil.ModeloXML;

@@ -159,13 +159,13 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CaixasDialogo\ConectarServidor.xaml.cs">
+    <Compile Include="View\CaixasDialogo\ConectarServidor.xaml.cs">
       <DependentUpon>ConectarServidor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CaixasDialogo\EntradaTexto.xaml.cs">
+    <Compile Include="View\CaixasDialogo\EntradaTexto.xaml.cs">
       <DependentUpon>EntradaTexto.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CaixasDialogo\SelecaoCertificado.xaml.cs">
+    <Compile Include="View\CaixasDialogo\SelecaoCertificado.xaml.cs">
       <DependentUpon>SelecaoCertificado.xaml</DependentUpon>
     </Compile>
     <Compile Include="Certificacao\AssinaFacil.cs" />
@@ -661,15 +661,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="CaixasDialogo\ConectarServidor.xaml">
+    <Page Include="View\CaixasDialogo\ConectarServidor.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="CaixasDialogo\EntradaTexto.xaml">
+    <Page Include="View\CaixasDialogo\EntradaTexto.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="CaixasDialogo\SelecaoCertificado.xaml">
+    <Page Include="View\CaixasDialogo\SelecaoCertificado.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

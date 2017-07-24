@@ -1,4 +1,4 @@
-﻿using NFeFacil.CaixasDialogo;
+﻿using NFeFacil.View.CaixasDialogo;
 using System;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;

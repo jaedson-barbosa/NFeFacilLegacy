@@ -317,7 +317,7 @@ namespace NFeFacil.Migrations
 
                     b.Property<Guid>("Motorista");
 
-                    b.Property<Guid>("NotaFiscalRelacionada");
+                    b.Property<string>("NotaFiscalRelacionada");
 
                     b.Property<string>("Observações");
 

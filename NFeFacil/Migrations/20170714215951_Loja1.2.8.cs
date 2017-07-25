@@ -50,7 +50,7 @@ namespace NFeFacil.Migrations
                     DescontoTotal = table.Column<double>(nullable: false),
                     Emitente = table.Column<Guid>(nullable: false),
                     Motorista = table.Column<Guid>(nullable: false),
-                    NotaFiscalRelacionada = table.Column<Guid>(nullable: false),
+                    NotaFiscalRelacionada = table.Column<string>(nullable: false),
                     Observações = table.Column<string>(nullable: true),
                     UltimaData = table.Column<DateTime>(nullable: false),
                     Vendedor = table.Column<Guid>(nullable: false)

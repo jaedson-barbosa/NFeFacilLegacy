@@ -41,46 +41,37 @@ namespace NFeFacil.ViewModel.ImpostosProduto
             get => Simples != null ? int.Parse(Simples.CSOSN) : -1;
             set
             {
+                AttVisibilidadeSimplesNacional(VisibilidadesSimplesNacional.Buscar(value));
                 switch (value)
                 {
                     case 101:
-                        AttVisibilidadeSimplesNacional(false, false, true);
                         Simples = new ICMSSN101();
                         break;
                     case 102:
-                        AttVisibilidadeSimplesNacional(false, false, false);
                         Simples = new ICMSSN102();
                         break;
                     case 103:
-                        AttVisibilidadeSimplesNacional(false, false, false);
                         Simples = new ICMSSN102();
                         break;
                     case 201:
-                        AttVisibilidadeSimplesNacional(false, true, true);
                         Simples = new ICMSSN201();
                         break;
                     case 202:
-                        AttVisibilidadeSimplesNacional(false, true, false);
                         Simples = new ICMSSN202();
                         break;
                     case 203:
-                        AttVisibilidadeSimplesNacional(false, true, false);
                         Simples = new ICMSSN202();
                         break;
                     case 300:
-                        AttVisibilidadeSimplesNacional(false, false, false);
                         Simples = new ICMSSN102();
                         break;
                     case 400:
-                        AttVisibilidadeSimplesNacional(false, false, false);
                         Simples = new ICMSSN102();
                         break;
                     case 500:
-                        AttVisibilidadeSimplesNacional(false, false, false);
                         Simples = new ICMSSN500();
                         break;
                     case 900:
-                        AttVisibilidadeSimplesNacional(true, true, true);
                         Simples = new ICMSSN900();
                         break;
                 }
@@ -92,11 +83,11 @@ namespace NFeFacil.ViewModel.ImpostosProduto
         public bool SimplesGrupoInicio { get; private set; }
         public bool SimplesICMSST { get; private set; }
         public bool SimplesGrupoFim { get; private set; }
-        private void AttVisibilidadeSimplesNacional(bool grupoInicio, bool ICMSST, bool grupoFim)
+        private void AttVisibilidadeSimplesNacional(VisibilidadeSimplesNacional visibilidade)
         {
-            SimplesGrupoInicio = grupoInicio;
-            SimplesICMSST = ICMSST;
-            SimplesGrupoFim = grupoFim;
+            SimplesGrupoInicio = visibilidade.GrupoInicio;
+            SimplesICMSST = visibilidade.ICMSST;
+            SimplesGrupoFim = visibilidade.GrupoFim;
             OnPropertyChanged(nameof(SimplesGrupoInicio), nameof(SimplesICMSST), nameof(SimplesGrupoFim));
         }
 
@@ -105,66 +96,54 @@ namespace NFeFacil.ViewModel.ImpostosProduto
             get => Normal != null ? int.Parse(Normal.CST) : -1;
             set
             {
+                AttCamposNormal(VisibilidadesRegimeNormal.Buscar(value));
                 switch (value)
                 {
                     case 0:
                         Normal = new ICMS00();
-                        AttCamposNormal(false, true, false, false, false, false);
                         break;
                     case 10:
                         Normal = new ICMS10();
-                        AttCamposNormal(false, true, true, false, false, false);
                         break;
                     case 1010:
                         Normal = new ICMSPart();
-                        AttCamposNormal(true, true, true, false, true, false, false, true);
                         break;
                     case 20:
                         Normal = new ICMS20();
-                        AttCamposNormal(true, true, false, false, true, false);
                         break;
                     case 30:
                         Normal = new ICMS30();
-                        AttCamposNormal(false, false, true, false, true, false);
                         break;
                     case 40:
                         Normal = new ICMS40();
-                        AttCamposNormal(false, false, false, false, true, false);
                         break;
                     case 41:
                         Normal = new ICMS41();
-                        AttCamposNormal(false, false, false, false, true, false);
                         break;
                     case 4141:
                         Normal = new ICMSST();
-                        AttCamposNormal(false, false, false, true, false, false, true);
                         break;
                     case 50:
                         Normal = new ICMS50();
-                        AttCamposNormal(false, false, false, false, true, false);
                         break;
                     case 51:
                         Normal = new ICMS51();
-                        AttCamposNormal(true, true, false, false, false, true);
                         break;
                     case 60:
                         Normal = new ICMS60();
-                        AttCamposNormal(false, false, false, true, false, false);
                         break;
                     case 70:
                         Normal = new ICMS70();
-                        AttCamposNormal(true, true, true, false, true, false);
                         break;
                     case 90:
                         Normal = new ICMS90();
-                        AttCamposNormal(true, true, true, false, true, false);
                         break;
                     case 9090:
                         Normal = new ICMSPart();
-                        AttCamposNormal(true, true, true, false, true, false, false, true);
                         break;
                 }
                 Normal.CST = value.ToString("00");
+                if (Normal.CST.Length > 2) Normal.CST = Normal.CST.Remove(2);
                 OnPropertyChanged(nameof(Normal));
             }
         }
@@ -177,16 +156,16 @@ namespace NFeFacil.ViewModel.ImpostosProduto
         public bool NormalGrupoFim { get; private set; }
         public bool NormalICMSST { get; private set; }
         public bool NormalICMSPart { get; private set; }
-        private void AttCamposNormal(bool pRedBC, bool grupoInicio, bool ICMSST, bool grupoMeio, bool icmsDeson, bool grupoFim, bool normalICMSST = false, bool normalICMSPart = false)
+        private void AttCamposNormal(VisibilidadeRegimeNormal normal)
         {
-            NormalICMSDesonerado = icmsDeson;
-            NormalGrupoInicio = grupoInicio;
-            NormalPercentualReduçãoNormal = pRedBC;
-            NormalICMSSTNormal = ICMSST;
-            NormalGrupoMeio = grupoMeio;
-            NormalGrupoFim = grupoFim;
-            NormalICMSST = normalICMSST;
-            NormalICMSPart = normalICMSPart;
+            NormalICMSDesonerado = normal.IcmsDeson;
+            NormalGrupoInicio = normal.GrupoInicio;
+            NormalPercentualReduçãoNormal = normal.PRedBC;
+            NormalICMSSTNormal = normal.ICMSST;
+            NormalGrupoMeio = normal.GrupoMeio;
+            NormalGrupoFim = normal.GrupoFim;
+            NormalICMSST = normal.NormalICMSST;
+            NormalICMSPart = normal.NormalICMSPart;
             OnPropertyChanged(nameof(NormalICMSDesonerado),
                 nameof(NormalGrupoInicio), nameof(NormalPercentualReduçãoNormal),
                 nameof(NormalICMSSTNormal), nameof(NormalGrupoMeio), nameof(NormalGrupoFim),
@@ -197,5 +176,30 @@ namespace NFeFacil.ViewModel.ImpostosProduto
         {
             Corpo = (ComumICMS)Simples ?? (ComumICMS)Normal
         };
+
+        public ICMSDataContext() { }
+        public ICMSDataContext(ICMS pai)
+        {
+            if (pai.Corpo is ISimplesNacional simples)
+            {
+                RegimeSelecionado = (int)Modalidades.Simples;
+                Simples = simples;
+                var csosn = int.Parse(simples.CSOSN);
+                var visibilidade = VisibilidadesSimplesNacional.Buscar(csosn);
+                AttVisibilidadeSimplesNacional(visibilidade);
+                OnPropertyChanged(nameof(Simples));
+            }
+            else if (pai.Corpo is IRegimeNormal normal)
+            {
+                RegimeSelecionado = (int)Modalidades.Normal;
+                Normal = normal;
+                var cst = int.Parse(normal.CST);
+                var visibilidade = VisibilidadesRegimeNormal.Buscar(cst);
+                AttCamposNormal(visibilidade);
+                OnPropertyChanged(nameof(Normal));
+            }
+        }
+
+        private enum Modalidades { Simples, Normal }
     }
 }

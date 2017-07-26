@@ -158,6 +158,10 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\ImpostosProduto\VisibilidadeRegimeNormal.cs" />
+    <Compile Include="ViewModel\ImpostosProduto\VisibilidadeSimplesNacional.cs" />
+    <Compile Include="ViewModel\ImpostosProduto\VisibilidadesRegimeNormal.cs" />
+    <Compile Include="ViewModel\ImpostosProduto\VisibilidadesSimplesNacional.cs" />
     <Compile Include="View\CaixasDialogo\ConectarServidor.xaml.cs">
       <DependentUpon>ConectarServidor.xaml</DependentUpon>
     </Compile>

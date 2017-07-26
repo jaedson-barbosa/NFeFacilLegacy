@@ -1,5 +1,6 @@
 ﻿using NFeFacil;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
+using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
 using NFeFacil.ViewModel.ImpostosProduto;
 using System;
@@ -7,6 +8,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Input;
+using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil.ViewModel
 {
@@ -119,6 +121,19 @@ namespace NFeFacil.ViewModel
         public Arma NovoArmamento { get; private set; }
         public int IndexArmamentoSelecionado { get; set; }
 
+        ICMSDataContext contextoICMS;
+        public ICMSDataContext ContextoICMS
+        {
+            get
+            {
+                if (contextoICMS == null)
+                {
+                    contextoICMS = new ICMSDataContext();
+                }
+                return contextoICMS;
+            }
+        }
+
         PISDataContext contextoPIS;
         public PISDataContext ContextoPIS
         {
@@ -161,6 +176,58 @@ namespace NFeFacil.ViewModel
             }
         }
 
+        ISSQNDataContext contextoISSQN;
+        public ISSQNDataContext ContextoISSQN
+        {
+            get
+            {
+                if (contextoISSQN == null)
+                {
+                    contextoISSQN = new ISSQNDataContext();
+                }
+                return contextoISSQN;
+            }
+        }
+
+        II contextoII;
+        public II ContextoII
+        {
+            get
+            {
+                if (contextoII == null)
+                {
+                    contextoII = new II();
+                }
+                return contextoII;
+            }
+        }
+
+        ImpostoDevol contextoImpostoDevol;
+        public ImpostoDevol ContextoImpostoDevol
+        {
+            get
+            {
+                if (contextoImpostoDevol == null)
+                {
+                    contextoImpostoDevol = new ImpostoDevol();
+                }
+                return contextoImpostoDevol;
+            }
+        }
+
+        ICMSUFDest contextoIcmsUFDest;
+        public ICMSUFDest ContextoIcmsUFDest
+        {
+            get
+            {
+                if (contextoIcmsUFDest == null)
+                {
+                    contextoIcmsUFDest = new ICMSUFDest();
+                }
+                return contextoIcmsUFDest;
+            }
+        }
+
         public ProdutoCompletoDataContext(DetalhesProdutos produtoCompleto)
         {
             ProdutoCompleto = produtoCompleto;
@@ -191,26 +258,28 @@ namespace NFeFacil.ViewModel
 
         private async void AdicionarDeclaracaoImportacao()
         {
-            var caixa = new View.CaixasDialogo.DeclaracaoImportacao();
-            caixa.DataContext = new DeclaracaoImportacao();
-            caixa.PrimaryButtonClick += (x, y) =>
+            var caixa = new View.CaixasDialogo.DeclaracaoImportacao()
             {
-                ProdutoCompleto.Produto.DI.Add(x.DataContext as DeclaracaoImportacao);
-                OnPropertyChanged(nameof(ListaDI));
+                DataContext = new DeclaracaoImportacao()
             };
-            await caixa.ShowAsync();
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+            {
+                ProdutoCompleto.Produto.DI.Add(caixa.DataContext as DeclaracaoImportacao);
+                OnPropertyChanged(nameof(ListaDI));
+            }
         }
 
         private async void AdicionarDeclaracaoExportacao()
         {
-            var caixa = new View.CaixasDialogo.DeclaracaoExportacao();
-            caixa.DataContext = new GrupoExportacao();
-            caixa.PrimaryButtonClick += (x, y) =>
+            var caixa = new View.CaixasDialogo.DeclaracaoExportacao()
             {
-                ProdutoCompleto.Produto.GrupoExportação.Add(x.DataContext as GrupoExportacao);
-                OnPropertyChanged(nameof(ListaGE));
+                DataContext = new GrupoExportacao()
             };
-            await caixa.ShowAsync();
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+            {
+                ProdutoCompleto.Produto.GrupoExportação.Add(caixa.DataContext as GrupoExportacao);
+                OnPropertyChanged(nameof(ListaGE));
+            }
         }
 
         private void RemoverDeclaracaoImportacao(DeclaracaoImportacao declaracao)

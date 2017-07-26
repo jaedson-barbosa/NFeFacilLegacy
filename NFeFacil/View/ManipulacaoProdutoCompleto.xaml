@@ -132,10 +132,7 @@
                        Grid.ColumnSpan="2">
                     <PivotItem IsEnabled="{Binding AtivadopvtICMS}"
                                Header="ICMS">
-                        <ScrollViewer>
-                            <ScrollViewer.DataContext>
-                                <ImpostosContext:ICMSDataContext />
-                            </ScrollViewer.DataContext>
+                        <ScrollViewer DataContext="{Binding ContextoICMS}">
                             <StackPanel>
                                 <ComboBox SelectedIndex="{Binding RegimeSelecionado, Mode=TwoWay}"
                                           Header="Regime"
@@ -659,10 +656,7 @@
                     </PivotItem>
                     <PivotItem IsEnabled="{Binding AtivadopvtISSQN}"
                                Header="ISSQN">
-                        <ScrollViewer>
-                            <ScrollViewer.DataContext>
-                                <ImpostosContext:ISSQNDataContext />
-                            </ScrollViewer.DataContext>
+                        <ScrollViewer DataContext="{Binding ContextoISSQN}">
                             <ItemsControl Style="{StaticResource ItensResponsivos}">
                                 <TextBox Text="{Binding Imposto.vBC, Mode=TwoWay}"
                                          Header="Valor da base de cálculo *"
@@ -747,10 +741,7 @@
                         </ScrollViewer>
                     </PivotItem>
                     <PivotItem Header="Imposto de importação">
-                        <ItemsControl Style="{StaticResource ItensResponsivos}">
-                            <ItemsControl.DataContext>
-                                <Impostos:II />
-                            </ItemsControl.DataContext>
+                        <ItemsControl DataContext="{Binding ContextoII}" Style="{StaticResource ItensResponsivos}">
                             <TextBox InputScope="Number"
                                      Header="Valor da base de cálculo *"
                                      Text="{Binding vBC, Mode=TwoWay}" />
@@ -766,10 +757,7 @@
                         </ItemsControl>
                     </PivotItem>
                     <PivotItem Header="IPI Devolvido">
-                        <StackPanel>
-                            <StackPanel.DataContext>
-                                <Impostos:ImpostoDevol />
-                            </StackPanel.DataContext>
+                        <StackPanel DataContext="{Binding ContextoImpostoDevol}">
                             <TextBox Header="Percentual da mercadoria devolvida *"
                                      Text="{Binding pDevol, Mode=TwoWay}"
                                      InputScope="Number" />
@@ -780,10 +768,7 @@
                     </PivotItem>
                     <PivotItem IsEnabled="{Binding AtivadopvtICMSInterestadual}"
                                Header="ICMS de destino">
-                        <ScrollViewer>
-                            <ScrollViewer.DataContext>
-                                <Impostos:ICMSUFDest />
-                            </ScrollViewer.DataContext>
+                        <ScrollViewer DataContext="{Binding ContextoIcmsUFDest}">
                             <ItemsControl Style="{StaticResource ItensResponsivos}">
                                 <TextBox Header="Percentual ICMS relativo ao FCP na UF de destino"
                                          Text="{Binding PFCPUFDest, Mode=TwoWay}"

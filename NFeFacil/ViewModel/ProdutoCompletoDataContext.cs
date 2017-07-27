@@ -237,6 +237,7 @@ namespace NFeFacil.ViewModel
             };
             var imps = produtoCompleto.Impostos.impostos;
             ConjuntoPIS conjPis = new ConjuntoPIS();
+            ConjuntoCOFINS conjCofins = new ConjuntoCOFINS();
             for (int i = 0; i < imps.Count; i++)
             {
                 var imp = imps[i];
@@ -252,8 +253,17 @@ namespace NFeFacil.ViewModel
                 {
                     conjPis.PISST = pisst;
                 }
+                else if (imp is COFINS cofins)
+                {
+                    conjCofins.COFINS = cofins;
+                }
+                else if (imp is COFINSST cofinsst)
+                {
+                    conjCofins.COFINSST = cofinsst;
+                }
             }
             contextoPIS = new PISDataContext(conjPis);
+            contextoCOFINS = new COFINSDataContext(conjCofins);
             NovoMedicamento = new Medicamento();
             NovoArmamento = new Arma();
             AdicionarDeclaracaoImportacaoCommand = new Comando(AdicionarDeclaracaoImportacao, true);

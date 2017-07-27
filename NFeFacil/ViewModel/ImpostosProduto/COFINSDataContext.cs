@@ -169,6 +169,42 @@ namespace NFeFacil.ViewModel.ImpostosProduto
         {
             AtualizarImposto();
         }
+        public COFINSDataContext(ConjuntoCOFINS conjunto)
+        {
+            if (conjunto.COFINS != null)
+            {
+                var corpo = conjunto.COFINS.Corpo;
+                CSTSelecionado = int.Parse(corpo.CST);
+                if (corpo is COFINSOutr outr)
+                {
+                    if (string.IsNullOrEmpty(outr.pCOFINS))
+                    {
+                        TipoCalculo = "Pelo valor por unidade";
+                    }
+                    else
+                    {
+                        TipoCalculo = "Por alíquota";
+                    }
+                }
+                Conjunto.COFINS = conjunto.COFINS;
+
+                if (conjunto.COFINSST != null)
+                {
+                    var st = conjunto.COFINSST;
+                    if (string.IsNullOrEmpty(st.pCOFINS))
+                    {
+                        TipoCalculoST = "Pelo valor por unidade";
+                    }
+                    else
+                    {
+                        TipoCalculoST = "Por alíquota";
+                    }
+                    Conjunto.COFINSST = conjunto.COFINSST;
+                    AtualizarImpostoST();
+                }
+            }
+            AtualizarImposto();
+        }
 
         public IEnumerable<Imposto> SepararImpostos() => Conjunto.SepararImpostos();
     }

@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel;
 using System.Linq;
 using System.Collections.Generic;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
+using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
 
 namespace NFeFacil.ViewModel.ImpostosProduto
 {
@@ -187,7 +187,6 @@ namespace NFeFacil.ViewModel.ImpostosProduto
                     }
                 }
                 Conjunto.PIS = conjunto.PIS;
-                AtualizarImposto();
 
                 if (conjunto.PISST != null)
                 {
@@ -204,6 +203,7 @@ namespace NFeFacil.ViewModel.ImpostosProduto
                     AtualizarImpostoST();
                 }
             }
+            AtualizarImposto();
         }
 
         public IEnumerable<Imposto> SepararImpostos() => Conjunto.SepararImpostos();

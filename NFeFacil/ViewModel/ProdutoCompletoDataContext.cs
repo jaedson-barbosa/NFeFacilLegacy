@@ -261,6 +261,10 @@ namespace NFeFacil.ViewModel
                 {
                     conjCofins.COFINSST = cofinsst;
                 }
+                else if (imp is IPI ipi)
+                {
+                    contextoIPI = new IPIDataContext(ipi);
+                }
             }
             contextoPIS = new PISDataContext(conjPis);
             contextoCOFINS = new COFINSDataContext(conjCofins);

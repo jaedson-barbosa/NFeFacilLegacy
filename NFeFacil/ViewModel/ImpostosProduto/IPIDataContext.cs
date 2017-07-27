@@ -87,6 +87,32 @@ namespace NFeFacil.ViewModel.ImpostosProduto
             OnPropertyChanged(nameof(Imposto));
         }
 
+        public IPIDataContext()
+        {
+            AtualizarImposto();
+        }
+        public IPIDataContext(IPI conjunto)
+        {
+            if (conjunto.Corpo != null)
+            {
+                var corpo = conjunto.Corpo;
+                CSTSelecionado = int.Parse(corpo.CST);
+                if (corpo is IPITrib trib)
+                {
+                    if (string.IsNullOrEmpty(trib.pIPI))
+                    {
+                        TipoCalculo = "Pelo valor por unidade";
+                    }
+                    else
+                    {
+                        TipoCalculo = "Por alíquota";
+                    }
+                }
+                Conjunto = conjunto;
+            }
+            AtualizarImposto();
+        }
+
         public Imposto ImpostoBruto => Conjunto;
     }
 }

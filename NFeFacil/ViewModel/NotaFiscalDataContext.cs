@@ -455,6 +455,7 @@ namespace NFeFacil.ViewModel
         #region Comandos
 
         public ICommand AdicionarProdutoCommand => new Comando(AdicionarProduto, true);
+        public ICommand EditarProdutoCommand => new Comando<DetalhesProdutos>(EditarProduto);
         public ICommand RemoverProdutoCommand => new Comando<DetalhesProdutos>(RemoverProduto);
 
         public ICommand ObterNovoNumeroCommand => new Comando(ObterNovoNumero);
@@ -655,6 +656,12 @@ namespace NFeFacil.ViewModel
             {
                 Produto = ProdutoSelecionado != null ? ProdutoSelecionado.ToProdutoOuServico() : new ProdutoOuServico()
             };
+            MainPage.Current.AbrirFunçao(typeof(ManipulacaoProdutoCompleto), detCompleto);
+        }
+
+        void EditarProduto(DetalhesProdutos produto)
+        {
+            var detCompleto = produto;
             MainPage.Current.AbrirFunçao(typeof(ManipulacaoProdutoCompleto), detCompleto);
         }
 

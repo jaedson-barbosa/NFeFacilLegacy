@@ -269,6 +269,22 @@ namespace NFeFacil.ViewModel
                 {
                     contextoISSQN = new ISSQNDataContext(issqn);
                 }
+                else if (imp is II ii)
+                {
+                    contextoII = ii;
+                }
+                else if (imp is ImpostoDevol devol)
+                {
+                    contextoImpostoDevol = devol;
+                }
+                else if (imp is ICMSUFDest dest)
+                {
+                    contextoIcmsUFDest = dest;
+                }
+                else
+                {
+                    throw new InvalidOperationException("O formato do imposto não é reconhecido.");
+                }
             }
             contextoPIS = new PISDataContext(conjPis);
             contextoCOFINS = new COFINSDataContext(conjCofins);

@@ -26,9 +26,16 @@ namespace NFeFacil.View
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var Produto = e.Parameter as DetalhesProdutos;
-            DataContext = new ProdutoCompletoDataContext(Produto);
-            MainPage.Current.SeAtualizar(Symbol.Add, "Produto");
+            var produto = e.Parameter as DetalhesProdutos;
+            if (produto.Impostos.impostos.Count > 0)
+            {
+                MainPage.Current.SeAtualizar(Symbol.Edit, "Produto");
+            }
+            else
+            {
+                MainPage.Current.SeAtualizar(Symbol.Add, "Produto");
+            }
+            DataContext = new ProdutoCompletoDataContext(produto);
         }
 
         private Impostos ImpostosFiltrados
@@ -91,8 +98,15 @@ namespace NFeFacil.View
             data.ProdutoCompleto.Impostos = ImpostosFiltrados;
 
             var detalhes = data.ProdutoCompleto;
-            detalhes.Número = info.produtos.Count + 1;
-            info.produtos.Add(detalhes);
+            if (detalhes.Número == 0)
+            {
+                detalhes.Número = info.produtos.Count + 1;
+                info.produtos.Add(detalhes);
+            }
+            else
+            {
+                info.produtos[detalhes.Número] = detalhes;
+            }
             info.total = new Total(info.produtos);
 
             MainPage.Current.Retornar();

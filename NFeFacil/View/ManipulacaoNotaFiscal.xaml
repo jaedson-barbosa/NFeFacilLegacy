@@ -348,6 +348,10 @@
                             <StackPanel Margin="0,5">
                                 <StackPanel.ContextFlyout>
                                     <MenuFlyout Placement="Bottom">
+                                        <MenuFlyoutItem Text="Editar"
+                                                        IsEnabled="{Binding DataContext.ManipulacaoAtivada, ElementName=root}"
+                                                        Command="{Binding ElementName=root, Path=DataContext.EditarProdutoCommand}"
+                                                        CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}" />
                                         <MenuFlyoutItem Text="Remover"
                                                         IsEnabled="{Binding DataContext.ManipulacaoAtivada, ElementName=root}"
                                                         Command="{Binding ElementName=root, Path=DataContext.RemoverProdutoCommand}"

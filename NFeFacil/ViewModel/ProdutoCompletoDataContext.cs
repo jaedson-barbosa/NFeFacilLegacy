@@ -265,6 +265,10 @@ namespace NFeFacil.ViewModel
                 {
                     contextoIPI = new IPIDataContext(ipi);
                 }
+                else if (imp is ISSQN issqn)
+                {
+                    contextoISSQN = new ISSQNDataContext(issqn);
+                }
             }
             contextoPIS = new PISDataContext(conjPis);
             contextoCOFINS = new COFINSDataContext(conjCofins);

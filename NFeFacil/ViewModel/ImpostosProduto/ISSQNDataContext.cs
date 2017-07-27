@@ -44,6 +44,13 @@ namespace NFeFacil.ViewModel.ImpostosProduto
         public bool VisibilidadeCodigoPais { get; private set; }
         public bool VisibilidadeMunicipioUFIncidencia { get; private set; } = true;
 
+        public ISSQNDataContext() { }
+        public ISSQNDataContext(ISSQN imposto)
+        {
+            Imposto = imposto;
+            Exterior = imposto.cMun == "9999999";
+        }
+
         public Imposto ImpostoBruto => Imposto;
     }
 }

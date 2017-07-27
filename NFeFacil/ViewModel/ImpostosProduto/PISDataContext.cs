@@ -169,6 +169,42 @@ namespace NFeFacil.ViewModel.ImpostosProduto
         {
             AtualizarImposto();
         }
+        public PISDataContext(ConjuntoPIS conjunto)
+        {
+            if (conjunto.PIS != null)
+            {
+                var corpo = conjunto.PIS.Corpo;
+                CSTSelecionado = int.Parse(corpo.CST);
+                if (corpo is PISOutr outr)
+                {
+                    if (string.IsNullOrEmpty(outr.pPIS))
+                    {
+                        TipoCalculo = "Pelo valor por unidade";
+                    }
+                    else
+                    {
+                        TipoCalculo = "Por alíquota";
+                    }
+                }
+                Conjunto.PIS = conjunto.PIS;
+                AtualizarImposto();
+
+                if (conjunto.PISST != null)
+                {
+                    var st = conjunto.PISST;
+                    if (string.IsNullOrEmpty(st.pPIS))
+                    {
+                        TipoCalculoST = "Pelo valor por unidade";
+                    }
+                    else
+                    {
+                        TipoCalculoST = "Por alíquota";
+                    }
+                    Conjunto.PISST = conjunto.PISST;
+                    AtualizarImpostoST();
+                }
+            }
+        }
 
         public IEnumerable<Imposto> SepararImpostos() => Conjunto.SepararImpostos();
     }

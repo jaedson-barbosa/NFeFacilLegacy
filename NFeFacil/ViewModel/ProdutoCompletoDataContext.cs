@@ -235,6 +235,25 @@ namespace NFeFacil.ViewModel
             {
                 OnPropertyChanged(nameof(ContextoPIS), nameof(ContextoCOFINS), nameof(ContextoIPI));
             };
+            var imps = produtoCompleto.Impostos.impostos;
+            ConjuntoPIS conjPis = new ConjuntoPIS();
+            for (int i = 0; i < imps.Count; i++)
+            {
+                var imp = imps[i];
+                if (imp is ICMS icms)
+                {
+                    contextoICMS = new ICMSDataContext(icms);
+                }
+                else if (imp is PIS pis)
+                {
+                    conjPis.PIS = pis;
+                }
+                else if (imp is PISST pisst)
+                {
+                    conjPis.PISST = pisst;
+                }
+            }
+            contextoPIS = new PISDataContext(conjPis);
             NovoMedicamento = new Medicamento();
             NovoArmamento = new Arma();
             AdicionarDeclaracaoImportacaoCommand = new Comando(AdicionarDeclaracaoImportacao, true);

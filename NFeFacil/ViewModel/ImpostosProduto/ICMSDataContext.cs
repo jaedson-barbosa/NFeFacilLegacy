@@ -36,13 +36,26 @@ namespace NFeFacil.ViewModel.ImpostosProduto
             }
         }
 
-        public int TipoICMSSimplesNacional
+        public string OrigemSimples
         {
-            get => Simples != null ? int.Parse(Simples.CSOSN) : -1;
+            get => Simples != null ? ((ComumICMS)Simples).Orig.ToString() : string.Empty;
+            set => ((ComumICMS)Simples).Orig = int.Parse(value);
+        }
+
+        public string OrigemNormal
+        {
+            get => Normal != null ? ((ComumICMS)Normal).Orig.ToString() : string.Empty;
+            set => ((ComumICMS)Normal).Orig = int.Parse(value);
+        }
+
+        public string TipoICMSSimplesNacional
+        {
+            get => Simples != null ? Simples.CSOSN : string.Empty;
             set
             {
-                AttVisibilidadeSimplesNacional(VisibilidadesSimplesNacional.Buscar(value));
-                switch (value)
+                var valor = int.Parse(value);
+                AttVisibilidadeSimplesNacional(VisibilidadesSimplesNacional.Buscar(valor));
+                switch (valor)
                 {
                     case 101:
                         Simples = new ICMSSN101();
@@ -75,7 +88,7 @@ namespace NFeFacil.ViewModel.ImpostosProduto
                         Simples = new ICMSSN900();
                         break;
                 }
-                Simples.CSOSN = value.ToString("000");
+                Simples.CSOSN = valor.ToString("000");
                 OnPropertyChanged(nameof(Simples));
             }
         }
@@ -91,13 +104,32 @@ namespace NFeFacil.ViewModel.ImpostosProduto
             OnPropertyChanged(nameof(SimplesGrupoInicio), nameof(SimplesICMSST), nameof(SimplesGrupoFim));
         }
 
-        public int TipoICMSRegimeNormal
+        public string TipoICMSRegimeNormal
         {
-            get => Normal != null ? int.Parse(Normal.CST) : -1;
+            get
+            {
+                if (Normal != null)
+                {
+                    var valor = Normal.CST;
+                    switch (valor)
+                    {
+                        case "10" when Normal is ICMSPart:
+                            return "1010";
+                        case "41" when Normal is ICMSST:
+                            return "4141";
+                        case "90" when Normal is ICMSPart:
+                            return "9090";
+                        default:
+                            return valor;
+                    }
+                }
+                else { return string.Empty; }
+            }
             set
             {
-                AttCamposNormal(VisibilidadesRegimeNormal.Buscar(value));
-                switch (value)
+                var valor = int.Parse(value);
+                AttCamposNormal(VisibilidadesRegimeNormal.Buscar(valor));
+                switch (valor)
                 {
                     case 0:
                         Normal = new ICMS00();
@@ -142,7 +174,7 @@ namespace NFeFacil.ViewModel.ImpostosProduto
                         Normal = new ICMSPart();
                         break;
                 }
-                Normal.CST = value.ToString("00");
+                Normal.CST = valor.ToString("00");
                 if (Normal.CST.Length > 2) Normal.CST = Normal.CST.Remove(2);
                 OnPropertyChanged(nameof(Normal));
             }
@@ -187,7 +219,7 @@ namespace NFeFacil.ViewModel.ImpostosProduto
                 var csosn = int.Parse(simples.CSOSN);
                 var visibilidade = VisibilidadesSimplesNacional.Buscar(csosn);
                 AttVisibilidadeSimplesNacional(visibilidade);
-                OnPropertyChanged(nameof(Simples));
+                OnPropertyChanged(nameof(RegimeSelecionado), nameof(Simples));
             }
             else if (pai.Corpo is IRegimeNormal normal)
             {
@@ -196,7 +228,7 @@ namespace NFeFacil.ViewModel.ImpostosProduto
                 var cst = int.Parse(normal.CST);
                 var visibilidade = VisibilidadesRegimeNormal.Buscar(cst);
                 AttCamposNormal(visibilidade);
-                OnPropertyChanged(nameof(Normal));
+                OnPropertyChanged(nameof(RegimeSelecionado), nameof(Normal));
             }
         }
 

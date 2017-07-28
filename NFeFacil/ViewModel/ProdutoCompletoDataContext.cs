@@ -263,7 +263,7 @@ namespace NFeFacil.ViewModel
                 }
                 else if (imp is IPI ipi)
                 {
-                    contextoIPI = new IPIDataContext(ipi);
+                    contextoIPI = new IPIDataContext(ipi, ProdutoCompleto.Produto);
                 }
                 else if (imp is ISSQN issqn)
                 {
@@ -286,8 +286,9 @@ namespace NFeFacil.ViewModel
                     throw new InvalidOperationException("O formato do imposto não é reconhecido.");
                 }
             }
-            contextoPIS = new PISDataContext(conjPis);
-            contextoCOFINS = new COFINSDataContext(conjCofins);
+            contextoPIS = new PISDataContext(conjPis, ProdutoCompleto.Produto);
+            contextoCOFINS = new COFINSDataContext(conjCofins, ProdutoCompleto.Produto);
+
             NovoMedicamento = new Medicamento();
             NovoArmamento = new Arma();
             AdicionarDeclaracaoImportacaoCommand = new Comando(AdicionarDeclaracaoImportacao, true);

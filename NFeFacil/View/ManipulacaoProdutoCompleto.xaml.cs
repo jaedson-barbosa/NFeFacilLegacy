@@ -105,7 +105,7 @@ namespace NFeFacil.View
             }
             else
             {
-                info.produtos[detalhes.Número] = detalhes;
+                info.produtos[detalhes.Número - 1] = detalhes;
             }
             info.total = new Total(info.produtos);
 

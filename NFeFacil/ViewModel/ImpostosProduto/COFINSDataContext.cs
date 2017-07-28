@@ -43,12 +43,13 @@ namespace NFeFacil.ViewModel.ImpostosProduto
         public bool ValorST { get; private set; }
         public bool ComboTipoCalculoST { get; private set; }
 
-        public int CSTSelecionado
+        public string CSTSelecionado
         {
-            get => Conjunto.COFINS.Corpo != null ? int.Parse(Conjunto.COFINS.Corpo.CST) : -1;
+            get => Conjunto.COFINS.Corpo != null ? Conjunto.COFINS.Corpo.CST : string.Empty;
             set
             {
-                if (new int[] { 1, 2 }.Contains(value))
+                var valor = int.Parse(value);
+                if (new int[] { 1, 2 }.Contains(valor))
                 {
                     CalculoAliquota = true;
                     CalculoValor = false;
@@ -56,7 +57,7 @@ namespace NFeFacil.ViewModel.ImpostosProduto
                     ComboTipoCalculo = false;
                     Conjunto.COFINS.Corpo = new COFINSAliq();
                 }
-                else if (value == 3)
+                else if (valor == 3)
                 {
                     CalculoAliquota = false;
                     CalculoValor = true;
@@ -64,7 +65,7 @@ namespace NFeFacil.ViewModel.ImpostosProduto
                     ComboTipoCalculo = false;
                     Conjunto.COFINS.Corpo = new COFINSQtde();
                 }
-                else if (new int[] { 4, 5, 6, 7, 8, 9 }.Contains(value))
+                else if (new int[] { 4, 5, 6, 7, 8, 9 }.Contains(valor))
                 {
                     CalculoAliquota = false;
                     CalculoValor = false;
@@ -80,11 +81,11 @@ namespace NFeFacil.ViewModel.ImpostosProduto
                     ComboTipoCalculo = true;
                     Conjunto.COFINS.Corpo = new COFINSOutr();
                 }
-                Conjunto.COFINS.Corpo.CST = value.ToString("00");
+                Conjunto.COFINS.Corpo.CST = valor.ToString("00");
 
                 CalculoAliquotaST = false;
                 CalculoValorST = false;
-                if (value == 5)
+                if (valor == 5)
                 {
                     ValorST = true;
                     ComboTipoCalculoST = true;
@@ -112,20 +113,23 @@ namespace NFeFacil.ViewModel.ImpostosProduto
             set
             {
                 tipoCalculo = value;
-                switch (value == "Por alíquota" ? TiposCalculo.PorAliquota : TiposCalculo.PorValor)
+                if (Conjunto.COFINS.Corpo is COFINSOutr)
                 {
-                    case TiposCalculo.PorAliquota:
-                        CalculoAliquota = true;
-                        CalculoValor = false;
-                        break;
-                    case TiposCalculo.PorValor:
-                        CalculoAliquota = false;
-                        CalculoValor = true;
-                        break;
+                    switch (value == "Por alíquota" ? TiposCalculo.PorAliquota : TiposCalculo.PorValor)
+                    {
+                        case TiposCalculo.PorAliquota:
+                            CalculoAliquota = true;
+                            CalculoValor = false;
+                            break;
+                        case TiposCalculo.PorValor:
+                            CalculoAliquota = false;
+                            CalculoValor = true;
+                            break;
+                    }
+                    Conjunto.COFINS.Corpo = new COFINSOutr { CST = Conjunto.COFINS.Corpo.CST };
+                    OnPropertyChanged(nameof(CalculoAliquota), nameof(CalculoValor));
+                    AtualizarImposto();
                 }
-                Conjunto.COFINS.Corpo = new COFINSOutr { CST = Conjunto.COFINS.Corpo.CST };
-                OnPropertyChanged(nameof(CalculoAliquota), nameof(CalculoValor));
-                AtualizarImposto();
             }
         }
 
@@ -136,20 +140,23 @@ namespace NFeFacil.ViewModel.ImpostosProduto
             set
             {
                 tipoCalculoST = value;
-                Conjunto.COFINSST = new COFINSST();
-                switch (value == "Por alíquota" ? TiposCalculo.PorAliquota : TiposCalculo.PorValor)
+                if (Conjunto.COFINSST != null)
                 {
-                    case TiposCalculo.PorAliquota:
-                        CalculoAliquotaST = true;
-                        CalculoValorST = false;
-                        break;
-                    case TiposCalculo.PorValor:
-                        CalculoAliquotaST = false;
-                        CalculoValorST = true;
-                        break;
+                    Conjunto.COFINSST = new COFINSST();
+                    switch (value == "Por alíquota" ? TiposCalculo.PorAliquota : TiposCalculo.PorValor)
+                    {
+                        case TiposCalculo.PorAliquota:
+                            CalculoAliquotaST = true;
+                            CalculoValorST = false;
+                            break;
+                        case TiposCalculo.PorValor:
+                            CalculoAliquotaST = false;
+                            CalculoValorST = true;
+                            break;
+                    }
+                    OnPropertyChanged(nameof(CalculoAliquotaST), nameof(CalculoValorST));
+                    AtualizarImpostoST();
                 }
-                OnPropertyChanged(nameof(CalculoAliquotaST), nameof(CalculoValorST));
-                AtualizarImpostoST();
             }
         }
 
@@ -169,12 +176,13 @@ namespace NFeFacil.ViewModel.ImpostosProduto
         {
             AtualizarImposto();
         }
-        public COFINSDataContext(ConjuntoCOFINS conjunto)
+        public COFINSDataContext(ConjuntoCOFINS conjunto, ProdutoOuServico produtoReferente)
         {
-            if (conjunto.COFINS != null)
+            this.produtoReferente = produtoReferente;
+            if (conjunto.COFINS.Corpo != null)
             {
                 var corpo = conjunto.COFINS.Corpo;
-                CSTSelecionado = int.Parse(corpo.CST);
+                CSTSelecionado = corpo.CST;
                 if (corpo is COFINSOutr outr)
                 {
                     if (string.IsNullOrEmpty(outr.pCOFINS))
@@ -202,6 +210,7 @@ namespace NFeFacil.ViewModel.ImpostosProduto
                     Conjunto.COFINSST = conjunto.COFINSST;
                     AtualizarImpostoST();
                 }
+                OnPropertyChanged(nameof(CSTSelecionado));
             }
             AtualizarImposto();
         }

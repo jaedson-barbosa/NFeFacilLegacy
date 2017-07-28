@@ -91,8 +91,9 @@ namespace NFeFacil.ViewModel.ImpostosProduto
         {
             AtualizarImposto();
         }
-        public IPIDataContext(IPI conjunto)
+        public IPIDataContext(IPI conjunto, ProdutoOuServico produtoReferente)
         {
+            this.produtoReferente = produtoReferente;
             if (conjunto.Corpo != null)
             {
                 var corpo = conjunto.Corpo;
@@ -109,6 +110,7 @@ namespace NFeFacil.ViewModel.ImpostosProduto
                     }
                 }
                 Conjunto = conjunto;
+                OnPropertyChanged(nameof(CSTSelecionado));
             }
             AtualizarImposto();
         }

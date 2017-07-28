@@ -49,6 +49,7 @@ namespace NFeFacil.ViewModel.ImpostosProduto
         {
             Imposto = imposto;
             Exterior = imposto.cMun == "9999999";
+            OnPropertyChanged(nameof(Exterior));
         }
 
         public Imposto ImpostoBruto => Imposto;

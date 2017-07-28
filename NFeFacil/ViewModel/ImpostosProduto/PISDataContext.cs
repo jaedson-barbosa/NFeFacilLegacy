@@ -43,12 +43,13 @@ namespace NFeFacil.ViewModel.ImpostosProduto
         public bool ValorST { get; private set; }
         public bool ComboTipoCalculoST { get; private set; }
 
-        public int CSTSelecionado
+        public string CSTSelecionado
         {
-            get => Conjunto.PIS.Corpo != null ? int.Parse(Conjunto.PIS.Corpo.CST) : -1;
+            get => Conjunto.PIS.Corpo != null ? Conjunto.PIS.Corpo.CST : string.Empty;
             set
             {
-                if (new int[] { 1, 2 }.Contains(value))
+                var valor = int.Parse(value);
+                if (new int[] { 1, 2 }.Contains(valor))
                 {
                     CalculoAliquota = true;
                     CalculoValor = false;
@@ -56,7 +57,7 @@ namespace NFeFacil.ViewModel.ImpostosProduto
                     ComboTipoCalculo = false;
                     Conjunto.PIS.Corpo = new PISAliq();
                 }
-                else if (value == 3)
+                else if (valor == 3)
                 {
                     CalculoAliquota = false;
                     CalculoValor = true;
@@ -64,7 +65,7 @@ namespace NFeFacil.ViewModel.ImpostosProduto
                     ComboTipoCalculo = false;
                     Conjunto.PIS.Corpo = new PISQtde();
                 }
-                else if (new int[] { 4, 5, 6, 7, 8, 9 }.Contains(value))
+                else if (new int[] { 4, 5, 6, 7, 8, 9 }.Contains(valor))
                 {
                     CalculoAliquota = false;
                     CalculoValor = false;
@@ -80,11 +81,11 @@ namespace NFeFacil.ViewModel.ImpostosProduto
                     ComboTipoCalculo = true;
                     Conjunto.PIS.Corpo = new PISOutr();
                 }
-                Conjunto.PIS.Corpo.CST = value.ToString("00");
+                Conjunto.PIS.Corpo.CST = valor.ToString("00");
 
                 CalculoAliquotaST = false;
                 CalculoValorST = false;
-                if (value == 5)
+                if (valor == 5)
                 {
                     ValorST = true;
                     ComboTipoCalculoST = true;
@@ -112,20 +113,23 @@ namespace NFeFacil.ViewModel.ImpostosProduto
             set
             {
                 tipoCalculo = value;
-                switch (value == "Por alíquota" ? TiposCalculo.PorAliquota : TiposCalculo.PorValor)
+                if (Conjunto.PIS.Corpo is PISOutr)
                 {
-                    case TiposCalculo.PorAliquota:
-                        CalculoAliquota = true;
-                        CalculoValor = false;
-                        break;
-                    case TiposCalculo.PorValor:
-                        CalculoAliquota = false;
-                        CalculoValor = true;
-                        break;
+                    switch (value == "Por alíquota" ? TiposCalculo.PorAliquota : TiposCalculo.PorValor)
+                    {
+                        case TiposCalculo.PorAliquota:
+                            CalculoAliquota = true;
+                            CalculoValor = false;
+                            break;
+                        case TiposCalculo.PorValor:
+                            CalculoAliquota = false;
+                            CalculoValor = true;
+                            break;
+                    }
+                    Conjunto.PIS.Corpo = new PISOutr { CST = Conjunto.PIS.Corpo.CST };
+                    OnPropertyChanged(nameof(CalculoAliquota), nameof(CalculoValor));
+                    AtualizarImposto();
                 }
-                Conjunto.PIS.Corpo = new PISOutr { CST = Conjunto.PIS.Corpo.CST };
-                OnPropertyChanged(nameof(CalculoAliquota), nameof(CalculoValor));
-                AtualizarImposto();
             }
         }
 
@@ -136,20 +140,23 @@ namespace NFeFacil.ViewModel.ImpostosProduto
             set
             {
                 tipoCalculoST = value;
-                Conjunto.PISST = new PISST();
-                switch (value == "Por alíquota" ? TiposCalculo.PorAliquota : TiposCalculo.PorValor)
+                if (Conjunto.PISST != null)
                 {
-                    case TiposCalculo.PorAliquota:
-                        CalculoAliquotaST = true;
-                        CalculoValorST = false;
-                        break;
-                    case TiposCalculo.PorValor:
-                        CalculoAliquotaST = false;
-                        CalculoValorST = true;
-                        break;
+                    Conjunto.PISST = new PISST();
+                    switch (value == "Por alíquota" ? TiposCalculo.PorAliquota : TiposCalculo.PorValor)
+                    {
+                        case TiposCalculo.PorAliquota:
+                            CalculoAliquotaST = true;
+                            CalculoValorST = false;
+                            break;
+                        case TiposCalculo.PorValor:
+                            CalculoAliquotaST = false;
+                            CalculoValorST = true;
+                            break;
+                    }
+                    OnPropertyChanged(nameof(CalculoAliquotaST), nameof(CalculoValorST));
+                    AtualizarImpostoST();
                 }
-                OnPropertyChanged(nameof(CalculoAliquotaST), nameof(CalculoValorST));
-                AtualizarImpostoST();
             }
         }
 
@@ -169,12 +176,13 @@ namespace NFeFacil.ViewModel.ImpostosProduto
         {
             AtualizarImposto();
         }
-        public PISDataContext(ConjuntoPIS conjunto)
+        public PISDataContext(ConjuntoPIS conjunto, ProdutoOuServico produtoReferente)
         {
-            if (conjunto.PIS != null)
+            this.produtoReferente = produtoReferente;
+            if (conjunto.PIS.Corpo != null)
             {
                 var corpo = conjunto.PIS.Corpo;
-                CSTSelecionado = int.Parse(corpo.CST);
+                CSTSelecionado = corpo.CST;
                 if (corpo is PISOutr outr)
                 {
                     if (string.IsNullOrEmpty(outr.pPIS))
@@ -202,6 +210,7 @@ namespace NFeFacil.ViewModel.ImpostosProduto
                     Conjunto.PISST = conjunto.PISST;
                     AtualizarImpostoST();
                 }
+                OnPropertyChanged(nameof(CSTSelecionado));
             }
             AtualizarImposto();
         }

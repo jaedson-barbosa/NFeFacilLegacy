@@ -1,5 +1,4 @@
-﻿using NFeFacil;
-using NFeFacil.ItensBD;
+﻿using NFeFacil.ItensBD;
 using System;
 using System.Linq;
 using Windows.ApplicationModel.Core;

@@ -1,5 +1,4 @@
-﻿using NFeFacil;
-using NFeFacil.ItensBD;
+﻿using NFeFacil.ItensBD;
 using NFeFacil.Log;
 using NFeFacil.ModeloXML.PartesProcesso;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe;

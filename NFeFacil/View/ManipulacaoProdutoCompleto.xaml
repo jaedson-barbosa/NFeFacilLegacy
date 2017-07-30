@@ -281,7 +281,6 @@
                                                  Header="Motivo da desoneração do ICMS"
                                                  InputScope="Number"
                                                  ToolTipService.ToolTip="3 p/ agropecuária; 9 p/ outros e 12 p/ fomento e desenv. agropecuário." />
-                                        
                                         <ComboBox IsEnabled="{Binding NormalGrupoInicio}"
                                                   SelectedIndex="{Binding Normal.modBC, Mode=TwoWay}"
                                                   Header="Modalidade de determinação da BC do ICMS"
@@ -307,7 +306,6 @@
                                                  Text="{Binding Normal.vICMS, Mode=TwoWay}"
                                                  Header="Valor do ICMS"
                                                  InputScope="Number" />
-                                        
                                         <TextBox IsEnabled="{Binding NormalGrupoMeio}"
                                                  Text="{Binding Normal.vBCSTRet, Mode=TwoWay}"
                                                  Header="Valor da BC do ICMS ST retido"
@@ -743,7 +741,8 @@
                         </ScrollViewer>
                     </PivotItem>
                     <PivotItem Header="Imposto de importação">
-                        <ItemsControl DataContext="{Binding ContextoII}" Style="{StaticResource ItensResponsivos}">
+                        <ItemsControl DataContext="{Binding ContextoII}"
+                                      Style="{StaticResource ItensResponsivos}">
                             <TextBox InputScope="Number"
                                      Header="Valor da base de cálculo *"
                                      Text="{Binding vBC, Mode=TwoWay}" />
@@ -759,14 +758,15 @@
                         </ItemsControl>
                     </PivotItem>
                     <PivotItem Header="IPI Devolvido">
-                        <StackPanel DataContext="{Binding ContextoImpostoDevol}">
+                        <ItemsControl DataContext="{Binding ContextoImpostoDevol}"
+                                      Style="{StaticResource ItensResponsivos}">
                             <TextBox Header="Percentual da mercadoria devolvida *"
                                      Text="{Binding pDevol, Mode=TwoWay}"
                                      InputScope="Number" />
                             <TextBox Header="Valor do IPI devolvido *"
                                      Text="{Binding IPI.vIPIDevol, Mode=TwoWay}"
                                      InputScope="Number" />
-                        </StackPanel>
+                        </ItemsControl>
                     </PivotItem>
                     <PivotItem IsEnabled="{Binding AtivadopvtICMSInterestadual}"
                                Header="ICMS de destino">

@@ -1,5 +1,4 @@
-﻿using NFeFacil;
-using NFeFacil.IBGE;
+﻿using NFeFacil.IBGE;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

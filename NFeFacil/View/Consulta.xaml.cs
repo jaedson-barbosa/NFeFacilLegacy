@@ -1,5 +1,4 @@
-﻿using NFeFacil;
-using NFeFacil.IBGE;
+﻿using NFeFacil.IBGE;
 using NFeFacil.WebService;
 using NFeFacil.WebService.Pacotes;
 using System;

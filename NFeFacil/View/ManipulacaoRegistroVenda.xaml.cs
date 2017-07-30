@@ -1,5 +1,4 @@
-﻿using NFeFacil;
-using NFeFacil.ItensBD;
+﻿using NFeFacil.ItensBD;
 using NFeFacil.ViewModel;
 using System;
 using Windows.UI.Xaml.Controls;

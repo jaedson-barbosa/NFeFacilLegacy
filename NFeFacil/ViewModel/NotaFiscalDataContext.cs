@@ -1,5 +1,4 @@
-﻿using NFeFacil;
-using NFeFacil.IBGE;
+﻿using NFeFacil.IBGE;
 using NFeFacil.ItensBD;
 using NFeFacil.Log;
 using NFeFacil.ModeloXML;

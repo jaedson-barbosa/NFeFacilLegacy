@@ -3,7 +3,6 @@ using System.ComponentModel;
 using NFeFacil.ModeloXML;
 using System;
 using System.Collections.ObjectModel;
-using NFeFacil;
 using Windows.UI.Xaml.Controls;
 using System.Windows.Input;
 

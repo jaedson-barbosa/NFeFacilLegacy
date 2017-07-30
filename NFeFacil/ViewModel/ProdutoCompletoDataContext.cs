@@ -1,5 +1,4 @@
-﻿using NFeFacil;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
+﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
 using NFeFacil.ViewModel.ImpostosProduto;
@@ -14,6 +13,8 @@ namespace NFeFacil.ViewModel
 {
     public sealed class ProdutoCompletoDataContext : INotifyPropertyChanged
     {
+        public bool ManipulacaoAtivada { get; }
+
         public DetalhesProdutos ProdutoCompleto { get; }
 
         public event PropertyChangedEventHandler PropertyChanged;

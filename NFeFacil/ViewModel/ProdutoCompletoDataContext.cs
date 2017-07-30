@@ -224,8 +224,9 @@ namespace NFeFacil.ViewModel
             }
         }
 
-        public ProdutoCompletoDataContext(DetalhesProdutos produtoCompleto)
+        public ProdutoCompletoDataContext(DetalhesProdutos produtoCompleto, bool manipulacaoAtivada = true)
         {
+            ManipulacaoAtivada = manipulacaoAtivada;
             ProdutoCompleto = produtoCompleto;
             ProdutoCompleto.Produto.DadoImpostoChanged += (x, y) =>
             {

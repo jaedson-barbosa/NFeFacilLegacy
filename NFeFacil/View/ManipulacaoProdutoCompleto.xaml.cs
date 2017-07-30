@@ -19,6 +19,8 @@ namespace NFeFacil.View
     /// </summary>
     public sealed partial class ManipulacaoProdutoCompleto : Page, IHambuguer
     {
+        bool finalizacaoCompleta;
+
         public ManipulacaoProdutoCompleto()
         {
             InitializeComponent();
@@ -26,16 +28,29 @@ namespace NFeFacil.View
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var produto = e.Parameter as DetalhesProdutos;
-            if (produto.Impostos.impostos.Count > 0)
+            if (e.Parameter is GrupoViewBanco<DetalhesProdutos> grupo)
             {
+                var produto = grupo.ItemBanco;
                 MainPage.Current.SeAtualizar(Symbol.Edit, "Produto");
+                DataContext = new ProdutoCompletoDataContext(produto);
+                finalizacaoCompleta = true;
             }
             else
             {
-                MainPage.Current.SeAtualizar(Symbol.Add, "Produto");
+                var produto = e.Parameter as DetalhesProdutos;
+                if (produto.Impostos.impostos.Count > 0)
+                {
+                    MainPage.Current.SeAtualizar(Symbol.View, "Produto");
+                    DataContext = new ProdutoCompletoDataContext(produto, false);
+                    finalizacaoCompleta = false;
+                }
+                else
+                {
+                    MainPage.Current.SeAtualizar(Symbol.Add, "Produto");
+                    DataContext = new ProdutoCompletoDataContext(produto);
+                    finalizacaoCompleta = true;
+                }
             }
-            DataContext = new ProdutoCompletoDataContext(produto);
         }
 
         private Impostos ImpostosFiltrados
@@ -91,23 +106,26 @@ namespace NFeFacil.View
 
         private void Concluir_Click(object sender, RoutedEventArgs e)
         {
-            var parametro = Frame.BackStack[Frame.BackStack.Count - 1].Parameter as ConjuntoManipuladorNFe;
-            var info = parametro.NotaSalva.Informações;
-
-            var data = DataContext as ProdutoCompletoDataContext;
-            data.ProdutoCompleto.Impostos = ImpostosFiltrados;
-
-            var detalhes = data.ProdutoCompleto;
-            if (detalhes.Número == 0)
+            if (finalizacaoCompleta)
             {
-                detalhes.Número = info.produtos.Count + 1;
-                info.produtos.Add(detalhes);
+                var parametro = Frame.BackStack[Frame.BackStack.Count - 1].Parameter as ConjuntoManipuladorNFe;
+                var info = parametro.NotaSalva.Informações;
+
+                var data = DataContext as ProdutoCompletoDataContext;
+                data.ProdutoCompleto.Impostos = ImpostosFiltrados;
+
+                var detalhes = data.ProdutoCompleto;
+                if (detalhes.Número == 0)
+                {
+                    detalhes.Número = info.produtos.Count + 1;
+                    info.produtos.Add(detalhes);
+                }
+                else
+                {
+                    info.produtos[detalhes.Número - 1] = detalhes;
+                }
+                info.total = new Total(info.produtos);
             }
-            else
-            {
-                info.produtos[detalhes.Número - 1] = detalhes;
-            }
-            info.total = new Total(info.produtos);
 
             MainPage.Current.Retornar();
         }

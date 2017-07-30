@@ -6,13 +6,6 @@
       x:Class="NFeFacil.View.Inicio"
       NavigationCacheMode="Required"
       mc:Ignorable="d">
-    <Page.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Estilos/GridResponsiva.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Page.Resources>
     <ScrollViewer x:Name="root"
                   Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
                   ScrollViewer.VerticalScrollBarVisibility="Hidden"

@@ -15,7 +15,7 @@ namespace NFeFacil.View.CaixasDialogo
 
         public SelecaoCertificado()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             var origem = ConfiguracoesCertificacao.Origem;
             ListaCertificados = Task.Run(() => Certificados.ObterCertificadosAsync(origem)).Result;
         }

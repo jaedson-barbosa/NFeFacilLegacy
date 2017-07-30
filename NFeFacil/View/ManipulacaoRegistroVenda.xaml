@@ -9,7 +9,6 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Estilos/Tabela.xaml" />
-                <ResourceDictionary Source="Estilos/GridResponsiva.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <conversores:Invert x:Key="invert" />
         </ResourceDictionary>

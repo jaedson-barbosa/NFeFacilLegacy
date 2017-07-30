@@ -14,7 +14,6 @@
     <ContentDialog.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="ms-appx:///View/Estilos/GridResponsiva.xaml" />
                 <ResourceDictionary Source="ms-appx:///View/Estilos/Tabela.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

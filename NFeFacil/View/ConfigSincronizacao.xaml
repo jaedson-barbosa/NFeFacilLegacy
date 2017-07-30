@@ -9,9 +9,6 @@
       mc:Ignorable="d">
     <Page.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Estilos/GridResponsiva.xaml" />
-            </ResourceDictionary.MergedDictionaries>
             <conversores:BoolToVisibility x:Key="boolView" />
         </ResourceDictionary>
     </Page.Resources>

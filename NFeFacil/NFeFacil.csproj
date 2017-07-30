@@ -162,6 +162,12 @@
     <Compile Include="ViewModel\ImpostosProduto\VisibilidadeSimplesNacional.cs" />
     <Compile Include="ViewModel\ImpostosProduto\VisibilidadesRegimeNormal.cs" />
     <Compile Include="ViewModel\ImpostosProduto\VisibilidadesSimplesNacional.cs" />
+    <Compile Include="View\CaixasDialogo\AdicionarArmamento.xaml.cs">
+      <DependentUpon>AdicionarArmamento.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\CaixasDialogo\AdicionarMedicamento.xaml.cs">
+      <DependentUpon>AdicionarMedicamento.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\CaixasDialogo\ConectarServidor.xaml.cs">
       <DependentUpon>ConectarServidor.xaml</DependentUpon>
     </Compile>
@@ -664,6 +670,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="View\CaixasDialogo\AdicionarArmamento.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CaixasDialogo\AdicionarMedicamento.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\CaixasDialogo\ConectarServidor.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -818,10 +832,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Estilos\CoresDestaque.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\Estilos\GridResponsiva.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

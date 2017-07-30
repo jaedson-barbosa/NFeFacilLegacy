@@ -2,11 +2,11 @@
 
 // O modelo de item de Caixa de Diálogo de Conteúdo está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace NFeFacil.View.CaixasDialogo.RegistroVenda
+namespace NFeFacil.View.CaixasDialogo
 {
-    public sealed partial class AdicionarProduto : ContentDialog
+    public sealed partial class AdicionarMedicamento : ContentDialog
     {
-        public AdicionarProduto()
+        public AdicionarMedicamento()
         {
             InitializeComponent();
         }

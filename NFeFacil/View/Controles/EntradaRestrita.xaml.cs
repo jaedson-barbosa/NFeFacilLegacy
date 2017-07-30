@@ -58,7 +58,7 @@ namespace NFeFacil.View.Controles
 
         public EntradaRestrita()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)

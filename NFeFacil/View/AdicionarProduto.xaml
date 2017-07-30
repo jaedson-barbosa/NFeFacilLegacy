@@ -4,9 +4,6 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
-    <Page.Resources>
-        <ResourceDictionary Source="ms-appx:///View/Estilos/GridResponsiva.xaml" />
-    </Page.Resources>
     <Grid x:Name="grdPrincipal"
           Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>

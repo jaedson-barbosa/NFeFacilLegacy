@@ -1,3 +1,56 @@
 ﻿<Application x:Class="NFeFacil.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"></Application>
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:aux="using:NFeFacil.View.Estilos.Auxiliares">
+    <Application.Resources>
+        <Style x:Key="ItensResponsivos"
+               TargetType="ItemsControl">
+            <Setter Property="Margin"
+                    Value="-4" />
+            <Setter Property="ItemContainerTransitions">
+                <Setter.Value>
+                    <TransitionCollection>
+                        <RepositionThemeTransition IsStaggeringEnabled="False" />
+                    </TransitionCollection>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="ItemsPanel">
+                <Setter.Value>
+                    <ItemsPanelTemplate>
+                        <aux:PainelAdaptavel />
+                    </ItemsPanelTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="ItemContainerStyle">
+                <Setter.Value>
+                    <Style TargetType="FrameworkElement">
+                        <Setter Property="Margin"
+                                Value="4" />
+                        <Setter Property="HorizontalAlignment"
+                                Value="Stretch" />
+                        <Setter Property="VerticalAlignment"
+                                Value="Stretch" />
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ItensMedios"
+               TargetType="ItemsControl">
+            <Setter Property="ItemContainerTransitions">
+                <Setter.Value>
+                    <TransitionCollection>
+                        <EntranceThemeTransition IsStaggeringEnabled="True" />
+                        <RepositionThemeTransition IsStaggeringEnabled="False" />
+                    </TransitionCollection>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="ItemsPanel">
+                <Setter.Value>
+                    <ItemsPanelTemplate>
+                        <aux:PainelAdaptavel TamanhoDesejado="200" />
+                    </ItemsPanelTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Application.Resources>
+</Application>

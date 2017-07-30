@@ -103,7 +103,7 @@ namespace NFeFacil.View.Controles
 
         public EntradaNumerica()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)

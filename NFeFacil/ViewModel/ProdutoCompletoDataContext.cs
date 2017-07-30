@@ -111,16 +111,11 @@ namespace NFeFacil.ViewModel
         {
             get { return ProdutoCompleto.Produto.medicamentos.GerarObs(); }
         }
-        public Medicamento NovoMedicamento { get; private set; }
-        public int IndexMedicamentoSelecionado { get; set; }
-
 
         public ObservableCollection<Arma> ListaArmamento
         {
             get { return ProdutoCompleto.Produto.armas.GerarObs(); }
         }
-        public Arma NovoArmamento { get; private set; }
-        public int IndexArmamentoSelecionado { get; set; }
 
         ICMSDataContext contextoICMS;
         public ICMSDataContext ContextoICMS
@@ -290,16 +285,14 @@ namespace NFeFacil.ViewModel
             contextoPIS = new PISDataContext(conjPis, ProdutoCompleto.Produto);
             contextoCOFINS = new COFINSDataContext(conjCofins, ProdutoCompleto.Produto);
 
-            NovoMedicamento = new Medicamento();
-            NovoArmamento = new Arma();
             AdicionarDeclaracaoImportacaoCommand = new Comando(AdicionarDeclaracaoImportacao, true);
             AdicionarDeclaracaoExportacaoCommand = new Comando(AdicionarDeclaracaoExportacao, true);
             RemoverDeclaracaoImportacaoCommand = new Comando<DeclaracaoImportacao>(RemoverDeclaracaoImportacao);
             RemoverDeclaracaoExportacaoCommand = new Comando<GrupoExportacao>(RemoverDeclaracaoExportacao);
             AdicionarMedicamentoCommand = new Comando(AdicionarMedicamento, true);
-            RemoverMedicamentoCommand = new Comando(RemoverMedicamento, true);
+            RemoverMedicamentoCommand = new Comando<Medicamento>(RemoverMedicamento);
             AdicionarArmamentoCommand = new Comando(AdicionarArmamento, true);
-            RemoverArmamentoCommand = new Comando(RemoverArmamento, true);
+            RemoverArmamentoCommand = new Comando<Arma>(RemoverArmamento);
         }
 
         public ICommand AdicionarDeclaracaoImportacaoCommand { get; }
@@ -349,38 +342,38 @@ namespace NFeFacil.ViewModel
             OnPropertyChanged(nameof(ListaGE));
         }
 
-        private void AdicionarMedicamento()
+        async void AdicionarMedicamento()
         {
-            ProdutoCompleto.Produto.medicamentos.Add(NovoMedicamento);
-            OnPropertyChanged(nameof(ListaMedicamentos));
-            NovoMedicamento = new Medicamento();
-            OnPropertyChanged(nameof(NovoMedicamento));
-        }
-
-        private void RemoverMedicamento()
-        {
-            if (IndexMedicamentoSelecionado != -1 && ProdutoCompleto.Produto.medicamentos.Count > 0)
+            var caixa = new View.CaixasDialogo.AdicionarMedicamento();
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
-                ProdutoCompleto.Produto.medicamentos.RemoveAt(IndexMedicamentoSelecionado);
+                var novoMedicamento = (Medicamento)caixa.DataContext;
+                ProdutoCompleto.Produto.medicamentos.Add(novoMedicamento);
                 OnPropertyChanged(nameof(ListaMedicamentos));
             }
         }
 
-        public void AdicionarArmamento()
+        private void RemoverMedicamento(Medicamento med)
         {
-            ProdutoCompleto.Produto.armas.Add(NovoArmamento);
-            OnPropertyChanged(nameof(ListaArmamento));
-            NovoArmamento = new Arma();
-            OnPropertyChanged(nameof(NovoArmamento));
+            ProdutoCompleto.Produto.medicamentos.Remove(med);
+            OnPropertyChanged(nameof(ListaMedicamentos));
         }
 
-        public void RemoverArmamento()
+        async void AdicionarArmamento()
         {
-            if (IndexArmamentoSelecionado != -1 && ProdutoCompleto.Produto.armas.Count > 0)
+            var caixa = new View.CaixasDialogo.AdicionarArmamento();
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
-                ProdutoCompleto.Produto.armas.RemoveAt(IndexArmamentoSelecionado);
+                var novoArmamento = (Arma)caixa.DataContext;
+                ProdutoCompleto.Produto.armas.Add(novoArmamento);
                 OnPropertyChanged(nameof(ListaArmamento));
             }
+        }
+
+        public void RemoverArmamento(Arma arma)
+        {
+            ProdutoCompleto.Produto.armas.Remove(arma);
+            OnPropertyChanged(nameof(ListaArmamento));
         }
 
         public enum TiposEspeciaisProduto

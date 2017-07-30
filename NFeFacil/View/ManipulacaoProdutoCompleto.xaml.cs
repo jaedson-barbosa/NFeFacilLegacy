@@ -89,7 +89,7 @@ namespace NFeFacil.View
             }
         }
 
-        private void Salvar_Click(object sender, RoutedEventArgs e)
+        private void Concluir_Click(object sender, RoutedEventArgs e)
         {
             var parametro = Frame.BackStack[Frame.BackStack.Count - 1].Parameter as ConjuntoManipuladorNFe;
             var info = parametro.NotaSalva.Informações;

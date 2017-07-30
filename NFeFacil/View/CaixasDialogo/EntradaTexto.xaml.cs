@@ -14,7 +14,7 @@ namespace NFeFacil.View.CaixasDialogo
         {
             Titulo = titulo;
             Cabecalho = cabecalho;
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

@@ -19,7 +19,7 @@ namespace NFeFacil.View
 
         public RegistrosVenda()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             using (var db = new AplicativoContext())
             {
                 Vendas = (from venda in db.Vendas.Include(x => x.Produtos).ToArray()

@@ -99,7 +99,7 @@ namespace NFeFacil.WebService.Pacotes
 
         public InformacoesEvento(int cOrgao, long CNPJ, string chaveNFe, string versaoEvento, ulong numeroProtocolo, string justificativa, int tipoAmbiente)
         {
-            this.COrgao = cOrgao;
+            COrgao = cOrgao;
             TpAmb = tipoAmbiente;
             this.CNPJ = CNPJ;
             ChNFe = chaveNFe;

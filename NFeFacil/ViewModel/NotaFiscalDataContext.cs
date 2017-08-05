@@ -667,8 +667,7 @@ namespace NFeFacil.ViewModel
 
         void EditarProduto(DetalhesProdutos produto)
         {
-            var detCompleto = produto;
-            MainPage.Current.AbrirFunçao(typeof(ManipulacaoProdutoCompleto), detCompleto);
+            MainPage.Current.AbrirFunçao(typeof(ManipulacaoProdutoCompleto), produto);
         }
 
         void RemoverProduto(DetalhesProdutos produto)

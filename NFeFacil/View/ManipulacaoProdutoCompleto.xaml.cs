@@ -31,8 +31,8 @@ namespace NFeFacil.View
             if (e.Parameter is GrupoViewBanco<DetalhesProdutos> grupo)
             {
                 var produto = grupo.ItemBanco;
-                MainPage.Current.SeAtualizar(Symbol.Edit, "Produto");
-                DataContext = new ProdutoCompletoDataContext(produto);
+                MainPage.Current.SeAtualizar(Symbol.View, "Produto");
+                DataContext = new ProdutoCompletoDataContext(produto, false);
                 finalizacaoCompleta = true;
             }
             else
@@ -40,8 +40,8 @@ namespace NFeFacil.View
                 var produto = e.Parameter as DetalhesProdutos;
                 if (produto.Impostos.impostos.Count > 0)
                 {
-                    MainPage.Current.SeAtualizar(Symbol.View, "Produto");
-                    DataContext = new ProdutoCompletoDataContext(produto, false);
+                    MainPage.Current.SeAtualizar(Symbol.Edit, "Produto");
+                    DataContext = new ProdutoCompletoDataContext(produto);
                     finalizacaoCompleta = false;
                 }
                 else

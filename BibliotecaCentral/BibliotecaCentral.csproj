@@ -172,7 +172,6 @@
     <Compile Include="Log\ILog.cs" />
     <Compile Include="Log\Popup.cs" />
     <Compile Include="Log\Titulos.cs" />
-    <Compile Include="Log\TitulosComuns.cs" />
     <Compile Include="Log\Toast.cs" />
     <Compile Include="Model.cs" />
     <Compile Include="ModeloXML\Enums.cs" />

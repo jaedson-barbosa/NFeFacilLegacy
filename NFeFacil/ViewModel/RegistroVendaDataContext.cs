@@ -28,6 +28,8 @@ namespace NFeFacil.ViewModel
         public ICommand FinalizarCommand { get; }
         public ICommand AplicarDescontoCommand { get; }
 
+        public string ValorTotal => ItemBanco.Produtos.Sum(x => x.TotalLíquido).ToString("C");
+
         AplicativoContext db = new AplicativoContext();
 
         public DateTimeOffset DataHoraVenda
@@ -89,16 +91,6 @@ namespace NFeFacil.ViewModel
             ManipulacaoAtivada = false;
         }
 
-        private void ListaProdutos_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            if (e.Action == NotifyCollectionChangedAction.Remove)
-            {
-                var removido = (ExibicaoProdutoVenda)e.OldItems[0];
-                ListaProdutos.Remove(removido);
-                ItemBanco.Produtos.Remove(removido.Base);
-            }
-        }
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         async void AdicionarProduto()
@@ -125,6 +117,7 @@ namespace NFeFacil.ViewModel
                 };
                 ListaProdutos.Add(novoProdExib);
                 ItemBanco.Produtos.Add(novoProdBanco);
+                PropertyChanged(this, new PropertyChangedEventArgs(nameof(ValorTotal)));
             }
         }
 
@@ -141,7 +134,6 @@ namespace NFeFacil.ViewModel
         void Editar()
         {
             ManipulacaoAtivada = true;
-            ListaProdutos.CollectionChanged += ListaProdutos_CollectionChanged;
             PropertyChanged(this, new PropertyChangedEventArgs(nameof(ManipulacaoAtivada)));
             AtualizarCabecalho(ExibicaoExtra.EscolherVendedor, default(Guid));
         }
@@ -153,15 +145,18 @@ namespace NFeFacil.ViewModel
             if (Operacao == TipoOperacao.Adicao)
             {
                 db.Add(ItemBanco);
+                ItemBanco.Produtos.ForEach(x => x.RegistrarAlteracaoEstoque(db));
                 Log.Escrever(TitulosComuns.Sucesso, "Registro de venda salvo com sucesso.");
             }
             else
             {
+                var antigo = db.Vendas.Find(ItemBanco.Id);
+                antigo.Produtos.ForEach(x => x.DesregistrarAlteracaoEstoque(db));
+                ItemBanco.Produtos.ForEach(x => x.RegistrarAlteracaoEstoque(db));
                 db.Update(ItemBanco);
                 Log.Escrever(TitulosComuns.Sucesso, "Registro de venda alterado com sucesso.");
             }
             ManipulacaoAtivada = false;
-            ListaProdutos.CollectionChanged -= ListaProdutos_CollectionChanged;
             PropertyChanged(this, new PropertyChangedEventArgs(nameof(ManipulacaoAtivada)));
             db.SaveChanges();
             AtualizarCabecalho(ExibicaoExtra.ExibirVendedor, Propriedades.VendedorAtivo.Id);
@@ -185,6 +180,7 @@ namespace NFeFacil.ViewModel
                 ItemBanco.DescontoTotal = prods.Sum(x => x.Desconto);
                 PropertyChanged(this, new PropertyChangedEventArgs(nameof(ItemBanco)));
                 PropertyChanged(this, new PropertyChangedEventArgs(nameof(ListaProdutos)));
+                PropertyChanged(this, new PropertyChangedEventArgs(nameof(ValorTotal)));
             }
         }
 

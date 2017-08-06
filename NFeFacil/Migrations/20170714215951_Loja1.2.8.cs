@@ -50,7 +50,7 @@ namespace NFeFacil.Migrations
                     DescontoTotal = table.Column<double>(nullable: false),
                     Emitente = table.Column<Guid>(nullable: false),
                     Motorista = table.Column<Guid>(nullable: false),
-                    NotaFiscalRelacionada = table.Column<string>(nullable: false),
+                    NotaFiscalRelacionada = table.Column<string>(nullable: true),
                     Observações = table.Column<string>(nullable: true),
                     UltimaData = table.Column<DateTime>(nullable: false),
                     Vendedor = table.Column<Guid>(nullable: false)
@@ -79,7 +79,7 @@ namespace NFeFacil.Migrations
                 name: "AlteracaoEstoque",
                 columns: table => new
                 {
-                    Id = table.Column<DateTime>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
                     Alteração = table.Column<double>(nullable: false),
                     EstoqueId = table.Column<Guid>(nullable: true)
                 },

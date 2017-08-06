@@ -158,6 +158,10 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20170714215951_Loja1.2.8.cs" />
+    <Compile Include="Migrations\20170714215951_Loja1.2.8.Designer.cs">
+      <DependentUpon>20170714215951_Loja1.2.8.cs</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\ImpostosProduto\VisibilidadeRegimeNormal.cs" />
     <Compile Include="ViewModel\ImpostosProduto\VisibilidadeSimplesNacional.cs" />
     <Compile Include="ViewModel\ImpostosProduto\VisibilidadesRegimeNormal.cs" />
@@ -277,10 +281,6 @@
     <Compile Include="Migrations\20170708170014_AdicionadoVendedores.cs" />
     <Compile Include="Migrations\20170708170014_AdicionadoVendedores.Designer.cs">
       <DependentUpon>20170708170014_AdicionadoVendedores.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20170714215951_Loja1.2.8.cs" />
-    <Compile Include="Migrations\20170714215951_Loja1.2.8.Designer.cs">
-      <DependentUpon>20170714215951_Loja1.2.8.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\AplicativoContextModelSnapshot.cs" />
     <Compile Include="Model.cs" />

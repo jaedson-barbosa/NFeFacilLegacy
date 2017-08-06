@@ -74,7 +74,7 @@
                       IsEnabled="{Binding ManipulacaoAtivada}"
                       ItemsSource="{Binding Motoristas, Mode=OneTime}"
                       DisplayMemberPath="Nome"
-                      SelectedValue="{Binding ItemBanco.Motorista}"
+                      SelectedValue="{Binding ItemBanco.Motorista, Mode=TwoWay}"
                       SelectedValuePath="Id"
                       HorizontalAlignment="Stretch" />
             <ItemsControl Grid.Row="1"
@@ -108,6 +108,7 @@
                 <TextBox MaxLength="12"
                          IsReadOnly="True"
                          IsEnabled="{Binding ManipulacaoAtivada}"
+                         Text="{Binding ValorTotal}"
                          Header="Total" />
             </ItemsControl>
         </Grid>

@@ -18,7 +18,7 @@ namespace NFeFacil.Migrations
 
             modelBuilder.Entity("NFeFacil.ItensBD.AlteracaoEstoque", b =>
                 {
-                    b.Property<DateTime>("Id");
+                    b.Property<Guid>("Id");
 
                     b.Property<double>("Alteração");
 

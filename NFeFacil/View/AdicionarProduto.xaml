@@ -45,6 +45,8 @@
                 <TextBox Text="{Binding ValorUnitarioTributo, Mode=TwoWay}"
                          InputScope="Number"
                          Header="Valor unid. tributária" />
+                <CheckBox VerticalAlignment="Bottom"
+                          x:Name="chkControleEstoque">Produto com controle de estoque</CheckBox>
             </ItemsControl>
         </ScrollViewer>
         <CommandBar Grid.Row="1">

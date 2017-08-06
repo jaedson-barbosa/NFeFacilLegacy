@@ -71,28 +71,41 @@ namespace NFeFacil.ViewModel
             }
         }
 
-        private bool? nacional = null;
+        private bool nacional = true;
         public bool Nacional
         {
             get
             {
-                if (nacional == null)
+                var xpais = Cliente.XPais;
+                if (string.IsNullOrEmpty(xpais))
                 {
-                    var xpais = Cliente.XPais;
-                    nacional = xpais.ToLower() == "brasil" || string.IsNullOrEmpty(xpais);
-                }
-                if (!nacional.Value)
-                {
-                    Cliente.CEP = Cliente.SiglaUF = null;
-                    ConjuntoMunicipio = null;
+                    Cliente.XPais = "BRASIL";
+                    Cliente.CPais = 1058;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Cliente)));
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ConjuntoMunicipio)));
                 }
-                return nacional.Value;
+                else
+                {
+                    nacional = Cliente.CPais == 1058;
+                }
+                return nacional;
             }
             set
             {
                 nacional = value;
+                if (value)
+                {
+                    Cliente.XPais = "BRASIL";
+                    Cliente.CPais = 1058;
+                }
+                else
+                {
+                    Cliente.XPais = string.Empty;
+                    Cliente.CPais = 0;
+                    Cliente.CEP = Cliente.SiglaUF = null;
+                    ConjuntoMunicipio = null;
+                }
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ConjuntoMunicipio)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Cliente)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Nacional)));
             }
         }

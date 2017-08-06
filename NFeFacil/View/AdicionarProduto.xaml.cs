@@ -45,18 +45,25 @@ namespace NFeFacil.View
             {
                 case TipoOperacao.Adicao:
                     MainPage.Current.SeAtualizar(Symbol.Add, "Produto");
+                    chkControleEstoque.IsEnabled = false;
                     break;
                 case TipoOperacao.Edicao:
                     MainPage.Current.SeAtualizar(Symbol.Edit, "Produto");
+                    using (var db = new AplicativoContext())
+                        chkControleEstoque.IsChecked = db.Estoque.Find(Produto.Id) != null;
                     break;
             }
             DataContext = Produto;
+            chkControleEstoque.Checked += ControleEstoque_Checked;
+            chkControleEstoque.Unchecked += ControleEstoque_Unchecked;
         }
 
         private void Confirmar_Click(object sender, RoutedEventArgs e)
         {
             try
             {
+                chkControleEstoque.Checked -= ControleEstoque_Checked;
+                chkControleEstoque.Unchecked -= ControleEstoque_Unchecked;
                 if (new ValidadorProduto(Produto).Validar(Log))
                 {
                     using (var db = new AplicativoContext())
@@ -77,7 +84,7 @@ namespace NFeFacil.View
                     MainPage.Current.Retornar();
                 }
             }
-            catch (System.Exception erro)
+            catch (Exception erro)
             {
                 erro.ManipularErro();
             }
@@ -86,6 +93,25 @@ namespace NFeFacil.View
         private void Cancelar_Click(object sender, RoutedEventArgs e)
         {
             MainPage.Current.Retornar();
+        }
+
+        private void ControleEstoque_Checked(object sender, RoutedEventArgs e)
+        {
+            using (var db = new AplicativoContext())
+            {
+                db.Estoque.Add(new Estoque() { Id = Produto.Id });
+                db.SaveChanges();
+            }
+        }
+
+        private void ControleEstoque_Unchecked(object sender, RoutedEventArgs e)
+        {
+            using (var db = new AplicativoContext())
+            {
+                var item = db.Estoque.Find(Produto.Id);
+                if (item != null) db.Estoque.Remove(item);
+                db.SaveChanges();
+            }
         }
     }
 }

@@ -172,6 +172,9 @@
     <Compile Include="View\CaixasDialogo\AdicionarMedicamento.xaml.cs">
       <DependentUpon>AdicionarMedicamento.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\CaixasDialogo\AlteracaoEstoque.xaml.cs">
+      <DependentUpon>AlteracaoEstoque.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\CaixasDialogo\ConectarServidor.xaml.cs">
       <DependentUpon>ConectarServidor.xaml</DependentUpon>
     </Compile>
@@ -501,6 +504,9 @@
     <Compile Include="View\Consulta.xaml.cs">
       <DependentUpon>Consulta.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ControleEstoque.xaml.cs">
+      <DependentUpon>ControleEstoque.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Controles\EntradaNumerica.xaml.cs">
       <DependentUpon>EntradaNumerica.xaml</DependentUpon>
     </Compile>
@@ -678,6 +684,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\CaixasDialogo\AlteracaoEstoque.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\CaixasDialogo\ConectarServidor.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -771,6 +781,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Consulta.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ControleEstoque.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

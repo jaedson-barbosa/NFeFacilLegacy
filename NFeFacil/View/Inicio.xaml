@@ -18,6 +18,12 @@
                                   Tapped="AbrirFunção">
                 <SymbolIcon Symbol="Manage" />
             </controles:ItemPadrao>
+            <controles:ItemPadrao x:Name="ControleEstoque"
+                                  Titulo="Controle de estoque"
+                                  Descricao="Informe alguns dados do estoque de cada produto, visualize e edite a quantidade de produtos no estoque e veja o resumo das últimas alterações no estoque."
+                                  Tapped="AbrirFunção">
+                <SymbolIcon Symbol="Manage" />
+            </controles:ItemPadrao>
             <controles:ItemPadrao x:Name="ManipulacaoRegistroVenda"
                                   Titulo="Criar nova venda"
                                   Descricao="Crie o registro de uma venda apenas com as informações básicas, depois, se você quiser, poderá emitir a nota fiscal facilmente."

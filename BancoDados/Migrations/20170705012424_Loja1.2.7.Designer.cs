@@ -3,35 +3,20 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using NFeFacil;
+using Banco;
 
-namespace NFeFacil.Migrations
+namespace Banco.Migrations
 {
     [DbContext(typeof(AplicativoContext))]
-    [Migration("20170714215951_Loja1.2.8")]
-    partial class Loja128
+    [Migration("20170705012424_Loja1.2.7")]
+    partial class Loja127
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2");
 
-            modelBuilder.Entity("NFeFacil.ItensBD.AlteracaoEstoque", b =>
-                {
-                    b.Property<Guid>("Id");
-
-                    b.Property<double>("Alteração");
-
-                    b.Property<Guid?>("EstoqueId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EstoqueId");
-
-                    b.ToTable("AlteracaoEstoque");
-                });
-
-            modelBuilder.Entity("NFeFacil.ItensBD.ClienteDI", b =>
+            modelBuilder.Entity("Banco.ItensBD.ClienteDI", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -81,7 +66,7 @@ namespace NFeFacil.Migrations
                     b.ToTable("Clientes");
                 });
 
-            modelBuilder.Entity("NFeFacil.ItensBD.EmitenteDI", b =>
+            modelBuilder.Entity("Banco.ItensBD.EmitenteDI", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -131,25 +116,7 @@ namespace NFeFacil.Migrations
                     b.ToTable("Emitentes");
                 });
 
-            modelBuilder.Entity("NFeFacil.ItensBD.Estoque", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("LocalizacaoGenerica");
-
-                    b.Property<string>("Locação");
-
-                    b.Property<string>("Prateleira");
-
-                    b.Property<string>("Segmento");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Estoque");
-                });
-
-            modelBuilder.Entity("NFeFacil.ItensBD.Imagem", b =>
+            modelBuilder.Entity("Banco.ItensBD.Imagem", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -161,7 +128,7 @@ namespace NFeFacil.Migrations
                     b.ToTable("Imagens");
                 });
 
-            modelBuilder.Entity("NFeFacil.ItensBD.MotoristaDI", b =>
+            modelBuilder.Entity("Banco.ItensBD.MotoristaDI", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -178,8 +145,6 @@ namespace NFeFacil.Migrations
 
                     b.Property<DateTime>("UltimaData");
 
-                    b.Property<Guid>("Veiculo");
-
                     b.Property<string>("XEnder");
 
                     b.Property<string>("XMun");
@@ -189,7 +154,7 @@ namespace NFeFacil.Migrations
                     b.ToTable("Motoristas");
                 });
 
-            modelBuilder.Entity("NFeFacil.ItensBD.NFeDI", b =>
+            modelBuilder.Entity("Banco.ItensBD.NFeDI", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -226,7 +191,7 @@ namespace NFeFacil.Migrations
                     b.ToTable("NotasFiscais");
                 });
 
-            modelBuilder.Entity("NFeFacil.ItensBD.ProdutoDI", b =>
+            modelBuilder.Entity("Banco.ItensBD.ProdutoDI", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -260,37 +225,7 @@ namespace NFeFacil.Migrations
                     b.ToTable("Produtos");
                 });
 
-            modelBuilder.Entity("NFeFacil.ItensBD.ProdutoSimplesVenda", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<double>("Desconto");
-
-                    b.Property<double>("DespesasExtras");
-
-                    b.Property<double>("Frete");
-
-                    b.Property<Guid>("IdBase");
-
-                    b.Property<double>("Quantidade");
-
-                    b.Property<Guid?>("RegistroVendaId");
-
-                    b.Property<double>("Seguro");
-
-                    b.Property<double>("TotalLíquido");
-
-                    b.Property<double>("ValorUnitario");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RegistroVendaId");
-
-                    b.ToTable("ProdutoSimplesVenda");
-                });
-
-            modelBuilder.Entity("NFeFacil.ItensBD.RegistroCancelamento", b =>
+            modelBuilder.Entity("Banco.ItensBD.RegistroCancelamento", b =>
                 {
                     b.Property<string>("ChaveNFe")
                         .ValueGeneratedOnAdd();
@@ -306,84 +241,38 @@ namespace NFeFacil.Migrations
                     b.ToTable("Cancelamentos");
                 });
 
-            modelBuilder.Entity("NFeFacil.ItensBD.RegistroVenda", b =>
+            modelBuilder.Entity("Banco.ItensBD.ResultadoSincronizacaoCliente", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid>("Cliente");
+                    b.Property<DateTime>("MomentoSincronizacao");
 
-                    b.Property<DateTime>("DataHoraVenda");
+                    b.Property<int>("NumeroDadosBaseTrafegados");
 
-                    b.Property<double>("DescontoTotal");
+                    b.Property<int>("NumeroNotasTrafegadas");
 
-                    b.Property<Guid>("Emitente");
-
-                    b.Property<Guid>("Motorista");
-
-                    b.Property<string>("NotaFiscalRelacionada");
-
-                    b.Property<string>("Observações");
-
-                    b.Property<DateTime>("UltimaData");
-
-                    b.Property<Guid>("Vendedor");
+                    b.Property<bool>("SincronizacaoAutomatica");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Vendas");
+                    b.ToTable("ResultadosCliente");
                 });
 
-            modelBuilder.Entity("NFeFacil.ItensBD.VeiculoDI", b =>
+            modelBuilder.Entity("Banco.ItensBD.ResultadoSincronizacaoServidor", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Descricao");
+                    b.Property<DateTime>("MomentoRequisicao");
 
-                    b.Property<string>("Placa");
+                    b.Property<bool>("SucessoSolicitacao");
 
-                    b.Property<string>("RNTC");
-
-                    b.Property<string>("UF");
+                    b.Property<int>("TipoDadoSolicitado");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Veiculos");
-                });
-
-            modelBuilder.Entity("NFeFacil.ItensBD.Vendedor", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<long>("CPF");
-
-                    b.Property<string>("Endereço")
-                        .IsRequired();
-
-                    b.Property<string>("Nome")
-                        .IsRequired();
-
-                    b.Property<DateTime>("UltimaData");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Vendedores");
-                });
-
-            modelBuilder.Entity("NFeFacil.ItensBD.AlteracaoEstoque", b =>
-                {
-                    b.HasOne("NFeFacil.ItensBD.Estoque")
-                        .WithMany("Alteracoes")
-                        .HasForeignKey("EstoqueId");
-                });
-
-            modelBuilder.Entity("NFeFacil.ItensBD.ProdutoSimplesVenda", b =>
-                {
-                    b.HasOne("NFeFacil.ItensBD.RegistroVenda")
-                        .WithMany("Produtos")
-                        .HasForeignKey("RegistroVendaId");
+                    b.ToTable("ResultadosServidor");
                 });
         }
     }

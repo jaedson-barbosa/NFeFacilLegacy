@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NFeFacil.ItensBD;
+using Banco.ItensBD;
 
 namespace Banco
 {

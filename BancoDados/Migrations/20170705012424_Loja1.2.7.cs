@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace NFeFacil.Migrations
+namespace Banco.Migrations
 {
     public partial class Loja127 : Migration
     {

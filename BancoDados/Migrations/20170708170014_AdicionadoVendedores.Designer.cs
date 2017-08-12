@@ -3,20 +3,20 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using NFeFacil;
+using Banco;
 
-namespace NFeFacil.Migrations
+namespace Banco.Migrations
 {
     [DbContext(typeof(AplicativoContext))]
-    [Migration("20170603122440_Loja1")]
-    partial class Loja1
+    [Migration("20170708170014_AdicionadoVendedores")]
+    partial class AdicionadoVendedores
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2");
 
-            modelBuilder.Entity("NFeFacil.ItensBD.ClienteDI", b =>
+            modelBuilder.Entity("Banco.ItensBD.ClienteDI", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -66,7 +66,7 @@ namespace NFeFacil.Migrations
                     b.ToTable("Clientes");
                 });
 
-            modelBuilder.Entity("NFeFacil.ItensBD.EmitenteDI", b =>
+            modelBuilder.Entity("Banco.ItensBD.EmitenteDI", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -116,7 +116,19 @@ namespace NFeFacil.Migrations
                     b.ToTable("Emitentes");
                 });
 
-            modelBuilder.Entity("NFeFacil.ItensBD.MotoristaDI", b =>
+            modelBuilder.Entity("Banco.ItensBD.Imagem", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<byte[]>("Bytes");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Imagens");
+                });
+
+            modelBuilder.Entity("Banco.ItensBD.MotoristaDI", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -142,7 +154,7 @@ namespace NFeFacil.Migrations
                     b.ToTable("Motoristas");
                 });
 
-            modelBuilder.Entity("NFeFacil.ItensBD.NFeDI", b =>
+            modelBuilder.Entity("Banco.ItensBD.NFeDI", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -153,13 +165,17 @@ namespace NFeFacil.Migrations
                     b.Property<string>("DataEmissao")
                         .IsRequired();
 
+                    b.Property<bool>("Exportada");
+
+                    b.Property<bool>("Impressa");
+
                     b.Property<string>("NomeCliente")
                         .IsRequired();
 
                     b.Property<string>("NomeEmitente")
                         .IsRequired();
 
-                    b.Property<long>("NumeroNota");
+                    b.Property<int>("NumeroNota");
 
                     b.Property<ushort>("SerieNota");
 
@@ -175,7 +191,7 @@ namespace NFeFacil.Migrations
                     b.ToTable("NotasFiscais");
                 });
 
-            modelBuilder.Entity("NFeFacil.ItensBD.ProdutoDI", b =>
+            modelBuilder.Entity("Banco.ItensBD.ProdutoDI", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -209,7 +225,23 @@ namespace NFeFacil.Migrations
                     b.ToTable("Produtos");
                 });
 
-            modelBuilder.Entity("NFeFacil.ItensBD.ResultadoSincronizacaoCliente", b =>
+            modelBuilder.Entity("Banco.ItensBD.RegistroCancelamento", b =>
+                {
+                    b.Property<string>("ChaveNFe")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("DataHoraEvento");
+
+                    b.Property<int>("TipoAmbiente");
+
+                    b.Property<string>("XML");
+
+                    b.HasKey("ChaveNFe");
+
+                    b.ToTable("Cancelamentos");
+                });
+
+            modelBuilder.Entity("Banco.ItensBD.ResultadoSincronizacaoCliente", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -227,7 +259,7 @@ namespace NFeFacil.Migrations
                     b.ToTable("ResultadosCliente");
                 });
 
-            modelBuilder.Entity("NFeFacil.ItensBD.ResultadoSincronizacaoServidor", b =>
+            modelBuilder.Entity("Banco.ItensBD.ResultadoSincronizacaoServidor", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -241,6 +273,24 @@ namespace NFeFacil.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ResultadosServidor");
+                });
+
+            modelBuilder.Entity("Banco.ItensBD.Vendedor", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<long>("CPF");
+
+                    b.Property<string>("Endereço")
+                        .IsRequired();
+
+                    b.Property<string>("Nome")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Vendedores");
                 });
         }
     }

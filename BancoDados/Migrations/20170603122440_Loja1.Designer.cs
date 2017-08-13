@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Banco;
+using NFeFacil;
 
-namespace Banco.Migrations
+namespace NFeFacil.Migrations
 {
     [DbContext(typeof(AplicativoContext))]
     [Migration("20170603122440_Loja1")]
@@ -16,7 +16,7 @@ namespace Banco.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2");
 
-            modelBuilder.Entity("Banco.ItensBD.ClienteDI", b =>
+            modelBuilder.Entity("NFeFacil.ItensBD.ClienteDI", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -66,7 +66,7 @@ namespace Banco.Migrations
                     b.ToTable("Clientes");
                 });
 
-            modelBuilder.Entity("Banco.ItensBD.EmitenteDI", b =>
+            modelBuilder.Entity("NFeFacil.ItensBD.EmitenteDI", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -116,7 +116,7 @@ namespace Banco.Migrations
                     b.ToTable("Emitentes");
                 });
 
-            modelBuilder.Entity("Banco.ItensBD.MotoristaDI", b =>
+            modelBuilder.Entity("NFeFacil.ItensBD.MotoristaDI", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -142,7 +142,7 @@ namespace Banco.Migrations
                     b.ToTable("Motoristas");
                 });
 
-            modelBuilder.Entity("Banco.ItensBD.NFeDI", b =>
+            modelBuilder.Entity("NFeFacil.ItensBD.NFeDI", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -175,7 +175,7 @@ namespace Banco.Migrations
                     b.ToTable("NotasFiscais");
                 });
 
-            modelBuilder.Entity("Banco.ItensBD.ProdutoDI", b =>
+            modelBuilder.Entity("NFeFacil.ItensBD.ProdutoDI", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -209,7 +209,7 @@ namespace Banco.Migrations
                     b.ToTable("Produtos");
                 });
 
-            modelBuilder.Entity("Banco.ItensBD.ResultadoSincronizacaoCliente", b =>
+            modelBuilder.Entity("NFeFacil.ItensBD.ResultadoSincronizacaoCliente", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -227,7 +227,7 @@ namespace Banco.Migrations
                     b.ToTable("ResultadosCliente");
                 });
 
-            modelBuilder.Entity("Banco.ItensBD.ResultadoSincronizacaoServidor", b =>
+            modelBuilder.Entity("NFeFacil.ItensBD.ResultadoSincronizacaoServidor", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();

@@ -2,7 +2,6 @@
 using NFeFacil.Log;
 using NFeFacil.Sincronizacao.Pacotes;
 using Newtonsoft.Json;
-using System;
 using System.Threading.Tasks;
 using System.Linq;
 using System.Net.Http;

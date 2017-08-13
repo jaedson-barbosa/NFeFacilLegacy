@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Banco.Migrations
+namespace NFeFacil.Migrations
 {
     public partial class CancelamentoAdicionado : Migration
     {

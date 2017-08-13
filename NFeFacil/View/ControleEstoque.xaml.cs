@@ -15,6 +15,7 @@ namespace NFeFacil.View
     /// </summary>
     public sealed partial class ControleEstoque : Page
     {
+        AplicativoContext db = new AplicativoContext();
         public ControleEstoque()
         {
             InitializeComponent();
@@ -32,13 +33,11 @@ namespace NFeFacil.View
         {
             if (dadosEstoque.DataContext != null)
             {
-                using (var db = new AplicativoContext())
-                {
-                    var antigo = (Estoque)dadosEstoque.DataContext;
-                    db.Update(antigo);
-                    db.SaveChanges();
-                }
+                var antigo = (Estoque)dadosEstoque.DataContext;
+                db.Update(antigo);
+                db.SaveChanges();
             }
+            db.Dispose();
             base.OnNavigatingFrom(e);
         }
 
@@ -47,18 +46,24 @@ namespace NFeFacil.View
             var conj = (Conjunto)e.AddedItems[0];
             if (dadosEstoque.DataContext != null)
             {
-                using (var db = new AplicativoContext())
-                {
-                    var antigo = (Estoque)dadosEstoque.DataContext;
-                    db.Update(antigo);
-                    db.SaveChanges();
-                }
+                var antigo = (Estoque)dadosEstoque.DataContext;
+                db.Update(antigo);
+                db.SaveChanges();
             }
             else
             {
                 dadosEstoque.IsEnabled = true;
             }
             dadosEstoque.DataContext = conj.Estoque;
+            var alteracoes = conj.Estoque.Alteracoes;
+            if (alteracoes != null)
+            {
+                serieGrafico.Values = new LiveCharts.ChartValues<double>(alteracoes.Select(x => x.Alteração));
+            }
+            else
+            {
+                serieGrafico.Values = new LiveCharts.ChartValues<double>();
+            }
         }
 
         struct Conjunto
@@ -76,17 +81,15 @@ namespace NFeFacil.View
                 var valor = caixa.ValorProcessado;
                 if (valor != 0)
                 {
-                    using (var db = new AplicativoContext())
+                    if (estoque.Alteracoes == null)
                     {
-                        if (estoque.Alteracoes == null)
-                        {
-                            estoque.Alteracoes = new List<AlteracaoEstoque>();
-                        }
-                        var alt = new AlteracaoEstoque() { Alteração = valor };
-                        estoque.Alteracoes.Add(alt);
-                        db.Estoque.Update(estoque);
-                        db.SaveChanges();
+                        estoque.Alteracoes = new List<AlteracaoEstoque>();
                     }
+                    var alt = new AlteracaoEstoque() { Alteração = valor };
+                    estoque.Alteracoes.Add(alt);
+                    db.Estoque.Update(estoque);
+                    db.SaveChanges();
+                    serieGrafico.Values.Add(valor);
                 }
             }
         }

@@ -1,12 +1,13 @@
 ﻿using NFeFacil.View.CaixasDialogo;
-using NFeFacil.ItensBD;
 using NFeFacil.Log;
-using NFeFacil.ModeloXML;
 using NFeFacil.WebService;
-using NFeFacil.WebService.Pacotes;
 using System;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
+using NFeFacil.ModeloXML;
+using NFeFacil.WebService.Pacotes;
+using NFeFacil.ItensBD;
+using System.Xml.Serialization;
 
 namespace NFeFacil
 {
@@ -82,6 +83,19 @@ namespace NFeFacil
                 Log.Escrever(TitulosComuns.Erro, e.Message);
                 return false;
             }
+        }
+
+        [XmlRoot("procEventoNFe", Namespace = "http://www.portalfiscal.inf.br/nfe")]
+        public struct ProcEventoCancelamento
+        {
+            [XmlAttribute("versao")]
+            public string Versao { get; set; }
+
+            [XmlElement("evento")]
+            public Evento[] Eventos { get; set; }
+
+            [XmlElement("retEvento")]
+            public ResultadoEvento[] RetEvento { get; set; }
         }
     }
 }

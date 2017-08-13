@@ -66,6 +66,7 @@ namespace NFeFacil.View
                     OperacaoRequirida = TipoOperacao.Adicao,
                     StatusAtual = StatusNFe.Edição
                 };
+                notaSimples.NotaSalva.Informações.identificação.DefinirVersãoAplicativo();
                 MainPage.Current.AbrirFunçao(typeof(ManipulacaoNotaFiscal), notaSimples);
             }
             else

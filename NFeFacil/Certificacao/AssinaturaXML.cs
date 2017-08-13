@@ -1,5 +1,5 @@
-﻿using NFeFacil.ModeloXML.PartesProcesso;
-using Comum.Primitivos;
+﻿using Comum.Primitivos;
+using NFeFacil.ModeloXML.PartesProcesso;
 using System;
 using System.Linq;
 using System.Security.Cryptography.Xml;

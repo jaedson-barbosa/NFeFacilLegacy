@@ -1,5 +1,5 @@
-﻿using NFeFacil.ItensBD;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using NFeFacil.ItensBD;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;

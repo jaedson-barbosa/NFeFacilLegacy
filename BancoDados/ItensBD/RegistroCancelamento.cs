@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Banco.ItensBD
+namespace NFeFacil.ItensBD
 {
     public sealed class RegistroCancelamento
     {

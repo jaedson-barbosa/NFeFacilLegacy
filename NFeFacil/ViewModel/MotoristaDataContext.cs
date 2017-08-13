@@ -1,10 +1,10 @@
-﻿using NFeFacil.ItensBD;
-using System.ComponentModel;
-using NFeFacil.ModeloXML;
+﻿using System.ComponentModel;
 using System;
 using System.Collections.ObjectModel;
 using Windows.UI.Xaml.Controls;
 using System.Windows.Input;
+using NFeFacil.ItensBD;
+using NFeFacil.ModeloXML;
 
 namespace NFeFacil.ViewModel
 {

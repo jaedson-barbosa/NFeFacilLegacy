@@ -1,5 +1,5 @@
-﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
-using NFeFacil.Log;
+﻿using NFeFacil.Log;
+using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 
 namespace NFeFacil.Validacao
 {

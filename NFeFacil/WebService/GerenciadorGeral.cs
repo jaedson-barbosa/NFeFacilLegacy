@@ -1,11 +1,11 @@
 ﻿using NFeFacil.Certificacao;
 using NFeFacil.Certificacao.LAN;
-using NFeFacil.IBGE;
 using Comum.Pacotes;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using NFeFacil.IBGE;
 
 namespace NFeFacil.WebService
 {

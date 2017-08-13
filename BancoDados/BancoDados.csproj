@@ -5,8 +5,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="IBGE\Estados.xml" />
+    <None Remove="IBGE\Municipios.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="IBGE\Estados.xml" />
+    <EmbeddedResource Include="IBGE\Municipios.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="1.1.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="1.1.1" />
+    <PackageReference Include="System.Xml.XmlSerializer" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>

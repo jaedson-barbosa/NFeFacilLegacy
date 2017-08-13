@@ -1,6 +1,7 @@
-﻿using System;
+﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
+using System;
 
-namespace Banco.ItensBD
+namespace NFeFacil.ItensBD
 {
     public sealed class EmitenteDI
     {
@@ -27,6 +28,60 @@ namespace Banco.ItensBD
         public int CPais { get; set; } = 1058;
         public string XPais { get; set; } = "Brasil";
         public string Telefone { get; set; }
+
+        public EmitenteDI() { }
+        public EmitenteDI(Emitente other)
+        {
+            CNPJ = other.CNPJ.ToString();
+            Nome = other.Nome;
+            NomeFantasia = other.NomeFantasia;
+            InscricaoEstadual = other.InscricaoEstadual.ToString();
+            IEST = other.IEST;
+            IM = other.IM;
+            CNAE = other.CNAE;
+            RegimeTributario = other.RegimeTributario;
+
+            Logradouro = other.Endereco.Logradouro;
+            Numero = other.Endereco.Numero;
+            Complemento = other.Endereco.Complemento;
+            Bairro = other.Endereco.Bairro;
+            CodigoMunicipio = other.Endereco.CodigoMunicipio;
+            NomeMunicipio = other.Endereco.NomeMunicipio;
+            SiglaUF = other.Endereco.SiglaUF;
+            CEP = other.Endereco.CEP;
+            CPais = other.Endereco.CPais;
+            XPais = other.Endereco.XPais;
+            Telefone = other.Endereco.Telefone;
+        }
+
+        public Emitente ToEmitente()
+        {
+            return new Emitente
+            {
+                CNPJ = long.Parse(CNPJ),
+                Nome = Nome,
+                NomeFantasia = NomeFantasia,
+                InscricaoEstadual = long.Parse(InscricaoEstadual),
+                IEST = IEST,
+                IM = IM,
+                CNAE = CNAE,
+                RegimeTributario = RegimeTributario,
+                Endereco = new ModeloXML.PartesProcesso.PartesNFe.EnderecoCompleto
+                {
+                    Logradouro = Logradouro,
+                    Numero = Numero,
+                    Complemento = Complemento,
+                    Bairro = Bairro,
+                    CodigoMunicipio = CodigoMunicipio,
+                    NomeMunicipio = NomeMunicipio,
+                    SiglaUF = SiglaUF,
+                    CEP = CEP,
+                    CPais = CPais,
+                    XPais = XPais,
+                    Telefone = Telefone
+                }
+            };
+        }
 
         public override bool Equals(object obj)
         {

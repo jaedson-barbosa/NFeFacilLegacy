@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Banco.Migrations
+namespace NFeFacil.Migrations
 {
     public partial class AdicionadoVendedores : Migration
     {

@@ -1,6 +1,7 @@
-﻿using System;
+﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
+using System;
 
-namespace Banco.ItensBD
+namespace NFeFacil.ItensBD
 {
     public sealed class VeiculoDI
     {
@@ -10,5 +11,15 @@ namespace Banco.ItensBD
         public string Placa { get; set; }
         public string UF { get; set; }
         public string RNTC { get; set; }
+
+        public Veiculo ToVeiculo()
+        {
+            return new Veiculo()
+            {
+                Placa = Placa,
+                UF = UF,
+                RNTC = RNTC
+            };
+        }
     }
 }

@@ -6,7 +6,7 @@ namespace NFeFacil.IBGE
     {
         public static Estado[] EstadosCache;
 
-        internal static void Buscar()
+        public static void Buscar()
         {
             if (EstadosCache == null)
             {

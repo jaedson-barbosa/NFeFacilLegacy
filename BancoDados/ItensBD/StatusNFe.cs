@@ -1,4 +1,4 @@
-﻿namespace Banco.ItensBD
+﻿namespace NFeFacil.ItensBD
 {
     public enum StatusNFe
     {

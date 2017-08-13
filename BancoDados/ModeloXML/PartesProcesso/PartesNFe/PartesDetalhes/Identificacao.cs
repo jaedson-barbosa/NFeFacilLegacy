@@ -1,7 +1,6 @@
 ﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesIdentificacao;
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using Windows.ApplicationModel;
 
 namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
 {
@@ -91,13 +90,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
         public byte ProcessoEmissão { get; set; } = 0;
 
         [XmlElement(ElementName = "verProc", Order = 20)]
-        public string VersaoAplicativo { get; set; } = VersãoAplicativo();
-
-        private static string VersãoAplicativo()
-        {
-            var version = Package.Current.Id.Version;
-            return $"{version.Major}.{version.Minor}.{version.Build}";
-        }
+        public string VersaoAplicativo { get; set; }
 
         [XmlElement("NFref", Order = 21)]
         public List<DocumentoFiscalReferenciado> DocumentosReferenciados { get; } = new List<DocumentoFiscalReferenciado>();

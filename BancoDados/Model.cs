@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Banco.ItensBD;
+using NFeFacil.ItensBD;
 
-namespace Banco
+namespace NFeFacil
 {
     public class AplicativoContext : DbContext
     {

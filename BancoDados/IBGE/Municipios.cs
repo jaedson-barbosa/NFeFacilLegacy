@@ -35,7 +35,7 @@ namespace NFeFacil.IBGE
                    select mun;
         }
 
-        internal static void Buscar()
+        public static void Buscar()
         {
             if (MunicipiosCache == null)
             {

@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace Banco.ItensBD
+namespace NFeFacil.ItensBD
 {
     public sealed class Imagem
     {

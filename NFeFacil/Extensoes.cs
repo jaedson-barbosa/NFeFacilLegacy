@@ -10,7 +10,7 @@ using System.Xml.Serialization;
 
 namespace NFeFacil
 {
-    public static class Extensoes
+    public static partial class Extensoes
     {
         public static XElement ToXElement<T>(this object obj, string nameSpace = "http://www.portalfiscal.inf.br/nfe") => ToXElement(obj, typeof(T), nameSpace);
 
@@ -32,20 +32,6 @@ namespace NFeFacil
         {
             var xmlSerializer = new XmlSerializer(typeof(T));
             return (T)xmlSerializer.Deserialize(streamXMl);
-        }
-
-        public static T FromXElement<T>(this XNode xElement)
-        {
-            var xmlSerializer = new XmlSerializer(typeof(T));
-            using (var reader = xElement.CreateReader())
-            {
-                return (T)xmlSerializer.Deserialize(reader);
-            }
-        }
-
-        public static double ToDouble(this string str)
-        {
-            return string.IsNullOrEmpty(str) ? 0 : double.Parse(str);
         }
 
         public static string ToStringPersonalizado(this DateTime dataHora)

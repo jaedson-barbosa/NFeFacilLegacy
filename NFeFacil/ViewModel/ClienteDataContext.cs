@@ -1,9 +1,9 @@
-﻿using NFeFacil.ItensBD;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Collections.ObjectModel;
-using NFeFacil.IBGE;
 using System.Linq;
+using NFeFacil.ItensBD;
 using NFeFacil.ModeloXML;
+using NFeFacil.IBGE;
 
 namespace NFeFacil.ViewModel
 {

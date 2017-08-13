@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Banco.ItensBD
+namespace NFeFacil.ItensBD
 {
     public sealed class AlteracaoEstoque
     {

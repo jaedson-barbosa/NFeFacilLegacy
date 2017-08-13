@@ -1,6 +1,8 @@
-﻿using System;
+﻿using NFeFacil.ModeloXML;
+using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
+using System;
 
-namespace Banco.ItensBD
+namespace NFeFacil.ItensBD
 {
     public sealed class MotoristaDI
     {
@@ -16,5 +18,37 @@ namespace Banco.ItensBD
         public string XEnder { get; set; }
         public string XMun { get; set; }
         public string UF { get; set; }
+
+        [System.ComponentModel.DataAnnotations.Schema.NotMapped]
+        public string Documento => CPF ?? CNPJ;
+
+        [System.ComponentModel.DataAnnotations.Schema.NotMapped]
+        public TiposDocumento TipoDocumento => !string.IsNullOrEmpty(CNPJ) ? TiposDocumento.CNPJ : TiposDocumento.CPF;
+
+        public MotoristaDI() { }
+        public MotoristaDI(Motorista other)
+        {
+            CPF = other.CPF;
+            CNPJ = other.CNPJ;
+            Nome = other.Nome;
+            InscricaoEstadual = other.InscricaoEstadual;
+            XEnder = other.XEnder;
+            XMun = other.XMun;
+            UF = other.UF;
+        }
+
+        public Motorista ToMotorista()
+        {
+            return new Motorista
+            {
+                CPF = CPF,
+                CNPJ = CNPJ,
+                Nome = Nome,
+                InscricaoEstadual = InscricaoEstadual,
+                XEnder = XEnder,
+                XMun = XMun,
+                UF = UF
+            };
+        }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Banco.ItensBD
+namespace NFeFacil.ItensBD
 {
     public sealed class Estoque
     {

@@ -1,5 +1,5 @@
-﻿using NFeFacil.Log;
-using NFeFacil.ItensBD;
+﻿using NFeFacil.ItensBD;
+using NFeFacil.Log;
 
 namespace NFeFacil.Validacao
 {

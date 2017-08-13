@@ -1,12 +1,4 @@
-﻿using NFeFacil.IBGE;
-using NFeFacil.ItensBD;
-using NFeFacil.Log;
-using NFeFacil.ModeloXML;
-using NFeFacil.ModeloXML.PartesProcesso;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesIdentificacao;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
+﻿using NFeFacil.Log;
 using NFeFacil.Repositorio;
 using NFeFacil.Validacao;
 using NFeFacil.View;
@@ -20,6 +12,14 @@ using System.Threading.Tasks;
 using Windows.UI.Popups;
 using System.Xml.Linq;
 using Windows.UI.Xaml.Controls;
+using NFeFacil.ItensBD;
+using NFeFacil.ModeloXML.PartesProcesso;
+using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
+using NFeFacil.ModeloXML;
+using NFeFacil.IBGE;
+using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesIdentificacao;
+using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
+using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 
 namespace NFeFacil.ViewModel
 {

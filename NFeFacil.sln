@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.16
+VisualStudioVersion = 15.0.26730.8
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFeFacil", "NFeFacil\NFeFacil.csproj", "{89DDBE2A-16B6-464E-AC64-EE01589A3415}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -12,7 +12,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServidorCertificacaoConsole
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Comum", "Comum\Comum.csproj", "{066BAE5A-A3A9-490C-91B7-75D5B6827D95}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BancoDados", "BancoDados\BancoDados.csproj", "{F4827E33-77A7-43C8-8F3A-E712E92653CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BancoDados", "BancoDados\BancoDados.csproj", "{F4827E33-77A7-43C8-8F3A-E712E92653CD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -97,5 +97,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {ACAA3367-861B-4C1F-89A0-BB13586FCECB}
 	EndGlobalSection
 EndGlobal

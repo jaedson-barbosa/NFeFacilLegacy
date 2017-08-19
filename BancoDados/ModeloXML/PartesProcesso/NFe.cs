@@ -1,6 +1,5 @@
 ﻿using NFeFacil.Certificacao;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe;
-using System.Xml;
 using System.Xml.Serialization;
 
 namespace NFeFacil.ModeloXML.PartesProcesso

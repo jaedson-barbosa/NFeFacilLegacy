@@ -2,7 +2,6 @@
 using NFeFacil.ModeloXML.PartesProcesso;
 using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
 using System.Xml.Linq;
 

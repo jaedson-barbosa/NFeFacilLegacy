@@ -10,7 +10,7 @@ using System.Xml.Serialization;
 
 namespace NFeFacil
 {
-    public static partial class Extensoes
+    internal static class ExtensoesPrincipal
     {
         public static XElement ToXElement<T>(this object obj, string nameSpace = "http://www.portalfiscal.inf.br/nfe") => ToXElement(obj, typeof(T), nameSpace);
 
@@ -65,12 +65,6 @@ namespace NFeFacil
         internal static void ManipularErro(this Exception erro)
         {
             Log.Escrever(TitulosComuns.Erro, erro.Message);
-        }
-
-        public static Stream Retornar(object origem, string caminho)
-        {
-            var assembly = origem.GetType().GetTypeInfo().Assembly;
-            return assembly.GetManifestResourceStream(caminho);
         }
     }
 }

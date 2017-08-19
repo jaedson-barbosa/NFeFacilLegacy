@@ -66,7 +66,7 @@ namespace NFeFacil.ViewModel
             }
         }
 
-        public ObservableCollection<TiposEspeciaisProduto> ListaTiposEspeciaisProduto => Extensoes.ObterItens<TiposEspeciaisProduto>();
+        public ObservableCollection<TiposEspeciaisProduto> ListaTiposEspeciaisProduto => ExtensoesPrincipal.ObterItens<TiposEspeciaisProduto>();
         private TiposEspeciaisProduto tipoEspecialProdutoSelecionado;
         public TiposEspeciaisProduto TipoEspecialProdutoSelecionado
         {

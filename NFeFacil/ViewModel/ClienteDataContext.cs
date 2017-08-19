@@ -13,7 +13,7 @@ namespace NFeFacil.ViewModel
 
         public ClienteDI Cliente { get; set; }
 
-        public ObservableCollection<IndicadorIE> IndicadoresIE => NFeFacil.Extensoes.ObterItens<IndicadorIE>();
+        public ObservableCollection<IndicadorIE> IndicadoresIE => NFeFacil.ExtensoesPrincipal.ObterItens<IndicadorIE>();
         public IndicadorIE IndicadorIESelecionado
         {
             get => (IndicadorIE)Cliente.IndicadorIE;

@@ -79,7 +79,7 @@ namespace NFeFacil.WebService
 
         string ObterConteudoRequisicao(Envio corpo)
         {
-            return string.Format(Extensoes.ObterRecurso("RequisicaoSOAP"),
+            return string.Format(ExtensoesPrincipal.ObterRecurso("RequisicaoSOAP"),
                 Enderecos.Servico, CodigoUF, VersaoDados,
                 corpo.ToXElement<Envio>().ToString(SaveOptions.DisableFormatting));
         }

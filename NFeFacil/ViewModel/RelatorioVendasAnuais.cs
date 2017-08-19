@@ -8,10 +8,8 @@ using System.Xml.Linq;
 
 namespace NFeFacil.ViewModel
 {
-    public sealed class RelatorioVendasAnuais : INotifyPropertyChanged
+    public sealed class RelatorioVendasAnuais
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public ObservableCollection<int> AnosDisponiveis { get; private set; }
         public ObservableCollection<TotalPorMes> ResultadoMes { get; private set; }
         public ObservableCollection<TotalPorCliente> ResultadoCliente { get; private set; }

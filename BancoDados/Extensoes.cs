@@ -9,7 +9,7 @@ using System.Xml.Serialization;
 
 namespace NFeFacil
 {
-    public static partial class Extensoes
+    public static class Extensoes
     {
         public static XElement ToXElement(this object obj, Type T, string nameSpace = "http://www.portalfiscal.inf.br/nfe")
         {

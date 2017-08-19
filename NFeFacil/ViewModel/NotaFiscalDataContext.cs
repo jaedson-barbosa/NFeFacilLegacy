@@ -256,7 +256,7 @@ namespace NFeFacil.ViewModel
             }
         }
 
-        public ObservableCollection<ModalidadesTransporte> Modalidades => Extensoes.ObterItens<ModalidadesTransporte>();
+        public ObservableCollection<ModalidadesTransporte> Modalidades => ExtensoesPrincipal.ObterItens<ModalidadesTransporte>();
 
         public ModalidadesTransporte ModFrete
         {

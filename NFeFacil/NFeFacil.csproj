@@ -230,7 +230,7 @@
     <Compile Include="DANFE\Pacotes\Geral.cs" />
     <Compile Include="DANFE\Pacotes\ItemDadosAdicionais.cs" />
     <Compile Include="DANFE\ViewDados.cs" />
-    <Compile Include="Extensoes.cs" />
+    <Compile Include="ExtensoesPrincipal.cs" />
     <Compile Include="GrupoViewBanco.cs" />
     <Compile Include="IHambuguer.cs" />
     <Compile Include="Importacao\Importacao.cs" />

@@ -1,48 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <TargetFramework>netstandard1.4</TargetFramework>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <PlatformTarget>x64</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="IBGE\Estados.xml" />
-    <None Remove="IBGE\Municipios.xml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="IBGE\Estados.xml" />
-    <EmbeddedResource Include="IBGE\Municipios.xml" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="1.1.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="1.1.1" />
     <PackageReference Include="System.Xml.XmlSerializer" Version="4.3.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Migrations\20170603122440_Loja1.Designer.cs">
-      <DependentUpon>20170603122440_Loja1.cs</DependentUpon>
-    </Compile>
-    <Compile Update="Migrations\20170617125032_CancelamentoAdicionado.Designer.cs">
-      <DependentUpon>20170617125032_CancelamentoAdicionado.cs</DependentUpon>
-    </Compile>
-    <Compile Update="Migrations\20170617182941_RegistroCancelamentoAdicionado.Designer.cs">
-      <DependentUpon>20170617182941_RegistroCancelamentoAdicionado.cs</DependentUpon>
-    </Compile>
-    <Compile Update="Migrations\20170705012424_Loja1.2.7.Designer.cs">
-      <DependentUpon>20170705012424_Loja1.2.7.cs</DependentUpon>
-    </Compile>
-    <Compile Update="Migrations\20170708170014_AdicionadoVendedores.Designer.cs">
-      <DependentUpon>20170708170014_AdicionadoVendedores.cs</DependentUpon>
-    </Compile>
-    <Compile Update="Migrations\20170714215951_Loja1.2.8.Designer.cs">
-      <DependentUpon>20170714215951_Loja1.2.8.cs</DependentUpon>
-    </Compile>
   </ItemGroup>
 
 </Project>

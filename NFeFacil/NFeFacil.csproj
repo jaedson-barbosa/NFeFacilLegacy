@@ -808,6 +808,10 @@
     </SDKReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BancoDados\BancoDados.csproj">
+      <Project>{f4827e33-77a7-43c8-8f3a-e712e92653cd}</Project>
+      <Name>BancoDados</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Comum\Comum.csproj">
       <Project>{066bae5a-a3a9-490c-91b7-75d5b6827d95}</Project>
       <Name>Comum</Name>

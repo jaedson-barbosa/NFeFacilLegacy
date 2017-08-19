@@ -14,7 +14,7 @@ namespace NFeFacil.IBGE
 
         public XElement Retornar()
         {
-            using (var stream = Extensoes.Retornar(this, "NFeFacil.IBGE." + NomeArquivo))
+            using (var stream = Extensoes.Retornar(this, "BancoDados.IBGE." + NomeArquivo))
             {
                 return XElement.Load(stream);
             }

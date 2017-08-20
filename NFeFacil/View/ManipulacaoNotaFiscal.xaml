@@ -15,11 +15,11 @@
                 <ResourceDictionary Source="Estilos/Tabela.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <VM:DadosEstadosParaView x:Key="estados" />
-            <Conversores:BoolToVisibility x:Key="visibilidade" />
             <Conversores:EstadoToMunicipios x:Key="obterMun" />
             <Conversores:ColecaoValida x:Key="getObs" />
             <Conversores:StringToDateTime x:Key="data" />
             <Conversores:Invert x:Key="inverter" />
+            <Conversores:NumeroString x:Key="numStr" />
         </ResourceDictionary>
     </Page.Resources>
     <Grid>
@@ -66,12 +66,12 @@
                                 <ComboBoxItem Content="Saída" />
                             </ComboBox>
                             <ComboBox Header="Finalidade de emissão *"
-                                      SelectedValue="{Binding NotaSalva.Informações.identificação.FinalidadeEmissão, Mode=TwoWay}"
+                                      SelectedValue="{Binding NotaSalva.Informações.identificação.FinalidadeEmissão, Mode=TwoWay, Converter={StaticResource numStr}}"
                                       SelectedValuePath="Tag">
-                                <ComboBoxItem Tag="1" Content="Normal" />
-                                <ComboBoxItem Tag="2" Content="Complementar" />
-                                <ComboBoxItem Tag="3" Content="De ajuste" />
-                                <ComboBoxItem Tag="4" Content="Devolução de mercadoria" />
+                                <ComboBoxItem Tag='1'>Normal</ComboBoxItem>
+                                <ComboBoxItem Tag='2'>Complementar</ComboBoxItem>
+                                <ComboBoxItem Tag='3'>De ajuste</ComboBoxItem>
+                                <ComboBoxItem Tag='4'>Devolução de mercadoria</ComboBoxItem>
                             </ComboBox>
                             <ComboBox Header="Consumidor final *"
                                       SelectedIndex="{Binding NotaSalva.Informações.identificação.OperaçãoConsumidorFinal, Mode=TwoWay}">
@@ -92,7 +92,7 @@
                                 <ComboBoxItem Content="Outros" />
                             </ComboBox>
                             <ComboBox Header="Destino da operação *"
-                                      SelectedValue="{Binding NotaSalva.Informações.identificação.IdentificadorDestino, Mode=TwoWay}"
+                                      SelectedValue="{Binding NotaSalva.Informações.identificação.IdentificadorDestino, Mode=TwoWay, Converter={StaticResource numStr}}"
                                       SelectedValuePath="Tag">
                                 <ComboBoxItem Tag="1" Content="Operação interna" />
                                 <ComboBoxItem Tag="2" Content="Operação interestadual" />
@@ -485,7 +485,7 @@
                                                        Number="{Binding VISSRet, Mode=TwoWay}"
                                                        Header="Retenção ISS"
                                                        IsReadOnly="True" />
-                            <ComboBox SelectedValue="{Binding CRegTrib, Mode=TwoWay}"
+                            <ComboBox SelectedValue="{Binding CRegTrib, Mode=TwoWay, Converter={StaticResource numStr}}"
                                       SelectedValuePath="Tag"
                                       Header="Regime especial de tributação">
                                 <ComboBoxItem Tag="1">Microempresa municipal</ComboBoxItem>
@@ -1011,11 +1011,11 @@
             <CommandBar.Background>
                 <SolidColorBrush Color="{ThemeResource SystemChromeLowColor}" />
             </CommandBar.Background>
-            <AppBarButton Visibility="{Binding BotaoEditarVisivel, Converter={StaticResource visibilidade}}"
+            <AppBarButton IsEnabled="{Binding BotaoEditarVisivel}"
                           Icon="Edit"
                           Label="Editar"
                           Command="{Binding LiberarEdicaoCommand}" />
-            <AppBarButton Visibility="{Binding BotaoConfirmarVisivel, Converter={StaticResource visibilidade}}"
+            <AppBarButton IsEnabled="{Binding BotaoConfirmarVisivel}"
                           Icon="Accept"
                           Label="Confirmar e validar"
                           Command="{Binding ConfirmarCommand}" />

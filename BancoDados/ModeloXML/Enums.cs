@@ -1,6 +1,6 @@
 ﻿namespace NFeFacil.ModeloXML
 {
-    public enum TiposDocumento : byte
+    public enum TiposDocumento : ushort
     {
         CPF,
         CNPJ,

@@ -7,7 +7,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
         /// <summary>
         /// Tipo da operação.
         /// </summary>
-        public byte tpOp { get; set; }
+        public ushort tpOp { get; set; }
 
         /// <summary>
         /// Chassi do veículo.
@@ -95,13 +95,13 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
         /// Tipo de Veículo.
         /// Utilizar Tabela RENAVAM.
         /// </summary>
-        public byte tpVeic { get; set; }
+        public ushort tpVeic { get; set; }
 
         /// <summary>
         /// Espécie de Veículo. 
         /// Utilizar Tabela RENAVAM.
         /// </summary>
-        public byte espVeic { get; set; }
+        public ushort espVeic { get; set; }
 
         /// <summary>
         /// Informa-se o veículo tem VIN (chassi) remarcado.
@@ -120,7 +120,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
         /// Condição do Veículo.
         /// 1=Acabado; 2=Inacabado; 3=Semiacabado
         /// </summary>
-        public byte condVeic;
+        public ushort condVeic;
 
         /// <summary>
         /// Código Marca Modelo.
@@ -135,7 +135,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
         /// 13=ROXA, 14=VERDE, 15=VERMELHA, 16=FANTASIA 151b
         /// </summary>
         [XmlElement("cCorDENATRAN")]
-        public byte CCorDENATRAN;
+        public ushort CCorDENATRAN;
 
         /// <summary>
         /// Capacidade máxima de lotação, inclusive o motorista.
@@ -147,6 +147,6 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
         /// 0=Não há; 1=Alienação Fiduciária; 2=Arrendamento Mercantil;
         /// 3=Reserva de Domínio; 4=Penhor de Veículos; 9=Outras.
         /// </summary>
-        public byte tpRest { get; set; }
+        public ushort tpRest { get; set; }
     }
 }

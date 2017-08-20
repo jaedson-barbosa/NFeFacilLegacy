@@ -36,12 +36,12 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe
         private static int CalcularDV(string chave)
         {
             int soma = 0; // Vai guardar a Soma
-            sbyte peso = 2; // vai guardar o peso de multiplicacao
+            sushort peso = 2; // vai guardar o peso de multiplicacao
             //percorrendo cada caracter da chave da direita para esquerda para fazer os calculos com o pesso
             for (int i = chave.Length - 1; i >= 0; i--, peso++)
             {
                 if (peso == 10) peso = 2;
-                sbyte atual = sbyte.Parse(chave[i].ToString());
+                sushort atual = sushort.Parse(chave[i].ToString());
                 soma += atual * peso;
             }
             //Agora que tenho a soma vamos pegar o resto da divisão por 11

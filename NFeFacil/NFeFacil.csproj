@@ -160,6 +160,7 @@
     </Compile>
     <Compile Include="IdentificacaoExtensoes.cs" />
     <Compile Include="ImagemExtensoes.cs" />
+    <Compile Include="ViewModel\Converters\NumeroString.cs" />
     <Compile Include="ViewModel\ImpostosProduto\VisibilidadeRegimeNormal.cs" />
     <Compile Include="ViewModel\ImpostosProduto\VisibilidadeSimplesNacional.cs" />
     <Compile Include="ViewModel\ImpostosProduto\VisibilidadesRegimeNormal.cs" />

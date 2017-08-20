@@ -141,7 +141,7 @@ namespace NFeFacil.ViewModel
             get => NotaSalva.Informações.identificação.TipoAmbiente == 2;
             set
             {
-                NotaSalva.Informações.identificação.TipoAmbiente = value ? (byte)2 : (byte)1;
+                NotaSalva.Informações.identificação.TipoAmbiente = value ? (ushort)2 : (ushort)1;
                 if (value)
                 {
                     NotaSalva.Informações.destinatário.Nome = NomeClienteHomologacao;
@@ -218,7 +218,7 @@ namespace NFeFacil.ViewModel
             }
         }
 
-        public byte EstadoIdentificacao
+        public ushort EstadoIdentificacao
         {
             get => NotaSalva.Informações.identificação.CódigoUF;
             set
@@ -261,7 +261,7 @@ namespace NFeFacil.ViewModel
         public ModalidadesTransporte ModFrete
         {
             get => (ModalidadesTransporte)NotaSalva.Informações.transp.ModFrete;
-            set => NotaSalva.Informações.transp.ModFrete = (byte)value;
+            set => NotaSalva.Informações.transp.ModFrete = (ushort)value;
         }
         #endregion
 

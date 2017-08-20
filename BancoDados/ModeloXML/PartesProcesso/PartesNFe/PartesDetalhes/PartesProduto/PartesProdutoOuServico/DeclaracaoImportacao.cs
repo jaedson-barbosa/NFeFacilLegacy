@@ -39,7 +39,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
         /// Via de transporte internacional informada na Declaração de Importação.
         /// </summary>
         [XmlElement("tpViaTransp", Order = 5)]
-        public byte TpViaTransp { get; set; }
+        public ushort TpViaTransp { get; set; }
 
         /// <summary>
         /// (Opcional)
@@ -53,7 +53,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
         /// Forma de importação quanto a intermediação.
         /// </summary>
         [XmlElement("tpIntermedio", Order = 7)]
-        public byte TpIntermedio { get; set; }
+        public ushort TpIntermedio { get; set; }
 
         [XmlElement(Order = 8)]
         public string CNPJ { get; set; }

@@ -7,7 +7,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
     public class Transporte
     {
         [XmlElement("modFrete", Order = 0)]
-        public byte ModFrete { get; set; }
+        public ushort ModFrete { get; set; }
 
         [XmlElement("transporta", Order = 1)]
         public Motorista Transporta { get; set; }

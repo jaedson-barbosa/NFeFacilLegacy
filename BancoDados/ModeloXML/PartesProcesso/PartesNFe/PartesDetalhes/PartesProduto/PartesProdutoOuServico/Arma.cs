@@ -9,7 +9,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
         /// 0=Uso permitido; 1=Uso restrito.
         /// </summary>
         [XmlElement("tpArma", Order = 0)]
-        public byte TpArma { get; set; }
+        public ushort TpArma { get; set; }
 
         /// <summary>
         /// Número de série da arma.

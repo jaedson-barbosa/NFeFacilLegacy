@@ -9,7 +9,6 @@
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Estilos/CoresDestaque.xaml" />
                 <ResourceDictionary Source="Estilos/PivotPrincipal.xaml" />
                 <ResourceDictionary Source="Estilos/Tabela.xaml" />
             </ResourceDictionary.MergedDictionaries>

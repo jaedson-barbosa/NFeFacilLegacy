@@ -9,7 +9,6 @@
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Estilos/CoresDestaque.xaml" />
                 <ResourceDictionary Source="ms-appx:///View/Estilos/PivotPrincipal.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Conversores:BoolToVisibility x:Key="boolView"></Conversores:BoolToVisibility>

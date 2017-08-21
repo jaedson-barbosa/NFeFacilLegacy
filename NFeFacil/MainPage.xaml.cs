@@ -32,7 +32,7 @@ namespace NFeFacil
                 Retornar();
             };
             frmPrincipal.CacheSize = 4;
-            AbrirFunçao(typeof(View.Inicio));
+            AbrirFunçao(typeof(Login.EscolhaEmitente));
             using (var db = new AplicativoContext())
             {
                 Propriedades.EmitenteAtivo = db.Emitentes.FirstOrDefault();

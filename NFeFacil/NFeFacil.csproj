@@ -160,6 +160,9 @@
     </Compile>
     <Compile Include="IdentificacaoExtensoes.cs" />
     <Compile Include="ImagemExtensoes.cs" />
+    <Compile Include="Login\EscolhaEmitente.xaml.cs">
+      <DependentUpon>EscolhaEmitente.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\Converters\NumeroString.cs" />
     <Compile Include="ViewModel\ImpostosProduto\VisibilidadeRegimeNormal.cs" />
     <Compile Include="ViewModel\ImpostosProduto\VisibilidadeSimplesNacional.cs" />
@@ -533,6 +536,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Login\EscolhaEmitente.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\CaixasDialogo\AdicionarArmamento.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -702,10 +709,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\Estilos\CoresDestaque.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="View\Estilos\PivotPrincipal.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -818,6 +821,7 @@
       <Name>Comum</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

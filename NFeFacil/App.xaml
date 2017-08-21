@@ -1,7 +1,8 @@
 ﻿<Application x:Class="NFeFacil.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:aux="using:NFeFacil.View.Estilos.Auxiliares">
+             xmlns:aux="using:NFeFacil.View.Estilos.Auxiliares"
+             xmlns:estilos="using:NFeFacil.View.Estilos.Auxiliares">
     <Application.Resources>
         <Style x:Key="ItensResponsivos"
                TargetType="ItemsControl">
@@ -52,5 +53,14 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <estilos:BibliotecaCores x:Key="cores" />
+        <SolidColorBrush x:Key="Normal"
+                         Color="{Binding Source={StaticResource cores}, Path=Cor0, Mode=OneTime}" />
+        <SolidColorBrush x:Key="PoucoVariada"
+                         Color="{Binding Source={StaticResource cores}, Path=Cor1, Mode=OneTime}" />
+        <SolidColorBrush x:Key="Variada"
+                         Color="{Binding Source={StaticResource cores}, Path=Cor2, Mode=OneTime}" />
+        <SolidColorBrush x:Key="MuitoVariada"
+                         Color="{Binding Source={StaticResource cores}, Path=Cor3, Mode=OneTime}" />
     </Application.Resources>
 </Application>

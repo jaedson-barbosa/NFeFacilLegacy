@@ -1,6 +1,5 @@
 ﻿using NFeFacil.ItensBD;
-using System;
-using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using Windows.ApplicationModel.Core;
 using Windows.System.Profile;
@@ -79,42 +78,27 @@ namespace NFeFacil
         {
             txtTitulo.Text = texto;
             symTitulo.Content = new SymbolIcon(símbolo);
-            UIElement conteudo = null;
+            IEnumerable conteudo = null;
             if (frmPrincipal.Content is IHambuguer hambuguer)
             {
-                menuPermanente.Visibility = Visibility.Visible;
                 conteudo = hambuguer.ConteudoMenu;
-
+                hambuguer.MainMudou += (sender, e) => menuTemporario.SelectedIndex = ((NewIndexEventArgs)e).NewIndex;
                 AtualizarPosicaoMenu(Window.Current.Bounds.Width >= 720);
-
-                grupoTamanhoTela.CurrentStateChanged += TamanhoTelaMudou;
             }
             else
             {
                 splitView.CompactPaneLength = 0;
-                menuPermanente.Visibility = Visibility.Collapsed;
-                menuPermanente.Content = splitView.Pane = null;
-                grupoTamanhoTela.CurrentStateChanging -= TamanhoTelaMudou;
-            }
-
-            void TamanhoTelaMudou(object sender, VisualStateChangedEventArgs e)
-            {
-                AtualizarPosicaoMenu(e.NewState.Name == "TelaGrande");
             }
 
             void AtualizarPosicaoMenu(bool telaGrande)
             {
                 if (telaGrande)
                 {
-                    splitView.Pane = null;
-                    splitView.CompactPaneLength = 0;
-                    menuPermanente.Content = conteudo;
+                    splitView.CompactPaneLength = 48;
                 }
                 else
                 {
-                    menuPermanente.Content = null;
-                    splitView.CompactPaneLength = 48;
-                    splitView.Pane = conteudo;
+                    splitView.CompactPaneLength = 0;
                 }
             }
         }
@@ -174,6 +158,16 @@ namespace NFeFacil
                 {
                     Propriedades.VendedorAtivo = vendedor;
                 }
+            }
+        }
+
+        private void MudouSubpaginaEscolhida(object sender, SelectionChangedEventArgs e)
+        {
+            var lista = (ListView)sender;
+            if (lista.ItemsSource != null)
+            {
+                var hamb = (IHambuguer)frmPrincipal.Content;
+                hamb.AtualizarMain(lista.SelectedIndex);
             }
         }
     }

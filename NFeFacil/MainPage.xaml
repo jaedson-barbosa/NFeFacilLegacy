@@ -5,24 +5,6 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="grupoTamanhoTela">
-                <VisualState x:Name="TelaGrande">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="768" />
-                    </VisualState.StateTriggers>
-                </VisualState>
-                <VisualState x:Name="TelaPequena">
-                    <VisualState.Setters>
-                        <Setter Target="ColunaMenuPermanente.Width"
-                                Value="0" />
-                    </VisualState.Setters>
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="0" />
-                    </VisualState.StateTriggers>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -72,30 +54,20 @@
         <SplitView x:Name="splitView"
                    Grid.Row="1"
                    DisplayMode="CompactOverlay">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"
-                                      x:Name="ColunaMenuPermanente" />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <ContentPresenter x:Name="menuPermanente"
-                                  Visibility="Collapsed"
-                                  Width="256"
-                                  Margin="16, 0, 0, 0"
-                                  Padding="0,16,0,16"
-                                  BorderBrush="{StaticResource Normal}"
-                                  BorderThickness="0,0,2,0" />
-                <Frame Name="frmPrincipal"
-                       Grid.Column="1">
-                    <Frame.ContentTransitions>
-                        <TransitionCollection>
-                            <NavigationThemeTransition>
-                                <DrillInNavigationTransitionInfo />
-                            </NavigationThemeTransition>
-                        </TransitionCollection>
-                    </Frame.ContentTransitions>
-                </Frame>
-            </Grid>
+            <SplitView.Pane>
+                <ListView x:Name="menuTemporario"
+                          SelectionChanged="MudouSubpaginaEscolhida" />
+            </SplitView.Pane>
+            <Frame Name="frmPrincipal"
+                   Grid.Column="1">
+                <Frame.ContentTransitions>
+                    <TransitionCollection>
+                        <NavigationThemeTransition>
+                            <DrillInNavigationTransitionInfo />
+                        </NavigationThemeTransition>
+                    </TransitionCollection>
+                </Frame.ContentTransitions>
+            </Frame>
         </SplitView>
     </Grid>
 </Page>

@@ -9,6 +9,8 @@ using System.Collections.ObjectModel;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
+using System;
+using System.Collections;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -81,28 +83,26 @@ namespace NFeFacil.View
             }
         }
 
-        public ListView ConteudoMenu
+        public IEnumerable ConteudoMenu
         {
             get
             {
-                var lista = new ListView()
+                var retorno = new ObservableCollection<Controles.ItemHambuguer>
                 {
-                    ItemsSource = new ObservableCollection<Controles.ItemHambuguer>
-                    {
-                        new Controles.ItemHambuguer(Symbol.Tag, "Dados"),
-                        new Controles.ItemHambuguer("\uE825", "Tributos"),
-                        new Controles.ItemHambuguer(Symbol.Comment, "Info adicional"),
-                        new Controles.ItemHambuguer(Symbol.World, "Importação"),
-                        new Controles.ItemHambuguer(Symbol.World, "Exportação"),
-                        new Controles.ItemHambuguer(Symbol.Target, "Produto específico")
-                    },
-                    SelectedIndex = 0
+                    new Controles.ItemHambuguer(Symbol.Tag, "Dados"),
+                    new Controles.ItemHambuguer("\uE825", "Tributos"),
+                    new Controles.ItemHambuguer(Symbol.Comment, "Info adicional"),
+                    new Controles.ItemHambuguer(Symbol.World, "Importação"),
+                    new Controles.ItemHambuguer(Symbol.World, "Exportação"),
+                    new Controles.ItemHambuguer(Symbol.Target, "Produto específico")
                 };
-                main.SelectionChanged += (sender, e) => lista.SelectedIndex = main.SelectedIndex;
-                lista.SelectionChanged += (sender, e) => main.SelectedIndex = lista.SelectedIndex;
-                return lista;
+                main.SelectionChanged += (sender, e) => MainMudou?.Invoke(this, new NewIndexEventArgs { NewIndex = main.SelectedIndex });
+                return retorno;
             }
         }
+
+        public event EventHandler MainMudou;
+        public void AtualizarMain(int index) => main.SelectedIndex = index;
 
         private void Concluir_Click(object sender, RoutedEventArgs e)
         {

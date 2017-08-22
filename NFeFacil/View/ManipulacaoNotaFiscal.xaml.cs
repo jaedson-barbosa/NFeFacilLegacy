@@ -3,6 +3,7 @@ using NFeFacil.ViewModel;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using System.Collections.ObjectModel;
+using System.Collections;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -18,32 +19,30 @@ namespace NFeFacil.View
             InitializeComponent();
         }
 
-        public ListView ConteudoMenu
+        public IEnumerable ConteudoMenu
         {
             get
             {
-                var lista = new ListView()
+                var retorno = new ObservableCollection<Controles.ItemHambuguer>
                 {
-                    ItemsSource = new ObservableCollection<Controles.ItemHambuguer>
-                    {
-                        new Controles.ItemHambuguer(Symbol.Tag, "Identificação"),
-                        new Controles.ItemHambuguer(Symbol.People, "Cliente"),
-                        new Controles.ItemHambuguer(Symbol.Street, "Retirada/Entrega"),
-                        new Controles.ItemHambuguer(Symbol.Shop, "Produtos"),
-                        new Controles.ItemHambuguer(Symbol.Calculator, "Totais"),
-                        new Controles.ItemHambuguer("\uE806", "Transporte"),
-                        new Controles.ItemHambuguer("\uE825", "Cobrança"),
-                        new Controles.ItemHambuguer(Symbol.Comment, "Informações adicionais"),
-                        new Controles.ItemHambuguer(Symbol.World, "Exportação e compras"),
-                        new Controles.ItemHambuguer(new Uri("ms-appx:///Assets/CanaAcucar.png"), "Cana-de-açúcar")
-                    },
-                    SelectedIndex = 0
+                    new Controles.ItemHambuguer(Symbol.Tag, "Identificação"),
+                    new Controles.ItemHambuguer(Symbol.People, "Cliente"),
+                    new Controles.ItemHambuguer(Symbol.Street, "Retirada/Entrega"),
+                    new Controles.ItemHambuguer(Symbol.Shop, "Produtos"),
+                    new Controles.ItemHambuguer(Symbol.Calculator, "Totais"),
+                    new Controles.ItemHambuguer("\uE806", "Transporte"),
+                    new Controles.ItemHambuguer("\uE825", "Cobrança"),
+                    new Controles.ItemHambuguer(Symbol.Comment, "Informações adicionais"),
+                    new Controles.ItemHambuguer(Symbol.World, "Exportação e compras"),
+                    new Controles.ItemHambuguer(new Uri("ms-appx:///Assets/CanaAcucar.png"), "Cana-de-açúcar")
                 };
-                pvtPrincipal.SelectionChanged += (sender, e) => lista.SelectedIndex = pvtPrincipal.SelectedIndex;
-                lista.SelectionChanged += (sender, e) => pvtPrincipal.SelectedIndex = lista.SelectedIndex;
-                return lista;
+                pvtPrincipal.SelectionChanged += (sender, e) => MainMudou?.Invoke(this, new NewIndexEventArgs { NewIndex = pvtPrincipal.SelectedIndex });
+                return retorno;
             }
         }
+
+        public event EventHandler MainMudou;
+        public void AtualizarMain(int index) => pvtPrincipal.SelectedIndex = index;
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {

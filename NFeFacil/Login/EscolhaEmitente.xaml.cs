@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
@@ -16,17 +17,19 @@ namespace NFeFacil.Login
         public EscolhaEmitente()
         {
             this.InitializeComponent();
+
             using (var db = new AplicativoContext())
             {
                 var emitentes = db.Emitentes.ToArray();
                 var imagens = db.Imagens;
                 var quantEmitentes = emitentes.Length;
-                var conjuntos = new ObservableCollection<Conjunto>();
+                var conjuntos = new ObservableCollection<ConjuntoBasicoExibicaoEmitente>();
                 for (int i = 0; i < quantEmitentes; i++)
                 {
                     var atual = emitentes[i];
-                    var novoConjunto = new Conjunto
+                    var novoConjunto = new ConjuntoBasicoExibicaoEmitente
                     {
+                        IdEmitente = atual.Id,
                         Nome = atual.Nome
                     };
                     var img = imagens.Find(atual.Id);
@@ -48,10 +51,25 @@ namespace NFeFacil.Login
             MainPage.Current.SeAtualizar(Symbol.Home, "Entrar no sistema");
         }
 
-        struct Conjunto
+        private void EmitenteEscolhido(object sender, SelectionChangedEventArgs e)
         {
-            public ImageSource Imagem { get; set; }
-            public string Nome { get; set; }
+            if (e.AddedItems.Count > 0)
+            {
+                var item = e.AddedItems[0];
+                MainPage.Current.AbrirFunçao(typeof(GeralEmitente), item);
+            }
         }
+
+        private void Cadastrar(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            MainPage.Current.AbrirFunçao(typeof(AdicionarEmitente));
+        }
+    }
+
+    struct ConjuntoBasicoExibicaoEmitente
+    {
+        public Guid IdEmitente { get; set; }
+        public ImageSource Imagem { get; set; }
+        public string Nome { get; set; }
     }
 }

@@ -6,15 +6,10 @@ namespace NFeFacil.ViewModel
 {
     public sealed class GerenciadorDadosBaseDataContext
     {
-        public ObservableCollection<EmitenteDI> Emitentes { get; private set; }
         public ObservableCollection<ClienteDI> Clientes { get; private set; }
         public ObservableCollection<MotoristaDI> Motoristas { get; private set; }
         public ObservableCollection<ProdutoDI> Produtos { get; private set; }
         public ObservableCollection<Vendedor> Vendedores { get; private set; }
-
-        public ICommand AdicionarEmitenteCommand { get; }
-        public ICommand EditarEmitenteCommand { get; }
-        public ICommand RemoverEmitenteCommand { get; }
 
         public ICommand AdicionarClienteCommand { get; }
         public ICommand EditarClienteCommand { get; }
@@ -34,10 +29,6 @@ namespace NFeFacil.ViewModel
 
         public GerenciadorDadosBaseDataContext()
         {
-            AdicionarEmitenteCommand = new Comando(AdicionarEmitente);
-            EditarEmitenteCommand = new Comando<EmitenteDI>(EditarEmitente);
-            RemoverEmitenteCommand = new Comando<EmitenteDI>(RemoverEmitente);
-
             AdicionarClienteCommand = new Comando(AdicionarCliente);
             EditarClienteCommand = new Comando<ClienteDI>(EditarCliente);
             RemoverClienteCommand = new Comando<ClienteDI>(RemoverCliente);
@@ -56,35 +47,10 @@ namespace NFeFacil.ViewModel
 
             using (var db = new AplicativoContext())
             {
-                Emitentes = db.Emitentes.GerarObs();
                 Clientes = db.Clientes.GerarObs();
                 Motoristas = db.Motoristas.GerarObs();
                 Produtos = db.Produtos.GerarObs();
                 Vendedores = db.Vendedores.GerarObs();
-            }
-        }
-
-        private void AdicionarEmitente()
-        {
-            MainPage.Current.AbrirFunçao(typeof(View.AdicionarEmitente));
-        }
-
-        private void EditarEmitente(EmitenteDI emit)
-        {
-            MainPage.Current.AbrirFunçao(typeof(View.AdicionarEmitente), new GrupoViewBanco<EmitenteDI>
-            {
-                ItemBanco = emit,
-                OperacaoRequirida = TipoOperacao.Edicao
-            });
-        }
-
-        private void RemoverEmitente(EmitenteDI emit)
-        {
-            using (var db = new AplicativoContext())
-            {
-                db.Remove(emit);
-                db.SaveChanges();
-                Emitentes.Remove(emit);
             }
         }
 

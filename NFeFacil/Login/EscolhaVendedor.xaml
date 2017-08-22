@@ -1,18 +1,17 @@
-﻿<Page x:Class="NFeFacil.Login.EscolhaEmitente"
+﻿<Page x:Class="NFeFacil.Login.EscolhaVendedor"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:local="using:NFeFacil.Login"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-          Margin="16">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <GridView x:Name="grdEmitentes"
-                  SelectionChanged="EmitenteEscolhido">
+        <GridView x:Name="grdVendedores"
+                  SelectionChanged="VendedorEscolhido">
             <GridView.ItemTemplate>
                 <DataTemplate>
                     <Grid VerticalAlignment="Center">
@@ -52,8 +51,9 @@
                 HorizontalAlignment="Right"
                 Height="64"
                 Width="160"
-                Click="Cadastrar">
-            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Cadastrar-se</TextBlock>
+                Click="LogarAdiministrador">
+            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
+                       TextAlignment="Center">Logar como administrador</TextBlock>
         </Button>
     </Grid>
 </Page>

@@ -184,7 +184,11 @@ namespace NFeFacil
             }
             else
             {
-                Application.Current.Exit();
+                var familia = AnalyticsInfo.VersionInfo.DeviceFamily;
+                if (familia.Contains("Mobile"))
+                {
+                    Application.Current.Exit();
+                }
             }
         }
 

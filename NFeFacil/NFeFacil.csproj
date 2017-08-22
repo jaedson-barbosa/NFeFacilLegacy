@@ -163,6 +163,12 @@
     <Compile Include="Login\EscolhaEmitente.xaml.cs">
       <DependentUpon>EscolhaEmitente.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Login\EscolhaVendedor.xaml.cs">
+      <DependentUpon>EscolhaVendedor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Login\GeralEmitente.xaml.cs">
+      <DependentUpon>GeralEmitente.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\Converters\NumeroString.cs" />
     <Compile Include="ViewModel\ImpostosProduto\VisibilidadeRegimeNormal.cs" />
     <Compile Include="ViewModel\ImpostosProduto\VisibilidadeSimplesNacional.cs" />
@@ -308,7 +314,7 @@
     <Compile Include="View\AdicionarDestinatario.xaml.cs">
       <DependentUpon>AdicionarDestinatario.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\AdicionarEmitente.xaml.cs">
+    <Compile Include="Login\AdicionarEmitente.xaml.cs">
       <DependentUpon>AdicionarEmitente.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\AdicionarMotorista.xaml.cs">
@@ -540,6 +546,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Login\EscolhaVendedor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Login\GeralEmitente.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\CaixasDialogo\AdicionarArmamento.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -572,7 +586,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\AdicionarEmitente.xaml">
+    <Page Include="Login\AdicionarEmitente.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

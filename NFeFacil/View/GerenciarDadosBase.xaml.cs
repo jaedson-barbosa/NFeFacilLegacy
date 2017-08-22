@@ -30,7 +30,6 @@ namespace NFeFacil.View
                 {
                     ItemsSource = new ObservableCollection<Controles.ItemHambuguer>
                     {
-                        new Controles.ItemHambuguer(Symbol.People, "Emitentes"),
                         new Controles.ItemHambuguer(Symbol.People, "Clientes"),
                         new Controles.ItemHambuguer(Symbol.People, "Motoristas"),
                         new Controles.ItemHambuguer(Symbol.Shop, "Produtos"),

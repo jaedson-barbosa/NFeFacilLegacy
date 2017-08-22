@@ -23,34 +23,13 @@ namespace NFeFacil.View
             RegistroVendaDataContext contexto;
             if (e.Parameter is GrupoViewBanco<RegistroVenda> grupo)
             {
-                contexto = new RegistroVendaDataContext(grupo.ItemBanco, AtualizarCabecalho);
-                AtualizarCabecalho(ExibicaoExtra.ExibirVendedor, grupo.ItemBanco.Vendedor);
+                contexto = new RegistroVendaDataContext(grupo.ItemBanco);
             }
             else
             {
-                contexto = new RegistroVendaDataContext(AtualizarCabecalho);
-                AtualizarCabecalho(ExibicaoExtra.EscolherVendedor);
+                contexto = new RegistroVendaDataContext();
             }
             DataContext = contexto;
-        }
-
-        void AtualizarCabecalho(ExibicaoExtra exibicao, Guid idVendedor = default(Guid))
-        {
-            switch (exibicao)
-            {
-                case ExibicaoExtra.ExibirVendedor:
-                    using (var db = new AplicativoContext())
-                    {
-                        var nomeVendedor = idVendedor != default(Guid) ? db.Vendedores.Find(idVendedor).Nome : string.Empty;
-                        MainPage.Current.SeAtualizarEspecial("\uEC59", "Venda", ExibicaoExtra.ExibirVendedor, nomeVendedor);
-                    }
-                    break;
-                case ExibicaoExtra.EscolherVendedor:
-                    MainPage.Current.SeAtualizarEspecial("\uEC59", "Venda", ExibicaoExtra.EscolherVendedor, null);
-                    break;
-                default:
-                    throw new InvalidOperationException();
-            }
         }
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)

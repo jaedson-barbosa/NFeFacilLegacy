@@ -14,7 +14,6 @@ namespace NFeFacil.ViewModel
         public RegistroVenda ItemBanco { get; }
         TipoOperacao Operacao { get; }
         ILog Log = Popup.Current;
-        Action<ExibicaoExtra, Guid> AtualizarCabecalho;
         public bool ManipulacaoAtivada { get; private set; }
 
         public ObservableCollection<ExibicaoProdutoVenda> ListaProdutos { get; private set; }
@@ -37,15 +36,13 @@ namespace NFeFacil.ViewModel
             set => ItemBanco.DataHoraVenda = value.DateTime;
         }
 
-        public RegistroVendaDataContext(Action<ExibicaoExtra, Guid> atualizarCabecalho)
+        public RegistroVendaDataContext()
         {
             AdicionarProdutoCommand = new Comando(AdicionarProduto);
             RemoverProdutoCommand = new Comando<ExibicaoProdutoVenda>(RemoverProduto);
             EditarCommand = new Comando(Editar);
             FinalizarCommand = new Comando(Finalizar);
             AplicarDescontoCommand = new Comando(AplicarDesconto);
-
-            AtualizarCabecalho = atualizarCabecalho;
 
             Clientes = db.Clientes.GerarObs();
             Motoristas = db.Motoristas.GerarObs();
@@ -63,15 +60,13 @@ namespace NFeFacil.ViewModel
             ManipulacaoAtivada = true;
         }
 
-        internal RegistroVendaDataContext(RegistroVenda venda, Action<ExibicaoExtra, Guid> atualizarCabecalho)
+        internal RegistroVendaDataContext(RegistroVenda venda)
         {
             AdicionarProdutoCommand = new Comando(AdicionarProduto);
             RemoverProdutoCommand = new Comando<ExibicaoProdutoVenda>(RemoverProduto);
             EditarCommand = new Comando(Editar);
             FinalizarCommand = new Comando(Finalizar);
             AplicarDescontoCommand = new Comando(AplicarDesconto);
-
-            AtualizarCabecalho = atualizarCabecalho;
 
             db.AttachRange(venda.Produtos);
             Clientes = db.Clientes.GerarObs();
@@ -134,13 +129,12 @@ namespace NFeFacil.ViewModel
         {
             ManipulacaoAtivada = true;
             PropertyChanged(this, new PropertyChangedEventArgs(nameof(ManipulacaoAtivada)));
-            AtualizarCabecalho(ExibicaoExtra.EscolherVendedor, default(Guid));
         }
 
         void Finalizar()
         {
             ItemBanco.UltimaData = DateTime.Now;
-            ItemBanco.Vendedor = Propriedades.VendedorAtivo.Id;
+            ItemBanco.Vendedor = Propriedades.VendedorAtivo?.Id ?? Guid.Empty;
             if (Operacao == TipoOperacao.Adicao)
             {
                 db.Add(ItemBanco);
@@ -158,7 +152,6 @@ namespace NFeFacil.ViewModel
             ManipulacaoAtivada = false;
             PropertyChanged(this, new PropertyChangedEventArgs(nameof(ManipulacaoAtivada)));
             db.SaveChanges();
-            AtualizarCabecalho(ExibicaoExtra.ExibirVendedor, Propriedades.VendedorAtivo.Id);
         }
 
         async void AplicarDesconto()

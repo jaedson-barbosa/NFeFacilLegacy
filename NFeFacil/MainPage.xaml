@@ -56,10 +56,6 @@
                     Click="AbrirHamburguer">
                 <FontIcon Glyph="&#xE700;" />
             </Button>
-            <ComboBox Grid.Column="2"
-                      x:Name="cmbEscolha"
-                      VerticalAlignment="Center"
-                      DisplayMemberPath="Nome" />
             <Grid x:Name="MainTitleBar"
                   Grid.Column="3"
                   Background="#00000000">
@@ -76,10 +72,6 @@
                            Style="{StaticResource BodyTextBlockStyle}"
                            VerticalAlignment="Center"
                            FontWeight="Bold">Nota Fácil</TextBlock>
-                <TextBlock x:Name="txtEscolhido"
-                           Grid.Column="2"
-                           VerticalAlignment="Center"
-                           Margin="4,0,0,0" />
             </Grid>
         </Grid>
         <SplitView x:Name="splitView"

@@ -116,49 +116,12 @@ namespace NFeFacil
                     splitView.Pane = conteudo;
                 }
             }
-
-            AtualizarExibicaoExtra(frmPrincipal.Content is View.Inicio ? ExibicaoExtra.EscolherEmitente : ExibicaoExtra.ExibirEmitente);
         }
 
         public void SeAtualizar(string glyph, string texto)
         {
             txtTitulo.Text = texto;
             symTitulo.Content = new FontIcon { Glyph = glyph };
-            AtualizarExibicaoExtra(ExibicaoExtra.ExibirEmitente);
-        }
-
-        public void SeAtualizarEspecial(string glyph, string texto, ExibicaoExtra extra, string nomeVendedor)
-        {
-            txtTitulo.Text = texto;
-            symTitulo.Content = new FontIcon { Glyph = glyph };
-            if (extra == ExibicaoExtra.EscolherVendedor)
-            {
-                AtualizarExibicaoExtra(ExibicaoExtra.EscolherVendedor);
-            }
-            else
-            {
-                if (!string.IsNullOrEmpty(nomeVendedor))
-                {
-                    if (nomeVendedor.Contains(' '))
-                    {
-                        var indexEspaco = nomeVendedor.IndexOf(' ');
-                        txtEscolhido.Text = nomeVendedor.Substring(0, indexEspaco);
-                    }
-                    else
-                    {
-                        txtEscolhido.Text = nomeVendedor;
-                    }
-                }
-                else
-                {
-                    txtEscolhido.Text = "Indisponível";
-                }
-                txtEscolhido.Visibility = Visibility.Visible;
-                txtTitulo.Visibility = Visibility.Visible;
-                cmbEscolha.Visibility = Visibility.Collapsed;
-                cmbEscolha.SelectionChanged -= SelecaoMudou;
-                cmbEscolha.ItemsSource = null;
-            }
         }
 
         public async void Retornar()
@@ -197,79 +160,6 @@ namespace NFeFacil
             splitView.IsPaneOpen = !splitView.IsPaneOpen;
         }
 
-        void AtualizarExibicaoExtra(ExibicaoExtra ativa)
-        {
-            switch (ativa)
-            {
-                case ExibicaoExtra.ExibirEmitente:
-                    var emit = Propriedades.EmitenteAtivo;
-                    if (emit != null)
-                    {
-                        txtEscolhido.Text = emit.Nome.Substring(0, emit.Nome.IndexOf(' '));
-                    }
-                    else
-                    {
-                        txtEscolhido.Text = string.Empty;
-                    }
-                    txtEscolhido.Visibility = Visibility.Visible;
-                    txtTitulo.Visibility = Visibility.Visible;
-                    cmbEscolha.Visibility = Visibility.Collapsed;
-                    cmbEscolha.SelectionChanged -= SelecaoMudou;
-                    cmbEscolha.ItemsSource = null;
-                    break;
-                case ExibicaoExtra.EscolherEmitente:
-                    using (var db = new AplicativoContext())
-                    {
-                        var emits = db.Emitentes;
-                        cmbEscolha.ItemsSource = emits.GerarObs();
-                        cmbEscolha.SelectionChanged += SelecaoMudou;
-                        if (cmbEscolha.SelectedIndex == -1 && emits.Count() > 0)
-                        {
-                            if (Propriedades.EmitenteAtivo != null)
-                            {
-                                cmbEscolha.SelectedItem = Propriedades.EmitenteAtivo;
-                            }
-                            else
-                            {
-                                cmbEscolha.SelectedIndex = 0;
-                            }
-                        }
-                        txtEscolhido.Text = string.Empty;
-                        txtEscolhido.Visibility = Visibility.Collapsed;
-                        txtTitulo.Visibility = Visibility.Collapsed;
-                        cmbEscolha.Visibility = Visibility.Visible;
-                    }
-                    break;
-                case ExibicaoExtra.EscolherVendedor:
-                    using (var db = new AplicativoContext())
-                    {
-                        var vends = db.Vendedores;
-                        cmbEscolha.ItemsSource = vends.GerarObs();
-                        cmbEscolha.SelectionChanged += SelecaoMudou;
-                        if (cmbEscolha.SelectedIndex == -1 && vends.Count() > 0)
-                        {
-                            if (Propriedades.VendedorAtivo != null)
-                            {
-                                cmbEscolha.SelectedItem = Propriedades.VendedorAtivo;
-                            }
-                            else
-                            {
-                                cmbEscolha.SelectedIndex = 0;
-                            }
-                        }
-                        txtEscolhido.Text = string.Empty;
-                        txtEscolhido.Visibility = Visibility.Collapsed;
-                        txtTitulo.Visibility = Visibility.Visible;
-                        cmbEscolha.Visibility = Visibility.Visible;
-                    }
-                    break;
-                default:
-                    txtEscolhido.Visibility = Visibility.Collapsed;
-                    cmbEscolha.Visibility = Visibility.Collapsed;
-                    break;
-            }
-        }
-
         void SelecaoMudou(object sender, SelectionChangedEventArgs e)
         {
             if (e.AddedItems.Count == 1)
@@ -285,13 +175,5 @@ namespace NFeFacil
                 }
             }
         }
-    }
-
-    public enum ExibicaoExtra
-    {
-        ExibirVendedor,
-        ExibirEmitente,
-        EscolherVendedor,
-        EscolherEmitente
     }
 }

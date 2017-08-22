@@ -78,15 +78,16 @@ namespace NFeFacil
         {
             txtTitulo.Text = texto;
             symTitulo.Content = new SymbolIcon(símbolo);
-            IEnumerable conteudo = null;
             if (frmPrincipal.Content is IHambuguer hambuguer)
             {
-                conteudo = hambuguer.ConteudoMenu;
+                menuTemporario.ItemsSource = hambuguer.ConteudoMenu;
+                menuTemporario.SelectedIndex = 0;
                 hambuguer.MainMudou += (sender, e) => menuTemporario.SelectedIndex = ((NewIndexEventArgs)e).NewIndex;
                 AtualizarPosicaoMenu(Window.Current.Bounds.Width >= 720);
             }
             else
             {
+                menuTemporario.ItemsSource = null;
                 splitView.CompactPaneLength = 0;
             }
 
@@ -163,11 +164,10 @@ namespace NFeFacil
 
         private void MudouSubpaginaEscolhida(object sender, SelectionChangedEventArgs e)
         {
-            var lista = (ListView)sender;
-            if (lista.ItemsSource != null)
+            if (menuTemporario.ItemsSource != null)
             {
                 var hamb = (IHambuguer)frmPrincipal.Content;
-                hamb.AtualizarMain(lista.SelectedIndex);
+                hamb.AtualizarMain(menuTemporario.SelectedIndex);
             }
         }
     }

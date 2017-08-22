@@ -14,8 +14,6 @@
                 </VisualState>
                 <VisualState x:Name="TelaPequena">
                     <VisualState.Setters>
-                        <Setter Target="ColunaHamburguer.Width"
-                                Value="Auto" />
                         <Setter Target="ColunaMenuPermanente.Width"
                                 Value="0" />
                     </VisualState.Setters>
@@ -34,8 +32,7 @@
               Height="40">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
-                <ColumnDefinition x:Name="ColunaHamburguer"
-                                  Width="0" />
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
@@ -46,10 +43,8 @@
                     BorderThickness="0">
                 <SymbolIcon Symbol="Back" />
             </Button>
-            <Button x:Name="btnHambuguer"
-                    Grid.Column="1"
+            <Button Grid.Column="1"
                     VerticalAlignment="Stretch"
-                    Visibility="Collapsed"
                     Background="#00000000"
                     Width="48"
                     BorderThickness="0"

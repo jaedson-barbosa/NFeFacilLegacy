@@ -56,13 +56,13 @@ namespace NFeFacil.Login
             if (e.AddedItems.Count > 0)
             {
                 var item = e.AddedItems[0];
-                MainPage.Current.AbrirFunçao(typeof(GeralEmitente), item);
+                MainPage.Current.Navegar<GeralEmitente>(item);
             }
         }
 
         private void Cadastrar(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            MainPage.Current.AbrirFunçao(typeof(AdicionarEmitente));
+            MainPage.Current.Navegar<AdicionarEmitente>();
         }
     }
 

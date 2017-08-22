@@ -32,12 +32,12 @@ namespace NFeFacil.Login
         private void Confirmar(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             Propriedades.EmitenteAtivo = emitente;
-            MainPage.Current.AbrirFunçao(typeof(EscolhaVendedor));
+            MainPage.Current.Navegar<EscolhaVendedor>();
         }
 
         private void Editar(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            MainPage.Current.AbrirFunçao(typeof(AdicionarEmitente), new GrupoViewBanco<EmitenteDI>()
+            MainPage.Current.Navegar<AdicionarEmitente>(new GrupoViewBanco<EmitenteDI>()
             {
                 ItemBanco = emitente,
                 OperacaoRequirida = TipoOperacao.Edicao

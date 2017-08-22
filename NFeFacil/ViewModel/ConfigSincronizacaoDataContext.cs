@@ -57,7 +57,7 @@ namespace NFeFacil.ViewModel
 
         private void ExibirQR()
         {
-            MainPage.Current.AbrirFunçao(typeof(View.QRConexao));
+            MainPage.Current.Navegar<View.QRConexao>();
         }
 
         public async void LerQRTemporário()

@@ -56,12 +56,12 @@ namespace NFeFacil.ViewModel
 
         private void AdicionarCliente()
         {
-            MainPage.Current.AbrirFunçao(typeof(View.AdicionarDestinatario));
+            MainPage.Current.Navegar<View.AdicionarDestinatario>();
         }
 
         private void EditarCliente(ClienteDI dest)
         {
-            MainPage.Current.AbrirFunçao(typeof(View.AdicionarDestinatario), new GrupoViewBanco<ClienteDI>
+            MainPage.Current.Navegar<View.AdicionarDestinatario>(new GrupoViewBanco<ClienteDI>
             {
                 ItemBanco = dest,
                 OperacaoRequirida = TipoOperacao.Edicao
@@ -80,12 +80,12 @@ namespace NFeFacil.ViewModel
 
         private void AdicionarMotorista()
         {
-            MainPage.Current.AbrirFunçao(typeof(View.AdicionarMotorista));
+            MainPage.Current.Navegar<View.AdicionarMotorista>();
         }
 
         private void EditarMotorista(MotoristaDI mot)
         {
-            MainPage.Current.AbrirFunçao(typeof(View.AdicionarMotorista), new GrupoViewBanco<MotoristaDI>
+            MainPage.Current.Navegar<View.AdicionarMotorista>(new GrupoViewBanco<MotoristaDI>
             {
                 ItemBanco = mot,
                 OperacaoRequirida = TipoOperacao.Edicao
@@ -104,12 +104,12 @@ namespace NFeFacil.ViewModel
 
         private void AdicionarProduto()
         {
-            MainPage.Current.AbrirFunçao(typeof(View.AdicionarProduto));
+            MainPage.Current.Navegar<View.AdicionarProduto>();
         }
 
         private void EditarProduto(ProdutoDI prod)
         {
-            MainPage.Current.AbrirFunçao(typeof(View.AdicionarProduto), new GrupoViewBanco<ProdutoDI>
+            MainPage.Current.Navegar<View.AdicionarProduto>(new GrupoViewBanco<ProdutoDI>
             {
                 ItemBanco = prod,
                 OperacaoRequirida = TipoOperacao.Edicao
@@ -128,12 +128,12 @@ namespace NFeFacil.ViewModel
 
         public void AdicionarVendedor()
         {
-            MainPage.Current.AbrirFunçao(typeof(View.AdicionarVendedor));
+            MainPage.Current.Navegar<View.AdicionarVendedor>();
         }
 
         public void EditarVendedor(Vendedor vend)
         {
-            MainPage.Current.AbrirFunçao(typeof(View.AdicionarVendedor), new GrupoViewBanco<Vendedor>
+            MainPage.Current.Navegar<View.AdicionarVendedor>(new GrupoViewBanco<Vendedor>
             {
                 ItemBanco = vend,
                 OperacaoRequirida = TipoOperacao.Edicao

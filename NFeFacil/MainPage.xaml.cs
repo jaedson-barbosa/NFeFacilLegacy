@@ -1,5 +1,6 @@
 ﻿using NFeFacil.ItensBD;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Windows.ApplicationModel.Core;
 using Windows.System.Profile;
@@ -32,7 +33,7 @@ namespace NFeFacil
                 Retornar();
             };
             frmPrincipal.CacheSize = 4;
-            AbrirFunçao(typeof(Login.EscolhaEmitente));
+            Navegar<Login.EscolhaEmitente>();
             using (var db = new AplicativoContext())
             {
                 Propriedades.EmitenteAtivo = db.Emitentes.FirstOrDefault();
@@ -69,9 +70,9 @@ namespace NFeFacil
             }
         }
 
-        public void AbrirFunçao(Type tela, object parametro = null)
+        public void Navegar<T>(object parametro = null) where T : Page, new()
         {
-            frmPrincipal.Navigate(tela, parametro);
+            frmPrincipal.Navigate(typeof(T), parametro);
         }
 
         public void SeAtualizar(Symbol símbolo, string texto)
@@ -81,7 +82,7 @@ namespace NFeFacil
             UIElement conteudo = null;
             if (frmPrincipal.Content is IHambuguer hambuguer)
             {
-                menuPermanente.Visibility = btnHambuguer.Visibility = Visibility.Visible;
+                menuPermanente.Visibility = Visibility.Visible;
                 conteudo = hambuguer.ConteudoMenu;
 
                 AtualizarPosicaoMenu(Window.Current.Bounds.Width >= 720);
@@ -91,7 +92,7 @@ namespace NFeFacil
             else
             {
                 splitView.CompactPaneLength = 0;
-                menuPermanente.Visibility = btnHambuguer.Visibility = Visibility.Collapsed;
+                menuPermanente.Visibility = Visibility.Collapsed;
                 menuPermanente.Content = splitView.Pane = null;
                 grupoTamanhoTela.CurrentStateChanging -= TamanhoTelaMudou;
             }

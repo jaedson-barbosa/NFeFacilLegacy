@@ -55,7 +55,7 @@ namespace NFeFacil.View
                 ItemBanco = venda.Base,
                 OperacaoRequirida = TipoOperacao.Edicao
             };
-            MainPage.Current.AbrirFunçao(typeof(ManipulacaoRegistroVenda), conjunto);
+            MainPage.Current.Navegar<ManipulacaoRegistroVenda>(conjunto);
         }
 
         private void Excluir(object sender, Windows.UI.Xaml.RoutedEventArgs e)

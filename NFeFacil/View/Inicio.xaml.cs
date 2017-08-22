@@ -33,7 +33,38 @@ namespace NFeFacil.View
 
         private void AbrirFunção(object sender, TappedRoutedEventArgs e)
         {
-            MainPage.Current.AbrirFunçao(Type.GetType($"NFeFacil.View.{(sender as FrameworkElement).Name}"));
+            switch ((sender as FrameworkElement).Name)
+            {
+                case "GerenciarDadosBase":
+                    MainPage.Current.Navegar<GerenciarDadosBase>();
+                    break;
+                case "ControleEstoque":
+                    MainPage.Current.Navegar<ControleEstoque>();
+                    break;
+                case "ManipulacaoRegistroVenda":
+                    MainPage.Current.Navegar<ManipulacaoRegistroVenda>();
+                    break;
+                case "NotasSalvas":
+                    MainPage.Current.Navegar<NotasSalvas>();
+                    break;
+                case "RegistrosVenda":
+                    MainPage.Current.Navegar<RegistrosVenda>();
+                    break;
+                case "Consulta":
+                    MainPage.Current.Navegar<Consulta>();
+                    break;
+                case "VendasAnuais":
+                    MainPage.Current.Navegar<VendasAnuais>();
+                    break;
+                case "Configuracoes":
+                    MainPage.Current.Navegar<Configuracoes>();
+                    break;
+                case "ConfigSincronizacao":
+                    MainPage.Current.Navegar<ConfigSincronizacao>();
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void CriarNotaFiscal(object sender, TappedRoutedEventArgs e)
@@ -67,7 +98,7 @@ namespace NFeFacil.View
                     StatusAtual = StatusNFe.Edição
                 };
                 notaSimples.NotaSalva.Informações.identificação.DefinirVersãoAplicativo();
-                MainPage.Current.AbrirFunçao(typeof(ManipulacaoNotaFiscal), notaSimples);
+                MainPage.Current.Navegar<ManipulacaoNotaFiscal>(notaSimples);
             }
             else
             {

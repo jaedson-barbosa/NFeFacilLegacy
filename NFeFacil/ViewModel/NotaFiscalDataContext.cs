@@ -643,7 +643,7 @@ namespace NFeFacil.ViewModel
 
         void GerarDANFE()
         {
-            MainPage.Current.AbrirFunçao(typeof(ViewDANFE), NotaEmitida);
+            MainPage.Current.Navegar<ViewDANFE>(NotaEmitida);
             Conjunto.Impressa = true;
             AtualizarDI();
         }
@@ -656,18 +656,18 @@ namespace NFeFacil.ViewModel
             {
                 Produto = ProdutoSelecionado != null ? ProdutoSelecionado.ToProdutoOuServico() : new ProdutoOuServico()
             };
-            MainPage.Current.AbrirFunçao(typeof(ManipulacaoProdutoCompleto), detCompleto);
+            MainPage.Current.Navegar<ManipulacaoProdutoCompleto>(detCompleto);
         }
 
         void ExibirProduto(DetalhesProdutos produto)
         {
             var detCompleto = new GrupoViewBanco<DetalhesProdutos> { ItemBanco = produto };
-            MainPage.Current.AbrirFunçao(typeof(ManipulacaoProdutoCompleto), detCompleto);
+            MainPage.Current.Navegar<ManipulacaoProdutoCompleto>(detCompleto);
         }
 
         void EditarProduto(DetalhesProdutos produto)
         {
-            MainPage.Current.AbrirFunçao(typeof(ManipulacaoProdutoCompleto), produto);
+            MainPage.Current.Navegar<ManipulacaoProdutoCompleto>(produto);
         }
 
         void RemoverProduto(DetalhesProdutos produto)

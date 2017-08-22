@@ -64,14 +64,14 @@ namespace NFeFacil.Login
                     var vend = db.Vendedores.Find(item.IdVendedor);
                     Propriedades.VendedorAtivo = vend;
                 }
-                MainPage.Current.AbrirFunçao(typeof(View.Inicio));
+                MainPage.Current.Navegar<View.Inicio>();
             }
         }
 
         private void LogarAdiministrador(object sender, RoutedEventArgs e)
         {
             Propriedades.VendedorAtivo = null;
-            MainPage.Current.AbrirFunçao(typeof(View.Inicio));
+            MainPage.Current.Navegar<View.Inicio>();
         }
 
         struct ConjuntoBasicoExibicaoVendedor

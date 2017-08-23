@@ -174,6 +174,9 @@
     <Compile Include="ViewModel\ImpostosProduto\VisibilidadeSimplesNacional.cs" />
     <Compile Include="ViewModel\ImpostosProduto\VisibilidadesRegimeNormal.cs" />
     <Compile Include="ViewModel\ImpostosProduto\VisibilidadesSimplesNacional.cs" />
+    <Compile Include="ViewRegistroVenda\DARV.xaml.cs">
+      <DependentUpon>DARV.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\CaixasDialogo\AdicionarArmamento.xaml.cs">
       <DependentUpon>AdicionarArmamento.xaml</DependentUpon>
     </Compile>
@@ -546,6 +549,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Login\GeralEmitente.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewRegistroVenda\DARV.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

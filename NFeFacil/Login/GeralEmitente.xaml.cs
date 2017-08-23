@@ -22,11 +22,13 @@ namespace NFeFacil.Login
         {
             var emitente = (ConjuntoBasicoExibicaoEmitente)e.Parameter;
             imgLogotipo.Source = emitente.Imagem;
+            txtNomeFantasia.Text = emitente.NomeFantasia;
             txtNome.Text = emitente.Nome;
             using (var db = new AplicativoContext())
             {
                 this.emitente = db.Emitentes.Find(emitente.IdEmitente);
             }
+            MainPage.Current.SeAtualizar(Symbol.Home, "Dados da empresa");
         }
 
         private void Confirmar(object sender, Windows.UI.Xaml.RoutedEventArgs e)

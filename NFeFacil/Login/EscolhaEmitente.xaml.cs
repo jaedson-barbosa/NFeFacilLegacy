@@ -30,6 +30,7 @@ namespace NFeFacil.Login
                     var novoConjunto = new ConjuntoBasicoExibicaoEmitente
                     {
                         IdEmitente = atual.Id,
+                        NomeFantasia = atual.NomeFantasia,
                         Nome = atual.Nome
                     };
                     var img = imagens.Find(atual.Id);
@@ -48,7 +49,7 @@ namespace NFeFacil.Login
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            MainPage.Current.SeAtualizar(Symbol.Home, "Entrar no sistema");
+            MainPage.Current.SeAtualizar(Symbol.Home, "Escolher empresa");
         }
 
         private void EmitenteEscolhido(object sender, SelectionChangedEventArgs e)
@@ -70,6 +71,7 @@ namespace NFeFacil.Login
     {
         public Guid IdEmitente { get; set; }
         public ImageSource Imagem { get; set; }
+        public string NomeFantasia { get; set; }
         public string Nome { get; set; }
     }
 }

@@ -10,7 +10,7 @@
         <Grid BorderBrush="{StaticResource Normal}"
               BorderThickness="4"
               CornerRadius="128"
-              Margin="16,16,16,32"
+              Margin="4,4,4,54"
               Width="256"
               Height="256">
             <SymbolIcon Symbol="Contact"
@@ -26,12 +26,20 @@
                    Source="{Binding Imagem, Mode=OneTime}"
                    Stretch="UniformToFill" />
         </Grid>
-        <TextBlock x:Name="txtNome"
+        <TextBlock x:Name="txtNomeFantasia"
                    Style="{StaticResource TitleTextBlockStyle}"
                    TextAlignment="Center"
-                   Margin="4,0"
+                   Margin="4,0,4,22"
                    Height="32"
                    VerticalAlignment="Bottom" />
+        <TextBlock x:Name="txtNome"
+                   Style="{StaticResource BodyTextBlockStyle}"
+                   TextAlignment="Center"
+                   Margin="4,0"
+                   VerticalAlignment="Bottom"
+                   FontWeight="Bold"
+                   FontSize="18"
+                   Height="22" />
     </Grid>
     <Page.BottomAppBar>
         <CommandBar>

@@ -5,20 +5,14 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
-
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-          Margin="16">
-        <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition Height="Auto" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
+          Padding="16">
         <Grid BorderBrush="{StaticResource Normal}"
               BorderThickness="4"
               CornerRadius="128"
-              Margin="16"
-              MaxWidth="256"
-              MaxHeight="256">
+              Margin="16,16,16,32"
+              Width="256"
+              Height="256">
             <SymbolIcon Symbol="Contact"
                         Canvas.ZIndex="0"
                         RenderTransformOrigin="0.5,0.5">
@@ -33,28 +27,23 @@
                    Stretch="UniformToFill" />
         </Grid>
         <TextBlock x:Name="txtNome"
-                   Grid.Row="1"
                    Style="{StaticResource TitleTextBlockStyle}"
                    TextAlignment="Center"
-                   Margin="4,0" />
-        <Grid Grid.Row="2"
-              MinWidth="160"
-              HorizontalAlignment="Right"
-              VerticalAlignment="Bottom">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <Button HorizontalAlignment="Stretch"
-                    Click="Confirmar">Confirmar</Button>
-            <Button Grid.Row="1"
-                    Margin="0,4"
-                    HorizontalAlignment="Stretch"
-                    Click="Editar">Editar</Button>
-            <Button Grid.Row="2"
-                    HorizontalAlignment="Stretch"
-                    Click="Apagar">Apagar</Button>
-        </Grid>
+                   Margin="4,0"
+                   Height="32"
+                   VerticalAlignment="Bottom" />
     </Grid>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Icon="Accept"
+                          Label="Confirmar"
+                          Click="Confirmar" />
+            <AppBarButton Icon="Edit"
+                          Label="Editar"
+                          Click="Editar" />
+            <AppBarButton Icon="Delete"
+                          Label="Apagar"
+                          Click="Apagar" />
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>

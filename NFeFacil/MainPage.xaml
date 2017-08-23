@@ -63,7 +63,7 @@
                     <ListView x:Name="menuTemporario"
                               SelectionChanged="MudouSubpaginaEscolhida" />
                     <Grid x:Name="grdInfoGeral"
-                          Visibility="Collapsed">
+                          Grid.Row="1">
                         <Grid.RowDefinitions>
                             <RowDefinition />
                             <RowDefinition Height="Auto" />
@@ -72,7 +72,8 @@
                         </Grid.RowDefinitions>
                         <SymbolIcon Symbol="Contact"
                                     Canvas.ZIndex="0"
-                                    RenderTransformOrigin="0.5,0.5">
+                                    RenderTransformOrigin="0.5,0.5"
+                                    Margin="0,32">
                             <SymbolIcon.RenderTransform>
                                 <CompositeTransform ScaleX="4"
                                                     ScaleY="4" />
@@ -90,7 +91,8 @@
                         <SymbolIcon Symbol="Contact"
                                     Grid.Row="2"
                                     Canvas.ZIndex="0"
-                                    RenderTransformOrigin="0.5,0.5">
+                                    RenderTransformOrigin="0.5,0.5"
+                                    Margin="0,32">
                             <SymbolIcon.RenderTransform>
                                 <CompositeTransform ScaleX="4"
                                                     ScaleY="4" />
@@ -102,7 +104,7 @@
                                MaxHeight="160"
                                Stretch="UniformToFill" />
                         <TextBlock x:Name="txtNomeVendedor"
-                                   Grid.Row="1"
+                                   Grid.Row="3"
                                    Style="{StaticResource SubtitleTextBlockStyle}"
                                    TextAlignment="Center"
                                    Margin="4,0,4,4" />

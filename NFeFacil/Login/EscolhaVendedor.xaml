@@ -5,55 +5,50 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <GridView x:Name="grdVendedores"
-                  SelectionChanged="VendedorEscolhido">
-            <GridView.ItemTemplate>
-                <DataTemplate>
-                    <Grid VerticalAlignment="Center">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-                        <Grid BorderBrush="{StaticResource Normal}"
-                              BorderThickness="4"
-                              CornerRadius="80"
-                              Width="160"
-                              Height="160"
-                              Margin="0,8,0,4">
-                            <SymbolIcon Symbol="Contact"
-                                        Canvas.ZIndex="0"
-                                        RenderTransformOrigin="0.5,0.5">
-                                <SymbolIcon.RenderTransform>
-                                    <CompositeTransform ScaleX="4"
-                                                        ScaleY="4" />
-                                </SymbolIcon.RenderTransform>
-                            </SymbolIcon>
-                            <Image Canvas.ZIndex="1"
-                                   Source="{Binding Imagem, Mode=OneTime}"
-                                   Stretch="UniformToFill" />
-                        </Grid>
-                        <TextBlock Grid.Row="1"
-                                   Text="{Binding Nome, Mode=OneTime}"
-                                   Style="{StaticResource SubtitleTextBlockStyle}"
-                                   MaxWidth="200"
-                                   TextAlignment="Center"
-                                   Margin="4,0" />
+    <GridView x:Name="grdVendedores"
+              Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+              Padding="16"
+              SelectionChanged="VendedorEscolhido">
+        <GridView.ItemTemplate>
+            <DataTemplate>
+                <Grid VerticalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid BorderBrush="{StaticResource Normal}"
+                          BorderThickness="4"
+                          CornerRadius="128"
+                          Width="256"
+                          Height="256"
+                          Margin="0,8,0,4">
+                        <SymbolIcon Symbol="Contact"
+                                    Canvas.ZIndex="0"
+                                    RenderTransformOrigin="0.5,0.5">
+                            <SymbolIcon.RenderTransform>
+                                <CompositeTransform ScaleX="4"
+                                                    ScaleY="4" />
+                            </SymbolIcon.RenderTransform>
+                        </SymbolIcon>
+                        <Image Canvas.ZIndex="1"
+                               Source="{Binding Imagem, Mode=OneTime}"
+                               Stretch="UniformToFill" />
                     </Grid>
-                </DataTemplate>
-            </GridView.ItemTemplate>
-        </GridView>
-        <Button Grid.Row="1"
-                HorizontalAlignment="Right"
-                Height="64"
-                Width="160"
-                Click="LogarAdiministrador">
-            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
-                       TextAlignment="Center">Logar como administrador</TextBlock>
-        </Button>
-    </Grid>
+                    <TextBlock Grid.Row="1"
+                               Text="{Binding Nome, Mode=OneTime}"
+                               Style="{StaticResource SubtitleTextBlockStyle}"
+                               MaxWidth="200"
+                               TextAlignment="Center"
+                               Margin="4,0" />
+                </Grid>
+            </DataTemplate>
+        </GridView.ItemTemplate>
+    </GridView>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Icon="Admin"
+                          Label="Logar como administrador"
+                          Click="LogarAdiministrador" />
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>

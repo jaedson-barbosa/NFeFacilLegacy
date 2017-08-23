@@ -46,7 +46,7 @@ namespace NFeFacil.Login
             }
         }
 
-        private void VendedorEscolhido(object sender, SelectionChangedEventArgs e)
+        private async void VendedorEscolhido(object sender, SelectionChangedEventArgs e)
         {
             if (e.AddedItems.Count > 0)
             {
@@ -57,13 +57,15 @@ namespace NFeFacil.Login
                     Propriedades.VendedorAtivo = vend;
                 }
                 MainPage.Current.Navegar<View.Inicio>();
+                await MainPage.Current.AtualizarInformaçõesGerais();
             }
         }
 
-        private void LogarAdiministrador(object sender, RoutedEventArgs e)
+        private async void LogarAdiministrador(object sender, RoutedEventArgs e)
         {
             Propriedades.VendedorAtivo = null;
             MainPage.Current.Navegar<View.Inicio>();
+            await MainPage.Current.AtualizarInformaçõesGerais();
         }
 
         struct ConjuntoBasicoExibicaoVendedor

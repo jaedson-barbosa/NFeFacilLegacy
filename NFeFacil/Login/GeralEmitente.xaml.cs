@@ -25,7 +25,7 @@ namespace NFeFacil.Login
             txtNome.Text = emitente.Nome;
             using (var db = new AplicativoContext())
             {
-                Propriedades.EmitenteAtivo = db.Emitentes.Find(emitente.IdEmitente);
+                this.emitente = db.Emitentes.Find(emitente.IdEmitente);
             }
         }
 

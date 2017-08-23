@@ -1,6 +1,7 @@
 ﻿using NFeFacil.ItensBD;
 using System.Collections;
 using System.Linq;
+using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.System.Profile;
 using Windows.UI;
@@ -83,24 +84,12 @@ namespace NFeFacil
                 menuTemporario.ItemsSource = hambuguer.ConteudoMenu;
                 menuTemporario.SelectedIndex = 0;
                 hambuguer.MainMudou += (sender, e) => menuTemporario.SelectedIndex = ((NewIndexEventArgs)e).NewIndex;
-                AtualizarPosicaoMenu(Window.Current.Bounds.Width >= 720);
+                splitView.CompactPaneLength = 48;
             }
             else
             {
                 menuTemporario.ItemsSource = null;
                 splitView.CompactPaneLength = 0;
-            }
-
-            void AtualizarPosicaoMenu(bool telaGrande)
-            {
-                if (telaGrande)
-                {
-                    splitView.CompactPaneLength = 48;
-                }
-                else
-                {
-                    splitView.CompactPaneLength = 0;
-                }
             }
         }
 
@@ -168,6 +157,34 @@ namespace NFeFacil
             {
                 var hamb = (IHambuguer)frmPrincipal.Content;
                 hamb.AtualizarMain(menuTemporario.SelectedIndex);
+            }
+        }
+
+        public async Task AtualizarInformaçõesGerais()
+        {
+            grdInfoGeral.Visibility = Visibility.Visible;
+            using (var db = new AplicativoContext())
+            {
+                var img = db.Imagens.Find(Propriedades.EmitenteAtivo.Id);
+                if (img != null)
+                {
+                    imgLogotipo.Source = await img.GetSourceAsync();
+                }
+                txtNomeEmitente.Text = Propriedades.EmitenteAtivo.Nome;
+
+                if (Propriedades.VendedorAtivo != null)
+                {
+                    img = db.Imagens.Find(Propriedades.VendedorAtivo.Id);
+                    if (img != null)
+                    {
+                        imgVendedor.Source = await img.GetSourceAsync();
+                    }
+                    txtNomeVendedor.Text = Propriedades.VendedorAtivo.Nome;
+                }
+                else
+                {
+                    txtNomeVendedor.Text = "Administrador";
+                }
             }
         }
     }

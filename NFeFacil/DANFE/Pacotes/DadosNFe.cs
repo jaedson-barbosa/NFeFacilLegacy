@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using NFeFacil.PacotesImpressaoGenericos;
+using System.ComponentModel;
 using Windows.UI.Xaml.Media;
 
 namespace NFeFacil.DANFE.Pacotes

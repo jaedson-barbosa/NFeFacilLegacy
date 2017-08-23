@@ -3,6 +3,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using NFeFacil.DANFE.PaginasDANFE;
 using NFeFacil.ModeloXML;
+using static NFeFacil.ExtensoesPrincipal;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -15,8 +16,8 @@ namespace NFeFacil.DANFE
     {
         private GerenciadorImpressao gerenciadorImpressão;
 
-        public double Largura => PartesDANFE.DimensoesPadrao.CentimeterToPixel(21);
-        public double Altura => PartesDANFE.DimensoesPadrao.CentimeterToPixel(29.7);
+        public double Largura => CentimeterToPixel(21);
+        public double Altura => CentimeterToPixel(29.7);
 
         public ViewDANFE()
         {

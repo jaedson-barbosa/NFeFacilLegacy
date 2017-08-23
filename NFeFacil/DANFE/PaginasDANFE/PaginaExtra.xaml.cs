@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using static NFeFacil.ExtensoesPrincipal;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -13,9 +14,9 @@ namespace NFeFacil.DANFE.PaginasDANFE
     /// </summary>
     public sealed partial class PaginaExtra : UserControl, IPagina
     {
-        double LarguraPagina => PartesDANFE.DimensoesPadrao.CentimeterToPixel(21);
-        double AlturaPagina => PartesDANFE.DimensoesPadrao.CentimeterToPixel(29.7);
-        Thickness MargemPadrao => new Thickness(PartesDANFE.DimensoesPadrao.CentimeterToPixel(1));
+        double LarguraPagina => CentimeterToPixel(21);
+        double AlturaPagina => CentimeterToPixel(29.7);
+        Thickness MargemPadrao => new Thickness(CentimeterToPixel(1));
 
         DadosNFe ContextoNFe { get; }
 

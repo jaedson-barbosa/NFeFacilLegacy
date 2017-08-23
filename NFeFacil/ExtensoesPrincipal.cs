@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using System.Xml.Serialization;
+using Windows.UI.Xaml;
 
 namespace NFeFacil
 {
@@ -64,6 +65,17 @@ namespace NFeFacil
         internal static void ManipularErro(this Exception erro)
         {
             Log.Escrever(TitulosComuns.Erro, erro.Message);
+        }
+
+        internal static double CentimeterToPixel(double Centimeter)
+        {
+            const double fator = 96 / 2.54;
+            return Centimeter * fator;
+        }
+
+        internal static GridLength CentimeterToLength(double Centimeter)
+        {
+            return new GridLength(CentimeterToPixel(Centimeter));
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe;
 
-namespace NFeFacil.DANFE.Pacotes
+namespace NFeFacil.PacotesImpressaoGenericos
 {
     public sealed class Endereço
     {

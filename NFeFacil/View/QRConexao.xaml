@@ -68,7 +68,8 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <TextBlock Grid.ColumnSpan="2"
-                       TextWrapping="Wrap">
+                       TextWrapping="Wrap"
+                       MaxWidth="512">
                     <Run Text="Leia o código QR ou insira estes dados no dispositivo que será conectado. " />
                     <Run Text="Você pode parar também clicando no botão do meio do anel de carregamento."
                          FontWeight="Bold" /></TextBlock>

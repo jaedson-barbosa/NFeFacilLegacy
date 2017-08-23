@@ -643,7 +643,7 @@ namespace NFeFacil.ViewModel
 
         void GerarDANFE()
         {
-            MainPage.Current.Navegar<ViewDANFE>(NotaEmitida);
+            MainPage.Current.Navegar<DANFE.ViewDANFE>(NotaEmitida);
             Conjunto.Impressa = true;
             AtualizarDI();
         }

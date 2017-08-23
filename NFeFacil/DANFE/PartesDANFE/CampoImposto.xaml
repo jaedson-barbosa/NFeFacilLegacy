@@ -1,0 +1,118 @@
+﻿<UserControl x:Class="NFeFacil.DANFE.PartesDANFE.CampoImposto"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignHeight="300"
+             d:DesignWidth="400">
+    <UserControl.Resources>
+        <ResourceDictionary Source="EstilosPadrao.xaml" />
+    </UserControl.Resources>
+    <StackPanel Margin="{Binding Source={StaticResource dimensoes}, Path=MargemBloco}"
+                Width="{Binding Source={StaticResource dimensoes}, Path=LarguraTotal}">
+        <TextBlock Style="{StaticResource DescritivoBloco}">CÁLCULO DO IMPOSTO</TextBlock>
+        <Grid BorderThickness="1"
+              BorderBrush="Black"
+              CornerRadius="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="{Binding Source={StaticResource dimensoes}, Path=AlturaLinhaPadrao}" />
+                <RowDefinition Height="{Binding Source={StaticResource dimensoes}, Path=AlturaLinhaPadrao}" />
+            </Grid.RowDefinitions>
+            <Grid BorderThickness="0,0,0,1"
+                  BorderBrush="Black">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <StackPanel Padding="{StaticResource PaddingPadrao}">
+                    <TextBlock Style="{StaticResource Cabecalho}">BASE DE CÁLCULO DO ICMS</TextBlock>
+                    <TextBlock Style="{StaticResource ConteudoNumerico}"
+                               Text="{Binding BaseCalculoICMS}" />
+                </StackPanel>
+                <StackPanel Padding="{StaticResource PaddingPadrao}"
+                            Grid.Column="1"
+                            BorderThickness="1,0,1,0"
+                            BorderBrush="Black">
+                    <TextBlock Style="{StaticResource Cabecalho}">VALOR DO ICMS</TextBlock>
+                    <TextBlock Style="{StaticResource ConteudoNumerico}"
+                               Text="{Binding ValorICMS}" />
+                </StackPanel>
+                <StackPanel Padding="{StaticResource PaddingPadrao}"
+                            Grid.Column="2">
+                    <TextBlock Style="{StaticResource Cabecalho}">BASE DE CÁLCULO DO ICMS ST</TextBlock>
+                    <TextBlock Style="{StaticResource ConteudoNumerico}"
+                               Text="{Binding BaseCalculoICMSST}" />
+                </StackPanel>
+                <StackPanel Padding="{StaticResource PaddingPadrao}"
+                            Grid.Column="3"
+                            BorderThickness="1,0,1,0"
+                            BorderBrush="Black">
+                    <TextBlock Style="{StaticResource Cabecalho}">VALOR DO ICMS ST</TextBlock>
+                    <TextBlock Style="{StaticResource ConteudoNumerico}"
+                               Text="{Binding ValorICMSST}" />
+                </StackPanel>
+                <StackPanel Padding="{StaticResource PaddingPadrao}"
+                            Grid.Column="4">
+                    <TextBlock Style="{StaticResource Cabecalho}">VALOR TOTAL DOS PRODUTOS</TextBlock>
+                    <TextBlock Style="{StaticResource ConteudoNumerico}"
+                               Text="{Binding ValorTotalProdutos}" />
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <StackPanel Padding="{StaticResource PaddingPadrao}"
+                            BorderThickness="0,0,1,0"
+                            BorderBrush="Black">
+                    <TextBlock Style="{StaticResource Cabecalho}">VALOR DO FRETE</TextBlock>
+                    <TextBlock Style="{StaticResource ConteudoNumerico}"
+                               Text="{Binding ValorFrete}" />
+                </StackPanel>
+                <StackPanel Padding="{StaticResource PaddingPadrao}"
+                            Grid.Column="1">
+                    <TextBlock Style="{StaticResource Cabecalho}">VALOR DO SEGURO</TextBlock>
+                    <TextBlock Style="{StaticResource ConteudoNumerico}"
+                               Text="{Binding ValorSeguro}" />
+                </StackPanel>
+                <StackPanel Padding="{StaticResource PaddingPadrao}"
+                            Grid.Column="2"
+                            BorderThickness="1,0,1,0"
+                            BorderBrush="Black">
+                    <TextBlock Style="{StaticResource Cabecalho}">DESCONTO</TextBlock>
+                    <TextBlock Style="{StaticResource ConteudoNumerico}"
+                               Text="{Binding Desconto}" />
+                </StackPanel>
+                <StackPanel Padding="{StaticResource PaddingPadrao}"
+                            Grid.Column="3">
+                    <TextBlock Style="{StaticResource Cabecalho}">OUTRAS DESPESAS ACESSÓRIAS</TextBlock>
+                    <TextBlock Style="{StaticResource ConteudoNumerico}"
+                               Text="{Binding DespesasAcessorias}" />
+                </StackPanel>
+                <StackPanel Padding="{StaticResource PaddingPadrao}"
+                            Grid.Column="4"
+                            BorderThickness="1,0,1,0"
+                            BorderBrush="Black">
+                    <TextBlock Style="{StaticResource Cabecalho}">VALOR DO IPI</TextBlock>
+                    <TextBlock Style="{StaticResource ConteudoNumerico}"
+                               Text="{Binding ValorIPI}" />
+                </StackPanel>
+                <StackPanel Padding="{StaticResource PaddingPadrao}"
+                            Grid.Column="5">
+                    <TextBlock Style="{StaticResource Cabecalho}">VALOR TOTAL DA NOTA</TextBlock>
+                    <TextBlock Style="{StaticResource ConteudoNumerico}"
+                               Text="{Binding TotalNota}" />
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </StackPanel>
+</UserControl>

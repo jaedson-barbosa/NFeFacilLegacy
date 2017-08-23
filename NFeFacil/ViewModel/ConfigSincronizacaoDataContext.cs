@@ -39,12 +39,12 @@ namespace NFeFacil.ViewModel
 
         public ConfigSincronizacaoDataContext()
         {
-            ExibirQRCommand = new Comando(ExibirQR, true);
-            LerQRTemporárioCommand = new Comando(LerQRTemporário, true);
-            InserirDadosManualmenteCommand = new Comando(InserirDadosManualmente, true);
-            IniciarServidorCommand = new Comando(IniciarServidor, true);
-            SincronizarAgoraCommand = new Comando(SincronizarAgora, true);
-            SincronizarTudoCommand = new Comando(SincronizarTudo, true);
+            ExibirQRCommand = new Comando(ExibirQR);
+            LerQRTemporárioCommand = new Comando(LerQRTemporário);
+            InserirDadosManualmenteCommand = new Comando(InserirDadosManualmente);
+            IniciarServidorCommand = new Comando(IniciarServidor);
+            SincronizarAgoraCommand = new Comando(SincronizarAgora);
+            SincronizarTudoCommand = new Comando(SincronizarTudo);
         }
 
         public ICommand ExibirQRCommand { get; }

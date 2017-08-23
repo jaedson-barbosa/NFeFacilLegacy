@@ -94,12 +94,12 @@ namespace NFeFacil.View.CaixasDialogo
                 }
             }
 
-            public DeclaracaoImportacaoDataContext(ref NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesProdutoOuServico.DeclaracaoImportacao dec) : base()
+            public DeclaracaoImportacaoDataContext(ref ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesProdutoOuServico.DeclaracaoImportacao dec) : base()
             {
                 Declaracao = dec;
                 NovaAdicao = new DIAdicao();
-                AdicionarAdicaoCommand = new Comando(AdicionarAdicao, true);
-                RemoverAdicaoCommand = new Comando(RemoverAdicao, true);
+                AdicionarAdicaoCommand = new Comando(AdicionarAdicao);
+                RemoverAdicaoCommand = new Comando(RemoverAdicao);
             }
         }
     }

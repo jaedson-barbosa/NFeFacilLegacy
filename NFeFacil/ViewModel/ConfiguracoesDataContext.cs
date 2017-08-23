@@ -20,8 +20,8 @@ namespace NFeFacil.ViewModel
 
         public ConfiguracoesDataContext()
         {
-            ImportarNotaFiscalCommand = new Comando(ImportarNotaFiscal, true);
-            ImportarDadoBaseCommand = new Comando(ImportarDadoBase, true);
+            ImportarNotaFiscalCommand = new Comando(ImportarNotaFiscal);
+            ImportarDadoBaseCommand = new Comando(ImportarDadoBase);
 
             AttLista();
         }

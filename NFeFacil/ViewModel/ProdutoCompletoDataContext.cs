@@ -286,13 +286,13 @@ namespace NFeFacil.ViewModel
             contextoPIS = new PISDataContext(conjPis, ProdutoCompleto.Produto);
             contextoCOFINS = new COFINSDataContext(conjCofins, ProdutoCompleto.Produto);
 
-            AdicionarDeclaracaoImportacaoCommand = new Comando(AdicionarDeclaracaoImportacao, true);
-            AdicionarDeclaracaoExportacaoCommand = new Comando(AdicionarDeclaracaoExportacao, true);
+            AdicionarDeclaracaoImportacaoCommand = new Comando(AdicionarDeclaracaoImportacao);
+            AdicionarDeclaracaoExportacaoCommand = new Comando(AdicionarDeclaracaoExportacao);
             RemoverDeclaracaoImportacaoCommand = new Comando<DeclaracaoImportacao>(RemoverDeclaracaoImportacao);
             RemoverDeclaracaoExportacaoCommand = new Comando<GrupoExportacao>(RemoverDeclaracaoExportacao);
-            AdicionarMedicamentoCommand = new Comando(AdicionarMedicamento, true);
+            AdicionarMedicamentoCommand = new Comando(AdicionarMedicamento);
             RemoverMedicamentoCommand = new Comando<Medicamento>(RemoverMedicamento);
-            AdicionarArmamentoCommand = new Comando(AdicionarArmamento, true);
+            AdicionarArmamentoCommand = new Comando(AdicionarArmamento);
             RemoverArmamentoCommand = new Comando<Arma>(RemoverArmamento);
         }
 

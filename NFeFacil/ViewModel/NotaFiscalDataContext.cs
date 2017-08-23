@@ -453,7 +453,7 @@ namespace NFeFacil.ViewModel
 
         #region Comandos
 
-        public ICommand AdicionarProdutoCommand => new Comando(AdicionarProduto, true);
+        public ICommand AdicionarProdutoCommand => new Comando(AdicionarProduto);
         public ICommand ExibirProdutoCommand => new Comando<DetalhesProdutos>(ExibirProduto);
         public ICommand EditarProdutoCommand => new Comando<DetalhesProdutos>(EditarProduto);
         public ICommand RemoverProdutoCommand => new Comando<DetalhesProdutos>(RemoverProduto);
@@ -467,26 +467,26 @@ namespace NFeFacil.ViewModel
         public ICommand GerarDANFECommand => new Comando(GerarDANFE);
         public ICommand ExportarXMLCommand => new Comando(ExportarXML);
 
-        public ICommand AdicionarNFeReferenciadaCommand => new Comando(AdicionarNFeReferenciada, true);
-        public ICommand AdicionarNFReferenciadaCommand => new Comando(AdicionarNFReferenciada, true);
+        public ICommand AdicionarNFeReferenciadaCommand => new Comando(AdicionarNFeReferenciada);
+        public ICommand AdicionarNFReferenciadaCommand => new Comando(AdicionarNFReferenciada);
         public ICommand RemoverDocReferenciadoCommand => new Comando<DocumentoFiscalReferenciado>(RemoverDocReferenciado);
 
-        public ICommand AdicionarReboqueCommand => new Comando(AdicionarReboque, true);
+        public ICommand AdicionarReboqueCommand => new Comando(AdicionarReboque);
         public ICommand RemoverReboqueCommand => new Comando<Reboque>(RemoverReboque);
-        public ICommand AdicionarVolumeCommand => new Comando(AdicionarVolume, true);
+        public ICommand AdicionarVolumeCommand => new Comando(AdicionarVolume);
         public ICommand RemoverVolumeCommand => new Comando<Volume>(RemoverVolume);
 
-        public ICommand AdicionarDuplicataCommand => new Comando(AdicionarDuplicata, true);
+        public ICommand AdicionarDuplicataCommand => new Comando(AdicionarDuplicata);
         public ICommand RemoverDuplicataCommand => new Comando<Duplicata>(RemoverDuplicata);
 
-        public ICommand AdicionarFornecimentoCommand => new Comando(AdicionarFornecimento, true);
+        public ICommand AdicionarFornecimentoCommand => new Comando(AdicionarFornecimento);
         public ICommand RemoverFornecimentoCommand => new Comando<FornecimentoDiario>(RemoverFornecimento);
-        public ICommand AdicionarDeducaoCommand => new Comando(AdicionarDeducao, true);
+        public ICommand AdicionarDeducaoCommand => new Comando(AdicionarDeducao);
         public ICommand RemoverDeducaoCommand => new Comando<Deducoes>(RemoverDeducao);
 
-        public ICommand AdicionarObsContribuinteCommand => new Comando(AdicionarObsContribuinte, true);
+        public ICommand AdicionarObsContribuinteCommand => new Comando(AdicionarObsContribuinte);
         public ICommand RemoverObsContribuinteCommand => new Comando<Observacao>(RemoverObsContribuinte);
-        public ICommand AdicionarProcReferenciadoCommand => new Comando(AdicionarProcReferenciado, true);
+        public ICommand AdicionarProcReferenciadoCommand => new Comando(AdicionarProcReferenciado);
         public ICommand RemoverProcReferenciadoCommand => new Comando<ProcessoReferenciado>(RemoverProcReferenciado);
 
         public ICommand ExibirClienteCommand => new Comando(ExibirCliente);

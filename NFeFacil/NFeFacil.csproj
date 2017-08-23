@@ -301,11 +301,9 @@
     <Compile Include="ViewModel\ImpostosProduto\ConteinerPIS.cs" />
     <Compile Include="ViewModel\ImpostosProduto\ConteinerPISST.cs" />
     <Compile Include="ViewModel\ImpostosProduto\TiposCalculo.cs" />
-    <Compile Include="ViewModel\IObterPropriedade.cs" />
     <Compile Include="ViewDadosBase\MotoristaDataContext.cs" />
     <Compile Include="ViewModel\NotaFiscalDataContext.cs" />
     <Compile Include="ViewModel\NotasSalvasDataContext.cs" />
-    <Compile Include="ViewModel\ObterDataContext.cs" />
     <Compile Include="ViewModel\ProdutoCompletoDataContext.cs" />
     <Compile Include="ViewRegistroVenda\AdicionarProdutoVendaDataContext.cs" />
     <Compile Include="ViewModel\QRCode.cs" />

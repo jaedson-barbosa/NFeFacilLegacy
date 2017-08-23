@@ -55,7 +55,7 @@
                    Grid.Row="1"
                    DisplayMode="CompactOverlay">
             <SplitView.Pane>
-                <Grid>
+                <Grid Padding="0,0,0,48">
                     <Grid.RowDefinitions>
                         <RowDefinition />
                         <RowDefinition Height="Auto" />

@@ -1,5 +1,6 @@
 ﻿using NFeFacil.ItensBD;
 using NFeFacil.Log;
+using NFeFacil.ViewModel;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -7,7 +8,7 @@ using System.Linq;
 using System.Windows.Input;
 using Windows.UI.Xaml.Controls;
 
-namespace NFeFacil.ViewModel
+namespace NFeFacil.ViewRegistroVenda
 {
     public sealed class RegistroVendaDataContext : INotifyPropertyChanged, IDisposable
     {
@@ -89,7 +90,7 @@ namespace NFeFacil.ViewModel
 
         async void AdicionarProduto()
         {
-            var caixa = new View.CaixasDialogo.RegistroVenda.AdicionarProduto();
+            var caixa = new AdicionarProduto();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
                 var contexto = (AdicionarProdutoVendaDataContext)caixa.DataContext;
@@ -156,7 +157,7 @@ namespace NFeFacil.ViewModel
 
         async void AplicarDesconto()
         {
-            var caixa = new View.CaixasDialogo.RegistroVenda.CalculoDesconto(ItemBanco.Produtos);
+            var caixa = new CalculoDesconto(ItemBanco.Produtos);
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
                 var prods = caixa.Produtos;

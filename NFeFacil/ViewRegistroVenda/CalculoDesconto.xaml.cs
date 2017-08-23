@@ -6,7 +6,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 
 // O modelo de item de Caixa de Diálogo de Conteúdo está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace NFeFacil.View.CaixasDialogo.RegistroVenda
+namespace NFeFacil.ViewRegistroVenda
 {
     public sealed partial class CalculoDesconto : ContentDialog
     {
@@ -51,7 +51,7 @@ namespace NFeFacil.View.CaixasDialogo.RegistroVenda
             sldDesconto.Value = porcentagem;
         }
 
-        private void ValorDesejadoChanged(Controles.EntradaNumerica sender, Controles.NumeroChangedEventArgs e)
+        private void ValorDesejadoChanged(View.Controles.EntradaNumerica sender, View.Controles.NumeroChangedEventArgs e)
         {
             if (Produtos != null)
             {

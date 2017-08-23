@@ -6,7 +6,7 @@ using Windows.UI.Xaml.Navigation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace NFeFacil.View
+namespace NFeFacil.ViewDadosBase
 {
     /// <summary>
     /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
@@ -28,12 +28,12 @@ namespace NFeFacil.View
         {
             get
             {
-                var retorno = new ObservableCollection<Controles.ItemHambuguer>
+                var retorno = new ObservableCollection<View.Controles.ItemHambuguer>
                 {
-                    new Controles.ItemHambuguer(Symbol.People, "Clientes"),
-                    new Controles.ItemHambuguer(Symbol.People, "Motoristas"),
-                    new Controles.ItemHambuguer(Symbol.Shop, "Produtos"),
-                    new Controles.ItemHambuguer(Symbol.People, "Vendedores")
+                    new View.Controles.ItemHambuguer(Symbol.People, "Clientes"),
+                    new View.Controles.ItemHambuguer(Symbol.People, "Motoristas"),
+                    new View.Controles.ItemHambuguer(Symbol.Shop, "Produtos"),
+                    new View.Controles.ItemHambuguer(Symbol.People, "Vendedores")
                 };
                 flipView.SelectionChanged += (sender, e) => MainMudou?.Invoke(this, new NewIndexEventArgs { NewIndex = flipView.SelectedIndex });
                 return retorno;

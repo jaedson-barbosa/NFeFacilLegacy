@@ -5,8 +5,9 @@ using Windows.UI.Xaml.Controls;
 using System.Windows.Input;
 using NFeFacil.ItensBD;
 using NFeFacil.ModeloXML;
+using NFeFacil.ViewModel;
 
-namespace NFeFacil.ViewModel
+namespace NFeFacil.ViewDadosBase
 {
     public sealed class MotoristaDataContext : INotifyPropertyChanged
     {

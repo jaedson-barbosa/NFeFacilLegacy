@@ -210,8 +210,6 @@
                 <StackPanel Orientation="Horizontal">
                     <Button Margin="0,0,8,0"
                             Command="{Binding ExibirClienteCommand}">Exibir</Button>
-                    <Button Command="{Binding EditarClienteCommand}"
-                            IsEnabled="{Binding ManipulacaoAtivada}">Editar</Button>
                 </StackPanel>
             </StackPanel>
             <Pivot Margin="16">
@@ -550,8 +548,6 @@
                             <StackPanel Orientation="Horizontal">
                                 <Button Margin="0,0,8,0"
                                         Command="{Binding ExibirMotoristaCommand}">Exibir</Button>
-                                <Button Command="{Binding EditarMotoristaCommand}"
-                                        IsEnabled="{Binding ManipulacaoAtivada}">Editar</Button>
                             </StackPanel>
                         </StackPanel>
                     </PivotItem>
@@ -1043,12 +1039,6 @@
                               Command="{Binding ExportarXMLCommand}">
                     <AppBarButton.Icon>
                         <FontIcon Glyph="&#xEDE1;" />
-                    </AppBarButton.Icon>
-                </AppBarButton>
-                <AppBarButton Label="Exibir emitente"
-                              Command="{Binding ExibirEmitenteCommand}">
-                    <AppBarButton.Icon>
-                        <SymbolIcon Symbol="People" />
                     </AppBarButton.Icon>
                 </AppBarButton>
             </CommandBar.SecondaryCommands>

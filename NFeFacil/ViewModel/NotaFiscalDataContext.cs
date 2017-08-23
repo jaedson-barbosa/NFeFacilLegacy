@@ -489,11 +489,8 @@ namespace NFeFacil.ViewModel
         public ICommand AdicionarProcReferenciadoCommand => new Comando(AdicionarProcReferenciado, true);
         public ICommand RemoverProcReferenciadoCommand => new Comando<ProcessoReferenciado>(RemoverProcReferenciado);
 
-        public ICommand ExibirEmitenteCommand => new Comando(ExibirEmitente);
         public ICommand ExibirClienteCommand => new Comando(ExibirCliente);
-        public ICommand EditarClienteCommand => new Comando(EditarCliente);
         public ICommand ExibirMotoristaCommand => new Comando(ExibirMotorista);
-        public ICommand EditarMotoristaCommand => new Comando(EditarMotorista);
 
         #endregion
 
@@ -823,67 +820,20 @@ namespace NFeFacil.ViewModel
 
         #endregion
 
-        #region Exibição e edição básica
-
-        async void ExibirEmitente()
-        {
-            var emit = new EmitenteDI(NotaSalva.Informações.emitente);
-            var caixa = new View.CaixasDialogo.DetalheEmitenteAtual()
-            {
-                ManipulacaoAtivada = false,
-                DataContext = new EmitenteDataContext(ref emit)
-            };
-            await caixa.ShowAsync();
-        }
+        #region Exibição básica
 
         async void ExibirCliente()
         {
-            var emit = new ClienteDI(NotaSalva.Informações.destinatário);
-            var caixa = new View.CaixasDialogo.DetalheClienteAtual()
-            {
-                ManipulacaoAtivada = false,
-                DataContext = new ClienteDataContext(ref emit)
-            };
+            var cliente = new ClienteDI(NotaSalva.Informações.destinatário);
+            var caixa = new ViewDadosBase.DetalheClienteAtual(cliente);
             await caixa.ShowAsync();
-        }
-
-        async void EditarCliente()
-        {
-            var emit = new ClienteDI(NotaSalva.Informações.destinatário);
-            var caixa = new View.CaixasDialogo.DetalheClienteAtual()
-            {
-                ManipulacaoAtivada = true,
-                DataContext = new ClienteDataContext(ref emit)
-            };
-            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
-            {
-                ClienteSelecionado = ((ClienteDataContext)caixa.DataContext).Cliente;
-            }
         }
 
         async void ExibirMotorista()
         {
-            var emit = new MotoristaDI(NotaSalva.Informações.transp.Transporta);
-            var caixa = new View.CaixasDialogo.DetalheMotoristaAtual()
-            {
-                ManipulacaoAtivada = false,
-                DataContext = new MotoristaDataContext(ref emit)
-            };
+            var motorista = new MotoristaDI(NotaSalva.Informações.transp.Transporta);
+            var caixa = new ViewDadosBase.DetalheMotoristaAtual(motorista);
             await caixa.ShowAsync();
-        }
-
-        async void EditarMotorista()
-        {
-            var emit = new MotoristaDI(NotaSalva.Informações.transp.Transporta);
-            var caixa = new View.CaixasDialogo.DetalheMotoristaAtual()
-            {
-                ManipulacaoAtivada = true,
-                DataContext = new MotoristaDataContext(ref emit)
-            };
-            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
-            {
-                MotoristaSelecionado = ((MotoristaDataContext)caixa.DataContext).Motorista;
-            }
         }
 
         #endregion

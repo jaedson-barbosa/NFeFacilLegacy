@@ -286,15 +286,15 @@
     <Compile Include="Validacao\ValidadorVeiculo.cs" />
     <Compile Include="Validacao\ValidadorVendedor.cs" />
     <Compile Include="Validacao\ValidarDados.cs" />
-    <Compile Include="ViewModel\ClienteDataContext.cs" />
+    <Compile Include="ViewDadosBase\ClienteDataContext.cs" />
     <Compile Include="ViewModel\ConfigSincronizacaoDataContext.cs" />
     <Compile Include="ViewModel\ConfiguracoesDataContext.cs" />
     <Compile Include="ViewModel\Converters\ColecaoValida.cs" />
     <Compile Include="ViewModel\Converters\EstadoToMunicipios.cs" />
     <Compile Include="ViewModel\Converters\Invert.cs" />
     <Compile Include="ViewModel\Converters\StringToDateTime.cs" />
-    <Compile Include="ViewModel\EmitenteDataContext.cs" />
-    <Compile Include="ViewModel\GerenciadorDadosBaseDataContext.cs" />
+    <Compile Include="Login\EmitenteDataContext.cs" />
+    <Compile Include="ViewDadosBase\GerenciadorDadosBaseDataContext.cs" />
     <Compile Include="ViewModel\ImpostosProduto\ConteinerCOFINS.cs" />
     <Compile Include="ViewModel\ImpostosProduto\ConteinerCOFINSST.cs" />
     <Compile Include="ViewModel\ImpostosProduto\ConteinerIPI.cs" />
@@ -302,7 +302,7 @@
     <Compile Include="ViewModel\ImpostosProduto\ConteinerPISST.cs" />
     <Compile Include="ViewModel\ImpostosProduto\TiposCalculo.cs" />
     <Compile Include="ViewModel\IObterPropriedade.cs" />
-    <Compile Include="ViewModel\MotoristaDataContext.cs" />
+    <Compile Include="ViewDadosBase\MotoristaDataContext.cs" />
     <Compile Include="ViewModel\NotaFiscalDataContext.cs" />
     <Compile Include="ViewModel\NotasSalvasDataContext.cs" />
     <Compile Include="ViewModel\ObterDataContext.cs" />
@@ -311,19 +311,19 @@
     <Compile Include="ViewModel\QRCode.cs" />
     <Compile Include="ViewModel\QRConexaoDataContext.cs" />
     <Compile Include="ViewRegistroVenda\RegistroVendaDataContext.cs" />
-    <Compile Include="View\AdicionarDestinatario.xaml.cs">
+    <Compile Include="ViewDadosBase\AdicionarDestinatario.xaml.cs">
       <DependentUpon>AdicionarDestinatario.xaml</DependentUpon>
     </Compile>
     <Compile Include="Login\AdicionarEmitente.xaml.cs">
       <DependentUpon>AdicionarEmitente.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\AdicionarMotorista.xaml.cs">
+    <Compile Include="ViewDadosBase\AdicionarMotorista.xaml.cs">
       <DependentUpon>AdicionarMotorista.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\AdicionarProduto.xaml.cs">
+    <Compile Include="ViewDadosBase\AdicionarProduto.xaml.cs">
       <DependentUpon>AdicionarProduto.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\AdicionarVendedor.xaml.cs">
+    <Compile Include="ViewDadosBase\AdicionarVendedor.xaml.cs">
       <DependentUpon>AdicionarVendedor.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\CaixasDialogo\AdicionarDuplicata.xaml.cs">
@@ -354,13 +354,10 @@
     <Compile Include="View\CaixasDialogo\ConverterContextoDeclaracaoImportacao.cs" />
     <Compile Include="View\CaixasDialogo\ConverterContextoProcessoReferenciado.cs" />
     <Compile Include="ConjuntoManipuladorNFe.cs" />
-    <Compile Include="View\CaixasDialogo\DetalheClienteAtual.xaml.cs">
+    <Compile Include="ViewDadosBase\DetalheClienteAtual.xaml.cs">
       <DependentUpon>DetalheClienteAtual.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\CaixasDialogo\DetalheEmitenteAtual.xaml.cs">
-      <DependentUpon>DetalheEmitenteAtual.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\CaixasDialogo\DetalheMotoristaAtual.xaml.cs">
+    <Compile Include="ViewDadosBase\DetalheMotoristaAtual.xaml.cs">
       <DependentUpon>DetalheMotoristaAtual.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewRegistroVenda\AdicionarProduto.xaml.cs">
@@ -387,7 +384,7 @@
     <Compile Include="View\Controles\ItemPadrao.xaml.cs">
       <DependentUpon>ItemPadrao.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\GerenciarDadosBase.xaml.cs">
+    <Compile Include="ViewDadosBase\GerenciarDadosBase.xaml.cs">
       <DependentUpon>GerenciarDadosBase.xaml</DependentUpon>
     </Compile>
     <Compile Include="IValida.cs" />
@@ -582,7 +579,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\AdicionarDestinatario.xaml">
+    <Page Include="ViewDadosBase\AdicionarDestinatario.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -590,15 +587,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\AdicionarMotorista.xaml">
+    <Page Include="ViewDadosBase\AdicionarMotorista.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\AdicionarProduto.xaml">
+    <Page Include="ViewDadosBase\AdicionarProduto.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\AdicionarVendedor.xaml">
+    <Page Include="ViewDadosBase\AdicionarVendedor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -634,15 +631,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\CaixasDialogo\DetalheClienteAtual.xaml">
+    <Page Include="ViewDadosBase\DetalheClienteAtual.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\CaixasDialogo\DetalheEmitenteAtual.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\CaixasDialogo\DetalheMotoristaAtual.xaml">
+    <Page Include="ViewDadosBase\DetalheMotoristaAtual.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -691,7 +684,7 @@
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
-    <Page Include="View\GerenciarDadosBase.xaml">
+    <Page Include="ViewDadosBase\GerenciarDadosBase.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

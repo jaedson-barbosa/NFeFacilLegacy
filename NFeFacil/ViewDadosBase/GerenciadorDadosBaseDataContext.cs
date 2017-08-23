@@ -1,8 +1,9 @@
 ﻿using NFeFacil.ItensBD;
+using NFeFacil.ViewModel;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
-namespace NFeFacil.ViewModel
+namespace NFeFacil.ViewDadosBase
 {
     public sealed class GerenciadorDadosBaseDataContext
     {
@@ -56,12 +57,12 @@ namespace NFeFacil.ViewModel
 
         private void AdicionarCliente()
         {
-            MainPage.Current.Navegar<View.AdicionarDestinatario>();
+            MainPage.Current.Navegar<AdicionarDestinatario>();
         }
 
         private void EditarCliente(ClienteDI dest)
         {
-            MainPage.Current.Navegar<View.AdicionarDestinatario>(new GrupoViewBanco<ClienteDI>
+            MainPage.Current.Navegar<AdicionarDestinatario>(new GrupoViewBanco<ClienteDI>
             {
                 ItemBanco = dest,
                 OperacaoRequirida = TipoOperacao.Edicao
@@ -80,12 +81,12 @@ namespace NFeFacil.ViewModel
 
         private void AdicionarMotorista()
         {
-            MainPage.Current.Navegar<View.AdicionarMotorista>();
+            MainPage.Current.Navegar<AdicionarMotorista>();
         }
 
         private void EditarMotorista(MotoristaDI mot)
         {
-            MainPage.Current.Navegar<View.AdicionarMotorista>(new GrupoViewBanco<MotoristaDI>
+            MainPage.Current.Navegar<AdicionarMotorista>(new GrupoViewBanco<MotoristaDI>
             {
                 ItemBanco = mot,
                 OperacaoRequirida = TipoOperacao.Edicao
@@ -104,12 +105,12 @@ namespace NFeFacil.ViewModel
 
         private void AdicionarProduto()
         {
-            MainPage.Current.Navegar<View.AdicionarProduto>();
+            MainPage.Current.Navegar<AdicionarProduto>();
         }
 
         private void EditarProduto(ProdutoDI prod)
         {
-            MainPage.Current.Navegar<View.AdicionarProduto>(new GrupoViewBanco<ProdutoDI>
+            MainPage.Current.Navegar<AdicionarProduto>(new GrupoViewBanco<ProdutoDI>
             {
                 ItemBanco = prod,
                 OperacaoRequirida = TipoOperacao.Edicao
@@ -128,12 +129,12 @@ namespace NFeFacil.ViewModel
 
         public void AdicionarVendedor()
         {
-            MainPage.Current.Navegar<View.AdicionarVendedor>();
+            MainPage.Current.Navegar<AdicionarVendedor>();
         }
 
         public void EditarVendedor(Vendedor vend)
         {
-            MainPage.Current.Navegar<View.AdicionarVendedor>(new GrupoViewBanco<Vendedor>
+            MainPage.Current.Navegar<AdicionarVendedor>(new GrupoViewBanco<Vendedor>
             {
                 ItemBanco = vend,
                 OperacaoRequirida = TipoOperacao.Edicao

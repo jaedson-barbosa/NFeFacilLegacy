@@ -1,16 +1,16 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using NFeFacil.ItensBD;
+using Windows.UI.Xaml.Controls;
 
 // O modelo de item de Caixa de Diálogo de Conteúdo está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace NFeFacil.View.CaixasDialogo
+namespace NFeFacil.ViewDadosBase
 {
     public sealed partial class DetalheClienteAtual : ContentDialog
     {
-        public bool ManipulacaoAtivada { get; set; }
-
-        public DetalheClienteAtual()
+        public DetalheClienteAtual(ClienteDI cliente)
         {
             InitializeComponent();
+            DataContext = new ClienteDataContext(ref cliente);
         }
     }
 }

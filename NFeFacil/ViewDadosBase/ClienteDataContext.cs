@@ -5,7 +5,7 @@ using NFeFacil.ItensBD;
 using NFeFacil.ModeloXML;
 using NFeFacil.IBGE;
 
-namespace NFeFacil.ViewModel
+namespace NFeFacil.ViewDadosBase
 {
     public sealed class ClienteDataContext : INotifyPropertyChanged
     {

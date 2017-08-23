@@ -3,7 +3,7 @@ using NFeFacil.ItensBD;
 using System.ComponentModel;
 using System.Linq;
 
-namespace NFeFacil.ViewModel
+namespace NFeFacil.Login
 {
     public sealed class EmitenteDataContext : INotifyPropertyChanged
     {

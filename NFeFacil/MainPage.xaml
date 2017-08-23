@@ -65,23 +65,31 @@
                     <Grid x:Name="grdInfoGeral"
                           Grid.Row="1">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="4*" />
+                            <ColumnDefinition Width="48" />
+                            <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="64" />
-                            <RowDefinition Height="64" />
+                            <RowDefinition Height="48" />
+                            <RowDefinition Height="48" />
                         </Grid.RowDefinitions>
                         <SymbolIcon Symbol="Contact"
                                     Canvas.ZIndex="0" />
                         <Image x:Name="imgLogotipo"
                                Canvas.ZIndex="1"
                                Stretch="UniformToFill" />
+                        <TextBlock x:Name="txtNomeEmpresa"
+                                   Grid.Column="1"
+                                   Style="{StaticResource BodyTextBlockStyle}"
+                                   TextAlignment="Center"
+                                   Margin="4,0,4,4"
+                                   FontWeight="Bold"
+                                   VerticalAlignment="Top" />
                         <TextBlock x:Name="txtNomeEmitente"
                                    Grid.Column="1"
-                                   Style="{StaticResource SubtitleTextBlockStyle}"
+                                   Style="{StaticResource BodyTextBlockStyle}"
                                    TextAlignment="Center"
-                                   Margin="4,0,4,4" />
+                                   Margin="4,0,4,4"
+                                   VerticalAlignment="Bottom" />
                         <SymbolIcon Symbol="Contact"
                                     Grid.Row="1"
                                     Canvas.ZIndex="0" />
@@ -92,9 +100,11 @@
                         <TextBlock x:Name="txtNomeVendedor"
                                    Grid.Row="1"
                                    Grid.Column="1"
-                                   Style="{StaticResource SubtitleTextBlockStyle}"
+                                   Style="{StaticResource BodyTextBlockStyle}"
                                    TextAlignment="Center"
-                                   Margin="4,0,4,4" />
+                                   Margin="4,0,4,4"
+                                   FontWeight="Bold"
+                                   VerticalAlignment="Center" />
                     </Grid>
                 </Grid>
             </SplitView.Pane>

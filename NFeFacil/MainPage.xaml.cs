@@ -171,6 +171,7 @@ namespace NFeFacil
                     imgLogotipo.Source = await img.GetSourceAsync();
                 }
                 txtNomeEmitente.Text = Propriedades.EmitenteAtivo.Nome;
+                txtNomeEmpresa.Text = Propriedades.EmitenteAtivo.NomeFantasia;
 
                 if (Propriedades.VendedorAtivo != null)
                 {

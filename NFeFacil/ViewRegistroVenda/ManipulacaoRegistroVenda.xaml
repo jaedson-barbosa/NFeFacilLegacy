@@ -190,6 +190,9 @@
             <AppBarButton Label="Criar NFe normal"
                           IsEnabled="False"
                           Icon="Page" />
+            <AppBarButton Label="Criar DARV"
+                          Icon="Document"
+                          Command="{Binding CriarDARVCommand}" />
         </CommandBar>
     </Page.BottomAppBar>
 </Page>

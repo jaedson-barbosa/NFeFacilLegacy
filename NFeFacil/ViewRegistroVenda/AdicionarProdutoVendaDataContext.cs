@@ -1,4 +1,5 @@
-﻿using NFeFacil.ItensBD;
+﻿using Microsoft.EntityFrameworkCore;
+using NFeFacil.ItensBD;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -44,9 +45,10 @@ namespace NFeFacil.ViewRegistroVenda
             using (var db = new AplicativoContext())
             {
                 ListaCompletaProdutos = new List<ExibicaoProduto>();
+                var estoque = db.Estoque.Include(x => x.Alteracoes);
                 foreach (var item in db.Produtos)
                 {
-                    var est = db.Estoque.Find(item.Id);
+                    var est = estoque.First(x => x.Id == item.Id);
                     var quant = est != null ? est.Alteracoes.Sum(x => x.Alteração) : 0;
                     if (est == null || quant > 0)
                     {

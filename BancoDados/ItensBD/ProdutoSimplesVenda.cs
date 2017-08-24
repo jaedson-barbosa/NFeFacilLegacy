@@ -1,4 +1,5 @@
-﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
+﻿using Microsoft.EntityFrameworkCore;
+using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 using System;
 using System.Linq;
 
@@ -75,7 +76,7 @@ namespace NFeFacil.ItensBD
 
         public void RegistrarAlteracaoEstoque(AplicativoContext db)
         {
-            var estoque = db.Estoque.Find(IdBase);
+            var estoque = db.Estoque.Include(x => x.Alteracoes).First(x => x.Id == IdBase);
             if (estoque != null)
             {
                 var alteracao = estoque.Alteracoes.FirstOrDefault(x => x.Id == Id);

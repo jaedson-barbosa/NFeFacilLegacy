@@ -26,6 +26,7 @@ namespace NFeFacil.ViewRegistroVenda
         public ICommand EditarCommand { get; }
         public ICommand FinalizarCommand { get; }
         public ICommand AplicarDescontoCommand { get; }
+        public ICommand CriarDARVCommand { get; }
 
         public string ValorTotal => ItemBanco.Produtos.Sum(x => x.TotalLíquido).ToString("C");
 
@@ -44,6 +45,7 @@ namespace NFeFacil.ViewRegistroVenda
             EditarCommand = new Comando(Editar);
             FinalizarCommand = new Comando(Finalizar);
             AplicarDescontoCommand = new Comando(AplicarDesconto);
+            CriarDARVCommand = new Comando(CriarDARV);
 
             Clientes = db.Clientes.GerarObs();
             Motoristas = db.Motoristas.GerarObs();
@@ -68,6 +70,7 @@ namespace NFeFacil.ViewRegistroVenda
             EditarCommand = new Comando(Editar);
             FinalizarCommand = new Comando(Finalizar);
             AplicarDescontoCommand = new Comando(AplicarDesconto);
+            CriarDARVCommand = new Comando(CriarDARV);
 
             db.AttachRange(venda.Produtos);
             Clientes = db.Clientes.GerarObs();
@@ -175,6 +178,11 @@ namespace NFeFacil.ViewRegistroVenda
                 PropertyChanged(this, new PropertyChangedEventArgs(nameof(ListaProdutos)));
                 PropertyChanged(this, new PropertyChangedEventArgs(nameof(ValorTotal)));
             }
+        }
+
+        void CriarDARV()
+        {
+            MainPage.Current.Navegar<DARV>(ItemBanco);
         }
 
         public void Dispose()

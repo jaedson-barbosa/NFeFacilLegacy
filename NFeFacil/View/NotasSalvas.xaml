@@ -12,9 +12,6 @@
     </Page.DataContext>
     <Page.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Estilos/Tabela.xaml" />
-            </ResourceDictionary.MergedDictionaries>
             <Conversores:BoolToVisibility x:Key="visibilidade" />
         </ResourceDictionary>
     </Page.Resources>

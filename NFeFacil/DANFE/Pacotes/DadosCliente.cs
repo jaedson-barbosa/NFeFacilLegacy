@@ -1,4 +1,4 @@
-﻿namespace NFeFacil.PacotesImpressaoGenericos
+﻿namespace NFeFacil.DANFE.Pacotes
 {
     public sealed class DadosCliente
     {

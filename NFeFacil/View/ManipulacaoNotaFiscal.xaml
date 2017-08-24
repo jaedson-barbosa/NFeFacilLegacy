@@ -12,7 +12,6 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Estilos/PivotPrincipal.xaml" />
-                <ResourceDictionary Source="Estilos/Tabela.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <VM:DadosEstadosParaView x:Key="estados" />
             <Conversores:EstadoToMunicipios x:Key="obterMun" />

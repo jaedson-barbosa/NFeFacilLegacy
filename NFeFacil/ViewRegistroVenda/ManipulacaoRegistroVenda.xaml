@@ -7,9 +7,6 @@
       mc:Ignorable="d">
     <Page.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="ms-appx:///View/Estilos/Tabela.xaml" />
-            </ResourceDictionary.MergedDictionaries>
             <conversores:Invert x:Key="invert" />
         </ResourceDictionary>
     </Page.Resources>

@@ -11,13 +11,6 @@
     <ContentDialog.DataContext>
         <local:AdicionarProdutoVendaDataContext />
     </ContentDialog.DataContext>
-    <ContentDialog.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="ms-appx:///View/Estilos/Tabela.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </ContentDialog.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />

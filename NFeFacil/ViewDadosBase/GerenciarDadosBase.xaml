@@ -9,8 +9,7 @@
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Estilos/PivotPrincipal.xaml" />
-                <ResourceDictionary Source="Estilos/Tabela.xaml" />
+                <ResourceDictionary Source="ms-appx:///View/Estilos/PivotPrincipal.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Style TargetType="TextBlock"
                    BasedOn="{StaticResource SubtitleTextBlockStyle}">

@@ -177,6 +177,9 @@
     <Compile Include="ViewRegistroVenda\DARV.xaml.cs">
       <DependentUpon>DARV.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewRegistroVenda\EscolherDimensão.xaml.cs">
+      <DependentUpon>EscolherDimensão.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\CaixasDialogo\AdicionarArmamento.xaml.cs">
       <DependentUpon>AdicionarArmamento.xaml</DependentUpon>
     </Compile>
@@ -553,6 +556,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ViewRegistroVenda\DARV.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewRegistroVenda\EscolherDimensão.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

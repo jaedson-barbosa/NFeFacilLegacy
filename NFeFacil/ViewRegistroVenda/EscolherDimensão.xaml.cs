@@ -6,7 +6,16 @@ namespace NFeFacil.ViewRegistroVenda
 {
     public sealed partial class EscolherDimensão : ContentDialog
     {
-        public bool FormularioContinuo { get; set; }
+        bool formularioContinuo;
+        public bool FormularioContinuo
+        {
+            get => formularioContinuo;
+            set
+            {
+                formularioContinuo = value;
+                txtAltura.IsEnabled = !value;
+            }
+        }
         public double Altura { get; set; }
         public double Largura { get; set; }
 

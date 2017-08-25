@@ -19,7 +19,8 @@
         <TextBlock Grid.Row="1"
                    Margin="0,8,0,0"
                    FontWeight="Bold">Dimensões do papel (em centímetros)</TextBlock>
-        <controles:EntradaNumerica Grid.Row="2"
+        <controles:EntradaNumerica x:Name="txtAltura"
+                                   Grid.Row="2"
                                    Format="2:2"
                                    Header="Altura"
                                    Number="{x:Bind Altura, Mode=TwoWay}" />

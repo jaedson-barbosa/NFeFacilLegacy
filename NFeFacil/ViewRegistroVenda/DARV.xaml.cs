@@ -1,6 +1,7 @@
 ﻿using NFeFacil.ItensBD;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -18,16 +19,11 @@ namespace NFeFacil.ViewRegistroVenda
     public sealed partial class DARV : Page
     {
         ConjuntoDadosDARV Dados { get; set; }
-        double alturaDesejadaPagina;
-        double larguraDesejadaPagina;
-        int paddingPadrao = 1;
-        double alturaUtil => alturaDesejadaPagina - (2 * paddingPadrao);
-        double larguraUtil => larguraDesejadaPagina - (2 * paddingPadrao);
+        const int paddingPadrao = 1;
 
         public DARV()
         {
             this.InitializeComponent();
-            DefinirTamanho(21, 29.7, 1);
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -76,45 +72,78 @@ namespace NFeFacil.ViewRegistroVenda
             }
         }
 
-        void DefinirTamanho(double largura, double altura, double padding)
+        private async void PaginaPrincipalCarregada(object sender, RoutedEventArgs e)
         {
-            txtLargura.Text = largura.ToString("F2");
-            txtAltura.Text = altura.ToString("F2");
-
-            var filhos = paiPaginas.Children;
-            for (int i = 0; i < filhos.Count; i++)
-            {
-                var filho = (Grid)filhos[i];
-                filho.Width = CentimeterToPixel(largura - 2);
-                filho.Height = CentimeterToPixel(altura - 2);
-                filho.Padding = new Thickness(CentimeterToPixel(padding));
-            }
-        }
-
-        private void PaginaPrincipalCarregada(object sender, RoutedEventArgs e)
-        {
-            var altura = linhaProdutos.ActualHeight;
-            int nItens1Pag = (int)((altura / 22) - 1);
-            if (Dados.Produtos.Length <= nItens1Pag)
+            var dimensoes = await DefinirTamanho();
+            await Task.Delay(500);
+            var grid = (Grid)sender;
+            if (grid.Height == double.NaN)
             {
                 listaPrincipal.ItemsSource = Dados.Produtos.GerarObs();
             }
             else
             {
-                listaPrincipal.ItemsSource = Dados.Produtos.Take(nItens1Pag).GerarObs();
-                int nItens2Pag = (int)((alturaUtil / 22) - 1);
-                var nPaginas = (Dados.Produtos.Length - nItens1Pag) / nItens2Pag;
-                for (int i = 0; i < nPaginas; i++)
+                var altura = linhaProdutos.ActualHeight;
+                int nItens1Pag = (int)((altura / 22) - 1);
+                if (Dados.Produtos.Length <= nItens1Pag)
                 {
-                    var quantRestante = Dados.Produtos.Length - nItens1Pag - (nItens2Pag * i);
-                    var nItensAtual = quantRestante > nItens2Pag ? nItens2Pag : quantRestante;
-                    var produtos = new DadosProduto[nItensAtual];
-                    for (int k = 0; k < nItensAtual; k++)
-                    {
-                        produtos[k] = Dados.Produtos[nItens1Pag + (nItens2Pag * i) + k];
-                    }
-                    CriarPaginaFilho(produtos);
+                    listaPrincipal.ItemsSource = Dados.Produtos.GerarObs();
                 }
+                else if (nItens1Pag <= 0)
+                {
+                    grdPaginaPrincipal.Children.Remove(listaPrincipal);
+
+                }
+                else
+                {
+                    listaPrincipal.ItemsSource = Dados.Produtos.Take(nItens1Pag).GerarObs();
+                    int nItens2Pag = (int)(((dimensoes.altura - (2  * paddingPadrao)) / 22) - 1);
+                    var nPaginas = (Dados.Produtos.Length - nItens1Pag) / nItens2Pag;
+                    for (int i = 0; i < nPaginas; i++)
+                    {
+                        var quantRestante = Dados.Produtos.Length - nItens1Pag - (nItens2Pag * i);
+                        var nItensAtual = quantRestante > nItens2Pag ? nItens2Pag : quantRestante;
+                        var produtos = new DadosProduto[nItensAtual];
+                        for (int k = 0; k < nItensAtual; k++)
+                        {
+                            produtos[k] = Dados.Produtos[nItens1Pag + (nItens2Pag * i) + k];
+                        }
+                        CriarPaginaFilho(produtos);
+                    }
+                    DefinirTamanho(dimensoes.largura, dimensoes.altura, dimensoes.padding);
+                }
+            }
+        }
+
+        async Task<(double largura, double altura, double padding)> DefinirTamanho()
+        {
+            double largura = 21, altura = 29.7, padding = 1;
+            var caixa = new EscolherDimensão();
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+            {
+                largura = caixa.Largura;
+                if (caixa.FormularioContinuo)
+                {
+                    altura = 0;
+                }
+                else
+                {
+                    altura = caixa.Altura;
+                }
+            }
+            DefinirTamanho(largura, altura, padding);
+            return (largura, altura, padding);
+        }
+
+        void DefinirTamanho(double largura, double altura, double padding)
+        {
+            var filhos = paiPaginas.Children;
+            for (int i = 0; i < filhos.Count; i++)
+            {
+                var filho = (Grid)filhos[i];
+                filho.Width = CentimeterToPixel(largura - 2);
+                filho.Height = altura != 0 ? CentimeterToPixel(altura - 2) : double.NaN;
+                filho.Padding = new Thickness(CentimeterToPixel(padding));
             }
         }
 

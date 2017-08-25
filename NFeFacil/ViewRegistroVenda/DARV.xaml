@@ -100,13 +100,12 @@
             <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <TextBlock>Dimensões atuais: <Run x:Name="txtLargura" />cm x <Run x:Name="txtAltura" />cm</TextBlock>
         <ScrollViewer Grid.Row="1"
                       VerticalScrollBarVisibility="Auto"
                       HorizontalScrollBarVisibility="Auto">
             <StackPanel x:Name="paiPaginas"
                         Orientation="Horizontal">
-                <Grid Grid.Row="1"
+                <Grid x:Name="grdPaginaPrincipal" Grid.Row="1"
                       BorderThickness="1"
                       BorderBrush="Black"
                       Loaded="PaginaPrincipalCarregada">
@@ -206,11 +205,6 @@
     </Grid>
     <Page.BottomAppBar>
         <CommandBar>
-            <AppBarButton Label="Redimensionar página">
-                <AppBarButton.Icon>
-                    <FontIcon Glyph="&#xE2B2;" />
-                </AppBarButton.Icon>
-            </AppBarButton>
             <AppBarButton Label="Imprimir">
                 <AppBarButton.Icon>
                     <FontIcon Glyph="&#xE749;" />

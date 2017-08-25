@@ -1,8 +1,13 @@
 ﻿using NFeFacil.ItensBD;
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using static NFeFacil.ExtensoesPrincipal;
 
@@ -16,18 +21,16 @@ namespace NFeFacil.ViewRegistroVenda
     public sealed partial class DARV : Page
     {
         ConjuntoDadosDARV Dados { get; set; }
+        double alturaDesejadaPagina;
+        double larguraDesejadaPagina;
+        int paddingPadrao = 1;
+        double alturaUtil => alturaDesejadaPagina - (2 * paddingPadrao);
+        double larguraUtil => larguraDesejadaPagina - (2 * paddingPadrao);
 
         public DARV()
         {
             this.InitializeComponent();
-            DefinirTamanho(19, 27.7);
-
-            var filhos = paiPaginas.Children;
-            for (int i = 0; i < filhos.Count; i++)
-            {
-                var filho = (Grid)filhos[i];
-                filho.Padding = new Thickness(CentimeterToPixel(1));
-            }
+            DefinirTamanho(21, 29.7, 1);
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -50,7 +53,7 @@ namespace NFeFacil.ViewRegistroVenda
                     Total = x.Quantidade.ToString("C2")
                 });
 
-                var retorno = new ConjuntoDadosDARV
+                Dados = new ConjuntoDadosDARV
                 {
                     Emitente = new DadosEmitente
                     {
@@ -73,12 +76,10 @@ namespace NFeFacil.ViewRegistroVenda
                     Total = original.DescontoTotal.ToString("C2"),
                     Observacoes = original.Observações
                 };
-
-                Dados = retorno;
             }
         }
 
-        void DefinirTamanho(double largura, double altura)
+        void DefinirTamanho(double largura, double altura, double padding)
         {
             txtLargura.Text = largura.ToString("F2");
             txtAltura.Text = altura.ToString("F2");
@@ -86,10 +87,56 @@ namespace NFeFacil.ViewRegistroVenda
             var filhos = paiPaginas.Children;
             for (int i = 0; i < filhos.Count; i++)
             {
-                var filho = (FrameworkElement)filhos[i];
+                var filho = (Grid)filhos[i];
                 filho.Width = CentimeterToPixel(largura - 2);
                 filho.Height = CentimeterToPixel(altura - 2);
+                filho.Padding = new Thickness(CentimeterToPixel(padding));
             }
+        }
+
+        private void PaginaPrincipalCarregada(object sender, RoutedEventArgs e)
+        {
+            var altura = linhaProdutos.ActualHeight;
+            int nItens1Pag = (int)((altura / 22) - 1);
+            if (Dados.Produtos.Length <= nItens1Pag)
+            {
+                listaPrincipal.ItemsSource = Dados.Produtos.GerarObs();
+            }
+            else
+            {
+                listaPrincipal.ItemsSource = Dados.Produtos.Take(nItens1Pag).GerarObs();
+                int nItens2Pag = (int)((alturaUtil / 22) - 1);
+                var nPaginas = (Dados.Produtos.Length - nItens1Pag) / nItens2Pag;
+                for (int i = 0; i < nPaginas; i++)
+                {
+                    var quantRestante = Dados.Produtos.Length - nItens1Pag - (nItens2Pag * i);
+                    var nItensAtual = quantRestante > nItens2Pag ? nItens2Pag : quantRestante;
+                    var produtos = new DadosProduto[nItensAtual];
+                    for (int k = 0; k < nItensAtual; k++)
+                    {
+                        produtos[k] = Dados.Produtos[nItens1Pag + (nItens2Pag * i) + k];
+                    }
+                    CriarPaginaFilho(produtos);
+                }
+            }
+        }
+
+        void CriarPaginaFilho(DadosProduto[] produtos)
+        {
+            var lista = new ListView()
+            {
+                VerticalAlignment = VerticalAlignment.Top,
+                Style = listaPadrao
+            };
+            lista.ItemsSource = produtos.GerarObs();
+
+            var grid = new Grid()
+            {
+                BorderBrush = new SolidColorBrush(Colors.Black),
+                BorderThickness = new Thickness(1)
+            };
+            grid.Children.Add(lista);
+            paiPaginas.Children.Add(grid);
         }
     }
 

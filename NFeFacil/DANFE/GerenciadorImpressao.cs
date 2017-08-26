@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.Graphics.Printing;
-using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Printing;
 
 namespace NFeFacil.DANFE
@@ -11,7 +10,7 @@ namespace NFeFacil.DANFE
     {
         private PrintDocument printDoc;
         private IPrintDocumentSource printDocSource;
-        private List<UIElement> paginas = new List<UIElement>();
+        private UIElementCollection paginas;
 
         public GerenciadorImpressao()
         {
@@ -71,10 +70,9 @@ namespace NFeFacil.DANFE
         }
         #endregion
 
-        public async Task Imprimir(UIElement rect)
+        public async Task Imprimir(UIElementCollection paginas)
         {
-            paginas.Clear();
-            paginas.Add(rect);
+            this.paginas = paginas;
             await PrintManager.ShowPrintUIAsync();
         }
 

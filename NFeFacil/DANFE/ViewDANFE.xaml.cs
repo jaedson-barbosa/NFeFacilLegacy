@@ -47,7 +47,7 @@ namespace NFeFacil.DANFE
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e) => Dispose();
-        private async void btnImprimir_Click(object sender, RoutedEventArgs e) => await gerenciadorImpressão.Imprimir(stk.Children[0]);
+        private async void btnImprimir_Click(object sender, RoutedEventArgs e) => await gerenciadorImpressão.Imprimir(stk.Children);
         public void Dispose() => gerenciadorImpressão.Dispose();
     }
 }

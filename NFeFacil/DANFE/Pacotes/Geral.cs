@@ -1,6 +1,4 @@
-﻿using NFeFacil.PacotesImpressaoGenericos;
-
-namespace NFeFacil.DANFE.Pacotes
+﻿namespace NFeFacil.DANFE.Pacotes
 {
     public struct Geral
     {

@@ -98,13 +98,11 @@
                     Orientation="Horizontal">
             <Grid x:Name="grdPaginaPrincipal"
                   Grid.Row="1"
-                  BorderThickness="1"
-                  BorderBrush="Black"
                   Loaded="PaginaPrincipalCarregada">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="0" />
 
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -113,7 +111,7 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="0" />
                     <RowDefinition Height="Auto" />
 
                     <RowDefinition Height="Auto" />
@@ -133,11 +131,14 @@
                 <TextBlock Grid.ColumnSpan="2"
                            Text="{x:Bind Dados.Emitente.NomeFicticio}"
                            HorizontalAlignment="Center"
-                           FontWeight="Bold" />
+                           FontWeight="Bold"
+                           FontSize="20" />
                 <TextBlock Grid.ColumnSpan="2"
                            Grid.Row="1">Endereço: <Run Text="{x:Bind Dados.Emitente.Endereco.Logradouro}" />, <Run Text="{x:Bind Dados.Emitente.Endereco.Numero}" /> - <Run Text="{x:Bind Dados.Emitente.Endereco.Bairro}" /></TextBlock>
                 <TextBlock Grid.ColumnSpan="2"
-                           Grid.Row="2">Telefone: <Run Text="{x:Bind Dados.Emitente.Endereco.Fone}" /></TextBlock>
+                           Grid.Row="1"
+                           Canvas.ZIndex="1"
+                           HorizontalAlignment="Right">Telefone: <Run Text="{x:Bind Dados.Emitente.Endereco.Fone}" /></TextBlock>
 
                 <TextBlock Grid.ColumnSpan="2"
                            Grid.Row="3"
@@ -158,9 +159,11 @@
                 <TextBlock Grid.ColumnSpan="2"
                            Grid.Row="7">ID: <Run Text="{x:Bind Dados.IdVenda}" /></TextBlock>
                 <TextBlock Grid.ColumnSpan="2"
-                           Grid.Row="8">Chave NFe relacionada: <Run Text="{x:Bind Dados.ChaveNFeRelacionada}" /></TextBlock>
+                           Grid.Row="7"
+                           Canvas.ZIndex="1"
+                           HorizontalAlignment="Right">Data: <Run Text="{x:Bind Dados.DataVenda}" /></TextBlock>
                 <TextBlock Grid.ColumnSpan="2"
-                           Grid.Row="9">Data e hora: <Run Text="{x:Bind Dados.DataVenda}" /></TextBlock>
+                           Grid.Row="8">Chave NFe relacionada: <Run Text="{x:Bind Dados.ChaveNFeRelacionada}" /></TextBlock>
                 <TextBlock Grid.Row="10">Vendedor: <Run Text="{x:Bind Dados.Vendedor}" /></TextBlock>
                 <TextBlock Grid.Column="1"
                            Grid.Row="10">Motorista: <Run Text="{x:Bind Dados.Motorista}" /></TextBlock>
@@ -192,7 +195,8 @@
                            Grid.Row="16"
                            Margin="0,4,0,0"
                            TextWrapping="Wrap"><Run FontWeight="Bold">Obervações: </Run><Run Text="{x:Bind Dados.Observacoes}" /></TextBlock>
-                <barcode:Code128 Grid.ColumnSpan="2"
+                <barcode:Code128 x:Name="codeBarras"
+                                 Grid.ColumnSpan="2"
                                  Grid.Row="17"
                                  Data="{x:Bind Dados.Barras}"
                                  Height="48"

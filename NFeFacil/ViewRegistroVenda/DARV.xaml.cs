@@ -1,12 +1,12 @@
 ﻿using NFeFacil.ItensBD;
+using NFeFacil.Log;
 using System;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Windows.UI;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using static NFeFacil.ExtensoesPrincipal;
 
@@ -43,8 +43,8 @@ namespace NFeFacil.ViewRegistroVenda
                 {
                     Descricao = db.Produtos.Find(x.IdBase).Descricao,
                     Quantidade = x.Quantidade.ToString("N2"),
-                    Valor = x.Quantidade.ToString("C2"),
-                    Total = x.Quantidade.ToString("C2")
+                    Valor = x.ValorUnitario.ToString("C2"),
+                    Total = x.TotalLíquido.ToString("C2")
                 });
                 var array = original.Id.ToByteArray();
                 var construtor = new StringBuilder();
@@ -53,10 +53,9 @@ namespace NFeFacil.ViewRegistroVenda
                     construtor.Append(array[i].ToString("000"));
                 }
                 var idSimplificado = construtor.ToString();
+                construtor.Clear();
                 var idOriginal = original.Id.ToString().ToUpper();
 
-                var lengthProcessadoSimplificado = idSimplificado.Length / 2;
-                var lengthOriginal = idOriginal.Length;
                 Dados = new ConjuntoDadosDARV
                 {
                     Emitente = new DadosEmitente
@@ -69,7 +68,7 @@ namespace NFeFacil.ViewRegistroVenda
                         Nome = cliente.Nome,
                         Endereco = cliente.ToDestinatario().Endereco
                     },
-                    DataVenda = original.DataHoraVenda.ToString("dd-MM-yyyy HH:mm:ss"),
+                    DataVenda = original.DataHoraVenda.ToString("dd-MM-yyyy"),
                     IdVenda = idOriginal,
                     Barras = idSimplificado,
                     ChaveNFeRelacionada = original.NotaFiscalRelacionada,
@@ -78,7 +77,7 @@ namespace NFeFacil.ViewRegistroVenda
                     Motorista = motorista?.Nome ?? string.Empty,
                     Produtos = produtos.ToArray(),
                     Desconto = original.DescontoTotal.ToString("C2"),
-                    Total = original.DescontoTotal.ToString("C2"),
+                    Total = (original.Produtos.Sum(x => x.TotalLíquido) - original.DescontoTotal).ToString("C2"),
                     Observacoes = original.Observações
                 };
             }
@@ -87,6 +86,18 @@ namespace NFeFacil.ViewRegistroVenda
         private async void PaginaPrincipalCarregada(object sender, RoutedEventArgs e)
         {
             var dimensoes = await DefinirTamanho();
+            if (dimensoes.AlturaOriginal < 15)
+            {
+                grdPaginaPrincipal.Children.Remove(codeBarras);
+                Popup.Current.Escrever(TitulosComuns.Atenção, "O código de barras foi removido automaticamente da página por causa da altura pequena.");
+            }
+            else if (dimensoes.AlturaOriginal < 18)
+            {
+                var caixa = new MessageDialog("A altura da página está muito pequena, você deseja omitir o código de barras?");
+                caixa.Commands.Add(new UICommand("Sim", x => grdPaginaPrincipal.Children.Remove(codeBarras)));
+                caixa.Commands.Add(new UICommand("Não"));
+                await caixa.ShowAsync();
+            }
             await Task.Delay(500);
             var grid = (Grid)sender;
             if (double.IsNaN(grid.Height))
@@ -106,6 +117,7 @@ namespace NFeFacil.ViewRegistroVenda
                 else if (nItens1Pag <= 0)
                 {
                     grdPaginaPrincipal.Children.Remove(listaPrincipal);
+                    linhaProdutos.Height = new GridLength(1, GridUnitType.Auto);
                     int nItens2Pag = (int)(((dimensoes.AlturaProcessada - (2 * paddingPadrao)) / 22) - 1);
                     var nPaginas = Math.Ceiling((float)Dados.Produtos.Length / nItens2Pag);
                     for (int i = 0; i < nPaginas; i++)
@@ -205,11 +217,7 @@ namespace NFeFacil.ViewRegistroVenda
             };
             lista.ItemsSource = produtos.GerarObs();
 
-            var grid = new Grid()
-            {
-                BorderBrush = new SolidColorBrush(Colors.Black),
-                BorderThickness = new Thickness(1)
-            };
+            var grid = new Grid();
             grid.Children.Add(lista);
             paiPaginas.Children.Add(grid);
         }

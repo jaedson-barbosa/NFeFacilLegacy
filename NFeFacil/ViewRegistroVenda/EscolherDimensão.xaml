@@ -7,6 +7,7 @@
                mc:Ignorable="d"
                Title="Dimensões da página"
                PrimaryButtonText="Tam. personalizado"
+               PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
                SecondaryButtonText="Usar A4">
     <Grid>
         <Grid.RowDefinitions>

@@ -1,5 +1,4 @@
 ﻿using NFeFacil.DANFE.Pacotes;
-using NFeFacil.PacotesImpressaoGenericos;
 using System;
 using System.Linq;
 using Windows.UI.Xaml;

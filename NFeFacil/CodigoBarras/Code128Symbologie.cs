@@ -46,6 +46,7 @@ namespace NFeFacil.CodigoBarras
         /// <param name="type">Type of encoding to lock to. (Code 128A, Code 128B, Code 128C)</param>
         public Code128Symbologie(string input, Code128Types type)
         {
+            RawData = input;
             this.type = type;
         }
 
@@ -297,7 +298,7 @@ namespace NFeFacil.CodigoBarras
         }
     }
 
-    public enum Code128Types : ushort
+    public enum Code128Types
     {
         A,
         B,

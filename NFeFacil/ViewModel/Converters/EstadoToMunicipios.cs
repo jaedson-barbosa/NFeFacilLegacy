@@ -34,8 +34,8 @@ namespace NFeFacil.ViewModel.Converters
             }
             else
             {
-                tamanhoString = null;
-                throw new ArgumentException("Tipo não cadastrado.");
+                byte valor = (byte)System.Convert.ChangeType(value, typeof(byte));
+                return Municipios.Get(valor);
             }
         }
 

@@ -10,6 +10,7 @@ namespace NFeFacil.CodigoBarras
     /// </summary>
     public class Barcode
     {
+        private Code128Types type;
         private Code128Symbologie iBarcode;
         /// <summary>
         /// Gets or sets the raw data to encode.
@@ -20,24 +21,32 @@ namespace NFeFacil.CodigoBarras
         /// </summary>
         public string EncodedValue { get; private set; }
 
-        public Barcode(string data)
+        public Barcode(string data, Code128Types type)
         {
             RawData = data;
+            this.type = type;
+        }
+
+        public void Preencode()
+        {
+            if (string.IsNullOrWhiteSpace(RawData))
+            {
+                throw new Exception("EENCODE-1: Input data not allowed to be blank.");
+            }
+
+            iBarcode = new Code128Symbologie(RawData, type);
+            EncodedValue = iBarcode.EncodedValue;
         }
 
         /// <summary>
         /// Encodes the raw data into binary form representing bars and spaces.
         /// </summary>
-        public Rectangle[] Encode(Code128Types type)
+        public Rectangle[] Encode(int width, double height)
         {
-            //make sure there is something to encode
-            if (RawData.Trim() == "") 
-                throw new Exception("EENCODE-1: Input data not allowed to be blank.");
-
-            EncodedValue = "";
-
-            iBarcode = new Code128Symbologie(RawData, type);
-            EncodedValue = iBarcode.EncodedValue;
+            if (string.IsNullOrWhiteSpace(EncodedValue))
+            {
+                Preencode();
+            }
 
             var bars = new Rectangle[EncodedValue.Length];
 
@@ -47,8 +56,8 @@ namespace NFeFacil.CodigoBarras
                 bars[pos] = new Rectangle
                 {
                     Fill = new SolidColorBrush(EncodedValue[pos] == '1' ? Colors.Black : Colors.White),
-                    Width = 1,
-                    Height = 30,
+                    Width = width,
+                    Height = height,
                     UseLayoutRounding = false
                 };
             }

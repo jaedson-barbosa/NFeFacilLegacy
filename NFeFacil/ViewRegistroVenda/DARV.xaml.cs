@@ -1,6 +1,7 @@
 ﻿using NFeFacil.ItensBD;
 using System;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Windows.UI;
 using Windows.UI.Xaml;
@@ -45,7 +46,17 @@ namespace NFeFacil.ViewRegistroVenda
                     Valor = x.Quantidade.ToString("C2"),
                     Total = x.Quantidade.ToString("C2")
                 });
+                var array = original.Id.ToByteArray();
+                var construtor = new StringBuilder();
+                for (int i = 0; i < array.Length; i++)
+                {
+                    construtor.Append(array[i].ToString("000"));
+                }
+                var idSimplificado = construtor.ToString();
+                var idOriginal = original.Id.ToString().ToUpper();
 
+                var lengthProcessadoSimplificado = idSimplificado.Length / 2;
+                var lengthOriginal = idOriginal.Length;
                 Dados = new ConjuntoDadosDARV
                 {
                     Emitente = new DadosEmitente
@@ -59,7 +70,8 @@ namespace NFeFacil.ViewRegistroVenda
                         Endereco = cliente.ToDestinatario().Endereco
                     },
                     DataVenda = original.DataHoraVenda.ToString("dd-MM-yyyy HH:mm:ss"),
-                    IdVenda = original.Id.ToString(),
+                    IdVenda = idOriginal,
+                    Barras = idSimplificado,
                     ChaveNFeRelacionada = original.NotaFiscalRelacionada,
                     Vendedor = vendedor?.Nome ?? string.Empty,
                     CPFVendedor = vendedor?.CPF.ToString("000,000,000-00") ?? string.Empty,
@@ -77,9 +89,11 @@ namespace NFeFacil.ViewRegistroVenda
             var dimensoes = await DefinirTamanho();
             await Task.Delay(500);
             var grid = (Grid)sender;
-            if (grid.Height == double.NaN)
+            if (double.IsNaN(grid.Height))
             {
                 listaPrincipal.ItemsSource = Dados.Produtos.GerarObs();
+                linhaProdutos.Height = new GridLength(1, GridUnitType.Auto);
+                grdPaginaPrincipal.VerticalAlignment = VerticalAlignment.Top;
             }
             else
             {
@@ -92,13 +106,26 @@ namespace NFeFacil.ViewRegistroVenda
                 else if (nItens1Pag <= 0)
                 {
                     grdPaginaPrincipal.Children.Remove(listaPrincipal);
-
+                    int nItens2Pag = (int)(((dimensoes.AlturaProcessada - (2 * paddingPadrao)) / 22) - 1);
+                    var nPaginas = Math.Ceiling((float)Dados.Produtos.Length / nItens2Pag);
+                    for (int i = 0; i < nPaginas; i++)
+                    {
+                        var quantRestante = Dados.Produtos.Length - nItens2Pag * i;
+                        var nItensAtual = quantRestante > nItens2Pag ? nItens2Pag : quantRestante;
+                        var produtos = new DadosProduto[nItensAtual];
+                        for (int k = 0; k < nItensAtual; k++)
+                        {
+                            produtos[k] = Dados.Produtos[nItens2Pag * i + k];
+                        }
+                        CriarPaginaFilho(produtos);
+                    }
+                    DefinirTamanho(dimensoes.LarguraOriginal, dimensoes.AlturaOriginal, dimensoes.PaddingOriginal);
                 }
                 else
                 {
                     listaPrincipal.ItemsSource = Dados.Produtos.Take(nItens1Pag).GerarObs();
-                    int nItens2Pag = (int)(((dimensoes.altura - (2  * paddingPadrao)) / 22) - 1);
-                    var nPaginas = (Dados.Produtos.Length - nItens1Pag) / nItens2Pag;
+                    int nItens2Pag = (int)(((dimensoes.AlturaProcessada - (2  * paddingPadrao)) / 22) - 1);
+                    var nPaginas = Math.Ceiling((float)Dados.Produtos.Length / nItens2Pag);
                     for (int i = 0; i < nPaginas; i++)
                     {
                         var quantRestante = Dados.Produtos.Length - nItens1Pag - (nItens2Pag * i);
@@ -110,12 +137,12 @@ namespace NFeFacil.ViewRegistroVenda
                         }
                         CriarPaginaFilho(produtos);
                     }
-                    DefinirTamanho(dimensoes.largura, dimensoes.altura, dimensoes.padding);
+                    DefinirTamanho(dimensoes.LarguraOriginal, dimensoes.AlturaOriginal, dimensoes.PaddingOriginal);
                 }
             }
         }
 
-        async Task<(double largura, double altura, double padding)> DefinirTamanho()
+        async Task<Dimensoes> DefinirTamanho()
         {
             double largura = 21, altura = 29.7, padding = 1;
             var caixa = new EscolherDimensão();
@@ -131,20 +158,42 @@ namespace NFeFacil.ViewRegistroVenda
                     altura = caixa.Altura;
                 }
             }
-            DefinirTamanho(largura, altura, padding);
-            return (largura, altura, padding);
+            return DefinirTamanho(largura, altura, padding);
         }
 
-        void DefinirTamanho(double largura, double altura, double padding)
+        Dimensoes DefinirTamanho(double largura, double altura, double padding)
         {
             var filhos = paiPaginas.Children;
+            var novaLargura = CentimeterToPixel(largura - 2);
+            var novaAltura = altura != 0 ? CentimeterToPixel(altura - 2) : double.NaN;
+            var novoPadding = CentimeterToPixel(padding);
             for (int i = 0; i < filhos.Count; i++)
             {
                 var filho = (Grid)filhos[i];
-                filho.Width = CentimeterToPixel(largura - 2);
-                filho.Height = altura != 0 ? CentimeterToPixel(altura - 2) : double.NaN;
-                filho.Padding = new Thickness(CentimeterToPixel(padding));
+                filho.Width = novaLargura;
+                filho.Height = novaAltura;
+                filho.Padding = new Thickness(novoPadding);
             }
+            return new Dimensoes
+            {
+                LarguraOriginal = largura,
+                LarguraProcessada = novaLargura,
+                AlturaOriginal = altura,
+                AlturaProcessada = novaAltura,
+                PaddingOriginal = padding,
+                PaddingProcessado = novoPadding
+            };
+        }
+
+        struct Dimensoes
+        {
+            public double LarguraOriginal { get; set; }
+            public double AlturaOriginal { get; set; }
+            public double PaddingOriginal { get; set; }
+
+            public double LarguraProcessada { get; set; }
+            public double AlturaProcessada { get; set; }
+            public double PaddingProcessado { get; set; }
         }
 
         void CriarPaginaFilho(DadosProduto[] produtos)
@@ -172,6 +221,7 @@ namespace NFeFacil.ViewRegistroVenda
         public DadosCliente Cliente { get; set; }
         public string DataVenda { get; set; }
         public string IdVenda { get; set; }
+        public string Barras { get; set; }
         public string ChaveNFeRelacionada { get; set; }
         public string Vendedor { get; set; }
         public string CPFVendedor { get; set; }

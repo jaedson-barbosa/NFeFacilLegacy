@@ -19,6 +19,7 @@ namespace NFeFacil.ViewRegistroVenda
     /// </summary>
     public sealed partial class DARV : Page
     {
+        GerenciadorImpressao gerenciador = new GerenciadorImpressao();
         ConjuntoDadosDARV Dados { get; set; }
         const int paddingPadrao = 1;
 
@@ -83,15 +84,16 @@ namespace NFeFacil.ViewRegistroVenda
             }
         }
 
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            gerenciador.Dispose();
+            base.OnNavigatingFrom(e);
+        }
+
         private async void PaginaPrincipalCarregada(object sender, RoutedEventArgs e)
         {
             var dimensoes = await DefinirTamanho();
             if (dimensoes.AlturaOriginal < 15)
-            {
-                grdPaginaPrincipal.Children.Remove(codeBarras);
-                Popup.Current.Escrever(TitulosComuns.Atenção, "O código de barras foi removido automaticamente da página por causa da altura pequena.");
-            }
-            else if (dimensoes.AlturaOriginal < 18)
             {
                 var caixa = new MessageDialog("A altura da página está muito pequena, você deseja omitir o código de barras?");
                 caixa.Commands.Add(new UICommand("Sim", x => grdPaginaPrincipal.Children.Remove(codeBarras)));
@@ -176,8 +178,8 @@ namespace NFeFacil.ViewRegistroVenda
         Dimensoes DefinirTamanho(double largura, double altura, double padding)
         {
             var filhos = paiPaginas.Children;
-            var novaLargura = CentimeterToPixel(largura - 2);
-            var novaAltura = altura != 0 ? CentimeterToPixel(altura - 2) : double.NaN;
+            var novaLargura = CentimeterToPixel(largura);
+            var novaAltura = altura != 0 ? CentimeterToPixel(altura) : double.NaN;
             var novoPadding = CentimeterToPixel(padding);
             for (int i = 0; i < filhos.Count; i++)
             {
@@ -220,6 +222,11 @@ namespace NFeFacil.ViewRegistroVenda
             var grid = new Grid();
             grid.Children.Add(lista);
             paiPaginas.Children.Add(grid);
+        }
+
+        private async void Imprimir(object sender, RoutedEventArgs e)
+        {
+            await gerenciador.Imprimir(paiPaginas.Children);
         }
     }
 

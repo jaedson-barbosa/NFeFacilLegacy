@@ -163,7 +163,7 @@
                            Canvas.ZIndex="1"
                            HorizontalAlignment="Right">Data: <Run Text="{x:Bind Dados.DataVenda}" /></TextBlock>
                 <TextBlock Grid.ColumnSpan="2"
-                           Grid.Row="8">Chave NFe relacionada: <Run Text="{x:Bind Dados.ChaveNFeRelacionada}" /></TextBlock>
+                           Grid.Row="8">Chave da NFe relacionada: <Run Text="{x:Bind Dados.ChaveNFeRelacionada}" /></TextBlock>
                 <TextBlock Grid.Row="10">Vendedor: <Run Text="{x:Bind Dados.Vendedor}" /></TextBlock>
                 <TextBlock Grid.Column="1"
                            Grid.Row="10">Motorista: <Run Text="{x:Bind Dados.Motorista}" /></TextBlock>
@@ -206,7 +206,8 @@
     </ScrollViewer>
     <Page.BottomAppBar>
         <CommandBar>
-            <AppBarButton Label="Imprimir">
+            <AppBarButton Label="Imprimir"
+                          Click="Imprimir">
                 <AppBarButton.Icon>
                     <FontIcon Glyph="&#xE749;" />
                 </AppBarButton.Icon>

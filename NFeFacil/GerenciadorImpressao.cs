@@ -4,7 +4,7 @@ using Windows.Graphics.Printing;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Printing;
 
-namespace NFeFacil.DANFE
+namespace NFeFacil
 {
     public sealed class GerenciadorImpressao : IDisposable
     {

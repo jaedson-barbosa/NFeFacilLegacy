@@ -8,9 +8,6 @@
                Title="Adicionar produto"
                PrimaryButtonText="Adicionar"
                SecondaryButtonText="Cancelar">
-    <ContentDialog.DataContext>
-        <local:AdicionarProdutoVendaDataContext />
-    </ContentDialog.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -18,9 +15,9 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <TextBox Header="Buscar por nome"
-                 Text="{Binding Busca, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-        <ListView ItemsSource="{Binding Produtos, Mode=OneTime}"
-                  SelectedItem="{Binding ProdutoSelecionado, Mode=TwoWay}"
+                 TextChanged="Buscar" />
+        <ListView ItemsSource="{x:Bind Produtos, Mode=OneTime}"
+                  SelectedItem="{x:Bind ProdutoSelecionado, Mode=TwoWay}"
                   ItemContainerStyle="{StaticResource ItemFullWidth}"
                   Grid.Row="1"
                   Margin="0,2,0,4">
@@ -67,13 +64,13 @@
         </ListView>
         <ItemsControl Grid.Row="2" Style="{StaticResource ItensResponsivos}">
             <TextBox Header="Quantidade"
-                     Text="{Binding Quantidade, Mode=TwoWay}" />
+                     Text="{x:Bind Quantidade, Mode=TwoWay}" />
             <TextBox Header="Frete"
-                     Text="{Binding Frete, Mode=TwoWay}" />
+                     Text="{x:Bind Frete, Mode=TwoWay}" />
             <TextBox Header="Seguro"
-                     Text="{Binding Seguro, Mode=TwoWay}" />
+                     Text="{x:Bind Seguro, Mode=TwoWay}" />
             <TextBox Header="Desesas extras"
-                     Text="{Binding DespesasExtras, Mode=TwoWay}" />
+                     Text="{x:Bind DespesasExtras, Mode=TwoWay}" />
         </ItemsControl>
     </Grid>
 </ContentDialog>

@@ -96,21 +96,20 @@ namespace NFeFacil.ViewRegistroVenda
             var caixa = new AdicionarProduto();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
-                var contexto = (AdicionarProdutoVendaDataContext)caixa.DataContext;
                 var novoProdBanco = new ProdutoSimplesVenda
                 {
-                    IdBase = contexto.ProdutoSelecionado.Base.Id,
-                    ValorUnitario = contexto.ProdutoSelecionado.PreçoDouble,
-                    Quantidade = contexto.Quantidade,
-                    Frete = contexto.Frete,
-                    Seguro = contexto.Seguro,
-                    DespesasExtras = contexto.DespesasExtras
+                    IdBase = caixa.ProdutoSelecionado.Base.Id,
+                    ValorUnitario = caixa.ProdutoSelecionado.PreçoDouble,
+                    Quantidade = caixa.Quantidade,
+                    Frete = caixa.Frete,
+                    Seguro = caixa.Seguro,
+                    DespesasExtras = caixa.DespesasExtras
                 };
                 novoProdBanco.CalcularTotalLíquido();
                 var novoProdExib = new ExibicaoProdutoVenda
                 {
                     Base = novoProdBanco,
-                    Descricao = contexto.ProdutoSelecionado.Nome,
+                    Descricao = caixa.ProdutoSelecionado.Nome,
                     Quantidade = novoProdBanco.Quantidade,
                 };
                 ListaProdutos.Add(novoProdExib);

@@ -311,7 +311,6 @@
     <Compile Include="ViewModel\NotaFiscalDataContext.cs" />
     <Compile Include="ViewModel\NotasSalvasDataContext.cs" />
     <Compile Include="ViewModel\ProdutoCompletoDataContext.cs" />
-    <Compile Include="ViewRegistroVenda\AdicionarProdutoVendaDataContext.cs" />
     <Compile Include="ViewModel\QRCode.cs" />
     <Compile Include="ViewModel\QRConexaoDataContext.cs" />
     <Compile Include="ViewRegistroVenda\RegistroVendaDataContext.cs" />

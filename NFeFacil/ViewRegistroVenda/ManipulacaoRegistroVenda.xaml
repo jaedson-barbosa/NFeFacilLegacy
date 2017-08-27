@@ -187,9 +187,10 @@
                           Icon="Accept"
                           IsEnabled="{Binding ManipulacaoAtivada}"
                           Command="{Binding FinalizarCommand}" />
-            <AppBarButton Label="Criar NFe normal"
+            <AppBarButton Label="Criar NFe"
                           IsEnabled="False"
-                          Icon="Page" />
+                          Icon="Page"
+                          Command="{Binding CriarNFeCommand}" />
             <AppBarButton Label="Criar DARV"
                           Icon="Document"
                           Command="{Binding CriarDARVCommand}" />

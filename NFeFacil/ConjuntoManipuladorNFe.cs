@@ -1,6 +1,7 @@
 ﻿using NFeFacil.ItensBD;
 using NFeFacil.ModeloXML;
 using NFeFacil.ModeloXML.PartesProcesso;
+using System;
 
 namespace NFeFacil
 {
@@ -12,5 +13,6 @@ namespace NFeFacil
         public bool Exportada { get; set; }
         public bool Impressa { get; set; }
         public TipoOperacao OperacaoRequirida { get; set; }
+        public Action<string> OnNotaSalva { get; set; }
     }
 }

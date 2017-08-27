@@ -22,7 +22,7 @@ namespace NFeFacil.ItensBD
         public string Observações { get; set; }
         public double DescontoTotal { get; set; }
 
-        NFe ToNFe()
+        public NFe ToNFe()
         {
             using (var db = new AplicativoContext())
             {

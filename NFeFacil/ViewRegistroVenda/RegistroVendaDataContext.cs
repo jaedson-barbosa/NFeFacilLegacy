@@ -1,5 +1,6 @@
 ﻿using NFeFacil.ItensBD;
 using NFeFacil.Log;
+using NFeFacil.ModeloXML.PartesProcesso;
 using NFeFacil.ViewModel;
 using System;
 using System.Collections.ObjectModel;
@@ -27,6 +28,7 @@ namespace NFeFacil.ViewRegistroVenda
         public ICommand FinalizarCommand { get; }
         public ICommand AplicarDescontoCommand { get; }
         public ICommand CriarDARVCommand { get; }
+        public ICommand CriarNFeCommand { get; }
 
         public string ValorTotal => ItemBanco.Produtos.Sum(x => x.TotalLíquido).ToString("C");
 
@@ -46,6 +48,7 @@ namespace NFeFacil.ViewRegistroVenda
             FinalizarCommand = new Comando(Finalizar);
             AplicarDescontoCommand = new Comando(AplicarDesconto);
             CriarDARVCommand = new Comando(CriarDARV);
+            CriarNFeCommand = new Comando(CriarNFe);
 
             Clientes = db.Clientes.GerarObs();
             Motoristas = db.Motoristas.GerarObs();
@@ -71,6 +74,7 @@ namespace NFeFacil.ViewRegistroVenda
             FinalizarCommand = new Comando(Finalizar);
             AplicarDescontoCommand = new Comando(AplicarDesconto);
             CriarDARVCommand = new Comando(CriarDARV);
+            CriarNFeCommand = new Comando(CriarNFe);
 
             db.AttachRange(venda.Produtos);
             Clientes = db.Clientes.GerarObs();
@@ -184,8 +188,29 @@ namespace NFeFacil.ViewRegistroVenda
             MainPage.Current.Navegar<DARV>(ItemBanco);
         }
 
+        void CriarNFe()
+        {
+            var nfe = new ConjuntoManipuladorNFe
+            {
+                NotaSalva = ItemBanco.ToNFe(),
+                OperacaoRequirida = TipoOperacao.Adicao,
+                StatusAtual = StatusNFe.Edição,
+                OnNotaSalva = x =>
+                {
+                    ItemBanco.NotaFiscalRelacionada = x;
+                }
+            };
+            nfe.NotaSalva.Informações.identificação.DefinirVersãoAplicativo();
+            MainPage.Current.Navegar<View.ManipulacaoNotaFiscal>(nfe);
+        }
+
         public void Dispose()
         {
+            if (Operacao == TipoOperacao.Edicao)
+            {
+                db.Update(ItemBanco);
+                db.SaveChanges();
+            }
             db.Dispose();
         }
 

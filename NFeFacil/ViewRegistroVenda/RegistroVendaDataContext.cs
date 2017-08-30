@@ -206,11 +206,7 @@ namespace NFeFacil.ViewRegistroVenda
 
         public void Dispose()
         {
-            if (Operacao == TipoOperacao.Edicao)
-            {
-                db.Update(ItemBanco);
-                db.SaveChanges();
-            }
+
             db.Dispose();
         }
 

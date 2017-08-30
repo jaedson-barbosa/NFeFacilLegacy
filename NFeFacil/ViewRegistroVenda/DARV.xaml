@@ -194,7 +194,7 @@
                 <TextBlock Grid.ColumnSpan="2"
                            Grid.Row="16"
                            Margin="0,4,0,0"
-                           TextWrapping="Wrap"><Run FontWeight="Bold">Obervações: </Run><Run Text="{x:Bind Dados.Observacoes}" /></TextBlock>
+                           TextWrapping="Wrap"><Run FontWeight="Bold">Obervações:</Run> <Run Text="{x:Bind Dados.Observacoes}" /></TextBlock>
                 <barcode:Code128 x:Name="codeBarras"
                                  Grid.ColumnSpan="2"
                                  Grid.Row="17"

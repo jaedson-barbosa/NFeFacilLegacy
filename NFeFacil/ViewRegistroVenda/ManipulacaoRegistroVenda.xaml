@@ -193,6 +193,7 @@
                           Command="{Binding CriarNFeCommand}" />
             <AppBarButton Label="Criar DARV"
                           Icon="Document"
+                          IsEnabled="{Binding ManipulacaoAtivada, Converter={StaticResource invert}}"
                           Command="{Binding CriarDARVCommand}" />
         </CommandBar>
     </Page.BottomAppBar>

@@ -2,7 +2,7 @@
   "dependencies": {
     "LiveCharts.Uwp": "0.8.0",
     "Microsoft.EntityFrameworkCore.Sqlite": "1.1.2",
-    "Microsoft.NETCore.UniversalWindowsPlatform": "5.4.0",
+    "Microsoft.NETCore.UniversalWindowsPlatform": "5.3.4",
     "Newtonsoft.Json": "10.0.3",
     "Restup": "1.0.0",
     "System.ValueTuple": "4.4.0",

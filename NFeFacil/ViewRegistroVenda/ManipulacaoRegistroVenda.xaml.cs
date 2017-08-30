@@ -19,6 +19,7 @@ namespace NFeFacil.ViewRegistroVenda
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            MainPage.Current.SeAtualizar("\uEC59", "Registro de venda");
             RegistroVendaDataContext contexto;
             if (e.Parameter is GrupoViewBanco<RegistroVenda> grupo)
             {

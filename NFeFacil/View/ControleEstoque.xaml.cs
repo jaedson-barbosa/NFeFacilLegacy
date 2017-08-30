@@ -33,6 +33,11 @@ namespace NFeFacil.View
             }
         }
 
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            MainPage.Current.SeAtualizar(Symbol.Manage, "Controle de estoque");
+        }
+
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
             using (var db = new AplicativoContext())

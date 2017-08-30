@@ -48,7 +48,8 @@ namespace NFeFacil.CodigoBarras
                 barcode.Preencode();
                 var width = Math.Floor(code.ActualWidth / barcode.EncodedValue.Length);
                 if (width == 0) width = 1;
-                code.Barras = barcode.Encode((int)width, code.Height != double.NaN ? code.Height : 30);
+                var height = double.IsNaN(code.Height) ? 30 : code.Height;
+                code.Barras = barcode.Encode((int)width, height);
             }
         }
 

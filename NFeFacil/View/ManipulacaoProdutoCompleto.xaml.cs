@@ -30,11 +30,10 @@ namespace NFeFacil.View
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            if (e.Parameter is GrupoViewBanco<DetalhesProdutos> grupo)
+            if (e.Parameter is DetalhesProdutos produtoExistente)
             {
-                var produto = grupo.ItemBanco;
                 MainPage.Current.SeAtualizar(Symbol.View, "Produto");
-                DataContext = new ProdutoCompletoDataContext(produto, false);
+                DataContext = new ProdutoCompletoDataContext(produtoExistente, false);
                 finalizacaoCompleta = true;
             }
             else

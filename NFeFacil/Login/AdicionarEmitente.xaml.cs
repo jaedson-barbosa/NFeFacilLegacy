@@ -16,7 +16,6 @@ namespace NFeFacil.Login
     public sealed partial class AdicionarEmitente : Page
     {
         private EmitenteDI emitente;
-        private TipoOperacao tipoRequisitado;
         private ILog Log = Popup.Current;
 
         public AdicionarEmitente()
@@ -26,29 +25,15 @@ namespace NFeFacil.Login
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            GrupoViewBanco<EmitenteDI> parametro;
             if (e.Parameter == null)
             {
-                parametro = new GrupoViewBanco<EmitenteDI>
-                {
-                    ItemBanco = new EmitenteDI(),
-                    OperacaoRequirida = TipoOperacao.Adicao
-                };
+                emitente = new EmitenteDI();
+                MainPage.Current.SeAtualizar(Symbol.Add, "Emitente");
             }
             else
             {
-                parametro = (GrupoViewBanco<EmitenteDI>)e.Parameter;
-            }
-            emitente = parametro.ItemBanco;
-            tipoRequisitado = parametro.OperacaoRequirida;
-            switch (tipoRequisitado)
-            {
-                case TipoOperacao.Adicao:
-                    MainPage.Current.SeAtualizar(Symbol.Add, "Emitente");
-                    break;
-                case TipoOperacao.Edicao:
-                    MainPage.Current.SeAtualizar(Symbol.Edit, "Emitente");
-                    break;
+                emitente = (EmitenteDI)e.Parameter;
+                MainPage.Current.SeAtualizar(Symbol.Edit, "Emitente");
             }
             DefinirImagem();
             DataContext = new EmitenteDataContext(ref emitente);
@@ -78,7 +63,7 @@ namespace NFeFacil.Login
                     using (var db = new AplicativoContext())
                     {
                         emitente.UltimaData = DateTime.Now;
-                        if (tipoRequisitado == TipoOperacao.Adicao)
+                        if (emitente.Id == Guid.Empty)
                         {
                             db.Add(emitente);
                             Log.Escrever(TitulosComuns.Sucesso, "Emitente salvo com sucesso.");

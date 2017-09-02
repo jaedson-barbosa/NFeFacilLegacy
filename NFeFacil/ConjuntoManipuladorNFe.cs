@@ -12,7 +12,6 @@ namespace NFeFacil
         public StatusNFe StatusAtual { get; set; }
         public bool Exportada { get; set; }
         public bool Impressa { get; set; }
-        public TipoOperacao OperacaoRequirida { get; set; }
         public Action<string> OnNotaSalva { get; set; }
     }
 }

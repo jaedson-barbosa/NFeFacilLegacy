@@ -97,7 +97,6 @@ namespace NFeFacil.ViewModel
                     StatusAtual = (StatusNFe)Nota.Status,
                     Impressa = Nota.Impressa,
                     Exportada = Nota.Exportada,
-                    OperacaoRequirida = TipoOperacao.Edicao
                 };
                 if (Nota.Status < 4)
                 {

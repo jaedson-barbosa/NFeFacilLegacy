@@ -14,7 +14,6 @@ namespace NFeFacil.ViewRegistroVenda
     public sealed class RegistroVendaDataContext : INotifyPropertyChanged, IDisposable
     {
         public RegistroVenda ItemBanco { get; }
-        TipoOperacao Operacao { get; }
         ILog Log = Popup.Current;
         public bool ManipulacaoAtivada { get; private set; }
 
@@ -61,7 +60,6 @@ namespace NFeFacil.ViewRegistroVenda
                 Produtos = new System.Collections.Generic.List<ProdutoSimplesVenda>(),
                 DataHoraVenda = DateTime.Now
             };
-            Operacao = TipoOperacao.Adicao;
 
             ManipulacaoAtivada = true;
         }
@@ -88,7 +86,6 @@ namespace NFeFacil.ViewRegistroVenda
                              }).GerarObs();
 
             ItemBanco = venda;
-            Operacao = TipoOperacao.Edicao;
 
             ManipulacaoAtivada = false;
         }
@@ -142,7 +139,7 @@ namespace NFeFacil.ViewRegistroVenda
         {
             ItemBanco.UltimaData = DateTime.Now;
             ItemBanco.Vendedor = Propriedades.VendedorAtivo?.Id ?? Guid.Empty;
-            if (Operacao == TipoOperacao.Adicao)
+            if (ItemBanco.Id == Guid.Empty)
             {
                 db.Add(ItemBanco);
                 ItemBanco.Produtos.ForEach(x => x.RegistrarAlteracaoEstoque(db));
@@ -193,7 +190,6 @@ namespace NFeFacil.ViewRegistroVenda
             var nfe = new ConjuntoManipuladorNFe
             {
                 NotaSalva = ItemBanco.ToNFe(),
-                OperacaoRequirida = TipoOperacao.Adicao,
                 StatusAtual = StatusNFe.Edição,
                 OnNotaSalva = x =>
                 {

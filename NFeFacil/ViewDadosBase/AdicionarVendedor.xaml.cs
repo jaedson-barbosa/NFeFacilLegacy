@@ -16,7 +16,6 @@ namespace NFeFacil.ViewDadosBase
     public sealed partial class AdicionarVendedor : Page
     {
         private Vendedor vendedor;
-        private TipoOperacao tipoRequisitado;
         private ILog Log = Popup.Current;
 
         public AdicionarVendedor()
@@ -26,29 +25,15 @@ namespace NFeFacil.ViewDadosBase
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            GrupoViewBanco<Vendedor> parametro;
             if (e.Parameter == null)
             {
-                parametro = new GrupoViewBanco<Vendedor>
-                {
-                    ItemBanco = new Vendedor(),
-                    OperacaoRequirida = TipoOperacao.Adicao
-                };
+                vendedor = new Vendedor();
+                MainPage.Current.SeAtualizar(Symbol.Add, "Vendedor");
             }
             else
             {
-                parametro = (GrupoViewBanco<Vendedor>)e.Parameter;
-            }
-            vendedor = parametro.ItemBanco;
-            tipoRequisitado = parametro.OperacaoRequirida;
-            switch (tipoRequisitado)
-            {
-                case TipoOperacao.Adicao:
-                    MainPage.Current.SeAtualizar(Symbol.Add, "Vendedor");
-                    break;
-                case TipoOperacao.Edicao:
-                    MainPage.Current.SeAtualizar(Symbol.Edit, "Vendedor");
-                    break;
+                vendedor = (Vendedor)e.Parameter;
+                MainPage.Current.SeAtualizar(Symbol.Edit, "Vendedor");
             }
             DefinirImagem();
             DataContext = vendedor;
@@ -78,7 +63,7 @@ namespace NFeFacil.ViewDadosBase
                     using (var db = new AplicativoContext())
                     {
                         vendedor.UltimaData = DateTime.Now;
-                        if (tipoRequisitado == TipoOperacao.Adicao)
+                        if (vendedor.Id == Guid.Empty)
                         {
                             db.Add(vendedor);
                             Log.Escrever(TitulosComuns.Sucesso, "Vendedor salvo com sucesso.");

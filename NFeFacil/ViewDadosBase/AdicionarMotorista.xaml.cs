@@ -16,7 +16,6 @@ namespace NFeFacil.ViewDadosBase
     public sealed partial class AdicionarMotorista : Page
     {
         private MotoristaDI motorista;
-        private TipoOperacao tipoRequisitado;
         private ILog Log = Popup.Current;
 
         public AdicionarMotorista()
@@ -26,29 +25,15 @@ namespace NFeFacil.ViewDadosBase
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            GrupoViewBanco<MotoristaDI> parametro;
             if (e.Parameter == null)
             {
-                parametro = new GrupoViewBanco<MotoristaDI>
-                {
-                    ItemBanco = new MotoristaDI(),
-                    OperacaoRequirida = TipoOperacao.Adicao
-                };
+                motorista = new MotoristaDI();
+                MainPage.Current.SeAtualizar(Symbol.Add, "Motorista");
             }
             else
             {
-                parametro = (GrupoViewBanco<MotoristaDI>)e.Parameter;
-            }
-            motorista = parametro.ItemBanco;
-            tipoRequisitado = parametro.OperacaoRequirida;
-            switch (tipoRequisitado)
-            {
-                case TipoOperacao.Adicao:
-                    MainPage.Current.SeAtualizar(Symbol.Add, "Motorista");
-                    break;
-                case TipoOperacao.Edicao:
-                    MainPage.Current.SeAtualizar(Symbol.Edit, "Motorista");
-                    break;
+                motorista = (MotoristaDI)e.Parameter;
+                MainPage.Current.SeAtualizar(Symbol.Edit, "Motorista");
             }
             DataContext = new MotoristaDataContext(ref motorista);
         }
@@ -62,7 +47,7 @@ namespace NFeFacil.ViewDadosBase
                     using (var db = new AplicativoContext())
                     {
                         motorista.UltimaData = DateTime.Now;
-                        if (tipoRequisitado == TipoOperacao.Adicao)
+                        if (motorista.Id == Guid.Empty)
                         {
                             db.Add(motorista);
                             Log.Escrever(TitulosComuns.Sucesso, "Motorista salvo com sucesso.");

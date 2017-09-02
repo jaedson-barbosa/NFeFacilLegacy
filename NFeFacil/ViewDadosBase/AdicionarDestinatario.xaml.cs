@@ -16,7 +16,6 @@ namespace NFeFacil.ViewDadosBase
     public sealed partial class AdicionarDestinatario : Page
     {
         private ClienteDI cliente;
-        private TipoOperacao tipoRequisitado;
         private ILog Log = Popup.Current;
 
         public AdicionarDestinatario()
@@ -26,29 +25,15 @@ namespace NFeFacil.ViewDadosBase
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            GrupoViewBanco<ClienteDI> parametro;
             if (e.Parameter == null)
             {
-                parametro = new GrupoViewBanco<ClienteDI>
-                {
-                    ItemBanco = new ClienteDI(),
-                    OperacaoRequirida = TipoOperacao.Adicao
-                };
+                cliente = new ClienteDI();
+                MainPage.Current.SeAtualizar(Symbol.Add, "Cliente");
             }
             else
             {
-                parametro = (GrupoViewBanco<ClienteDI>)e.Parameter;
-            }
-            cliente = parametro.ItemBanco;
-            tipoRequisitado = parametro.OperacaoRequirida;
-            switch (tipoRequisitado)
-            {
-                case TipoOperacao.Adicao:
-                    MainPage.Current.SeAtualizar(Symbol.Add, "Cliente");
-                    break;
-                case TipoOperacao.Edicao:
-                    MainPage.Current.SeAtualizar(Symbol.Edit, "Cliente");
-                    break;
+                cliente = (ClienteDI)e.Parameter;
+                MainPage.Current.SeAtualizar(Symbol.Edit, "Cliente");
             }
             DataContext = new ClienteDataContext(ref cliente);
         }
@@ -62,7 +47,7 @@ namespace NFeFacil.ViewDadosBase
                     using (var db = new AplicativoContext())
                     {
                         cliente.UltimaData = DateTime.Now;
-                        if (tipoRequisitado == TipoOperacao.Adicao)
+                        if (cliente.Id == Guid.Empty)
                         {
                             db.Add(cliente);
                             Log.Escrever(TitulosComuns.Sucesso, "Cliente salvo com sucesso.");
@@ -77,7 +62,7 @@ namespace NFeFacil.ViewDadosBase
                     MainPage.Current.Retornar();
                 }
             }
-            catch (System.Exception erro)
+            catch (Exception erro)
             {
                 erro.ManipularErro();
             }

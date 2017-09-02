@@ -95,7 +95,6 @@ namespace NFeFacil.View
                             cana = new RegistroAquisicaoCana()
                         }
                     },
-                    OperacaoRequirida = TipoOperacao.Adicao,
                     StatusAtual = StatusNFe.Edição
                 };
                 notaSimples.NotaSalva.Informações.identificação.DefinirVersãoAplicativo();

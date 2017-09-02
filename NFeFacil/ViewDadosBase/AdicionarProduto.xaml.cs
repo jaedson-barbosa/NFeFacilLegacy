@@ -16,7 +16,6 @@ namespace NFeFacil.ViewDadosBase
     public sealed partial class AdicionarProduto : Page
     {
         private ProdutoDI Produto;
-        private TipoOperacao tipoRequisitado;
         private ILog Log = Popup.Current;
 
         public AdicionarProduto()
@@ -26,32 +25,18 @@ namespace NFeFacil.ViewDadosBase
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            GrupoViewBanco<ProdutoDI> parametro;
             if (e.Parameter == null)
             {
-                parametro = new GrupoViewBanco<ProdutoDI>
-                {
-                    ItemBanco = new ProdutoDI(),
-                    OperacaoRequirida = TipoOperacao.Adicao
-                };
+                Produto = new ProdutoDI();
+                MainPage.Current.SeAtualizar(Symbol.Add, "Produto");
+                chkControleEstoque.IsEnabled = false;
             }
             else
             {
-                parametro = (GrupoViewBanco<ProdutoDI>)e.Parameter;
-            }
-            Produto = parametro.ItemBanco;
-            tipoRequisitado = parametro.OperacaoRequirida;
-            switch (tipoRequisitado)
-            {
-                case TipoOperacao.Adicao:
-                    MainPage.Current.SeAtualizar(Symbol.Add, "Produto");
-                    chkControleEstoque.IsEnabled = false;
-                    break;
-                case TipoOperacao.Edicao:
-                    MainPage.Current.SeAtualizar(Symbol.Edit, "Produto");
-                    using (var db = new AplicativoContext())
-                        chkControleEstoque.IsChecked = db.Estoque.Find(Produto.Id) != null;
-                    break;
+                Produto = (ProdutoDI)e.Parameter;
+                MainPage.Current.SeAtualizar(Symbol.Edit, "Produto");
+                using (var db = new AplicativoContext())
+                    chkControleEstoque.IsChecked = db.Estoque.Find(Produto.Id) != null;
             }
             DataContext = Produto;
             chkControleEstoque.Checked += ControleEstoque_Checked;
@@ -69,7 +54,7 @@ namespace NFeFacil.ViewDadosBase
                     using (var db = new AplicativoContext())
                     {
                         Produto.UltimaData = DateTime.Now;
-                        if (tipoRequisitado == TipoOperacao.Adicao)
+                        if (Produto.Id == Guid.Empty)
                         {
                             db.Add(Produto);
                             Log.Escrever(TitulosComuns.Sucesso, "Produto salvo com sucesso.");

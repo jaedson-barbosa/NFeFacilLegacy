@@ -47,12 +47,12 @@ namespace NFeFacil.View
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             var param = (ConjuntoManipuladorNFe)e.Parameter;
-            switch (param.OperacaoRequirida)
+            switch (param.StatusAtual)
             {
-                case TipoOperacao.Adicao:
+                case ItensBD.StatusNFe.Edição:
                     MainPage.Current.SeAtualizar(Symbol.Add, "Nota fiscal");
                     break;
-                case TipoOperacao.Edicao:
+                default:
                     MainPage.Current.SeAtualizar(Symbol.Edit, "Nota fiscal");
                     break;
             }

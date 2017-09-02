@@ -39,11 +39,7 @@ namespace NFeFacil.Login
 
         private void Editar(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            MainPage.Current.Navegar<AdicionarEmitente>(new GrupoViewBanco<EmitenteDI>()
-            {
-                ItemBanco = emitente,
-                OperacaoRequirida = TipoOperacao.Edicao
-            });
+            MainPage.Current.Navegar<AdicionarEmitente>(emitente);
         }
 
         private void Apagar(object sender, Windows.UI.Xaml.RoutedEventArgs e)

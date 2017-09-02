@@ -62,11 +62,7 @@ namespace NFeFacil.ViewDadosBase
 
         private void EditarCliente(ClienteDI dest)
         {
-            MainPage.Current.Navegar<AdicionarDestinatario>(new GrupoViewBanco<ClienteDI>
-            {
-                ItemBanco = dest,
-                OperacaoRequirida = TipoOperacao.Edicao
-            });
+            MainPage.Current.Navegar<AdicionarDestinatario>(dest);
         }
 
         private void RemoverCliente(ClienteDI dest)
@@ -86,11 +82,7 @@ namespace NFeFacil.ViewDadosBase
 
         private void EditarMotorista(MotoristaDI mot)
         {
-            MainPage.Current.Navegar<AdicionarMotorista>(new GrupoViewBanco<MotoristaDI>
-            {
-                ItemBanco = mot,
-                OperacaoRequirida = TipoOperacao.Edicao
-            });
+            MainPage.Current.Navegar<AdicionarMotorista>(mot);
         }
 
         private void RemoverMotorista(MotoristaDI mot)
@@ -110,11 +102,7 @@ namespace NFeFacil.ViewDadosBase
 
         private void EditarProduto(ProdutoDI prod)
         {
-            MainPage.Current.Navegar<AdicionarProduto>(new GrupoViewBanco<ProdutoDI>
-            {
-                ItemBanco = prod,
-                OperacaoRequirida = TipoOperacao.Edicao
-            });
+            MainPage.Current.Navegar<AdicionarProduto>(prod);
         }
 
         private void RemoverProduto(ProdutoDI prod)
@@ -134,11 +122,7 @@ namespace NFeFacil.ViewDadosBase
 
         public void EditarVendedor(Vendedor vend)
         {
-            MainPage.Current.Navegar<AdicionarVendedor>(new GrupoViewBanco<Vendedor>
-            {
-                ItemBanco = vend,
-                OperacaoRequirida = TipoOperacao.Edicao
-            });
+            MainPage.Current.Navegar<AdicionarVendedor>(vend);
         }
 
         public void RemoverVendedor(Vendedor vend)

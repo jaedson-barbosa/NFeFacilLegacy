@@ -654,8 +654,7 @@ namespace NFeFacil.ViewModel
 
         void ExibirProduto(DetalhesProdutos produto)
         {
-            var detCompleto = new GrupoViewBanco<DetalhesProdutos> { ItemBanco = produto };
-            MainPage.Current.Navegar<ManipulacaoProdutoCompleto>(detCompleto);
+            MainPage.Current.Navegar<ManipulacaoProdutoCompleto>(produto);
         }
 
         void EditarProduto(DetalhesProdutos produto)

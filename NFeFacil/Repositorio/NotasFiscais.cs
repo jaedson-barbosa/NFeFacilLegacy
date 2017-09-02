@@ -11,7 +11,8 @@ namespace NFeFacil.Repositorio
                 return (from nota in Contexto.NotasFiscais
                         where nota.CNPJEmitente == cnpjEmitente.ToString()
                         where nota.SerieNota == serieNota
-                        where homologacao && nota.NomeCliente.Trim().ToUpper() == "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL"
+                        let notaHomologacao = nota.NomeCliente.Trim().ToUpper() == "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL"
+                        where homologacao ? notaHomologacao : !notaHomologacao
                         select nota.NumeroNota).Max() + 1;
             }
         }

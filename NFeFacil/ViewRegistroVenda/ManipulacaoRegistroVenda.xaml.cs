@@ -21,9 +21,9 @@ namespace NFeFacil.ViewRegistroVenda
         {
             MainPage.Current.SeAtualizar("\uEC59", "Registro de venda");
             RegistroVendaDataContext contexto;
-            if (e.Parameter is GrupoViewBanco<RegistroVenda> grupo)
+            if (e.Parameter is RegistroVenda registro)
             {
-                contexto = new RegistroVendaDataContext(grupo.ItemBanco);
+                contexto = new RegistroVendaDataContext(registro);
             }
             else
             {

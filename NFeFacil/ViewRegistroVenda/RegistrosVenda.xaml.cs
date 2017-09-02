@@ -50,12 +50,7 @@ namespace NFeFacil.ViewRegistroVenda
         {
             var item = (MenuFlyoutItem)sender;
             var venda = (ExibicaoVenda)item.DataContext;
-            var conjunto = new GrupoViewBanco<RegistroVenda>
-            {
-                ItemBanco = venda.Base,
-                OperacaoRequirida = TipoOperacao.Edicao
-            };
-            MainPage.Current.Navegar<ManipulacaoRegistroVenda>(conjunto);
+            MainPage.Current.Navegar<ManipulacaoRegistroVenda>(venda.Base);
         }
 
         private void Excluir(object sender, Windows.UI.Xaml.RoutedEventArgs e)

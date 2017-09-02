@@ -25,11 +25,7 @@ namespace NFeFacil.ViewModel
 {
     public sealed class NotaFiscalDataContext : INotifyPropertyChanged, IValida
     {
-        #region Constantes
-
         const string NomeClienteHomologacao = "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL";
-
-        #endregion
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -559,7 +555,7 @@ namespace NFeFacil.ViewModel
             {
                 var cnpj = NotaSalva.Informações.emitente.CNPJ;
                 var serie = NotaSalva.Informações.identificação.Serie;
-                NotaSalva.Informações.identificação.Numero = NotasFiscais.ObterNovoNumero(cnpj, serie);
+                NotaSalva.Informações.identificação.Numero = NotasFiscais.ObterNovoNumero(cnpj, serie, AmbienteTestes);
                 OnPropertyChanged(nameof(NotaSalva));
             }
         }

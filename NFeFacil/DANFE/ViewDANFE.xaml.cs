@@ -4,7 +4,6 @@ using Windows.UI.Xaml.Navigation;
 using NFeFacil.DANFE.PaginasDANFE;
 using NFeFacil.ModeloXML;
 using static NFeFacil.ExtensoesPrincipal;
-using System.Linq;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 

@@ -1,6 +1,5 @@
 ﻿using NFeFacil.ItensBD;
 using NFeFacil.Log;
-using NFeFacil.ModeloXML.PartesProcesso;
 using NFeFacil.ViewModel;
 using System;
 using System.Collections.ObjectModel;
@@ -15,7 +14,6 @@ namespace NFeFacil.ViewRegistroVenda
     {
         public RegistroVenda ItemBanco { get; }
         ILog Log = Popup.Current;
-        public bool ManipulacaoAtivada { get; private set; }
 
         public ObservableCollection<ExibicaoProdutoVenda> ListaProdutos { get; private set; }
         public ObservableCollection<ClienteDI> Clientes { get; }
@@ -23,11 +21,8 @@ namespace NFeFacil.ViewRegistroVenda
 
         public ICommand AdicionarProdutoCommand { get; }
         public ICommand RemoverProdutoCommand { get; }
-        public ICommand EditarCommand { get; }
         public ICommand FinalizarCommand { get; }
         public ICommand AplicarDescontoCommand { get; }
-        public ICommand CriarDARVCommand { get; }
-        public ICommand CriarNFeCommand { get; }
 
         public string ValorTotal => ItemBanco.Produtos.Sum(x => x.TotalLíquido).ToString("C");
 
@@ -43,11 +38,8 @@ namespace NFeFacil.ViewRegistroVenda
         {
             AdicionarProdutoCommand = new Comando(AdicionarProduto);
             RemoverProdutoCommand = new Comando<ExibicaoProdutoVenda>(RemoverProduto);
-            EditarCommand = new Comando(Editar);
             FinalizarCommand = new Comando(Finalizar);
             AplicarDescontoCommand = new Comando(AplicarDesconto);
-            CriarDARVCommand = new Comando(CriarDARV);
-            CriarNFeCommand = new Comando(CriarNFe);
 
             Clientes = db.Clientes.GerarObs();
             Motoristas = db.Motoristas.GerarObs();
@@ -60,19 +52,14 @@ namespace NFeFacil.ViewRegistroVenda
                 Produtos = new System.Collections.Generic.List<ProdutoSimplesVenda>(),
                 DataHoraVenda = DateTime.Now
             };
-
-            ManipulacaoAtivada = true;
         }
 
         internal RegistroVendaDataContext(RegistroVenda venda)
         {
             AdicionarProdutoCommand = new Comando(AdicionarProduto);
             RemoverProdutoCommand = new Comando<ExibicaoProdutoVenda>(RemoverProduto);
-            EditarCommand = new Comando(Editar);
             FinalizarCommand = new Comando(Finalizar);
             AplicarDescontoCommand = new Comando(AplicarDesconto);
-            CriarDARVCommand = new Comando(CriarDARV);
-            CriarNFeCommand = new Comando(CriarNFe);
 
             db.AttachRange(venda.Produtos);
             Clientes = db.Clientes.GerarObs();
@@ -86,8 +73,6 @@ namespace NFeFacil.ViewRegistroVenda
                              }).GerarObs();
 
             ItemBanco = venda;
-
-            ManipulacaoAtivada = false;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -129,12 +114,6 @@ namespace NFeFacil.ViewRegistroVenda
             ItemBanco.Produtos.Remove(prod.Base);
         }
 
-        void Editar()
-        {
-            ManipulacaoAtivada = true;
-            PropertyChanged(this, new PropertyChangedEventArgs(nameof(ManipulacaoAtivada)));
-        }
-
         void Finalizar()
         {
             ItemBanco.UltimaData = DateTime.Now;
@@ -153,8 +132,6 @@ namespace NFeFacil.ViewRegistroVenda
                 db.Update(ItemBanco);
                 Log.Escrever(TitulosComuns.Sucesso, "Registro de venda alterado com sucesso.");
             }
-            ManipulacaoAtivada = false;
-            PropertyChanged(this, new PropertyChangedEventArgs(nameof(ManipulacaoAtivada)));
             db.SaveChanges();
         }
 
@@ -178,26 +155,6 @@ namespace NFeFacil.ViewRegistroVenda
                 PropertyChanged(this, new PropertyChangedEventArgs(nameof(ListaProdutos)));
                 PropertyChanged(this, new PropertyChangedEventArgs(nameof(ValorTotal)));
             }
-        }
-
-        void CriarDARV()
-        {
-            MainPage.Current.Navegar<DARV>(ItemBanco);
-        }
-
-        void CriarNFe()
-        {
-            var nfe = new ConjuntoManipuladorNFe
-            {
-                NotaSalva = ItemBanco.ToNFe(),
-                StatusAtual = StatusNFe.Edição,
-                OnNotaSalva = x =>
-                {
-                    ItemBanco.NotaFiscalRelacionada = x;
-                }
-            };
-            nfe.NotaSalva.Informações.identificação.DefinirVersãoAplicativo();
-            MainPage.Current.Navegar<View.ManipulacaoNotaFiscal>(nfe);
         }
 
         public void Dispose()

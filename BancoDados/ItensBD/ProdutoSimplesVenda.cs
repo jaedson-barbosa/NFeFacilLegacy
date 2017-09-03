@@ -76,7 +76,7 @@ namespace NFeFacil.ItensBD
 
         public void RegistrarAlteracaoEstoque(AplicativoContext db)
         {
-            var estoque = db.Estoque.Include(x => x.Alteracoes).First(x => x.Id == IdBase);
+            var estoque = db.Estoque.Include(x => x.Alteracoes).FirstOrDefault(x => x.Id == IdBase);
             if (estoque != null)
             {
                 var alteracao = estoque.Alteracoes.FirstOrDefault(x => x.Id == Id);

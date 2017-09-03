@@ -60,7 +60,7 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
             <ComboBox Header="Cliente"
-                      IsEnabled="{Binding ManipulacaoAtivada}"
+                      
                       ItemsSource="{Binding Clientes, Mode=OneTime}"
                       DisplayMemberPath="Nome"
                       SelectedValue="{Binding ItemBanco.Cliente, Mode=TwoWay}"
@@ -68,7 +68,7 @@
                       HorizontalAlignment="Stretch" />
             <ComboBox Grid.Column="1"
                       Header="Motorista"
-                      IsEnabled="{Binding ManipulacaoAtivada}"
+                      
                       ItemsSource="{Binding Motoristas, Mode=OneTime}"
                       DisplayMemberPath="Nome"
                       SelectedValue="{Binding ItemBanco.Motorista, Mode=TwoWay}"
@@ -78,7 +78,7 @@
                           Grid.ColumnSpan="2"
                           Style="{StaticResource ItensResponsivos}">
                 <DatePicker Header="Data da venda"
-                            IsEnabled="{Binding ManipulacaoAtivada}"
+                            
                             MinWidth="156"
                             MonthFormat="{}{month.integer} {month.abbreviated}"
                             Date="{Binding DataHoraVenda, Mode=TwoWay}" />
@@ -88,7 +88,7 @@
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <Button VerticalAlignment="Stretch"
-                            IsEnabled="{Binding ManipulacaoAtivada}"
+                            
                             Command="{Binding AplicarDescontoCommand}"
                             Margin="0,2,2,0">
                         <TextBlock TextAlignment="Center">
@@ -99,12 +99,12 @@
                     <TextBox Grid.Column="1"
                              Header="Desconto"
                              IsReadOnly="True"
-                             IsEnabled="{Binding ManipulacaoAtivada}"
+                             
                              Text="{Binding ItemBanco.DescontoTotal}" />
                 </Grid>
                 <TextBox MaxLength="12"
                          IsReadOnly="True"
-                         IsEnabled="{Binding ManipulacaoAtivada}"
+                         
                          Text="{Binding ValorTotal}"
                          Header="Total" />
             </ItemsControl>
@@ -137,7 +137,7 @@
                                VerticalAlignment="Bottom"
                                HorizontalAlignment="Center" />
                     <Button Grid.Column="3"
-                            IsEnabled="{Binding ManipulacaoAtivada}"
+                            
                             Style="{StaticResource BotaoAdd}"
                             Command="{Binding AdicionarProdutoCommand}">
                         <SymbolIcon Symbol="Add" />
@@ -150,8 +150,7 @@
                         <Grid.ContextFlyout>
                             <MenuFlyout>
                                 <MenuFlyoutItem Command="{Binding DataContext.RemoverProdutoCommand, ElementName=grpGeral}"
-                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}"
-                                                IsEnabled="{Binding DataContext.ManipulacaoAtivada, ElementName=grpGeral}">Remover</MenuFlyoutItem>
+                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Remover</MenuFlyoutItem>
                             </MenuFlyout>
                         </Grid.ContextFlyout>
                         <Grid.ColumnDefinitions>
@@ -172,29 +171,17 @@
                       Grid.ColumnSpan="2"
                       MaxHeight="80">
             <TextBox Header="Observações"
-                     IsEnabled="{Binding ManipulacaoAtivada}"
+                     
                      TextWrapping="Wrap"
                      Text="{Binding ItemBanco.Observações, Mode=TwoWay}" />
         </ScrollViewer>
     </Grid>
     <Page.BottomAppBar>
         <CommandBar>
-            <AppBarButton Label="Editar"
-                          Icon="Edit"
-                          IsEnabled="{Binding ManipulacaoAtivada, Converter={StaticResource invert}}"
-                          Command="{Binding EditarCommand}" />
             <AppBarButton Label="Finalizar e registrar"
                           Icon="Accept"
-                          IsEnabled="{Binding ManipulacaoAtivada}"
+                          
                           Command="{Binding FinalizarCommand}" />
-            <AppBarButton Label="Criar NFe"
-                          IsEnabled="False"
-                          Icon="Page"
-                          Command="{Binding CriarNFeCommand}" />
-            <AppBarButton Label="Criar DARV"
-                          Icon="Document"
-                          IsEnabled="{Binding ManipulacaoAtivada, Converter={StaticResource invert}}"
-                          Command="{Binding CriarDARVCommand}" />
         </CommandBar>
     </Page.BottomAppBar>
 </Page>

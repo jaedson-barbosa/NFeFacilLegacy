@@ -30,7 +30,7 @@ namespace NFeFacil.ViewRegistroVenda
                 var estoque = db.Estoque.Include(x => x.Alteracoes);
                 foreach (var item in db.Produtos)
                 {
-                    var est = estoque.First(x => x.Id == item.Id);
+                    var est = estoque.FirstOrDefault(x => x.Id == item.Id);
                     var quant = est != null ? est.Alteracoes.Sum(x => x.Alteração) : 0;
                     if (est == null || quant > 0)
                     {

@@ -6,7 +6,21 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        
-    </Grid>
+    <ScrollViewer Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <RichTextBlock x:Name="visualizacao" />
+    </ScrollViewer>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Label="Editar"
+                          Icon="Edit"
+                          Click="Editar" />
+            <AppBarButton Label="Criar NFe"
+                          IsEnabled="False"
+                          Icon="Page"
+                          Click="CriarNFe" />
+            <AppBarButton Label="Criar DARV"
+                          Icon="Document"
+                          Click="CriarDARV" />
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>

@@ -1,5 +1,4 @@
 ﻿using NFeFacil.ItensBD;
-using NFeFacil.Log;
 using System;
 using System.Linq;
 using System.Text;

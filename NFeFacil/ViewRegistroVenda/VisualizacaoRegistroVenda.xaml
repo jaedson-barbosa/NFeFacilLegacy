@@ -11,9 +11,6 @@
     </ScrollViewer>
     <Page.BottomAppBar>
         <CommandBar>
-            <AppBarButton Label="Editar"
-                          Icon="Edit"
-                          Click="Editar" />
             <AppBarButton Label="Criar NFe"
                           IsEnabled="False"
                           Icon="Page"

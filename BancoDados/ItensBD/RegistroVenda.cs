@@ -10,7 +10,6 @@ namespace NFeFacil.ItensBD
     public sealed class RegistroVenda
     {
         public Guid Id { get; set; }
-        public DateTime UltimaData { get; set; }
         public string NotaFiscalRelacionada { get; set; }
 
         public Guid Emitente { get; set; }

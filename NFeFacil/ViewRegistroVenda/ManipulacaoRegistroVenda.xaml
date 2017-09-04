@@ -56,7 +56,7 @@
             <ComboBox Header="Cliente"
                       ItemsSource="{x:Bind Clientes}"
                       DisplayMemberPath="Nome"
-                      SelectedValue="{x:Bind Cliente, Mode=TwoWay}"
+                      SelectedValue="{x:Bind ItemBanco.Cliente, Mode=TwoWay}"
                       SelectedValuePath="Id"
                       HorizontalAlignment="Stretch" />
             <ComboBox Grid.Column="1"

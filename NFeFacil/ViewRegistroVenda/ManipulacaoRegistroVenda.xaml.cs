@@ -1,4 +1,5 @@
-﻿using NFeFacil.ItensBD;
+﻿using Microsoft.EntityFrameworkCore;
+using NFeFacil.ItensBD;
 using NFeFacil.Log;
 using System;
 using System.Collections.ObjectModel;
@@ -16,39 +17,33 @@ namespace NFeFacil.ViewRegistroVenda
     /// </summary>
     public sealed partial class ManipulacaoRegistroVenda : Page
     {
-        public RegistroVenda ItemBanco { get; set; } = new RegistroVenda();
+        RegistroVenda ItemBanco { get; set; } = new RegistroVenda();
 
-        public ObservableCollection<ExibicaoProdutoVenda> ListaProdutos { get; private set; }
-        public ObservableCollection<ClienteDI> Clientes { get; }
-        public ObservableCollection<MotoristaDI> Motoristas { get; }
+        ObservableCollection<ExibicaoProdutoVenda> ListaProdutos { get; set; }
+        ObservableCollection<ClienteDI> Clientes { get; set; }
+        ObservableCollection<MotoristaDI> Motoristas { get; set; }
 
         void AtualizarTotal()
         {
+            ItemBanco.DescontoTotal = ItemBanco.Produtos.Sum(x => x.Desconto);
+
             txtTotal.Text = ItemBanco.Produtos.Sum(x => x.TotalLíquido).ToString("C");
             txtDescontoTotal.Text = ItemBanco.DescontoTotal.ToString("C");
         }
 
-        AplicativoContext db = new AplicativoContext();
-
-        public string Observacoes
-        {
-            get => ItemBanco.Observações;
-            set => ItemBanco.Observações = value;
-        }
-
-        public Guid Cliente
-        {
-            get => ItemBanco.Cliente;
-            set => ItemBanco.Cliente = value;
-        }
-
-        public Guid Motorista
+        Guid Motorista
         {
             get => ItemBanco.Motorista;
             set => ItemBanco.Motorista = value;
         }
 
-        public DateTimeOffset DataHoraVenda
+        string Observacoes
+        {
+            get => ItemBanco.Observações;
+            set => ItemBanco.Observações = value;
+        }
+
+        DateTimeOffset DataHoraVenda
         {
             get => ItemBanco.DataHoraVenda;
             set => ItemBanco.DataHoraVenda = value.DateTime;
@@ -57,16 +52,16 @@ namespace NFeFacil.ViewRegistroVenda
         public ManipulacaoRegistroVenda()
         {
             InitializeComponent();
-
-            Clientes = db.Clientes.GerarObs();
-            Motoristas = db.Motoristas.GerarObs();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            MainPage.Current.SeAtualizar("\uEC59", "Registro de venda");
-            if (e.Parameter == null)
+            using (var db = new AplicativoContext())
             {
+                Clientes = db.Clientes.GerarObs();
+                Motoristas = db.Motoristas.GerarObs();
+
+                MainPage.Current.SeAtualizar("\uEC59", "Registro de venda");
                 ItemBanco = new RegistroVenda
                 {
                     Emitente = Propriedades.EmitenteAtivo.Id,
@@ -74,35 +69,14 @@ namespace NFeFacil.ViewRegistroVenda
                     Produtos = new System.Collections.Generic.List<ProdutoSimplesVenda>(),
                     DataHoraVenda = DateTime.Now
                 };
-                db.AttachRange(ItemBanco.Produtos);
                 ListaProdutos = new ObservableCollection<ExibicaoProdutoVenda>();
+                AtualizarTotal();
             }
-            else
-            {
-                ItemBanco = (RegistroVenda)e.Parameter;
-                ListaProdutos = (from prod in ItemBanco.Produtos
-                                 select new ExibicaoProdutoVenda
-                                 {
-                                     Base = prod,
-                                     Descricao = db.Produtos.Find(prod.IdBase).Descricao,
-                                     Quantidade = prod.Quantidade,
-                                 }).GerarObs();
-            }
-            AtualizarTotal();
-        }
-
-        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
-        {
-            db.Dispose();
         }
 
         private void RemoverProduto(object sender, RoutedEventArgs e)
         {
             var prod = (ExibicaoProdutoVenda)((FrameworkElement)sender).DataContext;
-            if (prod.Base.Id != default(Guid))
-            {
-                db.Remove(prod.Base);
-            }
             ListaProdutos.Remove(prod);
             ItemBanco.Produtos.Remove(prod.Base);
         }
@@ -136,24 +110,15 @@ namespace NFeFacil.ViewRegistroVenda
 
         private void Finalizar(object sender, RoutedEventArgs e)
         {
-            var log = Popup.Current;
-            ItemBanco.UltimaData = DateTime.Now;
-            ItemBanco.Vendedor = Propriedades.VendedorAtivo?.Id ?? Guid.Empty;
-            if (ItemBanco.Id == Guid.Empty)
+            using (var db = new AplicativoContext())
             {
+                var log = Popup.Current;
+                ItemBanco.Vendedor = Propriedades.VendedorAtivo?.Id ?? Guid.Empty;
                 db.Add(ItemBanco);
                 ItemBanco.Produtos.ForEach(x => x.RegistrarAlteracaoEstoque(db));
                 log.Escrever(TitulosComuns.Sucesso, "Registro de venda salvo com sucesso.");
+                db.SaveChanges();
             }
-            else
-            {
-                var antigo = db.Vendas.Find(ItemBanco.Id);
-                antigo.Produtos.ForEach(x => x.DesregistrarAlteracaoEstoque(db));
-                ItemBanco.Produtos.ForEach(x => x.RegistrarAlteracaoEstoque(db));
-                db.Update(ItemBanco);
-                log.Escrever(TitulosComuns.Sucesso, "Registro de venda alterado com sucesso.");
-            }
-            db.SaveChanges();
         }
 
         private async void AplicarDesconto(object sender, RoutedEventArgs e)
@@ -177,7 +142,7 @@ namespace NFeFacil.ViewRegistroVenda
         }
     }
 
-    public struct ExibicaoProdutoVenda
+    struct ExibicaoProdutoVenda
     {
         public ProdutoSimplesVenda Base { get; set; }
         public string Descricao { get; set; }

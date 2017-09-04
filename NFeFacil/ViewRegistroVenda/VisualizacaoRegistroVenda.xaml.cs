@@ -150,11 +150,6 @@ namespace NFeFacil.ViewRegistroVenda
             }
         }
 
-        private void Editar(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            MainPage.Current.Navegar<ManipulacaoRegistroVenda>(ItemBanco);
-        }
-
         private void CriarNFe(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             var nfe = new ConjuntoManipuladorNFe

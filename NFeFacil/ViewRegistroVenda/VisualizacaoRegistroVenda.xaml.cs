@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using Windows.UI.Text;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Navigation;
@@ -88,6 +89,8 @@ namespace NFeFacil.ViewRegistroVenda
                     return new ElementoBase { Label = label, Texto = texto };
                 }).ToArray());
             }
+            btnCriarDarv.IsEnabled = btnCriarNFe.IsEnabled = btnCancelar.IsEnabled = !ItemBanco.Cancelado;
+            btnVisualizarCancelamento.IsEnabled = ItemBanco.Cancelado;
         }
 
         void AddBloco(string titulo, params ElementoBase[] filhos)
@@ -150,7 +153,7 @@ namespace NFeFacil.ViewRegistroVenda
             }
         }
 
-        private void CriarNFe(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void CriarNFe(object sender, RoutedEventArgs e)
         {
             var nfe = new ConjuntoManipuladorNFe
             {
@@ -165,9 +168,42 @@ namespace NFeFacil.ViewRegistroVenda
             MainPage.Current.Navegar<View.ManipulacaoNotaFiscal>(nfe);
         }
 
-        private void CriarDARV(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void CriarDARV(object sender, RoutedEventArgs e)
         {
             MainPage.Current.Navegar<DARV>(ItemBanco);
+        }
+
+        private async void Cancelar(object sender, RoutedEventArgs e)
+        {
+            var caixa = new MotivoCancelamento();
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+            {
+                using (var db = new AplicativoContext())
+                {
+                    ItemBanco.Cancelado = true;
+                    db.Update(ItemBanco);
+                    ItemBanco.Produtos.ForEach(x => x.DesregistrarAlteracaoEstoque(db));
+                    var cancelamento = new CancelamentoRegistroVenda()
+                    {
+                        Motivo = caixa.Motivo,
+                        MomentoCancelamento = DateTime.Now,
+                        Id = ItemBanco.Id
+                    };
+                    db.CancelamentosRegistroVenda.Add(cancelamento);
+                    db.SaveChanges();
+                    btnCriarDarv.IsEnabled = btnCriarNFe.IsEnabled = btnCancelar.IsEnabled = false;
+                    btnVisualizarCancelamento.IsEnabled = true;
+                }
+            }
+        }
+
+        private async void VisualizarCancelamento(object sender, RoutedEventArgs e)
+        {
+            using (var db = new AplicativoContext())
+            {
+                var item = db.CancelamentosRegistroVenda.Find(ItemBanco.Id);
+                await new VisualizarDetalhesCancelamento(item).ShowAsync();
+            }
         }
     }
 }

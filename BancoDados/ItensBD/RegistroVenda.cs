@@ -20,6 +20,7 @@ namespace NFeFacil.ItensBD
         public DateTime DataHoraVenda { get; set; }
         public string Observações { get; set; }
         public double DescontoTotal { get; set; }
+        public bool Cancelado { get; set; }
 
         public NFe ToNFe()
         {

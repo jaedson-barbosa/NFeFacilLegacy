@@ -15,6 +15,7 @@ namespace NFeFacil
         public DbSet<NFeDI> NotasFiscais { get; set; }
         public DbSet<RegistroVenda> Vendas { get; set; }
         public DbSet<RegistroCancelamento> Cancelamentos { get; set; }
+        public DbSet<CancelamentoRegistroVenda> CancelamentosRegistroVenda { get; set; }
         public DbSet<Imagem> Imagens { get; set; }
 
         public AplicativoContext()

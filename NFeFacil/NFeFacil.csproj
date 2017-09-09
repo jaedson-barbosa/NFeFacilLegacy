@@ -180,8 +180,14 @@
     <Compile Include="ViewRegistroVenda\EscolherDimensão.xaml.cs">
       <DependentUpon>EscolherDimensão.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewRegistroVenda\MotivoCancelamento.xaml.cs">
+      <DependentUpon>MotivoCancelamento.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewRegistroVenda\VisualizacaoRegistroVenda.xaml.cs">
       <DependentUpon>VisualizacaoRegistroVenda.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewRegistroVenda\VisualizarDetalhesCancelamento.xaml.cs">
+      <DependentUpon>VisualizarDetalhesCancelamento.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\CaixasDialogo\AdicionarArmamento.xaml.cs">
       <DependentUpon>AdicionarArmamento.xaml</DependentUpon>
@@ -563,7 +569,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ViewRegistroVenda\MotivoCancelamento.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ViewRegistroVenda\VisualizacaoRegistroVenda.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewRegistroVenda\VisualizarDetalhesCancelamento.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

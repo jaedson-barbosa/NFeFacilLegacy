@@ -6,6 +6,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Navigation;
+using static NFeFacil.ExtensoesPrincipal;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -34,7 +35,7 @@ namespace NFeFacil.ViewRegistroVenda
                 var motorista = ItemBanco.Motorista != Guid.Empty ? db.Motoristas.Find(ItemBanco.Motorista) : null;
                 var vendedor = ItemBanco.Vendedor != Guid.Empty ? db.Vendedores.Find(ItemBanco.Vendedor) : null;
 
-                AddBloco("Emitente", ("Nome", emitente.Nome),
+                visualizacao.AddBloco("Emitente", ("Nome", emitente.Nome),
                     ("Nome fantasia", emitente.NomeFantasia),
                     ("Bairro", emitente.Bairro),
                     ("CEP", emitente.CEP),
@@ -47,7 +48,7 @@ namespace NFeFacil.ViewRegistroVenda
                     ("UF", emitente.SiglaUF),
                     ("Telefone", emitente.Telefone));
 
-                AddBloco("Cliente", ("Nome", cliente.Nome),
+                visualizacao.AddBloco("Cliente", ("Nome", cliente.Nome),
                     ("Bairro", cliente.Bairro),
                     ("CEP", cliente.CEP),
                     ("CNPJ", cliente.CNPJ),
@@ -62,7 +63,7 @@ namespace NFeFacil.ViewRegistroVenda
 
                 if (motorista != null)
                 {
-                    AddBloco("Motorista", ("Nome", motorista.Nome),
+                    visualizacao.AddBloco("Motorista", ("Nome", motorista.Nome),
                         ("CNPJ", motorista.CNPJ),
                         ("CPF", motorista.CPF),
                         ("Inscrição Estadual", motorista.InscricaoEstadual),
@@ -72,85 +73,25 @@ namespace NFeFacil.ViewRegistroVenda
 
                 if (vendedor != null)
                 {
-                    AddBloco("Vendedor", ("Nome", vendedor.Nome),
+                    visualizacao.AddBloco("Vendedor", ("Nome", vendedor.Nome),
                         ("CPF", vendedor.CPF.ToString("000,000,000-00")),
                         ("Endereço", vendedor.Endereço));
                 }
 
-                AddBloco("Outras informações", ("Observações", ItemBanco.Observações),
+                visualizacao.AddBloco("Outras informações", ("Observações", ItemBanco.Observações),
                     ("Data", ItemBanco.DataHoraVenda.ToString("dd-MM-yyyy")),
                     ("ID", ItemBanco.Id.ToString().ToUpper()),
                     ("NFe relacionada", ItemBanco.NotaFiscalRelacionada));
 
-                AddBloco("Produtos", ItemBanco.Produtos.Select(x =>
+                visualizacao.AddBloco("Produtos", ItemBanco.Produtos.Select(x =>
                 {
                     var label = db.Produtos.Find(x.IdBase).Descricao;
                     var texto = $"Quantidade - {x.Quantidade}, Total - {x.TotalLíquido}";
-                    return new ElementoBase { Label = label, Texto = texto };
+                    return (label, texto);
                 }).ToArray());
             }
             btnCriarDarv.IsEnabled = btnCriarNFe.IsEnabled = btnCancelar.IsEnabled = !ItemBanco.Cancelado;
             btnVisualizarCancelamento.IsEnabled = ItemBanco.Cancelado;
-        }
-
-        void AddBloco(string titulo, params ElementoBase[] filhos)
-        {
-            const string EntreLabelTexto = ": ";
-            var paragrafo = new Paragraph();
-            AddInline(titulo, Estilo.TituloBloco);
-            for (int i = 0; i < filhos.Length; i++)
-            {
-                var atual = filhos[i];
-                if (!string.IsNullOrEmpty(atual.Texto))
-                {
-                    AddInline(atual.Label + EntreLabelTexto, Estilo.Label);
-                    AddInline(atual.Texto, Estilo.Texto);
-                }
-            }
-            visualizacao.Blocks.Add(paragrafo);
-
-            void AddInline(string texto, Estilo estilo)
-            {
-                var run = new Run() { Text = texto };
-                switch (estilo)
-                {
-                    case Estilo.TituloBloco:
-                        run.FontSize = 16;
-                        run.FontWeight = FontWeights.ExtraBlack;
-                        break;
-                    case Estilo.Label:
-                        run.FontWeight = FontWeights.Bold;
-                        break;
-                }
-                paragrafo.Inlines.Add(run);
-                if (estilo != Estilo.Label)
-                {
-                    CriarQuebraDeLinha();
-                }
-            }
-
-            void CriarQuebraDeLinha()
-            {
-                paragrafo.Inlines.Add(new LineBreak());
-            }
-        }
-
-        enum Estilo
-        {
-            TituloBloco,
-            Label,
-            Texto
-        }
-
-        struct ElementoBase
-        {
-            public string Label { get; set; }
-            public string Texto { get; set; }
-
-            public static implicit operator ElementoBase((string, string) k)
-            {
-                return new ElementoBase() { Label = k.Item1, Texto = k.Item2 };
-            }
         }
 
         private void CriarNFe(object sender, RoutedEventArgs e)

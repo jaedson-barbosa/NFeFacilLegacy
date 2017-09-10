@@ -8,9 +8,6 @@
       x:Name="root">
     <Page.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="ms-appx:///View/Estilos/PivotPrincipal.xaml" />
-            </ResourceDictionary.MergedDictionaries>
             <Style TargetType="TextBlock"
                    BasedOn="{StaticResource SubtitleTextBlockStyle}">
                 <Setter Property="TextAlignment"

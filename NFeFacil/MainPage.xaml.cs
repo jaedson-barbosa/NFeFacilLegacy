@@ -46,7 +46,7 @@ namespace NFeFacil
             {
                 btnRetornar.Visibility = Visibility.Collapsed;
                 var barra = StatusBar.GetForCurrentView();
-                var cor = new View.Estilos.Auxiliares.BibliotecaCores().Cor1;
+                var cor = new AuxiliaresEstilos.BibliotecaCores().Cor1;
                 barra.BackgroundColor = cor;
                 barra.BackgroundOpacity = 1;
             }

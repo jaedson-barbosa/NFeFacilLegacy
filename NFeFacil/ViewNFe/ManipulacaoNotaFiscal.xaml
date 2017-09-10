@@ -10,9 +10,6 @@
       x:Name="root">
     <Page.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Estilos/PivotPrincipal.xaml" />
-            </ResourceDictionary.MergedDictionaries>
             <VM:DadosEstadosParaView x:Key="estados" />
             <Conversores:EstadoToMunicipios x:Key="obterMun" />
             <Conversores:ColecaoValida x:Key="getObs" />

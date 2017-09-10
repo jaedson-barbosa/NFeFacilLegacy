@@ -10,9 +10,6 @@
       mc:Ignorable="d">
     <Page.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Estilos/PivotPrincipal.xaml" />
-            </ResourceDictionary.MergedDictionaries>
             <Conversores:BoolToVisibility x:Key="visibilidade" />
             <Conversores:EstadoToMunicipios x:Key="obterMunicipio" />
             <Conversores:StringToDateTime x:Key="data" />

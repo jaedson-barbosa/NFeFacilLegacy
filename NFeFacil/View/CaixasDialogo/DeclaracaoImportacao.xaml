@@ -12,9 +12,6 @@
                SecondaryButtonText="Cancelar">
     <ContentDialog.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="ms-appx:///View/Estilos/PivotPrincipal.xaml" />
-            </ResourceDictionary.MergedDictionaries>
             <VMRoot:DadosEstadosParaView x:Key="estados" />
             <local:ConverterContextoDeclaracaoImportacao x:Key="converter" />
             <Style TargetType="ItemsControl"

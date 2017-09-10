@@ -106,7 +106,7 @@ namespace NFeFacil.ViewModel
                 {
                     conjunto.NotaEmitida = XElement.Parse(Nota.XML).FromXElement<Processo>();
                 }
-                MainPage.Current.Navegar<ManipulacaoNotaFiscal>(conjunto);
+                MainPage.Current.Navegar<ViewNFe.VisualizacaoNFe>(conjunto.NotaSalva ?? conjunto.NotaEmitida.NFe);
             }
 
             public void Remover()

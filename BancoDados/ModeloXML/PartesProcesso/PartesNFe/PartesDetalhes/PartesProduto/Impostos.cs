@@ -23,6 +23,6 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
             XmlElement(nameof(ISSQN), Type = typeof(ISSQN)),
             XmlElement(nameof(PIS), Type = typeof(PIS)),
             XmlElement(nameof(PISST), Type = typeof(PISST))]
-        public List<Imposto> impostos = new List<Imposto>();
+        public List<Imposto> impostos { get; set; } = new List<Imposto>();
     }
 }

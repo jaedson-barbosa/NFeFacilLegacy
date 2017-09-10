@@ -10,7 +10,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
         /// <summary>
         /// Código de Situação Tributária do PIS.
         /// </summary>
-        [XmlElement(Order = 0)]
-        public string CST;
+        [XmlElement(Order = 0), DescricaoPropriedade("Código de Situação Tributária do PIS")]
+        public string CST { get; set; }
     }
 }

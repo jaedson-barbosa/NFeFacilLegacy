@@ -26,8 +26,7 @@
         <FlipView x:Name="pvtPrincipal"
                   Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
             <Pivot Margin="16">
-                <PivotItem Header="NFe"
-                           IsEnabled="{Binding ManipulacaoAtivada}">
+                <PivotItem Header="NFe">
                     <ScrollViewer>
                         <ItemsControl Style="{StaticResource ItensResponsivos}">
                             <DatePicker Header="Data de emissão"
@@ -90,9 +89,12 @@
                             <ComboBox Header="Destino da operação *"
                                       SelectedValue="{Binding NotaSalva.Informações.identificação.IdentificadorDestino, Mode=TwoWay, Converter={StaticResource numStr}}"
                                       SelectedValuePath="Tag">
-                                <ComboBoxItem Tag="1" Content="Operação interna" />
-                                <ComboBoxItem Tag="2" Content="Operação interestadual" />
-                                <ComboBoxItem Tag="3" Content="Operação com o exterior" />
+                                <ComboBoxItem Tag="1"
+                                              Content="Operação interna" />
+                                <ComboBoxItem Tag="2"
+                                              Content="Operação interestadual" />
+                                <ComboBoxItem Tag="3"
+                                              Content="Operação com o exterior" />
                             </ComboBox>
                             <TextBox Header="Natureza da operação *"
                                      Text="{Binding NotaSalva.Informações.identificação.NaturezaDaOperação, Mode=TwoWay}" />
@@ -110,8 +112,7 @@
                         </ItemsControl>
                     </ScrollViewer>
                 </PivotItem>
-                <PivotItem Header="NF-es referenciadas"
-                           IsEnabled="{Binding ManipulacaoAtivada}">
+                <PivotItem Header="NF-es referenciadas">
                     <ListView ItemsSource="{Binding NFesReferenciadas}"
                               ItemContainerStyle="{StaticResource ItemFullWidth}">
                         <ListView.Header>
@@ -201,7 +202,6 @@
                 <ComboBox HorizontalAlignment="Stretch"
                           ItemsSource="{Binding ClientesDisponiveis}"
                           SelectedItem="{Binding ClienteSelecionado, Mode=TwoWay}"
-                          IsEnabled="{Binding ManipulacaoAtivada}"
                           DisplayMemberPath="Nome" />
                 <StackPanel Orientation="Horizontal">
                     <Button Margin="0,0,8,0"
@@ -211,10 +211,9 @@
             <Pivot Margin="16">
                 <PivotItem Header="Local de retirada">
                     <StackPanel>
-                        <CheckBox IsChecked="{Binding EnderecoRetiradaAtivado, Mode=TwoWay}"
-                                  IsEnabled="{Binding ManipulacaoAtivada}">Diferente do endereço do emitente</CheckBox>
+                        <CheckBox IsChecked="{Binding EnderecoRetiradaAtivado, Mode=TwoWay}">Diferente do endereço do emitente</CheckBox>
                         <ItemsControl Style="{StaticResource ItensResponsivos}"
-                                      IsEnabled="{Binding EdicaoEnderecoRetiradaAtivado}">
+                                      IsEnabled="{Binding EnderecoRetiradaAtivado}">
                             <CheckBox IsChecked="{Binding ExteriorEnderecoRetirada, Mode=TwoWay}">Exterior</CheckBox>
                             <ComboBox SelectedIndex="{Binding TipoDocumentoEnderecoEmitente, Mode=TwoWay}"
                                       Header="Tipo">
@@ -249,10 +248,9 @@
                 </PivotItem>
                 <PivotItem Header="Local de entrega">
                     <StackPanel>
-                        <CheckBox IsChecked="{Binding EnderecoEntregaAtivado, Mode=TwoWay}"
-                                  IsEnabled="{Binding ManipulacaoAtivada}">Diferente do endereço do Cliente</CheckBox>
+                        <CheckBox IsChecked="{Binding EnderecoEntregaAtivado, Mode=TwoWay}">Diferente do endereço do Cliente</CheckBox>
                         <ItemsControl Style="{StaticResource ItensResponsivos}"
-                                      IsEnabled="{Binding EdicaoEnderecoEntregaAtivado}">
+                                      IsEnabled="{Binding EnderecoEntregaAtivado}">
                             <CheckBox IsChecked="{Binding ExteriorEnderecoEntrega, Mode=TwoWay}">Exterior</CheckBox>
                             <ComboBox SelectedIndex="{Binding TipoDocumentoEnderecoCliente, Mode=TwoWay}"
                                       Header="Tipo">
@@ -310,7 +308,6 @@
                 <Button Grid.Column="1"
                         HorizontalAlignment="Stretch"
                         Margin="2,0,0,0"
-                        IsEnabled="{Binding ManipulacaoAtivada}"
                         Command="{Binding AdicionarProdutoCommand}">Adicionar</Button>
                 <ListView Grid.Row="1"
                           Grid.ColumnSpan="2"
@@ -345,11 +342,9 @@
                                                         Command="{Binding ElementName=root, Path=DataContext.ExibirProdutoCommand}"
                                                         CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}" />
                                         <MenuFlyoutItem Text="Editar"
-                                                        IsEnabled="{Binding DataContext.ManipulacaoAtivada, ElementName=root}"
                                                         Command="{Binding ElementName=root, Path=DataContext.EditarProdutoCommand}"
                                                         CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}" />
                                         <MenuFlyoutItem Text="Remover"
-                                                        IsEnabled="{Binding DataContext.ManipulacaoAtivada, ElementName=root}"
                                                         Command="{Binding ElementName=root, Path=DataContext.RemoverProdutoCommand}"
                                                         CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}" />
                                     </MenuFlyout>
@@ -365,7 +360,6 @@
                 <Pivot DataContext="{Binding NotaSalva.Informações.total}">
                     <PivotItem Header="ICMS">
                         <ItemsControl DataContext="{Binding ICMSTot}"
-                                      IsEnabled="{Binding DataContext.ManipulacaoAtivada, ElementName=root}"
                                       Style="{StaticResource ItensResponsivos}">
                             <controles:EntradaNumerica Format="13:2"
                                                        Number="{Binding VBC}"
@@ -435,7 +429,6 @@
                     </PivotItem>
                     <PivotItem Header="ISSQN">
                         <ItemsControl DataContext="{Binding ISSQNtot}"
-                                      IsEnabled="{Binding DataContext.ManipulacaoAtivada, ElementName=root}"
                                       Style="{StaticResource ItensResponsivos}">
                             <controles:EntradaNumerica Format="13:2"
                                                        Number="{Binding VServ, Mode=TwoWay}"
@@ -493,7 +486,6 @@
                     </PivotItem>
                     <PivotItem Header="Retenções de tributos">
                         <ItemsControl DataContext="{Binding RetTrib}"
-                                      IsEnabled="{Binding DataContext.ManipulacaoAtivada, ElementName=root}"
                                       Style="{StaticResource ItensResponsivos}">
                             <controles:EntradaNumerica Format="13:2"
                                                        Number="{Binding VRetPIS, Mode=TwoWay}"
@@ -526,7 +518,6 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <ComboBox ItemsSource="{Binding Modalidades}"
-                          IsEnabled="{Binding ManipulacaoAtivada}"
                           SelectedItem="{Binding ModFrete, Mode=TwoWay}"
                           HorizontalAlignment="Stretch"
                           Header="Modalidade do frete" />
@@ -538,7 +529,6 @@
                                        TextWrapping="Wrap" />
                             <ComboBox ItemsSource="{Binding MotoristasDisponiveis}"
                                       HorizontalAlignment="Stretch"
-                                      IsEnabled="{Binding ManipulacaoAtivada}"
                                       SelectedItem="{Binding MotoristaSelecionado, Mode=TwoWay}"
                                       DisplayMemberPath="Nome" />
                             <StackPanel Orientation="Horizontal">
@@ -547,8 +537,7 @@
                             </StackPanel>
                         </StackPanel>
                     </PivotItem>
-                    <PivotItem Header="Veículo"
-                               IsEnabled="{Binding ManipulacaoAtivada}">
+                    <PivotItem Header="Veículo">
                         <ItemsControl Style="{StaticResource ItensResponsivos}">
                             <TextBox Text="{Binding NotaSalva.Informações.transp.VeicTransp.Placa, Mode=TwoWay}"
                                      Header="Placa" />
@@ -578,7 +567,6 @@
                                                TextAlignment="Center"
                                                VerticalAlignment="Center">Placa</TextBlock>
                                     <Button Grid.Column="1"
-                                            IsEnabled="{Binding ManipulacaoAtivada}"
                                             Style="{StaticResource BotaoAdd}"
                                             Command="{Binding AdicionarReboqueCommand}">
                                         <SymbolIcon Symbol="Add" />
@@ -590,8 +578,7 @@
                                     <TextBlock Text="{Binding Placa}">
                                         <TextBlock.ContextFlyout>
                                             <MenuFlyout>
-                                                <MenuFlyoutItem IsEnabled="{Binding DataContext.ManipulacaoAtivada, ElementName=root}"
-                                                                Command="{Binding ElementName=root, Path=DataContext.RemoverReboqueCommand}"
+                                                <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.RemoverReboqueCommand}"
                                                                 CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Remover</MenuFlyoutItem>
                                             </MenuFlyout>
                                         </TextBlock.ContextFlyout></TextBlock>
@@ -600,8 +587,7 @@
                         </ListView>
                     </PivotItem>
                     <PivotItem Header="Volumes"
-                               Margin="0,8,0,0"
-                               IsEnabled="{Binding ManipulacaoAtivada}">
+                               Margin="0,8,0,0">
                         <ListView ItemsSource="{Binding NotaSalva.Informações.transp.Vol, Converter={StaticResource getObs}}"
                                   ItemContainerStyle="{StaticResource ItemFullWidth}">
                             <ListView.Header>
@@ -619,7 +605,6 @@
                                                TextAlignment="Center"
                                                VerticalAlignment="Center">Marca</TextBlock>
                                     <Button Grid.Column="2"
-                                            IsEnabled="{Binding ManipulacaoAtivada}"
                                             Style="{StaticResource BotaoAdd}"
                                             Command="{Binding AdicionarVolumeCommand}">
                                         <SymbolIcon Symbol="Add" />
@@ -631,8 +616,7 @@
                                     <Grid>
                                         <Grid.ContextFlyout>
                                             <MenuFlyout>
-                                                <MenuFlyoutItem IsEnabled="{Binding DataContext.ManipulacaoAtivada, ElementName=root}"
-                                                                Command="{Binding ElementName=root, Path=DataContext.RemoverVolumeCommand}"
+                                                <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.RemoverVolumeCommand}"
                                                                 CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Remover</MenuFlyoutItem>
                                             </MenuFlyout>
                                         </Grid.ContextFlyout>
@@ -644,8 +628,7 @@
                             </ListView.ItemTemplate>
                         </ListView>
                     </PivotItem>
-                    <PivotItem Header="Retenção ICMS"
-                               IsEnabled="{Binding ManipulacaoAtivada}">
+                    <PivotItem Header="Retenção ICMS">
                         <ItemsControl Style="{StaticResource ItensResponsivos}">
                             <controles:EntradaNumerica Header="Valor do serviço"
                                                        Format="13:2"
@@ -679,8 +662,7 @@
             </Grid>
             <Pivot Margin="16">
                 <PivotItem Header="Fatura">
-                    <ItemsControl Style="{StaticResource ItensResponsivos}"
-                                  IsEnabled="{Binding ManipulacaoAtivada}">
+                    <ItemsControl Style="{StaticResource ItensResponsivos}">
                         <TextBox Text="{Binding NotaSalva.Informações.cobr.Fat.NFat, Mode=TwoWay}"
                                  Header="Número" />
                         <controles:EntradaNumerica Format="13:2"
@@ -709,7 +691,6 @@
                                            VerticalAlignment="Center">Numero da duplicata</TextBlock>
                                 <Button Grid.Column="1"
                                         Style="{StaticResource BotaoAdd}"
-                                        IsEnabled="{Binding ManipulacaoAtivada}"
                                         Command="{Binding AdicionarDuplicataCommand}">
                                     <SymbolIcon Symbol="Add" />
                                 </Button>
@@ -720,8 +701,7 @@
                                 <Grid>
                                     <Grid.ContextFlyout>
                                         <MenuFlyout>
-                                            <MenuFlyoutItem IsEnabled="{Binding DataContext.ManipulacaoAtivada, ElementName=root}"
-                                                            Command="{Binding ElementName=root, Path=DataContext.RemoverDuplicataCommand}"
+                                            <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.RemoverDuplicataCommand}"
                                                             CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Remover</MenuFlyoutItem>
                                         </MenuFlyout>
                                     </Grid.ContextFlyout>
@@ -733,8 +713,7 @@
                 </PivotItem>
             </Pivot>
             <Pivot Margin="16">
-                <PivotItem Header="Informações adicionais"
-                           IsEnabled="{Binding ManipulacaoAtivada}">
+                <PivotItem Header="Informações adicionais">
                     <ScrollViewer>
                         <StackPanel DataContext="{Binding NotaSalva.Informações.infAdic}">
                             <TextBox Text="{Binding InfAdFisco, Mode=TwoWay}"
@@ -744,8 +723,7 @@
                         </StackPanel>
                     </ScrollViewer>
                 </PivotItem>
-                <PivotItem Header="Observações do contribuinte"
-                           IsEnabled="{Binding ManipulacaoAtivada}">
+                <PivotItem Header="Observações do contribuinte">
                     <ListView Margin="0,8,0,0"
                               ItemContainerStyle="{StaticResource ItemFullWidth}"
                               ItemsSource="{Binding NotaSalva.Informações.infAdic.ObsCont, Converter={StaticResource getObs}}">
@@ -793,8 +771,7 @@
                         </ListView.ItemTemplate>
                     </ListView>
                 </PivotItem>
-                <PivotItem Header="Processos referenciados"
-                           IsEnabled="{Binding ManipulacaoAtivada}">
+                <PivotItem Header="Processos referenciados">
                     <ListView Margin="0,8,0,0"
                               ItemContainerStyle="{StaticResource ItemFullWidth}"
                               ItemsSource="{Binding NotaSalva.Informações.infAdic.ProcRef, Converter={StaticResource getObs}}">
@@ -844,8 +821,7 @@
                 </PivotItem>
             </Pivot>
             <Pivot Margin="16">
-                <PivotItem Header="Exportação"
-                           IsEnabled="{Binding ManipulacaoAtivada}">
+                <PivotItem Header="Exportação">
                     <StackPanel DataContext="{Binding NotaSalva.Informações.exporta}">
                         <ComboBox ItemsSource="{Binding Source={StaticResource estados}, Path=Siglas}"
                                   SelectedItem="{Binding UFSaidaPais, Mode=TwoWay}"
@@ -856,8 +832,7 @@
                                  Header="Local de despacho" />
                     </StackPanel>
                 </PivotItem>
-                <PivotItem Header="Compra"
-                           IsEnabled="{Binding ManipulacaoAtivada}">
+                <PivotItem Header="Compra">
                     <StackPanel DataContext="{Binding NotaSalva.Informações.compra}">
                         <TextBox Text="{Binding XNEmp, Mode=TwoWay}"
                                  Header="Nota de empenho" />
@@ -871,8 +846,7 @@
             <Pivot Margin="16">
                 <PivotItem Header="Geral">
                     <ScrollViewer>
-                        <ItemsControl Style="{StaticResource ItensResponsivos}"
-                                      IsEnabled="{Binding ManipulacaoAtivada}">
+                        <ItemsControl Style="{StaticResource ItensResponsivos}">
                             <TextBox Header="Safra"
                                      Text="{Binding NotaSalva.Informações.cana.Safra, Mode=TwoWay}" />
                             <DatePicker DayVisible="False"
@@ -918,7 +892,6 @@
                                            VerticalAlignment="Center"
                                            Grid.Column="1">Quantidade</TextBlock>
                                 <Button Style="{StaticResource BotaoAdd}"
-                                        IsEnabled="{Binding ManipulacaoAtivada}"
                                         Grid.Column="2"
                                         Command="{Binding AdicionarFornecimentoCommand}">
                                     <SymbolIcon Symbol="Add" />
@@ -931,7 +904,6 @@
                                     <Grid.ContextFlyout>
                                         <MenuFlyout>
                                             <MenuFlyoutItem Text="Remover"
-                                                            IsEnabled="{Binding DataContext.ManipulacaoAtivada, ElementName=root}"
                                                             Command="{Binding ElementName=root, Path=DataContext.RemoverFornecimentoCommand}"
                                                             CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}" />
                                         </MenuFlyout>
@@ -967,7 +939,6 @@
                                            VerticalAlignment="Center"
                                            Grid.Column="1">Valor</TextBlock>
                                 <Button Style="{StaticResource BotaoAdd}"
-                                        IsEnabled="{Binding ManipulacaoAtivada}"
                                         Grid.Column="2"
                                         Command="{Binding AdicionarDeducaoCommand}">
                                     <SymbolIcon Symbol="Add" />
@@ -980,7 +951,6 @@
                                     <Grid.ContextFlyout>
                                         <MenuFlyout>
                                             <MenuFlyoutItem Text="Remover"
-                                                            IsEnabled="{Binding DataContext.ManipulacaoAtivada, ElementName=root}"
                                                             Command="{Binding ElementName=root, Path=DataContext.RemoverDeducaoCommand}"
                                                             CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}" />
                                         </MenuFlyout>
@@ -1029,7 +999,6 @@
                           Command="{Binding GerarDANFECommand}" />
             <CommandBar.SecondaryCommands>
                 <AppBarToggleButton Label="Usar ambiente de testes"
-                                    IsEnabled="{Binding ManipulacaoAtivada}"
                                     IsChecked="{Binding AmbienteTestes, Mode=TwoWay}" />
                 <AppBarButton Label="Exportar XML"
                               Command="{Binding ExportarXMLCommand}">

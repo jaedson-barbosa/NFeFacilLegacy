@@ -82,23 +82,7 @@ namespace NFeFacil.View
         private void Exibir(object sender, RoutedEventArgs e)
         {
             var nota = (NFeView)((MenuFlyoutItem)sender).DataContext;
-            var Nota = nota.Nota;
-            var conjunto = new ConjuntoManipuladorNFe
-            {
-                StatusAtual = (StatusNFe)nota.Nota.Status,
-                Impressa = nota.Nota.Impressa,
-                Exportada = nota.Nota.Exportada,
-            };
-
-            if (Nota.Status < 4)
-            {
-                conjunto.NotaSalva = XElement.Parse(Nota.XML).FromXElement<NFe>();
-            }
-            else
-            {
-                conjunto.NotaEmitida = XElement.Parse(Nota.XML).FromXElement<Processo>();
-            }
-            MainPage.Current.Navegar<ViewNFe.VisualizacaoNFe>(conjunto.NotaSalva ?? conjunto.NotaEmitida.NFe);
+            MainPage.Current.Navegar<ViewNFe.VisualizacaoNFe>(nota.Nota);
         }
 
         private async void Cancelar(object sender, RoutedEventArgs e)

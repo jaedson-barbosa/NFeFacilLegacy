@@ -41,7 +41,6 @@ namespace NFeFacil.ViewModel
 
         public NFe NotaSalva { get; private set; }
 
-        public bool ManipulacaoAtivada => StatusAtual == StatusNFe.Edição;
         public bool BotaoEditarVisivel => StatusAtual == (StatusNFe.Validada | StatusNFe.Salva | StatusNFe.Assinada);
         public bool BotaoConfirmarVisivel => StatusAtual == StatusNFe.Edição;
         public bool BotaoSalvarAtivado => StatusAtual == StatusNFe.Validada;
@@ -293,12 +292,10 @@ namespace NFeFacil.ViewModel
             set
             {
                 NotaSalva.Informações.Retirada = value ? new RetiradaOuEntrega() : null;
-                OnPropertyChanged(nameof(Retirada), nameof(EdicaoEnderecoRetiradaAtivado), nameof(TipoDocumentoEnderecoEmitente),
+                OnPropertyChanged(nameof(Retirada), nameof(TipoDocumentoEnderecoEmitente),
                     nameof(DocumentoEnderecoEmitente), nameof(UFEscolhidaEnderecoEmitente), nameof(ConjuntoMunicipioEnderecoEmitente));
             }
         }
-
-        public bool EdicaoEnderecoRetiradaAtivado => EnderecoRetiradaAtivado && ManipulacaoAtivada;
 
         TiposDocumento tipoDocumentoEnderecoEmitente;
         public int TipoDocumentoEnderecoEmitente
@@ -385,12 +382,10 @@ namespace NFeFacil.ViewModel
             set
             {
                 NotaSalva.Informações.Entrega = value ? new RetiradaOuEntrega() : null;
-                OnPropertyChanged(nameof(Entrega), nameof(EdicaoEnderecoEntregaAtivado), nameof(TipoDocumentoEnderecoEmitente),
+                OnPropertyChanged(nameof(Entrega), nameof(TipoDocumentoEnderecoEmitente),
                     nameof(DocumentoEnderecoEmitente), nameof(UFEscolhidaEnderecoEmitente), nameof(ConjuntoMunicipioEnderecoEmitente));
             }
         }
-
-        public bool EdicaoEnderecoEntregaAtivado => EnderecoEntregaAtivado && ManipulacaoAtivada;
 
         TiposDocumento tipoDocumentoEnderecoCliente;
         public int TipoDocumentoEnderecoCliente
@@ -502,9 +497,7 @@ namespace NFeFacil.ViewModel
             set
             {
                 Conjunto.StatusAtual = value;
-                OnPropertyChanged(nameof(ManipulacaoAtivada),
-                    nameof(EdicaoEnderecoRetiradaAtivado),
-                    nameof(EdicaoEnderecoEntregaAtivado),
+                OnPropertyChanged(
                     nameof(BotaoEditarVisivel),
                     nameof(BotaoConfirmarVisivel),
                     nameof(BotaoSalvarAtivado),

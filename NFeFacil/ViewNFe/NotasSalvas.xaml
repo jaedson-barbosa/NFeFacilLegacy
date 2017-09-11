@@ -40,10 +40,8 @@
                         </Grid.ColumnDefinitions>
                         <Grid.ContextFlyout>
                             <MenuFlyout>
-                                <MenuFlyoutItem Click="Remover">Remover</MenuFlyoutItem>
-                                <MenuFlyoutItem Click="Editar">Editar</MenuFlyoutItem>
-                                <MenuFlyoutItem IsEnabled="{Binding PodeCancelar}"
-                                                Click="Cancelar">Cancelar</MenuFlyoutItem>
+                                <MenuFlyoutItem Click="Exibir">Exibir</MenuFlyoutItem>
+                                <MenuFlyoutItem Click="Cancelar">Cancelar</MenuFlyoutItem>
                             </MenuFlyout>
                         </Grid.ContextFlyout>
                         <TextBlock Text="{Binding Nota.NomeEmitente}" />
@@ -97,10 +95,8 @@
                         </Grid.ColumnDefinitions>
                         <Grid.ContextFlyout>
                             <MenuFlyout>
+                                <MenuFlyoutItem Click="Exibir">Exibir</MenuFlyoutItem>
                                 <MenuFlyoutItem Click="Remover">Remover</MenuFlyoutItem>
-                                <MenuFlyoutItem Click="Editar">Editar</MenuFlyoutItem>
-                                <MenuFlyoutItem IsEnabled="{Binding PodeCancelar}"
-                                                Click="Cancelar">Cancelar</MenuFlyoutItem>
                             </MenuFlyout>
                         </Grid.ContextFlyout>
                         <TextBlock Text="{Binding Nota.NomeEmitente}" />

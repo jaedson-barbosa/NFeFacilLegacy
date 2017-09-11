@@ -10,7 +10,6 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Navigation;
 using System.Collections;
-using System.Collections.Generic;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -77,17 +76,10 @@ namespace NFeFacil.View
                 db.SaveChanges();
             }
 
-            if (Nota.Status == (int)StatusNFe.Emitida)
-            {
-                NotasEmitidas.RemoveAt(NotasEmitidas.IndexOf(nota));
-            }
-            else
-            {
-                OutrasNotas.RemoveAt(OutrasNotas.IndexOf(nota));
-            }
+            OutrasNotas.Remove(nota);
         }
 
-        private void Editar(object sender, RoutedEventArgs e)
+        private void Exibir(object sender, RoutedEventArgs e)
         {
             var nota = (NFeView)((MenuFlyoutItem)sender).DataContext;
             var Nota = nota.Nota;
@@ -114,25 +106,19 @@ namespace NFeFacil.View
             var nota = (NFeView)((MenuFlyoutItem)sender).DataContext;
             var Nota = nota.Nota;
             var processo = XElement.Parse(Nota.XML).FromXElement<Processo>();
-            if (/*await new OperacoesNotaEmitida(processo).Cancelar()*/true)
+            if (await new OperacoesNotaEmitida(processo).Cancelar())
             {
                 Nota.Status = (int)StatusNFe.Cancelada;
-                //using (var db = new AplicativoContext())
-                //{
-                //    Nota.UltimaData = DateTime.Now;
-                //    db.Update(Nota);
-                //    db.SaveChanges();
-                //}
+                using (var db = new AplicativoContext())
+                {
+                    Nota.UltimaData = DateTime.Now;
+                    db.Update(Nota);
+                    db.SaveChanges();
+                }
 
                 nota.CalcularMensagemApoio();
-                if (Nota.Status == (int)StatusNFe.Emitida)
-                {
-                    NotasEmitidas[NotasEmitidas.IndexOf(nota)] = nota;
-                }
-                else
-                {
-                    OutrasNotas[OutrasNotas.IndexOf(nota)] = nota;
-                }
+                NotasEmitidas.Remove(nota);
+                OutrasNotas.Add(nota);
             }
         }
 
@@ -142,7 +128,6 @@ namespace NFeFacil.View
         {
             public NFeDI Nota { get; }
             public string MensagemApoio { get; set; }
-            public bool PodeCancelar => Nota.Status == (int)StatusNFe.Emitida;
 
             public NFeView(NFeDI nota)
             {
@@ -152,7 +137,7 @@ namespace NFeFacil.View
 
             public void CalcularMensagemApoio()
             {
-                if (PodeCancelar)
+                if (Nota.Status == (int)StatusNFe.Emitida)
                 {
                     MensagemApoio = $"Exportada: {BoolToString(Nota.Exportada)}; Impressa: {BoolToString(Nota.Impressa)}";
                 }

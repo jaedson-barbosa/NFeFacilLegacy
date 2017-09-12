@@ -1,13 +1,44 @@
-﻿<Page
-    x:Class="NFeFacil.ViewNFe.VisualizacaoNFe"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:NFeFacil.ViewNFe"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+﻿<Page x:Class="NFeFacil.ViewNFe.VisualizacaoNFe"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="using:NFeFacil.ViewNFe"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d">
 
     <ScrollViewer Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <TextBlock x:Name="visualizacao" />
     </ScrollViewer>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton IsEnabled="{Binding BotaoEditarVisivel}"
+                          Icon="Edit"
+                          Label="Editar"
+                          Command="{Binding LiberarEdicaoCommand}" />
+            <AppBarButton IsEnabled="{Binding BotaoSalvarAtivado}"
+                          Icon="Save"
+                          Label="Salvar"
+                          Command="{Binding SalvarCommand}" />
+            <AppBarButton IsEnabled="{Binding BotaoAssinarAtivado}"
+                          Icon="Permissions"
+                          Label="Assinar"
+                          Command="{Binding AssinarCommand}" />
+            <AppBarButton IsEnabled="{Binding BotaoTransmitirAtivado}"
+                          Icon="Send"
+                          Label="Transmitir"
+                          Command="{Binding TransmitirCommand}" />
+            <AppBarButton IsEnabled="{Binding BotaoGerarDANFEAtivado}"
+                          Icon="Document"
+                          Label="Gerar DANFE"
+                          Command="{Binding GerarDANFECommand}" />
+            <CommandBar.SecondaryCommands>
+                <AppBarButton Label="Exportar XML"
+                              Command="{Binding ExportarXMLCommand}">
+                    <AppBarButton.Icon>
+                        <FontIcon Glyph="&#xEDE1;" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>

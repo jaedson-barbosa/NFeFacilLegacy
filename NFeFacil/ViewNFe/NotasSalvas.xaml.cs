@@ -1,6 +1,5 @@
 ﻿using NFeFacil.ItensBD;
 using NFeFacil.ModeloXML;
-using NFeFacil.ModeloXML.PartesProcesso;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;

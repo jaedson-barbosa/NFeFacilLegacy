@@ -17,5 +17,11 @@ namespace NFeFacil.ViewNFe.CaixasDialogoProduto
                 ExportInd = new ExportacaoIndireta()
             };
         }
+
+        public double NRE
+        {
+            get => Declaracao.ExportInd.NRE;
+            set => Declaracao.ExportInd.NRE = (long)value;
+        }
     }
 }

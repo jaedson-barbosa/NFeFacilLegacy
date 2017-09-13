@@ -23,7 +23,7 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
             <controles:EntradaNumerica Format="12"
-                                       Number="{x:Bind Declaracao.ExportInd.NRE, Mode=TwoWay}"
+                                       Number="{x:Bind NRE, Mode=TwoWay}"
                                        Header="Número do registro de exportação"
                                        Margin="0,0,0,5" />
             <controles:EntradaNumerica Format="11:4"

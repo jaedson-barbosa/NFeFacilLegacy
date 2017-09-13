@@ -65,7 +65,6 @@ namespace NFeFacil.ViewNFe
                 {
                     NotaSalva.Informações.destinatário.Nome = NomeClienteHomologacao;
                 }
-                OnPropertyChanged(nameof(NotaSalva));
             }
         }
 
@@ -85,7 +84,6 @@ namespace NFeFacil.ViewNFe
             {
                 emitenteSelecionado = value;
                 NotaSalva.Informações.emitente = value.ToEmitente();
-                OnPropertyChanged(nameof(NotaSalva));
             }
         }
 

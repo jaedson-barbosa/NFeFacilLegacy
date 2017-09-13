@@ -181,47 +181,14 @@
                       SelectedItem="{Binding ClienteSelecionado, Mode=TwoWay}"
                       DisplayMemberPath="Nome" />
         </StackPanel>
-        <Pivot Margin="16">
-            <PivotItem Header="Local de retirada">
-            </PivotItem>
-            <PivotItem Header="Local de entrega">
-                <StackPanel>
-                    <CheckBox IsChecked="{Binding EnderecoEntregaAtivado, Mode=TwoWay}">Diferente do endereço do Cliente</CheckBox>
-                    <ItemsControl Style="{StaticResource ItensResponsivos}"
-                                  IsEnabled="{Binding EnderecoEntregaAtivado}">
-                        <CheckBox IsChecked="{Binding ExteriorEnderecoEntrega, Mode=TwoWay}">Exterior</CheckBox>
-                        <ComboBox SelectedIndex="{Binding TipoDocumentoEnderecoCliente, Mode=TwoWay}"
-                                  Header="Tipo">
-                            <ComboBoxItem Content="CPF" />
-                            <ComboBoxItem Content="CNPJ" />
-                        </ComboBox>
-                        <controles:EntradaNumerica Number="{Binding DocumentoEnderecoCliente, Mode=TwoWay}"
-                                                   Header="Documento *" />
-                        <TextBox Text="{Binding Path=Entrega.Logradouro, Mode=TwoWay}"
-                                 InputScope="Text"
-                                 Header="Logradouro *" />
-                        <TextBox Text="{Binding Path=Entrega.Numero, Mode=TwoWay}"
-                                 InputScope="Text"
-                                 Header="Número *" />
-                        <TextBox Text="{Binding Path=Entrega.Complemento, Mode=TwoWay}"
-                                 InputScope="Text"
-                                 Header="Complemento" />
-                        <TextBox Text="{Binding Path=Entrega.Bairro, Mode=TwoWay}"
-                                 InputScope="Text"
-                                 Header="Bairro *" />
-                        <ComboBox ItemsSource="{Binding Source={StaticResource estados}, Path=Siglas}"
-                                  SelectedItem="{Binding UFEscolhidaEnderecoCliente, Mode=TwoWay}"
-                                  IsEnabled="{Binding ExteriorEnderecoEntrega, Converter={StaticResource inverter}}"
-                                  Header="Estado" />
-                        <ComboBox ItemsSource="{Binding UFEscolhidaEnderecoCliente, Converter={StaticResource obterMun}}"
-                                  SelectedItem="{Binding Path=ConjuntoMunicipioEnderecoCliente, Mode=TwoWay}"
-                                  IsEnabled="{Binding ExteriorEnderecoEntrega, Converter={StaticResource inverter}}"
-                                  DisplayMemberPath="Nome"
-                                  Header="Município" />
-                    </ItemsControl>
-                </StackPanel>
-            </PivotItem>
-        </Pivot>
+        <StackPanel Margin="16">
+            <ToggleSwitch Header="Endereço de retirada"
+                          OnContent="Diferente registrado"
+                          OffContent="Igual ao do emitente" />
+            <ToggleSwitch Header="Endereço de entrega"
+                          OnContent="Diferente registrado"
+                          OffContent="Igual ao do emitente" />
+        </StackPanel>
         <Grid Padding="16">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
@@ -276,9 +243,6 @@
                         <StackPanel Margin="0,5">
                             <StackPanel.ContextFlyout>
                                 <MenuFlyout Placement="Bottom">
-                                    <MenuFlyoutItem Text="Exibir"
-                                                    Command="{Binding ElementName=root, Path=DataContext.ExibirProdutoCommand}"
-                                                    CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}" />
                                     <MenuFlyoutItem Text="Editar"
                                                     Command="{Binding ElementName=root, Path=DataContext.EditarProdutoCommand}"
                                                     CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}" />

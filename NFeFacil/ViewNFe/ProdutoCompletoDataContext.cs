@@ -1,6 +1,7 @@
 ﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
+using NFeFacil.ViewModel;
 using NFeFacil.ViewModel.ImpostosProduto;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.ComponentModel;
 using System.Windows.Input;
 using Windows.UI.Xaml.Controls;
 
-namespace NFeFacil.ViewModel
+namespace NFeFacil.ViewNFe
 {
     public sealed class ProdutoCompletoDataContext : INotifyPropertyChanged
     {

@@ -319,8 +319,8 @@
     <Compile Include="ViewModel\ImpostosProduto\ConteinerPISST.cs" />
     <Compile Include="ViewModel\ImpostosProduto\TiposCalculo.cs" />
     <Compile Include="ViewDadosBase\MotoristaDataContext.cs" />
-    <Compile Include="ViewModel\NotaFiscalDataContext.cs" />
-    <Compile Include="ViewModel\ProdutoCompletoDataContext.cs" />
+    <Compile Include="ViewNFe\NotaFiscalDataContext.cs" />
+    <Compile Include="ViewNFe\ProdutoCompletoDataContext.cs" />
     <Compile Include="ViewModel\QRCode.cs" />
     <Compile Include="ViewModel\QRConexaoDataContext.cs" />
     <Compile Include="ViewDadosBase\AdicionarDestinatario.xaml.cs">

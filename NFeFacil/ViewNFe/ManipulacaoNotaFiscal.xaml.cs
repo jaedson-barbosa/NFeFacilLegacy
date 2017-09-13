@@ -5,10 +5,11 @@ using Windows.UI.Xaml.Navigation;
 using System.Collections.ObjectModel;
 using System.Collections;
 using NFeFacil.ModeloXML.PartesProcesso;
+using NFeFacil.View.Controles;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace NFeFacil.View
+namespace NFeFacil.ViewNFe
 {
     /// <summary>
     /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
@@ -24,18 +25,18 @@ namespace NFeFacil.View
         {
             get
             {
-                var retorno = new ObservableCollection<Controles.ItemHambuguer>
+                var retorno = new ObservableCollection<ItemHambuguer>
                 {
-                    new Controles.ItemHambuguer(Symbol.Tag, "Identificação"),
-                    new Controles.ItemHambuguer(Symbol.People, "Cliente"),
-                    new Controles.ItemHambuguer(Symbol.Street, "Retirada/Entrega"),
-                    new Controles.ItemHambuguer(Symbol.Shop, "Produtos"),
-                    new Controles.ItemHambuguer(Symbol.Calculator, "Totais"),
-                    new Controles.ItemHambuguer("\uE806", "Transporte"),
-                    new Controles.ItemHambuguer("\uE825", "Cobrança"),
-                    new Controles.ItemHambuguer(Symbol.Comment, "Informações adicionais"),
-                    new Controles.ItemHambuguer(Symbol.World, "Exportação e compras"),
-                    new Controles.ItemHambuguer(new Uri("ms-appx:///Assets/CanaAcucar.png"), "Cana-de-açúcar")
+                    new ItemHambuguer(Symbol.Tag, "Identificação"),
+                    new ItemHambuguer(Symbol.People, "Cliente"),
+                    new ItemHambuguer(Symbol.Street, "Retirada/Entrega"),
+                    new ItemHambuguer(Symbol.Shop, "Produtos"),
+                    new ItemHambuguer(Symbol.Calculator, "Totais"),
+                    new ItemHambuguer("\uE806", "Transporte"),
+                    new ItemHambuguer("\uE825", "Cobrança"),
+                    new ItemHambuguer(Symbol.Comment, "Informações adicionais"),
+                    new ItemHambuguer(Symbol.World, "Exportação e compras"),
+                    new ItemHambuguer(new Uri("ms-appx:///Assets/CanaAcucar.png"), "Cana-de-açúcar")
                 };
                 pvtPrincipal.SelectionChanged += (sender, e) => MainMudou?.Invoke(this, new NewIndexEventArgs { NewIndex = pvtPrincipal.SelectedIndex });
                 return retorno;

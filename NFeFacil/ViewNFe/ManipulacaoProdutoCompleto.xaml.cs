@@ -12,10 +12,11 @@ using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using System;
 using System.Collections;
 using NFeFacil.ModeloXML.PartesProcesso;
+using NFeFacil.View.Controles;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace NFeFacil.View
+namespace NFeFacil.ViewNFe
 {
     /// <summary>
     /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
@@ -87,14 +88,14 @@ namespace NFeFacil.View
         {
             get
             {
-                var retorno = new ObservableCollection<Controles.ItemHambuguer>
+                var retorno = new ObservableCollection<ItemHambuguer>
                 {
-                    new Controles.ItemHambuguer(Symbol.Tag, "Dados"),
-                    new Controles.ItemHambuguer("\uE825", "Tributos"),
-                    new Controles.ItemHambuguer(Symbol.Comment, "Info adicional"),
-                    new Controles.ItemHambuguer(Symbol.World, "Importação"),
-                    new Controles.ItemHambuguer(Symbol.World, "Exportação"),
-                    new Controles.ItemHambuguer(Symbol.Target, "Produto específico")
+                    new ItemHambuguer(Symbol.Tag, "Dados"),
+                    new ItemHambuguer("\uE825", "Tributos"),
+                    new ItemHambuguer(Symbol.Comment, "Info adicional"),
+                    new ItemHambuguer(Symbol.World, "Importação"),
+                    new ItemHambuguer(Symbol.World, "Exportação"),
+                    new ItemHambuguer(Symbol.Target, "Produto específico")
                 };
                 main.SelectionChanged += (sender, e) => MainMudou?.Invoke(this, new NewIndexEventArgs { NewIndex = main.SelectedIndex });
                 return retorno;

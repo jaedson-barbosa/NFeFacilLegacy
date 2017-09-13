@@ -9,10 +9,11 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Navigation;
 using System.Collections;
+using NFeFacil.View.Controles;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace NFeFacil.View
+namespace NFeFacil.ViewNFe
 {
     /// <summary>
     /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
@@ -55,10 +56,10 @@ namespace NFeFacil.View
         {
             get
             {
-                var retorno = new ObservableCollection<Controles.ItemHambuguer>
+                var retorno = new ObservableCollection<ItemHambuguer>
                 {
-                    new Controles.ItemHambuguer(Symbol.Send, "Emitidas"),
-                    new Controles.ItemHambuguer(Symbol.SaveLocal, "Outras")
+                    new ItemHambuguer(Symbol.Send, "Emitidas"),
+                    new ItemHambuguer(Symbol.SaveLocal, "Outras")
                 };
                 main.SelectionChanged += (sender, e) => MainMudou?.Invoke(this, new NewIndexEventArgs { NewIndex = main.SelectedIndex });
                 return retorno;

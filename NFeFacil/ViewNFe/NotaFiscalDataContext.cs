@@ -19,8 +19,9 @@ using NFeFacil.IBGE;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesIdentificacao;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
+using NFeFacil.ViewModel;
 
-namespace NFeFacil.ViewModel
+namespace NFeFacil.ViewNFe
 {
     public sealed class NotaFiscalDataContext : INotifyPropertyChanged, IValida
     {
@@ -221,7 +222,7 @@ namespace NFeFacil.ViewModel
             set
             {
                 ufEscolhida = value;
-                PropertyChanged(this, new PropertyChangedEventArgs("UFEscolhida"));
+                OnPropertyChanged("UFEscolhida");
             }
         }
 
@@ -571,14 +572,14 @@ namespace NFeFacil.ViewModel
             if (await add.ShowAsync() == ContentDialogResult.Primary)
             {
                 NotaSalva.Informações.transp.Reboque.Add(add.DataContext as Reboque);
-                PropertyChanged(this, new PropertyChangedEventArgs(nameof(NotaSalva)));
+                OnPropertyChanged(nameof(NotaSalva));
             }
         }
 
         void RemoverReboque(Reboque reboque)
         {
             NotaSalva.Informações.transp.Reboque.Remove(reboque);
-            PropertyChanged(this, new PropertyChangedEventArgs(nameof(NotaSalva)));
+            OnPropertyChanged(nameof(NotaSalva));
         }
 
         async void AdicionarVolume()
@@ -587,14 +588,14 @@ namespace NFeFacil.ViewModel
             if (await add.ShowAsync() == ContentDialogResult.Primary)
             {
                 NotaSalva.Informações.transp.Vol.Add(add.DataContext as Volume);
-                PropertyChanged(this, new PropertyChangedEventArgs(nameof(NotaSalva)));
+                OnPropertyChanged(nameof(NotaSalva));
             }
         }
 
         void RemoverVolume(Volume volume)
         {
             NotaSalva.Informações.transp.Vol.Remove(volume);
-            PropertyChanged(this, new PropertyChangedEventArgs(nameof(NotaSalva)));
+            OnPropertyChanged(nameof(NotaSalva));
         }
 
         async void AdicionarDuplicata()
@@ -603,14 +604,14 @@ namespace NFeFacil.ViewModel
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
                 NotaSalva.Informações.cobr.Dup.Add(caixa.DataContext as Duplicata);
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Cobranca"));
+                OnPropertyChanged("Cobranca");
             }
         }
 
         void RemoverDuplicata(Duplicata duplicata)
         {
             NotaSalva.Informações.cobr.Dup.Remove(duplicata);
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Cobranca"));
+            OnPropertyChanged("Cobranca");
         }
 
         async void AdicionarFornecimento()
@@ -619,14 +620,14 @@ namespace NFeFacil.ViewModel
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
                 NotaSalva.Informações.cana.ForDia.Add(caixa.DataContext as FornecimentoDiario);
-                PropertyChanged(this, new PropertyChangedEventArgs(nameof(NotaSalva)));
+                OnPropertyChanged(nameof(NotaSalva));
             }
         }
 
         void RemoverFornecimento(FornecimentoDiario fornecimento)
         {
             NotaSalva.Informações.cana.ForDia.Remove(fornecimento);
-            PropertyChanged(this, new PropertyChangedEventArgs(nameof(NotaSalva)));
+            OnPropertyChanged(nameof(NotaSalva));
         }
 
         async void AdicionarDeducao()
@@ -635,14 +636,14 @@ namespace NFeFacil.ViewModel
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
                 NotaSalva.Informações.cana.Deduc.Add(caixa.DataContext as Deducoes);
-                PropertyChanged(this, new PropertyChangedEventArgs(nameof(NotaSalva)));
+                OnPropertyChanged(nameof(NotaSalva));
             }
         }
 
         void RemoverDeducao(Deducoes deducao)
         {
             NotaSalva.Informações.cana.Deduc.Remove(deducao);
-            PropertyChanged(this, new PropertyChangedEventArgs(nameof(NotaSalva)));
+            OnPropertyChanged(nameof(NotaSalva));
         }
 
         async void AdicionarObsContribuinte()

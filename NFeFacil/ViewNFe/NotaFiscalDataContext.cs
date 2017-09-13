@@ -423,7 +423,6 @@ namespace NFeFacil.ViewNFe
         public ICommand EditarProdutoCommand => new Comando<DetalhesProdutos>(EditarProduto);
         public ICommand RemoverProdutoCommand => new Comando<DetalhesProdutos>(RemoverProduto);
 
-        public ICommand ObterNovoNumeroCommand => new Comando(ObterNovoNumero);
         public ICommand ConfirmarCommand => new Comando(Confirmar);
 
         public ICommand AdicionarNFeReferenciadaCommand => new Comando(AdicionarNFeReferenciada);
@@ -470,21 +469,6 @@ namespace NFeFacil.ViewNFe
 
             Analisador = new AnalisadorNFe(NotaSalva);
             OperacoesNota = new OperacoesNotaSalva(Log);
-        }
-
-        void ObterNovoNumero()
-        {
-            if (NotaSalva.Informações.emitente.CNPJ == 0)
-            {
-                Log.Escrever(TitulosComuns.Erro, "Primeiro escolha o emitente da nota fiscal.");
-            }
-            else
-            {
-                var cnpj = NotaSalva.Informações.emitente.CNPJ;
-                var serie = NotaSalva.Informações.identificação.Serie;
-                NotaSalva.Informações.identificação.Numero = NotasFiscais.ObterNovoNumero(cnpj, serie, NotaSalva.AmbienteTestes);
-                OnPropertyChanged(nameof(NotaSalva));
-            }
         }
 
         void Confirmar()

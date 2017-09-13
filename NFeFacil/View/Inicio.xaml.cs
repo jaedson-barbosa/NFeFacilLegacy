@@ -1,11 +1,6 @@
-﻿using NFeFacil.Log;
-using NFeFacil.ModeloXML.PartesProcesso;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
-using NFeFacil.ViewDadosBase;
+﻿using NFeFacil.ViewDadosBase;
 using NFeFacil.ViewRegistroVenda;
-using System.Collections.Generic;
+using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -67,38 +62,9 @@ namespace NFeFacil.View
             }
         }
 
-        private void CriarNotaFiscal(object sender, TappedRoutedEventArgs e)
+        private async void CriarNotaFiscal(object sender, TappedRoutedEventArgs e)
         {
-            if (Propriedades.EmitenteAtivo != null)
-            {
-                var notaSimples = new NFe()
-                {
-                    Informações = new Detalhes()
-                    {
-                        identificação = new Identificacao(),
-                        emitente = Propriedades.EmitenteAtivo.ToEmitente(),
-                        destinatário = new Destinatario(),
-                        produtos = new List<DetalhesProdutos>(),
-                        transp = new Transporte()
-                        {
-                            Transporta = new Motorista(),
-                            RetTransp = new ICMSTransporte(),
-                            VeicTransp = new Veiculo()
-                        },
-                        cobr = new Cobranca(),
-                        infAdic = new InformacoesAdicionais(),
-                        exporta = new Exportacao(),
-                        compra = new Compra(),
-                        cana = new RegistroAquisicaoCana()
-                    }
-                };
-                notaSimples.Informações.identificação.DefinirVersãoAplicativo();
-                MainPage.Current.Navegar<ViewNFe.ManipulacaoNotaFiscal>(notaSimples);
-            }
-            else
-            {
-                Popup.Current.Escrever(TitulosComuns.Erro, "Não foi escolhido um emitente ou não há nenhum emitente cadastrado.");
-            }
+            await new ViewNFe.CriadorNFe().ShowAsync();
         }
     }
 }

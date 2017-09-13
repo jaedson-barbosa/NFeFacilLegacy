@@ -35,21 +35,9 @@
                         <controles:EntradaNumerica Header="Série *"
                                                    Format="3"
                                                    Number="{Binding NotaSalva.Informações.identificação.Serie, Mode=TwoWay}" />
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <controles:EntradaNumerica Header="Número *"
-                                                       Format="9"
-                                                       Number="{Binding NotaSalva.Informações.identificação.Numero, Mode=TwoWay}" />
-                            <Button Command="{Binding ObterNovoNumeroCommand}"
-                                    Grid.Column="1"
-                                    ToolTipService.ToolTip="Obter próximo número"
-                                    VerticalAlignment="Bottom">
-                                <SymbolIcon Symbol="Refresh" />
-                            </Button>
-                        </Grid>
+                        <controles:EntradaNumerica Header="Número *"
+                                                   Format="9"
+                                                   Number="{Binding NotaSalva.Informações.identificação.Numero, Mode=TwoWay}" />
                         <ComboBox Header="Tipo de operação *"
                                   SelectedIndex="{Binding NotaSalva.Informações.identificação.TipoOperação, Mode=TwoWay}">
                             <ComboBoxItem Content="Entrada" />

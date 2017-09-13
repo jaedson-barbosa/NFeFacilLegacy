@@ -4,7 +4,7 @@ namespace NFeFacil.Repositorio
 {
     public static class NotasFiscais
     {
-        public static int ObterNovoNumero(long cnpjEmitente, ushort serieNota, bool homologacao)
+        public static int ObterNovoNumero(string cnpjEmitente, ushort serieNota, bool homologacao)
         {
             using (var Contexto = new AplicativoContext())
             {

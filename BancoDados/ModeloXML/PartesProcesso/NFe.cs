@@ -12,6 +12,9 @@ namespace NFeFacil.ModeloXML.PartesProcesso
 
         [XmlElement("Signature", Namespace = "http://www.w3.org/2000/09/xmldsig#")]
         public Assinatura Signature { get; set; }
+
+        [XmlIgnore]
+        public bool AmbienteTestes => Informações.identificação.TipoAmbiente == 2;
     }
 
     public sealed class Assinatura

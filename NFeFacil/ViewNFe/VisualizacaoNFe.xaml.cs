@@ -1,9 +1,17 @@
-﻿using NFeFacil.ModeloXML.PartesProcesso;
+﻿using NFeFacil.ItensBD;
+using NFeFacil.Log;
+using NFeFacil.ModeloXML;
+using NFeFacil.ModeloXML.PartesProcesso;
+using NFeFacil.Validacao;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Xml.Linq;
 using Windows.UI.Text;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Navigation;
@@ -17,7 +25,9 @@ namespace NFeFacil.ViewNFe
     /// </summary>
     public sealed partial class VisualizacaoNFe : Page
     {
-        NFe NotaFiscal { get; set; }
+        Popup Log = Popup.Current;
+        NFeDI ItemBanco { get; set; }
+        object ObjetoItemBanco { get; set; }
 
         public VisualizacaoNFe()
         {
@@ -26,8 +36,17 @@ namespace NFeFacil.ViewNFe
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            NotaFiscal = (NFe)e.Parameter;
-            var propriedades = ObterPropriedades(NotaFiscal.Informações);
+            ItemBanco = (NFeDI)e.Parameter;
+            var xml = XElement.Parse(ItemBanco.XML);
+            if (ItemBanco.Status < (int)StatusNFe.Emitida)
+            {
+                ObjetoItemBanco = xml.FromXElement<NFe>();
+            }
+            else
+            {
+                ObjetoItemBanco = xml.FromXElement<Processo>();
+            }
+            var propriedades = ObterPropriedades(ObjetoItemBanco);
             var linear = PropriedadeHierarquicaToLinear(propriedades, 0);
             linear.ForEach(x => AdicionarCampo(x.Texto, (EstilosTexto)x.Profundidade, x.Complementar));
         }
@@ -226,6 +245,131 @@ namespace NFeFacil.ViewNFe
             TitleTextBlockStyle,
             SubtitleTextBlockStyle,
             BodyTextBlockStyle
+        }
+
+        private void Editar(object sender, RoutedEventArgs e)
+        {
+            var nfe = (NFe)ObjetoItemBanco;
+            var analisador = new AnalisadorNFe(nfe);
+            nfe.Signature = null;
+            ItemBanco.Status = (int)StatusNFe.Edição;
+            analisador.Desnormalizar();
+            MainPage.Current.Navegar<View.ManipulacaoNotaFiscal>(nfe);
+            MainPage.Current.OnRetornoParametrizado += Current_OnRetornoParametrizado;
+        }
+
+        private void Current_OnRetornoParametrizado(object sender, System.EventArgs e)
+        {
+            var parametro = ((RetornoEventArgs)e).Parametro;
+            ObjetoItemBanco = (NFe)parametro;
+            MainPage.Current.OnRetornoParametrizado -= Current_OnRetornoParametrizado;
+            Log.Escrever(TitulosComuns.Log, "Agora salve para que as alterações fiquem gravadas.");
+        }
+
+        private void Salvar(object sender, RoutedEventArgs e)
+        {
+            var nfe = (NFe)ObjetoItemBanco;
+            var analisador = new AnalisadorNFe(nfe);
+            analisador.Normalizar();
+            ItemBanco.Status = (int)StatusNFe.Salva;
+            AtualizarDI();
+            Log.Escrever(TitulosComuns.Sucesso, "Nota fiscal salva com sucesso.");
+        }
+
+        private async void Assinar(object sender, RoutedEventArgs e)
+        {
+            var nfe = (NFe)ObjetoItemBanco;
+            var OperacoesNota = new OperacoesNotaSalva(Log);
+            if (await OperacoesNota.Assinar(nfe))
+            {
+                ItemBanco.Status = (int)StatusNFe.Assinada;
+                AtualizarDI();
+            }
+            Log.Escrever(TitulosComuns.Sucesso, "Nota fiscal assinada com sucesso.");
+        }
+
+        private async void Transmitir(object sender, RoutedEventArgs e)
+        {
+            var nfe = (NFe)ObjetoItemBanco;
+            var OperacoesNota = new OperacoesNotaSalva(Log);
+            var resposta = await OperacoesNota.Transmitir(nfe, nfe.AmbienteTestes);
+            if (resposta.sucesso)
+            {
+                ObjetoItemBanco = new Processo()
+                {
+                    NFe = nfe,
+                    ProtNFe = resposta.protocolo
+                };
+                ItemBanco.Status = (int)StatusNFe.Emitida;
+                AtualizarDI();
+            }
+        }
+
+        private void Imprimir(object sender, RoutedEventArgs e)
+        {
+            var processo = (Processo)ObjetoItemBanco;
+            MainPage.Current.Navegar<DANFE.ViewDANFE>(processo);
+            ItemBanco.Impressa = true;
+            AtualizarDI();
+        }
+
+        private async void Exportar(object sender, RoutedEventArgs e)
+        {
+            XElement xml;
+            string id;
+            if (ItemBanco.Status < (int)StatusNFe.Emitida)
+            {
+                var nfe = (NFe)ObjetoItemBanco;
+                id = nfe.Informações.Id;
+                xml = ObjetoItemBanco.ToXElement<NFe>();
+            }
+            else
+            {
+                var processo = (Processo)ObjetoItemBanco;
+                id = processo.NFe.Informações.Id;
+                xml = ObjetoItemBanco.ToXElement<Processo>();
+            }
+
+            var OperacoesNota = new OperacoesNotaSalva(Log);
+            if (await OperacoesNota.Exportar(xml, id))
+            {
+                ItemBanco.Exportada = true;
+                AtualizarDI();
+                Log.Escrever(TitulosComuns.Sucesso, $"Nota fiscal exportada com sucesso.");
+            }
+        }
+
+        private void AtualizarDI()
+        {
+            try
+            {
+                using (var db = new AplicativoContext())
+                {
+                    ItemBanco.UltimaData = DateTime.Now;
+                    if (ItemBanco.Status < (int)StatusNFe.Emitida)
+                    {
+                        ItemBanco.XML = ObjetoItemBanco.ToXElement<NFe>().ToString();
+                    }
+                    else
+                    {
+                        ItemBanco.XML = ObjetoItemBanco.ToXElement<Processo>().ToString();
+                    }
+
+                    if (db.NotasFiscais.Count(x => x.Id == ItemBanco.Id) == 0)
+                    {
+                        db.Add(ItemBanco);
+                    }
+                    else
+                    {
+                        db.Update(ItemBanco);
+                    }
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+                e.ManipularErro();
+            }
         }
     }
 }

@@ -198,10 +198,6 @@
                       ItemsSource="{Binding ClientesDisponiveis}"
                       SelectedItem="{Binding ClienteSelecionado, Mode=TwoWay}"
                       DisplayMemberPath="Nome" />
-            <StackPanel Orientation="Horizontal">
-                <Button Margin="0,0,8,0"
-                        Command="{Binding ExibirClienteCommand}">Exibir</Button>
-            </StackPanel>
         </StackPanel>
         <Pivot Margin="16">
             <PivotItem Header="Local de retirada">
@@ -526,10 +522,6 @@
                                   HorizontalAlignment="Stretch"
                                   SelectedItem="{Binding MotoristaSelecionado, Mode=TwoWay}"
                                   DisplayMemberPath="Nome" />
-                        <StackPanel Orientation="Horizontal">
-                            <Button Margin="0,0,8,0"
-                                    Command="{Binding ExibirMotoristaCommand}">Exibir</Button>
-                        </StackPanel>
                     </StackPanel>
                 </PivotItem>
                 <PivotItem Header="Veículo">

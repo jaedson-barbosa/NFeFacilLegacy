@@ -450,13 +450,7 @@ namespace NFeFacil.ViewModel
         public ICommand RemoverProdutoCommand => new Comando<DetalhesProdutos>(RemoverProduto);
 
         public ICommand ObterNovoNumeroCommand => new Comando(ObterNovoNumero);
-        public ICommand LiberarEdicaoCommand => new Comando(LiberarEdicao);
         public ICommand ConfirmarCommand => new Comando(Confirmar);
-        public ICommand SalvarCommand => new Comando(Salvar);
-        public ICommand AssinarCommand => new Comando(Assinar);
-        public ICommand TransmitirCommand => new Comando(Transmitir);
-        public ICommand GerarDANFECommand => new Comando(GerarDANFE);
-        public ICommand ExportarXMLCommand => new Comando(ExportarXML);
 
         public ICommand AdicionarNFeReferenciadaCommand => new Comando(AdicionarNFeReferenciada);
         public ICommand AdicionarNFReferenciadaCommand => new Comando(AdicionarNFReferenciada);
@@ -479,9 +473,6 @@ namespace NFeFacil.ViewModel
         public ICommand RemoverObsContribuinteCommand => new Comando<Observacao>(RemoverObsContribuinte);
         public ICommand AdicionarProcReferenciadoCommand => new Comando(AdicionarProcReferenciado);
         public ICommand RemoverProcReferenciadoCommand => new Comando<ProcessoReferenciado>(RemoverProcReferenciado);
-
-        public ICommand ExibirClienteCommand => new Comando(ExibirCliente);
-        public ICommand ExibirMotoristaCommand => new Comando(ExibirMotorista);
 
         #endregion
 
@@ -535,7 +526,7 @@ namespace NFeFacil.ViewModel
 
             Conjunto = Dados;
             Analisador = new AnalisadorNFe(NotaSalva);
-            OperacoesNota = new OperacoesNotaSalva(Log, Analisador);
+            OperacoesNota = new OperacoesNotaSalva(Log);
         }
 
         void ObterNovoNumero()
@@ -551,17 +542,6 @@ namespace NFeFacil.ViewModel
                 NotaSalva.Informações.identificação.Numero = NotasFiscais.ObterNovoNumero(cnpj, serie, AmbienteTestes);
                 OnPropertyChanged(nameof(NotaSalva));
             }
-        }
-
-        void LiberarEdicao()
-        {
-            if (StatusAtual == StatusNFe.Assinada)
-            {
-                NotaSalva.Signature = null;
-            }
-            StatusAtual = StatusNFe.Edição;
-            Analisador.Desnormalizar();
-            Log.Escrever(TitulosComuns.Sucesso, "As alterações só terão efeito quando a nota fiscal for novamente salva.");
         }
 
         void Confirmar()
@@ -581,57 +561,6 @@ namespace NFeFacil.ViewModel
             {
                 e.ManipularErro();
             }
-        }
-
-        void Salvar()
-        {
-            Analisador.Normalizar();
-            StatusAtual = StatusNFe.Salva;
-            AtualizarDI();
-            Log.Escrever(TitulosComuns.Sucesso, "Nota fiscal salva com sucesso. Agora podes sair da aplicação sem perder esta NFe.");
-        }
-
-        async void Assinar()
-        {
-            if (await OperacoesNota.Assinar(NotaSalva))
-            {
-                StatusAtual = StatusNFe.Assinada;
-                AtualizarDI();
-            }
-        }
-
-        async void Transmitir()
-        {
-            var resposta = await OperacoesNota.Transmitir(NotaSalva, AmbienteTestes);
-            if (resposta.sucesso)
-            {
-                NotaEmitida = new Processo()
-                {
-                    NFe = NotaSalva,
-                    ProtNFe = resposta.protocolo
-                };
-                Log.Escrever(TitulosComuns.Sucesso, resposta.motivo);
-                StatusAtual = StatusNFe.Emitida;
-                AtualizarDI();
-            }
-        }
-
-        async void ExportarXML()
-        {
-            var xml = ObterXML();
-            if (await OperacoesNota.Exportar(xml, NotaSalva.Informações.Id))
-            {
-                Log.Escrever(TitulosComuns.Sucesso, $"Nota fiscal exportada com sucesso.");
-                Conjunto.Exportada = true;
-                AtualizarDI();
-            }
-        }
-
-        void GerarDANFE()
-        {
-            MainPage.Current.Navegar<DANFE.ViewDANFE>(NotaEmitida);
-            Conjunto.Impressa = true;
-            AtualizarDI();
         }
 
         #region Adição e remoção básica
@@ -808,49 +737,6 @@ namespace NFeFacil.ViewModel
 
         #endregion
 
-        #region Exibição básica
-
-        async void ExibirCliente()
-        {
-            var cliente = new ClienteDI(NotaSalva.Informações.destinatário);
-            var caixa = new ViewDadosBase.DetalheClienteAtual(cliente);
-            await caixa.ShowAsync();
-        }
-
-        async void ExibirMotorista()
-        {
-            var motorista = new MotoristaDI(NotaSalva.Informações.transp.Transporta);
-            var caixa = new ViewDadosBase.DetalheMotoristaAtual(motorista);
-            await caixa.ShowAsync();
-        }
-
-        #endregion
-
-        private void AtualizarDI()
-        {
-            try
-            {
-                var di = ObterDI();
-                using (var db = new AplicativoContext())
-                {
-                    di.UltimaData = DateTime.Now;
-                    if (db.NotasFiscais.Count(x => x.Id == di.Id) == 0)
-                    {
-                        db.Add(di);
-                    }
-                    else if (db.NotasFiscais.First(x => x.Id == di.Id) != di)
-                    {
-                        db.Update(di);
-                    }
-                    db.SaveChanges();
-                }
-            }
-            catch (Exception e)
-            {
-                e.ManipularErro();
-            }
-        }
-
         async Task<bool> IValida.Verificar()
         {
             var retorno = true;
@@ -862,23 +748,6 @@ namespace NFeFacil.ViewModel
                 await mensagem.ShowAsync();
             }
             return retorno;
-        }
-
-        XElement ObterXML()
-        {
-            bool UsarNotaSalva = StatusAtual != StatusNFe.Emitida;
-            return UsarNotaSalva ? NotaSalva.ToXElement<NFe>() : NotaEmitida.ToXElement<Processo>();
-        }
-
-        NFeDI ObterDI()
-        {
-            bool UsarNotaSalva = StatusAtual != StatusNFe.Emitida && StatusAtual != StatusNFe.Cancelada;
-            var xml = UsarNotaSalva ? NotaSalva.ToXElement<NFe>() : NotaEmitida.ToXElement<Processo>();
-            var di = UsarNotaSalva ? new NFeDI(NotaSalva, xml.ToString()) : new NFeDI(NotaEmitida, xml.ToString());
-            di.Status = (int)StatusAtual;
-            di.Exportada = Conjunto.Exportada;
-            di.Impressa = Conjunto.Impressa;
-            return di;
         }
     }
 }

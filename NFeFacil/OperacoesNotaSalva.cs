@@ -15,19 +15,16 @@ namespace NFeFacil
     public class OperacoesNotaSalva
     {
         ILog Log { get; }
-        AnalisadorNFe Analisador { get; }
 
-        public OperacoesNotaSalva(ILog log, AnalisadorNFe analisador)
+        public OperacoesNotaSalva(ILog log)
         {
             Log = log;
-            Analisador = analisador;
         }
 
         public async Task<bool> Assinar(NFe nota)
         {
             try
             {
-                Analisador.Normalizar();
                 var assina = new Certificacao.AssinaFacil(nota);
                 await assina.Assinar<NFe>(nota.Informações.Id, "infNFe");
                 return true;
@@ -68,7 +65,7 @@ namespace NFeFacil
             return false;
         }
 
-        public async Task<(bool sucesso, ProtocoloNFe protocolo, string motivo)> Transmitir(NFe nota, bool homologacao)
+        public async Task<(bool sucesso, ProtocoloNFe protocolo)> Transmitir(NFe nota, bool homologacao)
         {
             try
             {
@@ -81,7 +78,8 @@ namespace NFeFacil
                         .EnviarAsync(new ConsReciNFe(resultadoTransmissao.tpAmb, resultadoTransmissao.infRec.nRec));
                     if (resultadoResposta.protNFe.InfProt.cStat == 100)
                     {
-                        return (true, resultadoResposta.protNFe, resultadoResposta.xMotivo);
+                        Log.Escrever(TitulosComuns.Sucesso, resultadoResposta.xMotivo);
+                        return (true, resultadoResposta.protNFe);
                     }
                     else
                     {
@@ -97,7 +95,7 @@ namespace NFeFacil
             {
                 e.ManipularErro();
             }
-            return (false, null, null);
+            return (false, null);
         }
 
 

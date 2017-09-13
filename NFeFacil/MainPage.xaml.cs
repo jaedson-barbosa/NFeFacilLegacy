@@ -1,4 +1,5 @@
 ﻿using NFeFacil.ItensBD;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
@@ -134,22 +135,6 @@ namespace NFeFacil
             splitView.IsPaneOpen = !splitView.IsPaneOpen;
         }
 
-        void SelecaoMudou(object sender, SelectionChangedEventArgs e)
-        {
-            if (e.AddedItems.Count == 1)
-            {
-                var item = e.AddedItems[0];
-                if (item is EmitenteDI novoEmit)
-                {
-                    Propriedades.EmitenteAtivo = novoEmit;
-                }
-                else if (item is Vendedor vendedor)
-                {
-                    Propriedades.VendedorAtivo = vendedor;
-                }
-            }
-        }
-
         private void MudouSubpaginaEscolhida(object sender, SelectionChangedEventArgs e)
         {
             if (menuTemporario.ItemsSource != null)
@@ -187,5 +172,12 @@ namespace NFeFacil
                 }
             }
         }
+
+        public event EventHandler OnRetornoParametrizado;
+    }
+
+    public class RetornoEventArgs : EventArgs
+    {
+        public object Parametro { get; set; }
     }
 }

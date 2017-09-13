@@ -11,29 +11,33 @@
     </ScrollViewer>
     <Page.BottomAppBar>
         <CommandBar>
-            <AppBarButton IsEnabled="{Binding BotaoEditarVisivel}"
+            <AppBarButton x:Name="btnEditar"
                           Icon="Edit"
                           Label="Editar"
-                          Command="{Binding LiberarEdicaoCommand}" />
-            <AppBarButton IsEnabled="{Binding BotaoSalvarAtivado}"
+                          Click="Editar" />
+            <AppBarButton x:Name="btnSalvar"
                           Icon="Save"
                           Label="Salvar"
-                          Command="{Binding SalvarCommand}" />
-            <AppBarButton IsEnabled="{Binding BotaoAssinarAtivado}"
+                          Click="Salvar" />
+            <AppBarButton x:Name="btnAssinar"
                           Icon="Permissions"
                           Label="Assinar"
-                          Command="{Binding AssinarCommand}" />
-            <AppBarButton IsEnabled="{Binding BotaoTransmitirAtivado}"
+                          Click="Assinar" />
+            <AppBarButton x:Name="btnTransmitir"
                           Icon="Send"
                           Label="Transmitir"
-                          Command="{Binding TransmitirCommand}" />
-            <AppBarButton IsEnabled="{Binding BotaoGerarDANFEAtivado}"
-                          Icon="Document"
-                          Label="Gerar DANFE"
-                          Command="{Binding GerarDANFECommand}" />
+                          Click="Transmitir" />
+            <AppBarButton x:Name="btnImprimir"
+                          Label="Imprimir"
+                          Click="Imprimir">
+                <AppBarButton.Icon>
+                    <FontIcon Glyph="&#xE749;" />
+                </AppBarButton.Icon>
+            </AppBarButton>
             <CommandBar.SecondaryCommands>
-                <AppBarButton Label="Exportar XML"
-                              Command="{Binding ExportarXMLCommand}">
+                <AppBarButton x:Name="btnExportarXML" Label="Exportar XML"
+                              Command="{Binding ExportarXMLCommand}"
+                              Click="Exportar">
                     <AppBarButton.Icon>
                         <FontIcon Glyph="&#xEDE1;" />
                     </AppBarButton.Icon>

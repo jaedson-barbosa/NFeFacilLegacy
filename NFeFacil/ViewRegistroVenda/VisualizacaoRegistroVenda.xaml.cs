@@ -95,7 +95,7 @@ namespace NFeFacil.ViewRegistroVenda
         {
             var nfe = ItemBanco.ToNFe();
             nfe.Informações.identificação.DefinirVersãoAplicativo();
-            MainPage.Current.Navegar<View.ManipulacaoNotaFiscal>(nfe);
+            MainPage.Current.Navegar<ViewNFe.ManipulacaoNotaFiscal>(nfe);
         }
 
         private void CriarDARV(object sender, RoutedEventArgs e)

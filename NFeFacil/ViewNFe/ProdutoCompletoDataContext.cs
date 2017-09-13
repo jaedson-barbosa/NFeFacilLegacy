@@ -308,7 +308,7 @@ namespace NFeFacil.ViewNFe
 
         private async void AdicionarDeclaracaoImportacao()
         {
-            var caixa = new View.CaixasDialogo.DeclaracaoImportacao()
+            var caixa = new CaixasDialogoProduto.DeclaracaoImportacao()
             {
                 DataContext = new DeclaracaoImportacao()
             };
@@ -321,7 +321,7 @@ namespace NFeFacil.ViewNFe
 
         private async void AdicionarDeclaracaoExportacao()
         {
-            var caixa = new View.CaixasDialogo.DeclaracaoExportacao()
+            var caixa = new CaixasDialogoProduto.DeclaracaoExportacao()
             {
                 DataContext = new GrupoExportacao()
             };
@@ -346,7 +346,7 @@ namespace NFeFacil.ViewNFe
 
         async void AdicionarMedicamento()
         {
-            var caixa = new View.CaixasDialogo.AdicionarMedicamento();
+            var caixa = new CaixasDialogoProduto.AdicionarMedicamento();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
                 var novoMedicamento = (Medicamento)caixa.DataContext;
@@ -363,7 +363,7 @@ namespace NFeFacil.ViewNFe
 
         async void AdicionarArmamento()
         {
-            var caixa = new View.CaixasDialogo.AdicionarArmamento();
+            var caixa = new CaixasDialogoProduto.AdicionarArmamento();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
                 var novoArmamento = (Arma)caixa.DataContext;

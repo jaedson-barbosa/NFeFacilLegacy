@@ -2,11 +2,11 @@
 
 // O modelo de item da Caixa de Diálogo de Conteúdo está documentado em http://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace NFeFacil.View.CaixasDialogo
+namespace NFeFacil.ViewNFe.CaixasDialogoNFe
 {
-    public sealed partial class DeclaracaoImportacao : ContentDialog
+    public sealed partial class AdicionarFornecimentoDiario : ContentDialog
     {
-        public DeclaracaoImportacao()
+        public AdicionarFornecimentoDiario()
         {
             InitializeComponent();
         }

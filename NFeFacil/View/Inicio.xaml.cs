@@ -1,5 +1,4 @@
-﻿using NFeFacil.ItensBD;
-using NFeFacil.Log;
+﻿using NFeFacil.Log;
 using NFeFacil.ModeloXML.PartesProcesso;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
@@ -46,7 +45,7 @@ namespace NFeFacil.View
                     MainPage.Current.Navegar<ManipulacaoRegistroVenda>();
                     break;
                 case "NotasSalvas":
-                    MainPage.Current.Navegar<NotasSalvas>();
+                    MainPage.Current.Navegar<ViewNFe.NotasSalvas>();
                     break;
                 case "RegistrosVenda":
                     MainPage.Current.Navegar<RegistrosVenda>();
@@ -94,7 +93,7 @@ namespace NFeFacil.View
                     }
                 };
                 notaSimples.Informações.identificação.DefinirVersãoAplicativo();
-                MainPage.Current.Navegar<ManipulacaoNotaFiscal>(notaSimples);
+                MainPage.Current.Navegar<ViewNFe.ManipulacaoNotaFiscal>(notaSimples);
             }
             else
             {

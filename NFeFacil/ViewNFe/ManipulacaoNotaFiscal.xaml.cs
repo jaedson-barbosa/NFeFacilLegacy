@@ -1,5 +1,4 @@
 ﻿using System;
-using NFeFacil.ViewModel;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using System.Collections.ObjectModel;

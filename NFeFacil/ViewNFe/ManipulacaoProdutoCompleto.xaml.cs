@@ -1,5 +1,4 @@
-﻿using NFeFacil.ViewModel;
-using NFeFacil.ViewModel.ImpostosProduto;
+﻿using NFeFacil.ViewModel.ImpostosProduto;
 using System.Collections.Generic;
 using System.Linq;
 using Windows.UI.Xaml;

@@ -192,10 +192,10 @@
     <Compile Include="ViewRegistroVenda\VisualizarDetalhesCancelamento.xaml.cs">
       <DependentUpon>VisualizarDetalhesCancelamento.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\CaixasDialogo\AdicionarArmamento.xaml.cs">
+    <Compile Include="ViewNFe\CaixasDialogoProduto\AdicionarArmamento.xaml.cs">
       <DependentUpon>AdicionarArmamento.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\CaixasDialogo\AdicionarMedicamento.xaml.cs">
+    <Compile Include="ViewNFe\CaixasDialogoProduto\AdicionarMedicamento.xaml.cs">
       <DependentUpon>AdicionarMedicamento.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\CaixasDialogo\AlteracaoEstoque.xaml.cs">
@@ -338,22 +338,22 @@
     <Compile Include="ViewDadosBase\AdicionarVendedor.xaml.cs">
       <DependentUpon>AdicionarVendedor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\CaixasDialogo\AdicionarDuplicata.xaml.cs">
+    <Compile Include="ViewNFe\CaixasDialogoNFe\AdicionarDuplicata.xaml.cs">
       <DependentUpon>AdicionarDuplicata.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\CaixasDialogo\AdicionarNF1AReferenciada.xaml.cs">
+    <Compile Include="ViewNFe\CaixasDialogoNFe\AdicionarNF1AReferenciada.xaml.cs">
       <DependentUpon>AdicionarNF1AReferenciada.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\CaixasDialogo\AdicionarObservacaoContribuinte.xaml.cs">
+    <Compile Include="ViewNFe\CaixasDialogoNFe\AdicionarObservacaoContribuinte.xaml.cs">
       <DependentUpon>AdicionarObservacaoContribuinte.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\CaixasDialogo\AdicionarProcessoReferenciado.xaml.cs">
+    <Compile Include="ViewNFe\CaixasDialogoNFe\AdicionarProcessoReferenciado.xaml.cs">
       <DependentUpon>AdicionarProcessoReferenciado.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\CaixasDialogo\AdicionarReboque.xaml.cs">
+    <Compile Include="ViewNFe\CaixasDialogoNFe\AdicionarReboque.xaml.cs">
       <DependentUpon>AdicionarReboque.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\CaixasDialogo\AdicionarReferenciaEletronica.xaml.cs">
+    <Compile Include="ViewNFe\CaixasDialogoNFe\AdicionarReferenciaEletronica.xaml.cs">
       <DependentUpon>AdicionarReferenciaEletronica.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\CaixasDialogo\AdicionarVeiculo.xaml.cs">
@@ -434,19 +434,19 @@
     <Compile Include="ViewModel\ImpostosProduto\PISDataContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\RelatorioVendasAnuais.cs" />
-    <Compile Include="View\CaixasDialogo\AdicionarVolume.xaml.cs">
+    <Compile Include="ViewNFe\CaixasDialogoNFe\AdicionarVolume.xaml.cs">
       <DependentUpon>AdicionarVolume.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\CaixasDialogo\DeclaracaoExportacao.xaml.cs">
+    <Compile Include="ViewNFe\CaixasDialogoProduto\DeclaracaoExportacao.xaml.cs">
       <DependentUpon>DeclaracaoExportacao.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\CaixasDialogo\DeclaracaoImportacao.xaml.cs">
+    <Compile Include="ViewNFe\CaixasDialogoProduto\DeclaracaoImportacao.xaml.cs">
       <DependentUpon>DeclaracaoImportacao.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\CaixasDialogo\AdicionarDeducao.xaml.cs">
+    <Compile Include="ViewNFe\CaixasDialogoNFe\AdicionarDeducao.xaml.cs">
       <DependentUpon>AdicionarDeducao.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\CaixasDialogo\AdicionarFornecimentoDiario.xaml.cs">
+    <Compile Include="ViewNFe\CaixasDialogoNFe\AdicionarFornecimentoDiario.xaml.cs">
       <DependentUpon>AdicionarFornecimentoDiario.xaml</DependentUpon>
     </Compile>
     <Compile Include="AuxiliaresEstilos\BibliotecaCores.cs" />
@@ -586,11 +586,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\CaixasDialogo\AdicionarArmamento.xaml">
+    <Page Include="ViewNFe\CaixasDialogoProduto\AdicionarArmamento.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\CaixasDialogo\AdicionarMedicamento.xaml">
+    <Page Include="ViewNFe\CaixasDialogoProduto\AdicionarMedicamento.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -634,27 +634,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\CaixasDialogo\AdicionarDuplicata.xaml">
+    <Page Include="ViewNFe\CaixasDialogoNFe\AdicionarDuplicata.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\CaixasDialogo\AdicionarNF1AReferenciada.xaml">
+    <Page Include="ViewNFe\CaixasDialogoNFe\AdicionarNF1AReferenciada.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\CaixasDialogo\AdicionarObservacaoContribuinte.xaml">
+    <Page Include="ViewNFe\CaixasDialogoNFe\AdicionarObservacaoContribuinte.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\CaixasDialogo\AdicionarProcessoReferenciado.xaml">
+    <Page Include="ViewNFe\CaixasDialogoNFe\AdicionarProcessoReferenciado.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\CaixasDialogo\AdicionarReboque.xaml">
+    <Page Include="ViewNFe\CaixasDialogoNFe\AdicionarReboque.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\CaixasDialogo\AdicionarReferenciaEletronica.xaml">
+    <Page Include="ViewNFe\CaixasDialogoNFe\AdicionarReferenciaEletronica.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -726,23 +726,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\CaixasDialogo\AdicionarVolume.xaml">
+    <Page Include="ViewNFe\CaixasDialogoNFe\AdicionarVolume.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\CaixasDialogo\DeclaracaoExportacao.xaml">
+    <Page Include="ViewNFe\CaixasDialogoProduto\DeclaracaoExportacao.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\CaixasDialogo\DeclaracaoImportacao.xaml">
+    <Page Include="ViewNFe\CaixasDialogoProduto\DeclaracaoImportacao.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\CaixasDialogo\AdicionarDeducao.xaml">
+    <Page Include="ViewNFe\CaixasDialogoNFe\AdicionarDeducao.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\CaixasDialogo\AdicionarFornecimentoDiario.xaml">
+    <Page Include="ViewNFe\CaixasDialogoNFe\AdicionarFornecimentoDiario.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

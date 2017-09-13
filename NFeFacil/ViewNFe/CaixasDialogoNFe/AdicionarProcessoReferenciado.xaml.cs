@@ -2,11 +2,11 @@
 
 // O modelo de item de Caixa de Diálogo de Conteúdo está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace NFeFacil.View.CaixasDialogo
+namespace NFeFacil.ViewNFe.CaixasDialogoNFe
 {
-    public sealed partial class AdicionarReboque : ContentDialog
+    public sealed partial class AdicionarProcessoReferenciado : ContentDialog
     {
-        public AdicionarReboque()
+        public AdicionarProcessoReferenciado()
         {
             InitializeComponent();
         }

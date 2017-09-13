@@ -1,7 +1,6 @@
 ﻿using NFeFacil.Log;
 using NFeFacil.Repositorio;
 using NFeFacil.Validacao;
-using NFeFacil.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -535,7 +534,7 @@ namespace NFeFacil.ViewNFe
 
         async void AdicionarNFeReferenciada()
         {
-            var caixa = new View.CaixasDialogo.AdicionarReferenciaEletronica();
+            var caixa = new CaixasDialogoNFe.AdicionarReferenciaEletronica();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
                 NotaSalva.Informações.identificação.DocumentosReferenciados.Add(new DocumentoFiscalReferenciado
@@ -548,7 +547,7 @@ namespace NFeFacil.ViewNFe
 
         async void AdicionarNFReferenciada()
         {
-            var caixa = new View.CaixasDialogo.AdicionarNF1AReferenciada();
+            var caixa = new CaixasDialogoNFe.AdicionarNF1AReferenciada();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
                 var contexto = (NF1AReferenciada)caixa.DataContext;
@@ -568,7 +567,7 @@ namespace NFeFacil.ViewNFe
 
         async void AdicionarReboque()
         {
-            var add = new View.CaixasDialogo.AdicionarReboque();
+            var add = new CaixasDialogoNFe.AdicionarReboque();
             if (await add.ShowAsync() == ContentDialogResult.Primary)
             {
                 NotaSalva.Informações.transp.Reboque.Add(add.DataContext as Reboque);
@@ -584,7 +583,7 @@ namespace NFeFacil.ViewNFe
 
         async void AdicionarVolume()
         {
-            var add = new View.CaixasDialogo.AdicionarVolume();
+            var add = new CaixasDialogoNFe.AdicionarVolume();
             if (await add.ShowAsync() == ContentDialogResult.Primary)
             {
                 NotaSalva.Informações.transp.Vol.Add(add.DataContext as Volume);
@@ -600,7 +599,7 @@ namespace NFeFacil.ViewNFe
 
         async void AdicionarDuplicata()
         {
-            var caixa = new View.CaixasDialogo.AdicionarDuplicata();
+            var caixa = new CaixasDialogoNFe.AdicionarDuplicata();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
                 NotaSalva.Informações.cobr.Dup.Add(caixa.DataContext as Duplicata);
@@ -616,7 +615,7 @@ namespace NFeFacil.ViewNFe
 
         async void AdicionarFornecimento()
         {
-            var caixa = new View.CaixasDialogo.AdicionarFornecimentoDiario();
+            var caixa = new CaixasDialogoNFe.AdicionarFornecimentoDiario();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
                 NotaSalva.Informações.cana.ForDia.Add(caixa.DataContext as FornecimentoDiario);
@@ -632,7 +631,7 @@ namespace NFeFacil.ViewNFe
 
         async void AdicionarDeducao()
         {
-            var caixa = new View.CaixasDialogo.AdicionarDeducao();
+            var caixa = new CaixasDialogoNFe.AdicionarDeducao();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
                 NotaSalva.Informações.cana.Deduc.Add(caixa.DataContext as Deducoes);
@@ -648,7 +647,7 @@ namespace NFeFacil.ViewNFe
 
         async void AdicionarObsContribuinte()
         {
-            var caixa = new View.CaixasDialogo.AdicionarObservacaoContribuinte();
+            var caixa = new CaixasDialogoNFe.AdicionarObservacaoContribuinte();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
                 NotaSalva.Informações.infAdic.ObsCont.Add((Observacao)caixa.DataContext);
@@ -664,7 +663,7 @@ namespace NFeFacil.ViewNFe
 
         async void AdicionarProcReferenciado()
         {
-            var caixa = new View.CaixasDialogo.AdicionarProcessoReferenciado();
+            var caixa = new CaixasDialogoNFe.AdicionarProcessoReferenciado();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
                 NotaSalva.Informações.infAdic.ProcRef.Add((ProcessoReferenciado)caixa.DataContext);

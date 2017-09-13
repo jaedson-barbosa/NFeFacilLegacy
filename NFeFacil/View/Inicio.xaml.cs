@@ -26,7 +26,7 @@ namespace NFeFacil.View
             MainPage.Current.SeAtualizar(Symbol.Home, nameof(Inicio));
         }
 
-        private void AbrirFunção(object sender, TappedRoutedEventArgs e)
+        private async void AbrirFunção(object sender, TappedRoutedEventArgs e)
         {
             switch ((sender as FrameworkElement).Name)
             {
@@ -38,6 +38,9 @@ namespace NFeFacil.View
                     break;
                 case "ManipulacaoRegistroVenda":
                     MainPage.Current.Navegar<ManipulacaoRegistroVenda>();
+                    break;
+                case "CriadorNFe":
+                    await new ViewNFe.CriadorNFe().ShowAsync();
                     break;
                 case "NotasSalvas":
                     MainPage.Current.Navegar<ViewNFe.NotasSalvas>();
@@ -60,11 +63,6 @@ namespace NFeFacil.View
                 default:
                     break;
             }
-        }
-
-        private async void CriarNotaFiscal(object sender, TappedRoutedEventArgs e)
-        {
-            await new ViewNFe.CriadorNFe().ShowAsync();
         }
     }
 }

@@ -30,9 +30,10 @@
                                   Tapped="AbrirFunção">
                 <FontIcon Glyph="&#xEC59;" />
             </controles:ItemPadrao>
-            <controles:ItemPadrao Titulo="Criar nota fiscal"
+            <controles:ItemPadrao x:Name="CriadorNFe"
+                                  Titulo="Criar nota fiscal"
                                   Descricao="Parte principal da aplicação. Aqui você pode criar uma nova nova fiscal e, posteriormente, transmití-la, imprimí-la e salvá-la."
-                                  Tapped="CriarNotaFiscal">
+                                  Tapped="AbrirFunção">
                 <SymbolIcon Symbol="Add" />
             </controles:ItemPadrao>
             <controles:ItemPadrao x:Name="NotasSalvas"

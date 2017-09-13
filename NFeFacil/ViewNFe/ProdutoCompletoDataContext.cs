@@ -308,13 +308,10 @@ namespace NFeFacil.ViewNFe
 
         private async void AdicionarDeclaracaoImportacao()
         {
-            var caixa = new CaixasDialogoProduto.DeclaracaoImportacao()
-            {
-                DataContext = new DeclaracaoImportacao()
-            };
+            var caixa = new CaixasDialogoProduto.AdicionarDeclaracaoImportacao();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
-                ProdutoCompleto.Produto.DI.Add(caixa.DataContext as DeclaracaoImportacao);
+                ProdutoCompleto.Produto.DI.Add(caixa.Declaracao);
                 OnPropertyChanged(nameof(ListaDI));
             }
         }

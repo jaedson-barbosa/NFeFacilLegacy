@@ -366,7 +366,6 @@
       <DependentUpon>ConfigurarDadosConexao.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\CaixasDialogo\ConverterContextoDeclaracaoExportacao.cs" />
-    <Compile Include="View\CaixasDialogo\ConverterContextoDeclaracaoImportacao.cs" />
     <Compile Include="ViewDadosBase\DetalheClienteAtual.xaml.cs">
       <DependentUpon>DetalheClienteAtual.xaml</DependentUpon>
     </Compile>

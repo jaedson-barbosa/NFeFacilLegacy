@@ -32,12 +32,6 @@
                                     Date="{Binding DataSaidaEntrada, Mode=TwoWay}" />
                         <TimePicker Header="Hora de saída/entrada"
                                     Time="{Binding HoraSaidaEntrada, Mode=TwoWay}" />
-                        <controles:EntradaNumerica Header="Série *"
-                                                   Format="3"
-                                                   Number="{Binding NotaSalva.Informações.identificação.Serie, Mode=TwoWay}" />
-                        <controles:EntradaNumerica Header="Número *"
-                                                   Format="9"
-                                                   Number="{Binding NotaSalva.Informações.identificação.Numero, Mode=TwoWay}" />
                         <ComboBox Header="Tipo de operação *"
                                   SelectedIndex="{Binding NotaSalva.Informações.identificação.TipoOperação, Mode=TwoWay}">
                             <ComboBoxItem Content="Entrada" />

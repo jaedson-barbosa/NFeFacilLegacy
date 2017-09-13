@@ -1,5 +1,4 @@
 ﻿using NFeFacil.Log;
-using NFeFacil.Repositorio;
 using NFeFacil.Validacao;
 using System;
 using System.Collections.Generic;

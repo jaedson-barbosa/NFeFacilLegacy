@@ -1,23 +1,15 @@
 ﻿<ContentDialog x:Class="NFeFacil.ViewNFe.CaixasDialogoNFe.AdicionarProcessoReferenciado"
                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-               xmlns:local="using:NFeFacil.ViewNFe.CaixasDialogoNFe"
-               xmlns:Caminho="using:NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes"
                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                mc:Ignorable="d"
                Title="Adicionar proc. referenciado"
                PrimaryButtonText="Adicionar"
                SecondaryButtonText="Cancelar">
-    <ContentDialog.Resources>
-        <local:ConverterContextoProcessoReferenciado x:Key="converter" />
-    </ContentDialog.Resources>
-    <ContentDialog.DataContext>
-        <Caminho:ProcessoReferenciado />
-    </ContentDialog.DataContext>
-    <StackPanel DataContext="{Binding Converter={StaticResource converter}}">
-        <TextBox Text="{Binding Processo.NProc, Mode=TwoWay}" />
-        <ComboBox SelectedIndex="{Binding Origem, Mode=TwoWay}">
+    <StackPanel>
+        <TextBox Text="{x:Bind Item.NProc, Mode=TwoWay}" />
+        <ComboBox SelectedIndex="{x:Bind Origem, Mode=TwoWay}">
             <ComboBoxItem>SEFAZ</ComboBoxItem>
             <ComboBoxItem>Justiça Federal</ComboBoxItem>
             <ComboBoxItem>Justiça Estadual</ComboBoxItem>

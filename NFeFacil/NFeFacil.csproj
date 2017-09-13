@@ -367,7 +367,6 @@
     </Compile>
     <Compile Include="View\CaixasDialogo\ConverterContextoDeclaracaoExportacao.cs" />
     <Compile Include="View\CaixasDialogo\ConverterContextoDeclaracaoImportacao.cs" />
-    <Compile Include="View\CaixasDialogo\ConverterContextoProcessoReferenciado.cs" />
     <Compile Include="ViewDadosBase\DetalheClienteAtual.xaml.cs">
       <DependentUpon>DetalheClienteAtual.xaml</DependentUpon>
     </Compile>

@@ -649,7 +649,7 @@ namespace NFeFacil.ViewNFe
             var caixa = new CaixasDialogoNFe.AdicionarProcessoReferenciado();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
-                NotaSalva.Informações.infAdic.ProcRef.Add((ProcessoReferenciado)caixa.DataContext);
+                NotaSalva.Informações.infAdic.ProcRef.Add(caixa.Item);
                 OnPropertyChanged(nameof(NotaSalva));
             }
         }

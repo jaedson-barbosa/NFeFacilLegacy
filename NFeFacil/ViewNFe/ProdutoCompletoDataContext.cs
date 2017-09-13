@@ -318,13 +318,26 @@ namespace NFeFacil.ViewNFe
 
         private async void AdicionarDeclaracaoExportacao()
         {
-            var caixa = new CaixasDialogoProduto.DeclaracaoExportacao()
-            {
-                DataContext = new GrupoExportacao()
-            };
+            var caixa = new CaixasDialogoProduto.EscolherTipoDeclaracaoExportacao();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
-                ProdutoCompleto.Produto.GrupoExportação.Add(caixa.DataContext as GrupoExportacao);
+                var tipo = caixa.TipoEscolhido;
+                if (tipo == CaixasDialogoProduto.TiposDeclaracaoExportacao.Direta)
+                {
+                    var caixa2 = new CaixasDialogoProduto.AddDeclaracaoExportacaoDireta();
+                    if (await caixa2.ShowAsync() == ContentDialogResult.Primary)
+                    {
+                        ProdutoCompleto.Produto.GrupoExportação.Add(caixa2.Declaracao);
+                    }
+                }
+                else
+                {
+                    var caixa2 = new CaixasDialogoProduto.AddDeclaracaoExportacaoIndireta();
+                    if (await caixa2.ShowAsync() == ContentDialogResult.Primary)
+                    {
+                        ProdutoCompleto.Produto.GrupoExportação.Add(caixa2.Declaracao);
+                    }
+                }
                 OnPropertyChanged(nameof(ListaGE));
             }
         }

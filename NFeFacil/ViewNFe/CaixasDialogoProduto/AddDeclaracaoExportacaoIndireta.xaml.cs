@@ -1,0 +1,21 @@
+﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
+using Windows.UI.Xaml.Controls;
+
+// O modelo de item de Caixa de Diálogo de Conteúdo está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
+
+namespace NFeFacil.ViewNFe.CaixasDialogoProduto
+{
+    public sealed partial class AddDeclaracaoExportacaoIndireta : ContentDialog
+    {
+        public GrupoExportacao Declaracao { get; }
+
+        public AddDeclaracaoExportacaoIndireta()
+        {
+            this.InitializeComponent();
+            Declaracao = new GrupoExportacao()
+            {
+                ExportInd = new ExportacaoIndireta()
+            };
+        }
+    }
+}

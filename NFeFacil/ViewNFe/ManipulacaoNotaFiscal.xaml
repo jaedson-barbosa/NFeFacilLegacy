@@ -183,41 +183,6 @@
         </StackPanel>
         <Pivot Margin="16">
             <PivotItem Header="Local de retirada">
-                <StackPanel>
-                    <CheckBox IsChecked="{Binding EnderecoRetiradaAtivado, Mode=TwoWay}">Diferente do endereço do emitente</CheckBox>
-                    <ItemsControl Style="{StaticResource ItensResponsivos}"
-                                  IsEnabled="{Binding EnderecoRetiradaAtivado}">
-                        <CheckBox IsChecked="{Binding ExteriorEnderecoRetirada, Mode=TwoWay}">Exterior</CheckBox>
-                        <ComboBox SelectedIndex="{Binding TipoDocumentoEnderecoEmitente, Mode=TwoWay}"
-                                  Header="Tipo">
-                            <ComboBoxItem Content="CPF" />
-                            <ComboBoxItem Content="CNPJ" />
-                        </ComboBox>
-                        <controles:EntradaNumerica Number="{Binding DocumentoEnderecoEmitente, Mode=TwoWay}"
-                                                   Header="Documento *" />
-                        <TextBox Text="{Binding Path=Retirada.Logradouro, Mode=TwoWay}"
-                                 InputScope="Text"
-                                 Header="Logradouro *" />
-                        <TextBox Text="{Binding Path=Retirada.Numero, Mode=TwoWay}"
-                                 InputScope="Text"
-                                 Header="Número *" />
-                        <TextBox Text="{Binding Path=Retirada.Complemento, Mode=TwoWay}"
-                                 InputScope="Text"
-                                 Header="Complemento" />
-                        <TextBox Text="{Binding Path=Retirada.Bairro, Mode=TwoWay}"
-                                 InputScope="Text"
-                                 Header="Bairro *" />
-                        <ComboBox ItemsSource="{Binding Source={StaticResource estados}, Path=Siglas}"
-                                  SelectedItem="{Binding UFEscolhidaEnderecoEmitente, Mode=TwoWay}"
-                                  IsEnabled="{Binding ExteriorEnderecoRetirada, Converter={StaticResource inverter}}"
-                                  Header="Estado" />
-                        <ComboBox ItemsSource="{Binding UFEscolhidaEnderecoEmitente, Converter={StaticResource obterMun}}"
-                                  SelectedItem="{Binding Path=ConjuntoMunicipioEnderecoEmitente, Mode=TwoWay}"
-                                  IsEnabled="{Binding ExteriorEnderecoRetirada, Converter={StaticResource inverter}}"
-                                  DisplayMemberPath="Nome"
-                                  Header="Município" />
-                    </ItemsControl>
-                </StackPanel>
             </PivotItem>
             <PivotItem Header="Local de entrega">
                 <StackPanel>

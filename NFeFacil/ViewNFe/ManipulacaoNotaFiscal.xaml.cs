@@ -4,6 +4,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using System.Collections.ObjectModel;
 using System.Collections;
+using NFeFacil.ModeloXML.PartesProcesso;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -46,15 +47,14 @@ namespace NFeFacil.View
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var param = (ConjuntoManipuladorNFe)e.Parameter;
-            switch (param.StatusAtual)
+            var param = (NFe)e.Parameter;
+            if (string.IsNullOrEmpty(param.Informações.Id))
             {
-                case ItensBD.StatusNFe.Edição:
-                    MainPage.Current.SeAtualizar(Symbol.Add, "Nota fiscal");
-                    break;
-                default:
-                    MainPage.Current.SeAtualizar(Symbol.Edit, "Nota fiscal");
-                    break;
+                MainPage.Current.SeAtualizar(Symbol.Add, "Nota fiscal");
+            }
+            else
+            {
+                MainPage.Current.SeAtualizar(Symbol.Edit, "Nota fiscal");
             }
             DataContext = new NotaFiscalDataContext(ref param);
         }

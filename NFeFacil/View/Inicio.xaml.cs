@@ -72,32 +72,28 @@ namespace NFeFacil.View
         {
             if (Propriedades.EmitenteAtivo != null)
             {
-                var notaSimples = new ConjuntoManipuladorNFe
+                var notaSimples = new NFe()
                 {
-                    NotaSalva = new NFe()
+                    Informações = new Detalhes()
                     {
-                        Informações = new Detalhes()
+                        identificação = new Identificacao(),
+                        emitente = Propriedades.EmitenteAtivo.ToEmitente(),
+                        destinatário = new Destinatario(),
+                        produtos = new List<DetalhesProdutos>(),
+                        transp = new Transporte()
                         {
-                            identificação = new Identificacao(),
-                            emitente = Propriedades.EmitenteAtivo.ToEmitente(),
-                            destinatário = new Destinatario(),
-                            produtos = new List<DetalhesProdutos>(),
-                            transp = new Transporte()
-                            {
-                                Transporta = new Motorista(),
-                                RetTransp = new ICMSTransporte(),
-                                VeicTransp = new Veiculo()
-                            },
-                            cobr = new Cobranca(),
-                            infAdic = new InformacoesAdicionais(),
-                            exporta = new Exportacao(),
-                            compra = new Compra(),
-                            cana = new RegistroAquisicaoCana()
-                        }
-                    },
-                    StatusAtual = StatusNFe.Edição
+                            Transporta = new Motorista(),
+                            RetTransp = new ICMSTransporte(),
+                            VeicTransp = new Veiculo()
+                        },
+                        cobr = new Cobranca(),
+                        infAdic = new InformacoesAdicionais(),
+                        exporta = new Exportacao(),
+                        compra = new Compra(),
+                        cana = new RegistroAquisicaoCana()
+                    }
                 };
-                notaSimples.NotaSalva.Informações.identificação.DefinirVersãoAplicativo();
+                notaSimples.Informações.identificação.DefinirVersãoAplicativo();
                 MainPage.Current.Navegar<ManipulacaoNotaFiscal>(notaSimples);
             }
             else

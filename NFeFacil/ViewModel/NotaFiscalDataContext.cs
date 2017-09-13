@@ -10,7 +10,6 @@ using System.Linq;
 using System.Windows.Input;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
-using System.Xml.Linq;
 using Windows.UI.Xaml.Controls;
 using NFeFacil.ItensBD;
 using NFeFacil.ModeloXML.PartesProcesso;
@@ -41,13 +40,6 @@ namespace NFeFacil.ViewModel
 
         public NFe NotaSalva { get; private set; }
 
-        public bool BotaoEditarVisivel => StatusAtual == (StatusNFe.Validada | StatusNFe.Salva | StatusNFe.Assinada);
-        public bool BotaoConfirmarVisivel => StatusAtual == StatusNFe.Edição;
-        public bool BotaoSalvarAtivado => StatusAtual == StatusNFe.Validada;
-        public bool BotaoAssinarAtivado => StatusAtual == StatusNFe.Salva;
-        public bool BotaoTransmitirAtivado => StatusAtual == StatusNFe.Assinada;
-        public bool BotaoGerarDANFEAtivado => StatusAtual == StatusNFe.Emitida;
-
         #region Dados base
         public List<ClienteDI> ClientesDisponiveis { get; }
         public List<EmitenteDI> EmitentesDisponiveis { get; }
@@ -70,7 +62,7 @@ namespace NFeFacil.ViewModel
             {
                 clienteSelecionado = value;
                 NotaSalva.Informações.destinatário = value.ToDestinatario();
-                if (AmbienteTestes)
+                if (NotaSalva.AmbienteTestes)
                 {
                     NotaSalva.Informações.destinatário.Nome = NomeClienteHomologacao;
                 }
@@ -130,24 +122,6 @@ namespace NFeFacil.ViewModel
             }
         }
         #endregion
-
-        public bool AmbienteTestes
-        {
-            get => NotaSalva.Informações.identificação.TipoAmbiente == 2;
-            set
-            {
-                NotaSalva.Informações.identificação.TipoAmbiente = value ? (ushort)2 : (ushort)1;
-                if (value)
-                {
-                    NotaSalva.Informações.destinatário.Nome = NomeClienteHomologacao;
-                    Log.Escrever(TitulosComuns.Atenção, $"O nome do cliente foi alterado para que a nota seja aceita pela SEFAZ, o novo valor é {NomeClienteHomologacao}.");
-                }
-                else
-                {
-                    Log.Escrever(TitulosComuns.Atenção, "Verifique se o nome do cliente está correto.");
-                }
-            }
-        }
 
         #region Identificação
         public ObservableCollection<DocumentoFiscalReferenciado> NFesReferenciadas => NotaSalva.Informações.identificação.DocumentosReferenciados.Where(x => !string.IsNullOrEmpty(x.RefNFe)).GerarObs();
@@ -477,28 +451,10 @@ namespace NFeFacil.ViewModel
         #endregion
 
         Popup Log = Popup.Current;
-        Processo NotaEmitida;
         AnalisadorNFe Analisador { get; }
         OperacoesNotaSalva OperacoesNota { get; }
-        ConjuntoManipuladorNFe Conjunto { get; }
 
-        StatusNFe StatusAtual
-        {
-            get => Conjunto.StatusAtual;
-            set
-            {
-                Conjunto.StatusAtual = value;
-                OnPropertyChanged(
-                    nameof(BotaoEditarVisivel),
-                    nameof(BotaoConfirmarVisivel),
-                    nameof(BotaoSalvarAtivado),
-                    nameof(BotaoAssinarAtivado),
-                    nameof(BotaoTransmitirAtivado),
-                    nameof(BotaoGerarDANFEAtivado));
-            }
-        }
-
-        internal NotaFiscalDataContext(ref ConjuntoManipuladorNFe Dados)
+        internal NotaFiscalDataContext(ref NFe Dados)
         {
             using (var db = new AplicativoContext())
             {
@@ -508,23 +464,10 @@ namespace NFeFacil.ViewModel
                 ProdutosDisponiveis = db.Produtos.ToList();
             }
 
-            if (Dados.NotaEmitida != null)
-            {
-                NotaEmitida = Dados.NotaEmitida;
-                NotaSalva = NotaEmitida.NFe;
-            }
-            else if (Dados.NotaSalva != null)
-            {
-                if (Dados.NotaSalva.Informações.total == null)
-                    Dados.NotaSalva.Informações.total = new Total(Dados.NotaSalva.Informações.produtos);
-                NotaSalva = Dados.NotaSalva;
-            }
-            else
-            {
-                throw new ArgumentException();
-            }
+            if (Dados.Informações.total == null)
+                Dados.Informações.total = new Total(Dados.Informações.produtos);
+            NotaSalva = Dados;
 
-            Conjunto = Dados;
             Analisador = new AnalisadorNFe(NotaSalva);
             OperacoesNota = new OperacoesNotaSalva(Log);
         }
@@ -539,7 +482,7 @@ namespace NFeFacil.ViewModel
             {
                 var cnpj = NotaSalva.Informações.emitente.CNPJ;
                 var serie = NotaSalva.Informações.identificação.Serie;
-                NotaSalva.Informações.identificação.Numero = NotasFiscais.ObterNovoNumero(cnpj, serie, AmbienteTestes);
+                NotaSalva.Informações.identificação.Numero = NotasFiscais.ObterNovoNumero(cnpj, serie, NotaSalva.AmbienteTestes);
                 OnPropertyChanged(nameof(NotaSalva));
             }
         }
@@ -554,7 +497,6 @@ namespace NFeFacil.ViewModel
                     NotaSalva.Informações.AtualizarChave();
                     Analisador.Normalizar();
                     Log.Escrever(TitulosComuns.ValidaçãoConcluída, "A nota fiscal foi validada. Aparentemente, não há irregularidades");
-                    StatusAtual = StatusNFe.Validada;
                 }
             }
             catch (Exception e)
@@ -740,13 +682,10 @@ namespace NFeFacil.ViewModel
         async Task<bool> IValida.Verificar()
         {
             var retorno = true;
-            if (StatusAtual == StatusNFe.Edição)
-            {
-                var mensagem = new MessageDialog("Se você sair agora, os dados serão perdidos, se tiver certeza, escolha Sair, caso contrário, Cancelar.", "Atenção");
-                mensagem.Commands.Add(new UICommand("Sair"));
-                mensagem.Commands.Add(new UICommand("Cancelar", x => retorno = false));
-                await mensagem.ShowAsync();
-            }
+            var mensagem = new MessageDialog("Se você sair agora, os dados serão perdidos, se tiver certeza, escolha Sair, caso contrário, Cancelar.", "Atenção");
+            mensagem.Commands.Add(new UICommand("Sair"));
+            mensagem.Commands.Add(new UICommand("Cancelar", x => retorno = false));
+            await mensagem.ShowAsync();
             return retorno;
         }
     }

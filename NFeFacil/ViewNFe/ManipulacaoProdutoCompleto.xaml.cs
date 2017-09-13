@@ -11,6 +11,7 @@ using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.P
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using System;
 using System.Collections;
+using NFeFacil.ModeloXML.PartesProcesso;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -107,8 +108,8 @@ namespace NFeFacil.View
         {
             if (finalizacaoCompleta)
             {
-                var parametro = Frame.BackStack[Frame.BackStack.Count - 1].Parameter as ConjuntoManipuladorNFe;
-                var info = parametro.NotaSalva.Informações;
+                var parametro = Frame.BackStack[Frame.BackStack.Count - 1].Parameter as NFe;
+                var info = parametro.Informações;
 
                 var data = DataContext as ProdutoCompletoDataContext;
                 data.ProdutoCompleto.Impostos = ImpostosFiltrados;

@@ -1,6 +1,5 @@
 ﻿using NFeFacil.Log;
 using NFeFacil.ModeloXML.PartesProcesso;
-using NFeFacil.Validacao;
 using NFeFacil.WebService;
 using NFeFacil.WebService.Pacotes;
 using System;

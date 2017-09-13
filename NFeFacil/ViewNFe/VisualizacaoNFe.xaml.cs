@@ -262,6 +262,7 @@ namespace NFeFacil.ViewNFe
         {
             var parametro = ((RetornoEventArgs)e).Parametro;
             ObjetoItemBanco = (NFe)parametro;
+            ItemBanco.Status = (int)StatusNFe.Validada;
             MainPage.Current.OnRetornoParametrizado -= Current_OnRetornoParametrizado;
             Log.Escrever(TitulosComuns.Log, "Agora salve para que as alterações fiquem gravadas.");
         }

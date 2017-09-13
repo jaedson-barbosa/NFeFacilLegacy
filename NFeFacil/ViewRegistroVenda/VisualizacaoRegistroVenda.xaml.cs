@@ -93,16 +93,8 @@ namespace NFeFacil.ViewRegistroVenda
 
         private void CriarNFe(object sender, RoutedEventArgs e)
         {
-            var nfe = new ConjuntoManipuladorNFe
-            {
-                NotaSalva = ItemBanco.ToNFe(),
-                StatusAtual = StatusNFe.Edição,
-                OnNotaSalva = x =>
-                {
-                    ItemBanco.NotaFiscalRelacionada = x;
-                }
-            };
-            nfe.NotaSalva.Informações.identificação.DefinirVersãoAplicativo();
+            var nfe = ItemBanco.ToNFe();
+            nfe.Informações.identificação.DefinirVersãoAplicativo();
             MainPage.Current.Navegar<View.ManipulacaoNotaFiscal>(nfe);
         }
 

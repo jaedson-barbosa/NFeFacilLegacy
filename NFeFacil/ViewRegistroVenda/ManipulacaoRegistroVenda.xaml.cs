@@ -64,7 +64,6 @@ namespace NFeFacil.ViewRegistroVenda
                 ItemBanco = new RegistroVenda
                 {
                     Emitente = Propriedades.EmitenteAtivo.Id,
-                    Cliente = Clientes[0].Id,
                     Produtos = new System.Collections.Generic.List<ProdutoSimplesVenda>(),
                     DataHoraVenda = DateTime.Now
                 };

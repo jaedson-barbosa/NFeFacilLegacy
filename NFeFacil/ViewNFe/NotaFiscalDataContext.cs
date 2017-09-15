@@ -23,8 +23,6 @@ namespace NFeFacil.ViewNFe
 {
     public sealed class NotaFiscalDataContext : INotifyPropertyChanged, IValida
     {
-        const string NomeClienteHomologacao = "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL";
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         void OnPropertyChanged(params string[] parametros)
@@ -35,7 +33,7 @@ namespace NFeFacil.ViewNFe
             }
         }
 
-        #region Propriedades públicas
+        const string NomeClienteHomologacao = "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL";
 
         public NFe NotaSalva { get; private set; }
 
@@ -241,8 +239,6 @@ namespace NFeFacil.ViewNFe
             get => (ModalidadesTransporte)NotaSalva.Informações.transp.ModFrete;
             set => NotaSalva.Informações.transp.ModFrete = (ushort)value;
         }
-        #endregion
-
         #endregion
 
         #region Comandos

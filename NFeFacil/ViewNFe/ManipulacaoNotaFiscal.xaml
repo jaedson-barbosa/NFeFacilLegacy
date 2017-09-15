@@ -175,8 +175,8 @@
         </Pivot>
         <StackPanel Margin="16">
             <ComboBox HorizontalAlignment="Stretch"
-                      ItemsSource="{Binding ClientesDisponiveis}"
-                      SelectedItem="{Binding ClienteSelecionado, Mode=TwoWay}"
+                      ItemsSource="{x:Bind ClientesDisponiveis}"
+                      SelectedItem="{x:Bind ClienteSelecionado, Mode=TwoWay}"
                       DisplayMemberPath="Nome" />
         </StackPanel>
         <StackPanel Margin="16">

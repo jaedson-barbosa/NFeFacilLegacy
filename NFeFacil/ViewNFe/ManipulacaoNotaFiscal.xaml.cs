@@ -83,6 +83,8 @@ namespace NFeFacil.ViewNFe
                 Dados.Informações.total = new Total(Dados.Informações.produtos);
             NotaSalva = Dados;
 
+            Produtos = new ObservableCollection<DetalhesProdutos>(NotaSalva.Informações.produtos);
+
             Analisador = new AnalisadorNFe(NotaSalva);
             OperacoesNota = new OperacoesNotaSalva(Log);
         }
@@ -328,7 +330,7 @@ namespace NFeFacil.ViewNFe
 
         #region ColecoesExibicaoView
 
-        ObservableCollection<DetalhesProdutos> Produtos { get; }
+        ObservableCollection<DetalhesProdutos> Produtos { get; set; }
         ObservableCollection<Reboque> Reboques { get; }
         ObservableCollection<Volume> Volumes { get; }
         ObservableCollection<Duplicata> Duplicatas { get; }
@@ -548,6 +550,23 @@ namespace NFeFacil.ViewNFe
         private void AdicionarNFReferenciada(object sender, RoutedEventArgs e)
         {
             AdicionarNFReferenciada();
+        }
+
+        private void AdicionarProduto(object sender, RoutedEventArgs e)
+        {
+            AdicionarProduto();
+        }
+
+        private void EditarProduto(object sender, RoutedEventArgs e)
+        {
+            var contexto = ((FrameworkElement)sender).DataContext;
+            EditarProduto((DetalhesProdutos)contexto);
+        }
+
+        private void RemoverProduto(object sender, RoutedEventArgs e)
+        {
+            var contexto = ((FrameworkElement)sender).DataContext;
+            RemoverProduto((DetalhesProdutos)contexto);
         }
     }
 }

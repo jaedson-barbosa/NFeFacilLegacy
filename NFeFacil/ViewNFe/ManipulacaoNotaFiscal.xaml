@@ -33,12 +33,12 @@
                         <TimePicker Header="Hora de saída/entrada"
                                     Time="{x:Bind HoraSaidaEntrada, Mode=TwoWay}" />
                         <ComboBox Header="Tipo de operação *"
-                                  SelectedIndex="{x:Bind NotaSalva.Informações.identificação.TipoOperação, Mode=TwoWay}">
+                                  SelectedIndex="{x:Bind NotaSalva.Informacoes.identificacao.TipoOperacao, Mode=TwoWay}">
                             <ComboBoxItem Content="Entrada" />
                             <ComboBoxItem Content="Saída" />
                         </ComboBox>
                         <ComboBox Header="Finalidade de emissão *"
-                                  SelectedValue="{x:Bind NotaSalva.Informações.identificação.FinalidadeEmissão, Mode=TwoWay, Converter={StaticResource numStr}}"
+                                  SelectedValue="{x:Bind NotaSalva.Informacoes.identificacao.FinalidadeEmissao, Mode=TwoWay, Converter={StaticResource numStr}}"
                                   SelectedValuePath="Tag">
                             <ComboBoxItem Tag='1'>Normal</ComboBoxItem>
                             <ComboBoxItem Tag='2'>Complementar</ComboBoxItem>
@@ -46,25 +46,25 @@
                             <ComboBoxItem Tag='4'>Devolução de mercadoria</ComboBoxItem>
                         </ComboBox>
                         <ComboBox Header="Consumidor final *"
-                                  SelectedIndex="{x:Bind NotaSalva.Informações.identificação.OperaçãoConsumidorFinal, Mode=TwoWay}">
+                                  SelectedIndex="{x:Bind NotaSalva.Informacoes.identificacao.OperacaoConsumidorFinal, Mode=TwoWay}">
                             <ComboBoxItem Content="Não" />
                             <ComboBoxItem Content="Sim" />
                         </ComboBox>
                         <ComboBox Header="Tipo de atendimento *"
-                                  SelectedIndex="{x:Bind NotaSalva.Informações.identificação.IndicadorPresença, Mode=TwoWay}">
+                                  SelectedIndex="{x:Bind NotaSalva.Informacoes.identificacao.IndicadorPresenca, Mode=TwoWay}">
                             <ComboBoxItem Content="Não se aplica" />
                             <ComboBoxItem Content="Presencial" />
                             <ComboBoxItem Content="Não presencial - Internet" />
                             <ComboBoxItem Content="Não presencial - Teleatendimento" />
                         </ComboBox>
                         <ComboBox Header="Forma de pagamento *"
-                                  SelectedIndex="{x:Bind NotaSalva.Informações.identificação.FormaPagamento, Mode=TwoWay}">
+                                  SelectedIndex="{x:Bind NotaSalva.Informacoes.identificacao.FormaPagamento, Mode=TwoWay}">
                             <ComboBoxItem Content="Pagamento à vista" />
                             <ComboBoxItem Content="Pagamento a prazo" />
                             <ComboBoxItem Content="Outros" />
                         </ComboBox>
                         <ComboBox Header="Destino da operação *"
-                                  SelectedValue="{x:Bind NotaSalva.Informações.identificação.IdentificadorDestino, Mode=TwoWay, Converter={StaticResource numStr}}"
+                                  SelectedValue="{x:Bind NotaSalva.Informacoes.identificacao.IdentificadorDestino, Mode=TwoWay, Converter={StaticResource numStr}}"
                                   SelectedValuePath="Tag">
                             <ComboBoxItem Tag="1"
                                           Content="Operação interna" />
@@ -74,7 +74,7 @@
                                           Content="Operação com o exterior" />
                         </ComboBox>
                         <TextBox Header="Natureza da operação *"
-                                 Text="{x:Bind NotaSalva.Informações.identificação.NaturezaDaOperação, Mode=TwoWay}" />
+                                 Text="{x:Bind NotaSalva.Informacoes.identificacao.NaturezaDaOperacao, Mode=TwoWay}" />
                         <ComboBox Header="Estado *"
                                   ItemsSource="{Binding Source={StaticResource estados}, Path=EstadosCompletos}"
                                   SelectedValue="{x:Bind EstadoIdentificacao, Mode=TwoWay}"
@@ -84,7 +84,7 @@
                         <ComboBox Header="Município *"
                                   DisplayMemberPath="Nome"
                                   ItemsSource="{x:Bind MunicipiosIdentificacao}"
-                                  SelectedValue="{x:Bind NotaSalva.Informações.identificação.CodigoMunicípio, Mode=TwoWay}"
+                                  SelectedValue="{x:Bind NotaSalva.Informacoes.identificacao.CodigoMunicipio, Mode=TwoWay}"
                                   SelectedValuePath="Codigo" />
                     </ItemsControl>
                 </ScrollViewer>
@@ -424,17 +424,17 @@
                 </PivotItem>
                 <PivotItem Header="Veículo">
                     <ItemsControl Style="{StaticResource ItensResponsivos}">
-                        <TextBox Text="{x:Bind NotaSalva.Informações.transp.VeicTransp.Placa, Mode=TwoWay}"
+                        <TextBox Text="{x:Bind NotaSalva.Informacoes.transp.VeicTransp.Placa, Mode=TwoWay}"
                                  Header="Placa" />
                         <ComboBox ItemsSource="{Binding Source={StaticResource estados}, Path=Siglas}"
-                                  SelectedItem="{x:Bind Path=NotaSalva.Informações.transp.VeicTransp.UF, Mode=TwoWay}"
+                                  SelectedItem="{x:Bind Path=NotaSalva.Informacoes.transp.VeicTransp.UF, Mode=TwoWay}"
                                   Header="Estado"
                                   HorizontalAlignment="Stretch" />
                         <TextBox Header="RNTC"
-                                 Text="{x:Bind NotaSalva.Informações.transp.VeicTransp.RNTC, Mode=TwoWay}" />
-                        <TextBox Text="{x:Bind NotaSalva.Informações.transp.Balsa, Mode=TwoWay}"
+                                 Text="{x:Bind NotaSalva.Informacoes.transp.VeicTransp.RNTC, Mode=TwoWay}" />
+                        <TextBox Text="{x:Bind NotaSalva.Informacoes.transp.Balsa, Mode=TwoWay}"
                                  Header="Identificação da balsa" />
-                        <TextBox Text="{x:Bind NotaSalva.Informações.transp.Vagao, Mode=TwoWay}"
+                        <TextBox Text="{x:Bind NotaSalva.Informacoes.transp.Vagao, Mode=TwoWay}"
                                  Header="Identificação do vagão" />
                     </ItemsControl>
                 </PivotItem>
@@ -515,26 +515,26 @@
                     <ItemsControl Style="{StaticResource ItensResponsivos}">
                         <controles:EntradaNumerica Header="Valor do serviço"
                                                    Format="13:2"
-                                                   Number="{x:Bind NotaSalva.Informações.transp.RetTransp.VServ, Mode=TwoWay}" />
+                                                   Number="{x:Bind NotaSalva.Informacoes.transp.RetTransp.VServ, Mode=TwoWay}" />
                         <controles:EntradaNumerica Header="BC da retenção do ICMS"
                                                    Format="13:2"
-                                                   Number="{x:Bind NotaSalva.Informações.transp.RetTransp.VBCRet, Mode=TwoWay}" />
+                                                   Number="{x:Bind NotaSalva.Informacoes.transp.RetTransp.VBCRet, Mode=TwoWay}" />
                         <controles:EntradaNumerica Header="Alíquota da retenção"
                                                    Format="3:4"
-                                                   Number="{x:Bind NotaSalva.Informações.transp.RetTransp.PICMSRet, Mode=TwoWay}" />
+                                                   Number="{x:Bind NotaSalva.Informacoes.transp.RetTransp.PICMSRet, Mode=TwoWay}" />
                         <controles:EntradaNumerica Header="Valor do ICMS retido"
                                                    Format="13:2"
-                                                   Number="{x:Bind NotaSalva.Informações.transp.RetTransp.VICMSRet, Mode=TwoWay}" />
+                                                   Number="{x:Bind NotaSalva.Informacoes.transp.RetTransp.VICMSRet, Mode=TwoWay}" />
                         <controles:EntradaNumerica Header="CFOP"
                                                    Format="4"
-                                                   Number="{x:Bind NotaSalva.Informações.transp.RetTransp.CFOP, Mode=TwoWay}" />
+                                                   Number="{x:Bind CFOP, Mode=TwoWay}" />
                         <ComboBox ItemsSource="{Binding Source={StaticResource estados}, Path=EstadosCompletos}"
                                   SelectedItem="{x:Bind UFEscolhida, Mode=TwoWay}"
                                   DisplayMemberPath="Nome"
                                   Header="Estado"
                                   HorizontalAlignment="Stretch" />
                         <ComboBox ItemsSource="{Binding MunicipiosTransporte}"
-                                  SelectedValue="{x:Bind NotaSalva.Informações.transp.RetTransp.CMunFG, Mode=TwoWay}"
+                                  SelectedValue="{x:Bind NotaSalva.Informacoes.transp.RetTransp.CMunFG, Mode=TwoWay}"
                                   SelectedValuePath="Codigo"
                                   DisplayMemberPath="Nome"
                                   Header="Município"
@@ -546,16 +546,16 @@
         <Pivot Margin="16">
             <PivotItem Header="Fatura">
                 <ItemsControl Style="{StaticResource ItensResponsivos}">
-                    <TextBox Text="{x:Bind NotaSalva.Informações.cobr.Fat.NFat, Mode=TwoWay}"
+                    <TextBox Text="{x:Bind NotaSalva.Informacoes.cobr.Fat.NFat, Mode=TwoWay}"
                              Header="Número" />
                     <controles:EntradaNumerica Format="13:2"
-                                               Number="{x:Bind NotaSalva.Informações.cobr.Fat.VOrig, Mode=TwoWay}"
+                                               Number="{x:Bind NotaSalva.Informacoes.cobr.Fat.VOrig, Mode=TwoWay}"
                                                Header="Valor original" />
                     <controles:EntradaNumerica Format="13:2"
-                                               Number="{x:Bind NotaSalva.Informações.cobr.Fat.VDesc, Mode=TwoWay}"
+                                               Number="{x:Bind NotaSalva.Informacoes.cobr.Fat.VDesc, Mode=TwoWay}"
                                                Header="Valor do desconto" />
                     <controles:EntradaNumerica Format="13:2"
-                                               Number="{x:Bind NotaSalva.Informações.cobr.Fat.VLiq, Mode=TwoWay}"
+                                               Number="{x:Bind NotaSalva.Informacoes.cobr.Fat.VLiq, Mode=TwoWay}"
                                                Header="Valor líquido" />
                 </ItemsControl>
             </PivotItem>
@@ -595,13 +595,13 @@
             </PivotItem>
         </Pivot>
         <Pivot Margin="16">
-            <PivotItem Header="Informações adicionais">
+            <PivotItem Header="Informacoes adicionais">
                 <ScrollViewer>
-                    <StackPanel DataContext="{x:Bind NotaSalva.Informações.infAdic}">
+                    <StackPanel DataContext="{x:Bind NotaSalva.Informacoes.infAdic}">
                         <TextBox Text="{Binding InfAdFisco, Mode=TwoWay}"
-                                 Header="Informações adicionais de interesse do fisco" />
+                                 Header="Informacoes adicionais de interesse do fisco" />
                         <TextBox Text="{Binding InfCpl, Mode=TwoWay}"
-                                 Header="Informações complementares de interesse do contribuinte" />
+                                 Header="Informacoes complementares de interesse do contribuinte" />
                     </StackPanel>
                 </ScrollViewer>
             </PivotItem>
@@ -702,7 +702,7 @@
         </Pivot>
         <Pivot Margin="16">
             <PivotItem Header="Exportação">
-                <StackPanel DataContext="{x:Bind NotaSalva.Informações.exporta}">
+                <StackPanel DataContext="{x:Bind NotaSalva.Informacoes.exporta}">
                     <ComboBox ItemsSource="{Binding Source={StaticResource estados}, Path=Siglas}"
                               SelectedItem="{Binding UFSaidaPais, Mode=TwoWay}"
                               Header="UF embarque/transposição de fronteira" />
@@ -713,7 +713,7 @@
                 </StackPanel>
             </PivotItem>
             <PivotItem Header="Compra">
-                <StackPanel DataContext="{x:Bind NotaSalva.Informações.compra}">
+                <StackPanel DataContext="{x:Bind NotaSalva.Informacoes.compra}">
                     <TextBox Text="{Binding XNEmp, Mode=TwoWay}"
                              Header="Nota de empenho" />
                     <TextBox Text="{Binding XPed, Mode=TwoWay}"
@@ -728,28 +728,28 @@
                 <ScrollViewer>
                     <ItemsControl Style="{StaticResource ItensResponsivos}">
                         <TextBox Header="Safra"
-                                 Text="{x:Bind NotaSalva.Informações.cana.Safra, Mode=TwoWay}" />
+                                 Text="{x:Bind NotaSalva.Informacoes.cana.Safra, Mode=TwoWay}" />
                         <DatePicker DayVisible="False"
-                                    Date="{x:Bind NotaSalva.Informações.cana.Referencia, ConverterParameter='MM/yyyy', Converter={StaticResource data}, Mode=TwoWay}"
+                                    Date="{x:Bind NotaSalva.Informacoes.cana.Referencia, ConverterParameter='MM/yyyy', Converter={StaticResource data}, Mode=TwoWay}"
                                     Header="Mês e ano de referência" />
                         <controles:EntradaNumerica Format="11:10"
                                                    Header="Quant. total do mês"
-                                                   Number="{x:Bind NotaSalva.Informações.cana.QTotMes, Mode=TwoWay}" />
+                                                   Number="{x:Bind NotaSalva.Informacoes.cana.QTotMes, Mode=TwoWay}" />
                         <controles:EntradaNumerica Format="11:10"
                                                    Header="Quant. total anterior"
-                                                   Number="{x:Bind NotaSalva.Informações.cana.QTotAnt, Mode=TwoWay}" />
+                                                   Number="{x:Bind NotaSalva.Informacoes.cana.QTotAnt, Mode=TwoWay}" />
                         <controles:EntradaNumerica Format="11:10"
                                                    Header="Quant. total geral"
-                                                   Number="{x:Bind NotaSalva.Informações.cana.QTotGer, Mode=TwoWay}" />
+                                                   Number="{x:Bind NotaSalva.Informacoes.cana.QTotGer, Mode=TwoWay}" />
                         <controles:EntradaNumerica Format="13:2"
                                                    Header="Valor dos fornecimentos"
-                                                   Number="{x:Bind NotaSalva.Informações.cana.VFor, Mode=TwoWay}" />
+                                                   Number="{x:Bind NotaSalva.Informacoes.cana.VFor, Mode=TwoWay}" />
                         <controles:EntradaNumerica Format="13:2"
                                                    Header="Valor total da dedução"
-                                                   Number="{x:Bind NotaSalva.Informações.cana.VTotDed, Mode=TwoWay}" />
+                                                   Number="{x:Bind NotaSalva.Informacoes.cana.VTotDed, Mode=TwoWay}" />
                         <controles:EntradaNumerica Format="13:2"
                                                    Header="Valor líquido dos fornecimentos"
-                                                   Number="{x:Bind NotaSalva.Informações.cana.VLiqFor, Mode=TwoWay}" />
+                                                   Number="{x:Bind NotaSalva.Informacoes.cana.VLiqFor, Mode=TwoWay}" />
                     </ItemsControl>
                 </ScrollViewer>
             </PivotItem>

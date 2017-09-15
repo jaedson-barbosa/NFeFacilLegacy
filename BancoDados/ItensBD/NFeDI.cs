@@ -46,25 +46,25 @@ namespace NFeFacil.ItensBD
         public NFeDI() { }
         public NFeDI(NFe nota, string xml)
         {
-            Id = nota.Informações.Id;
-            NomeCliente = nota.Informações.destinatário.Nome;
-            NomeEmitente = nota.Informações.emitente.Nome;
-            CNPJEmitente = nota.Informações.emitente.CNPJ.ToString();
-            DataEmissao = DateTime.Parse(nota.Informações.identificação.DataHoraEmissão).ToString("yyyy-MM-dd HH:mm:ss");
-            NumeroNota = nota.Informações.identificação.Numero;
-            SerieNota = nota.Informações.identificação.Serie;
+            Id = nota.Informacoes.Id;
+            NomeCliente = nota.Informacoes.destinatário.Nome;
+            NomeEmitente = nota.Informacoes.emitente.Nome;
+            CNPJEmitente = nota.Informacoes.emitente.CNPJ.ToString();
+            DataEmissao = DateTime.Parse(nota.Informacoes.identificacao.DataHoraEmissão).ToString("yyyy-MM-dd HH:mm:ss");
+            NumeroNota = nota.Informacoes.identificacao.Numero;
+            SerieNota = nota.Informacoes.identificacao.Serie;
             Status = nota.Signature != null && nota.Signature != null ? (int)StatusNFe.Assinada : (int)StatusNFe.Salva;
             XML = xml;
         }
         public NFeDI(Processo nota, string xml)
         {
-            Id = nota.NFe.Informações.Id;
-            NomeCliente = nota.NFe.Informações.destinatário.Nome;
-            NomeEmitente = nota.NFe.Informações.emitente.Nome;
-            CNPJEmitente = nota.NFe.Informações.emitente.CNPJ.ToString();
-            DataEmissao = DateTime.Parse(nota.NFe.Informações.identificação.DataHoraEmissão).ToString("yyyy-MM-dd HH:mm:ss");
-            NumeroNota = nota.NFe.Informações.identificação.Numero;
-            SerieNota = nota.NFe.Informações.identificação.Serie;
+            Id = nota.NFe.Informacoes.Id;
+            NomeCliente = nota.NFe.Informacoes.destinatário.Nome;
+            NomeEmitente = nota.NFe.Informacoes.emitente.Nome;
+            CNPJEmitente = nota.NFe.Informacoes.emitente.CNPJ.ToString();
+            DataEmissao = DateTime.Parse(nota.NFe.Informacoes.identificacao.DataHoraEmissão).ToString("yyyy-MM-dd HH:mm:ss");
+            NumeroNota = nota.NFe.Informacoes.identificacao.Numero;
+            SerieNota = nota.NFe.Informacoes.identificacao.Serie;
             Status = nota.ProtNFe != null ? (int)StatusNFe.Emitida : nota.NFe.Signature != null ? (int)StatusNFe.Assinada : (int)StatusNFe.Salva;
             XML = xml;
         }

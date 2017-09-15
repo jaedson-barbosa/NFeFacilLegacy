@@ -26,13 +26,13 @@ namespace NFeFacil
         {
             try
             {
-                var estado = Processo.NFe.Informações.identificação.CódigoUF;
+                var estado = Processo.NFe.Informacoes.identificacao.CódigoUF;
                 var tipoAmbiente = Processo.ProtNFe.InfProt.tpAmb;
 
                 var gerenciador = new GerenciadorGeral<EnvEvento, RetEnvEvento>(estado, Operacoes.RecepcaoEvento, tipoAmbiente == 2);
 
-                var cnpj = Processo.NFe.Informações.emitente.CNPJ;
-                var chave = Processo.NFe.Informações.ChaveAcesso;
+                var cnpj = Processo.NFe.Informacoes.emitente.CNPJ;
+                var chave = Processo.NFe.Informacoes.ChaveAcesso;
                 var nProtocolo = Processo.ProtNFe.InfProt.nProt;
                 var versao = gerenciador.Enderecos.VersaoRecepcaoEvento;
                 var entrada = new EntradaTexto("Cancelar NFe", "Motivo");

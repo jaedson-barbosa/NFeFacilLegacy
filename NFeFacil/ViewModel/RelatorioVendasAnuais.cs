@@ -57,19 +57,19 @@ namespace NFeFacil.ViewModel
 
                     ResultadoCliente.Clear();
                     var gruposClientes = from nota in notas
-                                         group nota by nota.Informações.destinatário.Documento into item
-                                         let total = item.Sum(x => x.Informações.total.ICMSTot.VNF)
+                                         group nota by nota.Informacoes.destinatário.Documento into item
+                                         let total = item.Sum(x => x.Informacoes.total.ICMSTot.VNF)
                                          orderby total descending
                                          select new { Notas = item, Total = total };
                     foreach (var item in gruposClientes)
                     {
-                        var det = item.Notas.Last().Informações;
+                        var det = item.Notas.Last().Informacoes;
                         var atual = new TotalPorCliente
                         {
                             Doc = det.destinatário.Documento,
                             Mun = det.destinatário.Endereco.NomeMunicipio,
                             Nome = det.destinatário.Nome,
-                            Quantidade = item.Notas.Sum(x => x.Informações.produtos.Sum(prod => prod.Produto.QuantidadeComercializada)),
+                            Quantidade = item.Notas.Sum(x => x.Informacoes.produtos.Sum(prod => prod.Produto.QuantidadeComercializada)),
                             Total = item.Total
                         };
                         ResultadoCliente.Add(atual);
@@ -77,7 +77,7 @@ namespace NFeFacil.ViewModel
 
                     ResultadoMes.Clear();
                     var gruposMeses = from nota in notas
-                                      let data = DateTime.Parse(nota.Informações.identificação.DataHoraEmissão)
+                                      let data = DateTime.Parse(nota.Informacoes.identificacao.DataHoraEmissão)
                                       group new { Nota = nota, Data = data.Month } by data.Month;
                     foreach (var item in gruposMeses)
                     {
@@ -85,8 +85,8 @@ namespace NFeFacil.ViewModel
                         var atual = new TotalPorMes
                         {
                             Mês = primeiro.Data.ToString(),
-                            Quantidade = item.Sum(det => det.Nota.Informações.produtos.Sum(prod => prod.Produto.QuantidadeComercializada)),
-                            Total = item.Sum(det => det.Nota.Informações.total.ICMSTot.VNF)
+                            Quantidade = item.Sum(det => det.Nota.Informacoes.produtos.Sum(prod => prod.Produto.QuantidadeComercializada)),
+                            Total = item.Sum(det => det.Nota.Informacoes.total.ICMSTot.VNF)
                         };
                         ResultadoMes.Add(atual);
                     }

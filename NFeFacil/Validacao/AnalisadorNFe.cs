@@ -17,53 +17,53 @@ namespace NFeFacil.Validacao
 
         public void Normalizar()
         {
-            Nota.Informações.transp.Transporta = Nota.Informações.transp.Transporta?.ToXElement<Motorista>().HasElements ?? false ? Nota.Informações.transp.Transporta : null;
-            Nota.Informações.transp.VeicTransp = ValidarVeiculo(Nota.Informações.transp.VeicTransp) ? Nota.Informações.transp.VeicTransp : null;
-            Nota.Informações.transp.RetTransp = ValidarRetencaoTransporte(Nota.Informações.transp.RetTransp) ? Nota.Informações.transp.RetTransp : null;
+            Nota.Informacoes.transp.Transporta = Nota.Informacoes.transp.Transporta?.ToXElement<Motorista>().HasElements ?? false ? Nota.Informacoes.transp.Transporta : null;
+            Nota.Informacoes.transp.VeicTransp = ValidarVeiculo(Nota.Informacoes.transp.VeicTransp) ? Nota.Informacoes.transp.VeicTransp : null;
+            Nota.Informacoes.transp.RetTransp = ValidarRetencaoTransporte(Nota.Informacoes.transp.RetTransp) ? Nota.Informacoes.transp.RetTransp : null;
 
-            Nota.Informações.total.ISSQNtot = ValidarISSQN(Nota.Informações.total.ISSQNtot) ? Nota.Informações.total.ISSQNtot : null;
-            Nota.Informações.total.RetTrib = ValidarRetencaoTributaria(Nota.Informações.total.RetTrib) ? Nota.Informações.total.RetTrib : null;
-            Nota.Informações.cobr = ValidarFatura(Nota.Informações.cobr?.Fat) ? Nota.Informações.cobr : null;
-            Nota.Informações.infAdic = ValidarInfoAdicional(Nota.Informações.infAdic) ? Nota.Informações.infAdic : null;
-            Nota.Informações.exporta = new ValidadorExportacao(Nota.Informações.exporta).Validar(null) ? Nota.Informações.exporta : null;
-            Nota.Informações.compra = ValidarCompra(Nota.Informações.compra) ? Nota.Informações.compra : null;
-            Nota.Informações.cana = ValidarCana(Nota.Informações.cana) ? Nota.Informações.cana : null;
+            Nota.Informacoes.total.ISSQNtot = ValidarISSQN(Nota.Informacoes.total.ISSQNtot) ? Nota.Informacoes.total.ISSQNtot : null;
+            Nota.Informacoes.total.RetTrib = ValidarRetencaoTributaria(Nota.Informacoes.total.RetTrib) ? Nota.Informacoes.total.RetTrib : null;
+            Nota.Informacoes.cobr = ValidarFatura(Nota.Informacoes.cobr?.Fat) ? Nota.Informacoes.cobr : null;
+            Nota.Informacoes.infAdic = ValidarInfoAdicional(Nota.Informacoes.infAdic) ? Nota.Informacoes.infAdic : null;
+            Nota.Informacoes.exporta = new ValidadorExportacao(Nota.Informacoes.exporta).Validar(null) ? Nota.Informacoes.exporta : null;
+            Nota.Informacoes.compra = ValidarCompra(Nota.Informacoes.compra) ? Nota.Informacoes.compra : null;
+            Nota.Informacoes.cana = ValidarCana(Nota.Informacoes.cana) ? Nota.Informacoes.cana : null;
         }
 
         public void Desnormalizar()
         {
-            if (Nota.Informações.transp.Transporta == null)
+            if (Nota.Informacoes.transp.Transporta == null)
             {
-                Nota.Informações.transp.Transporta = new Motorista();
+                Nota.Informacoes.transp.Transporta = new Motorista();
             }
-            if (Nota.Informações.transp.VeicTransp == null)
+            if (Nota.Informacoes.transp.VeicTransp == null)
             {
-                Nota.Informações.transp.VeicTransp = new Veiculo();
+                Nota.Informacoes.transp.VeicTransp = new Veiculo();
             }
-            if (Nota.Informações.transp.RetTransp == null)
+            if (Nota.Informacoes.transp.RetTransp == null)
             {
-                Nota.Informações.transp.RetTransp = new ICMSTransporte();
+                Nota.Informacoes.transp.RetTransp = new ICMSTransporte();
             }
 
-            if (Nota.Informações.cobr == null)
+            if (Nota.Informacoes.cobr == null)
             {
-                Nota.Informações.cobr = new Cobranca();
+                Nota.Informacoes.cobr = new Cobranca();
             }
-            if (Nota.Informações.infAdic == null)
+            if (Nota.Informacoes.infAdic == null)
             {
-                Nota.Informações.infAdic = new InformacoesAdicionais();
+                Nota.Informacoes.infAdic = new InformacoesAdicionais();
             }
-            if (Nota.Informações.exporta == null)
+            if (Nota.Informacoes.exporta == null)
             {
-                Nota.Informações.exporta = new Exportacao();
+                Nota.Informacoes.exporta = new Exportacao();
             }
-            if (Nota.Informações.compra == null)
+            if (Nota.Informacoes.compra == null)
             {
-                Nota.Informações.compra = new Compra();
+                Nota.Informacoes.compra = new Compra();
             }
-            if (Nota.Informações.cana == null)
+            if (Nota.Informacoes.cana == null)
             {
-                Nota.Informações.cana = new RegistroAquisicaoCana();
+                Nota.Informacoes.cana = new RegistroAquisicaoCana();
             }
         }
 

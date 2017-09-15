@@ -11,22 +11,22 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
         {
             CódigoUF = other.CódigoUF;
             ChaveNF = other.ChaveNF;
-            NaturezaDaOperação = other.NaturezaDaOperação;
+            NaturezaDaOperacao = other.NaturezaDaOperacao;
             FormaPagamento = other.FormaPagamento;
             Modelo = other.Modelo;
             Serie = other.Serie;
             Numero = other.Numero;
             DataHoraEmissão = other.DataHoraEmissão;
             DataHoraSaídaEntrada = other.DataHoraSaídaEntrada;
-            TipoOperação = other.TipoOperação;
+            TipoOperacao = other.TipoOperacao;
             IdentificadorDestino = other.IdentificadorDestino;
-            CodigoMunicípio = other.CodigoMunicípio;
+            CodigoMunicipio = other.CodigoMunicipio;
             TipoImpressão = other.TipoImpressão;
             DígitoVerificador = other.DígitoVerificador;
             TipoAmbiente = other.TipoAmbiente;
-            FinalidadeEmissão = other.FinalidadeEmissão;
-            OperaçãoConsumidorFinal = other.OperaçãoConsumidorFinal;
-            IndicadorPresença = other.IndicadorPresença;
+            FinalidadeEmissao = other.FinalidadeEmissao;
+            OperacaoConsumidorFinal = other.OperacaoConsumidorFinal;
+            IndicadorPresenca = other.IndicadorPresenca;
         }
 
         [XmlElement(ElementName = "cUF", Order = 0)]
@@ -36,7 +36,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
         public int ChaveNF { get; set; }
 
         [XmlElement(ElementName = "natOp", Order = 2)]
-        public string NaturezaDaOperação { get; set; }
+        public string NaturezaDaOperacao { get; set; }
 
         [XmlElement(ElementName = "indPag", Order = 3)]
         public ushort FormaPagamento { get; set; } = 0;
@@ -57,13 +57,13 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
         public string DataHoraSaídaEntrada { get; set; }
 
         [XmlElement(ElementName = "tpNF", Order = 9)]
-        public ushort TipoOperação { get; set; } = 1;
+        public ushort TipoOperacao { get; set; } = 1;
 
         [XmlElement(ElementName = "idDest", Order = 10)]
         public ushort IdentificadorDestino { get; set; } = 1;
 
         [XmlElement(ElementName = "cMunFG", Order = 11)]
-        public int CodigoMunicípio { get; set; }
+        public int CodigoMunicipio { get; set; }
 
         [XmlElement(ElementName = "tpImp", Order = 12)]
         public ushort TipoImpressão { get; set; } = 1;
@@ -78,13 +78,13 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
         public ushort TipoAmbiente { get; set; } = 1;
 
         [XmlElement(ElementName = "finNFe", Order = 16)]
-        public ushort FinalidadeEmissão { get; set; } = 1;
+        public ushort FinalidadeEmissao { get; set; } = 1;
 
         [XmlElement(ElementName = "indFinal", Order = 17)]
-        public ushort OperaçãoConsumidorFinal { get; set; } = 1;
+        public ushort OperacaoConsumidorFinal { get; set; } = 1;
 
         [XmlElement(ElementName = "indPres", Order = 18)]
-        public ushort IndicadorPresença { get; set; } = 1;
+        public ushort IndicadorPresenca { get; set; } = 1;
 
         [XmlElement(ElementName = "procEmi", Order = 19)]
         public ushort ProcessoEmissão { get; set; } = 0;

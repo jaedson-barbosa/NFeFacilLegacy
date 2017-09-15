@@ -14,22 +14,22 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe
         internal string CriarChaveAcesso()
         {
             var codigoUF = Estados.Buscar(detalhes.emitente.Endereco.SiglaUF).Codigo;
-            var dhEmissao = Convert.ToDateTime(detalhes.identificação.DataHoraEmissão).ToString("yyMM");
+            var dhEmissao = Convert.ToDateTime(detalhes.identificacao.DataHoraEmissão).ToString("yyMM");
             var CNPJEmitente = detalhes.emitente.CNPJ;
-            var modeloIdentificacao = detalhes.identificação.Modelo;
-            var serie = detalhes.identificação.Serie.ToString().PadLeft(3, '0');
-            var numero = detalhes.identificação.Numero.ToString().PadLeft(9, '0');
-            var tipoEmissao = detalhes.identificação.TipoEmissão;
+            var modeloIdentificacao = detalhes.identificacao.Modelo;
+            var serie = detalhes.identificacao.Serie.ToString().PadLeft(3, '0');
+            var numero = detalhes.identificacao.Numero.ToString().PadLeft(9, '0');
+            var tipoEmissao = detalhes.identificacao.TipoEmissão;
 
-            if (detalhes.identificação.ChaveNF == default(long))
+            if (detalhes.identificacao.ChaveNF == default(long))
             {
                 var random = new Random();
-                detalhes.identificação.ChaveNF = random.Next(10000000, 100000000);
+                detalhes.identificacao.ChaveNF = random.Next(10000000, 100000000);
             }
-            var randomico = detalhes.identificação.ChaveNF;
+            var randomico = detalhes.identificacao.ChaveNF;
             var chave = $"{codigoUF}{dhEmissao}{CNPJEmitente}{modeloIdentificacao}{serie}{numero}{tipoEmissao}{randomico}";
 
-            var dv = detalhes.identificação.DígitoVerificador = CalcularDV(chave);
+            var dv = detalhes.identificacao.DígitoVerificador = CalcularDV(chave);
             return chave + dv;
         }
 

@@ -109,7 +109,7 @@ namespace NFeFacil.ViewNFe
             if (finalizacaoCompleta)
             {
                 var parametro = Frame.BackStack[Frame.BackStack.Count - 1].Parameter as NFe;
-                var info = parametro.Informações;
+                var info = parametro.Informacoes;
 
                 var data = DataContext as ProdutoCompletoDataContext;
                 data.ProdutoCompleto.Impostos = ImpostosFiltrados;

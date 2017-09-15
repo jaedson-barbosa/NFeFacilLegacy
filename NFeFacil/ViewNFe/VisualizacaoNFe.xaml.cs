@@ -321,13 +321,13 @@ namespace NFeFacil.ViewNFe
             if (ItemBanco.Status < (int)StatusNFe.Emitida)
             {
                 var nfe = (NFe)ObjetoItemBanco;
-                id = nfe.Informações.Id;
+                id = nfe.Informacoes.Id;
                 xml = ObjetoItemBanco.ToXElement<NFe>();
             }
             else
             {
                 var processo = (Processo)ObjetoItemBanco;
-                id = processo.NFe.Informações.Id;
+                id = processo.NFe.Informacoes.Id;
                 xml = ObjetoItemBanco.ToXElement<Processo>();
             }
 

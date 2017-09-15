@@ -25,9 +25,9 @@ namespace NFeFacil.ViewNFe
         {
             var notaSimples = new NFe()
             {
-                Informações = new Detalhes()
+                Informacoes = new Detalhes()
                 {
-                    identificação = new Identificacao()
+                    identificacao = new Identificacao()
                     {
                         Serie = Serie,
                         Numero = (int)txtNumero.Number,
@@ -49,7 +49,7 @@ namespace NFeFacil.ViewNFe
                     cana = new RegistroAquisicaoCana()
                 }
             };
-            notaSimples.Informações.identificação.DefinirVersãoAplicativo();
+            notaSimples.Informacoes.identificacao.DefinirVersãoAplicativo();
             MainPage.Current.Navegar<ManipulacaoNotaFiscal>(notaSimples);
         }
 

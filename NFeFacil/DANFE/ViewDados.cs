@@ -48,10 +48,10 @@ namespace NFeFacil.DANFE
 
         DadosAdicionais GetExtras()
         {
-            var extras = Dados.NFe.Informações.infAdic;
-            var cobr = Dados.NFe.Informações.cobr;
-            var entrega = Dados.NFe.Informações.Entrega;
-            var retirada = Dados.NFe.Informações.Retirada;
+            var extras = Dados.NFe.Informacoes.infAdic;
+            var cobr = Dados.NFe.Informacoes.cobr;
+            var entrega = Dados.NFe.Informacoes.Entrega;
+            var retirada = Dados.NFe.Informacoes.Retirada;
 
             var itens = new List<ItemDadosAdicionais>();
             if (retirada != null)
@@ -79,8 +79,8 @@ namespace NFeFacil.DANFE
 
         DadosCabecalho GetCabecalho()
         {
-            var ident = Dados.NFe.Informações.identificação;
-            var emit = Dados.NFe.Informações.emitente;
+            var ident = Dados.NFe.Informacoes.identificacao;
+            var emit = Dados.NFe.Informacoes.emitente;
             return new DadosCabecalho
             {
                 NomeEmitente = emit.Nome,
@@ -91,8 +91,8 @@ namespace NFeFacil.DANFE
 
         DadosCliente GetCliente()
         {
-            var ident = Dados.NFe.Informações.identificação;
-            var dest = Dados.NFe.Informações.destinatário;
+            var ident = Dados.NFe.Informacoes.identificacao;
+            var dest = Dados.NFe.Informacoes.destinatário;
             return new DadosCliente
             {
                 DocCliente = AplicatMascaraDocumento(dest.Documento),
@@ -107,7 +107,7 @@ namespace NFeFacil.DANFE
 
         DadosImposto GetImposto()
         {
-            var tot = Dados.NFe.Informações.total;
+            var tot = Dados.NFe.Informacoes.total;
             return new DadosImposto
             {
                 BaseCalculoICMS = tot.ICMSTot.VBC.ToString("N2"),
@@ -126,7 +126,7 @@ namespace NFeFacil.DANFE
 
         DadosMotorista GetMotorista()
         {
-            var transp = Dados.NFe.Informações.transp;
+            var transp = Dados.NFe.Informacoes.transp;
             var retorno = new DadosMotorista
             {
                 CodigoANTT = Analisar(transp.VeicTransp?.RNTC),
@@ -193,7 +193,7 @@ namespace NFeFacil.DANFE
 
         DadosNFe GetNFe()
         {
-            var detalhes = Dados.NFe.Informações;
+            var detalhes = Dados.NFe.Informacoes;
             var prot = Dados.ProtNFe;
             var codigoBarras = detalhes.Id.Substring(detalhes.Id.IndexOf('e') + 1);
             var retorno = new DadosNFe
@@ -205,12 +205,12 @@ namespace NFeFacil.DANFE
                 Endereco = detalhes.emitente.Endereco,
                 IE = detalhes.emitente.InscricaoEstadual.ToString(),
                 IEST = detalhes.emitente.IEST,
-                NatOp = detalhes.identificação.NaturezaDaOperação,
+                NatOp = detalhes.identificacao.NaturezaDaOperacao,
                 NomeEmitente = detalhes.emitente.Nome,
-                NumeroNota = detalhes.identificação.Numero.ToString("000,000,000"),
+                NumeroNota = detalhes.identificacao.Numero.ToString("000,000,000"),
                 NumeroProtocolo = prot.InfProt.nProt.ToString(),
-                SerieNota = detalhes.identificação.Serie.ToString(),
-                TipoEmissao = detalhes.identificação.TipoEmissão.ToString()
+                SerieNota = detalhes.identificacao.Serie.ToString(),
+                TipoEmissao = detalhes.identificacao.TipoEmissão.ToString()
             };
             using (var db = new AplicativoContext())
             {
@@ -241,7 +241,7 @@ namespace NFeFacil.DANFE
 
         DadosProduto[] ObterProdutos()
         {
-            return (from p in Dados.NFe.Informações.produtos
+            return (from p in Dados.NFe.Informacoes.produtos
                     select GetProd(p)).ToArray();
 
             DadosProduto GetProd(DetalhesProdutos prod)
@@ -284,7 +284,7 @@ namespace NFeFacil.DANFE
 
         DadosDuplicata[] ObterDuplicatas()
         {
-            var duplicatas = Dados.NFe.Informações.cobr?.Dup;
+            var duplicatas = Dados.NFe.Informacoes.cobr?.Dup;
             return duplicatas != null ? (from d in duplicatas
                                          select GetDuplicata(d)).ToArray() : new DadosDuplicata[0];
 
@@ -301,8 +301,8 @@ namespace NFeFacil.DANFE
 
         DadosISSQN GetISSQN()
         {
-            var emit = Dados.NFe.Informações.emitente;
-            var issqn = Dados.NFe.Informações.total.ISSQNtot;
+            var emit = Dados.NFe.Informacoes.emitente;
+            var issqn = Dados.NFe.Informacoes.total.ISSQNtot;
             return issqn != null ? new DadosISSQN
             {
                 BC = issqn.VBC.ToString("N2"),
@@ -314,7 +314,7 @@ namespace NFeFacil.DANFE
 
         string GetFatura()
         {
-            var cobranca = Dados.NFe.Informações.cobr;
+            var cobranca = Dados.NFe.Informacoes.cobr;
             if (cobranca?.Fat == null)
             {
                 return "PAGAMENTO A VISTA";

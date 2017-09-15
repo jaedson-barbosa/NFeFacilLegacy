@@ -36,7 +36,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe
         }
 
         [XmlElement(ElementName = "ide", Order = 0)]
-        public Identificacao identificação { get; set; }
+        public Identificacao identificacao { get; set; }
 
         [XmlElement(ElementName = "emit", Order = 1)]
         public Emitente emitente { get; set; }

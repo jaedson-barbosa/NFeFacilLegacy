@@ -25,7 +25,7 @@ namespace NFeFacil
             try
             {
                 var assina = new Certificacao.AssinaFacil(nota);
-                await assina.Assinar<NFe>(nota.Informações.Id, "infNFe");
+                await assina.Assinar<NFe>(nota.Informacoes.Id, "infNFe");
                 return true;
             }
             catch (Exception e)
@@ -68,8 +68,8 @@ namespace NFeFacil
         {
             try
             {
-                var resultadoTransmissao = await new GerenciadorGeral<EnviNFe, RetEnviNFe>(nota.Informações.emitente.Endereco.SiglaUF, Operacoes.Autorizar, homologacao)
-                    .EnviarAsync(new EnviNFe(nota.Informações.identificação.Numero, nota));
+                var resultadoTransmissao = await new GerenciadorGeral<EnviNFe, RetEnviNFe>(nota.Informacoes.emitente.Endereco.SiglaUF, Operacoes.Autorizar, homologacao)
+                    .EnviarAsync(new EnviNFe(nota.Informacoes.identificacao.Numero, nota));
                 if (resultadoTransmissao.cStat == 103)
                 {
                     await Task.Delay(new TimeSpan(0, 0, 10));

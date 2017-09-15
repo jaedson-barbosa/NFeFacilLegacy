@@ -30,7 +30,7 @@ namespace NFeFacil.ItensBD
                 var motDI = Motorista != default(Guid) ? db.Motoristas.Find(Motorista) : null;
                 return new NFe()
                 {
-                    Informações = new Detalhes
+                    Informacoes = new Detalhes
                     {
                         destinatário = db.Clientes.Find(Cliente).ToDestinatario(),
                         emitente = db.Emitentes.Find(Emitente).ToEmitente(),
@@ -40,7 +40,7 @@ namespace NFeFacil.ItensBD
                         },
                         produtos = prods,
                         total = new Total(prods),
-                        identificação = new Identificacao(),
+                        identificacao = new Identificacao(),
                         transp = new Transporte()
                         {
                             Transporta = motDI != null ? motDI.ToMotorista() : new Motorista(),

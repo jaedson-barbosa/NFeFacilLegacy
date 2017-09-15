@@ -608,5 +608,27 @@ namespace NFeFacil.ViewNFe
             var contexto = ((FrameworkElement)sender).DataContext;
             RemoverDuplicata((Duplicata)contexto);
         }
+
+        private void AdicionarObsContribuinte(object sender, RoutedEventArgs e)
+        {
+            AdicionarObsContribuinte();
+        }
+
+        private void RemoverObsContribuinte(object sender, RoutedEventArgs e)
+        {
+            var contexto = ((FrameworkElement)sender).DataContext;
+            RemoverObsContribuinte((Observacao)contexto);
+        }
+
+        private void AdicionarProcReferenciado(object sender, RoutedEventArgs e)
+        {
+            AdicionarProcReferenciado();
+        }
+
+        private void RemoverProcReferenciado(object sender, RoutedEventArgs e)
+        {
+            var contexto = ((FrameworkElement)sender).DataContext;
+            RemoverProcReferenciado((ProcessoReferenciado)contexto);
+        }
     }
 }

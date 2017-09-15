@@ -597,7 +597,7 @@
         <Pivot Margin="16">
             <PivotItem Header="Informações adicionais">
                 <ScrollViewer>
-                    <StackPanel DataContext="{Binding NotaSalva.Informações.infAdic}">
+                    <StackPanel DataContext="{x:Bind NotaSalva.Informações.infAdic}">
                         <TextBox Text="{Binding InfAdFisco, Mode=TwoWay}"
                                  Header="Informações adicionais de interesse do fisco" />
                         <TextBox Text="{Binding InfCpl, Mode=TwoWay}"
@@ -608,7 +608,7 @@
             <PivotItem Header="Observações do contribuinte">
                 <ListView Margin="0,8,0,0"
                           ItemContainerStyle="{StaticResource ItemFullWidth}"
-                          ItemsSource="{Binding NotaSalva.Informações.infAdic.ObsCont, Converter={StaticResource getObs}}">
+                          ItemsSource="{x:Bind Observacoes}">
                     <ListView.Header>
                         <Grid Style="{StaticResource Cabecalho}">
                             <Grid.ColumnDefinitions>
@@ -624,8 +624,8 @@
                                        TextAlignment="Center"
                                        VerticalAlignment="Center">Observação</TextBlock>
                             <Button Grid.Column="2"
-                                    Command="{Binding AdicionarObsContribuinteCommand}"
-                                    Style="{StaticResource BotaoAdd}">
+                                    Style="{StaticResource BotaoAdd}"
+                                    Click="AdicionarObsContribuinte">
                                 <SymbolIcon Symbol="Add" />
                             </Button>
                         </Grid>
@@ -639,8 +639,7 @@
                                 </Grid.ColumnDefinitions>
                                 <Grid.ContextFlyout>
                                     <MenuFlyout>
-                                        <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.RemoverObsContribuinteCommand}"
-                                                        CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Remover</MenuFlyoutItem>
+                                        <MenuFlyoutItem Click="RemoverObsContribuinte">Remover</MenuFlyoutItem>
                                     </MenuFlyout>
                                 </Grid.ContextFlyout>
                                 <TextBlock TextWrapping="Wrap"
@@ -656,7 +655,7 @@
             <PivotItem Header="Processos referenciados">
                 <ListView Margin="0,8,0,0"
                           ItemContainerStyle="{StaticResource ItemFullWidth}"
-                          ItemsSource="{Binding NotaSalva.Informações.infAdic.ProcRef, Converter={StaticResource getObs}}">
+                          ItemsSource="{x:Bind ProcessosReferenciados}">
                     <ListView.Header>
                         <Grid Style="{StaticResource Cabecalho}">
                             <Grid.ColumnDefinitions>
@@ -672,8 +671,8 @@
                                        VerticalAlignment="Center"
                                        Style="{StaticResource SubtitleTextBlockStyle}">Origem</TextBlock>
                             <Button Grid.Column="2"
-                                    Command="{Binding AdicionarProcReferenciadoCommand}"
-                                    Style="{StaticResource BotaoAdd}">
+                                    Style="{StaticResource BotaoAdd}"
+                                    Click="AdicionarProcReferenciado">
                                 <SymbolIcon Symbol="Add" />
                             </Button>
                         </Grid>
@@ -687,8 +686,7 @@
                                 </Grid.ColumnDefinitions>
                                 <Grid.ContextFlyout>
                                     <MenuFlyout>
-                                        <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.RemoverProcReferenciadoCommand}"
-                                                        CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Remover</MenuFlyoutItem>
+                                        <MenuFlyoutItem Click="RemoverProcReferenciado">Remover</MenuFlyoutItem>
                                     </MenuFlyout>
                                 </Grid.ContextFlyout>
                                 <TextBlock TextWrapping="Wrap"
@@ -704,7 +702,7 @@
         </Pivot>
         <Pivot Margin="16">
             <PivotItem Header="Exportação">
-                <StackPanel DataContext="{Binding NotaSalva.Informações.exporta}">
+                <StackPanel DataContext="{x:Bind NotaSalva.Informações.exporta}">
                     <ComboBox ItemsSource="{Binding Source={StaticResource estados}, Path=Siglas}"
                               SelectedItem="{Binding UFSaidaPais, Mode=TwoWay}"
                               Header="UF embarque/transposição de fronteira" />
@@ -715,7 +713,7 @@
                 </StackPanel>
             </PivotItem>
             <PivotItem Header="Compra">
-                <StackPanel DataContext="{Binding NotaSalva.Informações.compra}">
+                <StackPanel DataContext="{x:Bind NotaSalva.Informações.compra}">
                     <TextBox Text="{Binding XNEmp, Mode=TwoWay}"
                              Header="Nota de empenho" />
                     <TextBox Text="{Binding XPed, Mode=TwoWay}"

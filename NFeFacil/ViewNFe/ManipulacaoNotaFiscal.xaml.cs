@@ -575,5 +575,27 @@ namespace NFeFacil.ViewNFe
             var contexto = ((FrameworkElement)sender).DataContext;
             RemoverProduto((DetalhesProdutos)contexto);
         }
+
+        private void AdicionarReboque(object sender, RoutedEventArgs e)
+        {
+            AdicionarReboque();
+        }
+
+        private void RemoverReboque(object sender, RoutedEventArgs e)
+        {
+            var contexto = ((FrameworkElement)sender).DataContext;
+            RemoverReboque((Reboque)contexto);
+        }
+
+        private void AdicionarVolume(object sender, RoutedEventArgs e)
+        {
+            AdicionarVolume();
+        }
+
+        private void RemoverVolume(object sender, RoutedEventArgs e)
+        {
+            var contexto = ((FrameworkElement)sender).DataContext;
+            RemoverVolume((Volume)contexto);
+        }
     }
 }

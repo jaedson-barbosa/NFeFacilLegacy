@@ -408,40 +408,38 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <ComboBox ItemsSource="{Binding Modalidades}"
-                      SelectedItem="{Binding ModFrete, Mode=TwoWay}"
+            <ComboBox ItemsSource="{x:Bind Modalidades}"
+                      SelectedItem="{x:Bind ModFrete, Mode=TwoWay}"
                       HorizontalAlignment="Stretch"
                       Header="Modalidade do frete" />
             <Pivot Grid.Row="1"
                    Margin="0,4,0,0">
                 <PivotItem Header="Motorista">
                     <StackPanel>
-                        <TextBlock Text="Escolha um motorista já cadastrado ou insira os valores manualmente nos campos abaixo."
-                                   TextWrapping="Wrap" />
-                        <ComboBox ItemsSource="{Binding MotoristasDisponiveis}"
+                        <ComboBox ItemsSource="{x:Bind MotoristasDisponiveis}"
                                   HorizontalAlignment="Stretch"
-                                  SelectedItem="{Binding MotoristaSelecionado, Mode=TwoWay}"
+                                  SelectedItem="{x:Bind MotoristaSelecionado, Mode=TwoWay}"
                                   DisplayMemberPath="Nome" />
                     </StackPanel>
                 </PivotItem>
                 <PivotItem Header="Veículo">
                     <ItemsControl Style="{StaticResource ItensResponsivos}">
-                        <TextBox Text="{Binding NotaSalva.Informações.transp.VeicTransp.Placa, Mode=TwoWay}"
+                        <TextBox Text="{x:Bind NotaSalva.Informações.transp.VeicTransp.Placa, Mode=TwoWay}"
                                  Header="Placa" />
                         <ComboBox ItemsSource="{Binding Source={StaticResource estados}, Path=Siglas}"
-                                  SelectedItem="{Binding Path=NotaSalva.Informações.transp.VeicTransp.UF, Mode=TwoWay}"
+                                  SelectedItem="{x:Bind Path=NotaSalva.Informações.transp.VeicTransp.UF, Mode=TwoWay}"
                                   Header="Estado"
                                   HorizontalAlignment="Stretch" />
                         <TextBox Header="RNTC"
-                                 Text="{Binding NotaSalva.Informações.transp.VeicTransp.RNTC, Mode=TwoWay}" />
-                        <TextBox Text="{Binding NotaSalva.Informações.transp.Balsa, Mode=TwoWay}"
+                                 Text="{x:Bind NotaSalva.Informações.transp.VeicTransp.RNTC, Mode=TwoWay}" />
+                        <TextBox Text="{x:Bind NotaSalva.Informações.transp.Balsa, Mode=TwoWay}"
                                  Header="Identificação da balsa" />
-                        <TextBox Text="{Binding NotaSalva.Informações.transp.Vagao, Mode=TwoWay}"
+                        <TextBox Text="{x:Bind NotaSalva.Informações.transp.Vagao, Mode=TwoWay}"
                                  Header="Identificação do vagão" />
                     </ItemsControl>
                 </PivotItem>
                 <PivotItem Header="Reboques">
-                    <ListView ItemsSource="{Binding NotaSalva.Informações.transp.Reboque, Converter={StaticResource getObs}}"
+                    <ListView ItemsSource="{x:Bind Reboques}"
                               Margin="0,8,0,0"
                               ItemContainerStyle="{StaticResource ItemFullWidth}">
                         <ListView.Header>
@@ -455,7 +453,7 @@
                                            VerticalAlignment="Center">Placa</TextBlock>
                                 <Button Grid.Column="1"
                                         Style="{StaticResource BotaoAdd}"
-                                        Command="{Binding AdicionarReboqueCommand}">
+                                        Click="AdicionarReboque">
                                     <SymbolIcon Symbol="Add" />
                                 </Button>
                             </Grid>
@@ -465,8 +463,7 @@
                                 <TextBlock Text="{Binding Placa}">
                                     <TextBlock.ContextFlyout>
                                         <MenuFlyout>
-                                            <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.RemoverReboqueCommand}"
-                                                            CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Remover</MenuFlyoutItem>
+                                            <MenuFlyoutItem Click="RemoverReboque">Remover</MenuFlyoutItem>
                                         </MenuFlyout>
                                     </TextBlock.ContextFlyout></TextBlock>
                             </DataTemplate>
@@ -475,7 +472,7 @@
                 </PivotItem>
                 <PivotItem Header="Volumes"
                            Margin="0,8,0,0">
-                    <ListView ItemsSource="{Binding NotaSalva.Informações.transp.Vol, Converter={StaticResource getObs}}"
+                    <ListView ItemsSource="{x:Bind Volumes}"
                               ItemContainerStyle="{StaticResource ItemFullWidth}">
                         <ListView.Header>
                             <Grid Style="{StaticResource Cabecalho}">
@@ -493,7 +490,7 @@
                                            VerticalAlignment="Center">Marca</TextBlock>
                                 <Button Grid.Column="2"
                                         Style="{StaticResource BotaoAdd}"
-                                        Command="{Binding AdicionarVolumeCommand}">
+                                        Click="AdicionarVolume">
                                     <SymbolIcon Symbol="Add" />
                                 </Button>
                             </Grid>
@@ -503,8 +500,7 @@
                                 <Grid>
                                     <Grid.ContextFlyout>
                                         <MenuFlyout>
-                                            <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.RemoverVolumeCommand}"
-                                                            CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Remover</MenuFlyoutItem>
+                                            <MenuFlyoutItem Click="RemoverVolume">Remover</MenuFlyoutItem>
                                         </MenuFlyout>
                                     </Grid.ContextFlyout>
                                     <TextBlock Text="{Binding Esp, Mode=OneTime}" />
@@ -519,26 +515,26 @@
                     <ItemsControl Style="{StaticResource ItensResponsivos}">
                         <controles:EntradaNumerica Header="Valor do serviço"
                                                    Format="13:2"
-                                                   Number="{Binding NotaSalva.Informações.transp.RetTransp.VServ, Mode=TwoWay}" />
+                                                   Number="{x:Bind NotaSalva.Informações.transp.RetTransp.VServ, Mode=TwoWay}" />
                         <controles:EntradaNumerica Header="BC da retenção do ICMS"
                                                    Format="13:2"
-                                                   Number="{Binding NotaSalva.Informações.transp.RetTransp.VBCRet, Mode=TwoWay}" />
+                                                   Number="{x:Bind NotaSalva.Informações.transp.RetTransp.VBCRet, Mode=TwoWay}" />
                         <controles:EntradaNumerica Header="Alíquota da retenção"
                                                    Format="3:4"
-                                                   Number="{Binding NotaSalva.Informações.transp.RetTransp.PICMSRet, Mode=TwoWay}" />
+                                                   Number="{x:Bind NotaSalva.Informações.transp.RetTransp.PICMSRet, Mode=TwoWay}" />
                         <controles:EntradaNumerica Header="Valor do ICMS retido"
                                                    Format="13:2"
-                                                   Number="{Binding NotaSalva.Informações.transp.RetTransp.VICMSRet, Mode=TwoWay}" />
+                                                   Number="{x:Bind NotaSalva.Informações.transp.RetTransp.VICMSRet, Mode=TwoWay}" />
                         <controles:EntradaNumerica Header="CFOP"
                                                    Format="4"
-                                                   Number="{Binding NotaSalva.Informações.transp.RetTransp.CFOP, Mode=TwoWay}" />
+                                                   Number="{x:Bind NotaSalva.Informações.transp.RetTransp.CFOP, Mode=TwoWay}" />
                         <ComboBox ItemsSource="{Binding Source={StaticResource estados}, Path=EstadosCompletos}"
-                                  SelectedItem="{Binding Path=UFEscolhida, Mode=TwoWay}"
+                                  SelectedItem="{x:Bind UFEscolhida, Mode=TwoWay}"
                                   DisplayMemberPath="Nome"
                                   Header="Estado"
                                   HorizontalAlignment="Stretch" />
                         <ComboBox ItemsSource="{Binding MunicipiosTransporte}"
-                                  SelectedValue="{Binding Path=NotaSalva.Informações.transp.RetTransp.CMunFG, Mode=TwoWay}"
+                                  SelectedValue="{x:Bind NotaSalva.Informações.transp.RetTransp.CMunFG, Mode=TwoWay}"
                                   SelectedValuePath="Codigo"
                                   DisplayMemberPath="Nome"
                                   Header="Município"

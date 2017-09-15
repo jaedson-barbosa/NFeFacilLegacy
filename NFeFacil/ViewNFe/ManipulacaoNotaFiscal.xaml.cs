@@ -178,6 +178,7 @@ namespace NFeFacil.ViewNFe
         #endregion
 
         #region Identificação
+
         public ObservableCollection<DocumentoFiscalReferenciado> NFesReferenciadas => NotaSalva.Informações.identificação.DocumentosReferenciados.Where(x => !string.IsNullOrEmpty(x.RefNFe)).GerarObs();
         public ObservableCollection<DocumentoFiscalReferenciado> NFsReferenciadas => NotaSalva.Informações.identificação.DocumentosReferenciados.Where(x => x.RefNF != null).GerarObs();
 
@@ -255,6 +256,7 @@ namespace NFeFacil.ViewNFe
                 }
             }
         }
+
         #endregion
 
         #region Transporte
@@ -298,6 +300,7 @@ namespace NFeFacil.ViewNFe
             get => (ModalidadesTransporte)NotaSalva.Informações.transp.ModFrete;
             set => NotaSalva.Informações.transp.ModFrete = (ushort)value;
         }
+
         #endregion
 
         Popup Log = Popup.Current;
@@ -322,6 +325,19 @@ namespace NFeFacil.ViewNFe
             }
         }
 
+        #region ColecoesExibicaoView
+
+        ObservableCollection<DetalhesProdutos> Produtos { get; }
+        ObservableCollection<Reboque> Reboques { get; }
+        ObservableCollection<Volume> Volumes { get; }
+        ObservableCollection<Duplicata> Duplicatas { get; }
+        ObservableCollection<FornecimentoDiario> FornecimentosDiarios { get; }
+        ObservableCollection<Deducoes> Deducoes { get; }
+        ObservableCollection<Observacao> Observacoes { get; }
+        ObservableCollection<ProcessoReferenciado> ProcessosReferenciados { get; }
+
+        #endregion
+
         #region Adição e remoção básica
 
         void AdicionarProduto()
@@ -341,7 +357,7 @@ namespace NFeFacil.ViewNFe
         void RemoverProduto(DetalhesProdutos produto)
         {
             NotaSalva.Informações.produtos.Remove(produto);
-            OnPropertyChanged(nameof(NotaSalva));
+            Produtos.Remove(produto);
         }
 
         async void AdicionarNFeReferenciada()
@@ -349,11 +365,12 @@ namespace NFeFacil.ViewNFe
             var caixa = new CaixasDialogoNFe.AdicionarReferenciaEletronica();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
-                NotaSalva.Informações.identificação.DocumentosReferenciados.Add(new DocumentoFiscalReferenciado
+                var novo = new DocumentoFiscalReferenciado
                 {
                     RefNFe = caixa.Chave
-                });
-                OnPropertyChanged(nameof(NFesReferenciadas));
+                };
+                NotaSalva.Informações.identificação.DocumentosReferenciados.Add(novo);
+                NFesReferenciadas.Add(novo);
             }
         }
 
@@ -363,18 +380,26 @@ namespace NFeFacil.ViewNFe
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
                 var contexto = (NF1AReferenciada)caixa.DataContext;
-                NotaSalva.Informações.identificação.DocumentosReferenciados.Add(new DocumentoFiscalReferenciado
+                var novo = new DocumentoFiscalReferenciado
                 {
                     RefNF = contexto
-                });
-                OnPropertyChanged(nameof(NFsReferenciadas));
+                };
+                NotaSalva.Informações.identificação.DocumentosReferenciados.Add(novo);
+                NFsReferenciadas.Add(novo);
             }
         }
 
         void RemoverDocReferenciado(DocumentoFiscalReferenciado doc)
         {
             NotaSalva.Informações.identificação.DocumentosReferenciados.Remove(doc);
-            OnPropertyChanged(nameof(NFesReferenciadas), nameof(NFsReferenciadas));
+            if (string.IsNullOrEmpty(doc.RefNFe))
+            {
+                NFsReferenciadas.Remove(doc);
+            }
+            else
+            {
+                NFesReferenciadas.Remove(doc);
+            }
         }
 
         async void AdicionarReboque()
@@ -382,15 +407,16 @@ namespace NFeFacil.ViewNFe
             var add = new CaixasDialogoNFe.AdicionarReboque();
             if (await add.ShowAsync() == ContentDialogResult.Primary)
             {
-                NotaSalva.Informações.transp.Reboque.Add(add.DataContext as Reboque);
-                OnPropertyChanged(nameof(NotaSalva));
+                var novo = add.DataContext as Reboque;
+                NotaSalva.Informações.transp.Reboque.Add(novo);
+                Reboques.Add(novo);
             }
         }
 
         void RemoverReboque(Reboque reboque)
         {
             NotaSalva.Informações.transp.Reboque.Remove(reboque);
-            OnPropertyChanged(nameof(NotaSalva));
+            Reboques.Remove(reboque);
         }
 
         async void AdicionarVolume()
@@ -398,15 +424,16 @@ namespace NFeFacil.ViewNFe
             var add = new CaixasDialogoNFe.AdicionarVolume();
             if (await add.ShowAsync() == ContentDialogResult.Primary)
             {
-                NotaSalva.Informações.transp.Vol.Add(add.DataContext as Volume);
-                OnPropertyChanged(nameof(NotaSalva));
+                var novo = add.DataContext as Volume;
+                NotaSalva.Informações.transp.Vol.Add(novo);
+                Volumes.Add(novo);
             }
         }
 
         void RemoverVolume(Volume volume)
         {
             NotaSalva.Informações.transp.Vol.Remove(volume);
-            OnPropertyChanged(nameof(NotaSalva));
+            Volumes.Remove(volume);
         }
 
         async void AdicionarDuplicata()
@@ -414,15 +441,16 @@ namespace NFeFacil.ViewNFe
             var caixa = new CaixasDialogoNFe.AdicionarDuplicata();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
-                NotaSalva.Informações.cobr.Dup.Add(caixa.DataContext as Duplicata);
-                OnPropertyChanged("Cobranca");
+                var novo = caixa.DataContext as Duplicata;
+                NotaSalva.Informações.cobr.Dup.Add(novo);
+                Duplicatas.Add(novo);
             }
         }
 
         void RemoverDuplicata(Duplicata duplicata)
         {
             NotaSalva.Informações.cobr.Dup.Remove(duplicata);
-            OnPropertyChanged("Cobranca");
+            Duplicatas.Remove(duplicata);
         }
 
         async void AdicionarFornecimento()
@@ -430,15 +458,16 @@ namespace NFeFacil.ViewNFe
             var caixa = new CaixasDialogoNFe.AdicionarFornecimentoDiario();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
-                NotaSalva.Informações.cana.ForDia.Add(caixa.DataContext as FornecimentoDiario);
-                OnPropertyChanged(nameof(NotaSalva));
+                var novo = caixa.DataContext as FornecimentoDiario;
+                NotaSalva.Informações.cana.ForDia.Add(novo);
+                FornecimentosDiarios.Add(novo);
             }
         }
 
         void RemoverFornecimento(FornecimentoDiario fornecimento)
         {
             NotaSalva.Informações.cana.ForDia.Remove(fornecimento);
-            OnPropertyChanged(nameof(NotaSalva));
+            FornecimentosDiarios.Remove(fornecimento);
         }
 
         async void AdicionarDeducao()
@@ -446,15 +475,16 @@ namespace NFeFacil.ViewNFe
             var caixa = new CaixasDialogoNFe.AdicionarDeducao();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
-                NotaSalva.Informações.cana.Deduc.Add(caixa.DataContext as Deducoes);
-                OnPropertyChanged(nameof(NotaSalva));
+                var novo = caixa.DataContext as Deducoes;
+                NotaSalva.Informações.cana.Deduc.Add(novo);
+                Deducoes.Add(novo);
             }
         }
 
         void RemoverDeducao(Deducoes deducao)
         {
             NotaSalva.Informações.cana.Deduc.Remove(deducao);
-            OnPropertyChanged(nameof(NotaSalva));
+            Deducoes.Remove(deducao);
         }
 
         async void AdicionarObsContribuinte()
@@ -462,15 +492,16 @@ namespace NFeFacil.ViewNFe
             var caixa = new CaixasDialogoNFe.AdicionarObservacaoContribuinte();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
-                NotaSalva.Informações.infAdic.ObsCont.Add((Observacao)caixa.DataContext);
-                OnPropertyChanged(nameof(NotaSalva));
+                var novo = (Observacao)caixa.DataContext;
+                NotaSalva.Informações.infAdic.ObsCont.Add(novo);
+                Observacoes.Add(novo);
             }
         }
 
         void RemoverObsContribuinte(Observacao obs)
         {
             NotaSalva.Informações.infAdic.ObsCont.Remove(obs);
-            OnPropertyChanged(nameof(NotaSalva));
+            Observacoes.Remove(obs);
         }
 
         async void AdicionarProcReferenciado()
@@ -478,15 +509,16 @@ namespace NFeFacil.ViewNFe
             var caixa = new CaixasDialogoNFe.AdicionarProcessoReferenciado();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
-                NotaSalva.Informações.infAdic.ProcRef.Add(caixa.Item);
-                OnPropertyChanged(nameof(NotaSalva));
+                var novo = caixa.Item;
+                NotaSalva.Informações.infAdic.ProcRef.Add(novo);
+                ProcessosReferenciados.Add(novo);
             }
         }
 
         void RemoverProcReferenciado(ProcessoReferenciado proc)
         {
             NotaSalva.Informações.infAdic.ProcRef.Remove(proc);
-            OnPropertyChanged(nameof(NotaSalva));
+            ProcessosReferenciados.Remove(proc);
         }
 
         #endregion

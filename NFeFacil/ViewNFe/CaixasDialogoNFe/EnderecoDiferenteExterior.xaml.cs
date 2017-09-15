@@ -21,7 +21,6 @@ namespace NFeFacil.ViewNFe.CaixasDialogoNFe
             NomeMunicipio = "EXTERIOR",
             SiglaUF = "EX"
         };
-        ObservableCollection<Municipio> MunicipiosDoEstado { get; } = new ObservableCollection<Municipio>();
 
         TiposDocumento tipoDocumento;
         public int TipoDocumento

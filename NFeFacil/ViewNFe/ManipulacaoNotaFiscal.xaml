@@ -83,7 +83,7 @@
                                   PlaceholderText="Estado" />
                         <ComboBox Header="Município *"
                                   DisplayMemberPath="Nome"
-                                  ItemsSource="{Binding EstadoIdentificacao, Converter={StaticResource obterMun}}"
+                                  ItemsSource="{Binding MunicipiosIdentificacao}"
                                   SelectedValue="{Binding NotaSalva.Informações.identificação.CodigoMunicípio, Mode=TwoWay}"
                                   SelectedValuePath="Codigo" />
                     </ItemsControl>
@@ -548,7 +548,7 @@
                                   DisplayMemberPath="Nome"
                                   Header="Estado"
                                   HorizontalAlignment="Stretch" />
-                        <ComboBox ItemsSource="{Binding UFEscolhida, Converter={StaticResource obterMun}}"
+                        <ComboBox ItemsSource="{Binding MunicipiosTransporte}"
                                   SelectedValue="{Binding Path=NotaSalva.Informações.transp.RetTransp.CMunFG, Mode=TwoWay}"
                                   SelectedValuePath="Codigo"
                                   DisplayMemberPath="Nome"

@@ -184,18 +184,26 @@ namespace NFeFacil.ViewNFe
             }
         }
 
+        public ObservableCollection<Municipio> MunicipiosIdentificacao { get; } = new ObservableCollection<Municipio>();
         public ushort EstadoIdentificacao
         {
             get => NotaSalva.Informações.identificação.CódigoUF;
             set
             {
                 NotaSalva.Informações.identificação.CódigoUF = value;
-                OnPropertyChanged(nameof(EstadoIdentificacao));
+                MunicipiosIdentificacao.Clear();
+                foreach (var item in Municipios.Get(value))
+                {
+                    MunicipiosIdentificacao.Add(item);
+                }
             }
         }
         #endregion
 
         #region Transporte
+
+        public ObservableCollection<Municipio> MunicipiosTransporte { get; } = new ObservableCollection<Municipio>();
+
         private Estado ufEscolhida;
         public Estado UFEscolhida
         {
@@ -218,7 +226,11 @@ namespace NFeFacil.ViewNFe
             set
             {
                 ufEscolhida = value;
-                OnPropertyChanged("UFEscolhida");
+                MunicipiosTransporte.Clear();
+                foreach (var item in Municipios.Get(value))
+                {
+                    MunicipiosTransporte.Add(item);
+                }
             }
         }
 

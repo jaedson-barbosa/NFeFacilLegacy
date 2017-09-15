@@ -177,6 +177,9 @@
     <Compile Include="ViewNFe\CaixasDialogoNFe\EnderecoDiferenteExterior.xaml.cs">
       <DependentUpon>EnderecoDiferenteExterior.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewNFe\CaixasDialogoNFe\EscolherTipoEndereco.xaml.cs">
+      <DependentUpon>EscolherTipoEndereco.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewNFe\CaixasDialogoProduto\AddDeclaracaoExportacaoDireta.xaml.cs">
       <DependentUpon>AddDeclaracaoExportacaoDireta.xaml</DependentUpon>
     </Compile>
@@ -574,6 +577,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ViewNFe\CaixasDialogoNFe\EnderecoDiferenteExterior.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\CaixasDialogoNFe\EscolherTipoEndereco.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

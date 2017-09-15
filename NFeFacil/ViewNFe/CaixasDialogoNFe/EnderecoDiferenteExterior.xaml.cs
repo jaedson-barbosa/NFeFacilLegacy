@@ -1,7 +1,5 @@
-﻿using NFeFacil.IBGE;
-using NFeFacil.ModeloXML;
+﻿using NFeFacil.ModeloXML;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
-using System.Collections.ObjectModel;
 using Windows.UI.Xaml.Controls;
 
 // O modelo de item de Caixa de Diálogo de Conteúdo está documentado em https://go.microsoft.com/fwlink/?LinkId=234238

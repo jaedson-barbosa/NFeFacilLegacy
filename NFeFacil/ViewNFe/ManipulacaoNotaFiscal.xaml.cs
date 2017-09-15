@@ -19,6 +19,7 @@ using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
+using NFeFacil.ViewNFe.CaixasDialogoNFe;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -672,5 +673,71 @@ namespace NFeFacil.ViewNFe
         }
 
         #endregion
+
+        private async void AlterarEnderecoRetirada(object sender, RoutedEventArgs e)
+        {
+            var controle = (ToggleSwitch)sender;
+            if (controle.IsOn)
+            {
+                var caixa = new EscolherTipoEndereco();
+                if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+                {
+                    var tipo = caixa.TipoEscolhido;
+                    if (tipo == TipoEndereco.Exterior)
+                    {
+                        var caixa2 = new EnderecoDiferenteExterior();
+                        if (await caixa2.ShowAsync() == ContentDialogResult.Primary)
+                        {
+                            NotaSalva.Informacoes.Retirada = caixa2.Endereco;
+                        }
+                    }
+                    else
+                    {
+                        var caixa2 = new EnderecoDiferenteNacional();
+                        if (await caixa2.ShowAsync() == ContentDialogResult.Primary)
+                        {
+                            NotaSalva.Informacoes.Retirada = caixa2.Endereco;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                NotaSalva.Informacoes.Retirada = null;
+            }
+        }
+
+        private async void AlterarEnderecoEntrega(object sender, RoutedEventArgs e)
+        {
+            var controle = (ToggleSwitch)sender;
+            if (controle.IsOn)
+            {
+                var caixa = new EscolherTipoEndereco();
+                if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+                {
+                    var tipo = caixa.TipoEscolhido;
+                    if (tipo == TipoEndereco.Exterior)
+                    {
+                        var caixa2 = new EnderecoDiferenteExterior();
+                        if (await caixa2.ShowAsync() == ContentDialogResult.Primary)
+                        {
+                            NotaSalva.Informacoes.Entrega = caixa2.Endereco;
+                        }
+                    }
+                    else
+                    {
+                        var caixa2 = new EnderecoDiferenteNacional();
+                        if (await caixa2.ShowAsync() == ContentDialogResult.Primary)
+                        {
+                            NotaSalva.Informacoes.Entrega = caixa2.Endereco;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                NotaSalva.Informacoes.Entrega = null;
+            }
+        }
     }
 }

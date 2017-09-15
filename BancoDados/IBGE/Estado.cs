@@ -6,13 +6,13 @@ namespace NFeFacil.IBGE
     {
         public string Nome { get; set; }
         public string Sigla { get; set; }
-        public byte Codigo { get; set; }
+        public ushort Codigo { get; set; }
 
         public Estado(XElement xmlEstado)
         {
             Nome = xmlEstado.Element(nameof(Nome)).Value;
             Sigla = xmlEstado.Element(nameof(Sigla)).Value;
-            Codigo = byte.Parse(xmlEstado.Element(nameof(Codigo)).Value);
+            Codigo = ushort.Parse(xmlEstado.Element(nameof(Codigo)).Value);
         }
 
         public override bool Equals(object obj)

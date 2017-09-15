@@ -425,15 +425,15 @@
                     </StackPanel>
                 </PivotItem>
                 <PivotItem Header="Veículo">
-                    <ItemsControl Style="{StaticResource ItensResponsivos}">
-                        <TextBox Text="{x:Bind NotaSalva.Informacoes.transp.VeicTransp.Placa, Mode=TwoWay}"
+                    <ItemsControl x:Name="ctrPaiVeiculo" Style="{StaticResource ItensResponsivos}">
+                        <TextBox Text="{Binding Placa, Mode=TwoWay}"
                                  Header="Placa" />
                         <ComboBox ItemsSource="{Binding Source={StaticResource estados}, Path=Siglas}"
-                                  SelectedItem="{x:Bind Path=NotaSalva.Informacoes.transp.VeicTransp.UF, Mode=TwoWay}"
+                                  SelectedItem="{Binding UF, Mode=TwoWay}"
                                   Header="Estado"
                                   HorizontalAlignment="Stretch" />
                         <TextBox Header="RNTC"
-                                 Text="{x:Bind NotaSalva.Informacoes.transp.VeicTransp.RNTC, Mode=TwoWay}" />
+                                 Text="{Binding RNTC, Mode=TwoWay}" />
                         <TextBox Text="{x:Bind NotaSalva.Informacoes.transp.Balsa, Mode=TwoWay}"
                                  Header="Identificação da balsa" />
                         <TextBox Text="{x:Bind NotaSalva.Informacoes.transp.Vagao, Mode=TwoWay}"

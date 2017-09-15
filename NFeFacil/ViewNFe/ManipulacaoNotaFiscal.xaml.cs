@@ -188,7 +188,7 @@ namespace NFeFacil.ViewNFe
 
         void AtualizarVeiculo()
         {
-            throw new NotImplementedException();
+            ctrPaiVeiculo.DataContext = NotaSalva.Informacoes.transp.VeicTransp;
         }
 
         #endregion

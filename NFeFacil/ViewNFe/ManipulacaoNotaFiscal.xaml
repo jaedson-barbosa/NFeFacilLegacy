@@ -248,7 +248,7 @@
             </ListView>
         </Grid>
         <ScrollViewer Padding="16">
-            <Pivot DataContext="{Binding NotaSalva.Informações.total}">
+            <Pivot x:Name="pvtTotais">
                 <PivotItem Header="ICMS">
                     <ItemsControl DataContext="{Binding ICMSTot}"
                                   Style="{StaticResource ItensResponsivos}">

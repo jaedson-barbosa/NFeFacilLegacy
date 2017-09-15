@@ -85,6 +85,7 @@ namespace NFeFacil.ViewNFe
 
             Produtos = new ObservableCollection<DetalhesProdutos>(NotaSalva.Informações.produtos);
 
+            AtualizarTotais();
             Analisador = new AnalisadorNFe(NotaSalva);
             OperacoesNota = new OperacoesNotaSalva(Log);
         }
@@ -361,6 +362,12 @@ namespace NFeFacil.ViewNFe
         {
             NotaSalva.Informações.produtos.Remove(produto);
             Produtos.Remove(produto);
+            AtualizarTotais();
+        }
+
+        void AtualizarTotais()
+        {
+            pvtTotais.DataContext = NotaSalva.Informações.total;
         }
 
         async void AdicionarNFeReferenciada()

@@ -25,20 +25,20 @@
                 <ScrollViewer>
                     <ItemsControl Style="{StaticResource ItensResponsivos}">
                         <DatePicker Header="Data de emissão"
-                                    Date="{Binding DataEmissao, Mode=TwoWay}" />
+                                    Date="{x:Bind DataEmissao, Mode=TwoWay}" />
                         <TimePicker Header="Hora de emissão"
-                                    Time="{Binding HoraEmissao, Mode=TwoWay}" />
+                                    Time="{x:Bind HoraEmissao, Mode=TwoWay}" />
                         <DatePicker Header="Data de saída/entrada"
-                                    Date="{Binding DataSaidaEntrada, Mode=TwoWay}" />
+                                    Date="{x:Bind DataSaidaEntrada, Mode=TwoWay}" />
                         <TimePicker Header="Hora de saída/entrada"
-                                    Time="{Binding HoraSaidaEntrada, Mode=TwoWay}" />
+                                    Time="{x:Bind HoraSaidaEntrada, Mode=TwoWay}" />
                         <ComboBox Header="Tipo de operação *"
-                                  SelectedIndex="{Binding NotaSalva.Informações.identificação.TipoOperação, Mode=TwoWay}">
+                                  SelectedIndex="{x:Bind NotaSalva.Informações.identificação.TipoOperação, Mode=TwoWay}">
                             <ComboBoxItem Content="Entrada" />
                             <ComboBoxItem Content="Saída" />
                         </ComboBox>
                         <ComboBox Header="Finalidade de emissão *"
-                                  SelectedValue="{Binding NotaSalva.Informações.identificação.FinalidadeEmissão, Mode=TwoWay, Converter={StaticResource numStr}}"
+                                  SelectedValue="{x:Bind NotaSalva.Informações.identificação.FinalidadeEmissão, Mode=TwoWay, Converter={StaticResource numStr}}"
                                   SelectedValuePath="Tag">
                             <ComboBoxItem Tag='1'>Normal</ComboBoxItem>
                             <ComboBoxItem Tag='2'>Complementar</ComboBoxItem>
@@ -46,25 +46,25 @@
                             <ComboBoxItem Tag='4'>Devolução de mercadoria</ComboBoxItem>
                         </ComboBox>
                         <ComboBox Header="Consumidor final *"
-                                  SelectedIndex="{Binding NotaSalva.Informações.identificação.OperaçãoConsumidorFinal, Mode=TwoWay}">
+                                  SelectedIndex="{x:Bind NotaSalva.Informações.identificação.OperaçãoConsumidorFinal, Mode=TwoWay}">
                             <ComboBoxItem Content="Não" />
                             <ComboBoxItem Content="Sim" />
                         </ComboBox>
                         <ComboBox Header="Tipo de atendimento *"
-                                  SelectedIndex="{Binding NotaSalva.Informações.identificação.IndicadorPresença, Mode=TwoWay}">
+                                  SelectedIndex="{x:Bind NotaSalva.Informações.identificação.IndicadorPresença, Mode=TwoWay}">
                             <ComboBoxItem Content="Não se aplica" />
                             <ComboBoxItem Content="Presencial" />
                             <ComboBoxItem Content="Não presencial - Internet" />
                             <ComboBoxItem Content="Não presencial - Teleatendimento" />
                         </ComboBox>
                         <ComboBox Header="Forma de pagamento *"
-                                  SelectedIndex="{Binding NotaSalva.Informações.identificação.FormaPagamento, Mode=TwoWay}">
+                                  SelectedIndex="{x:Bind NotaSalva.Informações.identificação.FormaPagamento, Mode=TwoWay}">
                             <ComboBoxItem Content="Pagamento à vista" />
                             <ComboBoxItem Content="Pagamento a prazo" />
                             <ComboBoxItem Content="Outros" />
                         </ComboBox>
                         <ComboBox Header="Destino da operação *"
-                                  SelectedValue="{Binding NotaSalva.Informações.identificação.IdentificadorDestino, Mode=TwoWay, Converter={StaticResource numStr}}"
+                                  SelectedValue="{x:Bind NotaSalva.Informações.identificação.IdentificadorDestino, Mode=TwoWay, Converter={StaticResource numStr}}"
                                   SelectedValuePath="Tag">
                             <ComboBoxItem Tag="1"
                                           Content="Operação interna" />
@@ -74,23 +74,23 @@
                                           Content="Operação com o exterior" />
                         </ComboBox>
                         <TextBox Header="Natureza da operação *"
-                                 Text="{Binding NotaSalva.Informações.identificação.NaturezaDaOperação, Mode=TwoWay}" />
+                                 Text="{x:Bind NotaSalva.Informações.identificação.NaturezaDaOperação, Mode=TwoWay}" />
                         <ComboBox Header="Estado *"
                                   ItemsSource="{Binding Source={StaticResource estados}, Path=EstadosCompletos}"
-                                  SelectedValue="{Binding Path=EstadoIdentificacao, Mode=TwoWay}"
+                                  SelectedValue="{x:Bind EstadoIdentificacao, Mode=TwoWay}"
                                   SelectedValuePath="Codigo"
                                   DisplayMemberPath="Nome"
                                   PlaceholderText="Estado" />
                         <ComboBox Header="Município *"
                                   DisplayMemberPath="Nome"
-                                  ItemsSource="{Binding MunicipiosIdentificacao}"
-                                  SelectedValue="{Binding NotaSalva.Informações.identificação.CodigoMunicípio, Mode=TwoWay}"
+                                  ItemsSource="{x:Bind MunicipiosIdentificacao}"
+                                  SelectedValue="{x:Bind NotaSalva.Informações.identificação.CodigoMunicípio, Mode=TwoWay}"
                                   SelectedValuePath="Codigo" />
                     </ItemsControl>
                 </ScrollViewer>
             </PivotItem>
             <PivotItem Header="NF-es referenciadas">
-                <ListView ItemsSource="{Binding NFesReferenciadas}"
+                <ListView ItemsSource="{x:Bind NFesReferenciadas}"
                           ItemContainerStyle="{StaticResource ItemFullWidth}">
                     <ListView.Header>
                         <Grid Style="{StaticResource Cabecalho}">
@@ -101,9 +101,9 @@
                             <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
                                        VerticalAlignment="Center"
                                        TextAlignment="Center">Referência</TextBlock>
-                            <Button Command="{Binding AdicionarNFeReferenciadaCommand}"
-                                    Style="{StaticResource BotaoAdd}"
-                                    Grid.Column="1">
+                            <Button Style="{StaticResource BotaoAdd}"
+                                    Grid.Column="1"
+                                    Click="AdicionarNFeReferenciada">
                                 <SymbolIcon Symbol="Add" />
                             </Button>
                         </Grid>
@@ -113,8 +113,7 @@
                             <TextBlock Text="{Binding RefNFe}">
                                 <TextBlock.ContextFlyout>
                                     <MenuFlyout>
-                                        <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.RemoverDocReferenciadoCommand}"
-                                                        CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Remover</MenuFlyoutItem>
+                                        <MenuFlyoutItem Click="RemoverDocReferenciado">Remover</MenuFlyoutItem>
                                     </MenuFlyout>
                                 </TextBlock.ContextFlyout></TextBlock>
                         </DataTemplate>
@@ -122,7 +121,7 @@
                 </ListView>
             </PivotItem>
             <PivotItem Header="Notas 1/1A referenciadas">
-                <ListView ItemsSource="{Binding NFsReferenciadas}"
+                <ListView ItemsSource="{x:Bind NFsReferenciadas}"
                           ItemContainerStyle="{StaticResource ItemFullWidth}">
                     <ListView.Header>
                         <Grid Style="{StaticResource Cabecalho}">
@@ -144,8 +143,8 @@
                                        VerticalAlignment="Center"
                                        Grid.Column="2">Numero</TextBlock>
                             <Button Grid.Column="3"
-                                    Command="{Binding AdicionarNFReferenciadaCommand}"
-                                    Style="{StaticResource BotaoAdd}">
+                                    Style="{StaticResource BotaoAdd}"
+                                    Click="AdicionarNFReferenciada">
                                 <SymbolIcon Symbol="Add" />
                             </Button>
                         </Grid>
@@ -160,8 +159,7 @@
                                 </Grid.ColumnDefinitions>
                                 <Grid.ContextFlyout>
                                     <MenuFlyout>
-                                        <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.RemoverDocReferenciadoCommand}"
-                                                        CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Remover</MenuFlyoutItem>
+                                        <MenuFlyoutItem Click="RemoverDocReferenciado">Remover</MenuFlyoutItem>
                                     </MenuFlyout>
                                 </Grid.ContextFlyout>
                                 <TextBlock Text="{Binding RefNF.CNPJ}" />

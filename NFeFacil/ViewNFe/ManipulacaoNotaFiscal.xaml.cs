@@ -18,6 +18,7 @@ using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
+using Windows.UI.Xaml;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -531,6 +532,22 @@ namespace NFeFacil.ViewNFe
             mensagem.Commands.Add(new UICommand("Cancelar", x => retorno = false));
             await mensagem.ShowAsync();
             return retorno;
+        }
+
+        private void AdicionarNFeReferenciada(object sender, RoutedEventArgs e)
+        {
+            AdicionarNFeReferenciada();
+        }
+
+        private void RemoverDocReferenciado(object sender, RoutedEventArgs e)
+        {
+            var contexto = ((FrameworkElement)sender).DataContext;
+            RemoverDocReferenciado((DocumentoFiscalReferenciado)contexto);
+        }
+
+        private void AdicionarNFReferenciada(object sender, RoutedEventArgs e)
+        {
+            AdicionarNFReferenciada();
         }
     }
 }

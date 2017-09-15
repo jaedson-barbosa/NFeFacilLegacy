@@ -728,34 +728,34 @@
                 <ScrollViewer>
                     <ItemsControl Style="{StaticResource ItensResponsivos}">
                         <TextBox Header="Safra"
-                                 Text="{Binding NotaSalva.Informações.cana.Safra, Mode=TwoWay}" />
+                                 Text="{x:Bind NotaSalva.Informações.cana.Safra, Mode=TwoWay}" />
                         <DatePicker DayVisible="False"
-                                    Date="{Binding NotaSalva.Informações.cana.Referencia, ConverterParameter='MM/yyyy', Converter={StaticResource data}, Mode=TwoWay}"
+                                    Date="{x:Bind NotaSalva.Informações.cana.Referencia, ConverterParameter='MM/yyyy', Converter={StaticResource data}, Mode=TwoWay}"
                                     Header="Mês e ano de referência" />
                         <controles:EntradaNumerica Format="11:10"
                                                    Header="Quant. total do mês"
-                                                   Number="{Binding NotaSalva.Informações.cana.QTotMes, Mode=TwoWay}" />
+                                                   Number="{x:Bind NotaSalva.Informações.cana.QTotMes, Mode=TwoWay}" />
                         <controles:EntradaNumerica Format="11:10"
                                                    Header="Quant. total anterior"
-                                                   Number="{Binding NotaSalva.Informações.cana.QTotAnt, Mode=TwoWay}" />
+                                                   Number="{x:Bind NotaSalva.Informações.cana.QTotAnt, Mode=TwoWay}" />
                         <controles:EntradaNumerica Format="11:10"
                                                    Header="Quant. total geral"
-                                                   Number="{Binding NotaSalva.Informações.cana.QTotGer, Mode=TwoWay}" />
+                                                   Number="{x:Bind NotaSalva.Informações.cana.QTotGer, Mode=TwoWay}" />
                         <controles:EntradaNumerica Format="13:2"
                                                    Header="Valor dos fornecimentos"
-                                                   Number="{Binding NotaSalva.Informações.cana.VFor, Mode=TwoWay}" />
+                                                   Number="{x:Bind NotaSalva.Informações.cana.VFor, Mode=TwoWay}" />
                         <controles:EntradaNumerica Format="13:2"
                                                    Header="Valor total da dedução"
-                                                   Number="{Binding NotaSalva.Informações.cana.VTotDed, Mode=TwoWay}" />
+                                                   Number="{x:Bind NotaSalva.Informações.cana.VTotDed, Mode=TwoWay}" />
                         <controles:EntradaNumerica Format="13:2"
                                                    Header="Valor líquido dos fornecimentos"
-                                                   Number="{Binding NotaSalva.Informações.cana.VLiqFor, Mode=TwoWay}" />
+                                                   Number="{x:Bind NotaSalva.Informações.cana.VLiqFor, Mode=TwoWay}" />
                     </ItemsControl>
                 </ScrollViewer>
             </PivotItem>
             <PivotItem Header="Fornecimento diário de cana">
                 <ListView Margin="0,8,0,0"
-                          ItemsSource="{Binding NotaSalva.Informações.cana.ForDia, Converter={StaticResource getObs}}"
+                          ItemsSource="{x:Bind FornecimentosDiarios}"
                           ItemContainerStyle="{StaticResource ItemFullWidth}">
                     <ListView.Header>
                         <Grid Style="{StaticResource Cabecalho}">
@@ -773,7 +773,7 @@
                                        Grid.Column="1">Quantidade</TextBlock>
                             <Button Style="{StaticResource BotaoAdd}"
                                     Grid.Column="2"
-                                    Command="{Binding AdicionarFornecimentoCommand}">
+                                    Click="AdicionarFornecimento">
                                 <SymbolIcon Symbol="Add" />
                             </Button>
                         </Grid>
@@ -783,9 +783,7 @@
                             <Grid>
                                 <Grid.ContextFlyout>
                                     <MenuFlyout>
-                                        <MenuFlyoutItem Text="Remover"
-                                                        Command="{Binding ElementName=root, Path=DataContext.RemoverFornecimentoCommand}"
-                                                        CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}" />
+                                        <MenuFlyoutItem Click="RemoverFornecimento">Remover</MenuFlyoutItem>
                                     </MenuFlyout>
                                 </Grid.ContextFlyout>
                                 <Grid.ColumnDefinitions>
@@ -802,7 +800,7 @@
             </PivotItem>
             <PivotItem Header="Deduções">
                 <ListView Margin="0,8,0,0"
-                          ItemsSource="{Binding NotaSalva.Informações.cana.Deduc, Converter={StaticResource getObs}}"
+                          ItemsSource="{x:Bind Deducoes}"
                           ItemContainerStyle="{StaticResource ItemFullWidth}">
                     <ListView.Header>
                         <Grid Style="{StaticResource Cabecalho}">
@@ -820,7 +818,7 @@
                                        Grid.Column="1">Valor</TextBlock>
                             <Button Style="{StaticResource BotaoAdd}"
                                     Grid.Column="2"
-                                    Command="{Binding AdicionarDeducaoCommand}">
+                                    Click="AdicionarDeducao">
                                 <SymbolIcon Symbol="Add" />
                             </Button>
                         </Grid>
@@ -830,9 +828,7 @@
                             <Grid>
                                 <Grid.ContextFlyout>
                                     <MenuFlyout>
-                                        <MenuFlyoutItem Text="Remover"
-                                                        Command="{Binding ElementName=root, Path=DataContext.RemoverDeducaoCommand}"
-                                                        CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}" />
+                                        <MenuFlyoutItem Click="RemoverDeducao">Remover</MenuFlyoutItem>
                                     </MenuFlyout>
                                 </Grid.ContextFlyout>
                                 <Grid.ColumnDefinitions>

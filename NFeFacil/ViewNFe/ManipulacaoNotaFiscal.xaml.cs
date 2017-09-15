@@ -630,5 +630,27 @@ namespace NFeFacil.ViewNFe
             var contexto = ((FrameworkElement)sender).DataContext;
             RemoverProcReferenciado((ProcessoReferenciado)contexto);
         }
+
+        private void AdicionarFornecimento(object sender, RoutedEventArgs e)
+        {
+            AdicionarFornecimento();
+        }
+
+        private void RemoverFornecimento(object sender, RoutedEventArgs e)
+        {
+            var contexto = ((FrameworkElement)sender).DataContext;
+            RemoverFornecimento((FornecimentoDiario)contexto);
+        }
+
+        private void AdicionarDeducao(object sender, RoutedEventArgs e)
+        {
+            AdicionarDeducao();
+        }
+
+        private void RemoverDeducao(object sender, RoutedEventArgs e)
+        {
+            var contexto = ((FrameworkElement)sender).DataContext;
+            RemoverDeducao((Deducoes)contexto);
+        }
     }
 }

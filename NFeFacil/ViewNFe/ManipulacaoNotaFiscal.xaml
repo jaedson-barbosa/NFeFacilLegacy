@@ -546,22 +546,22 @@
         <Pivot Margin="16">
             <PivotItem Header="Fatura">
                 <ItemsControl Style="{StaticResource ItensResponsivos}">
-                    <TextBox Text="{Binding NotaSalva.Informações.cobr.Fat.NFat, Mode=TwoWay}"
+                    <TextBox Text="{x:Bind NotaSalva.Informações.cobr.Fat.NFat, Mode=TwoWay}"
                              Header="Número" />
                     <controles:EntradaNumerica Format="13:2"
-                                               Number="{Binding NotaSalva.Informações.cobr.Fat.VOrig, Mode=TwoWay}"
+                                               Number="{x:Bind NotaSalva.Informações.cobr.Fat.VOrig, Mode=TwoWay}"
                                                Header="Valor original" />
                     <controles:EntradaNumerica Format="13:2"
-                                               Number="{Binding NotaSalva.Informações.cobr.Fat.VDesc, Mode=TwoWay}"
+                                               Number="{x:Bind NotaSalva.Informações.cobr.Fat.VDesc, Mode=TwoWay}"
                                                Header="Valor do desconto" />
                     <controles:EntradaNumerica Format="13:2"
-                                               Number="{Binding NotaSalva.Informações.cobr.Fat.VLiq, Mode=TwoWay}"
+                                               Number="{x:Bind NotaSalva.Informações.cobr.Fat.VLiq, Mode=TwoWay}"
                                                Header="Valor líquido" />
                 </ItemsControl>
             </PivotItem>
             <PivotItem Header="Duplicatas">
                 <ListView Margin="0,8,0,0"
-                          ItemsSource="{Binding NotaSalva.Informações.cobr.Dup, Converter={StaticResource getObs}}"
+                          ItemsSource="{x:Bind Duplicatas}"
                           ItemContainerStyle="{StaticResource ItemFullWidth}">
                     <ListView.Header>
                         <Grid Style="{StaticResource Cabecalho}">
@@ -574,7 +574,7 @@
                                        VerticalAlignment="Center">Numero da duplicata</TextBlock>
                             <Button Grid.Column="1"
                                     Style="{StaticResource BotaoAdd}"
-                                    Command="{Binding AdicionarDuplicataCommand}">
+                                    Click="AdicionarDuplicata">
                                 <SymbolIcon Symbol="Add" />
                             </Button>
                         </Grid>
@@ -584,8 +584,7 @@
                             <Grid>
                                 <Grid.ContextFlyout>
                                     <MenuFlyout>
-                                        <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.RemoverDuplicataCommand}"
-                                                        CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Remover</MenuFlyoutItem>
+                                        <MenuFlyoutItem Click="RemoverDuplicata">Remover</MenuFlyoutItem>
                                     </MenuFlyout>
                                 </Grid.ContextFlyout>
                                 <TextBlock Text="{Binding NDup, Mode=OneTime}" />

@@ -597,5 +597,16 @@ namespace NFeFacil.ViewNFe
             var contexto = ((FrameworkElement)sender).DataContext;
             RemoverVolume((Volume)contexto);
         }
+
+        private void AdicionarDuplicata(object sender, RoutedEventArgs e)
+        {
+            AdicionarDuplicata();
+        }
+
+        private void RemoverDuplicata(object sender, RoutedEventArgs e)
+        {
+            var contexto = ((FrameworkElement)sender).DataContext;
+            RemoverDuplicata((Duplicata)contexto);
+        }
     }
 }

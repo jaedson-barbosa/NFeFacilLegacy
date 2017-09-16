@@ -36,19 +36,25 @@ namespace NFeFacil.ViewNFe
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            MainPage.Current.SeAtualizar(Symbol.View, "Visualizar NFe");
             ItemBanco = (NFeDI)e.Parameter;
             var xml = XElement.Parse(ItemBanco.XML);
+            List<PropriedadeHierárquica> propriedades;
             if (ItemBanco.Status < (int)StatusNFe.Emitida)
             {
-                ObjetoItemBanco = xml.FromXElement<NFe>();
+                var nfe = xml.FromXElement<NFe>();
+                ObjetoItemBanco = nfe;
+                propriedades = ObterPropriedades(nfe.Informacoes);
             }
             else
             {
-                ObjetoItemBanco = xml.FromXElement<Processo>();
+                var processo = xml.FromXElement<Processo>();
+                ObjetoItemBanco = processo;
+                propriedades = ObterPropriedades(processo.NFe.Informacoes);
             }
-            var propriedades = ObterPropriedades(ObjetoItemBanco);
             var linear = PropriedadeHierarquicaToLinear(propriedades, 0);
             linear.ForEach(x => AdicionarCampo(x.Texto, (EstilosTexto)x.Profundidade, x.Complementar));
+            AtualizarBotoesComando();
         }
 
         List<PropriedadeHierárquica> ObterPropriedades(object obj)
@@ -261,6 +267,7 @@ namespace NFeFacil.ViewNFe
         {
             ItemBanco.Status = (int)StatusNFe.Salva;
             AtualizarDI();
+            AtualizarBotoesComando();
             Log.Escrever(TitulosComuns.Sucesso, "Nota fiscal salva com sucesso.");
         }
 
@@ -272,8 +279,9 @@ namespace NFeFacil.ViewNFe
             {
                 ItemBanco.Status = (int)StatusNFe.Assinada;
                 AtualizarDI();
+                AtualizarBotoesComando();
+                Log.Escrever(TitulosComuns.Sucesso, "Nota fiscal assinada com sucesso.");
             }
-            Log.Escrever(TitulosComuns.Sucesso, "Nota fiscal assinada com sucesso.");
         }
 
         private async void Transmitir(object sender, RoutedEventArgs e)
@@ -290,6 +298,7 @@ namespace NFeFacil.ViewNFe
                 };
                 ItemBanco.Status = (int)StatusNFe.Emitida;
                 AtualizarDI();
+                AtualizarBotoesComando();
             }
         }
 
@@ -299,6 +308,7 @@ namespace NFeFacil.ViewNFe
             MainPage.Current.Navegar<DANFE.ViewDANFE>(processo);
             ItemBanco.Impressa = true;
             AtualizarDI();
+            AtualizarBotoesComando();
         }
 
         private async void Exportar(object sender, RoutedEventArgs e)
@@ -357,6 +367,48 @@ namespace NFeFacil.ViewNFe
             catch (Exception e)
             {
                 e.ManipularErro();
+            }
+        }
+
+        void AtualizarBotoesComando()
+        {
+            switch ((StatusNFe)ItemBanco.Status)
+            {
+                case StatusNFe.Validada:
+                    btnEditar.IsEnabled = true;
+                    btnSalvar.IsEnabled = false;
+                    btnAssinar.IsEnabled = false;
+                    btnTransmitir.IsEnabled = false;
+                    btnImprimir.IsEnabled = false;
+                    break;
+                case StatusNFe.Salva:
+                    btnEditar.IsEnabled = true;
+                    btnSalvar.IsEnabled = false;
+                    btnAssinar.IsEnabled = true;
+                    btnTransmitir.IsEnabled = false;
+                    btnImprimir.IsEnabled = false;
+                    break;
+                case StatusNFe.Assinada:
+                    btnEditar.IsEnabled = true;
+                    btnSalvar.IsEnabled = false;
+                    btnAssinar.IsEnabled = false;
+                    btnTransmitir.IsEnabled = true;
+                    btnImprimir.IsEnabled = false;
+                    break;
+                case StatusNFe.Emitida:
+                    btnEditar.IsEnabled = false;
+                    btnSalvar.IsEnabled = false;
+                    btnAssinar.IsEnabled = false;
+                    btnTransmitir.IsEnabled = false;
+                    btnImprimir.IsEnabled = true;
+                    break;
+                case StatusNFe.Cancelada:
+                    btnEditar.IsEnabled = false;
+                    btnSalvar.IsEnabled = false;
+                    btnAssinar.IsEnabled = false;
+                    btnTransmitir.IsEnabled = false;
+                    btnImprimir.IsEnabled = false;
+                    break;
             }
         }
     }

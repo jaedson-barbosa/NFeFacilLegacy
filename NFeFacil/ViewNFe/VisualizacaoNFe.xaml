@@ -35,7 +35,7 @@
                 </AppBarButton.Icon>
             </AppBarButton>
             <CommandBar.SecondaryCommands>
-                <AppBarButton x:Name="btnExportarXML" Label="Exportar XML"
+                <AppBarButton Label="Exportar XML"
                               Command="{Binding ExportarXMLCommand}"
                               Click="Exportar">
                     <AppBarButton.Icon>

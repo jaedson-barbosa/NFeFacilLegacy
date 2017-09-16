@@ -705,6 +705,11 @@ namespace NFeFacil.ViewNFe
             {
                 NotaSalva.Informacoes.Retirada = null;
             }
+
+            if (controle.IsOn && NotaSalva.Informacoes.Retirada == null)
+            {
+                controle.IsOn = false;
+            }
         }
 
         private async void AlterarEnderecoEntrega(object sender, RoutedEventArgs e)
@@ -737,6 +742,11 @@ namespace NFeFacil.ViewNFe
             else
             {
                 NotaSalva.Informacoes.Entrega = null;
+            }
+
+            if (controle.IsOn && NotaSalva.Informacoes.Entrega == null)
+            {
+                controle.IsOn = false;
             }
         }
     }

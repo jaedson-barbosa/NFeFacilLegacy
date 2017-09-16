@@ -65,27 +65,28 @@ namespace NFeFacil.View.Controles
         {
             get
             {
-                var retorno = (double)GetValue(NumberProperty);
+                var retorno = (double)Convert.ChangeType(GetValue(NumberProperty), typeof(double));
                 return retorno;
             }
             set
             {
-                var texto = DefinirTexto(value);
+                var texto = DefinirTexto(value, value);
                 var parseado = double.Parse(texto, culturaPadrao);
-                SetValue(NumberProperty, parseado);
+                
+                SetValue(NumberProperty, Convert.ChangeType(parseado, GetValue(NumberProperty).GetType()));
             }
         }
 
-        public string DefinirTexto(double value)
+        public string DefinirTexto(IConvertible value0, IFormattable value1)
         {
             string texto;
             if (string.IsNullOrEmpty(formatoProcessado))
             {
-                texto = value.ToString(culturaPadrao);
+                texto = value0.ToString(culturaPadrao);
             }
             else
             {
-                texto = value.ToString(formatoProcessado, culturaPadrao);
+                texto = value1.ToString(formatoProcessado, culturaPadrao);
             }
             txtNumber.Text = texto;
             return texto;
@@ -98,7 +99,7 @@ namespace NFeFacil.View.Controles
         static void NumeroMudou(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
             var input = (EntradaNumerica)sender;
-            input.DefinirTexto((double)args.NewValue);
+            input.DefinirTexto((IConvertible)args.NewValue, (IFormattable)args.NewValue);
         }
 
         public EntradaNumerica()

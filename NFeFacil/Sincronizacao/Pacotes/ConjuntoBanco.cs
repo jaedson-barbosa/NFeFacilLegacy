@@ -1,10 +1,12 @@
-﻿using NFeFacil.ItensBD;
+﻿using Microsoft.EntityFrameworkCore;
+using NFeFacil.ItensBD;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace NFeFacil.Sincronizacao.Pacotes
 {
-    public sealed class ConjuntoBanco : IPacote
+    public struct ConjuntoBanco : IPacote
     {
         public List<ClienteDI> Clientes { get; set; }
         public List<EmitenteDI> Emitentes { get; set; }
@@ -26,13 +28,31 @@ namespace NFeFacil.Sincronizacao.Pacotes
             Motoristas = db.Motoristas.ToList();
             Vendedores = db.Vendedores.ToList();
             Produtos = db.Produtos.ToList();
-            Estoque = db.Estoque.ToList();
+            Estoque = db.Estoque.Include(x => x.Alteracoes).ToList();
             Veiculos = db.Veiculos.ToList();
             NotasFiscais = db.NotasFiscais.ToList();
-            Vendas = db.Vendas.ToList();
+            Vendas = db.Vendas.Include(x => x.Produtos).ToList();
             Cancelamentos = db.Cancelamentos.ToList();
             CancelamentosRegistroVenda = db.CancelamentosRegistroVenda.ToList();
             Imagens = db.Imagens.ToList();
+        }
+
+        public ConjuntoBanco(AplicativoContext db, DateTime minimo)
+        {
+            if (minimo.Ticks > 10) minimo = minimo.AddSeconds(-10);
+
+            Clientes = db.Clientes.Where(x => x.UltimaData > minimo).ToList();
+            Emitentes = db.Emitentes.Where(x => x.UltimaData > minimo).ToList();
+            Motoristas = db.Motoristas.Where(x => x.UltimaData > minimo).ToList();
+            Vendedores = db.Vendedores.Where(x => x.UltimaData > minimo).ToList();
+            Produtos = db.Produtos.Where(x => x.UltimaData > minimo).ToList();
+            Estoque = db.Estoque.Include(x => x.Alteracoes).Where(x => x.UltimaData > minimo).ToList();
+            Veiculos = db.Veiculos.ToList();
+            NotasFiscais = db.NotasFiscais.Where(x => x.UltimaData > minimo).ToList();
+            Vendas = db.Vendas.Include(x => x.Produtos).ToList();
+            Cancelamentos = db.Cancelamentos.ToList();
+            CancelamentosRegistroVenda = db.CancelamentosRegistroVenda.ToList();
+            Imagens = db.Imagens.Where(x => x.UltimaData > minimo).ToList();
         }
 
         public ConjuntoBanco(ConjuntoBanco existente, AplicativoContext db)
@@ -62,7 +82,7 @@ namespace NFeFacil.Sincronizacao.Pacotes
                         where servidor == null || servidor.UltimaData < local.UltimaData
                         select local).ToList();
 
-            Estoque = (from local in db.Estoque
+            Estoque = (from local in db.Estoque.Include(x => x.Alteracoes)
                        let servidor = existente.Estoque.FirstOrDefault(x => x.Id == local.Id)
                        where servidor == null || servidor.UltimaData < local.UltimaData
                        select local).ToList();
@@ -77,7 +97,7 @@ namespace NFeFacil.Sincronizacao.Pacotes
                             where servidor == null || servidor.UltimaData < local.UltimaData
                             select local).ToList();
 
-            Vendas = (from local in db.Vendas
+            Vendas = (from local in db.Vendas.Include(x => x.Produtos)
                       let servidor = existente.Vendas.FirstOrDefault(x => x.Id == local.Id)
                       where servidor == null || (!servidor.Cancelado && local.Cancelado)
                       select local).ToList();
@@ -94,6 +114,171 @@ namespace NFeFacil.Sincronizacao.Pacotes
                        let servidor = existente.Imagens.FirstOrDefault(x => x.Id == local.Id)
                        where servidor == null || servidor.UltimaData < local.UltimaData
                        select local).ToList();
+        }
+
+        public void AnalisarESalvar(AplicativoContext db)
+        {
+            List<object> Adicionar = new List<object>();
+            List<object> Atualizar = new List<object>();
+
+            for (int i = 0; i < Clientes.Count; i++)
+            {
+                var novo = Clientes[i];
+                var atual = db.Clientes.FirstOrDefault(x => x.Id == novo.Id);
+                if (atual == null)
+                {
+                    Adicionar.Add(novo);
+                }
+                else if (novo.UltimaData > atual.UltimaData)
+                {
+                    Atualizar.Add(novo);
+                }
+            }
+
+            for (int i = 0; i < Emitentes.Count; i++)
+            {
+                var novo = Emitentes[i];
+                var atual = db.Emitentes.FirstOrDefault(x => x.Id == novo.Id);
+                if (atual == null)
+                {
+                    Adicionar.Add(novo);
+                }
+                else if (novo.UltimaData > atual.UltimaData)
+                {
+                    Atualizar.Add(novo);
+                }
+            }
+
+            for (int i = 0; i < Motoristas.Count; i++)
+            {
+                var novo = Motoristas[i];
+                var atual = db.Motoristas.FirstOrDefault(x => x.Id == novo.Id);
+                if (atual == null)
+                {
+                    Adicionar.Add(novo);
+                }
+                else if (novo.UltimaData > atual.UltimaData)
+                {
+                    Atualizar.Add(novo);
+                }
+            }
+
+            for (int i = 0; i < Vendedores.Count; i++)
+            {
+                var novo = Vendedores[i];
+                var atual = db.Vendedores.FirstOrDefault(x => x.Id == novo.Id);
+                if (atual == null)
+                {
+                    Adicionar.Add(novo);
+                }
+                else if (novo.UltimaData > atual.UltimaData)
+                {
+                    Atualizar.Add(novo);
+                }
+            }
+
+            for (int i = 0; i < Produtos.Count; i++)
+            {
+                var novo = Produtos[i];
+                var atual = db.Produtos.FirstOrDefault(x => x.Id == novo.Id);
+                if (atual == null)
+                {
+                    Adicionar.Add(novo);
+                }
+                else if (novo.UltimaData > atual.UltimaData)
+                {
+                    Atualizar.Add(novo);
+                }
+            }
+
+            for (int i = 0; i < Estoque.Count; i++)
+            {
+                var novo = Estoque[i];
+                var atual = db.Estoque.FirstOrDefault(x => x.Id == novo.Id);
+                if (atual == null)
+                {
+                    Adicionar.Add(novo);
+                }
+                else if (novo.UltimaData > atual.UltimaData)
+                {
+                    Atualizar.Add(novo);
+                }
+            }
+
+            for (int i = 0; i < Veiculos.Count; i++)
+            {
+                var novo = Veiculos[i];
+                var atual = db.Veiculos.FirstOrDefault(x => x.Id == novo.Id);
+                if (atual == null)
+                {
+                    Adicionar.Add(novo);
+                }
+            }
+
+            for (int i = 0; i < NotasFiscais.Count; i++)
+            {
+                var novo = NotasFiscais[i];
+                var atual = db.NotasFiscais.FirstOrDefault(x => x.Id == novo.Id);
+                if (atual == null)
+                {
+                    Adicionar.Add(novo);
+                }
+                else if (novo.UltimaData > atual.UltimaData)
+                {
+                    Atualizar.Add(novo);
+                }
+            }
+
+            for (int i = 0; i < Vendas.Count; i++)
+            {
+                var novo = Vendas[i];
+                var atual = db.Vendas.FirstOrDefault(x => x.Id == novo.Id);
+                if (atual == null)
+                {
+                    Adicionar.Add(novo);
+                }
+                else if (novo.Cancelado && !atual.Cancelado)
+                {
+                    Atualizar.Add(novo);
+                }
+            }
+
+            for (int i = 0; i < Cancelamentos.Count; i++)
+            {
+                var novo = Cancelamentos[i];
+                var atual = db.Cancelamentos.FirstOrDefault(x => x.ChaveNFe == novo.ChaveNFe);
+                if (atual == null)
+                {
+                    Adicionar.Add(novo);
+                }
+            }
+
+            for (int i = 0; i < CancelamentosRegistroVenda.Count; i++)
+            {
+                var novo = CancelamentosRegistroVenda[i];
+                var atual = db.CancelamentosRegistroVenda.FirstOrDefault(x => x.Id == novo.Id);
+                if (atual == null)
+                {
+                    Adicionar.Add(novo);
+                }
+            }
+
+            for (int i = 0; i < Imagens.Count; i++)
+            {
+                var novo = Imagens[i];
+                var atual = db.Imagens.FirstOrDefault(x => x.Id == novo.Id);
+                if (atual == null)
+                {
+                    Adicionar.Add(novo);
+                }
+                else if (novo.UltimaData > atual.UltimaData)
+                {
+                    Atualizar.Add(novo);
+                }
+            }
+
+            db.AddRange(Adicionar);
+            db.UpdateRange(Atualizar);
         }
     }
 }

@@ -305,10 +305,8 @@
     <Compile Include="Sincronizacao\Pacotes\InfoSegurancaConexao.cs" />
     <Compile Include="Sincronizacao\Pacotes\IPacote.cs" />
     <Compile Include="Sincronizacao\Servidor\ControllerInformacoes.cs" />
-    <Compile Include="Sincronizacao\Servidor\ControllerSincronizacaoDadosBase.cs" />
-    <Compile Include="Sincronizacao\Servidor\ControllerSincronizacaoNotas.cs" />
+    <Compile Include="Sincronizacao\Servidor\ControllerSincronizacao.cs" />
     <Compile Include="Sincronizacao\Servidor\SenhaErrada.cs" />
-    <Compile Include="Sincronizacao\Servidor\TipoDado.cs" />
     <Compile Include="Sincronizacao\TipoAppSincronizacao.cs" />
     <Compile Include="Validacao\AnalisadorNFe.cs" />
     <Compile Include="Validacao\ConjuntoAnalise.cs" />

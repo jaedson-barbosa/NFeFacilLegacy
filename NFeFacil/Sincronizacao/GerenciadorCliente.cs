@@ -3,9 +3,9 @@ using NFeFacil.Log;
 using NFeFacil.Sincronizacao.Pacotes;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System;
 
 namespace NFeFacil.Sincronizacao
 {
@@ -20,44 +20,48 @@ namespace NFeFacil.Sincronizacao
 
         public async Task EstabelecerConexao(int senha)
         {
-            var info = await EnviarAsync<InfoSegurancaConexao>("BrechaSeguranca", HttpMethod.Get, senha, null);
+            var info = await RequestAsync<InfoSegurancaConexao>("BrechaSeguranca", HttpMethod.Get, senha, null);
             SenhaPermanente = info.Senha;
             Log.Escrever(TitulosComuns.Sucesso, "Chave de segurança decodificada e salva com sucesso.");
         }
 
-        public async Task Sincronizar()
+        internal async Task Sincronizar()
         {
             using (var db = new AplicativoContext())
             {
                 var momento = UltimaSincronizacao;
-                var receb = await EnviarAsync<ConjuntoBanco>($"SincronizacaoSimples", HttpMethod.Get, SenhaPermanente, null, momento.ToBinary().ToString());
 
-                var envio = new ConjuntoBanco(receb, db);
-                await EnviarAsync<string>("SincronizacaoSimples", HttpMethod.Post, SenhaPermanente, envio);
+                var receb = await RequestAsync<ConjuntoBanco>(
+                    $"Sincronizar",
+                    HttpMethod.Get,
+                    SenhaPermanente,
+                    new ConjuntoBanco(db, momento));
+                receb.AnalisarESalvar(db);
 
                 Log.Escrever(TitulosComuns.Sucesso, "Sincronização simples concluida.");
                 db.SaveChanges();
             }
         }
 
-        public async Task SincronizarTudo()
+        internal async Task SincronizarTudo()
         {
             using (var db = new AplicativoContext())
             {
-                var receb = await EnviarAsync<ConjuntoBanco>($"SincronizacaoSimples", HttpMethod.Get, SenhaPermanente, null, momento.ToBinary().ToString());
+                var receb = await RequestAsync<ConjuntoBanco>(
+                    $"Sincronizar",
+                    HttpMethod.Get,
+                    SenhaPermanente,
+                    new ConjuntoBanco(db));
+                receb.AnalisarESalvar(db);
 
-                var envio = new ConjuntoBanco(receb, db);
-                await EnviarAsync<string>("SincronizacaoSimples", HttpMethod.Post, SenhaPermanente, envio);
-
-                Log.Escrever(TitulosComuns.Sucesso, "Sincronização completa concluida.");
+                Log.Escrever(TitulosComuns.Sucesso, "Sincronização total concluida.");
                 db.SaveChanges();
             }
         }
 
-        async Task<T> EnviarAsync<T>(string nomeMetodo, HttpMethod metodo, int senha, IPacote corpo, string parametro = null)
+        async Task<T> RequestAsync<T>(string nomeMetodo, HttpMethod metodo, int senha, IPacote corpo)
         {
             string caminho = $"http://{IPServidor}:8080/{nomeMetodo}/{senha}";
-            if (!string.IsNullOrEmpty(parametro)) caminho += $"/{parametro}";
             using (var proxy = new HttpClient())
             {
                 var mensagem = new HttpRequestMessage(metodo, caminho);

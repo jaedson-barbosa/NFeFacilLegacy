@@ -18,8 +18,7 @@ namespace NFeFacil.Sincronizacao
         {
             var rest = new RestRouteHandler();
             rest.RegisterController<ControllerInformacoes>();
-            rest.RegisterController<ControllerSincronizacaoNotas>();
-            rest.RegisterController<ControllerSincronizacaoDadosBase>();
+            rest.RegisterController<ControllerSincronizacao>();
 
             var config = new HttpServerConfiguration()
                 .RegisterRoute(rest)

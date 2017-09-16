@@ -98,7 +98,7 @@ namespace NFeFacil
             symTitulo.Content = new FontIcon { Glyph = glyph };
         }
 
-        public async void Retornar()
+        public async void Retornar(object parametro = null)
         {
             if (frmPrincipal.Content is IValida retorna)
             {
@@ -118,6 +118,10 @@ namespace NFeFacil
             if (frmPrincipal.CanGoBack)
             {
                 frmPrincipal.GoBack();
+                if (parametro != null)
+                {
+                    OnRetornoParametrizado(this, new RetornoEventArgs { Parametro = parametro });
+                }
             }
             else
             {
@@ -127,6 +131,7 @@ namespace NFeFacil
                     Application.Current.Exit();
                 }
             }
+
         }
 
         private void AbrirHamburguer(object sender, RoutedEventArgs e)

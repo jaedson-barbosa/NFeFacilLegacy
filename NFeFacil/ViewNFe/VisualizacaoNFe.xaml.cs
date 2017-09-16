@@ -254,8 +254,8 @@ namespace NFeFacil.ViewNFe
             nfe.Signature = null;
             ItemBanco.Status = (int)StatusNFe.Edição;
             analisador.Desnormalizar();
-            MainPage.Current.Navegar<ManipulacaoNotaFiscal>(nfe);
             MainPage.Current.OnRetornoParametrizado += Current_OnRetornoParametrizado;
+            MainPage.Current.Navegar<ManipulacaoNotaFiscal>(nfe);
         }
 
         private void Current_OnRetornoParametrizado(object sender, EventArgs e)

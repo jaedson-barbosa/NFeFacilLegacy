@@ -329,7 +329,8 @@ namespace NFeFacil.ViewNFe
                     new ValidadorDestinatario(NotaSalva.Informacoes.destinatário)).ValidarTudo(Log))
                 {
                     NotaSalva.Informacoes.AtualizarChave();
-                    Log.Escrever(TitulosComuns.ValidaçãoConcluída, "A nota fiscal foi validada. Aparentemente, não há irregularidades");
+                    Log.Escrever(TitulosComuns.ValidaçãoConcluída, "A nota fiscal foi validada. Aparentemente, não há irregularidades.");
+                    MainPage.Current.Retornar(NotaSalva);
                 }
             }
             catch (Exception e)

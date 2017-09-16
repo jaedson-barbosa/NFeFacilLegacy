@@ -852,7 +852,7 @@
             <AppBarButton IsEnabled="{Binding BotaoConfirmarVisivel}"
                           Icon="Accept"
                           Label="Confirmar e validar"
-                          Command="{Binding ConfirmarCommand}" />
+                          Click="Confirmar" />
         </CommandBar>
     </Page.BottomAppBar>
 </Page>

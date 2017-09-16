@@ -14,8 +14,6 @@ namespace NFeFacil.ViewNFe
 {
     public sealed class ProdutoCompletoDataContext : INotifyPropertyChanged
     {
-        public bool ManipulacaoAtivada { get; }
-
         public DetalhesProdutos ProdutoCompleto { get; }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -225,9 +223,8 @@ namespace NFeFacil.ViewNFe
             }
         }
 
-        public ProdutoCompletoDataContext(DetalhesProdutos produtoCompleto, bool manipulacaoAtivada = true)
+        public ProdutoCompletoDataContext(DetalhesProdutos produtoCompleto)
         {
-            ManipulacaoAtivada = manipulacaoAtivada;
             ProdutoCompleto = produtoCompleto;
             ProdutoCompleto.Produto.DadoImpostoChanged += (x, y) =>
             {

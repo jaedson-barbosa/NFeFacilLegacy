@@ -98,30 +98,29 @@ namespace NFeFacil
             symTitulo.Content = new FontIcon { Glyph = glyph };
         }
 
-        public async void Retornar(object parametro = null)
+        public async void Retornar(bool suprimirValidacao = false)
         {
-            if (frmPrincipal.Content is IValida retorna)
+            if (!suprimirValidacao)
             {
-                if (!await retorna.Verificar())
+                if (frmPrincipal.Content is IValida retorna)
                 {
-                    return;
+                    if (!await retorna.Verificar())
+                    {
+                        return;
+                    }
                 }
-            }
-            else if ((frmPrincipal.Content as FrameworkElement).DataContext is IValida retornaDC)
-            {
-                if (!await retornaDC.Verificar())
+                else if ((frmPrincipal.Content as FrameworkElement).DataContext is IValida retornaDC)
                 {
-                    return;
+                    if (!await retornaDC.Verificar())
+                    {
+                        return;
+                    }
                 }
             }
 
             if (frmPrincipal.CanGoBack)
             {
                 frmPrincipal.GoBack();
-                if (parametro != null)
-                {
-                    OnRetornoParametrizado(this, new RetornoEventArgs { Parametro = parametro });
-                }
             }
             else
             {
@@ -131,7 +130,6 @@ namespace NFeFacil
                     Application.Current.Exit();
                 }
             }
-
         }
 
         private void AbrirHamburguer(object sender, RoutedEventArgs e)
@@ -176,12 +174,5 @@ namespace NFeFacil
                 }
             }
         }
-
-        public event EventHandler OnRetornoParametrizado;
-    }
-
-    public class RetornoEventArgs : EventArgs
-    {
-        public object Parametro { get; set; }
     }
 }

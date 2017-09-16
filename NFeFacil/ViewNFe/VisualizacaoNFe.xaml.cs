@@ -254,20 +254,7 @@ namespace NFeFacil.ViewNFe
             nfe.Signature = null;
             ItemBanco.Status = (int)StatusNFe.Edição;
             analisador.Desnormalizar();
-            MainPage.Current.OnRetornoParametrizado += Current_OnRetornoParametrizado;
             MainPage.Current.Navegar<ManipulacaoNotaFiscal>(nfe);
-        }
-
-        private void Current_OnRetornoParametrizado(object sender, EventArgs e)
-        {
-            var parametro = ((RetornoEventArgs)e).Parametro;
-            var nfe = (NFe)parametro;
-            var analisador = new AnalisadorNFe(ref nfe);
-            ObjetoItemBanco = nfe;
-            analisador.Normalizar();
-            ItemBanco.Status = (int)StatusNFe.Validada;
-            MainPage.Current.OnRetornoParametrizado -= Current_OnRetornoParametrizado;
-            Log.Escrever(TitulosComuns.Log, "Agora salve para que as alterações fiquem gravadas.");
         }
 
         private void Salvar(object sender, RoutedEventArgs e)

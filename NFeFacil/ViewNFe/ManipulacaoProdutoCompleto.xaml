@@ -25,8 +25,7 @@
                   Padding="16"
                   Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
             <ScrollViewer DataContext="{Binding ProdutoCompleto.Produto}">
-                <ItemsControl IsEnabled="{Binding DataContext.ManipulacaoAtivada, Mode=OneTime, ElementName=main}"
-                              Style="{StaticResource ItensResponsivos}">
+                <ItemsControl Style="{StaticResource ItensResponsivos}">
                     <TextBox Text="{Binding CodigoProduto, Mode=TwoWay}"
                              InputScope="Text"
                              Header="Código *" />
@@ -110,17 +109,14 @@
                 </Grid.RowDefinitions>
                 <TextBlock Text="Valor total dos tributos"
                            VerticalAlignment="Center" />
-                <TextBox IsEnabled="{Binding DataContext.ManipulacaoAtivada, Mode=OneTime, ElementName=main}"
-                         Text="{Binding ProdutoCompleto.Impostos.vTotTrib, Mode=TwoWay}"
+                <TextBox Text="{Binding ProdutoCompleto.Impostos.vTotTrib, Mode=TwoWay}"
                          InputScope="Number"
                          Grid.Column="1" />
-                <RadioButton IsEnabled="{Binding DataContext.ManipulacaoAtivada, Mode=OneTime, ElementName=main}"
-                             GroupName="TipoImposto"
+                <RadioButton GroupName="TipoImposto"
                              Content="ICMS"
                              Grid.Row="1"
                              IsChecked="{Binding TipoICMSSelecionado, Mode=TwoWay}" />
-                <RadioButton IsEnabled="{Binding DataContext.ManipulacaoAtivada, Mode=OneTime, ElementName=main}"
-                             Content="ISSQN"
+                <RadioButton Content="ISSQN"
                              GroupName="TipoImposto"
                              Grid.Row="1"
                              Grid.Column="1" />
@@ -131,8 +127,7 @@
                                Header="ICMS">
                         <ScrollViewer DataContext="{Binding ContextoICMS}">
                             <StackPanel>
-                                <ComboBox IsEnabled="{Binding DataContext.ManipulacaoAtivada, Mode=OneTime, ElementName=main}"
-                                          SelectedIndex="{Binding RegimeSelecionado, Mode=TwoWay}"
+                                <ComboBox SelectedIndex="{Binding RegimeSelecionado, Mode=TwoWay}"
                                           Header="Regime"
                                           HorizontalAlignment="Stretch"
                                           PlaceholderText="Qual o regime de sua empresa?">
@@ -140,8 +135,7 @@
                                     <ComboBoxItem Content="Regime normal" />
                                 </ComboBox>
                                 <StackPanel Visibility="{Binding GrupoSimplesNacional, Converter={StaticResource visibilidade}}">
-                                    <ComboBox IsEnabled="{Binding DataContext.ManipulacaoAtivada, Mode=OneTime, ElementName=main}"
-                                              SelectedValue="{Binding TipoICMSSimplesNacional, Mode=TwoWay}"
+                                    <ComboBox SelectedValue="{Binding TipoICMSSimplesNacional, Mode=TwoWay}"
                                               SelectedValuePath="Tag"
                                               HorizontalAlignment="Stretch"
                                               Header="Situação tributária">
@@ -156,8 +150,7 @@
                                         <ComboBoxItem Tag="500">500. ICMS cobrado anteriormente por subst. tributária ou por antecipação</ComboBoxItem>
                                         <ComboBoxItem Tag="900">900. Outros</ComboBoxItem>
                                     </ComboBox>
-                                    <ComboBox IsEnabled="{Binding DataContext.ManipulacaoAtivada, Mode=OneTime, ElementName=main}"
-                                              SelectedValue="{Binding OrigemSimples, Mode=TwoWay}"
+                                    <ComboBox SelectedValue="{Binding OrigemSimples, Mode=TwoWay}"
                                               SelectedValuePath="Tag"
                                               Header="Origem"
                                               HorizontalAlignment="Stretch">
@@ -171,8 +164,7 @@
                                         <ComboBoxItem Tag='7'>7 - Estrangeira - Adquirida no mercado interno, sem similar nacional, constante lista CAMEX e gás natural</ComboBoxItem>
                                         <ComboBoxItem Tag='8'>8 - Nacional, mercadoria ou bem com Conteúdo de Importação superior a 70%</ComboBoxItem>
                                     </ComboBox>
-                                    <ItemsControl IsEnabled="{Binding DataContext.ManipulacaoAtivada, Mode=OneTime, ElementName=main}"
-                                                  Style="{StaticResource ItensResponsivos}">
+                                    <ItemsControl Style="{StaticResource ItensResponsivos}">
                                         <TextBox IsEnabled="{Binding SimplesGrupoFim}"
                                                  Text="{Binding Simples.pCredSN, Mode=TwoWay}"
                                                  Header="Alíquota aplicável de cálculo do crédito"
@@ -209,8 +201,7 @@
                                     </ItemsControl>
                                     <TextBlock Text="ICMS ST"
                                                Style="{StaticResource SubtitleTextBlockStyle}" />
-                                    <ItemsControl IsEnabled="{Binding DataContext.ManipulacaoAtivada, Mode=OneTime, ElementName=main}"
-                                                  Style="{StaticResource ItensResponsivos}">
+                                    <ItemsControl Style="{StaticResource ItensResponsivos}">
                                         <ComboBox IsEnabled="{Binding SimplesICMSST}"
                                                   SelectedIndex="{Binding Simples.modBCST, Mode=TwoWay}"
                                                   Header="Modalidade de determinação da BC do ICMS ST"
@@ -245,8 +236,7 @@
                                     </ItemsControl>
                                 </StackPanel>
                                 <StackPanel Visibility="{Binding GrupoRegimeNormal, Converter={StaticResource visibilidade}}">
-                                    <ComboBox IsEnabled="{Binding DataContext.ManipulacaoAtivada, Mode=OneTime, ElementName=main}"
-                                              SelectedValue="{Binding TipoICMSRegimeNormal, Mode=TwoWay}"
+                                    <ComboBox SelectedValue="{Binding TipoICMSRegimeNormal, Mode=TwoWay}"
                                               SelectedValuePath="Content"
                                               Header="Situação tributária"
                                               HorizontalAlignment="Stretch">
@@ -265,8 +255,7 @@
                                         <ComboBoxItem Tag="90">90. Outros</ComboBoxItem>
                                         <ComboBoxItem Tag="9090">90. Outros (Partilha - ICMSPart)</ComboBoxItem>
                                     </ComboBox>
-                                    <ComboBox IsEnabled="{Binding DataContext.ManipulacaoAtivada, Mode=OneTime, ElementName=main}"
-                                              SelectedValue="{Binding Normal.orig, Mode=TwoWay}"
+                                    <ComboBox SelectedValue="{Binding Normal.orig, Mode=TwoWay}"
                                               SelectedValuePath="Tag"
                                               Header="Origem"
                                               HorizontalAlignment="Stretch">
@@ -280,8 +269,7 @@
                                         <ComboBoxItem Tag='7'>7 - Estrangeira - Adquirida no mercado interno, sem similar nacional, constante lista CAMEX e gás natural</ComboBoxItem>
                                         <ComboBoxItem Tag='8'>8 - Nacional, mercadoria ou bem com Conteúdo de Importação superior a 70%</ComboBoxItem>
                                     </ComboBox>
-                                    <ItemsControl IsEnabled="{Binding DataContext.ManipulacaoAtivada, Mode=OneTime, ElementName=main}"
-                                                  Style="{StaticResource ItensResponsivos}">
+                                    <ItemsControl Style="{StaticResource ItensResponsivos}">
                                         <TextBox IsEnabled="{Binding NormalICMSDesonerado}"
                                                  Text="{Binding Normal.vICMSDeson, Mode=TwoWay}"
                                                  Header="Valor do ICMS desonerado"
@@ -354,8 +342,7 @@
                                     </ItemsControl>
                                     <TextBlock Text="ICMS ST"
                                                Style="{StaticResource SubtitleTextBlockStyle}" />
-                                    <ItemsControl IsEnabled="{Binding DataContext.ManipulacaoAtivada, Mode=OneTime, ElementName=main}"
-                                                  Style="{StaticResource ItensResponsivos}">
+                                    <ItemsControl Style="{StaticResource ItensResponsivos}">
                                         <ComboBox IsEnabled="{Binding NormalICMSSTNormal}"
                                                   SelectedIndex="{Binding Normal.modBCST, Mode=TwoWay}"
                                                   Header="Modalidade de determinação da BC do ICMS ST"
@@ -395,8 +382,7 @@
                     <PivotItem Header="IPI">
                         <ScrollViewer DataContext="{Binding ContextoIPI}">
                             <StackPanel>
-                                <ComboBox IsEnabled="{Binding DataContext.ManipulacaoAtivada, Mode=OneTime, ElementName=main}"
-                                          Header="Situação tributária"
+                                <ComboBox Header="Situação tributária"
                                           HorizontalAlignment="Stretch"
                                           SelectedValue="{Binding CSTSelecionado, Mode=TwoWay}"
                                           SelectedValuePath="Tag">
@@ -415,8 +401,7 @@
                                     <ComboBoxItem Tag="55">55=Saída com suspensão</ComboBoxItem>
                                     <ComboBoxItem Tag="99">99=Outras saídas</ComboBoxItem>
                                 </ComboBox>
-                                <ItemsControl IsEnabled="{Binding DataContext.ManipulacaoAtivada, Mode=OneTime, ElementName=main}"
-                                              Style="{StaticResource ItensResponsivos}">
+                                <ItemsControl Style="{StaticResource ItensResponsivos}">
                                     <TextBox Text="{Binding Conjunto.clEnq, Mode=TwoWay}"
                                              Header="Classe de enquadramento"
                                              InputScope="Number" />
@@ -431,8 +416,7 @@
                                     <TextBox Header="Código do selo de controle"
                                              Text="{Binding Conjunto.cSelo, Mode=TwoWay}" />
                                 </ItemsControl>
-                                <ItemsControl IsEnabled="{Binding DataContext.ManipulacaoAtivada, Mode=OneTime, ElementName=main}"
-                                              Style="{StaticResource ItensResponsivos}">
+                                <ItemsControl Style="{StaticResource ItensResponsivos}">
                                     <ComboBox HorizontalAlignment="Stretch"
                                               Header="Tipo de cálculo"
                                               SelectedValue="{Binding TipoCalculo, Mode=TwoWay}"
@@ -468,8 +452,7 @@
                     <PivotItem Header="PIS">
                         <ScrollViewer DataContext="{Binding ContextoPIS}">
                             <StackPanel>
-                                <ComboBox IsEnabled="{Binding DataContext.ManipulacaoAtivada, Mode=OneTime, ElementName=main}"
-                                          SelectedValue="{Binding CSTSelecionado, Mode=TwoWay}"
+                                <ComboBox SelectedValue="{Binding CSTSelecionado, Mode=TwoWay}"
                                           SelectedValuePath="Tag"
                                           Header="Situação tributária"
                                           HorizontalAlignment="Stretch">
@@ -507,8 +490,7 @@
                                     <ComboBoxItem Tag="98">98=Outras Operações de Entrada</ComboBoxItem>
                                     <ComboBoxItem Tag="99">99=Outras Operações</ComboBoxItem>
                                 </ComboBox>
-                                <ItemsControl IsEnabled="{Binding DataContext.ManipulacaoAtivada, Mode=OneTime, ElementName=main}"
-                                              Style="{StaticResource ItensResponsivos}">
+                                <ItemsControl Style="{StaticResource ItensResponsivos}">
                                     <ComboBox IsEnabled="{Binding ComboTipoCalculo}"
                                               Header="Tipo de cálculo"
                                               SelectedValue="{Binding TipoCalculo, Mode=TwoWay}"
@@ -538,8 +520,7 @@
                                              IsEnabled="{Binding Valor}" />
                                 </ItemsControl>
                                 <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">PIS ST</TextBlock>
-                                <ItemsControl IsEnabled="{Binding DataContext.ManipulacaoAtivada, Mode=OneTime, ElementName=main}"
-                                              Style="{StaticResource ItensResponsivos}">
+                                <ItemsControl Style="{StaticResource ItensResponsivos}">
                                     <ComboBox IsEnabled="{Binding ComboTipoCalculoST}"
                                               SelectedValue="{Binding TipoCalculoST, Mode=TwoWay}"
                                               SelectedValuePath="Content"
@@ -574,8 +555,7 @@
                     <PivotItem Header="COFINS">
                         <ScrollViewer DataContext="{Binding ContextoCOFINS}">
                             <StackPanel>
-                                <ComboBox IsEnabled="{Binding DataContext.ManipulacaoAtivada, Mode=OneTime, ElementName=main}"
-                                          SelectedValue="{Binding CSTSelecionado, Mode=TwoWay}"
+                                <ComboBox SelectedValue="{Binding CSTSelecionado, Mode=TwoWay}"
                                           SelectedValuePath="Tag"
                                           Header="Situação tributária"
                                           HorizontalAlignment="Stretch">
@@ -613,8 +593,7 @@
                                     <ComboBoxItem Tag="98">98=Outras Operações de Entrada</ComboBoxItem>
                                     <ComboBoxItem Tag="99">99=Outras Operações</ComboBoxItem>
                                 </ComboBox>
-                                <ItemsControl IsEnabled="{Binding DataContext.ManipulacaoAtivada, Mode=OneTime, ElementName=main}"
-                                              Style="{StaticResource ItensResponsivos}">
+                                <ItemsControl Style="{StaticResource ItensResponsivos}">
                                     <ComboBox SelectedValue="{Binding TipoCalculo, Mode=TwoWay}"
                                               SelectedValuePath="Content"
                                               IsEnabled="{Binding ComboTipoCalculo}"
@@ -645,8 +624,7 @@
                                              IsEnabled="{Binding Valor}" />
                                 </ItemsControl>
                                 <TextBlock Style="{StaticResource TitleTextBlockStyle}">COFINS ST</TextBlock>
-                                <ItemsControl IsEnabled="{Binding DataContext.ManipulacaoAtivada, Mode=OneTime, ElementName=main}"
-                                              Style="{StaticResource ItensResponsivos}">
+                                <ItemsControl Style="{StaticResource ItensResponsivos}">
                                     <ComboBox SelectedValue="{Binding TipoCalculoST, Mode=TwoWay}"
                                               SelectedValuePath="Content"
                                               IsEnabled="{Binding ComboTipoCalculoST}"
@@ -682,8 +660,7 @@
                     <PivotItem IsEnabled="{Binding AtivadopvtISSQN}"
                                Header="ISSQN">
                         <ScrollViewer DataContext="{Binding ContextoISSQN}">
-                            <ItemsControl IsEnabled="{Binding DataContext.ManipulacaoAtivada, Mode=OneTime, ElementName=main}"
-                                          Style="{StaticResource ItensResponsivos}">
+                            <ItemsControl Style="{StaticResource ItensResponsivos}">
                                 <TextBox Text="{Binding Imposto.vBC, Mode=TwoWay}"
                                          Header="Valor da base de cálculo *"
                                          InputScope="Number" />
@@ -767,8 +744,7 @@
                         </ScrollViewer>
                     </PivotItem>
                     <PivotItem Header="Imposto de importação">
-                        <ItemsControl IsEnabled="{Binding DataContext.ManipulacaoAtivada, Mode=OneTime, ElementName=main}"
-                                      DataContext="{Binding ContextoII}"
+                        <ItemsControl DataContext="{Binding ContextoII}"
                                       Style="{StaticResource ItensResponsivos}">
                             <TextBox InputScope="Number"
                                      Header="Valor da base de cálculo *"
@@ -785,8 +761,7 @@
                         </ItemsControl>
                     </PivotItem>
                     <PivotItem Header="IPI Devolvido">
-                        <ItemsControl IsEnabled="{Binding DataContext.ManipulacaoAtivada, Mode=OneTime, ElementName=main}"
-                                      DataContext="{Binding ContextoImpostoDevol}"
+                        <ItemsControl DataContext="{Binding ContextoImpostoDevol}"
                                       Style="{StaticResource ItensResponsivos}">
                             <TextBox Header="Percentual da mercadoria devolvida *"
                                      Text="{Binding pDevol, Mode=TwoWay}"
@@ -799,8 +774,7 @@
                     <PivotItem IsEnabled="{Binding AtivadopvtICMSInterestadual}"
                                Header="ICMS de destino">
                         <ScrollViewer DataContext="{Binding ContextoIcmsUFDest}">
-                            <ItemsControl IsEnabled="{Binding DataContext.ManipulacaoAtivada, Mode=OneTime, ElementName=main}"
-                                          Style="{StaticResource ItensResponsivos}">
+                            <ItemsControl Style="{StaticResource ItensResponsivos}">
                                 <TextBox Header="Percentual ICMS relativo ao FCP na UF de destino"
                                          Text="{Binding PFCPUFDest, Mode=TwoWay}"
                                          InputScope="Number" />
@@ -832,8 +806,7 @@
                     </PivotItem>
                 </Pivot>
             </Grid>
-            <TextBox IsEnabled="{Binding DataContext.ManipulacaoAtivada, Mode=OneTime, ElementName=main}"
-                     Text="{Binding ProdutoCompleto.InfAdProd, Mode=TwoWay}"
+            <TextBox Text="{Binding ProdutoCompleto.InfAdProd, Mode=TwoWay}"
                      TextWrapping="Wrap" />
             <ListView ItemContainerStyle="{StaticResource ItemFullWidth}"
                       ItemsSource="{Binding ListaDI}">
@@ -847,9 +820,9 @@
                         <TextBlock Style="{StaticResource TextoCabecalho}">CNPJ</TextBlock>
                         <TextBlock Style="{StaticResource TextoCabecalho}"
                                    Grid.Column="1">Número do Documento</TextBlock>
-                        <Button IsEnabled="{Binding DataContext.ManipulacaoAtivada, Mode=OneTime, ElementName=main}" Grid.Column="2"
-                                Style="{StaticResource BotaoAdd}"
-                                Command="{Binding AdicionarDeclaracaoImportacaoCommand}">
+                        <Button  Grid.Column="2"
+                                 Style="{StaticResource BotaoAdd}"
+                                 Command="{Binding AdicionarDeclaracaoImportacaoCommand}">
                             <SymbolIcon Symbol="Add" />
                         </Button>
                     </Grid>
@@ -860,8 +833,7 @@
                             <Grid.ContextFlyout>
                                 <MenuFlyout>
                                     <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.RemoverDeclaracaoImportacaoCommand}"
-                                                    CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}"
-                                                    IsEnabled="{Binding DataContext.ManipulacaoAtivada, Mode=OneTime, ElementName=main}">Remover</MenuFlyoutItem>
+                                                    CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Remover</MenuFlyoutItem>
                                 </MenuFlyout>
                             </Grid.ContextFlyout>
                             <Grid.ColumnDefinitions>
@@ -884,9 +856,9 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <TextBlock Style="{StaticResource TextoCabecalho}">Número do ato concessório de Drawback</TextBlock>
-                        <Button IsEnabled="{Binding DataContext.ManipulacaoAtivada, Mode=OneTime, ElementName=main}" Grid.Column="1"
-                                Style="{StaticResource BotaoAdd}"
-                                Command="{Binding AdicionarDeclaracaoExportacaoCommand}">
+                        <Button  Grid.Column="1"
+                                 Style="{StaticResource BotaoAdd}"
+                                 Command="{Binding AdicionarDeclaracaoExportacaoCommand}">
                             <SymbolIcon Symbol="Add" />
                         </Button>
                     </Grid>
@@ -897,8 +869,7 @@
                             <Grid.ContextFlyout>
                                 <MenuFlyout>
                                     <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.RemoverDeclaracaoExportacaoCommand}"
-                                                    CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}"
-                                                    IsEnabled="{Binding DataContext.ManipulacaoAtivada, Mode=OneTime, ElementName=main}">Remover</MenuFlyoutItem>
+                                                    CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Remover</MenuFlyoutItem>
                                 </MenuFlyout>
                             </Grid.ContextFlyout>
                             <TextBlock Text="{Binding NDraw}" />
@@ -908,8 +879,7 @@
             </ListView>
             <ScrollViewer>
                 <StackPanel>
-                    <ComboBox IsEnabled="{Binding DataContext.ManipulacaoAtivada, Mode=OneTime, ElementName=main}"
-                              ItemsSource="{Binding ListaTiposEspeciaisProduto, Mode=OneTime}"
+                    <ComboBox ItemsSource="{Binding ListaTiposEspeciaisProduto, Mode=OneTime}"
                               SelectedItem="{Binding TipoEspecialProdutoSelecionado, Mode=TwoWay}"
                               SelectedIndex="0"
                               HorizontalAlignment="Stretch">
@@ -922,7 +892,6 @@
                     </ComboBox>
                     <Grid Visibility="{Binding VisibilidadeVeiculoNovo, Converter={StaticResource visibilidade}}">
                         <ItemsControl DataContext="{Binding Veiculo}"
-                                      IsEnabled="{Binding DataContext.ManipulacaoAtivada, Mode=OneTime, ElementName=main}"
                                       Style="{StaticResource ItensResponsivos}">
                             <ComboBox SelectedIndex="{Binding tpOp, Mode=TwoWay}"
                                       Header="Tipo da operação"
@@ -1031,7 +1000,6 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Número do lote</TextBlock>
                                 <Button Grid.Column="1"
-                                        IsEnabled="{Binding DataContext.ManipulacaoAtivada, Mode=OneTime, ElementName=main}"
                                         Style="{StaticResource BotaoAdd}"
                                         Command="{Binding AdicionarMedicamentoCommand}">
                                     <SymbolIcon Symbol="Add" />
@@ -1044,8 +1012,7 @@
                                     <TextBlock.ContextFlyout>
                                         <MenuFlyout>
                                             <MenuFlyoutItem Command="{Binding DataContext.RemoverMedicamentoCommand, ElementName=main}"
-                                                            CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}"
-                                                            IsEnabled="{Binding DataContext.ManipulacaoAtivada, Mode=OneTime, ElementName=main}">Remover</MenuFlyoutItem>
+                                                            CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Remover</MenuFlyoutItem>
                                         </MenuFlyout>
                                     </TextBlock.ContextFlyout></TextBlock>
                             </DataTemplate>
@@ -1061,7 +1028,6 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Descrição</TextBlock>
                                 <Button Grid.Column="1"
-                                        IsEnabled="{Binding DataContext.ManipulacaoAtivada, Mode=OneTime, ElementName=main}"
                                         Command="{Binding AdicionarArmamentoCommand}"
                                         Style="{StaticResource BotaoAdd}">
                                     <SymbolIcon Symbol="Add" />
@@ -1075,8 +1041,7 @@
                                     <TextBlock.ContextFlyout>
                                         <MenuFlyout>
                                             <MenuFlyoutItem Command="{Binding DataContext.RemoverArmamentoCommand, ElementName=main}"
-                                                            CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}"
-                                                            IsEnabled="{Binding DataContext.ManipulacaoAtivada, Mode=OneTime, ElementName=main}">Remover</MenuFlyoutItem>
+                                                            CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Remover</MenuFlyoutItem>
                                         </MenuFlyout>
                                     </TextBlock.ContextFlyout></TextBlock>
                             </DataTemplate>
@@ -1092,8 +1057,7 @@
                             <ColumnDefinition />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <ItemsControl IsEnabled="{Binding DataContext.ManipulacaoAtivada, Mode=OneTime, ElementName=main}"
-                                      Style="{StaticResource ItensResponsivos}"
+                        <ItemsControl Style="{StaticResource ItensResponsivos}"
                                       Grid.ColumnSpan="2"
                                       DataContext="{Binding Comb}">
                             <controles:EntradaNumerica Format="9"
@@ -1117,11 +1081,9 @@
                         <TextBlock Grid.Row="1"
                                    Style="{StaticResource SubtitleTextBlockStyle}">CIDE</TextBlock>
                         <CheckBox Grid.Row="1"
-                                  IsEnabled="{Binding DataContext.ManipulacaoAtivada, Mode=OneTime, ElementName=main}"
                                   Grid.Column="1"
                                   IsChecked="{Binding UsarCIDE, Mode=TwoWay}">Ativado</CheckBox>
-                        <ItemsControl IsEnabled="{Binding DataContext.ManipulacaoAtivada, Mode=OneTime, ElementName=main}"
-                                      Style="{StaticResource ItensResponsivos}"
+                        <ItemsControl Style="{StaticResource ItensResponsivos}"
                                       Grid.Row="2"
                                       Grid.ColumnSpan="2"
                                       Visibility="{Binding UsarCIDE, Converter={StaticResource visibilidade}}">
@@ -1136,8 +1098,7 @@
                                                        Header="Valor" />
                         </ItemsControl>
                     </Grid>
-                    <controles:EntradaRestrita IsEnabled="{Binding DataContext.ManipulacaoAtivada, Mode=OneTime, ElementName=main}"
-                                               Pattern="[^\d]"
+                    <controles:EntradaRestrita Pattern="[^\d]"
                                                Visibility="{Binding VisibilidadePapel, Converter={StaticResource visibilidade}}"
                                                Text="{Binding ProdutoCompleto.Produto.NRECOPI, Mode=TwoWay}"
                                                Header="Número de RECOPI" />

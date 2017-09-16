@@ -20,6 +20,7 @@ using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using NFeFacil.ViewNFe.CaixasDialogoNFe;
+using Windows.ApplicationModel.Core;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -30,11 +31,6 @@ namespace NFeFacil.ViewNFe
     /// </summary>
     public sealed partial class ManipulacaoNotaFiscal : Page, IHambuguer, IValida
     {
-        public ManipulacaoNotaFiscal()
-        {
-            InitializeComponent();
-        }
-
         public IEnumerable ConteudoMenu
         {
             get
@@ -63,14 +59,6 @@ namespace NFeFacil.ViewNFe
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             var Dados = (NFe)e.Parameter;
-            if (string.IsNullOrEmpty(Dados.Informacoes.Id))
-            {
-                MainPage.Current.SeAtualizar(Symbol.Add, "Nota fiscal");
-            }
-            else
-            {
-                MainPage.Current.SeAtualizar(Symbol.Edit, "Nota fiscal");
-            }
 
             using (var db = new AplicativoContext())
             {
@@ -84,6 +72,8 @@ namespace NFeFacil.ViewNFe
                 Dados.Informacoes.total = new Total(Dados.Informacoes.produtos);
             NotaSalva = Dados;
 
+            MunicipiosIdentificacao = new ObservableCollection<Municipio>(Municipios.Get(EstadoIdentificacao));
+            MunicipiosTransporte = new ObservableCollection<Municipio>(Municipios.Get(UFEscolhida));
             NFesReferenciadas = new ObservableCollection<DocumentoFiscalReferenciado>(NotaSalva.Informacoes.identificacao.DocumentosReferenciados.Where(x => !string.IsNullOrEmpty(x.RefNFe)));
             NFsReferenciadas = new ObservableCollection<DocumentoFiscalReferenciado>(NotaSalva.Informacoes.identificacao.DocumentosReferenciados.Where(x => x.RefNF != null));
             Produtos = new ObservableCollection<DetalhesProdutos>(NotaSalva.Informacoes.produtos);
@@ -96,6 +86,15 @@ namespace NFeFacil.ViewNFe
             ProcessosReferenciados = new ObservableCollection<ProcessoReferenciado>(NotaSalva.Informacoes.infAdic.ProcRef);
             Modalidades = ExtensoesPrincipal.ObterItens<ModalidadesTransporte>();
 
+            InitializeComponent();
+            if (string.IsNullOrEmpty(Dados.Informacoes.Id))
+            {
+                MainPage.Current.SeAtualizar(Symbol.Add, "Nota fiscal");
+            }
+            else
+            {
+                MainPage.Current.SeAtualizar(Symbol.Edit, "Nota fiscal");
+            }
             AtualizarTotais();
         }
 
@@ -253,8 +252,6 @@ namespace NFeFacil.ViewNFe
             }
         }
 
-        ObservableCollection<Municipio> MunicipiosIdentificacao { get; } = new ObservableCollection<Municipio>();
-
         public ushort EstadoIdentificacao
         {
             get => NotaSalva.Informacoes.identificacao.CódigoUF;
@@ -272,8 +269,6 @@ namespace NFeFacil.ViewNFe
         #endregion
 
         #region Transporte
-
-        public ObservableCollection<Municipio> MunicipiosTransporte { get; } = new ObservableCollection<Municipio>();
 
         private Estado ufEscolhida;
         public Estado UFEscolhida
@@ -329,8 +324,39 @@ namespace NFeFacil.ViewNFe
                     new ValidadorDestinatario(NotaSalva.Informacoes.destinatário)).ValidarTudo(Log))
                 {
                     NotaSalva.Informacoes.AtualizarChave();
-                    Log.Escrever(TitulosComuns.ValidaçãoConcluída, "A nota fiscal foi validada. Aparentemente, não há irregularidades.");
-                    MainPage.Current.Retornar(NotaSalva);
+                    Log.Escrever(TitulosComuns.ValidaçãoConcluída, "A nota fiscal foi validada.\r\n" +
+                        "Aparentemente, não há irregularidades.\r\n" +
+                        "Agora salve para que as alterações fiquem gravadas.");
+
+                    var nota = NotaSalva;
+                    var analisador = new AnalisadorNFe(ref nota);
+                    analisador.Normalizar();
+
+                    var ultPage = Frame.BackStack[Frame.BackStack.Count - 1];
+                    if (ultPage.SourcePageType != typeof(VisualizacaoNFe))
+                    {
+                        var novoDI = new NFeDI(nota, nota.ToXElement<NFe>().ToString())
+                        {
+                            Status = (int)StatusNFe.Validada
+                        };
+                        PageStackEntry entrada = new PageStackEntry(typeof(VisualizacaoNFe), novoDI, new Windows.UI.Xaml.Media.Animation.SlideNavigationTransitionInfo());
+                        Frame.BackStack.Add(entrada);
+                    }
+                    else
+                    {
+                        var di = (NFeDI)ultPage.Parameter;
+                        di.Id = nota.Informacoes.Id;
+                        di.NomeCliente = nota.Informacoes.destinatário.Nome;
+                        di.NomeEmitente = nota.Informacoes.emitente.Nome;
+                        di.CNPJEmitente = nota.Informacoes.emitente.CNPJ.ToString();
+                        di.DataEmissao = DateTime.Parse(nota.Informacoes.identificacao.DataHoraEmissão).ToString("yyyy-MM-dd HH:mm:ss");
+                        di.NumeroNota = nota.Informacoes.identificacao.Numero;
+                        di.SerieNota = nota.Informacoes.identificacao.Serie;
+                        di.Status = (int)StatusNFe.Validada;
+                        di.XML = nota.ToXElement<NFe>().ToString();
+                    }
+
+                    MainPage.Current.Retornar(true);
                 }
             }
             catch (Exception e)
@@ -341,6 +367,8 @@ namespace NFeFacil.ViewNFe
 
         #region ColecoesExibicaoView
 
+        ObservableCollection<Municipio> MunicipiosIdentificacao { get; set; }
+        public ObservableCollection<Municipio> MunicipiosTransporte { get; set; }
         ObservableCollection<DocumentoFiscalReferenciado> NFesReferenciadas { get; set; }
         ObservableCollection<DocumentoFiscalReferenciado> NFsReferenciadas { get; set; }
         ObservableCollection<DetalhesProdutos> Produtos { get; set; }
@@ -549,14 +577,18 @@ namespace NFeFacil.ViewNFe
         async Task<bool> IValida.Verificar()
         {
             var retorno = true;
-            var mensagem = new MessageDialog("Se você sair agora, os dados serão perdidos, se tiver certeza, escolha Sair, caso contrário, Cancelar.", "Atenção");
-            mensagem.Commands.Add(new UICommand("Sair"));
-            mensagem.Commands.Add(new UICommand("Cancelar", x => retorno = false));
-            await mensagem.ShowAsync();
+            var dispachante = CoreApplication.MainView.CoreWindow.Dispatcher;
+            await dispachante.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
+            {
+                var mensagem = new MessageDialog("Se você sair agora, os dados serão perdidos, se tiver certeza, escolha Sair, caso contrário, Cancelar.", "Atenção");
+                mensagem.Commands.Add(new UICommand("Sair"));
+                mensagem.Commands.Add(new UICommand("Cancelar", x => retorno = false));
+                await mensagem.ShowAsync();
+            });
             return retorno;
         }
 
-        #region Métodos View - Adição e remoção básica
+        #region Métodos View - Backcode
 
         private void AdicionarNFeReferenciada(object sender, RoutedEventArgs e)
         {
@@ -666,6 +698,11 @@ namespace NFeFacil.ViewNFe
         {
             var contexto = ((FrameworkElement)sender).DataContext;
             RemoverDeducao((Deducoes)contexto);
+        }
+
+        private void Confirmar(object sender, RoutedEventArgs e)
+        {
+            Confirmar();
         }
 
         #endregion

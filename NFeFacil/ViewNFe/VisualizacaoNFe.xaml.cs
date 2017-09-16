@@ -250,7 +250,7 @@ namespace NFeFacil.ViewNFe
         private void Editar(object sender, RoutedEventArgs e)
         {
             var nfe = (NFe)ObjetoItemBanco;
-            var analisador = new AnalisadorNFe(nfe);
+            var analisador = new AnalisadorNFe(ref nfe);
             nfe.Signature = null;
             ItemBanco.Status = (int)StatusNFe.Edição;
             analisador.Desnormalizar();
@@ -258,10 +258,13 @@ namespace NFeFacil.ViewNFe
             MainPage.Current.OnRetornoParametrizado += Current_OnRetornoParametrizado;
         }
 
-        private void Current_OnRetornoParametrizado(object sender, System.EventArgs e)
+        private void Current_OnRetornoParametrizado(object sender, EventArgs e)
         {
             var parametro = ((RetornoEventArgs)e).Parametro;
-            ObjetoItemBanco = (NFe)parametro;
+            var nfe = (NFe)parametro;
+            var analisador = new AnalisadorNFe(ref nfe);
+            ObjetoItemBanco = nfe;
+            analisador.Normalizar();
             ItemBanco.Status = (int)StatusNFe.Validada;
             MainPage.Current.OnRetornoParametrizado -= Current_OnRetornoParametrizado;
             Log.Escrever(TitulosComuns.Log, "Agora salve para que as alterações fiquem gravadas.");
@@ -269,9 +272,6 @@ namespace NFeFacil.ViewNFe
 
         private void Salvar(object sender, RoutedEventArgs e)
         {
-            var nfe = (NFe)ObjetoItemBanco;
-            var analisador = new AnalisadorNFe(nfe);
-            analisador.Normalizar();
             ItemBanco.Status = (int)StatusNFe.Salva;
             AtualizarDI();
             Log.Escrever(TitulosComuns.Sucesso, "Nota fiscal salva com sucesso.");

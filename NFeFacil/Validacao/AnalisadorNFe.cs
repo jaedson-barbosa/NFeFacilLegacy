@@ -10,7 +10,7 @@ namespace NFeFacil.Validacao
     {
         private NFe Nota { get; }
 
-        public AnalisadorNFe(NFe nota)
+        public AnalisadorNFe(ref NFe nota)
         {
             Nota = nota;
         }

@@ -97,8 +97,6 @@ namespace NFeFacil.ViewNFe
             Modalidades = ExtensoesPrincipal.ObterItens<ModalidadesTransporte>();
 
             AtualizarTotais();
-            Analisador = new AnalisadorNFe(NotaSalva);
-            OperacoesNota = new OperacoesNotaSalva(Log);
         }
 
         const string NomeClienteHomologacao = "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL";
@@ -322,8 +320,6 @@ namespace NFeFacil.ViewNFe
         #endregion
 
         Popup Log = Popup.Current;
-        AnalisadorNFe Analisador { get; set; }
-        OperacoesNotaSalva OperacoesNota { get; set; }
 
         void Confirmar()
         {
@@ -333,7 +329,6 @@ namespace NFeFacil.ViewNFe
                     new ValidadorDestinatario(NotaSalva.Informacoes.destinatário)).ValidarTudo(Log))
                 {
                     NotaSalva.Informacoes.AtualizarChave();
-                    Analisador.Normalizar();
                     Log.Escrever(TitulosComuns.ValidaçãoConcluída, "A nota fiscal foi validada. Aparentemente, não há irregularidades");
                 }
             }

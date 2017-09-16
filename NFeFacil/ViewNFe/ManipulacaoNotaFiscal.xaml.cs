@@ -31,6 +31,11 @@ namespace NFeFacil.ViewNFe
     /// </summary>
     public sealed partial class ManipulacaoNotaFiscal : Page, IHambuguer, IValida
     {
+        public ManipulacaoNotaFiscal()
+        {
+            InitializeComponent();
+        }
+
         public IEnumerable ConteudoMenu
         {
             get
@@ -86,7 +91,6 @@ namespace NFeFacil.ViewNFe
             ProcessosReferenciados = new ObservableCollection<ProcessoReferenciado>(NotaSalva.Informacoes.infAdic.ProcRef);
             Modalidades = ExtensoesPrincipal.ObterItens<ModalidadesTransporte>();
 
-            InitializeComponent();
             if (string.IsNullOrEmpty(Dados.Informacoes.Id))
             {
                 MainPage.Current.SeAtualizar(Symbol.Add, "Nota fiscal");
@@ -95,6 +99,8 @@ namespace NFeFacil.ViewNFe
             {
                 MainPage.Current.SeAtualizar(Symbol.Edit, "Nota fiscal");
             }
+
+            AtualizarVeiculo();
             AtualizarTotais();
         }
 
@@ -264,6 +270,12 @@ namespace NFeFacil.ViewNFe
                     MunicipiosIdentificacao.Add(item);
                 }
             }
+        }
+
+        public int CodigoMunicipio
+        {
+            get => NotaSalva.Informacoes.identificacao.CodigoMunicipio;
+            set => NotaSalva.Informacoes.identificacao.CodigoMunicipio = value;
         }
 
         #endregion

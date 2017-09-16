@@ -84,7 +84,7 @@
                         <ComboBox Header="Município *"
                                   DisplayMemberPath="Nome"
                                   ItemsSource="{x:Bind MunicipiosIdentificacao}"
-                                  SelectedValue="{x:Bind NotaSalva.Informacoes.identificacao.CodigoMunicipio, Mode=TwoWay}"
+                                  SelectedValue="{x:Bind CodigoMunicipio, Mode=TwoWay}"
                                   SelectedValuePath="Codigo" />
                     </ItemsControl>
                 </ScrollViewer>

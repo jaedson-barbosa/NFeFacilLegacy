@@ -27,113 +27,30 @@ namespace NFeFacil.Sincronizacao
 
         public async Task Sincronizar()
         {
-            ItensSincronizados quantNotas = new ItensSincronizados(), quantDados = new ItensSincronizados();
-
             using (var db = new AplicativoContext())
             {
-                quantNotas = await SincronizarNotas(db);
-                quantDados = await SincronizarDadosBase(db);
-                Log.Escrever(TitulosComuns.Sucesso, "Foram sincronizados tanto notas fiscais quanto dados base para criação das notas fiscais.");
+                var momento = UltimaSincronizacao;
+                var receb = await EnviarAsync<ConjuntoBanco>($"SincronizacaoSimples", HttpMethod.Get, SenhaPermanente, null, momento.ToBinary().ToString());
+
+                var envio = new ConjuntoBanco(receb, db);
+                await EnviarAsync<string>("SincronizacaoSimples", HttpMethod.Post, SenhaPermanente, envio);
+
+                Log.Escrever(TitulosComuns.Sucesso, "Sincronização simples concluida.");
                 db.SaveChanges();
-            }
-
-            async Task<ItensSincronizados> SincronizarDadosBase(AplicativoContext contexto)
-            {
-                var momento = UltimaSincronizacao;
-                var receb = await EnviarAsync<ConjuntoBanco>($"Dados", HttpMethod.Get, SenhaPermanente, null, momento.ToBinary().ToString());
-
-                var envio = new ConjuntoBanco
-                {
-                    Emitentes = contexto.Emitentes.Where(x => x.UltimaData > momento).ToList(),
-                    Clientes = contexto.Clientes.Where(x => x.UltimaData > momento).ToList(),
-                    Motoristas = contexto.Motoristas.Where(x => x.UltimaData > momento).ToList(),
-                    Produtos = contexto.Produtos.Where(x => x.UltimaData > momento).ToList()
-                }; ;
-
-                await EnviarAsync<string>($"Dados", HttpMethod.Post, SenhaPermanente, envio);
-                var Mudanca = new Repositorio.MudancaOtimizadaBancoDados(contexto);
-                Mudanca.AdicionarEmitentes(receb.Emitentes);
-                Mudanca.AdicionarClientes(receb.Clientes);
-                Mudanca.AdicionarMotoristas(receb.Motoristas); ;
-                Mudanca.AdicionarProdutos(receb.Produtos);
-                return new ItensSincronizados(CalcularTotal(envio), CalcularTotal(receb));
-
-                int CalcularTotal(ConjuntoBanco dados)
-                {
-                    return dados.Clientes.Count + dados.Emitentes.Count + dados.Motoristas.Count + dados.Produtos.Count;
-                }
-            }
-
-            async Task<ItensSincronizados> SincronizarNotas(AplicativoContext contexto)
-            {
-                var momento = UltimaSincronizacao;
-                var receb = await EnviarAsync<NotasFiscais>("Notas", HttpMethod.Get, SenhaPermanente, null, momento.ToBinary().ToString());
-
-                var conjunto = from item in contexto.NotasFiscais
-                               where item.UltimaData > momento
-                               select item;
-                var envio = new NotasFiscais
-                {
-                    DIs = conjunto.ToList(),
-                };
-
-                await EnviarAsync<string>("Notas", HttpMethod.Post, SenhaPermanente, envio);
-                new Repositorio.MudancaOtimizadaBancoDados(contexto)
-                    .AdicionarNotasFiscais(receb.DIs);
-
-                return new ItensSincronizados(envio.DIs.Count, receb.DIs.Count);
             }
         }
 
         public async Task SincronizarTudo()
         {
-            ItensSincronizados quantNotas = new ItensSincronizados(), quantDados = new ItensSincronizados();
-
             using (var db = new AplicativoContext())
             {
-                quantNotas = await SincronizarNotas(db);
-                quantDados = await SincronizarDadosBase(db);
-                Log.Escrever(TitulosComuns.Sucesso, "Foram sincronizados tanto notas fiscais quanto dados base para criação das notas fiscais.");
+                var receb = await EnviarAsync<ConjuntoBanco>($"SincronizacaoSimples", HttpMethod.Get, SenhaPermanente, null, momento.ToBinary().ToString());
+
+                var envio = new ConjuntoBanco(receb, db);
+                await EnviarAsync<string>("SincronizacaoSimples", HttpMethod.Post, SenhaPermanente, envio);
+
+                Log.Escrever(TitulosComuns.Sucesso, "Sincronização completa concluida.");
                 db.SaveChanges();
-            }
-
-            async Task<ItensSincronizados> SincronizarDadosBase(AplicativoContext contexto)
-            {
-                var envio = new ConjuntoBanco
-                {
-                    Emitentes = contexto.Emitentes.ToList(),
-                    Clientes = contexto.Clientes.ToList(),
-                    Motoristas = contexto.Motoristas.ToList(),
-                    Produtos = contexto.Produtos.ToList()
-                }; ;
-                var receb = await EnviarAsync<ConjuntoBanco>($"DadosCompleto", HttpMethod.Get, SenhaPermanente, envio);
-
-                var Mudanca = new Repositorio.MudancaOtimizadaBancoDados(contexto);
-                Mudanca.AnalisarAdicionarEmitentes(receb.Emitentes);
-                Mudanca.AnalisarAdicionarClientes(receb.Clientes);
-                Mudanca.AnalisarAdicionarMotoristas(receb.Motoristas); ;
-                Mudanca.AnalisarAdicionarProdutos(receb.Produtos);
-
-                return new ItensSincronizados(CalcularTotal(envio), CalcularTotal(receb));
-
-                int CalcularTotal(ConjuntoBanco dados)
-                {
-                    return dados.Clientes.Count + dados.Emitentes.Count + dados.Motoristas.Count + dados.Produtos.Count;
-                }
-            }
-
-            async Task<ItensSincronizados> SincronizarNotas(AplicativoContext contexto)
-            {
-                var envio = new NotasFiscais
-                {
-                    DIs = contexto.NotasFiscais.ToList(),
-                };
-                var receb = await EnviarAsync<NotasFiscais>("NotasCompleto", HttpMethod.Get, SenhaPermanente, envio);
-
-                new Repositorio.MudancaOtimizadaBancoDados(contexto)
-                    .AdicionarNotasFiscais(receb.DIs);
-
-                return new ItensSincronizados(envio.DIs.Count, receb.DIs.Count);
             }
         }
 

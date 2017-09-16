@@ -6,6 +6,7 @@ namespace NFeFacil.ItensBD
     public sealed class Estoque
     {
         public Guid Id { get; set; }
+        public DateTime UltimaData { get; set; }
 
         public string LocalizacaoGenerica { get; set; }
 

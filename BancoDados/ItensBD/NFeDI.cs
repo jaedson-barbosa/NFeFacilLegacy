@@ -9,8 +9,8 @@ namespace NFeFacil.ItensBD
     public sealed class NFeDI
     {
         public string Id { get; set; }
-
         public DateTime UltimaData { get; set; }
+
         [Required]
         public int NumeroNota { get; set; }
         [Required]

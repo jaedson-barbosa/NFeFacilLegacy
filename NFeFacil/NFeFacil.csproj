@@ -300,7 +300,6 @@
     <Compile Include="Sincronizacao\ConfiguracoesSincronizacao.cs" />
     <Compile Include="Sincronizacao\GerenciadorCliente.cs" />
     <Compile Include="Sincronizacao\GerenciadorServidor.cs" />
-    <Compile Include="Sincronizacao\ItensSincronizados.cs" />
     <Compile Include="Sincronizacao\Pacotes\ConjuntoBanco.cs" />
     <Compile Include="Sincronizacao\Pacotes\InfoEstabelecerConexao.cs" />
     <Compile Include="Sincronizacao\Pacotes\InfoSegurancaConexao.cs" />
@@ -380,12 +379,6 @@
     </Compile>
     <Compile Include="View\CaixasDialogo\ConfigurarDadosConexao.xaml.cs">
       <DependentUpon>ConfigurarDadosConexao.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewDadosBase\DetalheClienteAtual.xaml.cs">
-      <DependentUpon>DetalheClienteAtual.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewDadosBase\DetalheMotoristaAtual.xaml.cs">
-      <DependentUpon>DetalheMotoristaAtual.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewRegistroVenda\AdicionarProduto.xaml.cs">
       <DependentUpon>AdicionarProduto.xaml</DependentUpon>
@@ -704,14 +697,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\CaixasDialogo\ConfigurarDadosConexao.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ViewDadosBase\DetalheClienteAtual.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ViewDadosBase\DetalheMotoristaAtual.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

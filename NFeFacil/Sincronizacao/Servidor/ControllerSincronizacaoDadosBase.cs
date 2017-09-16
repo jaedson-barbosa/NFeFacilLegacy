@@ -11,7 +11,7 @@ namespace NFeFacil.Sincronizacao.Servidor
     internal sealed class ControllerSincronizacaoDadosBase
     {
         [UriFormat("/Dados/{senha}")]
-        public IPostResponse ClienteServidorAsync(int senha, [FromContent] DadosBase pacote)
+        public IPostResponse ClienteServidorAsync(int senha, [FromContent] ConjuntoBanco pacote)
         {
             using (var DB = new AplicativoContext())
             {
@@ -41,7 +41,7 @@ namespace NFeFacil.Sincronizacao.Servidor
                     throw new SenhaErrada(senha);
 
                 var resposta = new GetResponse(GetResponse.ResponseStatus.OK,
-                    new DadosBase
+                    new ConjuntoBanco
                     {
                         Emitentes = DB.Emitentes.Where(x => x.UltimaData > momento).ToList(),
                         Clientes = DB.Clientes.Where(x => x.UltimaData > momento).ToList(),
@@ -54,7 +54,7 @@ namespace NFeFacil.Sincronizacao.Servidor
         }
 
         [UriFormat("/DadosCompleto/{senha}")]
-        public IGetResponse SincronizacaoCompleta(int senha, [FromContent] DadosBase pacote)
+        public IGetResponse SincronizacaoCompleta(int senha, [FromContent] ConjuntoBanco pacote)
         {
             using (var DB = new AplicativoContext())
             {
@@ -68,7 +68,7 @@ namespace NFeFacil.Sincronizacao.Servidor
                 Mudanca.AnalisarAdicionarProdutos(pacote.Produtos);
 
                 var resposta = new GetResponse(GetResponse.ResponseStatus.OK,
-                    new DadosBase
+                    new ConjuntoBanco
                     {
                         Emitentes = DB.Emitentes.ToList(),
                         Clientes = DB.Clientes.ToList(),

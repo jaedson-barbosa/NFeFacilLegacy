@@ -40,9 +40,9 @@ namespace NFeFacil.Sincronizacao
             async Task<ItensSincronizados> SincronizarDadosBase(AplicativoContext contexto)
             {
                 var momento = UltimaSincronizacao;
-                var receb = await EnviarAsync<DadosBase>($"Dados", HttpMethod.Get, SenhaPermanente, null, momento.ToBinary().ToString());
+                var receb = await EnviarAsync<ConjuntoBanco>($"Dados", HttpMethod.Get, SenhaPermanente, null, momento.ToBinary().ToString());
 
-                var envio = new DadosBase
+                var envio = new ConjuntoBanco
                 {
                     Emitentes = contexto.Emitentes.Where(x => x.UltimaData > momento).ToList(),
                     Clientes = contexto.Clientes.Where(x => x.UltimaData > momento).ToList(),
@@ -58,7 +58,7 @@ namespace NFeFacil.Sincronizacao
                 Mudanca.AdicionarProdutos(receb.Produtos);
                 return new ItensSincronizados(CalcularTotal(envio), CalcularTotal(receb));
 
-                int CalcularTotal(DadosBase dados)
+                int CalcularTotal(ConjuntoBanco dados)
                 {
                     return dados.Clientes.Count + dados.Emitentes.Count + dados.Motoristas.Count + dados.Produtos.Count;
                 }
@@ -99,14 +99,14 @@ namespace NFeFacil.Sincronizacao
 
             async Task<ItensSincronizados> SincronizarDadosBase(AplicativoContext contexto)
             {
-                var envio = new DadosBase
+                var envio = new ConjuntoBanco
                 {
                     Emitentes = contexto.Emitentes.ToList(),
                     Clientes = contexto.Clientes.ToList(),
                     Motoristas = contexto.Motoristas.ToList(),
                     Produtos = contexto.Produtos.ToList()
                 }; ;
-                var receb = await EnviarAsync<DadosBase>($"DadosCompleto", HttpMethod.Get, SenhaPermanente, envio);
+                var receb = await EnviarAsync<ConjuntoBanco>($"DadosCompleto", HttpMethod.Get, SenhaPermanente, envio);
 
                 var Mudanca = new Repositorio.MudancaOtimizadaBancoDados(contexto);
                 Mudanca.AnalisarAdicionarEmitentes(receb.Emitentes);
@@ -116,7 +116,7 @@ namespace NFeFacil.Sincronizacao
 
                 return new ItensSincronizados(CalcularTotal(envio), CalcularTotal(receb));
 
-                int CalcularTotal(DadosBase dados)
+                int CalcularTotal(ConjuntoBanco dados)
                 {
                     return dados.Clientes.Count + dados.Emitentes.Count + dados.Motoristas.Count + dados.Produtos.Count;
                 }

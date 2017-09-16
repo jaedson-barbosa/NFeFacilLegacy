@@ -64,12 +64,10 @@ namespace NFeFacil.ItensBD
             var estoque = db.Estoque.Find(IdBase);
             if (estoque != null)
             {
-                var alteracao = estoque.Alteracoes.FirstOrDefault(x => x.Id == Id);
-                estoque.Alteracoes.Remove(alteracao);
-                if (alteracao != null)
+                estoque.Alteracoes.Add(new AlteracaoEstoque
                 {
-                    db.Remove(alteracao);
-                }
+                    Alteração = Quantidade
+                });
             }
             db.SaveChanges();
         }

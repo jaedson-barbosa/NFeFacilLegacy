@@ -45,7 +45,7 @@ namespace NFeFacil.ViewDadosBase
                     using (var db = new AplicativoContext())
                     {
                         var img = db.Imagens.Find(vendedor.Id);
-                        if (img != null)
+                        if (img != null && img.Bytes != null)
                         {
                             imgFoto.Source = await img.GetSourceAsync();
                         }
@@ -135,7 +135,8 @@ namespace NFeFacil.ViewDadosBase
                     var img = db.Imagens.Find(vendedor.Id);
                     if (img != null)
                     {
-                        db.Imagens.Remove(img);
+                        img.Bytes = null;
+                        db.Imagens.Update(img);
                         db.SaveChanges();
                     }
                 }

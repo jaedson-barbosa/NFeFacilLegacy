@@ -218,7 +218,7 @@ namespace NFeFacil.DANFE
                 if (di != null)
                 {
                     var img = db.Imagens.Find(di.Id);
-                    if (img != null)
+                    if (img != null && img.Bytes != null)
                     {
                         var task = img.GetSourceAsync();
                         task.Wait();

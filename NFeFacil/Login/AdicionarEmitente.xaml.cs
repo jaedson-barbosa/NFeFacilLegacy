@@ -45,7 +45,7 @@ namespace NFeFacil.Login
                     using (var db = new AplicativoContext())
                     {
                         var img = db.Imagens.Find(emitente.Id);
-                        if (img != null)
+                        if (img != null && img.Bytes != null)
                         {
                             imagem.Source = await img.GetSourceAsync();
                         }
@@ -135,7 +135,8 @@ namespace NFeFacil.Login
                     var img = db.Imagens.Find(emitente.Id);
                     if (img != null)
                     {
-                        db.Imagens.Remove(img);
+                        img.Bytes = null;
+                        db.Imagens.Update(img);
                         db.SaveChanges();
                     }
                 }

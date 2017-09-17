@@ -34,7 +34,7 @@ namespace NFeFacil.Login
                         Nome = atual.Nome
                     };
                     var img = imagens.Find(atual.Id);
-                    if (img != null)
+                    if (img != null && img.Bytes != null)
                     {
                         var task = img.GetSourceAsync();
                         task.Wait();

@@ -151,7 +151,7 @@ namespace NFeFacil
             using (var db = new AplicativoContext())
             {
                 var img = db.Imagens.Find(Propriedades.EmitenteAtivo.Id);
-                if (img != null)
+                if (img != null && img.Bytes != null)
                 {
                     imgLogotipo.Source = await img.GetSourceAsync();
                 }
@@ -161,7 +161,7 @@ namespace NFeFacil
                 if (Propriedades.VendedorAtivo != null)
                 {
                     img = db.Imagens.Find(Propriedades.VendedorAtivo.Id);
-                    if (img != null)
+                    if (img != null && img.Bytes != null)
                     {
                         imgVendedor.Source = await img.GetSourceAsync();
                     }

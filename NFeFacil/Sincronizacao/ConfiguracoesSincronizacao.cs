@@ -58,11 +58,7 @@ namespace NFeFacil.Sincronizacao
             }
         }
 
-        public static int SenhaTemporária
-        {
-            get { return (int)Pasta.Values[nameof(SenhaTemporária)]; }
-            set { Pasta.Values[nameof(SenhaTemporária)] = value; }
-        }
+        public static int SenhaTemporária { get; set; }
 
         public static string IPServidor
         {

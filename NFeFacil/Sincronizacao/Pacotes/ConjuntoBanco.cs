@@ -49,7 +49,7 @@ namespace NFeFacil.Sincronizacao.Pacotes
             Estoque = db.Estoque.Include(x => x.Alteracoes).Where(x => x.UltimaData > minimo).ToList();
             Veiculos = db.Veiculos.ToList();
             NotasFiscais = db.NotasFiscais.Where(x => x.UltimaData > minimo).ToList();
-            Vendas = db.Vendas.Include(x => x.Produtos).ToList();
+            Vendas = db.Vendas.Include(x => x.Produtos).Where(x => x.UltimaData > minimo).ToList();
             Cancelamentos = db.Cancelamentos.ToList();
             CancelamentosRegistroVenda = db.CancelamentosRegistroVenda.ToList();
             Imagens = db.Imagens.Where(x => x.UltimaData > minimo).ToList();
@@ -99,7 +99,7 @@ namespace NFeFacil.Sincronizacao.Pacotes
 
             Vendas = (from local in db.Vendas.Include(x => x.Produtos)
                       let servidor = existente.Vendas.FirstOrDefault(x => x.Id == local.Id)
-                      where servidor == null || (!servidor.Cancelado && local.Cancelado)
+                      where servidor == null || servidor.UltimaData < local.UltimaData
                       select local).ToList();
 
             Cancelamentos = (from local in db.Cancelamentos
@@ -127,10 +127,12 @@ namespace NFeFacil.Sincronizacao.Pacotes
                 var atual = db.Clientes.FirstOrDefault(x => x.Id == novo.Id);
                 if (atual == null)
                 {
+                    novo.UltimaData = DateTime.Now;
                     Adicionar.Add(novo);
                 }
                 else if (novo.UltimaData > atual.UltimaData)
                 {
+                    novo.UltimaData = DateTime.Now;
                     Atualizar.Add(novo);
                 }
             }
@@ -141,10 +143,12 @@ namespace NFeFacil.Sincronizacao.Pacotes
                 var atual = db.Emitentes.FirstOrDefault(x => x.Id == novo.Id);
                 if (atual == null)
                 {
+                    novo.UltimaData = DateTime.Now;
                     Adicionar.Add(novo);
                 }
                 else if (novo.UltimaData > atual.UltimaData)
                 {
+                    novo.UltimaData = DateTime.Now;
                     Atualizar.Add(novo);
                 }
             }
@@ -155,10 +159,12 @@ namespace NFeFacil.Sincronizacao.Pacotes
                 var atual = db.Motoristas.FirstOrDefault(x => x.Id == novo.Id);
                 if (atual == null)
                 {
+                    novo.UltimaData = DateTime.Now;
                     Adicionar.Add(novo);
                 }
                 else if (novo.UltimaData > atual.UltimaData)
                 {
+                    novo.UltimaData = DateTime.Now;
                     Atualizar.Add(novo);
                 }
             }
@@ -169,10 +175,12 @@ namespace NFeFacil.Sincronizacao.Pacotes
                 var atual = db.Vendedores.FirstOrDefault(x => x.Id == novo.Id);
                 if (atual == null)
                 {
+                    novo.UltimaData = DateTime.Now;
                     Adicionar.Add(novo);
                 }
                 else if (novo.UltimaData > atual.UltimaData)
                 {
+                    novo.UltimaData = DateTime.Now;
                     Atualizar.Add(novo);
                 }
             }
@@ -183,10 +191,12 @@ namespace NFeFacil.Sincronizacao.Pacotes
                 var atual = db.Produtos.FirstOrDefault(x => x.Id == novo.Id);
                 if (atual == null)
                 {
+                    novo.UltimaData = DateTime.Now;
                     Adicionar.Add(novo);
                 }
                 else if (novo.UltimaData > atual.UltimaData)
                 {
+                    novo.UltimaData = DateTime.Now;
                     Atualizar.Add(novo);
                 }
             }
@@ -197,10 +207,12 @@ namespace NFeFacil.Sincronizacao.Pacotes
                 var atual = db.Estoque.FirstOrDefault(x => x.Id == novo.Id);
                 if (atual == null)
                 {
+                    novo.UltimaData = DateTime.Now;
                     Adicionar.Add(novo);
                 }
                 else if (novo.UltimaData > atual.UltimaData)
                 {
+                    novo.UltimaData = DateTime.Now;
                     Atualizar.Add(novo);
                 }
             }
@@ -221,10 +233,12 @@ namespace NFeFacil.Sincronizacao.Pacotes
                 var atual = db.NotasFiscais.FirstOrDefault(x => x.Id == novo.Id);
                 if (atual == null)
                 {
+                    novo.UltimaData = DateTime.Now;
                     Adicionar.Add(novo);
                 }
                 else if (novo.UltimaData > atual.UltimaData)
                 {
+                    novo.UltimaData = DateTime.Now;
                     Atualizar.Add(novo);
                 }
             }
@@ -235,10 +249,12 @@ namespace NFeFacil.Sincronizacao.Pacotes
                 var atual = db.Vendas.FirstOrDefault(x => x.Id == novo.Id);
                 if (atual == null)
                 {
+                    novo.UltimaData = DateTime.Now;
                     Adicionar.Add(novo);
                 }
-                else if (novo.Cancelado && !atual.Cancelado)
+                else if (novo.UltimaData > atual.UltimaData)
                 {
+                    novo.UltimaData = DateTime.Now;
                     Atualizar.Add(novo);
                 }
             }
@@ -269,13 +285,17 @@ namespace NFeFacil.Sincronizacao.Pacotes
                 var atual = db.Imagens.FirstOrDefault(x => x.Id == novo.Id);
                 if (atual == null)
                 {
+                    novo.UltimaData = DateTime.Now;
                     Adicionar.Add(novo);
                 }
                 else if (novo.UltimaData > atual.UltimaData)
                 {
+                    novo.UltimaData = DateTime.Now;
                     Atualizar.Add(novo);
                 }
             }
+
+            
 
             db.AddRange(Adicionar);
             db.UpdateRange(Atualizar);

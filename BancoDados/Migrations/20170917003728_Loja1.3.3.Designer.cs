@@ -8,9 +8,10 @@ using NFeFacil;
 namespace NFeFacil.Migrations
 {
     [DbContext(typeof(AplicativoContext))]
-    partial class AplicativoContextModelSnapshot : ModelSnapshot
+    [Migration("20170917003728_Loja1.3.3")]
+    partial class Loja133
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2");

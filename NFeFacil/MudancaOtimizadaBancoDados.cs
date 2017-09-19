@@ -13,15 +13,6 @@ namespace NFeFacil
             Contexto = contexto;
         }
 
-        internal void AdicionarEmitentes(List<EmitenteDI> emitentes)
-        {
-            emitentes.ForEach(x => x.UltimaData = DateTime.Now);
-            var existem = emitentes.FindAll(x => Contexto.Emitentes.Find(x.Id) != null);
-            var naoExistem = emitentes.FindAll(x => Contexto.Emitentes.Find(x.Id) == null);
-            Contexto.AddRange(naoExistem);
-            Contexto.UpdateRange(existem);
-        }
-
         internal void AnalisarAdicionarEmitentes(List<EmitenteDI> emitentes)
         {
             var existem = new List<EmitenteDI>();
@@ -46,15 +37,8 @@ namespace NFeFacil
                     }
                 }
             }
-            Contexto.AddRange(naoExistem);
-            Contexto.UpdateRange(existem);
-        }
-
-        internal void AdicionarClientes(List<ClienteDI> clientes)
-        {
-            clientes.ForEach(x => x.UltimaData = DateTime.Now);
-            var existem = clientes.FindAll(x => Contexto.Clientes.Find(x.Id) != null);
-            var naoExistem = clientes.FindAll(x => Contexto.Clientes.Find(x.Id) == null);
+            existem.ForEach(x => x.UltimaData = DateTime.Now);
+            naoExistem.ForEach(x => x.UltimaData = DateTime.Now);
             Contexto.AddRange(naoExistem);
             Contexto.UpdateRange(existem);
         }
@@ -83,15 +67,8 @@ namespace NFeFacil
                     }
                 }
             }
-            Contexto.AddRange(naoExistem);
-            Contexto.UpdateRange(existem);
-        }
-
-        internal void AdicionarMotoristas(List<MotoristaDI> motoristas)
-        {
-            motoristas.ForEach(x => x.UltimaData = DateTime.Now);
-            var existem = motoristas.FindAll(x => Contexto.Motoristas.Find(x.Id) != null);
-            var naoExistem = motoristas.FindAll(x => Contexto.Motoristas.Find(x.Id) == null);
+            existem.ForEach(x => x.UltimaData = DateTime.Now);
+            naoExistem.ForEach(x => x.UltimaData = DateTime.Now);
             Contexto.AddRange(naoExistem);
             Contexto.UpdateRange(existem);
         }
@@ -121,15 +98,8 @@ namespace NFeFacil
                     }
                 }
             }
-            Contexto.AddRange(naoExistem);
-            Contexto.UpdateRange(existem);
-        }
-
-        internal void AdicionarProdutos(List<ProdutoDI> produtos)
-        {
-            produtos.ForEach(x => x.UltimaData = DateTime.Now);
-            var existem = produtos.FindAll(x => Contexto.Produtos.Find(x.Id) != null);
-            var naoExistem = produtos.FindAll(x => Contexto.Produtos.Find(x.Id) == null);
+            existem.ForEach(x => x.UltimaData = DateTime.Now);
+            naoExistem.ForEach(x => x.UltimaData = DateTime.Now);
             Contexto.AddRange(naoExistem);
             Contexto.UpdateRange(existem);
         }
@@ -159,6 +129,8 @@ namespace NFeFacil
                     }
                 }
             }
+            existem.ForEach(x => x.UltimaData = DateTime.Now);
+            naoExistem.ForEach(x => x.UltimaData = DateTime.Now);
             Contexto.AddRange(naoExistem);
             Contexto.UpdateRange(existem);
         }

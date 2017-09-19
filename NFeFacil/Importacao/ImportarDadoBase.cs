@@ -34,7 +34,7 @@ namespace NFeFacil.Importacao
             var db = new AplicativoContext();
             try
             {
-                var repo = new Repositorio.MudancaOtimizadaBancoDados(db);
+                var repo = new MudancaOtimizadaBancoDados(db);
                 switch (TipoDado)
                 {
                     case TiposDadoBasico.Emitente:

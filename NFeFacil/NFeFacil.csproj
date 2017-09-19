@@ -301,7 +301,6 @@
     <Compile Include="Sincronizacao\Pacotes\ConjuntoBanco.cs" />
     <Compile Include="Sincronizacao\Pacotes\InfoEstabelecerConexao.cs" />
     <Compile Include="Sincronizacao\Pacotes\InfoSegurancaConexao.cs" />
-    <Compile Include="Sincronizacao\Pacotes\IPacote.cs" />
     <Compile Include="Sincronizacao\Servidor\ControllerInformacoes.cs" />
     <Compile Include="Sincronizacao\Servidor\ControllerSincronizacao.cs" />
     <Compile Include="Sincronizacao\Servidor\SenhaErrada.cs" />

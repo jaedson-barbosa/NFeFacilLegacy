@@ -59,7 +59,7 @@ namespace NFeFacil.Sincronizacao
             }
         }
 
-        async Task<T> RequestAsync<T>(string nomeMetodo, HttpMethod metodo, int senha, IPacote corpo)
+        async Task<T> RequestAsync<T>(string nomeMetodo, HttpMethod metodo, int senha, object corpo)
         {
             string caminho = $"http://{IPServidor}:8080/{nomeMetodo}/{senha}";
             using (var proxy = new HttpClient())

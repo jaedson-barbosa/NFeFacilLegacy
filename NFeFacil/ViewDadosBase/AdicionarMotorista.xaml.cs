@@ -62,7 +62,7 @@ namespace NFeFacil.ViewDadosBase
                     MainPage.Current.Retornar();
                 }
             }
-            catch (System.Exception erro)
+            catch (Exception erro)
             {
                 erro.ManipularErro();
             }

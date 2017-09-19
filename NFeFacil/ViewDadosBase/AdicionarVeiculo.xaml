@@ -10,24 +10,21 @@
                PrimaryButtonText="Concluir"
                SecondaryButtonText="Cancelar"
                PrimaryButtonClick="ContentDialog_PrimaryButtonClick">
-    <ContentDialog.DataContext>
-        <vm:VeiculoDI />
-    </ContentDialog.DataContext>
     <ContentDialog.Resources>
         <VM:DadosEstadosParaView x:Key="estados" />
     </ContentDialog.Resources>
     <StackPanel>
         <TextBox Header="Descrição breve"
                  TextWrapping="Wrap"
-                 Text="{Binding Descricao, Mode=TwoWay}" />
+                 Text="{x:Bind Item.Descricao, Mode=TwoWay}" />
         <ComboBox ItemsSource="{Binding EstadosCompletos, Source={StaticResource estados}}"
-                  SelectedValue="{Binding UF, Mode=TwoWay}"
+                  SelectedValue="{x:Bind Item.UF, Mode=TwoWay}"
                   DisplayMemberPath="Nome"
                   SelectedValuePath="Sigla"
                   HorizontalAlignment="Stretch" />
         <TextBox Header="Placa"
-                 Text="{Binding Placa, Mode=TwoWay}" />
+                 Text="{x:Bind Item.Placa, Mode=TwoWay}" />
         <TextBox Header="RNTC"
-                 Text="{Binding RNTC, Mode=TwoWay}" />
+                 Text="{x:Bind Item.RNTC, Mode=TwoWay}" />
     </StackPanel>
 </ContentDialog>

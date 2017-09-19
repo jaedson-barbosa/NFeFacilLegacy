@@ -1,6 +1,6 @@
 ﻿namespace NFeFacil.Sincronizacao.Pacotes
 {
-    public struct InfoSegurancaConexao : IPacote
+    public struct InfoSegurancaConexao
     {
         public int Senha { get; set; }
     }

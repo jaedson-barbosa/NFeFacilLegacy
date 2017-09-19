@@ -46,7 +46,9 @@
                          InputScope="Number"
                          Header="Valor unid. tributária" />
                 <CheckBox VerticalAlignment="Bottom"
-                          x:Name="chkControleEstoque">Produto com controle de estoque</CheckBox>
+                          x:Name="chkControleEstoque"
+                          Checked="ControleEstoque_Checked"
+                          Unchecked="ControleEstoque_Unchecked">Produto com controle de estoque</CheckBox>
             </ItemsControl>
         </ScrollViewer>
         <CommandBar Grid.Row="1">

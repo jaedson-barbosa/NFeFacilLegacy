@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace NFeFacil.Sincronizacao.Pacotes
 {
-    public struct ConjuntoBanco : IPacote
+    public struct ConjuntoBanco
     {
         public List<ClienteDI> Clientes { get; set; }
         public List<EmitenteDI> Emitentes { get; set; }

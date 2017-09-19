@@ -69,7 +69,7 @@ namespace NFeFacil.ViewDadosBase
             var caixa = new AdicionarVeiculo();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
-                var veic = (VeiculoDI)caixa.DataContext;
+                var veic = caixa.Item;
                 using (var db = new AplicativoContext())
                 {
                     db.Veiculos.Add(veic);

@@ -9,6 +9,8 @@ namespace NFeFacil.ViewDadosBase
 {
     public sealed partial class AdicionarVeiculo : ContentDialog
     {
+        public VeiculoDI Item { get; } = new VeiculoDI();
+
         public AdicionarVeiculo()
         {
             InitializeComponent();
@@ -16,7 +18,7 @@ namespace NFeFacil.ViewDadosBase
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            if (!new ValidadorVeiculo((VeiculoDI)DataContext).Validar(Popup.Current))
+            if (!new ValidadorVeiculo(Item).Validar(Popup.Current))
             {
                 args.Cancel = true;
             }

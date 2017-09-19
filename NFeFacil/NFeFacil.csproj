@@ -222,7 +222,7 @@
     <Compile Include="View\CaixasDialogo\AlteracaoEstoque.xaml.cs">
       <DependentUpon>AlteracaoEstoque.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\CaixasDialogo\ConectarServidor.xaml.cs">
+    <Compile Include="Certificacao\LAN\ConectarServidor.xaml.cs">
       <DependentUpon>ConectarServidor.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\CaixasDialogo\EntradaTexto.xaml.cs">
@@ -627,7 +627,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\CaixasDialogo\ConectarServidor.xaml">
+    <Page Include="Certificacao\LAN\ConectarServidor.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

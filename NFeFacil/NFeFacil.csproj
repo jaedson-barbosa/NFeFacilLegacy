@@ -294,8 +294,7 @@
     <Compile Include="OperacoesNotaEmitida.cs" />
     <Compile Include="OperacoesNotaSalva.cs" />
     <Compile Include="Propriedades.cs" />
-    <Compile Include="Repositorio\MudancaOtimizadaBancoDados.cs" />
-    <Compile Include="Repositorio\NotasFiscais.cs" />
+    <Compile Include="MudancaOtimizadaBancoDados.cs" />
     <Compile Include="Sincronizacao\ConfiguracoesSincronizacao.cs" />
     <Compile Include="Sincronizacao\GerenciadorCliente.cs" />
     <Compile Include="Sincronizacao\GerenciadorServidor.cs" />

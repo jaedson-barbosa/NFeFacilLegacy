@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace NFeFacil.Repositorio
+namespace NFeFacil
 {
     internal sealed class MudancaOtimizadaBancoDados
     {

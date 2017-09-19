@@ -2,8 +2,8 @@
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
-using NFeFacil.Repositorio;
 using System.Collections.Generic;
+using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -56,7 +56,15 @@ namespace NFeFacil.ViewNFe
         private void CalcularNumero_Click(object sender, RoutedEventArgs e)
         {
             var cnpj = Propriedades.EmitenteAtivo.CNPJ;
-            txtNumero.Number = NotasFiscais.ObterNovoNumero(cnpj, Serie, AmbienteHomolocagao);
+            using (var Contexto = new AplicativoContext())
+            {
+                txtNumero.Number = (from nota in Contexto.NotasFiscais
+                                    where nota.CNPJEmitente == cnpj.ToString()
+                                    where nota.SerieNota == Serie
+                                    let notaHomologacao = nota.NomeCliente.Trim().ToUpper() == "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL"
+                                    where AmbienteHomolocagao ? notaHomologacao : !notaHomologacao
+                                    select nota.NumeroNota).Max() + 1;
+            }
         }
     }
 }

@@ -20,7 +20,7 @@ namespace NFeFacil.Certificacao
             using (var reader = Nota.ToXElement<T>().CreateReader())
             {
                 xml.Load(reader);
-                var caixa = new View.CaixasDialogo.SelecaoCertificado();
+                var caixa = new SelecaoCertificado();
                 if (await caixa.ShowAsync() == ContentDialogResult.Primary)
                 {
                     var serial = caixa.CertificadoEscolhido;

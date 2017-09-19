@@ -228,7 +228,7 @@
     <Compile Include="View\CaixasDialogo\EntradaTexto.xaml.cs">
       <DependentUpon>EntradaTexto.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\CaixasDialogo\SelecaoCertificado.xaml.cs">
+    <Compile Include="Certificacao\SelecaoCertificado.xaml.cs">
       <DependentUpon>SelecaoCertificado.xaml</DependentUpon>
     </Compile>
     <Compile Include="Certificacao\AssinaFacil.cs" />
@@ -635,7 +635,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\CaixasDialogo\SelecaoCertificado.xaml">
+    <Page Include="Certificacao\SelecaoCertificado.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

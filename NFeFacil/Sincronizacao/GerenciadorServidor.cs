@@ -20,13 +20,10 @@ namespace NFeFacil.Sincronizacao
             rest.RegisterController<ControllerInformacoes>();
             rest.RegisterController<ControllerSincronizacao>();
 
-            var config = new HttpServerConfiguration()
+            await new HttpServer(new HttpServerConfiguration()
                 .RegisterRoute(rest)
                 .ListenOnPort(8080)
-                .EnableCors();
-            var httpServer = new HttpServer(config);
-
-            await httpServer.StartServerAsync();
+                .EnableCors()).StartServerAsync();
             Rodando = true;
         }
 

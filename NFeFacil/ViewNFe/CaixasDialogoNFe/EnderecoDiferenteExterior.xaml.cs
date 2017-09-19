@@ -10,7 +10,7 @@ namespace NFeFacil.ViewNFe.CaixasDialogoNFe
     {
         public EnderecoDiferenteExterior()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         public RetiradaOuEntrega Endereco { get; } = new RetiradaOuEntrega()

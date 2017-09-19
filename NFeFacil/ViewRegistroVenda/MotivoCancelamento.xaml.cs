@@ -10,7 +10,7 @@ namespace NFeFacil.ViewRegistroVenda
 
         public MotivoCancelamento()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

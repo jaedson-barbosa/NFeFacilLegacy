@@ -16,7 +16,7 @@ namespace NFeFacil.Login
     {
         public EscolhaEmitente()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             using (var db = new AplicativoContext())
             {

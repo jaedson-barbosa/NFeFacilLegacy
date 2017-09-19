@@ -10,7 +10,7 @@ namespace NFeFacil.ViewNFe.CaixasDialogoNFe
 
         public EscolherTipoEndereco()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             cmbTipo.ItemsSource = ExtensoesPrincipal.ObterItens<TipoEndereco>();
         }
     }

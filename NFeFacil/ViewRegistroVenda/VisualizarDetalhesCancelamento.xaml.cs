@@ -11,7 +11,7 @@ namespace NFeFacil.ViewRegistroVenda
 
         public VisualizarDetalhesCancelamento(ItensBD.CancelamentoRegistroVenda item)
         {
-            this.InitializeComponent();
+            InitializeComponent();
             DataEHora = item.MomentoCancelamento.ToString("yyyy-MM-dd HH:mm:ss");
             Motivo = item.Motivo;
         }

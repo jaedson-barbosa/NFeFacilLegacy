@@ -15,7 +15,7 @@ namespace NFeFacil.Login
 
         public GeralEmitente()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

@@ -11,7 +11,7 @@ namespace NFeFacil.ViewNFe.CaixasDialogoProduto
 
         public AddDeclaracaoExportacaoIndireta()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             Declaracao = new GrupoExportacao()
             {
                 ExportInd = new ExportacaoIndireta()

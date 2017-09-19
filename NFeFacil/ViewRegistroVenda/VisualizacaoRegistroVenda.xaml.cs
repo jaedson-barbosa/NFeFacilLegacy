@@ -18,7 +18,7 @@ namespace NFeFacil.ViewRegistroVenda
 
         public VisualizacaoRegistroVenda()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

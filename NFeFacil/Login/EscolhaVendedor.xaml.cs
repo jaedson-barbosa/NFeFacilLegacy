@@ -18,7 +18,7 @@ namespace NFeFacil.Login
     {
         public EscolhaVendedor()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             using (var db = new AplicativoContext())
             {

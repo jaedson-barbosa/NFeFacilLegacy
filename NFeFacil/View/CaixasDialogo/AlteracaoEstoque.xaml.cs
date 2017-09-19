@@ -12,7 +12,7 @@ namespace NFeFacil.View.CaixasDialogo
 
         public AlteracaoEstoque()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

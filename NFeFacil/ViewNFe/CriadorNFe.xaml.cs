@@ -18,7 +18,7 @@ namespace NFeFacil.ViewNFe
 
         public CriadorNFe()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)

@@ -10,7 +10,7 @@ namespace NFeFacil.ViewNFe.CaixasDialogoProduto
 
         public EscolherTipoDeclaracaoExportacao()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             cmbTipo.ItemsSource = ExtensoesPrincipal.ObterItens<TiposDeclaracaoExportacao>();
         }
     }

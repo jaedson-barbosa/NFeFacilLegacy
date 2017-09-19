@@ -24,7 +24,7 @@ namespace NFeFacil.ViewRegistroVenda
 
         public DARV()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

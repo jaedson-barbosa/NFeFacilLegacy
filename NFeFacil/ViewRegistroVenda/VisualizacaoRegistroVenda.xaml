@@ -13,9 +13,12 @@
         <CommandBar>
             <AppBarButton x:Name="btnCriarNFe"
                           Label="Criar NFe"
-                          IsEnabled="False"
                           Icon="Page"
                           Click="CriarNFe" />
+            <AppBarButton x:Name="btnVerNFe"
+                          Label="Ver NFe relacionada"
+                          Icon="View"
+                          Click="VerNFe" />
             <AppBarButton x:Name="btnCriarDarv"
                           Label="Imprimir"
                           Click="CriarDARV">

@@ -66,19 +66,6 @@ namespace NFeFacil.ViewNFe
             }
         }
 
-        private void Remover(object sender, RoutedEventArgs e)
-        {
-            var nota = (NFeView)((MenuFlyoutItem)sender).DataContext;
-            var Nota = nota.Nota;
-            using (var db = new AplicativoContext())
-            {
-                db.Remove(Nota);
-                db.SaveChanges();
-            }
-
-            OutrasNotas.Remove(nota);
-        }
-
         private void Exibir(object sender, RoutedEventArgs e)
         {
             var nota = (NFeView)((MenuFlyoutItem)sender).DataContext;

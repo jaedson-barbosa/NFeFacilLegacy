@@ -87,6 +87,9 @@ namespace NFeFacil.ViewRegistroVenda
                     return (label, texto);
                 }).ToArray());
             }
+            var semNota = string.IsNullOrEmpty(ItemBanco.NotaFiscalRelacionada);
+            btnCriarNFe.IsEnabled = semNota;
+            btnVerNFe.IsEnabled = !semNota;
             btnCriarDarv.IsEnabled = btnCriarNFe.IsEnabled = btnCancelar.IsEnabled = !ItemBanco.Cancelado;
             btnVisualizarCancelamento.IsEnabled = ItemBanco.Cancelado;
         }
@@ -138,6 +141,15 @@ namespace NFeFacil.ViewRegistroVenda
             {
                 var item = db.CancelamentosRegistroVenda.Find(ItemBanco.Id);
                 await new VisualizarDetalhesCancelamento(item).ShowAsync();
+            }
+        }
+
+        private void VerNFe(object sender, RoutedEventArgs e)
+        {
+            using (var db = new AplicativoContext())
+            {
+                var item = db.NotasFiscais.Find(ItemBanco.NotaFiscalRelacionada);
+                MainPage.Current.Navegar<ViewNFe.VisualizacaoNFe>(item);
             }
         }
     }

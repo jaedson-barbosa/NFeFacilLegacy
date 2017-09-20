@@ -328,6 +328,8 @@ namespace NFeFacil.ViewNFe
                             var venda = (RegistroVenda)ultPage.Parameter;
                             NotaSalva.Informacoes.AtualizarChave();
                             venda.NotaFiscalRelacionada = NotaSalva.Informacoes.Id;
+                            Frame.BackStack.Remove(ultPage);
+                            ultPage = Frame.BackStack[Frame.BackStack.Count - 1];
                         }
                         else
                         {

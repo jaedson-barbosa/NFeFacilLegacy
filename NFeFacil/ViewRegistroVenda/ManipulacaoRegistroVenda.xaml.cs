@@ -57,8 +57,8 @@ namespace NFeFacil.ViewRegistroVenda
         {
             using (var db = new AplicativoContext())
             {
-                Clientes = db.Clientes.Where(x => x.Ativo).GerarObs();
-                Motoristas = db.Motoristas.Where(x => x.Ativo).GerarObs();
+                Clientes = db.Clientes.Where(x => x.Ativo).OrderBy(x => x.Nome).GerarObs();
+                Motoristas = db.Motoristas.Where(x => x.Ativo).OrderBy(x => x.Nome).GerarObs();
 
                 MainPage.Current.SeAtualizar("\uEC59", "Registro de venda");
                 ItemBanco = new RegistroVenda

@@ -49,10 +49,10 @@ namespace NFeFacil.ViewDadosBase
 
             using (var db = new AplicativoContext())
             {
-                Clientes = db.Clientes.Where(x => x.Ativo).GerarObs();
-                Motoristas = db.Motoristas.Where(x => x.Ativo).GerarObs();
-                Produtos = db.Produtos.Where(x => x.Ativo).GerarObs();
-                Vendedores = db.Vendedores.Where(x => x.Ativo).GerarObs();
+                Clientes = db.Clientes.Where(x => x.Ativo).OrderBy(x => x.Nome).GerarObs();
+                Motoristas = db.Motoristas.Where(x => x.Ativo).OrderBy(x => x.Nome).GerarObs();
+                Produtos = db.Produtos.Where(x => x.Ativo).OrderBy(x => x.Descricao).GerarObs();
+                Vendedores = db.Vendedores.Where(x => x.Ativo).OrderBy(x => x.Nome).GerarObs();
             }
         }
 

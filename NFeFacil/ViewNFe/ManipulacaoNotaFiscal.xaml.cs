@@ -67,9 +67,9 @@ namespace NFeFacil.ViewNFe
 
             using (var db = new AplicativoContext())
             {
-                ClientesDisponiveis = db.Clientes.Where(x => x.Ativo).ToList();
-                MotoristasDisponiveis = db.Motoristas.Where(x => x.Ativo).ToList();
-                ProdutosDisponiveis = db.Produtos.Where(x => x.Ativo).ToList();
+                ClientesDisponiveis = db.Clientes.Where(x => x.Ativo).OrderBy(x => x.Nome).ToList();
+                MotoristasDisponiveis = db.Motoristas.Where(x => x.Ativo).OrderBy(x => x.Nome).ToList();
+                ProdutosDisponiveis = db.Produtos.Where(x => x.Ativo).OrderBy(x => x.Descricao).ToList();
             }
 
             if (Dados.Informacoes.total == null)

@@ -1,6 +1,7 @@
 ﻿using NFeFacil.ItensBD;
 using NFeFacil.ViewModel;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 
 namespace NFeFacil.ViewDadosBase
@@ -48,10 +49,10 @@ namespace NFeFacil.ViewDadosBase
 
             using (var db = new AplicativoContext())
             {
-                Clientes = db.Clientes.GerarObs();
-                Motoristas = db.Motoristas.GerarObs();
-                Produtos = db.Produtos.GerarObs();
-                Vendedores = db.Vendedores.GerarObs();
+                Clientes = db.Clientes.Where(x => x.Ativo).GerarObs();
+                Motoristas = db.Motoristas.Where(x => x.Ativo).GerarObs();
+                Produtos = db.Produtos.Where(x => x.Ativo).GerarObs();
+                Vendedores = db.Vendedores.Where(x => x.Ativo).GerarObs();
             }
         }
 

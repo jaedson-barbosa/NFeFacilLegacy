@@ -67,10 +67,9 @@ namespace NFeFacil.ViewNFe
 
             using (var db = new AplicativoContext())
             {
-                ClientesDisponiveis = db.Clientes.ToList();
-                EmitentesDisponiveis = db.Emitentes.ToList();
-                MotoristasDisponiveis = db.Motoristas.ToList();
-                ProdutosDisponiveis = db.Produtos.ToList();
+                ClientesDisponiveis = db.Clientes.Where(x => x.Ativo).ToList();
+                MotoristasDisponiveis = db.Motoristas.Where(x => x.Ativo).ToList();
+                ProdutosDisponiveis = db.Produtos.Where(x => x.Ativo).ToList();
             }
 
             if (Dados.Informacoes.total == null)
@@ -111,7 +110,6 @@ namespace NFeFacil.ViewNFe
         #region Dados base
 
         public List<ClienteDI> ClientesDisponiveis { get; set; }
-        public List<EmitenteDI> EmitentesDisponiveis { get; set; }
         public List<ProdutoDI> ProdutosDisponiveis { get; set; }
         public List<MotoristaDI> MotoristasDisponiveis { get; set; }
 
@@ -135,25 +133,6 @@ namespace NFeFacil.ViewNFe
                 {
                     NotaSalva.Informacoes.destinatário.Nome = NomeClienteHomologacao;
                 }
-            }
-        }
-
-        private EmitenteDI emitenteSelecionado;
-        public EmitenteDI EmitenteSelecionado
-        {
-            get
-            {
-                var emit = NotaSalva.Informacoes.emitente;
-                if (emitenteSelecionado == null && emit != null)
-                {
-                    emitenteSelecionado = EmitentesDisponiveis.FirstOrDefault(x => long.Parse(x.CNPJ) == emit.CNPJ);
-                }
-                return emitenteSelecionado;
-            }
-            set
-            {
-                emitenteSelecionado = value;
-                NotaSalva.Informacoes.emitente = value.ToEmitente();
             }
         }
 

@@ -68,7 +68,7 @@ namespace NFeFacil
             }
         }
 
-        public void Navegar<T>(object parametro = null) where T : Page, new()
+        public void Navegar<T>(object parametro = null) where T : Page
         {
             frmPrincipal.Navigate(typeof(T), parametro);
         }

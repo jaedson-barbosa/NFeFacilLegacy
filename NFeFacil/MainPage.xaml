@@ -5,6 +5,24 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="720" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState>
+                    <VisualState.Setters>
+                        <Setter Target="splitView.splitView.CompactPaneLength"
+                                Value="0" />
+                    </VisualState.Setters>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />

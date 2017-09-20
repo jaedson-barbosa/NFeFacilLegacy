@@ -55,8 +55,8 @@
                             <MenuFlyout>
                                 <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.EditarClienteCommand}"
                                                 CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Editar</MenuFlyoutItem>
-                                <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.RemoverClienteCommand}"
-                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Remover</MenuFlyoutItem>
+                                <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.InativarClienteCommand}"
+                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Inativar</MenuFlyoutItem>
                             </MenuFlyout>
                         </Grid.ContextFlyout>
                         <TextBlock TextWrapping="Wrap"
@@ -103,8 +103,8 @@
                             <MenuFlyout>
                                 <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.EditarMotoristaCommand}"
                                                 CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Editar</MenuFlyoutItem>
-                                <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.RemoverMotoristaCommand}"
-                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Remover</MenuFlyoutItem>
+                                <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.InativarMotoristaCommand}"
+                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Inativar</MenuFlyoutItem>
                             </MenuFlyout>
                         </Grid.ContextFlyout>
                         <TextBlock TextWrapping="Wrap"
@@ -148,8 +148,8 @@
                             <MenuFlyout>
                                 <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.EditarProdutoCommand}"
                                                 CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Editar</MenuFlyoutItem>
-                                <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.RemoverProdutoCommand}"
-                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Remover</MenuFlyoutItem>
+                                <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.InativarProdutoCommand}"
+                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Inativar</MenuFlyoutItem>
                             </MenuFlyout>
                         </Grid.ContextFlyout>
                         <TextBlock Text="{Binding CodigoProduto}" />
@@ -189,8 +189,8 @@
                             <MenuFlyout>
                                 <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.EditarVendedorCommand}"
                                                 CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Editar</MenuFlyoutItem>
-                                <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.RemoverVendedorCommand}"
-                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Remover</MenuFlyoutItem>
+                                <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.InativarVendedorCommand}"
+                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Inativar</MenuFlyoutItem>
                             </MenuFlyout>
                         </Grid.ContextFlyout>
                         <TextBlock Text="{Binding Nome}" />

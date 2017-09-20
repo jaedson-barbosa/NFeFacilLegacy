@@ -30,6 +30,8 @@ namespace NFeFacil.ItensBD
         public string XPais { get; set; }
         public string Telefone { get; set; }
 
+        public bool Ativo { get; set; } = true;
+
         [System.ComponentModel.DataAnnotations.Schema.NotMapped]
         public string Documento => CPF ?? CNPJ ?? IdEstrangeiro;
 

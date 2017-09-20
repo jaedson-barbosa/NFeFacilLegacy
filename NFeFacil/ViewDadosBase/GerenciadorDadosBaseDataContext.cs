@@ -14,37 +14,37 @@ namespace NFeFacil.ViewDadosBase
 
         public ICommand AdicionarClienteCommand { get; }
         public ICommand EditarClienteCommand { get; }
-        public ICommand RemoverClienteCommand { get; }
+        public ICommand InativarClienteCommand { get; }
 
         public ICommand AdicionarMotoristaCommand { get; }
         public ICommand EditarMotoristaCommand { get; }
-        public ICommand RemoverMotoristaCommand { get; }
+        public ICommand InativarMotoristaCommand { get; }
 
         public ICommand AdicionarProdutoCommand { get; }
         public ICommand EditarProdutoCommand { get; }
-        public ICommand RemoverProdutoCommand { get; }
+        public ICommand InativarProdutoCommand { get; }
 
         public ICommand AdicionarVendedorCommand { get; }
         public ICommand EditarVendedorCommand { get; }
-        public ICommand RemoverVendedorCommand { get; }
+        public ICommand InativarVendedorCommand { get; }
 
         public GerenciadorDadosBaseDataContext()
         {
             AdicionarClienteCommand = new Comando(AdicionarCliente);
             EditarClienteCommand = new Comando<ClienteDI>(EditarCliente);
-            RemoverClienteCommand = new Comando<ClienteDI>(RemoverCliente);
+            InativarClienteCommand = new Comando<ClienteDI>(InativarCliente);
 
             AdicionarMotoristaCommand = new Comando(AdicionarMotorista);
             EditarMotoristaCommand = new Comando<MotoristaDI>(EditarMotorista);
-            RemoverMotoristaCommand = new Comando<MotoristaDI>(RemoverMotorista);
+            InativarMotoristaCommand = new Comando<MotoristaDI>(InativarMotorista);
 
             AdicionarProdutoCommand = new Comando(AdicionarProduto);
             EditarProdutoCommand = new Comando<ProdutoDI>(EditarProduto);
-            RemoverProdutoCommand = new Comando<ProdutoDI>(RemoverProduto);
+            InativarProdutoCommand = new Comando<ProdutoDI>(InativarProduto);
 
             AdicionarVendedorCommand = new Comando(AdicionarVendedor);
             EditarVendedorCommand = new Comando<Vendedor>(EditarVendedor);
-            RemoverVendedorCommand = new Comando<Vendedor>(RemoverVendedor);
+            InativarVendedorCommand = new Comando<Vendedor>(InativarVendedor);
 
             using (var db = new AplicativoContext())
             {
@@ -65,11 +65,12 @@ namespace NFeFacil.ViewDadosBase
             MainPage.Current.Navegar<AdicionarDestinatario>(dest);
         }
 
-        private void RemoverCliente(ClienteDI dest)
+        private void InativarCliente(ClienteDI dest)
         {
             using (var db = new AplicativoContext())
             {
-                db.Remove(dest);
+                dest.Ativo = false;
+                db.Update(dest);
                 db.SaveChanges();
                 Clientes.Remove(dest);
             }
@@ -85,11 +86,12 @@ namespace NFeFacil.ViewDadosBase
             MainPage.Current.Navegar<AdicionarMotorista>(mot);
         }
 
-        private void RemoverMotorista(MotoristaDI mot)
+        private void InativarMotorista(MotoristaDI mot)
         {
             using (var db = new AplicativoContext())
             {
-                db.Remove(mot);
+                mot.Ativo = false;
+                db.Update(mot);
                 db.SaveChanges();
                 Motoristas.Remove(mot);
             }
@@ -105,11 +107,12 @@ namespace NFeFacil.ViewDadosBase
             MainPage.Current.Navegar<AdicionarProduto>(prod);
         }
 
-        private void RemoverProduto(ProdutoDI prod)
+        private void InativarProduto(ProdutoDI prod)
         {
             using (var db = new AplicativoContext())
             {
-                db.Remove(prod);
+                prod.Ativo = false;
+                db.Update(prod);
                 db.SaveChanges();
                 Produtos.Remove(prod);
             }
@@ -125,11 +128,12 @@ namespace NFeFacil.ViewDadosBase
             MainPage.Current.Navegar<AdicionarVendedor>(vend);
         }
 
-        public void RemoverVendedor(Vendedor vend)
+        public void InativarVendedor(Vendedor vend)
         {
             using (var db = new AplicativoContext())
             {
-                db.Remove(vend);
+                vend.Ativo = false;
+                db.Update(vend);
                 db.SaveChanges();
                 Vendedores.Remove(vend);
             }

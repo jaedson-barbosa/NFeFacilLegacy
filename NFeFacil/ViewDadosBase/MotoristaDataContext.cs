@@ -17,7 +17,6 @@ namespace NFeFacil.ViewDadosBase
 
         public ObservableCollection<VeiculoDI> Veiculos { get; }
         public ICommand AdicionarVeiculoCommand { get; }
-        public ICommand RemoverVeiculoCommand { get; }
 
         public string UFEscolhida
         {
@@ -61,7 +60,6 @@ namespace NFeFacil.ViewDadosBase
                 Veiculos = new ObservableCollection<VeiculoDI>(db.Veiculos);
             }
             AdicionarVeiculoCommand = new Comando(AdicionarVeiculo);
-            RemoverVeiculoCommand = new Comando<VeiculoDI>(RemoverVeiculo);
         }
 
         async void AdicionarVeiculo()
@@ -77,13 +75,6 @@ namespace NFeFacil.ViewDadosBase
                     Veiculos.Add(veic);
                 }
             }
-        }
-
-        void RemoverVeiculo(VeiculoDI veiculo)
-        {
-            using (var db = new AplicativoContext())
-                db.Veiculos.Remove(veiculo);
-            Veiculos.Remove(veiculo);
         }
     }
 }

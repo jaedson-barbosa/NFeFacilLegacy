@@ -19,6 +19,8 @@ namespace NFeFacil.ItensBD
         public string XMun { get; set; }
         public string UF { get; set; }
 
+        public bool Ativo { get; set; } = true;
+
         [System.ComponentModel.DataAnnotations.Schema.NotMapped]
         public string Documento => CPF ?? CNPJ;
 

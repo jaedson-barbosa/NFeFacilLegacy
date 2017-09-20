@@ -16,5 +16,7 @@ namespace NFeFacil.ItensBD
 
         [Required]
         public string Endereço { get; set; }
+
+        public bool Ativo { get; set; } = true;
     }
 }

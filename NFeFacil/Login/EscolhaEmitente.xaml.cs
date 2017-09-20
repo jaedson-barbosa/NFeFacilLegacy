@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
@@ -17,7 +18,10 @@ namespace NFeFacil.Login
         public EscolhaEmitente()
         {
             InitializeComponent();
+        }
 
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
             using (var db = new AplicativoContext())
             {
                 var emitentes = db.Emitentes.ToArray();
@@ -43,12 +47,22 @@ namespace NFeFacil.Login
                     conjuntos.Add(novoConjunto);
                 }
                 grdEmitentes.ItemsSource = conjuntos;
+                if (conjuntos.Count == 0)
+                {
+                    var caixa = new MessageDialog("    Olá, parece que este é seu primeiro login no app neste dispositivo.\r\n" +
+                        "    Primeiramente, obrigado por adquirir o NFe Fácil.\r\n" +
+                        "    Agora vamos ao que interessa. Você deseja deseja obter todos os dados a partir de uma sincronização com outro dispositivo (claro, se outro dispositivo já tem dados cadastrados)?");
+                    caixa.Commands.Add(new UICommand("Sim", x =>
+                    {
+                        MainPage.Current.Navegar<View.ConfigSincronizacao>();
+                    }));
+                    caixa.Commands.Add(new UICommand("Não"));
+#pragma warning disable CS4014
+                    caixa.ShowAsync();
+#pragma warning restore CS4014
+                }
             }
-        }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            base.OnNavigatedTo(e);
             MainPage.Current.SeAtualizar(Symbol.Home, "Escolher empresa");
         }
 

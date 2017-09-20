@@ -82,7 +82,7 @@ namespace NFeFacil.ViewNFe
         private void Exibir(object sender, RoutedEventArgs e)
         {
             var nota = (NFeView)((MenuFlyoutItem)sender).DataContext;
-            MainPage.Current.Navegar<ViewNFe.VisualizacaoNFe>(nota.Nota);
+            MainPage.Current.Navegar<VisualizacaoNFe>(nota.Nota);
         }
 
         private async void Cancelar(object sender, RoutedEventArgs e)

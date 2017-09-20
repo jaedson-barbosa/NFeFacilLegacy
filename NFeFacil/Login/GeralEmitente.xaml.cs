@@ -41,15 +41,5 @@ namespace NFeFacil.Login
         {
             MainPage.Current.Navegar<AdicionarEmitente>(emitente);
         }
-
-        private void Apagar(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            using (var db = new AplicativoContext())
-            {
-                db.Remove(emitente);
-                db.SaveChanges();
-            }
-            MainPage.Current.Retornar();
-        }
     }
 }

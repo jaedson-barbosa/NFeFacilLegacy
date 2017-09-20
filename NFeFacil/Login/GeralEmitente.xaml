@@ -49,9 +49,6 @@
             <AppBarButton Icon="Edit"
                           Label="Editar"
                           Click="Editar" />
-            <AppBarButton Icon="Delete"
-                          Label="Apagar"
-                          Click="Apagar" />
         </CommandBar>
     </Page.BottomAppBar>
 </Page>

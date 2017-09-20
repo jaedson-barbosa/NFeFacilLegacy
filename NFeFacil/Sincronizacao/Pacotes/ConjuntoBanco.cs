@@ -295,8 +295,6 @@ namespace NFeFacil.Sincronizacao.Pacotes
                 }
             }
 
-            
-
             db.AddRange(Adicionar);
             db.UpdateRange(Atualizar);
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace NFeFacil.Migrations
@@ -11,7 +12,7 @@ namespace NFeFacil.Migrations
                 name: "Ativo",
                 table: "Vendedores",
                 nullable: false,
-                defaultValue: false);
+                defaultValue: true);
 
             migrationBuilder.AddColumn<bool>(
                 name: "Cancelado",
@@ -23,13 +24,13 @@ namespace NFeFacil.Migrations
                 name: "Ativo",
                 table: "Produtos",
                 nullable: false,
-                defaultValue: false);
+                defaultValue: true);
 
             migrationBuilder.AddColumn<bool>(
                 name: "Ativo",
                 table: "Motoristas",
                 nullable: false,
-                defaultValue: false);
+                defaultValue: true);
 
             migrationBuilder.AddColumn<DateTime>(
                 name: "UltimaData",
@@ -47,7 +48,7 @@ namespace NFeFacil.Migrations
                 name: "Ativo",
                 table: "Clientes",
                 nullable: false,
-                defaultValue: false);
+                defaultValue: true);
 
             migrationBuilder.CreateTable(
                 name: "CancelamentosRegistroVenda",

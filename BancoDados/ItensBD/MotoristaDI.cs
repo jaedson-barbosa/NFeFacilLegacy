@@ -19,12 +19,10 @@ namespace NFeFacil.ItensBD
         public string XMun { get; set; }
         public string UF { get; set; }
 
-        public bool Ativo { get; set; } = true;
+        public bool Ativo { get; set; }
 
-        [System.ComponentModel.DataAnnotations.Schema.NotMapped]
         public string Documento => CPF ?? CNPJ;
 
-        [System.ComponentModel.DataAnnotations.Schema.NotMapped]
         public TiposDocumento TipoDocumento => !string.IsNullOrEmpty(CNPJ) ? TiposDocumento.CNPJ : TiposDocumento.CPF;
 
         public MotoristaDI() { }

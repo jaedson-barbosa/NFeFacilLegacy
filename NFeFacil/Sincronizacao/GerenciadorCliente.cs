@@ -39,6 +39,8 @@ namespace NFeFacil.Sincronizacao
 
                 Log.Escrever(TitulosComuns.Sucesso, "Sincronização simples concluida.");
                 db.SaveChanges();
+
+                UltimaSincronizacao = DateTime.Now;
             }
         }
 
@@ -54,6 +56,8 @@ namespace NFeFacil.Sincronizacao
 
                 Log.Escrever(TitulosComuns.Sucesso, "Sincronização total concluida.");
                 db.SaveChanges();
+
+                UltimaSincronizacao = DateTime.Now;
             }
         }
 

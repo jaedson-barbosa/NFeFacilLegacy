@@ -64,6 +64,7 @@ namespace NFeFacil.ItensBD
             var estoque = db.Estoque.Find(IdBase);
             if (estoque != null)
             {
+                estoque.UltimaData = DateTime.Now;
                 estoque.Alteracoes.Add(new AlteracaoEstoque
                 {
                     Alteração = Quantidade
@@ -77,6 +78,7 @@ namespace NFeFacil.ItensBD
             var estoque = db.Estoque.Include(x => x.Alteracoes).FirstOrDefault(x => x.Id == IdBase);
             if (estoque != null)
             {
+                estoque.UltimaData = DateTime.Now;
                 var alteracao = estoque.Alteracoes.FirstOrDefault(x => x.Id == Id);
                 if (alteracao != null)
                 {

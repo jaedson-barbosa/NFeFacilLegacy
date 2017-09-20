@@ -112,11 +112,18 @@ namespace NFeFacil.ViewRegistroVenda
             {
                 var log = Popup.Current;
                 ItemBanco.Vendedor = Propriedades.VendedorAtivo?.Id ?? Guid.Empty;
+                ItemBanco.UltimaData = DateTime.Now;
                 db.Add(ItemBanco);
                 ItemBanco.Produtos.ForEach(x => x.RegistrarAlteracaoEstoque(db));
                 log.Escrever(TitulosComuns.Sucesso, "Registro de venda salvo com sucesso.");
                 db.SaveChanges();
             }
+
+            var ultPage = Frame.BackStack[Frame.BackStack.Count - 1];
+            PageStackEntry entrada = new PageStackEntry(typeof(VisualizacaoRegistroVenda), ItemBanco, new Windows.UI.Xaml.Media.Animation.SlideNavigationTransitionInfo());
+            Frame.BackStack.Add(entrada);
+
+            MainPage.Current.Retornar(true);
         }
 
         private async void AplicarDesconto(object sender, RoutedEventArgs e)

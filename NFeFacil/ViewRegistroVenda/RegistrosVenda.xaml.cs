@@ -52,17 +52,5 @@ namespace NFeFacil.ViewRegistroVenda
             var venda = (ExibicaoVenda)item.DataContext;
             MainPage.Current.Navegar<VisualizacaoRegistroVenda>(venda.Base);
         }
-
-        private void Excluir(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            var item = (MenuFlyoutItem)sender;
-            var venda = (ExibicaoVenda)item.DataContext;
-            using (var db = new AplicativoContext())
-            {
-                db.Vendas.Remove(venda.Base);
-                db.SaveChanges();
-            }
-            Vendas.Remove(venda);
-        }
     }
 }

@@ -104,6 +104,7 @@ namespace NFeFacil.View
                 if (valor != 0)
                 {
                     var estoque = (Estoque)dadosEstoque.DataContext;
+                    estoque.UltimaData = DateTime.Now;
                     var alt = new AlteracaoEstoque() { Alteração = valor };
                     if (estoque.Alteracoes == null)
                     {

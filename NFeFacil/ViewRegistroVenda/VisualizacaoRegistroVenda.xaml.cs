@@ -110,6 +110,7 @@ namespace NFeFacil.ViewRegistroVenda
             {
                 using (var db = new AplicativoContext())
                 {
+                    ItemBanco.UltimaData = DateTime.Now;
                     ItemBanco.Cancelado = true;
                     db.Update(ItemBanco);
                     ItemBanco.Produtos.ForEach(x => x.DesregistrarAlteracaoEstoque(db));

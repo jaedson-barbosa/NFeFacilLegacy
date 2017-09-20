@@ -17,9 +17,12 @@
                           Icon="Page"
                           Click="CriarNFe" />
             <AppBarButton x:Name="btnCriarDarv"
-                          Label="Criar DARV"
-                          Icon="Document"
-                          Click="CriarDARV" />
+                          Label="Imprimir"
+                          Click="CriarDARV">
+                <AppBarButton.Icon>
+                    <FontIcon Glyph="&#xE749;" />
+                </AppBarButton.Icon>
+            </AppBarButton>
             <CommandBar.SecondaryCommands>
                 <AppBarButton x:Name="btnCancelar"
                               Label="Cancelar registro"

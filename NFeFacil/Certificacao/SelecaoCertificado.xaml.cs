@@ -1,5 +1,4 @@
-﻿using NFeFacil.Certificacao;
-using Comum.Primitivos;
+﻿using Comum.Primitivos;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;

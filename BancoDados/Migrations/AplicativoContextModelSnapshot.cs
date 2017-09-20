@@ -47,6 +47,8 @@ namespace NFeFacil.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<bool>("Ativo");
+
                     b.Property<string>("Bairro");
 
                     b.Property<string>("CEP");
@@ -181,6 +183,8 @@ namespace NFeFacil.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<bool>("Ativo");
+
                     b.Property<string>("CNPJ");
 
                     b.Property<string>("CPF");
@@ -245,6 +249,8 @@ namespace NFeFacil.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("Ativo");
 
                     b.Property<string>("CFOP");
 
@@ -373,6 +379,8 @@ namespace NFeFacil.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("Ativo");
 
                     b.Property<long>("CPF");
 

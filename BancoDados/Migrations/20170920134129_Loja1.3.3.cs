@@ -8,8 +8,26 @@ namespace NFeFacil.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<bool>(
+                name: "Ativo",
+                table: "Vendedores",
+                nullable: false,
+                defaultValue: false);
+
+            migrationBuilder.AddColumn<bool>(
                 name: "Cancelado",
                 table: "Vendas",
+                nullable: false,
+                defaultValue: false);
+
+            migrationBuilder.AddColumn<bool>(
+                name: "Ativo",
+                table: "Produtos",
+                nullable: false,
+                defaultValue: false);
+
+            migrationBuilder.AddColumn<bool>(
+                name: "Ativo",
+                table: "Motoristas",
                 nullable: false,
                 defaultValue: false);
 
@@ -24,6 +42,12 @@ namespace NFeFacil.Migrations
                 table: "Estoque",
                 nullable: false,
                 defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+
+            migrationBuilder.AddColumn<bool>(
+                name: "Ativo",
+                table: "Clientes",
+                nullable: false,
+                defaultValue: false);
 
             migrationBuilder.CreateTable(
                 name: "CancelamentosRegistroVenda",
@@ -45,8 +69,20 @@ namespace NFeFacil.Migrations
                 name: "CancelamentosRegistroVenda");
 
             migrationBuilder.DropColumn(
+                name: "Ativo",
+                table: "Vendedores");
+
+            migrationBuilder.DropColumn(
                 name: "Cancelado",
                 table: "Vendas");
+
+            migrationBuilder.DropColumn(
+                name: "Ativo",
+                table: "Produtos");
+
+            migrationBuilder.DropColumn(
+                name: "Ativo",
+                table: "Motoristas");
 
             migrationBuilder.DropColumn(
                 name: "UltimaData",
@@ -55,6 +91,10 @@ namespace NFeFacil.Migrations
             migrationBuilder.DropColumn(
                 name: "UltimaData",
                 table: "Estoque");
+
+            migrationBuilder.DropColumn(
+                name: "Ativo",
+                table: "Clientes");
         }
     }
 }

@@ -91,11 +91,15 @@ namespace NFeFacil.ViewRegistroVenda
             btnVisualizarCancelamento.IsEnabled = ItemBanco.Cancelado;
         }
 
-        private void CriarNFe(object sender, RoutedEventArgs e)
+        private async void CriarNFe(object sender, RoutedEventArgs e)
         {
             var nfe = ItemBanco.ToNFe();
             nfe.Informacoes.identificacao.DefinirVersãoAplicativo();
-            MainPage.Current.Navegar<ViewNFe.ManipulacaoNotaFiscal>(nfe);
+            var caixa = new ViewNFe.CriadorNFe(nfe);
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+            {
+                Log.Popup.Current.Escrever(Log.TitulosComuns.Atenção, "Os impostos dos produtos não são adicionados automaticamente, por favor, insira-os editando cada produto.");
+            }
         }
 
         private void CriarDARV(object sender, RoutedEventArgs e)

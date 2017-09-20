@@ -305,17 +305,14 @@ namespace NFeFacil.ViewNFe
 
         #endregion
 
-        Popup Log = Popup.Current;
-
         void Confirmar()
         {
             try
             {
                 if (new ValidarDados(new ValidadorEmitente(NotaSalva.Informacoes.emitente),
-                    new ValidadorDestinatario(NotaSalva.Informacoes.destinatário)).ValidarTudo(Log))
+                    new ValidadorDestinatario(NotaSalva.Informacoes.destinatário)).ValidarTudo(Popup.Current))
                 {
-                    NotaSalva.Informacoes.AtualizarChave();
-                    Log.Escrever(TitulosComuns.ValidaçãoConcluída, "A nota fiscal foi validada.\r\n" +
+                    Popup.Current.Escrever(TitulosComuns.ValidaçãoConcluída, "A nota fiscal foi validada.\r\n" +
                         "Aparentemente, não há irregularidades.\r\n" +
                         "Agora salve para que as alterações fiquem gravadas.");
 
@@ -326,6 +323,29 @@ namespace NFeFacil.ViewNFe
                     var ultPage = Frame.BackStack[Frame.BackStack.Count - 1];
                     if (ultPage.SourcePageType != typeof(VisualizacaoNFe))
                     {
+                        if (ultPage.SourcePageType == typeof(ViewRegistroVenda.VisualizacaoRegistroVenda))
+                        {
+                            var venda = (RegistroVenda)ultPage.Parameter;
+                            NotaSalva.Informacoes.AtualizarChave();
+                            venda.NotaFiscalRelacionada = NotaSalva.Informacoes.Id;
+                        }
+                        else
+                        {
+                            using (var db = new AplicativoContext())
+                            {
+                                var venda = db.Vendas.FirstOrDefault(x => x.NotaFiscalRelacionada == NotaSalva.Informacoes.Id);
+                                if (venda != null)
+                                {
+                                    NotaSalva.Informacoes.AtualizarChave();
+                                    venda.NotaFiscalRelacionada = NotaSalva.Informacoes.Id;
+                                }
+                                else
+                                {
+                                    NotaSalva.Informacoes.AtualizarChave();
+                                }
+                            }
+                        }
+
                         var novoDI = new NFeDI(nota, nota.ToXElement<NFe>().ToString())
                         {
                             Status = (int)StatusNFe.Validada
@@ -335,6 +355,8 @@ namespace NFeFacil.ViewNFe
                     }
                     else
                     {
+                        NotaSalva.Informacoes.AtualizarChave();
+
                         var di = (NFeDI)ultPage.Parameter;
                         di.Id = nota.Informacoes.Id;
                         di.NomeCliente = nota.Informacoes.destinatário.Nome;

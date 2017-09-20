@@ -13,26 +13,18 @@ namespace NFeFacil.ViewNFe
 {
     public sealed partial class CriadorNFe : ContentDialog
     {
+        bool PodeUsarAmbienteHomolocagao { get; }
         bool AmbienteHomolocagao { get; set; }
         ushort Serie { get; set; } = 1;
+        NFe PreNota { get; }
 
         public CriadorNFe()
         {
             InitializeComponent();
-        }
-
-        private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
-        {
-            var notaSimples = new NFe()
+            PreNota = new NFe()
             {
                 Informacoes = new Detalhes()
                 {
-                    identificacao = new Identificacao()
-                    {
-                        Serie = Serie,
-                        Numero = (int)txtNumero.Number,
-                        TipoAmbiente = (ushort)(AmbienteHomolocagao ? 2 : 1)
-                    },
                     emitente = Propriedades.EmitenteAtivo.ToEmitente(),
                     destinatário = new Destinatario(),
                     produtos = new List<DetalhesProdutos>(),
@@ -49,8 +41,28 @@ namespace NFeFacil.ViewNFe
                     cana = new RegistroAquisicaoCana()
                 }
             };
-            notaSimples.Informacoes.identificacao.DefinirVersãoAplicativo();
-            MainPage.Current.Navegar<ManipulacaoNotaFiscal>(notaSimples);
+            PodeUsarAmbienteHomolocagao = true;
+        }
+
+        public CriadorNFe(NFe preNota)
+        {
+            InitializeComponent();
+            PreNota = preNota;
+            PodeUsarAmbienteHomolocagao = false;
+        }
+
+        private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            var identificacao = new Identificacao()
+            {
+                Serie = Serie,
+                Numero = (int)txtNumero.Number,
+                TipoAmbiente = (ushort)(AmbienteHomolocagao ? 2 : 1)
+            };
+            identificacao.DefinirVersãoAplicativo();
+            PreNota.Informacoes.identificacao = identificacao;
+
+            MainPage.Current.Navegar<ManipulacaoNotaFiscal>(PreNota);
         }
 
         private void CalcularNumero_Click(object sender, RoutedEventArgs e)

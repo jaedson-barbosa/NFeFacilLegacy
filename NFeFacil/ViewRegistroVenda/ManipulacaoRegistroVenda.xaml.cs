@@ -64,6 +64,7 @@ namespace NFeFacil.ViewRegistroVenda
                 ItemBanco = new RegistroVenda
                 {
                     Emitente = Propriedades.EmitenteAtivo.Id,
+                    Vendedor = Propriedades.VendedorAtivo?.Id ?? Guid.Empty,
                     Produtos = new System.Collections.Generic.List<ProdutoSimplesVenda>(),
                     DataHoraVenda = DateTime.Now
                 };
@@ -111,7 +112,6 @@ namespace NFeFacil.ViewRegistroVenda
             using (var db = new AplicativoContext())
             {
                 var log = Popup.Current;
-                ItemBanco.Vendedor = Propriedades.VendedorAtivo?.Id ?? Guid.Empty;
                 ItemBanco.UltimaData = DateTime.Now;
                 db.Add(ItemBanco);
                 ItemBanco.Produtos.ForEach(x => x.RegistrarAlteracaoEstoque(db));

@@ -13,7 +13,7 @@
         <ItemsControl Style="{StaticResource ItensMedios}"
                       IsTabStop="False">
             <controles:ItemPadrao x:Name="GerenciarDadosBase"
-                                  Titulo="Gerenciar dados base"
+                                  Titulo="Cadastros"
                                   Descricao="Gerencie as informações fundamentais para a criação das notas fiscais, que são: Emissor, cliente, transportador e Produto."
                                   Tapped="AbrirFunção">
                 <SymbolIcon Symbol="Manage" />

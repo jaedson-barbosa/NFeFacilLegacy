@@ -61,7 +61,8 @@ namespace NFeFacil.ViewNFe
         {
             var retorno = new List<PropriedadeHierárquica>();
             var tipo = obj.GetType();
-            foreach (var prop in tipo.GetProperties())
+            foreach (var prop in tipo.GetProperties().Where(x => x.CanWrite
+                && x.GetCustomAttribute<System.Xml.Serialization.XmlIgnoreAttribute>() == null))
             {
                 var valor = prop.GetValue(obj);
                 if (valor != null)
@@ -101,11 +102,31 @@ namespace NFeFacil.ViewNFe
                     else
                     {
                         var desc = prop.GetCustomAttribute<DescricaoPropriedade>();
-                        retorno.Add(new PropriedadeHierárquica
+                        var ext = prop.GetCustomAttribute<PropriedadeExtensivel>();
+                        if (desc != null)
                         {
-                            Nome = desc != null ? desc.Descricao : prop.Name,
-                            Valor = valor
-                        });
+                            retorno.Add(new PropriedadeHierárquica
+                            {
+                                Nome = desc.Descricao,
+                                Valor = valor
+                            });
+                        }
+                        else if (ext != null)
+                        {
+                            retorno.Add(new PropriedadeHierárquica
+                            {
+                                Nome = ext.NomeExtensão,
+                                Valor = ext.ObterValor(valor)
+                            });
+                        }
+                        else
+                        {
+                            retorno.Add(new PropriedadeHierárquica
+                            {
+                                Nome = prop.Name,
+                                Valor = valor
+                            });
+                        }
                     }
                 }
             }

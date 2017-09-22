@@ -24,6 +24,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe
         [XmlElement("xLgr", Order = 0)]
         public string Logradouro { get; set; }
 
+        [DescricaoPropriedade("Número")]
         [XmlElement("nro", Order = 1)]
         public string Numero { get; set; }
 
@@ -33,21 +34,26 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe
         [XmlElement("xBairro", Order = 3)]
         public string Bairro { get; set; }
 
+        [DescricaoPropriedade("Código do município")]
         [XmlElement("cMun", Order = 4)]
         public int CodigoMunicipio { get; set; }
 
+        [DescricaoPropriedade("Nume do município")]
         [XmlElement("xMun", Order = 5)]
         public string NomeMunicipio { get; set; }
 
+        [PropriedadeExtensivel("Estado", MetodosObtencao.Estado)]
         [XmlElement("UF", Order = 6)]
         public string SiglaUF { get; set; }
 
         [XmlElement(Order = 7)]
         public string CEP { get; set; }
 
+        [DescricaoPropriedade("Código do país")]
         [XmlElement("cPais", Order = 8)]
         public int CPais { get; set; } = 1058;
 
+        [DescricaoPropriedade("Nome do país")]
         [XmlElement("xPais", Order = 9)]
         public string XPais { get; set; } = "Brasil";
 

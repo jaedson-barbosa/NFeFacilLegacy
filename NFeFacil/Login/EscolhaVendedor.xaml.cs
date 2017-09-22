@@ -22,7 +22,7 @@ namespace NFeFacil.Login
 
             using (var db = new AplicativoContext())
             {
-                var vendedores = db.Vendedores.ToArray();
+                var vendedores = db.Vendedores.Where(x => x.Ativo).ToArray();
                 var imagens = db.Imagens;
                 var quantVendedores = vendedores.Length;
                 var conjuntos = new ObservableCollection<ConjuntoBasicoExibicaoVendedor>();

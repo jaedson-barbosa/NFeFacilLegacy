@@ -21,7 +21,7 @@ namespace NFeFacil.ItensBD
         public string UnidadeTributacao { get; set; }
         public double ValorUnitarioTributo { get; set; }
 
-        public bool Ativo { get; set; }
+        public bool Ativo { get; set; } = true;
 
         public ProdutoDI() { }
         public ProdutoDI(ProdutoOuServicoGenerico other)

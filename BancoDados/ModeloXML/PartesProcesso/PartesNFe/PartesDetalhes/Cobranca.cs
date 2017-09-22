@@ -5,7 +5,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
 {
     public sealed class Cobranca
     {
-        [XmlElement("fat")]
+        [XmlElement("fat"), DescricaoPropriedade("Fatura")]
         public Fatura Fat { get; set; } = new Fatura();
 
         [XmlElement("dup")]

@@ -37,7 +37,8 @@ namespace NFeFacil
             }
             else if (valor is string sigla)
             {
-                return Estados.EstadosCache.First(x => x.Sigla == sigla).Nome;
+                if (sigla == "EX") return "Exterior";
+                else return Estados.EstadosCache.First(x => x.Sigla == sigla).Nome;
             }
             throw new Exception("Formato inválido.");
         }

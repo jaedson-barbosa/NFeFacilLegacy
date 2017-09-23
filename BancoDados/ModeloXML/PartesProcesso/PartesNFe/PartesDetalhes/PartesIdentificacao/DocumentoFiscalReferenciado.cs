@@ -10,13 +10,13 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesIdent
         /// <summary>
         /// Referencia uma NF-e (modelo 55) emitida anteriormente, vinculada a NF-e atual, ou uma NFC-e (modelo 65).
         /// </summary>
-        [XmlElement("refNFe", Order = 0)]
+        [XmlElement("refNFe", Order = 0), DescricaoPropriedade("Referência a NF-e ou NFC-e")]
         public string RefNFe { get; set; }
 
-        [XmlElement("refNF", Order = 1)]
+        [XmlElement("refNF", Order = 1), DescricaoPropriedade("Referência a NF 1A")]
         public NF1AReferenciada RefNF { get; set; }
 
-        [XmlElement("refNFP", Order = 2)]
+        [XmlElement("refNFP", Order = 2), DescricaoPropriedade("Referência a nota de produtor rural")]
         public NFProdutorRuralReferenciada RefNFP { get; set; }
     }
 }

@@ -13,28 +13,16 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTrans
         [XmlElement(ElementName = "xNome", Order = 2)]
         public string Nome { get; set; }
 
-        [XmlElement(ElementName = "IE", Order = 3)]
+        [XmlElement(ElementName = "IE", Order = 3), DescricaoPropriedade("Inscrição estadual")]
         public string InscricaoEstadual { get; set; }
-        /// <summary>
-        /// (Opcional)
-        /// endereco Completo.
-        /// </summary>
-        [XmlElement("xEnder", Order = 4)]
+
+        [XmlElement("xEnder", Order = 4), DescricaoPropriedade("Endereço")]
         public string XEnder { get; set; }
 
-        /// <summary>
-        /// (Opcional)
-        /// Nome do município.
-        /// </summary>
-        [XmlElement("xMun", Order = 5)]
+        [XmlElement("xMun", Order = 5), DescricaoPropriedade("Nome do município")]
         public string XMun { get; set; }
 
-        /// <summary>
-        /// (Opcional)
-        /// Sigla da UF.
-        /// Informar "EX" para Exterior.
-        /// </summary>
-        [XmlElement(Order = 6)]
+        [XmlElement(Order = 6), PropriedadeExtensivel("Estado", MetodosObtencao.Estado)]
         public string UF { get; set; }
 
         [XmlIgnore]

@@ -1,4 +1,5 @@
-﻿using NFeFacil.ItensBD;
+﻿using Microsoft.EntityFrameworkCore;
+using NFeFacil.ItensBD;
 using System;
 using System.Linq;
 using Windows.UI.Xaml;
@@ -120,7 +121,22 @@ namespace NFeFacil.ViewRegistroVenda
                     ItemBanco.UltimaData = DateTime.Now;
                     ItemBanco.Cancelado = true;
                     db.Update(ItemBanco);
-                    ItemBanco.Produtos.ForEach(x => x.DesregistrarAlteracaoEstoque(db));
+
+                    for (int i = 0; i < ItemBanco.Produtos.Count; i++)
+                    {
+                        var produto = ItemBanco.Produtos[i];
+                        var estoque = db.Estoque.Include(x => x.Alteracoes).FirstOrDefault(x => x.Id == produto.IdBase);
+                        if (estoque != null)
+                        {
+                            estoque.UltimaData = DateTime.Now;
+                            estoque.Alteracoes.Add(new AlteracaoEstoque
+                            {
+                                Alteração = produto.Quantidade
+                            });
+                            db.Estoque.Update(estoque);
+                        }
+                    }
+
                     var cancelamento = new CancelamentoRegistroVenda()
                     {
                         Motivo = caixa.Motivo,
@@ -128,6 +144,7 @@ namespace NFeFacil.ViewRegistroVenda
                         Id = ItemBanco.Id
                     };
                     db.CancelamentosRegistroVenda.Add(cancelamento);
+
                     db.SaveChanges();
                     btnCriarDarv.IsEnabled = btnCriarNFe.IsEnabled = btnCancelar.IsEnabled = false;
                     btnVisualizarCancelamento.IsEnabled = true;

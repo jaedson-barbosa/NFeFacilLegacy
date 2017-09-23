@@ -23,6 +23,7 @@ namespace NFeFacil.ViewRegistroVenda
             using (var db = new AplicativoContext())
             {
                 Vendas = (from venda in db.Vendas.Include(x => x.Produtos).ToArray()
+                          orderby venda.DataHoraVenda descending
                           select new ExibicaoVenda
                           {
                               Base = venda,

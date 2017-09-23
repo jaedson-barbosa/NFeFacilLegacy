@@ -1,7 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
+﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 using System;
-using System.Linq;
 
 namespace NFeFacil.ItensBD
 {
@@ -56,44 +54,6 @@ namespace NFeFacil.ItensBD
                     Desconto = Desconto != 0 ? Desconto.ToString("0.00") : null,
                     ValorTotal = Quantidade * ProdutoBase.ValorUnitario
                 };
-            }
-        }
-
-        public void DesregistrarAlteracaoEstoque(AplicativoContext db)
-        {
-            var estoque = db.Estoque.Find(IdBase);
-            if (estoque != null)
-            {
-                estoque.UltimaData = DateTime.Now;
-                estoque.Alteracoes.Add(new AlteracaoEstoque
-                {
-                    Alteração = Quantidade
-                });
-            }
-            db.SaveChanges();
-        }
-
-        public void RegistrarAlteracaoEstoque(AplicativoContext db)
-        {
-            var estoque = db.Estoque.Include(x => x.Alteracoes).FirstOrDefault(x => x.Id == IdBase);
-            if (estoque != null)
-            {
-                estoque.UltimaData = DateTime.Now;
-                var alteracao = estoque.Alteracoes.FirstOrDefault(x => x.Id == Id);
-                if (alteracao != null)
-                {
-                    alteracao.Alteração = Quantidade * -1;
-                    db.Update(alteracao);
-                }
-                else
-                {
-                    estoque.Alteracoes.Add(new AlteracaoEstoque()
-                    {
-                        Id = Id,
-                        Alteração = Quantidade * -1
-                    });
-                }
-                db.SaveChanges();
             }
         }
     }

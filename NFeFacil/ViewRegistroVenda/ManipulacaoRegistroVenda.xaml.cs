@@ -1,4 +1,5 @@
-﻿using NFeFacil.ItensBD;
+﻿using Microsoft.EntityFrameworkCore;
+using NFeFacil.ItensBD;
 using NFeFacil.Log;
 using System;
 using System.Collections.ObjectModel;
@@ -114,7 +115,23 @@ namespace NFeFacil.ViewRegistroVenda
                 var log = Popup.Current;
                 ItemBanco.UltimaData = DateTime.Now;
                 db.Add(ItemBanco);
-                ItemBanco.Produtos.ForEach(x => x.RegistrarAlteracaoEstoque(db));
+
+                for (int i = 0; i < ItemBanco.Produtos.Count; i++)
+                {
+                    var produto = ItemBanco.Produtos[i];
+                    var estoque = db.Estoque.Include(x => x.Alteracoes).FirstOrDefault(x => x.Id == produto.IdBase);
+                    if (estoque != null)
+                    {
+                        estoque.UltimaData = DateTime.Now;
+                        estoque.Alteracoes.Add(new AlteracaoEstoque
+                        {
+                            Alteração = produto.Quantidade * -1
+                        });
+
+                        db.Estoque.Update(estoque);
+                    }
+                }
+
                 log.Escrever(TitulosComuns.Sucesso, "Registro de venda salvo com sucesso.");
                 db.SaveChanges();
             }

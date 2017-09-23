@@ -19,7 +19,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
         /// (Opcional)
         /// Informações Adicionais do DadosProduto.
         /// </summary>
-        [XmlElement("infAdProd", Order = 2)]
+        [XmlElement("infAdProd", Order = 2), DescricaoPropriedade("Informações adicionais")]
         public string InfAdProd { get; set; }
     }
 }

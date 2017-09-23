@@ -22,6 +22,8 @@ namespace NFeFacil
             {
                 case MetodosObtencao.Estado:
                     return ObterEstado(valor);
+                case MetodosObtencao.Municipio:
+                    return ObterMunicipio(valor);
                 default:
                     throw new Exception("Método não cadastrado");
             }
@@ -39,10 +41,16 @@ namespace NFeFacil
             }
             throw new Exception("Formato inválido.");
         }
+
+        static string ObterMunicipio(object valor)
+        {
+            return Municipios.MunicipiosCache.First(x => x.Codigo == (int)valor).Nome;
+        }
     }
 
     enum MetodosObtencao
     {
-        Estado
+        Estado,
+        Municipio
     }
 }

@@ -9,14 +9,14 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
         /// (Opcional)
         /// Informações Adicionais de Interesse do Fisco.
         /// </summary>
-        [XmlElement("infAdFisco", Order = 0)]
+        [XmlElement("infAdFisco", Order = 0), DescricaoPropriedade("Informações adicionais de interesse do fisco")]
         public string InfAdFisco { get; set; }
 
         /// <summary>
         /// (Opcional)
         /// Informações Complementares de interesse do Contribuinte.
         /// </summary>
-        [XmlElement("infCpl", Order = 1)]
+        [XmlElement("infCpl", Order = 1), DescricaoPropriedade("Informações complementares de interesse do contribuinte")]
         public string InfCpl { get; set; }
 
         /// <summary>

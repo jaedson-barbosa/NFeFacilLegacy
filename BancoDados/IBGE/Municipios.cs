@@ -6,7 +6,7 @@ namespace NFeFacil.IBGE
 {
     public static class Municipios
     {
-        private static Municipio[] MunicipiosCache { get; set; }
+        internal static Municipio[] MunicipiosCache { get; private set; }
 
         public static IEnumerable<Municipio> Get(Estado est)
         {

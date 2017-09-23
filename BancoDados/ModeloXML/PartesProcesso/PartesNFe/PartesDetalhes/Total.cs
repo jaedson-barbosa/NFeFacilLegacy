@@ -11,13 +11,13 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
     /// </summary>
     public class Total
     {
-        [XmlElement(Order = 0)]
+        [XmlElement(Order = 0), DescricaoPropriedade("Total do ICMS")]
         public ICMSTot ICMSTot { get; set; }
 
-        [XmlElement(Order = 1)]
+        [XmlElement(Order = 1), DescricaoPropriedade("Total do ISSQN")]
         public ISSQNtot ISSQNtot { get; set; }
 
-        [XmlElement("retTrib", Order = 2)]
+        [XmlElement("retTrib", Order = 2), DescricaoPropriedade("Total da retenção tributária")]
         public RetTrib RetTrib { get; set; }
 
         public Total() { }

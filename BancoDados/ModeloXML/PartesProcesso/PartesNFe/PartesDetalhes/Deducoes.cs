@@ -7,13 +7,13 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
         /// <summary>
         /// Descrição da Dedução.
         /// </summary>
-        [XmlElement("xDed", Order = 0)]
+        [XmlElement("xDed", Order = 0), DescricaoPropriedade("Descrição")]
         public string XDed { get; set; }
 
         /// <summary>
         /// Valor da Dedução.
         /// </summary>
-        [XmlElement("vDed", Order = 1)]
+        [XmlElement("vDed", Order = 1), DescricaoPropriedade("Valor")]
         public double VDed { get; set; }
     }
 }

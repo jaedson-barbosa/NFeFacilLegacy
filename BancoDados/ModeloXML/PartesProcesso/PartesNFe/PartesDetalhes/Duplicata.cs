@@ -8,7 +8,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
         /// (Opcional)
         /// Número da Duplicata.
         /// </summary>
-        [XmlElement("nDup")]
+        [XmlElement("nDup"), DescricaoPropriedade("Número")]
         public string NDup { get; set; }
 
         /// <summary>
@@ -16,13 +16,13 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
         /// Data de vencimento.
         /// Formato: “AAAA-MM-DD” 
         /// </summary>
-        [XmlElement("dVenc")]
+        [XmlElement("dVenc"), DescricaoPropriedade("Data de vencimento")]
         public string DVenc { get; set; }
 
         /// <summary>
         /// Valor da duplicata.
         /// </summary>
-        [XmlElement("vDup")]
+        [XmlElement("vDup"), DescricaoPropriedade("Valor")]
         public double VDup { get; set; }
     }
 }

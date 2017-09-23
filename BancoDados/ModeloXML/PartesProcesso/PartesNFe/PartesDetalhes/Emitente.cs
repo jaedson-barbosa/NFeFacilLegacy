@@ -10,13 +10,13 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
         [XmlElement(ElementName = "xNome", Order = 1)]
         public string Nome { get; set; }
 
-        [XmlElement(ElementName = "xFant", Order = 2)]
+        [XmlElement(ElementName = "xFant", Order = 2), DescricaoPropriedade("Nome fantasia")]
         public string NomeFantasia { get; set; }
 
-        [XmlElement(ElementName = "enderEmit", Order = 3)]
+        [XmlElement(ElementName = "enderEmit", Order = 3), DescricaoPropriedade("Endereço")]
         public EnderecoCompleto Endereco { get; set; } = new EnderecoCompleto();
 
-        [XmlElement(ElementName = "IE", Order = 4)]
+        [XmlElement(ElementName = "IE", Order = 4), DescricaoPropriedade("Inscrição estadual")]
         public long InscricaoEstadual { get; set; }
 
         [XmlElement(Order = 5)]
@@ -28,7 +28,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
         [XmlElement(Order = 7)]
         public string CNAE { get; set; }
 
-        [XmlElement(ElementName = "CRT", Order = 8)]
+        [XmlElement(ElementName = "CRT", Order = 8), DescricaoPropriedade("Regime tributário")]
         public int RegimeTributario { get; set; }
     }
 }

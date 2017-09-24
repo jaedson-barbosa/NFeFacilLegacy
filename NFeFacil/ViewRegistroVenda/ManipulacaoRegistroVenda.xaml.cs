@@ -112,9 +112,8 @@ namespace NFeFacil.ViewRegistroVenda
         {
             using (var db = new AplicativoContext())
             {
-                var log = Popup.Current;
                 ItemBanco.UltimaData = DateTime.Now;
-                db.Add(ItemBanco);
+                db.Vendas.Add(ItemBanco);
 
                 for (int i = 0; i < ItemBanco.Produtos.Count; i++)
                 {
@@ -132,6 +131,7 @@ namespace NFeFacil.ViewRegistroVenda
                     }
                 }
 
+                var log = Popup.Current;
                 log.Escrever(TitulosComuns.Sucesso, "Registro de venda salvo com sucesso.");
                 db.SaveChanges();
             }

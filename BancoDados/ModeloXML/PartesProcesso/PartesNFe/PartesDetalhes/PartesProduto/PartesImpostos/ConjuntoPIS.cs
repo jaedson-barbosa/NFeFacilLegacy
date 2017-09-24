@@ -9,8 +9,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
 
         public IEnumerable<Imposto> SepararImpostos()
         {
-            yield return PIS;
-            yield return PISST;
+            return new Imposto[] { PIS, PISST };
         }
     }
 }

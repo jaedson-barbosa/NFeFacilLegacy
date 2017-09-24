@@ -9,8 +9,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
 
         public IEnumerable<Imposto> SepararImpostos()
         {
-            yield return COFINS;
-            yield return COFINSST;
+            return new Imposto[] { COFINS, COFINSST };
         }
     }
 }

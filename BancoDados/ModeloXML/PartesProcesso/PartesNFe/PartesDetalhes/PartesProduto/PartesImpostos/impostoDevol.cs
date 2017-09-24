@@ -9,6 +9,8 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
         public string pDevol { get; set; }
 
         private IPIDevolvido ipi;
+
+        [XmlElement(Order = 1)]
         public IPIDevolvido IPI
         {
             get
@@ -23,6 +25,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
         }
 
         public override bool IsValido => NaoNulos(pDevol, ipi);
+
         public class IPIDevolvido
         {
             [XmlElement(Order = 0)]

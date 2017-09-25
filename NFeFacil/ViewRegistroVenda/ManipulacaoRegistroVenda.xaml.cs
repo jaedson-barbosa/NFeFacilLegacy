@@ -110,14 +110,17 @@ namespace NFeFacil.ViewRegistroVenda
 
         private void Finalizar(object sender, RoutedEventArgs e)
         {
+            var produtosOrignal = ItemBanco.Produtos;
             using (var db = new AplicativoContext())
             {
                 ItemBanco.UltimaData = DateTime.Now;
+                ItemBanco.Produtos = null;
                 db.Vendas.Add(ItemBanco);
+                db.SaveChanges();
 
-                for (int i = 0; i < ItemBanco.Produtos.Count; i++)
+                for (int i = 0; i < produtosOrignal.Count; i++)
                 {
-                    var produto = ItemBanco.Produtos[i];
+                    var produto = produtosOrignal[i];
                     var estoque = db.Estoque.Include(x => x.Alteracoes).FirstOrDefault(x => x.Id == produto.IdBase);
                     if (estoque != null)
                     {
@@ -130,12 +133,16 @@ namespace NFeFacil.ViewRegistroVenda
                         db.Estoque.Update(estoque);
                     }
                 }
-
-                var log = Popup.Current;
-                log.Escrever(TitulosComuns.Sucesso, "Registro de venda salvo com sucesso.");
                 db.SaveChanges();
             }
-
+            using (var db = new AplicativoContext())
+            {
+                ItemBanco.Produtos = produtosOrignal;
+                db.Vendas.Update(ItemBanco);
+                db.SaveChanges();
+                var log = Popup.Current;
+                log.Escrever(TitulosComuns.Sucesso, "Registro de venda salvo com sucesso.");
+            }
             var ultPage = Frame.BackStack[Frame.BackStack.Count - 1];
             PageStackEntry entrada = new PageStackEntry(typeof(VisualizacaoRegistroVenda), ItemBanco, new Windows.UI.Xaml.Media.Animation.SlideNavigationTransitionInfo());
             Frame.BackStack.Add(entrada);

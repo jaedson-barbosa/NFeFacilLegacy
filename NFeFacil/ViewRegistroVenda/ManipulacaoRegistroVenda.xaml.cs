@@ -135,18 +135,20 @@ namespace NFeFacil.ViewRegistroVenda
                 }
                 db.SaveChanges();
             }
+
             using (var db = new AplicativoContext())
             {
                 ItemBanco.Produtos = produtosOrignal;
                 db.Vendas.Update(ItemBanco);
                 db.SaveChanges();
+
                 var log = Popup.Current;
                 log.Escrever(TitulosComuns.Sucesso, "Registro de venda salvo com sucesso.");
             }
+
             var ultPage = Frame.BackStack[Frame.BackStack.Count - 1];
             PageStackEntry entrada = new PageStackEntry(typeof(VisualizacaoRegistroVenda), ItemBanco, new Windows.UI.Xaml.Media.Animation.SlideNavigationTransitionInfo());
             Frame.BackStack.Add(entrada);
-
             MainPage.Current.Retornar(true);
         }
 

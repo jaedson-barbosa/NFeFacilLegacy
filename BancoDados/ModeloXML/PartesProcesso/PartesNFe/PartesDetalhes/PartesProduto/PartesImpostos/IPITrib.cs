@@ -7,34 +7,19 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
     /// </summary>
     public sealed class IPITrib : ComumIPI
     {
-        /// <summary>
-        /// Valor da BC do IPI.
-        /// </summary>
-        [XmlElement(Order = 1)]
+        [XmlElement(Order = 1), DescricaoPropriedade("Valor da BC do IPI")]
         public string vBC { get; set; }
 
-        /// <summary>
-        /// Alíquota do IPI.
-        /// </summary>
-        [XmlElement(Order = 2)]
+        [XmlElement(Order = 2), DescricaoPropriedade("Alíquota do IPI")]
         public string pIPI { get; set; }
 
-        /// <summary>
-        /// Quantidade total na unidade padrão para tributação (somente para os produtos tributados por unidade).
-        /// </summary>
-        [XmlElement(Order = 3)]
+        [XmlElement(Order = 3), DescricaoPropriedade("Quantidade total na unidade padrão para tributação")]
         public string qUnid { get; set; }
 
-        /// <summary>
-        /// Valor por Unidade Tributável.
-        /// </summary>
-        [XmlElement(Order = 4)]
+        [XmlElement(Order = 4), DescricaoPropriedade("Valor por Unidade Tributável")]
         public string vUnid { get; set; }
 
-        /// <summary>
-        /// Valor do IPI.
-        /// </summary>
-        [XmlElement(Order = 5)]
+        [XmlElement(Order = 5), DescricaoPropriedade("Valor do IPI")]
         public string vIPI { get; set; }
     }
 }

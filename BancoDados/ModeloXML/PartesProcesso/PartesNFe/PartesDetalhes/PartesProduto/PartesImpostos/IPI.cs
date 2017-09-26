@@ -7,38 +7,19 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
     /// </summary>
     public class IPI : Imposto
     {
-        /// <summary>
-        /// (Opcional)
-        /// Classe de enquadramento do IPI para Cigarros e Bebidas.
-        /// </summary>
-        [XmlElement(Order = 0)]
+        [XmlElement(Order = 0), DescricaoPropriedade("Classe de enquadramento do IPI para Cigarros e Bebidas")]
         public string clEnq { get; set; }
 
-        /// <summary>
-        /// (Opcional)
-        /// CNPJ do produtor da mercadoria, quando diferente do emitente. Somente para os casos de exportação direta ou indireta.
-        /// </summary>
-        [XmlElement(Order = 1)]
+        [XmlElement(Order = 1), DescricaoPropriedade("CNPJ do produtor da mercadoria, quando diferente do emitente")]
         public string CNPJProd { get; set; }
 
-        /// <summary>
-        /// (Opcional)
-        /// Código do selo de controle IPI.
-        /// </summary>
-        [XmlElement(Order = 2)]
+        [XmlElement(Order = 2), DescricaoPropriedade("Código do selo de controle IPI")]
         public string cSelo { get; set; }
 
-        /// <summary>
-        /// (Opcional)
-        /// Quantidade de selos de controle.
-        /// </summary>
-        [XmlElement(Order = 3)]
+        [XmlElement(Order = 3), DescricaoPropriedade("Quantidade de selos de controle")]
         public string qSelo { get; set; }
 
-        /// <summary>
-        /// Código de Enquadramento Legal do IPI.
-        /// </summary>
-        [XmlElement(Order = 4)]
+        [XmlElement(Order = 4), DescricaoPropriedade("Código de Enquadramento Legal do IPI")]
         public string cEnq { get; set; }
 
         [XmlElement(nameof(IPINT), Type = typeof(IPINT), Order = 5),

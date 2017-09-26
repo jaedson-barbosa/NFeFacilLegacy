@@ -10,7 +10,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
 
         private IPIDevolvido ipi;
 
-        [XmlElement(Order = 1)]
+        [XmlElement(Order = 1), DescricaoPropriedade("IPI Devolvido")]
         public IPIDevolvido IPI
         {
             get
@@ -28,7 +28,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
 
         public class IPIDevolvido
         {
-            [XmlElement(Order = 0)]
+            [XmlElement(Order = 0), DescricaoPropriedade("Valor do IPI devolvido")]
             public string vIPIDevol { get; set; }
         }
     }

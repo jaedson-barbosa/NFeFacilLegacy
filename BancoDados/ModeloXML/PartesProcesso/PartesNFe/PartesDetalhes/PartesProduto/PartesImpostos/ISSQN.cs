@@ -4,112 +4,52 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
 {
     public sealed class ISSQN : Imposto
     {
-        /// <summary>
-        /// Informar o Valor da BC do ISSQN.
-        /// </summary>
-        [XmlElement(Order = 0)]
+        [XmlElement(Order = 0), DescricaoPropriedade("Informar o Valor da BC do ISSQN")]
         public string vBC { get; set; }
 
-        /// <summary>
-        /// Informar a Alíquota do ISSQN.
-        /// </summary>
-        [XmlElement(Order = 1)]
+        [XmlElement(Order = 1), DescricaoPropriedade("Informar a Alíquota do ISSQN")]
         public string vAliq { get; set; }
 
-        /// <summary>
-        /// Informar o Valor do ISSQN.
-        /// </summary>
-        [XmlElement(Order = 2)]
+        [XmlElement(Order = 2), DescricaoPropriedade("Informar o Valor do ISSQN")]
         public string vISSQN { get; set; }
 
-        /// <summary>
-        /// Informar o código do município de ocorrência do fato gerador do ISSQN.
-        /// </summary>
-        [XmlElement(Order = 3)]
+        [XmlElement(Order = 3), DescricaoPropriedade("Informar o código do município de ocorrência do fato gerador do ISSQN")]
         public string cMunFG { get; set; }
 
-        /// <summary>
-        /// Informar Informar o Item da lista de serviços em que se classifica o serviço no padrão ABRASF (Formato: NN.NN).
-        /// </summary>
-        [XmlElement(Order = 4)]
+        [XmlElement(Order = 4), DescricaoPropriedade("Informar Informar o Item da lista de serviços em que se classifica o serviço no padrão ABRASF")]
         public string cListServ { get; set; }
 
-        /// <summary>
-        /// (Opcional)
-        /// Informar o Valor dedução para redução da Base de Cálculo.
-        /// </summary>
-        [XmlElement(Order = 5)]
+        [XmlElement(Order = 5), DescricaoPropriedade("Informar o Valor dedução para redução da Base de Cálculo")]
         public string vDeducao { get; set; }
 
-        /// <summary>
-        /// (Opcional)
-        /// Informar o Valor outras retenções.
-        /// </summary>
-        [XmlElement(Order = 6)]
+        [XmlElement(Order = 6), DescricaoPropriedade("Informar o Valor outras retenções")]
         public string vOutro { get; set; }
 
-        /// <summary>
-        /// (Opcional)
-        /// Informar o Valor desconto incondicionado.
-        /// </summary>
-        [XmlElement(Order = 7)]
+        [XmlElement(Order = 7), DescricaoPropriedade("Informar o Valor desconto incondicionado")]
         public string vDescIncond { get; set; }
 
-        /// <summary>
-        /// (Opcional)
-        /// Valor desconto condicionado.
-        /// </summary>
-        [XmlElement(Order = 8)]
+        [XmlElement(Order = 8), DescricaoPropriedade("Valor desconto condicionado")]
         public string vDescCond { get; set; }
 
-        /// <summary>
-        /// (Opcional)
-        /// Informar o Valor retenção ISS.
-        /// </summary>
-        [XmlElement(Order = 9)]
+        [XmlElement(Order = 9), DescricaoPropriedade("Informar o Valor retenção ISS")]
         public string vISSRet { get; set; }
 
-        /// <summary>
-        /// Informar Indicador da exigibilidade do ISS.
-        /// </summary>
-        [XmlElement(Order = 10)]
+        [XmlElement(Order = 10), DescricaoPropriedade("Informar Indicador da exigibilidade do ISS")]
         public string indISS { get; set; }
 
-        /// <summary>
-        /// (Opcional)
-        /// Informar o Código do serviço prestado dentro do município.
-        /// </summary>
-        [XmlElement(Order = 11)]
+        [XmlElement(Order = 11), DescricaoPropriedade("Informar o Código do serviço prestado dentro do município")]
         public string cServico { get; set; }
 
-        /// <summary>
-        /// (Opcional)
-        /// Informar o código do município de ocorrência do fato gerador do ISSQN.
-        /// Informar "9999999" para serviço fora do País. (campo novo)
-        /// </summary>
-        [XmlElement(Order = 12)]
+        [XmlElement(Order = 12), DescricaoPropriedade("Informar o código do município de ocorrência do fato gerador do ISSQN")]
         public string cMun { get; set; }
 
-        /// <summary>
-        /// (Opcional)
-        /// Informar o Código do País onde o serviço foi prestado.
-        /// Infomar somente se o município da prestação do serviço for "9999". 
-        /// </summary>
-        [XmlElement(Order = 13)]
+        [XmlElement(Order = 13), DescricaoPropriedade("Informar o Código do País onde o serviço foi prestado")]
         public string cPais { get; set; }
 
-        /// <summary>
-        /// (Opcional)
-        /// Informar o Número do processo judicial ou administrativo de suspensão da exigibilidade.
-        /// Informar somente quando declarada a suspensão da exigibilidade do ISSQN.
-        /// </summary>
-        [XmlElement(Order = 14)]
+        [XmlElement(Order = 14), DescricaoPropriedade("Informar o Número do processo judicial ou administrativo de suspensão da exigibilidade")]
         public string nProcesso { get; set; }
 
-        /// <summary>
-        /// Informar Indicador de incentivo Fiscal.
-        /// </summary>
-        [XmlElement(Order = 15)]
+        [XmlElement(Order = 15), DescricaoPropriedade("Informar Indicador de incentivo Fiscal")]
         public string indIncentivo { get; set; }
 
         public override bool IsValido

@@ -7,33 +7,23 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
     /// </summary>
     public sealed class COFINSOutr : ComumCOFINS
     {
-        /// <summary>
-        /// Valor da Base de Cálculo da COFINS.
-        /// </summary>
+        [DescricaoPropriedade("Valor da Base de Cálculo da COFINS")]
         [XmlElement(Order = 1)]
         public string vBC { get; set; }
 
-        /// <summary>
-        /// Alíquota da COFINS (em percentual).
-        /// </summary>
+        [DescricaoPropriedade("Alíquota da COFINS (em percentual)")]
         [XmlElement(Order = 2)]
         public string pCOFINS { get; set; }
 
-        /// <summary>
-        /// Quantidade Vendida.
-        /// </summary>
+        [DescricaoPropriedade("Quantidade Vendida")]
         [XmlElement(Order = 3)]
         public string qBCProd { get; set; }
 
-        /// <summary>
-        /// Alíquota da COFINS (em reais).
-        /// </summary>
+        [DescricaoPropriedade("Alíquota da COFINS (em reais)")]
         [XmlElement(Order = 4)]
         public string vAliqProd { get; set; }
 
-        /// <summary>
-        /// Valor da COFINS.
-        /// </summary>
+        [DescricaoPropriedade("Valor da COFINS")]
         [XmlElement(Order = 5)]
         public string vCOFINS { get; set; }
     }

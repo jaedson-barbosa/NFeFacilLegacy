@@ -374,7 +374,7 @@ namespace NFeFacil.ViewNFe
                         ItemBanco.XML = ObjetoItemBanco.ToXElement<Processo>().ToString();
                     }
 
-                    if (db.NotasFiscais.Count(x => x.Id == ItemBanco.Id) == 0)
+                    if (ItemBanco.Status == (int)StatusNFe.Salva)
                     {
                         db.Add(ItemBanco);
                     }
@@ -397,7 +397,7 @@ namespace NFeFacil.ViewNFe
             {
                 case StatusNFe.Validada:
                     btnEditar.IsEnabled = true;
-                    btnSalvar.IsEnabled = false;
+                    btnSalvar.IsEnabled = true;
                     btnAssinar.IsEnabled = false;
                     btnTransmitir.IsEnabled = false;
                     btnImprimir.IsEnabled = false;

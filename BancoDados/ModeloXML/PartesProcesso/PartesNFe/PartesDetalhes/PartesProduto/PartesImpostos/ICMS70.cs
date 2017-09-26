@@ -4,88 +4,46 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
 {
     public class ICMS70 : ComumICMS, IRegimeNormal
     {
-        /// <summary>
-        /// Tributação do ICMS.
-        /// </summary>
-        [XmlElement(Order = 1)]
+        [XmlElement(Order = 1), DescricaoPropriedade("Tributação do ICMS")]
         public string CST { get; set; }
 
-        /// <summary>
-        /// Modalidade de determinação da BC do ICMS.
-        /// </summary>
-        [XmlElement(Order = 2)]
+        [XmlElement(Order = 2), DescricaoPropriedade("Modalidade de determinação da BC do ICMS")]
         public string modBC { get; set; }
 
-        /// <summary>
-        /// Percentual da Redução de BC.
-        /// </summary>
-        [XmlElement(Order = 3)]
+        [XmlElement(Order = 3), DescricaoPropriedade("Percentual da Redução de BC")]
         public string pRedBC { get; set; }
 
-        /// <summary>
-        /// Valor da BC do ICMS.
-        /// </summary>
-        [XmlElement(Order = 4)]
+        [XmlElement(Order = 4), DescricaoPropriedade("Valor da BC do ICMS")]
         public string vBC { get; set; }
 
-        /// <summary>
-        /// Alíquota do imposto.
-        /// </summary>
-        [XmlElement(Order = 5)]
+        [XmlElement(Order = 5), DescricaoPropriedade("Alíquota do imposto")]
         public string pICMS { get; set; }
 
-        /// <summary>
-        /// Valor do ICMS.
-        /// </summary>
-        [XmlElement(Order = 6)]
+        [XmlElement(Order = 6), DescricaoPropriedade("Valor do ICMS")]
         public string vICMS { get; set; }
 
-        /// <summary>
-        /// Modalidade de determinação da BC do ICMS ST.
-        /// </summary>
-        [XmlElement(Order = 7)]
+        [XmlElement(Order = 7), DescricaoPropriedade("Modalidade de determinação da BC do ICMS ST")]
         public string modBCST { get; set; }
 
-        /// <summary>
-        /// Percentual da margem de valor Adicionado do ICMS ST.
-        /// </summary>
-        [XmlElement(Order = 8)]
+        [XmlElement(Order = 8), DescricaoPropriedade("Percentual da margem de valor Adicionado do ICMS ST")]
         public string pMVAST { get; set; }
 
-        /// <summary>
-        /// Percentual da Redução de BC do ICMS ST.
-        /// </summary>
-        [XmlElement(Order = 9)]
+        [XmlElement(Order = 9), DescricaoPropriedade("Percentual da Redução de BC do ICMS ST")]
         public string pRedBCST { get; set; }
 
-        /// <summary>
-        /// Valor da BC do ICMS ST.
-        /// </summary>
-        [XmlElement(Order = 10)]
+        [XmlElement(Order = 10), DescricaoPropriedade("Valor da BC do ICMS ST")]
         public string vBCST { get; set; }
 
-        /// <summary>
-        /// Alíquota do imposto do ICMS ST.
-        /// </summary>
-        [XmlElement(Order = 11)]
+        [XmlElement(Order = 11), DescricaoPropriedade("Alíquota do imposto do ICMS ST")]
         public string pICMSST { get; set; }
 
-        /// <summary>
-        /// Valor do ICMS ST.
-        /// </summary>
-        [XmlElement(Order = 12)]
+        [XmlElement(Order = 12), DescricaoPropriedade("Valor do ICMS ST")]
         public string vICMSST { get; set; }
 
-        /// <summary>
-        /// Valor do ICMS da desoneração.
-        /// </summary>
-        [XmlElement(Order = 13)]
+        [XmlElement(Order = 13), DescricaoPropriedade("Valor do ICMS da desoneração")]
         public string vICMSDeson { get; set; }
 
-        /// <summary>
-        /// Motivo da desoneração do ICMS.
-        /// </summary>
-        [XmlElement(Order = 14)]
+        [XmlElement(Order = 14), DescricaoPropriedade("Motivo da desoneração do ICMS")]
         public string motDesICMS { get; set; }
     }
 }

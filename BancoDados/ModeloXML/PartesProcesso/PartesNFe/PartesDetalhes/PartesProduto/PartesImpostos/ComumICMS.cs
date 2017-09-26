@@ -8,9 +8,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
     /// </summary>
     public abstract class ComumICMS
     {
-        /// <summary>
-        /// Origem da mercadoria.
-        /// </summary>
+        [DescricaoPropriedade("Origem da mercadoria")]
         [XmlElement("orig", Order = 0)]
         public int Orig { get; set; }
     }

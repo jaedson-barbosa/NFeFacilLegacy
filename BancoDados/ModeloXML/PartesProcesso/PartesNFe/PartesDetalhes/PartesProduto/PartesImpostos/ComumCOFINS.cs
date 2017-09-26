@@ -4,9 +4,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
 {
     public abstract class ComumCOFINS
     {
-        /// <summary>
-        /// Código de Situação Tributária da COFINS.
-        /// </summary>
+        [DescricaoPropriedade("Código de Situação Tributária da COFINS")]
         [XmlElement(Order = 0)]
         public string CST { get; set; }
     }

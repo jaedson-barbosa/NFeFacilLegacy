@@ -7,9 +7,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
     /// </summary>
     public sealed class COFINSQtde : ComumCOFINS
     {
-        /// <summary>
-        /// Quantidade Vendida.
-        /// </summary>
+        [DescricaoPropriedade("Quantidade Vendida")]
         [XmlElement(Order = 1)]
         public string qBCProd { get; set; }
 

@@ -7,22 +7,13 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
     /// </summary>
     public class ICMS41 : ComumICMS, IRegimeNormal
     {
-        /// <summary>
-        /// Tributação do ICMS.
-        /// </summary>
-        [XmlElement(Order = 1)]
+        [XmlElement(Order = 1), DescricaoPropriedade("Tributação do ICMS")]
         public string CST { get; set; }
 
-        /// <summary>
-        /// Valor do ICMS da desoneração.
-        /// </summary>
-        [XmlElement(Order = 2)]
+        [XmlElement(Order = 2), DescricaoPropriedade("Valor do ICMS da desoneração")]
         public string vICMSDeson { get; set; }
 
-        /// <summary>
-        /// Motivo da desoneração do ICMS.
-        /// </summary>
-        [XmlElement(Order = 3)]
+        [XmlElement(Order = 3), DescricaoPropriedade("Motivo da desoneração do ICMS")]
         public string motDesICMS { get; set; }
     }
 }

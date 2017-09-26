@@ -316,6 +316,16 @@ namespace NFeFacil.ViewNFe
                         "Aparentemente, não há irregularidades.\r\n" +
                         "Agora salve para que as alterações fiquem gravadas.");
 
+                    using (var db = new AplicativoContext())
+                    {
+                        var notaAnterior = db.NotasFiscais.Find(NotaSalva.Informacoes.Id);
+                        if (notaAnterior != null)
+                        {
+                            db.NotasFiscais.Remove(notaAnterior);
+                            db.SaveChanges();
+                        }
+                    }
+
                     var nota = NotaSalva;
                     var analisador = new AnalisadorNFe(ref nota);
                     analisador.Normalizar();
@@ -328,6 +338,11 @@ namespace NFeFacil.ViewNFe
                             var venda = (RegistroVenda)ultPage.Parameter;
                             NotaSalva.Informacoes.AtualizarChave();
                             venda.NotaFiscalRelacionada = NotaSalva.Informacoes.Id;
+                            using (var db = new AplicativoContext())
+                            {
+                                db.Vendas.Update(venda);
+                                db.SaveChanges();
+                            }
                             Frame.BackStack.Remove(ultPage);
                             ultPage = Frame.BackStack[Frame.BackStack.Count - 1];
                         }
@@ -340,6 +355,8 @@ namespace NFeFacil.ViewNFe
                                 {
                                     NotaSalva.Informacoes.AtualizarChave();
                                     venda.NotaFiscalRelacionada = NotaSalva.Informacoes.Id;
+                                    db.Vendas.Update(venda);
+                                    db.SaveChanges();
                                 }
                                 else
                                 {
@@ -357,7 +374,21 @@ namespace NFeFacil.ViewNFe
                     }
                     else
                     {
-                        NotaSalva.Informacoes.AtualizarChave();
+                        using (var db = new AplicativoContext())
+                        {
+                            var venda = db.Vendas.FirstOrDefault(x => x.NotaFiscalRelacionada == NotaSalva.Informacoes.Id);
+                            if (venda != null)
+                            {
+                                NotaSalva.Informacoes.AtualizarChave();
+                                venda.NotaFiscalRelacionada = NotaSalva.Informacoes.Id;
+                                db.Vendas.Update(venda);
+                                db.SaveChanges();
+                            }
+                            else
+                            {
+                                NotaSalva.Informacoes.AtualizarChave();
+                            }
+                        }
 
                         var di = (NFeDI)ultPage.Parameter;
                         di.Id = nota.Informacoes.Id;

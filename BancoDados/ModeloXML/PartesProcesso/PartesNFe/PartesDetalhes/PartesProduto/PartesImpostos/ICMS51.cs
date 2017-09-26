@@ -4,58 +4,31 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
 {
     public class ICMS51 : ComumICMS, IRegimeNormal
     {
-        /// <summary>
-        /// Tributação do ICMS.
-        /// </summary>
-        [XmlElement(Order = 1)]
+        [XmlElement(Order = 1), DescricaoPropriedade("Tributação do ICMS")]
         public string CST { get; set; }
 
-        /// <summary>
-        /// Modalidade de determinação da BC do ICMS.
-        /// </summary>
-        [XmlElement(Order = 2)]
+        [XmlElement(Order = 2), DescricaoPropriedade("Modalidade de determinação da BC do ICMS")]
         public string modBC { get; set; }
 
-        /// <summary>
-        /// Percentual da Redução de BC.
-        /// </summary>
-        [XmlElement(Order = 3)]
+        [XmlElement(Order = 3), DescricaoPropriedade("Percentual da Redução de BC")]
         public string pRedBC { get; set; }
 
-        /// <summary>
-        /// Valor da BC do ICMS.
-        /// </summary>
-        [XmlElement(Order = 4)]
+        [XmlElement(Order = 4), DescricaoPropriedade("Valor da BC do ICMS")]
         public string vBC { get; set; }
 
-        /// <summary>
-        /// Alíquota do imposto.
-        /// </summary>
-        [XmlElement(Order = 5)]
+        [XmlElement(Order = 5), DescricaoPropriedade("Alíquota do imposto")]
         public string pICMS { get; set; }
 
-        /// <summary>
-        /// Valor do ICMS da Operação.
-        /// </summary>
-        [XmlElement(Order = 6)]
+        [XmlElement(Order = 6), DescricaoPropriedade("Valor do ICMS da Operação")]
         public string vICMSOp { get; set; }
 
-        /// <summary>
-        /// Percentual do diferimento.
-        /// </summary>
-        [XmlElement(Order = 7)]
+        [XmlElement(Order = 7), DescricaoPropriedade("Percentual do diferimento")]
         public string pDif { get; set; }
 
-        /// <summary>
-        /// Valor do ICMS Diferido.
-        /// </summary>
-        [XmlElement(Order = 8)]
+        [XmlElement(Order = 8), DescricaoPropriedade("Valor do ICMS Diferido")]
         public string vICMSDif { get; set; }
 
-        /// <summary>
-        /// Valor do ICMS.
-        /// </summary>
-        [XmlElement(Order = 9)]
+        [XmlElement(Order = 9), DescricaoPropriedade("Valor do ICMS")]
         public string vICMS { get; set; }
     }
 }

@@ -5,28 +5,28 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
 {
     public sealed class ICMSUFDest : Imposto
     {
-        [XmlElement("vBCUFDest", Order = 0)]
+        [XmlElement("vBCUFDest", Order = 0), DescricaoPropriedade("Valor da BC do ICMS na UF destino")]
         public double VBCUFDest { get; set; }
 
-        [XmlElement("pFCPUFDest", Order = 1)]
+        [XmlElement("pFCPUFDest", Order = 1), DescricaoPropriedade("Percentual adicional inserido na alíquota interna da UF destino relativo ao FCP naquela UF")]
         public double PFCPUFDest { get; set; }
 
-        [XmlElement("pICMSUFDest", Order = 2)]
+        [XmlElement("pICMSUFDest", Order = 2), DescricaoPropriedade("Alíquota adotada nas operações internas na UF destino")]
         public double PICMSUFDest { get; set; }
 
-        [XmlElement("pICMSInter", Order = 3)]
+        [XmlElement("pICMSInter", Order = 3), DescricaoPropriedade("Alíquota interestadual das UF envolvidas")]
         public int PICMSInter { get; set; }
 
-        [XmlElement("pICMSInterPart", Order = 4)]
+        [XmlElement("pICMSInterPart", Order = 4), DescricaoPropriedade("Percentual de ICMS interestadual para a UF destino")]
         public int PICMSInterPart { get; set; }
 
-        [XmlElement("vFCPUFDest", Order = 5)]
+        [XmlElement("vFCPUFDest", Order = 5), DescricaoPropriedade("Valor do ICMS relativo ao FCP da UF destino")]
         public double VFCPUFDest { get; set; }
 
-        [XmlElement("vICMSUFDest", Order = 6)]
+        [XmlElement("vICMSUFDest", Order = 6), DescricaoPropriedade("Valor do ICMS interestadual para a UF destino")]
         public double VICMSUFDest { get; set; }
 
-        [XmlElement("vICMSUFRemet", Order = 7)]
+        [XmlElement("vICMSUFRemet", Order = 7), DescricaoPropriedade("Valor do ICMS interestadual para a UF do remetente")]
         public double VICMSUFRemet { get; set; }
 
         public override bool IsValido => NaoNulos(VBCUFDest, PFCPUFDest, PICMSUFDest, PICMSInter, PICMSInterPart, VFCPUFDest, VICMSUFDest, VICMSUFRemet);

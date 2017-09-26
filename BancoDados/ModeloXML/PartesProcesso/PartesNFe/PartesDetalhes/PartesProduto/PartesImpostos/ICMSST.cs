@@ -4,28 +4,19 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
 {
     public sealed class ICMSST : ComumICMS, IRegimeNormal
     {
-        /// <summary>
-        /// Tributação do ICMS.
-        /// </summary>
-        [XmlElement(Order = 1)]
+        [XmlElement(Order = 1), DescricaoPropriedade("Tributação do ICMS")]
         public string CST { get; set; }
 
-        /// <summary>
-        /// Valor da BC do ICMS Retido Anteriormente.
-        /// </summary>
-        [XmlElement(Order = 2)]
+        [XmlElement(Order = 2), DescricaoPropriedade("Valor da BC do ICMS retido na UF remetente")]
         public string vBCSTRet { get; set; }
 
-        /// <summary>
-        /// Valor do ICMS Retido Anteriormente.
-        /// </summary>
-        [XmlElement(Order = 3)]
+        [XmlElement(Order = 3), DescricaoPropriedade("Valor do ICMS retido na UF remetente")]
         public string vICMSSTRet { get; set; }
 
-        [XmlElement(Order = 4)]
+        [XmlElement(Order = 4), DescricaoPropriedade("Valor da BC do ICMS ST da UF destino")]
         public string vBCSTDest { get; set; }
 
-        [XmlElement(Order = 5)]
+        [XmlElement(Order = 5), DescricaoPropriedade("Valor do ICMS ST da UF destino")]
         public string vICMSSTDest { get; set; }
     }
 }

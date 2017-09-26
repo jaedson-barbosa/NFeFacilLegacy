@@ -4,22 +4,13 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
 {
     public class ICMSSN101 : ComumICMS, ISimplesNacional
     {
-        /// <summary>
-        /// Código de Situação da Operação – Simples Nacional.
-        /// </summary>
-        [XmlElement(Order = 1)]
+        [XmlElement(Order = 1), DescricaoPropriedade("Código de Situação da Operação – Simples Nacional")]
         public string CSOSN { get; set; }
 
-        /// <summary>
-        /// Alíquota aplicável de cálculo do crédito (Simples Nacional).
-        /// </summary>
-        [XmlElement(Order = 2)]
+        [XmlElement(Order = 2), DescricaoPropriedade("Alíquota aplicável de cálculo do crédito (Simples Nacional)")]
         public string pCredSN { get; set; }
 
-        /// <summary>
-        /// Valor crédito do ICMS que pode ser aproveitado nos termos do art. 23 da LC 123 (SIMPLES NACIONAL).
-        /// </summary>
-        [XmlElement(Order = 3)]
+        [XmlElement(Order = 3), DescricaoPropriedade("Valor crédito do ICMS que pode ser aproveitado nos termos do art. 23 da LC 123 (SIMPLES NACIONAL)")]
         public string vCredICMSSN { get; set; }
     }
 }

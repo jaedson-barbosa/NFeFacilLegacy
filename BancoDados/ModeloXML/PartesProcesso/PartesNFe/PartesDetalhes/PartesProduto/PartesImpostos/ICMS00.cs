@@ -4,33 +4,23 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
 {
     public class ICMS00 : ComumICMS, IRegimeNormal
     {
-        /// <summary>
-        /// Tributação do ICMS.
-        /// </summary>
+        [DescricaoPropriedade("Tributação do ICMS")]
         [XmlElement(Order = 1)]
         public string CST { get; set; }
 
-        /// <summary>
-        /// Modalidade de determinação da BC do ICMS.
-        /// </summary>
+        [DescricaoPropriedade("Modalidade de determinação da BC do ICMS")]
         [XmlElement(Order = 2)]
         public string modBC { get; set; }
 
-        /// <summary>
-        /// Valor da BC do ICMS.
-        /// </summary>
+        [DescricaoPropriedade("Valor da BC do ICMS")]
         [XmlElement(Order = 3)]
         public string vBC { get; set; }
 
-        /// <summary>
-        /// Alíquota do imposto.
-        /// </summary>
+        [DescricaoPropriedade("Alíquota do imposto")]
         [XmlElement(Order = 4)]
         public string pICMS { get; set; }
 
-        /// <summary>
-        /// Valor do ICMS.
-        /// </summary>
+        [DescricaoPropriedade("Valor do ICMS")]
         [XmlElement(Order = 5)]
         public string vICMS { get; set; }
     }

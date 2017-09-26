@@ -4,9 +4,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
 {
     public abstract class ComumIPI
     {
-        /// <summary>
-        /// Código da situação tributária do IPI.
-        /// </summary>
+        [DescricaoPropriedade("Código da situação tributária do IPI")]
         [XmlElement(Order = 0)]
         public string CST { get; set; }
     }

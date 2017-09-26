@@ -20,7 +20,8 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
             XmlElement(nameof(ICMSSN201), Type = typeof(ICMSSN201), Order = 0),
             XmlElement(nameof(ICMSSN202), Type = typeof(ICMSSN202), Order = 0),
             XmlElement(nameof(ICMSSN500), Type = typeof(ICMSSN500), Order = 0),
-            XmlElement(nameof(ICMSSN900), Type = typeof(ICMSSN900))]
+            XmlElement(nameof(ICMSSN900), Type = typeof(ICMSSN900)),
+            DescricaoPropriedade("Corpo do ICMS")]
         public ComumICMS Corpo { get; set; }
 
         public override bool IsValido => Corpo.ToXElement(Corpo.GetType()).HasElements;

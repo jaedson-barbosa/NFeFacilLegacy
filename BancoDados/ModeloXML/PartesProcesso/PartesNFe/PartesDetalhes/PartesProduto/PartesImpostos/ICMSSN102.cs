@@ -7,10 +7,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
     /// </summary>
     public class ICMSSN102 : ComumICMS, ISimplesNacional
     {
-        /// <summary>
-        /// Código de Situação da Operação – Simples Nacional.
-        /// </summary>
-        [XmlElement(Order = 1)]
+        [XmlElement(Order = 1), DescricaoPropriedade("Código de Situação da Operação – Simples Nacional")]
         public string CSOSN { get; set; }
     }
 }

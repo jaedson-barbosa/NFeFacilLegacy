@@ -4,88 +4,46 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
 {
     public class ICMSSN900 : ComumICMS, ISimplesNacional
     {
-        /// <summary>
-        /// Código de Situação da Operação – Simples Nacional.
-        /// </summary>
-        [XmlElement(Order = 1)]
+        [XmlElement(Order = 1), DescricaoPropriedade("Código de Situação da Operação – Simples Nacional")]
         public string CSOSN { get; set; }
 
-        /// <summary>
-        /// Modalidade de determinação da BC do ICMS.
-        /// </summary>
-        [XmlElement(Order = 2)]
+        [XmlElement(Order = 2), DescricaoPropriedade("Modalidade de determinação da BC do ICMS")]
         public string modBC { get; set; }
 
-        /// <summary>
-        /// Valor da BC do ICMS.
-        /// </summary>
-        [XmlElement(Order = 3)]
+        [XmlElement(Order = 3), DescricaoPropriedade("Valor da BC do ICMS")]
         public string vBC { get; set; }
 
-        /// <summary>
-        /// Percentual da Redução de BC.
-        /// </summary>
-        [XmlElement(Order = 4)]
+        [XmlElement(Order = 4), DescricaoPropriedade("Percentual da Redução de BC")]
         public string pRedBC { get; set; }
 
-        /// <summary>
-        /// Alíquota do imposto.
-        /// </summary>
-        [XmlElement(Order = 5)]
+        [XmlElement(Order = 5), DescricaoPropriedade("Alíquota do imposto")]
         public string pICMS { get; set; }
 
-        /// <summary>
-        /// Valor do ICMS.
-        /// </summary>
-        [XmlElement(Order = 6)]
+        [XmlElement(Order = 6), DescricaoPropriedade("Valor do ICMS")]
         public string vICMS { get; set; }
 
-        /// <summary>
-        /// Modalidade de determinação da BC do ICMS ST.
-        /// </summary>
-        [XmlElement(Order = 7)]
+        [XmlElement(Order = 7), DescricaoPropriedade("Modalidade de determinação da BC do ICMS ST")]
         public string modBCST { get; set; }
 
-        /// <summary>
-        /// Percentual da margem de valor Adicionado do ICMS ST.
-        /// </summary>
-        [XmlElement(Order = 8)]
+        [XmlElement(Order = 8), DescricaoPropriedade("Percentual da margem de valor Adicionado do ICMS ST")]
         public string pMVAST { get; set; }
 
-        /// <summary>
-        /// Percentual da Redução de BC do ICMS ST.
-        /// </summary>
-        [XmlElement(Order = 9)]
+        [XmlElement(Order = 9), DescricaoPropriedade("Percentual da Redução de BC do ICMS ST")]
         public string pRedBCST { get; set; }
 
-        /// <summary>
-        /// Valor da BC do ICMS ST.
-        /// </summary>
-        [XmlElement(Order = 10)]
+        [XmlElement(Order = 10), DescricaoPropriedade("Valor da BC do ICMS ST")]
         public string vBCST { get; set; }
 
-        /// <summary>
-        /// Alíquota do imposto do ICMS ST.
-        /// </summary>
-        [XmlElement(Order = 11)]
+        [XmlElement(Order = 11), DescricaoPropriedade("Alíquota do imposto do ICMS ST")]
         public string pICMSST { get; set; }
 
-        /// <summary>
-        /// Valor do ICMS ST.
-        /// </summary>
-        [XmlElement(Order = 12)]
+        [XmlElement(Order = 12), DescricaoPropriedade("Valor do ICMS ST")]
         public string vICMSST { get; set; }
 
-        /// <summary>
-        /// Alíquota aplicável de cálculo do crédito (Simples Nacional).
-        /// </summary>
-        [XmlElement(Order = 13)]
+        [XmlElement(Order = 13), DescricaoPropriedade("Alíquota aplicável de cálculo do crédito (Simples Nacional)")]
         public string pCredSN { get; set; }
 
-        /// <summary>
-        /// Valor crédito do ICMS que pode ser aproveitado nos termos do art. 23 da LC 123 (SIMPLES NACIONAL).
-        /// </summary>
-        [XmlElement(Order = 14)]
+        [XmlElement(Order = 14), DescricaoPropriedade("Valor crédito do ICMS que pode ser aproveitado nos termos do art. 23 da LC 123 (SIMPLES NACIONAL)")]
         public string vCredICMSSN { get; set; }
     }
 }

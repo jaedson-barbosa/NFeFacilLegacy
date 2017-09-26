@@ -4,46 +4,25 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
 {
     public class ICMSSN202 : ComumICMS, ISimplesNacional
     {
-        /// <summary>
-        /// Código de Situação da Operação – Simples Nacional.
-        /// </summary>
-        [XmlElement(Order = 1)]
+        [XmlElement(Order = 1), DescricaoPropriedade("Código de Situação da Operação – Simples Nacional")]
         public string CSOSN { get; set; }
 
-        /// <summary>
-        /// Modalidade de determinação da BC do ICMS ST.
-        /// </summary>
-        [XmlElement(Order = 2)]
+        [XmlElement(Order = 2), DescricaoPropriedade("Modalidade de determinação da BC do ICMS ST")]
         public string modBCST { get; set; }
 
-        /// <summary>
-        /// Percentual da margem de valor Adicionado do ICMS ST.
-        /// </summary>
-        [XmlElement(Order = 3)]
+        [XmlElement(Order = 3), DescricaoPropriedade("Percentual da margem de valor Adicionado do ICMS ST")]
         public string pMVAST { get; set; }
 
-        /// <summary>
-        /// Percentual da Redução de BC do ICMS ST.
-        /// </summary>
-        [XmlElement(Order = 4)]
+        [XmlElement(Order = 4), DescricaoPropriedade("Percentual da Redução de BC do ICMS ST")]
         public string pRedBCST { get; set; }
 
-        /// <summary>
-        /// Valor da BC do ICMS ST.
-        /// </summary>
-        [XmlElement(Order = 5)]
+        [XmlElement(Order = 5), DescricaoPropriedade("Valor da BC do ICMS ST")]
         public string vBCST { get; set; }
 
-        /// <summary>
-        /// Alíquota do imposto do ICMS ST.
-        /// </summary>
-        [XmlElement(Order = 6)]
+        [XmlElement(Order = 6), DescricaoPropriedade("Alíquota do imposto do ICMS ST")]
         public string pICMSST { get; set; }
 
-        /// <summary>
-        /// Valor do ICMS ST.
-        /// </summary>
-        [XmlElement(Order = 7)]
+        [XmlElement(Order = 7), DescricaoPropriedade("Valor do ICMS ST")]
         public string vICMSST { get; set; }
     }
 }

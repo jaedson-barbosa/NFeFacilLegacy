@@ -5,74 +5,40 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
 {
     public sealed class DeclaracaoImportacao
     {
-        /// <summary>
-        /// Número do Documento de Importação.
-        /// </summary>
-        [XmlElement("nDI", Order = 0)]
+        [XmlElement("nDI", Order = 0), DescricaoPropriedade("Número do Documento de Importação")]
         public string NDI { get; set; }
 
-        /// <summary>
-        /// Database.Principal de Registro do documento.
-        /// </summary>
-        [XmlElement("dDI", Order = 1)]
+        [XmlElement("dDI", Order = 1), DescricaoPropriedade("Data de Registro do documento")]
         public string DDI { get; set; }
 
-        /// <summary>
-        /// Local de desembaraço.
-        /// </summary>
-        [XmlElement("xLocDesemb", Order = 2)]
+        [XmlElement("xLocDesemb", Order = 2), DescricaoPropriedade("Local de desembaraço")]
         public string XLocDesemb { get; set; }
 
-        /// <summary>
-        /// Sigla da UF onde ocorreu o Desembaraço Aduaneiro.
-        /// </summary>
-        [XmlElement("UFDesemb", Order = 3)]
+        [XmlElement("UFDesemb", Order = 3), DescricaoPropriedade("Sigla da UF onde ocorreu o Desembaraço Aduaneiro")]
         public string UFDesemb { get; set; }
 
-        /// <summary>
-        /// Database.Principal do Desembaraço Aduaneiro.
-        /// </summary>
-        [XmlElement("dDesemb", Order = 4)]
+        [XmlElement("dDesemb", Order = 4), DescricaoPropriedade("Data do Desembaraço Aduaneiro")]
         public string DDesemb { get; set; }
 
-        /// <summary>
-        /// Via de transporte internacional informada na Declaração de Importação.
-        /// </summary>
-        [XmlElement("tpViaTransp", Order = 5)]
+        [XmlElement("tpViaTransp", Order = 5), DescricaoPropriedade("Via de transporte internacional informada na Declaração de Importação")]
         public ushort TpViaTransp { get; set; }
 
-        /// <summary>
-        /// (Opcional)
-        /// Valor da AFRMM - Adicional ao Frete para Renovação da Marinha Mercante.
-        /// A tag deve ser informada no caso da via de transporte marítima
-        /// </summary>
-        [XmlElement("vAFRMM", Order = 6)]
+        [XmlElement("vAFRMM", Order = 6), DescricaoPropriedade("Valor da AFRMM - Adicional ao Frete para Renovação da Marinha Mercante")]
         public string VAFRMM { get; set; }
 
-        /// <summary>
-        /// Forma de importação quanto a intermediação.
-        /// </summary>
-        [XmlElement("tpIntermedio", Order = 7)]
+        [XmlElement("tpIntermedio", Order = 7), DescricaoPropriedade("Forma de importação quanto a intermediação")]
         public ushort TpIntermedio { get; set; }
 
-        [XmlElement(Order = 8)]
+        [XmlElement(Order = 8), DescricaoPropriedade("")]
         public string CNPJ { get; set; }
 
-        /// <summary>
-        /// (Opcional)
-        /// Sigla da UF do adquirente ou do encomendante.
-        /// Obrigatória a informação no caso de importação por conta e ordem ou por encomenda.Não aceita o valor "EX". 
-        /// </summary>
-        [XmlElement(Order = 9)]
+        [XmlElement(Order = 9), DescricaoPropriedade("Sigla da UF do adquirente ou do encomendante")]
         public string UFTerceiro { get; set; }
 
-        /// <summary>
-        /// Código do Exportador, usado nos sistemas internos de informação do emitente da NF-e.
-        /// </summary>
-        [XmlElement("cExportador", Order = 10)]
+        [XmlElement("cExportador", Order = 10), DescricaoPropriedade("Código do Exportador")]
         public string CExportador { get; set; }
 
-        [XmlElement("adi", Order = 11)]
+        [XmlElement("adi", Order = 11), DescricaoPropriedade("")]
         public List<DIAdicao> Adi { get; set; } = new List<DIAdicao>();
     }
 }

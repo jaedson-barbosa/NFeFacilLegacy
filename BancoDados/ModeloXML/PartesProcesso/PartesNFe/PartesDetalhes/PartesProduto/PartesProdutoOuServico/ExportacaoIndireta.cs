@@ -4,22 +4,13 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
 {
     public sealed class ExportacaoIndireta
     {
-        /// <summary>
-        /// Número do Registro de Exportação.
-        /// </summary>
-        [XmlElement("nRE", Order = 0)]
+        [XmlElement("nRE", Order = 0), DescricaoPropriedade("Número do Registro de Exportação")]
         public long NRE { get; set; }
 
-        /// <summary>
-        /// Chave de Acesso da NF-e recebida para exportação;
-        /// </summary>
-        [XmlElement("chNFe", Order = 1)]
+        [XmlElement("chNFe", Order = 1), DescricaoPropriedade("Chave de Acesso da NF-e recebida para exportação")]
         public string ChNFe { get; set; }
 
-        /// <summary>
-        /// Quantidade do item realmente exportado.
-        /// </summary>
-        [XmlElement("qExport", Order = 2)]
+        [XmlElement("qExport", Order = 2), DescricaoPropriedade("Quantidade do item realmente exportado")]
         public double QExport { get; set; }
     }
 }

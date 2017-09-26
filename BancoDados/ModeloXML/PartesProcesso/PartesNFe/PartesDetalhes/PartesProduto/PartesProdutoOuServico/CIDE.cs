@@ -4,22 +4,13 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
 {
     public sealed class CIDE
     {
-        /// <summary>
-        /// Informar a BC da CIDE em quantidade.
-        /// </summary>
-        [XmlElement("qBCProd", Order = 0)]
+        [XmlElement("qBCProd", Order = 0), DescricaoPropriedade("Informar a BC da CIDE em quantidade")]
         public double QBCProd { get; set; }
 
-        /// <summary>
-        /// Valor da alíquota da CIDE.
-        /// </summary>
-        [XmlElement("vAliqProd", Order = 1)]
+        [XmlElement("vAliqProd", Order = 1), DescricaoPropriedade("Valor da alíquota da CIDE")]
         public double VAliqProd { get; set; }
 
-        /// <summary>
-        /// Valor da CIDE.
-        /// </summary>
-        [XmlElement("vCIDE", Order = 2)]
+        [XmlElement("vCIDE", Order = 2), DescricaoPropriedade("Valor da CIDE")]
         public double VCIDE { get; set; }
     }
 }

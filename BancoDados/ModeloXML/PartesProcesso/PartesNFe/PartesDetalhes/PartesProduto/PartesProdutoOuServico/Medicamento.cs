@@ -4,36 +4,19 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
 {
     public sealed class Medicamento
     {
-        /// <summary>
-        /// Número do Lote.
-        /// </summary>
-        [XmlElement("nLote", Order = 0)]
+        [XmlElement("nLote", Order = 0), DescricaoPropriedade("Número do Lote")]
         public string NLote { get; set; }
 
-        /// <summary>
-        /// Quantidade de produtos.
-        /// </summary>
-        [XmlElement("qLote", Order = 1)]
+        [XmlElement("qLote", Order = 1), DescricaoPropriedade("Quantidade de produtos")]
         public double QLote { get; set; }
 
-        /// <summary>
-        /// Database.Principal de fabricação.
-        /// Formato: “AAAA-MM-DD”.
-        /// </summary>
-        [XmlElement("dFab", Order = 2)]
+        [XmlElement("dFab", Order = 2), DescricaoPropriedade("Data de fabricação")]
         public string DFab { get; set; }
 
-        /// <summary>
-        /// Database.Principal de validade.
-        /// Formato: “AAAA-MM-DD”.
-        /// </summary>
-        [XmlElement("dVal", Order = 3)]
+        [XmlElement("dVal", Order = 3), DescricaoPropriedade("Data de validade")]
         public string DVal { get; set; }
 
-        /// <summary>
-        /// Preço máximo consumidor.
-        /// </summary>
-        [XmlElement("vPMC", Order = 4)]
+        [XmlElement("vPMC", Order = 4), DescricaoPropriedade("Preço máximo consumidor")]
         public double VPMC { get; set; }
     }
 }

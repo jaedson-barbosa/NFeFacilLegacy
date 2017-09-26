@@ -4,30 +4,16 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
 {
     public sealed class Arma
     {
-        /// <summary>
-        /// Indicador do tipo de arma de fogo.
-        /// 0=Uso permitido; 1=Uso restrito.
-        /// </summary>
-        [XmlElement("tpArma", Order = 0)]
+        [XmlElement("tpArma", Order = 0), DescricaoPropriedade("Indicador do tipo de arma de fogo")]
         public ushort TpArma { get; set; }
 
-        /// <summary>
-        /// Número de série da arma.
-        /// </summary>
-        [XmlElement("nSerie", Order = 1)]
+        [XmlElement("nSerie", Order = 1), DescricaoPropriedade("Número de série da arma")]
         public string NSerie { get; set; }
 
-        /// <summary>
-        /// Número de série do cano.
-        /// </summary>
-        [XmlElement("nCano", Order = 2)]
+        [XmlElement("nCano", Order = 2), DescricaoPropriedade("Número de série do cano")]
         public string NCano { get; set; }
 
-        /// <summary>
-        /// Descrição completa da arma, compreendendo:
-        /// calibre, marca, capacidade, tipo de funcionamento, comprimento e demais elementos que permitam a sua perfeita identificação.
-        /// </summary>
-        [XmlElement("descr", Order = 3)]
+        [XmlElement("descr", Order = 3), DescricaoPropriedade("Descrição completa da arma")]
         public string Descr { get; set; }
     }
 }

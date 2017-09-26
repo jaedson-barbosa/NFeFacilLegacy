@@ -4,55 +4,35 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
 {
     public sealed class VeiculoNovo
     {
-        /// <summary>
-        /// Tipo da operação.
-        /// </summary>
+        [XmlElement(Order = 0), DescricaoPropriedade("Tipo da operação")]
         public ushort tpOp { get; set; }
 
-        /// <summary>
-        /// Chassi do veículo.
-        /// </summary>
+        [XmlElement(Order = 1), DescricaoPropriedade("Chassi do veículo")]
         public string chassi { get; set; }
 
-        /// <summary>
-        /// Código de cada montadora.
-        /// </summary>
+        [XmlElement(Order = 2), DescricaoPropriedade("Código de cada montadora")]
         public string cCor { get; set; }
 
-        /// <summary>
-        /// Descrição da cor
-        /// </summary>
+        [XmlElement(Order = 3), DescricaoPropriedade("Descrição da cor")]
         public string xCor { get; set; }
 
-        /// <summary>
-        /// Potência máxima do motor do veículo em cavalo vapor (CV).
-        /// </summary>
+        [XmlElement(Order = 4), DescricaoPropriedade("Potência máxima do motor do veículo em cavalo vapor (CV)")]
         public string pot { get; set; }
 
-        /// <summary>
-        /// Capacidade voluntária do motor expressa em cilindradas.
-        /// </summary>
+        [XmlElement(Order = 5), DescricaoPropriedade("Capacidade voluntária do motor expressa em cilindradas")]
         public string cilin { get; set; }
 
-        /// <summary>
-        /// Em toneladas - 4 casas decimais.
-        /// </summary>
+        [XmlElement(Order = 6), DescricaoPropriedade("Peso líquido em toneladas")]
         public string pesoL { get; set; }
 
-        /// <summary>
-        /// Peso Bruto Total - em tonelada - 4 casas decimais.
-        /// </summary>
+        [XmlElement(Order = 7), DescricaoPropriedade("Peso bruto em toneladas")]
         public string pesoB { get; set; }
 
-        /// <summary>
-        /// Número de série.
-        /// </summary>
+        [XmlElement(Order = 8), DescricaoPropriedade("Número de série")]
         public string nSerie { get; set; }
 
-        /// <summary>
-        /// Utilizar Tabela RENAVAM.
-        /// </summary>
-        public string tpComb;
+        [XmlElement(Order = 9), DescricaoPropriedade("Tipo de combustível")]
+        public string tpComb { get; set; }
 
         [XmlIgnore]
         public int TpComb
@@ -61,53 +41,32 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
             set => tpComb = (value < 10) ? $"0{value}" : value.ToString();
         }
 
-        /// <summary>
-        /// Número de Motor.
-        /// </summary>
+        [XmlElement(Order = 10), DescricaoPropriedade("Número de Motor")]
         public string nMotor { get; set; }
 
-        /// <summary>
-        /// CMT-Capacidade Máxima de Tração - em Toneladas 4 casas decimais.
-        /// </summary>
+        [XmlElement(Order = 11), DescricaoPropriedade("Capacidade Máxima de Tração em toneladas")]
         public string CMT { get; set; }
 
-        /// <summary>
-        /// Distância entre eixos.
-        /// </summary>
+        [XmlElement(Order = 12), DescricaoPropriedade("Distância entre eixos")]
         public string dist { get; set; }
 
-        /// <summary>
-        /// Ano Modelo de Fabricação.
-        /// </summary>
+        [XmlElement(Order = 13), DescricaoPropriedade("Ano do modelo de fabricação")]
         public short anoMod { get; set; }
 
-        /// <summary>
-        /// Ano de Fabricação.
-        /// </summary>
+        [XmlElement(Order = 14), DescricaoPropriedade("Ano de fabricação")]
         public short anoFab { get; set; }
 
-        /// <summary>
-        /// Tipo de Pintura.
-        /// </summary>
+        [XmlElement(Order = 15), DescricaoPropriedade("Tipo de pintura")]
         public string tpPint { get; set; }
 
-        /// <summary>
-        /// Tipo de Veículo.
-        /// Utilizar Tabela RENAVAM.
-        /// </summary>
+        [XmlElement(Order = 16), DescricaoPropriedade("Tipo de veículo")]
         public ushort tpVeic { get; set; }
 
-        /// <summary>
-        /// Espécie de Veículo. 
-        /// Utilizar Tabela RENAVAM.
-        /// </summary>
+        [XmlElement(Order = 17), DescricaoPropriedade("Espécie de veículo")]
         public ushort espVeic { get; set; }
 
-        /// <summary>
-        /// Informa-se o veículo tem VIN (chassi) remarcado.
-        /// R=Remarcado; N=Normal
-        /// </summary>
-        public char VIN;
+        [XmlElement(Order = 18)]
+        public char VIN { get; set; }
 
         [XmlIgnore]
         public bool VINBool
@@ -116,37 +75,22 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
             set => VIN = value ? 'R' : 'N';
         }
 
-        /// <summary>
-        /// Condição do Veículo.
-        /// 1=Acabado; 2=Inacabado; 3=Semiacabado
-        /// </summary>
-        public ushort condVeic;
+        [XmlElement(Order = 19), DescricaoPropriedade("Condição do veículo")]
+        public ushort condVeic { get; set; }
 
-        /// <summary>
-        /// Código Marca Modelo.
-        /// Utilizar Tabela RENAVAM.
-        /// </summary>
+        [XmlElement(Order = 20), DescricaoPropriedade("Código da marca do modelo")]
         public int cMod { get; set; }
 
-        /// <summary>
-        /// Segundo as regras de pré-cadastro do DENATRAN (v2.0)
-        /// 01=AMARELO, 02=AZUL, 03=BEGE, 04=BRANCA, 05=CINZA,06=-DOURADA,
-        /// 07=GRENÁ, 08=LARANJA, 09=MARROM, 10=PRATA, 11=PRETA, 12=ROSA,
-        /// 13=ROXA, 14=VERDE, 15=VERMELHA, 16=FANTASIA 151b
-        /// </summary>
-        [XmlElement("cCorDENATRAN")]
-        public ushort CCorDENATRAN;
+        [XmlElement("cCorDENATRAN", Order = 21), DescricaoPropriedade("Cor")]
+        public ushort CCorDENATRAN { get; set; }
 
         /// <summary>
-        /// Capacidade máxima de lotação, inclusive o motorista.
+        /// .
         /// </summary>
+        [XmlElement(Order = 22), DescricaoPropriedade("Capacidade máxima de lotação, inclusive o motorista")]
         public short lota { get; set; }
 
-        /// <summary>
-        /// Restrição:
-        /// 0=Não há; 1=Alienação Fiduciária; 2=Arrendamento Mercantil;
-        /// 3=Reserva de Domínio; 4=Penhor de Veículos; 9=Outras.
-        /// </summary>
+        [XmlElement(Order = 23), DescricaoPropriedade("Restrição")]
         public ushort tpRest { get; set; }
     }
 }

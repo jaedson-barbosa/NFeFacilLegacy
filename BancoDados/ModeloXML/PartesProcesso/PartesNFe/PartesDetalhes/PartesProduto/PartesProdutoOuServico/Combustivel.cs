@@ -4,46 +4,22 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
 {
     public sealed class Combustivel
     {
-        /// <summary>
-        /// Código de Produto da ANP.
-        /// Utilizar a codificação de produtos do SIMP.
-        /// </summary>
-        [XmlElement("cProdANP", Order = 0)]
+        [XmlElement("cProdANP", Order = 0), DescricaoPropriedade("Código de Produto da ANP")]
         public int CProdANP { get; set; }
 
-        /// <summary>
-        /// (Opcional)
-        /// Percentual de Gás Natural para o Produto GLP.
-        /// </summary>
-        [XmlElement("pMixGN", Order = 1)]
+        [XmlElement("pMixGN", Order = 1), DescricaoPropriedade("Percentual de Gás Natural para o Produto GLP")]
         public string PMixGN { get; set; }
 
-        /// <summary>
-        /// (Opcional)
-        /// Informar apenas quando a UF utilizar o CODIF
-        /// (Sistema de Controle do Diferimento do Imposto nas Operações com AEAC - Álcool Etílico Anidro Combustível).
-        /// </summary>
-        [XmlElement(Order = 2)]
+        [XmlElement(Order = 2), DescricaoPropriedade("Sistema de Controle do Diferimento do Imposto nas Operações com AEAC")]
         public string CODIF { get; set; }
 
-        /// <summary>
-        /// (Opcional)
-        /// Quantidade de combustível faturada à temperatura ambiente.
-        /// </summary>
-        [XmlElement("qTemp", Order = 3)]
+        [XmlElement("qTemp", Order = 3), DescricaoPropriedade("Quantidade de combustível faturada à temperatura ambiente")]
         public string QTemp { get; set; }
 
-        /// <summary>
-        /// Informar a UF de consumo. Informar "EX" para Exterior.
-        /// </summary>
-        [XmlElement(Order = 4)]
+        [XmlElement(Order = 4), DescricaoPropriedade("Informar a UF de consumo")]
         public string UFCons { get; set; }
 
-        /// <summary>
-        /// (Opcional)
-        /// Grupo de informações da CIDE.
-        /// </summary>
-        [XmlElement(Order = 5)]
+        [XmlElement(Order = 5), DescricaoPropriedade("Grupo de informações da CIDE")]
         public CIDE CIDE { get; set; }
     }
 }

@@ -4,19 +4,10 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
 {
     public sealed class GrupoExportacao
     {
-        /// <summary>
-        /// (Opcional)
-        /// O número do Ato Concessório de Suspensão deve ser preenchido com 11 dígitos (AAAANNNNNND).
-        /// O número do Ato Concessório de Drawback Isenção deve ser preenchido com 9 dígitos (AANNNNNND).
-        /// </summary>
-        [XmlElement("nDraw", Order = 0)]
+        [XmlElement("nDraw", Order = 0), DescricaoPropriedade("O número do Ato Concessório")]
         public string NDraw { get; set; }
 
-        /// <summary>
-        /// (Opcional)
-        /// Grupo sobre exportação indireta.
-        /// </summary>
-        [XmlElement("exportInd", Order = 1)]
+        [XmlElement("exportInd", Order = 1), DescricaoPropriedade("Grupo sobre exportação indireta")]
         public ExportacaoIndireta ExportInd { get; set; }
     }
 }

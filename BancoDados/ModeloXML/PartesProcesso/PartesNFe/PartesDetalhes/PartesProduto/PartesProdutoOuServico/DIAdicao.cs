@@ -4,35 +4,19 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
 {
     public sealed class DIAdicao
     {
-        /// <summary>
-        /// Numero da Adição.
-        /// </summary>
-        [XmlElement("nAdicao", Order = 0)]
+        [XmlElement("nAdicao", Order = 0), DescricaoPropriedade("Número da Adição")]
         public int NAdicao { get; set; }
 
-        /// <summary>
-        /// Numero sequencial do item dentro da Adição.
-        /// </summary>
-        [XmlElement("nSeqAdic", Order = 1)]
+        [XmlElement("nSeqAdic", Order = 1), DescricaoPropriedade("Número sequencial do item dentro da Adição")]
         public int NSeqAdic { get; set; }
 
-        /// <summary>
-        /// Código do fabricante estrangeiro, usado nos sistemas internos de informação do emitente da NF-e.
-        /// </summary>
-        [XmlElement("cFabricante", Order = 2)]
+        [XmlElement("cFabricante", Order = 2), DescricaoPropriedade("Código do fabricante estrangeiro")]
         public string CFabricante { get; set; }
 
-        /// <summary>
-        /// (Campo opcional) Valor do desconto do item da DI – Adição.
-        /// </summary>
-        [XmlElement("vDescDI", Order = 3)]
+        [XmlElement("vDescDI", Order = 3), DescricaoPropriedade("Valor do desconto do item da DI – Adição")]
         public string VDescDI { get; set; }
 
-        /// <summary>
-        ///  O número do Ato Concessório de Suspensão deve ser preenchido com 11 dígitos (AAAANNNNNND).
-        ///  O número do Ato Concessório de Drawback Isenção deve ser preenchido com 9 dígitos (AANNNNNND).
-        /// </summary>
-        [XmlElement("nDraw", Order = 4)]
+        [XmlElement("nDraw", Order = 4), DescricaoPropriedade("O número do Ato Concessório")]
         public string NDraw { get; set; }
     }
 }

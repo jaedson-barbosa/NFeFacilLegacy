@@ -76,105 +76,58 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTotal
             }
         }
 
-        /// <summary>
-        /// Informar o somatório da BC do ICMS (vBC) informado nos itens.
-        /// </summary>
-        [XmlElement("vBC", Order = 0)]
+        [XmlElement("vBC", Order = 0), DescricaoPropriedade("Somatório da BC do ICMS")]
         public double VBC { get; set; }
 
-        /// <summary>
-        /// Informar o somatório de ICMS (vICMS) informado nos itens.
-        /// </summary>
-        [XmlElement("vICMS", Order = 1)]
+        [XmlElement("vICMS", Order = 1), DescricaoPropriedade("Somatório de ICMS")]
         public double VICMS { get; set; }
 
-        /// <summary>
-        /// Informar o somatório do Valor do ICMS desonerado (vICMSDeson) informado nos itens.
-        /// </summary>
-        [XmlElement("vICMSDeson", Order = 2)]
+        [XmlElement("vICMSDeson", Order = 2), DescricaoPropriedade("Somatório do ICMS desonerado")]
         public double VICMSDeson { get; set; }
 
-        [XmlElement("vFCPUFDest", Order = 3)]
+        [XmlElement("vFCPUFDest", Order = 3), DescricaoPropriedade("Somatório do ICMS relativo ao FCP da UF destino")]
         public double VFCPUFDest { get;set;}
 
-        [XmlElement("vICMSUFDest", Order = 4)]
+        [XmlElement("vICMSUFDest", Order = 4), DescricaoPropriedade("Somatório do ICMS interestadual para a UF destino")]
         public double VICMSUFDest { get; set; }
 
-        [XmlElement("vICMSUFRemet", Order = 5)]
+        [XmlElement("vICMSUFRemet", Order = 5), DescricaoPropriedade("Somatório do ICMS interestadual para a UF remetente")]
         public double VICMSUFRemet { get; set; }
 
-        /// <summary>
-        /// Informar o somatório da BC ST (vBCST) informado nos itens.
-        /// </summary>
-        [XmlElement("vBCST", Order = 6)]
+        [XmlElement("vBCST", Order = 6), DescricaoPropriedade("Somatório da BC ST")]
         public double VBCST { get; set; }
 
-        /// <summary>
-        /// Informar o somatório do ICMS ST (vICMSST)informado nos itens.
-        /// </summary>
-        [XmlElement("vST", Order = 7)]
+        [XmlElement("vST", Order = 7), DescricaoPropriedade("Somatório do ICMS ST")]
         public double VST { get; set; }
 
-        /// <summary>
-        /// Informar o somatório de valor dos produtos (vProd) dos itens que tenham indicador de totalização = 1 (indTot).
-        /// Os valores dos itens sujeitos ao ISSQN não devem ser acumulados neste campo.
-        /// </summary>
-        [XmlElement("vProd", Order = 8)]
+        [XmlElement("vProd", Order = 8), DescricaoPropriedade("Somatório do valor dos produtos")]
         public double VProd { get; set; }
 
-        /// <summary>
-        /// Informar o somatório de valor do Frete (vFrete) informado nos itens.
-        /// </summary>
-        [XmlElement("vFrete", Order = 9)]
+        [XmlElement("vFrete", Order = 9), DescricaoPropriedade("Somatório de valor do Frete")]
         public double VFrete { get; set; }
 
-        /// <summary>
-        /// Informar o somatório valor do Seguro (vSeg) informado nos itens.
-        /// </summary>
-        [XmlElement("vSeg", Order = 10)]
+        [XmlElement("vSeg", Order = 10), DescricaoPropriedade("Somatório valor do seguro")]
         public double VSeg { get; set; }
 
-        /// <summary>
-        /// Informar o somatório do Desconto (vDesc) informado nos itens.
-        /// </summary>
-        [XmlElement("vDesc", Order = 11)]
+        [XmlElement("vDesc", Order = 11), DescricaoPropriedade("Somatório do desconto")]
         public double VDesc { get; set; }
 
-        /// <summary>
-        /// Informar o somatório de II (vII) informado nos itens.
-        /// </summary>
-        [XmlElement("vII", Order = 12)]
+        [XmlElement("vII", Order = 12), DescricaoPropriedade("Somatório de II")]
         public double VII { get; set; }
 
-        /// <summary>
-        /// Informar o somatório de IPI (vIPI) informado nos itens.
-        /// </summary>
-        [XmlElement("vIPI", Order = 13)]
+        [XmlElement("vIPI", Order = 13), DescricaoPropriedade("Somatório de IPI")]
         public double VIPI { get; set; }
 
-        /// <summary>
-        /// Informar o somatório de PIS (vPIS) informado nos itens sujeitos ao ICMS.
-        /// </summary>
-        [XmlElement("vPIS", Order = 14)]
+        [XmlElement("vPIS", Order = 14), DescricaoPropriedade("Somatório de PIS")]
         public double VPIS { get; set; }
 
-        /// <summary>
-        /// Informar o somatório de PIS (vPIS) informado nos itens sujeitos ao ICMS.
-        /// </summary>
-        [XmlElement("vCOFINS", Order = 15)]
+        [XmlElement("vCOFINS", Order = 15), DescricaoPropriedade("Somatório de COFINS")]
         public double VCOFINS { get; set; }
 
-        /// <summary>
-        /// Informar o somatório de vOutro (vOutro) informado nos itens.
-        /// </summary>
-        [XmlElement("vOutro", Order = 16)]
+        [XmlElement("vOutro", Order = 16), DescricaoPropriedade("Somatório dos valores adicionais")]
         public double VOutro { get; set; }
 
-        /// <summary>
-        /// Informar o valor total a NF.
-        /// Acrescentar o valor dos Serviços informados no grupo do ISSQN.
-        /// </summary>
-        [XmlElement("vNF", Order = 17)]
+        [XmlElement("vNF", Order = 17), DescricaoPropriedade("Valor total da NF")]
         public double VNF
         {
             get
@@ -185,12 +138,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTotal
             set { }
         }
 
-        /// <summary>
-        /// (Opcional)
-        /// informar o somatório do valor total aproximado dos tributos (vTotTrib) informado nos itens.
-        /// Deve considerar valor de itens sujeitos ao ISSQN também.
-        /// </summary>
-        [XmlElement("vTotTrib", Order = 18)]
+        [XmlElement("vTotTrib", Order = 18), DescricaoPropriedade("Valor total dos tributos")]
         public double VTotTrib { get; set; }
 
         double vProdISSQN;

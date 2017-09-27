@@ -26,7 +26,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
         [XmlElement("vICMSUFDest", Order = 6), DescricaoPropriedade("Valor do ICMS interestadual para a UF destino")]
         public double VICMSUFDest { get; set; }
 
-        [XmlElement("vICMSUFRemet", Order = 7), DescricaoPropriedade("Valor do ICMS interestadual para a UF do remetente")]
+        [XmlElement("vICMSUFRemet", Order = 7), DescricaoPropriedade("Valor do ICMS interestadual para a UF remetente")]
         public double VICMSUFRemet { get; set; }
 
         public override bool IsValido => NaoNulos(VBCUFDest, PFCPUFDest, PICMSUFDest, PICMSInter, PICMSInterPart, VFCPUFDest, VICMSUFDest, VICMSUFRemet);

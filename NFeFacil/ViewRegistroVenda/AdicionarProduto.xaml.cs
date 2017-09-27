@@ -89,10 +89,19 @@ namespace NFeFacil.ViewRegistroVenda
 
         private void VerificarConformidadeEstoque(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            if (ProdutoSelecionado.Estoque != "Infinito" && Quantidade > double.Parse(ProdutoSelecionado.Estoque))
+            var log = Log.Popup.Current;
+            if (ProdutoSelecionado.Base == null)
+            {
+                log.Escrever(Log.TitulosComuns.Atenção, "Escolha um produto.");
+            }
+            else if (Quantidade <= 0)
+            {
+                log.Escrever(Log.TitulosComuns.Atenção, "Insira uma quantidade maior que 0.");
+            }
+            else if (ProdutoSelecionado.Estoque != "Infinito" && Quantidade > double.Parse(ProdutoSelecionado.Estoque))
             {
                 args.Cancel = true;
-                Log.Popup.Current.Escrever(Log.TitulosComuns.Atenção, "A quantidade vendida não pode ser maior que a quantidade em estoque.");
+                log.Escrever(Log.TitulosComuns.Atenção, "A quantidade vendida não pode ser maior que a quantidade em estoque.");
             }
         }
     }

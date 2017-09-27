@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NFeFacil.ItensBD;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace NFeFacil.ViewRegistroVenda
         public double Seguro { get; set; }
         public double DespesasExtras { get; set; }
 
-        public AdicionarProduto()
+        public AdicionarProduto(Guid[] produtosJaAdicionados)
         {
             InitializeComponent();
 
@@ -30,23 +31,30 @@ namespace NFeFacil.ViewRegistroVenda
                 var estoque = db.Estoque.Include(x => x.Alteracoes);
                 foreach (var item in db.Produtos)
                 {
-                    var est = estoque.FirstOrDefault(x => x.Id == item.Id);
-                    var quant = est != null ? est.Alteracoes.Sum(x => x.Alteração) : 0;
-                    if (est == null || quant > 0)
+                    if (!produtosJaAdicionados.Contains(item.Id))
                     {
-                        var novoProd = new ExibicaoProduto
+                        var est = estoque.FirstOrDefault(x => x.Id == item.Id);
+                        var quant = est != null ? est.Alteracoes.Sum(x => x.Alteração) : 0;
+                        if (est == null || quant > 0)
                         {
-                            Base = item,
-                            Codigo = item.CodigoProduto,
-                            Nome = item.Descricao,
-                            Estoque = est == null ? "Infinito" : quant.ToString("N"),
-                            Preço = item.ValorUnitario.ToString("C"),
-                            PreçoDouble = item.ValorUnitario
-                        };
-                        ListaCompletaProdutos.Add(novoProd);
+                            var novoProd = new ExibicaoProduto
+                            {
+                                Base = item,
+                                Codigo = item.CodigoProduto,
+                                Nome = item.Descricao,
+                                Estoque = est == null ? "Infinito" : quant.ToString("N"),
+                                Preço = item.ValorUnitario.ToString("C"),
+                                PreçoDouble = item.ValorUnitario
+                            };
+                            ListaCompletaProdutos.Add(novoProd);
+                        }
                     }
                 }
                 ListaCompletaProdutos.Sort((a, b) => a.Nome.CompareTo(b.Nome));
+                if (ListaCompletaProdutos.Count == 0)
+                {
+                    Log.Popup.Current.Escrever(Log.TitulosComuns.Atenção, "Não existem mais produtos adicionáveis.");
+                }
                 Produtos = ListaCompletaProdutos.GerarObs();
             }
         }
@@ -77,6 +85,15 @@ namespace NFeFacil.ViewRegistroVenda
             public string Estoque { get; set; }
             public double PreçoDouble { get; set; }
             public string Preço { get; set; }
+        }
+
+        private void VerificarConformidadeEstoque(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            if (ProdutoSelecionado.Estoque != "Infinito" && Quantidade > double.Parse(ProdutoSelecionado.Estoque))
+            {
+                args.Cancel = true;
+                Log.Popup.Current.Escrever(Log.TitulosComuns.Atenção, "A quantidade vendida não pode ser maior que a quantidade em estoque.");
+            }
         }
     }
 }

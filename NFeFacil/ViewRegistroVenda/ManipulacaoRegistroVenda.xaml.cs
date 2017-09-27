@@ -83,7 +83,7 @@ namespace NFeFacil.ViewRegistroVenda
 
         private async void AdicionarProduto(object sender, RoutedEventArgs e)
         {
-            var caixa = new AdicionarProduto();
+            var caixa = new AdicionarProduto(ListaProdutos.Select(x => x.Base.IdBase).ToArray());
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
                 var novoProdBanco = new ProdutoSimplesVenda

@@ -101,8 +101,14 @@ namespace NFeFacil.ViewModel
         private async Task EstabelecerConexaoAsync(InfoEstabelecerConexao info)
         {
             IPServidor = info.IP;
-            var cliente = new GerenciadorCliente(LogPopUp);
-            await cliente.EstabelecerConexao(info.SenhaTemporaria);
+            try
+            {
+                await new GerenciadorCliente().EstabelecerConexao(info.SenhaTemporaria);
+            }
+            catch (Exception ex)
+            {
+                ex.ManipularErro();
+            }
         }
 
         public async void IniciarServidor()
@@ -126,7 +132,7 @@ namespace NFeFacil.ViewModel
         {
             try
             {
-                await new GerenciadorCliente(LogPopUp).Sincronizar();
+                await new GerenciadorCliente().Sincronizar();
             }
             catch (Exception e)
             {
@@ -138,7 +144,7 @@ namespace NFeFacil.ViewModel
         {
             try
             {
-                await new GerenciadorCliente(LogPopUp).SincronizarTudo();
+                await new GerenciadorCliente().SincronizarTudo();
             }
             catch (Exception e)
             {

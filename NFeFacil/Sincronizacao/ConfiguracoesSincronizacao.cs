@@ -29,11 +29,11 @@ namespace NFeFacil.Sincronizacao
             {
                 var valor = Pasta.Values[nameof(UltimaSincronizacao)];
                 if (valor == null) return DateTime.MinValue;
-                else return (DateTime)valor;
+                else return DateTime.FromBinary((long)valor);
             }
             set
             {
-                Pasta.Values[nameof(UltimaSincronizacao)] = value;
+                Pasta.Values[nameof(UltimaSincronizacao)] = value.ToBinary();
             }
         }
 

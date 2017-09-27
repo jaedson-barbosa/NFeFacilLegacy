@@ -13,9 +13,9 @@ namespace NFeFacil.Sincronizacao
     {
         private ILog Log { get; }
 
-        public GerenciadorCliente(ILog log)
+        public GerenciadorCliente()
         {
-            Log = log;
+            Log = Popup.Current;
         }
 
         public async Task EstabelecerConexao(int senha)

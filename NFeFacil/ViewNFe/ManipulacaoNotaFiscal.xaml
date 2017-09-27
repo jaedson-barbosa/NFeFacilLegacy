@@ -75,13 +75,7 @@
                         </ComboBox>
                         <TextBox Header="Natureza da operação *"
                                  Text="{x:Bind NotaSalva.Informacoes.identificacao.NaturezaDaOperacao, Mode=TwoWay}" />
-                        <ComboBox Header="Estado *"
-                                  ItemsSource="{Binding Source={StaticResource estados}, Path=EstadosCompletos}"
-                                  SelectedValue="{x:Bind EstadoIdentificacao, Mode=TwoWay}"
-                                  SelectedValuePath="Codigo"
-                                  DisplayMemberPath="Nome"
-                                  PlaceholderText="Estado" />
-                        <ComboBox Header="Município *"
+                        <ComboBox Header="Município do fato *"
                                   DisplayMemberPath="Nome"
                                   ItemsSource="{x:Bind MunicipiosIdentificacao}"
                                   SelectedValue="{x:Bind CodigoMunicipio, Mode=TwoWay}"

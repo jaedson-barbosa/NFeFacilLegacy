@@ -76,7 +76,7 @@ namespace NFeFacil.ViewNFe
                 Dados.Informacoes.total = new Total(Dados.Informacoes.produtos);
             NotaSalva = Dados;
 
-            MunicipiosIdentificacao = new ObservableCollection<Municipio>(Municipios.Get(EstadoIdentificacao));
+            MunicipiosIdentificacao = new ObservableCollection<Municipio>(Municipios.Get(NotaSalva.Informacoes.identificacao.CódigoUF));
             MunicipiosTransporte = new ObservableCollection<Municipio>(Municipios.Get(UFEscolhida));
             NFesReferenciadas = new ObservableCollection<DocumentoFiscalReferenciado>(NotaSalva.Informacoes.identificacao.DocumentosReferenciados.Where(x => !string.IsNullOrEmpty(x.RefNFe)));
             NFsReferenciadas = new ObservableCollection<DocumentoFiscalReferenciado>(NotaSalva.Informacoes.identificacao.DocumentosReferenciados.Where(x => x.RefNF != null));
@@ -234,20 +234,6 @@ namespace NFeFacil.ViewNFe
                 var anterior = DateTimeOffset.Parse(NotaSalva.Informacoes.identificacao.DataHoraSaídaEntrada);
                 var novo = new DateTime(anterior.Year, anterior.Month, anterior.Day, value.Hours, value.Minutes, value.Seconds);
                 NotaSalva.Informacoes.identificacao.DataHoraSaídaEntrada = novo.ToStringPersonalizado();
-            }
-        }
-
-        public ushort EstadoIdentificacao
-        {
-            get => NotaSalva.Informacoes.identificacao.CódigoUF;
-            set
-            {
-                NotaSalva.Informacoes.identificacao.CódigoUF = value;
-                MunicipiosIdentificacao.Clear();
-                foreach (var item in Municipios.Get(value))
-                {
-                    MunicipiosIdentificacao.Add(item);
-                }
             }
         }
 

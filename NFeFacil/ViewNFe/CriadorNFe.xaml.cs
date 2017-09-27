@@ -1,4 +1,5 @@
-﻿using NFeFacil.ModeloXML.PartesProcesso;
+﻿using NFeFacil.IBGE;
+using NFeFacil.ModeloXML.PartesProcesso;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
@@ -57,7 +58,9 @@ namespace NFeFacil.ViewNFe
             {
                 Serie = Serie,
                 Numero = (int)txtNumero.Number,
-                TipoAmbiente = (ushort)(AmbienteHomolocagao ? 2 : 1)
+                TipoAmbiente = (ushort)(AmbienteHomolocagao ? 2 : 1),
+                CódigoUF = Estados.Buscar(Propriedades.EmitenteAtivo.SiglaUF).Codigo,
+                CodigoMunicipio = Propriedades.EmitenteAtivo.CodigoMunicipio
             };
             identificacao.DefinirVersãoAplicativo();
             PreNota.Informacoes.identificacao = identificacao;

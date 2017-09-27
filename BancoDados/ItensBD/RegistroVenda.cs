@@ -41,7 +41,6 @@ namespace NFeFacil.ItensBD
                         },
                         produtos = prods,
                         total = new Total(prods),
-                        identificacao = new Identificacao(),
                         transp = new Transporte()
                         {
                             Transporta = motDI != null ? motDI.ToMotorista() : new Motorista(),

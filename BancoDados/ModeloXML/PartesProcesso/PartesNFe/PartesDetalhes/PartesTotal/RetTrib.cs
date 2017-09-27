@@ -4,46 +4,25 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTotal
 {
     public sealed class RetTrib
     {
-        /// <summary>
-        /// Informar o valor do PIS retido.
-        /// </summary>
-        [XmlElement("vRetPIS", Order = 0)]
+        [XmlElement("vRetPIS", Order = 0), DescricaoPropriedade("Valor do PIS retido")]
         public double VRetPIS { get; set; }
 
-        /// <summary>
-        /// Informar o valor COFINS do retido.
-        /// </summary>
-        [XmlElement("vRetCOFINS", Order = 1)]
+        [XmlElement("vRetCOFINS", Order = 1), DescricaoPropriedade("Valor do COFINS retido")]
         public double VRetCOFINS { get; set; }
 
-        /// <summary>
-        /// Informar o valor do CSLL retido.
-        /// </summary>
-        [XmlElement("vRetCSLL", Order = 2)]
+        [XmlElement("vRetCSLL", Order = 2), DescricaoPropriedade("Valor do CSLL retido")]
         public double VRetCSLL { get; set; }
 
-        /// <summary>
-        /// Informar o valor do BC IRRF retido.
-        /// </summary>
-        [XmlElement("vBCIRRF", Order = 3)]
+        [XmlElement("vBCIRRF", Order = 3), DescricaoPropriedade("Valor do BC IRRF retido")]
         public double VBCIRRF { get; set; }
 
-        /// <summary>
-        /// Informar o valor do IRRF retido.
-        /// </summary>
-        [XmlElement("vIRRF", Order = 4)]
+        [XmlElement("vIRRF", Order = 4), DescricaoPropriedade("Valor do IRRF retido")]
         public double VIRRF { get; set; }
 
-        /// <summary>
-        /// Informar o valor da BC da retenção da Previdência retido.
-        /// </summary>
-        [XmlElement("vBCRetPrev", Order = 5)]
+        [XmlElement("vBCRetPrev", Order = 5), DescricaoPropriedade("Valor da BC da retenção da Previdência retido")]
         public double VBCRetPrev { get; set; }
 
-        /// <summary>
-        /// Informar o valor da retenção da Previdência retido.
-        /// </summary>
-        [XmlElement("vRetPrev", Order = 6)]
+        [XmlElement("vRetPrev", Order = 6), DescricaoPropriedade("Valor da retenção da Previdência retido")]
         public double VRetPrev { get; set; }
     }
 }

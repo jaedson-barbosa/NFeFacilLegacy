@@ -13,6 +13,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
             impostos = lista.ToList();
         }
 
+        [DescricaoPropriedade("Valor total dos tributos")]
         public string vTotTrib { get; set; }
 
         [XmlElement(nameof(ICMS), Type = typeof(ICMS)),

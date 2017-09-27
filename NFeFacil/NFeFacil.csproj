@@ -195,6 +195,15 @@
     <Compile Include="ViewNFe\CaixasDialogoNFe\EnderecoDiferenteNacional.xaml.cs">
       <DependentUpon>EnderecoDiferenteNacional.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewNFe\CaixasImpostos\AdicionarICMSRN.xaml.cs">
+      <DependentUpon>AdicionarICMSRN.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\CaixasImpostos\AdicionarICMSSN.xaml.cs">
+      <DependentUpon>AdicionarICMSSN.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\CaixasImpostos\EscolherTipoICMS.xaml.cs">
+      <DependentUpon>EscolherTipoICMS.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewNFe\VisualizacaoNFe.xaml.cs">
       <DependentUpon>VisualizacaoNFe.xaml</DependentUpon>
     </Compile>
@@ -588,6 +597,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ViewNFe\CaixasDialogoNFe\EnderecoDiferenteNacional.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\CaixasImpostos\AdicionarICMSRN.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\CaixasImpostos\AdicionarICMSSN.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\CaixasImpostos\EscolherTipoICMS.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

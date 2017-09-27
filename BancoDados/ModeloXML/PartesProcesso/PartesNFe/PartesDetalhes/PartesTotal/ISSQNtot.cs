@@ -48,88 +48,40 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTotal
             }
         }
 
-        /// <summary>
-        /// (Opcional)
-        /// Informar o valor total do Serviços Pretados, é o somatório dos valores informados em vProd dos itens sujeitos ao ISSQN.
-        /// Os valores que sujeitos ao ISSQN deve ter o indTot informado com zero para evitar que o valor seja considerado na validação do somatório do vProd pela SEFAZ.
-        /// </summary>
-        [XmlElement("vServ", Order = 0)]
+        [XmlElement("vServ", Order = 0), DescricaoPropriedade("Valor total do serviços prestados")]
         public double VServ { get; set; }
 
-        /// <summary>
-        /// (Opcional)
-        /// Informar o somatório da BC do ISS informado nos itens de Serviços.
-        /// </summary>
-        [XmlElement("vBC", Order = 1)]
+        [XmlElement("vBC", Order = 1), DescricaoPropriedade("Somatório da BC do ISS")]
         public double VBC { get; set; }
 
-        /// <summary>
-        /// (Opcional)
-        /// Informar o somatório de ISS informado nos itens de Serviços.
-        /// </summary>
-        [XmlElement("vISS", Order = 2)]
+        [XmlElement("vISS", Order = 2), DescricaoPropriedade("Somatório de ISS")]
         public double VISS { get; set; }
 
-        /// <summary>
-        /// (Opcional)
-        /// Informar o somatório de PIS informado nos itens de Serviços.
-        /// </summary>
-        [XmlElement("vPIS", Order = 3)]
+        [XmlElement("vPIS", Order = 3), DescricaoPropriedade("Somatório de PIS")]
         public double VPIS { get; set; }
 
-        /// <summary>
-        /// (Opcional)
-        /// Informar o somatório de COFINS informado nos itens de Serviços.
-        /// </summary>
-        [XmlElement("vCOFINS", Order = 4)]
+        [XmlElement("vCOFINS", Order = 4), DescricaoPropriedade("Somatório de COFINS")]
         public double VCOFINS { get; set; }
 
-        /// <summary>
-        /// Informar Data da prestação do serviço no formato AAAA-MM-DD.
-        /// </summary>
-        [XmlElement("dCompet", Order = 5)]
+        [XmlElement("dCompet", Order = 5), DescricaoPropriedade("Data da prestação do serviço")]
         public string DCompet { get; set; }
 
-        /// <summary>
-        /// (Opcional)
-        /// Informar o somatório do valor Valor total dedução para redução da Base de Cálculo (vDeducao) informado nos itens.
-        /// </summary>
-        [XmlElement("vDeducao", Order = 6)]
+        [XmlElement("vDeducao", Order = 6), DescricaoPropriedade("Valor total da dedução")]
         public double VDeducao { get; set; }
 
-        /// <summary>
-        /// (Opcional)
-        /// Informar o somatório do valor total Valor total outras retenções (vOutro) informado nos itens. Valor declaratório.
-        /// </summary>
-        [XmlElement("vOutro", Order = 7)]
+        [XmlElement("vOutro", Order = 7), DescricaoPropriedade("Valor total de outras retenções")]
         public double VOutro { get; set; }
 
-        /// <summary>
-        /// (Opcional)
-        /// Informar o somatório do Valor total desconto incondicionado (vDescIncond) informado nos itens.
-        /// </summary>
-        [XmlElement("vDescIncond", Order = 8)]
+        [XmlElement("vDescIncond", Order = 8), DescricaoPropriedade("Valor total do desconto incondicionado")]
         public double VDescIncond { get; set; }
 
-        /// <summary>
-        /// (Opcional)
-        /// Informar o somatório do Valor total desconto condicionado (vDescCond) informado nos itens.
-        /// </summary>
-        [XmlElement("vDescCond", Order = 9)]
+        [XmlElement("vDescCond", Order = 9), DescricaoPropriedade("Valor total do desconto condicionado")]
         public double VDescCond { get; set; }
 
-        /// <summary>
-        /// (Opcional)
-        /// Informar o somatório do Valor total retenção ISS (vISSRet) informado nos itens.
-        /// </summary>
-        [XmlElement("vISSRet", Order = 10)]
+        [XmlElement("vISSRet", Order = 10), DescricaoPropriedade("Valor total da retenção ISS")]
         public double VISSRet { get; set; }
 
-        /// <summary>
-        /// (Opcional)
-        /// Informar o Código do Regime Especial de Tributação.
-        /// </summary>
-        [XmlElement("cRegTrib", Order = 11)]
+        [XmlElement("cRegTrib", Order = 11), DescricaoPropriedade("Código do Regime Especial de Tributação")]
         public string CRegTrib { get; set; }
     }
 }

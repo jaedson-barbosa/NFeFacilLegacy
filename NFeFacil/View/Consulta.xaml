@@ -6,9 +6,6 @@
       mc:Ignorable="d">
     <Page.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Estilos/CoresDestaque.xaml" />
-            </ResourceDictionary.MergedDictionaries>
             <Storyboard x:Name="MostrarCarregamento">
                 <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)"
                                                Storyboard.TargetName="grdManipulação">

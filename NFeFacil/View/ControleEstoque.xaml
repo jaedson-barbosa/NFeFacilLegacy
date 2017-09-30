@@ -1,0 +1,44 @@
+﻿<Page x:Class="NFeFacil.View.ControleEstoque"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="using:NFeFacil.View"
+      xmlns:lvc="using:LiveCharts.Uwp"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <ComboBox x:Name="cmbProduto"
+                  DisplayMemberPath="Produto.Descricao"
+                  SelectionChanged="cmbProduto_SelectionChanged" />
+        <ItemsControl x:Name="dadosEstoque"
+                      IsEnabled="False"
+                      Grid.Row="1"
+                      Style="{StaticResource ItensResponsivos}">
+            <TextBox Header="Localização genérica"
+                     Text="{Binding LocalizacaoGenerica, Mode=TwoWay}" />
+            <TextBox Header="Segmento"
+                     Text="{Binding Segmento, Mode=TwoWay}" />
+            <TextBox Header="Prateleira"
+                     Text="{Binding Prateleira, Mode=TwoWay}" />
+            <TextBox Header="Locação"
+                     Text="{Binding Locação, Mode=TwoWay}" />
+            <Button Click="AlterarQuantidade_Click">Alterar quantidade</Button>
+        </ItemsControl>
+        <lvc:CartesianChart Grid.Row="2">
+            <lvc:CartesianChart.Series>
+                <lvc:LineSeries x:Name="serieGrafico"
+                                StrokeThickness="2"
+                                Stroke="#1C8FC5"
+                                Fill="Transparent"
+                                LineSmoothness="1"
+                                PointGeometrySize="15"
+                                PointForeround="#222E31" />
+            </lvc:CartesianChart.Series>
+        </lvc:CartesianChart>
+    </Grid>
+</Page>

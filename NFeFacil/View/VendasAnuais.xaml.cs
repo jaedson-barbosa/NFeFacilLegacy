@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections;
+using System.Collections.ObjectModel;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -19,26 +21,24 @@ namespace NFeFacil.View
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            MainPage.Current.SeAtualizar(Symbol.Calendar, "Vendas anuais");
+            MainPage.Current.SeAtualizar(Symbol.Calendar, "Vendas");
         }
 
-        public ListView ConteudoMenu
+        public IEnumerable ConteudoMenu
         {
             get
             {
-                var lista = new ListView()
+                var retorno = new ObservableCollection<Controles.ItemHambuguer>
                 {
-                    ItemsSource = new ObservableCollection<Controles.ItemHambuguer>
-                    {
-                        new Controles.ItemHambuguer(Symbol.Calendar, "Meses"),
-                        new Controles.ItemHambuguer(Symbol.People, "Clientes"),
-                    },
-                    SelectedIndex = 0
+                    new Controles.ItemHambuguer(Symbol.Calendar, "Meses"),
+                    new Controles.ItemHambuguer(Symbol.People, "Clientes"),
                 };
-                flipView.SelectionChanged += (sender, e) => lista.SelectedIndex = flipView.SelectedIndex;
-                lista.SelectionChanged += (sender, e) => flipView.SelectedIndex = lista.SelectedIndex;
-                return lista;
+                flipView.SelectionChanged += (sender, e) => MainMudou?.Invoke(this, new NewIndexEventArgs { NewIndex = flipView.SelectedIndex });
+                return retorno;
             }
         }
+
+        public event EventHandler MainMudou;
+        public void AtualizarMain(int index) => flipView.SelectedIndex = index;
     }
 }

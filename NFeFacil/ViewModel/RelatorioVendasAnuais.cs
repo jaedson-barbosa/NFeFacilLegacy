@@ -1,20 +1,14 @@
-﻿using BibliotecaCentral;
-using BibliotecaCentral.ModeloXML;
-using BibliotecaCentral.ModeloXML.PartesProcesso;
-using BibliotecaCentral.Repositorio;
+﻿using NFeFacil.ModeloXML;
+using NFeFacil.ModeloXML.PartesProcesso;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
 using System.Xml.Linq;
 
 namespace NFeFacil.ViewModel
 {
-    public sealed class RelatorioVendasAnuais : INotifyPropertyChanged
+    public sealed class RelatorioVendasAnuais
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public ObservableCollection<int> AnosDisponiveis { get; private set; }
         public ObservableCollection<TotalPorMes> ResultadoMes { get; private set; }
         public ObservableCollection<TotalPorCliente> ResultadoCliente { get; private set; }
@@ -24,13 +18,15 @@ namespace NFeFacil.ViewModel
 
         public RelatorioVendasAnuais()
         {
-            using (var db = new NotasFiscais())
+            using (var db = new AplicativoContext())
             {
-                AnosDisponiveis = (from dado in db.Registro
+                AnosDisponiveis = (from dado in db.NotasFiscais
                                    let ano = Convert.ToDateTime(dado.DataEmissao).Year
                                    orderby ano ascending
                                    select ano).Distinct().GerarObs();
             }
+            ResultadoMes = new ObservableCollection<TotalPorMes>();
+            ResultadoCliente = new ObservableCollection<TotalPorCliente>();
         }
 
         private int anoEscolhido;
@@ -48,51 +44,52 @@ namespace NFeFacil.ViewModel
         {
             try
             {
-                using (var db = new NotasFiscais())
+                using (var db = new AplicativoContext())
                 {
-                    var notas = from item in db.Registro
+                    var notas = from item in db.NotasFiscais
+                                let data = DateTime.Parse(item.DataEmissao)
+                                where data.Year == AnoEscolhido
+                                orderby data
                                 let xml = XElement.Parse(item.XML)
                                 let usarNFe = item.Status < 4
                                 let nota = usarNFe ? xml.FromXElement<NFe>() : (xml.FromXElement<Processo>()).NFe
                                 select nota;
 
-                    var totalCliente = new List<TotalPorCliente>();
-                    foreach (var item in notas)
+                    ResultadoCliente.Clear();
+                    var gruposClientes = from nota in notas
+                                         group nota by nota.Informacoes.destinatário.Documento into item
+                                         let total = item.Sum(x => x.Informacoes.total.ICMSTot.VNF)
+                                         orderby total descending
+                                         select new { Notas = item, Total = total };
+                    foreach (var item in gruposClientes)
                     {
-                        var det = item.Informações;
-                        if (totalCliente.Count(x => x.Doc == det.destinatário.Documento) == 0)
-                            totalCliente.Add(new TotalPorCliente { Doc = det.destinatário.Documento });
-                        var tot = totalCliente.Single(x => x.Doc == det.destinatário.Documento);
-                        tot.Mun = det.destinatário.Endereco.NomeMunicipio;
-                        tot.Nome = det.destinatário.Nome;
-                        tot.Quantidade = det.produtos.Sum(prod => prod.Produto.QuantidadeComercializada);
-                        tot.Total += det.total.ICMSTot.VNF;
+                        var det = item.Notas.Last().Informacoes;
+                        var atual = new TotalPorCliente
+                        {
+                            Doc = det.destinatário.Documento,
+                            Mun = det.destinatário.Endereco.NomeMunicipio,
+                            Nome = det.destinatário.Nome,
+                            Quantidade = item.Notas.Sum(x => x.Informacoes.produtos.Sum(prod => prod.Produto.QuantidadeComercializada)),
+                            Total = item.Total
+                        };
+                        ResultadoCliente.Add(atual);
                     }
-                    ResultadoCliente = (from item in totalCliente
-                                        orderby item.Total descending
-                                        select item).GerarObs();
-                    PropertyChanged(this, new PropertyChangedEventArgs(nameof(ResultadoCliente)));
 
-                    QuantTotal = notas.Sum(x => x.Informações.produtos.Sum(prod => prod.Produto.QuantidadeComercializada));
-                    PropertyChanged(this, new PropertyChangedEventArgs(nameof(QuantTotal)));
-
-                    ValorTotal = notas.Sum(x => x.Informações.total.ICMSTot.VNF);
-                    PropertyChanged(this, new PropertyChangedEventArgs(nameof(ValorTotal)));
-
-                    var totalMes = new List<TotalPorMes>(12);
-                    for (int i = 1; i < 13; i++)
+                    ResultadoMes.Clear();
+                    var gruposMeses = from nota in notas
+                                      let data = DateTime.Parse(nota.Informacoes.identificacao.DataHoraEmissão)
+                                      group new { Nota = nota, Data = data.Month } by data.Month;
+                    foreach (var item in gruposMeses)
                     {
-                        totalMes.Add(new TotalPorMes { Mês = i.ToString() });
+                        var primeiro = item.First();
+                        var atual = new TotalPorMes
+                        {
+                            Mês = primeiro.Data.ToString(),
+                            Quantidade = item.Sum(det => det.Nota.Informacoes.produtos.Sum(prod => prod.Produto.QuantidadeComercializada)),
+                            Total = item.Sum(det => det.Nota.Informacoes.total.ICMSTot.VNF)
+                        };
+                        ResultadoMes.Add(atual);
                     }
-                    foreach (var item in notas)
-                    {
-                        var det = item.Informações;
-                        var data = Convert.ToDateTime(det.identificação.DataHoraEmissão);
-                        totalMes[data.Month - 1].Quantidade = det.produtos.Sum(prod => prod.Produto.QuantidadeComercializada);
-                        totalMes[data.Month - 1].Total += det.total.ICMSTot.VNF;
-                    }
-                    ResultadoMes = totalMes.GerarObs();
-                    PropertyChanged(this, new PropertyChangedEventArgs(nameof(ResultadoMes)));
                 }
             }
             catch (Exception e)

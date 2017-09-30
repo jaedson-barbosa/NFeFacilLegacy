@@ -8,11 +8,6 @@
       mc:Ignorable="d">
     <Page.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Estilos/CoresDestaque.xaml" />
-                <ResourceDictionary Source="ms-appx:///View/Estilos/GridResponsiva.xaml" />
-                <ResourceDictionary Source="ms-appx:///View/Estilos/PivotPrincipal.xaml" />
-            </ResourceDictionary.MergedDictionaries>
             <Conversores:BoolToVisibility x:Key="boolView"></Conversores:BoolToVisibility>
         </ResourceDictionary>
     </Page.Resources>
@@ -63,7 +58,7 @@
                     </Paragraph>
                 </RichTextBlock>
                 <ItemsControl Style="{StaticResource ItensResponsivos}">
-                    <StackPanel Margin="2">
+                    <StackPanel>
                         <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
                                    Margin="0,10,0,0">Importar dado base</TextBlock>
                         <RichTextBlock>
@@ -87,7 +82,7 @@
                                     Command="{Binding ImportarDadoBaseCommand}">Importar</Button>
                         </Grid>
                     </StackPanel>
-                    <StackPanel Margin="2">
+                    <StackPanel>
                         <TextBlock Margin="0,10,0,0"
                                    Style="{StaticResource SubtitleTextBlockStyle}">Importar nota fiscal</TextBlock>
                         <TextBlock TextWrapping="Wrap">Para importar notas fiscais você só precisa clicar no botão abaixo e, na janela que se abrirá, escolha as notas fiscais que deverão ser importadas.</TextBlock>

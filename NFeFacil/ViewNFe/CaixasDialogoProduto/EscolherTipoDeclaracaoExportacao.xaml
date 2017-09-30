@@ -1,0 +1,15 @@
+﻿<ContentDialog x:Class="NFeFacil.ViewNFe.CaixasDialogoProduto.EscolherTipoDeclaracaoExportacao"
+               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:local="using:NFeFacil.ViewNFe.CaixasDialogoProduto"
+               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+               mc:Ignorable="d"
+               Title="Escolher tipo"
+               PrimaryButtonText="Concluido"
+               SecondaryButtonText="Cancelar">
+
+    <ComboBox x:Name="cmbTipo"
+              Header="Tipo da declaracao de exportacao"
+              SelectedItem="{x:Bind TipoEscolhido, Mode=TwoWay}" />
+</ContentDialog>

@@ -1,0 +1,28 @@
+﻿<ContentDialog x:Class="NFeFacil.ViewNFe.CaixasDialogoNFe.AdicionarReboque"
+               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:VM="using:NFeFacil.ViewModel"
+               xmlns:detalhes="using:NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte"
+               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+               mc:Ignorable="d"
+               Title="TITLE"
+               PrimaryButtonText="Adicionar"
+               SecondaryButtonText="Cancelar">
+    <ContentDialog.DataContext>
+        <detalhes:Reboque />
+    </ContentDialog.DataContext>
+    <ContentDialog.Resources>
+        <VM:DadosEstadosParaView x:Key="estados" />
+    </ContentDialog.Resources>
+    <StackPanel>
+        <TextBox Text="{Binding Placa, Mode=TwoWay}"
+                 Header="Placa" />
+        <ComboBox ItemsSource="{Binding Source={StaticResource estados}, Path=Siglas}"
+                  SelectedItem="{Binding Path=UF, Mode=TwoWay}"
+                  Header="Estado"
+                  HorizontalAlignment="Stretch" />
+        <TextBox Header="RNTC"
+                 Text="{Binding RNTC, Mode=TwoWay}" />
+    </StackPanel>
+</ContentDialog>

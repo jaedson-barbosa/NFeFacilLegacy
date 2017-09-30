@@ -1,5 +1,5 @@
-﻿using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
-using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
+﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
+using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
 using System.ComponentModel;
 
 namespace NFeFacil.ViewModel.ImpostosProduto
@@ -43,6 +43,14 @@ namespace NFeFacil.ViewModel.ImpostosProduto
 
         public bool VisibilidadeCodigoPais { get; private set; }
         public bool VisibilidadeMunicipioUFIncidencia { get; private set; } = true;
+
+        public ISSQNDataContext() { }
+        public ISSQNDataContext(ISSQN imposto)
+        {
+            Imposto = imposto;
+            Exterior = imposto.cMun == "9999999";
+            OnPropertyChanged(nameof(Exterior));
+        }
 
         public Imposto ImpostoBruto => Imposto;
     }

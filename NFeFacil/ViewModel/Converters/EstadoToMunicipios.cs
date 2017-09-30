@@ -1,5 +1,4 @@
-﻿using BibliotecaCentral;
-using BibliotecaCentral.IBGE;
+﻿using NFeFacil.IBGE;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -35,8 +34,8 @@ namespace NFeFacil.ViewModel.Converters
             }
             else
             {
-                tamanhoString = null;
-                throw new ArgumentException("Tipo não cadastrado.");
+                byte valor = (byte)System.Convert.ChangeType(value, typeof(byte));
+                return Municipios.Get(valor);
             }
         }
 

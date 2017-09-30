@@ -1,0 +1,29 @@
+﻿<ContentDialog x:Class="NFeFacil.ViewNFe.CaixasDialogoProduto.AdicionarMedicamento"
+               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:controles="using:NFeFacil.View.Controles"
+               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+               xmlns:contexto="using:NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesProdutoOuServico"
+               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+               mc:Ignorable="d"
+               Title="Adicionar medicamento"
+               PrimaryButtonText="Adicionar"
+               SecondaryButtonText="Cancelar">
+    <ContentDialog.DataContext>
+        <contexto:Medicamento />
+    </ContentDialog.DataContext>
+    <ItemsControl Style="{StaticResource ItensResponsivos}">
+        <TextBox Text="{Binding NLote, Mode=TwoWay}"
+                 Header="Número do Lote" />
+        <controles:EntradaNumerica Format="8:3"
+                                   Number="{Binding QLote, Mode=TwoWay}"
+                                   Header="Quantidade no lote" />
+        <DatePicker Date="{Binding DFab, Converter={StaticResource data}, ConverterParameter='yyyy-MM-dd', Mode=TwoWay}"
+                    Header="Data de fabricação" />
+        <DatePicker Date="{Binding DVal, Converter={StaticResource data}, ConverterParameter='yyyy-MM-dd', Mode=TwoWay}"
+                    Header="Data de validade" />
+        <controles:EntradaNumerica Format="13:2"
+                                   Number="{Binding VPMC,Mode=TwoWay}"
+                                   Header="Preço máximo consumidor" />
+    </ItemsControl>
+</ContentDialog>

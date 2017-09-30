@@ -1,0 +1,205 @@
+﻿<Page x:Class="NFeFacil.ViewDadosBase.GerenciarDadosBase"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="using:NFeFacil.ViewDadosBase"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d"
+      x:Name="root">
+    <Page.Resources>
+        <ResourceDictionary>
+            <Style TargetType="TextBlock"
+                   BasedOn="{StaticResource SubtitleTextBlockStyle}">
+                <Setter Property="TextAlignment"
+                        Value="Center" />
+                <Setter Property="VerticalAlignment"
+                        Value="Center" />
+            </Style>
+        </ResourceDictionary>
+    </Page.Resources>
+    <Page.DataContext>
+        <local:GerenciadorDadosBaseDataContext />
+    </Page.DataContext>
+    <FlipView x:Name="flipView"
+              Padding="16"
+              Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <ListView ItemsSource="{Binding Clientes}"
+                  ItemContainerStyle="{StaticResource ItemFullWidth}">
+            <ListView.Header>
+                <Grid Style="{StaticResource Cabecalho}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock>Nome</TextBlock>
+                    <TextBlock Grid.Column="1">Documento</TextBlock>
+                    <TextBlock Grid.Column="2">Cidade</TextBlock>
+                    <Button Grid.Column="3"
+                            Command="{Binding AdicionarClienteCommand}"
+                            Style="{StaticResource BotaoAdd}">
+                        <SymbolIcon Symbol="Add" />
+                    </Button>
+                </Grid>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.ContextFlyout>
+                            <MenuFlyout>
+                                <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.EditarClienteCommand}"
+                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Editar</MenuFlyoutItem>
+                                <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.InativarClienteCommand}"
+                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Inativar</MenuFlyoutItem>
+                            </MenuFlyout>
+                        </Grid.ContextFlyout>
+                        <TextBlock TextWrapping="Wrap"
+                                   Text="{Binding Nome}" />
+                        <TextBlock TextWrapping="Wrap"
+                                   Text="{Binding Documento}"
+                                   Grid.Column="1" />
+                        <TextBlock TextWrapping="Wrap"
+                                   Text="{Binding NomeMunicipio}"
+                                   Grid.Column="2" />
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <ListView ItemsSource="{Binding Motoristas}"
+                  ItemContainerStyle="{StaticResource ItemFullWidth}">
+            <ListView.Header>
+                <Grid Style="{StaticResource Cabecalho}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock>Nome</TextBlock>
+                    <TextBlock Grid.Column="1">Documento</TextBlock>
+                    <TextBlock Grid.Column="2">Cidade</TextBlock>
+                    <Button Command="{Binding AdicionarMotoristaCommand}"
+                            Style="{StaticResource BotaoAdd}"
+                            Grid.Column="3">
+                        <SymbolIcon Symbol="Add" />
+                    </Button>
+                </Grid>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.ContextFlyout>
+                            <MenuFlyout>
+                                <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.EditarMotoristaCommand}"
+                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Editar</MenuFlyoutItem>
+                                <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.InativarMotoristaCommand}"
+                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Inativar</MenuFlyoutItem>
+                            </MenuFlyout>
+                        </Grid.ContextFlyout>
+                        <TextBlock TextWrapping="Wrap"
+                                   Text="{Binding Nome}" />
+                        <TextBlock TextWrapping="Wrap"
+                                   Text="{Binding Documento}"
+                                   Grid.Column="1" />
+                        <TextBlock TextWrapping="Wrap"
+                                   Text="{Binding XMun}"
+                                   Grid.Column="2" />
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <ListView ItemsSource="{Binding Produtos}"
+                  ItemContainerStyle="{StaticResource ItemFullWidth}">
+            <ListView.Header>
+                <Grid Style="{StaticResource Cabecalho}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock>Código</TextBlock>
+                    <TextBlock Grid.Column="1">Descrição</TextBlock>
+                    <Button Command="{Binding AdicionarProdutoCommand}"
+                            Style="{StaticResource BotaoAdd}"
+                            Grid.Column="2">
+                        <SymbolIcon Symbol="Add" />
+                    </Button>
+                </Grid>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="2*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.ContextFlyout>
+                            <MenuFlyout>
+                                <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.EditarProdutoCommand}"
+                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Editar</MenuFlyoutItem>
+                                <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.InativarProdutoCommand}"
+                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Inativar</MenuFlyoutItem>
+                            </MenuFlyout>
+                        </Grid.ContextFlyout>
+                        <TextBlock Text="{Binding CodigoProduto}" />
+                        <TextBlock TextWrapping="Wrap"
+                                   Text="{Binding Descricao}"
+                                   Grid.Column="1" />
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <ListView ItemsSource="{Binding Vendedores}"
+                  ItemContainerStyle="{StaticResource ItemFullWidth}">
+            <ListView.Header>
+                <Grid Style="{StaticResource Cabecalho}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock>Nome</TextBlock>
+                    <TextBlock Grid.Column="1">CPF</TextBlock>
+                    <Button Command="{Binding AdicionarVendedorCommand}"
+                            Style="{StaticResource BotaoAdd}"
+                            Grid.Column="2">
+                        <SymbolIcon Symbol="Add" />
+                    </Button>
+                </Grid>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.ContextFlyout>
+                            <MenuFlyout>
+                                <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.EditarVendedorCommand}"
+                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Editar</MenuFlyoutItem>
+                                <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.InativarVendedorCommand}"
+                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Inativar</MenuFlyoutItem>
+                            </MenuFlyout>
+                        </Grid.ContextFlyout>
+                        <TextBlock Text="{Binding Nome}" />
+                        <TextBlock TextWrapping="Wrap"
+                                   Text="{Binding CPF}"
+                                   Grid.Column="1" />
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </FlipView>
+</Page>

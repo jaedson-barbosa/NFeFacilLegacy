@@ -1,10 +1,6 @@
-﻿using BibliotecaCentral.ItensBD;
-using BibliotecaCentral.ModeloXML.PartesProcesso;
-using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe;
-using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
-using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
+﻿using NFeFacil.ViewDadosBase;
+using NFeFacil.ViewRegistroVenda;
 using System;
-using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -30,40 +26,43 @@ namespace NFeFacil.View
             MainPage.Current.SeAtualizar(Symbol.Home, nameof(Inicio));
         }
 
-        private void AbrirFunção(object sender, TappedRoutedEventArgs e)
+        private async void AbrirFunção(object sender, TappedRoutedEventArgs e)
         {
-            MainPage.Current.AbrirFunçao(Type.GetType($"NFeFacil.View.{(sender as FrameworkElement).Name}"));
-        }
-
-        private void CriarNotaFiscal(object sender, TappedRoutedEventArgs e)
-        {
-            MainPage.Current.AbrirFunçao(typeof(ManipulacaoNotaFiscal),
-                new ConjuntoManipuladorNFe
-                {
-                    NotaSalva = new NFe()
-                    {
-                        Informações = new Detalhes()
-                        {
-                            identificação = new Identificacao(),
-                            emitente = new Emitente(),
-                            destinatário = new Destinatario(),
-                            produtos = new List<DetalhesProdutos>(),
-                            transp = new Transporte()
-                            {
-                                Transporta = new Motorista(),
-                                RetTransp = new ICMSTransporte(),
-                                VeicTransp = new Veiculo()
-                            },
-                            cobr = new Cobranca(),
-                            infAdic = new InformacoesAdicionais(),
-                            exporta = new Exportacao(),
-                            compra = new Compra(),
-                            cana = new RegistroAquisicaoCana()
-                        }
-                    },
-                    OperacaoRequirida = TipoOperacao.Adicao,
-                    StatusAtual = StatusNFe.Edição
-                });
+            switch ((sender as FrameworkElement).Name)
+            {
+                case "GerenciarDadosBase":
+                    MainPage.Current.Navegar<GerenciarDadosBase>();
+                    break;
+                case "ControleEstoque":
+                    MainPage.Current.Navegar<ControleEstoque>();
+                    break;
+                case "ManipulacaoRegistroVenda":
+                    MainPage.Current.Navegar<ManipulacaoRegistroVenda>();
+                    break;
+                case "CriadorNFe":
+                    await new ViewNFe.CriadorNFe().ShowAsync();
+                    break;
+                case "NotasSalvas":
+                    MainPage.Current.Navegar<ViewNFe.NotasSalvas>();
+                    break;
+                case "RegistrosVenda":
+                    MainPage.Current.Navegar<RegistrosVenda>();
+                    break;
+                case "Consulta":
+                    MainPage.Current.Navegar<Consulta>();
+                    break;
+                case "VendasAnuais":
+                    MainPage.Current.Navegar<VendasAnuais>();
+                    break;
+                case "Configuracoes":
+                    MainPage.Current.Navegar<Configuracoes>();
+                    break;
+                case "ConfigSincronizacao":
+                    MainPage.Current.Navegar<ConfigSincronizacao>();
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

@@ -1,0 +1,27 @@
+﻿<ContentDialog x:Class="NFeFacil.ViewRegistroVenda.CalculoDesconto"
+               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:controles="using:NFeFacil.View.Controles"
+               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+               mc:Ignorable="d"
+               Title="Calcular desconto"
+               PrimaryButtonText="Aplicar"
+               SecondaryButtonText="Cancelar">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Slider x:Name="sldDesconto"
+                Header="Desconto %"
+                StepFrequency="0.5"
+                ValueChanged="sldDesconto_ValueChanged" />
+        <controles:EntradaNumerica x:Name="txtValorDesejado"
+                                   Grid.Row="1"
+                                   Number="0"
+                                   Format="13:2"
+                                   Header="Valor desejado"
+                                   NumeroChanged="ValorDesejadoChanged" />
+    </Grid>
+</ContentDialog>

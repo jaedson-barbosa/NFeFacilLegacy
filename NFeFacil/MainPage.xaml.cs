@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.System.Profile;
 using Windows.UI;
@@ -30,7 +31,11 @@ namespace NFeFacil
                 Retornar();
             };
             frmPrincipal.CacheSize = 4;
-            AbrirFunçao(typeof(View.Inicio));
+            Navegar<Login.EscolhaEmitente>();
+            using (var db = new AplicativoContext())
+            {
+                Propriedades.EmitenteAtivo = db.Emitentes.FirstOrDefault();
+            }
         }
 
         private void AnalisarBarraTituloAsync()
@@ -40,15 +45,15 @@ namespace NFeFacil
             {
                 btnRetornar.Visibility = Visibility.Collapsed;
                 var barra = StatusBar.GetForCurrentView();
-                var cor = new View.Estilos.Auxiliares.BibliotecaCores().Cor1;
+                var cor = new AuxiliaresEstilos.BibliotecaCores().Cor1;
                 barra.BackgroundColor = cor;
                 barra.BackgroundOpacity = 1;
             }
             else if (familia.Contains("Desktop"))
             {
+                Window.Current.CoreWindow.KeyDown += (x, y) => System.Diagnostics.Debug.WriteLine(y.VirtualKey);
                 CoreApplicationViewTitleBar tb = CoreApplication.GetCurrentView().TitleBar;
                 tb.ExtendViewIntoTitleBar = true;
-                tb.IsVisibleChanged += (sender, e) => TitleBar.Visibility = sender.IsVisible ? Visibility.Visible : Visibility.Collapsed;
                 tb.LayoutMetricsChanged += (sender, e) => TitleBar.Height = sender.Height;
 
                 Window.Current.SetTitleBar(MainTitleBar);
@@ -63,78 +68,52 @@ namespace NFeFacil
             }
         }
 
-        public void AbrirFunçao(Type tela, object parametro = null)
+        public void Navegar<T>(object parametro = null) where T : Page
         {
-            frmPrincipal.Navigate(tela, parametro);
+            frmPrincipal.Navigate(typeof(T), parametro);
         }
 
         public void SeAtualizar(Symbol símbolo, string texto)
         {
             txtTitulo.Text = texto;
             symTitulo.Content = new SymbolIcon(símbolo);
-            UIElement conteudo = null;
             if (frmPrincipal.Content is IHambuguer hambuguer)
             {
-                menuPermanente.Visibility = btnHambuguer.Visibility = Visibility.Visible;
-                conteudo = hambuguer.ConteudoMenu;
-
-                AtualizarPosicaoMenu(Window.Current.Bounds.Width >= 720);
-
-                grupoTamanhoTela.CurrentStateChanged += TamanhoTelaMudou;
+                menuTemporario.ItemsSource = hambuguer.ConteudoMenu;
+                menuTemporario.SelectedIndex = 0;
+                hambuguer.MainMudou += (sender, e) => menuTemporario.SelectedIndex = ((NewIndexEventArgs)e).NewIndex;
+                splitView.CompactPaneLength = 48;
             }
             else
             {
+                menuTemporario.ItemsSource = null;
                 splitView.CompactPaneLength = 0;
-                menuPermanente.Visibility = btnHambuguer.Visibility = Visibility.Collapsed;
-                menuPermanente.Content = splitView.Pane = null;
-                grupoTamanhoTela.CurrentStateChanging -= TamanhoTelaMudou;
-            }
-
-            void TamanhoTelaMudou(object sender, VisualStateChangedEventArgs e)
-            {
-                AtualizarPosicaoMenu(e.NewState.Name == "TelaGrande");
-            }
-
-            void AtualizarPosicaoMenu(bool telaGrande)
-            {
-                if (telaGrande)
-                {
-                    splitView.Pane = null;
-                    splitView.CompactPaneLength = 0;
-                    menuPermanente.Content = conteudo;
-                }
-                else
-                {
-                    menuPermanente.Content = null;
-                    splitView.CompactPaneLength = 48;
-                    splitView.Pane = conteudo;
-                }
             }
         }
 
         public void SeAtualizar(string glyph, string texto)
         {
             txtTitulo.Text = texto;
-            symTitulo.Content = new FontIcon
-            {
-                Glyph = glyph,
-            };
+            symTitulo.Content = new FontIcon { Glyph = glyph };
         }
 
-        public async void Retornar()
+        public async void Retornar(bool suprimirValidacao = false)
         {
-            if (frmPrincipal.Content is IValida retorna)
+            if (!suprimirValidacao)
             {
-                if (!await retorna.Verificar())
+                if (frmPrincipal.Content is IValida retorna)
                 {
-                    return;
+                    if (!await retorna.Verificar())
+                    {
+                        return;
+                    }
                 }
-            }
-            else if ((frmPrincipal.Content as FrameworkElement).DataContext is IValida retornaDC)
-            {
-                if (!await retornaDC.Verificar())
+                else if ((frmPrincipal.Content as FrameworkElement).DataContext is IValida retornaDC)
                 {
-                    return;
+                    if (!await retornaDC.Verificar())
+                    {
+                        return;
+                    }
                 }
             }
 
@@ -144,13 +123,55 @@ namespace NFeFacil
             }
             else
             {
-                Application.Current.Exit();
+                var familia = AnalyticsInfo.VersionInfo.DeviceFamily;
+                if (familia.Contains("Mobile"))
+                {
+                    Application.Current.Exit();
+                }
             }
         }
 
-        private void btnHambuguer_Click(object sender, RoutedEventArgs e)
+        private void AbrirHamburguer(object sender, RoutedEventArgs e)
         {
             splitView.IsPaneOpen = !splitView.IsPaneOpen;
+        }
+
+        private void MudouSubpaginaEscolhida(object sender, SelectionChangedEventArgs e)
+        {
+            if (menuTemporario.ItemsSource != null)
+            {
+                var hamb = (IHambuguer)frmPrincipal.Content;
+                hamb.AtualizarMain(menuTemporario.SelectedIndex);
+            }
+        }
+
+        public async Task AtualizarInformaçõesGerais()
+        {
+            grdInfoGeral.Visibility = Visibility.Visible;
+            using (var db = new AplicativoContext())
+            {
+                var img = db.Imagens.Find(Propriedades.EmitenteAtivo.Id);
+                if (img != null && img.Bytes != null)
+                {
+                    imgLogotipo.Source = await img.GetSourceAsync();
+                }
+                txtNomeEmitente.Text = Propriedades.EmitenteAtivo.Nome;
+                txtNomeEmpresa.Text = Propriedades.EmitenteAtivo.NomeFantasia;
+
+                if (Propriedades.VendedorAtivo != null)
+                {
+                    img = db.Imagens.Find(Propriedades.VendedorAtivo.Id);
+                    if (img != null && img.Bytes != null)
+                    {
+                        imgVendedor.Source = await img.GetSourceAsync();
+                    }
+                    txtNomeVendedor.Text = Propriedades.VendedorAtivo.Nome;
+                }
+                else
+                {
+                    txtNomeVendedor.Text = "Administrador";
+                }
+            }
         }
     }
 }

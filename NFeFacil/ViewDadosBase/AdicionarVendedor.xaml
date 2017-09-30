@@ -1,0 +1,59 @@
+﻿<Page x:Class="NFeFacil.ViewDadosBase.AdicionarVendedor"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:controles="using:NFeFacil.View.Controles"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d">
+    <Grid Padding="16">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"
+                              MinWidth="128" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto"
+                           MinHeight="128" />
+        </Grid.RowDefinitions>
+        <ItemsControl Grid.ColumnSpan="2"
+                      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                      Style="{StaticResource ItensResponsivos}">
+            <TextBox Header="Nome"
+                     Text="{Binding Nome, Mode=TwoWay}" />
+            <controles:EntradaNumerica Format="11"
+                                       Header="CPF"
+                                       Number="{Binding CPF, Mode=TwoWay}" />
+            <TextBox Header="Endereço"
+                     Text="{Binding Endereço, Mode=TwoWay}" />
+        </ItemsControl>
+        <Image x:Name="imgFoto"
+               Grid.Row="1"
+               Stretch="UniformToFill" />
+        <Button Grid.Row="1"
+                VerticalAlignment="Bottom"
+                ToolTipService.ToolTip="Escolher imagem de perfil"
+                Click="EscolherImagem">
+            <SymbolIcon Symbol="Edit" />
+        </Button>
+        <Button Grid.Row="1"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                ToolTipService.ToolTip="Remover imagem de perfil"
+                Click="RemoverImagem">
+            <SymbolIcon Symbol="Delete" />
+        </Button>
+    </Grid>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton x:Name="Confirmar"
+                          Icon="Accept"
+                          Label="Confirmar"
+                          Click="Confirmar_Click" />
+            <AppBarButton x:Name="Cancelar"
+                          Icon="Cancel"
+                          Label="Cancelar"
+                          Click="Cancelar_Click" />
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>

@@ -1,0 +1,54 @@
+﻿<Page x:Class="NFeFacil.Login.GeralEmitente"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="using:NFeFacil.Login"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+          Padding="16">
+        <Grid BorderBrush="{StaticResource Normal}"
+              BorderThickness="4"
+              CornerRadius="128"
+              Margin="4,4,4,54"
+              Width="256"
+              Height="256">
+            <SymbolIcon Symbol="Contact"
+                        Canvas.ZIndex="0"
+                        RenderTransformOrigin="0.5,0.5">
+                <SymbolIcon.RenderTransform>
+                    <CompositeTransform ScaleX="4"
+                                        ScaleY="4" />
+                </SymbolIcon.RenderTransform>
+            </SymbolIcon>
+            <Image x:Name="imgLogotipo"
+                   Canvas.ZIndex="1"
+                   Source="{Binding Imagem, Mode=OneTime}"
+                   Stretch="UniformToFill" />
+        </Grid>
+        <TextBlock x:Name="txtNomeFantasia"
+                   Style="{StaticResource TitleTextBlockStyle}"
+                   TextAlignment="Center"
+                   Margin="4,0,4,22"
+                   Height="32"
+                   VerticalAlignment="Bottom" />
+        <TextBlock x:Name="txtNome"
+                   Style="{StaticResource BodyTextBlockStyle}"
+                   TextAlignment="Center"
+                   Margin="4,0"
+                   VerticalAlignment="Bottom"
+                   FontWeight="Bold"
+                   FontSize="18"
+                   Height="22" />
+    </Grid>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Icon="Accept"
+                          Label="Confirmar"
+                          Click="Confirmar" />
+            <AppBarButton Icon="Edit"
+                          Label="Editar"
+                          Click="Editar" />
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>

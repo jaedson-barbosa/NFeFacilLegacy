@@ -3,10 +3,10 @@ using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using BibliotecaCentral.Log;
-using BibliotecaCentral.Sincronizacao;
-using BibliotecaCentral.Sincronizacao.Pacotes;
-using static BibliotecaCentral.Sincronizacao.ConfiguracoesSincronizacao;
+using NFeFacil.Log;
+using NFeFacil.Sincronizacao;
+using NFeFacil.Sincronizacao.Pacotes;
+using static NFeFacil.Sincronizacao.ConfiguracoesSincronizacao;
 using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil.ViewModel
@@ -15,7 +15,7 @@ namespace NFeFacil.ViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private readonly ILog LogPopUp = new Popup();
+        private readonly ILog LogPopUp = Popup.Current;
 
         public bool IsCliente
         {
@@ -29,18 +29,6 @@ namespace NFeFacil.ViewModel
         }
         public bool IsServidor => !IsCliente;
 
-        public bool SincronizarDadoBase
-        {
-            get => SincDadoBase;
-            set => SincDadoBase = value;
-        }
-
-        public bool SincronizarNotaFiscal
-        {
-            get => SincNotaFiscal;
-            set => SincNotaFiscal = value;
-        }
-
         public bool IniciarAutomaticamente
         {
             get => InícioAutomático;
@@ -49,32 +37,14 @@ namespace NFeFacil.ViewModel
 
         public bool ServerRodando => GerenciadorServidor.Current.Rodando;
 
-        public bool SincronizarAutomaticamente
-        {
-            get => ConfiguracoesSincronizacao.SincronizarAutomaticamente;
-            set
-            {
-                try
-                {
-                    if (value) RegistroClienteBackground.Registrar();
-                    else RegistroClienteBackground.Desrregistrar();
-                    ConfiguracoesSincronizacao.SincronizarAutomaticamente = value;
-                }
-                catch (Exception e)
-                {
-                    e.ManipularErro();
-                }
-            }
-        }
-
         public ConfigSincronizacaoDataContext()
         {
-            ExibirQRCommand = new Comando(ExibirQR, true);
-            LerQRTemporárioCommand = new Comando(LerQRTemporário, true);
-            InserirDadosManualmenteCommand = new Comando(InserirDadosManualmente, true);
-            IniciarServidorCommand = new Comando(IniciarServidor, true);
-            SincronizarAgoraCommand = new Comando(SincronizarAgora, true);
-            SincronizarTudoCommand = new Comando(SincronizarTudo, true);
+            ExibirQRCommand = new Comando(ExibirQR);
+            LerQRTemporárioCommand = new Comando(LerQRTemporário);
+            InserirDadosManualmenteCommand = new Comando(InserirDadosManualmente);
+            IniciarServidorCommand = new Comando(IniciarServidor);
+            SincronizarAgoraCommand = new Comando(SincronizarAgora);
+            SincronizarTudoCommand = new Comando(SincronizarTudo);
         }
 
         public ICommand ExibirQRCommand { get; }
@@ -87,7 +57,7 @@ namespace NFeFacil.ViewModel
 
         private void ExibirQR()
         {
-            MainPage.Current.AbrirFunçao(typeof(View.QRConexao));
+            MainPage.Current.Navegar<View.QRConexao>();
         }
 
         public async void LerQRTemporário()
@@ -131,8 +101,14 @@ namespace NFeFacil.ViewModel
         private async Task EstabelecerConexaoAsync(InfoEstabelecerConexao info)
         {
             IPServidor = info.IP;
-            var cliente = new GerenciadorCliente(LogPopUp);
-            await cliente.EstabelecerConexao(info.SenhaTemporaria);
+            try
+            {
+                await new GerenciadorCliente().EstabelecerConexao(info.SenhaTemporaria);
+            }
+            catch (Exception ex)
+            {
+                ex.ManipularErro();
+            }
         }
 
         public async void IniciarServidor()
@@ -156,8 +132,7 @@ namespace NFeFacil.ViewModel
         {
             try
             {
-                var gerenc = new GerenciadorCliente(LogPopUp);
-                await gerenc.Sincronizar(DadosSincronizaveis.Tudo, false);
+                await new GerenciadorCliente().Sincronizar();
             }
             catch (Exception e)
             {
@@ -169,8 +144,7 @@ namespace NFeFacil.ViewModel
         {
             try
             {
-                var gerenc = new GerenciadorCliente(LogPopUp);
-                await gerenc.SincronizarTudo(DadosSincronizaveis.Tudo);
+                await new GerenciadorCliente().SincronizarTudo();
             }
             catch (Exception e)
             {

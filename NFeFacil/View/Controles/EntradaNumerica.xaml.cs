@@ -16,6 +16,8 @@ namespace NFeFacil.View.Controles
         string original = string.Empty;
         CultureInfo culturaPadrao = CultureInfo.InvariantCulture;
 
+        public event NumeroChangedEventHandler NumeroChanged;
+
         public InputScope InputScope
         {
             get => txtNumber.InputScope;
@@ -61,25 +63,30 @@ namespace NFeFacil.View.Controles
 
         public double Number
         {
-            get => (double)GetValue(NumberProperty);
+            get
+            {
+                var retorno = (double)Convert.ChangeType(GetValue(NumberProperty), typeof(double));
+                return retorno;
+            }
             set
             {
-                var texto = DefinirTexto(value);
+                var texto = DefinirTexto(value, value);
                 var parseado = double.Parse(texto, culturaPadrao);
-                SetValue(NumberProperty, parseado);
+                
+                SetValue(NumberProperty, Convert.ChangeType(parseado, GetValue(NumberProperty).GetType()));
             }
         }
 
-        public string DefinirTexto(double value)
+        public string DefinirTexto(IConvertible value0, IFormattable value1)
         {
             string texto;
             if (string.IsNullOrEmpty(formatoProcessado))
             {
-                texto = value.ToString(culturaPadrao);
+                texto = value0.ToString(culturaPadrao);
             }
             else
             {
-                texto = value.ToString(formatoProcessado, culturaPadrao);
+                texto = value1.ToString(formatoProcessado, culturaPadrao);
             }
             txtNumber.Text = texto;
             return texto;
@@ -92,12 +99,12 @@ namespace NFeFacil.View.Controles
         static void NumeroMudou(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
             var input = (EntradaNumerica)sender;
-            input.DefinirTexto((double)args.NewValue);
+            input.DefinirTexto((IConvertible)args.NewValue, (IFormattable)args.NewValue);
         }
 
         public EntradaNumerica()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -140,6 +147,7 @@ namespace NFeFacil.View.Controles
             {
                 original = input.Text;
                 Number = numero;
+                NumeroChanged?.Invoke(this, new NumeroChangedEventArgs(numero));
             }
             else
             {
@@ -160,6 +168,18 @@ namespace NFeFacil.View.Controles
                 input.Text = regex.Replace(texto, string.Empty, ocorrencias.Count - 1);
                 e.Handled = true;
             }
+        }
+    }
+
+    public delegate void NumeroChangedEventHandler(EntradaNumerica sender, NumeroChangedEventArgs e);
+
+    public sealed class NumeroChangedEventArgs : EventArgs
+    {
+        public double NovoNumero { get; }
+
+        public NumeroChangedEventArgs(double novoNumero)
+        {
+            NovoNumero = novoNumero;
         }
     }
 }

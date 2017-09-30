@@ -1,5 +1,5 @@
-﻿using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
-using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
+﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
+using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
 using System.ComponentModel;
 using System.Linq;
 
@@ -7,16 +7,28 @@ namespace NFeFacil.ViewModel.ImpostosProduto
 {
     public sealed class IPIDataContext : INotifyPropertyChanged, IImpostoDataContext
     {
+        ProdutoOuServico produtoReferente;
+        internal ProdutoOuServico ProdutoReferente
+        {
+            get => produtoReferente;
+            set
+            {
+                produtoReferente = value;
+                AtualizarImposto();
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged(params string[] parametros)
         {
             for (int i = 0; i < parametros.Length; i++)
             {
-                PropertyChanged(this, new PropertyChangedEventArgs(parametros[i]));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(parametros[i]));
             }
         }
 
-        public IPI Imposto { get; } = new IPI();
+        public IPI Conjunto { get; } = new IPI();
+        public ConteinerIPI Imposto { get; set; }
 
         public bool CalculoAliquota { get; private set; }
         public bool CalculoValor { get; private set; }
@@ -25,22 +37,23 @@ namespace NFeFacil.ViewModel.ImpostosProduto
 
         public int CSTSelecionado
         {
-            get => Imposto.Corpo != null ? int.Parse(Imposto.Corpo.CST) : -1;
+            get => Conjunto.Corpo != null ? int.Parse(Conjunto.Corpo.CST) : -1;
             set
             {
                 if (new int[] { 0, 49, 50, 99 }.Contains(value))
                 {
-                    Imposto.Corpo = new IPITrib();
+                    Conjunto.Corpo = new IPITrib();
                     Valor = ComboTipoCalculo = true;
                     CalculoAliquota = CalculoValor = false;
                 }
                 else
                 {
-                    Imposto.Corpo = new IPINT();
+                    Conjunto.Corpo = new IPINT();
                     Valor = ComboTipoCalculo = CalculoAliquota = CalculoValor = false;
                 }
-                Imposto.Corpo.CST = value.ToString("00");
-                OnPropertyChanged(nameof(Imposto), nameof(Valor), nameof(ComboTipoCalculo));
+                Conjunto.Corpo.CST = value.ToString("00");
+                OnPropertyChanged(nameof(Imposto), nameof(Valor), nameof(ComboTipoCalculo),
+                    nameof(CalculoAliquota), nameof(CalculoValor));
             }
         }
 
@@ -51,11 +64,57 @@ namespace NFeFacil.ViewModel.ImpostosProduto
             set
             {
                 tipoCalculo = value;
-                CalculoValor = !(CalculoAliquota = value == "Por alíquota");
+                switch (value == "Por alíquota" ? TiposCalculo.PorAliquota : TiposCalculo.PorValor)
+                {
+                    case TiposCalculo.PorAliquota:
+                        CalculoAliquota = true;
+                        CalculoValor = false;
+                        break;
+                    case TiposCalculo.PorValor:
+                        CalculoAliquota = false;
+                        CalculoValor = true;
+                        break;
+                }
+                Conjunto.Corpo = new IPITrib() { CST = Conjunto.Corpo.CST };
                 OnPropertyChanged(nameof(CalculoAliquota), nameof(CalculoValor));
+                AtualizarImposto();
             }
         }
 
-        public Imposto ImpostoBruto => Imposto;
+        void AtualizarImposto()
+        {
+            Imposto = new ConteinerIPI(() => OnPropertyChanged(nameof(Imposto)), Conjunto.Corpo, ProdutoReferente);
+            OnPropertyChanged(nameof(Imposto));
+        }
+
+        public IPIDataContext()
+        {
+            AtualizarImposto();
+        }
+        public IPIDataContext(IPI conjunto, ProdutoOuServico produtoReferente)
+        {
+            this.produtoReferente = produtoReferente;
+            if (conjunto.Corpo != null)
+            {
+                var corpo = conjunto.Corpo;
+                CSTSelecionado = int.Parse(corpo.CST);
+                if (corpo is IPITrib trib)
+                {
+                    if (string.IsNullOrEmpty(trib.pIPI))
+                    {
+                        TipoCalculo = "Pelo valor por unidade";
+                    }
+                    else
+                    {
+                        TipoCalculo = "Por alíquota";
+                    }
+                }
+                Conjunto = conjunto;
+                OnPropertyChanged(nameof(CSTSelecionado));
+            }
+            AtualizarImposto();
+        }
+
+        public Imposto ImpostoBruto => Conjunto;
     }
 }

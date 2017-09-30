@@ -1,0 +1,852 @@
+﻿<Page x:Class="NFeFacil.ViewNFe.ManipulacaoNotaFiscal"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:VM="using:NFeFacil.ViewModel"
+      xmlns:Conversores="using:NFeFacil.ViewModel.Converters"
+      xmlns:controles="using:NFeFacil.View.Controles"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d"
+      x:Name="root">
+    <Page.Resources>
+        <ResourceDictionary>
+            <VM:DadosEstadosParaView x:Key="estados" />
+            <Conversores:EstadoToMunicipios x:Key="obterMun" />
+            <Conversores:ColecaoValida x:Key="getObs" />
+            <Conversores:StringToDateTime x:Key="data" />
+            <Conversores:Invert x:Key="inverter" />
+            <Conversores:NumeroString x:Key="numStr" />
+        </ResourceDictionary>
+    </Page.Resources>
+    <FlipView x:Name="pvtPrincipal"
+              Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Pivot Margin="16">
+            <PivotItem Header="NFe">
+                <ScrollViewer>
+                    <ItemsControl Style="{StaticResource ItensResponsivos}">
+                        <DatePicker Header="Data de emissão"
+                                    Date="{x:Bind DataEmissao, Mode=TwoWay}" />
+                        <TimePicker Header="Hora de emissão"
+                                    Time="{x:Bind HoraEmissao, Mode=TwoWay}" />
+                        <DatePicker Header="Data de saída/entrada"
+                                    Date="{x:Bind DataSaidaEntrada, Mode=TwoWay}" />
+                        <TimePicker Header="Hora de saída/entrada"
+                                    Time="{x:Bind HoraSaidaEntrada, Mode=TwoWay}" />
+                        <ComboBox Header="Tipo de operação *"
+                                  SelectedIndex="{x:Bind NotaSalva.Informacoes.identificacao.TipoOperacao, Mode=TwoWay}">
+                            <ComboBoxItem Content="Entrada" />
+                            <ComboBoxItem Content="Saída" />
+                        </ComboBox>
+                        <ComboBox Header="Finalidade de emissão *"
+                                  SelectedValue="{x:Bind NotaSalva.Informacoes.identificacao.FinalidadeEmissao, Mode=TwoWay, Converter={StaticResource numStr}}"
+                                  SelectedValuePath="Tag">
+                            <ComboBoxItem Tag='1'>Normal</ComboBoxItem>
+                            <ComboBoxItem Tag='2'>Complementar</ComboBoxItem>
+                            <ComboBoxItem Tag='3'>De ajuste</ComboBoxItem>
+                            <ComboBoxItem Tag='4'>Devolução de mercadoria</ComboBoxItem>
+                        </ComboBox>
+                        <ComboBox Header="Consumidor final *"
+                                  SelectedIndex="{x:Bind NotaSalva.Informacoes.identificacao.OperacaoConsumidorFinal, Mode=TwoWay}">
+                            <ComboBoxItem Content="Não" />
+                            <ComboBoxItem Content="Sim" />
+                        </ComboBox>
+                        <ComboBox Header="Tipo de atendimento *"
+                                  SelectedIndex="{x:Bind NotaSalva.Informacoes.identificacao.IndicadorPresenca, Mode=TwoWay}">
+                            <ComboBoxItem Content="Não se aplica" />
+                            <ComboBoxItem Content="Presencial" />
+                            <ComboBoxItem Content="Não presencial - Internet" />
+                            <ComboBoxItem Content="Não presencial - Teleatendimento" />
+                        </ComboBox>
+                        <ComboBox Header="Forma de pagamento *"
+                                  SelectedIndex="{x:Bind NotaSalva.Informacoes.identificacao.FormaPagamento, Mode=TwoWay}">
+                            <ComboBoxItem Content="Pagamento à vista" />
+                            <ComboBoxItem Content="Pagamento a prazo" />
+                            <ComboBoxItem Content="Outros" />
+                        </ComboBox>
+                        <ComboBox Header="Destino da operação *"
+                                  SelectedValue="{x:Bind NotaSalva.Informacoes.identificacao.IdentificadorDestino, Mode=TwoWay, Converter={StaticResource numStr}}"
+                                  SelectedValuePath="Tag">
+                            <ComboBoxItem Tag="1"
+                                          Content="Operação interna" />
+                            <ComboBoxItem Tag="2"
+                                          Content="Operação interestadual" />
+                            <ComboBoxItem Tag="3"
+                                          Content="Operação com o exterior" />
+                        </ComboBox>
+                        <TextBox Header="Natureza da operação *"
+                                 Text="{x:Bind NotaSalva.Informacoes.identificacao.NaturezaDaOperacao, Mode=TwoWay}" />
+                        <ComboBox Header="Município do fato *"
+                                  DisplayMemberPath="Nome"
+                                  ItemsSource="{x:Bind MunicipiosIdentificacao}"
+                                  SelectedValue="{x:Bind CodigoMunicipio, Mode=TwoWay}"
+                                  SelectedValuePath="Codigo" />
+                    </ItemsControl>
+                </ScrollViewer>
+            </PivotItem>
+            <PivotItem Header="NF-es referenciadas">
+                <ListView ItemsSource="{x:Bind NFesReferenciadas}"
+                          ItemContainerStyle="{StaticResource ItemFullWidth}">
+                    <ListView.Header>
+                        <Grid Style="{StaticResource Cabecalho}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
+                                       VerticalAlignment="Center"
+                                       TextAlignment="Center">Referência</TextBlock>
+                            <Button Style="{StaticResource BotaoAdd}"
+                                    Grid.Column="1"
+                                    Click="AdicionarNFeReferenciada">
+                                <SymbolIcon Symbol="Add" />
+                            </Button>
+                        </Grid>
+                    </ListView.Header>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding RefNFe}">
+                                <TextBlock.ContextFlyout>
+                                    <MenuFlyout>
+                                        <MenuFlyoutItem Click="RemoverDocReferenciado">Remover</MenuFlyoutItem>
+                                    </MenuFlyout>
+                                </TextBlock.ContextFlyout></TextBlock>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </PivotItem>
+            <PivotItem Header="Notas 1/1A referenciadas">
+                <ListView ItemsSource="{x:Bind NFsReferenciadas}"
+                          ItemContainerStyle="{StaticResource ItemFullWidth}">
+                    <ListView.Header>
+                        <Grid Style="{StaticResource Cabecalho}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
+                                       TextAlignment="Center"
+                                       VerticalAlignment="Center">CNPJ</TextBlock>
+                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
+                                       TextAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       Grid.Column="1">Serie</TextBlock>
+                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
+                                       TextAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       Grid.Column="2">Numero</TextBlock>
+                            <Button Grid.Column="3"
+                                    Style="{StaticResource BotaoAdd}"
+                                    Click="AdicionarNFReferenciada">
+                                <SymbolIcon Symbol="Add" />
+                            </Button>
+                        </Grid>
+                    </ListView.Header>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Grid.ContextFlyout>
+                                    <MenuFlyout>
+                                        <MenuFlyoutItem Click="RemoverDocReferenciado">Remover</MenuFlyoutItem>
+                                    </MenuFlyout>
+                                </Grid.ContextFlyout>
+                                <TextBlock Text="{Binding RefNF.CNPJ}" />
+                                <TextBlock Grid.Column="1"
+                                           Text="{Binding RefNF.Serie}" />
+                                <TextBlock Grid.Column="2"
+                                           Text="{Binding RefNF.NNF}" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </PivotItem>
+        </Pivot>
+        <StackPanel Margin="16">
+            <ComboBox HorizontalAlignment="Stretch"
+                      ItemsSource="{x:Bind ClientesDisponiveis}"
+                      SelectedItem="{x:Bind ClienteSelecionado, Mode=TwoWay}"
+                      DisplayMemberPath="Nome" />
+        </StackPanel>
+        <StackPanel Margin="16">
+            <ToggleSwitch Header="Endereço de retirada"
+                          OnContent="Diferente registrado"
+                          OffContent="Igual ao do emitente"
+                          Toggled="AlterarEnderecoRetirada" />
+            <ToggleSwitch Header="Endereço de entrega"
+                          OnContent="Diferente registrado"
+                          OffContent="Igual ao do emitente"
+                          Toggled="AlterarEnderecoEntrega" />
+        </StackPanel>
+        <Grid Padding="16">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <ComboBox x:Name="cmbProdutos"
+                      ItemsSource="{x:Bind ProdutosDisponiveis}"
+                      SelectedItem="{x:Bind ProdutoSelecionado, Mode=TwoWay}"
+                      DisplayMemberPath="Descricao"
+                      HorizontalAlignment="Stretch"
+                      Margin="0,0,2,0"
+                      PlaceholderText="Escolha um Produto" />
+            <Button Grid.Column="1"
+                    HorizontalAlignment="Stretch"
+                    Margin="2,0,0,0"
+                    Click="AdicionarProduto">Adicionar</Button>
+            <ListView Grid.Row="1"
+                      Grid.ColumnSpan="2"
+                      Margin="0,4,0,0"
+                      ItemsSource="{x:Bind Produtos}"
+                      ItemContainerStyle="{StaticResource ItemFullWidth}">
+                <ListView.Header>
+                    <Grid Style="{StaticResource Cabecalho}">
+                        <Grid.Resources>
+                            <Style TargetType="TextBlock"
+                                   BasedOn="{StaticResource SubtitleTextBlockStyle}">
+                                <Setter Property="TextAlignment"
+                                        Value="Center" />
+                                <Setter Property="VerticalAlignment"
+                                        Value="Center" />
+                            </Style>
+                        </Grid.Resources>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock>Descrição</TextBlock>
+                        <TextBlock Grid.Column="1">Quantidade</TextBlock>
+                    </Grid>
+                </ListView.Header>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="0,5">
+                            <StackPanel.ContextFlyout>
+                                <MenuFlyout Placement="Bottom">
+                                    <MenuFlyoutItem Click="EditarProduto">Editar</MenuFlyoutItem>
+                                    <MenuFlyoutItem Click="RemoverProduto">Remover</MenuFlyoutItem>
+                                </MenuFlyout>
+                            </StackPanel.ContextFlyout>
+                            <TextBlock Text="{Binding Produto.Descricao}" />
+                            <TextBlock Text="{Binding Produto.QuantidadeComercializada}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+        <ScrollViewer Padding="16">
+            <Pivot x:Name="pvtTotais">
+                <PivotItem Header="ICMS">
+                    <ItemsControl DataContext="{Binding ICMSTot}"
+                                  Style="{StaticResource ItensResponsivos}">
+                        <controles:EntradaNumerica Format="13:2"
+                                                   Number="{Binding VBC}"
+                                                   Header="Base de cálculo do ICMS"
+                                                   IsReadOnly="True" />
+                        <controles:EntradaNumerica Format="13:2"
+                                                   Number="{Binding VICMS}"
+                                                   Header="Total do ICMS"
+                                                   IsReadOnly="True" />
+                        <controles:EntradaNumerica Format="13:2"
+                                                   Number="{Binding VICMSDeson}"
+                                                   Header="Total do ICMS desonerado"
+                                                   IsReadOnly="True" />
+                        <controles:EntradaNumerica Format="13:2"
+                                                   Number="{Binding VBCST}"
+                                                   Header="Base de cálculo do ICMS ST"
+                                                   IsReadOnly="True" />
+                        <controles:EntradaNumerica Format="13:2"
+                                                   Number="{Binding VST}"
+                                                   Header="Total do ICMS ST"
+                                                   IsReadOnly="True" />
+                        <controles:EntradaNumerica Format="13:2"
+                                                   Number="{Binding VProd}"
+                                                   Header="Total dos produtos e serviços"
+                                                   IsReadOnly="True" />
+                        <controles:EntradaNumerica Format="13:2"
+                                                   Number="{Binding VFrete}"
+                                                   Header="Total do frete"
+                                                   IsReadOnly="True" />
+                        <controles:EntradaNumerica Format="13:2"
+                                                   Number="{Binding VSeg}"
+                                                   Header="Total do seguro"
+                                                   IsReadOnly="True" />
+                        <controles:EntradaNumerica Format="13:2"
+                                                   Number="{Binding VDesc}"
+                                                   Header="Total do desconto"
+                                                   IsReadOnly="True" />
+                        <controles:EntradaNumerica Format="13:2"
+                                                   Number="{Binding VII}"
+                                                   Header="Total do II"
+                                                   IsReadOnly="True" />
+                        <controles:EntradaNumerica Format="13:2"
+                                                   Number="{Binding VIPI}"
+                                                   Header="Total do IPI"
+                                                   IsReadOnly="True" />
+                        <controles:EntradaNumerica Format="13:2"
+                                                   Number="{Binding VPIS}"
+                                                   Header="Valor do PIS"
+                                                   IsReadOnly="True" />
+                        <controles:EntradaNumerica Format="13:2"
+                                                   Number="{Binding VCOFINS}"
+                                                   Header="Valor do COFINS"
+                                                   IsReadOnly="True" />
+                        <controles:EntradaNumerica Format="13:2"
+                                                   Number="{Binding VOutro}"
+                                                   Header="Outras despesas acessórias"
+                                                   IsReadOnly="True" />
+                        <controles:EntradaNumerica Format="13:2"
+                                                   Number="{Binding VNF}"
+                                                   Header="Total da NF-e"
+                                                   IsReadOnly="True" />
+                        <controles:EntradaNumerica Format="13:2"
+                                                   Number="{Binding VTotTrib}"
+                                                   Header="Total de tributos federais, estaduais e municipais"
+                                                   IsReadOnly="True" />
+                    </ItemsControl>
+                </PivotItem>
+                <PivotItem Header="ISSQN">
+                    <ItemsControl DataContext="{Binding ISSQNtot}"
+                                  Style="{StaticResource ItensResponsivos}">
+                        <controles:EntradaNumerica Format="13:2"
+                                                   Number="{Binding VServ, Mode=TwoWay}"
+                                                   Header="Valor total dos serviços não tributados pelo ICMS"
+                                                   IsReadOnly="True" />
+                        <controles:EntradaNumerica Format="13:2"
+                                                   Number="{Binding VBC, Mode=TwoWay}"
+                                                   Header="Base de cálculo do ISSQN"
+                                                   IsReadOnly="True" />
+                        <controles:EntradaNumerica Format="13:2"
+                                                   Number="{Binding VISS, Mode=TwoWay}"
+                                                   Header="Valor total do ISS"
+                                                   IsReadOnly="True" />
+                        <controles:EntradaNumerica Format="13:2"
+                                                   Number="{Binding VPIS, Mode=TwoWay}"
+                                                   Header="Valor total do PIS"
+                                                   IsReadOnly="True" />
+                        <controles:EntradaNumerica Format="13:2"
+                                                   Number="{Binding VCOFINS, Mode=TwoWay}"
+                                                   Header="Valor total do COFINS"
+                                                   IsReadOnly="True" />
+                        <DatePicker Date="{Binding DCompet, Converter={StaticResource data}, ConverterParameter='yyyy-MM-dd', Mode=TwoWay}"
+                                    Header="Data da prestação do serviço" />
+                        <controles:EntradaNumerica Format="13:2"
+                                                   Number="{Binding VDeducao, Mode=TwoWay}"
+                                                   Header="Dedução para redução da base de cálculo"
+                                                   IsReadOnly="True" />
+                        <controles:EntradaNumerica Format="13:2"
+                                                   Number="{Binding VOutro, Mode=TwoWay}"
+                                                   Header="Outras retenções"
+                                                   IsReadOnly="True" />
+                        <controles:EntradaNumerica Format="13:2"
+                                                   Number="{Binding VDescIncond, Mode=TwoWay}"
+                                                   Header="Desconto incondicionado"
+                                                   IsReadOnly="True" />
+                        <controles:EntradaNumerica Format="13:2"
+                                                   Number="{Binding VDescCond, Mode=TwoWay}"
+                                                   Header="Desconto condicionado"
+                                                   IsReadOnly="True" />
+                        <controles:EntradaNumerica Format="13:2"
+                                                   Number="{Binding VISSRet, Mode=TwoWay}"
+                                                   Header="Retenção ISS"
+                                                   IsReadOnly="True" />
+                        <ComboBox SelectedValue="{Binding CRegTrib, Mode=TwoWay, Converter={StaticResource numStr}}"
+                                  SelectedValuePath="Tag"
+                                  Header="Regime especial de tributação">
+                            <ComboBoxItem Tag="1">Microempresa municipal</ComboBoxItem>
+                            <ComboBoxItem Tag="2">Estimativa</ComboBoxItem>
+                            <ComboBoxItem Tag="3">Sociedade de profissionais</ComboBoxItem>
+                            <ComboBoxItem Tag="4">Cooperativa</ComboBoxItem>
+                            <ComboBoxItem Tag="5">Microempresário individual (MEI)</ComboBoxItem>
+                            <ComboBoxItem Tag="6">Microempresário e empresa de pequeno porte</ComboBoxItem>
+                        </ComboBox>
+                    </ItemsControl>
+                </PivotItem>
+                <PivotItem Header="Retenções de tributos">
+                    <ItemsControl DataContext="{Binding RetTrib}"
+                                  Style="{StaticResource ItensResponsivos}">
+                        <controles:EntradaNumerica Format="13:2"
+                                                   Number="{Binding VRetPIS, Mode=TwoWay}"
+                                                   Header="Valor retido de PIS" />
+                        <controles:EntradaNumerica Format="13:2"
+                                                   Number="{Binding VRetCOFINS, Mode=TwoWay}"
+                                                   Header="Valor retido de COFINS" />
+                        <controles:EntradaNumerica Format="13:2"
+                                                   Number="{Binding VRetCSLL, Mode=TwoWay}"
+                                                   Header="Valor retido de CSLL" />
+                        <controles:EntradaNumerica Format="13:2"
+                                                   Number="{Binding VBCIRRF, Mode=TwoWay}"
+                                                   Header="Base de cálculo do IRRF" />
+                        <controles:EntradaNumerica Format="13:2"
+                                                   Number="{Binding VIRRF, Mode=TwoWay}"
+                                                   Header="Valor retido do IRRF" />
+                        <controles:EntradaNumerica Format="13:2"
+                                                   Number="{Binding VBCRetPrev, Mode=TwoWay}"
+                                                   Header="BC da retenção da Previdência soial" />
+                        <controles:EntradaNumerica Format="13:2"
+                                                   Number="{Binding VRetPrev, Mode=TwoWay}"
+                                                   Header="Valor da retenção da PS" />
+                    </ItemsControl>
+                </PivotItem>
+            </Pivot>
+        </ScrollViewer>
+        <Grid Padding="16">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <ComboBox ItemsSource="{x:Bind Modalidades}"
+                      SelectedItem="{x:Bind ModFrete, Mode=TwoWay}"
+                      HorizontalAlignment="Stretch"
+                      Header="Modalidade do frete" />
+            <Pivot Grid.Row="1"
+                   Margin="0,4,0,0">
+                <PivotItem Header="Motorista">
+                    <StackPanel>
+                        <ComboBox ItemsSource="{x:Bind MotoristasDisponiveis}"
+                                  HorizontalAlignment="Stretch"
+                                  SelectedItem="{x:Bind MotoristaSelecionado, Mode=TwoWay}"
+                                  DisplayMemberPath="Nome" />
+                    </StackPanel>
+                </PivotItem>
+                <PivotItem Header="Veículo">
+                    <ItemsControl x:Name="ctrPaiVeiculo" Style="{StaticResource ItensResponsivos}">
+                        <TextBox Text="{Binding Placa, Mode=TwoWay}"
+                                 Header="Placa" />
+                        <ComboBox ItemsSource="{Binding Source={StaticResource estados}, Path=Siglas}"
+                                  SelectedItem="{Binding UF, Mode=TwoWay}"
+                                  Header="Estado"
+                                  HorizontalAlignment="Stretch" />
+                        <TextBox Header="RNTC"
+                                 Text="{Binding RNTC, Mode=TwoWay}" />
+                        <TextBox Text="{x:Bind NotaSalva.Informacoes.transp.Balsa, Mode=TwoWay}"
+                                 Header="Identificação da balsa" />
+                        <TextBox Text="{x:Bind NotaSalva.Informacoes.transp.Vagao, Mode=TwoWay}"
+                                 Header="Identificação do vagão" />
+                    </ItemsControl>
+                </PivotItem>
+                <PivotItem Header="Reboques">
+                    <ListView ItemsSource="{x:Bind Reboques}"
+                              Margin="0,8,0,0"
+                              ItemContainerStyle="{StaticResource ItemFullWidth}">
+                        <ListView.Header>
+                            <Grid Style="{StaticResource Cabecalho}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
+                                           TextAlignment="Center"
+                                           VerticalAlignment="Center">Placa</TextBlock>
+                                <Button Grid.Column="1"
+                                        Style="{StaticResource BotaoAdd}"
+                                        Click="AdicionarReboque">
+                                    <SymbolIcon Symbol="Add" />
+                                </Button>
+                            </Grid>
+                        </ListView.Header>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Placa}">
+                                    <TextBlock.ContextFlyout>
+                                        <MenuFlyout>
+                                            <MenuFlyoutItem Click="RemoverReboque">Remover</MenuFlyoutItem>
+                                        </MenuFlyout>
+                                    </TextBlock.ContextFlyout></TextBlock>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </PivotItem>
+                <PivotItem Header="Volumes"
+                           Margin="0,8,0,0">
+                    <ListView ItemsSource="{x:Bind Volumes}"
+                              ItemContainerStyle="{StaticResource ItemFullWidth}">
+                        <ListView.Header>
+                            <Grid Style="{StaticResource Cabecalho}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
+                                           TextAlignment="Center"
+                                           VerticalAlignment="Center">Espécie</TextBlock>
+                                <TextBlock Grid.Column="1"
+                                           Style="{StaticResource SubtitleTextBlockStyle}"
+                                           TextAlignment="Center"
+                                           VerticalAlignment="Center">Marca</TextBlock>
+                                <Button Grid.Column="2"
+                                        Style="{StaticResource BotaoAdd}"
+                                        Click="AdicionarVolume">
+                                    <SymbolIcon Symbol="Add" />
+                                </Button>
+                            </Grid>
+                        </ListView.Header>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ContextFlyout>
+                                        <MenuFlyout>
+                                            <MenuFlyoutItem Click="RemoverVolume">Remover</MenuFlyoutItem>
+                                        </MenuFlyout>
+                                    </Grid.ContextFlyout>
+                                    <TextBlock Text="{Binding Esp, Mode=OneTime}" />
+                                    <TextBlock HorizontalAlignment="Right"
+                                               Text="{Binding Marca, Mode=OneTime}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </PivotItem>
+                <PivotItem Header="Retenção ICMS">
+                    <ItemsControl Style="{StaticResource ItensResponsivos}">
+                        <controles:EntradaNumerica Header="Valor do serviço"
+                                                   Format="13:2"
+                                                   Number="{x:Bind NotaSalva.Informacoes.transp.RetTransp.VServ, Mode=TwoWay}" />
+                        <controles:EntradaNumerica Header="BC da retenção do ICMS"
+                                                   Format="13:2"
+                                                   Number="{x:Bind NotaSalva.Informacoes.transp.RetTransp.VBCRet, Mode=TwoWay}" />
+                        <controles:EntradaNumerica Header="Alíquota da retenção"
+                                                   Format="3:4"
+                                                   Number="{x:Bind NotaSalva.Informacoes.transp.RetTransp.PICMSRet, Mode=TwoWay}" />
+                        <controles:EntradaNumerica Header="Valor do ICMS retido"
+                                                   Format="13:2"
+                                                   Number="{x:Bind NotaSalva.Informacoes.transp.RetTransp.VICMSRet, Mode=TwoWay}" />
+                        <controles:EntradaNumerica Header="CFOP"
+                                                   Format="4"
+                                                   Number="{x:Bind CFOP, Mode=TwoWay}" />
+                        <ComboBox ItemsSource="{Binding Source={StaticResource estados}, Path=EstadosCompletos}"
+                                  SelectedItem="{x:Bind UFEscolhida, Mode=TwoWay}"
+                                  DisplayMemberPath="Nome"
+                                  Header="Estado"
+                                  HorizontalAlignment="Stretch" />
+                        <ComboBox ItemsSource="{Binding MunicipiosTransporte}"
+                                  SelectedValue="{x:Bind NotaSalva.Informacoes.transp.RetTransp.CMunFG, Mode=TwoWay}"
+                                  SelectedValuePath="Codigo"
+                                  DisplayMemberPath="Nome"
+                                  Header="Município"
+                                  HorizontalAlignment="Stretch" />
+                    </ItemsControl>
+                </PivotItem>
+            </Pivot>
+        </Grid>
+        <Pivot Margin="16">
+            <PivotItem Header="Fatura">
+                <ItemsControl Style="{StaticResource ItensResponsivos}">
+                    <TextBox Text="{x:Bind NotaSalva.Informacoes.cobr.Fat.NFat, Mode=TwoWay}"
+                             Header="Número" />
+                    <controles:EntradaNumerica Format="13:2"
+                                               Number="{x:Bind NotaSalva.Informacoes.cobr.Fat.VOrig, Mode=TwoWay}"
+                                               Header="Valor original" />
+                    <controles:EntradaNumerica Format="13:2"
+                                               Number="{x:Bind NotaSalva.Informacoes.cobr.Fat.VDesc, Mode=TwoWay}"
+                                               Header="Valor do desconto" />
+                    <controles:EntradaNumerica Format="13:2"
+                                               Number="{x:Bind NotaSalva.Informacoes.cobr.Fat.VLiq, Mode=TwoWay}"
+                                               Header="Valor líquido" />
+                </ItemsControl>
+            </PivotItem>
+            <PivotItem Header="Duplicatas">
+                <ListView Margin="0,8,0,0"
+                          ItemsSource="{x:Bind Duplicatas}"
+                          ItemContainerStyle="{StaticResource ItemFullWidth}">
+                    <ListView.Header>
+                        <Grid Style="{StaticResource Cabecalho}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
+                                       TextAlignment="Center"
+                                       VerticalAlignment="Center">Numero da duplicata</TextBlock>
+                            <Button Grid.Column="1"
+                                    Style="{StaticResource BotaoAdd}"
+                                    Click="AdicionarDuplicata">
+                                <SymbolIcon Symbol="Add" />
+                            </Button>
+                        </Grid>
+                    </ListView.Header>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ContextFlyout>
+                                    <MenuFlyout>
+                                        <MenuFlyoutItem Click="RemoverDuplicata">Remover</MenuFlyoutItem>
+                                    </MenuFlyout>
+                                </Grid.ContextFlyout>
+                                <TextBlock Text="{Binding NDup, Mode=OneTime}" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </PivotItem>
+        </Pivot>
+        <Pivot Margin="16">
+            <PivotItem Header="Informacoes adicionais">
+                <ScrollViewer>
+                    <StackPanel DataContext="{x:Bind NotaSalva.Informacoes.infAdic}">
+                        <TextBox Text="{Binding InfAdFisco, Mode=TwoWay}"
+                                 Header="Informacoes adicionais de interesse do fisco" />
+                        <TextBox Text="{Binding InfCpl, Mode=TwoWay}"
+                                 Header="Informacoes complementares de interesse do contribuinte" />
+                    </StackPanel>
+                </ScrollViewer>
+            </PivotItem>
+            <PivotItem Header="Observações do contribuinte">
+                <ListView Margin="0,8,0,0"
+                          ItemContainerStyle="{StaticResource ItemFullWidth}"
+                          ItemsSource="{x:Bind Observacoes}">
+                    <ListView.Header>
+                        <Grid Style="{StaticResource Cabecalho}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
+                                       TextAlignment="Center"
+                                       VerticalAlignment="Center">Nome</TextBlock>
+                            <TextBlock Grid.Column="1"
+                                       Style="{StaticResource SubtitleTextBlockStyle}"
+                                       TextAlignment="Center"
+                                       VerticalAlignment="Center">Observação</TextBlock>
+                            <Button Grid.Column="2"
+                                    Style="{StaticResource BotaoAdd}"
+                                    Click="AdicionarObsContribuinte">
+                                <SymbolIcon Symbol="Add" />
+                            </Button>
+                        </Grid>
+                    </ListView.Header>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Grid.ContextFlyout>
+                                    <MenuFlyout>
+                                        <MenuFlyoutItem Click="RemoverObsContribuinte">Remover</MenuFlyoutItem>
+                                    </MenuFlyout>
+                                </Grid.ContextFlyout>
+                                <TextBlock TextWrapping="Wrap"
+                                           Text="{Binding XCampo}" />
+                                <TextBlock Grid.Column="1"
+                                           TextWrapping="Wrap"
+                                           Text="{Binding XTexto}" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </PivotItem>
+            <PivotItem Header="Processos referenciados">
+                <ListView Margin="0,8,0,0"
+                          ItemContainerStyle="{StaticResource ItemFullWidth}"
+                          ItemsSource="{x:Bind ProcessosReferenciados}">
+                    <ListView.Header>
+                        <Grid Style="{StaticResource Cabecalho}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
+                                       TextAlignment="Center"
+                                       VerticalAlignment="Center">Identificador</TextBlock>
+                            <TextBlock Grid.Column="1"
+                                       TextAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       Style="{StaticResource SubtitleTextBlockStyle}">Origem</TextBlock>
+                            <Button Grid.Column="2"
+                                    Style="{StaticResource BotaoAdd}"
+                                    Click="AdicionarProcReferenciado">
+                                <SymbolIcon Symbol="Add" />
+                            </Button>
+                        </Grid>
+                    </ListView.Header>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Grid.ContextFlyout>
+                                    <MenuFlyout>
+                                        <MenuFlyoutItem Click="RemoverProcReferenciado">Remover</MenuFlyoutItem>
+                                    </MenuFlyout>
+                                </Grid.ContextFlyout>
+                                <TextBlock TextWrapping="Wrap"
+                                           Text="{Binding NProc}" />
+                                <TextBlock Grid.Column="1"
+                                           TextWrapping="Wrap"
+                                           Text="{Binding IndProc}" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </PivotItem>
+        </Pivot>
+        <Pivot Margin="16">
+            <PivotItem Header="Exportação">
+                <StackPanel DataContext="{x:Bind NotaSalva.Informacoes.exporta}">
+                    <ComboBox ItemsSource="{Binding Source={StaticResource estados}, Path=Siglas}"
+                              SelectedItem="{Binding UFSaidaPais, Mode=TwoWay}"
+                              Header="UF embarque/transposição de fronteira" />
+                    <TextBox Text="{Binding XLocExporta, Mode=TwoWay}"
+                             Header="Local de embarque/transposição de fronteira" />
+                    <TextBox Text="{Binding XLocDespacho, Mode=TwoWay}"
+                             Header="Local de despacho" />
+                </StackPanel>
+            </PivotItem>
+            <PivotItem Header="Compra">
+                <StackPanel DataContext="{x:Bind NotaSalva.Informacoes.compra}">
+                    <TextBox Text="{Binding XNEmp, Mode=TwoWay}"
+                             Header="Nota de empenho" />
+                    <TextBox Text="{Binding XPed, Mode=TwoWay}"
+                             Header="Pedido" />
+                    <TextBox Text="{Binding XCont, Mode=TwoWay}"
+                             Header="Contrato" />
+                </StackPanel>
+            </PivotItem>
+        </Pivot>
+        <Pivot Margin="16">
+            <PivotItem Header="Geral">
+                <ScrollViewer>
+                    <ItemsControl Style="{StaticResource ItensResponsivos}">
+                        <TextBox Header="Safra"
+                                 Text="{x:Bind NotaSalva.Informacoes.cana.Safra, Mode=TwoWay}" />
+                        <DatePicker DayVisible="False"
+                                    Date="{x:Bind NotaSalva.Informacoes.cana.Referencia, ConverterParameter='MM/yyyy', Converter={StaticResource data}, Mode=TwoWay}"
+                                    Header="Mês e ano de referência" />
+                        <controles:EntradaNumerica Format="11:10"
+                                                   Header="Quant. total do mês"
+                                                   Number="{x:Bind NotaSalva.Informacoes.cana.QTotMes, Mode=TwoWay}" />
+                        <controles:EntradaNumerica Format="11:10"
+                                                   Header="Quant. total anterior"
+                                                   Number="{x:Bind NotaSalva.Informacoes.cana.QTotAnt, Mode=TwoWay}" />
+                        <controles:EntradaNumerica Format="11:10"
+                                                   Header="Quant. total geral"
+                                                   Number="{x:Bind NotaSalva.Informacoes.cana.QTotGer, Mode=TwoWay}" />
+                        <controles:EntradaNumerica Format="13:2"
+                                                   Header="Valor dos fornecimentos"
+                                                   Number="{x:Bind NotaSalva.Informacoes.cana.VFor, Mode=TwoWay}" />
+                        <controles:EntradaNumerica Format="13:2"
+                                                   Header="Valor total da dedução"
+                                                   Number="{x:Bind NotaSalva.Informacoes.cana.VTotDed, Mode=TwoWay}" />
+                        <controles:EntradaNumerica Format="13:2"
+                                                   Header="Valor líquido dos fornecimentos"
+                                                   Number="{x:Bind NotaSalva.Informacoes.cana.VLiqFor, Mode=TwoWay}" />
+                    </ItemsControl>
+                </ScrollViewer>
+            </PivotItem>
+            <PivotItem Header="Fornecimento diário de cana">
+                <ListView Margin="0,8,0,0"
+                          ItemsSource="{x:Bind FornecimentosDiarios}"
+                          ItemContainerStyle="{StaticResource ItemFullWidth}">
+                    <ListView.Header>
+                        <Grid Style="{StaticResource Cabecalho}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
+                                       TextAlignment="Center"
+                                       VerticalAlignment="Center">Dia</TextBlock>
+                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
+                                       TextAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       Grid.Column="1">Quantidade</TextBlock>
+                            <Button Style="{StaticResource BotaoAdd}"
+                                    Grid.Column="2"
+                                    Click="AdicionarFornecimento">
+                                <SymbolIcon Symbol="Add" />
+                            </Button>
+                        </Grid>
+                    </ListView.Header>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ContextFlyout>
+                                    <MenuFlyout>
+                                        <MenuFlyoutItem Click="RemoverFornecimento">Remover</MenuFlyoutItem>
+                                    </MenuFlyout>
+                                </Grid.ContextFlyout>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{Binding Dia, Mode=OneTime}" />
+                                <TextBlock Text="{Binding Qtde, Mode=OneTime}"
+                                           Grid.Column="1" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </PivotItem>
+            <PivotItem Header="Deduções">
+                <ListView Margin="0,8,0,0"
+                          ItemsSource="{x:Bind Deducoes}"
+                          ItemContainerStyle="{StaticResource ItemFullWidth}">
+                    <ListView.Header>
+                        <Grid Style="{StaticResource Cabecalho}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
+                                       TextAlignment="Center"
+                                       VerticalAlignment="Center">Descrição</TextBlock>
+                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
+                                       TextAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       Grid.Column="1">Valor</TextBlock>
+                            <Button Style="{StaticResource BotaoAdd}"
+                                    Grid.Column="2"
+                                    Click="AdicionarDeducao">
+                                <SymbolIcon Symbol="Add" />
+                            </Button>
+                        </Grid>
+                    </ListView.Header>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ContextFlyout>
+                                    <MenuFlyout>
+                                        <MenuFlyoutItem Click="RemoverDeducao">Remover</MenuFlyoutItem>
+                                    </MenuFlyout>
+                                </Grid.ContextFlyout>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{Binding XDed, Mode=OneTime}" />
+                                <TextBlock Grid.Column="1"
+                                           Text="{Binding VDed, Mode=OneTime}" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </PivotItem>
+        </Pivot>
+    </FlipView>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton IsEnabled="{Binding BotaoConfirmarVisivel}"
+                          Icon="Accept"
+                          Label="Confirmar e validar"
+                          Click="Confirmar" />
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>

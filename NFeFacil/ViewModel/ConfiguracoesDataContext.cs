@@ -2,14 +2,14 @@
 using System;
 using System.ComponentModel;
 using System.Windows.Input;
-using BibliotecaCentral.Log;
-using BibliotecaCentral.Certificacao;
+using NFeFacil.Log;
+using NFeFacil.Certificacao;
 using System.Collections.Generic;
-using BibliotecaCentral.Importacao;
+using NFeFacil.Importacao;
 using System.Text;
 using System.Security.Cryptography.X509Certificates;
 using System.Collections.ObjectModel;
-using BibliotecaCentral.Certificacao.LAN;
+using NFeFacil.Certificacao.LAN;
 using Windows.System.Profile;
 
 namespace NFeFacil.ViewModel
@@ -20,13 +20,13 @@ namespace NFeFacil.ViewModel
 
         public ConfiguracoesDataContext()
         {
-            ImportarNotaFiscalCommand = new Comando(ImportarNotaFiscal, true);
-            ImportarDadoBaseCommand = new Comando(ImportarDadoBase, true);
+            ImportarNotaFiscalCommand = new Comando(ImportarNotaFiscal);
+            ImportarDadoBaseCommand = new Comando(ImportarDadoBase);
 
             AttLista();
         }
 
-        private readonly ILog LogPopUp = new Popup();
+        private readonly ILog LogPopUp = Popup.Current;
 
         #region Certificação
 
@@ -129,7 +129,7 @@ namespace NFeFacil.ViewModel
             }
         }
 
-        public IEnumerable<TiposDadoBasico> TiposBásicos => BibliotecaCentral.Extensoes.ObterItens<TiposDadoBasico>();
+        public IEnumerable<TiposDadoBasico> TiposBásicos => NFeFacil.ExtensoesPrincipal.ObterItens<TiposDadoBasico>();
         public TiposDadoBasico TipoBásicoSelecionado { get; set; }
 
         #endregion

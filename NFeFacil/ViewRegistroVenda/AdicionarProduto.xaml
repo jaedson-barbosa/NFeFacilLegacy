@@ -1,0 +1,76 @@
+﻿<ContentDialog x:Class="NFeFacil.ViewRegistroVenda.AdicionarProduto"
+               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+               mc:Ignorable="d"
+               Title="Adicionar produto"
+               PrimaryButtonText="Adicionar"
+               SecondaryButtonText="Cancelar"
+               PrimaryButtonClick="VerificarConformidadeEstoque">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <TextBox Header="Buscar por nome"
+                 TextChanged="Buscar" />
+        <ListView ItemsSource="{x:Bind Produtos, Mode=OneTime}"
+                  SelectedItem="{x:Bind ProdutoSelecionado, Mode=TwoWay}"
+                  ItemContainerStyle="{StaticResource ItemFullWidth}"
+                  Grid.Row="1"
+                  Margin="0,2,0,4">
+            <ListView.Header>
+                <Grid Style="{StaticResource Cabecalho}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock FontWeight="Bold"
+                               VerticalAlignment="Bottom">Codigo</TextBlock>
+                    <TextBlock Grid.Column="1"
+                               FontWeight="Bold"
+                               VerticalAlignment="Bottom">Nome</TextBlock>
+                    <TextBlock Grid.Column="2"
+                               FontWeight="Bold"
+                               VerticalAlignment="Bottom">Estoque</TextBlock>
+                    <TextBlock Grid.Column="3"
+                               FontWeight="Bold"
+                               VerticalAlignment="Bottom">Preço</TextBlock>
+                </Grid>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding Codigo, Mode=OneTime}" />
+                        <TextBlock Grid.Column="1"
+                                   Text="{Binding Nome, Mode=OneTime}" />
+                        <TextBlock Grid.Column="2"
+                                   Text="{Binding Estoque, Mode=OneTime}" />
+                        <TextBlock Grid.Column="3"
+                                   Text="{Binding Preço, Mode=OneTime}" />
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <ItemsControl Grid.Row="2" Style="{StaticResource ItensResponsivos}">
+            <TextBox Header="Quantidade"
+                     Text="{x:Bind Quantidade, Mode=TwoWay}" />
+            <TextBox Header="Frete"
+                     Text="{x:Bind Frete, Mode=TwoWay}" />
+            <TextBox Header="Seguro"
+                     Text="{x:Bind Seguro, Mode=TwoWay}" />
+            <TextBox Header="Desesas extras"
+                     Text="{x:Bind DespesasExtras, Mode=TwoWay}" />
+        </ItemsControl>
+    </Grid>
+</ContentDialog>

@@ -1,4 +1,4 @@
-﻿using BibliotecaCentral.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
+﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 
 namespace NFeFacil.ViewModel.ImpostosProduto
 {

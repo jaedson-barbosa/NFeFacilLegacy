@@ -4,15 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:controles="using:NFeFacil.View.Controles"
       x:Class="NFeFacil.View.Inicio"
-      NavigationCacheMode="Enabled"
+      NavigationCacheMode="Required"
       mc:Ignorable="d">
-    <Page.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Estilos/GridResponsiva.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Page.Resources>
     <ScrollViewer x:Name="root"
                   Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
                   ScrollViewer.VerticalScrollBarVisibility="Hidden"
@@ -20,19 +13,38 @@
         <ItemsControl Style="{StaticResource ItensMedios}"
                       IsTabStop="False">
             <controles:ItemPadrao x:Name="GerenciarDadosBase"
-                                  Titulo="Gerenciar dados base"
+                                  Titulo="Cadastros"
                                   Descricao="Gerencie as informações fundamentais para a criação das notas fiscais, que são: Emissor, cliente, transportador e Produto."
                                   Tapped="AbrirFunção">
                 <SymbolIcon Symbol="Manage" />
             </controles:ItemPadrao>
-            <controles:ItemPadrao Titulo="Criar nota fiscal"
+            <controles:ItemPadrao x:Name="ControleEstoque"
+                                  Titulo="Controle de estoque"
+                                  Descricao="Informe alguns dados do estoque de cada produto, visualize e edite a quantidade de produtos no estoque e veja o resumo das últimas alterações no estoque."
+                                  Tapped="AbrirFunção">
+                <SymbolIcon Symbol="Manage" />
+            </controles:ItemPadrao>
+            <controles:ItemPadrao x:Name="ManipulacaoRegistroVenda"
+                                  Titulo="Criar nova venda"
+                                  Descricao="Crie o registro de uma venda apenas com as informações básicas, depois, se você quiser, poderá emitir a nota fiscal facilmente."
+                                  Tapped="AbrirFunção">
+                <FontIcon Glyph="&#xEC59;" />
+            </controles:ItemPadrao>
+            <controles:ItemPadrao x:Name="CriadorNFe"
+                                  Titulo="Criar nota fiscal"
                                   Descricao="Parte principal da aplicação. Aqui você pode criar uma nova nova fiscal e, posteriormente, transmití-la, imprimí-la e salvá-la."
-                                  Tapped="CriarNotaFiscal">
+                                  Tapped="AbrirFunção">
                 <SymbolIcon Symbol="Add" />
             </controles:ItemPadrao>
             <controles:ItemPadrao x:Name="NotasSalvas"
                                   Titulo="Notas salvas"
                                   Descricao="Visialize todas as notas transmitidas por esta aplicação e realize ações básicas, como imprimir, exportar ou cancelar."
+                                  Tapped="AbrirFunção">
+                <SymbolIcon Symbol="Library" />
+            </controles:ItemPadrao>
+            <controles:ItemPadrao x:Name="RegistrosVenda"
+                                  Titulo="Vendas salvas"
+                                  Descricao="Veja todas as vendas feitas pela sua empresa e remova, visualize detalhes ou edite a respectiva venda."
                                   Tapped="AbrirFunção">
                 <SymbolIcon Symbol="Library" />
             </controles:ItemPadrao>
@@ -59,12 +71,6 @@
                                   Descricao="Configure a sincronização entre dispositivos, adicione novos dispositivos ao servidor ou se conecte a um servidor."
                                   Tapped="AbrirFunção">
                 <SymbolIcon Symbol="Sync" />
-            </controles:ItemPadrao>
-            <controles:ItemPadrao x:Name="HistoricoSincronizacao"
-                                  Titulo="Histórico de sincronização"
-                                  Descricao="Veja todos os detalhes de todas as requisições efetuadas/recebidas por esta aplicação."
-                                  Tapped="AbrirFunção">
-                <FontIcon Glyph="&#xE81C;" />
             </controles:ItemPadrao>
         </ItemsControl>
     </ScrollViewer>

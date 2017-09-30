@@ -29,10 +29,9 @@ namespace NFeFacil.View.Controles
 
         private void Tocado(object sender, TappedRoutedEventArgs e)
         {
-            
             if (Command?.CanExecute(null) ?? false)
             {
-                Command?.Execute(null);
+                Command.Execute(null);
             }
         }
     }

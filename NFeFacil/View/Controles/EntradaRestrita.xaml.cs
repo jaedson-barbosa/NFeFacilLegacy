@@ -58,7 +58,7 @@ namespace NFeFacil.View.Controles
 
         public EntradaRestrita()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -75,7 +75,7 @@ namespace NFeFacil.View.Controles
         private void TextBox_LostFocus(object sender, RoutedEventArgs e)
         {
             var input = (TextBox)sender;
-            
+            Text = input.Text;
         }
 
         private async void TextBox_Paste(object sender, TextControlPasteEventArgs e)

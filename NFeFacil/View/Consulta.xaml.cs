@@ -1,7 +1,6 @@
-﻿using BibliotecaCentral;
-using BibliotecaCentral.IBGE;
-using BibliotecaCentral.WebService;
-using BibliotecaCentral.WebService.Pacotes;
+﻿using NFeFacil.IBGE;
+using NFeFacil.WebService;
+using NFeFacil.WebService.Pacotes;
 using System;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
@@ -20,7 +19,7 @@ namespace NFeFacil.View
         public Consulta()
         {
             InitializeComponent();
-            MainPage.Current.SeAtualizar(Symbol.Find, "Consultar NF-e");
+            MainPage.Current.SeAtualizar(Symbol.Find, "Consulta");
             cmbUF.ItemsSource = Estados.EstadosCache.GerarObs();
         }
 

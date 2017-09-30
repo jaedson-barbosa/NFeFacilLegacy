@@ -6,13 +6,6 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
-    <Page.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Estilos/CoresDestaque.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Page.Resources>
     <Page.DataContext>
         <VM:QRConexaoDataContext />
     </Page.DataContext>
@@ -75,7 +68,8 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <TextBlock Grid.ColumnSpan="2"
-                       TextWrapping="Wrap">
+                       TextWrapping="Wrap"
+                       MaxWidth="512">
                     <Run Text="Leia o código QR ou insira estes dados no dispositivo que será conectado. " />
                     <Run Text="Você pode parar também clicando no botão do meio do anel de carregamento."
                          FontWeight="Bold" /></TextBlock>

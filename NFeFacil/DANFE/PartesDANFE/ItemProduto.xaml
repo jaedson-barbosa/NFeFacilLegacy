@@ -1,0 +1,123 @@
+﻿<UserControl x:Class="NFeFacil.DANFE.PartesDANFE.ItemProduto"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="using:NFeFacil.DANFE.PartesDANFE"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignHeight="300"
+             d:DesignWidth="400">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="EstilosPadrao.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <local:DimensoesCampoProdutos x:Key="dimensoesLocal" />
+            <local:EsconderCasoNulo x:Key="linhaInfoAdicional" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid BorderThickness="0,1,0,0"
+          BorderBrush="Black">
+        <Grid.Resources>
+            <Style TargetType="TextBlock"
+                   BasedOn="{StaticResource Cabecalho}">
+                <Setter Property="TextAlignment"
+                        Value="Center" />
+                <Setter Property="VerticalAlignment"
+                        Value="Center" />
+                <Setter Property="TextWrapping"
+                        Value="Wrap" />
+                <Setter Property="FontSize"
+                        Value="10" />
+            </Style>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="{Binding Source={StaticResource dimensoesLocal}, Path=Coluna0}" />
+            <ColumnDefinition Width="{Binding Source={StaticResource dimensoesLocal}, Path=Coluna1}" />
+            <ColumnDefinition Width="{Binding Source={StaticResource dimensoesLocal}, Path=Coluna2}" />
+            <ColumnDefinition Width="{Binding Source={StaticResource dimensoesLocal}, Path=ColunaGeral3}" />
+            <ColumnDefinition Width="{Binding Source={StaticResource dimensoesLocal}, Path=ColunaGeral4}" />
+            <ColumnDefinition Width="{Binding Source={StaticResource dimensoesLocal}, Path=ColunaGeral5}" />
+            <ColumnDefinition Width="{Binding Source={StaticResource dimensoesLocal}, Path=ColunaGeral6}" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition MinHeight="{Binding Source={StaticResource dimensoesLocal}, Path=AlturaPadrao}" />
+        </Grid.RowDefinitions>
+        <Border BorderThickness="0,0,1,0"
+                BorderBrush="Black">
+            <TextBlock Text="{Binding CProd}" />
+        </Border>
+        <StackPanel Grid.Column="1"
+                    VerticalAlignment="Center">
+            <TextBlock Text="{Binding XProd}" />
+            <TextBlock Text="{Binding InfoAdicional}"
+                       TextWrapping="Wrap"
+                       Visibility="{Binding InfoAdicional, Converter={StaticResource linhaInfoAdicional}}" />
+        </StackPanel>
+        <Border Grid.Column="2"
+                BorderThickness="1,0,1,0"
+                BorderBrush="Black">
+            <TextBlock Text="{Binding NCM}" />
+        </Border>
+        <Grid Grid.Column="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="{Binding CSTICMS}" />
+            <Border Grid.Column="1"
+                    BorderThickness="1,0,1,0"
+                    BorderBrush="Black">
+                <TextBlock Text="{Binding CFOP}" />
+            </Border>
+        </Grid>
+        <Grid Grid.Column="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="{Binding UCom}" />
+            <Border Grid.Column="1"
+                    BorderThickness="1,0,1,0"
+                    BorderBrush="Black">
+                <TextBlock Text="{Binding QCom}" />
+            </Border>
+        </Grid>
+        <Grid Grid.Column="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="{Binding VUnCom}" />
+            <Border Grid.Column="1"
+                    BorderThickness="1,0,1,0"
+                    BorderBrush="Black">
+                <TextBlock Text="{Binding VProd}" />
+            </Border>
+            <TextBlock Grid.Column="2"
+                       Text="{Binding BCICMS}" />
+            <Border Grid.Column="3"
+                    BorderThickness="1,0,1,0"
+                    BorderBrush="Black">
+                <TextBlock Text="{Binding VICMS}" />
+            </Border>
+            <TextBlock Grid.Column="4"
+                       Text="{Binding VIPI}" />
+        </Grid>
+        <Grid Grid.Column="6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Border BorderThickness="1,0,1,0"
+                    BorderBrush="Black">
+                <TextBlock Text="{Binding PICMS}" />
+            </Border>
+            <TextBlock Grid.Column="1"
+                       Text="{Binding PIPI}" />
+        </Grid>
+    </Grid>
+</UserControl>

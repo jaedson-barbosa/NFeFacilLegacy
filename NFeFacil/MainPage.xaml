@@ -4,26 +4,17 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
-    <Page.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="View/Estilos/CoresDestaque.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="grupoTamanhoTela">
-                <VisualState x:Name="TelaGrande">
+            <VisualStateGroup>
+                <VisualState>
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="768" />
+                        <AdaptiveTrigger MinWindowWidth="720" />
                     </VisualState.StateTriggers>
                 </VisualState>
-                <VisualState x:Name="TelaPequena">
+                <VisualState>
                     <VisualState.Setters>
-                        <Setter Target="ColunaHamburguer.Width"
-                                Value="Auto" />
-                        <Setter Target="ColunaMenuPermanente.Width"
+                        <Setter Target="splitView.splitView.CompactPaneLength"
                                 Value="0" />
                     </VisualState.Setters>
                     <VisualState.StateTriggers>
@@ -41,8 +32,8 @@
               Height="40">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="0"
-                                  x:Name="ColunaHamburguer" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Button x:Name="btnRetornar"
@@ -52,56 +43,99 @@
                     BorderThickness="0">
                 <SymbolIcon Symbol="Back" />
             </Button>
-            <Button x:Name="btnHambuguer"
-                    Grid.Column="1"
+            <Button Grid.Column="1"
                     VerticalAlignment="Stretch"
-                    Visibility="Collapsed"
                     Background="#00000000"
                     Width="48"
                     BorderThickness="0"
-                    Click="btnHambuguer_Click">
+                    Click="AbrirHamburguer">
                 <FontIcon Glyph="&#xE700;" />
             </Button>
-            <StackPanel x:Name="MainTitleBar"
-                        Grid.Column="2"
-                        Orientation="Horizontal"
-                        Background="#00000000">
+            <Grid x:Name="MainTitleBar"
+                  Grid.Column="3"
+                  Background="#00000000">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
                 <ContentControl Name="symTitulo"
                                 VerticalAlignment="Center"
-                                Margin="16,0" />
+                                Margin="8,0" />
                 <TextBlock Name="txtTitulo"
+                           Grid.Column="1"
                            Style="{StaticResource BodyTextBlockStyle}"
                            VerticalAlignment="Center"
                            FontWeight="Bold">Nota Fácil</TextBlock>
-            </StackPanel>
+            </Grid>
         </Grid>
         <SplitView x:Name="splitView"
                    Grid.Row="1"
                    DisplayMode="CompactOverlay">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"
-                                      x:Name="ColunaMenuPermanente" />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <ContentPresenter x:Name="menuPermanente"
-                                  Visibility="Collapsed"
-                                  Width="256"
-                                  Margin="16, 0, 0, 0"
-                                  Padding="0,16,0,16"
-                                  BorderBrush="{StaticResource Normal}"
-                                  BorderThickness="0,0,2,0" />
-                <Frame Name="frmPrincipal"
-                       Grid.Column="1">
-                    <Frame.ContentTransitions>
-                        <TransitionCollection>
-                            <NavigationThemeTransition>
-                                <DrillInNavigationTransitionInfo />
-                            </NavigationThemeTransition>
-                        </TransitionCollection>
-                    </Frame.ContentTransitions>
-                </Frame>
-            </Grid>
+            <SplitView.Pane>
+                <Grid Padding="0,0,0,48">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <ListView x:Name="menuTemporario"
+                              SelectionChanged="MudouSubpaginaEscolhida" />
+                    <Grid x:Name="grdInfoGeral"
+                          Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="48" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="48" />
+                            <RowDefinition Height="48" />
+                        </Grid.RowDefinitions>
+                        <SymbolIcon Symbol="Contact"
+                                    Canvas.ZIndex="0" />
+                        <Image x:Name="imgLogotipo"
+                               Canvas.ZIndex="1"
+                               Stretch="UniformToFill" />
+                        <TextBlock x:Name="txtNomeEmpresa"
+                                   Grid.Column="1"
+                                   Style="{StaticResource BodyTextBlockStyle}"
+                                   TextAlignment="Center"
+                                   Margin="4,0,4,4"
+                                   FontWeight="Bold"
+                                   VerticalAlignment="Top" />
+                        <TextBlock x:Name="txtNomeEmitente"
+                                   Grid.Column="1"
+                                   Style="{StaticResource BodyTextBlockStyle}"
+                                   TextAlignment="Center"
+                                   Margin="4,0,4,4"
+                                   VerticalAlignment="Bottom" />
+                        <SymbolIcon Symbol="Contact"
+                                    Grid.Row="1"
+                                    Canvas.ZIndex="0" />
+                        <Image x:Name="imgVendedor"
+                               Grid.Row="1"
+                               Canvas.ZIndex="1"
+                               Stretch="UniformToFill" />
+                        <TextBlock x:Name="txtNomeVendedor"
+                                   Grid.Row="1"
+                                   Grid.Column="1"
+                                   Style="{StaticResource BodyTextBlockStyle}"
+                                   TextAlignment="Center"
+                                   Margin="4,0,4,4"
+                                   FontWeight="Bold"
+                                   VerticalAlignment="Center" />
+                    </Grid>
+                </Grid>
+            </SplitView.Pane>
+            <Frame Name="frmPrincipal"
+                   Grid.Column="1">
+                <Frame.ContentTransitions>
+                    <TransitionCollection>
+                        <NavigationThemeTransition>
+                            <DrillInNavigationTransitionInfo />
+                        </NavigationThemeTransition>
+                    </TransitionCollection>
+                </Frame.ContentTransitions>
+            </Frame>
         </SplitView>
     </Grid>
 </Page>

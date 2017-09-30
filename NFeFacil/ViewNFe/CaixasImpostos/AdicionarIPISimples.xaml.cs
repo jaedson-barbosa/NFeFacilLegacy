@@ -12,6 +12,9 @@ namespace NFeFacil.ViewNFe.CaixasImpostos
             this.InitializeComponent();
         }
 
-        public IPI Conjunto { get; } = new IPI();
+        public IPI Conjunto { get; } = new IPI()
+        {
+            Corpo = new IPINT()
+        };
     }
 }

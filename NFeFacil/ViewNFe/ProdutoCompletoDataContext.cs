@@ -705,6 +705,44 @@ namespace NFeFacil.ViewNFe
             return null;
         }
 
+        async Task<IPI> AdicionarIPI()
+        {
+            var caixa = new EscolherTipoIPI();
+            IPI retorno = null;
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+            {
+                if (caixa.TipoCalculo == TiposCalculo.Inexistente)
+                {
+                    var caixa2 = new AdicionarIPISimples();
+                    if (await caixa2.ShowAsync() == ContentDialogResult.Primary)
+                    {
+                        retorno = caixa2.Conjunto;
+                    }
+                }
+                else if (caixa.TipoCalculo == TiposCalculo.PorAliquota)
+                {
+                    var caixa2 = new AdicionarIPIAliquota();
+                    if (await caixa2.ShowAsync() == ContentDialogResult.Primary)
+                    {
+                        retorno = caixa2.Conjunto;
+                    }
+                }
+                else
+                {
+                    var caixa2 = new AdicionarIPIValor();
+                    if (await caixa2.ShowAsync() == ContentDialogResult.Primary)
+                    {
+                        retorno = caixa2.Conjunto;
+                    }
+                }
+            }
+
+            if (retorno != null)
+            {
+                retorno.Corpo.CST = caixa.CST;
+            }
+            return retorno;
+        }
 
         public enum TiposEspeciaisProduto
         {
@@ -714,6 +752,31 @@ namespace NFeFacil.ViewNFe
             Armamento,
             Combustível,
             Papel
+        }
+    }
+
+    struct CalculoIPI
+    {
+        ComumIPI Corpo { get; set; }
+
+        public void Calcular()
+        {
+            double valor;
+            //if (Corpo is IPITrib ipi)
+            //{
+            //    if (ipi.VBC != 0 && ipi.pIPI != 0)
+            //    {
+            //        valor = VBC * PIPI / 100;
+            //    }
+            //    else
+            //    {
+            //        valor = QUnid * VUnid;
+            //    }
+            //}
+            //else
+            //{
+            //    valor = 0;
+            //}
         }
     }
 }

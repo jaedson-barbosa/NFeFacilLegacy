@@ -27,38 +27,29 @@ namespace NFeFacil.Sincronizacao
 
         internal async Task Sincronizar()
         {
-            using (var db = new AplicativoContext())
-            {
-                var momento = UltimaSincronizacao;
+            var momento = UltimaSincronizacao;
 
-                var receb = await RequestAsync<ConjuntoBanco>(
-                    $"Sincronizar",
-                    SenhaPermanente,
-                    new ConjuntoBanco(db, momento));
-                receb.AnalisarESalvar(db);
+            var receb = await RequestAsync<ConjuntoBanco>(
+                $"Sincronizar",
+                SenhaPermanente,
+                new ConjuntoBanco(momento));
+            receb.AnalisarESalvar();
 
-                Log.Escrever(TitulosComuns.Sucesso, "Sincronização simples concluida.");
-                db.SaveChanges();
-
-                UltimaSincronizacao = DateTime.Now;
-            }
+            Log.Escrever(TitulosComuns.Sucesso, "Sincronização simples concluida.");
+            UltimaSincronizacao = DateTime.Now;
         }
 
         internal async Task SincronizarTudo()
         {
-            using (var db = new AplicativoContext())
-            {
-                var receb = await RequestAsync<ConjuntoBanco>(
-                    $"Sincronizar",
-                    SenhaPermanente,
-                    new ConjuntoBanco(db));
-                receb.AnalisarESalvar(db);
+            var receb = await RequestAsync<ConjuntoBanco>(
+                $"Sincronizar",
+                SenhaPermanente,
+                new ConjuntoBanco());
+            receb.AnalisarESalvar();
 
-                Log.Escrever(TitulosComuns.Sucesso, "Sincronização total concluida.");
-                db.SaveChanges();
+            Log.Escrever(TitulosComuns.Sucesso, "Sincronização total concluida.");
 
-                UltimaSincronizacao = DateTime.Now;
-            }
+            UltimaSincronizacao = DateTime.Now;
         }
 
         async Task<T> RequestAsync<T>(string nomeMetodo, int senha, object corpo)

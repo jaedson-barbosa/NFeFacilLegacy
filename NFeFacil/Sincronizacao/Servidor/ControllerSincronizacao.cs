@@ -15,13 +15,16 @@ namespace NFeFacil.Sincronizacao.Servidor
             if (senha != ConfiguracoesSincronizacao.SenhaPermanente)
                 throw new SenhaErrada(senha);
 
-            using (var db = new AplicativoContext())
+            try
             {
-                pacote.AnalisarESalvar(db);
-                db.SaveChanges();
+                pacote.AnalisarESalvar();
 
-                var retorno = new ConjuntoBanco(pacote, db);
+                var retorno = new ConjuntoBanco(pacote);
                 return new GetResponse(GetResponse.ResponseStatus.OK, retorno);
+            }
+            catch (Exception e)
+            {
+                return new GetResponse(GetResponse.ResponseStatus.OK, e);
             }
         }
     }

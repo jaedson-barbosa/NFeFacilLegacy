@@ -123,84 +123,9 @@
                 <Pivot Grid.Row="2"
                        x:Name="pvtImpostos"
                        Grid.ColumnSpan="2">
-                    <PivotItem IsEnabled="{Binding AtivadopvtICMS}"
-                               Header="ICMS">
-                        <ScrollViewer DataContext="{Binding ContextoICMS}">
-                            <StackPanel>
-                                <StackPanel Visibility="{Binding GrupoSimplesNacional, Converter={StaticResource visibilidade}}">
-                                </StackPanel>
-                                <StackPanel Visibility="{Binding GrupoRegimeNormal, Converter={StaticResource visibilidade}}">
-                                </StackPanel>
-                            </StackPanel>
-                        </ScrollViewer>
-                    </PivotItem>
                     <PivotItem Header="IPI">
                         <ScrollViewer DataContext="{Binding ContextoIPI}">
                             <StackPanel>
-                                <ComboBox Header="Situação tributária"
-                                          HorizontalAlignment="Stretch"
-                                          SelectedValue="{Binding CSTSelecionado, Mode=TwoWay}"
-                                          SelectedValuePath="Tag">
-                                    <ComboBoxItem Tag="00">00=Entrada com recuperação de crédito</ComboBoxItem>
-                                    <ComboBoxItem Tag="01">01=Entrada tributada com alíquota zero</ComboBoxItem>
-                                    <ComboBoxItem Tag="02">02=Entrada isenta</ComboBoxItem>
-                                    <ComboBoxItem Tag="03">03=Entrada não-tributada</ComboBoxItem>
-                                    <ComboBoxItem Tag="04">04=Entrada imune</ComboBoxItem>
-                                    <ComboBoxItem Tag="05">05=Entrada com suspensão</ComboBoxItem>
-                                    <ComboBoxItem Tag="49">49=Outras entradas</ComboBoxItem>
-                                    <ComboBoxItem Tag="50">50=Saída tributada</ComboBoxItem>
-                                    <ComboBoxItem Tag="51">51=Saída tributada com alíquota zero</ComboBoxItem>
-                                    <ComboBoxItem Tag="52">52=Saída isenta</ComboBoxItem>
-                                    <ComboBoxItem Tag="53">53=Saída não-tributada</ComboBoxItem>
-                                    <ComboBoxItem Tag="54">54=Saída imune</ComboBoxItem>
-                                    <ComboBoxItem Tag="55">55=Saída com suspensão</ComboBoxItem>
-                                    <ComboBoxItem Tag="99">99=Outras saídas</ComboBoxItem>
-                                </ComboBox>
-                                <ItemsControl Style="{StaticResource ItensResponsivos}">
-                                    <TextBox Text="{Binding Conjunto.clEnq, Mode=TwoWay}"
-                                             Header="Classe de enquadramento"
-                                             InputScope="Number" />
-                                    <TextBox Text="{Binding Conjunto.CNPJProd, Mode=TwoWay}"
-                                             Header="CNPJ do produtor"
-                                             InputScope="Number" />
-                                    <TextBox Text="{Binding Conjunto.cEnq, Mode=TwoWay}"
-                                             Header="Código de enquadramento" />
-                                    <TextBox Text="{Binding Conjunto.qSelo, Mode=TwoWay}"
-                                             Header="Qtd. do selo de controle"
-                                             InputScope="Number" />
-                                    <TextBox Header="Código do selo de controle"
-                                             Text="{Binding Conjunto.cSelo, Mode=TwoWay}" />
-                                </ItemsControl>
-                                <ItemsControl Style="{StaticResource ItensResponsivos}">
-                                    <ComboBox HorizontalAlignment="Stretch"
-                                              Header="Tipo de cálculo"
-                                              SelectedValue="{Binding TipoCalculo, Mode=TwoWay}"
-                                              SelectedValuePath="Content"
-                                              IsEnabled="{Binding ComboTipoCalculo}">
-                                        <ComboBoxItem>Por alíquota</ComboBoxItem>
-                                        <ComboBoxItem>Pelo valor por unidade</ComboBoxItem>
-                                    </ComboBox>
-                                    <TextBox Text="{Binding Path=Imposto.VBC, Mode=TwoWay}"
-                                             Header="Valor da base de cálculo"
-                                             InputScope="Number"
-                                             IsEnabled="{Binding CalculoAliquota}" />
-                                    <TextBox Text="{Binding Path=Imposto.PIPI, Mode=TwoWay}"
-                                             Header="Alíquota"
-                                             InputScope="Number"
-                                             IsEnabled="{Binding CalculoAliquota}" />
-                                    <TextBox Text="{Binding Path=Imposto.QUnid, Mode=TwoWay}"
-                                             Header="Quantidade total"
-                                             InputScope="Number"
-                                             IsEnabled="{Binding CalculoValor}" />
-                                    <TextBox Text="{Binding Path=Imposto.VUnid, Mode=TwoWay}"
-                                             Header="Valor por unidade"
-                                             InputScope="Number"
-                                             IsEnabled="{Binding CalculoValor}" />
-                                    <TextBox Text="{Binding Path=Imposto.VIPI, Mode=TwoWay}"
-                                             Header="Valor do IPI"
-                                             InputScope="Number"
-                                             IsEnabled="{Binding Valor}" />
-                                </ItemsControl>
                             </StackPanel>
                         </ScrollViewer>
                     </PivotItem>

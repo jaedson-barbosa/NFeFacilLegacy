@@ -1,0 +1,27 @@
+﻿<ContentDialog x:Class="NFeFacil.ViewNFe.CaixasImpostos.AdicionarIPISimples"
+               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+               mc:Ignorable="d"
+               Title="Adicionar IPI simples"
+               PrimaryButtonText="Adicionar"
+               SecondaryButtonText="Cancelar">
+    <Grid>
+        <ItemsControl Style="{StaticResource ItensResponsivos}">
+            <TextBox Text="{x:Bind Conjunto.clEnq, Mode=TwoWay}"
+                     Header="Classe de enquadramento"
+                     InputScope="Number" />
+            <TextBox Text="{x:Bind Conjunto.CNPJProd, Mode=TwoWay}"
+                     Header="CNPJ do produtor"
+                     InputScope="Number" />
+            <TextBox Text="{x:Bind Conjunto.cEnq, Mode=TwoWay}"
+                     Header="Código de enquadramento" />
+            <TextBox Text="{x:Bind Conjunto.qSelo, Mode=TwoWay}"
+                     Header="Qtd. do selo de controle"
+                     InputScope="Number" />
+            <TextBox Header="Código do selo de controle"
+                     Text="{x:Bind Conjunto.cSelo, Mode=TwoWay}" />
+        </ItemsControl>
+    </Grid>
+</ContentDialog>

@@ -3,6 +3,7 @@
     enum TiposCalculo
     {
         PorAliquota,
-        PorValor
+        PorValor,
+        Inexistente
     }
 }

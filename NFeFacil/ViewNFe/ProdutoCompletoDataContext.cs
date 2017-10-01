@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.UI.Xaml.Controls;
@@ -705,6 +706,7 @@ namespace NFeFacil.ViewNFe
             return null;
         }
 
+        CultureInfo culturaPadrao = CultureInfo.InvariantCulture;
         async Task<IPI> AdicionarIPI()
         {
             var caixa = new EscolherTipoIPI();
@@ -724,6 +726,14 @@ namespace NFeFacil.ViewNFe
                     var caixa2 = new AdicionarIPIAliquota();
                     if (await caixa2.ShowAsync() == ContentDialogResult.Primary)
                     {
+                        var vBC = ProdutoCompleto.Produto.ValorTotal;
+                        var pIPI = double.Parse(caixa2.Aliquota, culturaPadrao);
+                        caixa2.Conjunto.Corpo = new IPITrib
+                        {
+                            vBC = vBC.ToString("F2", culturaPadrao),
+                            pIPI = pIPI.ToString("F4", culturaPadrao),
+                            vIPI = (vBC * pIPI / 100).ToString("F2", culturaPadrao)
+                        };
                         retorno = caixa2.Conjunto;
                     }
                 }
@@ -732,6 +742,14 @@ namespace NFeFacil.ViewNFe
                     var caixa2 = new AdicionarIPIValor();
                     if (await caixa2.ShowAsync() == ContentDialogResult.Primary)
                     {
+                        var qUnid = ProdutoCompleto.Produto.QuantidadeComercializada;
+                        var vUnid = double.Parse(caixa2.ValorUnitario, culturaPadrao);
+                        caixa2.Conjunto.Corpo = new IPITrib
+                        {
+                            qUnid = qUnid.ToString("F4", culturaPadrao),
+                            vUnid = vUnid.ToString("F4", culturaPadrao),
+                            vIPI = (qUnid * vUnid).ToString("F2", culturaPadrao)
+                        };
                         retorno = caixa2.Conjunto;
                     }
                 }
@@ -752,31 +770,6 @@ namespace NFeFacil.ViewNFe
             Armamento,
             Combustível,
             Papel
-        }
-    }
-
-    struct CalculoIPI
-    {
-        ComumIPI Corpo { get; set; }
-
-        public void Calcular()
-        {
-            double valor;
-            //if (Corpo is IPITrib ipi)
-            //{
-            //    if (ipi.VBC != 0 && ipi.pIPI != 0)
-            //    {
-            //        valor = VBC * PIPI / 100;
-            //    }
-            //    else
-            //    {
-            //        valor = QUnid * VUnid;
-            //    }
-            //}
-            //else
-            //{
-            //    valor = 0;
-            //}
         }
     }
 }

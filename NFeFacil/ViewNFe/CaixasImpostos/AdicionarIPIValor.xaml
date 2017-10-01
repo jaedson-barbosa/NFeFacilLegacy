@@ -22,10 +22,7 @@
                      InputScope="Number" />
             <TextBox Header="Código do selo de controle"
                      Text="{x:Bind Conjunto.cSelo, Mode=TwoWay}" />
-            <TextBox Text="{x:Bind Imposto.QUnid, Mode=TwoWay}"
-                     Header="Quantidade total"
-                     InputScope="Number" />
-            <TextBox Text="{x:Bind Imposto.VUnid, Mode=TwoWay}"
+            <TextBox Text="{x:Bind ValorUnitario, Mode=TwoWay}"
                      Header="Valor por unidade"
                      InputScope="Number" />
         </ItemsControl>

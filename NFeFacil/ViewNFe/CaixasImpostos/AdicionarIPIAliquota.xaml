@@ -22,10 +22,7 @@
                      InputScope="Number" />
             <TextBox Header="Código do selo de controle"
                      Text="{x:Bind Conjunto.cSelo, Mode=TwoWay}" />
-            <TextBox Text="{x:Bind Imposto.VBC, Mode=TwoWay}"
-                     Header="Valor da base de cálculo"
-                     InputScope="Number" />
-            <TextBox Text="{x:Bind Imposto.PIPI, Mode=TwoWay}"
+            <TextBox Text="{x:Bind Aliquota, Mode=TwoWay}"
                      Header="Alíquota"
                      InputScope="Number" />
         </ItemsControl>

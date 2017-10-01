@@ -38,7 +38,7 @@ namespace NFeFacil.ViewNFe.CaixasImpostos
         private void TipoCalculo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var novoItem = (ComboBoxItem)e.AddedItems[0];
-            var tag = int.Parse(novoItem.Content.ToString());
+            var tag = int.Parse(novoItem.Tag.ToString());
             if (tag != -1) TipoCalculo = (TiposCalculo)tag;
         }
     }

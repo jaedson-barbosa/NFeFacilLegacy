@@ -189,6 +189,12 @@
     <Compile Include="ViewNFe\CaixasDialogoProduto\EscolherTipoDeclaracaoExportacao.xaml.cs">
       <DependentUpon>EscolherTipoDeclaracaoExportacao.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewNFe\CaixasImpostos\AddPISouCOFINSAliquota.xaml.cs">
+      <DependentUpon>AddPISouCOFINSAliquota.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\CaixasImpostos\AddPISouCOFINSValor.xaml.cs">
+      <DependentUpon>AddPISouCOFINSValor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewNFe\CaixasImpostos\AdicionarIPISimples.xaml.cs">
       <DependentUpon>AdicionarIPISimples.xaml</DependentUpon>
     </Compile>
@@ -200,6 +206,9 @@
     </Compile>
     <Compile Include="ViewNFe\CaixasImpostos\EscolherTipoIPI.xaml.cs">
       <DependentUpon>EscolherTipoIPI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\CaixasImpostos\EscolherTipoPISouCOFINS.xaml.cs">
+      <DependentUpon>EscolherTipoPISouCOFINS.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewNFe\CriadorNFe.xaml.cs">
       <DependentUpon>CriadorNFe.xaml</DependentUpon>
@@ -604,6 +613,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ViewNFe\CaixasImpostos\AddPISouCOFINSAliquota.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\CaixasImpostos\AddPISouCOFINSValor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ViewNFe\CaixasImpostos\AdicionarIPISimples.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -617,6 +634,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ViewNFe\CaixasImpostos\EscolherTipoIPI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\CaixasImpostos\EscolherTipoPISouCOFINS.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

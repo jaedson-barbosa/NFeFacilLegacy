@@ -1,4 +1,5 @@
 ﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
+using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
 using NFeFacil.ViewModel;
@@ -388,9 +389,11 @@ namespace NFeFacil.ViewNFe
             OnPropertyChanged(nameof(ListaArmamento));
         }
 
+        CultureInfo culturaPadrao = CultureInfo.InvariantCulture;
 
         async void AdicionarImposto()
         {
+
         }
 
         async Task<ComumICMS> AdicionarICMS()
@@ -706,7 +709,6 @@ namespace NFeFacil.ViewNFe
             return null;
         }
 
-        CultureInfo culturaPadrao = CultureInfo.InvariantCulture;
         async Task<IPI> AdicionarIPI()
         {
             var caixa = new EscolherTipoIPI();
@@ -760,6 +762,350 @@ namespace NFeFacil.ViewNFe
                 retorno.Corpo.CST = caixa.CST;
             }
             return retorno;
+        }
+
+        async Task<Imposto[]> AdicionarPIS()
+        {
+            var caixa = new EscolherTipoPISouCOFINS();
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+            {
+                var cst = caixa.CST;
+                var valor = int.Parse(cst);
+
+                if (valor == 1 || valor == 2)
+                {
+                    var caixa2 = new AddPISouCOFINSAliquota();
+                    if (await caixa2.ShowAsync() == ContentDialogResult.Primary)
+                    {
+                        var vBC = ProdutoCompleto.Produto.ValorTotal;
+                        var pPIS = caixa2.Aliquota;
+                        return new PIS[1]
+                        {
+                            new PIS
+                            {
+                                Corpo = new PISAliq
+                                {
+                                    CST = cst,
+                                    vBC = vBC.ToString("F2", culturaPadrao),
+                                    pPIS = pPIS.ToString("F4", culturaPadrao),
+                                    vPIS = (vBC * pPIS / 100).ToString("F2", culturaPadrao)
+                                }
+                            }
+                        };
+                    }
+                }
+                else if (valor == 3)
+                {
+                    var caixa2 = new AddPISouCOFINSValor();
+                    if (await caixa2.ShowAsync() == ContentDialogResult.Primary)
+                    {
+                        var qBCProd = ProdutoCompleto.Produto.QuantidadeComercializada;
+                        var vAliqProd = caixa2.Valor;
+                        return new PIS[1]
+                        {
+                            new PIS
+                            {
+                                Corpo = new PISQtde
+                                {
+                                    CST = cst,
+                                    qBCProd = qBCProd.ToString("F4", culturaPadrao),
+                                    vAliqProd = vAliqProd.ToString("F4", culturaPadrao),
+                                    vPIS = (qBCProd * vAliqProd).ToString("F2", culturaPadrao)
+                                }
+                            }
+                        };
+                    }
+                }
+                else if (valor >= 4 && valor <= 9)
+                {
+                    if (valor == 5)
+                    {
+                        if (caixa.TipoCalculoST == TiposCalculo.PorAliquota)
+                        {
+                            var caixa2 = new AddPISouCOFINSAliquota();
+                            if (await caixa2.ShowAsync() == ContentDialogResult.Primary)
+                            {
+                                var vBC = ProdutoCompleto.Produto.ValorTotal;
+                                var pPIS = caixa2.Aliquota;
+                                return new Imposto[2]
+                                {
+                                    new PIS
+                                    {
+                                        Corpo = new PISNT()
+                                        {
+                                            CST = cst
+                                        }
+                                    },
+                                    new PISST
+                                    {
+                                        vBC = vBC.ToString("F2", culturaPadrao),
+                                        pPIS = pPIS.ToString("F4", culturaPadrao),
+                                        vPIS = (vBC * pPIS / 100).ToString("F2", culturaPadrao)
+                                    }
+                                };
+                            }
+                        }
+                        else
+                        {
+                            var caixa2 = new AddPISouCOFINSValor();
+                            if (await caixa2.ShowAsync() == ContentDialogResult.Primary)
+                            {
+                                var qBCProd = ProdutoCompleto.Produto.QuantidadeComercializada;
+                                var vAliqProd = caixa2.Valor;
+                                return new Imposto[2]
+                                {
+                                    new PIS
+                                    {
+                                        Corpo = new PISNT()
+                                        {
+                                            CST = cst
+                                        }
+                                    },
+                                    new PISST
+                                    {
+                                        qBCProd = qBCProd.ToString("F4", culturaPadrao),
+                                        vAliqProd = vAliqProd.ToString("F4", culturaPadrao),
+                                        vPIS = (qBCProd * vAliqProd).ToString("F2", culturaPadrao)
+                                    }
+                                };
+                            }
+                        }
+                    }
+                    else
+                    {
+                        return new PIS[1]
+                        {
+                            new PIS
+                            {
+                                Corpo = new PISNT()
+                                {
+                                    CST = cst
+                                }
+                            }
+                        };
+                    }
+                }
+                else
+                {
+                    if (caixa.TipoCalculo == TiposCalculo.PorAliquota)
+                    {
+                        var caixa2 = new AddPISouCOFINSAliquota();
+                        if (await caixa2.ShowAsync() == ContentDialogResult.Primary)
+                        {
+                            var vBC = ProdutoCompleto.Produto.ValorTotal;
+                            var pPIS = caixa2.Aliquota;
+                            return new PIS[1]
+                            {
+                                new PIS
+                                {
+                                    Corpo = new PISOutr
+                                    {
+                                        CST = cst,
+                                        vBC = vBC.ToString("F2", culturaPadrao),
+                                        pPIS = pPIS.ToString("F4", culturaPadrao),
+                                        vPIS = (vBC * pPIS / 100).ToString("F2", culturaPadrao)
+                                    }
+                                }
+                            };
+                        }
+                    }
+                    else
+                    {
+                        var caixa2 = new AddPISouCOFINSValor();
+                        if (await caixa2.ShowAsync() == ContentDialogResult.Primary)
+                        {
+                            var qBCProd = ProdutoCompleto.Produto.QuantidadeComercializada;
+                            var vAliqProd = caixa2.Valor;
+                            return new PIS[1]
+                            {
+                                new PIS
+                                {
+                                    Corpo = new PISOutr
+                                    {
+                                        CST = cst,
+                                        qBCProd = qBCProd.ToString("F4", culturaPadrao),
+                                        vAliqProd = vAliqProd.ToString("F4", culturaPadrao),
+                                        vPIS = (qBCProd * vAliqProd).ToString("F2", culturaPadrao)
+                                    }
+                                }
+                            };
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+
+        async Task<Imposto[]> AdicionarCOFINS()
+        {
+            var caixa = new EscolherTipoPISouCOFINS();
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+            {
+                var cst = caixa.CST;
+                var valor = int.Parse(cst);
+
+                if (valor == 1 || valor == 2)
+                {
+                    var caixa2 = new AddPISouCOFINSAliquota();
+                    if (await caixa2.ShowAsync() == ContentDialogResult.Primary)
+                    {
+                        var vBC = ProdutoCompleto.Produto.ValorTotal;
+                        var pCOFINS = caixa2.Aliquota;
+                        return new COFINS[1]
+                        {
+                            new COFINS
+                            {
+                                Corpo = new COFINSAliq
+                                {
+                                    CST = cst,
+                                    vBC = vBC.ToString("F2", culturaPadrao),
+                                    pCOFINS = pCOFINS.ToString("F4", culturaPadrao),
+                                    vCOFINS = (vBC * pCOFINS / 100).ToString("F2", culturaPadrao)
+                                }
+                            }
+                        };
+                    }
+                }
+                else if (valor == 3)
+                {
+                    var caixa2 = new AddPISouCOFINSValor();
+                    if (await caixa2.ShowAsync() == ContentDialogResult.Primary)
+                    {
+                        var qBCProd = ProdutoCompleto.Produto.QuantidadeComercializada;
+                        var vAliqProd = caixa2.Valor;
+                        return new COFINS[1]
+                        {
+                            new COFINS
+                            {
+                                Corpo = new COFINSQtde
+                                {
+                                    CST = cst,
+                                    qBCProd = qBCProd.ToString("F4", culturaPadrao),
+                                    vAliqProd = vAliqProd.ToString("F4", culturaPadrao),
+                                    vCOFINS = (qBCProd * vAliqProd).ToString("F2", culturaPadrao)
+                                }
+                            }
+                        };
+                    }
+                }
+                else if (valor >= 4 && valor <= 9)
+                {
+                    if (valor == 5)
+                    {
+                        if (caixa.TipoCalculoST == TiposCalculo.PorAliquota)
+                        {
+                            var caixa2 = new AddPISouCOFINSAliquota();
+                            if (await caixa2.ShowAsync() == ContentDialogResult.Primary)
+                            {
+                                var vBC = ProdutoCompleto.Produto.ValorTotal;
+                                var pCOFINS = caixa2.Aliquota;
+                                return new Imposto[2]
+                                {
+                                    new COFINS
+                                    {
+                                        Corpo = new COFINSNT()
+                                        {
+                                            CST = cst
+                                        }
+                                    },
+                                    new COFINSST
+                                    {
+                                        vBC = vBC.ToString("F2", culturaPadrao),
+                                        pCOFINS = pCOFINS.ToString("F4", culturaPadrao),
+                                        vCOFINS = (vBC * pCOFINS / 100).ToString("F2", culturaPadrao)
+                                    }
+                                };
+                            }
+                        }
+                        else
+                        {
+                            var caixa2 = new AddPISouCOFINSValor();
+                            if (await caixa2.ShowAsync() == ContentDialogResult.Primary)
+                            {
+                                var qBCProd = ProdutoCompleto.Produto.QuantidadeComercializada;
+                                var vAliqProd = caixa2.Valor;
+                                return new Imposto[2]
+                                {
+                                    new COFINS
+                                    {
+                                        Corpo = new COFINSNT()
+                                        {
+                                            CST = cst
+                                        }
+                                    },
+                                    new COFINSST
+                                    {
+                                        qBCProd = qBCProd.ToString("F4", culturaPadrao),
+                                        vAliqProd = vAliqProd.ToString("F4", culturaPadrao),
+                                        vCOFINS = (qBCProd * vAliqProd).ToString("F2", culturaPadrao)
+                                    }
+                                };
+                            }
+                        }
+                    }
+                    else
+                    {
+                        return new COFINS[1]
+                        {
+                            new COFINS
+                            {
+                                Corpo = new COFINSNT()
+                                {
+                                    CST = cst
+                                }
+                            }
+                        };
+                    }
+                }
+                else
+                {
+                    if (caixa.TipoCalculo == TiposCalculo.PorAliquota)
+                    {
+                        var caixa2 = new AddPISouCOFINSAliquota();
+                        if (await caixa2.ShowAsync() == ContentDialogResult.Primary)
+                        {
+                            var vBC = ProdutoCompleto.Produto.ValorTotal;
+                            var pCOFINS = caixa2.Aliquota;
+                            return new COFINS[1]
+                            {
+                                new COFINS
+                                {
+                                    Corpo = new COFINSOutr
+                                    {
+                                        CST = cst,
+                                        vBC = vBC.ToString("F2", culturaPadrao),
+                                        pCOFINS = pCOFINS.ToString("F4", culturaPadrao),
+                                        vCOFINS = (vBC * pCOFINS / 100).ToString("F2", culturaPadrao)
+                                    }
+                                }
+                            };
+                        }
+                    }
+                    else
+                    {
+                        var caixa2 = new AddPISouCOFINSValor();
+                        if (await caixa2.ShowAsync() == ContentDialogResult.Primary)
+                        {
+                            var qBCProd = ProdutoCompleto.Produto.QuantidadeComercializada;
+                            var vAliqProd = caixa2.Valor;
+                            return new COFINS[1]
+                            {
+                                new COFINS
+                                {
+                                    Corpo = new COFINSOutr
+                                    {
+                                        CST = cst,
+                                        qBCProd = qBCProd.ToString("F4", culturaPadrao),
+                                        vAliqProd = vAliqProd.ToString("F4", culturaPadrao),
+                                        vCOFINS = (qBCProd * vAliqProd).ToString("F2", culturaPadrao)
+                                    }
+                                }
+                            };
+                        }
+                    }
+                }
+            }
+            return null;
         }
 
         public enum TiposEspeciaisProduto

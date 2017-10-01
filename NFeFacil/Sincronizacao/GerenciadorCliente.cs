@@ -27,12 +27,12 @@ namespace NFeFacil.Sincronizacao
 
         internal async Task Sincronizar()
         {
-            var momento = UltimaSincronizacao;
-
+            var envio = new ConjuntoBanco(UltimaSincronizacao);
             var receb = await RequestAsync<ConjuntoBanco>(
                 $"Sincronizar",
                 SenhaPermanente,
-                new ConjuntoBanco(momento));
+                envio,
+                UltimaSincronizacao.ToBinary().ToString());
             receb.AnalisarESalvar();
 
             Log.Escrever(TitulosComuns.Sucesso, "Sincronização simples concluida.");
@@ -41,10 +41,13 @@ namespace NFeFacil.Sincronizacao
 
         internal async Task SincronizarTudo()
         {
+            var envio = new ConjuntoBanco();
+            envio.AtualizarPadrao();
             var receb = await RequestAsync<ConjuntoBanco>(
                 $"Sincronizar",
                 SenhaPermanente,
-                new ConjuntoBanco());
+                envio,
+                UltimaSincronizacao.ToBinary().ToString());
             receb.AnalisarESalvar();
 
             Log.Escrever(TitulosComuns.Sucesso, "Sincronização total concluida.");
@@ -52,9 +55,10 @@ namespace NFeFacil.Sincronizacao
             UltimaSincronizacao = DateTime.Now;
         }
 
-        async Task<T> RequestAsync<T>(string nomeMetodo, int senha, object corpo)
+        async Task<T> RequestAsync<T>(string nomeMetodo, int senha, object corpo, string parametroExtra = null)
         {
             string caminho = $"http://{IPServidor}:8080/{nomeMetodo}/{senha}";
+            if (parametroExtra != null) caminho += $"/{parametroExtra}";
             using (var proxy = new HttpClient())
             {
                 var mensagem = new HttpRequestMessage(HttpMethod.Get, caminho);

@@ -1,4 +1,5 @@
-﻿using NFeFacil.Sincronizacao.Pacotes;
+﻿using Newtonsoft.Json;
+using NFeFacil.Sincronizacao.Pacotes;
 using Restup.Webserver.Attributes;
 using Restup.Webserver.Models.Contracts;
 using Restup.Webserver.Models.Schemas;
@@ -9,8 +10,8 @@ namespace NFeFacil.Sincronizacao.Servidor
     [RestController(InstanceCreationType.PerCall)]
     internal sealed class ControllerSincronizacao
     {
-        [UriFormat("/Sincronizar/{senha}")]
-        public IGetResponse Sincronizar(int senha, [FromContent] ConjuntoBanco pacote)
+        [UriFormat("/Sincronizar/{senha}/{minimo}")]
+        public IGetResponse Sincronizar(int senha, long minimo, [FromContent] ConjuntoBanco pacote)
         {
             if (senha != ConfiguracoesSincronizacao.SenhaPermanente)
                 throw new SenhaErrada(senha);
@@ -19,7 +20,7 @@ namespace NFeFacil.Sincronizacao.Servidor
             {
                 pacote.AnalisarESalvar();
 
-                var retorno = new ConjuntoBanco(pacote);
+                var retorno = new ConjuntoBanco(pacote, DateTime.FromBinary(minimo));
                 return new GetResponse(GetResponse.ResponseStatus.OK, retorno);
             }
             catch (Exception e)

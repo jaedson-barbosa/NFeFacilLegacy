@@ -2,12 +2,11 @@
 using NFeFacil.ItensBD;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 
 namespace NFeFacil.Sincronizacao.Pacotes
 {
-    public sealed class ConjuntoBanco
+    public struct ConjuntoBanco
     {
         public List<ClienteDI> Clientes { get; set; }
         public List<EmitenteDI> Emitentes { get; set; }
@@ -22,28 +21,9 @@ namespace NFeFacil.Sincronizacao.Pacotes
         public List<CancelamentoRegistroVenda> CancelamentosRegistroVenda { get; set; }
         public List<Imagem> Imagens { get; set; }
 
-        public ConjuntoBanco()
-        {
-            using (var db = new AplicativoContext())
-            {
-                Clientes = db.Clientes.ToList();
-                Emitentes = db.Emitentes.ToList();
-                Motoristas = db.Motoristas.ToList();
-                Vendedores = db.Vendedores.ToList();
-                Produtos = db.Produtos.ToList();
-                Estoque = db.Estoque.Include(x => x.Alteracoes).ToList();
-                Veiculos = db.Veiculos.ToList();
-                NotasFiscais = db.NotasFiscais.ToList();
-                Vendas = db.Vendas.Include(x => x.Produtos).ToList();
-                Cancelamentos = db.Cancelamentos.ToList();
-                CancelamentosRegistroVenda = db.CancelamentosRegistroVenda.ToList();
-                Imagens = db.Imagens.ToList();
-            }
-        }
-
         public ConjuntoBanco(DateTime minimo)
         {
-            if (minimo.Ticks > 10) minimo = minimo.AddSeconds(-10);
+            if (minimo.Ticks > 10) minimo = minimo.AddSeconds(2.5);
 
             using (var db = new AplicativoContext())
             {
@@ -62,38 +42,44 @@ namespace NFeFacil.Sincronizacao.Pacotes
             }
         }
 
-        public ConjuntoBanco(ConjuntoBanco existente)
+        public ConjuntoBanco(ConjuntoBanco existente, DateTime minimo)
         {
             using (var db = new AplicativoContext())
             {
                 Clientes = (from local in db.Clientes
                             let servidor = existente.Clientes.FirstOrDefault(x => x.Id == local.Id)
-                            where servidor == null || servidor.UltimaData < local.UltimaData
+                            let dataLocal = local.UltimaData.AddSeconds(-2.5)
+                            where (servidor == null && dataLocal > minimo) || (servidor != null && dataLocal > servidor.UltimaData)
                             select local).ToList();
 
                 Emitentes = (from local in db.Emitentes
                              let servidor = existente.Emitentes.FirstOrDefault(x => x.Id == local.Id)
-                             where servidor == null || servidor.UltimaData < local.UltimaData
+                             let dataLocal = local.UltimaData.AddSeconds(-2.5)
+                             where (servidor == null && dataLocal > minimo) || (servidor != null && local.UltimaData.AddSeconds(-2.5) > servidor.UltimaData)
                              select local).ToList();
 
                 Motoristas = (from local in db.Motoristas
                               let servidor = existente.Motoristas.FirstOrDefault(x => x.Id == local.Id)
-                              where servidor == null || servidor.UltimaData < local.UltimaData
+                              let dataLocal = local.UltimaData.AddSeconds(-2.5)
+                              where (servidor == null && dataLocal > minimo) || (servidor != null && local.UltimaData.AddSeconds(-2.5) > servidor.UltimaData)
                               select local).ToList();
 
                 Vendedores = (from local in db.Vendedores
                               let servidor = existente.Vendedores.FirstOrDefault(x => x.Id == local.Id)
-                              where servidor == null || servidor.UltimaData < local.UltimaData
+                              let dataLocal = local.UltimaData.AddSeconds(-2.5)
+                              where (servidor == null && dataLocal > minimo) || (servidor != null && local.UltimaData.AddSeconds(-2.5) > servidor.UltimaData)
                               select local).ToList();
 
                 Produtos = (from local in db.Produtos
                             let servidor = existente.Produtos.FirstOrDefault(x => x.Id == local.Id)
-                            where servidor == null || servidor.UltimaData < local.UltimaData
+                            let dataLocal = local.UltimaData.AddSeconds(-2.5)
+                            where (servidor == null && dataLocal > minimo) || (servidor != null && local.UltimaData.AddSeconds(-2.5) > servidor.UltimaData)
                             select local).ToList();
 
                 Estoque = (from local in db.Estoque.Include(x => x.Alteracoes)
                            let servidor = existente.Estoque.FirstOrDefault(x => x.Id == local.Id)
-                           where servidor == null || servidor.UltimaData < local.UltimaData
+                           let dataLocal = local.UltimaData.AddSeconds(-2.5)
+                           where (servidor == null && dataLocal > minimo) || (servidor != null && local.UltimaData.AddSeconds(-2.5) > servidor.UltimaData)
                            select local).ToList();
 
                 Veiculos = (from local in db.Veiculos
@@ -103,12 +89,14 @@ namespace NFeFacil.Sincronizacao.Pacotes
 
                 NotasFiscais = (from local in db.NotasFiscais
                                 let servidor = existente.NotasFiscais.FirstOrDefault(x => x.Id == local.Id)
-                                where servidor == null || servidor.UltimaData < local.UltimaData
+                                let dataLocal = local.UltimaData.AddSeconds(-2.5)
+                                where (servidor == null && dataLocal > minimo) || (servidor != null && local.UltimaData.AddSeconds(-2.5) > servidor.UltimaData)
                                 select local).ToList();
 
                 Vendas = (from local in db.Vendas.Include(x => x.Produtos)
                           let servidor = existente.Vendas.FirstOrDefault(x => x.Id == local.Id)
-                          where servidor == null || servidor.UltimaData < local.UltimaData
+                          let dataLocal = local.UltimaData.AddSeconds(-2.5)
+                          where (servidor == null && dataLocal > minimo) || (servidor != null && local.UltimaData.AddSeconds(-2.5) > servidor.UltimaData)
                           select local).ToList();
 
                 Cancelamentos = (from local in db.Cancelamentos
@@ -121,7 +109,8 @@ namespace NFeFacil.Sincronizacao.Pacotes
 
                 Imagens = (from local in db.Imagens
                            let servidor = existente.Imagens.FirstOrDefault(x => x.Id == local.Id)
-                           where servidor == null || servidor.UltimaData < local.UltimaData
+                           let dataLocal = local.UltimaData.AddSeconds(-2.5)
+                           where (servidor == null && dataLocal > minimo) || (servidor != null && local.UltimaData.AddSeconds(-2.5) > servidor.UltimaData)
                            select local).ToList();
             }
         }
@@ -360,6 +349,25 @@ namespace NFeFacil.Sincronizacao.Pacotes
                 }
 
                 db.SaveChanges();
+            }
+        }
+
+        public void AtualizarPadrao()
+        {
+            using (var db = new AplicativoContext())
+            {
+                Clientes = db.Clientes.ToList();
+                Emitentes = db.Emitentes.ToList();
+                Motoristas = db.Motoristas.ToList();
+                Vendedores = db.Vendedores.ToList();
+                Produtos = db.Produtos.ToList();
+                Estoque = db.Estoque.Include(x => x.Alteracoes).ToList();
+                Veiculos = db.Veiculos.ToList();
+                NotasFiscais = db.NotasFiscais.ToList();
+                Vendas = db.Vendas.Include(x => x.Produtos).ToList();
+                Cancelamentos = db.Cancelamentos.ToList();
+                CancelamentosRegistroVenda = db.CancelamentosRegistroVenda.ToList();
+                Imagens = db.Imagens.ToList();
             }
         }
     }

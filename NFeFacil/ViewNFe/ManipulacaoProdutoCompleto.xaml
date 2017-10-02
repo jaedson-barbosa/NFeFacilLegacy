@@ -97,30 +97,14 @@
                              Header="Nº de controle da FCI" />
                 </ItemsControl>
             </ScrollViewer>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <TextBlock Text="Valor total dos tributos"
-                           VerticalAlignment="Center" />
-                <TextBox Text="{Binding ProdutoCompleto.Impostos.vTotTrib, Mode=TwoWay}"
-                         InputScope="Number"
-                         Grid.Column="1" />
-                <RadioButton GroupName="TipoImposto"
-                             Content="ICMS"
-                             Grid.Row="1"
-                             IsChecked="{Binding TipoICMSSelecionado, Mode=TwoWay}" />
-                <RadioButton Content="ISSQN"
-                             GroupName="TipoImposto"
-                             Grid.Row="1"
-                             Grid.Column="1" />
-            </Grid>
+            <StackPanel DataContext="{Binding ContextoImpostoDevol}">
+                <TextBox Header="Percentual da mercadoria devolvida *"
+                         Text="{Binding pDevol, Mode=TwoWay}"
+                         InputScope="Number" />
+                <TextBox Header="Valor do IPI devolvido *"
+                         Text="{Binding IPI.vIPIDevol, Mode=TwoWay}"
+                         InputScope="Number" />
+            </StackPanel>
             <TextBox Text="{Binding ProdutoCompleto.InfAdProd, Mode=TwoWay}"
                      TextWrapping="Wrap" />
             <ListView ItemContainerStyle="{StaticResource ItemFullWidth}"

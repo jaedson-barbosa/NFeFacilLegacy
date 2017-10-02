@@ -1,9 +1,9 @@
 ﻿using System.Xml.Serialization;
 
-namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos
+namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto
 {
     [XmlRoot("impostoDevol")]
-    public class ImpostoDevol : Imposto
+    public class ImpostoDevol
     {
         [XmlElement(Order = 0)]
         public string pDevol { get; set; }

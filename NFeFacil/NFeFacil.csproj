@@ -201,9 +201,6 @@
     <Compile Include="ViewNFe\CaixasImpostos\AdicionarII.xaml.cs">
       <DependentUpon>AdicionarII.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\CaixasImpostos\AdicionarIPIDevolvido.xaml.cs">
-      <DependentUpon>AdicionarIPIDevolvido.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ViewNFe\CaixasImpostos\AdicionarIPISimples.xaml.cs">
       <DependentUpon>AdicionarIPISimples.xaml</DependentUpon>
     </Compile>
@@ -239,6 +236,12 @@
     </Compile>
     <Compile Include="ViewNFe\CaixasImpostos\EscolherTipoICMS.xaml.cs">
       <DependentUpon>EscolherTipoICMS.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\EscolhaImposto.xaml.cs">
+      <DependentUpon>EscolhaImposto.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\ImpostosProduto.xaml.cs">
+      <DependentUpon>ImpostosProduto.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewNFe\VisualizacaoNFe.xaml.cs">
       <DependentUpon>VisualizacaoNFe.xaml</DependentUpon>
@@ -644,10 +647,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\CaixasImpostos\AdicionarIPIDevolvido.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="ViewNFe\CaixasImpostos\AdicionarIPISimples.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -693,6 +692,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ViewNFe\CaixasImpostos\EscolherTipoICMS.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\EscolhaImposto.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\ImpostosProduto.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

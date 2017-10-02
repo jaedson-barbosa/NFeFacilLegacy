@@ -15,11 +15,14 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
         [XmlElement("imposto", Order = 1)]
         public Impostos Impostos { get; set; } = new Impostos();
 
+        [XmlElement("impostoDevol", Order = 2), DescricaoPropriedade("Imposto devolvido")]
+        public ImpostoDevol ImpostoDevol { get; set; }
+
         /// <summary>
         /// (Opcional)
         /// Informações Adicionais do DadosProduto.
         /// </summary>
-        [XmlElement("infAdProd", Order = 2), DescricaoPropriedade("Informações adicionais")]
+        [XmlElement("infAdProd", Order = 3), DescricaoPropriedade("Informações adicionais")]
         public string InfAdProd { get; set; }
     }
 }

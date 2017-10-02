@@ -20,10 +20,13 @@ namespace NFeFacil.ViewNFe.CaixasImpostos
         };
         ObservableCollection<Municipio> MunicipiosISSQN { get; } = new ObservableCollection<Municipio>();
 
+        Estado ufissqn;
         Estado UFISSQN
         {
+            get => ufissqn;
             set
             {
+                ufissqn = value;
                 MunicipiosISSQN.Clear();
                 foreach (var item in Municipios.Get(value))
                 {

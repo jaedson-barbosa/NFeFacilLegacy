@@ -47,23 +47,23 @@ namespace NFeFacil.ViewNFe
             get
             {
                 var lista = new List<Imposto>();
-                for (int i = 0; i < pvtImpostos.Items.Count; i++)
-                {
-                    var filho = (pvtImpostos.Items[i] as PivotItem).Content as FrameworkElement;
-                    var contexto = filho.DataContext;
-                    if (contexto is Imposto imposto)
-                    {
-                        lista.Add(imposto);
-                    }
-                    else if (contexto is IImpostoDataContext impostoContexto)
-                    {
-                        lista.Add(impostoContexto.ImpostoBruto);
-                    }
-                    else if (contexto is IImpostosUnidos impostos)
-                    {
-                        lista.AddRange(impostos.SepararImpostos());
-                    }
-                }
+                //for (int i = 0; i < pvtImpostos.Items.Count; i++)
+                //{
+                //    var filho = (pvtImpostos.Items[i] as PivotItem).Content as FrameworkElement;
+                //    var contexto = filho.DataContext;
+                //    if (contexto is Imposto imposto)
+                //    {
+                //        lista.Add(imposto);
+                //    }
+                //    else if (contexto is IImpostoDataContext impostoContexto)
+                //    {
+                //        lista.Add(impostoContexto.ImpostoBruto);
+                //    }
+                //    else if (contexto is IImpostosUnidos impostos)
+                //    {
+                //        lista.AddRange(impostos.SepararImpostos());
+                //    }
+                //}
                 return new Impostos(from i in lista
                                     where i != null && i.IsValido
                                     select i);

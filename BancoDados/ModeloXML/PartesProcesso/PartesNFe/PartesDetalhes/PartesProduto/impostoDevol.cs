@@ -24,8 +24,6 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
             }
         }
 
-        public override bool IsValido => NaoNulos(pDevol, ipi);
-
         public class IPIDevolvido
         {
             [XmlElement(Order = 0), DescricaoPropriedade("Valor do IPI devolvido")]

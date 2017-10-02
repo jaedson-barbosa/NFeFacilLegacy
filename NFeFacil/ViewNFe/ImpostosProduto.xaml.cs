@@ -36,16 +36,19 @@ namespace NFeFacil.ViewNFe
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            base.OnNavigatedTo(e);
             ProdutoCompleto = (DetalhesProdutos)e.Parameter;
-
             Frame.BackStack.RemoveAt(Frame.BackStack.Count - 1);
+            MainPage.Current.SeAtualizar("\uE825", "Impostos");
+            DefinirImpostosAdicionaveis();
+        }
 
+        async void DefinirImpostosAdicionaveis()
+        {
             var caixa = new MessageDialog("Qual o tipo de imposto que é usado neste dado?", "Entrada");
             caixa.Commands.Add(new UICommand("ICMS"));
             caixa.Commands.Add(new UICommand("ISSQN"));
-            var task = caixa.ShowAsync();
-            var resultado = task.GetResults();
-            if (resultado.Label == "ICMS")
+            if ((await caixa.ShowAsync()).Label == "ICMS")
             {
                 ImpostosAdicionaveis = new List<PrincipaisImpostos>
                 {

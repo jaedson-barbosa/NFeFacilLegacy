@@ -6,12 +6,17 @@
       xmlns:controles="using:NFeFacil.View.Controles"
       mc:Ignorable="d">
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
         <controles:EntradaRestrita Text="{x:Bind ValorTotalTributos, Mode=TwoWay}"
                                    Header="Valor total dos tributos"
                                    Pattern="[^\d.,]"
                                    InputScope="Number"
                                    Grid.Column="1" />
-        <ListView ItemsSource="{x:Bind ImpostosAdicionados}"
+        <ListView Grid.Row="1"
+                  ItemsSource="{x:Bind ImpostosAdicionados}"
                   ItemContainerStyle="{StaticResource ItemFullWidth}">
             <ListView.Header>
                 <Grid Style="{StaticResource Cabecalho}">

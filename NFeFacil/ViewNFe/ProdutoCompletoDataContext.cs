@@ -12,6 +12,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil.ViewNFe
@@ -1103,6 +1104,30 @@ namespace NFeFacil.ViewNFe
                             };
                         }
                     }
+                }
+            }
+            return null;
+        }
+
+        async Task<ISSQN> AdicionarISSQN()
+        {
+            var caixa = new MessageDialog("Qual o tipo de ISSQN desejado?", "Entrada");
+            caixa.Commands.Add(new UICommand("Nacional"));
+            caixa.Commands.Add(new UICommand("Exterior"));
+            if ((await caixa.ShowAsync()).Label == "Exterior")
+            {
+                var caixa2 = new AdicionarISSQNExterior();
+                if (await caixa2.ShowAsync() == ContentDialogResult.Primary)
+                {
+                    return caixa2.Imposto;
+                }
+            }
+            else
+            {
+                var caixa2 = new AdicionarISSQNNacional();
+                if (await caixa2.ShowAsync() == ContentDialogResult.Primary)
+                {
+                    return caixa2.Imposto;
                 }
             }
             return null;

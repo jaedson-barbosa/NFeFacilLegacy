@@ -204,6 +204,12 @@
     <Compile Include="ViewNFe\CaixasImpostos\AdicionarIPIValor.xaml.cs">
       <DependentUpon>AdicionarIPIValor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewNFe\CaixasImpostos\AdicionarISSQNExterior.xaml.cs">
+      <DependentUpon>AdicionarISSQNExterior.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\CaixasImpostos\AdicionarISSQNNacional.xaml.cs">
+      <DependentUpon>AdicionarISSQNNacional.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewNFe\CaixasImpostos\EscolherTipoIPI.xaml.cs">
       <DependentUpon>EscolherTipoIPI.xaml</DependentUpon>
     </Compile>
@@ -630,6 +636,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ViewNFe\CaixasImpostos\AdicionarIPIValor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\CaixasImpostos\AdicionarISSQNExterior.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\CaixasImpostos\AdicionarISSQNNacional.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

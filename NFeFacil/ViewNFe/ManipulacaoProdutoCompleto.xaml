@@ -123,17 +123,6 @@
                 <Pivot Grid.Row="2"
                        x:Name="pvtImpostos"
                        Grid.ColumnSpan="2">
-                    <PivotItem Header="IPI Devolvido">
-                        <ItemsControl DataContext="{Binding ContextoImpostoDevol}"
-                                      Style="{StaticResource ItensResponsivos}">
-                            <TextBox Header="Percentual da mercadoria devolvida *"
-                                     Text="{Binding pDevol, Mode=TwoWay}"
-                                     InputScope="Number" />
-                            <TextBox Header="Valor do IPI devolvido *"
-                                     Text="{Binding IPI.vIPIDevol, Mode=TwoWay}"
-                                     InputScope="Number" />
-                        </ItemsControl>
-                    </PivotItem>
                     <PivotItem IsEnabled="{Binding AtivadopvtICMSInterestadual}"
                                Header="ICMS de destino">
                         <ScrollViewer DataContext="{Binding ContextoIcmsUFDest}">

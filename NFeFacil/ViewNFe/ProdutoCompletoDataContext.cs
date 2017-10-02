@@ -1143,6 +1143,16 @@ namespace NFeFacil.ViewNFe
             return null;
         }
 
+        async Task<ImpostoDevol> AdicionarImpostoDevolvido()
+        {
+            var caixa = new AdicionarIPIDevolvido();
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+            {
+                return caixa.Imposto;
+            }
+            return null;
+        }
+
         public enum TiposEspeciaisProduto
         {
             Simples,

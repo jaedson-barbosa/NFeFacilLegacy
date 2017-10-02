@@ -1,0 +1,18 @@
+﻿<ContentDialog x:Class="NFeFacil.ViewNFe.CaixasImpostos.AdicionarIPIDevolvido"
+               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+               mc:Ignorable="d"
+               Title="Adicionar IPI devolvido"
+               PrimaryButtonText="Adicionar"
+               SecondaryButtonText="Cancelar">
+    <ItemsControl Style="{StaticResource ItensResponsivos}">
+        <TextBox Header="Percentual da mercadoria devolvida *"
+                 Text="{x:Bind Imposto.pDevol, Mode=TwoWay}"
+                 InputScope="Number" />
+        <TextBox Header="Valor do IPI devolvido *"
+                 Text="{x:Bind Imposto.IPI.vIPIDevol, Mode=TwoWay}"
+                 InputScope="Number" />
+    </ItemsControl>
+</ContentDialog>

@@ -42,34 +42,6 @@ namespace NFeFacil.ViewNFe
             }
         }
 
-        private Impostos ImpostosFiltrados
-        {
-            get
-            {
-                var lista = new List<Imposto>();
-                //for (int i = 0; i < pvtImpostos.Items.Count; i++)
-                //{
-                //    var filho = (pvtImpostos.Items[i] as PivotItem).Content as FrameworkElement;
-                //    var contexto = filho.DataContext;
-                //    if (contexto is Imposto imposto)
-                //    {
-                //        lista.Add(imposto);
-                //    }
-                //    else if (contexto is IImpostoDataContext impostoContexto)
-                //    {
-                //        lista.Add(impostoContexto.ImpostoBruto);
-                //    }
-                //    else if (contexto is IImpostosUnidos impostos)
-                //    {
-                //        lista.AddRange(impostos.SepararImpostos());
-                //    }
-                //}
-                return new Impostos(from i in lista
-                                    where i != null && i.IsValido
-                                    select i);
-            }
-        }
-
         public IEnumerable ConteudoMenu
         {
             get
@@ -77,7 +49,7 @@ namespace NFeFacil.ViewNFe
                 var retorno = new ObservableCollection<ItemHambuguer>
                 {
                     new ItemHambuguer(Symbol.Tag, "Dados"),
-                    new ItemHambuguer("\uE825", "Tributos"),
+                    new ItemHambuguer("\uE825", "Imposto devolvido"),
                     new ItemHambuguer(Symbol.Comment, "Info adicional"),
                     new ItemHambuguer(Symbol.World, "Importação"),
                     new ItemHambuguer(Symbol.World, "Exportação"),
@@ -93,25 +65,13 @@ namespace NFeFacil.ViewNFe
 
         private void Concluir_Click(object sender, RoutedEventArgs e)
         {
-            var parametro = Frame.BackStack[Frame.BackStack.Count - 1].Parameter as NFe;
-            var info = parametro.Informacoes;
-
             var data = DataContext as ProdutoCompletoDataContext;
-            data.ProdutoCompleto.Impostos = ImpostosFiltrados;
-
-            var detalhes = data.ProdutoCompleto;
-            if (detalhes.Número == 0)
+            var porcentDevolv = data.ProdutoCompleto.ImpostoDevol.pDevol;
+            if (string.IsNullOrEmpty(porcentDevolv) || int.Parse(porcentDevolv) == 0)
             {
-                detalhes.Número = info.produtos.Count + 1;
-                info.produtos.Add(detalhes);
+                data.ProdutoCompleto.ImpostoDevol = null;
             }
-            else
-            {
-                info.produtos[detalhes.Número - 1] = detalhes;
-            }
-            info.total = new Total(info.produtos);
-
-            MainPage.Current.Retornar();
+            MainPage.Current.Navegar<ImpostosProduto>(data.ProdutoCompleto);
         }
 
         private void Cancelar_Click(object sender, RoutedEventArgs e)

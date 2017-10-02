@@ -426,9 +426,15 @@ namespace NFeFacil.ViewNFe
             MainPage.Current.Navegar<ManipulacaoProdutoCompleto>(detCompleto);
         }
 
-        void EditarProduto(DetalhesProdutos produto)
+        async void EditarProduto(DetalhesProdutos produto)
         {
-            MainPage.Current.Navegar<ManipulacaoProdutoCompleto>(produto);
+            var caixa = new MessageDialog("A edição de um produto causa a perda de todos os impostos cadastrados atualmente neste produto, tem certeza que quer continuar?", "Atenção");
+            caixa.Commands.Add(new UICommand("Sim"));
+            caixa.Commands.Add(new UICommand("Não"));
+            if ((await caixa.ShowAsync()).Label == "Sim")
+            {
+                MainPage.Current.Navegar<ManipulacaoProdutoCompleto>(produto);
+            }
         }
 
         void RemoverProduto(DetalhesProdutos produto)
@@ -445,7 +451,7 @@ namespace NFeFacil.ViewNFe
 
         async void AdicionarNFeReferenciada()
         {
-            var caixa = new CaixasDialogoNFe.AdicionarReferenciaEletronica();
+            var caixa = new AdicionarReferenciaEletronica();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
                 var novo = new DocumentoFiscalReferenciado
@@ -459,7 +465,7 @@ namespace NFeFacil.ViewNFe
 
         async void AdicionarNFReferenciada()
         {
-            var caixa = new CaixasDialogoNFe.AdicionarNF1AReferenciada();
+            var caixa = new AdicionarNF1AReferenciada();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
                 var contexto = (NF1AReferenciada)caixa.DataContext;
@@ -487,7 +493,7 @@ namespace NFeFacil.ViewNFe
 
         async void AdicionarReboque()
         {
-            var add = new CaixasDialogoNFe.AdicionarReboque();
+            var add = new AdicionarReboque();
             if (await add.ShowAsync() == ContentDialogResult.Primary)
             {
                 var novo = add.DataContext as Reboque;
@@ -504,7 +510,7 @@ namespace NFeFacil.ViewNFe
 
         async void AdicionarVolume()
         {
-            var add = new CaixasDialogoNFe.AdicionarVolume();
+            var add = new AdicionarVolume();
             if (await add.ShowAsync() == ContentDialogResult.Primary)
             {
                 var novo = add.DataContext as Volume;
@@ -521,7 +527,7 @@ namespace NFeFacil.ViewNFe
 
         async void AdicionarDuplicata()
         {
-            var caixa = new CaixasDialogoNFe.AdicionarDuplicata();
+            var caixa = new AdicionarDuplicata();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
                 var novo = caixa.DataContext as Duplicata;
@@ -538,7 +544,7 @@ namespace NFeFacil.ViewNFe
 
         async void AdicionarFornecimento()
         {
-            var caixa = new CaixasDialogoNFe.AdicionarFornecimentoDiario();
+            var caixa = new AdicionarFornecimentoDiario();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
                 var novo = caixa.DataContext as FornecimentoDiario;
@@ -555,7 +561,7 @@ namespace NFeFacil.ViewNFe
 
         async void AdicionarDeducao()
         {
-            var caixa = new CaixasDialogoNFe.AdicionarDeducao();
+            var caixa = new AdicionarDeducao();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
                 var novo = caixa.DataContext as Deducoes;
@@ -572,7 +578,7 @@ namespace NFeFacil.ViewNFe
 
         async void AdicionarObsContribuinte()
         {
-            var caixa = new CaixasDialogoNFe.AdicionarObservacaoContribuinte();
+            var caixa = new AdicionarObservacaoContribuinte();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
                 var novo = (Observacao)caixa.DataContext;
@@ -589,7 +595,7 @@ namespace NFeFacil.ViewNFe
 
         async void AdicionarProcReferenciado()
         {
-            var caixa = new CaixasDialogoNFe.AdicionarProcessoReferenciado();
+            var caixa = new AdicionarProcessoReferenciado();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
                 var novo = caixa.Item;

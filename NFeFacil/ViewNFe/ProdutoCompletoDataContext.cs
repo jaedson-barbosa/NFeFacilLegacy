@@ -1,18 +1,12 @@
 ﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
 using NFeFacil.ViewModel;
-using NFeFacil.ViewModel.ImpostosProduto;
-using NFeFacil.ViewNFe.CaixasImpostos;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Globalization;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil.ViewNFe
@@ -32,23 +26,6 @@ namespace NFeFacil.ViewNFe
 
         public ObservableCollection<DeclaracaoImportacao> ListaDI => ProdutoCompleto.Produto.DI.GerarObs();
         public ObservableCollection<GrupoExportacao> ListaGE => ProdutoCompleto.Produto.GrupoExportação.GerarObs();
-
-        public bool AtivadopvtICMS { get; private set; } = true;
-        public bool AtivadopvtISSQN { get; private set; } = false;
-        public bool AtivadopvtICMSInterestadual { get; private set; } = true;
-
-        private bool tipoICMSSelecionado = true;
-        public bool TipoICMSSelecionado
-        {
-            get => tipoICMSSelecionado;
-            set
-            {
-                tipoICMSSelecionado = value;
-                AtivadopvtICMS = AtivadopvtICMSInterestadual = value;
-                AtivadopvtISSQN = !value;
-                OnPropertyChanged(nameof(AtivadopvtICMS), nameof(AtivadopvtICMSInterestadual), nameof(AtivadopvtISSQN));
-            }
-        }
 
         public VeiculoNovo Veiculo
         {
@@ -121,87 +98,6 @@ namespace NFeFacil.ViewNFe
             get { return ProdutoCompleto.Produto.armas.GerarObs(); }
         }
 
-        ICMSDataContext contextoICMS;
-        public ICMSDataContext ContextoICMS
-        {
-            get
-            {
-                if (contextoICMS == null)
-                {
-                    contextoICMS = new ICMSDataContext();
-                }
-                return contextoICMS;
-            }
-        }
-
-        PISDataContext contextoPIS;
-        public PISDataContext ContextoPIS
-        {
-            get
-            {
-                if (contextoPIS == null)
-                {
-                    contextoPIS = new PISDataContext();
-                }
-                contextoPIS.ProdutoReferente = ProdutoCompleto.Produto;
-                return contextoPIS;
-            }
-        }
-
-        COFINSDataContext contextoCOFINS;
-        public COFINSDataContext ContextoCOFINS
-        {
-            get
-            {
-                if (contextoCOFINS == null)
-                {
-                    contextoCOFINS = new COFINSDataContext();
-                }
-                contextoCOFINS.ProdutoReferente = ProdutoCompleto.Produto;
-                return contextoCOFINS;
-            }
-        }
-
-        IPIDataContext contextoIPI;
-        public IPIDataContext ContextoIPI
-        {
-            get
-            {
-                if (contextoIPI == null)
-                {
-                    contextoIPI = new IPIDataContext();
-                }
-                contextoIPI.ProdutoReferente = ProdutoCompleto.Produto;
-                return contextoIPI;
-            }
-        }
-
-        ISSQNDataContext contextoISSQN;
-        public ISSQNDataContext ContextoISSQN
-        {
-            get
-            {
-                if (contextoISSQN == null)
-                {
-                    contextoISSQN = new ISSQNDataContext();
-                }
-                return contextoISSQN;
-            }
-        }
-
-        II contextoII;
-        public II ContextoII
-        {
-            get
-            {
-                if (contextoII == null)
-                {
-                    contextoII = new II();
-                }
-                return contextoII;
-            }
-        }
-
         public ImpostoDevol ContextoImpostoDevol
         {
             get
@@ -214,75 +110,9 @@ namespace NFeFacil.ViewNFe
             }
         }
 
-        ICMSUFDest contextoIcmsUFDest;
-        public ICMSUFDest ContextoIcmsUFDest
-        {
-            get
-            {
-                if (contextoIcmsUFDest == null)
-                {
-                    contextoIcmsUFDest = new ICMSUFDest();
-                }
-                return contextoIcmsUFDest;
-            }
-        }
-
         public ProdutoCompletoDataContext(DetalhesProdutos produtoCompleto)
         {
             ProdutoCompleto = produtoCompleto;
-            ProdutoCompleto.Produto.DadoImpostoChanged += (x, y) =>
-            {
-                OnPropertyChanged(nameof(ContextoPIS), nameof(ContextoCOFINS), nameof(ContextoIPI));
-            };
-            var imps = produtoCompleto.Impostos.impostos;
-            ConjuntoPIS conjPis = new ConjuntoPIS();
-            ConjuntoCOFINS conjCofins = new ConjuntoCOFINS();
-            for (int i = 0; i < imps.Count; i++)
-            {
-                var imp = imps[i];
-                if (imp is ICMS icms)
-                {
-                    contextoICMS = new ICMSDataContext(icms);
-                }
-                else if (imp is PIS pis)
-                {
-                    conjPis.PIS = pis;
-                }
-                else if (imp is PISST pisst)
-                {
-                    conjPis.PISST = pisst;
-                }
-                else if (imp is COFINS cofins)
-                {
-                    conjCofins.COFINS = cofins;
-                }
-                else if (imp is COFINSST cofinsst)
-                {
-                    conjCofins.COFINSST = cofinsst;
-                }
-                else if (imp is IPI ipi)
-                {
-                    contextoIPI = new IPIDataContext(ipi, ProdutoCompleto.Produto);
-                }
-                else if (imp is ISSQN issqn)
-                {
-                    contextoISSQN = new ISSQNDataContext(issqn);
-                }
-                else if (imp is II ii)
-                {
-                    contextoII = ii;
-                }
-                else if (imp is ICMSUFDest dest)
-                {
-                    contextoIcmsUFDest = dest;
-                }
-                else
-                {
-                    throw new InvalidOperationException("O formato do imposto não é reconhecido.");
-                }
-            }
-            contextoPIS = new PISDataContext(conjPis, ProdutoCompleto.Produto);
-            contextoCOFINS = new COFINSDataContext(conjCofins, ProdutoCompleto.Produto);
 
             AdicionarDeclaracaoImportacaoCommand = new Comando(AdicionarDeclaracaoImportacao);
             AdicionarDeclaracaoExportacaoCommand = new Comando(AdicionarDeclaracaoExportacao);

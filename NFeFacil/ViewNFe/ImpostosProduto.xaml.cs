@@ -1,4 +1,5 @@
-﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
+﻿using NFeFacil.ModeloXML.PartesProcesso;
+using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
 using NFeFacil.ViewModel.ImpostosProduto;
@@ -36,6 +37,9 @@ namespace NFeFacil.ViewNFe
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             ProdutoCompleto = (DetalhesProdutos)e.Parameter;
+
+            Frame.BackStack.RemoveAt(Frame.BackStack.Count - 1);
+
             var caixa = new MessageDialog("Qual o tipo de imposto que é usado neste dado?", "Entrada");
             caixa.Commands.Add(new UICommand("ICMS"));
             caixa.Commands.Add(new UICommand("ISSQN"));
@@ -71,63 +75,76 @@ namespace NFeFacil.ViewNFe
             var caixa = new EscolhaImposto(ImpostosAdicionaveis);
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
-                var impostos = ProdutoCompleto.Impostos.impostos;
+                List<VisualizacaoImposto> adicionar = new List<VisualizacaoImposto>();
                 switch (caixa.Escolhido)
                 {
                     case PrincipaisImpostos.ICMS:
                         var icms = await AdicionarICMS();
                         if (icms != null)
                         {
-                            impostos.Add(new ICMS
+                            var completo = new ICMS
                             {
                                 Corpo = icms
-                            });
+                            };
+                            adicionar.Add(new VisualizacaoImposto(completo));
+                            
                         }
                         break;
                     case PrincipaisImpostos.IPI:
                         var ipi = await AdicionarIPI();
                         if (ipi != null)
                         {
-                            impostos.Add(ipi);
+                            adicionar.Add(new VisualizacaoImposto(ipi));
                         }
                         break;
                     case PrincipaisImpostos.II:
                         var ii = await AdicionarII();
                         if (ii != null)
                         {
-                            impostos.Add(ii);
+                            adicionar.Add(new VisualizacaoImposto(ii));
                         }
                         break;
                     case PrincipaisImpostos.ISSQN:
                         var issqn = await AdicionarISSQN();
                         if (issqn != null)
                         {
-                            impostos.Add(issqn);
+                            adicionar.Add(new VisualizacaoImposto(issqn));
                         }
                         break;
                     case PrincipaisImpostos.PIS:
                         var pis = await AdicionarPIS();
                         if (pis != null)
                         {
-                            impostos.AddRange(pis);
+                            for (int i = 0; i < pis.Length; i++)
+                            {
+                                adicionar.Add(new VisualizacaoImposto(pis[i]));
+                            }
                         }
                         break;
                     case PrincipaisImpostos.COFINS:
                         var cofins = await AdicionarCOFINS();
                         if (cofins != null)
                         {
-                            impostos.AddRange(cofins);
+                            for (int i = 0; i < cofins.Length; i++)
+                            {
+                                adicionar.Add(new VisualizacaoImposto(cofins[i]));
+                            }
                         }
                         break;
                     case PrincipaisImpostos.ICMSUFDest:
                         var icmsufdest = await AdicionarICMSDestino();
                         if (icmsufdest != null)
                         {
-                            impostos.Add(icmsufdest);
+                            adicionar.Add(new VisualizacaoImposto(icmsufdest));
                         }
                         break;
                     default:
                         break;
+                }
+                for (int i = 0; i < adicionar.Count; i++)
+                {
+                    ImpostosAdicionaveis.Remove(adicionar[i].Primitivo);
+                    ImpostosAdicionados.Add(adicionar[i]);
                 }
             }
         }
@@ -890,12 +907,35 @@ namespace NFeFacil.ViewNFe
 
         void Concluir(object sender, RoutedEventArgs e)
         {
+            ProdutoCompleto.Impostos.impostos.Clear();
+            List<VisualizacaoImposto> impostos = new List<VisualizacaoImposto>(ImpostosAdicionados);
+            impostos.Sort((x, y) => x.Primitivo.CompareTo(y.Primitivo));
+            for (int i = 0; i < impostos.Count; i++)
+            {
+                ProdutoCompleto.Impostos.impostos.Add(impostos[i].Oficial);
+            }
 
+            var parametro = Frame.BackStack[Frame.BackStack.Count - 1].Parameter as NFe;
+            var info = parametro.Informacoes;
+
+            var detalhes = ProdutoCompleto;
+            if (detalhes.Número == 0)
+            {
+                detalhes.Número = info.produtos.Count + 1;
+                info.produtos.Add(detalhes);
+            }
+            else
+            {
+                info.produtos[detalhes.Número - 1] = detalhes;
+            }
+            info.total = new Total(info.produtos);
+
+            MainPage.Current.Retornar();
         }
 
         void Cancelar(object sender, RoutedEventArgs e)
         {
-
+            MainPage.Current.Retornar();
         }
 
         struct VisualizacaoImposto

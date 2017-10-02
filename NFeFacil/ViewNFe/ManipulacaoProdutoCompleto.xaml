@@ -123,23 +123,6 @@
                 <Pivot Grid.Row="2"
                        x:Name="pvtImpostos"
                        Grid.ColumnSpan="2">
-                    <PivotItem Header="Imposto de importação">
-                        <ItemsControl DataContext="{Binding ContextoII}"
-                                      Style="{StaticResource ItensResponsivos}">
-                            <TextBox InputScope="Number"
-                                     Header="Valor da base de cálculo *"
-                                     Text="{Binding vBC, Mode=TwoWay}" />
-                            <TextBox InputScope="Number"
-                                     Header="Valor do IOF *"
-                                     Text="{Binding vIOF, Mode=TwoWay}" />
-                            <TextBox InputScope="Number"
-                                     Header="Valor despesas aduaneiras *"
-                                     Text="{Binding vDespAdu, Mode=TwoWay}" />
-                            <TextBox InputScope="Number"
-                                     Header="Valor do imposto *"
-                                     Text="{Binding vII, Mode=TwoWay}" />
-                        </ItemsControl>
-                    </PivotItem>
                     <PivotItem Header="IPI Devolvido">
                         <ItemsControl DataContext="{Binding ContextoImpostoDevol}"
                                       Style="{StaticResource ItensResponsivos}">

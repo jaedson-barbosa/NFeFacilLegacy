@@ -195,6 +195,9 @@
     <Compile Include="ViewNFe\CaixasImpostos\AddPISouCOFINSValor.xaml.cs">
       <DependentUpon>AddPISouCOFINSValor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewNFe\CaixasImpostos\AdicionarII.xaml.cs">
+      <DependentUpon>AdicionarII.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewNFe\CaixasImpostos\AdicionarIPISimples.xaml.cs">
       <DependentUpon>AdicionarIPISimples.xaml</DependentUpon>
     </Compile>
@@ -624,6 +627,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ViewNFe\CaixasImpostos\AddPISouCOFINSValor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\CaixasImpostos\AdicionarII.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

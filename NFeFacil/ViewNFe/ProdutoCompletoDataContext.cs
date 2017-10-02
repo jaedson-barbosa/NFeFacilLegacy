@@ -1133,6 +1133,16 @@ namespace NFeFacil.ViewNFe
             return null;
         }
 
+        async Task<II> AidicionarII()
+        {
+            var caixa = new AdicionarII();
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+            {
+                return caixa.Imposto;
+            }
+            return null;
+        }
+
         public enum TiposEspeciaisProduto
         {
             Simples,

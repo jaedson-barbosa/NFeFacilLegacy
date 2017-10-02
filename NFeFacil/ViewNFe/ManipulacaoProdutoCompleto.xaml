@@ -120,43 +120,6 @@
                              GroupName="TipoImposto"
                              Grid.Row="1"
                              Grid.Column="1" />
-                <Pivot Grid.Row="2"
-                       x:Name="pvtImpostos"
-                       Grid.ColumnSpan="2">
-                    <PivotItem IsEnabled="{Binding AtivadopvtICMSInterestadual}"
-                               Header="ICMS de destino">
-                        <ScrollViewer DataContext="{Binding ContextoIcmsUFDest}">
-                            <ItemsControl Style="{StaticResource ItensResponsivos}">
-                                <TextBox Header="Percentual ICMS relativo ao FCP na UF de destino"
-                                         Text="{Binding PFCPUFDest, Mode=TwoWay}"
-                                         InputScope="Number" />
-                                <TextBox Header="Valor da base de cálculo na UF do destinatário"
-                                         Text="{Binding VBCUFDest, Mode=TwoWay}"
-                                         InputScope="Number" />
-                                <TextBox Header="Alíquota interna da UF do destinatário"
-                                         Text="{Binding PICMSUFDest, Mode=TwoWay}"
-                                         InputScope="Number" />
-                                <ComboBox Header="Alíquota interestadual"
-                                          SelectedValue="{Binding PICMSInter, Mode=TwoWay}"
-                                          SelectedValuePath="Tag"
-                                          HorizontalAlignment="Stretch">
-                                    <ComboBoxItem Tag="4">4% - Para produtos importados</ComboBoxItem>
-                                    <ComboBoxItem Tag="7">7% - Para os Estados de origem do Sul e Sudeste (exceto ES), destinado para os Estados do Norte, Nordeste, Centro-Oeste e Espírito Santo</ComboBoxItem>
-                                    <ComboBoxItem Tag="12">12% - Para os demais casos</ComboBoxItem>
-                                </ComboBox>
-                                <TextBox Header="Valor ICMS de partilha para UF do destinatário"
-                                         Text="{Binding VICMSUFDest, Mode=TwoWay}"
-                                         InputScope="Number" />
-                                <TextBox Header="Valor ICMS de partilha para UF do remetente"
-                                         Text="{Binding VICMSUFRemet, Mode=TwoWay}"
-                                         InputScope="Number" />
-                                <TextBox Header="Valor ICMS relativo ao FCP da UF de destino"
-                                         Text="{Binding VFCPUFDest, Mode=TwoWay}"
-                                         InputScope="Number" />
-                            </ItemsControl>
-                        </ScrollViewer>
-                    </PivotItem>
-                </Pivot>
             </Grid>
             <TextBox Text="{Binding ProdutoCompleto.InfAdProd, Mode=TwoWay}"
                      TextWrapping="Wrap" />

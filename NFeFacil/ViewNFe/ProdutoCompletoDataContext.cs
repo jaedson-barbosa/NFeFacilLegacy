@@ -1153,6 +1153,16 @@ namespace NFeFacil.ViewNFe
             return null;
         }
 
+        async Task<ICMSUFDest> AdicionarICMSDestino()
+        {
+            var caixa = new AdicionarICMSDestino();
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+            {
+                return caixa.Imposto;
+            }
+            return null;
+        }
+
         public enum TiposEspeciaisProduto
         {
             Simples,

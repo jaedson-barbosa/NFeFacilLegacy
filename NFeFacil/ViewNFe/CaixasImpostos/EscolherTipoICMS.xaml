@@ -17,7 +17,6 @@
         </ComboBox>
         <ComboBox x:Name="cmbTipoICMSSN"
                   SelectedValue="{x:Bind TipoICMSSN, Mode=TwoWay}"
-                  IsEnabled="False"
                   SelectedValuePath="Tag"
                   HorizontalAlignment="Stretch"
                   Header="Situação tributária">

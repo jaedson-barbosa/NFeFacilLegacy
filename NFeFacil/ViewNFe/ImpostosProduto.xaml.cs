@@ -159,12 +159,12 @@ namespace NFeFacil.ViewNFe
             {
                 if (caixa.Regime == EscolherTipoICMS.Regimes.Normal)
                 {
-                    var caixa2 = new AdicionarICMSRN(caixa.TipoICMSRN);
+                    var caixa2 = new AdicionarICMSRN(int.Parse(caixa.TipoICMSRN));
                     if (await caixa2.ShowAsync() == ContentDialogResult.Primary)
                     {
-                        var cst = caixa.TipoICMSRN.ToString("00");
+                        var cst = caixa.TipoICMSRN;
                         var origem = caixa.Origem;
-                        switch (caixa.TipoICMSRN)
+                        switch (int.Parse(caixa.TipoICMSRN))
                         {
                             case 0:
                                 return new ICMS00()
@@ -195,7 +195,7 @@ namespace NFeFacil.ViewNFe
                             case 1010:
                                 return new ICMSPart()
                                 {
-                                    CST = cst,
+                                    CST = "10",
                                     modBC = caixa2.modBC.ToString(),
                                     modBCST = caixa2.modBCST.ToString(),
                                     Orig = origem,
@@ -257,7 +257,7 @@ namespace NFeFacil.ViewNFe
                             case 4141:
                                 return new ICMSST()
                                 {
-                                    CST = cst,
+                                    CST = "41",
                                     Orig = origem,
                                     vBCSTDest = caixa2.vBCSTDest,
                                     vBCSTRet = caixa2.vBCSTRet,
@@ -335,7 +335,7 @@ namespace NFeFacil.ViewNFe
                             case 9090:
                                 return new ICMSPart()
                                 {
-                                    CST = cst,
+                                    CST = "90",
                                     modBC = caixa2.modBC.ToString(),
                                     modBCST = caixa2.modBCST.ToString(),
                                     Orig = origem,
@@ -356,12 +356,12 @@ namespace NFeFacil.ViewNFe
                 }
                 else
                 {
-                    var caixa2 = new AdicionarICMSSN(caixa.TipoICMSSN);
+                    var caixa2 = new AdicionarICMSSN(int.Parse(caixa.TipoICMSSN));
                     if (await caixa2.ShowAsync() == ContentDialogResult.Primary)
                     {
-                        var csosn = caixa.TipoICMSSN.ToString("000");
+                        var csosn = caixa.TipoICMSSN;
                         var origem = caixa.Origem;
-                        switch (caixa.TipoICMSSN)
+                        switch (int.Parse(caixa.TipoICMSSN))
                         {
                             case 101:
                                 return new ICMSSN101()

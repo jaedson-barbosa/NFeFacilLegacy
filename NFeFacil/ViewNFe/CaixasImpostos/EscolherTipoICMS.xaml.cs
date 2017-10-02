@@ -24,8 +24,8 @@ namespace NFeFacil.ViewNFe.CaixasImpostos
         }
 
         public Regimes Regime => (Regimes)RegimeSelecionado;
-        public int TipoICMSSN { get; private set; }
-        public int TipoICMSRN { get; private set; }
+        public string TipoICMSSN { get; private set; }
+        public string TipoICMSRN { get; private set; }
         public int Origem { get; private set; }
 
         public enum Regimes

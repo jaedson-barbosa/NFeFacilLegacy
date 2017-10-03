@@ -170,10 +170,10 @@
       <DependentUpon>GeralEmitente.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\Converters\NumeroString.cs" />
-    <Compile Include="ViewModel\ImpostosProduto\VisibilidadeRegimeNormal.cs" />
-    <Compile Include="ViewModel\ImpostosProduto\VisibilidadeSimplesNacional.cs" />
-    <Compile Include="ViewModel\ImpostosProduto\VisibilidadesRegimeNormal.cs" />
-    <Compile Include="ViewModel\ImpostosProduto\VisibilidadesSimplesNacional.cs" />
+    <Compile Include="ViewNFe\CaixasImpostos\VisibilidadeRegimeNormal.cs" />
+    <Compile Include="ViewNFe\CaixasImpostos\VisibilidadeSimplesNacional.cs" />
+    <Compile Include="ViewNFe\CaixasImpostos\VisibilidadesRegimeNormal.cs" />
+    <Compile Include="ViewNFe\CaixasImpostos\VisibilidadesSimplesNacional.cs" />
     <Compile Include="ViewNFe\CaixasDialogoNFe\EnderecoDiferenteExterior.xaml.cs">
       <DependentUpon>EnderecoDiferenteExterior.xaml</DependentUpon>
     </Compile>
@@ -374,12 +374,7 @@
     <Compile Include="ViewModel\Converters\StringToDateTime.cs" />
     <Compile Include="Login\EmitenteDataContext.cs" />
     <Compile Include="ViewDadosBase\GerenciadorDadosBaseDataContext.cs" />
-    <Compile Include="ViewModel\ImpostosProduto\ConteinerCOFINS.cs" />
-    <Compile Include="ViewModel\ImpostosProduto\ConteinerCOFINSST.cs" />
-    <Compile Include="ViewModel\ImpostosProduto\ConteinerIPI.cs" />
-    <Compile Include="ViewModel\ImpostosProduto\ConteinerPIS.cs" />
-    <Compile Include="ViewModel\ImpostosProduto\ConteinerPISST.cs" />
-    <Compile Include="ViewModel\ImpostosProduto\TiposCalculo.cs" />
+    <Compile Include="ViewNFe\CaixasImpostos\TiposCalculo.cs" />
     <Compile Include="ViewDadosBase\MotoristaDataContext.cs" />
     <Compile Include="ViewNFe\ProdutoCompletoDataContext.cs" />
     <Compile Include="ViewModel\QRCode.cs" />
@@ -463,14 +458,9 @@
     <Compile Include="ViewNFe\NotasSalvas.xaml.cs">
       <DependentUpon>NotasSalvas.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\ImpostosProduto\COFINSDataContext.cs" />
     <Compile Include="ViewModel\Comando.cs" />
     <Compile Include="ViewModel\Converters\BoolToVisibility.cs" />
     <Compile Include="ViewModel\DadosEstadosParaView.cs" />
-    <Compile Include="ViewModel\ImpostosProduto\ICMSDataContext.cs" />
-    <Compile Include="ViewModel\ImpostosProduto\IImpostoDataContext.cs" />
-    <Compile Include="ViewModel\ImpostosProduto\IPIDataContext.cs" />
-    <Compile Include="ViewModel\ImpostosProduto\ISSQNDataContext.cs" />
     <Compile Include="View\Configuracoes.xaml.cs">
       <DependentUpon>Configuracoes.xaml</DependentUpon>
     </Compile>
@@ -483,7 +473,6 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\ImpostosProduto\PISDataContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\RelatorioVendasAnuais.cs" />
     <Compile Include="ViewNFe\CaixasDialogoNFe\AdicionarVolume.xaml.cs">

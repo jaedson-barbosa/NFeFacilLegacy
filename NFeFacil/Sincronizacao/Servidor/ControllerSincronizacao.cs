@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using NFeFacil.Sincronizacao.Pacotes;
+﻿using NFeFacil.Sincronizacao.Pacotes;
 using Restup.Webserver.Attributes;
 using Restup.Webserver.Models.Contracts;
 using Restup.Webserver.Models.Schemas;

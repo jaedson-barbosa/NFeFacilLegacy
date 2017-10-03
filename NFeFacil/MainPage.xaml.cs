@@ -77,6 +77,18 @@ namespace NFeFacil
         {
             txtTitulo.Text = texto;
             symTitulo.Content = new SymbolIcon(símbolo);
+            AnalisarMenuHamburguer();
+        }
+
+        public void SeAtualizar(string glyph, string texto)
+        {
+            txtTitulo.Text = texto;
+            symTitulo.Content = new FontIcon { Glyph = glyph };
+            AnalisarMenuHamburguer();
+        }
+
+        void AnalisarMenuHamburguer()
+        {
             if (frmPrincipal.Content is IHambuguer hambuguer)
             {
                 menuTemporario.ItemsSource = hambuguer.ConteudoMenu;
@@ -89,12 +101,6 @@ namespace NFeFacil
                 menuTemporario.ItemsSource = null;
                 splitView.CompactPaneLength = 0;
             }
-        }
-
-        public void SeAtualizar(string glyph, string texto)
-        {
-            txtTitulo.Text = texto;
-            symTitulo.Content = new FontIcon { Glyph = glyph };
         }
 
         public async void Retornar(bool suprimirValidacao = false)

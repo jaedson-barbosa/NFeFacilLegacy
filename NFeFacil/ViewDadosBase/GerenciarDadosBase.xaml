@@ -1,7 +1,6 @@
 ﻿<Page x:Class="NFeFacil.ViewDadosBase.GerenciarDadosBase"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:local="using:NFeFacil.ViewDadosBase"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d"
@@ -17,14 +16,11 @@
             </Style>
         </ResourceDictionary>
     </Page.Resources>
-    <Page.DataContext>
-        <local:GerenciadorDadosBaseDataContext />
-    </Page.DataContext>
     <FlipView x:Name="flipView"
               Padding="16"
               Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
               SelectionChanged="TelaMudou">
-        <ListView ItemsSource="{Binding Clientes}"
+        <ListView ItemsSource="{x:Bind Clientes}"
                   ItemContainerStyle="{StaticResource ItemFullWidth}">
             <ListView.Header>
                 <Grid Style="{StaticResource Cabecalho}">
@@ -38,8 +34,8 @@
                     <TextBlock Grid.Column="1">Documento</TextBlock>
                     <TextBlock Grid.Column="2">Cidade</TextBlock>
                     <Button Grid.Column="3"
-                            Command="{Binding AdicionarClienteCommand}"
-                            Style="{StaticResource BotaoAdd}">
+                            Style="{StaticResource BotaoAdd}"
+                            Click="AdicionarCliente">
                         <SymbolIcon Symbol="Add" />
                     </Button>
                 </Grid>
@@ -54,10 +50,8 @@
                         </Grid.ColumnDefinitions>
                         <Grid.ContextFlyout>
                             <MenuFlyout>
-                                <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.EditarClienteCommand}"
-                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Editar</MenuFlyoutItem>
-                                <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.InativarClienteCommand}"
-                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Inativar</MenuFlyoutItem>
+                                <MenuFlyoutItem Click="EditarCliente">Editar</MenuFlyoutItem>
+                                <MenuFlyoutItem Click="InativarCliente">Inativar</MenuFlyoutItem>
                             </MenuFlyout>
                         </Grid.ContextFlyout>
                         <TextBlock TextWrapping="Wrap"
@@ -72,7 +66,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ListView ItemsSource="{Binding Motoristas}"
+        <ListView ItemsSource="{x:Bind Motoristas}"
                   ItemContainerStyle="{StaticResource ItemFullWidth}">
             <ListView.Header>
                 <Grid Style="{StaticResource Cabecalho}">
@@ -85,9 +79,9 @@
                     <TextBlock>Nome</TextBlock>
                     <TextBlock Grid.Column="1">Documento</TextBlock>
                     <TextBlock Grid.Column="2">Cidade</TextBlock>
-                    <Button Command="{Binding AdicionarMotoristaCommand}"
-                            Style="{StaticResource BotaoAdd}"
-                            Grid.Column="3">
+                    <Button Style="{StaticResource BotaoAdd}"
+                            Grid.Column="3"
+                            Click="AdicionarMotorista">
                         <SymbolIcon Symbol="Add" />
                     </Button>
                 </Grid>
@@ -102,10 +96,8 @@
                         </Grid.ColumnDefinitions>
                         <Grid.ContextFlyout>
                             <MenuFlyout>
-                                <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.EditarMotoristaCommand}"
-                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Editar</MenuFlyoutItem>
-                                <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.InativarMotoristaCommand}"
-                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Inativar</MenuFlyoutItem>
+                                <MenuFlyoutItem Click="EditarMotorista">Editar</MenuFlyoutItem>
+                                <MenuFlyoutItem Click="InativarMotorista">Inativar</MenuFlyoutItem>
                             </MenuFlyout>
                         </Grid.ContextFlyout>
                         <TextBlock TextWrapping="Wrap"
@@ -120,7 +112,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ListView ItemsSource="{Binding Produtos}"
+        <ListView ItemsSource="{x:Bind Produtos}"
                   ItemContainerStyle="{StaticResource ItemFullWidth}">
             <ListView.Header>
                 <Grid Style="{StaticResource Cabecalho}">
@@ -131,9 +123,9 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock>Código</TextBlock>
                     <TextBlock Grid.Column="1">Descrição</TextBlock>
-                    <Button Command="{Binding AdicionarProdutoCommand}"
-                            Style="{StaticResource BotaoAdd}"
-                            Grid.Column="2">
+                    <Button Style="{StaticResource BotaoAdd}"
+                            Grid.Column="2"
+                            Click="AdicionarProduto">
                         <SymbolIcon Symbol="Add" />
                     </Button>
                 </Grid>
@@ -147,10 +139,8 @@
                         </Grid.ColumnDefinitions>
                         <Grid.ContextFlyout>
                             <MenuFlyout>
-                                <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.EditarProdutoCommand}"
-                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Editar</MenuFlyoutItem>
-                                <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.InativarProdutoCommand}"
-                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Inativar</MenuFlyoutItem>
+                                <MenuFlyoutItem Click="EditarProduto">Editar</MenuFlyoutItem>
+                                <MenuFlyoutItem Click="InativarProduto">Inativar</MenuFlyoutItem>
                             </MenuFlyout>
                         </Grid.ContextFlyout>
                         <TextBlock Text="{Binding CodigoProduto}" />
@@ -161,7 +151,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ListView ItemsSource="{Binding Vendedores}"
+        <ListView ItemsSource="{x:Bind Vendedores}"
                   ItemContainerStyle="{StaticResource ItemFullWidth}">
             <ListView.Header>
                 <Grid Style="{StaticResource Cabecalho}">
@@ -172,9 +162,9 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock>Nome</TextBlock>
                     <TextBlock Grid.Column="1">CPF</TextBlock>
-                    <Button Command="{Binding AdicionarVendedorCommand}"
-                            Style="{StaticResource BotaoAdd}"
-                            Grid.Column="2">
+                    <Button Style="{StaticResource BotaoAdd}"
+                            Grid.Column="2"
+                            Click="AdicionarVendedor">
                         <SymbolIcon Symbol="Add" />
                     </Button>
                 </Grid>
@@ -188,10 +178,8 @@
                         </Grid.ColumnDefinitions>
                         <Grid.ContextFlyout>
                             <MenuFlyout>
-                                <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.EditarVendedorCommand}"
-                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Editar</MenuFlyoutItem>
-                                <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.InativarVendedorCommand}"
-                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Inativar</MenuFlyoutItem>
+                                <MenuFlyoutItem Click="EditarVendedor">Editar</MenuFlyoutItem>
+                                <MenuFlyoutItem Click="InativarVendedor">Inativar</MenuFlyoutItem>
                             </MenuFlyout>
                         </Grid.ContextFlyout>
                         <TextBlock Text="{Binding Nome}" />

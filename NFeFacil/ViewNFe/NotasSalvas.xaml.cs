@@ -42,7 +42,6 @@ namespace NFeFacil.ViewNFe
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            base.OnNavigatedTo(e);
             MainPage.Current.SeAtualizar(Symbol.Library, "Notas salvas");
         }
 

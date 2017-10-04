@@ -35,7 +35,6 @@ namespace NFeFacil.ViewNFe
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            base.OnNavigatedTo(e);
             ProdutoCompleto = (DetalhesProdutos)e.Parameter;
             Frame.BackStack.RemoveAt(Frame.BackStack.Count - 1);
             MainPage.Current.SeAtualizar("\uE825", "Impostos");

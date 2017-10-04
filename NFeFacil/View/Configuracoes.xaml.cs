@@ -37,7 +37,6 @@ namespace NFeFacil.View
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            base.OnNavigatedTo(e);
             MainPage.Current.SeAtualizar(Symbol.Setting, "Configurações");
         }
     }

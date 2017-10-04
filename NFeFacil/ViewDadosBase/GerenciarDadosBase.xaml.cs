@@ -20,7 +20,6 @@ namespace NFeFacil.ViewDadosBase
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            base.OnNavigatedTo(e);
             MainPage.Current.SeAtualizar(Symbol.Manage, "Dados base");
         }
 

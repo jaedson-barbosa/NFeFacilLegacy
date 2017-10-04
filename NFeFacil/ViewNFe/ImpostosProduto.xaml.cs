@@ -22,7 +22,7 @@ namespace NFeFacil.ViewNFe
     /// <summary>
     /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
     /// </summary>
-    public sealed partial class ImpostosProduto : Page
+    public sealed partial class ImpostosProduto : Page, IValida
     {
         public ImpostosProduto()
         {
@@ -938,6 +938,16 @@ namespace NFeFacil.ViewNFe
         void Cancelar(object sender, RoutedEventArgs e)
         {
             MainPage.Current.Retornar();
+        }
+
+        async Task<bool> IValida.Verificar()
+        {
+            var mensagem = new MessageDialog("Se você sair agora, os dados serão perdidos, se tiver certeza, escolha Sair, caso contrário, escolha Cancelar.\r\n" +
+                "Mas lembre-se que o produto não será salvo se escolher sair.", "Atenção");
+            mensagem.Commands.Add(new UICommand("Sair"));
+            mensagem.Commands.Add(new UICommand("Cancelar"));
+            var resultado = await mensagem.ShowAsync();
+            return resultado.Label == "Sair";
         }
 
         struct VisualizacaoImposto

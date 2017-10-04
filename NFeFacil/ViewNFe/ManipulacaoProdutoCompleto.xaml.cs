@@ -79,7 +79,8 @@ namespace NFeFacil.ViewNFe
 
         async Task<bool> IValida.Verificar()
         {
-            var mensagem = new MessageDialog("Se você sair agora, os dados serão perdidos, se tiver certeza, escolha Sair, caso contrário, escolha Cancelar.", "Atenção");
+            var mensagem = new MessageDialog("Se você sair agora, os dados serão perdidos, se tiver certeza, escolha Sair, caso contrário, escolha Cancelar.\r\n" +
+                "Mas lembre-se que, caso o produto já tenha sido salvo, as alterações não terão efeito, e caso contrário, o produto não será adicionado.", "Atenção");
             mensagem.Commands.Add(new UICommand("Sair"));
             mensagem.Commands.Add(new UICommand("Cancelar"));
             var resultado = await mensagem.ShowAsync();

@@ -953,11 +953,12 @@ namespace NFeFacil.ViewNFe
                 if (original is ICMS icms)
                 {
                     string valor = "0";
-                    foreach (var prop in icms.GetType().GetProperties().Where(x => x.CanWrite))
+                    var corpo = icms.Corpo;
+                    foreach (var prop in corpo.GetType().GetProperties().Where(x => x.CanWrite))
                     {
                         if (prop.Name == "vICMS")
                         {
-                            valor = prop.GetValue(icms).ToString();
+                            valor = prop.GetValue(corpo).ToString();
                         }
                     }
 

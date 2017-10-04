@@ -4,7 +4,6 @@ using Windows.UI.Xaml.Navigation;
 using System.Collections.ObjectModel;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using System;
-using System.Collections;
 using NFeFacil.View.Controles;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
@@ -38,7 +37,7 @@ namespace NFeFacil.ViewNFe
             }
         }
 
-        public IEnumerable ConteudoMenu => new ObservableCollection<ItemHambuguer>
+        public ObservableCollection<ItemHambuguer> ConteudoMenu => new ObservableCollection<ItemHambuguer>
         {
             new ItemHambuguer(Symbol.Tag, "Dados"),
             new ItemHambuguer("\uE825", "Imposto devolvido"),

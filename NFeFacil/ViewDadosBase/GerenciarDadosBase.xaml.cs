@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using NFeFacil.View.Controles;
 using System.Collections.ObjectModel;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -22,12 +22,12 @@ namespace NFeFacil.ViewDadosBase
             MainPage.Current.SeAtualizar(Symbol.Manage, "Dados base");
         }
 
-        public IEnumerable ConteudoMenu => new ObservableCollection<View.Controles.ItemHambuguer>
+        public ObservableCollection<ItemHambuguer> ConteudoMenu => new ObservableCollection<ItemHambuguer>
         {
-            new View.Controles.ItemHambuguer(Symbol.People, "Clientes"),
-            new View.Controles.ItemHambuguer(Symbol.People, "Motoristas"),
-            new View.Controles.ItemHambuguer(Symbol.Shop, "Produtos"),
-            new View.Controles.ItemHambuguer(Symbol.People, "Vendedores")
+            new ItemHambuguer(Symbol.People, "Clientes"),
+            new ItemHambuguer(Symbol.People, "Motoristas"),
+            new ItemHambuguer(Symbol.Shop, "Produtos"),
+            new ItemHambuguer(Symbol.People, "Vendedores")
         };
 
         public void AtualizarMain(int index) => flipView.SelectedIndex = index;

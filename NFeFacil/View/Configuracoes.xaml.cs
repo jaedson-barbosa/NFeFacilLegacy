@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using NFeFacil.View.Controles;
 using System.Collections.ObjectModel;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -17,10 +17,10 @@ namespace NFeFacil.View
             InitializeComponent();
         }
 
-        public IEnumerable ConteudoMenu => new ObservableCollection<Controles.ItemHambuguer>
+        public ObservableCollection<ItemHambuguer> ConteudoMenu => new ObservableCollection<ItemHambuguer>
         {
-            new Controles.ItemHambuguer(Symbol.Permissions, "Certificação"),
-            new Controles.ItemHambuguer(Symbol.Import, "Importação")
+            new ItemHambuguer(Symbol.Permissions, "Certificação"),
+            new ItemHambuguer(Symbol.Import, "Importação")
         };
 
         public void AtualizarMain(int index) => main.SelectedIndex = index;

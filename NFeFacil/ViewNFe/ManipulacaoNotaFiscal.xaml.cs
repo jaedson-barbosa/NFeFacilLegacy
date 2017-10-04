@@ -2,7 +2,6 @@
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using System.Collections.ObjectModel;
-using System.Collections;
 using NFeFacil.ModeloXML.PartesProcesso;
 using NFeFacil.View.Controles;
 using NFeFacil.ItensBD;
@@ -35,7 +34,7 @@ namespace NFeFacil.ViewNFe
             InitializeComponent();
         }
 
-        public IEnumerable ConteudoMenu => new ObservableCollection<ItemHambuguer>
+        public ObservableCollection<ItemHambuguer> ConteudoMenu => new ObservableCollection<ItemHambuguer>
         {
             new ItemHambuguer(Symbol.Tag, "Identificação"),
             new ItemHambuguer(Symbol.People, "Cliente"),

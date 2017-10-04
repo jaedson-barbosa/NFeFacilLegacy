@@ -8,7 +8,6 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Navigation;
-using System.Collections;
 using NFeFacil.View.Controles;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
@@ -51,7 +50,7 @@ namespace NFeFacil.ViewNFe
         ICollectionView NotasEmitidasView => new CollectionViewSource() { Source = NotasEmitidas }.View;
         ICollectionView OutrasNotasView => new CollectionViewSource() { Source = OutrasNotas }.View;
 
-        public IEnumerable ConteudoMenu => new ObservableCollection<ItemHambuguer>
+        public ObservableCollection<ItemHambuguer> ConteudoMenu => new ObservableCollection<ItemHambuguer>
         {
             new ItemHambuguer(Symbol.Send, "Emitidas"),
             new ItemHambuguer(Symbol.SaveLocal, "Outras")

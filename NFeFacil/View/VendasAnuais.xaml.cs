@@ -1,8 +1,6 @@
-﻿using NFeFacil.ItensBD;
-using NFeFacil.ModeloXML;
-using NFeFacil.ModeloXML.PartesProcesso;
+﻿using NFeFacil.ModeloXML.PartesProcesso;
+using NFeFacil.View.Controles;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -45,10 +43,10 @@ namespace NFeFacil.View
             MainPage.Current.SeAtualizar(Symbol.Calendar, "Vendas");
         }
 
-        public IEnumerable ConteudoMenu => new ObservableCollection<Controles.ItemHambuguer>
+        public ObservableCollection<ItemHambuguer> ConteudoMenu => new ObservableCollection<ItemHambuguer>
         {
-            new Controles.ItemHambuguer(Symbol.Calendar, "Meses"),
-            new Controles.ItemHambuguer(Symbol.People, "Clientes"),
+            new ItemHambuguer(Symbol.Calendar, "Meses"),
+            new ItemHambuguer(Symbol.People, "Clientes"),
         };
 
         public void AtualizarMain(int index) => flipView.SelectedIndex = index;

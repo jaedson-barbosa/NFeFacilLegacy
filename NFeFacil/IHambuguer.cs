@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections;
+﻿using NFeFacil.View.Controles;
+using System;
+using System.Collections.ObjectModel;
 
 namespace NFeFacil
 {
     internal interface IHambuguer
     {
-        IEnumerable ConteudoMenu { get; }
+        ObservableCollection<ItemHambuguer> ConteudoMenu { get; }
         void AtualizarMain(int index);
     }
 

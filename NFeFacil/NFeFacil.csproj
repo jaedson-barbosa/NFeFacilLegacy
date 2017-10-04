@@ -473,7 +473,6 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModel\RelatorioVendasAnuais.cs" />
     <Compile Include="ViewNFe\CaixasDialogoNFe\AdicionarVolume.xaml.cs">
       <DependentUpon>AdicionarVolume.xaml</DependentUpon>
     </Compile>

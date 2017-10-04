@@ -614,16 +614,11 @@ namespace NFeFacil.ViewNFe
 
         async Task<bool> IValida.Verificar()
         {
-            var retorno = true;
-            var dispachante = CoreApplication.MainView.CoreWindow.Dispatcher;
-            await dispachante.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
-            {
-                var mensagem = new MessageDialog("Se você sair agora, os dados serão perdidos, se tiver certeza, escolha Sair, caso contrário, Cancelar.", "Atenção");
-                mensagem.Commands.Add(new UICommand("Sair"));
-                mensagem.Commands.Add(new UICommand("Cancelar", x => retorno = false));
-                await mensagem.ShowAsync();
-            });
-            return retorno;
+            var mensagem = new MessageDialog("Se você sair agora, os dados serão perdidos, se tiver certeza, escolha Sair, caso contrário, escolha Cancelar.", "Atenção");
+            mensagem.Commands.Add(new UICommand("Sair"));
+            mensagem.Commands.Add(new UICommand("Cancelar");
+            var resultado = await mensagem.ShowAsync();
+            return resultado.Label == "Sair";
         }
 
         #region Métodos View - Backcode

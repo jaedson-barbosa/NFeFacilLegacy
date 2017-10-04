@@ -105,22 +105,9 @@ namespace NFeFacil
 
         public async void Retornar(bool suprimirValidacao = false)
         {
-            if (!suprimirValidacao)
+            if (!suprimirValidacao && frmPrincipal.Content is IValida retorna && !await retorna.Verificar())
             {
-                if (frmPrincipal.Content is IValida retorna)
-                {
-                    if (!await retorna.Verificar())
-                    {
-                        return;
-                    }
-                }
-                else if ((frmPrincipal.Content as FrameworkElement).DataContext is IValida retornaDC)
-                {
-                    if (!await retornaDC.Verificar())
-                    {
-                        return;
-                    }
-                }
+                return;
             }
 
             if (frmPrincipal.CanGoBack)

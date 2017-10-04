@@ -17,7 +17,7 @@ namespace NFeFacil.View
     /// <summary>
     /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
     /// </summary>
-    public sealed partial class QRConexao : Page, IValida
+    public sealed partial class QRConexao : Page
     {
         readonly InfoEstabelecerConexao Informacoes;
         readonly ImageSource QRGerado;
@@ -58,6 +58,11 @@ namespace NFeFacil.View
             MainPage.Current.SeAtualizar(Symbol.View, "QR");
         }
 
+        protected override async void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            await PararDeAceitarNovasConexoes();
+        }
+
         async void Iniciar()
         {
             await Task.Delay(100);
@@ -83,15 +88,6 @@ namespace NFeFacil.View
                 await Task.Delay(1000);
                 brechaAberta = false;
             }
-        }
-
-        public async Task<bool> Verificar()
-        {
-            if (brechaAberta)
-            {
-                await PararDeAceitarNovasConexoes();
-            }
-            return true;
         }
     }
 }

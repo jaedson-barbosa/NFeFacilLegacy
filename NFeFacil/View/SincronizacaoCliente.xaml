@@ -1,0 +1,43 @@
+﻿<Page x:Class="NFeFacil.View.SincronizacaoCliente"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:my="using:NFeFacil.View.Controles"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d">
+    <ScrollViewer Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                  Padding="16">
+        <StackPanel>
+            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Registro em servidor</TextBlock>
+            <ItemsControl Style="{StaticResource ItensMedios}">
+                <my:ItemPadrao 
+                               Titulo="Automaticamente"
+                               Descricao="Ler código QR temporário com os dados para conexão"
+                               Tapped="LerQRTemporario">
+                    <SymbolIcon Symbol="Camera" />
+                </my:ItemPadrao>
+                <my:ItemPadrao 
+                               Titulo="Manualmente"
+                               Descricao="Digitar o IP e a senha temporária do servidor"
+                               Tapped="InserirDadosManualmente">
+                    <SymbolIcon Symbol="Keyboard" />
+                </my:ItemPadrao>
+            </ItemsControl>
+            <TextBlock Margin="0,8,0,0"
+                       Style="{StaticResource SubtitleTextBlockStyle}">Sincronização básica</TextBlock>
+            <TextBlock TextWrapping="Wrap">Com a sincronização básica apenas os dados modificados ou adicionados após a última sincronização são transferidos, sendo a recomendada para a maioria dos casos.</TextBlock>
+            <Button HorizontalAlignment="Stretch"
+                    Click="SincronizarAgora">Sincronizar</Button>
+            <TextBlock Margin="0,8,0,0"
+                       Style="{StaticResource SubtitleTextBlockStyle}">Sincronização completa</TextBlock>
+            <TextBlock TextWrapping="Wrap">Na sincronização completa todos os dados existentes no servidor e neste dispositivo serão transferidos e passados por análise, sendo portanto mais lenta e indicada apenas quando o servidor é trocado.</TextBlock>
+            <Button HorizontalAlignment="Stretch"
+                    Click="SincronizarTudo">Sincronizar tudo</Button>
+        </StackPanel>
+    </ScrollViewer>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Label="Virar servidor" />
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>

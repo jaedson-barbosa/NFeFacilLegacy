@@ -57,7 +57,7 @@ namespace NFeFacil.View
                     MainPage.Current.Navegar<Configuracoes>();
                     break;
                 case "ConfigSincronizacao":
-                    MainPage.Current.Navegar<ConfigSincronizacao>();
+                    MainPage.Current.Navegar<SincronizacaoCliente>();
                     break;
                 default:
                     break;

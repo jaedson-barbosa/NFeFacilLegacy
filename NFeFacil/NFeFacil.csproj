@@ -366,7 +366,6 @@
     <Compile Include="Validacao\ValidadorVendedor.cs" />
     <Compile Include="Validacao\ValidarDados.cs" />
     <Compile Include="ViewDadosBase\ClienteDataContext.cs" />
-    <Compile Include="ViewModel\ConfigSincronizacaoDataContext.cs" />
     <Compile Include="ViewModel\ConfiguracoesDataContext.cs" />
     <Compile Include="ViewModel\Converters\ColecaoValida.cs" />
     <Compile Include="ViewModel\Converters\EstadoToMunicipios.cs" />
@@ -486,8 +485,8 @@
     </Compile>
     <Compile Include="AuxiliaresEstilos\BibliotecaCores.cs" />
     <Compile Include="AuxiliaresEstilos\PainelAdaptavel.cs" />
-    <Compile Include="View\ConfigSincronizacao.xaml.cs">
-      <DependentUpon>ConfigSincronizacao.xaml</DependentUpon>
+    <Compile Include="View\SincronizacaoCliente.xaml.cs">
+      <DependentUpon>SincronizacaoCliente.xaml</DependentUpon>
     </Compile>
     <Compile Include="DANFE\PaginasDANFE\IPagina.cs" />
     <Compile Include="DANFE\PaginasDANFE\MotivoCriacaoPaginaExtra.cs" />
@@ -533,6 +532,9 @@
     </Compile>
     <Compile Include="ViewRegistroVenda\RegistrosVenda.xaml.cs">
       <DependentUpon>RegistrosVenda.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SincronizacaoServidor.xaml.cs">
+      <DependentUpon>SincronizacaoServidor.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\VendasAnuais.xaml.cs">
       <DependentUpon>VendasAnuais.xaml</DependentUpon>
@@ -877,7 +879,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ConfigSincronizacao.xaml">
+    <Page Include="View\SincronizacaoCliente.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -939,6 +941,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ViewRegistroVenda\RegistrosVenda.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SincronizacaoServidor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

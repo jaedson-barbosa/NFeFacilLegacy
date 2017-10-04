@@ -1,7 +1,6 @@
 ﻿using NFeFacil.Sincronizacao;
 using NFeFacil.Sincronizacao.Pacotes;
 using System;
-using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.Networking;
@@ -10,15 +9,10 @@ using Windows.UI.Xaml.Media;
 
 namespace NFeFacil.ViewModel
 {
-    public sealed class QRConexaoDataContext : INotifyPropertyChanged, IValida
+    public sealed class QRConexaoDataContext : IValida
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public InfoEstabelecerConexao Informacoes { get; }
-        public ImageSource QRGerado { get; private set; }
-
-        public double ValorMaximo { get; } = 120;
-        public double ValorAtual { get; private set; } = 0;
+        public ImageSource QRGerado { get; }
 
         public QRConexaoDataContext()
         {
@@ -37,6 +31,9 @@ namespace NFeFacil.ViewModel
                 {
                     Informacoes = new InfoEstabelecerConexao();
                 }
+                GerenciadorServidor.Current.AbrirBrecha(TimeSpan.FromSeconds(60));
+                QRGerado = QRCode.GerarQR($"{Informacoes.IP}:{Informacoes.SenhaTemporaria}", 1920, 1920);
+
                 AbrirBrecha();
             }
             catch (Exception e)
@@ -50,18 +47,8 @@ namespace NFeFacil.ViewModel
         {
             try
             {
-                GerenciadorServidor.Current.AbrirBrecha(TimeSpan.FromSeconds(ValorMaximo));
-                await Task.Delay(200);
-                //A geração do QR é feita no método assíncrono para não paralisar a tela.
-                QRGerado = QRCode.GerarQR($"{Informacoes.IP}:{Informacoes.SenhaTemporaria}", 1920, 1920);
-                PropertyChanged(this, new PropertyChangedEventArgs(nameof(QRGerado)));
                 brechaAberta = true;
-                while (ValorAtual <= ValorMaximo && brechaAberta)
-                {
-                    ValorAtual += 0.1;
-                    PropertyChanged(this, new PropertyChangedEventArgs("ValorAtual"));
-                    await Task.Delay(100);
-                }
+                await Task.Delay(60000);
                 await PararDeAceitarNovasConexoes();
                 MainPage.Current.Retornar();
             }

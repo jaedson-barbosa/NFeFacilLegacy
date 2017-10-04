@@ -9,6 +9,15 @@
     <Page.DataContext>
         <VM:QRConexaoDataContext />
     </Page.DataContext>
+    <Page.Resources>
+        <Storyboard x:Name="teste">
+            <DoubleAnimation Storyboard.TargetName="carregamento"
+                             Storyboard.TargetProperty="ActualValue"
+                             EnableDependentAnimation="True"
+                             Duration="0:1:0"
+                             To="10" />
+        </Storyboard>
+    </Page.Resources>
     <Grid x:Name="main">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
@@ -89,10 +98,10 @@
                        Margin="0,4,0,0"
                        Grid.ColumnSpan="2">Tempo restante</TextBlock>
             <my:CarregamentoCircular Grid.Row="4"
+                                     x:Name="carregamento"
                                      Grid.ColumnSpan="2"
                                      Segmento="{StaticResource Normal}"
-                                     ActualValue="{Binding ValorAtual}"
-                                     MaxValue="{Binding ValorMaximo, Mode=OneTime}"
+                                     MaxValue="10"
                                      Thickness="16" />
         </Grid>
     </Grid>

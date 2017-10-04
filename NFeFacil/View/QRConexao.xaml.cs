@@ -1,4 +1,5 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using System.Threading.Tasks;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
@@ -13,6 +14,13 @@ namespace NFeFacil.View
         public QRConexao()
         {
             InitializeComponent();
+            Iniciar();
+        }
+
+        async void Iniciar()
+        {
+            await Task.Delay(100);
+            teste.Begin();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

@@ -46,5 +46,12 @@ namespace NFeFacil.View
         {
             MainPage.Current.Navegar<QRConexao>();
         }
+
+        private void VirarCliente(object sender, RoutedEventArgs e)
+        {
+            Tipo = TipoAppSincronizacao.Cliente;
+            MainPage.Current.Retornar();
+            Popup.Current.Escrever(TitulosComuns.Log, "Agora este dispositivo terá como função servir como cliente.");
+        }
     }
 }

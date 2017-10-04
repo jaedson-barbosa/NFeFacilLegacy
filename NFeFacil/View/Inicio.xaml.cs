@@ -1,4 +1,5 @@
-﻿using NFeFacil.ViewDadosBase;
+﻿using NFeFacil.Sincronizacao;
+using NFeFacil.ViewDadosBase;
 using NFeFacil.ViewRegistroVenda;
 using System;
 using Windows.UI.Xaml;
@@ -57,7 +58,14 @@ namespace NFeFacil.View
                     MainPage.Current.Navegar<Configuracoes>();
                     break;
                 case "ConfigSincronizacao":
-                    MainPage.Current.Navegar<SincronizacaoCliente>();
+                    if (ConfiguracoesSincronizacao.Tipo == TipoAppSincronizacao.Cliente)
+                    {
+                        MainPage.Current.Navegar<SincronizacaoCliente>();
+                    }
+                    else
+                    {
+                        MainPage.Current.Navegar<SincronizacaoServidor>();
+                    }
                     break;
                 default:
                     break;

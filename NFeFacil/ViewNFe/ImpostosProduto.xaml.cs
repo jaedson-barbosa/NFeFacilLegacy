@@ -7,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
+using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -88,7 +90,6 @@ namespace NFeFacil.ViewNFe
                                 Corpo = icms
                             };
                             adicionar.Add(new VisualizacaoImposto(completo));
-                            
                         }
                         break;
                     case PrincipaisImpostos.IPI:
@@ -951,23 +952,41 @@ namespace NFeFacil.ViewNFe
             {
                 if (original is ICMS icms)
                 {
+                    string valor = "0";
+                    foreach (var prop in icms.GetType().GetProperties().Where(x => x.CanWrite))
+                    {
+                        if (prop.Name == "vICMS")
+                        {
+                            valor = prop.GetValue(icms).ToString();
+                        }
+                    }
+
                     Titulo = "ICMS";
                     if (icms.Corpo is IRegimeNormal normal)
                     {
-                        InformacaoAdicional = $"CST: {normal.CST}";
+                        InformacaoAdicional = $"CST: {normal.CST}; Valor = {valor}";
                     }
                     else
                     {
                         var simples = icms.Corpo as ISimplesNacional;
-                        InformacaoAdicional = $"CSOSN: {simples.CSOSN}";
+                        InformacaoAdicional = $"CSOSN: {simples.CSOSN}; Valor = {valor}";
                     }
                     Primitivo = PrincipaisImpostos.ICMS;
                     Secundario = false;
                 }
                 else if (original is IPI ipi)
                 {
+                    string valor;
+                    if (ipi.Corpo is IPITrib trib)
+                    {
+                        valor = trib.vIPI;
+                    }
+                    else
+                    {
+                        valor = "0";
+                    }
                     Titulo = "IPI";
-                    InformacaoAdicional = $"CST: {ipi.Corpo.CST}";
+                    InformacaoAdicional = $"CST: {ipi.Corpo.CST}; Valor: {valor}";
                     Primitivo = PrincipaisImpostos.IPI;
                     Secundario = false;
                 }
@@ -987,8 +1006,25 @@ namespace NFeFacil.ViewNFe
                 }
                 else if (original is PIS pis)
                 {
+                    string valor;
+                    if (pis.Corpo is PISAliq aliq)
+                    {
+                        valor = aliq.vPIS;
+                    }
+                    else if (pis.Corpo is PISOutr outr)
+                    {
+                        valor = outr.vPIS;
+                    }
+                    else if (pis.Corpo is PISQtde qtde)
+                    {
+                        valor = qtde.vPIS;
+                    }
+                    else
+                    {
+                        valor = "0";
+                    }
                     Titulo = "PIS";
-                    InformacaoAdicional = $"CST: {pis.Corpo.CST}";
+                    InformacaoAdicional = $"CST: {pis.Corpo.CST}; Valor: {valor}";
                     Primitivo = PrincipaisImpostos.PIS;
                     Secundario = false;
                 }
@@ -1001,8 +1037,25 @@ namespace NFeFacil.ViewNFe
                 }
                 else if (original is COFINS cofins)
                 {
+                    string valor;
+                    if (cofins.Corpo is COFINSAliq aliq)
+                    {
+                        valor = aliq.vCOFINS;
+                    }
+                    else if (cofins.Corpo is COFINSOutr outr)
+                    {
+                        valor = outr.vCOFINS;
+                    }
+                    else if (cofins.Corpo is COFINSQtde qtde)
+                    {
+                        valor = qtde.vCOFINS;
+                    }
+                    else
+                    {
+                        valor = "0";
+                    }
                     Titulo = "COFINS";
-                    InformacaoAdicional = $"CST: {cofins.Corpo.CST}";
+                    InformacaoAdicional = $"CST: {cofins.Corpo.CST}; Valor: {valor}";
                     Primitivo = PrincipaisImpostos.COFINS;
                     Secundario = false;
                 }
@@ -1016,7 +1069,7 @@ namespace NFeFacil.ViewNFe
                 else if (original is ICMSUFDest icmsufdest)
                 {
                     Titulo = "ICMS da UF destinatário";
-                    InformacaoAdicional = $"Remetente: {icmsufdest.VICMSUFRemet}; Destinatário: {icmsufdest.VICMSUFDest}";
+                    InformacaoAdicional = $"Valor para o remetente: {icmsufdest.VICMSUFRemet}; Valor para o destinatário: {icmsufdest.VICMSUFDest}";
                     Primitivo = PrincipaisImpostos.ICMSUFDest;
                     Secundario = false;
                 }

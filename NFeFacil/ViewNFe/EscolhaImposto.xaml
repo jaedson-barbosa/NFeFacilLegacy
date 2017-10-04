@@ -10,5 +10,6 @@
     <ComboBox ItemsSource="{x:Bind Impostos}"
               SelectedValue="{x:Bind Escolhido, Mode=TwoWay}"
               DisplayMemberPath="Nome"
-              SelectedValuePath="Primitivo" />
+              SelectedValuePath="Primitivo"
+              HorizontalAlignment="Stretch" />
 </ContentDialog>

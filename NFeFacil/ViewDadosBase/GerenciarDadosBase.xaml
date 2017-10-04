@@ -22,7 +22,8 @@
     </Page.DataContext>
     <FlipView x:Name="flipView"
               Padding="16"
-              Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+              Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+              SelectionChanged="TelaMudou">
         <ListView ItemsSource="{Binding Clientes}"
                   ItemContainerStyle="{StaticResource ItemFullWidth}">
             <ListView.Header>

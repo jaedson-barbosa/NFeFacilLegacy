@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.ObjectModel;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -23,23 +22,20 @@ namespace NFeFacil.ViewDadosBase
             MainPage.Current.SeAtualizar(Symbol.Manage, "Dados base");
         }
 
-        public IEnumerable ConteudoMenu
+        public IEnumerable ConteudoMenu => new ObservableCollection<View.Controles.ItemHambuguer>
         {
-            get
-            {
-                var retorno = new ObservableCollection<View.Controles.ItemHambuguer>
-                {
-                    new View.Controles.ItemHambuguer(Symbol.People, "Clientes"),
-                    new View.Controles.ItemHambuguer(Symbol.People, "Motoristas"),
-                    new View.Controles.ItemHambuguer(Symbol.Shop, "Produtos"),
-                    new View.Controles.ItemHambuguer(Symbol.People, "Vendedores")
-                };
-                flipView.SelectionChanged += (sender, e) => MainMudou?.Invoke(this, new NewIndexEventArgs { NewIndex = flipView.SelectedIndex });
-                return retorno;
-            }
-        }
+            new View.Controles.ItemHambuguer(Symbol.People, "Clientes"),
+            new View.Controles.ItemHambuguer(Symbol.People, "Motoristas"),
+            new View.Controles.ItemHambuguer(Symbol.Shop, "Produtos"),
+            new View.Controles.ItemHambuguer(Symbol.People, "Vendedores")
+        };
 
-        public event EventHandler MainMudou;
         public void AtualizarMain(int index) => flipView.SelectedIndex = index;
+
+        private void TelaMudou(object sender, SelectionChangedEventArgs e)
+        {
+            var index = ((FlipView)sender).SelectedIndex;
+            MainPage.Current.AlterarSelectedIndexHamburguer(index);
+        }
     }
 }

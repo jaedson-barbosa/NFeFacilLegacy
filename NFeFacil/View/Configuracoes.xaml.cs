@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.ObjectModel;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -18,26 +17,23 @@ namespace NFeFacil.View
             InitializeComponent();
         }
 
-        public IEnumerable ConteudoMenu
+        public IEnumerable ConteudoMenu => new ObservableCollection<Controles.ItemHambuguer>
         {
-            get
-            {
-                var retorno = new ObservableCollection<Controles.ItemHambuguer>
-                {
-                    new Controles.ItemHambuguer(Symbol.Permissions, "Certificação"),
-                    new Controles.ItemHambuguer(Symbol.Import, "Importação")
-                };
-                main.SelectionChanged += (sender, e) => MainMudou?.Invoke(this, new NewIndexEventArgs { NewIndex = main.SelectedIndex });
-                return retorno;
-            }
-        }
+            new Controles.ItemHambuguer(Symbol.Permissions, "Certificação"),
+            new Controles.ItemHambuguer(Symbol.Import, "Importação")
+        };
 
-        public event EventHandler MainMudou;
         public void AtualizarMain(int index) => main.SelectedIndex = index;
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             MainPage.Current.SeAtualizar(Symbol.Setting, "Configurações");
+        }
+
+        private void TelaMudou(object sender, SelectionChangedEventArgs e)
+        {
+            var index = ((FlipView)sender).SelectedIndex;
+            MainPage.Current.AlterarSelectedIndexHamburguer(index);
         }
     }
 }

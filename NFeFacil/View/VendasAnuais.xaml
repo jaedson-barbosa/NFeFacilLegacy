@@ -27,7 +27,8 @@
         <FlipView x:Name="flipView"
                   Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
                   Padding="16,0,16,16"
-                  Grid.Row="1">
+                  Grid.Row="1"
+                  SelectionChanged="TelaMudou">
             <FlipView.Resources>
                 <Style TargetType="TextBlock"
                        BasedOn="{StaticResource SubtitleTextBlockStyle}" />

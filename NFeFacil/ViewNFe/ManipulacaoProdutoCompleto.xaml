@@ -23,7 +23,8 @@
         </Grid.RowDefinitions>
         <FlipView x:Name="main"
                   Padding="16"
-                  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                  SelectionChanged="TelaMudou">
             <ScrollViewer DataContext="{Binding ProdutoCompleto.Produto}">
                 <ItemsControl Style="{StaticResource ItensResponsivos}">
                     <TextBox Text="{Binding CodigoProduto, Mode=TwoWay}"

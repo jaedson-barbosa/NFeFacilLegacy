@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.ObjectModel;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -23,21 +22,18 @@ namespace NFeFacil.View
             MainPage.Current.SeAtualizar(Symbol.Calendar, "Vendas");
         }
 
-        public IEnumerable ConteudoMenu
+        public IEnumerable ConteudoMenu => new ObservableCollection<Controles.ItemHambuguer>
         {
-            get
-            {
-                var retorno = new ObservableCollection<Controles.ItemHambuguer>
-                {
-                    new Controles.ItemHambuguer(Symbol.Calendar, "Meses"),
-                    new Controles.ItemHambuguer(Symbol.People, "Clientes"),
-                };
-                flipView.SelectionChanged += (sender, e) => MainMudou?.Invoke(this, new NewIndexEventArgs { NewIndex = flipView.SelectedIndex });
-                return retorno;
-            }
-        }
+            new Controles.ItemHambuguer(Symbol.Calendar, "Meses"),
+            new Controles.ItemHambuguer(Symbol.People, "Clientes"),
+        };
 
-        public event EventHandler MainMudou;
         public void AtualizarMain(int index) => flipView.SelectedIndex = index;
+
+        private void TelaMudou(object sender, SelectionChangedEventArgs e)
+        {
+            var index = ((FlipView)sender).SelectedIndex;
+            MainPage.Current.AlterarSelectedIndexHamburguer(index);
+        }
     }
 }

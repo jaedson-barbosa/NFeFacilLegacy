@@ -16,7 +16,8 @@
     </Page.DataContext>
     <FlipView x:Name="main"
               Padding="16"
-              Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+              Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+              SelectionChanged="TelaMudou">
         <StackPanel>
             <TextBlock Style="{StaticResource BodyTextBlockStyle}">Escolha o certificado que será usado para realizar a conexão com os servidores da SEFAZ e para a assinatura das notas fiscais.</TextBlock>
             <Button Command="{Binding ImportarCertificado}"

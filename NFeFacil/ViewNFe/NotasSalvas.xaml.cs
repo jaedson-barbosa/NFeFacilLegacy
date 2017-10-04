@@ -38,7 +38,7 @@ namespace NFeFacil.ViewNFe
             }
         }
 
-        public event EventHandler MainMudou;
+
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -51,19 +51,11 @@ namespace NFeFacil.ViewNFe
         ICollectionView NotasEmitidasView => new CollectionViewSource() { Source = NotasEmitidas }.View;
         ICollectionView OutrasNotasView => new CollectionViewSource() { Source = OutrasNotas }.View;
 
-        public IEnumerable ConteudoMenu
+        public IEnumerable ConteudoMenu => new ObservableCollection<ItemHambuguer>
         {
-            get
-            {
-                var retorno = new ObservableCollection<ItemHambuguer>
-                {
-                    new ItemHambuguer(Symbol.Send, "Emitidas"),
-                    new ItemHambuguer(Symbol.SaveLocal, "Outras")
-                };
-                main.SelectionChanged += (sender, e) => MainMudou?.Invoke(this, new NewIndexEventArgs { NewIndex = main.SelectedIndex });
-                return retorno;
-            }
-        }
+            new ItemHambuguer(Symbol.Send, "Emitidas"),
+            new ItemHambuguer(Symbol.SaveLocal, "Outras")
+        };
 
         private void Exibir(object sender, RoutedEventArgs e)
         {
@@ -132,6 +124,12 @@ namespace NFeFacil.ViewNFe
             {
                 return Nota.Id.GetHashCode();
             }
+        }
+
+        private void TelaMudou(object sender, SelectionChangedEventArgs e)
+        {
+            var index = ((FlipView)sender).SelectedIndex;
+            MainPage.Current.AlterarSelectedIndexHamburguer(index);
         }
     }
 }

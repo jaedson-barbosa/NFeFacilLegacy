@@ -7,9 +7,7 @@ using System;
 using System.Collections;
 using NFeFacil.View.Controles;
 using System.Threading.Tasks;
-using Windows.ApplicationModel.Core;
 using Windows.UI.Popups;
-using Windows.UI.Core;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -40,25 +38,16 @@ namespace NFeFacil.ViewNFe
             }
         }
 
-        public IEnumerable ConteudoMenu
+        public IEnumerable ConteudoMenu => new ObservableCollection<ItemHambuguer>
         {
-            get
-            {
-                var retorno = new ObservableCollection<ItemHambuguer>
-                {
-                    new ItemHambuguer(Symbol.Tag, "Dados"),
-                    new ItemHambuguer("\uE825", "Imposto devolvido"),
-                    new ItemHambuguer(Symbol.Comment, "Info adicional"),
-                    new ItemHambuguer(Symbol.World, "Importação"),
-                    new ItemHambuguer(Symbol.World, "Exportação"),
-                    new ItemHambuguer(Symbol.Target, "Produto específico")
-                };
-                main.SelectionChanged += (sender, e) => MainMudou?.Invoke(this, new NewIndexEventArgs { NewIndex = main.SelectedIndex });
-                return retorno;
-            }
-        }
+            new ItemHambuguer(Symbol.Tag, "Dados"),
+            new ItemHambuguer("\uE825", "Imposto devolvido"),
+            new ItemHambuguer(Symbol.Comment, "Info adicional"),
+            new ItemHambuguer(Symbol.World, "Importação"),
+            new ItemHambuguer(Symbol.World, "Exportação"),
+            new ItemHambuguer(Symbol.Target, "Produto específico")
+        };
 
-        public event EventHandler MainMudou;
         public void AtualizarMain(int index) => main.SelectedIndex = index;
 
         private void Concluir_Click(object sender, RoutedEventArgs e)
@@ -85,6 +74,12 @@ namespace NFeFacil.ViewNFe
             mensagem.Commands.Add(new UICommand("Cancelar"));
             var resultado = await mensagem.ShowAsync();
             return resultado.Label == "Sair";
+        }
+
+        private void TelaMudou(object sender, SelectionChangedEventArgs e)
+        {
+            var index = ((FlipView)sender).SelectedIndex;
+            MainPage.Current.AlterarSelectedIndexHamburguer(index);
         }
     }
 }

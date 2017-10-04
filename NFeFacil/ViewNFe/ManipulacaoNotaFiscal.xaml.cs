@@ -20,7 +20,6 @@ using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using NFeFacil.ViewNFe.CaixasDialogoNFe;
-using Windows.ApplicationModel.Core;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -36,29 +35,20 @@ namespace NFeFacil.ViewNFe
             InitializeComponent();
         }
 
-        public IEnumerable ConteudoMenu
+        public IEnumerable ConteudoMenu => new ObservableCollection<ItemHambuguer>
         {
-            get
-            {
-                var retorno = new ObservableCollection<ItemHambuguer>
-                {
-                    new ItemHambuguer(Symbol.Tag, "Identificação"),
-                    new ItemHambuguer(Symbol.People, "Cliente"),
-                    new ItemHambuguer(Symbol.Street, "Retirada/Entrega"),
-                    new ItemHambuguer(Symbol.Shop, "Produtos"),
-                    new ItemHambuguer(Symbol.Calculator, "Totais"),
-                    new ItemHambuguer("\uE806", "Transporte"),
-                    new ItemHambuguer("\uE825", "Cobrança"),
-                    new ItemHambuguer(Symbol.Comment, "Informações adicionais"),
-                    new ItemHambuguer(Symbol.World, "Exportação e compras"),
-                    new ItemHambuguer(new Uri("ms-appx:///Assets/CanaAcucar.png"), "Cana-de-açúcar")
-                };
-                pvtPrincipal.SelectionChanged += (sender, e) => MainMudou?.Invoke(this, new NewIndexEventArgs { NewIndex = pvtPrincipal.SelectedIndex });
-                return retorno;
-            }
-        }
+            new ItemHambuguer(Symbol.Tag, "Identificação"),
+            new ItemHambuguer(Symbol.People, "Cliente"),
+            new ItemHambuguer(Symbol.Street, "Retirada/Entrega"),
+            new ItemHambuguer(Symbol.Shop, "Produtos"),
+            new ItemHambuguer(Symbol.Calculator, "Totais"),
+            new ItemHambuguer("\uE806", "Transporte"),
+            new ItemHambuguer("\uE825", "Cobrança"),
+            new ItemHambuguer(Symbol.Comment, "Informações adicionais"),
+            new ItemHambuguer(Symbol.World, "Exportação e compras"),
+            new ItemHambuguer(new Uri("ms-appx:///Assets/CanaAcucar.png"), "Cana-de-açúcar")
+        };
 
-        public event EventHandler MainMudou;
         public void AtualizarMain(int index) => pvtPrincipal.SelectedIndex = index;
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -815,6 +805,12 @@ namespace NFeFacil.ViewNFe
             {
                 controle.IsOn = false;
             }
+        }
+
+        private void TelaMudou(object sender, SelectionChangedEventArgs e)
+        {
+            var index = ((FlipView)sender).SelectedIndex;
+            MainPage.Current.AlterarSelectedIndexHamburguer(index);
         }
     }
 }

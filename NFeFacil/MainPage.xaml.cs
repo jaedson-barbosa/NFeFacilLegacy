@@ -93,13 +93,20 @@ namespace NFeFacil
             {
                 menuTemporario.ItemsSource = hambuguer.ConteudoMenu;
                 menuTemporario.SelectedIndex = 0;
-                hambuguer.MainMudou += (sender, e) => menuTemporario.SelectedIndex = ((NewIndexEventArgs)e).NewIndex;
                 splitView.CompactPaneLength = 48;
             }
             else
             {
                 menuTemporario.ItemsSource = null;
                 splitView.CompactPaneLength = 0;
+            }
+        }
+
+        internal void AlterarSelectedIndexHamburguer(int index)
+        {
+            if (menuTemporario.ItemsSource != null)
+            {
+                menuTemporario.SelectedIndex = index;
             }
         }
 

@@ -7,7 +7,6 @@ namespace NFeFacil
     {
         IEnumerable ConteudoMenu { get; }
         void AtualizarMain(int index);
-        event EventHandler MainMudou;
     }
 
     internal class NewIndexEventArgs : EventArgs

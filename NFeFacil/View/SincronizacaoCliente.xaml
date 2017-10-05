@@ -10,14 +10,12 @@
         <StackPanel>
             <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Registro em servidor</TextBlock>
             <ItemsControl Style="{StaticResource ItensMedios}">
-                <my:ItemPadrao 
-                               Titulo="Automaticamente"
+                <my:ItemPadrao Titulo="Automaticamente"
                                Descricao="Ler código QR temporário com os dados para conexão"
                                Tapped="LerQRTemporario">
                     <SymbolIcon Symbol="Camera" />
                 </my:ItemPadrao>
-                <my:ItemPadrao 
-                               Titulo="Manualmente"
+                <my:ItemPadrao Titulo="Manualmente"
                                Descricao="Digitar o IP e a senha temporária do servidor"
                                Tapped="InserirDadosManualmente">
                     <SymbolIcon Symbol="Keyboard" />

@@ -366,7 +366,6 @@
     <Compile Include="Validacao\ValidadorVendedor.cs" />
     <Compile Include="Validacao\ValidarDados.cs" />
     <Compile Include="ViewDadosBase\ClienteDataContext.cs" />
-    <Compile Include="ViewModel\ConfiguracoesDataContext.cs" />
     <Compile Include="ViewModel\Converters\ColecaoValida.cs" />
     <Compile Include="ViewModel\Converters\EstadoToMunicipios.cs" />
     <Compile Include="ViewModel\Converters\Invert.cs" />
@@ -421,6 +420,9 @@
     <Compile Include="ViewRegistroVenda\CalculoDesconto.xaml.cs">
       <DependentUpon>CalculoDesconto.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ConfiguracoesCertificado.xaml.cs">
+      <DependentUpon>ConfiguracoesCertificado.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Consulta.xaml.cs">
       <DependentUpon>Consulta.xaml</DependentUpon>
     </Compile>
@@ -458,8 +460,8 @@
     <Compile Include="ViewModel\Comando.cs" />
     <Compile Include="ViewModel\Converters\BoolToVisibility.cs" />
     <Compile Include="ViewModel\DadosEstadosParaView.cs" />
-    <Compile Include="View\Configuracoes.xaml.cs">
-      <DependentUpon>Configuracoes.xaml</DependentUpon>
+    <Compile Include="View\ImportacaoDados.xaml.cs">
+      <DependentUpon>ImportacaoDados.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Controles\CarregamentoCircular.xaml.cs">
       <DependentUpon>CarregamentoCircular.xaml</DependentUpon>
@@ -803,7 +805,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Configuracoes.xaml">
+    <Page Include="View\ImportacaoDados.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ConfiguracoesCertificado.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

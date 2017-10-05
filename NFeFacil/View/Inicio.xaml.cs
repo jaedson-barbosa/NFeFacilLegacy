@@ -55,7 +55,7 @@ namespace NFeFacil.View
                     MainPage.Current.Navegar<VendasAnuais>();
                     break;
                 case "Configuracoes":
-                    MainPage.Current.Navegar<Configuracoes>();
+                    MainPage.Current.Navegar<ImportacaoDados>();
                     break;
                 case "ConfigSincronizacao":
                     if (ConfiguracoesSincronizacao.Tipo == TipoAppSincronizacao.Cliente)

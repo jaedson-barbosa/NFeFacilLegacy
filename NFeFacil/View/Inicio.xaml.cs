@@ -54,7 +54,10 @@ namespace NFeFacil.View
                 case "VendasAnuais":
                     MainPage.Current.Navegar<VendasAnuais>();
                     break;
-                case "Configuracoes":
+                case "ConfiguracoesCertificado":
+                    MainPage.Current.Navegar<ConfiguracoesCertificado>();
+                    break;
+                case "ImportacaoDados":
                     MainPage.Current.Navegar<ImportacaoDados>();
                     break;
                 case "ConfigSincronizacao":

@@ -8,6 +8,7 @@ using System.Security.Cryptography.X509Certificates;
 using Windows.System.Profile;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -23,6 +24,11 @@ namespace NFeFacil.View
             this.InitializeComponent();
             ListaCertificados = new ObservableCollection<CertificadoExibicao>();
             AttLista();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            MainPage.Current.SeAtualizar(Symbol.Permissions, "Certificação");
         }
 
         ObservableCollection<CertificadoExibicao> ListaCertificados { get; }

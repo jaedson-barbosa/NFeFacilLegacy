@@ -60,11 +60,17 @@
                                   Tapped="AbrirFunção">
                 <SymbolIcon Symbol="Calendar" />
             </controles:ItemPadrao>
-            <controles:ItemPadrao x:Name="Configuracoes"
-                                  Titulo="Configurações"
-                                  Descricao="Configure a sincronização entre dispositivos, defina o certificao padrão e importe notas fiscais e dados base."
+            <controles:ItemPadrao x:Name="ConfiguracoesCertificado"
+                                  Titulo="Certificado"
+                                  Descricao="Configure os detalhes da certificação, importando um certificado A1 ou instalando e se conectando a um servidor de certificação."
                                   Tapped="AbrirFunção">
-                <SymbolIcon Symbol="Setting" />
+                <SymbolIcon Symbol="Permissions" />
+            </controles:ItemPadrao>
+            <controles:ItemPadrao x:Name="ImportacaoDados"
+                                  Titulo="Importação de dados"
+                                  Descricao="Importe dados base ou notas fiscais criados em outros programas ou aplicativos automaticamente (Padrão da SEFAZ requerido)."
+                                  Tapped="AbrirFunção">
+                <SymbolIcon Symbol="Import" />
             </controles:ItemPadrao>
             <controles:ItemPadrao x:Name="ConfigSincronizacao"
                                   Titulo="Sincronização"

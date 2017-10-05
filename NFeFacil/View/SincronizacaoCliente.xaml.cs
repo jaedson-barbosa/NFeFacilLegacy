@@ -26,7 +26,7 @@ namespace NFeFacil.View
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            MainPage.Current.SeAtualizar(Symbol.Sync, "Sincronização");
+            MainPage.Current.SeAtualizar("\uE975", "Sincronização");
         }
 
         async void LerQRTemporario(object sender, TappedRoutedEventArgs e)

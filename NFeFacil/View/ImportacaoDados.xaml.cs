@@ -21,7 +21,7 @@ namespace NFeFacil.View
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            MainPage.Current.SeAtualizar(Symbol.Setting, "Configurações");
+            MainPage.Current.SeAtualizar(Symbol.Import, "Importação");
         }
 
         private void ImportarCliente(object sender, TappedRoutedEventArgs e)

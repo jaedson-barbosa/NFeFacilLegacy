@@ -34,7 +34,7 @@ namespace NFeFacil.View
         ObservableCollection<CertificadoExibicao> ListaCertificados { get; }
         bool InstalacaoLiberada => AnalyticsInfo.VersionInfo.DeviceFamily.Contains("Desktop");
 
-        async void ImportarCertificado(object sender, RoutedEventArgs e)
+        async void ImportarCertificado(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
             if (await new ImportarCertificado().ImportarEAdicionarAsync())
             {
@@ -42,17 +42,17 @@ namespace NFeFacil.View
             }
         }
 
-        async void ConectarServidor(object sender, RoutedEventArgs e)
+        async void ConectarServidor(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
             await InformacoesConexao.Cadastrar();
         }
 
-        void EsquecerServidor(object sender, RoutedEventArgs e)
+        void EsquecerServidor(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
             InformacoesConexao.Esquecer();
         }
 
-        async void InstalarServidor(object sender, RoutedEventArgs e)
+        async void InstalarServidor(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
             await new Exportacao(Log.Popup.Current).Exportar("ServidorCertificacao", "Servidor de certificação", "Arquivo comprimido", "zip");
         }

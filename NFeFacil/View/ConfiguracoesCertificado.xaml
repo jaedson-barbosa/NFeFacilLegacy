@@ -1,5 +1,6 @@
 ﻿<Page x:Class="NFeFacil.View.ConfiguracoesCertificado"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:my="using:NFeFacil.View.Controles"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -7,19 +8,31 @@
     <ScrollViewer Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
                   Padding="16">
         <StackPanel>
-            <TextBlock Style="{StaticResource BodyTextBlockStyle}">Escolha o certificado que será usado para realizar a conexão com os servidores da SEFAZ e para a assinatura das notas fiscais.</TextBlock>
-            <Button HorizontalAlignment="Stretch"
-                    Click="ImportarCertificado">Importar certificado A1</Button>
-            <Button HorizontalAlignment="Stretch"
-                    Click="ConectarServidor">Conectar a servidor de certificação</Button>
-            <Button HorizontalAlignment="Stretch"
-                    Click="EsquecerServidor">Esquecer servidor de certificação</Button>
-            <Button IsEnabled="{x:Bind InstalacaoLiberada}"
-                    HorizontalAlignment="Stretch"
-                    Click="InstalarServidor">Instalar servidor de certificação</Button>
-            <ListView ItemsSource="{x:Bind ListaCertificados}"
-                      BorderThickness="2"
-                      BorderBrush="{StaticResource Normal}">
+            <ItemsControl Style="{StaticResource ItensMedios}"
+                          Margin="0,0,0,8">
+                <my:ItemPadrao Titulo="Importar certificado"
+                               Descricao="Importe um certificado A1 facilmente"
+                               Tapped="ImportarCertificado">
+                    <SymbolIcon Symbol="Import" />
+                </my:ItemPadrao>
+                <my:ItemPadrao Titulo="Conectar a servidor"
+                               Descricao="Conecte-se a um servidor de certificação que esteja rodando na rede local."
+                               Tapped="ConectarServidor">
+                    <FontIcon Glyph="&#xE703;" />
+                </my:ItemPadrao>
+                <my:ItemPadrao Titulo="Esquecer servidor"
+                               Descricao="Descadastre o servidor de certificação e passe a usar apenas os certificados A1 importados."
+                               Tapped="EsquecerServidor">
+                    <SymbolIcon Symbol="Delete" />
+                </my:ItemPadrao>
+                <my:ItemPadrao Titulo="Instalar servidor"
+                               IsEnabled="{x:Bind InstalacaoLiberada}"
+                               Descricao="Instale o servidor de certificação neste PC para que os certificados instalados possam ser usados por qualquer dispositivo da rede local."
+                               Tapped="InstalarServidor">
+                    <FontIcon Glyph="&#xEC4E;" />
+                </my:ItemPadrao>
+            </ItemsControl>
+            <ListView ItemsSource="{x:Bind ListaCertificados}">
                 <ListView.Header>
                     <Grid Style="{StaticResource Cabecalho}">
                         <TextBlock Style="{StaticResource TextoCabecalho}">Certificados importados</TextBlock>

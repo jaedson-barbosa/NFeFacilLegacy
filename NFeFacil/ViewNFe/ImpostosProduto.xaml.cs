@@ -26,7 +26,7 @@ namespace NFeFacil.ViewNFe
     {
         public ImpostosProduto()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         string ValorTotalTributos { get; set; }

@@ -8,7 +8,7 @@ namespace NFeFacil.ViewNFe.CaixasImpostos
     {
         public AddPISouCOFINSValor()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         public double Valor { get; private set; }

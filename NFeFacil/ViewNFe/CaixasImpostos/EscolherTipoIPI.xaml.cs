@@ -8,7 +8,7 @@ namespace NFeFacil.ViewNFe.CaixasImpostos
     {
         public EscolherTipoIPI()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         string cst;

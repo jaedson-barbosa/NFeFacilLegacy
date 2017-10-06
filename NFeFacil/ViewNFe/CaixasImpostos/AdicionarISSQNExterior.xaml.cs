@@ -11,7 +11,7 @@ namespace NFeFacil.ViewNFe.CaixasImpostos
     {
         public AdicionarISSQNExterior()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         public ISSQN Imposto { get; } = new ISSQN()

@@ -9,7 +9,7 @@ namespace NFeFacil.ViewNFe.CaixasImpostos
     {
         public AdicionarII()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         public II Imposto { get; } = new II();

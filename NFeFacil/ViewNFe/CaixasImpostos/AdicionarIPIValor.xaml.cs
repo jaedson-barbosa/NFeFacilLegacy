@@ -9,7 +9,7 @@ namespace NFeFacil.ViewNFe.CaixasImpostos
     {
         public AdicionarIPIValor()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         public IPI Conjunto { get; } = new IPI();

@@ -18,7 +18,7 @@ namespace NFeFacil.View
     {
         public SincronizacaoServidor()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

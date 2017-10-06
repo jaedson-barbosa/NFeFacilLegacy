@@ -8,7 +8,7 @@ namespace NFeFacil.ViewNFe.CaixasImpostos
     {
         public AdicionarICMSSN(int csosn)
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             var visibilidade = VisibilidadesSimplesNacional.Buscar(csosn);
             SimplesGrupoInicio = visibilidade.GrupoInicio;

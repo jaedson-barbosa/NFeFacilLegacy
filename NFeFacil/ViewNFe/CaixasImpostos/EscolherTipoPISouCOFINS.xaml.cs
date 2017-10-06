@@ -8,7 +8,7 @@ namespace NFeFacil.ViewNFe.CaixasImpostos
     {
         public EscolherTipoPISouCOFINS()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         string cst;

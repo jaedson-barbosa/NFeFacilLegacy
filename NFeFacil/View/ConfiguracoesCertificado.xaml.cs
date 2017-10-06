@@ -21,7 +21,7 @@ namespace NFeFacil.View
     {
         public ConfiguracoesCertificado()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             ListaCertificados = new ObservableCollection<CertificadoExibicao>();
             AttLista();
         }

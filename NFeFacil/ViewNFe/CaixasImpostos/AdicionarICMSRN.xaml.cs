@@ -8,7 +8,7 @@ namespace NFeFacil.ViewNFe.CaixasImpostos
     {
         public AdicionarICMSRN(int cst)
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             var visibilidade = VisibilidadesRegimeNormal.Buscar(cst);
             NormalICMSDesonerado = visibilidade.IcmsDeson;

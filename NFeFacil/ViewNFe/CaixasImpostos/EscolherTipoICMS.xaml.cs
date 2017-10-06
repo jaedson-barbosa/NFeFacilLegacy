@@ -8,7 +8,7 @@ namespace NFeFacil.ViewNFe.CaixasImpostos
     {
         public EscolherTipoICMS()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         int regimeSelecionado;

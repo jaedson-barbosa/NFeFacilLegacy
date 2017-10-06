@@ -11,7 +11,7 @@ namespace NFeFacil.ViewNFe
     {
         internal EscolhaImposto(List<PrincipaisImpostos> adicionaveis)
         {
-            this.InitializeComponent();
+            InitializeComponent();
             Impostos = adicionaveis.Select(x => new VisualizacaoComboBox(x)).GerarObs();
         }
 

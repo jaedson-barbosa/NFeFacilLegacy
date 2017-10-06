@@ -9,7 +9,7 @@ namespace NFeFacil.ViewNFe.CaixasImpostos
     {
         public AdicionarICMSDestino()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         public ICMSUFDest Imposto { get; } = new ICMSUFDest();

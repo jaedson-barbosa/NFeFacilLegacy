@@ -37,8 +37,15 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
-                        <TextBlock Text="{Binding Titulo}" />
-                        <TextBlock Text="{Binding InformacaoAdicional}" />
+                        <StackPanel.ContextFlyout>
+                            <MenuFlyout>
+                                <MenuFlyoutItem Click="RemoverImposto">Remover</MenuFlyoutItem>
+                            </MenuFlyout>
+                        </StackPanel.ContextFlyout>
+                        <TextBlock Text="{Binding Titulo}"
+                                   Style="{StaticResource SubtitleTextBlockStyle}" />
+                        <TextBlock Text="{Binding InformacaoAdicional}"
+                                   Style="{StaticResource CaptionTextBlockStyle}" />
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>

@@ -38,7 +38,6 @@ namespace NFeFacil.ViewNFe
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             ProdutoCompleto = (DetalhesProdutos)e.Parameter;
-            Frame.BackStack.RemoveAt(Frame.BackStack.Count - 1);
             MainPage.Current.SeAtualizar("\uE825", "Impostos");
             DefinirImpostosAdicionaveis();
         }
@@ -149,6 +148,14 @@ namespace NFeFacil.ViewNFe
                     ImpostosAdicionados.Add(adicionar[i]);
                 }
             }
+        }
+
+        private void RemoverImposto(object sender, RoutedEventArgs e)
+        {
+            var contexto = ((FrameworkElement)sender).DataContext;
+            var imp = (VisualizacaoImposto)contexto;
+            ImpostosAdicionaveis.Add(imp.Primitivo);
+            ImpostosAdicionados.Remove(imp);
         }
 
         async Task<ComumICMS> AdicionarICMS()
@@ -917,6 +924,7 @@ namespace NFeFacil.ViewNFe
                 ProdutoCompleto.Impostos.impostos.Add(impostos[i].Oficial);
             }
 
+            Frame.BackStack.RemoveAt(Frame.BackStack.Count - 1);
             var parametro = Frame.BackStack[Frame.BackStack.Count - 1].Parameter as NFe;
             var info = parametro.Informacoes;
 

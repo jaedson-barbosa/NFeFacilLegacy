@@ -11,18 +11,18 @@
             <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
                        Margin="0,0,8,0">Importar dado base</TextBlock>
             <ItemsControl Style="{StaticResource ItensMedios}">
-                <my:ItemPadrao Titulo="Importar clientes"
+                <my:ItemPadrao Titulo="Clientes"
                                Descricao="Importar clientes a partir de XMLs que adotam o padrão da SEFAZ"
                                Tapped="ImportarCliente">
                     <SymbolIcon Symbol="People" />
                 </my:ItemPadrao>
-                <my:ItemPadrao Titulo="Importar motoristas"
+                <my:ItemPadrao Titulo="Motoristas"
                                Descricao="Importar motoristas a partir de XMLs que adotam o padrão da SEFAZ"
                                Tapped="ImportarMotorista">
                     <SymbolIcon Symbol="People" />
                 </my:ItemPadrao>
-                <my:ItemPadrao Titulo="Importar produtos"
-                               Descricao="Importar clientes a partir de XMLs que adotam o padrão da SEFAZ"
+                <my:ItemPadrao Titulo="Produtos"
+                               Descricao="Importar produtos a partir de XMLs que adotam o padrão da SEFAZ"
                                Tapped="ImportarProduto">
                     <SymbolIcon Symbol="Shop" />
                 </my:ItemPadrao>

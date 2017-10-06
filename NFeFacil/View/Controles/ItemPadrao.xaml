@@ -6,11 +6,9 @@
              mc:Ignorable="d"
              d:DesignHeight="300"
              d:DesignWidth="400"
-             Tapped="Tocado"
-             ToolTipService.ToolTip="{x:Bind Descricao}">
+             Tapped="Tocado">
     <GridViewItem Margin="8"
-                  Padding="8"
-                  Background="{StaticResource ButtonBackground}">
+                  Padding="8">
         <StackPanel>
             <ContentControl Content="{x:Bind Icone}"
                             RenderTransformOrigin="0.5,0.5"
@@ -28,7 +26,10 @@
                        TextWrapping="Wrap"
                        Style="{StaticResource SubtitleTextBlockStyle}"
                        TextAlignment="Center"
-                       Margin="0,4,0,0" />
+                       Margin="0,4,0,2" />
+            <TextBlock Text="{x:Bind Descricao}"
+                       TextWrapping="Wrap"
+                       Style="{StaticResource CaptionTextBlockStyle}" />
         </StackPanel>
     </GridViewItem>
 </UserControl>

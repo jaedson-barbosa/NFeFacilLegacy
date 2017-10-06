@@ -10,24 +10,24 @@
         <StackPanel>
             <ItemsControl Style="{StaticResource ItensMedios}"
                           Margin="0,0,0,8">
-                <my:ItemPadrao Titulo="Importar certificado"
-                               Descricao="Importe um certificado A1 facilmente"
+                <my:ItemPadrao Titulo="Importar A1"
+                               Descricao="Importe um certificado A1 com a extensão .pfx"
                                Tapped="ImportarCertificado">
                     <SymbolIcon Symbol="Import" />
                 </my:ItemPadrao>
-                <my:ItemPadrao Titulo="Conectar a servidor"
-                               Descricao="Conecte-se a um servidor de certificação que esteja rodando na rede local."
+                <my:ItemPadrao Titulo="Cadastar servidor"
+                               Descricao="Conecte-se a um servidor de certificação."
                                Tapped="ConectarServidor">
                     <FontIcon Glyph="&#xE703;" />
                 </my:ItemPadrao>
                 <my:ItemPadrao Titulo="Esquecer servidor"
-                               Descricao="Descadastre o servidor de certificação e passe a usar apenas os certificados A1 importados."
+                               Descricao="Use apenas os certificados A1 importados."
                                Tapped="EsquecerServidor">
                     <SymbolIcon Symbol="Delete" />
                 </my:ItemPadrao>
                 <my:ItemPadrao Titulo="Instalar servidor"
                                IsEnabled="{x:Bind InstalacaoLiberada}"
-                               Descricao="Instale o servidor de certificação neste PC para que os certificados instalados possam ser usados por qualquer dispositivo da rede local."
+                               Descricao="Libere os certificados instalados para a rede local."
                                Tapped="InstalarServidor">
                     <FontIcon Glyph="&#xEC4E;" />
                 </my:ItemPadrao>

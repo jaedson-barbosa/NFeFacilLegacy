@@ -362,109 +362,115 @@ namespace NFeFacil.ViewNFe
                 }
                 else
                 {
-                    var caixa2 = new AdicionarICMSSN(int.Parse(caixa.TipoICMSSN));
-                    if (await caixa2.ShowAsync() == ContentDialogResult.Primary)
+                    var csosn = caixa.TipoICMSSN;
+                    var origem = caixa.Origem;
+                    var tipoICMSSN = int.Parse(caixa.TipoICMSSN);
+                    switch (tipoICMSSN)
                     {
-                        var csosn = caixa.TipoICMSSN;
-                        var origem = caixa.Origem;
-                        switch (int.Parse(caixa.TipoICMSSN))
-                        {
-                            case 101:
-                                return new ICMSSN101()
+                        case 102:
+                            return new ICMSSN102()
+                            {
+                                CSOSN = csosn,
+                                Orig = origem
+                            };
+                        case 103:
+                            return new ICMSSN102()
+                            {
+                                CSOSN = csosn,
+                                Orig = origem
+                            };
+                        case 300:
+                            return new ICMSSN102()
+                            {
+                                CSOSN = csosn,
+                                Orig = origem
+                            };
+                        case 400:
+                            return new ICMSSN102()
+                            {
+                                CSOSN = csosn,
+                                Orig = origem
+                            };
+                        case 500:
+                            return new ICMSSN500()
+                            {
+                                CSOSN = csosn,
+                                Orig = origem
+                            };
+                        default:
+                            var caixa2 = new AdicionarICMSSN(int.Parse(caixa.TipoICMSSN));
+                            if (await caixa2.ShowAsync() == ContentDialogResult.Primary)
+                            {
+                                switch (tipoICMSSN)
                                 {
-                                    CSOSN = csosn,
-                                    Orig = origem,
-                                    pCredSN = caixa2.pCredSN,
-                                    vCredICMSSN = caixa2.vCredICMSSN
-                                };
-                            case 102:
-                                return new ICMSSN102()
-                                {
-                                    CSOSN = csosn,
-                                    Orig = origem
-                                };
-                            case 103:
-                                return new ICMSSN102()
-                                {
-                                    CSOSN = csosn,
-                                    Orig = origem
-                                };
-                            case 201:
-                                return new ICMSSN201()
-                                {
-                                    CSOSN = csosn,
-                                    modBCST = caixa2.modBCST.ToString(),
-                                    Orig = origem,
-                                    pCredSN = caixa2.pCredSN,
-                                    pICMSST = caixa2.pICMSST,
-                                    pMVAST = caixa2.pMVAST,
-                                    pRedBCST = caixa2.pRedBCST,
-                                    vBCST = caixa2.vBCST,
-                                    vCredICMSSN = caixa2.vCredICMSSN,
-                                    vICMSST = caixa2.vICMSST
-                                };
-                            case 202:
-                                return new ICMSSN202()
-                                {
-                                    CSOSN = csosn,
-                                    modBCST = caixa2.modBCST.ToString(),
-                                    Orig = origem,
-                                    pICMSST = caixa2.pICMSST,
-                                    pMVAST = caixa2.pMVAST,
-                                    pRedBCST = caixa2.pRedBCST,
-                                    vBCST = caixa2.vBCST,
-                                    vICMSST = caixa2.vICMSST
-                                };
-                            case 203:
-                                return new ICMSSN202()
-                                {
-                                    CSOSN = csosn,
-                                    modBCST = caixa2.modBCST.ToString(),
-                                    Orig = origem,
-                                    pICMSST = caixa2.pICMSST,
-                                    pMVAST = caixa2.pMVAST,
-                                    pRedBCST = caixa2.pRedBCST,
-                                    vBCST = caixa2.vBCST,
-                                    vICMSST = caixa2.vICMSST
-                                };
-                            case 300:
-                                return new ICMSSN102()
-                                {
-                                    CSOSN = csosn,
-                                    Orig = origem
-                                };
-                            case 400:
-                                return new ICMSSN102()
-                                {
-                                    CSOSN = csosn,
-                                    Orig = origem
-                                };
-                            case 500:
-                                return new ICMSSN500()
-                                {
-                                    CSOSN = csosn,
-                                    Orig = origem
-                                };
-                            case 900:
-                                return new ICMSSN900()
-                                {
-                                    CSOSN = csosn,
-                                    modBC = caixa2.modBC.ToString(),
-                                    modBCST = caixa2.modBCST.ToString(),
-                                    Orig = origem,
-                                    pCredSN = caixa2.pCredSN,
-                                    pICMS = caixa2.pICMS,
-                                    pICMSST = caixa2.pICMSST,
-                                    pMVAST = caixa2.pMVAST,
-                                    pRedBC = caixa2.pRedBC,
-                                    pRedBCST = caixa2.pRedBCST,
-                                    vBC = caixa2.vBC,
-                                    vBCST = caixa2.vBCST,
-                                    vCredICMSSN = caixa2.vCredICMSSN,
-                                    vICMS = caixa2.vICMS,
-                                    vICMSST = caixa2.vICMSST
-                                };
-                        }
+                                    case 101:
+                                        return new ICMSSN101()
+                                        {
+                                            CSOSN = csosn,
+                                            Orig = origem,
+                                            pCredSN = caixa2.pCredSN,
+                                            vCredICMSSN = caixa2.vCredICMSSN
+                                        };
+                                    case 201:
+                                        return new ICMSSN201()
+                                        {
+                                            CSOSN = csosn,
+                                            modBCST = caixa2.modBCST.ToString(),
+                                            Orig = origem,
+                                            pCredSN = caixa2.pCredSN,
+                                            pICMSST = caixa2.pICMSST,
+                                            pMVAST = caixa2.pMVAST,
+                                            pRedBCST = caixa2.pRedBCST,
+                                            vBCST = caixa2.vBCST,
+                                            vCredICMSSN = caixa2.vCredICMSSN,
+                                            vICMSST = caixa2.vICMSST
+                                        };
+                                    case 202:
+                                        return new ICMSSN202()
+                                        {
+                                            CSOSN = csosn,
+                                            modBCST = caixa2.modBCST.ToString(),
+                                            Orig = origem,
+                                            pICMSST = caixa2.pICMSST,
+                                            pMVAST = caixa2.pMVAST,
+                                            pRedBCST = caixa2.pRedBCST,
+                                            vBCST = caixa2.vBCST,
+                                            vICMSST = caixa2.vICMSST
+                                        };
+                                    case 203:
+                                        return new ICMSSN202()
+                                        {
+                                            CSOSN = csosn,
+                                            modBCST = caixa2.modBCST.ToString(),
+                                            Orig = origem,
+                                            pICMSST = caixa2.pICMSST,
+                                            pMVAST = caixa2.pMVAST,
+                                            pRedBCST = caixa2.pRedBCST,
+                                            vBCST = caixa2.vBCST,
+                                            vICMSST = caixa2.vICMSST
+                                        };
+                                    case 900:
+                                        return new ICMSSN900()
+                                        {
+                                            CSOSN = csosn,
+                                            modBC = caixa2.modBC.ToString(),
+                                            modBCST = caixa2.modBCST.ToString(),
+                                            Orig = origem,
+                                            pCredSN = caixa2.pCredSN,
+                                            pICMS = caixa2.pICMS,
+                                            pICMSST = caixa2.pICMSST,
+                                            pMVAST = caixa2.pMVAST,
+                                            pRedBC = caixa2.pRedBC,
+                                            pRedBCST = caixa2.pRedBCST,
+                                            vBC = caixa2.vBC,
+                                            vBCST = caixa2.vBCST,
+                                            vCredICMSSN = caixa2.vCredICMSSN,
+                                            vICMS = caixa2.vICMS,
+                                            vICMSST = caixa2.vICMSST
+                                        };
+                                }
+                            }
+                            break;
                     }
                 }
             }

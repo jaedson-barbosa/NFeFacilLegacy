@@ -14,61 +14,67 @@
                       IsTabStop="False">
             <controles:ItemPadrao x:Name="GerenciarDadosBase"
                                   Titulo="Cadastros"
-                                  Descricao="Gerencie as informações fundamentais para a criação das notas fiscais, que são: Emissor, cliente, transportador e Produto."
+                                  Descricao="Emissor, cliente, transportador e produto."
                                   Tapped="AbrirFunção">
                 <SymbolIcon Symbol="Manage" />
             </controles:ItemPadrao>
             <controles:ItemPadrao x:Name="ControleEstoque"
-                                  Titulo="Controle de estoque"
-                                  Descricao="Informe alguns dados do estoque de cada produto, visualize e edite a quantidade de produtos no estoque e veja o resumo das últimas alterações no estoque."
+                                  Titulo="Estoque"
+                                  Descricao="Visualizar e editar os dados de cada estoque."
                                   Tapped="AbrirFunção">
                 <SymbolIcon Symbol="Manage" />
             </controles:ItemPadrao>
             <controles:ItemPadrao x:Name="ManipulacaoRegistroVenda"
                                   Titulo="Criar nova venda"
-                                  Descricao="Crie o registro de uma venda apenas com as informações básicas, depois, se você quiser, poderá emitir a nota fiscal facilmente."
+                                  Descricao="Criar um registro de venda (Sem valor fiscal)."
                                   Tapped="AbrirFunção">
                 <FontIcon Glyph="&#xEC59;" />
             </controles:ItemPadrao>
             <controles:ItemPadrao x:Name="CriadorNFe"
                                   Titulo="Criar nota fiscal"
-                                  Descricao="Parte principal da aplicação. Aqui você pode criar uma nova nova fiscal e, posteriormente, transmití-la, imprimí-la e salvá-la."
+                                  Descricao="Criar uma nova fiscal e realizar operações."
                                   Tapped="AbrirFunção">
                 <SymbolIcon Symbol="Add" />
             </controles:ItemPadrao>
             <controles:ItemPadrao x:Name="NotasSalvas"
                                   Titulo="Notas salvas"
-                                  Descricao="Visialize todas as notas transmitidas por esta aplicação e realize ações básicas, como imprimir, exportar ou cancelar."
+                                  Descricao="Visialize, edite e cancelar as notas desta aplicação."
                                   Tapped="AbrirFunção">
                 <SymbolIcon Symbol="Library" />
             </controles:ItemPadrao>
             <controles:ItemPadrao x:Name="RegistrosVenda"
                                   Titulo="Vendas salvas"
-                                  Descricao="Veja todas as vendas feitas pela sua empresa e remova, visualize detalhes ou edite a respectiva venda."
+                                  Descricao="Visualize os registros de venda cadastrados."
                                   Tapped="AbrirFunção">
                 <SymbolIcon Symbol="Library" />
             </controles:ItemPadrao>
             <controles:ItemPadrao x:Name="Consulta"
                                   Titulo="Consultar NF-e"
-                                  Descricao="Consulte dados básicos de qualquer nota fiscal emitida por qualquer aplicação usando apenas o código da NF-e."
+                                  Descricao="Consulte dados básicos de qualquer nota fiscal emitida."
                                   Tapped="AbrirFunção">
                 <SymbolIcon Symbol="Find" />
             </controles:ItemPadrao>
             <controles:ItemPadrao x:Name="VendasAnuais"
                                   Titulo="Análise anual"
-                                  Descricao="Veja uma análise das vendas ocorridas em um ano, com a organização tanto por cliente quanto por mês."
+                                  Descricao="Veja uma análise das notas fiscais de um ano."
                                   Tapped="AbrirFunção">
                 <SymbolIcon Symbol="Calendar" />
             </controles:ItemPadrao>
-            <controles:ItemPadrao x:Name="Configuracoes"
-                                  Titulo="Configurações"
-                                  Descricao="Configure a sincronização entre dispositivos, defina o certificao padrão e importe notas fiscais e dados base."
+            <controles:ItemPadrao x:Name="ConfiguracoesCertificado"
+                                  Titulo="Certificado"
+                                  Descricao="Importe certificados ou instale e se conecte a um servidor."
                                   Tapped="AbrirFunção">
-                <SymbolIcon Symbol="Setting" />
+                <SymbolIcon Symbol="Permissions" />
+            </controles:ItemPadrao>
+            <controles:ItemPadrao x:Name="ImportacaoDados"
+                                  Titulo="Importação"
+                                  Descricao="Importe dados base ou notas fiscais."
+                                  Tapped="AbrirFunção">
+                <SymbolIcon Symbol="Import" />
             </controles:ItemPadrao>
             <controles:ItemPadrao x:Name="ConfigSincronizacao"
                                   Titulo="Sincronização"
-                                  Descricao="Configure a sincronização entre dispositivos, adicione novos dispositivos ao servidor ou se conecte a um servidor."
+                                  Descricao="Configure a sincronização entre dispositivos."
                                   Tapped="AbrirFunção">
                 <SymbolIcon Symbol="Sync" />
             </controles:ItemPadrao>

@@ -7,27 +7,22 @@
                Title="Adicionar IPI simples"
                PrimaryButtonText="Adicionar"
                SecondaryButtonText="Cancelar">
-    <Grid>
-        <ItemsControl Style="{StaticResource ItensResponsivos}">
-            <TextBox Text="{x:Bind Conjunto.clEnq, Mode=TwoWay}"
-                     Header="Classe de enquadramento"
-                     InputScope="Number" />
-            <TextBox Text="{x:Bind Conjunto.CNPJProd, Mode=TwoWay}"
-                     Header="CNPJ do produtor"
-                     InputScope="Number" />
-            <TextBox Text="{x:Bind Conjunto.cEnq, Mode=TwoWay}"
-                     Header="Código de enquadramento" />
-            <TextBox Text="{x:Bind Conjunto.qSelo, Mode=TwoWay}"
-                     Header="Qtd. do selo de controle"
-                     InputScope="Number" />
-            <TextBox Header="Código do selo de controle"
-                     Text="{x:Bind Conjunto.cSelo, Mode=TwoWay}" />
-            <TextBox Text="{x:Bind Imposto.VBC, Mode=TwoWay}"
-                     Header="Valor da base de cálculo"
-                     InputScope="Number" />
-            <TextBox Text="{x:Bind Imposto.PIPI, Mode=TwoWay}"
-                     Header="Alíquota"
-                     InputScope="Number" />
-        </ItemsControl>
-    </Grid>
+    <ItemsControl Style="{StaticResource ItensResponsivos}">
+        <TextBox Text="{x:Bind Conjunto.clEnq, Mode=TwoWay}"
+                 Header="Classe de enquadramento"
+                 InputScope="Number" />
+        <TextBox Text="{x:Bind Conjunto.CNPJProd, Mode=TwoWay}"
+                 Header="CNPJ do produtor"
+                 InputScope="Number" />
+        <TextBox Text="{x:Bind Conjunto.cEnq, Mode=TwoWay}"
+                 Header="Código de enquadramento" />
+        <TextBox Text="{x:Bind Conjunto.qSelo, Mode=TwoWay}"
+                 Header="Qtd. do selo de controle"
+                 InputScope="Number" />
+        <TextBox Header="Código do selo de controle"
+                 Text="{x:Bind Conjunto.cSelo, Mode=TwoWay}" />
+        <TextBox Text="{x:Bind Aliquota, Mode=TwoWay}"
+                 Header="Alíquota"
+                 InputScope="Number" />
+    </ItemsControl>
 </ContentDialog>

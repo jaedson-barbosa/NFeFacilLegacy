@@ -7,7 +7,7 @@
                Title="Escolha de ICMS"
                PrimaryButtonText="Adicionar"
                SecondaryButtonText="Cancelar">
-    <Grid>
+    <StackPanel>
         <ComboBox SelectedIndex="{x:Bind RegimeSelecionado, Mode=TwoWay}"
                   Header="Regime"
                   HorizontalAlignment="Stretch"
@@ -17,7 +17,6 @@
         </ComboBox>
         <ComboBox x:Name="cmbTipoICMSSN"
                   SelectedValue="{x:Bind TipoICMSSN, Mode=TwoWay}"
-                  IsEnabled="False"
                   SelectedValuePath="Tag"
                   HorizontalAlignment="Stretch"
                   Header="Situação tributária">
@@ -67,5 +66,5 @@
             <ComboBoxItem Tag='7'>7 - Estrangeira - Adquirida no mercado interno, sem similar nacional, constante lista CAMEX e gás natural</ComboBoxItem>
             <ComboBoxItem Tag='8'>8 - Nacional, mercadoria ou bem com Conteúdo de Importação superior a 70%</ComboBoxItem>
         </ComboBox>
-    </Grid>
+    </StackPanel>
 </ContentDialog>

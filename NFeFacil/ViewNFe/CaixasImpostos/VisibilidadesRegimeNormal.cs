@@ -1,4 +1,4 @@
-﻿namespace NFeFacil.ViewModel.ImpostosProduto
+﻿namespace NFeFacil.ViewNFe.CaixasImpostos
 {
     static class VisibilidadesRegimeNormal
     {

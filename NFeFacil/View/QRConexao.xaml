@@ -2,14 +2,19 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:my="using:NFeFacil.View.Controles"
-      xmlns:VM="using:NFeFacil.ViewModel"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
-    <Page.DataContext>
-        <VM:QRConexaoDataContext />
-    </Page.DataContext>
-    <Grid x:Name="main">
+    <Page.Resources>
+        <Storyboard x:Name="teste">
+            <DoubleAnimation Storyboard.TargetName="carregamento"
+                             Storyboard.TargetProperty="ActualValue"
+                             EnableDependentAnimation="True"
+                             Duration="0:1:0"
+                             To="10" />
+        </Storyboard>
+    </Page.Resources>
+    <Grid>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
                 <VisualState>
@@ -52,7 +57,7 @@
         </Grid.RowDefinitions>
         <Image x:Name="imgQR"
                Grid.RowSpan="2"
-               Source="{Binding QRGerado}" />
+               Source="{x:Bind QRGerado}" />
         <Grid x:Name="grdInfoImgQR"
               Grid.Column="1"
               Grid.RowSpan="2">
@@ -77,22 +82,22 @@
                      IsReadOnly="True"
                      TextWrapping="Wrap"
                      Header="IP"
-                     Text="{Binding Informacoes.IP}" />
+                     Text="{x:Bind Informacoes.IP}" />
             <TextBox Grid.Row="1"
                      Grid.Column="1"
                      IsReadOnly="True"
                      TextWrapping="Wrap"
                      Header="Senha temporária"
-                     Text="{Binding Informacoes.SenhaTemporaria}" />
+                     Text="{x:Bind Informacoes.SenhaTemporaria}" />
             <TextBlock Grid.Row="3"
                        Style="{StaticResource SubtitleTextBlockStyle}"
                        Margin="0,4,0,0"
                        Grid.ColumnSpan="2">Tempo restante</TextBlock>
             <my:CarregamentoCircular Grid.Row="4"
+                                     x:Name="carregamento"
                                      Grid.ColumnSpan="2"
                                      Segmento="{StaticResource Normal}"
-                                     ActualValue="{Binding ValorAtual}"
-                                     MaxValue="{Binding ValorMaximo, Mode=OneTime}"
+                                     MaxValue="10"
                                      Thickness="16" />
         </Grid>
     </Grid>

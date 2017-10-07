@@ -1,17 +1,12 @@
-﻿using NFeFacil.ViewModel.ImpostosProduto;
-using System.Collections.Generic;
-using System.Linq;
-using Windows.UI.Xaml;
+﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using System.Collections.ObjectModel;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using System;
-using System.Collections;
-using NFeFacil.ModeloXML.PartesProcesso;
 using NFeFacil.View.Controles;
+using System.Threading.Tasks;
+using Windows.UI.Popups;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -20,7 +15,7 @@ namespace NFeFacil.ViewNFe
     /// <summary>
     /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
     /// </summary>
-    public sealed partial class ManipulacaoProdutoCompleto : Page, IHambuguer
+    public sealed partial class ManipulacaoProdutoCompleto : Page, IHambuguer, IValida
     {
         public ManipulacaoProdutoCompleto()
         {
@@ -42,81 +37,48 @@ namespace NFeFacil.ViewNFe
             }
         }
 
-        private Impostos ImpostosFiltrados
+        public ObservableCollection<ItemHambuguer> ConteudoMenu => new ObservableCollection<ItemHambuguer>
         {
-            get
-            {
-                var lista = new List<Imposto>();
-                for (int i = 0; i < pvtImpostos.Items.Count; i++)
-                {
-                    var filho = (pvtImpostos.Items[i] as PivotItem).Content as FrameworkElement;
-                    var contexto = filho.DataContext;
-                    if (contexto is Imposto imposto)
-                    {
-                        lista.Add(imposto);
-                    }
-                    else if (contexto is IImpostoDataContext impostoContexto)
-                    {
-                        lista.Add(impostoContexto.ImpostoBruto);
-                    }
-                    else if (contexto is IImpostosUnidos impostos)
-                    {
-                        lista.AddRange(impostos.SepararImpostos());
-                    }
-                }
-                return new Impostos(from i in lista
-                                    where i != null && i.IsValido
-                                    select i);
-            }
-        }
+            new ItemHambuguer(Symbol.Tag, "Dados"),
+            new ItemHambuguer("\uE825", "Imposto devolvido"),
+            new ItemHambuguer(Symbol.Comment, "Info adicional"),
+            new ItemHambuguer(Symbol.World, "Importação"),
+            new ItemHambuguer(Symbol.World, "Exportação"),
+            new ItemHambuguer(Symbol.Target, "Produto específico")
+        };
 
-        public IEnumerable ConteudoMenu
-        {
-            get
-            {
-                var retorno = new ObservableCollection<ItemHambuguer>
-                {
-                    new ItemHambuguer(Symbol.Tag, "Dados"),
-                    new ItemHambuguer("\uE825", "Tributos"),
-                    new ItemHambuguer(Symbol.Comment, "Info adicional"),
-                    new ItemHambuguer(Symbol.World, "Importação"),
-                    new ItemHambuguer(Symbol.World, "Exportação"),
-                    new ItemHambuguer(Symbol.Target, "Produto específico")
-                };
-                main.SelectionChanged += (sender, e) => MainMudou?.Invoke(this, new NewIndexEventArgs { NewIndex = main.SelectedIndex });
-                return retorno;
-            }
-        }
-
-        public event EventHandler MainMudou;
         public void AtualizarMain(int index) => main.SelectedIndex = index;
 
         private void Concluir_Click(object sender, RoutedEventArgs e)
         {
-            var parametro = Frame.BackStack[Frame.BackStack.Count - 1].Parameter as NFe;
-            var info = parametro.Informacoes;
-
             var data = DataContext as ProdutoCompletoDataContext;
-            data.ProdutoCompleto.Impostos = ImpostosFiltrados;
-
-            var detalhes = data.ProdutoCompleto;
-            if (detalhes.Número == 0)
+            var porcentDevolv = data.ProdutoCompleto.ImpostoDevol.pDevol;
+            if (string.IsNullOrEmpty(porcentDevolv) || int.Parse(porcentDevolv) == 0)
             {
-                detalhes.Número = info.produtos.Count + 1;
-                info.produtos.Add(detalhes);
+                data.ProdutoCompleto.ImpostoDevol = null;
             }
-            else
-            {
-                info.produtos[detalhes.Número - 1] = detalhes;
-            }
-            info.total = new Total(info.produtos);
-
-            MainPage.Current.Retornar();
+            MainPage.Current.Navegar<ImpostosProduto>(data.ProdutoCompleto);
         }
 
         private void Cancelar_Click(object sender, RoutedEventArgs e)
         {
             MainPage.Current.Retornar();
+        }
+
+        async Task<bool> IValida.Verificar()
+        {
+            var mensagem = new MessageDialog("Se você sair agora, os dados serão perdidos, se tiver certeza, escolha Sair, caso contrário, escolha Cancelar.\r\n" +
+                "Mas lembre-se que, caso o produto já tenha sido salvo, as alterações não terão efeito, e caso contrário, o produto não será adicionado.", "Atenção");
+            mensagem.Commands.Add(new UICommand("Sair"));
+            mensagem.Commands.Add(new UICommand("Cancelar"));
+            var resultado = await mensagem.ShowAsync();
+            return resultado.Label == "Sair";
+        }
+
+        private void TelaMudou(object sender, SelectionChangedEventArgs e)
+        {
+            var index = ((FlipView)sender).SelectedIndex;
+            MainPage.Current.AlterarSelectedIndexHamburguer(index);
         }
     }
 }

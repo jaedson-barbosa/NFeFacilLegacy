@@ -1,9 +1,9 @@
 ﻿using System.Xml.Serialization;
 
-namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos
+namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto
 {
     [XmlRoot("impostoDevol")]
-    public class ImpostoDevol : Imposto
+    public class ImpostoDevol
     {
         [XmlElement(Order = 0)]
         public string pDevol { get; set; }
@@ -23,8 +23,6 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
                 ipi = value;
             }
         }
-
-        public override bool IsValido => NaoNulos(pDevol, ipi);
 
         public class IPIDevolvido
         {

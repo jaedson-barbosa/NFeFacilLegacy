@@ -54,7 +54,7 @@ namespace NFeFacil.Login
                         "    Agora vamos ao que interessa. Você deseja deseja obter todos os dados a partir de uma sincronização com outro dispositivo (claro, se outro dispositivo já tem dados cadastrados)?");
                     caixa.Commands.Add(new UICommand("Sim", x =>
                     {
-                        MainPage.Current.Navegar<View.ConfigSincronizacao>();
+                        MainPage.Current.Navegar<View.SincronizacaoCliente>();
                     }));
                     caixa.Commands.Add(new UICommand("Não"));
 #pragma warning disable CS4014

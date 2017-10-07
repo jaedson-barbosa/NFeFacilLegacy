@@ -170,10 +170,10 @@
       <DependentUpon>GeralEmitente.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\Converters\NumeroString.cs" />
-    <Compile Include="ViewModel\ImpostosProduto\VisibilidadeRegimeNormal.cs" />
-    <Compile Include="ViewModel\ImpostosProduto\VisibilidadeSimplesNacional.cs" />
-    <Compile Include="ViewModel\ImpostosProduto\VisibilidadesRegimeNormal.cs" />
-    <Compile Include="ViewModel\ImpostosProduto\VisibilidadesSimplesNacional.cs" />
+    <Compile Include="ViewNFe\CaixasImpostos\VisibilidadeRegimeNormal.cs" />
+    <Compile Include="ViewNFe\CaixasImpostos\VisibilidadeSimplesNacional.cs" />
+    <Compile Include="ViewNFe\CaixasImpostos\VisibilidadesRegimeNormal.cs" />
+    <Compile Include="ViewNFe\CaixasImpostos\VisibilidadesSimplesNacional.cs" />
     <Compile Include="ViewNFe\CaixasDialogoNFe\EnderecoDiferenteExterior.xaml.cs">
       <DependentUpon>EnderecoDiferenteExterior.xaml</DependentUpon>
     </Compile>
@@ -189,6 +189,18 @@
     <Compile Include="ViewNFe\CaixasDialogoProduto\EscolherTipoDeclaracaoExportacao.xaml.cs">
       <DependentUpon>EscolherTipoDeclaracaoExportacao.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewNFe\CaixasImpostos\AddPISouCOFINSAliquota.xaml.cs">
+      <DependentUpon>AddPISouCOFINSAliquota.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\CaixasImpostos\AddPISouCOFINSValor.xaml.cs">
+      <DependentUpon>AddPISouCOFINSValor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\CaixasImpostos\AdicionarICMSDestino.xaml.cs">
+      <DependentUpon>AdicionarICMSDestino.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\CaixasImpostos\AdicionarII.xaml.cs">
+      <DependentUpon>AdicionarII.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewNFe\CaixasImpostos\AdicionarIPISimples.xaml.cs">
       <DependentUpon>AdicionarIPISimples.xaml</DependentUpon>
     </Compile>
@@ -198,8 +210,17 @@
     <Compile Include="ViewNFe\CaixasImpostos\AdicionarIPIValor.xaml.cs">
       <DependentUpon>AdicionarIPIValor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewNFe\CaixasImpostos\AdicionarISSQNExterior.xaml.cs">
+      <DependentUpon>AdicionarISSQNExterior.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\CaixasImpostos\AdicionarISSQNNacional.xaml.cs">
+      <DependentUpon>AdicionarISSQNNacional.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewNFe\CaixasImpostos\EscolherTipoIPI.xaml.cs">
       <DependentUpon>EscolherTipoIPI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\CaixasImpostos\EscolherTipoPISouCOFINS.xaml.cs">
+      <DependentUpon>EscolherTipoPISouCOFINS.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewNFe\CriadorNFe.xaml.cs">
       <DependentUpon>CriadorNFe.xaml</DependentUpon>
@@ -215,6 +236,12 @@
     </Compile>
     <Compile Include="ViewNFe\CaixasImpostos\EscolherTipoICMS.xaml.cs">
       <DependentUpon>EscolherTipoICMS.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\EscolhaImposto.xaml.cs">
+      <DependentUpon>EscolhaImposto.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\ImpostosProduto.xaml.cs">
+      <DependentUpon>ImpostosProduto.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewNFe\VisualizacaoNFe.xaml.cs">
       <DependentUpon>VisualizacaoNFe.xaml</DependentUpon>
@@ -339,24 +366,15 @@
     <Compile Include="Validacao\ValidadorVendedor.cs" />
     <Compile Include="Validacao\ValidarDados.cs" />
     <Compile Include="ViewDadosBase\ClienteDataContext.cs" />
-    <Compile Include="ViewModel\ConfigSincronizacaoDataContext.cs" />
-    <Compile Include="ViewModel\ConfiguracoesDataContext.cs" />
     <Compile Include="ViewModel\Converters\ColecaoValida.cs" />
     <Compile Include="ViewModel\Converters\EstadoToMunicipios.cs" />
     <Compile Include="ViewModel\Converters\Invert.cs" />
     <Compile Include="ViewModel\Converters\StringToDateTime.cs" />
     <Compile Include="Login\EmitenteDataContext.cs" />
-    <Compile Include="ViewDadosBase\GerenciadorDadosBaseDataContext.cs" />
-    <Compile Include="ViewModel\ImpostosProduto\ConteinerCOFINS.cs" />
-    <Compile Include="ViewModel\ImpostosProduto\ConteinerCOFINSST.cs" />
-    <Compile Include="ViewModel\ImpostosProduto\ConteinerIPI.cs" />
-    <Compile Include="ViewModel\ImpostosProduto\ConteinerPIS.cs" />
-    <Compile Include="ViewModel\ImpostosProduto\ConteinerPISST.cs" />
-    <Compile Include="ViewModel\ImpostosProduto\TiposCalculo.cs" />
+    <Compile Include="ViewNFe\CaixasImpostos\TiposCalculo.cs" />
     <Compile Include="ViewDadosBase\MotoristaDataContext.cs" />
     <Compile Include="ViewNFe\ProdutoCompletoDataContext.cs" />
     <Compile Include="ViewModel\QRCode.cs" />
-    <Compile Include="ViewModel\QRConexaoDataContext.cs" />
     <Compile Include="ViewDadosBase\AdicionarDestinatario.xaml.cs">
       <DependentUpon>AdicionarDestinatario.xaml</DependentUpon>
     </Compile>
@@ -402,6 +420,9 @@
     <Compile Include="ViewRegistroVenda\CalculoDesconto.xaml.cs">
       <DependentUpon>CalculoDesconto.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ConfiguracoesCertificado.xaml.cs">
+      <DependentUpon>ConfiguracoesCertificado.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Consulta.xaml.cs">
       <DependentUpon>Consulta.xaml</DependentUpon>
     </Compile>
@@ -436,16 +457,11 @@
     <Compile Include="ViewNFe\NotasSalvas.xaml.cs">
       <DependentUpon>NotasSalvas.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\ImpostosProduto\COFINSDataContext.cs" />
     <Compile Include="ViewModel\Comando.cs" />
     <Compile Include="ViewModel\Converters\BoolToVisibility.cs" />
     <Compile Include="ViewModel\DadosEstadosParaView.cs" />
-    <Compile Include="ViewModel\ImpostosProduto\ICMSDataContext.cs" />
-    <Compile Include="ViewModel\ImpostosProduto\IImpostoDataContext.cs" />
-    <Compile Include="ViewModel\ImpostosProduto\IPIDataContext.cs" />
-    <Compile Include="ViewModel\ImpostosProduto\ISSQNDataContext.cs" />
-    <Compile Include="View\Configuracoes.xaml.cs">
-      <DependentUpon>Configuracoes.xaml</DependentUpon>
+    <Compile Include="View\ImportacaoDados.xaml.cs">
+      <DependentUpon>ImportacaoDados.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Controles\CarregamentoCircular.xaml.cs">
       <DependentUpon>CarregamentoCircular.xaml</DependentUpon>
@@ -456,9 +472,7 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\ImpostosProduto\PISDataContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModel\RelatorioVendasAnuais.cs" />
     <Compile Include="ViewNFe\CaixasDialogoNFe\AdicionarVolume.xaml.cs">
       <DependentUpon>AdicionarVolume.xaml</DependentUpon>
     </Compile>
@@ -473,8 +487,8 @@
     </Compile>
     <Compile Include="AuxiliaresEstilos\BibliotecaCores.cs" />
     <Compile Include="AuxiliaresEstilos\PainelAdaptavel.cs" />
-    <Compile Include="View\ConfigSincronizacao.xaml.cs">
-      <DependentUpon>ConfigSincronizacao.xaml</DependentUpon>
+    <Compile Include="View\SincronizacaoCliente.xaml.cs">
+      <DependentUpon>SincronizacaoCliente.xaml</DependentUpon>
     </Compile>
     <Compile Include="DANFE\PaginasDANFE\IPagina.cs" />
     <Compile Include="DANFE\PaginasDANFE\MotivoCriacaoPaginaExtra.cs" />
@@ -520,6 +534,9 @@
     </Compile>
     <Compile Include="ViewRegistroVenda\RegistrosVenda.xaml.cs">
       <DependentUpon>RegistrosVenda.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SincronizacaoServidor.xaml.cs">
+      <DependentUpon>SincronizacaoServidor.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\VendasAnuais.xaml.cs">
       <DependentUpon>VendasAnuais.xaml</DependentUpon>
@@ -604,6 +621,22 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ViewNFe\CaixasImpostos\AddPISouCOFINSAliquota.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\CaixasImpostos\AddPISouCOFINSValor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\CaixasImpostos\AdicionarICMSDestino.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\CaixasImpostos\AdicionarII.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ViewNFe\CaixasImpostos\AdicionarIPISimples.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -616,7 +649,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ViewNFe\CaixasImpostos\AdicionarISSQNExterior.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\CaixasImpostos\AdicionarISSQNNacional.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ViewNFe\CaixasImpostos\EscolherTipoIPI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\CaixasImpostos\EscolherTipoPISouCOFINS.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -637,6 +682,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ViewNFe\CaixasImpostos\EscolherTipoICMS.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\EscolhaImposto.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\ImpostosProduto.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -752,7 +805,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Configuracoes.xaml">
+    <Page Include="View\ImportacaoDados.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ConfiguracoesCertificado.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -828,7 +885,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ConfigSincronizacao.xaml">
+    <Page Include="View\SincronizacaoCliente.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -890,6 +947,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ViewRegistroVenda\RegistrosVenda.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SincronizacaoServidor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -29,7 +29,6 @@ namespace NFeFacil.ViewRegistroVenda
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            base.OnNavigatedTo(e);
             var original = (RegistroVenda)e.Parameter;
 
             using (var db = new AplicativoContext())

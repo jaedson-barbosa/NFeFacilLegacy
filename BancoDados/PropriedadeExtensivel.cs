@@ -7,7 +7,7 @@ namespace NFeFacil
     [AttributeUsage(AttributeTargets.All, Inherited = false, AllowMultiple = true)]
     public sealed class PropriedadeExtensivel : Attribute
     {
-        internal PropriedadeExtensivel(string nomeExtensao, MetodosObtencao metodo)
+        public PropriedadeExtensivel(string nomeExtensao, MetodosObtencao metodo)
         {
             NomeExtensão = nomeExtensao;
             Metodo = metodo;
@@ -49,7 +49,7 @@ namespace NFeFacil
         }
     }
 
-    enum MetodosObtencao
+    public enum MetodosObtencao
     {
         Estado,
         Municipio

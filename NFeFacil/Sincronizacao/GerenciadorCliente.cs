@@ -27,43 +27,38 @@ namespace NFeFacil.Sincronizacao
 
         internal async Task Sincronizar()
         {
-            using (var db = new AplicativoContext())
-            {
-                var momento = UltimaSincronizacao;
+            var envio = new ConjuntoBanco(UltimaSincronizacao);
+            var receb = await RequestAsync<ConjuntoBanco>(
+                $"Sincronizar",
+                SenhaPermanente,
+                envio,
+                UltimaSincronizacao.ToBinary().ToString());
+            receb.AnalisarESalvar();
 
-                var receb = await RequestAsync<ConjuntoBanco>(
-                    $"Sincronizar",
-                    SenhaPermanente,
-                    new ConjuntoBanco(db, momento));
-                receb.AnalisarESalvar(db);
-
-                Log.Escrever(TitulosComuns.Sucesso, "Sincronização simples concluida.");
-                db.SaveChanges();
-
-                UltimaSincronizacao = DateTime.Now;
-            }
+            Log.Escrever(TitulosComuns.Sucesso, "Sincronização simples concluida.");
+            UltimaSincronizacao = DateTime.Now;
         }
 
         internal async Task SincronizarTudo()
         {
-            using (var db = new AplicativoContext())
-            {
-                var receb = await RequestAsync<ConjuntoBanco>(
-                    $"Sincronizar",
-                    SenhaPermanente,
-                    new ConjuntoBanco(db));
-                receb.AnalisarESalvar(db);
+            var envio = new ConjuntoBanco();
+            envio.AtualizarPadrao();
+            var receb = await RequestAsync<ConjuntoBanco>(
+                $"Sincronizar",
+                SenhaPermanente,
+                envio,
+                UltimaSincronizacao.ToBinary().ToString());
+            receb.AnalisarESalvar();
 
-                Log.Escrever(TitulosComuns.Sucesso, "Sincronização total concluida.");
-                db.SaveChanges();
+            Log.Escrever(TitulosComuns.Sucesso, "Sincronização total concluida.");
 
-                UltimaSincronizacao = DateTime.Now;
-            }
+            UltimaSincronizacao = DateTime.Now;
         }
 
-        async Task<T> RequestAsync<T>(string nomeMetodo, int senha, object corpo)
+        async Task<T> RequestAsync<T>(string nomeMetodo, int senha, object corpo, string parametroExtra = null)
         {
             string caminho = $"http://{IPServidor}:8080/{nomeMetodo}/{senha}";
+            if (parametroExtra != null) caminho += $"/{parametroExtra}";
             using (var proxy = new HttpClient())
             {
                 var mensagem = new HttpRequestMessage(HttpMethod.Get, caminho);

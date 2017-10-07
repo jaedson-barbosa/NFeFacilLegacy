@@ -8,7 +8,6 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Navigation;
-using System.Collections;
 using NFeFacil.View.Controles;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
@@ -38,11 +37,10 @@ namespace NFeFacil.ViewNFe
             }
         }
 
-        public event EventHandler MainMudou;
+
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            base.OnNavigatedTo(e);
             MainPage.Current.SeAtualizar(Symbol.Library, "Notas salvas");
         }
 
@@ -52,19 +50,11 @@ namespace NFeFacil.ViewNFe
         ICollectionView NotasEmitidasView => new CollectionViewSource() { Source = NotasEmitidas }.View;
         ICollectionView OutrasNotasView => new CollectionViewSource() { Source = OutrasNotas }.View;
 
-        public IEnumerable ConteudoMenu
+        public ObservableCollection<ItemHambuguer> ConteudoMenu => new ObservableCollection<ItemHambuguer>
         {
-            get
-            {
-                var retorno = new ObservableCollection<ItemHambuguer>
-                {
-                    new ItemHambuguer(Symbol.Send, "Emitidas"),
-                    new ItemHambuguer(Symbol.SaveLocal, "Outras")
-                };
-                main.SelectionChanged += (sender, e) => MainMudou?.Invoke(this, new NewIndexEventArgs { NewIndex = main.SelectedIndex });
-                return retorno;
-            }
-        }
+            new ItemHambuguer(Symbol.Send, "Emitidas"),
+            new ItemHambuguer(Symbol.SaveLocal, "Outras")
+        };
 
         private void Exibir(object sender, RoutedEventArgs e)
         {
@@ -133,6 +123,12 @@ namespace NFeFacil.ViewNFe
             {
                 return Nota.Id.GetHashCode();
             }
+        }
+
+        private void TelaMudou(object sender, SelectionChangedEventArgs e)
+        {
+            var index = ((FlipView)sender).SelectedIndex;
+            MainPage.Current.AlterarSelectedIndexHamburguer(index);
         }
     }
 }

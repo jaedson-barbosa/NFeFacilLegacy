@@ -2,7 +2,6 @@
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using System.Collections.ObjectModel;
-using System.Collections;
 using NFeFacil.ModeloXML.PartesProcesso;
 using NFeFacil.View.Controles;
 using NFeFacil.ItensBD;
@@ -20,7 +19,6 @@ using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using NFeFacil.ViewNFe.CaixasDialogoNFe;
-using Windows.ApplicationModel.Core;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -36,29 +34,20 @@ namespace NFeFacil.ViewNFe
             InitializeComponent();
         }
 
-        public IEnumerable ConteudoMenu
+        public ObservableCollection<ItemHambuguer> ConteudoMenu => new ObservableCollection<ItemHambuguer>
         {
-            get
-            {
-                var retorno = new ObservableCollection<ItemHambuguer>
-                {
-                    new ItemHambuguer(Symbol.Tag, "Identificação"),
-                    new ItemHambuguer(Symbol.People, "Cliente"),
-                    new ItemHambuguer(Symbol.Street, "Retirada/Entrega"),
-                    new ItemHambuguer(Symbol.Shop, "Produtos"),
-                    new ItemHambuguer(Symbol.Calculator, "Totais"),
-                    new ItemHambuguer("\uE806", "Transporte"),
-                    new ItemHambuguer("\uE825", "Cobrança"),
-                    new ItemHambuguer(Symbol.Comment, "Informações adicionais"),
-                    new ItemHambuguer(Symbol.World, "Exportação e compras"),
-                    new ItemHambuguer(new Uri("ms-appx:///Assets/CanaAcucar.png"), "Cana-de-açúcar")
-                };
-                pvtPrincipal.SelectionChanged += (sender, e) => MainMudou?.Invoke(this, new NewIndexEventArgs { NewIndex = pvtPrincipal.SelectedIndex });
-                return retorno;
-            }
-        }
+            new ItemHambuguer(Symbol.Tag, "Identificação"),
+            new ItemHambuguer(Symbol.People, "Cliente"),
+            new ItemHambuguer(Symbol.Street, "Retirada/Entrega"),
+            new ItemHambuguer(Symbol.Shop, "Produtos"),
+            new ItemHambuguer(Symbol.Calculator, "Totais"),
+            new ItemHambuguer("\uE806", "Transporte"),
+            new ItemHambuguer("\uE825", "Cobrança"),
+            new ItemHambuguer(Symbol.Comment, "Informações adicionais"),
+            new ItemHambuguer(Symbol.World, "Exportação e compras"),
+            new ItemHambuguer(new Uri("ms-appx:///Assets/CanaAcucar.png"), "Cana-de-açúcar")
+        };
 
-        public event EventHandler MainMudou;
         public void AtualizarMain(int index) => pvtPrincipal.SelectedIndex = index;
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -426,9 +415,15 @@ namespace NFeFacil.ViewNFe
             MainPage.Current.Navegar<ManipulacaoProdutoCompleto>(detCompleto);
         }
 
-        void EditarProduto(DetalhesProdutos produto)
+        async void EditarProduto(DetalhesProdutos produto)
         {
-            MainPage.Current.Navegar<ManipulacaoProdutoCompleto>(produto);
+            var caixa = new MessageDialog("A edição de um produto causa a perda de todos os impostos cadastrados atualmente neste produto, tem certeza que quer continuar?", "Atenção");
+            caixa.Commands.Add(new UICommand("Sim"));
+            caixa.Commands.Add(new UICommand("Não"));
+            if ((await caixa.ShowAsync()).Label == "Sim")
+            {
+                MainPage.Current.Navegar<ManipulacaoProdutoCompleto>(produto);
+            }
         }
 
         void RemoverProduto(DetalhesProdutos produto)
@@ -445,7 +440,7 @@ namespace NFeFacil.ViewNFe
 
         async void AdicionarNFeReferenciada()
         {
-            var caixa = new CaixasDialogoNFe.AdicionarReferenciaEletronica();
+            var caixa = new AdicionarReferenciaEletronica();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
                 var novo = new DocumentoFiscalReferenciado
@@ -459,7 +454,7 @@ namespace NFeFacil.ViewNFe
 
         async void AdicionarNFReferenciada()
         {
-            var caixa = new CaixasDialogoNFe.AdicionarNF1AReferenciada();
+            var caixa = new AdicionarNF1AReferenciada();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
                 var contexto = (NF1AReferenciada)caixa.DataContext;
@@ -487,7 +482,7 @@ namespace NFeFacil.ViewNFe
 
         async void AdicionarReboque()
         {
-            var add = new CaixasDialogoNFe.AdicionarReboque();
+            var add = new AdicionarReboque();
             if (await add.ShowAsync() == ContentDialogResult.Primary)
             {
                 var novo = add.DataContext as Reboque;
@@ -504,7 +499,7 @@ namespace NFeFacil.ViewNFe
 
         async void AdicionarVolume()
         {
-            var add = new CaixasDialogoNFe.AdicionarVolume();
+            var add = new AdicionarVolume();
             if (await add.ShowAsync() == ContentDialogResult.Primary)
             {
                 var novo = add.DataContext as Volume;
@@ -521,7 +516,7 @@ namespace NFeFacil.ViewNFe
 
         async void AdicionarDuplicata()
         {
-            var caixa = new CaixasDialogoNFe.AdicionarDuplicata();
+            var caixa = new AdicionarDuplicata();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
                 var novo = caixa.DataContext as Duplicata;
@@ -538,7 +533,7 @@ namespace NFeFacil.ViewNFe
 
         async void AdicionarFornecimento()
         {
-            var caixa = new CaixasDialogoNFe.AdicionarFornecimentoDiario();
+            var caixa = new AdicionarFornecimentoDiario();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
                 var novo = caixa.DataContext as FornecimentoDiario;
@@ -555,7 +550,7 @@ namespace NFeFacil.ViewNFe
 
         async void AdicionarDeducao()
         {
-            var caixa = new CaixasDialogoNFe.AdicionarDeducao();
+            var caixa = new AdicionarDeducao();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
                 var novo = caixa.DataContext as Deducoes;
@@ -572,7 +567,7 @@ namespace NFeFacil.ViewNFe
 
         async void AdicionarObsContribuinte()
         {
-            var caixa = new CaixasDialogoNFe.AdicionarObservacaoContribuinte();
+            var caixa = new AdicionarObservacaoContribuinte();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
                 var novo = (Observacao)caixa.DataContext;
@@ -589,7 +584,7 @@ namespace NFeFacil.ViewNFe
 
         async void AdicionarProcReferenciado()
         {
-            var caixa = new CaixasDialogoNFe.AdicionarProcessoReferenciado();
+            var caixa = new AdicionarProcessoReferenciado();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
                 var novo = caixa.Item;
@@ -608,16 +603,12 @@ namespace NFeFacil.ViewNFe
 
         async Task<bool> IValida.Verificar()
         {
-            var retorno = true;
-            var dispachante = CoreApplication.MainView.CoreWindow.Dispatcher;
-            await dispachante.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
-            {
-                var mensagem = new MessageDialog("Se você sair agora, os dados serão perdidos, se tiver certeza, escolha Sair, caso contrário, Cancelar.", "Atenção");
-                mensagem.Commands.Add(new UICommand("Sair"));
-                mensagem.Commands.Add(new UICommand("Cancelar", x => retorno = false));
-                await mensagem.ShowAsync();
-            });
-            return retorno;
+            var mensagem = new MessageDialog("Se você sair agora, os dados serão perdidos, se tiver certeza, escolha Sair, caso contrário, escolha Cancelar.\r\n" +
+                "Mas lembre-se que, caso a nota ainda não tenha sido salva, a nota será totalmente excluida e, caso ela já tenha sida salva, as alterações serão descartadas.", "Atenção");
+            mensagem.Commands.Add(new UICommand("Sair"));
+            mensagem.Commands.Add(new UICommand("Cancelar"));
+            var resultado = await mensagem.ShowAsync();
+            return resultado.Label == "Sair";
         }
 
         #region Métodos View - Backcode
@@ -813,6 +804,12 @@ namespace NFeFacil.ViewNFe
             {
                 controle.IsOn = false;
             }
+        }
+
+        private void TelaMudou(object sender, SelectionChangedEventArgs e)
+        {
+            var index = ((FlipView)sender).SelectedIndex;
+            MainPage.Current.AlterarSelectedIndexHamburguer(index);
         }
     }
 }

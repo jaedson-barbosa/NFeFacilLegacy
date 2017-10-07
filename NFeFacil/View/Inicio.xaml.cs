@@ -1,4 +1,5 @@
-﻿using NFeFacil.ViewDadosBase;
+﻿using NFeFacil.Sincronizacao;
+using NFeFacil.ViewDadosBase;
 using NFeFacil.ViewRegistroVenda;
 using System;
 using Windows.UI.Xaml;
@@ -22,7 +23,6 @@ namespace NFeFacil.View
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            base.OnNavigatedTo(e);
             MainPage.Current.SeAtualizar(Symbol.Home, nameof(Inicio));
         }
 
@@ -54,11 +54,21 @@ namespace NFeFacil.View
                 case "VendasAnuais":
                     MainPage.Current.Navegar<VendasAnuais>();
                     break;
-                case "Configuracoes":
-                    MainPage.Current.Navegar<Configuracoes>();
+                case "ConfiguracoesCertificado":
+                    MainPage.Current.Navegar<ConfiguracoesCertificado>();
+                    break;
+                case "ImportacaoDados":
+                    MainPage.Current.Navegar<ImportacaoDados>();
                     break;
                 case "ConfigSincronizacao":
-                    MainPage.Current.Navegar<ConfigSincronizacao>();
+                    if (ConfiguracoesSincronizacao.Tipo == TipoAppSincronizacao.Cliente)
+                    {
+                        MainPage.Current.Navegar<SincronizacaoCliente>();
+                    }
+                    else
+                    {
+                        MainPage.Current.Navegar<SincronizacaoServidor>();
+                    }
                     break;
                 default:
                     break;

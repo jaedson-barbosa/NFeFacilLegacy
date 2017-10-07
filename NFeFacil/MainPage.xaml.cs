@@ -77,11 +77,22 @@ namespace NFeFacil
         {
             txtTitulo.Text = texto;
             symTitulo.Content = new SymbolIcon(símbolo);
+            AnalisarMenuHamburguer();
+        }
+
+        public void SeAtualizar(string glyph, string texto)
+        {
+            txtTitulo.Text = texto;
+            symTitulo.Content = new FontIcon { Glyph = glyph };
+            AnalisarMenuHamburguer();
+        }
+
+        void AnalisarMenuHamburguer()
+        {
             if (frmPrincipal.Content is IHambuguer hambuguer)
             {
                 menuTemporario.ItemsSource = hambuguer.ConteudoMenu;
                 menuTemporario.SelectedIndex = 0;
-                hambuguer.MainMudou += (sender, e) => menuTemporario.SelectedIndex = ((NewIndexEventArgs)e).NewIndex;
                 splitView.CompactPaneLength = 48;
             }
             else
@@ -91,30 +102,19 @@ namespace NFeFacil
             }
         }
 
-        public void SeAtualizar(string glyph, string texto)
+        internal void AlterarSelectedIndexHamburguer(int index)
         {
-            txtTitulo.Text = texto;
-            symTitulo.Content = new FontIcon { Glyph = glyph };
+            if (menuTemporario.ItemsSource != null)
+            {
+                menuTemporario.SelectedIndex = index;
+            }
         }
 
         public async void Retornar(bool suprimirValidacao = false)
         {
-            if (!suprimirValidacao)
+            if (!suprimirValidacao && frmPrincipal.Content is IValida retorna && !await retorna.Verificar())
             {
-                if (frmPrincipal.Content is IValida retorna)
-                {
-                    if (!await retorna.Verificar())
-                    {
-                        return;
-                    }
-                }
-                else if ((frmPrincipal.Content as FrameworkElement).DataContext is IValida retornaDC)
-                {
-                    if (!await retornaDC.Verificar())
-                    {
-                        return;
-                    }
-                }
+                return;
             }
 
             if (frmPrincipal.CanGoBack)

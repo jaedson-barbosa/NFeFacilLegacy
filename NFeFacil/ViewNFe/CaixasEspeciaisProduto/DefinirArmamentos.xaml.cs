@@ -1,0 +1,39 @@
+﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
+using System;
+using System.Collections.ObjectModel;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+
+// O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
+
+namespace NFeFacil.ViewNFe.CaixasEspeciaisProduto
+{
+    /// <summary>
+    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
+    /// </summary>
+    public sealed partial class DefinirArmamentos : Page
+    {
+        public DefinirArmamentos()
+        {
+            this.InitializeComponent();
+        }
+
+        public ObservableCollection<Arma> Armas { get; } = new ObservableCollection<Arma>();
+
+        async void AdicionarArmamento(object sender, RoutedEventArgs e)
+        {
+            var caixa = new CaixasDialogoProduto.AdicionarArmamento();
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+            {
+                var novoArmamento = (Arma)caixa.DataContext;
+                Armas.Add(novoArmamento);
+            }
+        }
+
+        void RemoverArmamento(object sender, RoutedEventArgs e)
+        {
+            var contexto = ((FrameworkElement)sender).DataContext;
+            Armas.Remove((Arma)contexto);
+        }
+    }
+}

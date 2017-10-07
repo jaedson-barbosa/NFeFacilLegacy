@@ -170,6 +170,21 @@
       <DependentUpon>GeralEmitente.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\Converters\NumeroString.cs" />
+    <Compile Include="ViewNFe\CaixasEspeciaisProduto\DefinirArmamentos.xaml.cs">
+      <DependentUpon>DefinirArmamentos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\CaixasEspeciaisProduto\DefinirCombustivel.xaml.cs">
+      <DependentUpon>DefinirCombustivel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\CaixasEspeciaisProduto\DefinirMedicamentos.xaml.cs">
+      <DependentUpon>DefinirMedicamentos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\CaixasEspeciaisProduto\DefinirPapel.xaml.cs">
+      <DependentUpon>DefinirPapel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\CaixasEspeciaisProduto\DefinirVeiculo.xaml.cs">
+      <DependentUpon>DefinirVeiculo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewNFe\CaixasImpostos\VisibilidadeRegimeNormal.cs" />
     <Compile Include="ViewNFe\CaixasImpostos\VisibilidadeSimplesNacional.cs" />
     <Compile Include="ViewNFe\CaixasImpostos\VisibilidadesRegimeNormal.cs" />
@@ -618,6 +633,26 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ViewNFe\CaixasDialogoProduto\EscolherTipoDeclaracaoExportacao.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\CaixasEspeciaisProduto\DefinirArmamentos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\CaixasEspeciaisProduto\DefinirCombustivel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\CaixasEspeciaisProduto\DefinirMedicamentos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\CaixasEspeciaisProduto\DefinirPapel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\CaixasEspeciaisProduto\DefinirVeiculo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

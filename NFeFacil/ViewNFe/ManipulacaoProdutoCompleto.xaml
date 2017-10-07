@@ -178,19 +178,32 @@
                 </ListView.ItemTemplate>
             </ListView>
             <ScrollViewer>
-                <StackPanel>
-                    <ComboBox ItemsSource="{Binding ListaTiposEspeciaisProduto, Mode=OneTime}"
-                              SelectedItem="{Binding TipoEspecialProdutoSelecionado, Mode=TwoWay}"
-                              SelectedIndex="0"
-                              HorizontalAlignment="Stretch">
-                        <ComboBoxItem>Produto simples</ComboBoxItem>
-                        <ComboBoxItem>Veículo novo</ComboBoxItem>
-                        <ComboBoxItem>Medicamento ou matéria-prima farmacêutica</ComboBoxItem>
-                        <ComboBoxItem>Armamento</ComboBoxItem>
-                        <ComboBoxItem>Combustível</ComboBoxItem>
-                        <ComboBoxItem>Papel imune</ComboBoxItem>
-                    </ComboBox>
-                </StackPanel>
+                <ItemsControl Style="{StaticResource ItensMedios}">
+                    <controles:ItemPadrao Titulo="Produto simples"
+                                          Descricao="Produto que não se encaixa nas categorias especiais">
+                        <SymbolIcon Symbol="Shop" />
+                    </controles:ItemPadrao>
+                    <controles:ItemPadrao Titulo="Veículo"
+                                          Descricao="Algum tipo de veículo">
+                        <FontIcon Glyph="&#xE804;" />
+                    </controles:ItemPadrao>
+                    <controles:ItemPadrao Titulo="Medicamento"
+                                          Descricao="Remédios e afins">
+                        <FontIcon Glyph="&#xE95E;" />
+                    </controles:ItemPadrao>
+                    <controles:ItemPadrao Titulo="Armamento"
+                                          Descricao="Armas">
+                        <BitmapIcon UriSource="ms-appx:///Assets/arma.png" />
+                    </controles:ItemPadrao>
+                    <controles:ItemPadrao Titulo="Combustível"
+                                          Descricao="Combustíveis">
+                        <FontIcon Glyph="&#xEB42;" />
+                    </controles:ItemPadrao>
+                    <controles:ItemPadrao Titulo="Papel"
+                                          Descricao="Papel imune">
+                        <FontIcon Glyph="&#xE82D;" />
+                    </controles:ItemPadrao>
+                </ItemsControl>
             </ScrollViewer>
         </FlipView>
         <CommandBar Grid.Row="1">

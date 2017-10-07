@@ -946,7 +946,7 @@ namespace NFeFacil.ViewNFe
             }
             info.total = new Total(info.produtos);
 
-            MainPage.Current.Retornar();
+            MainPage.Current.Retornar(true);
         }
 
         void Cancelar(object sender, RoutedEventArgs e)

@@ -103,6 +103,7 @@
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <PRIResource Include="Cadeias de caracteres\pt-BR\Resources.resw" />
+    <Content Include="Assets\arma.png" />
     <Content Include="Assets\BadgeLogo.scale-100.png" />
     <Content Include="Assets\BadgeLogo.scale-125.png" />
     <Content Include="Assets\BadgeLogo.scale-150.png" />
@@ -388,7 +389,6 @@
     <Compile Include="Login\EmitenteDataContext.cs" />
     <Compile Include="ViewNFe\CaixasImpostos\TiposCalculo.cs" />
     <Compile Include="ViewDadosBase\MotoristaDataContext.cs" />
-    <Compile Include="ViewNFe\ProdutoCompletoDataContext.cs" />
     <Compile Include="ViewModel\QRCode.cs" />
     <Compile Include="ViewDadosBase\AdicionarDestinatario.xaml.cs">
       <DependentUpon>AdicionarDestinatario.xaml</DependentUpon>

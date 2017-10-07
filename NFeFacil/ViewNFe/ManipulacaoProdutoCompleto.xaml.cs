@@ -7,6 +7,9 @@ using System;
 using NFeFacil.View.Controles;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
+using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
+using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
+using System.Collections.Generic;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -25,15 +28,14 @@ namespace NFeFacil.ViewNFe
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             var produto = (DetalhesProdutos)e.Parameter;
+            ProdutoCompleto = produto;
             if (produto.Impostos.impostos.Count > 0)
             {
                 MainPage.Current.SeAtualizar(Symbol.Edit, "Produto");
-                DataContext = new ProdutoCompletoDataContext(produto);
             }
             else
             {
                 MainPage.Current.SeAtualizar(Symbol.Add, "Produto");
-                DataContext = new ProdutoCompletoDataContext(produto);
             }
         }
 
@@ -51,13 +53,15 @@ namespace NFeFacil.ViewNFe
 
         private void Concluir_Click(object sender, RoutedEventArgs e)
         {
-            var data = DataContext as ProdutoCompletoDataContext;
-            var porcentDevolv = data.ProdutoCompleto.ImpostoDevol.pDevol;
+            ProdutoCompleto.Produto.DI = new List<DeclaracaoImportacao>(ListaDI);
+            ProdutoCompleto.Produto.GrupoExportação = new List<GrupoExportacao>(ListaGE);
+
+            var porcentDevolv = ProdutoCompleto.ImpostoDevol.pDevol;
             if (string.IsNullOrEmpty(porcentDevolv) || int.Parse(porcentDevolv) == 0)
             {
-                data.ProdutoCompleto.ImpostoDevol = null;
+                ProdutoCompleto.ImpostoDevol = null;
             }
-            MainPage.Current.Navegar<ImpostosProduto>(data.ProdutoCompleto);
+            MainPage.Current.Navegar<ImpostosProduto>(ProdutoCompleto);
         }
 
         private void Cancelar_Click(object sender, RoutedEventArgs e)
@@ -79,6 +83,67 @@ namespace NFeFacil.ViewNFe
         {
             var index = ((FlipView)sender).SelectedIndex;
             MainPage.Current.AlterarSelectedIndexHamburguer(index);
+        }
+
+        public DetalhesProdutos ProdutoCompleto { get; private set; }
+
+        public ObservableCollection<DeclaracaoImportacao> ListaDI { get; } = new ObservableCollection<DeclaracaoImportacao>();
+        public ObservableCollection<GrupoExportacao> ListaGE { get; } = new ObservableCollection<GrupoExportacao>();
+
+        public ImpostoDevol ContextoImpostoDevol
+        {
+            get
+            {
+                if (ProdutoCompleto.ImpostoDevol == null)
+                {
+                    ProdutoCompleto.ImpostoDevol = new ImpostoDevol();
+                }
+                return ProdutoCompleto.ImpostoDevol;
+            }
+        }
+
+        private async void AdicionarDeclaracaoImportacao()
+        {
+            var caixa = new CaixasDialogoProduto.AdicionarDeclaracaoImportacao();
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+            {
+                ListaDI.Add(caixa.Declaracao);
+            }
+        }
+
+        private async void AdicionarDeclaracaoExportacao()
+        {
+            var caixa = new CaixasDialogoProduto.EscolherTipoDeclaracaoExportacao();
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+            {
+                var tipo = caixa.TipoEscolhido;
+                if (tipo == CaixasDialogoProduto.TiposDeclaracaoExportacao.Direta)
+                {
+                    var caixa2 = new CaixasDialogoProduto.AddDeclaracaoExportacaoDireta();
+                    if (await caixa2.ShowAsync() == ContentDialogResult.Primary)
+                    {
+                        ListaGE.Add(caixa2.Declaracao);
+                    }
+                }
+                else
+                {
+                    var caixa2 = new CaixasDialogoProduto.AddDeclaracaoExportacaoIndireta();
+                    if (await caixa2.ShowAsync() == ContentDialogResult.Primary)
+                    {
+                        ListaGE.Add(caixa2.Declaracao);
+                    }
+                }
+            }
+        }
+
+        private void RemoverDeclaracaoImportacao(DeclaracaoImportacao declaracao)
+        {
+            ListaDI.Remove(declaracao);
+        }
+
+        private void RemoverDeclaracaoExportacao(GrupoExportacao declaracao)
+        {
+            ListaGE.Remove(declaracao);
         }
     }
 }

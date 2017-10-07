@@ -90,7 +90,7 @@
         <controles:EntradaNumerica Format="3"
                                    Number="{x:Bind Veiculo.lota,Mode=TwoWay}"
                                    Header="Lotação" />
-        <ComboBox SelectedValue="{x:Bind Veiculo.TpRest, Mode=TwoWay}"
+        <ComboBox SelectedValue="{x:Bind Veiculo.tpRest, Mode=TwoWay}"
                   SelectedValuePath="Tag"
                   Header="Restrição"
                   HorizontalAlignment="Stretch">

@@ -59,16 +59,10 @@
             <Setter Property="ItemContainerStyle">
                 <Setter.Value>
                     <Style TargetType="GridViewItem">
-                        <Setter Property="BorderThickness"
-                                Value="0" />
-                        <Setter Property="BorderBrush"
-                                Value="Transparent" />
                         <Setter Property="Padding"
-                                Value="-8" />
+                                Value="0" />
                         <Setter Property="Margin"
-                                Value="0" />
-                        <Setter Property="FocusVisualMargin"
-                                Value="0" />
+                                Value="8" />
                         <Setter Property="HorizontalAlignment"
                                 Value="Stretch" />
                         <Setter Property="HorizontalContentAlignment"

@@ -24,195 +24,191 @@
             <VM:DadosEstadosParaView x:Key="estados" />
         </ResourceDictionary>
     </Page.Resources>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <FlipView x:Name="main"
-                  Padding="16"
-                  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-                  SelectionChanged="TelaMudou">
-            <ScrollViewer DataContext="{Binding ProdutoCompleto.Produto}">
-                <ItemsControl Style="{StaticResource ItensResponsivos}">
-                    <TextBox Text="{Binding CodigoProduto, Mode=TwoWay}"
-                             InputScope="Text"
-                             Header="Código *" />
-                    <controles:EntradaRestrita Pattern="[^\d]"
-                                               Text="{Binding CodigoBarras, Mode=TwoWay}"
-                                               Header="EAN" />
-                    <TextBox Text="{Binding Descricao, Mode=TwoWay}"
-                             InputScope="Text"
-                             Header="Descrição *" />
-                    <controles:EntradaRestrita Pattern="[^\d]"
-                                               Text="{Binding NCM, Mode=TwoWay}"
-                                               Header="NCM" />
-                    <controles:EntradaRestrita Pattern="[^\d]"
-                                               Text="{Binding EXTIPI, Mode=TwoWay}"
-                                               Header="EX TIPI" />
-                    <controles:EntradaNumerica Format="4"
-                                               Number="{Binding CFOP, Mode=TwoWay}"
-                                               Header="CFOP *" />
-                    <TextBox Text="{Binding UnidadeComercializacao, Mode=TwoWay}"
-                             InputScope="Text"
-                             Header="Unidade comercial" />
-                    <controles:EntradaNumerica Format="11:4"
-                                               Number="{Binding QuantidadeComercializada, Mode=TwoWay}"
-                                               Header="Qtd. comercial" />
-                    <controles:EntradaNumerica Format="11:10"
-                                               Number="{Binding ValorUnitario, Mode=TwoWay}"
-                                               Header="Valor unid. comercial" />
-                    <controles:EntradaNumerica Format="13:2"
-                                               Number="{Binding ValorTotal, Mode=TwoWay}"
-                                               Header="Total bruto" />
-                    <controles:EntradaRestrita Pattern="[^\d]"
-                                               Text="{Binding CodigoBarrasTributo, Mode=TwoWay}"
-                                               Header="EAN Unid. Tributável" />
-                    <TextBox Text="{Binding UnidadeTributacao, Mode=TwoWay}"
-                             InputScope="Text"
-                             Header="Unidade tributária" />
-                    <controles:EntradaNumerica Format="11:4"
-                                               Number="{Binding QuantidadeTributada, Mode=TwoWay}"
-                                               Header="Qtd. tributária" />
-                    <controles:EntradaNumerica Format="11:10"
-                                               Number="{Binding ValorUnitarioTributo, Mode=TwoWay}"
-                                               Header="Valor unid. tributária" />
-                    <controles:EntradaRestrita Pattern="[^\d]"
-                                               Text="{Binding Frete, Mode=TwoWay}"
-                                               Header="Frete" />
-                    <controles:EntradaRestrita Pattern="[^\d]"
-                                               Text="{Binding Seguro, Mode=TwoWay}"
-                                               Header="Seguro" />
-                    <controles:EntradaRestrita Pattern="[^\d]"
-                                               Text="{Binding Desconto, Mode=TwoWay}"
-                                               Header="Desconto" />
-                    <controles:EntradaRestrita Pattern="[^\d]"
-                                               Text="{Binding DespesasAcessórias, Mode=TwoWay}"
-                                               Header="Desp. acessórias" />
-                    <ComboBox Header="O valor do item..."
-                              SelectedIndex="{Binding InclusãoTotal, Mode=TwoWay}"
-                              HorizontalAlignment="Stretch">
-                        <ComboBoxItem>Não compõe o valor total da NF-e</ComboBoxItem>
-                        <ComboBoxItem>compõe o valor total da NF-e</ComboBoxItem>
-                    </ComboBox>
-                    <TextBox Text="{Binding XPed, Mode=TwoWay}"
-                             InputScope="Number"
-                             Header="Pedido de compra" />
-                    <controles:EntradaRestrita Pattern="[^\d]"
-                                               Text="{Binding NItemPed, Mode=TwoWay}"
-                                               Header="Nº do item do pedido" />
-                    <TextBox Text="{Binding NFCI, Mode=TwoWay}"
-                             InputScope="Number"
-                             Header="Nº de controle da FCI" />
-                </ItemsControl>
-            </ScrollViewer>
-            <StackPanel DataContext="{Binding ContextoImpostoDevol}">
-                <TextBox Header="Percentual da mercadoria devolvida *"
-                         Text="{Binding pDevol, Mode=TwoWay}"
-                         InputScope="Number" />
-                <TextBox Header="Valor do IPI devolvido *"
-                         Text="{Binding IPI.vIPIDevol, Mode=TwoWay}"
-                         InputScope="Number" />
-            </StackPanel>
-            <TextBox Text="{Binding ProdutoCompleto.InfAdProd, Mode=TwoWay}"
-                     TextWrapping="Wrap" />
-            <ListView ItemContainerStyle="{StaticResource ItemFullWidth}"
-                      ItemsSource="{Binding ListaDI}">
-                <ListView.Header>
-                    <Grid Style="{StaticResource Cabecalho}">
+    <FlipView x:Name="main"
+              Padding="16"
+              Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+              SelectionChanged="TelaMudou">
+        <ScrollViewer DataContext="{Binding ProdutoCompleto.Produto}">
+            <ItemsControl Style="{StaticResource ItensResponsivos}">
+                <TextBox Text="{Binding CodigoProduto, Mode=TwoWay}"
+                         InputScope="Text"
+                         Header="Código *" />
+                <controles:EntradaRestrita Pattern="[^\d]"
+                                           Text="{Binding CodigoBarras, Mode=TwoWay}"
+                                           Header="EAN" />
+                <TextBox Text="{Binding Descricao, Mode=TwoWay}"
+                         InputScope="Text"
+                         Header="Descrição *" />
+                <controles:EntradaRestrita Pattern="[^\d]"
+                                           Text="{Binding NCM, Mode=TwoWay}"
+                                           Header="NCM" />
+                <controles:EntradaRestrita Pattern="[^\d]"
+                                           Text="{Binding EXTIPI, Mode=TwoWay}"
+                                           Header="EX TIPI" />
+                <controles:EntradaNumerica Format="4"
+                                           Number="{Binding CFOP, Mode=TwoWay}"
+                                           Header="CFOP *" />
+                <TextBox Text="{Binding UnidadeComercializacao, Mode=TwoWay}"
+                         InputScope="Text"
+                         Header="Unidade comercial" />
+                <controles:EntradaNumerica Format="11:4"
+                                           Number="{Binding QuantidadeComercializada, Mode=TwoWay}"
+                                           Header="Qtd. comercial" />
+                <controles:EntradaNumerica Format="11:10"
+                                           Number="{Binding ValorUnitario, Mode=TwoWay}"
+                                           Header="Valor unid. comercial" />
+                <controles:EntradaNumerica Format="13:2"
+                                           Number="{Binding ValorTotal, Mode=TwoWay}"
+                                           Header="Total bruto" />
+                <controles:EntradaRestrita Pattern="[^\d]"
+                                           Text="{Binding CodigoBarrasTributo, Mode=TwoWay}"
+                                           Header="EAN Unid. Tributável" />
+                <TextBox Text="{Binding UnidadeTributacao, Mode=TwoWay}"
+                         InputScope="Text"
+                         Header="Unidade tributária" />
+                <controles:EntradaNumerica Format="11:4"
+                                           Number="{Binding QuantidadeTributada, Mode=TwoWay}"
+                                           Header="Qtd. tributária" />
+                <controles:EntradaNumerica Format="11:10"
+                                           Number="{Binding ValorUnitarioTributo, Mode=TwoWay}"
+                                           Header="Valor unid. tributária" />
+                <controles:EntradaRestrita Pattern="[^\d]"
+                                           Text="{Binding Frete, Mode=TwoWay}"
+                                           Header="Frete" />
+                <controles:EntradaRestrita Pattern="[^\d]"
+                                           Text="{Binding Seguro, Mode=TwoWay}"
+                                           Header="Seguro" />
+                <controles:EntradaRestrita Pattern="[^\d]"
+                                           Text="{Binding Desconto, Mode=TwoWay}"
+                                           Header="Desconto" />
+                <controles:EntradaRestrita Pattern="[^\d]"
+                                           Text="{Binding DespesasAcessórias, Mode=TwoWay}"
+                                           Header="Desp. acessórias" />
+                <ComboBox Header="O valor do item..."
+                          SelectedIndex="{Binding InclusãoTotal, Mode=TwoWay}"
+                          HorizontalAlignment="Stretch">
+                    <ComboBoxItem>Não compõe o valor total da NF-e</ComboBoxItem>
+                    <ComboBoxItem>compõe o valor total da NF-e</ComboBoxItem>
+                </ComboBox>
+                <TextBox Text="{Binding XPed, Mode=TwoWay}"
+                         InputScope="Number"
+                         Header="Pedido de compra" />
+                <controles:EntradaRestrita Pattern="[^\d]"
+                                           Text="{Binding NItemPed, Mode=TwoWay}"
+                                           Header="Nº do item do pedido" />
+                <TextBox Text="{Binding NFCI, Mode=TwoWay}"
+                         InputScope="Number"
+                         Header="Nº de controle da FCI" />
+            </ItemsControl>
+        </ScrollViewer>
+        <StackPanel DataContext="{Binding ContextoImpostoDevol}">
+            <TextBox Header="Percentual da mercadoria devolvida *"
+                     Text="{Binding pDevol, Mode=TwoWay}"
+                     InputScope="Number" />
+            <TextBox Header="Valor do IPI devolvido *"
+                     Text="{Binding IPI.vIPIDevol, Mode=TwoWay}"
+                     InputScope="Number" />
+        </StackPanel>
+        <TextBox Text="{Binding ProdutoCompleto.InfAdProd, Mode=TwoWay}"
+                 TextWrapping="Wrap" />
+        <ListView ItemContainerStyle="{StaticResource ItemFullWidth}"
+                  ItemsSource="{Binding ListaDI}">
+            <ListView.Header>
+                <Grid Style="{StaticResource Cabecalho}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Style="{StaticResource TextoCabecalho}">CNPJ</TextBlock>
+                    <TextBlock Style="{StaticResource TextoCabecalho}"
+                               Grid.Column="1">Número do Documento</TextBlock>
+                    <Button  Grid.Column="2"
+                             Style="{StaticResource BotaoAdd}"
+                             Command="{Binding AdicionarDeclaracaoImportacaoCommand}">
+                        <SymbolIcon Symbol="Add" />
+                    </Button>
+                </Grid>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid MinWidth="300">
+                        <Grid.ContextFlyout>
+                            <MenuFlyout>
+                                <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.RemoverDeclaracaoImportacaoCommand}"
+                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Remover</MenuFlyoutItem>
+                            </MenuFlyout>
+                        </Grid.ContextFlyout>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
                             <ColumnDefinition />
-                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Style="{StaticResource TextoCabecalho}">CNPJ</TextBlock>
-                        <TextBlock Style="{StaticResource TextoCabecalho}"
-                                   Grid.Column="1">Número do Documento</TextBlock>
-                        <Button  Grid.Column="2"
-                                 Style="{StaticResource BotaoAdd}"
-                                 Command="{Binding AdicionarDeclaracaoImportacaoCommand}">
-                            <SymbolIcon Symbol="Add" />
-                        </Button>
+                        <TextBlock Text="{Binding CNPJ, Mode=TwoWay}" />
+                        <TextBlock Text="{Binding NDI, Mode=TwoWay}"
+                                   Grid.Column="1" />
                     </Grid>
-                </ListView.Header>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid MinWidth="300">
-                            <Grid.ContextFlyout>
-                                <MenuFlyout>
-                                    <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.RemoverDeclaracaoImportacaoCommand}"
-                                                    CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Remover</MenuFlyoutItem>
-                                </MenuFlyout>
-                            </Grid.ContextFlyout>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Text="{Binding CNPJ, Mode=TwoWay}" />
-                            <TextBlock Text="{Binding NDI, Mode=TwoWay}"
-                                       Grid.Column="1" />
-                        </Grid>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            <ListView ItemContainerStyle="{StaticResource ItemFullWidth}"
-                      ItemsSource="{Binding ListaGE}">
-                <ListView.Header>
-                    <Grid Style="{StaticResource Cabecalho}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Style="{StaticResource TextoCabecalho}">Número do ato concessório de Drawback</TextBlock>
-                        <Button  Grid.Column="1"
-                                 Style="{StaticResource BotaoAdd}"
-                                 Command="{Binding AdicionarDeclaracaoExportacaoCommand}">
-                            <SymbolIcon Symbol="Add" />
-                        </Button>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <ListView ItemContainerStyle="{StaticResource ItemFullWidth}"
+                  ItemsSource="{Binding ListaGE}">
+            <ListView.Header>
+                <Grid Style="{StaticResource Cabecalho}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Style="{StaticResource TextoCabecalho}">Número do ato concessório de Drawback</TextBlock>
+                    <Button  Grid.Column="1"
+                             Style="{StaticResource BotaoAdd}"
+                             Command="{Binding AdicionarDeclaracaoExportacaoCommand}">
+                        <SymbolIcon Symbol="Add" />
+                    </Button>
+                </Grid>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ContextFlyout>
+                            <MenuFlyout>
+                                <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.RemoverDeclaracaoExportacaoCommand}"
+                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Remover</MenuFlyoutItem>
+                            </MenuFlyout>
+                        </Grid.ContextFlyout>
+                        <TextBlock Text="{Binding NDraw}" />
                     </Grid>
-                </ListView.Header>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <Grid.ContextFlyout>
-                                <MenuFlyout>
-                                    <MenuFlyoutItem Command="{Binding ElementName=root, Path=DataContext.RemoverDeclaracaoExportacaoCommand}"
-                                                    CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Remover</MenuFlyoutItem>
-                                </MenuFlyout>
-                            </Grid.ContextFlyout>
-                            <TextBlock Text="{Binding NDraw}" />
-                        </Grid>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            <GridView Style="{StaticResource ItensMediosGrid}">
-                <controles:ItemPadrao Titulo="Produto simples"
-                                      Descricao="Produto que não se encaixa nas categorias especiais">
-                    <SymbolIcon Symbol="Shop" />
-                </controles:ItemPadrao>
-                <controles:ItemPadrao Titulo="Veículo"
-                                      Descricao="Algum tipo de veículo">
-                    <FontIcon Glyph="&#xE804;" />
-                </controles:ItemPadrao>
-                <controles:ItemPadrao Titulo="Medicamento"
-                                      Descricao="Remédios e afins">
-                    <FontIcon Glyph="&#xE95E;" />
-                </controles:ItemPadrao>
-                <controles:ItemPadrao Titulo="Armamento"
-                                      Descricao="Armas">
-                    <BitmapIcon UriSource="{ThemeResource ImagemArma}" />
-                </controles:ItemPadrao>
-                <controles:ItemPadrao Titulo="Combustível"
-                                      Descricao="Combustíveis">
-                    <FontIcon Glyph="&#xEB42;" />
-                </controles:ItemPadrao>
-                <controles:ItemPadrao Titulo="Papel"
-                                      Descricao="Papel imune">
-                    <FontIcon Glyph="&#xE82D;" />
-                </controles:ItemPadrao>
-            </GridView>
-        </FlipView>
-        <CommandBar Grid.Row="1">
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <GridView Style="{StaticResource ItensMediosGrid}">
+            <controles:ItemPadraoSimples Titulo="Produto simples"
+                                         Descricao="Produto que não se encaixa nas categorias especiais">
+                <SymbolIcon Symbol="Shop" />
+            </controles:ItemPadraoSimples>
+            <controles:ItemPadraoSimples Titulo="Veículo"
+                                         Descricao="Algum tipo de veículo">
+                <FontIcon Glyph="&#xE804;" />
+            </controles:ItemPadraoSimples>
+            <controles:ItemPadraoSimples Titulo="Medicamento"
+                                         Descricao="Remédios e afins">
+                <FontIcon Glyph="&#xE95E;" />
+            </controles:ItemPadraoSimples>
+            <controles:ItemPadraoSimples Titulo="Armamento"
+                                         Descricao="Armas">
+                <BitmapIcon UriSource="{ThemeResource ImagemArma}" />
+            </controles:ItemPadraoSimples>
+            <controles:ItemPadraoSimples Titulo="Combustível"
+                                         Descricao="Combustíveis">
+                <FontIcon Glyph="&#xEB42;" />
+            </controles:ItemPadraoSimples>
+            <controles:ItemPadraoSimples Titulo="Papel"
+                                         Descricao="Papel imune">
+                <FontIcon Glyph="&#xE82D;" />
+            </controles:ItemPadraoSimples>
+        </GridView>
+    </FlipView>
+    <Page.BottomAppBar>
+        <CommandBar>
             <AppBarButton Icon="Accept"
                           Label="Concluir"
                           Click="Concluir_Click" />
@@ -220,5 +216,5 @@
                           Label="Cancelar"
                           Click="Cancelar_Click" />
         </CommandBar>
-    </Grid>
+    </Page.BottomAppBar>
 </Page>

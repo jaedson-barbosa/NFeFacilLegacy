@@ -6,9 +6,9 @@ using Windows.UI.Xaml.Markup;
 namespace NFeFacil.View.Controles
 {
     [ContentProperty(Name = "Icone")]
-    public sealed partial class ItemPadrao : UserControl
+    public sealed partial class ItemPadraoSimples : UserControl
     {
-        public ItemPadrao()
+        public ItemPadraoSimples()
         {
             InitializeComponent();
         }

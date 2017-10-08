@@ -10,6 +10,14 @@
       mc:Ignorable="d">
     <Page.Resources>
         <ResourceDictionary>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Dark">
+                    <x:String x:Key="ImagemArma">ms-appx:///Assets/ArmaEscuro.png</x:String>
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Light">
+                    <x:String x:Key="ImagemArma">ms-appx:///Assets/ArmaClaro.png</x:String>
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
             <Conversores:BoolToVisibility x:Key="visibilidade" />
             <Conversores:EstadoToMunicipios x:Key="obterMunicipio" />
             <Conversores:StringToDateTime x:Key="data" />
@@ -177,34 +185,32 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <ScrollViewer>
-                <ItemsControl Style="{StaticResource ItensMedios}">
-                    <controles:ItemPadrao Titulo="Produto simples"
-                                          Descricao="Produto que não se encaixa nas categorias especiais">
-                        <SymbolIcon Symbol="Shop" />
-                    </controles:ItemPadrao>
-                    <controles:ItemPadrao Titulo="Veículo"
-                                          Descricao="Algum tipo de veículo">
-                        <FontIcon Glyph="&#xE804;" />
-                    </controles:ItemPadrao>
-                    <controles:ItemPadrao Titulo="Medicamento"
-                                          Descricao="Remédios e afins">
-                        <FontIcon Glyph="&#xE95E;" />
-                    </controles:ItemPadrao>
-                    <controles:ItemPadrao Titulo="Armamento"
-                                          Descricao="Armas">
-                        <BitmapIcon UriSource="ms-appx:///Assets/arma.png" />
-                    </controles:ItemPadrao>
-                    <controles:ItemPadrao Titulo="Combustível"
-                                          Descricao="Combustíveis">
-                        <FontIcon Glyph="&#xEB42;" />
-                    </controles:ItemPadrao>
-                    <controles:ItemPadrao Titulo="Papel"
-                                          Descricao="Papel imune">
-                        <FontIcon Glyph="&#xE82D;" />
-                    </controles:ItemPadrao>
-                </ItemsControl>
-            </ScrollViewer>
+            <GridView Style="{StaticResource ItensMediosGrid}">
+                <controles:ItemPadrao Titulo="Produto simples"
+                                      Descricao="Produto que não se encaixa nas categorias especiais">
+                    <SymbolIcon Symbol="Shop" />
+                </controles:ItemPadrao>
+                <controles:ItemPadrao Titulo="Veículo"
+                                      Descricao="Algum tipo de veículo">
+                    <FontIcon Glyph="&#xE804;" />
+                </controles:ItemPadrao>
+                <controles:ItemPadrao Titulo="Medicamento"
+                                      Descricao="Remédios e afins">
+                    <FontIcon Glyph="&#xE95E;" />
+                </controles:ItemPadrao>
+                <controles:ItemPadrao Titulo="Armamento"
+                                      Descricao="Armas">
+                    <BitmapIcon UriSource="{ThemeResource ImagemArma}" />
+                </controles:ItemPadrao>
+                <controles:ItemPadrao Titulo="Combustível"
+                                      Descricao="Combustíveis">
+                    <FontIcon Glyph="&#xEB42;" />
+                </controles:ItemPadrao>
+                <controles:ItemPadrao Titulo="Papel"
+                                      Descricao="Papel imune">
+                    <FontIcon Glyph="&#xE82D;" />
+                </controles:ItemPadrao>
+            </GridView>
         </FlipView>
         <CommandBar Grid.Row="1">
             <AppBarButton Icon="Accept"

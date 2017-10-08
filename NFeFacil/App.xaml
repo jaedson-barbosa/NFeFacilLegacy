@@ -53,6 +53,34 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style x:Key="ItensMediosGrid"
+               TargetType="GridView"
+               BasedOn="{StaticResource ItensMedios}">
+            <Setter Property="ItemContainerStyle">
+                <Setter.Value>
+                    <Style TargetType="GridViewItem">
+                        <Setter Property="BorderThickness"
+                                Value="0" />
+                        <Setter Property="BorderBrush"
+                                Value="Transparent" />
+                        <Setter Property="Padding"
+                                Value="-8" />
+                        <Setter Property="Margin"
+                                Value="0" />
+                        <Setter Property="FocusVisualMargin"
+                                Value="0" />
+                        <Setter Property="HorizontalAlignment"
+                                Value="Stretch" />
+                        <Setter Property="HorizontalContentAlignment"
+                                Value="Stretch" />
+                        <Setter Property="VerticalAlignment"
+                                Value="Stretch" />
+                        <Setter Property="VerticalContentAlignment"
+                                Value="Stretch" />
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <estilos:BibliotecaCores x:Key="cores" />
         <SolidColorBrush x:Key="Normal"
                          Color="{Binding Source={StaticResource cores}, Path=Cor0, Mode=OneTime}" />

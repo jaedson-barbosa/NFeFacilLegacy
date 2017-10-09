@@ -27,8 +27,10 @@ namespace NFeFacil.ViewRegistroVenda
         {
             ItemBanco.DescontoTotal = ItemBanco.Produtos.Sum(x => x.Desconto);
 
-            txtTotal.Text = ItemBanco.Produtos.Sum(x => x.TotalLíquido).ToString("C");
+            txtTotalBruto.Text = ItemBanco.Produtos.Sum(x => x.Quantidade * x.ValorUnitario).ToString("C");
+            txtAdicionais.Text = ItemBanco.Produtos.Sum(x => x.Seguro + x.Frete + x.DespesasExtras).ToString("C");
             txtDescontoTotal.Text = ItemBanco.DescontoTotal.ToString("C");
+            txtTotal.Text = ItemBanco.Produtos.Sum(x => x.TotalLíquido).ToString("C");
         }
 
         Guid Motorista

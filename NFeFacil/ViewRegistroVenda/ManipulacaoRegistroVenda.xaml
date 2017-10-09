@@ -91,6 +91,9 @@
                              IsReadOnly="True"
                              x:Name="txtDescontoTotal" />
                 </Grid>
+                <Button VerticalAlignment="Stretch" Click="AplicarFrete">
+                    <TextBlock><Run>Aplicar frete</Run><LineBreak /><Run>sobre o total</Run></TextBlock>
+                </Button>
                 <TextBox MaxLength="12"
                          IsReadOnly="True"
                          x:Name="txtTotal"

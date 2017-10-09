@@ -171,6 +171,23 @@ namespace NFeFacil.ViewRegistroVenda
                 AtualizarTotal();
             }
         }
+
+        async void AplicarFrete(object sender, RoutedEventArgs e)
+        {
+            var caixa = new AplicarFrete();
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+            {
+                for (int i = 0; i < ListaProdutos.Count; i++)
+                {
+                    var atual = ListaProdutos[i];
+                    atual.Base.Frete = caixa.Valor / ListaProdutos.Count;
+                    atual.Base.CalcularTotalLíquido();
+                    ListaProdutos[i] = atual;
+                    ItemBanco.Produtos[i] = atual.Base;
+                }
+                AtualizarTotal();
+            }
+        }
     }
 
     struct ExibicaoProdutoVenda

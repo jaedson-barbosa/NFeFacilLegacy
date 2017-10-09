@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.System.Profile;
@@ -87,6 +88,13 @@ namespace NFeFacil
             AnalisarMenuHamburguer();
         }
 
+        internal void SeAtualizar(Uri caminho, string texto)
+        {
+            txtTitulo.Text = texto;
+            symTitulo.Content = new BitmapIcon { UriSource = caminho };
+            AnalisarMenuHamburguer();
+        }
+
         void AnalisarMenuHamburguer()
         {
             if (frmPrincipal.Content is IHambuguer hambuguer)
@@ -140,8 +148,10 @@ namespace NFeFacil
         {
             if (menuTemporario.ItemsSource != null)
             {
-                var hamb = (IHambuguer)frmPrincipal.Content;
-                hamb.AtualizarMain(menuTemporario.SelectedIndex);
+                if (frmPrincipal.Content is IHambuguer hamb)
+                {
+                    hamb.AtualizarMain(menuTemporario.SelectedIndex);
+                }
             }
         }
 

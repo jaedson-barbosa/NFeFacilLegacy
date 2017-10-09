@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -15,12 +16,17 @@ namespace NFeFacil.ViewNFe.CaixasEspeciaisProduto
     /// </summary>
     public sealed partial class DefinirMedicamentos : Page
     {
+        ObservableCollection<Medicamento> Medicamentos { get; } = new ObservableCollection<Medicamento>();
+
         public DefinirMedicamentos()
         {
             this.InitializeComponent();
         }
 
-        public ObservableCollection<Medicamento> Medicamentos { get; } = new ObservableCollection<Medicamento>();
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            MainPage.Current.SeAtualizar("\uE95E", "Medicamentos");
+        }
 
         async void AdicionarMedicamento(object sender, RoutedEventArgs e)
         {

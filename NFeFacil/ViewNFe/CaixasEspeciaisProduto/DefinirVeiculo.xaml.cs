@@ -2,6 +2,7 @@
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -12,12 +13,17 @@ namespace NFeFacil.ViewNFe.CaixasEspeciaisProduto
     /// </summary>
     public sealed partial class DefinirVeiculo : Page
     {
+        VeiculoNovo Veiculo { get; } = new VeiculoNovo();
+
         public DefinirVeiculo()
         {
             this.InitializeComponent();
         }
 
-        public VeiculoNovo Veiculo { get; } = new VeiculoNovo();
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            MainPage.Current.SeAtualizar("\uE804", "Veículo");
+        }
 
         private void Concluido(object sender, RoutedEventArgs e)
         {

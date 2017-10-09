@@ -179,7 +179,7 @@
             </ListView.ItemTemplate>
         </ListView>
         <GridView Style="{StaticResource ItensMediosGrid}"
-                  SelectedValue="{x:Bind TipoEspecialEscolhido}"
+                  SelectedValue="{x:Bind TipoEspecialEscolhido, Mode=TwoWay}"
                   SelectedValuePath="Tag">
             <controles:ItemPadraoSimples Tag="0"
                                          Titulo="Produto simples"

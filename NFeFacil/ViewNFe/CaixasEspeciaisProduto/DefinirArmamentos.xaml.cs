@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -15,12 +16,26 @@ namespace NFeFacil.ViewNFe.CaixasEspeciaisProduto
     /// </summary>
     public sealed partial class DefinirArmamentos : Page
     {
+        ObservableCollection<Arma> Armas { get; } = new ObservableCollection<Arma>();
+
         public DefinirArmamentos()
         {
             this.InitializeComponent();
         }
 
-        public ObservableCollection<Arma> Armas { get; } = new ObservableCollection<Arma>();
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            string caminho;
+            if (Application.Current.RequestedTheme == ApplicationTheme.Dark)
+            {
+                caminho = "ms-appx:///Assets/ArmaEscuro.png";
+            }
+            else
+            {
+                caminho = "ms-appx:///Assets/ArmaClaro.png";
+            }
+            MainPage.Current.SeAtualizar(new Uri(caminho), "Armamento");
+        }
 
         async void AdicionarArmamento(object sender, RoutedEventArgs e)
         {

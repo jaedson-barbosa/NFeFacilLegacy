@@ -1,4 +1,5 @@
-﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
+﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
+using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -26,6 +27,24 @@ namespace NFeFacil.ViewNFe.CaixasEspeciaisProduto
                 Comb.CIDE = value ? new CIDE() : null;
                 grupoCide.Visibility = value ? Visibility.Visible : Visibility.Collapsed;
             }
+        }
+
+        private void Concluido(object sender, RoutedEventArgs e)
+        {
+            var ultFrame = Frame.BackStack[Frame.BackStack.Count - 1];
+            var prod = ((DetalhesProdutos)ultFrame.Parameter).Produto;
+            prod.veicProd = null;
+            prod.medicamentos = null;
+            prod.armas = null;
+            prod.comb = Comb;
+            prod.NRECOPI = null;
+
+            MainPage.Current.Retornar();
+        }
+
+        private void Cancelar(object sender, RoutedEventArgs e)
+        {
+            MainPage.Current.Retornar();
         }
     }
 }

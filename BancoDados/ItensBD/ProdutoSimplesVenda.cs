@@ -50,7 +50,7 @@ namespace NFeFacil.ItensBD
                     QuantidadeTributada = Quantidade,
                     Frete = Frete != 0 ? Frete.ToString("0.00") : null,
                     Seguro = Seguro != 0 ? Seguro.ToString("0.00") : null,
-                    DespesasAcessórias = DespesasExtras != 0 ? DespesasExtras.ToString("0.00") : null,
+                    DespesasAcessorias = DespesasExtras != 0 ? DespesasExtras.ToString("0.00") : null,
                     Desconto = Desconto != 0 ? Desconto.ToString("0.00") : null,
                     ValorTotal = Quantidade * ProdutoBase.ValorUnitario
                 };

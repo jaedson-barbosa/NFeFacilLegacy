@@ -102,4 +102,14 @@
             <ComboBoxItem Tag="9">Outras</ComboBoxItem>
         </ComboBox>
     </ItemsControl>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Label="Concluido"
+                          Icon="Accept"
+                          Click="Concluido" />
+            <AppBarButton Label="Cancelar"
+                          Icon="Cancel"
+                          Click="Cancelar" />
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>

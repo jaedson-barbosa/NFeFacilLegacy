@@ -33,4 +33,14 @@
             </DataTemplate>
         </ListView.ItemTemplate>
     </ListView>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Label="Concluido"
+                          Icon="Accept"
+                          Click="Concluido" />
+            <AppBarButton Label="Cancelar"
+                          Icon="Cancel"
+                          Click="Cancelar" />
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>

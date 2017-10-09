@@ -107,10 +107,10 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
         public string Desconto { get; set; }
 
         [XmlElement(ElementName = "vOutro", Order = 18), DescricaoPropriedade("Despesas acessórias")]
-        public string DespesasAcessórias { get; set; }
+        public string DespesasAcessorias { get; set; }
 
         [XmlElement(ElementName = "indTot", Order = 19), DescricaoPropriedade("Inclusão total")]
-        public int InclusãoTotal { get; set; } = 1;
+        public int InclusaoTotal { get; set; } = 1;
 
         [XmlElement("DI", Order = 20)]
         public List<DeclaracaoImportacao> DI { get; set; } = new List<DeclaracaoImportacao>();
@@ -131,10 +131,10 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
         public VeiculoNovo veicProd { get; set; }
 
         [XmlElement("med", Order = 26)]
-        public List<Medicamento> medicamentos = new List<Medicamento>();
+        public List<Medicamento> medicamentos { get; set; }
 
         [XmlElement("arma", Order = 27)]
-        public List<Arma> armas = new List<Arma>();
+        public List<Arma> armas { get; set; }
 
         [XmlElement(Order = 28), DescricaoPropriedade("Combustível")]
         public Combustivel comb { get; set; }

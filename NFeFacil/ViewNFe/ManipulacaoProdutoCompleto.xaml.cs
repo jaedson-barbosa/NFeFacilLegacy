@@ -20,6 +20,99 @@ namespace NFeFacil.ViewNFe
     /// </summary>
     public sealed partial class ManipulacaoProdutoCompleto : Page, IHambuguer, IValida
     {
+        public DetalhesProdutos ProdutoCompleto { get; private set; }
+
+        public ObservableCollection<DeclaracaoImportacao> ListaDI { get; } = new ObservableCollection<DeclaracaoImportacao>();
+        public ObservableCollection<GrupoExportacao> ListaGE { get; } = new ObservableCollection<GrupoExportacao>();
+
+        public ImpostoDevol ContextoImpostoDevol
+        {
+            get
+            {
+                if (ProdutoCompleto.ImpostoDevol == null)
+                {
+                    ProdutoCompleto.ImpostoDevol = new ImpostoDevol();
+                }
+                return ProdutoCompleto.ImpostoDevol;
+            }
+        }
+
+        string TipoEspecialEscolhido
+        {
+            get
+            {
+                var prod = ProdutoCompleto.Produto;
+                if (prod.veicProd != null)
+                {
+                    return "1";
+                }
+                else if (prod.medicamentos != null)
+                {
+                    return "2";
+                }
+                else if (prod.armas != null)
+                {
+                    return "3";
+                }
+                else if (prod.comb != null)
+                {
+                    return "4";
+                }
+                else if (prod.NRECOPI != null)
+                {
+                    return "5";
+                }
+                else
+                {
+                    return "0";
+                }
+            }
+            set
+            {
+                var prod = ProdutoCompleto.Produto;
+                switch (int.Parse(value))
+                {
+                    case 0:
+                        prod.veicProd = null;
+                        prod.medicamentos = null;
+                        prod.armas = null;
+                        prod.comb = null;
+                        prod.NRECOPI = null;
+                        break;
+                    case 1:
+                        MainPage.Current.Navegar<CaixasEspeciaisProduto.DefinirVeiculo>();
+                        break;
+                    case 2:
+                        MainPage.Current.Navegar<CaixasEspeciaisProduto.DefinirMedicamentos>();
+                        break;
+                    case 3:
+                        MainPage.Current.Navegar<CaixasEspeciaisProduto.DefinirArmamentos>();
+                        break;
+                    case 4:
+                        MainPage.Current.Navegar<CaixasEspeciaisProduto.DefinirCombustivel>();
+                        break;
+                    case 5:
+                        DefinirPapel();
+                        break;
+                    default:
+                        break;
+                }
+
+                async void DefinirPapel()
+                {
+                    var caixa = new CaixasEspeciaisProduto.DefinirPapel();
+                    if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+                    {
+                        prod.veicProd = null;
+                        prod.medicamentos = null;
+                        prod.armas = null;
+                        prod.comb = null;
+                        prod.NRECOPI = caixa.NRECOPI;
+                    }
+                }
+            }
+        }
+
         public ManipulacaoProdutoCompleto()
         {
             InitializeComponent();
@@ -85,24 +178,7 @@ namespace NFeFacil.ViewNFe
             MainPage.Current.AlterarSelectedIndexHamburguer(index);
         }
 
-        public DetalhesProdutos ProdutoCompleto { get; private set; }
-
-        public ObservableCollection<DeclaracaoImportacao> ListaDI { get; } = new ObservableCollection<DeclaracaoImportacao>();
-        public ObservableCollection<GrupoExportacao> ListaGE { get; } = new ObservableCollection<GrupoExportacao>();
-
-        public ImpostoDevol ContextoImpostoDevol
-        {
-            get
-            {
-                if (ProdutoCompleto.ImpostoDevol == null)
-                {
-                    ProdutoCompleto.ImpostoDevol = new ImpostoDevol();
-                }
-                return ProdutoCompleto.ImpostoDevol;
-            }
-        }
-
-        private async void AdicionarDeclaracaoImportacao()
+        async void AdicionarDeclaracaoImportacao(object sender, RoutedEventArgs e)
         {
             var caixa = new CaixasDialogoProduto.AdicionarDeclaracaoImportacao();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
@@ -111,7 +187,13 @@ namespace NFeFacil.ViewNFe
             }
         }
 
-        private async void AdicionarDeclaracaoExportacao()
+        void RemoverDeclaracaoImportacao(object sender, RoutedEventArgs e)
+        {
+            var contexto = ((FrameworkElement)sender).DataContext;
+            ListaDI.Remove((DeclaracaoImportacao)contexto);
+        }
+
+        async void AdicionarDeclaracaoExportacao(object sender, RoutedEventArgs e)
         {
             var caixa = new CaixasDialogoProduto.EscolherTipoDeclaracaoExportacao();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
@@ -136,14 +218,10 @@ namespace NFeFacil.ViewNFe
             }
         }
 
-        private void RemoverDeclaracaoImportacao(DeclaracaoImportacao declaracao)
+        void RemoverDeclaracaoExportacao(object sender, RoutedEventArgs e)
         {
-            ListaDI.Remove(declaracao);
-        }
-
-        private void RemoverDeclaracaoExportacao(GrupoExportacao declaracao)
-        {
-            ListaGE.Remove(declaracao);
+            var contexto = ((FrameworkElement)sender).DataContext;
+            ListaGE.Remove((GrupoExportacao)contexto);
         }
     }
 }

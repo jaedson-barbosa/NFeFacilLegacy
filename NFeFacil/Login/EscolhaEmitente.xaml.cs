@@ -51,7 +51,7 @@ namespace NFeFacil.Login
                 {
                     var caixa = new MessageDialog("    Olá, parece que este é seu primeiro login no app neste dispositivo.\r\n" +
                         "    Primeiramente, obrigado por adquirir o NFe Fácil.\r\n" +
-                        "    Agora vamos ao que interessa. Você deseja deseja obter todos os dados a partir de uma sincronização com outro dispositivo (claro, se outro dispositivo já tem dados cadastrados)?");
+                        "    Você deseja obter todos os dados a partir de uma sincronização com outro dispositivo (claro, se outro dispositivo já tem dados cadastrados)?");
                     caixa.Commands.Add(new UICommand("Sim", x =>
                     {
                         MainPage.Current.Navegar<View.SincronizacaoCliente>();

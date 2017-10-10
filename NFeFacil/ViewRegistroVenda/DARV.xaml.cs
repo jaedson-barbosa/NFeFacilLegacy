@@ -69,7 +69,6 @@ namespace NFeFacil.ViewRegistroVenda
                     },
                     DataVenda = original.DataHoraVenda.ToString("dd-MM-yyyy"),
                     IdVenda = idOriginal,
-                    Barras = idSimplificado,
                     ChaveNFeRelacionada = original.NotaFiscalRelacionada,
                     Vendedor = vendedor?.Nome ?? string.Empty,
                     CPFVendedor = vendedor?.CPF.ToString("000,000,000-00") ?? string.Empty,
@@ -91,13 +90,6 @@ namespace NFeFacil.ViewRegistroVenda
         private async void PaginaPrincipalCarregada(object sender, RoutedEventArgs e)
         {
             var dimensoes = await DefinirTamanho();
-            if (dimensoes.AlturaOriginal < 15)
-            {
-                var caixa = new MessageDialog("A altura da página está muito pequena, você deseja omitir o código de barras?");
-                caixa.Commands.Add(new UICommand("Sim", x => grdPaginaPrincipal.Children.Remove(codeBarras)));
-                caixa.Commands.Add(new UICommand("Não"));
-                await caixa.ShowAsync();
-            }
             await Task.Delay(500);
             var grid = (Grid)sender;
             if (double.IsNaN(grid.Height))
@@ -234,7 +226,6 @@ namespace NFeFacil.ViewRegistroVenda
         public DadosCliente Cliente { get; set; }
         public string DataVenda { get; set; }
         public string IdVenda { get; set; }
-        public string Barras { get; set; }
         public string ChaveNFeRelacionada { get; set; }
         public string Vendedor { get; set; }
         public string CPFVendedor { get; set; }

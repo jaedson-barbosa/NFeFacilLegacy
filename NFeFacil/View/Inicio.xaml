@@ -78,6 +78,12 @@
                                   Tapped="AbrirFunção">
                 <SymbolIcon Symbol="Sync" />
             </controles:ItemPadrao>
+            <controles:ItemPadrao x:Name="Backup"
+                                  Titulo="Backup"
+                                  Descricao="Guarde uma cópia dos princiapais dados"
+                                  Tapped="AbrirFunção">
+                <FontIcon Glyph="&#xEA35;" />
+            </controles:ItemPadrao>
         </ItemsControl>
     </ScrollViewer>
 </Page>

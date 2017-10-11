@@ -160,6 +160,11 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Backup\Backup.xaml.cs">
+      <DependentUpon>Backup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Backup\ConjuntoBanco.cs" />
+    <Compile Include="Backup\CriarZip.cs" />
     <Compile Include="IdentificacaoExtensoes.cs" />
     <Compile Include="ImagemExtensoes.cs" />
     <Compile Include="Login\EscolhaEmitente.xaml.cs">
@@ -611,6 +616,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Backup\Backup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Login\EscolhaEmitente.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

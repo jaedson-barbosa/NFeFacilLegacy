@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
-using Windows.UI.Xaml;
+using System;
+using Windows.Storage.Pickers;
 using Windows.UI.Xaml.Controls;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
@@ -13,16 +14,22 @@ namespace NFeFacil.Backup
     {
         public Backup()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
-        async void Button_Click(object sender, RoutedEventArgs e)
+        async void SalvarBackup(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
             var objeto = new ConjuntoBanco();
-            objeto.AtualizarPadrao(true);
+            objeto.AtualizarPadrao();
             var json = JsonConvert.SerializeObject(objeto);
-            var zip = new CriarZip();
-            await zip.Zipar("Teste", json);
+            await CriarZip.Zipar(json);
+
+            var caixa = new FileSavePicker();
+            var original = await CriarZip.RetornarArquivo();
+            caixa.FileTypeChoices.Add("Arquivo comprimido", new string[] { ".zip" });
+            var novo = await caixa.PickSaveFileAsync();
+            await original.CopyAndReplaceAsync(novo);
+            await CriarZip.ExcluirArquivo();
         }
     }
 }

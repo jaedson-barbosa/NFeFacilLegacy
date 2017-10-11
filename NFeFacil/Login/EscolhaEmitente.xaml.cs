@@ -47,20 +47,6 @@ namespace NFeFacil.Login
                     conjuntos.Add(novoConjunto);
                 }
                 grdEmitentes.ItemsSource = conjuntos;
-                if (conjuntos.Count == 0)
-                {
-                    var caixa = new MessageDialog("    Olá, parece que este é seu primeiro login no app neste dispositivo.\r\n" +
-                        "    Primeiramente, obrigado por adquirir o NFe Fácil.\r\n" +
-                        "    Você deseja obter todos os dados a partir de uma sincronização com outro dispositivo (claro, se outro dispositivo já tem dados cadastrados)?");
-                    caixa.Commands.Add(new UICommand("Sim", x =>
-                    {
-                        MainPage.Current.Navegar<View.SincronizacaoCliente>();
-                    }));
-                    caixa.Commands.Add(new UICommand("Não"));
-#pragma warning disable CS4014
-                    caixa.ShowAsync();
-#pragma warning restore CS4014
-                }
             }
 
             MainPage.Current.SeAtualizar(Symbol.Home, "Escolher empresa");

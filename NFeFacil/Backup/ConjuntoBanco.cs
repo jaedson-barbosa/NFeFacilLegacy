@@ -38,5 +38,24 @@ namespace NFeFacil.Backup
                 Imagens = db.Imagens.ToList();
             }
         }
+
+        public void AnalisarESalvar()
+        {
+            using (var db = new AplicativoContext())
+            {
+                db.AddRange(Clientes);
+                db.AddRange(Emitentes);
+                db.AddRange(Motoristas);
+                db.AddRange(Vendedores);
+                db.AddRange(Produtos);
+                db.AddRange(Estoque);
+                db.AddRange(Veiculos);
+                db.AddRange(NotasFiscais);
+                db.AddRange(Vendas);
+                db.AddRange(Cancelamentos);
+                db.AddRange(CancelamentosRegistroVenda);
+                db.AddRange(Imagens);
+            }
+        }
     }
 }

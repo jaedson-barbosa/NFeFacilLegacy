@@ -1,5 +1,9 @@
 ﻿using Newtonsoft.Json;
+using NFeFacil.Log;
 using System;
+using System.IO;
+using System.IO.Compression;
+using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.UI.Xaml.Controls;
 
@@ -25,11 +29,52 @@ namespace NFeFacil.Backup
             await CriarZip.Zipar(json);
 
             var caixa = new FileSavePicker();
-            var original = await CriarZip.RetornarArquivo();
             caixa.FileTypeChoices.Add("Arquivo comprimido", new string[] { ".zip" });
             var novo = await caixa.PickSaveFileAsync();
-            await original.CopyAndReplaceAsync(novo);
-            await CriarZip.ExcluirArquivo();
+            if (novo != null)
+            {
+                var original = await CriarZip.RetornarArquivo();
+                await original.CopyAndReplaceAsync(novo);
+                await CriarZip.ExcluirArquivo();
+            }
+        }
+
+        async void RestaurarBackup(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            var caixa = new FileOpenPicker();
+            caixa.FileTypeFilter.Add(".zip");
+            var arq = await caixa.PickSingleFileAsync();
+            if (arq != null)
+            {
+                var aberto = ZipFile.Open(arq.Path, ZipArchiveMode.Read);
+                var pasta = ApplicationData.Current.TemporaryFolder;
+                aberto.ExtractToDirectory(pasta.Path);
+                arq = await pasta.GetFileAsync("Backup.json");
+                if (arq != null)
+                {
+                    using (var leitor = new StreamReader(await arq.OpenStreamForReadAsync()))
+                    {
+                        try
+                        {
+                            var texto = await leitor.ReadToEndAsync();
+                            var conjunto = JsonConvert.DeserializeObject<ConjuntoBanco>(texto);
+                            try
+                            {
+                                conjunto.AnalisarESalvar();
+                                Popup.Current.Escrever(TitulosComuns.Sucesso, "Backup restaurado com sucesso.");
+                            }
+                            catch (Exception)
+                            {
+                                Popup.Current.Escrever(TitulosComuns.Erro, "Erro ao salvar os itens do backup, aparentemente já existem dados cadastrados neste aplicativo.");
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            Popup.Current.Escrever(TitulosComuns.Erro, "Este não é um arquivo de backup válido.");
+                        }
+                    }
+                }
+            }
         }
     }
 }

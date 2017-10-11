@@ -32,10 +32,17 @@ namespace NFeFacil
                 Retornar();
             };
             frmPrincipal.CacheSize = 4;
-            Navegar<Login.EscolhaEmitente>();
             using (var db = new AplicativoContext())
             {
                 Propriedades.EmitenteAtivo = db.Emitentes.FirstOrDefault();
+                if (db.Emitentes.Count() > 0)
+                {
+                    Navegar<Login.EscolhaEmitente>();
+                }
+                else
+                {
+                    Navegar<Login.PrimeiroUso>();
+                }
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using System.Linq;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 
@@ -20,13 +21,22 @@ namespace NFeFacil.Login
         {
             if (e.NavigationMode == NavigationMode.Back)
             {
-                var k = 0;
+                using (var db = new AplicativoContext())
+                {
+                    if (db.Emitentes.Count() > 0)
+                    {
+                        MainPage.Current.Navegar<EscolhaEmitente>();
+                    }
+                    else
+                    {
+                        MainPage.Current.SeAtualizar(Symbol.Emoji, "Bem-vindo");
+                    }
+                }
             }
             else
             {
-
+                MainPage.Current.SeAtualizar(Symbol.Emoji, "Bem-vindo");
             }
-            MainPage.Current.SeAtualizar(Symbol.Emoji, "Bem-vindo");
         }
 
         private void Manualmente(object sender, TappedRoutedEventArgs e)

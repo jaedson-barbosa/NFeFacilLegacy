@@ -11,9 +11,9 @@
             <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <TextBlock Style="{StaticResource SubheaderTextBlockStyle}">Olá, obrigado por comprar o NFe Fácil</TextBlock>
+        <TextBlock Style="{StaticResource TitleTextBlockStyle}">Olá, obrigado por comprar o NFe Fácil</TextBlock>
         <TextBlock Grid.Row="1"
-                   Style="{StaticResource TitleTextBlockStyle}">Esta é a primeira vez que você usa este aplicativo neste dispositivo. Você tem 3 opções:</TextBlock>
+                   Style="{StaticResource SubtitleTextBlockStyle}">Esta é a primeira vez que você usa este aplicativo neste dispositivo.</TextBlock>
         <ItemsControl Grid.Row="2"
                       Style="{StaticResource ItensMedios}">
             <controles:ItemPadrao Titulo="Cadastrar-se"
@@ -21,12 +21,12 @@
                                   Tapped="Manualmente">
                 <SymbolIcon Symbol="Keyboard" />
             </controles:ItemPadrao>
-            <controles:ItemPadrao Titulo="Sincronizar"
+            <controles:ItemPadrao Titulo="Sincronize"
                                   Descricao="Caso você esteja cadastrado em outro dispositivo"
                                   Tapped="Sincronizar">
                 <SymbolIcon Symbol="Sync" />
             </controles:ItemPadrao>
-            <controles:ItemPadrao Titulo="Restaurar Backup"
+            <controles:ItemPadrao Titulo="Restaure Backup"
                                   Descricao="Caso você tenha um arquivo de backup com suas informações"
                                   Tapped="Backup">
                 <SymbolIcon Symbol="Import" />

@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
@@ -17,7 +18,7 @@ namespace NFeFacil.Login
             this.InitializeComponent();
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             if (e.NavigationMode == NavigationMode.Back)
             {
@@ -25,6 +26,7 @@ namespace NFeFacil.Login
                 {
                     if (db.Emitentes.Count() > 0)
                     {
+                        await Task.Delay(500);
                         MainPage.Current.Navegar<EscolhaEmitente>();
                     }
                     else

@@ -3,6 +3,7 @@ using NFeFacil.Log;
 using System;
 using System.IO;
 using System.IO.Compression;
+using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.UI.Xaml.Controls;
@@ -46,8 +47,15 @@ namespace NFeFacil.Backup
             var arq = await caixa.PickSingleFileAsync();
             if (arq != null)
             {
-                var aberto = ZipFile.Open(arq.Path, ZipArchiveMode.Read);
                 var pasta = ApplicationData.Current.TemporaryFolder;
+                pasta = await pasta.CreateFolderAsync("Temp", CreationCollisionOption.ReplaceExisting);
+                arq = await arq.CopyAsync(pasta, "Backup.zip", NameCollisionOption.ReplaceExisting);
+                var aberto = await Task.Run(() => ZipFile.Open(arq.Path, ZipArchiveMode.Read));
+                pasta = ApplicationData.Current.TemporaryFolder;
+                foreach (var item in await pasta.GetFilesAsync())
+                {
+                    await item.DeleteAsync();
+                }
                 aberto.ExtractToDirectory(pasta.Path);
                 arq = await pasta.GetFileAsync("Backup.json");
                 if (arq != null)

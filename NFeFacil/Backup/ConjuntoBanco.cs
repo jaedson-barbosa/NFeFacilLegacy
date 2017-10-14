@@ -55,6 +55,7 @@ namespace NFeFacil.Backup
                 db.AddRange(Cancelamentos);
                 db.AddRange(CancelamentosRegistroVenda);
                 db.AddRange(Imagens);
+                db.SaveChanges();
             }
         }
     }

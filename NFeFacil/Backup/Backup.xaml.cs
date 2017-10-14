@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -20,6 +21,11 @@ namespace NFeFacil.Backup
         public Backup()
         {
             InitializeComponent();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            MainPage.Current.SeAtualizar("\uEA35", "Backup");
         }
 
         async void SalvarBackup(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)

@@ -97,15 +97,5 @@
                 </ItemsControl>
             </StackPanel>
         </ScrollViewer>
-        <CommandBar Grid.Row="1">
-            <AppBarButton x:Name="Confirmar"
-                          Icon="Accept"
-                          Label="Confirmar"
-                          Click="Confirmar_Click" />
-            <AppBarButton x:Name="Cancelar"
-                          Icon="Cancel"
-                          Label="Cancelar"
-                          Click="Cancelar_Click" />
-        </CommandBar>
     </Grid>
 </Page>

@@ -179,6 +179,15 @@
     <Compile Include="Login\PrimeiroUso.xaml.cs">
       <DependentUpon>PrimeiroUso.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewDadosBase\AdicionarClienteBrasileiroPF.xaml.cs">
+      <DependentUpon>AdicionarClienteBrasileiroPF.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewDadosBase\AdicionarClienteBrasileiroPJ.xaml.cs">
+      <DependentUpon>AdicionarClienteBrasileiroPJ.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewDadosBase\AdicionarClienteEstrangeiro.xaml.cs">
+      <DependentUpon>AdicionarClienteEstrangeiro.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\Converters\NumeroString.cs" />
     <Compile Include="ViewNFe\CaixasEspeciaisProduto\DefinirArmamentos.xaml.cs">
       <DependentUpon>DefinirArmamentos.xaml</DependentUpon>
@@ -631,6 +640,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Login\PrimeiroUso.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewDadosBase\AdicionarClienteBrasileiroPF.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewDadosBase\AdicionarClienteBrasileiroPJ.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewDadosBase\AdicionarClienteEstrangeiro.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

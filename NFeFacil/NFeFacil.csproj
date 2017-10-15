@@ -399,7 +399,6 @@
     <Compile Include="ViewModel\Converters\Invert.cs" />
     <Compile Include="ViewModel\Converters\StringToDateTime.cs" />
     <Compile Include="ViewNFe\CaixasImpostos\TiposCalculo.cs" />
-    <Compile Include="ViewDadosBase\MotoristaDataContext.cs" />
     <Compile Include="ViewModel\QRCode.cs" />
     <Compile Include="ViewDadosBase\AdicionarDestinatario.xaml.cs">
       <DependentUpon>AdicionarDestinatario.xaml</DependentUpon>

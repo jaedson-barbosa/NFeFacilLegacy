@@ -398,7 +398,6 @@
     <Compile Include="ViewModel\Converters\EstadoToMunicipios.cs" />
     <Compile Include="ViewModel\Converters\Invert.cs" />
     <Compile Include="ViewModel\Converters\StringToDateTime.cs" />
-    <Compile Include="Login\EmitenteDataContext.cs" />
     <Compile Include="ViewNFe\CaixasImpostos\TiposCalculo.cs" />
     <Compile Include="ViewDadosBase\MotoristaDataContext.cs" />
     <Compile Include="ViewModel\QRCode.cs" />

@@ -55,12 +55,12 @@ namespace NFeFacil.ViewDadosBase
 
         private void AdicionarCliente()
         {
-            MainPage.Current.Navegar<AdicionarDestinatario>();
+            //MainPage.Current.Navegar<AdicionarDestinatario>();
         }
 
         private void EditarCliente(ClienteDI dest)
         {
-            MainPage.Current.Navegar<AdicionarDestinatario>(dest);
+            //MainPage.Current.Navegar<AdicionarDestinatario>(dest);
         }
 
         private void InativarCliente(ClienteDI dest)

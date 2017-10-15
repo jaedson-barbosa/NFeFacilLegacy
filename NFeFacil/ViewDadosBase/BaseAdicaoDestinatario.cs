@@ -1,19 +1,50 @@
 ﻿using NFeFacil.Log;
 using NFeFacil.Validacao;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using System;
 using NFeFacil.ItensBD;
+using System.Collections.ObjectModel;
+using NFeFacil.IBGE;
+using System.Linq;
 
 namespace NFeFacil.ViewDadosBase
 {
-    public sealed class BaseAdicaoDestinatario
+    internal sealed class BaseAdicaoDestinatario
     {
         internal ClienteDI Cliente { get; private set; }
-        internal readonly ILog Log = Popup.Current;
+        internal ObservableCollection<Municipio> ListaMunicipios { get; }
+        readonly ILog Log = Popup.Current;
 
-        internal void OnNavigatedTo(NavigationEventArgs e)
+        public string UFEscolhida
+        {
+            get => Cliente.SiglaUF;
+            set
+            {
+                Cliente.SiglaUF = value;
+                ListaMunicipios.Clear();
+                foreach (var item in Municipios.Get(value))
+                {
+                    ListaMunicipios.Add(item);
+                }
+            }
+        }
+
+        public Municipio ConjuntoMunicipio
+        {
+            get
+            {
+                var mun = Municipios.Get(Cliente.SiglaUF).FirstOrDefault(x => x.Codigo == Cliente.CodigoMunicipio);
+                return mun;
+            }
+            set
+            {
+                Cliente.NomeMunicipio = value?.Nome;
+                Cliente.CodigoMunicipio = value?.Codigo ?? 0;
+            }
+        }
+
+        internal BaseAdicaoDestinatario(NavigationEventArgs e)
         {
             if (e.Parameter == null)
             {
@@ -25,9 +56,10 @@ namespace NFeFacil.ViewDadosBase
                 Cliente = (ClienteDI)e.Parameter;
                 MainPage.Current.SeAtualizar(Symbol.Edit, "Cliente");
             }
+            ListaMunicipios = new ObservableCollection<Municipio>(Municipios.Get(Cliente.SiglaUF));
         }
 
-        internal void Confirmar_Click(object sender, RoutedEventArgs e)
+        internal void Confirmar()
         {
             try
             {
@@ -57,7 +89,7 @@ namespace NFeFacil.ViewDadosBase
             }
         }
 
-        internal void Cancelar_Click(object sender, RoutedEventArgs e)
+        internal void Cancelar()
         {
             MainPage.Current.Retornar();
         }

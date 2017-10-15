@@ -482,7 +482,6 @@
     <Compile Include="ViewNFe\NotasSalvas.xaml.cs">
       <DependentUpon>NotasSalvas.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\Comando.cs" />
     <Compile Include="ViewModel\Converters\BoolToVisibility.cs" />
     <Compile Include="ViewModel\DadosEstadosParaView.cs" />
     <Compile Include="View\Controles\ItemPadraoSimples.xaml.cs">

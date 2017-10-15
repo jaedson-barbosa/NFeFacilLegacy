@@ -18,8 +18,6 @@
                     <x:String x:Key="ImagemArma">ms-appx:///Assets/ArmaClaro.png</x:String>
                 </ResourceDictionary>
             </ResourceDictionary.ThemeDictionaries>
-            <Conversores:BoolToVisibility x:Key="visibilidade" />
-            <Conversores:EstadoToMunicipios x:Key="obterMunicipio" />
             <Conversores:StringToDateTime x:Key="data" />
             <VM:DadosEstadosParaView x:Key="estados" />
         </ResourceDictionary>

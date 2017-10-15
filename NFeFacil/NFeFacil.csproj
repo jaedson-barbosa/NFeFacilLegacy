@@ -394,7 +394,6 @@
     <Compile Include="Validacao\ValidadorVendedor.cs" />
     <Compile Include="Validacao\ValidarDados.cs" />
     <Compile Include="ViewDadosBase\ClienteDataContext.cs" />
-    <Compile Include="ViewModel\Converters\ColecaoValida.cs" />
     <Compile Include="ViewModel\Converters\EstadoToMunicipios.cs" />
     <Compile Include="ViewModel\Converters\Invert.cs" />
     <Compile Include="ViewModel\Converters\StringToDateTime.cs" />
@@ -482,7 +481,6 @@
     <Compile Include="ViewNFe\NotasSalvas.xaml.cs">
       <DependentUpon>NotasSalvas.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\Converters\BoolToVisibility.cs" />
     <Compile Include="ViewModel\DadosEstadosParaView.cs" />
     <Compile Include="View\Controles\ItemPadraoSimples.xaml.cs">
       <DependentUpon>ItemPadraoSimples.xaml</DependentUpon>

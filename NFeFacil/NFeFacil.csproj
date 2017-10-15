@@ -191,6 +191,7 @@
     <Compile Include="ViewDadosBase\AdicionarClienteEstrangeiro.xaml.cs">
       <DependentUpon>AdicionarClienteEstrangeiro.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewDadosBase\BaseAdicaoDestinatario.cs" />
     <Compile Include="ViewModel\Converters\NumeroString.cs" />
     <Compile Include="ViewNFe\CaixasEspeciaisProduto\DefinirArmamentos.xaml.cs">
       <DependentUpon>DefinirArmamentos.xaml</DependentUpon>
@@ -411,9 +412,6 @@
     <Compile Include="ViewModel\Converters\StringToDateTime.cs" />
     <Compile Include="ViewNFe\CaixasImpostos\TiposCalculo.cs" />
     <Compile Include="ViewModel\QRCode.cs" />
-    <Compile Include="ViewDadosBase\AdicionarDestinatario.xaml.cs">
-      <DependentUpon>AdicionarDestinatario.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Login\AdicionarEmitente.xaml.cs">
       <DependentUpon>AdicionarEmitente.xaml</DependentUpon>
     </Compile>
@@ -829,10 +827,6 @@
     <Page Include="CodigoBarras\Code128.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ViewDadosBase\AdicionarDestinatario.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Login\AdicionarEmitente.xaml">
       <SubType>Designer</SubType>

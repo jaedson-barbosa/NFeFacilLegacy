@@ -182,6 +182,9 @@
     <Compile Include="ViewDadosBase\AdicionarClienteBrasileiroPF.xaml.cs">
       <DependentUpon>AdicionarClienteBrasileiroPF.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewDadosBase\AdicionarClienteBrasileiroPFContribuinte.xaml.cs">
+      <DependentUpon>AdicionarClienteBrasileiroPFContribuinte.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewDadosBase\AdicionarClienteBrasileiroPJ.xaml.cs">
       <DependentUpon>AdicionarClienteBrasileiroPJ.xaml</DependentUpon>
     </Compile>
@@ -644,6 +647,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ViewDadosBase\AdicionarClienteBrasileiroPF.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewDadosBase\AdicionarClienteBrasileiroPFContribuinte.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

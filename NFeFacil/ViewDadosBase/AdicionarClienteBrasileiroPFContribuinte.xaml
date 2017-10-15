@@ -1,4 +1,4 @@
-﻿<Page x:Class="NFeFacil.ViewDadosBase.AdicionarClienteBrasileiroPJ"
+﻿<Page x:Class="NFeFacil.ViewDadosBase.AdicionarClienteBrasileiroPFContribuinte"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:VM="using:NFeFacil.ViewModel"
@@ -13,23 +13,13 @@
             <TextBox Text="{Binding Cliente.Nome, Mode=TwoWay}"
                      InputScope="Text"
                      Header="Nome/Razão social *" />
-            <TextBox Text="{Binding Cliente.CNPJ, Mode=TwoWay}"
+            <TextBox Text="{Binding Cliente.CPF, Mode=TwoWay}"
                      InputScope="Number"
-                     Header="CNPJ *" />
-            <ComboBox Header="Indicador da IE"
-                      SelectedItem="{Binding IndicadorIESelecionado, Mode=TwoWay}">
-                <ComboBoxItem Tag="0">Contribuinte do ICMS</ComboBoxItem>
-                <ComboBoxItem Tag="1">Contribuinte isento de inscrição</ComboBoxItem>
-                <ComboBoxItem Tag="2">Não contribuinte, sem IE</ComboBoxItem>
-                <ComboBoxItem Tag="3">Não contribuinte, com IE</ComboBoxItem>
-            </ComboBox>
+                     Header="CPF *" />
             <TextBox Text="{Binding InscricaoEstadual, Mode=TwoWay}"
                      IsEnabled="{Binding TemIE}"
                      InputScope="Number"
                      Header="Inscrição estadual" />
-            <TextBox Text="{Binding Cliente.ISUF, Mode=TwoWay}"
-                     InputScope="Number"
-                     Header="Inscrição na SUFRAMA" />
             <TextBox Text="{Binding Cliente.Email, Mode=TwoWay}"
                      InputScope="EmailNameOrAddress"
                      Header="Email" />

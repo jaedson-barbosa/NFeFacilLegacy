@@ -22,6 +22,7 @@ namespace NFeFacil.ViewDadosBase
                 {
                     if (string.IsNullOrEmpty(Base.Cliente.InscricaoEstadual))
                     {
+                        txtIE.IsEnabled = false;
                         return "2";
                     }
                     else
@@ -31,6 +32,7 @@ namespace NFeFacil.ViewDadosBase
                 }
                 else if (ind == 2)
                 {
+                    txtIE.IsEnabled = false;
                     return "1";
                 }
                 else
@@ -74,7 +76,6 @@ namespace NFeFacil.ViewDadosBase
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             Base = new BaseAdicaoDestinatario(e);
-            Base.Cliente.IndicadorIE = 1;
         }
 
         void Confirmar_Click(object sender, RoutedEventArgs e)

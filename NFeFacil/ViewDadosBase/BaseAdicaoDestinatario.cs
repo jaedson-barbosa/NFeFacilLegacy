@@ -48,7 +48,10 @@ namespace NFeFacil.ViewDadosBase
         {
             if (e.Parameter == null)
             {
-                Cliente = new ClienteDI();
+                Cliente = new ClienteDI()
+                {
+                    IndicadorIE = 1
+                };
                 if (nacional)
                 {
                     Cliente.XPais = "BRASIL";

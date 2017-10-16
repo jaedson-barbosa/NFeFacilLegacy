@@ -13,6 +13,59 @@ namespace NFeFacil.ViewDadosBase
     {
         BaseAdicaoDestinatario Base { get; set; }
 
+        public string IndicadorIESelecionado
+        {
+            get
+            {
+                var ind = Base.Cliente.IndicadorIE;
+                if (ind == 9)
+                {
+                    if (string.IsNullOrEmpty(Base.Cliente.InscricaoEstadual))
+                    {
+                        return "2";
+                    }
+                    else
+                    {
+                        return "3";
+                    }
+                }
+                else if (ind == 2)
+                {
+                    return "1";
+                }
+                else
+                {
+                    return "0";
+                }
+            }
+            set
+            {
+                if (value == "0")
+                {
+                    txtIE.IsEnabled = true;
+                    Base.Cliente.IndicadorIE = 1;
+                }
+                else if (value == "1")
+                {
+                    txtIE.IsEnabled = false;
+                    Base.Cliente.InscricaoEstadual = null;
+                    Base.Cliente.IndicadorIE = 2;
+                }
+                else if (value == "2")
+                {
+                    txtIE.IsEnabled = false;
+                    Base.Cliente.InscricaoEstadual = null;
+                    Base.Cliente.IndicadorIE = 9;
+                }
+                else
+                {
+                    txtIE.IsEnabled = true;
+                    Base.Cliente.IndicadorIE = 9;
+                }
+                txtIE.Text = string.Empty;
+            }
+        }
+
         public AdicionarClienteBrasileiroPJ()
         {
             this.InitializeComponent();

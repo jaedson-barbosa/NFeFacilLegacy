@@ -10,13 +10,13 @@
     </Page.Resources>
     <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <ItemsControl Style="{StaticResource ItensResponsivos}">
-            <TextBox Text="{Binding Cliente.Nome, Mode=TwoWay}"
+            <TextBox Text="{x:Bind Base.Cliente.Nome, Mode=TwoWay}"
                      InputScope="Text"
                      Header="Nome/Razão social *" />
-            <TextBox Text="{Binding Cliente.IdEstrangeiro, Mode=TwoWay}"
+            <TextBox Text="{x:Bind Base.Cliente.IdEstrangeiro, Mode=TwoWay}"
                      InputScope="Number"
                      Header="Documento de identicação *" />
-            <TextBox Text="{Binding Cliente.Email, Mode=TwoWay}"
+            <TextBox Text="{x:Bind Base.Cliente.Email, Mode=TwoWay}"
                      InputScope="EmailNameOrAddress"
                      Header="Email" />
         </ItemsControl>
@@ -24,25 +24,25 @@
                    Style="{StaticResource TitleTextBlockStyle}"
                    Margin="4,0,0,0" />
         <ItemsControl Style="{StaticResource ItensResponsivos}">
-            <TextBox Text="{Binding Path=Cliente.Logradouro, Mode=TwoWay}"
+            <TextBox Text="{x:Bind Base.Cliente.Logradouro, Mode=TwoWay}"
                      InputScope="Text"
                      Header="Logradouro *" />
-            <TextBox Text="{Binding Path=Cliente.Numero, Mode=TwoWay}"
+            <TextBox Text="{x:Bind Base.Cliente.Numero, Mode=TwoWay}"
                      InputScope="Text"
                      Header="Número *" />
-            <TextBox Text="{Binding Path=Cliente.Complemento, Mode=TwoWay}"
+            <TextBox Text="{x:Bind Base.Cliente.Complemento, Mode=TwoWay}"
                      InputScope="Text"
                      Header="Complemento" />
-            <TextBox Text="{Binding Path=Cliente.Bairro, Mode=TwoWay}"
+            <TextBox Text="{x:Bind Base.Cliente.Bairro, Mode=TwoWay}"
                      InputScope="Text"
                      Header="Bairro *" />
-            <TextBox Text="{Binding Path=Cliente.Telefone, Mode=TwoWay}"
+            <TextBox Text="{x:Bind Base.Cliente.Telefone, Mode=TwoWay}"
                      InputScope="Number"
                      Header="Telefone" />
-            <TextBox Text="{Binding Path=Cliente.XPais, Mode=TwoWay}"
+            <TextBox Text="{x:Bind Base.Cliente.XPais, Mode=TwoWay}"
                      InputScope="Text"
                      Header="Nome do país" />
-            <TextBox Text="{Binding Path=Cliente.CPais, Mode=TwoWay}"
+            <TextBox Text="{x:Bind Base.Cliente.CPais, Mode=TwoWay}"
                      InputScope="Number"
                      Header="Codigo do país" />
         </ItemsControl>

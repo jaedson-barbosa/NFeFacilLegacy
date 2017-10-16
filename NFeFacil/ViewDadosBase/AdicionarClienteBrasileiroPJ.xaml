@@ -10,27 +10,28 @@
     </Page.Resources>
     <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <ItemsControl Style="{StaticResource ItensResponsivos}">
-            <TextBox Text="{Binding Cliente.Nome, Mode=TwoWay}"
+            <TextBox Text="{x:Bind Base.Cliente.Nome, Mode=TwoWay}"
                      InputScope="Text"
                      Header="Nome/Razão social *" />
-            <TextBox Text="{Binding Cliente.CNPJ, Mode=TwoWay}"
+            <TextBox Text="{x:Bind Base.Cliente.CNPJ, Mode=TwoWay}"
                      InputScope="Number"
                      Header="CNPJ *" />
             <ComboBox Header="Indicador da IE"
-                      SelectedItem="{Binding IndicadorIESelecionado, Mode=TwoWay}">
+                      SelectedValue="{x:Bind IndicadorIESelecionado, Mode=TwoWay}"
+                      SelectedValuePath="Tag">
                 <ComboBoxItem Tag="0">Contribuinte do ICMS</ComboBoxItem>
                 <ComboBoxItem Tag="1">Contribuinte isento de inscrição</ComboBoxItem>
                 <ComboBoxItem Tag="2">Não contribuinte, sem IE</ComboBoxItem>
                 <ComboBoxItem Tag="3">Não contribuinte, com IE</ComboBoxItem>
             </ComboBox>
-            <TextBox Text="{Binding InscricaoEstadual, Mode=TwoWay}"
-                     IsEnabled="{Binding TemIE}"
+            <TextBox x:Name="txtIE"
+                     Text="{x:Bind Base.Cliente.InscricaoEstadual, Mode=TwoWay}"
                      InputScope="Number"
                      Header="Inscrição estadual" />
-            <TextBox Text="{Binding Cliente.ISUF, Mode=TwoWay}"
+            <TextBox Text="{x:Bind Base.Cliente.ISUF, Mode=TwoWay}"
                      InputScope="Number"
                      Header="Inscrição na SUFRAMA" />
-            <TextBox Text="{Binding Cliente.Email, Mode=TwoWay}"
+            <TextBox Text="{x:Bind Base.Cliente.Email, Mode=TwoWay}"
                      InputScope="EmailNameOrAddress"
                      Header="Email" />
         </ItemsControl>
@@ -39,29 +40,29 @@
                    Margin="4,0,0,0" />
         <ItemsControl Style="{StaticResource ItensResponsivos}">
             <ComboBox ItemsSource="{Binding Source={StaticResource estados}, Path=Siglas}"
-                      SelectedItem="{Binding UFEscolhida, Mode=TwoWay}"
+                      SelectedItem="{x:Bind Base.UFEscolhida, Mode=TwoWay}"
                       Header="Estado" />
-            <ComboBox ItemsSource="{Binding UFEscolhida, Converter={StaticResource obterMunicipios}}"
-                      SelectedItem="{Binding Path=ConjuntoMunicipio, Mode=TwoWay}"
+            <ComboBox ItemsSource="{x:Bind Base.ListaMunicipios}"
+                      SelectedItem="{x:Bind Base.ConjuntoMunicipio, Mode=TwoWay}"
                       DisplayMemberPath="Nome"
                       Header="Município" />
-            <TextBox Text="{Binding Path=Cliente.Logradouro, Mode=TwoWay}"
+            <TextBox Text="{x:Bind Base.Cliente.Logradouro, Mode=TwoWay}"
                      InputScope="Text"
                      Header="Logradouro *" />
-            <TextBox Text="{Binding Path=Cliente.Numero, Mode=TwoWay}"
+            <TextBox Text="{x:Bind Base.Cliente.Numero, Mode=TwoWay}"
                      InputScope="Text"
                      Header="Número *" />
-            <TextBox Text="{Binding Path=Cliente.Complemento, Mode=TwoWay}"
+            <TextBox Text="{x:Bind Base.Cliente.Complemento, Mode=TwoWay}"
                      InputScope="Text"
                      Header="Complemento" />
-            <TextBox Text="{Binding Path=Cliente.Bairro, Mode=TwoWay}"
+            <TextBox Text="{x:Bind Base.Cliente.Bairro, Mode=TwoWay}"
                      InputScope="Text"
                      Header="Bairro *" />
-            <TextBox IsEnabled="{Binding Nacional}"
-                     Text="{Binding Path=Cliente.CEP, Mode=TwoWay}"
+            <TextBox 
+                     Text="{x:Bind Base.Cliente.CEP, Mode=TwoWay}"
                      InputScope="Number"
                      Header="CEP" />
-            <TextBox Text="{Binding Path=Cliente.Telefone, Mode=TwoWay}"
+            <TextBox Text="{x:Bind Base.Cliente.Telefone, Mode=TwoWay}"
                      InputScope="Number"
                      Header="Telefone" />
         </ItemsControl>

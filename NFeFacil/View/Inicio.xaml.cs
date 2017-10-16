@@ -70,6 +70,9 @@ namespace NFeFacil.View
                         MainPage.Current.Navegar<SincronizacaoServidor>();
                     }
                     break;
+                case "Backup":
+                    MainPage.Current.Navegar<Backup.Backup>();
+                    break;
                 default:
                     break;
             }

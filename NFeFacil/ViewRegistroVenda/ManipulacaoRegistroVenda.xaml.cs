@@ -27,8 +27,10 @@ namespace NFeFacil.ViewRegistroVenda
         {
             ItemBanco.DescontoTotal = ItemBanco.Produtos.Sum(x => x.Desconto);
 
-            txtTotal.Text = ItemBanco.Produtos.Sum(x => x.TotalLíquido).ToString("C");
+            txtTotalBruto.Text = ItemBanco.Produtos.Sum(x => x.Quantidade * x.ValorUnitario).ToString("C");
+            txtAdicionais.Text = ItemBanco.Produtos.Sum(x => x.Seguro + x.Frete + x.DespesasExtras).ToString("C");
             txtDescontoTotal.Text = ItemBanco.DescontoTotal.ToString("C");
+            txtTotal.Text = ItemBanco.Produtos.Sum(x => x.TotalLíquido).ToString("C");
         }
 
         Guid Motorista
@@ -110,46 +112,53 @@ namespace NFeFacil.ViewRegistroVenda
 
         private void Finalizar(object sender, RoutedEventArgs e)
         {
-            var produtosOrignal = ItemBanco.Produtos;
-            using (var db = new AplicativoContext())
+            if (ItemBanco.Cliente == default(Guid))
             {
-                ItemBanco.UltimaData = DateTime.Now;
-                ItemBanco.Produtos = null;
-                db.Vendas.Add(ItemBanco);
-                db.SaveChanges();
-
-                for (int i = 0; i < produtosOrignal.Count; i++)
+                Popup.Current.Escrever(TitulosComuns.Atenção, "Escolha primeiro um cliente.");
+            }
+            else
+            {
+                var produtosOrignal = ItemBanco.Produtos;
+                using (var db = new AplicativoContext())
                 {
-                    var produto = produtosOrignal[i];
-                    var estoque = db.Estoque.Include(x => x.Alteracoes).FirstOrDefault(x => x.Id == produto.IdBase);
-                    if (estoque != null)
+                    ItemBanco.UltimaData = DateTime.Now;
+                    ItemBanco.Produtos = null;
+                    db.Vendas.Add(ItemBanco);
+                    db.SaveChanges();
+
+                    for (int i = 0; i < produtosOrignal.Count; i++)
                     {
-                        estoque.UltimaData = DateTime.Now;
-                        estoque.Alteracoes.Add(new AlteracaoEstoque
+                        var produto = produtosOrignal[i];
+                        var estoque = db.Estoque.Include(x => x.Alteracoes).FirstOrDefault(x => x.Id == produto.IdBase);
+                        if (estoque != null)
                         {
-                            Alteração = produto.Quantidade * -1
-                        });
+                            estoque.UltimaData = DateTime.Now;
+                            estoque.Alteracoes.Add(new AlteracaoEstoque
+                            {
+                                Alteração = produto.Quantidade * -1
+                            });
 
-                        db.Estoque.Update(estoque);
+                            db.Estoque.Update(estoque);
+                        }
                     }
+                    db.SaveChanges();
                 }
-                db.SaveChanges();
+
+                using (var db = new AplicativoContext())
+                {
+                    ItemBanco.Produtos = produtosOrignal;
+                    db.Vendas.Update(ItemBanco);
+                    db.SaveChanges();
+
+                    var log = Popup.Current;
+                    log.Escrever(TitulosComuns.Sucesso, "Registro de venda salvo com sucesso.");
+                }
+
+                var ultPage = Frame.BackStack[Frame.BackStack.Count - 1];
+                PageStackEntry entrada = new PageStackEntry(typeof(VisualizacaoRegistroVenda), ItemBanco, new Windows.UI.Xaml.Media.Animation.SlideNavigationTransitionInfo());
+                Frame.BackStack.Add(entrada);
+                MainPage.Current.Retornar(true);
             }
-
-            using (var db = new AplicativoContext())
-            {
-                ItemBanco.Produtos = produtosOrignal;
-                db.Vendas.Update(ItemBanco);
-                db.SaveChanges();
-
-                var log = Popup.Current;
-                log.Escrever(TitulosComuns.Sucesso, "Registro de venda salvo com sucesso.");
-            }
-
-            var ultPage = Frame.BackStack[Frame.BackStack.Count - 1];
-            PageStackEntry entrada = new PageStackEntry(typeof(VisualizacaoRegistroVenda), ItemBanco, new Windows.UI.Xaml.Media.Animation.SlideNavigationTransitionInfo());
-            Frame.BackStack.Add(entrada);
-            MainPage.Current.Retornar(true);
         }
 
         private async void AplicarDesconto(object sender, RoutedEventArgs e)
@@ -168,6 +177,23 @@ namespace NFeFacil.ViewRegistroVenda
                     ItemBanco.Produtos[i] = antigo.Base;
                 }
                 ItemBanco.DescontoTotal = prods.Sum(x => x.Desconto);
+                AtualizarTotal();
+            }
+        }
+
+        async void AplicarFrete(object sender, RoutedEventArgs e)
+        {
+            var caixa = new AplicarFrete();
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+            {
+                for (int i = 0; i < ListaProdutos.Count; i++)
+                {
+                    var atual = ListaProdutos[i];
+                    atual.Base.Frete = caixa.Valor / ListaProdutos.Count;
+                    atual.Base.CalcularTotalLíquido();
+                    ListaProdutos[i] = atual;
+                    ItemBanco.Produtos[i] = atual.Base;
+                }
                 AtualizarTotal();
             }
         }

@@ -3,7 +3,6 @@ using System;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -42,7 +41,9 @@ namespace NFeFacil.ViewRegistroVenda
                 {
                     Descricao = db.Produtos.Find(x.IdBase).Descricao,
                     Quantidade = x.Quantidade.ToString("N2"),
-                    Valor = x.ValorUnitario.ToString("C2"),
+                    ValorUnitario = x.ValorUnitario.ToString("C2"),
+                    Desconto = x.Desconto.ToString("C2"),
+                    Adicionais = (x.DespesasExtras + x.Frete + x.Seguro).ToString("C2"),
                     Total = x.TotalLíquido.ToString("C2")
                 });
                 var array = original.Id.ToByteArray();
@@ -69,13 +70,13 @@ namespace NFeFacil.ViewRegistroVenda
                     },
                     DataVenda = original.DataHoraVenda.ToString("dd-MM-yyyy"),
                     IdVenda = idOriginal,
-                    Barras = idSimplificado,
                     ChaveNFeRelacionada = original.NotaFiscalRelacionada,
                     Vendedor = vendedor?.Nome ?? string.Empty,
                     CPFVendedor = vendedor?.CPF.ToString("000,000,000-00") ?? string.Empty,
                     Motorista = motorista?.Nome ?? string.Empty,
                     Produtos = produtos.ToArray(),
                     Desconto = original.DescontoTotal.ToString("C2"),
+                    Adicionais = original.Produtos.Sum(x => x.DespesasExtras + x.Frete + x.Seguro).ToString("C2"),
                     Total = (original.Produtos.Sum(x => x.TotalLíquido) - original.DescontoTotal).ToString("C2"),
                     Observacoes = original.Observações
                 };
@@ -91,13 +92,6 @@ namespace NFeFacil.ViewRegistroVenda
         private async void PaginaPrincipalCarregada(object sender, RoutedEventArgs e)
         {
             var dimensoes = await DefinirTamanho();
-            if (dimensoes.AlturaOriginal < 15)
-            {
-                var caixa = new MessageDialog("A altura da página está muito pequena, você deseja omitir o código de barras?");
-                caixa.Commands.Add(new UICommand("Sim", x => grdPaginaPrincipal.Children.Remove(codeBarras)));
-                caixa.Commands.Add(new UICommand("Não"));
-                await caixa.ShowAsync();
-            }
             await Task.Delay(500);
             var grid = (Grid)sender;
             if (double.IsNaN(grid.Height))
@@ -234,13 +228,13 @@ namespace NFeFacil.ViewRegistroVenda
         public DadosCliente Cliente { get; set; }
         public string DataVenda { get; set; }
         public string IdVenda { get; set; }
-        public string Barras { get; set; }
         public string ChaveNFeRelacionada { get; set; }
         public string Vendedor { get; set; }
         public string CPFVendedor { get; set; }
         public string Motorista { get; set; }
         public DadosProduto[] Produtos { get; set; }
         public string Desconto { get; set; }
+        public string Adicionais { get; set; }
         public string Total { get; set; }
         public string Observacoes { get; set; }
     }
@@ -261,7 +255,9 @@ namespace NFeFacil.ViewRegistroVenda
     {
         public string Descricao { get; set; }
         public string Quantidade { get; set; }
-        public string Valor { get; set; }
+        public string ValorUnitario { get; set; }
+        public string Desconto { get; set; }
+        public string Adicionais { get; set; }
         public string Total { get; set; }
     }
 }

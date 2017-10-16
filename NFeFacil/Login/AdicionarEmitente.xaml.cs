@@ -5,6 +5,9 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using NFeFacil.ItensBD;
+using NFeFacil.IBGE;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -15,8 +18,34 @@ namespace NFeFacil.Login
     /// </summary>
     public sealed partial class AdicionarEmitente : Page
     {
-        private EmitenteDI emitente;
-        private ILog Log = Popup.Current;
+        EmitenteDI Emit { get; set; }
+
+        string EstadoSelecionado
+        {
+            get => Emit.SiglaUF;
+            set
+            {
+                Emit.SiglaUF = value;
+                ListaMunicipios.Clear();
+                foreach (var item in Municipios.Get(value))
+                {
+                    ListaMunicipios.Add(item);
+                }
+            }
+        }
+
+        ObservableCollection<Municipio> ListaMunicipios { get; } = new ObservableCollection<Municipio>();
+        Municipio ConjuntoMunicipio
+        {
+            get => Municipios.Get(Emit.SiglaUF).FirstOrDefault(x => x.Codigo == Emit.CodigoMunicipio);
+            set
+            {
+                Emit.NomeMunicipio = value?.Nome;
+                Emit.CodigoMunicipio = value?.Codigo ?? 0;
+            }
+        }
+
+        ILog Log = Popup.Current;
 
         public AdicionarEmitente()
         {
@@ -27,24 +56,23 @@ namespace NFeFacil.Login
         {
             if (e.Parameter == null)
             {
-                emitente = new EmitenteDI();
+                Emit = new EmitenteDI();
                 MainPage.Current.SeAtualizar(Symbol.Add, "Emitente");
             }
             else
             {
-                emitente = (EmitenteDI)e.Parameter;
+                Emit = (EmitenteDI)e.Parameter;
                 MainPage.Current.SeAtualizar(Symbol.Edit, "Emitente");
             }
             DefinirImagem();
-            DataContext = new EmitenteDataContext(ref emitente);
 
             async void DefinirImagem()
             {
-                if (emitente.Id != null)
+                if (Emit.Id != null)
                 {
                     using (var db = new AplicativoContext())
                     {
-                        var img = db.Imagens.Find(emitente.Id);
+                        var img = db.Imagens.Find(Emit.Id);
                         if (img != null && img.Bytes != null)
                         {
                             imagem.Source = await img.GetSourceAsync();
@@ -58,19 +86,19 @@ namespace NFeFacil.Login
         {
             try
             {
-                if (new ValidadorEmitente(emitente).Validar(Log))
+                if (new ValidadorEmitente(Emit).Validar(Log))
                 {
                     using (var db = new AplicativoContext())
                     {
-                        emitente.UltimaData = DateTime.Now;
-                        if (emitente.Id == Guid.Empty)
+                        Emit.UltimaData = DateTime.Now;
+                        if (Emit.Id == Guid.Empty)
                         {
-                            db.Add(emitente);
+                            db.Add(Emit);
                             Log.Escrever(TitulosComuns.Sucesso, "Emitente salvo com sucesso.");
                         }
                         else
                         {
-                            db.Update(emitente);
+                            db.Update(Emit);
                             Log.Escrever(TitulosComuns.Sucesso, "Emitente alterado com sucesso.");
                         }
                         db.SaveChanges();
@@ -100,12 +128,12 @@ namespace NFeFacil.Login
             var img = new Imagem();
             await img.FromStorageFileAsync(arq);
 
-            if (emitente.Id != default(Guid))
+            if (Emit.Id != default(Guid))
             {
                 using (var db = new AplicativoContext())
                 {
-                    img.Id = emitente.Id;
-                    if (db.Imagens.Find(emitente.Id) != null)
+                    img.Id = Emit.Id;
+                    if (db.Imagens.Find(Emit.Id) != null)
                     {
                         // Imagem cadastrada
                         db.Imagens.Update(img);
@@ -128,11 +156,11 @@ namespace NFeFacil.Login
 
         private void ApagarLogotipo_Click(object sender, RoutedEventArgs e)
         {
-            if (emitente.Id != default(Guid))
+            if (Emit.Id != default(Guid))
             {
                 using (var db = new AplicativoContext())
                 {
-                    var img = db.Imagens.Find(emitente.Id);
+                    var img = db.Imagens.Find(Emit.Id);
                     if (img != null)
                     {
                         img.Bytes = null;

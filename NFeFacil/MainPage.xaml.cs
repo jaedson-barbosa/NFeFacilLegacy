@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.System.Profile;
@@ -30,11 +31,17 @@ namespace NFeFacil
                 e.Handled = true;
                 Retornar();
             };
-            frmPrincipal.CacheSize = 4;
-            Navegar<Login.EscolhaEmitente>();
             using (var db = new AplicativoContext())
             {
                 Propriedades.EmitenteAtivo = db.Emitentes.FirstOrDefault();
+                if (db.Emitentes.Count() > 0)
+                {
+                    Navegar<Login.EscolhaEmitente>();
+                }
+                else
+                {
+                    Navegar<Login.PrimeiroUso>();
+                }
             }
         }
 
@@ -84,6 +91,13 @@ namespace NFeFacil
         {
             txtTitulo.Text = texto;
             symTitulo.Content = new FontIcon { Glyph = glyph };
+            AnalisarMenuHamburguer();
+        }
+
+        internal void SeAtualizar(Uri caminho, string texto)
+        {
+            txtTitulo.Text = texto;
+            symTitulo.Content = new BitmapIcon { UriSource = caminho };
             AnalisarMenuHamburguer();
         }
 
@@ -140,8 +154,10 @@ namespace NFeFacil
         {
             if (menuTemporario.ItemsSource != null)
             {
-                var hamb = (IHambuguer)frmPrincipal.Content;
-                hamb.AtualizarMain(menuTemporario.SelectedIndex);
+                if (frmPrincipal.Content is IHambuguer hamb)
+                {
+                    hamb.AtualizarMain(menuTemporario.SelectedIndex);
+                }
             }
         }
 

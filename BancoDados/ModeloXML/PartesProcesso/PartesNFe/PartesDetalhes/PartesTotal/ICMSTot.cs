@@ -60,13 +60,13 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTotal
                         }
                     }
                 }
-                if (prod.InclusãoTotal == 1 && !temISSQN)
+                if (prod.InclusaoTotal == 1 && !temISSQN)
                 {
                     VProd += prod.ValorTotal;
                     VFrete += prod.Frete.ToDouble();
                     VSeg += prod.Seguro.ToDouble();
                     VDesc += prod.Desconto.ToDouble();
-                    VOutro += prod.DespesasAcessórias.ToDouble();
+                    VOutro += prod.DespesasAcessorias.ToDouble();
                     VTotTrib += Produto.Impostos.vTotTrib.ToDouble();
                 }
                 else if (temISSQN)

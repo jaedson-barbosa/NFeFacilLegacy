@@ -6,101 +6,46 @@
       mc:Ignorable="d">
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
           Margin="16">
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup>
-                <VisualState>
-                    <VisualState.Setters>
-                        <Setter Target="grpGeral.(Grid.ColumnSpan)"
-                                Value="1" />
-                        <Setter Target="grpGeral.(Grid.RowSpan)"
-                                Value="2" />
-                        <Setter Target="lstProdutos.(Grid.ColumnSpan)"
-                                Value="1" />
-                        <Setter Target="lstProdutos.(Grid.RowSpan)"
-                                Value="2" />
-                        <Setter Target="lstProdutos.(Grid.Column)"
-                                Value="1" />
-                        <Setter Target="lstProdutos.Margin"
-                                Value="4,0,0,0" />
-                    </VisualState.Setters>
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowHeight="0" />
-                    </VisualState.StateTriggers>
-                </VisualState>
-                <VisualState>
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowHeight="680" />
-                    </VisualState.StateTriggers>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-        <Grid x:Name="grpGeral"
-              Grid.ColumnSpan="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <ComboBox Header="Cliente"
-                      ItemsSource="{x:Bind Clientes}"
-                      DisplayMemberPath="Nome"
-                      SelectedValue="{x:Bind ItemBanco.Cliente, Mode=TwoWay}"
-                      SelectedValuePath="Id"
-                      HorizontalAlignment="Stretch" />
-            <ComboBox Grid.Column="1"
-                      Header="Motorista"
-                      ItemsSource="{x:Bind Motoristas}"
-                      DisplayMemberPath="Nome"
-                      SelectedValue="{x:Bind Motorista, Mode=TwoWay}"
-                      SelectedValuePath="Id"
-                      HorizontalAlignment="Stretch" />
-            <ItemsControl Grid.Row="1"
-                          Grid.ColumnSpan="2"
-                          Style="{StaticResource ItensResponsivos}">
+        <ScrollViewer VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Auto">
+            <StackPanel Orientation="Horizontal">
+                <ComboBox Header="Cliente"
+                          ItemsSource="{x:Bind Clientes}"
+                          DisplayMemberPath="Nome"
+                          SelectedValue="{x:Bind ItemBanco.Cliente, Mode=TwoWay}"
+                          SelectedValuePath="Id"
+                          Margin="0,0,0,16"
+                          MaxWidth="256" />
+                <ComboBox Header="Motorista"
+                          ItemsSource="{x:Bind Motoristas}"
+                          DisplayMemberPath="Nome"
+                          SelectedValue="{x:Bind Motorista, Mode=TwoWay}"
+                          SelectedValuePath="Id"
+                          Margin="4,0,4,16"
+                          HorizontalAlignment="Stretch"
+                          MaxWidth="256" />
                 <DatePicker Header="Data da venda"
-                            MinWidth="156"
-                            MonthFormat="{}{month.integer} {month.abbreviated}"
-                            Date="{x:Bind DataHoraVenda, Mode=TwoWay}" />
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <Button VerticalAlignment="Stretch"
-                            Margin="0,2,2,0"
-                            Click="AplicarDesconto">
-                        <TextBlock TextAlignment="Center">
-                        <Run>Aplicar</Run>
-                        <LineBreak />
-                        <Run>desconto</Run></TextBlock>
-                    </Button>
-                    <TextBox Grid.Column="1"
-                             Header="Desconto"
-                             IsReadOnly="True"
-                             x:Name="txtDescontoTotal" />
-                </Grid>
-                <TextBox MaxLength="12"
-                         IsReadOnly="True"
-                         x:Name="txtTotal"
-                         Header="Total" />
-            </ItemsControl>
-        </Grid>
-        <ListView x:Name="lstProdutos"
-                  ItemsSource="{x:Bind ListaProdutos}"
+                            Date="{x:Bind DataHoraVenda, Mode=TwoWay}"
+                            Margin="0,0,0,16"
+                            MaxWidth="256" />
+                <TextBox Header="Observações"
+                         MaxWidth="256"
+                         Text="{x:Bind Observacoes, Mode=TwoWay}"
+                         Margin="4,0,4,16" />
+                <TextBlock Margin="0,0,0,16"><Run>Total bruto:</Run><LineBreak /><Run x:Name="txtTotalBruto" /></TextBlock>
+                <TextBlock ToolTipService.ToolTip="Frete, despesas acessórias e seguro"
+                           Margin="4,0,4,16"><Run>Adicionais:</Run><LineBreak /><Run x:Name="txtAdicionais" /></TextBlock>
+                <TextBlock Margin="0,0,0,16"><Run>Desconto total:</Run><LineBreak /><Run x:Name="txtDescontoTotal" /></TextBlock>
+                <TextBlock Margin="4,0,0,16"><Run>Total líquido:</Run><LineBreak /><Run x:Name="txtTotal" /></TextBlock>
+            </StackPanel>
+        </ScrollViewer>
+        <ListView ItemsSource="{x:Bind ListaProdutos}"
                   Grid.Row="1"
-                  Grid.ColumnSpan="2"
                   ItemContainerStyle="{StaticResource ItemFullWidth}">
             <ListView.Header>
                 <Grid Style="{StaticResource Cabecalho}">
@@ -153,19 +98,25 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ScrollViewer Grid.Row="2"
-                      Grid.ColumnSpan="2"
-                      MaxHeight="80">
-            <TextBox Header="Observações"
-                     TextWrapping="Wrap"
-                     Text="{x:Bind Observacoes, Mode=TwoWay}" />
-        </ScrollViewer>
     </Grid>
     <Page.BottomAppBar>
         <CommandBar>
             <AppBarButton Label="Finalizar e registrar"
                           Icon="Accept"
                           Click="Finalizar" />
+            <AppBarButton Label="Aplicar frete"
+                          Click="AplicarFrete">
+                <AppBarButton.Icon>
+                    <FontIcon Glyph="&#xE806;" />
+                </AppBarButton.Icon>
+            </AppBarButton>
+            <AppBarButton Label="Aplicar desconto"
+                          Click="AplicarDesconto">
+                <AppBarButton.Icon>
+                    <FontIcon Glyph="%"
+                              FontFamily="Segoe UI" />
+                </AppBarButton.Icon>
+            </AppBarButton>
         </CommandBar>
     </Page.BottomAppBar>
 </Page>

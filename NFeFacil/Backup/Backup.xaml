@@ -1,0 +1,30 @@
+﻿<Page x:Class="NFeFacil.Backup.Backup"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:controles="using:NFeFacil.View.Controles"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+          Padding="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <TextBlock TextWrapping="Wrap"
+                   Margin="0,0,0,8">No backup local é gerado um arquivo zip com todas as informações salvas atualmente no aplicativo já que nele não há limite de tamanho. É recomendado que seja guardado em um local seguro, como no seu OneDrive. Ele só pode ser restaurado quando não há informações guardadas no aplicativo.</TextBlock>
+        <ItemsControl Grid.Row="1"
+                      Style="{StaticResource ItensMedios}">
+            <controles:ItemPadrao Titulo="Salvar backup"
+                                  Descricao="Guarde todas as informações do aplicativo em um único arquivo."
+                                  Tapped="SalvarBackup">
+                <SymbolIcon Symbol="Save" />
+            </controles:ItemPadrao>
+            <controles:ItemPadrao Titulo="Restaurar backup"
+                                  Descricao="Salve tudo do arquivo de backup novamente na aplicação."
+                                  Tapped="RestaurarBackup">
+                <SymbolIcon Symbol="Import" />
+            </controles:ItemPadrao>
+        </ItemsControl>
+    </Grid>
+</Page>

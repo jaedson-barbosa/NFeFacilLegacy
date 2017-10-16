@@ -1,5 +1,6 @@
 ﻿using NFeFacil.ItensBD;
 using NFeFacil.View.Controles;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Windows.UI.Xaml;
@@ -53,14 +54,50 @@ namespace NFeFacil.ViewDadosBase
             MainPage.Current.AlterarSelectedIndexHamburguer(index);
         }
 
-        private void AdicionarCliente()
+        async void AdicionarCliente()
         {
-            MainPage.Current.Navegar<AdicionarDestinatario>();
+            var caixa = new EscolherTipoCliente();
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+            {
+                switch (caixa.TipoCliente)
+                {
+                    case 0:
+                        MainPage.Current.Navegar<AdicionarClienteBrasileiro>();
+                        break;
+                    case 1:
+                        MainPage.Current.Navegar<AdicionarClienteBrasileiroPFContribuinte>();
+                        break;
+                    case 2:
+                        MainPage.Current.Navegar<AdicionarClienteBrasileiroPJ>();
+                        break;
+                    case 3:
+                        MainPage.Current.Navegar<AdicionarClienteEstrangeiro>();
+                        break;
+                }
+            }
         }
 
         private void EditarCliente(ClienteDI dest)
         {
-            MainPage.Current.Navegar<AdicionarDestinatario>(dest);
+            if (!string.IsNullOrEmpty(dest.CPF))
+            {
+                if (dest.IndicadorIE == 1)
+                {
+                    MainPage.Current.Navegar<AdicionarClienteBrasileiroPFContribuinte>(dest);
+                }
+                else
+                {
+                    MainPage.Current.Navegar<AdicionarClienteBrasileiro>(dest);
+                }
+            }
+            else if (!string.IsNullOrEmpty(dest.CNPJ))
+            {
+                MainPage.Current.Navegar<AdicionarClienteBrasileiroPJ>(dest);
+            }
+            else
+            {
+                MainPage.Current.Navegar<AdicionarClienteEstrangeiro>(dest);
+            }
         }
 
         private void InativarCliente(ClienteDI dest)

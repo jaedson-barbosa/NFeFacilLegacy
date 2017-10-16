@@ -12,7 +12,6 @@
         <ResourceDictionary>
             <VM:DadosEstadosParaView x:Key="estados" />
             <Conversores:EstadoToMunicipios x:Key="obterMun" />
-            <Conversores:ColecaoValida x:Key="getObs" />
             <Conversores:StringToDateTime x:Key="data" />
             <Conversores:Invert x:Key="inverter" />
             <Conversores:NumeroString x:Key="numStr" />

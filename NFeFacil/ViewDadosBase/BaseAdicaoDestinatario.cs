@@ -44,11 +44,16 @@ namespace NFeFacil.ViewDadosBase
             }
         }
 
-        internal BaseAdicaoDestinatario(NavigationEventArgs e)
+        internal BaseAdicaoDestinatario(NavigationEventArgs e, bool nacional = true)
         {
             if (e.Parameter == null)
             {
                 Cliente = new ClienteDI();
+                if (nacional)
+                {
+                    Cliente.XPais = "BRASIL";
+                    Cliente.CPais = 1058;
+                }
                 MainPage.Current.SeAtualizar(Symbol.Add, "Cliente");
             }
             else

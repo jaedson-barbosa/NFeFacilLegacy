@@ -20,7 +20,7 @@ namespace NFeFacil.ViewDadosBase
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            Base = new BaseAdicaoDestinatario(e);
+            Base = new BaseAdicaoDestinatario(e, false);
         }
 
         void Confirmar_Click(object sender, RoutedEventArgs e)

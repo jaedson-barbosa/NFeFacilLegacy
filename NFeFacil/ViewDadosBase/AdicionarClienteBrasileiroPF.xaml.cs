@@ -21,6 +21,7 @@ namespace NFeFacil.ViewDadosBase
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             Base = new BaseAdicaoDestinatario(e);
+            Base.Cliente.IndicadorIE = 9;
         }
 
         void Confirmar_Click(object sender, RoutedEventArgs e)

@@ -192,6 +192,9 @@
       <DependentUpon>AdicionarClienteEstrangeiro.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewDadosBase\BaseAdicaoDestinatario.cs" />
+    <Compile Include="ViewDadosBase\EscolherTipoCliente.xaml.cs">
+      <DependentUpon>EscolherTipoCliente.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\Converters\NumeroString.cs" />
     <Compile Include="ViewNFe\CaixasEspeciaisProduto\DefinirArmamentos.xaml.cs">
       <DependentUpon>DefinirArmamentos.xaml</DependentUpon>
@@ -406,7 +409,6 @@
     <Compile Include="Validacao\ValidadorVeiculo.cs" />
     <Compile Include="Validacao\ValidadorVendedor.cs" />
     <Compile Include="Validacao\ValidarDados.cs" />
-    <Compile Include="ViewDadosBase\ClienteDataContext.cs" />
     <Compile Include="ViewModel\Converters\EstadoToMunicipios.cs" />
     <Compile Include="ViewModel\Converters\Invert.cs" />
     <Compile Include="ViewModel\Converters\StringToDateTime.cs" />
@@ -657,6 +659,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ViewDadosBase\AdicionarClienteEstrangeiro.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewDadosBase\EscolherTipoCliente.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

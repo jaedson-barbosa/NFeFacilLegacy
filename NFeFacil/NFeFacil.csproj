@@ -11,7 +11,7 @@
     <AssemblyName>NFeFacil</AssemblyName>
     <DefaultLanguage>pt-BR</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion>10.0.15063.0</TargetPlatformVersion>
+    <TargetPlatformVersion>10.0.16299.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.14393.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
@@ -22,6 +22,7 @@
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
     <AppxBundle>Always</AppxBundle>
+    <RuntimeIdentifiers>win10-arm;win10-arm-aot;win10-x86;win10-x86-aot;win10-x64;win10-x64-aot</RuntimeIdentifiers>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -153,7 +154,6 @@
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
     <EmbeddedResource Include="Certificacao\LAN\Arquivos\ServidorCertificacao.zip" />
     <None Include="NFeFacil_StoreKey.pfx" />
-    <None Include="project.json" />
     <None Include="Properties\ServiceReferences.Designer.ClientConfig" />
   </ItemGroup>
   <ItemGroup>
@@ -178,6 +178,22 @@
     </Compile>
     <Compile Include="Login\PrimeiroUso.xaml.cs">
       <DependentUpon>PrimeiroUso.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewDadosBase\AdicionarClienteBrasileiroPF.xaml.cs">
+      <DependentUpon>AdicionarClienteBrasileiroPF.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewDadosBase\AdicionarClienteBrasileiroPFContribuinte.xaml.cs">
+      <DependentUpon>AdicionarClienteBrasileiroPFContribuinte.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewDadosBase\AdicionarClienteBrasileiroPJ.xaml.cs">
+      <DependentUpon>AdicionarClienteBrasileiroPJ.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewDadosBase\AdicionarClienteEstrangeiro.xaml.cs">
+      <DependentUpon>AdicionarClienteEstrangeiro.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewDadosBase\BaseAdicaoDestinatario.cs" />
+    <Compile Include="ViewDadosBase\EscolherTipoCliente.xaml.cs">
+      <DependentUpon>EscolherTipoCliente.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\Converters\NumeroString.cs" />
     <Compile Include="ViewNFe\CaixasEspeciaisProduto\DefinirArmamentos.xaml.cs">
@@ -390,18 +406,11 @@
     <Compile Include="Validacao\ValidadorVeiculo.cs" />
     <Compile Include="Validacao\ValidadorVendedor.cs" />
     <Compile Include="Validacao\ValidarDados.cs" />
-    <Compile Include="ViewDadosBase\ClienteDataContext.cs" />
-    <Compile Include="ViewModel\Converters\ColecaoValida.cs" />
     <Compile Include="ViewModel\Converters\EstadoToMunicipios.cs" />
     <Compile Include="ViewModel\Converters\Invert.cs" />
     <Compile Include="ViewModel\Converters\StringToDateTime.cs" />
-    <Compile Include="Login\EmitenteDataContext.cs" />
     <Compile Include="ViewNFe\CaixasImpostos\TiposCalculo.cs" />
-    <Compile Include="ViewDadosBase\MotoristaDataContext.cs" />
     <Compile Include="ViewModel\QRCode.cs" />
-    <Compile Include="ViewDadosBase\AdicionarDestinatario.xaml.cs">
-      <DependentUpon>AdicionarDestinatario.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Login\AdicionarEmitente.xaml.cs">
       <DependentUpon>AdicionarEmitente.xaml</DependentUpon>
     </Compile>
@@ -484,8 +493,6 @@
     <Compile Include="ViewNFe\NotasSalvas.xaml.cs">
       <DependentUpon>NotasSalvas.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\Comando.cs" />
-    <Compile Include="ViewModel\Converters\BoolToVisibility.cs" />
     <Compile Include="ViewModel\DadosEstadosParaView.cs" />
     <Compile Include="View\Controles\ItemPadraoSimples.xaml.cs">
       <DependentUpon>ItemPadraoSimples.xaml</DependentUpon>
@@ -639,6 +646,26 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Login\PrimeiroUso.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewDadosBase\AdicionarClienteBrasileiroPF.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewDadosBase\AdicionarClienteBrasileiroPFContribuinte.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewDadosBase\AdicionarClienteBrasileiroPJ.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewDadosBase\AdicionarClienteEstrangeiro.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewDadosBase\EscolherTipoCliente.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -805,10 +832,6 @@
     <Page Include="CodigoBarras\Code128.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ViewDadosBase\AdicionarDestinatario.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Login\AdicionarEmitente.xaml">
       <SubType>Designer</SubType>
@@ -1040,11 +1063,6 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <SDKReference Include="WindowsMobile, Version=10.0.15063.0">
-      <Name>Windows Mobile Extensions for the UWP</Name>
-    </SDKReference>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\BancoDados\BancoDados.csproj">
       <Project>{f4827e33-77a7-43c8-8f3a-e712e92653cd}</Project>
       <Name>BancoDados</Name>
@@ -1054,7 +1072,34 @@
       <Name>Comum</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <PackageReference Include="LiveCharts.Uwp">
+      <Version>0.8.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite">
+      <Version>1.1.2</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
+      <Version>6.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>10.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="Restup">
+      <Version>1.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.ValueTuple">
+      <Version>4.4.0</Version>
+    </PackageReference>
+    <PackageReference Include="ZXing.Net.Mobile">
+      <Version>2.2.9</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <SDKReference Include="WindowsMobile, Version=10.0.16299.0">
+      <Name>Windows Mobile Extensions for the UWP</Name>
+    </SDKReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

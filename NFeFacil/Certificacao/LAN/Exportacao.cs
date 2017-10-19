@@ -31,7 +31,8 @@ namespace NFeFacil.Certificacao.LAN
                     var recurso = Extensoes.Retornar(this, $"NFeFacil.Certificacao.LAN.Arquivos.{nomeOriginal}.{extensao}");
                     recurso.CopyTo(stream);
                 }
-                log.Escrever(TitulosComuns.Sucesso, "Arquivo salvo com sucesso, inicie o repositório remoto com o Iniciar.bat");
+                log.Escrever(TitulosComuns.Sucesso, "Arquivo salvo com sucesso.\r\n" +
+                    "Extraia os arquivos e inicie o repositório remoto com o Iniciar.bat");
             }
         }
     }

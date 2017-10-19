@@ -22,25 +22,25 @@
         <ScrollViewer VerticalScrollBarVisibility="Hidden">
             <StackPanel>
                 <ItemsControl Style="{StaticResource ItensResponsivos}">
-                    <TextBox Text="{Binding Motorista.Nome, Mode=TwoWay}"
+                    <TextBox Text="{x:Bind Motorista.Nome, Mode=TwoWay}"
                              InputScope="Text"
                              Header="Nome/Razão social *" />
-                    <ComboBox SelectedIndex="{Binding TipoDocumento, Mode=TwoWay}"
+                    <ComboBox SelectedIndex="{x:Bind TipoDocumento, Mode=TwoWay}"
                               Header="Tipo">
                         <ComboBoxItem Content="CPF" />
                         <ComboBoxItem Content="CNPJ" />
                     </ComboBox>
-                    <TextBox Text="{Binding Documento, Mode=TwoWay}"
+                    <TextBox Text="{x:Bind Documento, Mode=TwoWay}"
                              InputScope="Number"
                              Header="Documento *" />
                     <Grid MinWidth="240">
                         <CheckBox Content="Isento do ICMS"
                                   Margin="0,-6,0,0"
-                                  IsChecked="{Binding IsentoICMS, Mode=TwoWay}"
+                                  IsChecked="{x:Bind IsentoICMS, Mode=TwoWay}"
                                   HorizontalAlignment="Right"
                                   VerticalAlignment="Top" />
-                        <TextBox Text="{Binding Motorista.InscricaoEstadual, Mode=TwoWay}"
-                                 IsEnabled="{Binding IsentoICMS, Converter={StaticResource inverterBool}}"
+                        <TextBox x:Name="txtIE"
+                                 Text="{x:Bind Motorista.InscricaoEstadual, Mode=TwoWay}"
                                  InputScope="Number"
                                  Header="Inscrição estadual" />
                     </Grid>
@@ -50,22 +50,22 @@
                            Margin="4,0,0,0" />
                 <ItemsControl Style="{StaticResource ItensResponsivos}">
                     <ComboBox ItemsSource="{Binding Source={StaticResource estados}, Path=SiglasExpandida}"
-                              SelectedItem="{Binding UFEscolhida, Mode=TwoWay}"
+                              SelectedItem="{x:Bind UFEscolhida, Mode=TwoWay}"
                               Header="Estado" />
-                    <ComboBox ItemsSource="{Binding UFEscolhida, Converter={StaticResource obterMunicipios}}"
-                              SelectedValue="{Binding Path=Motorista.XMun, Mode=TwoWay}"
+                    <ComboBox ItemsSource="{x:Bind ListaMunicipios}"
+                              SelectedValue="{x:Bind Motorista.XMun, Mode=TwoWay}"
                               SelectedValuePath="Nome"
                               DisplayMemberPath="Nome"
                               Header="Município" />
-                    <TextBox Text="{Binding Path=Motorista.XEnder, Mode=TwoWay}"
+                    <TextBox Text="{x:Bind Motorista.XEnder, Mode=TwoWay}"
                              InputScope="Text"
                              Header="Logradouro" />
                 </ItemsControl>
                 <TextBlock Text="Veiculo"
                            Style="{StaticResource TitleTextBlockStyle}"
                            Margin="4,0,0,0" />
-                <ListView ItemsSource="{Binding Veiculos, Mode=OneTime}"
-                          SelectedValue="{Binding Motorista.Veiculo, Mode=TwoWay}"
+                <ListView ItemsSource="{x:Bind Veiculos, Mode=OneTime}"
+                          SelectedValue="{x:Bind Motorista.Veiculo, Mode=TwoWay}"
                           SelectedValuePath="Id"
                           ItemContainerStyle="{StaticResource ItemFullWidth}">
                     <ListView.Header>
@@ -80,7 +80,7 @@
                                        Style="{StaticResource SubtitleTextBlockStyle}">Placa</TextBlock>
                             <Button Grid.Column="2"
                                     Style="{StaticResource BotaoAdd}"
-                                    Command="{Binding AdicionarVeiculoCommand}">
+                                    Click="AdicionarVeiculo">
                                 <SymbolIcon Symbol="Add" />
                             </Button>
                         </Grid>

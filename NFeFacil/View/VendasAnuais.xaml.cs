@@ -35,7 +35,6 @@ namespace NFeFacil.View
             }
             ResultadoMes = new ObservableCollection<TotalPorMes>();
             ResultadoCliente = new ObservableCollection<TotalPorCliente>();
-
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -57,11 +56,10 @@ namespace NFeFacil.View
             MainPage.Current.AlterarSelectedIndexHamburguer(index);
         }
 
-        Dictionary<int, NFe[]> NotasFiscais;
-
-        ObservableCollection<int> AnosDisponiveis { get; }
-        ObservableCollection<TotalPorMes> ResultadoMes { get; }
-        ObservableCollection<TotalPorCliente> ResultadoCliente { get; }
+        readonly Dictionary<int, NFe[]> NotasFiscais;
+        readonly ObservableCollection<int> AnosDisponiveis;
+        readonly ObservableCollection<TotalPorMes> ResultadoMes;
+        readonly ObservableCollection<TotalPorCliente> ResultadoCliente;
 
         private void AnoEscolhidoMudou(object sender, SelectionChangedEventArgs e)
         {

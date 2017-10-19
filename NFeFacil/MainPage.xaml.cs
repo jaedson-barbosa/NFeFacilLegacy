@@ -31,7 +31,6 @@ namespace NFeFacil
                 e.Handled = true;
                 Retornar();
             };
-            frmPrincipal.CacheSize = 4;
             using (var db = new AplicativoContext())
             {
                 Propriedades.EmitenteAtivo = db.Emitentes.FirstOrDefault();

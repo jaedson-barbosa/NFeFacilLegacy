@@ -1,5 +1,4 @@
-﻿using NFeFacil.View.CaixasDialogo;
-using NFeFacil.Log;
+﻿using NFeFacil.Log;
 using NFeFacil.WebService;
 using System;
 using System.Threading.Tasks;

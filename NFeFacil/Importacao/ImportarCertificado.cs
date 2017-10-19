@@ -1,6 +1,4 @@
-﻿using NFeFacil.View;
-using NFeFacil.View.CaixasDialogo;
-using System;
+﻿using System;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Windows.Storage;

@@ -8,6 +8,7 @@ using NFeFacil.ModeloXML;
 using NFeFacil.WebService.Pacotes;
 using NFeFacil.ItensBD;
 using System.Xml.Serialization;
+using NFeFacil.View;
 
 namespace NFeFacil
 {
@@ -35,45 +36,38 @@ namespace NFeFacil
                 var chave = Processo.NFe.Informacoes.ChaveAcesso;
                 var nProtocolo = Processo.ProtNFe.InfProt.nProt;
                 var versao = gerenciador.Enderecos.VersaoRecepcaoEvento;
-                var entrada = new EntradaTexto("Cancelar NFe", "Motivo");
+                var entrada = new CancelarNFe();
 
                 if (await entrada.ShowAsync() == ContentDialogResult.Primary)
                 {
-                    if (!string.IsNullOrEmpty(entrada.Conteudo))
+                    var infoEvento = new InformacoesEvento(estado, cnpj, chave, versao, nProtocolo, entrada.Motivo, tipoAmbiente);
+                    var envio = new EnvEvento(gerenciador.Enderecos.VersaoRecepcaoEvento, infoEvento);
+                    await envio.PrepararEventos();
+                    var resposta = await gerenciador.EnviarAsync(envio);
+                    if (resposta.RetEvento[0].InfEvento.CStat == 135)
                     {
-                        var infoEvento = new InformacoesEvento(estado, cnpj, chave, versao, nProtocolo, entrada.Conteudo, tipoAmbiente);
-                        var envio = new EnvEvento(gerenciador.Enderecos.VersaoRecepcaoEvento, infoEvento);
-                        await envio.PrepararEventos();
-                        var resposta = await gerenciador.EnviarAsync(envio);
-                        if (resposta.RetEvento[0].InfEvento.CStat == 135)
+                        using (var contexto = new AplicativoContext())
                         {
-                            using (var contexto = new AplicativoContext())
+                            contexto.Cancelamentos.Add(new RegistroCancelamento()
                             {
-                                contexto.Cancelamentos.Add(new RegistroCancelamento()
+                                ChaveNFe = chave,
+                                DataHoraEvento = resposta.RetEvento[0].InfEvento.DhRegEvento,
+                                TipoAmbiente = tipoAmbiente,
+                                XML = new ProcEventoCancelamento()
                                 {
-                                    ChaveNFe = chave,
-                                    DataHoraEvento = resposta.RetEvento[0].InfEvento.DhRegEvento,
-                                    TipoAmbiente = tipoAmbiente,
-                                    XML = new ProcEventoCancelamento()
-                                    {
-                                        Eventos = envio.Eventos,
-                                        RetEvento = resposta.RetEvento,
-                                        Versao = resposta.Versao
-                                    }.ToXElement<ProcEventoCancelamento>().ToString()
-                                });
-                                contexto.SaveChanges();
-                            }
-                            Log.Escrever(TitulosComuns.Sucesso, "NFe cancelada com sucesso.");
-                            return true;
+                                    Eventos = envio.Eventos,
+                                    RetEvento = resposta.RetEvento,
+                                    Versao = resposta.Versao
+                                }.ToXElement<ProcEventoCancelamento>().ToString()
+                            });
+                            contexto.SaveChanges();
                         }
-                        else
-                        {
-                            Log.Escrever(TitulosComuns.Erro, resposta.RetEvento[0].InfEvento.XMotivo);
-                        }
+                        Log.Escrever(TitulosComuns.Sucesso, "NFe cancelada com sucesso.");
+                        return true;
                     }
                     else
                     {
-                        Log.Escrever(TitulosComuns.Erro, "Nenhum motivo foi informado.");
+                        Log.Escrever(TitulosComuns.Erro, resposta.RetEvento[0].InfEvento.XMotivo);
                     }
                 }
                 return false;

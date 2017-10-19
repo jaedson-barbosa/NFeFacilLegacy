@@ -1,4 +1,5 @@
-﻿using NFeFacil.View.CaixasDialogo;
+﻿using NFeFacil.View;
+using NFeFacil.View.CaixasDialogo;
 using System;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
@@ -47,17 +48,17 @@ namespace NFeFacil.Importacao
             {
                 var pasta = ApplicationData.Current.TemporaryFolder;
                 var novoArq = await arq.CopyAsync(pasta, arq.Name, NameCollisionOption.ReplaceExisting);
-                var entrada = new EntradaTexto("Adicionar certificado", "Senha");
+                var entrada = new DefinirSenhaCertificado();
                 if (await entrada.ShowAsync() == ContentDialogResult.Primary)
                 {
-                    var senha = entrada.Conteudo;
-                    if (!string.IsNullOrEmpty(senha))
+                    var senha = entrada.Senha;
+                    if (string.IsNullOrEmpty(senha))
                     {
-                        return new X509Certificate2(novoArq.Path, senha, X509KeyStorageFlags.PersistKeySet);
+                        return new X509Certificate2(novoArq.Path);
                     }
                     else
                     {
-                        return new X509Certificate2(novoArq.Path);
+                        return new X509Certificate2(novoArq.Path, senha, X509KeyStorageFlags.PersistKeySet);
                     }
                 }
             }

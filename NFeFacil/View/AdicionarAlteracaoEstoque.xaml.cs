@@ -4,13 +4,13 @@
 
 namespace NFeFacil.View
 {
-    public sealed partial class AlteracaoEstoque : ContentDialog
+    public sealed partial class AdicionarAlteracaoEstoque : ContentDialog
     {
         bool Positivo { get; set; } = true;
         double Valor { get; set; }
-        public double ValorProcessado => Valor * (Positivo ? 1 : -1);
+        internal double ValorProcessado => Valor * (Positivo ? 1 : -1);
 
-        public AlteracaoEstoque()
+        public AdicionarAlteracaoEstoque()
         {
             InitializeComponent();
         }

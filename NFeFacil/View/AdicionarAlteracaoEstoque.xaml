@@ -1,4 +1,4 @@
-﻿<ContentDialog x:Class="NFeFacil.View.AlteracaoEstoque"
+﻿<ContentDialog x:Class="NFeFacil.View.AdicionarAlteracaoEstoque"
                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                xmlns:controles="using:NFeFacil.Controles"

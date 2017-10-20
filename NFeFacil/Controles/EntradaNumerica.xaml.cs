@@ -172,14 +172,4 @@ namespace NFeFacil.Controles
     }
 
     public delegate void NumeroChangedEventHandler(EntradaNumerica sender, NumeroChangedEventArgs e);
-
-    public sealed class NumeroChangedEventArgs : EventArgs
-    {
-        public double NovoNumero { get; }
-
-        public NumeroChangedEventArgs(double novoNumero)
-        {
-            NovoNumero = novoNumero;
-        }
-    }
 }

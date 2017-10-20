@@ -97,7 +97,7 @@ namespace NFeFacil.View
 
         private async void AlterarQuantidade_Click(object sender, RoutedEventArgs e)
         {
-            var caixa = new CaixasDialogo.AlteracaoEstoque();
+            var caixa = new AdicionarAlteracaoEstoque();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
                 var valor = caixa.ValorProcessado;

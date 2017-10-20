@@ -52,7 +52,7 @@ namespace NFeFacil.View
         {
             try
             {
-                var caixa = new CaixasDialogo.ConfigurarDadosConexao()
+                var caixa = new ConfigurarDadosConexao()
                 {
                     DataContext = new InfoEstabelecerConexao()
                 };

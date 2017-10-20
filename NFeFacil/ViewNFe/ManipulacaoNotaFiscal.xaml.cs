@@ -3,7 +3,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using System.Collections.ObjectModel;
 using NFeFacil.ModeloXML.PartesProcesso;
-using NFeFacil.View.Controles;
+using NFeFacil.Controles;
 using NFeFacil.ItensBD;
 using System.Collections.Generic;
 using System.Linq;

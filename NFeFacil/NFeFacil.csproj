@@ -465,16 +465,16 @@
     <Compile Include="View\ControleEstoque.xaml.cs">
       <DependentUpon>ControleEstoque.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Controles\EntradaNumerica.xaml.cs">
+    <Compile Include="Controles\EntradaNumerica.xaml.cs">
       <DependentUpon>EntradaNumerica.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Controles\EntradaRestrita.xaml.cs">
+    <Compile Include="Controles\EntradaRestrita.xaml.cs">
       <DependentUpon>EntradaRestrita.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Controles\ItemHambuguer.xaml.cs">
+    <Compile Include="Controles\ItemHambuguer.xaml.cs">
       <DependentUpon>ItemHambuguer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Controles\ItemPadrao.xaml.cs">
+    <Compile Include="Controles\ItemPadrao.xaml.cs">
       <DependentUpon>ItemPadrao.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewDadosBase\GerenciarDadosBase.xaml.cs">
@@ -494,7 +494,7 @@
       <DependentUpon>NotasSalvas.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\DadosEstadosParaView.cs" />
-    <Compile Include="View\Controles\ItemPadraoSimples.xaml.cs">
+    <Compile Include="Controles\ItemPadraoSimples.xaml.cs">
       <DependentUpon>ItemPadraoSimples.xaml</DependentUpon>
     </Compile>
     <Compile Include="Importacao\DefinirSenhaCertificado.xaml.cs">
@@ -503,7 +503,7 @@
     <Compile Include="View\ImportacaoDados.xaml.cs">
       <DependentUpon>ImportacaoDados.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Controles\CarregamentoCircular.xaml.cs">
+    <Compile Include="Controles\CarregamentoCircular.xaml.cs">
       <DependentUpon>CarregamentoCircular.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Inicio.xaml.cs">
@@ -893,7 +893,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Controles\ItemPadraoSimples.xaml">
+    <Page Include="Controles\ItemPadraoSimples.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -917,23 +917,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Controles\CarregamentoCircular.xaml">
+    <Page Include="Controles\CarregamentoCircular.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\Controles\EntradaNumerica.xaml">
+    <Page Include="Controles\EntradaNumerica.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Controles\EntradaRestrita.xaml">
+    <Page Include="Controles\EntradaRestrita.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Controles\ItemHambuguer.xaml">
+    <Page Include="Controles\ItemHambuguer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Controles\ItemPadrao.xaml">
+    <Page Include="Controles\ItemPadrao.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

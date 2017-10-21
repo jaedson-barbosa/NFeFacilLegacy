@@ -1,6 +1,5 @@
 ﻿using NFeFacil.Sincronizacao;
 using NFeFacil.Sincronizacao.Pacotes;
-using NFeFacil.ViewModel;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,6 +8,7 @@ using Windows.Networking.Connectivity;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using ZXing.Mobile;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -43,7 +43,17 @@ namespace NFeFacil.View
                     Informacoes = new InfoEstabelecerConexao();
                 }
                 GerenciadorServidor.Current.AbrirBrecha(TimeSpan.FromSeconds(60));
-                QRGerado = QRCode.GerarQR($"{Informacoes.IP}:{Informacoes.SenhaTemporaria}", 1920, 1920);
+
+                QRGerado = new BarcodeWriter
+                {
+                    Format = ZXing.BarcodeFormat.QR_CODE,
+                    Options = new ZXing.Common.EncodingOptions
+                    {
+                        Width = 1920,
+                        Height = 1920,
+                        Margin = 0
+                    }
+                }.Write($"{Informacoes.IP}:{Informacoes.SenhaTemporaria}");
 
                 Iniciar();
             }

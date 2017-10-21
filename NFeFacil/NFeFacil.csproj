@@ -409,7 +409,6 @@
     <Compile Include="Validacao\ValidarDados.cs" />
     <Compile Include="ViewModel\StringToDateTime.cs" />
     <Compile Include="ViewNFe\CaixasImpostos\TiposCalculo.cs" />
-    <Compile Include="ViewModel\QRCode.cs" />
     <Compile Include="Login\AdicionarEmitente.xaml.cs">
       <DependentUpon>AdicionarEmitente.xaml</DependentUpon>
     </Compile>

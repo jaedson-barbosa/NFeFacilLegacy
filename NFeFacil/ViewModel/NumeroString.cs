@@ -1,7 +1,7 @@
 ﻿using System;
 using Windows.UI.Xaml.Data;
 
-namespace NFeFacil.ViewModel.Converters
+namespace NFeFacil.ViewModel
 {
     public sealed class NumeroString : IValueConverter
     {

@@ -8,7 +8,7 @@ using Windows.UI.Xaml.Input;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace NFeFacil.View.Controles
+namespace NFeFacil.Controles
 {
     public sealed partial class EntradaNumerica : UserControl
     {
@@ -172,14 +172,4 @@ namespace NFeFacil.View.Controles
     }
 
     public delegate void NumeroChangedEventHandler(EntradaNumerica sender, NumeroChangedEventArgs e);
-
-    public sealed class NumeroChangedEventArgs : EventArgs
-    {
-        public double NovoNumero { get; }
-
-        public NumeroChangedEventArgs(double novoNumero)
-        {
-            NovoNumero = novoNumero;
-        }
-    }
 }

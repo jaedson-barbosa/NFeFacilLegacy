@@ -3,12 +3,12 @@ using Windows.UI.Xaml.Markup;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace NFeFacil.View.Controles
+namespace NFeFacil.Controles
 {
     [ContentProperty(Name = "Icone")]
-    public sealed partial class ItemPadrao : UserControl
+    public sealed partial class ItemPadraoSimples : UserControl
     {
-        public ItemPadrao()
+        public ItemPadraoSimples()
         {
             InitializeComponent();
         }

@@ -4,7 +4,7 @@ using Windows.UI.Xaml.Navigation;
 using System.Collections.ObjectModel;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using System;
-using NFeFacil.View.Controles;
+using NFeFacil.Controles;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesProdutoOuServico;

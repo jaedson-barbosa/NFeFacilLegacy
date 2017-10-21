@@ -1,5 +1,5 @@
 ﻿using NFeFacil.ModeloXML.PartesProcesso;
-using NFeFacil.View.Controles;
+using NFeFacil.Controles;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

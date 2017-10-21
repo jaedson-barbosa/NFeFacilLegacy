@@ -1,13 +1,13 @@
 ﻿using NFeFacil.Log;
 using NFeFacil.Sincronizacao;
 using NFeFacil.Sincronizacao.Pacotes;
-using NFeFacil.ViewModel;
 using System;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
+using ZXing.Mobile;
 using static NFeFacil.Sincronizacao.ConfiguracoesSincronizacao;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
@@ -33,7 +33,14 @@ namespace NFeFacil.View
         {
             try
             {
-                var str = await QRCode.DecodificarQRAsync();
+                var resposta = await new MobileBarcodeScanner
+                {
+                    UseCustomOverlay = false,
+                    TopText = "Coloque a câmera em frente ao código QR",
+                    BottomText = "A câmera irá lê-lo automaticamente"
+                }.Scan();
+                var str = resposta.Text;
+
                 var partes = str.Split(':');
                 var resultado = new InfoEstabelecerConexao
                 {
@@ -52,7 +59,7 @@ namespace NFeFacil.View
         {
             try
             {
-                var caixa = new CaixasDialogo.ConfigurarDadosConexao()
+                var caixa = new ConfigurarDadosConexao()
                 {
                     DataContext = new InfoEstabelecerConexao()
                 };

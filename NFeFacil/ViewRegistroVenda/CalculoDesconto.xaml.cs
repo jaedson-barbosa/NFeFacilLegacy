@@ -51,7 +51,7 @@ namespace NFeFacil.ViewRegistroVenda
             sldDesconto.Value = porcentagem;
         }
 
-        private void ValorDesejadoChanged(View.Controles.EntradaNumerica sender, View.Controles.NumeroChangedEventArgs e)
+        private void ValorDesejadoChanged(Controles.EntradaNumerica sender, Controles.NumeroChangedEventArgs e)
         {
             if (Produtos != null)
             {

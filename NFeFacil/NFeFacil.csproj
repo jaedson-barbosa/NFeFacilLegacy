@@ -160,11 +160,10 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Backup\Backup.xaml.cs">
+    <Compile Include="View\Backup.xaml.cs">
       <DependentUpon>Backup.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Backup\ConjuntoBanco.cs" />
-    <Compile Include="Backup\CriarZip.cs" />
+    <Compile Include="Controles\NumeroChangedEventArgs.cs" />
     <Compile Include="IdentificacaoExtensoes.cs" />
     <Compile Include="ImagemExtensoes.cs" />
     <Compile Include="Login\EscolhaEmitente.xaml.cs">
@@ -195,7 +194,7 @@
     <Compile Include="ViewDadosBase\EscolherTipoCliente.xaml.cs">
       <DependentUpon>EscolherTipoCliente.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\Converters\NumeroString.cs" />
+    <Compile Include="ViewModel\NumeroString.cs" />
     <Compile Include="ViewNFe\CaixasEspeciaisProduto\DefinirArmamentos.xaml.cs">
       <DependentUpon>DefinirArmamentos.xaml</DependentUpon>
     </Compile>
@@ -311,14 +310,11 @@
     <Compile Include="ViewNFe\CaixasDialogoProduto\AdicionarMedicamento.xaml.cs">
       <DependentUpon>AdicionarMedicamento.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\CaixasDialogo\AlteracaoEstoque.xaml.cs">
-      <DependentUpon>AlteracaoEstoque.xaml</DependentUpon>
+    <Compile Include="View\AdicionarAlteracaoEstoque.xaml.cs">
+      <DependentUpon>AdicionarAlteracaoEstoque.xaml</DependentUpon>
     </Compile>
     <Compile Include="Certificacao\LAN\ConectarServidor.xaml.cs">
       <DependentUpon>ConectarServidor.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\CaixasDialogo\EntradaTexto.xaml.cs">
-      <DependentUpon>EntradaTexto.xaml</DependentUpon>
     </Compile>
     <Compile Include="Certificacao\SelecaoCertificado.xaml.cs">
       <DependentUpon>SelecaoCertificado.xaml</DependentUpon>
@@ -367,7 +363,6 @@
     <Compile Include="DANFE\Pacotes\DadosMotorista.cs" />
     <Compile Include="DANFE\Pacotes\DadosNFe.cs" />
     <Compile Include="DANFE\Pacotes\DadosProduto.cs" />
-    <Compile Include="PacotesImpressaoGenericos\Endereço.cs" />
     <Compile Include="DANFE\Pacotes\Geral.cs" />
     <Compile Include="DANFE\Pacotes\ItemDadosAdicionais.cs" />
     <Compile Include="DANFE\ViewDados.cs" />
@@ -409,11 +404,8 @@
     <Compile Include="Validacao\ValidadorVeiculo.cs" />
     <Compile Include="Validacao\ValidadorVendedor.cs" />
     <Compile Include="Validacao\ValidarDados.cs" />
-    <Compile Include="ViewModel\Converters\EstadoToMunicipios.cs" />
-    <Compile Include="ViewModel\Converters\Invert.cs" />
-    <Compile Include="ViewModel\Converters\StringToDateTime.cs" />
+    <Compile Include="ViewModel\StringToDateTime.cs" />
     <Compile Include="ViewNFe\CaixasImpostos\TiposCalculo.cs" />
-    <Compile Include="ViewModel\QRCode.cs" />
     <Compile Include="Login\AdicionarEmitente.xaml.cs">
       <DependentUpon>AdicionarEmitente.xaml</DependentUpon>
     </Compile>
@@ -447,7 +439,7 @@
     <Compile Include="ViewDadosBase\AdicionarVeiculo.xaml.cs">
       <DependentUpon>AdicionarVeiculo.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\CaixasDialogo\ConfigurarDadosConexao.xaml.cs">
+    <Compile Include="View\ConfigurarDadosConexao.xaml.cs">
       <DependentUpon>ConfigurarDadosConexao.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewRegistroVenda\AdicionarProduto.xaml.cs">
@@ -455,6 +447,9 @@
     </Compile>
     <Compile Include="ViewRegistroVenda\CalculoDesconto.xaml.cs">
       <DependentUpon>CalculoDesconto.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\CancelarNFe.xaml.cs">
+      <DependentUpon>CancelarNFe.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ConfiguracoesCertificado.xaml.cs">
       <DependentUpon>ConfiguracoesCertificado.xaml</DependentUpon>
@@ -465,16 +460,16 @@
     <Compile Include="View\ControleEstoque.xaml.cs">
       <DependentUpon>ControleEstoque.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Controles\EntradaNumerica.xaml.cs">
+    <Compile Include="Controles\EntradaNumerica.xaml.cs">
       <DependentUpon>EntradaNumerica.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Controles\EntradaRestrita.xaml.cs">
+    <Compile Include="Controles\EntradaRestrita.xaml.cs">
       <DependentUpon>EntradaRestrita.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Controles\ItemHambuguer.xaml.cs">
+    <Compile Include="Controles\ItemHambuguer.xaml.cs">
       <DependentUpon>ItemHambuguer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Controles\ItemPadrao.xaml.cs">
+    <Compile Include="Controles\ItemPadrao.xaml.cs">
       <DependentUpon>ItemPadrao.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewDadosBase\GerenciarDadosBase.xaml.cs">
@@ -494,13 +489,16 @@
       <DependentUpon>NotasSalvas.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\DadosEstadosParaView.cs" />
-    <Compile Include="View\Controles\ItemPadraoSimples.xaml.cs">
+    <Compile Include="Controles\ItemPadraoSimples.xaml.cs">
       <DependentUpon>ItemPadraoSimples.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Importacao\DefinirSenhaCertificado.xaml.cs">
+      <DependentUpon>DefinirSenhaCertificado.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ImportacaoDados.xaml.cs">
       <DependentUpon>ImportacaoDados.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Controles\CarregamentoCircular.xaml.cs">
+    <Compile Include="Controles\CarregamentoCircular.xaml.cs">
       <DependentUpon>CarregamentoCircular.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Inicio.xaml.cs">
@@ -626,7 +624,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Backup\Backup.xaml">
+    <Page Include="View\Backup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -814,15 +812,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\CaixasDialogo\AlteracaoEstoque.xaml">
+    <Page Include="View\AdicionarAlteracaoEstoque.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Certificacao\LAN\ConectarServidor.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\CaixasDialogo\EntradaTexto.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -878,7 +872,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\CaixasDialogo\ConfigurarDadosConexao.xaml">
+    <Page Include="View\ConfigurarDadosConexao.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -890,7 +884,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Controles\ItemPadraoSimples.xaml">
+    <Page Include="View\CancelarNFe.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controles\ItemPadraoSimples.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Importacao\DefinirSenhaCertificado.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -910,23 +912,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Controles\CarregamentoCircular.xaml">
+    <Page Include="Controles\CarregamentoCircular.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\Controles\EntradaNumerica.xaml">
+    <Page Include="Controles\EntradaNumerica.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Controles\EntradaRestrita.xaml">
+    <Page Include="Controles\EntradaRestrita.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Controles\ItemHambuguer.xaml">
+    <Page Include="Controles\ItemHambuguer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Controles\ItemPadrao.xaml">
+    <Page Include="Controles\ItemPadrao.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1089,7 +1091,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <SDKReference Include="WindowsMobile, Version=10.0.16299.0">
+    <SDKReference Include="WindowsMobile, Version=10.0.14393.0">
       <Name>Windows Mobile Extensions for the UWP</Name>
     </SDKReference>
   </ItemGroup>

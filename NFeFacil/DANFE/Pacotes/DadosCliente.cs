@@ -1,4 +1,4 @@
-﻿using NFeFacil.PacotesImpressaoGenericos;
+﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe;
 
 namespace NFeFacil.DANFE.Pacotes
 {
@@ -10,6 +10,6 @@ namespace NFeFacil.DANFE.Pacotes
         public string DataEntradaSaida { get; set; }
         public string IECliente { get; set; }
         public string HoraEntradaSaida { get; set; }
-        public Endereço Endereco { get; set; }
+        public EnderecoCompleto Endereco { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using NFeFacil.View;
+using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -48,12 +49,12 @@ namespace NFeFacil.Login
 
         private void Sincronizar(object sender, TappedRoutedEventArgs e)
         {
-            MainPage.Current.Navegar<View.SincronizacaoCliente>();
+            MainPage.Current.Navegar<SincronizacaoCliente>();
         }
 
         private void Backup(object sender, TappedRoutedEventArgs e)
         {
-            MainPage.Current.Navegar<Backup.Backup>();
+            MainPage.Current.Navegar<Backup>();
         }
     }
 }

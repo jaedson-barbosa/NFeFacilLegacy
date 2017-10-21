@@ -12,7 +12,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <TextBlock TextWrapping="Wrap"
-                   Margin="0,0,0,8">No backup local é gerado um arquivo zip com todas as informações salvas atualmente no aplicativo já que nele não há limite de tamanho. É recomendado que seja guardado em um local seguro, como no seu OneDrive. Ele só pode ser restaurado quando não há informações guardadas no aplicativo.</TextBlock>
+                   Margin="0,0,0,8">No backup local é gerado um arquivo json com todas as informações salvas atualmente no aplicativo já que nele não há limite de tamanho. É recomendado que seja guardado em um local seguro, como no seu OneDrive. Ele só pode ser restaurado quando não há informações guardadas no aplicativo.</TextBlock>
         <ItemsControl Grid.Row="1"
                       Style="{StaticResource ItensMedios}">
             <controles:ItemPadrao Titulo="Salvar backup"

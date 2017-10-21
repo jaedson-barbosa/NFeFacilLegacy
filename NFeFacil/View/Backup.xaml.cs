@@ -4,10 +4,7 @@ using NFeFacil.ItensBD;
 using NFeFacil.Log;
 using System;
 using System.IO;
-using System.IO.Compression;
 using System.Linq;
-using System.Threading.Tasks;
-using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -36,93 +33,54 @@ namespace NFeFacil.View
             var objeto = new ConjuntoBanco();
             objeto.AtualizarPadrao();
             var json = JsonConvert.SerializeObject(objeto);
-            await Zipar(json);
 
             var caixa = new FileSavePicker();
-            caixa.FileTypeChoices.Add("Arquivo comprimido", new string[] { ".zip" });
-            var novo = await caixa.PickSaveFileAsync();
-            if (novo != null)
+            caixa.FileTypeChoices.Add("Arquivo JSON", new string[] { ".json" });
+            var arq = await caixa.PickSaveFileAsync();
+            if (arq != null)
             {
-                var original = await RetornarArquivo();
-                await original.CopyAndReplaceAsync(novo);
-                await ExcluirArquivo();
+                var stream = await arq.OpenStreamForWriteAsync();
+                using (StreamWriter escritor = new StreamWriter(stream))
+                {
+                    await escritor.WriteAsync(json);
+                    await escritor.FlushAsync();
+                }
             }
         }
 
         async void RestaurarBackup(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
             var caixa = new FileOpenPicker();
-            caixa.FileTypeFilter.Add(".zip");
+            caixa.FileTypeFilter.Add(".json");
             var arq = await caixa.PickSingleFileAsync();
             if (arq != null)
             {
-                var pasta = ApplicationData.Current.TemporaryFolder;
-                pasta = await pasta.CreateFolderAsync("Temp", CreationCollisionOption.ReplaceExisting);
-                arq = await arq.CopyAsync(pasta, "Backup.zip", NameCollisionOption.ReplaceExisting);
-                var aberto = await Task.Run(() => ZipFile.Open(arq.Path, ZipArchiveMode.Read));
-                pasta = ApplicationData.Current.TemporaryFolder;
-                foreach (var item in await pasta.GetFilesAsync())
+                var stream = await arq.OpenStreamForReadAsync();
+                using (var leitor = new StreamReader(stream))
                 {
-                    await item.DeleteAsync();
-                }
-                aberto.ExtractToDirectory(pasta.Path);
-                arq = await pasta.GetFileAsync("Backup.json");
-                if (arq != null)
-                {
-                    using (var leitor = new StreamReader(await arq.OpenStreamForReadAsync()))
+                    try
                     {
+                        var texto = await leitor.ReadToEndAsync();
+                        var conjunto = JsonConvert.DeserializeObject<ConjuntoBanco>(texto);
                         try
                         {
-                            var texto = await leitor.ReadToEndAsync();
-                            var conjunto = JsonConvert.DeserializeObject<ConjuntoBanco>(texto);
-                            try
-                            {
-                                conjunto.AnalisarESalvar();
-                                Popup.Current.Escrever(TitulosComuns.Sucesso, "Backup restaurado com sucesso.");
-                            }
-                            catch (Exception)
-                            {
-                                Popup.Current.Escrever(TitulosComuns.Erro, "Erro ao salvar os itens do backup, aparentemente já existem dados cadastrados neste aplicativo.");
-                            }
+                            conjunto.AnalisarESalvar();
+                            Popup.Current.Escrever(TitulosComuns.Sucesso, "Backup restaurado com sucesso.");
                         }
                         catch (Exception)
                         {
-                            Popup.Current.Escrever(TitulosComuns.Erro, "Este não é um arquivo de backup válido.");
+                            Popup.Current.Escrever(TitulosComuns.Erro, "Erro ao salvar os itens do backup, aparentemente já existem dados cadastrados neste aplicativo.");
                         }
+                    }
+                    catch (Exception)
+                    {
+                        Popup.Current.Escrever(TitulosComuns.Erro, "Este não é um arquivo de backup válido.");
                     }
                 }
             }
         }
 
         const string Nome = "Backup";
-
-        static async Task Zipar(string informacao)
-        {
-            var pasta = ApplicationData.Current.TemporaryFolder;
-            pasta = await pasta.CreateFolderAsync("Temp", CreationCollisionOption.ReplaceExisting);
-            var arquivo = await pasta.CreateFileAsync($"{Nome}.json");
-            var stream = await arquivo.OpenStreamForWriteAsync();
-            using (StreamWriter escritor = new StreamWriter(stream))
-            {
-                await escritor.WriteAsync(informacao);
-                escritor.Flush();
-            }
-
-            pasta = ApplicationData.Current.TemporaryFolder;
-            await Task.Run(() => ZipFile.CreateFromDirectory(pasta.Path + @"\Temp", $@"{pasta.Path}\Backup.zip", CompressionLevel.Optimal, false));
-        }
-
-        static async Task<StorageFile> RetornarArquivo()
-        {
-            var pasta = ApplicationData.Current.TemporaryFolder;
-            return await pasta.GetFileAsync(Nome + ".zip");
-        }
-
-        static async Task ExcluirArquivo()
-        {
-            var arquivo = await RetornarArquivo();
-            await arquivo.DeleteAsync(StorageDeleteOption.PermanentDelete).AsTask();
-        }
 
         struct ConjuntoBanco
         {

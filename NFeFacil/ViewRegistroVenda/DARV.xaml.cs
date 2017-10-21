@@ -1,4 +1,5 @@
 ﻿using NFeFacil.ItensBD;
+using NFeFacil.ModeloXML.PartesProcesso.PartesNFe;
 using System;
 using System.Linq;
 using System.Text;
@@ -242,13 +243,13 @@ namespace NFeFacil.ViewRegistroVenda
     public struct DadosEmitente
     {
         public string NomeFicticio { get; set; }
-        public PacotesImpressaoGenericos.Endereço Endereco { get; set; }
+        public EnderecoCompleto Endereco { get; set; }
     }
 
     public struct DadosCliente
     {
         public string Nome { get; set; }
-        public PacotesImpressaoGenericos.Endereço Endereco { get; set; }
+        public EnderecoCompleto Endereco { get; set; }
     }
 
     public struct DadosProduto

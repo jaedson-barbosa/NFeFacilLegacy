@@ -92,7 +92,7 @@
                 <StackPanel Padding="{StaticResource PaddingPadrao}">
                     <TextBlock Style="{StaticResource Cabecalho}">MUNICÍPIO</TextBlock>
                     <TextBlock Style="{StaticResource Conteudo}"
-                               Text="{Binding Endereco.Municipio}" />
+                               Text="{Binding Endereco.NomeMunicipio}" />
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="1"
@@ -100,13 +100,13 @@
                             BorderBrush="Black">
                     <TextBlock Style="{StaticResource Cabecalho}">FONE/FAX</TextBlock>
                     <TextBlock Style="{StaticResource Conteudo}"
-                               Text="{Binding Endereco.Fone}" />
+                               Text="{Binding Endereco.Telefone, TargetNullValue=''}" />
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="2">
                     <TextBlock Style="{StaticResource Cabecalho}">UF</TextBlock>
                     <TextBlock Style="{StaticResource Conteudo}"
-                               Text="{Binding Endereco.UF}" />
+                               Text="{Binding Endereco.SiglaUF}" />
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="3"

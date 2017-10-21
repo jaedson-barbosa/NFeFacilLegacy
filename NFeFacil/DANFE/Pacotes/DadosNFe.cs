@@ -1,4 +1,4 @@
-﻿using NFeFacil.PacotesImpressaoGenericos;
+﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe;
 using System.ComponentModel;
 using Windows.UI.Xaml.Media;
 
@@ -20,7 +20,7 @@ namespace NFeFacil.DANFE.Pacotes
         public string IE { get; set; }
         public string IEST { get; set; }
         public string CNPJEmit { get; set; }
-        public Endereço Endereco { get; set; }
+        public EnderecoCompleto Endereco { get; set; }
         public ImageSource Logotipo { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;

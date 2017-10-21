@@ -80,8 +80,6 @@ namespace NFeFacil.View
             }
         }
 
-        const string Nome = "Backup";
-
         struct ConjuntoBanco
         {
             public ClienteDI[] Clientes { get; set; }

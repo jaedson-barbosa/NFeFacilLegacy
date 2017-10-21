@@ -43,9 +43,9 @@
                                TextWrapping="Wrap"><Run Text="{Binding Endereco.Logradouro}" />, <Run Text="{Binding Endereco.Numero}" /></TextBlock>
                     <TextBlock FontSize="12"
                                Text="{Binding Endereco.Bairro}" />
-                    <TextBlock FontSize="12"><Run Text="{Binding Endereco.Municipio}" /> - <Run Text="{Binding Endereco.UF}" /></TextBlock>
+                    <TextBlock FontSize="12"><Run Text="{Binding Endereco.NomeMunicipio}" /> - <Run Text="{Binding Endereco.SiglaUF}" /></TextBlock>
                     <TextBlock FontSize="12">CEP: <Run Text="{Binding Endereco.CEP}" /></TextBlock>
-                    <TextBlock FontSize="12">FONE: <Run Text="{Binding Endereco.Fone}" /></TextBlock>
+                    <TextBlock FontSize="12">FONE: <Run Text="{Binding Endereco.Telefone, TargetNullValue=''}" /></TextBlock>
                 </StackPanel>
             </Grid>
             <StackPanel Grid.Column="1"

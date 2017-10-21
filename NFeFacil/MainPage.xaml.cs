@@ -24,7 +24,7 @@ namespace NFeFacil
         {
             InitializeComponent();
             Current = this;
-            AnalisarBarraTituloAsync();
+            AnalisarBarraTitulo();
             btnRetornar.Click += (x, y) => Retornar();
             SystemNavigationManager.GetForCurrentView().BackRequested += (x,e) =>
             {
@@ -45,16 +45,14 @@ namespace NFeFacil
             }
         }
 
-        private void AnalisarBarraTituloAsync()
+        private async void AnalisarBarraTitulo()
         {
             var familia = AnalyticsInfo.VersionInfo.DeviceFamily;
             if (familia.Contains("Mobile"))
             {
                 btnRetornar.Visibility = Visibility.Collapsed;
                 var barra = StatusBar.GetForCurrentView();
-                var cor = new AuxiliaresEstilos.BibliotecaCores().Cor1;
-                barra.BackgroundColor = cor;
-                barra.BackgroundOpacity = 1;
+                await barra.HideAsync();
             }
             else if (familia.Contains("Desktop"))
             {

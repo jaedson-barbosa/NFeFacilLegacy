@@ -9,8 +9,6 @@
     <Page.Resources>
         <ResourceDictionary>
             <VM:DadosEstadosParaView x:Key="estados" />
-            <Conversores:EstadoToMunicipios x:Key="obterMunicipios" />
-            <Conversores:Invert x:Key="inverterBool" />
         </ResourceDictionary>
     </Page.Resources>
     <Grid x:Name="grdPrincipal"

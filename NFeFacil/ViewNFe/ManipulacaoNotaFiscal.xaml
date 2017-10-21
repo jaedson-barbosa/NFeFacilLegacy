@@ -11,9 +11,7 @@
     <Page.Resources>
         <ResourceDictionary>
             <VM:DadosEstadosParaView x:Key="estados" />
-            <Conversores:EstadoToMunicipios x:Key="obterMun" />
             <Conversores:StringToDateTime x:Key="data" />
-            <Conversores:Invert x:Key="inverter" />
             <Conversores:NumeroString x:Key="numStr" />
         </ResourceDictionary>
     </Page.Resources>

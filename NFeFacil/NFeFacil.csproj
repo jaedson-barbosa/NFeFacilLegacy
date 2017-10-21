@@ -160,11 +160,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Backup\Backup.xaml.cs">
+    <Compile Include="View\Backup.xaml.cs">
       <DependentUpon>Backup.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Backup\ConjuntoBanco.cs" />
-    <Compile Include="Backup\CriarZip.cs" />
     <Compile Include="Controles\NumeroChangedEventArgs.cs" />
     <Compile Include="IdentificacaoExtensoes.cs" />
     <Compile Include="ImagemExtensoes.cs" />
@@ -627,7 +625,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Backup\Backup.xaml">
+    <Page Include="View\Backup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

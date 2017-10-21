@@ -2,7 +2,7 @@
 using System.Globalization;
 using Windows.UI.Xaml.Data;
 
-namespace NFeFacil.ViewModel.Converters
+namespace NFeFacil.ViewModel
 {
     public sealed class StringToDateTime : IValueConverter
     {

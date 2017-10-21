@@ -196,7 +196,7 @@
     <Compile Include="ViewDadosBase\EscolherTipoCliente.xaml.cs">
       <DependentUpon>EscolherTipoCliente.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\Converters\NumeroString.cs" />
+    <Compile Include="ViewModel\NumeroString.cs" />
     <Compile Include="ViewNFe\CaixasEspeciaisProduto\DefinirArmamentos.xaml.cs">
       <DependentUpon>DefinirArmamentos.xaml</DependentUpon>
     </Compile>
@@ -407,7 +407,7 @@
     <Compile Include="Validacao\ValidadorVeiculo.cs" />
     <Compile Include="Validacao\ValidadorVendedor.cs" />
     <Compile Include="Validacao\ValidarDados.cs" />
-    <Compile Include="ViewModel\Converters\StringToDateTime.cs" />
+    <Compile Include="ViewModel\StringToDateTime.cs" />
     <Compile Include="ViewNFe\CaixasImpostos\TiposCalculo.cs" />
     <Compile Include="ViewModel\QRCode.cs" />
     <Compile Include="Login\AdicionarEmitente.xaml.cs">

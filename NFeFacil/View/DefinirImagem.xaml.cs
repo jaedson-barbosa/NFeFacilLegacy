@@ -27,7 +27,7 @@ namespace NFeFacil.View
             using (var db = new AplicativoContext())
             {
                 var img = db.Imagens.Find(Id);
-                if (img != null)
+                if (img != null && bytes != null)
                 {
                     bytes = img.Bytes;
                     imgAtual.Source = await img.GetSourceAsync();

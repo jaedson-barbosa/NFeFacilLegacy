@@ -9,21 +9,19 @@
                SecondaryButtonText="Cancelar"
                PrimaryButtonClick="Concluir">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
         <Image x:Name="imgAtual"
-               Grid.ColumnSpan="2"
-               Width="256"
-               Height="256"
+               Width="200"
+               Height="200"
                Stretch="UniformToFill" />
-        <Button Grid.Row="1" Click="Buscar">Buscar</Button>
-        <Button Grid.Column="1"
-                Grid.Row="1" Click="Apagar">Apagar</Button>
+        <Button HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                Click="Buscar">
+            <SymbolIcon Symbol="BrowsePhotos" />
+        </Button>
+        <Button HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Click="Apagar">
+            <SymbolIcon Symbol="Delete" />
+        </Button>
     </Grid>
 </ContentDialog>

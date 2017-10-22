@@ -1,4 +1,5 @@
 ﻿using NFeFacil.ItensBD;
+using System;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -40,6 +41,12 @@ namespace NFeFacil.Login
         private void Editar(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             MainPage.Current.Navegar<AdicionarEmitente>(emitente);
+        }
+
+        async void Logotipo(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            var caixa = new View.DefinirImagem(emitente.Id);
+            await caixa.ShowAsync();
         }
     }
 }

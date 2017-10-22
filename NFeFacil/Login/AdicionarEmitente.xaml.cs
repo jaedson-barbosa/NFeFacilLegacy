@@ -64,22 +64,6 @@ namespace NFeFacil.Login
                 Emit = (EmitenteDI)e.Parameter;
                 MainPage.Current.SeAtualizar(Symbol.Edit, "Emitente");
             }
-            DefinirImagem();
-
-            async void DefinirImagem()
-            {
-                if (Emit.Id != null)
-                {
-                    using (var db = new AplicativoContext())
-                    {
-                        var img = db.Imagens.Find(Emit.Id);
-                        if (img != null && img.Bytes != null)
-                        {
-                            imagem.Source = await img.GetSourceAsync();
-                        }
-                    }
-                }
-            }
         }
 
         private void Confirmar_Click(object sender, RoutedEventArgs e)
@@ -115,65 +99,6 @@ namespace NFeFacil.Login
         private void Cancelar_Click(object sender, RoutedEventArgs e)
         {
             MainPage.Current.Retornar();
-        }
-
-        private async void ImportarLogotipo_Click(object sender, RoutedEventArgs e)
-        {
-            var open = new Windows.Storage.Pickers.FileOpenPicker();
-            open.FileTypeFilter.Add(".jpg");
-            open.FileTypeFilter.Add(".jpeg");
-            open.FileTypeFilter.Add(".png");
-            var arq = await open.PickSingleFileAsync();
-
-            var img = new Imagem();
-            await img.FromStorageFileAsync(arq);
-
-            if (Emit.Id != default(Guid))
-            {
-                using (var db = new AplicativoContext())
-                {
-                    img.Id = Emit.Id;
-                    if (db.Imagens.Find(Emit.Id) != null)
-                    {
-                        // Imagem cadastrada
-                        db.Imagens.Update(img);
-                    }
-                    else
-                    {
-                        // Imagem inexistente
-                        db.Imagens.Add(img);
-                    }
-                    db.SaveChanges();
-                }
-            }
-            else
-            {
-                Log.Escrever(TitulosComuns.Erro, "O emitente precisa primeiro estar cadastrado para ser cadastrado o logotipo. Após salvar ele, edite-o e refaça a importação de logotipo.");
-            }
-
-            imagem.Source = await img.GetSourceAsync();
-        }
-
-        private void ApagarLogotipo_Click(object sender, RoutedEventArgs e)
-        {
-            if (Emit.Id != default(Guid))
-            {
-                using (var db = new AplicativoContext())
-                {
-                    var img = db.Imagens.Find(Emit.Id);
-                    if (img != null)
-                    {
-                        img.Bytes = null;
-                        db.Imagens.Update(img);
-                        db.SaveChanges();
-                    }
-                }
-                imagem.Source = null;
-            }
-            else
-            {
-                Log.Escrever(TitulosComuns.Erro, "Não há como apagar o que nunca foi registrado.");
-            }
         }
     }
 }

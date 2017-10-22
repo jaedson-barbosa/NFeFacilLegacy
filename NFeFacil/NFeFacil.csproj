@@ -160,12 +160,12 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ImagemExtensoes.cs" />
     <Compile Include="View\Backup.xaml.cs">
       <DependentUpon>Backup.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controles\NumeroChangedEventArgs.cs" />
     <Compile Include="IdentificacaoExtensoes.cs" />
-    <Compile Include="ImagemExtensoes.cs" />
     <Compile Include="Login\EscolhaEmitente.xaml.cs">
       <DependentUpon>EscolhaEmitente.xaml</DependentUpon>
     </Compile>
@@ -494,6 +494,9 @@
     </Compile>
     <Compile Include="Importacao\DefinirSenhaCertificado.xaml.cs">
       <DependentUpon>DefinirSenhaCertificado.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\DefinirImagem.xaml.cs">
+      <DependentUpon>DefinirImagem.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ImportacaoDados.xaml.cs">
       <DependentUpon>ImportacaoDados.xaml</DependentUpon>
@@ -893,6 +896,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Importacao\DefinirSenhaCertificado.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\DefinirImagem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

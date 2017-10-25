@@ -22,7 +22,6 @@ namespace NFeFacil
         {
             InitializeComponent();
             var task = AnaliseBanco();
-            task.Start();
             task.Wait();
             IBGE.Estados.Buscar();
             IBGE.Municipios.Buscar();
@@ -46,13 +45,14 @@ namespace NFeFacil
                 await db.Vendas.ForEachAsync(x => AnalisarItem(x));
                 await db.Imagens.ForEachAsync(x => AnalisarItem(x));
                 db.SaveChanges();
-            }
 
-            void AnalisarItem(IUltimaData item)
-            {
-                if (item.UltimaData == DateTime.MinValue)
+                void AnalisarItem(IUltimaData item)
                 {
-                    item.UltimaData = DateTime.Now;
+                    if (item.UltimaData == DateTime.MinValue)
+                    {
+                        item.UltimaData = DateTime.Now;
+                        db.Update(item);
+                    }
                 }
             }
         }

@@ -27,8 +27,8 @@ namespace NFeFacil.Sincronizacao
 
         internal async Task Sincronizar()
         {
-            var envio = new ConjuntoBanco(UltimaSincronizacao);
-            var receb = await RequestAsync<ConjuntoBanco>(
+            var envio = new ConjuntoDadosBase(UltimaSincronizacao);
+            var receb = await RequestAsync<ConjuntoDadosBase>(
                 $"SincronizarDadosBase",
                 SenhaPermanente,
                 envio,
@@ -51,9 +51,9 @@ namespace NFeFacil.Sincronizacao
 
         internal async Task SincronizarTudo()
         {
-            var envio = new ConjuntoBanco();
+            var envio = new ConjuntoDadosBase();
             envio.AtualizarPadrao();
-            var receb = await RequestAsync<ConjuntoBanco>(
+            var receb = await RequestAsync<ConjuntoDadosBase>(
                 $"SincronizarDadosBase",
                 SenhaPermanente,
                 envio,
@@ -74,7 +74,7 @@ namespace NFeFacil.Sincronizacao
             Log.Escrever(TitulosComuns.Sucesso, "Sincronização total concluida.");
         }
 
-        async Task<T> RequestAsync<T>(string nomeMetodo, int senha, object corpo, string parametroExtra = null)
+        async Task<T> RequestAsync<T>(string nomeMetodo, int senha, object corpo, string parametroExtra = null) where T : class
         {
             string caminho = $"http://{IPServidor}:8080/{nomeMetodo}/{senha}";
             if (parametroExtra != null) caminho += $"/{parametroExtra}";
@@ -88,7 +88,17 @@ namespace NFeFacil.Sincronizacao
                 }
                 var resposta = await proxy.SendAsync(mensagem);
                 var texto = await resposta.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<T>(texto);
+                if (resposta.IsSuccessStatusCode)
+                {
+                    var objeto = JsonConvert.DeserializeObject<T>(texto);
+                    return objeto;
+                }
+                else
+                {
+                    var objeto = JsonConvert.DeserializeXmlNode(texto);
+                    
+                    return null;
+                }
             }
         }
     }

@@ -10,34 +10,34 @@ namespace NFeFacil.Sincronizacao.Servidor
     internal sealed class ControllerSincronizacao
     {
         [UriFormat("/SincronizarDadosBase/{senha}/{minimo}")]
-        public IGetResponse SincronizarDadosBase(int senha, long minimo, [FromContent] ConjuntoBanco pacote)
+        public IGetResponse SincronizarDadosBase(int senha, long minimo, [FromContent] ConjuntoDadosBase pacote)
         {
-            if (senha != ConfiguracoesSincronizacao.SenhaPermanente)
-                throw new SenhaErrada(senha);
-
             try
             {
+                //if (senha != ConfiguracoesSincronizacao.SenhaPermanente)
+                    throw new SenhaErrada(senha);
+
                 DateTime atual = DateTime.Now;
                 pacote.InstanteSincronizacao = atual;
                 pacote.AnalisarESalvar();
 
-                var retorno = new ConjuntoBanco(pacote, DateTime.FromBinary(minimo), atual);
+                var retorno = new ConjuntoDadosBase(pacote, DateTime.FromBinary(minimo), atual);
                 return new GetResponse(GetResponse.ResponseStatus.OK, retorno);
             }
             catch (Exception e)
             {
-                return new GetResponse(GetResponse.ResponseStatus.OK, e);
+                return new GetResponse(GetResponse.ResponseStatus.NotFound, e);
             }
         }
 
         [UriFormat("/SincronizarNotasFiscais/{senha}/{minimo}")]
         public IGetResponse SincronizarNotasFiscais(int senha, long minimo, [FromContent] ConjuntoNotasFiscais pacote)
         {
-            if (senha != ConfiguracoesSincronizacao.SenhaPermanente)
-                throw new SenhaErrada(senha);
-
             try
             {
+                if (senha != ConfiguracoesSincronizacao.SenhaPermanente)
+                    throw new SenhaErrada(senha);
+
                 DateTime atual = DateTime.Now;
                 pacote.InstanteSincronizacao = atual;
                 pacote.AnalisarESalvar();
@@ -47,7 +47,7 @@ namespace NFeFacil.Sincronizacao.Servidor
             }
             catch (Exception e)
             {
-                return new GetResponse(GetResponse.ResponseStatus.OK, e);
+                return new GetResponse(GetResponse.ResponseStatus.NotFound, e);
             }
         }
     }

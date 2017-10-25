@@ -3,7 +3,6 @@ using NFeFacil.ItensBD;
 using NFeFacil.Sincronizacao;
 using System;
 using System.Threading.Tasks;
-using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 

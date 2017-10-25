@@ -1,5 +1,4 @@
 ﻿using NFeFacil.Log;
-using NFeFacil.Sincronizacao;
 using System;
 using System.Runtime.InteropServices;
 using Windows.UI.Xaml;

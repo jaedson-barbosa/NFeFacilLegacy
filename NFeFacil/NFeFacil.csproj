@@ -379,7 +379,6 @@
     <Compile Include="Log\Popup.cs" />
     <Compile Include="Log\Titulos.cs" />
     <Compile Include="Log\TitulosComuns.cs" />
-    <Compile Include="OperacoesNotaEmitida.cs" />
     <Compile Include="OperacoesNotaSalva.cs" />
     <Compile Include="Propriedades.cs" />
     <Compile Include="MudancaOtimizadaBancoDados.cs" />
@@ -449,7 +448,7 @@
     <Compile Include="ViewRegistroVenda\CalculoDesconto.xaml.cs">
       <DependentUpon>CalculoDesconto.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\CancelarNFe.xaml.cs">
+    <Compile Include="ViewNFe\CancelarNFe.xaml.cs">
       <DependentUpon>CancelarNFe.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ConfiguracoesCertificado.xaml.cs">
@@ -499,7 +498,7 @@
     <Compile Include="View\DefinirImagem.xaml.cs">
       <DependentUpon>DefinirImagem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ImportacaoDados.xaml.cs">
+    <Compile Include="Importacao\ImportacaoDados.xaml.cs">
       <DependentUpon>ImportacaoDados.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controles\CarregamentoCircular.xaml.cs">
@@ -888,7 +887,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\CancelarNFe.xaml">
+    <Page Include="ViewNFe\CancelarNFe.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -904,7 +903,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ImportacaoDados.xaml">
+    <Page Include="Importacao\ImportacaoDados.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

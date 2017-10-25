@@ -1,5 +1,4 @@
 ﻿using NFeFacil.Log;
-using NFeFacil.Sincronizacao;
 using NFeFacil.Sincronizacao.Pacotes;
 using System;
 using System.Threading.Tasks;

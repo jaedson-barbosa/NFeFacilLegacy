@@ -1,5 +1,4 @@
-﻿using NFeFacil.Sincronizacao;
-using NFeFacil.Sincronizacao.Pacotes;
+﻿using NFeFacil.Sincronizacao.Pacotes;
 using System;
 using System.Linq;
 using System.Threading.Tasks;

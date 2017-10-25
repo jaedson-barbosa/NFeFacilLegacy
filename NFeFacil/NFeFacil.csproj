@@ -345,7 +345,6 @@
     <Compile Include="Certificacao\CodigoNet\XmlDsigC14NTransform.cs" />
     <Compile Include="Certificacao\CodigoNet\XmlDsigEnvelopedSignatureTransform.cs" />
     <Compile Include="Certificacao\ConfiguracoesCertificacao.cs" />
-    <Compile Include="Certificacao\LAN\Exportacao.cs" />
     <Compile Include="Certificacao\LAN\InformacoesConexao.cs" />
     <Compile Include="Certificacao\LAN\OperacoesServidor.cs" />
     <Compile Include="Certificacao\OrigemCertificado.cs" />
@@ -370,7 +369,7 @@
     <Compile Include="ExtensoesPrincipal.cs" />
     <Compile Include="IHambuguer.cs" />
     <Compile Include="Importacao\Importacao.cs" />
-    <Compile Include="Importacao\ImportarCertificado.cs" />
+    <Compile Include="Certificacao\ImportarCertificado.cs" />
     <Compile Include="Importacao\ImportarDadoBase.cs" />
     <Compile Include="Importacao\ImportarNotaFiscal.cs" />
     <Compile Include="Importacao\TiposDadoBasico.cs" />
@@ -451,7 +450,7 @@
     <Compile Include="ViewNFe\CancelarNFe.xaml.cs">
       <DependentUpon>CancelarNFe.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ConfiguracoesCertificado.xaml.cs">
+    <Compile Include="Certificacao\ConfiguracoesCertificado.xaml.cs">
       <DependentUpon>ConfiguracoesCertificado.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Consulta.xaml.cs">
@@ -492,7 +491,7 @@
     <Compile Include="Controles\ItemPadraoSimples.xaml.cs">
       <DependentUpon>ItemPadraoSimples.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Importacao\DefinirSenhaCertificado.xaml.cs">
+    <Compile Include="Certificacao\DefinirSenhaCertificado.xaml.cs">
       <DependentUpon>DefinirSenhaCertificado.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\DefinirImagem.xaml.cs">
@@ -895,7 +894,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Importacao\DefinirSenhaCertificado.xaml">
+    <Page Include="Certificacao\DefinirSenhaCertificado.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -907,7 +906,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ConfiguracoesCertificado.xaml">
+    <Page Include="Certificacao\ConfiguracoesCertificado.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

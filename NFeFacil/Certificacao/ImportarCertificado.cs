@@ -5,12 +5,10 @@ using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.UI.Xaml.Controls;
 
-namespace NFeFacil.Importacao
+namespace NFeFacil.Certificacao
 {
-    public sealed class ImportarCertificado : Importacao
+    public sealed class ImportarCertificado
     {
-        public ImportarCertificado() : base(".pfx") { }
-
         public async Task<bool> ImportarEAdicionarAsync()
         {
             FileOpenPicker abrir = new FileOpenPicker

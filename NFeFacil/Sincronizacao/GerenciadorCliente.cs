@@ -29,14 +29,24 @@ namespace NFeFacil.Sincronizacao
         {
             var envio = new ConjuntoBanco(UltimaSincronizacao);
             var receb = await RequestAsync<ConjuntoBanco>(
-                $"Sincronizar",
+                $"SincronizarDadosBase",
                 SenhaPermanente,
                 envio,
                 UltimaSincronizacao.ToBinary().ToString());
             receb.AnalisarESalvar();
+            UltimaSincronizacao = receb.InstanteSincronizacao;
+
+            var envioNotas = new ConjuntoNotasFiscais();
+            envioNotas.AtualizarPadrao();
+            var recebNotas = await RequestAsync<ConjuntoNotasFiscais>(
+                $"SincronizarNotasFiscais",
+                SenhaPermanente,
+                envio,
+                UltimaSincronizacaoNotas.ToBinary().ToString());
+            receb.AnalisarESalvar();
+            UltimaSincronizacaoNotas = recebNotas.InstanteSincronizacao;
 
             Log.Escrever(TitulosComuns.Sucesso, "Sincronização simples concluida.");
-            UltimaSincronizacao = DateTime.Now;
         }
 
         internal async Task SincronizarTudo()
@@ -44,15 +54,24 @@ namespace NFeFacil.Sincronizacao
             var envio = new ConjuntoBanco();
             envio.AtualizarPadrao();
             var receb = await RequestAsync<ConjuntoBanco>(
-                $"Sincronizar",
+                $"SincronizarDadosBase",
                 SenhaPermanente,
                 envio,
-                UltimaSincronizacao.ToBinary().ToString());
+                DateTime.MinValue.ToBinary().ToString());
             receb.AnalisarESalvar();
+            UltimaSincronizacao = receb.InstanteSincronizacao;
+
+            var envioNotas = new ConjuntoNotasFiscais();
+            envioNotas.AtualizarPadrao();
+            var recebNotas = await RequestAsync<ConjuntoNotasFiscais>(
+                $"SincronizarNotasFiscais",
+                SenhaPermanente,
+                envioNotas,
+                DateTime.MinValue.ToBinary().ToString());
+            receb.AnalisarESalvar();
+            UltimaSincronizacaoNotas = recebNotas.InstanteSincronizacao;
 
             Log.Escrever(TitulosComuns.Sucesso, "Sincronização total concluida.");
-
-            UltimaSincronizacao = DateTime.Now;
         }
 
         async Task<T> RequestAsync<T>(string nomeMetodo, int senha, object corpo, string parametroExtra = null)

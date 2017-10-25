@@ -3,7 +3,7 @@ using System;
 
 namespace NFeFacil.ItensBD
 {
-    public sealed class EmitenteDI
+    public sealed class EmitenteDI : IUltimaData
     {
         public Guid Id { get; set; }
         public DateTime UltimaData { get; set; }

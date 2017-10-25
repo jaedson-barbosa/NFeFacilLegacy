@@ -13,36 +13,6 @@ namespace NFeFacil
             Contexto = contexto;
         }
 
-        internal void AnalisarAdicionarEmitentes(List<EmitenteDI> emitentes)
-        {
-            var existem = new List<EmitenteDI>();
-            var naoExistem = new List<EmitenteDI>();
-            foreach (var emit in emitentes)
-            {
-                if (emit.Id != null && Contexto.Emitentes.Find(emit.Id) != null)
-                {
-                    existem.Add(emit);
-                }
-                else
-                {
-                    var busca = Contexto.Emitentes.FirstOrDefault(x => x.CNPJ == emit.CNPJ);
-                    if (busca != default(EmitenteDI))
-                    {
-                        emit.Id = busca.Id;
-                        existem.Add(emit);
-                    }
-                    else
-                    {
-                        naoExistem.Add(emit);
-                    }
-                }
-            }
-            existem.ForEach(x => x.UltimaData = DateTime.Now);
-            naoExistem.ForEach(x => x.UltimaData = DateTime.Now);
-            Contexto.AddRange(naoExistem);
-            Contexto.UpdateRange(existem);
-        }
-
         internal void AnalisarAdicionarClientes(List<ClienteDI> clientes)
         {
             var existem = new List<ClienteDI>();

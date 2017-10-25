@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace NFeFacil.ItensBD
 {
-    public sealed class RegistroVenda
+    public sealed class RegistroVenda : IUltimaData
     {
         public Guid Id { get; set; }
         public DateTime UltimaData { get; set; }

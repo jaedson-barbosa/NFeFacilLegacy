@@ -5,7 +5,6 @@
     /// </summary>
     public enum TiposDadoBasico
     {
-        Emitente,
         Cliente,
         Motorista,
         Produto

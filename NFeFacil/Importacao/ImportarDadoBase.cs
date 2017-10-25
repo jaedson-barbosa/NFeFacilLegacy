@@ -37,8 +37,6 @@ namespace NFeFacil.Importacao
                 var repo = new MudancaOtimizadaBancoDados(db);
                 switch (TipoDado)
                 {
-                    case TiposDadoBasico.Emitente:
-                        return AnaliseCompletaXml<Emitente>(listaXML, nameof(Emitente), "emit", x => repo.AnalisarAdicionarEmitentes(x.Select(emit => new ItensBD.EmitenteDI(emit)).ToList()));
                     case TiposDadoBasico.Cliente:
                         return AnaliseCompletaXml<Destinatario>(listaXML, nameof(Destinatario), "dest", x=> repo.AnalisarAdicionarClientes(x.Select(dest => new ItensBD.ClienteDI(dest)).ToList()));
                     case TiposDadoBasico.Motorista:

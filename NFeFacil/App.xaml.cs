@@ -1,5 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using NFeFacil.ItensBD;
 using NFeFacil.Sincronizacao;
+using System;
+using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
@@ -18,16 +21,39 @@ namespace NFeFacil
         public App()
         {
             InitializeComponent();
-            Suspending += OnSuspending;
-            using (var db = new AplicativoContext())
-            {
-                db.Database.Migrate();
-            }
+            var task = AnaliseBanco();
+            task.Start();
+            task.Wait();
             IBGE.Estados.Buscar();
             IBGE.Municipios.Buscar();
             if (ConfiguracoesSincronizacao.InícioAutomático)
             {
                 GerenciadorServidor.Current.IniciarServer().ConfigureAwait(false);
+            }
+        }
+
+        async Task AnaliseBanco()
+        {
+            using (var db = new AplicativoContext())
+            {
+                db.Database.Migrate();
+                await db.Clientes.ForEachAsync(x => AnalisarItem(x));
+                await db.Emitentes.ForEachAsync(x => AnalisarItem(x));
+                await db.Motoristas.ForEachAsync(x => AnalisarItem(x));
+                await db.Vendedores.ForEachAsync(x => AnalisarItem(x));
+                await db.Produtos.ForEachAsync(x => AnalisarItem(x));
+                await db.Estoque.ForEachAsync(x => AnalisarItem(x));
+                await db.Vendas.ForEachAsync(x => AnalisarItem(x));
+                await db.Imagens.ForEachAsync(x => AnalisarItem(x));
+                db.SaveChanges();
+            }
+
+            void AnalisarItem(IUltimaData item)
+            {
+                if (item.UltimaData == DateTime.MinValue)
+                {
+                    item.UltimaData = DateTime.Now;
+                }
             }
         }
 
@@ -48,20 +74,6 @@ namespace NFeFacil
             {
                 Window.Current.Activate();
             }
-        }
-
-        /// <summary>
-        /// Chamado quando a execução do aplicativo está sendo suspensa.  O estado do aplicativo é salvo
-        /// sem saber se o aplicativo será encerrado ou retomado com o conteúdo
-        /// da memória ainda intacto.
-        /// </summary>
-        /// <param name="sender">A fonte da solicitação de suspensão.</param>
-        /// <param name="e">Detalhes sobre a solicitação de suspensão.</param>
-        private void OnSuspending(object sender, SuspendingEventArgs e)
-        {
-            var deferral = e.SuspendingOperation.GetDeferral();
-            //TODO: Salvar o estado do aplicativo e parar qualquer atividade em segundo plano
-            deferral.Complete();
         }
     }
 }

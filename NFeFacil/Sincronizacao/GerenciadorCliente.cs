@@ -21,36 +21,67 @@ namespace NFeFacil.Sincronizacao
         public async Task EstabelecerConexao(int senha)
         {
             var info = await RequestAsync<InfoSegurancaConexao>("BrechaSeguranca", senha, null);
-            SenhaPermanente = info.Senha;
-            Log.Escrever(TitulosComuns.Sucesso, "Chave de segurança decodificada e salva com sucesso.");
+            if (info.objeto != null)
+            {
+                SenhaPermanente = info.objeto.Senha;
+                Log.Escrever(TitulosComuns.Sucesso, "Chave de segurança decodificada e salva com sucesso.");
+            }
+            else
+            {
+                Log.Escrever(TitulosComuns.Erro, info.mensagem);
+            }
         }
 
         internal async Task Sincronizar()
         {
+            string mensagemErro = null;
+
             var envio = new ConjuntoDadosBase(UltimaSincronizacao);
             var receb = await RequestAsync<ConjuntoDadosBase>(
                 $"SincronizarDadosBase",
                 SenhaPermanente,
                 envio,
                 UltimaSincronizacao.ToBinary().ToString());
-            receb.AnalisarESalvar();
-            UltimaSincronizacao = receb.InstanteSincronizacao;
+            if (receb.objeto != null)
+            {
+                receb.objeto.AnalisarESalvar();
+                UltimaSincronizacao = receb.objeto.InstanteSincronizacao;
 
-            var envioNotas = new ConjuntoNotasFiscais();
-            envioNotas.AtualizarPadrao();
-            var recebNotas = await RequestAsync<ConjuntoNotasFiscais>(
-                $"SincronizarNotasFiscais",
-                SenhaPermanente,
-                envio,
-                UltimaSincronizacaoNotas.ToBinary().ToString());
-            receb.AnalisarESalvar();
-            UltimaSincronizacaoNotas = recebNotas.InstanteSincronizacao;
+                var envioNotas = new ConjuntoNotasFiscais(UltimaSincronizacaoNotas);
+                var recebNotas = await RequestAsync<ConjuntoNotasFiscais>(
+                    $"SincronizarNotasFiscais",
+                    SenhaPermanente,
+                    envioNotas,
+                    UltimaSincronizacaoNotas.ToBinary().ToString());
+                if (recebNotas.objeto != null)
+                {
+                    recebNotas.objeto.AnalisarESalvar();
+                    UltimaSincronizacaoNotas = recebNotas.objeto.InstanteSincronizacao;
+                }
+                else
+                {
+                    mensagemErro = recebNotas.mensagem;
+                }
+            }
+            else
+            {
+                mensagemErro = receb.mensagem;
+            }
 
-            Log.Escrever(TitulosComuns.Sucesso, "Sincronização simples concluida.");
+            if (string.IsNullOrEmpty(mensagemErro))
+            {
+                Log.Escrever(TitulosComuns.Sucesso, "Sincronização simples concluida.");
+            }
+            else
+            {
+                Log.Escrever(TitulosComuns.Erro, mensagemErro);
+            }
         }
 
         internal async Task SincronizarTudo()
         {
+            string mensagemErro = null;
+
             var envio = new ConjuntoDadosBase();
             envio.AtualizarPadrao();
             var receb = await RequestAsync<ConjuntoDadosBase>(
@@ -58,23 +89,44 @@ namespace NFeFacil.Sincronizacao
                 SenhaPermanente,
                 envio,
                 DateTime.MinValue.ToBinary().ToString());
-            receb.AnalisarESalvar();
-            UltimaSincronizacao = receb.InstanteSincronizacao;
+            if (receb.objeto != null)
+            {
+                receb.objeto.AnalisarESalvar();
+                UltimaSincronizacao = receb.objeto.InstanteSincronizacao;
 
-            var envioNotas = new ConjuntoNotasFiscais();
-            envioNotas.AtualizarPadrao();
-            var recebNotas = await RequestAsync<ConjuntoNotasFiscais>(
-                $"SincronizarNotasFiscais",
-                SenhaPermanente,
-                envioNotas,
-                DateTime.MinValue.ToBinary().ToString());
-            receb.AnalisarESalvar();
-            UltimaSincronizacaoNotas = recebNotas.InstanteSincronizacao;
+                var envioNotas = new ConjuntoNotasFiscais();
+                envioNotas.AtualizarPadrao();
+                var recebNotas = await RequestAsync<ConjuntoNotasFiscais>(
+                    $"SincronizarNotasFiscais",
+                    SenhaPermanente,
+                    envioNotas,
+                    DateTime.MinValue.ToBinary().ToString());
+                if (recebNotas.objeto != null)
+                {
+                    receb.objeto.AnalisarESalvar();
+                    UltimaSincronizacaoNotas = recebNotas.objeto.InstanteSincronizacao;
+                }
+                else
+                {
+                    mensagemErro = recebNotas.mensagem;
+                }
+            }
+            else
+            {
+                mensagemErro = receb.mensagem;
+            }
 
-            Log.Escrever(TitulosComuns.Sucesso, "Sincronização total concluida.");
+            if (string.IsNullOrEmpty(mensagemErro))
+            {
+                Log.Escrever(TitulosComuns.Sucesso, "Sincronização completa concluida.");
+            }
+            else
+            {
+                Log.Escrever(TitulosComuns.Erro, mensagemErro);
+            }
         }
 
-        async Task<T> RequestAsync<T>(string nomeMetodo, int senha, object corpo, string parametroExtra = null) where T : class
+        async Task<(T objeto,string mensagem)> RequestAsync<T>(string nomeMetodo, int senha, object corpo, string parametroExtra = null) where T : class
         {
             string caminho = $"http://{IPServidor}:8080/{nomeMetodo}/{senha}";
             if (parametroExtra != null) caminho += $"/{parametroExtra}";
@@ -91,13 +143,22 @@ namespace NFeFacil.Sincronizacao
                 if (resposta.IsSuccessStatusCode)
                 {
                     var objeto = JsonConvert.DeserializeObject<T>(texto);
-                    return objeto;
+                    return (objeto, null);
                 }
                 else
                 {
-                    var objeto = JsonConvert.DeserializeXmlNode(texto);
-                    
-                    return null;
+                    var objeto = JsonConvert.DeserializeXmlNode(texto, "XML");
+                    var partes = objeto.ChildNodes.Item(0).ChildNodes;
+                    string detalhesErro = null;
+                    for (int i = 0; i < partes.Count; i++)
+                    {
+                        if (partes[i].Name == "Message")
+                        {
+                            detalhesErro = partes[i].InnerText;
+                        }
+                    }
+                    return (null, $"Ocorreu um erro durante a execução da requisição de identificação \"{nomeMetodo}\".\r\n" +
+                        $"Esta é a mensagem do servidor: {detalhesErro}");
                 }
             }
         }

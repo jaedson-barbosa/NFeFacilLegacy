@@ -14,8 +14,10 @@ namespace NFeFacil.Sincronizacao.Servidor
         {
             try
             {
-                //if (senha != ConfiguracoesSincronizacao.SenhaPermanente)
+                if (senha != ConfiguracoesSincronizacao.SenhaPermanente)
+                {
                     throw new SenhaErrada(senha);
+                }
 
                 DateTime atual = DateTime.Now;
                 pacote.InstanteSincronizacao = atual;
@@ -36,7 +38,9 @@ namespace NFeFacil.Sincronizacao.Servidor
             try
             {
                 if (senha != ConfiguracoesSincronizacao.SenhaPermanente)
+                {
                     throw new SenhaErrada(senha);
+                }
 
                 DateTime atual = DateTime.Now;
                 pacote.InstanteSincronizacao = atual;

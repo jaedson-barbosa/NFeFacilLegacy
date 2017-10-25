@@ -440,7 +440,7 @@
     <Compile Include="ViewDadosBase\AdicionarVeiculo.xaml.cs">
       <DependentUpon>AdicionarVeiculo.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ConfigurarDadosConexao.xaml.cs">
+    <Compile Include="Sincronizacao\ConfigurarDadosConexao.xaml.cs">
       <DependentUpon>ConfigurarDadosConexao.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewRegistroVenda\AdicionarProduto.xaml.cs">
@@ -526,7 +526,7 @@
     </Compile>
     <Compile Include="AuxiliaresEstilos\BibliotecaCores.cs" />
     <Compile Include="AuxiliaresEstilos\PainelAdaptavel.cs" />
-    <Compile Include="View\SincronizacaoCliente.xaml.cs">
+    <Compile Include="Sincronizacao\SincronizacaoCliente.xaml.cs">
       <DependentUpon>SincronizacaoCliente.xaml</DependentUpon>
     </Compile>
     <Compile Include="DANFE\PaginasDANFE\IPagina.cs" />
@@ -568,13 +568,13 @@
     <Compile Include="DANFE\PartesDANFE\ItemProduto.xaml.cs">
       <DependentUpon>ItemProduto.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\QRConexao.xaml.cs">
+    <Compile Include="Sincronizacao\QRConexao.xaml.cs">
       <DependentUpon>QRConexao.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewRegistroVenda\RegistrosVenda.xaml.cs">
       <DependentUpon>RegistrosVenda.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\SincronizacaoServidor.xaml.cs">
+    <Compile Include="Sincronizacao\SincronizacaoServidor.xaml.cs">
       <DependentUpon>SincronizacaoServidor.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\VendasAnuais.xaml.cs">
@@ -876,7 +876,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ConfigurarDadosConexao.xaml">
+    <Page Include="Sincronizacao\ConfigurarDadosConexao.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -984,7 +984,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\SincronizacaoCliente.xaml">
+    <Page Include="Sincronizacao\SincronizacaoCliente.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1041,7 +1041,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\QRConexao.xaml">
+    <Page Include="Sincronizacao\QRConexao.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1049,7 +1049,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\SincronizacaoServidor.xaml">
+    <Page Include="Sincronizacao\SincronizacaoServidor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

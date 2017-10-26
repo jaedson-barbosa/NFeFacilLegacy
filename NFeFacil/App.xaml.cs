@@ -1,8 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using NFeFacil.ItensBD;
-using NFeFacil.Sincronizacao;
-using System;
-using System.Threading.Tasks;
+﻿using NFeFacil.Sincronizacao;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 
@@ -20,39 +16,11 @@ namespace NFeFacil
         public App()
         {
             InitializeComponent();
-            var task = AnaliseBanco();
-            task.Wait();
             IBGE.Estados.Buscar();
             IBGE.Municipios.Buscar();
             if (ConfiguracoesSincronizacao.InícioAutomático)
             {
                 GerenciadorServidor.Current.IniciarServer().ConfigureAwait(false);
-            }
-        }
-
-        async Task AnaliseBanco()
-        {
-            using (var db = new AplicativoContext())
-            {
-                db.Database.Migrate();
-                await db.Clientes.ForEachAsync(x => AnalisarItem(x));
-                await db.Emitentes.ForEachAsync(x => AnalisarItem(x));
-                await db.Motoristas.ForEachAsync(x => AnalisarItem(x));
-                await db.Vendedores.ForEachAsync(x => AnalisarItem(x));
-                await db.Produtos.ForEachAsync(x => AnalisarItem(x));
-                await db.Estoque.ForEachAsync(x => AnalisarItem(x));
-                await db.Vendas.ForEachAsync(x => AnalisarItem(x));
-                await db.Imagens.ForEachAsync(x => AnalisarItem(x));
-                db.SaveChanges();
-
-                void AnalisarItem(IUltimaData item)
-                {
-                    if (item.UltimaData == DateTime.MinValue)
-                    {
-                        item.UltimaData = DateTime.Now;
-                        db.Update(item);
-                    }
-                }
             }
         }
 

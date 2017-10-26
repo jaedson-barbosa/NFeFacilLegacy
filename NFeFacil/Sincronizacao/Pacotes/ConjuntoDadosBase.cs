@@ -109,11 +109,8 @@ namespace NFeFacil.Sincronizacao.Pacotes
             }
         }
 
-        public void AnalisarESalvar()
+        public void AnalisarESalvar(DateTime minimo)
         {
-            List<AlteracaoEstoque>[] AlteracoesEstoque = null;
-            List<ProdutoSimplesVenda>[] ProdutosVendas = null;
-
             using (var db = new AplicativoContext())
             {
                 List<object> Adicionar = new List<object>();
@@ -274,13 +271,10 @@ namespace NFeFacil.Sincronizacao.Pacotes
 
                 if (Estoque != null)
                 {
-                    AlteracoesEstoque = new List<AlteracaoEstoque>[Estoque.Count];
                     for (int i = 0; i < Estoque.Count; i++)
                     {
                         var novo = Estoque[i];
-
-                        AlteracoesEstoque[i] = novo.Alteracoes;
-                        novo.Alteracoes = null;
+                        novo.Alteracoes.ForEach(x => x.Id = default(Guid));
 
                         var atual = db.Estoque.FirstOrDefault(x => x.Id == novo.Id);
                         if (atual == null)
@@ -290,6 +284,7 @@ namespace NFeFacil.Sincronizacao.Pacotes
                         }
                         else if (novo.UltimaData > atual.UltimaData)
                         {
+                            novo.Alteracoes.RemoveAll(x => x.MomentoRegistro < minimo);
                             novo.UltimaData = InstanteSincronizacao;
                             Atualizar.Add(novo);
                         }
@@ -298,22 +293,20 @@ namespace NFeFacil.Sincronizacao.Pacotes
 
                 if (Vendas != null)
                 {
-                    ProdutosVendas = new List<ProdutoSimplesVenda>[Vendas.Count];
                     for (int i = 0; i < Vendas.Count; i++)
                     {
                         var novo = Vendas[i];
 
-                        ProdutosVendas[i] = novo.Produtos;
-                        novo.Produtos = null;
-
                         var atual = db.Vendas.FirstOrDefault(x => x.Id == novo.Id);
                         if (atual == null)
                         {
+                            novo.Produtos.ForEach(x => x.Id = default(Guid));
                             novo.UltimaData = InstanteSincronizacao;
                             Adicionar.Add(novo);
                         }
                         else if (novo.UltimaData > atual.UltimaData)
                         {
+                            novo.Produtos.Clear();
                             novo.UltimaData = InstanteSincronizacao;
                             Atualizar.Add(novo);
                         }
@@ -322,49 +315,6 @@ namespace NFeFacil.Sincronizacao.Pacotes
 
                 db.AddRange(Adicionar);
                 db.UpdateRange(Atualizar);
-                db.SaveChanges();
-            }
-
-            using (var db = new AplicativoContext())
-            {
-                if (AlteracoesEstoque != null)
-                {
-                    for (int i = 0; i < Estoque.Count; i++)
-                    {
-                        var novo = Estoque[i];
-                        var original = db.Estoque.Include(x => x.Alteracoes).FirstOrDefault(x => x.Id == novo.Id);
-                        var indexMinimo = 0;
-                        if (original?.Alteracoes != null)
-                        {
-                            indexMinimo = original.Alteracoes.Count;
-                        }
-
-                        var alteracoes = AlteracoesEstoque[i];
-                        alteracoes.ForEach(x => x.Id = default(Guid));
-                        novo.Alteracoes = alteracoes.Skip(indexMinimo).ToList();
-                        db.Estoque.Update(novo);
-                    }
-                }
-
-                if (ProdutosVendas != null)
-                {
-                    for (int i = 0; i < Vendas.Count; i++)
-                    {
-                        var novo = Vendas[i];
-                        var original = db.Vendas.Include(x => x.Produtos).FirstOrDefault(x => x.Id == novo.Id);
-                        var indexMinimo = 0;
-                        if (original?.Produtos != null)
-                        {
-                            indexMinimo = original.Produtos.Count;
-                        }
-
-                        var produtos = ProdutosVendas[i];
-                        produtos.ForEach(x => x.Id = default(Guid));
-                        novo.Produtos = produtos.Skip(indexMinimo).ToList();
-                        db.Vendas.Update(novo);
-                    }
-                }
-
                 db.SaveChanges();
             }
         }

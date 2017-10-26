@@ -44,7 +44,7 @@ namespace NFeFacil.Sincronizacao
                 UltimaSincronizacao.ToBinary().ToString());
             if (receb.objeto != null)
             {
-                receb.objeto.AnalisarESalvar();
+                receb.objeto.AnalisarESalvar(UltimaSincronizacao);
                 UltimaSincronizacao = receb.objeto.InstanteSincronizacao;
 
                 var envioNotas = new ConjuntoNotasFiscais(UltimaSincronizacaoNotas);
@@ -91,7 +91,7 @@ namespace NFeFacil.Sincronizacao
                 DateTime.MinValue.ToBinary().ToString());
             if (receb.objeto != null)
             {
-                receb.objeto.AnalisarESalvar();
+                receb.objeto.AnalisarESalvar(DateTime.MinValue);
                 UltimaSincronizacao = receb.objeto.InstanteSincronizacao;
 
                 var envioNotas = new ConjuntoNotasFiscais();
@@ -103,7 +103,7 @@ namespace NFeFacil.Sincronizacao
                     DateTime.MinValue.ToBinary().ToString());
                 if (recebNotas.objeto != null)
                 {
-                    receb.objeto.AnalisarESalvar();
+                    recebNotas.objeto.AnalisarESalvar();
                     UltimaSincronizacaoNotas = recebNotas.objeto.InstanteSincronizacao;
                 }
                 else

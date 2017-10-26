@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using LiveCharts.Configurations;
+using Microsoft.EntityFrameworkCore;
 using NFeFacil.ItensBD;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,9 @@ namespace NFeFacil.View
     /// </summary>
     public sealed partial class ControleEstoque : Page
     {
+        const string FormatoLabel = "dd/MM HH:mm:ss";
+        Func<double, string> Formatter { get; set; }
+
         public ControleEstoque()
         {
             InitializeComponent();
@@ -24,13 +28,26 @@ namespace NFeFacil.View
                 var lista = (from est in db.Estoque.Include(x => x.Alteracoes).ToArray()
                              join prod in db.Produtos.ToArray() on est.Id equals prod.Id
                              orderby prod.Descricao
-                             select new Conjunto() { Produto = prod, Estoque = est }).GerarObs();
+                             select new Conjunto() { Descricao = prod.Descricao, Estoque = est }).GerarObs();
+                for (int i = 0; i < lista.Count; i++)
+                {
+                    lista[i].Estoque.Alteracoes.OrderBy(x => x.MomentoRegistro);
+                }
                 cmbProduto.ItemsSource = lista;
                 if (lista.Count > 0)
                 {
                     cmbProduto.SelectedIndex = 0;
                 }
             }
+
+            paiGrafico.Series.Configuration = Mappers.Xy<DateModel>()
+                .X(dayModel => {
+                    var retorno = dayModel.DateTime.TimeOfDay.Ticks / TimeSpan.FromMinutes(1).Ticks;
+                    return retorno;
+                })
+                .Y(dayModel => dayModel.Value);
+
+            Formatter = new Func<double, string>(x => new DateTime((long)x * TimeSpan.FromMinutes(1).Ticks).ToString(FormatoLabel));
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -49,10 +66,9 @@ namespace NFeFacil.View
                     db.SaveChanges();
                 }
             }
-            base.OnNavigatingFrom(e);
         }
 
-        private void cmbProduto_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ProdutoAlterado(object sender, SelectionChangedEventArgs e)
         {
             var conjAdicionado = (Conjunto)e.AddedItems[0];
             if (e.RemovedItems.Count == 0 || !conjAdicionado.Equals((Conjunto)e.RemovedItems[0]))
@@ -74,24 +90,30 @@ namespace NFeFacil.View
                 var alteracoes = conjAdicionado.Estoque.Alteracoes;
                 if (alteracoes != null)
                 {
-                    var valores = new double[alteracoes.Count + 1];
-                    valores[0] = 0;
-                    for (int i = 1; i < valores.Length; i++)
+                    var valores = new double[alteracoes.Count()];
+                    for (int i = 0; i < valores.Length; i++)
                     {
                         valores[i] = alteracoes.Take(i).Sum(x => x.Alteração);
                     }
-                    serieGrafico.Values = new LiveCharts.ChartValues<double>(valores);
+                    var zipado = alteracoes.Zip(valores, (x, y) => new DateModel() { DateTime = x.MomentoRegistro, Value = y });
+                    serieGrafico.Values = new LiveCharts.ChartValues<DateModel>(zipado);
                 }
                 else
                 {
-                    serieGrafico.Values = new LiveCharts.ChartValues<double>(new double[1] { 0 });
+                    serieGrafico.Values = new LiveCharts.ChartValues<DateModel>(new DateModel[1] { new DateModel() { DateTime = DateTime.Now, Value = 0 } });
                 }
             }
         }
 
+        public class DateModel
+        {
+            public DateTime DateTime { get; set; }
+            public double Value { get; set; }
+        }
+
         struct Conjunto
         {
-            public ProdutoDI Produto { get; set; }
+            public string Descricao { get; set; }
             public Estoque Estoque { get; set; }
         }
 
@@ -105,7 +127,11 @@ namespace NFeFacil.View
                 {
                     var estoque = (Estoque)dadosEstoque.DataContext;
                     estoque.UltimaData = DateTime.Now;
-                    var alt = new AlteracaoEstoque() { Alteração = valor };
+                    var alt = new AlteracaoEstoque()
+                    {
+                        Alteração = valor,
+                        MomentoRegistro = DateTime.Now
+                    };
                     if (estoque.Alteracoes == null)
                     {
                         estoque.Alteracoes = new List<AlteracaoEstoque>() { alt };
@@ -121,7 +147,7 @@ namespace NFeFacil.View
                     }
 
                     var novoValor = estoque.Alteracoes.Sum(x => x.Alteração);
-                    serieGrafico.Values.Add(novoValor);
+                    serieGrafico.Values.Add(new DateModel { DateTime = alt.MomentoRegistro, Value = novoValor });
                 }
             }
         }

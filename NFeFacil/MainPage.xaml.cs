@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using NFeFacil.ItensBD;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
@@ -24,6 +26,11 @@ namespace NFeFacil
         {
             InitializeComponent();
             Current = this;
+            using (var db = new AplicativoContext())
+            {
+                db.Database.Migrate();
+            }
+            Analisar();
             AnalisarBarraTitulo();
             btnRetornar.Click += (x, y) => Retornar();
             SystemNavigationManager.GetForCurrentView().BackRequested += (x,e) =>
@@ -41,6 +48,31 @@ namespace NFeFacil
                 else
                 {
                     Navegar<Login.PrimeiroUso>();
+                }
+            }
+        }
+
+        async void Analisar()
+        {
+            using (var db = new AplicativoContext())
+            {
+                await db.Clientes.ForEachAsync(x => AnalisarItem(x));
+                await db.Emitentes.ForEachAsync(x => AnalisarItem(x));
+                await db.Motoristas.ForEachAsync(x => AnalisarItem(x));
+                await db.Vendedores.ForEachAsync(x => AnalisarItem(x));
+                await db.Produtos.ForEachAsync(x => AnalisarItem(x));
+                await db.Estoque.ForEachAsync(x => AnalisarItem(x));
+                await db.Vendas.ForEachAsync(x => AnalisarItem(x));
+                await db.Imagens.ForEachAsync(x => AnalisarItem(x));
+                db.SaveChanges();
+
+                void AnalisarItem(IUltimaData item)
+                {
+                    if (item.UltimaData == DateTime.MinValue)
+                    {
+                        item.UltimaData = DateTime.Now;
+                        db.Update(item);
+                    }
                 }
             }
         }

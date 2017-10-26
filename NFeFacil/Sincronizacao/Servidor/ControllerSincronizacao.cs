@@ -21,9 +21,10 @@ namespace NFeFacil.Sincronizacao.Servidor
 
                 DateTime atual = DateTime.Now;
                 pacote.InstanteSincronizacao = atual;
-                pacote.AnalisarESalvar();
+                DateTime minimoProcessado = DateTime.FromBinary(minimo);
+                pacote.AnalisarESalvar(minimoProcessado);
 
-                var retorno = new ConjuntoDadosBase(pacote, DateTime.FromBinary(minimo), atual);
+                var retorno = new ConjuntoDadosBase(pacote, minimoProcessado, atual);
                 return new GetResponse(GetResponse.ResponseStatus.OK, retorno);
             }
             catch (Exception e)

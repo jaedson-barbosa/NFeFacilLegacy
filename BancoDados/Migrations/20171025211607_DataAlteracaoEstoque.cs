@@ -11,7 +11,7 @@ namespace NFeFacil.Migrations
                 name: "MomentoRegistro",
                 table: "AlteracaoEstoque",
                 nullable: false,
-                defaultValue: DateTime.Now);
+                defaultValue: default(DateTime));
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

@@ -24,7 +24,31 @@ namespace NFeFacil.ViewDadosBase
                 Clientes = db.Clientes.Where(x => x.Ativo).OrderBy(x => x.Nome).GerarObs();
                 Motoristas = db.Motoristas.Where(x => x.Ativo).OrderBy(x => x.Nome).GerarObs();
                 Produtos = db.Produtos.Where(x => x.Ativo).OrderBy(x => x.Descricao).GerarObs();
-                Vendedores = db.Vendedores.Where(x => x.Ativo).OrderBy(x => x.Nome).GerarObs();
+
+                var vendedores = db.Vendedores.Where(x => x.Ativo).ToArray();
+                var imagens = db.Imagens;
+                var quantVendedores = vendedores.Length;
+                var conjuntos = new ObservableCollection<ExibicaoVendedor>();
+                for (int i = 0; i < quantVendedores; i++)
+                {
+                    var atual = vendedores[i];
+                    var novoConjunto = new ExibicaoVendedor
+                    {
+                        Id = atual.Id,
+                        Principal = atual.Nome,
+                        Secundario = atual.CPF.ToString("000,000,000-00"),
+                        Vendedor = atual
+                    };
+                    var img = imagens.Find(atual.Id);
+                    if (img != null && img.Bytes != null)
+                    {
+                        var task = img.GetSourceAsync();
+                        task.Wait();
+                        novoConjunto.Imagem = task.Result;
+                    }
+                    conjuntos.Add(novoConjunto);
+                }
+                Vendedores = conjuntos.OrderBy(x => x.Principal).GerarObs();
             }
         }
 
@@ -44,7 +68,7 @@ namespace NFeFacil.ViewDadosBase
         ObservableCollection<ClienteDI> Clientes { get; }
         ObservableCollection<MotoristaDI> Motoristas { get; }
         ObservableCollection<ProdutoDI> Produtos { get; }
-        ObservableCollection<Vendedor> Vendedores { get; }
+        ObservableCollection<ExibicaoVendedor> Vendedores { get; }
 
         public void AtualizarMain(int index) => flipView.SelectedIndex = index;
 
@@ -153,24 +177,25 @@ namespace NFeFacil.ViewDadosBase
             }
         }
 
-        public void AdicionarVendedor()
+        void AdicionarVendedor()
         {
             MainPage.Current.Navegar<AdicionarVendedor>();
         }
 
-        public void EditarVendedor(Vendedor vend)
+        void EditarVendedor(ExibicaoVendedor vend)
         {
-            MainPage.Current.Navegar<AdicionarVendedor>(vend);
+            MainPage.Current.Navegar<AdicionarVendedor>(vend.Vendedor);
         }
 
-        public void InativarVendedor(Vendedor vend)
+        void InativarVendedor(ExibicaoVendedor exib)
         {
+            var vend = exib.Vendedor;
             using (var db = new AplicativoContext())
             {
                 vend.Ativo = false;
                 db.Update(vend);
                 db.SaveChanges();
-                Vendedores.Remove(vend);
+                Vendedores.Remove(exib);
             }
         }
 
@@ -233,21 +258,31 @@ namespace NFeFacil.ViewDadosBase
         private void EditarVendedor(object sender, RoutedEventArgs e)
         {
             var contexto = ((FrameworkElement)sender).DataContext;
-            EditarVendedor((Vendedor)contexto);
+            EditarVendedor((ExibicaoVendedor)contexto);
         }
 
         private void InativarVendedor(object sender, RoutedEventArgs e)
         {
             var contexto = ((FrameworkElement)sender).DataContext;
-            InativarVendedor((Vendedor)contexto);
+            InativarVendedor((ExibicaoVendedor)contexto);
         }
 
         async void ImagemVendedor(object sender, RoutedEventArgs e)
         {
             var contexto = ((FrameworkElement)sender).DataContext;
-            var id = ((Vendedor)contexto).Id;
-            var caixa = new View.DefinirImagem(id);
-            await caixa.ShowAsync();
+            var vend = (ExibicaoVendedor)contexto;
+            var caixa = new View.DefinirImagem(vend.Id, vend.Imagem);
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+            {
+                var index = Vendedores.IndexOf(vend);
+                vend.Imagem = caixa.Imagem;
+                Vendedores[index] = vend;
+            }
+        }
+
+        sealed class ExibicaoVendedor : ConjuntoBasicoExibicao
+        {
+            internal Vendedor Vendedor { get; set; }
         }
     }
 }

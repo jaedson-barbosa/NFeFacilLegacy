@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
@@ -26,15 +24,15 @@ namespace NFeFacil.Login
                 var emitentes = db.Emitentes.ToArray();
                 var imagens = db.Imagens;
                 var quantEmitentes = emitentes.Length;
-                var conjuntos = new ObservableCollection<ConjuntoBasicoExibicaoEmitente>();
+                var conjuntos = new ObservableCollection<ConjuntoBasicoExibicao>();
                 for (int i = 0; i < quantEmitentes; i++)
                 {
                     var atual = emitentes[i];
-                    var novoConjunto = new ConjuntoBasicoExibicaoEmitente
+                    var novoConjunto = new ConjuntoBasicoExibicao
                     {
-                        IdEmitente = atual.Id,
-                        NomeFantasia = atual.NomeFantasia,
-                        Nome = atual.Nome
+                        Id = atual.Id,
+                        Principal = atual.NomeFantasia,
+                        Secundario = atual.Nome
                     };
                     var img = imagens.Find(atual.Id);
                     if (img != null && img.Bytes != null)
@@ -64,13 +62,5 @@ namespace NFeFacil.Login
         {
             MainPage.Current.Navegar<AdicionarEmitente>();
         }
-    }
-
-    struct ConjuntoBasicoExibicaoEmitente
-    {
-        public Guid IdEmitente { get; set; }
-        public ImageSource Imagem { get; set; }
-        public string NomeFantasia { get; set; }
-        public string Nome { get; set; }
     }
 }

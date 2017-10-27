@@ -25,14 +25,15 @@ namespace NFeFacil.Login
                 var vendedores = db.Vendedores.Where(x => x.Ativo).ToArray();
                 var imagens = db.Imagens;
                 var quantVendedores = vendedores.Length;
-                var conjuntos = new ObservableCollection<ConjuntoBasicoExibicaoVendedor>();
+                var conjuntos = new ObservableCollection<ConjuntoBasicoExibicao>();
                 for (int i = 0; i < quantVendedores; i++)
                 {
                     var atual = vendedores[i];
-                    var novoConjunto = new ConjuntoBasicoExibicaoVendedor
+                    var novoConjunto = new ConjuntoBasicoExibicao
                     {
-                        IdVendedor = atual.Id,
-                        Nome = atual.Nome
+                        Id = atual.Id,
+                        Principal = atual.Nome,
+                        Secundario = atual.CPF.ToString("000,000,000-00")
                     };
                     var img = imagens.Find(atual.Id);
                     if (img != null && img.Bytes != null)
@@ -66,10 +67,10 @@ namespace NFeFacil.Login
         {
             if (e.AddedItems.Count > 0)
             {
-                var item = (ConjuntoBasicoExibicaoVendedor)e.AddedItems[0];
+                var item = (ConjuntoBasicoExibicao)e.AddedItems[0];
                 using (var db = new AplicativoContext())
                 {
-                    var vend = db.Vendedores.Find(item.IdVendedor);
+                    var vend = db.Vendedores.Find(item.Id);
                     Propriedades.VendedorAtivo = vend;
                 }
                 MainPage.Current.Navegar<View.Inicio>();
@@ -82,13 +83,6 @@ namespace NFeFacil.Login
             Propriedades.VendedorAtivo = null;
             MainPage.Current.Navegar<View.Inicio>();
             await MainPage.Current.AtualizarInformaçõesGerais();
-        }
-
-        struct ConjuntoBasicoExibicaoVendedor
-        {
-            public Guid IdVendedor { get; set; }
-            public ImageSource Imagem { get; set; }
-            public string Nome { get; set; }
         }
     }
 }

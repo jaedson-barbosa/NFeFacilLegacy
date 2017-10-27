@@ -4,6 +4,7 @@ using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 
 // O modelo de item de Caixa de Diálogo de Conteúdo está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
@@ -14,29 +15,21 @@ namespace NFeFacil.View
     {
         Guid Id { get; }
         byte[] bytes;
+        internal ImageSource Imagem { get; private set; }
 
-        public DefinirImagem(Guid id)
+        public DefinirImagem(Guid id, ImageSource imagem)
         {
             this.InitializeComponent();
             Id = id;
-            Iniciar();
-        }
-
-        async void Iniciar()
-        {
-            using (var db = new AplicativoContext())
-            {
-                var img = db.Imagens.Find(Id);
-                if (img != null && bytes != null)
-                {
-                    bytes = img.Bytes;
-                    imgAtual.Source = await img.GetSourceAsync();
-                }
-            }
+            imgAtual.Source = imagem;
         }
 
         void Concluir(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
+            if (bytes == null && imgAtual.Source != null)
+            {
+                return;
+            }
             using (var db = new AplicativoContext())
             {
                 var img = db.Imagens.Find(Id);
@@ -58,6 +51,7 @@ namespace NFeFacil.View
                 }
                 db.SaveChanges();
             }
+            Imagem = imgAtual.Source;
         }
 
         async void Buscar(object sender, RoutedEventArgs e)

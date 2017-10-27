@@ -7,25 +7,13 @@
       mc:Ignorable="d">
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
           Padding="16">
-        <Grid BorderBrush="{StaticResource Normal}"
-              BorderThickness="4"
-              CornerRadius="128"
-              Margin="4,4,4,54"
-              Width="256"
-              Height="256">
-            <SymbolIcon Symbol="Contact"
-                        Canvas.ZIndex="0"
-                        RenderTransformOrigin="0.5,0.5">
-                <SymbolIcon.RenderTransform>
-                    <CompositeTransform ScaleX="4"
-                                        ScaleY="4" />
-                </SymbolIcon.RenderTransform>
-            </SymbolIcon>
-            <Image x:Name="imgLogotipo"
-                   Canvas.ZIndex="1"
-                   Source="{Binding Imagem, Mode=OneTime}"
-                   Stretch="UniformToFill" />
-        </Grid>
+        <Border x:Name="imgLogotipo"
+                BorderBrush="{StaticResource Normal}"
+                BorderThickness="4"
+                CornerRadius="128"
+                Margin="4,4,4,54"
+                Width="256"
+                Height="256" />
         <TextBlock x:Name="txtNomeFantasia"
                    Style="{StaticResource TitleTextBlockStyle}"
                    TextAlignment="Center"

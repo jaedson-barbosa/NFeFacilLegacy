@@ -4,6 +4,38 @@
              xmlns:aux="using:NFeFacil.AuxiliaresEstilos"
              xmlns:estilos="using:NFeFacil.AuxiliaresEstilos">
     <Application.Resources>
+        <DataTemplate x:Key="ExibicaoImagemDescricao">
+            <Grid VerticalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Border BorderBrush="{StaticResource Normal}"
+                        BorderThickness="4"
+                        CornerRadius="128"
+                        Width="256"
+                        Height="256"
+                        Margin="4">
+                    <Image Source="{Binding Imagem}"
+                           Stretch="UniformToFill" />
+                </Border>
+                <TextBlock Grid.Row="1"
+                           Text="{Binding Principal, Mode=OneTime}"
+                           Style="{StaticResource BodyTextBlockStyle}"
+                           MaxWidth="248"
+                           TextAlignment="Center"
+                           Margin="4,0"
+                           FontWeight="Bold"
+                           FontSize="18" />
+                <TextBlock Grid.Row="2"
+                           Text="{Binding Secundario, Mode=OneTime}"
+                           Style="{StaticResource BodyTextBlockStyle}"
+                           MaxWidth="248"
+                           TextAlignment="Center"
+                           Margin="4,0" />
+            </Grid>
+        </DataTemplate>
         <Style x:Key="ItensResponsivos"
                TargetType="ItemsControl">
             <Setter Property="Margin"

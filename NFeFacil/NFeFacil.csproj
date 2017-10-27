@@ -161,6 +161,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="ImagemExtensoes.cs" />
+    <Compile Include="ConjuntoBasicoExibicao.cs" />
     <Compile Include="Sincronizacao\Pacotes\ConjuntoNotasFiscais.cs" />
     <Compile Include="View\Ano.cs" />
     <Compile Include="View\Backup.xaml.cs">

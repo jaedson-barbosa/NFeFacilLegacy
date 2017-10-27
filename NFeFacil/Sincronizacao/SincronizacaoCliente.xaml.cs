@@ -1,5 +1,4 @@
 ﻿using NFeFacil.Log;
-using NFeFacil.Sincronizacao;
 using NFeFacil.Sincronizacao.Pacotes;
 using System;
 using System.Threading.Tasks;
@@ -12,7 +11,7 @@ using static NFeFacil.Sincronizacao.ConfiguracoesSincronizacao;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace NFeFacil.View
+namespace NFeFacil.Sincronizacao
 {
     /// <summary>
     /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
@@ -59,13 +58,14 @@ namespace NFeFacil.View
         {
             try
             {
-                var caixa = new ConfigurarDadosConexao()
-                {
-                    DataContext = new InfoEstabelecerConexao()
-                };
+                var caixa = new ConfigurarDadosConexao();
                 if (await caixa.ShowAsync() == ContentDialogResult.Primary)
                 {
-                    await EstabelecerConexaoAsync((InfoEstabelecerConexao)caixa.DataContext);
+                    await EstabelecerConexaoAsync(new InfoEstabelecerConexao()
+                    {
+                        IP = caixa.IP,
+                        SenhaTemporaria = caixa.SenhaTemporaria
+                    });
                 }
             }
             catch (Exception erro)

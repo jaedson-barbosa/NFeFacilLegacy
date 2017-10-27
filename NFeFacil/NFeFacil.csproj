@@ -161,6 +161,8 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="ImagemExtensoes.cs" />
+    <Compile Include="Sincronizacao\Pacotes\ConjuntoNotasFiscais.cs" />
+    <Compile Include="View\Ano.cs" />
     <Compile Include="View\Backup.xaml.cs">
       <DependentUpon>Backup.xaml</DependentUpon>
     </Compile>
@@ -344,7 +346,6 @@
     <Compile Include="Certificacao\CodigoNet\XmlDsigC14NTransform.cs" />
     <Compile Include="Certificacao\CodigoNet\XmlDsigEnvelopedSignatureTransform.cs" />
     <Compile Include="Certificacao\ConfiguracoesCertificacao.cs" />
-    <Compile Include="Certificacao\LAN\Exportacao.cs" />
     <Compile Include="Certificacao\LAN\InformacoesConexao.cs" />
     <Compile Include="Certificacao\LAN\OperacoesServidor.cs" />
     <Compile Include="Certificacao\OrigemCertificado.cs" />
@@ -369,7 +370,7 @@
     <Compile Include="ExtensoesPrincipal.cs" />
     <Compile Include="IHambuguer.cs" />
     <Compile Include="Importacao\Importacao.cs" />
-    <Compile Include="Importacao\ImportarCertificado.cs" />
+    <Compile Include="Certificacao\ImportarCertificado.cs" />
     <Compile Include="Importacao\ImportarDadoBase.cs" />
     <Compile Include="Importacao\ImportarNotaFiscal.cs" />
     <Compile Include="Importacao\TiposDadoBasico.cs" />
@@ -378,14 +379,13 @@
     <Compile Include="Log\Popup.cs" />
     <Compile Include="Log\Titulos.cs" />
     <Compile Include="Log\TitulosComuns.cs" />
-    <Compile Include="OperacoesNotaEmitida.cs" />
     <Compile Include="OperacoesNotaSalva.cs" />
     <Compile Include="Propriedades.cs" />
     <Compile Include="MudancaOtimizadaBancoDados.cs" />
     <Compile Include="Sincronizacao\ConfiguracoesSincronizacao.cs" />
     <Compile Include="Sincronizacao\GerenciadorCliente.cs" />
     <Compile Include="Sincronizacao\GerenciadorServidor.cs" />
-    <Compile Include="Sincronizacao\Pacotes\ConjuntoBanco.cs" />
+    <Compile Include="Sincronizacao\Pacotes\ConjuntoDadosBase.cs" />
     <Compile Include="Sincronizacao\Pacotes\InfoEstabelecerConexao.cs" />
     <Compile Include="Sincronizacao\Pacotes\InfoSegurancaConexao.cs" />
     <Compile Include="Sincronizacao\Servidor\ControllerInformacoes.cs" />
@@ -439,7 +439,7 @@
     <Compile Include="ViewDadosBase\AdicionarVeiculo.xaml.cs">
       <DependentUpon>AdicionarVeiculo.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ConfigurarDadosConexao.xaml.cs">
+    <Compile Include="Sincronizacao\ConfigurarDadosConexao.xaml.cs">
       <DependentUpon>ConfigurarDadosConexao.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewRegistroVenda\AdicionarProduto.xaml.cs">
@@ -448,10 +448,10 @@
     <Compile Include="ViewRegistroVenda\CalculoDesconto.xaml.cs">
       <DependentUpon>CalculoDesconto.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\CancelarNFe.xaml.cs">
+    <Compile Include="ViewNFe\CancelarNFe.xaml.cs">
       <DependentUpon>CancelarNFe.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ConfiguracoesCertificado.xaml.cs">
+    <Compile Include="Certificacao\ConfiguracoesCertificado.xaml.cs">
       <DependentUpon>ConfiguracoesCertificado.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Consulta.xaml.cs">
@@ -492,13 +492,13 @@
     <Compile Include="Controles\ItemPadraoSimples.xaml.cs">
       <DependentUpon>ItemPadraoSimples.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Importacao\DefinirSenhaCertificado.xaml.cs">
+    <Compile Include="Certificacao\DefinirSenhaCertificado.xaml.cs">
       <DependentUpon>DefinirSenhaCertificado.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\DefinirImagem.xaml.cs">
       <DependentUpon>DefinirImagem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ImportacaoDados.xaml.cs">
+    <Compile Include="Importacao\ImportacaoDados.xaml.cs">
       <DependentUpon>ImportacaoDados.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controles\CarregamentoCircular.xaml.cs">
@@ -525,7 +525,7 @@
     </Compile>
     <Compile Include="AuxiliaresEstilos\BibliotecaCores.cs" />
     <Compile Include="AuxiliaresEstilos\PainelAdaptavel.cs" />
-    <Compile Include="View\SincronizacaoCliente.xaml.cs">
+    <Compile Include="Sincronizacao\SincronizacaoCliente.xaml.cs">
       <DependentUpon>SincronizacaoCliente.xaml</DependentUpon>
     </Compile>
     <Compile Include="DANFE\PaginasDANFE\IPagina.cs" />
@@ -567,13 +567,13 @@
     <Compile Include="DANFE\PartesDANFE\ItemProduto.xaml.cs">
       <DependentUpon>ItemProduto.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\QRConexao.xaml.cs">
+    <Compile Include="Sincronizacao\QRConexao.xaml.cs">
       <DependentUpon>QRConexao.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewRegistroVenda\RegistrosVenda.xaml.cs">
       <DependentUpon>RegistrosVenda.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\SincronizacaoServidor.xaml.cs">
+    <Compile Include="Sincronizacao\SincronizacaoServidor.xaml.cs">
       <DependentUpon>SincronizacaoServidor.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\VendasAnuais.xaml.cs">
@@ -875,7 +875,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ConfigurarDadosConexao.xaml">
+    <Page Include="Sincronizacao\ConfigurarDadosConexao.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -887,7 +887,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\CancelarNFe.xaml">
+    <Page Include="ViewNFe\CancelarNFe.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -895,7 +895,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Importacao\DefinirSenhaCertificado.xaml">
+    <Page Include="Certificacao\DefinirSenhaCertificado.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -903,11 +903,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ImportacaoDados.xaml">
+    <Page Include="Importacao\ImportacaoDados.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ConfiguracoesCertificado.xaml">
+    <Page Include="Certificacao\ConfiguracoesCertificado.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -983,7 +983,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\SincronizacaoCliente.xaml">
+    <Page Include="Sincronizacao\SincronizacaoCliente.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1040,7 +1040,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\QRConexao.xaml">
+    <Page Include="Sincronizacao\QRConexao.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1048,7 +1048,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\SincronizacaoServidor.xaml">
+    <Page Include="Sincronizacao\SincronizacaoServidor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

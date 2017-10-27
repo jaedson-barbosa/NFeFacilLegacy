@@ -1,4 +1,4 @@
-﻿<Page x:Class="NFeFacil.View.ConfiguracoesCertificado"
+﻿<Page x:Class="NFeFacil.Certificacao.ConfiguracoesCertificado"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:my="using:NFeFacil.Controles"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"

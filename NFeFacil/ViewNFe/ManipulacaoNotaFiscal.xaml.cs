@@ -435,6 +435,7 @@ namespace NFeFacil.ViewNFe
 
         void AtualizarTotais()
         {
+            NotaSalva.Informacoes.total = new Total(NotaSalva.Informacoes.produtos);
             pvtTotais.DataContext = NotaSalva.Informacoes.total;
         }
 

@@ -135,7 +135,8 @@ namespace NFeFacil.ViewRegistroVenda
                             estoque.UltimaData = DateTime.Now;
                             estoque.Alteracoes.Add(new AlteracaoEstoque
                             {
-                                Alteração = produto.Quantidade * -1
+                                Alteração = produto.Quantidade * -1,
+                                MomentoRegistro = DateTime.Now
                             });
 
                             db.Estoque.Update(estoque);

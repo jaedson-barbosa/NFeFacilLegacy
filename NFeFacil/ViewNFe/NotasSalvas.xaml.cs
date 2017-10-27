@@ -9,6 +9,11 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Navigation;
 using NFeFacil.Controles;
+using System.Xml.Serialization;
+using NFeFacil.Log;
+using NFeFacil.WebService.Pacotes;
+using System.Threading.Tasks;
+using NFeFacil.WebService;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -65,7 +70,7 @@ namespace NFeFacil.ViewNFe
             var nota = (NFeView)((MenuFlyoutItem)sender).DataContext;
             var Nota = nota.Nota;
             var processo = XElement.Parse(Nota.XML).FromXElement<Processo>();
-            if (await new OperacoesNotaEmitida(processo).Cancelar())
+            if (await Cancelar(processo))
             {
                 Nota.Status = (int)StatusNFe.Cancelada;
                 using (var db = new AplicativoContext())
@@ -81,7 +86,71 @@ namespace NFeFacil.ViewNFe
             }
         }
 
+        public async Task<bool> Cancelar(Processo Processo)
+        {
+            ILog Log = Popup.Current;
+
+            try
+            {
+                var estado = Processo.NFe.Informacoes.identificacao.CódigoUF;
+                var tipoAmbiente = Processo.ProtNFe.InfProt.tpAmb;
+
+                var gerenciador = new GerenciadorGeral<EnvEvento, RetEnvEvento>(estado, Operacoes.RecepcaoEvento, tipoAmbiente == 2);
+
+                var cnpj = Processo.NFe.Informacoes.emitente.CNPJ;
+                var chave = Processo.NFe.Informacoes.ChaveAcesso;
+                var nProtocolo = Processo.ProtNFe.InfProt.nProt;
+                var versao = gerenciador.Enderecos.VersaoRecepcaoEvento;
+                var entrada = new CancelarNFe();
+
+                if (await entrada.ShowAsync() == ContentDialogResult.Primary)
+                {
+                    var infoEvento = new InformacoesEvento(estado, cnpj, chave, versao, nProtocolo, entrada.Motivo, tipoAmbiente);
+                    var envio = new EnvEvento(gerenciador.Enderecos.VersaoRecepcaoEvento, infoEvento);
+                    await envio.PrepararEventos();
+                    var resposta = await gerenciador.EnviarAsync(envio);
+                    if (resposta.RetEvento[0].InfEvento.CStat == 135)
+                    {
+                        using (var contexto = new AplicativoContext())
+                        {
+                            contexto.Cancelamentos.Add(new RegistroCancelamento()
+                            {
+                                ChaveNFe = chave,
+                                DataHoraEvento = resposta.RetEvento[0].InfEvento.DhRegEvento,
+                                TipoAmbiente = tipoAmbiente,
+                                XML = new ProcEventoCancelamento()
+                                {
+                                    Eventos = envio.Eventos,
+                                    RetEvento = resposta.RetEvento,
+                                    Versao = resposta.Versao
+                                }.ToXElement<ProcEventoCancelamento>().ToString()
+                            });
+                            contexto.SaveChanges();
+                        }
+                        Log.Escrever(TitulosComuns.Sucesso, "NFe cancelada com sucesso.");
+                        return true;
+                    }
+                    else
+                    {
+                        Log.Escrever(TitulosComuns.Erro, resposta.RetEvento[0].InfEvento.XMotivo);
+                    }
+                }
+                return false;
+            }
+            catch (Exception e)
+            {
+                Log.Escrever(TitulosComuns.Erro, e.Message);
+                return false;
+            }
+        }
+
         public void AtualizarMain(int index) => main.SelectedIndex = index;
+
+        private void TelaMudou(object sender, SelectionChangedEventArgs e)
+        {
+            var index = ((FlipView)sender).SelectedIndex;
+            MainPage.Current.AlterarSelectedIndexHamburguer(index);
+        }
 
         sealed class NFeView
         {
@@ -123,10 +192,17 @@ namespace NFeFacil.ViewNFe
             }
         }
 
-        private void TelaMudou(object sender, SelectionChangedEventArgs e)
+        [XmlRoot("procEventoNFe", Namespace = "http://www.portalfiscal.inf.br/nfe")]
+        public struct ProcEventoCancelamento
         {
-            var index = ((FlipView)sender).SelectedIndex;
-            MainPage.Current.AlterarSelectedIndexHamburguer(index);
+            [XmlAttribute("versao")]
+            public string Versao { get; set; }
+
+            [XmlElement("evento")]
+            public Evento[] Eventos { get; set; }
+
+            [XmlElement("retEvento")]
+            public ResultadoEvento[] RetEvento { get; set; }
         }
     }
 }

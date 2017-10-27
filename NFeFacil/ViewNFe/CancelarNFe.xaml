@@ -1,14 +1,13 @@
-﻿<ContentDialog x:Class="NFeFacil.View.ConfigurarDadosConexao"
+﻿<ContentDialog x:Class="NFeFacil.ViewNFe.CancelarNFe"
                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                mc:Ignorable="d"
-               Title="Configurar conexão"
-               PrimaryButtonText="Salvar"
-               SecondaryButtonText="Cancelar">
-    <StackPanel>
-        <TextBox Text="{Binding IP, Mode=TwoWay}" />
-        <TextBox Text="{Binding SenhaTemporaria, Mode=TwoWay}" />
-    </StackPanel>
+               Title="Cancelar NFe"
+               PrimaryButtonText="Concluir"
+               SecondaryButtonText="Cancelar"
+               PrimaryButtonClick="ContentDialog_PrimaryButtonClick">
+    <TextBox Header="Motivo"
+             Text="{x:Bind Motivo, Mode=TwoWay}" />
 </ContentDialog>

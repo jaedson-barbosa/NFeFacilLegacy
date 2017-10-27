@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using NFeFacil.Sincronizacao;
-using Windows.ApplicationModel;
+﻿using NFeFacil.Sincronizacao;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 
@@ -18,11 +16,6 @@ namespace NFeFacil
         public App()
         {
             InitializeComponent();
-            Suspending += OnSuspending;
-            using (var db = new AplicativoContext())
-            {
-                db.Database.Migrate();
-            }
             IBGE.Estados.Buscar();
             IBGE.Municipios.Buscar();
             if (ConfiguracoesSincronizacao.InícioAutomático)
@@ -48,20 +41,6 @@ namespace NFeFacil
             {
                 Window.Current.Activate();
             }
-        }
-
-        /// <summary>
-        /// Chamado quando a execução do aplicativo está sendo suspensa.  O estado do aplicativo é salvo
-        /// sem saber se o aplicativo será encerrado ou retomado com o conteúdo
-        /// da memória ainda intacto.
-        /// </summary>
-        /// <param name="sender">A fonte da solicitação de suspensão.</param>
-        /// <param name="e">Detalhes sobre a solicitação de suspensão.</param>
-        private void OnSuspending(object sender, SuspendingEventArgs e)
-        {
-            var deferral = e.SuspendingOperation.GetDeferral();
-            //TODO: Salvar o estado do aplicativo e parar qualquer atividade em segundo plano
-            deferral.Complete();
         }
     }
 }

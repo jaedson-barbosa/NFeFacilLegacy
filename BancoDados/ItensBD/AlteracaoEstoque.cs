@@ -6,5 +6,6 @@ namespace NFeFacil.ItensBD
     {
         public Guid Id { get; set; }
         public double Alteração { get; set; }
+        public DateTime MomentoRegistro { get; set; }
     }
 }

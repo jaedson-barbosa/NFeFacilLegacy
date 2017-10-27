@@ -49,6 +49,9 @@
             <AppBarButton Icon="Edit"
                           Label="Editar"
                           Click="Editar" />
+            <AppBarButton Icon="AttachCamera"
+                          Label="Logotipo"
+                          Click="Logotipo" />
         </CommandBar>
     </Page.BottomAppBar>
 </Page>

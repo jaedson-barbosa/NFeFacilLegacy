@@ -4,7 +4,7 @@ using System;
 
 namespace NFeFacil.ItensBD
 {
-    public sealed class ClienteDI
+    public sealed class ClienteDI : IUltimaData
     {
         public Guid Id { get; set; }
         public DateTime UltimaData { get; set; }

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace NFeFacil.ItensBD
 {
-    public sealed class Vendedor
+    public sealed class Vendedor : IUltimaData
     {
         public Guid Id { get; set; }
         public DateTime UltimaData { get; set; }

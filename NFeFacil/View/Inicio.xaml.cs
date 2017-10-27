@@ -1,4 +1,6 @@
-﻿using NFeFacil.Sincronizacao;
+﻿using NFeFacil.Certificacao;
+using NFeFacil.Importacao;
+using NFeFacil.Sincronizacao;
 using NFeFacil.ViewDadosBase;
 using NFeFacil.ViewRegistroVenda;
 using System;

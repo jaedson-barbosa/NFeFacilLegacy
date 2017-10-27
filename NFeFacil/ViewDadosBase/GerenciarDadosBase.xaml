@@ -180,6 +180,7 @@
                             <MenuFlyout>
                                 <MenuFlyoutItem Click="EditarVendedor">Editar</MenuFlyoutItem>
                                 <MenuFlyoutItem Click="InativarVendedor">Inativar</MenuFlyoutItem>
+                                <MenuFlyoutItem Click="ImagemVendedor">Imagem do perfil</MenuFlyoutItem>
                             </MenuFlyout>
                         </Grid.ContextFlyout>
                         <TextBlock Text="{Binding Nome}" />

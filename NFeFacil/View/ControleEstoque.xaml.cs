@@ -1,7 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using LiveCharts.Configurations;
+using Microsoft.EntityFrameworkCore;
 using NFeFacil.ItensBD;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -16,6 +18,8 @@ namespace NFeFacil.View
     /// </summary>
     public sealed partial class ControleEstoque : Page
     {
+        Func<double, string> Formatter { get; set; }
+
         public ControleEstoque()
         {
             InitializeComponent();
@@ -24,13 +28,26 @@ namespace NFeFacil.View
                 var lista = (from est in db.Estoque.Include(x => x.Alteracoes).ToArray()
                              join prod in db.Produtos.ToArray() on est.Id equals prod.Id
                              orderby prod.Descricao
-                             select new Conjunto() { Produto = prod, Estoque = est }).GerarObs();
+                             select new Conjunto() { Descricao = prod.Descricao, Estoque = est }).GerarObs();
+                for (int i = 0; i < lista.Count; i++)
+                {
+                    lista[i].Estoque.Alteracoes.OrderBy(x => x.MomentoRegistro);
+                }
                 cmbProduto.ItemsSource = lista;
                 if (lista.Count > 0)
                 {
                     cmbProduto.SelectedIndex = 0;
                 }
             }
+
+            paiGrafico.Series.Configuration = Mappers.Xy<DateModel>()
+                .X(dayModel => {
+                    var retorno = dayModel.IdTempo;
+                    return retorno;
+                })
+                .Y(dayModel => dayModel.Value);
+
+            Formatter = new Func<double, string>(x => CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName((int)x));
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -49,10 +66,9 @@ namespace NFeFacil.View
                     db.SaveChanges();
                 }
             }
-            base.OnNavigatingFrom(e);
         }
 
-        private void cmbProduto_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ProdutoAlterado(object sender, SelectionChangedEventArgs e)
         {
             var conjAdicionado = (Conjunto)e.AddedItems[0];
             if (e.RemovedItems.Count == 0 || !conjAdicionado.Equals((Conjunto)e.RemovedItems[0]))
@@ -74,24 +90,39 @@ namespace NFeFacil.View
                 var alteracoes = conjAdicionado.Estoque.Alteracoes;
                 if (alteracoes != null)
                 {
-                    var valores = new double[alteracoes.Count + 1];
-                    valores[0] = 0;
-                    for (int i = 1; i < valores.Length; i++)
+                    var anos = new List<Ano>(from item in alteracoes
+                                             group item by item.MomentoRegistro.Year into k
+                                             select new Ano(k, k.Key));
+                    var valores = new DateModel[12];
+                    var ano = anos.Last();
+                    var anosAnteriores = anos.Take(anos.Count - 1).Sum(x => x.Total);
+                    for (int i = 0; i < 12; i++)
                     {
-                        valores[i] = alteracoes.Take(i).Sum(x => x.Alteração);
+                        var mes = ano.Meses[i];
+                        valores[i] = new DateModel()
+                        {
+                            IdTempo = i + 1,
+                            Value = ano.Meses.Take(i).Sum(x => x.Total) + mes.Total + anosAnteriores
+                        };
                     }
-                    serieGrafico.Values = new LiveCharts.ChartValues<double>(valores);
+                    serieGrafico.Values = new LiveCharts.ChartValues<DateModel>(valores);
                 }
                 else
                 {
-                    serieGrafico.Values = new LiveCharts.ChartValues<double>(new double[1] { 0 });
+                    serieGrafico.Values = new LiveCharts.ChartValues<DateModel>(new DateModel[1] { new DateModel() { IdTempo = 0, Value = 0 } });
                 }
             }
         }
 
+        public class DateModel
+        {
+            public int IdTempo { get; set; }
+            public double Value { get; set; }
+        }
+
         struct Conjunto
         {
-            public ProdutoDI Produto { get; set; }
+            public string Descricao { get; set; }
             public Estoque Estoque { get; set; }
         }
 
@@ -105,7 +136,11 @@ namespace NFeFacil.View
                 {
                     var estoque = (Estoque)dadosEstoque.DataContext;
                     estoque.UltimaData = DateTime.Now;
-                    var alt = new AlteracaoEstoque() { Alteração = valor };
+                    var alt = new AlteracaoEstoque()
+                    {
+                        Alteração = valor,
+                        MomentoRegistro = DateTime.Now
+                    };
                     if (estoque.Alteracoes == null)
                     {
                         estoque.Alteracoes = new List<AlteracaoEstoque>() { alt };
@@ -120,8 +155,13 @@ namespace NFeFacil.View
                         db.SaveChanges();
                     }
 
-                    var novoValor = estoque.Alteracoes.Sum(x => x.Alteração);
-                    serieGrafico.Values.Add(novoValor);
+                    for (int i = alt.MomentoRegistro.Month - 1; i < serieGrafico.Values.Count; i++)
+                    {
+                        var item = (DateModel)serieGrafico.Values[i];
+                        item.Value += valor;
+                        serieGrafico.Values.RemoveAt(i);
+                        serieGrafico.Values.Insert(i, item);
+                    }
                 }
             }
         }

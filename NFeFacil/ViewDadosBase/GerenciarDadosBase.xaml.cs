@@ -241,5 +241,13 @@ namespace NFeFacil.ViewDadosBase
             var contexto = ((FrameworkElement)sender).DataContext;
             InativarVendedor((Vendedor)contexto);
         }
+
+        async void ImagemVendedor(object sender, RoutedEventArgs e)
+        {
+            var contexto = ((FrameworkElement)sender).DataContext;
+            var id = ((Vendedor)contexto).Id;
+            var caixa = new View.DefinirImagem(id);
+            await caixa.ShowAsync();
+        }
     }
 }

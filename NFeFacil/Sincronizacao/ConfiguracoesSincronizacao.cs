@@ -37,6 +37,20 @@ namespace NFeFacil.Sincronizacao
             }
         }
 
+        public static DateTime UltimaSincronizacaoNotas
+        {
+            get
+            {
+                var valor = Pasta.Values[nameof(UltimaSincronizacaoNotas)];
+                if (valor == null) return DateTime.MinValue;
+                else return DateTime.FromBinary((long)valor);
+            }
+            set
+            {
+                Pasta.Values[nameof(UltimaSincronizacaoNotas)] = value.ToBinary();
+            }
+        }
+
         public static int SenhaPermanente
         {
             get

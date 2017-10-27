@@ -1,18 +1,19 @@
 ﻿using Comum.Primitivos;
-using NFeFacil.Certificacao;
-using NFeFacil.Certificacao.LAN;
-using NFeFacil.Importacao;
+using NFeFacil.Log;
 using System;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Security.Cryptography.X509Certificates;
+using Windows.Storage.Pickers;
 using Windows.System.Profile;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace NFeFacil.View
+namespace NFeFacil.Certificacao
 {
     /// <summary>
     /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
@@ -34,7 +35,7 @@ namespace NFeFacil.View
         ObservableCollection<CertificadoExibicao> ListaCertificados { get; }
         bool InstalacaoLiberada => AnalyticsInfo.VersionInfo.DeviceFamily.Contains("Desktop");
 
-        async void ImportarCertificado(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        async void ImportarCertificado(object sender, TappedRoutedEventArgs e)
         {
             if (await new ImportarCertificado().ImportarEAdicionarAsync())
             {
@@ -42,19 +43,35 @@ namespace NFeFacil.View
             }
         }
 
-        async void ConectarServidor(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        async void ConectarServidor(object sender, TappedRoutedEventArgs e)
         {
-            await InformacoesConexao.Cadastrar();
+            await LAN.InformacoesConexao.Cadastrar();
         }
 
-        void EsquecerServidor(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        void EsquecerServidor(object sender, TappedRoutedEventArgs e)
         {
-            InformacoesConexao.Esquecer();
+            LAN.InformacoesConexao.Esquecer();
         }
 
-        async void InstalarServidor(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        async void InstalarServidor(object sender, TappedRoutedEventArgs e)
         {
-            await new Exportacao(Log.Popup.Current).Exportar("ServidorCertificacao", "Servidor de certificação", "Arquivo comprimido", "zip");
+            var salvador = new FileSavePicker()
+            {
+                SuggestedFileName = "Servidor de certificação",
+                DefaultFileExtension = ".zip"
+            };
+            salvador.FileTypeChoices.Add("Arquivo comprimido", new string[1] { ".zip" });
+            var arquivo = await salvador.PickSaveFileAsync();
+            if (arquivo != null)
+            {
+                using (var stream = await arquivo.OpenStreamForWriteAsync())
+                {
+                    var recurso = Extensoes.Retornar(this, $"NFeFacil.Certificacao.LAN.Arquivos.ServidorCertificacao.zip");
+                    recurso.CopyTo(stream);
+                }
+                Popup.Current.Escrever(TitulosComuns.Sucesso, "Arquivo salvo com sucesso.\r\n" +
+                    "Extraia os arquivos e inicie o repositório remoto com o Iniciar.bat");
+            }
         }
 
         private void RemoverCertificado(object sender, RoutedEventArgs e)

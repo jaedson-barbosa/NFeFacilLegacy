@@ -1,0 +1,70 @@
+﻿using NFeFacil.ItensBD;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+// O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
+
+namespace NFeFacil.View
+{
+    struct Ano
+    {
+        internal int Atual { get; }
+        internal Mes[] Meses { get; set; }
+        internal double Total { get; set; }
+
+        internal Ano(IEnumerable<AlteracaoEstoque> alteracoes, int atual)
+        {
+            Atual = atual;
+            Meses = new Mes[12];
+            for (int i = 1; i <= 12; i++)
+            {
+                Meses[i - 1] = new Mes(alteracoes.Where(x => x.MomentoRegistro.Month == i), atual, i);
+            }
+            Total = Meses.Sum(x => x.Total);
+        }
+
+        internal struct Mes
+        {
+            internal Dia[] Dias { get; set; }
+            internal double Total { get; set; }
+
+            internal Mes(IEnumerable<AlteracaoEstoque> alteracoes, int ano, int atual)
+            {
+                var quantDias = DateTime.DaysInMonth(ano, atual);
+                Dias = new Dia[quantDias];
+                for (int i = 0; i < quantDias; i++)
+                {
+                    Dias[i] = new Dia(alteracoes.Where(x => x.MomentoRegistro.Day == i));
+                }
+                Total = Dias.Sum(x => x.Total);
+            }
+
+            internal struct Dia
+            {
+                internal Hora[] Horas { get; set; }
+                internal double Total { get; set; }
+
+                internal Dia(IEnumerable<AlteracaoEstoque> alteracoes)
+                {
+                    Horas = new Hora[24];
+                    for (int i = 0; i < 24; i++)
+                    {
+                        Horas[i] = new Hora(alteracoes.Where(x => x.MomentoRegistro.Hour == i));
+                    }
+                    Total = Horas.Sum(x => x.Total);
+                }
+
+                internal struct Hora
+                {
+                    internal double Total { get; set; }
+
+                    internal Hora(IEnumerable<AlteracaoEstoque> alteracoes)
+                    {
+                        Total = alteracoes.Sum(x => x.Alteração);
+                    }
+                }
+            }
+        }
+    }
+}

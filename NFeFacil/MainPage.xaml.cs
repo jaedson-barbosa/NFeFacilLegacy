@@ -61,7 +61,18 @@ namespace NFeFacil
                 await db.Motoristas.ForEachAsync(x => AnalisarItem(x));
                 await db.Vendedores.ForEachAsync(x => AnalisarItem(x));
                 await db.Produtos.ForEachAsync(x => AnalisarItem(x));
-                await db.Estoque.ForEachAsync(x => AnalisarItem(x));
+                await db.Estoque.Include(x => x.Alteracoes).ForEachAsync(x =>
+                {
+                    x.Alteracoes?.ForEach(alt =>
+                    {
+                        if (alt.MomentoRegistro == default(DateTime))
+                        {
+                            alt.MomentoRegistro = DateTime.Now;
+                            db.Update(alt);
+                        }
+                    });
+                    AnalisarItem(x);
+                });
                 await db.Vendas.ForEachAsync(x => AnalisarItem(x));
                 await db.Imagens.ForEachAsync(x => AnalisarItem(x));
                 db.SaveChanges();

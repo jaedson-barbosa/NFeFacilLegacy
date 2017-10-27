@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using NFeFacil.ItensBD;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -17,7 +18,6 @@ namespace NFeFacil.View
     /// </summary>
     public sealed partial class ControleEstoque : Page
     {
-        const string FormatoLabel = "dd/MM HH:mm:ss";
         Func<double, string> Formatter { get; set; }
 
         public ControleEstoque()
@@ -42,12 +42,12 @@ namespace NFeFacil.View
 
             paiGrafico.Series.Configuration = Mappers.Xy<DateModel>()
                 .X(dayModel => {
-                    var retorno = dayModel.DateTime.TimeOfDay.Ticks / TimeSpan.FromMinutes(1).Ticks;
+                    var retorno = dayModel.IdTempo;
                     return retorno;
                 })
                 .Y(dayModel => dayModel.Value);
 
-            Formatter = new Func<double, string>(x => new DateTime((long)x * TimeSpan.FromMinutes(1).Ticks).ToString(FormatoLabel));
+            Formatter = new Func<double, string>(x => CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName((int)x));
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -90,24 +90,33 @@ namespace NFeFacil.View
                 var alteracoes = conjAdicionado.Estoque.Alteracoes;
                 if (alteracoes != null)
                 {
-                    var valores = new double[alteracoes.Count()];
-                    for (int i = 0; i < valores.Length; i++)
+                    var anos = new List<Ano>(from item in alteracoes
+                                             group item by item.MomentoRegistro.Year into k
+                                             select new Ano(k, k.Key));
+                    var valores = new DateModel[12];
+                    var ano = anos.Last();
+                    var anosAnteriores = anos.Take(anos.Count - 1).Sum(x => x.Total);
+                    for (int i = 0; i < 12; i++)
                     {
-                        valores[i] = alteracoes.Take(i).Sum(x => x.Alteração);
+                        var mes = ano.Meses[i];
+                        valores[i] = new DateModel()
+                        {
+                            IdTempo = i + 1,
+                            Value = ano.Meses.Take(i).Sum(x => x.Total) + mes.Total + anosAnteriores
+                        };
                     }
-                    var zipado = alteracoes.Zip(valores, (x, y) => new DateModel() { DateTime = x.MomentoRegistro, Value = y });
-                    serieGrafico.Values = new LiveCharts.ChartValues<DateModel>(zipado);
+                    serieGrafico.Values = new LiveCharts.ChartValues<DateModel>(valores);
                 }
                 else
                 {
-                    serieGrafico.Values = new LiveCharts.ChartValues<DateModel>(new DateModel[1] { new DateModel() { DateTime = DateTime.Now, Value = 0 } });
+                    serieGrafico.Values = new LiveCharts.ChartValues<DateModel>(new DateModel[1] { new DateModel() { IdTempo = 0, Value = 0 } });
                 }
             }
         }
 
         public class DateModel
         {
-            public DateTime DateTime { get; set; }
+            public int IdTempo { get; set; }
             public double Value { get; set; }
         }
 
@@ -146,8 +155,13 @@ namespace NFeFacil.View
                         db.SaveChanges();
                     }
 
-                    var novoValor = estoque.Alteracoes.Sum(x => x.Alteração);
-                    serieGrafico.Values.Add(new DateModel { DateTime = alt.MomentoRegistro, Value = novoValor });
+                    for (int i = alt.MomentoRegistro.Month - 1; i < serieGrafico.Values.Count; i++)
+                    {
+                        var item = (DateModel)serieGrafico.Values[i];
+                        item.Value += valor;
+                        serieGrafico.Values.RemoveAt(i);
+                        serieGrafico.Values.Insert(i, item);
+                    }
                 }
             }
         }

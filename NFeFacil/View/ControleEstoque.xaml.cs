@@ -47,7 +47,7 @@ namespace NFeFacil.View
                 })
                 .Y(dayModel => dayModel.Value);
 
-            Formatter = new Func<double, string>(x => CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName((int)x));
+            Formatter = new Func<double, string>(x => x < 1 || x > 12 ? "Não há dados" : CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName((int)x));
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -94,18 +94,25 @@ namespace NFeFacil.View
                                              group item by item.MomentoRegistro.Year into k
                                              select new Ano(k, k.Key));
                     var valores = new DateModel[12];
-                    var ano = anos.Last();
-                    var anosAnteriores = anos.Take(anos.Count - 1).Sum(x => x.Total);
-                    for (int i = 0; i < 12; i++)
+                    if (anos.Count > 0)
                     {
-                        var mes = ano.Meses[i];
-                        valores[i] = new DateModel()
+                        var ano = anos.Last();
+                        var anosAnteriores = anos.Take(anos.Count - 1).Sum(x => x.Total);
+                        for (int i = 0; i < 12; i++)
                         {
-                            IdTempo = i + 1,
-                            Value = ano.Meses.Take(i).Sum(x => x.Total) + mes.Total + anosAnteriores
-                        };
+                            var mes = ano.Meses[i];
+                            valores[i] = new DateModel()
+                            {
+                                IdTempo = i + 1,
+                                Value = ano.Meses.Take(i).Sum(x => x.Total) + mes.Total + anosAnteriores
+                            };
+                        }
+                        serieGrafico.Values = new LiveCharts.ChartValues<DateModel>(valores);
                     }
-                    serieGrafico.Values = new LiveCharts.ChartValues<DateModel>(valores);
+                    else
+                    {
+                        serieGrafico.Values = new LiveCharts.ChartValues<DateModel>(new DateModel[1] { new DateModel() { IdTempo = 0, Value = 0 } });
+                    }
                 }
                 else
                 {

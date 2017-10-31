@@ -72,7 +72,14 @@ namespace NFeFacil.WebService
 
             XNode ObterConteudoCorpo(XElement soap)
             {
-                var casca = soap.Element(XName.Get("Body", "http://schemas.xmlsoap.org/soap/envelope/")).FirstNode as XElement;
+                var nome = XName.Get("Body", "http://schemas.xmlsoap.org/soap/envelope/");
+                var item = soap.Element(nome);
+                if (item == null)
+                {
+                    nome = XName.Get("Body", "http://www.w3.org/2003/05/soap-envelope");
+                    item = soap.Element(nome);
+                }
+                var casca = (XElement)item.FirstNode;
                 return casca.FirstNode;
             }
         }

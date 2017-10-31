@@ -214,7 +214,7 @@ namespace NFeFacil.DANFE
             };
             using (var db = new AplicativoContext())
             {
-                var di = db.Emitentes.FirstOrDefault(x => long.Parse(x.CNPJ) == detalhes.emitente.CNPJ);
+                var di = db.Emitentes.FirstOrDefault(x => x.CNPJ == detalhes.emitente.CNPJ);
                 if (di != null)
                 {
                     var img = db.Imagens.Find(di.Id);

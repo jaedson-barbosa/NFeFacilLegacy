@@ -77,7 +77,7 @@ namespace NFeFacil.WebService.Pacotes
         public int TpAmb { get; set; }
 
         [XmlElement]
-        public long CNPJ { get; set; }
+        public string CNPJ { get; set; }
 
         [XmlElement("chNFe")]
         public string ChNFe { get; set; }
@@ -97,7 +97,7 @@ namespace NFeFacil.WebService.Pacotes
         [XmlElement("detEvento")]
         public DetalhamentoEvento DetEvento { get; set; }
 
-        public InformacoesEvento(int cOrgao, long CNPJ, string chaveNFe, string versaoEvento, ulong numeroProtocolo, string justificativa, int tipoAmbiente)
+        public InformacoesEvento(int cOrgao, string CNPJ, string chaveNFe, string versaoEvento, ulong numeroProtocolo, string justificativa, int tipoAmbiente)
         {
             COrgao = cOrgao;
             TpAmb = tipoAmbiente;

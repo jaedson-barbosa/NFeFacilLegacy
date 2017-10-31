@@ -19,6 +19,11 @@ namespace NFeFacil.Login
     public sealed partial class AdicionarEmitente : Page
     {
         EmitenteDI Emit { get; set; }
+        string RegimeTributario
+        {
+            get => Emit.RegimeTributario.ToString();
+            set => Emit.RegimeTributario = int.Parse(value);
+        }
 
         string EstadoSelecionado
         {
@@ -34,7 +39,7 @@ namespace NFeFacil.Login
             }
         }
 
-        ObservableCollection<Municipio> ListaMunicipios { get; } = new ObservableCollection<Municipio>();
+        ObservableCollection<Municipio> ListaMunicipios { get; set; }
         Municipio ConjuntoMunicipio
         {
             get => Municipios.Get(Emit.SiglaUF).FirstOrDefault(x => x.Codigo == Emit.CodigoMunicipio);
@@ -64,6 +69,7 @@ namespace NFeFacil.Login
                 Emit = (EmitenteDI)e.Parameter;
                 MainPage.Current.SeAtualizar(Symbol.Edit, "Emitente");
             }
+            ListaMunicipios = new ObservableCollection<Municipio>(Municipios.Get(Emit.SiglaUF));
         }
 
         private void Confirmar_Click(object sender, RoutedEventArgs e)

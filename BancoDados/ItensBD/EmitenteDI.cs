@@ -58,11 +58,11 @@ namespace NFeFacil.ItensBD
         {
             return new Emitente
             {
-                CNPJ = long.Parse(CNPJ),
+                CNPJ = CNPJ,
                 Nome = Nome,
                 NomeFantasia = NomeFantasia,
                 InscricaoEstadual = long.Parse(InscricaoEstadual),
-                IEST = IEST,
+                IEST = string.IsNullOrWhiteSpace(IEST) ? null : IEST,
                 IM = IM,
                 CNAE = CNAE,
                 RegimeTributario = RegimeTributario,

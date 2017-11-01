@@ -42,11 +42,13 @@ namespace NFeFacil.WebService
         {
             if (ConfiguracoesCertificacao.Origem == OrigemCertificado.Importado)
             {
-                using (var proxy = new HttpClient(new HttpClientHandler()
+                var handler = new HttpClientHandler()
                 {
                     ClientCertificateOptions = ClientCertificateOption.Automatic,
                     UseDefaultCredentials = true
-                }, true))
+                };
+                handler.ServerCertificateCustomValidationCallback = (x, y, z, w) => true;
+                using (var proxy = new HttpClient(handler, true))
                 {
                     proxy.DefaultRequestHeaders.Add("SOAPAction", Enderecos.Metodo);
                     var conteudo = new StringContent(ObterConteudoRequisicao(corpo), Encoding.UTF8, "text/xml");
@@ -65,7 +67,7 @@ namespace NFeFacil.WebService
                         Nome = "SOAPAction",
                         Valor = Enderecos.Metodo
                     },
-                    Conteudo = XElement.Parse(ObterConteudoRequisicao(corpo)),
+                    Conteudo = ObterConteudoRequisicao(corpo),
                     Uri = Enderecos.Endereco
                 });
             }
@@ -86,9 +88,9 @@ namespace NFeFacil.WebService
 
         string ObterConteudoRequisicao(Envio corpo)
         {
+            var str = corpo.ToXElement<Envio>().ToString(SaveOptions.DisableFormatting);
             return string.Format(ExtensoesPrincipal.ObterRecurso("RequisicaoSOAP"),
-                Enderecos.Servico, CodigoUF, VersaoDados,
-                corpo.ToXElement<Envio>().ToString(SaveOptions.DisableFormatting));
+                Enderecos.Servico, CodigoUF, VersaoDados, str);
         }
     }
 }

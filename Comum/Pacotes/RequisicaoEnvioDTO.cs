@@ -1,10 +1,8 @@
-﻿using System.Xml.Linq;
-
-namespace Comum.Pacotes
+﻿namespace Comum.Pacotes
 {
     public struct RequisicaoEnvioDTO
     {
-        public XElement Conteudo { get; set; }
+        public string Conteudo { get; set; }
         public CabecalhoRequisicao Cabecalho { get; set; }
         public string Uri { get; set; }
     }

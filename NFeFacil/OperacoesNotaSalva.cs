@@ -72,7 +72,7 @@ namespace NFeFacil
                     .EnviarAsync(new EnviNFe(nota.Informacoes.identificacao.Numero, nota), true);
                 if (resultadoTransmissao.cStat == 103)
                 {
-                    await Task.Delay(new TimeSpan(0, 0, 20));
+                    await Task.Delay(new TimeSpan(0, 0, 10));
                     var resultadoResposta = await new GerenciadorGeral<ConsReciNFe, RetConsReciNFe>(resultadoTransmissao.cUF, Operacoes.RespostaAutorizar, homologacao)
                         .EnviarAsync(new ConsReciNFe(resultadoTransmissao.tpAmb, resultadoTransmissao.infRec.nRec));
                     if (resultadoResposta.protNFe.InfProt.cStat == 100)

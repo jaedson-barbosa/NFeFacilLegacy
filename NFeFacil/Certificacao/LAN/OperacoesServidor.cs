@@ -54,6 +54,7 @@ namespace NFeFacil.Certificacao.LAN
                 var conteudo = new StringContent(xml, Encoding.UTF8, "text/xml");
 
                 var resposta = await cliente.PostAsync(uri, conteudo);
+                var str = await resposta.Content.ReadAsStringAsync();
                 using (var stream = await resposta.Content.ReadAsStreamAsync())
                 {
                     return stream.FromXElement<Assinatura>();

@@ -74,7 +74,6 @@ namespace NFeFacil.WebService
                     var xml = envio.ToXElement<RequisicaoEnvioDTO>().ToString(SaveOptions.DisableFormatting);
                     var conteudo = new StringContent(xml, Encoding.UTF8, "text/xml");
                     var resposta = await cliente.PostAsync(uri, conteudo);
-                    var str = await resposta.Content.ReadAsStringAsync();
                     using (var stream = await resposta.Content.ReadAsStreamAsync())
                     {
                         return stream.FromXElement<Resposta>();

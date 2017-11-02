@@ -4,6 +4,7 @@
 
 using System.Xml;
 using System.Collections;
+using System;
 
 namespace ServidorCertificacaoConsole.CodigoNet
 {

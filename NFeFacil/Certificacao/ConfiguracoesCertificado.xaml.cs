@@ -78,10 +78,10 @@ namespace NFeFacil.Certificacao
         {
             var contexto = ((FrameworkElement)sender).DataContext;
             var serial = ((CertificadoExibicao)contexto).SerialNumber;
-            using (var loja = new X509Store())
+            using (var loja = new X509Store(StoreName.My, StoreLocation.CurrentUser))
             {
                 loja.Open(OpenFlags.ReadWrite);
-                var cert = loja.Certificates.Find(X509FindType.FindBySerialNumber, serial, true)[0];
+                var cert = loja.Certificates.Find(X509FindType.FindBySerialNumber, serial, false)[0];
                 loja.Remove(cert);
             }
             AttLista();

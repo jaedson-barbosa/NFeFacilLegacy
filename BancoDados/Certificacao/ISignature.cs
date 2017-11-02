@@ -1,4 +1,4 @@
-﻿using NFeFacil.ModeloXML.PartesProcesso;
+﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesAssinatura;
 
 namespace NFeFacil.Certificacao
 {

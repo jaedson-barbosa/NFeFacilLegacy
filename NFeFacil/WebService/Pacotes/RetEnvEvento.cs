@@ -1,4 +1,4 @@
-﻿using NFeFacil.ModeloXML.PartesProcesso;
+﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesAssinatura;
 using System.Xml.Serialization;
 
 namespace NFeFacil.WebService.Pacotes

@@ -1,5 +1,5 @@
 ﻿using NFeFacil.Certificacao;
-using NFeFacil.ModeloXML.PartesProcesso;
+using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesAssinatura;
 using System;
 using System.Threading.Tasks;
 using System.Xml;

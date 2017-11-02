@@ -323,7 +323,6 @@
       <DependentUpon>SelecaoCertificado.xaml</DependentUpon>
     </Compile>
     <Compile Include="Certificacao\AssinaFacil.cs" />
-    <Compile Include="Certificacao\AssinaturaXML.cs" />
     <Compile Include="Certificacao\Certificados.cs" />
     <Compile Include="Certificacao\CodigoNet\AttributeSortOrder.cs" />
     <Compile Include="Certificacao\CodigoNet\C14NAncestralNamespaceContextManager.cs" />

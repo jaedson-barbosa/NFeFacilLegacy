@@ -1,11 +1,17 @@
 ﻿using Comum.Pacotes;
+using ServidorCertificacaoConsole.PartesAssinatura;
+using System;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
+using ServidorCertificacaoConsole.CodigoNet;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Xml.Serialization;
+using System.Xml;
+using Comum.Primitivos;
 
 namespace ServidorCertificacaoConsole
 {
@@ -25,7 +31,7 @@ namespace ServidorCertificacaoConsole
             var retorno = new CertificadosExibicaoDTO(Loja.Certificates.Count);
             foreach (var item in Loja.Certificates)
             {
-                retorno.Registro.Add(new Comum.Primitivos.CertificadoExibicao
+                retorno.Registro.Add(new CertificadoExibicao
                 {
                     SerialNumber = item.SerialNumber,
                     Subject = item.Subject
@@ -107,6 +113,60 @@ namespace ServidorCertificacaoConsole
                 memoryStream.Position = 0;
                 return XElement.Load(memoryStream);
             }
+        }
+
+        public Assinatura AssinarXML(CertificadoAssinatura certificado)
+        {
+            var doc = new XmlDocument();
+            doc.LoadXml(certificado.XML);
+            var signedXml = new SignedXml(doc)
+            {
+                Key = certificado.ChavePrivada
+            };
+
+            Reference reference = new Reference($"#{certificado.Id}", certificado.Tag, signedXml);
+            reference.AddTransform(new XmlDsigEnvelopedSignatureTransform());
+            reference.AddTransform(new XmlDsigC14NTransform());
+            signedXml.AddReference(reference);
+
+            signedXml.ComputeSignature();
+
+            return new Assinatura()
+            {
+                SignatureValue = Convert.ToBase64String(signedXml.Signature.SignatureValue),
+                KeyInfo = new DetalhesChave
+                {
+                    X509Data = new DadosChave
+                    {
+                        X509Certificate = Convert.ToBase64String(certificado.RawData)
+                    }
+                },
+                SignedInfo = new SignedInfo
+                {
+                    CanonicalizationMethod = new Algoritmo
+                    {
+                        Algorithm = signedXml.Signature.CanonicalizationMethod
+                    },
+                    SignatureMethod = new Algoritmo
+                    {
+                        Algorithm = signedXml.Signature.SignatureMethod
+                    },
+                    Reference = new Referencia
+                    {
+                        DigestMethod = new Algoritmo
+                        {
+                            Algorithm = signedXml.Signature.Reference.DigestMethod
+                        },
+                        DigestValue = Convert.ToBase64String(signedXml.Signature.Reference.DigestValue),
+                        URI = signedXml.Signature.Reference.Uri,
+                        Transforms = (from t in signedXml.Signature.Reference.TransformChain
+                                      select new Algoritmo
+                                      {
+                                          Algorithm = t.Algorithm
+                                      }).ToArray()
+                    }
+                }
+            };
         }
     }
 }

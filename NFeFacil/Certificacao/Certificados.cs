@@ -30,27 +30,5 @@ namespace NFeFacil.Certificacao
                 return (await operacoes.ObterCertificados()).GerarObs();
             }
         }
-
-        public static async Task<CertificadoAssinatura> ObterCertificadoEscolhidoAsync(string serial, OrigemCertificado origem)
-        {
-            if (origem == OrigemCertificado.Importado)
-            {
-                using (var loja = new X509Store())
-                {
-                    loja.Open(OpenFlags.ReadOnly);
-                    var cert = loja.Certificates.Find(X509FindType.FindBySerialNumber, serial, true)[0];
-                    return new CertificadoAssinatura
-                    {
-                        ChavePrivada = cert.GetRSAPrivateKey(),
-                        RawData = cert.RawData
-                    };
-                }
-            }
-            else
-            {
-                var operacoes = new LAN.OperacoesServidor();
-                return await operacoes.ObterCertificado(serial);
-            }
-        }
     }
 }

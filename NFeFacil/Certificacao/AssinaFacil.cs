@@ -6,6 +6,8 @@ using Comum.Primitivos;
 using System.Linq;
 using System.Security.Cryptography.Xml;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesAssinatura;
+using System.Security.Cryptography.X509Certificates;
+using Comum.Pacotes;
 
 namespace NFeFacil.Certificacao
 {
@@ -29,8 +31,34 @@ namespace NFeFacil.Certificacao
                 {
                     var serial = caixa.CertificadoEscolhido;
                     var origem = ConfiguracoesCertificacao.Origem;
-                    var cert = await Certificados.ObterCertificadoEscolhidoAsync(serial, origem);
-                    Nota.Signature = AssinarXML(cert);
+
+                    if (origem == OrigemCertificado.Importado)
+                    {
+                        using (var loja = new X509Store())
+                        {
+                            loja.Open(OpenFlags.ReadOnly);
+                            var temp = loja.Certificates.Find(X509FindType.FindBySerialNumber, serial, true)[0];
+                            Nota.Signature = AssinarXML(new CertificadoAssinatura
+                            {
+                                ChavePrivada = temp.GetRSAPrivateKey(),
+                                RawData = temp.RawData,
+                                Id = id,
+                                Tag = tag,
+                                XML = xml.OuterXml
+                            });
+                        }
+                    }
+                    else
+                    {
+                        var operacoes = new LAN.OperacoesServidor();
+                        Nota.Signature = await operacoes.AssinarRemotamente(new CertificadoAssinaturaDTO
+                        {
+                            Id = id,
+                            Tag = tag,
+                            XML = xml.OuterXml,
+                            Serial = serial
+                        });
+                    }
                 }
             }
         }

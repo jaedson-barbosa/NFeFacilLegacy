@@ -58,15 +58,16 @@ namespace ServidorCertificacaoConsole
                     case Comum.NomesMetodos.ObterCertificados:
                         metodos.ObterCertificados(stream);
                         break;
-                    case Comum.NomesMetodos.ObterChaveCertificado:
-                        var parametroMetodo = parametros.Length == 1 ? null : WebUtility.UrlDecode(parametros[1]);
-                        Console.WriteLine($"Parametro: {parametroMetodo}");
-                        metodos.ObterChaveCertificado(stream, parametroMetodo);
+                    case Comum.NomesMetodos.AssinarRemotamente:
+                        var conteudo0 = requisicao.Substring(requisicao.IndexOf("\r\n\r\n") + 4);
+                        var xml0 = XElement.Parse(conteudo0);
+                        var cert = Desserializar<CertificadoAssinaturaDTO>(xml0);
+                        metodos.AssinarRemotamente(stream, cert);
                         break;
                     case Comum.NomesMetodos.EnviarRequisicao:
-                        var conteudo = requisicao.Substring(requisicao.IndexOf("\r\n\r\n") + 4);
-                        var xml = XElement.Parse(conteudo);
-                        var envio = Desserializar<RequisicaoEnvioDTO>(xml);
+                        var conteudo1 = requisicao.Substring(requisicao.IndexOf("\r\n\r\n") + 4);
+                        var xml1 = XElement.Parse(conteudo1);
+                        var envio = Desserializar<RequisicaoEnvioDTO>(xml1);
                         await metodos.EnviarRequisicaoAsync(stream, envio);
                         break;
                     default:

@@ -17,29 +17,6 @@ namespace NFeFacil.Certificacao
             };
             abrir.FileTypeFilter.Add(".pfx");
             abrir.FileTypeFilter.Add(".cer");
-            var cert = await Importar();
-            if (cert != null)
-            {
-                using (var loja = new X509Store())
-                {
-                    loja.Open(OpenFlags.ReadWrite);
-                    loja.Add(cert);
-                }
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        async Task<X509Certificate2> Importar()
-        {
-            FileOpenPicker abrir = new FileOpenPicker
-            {
-                SuggestedStartLocation = PickerLocationId.Downloads,
-            };
-            abrir.FileTypeFilter.Add(".pfx");
             var arq = await abrir.PickSingleFileAsync();
             if (arq != null)
             {
@@ -49,17 +26,24 @@ namespace NFeFacil.Certificacao
                 if (await entrada.ShowAsync() == ContentDialogResult.Primary)
                 {
                     var senha = entrada.Senha;
+                    X509Certificate2 cert;
                     if (string.IsNullOrEmpty(senha))
                     {
-                        return new X509Certificate2(novoArq.Path);
+                        cert = new X509Certificate2(novoArq.Path);
                     }
                     else
                     {
-                        return new X509Certificate2(novoArq.Path, senha, X509KeyStorageFlags.PersistKeySet);
+                        cert = new X509Certificate2(novoArq.Path, senha, X509KeyStorageFlags.PersistKeySet);
                     }
+                    using (var loja = new X509Store())
+                    {
+                        loja.Open(OpenFlags.ReadWrite);
+                        loja.Add(cert);
+                    }
+                    return true;
                 }
             }
-            return null;
+            return false;
         }
     }
 }

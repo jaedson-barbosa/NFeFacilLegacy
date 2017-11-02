@@ -27,7 +27,6 @@ namespace ServidorCertificacaoConsole
 
         public void ObterCertificados(Stream stream)
         {
-            
             var retorno = new CertificadosExibicaoDTO(Loja.Certificates.Count);
             foreach (var item in Loja.Certificates)
             {
@@ -44,17 +43,9 @@ namespace ServidorCertificacaoConsole
             stream.Write(data, 0, data.Length);
         }
 
-        public void ObterChaveCertificado(Stream stream, string serial)
+        public void AssinarRemotamente(Stream stream, CertificadoAssinaturaDTO cert)
         {
-            var cert = Loja.Certificates.Find(X509FindType.FindBySerialNumber, serial, true)[0];
-            var rsa = cert.GetRSAPrivateKey();
-            var paramRSA = rsa.ExportParameters(true);
-            var obj = new CertificadoAssinaturaDTO()
-            {
-                ParametrosChavePrivada = paramRSA,
-                RawData = cert.RawData
-            };
-            var xml = Serializar(obj);
+            var xml = Serializar(AssinarXML((CertificadoAssinatura)cert));
 
             var data = Encoding.UTF8.GetBytes(xml.ToString());
             EscreverCabecalho(stream, data.Length);

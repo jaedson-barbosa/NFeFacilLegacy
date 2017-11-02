@@ -21,6 +21,7 @@ namespace ServidorCertificacaoConsole
 
         public void ObterCertificados(Stream stream)
         {
+            
             var retorno = new CertificadosExibicaoDTO(Loja.Certificates.Count);
             foreach (var item in Loja.Certificates)
             {
@@ -40,9 +41,11 @@ namespace ServidorCertificacaoConsole
         public void ObterChaveCertificado(Stream stream, string serial)
         {
             var cert = Loja.Certificates.Find(X509FindType.FindBySerialNumber, serial, true)[0];
+            var rsa = cert.GetRSAPrivateKey();
+            var paramRSA = rsa.ExportParameters(true);
             var obj = new CertificadoAssinaturaDTO()
             {
-                ParametrosChavePrivada = cert.GetRSAPrivateKey().ExportParameters(true),
+                ParametrosChavePrivada = paramRSA,
                 RawData = cert.RawData
             };
             var xml = Serializar(obj);
@@ -63,7 +66,9 @@ namespace ServidorCertificacaoConsole
                 proxy.DefaultRequestHeaders.Add(req.Cabecalho.Nome, req.Cabecalho.Valor);
                 var resposta = await proxy.PostAsync(req.Uri,
                     new StringContent(req.Conteudo.ToString(SaveOptions.DisableFormatting), Encoding.UTF8, "text/xml"));
-                var xml = ObterConteudoCorpo(XElement.Load(await resposta.Content.ReadAsStreamAsync()));
+                var str = await resposta.Content.ReadAsStringAsync();
+                var xmlPrimario = XElement.Load(await resposta.Content.ReadAsStreamAsync());
+                var xml = ObterConteudoCorpo(xmlPrimario);
 
                 var data = Encoding.UTF8.GetBytes(xml.ToString());
                 EscreverCabecalho(stream, data.Length);
@@ -72,7 +77,14 @@ namespace ServidorCertificacaoConsole
 
             XNode ObterConteudoCorpo(XElement soap)
             {
-                var casca = soap.Element(XName.Get("Body", "http://schemas.xmlsoap.org/soap/envelope/")).FirstNode as XElement;
+                var nome = XName.Get("Body", "http://schemas.xmlsoap.org/soap/envelope/");
+                var item = soap.Element(nome);
+                if (item == null)
+                {
+                    nome = XName.Get("Body", "http://www.w3.org/2003/05/soap-envelope");
+                    item = soap.Element(nome);
+                }
+                var casca = (XElement)item.FirstNode;
                 return casca.FirstNode;
             }
         }

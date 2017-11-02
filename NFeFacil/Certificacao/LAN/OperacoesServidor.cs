@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 using System.Xml.Serialization;
 
 namespace NFeFacil.Certificacao.LAN
@@ -58,21 +57,6 @@ namespace NFeFacil.Certificacao.LAN
                 using (var stream = await resposta.Content.ReadAsStreamAsync())
                 {
                     return (T)new XmlSerializer(typeof(T)).Deserialize(stream);
-                }
-            }
-        }
-
-        public async Task<T> EnviarRequisicaoIntermediada<T>(RequisicaoEnvioDTO envio)
-        {
-            using (var cliente = new HttpClient())
-            {
-                var uri = new Uri($"http://{Ip}:8080/{Comum.NomesMetodos.EnviarRequisicao}");
-                var xml = envio.ToXElement<RequisicaoEnvioDTO>().ToString(SaveOptions.DisableFormatting);
-                var conteudo = new StringContent(xml, Encoding.UTF8, "text/xml");
-                var resposta = await cliente.PostAsync(uri, conteudo);
-                using (var stream = await resposta.Content.ReadAsStreamAsync())
-                {
-                    return stream.FromXElement<T>();
                 }
             }
         }

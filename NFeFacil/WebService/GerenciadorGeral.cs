@@ -1,11 +1,11 @@
 ﻿using NFeFacil.Certificacao;
-using NFeFacil.Certificacao.LAN;
 using Comum.Pacotes;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using NFeFacil.IBGE;
+using System;
 
 namespace NFeFacil.WebService
 {
@@ -38,7 +38,7 @@ namespace NFeFacil.WebService
             VersaoDados = operacao == Operacoes.RecepcaoEvento ? Enderecos.VersaoRecepcaoEvento : "3.10";
         }
 
-        public async Task<Resposta> EnviarAsync(Envio corpo)
+        public async Task<Resposta> EnviarAsync(Envio corpo, bool addNamespace = false)
         {
             if (ConfiguracoesCertificacao.Origem == OrigemCertificado.Importado)
             {
@@ -49,7 +49,7 @@ namespace NFeFacil.WebService
                 }, true))
                 {
                     proxy.DefaultRequestHeaders.Add("SOAPAction", Enderecos.Metodo);
-                    var conteudo = new StringContent(ObterConteudoRequisicao(corpo), Encoding.UTF8, "text/xml");
+                    var conteudo = new StringContent(ObterConteudoRequisicao(corpo, addNamespace), Encoding.UTF8, "text/xml");
                     var resposta = await proxy.PostAsync(Enderecos.Endereco, conteudo);
                     var xml = XElement.Load(await resposta.Content.ReadAsStreamAsync());
                     return ObterConteudoCorpo(xml).FromXElement<Resposta>();
@@ -57,17 +57,29 @@ namespace NFeFacil.WebService
             }
             else
             {
-                var op = new OperacoesServidor();
-                return await op.EnviarRequisicaoIntermediada<Resposta>(new RequisicaoEnvioDTO()
+                var envio = new RequisicaoEnvioDTO()
                 {
                     Cabecalho = new CabecalhoRequisicao()
                     {
                         Nome = "SOAPAction",
                         Valor = Enderecos.Metodo
                     },
-                    Conteudo = XElement.Parse(ObterConteudoRequisicao(corpo)),
+                    Conteudo = XElement.Parse(ObterConteudoRequisicao(corpo, addNamespace)),
                     Uri = Enderecos.Endereco
-                });
+                };
+
+                using (var cliente = new HttpClient())
+                {
+                    var uri = new Uri($"http://{ConfiguracoesCertificacao.IPServidorCertificacao}:8080/{Comum.NomesMetodos.EnviarRequisicao}");
+                    var xml = envio.ToXElement<RequisicaoEnvioDTO>().ToString(SaveOptions.DisableFormatting);
+                    var conteudo = new StringContent(xml, Encoding.UTF8, "text/xml");
+                    var resposta = await cliente.PostAsync(uri, conteudo);
+                    var str = await resposta.Content.ReadAsStringAsync();
+                    using (var stream = await resposta.Content.ReadAsStreamAsync())
+                    {
+                        return stream.FromXElement<Resposta>();
+                    }
+                }
             }
 
             XNode ObterConteudoCorpo(XElement soap)
@@ -84,11 +96,17 @@ namespace NFeFacil.WebService
             }
         }
 
-        string ObterConteudoRequisicao(Envio corpo)
+        string ObterConteudoRequisicao(Envio corpo, bool addNamespace)
         {
+            var xml = corpo.ToXElement<Envio>();
+            if (addNamespace)
+            {
+                const string namespaceNFe = "http://www.portalfiscal.inf.br/nfe";
+                xml.Element(XName.Get("NFe", namespaceNFe)).SetAttributeValue("xmlns", namespaceNFe);
+            }
             return string.Format(ExtensoesPrincipal.ObterRecurso("RequisicaoSOAP"),
                 Enderecos.Servico, CodigoUF, VersaoDados,
-                corpo.ToXElement<Envio>().ToString(SaveOptions.DisableFormatting));
+                xml.ToString(SaveOptions.DisableFormatting));
         }
     }
 }

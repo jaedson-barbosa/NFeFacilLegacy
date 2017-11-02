@@ -75,20 +75,14 @@ namespace ServidorCertificacaoConsole
             }
             catch (Exception e0)
             {
-                try
-                {
-                    var data = Encoding.UTF8.GetBytes($"HTTP/1.1 200 OK\r\nContent-Length: {e0.Message.Length}\r\nConnection: close\r\n\r\n{e0.Message}");
-                    stream.Write(data, 0, data.Length);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.Message);
-                }
+                var data = Encoding.UTF8.GetBytes($"HTTP/1.1 200 OK\r\nContent-Length: {e0.Message.Length}\r\nConnection: close\r\n\r\n{e0.Message}");
+                stream.Write(data, 0, data.Length);
             }
             finally
             {
                 stream.Flush();
                 stream.Dispose();
+                client.Close();
                 client.Dispose();
             }
         }

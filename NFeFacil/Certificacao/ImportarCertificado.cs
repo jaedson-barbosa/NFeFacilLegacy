@@ -16,6 +16,7 @@ namespace NFeFacil.Certificacao
                 SuggestedStartLocation = PickerLocationId.Downloads,
             };
             abrir.FileTypeFilter.Add(".pfx");
+            abrir.FileTypeFilter.Add(".cer");
             var cert = await Importar();
             if (cert != null)
             {

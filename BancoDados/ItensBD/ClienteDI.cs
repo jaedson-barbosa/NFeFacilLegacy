@@ -84,8 +84,8 @@ namespace NFeFacil.ItensBD
                 Nome = Nome,
                 IndicadorIE = IndicadorIE,
                 InscricaoEstadual = InscricaoEstadual,
-                ISUF = ISUF,
-                Email = Email,
+                ISUF = string.IsNullOrWhiteSpace(ISUF) ? null : ISUF,
+                Email = string.IsNullOrWhiteSpace(Email) ? null : Email,
                 Endereco = new ModeloXML.PartesProcesso.PartesNFe.EnderecoCompleto
                 {
                     Logradouro = Logradouro,

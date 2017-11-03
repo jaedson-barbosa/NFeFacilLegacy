@@ -97,6 +97,7 @@
                         <Grid.ContextFlyout>
                             <MenuFlyout>
                                 <MenuFlyoutItem Click="Exibir">Exibir</MenuFlyoutItem>
+                                <MenuFlyoutItem Click="Excluir">Excluir</MenuFlyoutItem>
                             </MenuFlyout>
                         </Grid.ContextFlyout>
                         <TextBlock Text="{Binding Nota.NomeEmitente}" />

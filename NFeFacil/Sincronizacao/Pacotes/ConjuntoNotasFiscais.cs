@@ -8,6 +8,7 @@ namespace NFeFacil.Sincronizacao.Pacotes
     public sealed class ConjuntoNotasFiscais
     {
         public List<NFeDI> NotasFiscais { get; set; }
+        bool VerificarEmissao(int atual) => atual >= (int)StatusNFe.Emitida;
 
         public DateTime InstanteSincronizacao { get; set; }
 
@@ -16,7 +17,7 @@ namespace NFeFacil.Sincronizacao.Pacotes
         {
             using (var db = new AplicativoContext())
             {
-                NotasFiscais = db.NotasFiscais.Where(x => x.UltimaData > minimo).ToList();
+                NotasFiscais = db.NotasFiscais.Where(x => x.UltimaData > minimo && VerificarEmissao(x.Status)).ToList();
             }
         }
 
@@ -29,7 +30,8 @@ namespace NFeFacil.Sincronizacao.Pacotes
                 foreach (var local in db.NotasFiscais)
                 {
                     var servidor = existente.NotasFiscais.FirstOrDefault(x => x.Id == local.Id);
-                    if (local.UltimaData > (servidor == null ? minimo : servidor.UltimaData))
+                    if (VerificarEmissao(local.Status) &&
+                        local.UltimaData > (servidor == null ? minimo : servidor.UltimaData))
                     {
                         NotasFiscais.Add(local);
                     }
@@ -73,7 +75,7 @@ namespace NFeFacil.Sincronizacao.Pacotes
         {
             using (var db = new AplicativoContext())
             {
-                NotasFiscais = db.NotasFiscais.ToList();
+                NotasFiscais = db.NotasFiscais.Where(x => VerificarEmissao(x.Status)).ToList();
             }
         }
     }

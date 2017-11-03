@@ -65,6 +65,18 @@ namespace NFeFacil.ViewNFe
             MainPage.Current.Navegar<VisualizacaoNFe>(nota.Nota);
         }
 
+        private void Excluir(object sender, RoutedEventArgs e)
+        {
+            var nota = (NFeView)((MenuFlyoutItem)sender).DataContext;
+            using (var db = new AplicativoContext())
+            {
+                db.NotasFiscais.Remove(nota.Nota);
+                OutrasNotas.Remove(nota);
+                db.SaveChanges();
+            }
+            Popup.Current.Escrever(TitulosComuns.Sucesso, "Nota excluída com sucesso.");
+        }
+
         private async void Cancelar(object sender, RoutedEventArgs e)
         {
             var nota = (NFeView)((MenuFlyoutItem)sender).DataContext;

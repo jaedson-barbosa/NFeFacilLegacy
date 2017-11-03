@@ -28,4 +28,11 @@
     <Capability Name="privateNetworkClientServer" />
     <DeviceCapability Name="webcam" />
   </Capabilities>
+  <Extensions>
+    <Extension Category="windows.certificates">
+      <Certificates>
+        <Certificate StoreName="Root" Content="Assets\ICP-Brasilv5.cer" />
+      </Certificates>
+    </Extension>
+  </Extensions>
 </Package>

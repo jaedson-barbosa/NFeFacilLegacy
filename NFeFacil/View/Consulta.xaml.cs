@@ -2,6 +2,7 @@
 using NFeFacil.WebService;
 using NFeFacil.WebService.Pacotes;
 using System;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;

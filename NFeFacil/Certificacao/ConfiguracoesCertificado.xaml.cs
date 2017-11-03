@@ -66,7 +66,7 @@ namespace NFeFacil.Certificacao
             {
                 using (var stream = await arquivo.OpenStreamForWriteAsync())
                 {
-                    var recurso = Extensoes.Retornar(this, $"NFeFacil.Certificacao.LAN.Arquivos.ServidorCertificacao.zip");
+                    var recurso = Extensoes.Retornar(this, $"NFeFacil.Certificacao.LAN.ServidorCertificacao.zip");
                     recurso.CopyTo(stream);
                 }
                 Popup.Current.Escrever(TitulosComuns.Sucesso, "Arquivo salvo com sucesso.\r\n" +

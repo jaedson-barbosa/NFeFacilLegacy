@@ -30,7 +30,7 @@ namespace NFeFacil.View
 
         private async void AbrirFunção(object sender, TappedRoutedEventArgs e)
         {
-            switch ((sender as FrameworkElement).Name)
+            switch ((sender as FrameworkElement).Tag)
             {
                 case "GerenciarDadosBase":
                     MainPage.Current.Navegar<GerenciarDadosBase>();
@@ -56,13 +56,16 @@ namespace NFeFacil.View
                 case "VendasAnuais":
                     MainPage.Current.Navegar<VendasAnuais>();
                     break;
-                case "ConfiguracoesCertificado":
+                case "Configuracoes":
+                    MainPage.Current.Navegar<Configuracoes>();
+                    break;
+                case "Certificado":
                     MainPage.Current.Navegar<ConfiguracoesCertificado>();
                     break;
                 case "ImportacaoDados":
                     MainPage.Current.Navegar<ImportacaoDados>();
                     break;
-                case "ConfigSincronizacao":
+                case "Sincronizacao":
                     if (ConfiguracoesSincronizacao.Tipo == TipoAppSincronizacao.Cliente)
                     {
                         MainPage.Current.Navegar<SincronizacaoCliente>();

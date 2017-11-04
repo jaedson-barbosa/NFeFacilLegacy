@@ -455,6 +455,9 @@
     <Compile Include="Certificacao\ConfiguracoesCertificado.xaml.cs">
       <DependentUpon>ConfiguracoesCertificado.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Configuracoes.xaml.cs">
+      <DependentUpon>Configuracoes.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Consulta.xaml.cs">
       <DependentUpon>Consulta.xaml</DependentUpon>
     </Compile>
@@ -897,6 +900,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Certificacao\DefinirSenhaCertificado.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Configuracoes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

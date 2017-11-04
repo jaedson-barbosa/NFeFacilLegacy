@@ -33,14 +33,4 @@
                     Click="ExibirQR">Gerar código QR temporário</Button>
         </StackPanel>
     </ScrollViewer>
-    <Page.BottomAppBar>
-        <CommandBar>
-            <AppBarButton Label="Virar cliente"
-                          Click="VirarCliente">
-                <AppBarButton.Icon>
-                    <FontIcon Glyph="&#xE975;" />
-                </AppBarButton.Icon>
-            </AppBarButton>
-        </CommandBar>
-    </Page.BottomAppBar>
 </Page>

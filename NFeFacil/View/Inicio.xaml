@@ -6,79 +6,85 @@
       x:Class="NFeFacil.View.Inicio"
       NavigationCacheMode="Required"
       mc:Ignorable="d">
-    <ScrollViewer x:Name="root"
+    <ScrollViewer Tag="root"
                   Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
                   ScrollViewer.VerticalScrollBarVisibility="Hidden"
                   Margin="8">
         <ItemsControl Style="{StaticResource ItensMedios}"
                       IsTabStop="False">
-            <controles:ItemPadrao x:Name="GerenciarDadosBase"
+            <controles:ItemPadrao Tag="GerenciarDadosBase"
                                   Titulo="Cadastros"
                                   Descricao="Emissor, cliente, transportador e produto."
                                   Tapped="AbrirFunção">
                 <SymbolIcon Symbol="Manage" />
             </controles:ItemPadrao>
-            <controles:ItemPadrao x:Name="ControleEstoque"
+            <controles:ItemPadrao Tag="ControleEstoque"
                                   Titulo="Estoque"
                                   Descricao="Visualizar e editar os dados de cada estoque."
                                   Tapped="AbrirFunção">
                 <SymbolIcon Symbol="Manage" />
             </controles:ItemPadrao>
-            <controles:ItemPadrao x:Name="ManipulacaoRegistroVenda"
+            <controles:ItemPadrao Tag="ManipulacaoRegistroVenda"
                                   Titulo="Criar nova venda"
                                   Descricao="Criar um registro de venda (Sem valor fiscal)."
                                   Tapped="AbrirFunção">
                 <FontIcon Glyph="&#xEC59;" />
             </controles:ItemPadrao>
-            <controles:ItemPadrao x:Name="CriadorNFe"
+            <controles:ItemPadrao Tag="CriadorNFe"
                                   Titulo="Criar nota fiscal"
                                   Descricao="Criar uma nova fiscal e realizar operações."
                                   Tapped="AbrirFunção">
                 <SymbolIcon Symbol="Add" />
             </controles:ItemPadrao>
-            <controles:ItemPadrao x:Name="NotasSalvas"
+            <controles:ItemPadrao Tag="NotasSalvas"
                                   Titulo="Notas salvas"
                                   Descricao="Visialize, edite e cancelar as notas desta aplicação."
                                   Tapped="AbrirFunção">
                 <SymbolIcon Symbol="Library" />
             </controles:ItemPadrao>
-            <controles:ItemPadrao x:Name="RegistrosVenda"
+            <controles:ItemPadrao Tag="RegistrosVenda"
                                   Titulo="Vendas salvas"
                                   Descricao="Visualize os registros de venda cadastrados."
                                   Tapped="AbrirFunção">
                 <SymbolIcon Symbol="Library" />
             </controles:ItemPadrao>
-            <controles:ItemPadrao x:Name="Consulta"
+            <controles:ItemPadrao Tag="Consulta"
                                   Titulo="Consultar NF-e"
                                   Descricao="Consulte dados básicos de qualquer nota fiscal emitida."
                                   Tapped="AbrirFunção">
                 <SymbolIcon Symbol="Find" />
             </controles:ItemPadrao>
-            <controles:ItemPadrao x:Name="VendasAnuais"
+            <controles:ItemPadrao Tag="VendasAnuais"
                                   Titulo="Análise anual"
                                   Descricao="Veja uma análise das notas fiscais de um ano."
                                   Tapped="AbrirFunção">
                 <SymbolIcon Symbol="Calendar" />
             </controles:ItemPadrao>
-            <controles:ItemPadrao x:Name="ConfiguracoesCertificado"
+            <controles:ItemPadrao Tag="Configuracoes"
+                                  Titulo="Configurações"
+                                  Descricao="Configure detalhes do aplicativo em uma única tela"
+                                  Tapped="AbrirFunção">
+                <SymbolIcon Symbol="Setting" />
+            </controles:ItemPadrao>
+            <controles:ItemPadrao Tag="Certificado"
                                   Titulo="Certificado"
                                   Descricao="Importe certificados ou instale e se conecte a um servidor."
                                   Tapped="AbrirFunção">
                 <SymbolIcon Symbol="Permissions" />
             </controles:ItemPadrao>
-            <controles:ItemPadrao x:Name="ImportacaoDados"
+            <controles:ItemPadrao Tag="ImportacaoDados"
                                   Titulo="Importação"
                                   Descricao="Importe dados base ou notas fiscais."
                                   Tapped="AbrirFunção">
                 <SymbolIcon Symbol="Import" />
             </controles:ItemPadrao>
-            <controles:ItemPadrao x:Name="ConfigSincronizacao"
+            <controles:ItemPadrao Tag="Sincronizacao"
                                   Titulo="Sincronização"
                                   Descricao="Configure a sincronização entre dispositivos."
                                   Tapped="AbrirFunção">
                 <SymbolIcon Symbol="Sync" />
             </controles:ItemPadrao>
-            <controles:ItemPadrao x:Name="Backup"
+            <controles:ItemPadrao Tag="Backup"
                                   Titulo="Backup"
                                   Descricao="Guarde uma cópia dos princiapais dados"
                                   Tapped="AbrirFunção">

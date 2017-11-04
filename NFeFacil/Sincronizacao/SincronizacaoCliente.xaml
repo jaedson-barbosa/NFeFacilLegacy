@@ -33,14 +33,4 @@
                     Click="SincronizarTudo">Sincronizar tudo</Button>
         </StackPanel>
     </ScrollViewer>
-    <Page.BottomAppBar>
-        <CommandBar>
-            <AppBarButton Label="Virar servidor"
-                          Click="VirarServidor">
-                <AppBarButton.Icon>
-                    <FontIcon Glyph="&#xE977;" />
-                </AppBarButton.Icon>
-            </AppBarButton>
-        </CommandBar>
-    </Page.BottomAppBar>
 </Page>

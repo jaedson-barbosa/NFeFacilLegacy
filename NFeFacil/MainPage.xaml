@@ -4,7 +4,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
                 <VisualState>
@@ -126,7 +126,8 @@
                     </Grid>
                 </Grid>
             </SplitView.Pane>
-            <Frame Name="frmPrincipal" Background="Green"
+            <Frame Name="frmPrincipal"
+                   Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
                    Grid.Column="1">
                 <Frame.ContentTransitions>
                     <TransitionCollection>

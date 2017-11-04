@@ -6,7 +6,6 @@
       mc:Ignorable="d">
     <FlipView x:Name="main"
               Padding="16"
-              Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
               SelectionChanged="TelaMudou">
         <ListView ItemsSource="{x:Bind NotasEmitidasView}"
                   ItemContainerStyle="{StaticResource ItemFullWidth}">

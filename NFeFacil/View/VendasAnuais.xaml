@@ -4,8 +4,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-          Padding="16">
+    <Grid Padding="16">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
@@ -19,7 +18,6 @@
                       SelectionChanged="AnoEscolhidoMudou" />
         </StackPanel>
         <FlipView x:Name="flipView"
-                  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
                   Grid.Row="1"
                   SelectionChanged="TelaMudou">
             <FlipView.Resources>

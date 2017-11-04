@@ -126,7 +126,7 @@
                     </Grid>
                 </Grid>
             </SplitView.Pane>
-            <Frame Name="frmPrincipal"
+            <Frame Name="frmPrincipal" Background="Green"
                    Grid.Column="1">
                 <Frame.ContentTransitions>
                     <TransitionCollection>

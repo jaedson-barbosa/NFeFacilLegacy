@@ -118,8 +118,7 @@
             </Style>
         </ResourceDictionary>
     </Page.Resources>
-    <ScrollViewer Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-                  VerticalScrollBarVisibility="Auto"
+    <ScrollViewer VerticalScrollBarVisibility="Auto"
                   HorizontalScrollBarVisibility="Auto">
         <StackPanel x:Name="paiPaginas"
                     Orientation="Horizontal">

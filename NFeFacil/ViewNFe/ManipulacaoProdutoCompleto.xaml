@@ -23,7 +23,6 @@
     </Page.Resources>
     <FlipView Name="main"
               Padding="16"
-              Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
               SelectionChanged="TelaMudou">
         <ScrollViewer>
             <ItemsControl Style="{StaticResource ItensResponsivos}">

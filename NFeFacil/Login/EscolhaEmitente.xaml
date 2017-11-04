@@ -6,7 +6,6 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
     <GridView x:Name="grdEmitentes"
-              Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
               Padding="16"
               SelectionChanged="EmitenteEscolhido"
               ItemTemplate="{StaticResource ExibicaoImagemDescricao}" />

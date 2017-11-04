@@ -79,7 +79,6 @@
         </ResourceDictionary>
     </Page.Resources>
     <Grid x:Name="grdPrincipal"
-          Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
           Padding="4">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />

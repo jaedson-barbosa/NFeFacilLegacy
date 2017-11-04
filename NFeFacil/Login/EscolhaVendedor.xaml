@@ -6,7 +6,6 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
     <GridView x:Name="grdVendedores"
-              Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
               Padding="16"
               SelectionChanged="VendedorEscolhido"
               ItemTemplate="{StaticResource ExibicaoImagemDescricao}" />

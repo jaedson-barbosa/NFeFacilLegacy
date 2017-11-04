@@ -5,8 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
-    <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-                Padding="16">
+    <StackPanel Padding="16">
         <TextBlock Style="{StaticResource TitleTextBlockStyle}">Função do dispositivo na sincronização</TextBlock>
         <RadioButton IsChecked="{x:Bind Servidor, Mode=TwoWay}">Servidor</RadioButton>
         <RadioButton IsChecked="{x:Bind Cliente}">Cliente</RadioButton>

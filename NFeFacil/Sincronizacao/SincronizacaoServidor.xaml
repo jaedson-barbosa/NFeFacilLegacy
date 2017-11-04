@@ -4,8 +4,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
-    <ScrollViewer Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-                  Padding="16">
+    <ScrollViewer Padding="16">
         <StackPanel>
             <TextBlock Margin="0,8,0,0"
                        Style="{StaticResource SubtitleTextBlockStyle}">Inicialização do servidor</TextBlock>

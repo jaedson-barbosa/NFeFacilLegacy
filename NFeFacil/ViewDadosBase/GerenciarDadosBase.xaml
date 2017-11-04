@@ -18,7 +18,6 @@
     </Page.Resources>
     <FlipView x:Name="flipView"
               Padding="16"
-              Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
               SelectionChanged="TelaMudou">
         <ListView ItemsSource="{x:Bind Clientes}"
                   ItemContainerStyle="{StaticResource ItemFullWidth}">

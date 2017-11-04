@@ -15,7 +15,6 @@
         </ResourceDictionary>
     </Page.Resources>
     <FlipView x:Name="pvtPrincipal"
-              Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
               SelectionChanged="TelaMudou">
         <Pivot Margin="16">
             <PivotItem Header="NFe">

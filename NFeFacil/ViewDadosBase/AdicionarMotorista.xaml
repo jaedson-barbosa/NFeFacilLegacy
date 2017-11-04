@@ -10,8 +10,7 @@
             <VM:DadosEstadosParaView x:Key="estados" />
         </ResourceDictionary>
     </Page.Resources>
-    <Grid x:Name="grdPrincipal"
-          Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid x:Name="grdPrincipal">
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="Auto" />

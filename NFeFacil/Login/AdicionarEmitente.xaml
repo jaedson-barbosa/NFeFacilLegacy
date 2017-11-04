@@ -9,7 +9,6 @@
         <VM:DadosEstadosParaView x:Key="estados" />
     </Page.Resources>
     <ScrollViewer VerticalScrollBarVisibility="Hidden"
-                  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
                   Padding="16">
         <StackPanel>
             <ItemsControl Style="{StaticResource ItensResponsivos}">

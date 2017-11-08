@@ -190,20 +190,6 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style TargetType="ListView">
-            <Setter Property="ItemContainerStyle">
-                <Setter.Value>
-                    <Style TargetType="ListViewItem">
-                        <Setter Property="HorizontalContentAlignment"
-                                Value="Stretch" />
-                        <Setter Property="Padding"
-                                Value="0" />
-                        <Setter Property="MinHeight"
-                                Value="12" />
-                    </Style>
-                </Setter.Value>
-            </Setter>
-        </Style>
         <Style x:Key="TextoCabecalho"
                TargetType="TextBlock"
                BasedOn="{StaticResource SubtitleTextBlockStyle}">
@@ -587,6 +573,21 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+        </Style>
+        
+        <Style TargetType="ListView">
+            <Setter Property="ItemContainerStyle">
+                <Setter.Value>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment"
+                                Value="Stretch" />
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="FlipView">
+            <Setter Property="Background"
+                    Value="Transparent" />
         </Style>
     </Application.Resources>
 </Application>

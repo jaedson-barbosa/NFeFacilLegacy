@@ -10,6 +10,7 @@ using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x416
 
@@ -21,6 +22,12 @@ namespace NFeFacil
     public sealed partial class MainPage : Page
     {
         internal static MainPage Current { get; private set; }
+
+        internal Brush FrameBackground
+        {
+            get => frmPrincipal.Background;
+            set => frmPrincipal.Background = value;
+        }
 
         public MainPage()
         {
@@ -38,18 +45,6 @@ namespace NFeFacil
                 e.Handled = true;
                 Retornar();
             };
-            using (var db = new AplicativoContext())
-            {
-                Propriedades.EmitenteAtivo = db.Emitentes.FirstOrDefault();
-                if (db.Emitentes.Count() > 0)
-                {
-                    Navegar<Login.EscolhaEmitente>();
-                }
-                else
-                {
-                    Navegar<Login.PrimeiroUso>();
-                }
-            }
         }
 
         async void Analisar()
@@ -84,6 +79,27 @@ namespace NFeFacil
                         item.UltimaData = DateTime.Now;
                         db.Update(item);
                     }
+                }
+
+                Propriedades.EmitenteAtivo = db.Emitentes.FirstOrDefault();
+                if (View.Configuracoes.IDBackgroung != default(Guid))
+                {
+                    var img = db.Imagens.Find(View.Configuracoes.IDBackgroung);
+                    if (img?.Bytes != null)
+                    {
+                        FrameBackground = new ImageBrush
+                        {
+                            ImageSource = await img.GetSourceAsync()
+                        };
+                    }
+                }
+                if (db.Emitentes.Count() > 0)
+                {
+                    Navegar<Login.EscolhaEmitente>();
+                }
+                else
+                {
+                    Navegar<Login.PrimeiroUso>();
                 }
             }
         }

@@ -36,9 +36,12 @@
             <AppBarButton Icon="Edit"
                           Label="Editar"
                           Click="Editar" />
-            <AppBarButton Icon="AttachCamera"
-                          Label="Logotipo"
-                          Click="Logotipo" />
+            <AppBarButton Label="Logotipo"
+                          Click="Logotipo">
+                <AppBarButton.Icon>
+                    <FontIcon Glyph="&#xE91B;" />
+                </AppBarButton.Icon>
+            </AppBarButton>
         </CommandBar>
     </Page.BottomAppBar>
 </Page>

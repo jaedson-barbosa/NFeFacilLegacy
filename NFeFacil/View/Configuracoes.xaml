@@ -13,8 +13,12 @@
         <TextBlock>Desconsidere o horário de verão caso você esteja tendo problemas ao transmitir as notas fiscais. Em muitos estados os servidores da SEFAZ não mudam com o horário de verão, então ative esta função para que o app se adeque a eles.</TextBlock>
         <ToggleSwitch />
         <TextBlock Style="{StaticResource TitleTextBlockStyle}">Personalização</TextBlock>
-        <controles:ItemPadrao Titulo="Definir background"
-                              Descricao="Escolha uma imagem para servir de background para o aplicativo"
-                              Tapped="DefinirBackground" />
+        <ItemsControl Style="{StaticResource ItensMedios}">
+            <controles:ItemPadrao Titulo="Definir background"
+                                  Descricao="Escolha uma imagem para servir de background para o aplicativo"
+                                  Tapped="DefinirBackground">
+                <FontIcon Glyph="&#xEB9F;" />
+            </controles:ItemPadrao>
+        </ItemsControl>
     </StackPanel>
 </Page>

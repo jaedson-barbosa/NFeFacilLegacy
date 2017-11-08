@@ -19,8 +19,7 @@
     <FlipView x:Name="flipView"
               Padding="16"
               SelectionChanged="TelaMudou">
-        <ListView ItemsSource="{x:Bind Clientes}"
-                  ItemContainerStyle="{StaticResource ItemFullWidth}">
+        <ListView ItemsSource="{x:Bind Clientes}">
             <ListView.Header>
                 <Grid Style="{StaticResource Cabecalho}">
                     <Grid.ColumnDefinitions>
@@ -65,8 +64,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ListView ItemsSource="{x:Bind Motoristas}"
-                  ItemContainerStyle="{StaticResource ItemFullWidth}">
+        <ListView ItemsSource="{x:Bind Motoristas}">
             <ListView.Header>
                 <Grid Style="{StaticResource Cabecalho}">
                     <Grid.ColumnDefinitions>
@@ -111,8 +109,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ListView ItemsSource="{x:Bind Produtos}"
-                  ItemContainerStyle="{StaticResource ItemFullWidth}">
+        <ListView ItemsSource="{x:Bind Produtos}">
             <ListView.Header>
                 <Grid Style="{StaticResource Cabecalho}">
                     <Grid.ColumnDefinitions>
@@ -150,8 +147,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ListView ItemsSource="{x:Bind Vendedores}"
-                  ItemContainerStyle="{StaticResource ItemFullWidth}">
+        <ListView ItemsSource="{x:Bind Vendedores}">
             <ListView.Header>
                 <Grid Style="{StaticResource Cabecalho}">
                     <Grid.ColumnDefinitions>

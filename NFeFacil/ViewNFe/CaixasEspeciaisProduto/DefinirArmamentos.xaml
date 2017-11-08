@@ -4,8 +4,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
-    <ListView ItemsSource="{x:Bind Armas}"
-              ItemContainerStyle="{StaticResource ItemFullWidth}">
+    <ListView ItemsSource="{x:Bind Armas}">
         <ListView.Header>
             <Grid Style="{StaticResource Cabecalho}">
                 <Grid.ColumnDefinitions>

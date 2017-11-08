@@ -7,8 +7,7 @@
     <FlipView x:Name="main"
               Padding="16"
               SelectionChanged="TelaMudou">
-        <ListView ItemsSource="{x:Bind NotasEmitidasView}"
-                  ItemContainerStyle="{StaticResource ItemFullWidth}">
+        <ListView ItemsSource="{x:Bind NotasEmitidasView}">
             <ListView.Header>
                 <Grid Style="{StaticResource Cabecalho}">
                     <Grid.Resources>
@@ -62,8 +61,7 @@
                 </GroupStyle>
             </ListView.GroupStyle>
         </ListView>
-        <ListView ItemsSource="{x:Bind OutrasNotasView}"
-                  ItemContainerStyle="{StaticResource ItemFullWidth}">
+        <ListView ItemsSource="{x:Bind OutrasNotasView}">
             <ListView.Header>
                 <Grid Style="{StaticResource Cabecalho}">
                     <Grid.Resources>

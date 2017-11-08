@@ -24,8 +24,7 @@
                 <Style TargetType="TextBlock"
                        BasedOn="{StaticResource SubtitleTextBlockStyle}" />
             </FlipView.Resources>
-            <ListView ItemsSource="{x:Bind ResultadoMes}"
-                      ItemContainerStyle="{StaticResource ItemFullWidth}">
+            <ListView ItemsSource="{x:Bind ResultadoMes}">
                 <ListView.Header>
                     <Grid Style="{StaticResource Cabecalho}">
                         <Grid.ColumnDefinitions>
@@ -66,8 +65,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <ListView ItemsSource="{x:Bind ResultadoCliente}"
-                      ItemContainerStyle="{StaticResource ItemFullWidth}">
+            <ListView ItemsSource="{x:Bind ResultadoCliente}">
                 <ListView.Header>
                     <Grid Style="{StaticResource Cabecalho}">
                         <Grid.ColumnDefinitions>

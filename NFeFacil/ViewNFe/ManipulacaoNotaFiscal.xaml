@@ -80,8 +80,7 @@
                 </ScrollViewer>
             </PivotItem>
             <PivotItem Header="NF-es referenciadas">
-                <ListView ItemsSource="{x:Bind NFesReferenciadas}"
-                          ItemContainerStyle="{StaticResource ItemFullWidth}">
+                <ListView ItemsSource="{x:Bind NFesReferenciadas}">
                     <ListView.Header>
                         <Grid Style="{StaticResource Cabecalho}">
                             <Grid.ColumnDefinitions>
@@ -111,8 +110,7 @@
                 </ListView>
             </PivotItem>
             <PivotItem Header="Notas 1/1A referenciadas">
-                <ListView ItemsSource="{x:Bind NFsReferenciadas}"
-                          ItemContainerStyle="{StaticResource ItemFullWidth}">
+                <ListView ItemsSource="{x:Bind NFsReferenciadas}">
                     <ListView.Header>
                         <Grid Style="{StaticResource Cabecalho}">
                             <Grid.ColumnDefinitions>
@@ -202,8 +200,7 @@
             <ListView Grid.Row="1"
                       Grid.ColumnSpan="2"
                       Margin="0,4,0,0"
-                      ItemsSource="{x:Bind Produtos}"
-                      ItemContainerStyle="{StaticResource ItemFullWidth}">
+                      ItemsSource="{x:Bind Produtos}">
                 <ListView.Header>
                     <Grid Style="{StaticResource Cabecalho}">
                         <Grid.Resources>
@@ -432,8 +429,7 @@
                 </PivotItem>
                 <PivotItem Header="Reboques">
                     <ListView ItemsSource="{x:Bind Reboques}"
-                              Margin="0,8,0,0"
-                              ItemContainerStyle="{StaticResource ItemFullWidth}">
+                              Margin="0,8,0,0">
                         <ListView.Header>
                             <Grid Style="{StaticResource Cabecalho}">
                                 <Grid.ColumnDefinitions>
@@ -464,8 +460,7 @@
                 </PivotItem>
                 <PivotItem Header="Volumes"
                            Margin="0,8,0,0">
-                    <ListView ItemsSource="{x:Bind Volumes}"
-                              ItemContainerStyle="{StaticResource ItemFullWidth}">
+                    <ListView ItemsSource="{x:Bind Volumes}">
                         <ListView.Header>
                             <Grid Style="{StaticResource Cabecalho}">
                                 <Grid.ColumnDefinitions>
@@ -553,8 +548,7 @@
             </PivotItem>
             <PivotItem Header="Duplicatas">
                 <ListView Margin="0,8,0,0"
-                          ItemsSource="{x:Bind Duplicatas}"
-                          ItemContainerStyle="{StaticResource ItemFullWidth}">
+                          ItemsSource="{x:Bind Duplicatas}">
                     <ListView.Header>
                         <Grid Style="{StaticResource Cabecalho}">
                             <Grid.ColumnDefinitions>
@@ -599,7 +593,6 @@
             </PivotItem>
             <PivotItem Header="Observações do contribuinte">
                 <ListView Margin="0,8,0,0"
-                          ItemContainerStyle="{StaticResource ItemFullWidth}"
                           ItemsSource="{x:Bind Observacoes}">
                     <ListView.Header>
                         <Grid Style="{StaticResource Cabecalho}">
@@ -646,7 +639,6 @@
             </PivotItem>
             <PivotItem Header="Processos referenciados">
                 <ListView Margin="0,8,0,0"
-                          ItemContainerStyle="{StaticResource ItemFullWidth}"
                           ItemsSource="{x:Bind ProcessosReferenciados}">
                     <ListView.Header>
                         <Grid Style="{StaticResource Cabecalho}">
@@ -747,8 +739,7 @@
             </PivotItem>
             <PivotItem Header="Fornecimento diário de cana">
                 <ListView Margin="0,8,0,0"
-                          ItemsSource="{x:Bind FornecimentosDiarios}"
-                          ItemContainerStyle="{StaticResource ItemFullWidth}">
+                          ItemsSource="{x:Bind FornecimentosDiarios}">
                     <ListView.Header>
                         <Grid Style="{StaticResource Cabecalho}">
                             <Grid.ColumnDefinitions>
@@ -792,8 +783,7 @@
             </PivotItem>
             <PivotItem Header="Deduções">
                 <ListView Margin="0,8,0,0"
-                          ItemsSource="{x:Bind Deducoes}"
-                          ItemContainerStyle="{StaticResource ItemFullWidth}">
+                          ItemsSource="{x:Bind Deducoes}">
                     <ListView.Header>
                         <Grid Style="{StaticResource Cabecalho}">
                             <Grid.ColumnDefinitions>

@@ -44,8 +44,7 @@
             </StackPanel>
         </ScrollViewer>
         <ListView ItemsSource="{x:Bind ListaProdutos}"
-                  Grid.Row="1"
-                  ItemContainerStyle="{StaticResource ItemFullWidth}">
+                  Grid.Row="1">
             <ListView.Header>
                 <Grid Style="{StaticResource Cabecalho}">
                     <Grid.ColumnDefinitions>

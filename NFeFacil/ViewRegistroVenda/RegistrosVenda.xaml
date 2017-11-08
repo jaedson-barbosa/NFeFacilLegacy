@@ -5,8 +5,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
     <ListView ItemsSource="{x:Bind Vendas}"
-              Padding="16"
-              ItemContainerStyle="{StaticResource ItemFullWidth}">
+              Padding="16">
         <ListView.Header>
             <Grid Style="{StaticResource Cabecalho}">
                 <Grid.ColumnDefinitions>

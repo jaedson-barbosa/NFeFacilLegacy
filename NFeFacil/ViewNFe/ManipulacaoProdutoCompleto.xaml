@@ -107,8 +107,7 @@
         </StackPanel>
         <TextBox Text="{x:Bind ProdutoCompleto.InfAdProd, Mode=TwoWay}"
                  TextWrapping="Wrap" />
-        <ListView ItemContainerStyle="{StaticResource ItemFullWidth}"
-                  ItemsSource="{x:Bind ListaDI}">
+        <ListView ItemsSource="{x:Bind ListaDI}">
             <ListView.Header>
                 <Grid Style="{StaticResource Cabecalho}">
                     <Grid.ColumnDefinitions>
@@ -145,8 +144,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ListView ItemContainerStyle="{StaticResource ItemFullWidth}"
-                  ItemsSource="{x:Bind ListaGE}">
+        <ListView ItemsSource="{x:Bind ListaGE}">
             <ListView.Header>
                 <Grid Style="{StaticResource Cabecalho}">
                     <Grid.ColumnDefinitions>

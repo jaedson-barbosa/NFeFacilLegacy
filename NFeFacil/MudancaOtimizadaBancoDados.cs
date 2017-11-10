@@ -37,8 +37,8 @@ namespace NFeFacil
                     }
                 }
             }
-            existem.ForEach(x => x.UltimaData = DateTimeNow);
-            naoExistem.ForEach(x => x.UltimaData = DateTimeNow);
+            existem.ForEach(x => x.UltimaData = Propriedades.DateTimeNow);
+            naoExistem.ForEach(x => x.UltimaData = Propriedades.DateTimeNow);
             Contexto.AddRange(naoExistem);
             Contexto.UpdateRange(existem);
         }
@@ -68,8 +68,8 @@ namespace NFeFacil
                     }
                 }
             }
-            existem.ForEach(x => x.UltimaData = DateTimeNow);
-            naoExistem.ForEach(x => x.UltimaData = DateTimeNow);
+            existem.ForEach(x => x.UltimaData = Propriedades.DateTimeNow);
+            naoExistem.ForEach(x => x.UltimaData = Propriedades.DateTimeNow);
             Contexto.AddRange(naoExistem);
             Contexto.UpdateRange(existem);
         }
@@ -99,8 +99,8 @@ namespace NFeFacil
                     }
                 }
             }
-            existem.ForEach(x => x.UltimaData = DateTimeNow);
-            naoExistem.ForEach(x => x.UltimaData = DateTimeNow);
+            existem.ForEach(x => x.UltimaData = Propriedades.DateTimeNow);
+            naoExistem.ForEach(x => x.UltimaData = Propriedades.DateTimeNow);
             Contexto.AddRange(naoExistem);
             Contexto.UpdateRange(existem);
         }
@@ -109,7 +109,7 @@ namespace NFeFacil
         {
             foreach (var item in notas)
             {
-                item.UltimaData = DateTimeNow;
+                item.UltimaData = Propriedades.DateTimeNow;
                 if (Contexto.NotasFiscais.Count(x => x.Id == item.Id) > 0)
                 {
                     Contexto.Update(item);

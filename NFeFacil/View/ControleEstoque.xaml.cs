@@ -142,11 +142,11 @@ namespace NFeFacil.View
                 if (valor != 0)
                 {
                     var estoque = (Estoque)dadosEstoque.DataContext;
-                    estoque.UltimaData = DateTimeNow;
+                    estoque.UltimaData = Propriedades.DateTimeNow;
                     var alt = new AlteracaoEstoque()
                     {
                         Alteração = valor,
-                        MomentoRegistro = DateTimeNow
+                        MomentoRegistro = Propriedades.DateTimeNow
                     };
                     if (estoque.Alteracoes == null)
                     {

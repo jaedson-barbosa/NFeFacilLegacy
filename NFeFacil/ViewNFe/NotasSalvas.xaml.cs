@@ -87,7 +87,7 @@ namespace NFeFacil.ViewNFe
                 Nota.Status = (int)StatusNFe.Cancelada;
                 using (var db = new AplicativoContext())
                 {
-                    Nota.UltimaData = DateTimeNow;
+                    Nota.UltimaData = Propriedades.DateTimeNow;
                     db.Update(Nota);
                     db.SaveChanges();
                 }

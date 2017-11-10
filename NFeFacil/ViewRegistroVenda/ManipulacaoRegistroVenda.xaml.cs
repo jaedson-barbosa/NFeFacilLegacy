@@ -69,7 +69,7 @@ namespace NFeFacil.ViewRegistroVenda
                     Emitente = Propriedades.EmitenteAtivo.Id,
                     Vendedor = Propriedades.VendedorAtivo?.Id ?? Guid.Empty,
                     Produtos = new System.Collections.Generic.List<ProdutoSimplesVenda>(),
-                    DataHoraVenda = DateTimeNow
+                    DataHoraVenda = Propriedades.DateTimeNow
                 };
                 ListaProdutos = new ObservableCollection<ExibicaoProdutoVenda>();
                 AtualizarTotal();
@@ -121,7 +121,7 @@ namespace NFeFacil.ViewRegistroVenda
                 var produtosOrignal = ItemBanco.Produtos;
                 using (var db = new AplicativoContext())
                 {
-                    ItemBanco.UltimaData = DateTimeNow;
+                    ItemBanco.UltimaData = Propriedades.DateTimeNow;
                     ItemBanco.Produtos = null;
                     db.Vendas.Add(ItemBanco);
                     db.SaveChanges();
@@ -132,11 +132,11 @@ namespace NFeFacil.ViewRegistroVenda
                         var estoque = db.Estoque.Include(x => x.Alteracoes).FirstOrDefault(x => x.Id == produto.IdBase);
                         if (estoque != null)
                         {
-                            estoque.UltimaData = DateTimeNow;
+                            estoque.UltimaData = Propriedades.DateTimeNow;
                             estoque.Alteracoes.Add(new AlteracaoEstoque
                             {
                                 Alteração = produto.Quantidade * -1,
-                                MomentoRegistro = DateTimeNow
+                                MomentoRegistro = Propriedades.DateTimeNow
                             });
 
                             db.Estoque.Update(estoque);

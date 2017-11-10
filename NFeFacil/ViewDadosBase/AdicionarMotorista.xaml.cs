@@ -91,7 +91,7 @@ namespace NFeFacil.ViewDadosBase
                 {
                     using (var db = new AplicativoContext())
                     {
-                        Motorista.UltimaData = DateTimeNow;
+                        Motorista.UltimaData = Propriedades.DateTimeNow;
                         if (Motorista.Id == Guid.Empty)
                         {
                             db.Add(Motorista);

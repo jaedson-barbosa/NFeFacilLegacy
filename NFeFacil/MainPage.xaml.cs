@@ -62,7 +62,7 @@ namespace NFeFacil
                     {
                         if (alt.MomentoRegistro == default(DateTime))
                         {
-                            alt.MomentoRegistro = DateTimeNow;
+                            alt.MomentoRegistro = Propriedades.DateTimeNow;
                             db.Update(alt);
                         }
                     });
@@ -76,7 +76,7 @@ namespace NFeFacil
                 {
                     if (item.UltimaData == DateTime.MinValue)
                     {
-                        item.UltimaData = DateTimeNow;
+                        item.UltimaData = Propriedades.DateTimeNow;
                         db.Update(item);
                     }
                 }

@@ -116,7 +116,7 @@ namespace NFeFacil.ViewRegistroVenda
             {
                 using (var db = new AplicativoContext())
                 {
-                    ItemBanco.UltimaData = DateTimeNow;
+                    ItemBanco.UltimaData = Propriedades.DateTimeNow;
                     ItemBanco.Cancelado = true;
                     db.Update(ItemBanco);
 
@@ -126,11 +126,11 @@ namespace NFeFacil.ViewRegistroVenda
                         var estoque = db.Estoque.Include(x => x.Alteracoes).FirstOrDefault(x => x.Id == produto.IdBase);
                         if (estoque != null)
                         {
-                            estoque.UltimaData = DateTimeNow;
+                            estoque.UltimaData = Propriedades.DateTimeNow;
                             estoque.Alteracoes.Add(new AlteracaoEstoque
                             {
                                 Alteração = produto.Quantidade,
-                                MomentoRegistro = DateTimeNow
+                                MomentoRegistro = Propriedades.DateTimeNow
                             });
                             db.Estoque.Update(estoque);
                         }
@@ -139,7 +139,7 @@ namespace NFeFacil.ViewRegistroVenda
                     var cancelamento = new CancelamentoRegistroVenda()
                     {
                         Motivo = caixa.Motivo,
-                        MomentoCancelamento = DateTimeNow,
+                        MomentoCancelamento = Propriedades.DateTimeNow,
                         Id = ItemBanco.Id
                     };
                     db.CancelamentosRegistroVenda.Add(cancelamento);

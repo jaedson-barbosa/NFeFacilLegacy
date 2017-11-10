@@ -14,8 +14,8 @@
                 </VisualState>
                 <VisualState>
                     <VisualState.Setters>
-                        <Setter Target="splitView.splitView.CompactPaneLength"
-                                Value="0" />
+                        <Setter Target="splitView.DisplayMode"
+                                Value="Overlay" />
                     </VisualState.Setters>
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="0" />

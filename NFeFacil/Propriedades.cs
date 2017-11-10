@@ -13,7 +13,7 @@ namespace NFeFacil
         {
             get
             {
-                var atual = DateTimeNow;
+                var atual = DateTime.Now;
                 if (atual.IsDaylightSavingTime() && Configuracoes.SuprimirHorarioVerao)
                 {
                     return atual.AddHours(-1);
@@ -26,7 +26,7 @@ namespace NFeFacil
         {
             get
             {
-                var atual = DateTimeNow;
+                var atual = DateTime.Now;
                 if (atual.IsDaylightSavingTime() && Configuracoes.SuprimirHorarioVerao)
                 {
                     return atual.AddHours(-1);

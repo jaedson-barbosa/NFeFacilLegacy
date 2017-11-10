@@ -10,14 +10,29 @@
         <RadioButton IsChecked="{x:Bind Servidor, Mode=TwoWay}">Servidor</RadioButton>
         <RadioButton IsChecked="{x:Bind Cliente}">Cliente</RadioButton>
         <TextBlock Style="{StaticResource TitleTextBlockStyle}">Desconsiderar horário de verão</TextBlock>
-        <TextBlock>Desconsidere o horário de verão caso você esteja tendo problemas ao transmitir as notas fiscais. Em muitos estados os servidores da SEFAZ não mudam com o horário de verão, então ative esta função para que o app se adeque a eles.</TextBlock>
+        <TextBlock TextWrapping="Wrap">Desconsidere o horário de verão caso você esteja tendo problemas ao transmitir as notas fiscais. Em muitos estados os servidores da SEFAZ não mudam com o horário de verão, então ative esta função para que o app se adeque a eles. Se a hora não está de acordo com o horário de verão, essa configuração será ignorada.</TextBlock>
         <ToggleSwitch IsOn="{x:Bind DesconsiderarHorarioVerao, Mode=TwoWay}" />
-        <TextBlock Style="{StaticResource TitleTextBlockStyle}">Personalização</TextBlock>
+        <TextBlock Style="{StaticResource TitleTextBlockStyle}">Background</TextBlock>
         <ItemsControl Style="{StaticResource ItensMedios}">
-            <controles:ItemPadrao Titulo="Definir background"
+            <controles:ItemPadrao Titulo="Usar imagem"
                                   Descricao="Escolha uma imagem para servir de background para o aplicativo"
-                                  Tapped="DefinirBackground">
+                                  Tapped="UsarImagem">
                 <FontIcon Glyph="&#xEB9F;" />
+            </controles:ItemPadrao>
+            <controles:ItemPadrao Titulo="Usar cor"
+                                  Descricao="Use a cor de destaque como background para o aplicativo"
+                                  Tapped="UsarCor">
+                <FontIcon Glyph="&#xE790;" />
+            </controles:ItemPadrao>
+            <controles:ItemPadrao Titulo="Escolher transparência"
+                                  Descricao="Defina a porcentagem de transparência do background"
+                                  Tapped="EscolherTransparencia">
+                <FontIcon Glyph="&#xE706;" />
+            </controles:ItemPadrao>
+            <controles:ItemPadrao Titulo="Restaurar padrão"
+                                  Descricao="Resete todas as configurações do background"
+                                  Tapped="Resetar">
+                <FontIcon Glyph="&#xED10;" />
             </controles:ItemPadrao>
         </ItemsControl>
     </StackPanel>

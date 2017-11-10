@@ -29,36 +29,57 @@ namespace NFeFacil.View
 
         bool DesconsiderarHorarioVerao
         {
-            get => NFeFacil.Configuracoes.SuprimirHorarioVerao;
-            set => NFeFacil.Configuracoes.SuprimirHorarioVerao = value;
+            get => ConfiguracoesPermanentes.SuprimirHorarioVerao;
+            set => ConfiguracoesPermanentes.SuprimirHorarioVerao = value;
         }
 
-        async void DefinirBackground(object sender, TappedRoutedEventArgs e)
+        async void UsarImagem(object sender, TappedRoutedEventArgs e)
         {
-            var brushAtual = MainPage.Current.FrameBackground as ImageBrush;
-            if (IDBackgroung == default(Guid))
+            var brushAtual = MainPage.Current.ImagemBackground;
+            if (ConfiguracoesPermanentes.IDBackgroung == default(Guid))
             {
-                IDBackgroung = Guid.NewGuid();
+                ConfiguracoesPermanentes.IDBackgroung = Guid.NewGuid();
             }
-            var caixa = new DefinirImagem(IDBackgroung, brushAtual?.ImageSource);
+            var caixa = new DefinirImagem(ConfiguracoesPermanentes.IDBackgroung, brushAtual);
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
-                var brush = new ImageBrush
-                {
-                    ImageSource = caixa.Imagem
-                };
-                MainPage.Current.FrameBackground = brush;
+                MainPage.Current.ImagemBackground = caixa.Imagem;
+                MainPage.Current.DefinirTipoBackground(TiposBackground.Imagem);
             }
         }
 
-        internal static Guid IDBackgroung
+        private void UsarCor(object sender, TappedRoutedEventArgs e)
         {
-            get
+            MainPage.Current.DefinirTipoBackground(TiposBackground.Cor);
+        }
+
+        async void EscolherTransparencia(object sender, TappedRoutedEventArgs e)
+        {
+            var caixa = new EscolherTransparencia(ConfiguracoesPermanentes.OpacidadeBackground);
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
-                var valor = ApplicationData.Current.LocalSettings.Values["IDBackgroung"];
-                return valor != null ? (Guid)valor : Guid.Empty;
+                ConfiguracoesPermanentes.OpacidadeBackground = caixa.Opacidade;
+                MainPage.Current.DefinirOpacidadeBackground(caixa.Opacidade);
             }
-            set => ApplicationData.Current.LocalSettings.Values["IDBackgroung"] = value;
+        }
+
+        private void Resetar(object sender, TappedRoutedEventArgs e)
+        {
+            using (var db = new AplicativoContext())
+            {
+                if (ConfiguracoesPermanentes.IDBackgroung != default(Guid))
+                {
+                    var img = db.Imagens.Find(ConfiguracoesPermanentes.IDBackgroung);
+                    if (img?.Bytes != null)
+                    {
+                        img.Bytes = null;
+                        db.Update(img);
+                        db.SaveChanges();
+                    }
+                }
+            }
+            ConfiguracoesPermanentes.OpacidadeBackground = 1;
+            MainPage.Current.DefinirTipoBackground(TiposBackground.Padrao);
         }
     }
 }

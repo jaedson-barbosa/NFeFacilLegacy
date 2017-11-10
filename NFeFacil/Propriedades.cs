@@ -1,6 +1,5 @@
 ﻿using NFeFacil.ItensBD;
 using System;
-using Windows.Storage;
 
 namespace NFeFacil
 {
@@ -14,7 +13,7 @@ namespace NFeFacil
             get
             {
                 var atual = DateTime.Now;
-                if (atual.IsDaylightSavingTime() && Configuracoes.SuprimirHorarioVerao)
+                if (atual.IsDaylightSavingTime() && ConfiguracoesPermanentes.SuprimirHorarioVerao)
                 {
                     return atual.AddHours(-1);
                 }
@@ -27,29 +26,11 @@ namespace NFeFacil
             get
             {
                 var atual = DateTime.Now;
-                if (atual.IsDaylightSavingTime() && Configuracoes.SuprimirHorarioVerao)
+                if (atual.IsDaylightSavingTime() && ConfiguracoesPermanentes.SuprimirHorarioVerao)
                 {
                     return atual.AddHours(-1);
                 }
                 return atual;
-            }
-        }
-    }
-
-    public static class Configuracoes
-    {
-        static ApplicationDataContainer Pasta = ApplicationData.Current.LocalSettings;
-
-        public static bool SuprimirHorarioVerao
-        {
-            get
-            {
-                var tipo = Pasta.Values[nameof(SuprimirHorarioVerao)];
-                return tipo == null ? SuprimirHorarioVerao = false : (bool)tipo;
-            }
-            set
-            {
-                Pasta.Values[nameof(SuprimirHorarioVerao)] = value;
             }
         }
     }

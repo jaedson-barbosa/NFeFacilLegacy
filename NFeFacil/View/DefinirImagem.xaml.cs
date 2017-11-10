@@ -61,17 +61,19 @@ namespace NFeFacil.View
             open.FileTypeFilter.Add(".jpeg");
             open.FileTypeFilter.Add(".png");
             var arq = await open.PickSingleFileAsync();
-
-            var buffer = await FileIO.ReadBufferAsync(arq);
-            bytes = buffer.ToArray();
-
-            var source = new BitmapImage();
-            using (var stream = new InMemoryRandomAccessStream())
+            if (arq != null)
             {
-                await stream.WriteAsync(buffer);
-                stream.Seek(0);
-                source.SetSource(stream);
-                imgAtual.Source = source;
+                var buffer = await FileIO.ReadBufferAsync(arq);
+                bytes = buffer.ToArray();
+
+                var source = new BitmapImage();
+                using (var stream = new InMemoryRandomAccessStream())
+                {
+                    await stream.WriteAsync(buffer);
+                    stream.Seek(0);
+                    source.SetSource(stream);
+                    imgAtual.Source = source;
+                }
             }
         }
 

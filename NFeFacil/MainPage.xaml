@@ -126,17 +126,32 @@
                     </Grid>
                 </Grid>
             </SplitView.Pane>
-            <Frame Name="frmPrincipal"
-                   Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-                   Grid.Column="1">
-                <Frame.ContentTransitions>
-                    <TransitionCollection>
-                        <NavigationThemeTransition>
-                            <DrillInNavigationTransitionInfo />
-                        </NavigationThemeTransition>
-                    </TransitionCollection>
-                </Frame.ContentTransitions>
-            </Frame>
+            <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                <Image Name="backgroundImagem"
+                       Visibility="Collapsed" />
+                <Rectangle Name="backgroundCor"
+                           Fill="{StaticResource Variada}"
+                           Visibility="Collapsed"
+                           Stretch="Fill"
+                           HorizontalAlignment="Stretch"
+                           VerticalAlignment="Stretch" />
+                <Frame Name="frmPrincipal"
+                       Grid.Column="1"
+                       Canvas.ZIndex="1">
+                    <Frame.Background>
+                        <SolidColorBrush x:Name="backgroundFrame"
+                                         Color="{Binding Color, Source={ThemeResource ApplicationPageBackgroundThemeBrush}}" />
+                    </Frame.Background>
+                    <Frame.ContentTransitions>
+                        <TransitionCollection>
+                            <NavigationThemeTransition>
+                                <DrillInNavigationTransitionInfo />
+                            </NavigationThemeTransition>
+                        </TransitionCollection>
+                    </Frame.ContentTransitions>
+                </Frame>
+                <Image></Image>
+            </Grid>
         </SplitView>
     </Grid>
 </Page>

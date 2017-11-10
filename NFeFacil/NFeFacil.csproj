@@ -161,6 +161,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ConfiguracoesPermanentes.cs" />
     <Compile Include="ImagemExtensoes.cs" />
     <Compile Include="ConjuntoBasicoExibicao.cs" />
     <Compile Include="Sincronizacao\Pacotes\ConjuntoNotasFiscais.cs" />
@@ -507,6 +508,9 @@
     </Compile>
     <Compile Include="Controles\CarregamentoCircular.xaml.cs">
       <DependentUpon>CarregamentoCircular.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\EscolherTransparencia.xaml.cs">
+      <DependentUpon>EscolherTransparencia.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Inicio.xaml.cs">
       <DependentUpon>Inicio.xaml</DependentUpon>
@@ -948,6 +952,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ViewDadosBase\GerenciarDadosBase.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\EscolherTransparencia.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

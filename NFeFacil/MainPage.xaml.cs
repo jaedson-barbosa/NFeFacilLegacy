@@ -23,10 +23,37 @@ namespace NFeFacil
     {
         internal static MainPage Current { get; private set; }
 
-        internal Brush FrameBackground
+        internal void DefinirTipoBackground(TiposBackground tipo)
         {
-            get => frmPrincipal.Background;
-            set => frmPrincipal.Background = value;
+            switch (tipo)
+            {
+                case TiposBackground.Imagem:
+                    backgroundCor.Visibility = Visibility.Collapsed;
+                    backgroundImagem.Visibility = Visibility.Visible;
+                    break;
+                case TiposBackground.Cor:
+                    backgroundCor.Visibility = Visibility.Visible;
+                    backgroundImagem.Visibility = Visibility.Collapsed;
+                    break;
+                case TiposBackground.Padrao:
+                    backgroundCor.Visibility = Visibility.Collapsed;
+                    backgroundImagem.Visibility = Visibility.Collapsed;
+                    break;
+                default:
+                    break;
+            }
+            ConfiguracoesPermanentes.TipoBackground = tipo;
+        }
+
+        internal void DefinirOpacidadeBackground(double opacidade)
+        {
+            backgroundFrame.Opacity = opacidade;
+        }
+
+        internal ImageSource ImagemBackground
+        {
+            get => backgroundImagem.Source;
+            set => backgroundImagem.Source = value;
         }
 
         public MainPage()
@@ -82,17 +109,27 @@ namespace NFeFacil
                 }
 
                 Propriedades.EmitenteAtivo = db.Emitentes.FirstOrDefault();
-                if (View.Configuracoes.IDBackgroung != default(Guid))
+
+                switch (ConfiguracoesPermanentes.TipoBackground)
                 {
-                    var img = db.Imagens.Find(View.Configuracoes.IDBackgroung);
-                    if (img?.Bytes != null)
-                    {
-                        FrameBackground = new ImageBrush
+                    case TiposBackground.Imagem:
+                        if (ConfiguracoesPermanentes.IDBackgroung != default(Guid))
                         {
-                            ImageSource = await img.GetSourceAsync()
-                        };
-                    }
+                            var img = db.Imagens.Find(ConfiguracoesPermanentes.IDBackgroung);
+                            if (img?.Bytes != null)
+                            {
+                                ImagemBackground = await img.GetSourceAsync();
+                            }
+                        }
+                        DefinirTipoBackground(TiposBackground.Imagem);
+                        DefinirOpacidadeBackground(ConfiguracoesPermanentes.OpacidadeBackground);
+                        break;
+                    case TiposBackground.Cor:
+                        DefinirTipoBackground(TiposBackground.Cor);
+                        DefinirOpacidadeBackground(ConfiguracoesPermanentes.OpacidadeBackground);
+                        break;
                 }
+
                 if (db.Emitentes.Count() > 0)
                 {
                     Navegar<Login.EscolhaEmitente>();

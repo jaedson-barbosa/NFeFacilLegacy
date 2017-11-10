@@ -1,12 +1,7 @@
 ﻿using NFeFacil.Sincronizacao;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using Windows.Services.Store;
-using Windows.Storage;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 

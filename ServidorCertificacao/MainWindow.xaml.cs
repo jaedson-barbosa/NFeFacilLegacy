@@ -1,5 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows;
+﻿using System.Windows;
 using Comum.Pacotes;
 using System;
 using System.Collections.Generic;

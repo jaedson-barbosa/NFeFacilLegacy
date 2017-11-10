@@ -1,5 +1,4 @@
-﻿using NFeFacil.Log;
-using NFeFacil.Sincronizacao.Pacotes;
+﻿using NFeFacil.Sincronizacao.Pacotes;
 using System;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;

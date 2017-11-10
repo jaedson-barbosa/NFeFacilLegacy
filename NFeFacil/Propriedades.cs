@@ -41,7 +41,7 @@ namespace NFeFacil
         static ApplicationDataContainer Pasta = ApplicationData.Current.LocalSettings;
 
         public static bool SuprimirHorarioVerao
-    {
+        {
             get
             {
                 var tipo = Pasta.Values[nameof(SuprimirHorarioVerao)];

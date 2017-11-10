@@ -27,6 +27,12 @@ namespace NFeFacil.View
 
         bool Cliente => !Servidor;
 
+        bool DesconsiderarHorarioVerao
+        {
+            get => NFeFacil.Configuracoes.SuprimirHorarioVerao;
+            set => NFeFacil.Configuracoes.SuprimirHorarioVerao = value;
+        }
+
         async void DefinirBackground(object sender, TappedRoutedEventArgs e)
         {
             var brushAtual = MainPage.Current.FrameBackground as ImageBrush;

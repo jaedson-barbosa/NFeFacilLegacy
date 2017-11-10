@@ -1,5 +1,8 @@
 ﻿using NFeFacil.Sincronizacao;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using Windows.Services.Store;
 using Windows.Storage;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -35,6 +38,12 @@ namespace NFeFacil.View
 
         async void UsarImagem(object sender, TappedRoutedEventArgs e)
         {
+            //StoreContext storeContext = StoreContext.GetDefault();
+            //var resultadoAquisicao = await storeContext.RequestPurchaseAsync("9P70MWLRCS54");
+            //string[] productKinds = new string[] { "Consumable", "Durable", "UnmanagedConsumable" };
+            //List<String> filterList = new List<string>(productKinds);
+            //StoreProductQueryResult addOns = await storeContext.GetAssociatedStoreProductsAsync(filterList);
+            //var produtos = addOns.Products.ToDictionary(x => x.Key, y => y);
             var brushAtual = MainPage.Current.ImagemBackground;
             if (ConfiguracoesPermanentes.IDBackgroung == default(Guid))
             {

@@ -161,6 +161,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Complementos.cs" />
     <Compile Include="ConfiguracoesPermanentes.cs" />
     <Compile Include="ImagemExtensoes.cs" />
     <Compile Include="ConjuntoBasicoExibicao.cs" />

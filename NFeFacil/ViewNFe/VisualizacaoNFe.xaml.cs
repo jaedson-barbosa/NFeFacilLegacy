@@ -364,7 +364,7 @@ namespace NFeFacil.ViewNFe
             {
                 using (var db = new AplicativoContext())
                 {
-                    ItemBanco.UltimaData = DateTime.Now;
+                    ItemBanco.UltimaData = DateTimeNow;
                     if (ItemBanco.Status < (int)StatusNFe.Emitida)
                     {
                         ItemBanco.XML = ObjetoItemBanco.ToXElement<NFe>().ToString();

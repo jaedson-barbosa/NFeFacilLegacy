@@ -19,7 +19,7 @@ namespace NFeFacil.Sincronizacao.Servidor
                     throw new SenhaErrada(senha);
                 }
 
-                DateTime atual = DateTime.Now;
+                DateTime atual = DateTimeNow;
                 pacote.InstanteSincronizacao = atual;
                 DateTime minimoProcessado = DateTime.FromBinary(minimo);
                 pacote.AnalisarESalvar(minimoProcessado);
@@ -43,7 +43,7 @@ namespace NFeFacil.Sincronizacao.Servidor
                     throw new SenhaErrada(senha);
                 }
 
-                DateTime atual = DateTime.Now;
+                DateTime atual = DateTimeNow;
                 pacote.InstanteSincronizacao = atual;
                 pacote.AnalisarESalvar();
 

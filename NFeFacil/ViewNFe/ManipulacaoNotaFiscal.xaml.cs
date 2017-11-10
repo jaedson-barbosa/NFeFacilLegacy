@@ -172,7 +172,7 @@ namespace NFeFacil.ViewNFe
             {
                 if (string.IsNullOrEmpty(NotaSalva.Informacoes.identificacao.DataHoraEmissão))
                 {
-                    var agora = DateTime.Now;
+                    var agora = DateTimeNow;
                     NotaSalva.Informacoes.identificacao.DataHoraEmissão = agora.ToStringPersonalizado();
                     return agora;
                 }

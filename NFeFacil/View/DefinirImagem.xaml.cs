@@ -35,7 +35,7 @@ namespace NFeFacil.View
                 var img = db.Imagens.Find(Id);
                 if (img != null)
                 {
-                    img.UltimaData = DateTime.Now;
+                    img.UltimaData = DateTimeNow;
                     img.Bytes = bytes;
                     db.Imagens.Update(img);
                 }
@@ -44,7 +44,7 @@ namespace NFeFacil.View
                     img = new ItensBD.Imagem()
                     {
                         Id = Id,
-                        UltimaData = DateTime.Now,
+                        UltimaData = DateTimeNow,
                         Bytes = bytes
                     };
                     db.Imagens.Add(img);

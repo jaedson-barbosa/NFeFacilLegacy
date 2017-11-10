@@ -75,7 +75,7 @@ namespace NFeFacil.ViewDadosBase
                 {
                     using (var db = new AplicativoContext())
                     {
-                        Cliente.UltimaData = DateTime.Now;
+                        Cliente.UltimaData = DateTimeNow;
                         if (Cliente.Id == Guid.Empty)
                         {
                             db.Add(Cliente);

@@ -80,7 +80,7 @@ namespace NFeFacil.Login
                 {
                     using (var db = new AplicativoContext())
                     {
-                        Emit.UltimaData = DateTime.Now;
+                        Emit.UltimaData = DateTimeNow;
                         if (Emit.Id == Guid.Empty)
                         {
                             db.Add(Emit);

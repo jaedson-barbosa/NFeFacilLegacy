@@ -50,7 +50,7 @@ namespace NFeFacil.ViewDadosBase
                 {
                     using (var db = new AplicativoContext())
                     {
-                        Produto.UltimaData = DateTime.Now;
+                        Produto.UltimaData = DateTimeNow;
                         if (Produto.Id == Guid.Empty)
                         {
                             db.Add(Produto);

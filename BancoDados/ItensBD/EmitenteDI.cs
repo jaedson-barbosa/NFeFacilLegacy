@@ -61,7 +61,7 @@ namespace NFeFacil.ItensBD
                 CNPJ = CNPJ,
                 Nome = Nome,
                 NomeFantasia = NomeFantasia,
-                InscricaoEstadual = long.Parse(InscricaoEstadual),
+                InscricaoEstadual = InscricaoEstadual,
                 IEST = string.IsNullOrWhiteSpace(IEST) ? null : IEST,
                 IM = IM,
                 CNAE = CNAE,

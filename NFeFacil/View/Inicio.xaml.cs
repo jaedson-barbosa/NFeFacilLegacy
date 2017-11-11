@@ -107,9 +107,6 @@ namespace NFeFacil.View
                     var nfe = proc.NFe;
                     if (nfe.Informacoes.destinatário.CNPJ == Propriedades.EmitenteAtivo.CNPJ)
                     {
-                        var analisador = new AnalisadorNFe(ref nfe);
-                        analisador.Desnormalizar();
-                        nfe.Informacoes.identificacao.TipoOperacao = 0;
                         using (var db = new AplicativoContext())
                         {
                             var c = db.Clientes.FirstOrDefault(x => x.CNPJ == nfe.Informacoes.emitente.CNPJ);
@@ -117,6 +114,9 @@ namespace NFeFacil.View
                             {
                                 nfe.Informacoes.destinatário = c.ToDestinatario();
                                 nfe.Informacoes.emitente = Propriedades.EmitenteAtivo.ToEmitente();
+                                nfe.Informacoes.identificacao.TipoOperacao = 0;
+                                var analisador = new AnalisadorNFe(ref nfe);
+                                analisador.Desnormalizar();
                                 if (await new ViewNFe.CriadorNFe(nfe).ShowAsync() == ContentDialogResult.Primary)
                                 {
                                     Popup.Current.Escrever(TitulosComuns.Sucesso, "Nota de entrada criada. Agora verifique se todas as informações estão corretas.");

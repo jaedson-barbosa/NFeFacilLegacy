@@ -1,9 +1,16 @@
 ﻿using NFeFacil.Certificacao;
 using NFeFacil.Importacao;
+using NFeFacil.ItensBD;
+using NFeFacil.Log;
+using NFeFacil.ModeloXML;
 using NFeFacil.Sincronizacao;
+using NFeFacil.Validacao;
 using NFeFacil.ViewDadosBase;
 using NFeFacil.ViewRegistroVenda;
 using System;
+using System.Linq;
+using System.Threading.Tasks;
+using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -44,6 +51,9 @@ namespace NFeFacil.View
                 case "CriadorNFe":
                     await new ViewNFe.CriadorNFe().ShowAsync();
                     break;
+                case "CriarNFeEntrada":
+                    await CriarNFeEntrada();
+                    break;
                 case "NotasSalvas":
                     MainPage.Current.Navegar<ViewNFe.NotasSalvas>();
                     break;
@@ -80,6 +90,56 @@ namespace NFeFacil.View
                     break;
                 default:
                     break;
+            }
+        }
+
+        async Task CriarNFeEntrada()
+        {
+            var caixa = new FileOpenPicker();
+            caixa.FileTypeFilter.Add(".xml");
+            var arq = await caixa.PickSingleFileAsync();
+            if (arq != null)
+            {
+                try
+                {
+                    var xml = await ImportarNotaFiscal.ObterXML(arq);
+                    var proc = xml.FromXElement<Processo>();
+                    var nfe = proc.NFe;
+                    if (nfe.Informacoes.destinatário.CNPJ == Propriedades.EmitenteAtivo.CNPJ)
+                    {
+                        var analisador = new AnalisadorNFe(ref nfe);
+                        analisador.Desnormalizar();
+                        nfe.Informacoes.identificacao.TipoOperacao = 0;
+                        using (var db = new AplicativoContext())
+                        {
+                            var c = db.Clientes.FirstOrDefault(x => x.CNPJ == nfe.Informacoes.emitente.CNPJ);
+                            if (c != null)
+                            {
+                                nfe.Informacoes.destinatário = c.ToDestinatario();
+                                nfe.Informacoes.emitente = Propriedades.EmitenteAtivo.ToEmitente();
+                                if (await new ViewNFe.CriadorNFe(nfe).ShowAsync() == ContentDialogResult.Primary)
+                                {
+                                    Popup.Current.Escrever(TitulosComuns.Sucesso, "Nota de entrada criada. Agora verifique se todas as informações estão corretas.");
+                                }
+                            }
+                            else
+                            {
+                                Popup.Current.Escrever(TitulosComuns.Atenção, "Para uma melhor esperiência na edição da NFe é preciso cadastrar o emitente da nota fiscal como cliente.\r\n" +
+                                    "Após concluir o cadastro tente novamente criar a nota de entrada.");
+                                var di = new ClienteDI(nfe.Informacoes.emitente);
+                                MainPage.Current.Navegar<AdicionarClienteBrasileiroPJ>(di);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Popup.Current.Escrever(TitulosComuns.Atenção, "O cliente dessa nota fiscal não é o emitente ativo, por favor, escolha apenas notas fiscais para o emitente ativo.");
+                    }
+                }
+                catch (Exception erro)
+                {
+                    erro.ManipularErro();
+                }
             }
         }
     }

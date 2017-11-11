@@ -35,6 +35,12 @@
                                   Tapped="AbrirFunção">
                 <SymbolIcon Symbol="Add" />
             </controles:ItemPadrao>
+            <controles:ItemPadrao Tag="CriarNFeEntrada"
+                                  Titulo="NFe de entrada"
+                                  Descricao="Use o XML de uma nota de saída para criar a de entrada"
+                                  Tapped="AbrirFunção">
+                <SymbolIcon Symbol="Add" />
+            </controles:ItemPadrao>
             <controles:ItemPadrao Tag="NotasSalvas"
                                   Titulo="Notas salvas"
                                   Descricao="Visialize, edite e cancelar as notas desta aplicação."

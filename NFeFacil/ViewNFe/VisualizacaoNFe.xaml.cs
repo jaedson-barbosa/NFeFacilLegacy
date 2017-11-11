@@ -278,7 +278,6 @@ namespace NFeFacil.ViewNFe
         {
             var nfe = (NFe)ObjetoItemBanco;
             var analisador = new AnalisadorNFe(ref nfe);
-            nfe.Signature = null;
             ItemBanco.Status = (int)StatusNFe.Edição;
             analisador.Desnormalizar();
             MainPage.Current.Navegar<ManipulacaoNotaFiscal>(nfe);

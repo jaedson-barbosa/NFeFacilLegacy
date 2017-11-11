@@ -73,6 +73,25 @@ namespace NFeFacil.ItensBD
             XPais = other.Endereco.XPais;
             Telefone = other.Endereco.Telefone;
         }
+        public ClienteDI(Emitente emit)
+        {
+            CNPJ = emit.CNPJ;
+            Nome = emit.Nome;
+            IndicadorIE = 1;
+            InscricaoEstadual = emit.InscricaoEstadual;
+
+            Logradouro = emit.Endereco.Logradouro;
+            Numero = emit.Endereco.Numero;
+            Complemento = emit.Endereco.Complemento;
+            Bairro = emit.Endereco.Bairro;
+            CodigoMunicipio = emit.Endereco.CodigoMunicipio;
+            NomeMunicipio = emit.Endereco.NomeMunicipio;
+            SiglaUF = emit.Endereco.SiglaUF;
+            CEP = emit.Endereco.CEP;
+            CPais = emit.Endereco.CPais;
+            XPais = emit.Endereco.XPais;
+            Telefone = emit.Endereco.Telefone;
+        }
 
         public Destinatario ToDestinatario()
         {

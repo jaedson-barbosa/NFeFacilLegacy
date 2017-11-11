@@ -86,12 +86,6 @@
                     <ComboBoxItem>Não compõe o valor total da NF-e</ComboBoxItem>
                     <ComboBoxItem>compõe o valor total da NF-e</ComboBoxItem>
                 </ComboBox>
-                <TextBox Text="{x:Bind ProdutoCompleto.Produto.XPed, Mode=TwoWay}"
-                         InputScope="Number"
-                         Header="Pedido de compra" />
-                <controles:EntradaRestrita Pattern="[^\d]"
-                                           Text="{x:Bind ProdutoCompleto.Produto.NItemPed, Mode=TwoWay}"
-                                           Header="Nº do item do pedido" />
                 <TextBox Text="{x:Bind ProdutoCompleto.Produto.NFCI, Mode=TwoWay}"
                          InputScope="Number"
                          Header="Nº de controle da FCI" />

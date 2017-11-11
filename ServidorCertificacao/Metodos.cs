@@ -25,7 +25,7 @@ namespace ServidorCertificacao
             Loja.Open(OpenFlags.ReadOnly);
         }
 
-        public void ObterCertificados(Stream stream)
+        public string ObterCertificados(Stream stream)
         {
             var retorno = new CertificadosExibicaoDTO(Loja.Certificates.Count);
             foreach (var item in Loja.Certificates)
@@ -37,59 +37,13 @@ namespace ServidorCertificacao
                 });
             }
             var xml = Serializar(retorno);
-
-            var data = Encoding.UTF8.GetBytes(xml.ToString());
-            EscreverCabecalho(stream, data.Length);
-            stream.Write(data, 0, data.Length);
+            return xml.ToString(SaveOptions.DisableFormatting);
         }
 
-        public void AssinarRemotamente(Stream stream, CertificadoAssinaturaDTO cert)
+        public string AssinarRemotamente(Stream stream, CertificadoAssinaturaDTO cert)
         {
             var xml = Serializar(AssinarXML((CertificadoAssinatura)cert));
-
-            var data = Encoding.UTF8.GetBytes(xml.ToString());
-            EscreverCabecalho(stream, data.Length);
-            stream.Write(data, 0, data.Length);
-        }
-
-        public async Task EnviarRequisicaoAsync(Stream stream, RequisicaoEnvioDTO req)
-        {
-            using (var proxy = new HttpClient(new HttpClientHandler()
-            {
-                ClientCertificateOptions = ClientCertificateOption.Automatic,
-                UseDefaultCredentials = true
-            }, true))
-            {
-                proxy.DefaultRequestHeaders.Add(req.Cabecalho.Nome, req.Cabecalho.Valor);
-                var resposta = await proxy.PostAsync(req.Uri,
-                    new StringContent(req.Conteudo.ToString(SaveOptions.DisableFormatting), Encoding.UTF8, "text/xml"));
-                var str = await resposta.Content.ReadAsStringAsync();
-                var xmlPrimario = XElement.Load(await resposta.Content.ReadAsStreamAsync());
-                var xml = ObterConteudoCorpo(xmlPrimario);
-
-                var data = Encoding.UTF8.GetBytes(xml.ToString());
-                EscreverCabecalho(stream, data.Length);
-                stream.Write(data, 0, data.Length);
-            }
-
-            XNode ObterConteudoCorpo(XElement soap)
-            {
-                var nome = XName.Get("Body", "http://schemas.xmlsoap.org/soap/envelope/");
-                var item = soap.Element(nome);
-                if (item == null)
-                {
-                    nome = XName.Get("Body", "http://www.w3.org/2003/05/soap-envelope");
-                    item = soap.Element(nome);
-                }
-                var casca = (XElement)item.FirstNode;
-                return casca.FirstNode;
-            }
-        }
-
-        static void EscreverCabecalho(Stream stream, int tamanho)
-        {
-            var cabecalho = Encoding.UTF8.GetBytes($"HTTP/1.1 200 OK\r\nContent-Length: {tamanho}\r\nConnection: close\r\n\r\n");
-            stream.Write(cabecalho, 0, cabecalho.Length);
+            return xml.ToString(SaveOptions.DisableFormatting);
         }
 
         static XElement Serializar<T>(T objeto)
@@ -103,6 +57,37 @@ namespace ServidorCertificacao
                 xmlSerializer.Serialize(memoryStream, objeto, name);
                 memoryStream.Position = 0;
                 return XElement.Load(memoryStream);
+            }
+        }
+
+        public async Task<string> EnviarRequisicaoAsync(Stream stream, RequisicaoEnvioDTO req)
+        {
+            using (var proxy = new HttpClient(new HttpClientHandler()
+            {
+                ClientCertificateOptions = ClientCertificateOption.Automatic,
+                UseDefaultCredentials = true
+            }, true))
+            {
+                proxy.DefaultRequestHeaders.Add(req.Cabecalho.Nome, req.Cabecalho.Valor);
+                var resposta = await proxy.PostAsync(req.Uri,
+                    new StringContent(req.Conteudo.ToString(SaveOptions.DisableFormatting), Encoding.UTF8, "text/xml"));
+                var str = await resposta.Content.ReadAsStringAsync();
+                var xmlPrimario = XElement.Load(await resposta.Content.ReadAsStreamAsync());
+                var xml = ObterConteudoCorpo(xmlPrimario);
+                return xml.ToString(SaveOptions.DisableFormatting);
+            }
+
+            XNode ObterConteudoCorpo(XElement soap)
+            {
+                var nome = XName.Get("Body", "http://schemas.xmlsoap.org/soap/envelope/");
+                var item = soap.Element(nome);
+                if (item == null)
+                {
+                    nome = XName.Get("Body", "http://www.w3.org/2003/05/soap-envelope");
+                    item = soap.Element(nome);
+                }
+                var casca = (XElement)item.FirstNode;
+                return casca.FirstNode;
             }
         }
 

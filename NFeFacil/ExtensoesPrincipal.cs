@@ -67,7 +67,8 @@ namespace NFeFacil
 
         internal static void ManipularErro(this Exception erro)
         {
-            Log.Escrever(TitulosComuns.Erro, erro.Message);
+            Log.Escrever(TitulosComuns.Erro, $"{erro.Message}\r\n" +
+                $"Detalhes adicionais: {erro.InnerException?.Message ?? "Não há detalhes"}");
         }
 
         internal static double CentimeterToPixel(double Centimeter)

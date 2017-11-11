@@ -8,15 +8,10 @@
     <Grid Margin="16">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0">Número de clientes conectados: <Run x:Name="txtNumClientes" /></TextBlock>
-        <TextBlock Grid.Row="1">IP do servidor: <Run x:Name="txtIP" /></TextBlock>
-        <TextBlock Grid.Row="2"
-                   Margin="0,16,0,0">Métodos solicitados</TextBlock>
-        <ListView Grid.Row="3"
+        <TextBlock Margin="0,16,0,0">Métodos solicitados</TextBlock>
+        <ListView Grid.Row="1"
                   x:Name="lstMetodos" />
     </Grid>
 </Window>

@@ -1,5 +1,10 @@
 ﻿using NFeFacil.Sincronizacao;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Windows.ApplicationModel.Activation;
+using Windows.Services.Store;
+using Windows.System;
 using Windows.UI.Xaml;
 
 namespace NFeFacil
@@ -31,6 +36,7 @@ namespace NFeFacil
         /// <param name="e">Detalhes sobre a solicitação e o processo de inicialização.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
+            ObterProdutos(e.User);
             var rootFrame = Window.Current.Content as MainPage;
             if (rootFrame == null)
             {
@@ -41,6 +47,18 @@ namespace NFeFacil
             {
                 Window.Current.Activate();
             }
+        }
+
+        async void ObterProdutos(User e)
+        {
+            StoreContext storeContext = StoreContext.GetDefault();
+            //var resultadoAquisicao = await storeContext.RequestPurchaseAsync("9P70MWLRCS54");
+            string[] productKinds = new string[] { "Consumable", "Durable", "UnmanagedConsumable" };
+            var filterList = new List<string>(productKinds);
+            StoreProductQueryResult addOns = await storeContext.GetAssociatedStoreProductsAsync(filterList);
+            var produtos = addOns.Products.ToDictionary(x => x.Key, y => y);
+            var quant = addOns.Products.Count;
+            Log.Popup.Current.Escrever(Log.TitulosComuns.Log, $"Quantidade produtos: {quant}");
         }
     }
 }

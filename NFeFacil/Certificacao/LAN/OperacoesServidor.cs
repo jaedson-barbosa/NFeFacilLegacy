@@ -35,7 +35,7 @@ namespace NFeFacil.Certificacao.LAN
         {
             using (var cliente = new HttpClient())
             {
-                var uri = new Uri($"http://{Ip}:8080/ObterCertificados");
+                var uri = new Uri($"http://{Ip}:1010/ObterCertificados");
 
                 var resposta = await cliente.GetAsync(uri);
                 using (var stream = await resposta.Content.ReadAsStreamAsync())
@@ -49,7 +49,7 @@ namespace NFeFacil.Certificacao.LAN
         {
             using (var cliente = new HttpClient())
             {
-                var uri = new Uri($"http://{Ip}:8080/AssinarRemotamente");
+                var uri = new Uri($"http://{Ip}:1010/AssinarRemotamente");
                 var xml = envio.ToXElement<CertificadoAssinaturaDTO>().ToString(SaveOptions.DisableFormatting);
                 var conteudo = new StringContent(xml, Encoding.UTF8, "text/xml");
 

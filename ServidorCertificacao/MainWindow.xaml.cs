@@ -20,15 +20,10 @@ namespace ServidorCertificacao
     /// </summary>
     public partial class MainWindow : Window
     {
-        int NumeroClientesConectados
-        {
-            get => txtNumClientes.Dispatcher.Invoke(() => int.Parse(txtNumClientes.Text), DispatcherPriority.Normal);
-            set => txtNumClientes.Dispatcher.Invoke(() => txtNumClientes.Text = value.ToString(), DispatcherPriority.Normal);
-        }
-
         public MainWindow()
         {
             InitializeComponent();
+            lstMetodos.Dispatcher.Invoke(() => lstMetodos.Items.Insert(0, "A porta usada é a 1010"), DispatcherPriority.Normal);
             Listener0();
             Listener1();
         }
@@ -37,12 +32,11 @@ namespace ServidorCertificacao
         {
             var lista = (await Dns.GetHostAddressesAsync(Dns.GetHostName()));
             var ip = lista.First(x => x.AddressFamily == AddressFamily.InterNetwork);
-            var listener = new TcpListener(ip, 8080);
+
+            var listener = new TcpListener(ip, 1010);
 
             listener.Start();
-            txtIP.Text = ip.ToString();
-            NumeroClientesConectados = 0;
-
+            lstMetodos.Dispatcher.Invoke(() => lstMetodos.Items.Insert(0, $"Iniciado servidor em: {ip.MapToIPv4().ToString()};"), DispatcherPriority.Normal);
             if (listener != null)
             {
                 while (true)
@@ -56,10 +50,10 @@ namespace ServidorCertificacao
         async void Listener1()
         {
             var ip = Dns.GetHostEntry("localhost").AddressList[0];
-            var listener = new TcpListener(ip, 8080);
+            var listener = new TcpListener(ip, 1010);
 
             listener.Start();
-
+            lstMetodos.Dispatcher.Invoke(() => lstMetodos.Items.Insert(0, "Iniciado servidor em: localhost;"), DispatcherPriority.Normal);
             if (listener != null)
             {
                 while (true)
@@ -72,7 +66,6 @@ namespace ServidorCertificacao
 
         async void ProcessarRequisicao(object obj)
         {
-            NumeroClientesConectados++;
             var client = (TcpClient)obj;
             var stream = client.GetStream();
             var metodos = new Metodos();
@@ -135,7 +128,6 @@ namespace ServidorCertificacao
                 client.Close();
                 client.Dispose();
             }
-            NumeroClientesConectados--;
         }
 
         static T Desserializar<T>(XElement xml)
@@ -151,6 +143,11 @@ namespace ServidorCertificacao
         {
             var cabecalho = Encoding.UTF8.GetBytes($"HTTP/1.1 200 OK\r\nContent-Length: {tamanho}\r\nConnection: close\r\n\r\n");
             stream.Write(cabecalho, 0, cabecalho.Length);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

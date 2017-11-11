@@ -14,6 +14,7 @@ using NFeFacil.Log;
 using NFeFacil.WebService.Pacotes;
 using System.Threading.Tasks;
 using NFeFacil.WebService;
+using NFeFacil.Validacao;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -215,6 +216,19 @@ namespace NFeFacil.ViewNFe
 
             [XmlElement("retEvento")]
             public ResultadoEvento[] RetEvento { get; set; }
+        }
+
+        async void CriarCopia(object sender, RoutedEventArgs e)
+        {
+            var nota = (NFeView)((MenuFlyoutItem)sender).DataContext;
+            var processo = XElement.Parse(nota.Nota.XML).FromXElement<Processo>();
+            var nfe = processo.NFe;
+            var analisador = new AnalisadorNFe(ref nfe);
+            analisador.Desnormalizar();
+            if (await new ViewNFe.CriadorNFe(nfe).ShowAsync() == ContentDialogResult.Primary)
+            {
+                Popup.Current.Escrever(TitulosComuns.Sucesso, "Nota de entrada criada. Agora verifique se todas as informações estão corretas.");
+            }
         }
     }
 }

@@ -137,7 +137,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Metodos.cs" />
-    <Compile Include="NomesMetodos.cs" />
     <Compile Include="Pacotes\CertificadoAssinaturaDTO.cs" />
     <Compile Include="Pacotes\CertificadosExibicaoDTO.cs" />
     <Compile Include="Pacotes\RequisicaoEnvioDTO.cs" />

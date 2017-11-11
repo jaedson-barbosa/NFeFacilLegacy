@@ -92,17 +92,17 @@ namespace ServidorCertificacao
                 string texto;
                 switch (nomeMetodo)
                 {
-                    case Comum.NomesMetodos.ObterCertificados:
+                    case "ObterCertificados":
                         texto = metodos.ObterCertificados(stream);
                         break;
-                    case Comum.NomesMetodos.AssinarRemotamente:
+                    case "AssinarRemotamente":
                         var conteudo0 = requisicao.Substring(requisicao.IndexOf("\r\n\r\n") + 4);
                         var xml0 = XElement.Parse(conteudo0);
                         var cert = Desserializar<CertificadoAssinaturaDTO>(xml0);
 
                         texto = metodos.AssinarRemotamente(stream, cert);
                         break;
-                    case Comum.NomesMetodos.EnviarRequisicao:
+                    case "EnviarRequisicao":
                         var conteudo1 = requisicao.Substring(requisicao.IndexOf("\r\n\r\n") + 4);
                         var xml1 = XElement.Parse(conteudo1);
                         var envio = Desserializar<RequisicaoEnvioDTO>(xml1);

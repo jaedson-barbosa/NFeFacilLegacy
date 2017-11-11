@@ -70,7 +70,7 @@ namespace NFeFacil.WebService
 
                 using (var cliente = new HttpClient())
                 {
-                    var uri = new Uri($"http://{ConfiguracoesCertificacao.IPServidorCertificacao}:8080/{Comum.NomesMetodos.EnviarRequisicao}");
+                    var uri = new Uri($"http://{ConfiguracoesCertificacao.IPServidorCertificacao}:8080/EnviarRequisicao");
                     var xml = envio.ToXElement<RequisicaoEnvioDTO>().ToString(SaveOptions.DisableFormatting);
                     var conteudo = new StringContent(xml, Encoding.UTF8, "text/xml");
                     var resposta = await cliente.PostAsync(uri, conteudo);

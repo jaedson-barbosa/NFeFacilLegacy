@@ -66,6 +66,7 @@ namespace ServidorCertificacao
 
         async void ProcessarRequisicao(object obj)
         {
+            lstMetodos.Dispatcher.Invoke(() => lstMetodos.Items.Insert(0, "Requisição recebida."), DispatcherPriority.Normal);
             var client = (TcpClient)obj;
             var stream = client.GetStream();
             var metodos = new Metodos();
@@ -106,14 +107,12 @@ namespace ServidorCertificacao
                         texto = "Método não reconhecido.";
                         break;
                 }
-                await Task.Delay(100);
                 var data = Encoding.UTF8.GetBytes(texto);
                 EscreverCabecalho(stream, data.Length);
                 stream.Write(data, 0, data.Length);
             }
             catch (Exception erro)
             {
-                await Task.Delay(100);
                 var mensagem = $"{erro.Message}\r\n" +
                     $"Detalhes adicionais: {erro.InnerException?.Message}";
                 lstMetodos.Dispatcher.Invoke(() => lstMetodos.Items.Insert(0, $"Erro: {mensagem};"), DispatcherPriority.Normal);
@@ -123,7 +122,8 @@ namespace ServidorCertificacao
             }
             finally
             {
-                await Task.Delay(100);
+                await Task.Delay(200);
+                stream.Flush();
                 stream.Dispose();
                 client.Close();
                 client.Dispose();
@@ -143,11 +143,6 @@ namespace ServidorCertificacao
         {
             var cabecalho = Encoding.UTF8.GetBytes($"HTTP/1.1 200 OK\r\nContent-Length: {tamanho}\r\nConnection: close\r\n\r\n");
             stream.Write(cabecalho, 0, cabecalho.Length);
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

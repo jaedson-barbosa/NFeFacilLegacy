@@ -27,7 +27,8 @@ namespace NFeFacil.Certificacao
             else
             {
                 var operacoes = new LAN.OperacoesServidor();
-                return (await operacoes.ObterCertificados()).GerarObs();
+                var str = $"http://{ConfiguracoesCertificacao.IPServidorCertificacao}:1010/ObterCertificados";
+                return (await operacoes.ObterCertificados(str)).GerarObs();
             }
         }
     }

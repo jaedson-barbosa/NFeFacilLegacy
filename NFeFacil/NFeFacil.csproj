@@ -20,7 +20,7 @@
     <PackageCertificateKeyFile>NFeFacil_StoreKey.pfx</PackageCertificateKeyFile>
     <PackageCertificateThumbprint>1B49127AAB1B16BBB6E488F54FB4323CB5F9C39E</PackageCertificateThumbprint>
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
-    <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
+    <AppxBundlePlatforms>x64</AppxBundlePlatforms>
     <AppxBundle>Always</AppxBundle>
     <RuntimeIdentifiers>win10-arm;win10-arm-aot;win10-x86;win10-x86-aot;win10-x64;win10-x64-aot</RuntimeIdentifiers>
     <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
@@ -92,15 +92,15 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>bin\x64\Release\</OutputPath>
     <DefineConstants>NETFX_CORE;WINDOWS_UWP;CODE_ANALYSIS;CODE_ANALYSIS</DefineConstants>
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <NoWarn>;2008</NoWarn>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>x64</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
-    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
-    <EnableGatekeeperAnalysis>true</EnableGatekeeperAnalysis>
+    <UseDotNetNativeToolchain>false</UseDotNetNativeToolchain>
+    <EnableGatekeeperAnalysis>false</EnableGatekeeperAnalysis>
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->

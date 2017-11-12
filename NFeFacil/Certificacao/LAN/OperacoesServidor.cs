@@ -12,30 +12,11 @@ namespace NFeFacil.Certificacao.LAN
 {
     public struct OperacoesServidor
     {
-        string ip;
-        public string Ip
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(ip))
-                {
-                    ip = ConfiguracoesCertificacao.IPServidorCertificacao;
-                }
-                return ip;
-            }
-            set => ip = value;
-        }
-
-        public OperacoesServidor(string ip)
-        {
-            this.ip = ip;
-        }
-
-        public async Task<List<CertificadoExibicao>> ObterCertificados()
+        public async Task<List<CertificadoExibicao>> ObterCertificados(string caminho)
         {
             using (var cliente = new HttpClient())
             {
-                var uri = new Uri($"http://{Ip}:1010/ObterCertificados");
+                var uri = new Uri(caminho);
 
                 var resposta = await cliente.GetAsync(uri);
                 using (var stream = await resposta.Content.ReadAsStreamAsync())
@@ -49,7 +30,7 @@ namespace NFeFacil.Certificacao.LAN
         {
             using (var cliente = new HttpClient())
             {
-                var uri = new Uri($"http://{Ip}:1010/AssinarRemotamente");
+                var uri = new Uri($"http://{ConfiguracoesCertificacao.IPServidorCertificacao}:1010/AssinarRemotamente");
                 var xml = envio.ToXElement<CertificadoAssinaturaDTO>().ToString(SaveOptions.DisableFormatting);
                 var conteudo = new StringContent(xml, Encoding.UTF8, "text/xml");
 

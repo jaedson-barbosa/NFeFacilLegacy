@@ -7,7 +7,7 @@
       RequestedTheme="Light">
     <Page.Resources>
         <ResourceDictionary>
-            <DataTemplate x:Name="templateItem">
+            <DataTemplate x:Key="templateItem">
                 <Grid Height="22">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="2*" />
@@ -21,41 +21,47 @@
                             BorderThickness="1,0"
                             Grid.Column="0">
                         <TextBlock HorizontalAlignment="Center"
+                                   TextWrapping="Wrap"
                                    Text="{Binding Descricao, Mode=OneTime}" />
                     </Border>
                     <Border BorderBrush="Black"
                             BorderThickness="1,0"
                             Grid.Column="1">
                         <TextBlock HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
                                    Text="{Binding Quantidade, Mode=OneTime}" />
                     </Border>
                     <Border BorderBrush="Black"
                             BorderThickness="1,0"
                             Grid.Column="2">
                         <TextBlock HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
                                    Text="{Binding ValorUnitario, Mode=OneTime}" />
                     </Border>
                     <Border BorderBrush="Black"
                             BorderThickness="1,0"
                             Grid.Column="3">
                         <TextBlock HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
                                    Text="{Binding Desconto, Mode=OneTime}" />
                     </Border>
                     <Border BorderBrush="Black"
                             BorderThickness="1,0"
                             Grid.Column="4">
                         <TextBlock HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
                                    Text="{Binding Adicionais, Mode=OneTime}" />
                     </Border>
                     <Border BorderBrush="Black"
                             BorderThickness="1,0"
                             Grid.Column="5">
                         <TextBlock HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
                                    Text="{Binding Total, Mode=OneTime}" />
                     </Border>
                 </Grid>
             </DataTemplate>
-            <DataTemplate x:Name="templateCabecalho">
+            <DataTemplate x:Key="templateCabecalho">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="2*" />

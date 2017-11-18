@@ -28,7 +28,7 @@ namespace NFeFacil
                 var prod = await ObterProduto();
                 if (prod.IsInUserCollection)
                 {
-                    return true;
+                    Comprado = true;
                 }
                 else
                 {

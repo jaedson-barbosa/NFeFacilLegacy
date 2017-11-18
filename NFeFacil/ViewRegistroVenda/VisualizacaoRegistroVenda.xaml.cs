@@ -104,9 +104,19 @@ namespace NFeFacil.ViewRegistroVenda
             }
         }
 
-        private void CriarDARV(object sender, RoutedEventArgs e)
+        async void CriarDARV(object sender, RoutedEventArgs e)
         {
-            MainPage.Current.Navegar<DARV>(ItemBanco);
+            var caixa = new EscolherDimensão();
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+            {
+                double largura = caixa.Largura, altura = caixa.Predefinicao == 0 ? 0 : caixa.Altura;
+
+                MainPage.Current.Navegar<DARV>(new DadosImpressaoDARV
+                {
+                    Venda = ItemBanco,
+                    Dimensoes = new Dimensoes(largura, altura, 1)
+                });
+            }
         }
 
         private async void Cancelar(object sender, RoutedEventArgs e)

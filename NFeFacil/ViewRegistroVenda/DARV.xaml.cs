@@ -3,7 +3,6 @@ using NFeFacil.ModeloXML.PartesProcesso.PartesNFe;
 using System;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -20,6 +19,7 @@ namespace NFeFacil.ViewRegistroVenda
     {
         GerenciadorImpressao gerenciador = new GerenciadorImpressao();
         ConjuntoDadosDARV Dados { get; set; }
+        DadosImpressaoDARV DadosImpressao { get; set; }
         const int paddingPadrao = 1;
 
         public DARV()
@@ -29,7 +29,8 @@ namespace NFeFacil.ViewRegistroVenda
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var original = (RegistroVenda)e.Parameter;
+            DadosImpressao = (DadosImpressaoDARV)e.Parameter;
+            var original = DadosImpressao.Venda;
 
             using (var db = new AplicativoContext())
             {
@@ -90,10 +91,9 @@ namespace NFeFacil.ViewRegistroVenda
             base.OnNavigatingFrom(e);
         }
 
-        private async void PaginaPrincipalCarregada(object sender, RoutedEventArgs e)
+        private void PaginaPrincipalCarregada(object sender, RoutedEventArgs e)
         {
-            var dimensoes = await DefinirTamanho();
-            await Task.Delay(500);
+            var dimensoes = DadosImpressao.Dimensoes;
             var grid = (Grid)sender;
             if (double.IsNaN(grid.Height))
             {
@@ -126,7 +126,7 @@ namespace NFeFacil.ViewRegistroVenda
                         }
                         CriarPaginaFilho(produtos);
                     }
-                    DefinirTamanho(dimensoes.LarguraOriginal, dimensoes.AlturaOriginal, dimensoes.PaddingOriginal);
+                    DefinirTamanho(dimensoes);
                 }
                 else
                 {
@@ -144,63 +144,21 @@ namespace NFeFacil.ViewRegistroVenda
                         }
                         CriarPaginaFilho(produtos);
                     }
-                    DefinirTamanho(dimensoes.LarguraOriginal, dimensoes.AlturaOriginal, dimensoes.PaddingOriginal);
+                    DefinirTamanho(dimensoes);
                 }
             }
         }
 
-        async Task<Dimensoes> DefinirTamanho()
-        {
-            double largura = 21, altura = 29.7, padding = 1;
-            var caixa = new EscolherDimensão();
-            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
-            {
-                largura = caixa.Largura;
-                if (caixa.FormularioContinuo)
-                {
-                    altura = 0;
-                }
-                else
-                {
-                    altura = caixa.Altura;
-                }
-            }
-            return DefinirTamanho(largura, altura, padding);
-        }
-
-        Dimensoes DefinirTamanho(double largura, double altura, double padding)
+        void DefinirTamanho(Dimensoes dimensoes)
         {
             var filhos = paiPaginas.Children;
-            var novaLargura = CentimeterToPixel(largura);
-            var novaAltura = altura != 0 ? CentimeterToPixel(altura) : double.NaN;
-            var novoPadding = CentimeterToPixel(padding);
             for (int i = 0; i < filhos.Count; i++)
             {
                 var filho = (Grid)filhos[i];
-                filho.Width = novaLargura;
-                filho.Height = novaAltura;
-                filho.Padding = new Thickness(novoPadding);
+                filho.Width = dimensoes.LarguraProcessada;
+                filho.Height = dimensoes.AlturaProcessada;
+                filho.Padding = new Thickness(dimensoes.PaddingProcessado);
             }
-            return new Dimensoes
-            {
-                LarguraOriginal = largura,
-                LarguraProcessada = novaLargura,
-                AlturaOriginal = altura,
-                AlturaProcessada = novaAltura,
-                PaddingOriginal = padding,
-                PaddingProcessado = novoPadding
-            };
-        }
-
-        struct Dimensoes
-        {
-            public double LarguraOriginal { get; set; }
-            public double AlturaOriginal { get; set; }
-            public double PaddingOriginal { get; set; }
-
-            public double LarguraProcessada { get; set; }
-            public double AlturaProcessada { get; set; }
-            public double PaddingProcessado { get; set; }
         }
 
         void CriarPaginaFilho(DadosProduto[] produtos)
@@ -221,6 +179,31 @@ namespace NFeFacil.ViewRegistroVenda
         {
             await gerenciador.Imprimir(paiPaginas.Children);
         }
+    }
+
+    public struct Dimensoes
+    {
+        public Dimensoes(double largura, double altura, double padding)
+        {
+            var novaLargura = CentimeterToPixel(largura);
+            var novaAltura = altura != 0 ? CentimeterToPixel(altura) : double.NaN;
+            var novoPadding = CentimeterToPixel(padding);
+
+            LarguraOriginal = largura;
+            LarguraProcessada = novaLargura;
+            AlturaOriginal = altura;
+            AlturaProcessada = novaAltura;
+            PaddingOriginal = padding;
+            PaddingProcessado = novoPadding;
+        }
+
+        public double LarguraOriginal { get; set; }
+        public double AlturaOriginal { get; set; }
+        public double PaddingOriginal { get; set; }
+
+        public double LarguraProcessada { get; set; }
+        public double AlturaProcessada { get; set; }
+        public double PaddingProcessado { get; set; }
     }
 
     public struct ConjuntoDadosDARV
@@ -260,5 +243,11 @@ namespace NFeFacil.ViewRegistroVenda
         public string Desconto { get; set; }
         public string Adicionais { get; set; }
         public string Total { get; set; }
+    }
+
+    public struct DadosImpressaoDARV
+    {
+        public RegistroVenda Venda { get; set; }
+        public Dimensoes Dimensoes { get; set; }
     }
 }

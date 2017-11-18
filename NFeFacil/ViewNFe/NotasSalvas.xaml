@@ -41,7 +41,7 @@
                             <MenuFlyout>
                                 <MenuFlyoutItem Click="Exibir">Exibir</MenuFlyoutItem>
                                 <MenuFlyoutItem Click="Cancelar">Cancelar</MenuFlyoutItem>
-                                <MenuFlyoutItem Click="CriarCopia">Criar "cópia"</MenuFlyoutItem>
+                                <MenuFlyoutItem Click="CriarCopia">Clonar nota</MenuFlyoutItem>
                             </MenuFlyout>
                         </Grid.ContextFlyout>
                         <TextBlock Text="{Binding Nota.NomeEmitente}" />

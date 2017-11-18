@@ -7,18 +7,40 @@ namespace NFeFacil.ViewRegistroVenda
 {
     public sealed partial class EscolherDimensão : ContentDialog
     {
-        bool formularioContinuo;
-        public bool FormularioContinuo
+        int predefinicao;
+        public int Predefinicao
         {
-            get => formularioContinuo;
+            get => predefinicao;
             set
             {
-                formularioContinuo = value;
-                txtAltura.IsEnabled = !value;
+                predefinicao = value;
+                switch (value)
+                {
+                    case 0:
+                        txtAltura.IsEnabled = false;
+                        txtLargura.IsEnabled = true;
+                        break;
+                    case 1:
+                        txtAltura.IsEnabled = true;
+                        txtLargura.IsEnabled = true;
+                        break;
+                    case 2:
+                        Largura = 21;
+                        Altura = 29.7;
+                        txtAltura.IsEnabled = false;
+                        txtLargura.IsEnabled = false;
+                        break;
+                    case 3:
+                        Largura = 29.7;
+                        Altura = 21;
+                        txtAltura.IsEnabled = false;
+                        txtLargura.IsEnabled = false;
+                        break;
+                }
             }
         }
-        public double Altura { get; set; }
-        public double Largura { get; set; }
+        public double Altura { get; private set; }
+        public double Largura { get; private set; }
 
         public EscolherDimensão()
         {
@@ -28,7 +50,7 @@ namespace NFeFacil.ViewRegistroVenda
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             var log = Popup.Current;
-            if (Altura < 14 && !FormularioContinuo)
+            if (Altura < 14 && Predefinicao != 0)
             {
                 log.Escrever(TitulosComuns.Atenção, "A altura está muito pequena e é provável que os elementos não caibam, por favor, escolha uma altura maior.");
                 args.Cancel = true;

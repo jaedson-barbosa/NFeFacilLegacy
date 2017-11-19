@@ -6,6 +6,7 @@ using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using Windows.UI.Popups;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -242,6 +243,30 @@ namespace NFeFacil.ViewDadosBase
         {
             var contexto = ((FrameworkElement)sender).DataContext;
             EditarProduto((ProdutoDI)contexto);
+        }
+
+        async void ControlarEstoque(object sender, RoutedEventArgs e)
+        {
+            var contexto = ((FrameworkElement)sender).DataContext;
+            var produto = (ProdutoDI)contexto;
+            using (var db = new AplicativoContext())
+            {
+                if (db.Estoque.Count(x => x.Id == produto.Id) > 0)
+                {
+                    Log.Popup.Current.Escrever(Log.TitulosComuns.Atenção, "O produto já foi adicionado ao controle de estoque.");
+                }
+                else
+                {
+                    var caixa = new MessageDialog("Essa é uma operação sem volta, uma vez adicionado ao controle de estoque este produto será permanentemente parte dele. Certeza que você realmente quer isso?", "Atenção");
+                    caixa.Commands.Add(new UICommand("Sim", x =>
+                    {
+                        db.Estoque.Add(new Estoque() { Id = produto.Id });
+                        db.SaveChanges();
+                    }));
+                    caixa.Commands.Add(new UICommand("Não"));
+                    await caixa.ShowAsync();
+                }
+            }
         }
 
         private void InativarProduto(object sender, RoutedEventArgs e)

@@ -5,7 +5,6 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using System;
 using NFeFacil.ItensBD;
-using Windows.UI.Popups;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -30,14 +29,11 @@ namespace NFeFacil.ViewDadosBase
             {
                 Produto = new ProdutoDI();
                 MainPage.Current.SeAtualizar(Symbol.Add, "Produto");
-                chkControleEstoque.IsEnabled = false;
             }
             else
             {
                 Produto = (ProdutoDI)e.Parameter;
                 MainPage.Current.SeAtualizar(Symbol.Edit, "Produto");
-                using (var db = new AplicativoContext())
-                    chkControleEstoque.IsChecked = db.Estoque.Find(Produto.Id) != null;
             }
             DataContext = Produto;
         }
@@ -75,27 +71,6 @@ namespace NFeFacil.ViewDadosBase
         private void Cancelar_Click(object sender, RoutedEventArgs e)
         {
             MainPage.Current.Retornar();
-        }
-
-        private async void ControleEstoque_Checked(object sender, RoutedEventArgs e)
-        {
-            var caixa = new MessageDialog("Essa é uma operação sem volta, um vez adicionado ao controle de estoque este produto será permanentemente parte dele. Certeza que quer isso?", "Atenção");
-            caixa.Commands.Add(new UICommand("Sim", x =>
-            {
-                using (var db = new AplicativoContext())
-                {
-                    db.Estoque.Add(new Estoque() { Id = Produto.Id });
-                    db.SaveChanges();
-                }
-            }));
-            caixa.Commands.Add(new UICommand("Não"));
-            await caixa.ShowAsync();
-        }
-
-        private void ControleEstoque_Unchecked(object sender, RoutedEventArgs e)
-        {
-            Log.Escrever(TitulosComuns.Log, "Não é possível remover um produto do controle de estoque.");
-            chkControleEstoque.IsChecked = true;
         }
     }
 }

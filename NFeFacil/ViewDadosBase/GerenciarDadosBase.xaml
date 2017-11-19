@@ -136,6 +136,7 @@
                         <Grid.ContextFlyout>
                             <MenuFlyout>
                                 <MenuFlyoutItem Click="EditarProduto">Editar</MenuFlyoutItem>
+                                <MenuFlyoutItem Click="ControlarEstoque">Controlar estoque</MenuFlyoutItem>
                                 <MenuFlyoutItem Click="InativarProduto">Inativar</MenuFlyoutItem>
                             </MenuFlyout>
                         </Grid.ContextFlyout>

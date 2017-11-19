@@ -12,6 +12,10 @@
         <TextBlock Style="{StaticResource TitleTextBlockStyle}">Desconsiderar horário de verão</TextBlock>
         <TextBlock TextWrapping="Wrap">Desconsidere o horário de verão caso você esteja tendo problemas ao transmitir as notas fiscais. Em muitos estados os servidores da SEFAZ não mudam com o horário de verão, então ative esta função para que o app se adeque a eles. Se a hora não está de acordo com o horário de verão, essa configuração será ignorada.</TextBlock>
         <ToggleSwitch IsOn="{x:Bind DesconsiderarHorarioVerao, Mode=TwoWay}" />
+        <TextBlock Style="{StaticResource TitleTextBlockStyle}">Calcular número da NFe automaticamente</TextBlock>
+        <ToggleSwitch IsOn="{x:Bind CalcularNumeroNFe, Mode=TwoWay}"
+                      OnContent="Sempre"
+                      OffContent="Nunca" />
         <TextBlock Style="{StaticResource TitleTextBlockStyle}">Background</TextBlock>
         <ItemsControl Style="{StaticResource ItensMedios}">
             <controles:ItemPadrao Titulo="Usar imagem"

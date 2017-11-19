@@ -33,6 +33,12 @@ namespace NFeFacil.View
             set => ConfiguracoesPermanentes.SuprimirHorarioVerao = value;
         }
 
+        bool CalcularNumeroNFe
+        {
+            get => ConfiguracoesPermanentes.CalcularNumeroNFe;
+            set => ConfiguracoesPermanentes.CalcularNumeroNFe = value;
+        }
+
         async void UsarImagem(object sender, TappedRoutedEventArgs e)
         {
             if (await Compra.AnalisarCompra())

@@ -17,6 +17,16 @@ namespace NFeFacil
             set => Pasta.Values[nameof(SuprimirHorarioVerao)] = value;
         }
 
+        public static bool CalcularNumeroNFe
+        {
+            get
+            {
+                var tipo = Pasta.Values[nameof(CalcularNumeroNFe)];
+                return tipo == null ? CalcularNumeroNFe = true : (bool)tipo;
+            }
+            set => Pasta.Values[nameof(CalcularNumeroNFe)] = value;
+        }
+
         internal static Guid IDBackgroung
         {
             get

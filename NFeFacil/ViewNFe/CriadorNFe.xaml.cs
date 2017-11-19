@@ -15,7 +15,19 @@ namespace NFeFacil.ViewNFe
     public sealed partial class CriadorNFe : ContentDialog
     {
         bool PodeUsarAmbienteHomolocagao { get; }
-        bool AmbienteHomolocagao { get; set; }
+        bool ambienteHomolocagao;
+        bool AmbienteHomolocagao
+        {
+            get => ambienteHomolocagao;
+            set
+            {
+                ambienteHomolocagao = value;
+                if (ConfiguracoesPermanentes.CalcularNumeroNFe)
+                {
+                    CalcularNumero_Click(null, null);
+                }
+            }
+        }
         ushort Serie { get; set; } = 1;
         NFe PreNota { get; }
 
@@ -43,6 +55,10 @@ namespace NFeFacil.ViewNFe
                 }
             };
             PodeUsarAmbienteHomolocagao = true;
+            if (ConfiguracoesPermanentes.CalcularNumeroNFe)
+            {
+                CalcularNumero_Click(null, null);
+            }
         }
 
         public CriadorNFe(NFe preNota)

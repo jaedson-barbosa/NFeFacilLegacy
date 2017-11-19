@@ -91,9 +91,10 @@ namespace NFeFacil.ViewRegistroVenda
             base.OnNavigatingFrom(e);
         }
 
-        private void PaginaPrincipalCarregada(object sender, RoutedEventArgs e)
+        void PaginaPrincipalCarregada(object sender, RoutedEventArgs e)
         {
             var dimensoes = DadosImpressao.Dimensoes;
+            DefinirTamanho(dimensoes);
             var grid = (Grid)sender;
             if (double.IsNaN(grid.Height))
             {

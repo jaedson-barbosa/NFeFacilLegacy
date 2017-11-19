@@ -6,9 +6,9 @@
                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                mc:Ignorable="d"
                Title="Dimensões da página"
-               PrimaryButtonText="Tam. personalizado"
+               PrimaryButtonText="Concluir"
                PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
-               SecondaryButtonText="Usar A4">
+               SecondaryButtonText="Cancelar">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />

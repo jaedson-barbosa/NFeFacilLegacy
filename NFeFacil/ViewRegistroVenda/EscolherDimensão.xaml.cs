@@ -7,7 +7,7 @@ namespace NFeFacil.ViewRegistroVenda
 {
     public sealed partial class EscolherDimensão : ContentDialog
     {
-        int predefinicao;
+        int predefinicao = 1;
         public int Predefinicao
         {
             get => predefinicao;

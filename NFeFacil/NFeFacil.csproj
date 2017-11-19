@@ -167,6 +167,9 @@
     <Compile Include="ImagemExtensoes.cs" />
     <Compile Include="ConjuntoBasicoExibicao.cs" />
     <Compile Include="Sincronizacao\Pacotes\ConjuntoNotasFiscais.cs" />
+    <Compile Include="ViewRegistroVenda\CalcularTroco.xaml.cs">
+      <DependentUpon>CalcularTroco.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Ano.cs" />
     <Compile Include="View\Backup.xaml.cs">
       <DependentUpon>Backup.xaml</DependentUpon>
@@ -638,6 +641,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="ViewRegistroVenda\CalcularTroco.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Backup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

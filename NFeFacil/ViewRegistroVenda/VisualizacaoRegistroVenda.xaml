@@ -25,6 +25,10 @@
                     <FontIcon Glyph="&#xE749;" />
                 </AppBarButton.Icon>
             </AppBarButton>
+            <AppBarButton x:Name="btnCalcularTroco"
+                          Label="Calcular troco"
+                          Icon="Calculator"
+                          Click="CalcularTroco" />
             <CommandBar.SecondaryCommands>
                 <AppBarButton x:Name="btnCancelar"
                               Label="Cancelar registro"

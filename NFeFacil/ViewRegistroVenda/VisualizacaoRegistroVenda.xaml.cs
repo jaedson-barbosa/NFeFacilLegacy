@@ -91,7 +91,8 @@ namespace NFeFacil.ViewRegistroVenda
             var semNota = string.IsNullOrEmpty(ItemBanco.NotaFiscalRelacionada);
             btnCriarNFe.IsEnabled = semNota;
             btnVerNFe.IsEnabled = !semNota;
-            btnCriarDarv.IsEnabled = btnCriarNFe.IsEnabled = btnCancelar.IsEnabled = !ItemBanco.Cancelado;
+            btnCriarDarv.IsEnabled = btnCriarNFe.IsEnabled =
+                btnCancelar.IsEnabled = btnCalcularTroco.IsEnabled = !ItemBanco.Cancelado;
             btnVisualizarCancelamento.IsEnabled = ItemBanco.Cancelado;
         }
 
@@ -155,7 +156,8 @@ namespace NFeFacil.ViewRegistroVenda
                     db.CancelamentosRegistroVenda.Add(cancelamento);
 
                     db.SaveChanges();
-                    btnCriarDarv.IsEnabled = btnCriarNFe.IsEnabled = btnCancelar.IsEnabled = false;
+                    btnCriarDarv.IsEnabled = btnCriarNFe.IsEnabled
+                        = btnCancelar.IsEnabled = btnCalcularTroco.IsEnabled = false;
                     btnVisualizarCancelamento.IsEnabled = true;
                 }
             }
@@ -177,6 +179,12 @@ namespace NFeFacil.ViewRegistroVenda
                 var item = db.NotasFiscais.Find(ItemBanco.NotaFiscalRelacionada);
                 MainPage.Current.Navegar<ViewNFe.VisualizacaoNFe>(item);
             }
+        }
+
+        async void CalcularTroco(object sender, RoutedEventArgs e)
+        {
+            var total = ItemBanco.Produtos.Sum(x => x.TotalLíquido);
+            await new CalcularTroco(total).ShowAsync();
         }
     }
 }

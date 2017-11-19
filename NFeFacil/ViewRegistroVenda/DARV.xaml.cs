@@ -79,7 +79,7 @@ namespace NFeFacil.ViewRegistroVenda
                     Produtos = produtos.ToArray(),
                     Desconto = original.DescontoTotal.ToString("C2"),
                     Adicionais = original.Produtos.Sum(x => x.DespesasExtras + x.Frete + x.Seguro).ToString("C2"),
-                    Total = (original.Produtos.Sum(x => x.TotalLíquido) - original.DescontoTotal).ToString("C2"),
+                    Total = original.Produtos.Sum(x => x.TotalLíquido).ToString("C2"),
                     Observacoes = original.Observações
                 };
             }

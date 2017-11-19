@@ -13,10 +13,10 @@ namespace NFeFacil.Controles
     public sealed partial class EntradaNumerica : UserControl
     {
         Regex regex = new Regex(@"[^\d,.]");
-        string original = string.Empty;
         CultureInfo culturaPadrao = CultureInfo.InvariantCulture;
 
         public event NumeroChangedEventHandler NumeroChanged;
+        public event NumeroChangedEventHandler NumeroChanging;
 
         public InputScope InputScope
         {
@@ -110,34 +110,21 @@ namespace NFeFacil.Controles
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             var input = (TextBox)sender;
-            if (input.FocusState != FocusState.Unfocused)
+            int pos = input.SelectionStart;
+            input.Text = regex.Replace(input.Text, string.Empty).Replace(',', '.');
+            input.SelectionStart = pos;
+
+            if (NumeroChanging != null && !string.IsNullOrEmpty(input.Text))
             {
-                int pos = input.SelectionStart;
-                input.Text = regex.Replace(input.Text, string.Empty).Replace(',', '.');
-                input.SelectionStart = pos;
+                var num = double.Parse(input.Text, culturaPadrao);
+                NumeroChanging(this, new NumeroChangedEventArgs(num));
             }
         }
 
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
             var input = (TextBox)sender;
-            if (!string.IsNullOrEmpty(original))
-            {
-                input.Text = original;
-                if (original == "0")
-                {
-                    input.SelectionLength = original.Length;
-                }
-            }
-            else
-            {
-                var texto = Number.ToString(culturaPadrao);
-                input.Text = texto;
-                if (texto == "0")
-                {
-                    input.SelectionLength = texto.Length;
-                }
-            }
+            input.SelectAll();
         }
 
         private void TextBox_LostFocus(object sender, RoutedEventArgs e)
@@ -145,14 +132,12 @@ namespace NFeFacil.Controles
             var input = (TextBox)sender;
             if (double.TryParse(input.Text, NumberStyles.AllowDecimalPoint, culturaPadrao, out double numero))
             {
-                original = input.Text;
                 Number = numero;
                 NumeroChanged?.Invoke(this, new NumeroChangedEventArgs(numero));
             }
             else
             {
                 input.Focus(FocusState.Keyboard);
-                //Agora deve ser exibido um aviso de que o formato está errado
             }
         }
 

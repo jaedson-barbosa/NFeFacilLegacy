@@ -49,7 +49,8 @@ namespace NFeFacil.WebService
                 }, true))
                 {
                     proxy.DefaultRequestHeaders.Add("SOAPAction", Enderecos.Metodo);
-                    var conteudo = new StringContent(ObterConteudoRequisicao(corpo, addNamespace), Encoding.UTF8, "text/xml");
+                    var str = ObterConteudoRequisicao(corpo, addNamespace);
+                    var conteudo = new StringContent(str, Encoding.UTF8, "text/xml");
                     var resposta = await proxy.PostAsync(Enderecos.Endereco, conteudo);
                     var xml = XElement.Load(await resposta.Content.ReadAsStreamAsync());
                     return ObterConteudoCorpo(xml).FromXElement<Resposta>();

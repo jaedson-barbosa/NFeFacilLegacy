@@ -70,14 +70,16 @@ namespace NFeFacil.ViewNFe
                     var tipoFilho = valor.GetType();
                     if (tipoFilho.Namespace.Contains("NFeFacil") && !(valor is IEnumerable))
                     {
+                        var desc = prop.GetCustomAttribute<DescricaoPropriedade>();
                         retorno.Add(new PropriedadeHierárquica
                         {
-                            Nome = prop.Name,
+                            Nome = desc?.Descricao ?? prop.Name,
                             Valor = ObterPropriedades(valor)
                         });
                     }
                     else if (valor is IEnumerable teste && !(valor is string))
                     {
+                        var desc = prop.GetCustomAttribute<DescricaoPropriedade>();
                         List<PropriedadeHierárquica> propriedadesFilhas = new List<PropriedadeHierárquica>();
                         foreach (var item in teste)
                         {
@@ -93,7 +95,7 @@ namespace NFeFacil.ViewNFe
                             }
                             propriedadesFilhas.Add(new PropriedadeHierárquica
                             {
-                                Nome = tipoItem.Name,
+                                Nome = desc?.Descricao ?? prop.Name,
                                 Valor = valorItem
                             });
                         }

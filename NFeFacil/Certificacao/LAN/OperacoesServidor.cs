@@ -12,11 +12,14 @@ namespace NFeFacil.Certificacao.LAN
 {
     public struct OperacoesServidor
     {
-        public async Task<List<CertificadoExibicao>> ObterCertificados(string caminho)
+        public static string RootUri => ConfiguracoesCertificacao.Origem == OrigemCertificado.Cliente
+            ? ConfiguracoesCertificacao.IPServidorCertificacao : "localhost";
+
+        public async Task<List<CertificadoExibicao>> ObterCertificados()
         {
             using (var cliente = new HttpClient())
             {
-                var uri = new Uri(caminho);
+                var uri = new Uri($"http://{RootUri}:1010/ObterCertificados");
 
                 var resposta = await cliente.GetAsync(uri);
                 using (var stream = await resposta.Content.ReadAsStreamAsync())
@@ -30,7 +33,7 @@ namespace NFeFacil.Certificacao.LAN
         {
             using (var cliente = new HttpClient())
             {
-                var uri = new Uri($"http://{ConfiguracoesCertificacao.IPServidorCertificacao}:1010/AssinarRemotamente");
+                var uri = new Uri($"http://{RootUri}:1010/AssinarRemotamente");
                 var xml = envio.ToXElement<CertificadoAssinaturaDTO>().ToString(SaveOptions.DisableFormatting);
                 var conteudo = new StringContent(xml, Encoding.UTF8, "text/xml");
 

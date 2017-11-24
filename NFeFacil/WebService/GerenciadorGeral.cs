@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using NFeFacil.IBGE;
 using System;
+using NFeFacil.Certificacao.LAN;
 
 namespace NFeFacil.WebService
 {
@@ -40,7 +41,8 @@ namespace NFeFacil.WebService
 
         public async Task<Resposta> EnviarAsync(Envio corpo, bool addNamespace = false)
         {
-            if (ConfiguracoesCertificacao.Origem == OrigemCertificado.Importado)
+            var origem = ConfiguracoesCertificacao.Origem;
+            if (origem == OrigemCertificado.Importado)
             {
                 using (var proxy = new HttpClient(new HttpClientHandler()
                 {
@@ -71,7 +73,7 @@ namespace NFeFacil.WebService
 
                 using (var cliente = new HttpClient())
                 {
-                    var uri = new Uri($"http://{ConfiguracoesCertificacao.IPServidorCertificacao}:1010/EnviarRequisicao");
+                    var uri = new Uri($"http://{OperacoesServidor.RootUri}:1010/EnviarRequisicao");
                     var xml = envio.ToXElement<RequisicaoEnvioDTO>().ToString(SaveOptions.DisableFormatting);
                     var conteudo = new StringContent(xml, Encoding.UTF8, "text/xml");
                     var resposta = await cliente.PostAsync(uri, conteudo);

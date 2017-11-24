@@ -30,9 +30,8 @@ namespace NFeFacil.Certificacao
                 if (await caixa.ShowAsync() == ContentDialogResult.Primary)
                 {
                     var serial = caixa.CertificadoEscolhido;
-                    var origem = ConfiguracoesCertificacao.Origem;
 
-                    if (origem == OrigemCertificado.Importado)
+                    if (ConfiguracoesCertificacao.Origem == OrigemCertificado.Importado)
                     {
                         using (var loja = new X509Store())
                         {

@@ -23,8 +23,6 @@ namespace NFeFacil.Certificacao
         public ConfiguracoesCertificado()
         {
             InitializeComponent();
-            ListaCertificados = new ObservableCollection<CertificadoExibicao>();
-            AttLista();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -32,16 +30,7 @@ namespace NFeFacil.Certificacao
             MainPage.Current.SeAtualizar(Symbol.Permissions, "Certificação");
         }
 
-        ObservableCollection<CertificadoExibicao> ListaCertificados { get; }
         bool InstalacaoLiberada => AnalyticsInfo.VersionInfo.DeviceFamily.Contains("Desktop");
-
-        async void ImportarCertificado(object sender, TappedRoutedEventArgs e)
-        {
-            if (await new ImportarCertificado().ImportarEAdicionarAsync())
-            {
-                AttLista();
-            }
-        }
 
         async void ConectarServidor(object sender, TappedRoutedEventArgs e)
         {
@@ -71,35 +60,6 @@ namespace NFeFacil.Certificacao
                 }
                 Popup.Current.Escrever(TitulosComuns.Sucesso, "Arquivo salvo com sucesso.\r\n" +
                     "Extraia os arquivos e inicie o repositório remoto com o Iniciar.bat");
-            }
-        }
-
-        private void RemoverCertificado(object sender, RoutedEventArgs e)
-        {
-            var contexto = ((FrameworkElement)sender).DataContext;
-            var serial = ((CertificadoExibicao)contexto).SerialNumber;
-            using (var loja = new X509Store(StoreName.My, StoreLocation.CurrentUser))
-            {
-                loja.Open(OpenFlags.ReadWrite);
-                var cert = loja.Certificates.Find(X509FindType.FindBySerialNumber, serial, false)[0];
-                loja.Remove(cert);
-            }
-            AttLista();
-        }
-
-        async void AttLista()
-        {
-            try
-            {
-                ListaCertificados.Clear();
-                foreach (var item in await Certificados.ObterCertificadosAsync(OrigemCertificado.Importado))
-                {
-                    ListaCertificados.Add(item);
-                }
-            }
-            catch (Exception e)
-            {
-                e.ManipularErro();
             }
         }
     }

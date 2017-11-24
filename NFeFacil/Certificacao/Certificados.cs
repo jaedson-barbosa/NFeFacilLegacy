@@ -20,15 +20,13 @@ namespace NFeFacil.Certificacao
                             {
                                 Subject = cert.Subject,
                                 SerialNumber = cert.SerialNumber,
-                                Local = true
                             }).GerarObs();
                 }
             }
             else
             {
                 var operacoes = new LAN.OperacoesServidor();
-                var str = $"http://{ConfiguracoesCertificacao.IPServidorCertificacao}:1010/ObterCertificados";
-                return (await operacoes.ObterCertificados(str)).GerarObs();
+                return (await operacoes.ObterCertificados()).GerarObs();
             }
         }
     }

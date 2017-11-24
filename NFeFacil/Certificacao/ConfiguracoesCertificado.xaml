@@ -9,11 +9,6 @@
         <StackPanel>
             <ItemsControl Style="{StaticResource ItensMedios}"
                           Margin="0,0,0,8">
-                <my:ItemPadrao Titulo="Importar A1"
-                               Descricao="Importe um certificado A1 com a extensão .pfx"
-                               Tapped="ImportarCertificado">
-                    <SymbolIcon Symbol="Import" />
-                </my:ItemPadrao>
                 <my:ItemPadrao Titulo="Cadastar servidor"
                                Descricao="Conecte-se a um servidor de certificação."
                                Tapped="ConectarServidor">
@@ -31,23 +26,6 @@
                     <FontIcon Glyph="&#xEC4E;" />
                 </my:ItemPadrao>
             </ItemsControl>
-            <ListView ItemsSource="{x:Bind ListaCertificados}">
-                <ListView.Header>
-                    <Grid Style="{StaticResource Cabecalho}">
-                        <TextBlock Style="{StaticResource TextoCabecalho}">Certificados importados</TextBlock>
-                    </Grid>
-                </ListView.Header>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Subject}">
-                            <TextBlock.ContextFlyout>
-                                <MenuFlyout>
-                                    <MenuFlyoutItem Click="RemoverCertificado">Remover</MenuFlyoutItem>
-                                </MenuFlyout>
-                            </TextBlock.ContextFlyout></TextBlock>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
         </StackPanel>
     </ScrollViewer>
 </Page>

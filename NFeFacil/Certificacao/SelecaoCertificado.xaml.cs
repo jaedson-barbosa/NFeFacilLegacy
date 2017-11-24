@@ -15,8 +15,7 @@ namespace NFeFacil.Certificacao
         public SelecaoCertificado()
         {
             InitializeComponent();
-            var origem = ConfiguracoesCertificacao.Origem;
-            ListaCertificados = Task.Run(() => Certificados.ObterCertificadosAsync(origem)).Result;
+            ListaCertificados = Task.Run(() => Certificados.ObterCertificadosAsync(ConfiguracoesCertificacao.Origem)).Result;
         }
     }
 }

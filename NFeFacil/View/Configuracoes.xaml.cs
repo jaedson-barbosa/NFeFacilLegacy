@@ -1,4 +1,5 @@
-﻿using NFeFacil.Sincronizacao;
+﻿using NFeFacil.Certificacao;
+using NFeFacil.Sincronizacao;
 using System;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -26,6 +27,12 @@ namespace NFeFacil.View
         }
 
         bool Cliente => !Servidor;
+
+        int OrigemCertificacao
+        {
+            get => (int)ConfiguracoesCertificacao.Origem;
+            set => ConfiguracoesCertificacao.Origem = (OrigemCertificado)value;
+        }
 
         bool DesconsiderarHorarioVerao
         {

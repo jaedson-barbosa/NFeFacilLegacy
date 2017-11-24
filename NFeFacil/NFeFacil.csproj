@@ -162,6 +162,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Certificacao\ConfiguracoesCertificadoImportado.xaml.cs">
+      <DependentUpon>ConfiguracoesCertificadoImportado.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Complementos.cs" />
     <Compile Include="ConfiguracoesPermanentes.cs" />
     <Compile Include="ImagemExtensoes.cs" />
@@ -377,7 +380,6 @@
     <Compile Include="ExtensoesPrincipal.cs" />
     <Compile Include="IHambuguer.cs" />
     <Compile Include="Importacao\Importacao.cs" />
-    <Compile Include="Certificacao\ImportarCertificado.cs" />
     <Compile Include="Importacao\ImportarDadoBase.cs" />
     <Compile Include="Importacao\ImportarNotaFiscal.cs" />
     <Compile Include="Importacao\TiposDadoBasico.cs" />
@@ -641,6 +643,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Certificacao\ConfiguracoesCertificadoImportado.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ViewRegistroVenda\CalcularTroco.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -1,6 +1,7 @@
 ﻿using NFeFacil.Certificacao;
 using NFeFacil.Sincronizacao;
 using System;
+using Windows.System.Profile;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 
@@ -33,6 +34,7 @@ namespace NFeFacil.View
             get => (int)ConfiguracoesCertificacao.Origem;
             set => ConfiguracoesCertificacao.Origem = (OrigemCertificado)value;
         }
+        bool InstalacaoLiberada => false;//AnalyticsInfo.VersionInfo.DeviceFamily.Contains("Desktop");
 
         bool DesconsiderarHorarioVerao
         {

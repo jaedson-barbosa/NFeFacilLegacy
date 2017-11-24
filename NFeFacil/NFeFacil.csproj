@@ -155,6 +155,7 @@
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
     <EmbeddedResource Include="Certificacao\LAN\ServidorCertificacao.zip" />
     <Content Include="Assets\ICP-Brasilv5.cer" />
+    <EmbeddedResource Include="Certificacao\LAN\WindowsLoopbackManager.zip" />
     <None Include="NFeFacil_StoreKey.pfx" />
     <None Include="Properties\ServiceReferences.Designer.ClientConfig" />
   </ItemGroup>
@@ -164,6 +165,9 @@
     </Compile>
     <Compile Include="Certificacao\ConfiguracoesCertificadoImportado.xaml.cs">
       <DependentUpon>ConfiguracoesCertificadoImportado.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Certificacao\ConfiguracoesServidorCertificacao.xaml.cs">
+      <DependentUpon>ConfiguracoesServidorCertificacao.xaml</DependentUpon>
     </Compile>
     <Compile Include="Complementos.cs" />
     <Compile Include="ConfiguracoesPermanentes.cs" />
@@ -460,8 +464,8 @@
     <Compile Include="ViewNFe\CancelarNFe.xaml.cs">
       <DependentUpon>CancelarNFe.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Certificacao\ConfiguracoesCertificado.xaml.cs">
-      <DependentUpon>ConfiguracoesCertificado.xaml</DependentUpon>
+    <Compile Include="Certificacao\ConfiguracoesClienteServidor.xaml.cs">
+      <DependentUpon>ConfiguracoesClienteServidor.xaml</DependentUpon>
     </Compile>
     <Compile Include="ComprasInApp.cs" />
     <Compile Include="View\Configuracoes.xaml.cs">
@@ -644,6 +648,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Certificacao\ConfiguracoesCertificadoImportado.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Certificacao\ConfiguracoesServidorCertificacao.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -935,7 +943,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Certificacao\ConfiguracoesCertificado.xaml">
+    <Page Include="Certificacao\ConfiguracoesClienteServidor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

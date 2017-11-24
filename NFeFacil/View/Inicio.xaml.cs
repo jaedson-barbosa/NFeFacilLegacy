@@ -70,7 +70,7 @@ namespace NFeFacil.View
                     MainPage.Current.Navegar<Configuracoes>();
                     break;
                 case "Certificado":
-                    MainPage.Current.Navegar<ConfiguracoesCertificado>();
+                    MainPage.Current.Navegar<ConfiguracoesClienteServidor>();
                     break;
                 case "ImportacaoDados":
                     MainPage.Current.Navegar<ImportacaoDados>();

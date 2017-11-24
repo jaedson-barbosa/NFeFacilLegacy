@@ -1,0 +1,21 @@
+﻿<Page x:Class="NFeFacil.Certificacao.ConfiguracoesClienteServidor"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:my="using:NFeFacil.Controles"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d">
+    <ItemsControl Style="{StaticResource ItensMedios}"
+                  Padding="16">
+        <my:ItemPadrao Titulo="Cadastar servidor"
+                       Descricao="Conecte-se a um servidor de certificação."
+                       Tapped="ConectarServidor">
+            <FontIcon Glyph="&#xE703;" />
+        </my:ItemPadrao>
+        <my:ItemPadrao Titulo="Esquecer servidor"
+                       Descricao="Use apenas os certificados A1 importados."
+                       Tapped="EsquecerServidor">
+            <SymbolIcon Symbol="Delete" />
+        </my:ItemPadrao>
+    </ItemsControl>
+</Page>

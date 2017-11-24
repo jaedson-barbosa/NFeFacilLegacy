@@ -15,7 +15,7 @@
             <TextBlock Style="{StaticResource TitleTextBlockStyle}">Modo de certificação</TextBlock>
             <ComboBox SelectedIndex="{x:Bind OrigemCertificacao, Mode=TwoWay}">
                 <ComboBoxItem ToolTipService.ToolTip="Ideal para quem usa certificado A1">Via certificado A1 importado</ComboBoxItem>
-                <ComboBoxItem ToolTipService.ToolTip="Ideal para quem usa certificado A3">Servidor de certificação</ComboBoxItem>
+                <ComboBoxItem ToolTipService.ToolTip="Ideal para quem usa certificado A3" IsEnabled="{x:Bind InstalacaoLiberada}">Servidor de certificação</ComboBoxItem>
                 <ComboBoxItem ToolTipService.ToolTip="Ideal para quem usa certificado A3">Cliente de um servidor</ComboBoxItem>
             </ComboBox>
             <TextBlock Style="{StaticResource TitleTextBlockStyle}">Desconsiderar horário de verão</TextBlock>

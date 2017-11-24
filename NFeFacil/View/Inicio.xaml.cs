@@ -70,7 +70,18 @@ namespace NFeFacil.View
                     MainPage.Current.Navegar<Configuracoes>();
                     break;
                 case "Certificado":
-                    MainPage.Current.Navegar<ConfiguracoesClienteServidor>();
+                    switch (ConfiguracoesCertificacao.Origem)
+                    {
+                        case OrigemCertificado.Importado:
+                            MainPage.Current.Navegar<ConfiguracoesCertificadoImportado>();
+                            break;
+                        case OrigemCertificado.Servidor:
+                            MainPage.Current.Navegar<ConfiguracoesServidorCertificacao>();
+                            break;
+                        case OrigemCertificado.Cliente:
+                            MainPage.Current.Navegar<ConfiguracoesClienteServidor>();
+                            break;
+                    }
                     break;
                 case "ImportacaoDados":
                     MainPage.Current.Navegar<ImportacaoDados>();

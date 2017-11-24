@@ -6,7 +6,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
     <ItemsControl Style="{StaticResource ItensMedios}"
-                  Padding="16">
+                  Margin="16">
         <my:ItemPadrao Titulo="Cadastar servidor"
                        Descricao="Conecte-se a um servidor de certificação."
                        Tapped="ConectarServidor">

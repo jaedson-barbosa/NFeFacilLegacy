@@ -4,6 +4,7 @@ using System.IO;
 using Windows.Storage.Pickers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Navigation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -17,6 +18,11 @@ namespace NFeFacil.Certificacao
         public ConfiguracoesServidorCertificacao()
         {
             this.InitializeComponent();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            MainPage.Current.SeAtualizar(Symbol.Permissions, "Certificação");
         }
 
         void InstalarServidor(object sender, TappedRoutedEventArgs e)

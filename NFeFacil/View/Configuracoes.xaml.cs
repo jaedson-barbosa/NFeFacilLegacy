@@ -34,7 +34,7 @@ namespace NFeFacil.View
             get => (int)ConfiguracoesCertificacao.Origem;
             set => ConfiguracoesCertificacao.Origem = (OrigemCertificado)value;
         }
-        bool InstalacaoLiberada => false;//AnalyticsInfo.VersionInfo.DeviceFamily.Contains("Desktop");
+        bool InstalacaoLiberada => AnalyticsInfo.VersionInfo.DeviceFamily.Contains("Desktop");
 
         bool DesconsiderarHorarioVerao
         {

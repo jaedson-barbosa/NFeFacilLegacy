@@ -20,21 +20,6 @@ namespace NFeFacil
             Log = log;
         }
 
-        public async Task<bool> Assinar(NFe nota)
-        {
-            try
-            {
-                var assina = new Certificacao.AssinaFacil(nota);
-                await assina.Assinar<NFe>(nota.Informacoes.Id, "infNFe");
-                return true;
-            }
-            catch (Exception e)
-            {
-                e.ManipularErro();
-            }
-            return false;
-        }
-
         public async Task<bool> Exportar(XElement xml, string id)
         {
             try
@@ -96,7 +81,5 @@ namespace NFeFacil
             }
             return (false, null);
         }
-
-
     }
 }

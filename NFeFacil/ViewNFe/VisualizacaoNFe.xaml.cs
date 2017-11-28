@@ -166,36 +166,12 @@ namespace NFeFacil.ViewNFe
         void AdicionarCampo(string texto, EstilosTexto estilo, string textoComplementar)
         {
             texto = ProcessarTitulo(texto);
-            var linha = new Run()
-            {
-                Text = textoComplementar == null ? texto : $"{texto}: "
-            };
-            switch (estilo)
-            {
-                case EstilosTexto.HeaderTextBlockStyle:
-                    linha.FontWeight = FontWeights.Light;
-                    linha.FontSize = 46;
-                    break;
-                case EstilosTexto.SubheaderTextBlockStyle:
-                    linha.FontWeight = FontWeights.Light;
-                    linha.FontSize = 34;
-                    break;
-                case EstilosTexto.TitleTextBlockStyle:
-                    linha.FontWeight = FontWeights.SemiLight;
-                    linha.FontSize = 24;
-                    break;
-                case EstilosTexto.SubtitleTextBlockStyle:
-                    linha.FontWeight = FontWeights.Normal;
-                    linha.FontSize = 20;
-                    break;
-                case EstilosTexto.BodyTextBlockStyle:
-                    break;
-                default:
-                    break;
-            }
+            var linha = new Run() { Text = texto };
+            AplicarEstilo(linha);
 
             if (textoComplementar != null)
             {
+                linha.Text += ": ";
                 linha.FontWeight = FontWeights.Bold;
             }
 
@@ -203,37 +179,35 @@ namespace NFeFacil.ViewNFe
 
             if (textoComplementar != null)
             {
-                linha = new Run()
-                {
-                    Text = textoComplementar
-                };
-                switch (estilo)
-                {
-                    case EstilosTexto.HeaderTextBlockStyle:
-                        linha.FontWeight = FontWeights.Light;
-                        linha.FontSize = 46;
-                        break;
-                    case EstilosTexto.SubheaderTextBlockStyle:
-                        linha.FontWeight = FontWeights.Light;
-                        linha.FontSize = 34;
-                        break;
-                    case EstilosTexto.TitleTextBlockStyle:
-                        linha.FontWeight = FontWeights.SemiLight;
-                        linha.FontSize = 24;
-                        break;
-                    case EstilosTexto.SubtitleTextBlockStyle:
-                        linha.FontWeight = FontWeights.Normal;
-                        linha.FontSize = 20;
-                        break;
-                    case EstilosTexto.BodyTextBlockStyle:
-                        break;
-                    default:
-                        break;
-                }
+                linha = new Run() { Text = textoComplementar };
+                AplicarEstilo(linha);
                 visualizacao.Inlines.Add(linha);
             }
 
             visualizacao.Inlines.Add(new LineBreak());
+
+            void AplicarEstilo(Run linhaUsada)
+            {
+                switch (estilo)
+                {
+                    case EstilosTexto.HeaderTextBlockStyle:
+                        linhaUsada.FontWeight = FontWeights.Light;
+                        linhaUsada.FontSize = 46;
+                        break;
+                    case EstilosTexto.SubheaderTextBlockStyle:
+                        linhaUsada.FontWeight = FontWeights.Light;
+                        linhaUsada.FontSize = 34;
+                        break;
+                    case EstilosTexto.TitleTextBlockStyle:
+                        linhaUsada.FontWeight = FontWeights.SemiLight;
+                        linhaUsada.FontSize = 24;
+                        break;
+                    case EstilosTexto.SubtitleTextBlockStyle:
+                        linhaUsada.FontWeight = FontWeights.Normal;
+                        linhaUsada.FontSize = 20;
+                        break;
+                }
+            }
         }
 
         string ProcessarTitulo(string titulo)
@@ -280,7 +254,6 @@ namespace NFeFacil.ViewNFe
         {
             var nfe = (NFe)ObjetoItemBanco;
             var analisador = new AnalisadorNFe(ref nfe);
-            ItemBanco.Status = (int)StatusNFe.Edição;
             analisador.Desnormalizar();
             MainPage.Current.Navegar<ManipulacaoNotaFiscal>(nfe);
         }
@@ -296,13 +269,19 @@ namespace NFeFacil.ViewNFe
         private async void Assinar(object sender, RoutedEventArgs e)
         {
             var nfe = (NFe)ObjetoItemBanco;
-            var OperacoesNota = new OperacoesNotaSalva(Log);
-            if (await OperacoesNota.Assinar(nfe))
+            try
             {
+                var assina = new Certificacao.AssinaFacil(nfe);
+                await assina.Assinar<NFe>(nfe.Informacoes.Id, "infNFe");
+
                 ItemBanco.Status = (int)StatusNFe.Assinada;
                 AtualizarDI();
                 AtualizarBotoesComando();
                 Log.Escrever(TitulosComuns.Sucesso, "Nota fiscal assinada com sucesso.");
+            }
+            catch (Exception erro)
+            {
+                erro.ManipularErro();
             }
         }
 
@@ -394,44 +373,12 @@ namespace NFeFacil.ViewNFe
 
         void AtualizarBotoesComando()
         {
-            switch ((StatusNFe)ItemBanco.Status)
-            {
-                case StatusNFe.Validada:
-                    btnEditar.IsEnabled = true;
-                    btnSalvar.IsEnabled = true;
-                    btnAssinar.IsEnabled = false;
-                    btnTransmitir.IsEnabled = false;
-                    btnImprimir.IsEnabled = false;
-                    break;
-                case StatusNFe.Salva:
-                    btnEditar.IsEnabled = true;
-                    btnSalvar.IsEnabled = false;
-                    btnAssinar.IsEnabled = true;
-                    btnTransmitir.IsEnabled = false;
-                    btnImprimir.IsEnabled = false;
-                    break;
-                case StatusNFe.Assinada:
-                    btnEditar.IsEnabled = true;
-                    btnSalvar.IsEnabled = false;
-                    btnAssinar.IsEnabled = false;
-                    btnTransmitir.IsEnabled = true;
-                    btnImprimir.IsEnabled = false;
-                    break;
-                case StatusNFe.Emitida:
-                    btnEditar.IsEnabled = false;
-                    btnSalvar.IsEnabled = false;
-                    btnAssinar.IsEnabled = false;
-                    btnTransmitir.IsEnabled = false;
-                    btnImprimir.IsEnabled = true;
-                    break;
-                case StatusNFe.Cancelada:
-                    btnEditar.IsEnabled = false;
-                    btnSalvar.IsEnabled = false;
-                    btnAssinar.IsEnabled = false;
-                    btnTransmitir.IsEnabled = false;
-                    btnImprimir.IsEnabled = false;
-                    break;
-            }
+            var status = (StatusNFe)ItemBanco.Status;
+            btnEditar.IsEnabled = status == StatusNFe.Validada || status == StatusNFe.Salva || status == StatusNFe.Assinada;
+            btnSalvar.IsEnabled = status == StatusNFe.Validada;
+            btnAssinar.IsEnabled = status == StatusNFe.Salva;
+            btnTransmitir.IsEnabled = status == StatusNFe.Assinada;
+            btnImprimir.IsEnabled = status == StatusNFe.Emitida;
         }
     }
 }

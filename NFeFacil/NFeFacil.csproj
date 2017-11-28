@@ -105,8 +105,8 @@
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <PRIResource Include="Cadeias de caracteres\pt-BR\Resources.resw" />
-    <Content Include="Assets\ArmaEscuro.png" />
-    <Content Include="Assets\ArmaClaro.png" />
+    <Content Include="Assets\ArmaDark.png" />
+    <Content Include="Assets\Arma.png" />
     <Content Include="Assets\BadgeLogo.scale-100.png" />
     <Content Include="Assets\BadgeLogo.scale-125.png" />
     <Content Include="Assets\BadgeLogo.scale-150.png" />

@@ -25,15 +25,8 @@ namespace NFeFacil.ViewNFe.CaixasEspeciaisProduto
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            string caminho;
-            if (Application.Current.RequestedTheme == ApplicationTheme.Dark)
-            {
-                caminho = "ms-appx:///Assets/ArmaEscuro.png";
-            }
-            else
-            {
-                caminho = "ms-appx:///Assets/ArmaClaro.png";
-            }
+            var usarDark = Application.Current.RequestedTheme == ApplicationTheme.Dark;
+            string caminho = usarDark ? "ms-appx:///Assets/ArmaDark.png" : "ms-appx:///Assets/Arma.png";
             MainPage.Current.SeAtualizar(new Uri(caminho), "Armamento");
         }
 

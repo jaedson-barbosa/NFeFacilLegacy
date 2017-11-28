@@ -61,10 +61,16 @@ namespace NFeFacil.ViewDadosBase
         public ObservableCollection<ItemHambuguer> ConteudoMenu => new ObservableCollection<ItemHambuguer>
         {
             new ItemHambuguer(Symbol.People, "Clientes"),
-            new ItemHambuguer(Symbol.People, "Motoristas"),
+            new ItemHambuguer(new Uri(GetUriVolante()), "Motoristas"),
             new ItemHambuguer(Symbol.Shop, "Produtos"),
             new ItemHambuguer(Symbol.People, "Vendedores")
         };
+
+        string GetUriVolante()
+        {
+            var usarDark = Application.Current.RequestedTheme == ApplicationTheme.Dark;
+            return usarDark ? "ms-appx:///Assets/VolanteDark.png" : "ms-appx:///Assets/Volante.png";
+        }
 
         ObservableCollection<ClienteDI> Clientes { get; }
         ObservableCollection<MotoristaDI> Motoristas { get; }

@@ -16,7 +16,6 @@ namespace NFeFacil.Controles
             };
             Descricao = descricao;
             InitializeComponent();
-
         }
 
         public ItemHambuguer(Symbol simbolo, string descricao)

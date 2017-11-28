@@ -45,8 +45,14 @@ namespace NFeFacil.ViewNFe
             new ItemHambuguer("\uE825", "Cobrança"),
             new ItemHambuguer(Symbol.Comment, "Informações adicionais"),
             new ItemHambuguer(Symbol.World, "Exportação e compras"),
-            new ItemHambuguer(new Uri("ms-appx:///Assets/CanaAcucar.png"), "Cana-de-açúcar")
+            new ItemHambuguer(new Uri(GetUriCana()), "Cana-de-açúcar")
         };
+
+        string GetUriCana()
+        {
+            var usarDark = Application.Current.RequestedTheme == ApplicationTheme.Dark;
+            return usarDark ? "ms-appx:///Assets/CanaAcucarDark.png" : "ms-appx:///Assets/CanaAcucar.png";
+        }
 
         public void AtualizarMain(int index) => pvtPrincipal.SelectedIndex = index;
 

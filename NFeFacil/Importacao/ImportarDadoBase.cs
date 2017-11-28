@@ -1,4 +1,5 @@
-﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
+﻿using NFeFacil.ItensBD;
+using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
 using System;
 using System.Collections.Generic;
@@ -13,8 +14,8 @@ namespace NFeFacil.Importacao
 {
     public sealed class ImportarDadoBase : Importacao
     {
-        private TiposDadoBasico TipoDado;
-        private IReadOnlyList<StorageFile> arquivos;
+        TiposDadoBasico TipoDado;
+        IReadOnlyList<StorageFile> arquivos;
 
         public ImportarDadoBase(TiposDadoBasico tipoDado) : base(".xml")
         {
@@ -31,46 +32,42 @@ namespace NFeFacil.Importacao
                     return XElement.Load(stream);
                 }
             }));
-            var db = new AplicativoContext();
-            try
+            switch (TipoDado)
             {
-                var repo = new MudancaOtimizadaBancoDados(db);
-                switch (TipoDado)
-                {
-                    case TiposDadoBasico.Cliente:
-                        return AnaliseCompletaXml<Destinatario>(listaXML, nameof(Destinatario), "dest", x=> repo.AnalisarAdicionarClientes(x.Select(dest => new ItensBD.ClienteDI(dest)).ToList()));
-                    case TiposDadoBasico.Motorista:
-                        return AnaliseCompletaXml<Motorista>(listaXML, nameof(Motorista), "transporta", x => repo.AnalisarAdicionarMotoristas(x.Select(mot => new ItensBD.MotoristaDI(mot)).ToList()));
-                    case TiposDadoBasico.Produto:
-                        return AnaliseCompletaXml<ProdutoOuServicoGenerico>(listaXML, nameof(ProdutoOuServicoGenerico), "prod", x=> repo.AnalisarAdicionarProdutos(x.Select(prod => new ItensBD.ProdutoDI(prod)).ToList()));
-                    default:
-                        return null;
-                }
-            }
-            finally
-            {
-                db.SaveChanges();
-                db.Dispose();
+                case TiposDadoBasico.Cliente:
+                    var clientes = AnaliseCompletaXml<Destinatario>(listaXML, "dest");
+                    AnalisarAdicionarClientes(clientes.Item2.Select(dest => new ClienteDI(dest)));
+                    return clientes.Item1;
+                case TiposDadoBasico.Motorista:
+                    var motoristas = AnaliseCompletaXml<Motorista>(listaXML, "transporta");
+                    AnalisarAdicionarMotoristas(motoristas.Item2.Select(mot => new MotoristaDI(mot)));
+                    return motoristas.Item1;
+                case TiposDadoBasico.Produto:
+                    var produtos = AnaliseCompletaXml<ProdutoOuServicoGenerico>(listaXML, "prod");
+                    AnalisarAdicionarProdutos(produtos.Item2.Select(prod => new ProdutoDI(prod)));
+                    return produtos.Item1;
+                default:
+                    return null;
             }
         }
 
-        private List<Exception> AnaliseCompletaXml<TipoBase>(XElement[] listaXML, string nomePrimario, string nomeSecundario, Action<List<TipoBase>> Adicionar) where TipoBase : class
+        private (List<Exception>, List<TipoBase>) AnaliseCompletaXml<TipoBase>(XElement[] listaXML, string nomeSecundario) where TipoBase : class
         {
+            string nomeDesejado = typeof(TipoBase).Name;
             var retorno = new List<Exception>();
             var add = new List<TipoBase>();
             for (int i = 0; i < listaXML.Length; i++)
             {
                 try
                 {
-                    var resultado = Busca(listaXML[i], nomePrimario, nomeSecundario);
+                    var resultado = Busca(listaXML[i], nomeSecundario);
                     if (resultado == null)
                     {
                         retorno.Add(new XmlNaoReconhecido(arquivos[i].Name, listaXML[i].Name.LocalName, nomeSecundario, nameof(TipoBase)));
                         continue;
                     }
-                    resultado = RemoverNamespace(resultado);
-                    var xml = resultado;
-                    xml.Name = nomePrimario;
+                    var xml = RemoverNamespace(resultado);
+                    xml.Name = nomeDesejado;
                     add.Add(xml.FromXElement<TipoBase>());
                 }
                 catch (Exception e)
@@ -78,28 +75,26 @@ namespace NFeFacil.Importacao
                     retorno.Add(e);
                 }
             }
-            Adicionar(add);
-            return retorno;
+            return (retorno, add);
         }
 
-        private XElement Busca(XElement universo, params string[] nome)
+        XElement Busca(XElement universo, string nome)
         {
-            if (nome.Contains(universo.Name.LocalName))
+            if (nome == universo.Name.LocalName)
             {
                 return universo;
             }
             else
             {
-                var filhos = universo.Elements().ToArray();
-                for (int i = 0; i < filhos.Length; i++)
+                foreach (var item in universo.Elements())
                 {
-                    if (nome.Contains(filhos[i].Name.LocalName))
+                    if (nome == item.Name.LocalName)
                     {
-                        return filhos[i];
+                        return item;
                     }
-                    else if (filhos[i].HasElements)
+                    else if (item.HasElements)
                     {
-                        var resultadoProfundo = Busca(filhos[i], nome);
+                        var resultadoProfundo = Busca(item, nome);
                         if (resultadoProfundo != null)
                         {
                             return resultadoProfundo;
@@ -110,13 +105,105 @@ namespace NFeFacil.Importacao
             return null;
         }
 
-        private static XElement RemoverNamespace(XElement xmlBruto)
+        XElement RemoverNamespace(XElement xmlBruto)
         {
             return new XElement(
                 xmlBruto.Name.LocalName,
                 xmlBruto.HasElements ?
                     xmlBruto.Elements().Select(el => RemoverNamespace(el)) :
                     (object)xmlBruto.Value);
+        }
+
+        internal void AnalisarAdicionarClientes(IEnumerable<ClienteDI> clientes)
+        {
+            using (var db = new AplicativoContext())
+            {
+                foreach (var dest in clientes)
+                {
+                    if (dest.Id != null && db.Clientes.Find(dest.Id) != null)
+                    {
+                        dest.UltimaData = Propriedades.DateTimeNow;
+                        db.Update(dest);
+                    }
+                    else
+                    {
+                        var busca = db.Clientes.FirstOrDefault(x => x.Documento == dest.Documento);
+                        dest.UltimaData = Propriedades.DateTimeNow;
+                        if (busca != default(ClienteDI))
+                        {
+                            dest.Id = busca.Id;
+                            db.Update(dest);
+                        }
+                        else
+                        {
+                            db.Add(dest);
+                        }
+                    }
+                }
+                db.SaveChanges();
+            }
+        }
+
+        internal void AnalisarAdicionarMotoristas(IEnumerable<MotoristaDI> motoristas)
+        {
+            using(var db = new AplicativoContext())
+            {
+                foreach (var mot in motoristas)
+                {
+                    if (mot.Id != null && db.Motoristas.Find(mot.Id) != null)
+                    {
+                        mot.UltimaData = Propriedades.DateTimeNow;
+                        db.Update(mot);
+                    }
+                    else
+                    {
+                        var busca = db.Motoristas.FirstOrDefault(x => x.Documento == mot.Documento
+                            || (x.Nome == mot.Nome && x.XEnder == mot.XEnder));
+                        mot.UltimaData = Propriedades.DateTimeNow;
+                        if (busca != default(MotoristaDI))
+                        {
+                            mot.Id = busca.Id;
+                            db.Update(mot);
+                        }
+                        else
+                        {
+                            db.Add(mot);
+                        }
+                    }
+                }
+                db.SaveChanges();
+            }
+        }
+
+        internal void AnalisarAdicionarProdutos(IEnumerable<ProdutoDI> produtos)
+        {
+            using (var db = new AplicativoContext())
+            {
+                foreach (var prod in produtos)
+                {
+                    if (prod.Id != null && db.Produtos.Find(prod.Id) != null)
+                    {
+                        prod.UltimaData = Propriedades.DateTimeNow;
+                        db.Update(prod);
+                    }
+                    else
+                    {
+                        var busca = db.Produtos.FirstOrDefault(x => x.Descricao == prod.Descricao
+                            || (x.CodigoProduto == prod.CodigoProduto && x.CFOP == prod.CFOP));
+                        prod.UltimaData = Propriedades.DateTimeNow;
+                        if (busca != default(ProdutoDI))
+                        {
+                            prod.Id = busca.Id;
+                            db.Update(prod);
+                        }
+                        else
+                        {
+                            db.Add(prod);
+                        }
+                    }
+                }
+                db.SaveChanges();
+            }
         }
     }
 }

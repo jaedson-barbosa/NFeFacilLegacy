@@ -47,8 +47,19 @@ namespace NFeFacil.Importacao
             }
             using (var db = new AplicativoContext())
             {
-                var repo = new MudancaOtimizadaBancoDados(db);
-                repo.AdicionarNotasFiscais(conjuntos);
+                foreach (var item in conjuntos)
+                {
+                    item.UltimaData = Propriedades.DateTimeNow;
+                    if (db.NotasFiscais.Count(x => x.Id == item.Id) > 0)
+                    {
+                        db.Update(item);
+                    }
+                    else
+                    {
+                        db.Add(item);
+                    }
+                }
+
                 db.SaveChanges();
             }
             return retorno;

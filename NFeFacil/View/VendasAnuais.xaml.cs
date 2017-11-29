@@ -22,10 +22,13 @@ namespace NFeFacil.View
     {
         Func<double, string> GetMonth { get; set; } = x => NomesMeses[(int)x] ?? string.Empty;
         Func<double, string> GetNome { get; set; } = x => NomesClientes?[(int)x] ?? string.Empty;
+
         SeriesCollection ResultadoMes { get; }
         SeriesCollection ResultadoCliente { get; }
-        static string[] NomesClientes = new string[12];
+
         static string[] NomesMeses = new string[12];
+        static string[] NomesClientes = new string[12];
+
         readonly Dictionary<int, NFe[]> NotasFiscais;
         readonly ObservableCollection<int> AnosDisponiveis;
 
@@ -66,6 +69,7 @@ namespace NFeFacil.View
         public VendasAnuais()
         {
             InitializeComponent();
+
             using (var db = new AplicativoContext())
             {
                 AnosDisponiveis = (from dado in db.NotasFiscais
@@ -80,37 +84,41 @@ namespace NFeFacil.View
                                 group nota by data.Year).ToDictionary(x => x.Key, x => x.ToArray());
             }
 
-            var colunaTotal = new ColumnSeries()
+            ResultadoMes = new SeriesCollection
             {
-                Values = new ChartValues<TotalPorMes>(),
-                Title = "Total",
-                LabelPoint = x => $": {x.Y}",
-                Configuration = Mappers.Xy<TotalPorMes>().X(x => x.Id).Y(x => x.Total)
+                new ColumnSeries()
+                {
+                    Values = new ChartValues<TotalPorMes>(),
+                    Title = "Total",
+                    LabelPoint = x => $": {x.Y}",
+                    Configuration = Mappers.Xy<TotalPorMes>().X(x => x.Id).Y(x => x.Total)
+                },
+                new ColumnSeries
+                {
+                    Values = new ChartValues<TotalPorMes>(),
+                    Title = "Quantidade",
+                    LabelPoint = x => $": {x.Y}",
+                    Configuration = Mappers.Xy<TotalPorMes>().X(x => x.Id).Y(x => x.Quantidade)
+                }
             };
-            var colunaQuantidade = new ColumnSeries
-            {
-                Values = new ChartValues<TotalPorMes>(),
-                Title = "Quantidade",
-                LabelPoint = x => $": {x.Y}",
-                Configuration = Mappers.Xy<TotalPorMes>().X(x => x.Id).Y(x => x.Quantidade)
-            };
-            ResultadoMes = new SeriesCollection { colunaTotal, colunaQuantidade };
 
-            var colunaTotal1 = new ColumnSeries()
+            ResultadoCliente = new SeriesCollection
             {
-                Values = new ChartValues<TotalPorCliente>(),
-                Title = "Total",
-                LabelPoint = x => $": {x.Y}",
-                Configuration = Mappers.Xy<TotalPorCliente>().X(x => x.Id).Y(x => x.Total)
+                new ColumnSeries()
+                {
+                    Values = new ChartValues<TotalPorCliente>(),
+                    Title = "Total",
+                    LabelPoint = x => $": {x.Y}",
+                    Configuration = Mappers.Xy<TotalPorCliente>().X(x => x.Id).Y(x => x.Total)
+                },
+                new ColumnSeries
+                {
+                    Values = new ChartValues<TotalPorCliente>(),
+                    Title = "Quantidade",
+                    LabelPoint = x => $": {x.Y}",
+                    Configuration = Mappers.Xy<TotalPorCliente>().X(x => x.Id).Y(x => x.Quantidade)
+                }
             };
-            var colunaQuantidade1 = new ColumnSeries
-            {
-                Values = new ChartValues<TotalPorCliente>(),
-                Title = "Quantidade",
-                LabelPoint = x => $": {x.Y}",
-                Configuration = Mappers.Xy<TotalPorCliente>().X(x => x.Id).Y(x => x.Quantidade)
-            };
-            ResultadoCliente = new SeriesCollection { colunaTotal1, colunaQuantidade1 };
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

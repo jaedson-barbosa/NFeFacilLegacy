@@ -41,10 +41,7 @@ namespace NFeFacil.View
             }
 
             paiGrafico.Series.Configuration = Mappers.Xy<DateModel>()
-                .X(dayModel => {
-                    var retorno = dayModel.IdTempo;
-                    return retorno;
-                })
+                .X(dayModel => dayModel.IdTempo)
                 .Y(dayModel => dayModel.Value);
 
             Formatter = new Func<double, string>(x => x < 1 || x > 12 ? "Não há dados" : CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName((int)x));

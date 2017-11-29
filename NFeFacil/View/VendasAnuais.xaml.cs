@@ -1,5 +1,4 @@
 ﻿using NFeFacil.ModeloXML.PartesProcesso;
-using NFeFacil.Controles;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -7,6 +6,10 @@ using System.Linq;
 using System.Xml.Linq;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using System.Globalization;
+using LiveCharts;
+using LiveCharts.Uwp;
+using LiveCharts.Configurations;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -15,8 +18,51 @@ namespace NFeFacil.View
     /// <summary>
     /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
     /// </summary>
-    public sealed partial class VendasAnuais : Page, IHambuguer
+    public sealed partial class VendasAnuais : Page
     {
+        Func<double, string> GetMonth { get; set; } = x => NomesMeses[(int)x] ?? string.Empty;
+        Func<double, string> GetNome { get; set; } = x => NomesClientes?[(int)x] ?? string.Empty;
+        SeriesCollection ResultadoMes { get; }
+        SeriesCollection ResultadoCliente { get; }
+        static string[] NomesClientes = new string[12];
+        static string[] NomesMeses = new string[12];
+        readonly Dictionary<int, NFe[]> NotasFiscais;
+        readonly ObservableCollection<int> AnosDisponiveis;
+
+        int anoEscolhido;
+        int AnoEscolhido
+        {
+            get => anoEscolhido;
+            set
+            {
+                anoEscolhido = value;
+                AtualizarMeses();
+                AtualizarClientes();
+            }
+        }
+
+        int ordenacaoMeses;
+        int OrdenacaoMeses
+        {
+            get => ordenacaoMeses;
+            set
+            {
+                ordenacaoMeses = value;
+                AtualizarMeses();
+            }
+        }
+
+        int ordenacaoClientes;
+        int OrdenacaoClientes
+        {
+            get => ordenacaoClientes;
+            set
+            {
+                ordenacaoClientes = value;
+                AtualizarClientes();
+            }
+        }
+
         public VendasAnuais()
         {
             InitializeComponent();
@@ -33,8 +79,38 @@ namespace NFeFacil.View
                                 let nota = xml.FirstNode.FromXElement<NFe>()
                                 group nota by data.Year).ToDictionary(x => x.Key, x => x.ToArray());
             }
-            ResultadoMes = new ObservableCollection<TotalPorMes>();
-            ResultadoCliente = new ObservableCollection<TotalPorCliente>();
+
+            var colunaTotal = new ColumnSeries()
+            {
+                Values = new ChartValues<TotalPorMes>(),
+                Title = "Total",
+                LabelPoint = x => $": {x.Y}",
+                Configuration = Mappers.Xy<TotalPorMes>().X(x => x.Id).Y(x => x.Total)
+            };
+            var colunaQuantidade = new ColumnSeries
+            {
+                Values = new ChartValues<TotalPorMes>(),
+                Title = "Quantidade",
+                LabelPoint = x => $": {x.Y}",
+                Configuration = Mappers.Xy<TotalPorMes>().X(x => x.Id).Y(x => x.Quantidade)
+            };
+            ResultadoMes = new SeriesCollection { colunaTotal, colunaQuantidade };
+
+            var colunaTotal1 = new ColumnSeries()
+            {
+                Values = new ChartValues<TotalPorCliente>(),
+                Title = "Total",
+                LabelPoint = x => $": {x.Y}",
+                Configuration = Mappers.Xy<TotalPorCliente>().X(x => x.Id).Y(x => x.Total)
+            };
+            var colunaQuantidade1 = new ColumnSeries
+            {
+                Values = new ChartValues<TotalPorCliente>(),
+                Title = "Quantidade",
+                LabelPoint = x => $": {x.Y}",
+                Configuration = Mappers.Xy<TotalPorCliente>().X(x => x.Id).Y(x => x.Quantidade)
+            };
+            ResultadoCliente = new SeriesCollection { colunaTotal1, colunaQuantidade1 };
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -42,70 +118,30 @@ namespace NFeFacil.View
             MainPage.Current.SeAtualizar(Symbol.Calendar, "Vendas");
         }
 
-        public ObservableCollection<ItemHambuguer> ConteudoMenu => new ObservableCollection<ItemHambuguer>
+        void AtualizarMeses()
         {
-            new ItemHambuguer(Symbol.Calendar, "Meses"),
-            new ItemHambuguer(Symbol.People, "Clientes"),
-        };
-
-        public void AtualizarMain(int index) => flipView.SelectedIndex = index;
-
-        private void TelaMudou(object sender, SelectionChangedEventArgs e)
-        {
-            var index = ((FlipView)sender).SelectedIndex;
-            MainPage.Current.AlterarSelectedIndexHamburguer(index);
-        }
-
-        readonly Dictionary<int, NFe[]> NotasFiscais;
-        readonly ObservableCollection<int> AnosDisponiveis;
-        readonly ObservableCollection<TotalPorMes> ResultadoMes;
-        readonly ObservableCollection<TotalPorCliente> ResultadoCliente;
-
-        private void AnoEscolhidoMudou(object sender, SelectionChangedEventArgs e)
-        {
-            var AnoEscolhido = (int)e.AddedItems[0];
             try
             {
-                using (var db = new AplicativoContext())
+                var gruposMeses = from nota in NotasFiscais[AnoEscolhido]
+                                  let data = DateTime.Parse(nota.Informacoes.identificacao.DataHoraEmissão)
+                                  group nota by data.Month into item
+                                  let total = item.Sum(x => x.Informacoes.total.ICMSTot.VNF)
+                                  orderby OrdenacaoMeses == 0 ? -item.Key : total descending
+                                  select item;
+                ResultadoMes[0].Values.Clear();
+                ResultadoMes[1].Values.Clear();
+                int i = 0;
+                foreach (var item in gruposMeses)
                 {
-                    var notas = NotasFiscais;
-
-                    ResultadoCliente.Clear();
-                    var gruposClientes = from nota in notas[AnoEscolhido]
-                                         group nota by nota.Informacoes.destinatário.Documento into item
-                                         let total = item.Sum(x => x.Informacoes.total.ICMSTot.VNF)
-                                         orderby total descending
-                                         select new { Notas = item, Total = total };
-                    foreach (var item in gruposClientes)
+                    var atual = new TotalPorMes
                     {
-                        var det = item.Notas.Last().Informacoes;
-                        var atual = new TotalPorCliente
-                        {
-                            Doc = det.destinatário.Documento,
-                            Mun = det.destinatário.Endereco.NomeMunicipio,
-                            Nome = det.destinatário.Nome,
-                            Quantidade = item.Notas.Sum(x => x.Informacoes.produtos.Sum(prod => prod.Produto.QuantidadeComercializada)),
-                            Total = item.Total
-                        };
-                        ResultadoCliente.Add(atual);
-                    }
-
-                    ResultadoMes.Clear();
-                    var gruposMeses = from nota in notas[AnoEscolhido]
-                                      let data = DateTime.Parse(nota.Informacoes.identificacao.DataHoraEmissão)
-                                      orderby data.Month
-                                      group new { Nota = nota, Data = data.Month } by data.Month;
-                    foreach (var item in gruposMeses)
-                    {
-                        var primeiro = item.First();
-                        var atual = new TotalPorMes
-                        {
-                            Mês = primeiro.Data.ToString(),
-                            Quantidade = item.Sum(det => det.Nota.Informacoes.produtos.Sum(prod => prod.Produto.QuantidadeComercializada)),
-                            Total = item.Sum(det => det.Nota.Informacoes.total.ICMSTot.VNF)
-                        };
-                        ResultadoMes.Add(atual);
-                    }
+                        Id = i,
+                        Quantidade = item.Sum(det => det.Informacoes.produtos.Sum(prod => prod.Produto.QuantidadeComercializada)),
+                        Total = item.Sum(det => det.Informacoes.total.ICMSTot.VNF)
+                    };
+                    NomesMeses[i++] = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(item.Key);
+                    ResultadoMes[0].Values.Add(atual);
+                    ResultadoMes[1].Values.Add(atual);
                 }
             }
             catch (Exception erro)
@@ -114,20 +150,57 @@ namespace NFeFacil.View
             }
         }
 
-        public struct TotalPorCliente
+        void AtualizarClientes()
         {
+            var gruposClientes = from nota in NotasFiscais[AnoEscolhido]
+                                 group nota by nota.Informacoes.destinatário.Documento into item
+                                 let total = item.Sum(x => x.Informacoes.total.ICMSTot.VNF)
+                                 let quant = item.Sum(x => x.Informacoes.produtos.Sum(prod => prod.Produto.QuantidadeComercializada))
+                                 orderby OrdenacaoClientes == 0 ? total : quant descending
+                                 select new { Nome = item.First().Informacoes.destinatário.Nome, Total = total, Quant = quant };
+            ResultadoCliente[0].Values.Clear();
+            ResultadoCliente[1].Values.Clear();
+            int i = 0;
+            foreach (var item in gruposClientes.Take(11))
+            {
+                var atual = new TotalPorCliente
+                {
+                    Id = i,
+                    Nome = item.Nome,
+                    Quantidade = item.Quant,
+                    Total = item.Total
+                };
+                NomesClientes[i++] = atual.Nome;
+                ResultadoCliente[0].Values.Add(atual);
+                ResultadoCliente[1].Values.Add(atual);
+            }
+
+            var itensRestantes = gruposClientes.Skip(11);
+            var restante = new TotalPorCliente
+            {
+                Id = i,
+                Nome = "Restante",
+                Quantidade = itensRestantes.Sum(x => x.Quant),
+                Total = itensRestantes.Sum(x => x.Total)
+            };
+            NomesClientes[i++] = restante.Nome;
+            ResultadoCliente[0].Values.Add(restante);
+            ResultadoCliente[1].Values.Add(restante);
+        }
+
+        struct TotalPorCliente
+        {
+            public int Id { get; set; }
             public double Quantidade { get; set; }
             public double Total { get; set; }
             public string Nome { get; set; }
-            public string Doc { get; set; }
-            public string Mun { get; set; }
         }
 
-        public sealed class TotalPorMes
+        struct TotalPorMes
         {
+            public int Id { get; set; }
             public double Quantidade { get; set; }
             public double Total { get; set; }
-            public string Mês { get; set; }
         }
     }
 }

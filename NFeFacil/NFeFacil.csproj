@@ -395,7 +395,6 @@
     <Compile Include="Log\Popup.cs" />
     <Compile Include="Log\Titulos.cs" />
     <Compile Include="Log\TitulosComuns.cs" />
-    <Compile Include="OperacoesNotaSalva.cs" />
     <Compile Include="Propriedades.cs" />
     <Compile Include="Sincronizacao\ConfiguracoesSincronizacao.cs" />
     <Compile Include="Sincronizacao\GerenciadorCliente.cs" />

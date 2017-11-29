@@ -3,11 +3,16 @@ using NFeFacil.Log;
 using NFeFacil.ModeloXML;
 using NFeFacil.ModeloXML.PartesProcesso;
 using NFeFacil.Validacao;
+using NFeFacil.WebService;
+using NFeFacil.WebService.Pacotes;
 using System;
 using System.Collections;
+using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Xml.Linq;
+using Windows.Storage.Pickers;
 using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -177,19 +182,45 @@ namespace NFeFacil.ViewNFe
 
         private async void Transmitir(object sender, RoutedEventArgs e)
         {
-            var nfe = (NFe)ObjetoItemBanco;
-            var OperacoesNota = new OperacoesNotaSalva(Log);
-            var resposta = await OperacoesNota.Transmitir(nfe, nfe.AmbienteTestes);
-            if (resposta.sucesso)
+            var nota = (NFe)ObjetoItemBanco;
+            try
             {
-                ObjetoItemBanco = new Processo()
+                var resultadoTransmissao = await new GerenciadorGeral<EnviNFe, RetEnviNFe>(nota.Informacoes.emitente.Endereco.SiglaUF, Operacoes.Autorizar, nota.AmbienteTestes)
+                    .EnviarAsync(new EnviNFe(nota.Informacoes.identificacao.Numero, nota), true);
+                if (resultadoTransmissao.cStat == 103)
                 {
-                    NFe = nfe,
-                    ProtNFe = resposta.protocolo
-                };
-                ItemBanco.Status = (int)StatusNFe.Emitida;
-                AtualizarDI();
-                AtualizarBotoesComando();
+                    await Task.Delay(new TimeSpan(0, 0, 10));
+                    var resultadoResposta = await new GerenciadorGeral<ConsReciNFe, RetConsReciNFe>(resultadoTransmissao.cUF, Operacoes.RespostaAutorizar, nota.AmbienteTestes)
+                        .EnviarAsync(new ConsReciNFe(resultadoTransmissao.tpAmb, resultadoTransmissao.infRec.nRec));
+                    if (resultadoResposta.protNFe.InfProt.cStat == 100)
+                    {
+                        Log.Escrever(TitulosComuns.Sucesso, resultadoResposta.xMotivo);
+
+                        ObjetoItemBanco = new Processo()
+                        {
+                            NFe = nota,
+                            ProtNFe = resultadoResposta.protNFe
+                        };
+                        ItemBanco.Status = (int)StatusNFe.Emitida;
+                        AtualizarDI();
+                        AtualizarBotoesComando();
+                    }
+                    else
+                    {
+                        Log.Escrever(TitulosComuns.Erro, $"A nota fiscal foi processada, mas recusada. Mensagem de retorno:\r\n" +
+                            $"{resultadoResposta.protNFe.InfProt.xMotivo}");
+                    }
+                }
+                else
+                {
+                    Log.Escrever(TitulosComuns.Erro, $"A NFe não foi aceita. Mensagem de retorno:\r\n" +
+                        $"{resultadoTransmissao.xMotivo}\r\n" +
+                        $"Por favor, exporte esta nota fiscal e envie o XML gerado para o desenvolvedor do aplicativo para que o erro possa ser corrigido.");
+                }
+            }
+            catch (Exception erro)
+            {
+                erro.ManipularErro();
             }
         }
 
@@ -219,12 +250,32 @@ namespace NFeFacil.ViewNFe
                 xml = ObjetoItemBanco.ToXElement<Processo>();
             }
 
-            var OperacoesNota = new OperacoesNotaSalva(Log);
-            if (await OperacoesNota.Exportar(xml, id))
+            try
             {
-                ItemBanco.Exportada = true;
-                AtualizarDI();
-                Log.Escrever(TitulosComuns.Sucesso, $"Nota fiscal exportada com sucesso.");
+                FileSavePicker salvador = new FileSavePicker
+                {
+                    DefaultFileExtension = ".xml",
+                    SuggestedFileName = $"{id}.xml",
+                    SuggestedStartLocation = PickerLocationId.DocumentsLibrary
+                };
+                salvador.FileTypeChoices.Add("Arquivo XML", new string[] { ".xml" });
+                var arquivo = await salvador.PickSaveFileAsync();
+                if (arquivo != null)
+                {
+                    using (var stream = await arquivo.OpenStreamForWriteAsync())
+                    {
+                        xml.Save(stream);
+                        await stream.FlushAsync();
+                    }
+
+                    ItemBanco.Exportada = true;
+                    AtualizarDI();
+                    Log.Escrever(TitulosComuns.Sucesso, $"Nota fiscal exportada com sucesso.");
+                }
+            }
+            catch (Exception erro)
+            {
+                erro.ManipularErro();
             }
         }
 

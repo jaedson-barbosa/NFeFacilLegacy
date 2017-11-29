@@ -5,7 +5,6 @@ using NFeFacil.ModeloXML.PartesProcesso;
 using NFeFacil.Validacao;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
@@ -38,24 +37,22 @@ namespace NFeFacil.ViewNFe
             MainPage.Current.SeAtualizar(Symbol.View, "Visualizar NFe");
             ItemBanco = (NFeDI)e.Parameter;
             var xml = XElement.Parse(ItemBanco.XML);
-            IEnumerable<PropriedadeHierárquica> propriedades;
             if (ItemBanco.Status < (int)StatusNFe.Emitida)
             {
                 var nfe = xml.FromXElement<NFe>();
                 ObjetoItemBanco = nfe;
-                propriedades = ObterPropriedades(nfe.Informacoes);
+                ObterPropriedades(nfe.Informacoes, 0);
             }
             else
             {
                 var processo = xml.FromXElement<Processo>();
                 ObjetoItemBanco = processo;
-                propriedades = ObterPropriedades(processo.NFe.Informacoes);
+                ObterPropriedades(processo.NFe.Informacoes, 0);
             }
-            ProcessarPropriedades(propriedades, 0);
             AtualizarBotoesComando();
         }
 
-        IEnumerable<PropriedadeHierárquica> ObterPropriedades(object obj)
+        void ObterPropriedades(object obj, int profundidade)
         {
             foreach (var prop in obj.GetType().GetProperties().Where(x => x.CanWrite
                 && x.GetCustomAttribute<System.Xml.Serialization.XmlIgnoreAttribute>() == null))
@@ -66,11 +63,8 @@ namespace NFeFacil.ViewNFe
                     var desc = prop.GetCustomAttribute<DescricaoPropriedade>();
                     if (valor.GetType().Namespace.Contains("NFeFacil"))
                     {
-                        yield return new PropriedadeHierárquica
-                        {
-                            Nome = desc?.Descricao ?? prop.Name,
-                            Valor = ObterPropriedades(valor)
-                        };
+                        AdicionarCampo(desc?.Descricao ?? prop.Name, (EstilosTexto)profundidade);
+                        ObterPropriedades(valor, profundidade + 1);
                     }
                     else if (valor is IEnumerable listaFilha && !(valor is string))
                     {
@@ -78,92 +72,63 @@ namespace NFeFacil.ViewNFe
                         var itemPersonalizado = tipoItem.Namespace.Contains("NFeFacil");
                         foreach (var item in listaFilha)
                         {
-                            yield return new PropriedadeHierárquica
+                            if (itemPersonalizado)
                             {
-                                Nome = desc?.Descricao ?? tipoItem.Name,
-                                Valor = itemPersonalizado ? ObterPropriedades(item) : item
-                            };
+                                AdicionarCampo(desc?.Descricao ?? tipoItem.Name, (EstilosTexto)profundidade);
+                                ObterPropriedades(item, profundidade + 1);
+                            }
+                            else
+                            {
+                                AdicionarCampo(desc?.Descricao ?? tipoItem.Name,
+                                    (EstilosTexto)profundidade, item.ToString());
+                            }
                         }
                     }
                     else
                     {
                         var ext = prop.GetCustomAttribute<PropriedadeExtensivel>();
-                        yield return new PropriedadeHierárquica
-                        {
-                            Nome = ext?.NomeExtensão ?? desc?.Descricao ?? prop.Name,
-                            Valor = ext?.ObterValor(valor) ?? valor
-                        };
+                        AdicionarCampo(ext?.NomeExtensão ?? desc?.Descricao ?? prop.Name,
+                            EstilosTexto.BodyTextBlockStyle, (ext?.ObterValor(valor) ?? valor).ToString());
                     }
-                }
-            }
-        }
-
-        void ProcessarPropriedades(IEnumerable<PropriedadeHierárquica> hierarquia, int profundidade)
-        {
-            foreach (var atual in hierarquia)
-            {
-                if (atual.Valor is IEnumerable<PropriedadeHierárquica> subhierarquia)
-                {
-                    AdicionarCampo(atual.Nome, (EstilosTexto)profundidade);
-                    ProcessarPropriedades(subhierarquia, profundidade + 1);
-                }
-                else
-                {
-                    AdicionarCampo(atual.Nome, EstilosTexto.BodyTextBlockStyle, atual.Valor.ToString());
                 }
             }
         }
 
         void AdicionarCampo(string texto, EstilosTexto estilo, string textoComplementar = null)
         {
-            var linha = new Run() { Text = texto };
-            AplicarEstilo();
+            visualizacao.Inlines.Add(CriarRun(texto, textoComplementar != null));
 
             if (textoComplementar != null)
-            {
-                linha.Text += ": ";
-                linha.FontWeight = FontWeights.Bold;
-            }
-
-            visualizacao.Inlines.Add(linha);
-
-            if (textoComplementar != null)
-            {
-                linha = new Run() { Text = textoComplementar };
-                AplicarEstilo();
-                visualizacao.Inlines.Add(linha);
-            }
+                visualizacao.Inlines.Add(CriarRun(textoComplementar));
 
             visualizacao.Inlines.Add(new LineBreak());
 
-            void AplicarEstilo()
+            Run CriarRun(string conteudo, bool label = false)
             {
+                var retorno = new Run() { Text = label ? conteudo + ": " : conteudo };
                 switch (estilo)
                 {
                     case EstilosTexto.HeaderTextBlockStyle:
-                        linha.FontWeight = FontWeights.Light;
-                        linha.FontSize = 46;
-                        break;
+                        retorno.FontWeight = FontWeights.Light;
+                        retorno.FontSize = 46;
+                        return retorno;
                     case EstilosTexto.SubheaderTextBlockStyle:
-                        linha.FontWeight = FontWeights.Light;
-                        linha.FontSize = 34;
-                        break;
+                        retorno.FontWeight = FontWeights.Light;
+                        retorno.FontSize = 34;
+                        return retorno;
                     case EstilosTexto.TitleTextBlockStyle:
-                        linha.FontWeight = FontWeights.SemiLight;
-                        linha.FontSize = 24;
-                        break;
+                        retorno.FontWeight = FontWeights.SemiLight;
+                        retorno.FontSize = 24;
+                        return retorno;
                     case EstilosTexto.SubtitleTextBlockStyle:
-                        linha.FontWeight = FontWeights.Normal;
-                        linha.FontSize = 20;
-                        break;
+                        retorno.FontWeight = FontWeights.Normal;
+                        retorno.FontSize = 20;
+                        return retorno;
+                    default:
+                        retorno.FontWeight = label ? FontWeights.Bold : FontWeights.Normal;
+                        return retorno;
                 }
             }
-        }
-
-        struct PropriedadeHierárquica
-        {
-            public string Nome { get; set; }
-            public object Valor { get; set; }
         }
 
         enum EstilosTexto

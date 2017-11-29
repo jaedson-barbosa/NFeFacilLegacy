@@ -172,9 +172,7 @@
     <Compile Include="Certificacao\ConfiguracoesServidorCertificacao.xaml.cs">
       <DependentUpon>ConfiguracoesServidorCertificacao.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Complementos.cs" />
     <Compile Include="ConfiguracoesPermanentes.cs" />
-    <Compile Include="ImagemExtensoes.cs" />
     <Compile Include="ConjuntoBasicoExibicao.cs" />
     <Compile Include="Sincronizacao\Pacotes\ConjuntoNotasFiscais.cs" />
     <Compile Include="ViewRegistroVenda\CalcularTroco.xaml.cs">

@@ -38,7 +38,8 @@ namespace NFeFacil.Migrations
                     Email = table.Column<string>(nullable: true),
                     IdEmpresa = table.Column<Guid>(nullable: false),
                     Nome = table.Column<string>(nullable: true),
-                    Telefone = table.Column<string>(nullable: true)
+                    Telefone = table.Column<string>(nullable: true),
+                    UltimaData = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {

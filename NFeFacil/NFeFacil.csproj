@@ -175,6 +175,7 @@
     <Compile Include="ConfiguracoesPermanentes.cs" />
     <Compile Include="ConjuntoBasicoExibicao.cs" />
     <Compile Include="Sincronizacao\Pacotes\ConjuntoNotasFiscais.cs" />
+    <Compile Include="Validacao\ValidadorComprador.cs" />
     <Compile Include="ViewDadosBase\AdicionarComprador.xaml.cs">
       <DependentUpon>AdicionarComprador.xaml</DependentUpon>
     </Compile>

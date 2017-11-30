@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+﻿using NFeFacil.ItensBD;
+using NFeFacil.Log;
+using NFeFacil.Validacao;
+using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
@@ -22,9 +15,57 @@ namespace NFeFacil.ViewDadosBase
     /// </summary>
     public sealed partial class AdicionarComprador : Page
     {
+        private Comprador Comprador;
+        private ILog Log = Popup.Current;
+
         public AdicionarComprador()
         {
-            this.InitializeComponent();
+            InitializeComponent();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            if (e.Parameter == null)
+            {
+                Comprador = new Comprador();
+                MainPage.Current.SeAtualizar(Symbol.Add, "Vendedor");
+            }
+            else
+            {
+                Comprador = (Comprador)e.Parameter;
+                MainPage.Current.SeAtualizar(Symbol.Edit, "Vendedor");
+            }
+            DataContext = Comprador;
+        }
+
+        private void Confirmar_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (new ValidadorComprador(Comprador).Validar(Log))
+                {
+                    using (var db = new AplicativoContext())
+                    {
+                        Comprador.UltimaData = Propriedades.DateTimeNow;
+                        if (Comprador.Id == Guid.Empty)
+                        {
+                            db.Add(Comprador);
+                            Log.Escrever(TitulosComuns.Sucesso, "Vendedor salvo com sucesso.");
+                        }
+                        else
+                        {
+                            db.Update(Comprador);
+                            Log.Escrever(TitulosComuns.Sucesso, "Vendedor alterado com sucesso.");
+                        }
+                        db.SaveChanges();
+                    }
+                    MainPage.Current.Retornar();
+                }
+            }
+            catch (Exception erro)
+            {
+                erro.ManipularErro();
+            }
         }
     }
 }

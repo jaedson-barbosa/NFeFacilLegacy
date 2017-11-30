@@ -111,6 +111,8 @@ namespace NFeFacil.Migrations
 
                     b.Property<string>("Telefone");
 
+                    b.Property<DateTime>("UltimaData");
+
                     b.HasKey("Id");
 
                     b.ToTable("Compradores");

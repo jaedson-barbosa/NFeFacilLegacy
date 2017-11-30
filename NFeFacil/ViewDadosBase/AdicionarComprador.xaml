@@ -4,17 +4,25 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"></Grid>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <TextBox Header="Nome"
+                 Text="{x:Bind Comprador.Nome, Mode=TwoWay}" />
+        <TextBox Header="Telefone"
+                 Text="{x:Bind Comprador.Telefone, Mode=TwoWay}" />
+        <TextBox InputScope="EmailNameOrAddress"
+                 Text="{x:Bind Comprador.Email, Mode=TwoWay}" />
+    </Grid>
     <Page.BottomAppBar>
         <CommandBar>
             <AppBarButton x:Name="Confirmar"
                           Icon="Accept"
                           Label="Confirmar"
                           Click="Confirmar_Click" />
-            <AppBarButton x:Name="Cancelar"
-                          Icon="Cancel"
-                          Label="Cancelar"
-                          Click="Cancelar_Click" />
         </CommandBar>
     </Page.BottomAppBar>
 </Page>

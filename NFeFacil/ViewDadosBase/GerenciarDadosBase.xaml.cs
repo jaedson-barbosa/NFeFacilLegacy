@@ -25,6 +25,7 @@ namespace NFeFacil.ViewDadosBase
                 Clientes = db.Clientes.Where(x => x.Ativo).OrderBy(x => x.Nome).GerarObs();
                 Motoristas = db.Motoristas.Where(x => x.Ativo).OrderBy(x => x.Nome).GerarObs();
                 Produtos = db.Produtos.Where(x => x.Ativo).OrderBy(x => x.Descricao).GerarObs();
+                Compradores = db.Compradores.Where(x => x.Ativo).OrderBy(x => x.Nome).GerarObs();
 
                 var vendedores = db.Vendedores.Where(x => x.Ativo).ToArray();
                 var imagens = db.Imagens;
@@ -63,7 +64,8 @@ namespace NFeFacil.ViewDadosBase
             new ItemHambuguer(Symbol.People, "Clientes"),
             new ItemHambuguer(new Uri(GetUriVolante()), "Motoristas"),
             new ItemHambuguer(Symbol.Shop, "Produtos"),
-            new ItemHambuguer(Symbol.People, "Vendedores")
+            new ItemHambuguer(Symbol.People, "Vendedores"),
+            new ItemHambuguer(Symbol.People, "Compradores")
         };
 
         string GetUriVolante()
@@ -76,6 +78,7 @@ namespace NFeFacil.ViewDadosBase
         ObservableCollection<MotoristaDI> Motoristas { get; }
         ObservableCollection<ProdutoDI> Produtos { get; }
         ObservableCollection<ExibicaoVendedor> Vendedores { get; }
+        ObservableCollection<Comprador> Compradores { get; }
 
         public void AtualizarMain(int index) => flipView.SelectedIndex = index;
 
@@ -263,16 +266,27 @@ namespace NFeFacil.ViewDadosBase
 
         private void AdicionarComprador(object sender, RoutedEventArgs e)
         {
+            MainPage.Current.Navegar<AdicionarComprador>();
         }
 
         private void EditarComprador(object sender, RoutedEventArgs e)
         {
             var contexto = ((FrameworkElement)sender).DataContext;
+            MainPage.Current.Navegar<AdicionarComprador>((Comprador)contexto);
         }
 
         private void InativarComprador(object sender, RoutedEventArgs e)
         {
             var contexto = ((FrameworkElement)sender).DataContext;
+            var compr = (Comprador)contexto;
+
+            using (var db = new AplicativoContext())
+            {
+                compr.Ativo = false;
+                db.Update(compr);
+                db.SaveChanges();
+                Compradores.Remove(compr);
+            }
         }
 
         sealed class ExibicaoVendedor : ConjuntoBasicoExibicao

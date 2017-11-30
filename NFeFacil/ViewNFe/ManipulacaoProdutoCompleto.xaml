@@ -23,7 +23,6 @@
     </Page.Resources>
     <FlipView Name="main"
               Padding="16"
-              Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
               SelectionChanged="TelaMudou">
         <ScrollViewer>
             <ItemsControl Style="{StaticResource ItensResponsivos}">
@@ -87,12 +86,6 @@
                     <ComboBoxItem>Não compõe o valor total da NF-e</ComboBoxItem>
                     <ComboBoxItem>compõe o valor total da NF-e</ComboBoxItem>
                 </ComboBox>
-                <TextBox Text="{x:Bind ProdutoCompleto.Produto.XPed, Mode=TwoWay}"
-                         InputScope="Number"
-                         Header="Pedido de compra" />
-                <controles:EntradaRestrita Pattern="[^\d]"
-                                           Text="{x:Bind ProdutoCompleto.Produto.NItemPed, Mode=TwoWay}"
-                                           Header="Nº do item do pedido" />
                 <TextBox Text="{x:Bind ProdutoCompleto.Produto.NFCI, Mode=TwoWay}"
                          InputScope="Number"
                          Header="Nº de controle da FCI" />
@@ -108,8 +101,7 @@
         </StackPanel>
         <TextBox Text="{x:Bind ProdutoCompleto.InfAdProd, Mode=TwoWay}"
                  TextWrapping="Wrap" />
-        <ListView ItemContainerStyle="{StaticResource ItemFullWidth}"
-                  ItemsSource="{x:Bind ListaDI}">
+        <ListView ItemsSource="{x:Bind ListaDI}">
             <ListView.Header>
                 <Grid Style="{StaticResource Cabecalho}">
                     <Grid.ColumnDefinitions>
@@ -146,8 +138,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ListView ItemContainerStyle="{StaticResource ItemFullWidth}"
-                  ItemsSource="{x:Bind ListaGE}">
+        <ListView ItemsSource="{x:Bind ListaGE}">
             <ListView.Header>
                 <Grid Style="{StaticResource Cabecalho}">
                     <Grid.ColumnDefinitions>

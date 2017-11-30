@@ -3,13 +3,16 @@ using NFeFacil.Log;
 using NFeFacil.ModeloXML;
 using NFeFacil.ModeloXML.PartesProcesso;
 using NFeFacil.Validacao;
+using NFeFacil.WebService;
+using NFeFacil.WebService.Pacotes;
 using System;
 using System.Collections;
-using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
+using System.Threading.Tasks;
 using System.Xml.Linq;
+using Windows.Storage.Pickers;
 using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -39,230 +42,98 @@ namespace NFeFacil.ViewNFe
             MainPage.Current.SeAtualizar(Symbol.View, "Visualizar NFe");
             ItemBanco = (NFeDI)e.Parameter;
             var xml = XElement.Parse(ItemBanco.XML);
-            List<PropriedadeHierárquica> propriedades;
             if (ItemBanco.Status < (int)StatusNFe.Emitida)
             {
                 var nfe = xml.FromXElement<NFe>();
                 ObjetoItemBanco = nfe;
-                propriedades = ObterPropriedades(nfe.Informacoes);
+                ObterPropriedades(nfe.Informacoes, 0);
             }
             else
             {
                 var processo = xml.FromXElement<Processo>();
                 ObjetoItemBanco = processo;
-                propriedades = ObterPropriedades(processo.NFe.Informacoes);
+                ObterPropriedades(processo.NFe.Informacoes, 0);
             }
-            var linear = PropriedadeHierarquicaToLinear(propriedades, 0);
-            linear.ForEach(x => AdicionarCampo(x.Texto, (EstilosTexto)x.Profundidade, x.Complementar));
             AtualizarBotoesComando();
         }
 
-        List<PropriedadeHierárquica> ObterPropriedades(object obj)
+        void ObterPropriedades(object obj, int profundidade)
         {
-            var retorno = new List<PropriedadeHierárquica>();
-            var tipo = obj.GetType();
-            foreach (var prop in tipo.GetProperties().Where(x => x.CanWrite
+            foreach (var prop in obj.GetType().GetProperties().Where(x => x.CanWrite
                 && x.GetCustomAttribute<System.Xml.Serialization.XmlIgnoreAttribute>() == null))
             {
                 var valor = prop.GetValue(obj);
                 if (valor != null)
                 {
-                    var tipoFilho = valor.GetType();
-                    if (tipoFilho.Namespace.Contains("NFeFacil") && !(valor is IEnumerable))
+                    var desc = prop.GetCustomAttribute<DescricaoPropriedade>();
+                    if (valor.GetType().Namespace.Contains("NFeFacil"))
                     {
-                        retorno.Add(new PropriedadeHierárquica
-                        {
-                            Nome = prop.Name,
-                            Valor = ObterPropriedades(valor)
-                        });
+                        AdicionarCampo(desc?.Descricao ?? prop.Name, (EstilosTexto)profundidade);
+                        ObterPropriedades(valor, profundidade + 1);
                     }
-                    else if (valor is IEnumerable teste && !(valor is string))
+                    else if (valor is IEnumerable listaFilha && !(valor is string))
                     {
-                        List<PropriedadeHierárquica> propriedadesFilhas = new List<PropriedadeHierárquica>();
-                        foreach (var item in teste)
+                        var tipoItem = listaFilha.GetType().GenericTypeArguments[0];
+                        var itemPersonalizado = tipoItem.Namespace.Contains("NFeFacil");
+                        foreach (var item in listaFilha)
                         {
-                            var tipoItem = item.GetType();
-                            object valorItem;
-                            if (tipoItem.Namespace.Contains("NFeFacil"))
+                            if (itemPersonalizado)
                             {
-                                valorItem = ObterPropriedades(item);
+                                AdicionarCampo(desc?.Descricao ?? tipoItem.Name, (EstilosTexto)profundidade);
+                                ObterPropriedades(item, profundidade + 1);
                             }
                             else
                             {
-                                valorItem = item;
+                                AdicionarCampo(desc?.Descricao ?? tipoItem.Name,
+                                    (EstilosTexto)profundidade, item.ToString());
                             }
-                            propriedadesFilhas.Add(new PropriedadeHierárquica
-                            {
-                                Nome = tipoItem.Name,
-                                Valor = valorItem
-                            });
                         }
-                        retorno.AddRange(propriedadesFilhas);
                     }
                     else
                     {
-                        var desc = prop.GetCustomAttribute<DescricaoPropriedade>();
                         var ext = prop.GetCustomAttribute<PropriedadeExtensivel>();
-                        if (desc != null)
-                        {
-                            retorno.Add(new PropriedadeHierárquica
-                            {
-                                Nome = desc.Descricao,
-                                Valor = valor
-                            });
-                        }
-                        else if (ext != null)
-                        {
-                            retorno.Add(new PropriedadeHierárquica
-                            {
-                                Nome = ext.NomeExtensão,
-                                Valor = ext.ObterValor(valor)
-                            });
-                        }
-                        else
-                        {
-                            retorno.Add(new PropriedadeHierárquica
-                            {
-                                Nome = prop.Name,
-                                Valor = valor
-                            });
-                        }
+                        AdicionarCampo(ext?.NomeExtensão ?? desc?.Descricao ?? prop.Name,
+                            EstilosTexto.BodyTextBlockStyle, (ext?.ObterValor(valor) ?? valor).ToString());
                     }
                 }
             }
-            return retorno;
         }
 
-        List<PropriedadeLinear> PropriedadeHierarquicaToLinear(List<PropriedadeHierárquica> hierarquia, int profundidade)
+        void AdicionarCampo(string texto, EstilosTexto estilo, string textoComplementar = null)
         {
-            var retorno = new List<PropriedadeLinear>();
-            for (int i = 0; i < hierarquia.Count; i++)
-            {
-                var atual = hierarquia[i];
-                if (atual.Valor is List<PropriedadeHierárquica> subhierarquia)
-                {
-                    retorno.Add(new PropriedadeLinear
-                    {
-                        Profundidade = profundidade,
-                        Texto = atual.Nome
-                    });
-                    retorno.AddRange(PropriedadeHierarquicaToLinear(subhierarquia, profundidade + 1));
-                }
-                else
-                {
-                    retorno.Add(new PropriedadeLinear
-                    {
-                        Profundidade = (int)EstilosTexto.BodyTextBlockStyle,
-                        Texto = atual.Nome,
-                        Complementar = atual.Valor.ToString()
-                    });
-                }
-            }
-            return retorno;
-        }
-
-        void AdicionarCampo(string texto, EstilosTexto estilo, string textoComplementar)
-        {
-            texto = ProcessarTitulo(texto);
-            var linha = new Run()
-            {
-                Text = textoComplementar == null ? texto : $"{texto}: "
-            };
-            switch (estilo)
-            {
-                case EstilosTexto.HeaderTextBlockStyle:
-                    linha.FontWeight = FontWeights.Light;
-                    linha.FontSize = 46;
-                    break;
-                case EstilosTexto.SubheaderTextBlockStyle:
-                    linha.FontWeight = FontWeights.Light;
-                    linha.FontSize = 34;
-                    break;
-                case EstilosTexto.TitleTextBlockStyle:
-                    linha.FontWeight = FontWeights.SemiLight;
-                    linha.FontSize = 24;
-                    break;
-                case EstilosTexto.SubtitleTextBlockStyle:
-                    linha.FontWeight = FontWeights.Normal;
-                    linha.FontSize = 20;
-                    break;
-                case EstilosTexto.BodyTextBlockStyle:
-                    break;
-                default:
-                    break;
-            }
+            visualizacao.Inlines.Add(CriarRun(texto, textoComplementar != null));
 
             if (textoComplementar != null)
-            {
-                linha.FontWeight = FontWeights.Bold;
-            }
+                visualizacao.Inlines.Add(CriarRun(textoComplementar));
 
-            visualizacao.Inlines.Add(linha);
+            visualizacao.Inlines.Add(new LineBreak());
 
-            if (textoComplementar != null)
+            Run CriarRun(string conteudo, bool label = false)
             {
-                linha = new Run()
-                {
-                    Text = textoComplementar
-                };
+                var retorno = new Run() { Text = label ? conteudo + ": " : conteudo };
                 switch (estilo)
                 {
                     case EstilosTexto.HeaderTextBlockStyle:
-                        linha.FontWeight = FontWeights.Light;
-                        linha.FontSize = 46;
-                        break;
+                        retorno.FontWeight = FontWeights.Light;
+                        retorno.FontSize = 46;
+                        return retorno;
                     case EstilosTexto.SubheaderTextBlockStyle:
-                        linha.FontWeight = FontWeights.Light;
-                        linha.FontSize = 34;
-                        break;
+                        retorno.FontWeight = FontWeights.Light;
+                        retorno.FontSize = 34;
+                        return retorno;
                     case EstilosTexto.TitleTextBlockStyle:
-                        linha.FontWeight = FontWeights.SemiLight;
-                        linha.FontSize = 24;
-                        break;
+                        retorno.FontWeight = FontWeights.SemiLight;
+                        retorno.FontSize = 24;
+                        return retorno;
                     case EstilosTexto.SubtitleTextBlockStyle:
-                        linha.FontWeight = FontWeights.Normal;
-                        linha.FontSize = 20;
-                        break;
-                    case EstilosTexto.BodyTextBlockStyle:
-                        break;
+                        retorno.FontWeight = FontWeights.Normal;
+                        retorno.FontSize = 20;
+                        return retorno;
                     default:
-                        break;
-                }
-                visualizacao.Inlines.Add(linha);
-            }
-
-            visualizacao.Inlines.Add(new LineBreak());
-        }
-
-        string ProcessarTitulo(string titulo)
-        {
-            StringBuilder construtor = new StringBuilder();
-            construtor.Append(char.ToUpper(titulo[0]));
-            for (int i = 1; i < titulo.Length; i++)
-            {
-                if (char.IsUpper(titulo[i]) && char.IsLower(titulo[i - 1]))
-                {
-                    construtor.Append($" {titulo[i]}");
-                }
-                else
-                {
-                    construtor.Append(titulo[i]);
+                        retorno.FontWeight = label ? FontWeights.Bold : FontWeights.Normal;
+                        return retorno;
                 }
             }
-            return construtor.ToString();
-        }
-
-        struct PropriedadeHierárquica
-        {
-            public string Nome { get; set; }
-            public object Valor { get; set; }
-        }
-
-        struct PropriedadeLinear
-        {
-            public string Texto { get; set; }
-            public string Complementar { get; set; }
-            public int Profundidade { get; set; }
         }
 
         enum EstilosTexto
@@ -278,8 +149,6 @@ namespace NFeFacil.ViewNFe
         {
             var nfe = (NFe)ObjetoItemBanco;
             var analisador = new AnalisadorNFe(ref nfe);
-            nfe.Signature = null;
-            ItemBanco.Status = (int)StatusNFe.Edição;
             analisador.Desnormalizar();
             MainPage.Current.Navegar<ManipulacaoNotaFiscal>(nfe);
         }
@@ -295,31 +164,63 @@ namespace NFeFacil.ViewNFe
         private async void Assinar(object sender, RoutedEventArgs e)
         {
             var nfe = (NFe)ObjetoItemBanco;
-            var OperacoesNota = new OperacoesNotaSalva(Log);
-            if (await OperacoesNota.Assinar(nfe))
+            try
             {
+                var assina = new Certificacao.AssinaFacil(nfe);
+                await assina.Assinar<NFe>(nfe.Informacoes.Id, "infNFe");
+
                 ItemBanco.Status = (int)StatusNFe.Assinada;
                 AtualizarDI();
                 AtualizarBotoesComando();
                 Log.Escrever(TitulosComuns.Sucesso, "Nota fiscal assinada com sucesso.");
             }
+            catch (Exception erro)
+            {
+                erro.ManipularErro();
+            }
         }
 
         private async void Transmitir(object sender, RoutedEventArgs e)
         {
-            var nfe = (NFe)ObjetoItemBanco;
-            var OperacoesNota = new OperacoesNotaSalva(Log);
-            var resposta = await OperacoesNota.Transmitir(nfe, nfe.AmbienteTestes);
-            if (resposta.sucesso)
+            var nota = (NFe)ObjetoItemBanco;
+            try
             {
-                ObjetoItemBanco = new Processo()
+                var resultadoTransmissao = await new GerenciadorGeral<EnviNFe, RetEnviNFe>(nota.Informacoes.emitente.Endereco.SiglaUF, Operacoes.Autorizar, nota.AmbienteTestes)
+                    .EnviarAsync(new EnviNFe(nota.Informacoes.identificacao.Numero, nota), true);
+                if (resultadoTransmissao.cStat == 103)
                 {
-                    NFe = nfe,
-                    ProtNFe = resposta.protocolo
-                };
-                ItemBanco.Status = (int)StatusNFe.Emitida;
-                AtualizarDI();
-                AtualizarBotoesComando();
+                    await Task.Delay(new TimeSpan(0, 0, 10));
+                    var resultadoResposta = await new GerenciadorGeral<ConsReciNFe, RetConsReciNFe>(resultadoTransmissao.cUF, Operacoes.RespostaAutorizar, nota.AmbienteTestes)
+                        .EnviarAsync(new ConsReciNFe(resultadoTransmissao.tpAmb, resultadoTransmissao.infRec.nRec));
+                    if (resultadoResposta.protNFe.InfProt.cStat == 100)
+                    {
+                        Log.Escrever(TitulosComuns.Sucesso, resultadoResposta.xMotivo);
+
+                        ObjetoItemBanco = new Processo()
+                        {
+                            NFe = nota,
+                            ProtNFe = resultadoResposta.protNFe
+                        };
+                        ItemBanco.Status = (int)StatusNFe.Emitida;
+                        AtualizarDI();
+                        AtualizarBotoesComando();
+                    }
+                    else
+                    {
+                        Log.Escrever(TitulosComuns.Erro, $"A nota fiscal foi processada, mas recusada. Mensagem de retorno:\r\n" +
+                            $"{resultadoResposta.protNFe.InfProt.xMotivo}");
+                    }
+                }
+                else
+                {
+                    Log.Escrever(TitulosComuns.Erro, $"A NFe não foi aceita. Mensagem de retorno:\r\n" +
+                        $"{resultadoTransmissao.xMotivo}\r\n" +
+                        $"Por favor, exporte esta nota fiscal e envie o XML gerado para o desenvolvedor do aplicativo para que o erro possa ser corrigido.");
+                }
+            }
+            catch (Exception erro)
+            {
+                erro.ManipularErro();
             }
         }
 
@@ -349,12 +250,32 @@ namespace NFeFacil.ViewNFe
                 xml = ObjetoItemBanco.ToXElement<Processo>();
             }
 
-            var OperacoesNota = new OperacoesNotaSalva(Log);
-            if (await OperacoesNota.Exportar(xml, id))
+            try
             {
-                ItemBanco.Exportada = true;
-                AtualizarDI();
-                Log.Escrever(TitulosComuns.Sucesso, $"Nota fiscal exportada com sucesso.");
+                FileSavePicker salvador = new FileSavePicker
+                {
+                    DefaultFileExtension = ".xml",
+                    SuggestedFileName = $"{id}.xml",
+                    SuggestedStartLocation = PickerLocationId.DocumentsLibrary
+                };
+                salvador.FileTypeChoices.Add("Arquivo XML", new string[] { ".xml" });
+                var arquivo = await salvador.PickSaveFileAsync();
+                if (arquivo != null)
+                {
+                    using (var stream = await arquivo.OpenStreamForWriteAsync())
+                    {
+                        xml.Save(stream);
+                        await stream.FlushAsync();
+                    }
+
+                    ItemBanco.Exportada = true;
+                    AtualizarDI();
+                    Log.Escrever(TitulosComuns.Sucesso, $"Nota fiscal exportada com sucesso.");
+                }
+            }
+            catch (Exception erro)
+            {
+                erro.ManipularErro();
             }
         }
 
@@ -364,7 +285,7 @@ namespace NFeFacil.ViewNFe
             {
                 using (var db = new AplicativoContext())
                 {
-                    ItemBanco.UltimaData = DateTime.Now;
+                    ItemBanco.UltimaData = Propriedades.DateTimeNow;
                     if (ItemBanco.Status < (int)StatusNFe.Emitida)
                     {
                         ItemBanco.XML = ObjetoItemBanco.ToXElement<NFe>().ToString();
@@ -393,44 +314,12 @@ namespace NFeFacil.ViewNFe
 
         void AtualizarBotoesComando()
         {
-            switch ((StatusNFe)ItemBanco.Status)
-            {
-                case StatusNFe.Validada:
-                    btnEditar.IsEnabled = true;
-                    btnSalvar.IsEnabled = true;
-                    btnAssinar.IsEnabled = false;
-                    btnTransmitir.IsEnabled = false;
-                    btnImprimir.IsEnabled = false;
-                    break;
-                case StatusNFe.Salva:
-                    btnEditar.IsEnabled = true;
-                    btnSalvar.IsEnabled = false;
-                    btnAssinar.IsEnabled = true;
-                    btnTransmitir.IsEnabled = false;
-                    btnImprimir.IsEnabled = false;
-                    break;
-                case StatusNFe.Assinada:
-                    btnEditar.IsEnabled = true;
-                    btnSalvar.IsEnabled = false;
-                    btnAssinar.IsEnabled = false;
-                    btnTransmitir.IsEnabled = true;
-                    btnImprimir.IsEnabled = false;
-                    break;
-                case StatusNFe.Emitida:
-                    btnEditar.IsEnabled = false;
-                    btnSalvar.IsEnabled = false;
-                    btnAssinar.IsEnabled = false;
-                    btnTransmitir.IsEnabled = false;
-                    btnImprimir.IsEnabled = true;
-                    break;
-                case StatusNFe.Cancelada:
-                    btnEditar.IsEnabled = false;
-                    btnSalvar.IsEnabled = false;
-                    btnAssinar.IsEnabled = false;
-                    btnTransmitir.IsEnabled = false;
-                    btnImprimir.IsEnabled = false;
-                    break;
-            }
+            var status = (StatusNFe)ItemBanco.Status;
+            btnEditar.IsEnabled = status == StatusNFe.Validada || status == StatusNFe.Salva || status == StatusNFe.Assinada;
+            btnSalvar.IsEnabled = status == StatusNFe.Validada;
+            btnAssinar.IsEnabled = status == StatusNFe.Salva;
+            btnTransmitir.IsEnabled = status == StatusNFe.Assinada;
+            btnImprimir.IsEnabled = status == StatusNFe.Emitida;
         }
     }
 }

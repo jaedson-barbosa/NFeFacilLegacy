@@ -10,8 +10,7 @@ namespace NFeFacil.Certificacao.LAN
             var caixa = new ConectarServidor();
             if (await caixa.ShowAsync() == Windows.UI.Xaml.Controls.ContentDialogResult.Primary)
             {
-                var ip = caixa.IP;
-                ConfiguracoesCertificacao.IPServidorCertificacao = ip;
+                ConfiguracoesCertificacao.IPServidorCertificacao = caixa.IP;
                 return true;
             }
             else

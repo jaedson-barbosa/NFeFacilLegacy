@@ -1,6 +1,7 @@
 ﻿using NFeFacil.ItensBD;
 using System;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
@@ -21,13 +22,17 @@ namespace NFeFacil.Login
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var emitente = (ConjuntoBasicoExibicaoEmitente)e.Parameter;
-            imgLogotipo.Source = emitente.Imagem;
-            txtNomeFantasia.Text = emitente.NomeFantasia;
-            txtNome.Text = emitente.Nome;
+            var emitente = (ConjuntoBasicoExibicao)e.Parameter;
+            var brush = new ImageBrush
+            {
+                ImageSource = emitente.Imagem
+            };
+            imgLogotipo.Background = brush;
+            txtNomeFantasia.Text = emitente.Principal;
+            txtNome.Text = emitente.Secundario;
             using (var db = new AplicativoContext())
             {
-                this.emitente = db.Emitentes.Find(emitente.IdEmitente);
+                this.emitente = db.Emitentes.Find(emitente.Id);
             }
             MainPage.Current.SeAtualizar(Symbol.Home, "Dados da empresa");
         }
@@ -45,8 +50,12 @@ namespace NFeFacil.Login
 
         async void Logotipo(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            var caixa = new View.DefinirImagem(emitente.Id);
-            await caixa.ShowAsync();
+            var brush = (ImageBrush)imgLogotipo.Background;
+            var caixa = new View.DefinirImagem(emitente.Id, brush.ImageSource);
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+            {
+                brush.ImageSource = caixa.Imagem;
+            }
         }
     }
 }

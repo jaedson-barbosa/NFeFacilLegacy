@@ -6,29 +6,6 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
 {
     public class Identificacao
     {
-        public Identificacao() { }
-        public Identificacao(Identificacao other)
-        {
-            CódigoUF = other.CódigoUF;
-            ChaveNF = other.ChaveNF;
-            NaturezaDaOperacao = other.NaturezaDaOperacao;
-            FormaPagamento = other.FormaPagamento;
-            Modelo = other.Modelo;
-            Serie = other.Serie;
-            Numero = other.Numero;
-            DataHoraEmissão = other.DataHoraEmissão;
-            DataHoraSaídaEntrada = other.DataHoraSaídaEntrada;
-            TipoOperacao = other.TipoOperacao;
-            IdentificadorDestino = other.IdentificadorDestino;
-            CodigoMunicipio = other.CodigoMunicipio;
-            TipoImpressão = other.TipoImpressão;
-            DígitoVerificador = other.DígitoVerificador;
-            TipoAmbiente = other.TipoAmbiente;
-            FinalidadeEmissao = other.FinalidadeEmissao;
-            OperacaoConsumidorFinal = other.OperacaoConsumidorFinal;
-            IndicadorPresenca = other.IndicadorPresenca;
-        }
-
         [XmlElement(ElementName = "cUF", Order = 0), PropriedadeExtensivel("Estado", MetodosObtencao.Estado)]
         public ushort CódigoUF { get; set; }
 

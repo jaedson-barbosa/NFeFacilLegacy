@@ -91,7 +91,8 @@ namespace NFeFacil.ViewRegistroVenda
             var semNota = string.IsNullOrEmpty(ItemBanco.NotaFiscalRelacionada);
             btnCriarNFe.IsEnabled = semNota;
             btnVerNFe.IsEnabled = !semNota;
-            btnCriarDarv.IsEnabled = btnCriarNFe.IsEnabled = btnCancelar.IsEnabled = !ItemBanco.Cancelado;
+            btnCriarDarv.IsEnabled = btnCriarNFe.IsEnabled =
+                btnCancelar.IsEnabled = btnCalcularTroco.IsEnabled = !ItemBanco.Cancelado;
             btnVisualizarCancelamento.IsEnabled = ItemBanco.Cancelado;
         }
 
@@ -104,9 +105,19 @@ namespace NFeFacil.ViewRegistroVenda
             }
         }
 
-        private void CriarDARV(object sender, RoutedEventArgs e)
+        async void CriarDARV(object sender, RoutedEventArgs e)
         {
-            MainPage.Current.Navegar<DARV>(ItemBanco);
+            var caixa = new EscolherDimensão();
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+            {
+                double largura = caixa.Largura, altura = caixa.Predefinicao == 0 ? 0 : caixa.Altura;
+
+                MainPage.Current.Navegar<DARV>(new DadosImpressaoDARV
+                {
+                    Venda = ItemBanco,
+                    Dimensoes = new Dimensoes(largura, altura, 1)
+                });
+            }
         }
 
         private async void Cancelar(object sender, RoutedEventArgs e)
@@ -116,7 +127,7 @@ namespace NFeFacil.ViewRegistroVenda
             {
                 using (var db = new AplicativoContext())
                 {
-                    ItemBanco.UltimaData = DateTime.Now;
+                    ItemBanco.UltimaData = Propriedades.DateTimeNow;
                     ItemBanco.Cancelado = true;
                     db.Update(ItemBanco);
 
@@ -126,11 +137,11 @@ namespace NFeFacil.ViewRegistroVenda
                         var estoque = db.Estoque.Include(x => x.Alteracoes).FirstOrDefault(x => x.Id == produto.IdBase);
                         if (estoque != null)
                         {
-                            estoque.UltimaData = DateTime.Now;
+                            estoque.UltimaData = Propriedades.DateTimeNow;
                             estoque.Alteracoes.Add(new AlteracaoEstoque
                             {
                                 Alteração = produto.Quantidade,
-                                MomentoRegistro = DateTime.Now
+                                MomentoRegistro = Propriedades.DateTimeNow
                             });
                             db.Estoque.Update(estoque);
                         }
@@ -139,13 +150,14 @@ namespace NFeFacil.ViewRegistroVenda
                     var cancelamento = new CancelamentoRegistroVenda()
                     {
                         Motivo = caixa.Motivo,
-                        MomentoCancelamento = DateTime.Now,
+                        MomentoCancelamento = Propriedades.DateTimeNow,
                         Id = ItemBanco.Id
                     };
                     db.CancelamentosRegistroVenda.Add(cancelamento);
 
                     db.SaveChanges();
-                    btnCriarDarv.IsEnabled = btnCriarNFe.IsEnabled = btnCancelar.IsEnabled = false;
+                    btnCriarDarv.IsEnabled = btnCriarNFe.IsEnabled
+                        = btnCancelar.IsEnabled = btnCalcularTroco.IsEnabled = false;
                     btnVisualizarCancelamento.IsEnabled = true;
                 }
             }
@@ -167,6 +179,12 @@ namespace NFeFacil.ViewRegistroVenda
                 var item = db.NotasFiscais.Find(ItemBanco.NotaFiscalRelacionada);
                 MainPage.Current.Navegar<ViewNFe.VisualizacaoNFe>(item);
             }
+        }
+
+        async void CalcularTroco(object sender, RoutedEventArgs e)
+        {
+            var total = ItemBanco.Produtos.Sum(x => x.TotalLíquido);
+            await new CalcularTroco(total).ShowAsync();
         }
     }
 }

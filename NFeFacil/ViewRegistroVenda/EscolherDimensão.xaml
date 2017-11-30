@@ -6,9 +6,9 @@
                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                mc:Ignorable="d"
                Title="Dimensões da página"
-               PrimaryButtonText="Tam. personalizado"
+               PrimaryButtonText="Concluir"
                PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
-               SecondaryButtonText="Usar A4">
+               SecondaryButtonText="Cancelar">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -16,7 +16,13 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <CheckBox IsChecked="{x:Bind FormularioContinuo, Mode=TwoWay}">Formulário contínuo</CheckBox>
+        <ComboBox Header="Predefinição de impressão"
+                  SelectedIndex="{x:Bind Predefinicao, Mode=TwoWay}">
+            <ComboBoxItem>Formulário contínuo</ComboBoxItem>
+            <ComboBoxItem>Página personalizada</ComboBoxItem>
+            <ComboBoxItem>A4 - Retrato</ComboBoxItem>
+            <ComboBoxItem>A4 - Paisagem</ComboBoxItem>
+        </ComboBox>
         <TextBlock Grid.Row="1"
                    Margin="0,8,0,0"
                    FontWeight="Bold">Dimensões do papel (em centímetros)</TextBlock>
@@ -25,7 +31,8 @@
                                    Format="2:2"
                                    Header="Altura"
                                    Number="{x:Bind Altura, Mode=TwoWay}" />
-        <controles:EntradaNumerica Grid.Row="3"
+        <controles:EntradaNumerica x:Name="txtLargura"
+                                   Grid.Row="3"
                                    Format="2:2"
                                    Header="Largura"
                                    Number="{x:Bind Largura, Mode=TwoWay}" />

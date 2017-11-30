@@ -16,15 +16,10 @@ namespace NFeFacil.Certificacao
         {
             get
             {
-                if (string.IsNullOrEmpty(IPServidorCertificacao))
-                {
-                    return OrigemCertificado.Importado;
-                }
-                else
-                {
-                    return OrigemCertificado.Servidor;
-                }
+                var tipo = Pasta.Values[nameof(Origem)];
+                return tipo == null ? Origem = OrigemCertificado.Importado : (OrigemCertificado)tipo;
             }
+            set => Pasta.Values[nameof(Origem)] = (int)value;
         }
     }
 }

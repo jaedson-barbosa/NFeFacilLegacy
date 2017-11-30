@@ -70,7 +70,7 @@ namespace NFeFacil.ViewDadosBase
 
         public AdicionarClienteBrasileiroPJ()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

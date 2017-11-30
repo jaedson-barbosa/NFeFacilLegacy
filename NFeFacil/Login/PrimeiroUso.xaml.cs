@@ -17,7 +17,7 @@ namespace NFeFacil.Login
     {
         public PrimeiroUso()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)

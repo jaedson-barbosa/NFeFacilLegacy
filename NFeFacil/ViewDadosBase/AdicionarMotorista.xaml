@@ -10,8 +10,7 @@
             <VM:DadosEstadosParaView x:Key="estados" />
         </ResourceDictionary>
     </Page.Resources>
-    <Grid x:Name="grdPrincipal"
-          Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid x:Name="grdPrincipal">
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="Auto" />
@@ -63,8 +62,7 @@
                            Margin="4,0,0,0" />
                 <ListView ItemsSource="{x:Bind Veiculos, Mode=OneTime}"
                           SelectedValue="{x:Bind Motorista.Veiculo, Mode=TwoWay}"
-                          SelectedValuePath="Id"
-                          ItemContainerStyle="{StaticResource ItemFullWidth}">
+                          SelectedValuePath="Id">
                     <ListView.Header>
                         <Grid Style="{StaticResource Cabecalho}">
                             <Grid.ColumnDefinitions>

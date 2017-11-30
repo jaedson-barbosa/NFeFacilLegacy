@@ -8,77 +8,75 @@
     <Page.Resources>
         <VM:DadosEstadosParaView x:Key="estados" />
     </Page.Resources>
-    <Grid x:Name="grdPrincipal"
-          Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-          Padding="16">
-        <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <ScrollViewer VerticalScrollBarVisibility="Hidden">
-            <StackPanel>
-                <ItemsControl Style="{StaticResource ItensResponsivos}">
-                    <TextBox Text="{x:Bind Emit.Nome, Mode=TwoWay}"
-                             InputScope="Text"
-                             Header="Nome/Razão social *" />
-                    <TextBox Text="{x:Bind Emit.NomeFantasia, Mode=TwoWay}"
-                             InputScope="Text"
-                             Header="Nome fantasia" />
-                    <TextBox Text="{x:Bind Emit.CNPJ, Mode=TwoWay}"
-                             InputScope="Number"
-                             Header="CNPJ *" />
-                    <TextBox Text="{x:Bind Emit.InscricaoEstadual, Mode=TwoWay}"
-                             InputScope="Number"
-                             Header="Inscrição estadual *" />
-                    <TextBox Text="{x:Bind Emit.CNAE, Mode=TwoWay}"
-                             InputScope="Number"
-                             Header="CNAE Fiscal" />
-                    <TextBox Text="{x:Bind Emit.IM, Mode=TwoWay}"
-                             InputScope="Number"
-                             Header="Inscrição municipal" />
-                    <TextBox Text="{x:Bind Emit.IEST, Mode=TwoWay}"
-                             InputScope="Number"
-                             Header="Inscrição estadual (Subst. tributário)" />
-                    <ComboBox SelectedValue="{x:Bind Emit.RegimeTributario, Mode=TwoWay}"
-                              SelectedValuePath="Tag"
-                              Header="Código do Regime Tributário *">
-                        <ComboBoxItem Tag="1" Content="Simples Nacional" />
-                        <ComboBoxItem Tag="2" Content="Simples Nacional, excesso sublimite de receita bruta" />
-                        <ComboBoxItem Tag="3" Content="Regime Normal" />
-                    </ComboBox>
-                </ItemsControl>
-                <TextBlock Text="Endereço"
-                           Style="{StaticResource TitleTextBlockStyle}"
-                           Margin="4,0,0,0" />
-                <ItemsControl Style="{StaticResource ItensResponsivos}">
-                    <ComboBox ItemsSource="{Binding Source={StaticResource estados}, Path=Siglas}"
-                              SelectedItem="{x:Bind EstadoSelecionado, Mode=TwoWay}"
-                              Header="Estado" />
-                    <ComboBox ItemsSource="{x:Bind ListaMunicipios}"
-                              SelectedItem="{x:Bind ConjuntoMunicipio, Mode=TwoWay}"
-                              DisplayMemberPath="Nome"
-                              Header="Município" />
-                    <TextBox Text="{x:Bind Emit.Logradouro, Mode=TwoWay}"
-                             InputScope="Text"
-                             Header="Logradouro *" />
-                    <TextBox Text="{x:Bind Emit.Numero, Mode=TwoWay}"
-                             InputScope="Text"
-                             Header="Número *" />
-                    <TextBox Text="{x:Bind Emit.Complemento, Mode=TwoWay}"
-                             InputScope="Text"
-                             Header="Complemento" />
-                    <TextBox Text="{x:Bind Emit.Bairro, Mode=TwoWay}"
-                             InputScope="Text"
-                             Header="Bairro *" />
-                    <TextBox Text="{x:Bind Emit.CEP, Mode=TwoWay}"
-                             InputScope="Number"
-                             Header="CEP *" />
-                    <TextBox Text="{x:Bind Emit.Telefone, Mode=TwoWay}"
-                             InputScope="Number"
-                             Header="Telefone" />
-                </ItemsControl>
-            </StackPanel>
-        </ScrollViewer>
+    <ScrollViewer VerticalScrollBarVisibility="Hidden"
+                  Padding="16">
+        <StackPanel>
+            <ItemsControl Style="{StaticResource ItensResponsivos}">
+                <TextBox Text="{x:Bind Emit.Nome, Mode=TwoWay}"
+                         InputScope="Text"
+                         Header="Nome/Razão social *" />
+                <TextBox Text="{x:Bind Emit.NomeFantasia, Mode=TwoWay}"
+                         InputScope="Text"
+                         Header="Nome fantasia" />
+                <TextBox Text="{x:Bind Emit.CNPJ, Mode=TwoWay}"
+                         InputScope="Number"
+                         Header="CNPJ *" />
+                <TextBox Text="{x:Bind Emit.InscricaoEstadual, Mode=TwoWay}"
+                         InputScope="Number"
+                         Header="Inscrição estadual *" />
+                <TextBox Text="{x:Bind Emit.CNAE, Mode=TwoWay}"
+                         InputScope="Number"
+                         Header="CNAE Fiscal" />
+                <TextBox Text="{x:Bind Emit.IM, Mode=TwoWay}"
+                         InputScope="Number"
+                         Header="Inscrição municipal" />
+                <TextBox Text="{x:Bind Emit.IEST, Mode=TwoWay}"
+                         InputScope="Number"
+                         Header="Inscrição estadual (Subst. tributário)" />
+                <ComboBox SelectedValue="{x:Bind RegimeTributario, Mode=TwoWay}"
+                          SelectedValuePath="Tag"
+                          Header="Código do Regime Tributário *">
+                    <ComboBoxItem Tag="1"
+                                  Content="Simples Nacional" />
+                    <ComboBoxItem Tag="2"
+                                  Content="Simples Nacional, excesso sublimite de receita bruta" />
+                    <ComboBoxItem Tag="3"
+                                  Content="Regime Normal" />
+                </ComboBox>
+            </ItemsControl>
+            <TextBlock Text="Endereço"
+                       Style="{StaticResource TitleTextBlockStyle}"
+                       Margin="4,0,0,0" />
+            <ItemsControl Style="{StaticResource ItensResponsivos}">
+                <ComboBox ItemsSource="{Binding Source={StaticResource estados}, Path=Siglas}"
+                          SelectedItem="{x:Bind EstadoSelecionado, Mode=TwoWay}"
+                          Header="Estado" />
+                <ComboBox ItemsSource="{x:Bind ListaMunicipios}"
+                          SelectedItem="{x:Bind ConjuntoMunicipio, Mode=TwoWay}"
+                          DisplayMemberPath="Nome"
+                          Header="Município" />
+                <TextBox Text="{x:Bind Emit.Logradouro, Mode=TwoWay}"
+                         InputScope="Text"
+                         Header="Logradouro *" />
+                <TextBox Text="{x:Bind Emit.Numero, Mode=TwoWay}"
+                         InputScope="Text"
+                         Header="Número *" />
+                <TextBox Text="{x:Bind Emit.Complemento, Mode=TwoWay}"
+                         InputScope="Text"
+                         Header="Complemento" />
+                <TextBox Text="{x:Bind Emit.Bairro, Mode=TwoWay}"
+                         InputScope="Text"
+                         Header="Bairro *" />
+                <TextBox Text="{x:Bind Emit.CEP, Mode=TwoWay}"
+                         InputScope="Number"
+                         Header="CEP *" />
+                <TextBox Text="{x:Bind Emit.Telefone, Mode=TwoWay}"
+                         InputScope="Number"
+                         Header="Telefone" />
+            </ItemsControl>
+        </StackPanel>
+    </ScrollViewer>
+    <Page.BottomAppBar>
         <CommandBar Grid.Row="1">
             <AppBarButton x:Name="Confirmar"
                           Icon="Accept"
@@ -89,5 +87,5 @@
                           Label="Cancelar"
                           Click="Cancelar_Click" />
         </CommandBar>
-    </Grid>
+    </Page.BottomAppBar>
 </Page>

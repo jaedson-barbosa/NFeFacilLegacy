@@ -118,28 +118,22 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
         [XmlElement("detExport", Order = 21)]
         public List<GrupoExportacao> GrupoExportação { get; set; } = new List<GrupoExportacao>();
 
-        [XmlElement(Order = 22), DescricaoPropriedade("Número do pedido de compra")]
-        public string XPed { get; set; }
-
-        [XmlElement(Order = 23), DescricaoPropriedade("Número do item do pedido de compra")]
-        public string NItemPed { get; set; }
-
-        [XmlElement(Order = 24), DescricaoPropriedade("Número da Ficha de Conteúdo de Importação")]
+        [XmlElement(Order = 22), DescricaoPropriedade("Número da Ficha de Conteúdo de Importação")]
         public string NFCI { get; set; }
 
-        [XmlElement(Order = 25), DescricaoPropriedade("Veículo")]
+        [XmlElement(Order = 23), DescricaoPropriedade("Veículo")]
         public VeiculoNovo veicProd { get; set; }
 
-        [XmlElement("med", Order = 26)]
+        [XmlElement("med", Order = 24)]
         public List<Medicamento> medicamentos { get; set; }
 
-        [XmlElement("arma", Order = 27)]
+        [XmlElement("arma", Order = 25)]
         public List<Arma> armas { get; set; }
 
-        [XmlElement(Order = 28), DescricaoPropriedade("Combustível")]
+        [XmlElement(Order = 26), DescricaoPropriedade("Combustível")]
         public Combustivel comb { get; set; }
 
-        [XmlElement("nRECOPI", Order = 29), DescricaoPropriedade("Número RECOPI")]
+        [XmlElement("nRECOPI", Order = 27), DescricaoPropriedade("Número RECOPI")]
         public string NRECOPI { get; set; }
 
         public event EventHandler DadoImpostoChanged;

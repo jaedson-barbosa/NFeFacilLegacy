@@ -6,7 +6,6 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
     <ItemsControl Grid.ColumnSpan="2"
-                  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
                   Style="{StaticResource ItensResponsivos}">
         <TextBox Header="Nome"
                  Text="{Binding Nome, Mode=TwoWay}" />

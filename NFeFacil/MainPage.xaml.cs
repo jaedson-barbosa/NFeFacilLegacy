@@ -10,6 +10,7 @@ using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x416
 
@@ -21,6 +22,39 @@ namespace NFeFacil
     public sealed partial class MainPage : Page
     {
         internal static MainPage Current { get; private set; }
+
+        internal void DefinirTipoBackground(TiposBackground tipo)
+        {
+            switch (tipo)
+            {
+                case TiposBackground.Imagem:
+                    backgroundCor.Visibility = Visibility.Collapsed;
+                    backgroundImagem.Visibility = Visibility.Visible;
+                    break;
+                case TiposBackground.Cor:
+                    backgroundCor.Visibility = Visibility.Visible;
+                    backgroundImagem.Visibility = Visibility.Collapsed;
+                    break;
+                case TiposBackground.Padrao:
+                    backgroundCor.Visibility = Visibility.Collapsed;
+                    backgroundImagem.Visibility = Visibility.Collapsed;
+                    break;
+                default:
+                    break;
+            }
+            ConfiguracoesPermanentes.TipoBackground = tipo;
+        }
+
+        internal void DefinirOpacidadeBackground(double opacidade)
+        {
+            backgroundFrame.Opacity = opacidade;
+        }
+
+        internal ImageSource ImagemBackground
+        {
+            get => backgroundImagem.Source;
+            set => backgroundImagem.Source = value;
+        }
 
         public MainPage()
         {
@@ -38,18 +72,6 @@ namespace NFeFacil
                 e.Handled = true;
                 Retornar();
             };
-            using (var db = new AplicativoContext())
-            {
-                Propriedades.EmitenteAtivo = db.Emitentes.FirstOrDefault();
-                if (db.Emitentes.Count() > 0)
-                {
-                    Navegar<Login.EscolhaEmitente>();
-                }
-                else
-                {
-                    Navegar<Login.PrimeiroUso>();
-                }
-            }
         }
 
         async void Analisar()
@@ -67,7 +89,7 @@ namespace NFeFacil
                     {
                         if (alt.MomentoRegistro == default(DateTime))
                         {
-                            alt.MomentoRegistro = DateTime.Now;
+                            alt.MomentoRegistro = Propriedades.DateTimeNow;
                             db.Update(alt);
                         }
                     });
@@ -81,9 +103,40 @@ namespace NFeFacil
                 {
                     if (item.UltimaData == DateTime.MinValue)
                     {
-                        item.UltimaData = DateTime.Now;
+                        item.UltimaData = Propriedades.DateTimeNow;
                         db.Update(item);
                     }
+                }
+
+                Propriedades.EmitenteAtivo = db.Emitentes.FirstOrDefault();
+
+                switch (ConfiguracoesPermanentes.TipoBackground)
+                {
+                    case TiposBackground.Imagem:
+                        if (ConfiguracoesPermanentes.IDBackgroung != default(Guid))
+                        {
+                            var img = db.Imagens.Find(ConfiguracoesPermanentes.IDBackgroung);
+                            if (img?.Bytes != null)
+                            {
+                                ImagemBackground = await img.GetSourceAsync();
+                            }
+                        }
+                        DefinirTipoBackground(TiposBackground.Imagem);
+                        DefinirOpacidadeBackground(ConfiguracoesPermanentes.OpacidadeBackground);
+                        break;
+                    case TiposBackground.Cor:
+                        DefinirTipoBackground(TiposBackground.Cor);
+                        DefinirOpacidadeBackground(ConfiguracoesPermanentes.OpacidadeBackground);
+                        break;
+                }
+
+                if (db.Emitentes.Count() > 0)
+                {
+                    Navegar<Login.EscolhaEmitente>();
+                }
+                else
+                {
+                    Navegar<Login.PrimeiroUso>();
                 }
             }
         }
@@ -108,9 +161,8 @@ namespace NFeFacil
                 Window.Current.Activated += (sender, e) => TitleBar.Opacity = e.WindowActivationState != CoreWindowActivationState.Deactivated ? 1 : 0.5;
 
                 var novoTB = ApplicationView.GetForCurrentView().TitleBar;
-                var corBackground = new Color { A = 0 };
-                novoTB.ButtonBackgroundColor = corBackground;
-                novoTB.ButtonInactiveBackgroundColor = corBackground;
+                novoTB.ButtonBackgroundColor = Colors.Transparent;
+                novoTB.ButtonInactiveBackgroundColor = Colors.Transparent;
                 novoTB.ButtonHoverBackgroundColor = new Color { A = 50 };
                 novoTB.ButtonPressedBackgroundColor = new Color { A = 100 };
             }

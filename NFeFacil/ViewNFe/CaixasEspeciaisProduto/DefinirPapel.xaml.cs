@@ -8,7 +8,7 @@ namespace NFeFacil.ViewNFe.CaixasEspeciaisProduto
     {
         public DefinirPapel()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         public string NRECOPI { get; private set; }

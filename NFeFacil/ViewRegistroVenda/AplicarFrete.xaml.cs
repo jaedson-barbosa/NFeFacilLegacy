@@ -10,7 +10,7 @@ namespace NFeFacil.ViewRegistroVenda
 
         public AplicarFrete()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

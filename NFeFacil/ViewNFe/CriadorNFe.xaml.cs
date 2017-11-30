@@ -15,7 +15,19 @@ namespace NFeFacil.ViewNFe
     public sealed partial class CriadorNFe : ContentDialog
     {
         bool PodeUsarAmbienteHomolocagao { get; }
-        bool AmbienteHomolocagao { get; set; }
+        bool ambienteHomolocagao;
+        bool AmbienteHomolocagao
+        {
+            get => ambienteHomolocagao;
+            set
+            {
+                ambienteHomolocagao = value;
+                if (ConfiguracoesPermanentes.CalcularNumeroNFe)
+                {
+                    CalcularNumero_Click(null, null);
+                }
+            }
+        }
         ushort Serie { get; set; } = 1;
         NFe PreNota { get; }
 
@@ -43,6 +55,10 @@ namespace NFeFacil.ViewNFe
                 }
             };
             PodeUsarAmbienteHomolocagao = true;
+            if (ConfiguracoesPermanentes.CalcularNumeroNFe)
+            {
+                CalcularNumero_Click(null, null);
+            }
         }
 
         public CriadorNFe(NFe preNota)
@@ -54,16 +70,29 @@ namespace NFeFacil.ViewNFe
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            var identificacao = new Identificacao()
+            if (PreNota.Informacoes.identificacao != null)
             {
-                Serie = Serie,
-                Numero = (int)txtNumero.Number,
-                TipoAmbiente = (ushort)(AmbienteHomolocagao ? 2 : 1),
-                CódigoUF = Estados.Buscar(Propriedades.EmitenteAtivo.SiglaUF).Codigo,
-                CodigoMunicipio = Propriedades.EmitenteAtivo.CodigoMunicipio
-            };
-            identificacao.DefinirVersãoAplicativo();
-            PreNota.Informacoes.identificacao = identificacao;
+                var identificacao = PreNota.Informacoes.identificacao;
+                identificacao.Serie = Serie;
+                identificacao.Numero = (int)txtNumero.Number;
+                identificacao.TipoAmbiente = (ushort)(AmbienteHomolocagao ? 2 : 1);
+                identificacao.CódigoUF = Estados.Buscar(Propriedades.EmitenteAtivo.SiglaUF).Codigo;
+                identificacao.CodigoMunicipio = Propriedades.EmitenteAtivo.CodigoMunicipio;
+                identificacao.DefinirVersãoAplicativo();
+            }
+            else
+            {
+                var identificacao = new Identificacao()
+                {
+                    Serie = Serie,
+                    Numero = (int)txtNumero.Number,
+                    TipoAmbiente = (ushort)(AmbienteHomolocagao ? 2 : 1),
+                    CódigoUF = Estados.Buscar(Propriedades.EmitenteAtivo.SiglaUF).Codigo,
+                    CodigoMunicipio = Propriedades.EmitenteAtivo.CodigoMunicipio
+                };
+                identificacao.DefinirVersãoAplicativo();
+                PreNota.Informacoes.identificacao = identificacao;
+            }
 
             MainPage.Current.Navegar<ManipulacaoNotaFiscal>(PreNota);
         }

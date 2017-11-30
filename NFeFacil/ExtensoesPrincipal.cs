@@ -1,15 +1,21 @@
-﻿using NFeFacil.Log;
+﻿using NFeFacil.ItensBD;
+using NFeFacil.Log;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Xml.Serialization;
+using Windows.Storage.Streams;
 using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace NFeFacil
 {
@@ -67,7 +73,8 @@ namespace NFeFacil
 
         internal static void ManipularErro(this Exception erro)
         {
-            Log.Escrever(TitulosComuns.Erro, erro.Message);
+            Log.Escrever(TitulosComuns.Erro, $"{erro.Message}\r\n" +
+                $"Detalhes adicionais: {erro.InnerException?.Message ?? "Não há detalhes"}");
         }
 
         internal static double CentimeterToPixel(double Centimeter)
@@ -123,6 +130,17 @@ namespace NFeFacil
             }
         }
 
+        public static async Task<ImageSource> GetSourceAsync(this Imagem imagem)
+        {
+            var retorno = new BitmapImage();
+            using (var stream = new InMemoryRandomAccessStream())
+            {
+                await stream.WriteAsync(imagem.Bytes.AsBuffer());
+                stream.Seek(0);
+                retorno.SetSource(stream);
+                return retorno;
+            }
+        }
     }
 
     enum Estilo

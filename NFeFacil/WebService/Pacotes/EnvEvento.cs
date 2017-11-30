@@ -1,6 +1,5 @@
 ﻿using NFeFacil.Certificacao;
-using NFeFacil.ModeloXML.PartesProcesso;
-using System;
+using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesAssinatura;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
@@ -77,7 +76,7 @@ namespace NFeFacil.WebService.Pacotes
         public int TpAmb { get; set; }
 
         [XmlElement]
-        public long CNPJ { get; set; }
+        public string CNPJ { get; set; }
 
         [XmlElement("chNFe")]
         public string ChNFe { get; set; }
@@ -97,13 +96,13 @@ namespace NFeFacil.WebService.Pacotes
         [XmlElement("detEvento")]
         public DetalhamentoEvento DetEvento { get; set; }
 
-        public InformacoesEvento(int cOrgao, long CNPJ, string chaveNFe, string versaoEvento, ulong numeroProtocolo, string justificativa, int tipoAmbiente)
+        public InformacoesEvento(int cOrgao, string CNPJ, string chaveNFe, string versaoEvento, ulong numeroProtocolo, string justificativa, int tipoAmbiente)
         {
             COrgao = cOrgao;
             TpAmb = tipoAmbiente;
             this.CNPJ = CNPJ;
             ChNFe = chaveNFe;
-            DhEvento = DateTime.Now.ToStringPersonalizado();
+            DhEvento = Propriedades.DateTimeNow.ToStringPersonalizado();
             TpEvento = 110111;
             NSeqEvento = 1;
             VerEvento = versaoEvento;

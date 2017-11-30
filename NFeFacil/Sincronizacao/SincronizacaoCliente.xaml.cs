@@ -1,5 +1,4 @@
-﻿using NFeFacil.Log;
-using NFeFacil.Sincronizacao.Pacotes;
+﻿using NFeFacil.Sincronizacao.Pacotes;
 using System;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
@@ -109,13 +108,6 @@ namespace NFeFacil.Sincronizacao
             {
                 erro.ManipularErro();
             }
-        }
-
-        private void VirarServidor(object sender, RoutedEventArgs e)
-        {
-            Tipo = TipoAppSincronizacao.Servidor;
-            MainPage.Current.Retornar();
-            Popup.Current.Escrever(TitulosComuns.Log, "Agora este dispositivo terá como função servir como servidor.");
         }
     }
 }

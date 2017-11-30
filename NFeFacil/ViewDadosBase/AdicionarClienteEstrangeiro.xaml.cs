@@ -15,7 +15,7 @@ namespace NFeFacil.ViewDadosBase
 
         public AdicionarClienteEstrangeiro()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

@@ -42,27 +42,11 @@ namespace NFeFacil.View
 
             internal struct Dia
             {
-                internal Hora[] Horas { get; set; }
                 internal double Total { get; set; }
 
                 internal Dia(IEnumerable<AlteracaoEstoque> alteracoes)
                 {
-                    Horas = new Hora[24];
-                    for (int i = 0; i < 24; i++)
-                    {
-                        Horas[i] = new Hora(alteracoes.Where(x => x.MomentoRegistro.Hour == i));
-                    }
-                    Total = Horas.Sum(x => x.Total);
-                }
-
-                internal struct Hora
-                {
-                    internal double Total { get; set; }
-
-                    internal Hora(IEnumerable<AlteracaoEstoque> alteracoes)
-                    {
-                        Total = alteracoes.Sum(x => x.Alteração);
-                    }
+                    Total = alteracoes.Sum(x => x.Alteração);
                 }
             }
         }

@@ -5,8 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
-    <ScrollViewer Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-                  Padding="16">
+    <ScrollViewer Padding="16">
         <StackPanel>
             <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Registro em servidor</TextBlock>
             <ItemsControl Style="{StaticResource ItensMedios}">
@@ -33,14 +32,4 @@
                     Click="SincronizarTudo">Sincronizar tudo</Button>
         </StackPanel>
     </ScrollViewer>
-    <Page.BottomAppBar>
-        <CommandBar>
-            <AppBarButton Label="Virar servidor"
-                          Click="VirarServidor">
-                <AppBarButton.Icon>
-                    <FontIcon Glyph="&#xE977;" />
-                </AppBarButton.Icon>
-            </AppBarButton>
-        </CommandBar>
-    </Page.BottomAppBar>
 </Page>

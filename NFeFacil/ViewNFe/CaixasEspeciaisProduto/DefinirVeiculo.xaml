@@ -5,8 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
-    <ItemsControl Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-                  Style="{StaticResource ItensResponsivos}">
+    <ItemsControl Style="{StaticResource ItensResponsivos}">
         <ComboBox SelectedIndex="{x:Bind Veiculo.tpOp, Mode=TwoWay}"
                   Header="Tipo da operação"
                   HorizontalAlignment="Stretch">

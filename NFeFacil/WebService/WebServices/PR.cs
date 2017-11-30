@@ -12,6 +12,6 @@
         public string RespostaAutorizarHomologacao => "https://homologacao.nfe.fazenda.pr.gov.br/nfe/NFeRetAutorizacao3?wsdl";
         public string RecepcaoEventoHomologacao => "https://homologacao.nfe.fazenda.pr.gov.br/nfe/NFeRecepcaoEvento?wsdl";
 
-        public string VersaoRecepcaoEvento => "3.10";
+        public string VersaoRecepcaoEvento => "1.00";
     }
 }

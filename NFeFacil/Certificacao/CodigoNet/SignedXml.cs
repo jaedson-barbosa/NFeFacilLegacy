@@ -35,13 +35,10 @@ namespace System.Security.Cryptography.Xml
         // public constructors
         //
 
-        public SignedXml(XmlElement element)
+        public SignedXml(XmlDocument element)
         {
-            if (element == null)
-                throw new ArgumentNullException(nameof(element));
-
-            _containingDocument = element?.OwnerDocument;
-            _context = element;
+            _containingDocument = element ?? throw new ArgumentNullException(nameof(element));
+            _context = element.DocumentElement;
             m_signature = new Signature();
 
             _safeCanonicalizationMethods = new Collection<string>(new List<string> { XmlDsigC14NTransformUrl });

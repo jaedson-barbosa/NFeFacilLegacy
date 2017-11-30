@@ -5,7 +5,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
     public sealed class Emitente
     {
         [XmlElement(Order = 0)]
-        public long CNPJ { get; set; }
+        public string CNPJ { get; set; }
 
         [XmlElement(ElementName = "xNome", Order = 1)]
         public string Nome { get; set; }
@@ -17,7 +17,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
         public EnderecoCompleto Endereco { get; set; } = new EnderecoCompleto();
 
         [XmlElement(ElementName = "IE", Order = 4), DescricaoPropriedade("Inscrição estadual")]
-        public long InscricaoEstadual { get; set; }
+        public string InscricaoEstadual { get; set; }
 
         [XmlElement(Order = 5)]
         public string IEST { get; set; }

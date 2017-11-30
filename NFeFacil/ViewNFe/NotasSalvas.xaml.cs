@@ -14,6 +14,8 @@ using NFeFacil.Log;
 using NFeFacil.WebService.Pacotes;
 using System.Threading.Tasks;
 using NFeFacil.WebService;
+using NFeFacil.Validacao;
+using Windows.UI.Xaml.Media;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -32,13 +34,19 @@ namespace NFeFacil.ViewNFe
                 var notasFiscais = db.NotasFiscais.ToArray();
                 NotasEmitidas = (from nota in notasFiscais
                                  where nota.Status == (int)StatusNFe.Emitida
+                                 where nota.CNPJEmitente == Propriedades.EmitenteAtivo.CNPJ
                                  orderby nota.DataEmissao descending
-                                 select new NFeView(nota)).GerarObs();
+                                 select nota).GerarObs();
                 OutrasNotas = (from nota in notasFiscais
-                               where nota.Status != (int)StatusNFe.Emitida
+                               where nota.Status != (int)StatusNFe.Emitida && nota.Status != (int)StatusNFe.Cancelada
+                               where nota.CNPJEmitente == Propriedades.EmitenteAtivo.CNPJ
                                orderby nota.DataEmissao descending
-                               select new NFeView(nota)).GerarObs();
-                
+                               select nota).GerarObs();
+                NotasCanceladas = (from nota in notasFiscais
+                               where nota.Status == (int)StatusNFe.Cancelada
+                               where nota.CNPJEmitente == Propriedades.EmitenteAtivo.CNPJ
+                               orderby nota.DataEmissao descending
+                               select nota).GerarObs();
             }
         }
 
@@ -47,42 +55,51 @@ namespace NFeFacil.ViewNFe
             MainPage.Current.SeAtualizar(Symbol.Library, "Notas salvas");
         }
 
-        ObservableCollection<NFeView> NotasEmitidas { get; }
-        ObservableCollection<NFeView> OutrasNotas { get; }
-
-        ICollectionView NotasEmitidasView => new CollectionViewSource() { Source = NotasEmitidas }.View;
-        ICollectionView OutrasNotasView => new CollectionViewSource() { Source = OutrasNotas }.View;
+        ObservableCollection<NFeDI> NotasEmitidas { get; }
+        ObservableCollection<NFeDI> OutrasNotas { get; }
+        ObservableCollection<NFeDI> NotasCanceladas { get; }
 
         public ObservableCollection<ItemHambuguer> ConteudoMenu => new ObservableCollection<ItemHambuguer>
         {
             new ItemHambuguer(Symbol.Send, "Emitidas"),
-            new ItemHambuguer(Symbol.SaveLocal, "Outras")
+            new ItemHambuguer(Symbol.SaveLocal, "Outras"),
+            new ItemHambuguer(Symbol.Cancel, "Canceladas")
         };
 
         private void Exibir(object sender, RoutedEventArgs e)
         {
-            var nota = (NFeView)((MenuFlyoutItem)sender).DataContext;
-            MainPage.Current.Navegar<VisualizacaoNFe>(nota.Nota);
+            var nota = (NFeDI)((MenuFlyoutItem)sender).DataContext;
+            MainPage.Current.Navegar<VisualizacaoNFe>(nota);
+        }
+
+        private void Excluir(object sender, RoutedEventArgs e)
+        {
+            var nota = (NFeDI)((MenuFlyoutItem)sender).DataContext;
+            using (var db = new AplicativoContext())
+            {
+                db.NotasFiscais.Remove(nota);
+                OutrasNotas.Remove(nota);
+                db.SaveChanges();
+            }
+            Popup.Current.Escrever(TitulosComuns.Sucesso, "Nota excluída com sucesso.");
         }
 
         private async void Cancelar(object sender, RoutedEventArgs e)
         {
-            var nota = (NFeView)((MenuFlyoutItem)sender).DataContext;
-            var Nota = nota.Nota;
-            var processo = XElement.Parse(Nota.XML).FromXElement<Processo>();
+            var nota = (NFeDI)((MenuFlyoutItem)sender).DataContext;
+            var processo = XElement.Parse(nota.XML).FromXElement<Processo>();
             if (await Cancelar(processo))
             {
-                Nota.Status = (int)StatusNFe.Cancelada;
+                nota.Status = (int)StatusNFe.Cancelada;
                 using (var db = new AplicativoContext())
                 {
-                    Nota.UltimaData = DateTime.Now;
-                    db.Update(Nota);
+                    nota.UltimaData = Propriedades.DateTimeNow;
+                    db.Update(nota);
                     db.SaveChanges();
-                }
 
-                nota.CalcularMensagemApoio();
-                NotasEmitidas.Remove(nota);
-                OutrasNotas.Add(nota);
+                    NotasEmitidas.Remove(nota);
+                    NotasCanceladas.Insert(0, nota);
+                }
             }
         }
 
@@ -152,46 +169,6 @@ namespace NFeFacil.ViewNFe
             MainPage.Current.AlterarSelectedIndexHamburguer(index);
         }
 
-        sealed class NFeView
-        {
-            public NFeDI Nota { get; }
-            public string MensagemApoio { get; set; }
-
-            public NFeView(NFeDI nota)
-            {
-                Nota = nota;
-                CalcularMensagemApoio();
-            }
-
-            public void CalcularMensagemApoio()
-            {
-                if (Nota.Status == (int)StatusNFe.Emitida)
-                {
-                    MensagemApoio = $"Exportada: {BoolToString(Nota.Exportada)}; Impressa: {BoolToString(Nota.Impressa)}";
-                }
-                else
-                {
-                    MensagemApoio = $"Status: {((StatusNFe)Nota.Status).ToString()}";
-                }
-
-                string BoolToString(bool booleano) => booleano ? "Sim" : "Não";
-            }
-
-            public override bool Equals(object obj)
-            {
-                if (obj is NFeView view)
-                {
-                    return Nota.Id == view.Nota.Id;
-                }
-                return false;
-            }
-
-            public override int GetHashCode()
-            {
-                return Nota.Id.GetHashCode();
-            }
-        }
-
         [XmlRoot("procEventoNFe", Namespace = "http://www.portalfiscal.inf.br/nfe")]
         public struct ProcEventoCancelamento
         {
@@ -203,6 +180,36 @@ namespace NFeFacil.ViewNFe
 
             [XmlElement("retEvento")]
             public ResultadoEvento[] RetEvento { get; set; }
+        }
+
+        async void CriarCopia(object sender, RoutedEventArgs e)
+        {
+            var nota = (NFeDI)((MenuFlyoutItem)sender).DataContext;
+            var processo = XElement.Parse(nota.XML).FromXElement<Processo>();
+            var nfe = processo.NFe;
+            var analisador = new AnalisadorNFe(ref nfe);
+            analisador.Desnormalizar();
+            if (await new CriadorNFe(nfe).ShowAsync() == ContentDialogResult.Primary)
+            {
+                Popup.Current.Escrever(TitulosComuns.Sucesso, "Nota de entrada criada. Agora verifique se todas as informações estão corretas.");
+            }
+        }
+    }
+
+    sealed class BoolToColor : IValueConverter
+    {
+        static readonly Brush Ativo = new SolidColorBrush(new AuxiliaresEstilos.BibliotecaCores().Cor1);
+        static readonly Brush Inativo = new SolidColorBrush(Windows.UI.Colors.Transparent);
+
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            var booleano = (bool)value;
+            return booleano ? Ativo : Inativo;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
         }
     }
 }

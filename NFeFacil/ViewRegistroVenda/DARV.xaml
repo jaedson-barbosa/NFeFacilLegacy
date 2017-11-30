@@ -7,119 +7,74 @@
       RequestedTheme="Light">
     <Page.Resources>
         <ResourceDictionary>
-            <DataTemplate x:Name="templateItem">
-                <Grid Height="22">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*" />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <Border BorderBrush="Black"
-                            BorderThickness="1,0"
-                            Grid.Column="0">
-                        <TextBlock HorizontalAlignment="Center"
-                                   Text="{Binding Descricao, Mode=OneTime}" />
-                    </Border>
-                    <Border BorderBrush="Black"
-                            BorderThickness="1,0"
-                            Grid.Column="1">
-                        <TextBlock HorizontalAlignment="Center"
-                                   Text="{Binding Quantidade, Mode=OneTime}" />
-                    </Border>
-                    <Border BorderBrush="Black"
-                            BorderThickness="1,0"
-                            Grid.Column="2">
-                        <TextBlock HorizontalAlignment="Center"
-                                   Text="{Binding ValorUnitario, Mode=OneTime}" />
-                    </Border>
-                    <Border BorderBrush="Black"
-                            BorderThickness="1,0"
-                            Grid.Column="3">
-                        <TextBlock HorizontalAlignment="Center"
-                                   Text="{Binding Desconto, Mode=OneTime}" />
-                    </Border>
-                    <Border BorderBrush="Black"
-                            BorderThickness="1,0"
-                            Grid.Column="4">
-                        <TextBlock HorizontalAlignment="Center"
-                                   Text="{Binding Adicionais, Mode=OneTime}" />
-                    </Border>
-                    <Border BorderBrush="Black"
-                            BorderThickness="1,0"
-                            Grid.Column="5">
-                        <TextBlock HorizontalAlignment="Center"
-                                   Text="{Binding Total, Mode=OneTime}" />
-                    </Border>
-                </Grid>
-            </DataTemplate>
-            <DataTemplate x:Name="templateCabecalho">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*" />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <Border BorderBrush="Black"
-                            BorderThickness="1,0,1,1"
-                            Grid.Column="0">
-                        <TextBlock HorizontalAlignment="Center"
-                                   FontWeight="Bold">Descrição</TextBlock>
-                    </Border>
-                    <Border BorderBrush="Black"
-                            BorderThickness="1,0,1,1"
-                            Grid.Column="1">
-                        <TextBlock HorizontalAlignment="Center"
-                                   FontWeight="Bold">Qtde</TextBlock>
-                    </Border>
-                    <Border BorderBrush="Black"
-                            BorderThickness="1,0,1,1"
-                            Grid.Column="2">
-                        <TextBlock HorizontalAlignment="Center"
-                                   FontWeight="Bold">Valor</TextBlock>
-                    </Border>
-                    <Border BorderBrush="Black"
-                            BorderThickness="1,0,1,1"
-                            Grid.Column="3">
-                        <TextBlock HorizontalAlignment="Center"
-                                   FontWeight="Bold">Desconto</TextBlock>
-                    </Border>
-                    <Border BorderBrush="Black"
-                            BorderThickness="1,0,1,1"
-                            Grid.Column="4">
-                        <TextBlock HorizontalAlignment="Center"
-                                   FontWeight="Bold">Adicionais</TextBlock>
-                    </Border>
-                    <Border BorderBrush="Black"
-                            BorderThickness="1,0,1,1"
-                            Grid.Column="5">
-                        <TextBlock HorizontalAlignment="Center"
-                                   FontWeight="Bold">Total</TextBlock>
-                    </Border>
-                </Grid>
-            </DataTemplate>
             <Style x:Name="listaPadrao"
-                   TargetType="ListView">
-                <Setter Property="ItemContainerStyle"
-                        Value="{StaticResource ItemFullWidth}" />
-                <Setter Property="ItemTemplate"
-                        Value="{StaticResource templateItem}" />
+                   TargetType="ItemsControl">
+                <Setter Property="ItemTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <Grid MinHeight="22">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Border BorderBrush="Black"
+                                        BorderThickness="1,0,1,1"
+                                        Grid.Column="0">
+                                    <TextBlock HorizontalAlignment="Center"
+                                               TextWrapping="Wrap"
+                                               Text="{Binding Descricao, Mode=OneTime}" />
+                                </Border>
+                                <Border BorderBrush="Black"
+                                        BorderThickness="0,0,0,1"
+                                        Grid.Column="1">
+                                    <TextBlock HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               Text="{Binding Quantidade, Mode=OneTime}" />
+                                </Border>
+                                <Border BorderBrush="Black"
+                                        BorderThickness="1,0,1,1"
+                                        Grid.Column="2">
+                                    <TextBlock HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               Text="{Binding ValorUnitario, Mode=OneTime}" />
+                                </Border>
+                                <Border BorderBrush="Black"
+                                        BorderThickness="0,0,0,1"
+                                        Grid.Column="3">
+                                    <TextBlock HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               Text="{Binding Desconto, Mode=OneTime}" />
+                                </Border>
+                                <Border BorderBrush="Black"
+                                        BorderThickness="1,0,1,1"
+                                        Grid.Column="4">
+                                    <TextBlock HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               Text="{Binding Adicionais, Mode=OneTime}" />
+                                </Border>
+                                <Border BorderBrush="Black"
+                                        BorderThickness="0,0,1,1"
+                                        Grid.Column="5">
+                                    <TextBlock HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               Text="{Binding Total, Mode=OneTime}" />
+                                </Border>
+                            </Grid>
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
                 <Setter Property="BorderBrush"
                         Value="Black" />
                 <Setter Property="BorderThickness"
                         Value="0,1" />
-                <Setter Property="HeaderTemplate"
-                        Value="{StaticResource templateCabecalho}" />
             </Style>
         </ResourceDictionary>
     </Page.Resources>
-    <ScrollViewer Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-                  VerticalScrollBarVisibility="Auto"
+    <ScrollViewer VerticalScrollBarVisibility="Auto"
                   HorizontalScrollBarVisibility="Auto">
         <StackPanel x:Name="paiPaginas"
                     Orientation="Horizontal">
@@ -141,6 +96,7 @@
                     <RowDefinition Height="0" />
                     <RowDefinition Height="Auto" />
 
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition x:Name="linhaProdutos" />
                     <RowDefinition Height="Auto" />
@@ -199,13 +155,60 @@
                            HorizontalAlignment="Center"
                            FontWeight="Bold"
                            Margin="0,8,0,0">PRODUTOS</TextBlock>
-                <ListView x:Name="listaPrincipal"
-                          Grid.ColumnSpan="2"
-                          Grid.Row="12"
-                          VerticalAlignment="Top"
-                          Style="{StaticResource listaPadrao}" />
+                <Grid Grid.Row="12"
+                      Grid.ColumnSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Border BorderBrush="Black"
+                            BorderThickness="1,1,1,1"
+                            Grid.Column="0">
+                        <TextBlock HorizontalAlignment="Center"
+                                   FontWeight="Bold">Descrição</TextBlock>
+                    </Border>
+                    <Border BorderBrush="Black"
+                            BorderThickness="0,1,0,1"
+                            Grid.Column="1">
+                        <TextBlock HorizontalAlignment="Center"
+                                   FontWeight="Bold">Qtde</TextBlock>
+                    </Border>
+                    <Border BorderBrush="Black"
+                            BorderThickness="1,1,1,1"
+                            Grid.Column="2">
+                        <TextBlock HorizontalAlignment="Center"
+                                   FontWeight="Bold">Valor</TextBlock>
+                    </Border>
+                    <Border BorderBrush="Black"
+                            BorderThickness="0,1,0,1"
+                            Grid.Column="3">
+                        <TextBlock HorizontalAlignment="Center"
+                                   FontWeight="Bold">Desconto</TextBlock>
+                    </Border>
+                    <Border BorderBrush="Black"
+                            BorderThickness="1,1,1,1"
+                            Grid.Column="4">
+                        <TextBlock HorizontalAlignment="Center"
+                                   FontWeight="Bold">Adicionais</TextBlock>
+                    </Border>
+                    <Border BorderBrush="Black"
+                            BorderThickness="0,1,1,1"
+                            Grid.Column="5">
+                        <TextBlock HorizontalAlignment="Center"
+                                   FontWeight="Bold">Total</TextBlock>
+                    </Border>
+                </Grid>
+                <ItemsControl x:Name="listaPrincipal"
+                              Grid.ColumnSpan="2"
+                              Grid.Row="13"
+                              VerticalAlignment="Top"
+                              Style="{StaticResource listaPadrao}" />
                 <Grid Grid.ColumnSpan="2"
-                      Grid.Row="13">
+                      Grid.Row="14">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition />
@@ -217,16 +220,16 @@
                 </Grid>
 
                 <TextBlock Grid.ColumnSpan="2"
-                           Grid.Row="14"
+                           Grid.Row="15"
                            HorizontalAlignment="Center"
                            Margin="0,16,0,0">______________________________________________________________</TextBlock>
                 <TextBlock Grid.ColumnSpan="2"
-                           Grid.Row="15"
+                           Grid.Row="16"
                            HorizontalAlignment="Center"
                            Text="{x:Bind Dados.Cliente.Nome}" />
 
                 <TextBlock Grid.ColumnSpan="2"
-                           Grid.Row="16"
+                           Grid.Row="17"
                            Margin="0,4,0,0"
                            TextWrapping="Wrap"><Run FontWeight="Bold">Obervações:</Run> <Run Text="{x:Bind Dados.Observacoes}" /></TextBlock>
             </Grid>

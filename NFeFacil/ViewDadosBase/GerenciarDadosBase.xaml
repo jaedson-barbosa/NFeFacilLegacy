@@ -18,10 +18,8 @@
     </Page.Resources>
     <FlipView x:Name="flipView"
               Padding="16"
-              Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
               SelectionChanged="TelaMudou">
-        <ListView ItemsSource="{x:Bind Clientes}"
-                  ItemContainerStyle="{StaticResource ItemFullWidth}">
+        <ListView ItemsSource="{x:Bind Clientes}">
             <ListView.Header>
                 <Grid Style="{StaticResource Cabecalho}">
                     <Grid.ColumnDefinitions>
@@ -66,8 +64,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ListView ItemsSource="{x:Bind Motoristas}"
-                  ItemContainerStyle="{StaticResource ItemFullWidth}">
+        <ListView ItemsSource="{x:Bind Motoristas}">
             <ListView.Header>
                 <Grid Style="{StaticResource Cabecalho}">
                     <Grid.ColumnDefinitions>
@@ -112,8 +109,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ListView ItemsSource="{x:Bind Produtos}"
-                  ItemContainerStyle="{StaticResource ItemFullWidth}">
+        <ListView ItemsSource="{x:Bind Produtos}">
             <ListView.Header>
                 <Grid Style="{StaticResource Cabecalho}">
                     <Grid.ColumnDefinitions>
@@ -140,6 +136,7 @@
                         <Grid.ContextFlyout>
                             <MenuFlyout>
                                 <MenuFlyoutItem Click="EditarProduto">Editar</MenuFlyoutItem>
+                                <MenuFlyoutItem Click="ControlarEstoque">Controlar estoque</MenuFlyoutItem>
                                 <MenuFlyoutItem Click="InativarProduto">Inativar</MenuFlyoutItem>
                             </MenuFlyout>
                         </Grid.ContextFlyout>
@@ -151,17 +148,14 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ListView ItemsSource="{x:Bind Vendedores}"
-                  ItemContainerStyle="{StaticResource ItemFullWidth}">
+        <ListView ItemsSource="{x:Bind Vendedores}">
             <ListView.Header>
                 <Grid Style="{StaticResource Cabecalho}">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*" />
                         <ColumnDefinition />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock>Nome</TextBlock>
-                    <TextBlock Grid.Column="1">CPF</TextBlock>
+                    <TextBlock>Imagem e nome</TextBlock>
                     <Button Style="{StaticResource BotaoAdd}"
                             Grid.Column="2"
                             Click="AdicionarVendedor">
@@ -171,23 +165,16 @@
             </ListView.Header>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*" />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <Grid.ContextFlyout>
+                    <ContentControl ContentTemplate="{StaticResource ExibicaoImagemDescricao}"
+                                    Content="{Binding}">
+                        <ContentControl.ContextFlyout>
                             <MenuFlyout>
                                 <MenuFlyoutItem Click="EditarVendedor">Editar</MenuFlyoutItem>
                                 <MenuFlyoutItem Click="InativarVendedor">Inativar</MenuFlyoutItem>
                                 <MenuFlyoutItem Click="ImagemVendedor">Imagem do perfil</MenuFlyoutItem>
                             </MenuFlyout>
-                        </Grid.ContextFlyout>
-                        <TextBlock Text="{Binding Nome}" />
-                        <TextBlock TextWrapping="Wrap"
-                                   Text="{Binding CPF}"
-                                   Grid.Column="1" />
-                    </Grid>
+                        </ContentControl.ContextFlyout>
+                    </ContentControl>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

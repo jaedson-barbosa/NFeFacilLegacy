@@ -5,8 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
-
-    <ScrollViewer Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <ScrollViewer>
         <RichTextBlock x:Name="visualizacao" />
     </ScrollViewer>
     <Page.BottomAppBar>
@@ -26,6 +25,10 @@
                     <FontIcon Glyph="&#xE749;" />
                 </AppBarButton.Icon>
             </AppBarButton>
+            <AppBarButton x:Name="btnCalcularTroco"
+                          Label="Calcular troco"
+                          Icon="Calculator"
+                          Click="CalcularTroco" />
             <CommandBar.SecondaryCommands>
                 <AppBarButton x:Name="btnCancelar"
                               Label="Cancelar registro"

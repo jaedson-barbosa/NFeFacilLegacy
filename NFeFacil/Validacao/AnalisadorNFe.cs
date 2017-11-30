@@ -65,6 +65,8 @@ namespace NFeFacil.Validacao
             {
                 Nota.Informacoes.cana = new RegistroAquisicaoCana();
             }
+
+            Nota.Signature = null;
         }
 
         bool ValidarVeiculo(Veiculo veic)

@@ -4,7 +4,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
                 <VisualState>
@@ -14,8 +14,8 @@
                 </VisualState>
                 <VisualState>
                     <VisualState.Setters>
-                        <Setter Target="splitView.splitView.CompactPaneLength"
-                                Value="0" />
+                        <Setter Target="splitView.DisplayMode"
+                                Value="Overlay" />
                     </VisualState.Setters>
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="0" />
@@ -126,16 +126,32 @@
                     </Grid>
                 </Grid>
             </SplitView.Pane>
-            <Frame Name="frmPrincipal"
-                   Grid.Column="1">
-                <Frame.ContentTransitions>
-                    <TransitionCollection>
-                        <NavigationThemeTransition>
-                            <DrillInNavigationTransitionInfo />
-                        </NavigationThemeTransition>
-                    </TransitionCollection>
-                </Frame.ContentTransitions>
-            </Frame>
+            <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                <Image Name="backgroundImagem"
+                       Visibility="Collapsed" />
+                <Rectangle Name="backgroundCor"
+                           Fill="{StaticResource Variada}"
+                           Visibility="Collapsed"
+                           Stretch="Fill"
+                           HorizontalAlignment="Stretch"
+                           VerticalAlignment="Stretch" />
+                <Frame Name="frmPrincipal"
+                       Grid.Column="1"
+                       Canvas.ZIndex="1">
+                    <Frame.Background>
+                        <SolidColorBrush x:Name="backgroundFrame"
+                                         Color="{Binding Color, Source={ThemeResource ApplicationPageBackgroundThemeBrush}}" />
+                    </Frame.Background>
+                    <Frame.ContentTransitions>
+                        <TransitionCollection>
+                            <NavigationThemeTransition>
+                                <DrillInNavigationTransitionInfo />
+                            </NavigationThemeTransition>
+                        </TransitionCollection>
+                    </Frame.ContentTransitions>
+                </Frame>
+                <Image></Image>
+            </Grid>
         </SplitView>
     </Grid>
 </Page>

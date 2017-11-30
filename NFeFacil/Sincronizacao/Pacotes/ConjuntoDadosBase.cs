@@ -49,37 +49,37 @@ namespace NFeFacil.Sincronizacao.Pacotes
             {
                 Clientes = (from local in db.Clientes
                             let servidor = existente.Clientes.FirstOrDefault(x => x.Id == local.Id)
-                            where (local.UltimaData > (servidor == null ? minimo : servidor.UltimaData))
+                            where local.UltimaData > (servidor == null ? minimo : servidor.UltimaData)
                             select local).ToList();
 
                 Emitentes = (from local in db.Emitentes
                              let servidor = existente.Emitentes.FirstOrDefault(x => x.Id == local.Id)
                              let dataLocal = local.UltimaData
-                             where (servidor == null && dataLocal > minimo) || (servidor != null && local.UltimaData > servidor.UltimaData)
+                             where local.UltimaData > (servidor == null ? minimo : servidor.UltimaData)
                              select local).ToList();
 
                 Motoristas = (from local in db.Motoristas
                               let servidor = existente.Motoristas.FirstOrDefault(x => x.Id == local.Id)
                               let dataLocal = local.UltimaData
-                              where (servidor == null && dataLocal > minimo) || (servidor != null && local.UltimaData > servidor.UltimaData)
+                              where local.UltimaData > (servidor == null ? minimo : servidor.UltimaData)
                               select local).ToList();
 
                 Vendedores = (from local in db.Vendedores
                               let servidor = existente.Vendedores.FirstOrDefault(x => x.Id == local.Id)
                               let dataLocal = local.UltimaData
-                              where (servidor == null && dataLocal > minimo) || (servidor != null && local.UltimaData > servidor.UltimaData)
+                              where local.UltimaData > (servidor == null ? minimo : servidor.UltimaData)
                               select local).ToList();
 
                 Produtos = (from local in db.Produtos
                             let servidor = existente.Produtos.FirstOrDefault(x => x.Id == local.Id)
                             let dataLocal = local.UltimaData
-                            where (servidor == null && dataLocal > minimo) || (servidor != null && local.UltimaData > servidor.UltimaData)
+                            where local.UltimaData > (servidor == null ? minimo : servidor.UltimaData)
                             select local).ToList();
 
                 Estoque = (from local in db.Estoque.Include(x => x.Alteracoes)
                            let servidor = existente.Estoque.FirstOrDefault(x => x.Id == local.Id)
                            let dataLocal = local.UltimaData
-                           where (servidor == null && dataLocal > minimo) || (servidor != null && local.UltimaData > servidor.UltimaData)
+                           where local.UltimaData > (servidor == null ? minimo : servidor.UltimaData)
                            select local).ToList();
 
                 Veiculos = (from local in db.Veiculos
@@ -90,7 +90,7 @@ namespace NFeFacil.Sincronizacao.Pacotes
                 Vendas = (from local in db.Vendas.Include(x => x.Produtos)
                           let servidor = existente.Vendas.FirstOrDefault(x => x.Id == local.Id)
                           let dataLocal = local.UltimaData
-                          where (servidor == null && dataLocal > minimo) || (servidor != null && local.UltimaData > servidor.UltimaData)
+                          where local.UltimaData > (servidor == null ? minimo : servidor.UltimaData)
                           select local).ToList();
 
                 Cancelamentos = (from local in db.Cancelamentos
@@ -104,13 +104,16 @@ namespace NFeFacil.Sincronizacao.Pacotes
                 Imagens = (from local in db.Imagens
                            let servidor = existente.Imagens.FirstOrDefault(x => x.Id == local.Id)
                            let dataLocal = local.UltimaData
-                           where (servidor == null && dataLocal > minimo) || (servidor != null && local.UltimaData > servidor.UltimaData)
+                           where local.UltimaData > (servidor == null ? minimo : servidor.UltimaData)
                            select local).ToList();
             }
         }
 
         public void AnalisarESalvar(DateTime minimo)
         {
+            List<AlteracaoEstoque>[] AlteracoesEstoque = null;
+            List<ProdutoSimplesVenda>[] ProdutosVendas = null;
+
             using (var db = new AplicativoContext())
             {
                 List<object> Adicionar = new List<object>();
@@ -271,10 +274,13 @@ namespace NFeFacil.Sincronizacao.Pacotes
 
                 if (Estoque != null)
                 {
+                    AlteracoesEstoque = new List<AlteracaoEstoque>[Estoque.Count];
                     for (int i = 0; i < Estoque.Count; i++)
                     {
                         var novo = Estoque[i];
-                        novo.Alteracoes.ForEach(x => x.Id = default(Guid));
+
+                        AlteracoesEstoque[i] = novo.Alteracoes;
+                        novo.Alteracoes = null;
 
                         var atual = db.Estoque.FirstOrDefault(x => x.Id == novo.Id);
                         if (atual == null)
@@ -284,7 +290,6 @@ namespace NFeFacil.Sincronizacao.Pacotes
                         }
                         else if (novo.UltimaData > atual.UltimaData)
                         {
-                            novo.Alteracoes.RemoveAll(x => x.MomentoRegistro < minimo);
                             novo.UltimaData = InstanteSincronizacao;
                             Atualizar.Add(novo);
                         }
@@ -293,20 +298,22 @@ namespace NFeFacil.Sincronizacao.Pacotes
 
                 if (Vendas != null)
                 {
+                    ProdutosVendas = new List<ProdutoSimplesVenda>[Vendas.Count];
                     for (int i = 0; i < Vendas.Count; i++)
                     {
                         var novo = Vendas[i];
 
+                        ProdutosVendas[i] = novo.Produtos;
+                        novo.Produtos = null;
+
                         var atual = db.Vendas.FirstOrDefault(x => x.Id == novo.Id);
                         if (atual == null)
                         {
-                            novo.Produtos.ForEach(x => x.Id = default(Guid));
                             novo.UltimaData = InstanteSincronizacao;
                             Adicionar.Add(novo);
                         }
                         else if (novo.UltimaData > atual.UltimaData)
                         {
-                            novo.Produtos.Clear();
                             novo.UltimaData = InstanteSincronizacao;
                             Atualizar.Add(novo);
                         }
@@ -315,6 +322,38 @@ namespace NFeFacil.Sincronizacao.Pacotes
 
                 db.AddRange(Adicionar);
                 db.UpdateRange(Atualizar);
+                db.SaveChanges();
+            }
+
+            using (var db = new AplicativoContext())
+            {
+                if (AlteracoesEstoque != null)
+                {
+                    for (int i = 0; i < Estoque.Count; i++)
+                    {
+                        var novo = Estoque[i];
+                        var alteracoes = AlteracoesEstoque[i];
+                        alteracoes.ForEach(x => x.Id = default(Guid));
+                        var original = db.Estoque.Include(x => x.Alteracoes).FirstOrDefault(x => x.Id == novo.Id);
+                        var maiorData = original.Alteracoes.Count > 0 ? original.Alteracoes.Max(k => k.MomentoRegistro) : DateTime.MinValue;
+                        novo.Alteracoes = alteracoes.Where(x => x.MomentoRegistro > maiorData).ToList();
+                        db.Estoque.Update(novo);
+                    }
+                }
+
+                if (ProdutosVendas != null)
+                {
+                    for (int i = 0; i < Vendas.Count; i++)
+                    {
+                        var novo = Vendas[i];
+                        var original = db.Vendas.Include(x => x.Produtos).FirstOrDefault(x => x.Id == novo.Id);
+                        var produtos = ProdutosVendas[i];
+                        produtos.ForEach(x => x.Id = default(Guid));
+                        novo.Produtos = produtos.ToList();
+                        db.Vendas.Update(novo);
+                    }
+                }
+
                 db.SaveChanges();
             }
         }

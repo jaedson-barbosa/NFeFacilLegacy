@@ -6,44 +6,9 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
     <GridView x:Name="grdVendedores"
-              Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
               Padding="16"
-              SelectionChanged="VendedorEscolhido">
-        <GridView.ItemTemplate>
-            <DataTemplate>
-                <Grid VerticalAlignment="Center">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <Grid BorderBrush="{StaticResource Normal}"
-                          BorderThickness="4"
-                          CornerRadius="128"
-                          Width="256"
-                          Height="256"
-                          Margin="0,8,0,4">
-                        <SymbolIcon Symbol="Contact"
-                                    Canvas.ZIndex="0"
-                                    RenderTransformOrigin="0.5,0.5">
-                            <SymbolIcon.RenderTransform>
-                                <CompositeTransform ScaleX="4"
-                                                    ScaleY="4" />
-                            </SymbolIcon.RenderTransform>
-                        </SymbolIcon>
-                        <Image Canvas.ZIndex="1"
-                               Source="{Binding Imagem, Mode=OneTime}"
-                               Stretch="UniformToFill" />
-                    </Grid>
-                    <TextBlock Grid.Row="1"
-                               Text="{Binding Nome, Mode=OneTime}"
-                               Style="{StaticResource SubtitleTextBlockStyle}"
-                               MaxWidth="200"
-                               TextAlignment="Center"
-                               Margin="4,0" />
-                </Grid>
-            </DataTemplate>
-        </GridView.ItemTemplate>
-    </GridView>
+              SelectionChanged="VendedorEscolhido"
+              ItemTemplate="{StaticResource ExibicaoImagemDescricao}" />
     <Page.BottomAppBar>
         <CommandBar>
             <AppBarButton Icon="Admin"

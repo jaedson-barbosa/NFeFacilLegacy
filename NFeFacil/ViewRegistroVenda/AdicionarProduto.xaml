@@ -18,7 +18,6 @@
                  TextChanged="Buscar" />
         <ListView ItemsSource="{x:Bind Produtos, Mode=OneTime}"
                   SelectedItem="{x:Bind ProdutoSelecionado, Mode=TwoWay}"
-                  ItemContainerStyle="{StaticResource ItemFullWidth}"
                   Grid.Row="1"
                   Margin="0,2,0,4">
             <ListView.Header>

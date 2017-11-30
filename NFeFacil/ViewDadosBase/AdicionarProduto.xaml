@@ -4,8 +4,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
-    <Grid x:Name="grdPrincipal"
-          Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid x:Name="grdPrincipal">
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="Auto" />
@@ -45,10 +44,6 @@
                 <TextBox Text="{Binding ValorUnitarioTributo, Mode=TwoWay}"
                          InputScope="Number"
                          Header="Valor unid. tributária" />
-                <CheckBox VerticalAlignment="Bottom"
-                          x:Name="chkControleEstoque"
-                          Checked="ControleEstoque_Checked"
-                          Unchecked="ControleEstoque_Unchecked">Produto com controle de estoque</CheckBox>
             </ItemsControl>
         </ScrollViewer>
         <CommandBar Grid.Row="1">

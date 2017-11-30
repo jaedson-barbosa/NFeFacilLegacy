@@ -1,138 +1,75 @@
 ﻿<Page x:Class="NFeFacil.View.VendasAnuais"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:lvc="using:LiveCharts.Uwp"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-          Padding="16">
+    <Grid Padding="16">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
+            <RowDefinition />
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal"
-                    Margin="0,0,0,8">
-            <TextBlock Margin="0,0,4,0"
-                       VerticalAlignment="Center">Ano analisado:</TextBlock>
-            <ComboBox ItemsSource="{x:Bind AnosDisponiveis}"
-                      MinWidth="160"
-                      SelectionChanged="AnoEscolhidoMudou" />
-        </StackPanel>
-        <FlipView x:Name="flipView"
-                  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-                  Grid.Row="1"
-                  SelectionChanged="TelaMudou">
-            <FlipView.Resources>
-                <Style TargetType="TextBlock"
-                       BasedOn="{StaticResource SubtitleTextBlockStyle}" />
-            </FlipView.Resources>
-            <ListView ItemsSource="{x:Bind ResultadoMes}"
-                      ItemContainerStyle="{StaticResource ItemFullWidth}">
-                <ListView.Header>
-                    <Grid Style="{StaticResource Cabecalho}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock TextAlignment="Center"
-                                   VerticalAlignment="Center">Mês</TextBlock>
-                        <TextBlock TextAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   Grid.Column="1">Quantidade</TextBlock>
-                        <TextBlock TextAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   Grid.Column="2">Valor total</TextBlock>
-                    </Grid>
-                </ListView.Header>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <TextBlock TextAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       Text="{Binding Mês}" />
-                            <TextBlock TextAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       Text="{Binding Quantidade}"
-                                       Grid.Column="1" />
-                            <TextBlock TextAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       Text="{Binding Total}"
-                                       Grid.Column="2" />
-                        </Grid>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            <ListView ItemsSource="{x:Bind ResultadoCliente}"
-                      ItemContainerStyle="{StaticResource ItemFullWidth}">
-                <ListView.Header>
-                    <Grid Style="{StaticResource Cabecalho}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="3*" />
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock TextAlignment="Center"
-                                   VerticalAlignment="Center">Nome</TextBlock>
-                        <TextBlock TextAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   Grid.Column="1">Quantidade</TextBlock>
-                        <TextBlock TextAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   Grid.Column="2">Municipio</TextBlock>
-                        <TextBlock TextAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   Grid.Column="3">Documento</TextBlock>
-                        <TextBlock TextAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   Grid.Column="4">Total</TextBlock>
-                    </Grid>
-                </ListView.Header>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="3*" />
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <TextBlock TextWrapping="Wrap"
-                                       TextAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       Text="{Binding Nome}" />
-                            <TextBlock TextWrapping="Wrap"
-                                       TextAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       Text="{Binding Quantidade}"
-                                       Grid.Column="1" />
-                            <TextBlock TextWrapping="Wrap"
-                                       TextAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       Text="{Binding Mun}"
-                                       Grid.Column="2" />
-                            <TextBlock TextWrapping="Wrap"
-                                       TextAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       Text="{Binding Doc}"
-                                       Grid.Column="3" />
-                            <TextBlock TextWrapping="Wrap"
-                                       TextAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       Text="{Binding Total}"
-                                       Grid.Column="4" />
-                        </Grid>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </FlipView>
+        <ComboBox ItemsSource="{x:Bind AnosDisponiveis}"
+                  Header="Ano analisado"
+                  MinWidth="160"
+                  HorizontalAlignment="Center"
+                  SelectedItem="{x:Bind AnoEscolhido, Mode=TwoWay}" />
+        <ComboBox Grid.Column="1"
+                  Header="Ordem - Meses"
+                  MinWidth="160"
+                  HorizontalAlignment="Center"
+                  SelectedIndex="{x:Bind OrdenacaoMeses, Mode=TwoWay}">
+            <ComboBoxItem Tag="0">Por data</ComboBoxItem>
+            <ComboBoxItem Tag="1">Por total</ComboBoxItem>
+        </ComboBox>
+        <ComboBox Grid.Column="2"
+                  Header="Ordem - Clientes"
+                  MinWidth="160"
+                  HorizontalAlignment="Center"
+                  SelectedIndex="{x:Bind OrdenacaoClientes, Mode=TwoWay}">
+            <ComboBoxItem Tag="0">Por total</ComboBoxItem>
+            <ComboBoxItem Tag="1">Por quantidade</ComboBoxItem>
+        </ComboBox>
+        <lvc:CartesianChart Grid.ColumnSpan="3"
+                            Grid.Row="1"
+                            Series="{x:Bind ResultadoMes}"
+                            Margin="0,8">
+            <lvc:CartesianChart.AxisX>
+                <lvc:Axis Title="Meses"
+                          ShowLabels="False"
+                          LabelFormatter="{x:Bind GetMonth}">
+                    <lvc:Axis.Separator>
+                        <lvc:Separator Step="1" />
+                    </lvc:Axis.Separator>
+                </lvc:Axis>
+            </lvc:CartesianChart.AxisX>
+        </lvc:CartesianChart>
+        <lvc:CartesianChart Grid.ColumnSpan="3"
+                            Grid.Row="2"
+                            Series="{x:Bind ResultadoCliente}">
+            <lvc:CartesianChart.AxisX>
+                <lvc:Axis Title="Clientes"
+                          ShowLabels="False"
+                          LabelFormatter="{x:Bind GetNome}">
+                    <lvc:Axis.Separator>
+                        <lvc:Separator Step="1" />
+                    </lvc:Axis.Separator>
+                </lvc:Axis>
+            </lvc:CartesianChart.AxisX>
+        </lvc:CartesianChart>
     </Grid>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarToggleButton Icon="Filter"
+                                Label="Filtrar produtos analisados" Checked="FiltrarProdutosAnalisados"
+                                Unchecked="RemoverFiltro" />
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>

@@ -23,6 +23,7 @@
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
     <AppxBundle>Always</AppxBundle>
     <RuntimeIdentifiers>win10-arm;win10-arm-aot;win10-x86;win10-x86-aot;win10-x64;win10-x64-aot</RuntimeIdentifiers>
+    <AppxSymbolPackageEnabled>True</AppxSymbolPackageEnabled>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -104,13 +105,14 @@
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <PRIResource Include="Cadeias de caracteres\pt-BR\Resources.resw" />
-    <Content Include="Assets\ArmaEscuro.png" />
-    <Content Include="Assets\ArmaClaro.png" />
+    <Content Include="Assets\ArmaDark.png" />
+    <Content Include="Assets\Arma.png" />
     <Content Include="Assets\BadgeLogo.scale-100.png" />
     <Content Include="Assets\BadgeLogo.scale-125.png" />
     <Content Include="Assets\BadgeLogo.scale-150.png" />
     <Content Include="Assets\BadgeLogo.scale-200.png" />
     <Content Include="Assets\BadgeLogo.scale-400.png" />
+    <Content Include="Assets\CanaAcucarDark.png" />
     <Content Include="Assets\CanaAcucar.png" />
     <Content Include="Assets\LargeTile.scale-100.png" />
     <Content Include="Assets\LargeTile.scale-125.png" />
@@ -148,11 +150,15 @@
     <Content Include="Assets\StoreLogo.scale-150.png" />
     <Content Include="Assets\StoreLogo.scale-200.png" />
     <Content Include="Assets\StoreLogo.scale-400.png" />
+    <Content Include="Assets\VolanteDark.png" />
+    <Content Include="Assets\Volante.png" />
     <Content Include="Assets\Wide310x150Logo.scale-100.png" />
     <Content Include="Assets\Wide310x150Logo.scale-125.png" />
     <Content Include="Assets\Wide310x150Logo.scale-150.png" />
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
-    <EmbeddedResource Include="Certificacao\LAN\Arquivos\ServidorCertificacao.zip" />
+    <EmbeddedResource Include="Certificacao\LAN\ServidorCertificacao.zip" />
+    <Content Include="Assets\ICP-Brasilv5.cer" />
+    <EmbeddedResource Include="Certificacao\LAN\WindowsLoopbackManager.zip" />
     <None Include="NFeFacil_StoreKey.pfx" />
     <None Include="Properties\ServiceReferences.Designer.ClientConfig" />
   </ItemGroup>
@@ -160,8 +166,18 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ImagemExtensoes.cs" />
+    <Compile Include="Certificacao\ConfiguracoesCertificadoImportado.xaml.cs">
+      <DependentUpon>ConfiguracoesCertificadoImportado.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Certificacao\ConfiguracoesServidorCertificacao.xaml.cs">
+      <DependentUpon>ConfiguracoesServidorCertificacao.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ConfiguracoesPermanentes.cs" />
+    <Compile Include="ConjuntoBasicoExibicao.cs" />
     <Compile Include="Sincronizacao\Pacotes\ConjuntoNotasFiscais.cs" />
+    <Compile Include="ViewRegistroVenda\CalcularTroco.xaml.cs">
+      <DependentUpon>CalcularTroco.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Ano.cs" />
     <Compile Include="View\Backup.xaml.cs">
       <DependentUpon>Backup.xaml</DependentUpon>
@@ -322,7 +338,6 @@
       <DependentUpon>SelecaoCertificado.xaml</DependentUpon>
     </Compile>
     <Compile Include="Certificacao\AssinaFacil.cs" />
-    <Compile Include="Certificacao\AssinaturaXML.cs" />
     <Compile Include="Certificacao\Certificados.cs" />
     <Compile Include="Certificacao\CodigoNet\AttributeSortOrder.cs" />
     <Compile Include="Certificacao\CodigoNet\C14NAncestralNamespaceContextManager.cs" />
@@ -370,7 +385,6 @@
     <Compile Include="ExtensoesPrincipal.cs" />
     <Compile Include="IHambuguer.cs" />
     <Compile Include="Importacao\Importacao.cs" />
-    <Compile Include="Certificacao\ImportarCertificado.cs" />
     <Compile Include="Importacao\ImportarDadoBase.cs" />
     <Compile Include="Importacao\ImportarNotaFiscal.cs" />
     <Compile Include="Importacao\TiposDadoBasico.cs" />
@@ -379,9 +393,7 @@
     <Compile Include="Log\Popup.cs" />
     <Compile Include="Log\Titulos.cs" />
     <Compile Include="Log\TitulosComuns.cs" />
-    <Compile Include="OperacoesNotaSalva.cs" />
     <Compile Include="Propriedades.cs" />
-    <Compile Include="MudancaOtimizadaBancoDados.cs" />
     <Compile Include="Sincronizacao\ConfiguracoesSincronizacao.cs" />
     <Compile Include="Sincronizacao\GerenciadorCliente.cs" />
     <Compile Include="Sincronizacao\GerenciadorServidor.cs" />
@@ -451,8 +463,12 @@
     <Compile Include="ViewNFe\CancelarNFe.xaml.cs">
       <DependentUpon>CancelarNFe.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Certificacao\ConfiguracoesCertificado.xaml.cs">
-      <DependentUpon>ConfiguracoesCertificado.xaml</DependentUpon>
+    <Compile Include="Certificacao\ConfiguracoesClienteServidor.xaml.cs">
+      <DependentUpon>ConfiguracoesClienteServidor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ComprasInApp.cs" />
+    <Compile Include="View\Configuracoes.xaml.cs">
+      <DependentUpon>Configuracoes.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Consulta.xaml.cs">
       <DependentUpon>Consulta.xaml</DependentUpon>
@@ -503,6 +519,12 @@
     </Compile>
     <Compile Include="Controles\CarregamentoCircular.xaml.cs">
       <DependentUpon>CarregamentoCircular.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\EscolhaProdutos.xaml.cs">
+      <DependentUpon>EscolhaProdutos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\EscolherTransparencia.xaml.cs">
+      <DependentUpon>EscolherTransparencia.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Inicio.xaml.cs">
       <DependentUpon>Inicio.xaml</DependentUpon>
@@ -627,6 +649,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Certificacao\ConfiguracoesCertificadoImportado.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Certificacao\ConfiguracoesServidorCertificacao.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewRegistroVenda\CalcularTroco.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Backup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -899,6 +933,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Configuracoes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\DefinirImagem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -907,7 +945,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Certificacao\ConfiguracoesCertificado.xaml">
+    <Page Include="Certificacao\ConfiguracoesClienteServidor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -940,6 +978,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ViewDadosBase\GerenciarDadosBase.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\EscolhaProdutos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\EscolherTransparencia.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1068,10 +1114,6 @@
     <ProjectReference Include="..\BancoDados\BancoDados.csproj">
       <Project>{f4827e33-77a7-43c8-8f3a-e712e92653cd}</Project>
       <Name>BancoDados</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Comum\Comum.csproj">
-      <Project>{066bae5a-a3a9-490c-91b7-75d5b6827d95}</Project>
-      <Name>Comum</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

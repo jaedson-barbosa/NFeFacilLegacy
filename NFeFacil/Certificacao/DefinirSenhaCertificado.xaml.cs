@@ -10,7 +10,7 @@ namespace NFeFacil.Certificacao
 
         public DefinirSenhaCertificado()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

@@ -20,7 +20,7 @@ namespace NFeFacil.ViewNFe.CaixasEspeciaisProduto
 
         public DefinirArmamentos()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

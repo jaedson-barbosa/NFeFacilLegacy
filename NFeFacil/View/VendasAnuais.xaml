@@ -65,4 +65,11 @@
             </lvc:CartesianChart.AxisX>
         </lvc:CartesianChart>
     </Grid>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarToggleButton Icon="Filter"
+                                Label="Filtrar produtos analisados" Checked="FiltrarProdutosAnalisados"
+                                Unchecked="RemoverFiltro" />
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>

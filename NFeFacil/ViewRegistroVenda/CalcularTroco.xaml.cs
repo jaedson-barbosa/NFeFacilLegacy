@@ -11,7 +11,7 @@ namespace NFeFacil.ViewRegistroVenda
 
         public CalcularTroco(double valorProduto)
         {
-            this.InitializeComponent();
+            InitializeComponent();
             ValorProduto = valorProduto;
         }
 

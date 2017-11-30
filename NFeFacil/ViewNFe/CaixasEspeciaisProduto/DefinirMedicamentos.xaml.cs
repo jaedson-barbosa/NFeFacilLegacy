@@ -20,7 +20,7 @@ namespace NFeFacil.ViewNFe.CaixasEspeciaisProduto
 
         public DefinirMedicamentos()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

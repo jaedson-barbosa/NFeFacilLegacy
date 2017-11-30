@@ -17,7 +17,7 @@ namespace NFeFacil.Certificacao
     {
         public ConfiguracoesServidorCertificacao()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

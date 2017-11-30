@@ -17,7 +17,7 @@ namespace NFeFacil.ViewNFe.CaixasEspeciaisProduto
 
         public DefinirCombustivel()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

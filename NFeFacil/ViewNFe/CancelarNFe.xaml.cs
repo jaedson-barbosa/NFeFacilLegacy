@@ -10,7 +10,7 @@ namespace NFeFacil.ViewNFe
 
         public CancelarNFe()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)

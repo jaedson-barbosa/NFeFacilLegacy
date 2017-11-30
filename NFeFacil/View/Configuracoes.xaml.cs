@@ -18,7 +18,7 @@ namespace NFeFacil.View
 
         public Configuracoes()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         bool Servidor

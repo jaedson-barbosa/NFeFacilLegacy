@@ -11,7 +11,7 @@ namespace NFeFacil.View
 
         public EscolherTransparencia(double opacidade)
         {
-            this.InitializeComponent();
+            InitializeComponent();
             Transparencia = (int)((1 - opacidade) * 100);
         }
     }

@@ -520,6 +520,9 @@
     <Compile Include="Controles\CarregamentoCircular.xaml.cs">
       <DependentUpon>CarregamentoCircular.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\EscolhaProdutos.xaml.cs">
+      <DependentUpon>EscolhaProdutos.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\EscolherTransparencia.xaml.cs">
       <DependentUpon>EscolherTransparencia.xaml</DependentUpon>
     </Compile>
@@ -975,6 +978,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ViewDadosBase\GerenciarDadosBase.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\EscolhaProdutos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -29,7 +29,7 @@ namespace NFeFacil.View
         static string[] NomesMeses = new string[12];
         static string[] NomesClientes = new string[12];
 
-        readonly Dictionary<int, NFe[]> NotasFiscais;
+        readonly Dictionary<int, NotaProcessada[]> NotasFiscais;
         readonly ObservableCollection<int> AnosDisponiveis;
 
         int anoEscolhido;
@@ -66,6 +66,9 @@ namespace NFeFacil.View
             }
         }
 
+        IEnumerable<string> ProdutosFiltrados;
+        int TipoTotal;
+
         public VendasAnuais()
         {
             InitializeComponent();
@@ -74,7 +77,7 @@ namespace NFeFacil.View
             {
                 AnosDisponiveis = (from dado in db.NotasFiscais
                                    where dado.CNPJEmitente == Propriedades.EmitenteAtivo.CNPJ
-                                   let ano = Convert.ToDateTime(dado.DataEmissao).Year
+                                   let ano = DateTime.Parse(dado.DataEmissao).Year
                                    orderby ano ascending
                                    select ano).Distinct().GerarObs();
                 NotasFiscais = (from item in db.NotasFiscais
@@ -83,7 +86,19 @@ namespace NFeFacil.View
                                 let data = DateTime.Parse(item.DataEmissao)
                                 let xml = XElement.Parse(item.XML)
                                 let nota = xml.FirstNode.FromXElement<NFe>()
-                                group nota by data.Year).ToDictionary(x => x.Key, x => x.ToArray());
+                                group new NotaProcessada
+                                {
+                                    Mes = data.Month,
+                                    NomeCliente = nota.Informacoes.destinatário.Nome,
+                                    DocumentoCliente = nota.Informacoes.destinatário.Documento,
+                                    Total = nota.Informacoes.total.ICMSTot.VNF,
+                                    Produtos = nota.Informacoes.produtos.Select(x => new ProdutoProcessado
+                                    {
+                                        Quantidade = x.Produto.QuantidadeComercializada,
+                                        TotalBruto = x.Produto.ValorTotal,
+                                        TotalLiquido = x.Produto.ValorTotal + x.Produto.Frete.ToDouble() + x.Produto.DespesasAcessorias.ToDouble() + x.Produto.Seguro.ToDouble() - x.Produto.Desconto.ToDouble()
+                                    })
+                                } by data.Year).ToDictionary(x => x.Key, x => x.ToArray());
             }
 
             ResultadoMes = new SeriesCollection
@@ -132,12 +147,26 @@ namespace NFeFacil.View
         {
             try
             {
-                var gruposMeses = from nota in NotasFiscais[AnoEscolhido]
-                                  let data = DateTime.Parse(nota.Informacoes.identificacao.DataHoraEmissão)
-                                  group nota by data.Month into item
-                                  let total = item.Sum(x => x.Informacoes.total.ICMSTot.VNF)
+                IEnumerable<(double Quant, double Total, int Mes)> gruposMeses;
+                if (ProdutosFiltrados == null)
+                {
+                    gruposMeses = from nota in NotasFiscais[AnoEscolhido]
+                                  group nota by nota.Mes into item
+                                  let total = item.Sum(x => x.Total)
+                                  let quant = item.Sum(x => x.Produtos.Sum(prod => prod.Quantidade))
                                   orderby OrdenacaoMeses == 0 ? -item.Key : total descending
-                                  select item;
+                                  select (quant, total, item.Key);
+                }
+                else
+                {
+                    gruposMeses = from nota in NotasFiscais[AnoEscolhido]
+                                  group nota by nota.Mes into item
+                                  let produtos = item.Select(x => x.Produtos.Where(prod => ProdutosFiltrados.Contains(prod.Descricao)))
+                                  let total = produtos.Sum(x => x.Sum(prod => TipoTotal == 0 ? prod.TotalBruto : prod.TotalLiquido))
+                                  let quant = produtos.Sum(x => x.Sum(prod => prod.Quantidade))
+                                  orderby OrdenacaoMeses == 0 ? -item.Key : total descending
+                                  select (quant, total, item.Key);
+                }
                 ResultadoMes[0].Values.Clear();
                 ResultadoMes[1].Values.Clear();
                 int i = 0;
@@ -146,10 +175,10 @@ namespace NFeFacil.View
                     var atual = new TotalPorMes
                     {
                         Id = i,
-                        Quantidade = item.Sum(det => det.Informacoes.produtos.Sum(prod => prod.Produto.QuantidadeComercializada)),
-                        Total = item.Sum(det => det.Informacoes.total.ICMSTot.VNF)
+                        Quantidade = item.Quant,
+                        Total = item.Total
                     };
-                    NomesMeses[i++] = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(item.Key);
+                    NomesMeses[i++] = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(item.Mes);
                     ResultadoMes[0].Values.Add(atual);
                     ResultadoMes[1].Values.Add(atual);
                 }
@@ -162,12 +191,26 @@ namespace NFeFacil.View
 
         void AtualizarClientes()
         {
-            var gruposClientes = from nota in NotasFiscais[AnoEscolhido]
-                                 group nota by nota.Informacoes.destinatário.Documento into item
-                                 let total = item.Sum(x => x.Informacoes.total.ICMSTot.VNF)
-                                 let quant = item.Sum(x => x.Informacoes.produtos.Sum(prod => prod.Produto.QuantidadeComercializada))
+            IEnumerable<(string Nome, double Quant, double Total)> gruposClientes;
+            if (ProdutosFiltrados == null)
+            {
+                gruposClientes = from nota in NotasFiscais[AnoEscolhido]
+                                 group nota by nota.DocumentoCliente into item
+                                 let total = item.Sum(x => x.Total)
+                                 let quant = item.Sum(x => x.Produtos.Sum(prod => prod.Quantidade))
                                  orderby OrdenacaoClientes == 0 ? total : quant descending
-                                 select new { Nome = item.First().Informacoes.destinatário.Nome, Total = total, Quant = quant };
+                                 select (item.First().NomeCliente, quant, total);
+            }
+            else
+            {
+                gruposClientes = from nota in NotasFiscais[AnoEscolhido]
+                                 group nota by nota.DocumentoCliente into item
+                                 let produtos = item.Select(x => x.Produtos.Where(prod => ProdutosFiltrados.Contains(prod.Descricao)))
+                                 let total = produtos.Sum(x => x.Sum(prod => TipoTotal == 0 ? prod.TotalBruto : prod.TotalLiquido))
+                                 let quant = produtos.Sum(x => x.Sum(prod => prod.Quantidade))
+                                 orderby OrdenacaoClientes == 0 ? total : quant descending
+                                 select (item.First().NomeCliente, quant, total);
+            }
             ResultadoCliente[0].Values.Clear();
             ResultadoCliente[1].Values.Clear();
             int i = 0;
@@ -196,6 +239,42 @@ namespace NFeFacil.View
             NomesClientes[i++] = restante.Nome;
             ResultadoCliente[0].Values.Add(restante);
             ResultadoCliente[1].Values.Add(restante);
+        }
+
+        async void FiltrarProdutosAnalisados(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            var caixa = new EscolhaProdutos();
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+            {
+                ProdutosFiltrados = caixa.Escolhidos;
+                TipoTotal = caixa.TipoTotal;
+                AtualizarMeses();
+                AtualizarClientes();
+            }
+        }
+
+        private void RemoverFiltro(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            ProdutosFiltrados = null;
+            AtualizarMeses();
+            AtualizarClientes();
+        }
+
+        struct NotaProcessada
+        {
+            public int Mes { get; set; }
+            public string NomeCliente { get; set; }
+            public string DocumentoCliente { get; set; }
+            public double Total { get; set; }
+            public IEnumerable<ProdutoProcessado> Produtos { get; set; }
+        }
+
+        struct ProdutoProcessado
+        {
+            public string Descricao { get; set; }
+            public double Quantidade { get; set; }
+            public double TotalBruto { get; set; }
+            public double TotalLiquido { get; set; }
         }
 
         struct TotalPorCliente

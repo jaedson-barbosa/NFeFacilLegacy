@@ -21,7 +21,7 @@ namespace NFeFacil.Certificacao
 
         public ConfiguracoesCertificadoImportado()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)

@@ -15,7 +15,7 @@ namespace NFeFacil.ViewDadosBase
 
         public AdicionarClienteBrasileiroPFContribuinte()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

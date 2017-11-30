@@ -11,7 +11,7 @@ namespace NFeFacil.ViewDadosBase
 
         public EscolherTipoCliente()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)

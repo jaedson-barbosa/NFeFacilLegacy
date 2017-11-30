@@ -19,7 +19,7 @@ namespace NFeFacil.View
 
         public DefinirImagem(Guid id, ImageSource imagem)
         {
-            this.InitializeComponent();
+            InitializeComponent();
             Id = id;
             imgAtual.Source = imagem;
         }

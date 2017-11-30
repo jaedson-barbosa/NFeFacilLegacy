@@ -17,7 +17,7 @@ namespace NFeFacil.ViewNFe.CaixasEspeciaisProduto
 
         public DefinirVeiculo()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

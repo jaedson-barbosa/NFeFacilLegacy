@@ -98,7 +98,7 @@ namespace NFeFacil.ViewNFe
                     db.SaveChanges();
 
                     NotasEmitidas.Remove(nota);
-                    NotasCanceladas.Add(nota);
+                    NotasCanceladas.Insert(0, nota);
                 }
             }
         }

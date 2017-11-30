@@ -33,11 +33,13 @@ namespace NFeFacil.View
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             MainPage.Current.SeAtualizar(Symbol.Home, nameof(Inicio));
+            grdPrincipal.SelectedIndex = -1;
         }
 
-        private async void AbrirFunção(object sender, TappedRoutedEventArgs e)
+        private async void grdPrincipal_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            switch ((sender as FrameworkElement).Tag)
+            if (e.AddedItems.Count == 0) return;
+            switch ((e.AddedItems[0] as FrameworkElement).Tag)
             {
                 case "GerenciarDadosBase":
                     MainPage.Current.Navegar<GerenciarDadosBase>();

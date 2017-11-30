@@ -6,33 +6,41 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
     <Grid Padding="16">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal"
-                    Margin="0,0,0,8">
-            <ComboBox ItemsSource="{x:Bind AnosDisponiveis}"
-                      Header="Ano analisado"
-                      MinWidth="160"
-                      SelectedItem="{x:Bind AnoEscolhido, Mode=TwoWay}" />
-            <ComboBox Header="Ordem - Meses"
-                      MinWidth="160"
-                      SelectedIndex="{x:Bind OrdenacaoMeses, Mode=TwoWay}"
-                      Margin="8,0">
-                <ComboBoxItem Tag="0">Por data</ComboBoxItem>
-                <ComboBoxItem Tag="1">Por total</ComboBoxItem>
-            </ComboBox>
-            <ComboBox Header="Ordem - Clientes"
-                      MinWidth="160"
-                      SelectedIndex="{x:Bind OrdenacaoClientes, Mode=TwoWay}">
-                <ComboBoxItem Tag="0">Por total</ComboBoxItem>
-                <ComboBoxItem Tag="1">Por quantidade</ComboBoxItem>
-            </ComboBox>
-        </StackPanel>
-        <lvc:CartesianChart Grid.Row="1"
-                            Series="{x:Bind ResultadoMes}">
+        <ComboBox ItemsSource="{x:Bind AnosDisponiveis}"
+                  Header="Ano analisado"
+                  MinWidth="160"
+                  HorizontalAlignment="Center"
+                  SelectedItem="{x:Bind AnoEscolhido, Mode=TwoWay}" />
+        <ComboBox Grid.Column="1"
+                  Header="Ordem - Meses"
+                  MinWidth="160"
+                  HorizontalAlignment="Center"
+                  SelectedIndex="{x:Bind OrdenacaoMeses, Mode=TwoWay}">
+            <ComboBoxItem Tag="0">Por data</ComboBoxItem>
+            <ComboBoxItem Tag="1">Por total</ComboBoxItem>
+        </ComboBox>
+        <ComboBox Grid.Column="2"
+                  Header="Ordem - Clientes"
+                  MinWidth="160"
+                  HorizontalAlignment="Center"
+                  SelectedIndex="{x:Bind OrdenacaoClientes, Mode=TwoWay}">
+            <ComboBoxItem Tag="0">Por total</ComboBoxItem>
+            <ComboBoxItem Tag="1">Por quantidade</ComboBoxItem>
+        </ComboBox>
+        <lvc:CartesianChart Grid.ColumnSpan="3"
+                            Grid.Row="1"
+                            Series="{x:Bind ResultadoMes}"
+                            Margin="0,8">
             <lvc:CartesianChart.AxisX>
                 <lvc:Axis Title="Meses"
                           ShowLabels="False"
@@ -43,7 +51,8 @@
                 </lvc:Axis>
             </lvc:CartesianChart.AxisX>
         </lvc:CartesianChart>
-        <lvc:CartesianChart Grid.Row="2"
+        <lvc:CartesianChart Grid.ColumnSpan="3"
+                            Grid.Row="2"
                             Series="{x:Bind ResultadoCliente}">
             <lvc:CartesianChart.AxisX>
                 <lvc:Axis Title="Clientes"

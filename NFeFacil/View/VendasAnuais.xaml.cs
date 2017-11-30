@@ -73,11 +73,13 @@ namespace NFeFacil.View
             using (var db = new AplicativoContext())
             {
                 AnosDisponiveis = (from dado in db.NotasFiscais
+                                   where dado.CNPJEmitente == Propriedades.EmitenteAtivo.CNPJ
                                    let ano = Convert.ToDateTime(dado.DataEmissao).Year
                                    orderby ano ascending
                                    select ano).Distinct().GerarObs();
                 NotasFiscais = (from item in db.NotasFiscais
                                 where item.Status >= 4
+                                where item.CNPJEmitente == Propriedades.EmitenteAtivo.CNPJ
                                 let data = DateTime.Parse(item.DataEmissao)
                                 let xml = XElement.Parse(item.XML)
                                 let nota = xml.FirstNode.FromXElement<NFe>()

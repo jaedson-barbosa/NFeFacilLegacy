@@ -19,6 +19,7 @@ namespace NFeFacil.Sincronizacao.Pacotes
         public List<RegistroCancelamento> Cancelamentos { get; set; }
         public List<CancelamentoRegistroVenda> CancelamentosRegistroVenda { get; set; }
         public List<Imagem> Imagens { get; set; }
+        public List<Comprador> Compradores { get; set; }
 
         public DateTime InstanteSincronizacao { get; set; }
 
@@ -39,6 +40,7 @@ namespace NFeFacil.Sincronizacao.Pacotes
                 Cancelamentos = db.Cancelamentos.ToList();
                 CancelamentosRegistroVenda = db.CancelamentosRegistroVenda.ToList();
                 Imagens = db.Imagens.Where(x => x.UltimaData > minimo).ToList();
+                Compradores = db.Compradores.Where(x => x.UltimaData > minimo).ToList();
             }
         }
 
@@ -54,31 +56,26 @@ namespace NFeFacil.Sincronizacao.Pacotes
 
                 Emitentes = (from local in db.Emitentes
                              let servidor = existente.Emitentes.FirstOrDefault(x => x.Id == local.Id)
-                             let dataLocal = local.UltimaData
                              where local.UltimaData > (servidor == null ? minimo : servidor.UltimaData)
                              select local).ToList();
 
                 Motoristas = (from local in db.Motoristas
                               let servidor = existente.Motoristas.FirstOrDefault(x => x.Id == local.Id)
-                              let dataLocal = local.UltimaData
                               where local.UltimaData > (servidor == null ? minimo : servidor.UltimaData)
                               select local).ToList();
 
                 Vendedores = (from local in db.Vendedores
                               let servidor = existente.Vendedores.FirstOrDefault(x => x.Id == local.Id)
-                              let dataLocal = local.UltimaData
                               where local.UltimaData > (servidor == null ? minimo : servidor.UltimaData)
                               select local).ToList();
 
                 Produtos = (from local in db.Produtos
                             let servidor = existente.Produtos.FirstOrDefault(x => x.Id == local.Id)
-                            let dataLocal = local.UltimaData
                             where local.UltimaData > (servidor == null ? minimo : servidor.UltimaData)
                             select local).ToList();
 
                 Estoque = (from local in db.Estoque.Include(x => x.Alteracoes)
                            let servidor = existente.Estoque.FirstOrDefault(x => x.Id == local.Id)
-                           let dataLocal = local.UltimaData
                            where local.UltimaData > (servidor == null ? minimo : servidor.UltimaData)
                            select local).ToList();
 
@@ -89,7 +86,6 @@ namespace NFeFacil.Sincronizacao.Pacotes
 
                 Vendas = (from local in db.Vendas.Include(x => x.Produtos)
                           let servidor = existente.Vendas.FirstOrDefault(x => x.Id == local.Id)
-                          let dataLocal = local.UltimaData
                           where local.UltimaData > (servidor == null ? minimo : servidor.UltimaData)
                           select local).ToList();
 
@@ -103,9 +99,13 @@ namespace NFeFacil.Sincronizacao.Pacotes
 
                 Imagens = (from local in db.Imagens
                            let servidor = existente.Imagens.FirstOrDefault(x => x.Id == local.Id)
-                           let dataLocal = local.UltimaData
                            where local.UltimaData > (servidor == null ? minimo : servidor.UltimaData)
                            select local).ToList();
+
+                Compradores = (from local in db.Compradores
+                               let servidor = existente.Compradores.FirstOrDefault(x => x.Id == local.Id)
+                               where local.UltimaData > (servidor == null ? minimo : servidor.UltimaData)
+                               select local).ToList();
             }
         }
 
@@ -272,6 +272,25 @@ namespace NFeFacil.Sincronizacao.Pacotes
                     }
                 }
 
+                if (Compradores != null)
+                {
+                    for (int i = 0; i < Compradores.Count; i++)
+                    {
+                        var novo = Compradores[i];
+                        var atual = db.Compradores.FirstOrDefault(x => x.Id == novo.Id);
+                        if (atual == null)
+                        {
+                            novo.UltimaData = InstanteSincronizacao;
+                            Adicionar.Add(novo);
+                        }
+                        else if (novo.UltimaData > atual.UltimaData)
+                        {
+                            novo.UltimaData = InstanteSincronizacao;
+                            Atualizar.Add(novo);
+                        }
+                    }
+                }
+
                 if (Estoque != null)
                 {
                     AlteracoesEstoque = new List<AlteracaoEstoque>[Estoque.Count];
@@ -373,6 +392,7 @@ namespace NFeFacil.Sincronizacao.Pacotes
                 Cancelamentos = db.Cancelamentos.ToList();
                 CancelamentosRegistroVenda = db.CancelamentosRegistroVenda.ToList();
                 Imagens = db.Imagens.ToList();
+                Compradores = db.Compradores.ToList();
             }
         }
     }

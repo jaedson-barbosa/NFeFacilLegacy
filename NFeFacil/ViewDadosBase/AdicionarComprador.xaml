@@ -1,19 +1,10 @@
-﻿<Page x:Class="NFeFacil.ViewDadosBase.AdicionarVendedor"
+﻿<Page x:Class="NFeFacil.ViewDadosBase.AdicionarComprador"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:controles="using:NFeFacil.Controles"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
-    <ItemsControl Style="{StaticResource ItensResponsivos}">
-        <TextBox Header="Nome"
-                 Text="{Binding Nome, Mode=TwoWay}" />
-        <controles:EntradaNumerica Format="11"
-                                   Header="CPF"
-                                   Number="{Binding CPF, Mode=TwoWay}" />
-        <TextBox Header="Endereço"
-                 Text="{Binding Endereço, Mode=TwoWay}" />
-    </ItemsControl>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"></Grid>
     <Page.BottomAppBar>
         <CommandBar>
             <AppBarButton x:Name="Confirmar"

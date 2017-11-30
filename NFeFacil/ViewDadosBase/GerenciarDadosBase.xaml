@@ -178,5 +178,34 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <ListView ItemsSource="{x:Bind Compradores}">
+            <ListView.Header>
+                <Grid Style="{StaticResource Cabecalho}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock>Imagem e nome</TextBlock>
+                    <Button Style="{StaticResource BotaoAdd}"
+                            Grid.Column="2"
+                            Click="AdicionarComprador">
+                        <SymbolIcon Symbol="Add" />
+                    </Button>
+                </Grid>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ContentControl ContentTemplate="{StaticResource ExibicaoImagemDescricao}"
+                                    Content="{Binding}">
+                        <ContentControl.ContextFlyout>
+                            <MenuFlyout>
+                                <MenuFlyoutItem Click="EditarComprador">Editar</MenuFlyoutItem>
+                                <MenuFlyoutItem Click="InativarComprador">Inativar</MenuFlyoutItem>
+                            </MenuFlyout>
+                        </ContentControl.ContextFlyout>
+                    </ContentControl>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </FlipView>
 </Page>

@@ -175,6 +175,9 @@
     <Compile Include="ConfiguracoesPermanentes.cs" />
     <Compile Include="ConjuntoBasicoExibicao.cs" />
     <Compile Include="Sincronizacao\Pacotes\ConjuntoNotasFiscais.cs" />
+    <Compile Include="ViewDadosBase\AdicionarComprador.xaml.cs">
+      <DependentUpon>AdicionarComprador.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewRegistroVenda\CalcularTroco.xaml.cs">
       <DependentUpon>CalcularTroco.xaml</DependentUpon>
     </Compile>
@@ -660,6 +663,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Certificacao\ConfiguracoesServidorCertificacao.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewDadosBase\AdicionarComprador.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

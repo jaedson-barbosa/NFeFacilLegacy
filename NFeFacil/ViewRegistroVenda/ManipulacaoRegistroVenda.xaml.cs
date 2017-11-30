@@ -50,7 +50,7 @@ namespace NFeFacil.ViewRegistroVenda
         {
             using (var db = new AplicativoContext())
             {
-                var compradores = db.Compradores.Where(x => x.IdEmpresa == client.Id);
+                var compradores = db.Compradores.Where(x => x.Ativo && x.IdEmpresa == client.Id);
                 var nomes = compradores.Select(x => x.Nome);
                 var caixa = new DefinirComprador(nomes);
                 if (await caixa.ShowAsync() == ContentDialogResult.Primary)

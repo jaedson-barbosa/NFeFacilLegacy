@@ -101,6 +101,8 @@ namespace NFeFacil.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<bool>("Ativo");
+
                     b.Property<string>("Email");
 
                     b.Property<Guid>("IdEmpresa");

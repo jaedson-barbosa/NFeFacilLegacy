@@ -34,6 +34,7 @@ namespace NFeFacil.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
+                    Ativo = table.Column<bool>(nullable: false),
                     Email = table.Column<string>(nullable: true),
                     IdEmpresa = table.Column<Guid>(nullable: false),
                     Nome = table.Column<string>(nullable: true),

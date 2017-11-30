@@ -85,7 +85,7 @@ namespace NFeFacil.ViewDadosBase
             MainPage.Current.AlterarSelectedIndexHamburguer(index);
         }
 
-        async void AdicionarCliente()
+        async void AdicionarCliente(object sender, RoutedEventArgs e)
         {
             var caixa = new EscolherTipoCliente();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
@@ -108,8 +108,11 @@ namespace NFeFacil.ViewDadosBase
             }
         }
 
-        private void EditarCliente(ClienteDI dest)
+        private void EditarCliente(object sender, RoutedEventArgs e)
         {
+            var contexto = ((FrameworkElement)sender).DataContext;
+            var dest = (ClienteDI)contexto;
+
             if (!string.IsNullOrEmpty(dest.CPF))
             {
                 if (dest.IndicadorIE == 1)
@@ -131,8 +134,11 @@ namespace NFeFacil.ViewDadosBase
             }
         }
 
-        private void InativarCliente(ClienteDI dest)
+        private void InativarCliente(object sender, RoutedEventArgs e)
         {
+            var contexto = ((FrameworkElement)sender).DataContext;
+            var dest = (ClienteDI)contexto;
+
             using (var db = new AplicativoContext())
             {
                 dest.Ativo = false;
@@ -142,18 +148,22 @@ namespace NFeFacil.ViewDadosBase
             }
         }
 
-        private void AdicionarMotorista()
+        private void AdicionarMotorista(object sender, RoutedEventArgs e)
         {
             MainPage.Current.Navegar<AdicionarMotorista>();
         }
 
-        private void EditarMotorista(MotoristaDI mot)
+        private void EditarMotorista(object sender, RoutedEventArgs e)
         {
-            MainPage.Current.Navegar<AdicionarMotorista>(mot);
+            var contexto = ((FrameworkElement)sender).DataContext;
+            MainPage.Current.Navegar<AdicionarMotorista>((MotoristaDI)contexto);
         }
 
-        private void InativarMotorista(MotoristaDI mot)
+        private void InativarMotorista(object sender, RoutedEventArgs e)
         {
+            var contexto = ((FrameworkElement)sender).DataContext;
+            var mot = (MotoristaDI)contexto;
+
             using (var db = new AplicativoContext())
             {
                 mot.Ativo = false;
@@ -163,92 +173,15 @@ namespace NFeFacil.ViewDadosBase
             }
         }
 
-        private void AdicionarProduto()
-        {
-            MainPage.Current.Navegar<AdicionarProduto>();
-        }
-
-        private void EditarProduto(ProdutoDI prod)
-        {
-            MainPage.Current.Navegar<AdicionarProduto>(prod);
-        }
-
-        private void InativarProduto(ProdutoDI prod)
-        {
-            using (var db = new AplicativoContext())
-            {
-                prod.Ativo = false;
-                db.Update(prod);
-                db.SaveChanges();
-                Produtos.Remove(prod);
-            }
-        }
-
-        void AdicionarVendedor()
-        {
-            MainPage.Current.Navegar<AdicionarVendedor>();
-        }
-
-        void EditarVendedor(ExibicaoVendedor vend)
-        {
-            MainPage.Current.Navegar<AdicionarVendedor>(vend.Vendedor);
-        }
-
-        void InativarVendedor(ExibicaoVendedor exib)
-        {
-            var vend = exib.Vendedor;
-            using (var db = new AplicativoContext())
-            {
-                vend.Ativo = false;
-                db.Update(vend);
-                db.SaveChanges();
-                Vendedores.Remove(exib);
-            }
-        }
-
-        private void AdicionarCliente(object sender, RoutedEventArgs e)
-        {
-            AdicionarCliente();
-        }
-
-        private void EditarCliente(object sender, RoutedEventArgs e)
-        {
-            var contexto = ((FrameworkElement)sender).DataContext;
-            EditarCliente((ClienteDI)contexto);
-        }
-
-        private void InativarCliente(object sender, RoutedEventArgs e)
-        {
-            var contexto = ((FrameworkElement)sender).DataContext;
-            InativarCliente((ClienteDI)contexto);
-        }
-
-        private void AdicionarMotorista(object sender, RoutedEventArgs e)
-        {
-            AdicionarMotorista();
-        }
-
-        private void EditarMotorista(object sender, RoutedEventArgs e)
-        {
-            var contexto = ((FrameworkElement)sender).DataContext;
-            EditarMotorista((MotoristaDI)contexto);
-        }
-
-        private void InativarMotorista(object sender, RoutedEventArgs e)
-        {
-            var contexto = ((FrameworkElement)sender).DataContext;
-            InativarMotorista((MotoristaDI)contexto);
-        }
-
         private void AdicionarProduto(object sender, RoutedEventArgs e)
         {
-            AdicionarProduto();
+            MainPage.Current.Navegar<AdicionarProduto>();
         }
 
         private void EditarProduto(object sender, RoutedEventArgs e)
         {
             var contexto = ((FrameworkElement)sender).DataContext;
-            EditarProduto((ProdutoDI)contexto);
+            MainPage.Current.Navegar<AdicionarProduto>((ProdutoDI)contexto);
         }
 
         async void ControlarEstoque(object sender, RoutedEventArgs e)
@@ -278,24 +211,41 @@ namespace NFeFacil.ViewDadosBase
         private void InativarProduto(object sender, RoutedEventArgs e)
         {
             var contexto = ((FrameworkElement)sender).DataContext;
-            InativarProduto((ProdutoDI)contexto);
+            var prod = (ProdutoDI)contexto;
+
+            using (var db = new AplicativoContext())
+            {
+                prod.Ativo = false;
+                db.Update(prod);
+                db.SaveChanges();
+                Produtos.Remove(prod);
+            }
         }
 
         private void AdicionarVendedor(object sender, RoutedEventArgs e)
         {
-            AdicionarVendedor();
+            MainPage.Current.Navegar<AdicionarVendedor>();
         }
 
         private void EditarVendedor(object sender, RoutedEventArgs e)
         {
             var contexto = ((FrameworkElement)sender).DataContext;
-            EditarVendedor((ExibicaoVendedor)contexto);
+            MainPage.Current.Navegar<AdicionarVendedor>(((ExibicaoVendedor)contexto).Vendedor);
         }
 
         private void InativarVendedor(object sender, RoutedEventArgs e)
         {
             var contexto = ((FrameworkElement)sender).DataContext;
-            InativarVendedor((ExibicaoVendedor)contexto);
+            var exib = (ExibicaoVendedor)contexto;
+
+            var vend = exib.Vendedor;
+            using (var db = new AplicativoContext())
+            {
+                vend.Ativo = false;
+                db.Update(vend);
+                db.SaveChanges();
+                Vendedores.Remove(exib);
+            }
         }
 
         async void ImagemVendedor(object sender, RoutedEventArgs e)
@@ -309,6 +259,20 @@ namespace NFeFacil.ViewDadosBase
                 vend.Imagem = caixa.Imagem;
                 Vendedores[index] = vend;
             }
+        }
+
+        private void AdicionarComprador(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void EditarComprador(object sender, RoutedEventArgs e)
+        {
+            var contexto = ((FrameworkElement)sender).DataContext;
+        }
+
+        private void InativarComprador(object sender, RoutedEventArgs e)
+        {
+            var contexto = ((FrameworkElement)sender).DataContext;
         }
 
         sealed class ExibicaoVendedor : ConjuntoBasicoExibicao

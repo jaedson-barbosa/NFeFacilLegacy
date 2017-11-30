@@ -1,12 +1,14 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
+using NFeFacil;
 
 namespace NFeFacil.Migrations
 {
     [DbContext(typeof(AplicativoContext))]
-    [Migration("20171130211543_Loja1.6")]
+    [Migration("20171130212253_Loja1.6")]
     partial class Loja16
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -102,6 +104,8 @@ namespace NFeFacil.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("Ativo");
 
                     b.Property<string>("Email");
 

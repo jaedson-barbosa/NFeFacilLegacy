@@ -86,19 +86,7 @@ namespace NFeFacil.View
                                 let data = DateTime.Parse(item.DataEmissao)
                                 let xml = XElement.Parse(item.XML)
                                 let nota = xml.FirstNode.FromXElement<NFe>()
-                                group new NotaProcessada
-                                {
-                                    Mes = data.Month,
-                                    NomeCliente = nota.Informacoes.destinatário.Nome,
-                                    DocumentoCliente = nota.Informacoes.destinatário.Documento,
-                                    Total = nota.Informacoes.total.ICMSTot.VNF,
-                                    Produtos = nota.Informacoes.produtos.Select(x => new ProdutoProcessado
-                                    {
-                                        Quantidade = x.Produto.QuantidadeComercializada,
-                                        TotalBruto = x.Produto.ValorTotal,
-                                        TotalLiquido = x.Produto.ValorTotal + x.Produto.Frete.ToDouble() + x.Produto.DespesasAcessorias.ToDouble() + x.Produto.Seguro.ToDouble() - x.Produto.Desconto.ToDouble()
-                                    })
-                                } by data.Year).ToDictionary(x => x.Key, x => x.ToArray());
+                                group new NotaProcessada(data, nota) by data.Year).ToDictionary(x => x.Key, x => x.ToArray());
             }
 
             ResultadoMes = new SeriesCollection
@@ -138,6 +126,8 @@ namespace NFeFacil.View
             };
         }
 
+        static double Convert(string str) => str?.ToDouble() ?? 0;
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             MainPage.Current.SeAtualizar(Symbol.Calendar, "Vendas");
@@ -161,9 +151,9 @@ namespace NFeFacil.View
                 {
                     gruposMeses = from nota in NotasFiscais[AnoEscolhido]
                                   group nota by nota.Mes into item
-                                  let produtos = item.Select(x => x.Produtos.Where(prod => ProdutosFiltrados.Contains(prod.Descricao)))
-                                  let total = produtos.Sum(x => x.Sum(prod => TipoTotal == 0 ? prod.TotalBruto : prod.TotalLiquido))
-                                  let quant = produtos.Sum(x => x.Sum(prod => prod.Quantidade))
+                                  let produtos = item.SelectMany(x => x.Produtos.Where(prod => ProdutosFiltrados.Contains(prod.Descricao)))
+                                  let total = produtos.Sum(prod => TipoTotal == 0 ? prod.TotalBruto : prod.TotalLiquido)
+                                  let quant = produtos.Sum(prod => prod.Quantidade)
                                   orderby OrdenacaoMeses == 0 ? -item.Key : total descending
                                   select (quant, total, item.Key);
                 }
@@ -205,9 +195,9 @@ namespace NFeFacil.View
             {
                 gruposClientes = from nota in NotasFiscais[AnoEscolhido]
                                  group nota by nota.DocumentoCliente into item
-                                 let produtos = item.Select(x => x.Produtos.Where(prod => ProdutosFiltrados.Contains(prod.Descricao)))
-                                 let total = produtos.Sum(x => x.Sum(prod => TipoTotal == 0 ? prod.TotalBruto : prod.TotalLiquido))
-                                 let quant = produtos.Sum(x => x.Sum(prod => prod.Quantidade))
+                                 let produtos = item.SelectMany(x => x.Produtos.Where(prod => ProdutosFiltrados.Contains(prod.Descricao)))
+                                 let total = produtos.Sum(prod => TipoTotal == 0 ? prod.TotalBruto : prod.TotalLiquido)
+                                 let quant = produtos.Sum(prod => prod.Quantidade)
                                  orderby OrdenacaoClientes == 0 ? total : quant descending
                                  select (item.First().NomeCliente, quant, total);
             }
@@ -243,21 +233,33 @@ namespace NFeFacil.View
 
         async void FiltrarProdutosAnalisados(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            var caixa = new EscolhaProdutos();
-            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+            if (AnoEscolhido != 0)
             {
-                ProdutosFiltrados = caixa.Escolhidos;
-                TipoTotal = caixa.TipoTotal;
-                AtualizarMeses();
-                AtualizarClientes();
+                var prods = NotasFiscais[AnoEscolhido].SelectMany(x => x.Produtos.Select(k => k.Descricao));
+                var caixa = new EscolhaProdutos(prods.Distinct());
+                if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+                {
+                    ProdutosFiltrados = caixa.Escolhidos;
+                    TipoTotal = caixa.TipoTotal;
+                    AtualizarMeses();
+                    AtualizarClientes();
+                }
+            }
+            else
+            {
+                ((AppBarToggleButton)sender).IsChecked = false;
+                Log.Popup.Current.Escrever(Log.TitulosComuns.Atenção, "Primeiro você deve escolher um ano para ser analisado.");
             }
         }
 
         private void RemoverFiltro(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            ProdutosFiltrados = null;
-            AtualizarMeses();
-            AtualizarClientes();
+            if (ProdutosFiltrados != null)
+            {
+                ProdutosFiltrados = null;
+                AtualizarMeses();
+                AtualizarClientes();
+            }
         }
 
         struct NotaProcessada
@@ -267,6 +269,21 @@ namespace NFeFacil.View
             public string DocumentoCliente { get; set; }
             public double Total { get; set; }
             public IEnumerable<ProdutoProcessado> Produtos { get; set; }
+
+            public NotaProcessada(DateTime data, NFe nota)
+            {
+                Mes = data.Month;
+                NomeCliente = nota.Informacoes.destinatário.Nome;
+                DocumentoCliente = nota.Informacoes.destinatário.Documento;
+                Total = nota.Informacoes.total.ICMSTot.VNF;
+                Produtos = nota.Informacoes.produtos.Select(x => new ProdutoProcessado
+                {
+                    Descricao = x.Produto.Descricao,
+                    Quantidade = x.Produto.QuantidadeComercializada,
+                    TotalBruto = x.Produto.ValorTotal,
+                    TotalLiquido = x.Produto.ValorTotal + Convert(x.Produto.Frete) + Convert(x.Produto.DespesasAcessorias) + Convert(x.Produto.Seguro) - Convert(x.Produto.Desconto)
+                });
+            }
         }
 
         struct ProdutoProcessado

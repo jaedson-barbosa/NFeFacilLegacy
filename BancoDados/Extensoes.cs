@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Xml.Linq;
@@ -33,7 +34,7 @@ namespace NFeFacil
 
         public static double ToDouble(this string str)
         {
-            return string.IsNullOrEmpty(str) ? 0 : double.Parse(str);
+            return string.IsNullOrEmpty(str) ? 0 : double.Parse(str, CultureInfo.InvariantCulture);
         }
 
         public static Stream Retornar(object origem, string caminho)

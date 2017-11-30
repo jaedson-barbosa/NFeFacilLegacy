@@ -11,13 +11,10 @@ namespace NFeFacil.View
         internal int TipoTotal { get; private set; }
         internal IEnumerable<string> Escolhidos => lst.SelectedItems.Cast<string>();
 
-        public EscolhaProdutos()
+        public EscolhaProdutos(IEnumerable<string> produtos)
         {
             InitializeComponent();
-            using (var db = new AplicativoContext())
-            {
-                lst.ItemsSource = db.Produtos.Select(x => x.Descricao).GerarObs();
-            }
+            lst.ItemsSource = produtos.GerarObs();
         }
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)

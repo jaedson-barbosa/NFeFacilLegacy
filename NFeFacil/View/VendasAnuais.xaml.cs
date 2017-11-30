@@ -96,6 +96,7 @@ namespace NFeFacil.View
                     Values = new ChartValues<TotalPorMes>(),
                     Title = "Total",
                     LabelPoint = x => $": {x.Y}",
+                    MaxColumnWidth = 20,
                     Configuration = Mappers.Xy<TotalPorMes>().X(x => x.Id).Y(x => x.Total)
                 },
                 new ColumnSeries
@@ -103,6 +104,7 @@ namespace NFeFacil.View
                     Values = new ChartValues<TotalPorMes>(),
                     Title = "Quantidade",
                     LabelPoint = x => $": {x.Y}",
+                    MaxColumnWidth = 20,
                     Configuration = Mappers.Xy<TotalPorMes>().X(x => x.Id).Y(x => x.Quantidade)
                 }
             };
@@ -114,6 +116,7 @@ namespace NFeFacil.View
                     Values = new ChartValues<TotalPorCliente>(),
                     Title = "Total",
                     LabelPoint = x => $": {x.Y}",
+                    MaxColumnWidth = 20,
                     Configuration = Mappers.Xy<TotalPorCliente>().X(x => x.Id).Y(x => x.Total)
                 },
                 new ColumnSeries
@@ -121,6 +124,7 @@ namespace NFeFacil.View
                     Values = new ChartValues<TotalPorCliente>(),
                     Title = "Quantidade",
                     LabelPoint = x => $": {x.Y}",
+                    MaxColumnWidth = 20,
                     Configuration = Mappers.Xy<TotalPorCliente>().X(x => x.Id).Y(x => x.Quantidade)
                 }
             };
@@ -168,7 +172,10 @@ namespace NFeFacil.View
                         Quantidade = item.Quant,
                         Total = item.Total
                     };
-                    NomesMeses[i++] = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(item.Mes);
+                    var nomeMes = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(item.Mes);
+                    string primeiraLetra = nomeMes[0].ToString();
+                    nomeMes = nomeMes.Remove(0, 1).Insert(0, primeiraLetra.ToUpper());
+                    NomesMeses[i++] = nomeMes;
                     ResultadoMes[0].Values.Add(atual);
                     ResultadoMes[1].Values.Add(atual);
                 }

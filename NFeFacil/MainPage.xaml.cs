@@ -161,9 +161,8 @@ namespace NFeFacil
                 Window.Current.Activated += (sender, e) => TitleBar.Opacity = e.WindowActivationState != CoreWindowActivationState.Deactivated ? 1 : 0.5;
 
                 var novoTB = ApplicationView.GetForCurrentView().TitleBar;
-                var corBackground = new Color { A = 0 };
-                novoTB.ButtonBackgroundColor = corBackground;
-                novoTB.ButtonInactiveBackgroundColor = corBackground;
+                novoTB.ButtonBackgroundColor = Colors.Transparent;
+                novoTB.ButtonInactiveBackgroundColor = Colors.Transparent;
                 novoTB.ButtonHoverBackgroundColor = new Color { A = 50 };
                 novoTB.ButtonPressedBackgroundColor = new Color { A = 100 };
             }

@@ -33,6 +33,34 @@ namespace NFeFacil.ViewRegistroVenda
             txtTotal.Text = ItemBanco.Produtos.Sum(x => x.TotalLíquido).ToString("C");
         }
 
+        ClienteDI Cliente
+        {
+            get => Clientes.First(x => x.Id == ItemBanco.Cliente);
+            set
+            {
+                ItemBanco.Cliente = value.Id;
+                if (!string.IsNullOrEmpty(value.CNPJ))
+                {
+                    DefinirComprador(value);
+                }
+            }
+        }
+
+        async void DefinirComprador(ClienteDI client)
+        {
+            using (var db = new AplicativoContext())
+            {
+                var compradores = db.Compradores.Where(x => x.IdEmpresa == client.Id);
+                var nomes = compradores.Select(x => x.Nome);
+                var caixa = new DefinirComprador(nomes);
+                if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+                {
+                    var escolhido = compradores.First(x => x.Nome == caixa.Escolhido);
+                    ItemBanco.Comprador = escolhido.Id;
+                }
+            }
+        }
+
         Guid Motorista
         {
             get => ItemBanco.Motorista;
@@ -49,6 +77,12 @@ namespace NFeFacil.ViewRegistroVenda
         {
             get => ItemBanco.DataHoraVenda;
             set => ItemBanco.DataHoraVenda = value.DateTime;
+        }
+
+        DateTimeOffset PrazoEntrega
+        {
+            get => ItemBanco.PrazoEntrega;
+            set => ItemBanco.PrazoEntrega = value.DateTime;
         }
 
         public ManipulacaoRegistroVenda()
@@ -197,6 +231,22 @@ namespace NFeFacil.ViewRegistroVenda
                 }
                 AtualizarTotal();
             }
+        }
+
+        async void DefinirPagamento(object sender, RoutedEventArgs e)
+        {
+            var caixa = new InfoPagamento();
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+            {
+                ItemBanco.PrazoPagamento = caixa.Prazo.ToString("dd/MM/yyyy");
+                ItemBanco.FormaPagamento = caixa.FormaPagamento;
+            }
+        }
+
+        void RemoverPagamento(object sender, RoutedEventArgs e)
+        {
+            ItemBanco.PrazoPagamento = null;
+            ItemBanco.FormaPagamento = null;
         }
     }
 

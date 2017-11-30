@@ -44,14 +44,14 @@
                     <ColumnDefinition MaxWidth="256" />
                     <ColumnDefinition MaxWidth="256" />
                     <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <ComboBox Header="Cliente"
                           ItemsSource="{x:Bind Clientes}"
                           DisplayMemberPath="Nome"
-                          SelectedValue="{x:Bind ItemBanco.Cliente, Mode=TwoWay}"
-                          SelectedValuePath="Id"
+                          SelectedValue="{x:Bind Cliente, Mode=TwoWay}"
                           HorizontalAlignment="Stretch" />
-                <ComboBox Header="Motorista"
+                <ComboBox Header="Transporte"
                           ItemsSource="{x:Bind Motoristas}"
                           DisplayMemberPath="Nome"
                           SelectedValue="{x:Bind Motorista, Mode=TwoWay}"
@@ -59,9 +59,12 @@
                           HorizontalAlignment="Stretch"
                           Grid.Column="1"
                           Margin="4,0"/>
+                <CalendarDatePicker Header="Prazo de entrega"
+                                    Date="{x:Bind PrazoEntrega, Mode=TwoWay}"
+                                    Grid.Column="2" />
                 <CalendarDatePicker Header="Data da venda"
                                     Date="{x:Bind DataHoraVenda, Mode=TwoWay}"
-                                    Grid.Column="2" />
+                                    Grid.Column="3" />
             </Grid>
             <Grid x:Name="grd1"
                   Grid.Column="1">
@@ -142,6 +145,13 @@
             <AppBarButton Label="Adicionar produto"
                           Icon="Add"
                           Click="AdicionarProduto" />
+            <AppBarToggleButton Label="Informações de pagamento"
+                                Checked="DefinirPagamento"
+                                Unchecked="RemoverPagamento">
+                <AppBarToggleButton.Icon>
+                    <FontIcon Glyph="&#xEC59;" />
+                </AppBarToggleButton.Icon>
+            </AppBarToggleButton>
             <AppBarButton Label="Aplicar frete"
                           Click="AplicarFrete">
                 <AppBarButton.Icon>

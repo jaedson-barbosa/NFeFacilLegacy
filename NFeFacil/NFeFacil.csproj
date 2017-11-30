@@ -178,6 +178,12 @@
     <Compile Include="ViewRegistroVenda\CalcularTroco.xaml.cs">
       <DependentUpon>CalcularTroco.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewRegistroVenda\DefinirComprador.xaml.cs">
+      <DependentUpon>DefinirComprador.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewRegistroVenda\InfoPagamento.xaml.cs">
+      <DependentUpon>InfoPagamento.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Ano.cs" />
     <Compile Include="View\Backup.xaml.cs">
       <DependentUpon>Backup.xaml</DependentUpon>
@@ -658,6 +664,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ViewRegistroVenda\CalcularTroco.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewRegistroVenda\DefinirComprador.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewRegistroVenda\InfoPagamento.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

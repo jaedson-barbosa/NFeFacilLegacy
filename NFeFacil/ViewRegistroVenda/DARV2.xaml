@@ -204,11 +204,13 @@
                     <RowDefinition />
                     <RowDefinition />
                     <RowDefinition />
+                    <RowDefinition />
                 </Grid.RowDefinitions>
                 <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Transporte</TextBlock>
-                <TextBlock Grid.Row="1">Nome: <Run Text="{x:Bind Motorista.Nome}" /></TextBlock>
-                <TextBlock Grid.Row="2">CPF: <Run Text="{x:Bind Motorista.CPF}" /></TextBlock>
-                <TextBlock Grid.Row="3">Endereço: <Run Text="{x:Bind Motorista.XEnder}" /> - <Run Text="{x:Bind Motorista.XMun}" />/<Run Text="{x:Bind Motorista.UF}" /></TextBlock>
+                <TextBlock Grid.Row="1">Tipo de frete: <Run Text="{x:Bind Registro.TipoFrete}" /></TextBlock>
+                <TextBlock Grid.Row="2">Nome: <Run Text="{x:Bind Motorista.Nome}" /></TextBlock>
+                <TextBlock Grid.Row="3">CPF: <Run Text="{x:Bind Motorista.CPF}" /></TextBlock>
+                <TextBlock Grid.Row="4">Endereço: <Run Text="{x:Bind Motorista.XEnder}" /> - <Run Text="{x:Bind Motorista.XMun}" />/<Run Text="{x:Bind Motorista.UF}" /></TextBlock>
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="TransporteJuridico"

@@ -16,8 +16,13 @@
         <controles:EntradaNumerica Format="8:2"
                                    Number="{x:Bind Valor, Mode=TwoWay}"
                                    Header="Valor" />
-        <TextBox Grid.Row="1"
-                 Header="Tipo de frete"
-                 Text="{x:Bind TipoFrete, Mode=TwoWay}" />
+        <ComboBox Grid.Row="1"
+                  Header="Tipo de frete"
+                  SelectedValue="{x:Bind TipoFrete, Mode=TwoWay}"
+                  SelectedValuePath="Content">
+            <ComboBoxItem>Por conta do cliente</ComboBoxItem>
+            <ComboBoxItem>Por conta da loja</ComboBoxItem>
+            <ComboBoxItem>A combinar</ComboBoxItem>
+        </ComboBox>
     </Grid>
 </ContentDialog>

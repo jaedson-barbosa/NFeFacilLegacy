@@ -2,6 +2,8 @@
 using NFeFacil.Log;
 using NFeFacil.Validacao;
 using System;
+using System.Collections.ObjectModel;
+using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -15,12 +17,19 @@ namespace NFeFacil.ViewDadosBase
     /// </summary>
     public sealed partial class AdicionarComprador : Page
     {
-        private Comprador Comprador;
-        private ILog Log = Popup.Current;
+        Comprador Comprador;
+        ILog Log = Popup.Current;
+        ObservableCollection<ClienteDI> ClientesDisponiveis { get; }
 
         public AdicionarComprador()
         {
             InitializeComponent();
+            using (var db = new AplicativoContext())
+            {
+                ClientesDisponiveis = (from cli in db.Clientes
+                                       where cli.Ativo && !string.IsNullOrEmpty(cli.CNPJ)
+                                       select cli).GerarObs();
+            }
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

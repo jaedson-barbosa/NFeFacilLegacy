@@ -9,12 +9,20 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <TextBox Header="Nome"
+        <ComboBox Header="Empresas"
+                  ItemsSource="{x:Bind ClientesDisponiveis}"
+                  SelectedValue="{x:Bind Comprador.IdEmpresa, Mode=TwoWay}"
+                  SelectedValuePath="Id" />
+        <TextBox Grid.Row="1"
+                 Header="Nome"
                  Text="{x:Bind Comprador.Nome, Mode=TwoWay}" />
-        <TextBox Header="Telefone"
+        <TextBox Grid.Row="2"
+                 Header="Telefone"
                  Text="{x:Bind Comprador.Telefone, Mode=TwoWay}" />
-        <TextBox InputScope="EmailNameOrAddress"
+        <TextBox Grid.Row="3"
+                 InputScope="EmailNameOrAddress"
                  Text="{x:Bind Comprador.Email, Mode=TwoWay}" />
     </Grid>
     <Page.BottomAppBar>

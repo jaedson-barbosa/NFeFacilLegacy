@@ -182,6 +182,9 @@
     <Compile Include="ViewRegistroVenda\CalcularTroco.xaml.cs">
       <DependentUpon>CalcularTroco.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewRegistroVenda\DARV2.xaml.cs">
+      <DependentUpon>DARV2.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewRegistroVenda\DefinirComprador.xaml.cs">
       <DependentUpon>DefinirComprador.xaml</DependentUpon>
     </Compile>
@@ -675,6 +678,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ViewRegistroVenda\CalcularTroco.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewRegistroVenda\DARV2.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

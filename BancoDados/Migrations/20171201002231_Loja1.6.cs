@@ -29,6 +29,11 @@ namespace NFeFacil.Migrations
                 table: "Vendas",
                 nullable: true);
 
+            migrationBuilder.AddColumn<string>(
+                name: "Email",
+                table: "Emitentes",
+                nullable: true);
+
             migrationBuilder.CreateTable(
                 name: "Compradores",
                 columns: table => new
@@ -67,6 +72,10 @@ namespace NFeFacil.Migrations
             migrationBuilder.DropColumn(
                 name: "PrazoPagamento",
                 table: "Vendas");
+
+            migrationBuilder.DropColumn(
+                name: "Email",
+                table: "Emitentes");
         }
     }
 }

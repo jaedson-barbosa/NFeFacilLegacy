@@ -29,6 +29,8 @@ namespace NFeFacil.ItensBD
         public string XPais { get; set; } = "Brasil";
         public string Telefone { get; set; }
 
+        public string Email { get; set; }
+
         public EmitenteDI() { }
         public EmitenteDI(Emitente other)
         {

@@ -43,6 +43,9 @@
                     <ComboBoxItem Tag="3"
                                   Content="Regime Normal" />
                 </ComboBox>
+                <TextBox Text="{x:Bind Emit.Email, Mode=TwoWay}"
+                         InputScope="EmailNameOrAddress"
+                         Header="Email" />
             </ItemsControl>
             <TextBlock Text="Endereço"
                        Style="{StaticResource TitleTextBlockStyle}"

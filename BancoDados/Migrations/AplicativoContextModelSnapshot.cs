@@ -137,6 +137,8 @@ namespace NFeFacil.Migrations
 
                     b.Property<string>("Complemento");
 
+                    b.Property<string>("Email");
+
                     b.Property<string>("IEST");
 
                     b.Property<string>("IM");

@@ -94,13 +94,7 @@ namespace NFeFacil.Controles
 
         public static readonly DependencyProperty FormatProperty = DependencyProperty.Register("Format", typeof(string), typeof(EntradaNumerica), new PropertyMetadata(null));
         public static readonly DependencyProperty HeaderProperty = DependencyProperty.Register("Header", typeof(string), typeof(EntradaNumerica), new PropertyMetadata(null));
-        public static readonly DependencyProperty NumberProperty = DependencyProperty.Register("Number", typeof(double), typeof(EntradaNumerica), new PropertyMetadata(0, NumeroMudou));
-
-        static void NumeroMudou(DependencyObject sender, DependencyPropertyChangedEventArgs args)
-        {
-            var input = (EntradaNumerica)sender;
-            input.DefinirTexto((IConvertible)args.NewValue, (IFormattable)args.NewValue);
-        }
+        public static readonly DependencyProperty NumberProperty = DependencyProperty.Register("Number", typeof(double), typeof(EntradaNumerica), new PropertyMetadata(null));
 
         public EntradaNumerica()
         {
@@ -130,7 +124,7 @@ namespace NFeFacil.Controles
         private void TextBox_LostFocus(object sender, RoutedEventArgs e)
         {
             var input = (TextBox)sender;
-            if (double.TryParse(input.Text, NumberStyles.AllowDecimalPoint, culturaPadrao, out double numero))
+            if (double.TryParse(input.Text, NumberStyles.Number, culturaPadrao, out double numero))
             {
                 Number = numero;
                 NumeroChanged?.Invoke(this, new NumeroChangedEventArgs(numero));

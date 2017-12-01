@@ -186,16 +186,12 @@ namespace NFeFacil.ViewRegistroVenda
     {
         public Dimensoes(double largura, double altura, double padding)
         {
-            var novaLargura = CentimeterToPixel(largura);
-            var novaAltura = altura != 0 ? CentimeterToPixel(altura) : double.NaN;
-            var novoPadding = CentimeterToPixel(padding);
-
             LarguraOriginal = largura;
-            LarguraProcessada = novaLargura;
+            LarguraProcessada = CentimeterToPixel(largura);
             AlturaOriginal = altura;
-            AlturaProcessada = novaAltura;
+            AlturaProcessada = altura != 0 ? CentimeterToPixel(altura) : double.NaN;
             PaddingOriginal = padding;
-            PaddingProcessado = novoPadding;
+            PaddingProcessado = CentimeterToPixel(padding);
         }
 
         public double LarguraOriginal { get; set; }

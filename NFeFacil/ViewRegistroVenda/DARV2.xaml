@@ -228,6 +228,34 @@
                 <TextBlock Grid.Row="3">Endereço: <Run Text="{x:Bind Motorista.XEnder}" /> - <Run Text="{x:Bind Motorista.XMun}" />/<Run Text="{x:Bind Motorista.UF}" /></TextBlock>
             </Grid>
         </DataTemplate>
+        <DataTemplate x:Key="Rodape"
+                      x:DataType="local:DARV2">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <TextBlock HorizontalAlignment="Center">______________________________________________________________</TextBlock>
+                <TextBlock Grid.Row="1"
+                           HorizontalAlignment="Center"
+                           Text="{x:Bind Cliente.Nome}" />
+                <TextBlock Grid.Row="2"><Bold>Observações: </Bold><Run Text="{x:Bind Observacoes}" /></TextBlock>
+            </Grid>
+        </DataTemplate>
     </Page.Resources>
-    <Grid></Grid>
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+        </Grid>
+    </Grid>
 </Page>

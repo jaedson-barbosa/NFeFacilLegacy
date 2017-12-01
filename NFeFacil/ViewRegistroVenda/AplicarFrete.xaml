@@ -7,8 +7,17 @@
                mc:Ignorable="d"
                Title="Frete"
                PrimaryButtonText="Concluido"
-               SecondaryButtonText="Cancelar">
-    <controles:EntradaNumerica Format="8:2"
-                               Number="{x:Bind Valor, Mode=TwoWay}"
-                               Header="Valor" />
+               SecondaryButtonText="Cancelar" PrimaryButtonClick="ContentDialog_PrimaryButtonClick">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <controles:EntradaNumerica Format="8:2"
+                                   Number="{x:Bind Valor, Mode=TwoWay}"
+                                   Header="Valor" />
+        <TextBox Grid.Row="1"
+                 Header="Tipo de frete"
+                 Text="{x:Bind TipoFrete, Mode=TwoWay}" />
+    </Grid>
 </ContentDialog>

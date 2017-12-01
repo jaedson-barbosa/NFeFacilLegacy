@@ -382,6 +382,8 @@ namespace NFeFacil.Migrations
 
                     b.Property<string>("PrazoPagamento");
 
+                    b.Property<string>("TipoFrete");
+
                     b.Property<DateTime>("UltimaData");
 
                     b.Property<Guid>("Vendedor");

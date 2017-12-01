@@ -224,6 +224,8 @@ namespace NFeFacil.ViewRegistroVenda
                     ItemBanco.Produtos[i] = atual.Base;
                 }
                 AtualizarTotal();
+
+                ItemBanco.TipoFrete = caixa.TipoFrete;
             }
         }
 

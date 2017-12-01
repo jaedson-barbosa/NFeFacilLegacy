@@ -30,6 +30,11 @@ namespace NFeFacil.Migrations
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
+                name: "TipoFrete",
+                table: "Vendas",
+                nullable: true);
+
+            migrationBuilder.AddColumn<string>(
                 name: "Email",
                 table: "Emitentes",
                 nullable: true);
@@ -71,6 +76,10 @@ namespace NFeFacil.Migrations
 
             migrationBuilder.DropColumn(
                 name: "PrazoPagamento",
+                table: "Vendas");
+
+            migrationBuilder.DropColumn(
+                name: "TipoFrete",
                 table: "Vendas");
 
             migrationBuilder.DropColumn(

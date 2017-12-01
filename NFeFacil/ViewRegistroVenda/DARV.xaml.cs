@@ -16,12 +16,9 @@ namespace NFeFacil.ViewRegistroVenda
     /// </summary>
     public sealed partial class DARV : Page
     {
-        internal GridLength Largura2 { get; } = CentimeterToLength(2);
-        internal GridLength Largura3 { get; } = CentimeterToLength(3);
-
         internal double AlturaEscolhida { get; private set; }
         internal double LarguraEscolhida { get; private set; }
-        internal double PaddingEscolhido { get; private set; }
+        internal Thickness PaddingEscolhido { get; private set; }
 
         internal RegistroVenda Registro { get; private set; }
         internal EmitenteDI Emitente { get; private set; }
@@ -35,6 +32,7 @@ namespace NFeFacil.ViewRegistroVenda
         internal string Desconto { get; private set; }
         internal string Total { get; private set; }
 
+        string Id => Registro.Id.ToString().ToUpper();
         internal string NomeAssinatura => Comprador?.Nome ?? Cliente.Nome;
         internal string Observacoes => Registro.Observações;
 
@@ -43,11 +41,18 @@ namespace NFeFacil.ViewRegistroVenda
 
         ExibicaoProduto[] ListaProdutos;
 
-        GerenciadorImpressao gerenciador = new GerenciadorImpressao();
+        internal Visibility VisibilidadeNFeRelacionada { get; private set; }
+        internal Visibility VisibilidadeComprador { get; private set; }
+        internal Visibility VisibilidadePagamento { get; private set; }
+        internal Visibility VisibilidadeObservacoes { get; private set; }
+
+        readonly GerenciadorImpressao Gerenciador = new GerenciadorImpressao();
+        DARV This { get; }
 
         public DARV()
         {
             InitializeComponent();
+            This = this;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -60,7 +65,7 @@ namespace NFeFacil.ViewRegistroVenda
 
             AlturaEscolhida = dimensoes.AlturaProcessada;
             LarguraEscolhida = dimensoes.LarguraProcessada;
-            PaddingEscolhido = dimensoes.PaddingProcessado;
+            PaddingEscolhido = new Thickness(dimensoes.PaddingProcessado);
 
             Registro = registro;
             Emitente = Propriedades.EmitenteAtivo;
@@ -85,6 +90,7 @@ namespace NFeFacil.ViewRegistroVenda
                     desconto += atual.Desconto;
                     produtos[i] = new ExibicaoProduto
                     {
+                        Quantidade = atual.Quantidade.ToString("C2"),
                         CodigoProduto = completo.CodigoProduto,
                         Descricao = completo.Descricao,
                         ValorUnitario = atual.ValorUnitario.ToString("C2"),
@@ -98,6 +104,7 @@ namespace NFeFacil.ViewRegistroVenda
             Desconto = desconto.ToString("C2");
             Total = (subtotal + acrescimos + desconto).ToString("C2");
 
+            ListaProdutos = produtos;
             #endregion
 
             #region Analise visual
@@ -114,13 +121,23 @@ namespace NFeFacil.ViewRegistroVenda
             else if (!string.IsNullOrEmpty(Motorista.CNPJ))
                 TemplateTransporte = TransporteJuridico;
 
+            VisibilidadeNFeRelacionada = string.IsNullOrEmpty(Registro.NotaFiscalRelacionada) ? Visibility.Collapsed : Visibility.Visible;
+            VisibilidadeComprador = Comprador == null ? Visibility.Collapsed : Visibility.Visible;
+            VisibilidadePagamento = string.IsNullOrEmpty(Registro.FormaPagamento) ? Visibility.Collapsed : Visibility.Visible;
+            VisibilidadeObservacoes = string.IsNullOrEmpty(Registro.Observações) ? Visibility.Collapsed : Visibility.Visible;
+            
             #endregion
+        }
+
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            Gerenciador.Dispose();
         }
 
         private void Pagina0Carregada(object sender, RoutedEventArgs e)
         {
             var alturaDisponivel = alturaLinhaProdutos.ActualHeight - 20;
-            int quantMaxima = (int)Math.Floor(alturaDisponivel / 20);
+            int quantMaxima = (int)Math.Floor(alturaDisponivel / 20) - 1;
             if (quantMaxima <= ListaProdutos.Length)
             {
                 produtosPagina0.DataContext = ListaProdutos.GerarObs();
@@ -129,7 +146,7 @@ namespace NFeFacil.ViewRegistroVenda
             {
                 produtosPagina0.DataContext = ListaProdutos.Take(quantMaxima).GerarObs();
 
-                var espacoDisponivelPaginaExtra = AlturaEscolhida - (PaddingEscolhido * 2);
+                var espacoDisponivelPaginaExtra = AlturaEscolhida - (PaddingEscolhido.Bottom * 2);
                 var quantMaximaPaginaExtra = Math.Floor(espacoDisponivelPaginaExtra / 20);
                 var quantProdutosRestantes = ListaProdutos.Length - quantMaxima;
                 int quantPaginasExtras = (int)Math.Ceiling(quantProdutosRestantes / quantMaximaPaginaExtra);
@@ -139,50 +156,51 @@ namespace NFeFacil.ViewRegistroVenda
                     ConteinerPaginas.Children.Add(new ContentPresenter
                     {
                         ContentTemplate = Produtos,
-                        Padding = new Thickness(PaddingEscolhido),
+                        Padding = PaddingEscolhido,
                         Height = AlturaEscolhida,
                         Width = LarguraEscolhida,
                         DataContext = ListaProdutos.Skip(quantProdutosIgnorados).Take((int)quantMaximaPaginaExtra)
                     });
                 }
             }
+
+            alturaLinhaProdutos.Height = new GridLength(1, GridUnitType.Auto);
+            alturaLinhaFinalProdutos.Height = new GridLength(1, GridUnitType.Star);
         }
 
         async void Imprimir(object sender, RoutedEventArgs e)
         {
-            await gerenciador.Imprimir(ConteinerPaginas.Children);
+            await Gerenciador.Imprimir(ConteinerPaginas.Children);
         }
+    }
 
-        struct ExibicaoProduto
-        {
-            public string CodigoProduto { get; set; }
-            public string Descricao { get; set; }
-            public string ValorUnitario { get; set; }
-            public string TotalBruto { get; set; }
-        }
+    struct ExibicaoProduto
+    {
+        public string Quantidade { get; set; }
+        public string CodigoProduto { get; set; }
+        public string Descricao { get; set; }
+        public string ValorUnitario { get; set; }
+        public string TotalBruto { get; set; }
     }
 
     sealed class MascaraDocumento : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            long numero;
-            if (value is string str) numero = long.Parse(str.Trim());
-            else if (value is long num) numero = num;
-            else throw new InvalidCastException();
-
-            if (numero >= (10 ^ 13))
-                return numero.ToString("00.000.000/0000-00");
-            else if (numero >= (10 ^ 10))
-                return numero.ToString("000.000.000-00");
-            else
-                return numero.ToString();
+            var original = (string)value;
+            return AplicarMáscaraDocumento(original);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
             throw new NotImplementedException();
         }
+    }
+
+    sealed class DimensoesDARV
+    {
+        public GridLength Largura2 => CentimeterToLength(2);
+        public GridLength Largura3 => CentimeterToLength(3);
     }
 
     public struct Dimensoes

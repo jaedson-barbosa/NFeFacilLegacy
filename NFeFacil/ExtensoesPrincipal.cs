@@ -85,7 +85,7 @@ namespace NFeFacil
 
         internal static GridLength CentimeterToLength(double Centimeter)
         {
-            return new GridLength(CentimeterToPixel(Centimeter));
+            return new GridLength(CentimeterToPixel(Centimeter), GridUnitType.Pixel);
         }
 
         public static void AddBloco(this RichTextBlock visualizacao, string titulo, params (string, string)[] filhos)
@@ -139,6 +139,30 @@ namespace NFeFacil
                 stream.Seek(0);
                 retorno.SetSource(stream);
                 return retorno;
+            }
+        }
+
+        public static string AplicarMáscaraDocumento(string original)
+        {
+            if (original.Length == 14)
+            {
+                // É CNPJ
+                return $"{original.Substring(0, 2)}.{original.Substring(2, 3)}.{original.Substring(5, 3)}/{original.Substring(8, 4)}.{original.Substring(12, 2)}";
+            }
+            else if (original.Length == 11)
+            {
+                // É CPF
+                return $"{original.Substring(0, 3)}.{original.Substring(3, 3)}.{original.Substring(6, 3)}-{original.Substring(9, 2)}";
+            }
+            else if (original.Length == 8)
+            {
+                // É CEP
+                return $"{original.Substring(0, 5)}-{original.Substring(5, 3)}";
+            }
+            else
+            {
+                // Não é nem CNPJ nem CPF
+                return original;
             }
         }
     }

@@ -6,6 +6,7 @@ using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.P
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using static NFeFacil.ExtensoesPrincipal;
 
 namespace NFeFacil.DANFE
 {
@@ -56,11 +57,11 @@ namespace NFeFacil.DANFE
             var itens = new List<ItemDadosAdicionais>();
             if (retirada != null)
             {
-                itens.Add(new ItemDadosAdicionais("ENDEREÇO DE RETIRADA:", $"{retirada.Logradouro}, {retirada.Numero}", retirada.Bairro, $"{retirada.NomeMunicipio} - {retirada.SiglaUF}", retirada.CNPJ != null ? $"CNPJ: {AplicarMascaraDocumento(retirada.CNPJ)}" : $"CPF: {AplicarMascaraDocumento(retirada.CPF)}"));
+                itens.Add(new ItemDadosAdicionais("ENDEREÇO DE RETIRADA:", $"{retirada.Logradouro}, {retirada.Numero}", retirada.Bairro, $"{retirada.NomeMunicipio} - {retirada.SiglaUF}", retirada.CNPJ != null ? $"CNPJ: {AplicarMáscaraDocumento(retirada.CNPJ)}" : $"CPF: {AplicarMáscaraDocumento(retirada.CPF)}"));
             }
             if (entrega != null)
             {
-                itens.Add(new ItemDadosAdicionais("ENDEREÇO DE ENTREGA:", $"{entrega.Logradouro}, {entrega.Numero}", entrega.Bairro, $"{entrega.NomeMunicipio} - {entrega.SiglaUF}", entrega.CNPJ != null ? $"CNPJ: {AplicarMascaraDocumento(entrega.CNPJ)}" : $"CPF: {AplicarMascaraDocumento(entrega.CPF)}"));
+                itens.Add(new ItemDadosAdicionais("ENDEREÇO DE ENTREGA:", $"{entrega.Logradouro}, {entrega.Numero}", entrega.Bairro, $"{entrega.NomeMunicipio} - {entrega.SiglaUF}", entrega.CNPJ != null ? $"CNPJ: {AplicarMáscaraDocumento(entrega.CNPJ)}" : $"CPF: {AplicarMáscaraDocumento(entrega.CPF)}"));
             }
             if (cobr?.Dup != null)
             {
@@ -95,7 +96,7 @@ namespace NFeFacil.DANFE
             var dest = Dados.NFe.Informacoes.destinatário;
             return new DadosCliente
             {
-                DocCliente = AplicarMascaraDocumento(dest.Documento),
+                DocCliente = AplicarMáscaraDocumento(dest.Documento),
                 DataEmissao = Convert.ToDateTime(ident.DataHoraEmissão).ToString("dd-MM-yyyy"),
                 DataEntradaSaida = !string.IsNullOrEmpty(ident.DataHoraSaídaEntrada) ? Analisar(Convert.ToDateTime(ident.DataHoraSaídaEntrada).ToString("dd-MM-yyyy")) : string.Empty,
                 HoraEntradaSaida = !string.IsNullOrEmpty(ident.DataHoraSaídaEntrada) ? Analisar(Convert.ToDateTime(ident.DataHoraSaídaEntrada).ToString("HH:mm:ss")) : string.Empty,
@@ -130,7 +131,7 @@ namespace NFeFacil.DANFE
             var retorno = new DadosMotorista
             {
                 CodigoANTT = Analisar(transp.VeicTransp?.RNTC),
-                DocumentoMotorista = transp.Transporta?.Documento != null ? AplicarMascaraDocumento(transp.Transporta?.Documento) : null,
+                DocumentoMotorista = transp.Transporta?.Documento != null ? AplicarMáscaraDocumento(transp.Transporta?.Documento) : null,
                 EnderecoMotorista = Analisar(transp.Transporta?.XEnder),
                 EspecieVolume = Analisar(transp.Vol.FirstOrDefault()?.Esp),
                 IEMotorista = Analisar(transp.Transporta?.InscricaoEstadual),
@@ -200,7 +201,7 @@ namespace NFeFacil.DANFE
             {
                 Chave = codigoBarras,
                 ChaveComMascara = AplicarMascaraChave(codigoBarras),
-                CNPJEmit = AplicarMascaraDocumento(detalhes.emitente.CNPJ),
+                CNPJEmit = AplicarMáscaraDocumento(detalhes.emitente.CNPJ),
                 DataHoraRecibo = prot.InfProt.dhRecbto.Replace('T', ' '),
                 Endereco = detalhes.emitente.Endereco,
                 IE = detalhes.emitente.InscricaoEstadual.ToString(),
@@ -327,25 +328,5 @@ namespace NFeFacil.DANFE
         }
 
         string Analisar(object str) => str != null ? (string)str : string.Empty;
-
-        string AplicarMascaraDocumento(string original)
-        {
-            original = original.Trim();
-            if (original.Length == 14)
-            {
-                // É CNPJ
-                return $"{original.Substring(0, 2)}.{original.Substring(2, 3)}.{original.Substring(5, 3)}/{original.Substring(8, 4)}.{original.Substring(12, 2)}";
-            }
-            else if (original.Length == 11)
-            {
-                // É CPF
-                return $"{original.Substring(0, 3)}.{original.Substring(3, 3)}.{original.Substring(6, 3)}-{original.Substring(9, 2)}";
-            }
-            else
-            {
-                // Não é nem CNPJ nem CPF
-                return original;
-            }
-        }
     }
 }

@@ -44,7 +44,6 @@
                     <ColumnDefinition MaxWidth="256" />
                     <ColumnDefinition MaxWidth="256" />
                     <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <ComboBox Header="Cliente"
                           ItemsSource="{x:Bind Clientes}"
@@ -62,9 +61,6 @@
                 <CalendarDatePicker Header="Prazo de entrega"
                                     Date="{x:Bind PrazoEntrega, Mode=TwoWay}"
                                     Grid.Column="2" />
-                <CalendarDatePicker Header="Data da venda"
-                                    Date="{x:Bind DataHoraVenda, Mode=TwoWay}"
-                                    Grid.Column="3" />
             </Grid>
             <Grid x:Name="grd1"
                   Grid.Column="1">
@@ -145,7 +141,7 @@
             <AppBarButton Label="Adicionar produto"
                           Icon="Add"
                           Click="AdicionarProduto" />
-            <AppBarToggleButton Label="Informações de pagamento"
+            <AppBarToggleButton Label="Dados do pagamento"
                                 Checked="DefinirPagamento"
                                 Unchecked="RemoverPagamento">
                 <AppBarToggleButton.Icon>
@@ -168,6 +164,11 @@
             <AppBarButton Label="Finalizar e registrar"
                           Icon="Accept"
                           Click="Finalizar" />
+            <CommandBar.SecondaryCommands>
+                <AppBarButton Icon="Calendar"
+                              Label="Definir data de venda"
+                              Click="DefinirDataVenda" />
+            </CommandBar.SecondaryCommands>
         </CommandBar>
     </Page.BottomAppBar>
 </Page>

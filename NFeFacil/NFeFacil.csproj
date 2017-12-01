@@ -185,6 +185,9 @@
     <Compile Include="ViewRegistroVenda\DefinirComprador.xaml.cs">
       <DependentUpon>DefinirComprador.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewRegistroVenda\DefinirDataVenda.xaml.cs">
+      <DependentUpon>DefinirDataVenda.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewRegistroVenda\InfoPagamento.xaml.cs">
       <DependentUpon>InfoPagamento.xaml</DependentUpon>
     </Compile>
@@ -676,6 +679,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ViewRegistroVenda\DefinirComprador.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewRegistroVenda\DefinirDataVenda.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

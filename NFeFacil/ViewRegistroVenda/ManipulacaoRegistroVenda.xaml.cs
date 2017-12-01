@@ -35,7 +35,7 @@ namespace NFeFacil.ViewRegistroVenda
 
         ClienteDI Cliente
         {
-            get => Clientes.First(x => x.Id == ItemBanco.Cliente);
+            get => Clientes.FirstOrDefault(x => x.Id == ItemBanco.Cliente);
             set
             {
                 ItemBanco.Cliente = value.Id;
@@ -71,12 +71,6 @@ namespace NFeFacil.ViewRegistroVenda
         {
             get => ItemBanco.Observações;
             set => ItemBanco.Observações = value;
-        }
-
-        DateTimeOffset DataHoraVenda
-        {
-            get => ItemBanco.DataHoraVenda;
-            set => ItemBanco.DataHoraVenda = value.DateTime;
         }
 
         DateTimeOffset PrazoEntrega
@@ -247,6 +241,15 @@ namespace NFeFacil.ViewRegistroVenda
         {
             ItemBanco.PrazoPagamento = null;
             ItemBanco.FormaPagamento = null;
+        }
+
+        async void DefinirDataVenda(object sender, RoutedEventArgs e)
+        {
+            var caixa = new DefinirDataVenda();
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+            {
+                ItemBanco.DataHoraVenda = caixa.Data.DateTime;
+            }
         }
     }
 

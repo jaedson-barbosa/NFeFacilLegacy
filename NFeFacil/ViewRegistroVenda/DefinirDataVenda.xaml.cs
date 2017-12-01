@@ -11,7 +11,7 @@ namespace NFeFacil.ViewRegistroVenda
 
         public DefinirDataVenda()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

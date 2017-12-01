@@ -25,7 +25,7 @@
                 <TextBlock Grid.Row="3">Telefone/Email: <Run Text="{x:Bind Emitente.Telefone}" /> / <Run Text="{x:Bind Emitente.Email}" /></TextBlock>
             </Grid>
         </DataTemplate>
-        <DataTemplate x:Key="ClienteFisico"
+        <DataTemplate x:Name="ClienteFisico"
                       x:DataType="local:DARV2">
             <Grid>
                 <Grid.RowDefinitions>
@@ -44,7 +44,7 @@
                 <TextBlock Grid.Row="5">Telefone/Email: <Run Text="{x:Bind Cliente.Telefone}" /> / <Run Text="{x:Bind Cliente.Email}" /></TextBlock>
             </Grid>
         </DataTemplate>
-        <DataTemplate x:Key="ClienteJuridico"
+        <DataTemplate x:Name="ClienteJuridico"
                       x:DataType="local:DARV2">
             <Grid>
                 <Grid.RowDefinitions>
@@ -63,7 +63,7 @@
                 <TextBlock Grid.Row="5">Telefone/Email: <Run Text="{x:Bind Cliente.Telefone}" /> / <Run Text="{x:Bind Cliente.Email}" /></TextBlock>
             </Grid>
         </DataTemplate>
-        <DataTemplate x:Key="ClienteExterior"
+        <DataTemplate x:Name="ClienteExterior"
                       x:DataType="local:DARV2">
             <Grid>
                 <Grid.RowDefinitions>
@@ -112,7 +112,7 @@
                 <TextBlock Grid.Row="2">Telefone/Email: <Run Text="{x:Bind Comprador.Telefone}" /> / <Run Text="{x:Bind Comprador.Email}" /></TextBlock>
             </Grid>
         </DataTemplate>
-        <DataTemplate x:Key="Produtos"
+        <DataTemplate x:Name="Produtos"
                       x:DataType="local:DARV2">
             <ListView ItemsSource="{Binding}"
                       BorderBrush="Black"
@@ -196,7 +196,7 @@
                 <TextBlock Grid.Row="2">Prazo de pagamento: <Run Text="{x:Bind Registro.PrazoPagamento}" /></TextBlock>
             </Grid>
         </DataTemplate>
-        <DataTemplate x:Key="TransporteFisico"
+        <DataTemplate x:Name="TransporteFisico"
                       x:DataType="local:DARV2">
             <Grid>
                 <Grid.RowDefinitions>
@@ -213,7 +213,7 @@
                 <TextBlock Grid.Row="4">Endereço: <Run Text="{x:Bind Motorista.XEnder}" /> - <Run Text="{x:Bind Motorista.XMun}" />/<Run Text="{x:Bind Motorista.UF}" /></TextBlock>
             </Grid>
         </DataTemplate>
-        <DataTemplate x:Key="TransporteJuridico"
+        <DataTemplate x:Name="TransporteJuridico"
                       x:DataType="local:DARV2">
             <Grid>
                 <Grid.RowDefinitions>
@@ -244,18 +244,40 @@
             </Grid>
         </DataTemplate>
     </Page.Resources>
-    <Grid>
-        <Grid>
+    <Grid x:Name="ConteinerPaginas">
+        <Grid Height="{x:Bind AlturaEscolhida}"
+              Width="{x:Bind LarguraEscolhida}"
+              Padding="{x:Bind PaddingEscolhido}"
+              Loaded="Pagina0Carregada">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition />
+                <RowDefinition x:Name="alturaLinhaProdutos" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
+            <ContentPresenter ContentTemplate="{StaticResource Cabecalho}" />
+            <ContentPresenter Grid.Row="1"
+                              ContentTemplate="{x:Bind TemplateCliente}" />
+            <ContentPresenter Grid.Row="2"
+                              ContentTemplate="{StaticResource DadosPedido}" />
+            <ContentPresenter Grid.Row="3"
+                              ContentTemplate="{StaticResource Comprador}" />
+            <ContentPresenter Grid.Row="4"
+                              ContentTemplate="{x:Bind TemplateTransporte}" />
+            <ContentPresenter x:Name="produtosPagina0"
+                              Grid.Row="5"
+                              ContentTemplate="{StaticResource Produtos}" />
+            <ContentPresenter Grid.Row="6"
+                              ContentTemplate="{StaticResource FinalProdutos}" />
+            <ContentPresenter Grid.Row="7"
+                              ContentTemplate="{StaticResource Pagamento}" />
+            <ContentPresenter Grid.Row="8"
+                              ContentTemplate="{StaticResource Rodape}" />
         </Grid>
     </Grid>
 </Page>

@@ -35,7 +35,7 @@ namespace NFeFacil.ViewRegistroVenda
 
         public InfoPagamento()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)

@@ -5,6 +5,7 @@ using Windows.UI.Xaml.Data;
 using static NFeFacil.ExtensoesPrincipal;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
+using System.Linq;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -15,48 +16,142 @@ namespace NFeFacil.ViewRegistroVenda
     /// </summary>
     public sealed partial class DARV2 : Page
     {
-        #region Dimensoes
-
         internal GridLength Largura2 { get; } = CentimeterToLength(2);
         internal GridLength Largura3 { get; } = CentimeterToLength(3);
 
+        internal double AlturaEscolhida { get; private set; }
+        internal double LarguraEscolhida { get; private set; }
+        internal double PaddingEscolhido { get; private set; }
 
-        #endregion
+        internal RegistroVenda Registro { get; private set; }
+        internal EmitenteDI Emitente { get; private set; }
+        internal ClienteDI Cliente { get; private set; }
+        internal Vendedor Vendedor { get; private set; }
+        internal Comprador Comprador { get; private set; }
+        internal MotoristaDI Motorista { get; private set; }
 
-        internal RegistroVenda Registro { get; }
-        internal EmitenteDI Emitente { get; }
-        internal ClienteDI Cliente { get; }
-        internal Vendedor Vendedor { get; }
-        internal Comprador Comprador { get; }
-        internal MotoristaDI Motorista { get; }
+        internal string Subtotal { get; private set; }
+        internal string Acrescimos { get; private set; }
+        internal string Desconto { get; private set; }
+        internal string Total { get; private set; }
 
-        internal string Subtotal { get; }
-        internal string Acrescimos { get; }
-        internal string Desconto { get; }
-        internal string Total { get; }
-
-        internal string NomeAssinatura { get; }
+        internal string NomeAssinatura => Comprador?.Nome ?? Cliente.Nome;
         internal string Observacoes => Registro.Observações;
+
+        internal DataTemplate TemplateCliente { get; private set; }
+        internal DataTemplate TemplateTransporte { get; private set; }
+
+        ExibicaoProduto[] ListaProdutos;
 
         public DARV2()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            #region Processamento de dados
+
             DadosImpressaoDARV venda = (DadosImpressaoDARV)e.Parameter;
             var dimensoes = venda.Dimensoes;
             var registro = venda.Venda;
-            
+
+            AlturaEscolhida = dimensoes.AlturaProcessada;
+            LarguraEscolhida = dimensoes.LarguraProcessada;
+            PaddingEscolhido = dimensoes.PaddingProcessado;
+
+            Registro = registro;
+            Emitente = Propriedades.EmitenteAtivo;
+            ExibicaoProduto[] produtos = new ExibicaoProduto[registro.Produtos.Count];
+            double subtotal = 0;
+            double acrescimos = 0;
+            double desconto = 0;
+            using (var db = new AplicativoContext())
+            {
+                Cliente = db.Clientes.Find(registro.Cliente);
+                Vendedor = db.Vendedores.Find(registro.Vendedor);
+                Comprador = db.Compradores.Find(registro.Comprador);
+                Motorista = db.Motoristas.Find(registro.Motorista);
+
+                for (var i = 0; i < registro.Produtos.Count; i++)
+                {
+                    var atual = registro.Produtos[i];
+                    var completo = db.Produtos.Find(atual.IdBase);
+                    var totBruto = atual.Quantidade * atual.ValorUnitario;
+                    subtotal += totBruto;
+                    acrescimos += atual.DespesasExtras + atual.Frete + atual.Seguro;
+                    desconto += atual.Desconto;
+                    produtos[i] = new ExibicaoProduto
+                    {
+                        CodigoProduto = completo.CodigoProduto,
+                        Descricao = completo.Descricao,
+                        ValorUnitario = atual.ValorUnitario.ToString("C2"),
+                        TotalBruto = totBruto.ToString("C2")
+                    };
+                }
+            }
+
+            Subtotal = subtotal.ToString("C2");
+            Acrescimos = acrescimos.ToString("C2");
+            Desconto = desconto.ToString("C2");
+            Total = (subtotal + acrescimos + desconto).ToString("C2");
+
+            #endregion
+
+            #region Analise visual
+
+            if (!string.IsNullOrEmpty(Cliente.CPF))
+                TemplateCliente = ClienteFisico;
+            else if (!string.IsNullOrEmpty(Cliente.CNPJ))
+                TemplateCliente = ClienteJuridico;
+            else
+                TemplateCliente = ClienteExterior;
+
+            if (!string.IsNullOrEmpty(Motorista.CPF))
+                TemplateTransporte = TransporteFisico;
+            else if (!string.IsNullOrEmpty(Motorista.CNPJ))
+                TemplateTransporte = TransporteJuridico;
+
+            #endregion
+        }
+
+        private void Pagina0Carregada(object sender, RoutedEventArgs e)
+        {
+            var alturaDisponivel = alturaLinhaProdutos.ActualHeight - 20;
+            int quantMaxima = (int)Math.Floor(alturaDisponivel / 20);
+            if (quantMaxima <= ListaProdutos.Length)
+            {
+                produtosPagina0.DataContext = ListaProdutos.GerarObs();
+            }
+            else
+            {
+                produtosPagina0.DataContext = ListaProdutos.Take(quantMaxima).GerarObs();
+
+                var espacoDisponivelPaginaExtra = AlturaEscolhida - (PaddingEscolhido * 2);
+                var quantMaximaPaginaExtra = Math.Floor(espacoDisponivelPaginaExtra / 20);
+                var quantProdutosRestantes = ListaProdutos.Length - quantMaxima;
+                int quantPaginasExtras = (int)Math.Ceiling(quantProdutosRestantes / quantMaximaPaginaExtra);
+                for (int i = 0; i < quantPaginasExtras; i++)
+                {
+                    var quantProdutosIgnorados = quantMaxima + ((int)quantMaximaPaginaExtra * i);
+                    ConteinerPaginas.Children.Add(new ContentPresenter
+                    {
+                        ContentTemplate = Produtos,
+                        Padding = new Thickness(PaddingEscolhido),
+                        Height = AlturaEscolhida,
+                        Width = LarguraEscolhida,
+                        DataContext = ListaProdutos.Skip(quantProdutosIgnorados).Take((int)quantMaximaPaginaExtra)
+                    });
+                }
+            }
         }
 
         struct ExibicaoProduto
         {
-            public string CodigoProduto { get; }
-            public string Descricao { get; }
-            public string ValorUnitario { get; }
-            public string TotalBruto { get; }
+            public string CodigoProduto { get; set; }
+            public string Descricao { get; set; }
+            public string ValorUnitario { get; set; }
+            public string TotalBruto { get; set; }
         }
     }
 

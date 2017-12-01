@@ -13,7 +13,7 @@ namespace NFeFacil.ViewRegistroVenda
 
         public DefinirComprador(IEnumerable<string> nomes)
         {
-            this.InitializeComponent();
+            InitializeComponent();
             Nomes = nomes.GerarObs();
         }
 

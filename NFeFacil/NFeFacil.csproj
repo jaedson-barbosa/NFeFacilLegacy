@@ -182,8 +182,8 @@
     <Compile Include="ViewRegistroVenda\CalcularTroco.xaml.cs">
       <DependentUpon>CalcularTroco.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewRegistroVenda\DARV2.xaml.cs">
-      <DependentUpon>DARV2.xaml</DependentUpon>
+    <Compile Include="ViewRegistroVenda\DARV.xaml.cs">
+      <DependentUpon>DARV.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewRegistroVenda\DefinirComprador.xaml.cs">
       <DependentUpon>DefinirComprador.xaml</DependentUpon>
@@ -322,9 +322,6 @@
     </Compile>
     <Compile Include="ViewRegistroVenda\AplicarFrete.xaml.cs">
       <DependentUpon>AplicarFrete.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewRegistroVenda\DARV.xaml.cs">
-      <DependentUpon>DARV.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewRegistroVenda\EscolherDimensão.xaml.cs">
       <DependentUpon>EscolherDimensão.xaml</DependentUpon>
@@ -681,7 +678,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewRegistroVenda\DARV2.xaml">
+    <Page Include="ViewRegistroVenda\DARV.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -854,10 +851,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ViewRegistroVenda\AplicarFrete.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ViewRegistroVenda\DARV.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

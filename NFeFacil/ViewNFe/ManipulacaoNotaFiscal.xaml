@@ -8,11 +8,9 @@
       mc:Ignorable="d"
       x:Name="root">
     <Page.Resources>
-        <ResourceDictionary>
-            <VM:DadosEstadosParaView x:Key="estados" />
-            <VM:StringToDateTime x:Key="data" />
-            <VM:NumeroString x:Key="numStr" />
-        </ResourceDictionary>
+        <VM:DadosEstadosParaView x:Key="estados" />
+        <VM:StringToDateTime x:Key="data" />
+        <VM:NumeroString x:Key="numStr" />
     </Page.Resources>
     <FlipView x:Name="pvtPrincipal"
               SelectionChanged="TelaMudou">

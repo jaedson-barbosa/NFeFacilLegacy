@@ -17,7 +17,8 @@
         <CalendarDatePicker Header="Prazo de pagamento"
                             Date="{x:Bind Prazo, Mode=TwoWay}"
                             Grid.Column="2" />
-        <ComboBox Header="Forma de pagamento"
+        <ComboBox Grid.Row="1"
+                  Header="Forma de pagamento"
                   SelectedValue="{x:Bind FormaPagamentoIntermediada, Mode=TwoWay}"
                   SelectedValuePath="Content">
             <ComboBoxItem>Em dinheiro à vista</ComboBoxItem>
@@ -25,7 +26,9 @@
             <ComboBoxItem>Boleto bancário</ComboBoxItem>
             <ComboBoxItem>Outro</ComboBoxItem>
         </ComboBox>
-        <TextBox x:Name="txt" IsEnabled="False"
+        <TextBox Grid.Row="2"
+                 x:Name="txt"
+                 IsEnabled="False"
                  Header="Forma de pagamento especial"
                  Text="{x:Bind FormaPagamentoEspecial, Mode=TwoWay}" />
     </Grid>

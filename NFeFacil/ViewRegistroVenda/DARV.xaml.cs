@@ -23,7 +23,7 @@ namespace NFeFacil.ViewRegistroVenda
         internal RegistroVenda Registro { get; private set; }
         internal EmitenteDI Emitente { get; private set; }
         internal ClienteDI Cliente { get; private set; }
-        internal Vendedor Vendedor { get; private set; }
+        internal string Vendedor { get; private set; }
         internal Comprador Comprador { get; private set; }
         internal MotoristaDI Motorista { get; private set; }
 
@@ -76,7 +76,7 @@ namespace NFeFacil.ViewRegistroVenda
             using (var db = new AplicativoContext())
             {
                 Cliente = db.Clientes.Find(registro.Cliente);
-                Vendedor = db.Vendedores.Find(registro.Vendedor);
+                Vendedor = db.Vendedores.Find(registro.Vendedor)?.Nome ?? "Dono da empresa";
                 Comprador = db.Compradores.Find(registro.Comprador);
                 Motorista = db.Motoristas.Find(registro.Motorista);
 

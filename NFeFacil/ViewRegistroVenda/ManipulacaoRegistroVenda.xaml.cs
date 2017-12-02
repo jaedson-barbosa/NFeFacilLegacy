@@ -238,6 +238,11 @@ namespace NFeFacil.ViewRegistroVenda
                 ItemBanco.PrazoPagamento = caixa.Prazo.ToString("dd/MM/yyyy");
                 ItemBanco.FormaPagamento = caixa.FormaPagamento;
             }
+            else
+            {
+                var input = (AppBarToggleButton)sender;
+                input.IsChecked = false;
+            }
         }
 
         void RemoverPagamento(object sender, RoutedEventArgs e)

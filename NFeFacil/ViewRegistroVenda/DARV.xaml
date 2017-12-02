@@ -71,7 +71,7 @@
                     <RowDefinition />
                     <RowDefinition />
                 </Grid.RowDefinitions>
-                <TextBlock>CNPJ: <Run Text="{x:Bind CPF, Converter={StaticResource mascara}}" /></TextBlock>
+                <TextBlock>CNPJ: <Run Text="{x:Bind CNPJ, Converter={StaticResource mascara}}" /></TextBlock>
                 <TextBlock Grid.Column="1">IE: <Run Text="{x:Bind InscricaoEstadual}" /></TextBlock>
                 <TextBlock Grid.Row="1"
                            Grid.ColumnSpan="2">End.: <Run Text="{x:Bind Logradouro}" />, <Run Text="{x:Bind Numero}" /> - <Run Text="{x:Bind Bairro}" /> - <Run Text="{x:Bind NomeMunicipio}" />/<Run Text="{x:Bind SiglaUF}" />; CEP: <Run Text="{x:Bind CEP, Converter={StaticResource mascara}}" /></TextBlock>
@@ -166,7 +166,7 @@
         </DataTemplate>
         <DataTemplate x:Name="TransporteJuridico"
                       x:DataType="bd:MotoristaDI">
-            <TextBlock Grid.Row="3" Style="{StaticResource Padrao}">CNPJ/IE: <Run Text="{x:Bind CPF,Converter={StaticResource mascara}}" /> / <Run Text="{x:Bind InscricaoEstadual}" /></TextBlock>
+            <TextBlock Grid.Row="3" Style="{StaticResource Padrao}">CNPJ/IE: <Run Text="{x:Bind CNPJ,Converter={StaticResource mascara}}" /> / <Run Text="{x:Bind InscricaoEstadual}" /></TextBlock>
         </DataTemplate>
         <Style TargetType="TextBlock"
                x:Key="Padrao">
@@ -257,7 +257,7 @@
                                Grid.Row="2">NFe relacionada: <Run Text="{x:Bind Registro.NotaFiscalRelacionada}" /></TextBlock>
                     <TextBlock Grid.Row="3">Data da venda: <Run Text="{x:Bind Registro.DataHoraVenda, Converter={StaticResource data}, ConverterParameter='dd/MM/yyyy'}" /></TextBlock>
                     <TextBlock Grid.Row="3"
-                               Grid.Column="1">Vendedor: <Run Text="{x:Bind Vendedor.Nome}" /></TextBlock>
+                               Grid.Column="1">Vendedor: <Run Text="{x:Bind Vendedor}" /></TextBlock>
                 </Grid>
                 <Grid Grid.Row="3"
                       Visibility="{x:Bind VisibilidadeComprador}">
@@ -326,7 +326,7 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <TextBlock HorizontalAlignment="Center">______________________________________________________________</TextBlock>
+                    <TextBlock Margin="0,20,0,0" HorizontalAlignment="Center">______________________________________________________________</TextBlock>
                     <TextBlock Grid.Row="1"
                                HorizontalAlignment="Center"
                                Text="{x:Bind NomeAssinatura}" />

@@ -144,7 +144,11 @@ namespace NFeFacil
 
         public static string AplicarMáscaraDocumento(string original)
         {
-            if (original.Length == 14)
+            if (string.IsNullOrEmpty(original))
+            {
+                return string.Empty;
+            }
+            else if (original.Length == 14)
             {
                 // É CNPJ
                 return $"{original.Substring(0, 2)}.{original.Substring(2, 3)}.{original.Substring(5, 3)}/{original.Substring(8, 4)}.{original.Substring(12, 2)}";

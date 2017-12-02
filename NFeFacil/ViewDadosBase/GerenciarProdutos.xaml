@@ -1,0 +1,40 @@
+﻿<Page x:Class="NFeFacil.ViewDadosBase.GerenciarProdutos"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:db="using:NFeFacil.ItensBD"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d">
+    <GridView ItemsSource="{x:Bind Produtos}"
+              Style="{StaticResource ItensMediosGrid}">
+        <GridView.ItemTemplate>
+            <DataTemplate x:DataType="db:ProdutoDI">
+                <Grid>
+                    <Grid.ContextFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Click="EditarProduto">Editar</MenuFlyoutItem>
+                            <MenuFlyoutItem Click="ControlarEstoque">Controlar estoque</MenuFlyoutItem>
+                            <MenuFlyoutItem Click="InativarProduto">Inativar</MenuFlyoutItem>
+                        </MenuFlyout>
+                    </Grid.ContextFlyout>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <TextBlock Style="{StaticResource TitleTextBlockStyle}"
+                               Text="{x:Bind CodigoProduto}" />
+                    <TextBlock Grid.Row="1"
+                               Style="{StaticResource SubtitleTextBlockStyle}"
+                               Text="{x:Bind Descricao, Converter={StaticResource mascara}}" />
+                </Grid>
+            </DataTemplate>
+        </GridView.ItemTemplate>
+    </GridView>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Icon="Add"
+                          Label="Adicionar"
+                          Click="AdicionarProduto" />
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>

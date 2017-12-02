@@ -57,8 +57,6 @@ namespace NFeFacil.ViewRegistroVenda
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            #region Processamento de dados
-
             DadosImpressaoDARV venda = (DadosImpressaoDARV)e.Parameter;
             var dimensoes = venda.Dimensoes;
             var registro = venda.Venda;
@@ -105,9 +103,6 @@ namespace NFeFacil.ViewRegistroVenda
             Total = (subtotal + acrescimos + desconto).ToString("C2");
 
             ListaProdutos = produtos;
-            #endregion
-
-            #region Analise visual
 
             if (!string.IsNullOrEmpty(Cliente.CPF))
                 TemplateCliente = ClienteFisico;
@@ -125,8 +120,6 @@ namespace NFeFacil.ViewRegistroVenda
             VisibilidadeComprador = Comprador == null ? Visibility.Collapsed : Visibility.Visible;
             VisibilidadePagamento = string.IsNullOrEmpty(Registro.FormaPagamento) ? Visibility.Collapsed : Visibility.Visible;
             VisibilidadeObservacoes = string.IsNullOrEmpty(Registro.Observações) ? Visibility.Collapsed : Visibility.Visible;
-            
-            #endregion
         }
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
@@ -181,20 +174,6 @@ namespace NFeFacil.ViewRegistroVenda
         public string Descricao { get; set; }
         public string ValorUnitario { get; set; }
         public string TotalBruto { get; set; }
-    }
-
-    sealed class MascaraDocumento : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, string language)
-        {
-            var original = (string)value;
-            return AplicarMáscaraDocumento(original);
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, string language)
-        {
-            throw new NotImplementedException();
-        }
     }
 
     sealed class DimensoesDARV

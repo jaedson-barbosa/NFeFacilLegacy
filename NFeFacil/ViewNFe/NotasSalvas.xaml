@@ -38,7 +38,7 @@
             </ContentPresenter>
         </DataTemplate>
         <DataTemplate x:Key="Base">
-            <Grid>
+            <Grid Background="Transparent">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />

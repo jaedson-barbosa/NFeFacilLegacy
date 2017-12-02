@@ -1,0 +1,47 @@
+﻿<Page x:Class="NFeFacil.ViewDadosBase.GerenciarMotoristas"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:vm="using:NFeFacil.ViewModel"
+      xmlns:db="using:NFeFacil.ItensBD"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d">
+    <Page.Resources>
+        <vm:MascaraDocumento x:Key="mascara" />
+    </Page.Resources>
+    <GridView ItemsSource="{x:Bind Motoristas}"
+              Style="{StaticResource ItensMediosGrid}">
+        <GridView.ItemTemplate>
+            <DataTemplate x:DataType="db:MotoristaDI">
+                <Grid>
+                    <Grid.ContextFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Click="EditarMotorista">Editar</MenuFlyoutItem>
+                            <MenuFlyoutItem Click="InativarMotorista">Inativar</MenuFlyoutItem>
+                        </MenuFlyout>
+                    </Grid.ContextFlyout>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <TextBlock Style="{StaticResource TitleTextBlockStyle}"
+                               Text="{x:Bind Nome}" />
+                    <TextBlock Grid.Row="1"
+                               Style="{StaticResource SubtitleTextBlockStyle}"
+                               Text="{x:Bind Documento, Converter={StaticResource mascara}}" />
+                    <TextBlock Grid.Row="2"
+                               Style="{StaticResource BodyTextBlockStyle}"
+                               Text="{x:Bind XMun}" />
+                </Grid>
+            </DataTemplate>
+        </GridView.ItemTemplate>
+    </GridView>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Icon="Add"
+                          Label="Adicionar"
+                          Click="AdicionarMotorista" />
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>

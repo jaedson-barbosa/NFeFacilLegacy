@@ -8,7 +8,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
     <Page.Resources>
-        <local:MascaraDocumento x:Key="mascara" />
+        <vml:MascaraDocumento x:Key="mascara" />
         <vml:StringToDateTime x:Key="data" />
         <local:DimensoesDARV x:Key="dimensoes" />
         <DataTemplate x:Key="Cabecalho"

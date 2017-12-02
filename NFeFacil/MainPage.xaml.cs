@@ -81,7 +81,15 @@ namespace NFeFacil
                 await db.Clientes.ForEachAsync(x => AnalisarItem(x));
                 await db.Emitentes.ForEachAsync(x => AnalisarItem(x));
                 await db.Motoristas.ForEachAsync(x => AnalisarItem(x));
-                await db.Vendedores.ForEachAsync(x => AnalisarItem(x));
+                await db.Vendedores.ForEachAsync(x =>
+                {
+                    if (string.IsNullOrEmpty(x.CPFStr))
+                    {
+                        x.CPFStr = x.CPF.ToString();
+                        db.Update(x);
+                    }
+                    AnalisarItem(x);
+                });
                 await db.Produtos.ForEachAsync(x => AnalisarItem(x));
                 await db.Estoque.Include(x => x.Alteracoes).ForEachAsync(x =>
                 {

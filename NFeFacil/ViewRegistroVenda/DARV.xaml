@@ -27,7 +27,6 @@
                     <RowDefinition />
                     <RowDefinition />
                     <RowDefinition />
-                    <RowDefinition />
                 </Grid.RowDefinitions>
                 <TextBlock Grid.ColumnSpan="2"
                            Style="{StaticResource Titulo}"
@@ -35,11 +34,10 @@
                 <TextBlock Grid.Row="1">CNPJ: <Run Text="{x:Bind CNPJ, Converter={StaticResource mascara}}" /></TextBlock>
                 <TextBlock Grid.Row="1" Grid.Column="1">IE: <Run Text="{x:Bind InscricaoEstadual}"/></TextBlock>
                 <TextBlock Grid.ColumnSpan="2"
-                           Grid.Row="2"><Run Text="{x:Bind Logradouro}" />, <Run Text="{x:Bind Numero}" /> - <Run Text="{x:Bind Bairro}" /></TextBlock>
-                <TextBlock Grid.ColumnSpan="2"
-                           Grid.Row="3"><Run Text="{x:Bind NomeMunicipio}" />/<Run Text="{x:Bind SiglaUF}" />; CEP: <Run Text="{x:Bind CEP, Converter={StaticResource mascara}}" /></TextBlock>
-                <TextBlock Grid.Row="4">Telefone: <Run Text="{x:Bind Telefone}" /></TextBlock>
-                <TextBlock Grid.Row="4"
+                           Grid.Row="2"><Run Text="{x:Bind Logradouro}" />, <Run Text="{x:Bind Numero}" /> - <Run Text="{x:Bind Bairro}" /> - 
+                <Run Text="{x:Bind NomeMunicipio}" />/<Run Text="{x:Bind SiglaUF}" />; CEP: <Run Text="{x:Bind CEP, Converter={StaticResource mascara}}" /></TextBlock>
+                <TextBlock Grid.Row="3">Telefone: <Run Text="{x:Bind Telefone}" /></TextBlock>
+                <TextBlock Grid.Row="3"
                            Grid.Column="1">Email: <Run Text="{x:Bind Email}" /></TextBlock>
             </Grid>
         </DataTemplate>
@@ -53,11 +51,9 @@
                 <Grid.RowDefinitions>
                     <RowDefinition />
                     <RowDefinition />
-                    <RowDefinition />
                 </Grid.RowDefinitions>
                 <TextBlock>CPF: <Run Text="{x:Bind CPF, Converter={StaticResource mascara}}" /></TextBlock>
-                <TextBlock Grid.Row="1">Endereço: <Run Text="{x:Bind Logradouro}" />, <Run Text="{x:Bind Numero}" /> - <Run Text="{x:Bind Bairro}" /></TextBlock>
-                <TextBlock Grid.Row="2"><Run Text="{x:Bind NomeMunicipio}" />/<Run Text="{x:Bind SiglaUF}" />; CEP: <Run Text="{x:Bind CEP, Converter={StaticResource mascara}}" /></TextBlock>
+                <TextBlock Grid.Row="1">End.: <Run Text="{x:Bind Logradouro}" />, <Run Text="{x:Bind Numero}" /> - <Run Text="{x:Bind Bairro}" /> - <Run Text="{x:Bind NomeMunicipio}" />/<Run Text="{x:Bind SiglaUF}" />; CEP: <Run Text="{x:Bind CEP, Converter={StaticResource mascara}}" /></TextBlock>
             </Grid>
         </DataTemplate>
         <DataTemplate x:Name="ClienteJuridico"
@@ -74,14 +70,11 @@
                 <Grid.RowDefinitions>
                     <RowDefinition />
                     <RowDefinition />
-                    <RowDefinition />
                 </Grid.RowDefinitions>
                 <TextBlock>CNPJ: <Run Text="{x:Bind CPF, Converter={StaticResource mascara}}" /></TextBlock>
                 <TextBlock Grid.Column="1">IE: <Run Text="{x:Bind InscricaoEstadual}" /></TextBlock>
                 <TextBlock Grid.Row="1"
-                           Grid.ColumnSpan="2">Endereço: <Run Text="{x:Bind Logradouro}" />, <Run Text="{x:Bind Numero}" /> - <Run Text="{x:Bind Bairro}" /></TextBlock>
-                <TextBlock Grid.Row="2"
-                           Grid.ColumnSpan="2"><Run Text="{x:Bind NomeMunicipio}" />/<Run Text="{x:Bind SiglaUF}" />; CEP: <Run Text="{x:Bind CEP, Converter={StaticResource mascara}}" /></TextBlock>
+                           Grid.ColumnSpan="2">End.: <Run Text="{x:Bind Logradouro}" />, <Run Text="{x:Bind Numero}" /> - <Run Text="{x:Bind Bairro}" /> - <Run Text="{x:Bind NomeMunicipio}" />/<Run Text="{x:Bind SiglaUF}" />; CEP: <Run Text="{x:Bind CEP, Converter={StaticResource mascara}}" /></TextBlock>
             </Grid>
         </DataTemplate>
         <DataTemplate x:Name="ClienteExterior"
@@ -94,11 +87,9 @@
                 <Grid.RowDefinitions>
                     <RowDefinition />
                     <RowDefinition />
-                    <RowDefinition />
                 </Grid.RowDefinitions>
                 <TextBlock>Documento de identificação: <Run Text="{x:Bind IdEstrangeiro, Converter={StaticResource mascara}}" /></TextBlock>
-                <TextBlock Grid.Row="1">Endereço: <Run Text="{x:Bind Logradouro}" />, <Run Text="{x:Bind Numero}" /> - <Run Text="{x:Bind Bairro}" /></TextBlock>
-                <TextBlock Grid.Row="2">País: <Run Text="{x:Bind XPais}" /></TextBlock>
+                <TextBlock Grid.Row="1">End.: <Run Text="{x:Bind Logradouro}" />, <Run Text="{x:Bind Numero}" /> - <Run Text="{x:Bind Bairro}" /> - País: <Run Text="{x:Bind XPais}" /></TextBlock>
             </Grid>
         </DataTemplate>
         <DataTemplate x:Name="Produtos">
@@ -171,11 +162,11 @@
         </DataTemplate>
         <DataTemplate x:Name="TransporteFisico"
                       x:DataType="bd:MotoristaDI">
-            <TextBlock Grid.Row="3" Style="{StaticResource Padrao}">CPF: <Run Text="{x:Bind CPF}" /></TextBlock>
+            <TextBlock Grid.Row="3" Style="{StaticResource Padrao}">CPF: <Run Text="{x:Bind CPF, Converter={StaticResource mascara}}" /></TextBlock>
         </DataTemplate>
         <DataTemplate x:Name="TransporteJuridico"
                       x:DataType="bd:MotoristaDI">
-            <TextBlock Grid.Row="3" Style="{StaticResource Padrao}">CNPJ/IE: <Run Text="{x:Bind CPF}" /> / <Run Text="{x:Bind InscricaoEstadual}" /></TextBlock>
+            <TextBlock Grid.Row="3" Style="{StaticResource Padrao}">CNPJ/IE: <Run Text="{x:Bind CPF,Converter={StaticResource mascara}}" /> / <Run Text="{x:Bind InscricaoEstadual}" /></TextBlock>
         </DataTemplate>
         <Style TargetType="TextBlock"
                x:Key="Padrao">

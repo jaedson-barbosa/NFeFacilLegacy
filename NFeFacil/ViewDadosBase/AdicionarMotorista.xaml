@@ -10,7 +10,7 @@
             <VM:DadosEstadosParaView x:Key="estados" />
         </ResourceDictionary>
     </Page.Resources>
-    <Grid x:Name="grdPrincipal">
+    <Grid Padding="16">
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="Auto" />

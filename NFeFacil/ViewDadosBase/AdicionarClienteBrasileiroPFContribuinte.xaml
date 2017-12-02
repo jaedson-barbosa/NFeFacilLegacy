@@ -8,7 +8,7 @@
     <Page.Resources>
         <VM:DadosEstadosParaView x:Key="estados" />
     </Page.Resources>
-    <StackPanel>
+    <StackPanel Padding="16">
         <ItemsControl Style="{StaticResource ItensResponsivos}">
             <TextBox Text="{x:Bind Base.Cliente.Nome, Mode=TwoWay}"
                      InputScope="Text"

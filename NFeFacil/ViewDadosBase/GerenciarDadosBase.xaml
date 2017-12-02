@@ -148,8 +148,8 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ListView ItemsSource="{x:Bind Vendedores}">
-            <ListView.Header>
+        <GridView ItemsSource="{x:Bind Vendedores}">
+            <GridView.Header>
                 <Grid Style="{StaticResource Cabecalho}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
@@ -162,8 +162,8 @@
                         <SymbolIcon Symbol="Add" />
                     </Button>
                 </Grid>
-            </ListView.Header>
-            <ListView.ItemTemplate>
+            </GridView.Header>
+            <GridView.ItemTemplate>
                 <DataTemplate>
                     <ContentControl ContentTemplate="{StaticResource ExibicaoImagemDescricao}"
                                     Content="{Binding}">
@@ -176,8 +176,8 @@
                         </ContentControl.ContextFlyout>
                     </ContentControl>
                 </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+            </GridView.ItemTemplate>
+        </GridView>
         <ListView ItemsSource="{x:Bind Compradores}">
             <ListView.Header>
                 <Grid Style="{StaticResource Cabecalho}">
@@ -185,7 +185,7 @@
                         <ColumnDefinition />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock>Imagem e nome</TextBlock>
+                    <TextBlock>Nome</TextBlock>
                     <Button Style="{StaticResource BotaoAdd}"
                             Grid.Column="2"
                             Click="AdicionarComprador">
@@ -195,15 +195,14 @@
             </ListView.Header>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <ContentControl ContentTemplate="{StaticResource ExibicaoImagemDescricao}"
-                                    Content="{Binding}">
-                        <ContentControl.ContextFlyout>
+                    <TextBlock Text="{Binding Nome}">
+                        <TextBlock.ContextFlyout>
                             <MenuFlyout>
                                 <MenuFlyoutItem Click="EditarComprador">Editar</MenuFlyoutItem>
                                 <MenuFlyoutItem Click="InativarComprador">Inativar</MenuFlyoutItem>
                             </MenuFlyout>
-                        </ContentControl.ContextFlyout>
-                    </ContentControl>
+                        </TextBlock.ContextFlyout>
+                    </TextBlock>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

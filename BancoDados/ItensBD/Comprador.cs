@@ -6,7 +6,7 @@ namespace NFeFacil.ItensBD
     {
         public Guid Id { get; set; }
         public Guid IdEmpresa { get; set; }
-        public bool Ativo { get; set; }
+        public bool Ativo { get; set; } = true;
         public string Nome { get; set; }
         public string Telefone { get; set; }
         public string Email { get; set; }

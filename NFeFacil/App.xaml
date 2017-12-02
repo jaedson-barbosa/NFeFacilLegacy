@@ -5,7 +5,7 @@
              xmlns:estilos="using:NFeFacil.AuxiliaresEstilos">
     <Application.Resources>
         <DataTemplate x:Key="ExibicaoImagemDescricao">
-            <Grid VerticalAlignment="Center">
+            <Grid Background="Transparent">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />

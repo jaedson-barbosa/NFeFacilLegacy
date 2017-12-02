@@ -97,7 +97,8 @@ namespace NFeFacil.ViewRegistroVenda
                     Emitente = Propriedades.EmitenteAtivo.Id,
                     Vendedor = Propriedades.VendedorAtivo?.Id ?? Guid.Empty,
                     Produtos = new System.Collections.Generic.List<ProdutoSimplesVenda>(),
-                    DataHoraVenda = Propriedades.DateTimeNow
+                    DataHoraVenda = Propriedades.DateTimeNow,
+                    PrazoEntrega = Propriedades.DateTimeNow
                 };
                 ListaProdutos = new ObservableCollection<ExibicaoProdutoVenda>();
                 AtualizarTotal();

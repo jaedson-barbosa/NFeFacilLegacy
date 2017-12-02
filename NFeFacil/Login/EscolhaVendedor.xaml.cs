@@ -31,7 +31,7 @@ namespace NFeFacil.Login
                     {
                         Id = atual.Id,
                         Principal = atual.Nome,
-                        Secundario = atual.CPF.ToString("000,000,000-00")
+                        Secundario = ExtensoesPrincipal.AplicarMáscaraDocumento(atual.CPFStr)
                     };
                     var img = imagens.Find(atual.Id);
                     if (img != null && img.Bytes != null)

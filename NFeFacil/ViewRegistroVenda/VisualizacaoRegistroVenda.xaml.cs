@@ -72,7 +72,7 @@ namespace NFeFacil.ViewRegistroVenda
                 if (vendedor != null)
                 {
                     visualizacao.AddBloco("Vendedor", ("Nome", vendedor.Nome),
-                        ("CPF", vendedor.CPF.ToString("000,000,000-00")),
+                        ("CPF", ExtensoesPrincipal.AplicarMáscaraDocumento(vendedor.CPFStr)),
                         ("Endereço", vendedor.Endereço));
                 }
 

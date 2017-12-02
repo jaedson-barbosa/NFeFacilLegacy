@@ -37,12 +37,12 @@ namespace NFeFacil.ViewDadosBase
             if (e.Parameter == null)
             {
                 Comprador = new Comprador();
-                MainPage.Current.SeAtualizar(Symbol.Add, "Vendedor");
+                MainPage.Current.SeAtualizar(Symbol.Add, "Comprador");
             }
             else
             {
                 Comprador = (Comprador)e.Parameter;
-                MainPage.Current.SeAtualizar(Symbol.Edit, "Vendedor");
+                MainPage.Current.SeAtualizar(Symbol.Edit, "Comprador");
             }
             DataContext = Comprador;
         }

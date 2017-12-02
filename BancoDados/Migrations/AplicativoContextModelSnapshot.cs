@@ -420,6 +420,8 @@ namespace NFeFacil.Migrations
 
                     b.Property<long>("CPF");
 
+                    b.Property<string>("CPFStr");
+
                     b.Property<string>("Endereço")
                         .IsRequired();
 

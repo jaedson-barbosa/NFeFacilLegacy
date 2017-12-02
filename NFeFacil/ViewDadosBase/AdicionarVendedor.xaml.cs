@@ -15,8 +15,14 @@ namespace NFeFacil.ViewDadosBase
     /// </summary>
     public sealed partial class AdicionarVendedor : Page
     {
-        private Vendedor vendedor;
+        private Vendedor Vendedor { get; set; }
         private ILog Log = Popup.Current;
+
+        string Endereco
+        {
+            get => Vendedor.Endereço;
+            set => Vendedor.Endereço = value;
+        }
 
         public AdicionarVendedor()
         {
@@ -27,34 +33,33 @@ namespace NFeFacil.ViewDadosBase
         {
             if (e.Parameter == null)
             {
-                vendedor = new Vendedor();
+                Vendedor = new Vendedor();
                 MainPage.Current.SeAtualizar(Symbol.Add, "Vendedor");
             }
             else
             {
-                vendedor = (Vendedor)e.Parameter;
+                Vendedor = (Vendedor)e.Parameter;
                 MainPage.Current.SeAtualizar(Symbol.Edit, "Vendedor");
             }
-            DataContext = vendedor;
         }
 
         private void Confirmar_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                if (new ValidadorVendedor(vendedor).Validar(Log))
+                if (new ValidadorVendedor(Vendedor).Validar(Log))
                 {
                     using (var db = new AplicativoContext())
                     {
-                        vendedor.UltimaData = Propriedades.DateTimeNow;
-                        if (vendedor.Id == Guid.Empty)
+                        Vendedor.UltimaData = Propriedades.DateTimeNow;
+                        if (Vendedor.Id == Guid.Empty)
                         {
-                            db.Add(vendedor);
+                            db.Add(Vendedor);
                             Log.Escrever(TitulosComuns.Sucesso, "Vendedor salvo com sucesso.");
                         }
                         else
                         {
-                            db.Update(vendedor);
+                            db.Update(Vendedor);
                             Log.Escrever(TitulosComuns.Sucesso, "Vendedor alterado com sucesso.");
                         }
                         db.SaveChanges();

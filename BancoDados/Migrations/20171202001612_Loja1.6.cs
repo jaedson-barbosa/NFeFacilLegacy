@@ -7,6 +7,11 @@ namespace NFeFacil.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AddColumn<string>(
+                name: "CPFStr",
+                table: "Vendedores",
+                nullable: true);
+
             migrationBuilder.AddColumn<Guid>(
                 name: "Comprador",
                 table: "Vendas",
@@ -61,6 +66,10 @@ namespace NFeFacil.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Compradores");
+
+            migrationBuilder.DropColumn(
+                name: "CPFStr",
+                table: "Vendedores");
 
             migrationBuilder.DropColumn(
                 name: "Comprador",

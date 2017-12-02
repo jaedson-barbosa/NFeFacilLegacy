@@ -38,7 +38,7 @@ namespace NFeFacil.ViewDadosBase
                     {
                         Id = atual.Id,
                         Principal = atual.Nome,
-                        Secundario = atual.CPF.ToString("000,000,000-00"),
+                        Secundario = ExtensoesPrincipal.AplicarMáscaraDocumento(atual.CPFStr),
                         Vendedor = atual
                     };
                     var img = imagens.Find(atual.Id);

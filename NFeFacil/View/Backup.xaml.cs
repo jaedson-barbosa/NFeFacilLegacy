@@ -23,11 +23,6 @@ namespace NFeFacil.View
             InitializeComponent();
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            MainPage.Current.SeAtualizar("\uEA35", "Backup");
-        }
-
         async void SalvarBackup(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
             var objeto = new ConjuntoBanco();

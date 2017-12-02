@@ -122,14 +122,6 @@ namespace NFeFacil.ViewNFe
         {
             var produto = (DetalhesProdutos)e.Parameter;
             ProdutoCompleto = produto;
-            if (produto.Impostos.impostos.Count > 0)
-            {
-                MainPage.Current.SeAtualizar(Symbol.Edit, "Produto");
-            }
-            else
-            {
-                MainPage.Current.SeAtualizar(Symbol.Add, "Produto");
-            }
         }
 
         public ObservableCollection<ItemHambuguer> ConteudoMenu => new ObservableCollection<ItemHambuguer>

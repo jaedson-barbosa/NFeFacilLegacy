@@ -20,11 +20,6 @@ namespace NFeFacil.Certificacao
             InitializeComponent();
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            MainPage.Current.SeAtualizar(Symbol.Permissions, "Certificação");
-        }
-
         void InstalarServidor(object sender, TappedRoutedEventArgs e)
         {
             SalvarArquivoInterno("Servidor de certificação", "NFeFacil.Certificacao.LAN.ServidorCertificacao.zip");

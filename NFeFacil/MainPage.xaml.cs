@@ -179,30 +179,12 @@ namespace NFeFacil
         public void Navegar<T>(object parametro = null) where T : Page
         {
             frmPrincipal.Navigate(typeof(T), parametro);
+            var pag = PaginasPrincipais.Lista[typeof(T)];
+            txtTitulo.Text = pag.Titulo;
+            symTitulo.Content = pag.ObterIcone();
         }
 
-        public void SeAtualizar(Symbol símbolo, string texto)
-        {
-            txtTitulo.Text = texto;
-            symTitulo.Content = new SymbolIcon(símbolo);
-            AnalisarMenuHamburguer();
-        }
-
-        public void SeAtualizar(string glyph, string texto)
-        {
-            txtTitulo.Text = texto;
-            symTitulo.Content = new FontIcon { Glyph = glyph };
-            AnalisarMenuHamburguer();
-        }
-
-        internal void SeAtualizar(Uri caminho, string texto)
-        {
-            txtTitulo.Text = texto;
-            symTitulo.Content = new BitmapIcon { UriSource = caminho };
-            AnalisarMenuHamburguer();
-        }
-
-        void AnalisarMenuHamburguer()
+        public void AnalisarMenuHamburguer()
         {
             if (frmPrincipal.Content is IHambuguer hambuguer)
             {

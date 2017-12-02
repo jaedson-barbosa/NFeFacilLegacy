@@ -28,12 +28,10 @@ namespace NFeFacil.ViewDadosBase
             if (e.Parameter == null)
             {
                 Produto = new ProdutoDI();
-                MainPage.Current.SeAtualizar(Symbol.Add, "Produto");
             }
             else
             {
                 Produto = (ProdutoDI)e.Parameter;
-                MainPage.Current.SeAtualizar(Symbol.Edit, "Produto");
             }
             DataContext = Produto;
         }

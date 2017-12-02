@@ -16,11 +16,6 @@ namespace NFeFacil.Certificacao
             InitializeComponent();
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            MainPage.Current.SeAtualizar(Symbol.Permissions, "Certificação");
-        }
-
         async void ConectarServidor(object sender, TappedRoutedEventArgs e)
         {
             await LAN.InformacoesConexao.Cadastrar();

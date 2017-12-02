@@ -20,11 +20,6 @@ namespace NFeFacil.ViewNFe.CaixasEspeciaisProduto
             InitializeComponent();
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            MainPage.Current.SeAtualizar("\uE804", "Veículo");
-        }
-
         private void Concluido(object sender, RoutedEventArgs e)
         {
             var ultFrame = Frame.BackStack[Frame.BackStack.Count - 1];

@@ -43,11 +43,6 @@ namespace NFeFacil.ViewRegistroVenda
             public string DataHoraVenda { get; set; }
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            MainPage.Current.SeAtualizar(Symbol.Library, "Vendas");
-        }
-
         private void Exibir(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             var item = (MenuFlyoutItem)sender;

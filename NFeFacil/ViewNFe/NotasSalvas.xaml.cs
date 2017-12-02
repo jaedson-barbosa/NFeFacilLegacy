@@ -52,7 +52,7 @@ namespace NFeFacil.ViewNFe
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            MainPage.Current.SeAtualizar(Symbol.Library, "Notas salvas");
+            MainPage.Current.AnalisarMenuHamburguer();
         }
 
         ObservableCollection<NFeDI> NotasEmitidas { get; }

@@ -132,11 +132,6 @@ namespace NFeFacil.View
 
         static double Convert(string str) => str?.ToDouble() ?? 0;
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            MainPage.Current.SeAtualizar(Symbol.Calendar, "Vendas");
-        }
-
         void AtualizarMeses()
         {
             try

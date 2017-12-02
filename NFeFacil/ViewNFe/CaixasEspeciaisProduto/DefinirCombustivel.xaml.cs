@@ -20,11 +20,6 @@ namespace NFeFacil.ViewNFe.CaixasEspeciaisProduto
             InitializeComponent();
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            MainPage.Current.SeAtualizar("\uEB42", "Combustivel");
-        }
-
         bool UsarCIDE
         {
             get => grupoCide.Visibility == Visibility.Visible;

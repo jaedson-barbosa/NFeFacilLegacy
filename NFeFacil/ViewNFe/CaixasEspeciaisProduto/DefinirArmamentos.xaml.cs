@@ -23,13 +23,6 @@ namespace NFeFacil.ViewNFe.CaixasEspeciaisProduto
             InitializeComponent();
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            var usarDark = Application.Current.RequestedTheme == ApplicationTheme.Dark;
-            string caminho = usarDark ? "ms-appx:///Assets/ArmaDark.png" : "ms-appx:///Assets/Arma.png";
-            MainPage.Current.SeAtualizar(new Uri(caminho), "Armamento");
-        }
-
         async void AdicionarArmamento(object sender, RoutedEventArgs e)
         {
             var caixa = new CaixasDialogoProduto.AdicionarArmamento();

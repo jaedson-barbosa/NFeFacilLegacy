@@ -38,7 +38,6 @@ namespace NFeFacil.ViewNFe
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             ProdutoCompleto = (DetalhesProdutos)e.Parameter;
-            MainPage.Current.SeAtualizar("\uE825", "Impostos");
             DefinirImpostosAdicionaveis();
         }
 

@@ -151,8 +151,6 @@
     <Content Include="Assets\StoreLogo.scale-150.png" />
     <Content Include="Assets\StoreLogo.scale-200.png" />
     <Content Include="Assets\StoreLogo.scale-400.png" />
-    <Content Include="Assets\VolanteDark.png" />
-    <Content Include="Assets\Volante.png" />
     <Content Include="Assets\Wide310x150Logo.scale-100.png" />
     <Content Include="Assets\Wide310x150Logo.scale-125.png" />
     <Content Include="Assets\Wide310x150Logo.scale-150.png" />
@@ -175,6 +173,7 @@
     </Compile>
     <Compile Include="ConfiguracoesPermanentes.cs" />
     <Compile Include="ConjuntoBasicoExibicao.cs" />
+    <Compile Include="PaginasPrincipais.cs" />
     <Compile Include="Sincronizacao\Pacotes\ConjuntoNotasFiscais.cs" />
     <Compile Include="Validacao\ValidadorComprador.cs" />
     <Compile Include="ViewDadosBase\AdicionarComprador.xaml.cs">

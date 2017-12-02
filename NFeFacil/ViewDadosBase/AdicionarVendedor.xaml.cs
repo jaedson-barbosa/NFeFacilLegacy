@@ -34,12 +34,10 @@ namespace NFeFacil.ViewDadosBase
             if (e.Parameter == null)
             {
                 Vendedor = new Vendedor();
-                MainPage.Current.SeAtualizar(Symbol.Add, "Vendedor");
             }
             else
             {
                 Vendedor = (Vendedor)e.Parameter;
-                MainPage.Current.SeAtualizar(Symbol.Edit, "Vendedor");
             }
         }
 

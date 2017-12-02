@@ -48,7 +48,6 @@ namespace NFeFacil.Login
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            MainPage.Current.SeAtualizar(Symbol.Home, "Escolher vendedor");
             Frame.BackStack.Clear();
         }
 

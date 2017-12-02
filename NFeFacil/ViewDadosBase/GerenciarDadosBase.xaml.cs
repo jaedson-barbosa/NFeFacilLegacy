@@ -18,7 +18,6 @@ namespace NFeFacil.ViewDadosBase
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            MainPage.Current.SeAtualizar(Symbol.Manage, "Dados base");
             grdPrincipal.SelectedIndex = -1;
         }
 

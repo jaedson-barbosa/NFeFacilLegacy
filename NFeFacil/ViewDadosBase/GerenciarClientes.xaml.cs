@@ -31,7 +31,7 @@ namespace NFeFacil.ViewDadosBase
                 switch (caixa.TipoCliente)
                 {
                     case 0:
-                        MainPage.Current.Navegar<AdicionarClienteBrasileiro>();
+                        MainPage.Current.Navegar<AdicionarClienteBrasileiroPF>();
                         break;
                     case 1:
                         MainPage.Current.Navegar<AdicionarClienteBrasileiroPFContribuinte>();
@@ -59,7 +59,7 @@ namespace NFeFacil.ViewDadosBase
                 }
                 else
                 {
-                    MainPage.Current.Navegar<AdicionarClienteBrasileiro>(dest);
+                    MainPage.Current.Navegar<AdicionarClienteBrasileiroPF>(dest);
                 }
             }
             else if (!string.IsNullOrEmpty(dest.CNPJ))

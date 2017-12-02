@@ -31,15 +31,7 @@ namespace NFeFacil.Login
                         await Task.Delay(500);
                         MainPage.Current.Navegar<EscolhaEmitente>();
                     }
-                    else
-                    {
-                        MainPage.Current.SeAtualizar(Symbol.Emoji, "Bem-vindo");
-                    }
                 }
-            }
-            else
-            {
-                MainPage.Current.SeAtualizar(Symbol.Emoji, "Bem-vindo");
             }
         }
 

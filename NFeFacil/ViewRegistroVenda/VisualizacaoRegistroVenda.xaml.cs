@@ -24,7 +24,6 @@ namespace NFeFacil.ViewRegistroVenda
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            MainPage.Current.SeAtualizar(Symbol.View, "Registro de venda");
             ItemBanco = (RegistroVenda)e.Parameter;
             using (var db = new AplicativoContext())
             {

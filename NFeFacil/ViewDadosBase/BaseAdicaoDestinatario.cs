@@ -57,12 +57,10 @@ namespace NFeFacil.ViewDadosBase
                     Cliente.XPais = "BRASIL";
                     Cliente.CPais = 1058;
                 }
-                MainPage.Current.SeAtualizar(Symbol.Add, "Cliente");
             }
             else
             {
                 Cliente = (ClienteDI)e.Parameter;
-                MainPage.Current.SeAtualizar(Symbol.Edit, "Cliente");
             }
             ListaMunicipios = new ObservableCollection<Municipio>(Municipios.Get(Cliente.SiglaUF));
         }

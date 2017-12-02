@@ -18,11 +18,6 @@ namespace NFeFacil.Importacao
             InitializeComponent();
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            MainPage.Current.SeAtualizar(Symbol.Import, "Importação");
-        }
-
         private void ImportarCliente(object sender, TappedRoutedEventArgs e)
         {
             ImportarDadoBase(TiposDadoBasico.Cliente);

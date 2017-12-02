@@ -39,7 +39,6 @@ namespace NFeFacil.ViewNFe
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            MainPage.Current.SeAtualizar(Symbol.View, "Visualizar NFe");
             ItemBanco = (NFeDI)e.Parameter;
             var xml = XElement.Parse(ItemBanco.XML);
             if (ItemBanco.Status < (int)StatusNFe.Emitida)

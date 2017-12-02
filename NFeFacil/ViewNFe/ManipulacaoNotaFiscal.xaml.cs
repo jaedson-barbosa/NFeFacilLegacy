@@ -85,15 +85,6 @@ namespace NFeFacil.ViewNFe
             ProcessosReferenciados = new ObservableCollection<ProcessoReferenciado>(NotaSalva.Informacoes.infAdic.ProcRef);
             Modalidades = ExtensoesPrincipal.ObterItens<ModalidadesTransporte>();
 
-            if (string.IsNullOrEmpty(Dados.Informacoes.Id))
-            {
-                MainPage.Current.SeAtualizar(Symbol.Add, "Nota fiscal");
-            }
-            else
-            {
-                MainPage.Current.SeAtualizar(Symbol.Edit, "Nota fiscal");
-            }
-
             AtualizarVeiculo();
             AtualizarTotais();
         }

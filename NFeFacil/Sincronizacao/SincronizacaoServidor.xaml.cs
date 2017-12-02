@@ -20,11 +20,6 @@ namespace NFeFacil.Sincronizacao
             InitializeComponent();
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            MainPage.Current.SeAtualizar("\uE977", "Sincronização");
-        }
-
         public bool IniciarAutomaticamente
         {
             get => InícioAutomático;

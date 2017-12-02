@@ -47,11 +47,6 @@ namespace NFeFacil.View
             Formatter = new Func<double, string>(x => x < 1 || x > 12 ? "Não há dados" : CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName((int)x));
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            MainPage.Current.SeAtualizar(Symbol.Manage, "Controle de estoque");
-        }
-
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
             using (var db = new AplicativoContext())

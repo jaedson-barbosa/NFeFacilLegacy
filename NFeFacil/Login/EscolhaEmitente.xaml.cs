@@ -45,8 +45,6 @@ namespace NFeFacil.Login
                 }
                 grdEmitentes.ItemsSource = conjuntos;
             }
-
-            MainPage.Current.SeAtualizar(Symbol.Home, "Escolher empresa");
         }
 
         private void EmitenteEscolhido(object sender, SelectionChangedEventArgs e)

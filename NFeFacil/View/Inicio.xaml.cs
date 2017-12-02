@@ -31,7 +31,6 @@ namespace NFeFacil.View
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            MainPage.Current.SeAtualizar(Symbol.Home, nameof(Inicio));
             grdPrincipal.SelectedIndex = -1;
         }
 

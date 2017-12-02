@@ -23,11 +23,6 @@ namespace NFeFacil.ViewNFe.CaixasEspeciaisProduto
             InitializeComponent();
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            MainPage.Current.SeAtualizar("\uE95E", "Medicamentos");
-        }
-
         async void AdicionarMedicamento(object sender, RoutedEventArgs e)
         {
             var caixa = new CaixasDialogoProduto.AdicionarMedicamento();

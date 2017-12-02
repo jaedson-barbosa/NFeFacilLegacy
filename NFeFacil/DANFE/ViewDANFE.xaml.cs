@@ -26,8 +26,6 @@ namespace NFeFacil.DANFE
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            MainPage.Current.SeAtualizar(Symbol.View, "DANFE");
-
             gerenciadorImpressão = new GerenciadorImpressao();
 
             var processo = (Processo)e.Parameter;

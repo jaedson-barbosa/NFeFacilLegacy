@@ -582,14 +582,18 @@
         </Pivot>
         <Pivot Margin="16">
             <PivotItem Header="Informacoes adicionais">
-                <ScrollViewer>
-                    <StackPanel DataContext="{x:Bind NotaSalva.Informacoes.infAdic}">
-                        <TextBox Text="{Binding InfAdFisco, Mode=TwoWay}"
-                                 Header="Informacoes adicionais de interesse do fisco" />
-                        <TextBox Text="{Binding InfCpl, Mode=TwoWay}"
-                                 Header="Informacoes complementares de interesse do contribuinte" />
-                    </StackPanel>
-                </ScrollViewer>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <TextBox Text="{Binding NotaSalva.Informacoes.infAdic.InfAdFisco, Mode=TwoWay}"
+                             Header="Informacoes adicionais de interesse do fisco" />
+                    <TextBox Grid.Row="1"
+                             Text="{Binding NotaSalva.Informacoes.infAdic.InfCpl, Mode=TwoWay}"
+                             Header="Informacoes complementares de interesse do contribuinte" />
+                </Grid>
             </PivotItem>
             <PivotItem Header="Observações do contribuinte">
                 <ListView Margin="0,8,0,0"

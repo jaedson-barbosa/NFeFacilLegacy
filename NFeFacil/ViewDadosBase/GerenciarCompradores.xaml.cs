@@ -32,6 +32,7 @@ namespace NFeFacil.ViewDadosBase
                 }
             }
         }
+
         private void AdicionarComprador(object sender, RoutedEventArgs e)
         {
             MainPage.Current.Navegar<AdicionarComprador>();

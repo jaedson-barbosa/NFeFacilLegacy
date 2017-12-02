@@ -7,7 +7,7 @@
       mc:Ignorable="d"
       NavigationCacheMode="Required">
     <GridView x:Name="grdPrincipal"
-              Padding="8"
+              Padding="16"
               Style="{StaticResource ItensMediosGrid}"
               SelectionChanged="grdPrincipal_SelectionChanged"
               IsTabStop="False">

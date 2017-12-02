@@ -81,5 +81,10 @@
                                      Descricao="Guarde uma cópia dos princiapais dados">
             <FontIcon Glyph="&#xEA35;" />
         </controles:ItemPadraoSimples>
+        <controles:ItemPadraoSimples Tag="Informacoes"
+                                     Titulo="Informações"
+                                     Descricao="Algumas informações úteis que podem lhe ajudar">
+            <FontIcon Glyph="&#xE946;" />
+        </controles:ItemPadraoSimples>
     </GridView>
 </Page>

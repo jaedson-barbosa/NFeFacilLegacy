@@ -106,6 +106,9 @@ namespace NFeFacil.View
                 case "Backup":
                     MainPage.Current.Navegar<Backup>();
                     break;
+                case "Informacoes":
+                    MainPage.Current.Navegar<Informacoes>();
+                    break;
                 default:
                     break;
             }

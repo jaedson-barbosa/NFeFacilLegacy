@@ -119,6 +119,7 @@
     <Content Include="Assets\LargeTile.scale-150.png" />
     <Content Include="Assets\LargeTile.scale-200.png" />
     <Content Include="Assets\LargeTile.scale-400.png" />
+    <Content Include="Assets\Minha foto.jpg" />
     <Content Include="Assets\SmallTile.scale-100.png" />
     <Content Include="Assets\SmallTile.scale-125.png" />
     <Content Include="Assets\SmallTile.scale-150.png" />
@@ -554,6 +555,9 @@
     </Compile>
     <Compile Include="View\EscolherTransparencia.xaml.cs">
       <DependentUpon>EscolherTransparencia.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Informacoes.xaml.cs">
+      <DependentUpon>Informacoes.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Inicio.xaml.cs">
       <DependentUpon>Inicio.xaml</DependentUpon>
@@ -1051,6 +1055,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\EscolherTransparencia.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Informacoes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

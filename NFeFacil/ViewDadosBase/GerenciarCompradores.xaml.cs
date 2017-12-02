@@ -27,7 +27,7 @@ namespace NFeFacil.ViewDadosBase
                     Compradores.Add(new ExibicaoComprador()
                     {
                         Root = original[i],
-                        NomeEmpresa = db.Clientes.Find(original[i].Id).Nome
+                        NomeEmpresa = db.Clientes.Find(original[i].IdEmpresa).Nome
                     });
                 }
             }

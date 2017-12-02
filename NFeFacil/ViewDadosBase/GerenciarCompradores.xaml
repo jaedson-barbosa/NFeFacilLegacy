@@ -6,10 +6,11 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
     <GridView ItemsSource="{x:Bind Compradores}"
-              Style="{StaticResource ItensMediosGrid}">
+              Style="{StaticResource ItensMediosGrid}"
+              Margin="8">
         <GridView.ItemTemplate>
             <DataTemplate x:DataType="local:ExibicaoComprador">
-                <Grid>
+                <Grid Padding="8">
                     <Grid.ContextFlyout>
                         <MenuFlyout>
                             <MenuFlyoutItem Click="EditarComprador">Editar</MenuFlyoutItem>
@@ -18,14 +19,14 @@
                     </Grid.ContextFlyout>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
                         <RowDefinition />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <TextBlock Style="{StaticResource TitleTextBlockStyle}"
-                               Text="{x:Bind Root.Nome}" />
+                    <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
+                               Text="{x:Bind NomeEmpresa}" />
                     <TextBlock Grid.Row="1"
-                               Style="{StaticResource SubtitleTextBlockStyle}"
-                               Text="{x:Bind NomeEmpresa, Converter={StaticResource mascara}}" />
+                               Style="{StaticResource BodyTextBlockStyle}"
+                               Text="{x:Bind Root.Nome}" />
                     <TextBlock Grid.Row="2"
                                Style="{StaticResource BodyTextBlockStyle}"
                                Text="{x:Bind Root.Telefone}" />

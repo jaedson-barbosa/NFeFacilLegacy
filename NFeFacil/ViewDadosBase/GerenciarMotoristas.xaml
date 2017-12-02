@@ -10,10 +10,11 @@
         <vm:MascaraDocumento x:Key="mascara" />
     </Page.Resources>
     <GridView ItemsSource="{x:Bind Motoristas}"
-              Style="{StaticResource ItensMediosGrid}">
+              Style="{StaticResource ItensMediosGrid}"
+              Margin="8">
         <GridView.ItemTemplate>
             <DataTemplate x:DataType="db:MotoristaDI">
-                <Grid>
+                <Grid Padding="8">
                     <Grid.ContextFlyout>
                         <MenuFlyout>
                             <MenuFlyoutItem Click="EditarMotorista">Editar</MenuFlyoutItem>
@@ -22,14 +23,14 @@
                     </Grid.ContextFlyout>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
                         <RowDefinition />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <TextBlock Style="{StaticResource TitleTextBlockStyle}"
-                               Text="{x:Bind Nome}" />
-                    <TextBlock Grid.Row="1"
-                               Style="{StaticResource SubtitleTextBlockStyle}"
+                    <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
                                Text="{x:Bind Documento, Converter={StaticResource mascara}}" />
+                    <TextBlock Grid.Row="1"
+                               Style="{StaticResource BodyTextBlockStyle}"
+                               Text="{x:Bind Nome}" />
                     <TextBlock Grid.Row="2"
                                Style="{StaticResource BodyTextBlockStyle}"
                                Text="{x:Bind XMun}" />

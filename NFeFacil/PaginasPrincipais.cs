@@ -58,7 +58,13 @@ namespace NFeFacil
             { typeof(AdicionarClienteEstrangeiro), (Symbol.People, "Cliente") },
             { typeof(AdicionarClienteBrasileiroPF), (Symbol.People, "Cliente") },
             { typeof(AdicionarClienteBrasileiroPJ), (Symbol.People, "Cliente") },
-            { typeof(Configuracoes), (Symbol.Setting, "Configurações") }
+            { typeof(Configuracoes), (Symbol.Setting, "Configurações") },
+            { typeof(GerenciarClientes), (Symbol.Manage, "Clientes") },
+            { typeof(GerenciarCompradores), (Symbol.Manage, "Compradores") },
+            { typeof(GerenciarMotoristas), (Symbol.Manage, "Gerenciar motoristas") },
+            { typeof(GerenciarProdutos), (Symbol.Manage, "Gerenciar produtos") },
+            { typeof(GerenciarVendedores), (Symbol.Manage, "Gerenciar vendedores") },
+            { typeof(Informacoes), ("\uE946", "Informações") }
         };
 
         static string ObterCaminhoArmamento()

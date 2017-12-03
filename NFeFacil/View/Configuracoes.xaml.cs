@@ -108,5 +108,7 @@ namespace NFeFacil.View
                 MainPage.Current.DefinirTipoBackground(TiposBackground.Padrao);
             }
         }
+
+        private void SalvarBackup(object sender, TappedRoutedEventArgs e) => Backup.SalvarBackup();
     }
 }

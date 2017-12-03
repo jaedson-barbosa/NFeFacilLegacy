@@ -28,7 +28,7 @@
             </controles:ItemPadrao>
             <controles:ItemPadrao Titulo="Restaure Backup"
                                   Descricao="Caso você tenha um arquivo de backup com suas informações"
-                                  Tapped="Backup">
+                                  Tapped="RestaurarBackup">
                 <SymbolIcon Symbol="Import" />
             </controles:ItemPadrao>
         </ItemsControl>

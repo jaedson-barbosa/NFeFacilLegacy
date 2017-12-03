@@ -165,6 +165,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Backup.cs" />
     <Compile Include="Certificacao\ConfiguracoesCertificadoImportado.xaml.cs">
       <DependentUpon>ConfiguracoesCertificadoImportado.xaml</DependentUpon>
     </Compile>
@@ -217,9 +218,6 @@
       <DependentUpon>InfoPagamento.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Ano.cs" />
-    <Compile Include="View\Backup.xaml.cs">
-      <DependentUpon>Backup.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controles\NumeroChangedEventArgs.cs" />
     <Compile Include="IdentificacaoExtensoes.cs" />
     <Compile Include="Login\EscolhaEmitente.xaml.cs">
@@ -744,10 +742,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ViewRegistroVenda\InfoPagamento.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Backup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

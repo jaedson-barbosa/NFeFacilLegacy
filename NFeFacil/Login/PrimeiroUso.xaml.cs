@@ -35,19 +35,8 @@ namespace NFeFacil.Login
             }
         }
 
-        private void Manualmente(object sender, TappedRoutedEventArgs e)
-        {
-            MainPage.Current.Navegar<AdicionarEmitente>();
-        }
-
-        private void Sincronizar(object sender, TappedRoutedEventArgs e)
-        {
-            MainPage.Current.Navegar<SincronizacaoCliente>();
-        }
-
-        private void Backup(object sender, TappedRoutedEventArgs e)
-        {
-            MainPage.Current.Navegar<Backup>();
-        }
+        void Manualmente(object sender, TappedRoutedEventArgs e) => MainPage.Current.Navegar<AdicionarEmitente>();
+        void Sincronizar(object sender, TappedRoutedEventArgs e) => MainPage.Current.Navegar<SincronizacaoCliente>();
+        void RestaurarBackup(object sender, TappedRoutedEventArgs e) => Backup.RestaurarBackup();
     }
 }

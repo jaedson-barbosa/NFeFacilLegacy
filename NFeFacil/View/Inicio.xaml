@@ -58,7 +58,7 @@
         </controles:ItemPadraoSimples>
         <controles:ItemPadraoSimples Tag="Configuracoes"
                                      Titulo="Configurações"
-                                     Descricao="Configure detalhes do aplicativo em uma única tela">
+                                     Descricao="Configurações gerais, background e backup">
             <SymbolIcon Symbol="Setting" />
         </controles:ItemPadraoSimples>
         <controles:ItemPadraoSimples Tag="Certificado"
@@ -75,11 +75,6 @@
                                      Titulo="Sincronização"
                                      Descricao="Configure a sincronização entre dispositivos.">
             <SymbolIcon Symbol="Sync" />
-        </controles:ItemPadraoSimples>
-        <controles:ItemPadraoSimples Tag="Backup"
-                                     Titulo="Backup"
-                                     Descricao="Guarde uma cópia dos princiapais dados">
-            <FontIcon Glyph="&#xEA35;" />
         </controles:ItemPadraoSimples>
         <controles:ItemPadraoSimples Tag="Informacoes"
                                      Titulo="Informações"

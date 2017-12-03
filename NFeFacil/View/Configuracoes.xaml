@@ -25,6 +25,15 @@
             <ToggleSwitch IsOn="{x:Bind CalcularNumeroNFe, Mode=TwoWay}"
                           OnContent="Sempre"
                           OffContent="Nunca" />
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}">Backup</TextBlock>
+            <TextBlock TextWrapping="Wrap">No backup local é gerado um arquivo json com todas as informações salvas atualmente no aplicativo já que nele não há limite de tamanho. É recomendado que seja guardado em um local seguro, como no seu OneDrive. Ele só pode ser restaurado quando não há informações guardadas no aplicativo.</TextBlock>
+            <ItemsControl Style="{StaticResource ItensMedios}">
+                <controles:ItemPadrao Titulo="Salvar backup"
+                                      Descricao="Guarde todas as informações do aplicativo em um único arquivo."
+                                      Tapped="ItemPadrao_Tapped">
+                    <SymbolIcon Symbol="Save" />
+                </controles:ItemPadrao>
+            </ItemsControl>
             <TextBlock Style="{StaticResource TitleTextBlockStyle}">Background</TextBlock>
             <ItemsControl Style="{StaticResource ItensMedios}">
                 <controles:ItemPadrao Titulo="Usar imagem"

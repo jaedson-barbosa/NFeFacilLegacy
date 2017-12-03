@@ -5,7 +5,6 @@
       xmlns:controles="using:NFeFacil.Controles"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      x:Name="root"
       mc:Ignorable="d">
     <Page.Resources>
         <ResourceDictionary>
@@ -21,9 +20,8 @@
             <VM:DadosEstadosParaView x:Key="estados" />
         </ResourceDictionary>
     </Page.Resources>
-    <FlipView Name="main"
-              Padding="16"
-              SelectionChanged="TelaMudou">
+    <controles:MultView x:Name="main"
+                        Padding="16">
         <ScrollViewer>
             <ItemsControl Style="{StaticResource ItensResponsivos}">
                 <TextBox Text="{x:Bind ProdutoCompleto.Produto.CodigoProduto, Mode=TwoWay}"
@@ -200,7 +198,7 @@
                 <FontIcon Glyph="&#xE82D;" />
             </controles:ItemPadraoSimples>
         </GridView>
-    </FlipView>
+    </controles:MultView>
     <Page.BottomAppBar>
         <CommandBar>
             <AppBarButton Icon="Accept"

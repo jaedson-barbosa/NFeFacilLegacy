@@ -164,12 +164,6 @@ namespace NFeFacil.ViewNFe
             return resultado.Label == "Sair";
         }
 
-        private void TelaMudou(object sender, SelectionChangedEventArgs e)
-        {
-            var index = ((FlipView)sender).SelectedIndex;
-            MainPage.Current.AlterarSelectedIndexHamburguer(index);
-        }
-
         async void AdicionarDeclaracaoImportacao(object sender, RoutedEventArgs e)
         {
             var caixa = new CaixasDialogoProduto.AdicionarDeclaracaoImportacao();

@@ -12,8 +12,7 @@
         <VM:StringToDateTime x:Key="data" />
         <VM:NumeroString x:Key="numStr" />
     </Page.Resources>
-    <FlipView x:Name="pvtPrincipal"
-              SelectionChanged="TelaMudou">
+    <controles:MultView x:Name="pvtPrincipal">
         <Pivot Margin="16">
             <PivotItem Header="NFe">
                 <ScrollViewer>
@@ -828,7 +827,7 @@
                 </ListView>
             </PivotItem>
         </Pivot>
-    </FlipView>
+    </controles:MultView>
     <Page.BottomAppBar>
         <CommandBar>
             <AppBarButton IsEnabled="{Binding BotaoConfirmarVisivel}"

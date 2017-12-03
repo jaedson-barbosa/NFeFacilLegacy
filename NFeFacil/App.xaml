@@ -585,9 +585,5 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style TargetType="FlipView">
-            <Setter Property="Background"
-                    Value="Transparent" />
-        </Style>
     </Application.Resources>
 </Application>

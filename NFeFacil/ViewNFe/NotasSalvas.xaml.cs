@@ -163,12 +163,6 @@ namespace NFeFacil.ViewNFe
 
         public void AtualizarMain(int index) => main.SelectedIndex = index;
 
-        private void TelaMudou(object sender, SelectionChangedEventArgs e)
-        {
-            var index = ((FlipView)sender).SelectedIndex;
-            MainPage.Current.AlterarSelectedIndexHamburguer(index);
-        }
-
         [XmlRoot("procEventoNFe", Namespace = "http://www.portalfiscal.inf.br/nfe")]
         public struct ProcEventoCancelamento
         {

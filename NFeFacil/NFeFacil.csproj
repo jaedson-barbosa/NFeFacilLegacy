@@ -173,6 +173,9 @@
     </Compile>
     <Compile Include="ConfiguracoesPermanentes.cs" />
     <Compile Include="ConjuntoBasicoExibicao.cs" />
+    <Compile Include="Controles\MultView.xaml.cs">
+      <DependentUpon>MultView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PaginasPrincipais.cs" />
     <Compile Include="Sincronizacao\Pacotes\ConjuntoNotasFiscais.cs" />
     <Compile Include="Validacao\ValidadorComprador.cs" />
@@ -686,6 +689,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Certificacao\ConfiguracoesServidorCertificacao.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controles\MultView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

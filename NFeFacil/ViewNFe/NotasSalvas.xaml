@@ -2,6 +2,7 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:local="using:NFeFacil.ViewNFe"
+      xmlns:controles="using:NFeFacil.Controles"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
@@ -83,9 +84,8 @@
             </Grid>
         </DataTemplate>
     </Page.Resources>
-    <FlipView x:Name="main"
-              Padding="16"
-              SelectionChanged="TelaMudou">
+    <controles:MultView x:Name="main"
+                        Padding="16">
         <GridView ItemsSource="{x:Bind NotasEmitidas}"
                   ItemTemplate="{StaticResource ExibicaoNFeEmitida}"
                   Style="{StaticResource ItensMediosGrid}" />
@@ -95,5 +95,5 @@
         <GridView ItemsSource="{x:Bind NotasCanceladas}"
                   ItemTemplate="{StaticResource ExibicaoNFeCancelada}"
                   Style="{StaticResource ItensMediosGrid}" />
-    </FlipView>
+    </controles:MultView>
 </Page>

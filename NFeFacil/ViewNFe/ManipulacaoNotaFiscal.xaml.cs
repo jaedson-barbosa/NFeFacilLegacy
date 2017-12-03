@@ -803,11 +803,5 @@ namespace NFeFacil.ViewNFe
                 controle.IsOn = false;
             }
         }
-
-        private void TelaMudou(object sender, SelectionChangedEventArgs e)
-        {
-            var index = ((FlipView)sender).SelectedIndex;
-            MainPage.Current.AlterarSelectedIndexHamburguer(index);
-        }
     }
 }

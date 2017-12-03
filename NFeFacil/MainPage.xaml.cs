@@ -199,14 +199,6 @@ namespace NFeFacil
             }
         }
 
-        internal void AlterarSelectedIndexHamburguer(int index)
-        {
-            if (menuTemporario.ItemsSource != null)
-            {
-                menuTemporario.SelectedIndex = index;
-            }
-        }
-
         public async void Retornar(bool suprimirValidacao = false)
         {
             if (!suprimirValidacao && frmPrincipal.Content is IValida retorna && !await retorna.Verificar())

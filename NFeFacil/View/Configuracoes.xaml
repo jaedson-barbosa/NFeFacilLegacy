@@ -30,7 +30,7 @@
             <ItemsControl Style="{StaticResource ItensMedios}">
                 <controles:ItemPadrao Titulo="Salvar backup"
                                       Descricao="Guarde todas as informações do aplicativo em um único arquivo."
-                                      Tapped="ItemPadrao_Tapped">
+                                      Tapped="SalvarBackup">
                     <SymbolIcon Symbol="Save" />
                 </controles:ItemPadrao>
             </ItemsControl>

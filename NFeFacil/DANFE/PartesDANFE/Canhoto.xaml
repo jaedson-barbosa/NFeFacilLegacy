@@ -9,19 +9,19 @@
     <UserControl.Resources>
         <ResourceDictionary Source="EstilosPadrao.xaml" />
     </UserControl.Resources>
-    <StackPanel Margin="{Binding Source={StaticResource dimensoes},Path=MargemBloco}">
+    <StackPanel Margin="{x:Bind Dimensoes.MargemBloco}">
         <Grid BorderThickness="1"
               CornerRadius="2"
               BorderBrush="Black"
-              Margin="{Binding Source={StaticResource dimensoes},Path=MargemBloco}">
+              Margin="{x:Bind Dimensoes.MargemBloco}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition Width="{x:Bind ColunaMeio}" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="{Binding Source={StaticResource dimensoes}, Path=AlturaLinhaPadrao}" />
-                <RowDefinition Height="{Binding Source={StaticResource dimensoes}, Path=AlturaLinhaPadrao}" />
+                <RowDefinition Height="{x:Bind Dimensoes.AlturaLinhaPadrao}" />
+                <RowDefinition Height="{x:Bind Dimensoes.AlturaLinhaPadrao}" />
             </Grid.RowDefinitions>
             <Border Grid.ColumnSpan="2"
                     BorderThickness="0,0,1,1"

@@ -1,7 +1,5 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="using:NFeFacil.DANFE.PartesDANFE">
-    <local:DimensoesPadrao x:Key="dimensoes" />
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Thickness x:Key="PaddingPadrao">4,2,2,2</Thickness>
     <Style TargetType="TextBlock">
         <Setter Property="FontFamily"

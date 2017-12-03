@@ -8,6 +8,7 @@ namespace NFeFacil.DANFE.PartesDANFE
 {
     public sealed partial class Canhoto : UserControl
     {
+        DimensoesPadrao Dimensoes { get; } = new DimensoesPadrao();
         GridLength ColunaMeio => CentimeterToLength(10);
 
         public Canhoto()

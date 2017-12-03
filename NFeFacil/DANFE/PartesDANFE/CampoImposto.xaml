@@ -9,15 +9,15 @@
     <UserControl.Resources>
         <ResourceDictionary Source="EstilosPadrao.xaml" />
     </UserControl.Resources>
-    <StackPanel Margin="{Binding Source={StaticResource dimensoes}, Path=MargemBloco}"
-                Width="{Binding Source={StaticResource dimensoes}, Path=LarguraTotal}">
+    <StackPanel Margin="{x:Bind Dimensoes.MargemBloco}"
+                Width="{x:Bind Dimensoes.LarguraTotal}">
         <TextBlock Style="{StaticResource DescritivoBloco}">CÁLCULO DO IMPOSTO</TextBlock>
         <Grid BorderThickness="1"
               BorderBrush="Black"
               CornerRadius="2">
             <Grid.RowDefinitions>
-                <RowDefinition Height="{Binding Source={StaticResource dimensoes}, Path=AlturaLinhaPadrao}" />
-                <RowDefinition Height="{Binding Source={StaticResource dimensoes}, Path=AlturaLinhaPadrao}" />
+                <RowDefinition Height="{x:Bind Dimensoes.AlturaLinhaPadrao}" />
+                <RowDefinition Height="{x:Bind Dimensoes.AlturaLinhaPadrao}" />
             </Grid.RowDefinitions>
             <Grid BorderThickness="0,0,0,1"
                   BorderBrush="Black">

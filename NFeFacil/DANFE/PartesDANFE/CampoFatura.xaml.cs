@@ -6,6 +6,8 @@ namespace NFeFacil.DANFE.PartesDANFE
 {
     public sealed partial class CampoFatura : UserControl
     {
+        DimensoesPadrao Dimensoes { get; } = new DimensoesPadrao();
+
         public CampoFatura()
         {
             InitializeComponent();

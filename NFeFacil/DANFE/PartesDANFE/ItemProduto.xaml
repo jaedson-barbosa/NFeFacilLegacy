@@ -12,7 +12,6 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="EstilosPadrao.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <local:DimensoesCampoProdutos x:Key="dimensoesLocal" />
             <local:EsconderCasoNulo x:Key="linhaInfoAdicional" />
         </ResourceDictionary>
     </UserControl.Resources>
@@ -32,16 +31,16 @@
             </Style>
         </Grid.Resources>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="{Binding Source={StaticResource dimensoesLocal}, Path=Coluna0}" />
-            <ColumnDefinition Width="{Binding Source={StaticResource dimensoesLocal}, Path=Coluna1}" />
-            <ColumnDefinition Width="{Binding Source={StaticResource dimensoesLocal}, Path=Coluna2}" />
-            <ColumnDefinition Width="{Binding Source={StaticResource dimensoesLocal}, Path=ColunaGeral3}" />
-            <ColumnDefinition Width="{Binding Source={StaticResource dimensoesLocal}, Path=ColunaGeral4}" />
-            <ColumnDefinition Width="{Binding Source={StaticResource dimensoesLocal}, Path=ColunaGeral5}" />
-            <ColumnDefinition Width="{Binding Source={StaticResource dimensoesLocal}, Path=ColunaGeral6}" />
+            <ColumnDefinition Width="{x:Bind DimensoesLocal.Coluna0}" />
+            <ColumnDefinition Width="{x:Bind DimensoesLocal.Coluna1}" />
+            <ColumnDefinition Width="{x:Bind DimensoesLocal.Coluna2}" />
+            <ColumnDefinition Width="{x:Bind DimensoesLocal.ColunaGeral3}" />
+            <ColumnDefinition Width="{x:Bind DimensoesLocal.ColunaGeral4}" />
+            <ColumnDefinition Width="{x:Bind DimensoesLocal.ColunaGeral5}" />
+            <ColumnDefinition Width="{x:Bind DimensoesLocal.ColunaGeral6}" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition MinHeight="{Binding Source={StaticResource dimensoesLocal}, Path=AlturaPadrao}" />
+            <RowDefinition MinHeight="{x:Bind DimensoesLocal.AlturaPadrao}" />
         </Grid.RowDefinitions>
         <Border BorderThickness="0,0,1,0"
                 BorderBrush="Black">

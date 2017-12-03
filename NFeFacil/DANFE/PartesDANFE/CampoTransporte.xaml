@@ -10,15 +10,15 @@
     <UserControl.Resources>
         <ResourceDictionary Source="EstilosPadrao.xaml" />
     </UserControl.Resources>
-    <StackPanel Margin="{Binding Source={StaticResource dimensoes}, Path=MargemBloco}">
+    <StackPanel Margin="{x:Bind Dimensoes.MargemBloco}">
         <TextBlock Style="{StaticResource DescritivoBloco}">TRANSPORTADOR/VOLUMES TRANSPORTADOS</TextBlock>
         <Grid BorderThickness="1"
               BorderBrush="Black"
               CornerRadius="2">
             <Grid.RowDefinitions>
-                <RowDefinition Height="{Binding Source={StaticResource dimensoes}, Path=AlturaLinhaPadrao}" />
-                <RowDefinition Height="{Binding Source={StaticResource dimensoes}, Path=AlturaLinhaPadrao}" />
-                <RowDefinition Height="{Binding Source={StaticResource dimensoes}, Path=AlturaLinhaPadrao}" />
+                <RowDefinition Height="{x:Bind Dimensoes.AlturaLinhaPadrao}" />
+                <RowDefinition Height="{x:Bind Dimensoes.AlturaLinhaPadrao}" />
+                <RowDefinition Height="{x:Bind Dimensoes.AlturaLinhaPadrao}" />
             </Grid.RowDefinitions>
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -109,7 +109,7 @@
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="2"
-                  Width="{Binding Source={StaticResource dimensoes}, Path=LarguraTotal}">
+                  Width="{x:Bind Dimensoes.LarguraTotal}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />

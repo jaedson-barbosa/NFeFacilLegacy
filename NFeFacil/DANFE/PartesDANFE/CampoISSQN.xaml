@@ -9,7 +9,7 @@
     <UserControl.Resources>
         <ResourceDictionary Source="EstilosPadrao.xaml" />
     </UserControl.Resources>
-    <StackPanel Margin="{Binding Source={StaticResource dimensoes}, Path=MargemBloco}">
+    <StackPanel Margin="{x:Bind Dimensoes.MargemBloco}">
         <TextBlock Style="{StaticResource DescritivoBloco}">CÁLCULO DO ISSQN</TextBlock>
         <Grid BorderThickness="1"
               BorderBrush="Black"
@@ -21,7 +21,7 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="{Binding Source={StaticResource dimensoes}, Path=AlturaLinhaPadrao}" />
+                <RowDefinition Height="{x:Bind Dimensoes.AlturaLinhaPadrao}" />
             </Grid.RowDefinitions>
             <StackPanel Padding="{StaticResource PaddingPadrao}"
                         BorderThickness="0,0,1,0"

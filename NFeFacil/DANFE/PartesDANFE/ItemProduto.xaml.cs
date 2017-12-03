@@ -6,6 +6,8 @@ namespace NFeFacil.DANFE.PartesDANFE
 {
     public sealed partial class ItemProduto : UserControl
     {
+        DimensoesCampoProdutos DimensoesLocal { get; } = new DimensoesCampoProdutos();
+
         public ItemProduto()
         {
             InitializeComponent();

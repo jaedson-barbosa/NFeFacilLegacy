@@ -10,6 +10,9 @@ namespace NFeFacil.DANFE.PartesDANFE
 {
     public sealed partial class CampoProdutos : UserControl
     {
+        DimensoesPadrao Dimensoes { get; } = new DimensoesPadrao();
+        DimensoesCampoProdutos DimensoesLocal { get; } = new DimensoesCampoProdutos();
+
         public CampoProdutos()
         {
             InitializeComponent();

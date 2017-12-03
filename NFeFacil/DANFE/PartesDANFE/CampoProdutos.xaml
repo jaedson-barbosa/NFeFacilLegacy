@@ -15,7 +15,7 @@
             <local:DimensoesCampoProdutos x:Key="dimensoesLocal" />
         </ResourceDictionary>
     </UserControl.Resources>
-    <StackPanel Margin="{Binding Source={StaticResource dimensoes}, Path=MargemBloco}">
+    <StackPanel Margin="{x:Bind Dimensoes.MargemBloco}">
         <TextBlock Style="{StaticResource DescritivoBloco}">DADOS DO PRODUTO/SERVIÇO</TextBlock>
         <Border BorderThickness="1"
                 BorderBrush="Black"
@@ -34,16 +34,16 @@
                             </Style>
                         </Grid.Resources>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="{Binding Source={StaticResource dimensoesLocal}, Path=Coluna0}" />
-                            <ColumnDefinition Width="{Binding Source={StaticResource dimensoesLocal}, Path=Coluna1}" />
-                            <ColumnDefinition Width="{Binding Source={StaticResource dimensoesLocal}, Path=Coluna2}" />
-                            <ColumnDefinition Width="{Binding Source={StaticResource dimensoesLocal}, Path=ColunaGeral3}" />
-                            <ColumnDefinition Width="{Binding Source={StaticResource dimensoesLocal}, Path=ColunaGeral4}" />
-                            <ColumnDefinition Width="{Binding Source={StaticResource dimensoesLocal}, Path=ColunaGeral5}" />
-                            <ColumnDefinition Width="{Binding Source={StaticResource dimensoesLocal}, Path=ColunaGeral6}" />
+                            <ColumnDefinition Width="{x:Bind DimensoesLocal.Coluna0}" />
+                            <ColumnDefinition Width="{x:Bind DimensoesLocal.Coluna1}" />
+                            <ColumnDefinition Width="{x:Bind DimensoesLocal.Coluna2}" />
+                            <ColumnDefinition Width="{x:Bind DimensoesLocal.ColunaGeral3}" />
+                            <ColumnDefinition Width="{x:Bind DimensoesLocal.ColunaGeral4}" />
+                            <ColumnDefinition Width="{x:Bind DimensoesLocal.ColunaGeral5}" />
+                            <ColumnDefinition Width="{x:Bind DimensoesLocal.ColunaGeral6}" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="{Binding Source={StaticResource dimensoesLocal}, Path=LinhaPadrao}" />
+                            <RowDefinition Height="{x:Bind DimensoesLocal.LinhaPadrao}" />
                         </Grid.RowDefinitions>
                         <Border BorderThickness="0,0,1,0"
                                 BorderBrush="Black">

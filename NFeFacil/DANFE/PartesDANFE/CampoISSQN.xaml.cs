@@ -6,6 +6,8 @@ namespace NFeFacil.DANFE.PartesDANFE
 {
     public sealed partial class CampoISSQN : UserControl
     {
+        DimensoesPadrao Dimensoes { get; } = new DimensoesPadrao();
+
         public CampoISSQN()
         {
             InitializeComponent();

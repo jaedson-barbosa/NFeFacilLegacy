@@ -8,6 +8,8 @@ namespace NFeFacil.DANFE.PartesDANFE
 {
     public sealed partial class CampoCliente : UserControl
     {
+        DimensoesPadrao Dimensoes { get; } = new DimensoesPadrao();
+
         GridLength Coluna00 => CentimeterToLength(12.5);
         GridLength Coluna01 => CentimeterToLength(3.5);
 

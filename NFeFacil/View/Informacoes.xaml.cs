@@ -11,7 +11,7 @@ namespace NFeFacil.View
     {
         public Informacoes()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

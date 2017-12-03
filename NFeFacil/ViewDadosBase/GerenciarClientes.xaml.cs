@@ -18,7 +18,7 @@ namespace NFeFacil.ViewDadosBase
 
         public GerenciarClientes()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             using (var db = new AplicativoContext())
                 Clientes = db.Clientes.Where(x => x.Ativo).OrderBy(x => x.Nome).GerarObs();
         }

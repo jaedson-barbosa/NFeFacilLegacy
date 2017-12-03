@@ -247,9 +247,17 @@ namespace NFeFacil
         private void NavegacaoConcluida(object sender, NavigationEventArgs e)
         {
             var navegada = e.Content;
-            var pag = PaginasPrincipais.Lista[navegada.GetType()];
-            txtTitulo.Text = pag.Titulo;
-            symTitulo.Content = pag.ObterIcone();
+            if (PaginasPrincipais.Lista.Keys.Contains(navegada.GetType()))
+            {
+                var pag = PaginasPrincipais.Lista[navegada.GetType()];
+                txtTitulo.Text = pag.Titulo;
+                symTitulo.Content = pag.ObterIcone();
+            }
+            else
+            {
+                txtTitulo.Text = "Erro, informar desenvolvedor";
+                symTitulo.Content = new SymbolIcon(Symbol.Help);
+            }
 
             if (navegada is IHambuguer hambuguer)
             {

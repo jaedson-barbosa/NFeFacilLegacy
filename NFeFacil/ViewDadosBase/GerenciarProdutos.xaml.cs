@@ -19,7 +19,7 @@ namespace NFeFacil.ViewDadosBase
 
         public GerenciarProdutos()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             using (var db = new AplicativoContext())
             {
                 Produtos = db.Produtos.Where(x => x.Ativo).OrderBy(x => x.Descricao).GerarObs();

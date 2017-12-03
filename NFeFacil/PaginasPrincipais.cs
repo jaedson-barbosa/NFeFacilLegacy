@@ -57,7 +57,8 @@ namespace NFeFacil
             { typeof(AdicionarClienteBrasileiroPFContribuinte), (Symbol.People, "Cliente") },
             { typeof(AdicionarClienteEstrangeiro), (Symbol.People, "Cliente") },
             { typeof(AdicionarClienteBrasileiroPF), (Symbol.People, "Cliente") },
-            { typeof(AdicionarClienteBrasileiroPJ), (Symbol.People, "Cliente") }
+            { typeof(AdicionarClienteBrasileiroPJ), (Symbol.People, "Cliente") },
+            { typeof(Configuracoes), (Symbol.Setting, "Configurações") }
         };
 
         static string ObterCaminhoArmamento()

@@ -17,7 +17,7 @@ namespace NFeFacil.ViewDadosBase
 
         public GerenciarCompradores()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             using (var db = new AplicativoContext())
             {
                 var original = db.Compradores.Where(x => x.Ativo).OrderBy(x => x.Nome).ToArray();

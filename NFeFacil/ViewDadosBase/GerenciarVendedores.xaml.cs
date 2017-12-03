@@ -18,7 +18,7 @@ namespace NFeFacil.ViewDadosBase
 
         public GerenciarVendedores()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             using (var db = new AplicativoContext())
             {
                 var vendedores = db.Vendedores.Where(x => x.Ativo).ToArray();

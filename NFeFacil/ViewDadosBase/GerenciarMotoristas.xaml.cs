@@ -17,7 +17,7 @@ namespace NFeFacil.ViewDadosBase
 
         public GerenciarMotoristas()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             using (var db = new AplicativoContext())
             {
                 Motoristas = db.Motoristas.Where(x => x.Ativo).OrderBy(x => x.Nome).GerarObs();

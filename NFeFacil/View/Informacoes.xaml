@@ -73,32 +73,35 @@
             <TextBlock Style="{StaticResource TitleTextBlockStyle}">Versão atual</TextBlock>
             <RichTextBlock>
                 <Paragraph>
-                    <Bold>Anel: </Bold>
+                    <Bold>Anel:</Bold>
                     <Run>Público</Run>
                 </Paragraph>
                 <Paragraph>
-                    <Bold>Número: </Bold>
+                    <Bold>Número:</Bold>
                     <Run>1.6</Run>
                 </Paragraph>
                 <Paragraph>
-                    <Bold>Compilação: </Bold>
+                    <Bold>Compilação:</Bold>
                     <Run>2</Run>
                 </Paragraph>
             </RichTextBlock>
-            <!--<TextBlock Style="{StaticResource TitleTextBlockStyle}">Ajude o desenvolvedor</TextBlock>
-            <GridView Style="{StaticResource ItensMediosGrid}">
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}">Ajude o desenvolvedor</TextBlock>
+            <GridView Style="{StaticResource ItensMediosGrid}"
+                      x:Name="grdCompra">
                 <controles:ItemPadraoSimples Titulo="10 reais"
-                                             Descricao="Ajude meu trabalho com essa pequena quantia">
+                                             Descricao="Ajude meu trabalho com essa pequena quantia"
+                                             Tapped="Doar10">
                     <FontIcon FontFamily="Segoe UI"
                               Glyph="10" />
                 </controles:ItemPadraoSimples>
                 <controles:ItemPadraoSimples Titulo="25 reais"
-                                             Descricao="Contribua com essa quantia maior">
+                                             Descricao="Contribua com essa quantia maior"
+                                             Tapped="Doar25">
                     <FontIcon FontFamily="Segoe UI"
                               Glyph="25" />
                 </controles:ItemPadraoSimples>
             </GridView>
-            <TextBlock Style="{StaticResource BodyTextBlockStyle}"><Bold>Atenção: </Bold><Run>Doações para o desenvolvedor não garantem nenhum recurso especial ou libera qualquer adicional pago do aplicativo.</Run></TextBlock>-->
+            <TextBlock Style="{StaticResource BodyTextBlockStyle}"><Bold>Atenção: </Bold><Run>Doações para o desenvolvedor não garantem nenhum recurso especial ou libera qualquer adicional pago do aplicativo.</Run></TextBlock>
         </StackPanel>
     </ScrollViewer>
 </Page>

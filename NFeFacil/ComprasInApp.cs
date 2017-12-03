@@ -1,5 +1,6 @@
 ﻿using NFeFacil.Log;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.Services.Store;
 
@@ -52,10 +53,19 @@ namespace NFeFacil
             }
         }
 
+        public async Task<bool> Comprar()
+        {
+            var prod = await ObterProduto();
+            StoreContext storeContext = StoreContext.GetDefault();
+            var resultadoAquisicao = await storeContext.RequestPurchaseAsync(prod.StoreId);
+            return Comprado = resultadoAquisicao.Status == StorePurchaseStatus.Succeeded
+                || resultadoAquisicao.Status == StorePurchaseStatus.AlreadyPurchased;
+        }
+
         async Task<StoreProduct> ObterProduto()
         {
             StoreContext storeContext = StoreContext.GetDefault();
-            string[] productKinds = new string[] { "Consumable", "Durable", "UnmanagedConsumable" };
+            string[] productKinds = new string[] { "Consumable", "Durable" };
             StoreProductQueryResult addOns = await storeContext.GetAssociatedStoreProductsAsync(productKinds);
             foreach (var item in addOns.Products.Values)
             {

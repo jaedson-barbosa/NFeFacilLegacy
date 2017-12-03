@@ -1,4 +1,4 @@
-﻿namespace Comum.Primitivos
+﻿namespace NFeFacil.Primitivos
 {
     public struct CertificadoExibicao
     {

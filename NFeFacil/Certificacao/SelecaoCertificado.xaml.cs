@@ -1,4 +1,4 @@
-﻿using Comum.Primitivos;
+﻿using NFeFacil.Primitivos;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;

@@ -1,4 +1,4 @@
-﻿using Comum.Pacotes;
+﻿using ServidorCertificacao.Pacotes;
 using ServidorCertificacao.PartesAssinatura;
 using System;
 using System.IO;
@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using System.Xml;
-using Comum.Primitivos;
+using ServidorCertificacao.Primitivos;
 
 namespace ServidorCertificacao
 {

@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using Comum.Pacotes;
+using ServidorCertificacao.Pacotes;
 using System;
 using System.Collections.Generic;
 using System.Linq;

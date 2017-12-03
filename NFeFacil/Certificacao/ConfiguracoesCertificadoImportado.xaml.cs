@@ -1,4 +1,4 @@
-﻿using Comum.Primitivos;
+﻿using NFeFacil.Primitivos;
 using System;
 using System.Collections.ObjectModel;
 using System.Security.Cryptography.X509Certificates;

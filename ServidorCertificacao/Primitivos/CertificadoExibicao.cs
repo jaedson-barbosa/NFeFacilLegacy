@@ -1,4 +1,4 @@
-﻿namespace Comum.Primitivos
+﻿namespace ServidorCertificacao.Primitivos
 {
     public struct CertificadoExibicao
     {

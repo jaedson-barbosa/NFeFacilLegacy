@@ -1,7 +1,7 @@
-﻿using Comum.Primitivos;
+﻿using ServidorCertificacao.Primitivos;
 using System.Security.Cryptography.X509Certificates;
 
-namespace Comum.Pacotes
+namespace ServidorCertificacao.Pacotes
 {
     public struct CertificadoAssinaturaDTO
     {

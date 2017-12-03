@@ -1,5 +1,5 @@
 ﻿using NFeFacil.Certificacao;
-using Comum.Pacotes;
+using NFeFacil.Pacotes;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;

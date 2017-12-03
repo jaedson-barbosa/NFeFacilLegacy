@@ -1,6 +1,6 @@
 ﻿using System.Security.Cryptography;
 
-namespace Comum.Primitivos
+namespace ServidorCertificacao.Primitivos
 {
     public struct CertificadoAssinatura
     {

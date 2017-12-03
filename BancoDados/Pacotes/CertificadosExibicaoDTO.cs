@@ -1,7 +1,7 @@
-﻿using Comum.Primitivos;
+﻿using NFeFacil.Primitivos;
 using System.Collections.Generic;
 
-namespace Comum.Pacotes
+namespace NFeFacil.Pacotes
 {
     public struct CertificadosExibicaoDTO
     {

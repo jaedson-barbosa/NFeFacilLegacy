@@ -1,7 +1,7 @@
-﻿using Comum.Primitivos;
+﻿using ServidorCertificacao.Primitivos;
 using System.Collections.Generic;
 
-namespace Comum.Pacotes
+namespace ServidorCertificacao.Pacotes
 {
     public struct CertificadosExibicaoDTO
     {

@@ -5,7 +5,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Xml.Linq;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Navigation;
 using System.Globalization;
 using LiveCharts;
 using LiveCharts.Uwp;

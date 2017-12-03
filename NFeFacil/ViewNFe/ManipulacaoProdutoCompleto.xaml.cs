@@ -134,7 +134,7 @@ namespace NFeFacil.ViewNFe
             new ItemHambuguer(Symbol.Target, "Produto específico")
         };
 
-        public void AtualizarMain(int index) => main.SelectedIndex = index;
+        public int SelectedIndex { set => main.SelectedIndex = value; }
 
         private void Concluir_Click(object sender, RoutedEventArgs e)
         {

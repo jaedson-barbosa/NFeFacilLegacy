@@ -11,6 +11,7 @@ using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Navigation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x416
 
@@ -160,7 +161,6 @@ namespace NFeFacil
             }
             else if (familia.Contains("Desktop"))
             {
-                Window.Current.CoreWindow.KeyDown += (x, y) => System.Diagnostics.Debug.WriteLine(y.VirtualKey);
                 CoreApplicationViewTitleBar tb = CoreApplication.GetCurrentView().TitleBar;
                 tb.ExtendViewIntoTitleBar = true;
                 tb.LayoutMetricsChanged += (sender, e) => TitleBar.Height = sender.Height;
@@ -179,24 +179,6 @@ namespace NFeFacil
         public void Navegar<T>(object parametro = null) where T : Page
         {
             frmPrincipal.Navigate(typeof(T), parametro);
-            var pag = PaginasPrincipais.Lista[typeof(T)];
-            txtTitulo.Text = pag.Titulo;
-            symTitulo.Content = pag.ObterIcone();
-        }
-
-        public void AnalisarMenuHamburguer()
-        {
-            if (frmPrincipal.Content is IHambuguer hambuguer)
-            {
-                menuTemporario.ItemsSource = hambuguer.ConteudoMenu;
-                menuTemporario.SelectedIndex = 0;
-                splitView.CompactPaneLength = 48;
-            }
-            else
-            {
-                menuTemporario.ItemsSource = null;
-                splitView.CompactPaneLength = 0;
-            }
         }
 
         public async void Retornar(bool suprimirValidacao = false)
@@ -227,12 +209,9 @@ namespace NFeFacil
 
         private void MudouSubpaginaEscolhida(object sender, SelectionChangedEventArgs e)
         {
-            if (menuTemporario.ItemsSource != null)
+            if (frmPrincipal.Content is IHambuguer hamb)
             {
-                if (frmPrincipal.Content is IHambuguer hamb)
-                {
-                    hamb.AtualizarMain(menuTemporario.SelectedIndex);
-                }
+                hamb.SelectedIndex = menuTemporario.SelectedIndex;
             }
         }
 
@@ -262,6 +241,26 @@ namespace NFeFacil
                 {
                     txtNomeVendedor.Text = "Administrador";
                 }
+            }
+        }
+
+        private void NavegacaoConcluida(object sender, NavigationEventArgs e)
+        {
+            var navegada = e.Content;
+            var pag = PaginasPrincipais.Lista[navegada.GetType()];
+            txtTitulo.Text = pag.Titulo;
+            symTitulo.Content = pag.ObterIcone();
+
+            if (navegada is IHambuguer hambuguer)
+            {
+                menuTemporario.ItemsSource = hambuguer.ConteudoMenu;
+                menuTemporario.SelectedIndex = 0;
+                splitView.CompactPaneLength = 48;
+            }
+            else
+            {
+                menuTemporario.ItemsSource = null;
+                splitView.CompactPaneLength = 0;
             }
         }
     }

@@ -137,7 +137,8 @@
                            VerticalAlignment="Stretch" />
                 <Frame Name="frmPrincipal"
                        Grid.Column="1"
-                       Canvas.ZIndex="1">
+                       Canvas.ZIndex="1"
+                       Navigated="NavegacaoConcluida">
                     <Frame.Background>
                         <SolidColorBrush x:Name="backgroundFrame"
                                          Color="{Binding Color, Source={ThemeResource ApplicationPageBackgroundThemeBrush}}" />

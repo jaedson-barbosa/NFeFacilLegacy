@@ -39,7 +39,7 @@ namespace NFeFacil.Controles
             }
             set
             {
-                if (grdPrincipal.Children.Count > value)
+                if (grdPrincipal.Children.Count > value && value >= 0)
                 {
                     var index = SelectedIndex;
                     if (index != -1)

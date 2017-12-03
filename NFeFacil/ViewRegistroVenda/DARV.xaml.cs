@@ -1,7 +1,6 @@
 ﻿using System;
 using NFeFacil.ItensBD;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Data;
 using static NFeFacil.ExtensoesPrincipal;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;

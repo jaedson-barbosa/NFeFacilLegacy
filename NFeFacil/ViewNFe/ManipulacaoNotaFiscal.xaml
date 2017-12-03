@@ -5,14 +5,13 @@
       xmlns:controles="using:NFeFacil.Controles"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      mc:Ignorable="d"
-      x:Name="root">
+      mc:Ignorable="d">
     <Page.Resources>
         <VM:DadosEstadosParaView x:Key="estados" />
         <VM:StringToDateTime x:Key="data" />
         <VM:NumeroString x:Key="numStr" />
     </Page.Resources>
-    <controles:MultView x:Name="pvtPrincipal">
+    <controles:MultView x:Name="main">
         <Pivot Margin="16">
             <PivotItem Header="NFe">
                 <ScrollViewer>

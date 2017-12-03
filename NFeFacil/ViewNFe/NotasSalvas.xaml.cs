@@ -7,7 +7,6 @@ using System.Xml.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Navigation;
 using NFeFacil.Controles;
 using System.Xml.Serialization;
 using NFeFacil.Log;
@@ -48,11 +47,6 @@ namespace NFeFacil.ViewNFe
                                orderby nota.DataEmissao descending
                                select nota).GerarObs();
             }
-        }
-
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            MainPage.Current.AnalisarMenuHamburguer();
         }
 
         ObservableCollection<NFeDI> NotasEmitidas { get; }
@@ -161,7 +155,7 @@ namespace NFeFacil.ViewNFe
             }
         }
 
-        public void AtualizarMain(int index) => main.SelectedIndex = index;
+        public int SelectedIndex { set => main.SelectedIndex = value; }
 
         [XmlRoot("procEventoNFe", Namespace = "http://www.portalfiscal.inf.br/nfe")]
         public struct ProcEventoCancelamento

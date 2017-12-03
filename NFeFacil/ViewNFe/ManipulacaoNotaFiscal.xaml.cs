@@ -54,7 +54,7 @@ namespace NFeFacil.ViewNFe
             return usarDark ? "ms-appx:///Assets/CanaAcucarDark.png" : "ms-appx:///Assets/CanaAcucar.png";
         }
 
-        public void AtualizarMain(int index) => pvtPrincipal.SelectedIndex = index;
+        public int SelectedIndex { set => main.SelectedIndex = value; }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {

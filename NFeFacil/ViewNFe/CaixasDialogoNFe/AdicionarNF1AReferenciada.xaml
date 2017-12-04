@@ -4,35 +4,31 @@
                xmlns:VM="using:NFeFacil.ViewModel"
                xmlns:controles="using:NFeFacil.Controles"
                xmlns:conversores="using:NFeFacil.ViewModel"
-               xmlns:caminho="using:NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesIdentificacao"
                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                mc:Ignorable="d"
                Title="Adicionar NF referenciada"
                PrimaryButtonText="Adicionar"
                SecondaryButtonText="Cancelar">
-    <ContentDialog.DataContext>
-        <caminho:NF1AReferenciada />
-    </ContentDialog.DataContext>
     <ContentDialog.Resources>
         <conversores:StringToDateTime x:Key="data" />
     </ContentDialog.Resources>
     <StackPanel>
         <ComboBox ItemsSource="{x:Bind VM:DadosEstadosParaView.EstadosCompletos}"
-                  SelectedValue="{Binding CUF, Mode=TwoWay}"
+                  SelectedValue="{x:Bind Contexto.CUF, Mode=TwoWay}"
                   SelectedValuePath="Codigo"
                   DisplayMemberPath="Nome"
                   HorizontalAlignment="Stretch" />
-        <DatePicker Date="{Binding AAMM, Mode=TwoWay, Converter={StaticResource data}, ConverterParameter='yyMM'}"
+        <DatePicker Date="{x:Bind Contexto.AAMM, Mode=TwoWay, Converter={StaticResource data}, ConverterParameter='yyMM'}"
                     DayVisible="False" />
-        <controles:EntradaNumerica Format="14"
+        <controles:EntradaRestrita Pattern="[^\d]"
                                    Header="CNPJ"
-                                   Number="{Binding CNPJ, Mode=TwoWay}" />
+                                   Text="{x:Bind Contexto.CNPJ, Mode=TwoWay}" />
         <controles:EntradaNumerica Format="3"
                                    Header="Serie"
-                                   Number="{Binding Serie, Mode=TwoWay}" />
+                                   Number="{x:Bind Contexto.Serie, Mode=TwoWay}" />
         <controles:EntradaNumerica Format="9"
                                    Header="Numero"
-                                   Number="{Binding NNF, Mode=TwoWay}" />
+                                   Number="{x:Bind Contexto.NNF, Mode=TwoWay}" />
     </StackPanel>
 </ContentDialog>

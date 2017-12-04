@@ -2,21 +2,17 @@
                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                xmlns:controles="using:NFeFacil.Controles"
-               xmlns:detalhes="using:NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes"
                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                mc:Ignorable="d"
                Title="Adicionar dedução"
                PrimaryButtonText="Adicionar"
                SecondaryButtonText="Cancelar">
-    <ContentDialog.DataContext>
-        <detalhes:Deducoes />
-    </ContentDialog.DataContext>
     <StackPanel>
-        <TextBox Text="{Binding XDed, Mode=TwoWay}"
+        <TextBox Text="{x:Bind Contexto.XDed, Mode=TwoWay}"
                  Header="Descrição" />
         <controles:EntradaNumerica Format="13:2"
-                                   Number="{Binding VDed, Mode=TwoWay}"
+                                   Number="{x:Bind Contexto.VDed, Mode=TwoWay}"
                                    Header="Valor" />
     </StackPanel>
 </ContentDialog>

@@ -158,7 +158,7 @@ namespace NFeFacil.DANFE
                 retorno.NumeroVolume = transp.Vol[0].NVol;
                 retorno.PesoBrutoVolume = transp.Vol[0].PesoB.ToString("N3");
                 retorno.PesoLiquidoVolume = transp.Vol[0].PesoL.ToString("N3");
-                retorno.QuantidadeVolume = transp.Vol[0].QVol.ToString("N3");
+                retorno.QuantidadeVolume = transp.Vol[0].QVol != null ? long.Parse(transp.Vol[0].QVol).ToString("N3") : string.Empty;
             }
             else
             {
@@ -167,7 +167,7 @@ namespace NFeFacil.DANFE
                 retorno.NumeroVolume = string.Empty;
                 retorno.PesoBrutoVolume = transp.Vol.Sum(x => x.PesoB).ToString("N3");
                 retorno.PesoLiquidoVolume = transp.Vol.Sum(x => x.PesoL).ToString("N3");
-                retorno.QuantidadeVolume = transp.Vol.Sum(x => x.QVol).ToString("N3");
+                retorno.QuantidadeVolume = transp.Vol.Sum(x => x.QVol != null ? long.Parse(x.QVol) : 0).ToString("N3");
             }
 
             switch (transp.ModFrete)

@@ -27,7 +27,7 @@ namespace NFeFacil.ViewNFe.CaixasEspeciaisProduto
             var caixa = new CaixasDialogoProduto.AdicionarArmamento();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
-                var novoArmamento = (Arma)caixa.DataContext;
+                var novoArmamento = caixa.Contexto;
                 Armas.Add(novoArmamento);
             }
         }

@@ -9,27 +9,30 @@ namespace NFeFacil.ViewNFe.CaixasDialogoNFe
 {
     public sealed partial class AdicionarVolume : ContentDialog
     {
-        public Volume vol => DataContext as Volume;
+        public Volume Contexto { get; } = new Volume();
+        ObservableCollection<Lacre> Lacres { get; } = new ObservableCollection<Lacre>();
+
         public AdicionarVolume()
         {
             InitializeComponent();
-            DataContext = new Volume();
         }
 
-        private void btnAddLacre_Click(object sender, RoutedEventArgs e)
+        private void AdicionarLacre(object sender, RoutedEventArgs e)
         {
-            vol.Lacres.Add(new Lacre { NLacre = intLacre.Text });
-            lstLacres.ItemsSource = new ObservableCollection<Lacre>(vol.Lacres);
+            var novo = new Lacre { NLacre = intLacre.Text };
+            Contexto.Lacres.Add(novo);
+            Lacres.Add(novo);
             intLacre.Text = "";
         }
 
-        private void btnDelLacre_Click(object sender, RoutedEventArgs e)
+        private void DeletarLacre(object sender, RoutedEventArgs e)
         {
-            if (lstLacres.SelectedIndex != -1)
-            {
-                vol.Lacres.RemoveAt(lstLacres.SelectedIndex);
-                lstLacres.ItemsSource = new ObservableCollection<Lacre>(vol.Lacres);
-            }
+            var contexto = ((FrameworkElement)sender).DataContext;
+            var lacre = (Lacre)contexto;
+            var index = Lacres.IndexOf(lacre);
+
+            Contexto.Lacres.RemoveAt(index);
+            Lacres.RemoveAt(index);
         }
     }
 }

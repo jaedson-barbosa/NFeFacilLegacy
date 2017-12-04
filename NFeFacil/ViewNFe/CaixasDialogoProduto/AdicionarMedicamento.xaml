@@ -13,17 +13,17 @@
         <contexto:Medicamento />
     </ContentDialog.DataContext>
     <ItemsControl Style="{StaticResource ItensResponsivos}">
-        <TextBox Text="{Binding NLote, Mode=TwoWay}"
+        <TextBox Text="{x:Bind Contexto.NLote, Mode=TwoWay}"
                  Header="Número do Lote" />
         <controles:EntradaNumerica Format="8:3"
-                                   Number="{Binding QLote, Mode=TwoWay}"
+                                   Number="{x:Bind Contexto.QLote, Mode=TwoWay}"
                                    Header="Quantidade no lote" />
-        <DatePicker Date="{Binding DFab, Converter={StaticResource data}, ConverterParameter='yyyy-MM-dd', Mode=TwoWay}"
+        <DatePicker Date="{x:Bind Contexto.DFab, Converter={StaticResource data}, ConverterParameter='yyyy-MM-dd', Mode=TwoWay}"
                     Header="Data de fabricação" />
-        <DatePicker Date="{Binding DVal, Converter={StaticResource data}, ConverterParameter='yyyy-MM-dd', Mode=TwoWay}"
+        <DatePicker Date="{x:Bind Contexto.DVal, Converter={StaticResource data}, ConverterParameter='yyyy-MM-dd', Mode=TwoWay}"
                     Header="Data de validade" />
         <controles:EntradaNumerica Format="13:2"
-                                   Number="{Binding VPMC,Mode=TwoWay}"
+                                   Number="{x:Bind Contexto.VPMC,Mode=TwoWay}"
                                    Header="Preço máximo consumidor" />
     </ItemsControl>
 </ContentDialog>

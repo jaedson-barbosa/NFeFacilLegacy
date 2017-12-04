@@ -455,10 +455,9 @@ namespace NFeFacil.ViewNFe
             var caixa = new AdicionarNF1AReferenciada();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
-                var contexto = (NF1AReferenciada)caixa.DataContext;
                 var novo = new DocumentoFiscalReferenciado
                 {
-                    RefNF = contexto
+                    RefNF = caixa.Contexto
                 };
                 NotaSalva.Informacoes.identificacao.DocumentosReferenciados.Add(novo);
                 NFsReferenciadas.Add(novo);
@@ -483,7 +482,7 @@ namespace NFeFacil.ViewNFe
             var add = new AdicionarReboque();
             if (await add.ShowAsync() == ContentDialogResult.Primary)
             {
-                var novo = add.DataContext as Reboque;
+                var novo = add.Contexto;
                 NotaSalva.Informacoes.transp.Reboque.Add(novo);
                 Reboques.Add(novo);
             }
@@ -500,7 +499,7 @@ namespace NFeFacil.ViewNFe
             var add = new AdicionarVolume();
             if (await add.ShowAsync() == ContentDialogResult.Primary)
             {
-                var novo = add.DataContext as Volume;
+                var novo = add.Contexto;
                 NotaSalva.Informacoes.transp.Vol.Add(novo);
                 Volumes.Add(novo);
             }
@@ -517,7 +516,7 @@ namespace NFeFacil.ViewNFe
             var caixa = new AdicionarDuplicata();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
-                var novo = caixa.DataContext as Duplicata;
+                var novo = caixa.Contexto;
                 NotaSalva.Informacoes.cobr.Dup.Add(novo);
                 Duplicatas.Add(novo);
             }
@@ -534,7 +533,7 @@ namespace NFeFacil.ViewNFe
             var caixa = new AdicionarFornecimentoDiario();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
-                var novo = caixa.DataContext as FornecimentoDiario;
+                var novo = caixa.Contexto;
                 NotaSalva.Informacoes.cana.ForDia.Add(novo);
                 FornecimentosDiarios.Add(novo);
             }
@@ -551,7 +550,7 @@ namespace NFeFacil.ViewNFe
             var caixa = new AdicionarDeducao();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
-                var novo = caixa.DataContext as Deducoes;
+                var novo = caixa.Contexto;
                 NotaSalva.Informacoes.cana.Deduc.Add(novo);
                 Deducoes.Add(novo);
             }
@@ -568,7 +567,7 @@ namespace NFeFacil.ViewNFe
             var caixa = new AdicionarObservacaoContribuinte();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
-                var novo = (Observacao)caixa.DataContext;
+                var novo = caixa.Contexto;
                 NotaSalva.Informacoes.infAdic.ObsCont.Add(novo);
                 Observacoes.Add(novo);
             }

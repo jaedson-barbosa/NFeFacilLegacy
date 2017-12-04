@@ -2,6 +2,7 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:VM="using:NFeFacil.ViewModel"
+      xmlns:db="using:NFeFacil.ItensBD"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
@@ -76,16 +77,16 @@
                         </Grid>
                     </ListView.Header>
                     <ListView.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:DataType="db:VeiculoDI">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="2*" />
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
                                 <TextBlock TextWrapping="Wrap"
-                                           Text="{Binding Descricao, Mode=OneTime}" />
+                                           Text="{x:Bind Descricao}" />
                                 <TextBlock Grid.Column="1"
-                                           Text="{Binding Placa, Mode=OneTime}" />
+                                           Text="{x:Bind Placa}" />
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>

@@ -27,7 +27,7 @@ namespace NFeFacil.ViewNFe.CaixasEspeciaisProduto
             var caixa = new CaixasDialogoProduto.AdicionarMedicamento();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
-                var novoMedicamento = (Medicamento)caixa.DataContext;
+                var novoMedicamento = caixa.Contexto;
                 Medicamentos.Add(novoMedicamento);
             }
         }

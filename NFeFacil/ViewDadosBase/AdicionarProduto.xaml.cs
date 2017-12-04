@@ -33,7 +33,6 @@ namespace NFeFacil.ViewDadosBase
             {
                 Produto = (ProdutoDI)e.Parameter;
             }
-            DataContext = Produto;
         }
 
         private void Confirmar_Click(object sender, RoutedEventArgs e)

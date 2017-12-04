@@ -31,7 +31,7 @@ namespace NFeFacil.DANFE.PaginasDANFE
             PaginasCarregadas?.Invoke(this, null);
         }
 
-        public PaginaPrincipal(NFeFacil.ModeloXML.Processo processo, UIElementCollection paiPaginas)
+        public PaginaPrincipal(ModeloXML.Processo processo, UIElementCollection paiPaginas)
         {
             InitializeComponent();
             var geral = new ViewDados(processo).ObterDadosConvertidos();
@@ -57,7 +57,7 @@ namespace NFeFacil.DANFE.PaginasDANFE
                 total += item.DesiredSize.Height;
                 return total <= maximo;
             });
-            ((FrameworkElement)sender).DataContext = produtosNestaPagina.ToArray();
+            produtosNestaPagina.ToList().ForEach(((PartesDANFE.CampoProdutos)sender).Contexto.Add);
 
             bool excessoProdutos = ContextoGeral._DadosProdutos.Length - produtosNestaPagina.Count() > 0;
             bool excessoObservacao = infoAdicional.CampoObservacoes.HasOverflowContent;
@@ -86,7 +86,7 @@ namespace NFeFacil.DANFE.PaginasDANFE
 
         public void DefinirPagina(int atual, int total)
         {
-            ContextoNFe.DefinirPagina(atual, total);
+            parteDadosNFe.DefinirPagina(atual, total);
         }
     }
 }

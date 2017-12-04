@@ -4,7 +4,7 @@ using Windows.UI.Xaml.Media;
 
 namespace NFeFacil.DANFE.Pacotes
 {
-    public sealed class DadosNFe : INotifyPropertyChanged
+    public sealed class DadosNFe
     {
         public string NomeEmitente { get; set; }
         public string TipoEmissao { get; set; }
@@ -22,15 +22,5 @@ namespace NFeFacil.DANFE.Pacotes
         public string CNPJEmit { get; set; }
         public EnderecoCompleto Endereco { get; set; }
         public ImageSource Logotipo { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void DefinirPagina(int paginaAtual, int total)
-        {
-            PaginaAtual = paginaAtual.ToString();
-            QuantPaginas = total.ToString();
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PaginaAtual)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(QuantPaginas)));
-        }
     }
 }

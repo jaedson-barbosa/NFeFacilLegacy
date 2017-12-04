@@ -31,7 +31,7 @@
                 <StackPanel Padding="{StaticResource PaddingPadrao}">
                     <TextBlock Style="{StaticResource Cabecalho}">BASE DE CÁLCULO DO ICMS</TextBlock>
                     <TextBlock Style="{StaticResource ConteudoNumerico}"
-                               Text="{Binding BaseCalculoICMS}" />
+                               Text="{x:Bind Contexto.BaseCalculoICMS}" />
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="1"
@@ -39,13 +39,13 @@
                             BorderBrush="Black">
                     <TextBlock Style="{StaticResource Cabecalho}">VALOR DO ICMS</TextBlock>
                     <TextBlock Style="{StaticResource ConteudoNumerico}"
-                               Text="{Binding ValorICMS}" />
+                               Text="{x:Bind Contexto.ValorICMS}" />
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="2">
                     <TextBlock Style="{StaticResource Cabecalho}">BASE DE CÁLCULO DO ICMS ST</TextBlock>
                     <TextBlock Style="{StaticResource ConteudoNumerico}"
-                               Text="{Binding BaseCalculoICMSST}" />
+                               Text="{x:Bind Contexto.BaseCalculoICMSST}" />
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="3"
@@ -53,13 +53,13 @@
                             BorderBrush="Black">
                     <TextBlock Style="{StaticResource Cabecalho}">VALOR DO ICMS ST</TextBlock>
                     <TextBlock Style="{StaticResource ConteudoNumerico}"
-                               Text="{Binding ValorICMSST}" />
+                               Text="{x:Bind Contexto.ValorICMSST}" />
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="4">
                     <TextBlock Style="{StaticResource Cabecalho}">VALOR TOTAL DOS PRODUTOS</TextBlock>
                     <TextBlock Style="{StaticResource ConteudoNumerico}"
-                               Text="{Binding ValorTotalProdutos}" />
+                               Text="{x:Bind Contexto.ValorTotalProdutos}" />
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="1">
@@ -76,13 +76,13 @@
                             BorderBrush="Black">
                     <TextBlock Style="{StaticResource Cabecalho}">VALOR DO FRETE</TextBlock>
                     <TextBlock Style="{StaticResource ConteudoNumerico}"
-                               Text="{Binding ValorFrete}" />
+                               Text="{x:Bind Contexto.ValorFrete}" />
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="1">
                     <TextBlock Style="{StaticResource Cabecalho}">VALOR DO SEGURO</TextBlock>
                     <TextBlock Style="{StaticResource ConteudoNumerico}"
-                               Text="{Binding ValorSeguro}" />
+                               Text="{x:Bind Contexto.ValorSeguro}" />
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="2"
@@ -90,13 +90,13 @@
                             BorderBrush="Black">
                     <TextBlock Style="{StaticResource Cabecalho}">DESCONTO</TextBlock>
                     <TextBlock Style="{StaticResource ConteudoNumerico}"
-                               Text="{Binding Desconto}" />
+                               Text="{x:Bind Contexto.Desconto}" />
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="3">
                     <TextBlock Style="{StaticResource Cabecalho}">OUTRAS DESPESAS ACESSÓRIAS</TextBlock>
                     <TextBlock Style="{StaticResource ConteudoNumerico}"
-                               Text="{Binding DespesasAcessorias}" />
+                               Text="{x:Bind Contexto.DespesasAcessorias}" />
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="4"
@@ -104,13 +104,13 @@
                             BorderBrush="Black">
                     <TextBlock Style="{StaticResource Cabecalho}">VALOR DO IPI</TextBlock>
                     <TextBlock Style="{StaticResource ConteudoNumerico}"
-                               Text="{Binding ValorIPI}" />
+                               Text="{x:Bind Contexto.ValorIPI}" />
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="5">
                     <TextBlock Style="{StaticResource Cabecalho}">VALOR TOTAL DA NOTA</TextBlock>
                     <TextBlock Style="{StaticResource ConteudoNumerico}"
-                               Text="{Binding TotalNota}" />
+                               Text="{x:Bind Contexto.TotalNota}" />
                 </StackPanel>
             </Grid>
         </Grid>

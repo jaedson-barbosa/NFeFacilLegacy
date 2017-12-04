@@ -19,7 +19,7 @@
                 <RowDefinition Height="{x:Bind Dimensoes.AlturaLinhaPadrao}" />
             </Grid.RowDefinitions>
             <TextBlock Style="{StaticResource Conteudo}"
-                       Text="{Binding}"
+                       Text="{x:Bind Contexto}"
                        VerticalAlignment="Center" />
         </Grid>
     </StackPanel>

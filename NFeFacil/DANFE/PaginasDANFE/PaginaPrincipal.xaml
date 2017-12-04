@@ -15,19 +15,19 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <StackPanel Padding="{x:Bind MargemPadrao}">
-            <partes:Canhoto DataContext="{x:Bind ContextoCanhoto}" />
-            <partes:DadosNFe DataContext="{x:Bind ContextoNFe}" />
-            <partes:CampoCliente DataContext="{x:Bind ContextoCliente}" />
-            <partes:CampoFatura DataContext="{x:Bind ContextoGeral.Fatura}" />
-            <partes:CampoImposto DataContext="{x:Bind ContextoImposto}" />
-            <partes:CampoTransporte DataContext="{x:Bind ContextoTransporte}" />
+            <partes:Canhoto Contexto="{x:Bind ContextoCanhoto}" />
+            <partes:DadosNFe x:Name="parteDadosNFe" Contexto="{x:Bind ContextoNFe}" />
+            <partes:CampoCliente Contexto="{x:Bind ContextoCliente}" />
+            <partes:CampoFatura Contexto="{x:Bind ContextoGeral.Fatura}" />
+            <partes:CampoImposto Contexto="{x:Bind ContextoImposto}" />
+            <partes:CampoTransporte Contexto="{x:Bind ContextoTransporte}" />
             <partes:CampoProdutos Loaded="CampoProdutos_Loaded" />
         </StackPanel>
         <StackPanel Padding="{x:Bind MargemPadrao}"
                     Grid.Row="2">
-            <partes:CampoISSQN DataContext="{x:Bind ContextoISSQN}" />
+            <partes:CampoISSQN Contexto="{x:Bind ContextoISSQN}" />
             <partes:CampoDadosAdicionais x:Name="infoAdicional"
-                                         ContextoComplexo="{x:Bind ContextoDadosAdicionais}" />
+                                         Contexto="{x:Bind ContextoDadosAdicionais}" />
         </StackPanel>
     </Grid>
 </UserControl>

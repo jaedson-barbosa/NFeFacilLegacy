@@ -1,4 +1,5 @@
-﻿using Windows.UI.Xaml;
+﻿using NFeFacil.DANFE.Pacotes;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using static NFeFacil.ExtensoesPrincipal;
 
@@ -23,6 +24,8 @@ namespace NFeFacil.DANFE.PartesDANFE
         GridLength Coluna23 => CentimeterToLength(3.5);
 
         GridLength Coluna3 => CentimeterToLength(3);
+
+        public DadosCliente Contexto { get; set; }
 
         public CampoCliente()
         {

@@ -18,8 +18,10 @@
             <RowDefinition Height="Auto"
                            x:Name="espacoParaInfo" />
         </Grid.RowDefinitions>
-        <partes:DadosNFe DataContext="{x:Bind ContextoNFe}" />
-        <partes:CampoProdutos x:Name="campoProdutos" Grid.Row="1" />
+        <partes:DadosNFe x:Name="parteDadosNFe"
+                         Contexto="{x:Bind ContextoNFe}" />
+        <partes:CampoProdutos x:Name="campoProdutos"
+                              Grid.Row="1" />
         <StackPanel x:Name="geralCampoInfo"
                     Grid.Row="2"
                     BorderThickness="1"

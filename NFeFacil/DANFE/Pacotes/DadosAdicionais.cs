@@ -4,9 +4,9 @@ namespace NFeFacil.DANFE.Pacotes
 {
     public sealed class DadosAdicionais
     {
-        public IList<ItemDadosAdicionais> Itens { get; set; }
+        public List<ItemDadosAdicionais> Itens { get; set; }
         
-        public DadosAdicionais(IList<ItemDadosAdicionais> itens)
+        public DadosAdicionais(List<ItemDadosAdicionais> itens)
         {
             Itens = itens;
         }

@@ -28,7 +28,7 @@
                 <StackPanel Padding="{StaticResource PaddingPadrao}">
                     <TextBlock Style="{StaticResource Cabecalho}">NOME/RAZÃO SOCIAL</TextBlock>
                     <TextBlock Style="{StaticResource Conteudo}"
-                               Text="{Binding NomeCliente}" />
+                               Text="{x:Bind Contexto.NomeCliente}" />
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="1"
@@ -36,13 +36,13 @@
                             BorderBrush="Black">
                     <TextBlock Style="{StaticResource Cabecalho}">CNPJ/CPF</TextBlock>
                     <TextBlock Style="{StaticResource Conteudo}"
-                               Text="{Binding DocCliente}" />
+                               Text="{x:Bind Contexto.DocCliente}" />
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="2">
                     <TextBlock Style="{StaticResource Cabecalho}">DATA DA EMISSÃO</TextBlock>
                     <TextBlock Style="{StaticResource Conteudo}"
-                               Text="{Binding DataEmissao}" />
+                               Text="{x:Bind Contexto.DataEmissao}" />
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="1"
@@ -56,7 +56,7 @@
                 </Grid.ColumnDefinitions>
                 <StackPanel Padding="{StaticResource PaddingPadrao}">
                     <TextBlock Style="{StaticResource Cabecalho}">ENDEREÇO</TextBlock>
-                    <TextBlock Style="{StaticResource Conteudo}"><Run Text="{Binding Endereco.Logradouro}" />, <Run Text="{Binding Endereco.Numero}"/></TextBlock>
+                    <TextBlock Style="{StaticResource Conteudo}"><Run Text="{x:Bind Contexto.Endereco.Logradouro}" />, <Run Text="{x:Bind Contexto.Endereco.Numero}"/></TextBlock>
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="1"
@@ -64,7 +64,7 @@
                             BorderBrush="Black">
                     <TextBlock Style="{StaticResource Cabecalho}">BAIRRO/DISTRITO</TextBlock>
                     <TextBlock Style="{StaticResource Conteudo}"
-                               Text="{Binding Endereco.Bairro}"/>
+                               Text="{x:Bind Contexto.Endereco.Bairro}"/>
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="2"
@@ -72,13 +72,13 @@
                             BorderBrush="Black">
                     <TextBlock Style="{StaticResource Cabecalho}">CEP</TextBlock>
                     <TextBlock Style="{StaticResource Conteudo}"
-                               Text="{Binding Endereco.CEP}" />
+                               Text="{x:Bind Contexto.Endereco.CEP}" />
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="3">
                     <TextBlock Style="{StaticResource Cabecalho}">DATA DE ENTRADA/SAÍDA</TextBlock>
                     <TextBlock Style="{StaticResource Conteudo}"
-                               Text="{Binding DataEntradaSaida}" />
+                               Text="{x:Bind Contexto.DataEntradaSaida}" />
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="2">
@@ -92,7 +92,7 @@
                 <StackPanel Padding="{StaticResource PaddingPadrao}">
                     <TextBlock Style="{StaticResource Cabecalho}">MUNICÍPIO</TextBlock>
                     <TextBlock Style="{StaticResource Conteudo}"
-                               Text="{Binding Endereco.NomeMunicipio}" />
+                               Text="{x:Bind Contexto.Endereco.NomeMunicipio}" />
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="1"
@@ -100,13 +100,13 @@
                             BorderBrush="Black">
                     <TextBlock Style="{StaticResource Cabecalho}">FONE/FAX</TextBlock>
                     <TextBlock Style="{StaticResource Conteudo}"
-                               Text="{Binding Endereco.Telefone, TargetNullValue=''}" />
+                               Text="{x:Bind Contexto.Endereco.Telefone, TargetNullValue=''}" />
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="2">
                     <TextBlock Style="{StaticResource Cabecalho}">UF</TextBlock>
                     <TextBlock Style="{StaticResource Conteudo}"
-                               Text="{Binding Endereco.SiglaUF}" />
+                               Text="{x:Bind Contexto.Endereco.SiglaUF}" />
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="3"
@@ -114,13 +114,13 @@
                             BorderBrush="Black">
                     <TextBlock Style="{StaticResource Cabecalho}">INSCRIÇÃO ESTADUAL</TextBlock>
                     <TextBlock Style="{StaticResource Conteudo}"
-                               Text="{Binding IECliente}" />
+                               Text="{x:Bind Contexto.IECliente}" />
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="4">
                     <TextBlock Style="{StaticResource Cabecalho}">HORA DE ENTRADA/SAÍDA</TextBlock>
                     <TextBlock Style="{StaticResource Conteudo}"
-                               Text="{Binding HoraEntradaSaida}" />
+                               Text="{x:Bind Contexto.HoraEntradaSaida}" />
                 </StackPanel>
             </Grid>
         </Grid>

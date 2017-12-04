@@ -34,13 +34,13 @@
                             BorderBrush="Black">
                     <TextBlock Style="{StaticResource Cabecalho}">RAZÃO SOCIAL</TextBlock>
                     <TextBlock Style="{StaticResource Conteudo}"
-                               Text="{Binding NomeMotorista}" />
+                               Text="{x:Bind Contexto.NomeMotorista}" />
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="1">
                     <TextBlock Style="{StaticResource Cabecalho}">FRETE POR CONTA</TextBlock>
                     <TextBlock Style="{StaticResource Conteudo}"
-                               Text="{Binding ModalidadeFrete}" />
+                               Text="{x:Bind Contexto.ModalidadeFrete}" />
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="2"
@@ -48,13 +48,13 @@
                             BorderBrush="Black">
                     <TextBlock Style="{StaticResource Cabecalho}">CÓDIGO ANTT</TextBlock>
                     <TextBlock Style="{StaticResource Conteudo}"
-                               Text="{Binding CodigoANTT}" />
+                               Text="{x:Bind Contexto.CodigoANTT}" />
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="3">
                     <TextBlock Style="{StaticResource Cabecalho}">PLACA DO VEÍCULO</TextBlock>
                     <TextBlock Style="{StaticResource Conteudo}"
-                               Text="{Binding Placa}" />
+                               Text="{x:Bind Contexto.Placa}" />
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="4"
@@ -62,13 +62,13 @@
                             BorderBrush="Black">
                     <TextBlock Style="{StaticResource Cabecalho}">UF</TextBlock>
                     <TextBlock Style="{StaticResource Conteudo}"
-                               Text="{Binding UfPlaca}" />
+                               Text="{x:Bind Contexto.UfPlaca}" />
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="5">
                     <TextBlock Style="{StaticResource Cabecalho}">CNPJ/CPF</TextBlock>
                     <TextBlock Style="{StaticResource Conteudo}"
-                               Text="{Binding DocumentoMotorista}" />
+                               Text="{x:Bind Contexto.DocumentoMotorista}" />
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="1"
@@ -85,13 +85,13 @@
                             BorderBrush="Black">
                     <TextBlock Style="{StaticResource Cabecalho}">ENDEREÇO</TextBlock>
                     <TextBlock Style="{StaticResource Conteudo}"
-                               Text="{Binding EnderecoMotorista}" />
+                               Text="{x:Bind Contexto.EnderecoMotorista}" />
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="1">
                     <TextBlock Style="{StaticResource Cabecalho}">MUNICÍPIO</TextBlock>
                     <TextBlock Style="{StaticResource Conteudo}"
-                               Text="{Binding MunicipioMotorista}" />
+                               Text="{x:Bind Contexto.MunicipioMotorista}" />
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="2"
@@ -99,13 +99,13 @@
                             BorderBrush="Black">
                     <TextBlock Style="{StaticResource Cabecalho}">UF</TextBlock>
                     <TextBlock Style="{StaticResource Conteudo}"
-                               Text="{Binding UfMotorista}" />
+                               Text="{x:Bind Contexto.UfMotorista}" />
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="3">
                     <TextBlock Style="{StaticResource Cabecalho}">INSCRIÇÃO ESTADUAL</TextBlock>
                     <TextBlock Style="{StaticResource Conteudo}"
-                               Text="{Binding IEMotorista}" />
+                               Text="{x:Bind Contexto.IEMotorista}" />
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="2"
@@ -123,13 +123,13 @@
                             BorderBrush="Black">
                     <TextBlock Style="{StaticResource Cabecalho}">QUANTIDADE</TextBlock>
                     <TextBlock Style="{StaticResource Conteudo}"
-                               Text="{Binding QuantidadeVolume}" />
+                               Text="{x:Bind Contexto.QuantidadeVolume}" />
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="1">
                     <TextBlock Style="{StaticResource Cabecalho}">ESPÉCIE</TextBlock>
                     <TextBlock Style="{StaticResource Conteudo}"
-                               Text="{Binding EspecieVolume}" />
+                               Text="{x:Bind Contexto.EspecieVolume}" />
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="2"
@@ -137,13 +137,13 @@
                             BorderBrush="Black">
                     <TextBlock Style="{StaticResource Cabecalho}">MARCA</TextBlock>
                     <TextBlock Style="{StaticResource Conteudo}"
-                               Text="{Binding MarcaVolume}" />
+                               Text="{x:Bind Contexto.MarcaVolume}" />
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="3">
                     <TextBlock Style="{StaticResource Cabecalho}">NUMERAÇÃO</TextBlock>
                     <TextBlock Style="{StaticResource Conteudo}"
-                               Text="{Binding NumeroVolume}" />
+                               Text="{x:Bind Contexto.NumeroVolume}" />
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="4"
@@ -151,13 +151,13 @@
                             BorderBrush="Black">
                     <TextBlock Style="{StaticResource Cabecalho}">PESO BRUTO</TextBlock>
                     <TextBlock Style="{StaticResource Conteudo}"
-                               Text="{Binding PesoBrutoVolume}" />
+                               Text="{x:Bind Contexto.PesoBrutoVolume}" />
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="5">
                     <TextBlock Style="{StaticResource Cabecalho}">PESO LÍQUIDO</TextBlock>
                     <TextBlock Style="{StaticResource Conteudo}"
-                               Text="{Binding PesoLiquidoVolume}" />
+                               Text="{x:Bind Contexto.PesoLiquidoVolume}" />
                 </StackPanel>
             </Grid>
         </Grid>

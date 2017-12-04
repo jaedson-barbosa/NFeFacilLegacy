@@ -28,13 +28,13 @@
                         BorderBrush="Black">
                 <TextBlock Style="{StaticResource Cabecalho}">INSCRIÇÃO MUNICIPAL</TextBlock>
                 <TextBlock Style="{StaticResource Conteudo}"
-                           Text="{Binding IM}" />
+                           Text="{x:Bind Contexto.IM}" />
             </StackPanel>
             <StackPanel Padding="{StaticResource PaddingPadrao}"
                         Grid.Column="1">
                 <TextBlock Style="{StaticResource Cabecalho}">VALOR TOTAL DOS SERVIÇOS</TextBlock>
                 <TextBlock Style="{StaticResource Conteudo}"
-                           Text="{Binding TotalServiços}" />
+                           Text="{x:Bind TotalServicos}" />
             </StackPanel>
             <StackPanel Padding="{StaticResource PaddingPadrao}"
                         Grid.Column="2"
@@ -42,13 +42,13 @@
                         BorderBrush="Black">
                 <TextBlock Style="{StaticResource Cabecalho}">BASE DE CÁLCULO DO ISSQN</TextBlock>
                 <TextBlock Style="{StaticResource Conteudo}"
-                           Text="{Binding BC}" />
+                           Text="{x:Bind Contexto.BC}" />
             </StackPanel>
             <StackPanel Padding="{StaticResource PaddingPadrao}"
                         Grid.Column="3">
                 <TextBlock Style="{StaticResource Cabecalho}">VALOR DO ISSQN</TextBlock>
                 <TextBlock Style="{StaticResource Conteudo}"
-                           Text="{Binding ValorISSQN}" />
+                           Text="{x:Bind Contexto.ValorISSQN}" />
             </StackPanel>
         </Grid>
     </StackPanel>

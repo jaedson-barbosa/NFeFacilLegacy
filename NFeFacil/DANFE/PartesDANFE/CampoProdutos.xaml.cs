@@ -1,4 +1,6 @@
-﻿using System;
+﻿using NFeFacil.DANFE.Pacotes;
+using System;
+using System.Collections.ObjectModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
@@ -12,6 +14,8 @@ namespace NFeFacil.DANFE.PartesDANFE
     {
         DimensoesPadrao Dimensoes { get; } = new DimensoesPadrao();
         DimensoesCampoProdutos DimensoesLocal { get; } = new DimensoesCampoProdutos();
+
+        public ObservableCollection<DadosProduto> Contexto { get; } = new ObservableCollection<DadosProduto>();
 
         public CampoProdutos()
         {

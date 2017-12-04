@@ -6,12 +6,12 @@ namespace NFeFacil.ViewModel
 {
     public sealed class DadosEstadosParaView
     {
-        public ObservableCollection<Estado> EstadosCompletos { get; }
-        public ObservableCollection<string> Siglas { get; }
-        public ObservableCollection<string> SiglasExpandida { get; }
-        public ObservableCollection<string> Nomes { get; }
+        public static ObservableCollection<Estado> EstadosCompletos { get; private set; }
+        public static ObservableCollection<string> Siglas { get; private set; }
+        public static ObservableCollection<string> SiglasExpandida { get; private set; }
+        public static ObservableCollection<string> Nomes { get; private set; }
 
-        public DadosEstadosParaView()
+        public static void Iniciar()
         {
             var estados = Estados.EstadosCache;
             EstadosCompletos = Estados.EstadosCache.GerarObs();

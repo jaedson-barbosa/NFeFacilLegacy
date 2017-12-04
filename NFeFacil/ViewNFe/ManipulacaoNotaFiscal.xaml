@@ -7,7 +7,6 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
     <Page.Resources>
-        <VM:DadosEstadosParaView x:Key="estados" />
         <VM:StringToDateTime x:Key="data" />
         <VM:NumeroString x:Key="numStr" />
     </Page.Resources>
@@ -411,7 +410,7 @@
                     <ItemsControl x:Name="ctrPaiVeiculo" Style="{StaticResource ItensResponsivos}">
                         <TextBox Text="{Binding Placa, Mode=TwoWay}"
                                  Header="Placa" />
-                        <ComboBox ItemsSource="{Binding Source={StaticResource estados}, Path=Siglas}"
+                        <ComboBox ItemsSource="{x:Bind VM:DadosEstadosParaView.Siglas}"
                                   SelectedItem="{Binding UF, Mode=TwoWay}"
                                   Header="Estado"
                                   HorizontalAlignment="Stretch" />
@@ -511,7 +510,7 @@
                         <controles:EntradaNumerica Header="CFOP"
                                                    Format="4"
                                                    Number="{x:Bind CFOP, Mode=TwoWay}" />
-                        <ComboBox ItemsSource="{Binding Source={StaticResource estados}, Path=EstadosCompletos}"
+                        <ComboBox ItemsSource="{x:Bind VM:DadosEstadosParaView.EstadosCompletos}"
                                   SelectedItem="{x:Bind UFEscolhida, Mode=TwoWay}"
                                   DisplayMemberPath="Nome"
                                   Header="Estado"
@@ -687,7 +686,7 @@
         <Pivot Margin="16">
             <PivotItem Header="Exportação">
                 <StackPanel DataContext="{x:Bind NotaSalva.Informacoes.exporta}">
-                    <ComboBox ItemsSource="{Binding Source={StaticResource estados}, Path=Siglas}"
+                    <ComboBox ItemsSource="{x:Bind VM:DadosEstadosParaView.Siglas}"
                               SelectedItem="{Binding UFSaidaPais, Mode=TwoWay}"
                               Header="UF embarque/transposição de fronteira" />
                     <TextBox Text="{Binding XLocExporta, Mode=TwoWay}"

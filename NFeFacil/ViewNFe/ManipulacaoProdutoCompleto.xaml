@@ -17,7 +17,6 @@
                 </ResourceDictionary>
             </ResourceDictionary.ThemeDictionaries>
             <VM:StringToDateTime x:Key="data" />
-            <VM:DadosEstadosParaView x:Key="estados" />
         </ResourceDictionary>
     </Page.Resources>
     <controles:MultView x:Name="main"

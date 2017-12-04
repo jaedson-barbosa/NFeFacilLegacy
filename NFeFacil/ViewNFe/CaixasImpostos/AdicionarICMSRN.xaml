@@ -1,16 +1,13 @@
 ﻿<ContentDialog x:Class="NFeFacil.ViewNFe.CaixasImpostos.AdicionarICMSRN"
                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-               xmlns:vm="using:NFeFacil.ViewModel"
+               xmlns:VM="using:NFeFacil.ViewModel"
                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                mc:Ignorable="d"
                Title="ICMS Regime Normal"
                PrimaryButtonText="Adicionar"
                SecondaryButtonText="Cancelar">
-    <ContentDialog.Resources>
-        <vm:DadosEstadosParaView x:Key="estados" />
-    </ContentDialog.Resources>
     <ScrollViewer>
         <StackPanel>
             <ItemsControl Style="{StaticResource ItensResponsivos}">
@@ -81,7 +78,7 @@
                          Header="% BC operação própria"
                          InputScope="Number" />
                 <ComboBox IsEnabled="{x:Bind NormalICMSPart}"
-                          ItemsSource="{Binding SiglasExpandida, Source={StaticResource estados}}"
+                          ItemsSource="{x:Bind VM:DadosEstadosParaView.SiglasExpandida}"
                           SelectedValue="{x:Bind UFST, Mode=TwoWay}" />
             </ItemsControl>
             <TextBlock Text="ICMS ST"

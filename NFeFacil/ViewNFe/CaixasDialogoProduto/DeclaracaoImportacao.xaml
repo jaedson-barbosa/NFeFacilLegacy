@@ -3,7 +3,7 @@
                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                xmlns:controles="using:NFeFacil.Controles"
                xmlns:local="using:NFeFacil.ViewNFe.CaixasDialogoProduto"
-               xmlns:VMRoot="using:NFeFacil.ViewModel"
+               xmlns:VM="using:NFeFacil.ViewModel"
                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                mc:Ignorable="d"
@@ -12,7 +12,6 @@
                SecondaryButtonText="Cancelar">
     <ContentDialog.Resources>
         <ResourceDictionary>
-            <VMRoot:DadosEstadosParaView x:Key="estados" />
             <Style TargetType="ItemsControl"
                    BasedOn="{StaticResource ItensResponsivos}" />
         </ResourceDictionary>
@@ -64,7 +63,7 @@
         </PivotItem>
         <PivotItem Header="Desembaraço aduaneiro">
             <ItemsControl>
-                <ComboBox ItemsSource="{Binding Source={StaticResource estados}, Path=Siglas}"
+                <ComboBox ItemsSource="{x:Bind VM:DadosEstadosParaView.Siglas}"
                           SelectedItem="{x:Bind Path=Declaracao.UFDesemb, Mode=TwoWay}"
                           Header="UF"
                           HorizontalAlignment="Stretch" />
@@ -78,7 +77,7 @@
         </PivotItem>
         <PivotItem Header="Adquirente ou encomendante">
             <ItemsControl>
-                <ComboBox ItemsSource="{Binding Source={StaticResource estados}, Path=Siglas}"
+                <ComboBox ItemsSource="{x:Bind VM:DadosEstadosParaView.Siglas}"
                           SelectedItem="{x:Bind Path=Declaracao.UFTerceiro, Mode=TwoWay}"
                           Header="UF"
                           HorizontalAlignment="Stretch" />

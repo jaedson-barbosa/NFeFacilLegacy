@@ -12,13 +12,10 @@
     <ContentDialog.DataContext>
         <detalhes:Reboque />
     </ContentDialog.DataContext>
-    <ContentDialog.Resources>
-        <VM:DadosEstadosParaView x:Key="estados" />
-    </ContentDialog.Resources>
     <StackPanel>
         <TextBox Text="{Binding Placa, Mode=TwoWay}"
                  Header="Placa" />
-        <ComboBox ItemsSource="{Binding Source={StaticResource estados}, Path=Siglas}"
+        <ComboBox ItemsSource="{x:Bind VM:DadosEstadosParaView.Siglas}"
                   SelectedItem="{Binding Path=UF, Mode=TwoWay}"
                   Header="Estado"
                   HorizontalAlignment="Stretch" />

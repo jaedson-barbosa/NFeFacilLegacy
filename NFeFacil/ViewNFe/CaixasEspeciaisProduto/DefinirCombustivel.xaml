@@ -6,9 +6,6 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
-    <Page.Resources>
-        <vm:DadosEstadosParaView x:Key="estados" />
-    </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -33,7 +30,7 @@
             <controles:EntradaRestrita Pattern="[^\d.,]"
                                        Text="{x:Bind Comb.PMixGN, Mode=TwoWay}"
                                        Header="Quantidade de gás natural" />
-            <ComboBox ItemsSource="{Binding Source={StaticResource estados}, Path=Siglas}"
+            <ComboBox ItemsSource="{x:Bind VM:DadosEstadosParaView.Siglas}"
                       SelectedItem="{x:Bind Comb.UFCons, Mode=TwoWay}"
                       Header="UF *"
                       HorizontalAlignment="Stretch"

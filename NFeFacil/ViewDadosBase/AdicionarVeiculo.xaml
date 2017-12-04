@@ -9,14 +9,11 @@
                PrimaryButtonText="Concluir"
                SecondaryButtonText="Cancelar"
                PrimaryButtonClick="ContentDialog_PrimaryButtonClick">
-    <ContentDialog.Resources>
-        <VM:DadosEstadosParaView x:Key="estados" />
-    </ContentDialog.Resources>
     <StackPanel>
         <TextBox Header="Descrição breve"
                  TextWrapping="Wrap"
                  Text="{x:Bind Item.Descricao, Mode=TwoWay}" />
-        <ComboBox ItemsSource="{Binding EstadosCompletos, Source={StaticResource estados}}"
+        <ComboBox ItemsSource="{x:Bind VM:DadosEstadosParaView.EstadosCompletos}"
                   SelectedValue="{x:Bind Item.UF, Mode=TwoWay}"
                   DisplayMemberPath="Nome"
                   SelectedValuePath="Sigla"

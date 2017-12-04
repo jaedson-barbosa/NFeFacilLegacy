@@ -9,9 +9,6 @@
                Title="Endereço nacional"
                PrimaryButtonText="Definir"
                SecondaryButtonText="Cancelar">
-    <ContentDialog.Resources>
-        <vm:DadosEstadosParaView x:Key="estados" />
-    </ContentDialog.Resources>
     <ItemsControl Style="{StaticResource ItensResponsivos}">
         <ComboBox SelectedIndex="{x:Bind TipoDocumento, Mode=TwoWay}"
                   Header="Tipo">
@@ -33,7 +30,7 @@
         <TextBox Text="{x:Bind Endereco.Bairro, Mode=TwoWay}"
                  InputScope="Text"
                  Header="Bairro *" />
-        <ComboBox ItemsSource="{Binding Source={StaticResource estados}, Path=Siglas}"
+        <ComboBox ItemsSource="{x:Bind VM:DadosEstadosParaView.Siglas}"
                   SelectedItem="{x:Bind UFEscolhida, Mode=TwoWay}"
                   Header="Estado" />
         <ComboBox ItemsSource="{x:Bind MunicipiosDoEstado}"

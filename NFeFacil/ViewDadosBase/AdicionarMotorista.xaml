@@ -5,11 +5,6 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
-    <Page.Resources>
-        <ResourceDictionary>
-            <VM:DadosEstadosParaView x:Key="estados" />
-        </ResourceDictionary>
-    </Page.Resources>
     <Grid Padding="16">
         <Grid.RowDefinitions>
             <RowDefinition />
@@ -45,7 +40,7 @@
                            Style="{StaticResource TitleTextBlockStyle}"
                            Margin="4,0,0,0" />
                 <ItemsControl Style="{StaticResource ItensResponsivos}">
-                    <ComboBox ItemsSource="{Binding Source={StaticResource estados}, Path=SiglasExpandida}"
+                    <ComboBox ItemsSource="{x:Bind VM:DadosEstadosParaView.SiglasExpandida}"
                               SelectedItem="{x:Bind UFEscolhida, Mode=TwoWay}"
                               Header="Estado" />
                     <ComboBox ItemsSource="{x:Bind ListaMunicipios}"

@@ -42,9 +42,6 @@ namespace NFeFacil.View
                 case "GerenciarDadosBase":
                     MainPage.Current.Navegar<GerenciarDadosBase>();
                     break;
-                case "ControleEstoque":
-                    MainPage.Current.Navegar<ControleEstoque>();
-                    break;
                 case "ManipulacaoRegistroVenda":
                     MainPage.Current.Navegar<ManipulacaoRegistroVenda>();
                     break;

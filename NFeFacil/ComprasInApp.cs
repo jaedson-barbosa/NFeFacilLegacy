@@ -1,6 +1,5 @@
 ﻿using NFeFacil.Log;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.Services.Store;
 

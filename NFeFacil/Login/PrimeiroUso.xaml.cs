@@ -1,5 +1,4 @@
 ﻿using NFeFacil.Sincronizacao;
-using NFeFacil.View;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;

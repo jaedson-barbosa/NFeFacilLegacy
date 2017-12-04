@@ -5,6 +5,7 @@ using NFeFacil.Login;
 using NFeFacil.Sincronizacao;
 using NFeFacil.View;
 using NFeFacil.ViewDadosBase;
+using NFeFacil.ViewDadosBase.GerenciamentoProdutos;
 using NFeFacil.ViewNFe;
 using NFeFacil.ViewNFe.CaixasEspeciaisProduto;
 using NFeFacil.ViewRegistroVenda;
@@ -34,7 +35,7 @@ namespace NFeFacil
             { typeof(SincronizacaoServidor), ("\uE977", "Sincronização") },
             { typeof(AdicionarComprador), (Symbol.People, "Comprador") },
             { typeof(AdicionarMotorista), ("\uE806", "Motorista") },
-            { typeof(ViewDadosBase.AdicionarProduto), (Symbol.Shop, "Produto") },
+            { typeof(ViewDadosBase.GerenciamentoProdutos.AdicionarProduto), (Symbol.Shop, "Produto") },
             { typeof(AdicionarVendedor), (Symbol.People, "Vendedor") },
             { typeof(GerenciarDadosBase), (Symbol.Manage, "Dados base") },
             { typeof(DefinirArmamentos), (new Uri(ObterCaminhoArmamento()), "Armamento") },

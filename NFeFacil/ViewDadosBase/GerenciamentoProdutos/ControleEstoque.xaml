@@ -1,4 +1,4 @@
-﻿<Page x:Class="NFeFacil.View.ControleEstoque"
+﻿<Page x:Class="NFeFacil.ViewDadosBase.GerenciamentoProdutos.ControleEstoque"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:lvc="using:LiveCharts.Uwp"
@@ -8,27 +8,22 @@
     <Grid Padding="16">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <ComboBox x:Name="cmbProduto"
-                  DisplayMemberPath="Descricao"
-                  SelectionChanged="ProdutoAlterado" />
-        <ItemsControl x:Name="dadosEstoque"
-                      IsEnabled="False"
-                      Grid.Row="1"
-                      Style="{StaticResource ItensResponsivos}">
+        <ItemsControl Style="{StaticResource ItensResponsivos}">
             <TextBox Header="Localização genérica"
-                     Text="{Binding LocalizacaoGenerica, Mode=TwoWay}" />
+                     Text="{x:Bind LocalizacaoGenerica, Mode=TwoWay}" />
             <TextBox Header="Segmento"
-                     Text="{Binding Segmento, Mode=TwoWay}" />
+                     Text="{x:Bind Segmento, Mode=TwoWay}" />
             <TextBox Header="Prateleira"
-                     Text="{Binding Prateleira, Mode=TwoWay}" />
+                     Text="{x:Bind Prateleira, Mode=TwoWay}" />
             <TextBox Header="Locação"
-                     Text="{Binding Locação, Mode=TwoWay}" />
+                     Text="{x:Bind Locacao, Mode=TwoWay}" />
             <Button Click="AlterarQuantidade_Click">Alterar quantidade</Button>
         </ItemsControl>
-        <lvc:CartesianChart Grid.Row="2" x:Name="paiGrafico" Margin="0,0,16,0">
+        <lvc:CartesianChart Grid.Row="1"
+                            x:Name="paiGrafico"
+                            Margin="0,0,16,0">
             <lvc:CartesianChart.Series>
                 <lvc:LineSeries x:Name="serieGrafico"
                                 StrokeThickness="2"

@@ -3,8 +3,6 @@ using NFeFacil.WebService;
 using NFeFacil.WebService.Pacotes;
 using System;
 using System.Collections.ObjectModel;
-using System.Threading.Tasks;
-using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 

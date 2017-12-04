@@ -1,4 +1,4 @@
-﻿<Page x:Class="NFeFacil.ViewDadosBase.GerenciarProdutos"
+﻿<Page x:Class="NFeFacil.ViewDadosBase.GerenciamentoProdutos.GerenciarProdutos"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:db="using:NFeFacil.ItensBD"

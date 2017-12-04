@@ -8,7 +8,7 @@ using Windows.UI.Xaml.Controls;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace NFeFacil.ViewDadosBase
+namespace NFeFacil.ViewDadosBase.GerenciamentoProdutos
 {
     /// <summary>
     /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
@@ -43,21 +43,20 @@ namespace NFeFacil.ViewDadosBase
             var produto = (ProdutoDI)contexto;
             using (var db = new AplicativoContext())
             {
-                if (db.Estoque.Count(x => x.Id == produto.Id) > 0)
-                {
-                    Log.Popup.Current.Escrever(Log.TitulosComuns.Atenção, "O produto já foi adicionado ao controle de estoque.");
-                }
-                else
+                var estoque = db.Estoque.Find(produto.Id);
+                if (estoque == null)
                 {
                     var caixa = new MessageDialog("Essa é uma operação sem volta, uma vez adicionado ao controle de estoque este produto será permanentemente parte dele. Certeza que você realmente quer isso?", "Atenção");
                     caixa.Commands.Add(new UICommand("Sim", x =>
                     {
-                        db.Estoque.Add(new Estoque() { Id = produto.Id });
+                        estoque = new Estoque() { Id = produto.Id };
+                        db.Estoque.Add(estoque);
                         db.SaveChanges();
                     }));
                     caixa.Commands.Add(new UICommand("Não"));
-                    await caixa.ShowAsync();
+                    if ((await caixa.ShowAsync()).Label == "Não") return;
                 }
+                MainPage.Current.Navegar<ControleEstoque>(estoque);
             }
         }
 

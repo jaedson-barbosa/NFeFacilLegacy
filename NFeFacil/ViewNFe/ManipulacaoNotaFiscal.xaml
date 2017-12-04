@@ -701,11 +701,11 @@
             </PivotItem>
             <PivotItem Header="Compra">
                 <StackPanel DataContext="{x:Bind NotaSalva.Informacoes.compra}">
-                    <TextBox Text="{x:Bind NotaSalva.Informacoes.exporta.XNEmp, Mode=TwoWay}"
+                    <TextBox Text="{x:Bind NotaSalva.Informacoes.compra.XNEmp, Mode=TwoWay}"
                              Header="Nota de empenho" />
-                    <TextBox Text="{x:Bind NotaSalva.Informacoes.exporta.XPed, Mode=TwoWay}"
+                    <TextBox Text="{x:Bind NotaSalva.Informacoes.compra.XPed, Mode=TwoWay}"
                              Header="Pedido" />
-                    <TextBox Text="{x:Bind NotaSalva.Informacoes.exporta.XCont, Mode=TwoWay}"
+                    <TextBox Text="{x:Bind NotaSalva.Informacoes.compra.XCont, Mode=TwoWay}"
                              Header="Contrato" />
                 </StackPanel>
             </PivotItem>

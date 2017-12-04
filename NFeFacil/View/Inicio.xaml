@@ -16,11 +16,6 @@
                                      Descricao="Emissor, cliente, transportador e produto.">
             <SymbolIcon Symbol="Manage" />
         </controles:ItemPadraoSimples>
-        <controles:ItemPadraoSimples Tag="ControleEstoque"
-                                     Titulo="Estoque"
-                                     Descricao="Visualizar e editar os dados de cada estoque.">
-            <SymbolIcon Symbol="Manage" />
-        </controles:ItemPadraoSimples>
         <controles:ItemPadraoSimples Tag="ManipulacaoRegistroVenda"
                                      Titulo="Criar nova venda"
                                      Descricao="Criar um registro de venda (Sem valor fiscal).">

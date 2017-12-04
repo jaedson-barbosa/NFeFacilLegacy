@@ -1,4 +1,5 @@
-﻿using Windows.UI.Xaml;
+﻿using NFeFacil.ViewDadosBase.GerenciamentoProdutos;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 

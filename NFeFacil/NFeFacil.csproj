@@ -195,7 +195,7 @@
     <Compile Include="ViewDadosBase\GerenciarMotoristas.xaml.cs">
       <DependentUpon>GerenciarMotoristas.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewDadosBase\GerenciarProdutos.xaml.cs">
+    <Compile Include="ViewDadosBase\GerenciamentoProdutos\GerenciarProdutos.xaml.cs">
       <DependentUpon>GerenciarProdutos.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewDadosBase\GerenciarVendedores.xaml.cs">
@@ -217,7 +217,7 @@
     <Compile Include="ViewRegistroVenda\InfoPagamento.xaml.cs">
       <DependentUpon>InfoPagamento.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Ano.cs" />
+    <Compile Include="ViewDadosBase\GerenciamentoProdutos\Ano.cs" />
     <Compile Include="Controles\NumeroChangedEventArgs.cs" />
     <Compile Include="IdentificacaoExtensoes.cs" />
     <Compile Include="Login\EscolhaEmitente.xaml.cs">
@@ -361,7 +361,7 @@
     <Compile Include="ViewNFe\CaixasDialogoProduto\AdicionarMedicamento.xaml.cs">
       <DependentUpon>AdicionarMedicamento.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\AdicionarAlteracaoEstoque.xaml.cs">
+    <Compile Include="ViewDadosBase\GerenciamentoProdutos\AdicionarAlteracaoEstoque.xaml.cs">
       <DependentUpon>AdicionarAlteracaoEstoque.xaml</DependentUpon>
     </Compile>
     <Compile Include="Certificacao\LAN\ConectarServidor.xaml.cs">
@@ -457,7 +457,7 @@
     <Compile Include="ViewDadosBase\AdicionarMotorista.xaml.cs">
       <DependentUpon>AdicionarMotorista.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewDadosBase\AdicionarProduto.xaml.cs">
+    <Compile Include="ViewDadosBase\GerenciamentoProdutos\AdicionarProduto.xaml.cs">
       <DependentUpon>AdicionarProduto.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewDadosBase\AdicionarVendedor.xaml.cs">
@@ -506,7 +506,7 @@
     <Compile Include="View\Consulta.xaml.cs">
       <DependentUpon>Consulta.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ControleEstoque.xaml.cs">
+    <Compile Include="ViewDadosBase\GerenciamentoProdutos\ControleEstoque.xaml.cs">
       <DependentUpon>ControleEstoque.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controles\EntradaNumerica.xaml.cs">
@@ -717,7 +717,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewDadosBase\GerenciarProdutos.xaml">
+    <Page Include="ViewDadosBase\GerenciamentoProdutos\GerenciarProdutos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -925,7 +925,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\AdicionarAlteracaoEstoque.xaml">
+    <Page Include="ViewDadosBase\GerenciamentoProdutos\AdicionarAlteracaoEstoque.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -949,7 +949,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewDadosBase\AdicionarProduto.xaml">
+    <Page Include="ViewDadosBase\GerenciamentoProdutos\AdicionarProduto.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1029,7 +1029,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ControleEstoque.xaml">
+    <Page Include="ViewDadosBase\GerenciamentoProdutos\ControleEstoque.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

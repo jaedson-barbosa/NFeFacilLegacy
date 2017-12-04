@@ -5,6 +5,7 @@ using static NFeFacil.ExtensoesPrincipal;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
 using System.Linq;
+using System.Collections.ObjectModel;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -132,11 +133,11 @@ namespace NFeFacil.ViewRegistroVenda
             int quantMaxima = (int)Math.Floor(alturaDisponivel / 20) - 1;
             if (quantMaxima <= ListaProdutos.Length)
             {
-                produtosPagina0.DataContext = ListaProdutos.GerarObs();
+                produtosPagina0.Content = new ProdutosDARV() { Produtos = ListaProdutos.GerarObs() };
             }
             else
             {
-                produtosPagina0.DataContext = ListaProdutos.Take(quantMaxima).GerarObs();
+                produtosPagina0.Content = new ProdutosDARV() { Produtos = ListaProdutos.Take(quantMaxima).GerarObs() };
 
                 var espacoDisponivelPaginaExtra = AlturaEscolhida - (PaddingEscolhido.Bottom * 2);
                 var quantMaximaPaginaExtra = Math.Floor(espacoDisponivelPaginaExtra / 20);
@@ -151,7 +152,10 @@ namespace NFeFacil.ViewRegistroVenda
                         Padding = PaddingEscolhido,
                         Height = AlturaEscolhida,
                         Width = LarguraEscolhida,
-                        DataContext = ListaProdutos.Skip(quantProdutosIgnorados).Take((int)quantMaximaPaginaExtra)
+                        Content = new ProdutosDARV
+                        {
+                            Produtos = ListaProdutos.Skip(quantProdutosIgnorados).Take((int)quantMaximaPaginaExtra).GerarObs()
+                        }
                     });
                 }
             }
@@ -166,7 +170,7 @@ namespace NFeFacil.ViewRegistroVenda
         }
     }
 
-    struct ExibicaoProduto
+    public struct ExibicaoProduto
     {
         public string Quantidade { get; set; }
         public string CodigoProduto { get; set; }
@@ -175,10 +179,12 @@ namespace NFeFacil.ViewRegistroVenda
         public string TotalBruto { get; set; }
     }
 
-    sealed class DimensoesDARV
+    public sealed class ProdutosDARV
     {
-        public GridLength Largura2 => CentimeterToLength(2);
-        public GridLength Largura3 => CentimeterToLength(3);
+        public ObservableCollection<ExibicaoProduto> Produtos { get; set; }
+
+        public static GridLength Largura2 { get; } = CentimeterToLength(2);
+        public static GridLength Largura3 { get; } = CentimeterToLength(3);
     }
 
     public struct Dimensoes

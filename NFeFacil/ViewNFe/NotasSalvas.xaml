@@ -3,12 +3,14 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:local="using:NFeFacil.ViewNFe"
       xmlns:controles="using:NFeFacil.Controles"
+      xmlns:db="using:NFeFacil.ItensBD"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
     <Page.Resources>
         <local:BoolToColor x:Key="conversorCor" />
-        <DataTemplate x:Key="ExibicaoNFeEmitida">
+        <DataTemplate x:Key="ExibicaoNFeEmitida"
+                      x:DataType="db:NFeDI">
             <ContentPresenter ContentTemplate="{StaticResource Base}">
                 <ContentPresenter.ContextFlyout>
                     <MenuFlyout>
@@ -19,7 +21,8 @@
                 </ContentPresenter.ContextFlyout>
             </ContentPresenter>
         </DataTemplate>
-        <DataTemplate x:Key="ExibicaoNFeCancelada">
+        <DataTemplate x:Key="ExibicaoNFeCancelada"
+                      x:DataType="db:NFeDI">
             <ContentPresenter ContentTemplate="{StaticResource Base}">
                 <ContentPresenter.ContextFlyout>
                     <MenuFlyout>
@@ -28,7 +31,8 @@
                 </ContentPresenter.ContextFlyout>
             </ContentPresenter>
         </DataTemplate>
-        <DataTemplate x:Key="ExibicaoNFeLocal">
+        <DataTemplate x:Key="ExibicaoNFeLocal"
+                      x:DataType="db:NFeDI">
             <ContentPresenter ContentTemplate="{StaticResource Base}">
                 <ContentPresenter.ContextFlyout>
                     <MenuFlyout>
@@ -38,7 +42,8 @@
                 </ContentPresenter.ContextFlyout>
             </ContentPresenter>
         </DataTemplate>
-        <DataTemplate x:Key="Base">
+        <DataTemplate x:Key="Base"
+                      x:DataType="db:NFeDI">
             <Grid Background="Transparent">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
@@ -52,18 +57,18 @@
                 </Grid.RowDefinitions>
                 <TextBlock Grid.ColumnSpan="2"
                            Margin="8"
-                           Text="{Binding NumeroNota}"
+                           Text="{x:Bind NumeroNota}"
                            Style="{StaticResource TitleTextBlockStyle}" />
                 <TextBlock Grid.Row="1"
                            Grid.ColumnSpan="2"
                            Margin="8,0"
-                           Text="{Binding DataEmissao}"
+                           Text="{x:Bind DataEmissao}"
                            MaxLines="1"
                            Style="{StaticResource SubtitleTextBlockStyle}" />
                 <TextBlock Grid.Row="2"
                            Grid.ColumnSpan="2"
                            Margin="8,0"
-                           Text="{Binding NomeCliente}"
+                           Text="{x:Bind NomeCliente}"
                            Style="{StaticResource BodyTextBlockStyle}" />
                 <FontIcon Canvas.ZIndex="1"
                           Grid.Row="3"
@@ -77,10 +82,10 @@
                           VerticalAlignment="Center"
                           HorizontalAlignment="Center" />
                 <Rectangle Grid.Row="3"
-                           Fill="{Binding Exportada, Converter={StaticResource conversorCor}}" />
+                           Fill="{x:Bind Exportada, Converter={StaticResource conversorCor}}" />
                 <Rectangle Grid.Row="3"
                            Grid.Column="1"
-                           Fill="{Binding Impressa, Converter={StaticResource conversorCor}}" />
+                           Fill="{x:Bind Impressa, Converter={StaticResource conversorCor}}" />
             </Grid>
         </DataTemplate>
     </Page.Resources>

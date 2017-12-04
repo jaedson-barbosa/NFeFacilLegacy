@@ -1,6 +1,7 @@
 ﻿<Page x:Class="NFeFacil.ViewRegistroVenda.ManipulacaoRegistroVenda"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="using:NFeFacil.ViewRegistroVenda"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
@@ -110,7 +111,7 @@
                 </Grid>
             </ListView.Header>
             <ListView.ItemTemplate>
-                <DataTemplate>
+                <DataTemplate x:DataType="local:ExibicaoProdutoVenda">
                     <Grid>
                         <Grid.ContextFlyout>
                             <MenuFlyout>
@@ -122,11 +123,11 @@
                             <ColumnDefinition />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="{Binding Descricao}" />
+                        <TextBlock Text="{x:Bind Descricao}" />
                         <TextBlock Grid.Column="1"
-                                   Text="{Binding Quantidade}" />
+                                   Text="{x:Bind Quantidade}" />
                         <TextBlock Grid.Column="2"
-                                   Text="{Binding TotalLíquido}" />
+                                   Text="{x:Bind TotalLiquido}" />
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

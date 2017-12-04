@@ -34,19 +34,19 @@ namespace NFeFacil.ViewRegistroVenda
             }
         }
 
-        public struct ExibicaoVenda
-        {
-            public RegistroVenda Base { get; set; }
-            public string NomeVendedor { get; set; }
-            public string NomeCliente { get; set; }
-            public string DataHoraVenda { get; set; }
-        }
-
         private void Exibir(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             var item = (MenuFlyoutItem)sender;
             var venda = (ExibicaoVenda)item.DataContext;
             MainPage.Current.Navegar<VisualizacaoRegistroVenda>(venda.Base);
         }
+    }
+
+    public struct ExibicaoVenda
+    {
+        public RegistroVenda Base { get; set; }
+        public string NomeVendedor { get; set; }
+        public string NomeCliente { get; set; }
+        public string DataHoraVenda { get; set; }
     }
 }

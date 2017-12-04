@@ -962,147 +962,147 @@ namespace NFeFacil.ViewNFe
             var resultado = await mensagem.ShowAsync();
             return resultado.Label == "Sair";
         }
+    }
 
-        struct VisualizacaoImposto
+    struct VisualizacaoImposto
+    {
+        public string Titulo { get; set; }
+        public string InformacaoAdicional { get; set; }
+        internal PrincipaisImpostos Primitivo { get; set; }
+        internal bool Secundario { get; set; }
+        internal Imposto Oficial { get; set; }
+
+        public VisualizacaoImposto(Imposto original)
         {
-            public string Titulo { get; set; }
-            public string InformacaoAdicional { get; set; }
-            internal PrincipaisImpostos Primitivo { get; set; }
-            internal bool Secundario { get; set; }
-            internal Imposto Oficial { get; set; }
-
-            public VisualizacaoImposto(Imposto original)
+            if (original is ICMS icms)
             {
-                if (original is ICMS icms)
+                string valor = "0";
+                var corpo = icms.Corpo;
+                foreach (var prop in corpo.GetType().GetProperties().Where(x => x.CanWrite))
                 {
-                    string valor = "0";
-                    var corpo = icms.Corpo;
-                    foreach (var prop in corpo.GetType().GetProperties().Where(x => x.CanWrite))
+                    if (prop.Name == "vICMS")
                     {
-                        if (prop.Name == "vICMS")
-                        {
-                            valor = prop.GetValue(corpo).ToString();
-                        }
+                        valor = prop.GetValue(corpo).ToString();
                     }
+                }
 
-                    Titulo = "ICMS";
-                    if (icms.Corpo is IRegimeNormal normal)
-                    {
-                        InformacaoAdicional = $"CST: {normal.CST}; Valor = {valor}";
-                    }
-                    else
-                    {
-                        var simples = icms.Corpo as ISimplesNacional;
-                        InformacaoAdicional = $"CSOSN: {simples.CSOSN}; Valor = {valor}";
-                    }
-                    Primitivo = PrincipaisImpostos.ICMS;
-                    Secundario = false;
-                }
-                else if (original is IPI ipi)
+                Titulo = "ICMS";
+                if (icms.Corpo is IRegimeNormal normal)
                 {
-                    string valor;
-                    if (ipi.Corpo is IPITrib trib)
-                    {
-                        valor = trib.vIPI;
-                    }
-                    else
-                    {
-                        valor = "0";
-                    }
-                    Titulo = "IPI";
-                    InformacaoAdicional = $"CST: {ipi.Corpo.CST}; Valor: {valor}";
-                    Primitivo = PrincipaisImpostos.IPI;
-                    Secundario = false;
-                }
-                else if (original is II ii)
-                {
-                    Titulo = "Imposto de importação";
-                    InformacaoAdicional = $"Valor: {ii.vII}";
-                    Primitivo = PrincipaisImpostos.II;
-                    Secundario = false;
-                }
-                else if (original is ISSQN issqn)
-                {
-                    Titulo = "ISSQN";
-                    InformacaoAdicional = $"Valor: {issqn.vISSQN}";
-                    Primitivo = PrincipaisImpostos.ISSQN;
-                    Secundario = false;
-                }
-                else if (original is PIS pis)
-                {
-                    string valor;
-                    if (pis.Corpo is PISAliq aliq)
-                    {
-                        valor = aliq.vPIS;
-                    }
-                    else if (pis.Corpo is PISOutr outr)
-                    {
-                        valor = outr.vPIS;
-                    }
-                    else if (pis.Corpo is PISQtde qtde)
-                    {
-                        valor = qtde.vPIS;
-                    }
-                    else
-                    {
-                        valor = "0";
-                    }
-                    Titulo = "PIS";
-                    InformacaoAdicional = $"CST: {pis.Corpo.CST}; Valor: {valor}";
-                    Primitivo = PrincipaisImpostos.PIS;
-                    Secundario = false;
-                }
-                else if (original is PISST pisst)
-                {
-                    Titulo = "PISST";
-                    InformacaoAdicional = $"Valor: {pisst.vPIS}";
-                    Primitivo = PrincipaisImpostos.PIS;
-                    Secundario = true;
-                }
-                else if (original is COFINS cofins)
-                {
-                    string valor;
-                    if (cofins.Corpo is COFINSAliq aliq)
-                    {
-                        valor = aliq.vCOFINS;
-                    }
-                    else if (cofins.Corpo is COFINSOutr outr)
-                    {
-                        valor = outr.vCOFINS;
-                    }
-                    else if (cofins.Corpo is COFINSQtde qtde)
-                    {
-                        valor = qtde.vCOFINS;
-                    }
-                    else
-                    {
-                        valor = "0";
-                    }
-                    Titulo = "COFINS";
-                    InformacaoAdicional = $"CST: {cofins.Corpo.CST}; Valor: {valor}";
-                    Primitivo = PrincipaisImpostos.COFINS;
-                    Secundario = false;
-                }
-                else if (original is COFINSST cofinsst)
-                {
-                    Titulo = "COFINSST";
-                    InformacaoAdicional = $"Valor: {cofinsst.vCOFINS}";
-                    Primitivo = PrincipaisImpostos.COFINS;
-                    Secundario = true;
-                }
-                else if (original is ICMSUFDest icmsufdest)
-                {
-                    Titulo = "ICMS da UF destinatário";
-                    InformacaoAdicional = $"Valor para o remetente: {icmsufdest.VICMSUFRemet}; Valor para o destinatário: {icmsufdest.VICMSUFDest}";
-                    Primitivo = PrincipaisImpostos.ICMSUFDest;
-                    Secundario = false;
+                    InformacaoAdicional = $"CST: {normal.CST}; Valor = {valor}";
                 }
                 else
                 {
-                    throw new Exception();
+                    var simples = icms.Corpo as ISimplesNacional;
+                    InformacaoAdicional = $"CSOSN: {simples.CSOSN}; Valor = {valor}";
                 }
-                Oficial = original;
+                Primitivo = PrincipaisImpostos.ICMS;
+                Secundario = false;
             }
+            else if (original is IPI ipi)
+            {
+                string valor;
+                if (ipi.Corpo is IPITrib trib)
+                {
+                    valor = trib.vIPI;
+                }
+                else
+                {
+                    valor = "0";
+                }
+                Titulo = "IPI";
+                InformacaoAdicional = $"CST: {ipi.Corpo.CST}; Valor: {valor}";
+                Primitivo = PrincipaisImpostos.IPI;
+                Secundario = false;
+            }
+            else if (original is II ii)
+            {
+                Titulo = "Imposto de importação";
+                InformacaoAdicional = $"Valor: {ii.vII}";
+                Primitivo = PrincipaisImpostos.II;
+                Secundario = false;
+            }
+            else if (original is ISSQN issqn)
+            {
+                Titulo = "ISSQN";
+                InformacaoAdicional = $"Valor: {issqn.vISSQN}";
+                Primitivo = PrincipaisImpostos.ISSQN;
+                Secundario = false;
+            }
+            else if (original is PIS pis)
+            {
+                string valor;
+                if (pis.Corpo is PISAliq aliq)
+                {
+                    valor = aliq.vPIS;
+                }
+                else if (pis.Corpo is PISOutr outr)
+                {
+                    valor = outr.vPIS;
+                }
+                else if (pis.Corpo is PISQtde qtde)
+                {
+                    valor = qtde.vPIS;
+                }
+                else
+                {
+                    valor = "0";
+                }
+                Titulo = "PIS";
+                InformacaoAdicional = $"CST: {pis.Corpo.CST}; Valor: {valor}";
+                Primitivo = PrincipaisImpostos.PIS;
+                Secundario = false;
+            }
+            else if (original is PISST pisst)
+            {
+                Titulo = "PISST";
+                InformacaoAdicional = $"Valor: {pisst.vPIS}";
+                Primitivo = PrincipaisImpostos.PIS;
+                Secundario = true;
+            }
+            else if (original is COFINS cofins)
+            {
+                string valor;
+                if (cofins.Corpo is COFINSAliq aliq)
+                {
+                    valor = aliq.vCOFINS;
+                }
+                else if (cofins.Corpo is COFINSOutr outr)
+                {
+                    valor = outr.vCOFINS;
+                }
+                else if (cofins.Corpo is COFINSQtde qtde)
+                {
+                    valor = qtde.vCOFINS;
+                }
+                else
+                {
+                    valor = "0";
+                }
+                Titulo = "COFINS";
+                InformacaoAdicional = $"CST: {cofins.Corpo.CST}; Valor: {valor}";
+                Primitivo = PrincipaisImpostos.COFINS;
+                Secundario = false;
+            }
+            else if (original is COFINSST cofinsst)
+            {
+                Titulo = "COFINSST";
+                InformacaoAdicional = $"Valor: {cofinsst.vCOFINS}";
+                Primitivo = PrincipaisImpostos.COFINS;
+                Secundario = true;
+            }
+            else if (original is ICMSUFDest icmsufdest)
+            {
+                Titulo = "ICMS da UF destinatário";
+                InformacaoAdicional = $"Valor para o remetente: {icmsufdest.VICMSUFRemet}; Valor para o destinatário: {icmsufdest.VICMSUFDest}";
+                Primitivo = PrincipaisImpostos.ICMSUFDest;
+                Secundario = false;
+            }
+            else
+            {
+                throw new Exception();
+            }
+            Oficial = original;
         }
     }
 

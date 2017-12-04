@@ -52,7 +52,7 @@
             <ComboBoxItem Tag="90">90. Outros</ComboBoxItem>
             <ComboBoxItem Tag="9090">90. Outros (Partilha - ICMSPart)</ComboBoxItem>
         </ComboBox>
-        <ComboBox SelectedValue="{Binding Origem, Mode=TwoWay}"
+        <ComboBox SelectedValue="{x:Bind Origem, Mode=TwoWay}"
                   SelectedValuePath="Tag"
                   Header="Origem"
                   HorizontalAlignment="Stretch">

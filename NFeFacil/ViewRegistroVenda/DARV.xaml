@@ -4,13 +4,13 @@
       xmlns:local="using:NFeFacil.ViewRegistroVenda"
       xmlns:vml="using:NFeFacil.ViewModel"
       xmlns:bd="using:NFeFacil.ItensBD"
+      xmlns:teste="using:System.Collections.ObjectModel"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
     <Page.Resources>
         <vml:MascaraDocumento x:Key="mascara" />
         <vml:StringToDateTime x:Key="data" />
-        <local:DimensoesDARV x:Key="dimensoes" />
         <DataTemplate x:Key="Cabecalho"
                       x:DataType="bd:EmitenteDI">
             <Grid>
@@ -92,8 +92,9 @@
                 <TextBlock Grid.Row="1">End.: <Run Text="{x:Bind Logradouro}" />, <Run Text="{x:Bind Numero}" /> - <Run Text="{x:Bind Bairro}" /> - País: <Run Text="{x:Bind XPais}" /></TextBlock>
             </Grid>
         </DataTemplate>
-        <DataTemplate x:Name="Produtos">
-            <ListView ItemsSource="{Binding}"
+        <DataTemplate x:Name="Produtos"
+                      x:DataType="local:ProdutosDARV">
+            <ListView ItemsSource="{x:Bind Produtos}"
                       BorderBrush="Black"
                       BorderThickness="0,1"
                       SelectionMode="None">
@@ -116,11 +117,11 @@
                           Height="20"
                           BorderThickness="0,0,0,1">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="{Binding Largura2, Source={StaticResource dimensoes}}" />
-                            <ColumnDefinition Width="{Binding Largura2, Source={StaticResource dimensoes}}" />
+                            <ColumnDefinition Width="{x:Bind local:ProdutosDARV.Largura2}" />
+                            <ColumnDefinition Width="{x:Bind local:ProdutosDARV.Largura2}" />
                             <ColumnDefinition />
-                            <ColumnDefinition Width="{Binding Largura3, Source={StaticResource dimensoes}}" />
-                            <ColumnDefinition Width="{Binding Largura3, Source={StaticResource dimensoes}}" />
+                            <ColumnDefinition Width="{x:Bind local:ProdutosDARV.Largura3}" />
+                            <ColumnDefinition Width="{x:Bind local:ProdutosDARV.Largura3}" />
                         </Grid.ColumnDefinitions>
                         <TextBlock>Quantidade</TextBlock>
                         <TextBlock Grid.Column="1">Código</TextBlock>
@@ -137,11 +138,11 @@
                                        BasedOn="{StaticResource Padrao}" />
                             </Grid.Resources>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="{Binding Largura2, Source={StaticResource dimensoes}}" />
-                                <ColumnDefinition Width="{Binding Largura2, Source={StaticResource dimensoes}}" />
+                                <ColumnDefinition Width="{x:Bind local:ProdutosDARV.Largura2}" />
+                                <ColumnDefinition Width="{x:Bind local:ProdutosDARV.Largura2}" />
                                 <ColumnDefinition />
-                                <ColumnDefinition Width="{Binding Largura3, Source={StaticResource dimensoes}}" />
-                                <ColumnDefinition Width="{Binding Largura3, Source={StaticResource dimensoes}}" />
+                                <ColumnDefinition Width="{x:Bind local:ProdutosDARV.Largura3}" />
+                                <ColumnDefinition Width="{x:Bind local:ProdutosDARV.Largura3}" />
                             </Grid.ColumnDefinitions>
                             <TextBlock Text="{x:Bind Quantidade}" />
                             <TextBlock Grid.Column="1"

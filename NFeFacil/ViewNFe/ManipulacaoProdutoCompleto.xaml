@@ -3,6 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:VM="using:NFeFacil.ViewModel"
       xmlns:controles="using:NFeFacil.Controles"
+      xmlns:partesProduto="using:NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesProdutoOuServico"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
@@ -117,7 +118,7 @@
                 </Grid>
             </ListView.Header>
             <ListView.ItemTemplate>
-                <DataTemplate>
+                <DataTemplate x:DataType="partesProduto:DeclaracaoImportacao">
                     <Grid MinWidth="300">
                         <Grid.ContextFlyout>
                             <MenuFlyout>
@@ -128,8 +129,8 @@
                             <ColumnDefinition />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="{Binding CNPJ, Mode=TwoWay}" />
-                        <TextBlock Text="{Binding NDI, Mode=TwoWay}"
+                        <TextBlock Text="{x:Bind CNPJ, Mode=TwoWay}" />
+                        <TextBlock Text="{x:Bind NDI, Mode=TwoWay}"
                                    Grid.Column="1" />
                     </Grid>
                 </DataTemplate>
@@ -151,15 +152,14 @@
                 </Grid>
             </ListView.Header>
             <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Grid.ContextFlyout>
+                <DataTemplate x:DataType="partesProduto:GrupoExportacao">
+                    <TextBlock Text="{x:Bind NDraw}">
+                        <TextBlock.ContextFlyout>
                             <MenuFlyout>
                                 <MenuFlyoutItem Click="RemoverDeclaracaoExportacao">Remover</MenuFlyoutItem>
                             </MenuFlyout>
-                        </Grid.ContextFlyout>
-                        <TextBlock Text="{Binding NDraw}" />
-                    </Grid>
+                        </TextBlock.ContextFlyout>
+                    </TextBlock>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

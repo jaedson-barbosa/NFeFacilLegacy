@@ -119,9 +119,9 @@ namespace NFeFacil.ViewRegistroVenda
                 var novoProdBanco = new ProdutoSimplesVenda
                 {
                     IdBase = caixa.ProdutoSelecionado.Base.Id,
-                    ValorUnitario = caixa.ProdutoSelecionado.PreçoDouble,
+                    ValorUnitario = caixa.ProdutoSelecionado.PrecoDouble,
                     Quantidade = caixa.Quantidade,
-                    Frete = caixa.Frete,
+                    Frete = 0,
                     Seguro = caixa.Seguro,
                     DespesasExtras = caixa.DespesasExtras
                 };
@@ -265,6 +265,6 @@ namespace NFeFacil.ViewRegistroVenda
         public ProdutoSimplesVenda Base { get; set; }
         public string Descricao { get; set; }
         public double Quantidade { get; set; }
-        public string TotalLíquido => Base.TotalLíquido.ToString("C");
+        public string TotalLiquido => Base.TotalLíquido.ToString("C");
     }
 }

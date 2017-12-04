@@ -2,6 +2,7 @@
 using NFeFacil.WebService;
 using NFeFacil.WebService.Pacotes;
 using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -16,32 +17,38 @@ namespace NFeFacil.View
     /// </summary>
     public sealed partial class Consulta : Page
     {
+        string Chave { get; set; }
+        Estado UF { get; set; }
+        ObservableCollection<string> Resultados { get; } = new ObservableCollection<string>();
+
         public Consulta()
         {
             InitializeComponent();
-            cmbUF.ItemsSource = Estados.EstadosCache.GerarObs();
         }
 
-        private async void btnAnalisar_Click(object sender, RoutedEventArgs e)
+        private async void Analisar(object sender, RoutedEventArgs e)
         {
-            btnAnalisar.IsEnabled = false;
-            MostrarCarregamento.Begin();
-            var codigo = txtCodigo.Text;
-            try
+            if (UF == null || string.IsNullOrEmpty(Chave))
             {
-                var resp = await new GerenciadorGeral<ConsSitNFe, RetConsSitNFe>((Estado)cmbUF.SelectedItem, Operacoes.Consultar, false)
-                    .EnviarAsync(new ConsSitNFe(codigo));
-                DataContext = resp;
+                Resultados.Insert(0, "Estado e Chave são informações obrigatórias.");
             }
-            catch (Exception erro)
+            else
             {
-                var msg = new MessageDialog($"Que pena, algo deu errado, a mensagem do erro é {erro.Message}", "Erro");
-                await msg.ShowAsync();
+                btnAnalisar.IsEnabled = false;
+                carregamento.IsActive = true;
+                try
+                {
+                    var resp = await new GerenciadorGeral<ConsSitNFe, RetConsSitNFe>(UF, Operacoes.Consultar, false)
+                        .EnviarAsync(new ConsSitNFe(Chave));
+                    Resultados.Insert(0, resp.xMotivo);
+                }
+                catch (Exception erro)
+                {
+                    Resultados.Insert(0, $"Erro: {erro.Message}");
+                }
+                btnAnalisar.IsEnabled = true;
+                carregamento.IsActive = false;
             }
-            btnAnalisar.IsEnabled = true;
-            await Task.Delay(1000);
-            OcultarCarregamento.Begin();
-            lstOqAcontece.Items.Clear();
         }
     }
 }

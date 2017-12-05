@@ -262,12 +262,14 @@ namespace NFeFacil
 
             if (navegada is IHambuguer hambuguer)
             {
+                btnHamburguer.Visibility = Visibility.Visible;
                 menuTemporario.ItemsSource = hambuguer.ConteudoMenu;
                 menuTemporario.SelectedIndex = 0;
                 splitView.CompactPaneLength = 48;
             }
             else
             {
+                btnHamburguer.Visibility = Visibility.Collapsed;
                 menuTemporario.ItemsSource = null;
                 splitView.CompactPaneLength = 0;
             }

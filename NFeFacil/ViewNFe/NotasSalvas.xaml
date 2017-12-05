@@ -16,7 +16,7 @@
                     <MenuFlyout>
                         <MenuFlyoutItem Click="Exibir">Exibir</MenuFlyoutItem>
                         <MenuFlyoutItem Click="CriarCopia">Clonar nota</MenuFlyoutItem>
-                        <MenuFlyoutItem Click="Excluir">Excluir</MenuFlyoutItem>
+                        <MenuFlyoutItem Click="Cancelar">Cancelar</MenuFlyoutItem>
                     </MenuFlyout>
                 </ContentPresenter.ContextFlyout>
             </ContentPresenter>
@@ -37,7 +37,7 @@
                 <ContentPresenter.ContextFlyout>
                     <MenuFlyout>
                         <MenuFlyoutItem Click="Exibir">Exibir</MenuFlyoutItem>
-                        <MenuFlyoutItem Click="Cancelar">Cancelar</MenuFlyoutItem>
+                        <MenuFlyoutItem Click="Excluir">Excluir</MenuFlyoutItem>
                     </MenuFlyout>
                 </ContentPresenter.ContextFlyout>
             </ContentPresenter>

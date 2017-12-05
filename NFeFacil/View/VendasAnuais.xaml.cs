@@ -276,7 +276,7 @@ namespace NFeFacil.View
                 Mes = data.Month;
                 NomeCliente = nota.Informacoes.destinatário.Nome;
                 DocumentoCliente = nota.Informacoes.destinatário.Documento;
-                Total = nota.Informacoes.total.ICMSTot.VNF;
+                Total = nota.Informacoes.total.ICMSTot.vNF;
                 Produtos = nota.Informacoes.produtos.Select(x => new ProdutoProcessado
                 {
                     Descricao = x.Produto.Descricao,

@@ -111,17 +111,17 @@ namespace NFeFacil.DANFE
             var tot = Dados.NFe.Informacoes.total;
             return new DadosImposto
             {
-                BaseCalculoICMS = tot.ICMSTot.VBC.ToString("N2"),
-                BaseCalculoICMSST = tot.ICMSTot.VBCST.ToString("N2"),
-                Desconto = tot.ICMSTot.VDesc.ToString("N2"),
-                DespesasAcessorias = tot.ICMSTot.VOutro.ToString("N2"),
-                TotalNota = tot.ICMSTot.VNF.ToString("N2"),
-                ValorFrete = tot.ICMSTot.VFrete.ToString("N2"),
-                ValorICMS = tot.ICMSTot.VICMS.ToString("N2"),
-                ValorICMSST = tot.ICMSTot.VST.ToString("N2"),
-                ValorIPI = tot.ICMSTot.VIPI.ToString("N2"),
-                ValorSeguro = tot.ICMSTot.VSeg.ToString("N2"),
-                ValorTotalProdutos = tot.ICMSTot.VProd.ToString("N2")
+                BaseCalculoICMS = tot.ICMSTot.vBC.ToString("N2"),
+                BaseCalculoICMSST = tot.ICMSTot.vBCST.ToString("N2"),
+                Desconto = tot.ICMSTot.vDesc.ToString("N2"),
+                DespesasAcessorias = tot.ICMSTot.vOutro.ToString("N2"),
+                TotalNota = tot.ICMSTot.vNF.ToString("N2"),
+                ValorFrete = tot.ICMSTot.vFrete.ToString("N2"),
+                ValorICMS = tot.ICMSTot.vICMS.ToString("N2"),
+                ValorICMSST = tot.ICMSTot.vST.ToString("N2"),
+                ValorIPI = tot.ICMSTot.vIPI.ToString("N2"),
+                ValorSeguro = tot.ICMSTot.vSeg.ToString("N2"),
+                ValorTotalProdutos = tot.ICMSTot.vProd.ToString("N2")
             };
         }
 

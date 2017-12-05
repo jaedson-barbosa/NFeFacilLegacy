@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using static NFeFacil.Extensoes;
 
 namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto
 {
@@ -57,12 +58,12 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
 
         double valorTotal;
         [XmlElement(ElementName = "vProd", Order = 10), DescricaoPropriedade("Valor total bruto")]
-        public double ValorTotal
+        public string ValorTotal
         {
-            get => valorTotal;
+            get => ToStr(valorTotal);
             set
             {
-                valorTotal = value;
+                valorTotal = Parse(value);
                 DadoImpostoChanged?.Invoke(this, null);
             }
         }

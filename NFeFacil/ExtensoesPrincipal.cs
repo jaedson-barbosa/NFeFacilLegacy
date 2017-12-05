@@ -3,6 +3,7 @@ using NFeFacil.Log;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -169,6 +170,10 @@ namespace NFeFacil
                 return original;
             }
         }
+
+        static CultureInfo culturaPadrao = CultureInfo.InvariantCulture;
+        public static string ToStr(double valor) => valor.ToString("F2", culturaPadrao);
+        public static double Parse(string str) => double.Parse(str, NumberStyles.Number, culturaPadrao);
     }
 
     enum Estilo

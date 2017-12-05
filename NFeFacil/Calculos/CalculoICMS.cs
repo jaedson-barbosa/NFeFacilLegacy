@@ -1,15 +1,27 @@
-﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
-using System.Globalization;
+﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
+using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
+using static NFeFacil.ExtensoesPrincipal;
 
 namespace NFeFacil.Calculos
 {
     sealed class CalculoICMS
     {
-        CultureInfo culturaPadrao = CultureInfo.InvariantCulture;
+        double BaseCalculoSimples { get; }
+
+        public CalculoICMS(ProdutoOuServico prod)
+        {
+            var totalBruto = Parse(prod.ValorTotal);
+            var frete = string.IsNullOrEmpty(prod.Frete) ? 0 : Parse(prod.Frete);
+            var seguro = string.IsNullOrEmpty(prod.Seguro) ? 0 : Parse(prod.Seguro);
+            var despesas = string.IsNullOrEmpty(prod.DespesasAcessorias) ? 0 : Parse(prod.DespesasAcessorias);
+            var desconto = string.IsNullOrEmpty(prod.Desconto) ? 0 : Parse(prod.Desconto);
+
+            BaseCalculoSimples = totalBruto + frete + seguro + despesas - desconto;
+        }
 
         void CalcularICMS(ref ICMS00 icms)
         {
-            var vBC = Parse(icms.vBC);
+            var vBC = BaseCalculoSimples;
             var pICMS = Parse(icms.pICMS);
             var vICMS = vBC * pICMS / 100;
             icms.vICMS = ToStr(vICMS);
@@ -17,7 +29,7 @@ namespace NFeFacil.Calculos
 
         void CalcularICMS(ref ICMS10 icms, double vIPI, double valorTabela)
         {
-            var vBC = Parse(icms.vBC);
+            var vBC = BaseCalculoSimples;
             var pICMS = Parse(icms.pICMS);
             var vICMS = vBC * pICMS / 100;
             icms.vICMS = ToStr(vICMS);
@@ -35,7 +47,7 @@ namespace NFeFacil.Calculos
 
         void CalcularICMS(ref ICMS20 icms)
         {
-            var vBC = Parse(icms.vBC);
+            var vBC = BaseCalculoSimples;
             var pICMS = Parse(icms.pICMS);
             var valorSemReducao = vBC * pICMS / 100;
             var pRedBC = Parse(icms.pRedBC);
@@ -56,11 +68,11 @@ namespace NFeFacil.Calculos
             }
         }
 
-        void CalcularICMS(ref ICMS30 icms, double total, double vIPI)
+        void CalcularICMS(ref ICMS30 icms, double vIPI)
         {
             var pMVAST = string.IsNullOrEmpty(icms.pMVAST) ? 0 : Parse(icms.pMVAST);
             var pRedBCST = string.IsNullOrEmpty(icms.pRedBCST) ? 0 : Parse(icms.pRedBCST);
-            var vBCST = (total + vIPI) * (100 + pMVAST) / 100;
+            var vBCST = (BaseCalculoSimples + vIPI) * (100 + pMVAST) / 100;
             vBCST *= 1 - (pRedBCST / 100);
             icms.vBCST = ToStr(vBCST);
 
@@ -71,7 +83,7 @@ namespace NFeFacil.Calculos
 
         void CalcularICMS(ref ICMS51 icms)
         {
-            var vBC = Parse(icms.vBC);
+            var vBC = BaseCalculoSimples;
             var pICMS = Parse(icms.pICMS);
             var pRedBC = Parse(icms.pRedBC);
             vBC *= 1 - (pRedBC / 100);
@@ -89,7 +101,7 @@ namespace NFeFacil.Calculos
 
         void CalcularICMS(ref ICMS70 icms, double vIPI)
         {
-            var vBC = Parse(icms.vBC);
+            var vBC = BaseCalculoSimples;
             var pICMS = Parse(icms.pICMS);
             var bcSemReducao = vBC * pICMS / 100;
             var pRedBC = Parse(icms.pRedBC);
@@ -122,11 +134,11 @@ namespace NFeFacil.Calculos
             }
         }
 
-        void CalcularICMS(ref ICMSSN201 icms, double total, double vIPI)
+        void CalcularICMS(ref ICMSSN201 icms, double vIPI)
         {
             var pMVAST = string.IsNullOrEmpty(icms.pMVAST) ? 0 : Parse(icms.pMVAST);
             var pRedBCST = string.IsNullOrEmpty(icms.pRedBCST) ? 0 : Parse(icms.pRedBCST);
-            var vBCST = (total + vIPI) * (100 + pMVAST) / 100;
+            var vBCST = (BaseCalculoSimples + vIPI) * (100 + pMVAST) / 100;
             vBCST *= 1 - (pRedBCST / 100);
             icms.vBCST = ToStr(vBCST);
 
@@ -135,11 +147,11 @@ namespace NFeFacil.Calculos
             icms.vICMSST = ToStr(vICMSST);
         }
 
-        void CalcularICMS(ref ICMSSN202 icms, double total, double vIPI)
+        void CalcularICMS(ref ICMSSN202 icms, double vIPI)
         {
             var pMVAST = string.IsNullOrEmpty(icms.pMVAST) ? 0 : Parse(icms.pMVAST);
             var pRedBCST = string.IsNullOrEmpty(icms.pRedBCST) ? 0 : Parse(icms.pRedBCST);
-            var vBCST = (total + vIPI) * (100 + pMVAST) / 100;
+            var vBCST = (BaseCalculoSimples + vIPI) * (100 + pMVAST) / 100;
             vBCST *= 1 - (pRedBCST / 100);
             icms.vBCST = ToStr(vBCST);
 
@@ -147,8 +159,5 @@ namespace NFeFacil.Calculos
             var vICMSST = vBCST * pICMSST / 100;
             icms.vICMSST = ToStr(vICMSST);
         }
-
-        string ToStr(double valor) => valor.ToString("F2", culturaPadrao);
-        double Parse(string str) => double.Parse(str, NumberStyles.Number, culturaPadrao);
     }
 }

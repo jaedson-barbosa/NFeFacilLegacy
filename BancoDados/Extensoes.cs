@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 
 namespace NFeFacil
 {
-    public static class Extensoes
+    static class Extensoes
     {
         public static XElement ToXElement(this object obj, Type T, string nameSpace = "http://www.portalfiscal.inf.br/nfe")
         {
@@ -42,5 +42,9 @@ namespace NFeFacil
             var assembly = origem.GetType().GetTypeInfo().Assembly;
             return assembly.GetManifestResourceStream(caminho);
         }
+
+        static CultureInfo culturaPadrao = CultureInfo.InvariantCulture;
+        public static string ToStr(double valor) => valor.ToString("F2", culturaPadrao);
+        public static double Parse(string str) => double.Parse(str, NumberStyles.Number, culturaPadrao);
     }
 }

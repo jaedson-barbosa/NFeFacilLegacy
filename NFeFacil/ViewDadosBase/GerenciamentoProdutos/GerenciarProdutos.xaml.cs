@@ -1,4 +1,5 @@
-﻿using NFeFacil.ItensBD;
+﻿using Microsoft.EntityFrameworkCore;
+using NFeFacil.ItensBD;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -43,7 +44,7 @@ namespace NFeFacil.ViewDadosBase.GerenciamentoProdutos
             var produto = (ProdutoDI)contexto;
             using (var db = new AplicativoContext())
             {
-                var estoque = db.Estoque.Find(produto.Id);
+                var estoque = db.Estoque.Include(x => x.Alteracoes).FirstOrDefault(x => x.Id == produto.Id);
                 if (estoque == null)
                 {
                     var caixa = new MessageDialog("Essa é uma operação sem volta, uma vez adicionado ao controle de estoque este produto será permanentemente parte dele. Certeza que você realmente quer isso?", "Atenção");

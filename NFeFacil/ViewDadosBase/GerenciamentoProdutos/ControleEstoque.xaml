@@ -25,18 +25,17 @@
                             x:Name="paiGrafico"
                             Margin="0,0,16,0">
             <lvc:CartesianChart.Series>
-                <lvc:LineSeries x:Name="serieGrafico"
+                <lvc:LineSeries Values="{x:Bind Valores}"
                                 StrokeThickness="2"
-                                Stroke="{StaticResource PoucoVariada}"
-                                Fill="{StaticResource MuitoVariada}"
                                 LineSmoothness="1"
                                 PointGeometrySize="16"
-                                PointForeround="{StaticResource Normal}" />
+                                Title="Total" />
             </lvc:CartesianChart.Series>
             <lvc:CartesianChart.AxisX>
-                <lvc:Axis LabelFormatter="{x:Bind Formatter}">
+                <lvc:Axis Labels="{x:Bind Labels}"
+                          ShowLabels="False">
                     <lvc:Axis.Separator>
-                        <lvc:Separator Step="2" />
+                        <lvc:Separator Step="1" />
                     </lvc:Axis.Separator>
                 </lvc:Axis>
             </lvc:CartesianChart.AxisX>

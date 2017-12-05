@@ -1,8 +1,7 @@
-﻿using LiveCharts.Configurations;
+﻿using LiveCharts;
 using NFeFacil.ItensBD;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -19,7 +18,8 @@ namespace NFeFacil.ViewDadosBase.GerenciamentoProdutos
     {
         bool AlteracoesNaoSalvas = false;
         Estoque Estoque;
-        Func<double, string> Formatter { get; set; }
+        ChartValues<double> Valores { get; } = new ChartValues<double>();
+        string[] Labels { get; } = new string[10];
 
         public string LocalizacaoGenerica
         {
@@ -64,67 +64,56 @@ namespace NFeFacil.ViewDadosBase.GerenciamentoProdutos
         public ControleEstoque()
         {
             InitializeComponent();
-
-            paiGrafico.Series.Configuration = Mappers.Xy<DateModel>()
-                .X(dayModel => dayModel.IdTempo)
-                .Y(dayModel => dayModel.Value);
-
-            Formatter = new Func<double, string>(x => x < 1 || x > 12 ? "Não há dados" : CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName((int)x));
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             Estoque = (Estoque)e.Parameter;
+
+            var alteracoes = Estoque.Alteracoes;
+            if (alteracoes != null)
+            {
+                var quant = alteracoes.Count;
+                if (quant > 10)
+                {
+                    var totInicial = alteracoes.Take(quant - 10).Sum(x => x.Alteração);
+                    Valores[0] = totInicial;
+                    Labels[0] = "Inicial";
+                    for (int i = 1; i < 10; i++)
+                    {
+                        var atual = alteracoes[quant - 10 + i];
+                        Valores.Add(atual.Alteração + Valores[i - 1]);
+                        Labels[i] = atual.MomentoRegistro.ToString("dd/MM/yyyy");
+                    }
+                }
+                else if (quant > 0)
+                {
+                    var salto = 10 - quant;
+                    for (int i = 0; i < salto; i++)
+                    {
+                        Valores.Add(alteracoes[0].Alteração);
+                        Labels[i] = "Inicial";
+                    }
+                    for (int i = salto, j = 0; i < 10; i++, j++)
+                    {
+                        var atual = alteracoes[j];
+                        Valores.Add(atual.Alteração + Valores[i - 1]);
+                        Labels[i] = atual.MomentoRegistro.ToString("dd/MM/yyyy");
+                    }
+                }
+            }
         }
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
-            using (var db = new AplicativoContext())
+            if (AlteracoesNaoSalvas)
             {
-                db.Update(Estoque);
-                db.SaveChanges();
-            }
-        }
-
-        private void ProdutoAlterado(object sender, SelectionChangedEventArgs e)
-        {
-            var alteracoes = Estoque.Alteracoes;
-            if (alteracoes != null)
-            {
-                var anos = new List<Ano>(from item in alteracoes
-                                         group item by item.MomentoRegistro.Year into k
-                                         select new Ano(k, k.Key));
-                var valores = new DateModel[12];
-                if (anos.Count > 0)
+                using (var db = new AplicativoContext())
                 {
-                    var ano = anos.Last();
-                    var anosAnteriores = anos.Take(anos.Count - 1).Sum(x => x.Total);
-                    for (int i = 0; i < 12; i++)
-                    {
-                        var mes = ano.Meses[i];
-                        valores[i] = new DateModel()
-                        {
-                            IdTempo = i + 1,
-                            Value = ano.Meses.Take(i).Sum(x => x.Total) + mes.Total + anosAnteriores
-                        };
-                    }
-                    serieGrafico.Values = new LiveCharts.ChartValues<DateModel>(valores);
-                }
-                else
-                {
-                    serieGrafico.Values = new LiveCharts.ChartValues<DateModel>(new DateModel[1] { new DateModel() { IdTempo = 0, Value = 0 } });
+                    db.Update(Estoque);
+                    db.SaveChanges();
                 }
             }
-            else
-            {
-                serieGrafico.Values = new LiveCharts.ChartValues<DateModel>(new DateModel[1] { new DateModel() { IdTempo = 0, Value = 0 } });
-            }
-        }
-
-        public class DateModel
-        {
-            public int IdTempo { get; set; }
-            public double Value { get; set; }
         }
 
         private async void AlterarQuantidade_Click(object sender, RoutedEventArgs e)
@@ -150,13 +139,19 @@ namespace NFeFacil.ViewDadosBase.GerenciamentoProdutos
                         Estoque.Alteracoes.Add(alt);
                     }
 
-                    for (int i = alt.MomentoRegistro.Month - 1; i < serieGrafico.Values.Count; i++)
+                    var novosValores = new double[10];
+                    for (int i = 0; i < 9; i++)
                     {
-                        var item = (DateModel)serieGrafico.Values[i];
-                        item.Value += valor;
-                        serieGrafico.Values.RemoveAt(i);
-                        serieGrafico.Values.Insert(i, item);
+                        novosValores[i] = Valores[i + 1];
+                        Labels[i] = Labels[i + 1];
                     }
+                    novosValores[9] = novosValores[8] + valor;
+                    Labels[9] = alt.MomentoRegistro.ToString("dd/MM/yyyy");
+
+                    Valores.Clear();
+                    Valores.AddRange(novosValores);
+
+                    AlteracoesNaoSalvas = true;
                 }
             }
         }

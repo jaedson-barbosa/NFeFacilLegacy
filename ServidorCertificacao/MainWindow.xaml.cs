@@ -72,16 +72,43 @@ namespace ServidorCertificacao
             var metodos = new Metodos();
             try
             {
-                var bytes = new List<byte>();
-                while (stream.DataAvailable)
+                string Cabecalho = string.Empty;
+                string Corpo = string.Empty;
+                var leitor = new StreamReader(stream);
+                int tam = 0;
+                while (true)
                 {
-                    bytes.Add((byte)stream.ReadByte());
+                    var str = leitor.ReadLine();
+                    Cabecalho += str + "\r\n";
+                    if (str.Contains("Content-Length"))
+                    {
+                        tam = int.Parse(str.Substring(str.IndexOf(' ') + 1));
+                    }
+                    else if (string.IsNullOrEmpty(str))
+                    {
+                        if (tam == 0)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            tam -= 2;
+                            char[] letras = new char[tam];
+                            leitor.ReadBlock(letras, 0, tam);
+                            Corpo = new string(letras);
+                            break;
+                        }
+                    }
                 }
-                var requisicao = Encoding.UTF8.GetString(bytes.ToArray());
+                if (string.IsNullOrEmpty(Cabecalho))
+                {
+                    throw new Exception("Falha ao processar requisição.");
+                }
 
-                var primeiraLinha = requisicao.Substring(0, requisicao.IndexOf("\r\n"));
+                var primeiraLinha = Cabecalho.Substring(0, Cabecalho.IndexOf("\r\n"));
                 var parametros = primeiraLinha.Split(' ')[1].Replace('/', ' ').Trim().Split(' ');
                 var nomeMetodo = parametros[0];
+
                 lstMetodos.Dispatcher.Invoke(() => lstMetodos.Items.Insert(0, $"Nome metodo: {nomeMetodo};"), DispatcherPriority.Normal);
                 string texto;
                 switch (nomeMetodo)
@@ -90,15 +117,14 @@ namespace ServidorCertificacao
                         texto = metodos.ObterCertificados(stream);
                         break;
                     case "AssinarRemotamente":
-                        var conteudo0 = requisicao.Substring(requisicao.IndexOf("\r\n\r\n") + 4);
-                        var xml0 = XElement.Parse(conteudo0);
+                        var xml0 = XElement.Parse(Corpo);
+                        lstMetodos.Dispatcher.Invoke(() => lstMetodos.Items.Insert(0, $"XML Requisição: {xml0.ToString()};"), DispatcherPriority.Normal);
                         var cert = Desserializar<CertificadoAssinaturaDTO>(xml0);
-
-                        texto = metodos.AssinarRemotamente(stream, cert);
+                        Action<string> log = x => lstMetodos.Dispatcher.Invoke(() => lstMetodos.Items.Insert(0, x), DispatcherPriority.Normal);
+                        texto = metodos.AssinarRemotamente(stream, cert, log);
                         break;
                     case "EnviarRequisicao":
-                        var conteudo1 = requisicao.Substring(requisicao.IndexOf("\r\n\r\n") + 4);
-                        var xml1 = XElement.Parse(conteudo1);
+                        var xml1 = XElement.Parse(Corpo);
                         var envio = Desserializar<RequisicaoEnvioDTO>(xml1);
 
                         texto = await metodos.EnviarRequisicaoAsync(stream, envio);

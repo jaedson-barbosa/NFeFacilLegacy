@@ -56,7 +56,8 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
             }
         }
 
-        double valorTotal;
+        [XmlIgnore]
+        public double valorTotal;
         [XmlElement(ElementName = "vProd", Order = 10), DescricaoPropriedade("Valor total bruto")]
         public string ValorTotal
         {

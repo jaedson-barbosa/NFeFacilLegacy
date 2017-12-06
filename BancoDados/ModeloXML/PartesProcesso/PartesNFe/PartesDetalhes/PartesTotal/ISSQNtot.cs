@@ -43,7 +43,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTotal
                         }
                     }
                 }
-                VServ += prod.ValorTotal;
+                VServ += prod.valorTotal;
                 VOutro += prod.DespesasAcessorias.ToDouble();
             }
         }

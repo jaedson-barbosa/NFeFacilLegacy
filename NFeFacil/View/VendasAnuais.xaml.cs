@@ -9,6 +9,7 @@ using System.Globalization;
 using LiveCharts;
 using LiveCharts.Uwp;
 using LiveCharts.Configurations;
+using static NFeFacil.ExtensoesPrincipal;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -129,7 +130,7 @@ namespace NFeFacil.View
             };
         }
 
-        static double Convert(string str) => str?.ToDouble() ?? 0;
+        static double Convert(string str) => string.IsNullOrEmpty(str) ? 0 : Parse(str);
 
         void AtualizarMeses()
         {
@@ -281,8 +282,8 @@ namespace NFeFacil.View
                 {
                     Descricao = x.Produto.Descricao,
                     Quantidade = x.Produto.QuantidadeComercializada,
-                    TotalBruto = x.Produto.ValorTotal,
-                    TotalLiquido = x.Produto.ValorTotal + Convert(x.Produto.Frete) + Convert(x.Produto.DespesasAcessorias) + Convert(x.Produto.Seguro) - Convert(x.Produto.Desconto)
+                    TotalBruto = x.Produto.valorTotal,
+                    TotalLiquido = x.Produto.valorTotal + Convert(x.Produto.Frete) + Convert(x.Produto.DespesasAcessorias) + Convert(x.Produto.Seguro) - Convert(x.Produto.Desconto)
                 });
             }
         }

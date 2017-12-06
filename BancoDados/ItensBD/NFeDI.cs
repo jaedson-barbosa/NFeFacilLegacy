@@ -3,6 +3,7 @@ using NFeFacil.ModeloXML.PartesProcesso;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
+using System.Xml.Serialization;
 
 namespace NFeFacil.ItensBD
 {
@@ -35,15 +36,16 @@ namespace NFeFacil.ItensBD
         {
             if (xml.Name.LocalName == nameof(NFe))
             {
-                return new NFeDI(xml.FromXElement<NFe>(), xml.ToString());
+                return new NFeDI(FromXElement<NFe>(xml), xml.ToString());
             }
             else
             {
-                return new NFeDI(xml.FromXElement<Processo>(), xml.ToString());
+                return new NFeDI(FromXElement<Processo>(xml), xml.ToString());
             }
         }
 
         public NFeDI() { }
+
         public NFeDI(NFe nota, string xml)
         {
             Id = nota.Informacoes.Id;
@@ -56,6 +58,7 @@ namespace NFeFacil.ItensBD
             Status = nota.Signature != null && nota.Signature != null ? (int)StatusNFe.Assinada : (int)StatusNFe.Salva;
             XML = xml;
         }
+
         public NFeDI(Processo nota, string xml)
         {
             Id = nota.NFe.Informacoes.Id;
@@ -67,6 +70,15 @@ namespace NFeFacil.ItensBD
             SerieNota = nota.NFe.Informacoes.identificacao.Serie;
             Status = nota.ProtNFe != null ? (int)StatusNFe.Emitida : nota.NFe.Signature != null ? (int)StatusNFe.Assinada : (int)StatusNFe.Salva;
             XML = xml;
+        }
+
+        static T FromXElement<T>(XNode xElement)
+        {
+            var xmlSerializer = new XmlSerializer(typeof(T));
+            using (var reader = xElement.CreateReader())
+            {
+                return (T)xmlSerializer.Deserialize(reader);
+            }
         }
     }
 }

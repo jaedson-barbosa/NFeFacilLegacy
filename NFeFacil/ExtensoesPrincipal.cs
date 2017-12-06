@@ -44,6 +44,15 @@ namespace NFeFacil
             return (T)xmlSerializer.Deserialize(streamXMl);
         }
 
+        public static T FromXElement<T>(this XNode xElement)
+        {
+            var xmlSerializer = new XmlSerializer(typeof(T));
+            using (var reader = xElement.CreateReader())
+            {
+                return (T)xmlSerializer.Deserialize(reader);
+            }
+        }
+
         public static string ToStringPersonalizado(this DateTime dataHora)
         {
             double horas = TimeZoneInfo.Local.BaseUtcOffset.TotalHours;

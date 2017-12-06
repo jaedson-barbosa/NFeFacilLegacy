@@ -1,6 +1,7 @@
 ﻿using NFeFacil.Log;
 using System;
 using System.IO;
+using System.Reflection;
 using Windows.Storage.Pickers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -42,7 +43,8 @@ namespace NFeFacil.Certificacao
             {
                 using (var stream = await arquivo.OpenStreamForWriteAsync())
                 {
-                    var recurso = Extensoes.Retornar(this, caminho);
+                    var assembly = GetType().GetTypeInfo().Assembly;
+                    var recurso = assembly.GetManifestResourceStream(caminho);
                     recurso.CopyTo(stream);
                 }
                 Popup.Current.Escrever(TitulosComuns.Sucesso, "Arquivo salvo com sucesso.\r\n" +

@@ -18,16 +18,18 @@
                 Width="256"
                 Height="256"
                 Margin="4">
-            <Image x:Name="imagem"
+            <Image Source="{x:Bind Imagem}"
                    Stretch="UniformToFill" />
         </Border>
-        <TextBlock x:Name="principal" Grid.Row="1"
+        <TextBlock Grid.Row="1"
+                   Text="{x:Bind Principal}"
                    Style="{StaticResource BodyTextBlockStyle}"
                    MaxWidth="256"
                    TextAlignment="Center"
                    FontWeight="Bold"
                    FontSize="18" />
-        <TextBlock x:Name="secundario" Grid.Row="2"
+        <TextBlock Grid.Row="2"
+                   Text="{x:Bind Secundario}"
                    Style="{StaticResource BodyTextBlockStyle}"
                    MaxWidth="256"
                    TextAlignment="Center" />

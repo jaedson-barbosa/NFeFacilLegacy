@@ -1,8 +1,8 @@
 ﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Xml.Serialization;
+using static NFeFacil.Extensoes;
 
 namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTotal
 {
@@ -63,7 +63,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTotal
                 }
                 if (prod.InclusaoTotal == 1 && !temISSQN)
                 {
-                    vProd += prod.ValorTotal;
+                    vProd += prod.valorTotal;
                     vFrete += prod.Frete.ToDouble();
                     vSeg += prod.Seguro.ToDouble();
                     vDesc += prod.Desconto.ToDouble();
@@ -72,13 +72,11 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTotal
                 }
                 else if (temISSQN)
                 {
-                    vProdISSQN += prod.ValorTotal;
+                    vProdISSQN += prod.valorTotal;
                 }
             }
         }
         
-        CultureInfo culturaPadrao = CultureInfo.InvariantCulture;
-
         [XmlIgnore]
         public double vBC;
         [XmlElement("vBC", Order = 0), DescricaoPropriedade("Somatório da BC do ICMS")]
@@ -186,8 +184,5 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTotal
         public string VTotTrib { get => ToStr(vTotTrib); set => vTotTrib = Parse(value); }
 
         double vProdISSQN;
-
-        double Parse(string str) => double.Parse(str, NumberStyles.Number, culturaPadrao);
-        string ToStr(double valor) => valor.ToString("F2", culturaPadrao);
     }
 }

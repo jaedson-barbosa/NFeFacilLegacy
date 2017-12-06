@@ -21,17 +21,14 @@ namespace ServidorCertificacao
             return xml.ToString(SaveOptions.DisableFormatting);
         }
 
-        public string AssinarRemotamente(Stream stream, CertificadoAssinaturaDTO cert, Action<string> log)
+        public string AssinarRemotamente(Stream stream, CertificadoAssinaturaDTO cert)
         {
             using (var loja = new X509Store())
             {
                 loja.Open(OpenFlags.ReadOnly);
                 var x509 = loja.Certificates.Find(X509FindType.FindBySerialNumber, cert.Serial, true)[0];
-                log("Obtido certificado");
                 var assinatura = AssinarXML(cert.XML, x509);
-                log("Obtida assinatura");
                 var xml = Serializar(assinatura);
-                log("Serializado");
                 return assinatura;
             }
         }

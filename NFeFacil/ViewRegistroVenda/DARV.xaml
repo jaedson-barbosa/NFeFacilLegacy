@@ -4,7 +4,6 @@
       xmlns:local="using:NFeFacil.ViewRegistroVenda"
       xmlns:vml="using:NFeFacil.ViewModel"
       xmlns:bd="using:NFeFacil.ItensBD"
-      xmlns:teste="using:System.Collections.ObjectModel"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
@@ -123,8 +122,8 @@
                             <ColumnDefinition Width="{x:Bind local:ProdutosDARV.Largura3}" />
                             <ColumnDefinition Width="{x:Bind local:ProdutosDARV.Largura3}" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock>Quantidade</TextBlock>
-                        <TextBlock Grid.Column="1">Código</TextBlock>
+                        <TextBlock>Código</TextBlock>
+                        <TextBlock Grid.Column="1">Quantidade</TextBlock>
                         <TextBlock Grid.Column="2">Descrição</TextBlock>
                         <TextBlock Grid.Column="3" HorizontalAlignment="Right">Valor unitário</TextBlock>
                         <TextBlock Grid.Column="4" HorizontalAlignment="Right">Valor total</TextBlock>
@@ -144,9 +143,9 @@
                                 <ColumnDefinition Width="{x:Bind local:ProdutosDARV.Largura3}" />
                                 <ColumnDefinition Width="{x:Bind local:ProdutosDARV.Largura3}" />
                             </Grid.ColumnDefinitions>
-                            <TextBlock Text="{x:Bind Quantidade}" />
+                            <TextBlock Text="{x:Bind CodigoProduto}" />
                             <TextBlock Grid.Column="1"
-                                       Text="{x:Bind CodigoProduto}" />
+                                       Text="{x:Bind Quantidade}" />
                             <TextBlock Grid.Column="2"
                                        Text="{x:Bind Descricao}"
                                        TextWrapping="Wrap" />

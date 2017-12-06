@@ -88,7 +88,7 @@ namespace NFeFacil.ViewRegistroVenda
                     desconto += atual.Desconto;
                     produtos[i] = new ExibicaoProduto
                     {
-                        Quantidade = atual.Quantidade.ToString("C2"),
+                        Quantidade = atual.Quantidade.ToString("N2"),
                         CodigoProduto = completo.CodigoProduto,
                         Descricao = completo.Descricao,
                         ValorUnitario = atual.ValorUnitario.ToString("C2"),

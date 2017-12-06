@@ -7,5 +7,6 @@
              d:DesignHeight="300"
              d:DesignWidth="400">
     <Grid x:Name="grdPrincipal"
-          Loaded="grdPrincipal_Loaded" />
+          Loaded="grdPrincipal_Loaded"
+          Margin="{x:Bind Padding}" />
 </UserControl>

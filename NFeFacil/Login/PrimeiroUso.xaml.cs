@@ -36,6 +36,13 @@ namespace NFeFacil.Login
 
         void Manualmente(object sender, TappedRoutedEventArgs e) => MainPage.Current.Navegar<AdicionarEmitente>();
         void Sincronizar(object sender, TappedRoutedEventArgs e) => MainPage.Current.Navegar<SincronizacaoCliente>();
-        void RestaurarBackup(object sender, TappedRoutedEventArgs e) => Backup.RestaurarBackup();
+        async void RestaurarBackup(object sender, TappedRoutedEventArgs e)
+        {
+            if (await Backup.RestaurarBackup())
+            {
+                await Task.Delay(500);
+                MainPage.Current.Navegar<EscolhaEmitente>();
+            }
+        }
     }
 }

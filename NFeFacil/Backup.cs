@@ -5,6 +5,7 @@ using NFeFacil.Log;
 using System;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Windows.Storage.Pickers;
 
 namespace NFeFacil
@@ -31,7 +32,7 @@ namespace NFeFacil
             }
         }
 
-        public async static void RestaurarBackup()
+        public async static Task<bool> RestaurarBackup()
         {
             var caixa = new FileOpenPicker();
             caixa.FileTypeFilter.Add(".json");
@@ -49,6 +50,7 @@ namespace NFeFacil
                         {
                             conjunto.AnalisarESalvar();
                             Popup.Current.Escrever(TitulosComuns.Sucesso, "Backup restaurado com sucesso.");
+                            return true;
                         }
                         catch (Exception)
                         {
@@ -61,6 +63,7 @@ namespace NFeFacil
                     }
                 }
             }
+            return false;
         }
 
         struct ConjuntoBanco

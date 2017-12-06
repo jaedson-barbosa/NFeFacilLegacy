@@ -63,7 +63,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTotal
                 }
                 if (prod.InclusaoTotal == 1 && !temISSQN)
                 {
-                    vProd += prod.valorTotal;
+                    vProd += prod.ValorTotalDouble;
                     vFrete += prod.Frete.ToDouble();
                     vSeg += prod.Seguro.ToDouble();
                     vDesc += prod.Desconto.ToDouble();
@@ -72,7 +72,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTotal
                 }
                 else if (temISSQN)
                 {
-                    vProdISSQN += prod.valorTotal;
+                    vProdISSQN += prod.ValorTotalDouble;
                 }
             }
         }

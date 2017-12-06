@@ -57,17 +57,17 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
         }
 
         [XmlIgnore]
-        public double valorTotal;
-        [XmlElement(ElementName = "vProd", Order = 10), DescricaoPropriedade("Valor total bruto")]
-        public string ValorTotal
+        public double ValorTotalDouble
         {
-            get => ToStr(valorTotal);
+            get => string.IsNullOrEmpty(ValorTotal) ? ValorTotalDouble = 0 : Parse(ValorTotal);
             set
             {
-                valorTotal = Parse(value);
+                ValorTotal = ToStr(value);
                 DadoImpostoChanged?.Invoke(this, null);
             }
         }
+        [XmlElement(ElementName = "vProd", Order = 10), DescricaoPropriedade("Valor total bruto")]
+        public string ValorTotal { get; set; }
 
         [XmlElement(ElementName = "cEANTrib", Order = 11), DescricaoPropriedade("Global Trade Item Number (código de barras do tributo)")]
         public string CodigoBarrasTributo { get; set; } = "";

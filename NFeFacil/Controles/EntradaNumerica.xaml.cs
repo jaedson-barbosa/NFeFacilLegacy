@@ -72,8 +72,7 @@ namespace NFeFacil.Controles
             {
                 var texto = DefinirTexto(value, value);
                 var parseado = double.Parse(texto, culturaPadrao);
-                
-                SetValue(NumberProperty, Convert.ChangeType(parseado, GetValue(NumberProperty).GetType()));
+                SetValue(NumberProperty, parseado);
             }
         }
 

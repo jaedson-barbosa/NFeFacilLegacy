@@ -52,7 +52,7 @@ namespace NFeFacil.ItensBD
                     Seguro = Seguro != 0 ? Seguro.ToString("0.00") : null,
                     DespesasAcessorias = DespesasExtras != 0 ? DespesasExtras.ToString("0.00") : null,
                     Desconto = Desconto != 0 ? Desconto.ToString("0.00") : null,
-                    valorTotal = Quantidade * ProdutoBase.ValorUnitario
+                    ValorTotalDouble = Quantidade * ProdutoBase.ValorUnitario
                 };
             }
         }

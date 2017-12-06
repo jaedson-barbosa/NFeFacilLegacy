@@ -495,7 +495,7 @@ namespace NFeFacil.ViewNFe
                     var caixa2 = new AdicionarIPIAliquota();
                     if (await caixa2.ShowAsync() == ContentDialogResult.Primary)
                     {
-                        var vBC = ProdutoCompleto.Produto.valorTotal;
+                        var vBC = ProdutoCompleto.Produto.ValorTotalDouble;
                         var pIPI = double.Parse(caixa2.Aliquota, culturaPadrao);
                         caixa2.Conjunto.Corpo = new IPITrib
                         {
@@ -544,7 +544,7 @@ namespace NFeFacil.ViewNFe
                     var caixa2 = new AddPISouCOFINSAliquota();
                     if (await caixa2.ShowAsync() == ContentDialogResult.Primary)
                     {
-                        var vBC = ProdutoCompleto.Produto.valorTotal;
+                        var vBC = ProdutoCompleto.Produto.ValorTotalDouble;
                         var pPIS = caixa2.Aliquota;
                         return new PIS[1]
                         {
@@ -592,7 +592,7 @@ namespace NFeFacil.ViewNFe
                             var caixa2 = new AddPISouCOFINSAliquota();
                             if (await caixa2.ShowAsync() == ContentDialogResult.Primary)
                             {
-                                var vBC = ProdutoCompleto.Produto.valorTotal;
+                                var vBC = ProdutoCompleto.Produto.ValorTotalDouble;
                                 var pPIS = caixa2.Aliquota;
                                 return new Imposto[2]
                                 {
@@ -659,7 +659,7 @@ namespace NFeFacil.ViewNFe
                         var caixa2 = new AddPISouCOFINSAliquota();
                         if (await caixa2.ShowAsync() == ContentDialogResult.Primary)
                         {
-                            var vBC = ProdutoCompleto.Produto.valorTotal;
+                            var vBC = ProdutoCompleto.Produto.ValorTotalDouble;
                             var pPIS = caixa2.Aliquota;
                             return new PIS[1]
                             {
@@ -716,7 +716,7 @@ namespace NFeFacil.ViewNFe
                     var caixa2 = new AddPISouCOFINSAliquota();
                     if (await caixa2.ShowAsync() == ContentDialogResult.Primary)
                     {
-                        var vBC = ProdutoCompleto.Produto.valorTotal;
+                        var vBC = ProdutoCompleto.Produto.ValorTotalDouble;
                         var pCOFINS = caixa2.Aliquota;
                         return new COFINS[1]
                         {
@@ -764,7 +764,7 @@ namespace NFeFacil.ViewNFe
                             var caixa2 = new AddPISouCOFINSAliquota();
                             if (await caixa2.ShowAsync() == ContentDialogResult.Primary)
                             {
-                                var vBC = ProdutoCompleto.Produto.valorTotal;
+                                var vBC = ProdutoCompleto.Produto.ValorTotalDouble;
                                 var pCOFINS = caixa2.Aliquota;
                                 return new Imposto[2]
                                 {
@@ -831,7 +831,7 @@ namespace NFeFacil.ViewNFe
                         var caixa2 = new AddPISouCOFINSAliquota();
                         if (await caixa2.ShowAsync() == ContentDialogResult.Primary)
                         {
-                            var vBC = ProdutoCompleto.Produto.valorTotal;
+                            var vBC = ProdutoCompleto.Produto.ValorTotalDouble;
                             var pCOFINS = caixa2.Aliquota;
                             return new COFINS[1]
                             {

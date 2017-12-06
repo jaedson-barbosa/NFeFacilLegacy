@@ -1,7 +1,4 @@
-﻿using ServidorCertificacao.Primitivos;
-using System.Security.Cryptography.X509Certificates;
-
-namespace ServidorCertificacao.Pacotes
+﻿namespace ServidorCertificacao.Pacotes
 {
     public struct CertificadoAssinaturaDTO
     {

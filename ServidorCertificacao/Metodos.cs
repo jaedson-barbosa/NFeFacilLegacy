@@ -1,7 +1,6 @@
 ﻿using ServidorCertificacao.Pacotes;
 using System;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -9,32 +8,15 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using System.Xml;
-using ServidorCertificacao.Primitivos;
 using System.Security.Cryptography.Xml;
 
 namespace ServidorCertificacao
 {
     class Metodos
     {
-        X509Store Loja { get; }
-
-        public Metodos()
-        {
-            Loja = new X509Store(StoreName.My, StoreLocation.CurrentUser);
-            Loja.Open(OpenFlags.ReadOnly);
-        }
-
         public string ObterCertificados(Stream stream)
         {
-            var retorno = new CertificadosExibicaoDTO(Loja.Certificates.Count);
-            foreach (var item in Loja.Certificates)
-            {
-                retorno.Registro.Add(new CertificadoExibicao
-                {
-                    SerialNumber = item.SerialNumber,
-                    Subject = item.Subject
-                });
-            }
+            var retorno = new CertificadosExibicaoDTO();
             var xml = Serializar(retorno);
             return xml.ToString(SaveOptions.DisableFormatting);
         }

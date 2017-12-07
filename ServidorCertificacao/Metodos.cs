@@ -85,8 +85,10 @@ namespace ServidorCertificacao
             XmlNodeList ListInfNFe = doc.GetElementsByTagName("infNFe");
             XmlElement infNFe = (XmlElement)ListInfNFe[0];
             string id = infNFe.Attributes.GetNamedItem("Id").Value;
-            var signedXml = new SignedXml(infNFe);
-            signedXml.SigningKey = certificado.PrivateKey;
+            var signedXml = new SignedXml(infNFe)
+            {
+                SigningKey = certificado.PrivateKey
+            };
 
             // Transformações p/ DigestValue da Nota
             Reference reference = new Reference("#" + id);
@@ -94,21 +96,25 @@ namespace ServidorCertificacao
             reference.AddTransform(new XmlDsigC14NTransform());
             signedXml.AddReference(reference);
 
+            KeyInfo keyInfo = new KeyInfo();
+            keyInfo.AddClause(new KeyInfoX509Data(certificado));
+            signedXml.KeyInfo = keyInfo;
+
             signedXml.ComputeSignature();
 
-            XmlElement xmlSignature = doc.CreateElement("Assinatura");
             XmlElement xmlSignedInfo = signedXml.SignedInfo.GetXml();
             XmlElement xmlKeyInfo = signedXml.KeyInfo.GetXml();
 
-            XmlElement xmlSignatureValue = doc.CreateElement("SignatureValue", xmlSignature.NamespaceURI);
+            XmlElement xmlSignatureValue = doc.CreateElement("SignatureValue");
             string signBase64 = Convert.ToBase64String(signedXml.Signature.SignatureValue);
             XmlText text = doc.CreateTextNode(signBase64);
             xmlSignatureValue.AppendChild(text);
-            xmlSignature.AppendChild(xmlSignatureValue);
 
-            xmlSignature.AppendChild(doc.ImportNode(xmlSignedInfo, true));
-            xmlSignature.AppendChild(doc.ImportNode(xmlKeyInfo, true));
-            return xmlSignature.OuterXml;
+            XElement xmlSignature = new XElement("Assinatura");
+            xmlSignature.Add(XElement.Parse(xmlSignedInfo.OuterXml));
+            xmlSignature.Add(XElement.Parse(xmlSignatureValue.OuterXml));
+            xmlSignature.Add(XElement.Parse(xmlKeyInfo.OuterXml));
+            return xmlSignature.ToString();
         }
     }
 }

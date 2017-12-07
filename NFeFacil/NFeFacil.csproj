@@ -203,6 +203,17 @@
       <DependentUpon>GerenciarVendedores.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\MascaraDocumento.cs" />
+    <Compile Include="ViewNFe\Impostos\IDetalhamentoImposto.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMSUFDest.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoII.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoIPI.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoISSQN.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoPIS.cs" />
+    <Compile Include="ViewNFe\Impostos\EscolhaImpostos.xaml.cs">
+      <DependentUpon>EscolhaImpostos.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewRegistroVenda\CalcularTroco.xaml.cs">
       <DependentUpon>CalcularTroco.xaml</DependentUpon>
     </Compile>
@@ -726,6 +737,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ViewNFe\Impostos\EscolhaImpostos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ViewRegistroVenda\CalcularTroco.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1225,9 +1240,7 @@
       <Name>Windows Mobile Extensions for the UWP</Name>
     </SDKReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewNFe\Impostos\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

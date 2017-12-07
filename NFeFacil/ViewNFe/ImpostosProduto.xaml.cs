@@ -1106,7 +1106,7 @@ namespace NFeFacil.ViewNFe
         }
     }
 
-    enum PrincipaisImpostos
+    public enum PrincipaisImpostos
     {
         ICMS,
         IPI,

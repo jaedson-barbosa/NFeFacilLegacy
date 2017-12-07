@@ -117,7 +117,7 @@ namespace NFeFacil.ItensBD
                     CEP = CEP,
                     CPais = CPais,
                     XPais = XPais,
-                    Telefone = Telefone
+                    Telefone = string.IsNullOrEmpty(Telefone) ? null : Telefone
                 }
             };
         }

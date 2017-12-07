@@ -56,6 +56,14 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
             }
         }
 
+        string cest;
+        [XmlElement(ElementName = "CEST", Order = 10), DescricaoPropriedade("Valor total bruto")]
+        public string CEST
+        {
+            get => string.IsNullOrEmpty(cest) ? null : cest;
+            set => cest = value;
+        }
+
         [XmlIgnore]
         public double ValorTotalDouble
         {
@@ -66,17 +74,17 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
                 DadoImpostoChanged?.Invoke(this, null);
             }
         }
-        [XmlElement(ElementName = "vProd", Order = 10), DescricaoPropriedade("Valor total bruto")]
+        [XmlElement(ElementName = "vProd", Order = 11), DescricaoPropriedade("Valor total bruto")]
         public string ValorTotal { get; set; }
 
-        [XmlElement(ElementName = "cEANTrib", Order = 11), DescricaoPropriedade("Global Trade Item Number (código de barras do tributo)")]
+        [XmlElement(ElementName = "cEANTrib", Order = 12), DescricaoPropriedade("Global Trade Item Number (código de barras do tributo)")]
         public string CodigoBarrasTributo { get; set; } = "";
 
-        [XmlElement(ElementName = "uTrib", Order = 12), DescricaoPropriedade("Unidade de tributação")]
+        [XmlElement(ElementName = "uTrib", Order = 13), DescricaoPropriedade("Unidade de tributação")]
         public string UnidadeTributacao { get; set; }
 
         double quantidadeTributada;
-        [XmlElement(ElementName = "qTrib", Order = 13), DescricaoPropriedade("Quantidade tributada")]
+        [XmlElement(ElementName = "qTrib", Order = 14), DescricaoPropriedade("Quantidade tributada")]
         public double QuantidadeTributada
         {
             get => quantidadeTributada;
@@ -88,7 +96,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
         }
 
         double valorUnitarioTributo;
-        [XmlElement(ElementName = "vUnTrib", Order = 14), DescricaoPropriedade("Valor unitário de tributação")]
+        [XmlElement(ElementName = "vUnTrib", Order = 15), DescricaoPropriedade("Valor unitário de tributação")]
         public double ValorUnitarioTributo
         {
             get => valorUnitarioTributo;
@@ -99,43 +107,43 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
             }
         }
 
-        [XmlElement(ElementName = "vFrete", Order = 15)]
+        [XmlElement(ElementName = "vFrete", Order = 16)]
         public string Frete { get; set; }
 
-        [XmlElement(ElementName = "vSeg", Order = 16)]
+        [XmlElement(ElementName = "vSeg", Order = 17)]
         public string Seguro { get; set; }
 
-        [XmlElement(ElementName = "vDesc", Order = 17)]
+        [XmlElement(ElementName = "vDesc", Order = 18)]
         public string Desconto { get; set; }
 
-        [XmlElement(ElementName = "vOutro", Order = 18), DescricaoPropriedade("Despesas acessórias")]
+        [XmlElement(ElementName = "vOutro", Order = 19), DescricaoPropriedade("Despesas acessórias")]
         public string DespesasAcessorias { get; set; }
 
-        [XmlElement(ElementName = "indTot", Order = 19), DescricaoPropriedade("Inclusão total")]
+        [XmlElement(ElementName = "indTot", Order = 20), DescricaoPropriedade("Inclusão total")]
         public int InclusaoTotal { get; set; } = 1;
 
-        [XmlElement("DI", Order = 20)]
+        [XmlElement("DI", Order = 21)]
         public List<DeclaracaoImportacao> DI { get; set; } = new List<DeclaracaoImportacao>();
 
-        [XmlElement("detExport", Order = 21)]
+        [XmlElement("detExport", Order = 22)]
         public List<GrupoExportacao> GrupoExportação { get; set; } = new List<GrupoExportacao>();
 
-        [XmlElement(Order = 22), DescricaoPropriedade("Número da Ficha de Conteúdo de Importação")]
+        [XmlElement(Order = 23), DescricaoPropriedade("Número da Ficha de Conteúdo de Importação")]
         public string NFCI { get; set; }
 
-        [XmlElement(Order = 23), DescricaoPropriedade("Veículo")]
+        [XmlElement(Order = 24), DescricaoPropriedade("Veículo")]
         public VeiculoNovo veicProd { get; set; }
 
-        [XmlElement("med", Order = 24)]
+        [XmlElement("med", Order = 25)]
         public List<Medicamento> medicamentos { get; set; }
 
-        [XmlElement("arma", Order = 25)]
+        [XmlElement("arma", Order = 26)]
         public List<Arma> armas { get; set; }
 
-        [XmlElement(Order = 26), DescricaoPropriedade("Combustível")]
+        [XmlElement(Order = 27), DescricaoPropriedade("Combustível")]
         public Combustivel comb { get; set; }
 
-        [XmlElement("nRECOPI", Order = 27), DescricaoPropriedade("Número RECOPI")]
+        [XmlElement("nRECOPI", Order = 28), DescricaoPropriedade("Número RECOPI")]
         public string NRECOPI { get; set; }
 
         public event EventHandler DadoImpostoChanged;

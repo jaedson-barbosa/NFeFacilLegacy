@@ -37,40 +37,40 @@ namespace NFeFacil.ViewNFe
             }
         }
 
-        string TipoEspecialEscolhido
+        int TipoEspecialEscolhido
         {
             get
             {
                 var prod = ProdutoCompleto.Produto;
                 if (prod.veicProd != null)
                 {
-                    return "1";
+                    return 1;
                 }
-                else if (prod.medicamentos != null)
+                else if (prod.medicamentos != null && prod.medicamentos.Count > 0)
                 {
-                    return "2";
+                    return 2;
                 }
-                else if (prod.armas != null)
+                else if (prod.armas != null && prod.armas.Count > 0)
                 {
-                    return "3";
+                    return 3;
                 }
                 else if (prod.comb != null)
                 {
-                    return "4";
+                    return 4;
                 }
                 else if (prod.NRECOPI != null)
                 {
-                    return "5";
+                    return 5;
                 }
                 else
                 {
-                    return "0";
+                    return 0;
                 }
             }
             set
             {
                 var prod = ProdutoCompleto.Produto;
-                switch (int.Parse(value))
+                switch (value)
                 {
                     case 0:
                         prod.veicProd = null;

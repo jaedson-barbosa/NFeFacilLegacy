@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
@@ -103,24 +102,32 @@ namespace NFeFacil.ViewNFe.Impostos
                 {
                     var item = (string)e.AddedItems[i];
                     var imposto = (PrincipaisImpostos)Enum.Parse(typeof(PrincipaisImpostos), item);
+                    bool sucesso = true;
                     switch (imposto)
                     {
                         case PrincipaisImpostos.ICMS:
-                            if (!await DetalharICMS()) input.SelectedItems.Remove("ICMS");
+                            sucesso = await DetalharICMS();
                             break;
                         case PrincipaisImpostos.IPI:
+                            sucesso = await DetalharIPI();
                             break;
                         case PrincipaisImpostos.II:
+                            Escolhidos.Add(new DetalhamentoII());
                             break;
                         case PrincipaisImpostos.ISSQN:
+                            await DetalharISSQN();
                             break;
                         case PrincipaisImpostos.PIS:
+                            sucesso = await DetalharPIS();
                             break;
                         case PrincipaisImpostos.COFINS:
+                            sucesso = await DetalharCOFINS();
                             break;
                         case PrincipaisImpostos.ICMSUFDest:
+                            Escolhidos.Add(new DetalhamentoICMSUFDest());
                             break;
                     }
+                    if (!sucesso) input.SelectedItems.Remove(item);
                 }
             }
         }
@@ -136,6 +143,64 @@ namespace NFeFacil.ViewNFe.Impostos
                     Regime = caixa.Regime,
                     TipoICMSRN = caixa.TipoICMSRN,
                     TipoICMSSN = caixa.TipoICMSSN
+                });
+                return true;
+            }
+            return false;
+        }
+
+        async Task<bool> DetalharIPI()
+        {
+            var caixa = new EscolherTipoIPI();
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+            {
+                Escolhidos.Add(new DetalhamentoIPI
+                {
+                    CST = caixa.CST,
+                    TipoCalculo = caixa.TipoCalculo
+                });
+                return true;
+            }
+            return false;
+        }
+
+        async Task DetalharISSQN()
+        {
+            var caixa = new MessageDialog("Qual o tipo de ISSQN desejado?", "Entrada");
+            caixa.Commands.Add(new UICommand("Nacional"));
+            caixa.Commands.Add(new UICommand("Exterior"));
+            Escolhidos.Add(new DetalhamentoISSQN
+            {
+                Exterior = (await caixa.ShowAsync()).Label == "Exterior"
+            });
+        }
+
+        async Task<bool> DetalharPIS()
+        {
+            var caixa = new EscolherTipoPISouCOFINS();
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+            {
+                Escolhidos.Add(new DetalhamentoPIS
+                {
+                    CST = caixa.CST,
+                    TipoCalculo = caixa.TipoCalculo,
+                    TipoCalculoST = caixa.TipoCalculoST
+                });
+                return true;
+            }
+            return false;
+        }
+
+        async Task<bool> DetalharCOFINS()
+        {
+            var caixa = new EscolherTipoPISouCOFINS();
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+            {
+                Escolhidos.Add(new DetalhamentoCOFINS
+                {
+                    CST = caixa.CST,
+                    TipoCalculo = caixa.TipoCalculo,
+                    TipoCalculoST = caixa.TipoCalculoST
                 });
                 return true;
             }

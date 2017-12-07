@@ -52,14 +52,14 @@ namespace NFeFacil
                             Popup.Current.Escrever(TitulosComuns.Sucesso, "Backup restaurado com sucesso.");
                             return true;
                         }
-                        catch (Exception)
+                        catch (Exception e)
                         {
-                            Popup.Current.Escrever(TitulosComuns.Erro, "Erro ao salvar os itens do backup, aparentemente já existem dados cadastrados neste aplicativo.");
+                            e.ManipularErro();
                         }
                     }
-                    catch (Exception)
+                    catch (Exception e)
                     {
-                        Popup.Current.Escrever(TitulosComuns.Erro, "Este não é um arquivo de backup válido.");
+                        e.ManipularErro();
                     }
                 }
             }
@@ -104,18 +104,18 @@ namespace NFeFacil
             {
                 using (var db = new AplicativoContext())
                 {
-                    db.AddRange(Clientes);
-                    db.AddRange(Emitentes);
-                    db.AddRange(Motoristas);
-                    db.AddRange(Vendedores);
-                    db.AddRange(Produtos);
-                    db.AddRange(Estoque);
-                    db.AddRange(Veiculos);
-                    db.AddRange(NotasFiscais);
-                    db.AddRange(Vendas);
-                    db.AddRange(Cancelamentos);
-                    db.AddRange(CancelamentosRegistroVenda);
-                    db.AddRange(Imagens);
+                    if (Clientes.Length > 0) db.AddRange(Clientes);
+                    if (Emitentes.Length > 0) db.AddRange(Emitentes);
+                    if (Motoristas.Length > 0) db.AddRange(Motoristas);
+                    if (Vendedores.Length > 0) db.AddRange(Vendedores);
+                    if (Produtos.Length > 0) db.AddRange(Produtos);
+                    if (Estoque.Length > 0) db.AddRange(Estoque);
+                    if (Veiculos.Length > 0) db.AddRange(Veiculos);
+                    if (NotasFiscais.Length > 0) db.AddRange(NotasFiscais);
+                    if (Vendas.Length > 0) db.AddRange(Vendas);
+                    if (Cancelamentos.Length > 0) db.AddRange(Cancelamentos);
+                    if (CancelamentosRegistroVenda.Length > 0) db.AddRange(CancelamentosRegistroVenda);
+                    if (Imagens.Length > 0) db.AddRange(Imagens);
                     db.SaveChanges();
                 }
             }

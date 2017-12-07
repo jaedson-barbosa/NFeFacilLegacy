@@ -109,7 +109,7 @@ namespace NFeFacil.ItensBD
                 {
                     Logradouro = Logradouro,
                     Numero = Numero,
-                    Complemento = Complemento,
+                    Complemento = string.IsNullOrWhiteSpace(Complemento) ? null : Complemento,
                     Bairro = Bairro,
                     CodigoMunicipio = CodigoMunicipio,
                     NomeMunicipio = NomeMunicipio,

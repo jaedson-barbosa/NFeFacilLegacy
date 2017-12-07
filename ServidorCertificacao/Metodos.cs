@@ -111,10 +111,15 @@ namespace ServidorCertificacao
             xmlSignatureValue.AppendChild(text);
 
             XElement xmlSignature = new XElement("Assinatura");
-            xmlSignature.Add(XElement.Parse(xmlSignedInfo.OuterXml));
-            xmlSignature.Add(XElement.Parse(xmlSignatureValue.OuterXml));
-            xmlSignature.Add(XElement.Parse(xmlKeyInfo.OuterXml));
-            return xmlSignature.ToString();
+            var xSignedInfo = XElement.Parse(xmlSignedInfo.OuterXml);
+            var xSignatureValue = XElement.Parse(xmlSignatureValue.OuterXml);
+            var xKeyInfo = XElement.Parse(xmlKeyInfo.OuterXml);
+
+            xmlSignature.Add(xSignedInfo);
+            xmlSignature.Add(xSignatureValue);
+            xmlSignature.Add(xKeyInfo);
+            var str = xmlSignature.ToString(SaveOptions.DisableFormatting);
+            return str.Replace("xmlns=\"http://www.w3.org/2000/09/xmldsig#\"", string.Empty);
         }
     }
 }

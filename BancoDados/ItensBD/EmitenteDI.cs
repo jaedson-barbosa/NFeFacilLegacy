@@ -65,8 +65,8 @@ namespace NFeFacil.ItensBD
                 NomeFantasia = NomeFantasia,
                 InscricaoEstadual = InscricaoEstadual,
                 IEST = string.IsNullOrWhiteSpace(IEST) ? null : IEST,
-                IM = IM,
-                CNAE = CNAE,
+                IM = string.IsNullOrWhiteSpace(IM) ? null : IM,
+                CNAE = string.IsNullOrWhiteSpace(CNAE) ? null : CNAE,
                 RegimeTributario = RegimeTributario,
                 Endereco = new ModeloXML.PartesProcesso.PartesNFe.EnderecoCompleto
                 {

@@ -203,6 +203,7 @@
       <DependentUpon>GerenciarVendedores.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\MascaraDocumento.cs" />
+    <Compile Include="ViewNFe\Impostos\AssociacoesSimples.cs" />
     <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS\DetalharCOFINSAliquota.xaml.cs">
       <DependentUpon>DetalharCOFINSAliquota.xaml</DependentUpon>
     </Compile>
@@ -213,17 +214,19 @@
       <DependentUpon>DetalharCOFINSQtde.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewNFe\Impostos\IDetalhamentoImposto.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS\DetalhamentoCOFINS.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMSUFDest.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoII.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoIPI.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoISSQN.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoPIS.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS\Detalhamento.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\Detalhamento.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMSUFDest\Detalhamento.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoII\Detalhamento.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoIPI\Detalhamento.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoISSQN\Detalhamento.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoPIS\Detalhamento.cs" />
     <Compile Include="ViewNFe\Impostos\EscolhaImpostos.xaml.cs">
       <DependentUpon>EscolhaImpostos.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS\ProcessamentoCOFINS.cs" />
+    <Compile Include="ViewNFe\Impostos\IProcessamentoImposto.cs" />
+    <Compile Include="ViewNFe\Impostos\RoteiroAdicaoImpostos.cs" />
     <Compile Include="ViewRegistroVenda\CalcularTroco.xaml.cs">
       <DependentUpon>CalcularTroco.xaml</DependentUpon>
     </Compile>

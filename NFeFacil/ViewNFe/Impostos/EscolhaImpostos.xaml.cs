@@ -1,7 +1,4 @@
-﻿using NFeFacil.Log;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
-using NFeFacil.ViewNFe.CaixasImpostos;
-using NFeFacil.ViewNFe.Impostos.DetalhamentoCOFINS;
+﻿using NFeFacil.ViewNFe.CaixasImpostos;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -76,25 +73,25 @@ namespace NFeFacil.ViewNFe.Impostos
                     switch (imposto)
                     {
                         case PrincipaisImpostos.ICMS:
-                            Escolhidos.RemoveAll(x => x is DetalhamentoICMS);
+                            Escolhidos.RemoveAll(x => x is DetalhamentoICMS.Detalhamento);
                             break;
                         case PrincipaisImpostos.IPI:
-                            Escolhidos.RemoveAll(x => x is DetalhamentoIPI);
+                            Escolhidos.RemoveAll(x => x is DetalhamentoIPI.Detalhamento);
                             break;
                         case PrincipaisImpostos.II:
-                            Escolhidos.RemoveAll(x => x is DetalhamentoII);
+                            Escolhidos.RemoveAll(x => x is DetalhamentoII.Detalhamento);
                             break;
                         case PrincipaisImpostos.ISSQN:
-                            Escolhidos.RemoveAll(x => x is DetalhamentoISSQN);
+                            Escolhidos.RemoveAll(x => x is DetalhamentoISSQN.Detalhamento);
                             break;
                         case PrincipaisImpostos.PIS:
-                            Escolhidos.RemoveAll(x => x is DetalhamentoPIS);
+                            Escolhidos.RemoveAll(x => x is DetalhamentoPIS.Detalhamento);
                             break;
                         case PrincipaisImpostos.COFINS:
-                            Escolhidos.RemoveAll(x => x is DetalhamentoCOFINS.DetalhamentoCOFINS);
+                            Escolhidos.RemoveAll(x => x is DetalhamentoCOFINS.Detalhamento);
                             break;
                         case PrincipaisImpostos.ICMSUFDest:
-                            Escolhidos.RemoveAll(x => x is DetalhamentoICMSUFDest);
+                            Escolhidos.RemoveAll(x => x is DetalhamentoICMSUFDest.Detalhamento);
                             break;
                     }
                 }
@@ -115,7 +112,7 @@ namespace NFeFacil.ViewNFe.Impostos
                             sucesso = await DetalharIPI();
                             break;
                         case PrincipaisImpostos.II:
-                            Escolhidos.Add(new DetalhamentoII());
+                            Escolhidos.Add(new DetalhamentoII.Detalhamento());
                             break;
                         case PrincipaisImpostos.ISSQN:
                             await DetalharISSQN();
@@ -127,7 +124,7 @@ namespace NFeFacil.ViewNFe.Impostos
                             sucesso = await DetalharCOFINS();
                             break;
                         case PrincipaisImpostos.ICMSUFDest:
-                            Escolhidos.Add(new DetalhamentoICMSUFDest());
+                            Escolhidos.Add(new DetalhamentoICMSUFDest.Detalhamento());
                             break;
                     }
                     if (!sucesso) input.SelectedItems.Remove(item);
@@ -140,7 +137,7 @@ namespace NFeFacil.ViewNFe.Impostos
             var caixa = new EscolherTipoICMS();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
-                Escolhidos.Add(new DetalhamentoICMS
+                Escolhidos.Add(new DetalhamentoICMS.Detalhamento
                 {
                     Origem = caixa.Origem,
                     Regime = caixa.Regime,
@@ -157,7 +154,7 @@ namespace NFeFacil.ViewNFe.Impostos
             var caixa = new EscolherTipoIPI();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
-                Escolhidos.Add(new DetalhamentoIPI
+                Escolhidos.Add(new DetalhamentoIPI.Detalhamento
                 {
                     CST = caixa.CST,
                     TipoCalculo = caixa.TipoCalculo
@@ -172,7 +169,7 @@ namespace NFeFacil.ViewNFe.Impostos
             var caixa = new MessageDialog("Qual o tipo de ISSQN desejado?", "Entrada");
             caixa.Commands.Add(new UICommand("Nacional"));
             caixa.Commands.Add(new UICommand("Exterior"));
-            Escolhidos.Add(new DetalhamentoISSQN
+            Escolhidos.Add(new DetalhamentoISSQN.Detalhamento
             {
                 Exterior = (await caixa.ShowAsync()).Label == "Exterior"
             });
@@ -183,7 +180,7 @@ namespace NFeFacil.ViewNFe.Impostos
             var caixa = new EscolherTipoPISouCOFINS();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
-                Escolhidos.Add(new DetalhamentoPIS
+                Escolhidos.Add(new DetalhamentoPIS.Detalhamento
                 {
                     CST = caixa.CST,
                     TipoCalculo = caixa.TipoCalculo,
@@ -199,7 +196,7 @@ namespace NFeFacil.ViewNFe.Impostos
             var caixa = new EscolherTipoPISouCOFINS();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
-                Escolhidos.Add(new DetalhamentoCOFINS.DetalhamentoCOFINS
+                Escolhidos.Add(new DetalhamentoCOFINS.Detalhamento
                 {
                     CST = int.Parse(caixa.CST),
                     TipoCalculo = caixa.TipoCalculo,
@@ -209,69 +206,5 @@ namespace NFeFacil.ViewNFe.Impostos
             }
             return false;
         }
-    }
-
-    public sealed class RoteiroAdicaoImpostos
-    {
-        Type Current { get; }
-        Type[] Telas { get; }
-        IProcessamentoImposto[] Processamentos { get; }
-
-        public RoteiroAdicaoImpostos(List<IDetalhamentoImposto> impostos)
-        {
-            Telas = new Type[impostos.Count];
-            Processamentos = new IProcessamentoImposto[impostos.Count];
-            for (int i = 0; i < impostos.Count; i++)
-            {
-                var atual = impostos[i];
-                if (atual is DetalhamentoCOFINS.DetalhamentoCOFINS cofins)
-                {
-                    if (AssociacoesSimples.COFINS.ContainsKey(cofins.CST))
-                    {
-                        Telas[i] = AssociacoesSimples.COFINS[cofins.CST];
-                    }
-                    else
-                    {
-                        Telas[i] = AssociacoesSimples.COFINSPadrao;
-                    }
-                }
-            }
-        }
-
-        public void Avancar()
-        {
-
-        }
-
-        public void Voltar()
-        {
-
-        }
-    }
-
-    public static class AssociacoesSimples
-    {
-        public static readonly Dictionary<int, Type> COFINS = new Dictionary<int, Type>
-        {
-            { 1, typeof(DetalharCOFINSAliquota) },
-            { 2, typeof(DetalharCOFINSAliquota) },
-            { 3, typeof(DetalharCOFINSQtde) },
-            { 4, null },
-            { 5, COFINSPadrao },
-            { 6, null },
-            { 7, null },
-            { 8, null },
-            { 9, null }
-        };
-        public static readonly Type COFINSPadrao = typeof(DetalharCOFINSAmbos);
-    }
-
-    public interface IProcessamentoImposto
-    {
-        object Tela { set; }
-        IDetalhamentoImposto Detalhamento { set; }
-        bool ValidarEntradaDados(ILog log);
-        bool ValidarDados(ILog log);
-        Imposto[] Processar(ProdutoOuServico prod);
     }
 }

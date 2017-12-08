@@ -26,7 +26,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoCOFINS
 
         public bool ValidarEntradaDados(ILog log)
         {
-            if (Detalhamento is DetalhamentoCOFINS detalhamento)
+            if (Detalhamento is Detalhamento detalhamento)
             {
                 var valida = (AssociacoesSimples.COFINS.ContainsKey(detalhamento.CST)
                     && AssociacoesSimples.COFINS[detalhamento.CST] == Tela.GetType())

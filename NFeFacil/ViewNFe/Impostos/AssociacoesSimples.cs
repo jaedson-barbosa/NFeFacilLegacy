@@ -19,6 +19,21 @@ namespace NFeFacil.ViewNFe.Impostos
             { 8, null },
             { 9, null }
         };
+
+        public static readonly Dictionary<int, Type> PIS = new Dictionary<int, Type>
+        {
+            { 1, typeof(DetalhamentoPIS.DetalharAliquota) },
+            { 2, typeof(DetalhamentoPIS.DetalharAliquota) },
+            { 3, typeof(DetalhamentoPIS.DetalharQtde) },
+            { 4, null },
+            { 5, PISPadrao },
+            { 6, null },
+            { 7, null },
+            { 8, null },
+            { 9, null }
+        };
+
         public static readonly Type COFINSPadrao = typeof(DetalhamentoCOFINS.DetalharAmbos);
+        public static readonly Type PISPadrao = typeof(DetalhamentoPIS.DetalharAmbos);
     }
 }

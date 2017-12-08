@@ -213,6 +213,16 @@
     <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS\DetalharQtde.xaml.cs">
       <DependentUpon>DetalharQtde.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS\Processamento.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoPIS\DetalharAliquota.xaml.cs">
+      <DependentUpon>DetalharAliquota.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\Impostos\DetalhamentoPIS\DetalharAmbos.xaml.cs">
+      <DependentUpon>DetalharAmbos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\Impostos\DetalhamentoPIS\DetalharQtde.xaml.cs">
+      <DependentUpon>DetalharQtde.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewNFe\Impostos\IDetalhamentoImposto.cs" />
     <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS\Detalhamento.cs" />
     <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\Detalhamento.cs" />
@@ -224,7 +234,7 @@
     <Compile Include="ViewNFe\Impostos\EscolhaImpostos.xaml.cs">
       <DependentUpon>EscolhaImpostos.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS\Processamento.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoPIS\Processamento.cs" />
     <Compile Include="ViewNFe\Impostos\IProcessamentoImposto.cs" />
     <Compile Include="ViewNFe\Impostos\RoteiroAdicaoImpostos.cs" />
     <Compile Include="ViewRegistroVenda\CalcularTroco.xaml.cs">
@@ -751,14 +761,26 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ViewNFe\Impostos\DetalhamentoCOFINS\DetalharAliquota.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="ViewNFe\Impostos\DetalhamentoCOFINS\DetalharAmbos.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ViewNFe\Impostos\DetalhamentoCOFINS\DetalharQtde.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ViewNFe\Impostos\DetalhamentoPIS\DetalharAliquota.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\Impostos\DetalhamentoCOFINS\DetalharQtde.xaml">
+    <Page Include="ViewNFe\Impostos\DetalhamentoPIS\DetalharAmbos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\Impostos\DetalhamentoPIS\DetalharQtde.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

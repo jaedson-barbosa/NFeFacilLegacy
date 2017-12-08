@@ -2,11 +2,11 @@
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace NFeFacil.ViewNFe.Impostos
+namespace NFeFacil.ViewNFe.Impostos.COFINS
 {
     public struct DetalhamentoCOFINS : IDetalhamentoImposto
     {
-        public string CST { get; set; }
+        public int CST { get; set; }
         internal TiposCalculo TipoCalculo { get; set; }
         internal TiposCalculo TipoCalculoST { get; set; }
     }

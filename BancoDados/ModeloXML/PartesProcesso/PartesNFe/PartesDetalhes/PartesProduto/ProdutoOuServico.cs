@@ -20,20 +20,28 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
         [XmlElement(Order = 3)]
         public string NCM { get; set; }
 
-        [XmlElement("NVE", Order = 4)]
+        string cest;
+        [XmlElement(ElementName = "CEST", Order = 4), DescricaoPropriedade("Valor total bruto")]
+        public string CEST
+        {
+            get => string.IsNullOrEmpty(cest) ? null : cest;
+            set => cest = value;
+        }
+
+        [XmlElement("NVE", Order = 5)]
         public string[] NVE { get; set; }
 
-        [XmlElement(Order = 5), DescricaoPropriedade("Preencher de acordo com o código EX da TIPI")]
+        [XmlElement(Order = 6), DescricaoPropriedade("Preencher de acordo com o código EX da TIPI")]
         public string EXTIPI { get; set; }
 
-        [XmlElement(Order = 6), DescricaoPropriedade("Código Fiscal de Operações e Prestações")]
+        [XmlElement(Order = 7), DescricaoPropriedade("Código Fiscal de Operações e Prestações")]
         public int CFOP { get; set; }
 
-        [XmlElement(ElementName = "uCom", Order = 7), DescricaoPropriedade("Unidade de comercialização")]
+        [XmlElement(ElementName = "uCom", Order = 8), DescricaoPropriedade("Unidade de comercialização")]
         public string UnidadeComercializacao { get; set; }
 
         double quantidadeComercializada;
-        [XmlElement(ElementName = "qCom", Order = 8), DescricaoPropriedade("Quantidade comercializada")]
+        [XmlElement(ElementName = "qCom", Order = 9), DescricaoPropriedade("Quantidade comercializada")]
         public double QuantidadeComercializada
         {
             get => quantidadeComercializada;
@@ -45,7 +53,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
         }
 
         double valorUnitario;
-        [XmlElement(ElementName = "vUnCom", Order = 9), DescricaoPropriedade("Valor unitário de comercialização")]
+        [XmlElement(ElementName = "vUnCom", Order = 10), DescricaoPropriedade("Valor unitário de comercialização")]
         public double ValorUnitario
         {
             get => valorUnitario;
@@ -54,14 +62,6 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
                 valorUnitario = value;
                 DadoImpostoChanged?.Invoke(this, null);
             }
-        }
-
-        string cest;
-        [XmlElement(ElementName = "CEST", Order = 10), DescricaoPropriedade("Valor total bruto")]
-        public string CEST
-        {
-            get => string.IsNullOrEmpty(cest) ? null : cest;
-            set => cest = value;
         }
 
         [XmlIgnore]

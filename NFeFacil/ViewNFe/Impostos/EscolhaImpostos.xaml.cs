@@ -1,4 +1,6 @@
-﻿using NFeFacil.ViewNFe.CaixasImpostos;
+﻿using NFeFacil.Log;
+using NFeFacil.ViewNFe.CaixasImpostos;
+using NFeFacil.ViewNFe.Impostos.COFINS;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -198,7 +200,7 @@ namespace NFeFacil.ViewNFe.Impostos
             {
                 Escolhidos.Add(new DetalhamentoCOFINS
                 {
-                    CST = caixa.CST,
+                    CST = int.Parse(caixa.CST),
                     TipoCalculo = caixa.TipoCalculo,
                     TipoCalculoST = caixa.TipoCalculoST
                 });
@@ -206,5 +208,69 @@ namespace NFeFacil.ViewNFe.Impostos
             }
             return false;
         }
+    }
+
+    public sealed class RoteiroAdicaoImpostos
+    {
+        Type Current { get; }
+        Type[] Telas { get; }
+        IProcessamentoImposto[] Processamentos { get; }
+
+        public RoteiroAdicaoImpostos(List<IDetalhamentoImposto> impostos)
+        {
+            Telas = new Type[impostos.Count];
+            Processamentos = new IProcessamentoImposto[impostos.Count];
+            for (int i = 0; i < impostos.Count; i++)
+            {
+                var atual = impostos[i];
+                if (atual is DetalhamentoCOFINS cofins)
+                {
+                    if (AssociacoesSimples.COFINS.ContainsKey(cofins.CST))
+                    {
+                        Telas[i] = AssociacoesSimples.COFINS[cofins.CST];
+                    }
+                    else
+                    {
+                        Telas[i] = AssociacoesSimples.COFINSPadrao;
+                    }
+                }
+            }
+        }
+
+        public void Avancar()
+        {
+
+        }
+
+        public void Voltar()
+        {
+
+        }
+    }
+
+    public static class AssociacoesSimples
+    {
+        public static readonly Dictionary<int, Type> COFINS = new Dictionary<int, Type>
+        {
+            { 1, typeof(DetalharCOFINSAliquota) },
+            { 2, typeof(DetalharCOFINSAliquota) },
+            { 3, typeof(DetalharCOFINSQtde) },
+            { 4, null },
+            { 5, typeof(DetalharCOFINSST) },
+            { 6, null },
+            { 7, null },
+            { 8, null },
+            { 9, null }
+        };
+        public static readonly Type COFINSPadrao = typeof(DetalharCOFINSOutro);
+    }
+
+    public interface IProcessamentoImposto
+    {
+        object Tela { set; }
+        IDetalhamentoImposto Detalhamento { set; }
+        bool ValidarEntradaDados(ILog log);
+        bool ValidarDados(ILog log);
+        object Processar();
     }
 }

@@ -19,7 +19,7 @@
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
     <PackageCertificateKeyFile>NFeFacil_StoreKey.pfx</PackageCertificateKeyFile>
     <PackageCertificateThumbprint>1B49127AAB1B16BBB6E488F54FB4323CB5F9C39E</PackageCertificateThumbprint>
-    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
     <AppxBundle>Always</AppxBundle>
     <RuntimeIdentifiers>win10-arm;win10-arm-aot;win10-x86;win10-x86-aot;win10-x64;win10-x64-aot</RuntimeIdentifiers>
@@ -203,8 +203,20 @@
       <DependentUpon>GerenciarVendedores.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\MascaraDocumento.cs" />
+    <Compile Include="ViewNFe\Impostos\COFINS\DetalharCOFINSAliquota.xaml.cs">
+      <DependentUpon>DetalharCOFINSAliquota.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\Impostos\COFINS\DetalharCOFINSOutro.xaml.cs">
+      <DependentUpon>DetalharCOFINSOutro.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\Impostos\COFINS\DetalharCOFINSST.xaml.cs">
+      <DependentUpon>DetalharCOFINSST.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\Impostos\COFINS\DetalharCOFINSQtde.xaml.cs">
+      <DependentUpon>DetalharCOFINSQtde.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewNFe\Impostos\IDetalhamentoImposto.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS.cs" />
+    <Compile Include="ViewNFe\Impostos\COFINS\DetalhamentoCOFINS.cs" />
     <Compile Include="ViewNFe\Impostos\DetalhamentoICMS.cs" />
     <Compile Include="ViewNFe\Impostos\DetalhamentoICMSUFDest.cs" />
     <Compile Include="ViewNFe\Impostos\DetalhamentoII.cs" />
@@ -214,6 +226,7 @@
     <Compile Include="ViewNFe\Impostos\EscolhaImpostos.xaml.cs">
       <DependentUpon>EscolhaImpostos.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewNFe\Impostos\COFINS\ProcessamentoCOFINS.cs" />
     <Compile Include="ViewRegistroVenda\CalcularTroco.xaml.cs">
       <DependentUpon>CalcularTroco.xaml</DependentUpon>
     </Compile>
@@ -734,6 +747,22 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ViewDadosBase\GerenciarVendedores.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\Impostos\COFINS\DetalharCOFINSAliquota.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\Impostos\COFINS\DetalharCOFINSOutro.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\Impostos\COFINS\DetalharCOFINSST.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\Impostos\COFINS\DetalharCOFINSQtde.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

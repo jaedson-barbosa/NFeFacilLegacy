@@ -76,12 +76,13 @@ namespace NFeFacil.View
             using (var db = new AplicativoContext())
             {
                 AnosDisponiveis = (from dado in db.NotasFiscais
+                                   where dado.Status == (int)ItensBD.StatusNFe.Emitida
                                    where dado.CNPJEmitente == Propriedades.EmitenteAtivo.CNPJ
                                    let ano = DateTime.Parse(dado.DataEmissao).Year
                                    orderby ano ascending
                                    select ano).Distinct().GerarObs();
                 NotasFiscais = (from item in db.NotasFiscais
-                                where item.Status >= 4
+                                where item.Status == (int)ItensBD.StatusNFe.Emitida
                                 where item.CNPJEmitente == Propriedades.EmitenteAtivo.CNPJ
                                 let data = DateTime.Parse(item.DataEmissao)
                                 let xml = XElement.Parse(item.XML)
@@ -159,15 +160,15 @@ namespace NFeFacil.View
                 ResultadoMes[0].Values.Clear();
                 ResultadoMes[1].Values.Clear();
                 int i = 0;
-                foreach (var item in gruposMeses)
+                foreach (var (Quant, Total, Mes) in gruposMeses)
                 {
                     var atual = new TotalPorMes
                     {
                         Id = i,
-                        Quantidade = item.Quant,
-                        Total = item.Total
+                        Quantidade = Quant,
+                        Total = Total
                     };
-                    var nomeMes = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(item.Mes);
+                    var nomeMes = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(Mes);
                     string primeiraLetra = nomeMes[0].ToString();
                     nomeMes = nomeMes.Remove(0, 1).Insert(0, primeiraLetra.ToUpper());
                     NomesMeses[i++] = nomeMes;
@@ -206,14 +207,14 @@ namespace NFeFacil.View
             ResultadoCliente[0].Values.Clear();
             ResultadoCliente[1].Values.Clear();
             int i = 0;
-            foreach (var item in gruposClientes.Take(11))
+            foreach (var (Nome, Quant, Total) in gruposClientes.Take(11))
             {
                 var atual = new TotalPorCliente
                 {
                     Id = i,
-                    Nome = item.Nome,
-                    Quantidade = item.Quant,
-                    Total = item.Total
+                    Nome = Nome,
+                    Quantidade = Quant,
+                    Total = Total
                 };
                 NomesClientes[i++] = atual.Nome;
                 ResultadoCliente[0].Values.Add(atual);

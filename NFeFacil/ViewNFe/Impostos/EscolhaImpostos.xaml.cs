@@ -91,7 +91,7 @@ namespace NFeFacil.ViewNFe.Impostos
                             Escolhidos.RemoveAll(x => x is DetalhamentoPIS);
                             break;
                         case PrincipaisImpostos.COFINS:
-                            Escolhidos.RemoveAll(x => x is DetalhamentoCOFINS);
+                            Escolhidos.RemoveAll(x => x is DetalhamentoCOFINS.DetalhamentoCOFINS);
                             break;
                         case PrincipaisImpostos.ICMSUFDest:
                             Escolhidos.RemoveAll(x => x is DetalhamentoICMSUFDest);
@@ -199,7 +199,7 @@ namespace NFeFacil.ViewNFe.Impostos
             var caixa = new EscolherTipoPISouCOFINS();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
-                Escolhidos.Add(new DetalhamentoCOFINS
+                Escolhidos.Add(new DetalhamentoCOFINS.DetalhamentoCOFINS
                 {
                     CST = int.Parse(caixa.CST),
                     TipoCalculo = caixa.TipoCalculo,
@@ -224,7 +224,7 @@ namespace NFeFacil.ViewNFe.Impostos
             for (int i = 0; i < impostos.Count; i++)
             {
                 var atual = impostos[i];
-                if (atual is DetalhamentoCOFINS cofins)
+                if (atual is DetalhamentoCOFINS.DetalhamentoCOFINS cofins)
                 {
                     if (AssociacoesSimples.COFINS.ContainsKey(cofins.CST))
                     {

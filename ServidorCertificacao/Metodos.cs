@@ -27,7 +27,7 @@ namespace ServidorCertificacao
             {
                 loja.Open(OpenFlags.ReadOnly);
                 var x509 = loja.Certificates.Find(X509FindType.FindBySerialNumber, cert.Serial, true)[0];
-                var assinatura = AssinarXML(cert.XML, x509);
+                var assinatura = AssinarXML(cert.XML, x509, cert.Tag);
                 var xml = Serializar(assinatura);
                 return assinatura;
             }
@@ -78,11 +78,11 @@ namespace ServidorCertificacao
             }
         }
 
-        public string AssinarXML(string xml, X509Certificate2 certificado)
+        public string AssinarXML(string xml, X509Certificate2 certificado, string tag)
         {
             var doc = new XmlDocument();
             doc.LoadXml(xml);
-            XmlNodeList ListInfNFe = doc.GetElementsByTagName("infNFe");
+            XmlNodeList ListInfNFe = doc.GetElementsByTagName(tag);
             XmlElement infNFe = (XmlElement)ListInfNFe[0];
             string id = infNFe.Attributes.GetNamedItem("Id").Value;
             var signedXml = new SignedXml(infNFe)

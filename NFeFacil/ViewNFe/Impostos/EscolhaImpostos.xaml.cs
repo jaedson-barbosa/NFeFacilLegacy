@@ -1,6 +1,7 @@
 ﻿using NFeFacil.Log;
+using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 using NFeFacil.ViewNFe.CaixasImpostos;
-using NFeFacil.ViewNFe.Impostos.COFINS;
+using NFeFacil.ViewNFe.Impostos.DetalhamentoCOFINS;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -256,13 +257,13 @@ namespace NFeFacil.ViewNFe.Impostos
             { 2, typeof(DetalharCOFINSAliquota) },
             { 3, typeof(DetalharCOFINSQtde) },
             { 4, null },
-            { 5, typeof(DetalharCOFINSST) },
+            { 5, COFINSPadrao },
             { 6, null },
             { 7, null },
             { 8, null },
             { 9, null }
         };
-        public static readonly Type COFINSPadrao = typeof(DetalharCOFINSOutro);
+        public static readonly Type COFINSPadrao = typeof(DetalharCOFINSAmbos);
     }
 
     public interface IProcessamentoImposto
@@ -271,6 +272,6 @@ namespace NFeFacil.ViewNFe.Impostos
         IDetalhamentoImposto Detalhamento { set; }
         bool ValidarEntradaDados(ILog log);
         bool ValidarDados(ILog log);
-        object Processar();
+        Imposto[] Processar(ProdutoOuServico prod);
     }
 }

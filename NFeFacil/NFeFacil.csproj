@@ -203,20 +203,17 @@
       <DependentUpon>GerenciarVendedores.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\MascaraDocumento.cs" />
-    <Compile Include="ViewNFe\Impostos\COFINS\DetalharCOFINSAliquota.xaml.cs">
+    <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS\DetalharCOFINSAliquota.xaml.cs">
       <DependentUpon>DetalharCOFINSAliquota.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Impostos\COFINS\DetalharCOFINSOutro.xaml.cs">
-      <DependentUpon>DetalharCOFINSOutro.xaml</DependentUpon>
+    <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS\DetalharCOFINSAmbos.xaml.cs">
+      <DependentUpon>DetalharCOFINSAmbos.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Impostos\COFINS\DetalharCOFINSST.xaml.cs">
-      <DependentUpon>DetalharCOFINSST.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewNFe\Impostos\COFINS\DetalharCOFINSQtde.xaml.cs">
+    <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS\DetalharCOFINSQtde.xaml.cs">
       <DependentUpon>DetalharCOFINSQtde.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewNFe\Impostos\IDetalhamentoImposto.cs" />
-    <Compile Include="ViewNFe\Impostos\COFINS\DetalhamentoCOFINS.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS\DetalhamentoCOFINS.cs" />
     <Compile Include="ViewNFe\Impostos\DetalhamentoICMS.cs" />
     <Compile Include="ViewNFe\Impostos\DetalhamentoICMSUFDest.cs" />
     <Compile Include="ViewNFe\Impostos\DetalhamentoII.cs" />
@@ -226,7 +223,7 @@
     <Compile Include="ViewNFe\Impostos\EscolhaImpostos.xaml.cs">
       <DependentUpon>EscolhaImpostos.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Impostos\COFINS\ProcessamentoCOFINS.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS\ProcessamentoCOFINS.cs" />
     <Compile Include="ViewRegistroVenda\CalcularTroco.xaml.cs">
       <DependentUpon>CalcularTroco.xaml</DependentUpon>
     </Compile>
@@ -750,19 +747,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\Impostos\COFINS\DetalharCOFINSAliquota.xaml">
+    <Page Include="ViewNFe\Impostos\DetalhamentoCOFINS\DetalharCOFINSAliquota.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\Impostos\COFINS\DetalharCOFINSOutro.xaml">
+    <Page Include="ViewNFe\Impostos\DetalhamentoCOFINS\DetalharCOFINSAmbos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\Impostos\COFINS\DetalharCOFINSST.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ViewNFe\Impostos\COFINS\DetalharCOFINSQtde.xaml">
+    <Page Include="ViewNFe\Impostos\DetalhamentoCOFINS\DetalharCOFINSQtde.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

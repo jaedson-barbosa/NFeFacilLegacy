@@ -8,7 +8,7 @@ using System.Globalization;
 
 namespace NFeFacil.ViewNFe.Impostos.DetalhamentoCOFINS
 {
-    public struct ProcessamentoCOFINS : IProcessamentoImposto
+    public struct Processamento : IProcessamentoImposto
     {
         static CultureInfo CulturaPadrao = CultureInfo.InvariantCulture;
         public object Tela { private get; set; }
@@ -34,7 +34,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoCOFINS
                 if (valida)
                 {
                     var cst = detalhamento.CST.ToString("00");
-                    if (Tela is DetalharCOFINSAliquota aliq)
+                    if (Tela is DetalharAliquota aliq)
                     {
                         dados = new DadosAliq()
                         {
@@ -42,7 +42,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoCOFINS
                             Aliquota = aliq.Aliquota
                         };
                     }
-                    else if (Tela is DetalharCOFINSQtde valor)
+                    else if (Tela is DetalharQtde valor)
                     {
                         dados = new DadosQtde()
                         {
@@ -50,7 +50,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoCOFINS
                             Valor = valor.Valor
                         };
                     }
-                    else if (Tela is DetalharCOFINSAmbos outr)
+                    else if (Tela is DetalharAmbos outr)
                     {
                         if (detalhamento.CST == 5) dados = new DadosST()
                         {

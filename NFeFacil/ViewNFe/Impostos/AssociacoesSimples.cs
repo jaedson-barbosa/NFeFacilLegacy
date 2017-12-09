@@ -41,6 +41,12 @@ namespace NFeFacil.ViewNFe.Impostos
             { TiposCalculo.PorValor, typeof(DetalhamentoIPI.DetalharQtde) }
         };
 
+        public static readonly Dictionary<bool, Type> ISSQN = new Dictionary<bool, Type>
+        {
+            { true, typeof(DetalhamentoISSQN.DetalharExterior) },
+            { false, typeof(DetalhamentoISSQN.DetalharNacional) }
+        };
+
         public static readonly Type COFINSPadrao = typeof(DetalhamentoCOFINS.DetalharAmbos);
         public static readonly Type PISPadrao = typeof(DetalhamentoPIS.DetalharAmbos);
     }

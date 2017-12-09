@@ -13,7 +13,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoCOFINS
 
         public DetalharQtde()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

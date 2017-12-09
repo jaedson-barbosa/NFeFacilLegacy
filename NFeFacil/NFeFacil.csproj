@@ -221,6 +221,16 @@
       <DependentUpon>DetalharQtde.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS\Processamento.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMSUFDest\Detalhar.xaml.cs">
+      <DependentUpon>Detalhar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMSUFDest\IDadosICMSUFDest.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMSUFDest\Processamento.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoII\Detalhar.xaml.cs">
+      <DependentUpon>Detalhar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\Impostos\DetalhamentoII\IDadosII.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoII\Processamento.cs" />
     <Compile Include="ViewNFe\Impostos\DetalhamentoIPI\DadosIPI.cs" />
     <Compile Include="ViewNFe\Impostos\DetalhamentoIPI\DadosNT.cs" />
     <Compile Include="ViewNFe\Impostos\DetalhamentoIPI\DadosTrib.cs" />
@@ -234,6 +244,14 @@
       <DependentUpon>DetalharQtde.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewNFe\Impostos\DetalhamentoIPI\Processamento.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoISSQN\DetalharExterior.xaml.cs">
+      <DependentUpon>DetalharExterior.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\Impostos\DetalhamentoISSQN\DetalharNacional.xaml.cs">
+      <DependentUpon>DetalharNacional.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\Impostos\DetalhamentoISSQN\IDadosISSQN.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoISSQN\Processamento.cs" />
     <Compile Include="ViewNFe\Impostos\DetalhamentoPIS\DadosAliq.cs" />
     <Compile Include="ViewNFe\Impostos\DetalhamentoPIS\DadosDuplos.cs" />
     <Compile Include="ViewNFe\Impostos\DetalhamentoPIS\DadosNT.cs" />
@@ -799,6 +817,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="ViewNFe\Impostos\DetalhamentoICMSUFDest\Detalhar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\Impostos\DetalhamentoII\Detalhar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ViewNFe\Impostos\DetalhamentoIPI\DetalharAliquota.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -808,6 +834,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ViewNFe\Impostos\DetalhamentoIPI\DetalharQtde.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\Impostos\DetalhamentoISSQN\DetalharExterior.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\Impostos\DetalhamentoISSQN\DetalharNacional.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

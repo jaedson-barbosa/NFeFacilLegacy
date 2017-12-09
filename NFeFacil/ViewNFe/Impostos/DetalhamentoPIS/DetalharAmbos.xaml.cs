@@ -18,7 +18,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoPIS
 
         public DetalharAmbos()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

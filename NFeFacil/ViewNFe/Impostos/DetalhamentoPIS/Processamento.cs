@@ -66,6 +66,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoPIS
                     {
                         dados = new DadosNT();
                     }
+                    return true;
                 }
             }
             return false;

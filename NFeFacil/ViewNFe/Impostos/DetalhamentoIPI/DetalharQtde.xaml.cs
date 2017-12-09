@@ -15,7 +15,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoIPI
 
         public DetalharQtde()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

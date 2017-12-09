@@ -20,9 +20,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoIPI
         {
             if (Detalhamento is Detalhamento detalhamento)
             {
-                var valida = (AssociacoesSimples.COFINS.ContainsKey(detalhamento.CST)
-                    && AssociacoesSimples.COFINS[detalhamento.CST] == Tela.GetType())
-                    || AssociacoesSimples.COFINSPadrao == Tela.GetType();
+                var valida = AssociacoesSimples.IPI[detalhamento.TipoCalculo] == Tela.GetType();
                 if (valida)
                 {
                     var cst = detalhamento.CST.ToString("00");
@@ -54,6 +52,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoIPI
                             PreImposto = outr.Conjunto
                         };
                     }
+                    return true;
                 }
             }
             return false;

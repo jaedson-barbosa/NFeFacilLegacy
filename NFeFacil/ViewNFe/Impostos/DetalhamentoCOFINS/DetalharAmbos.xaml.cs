@@ -18,7 +18,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoCOFINS
 
         public DetalharAmbos()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

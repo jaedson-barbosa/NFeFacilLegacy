@@ -66,6 +66,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoCOFINS
                     {
                         dados = new DadosNT();
                     }
+                    return true;
                 }
             }
             return false;

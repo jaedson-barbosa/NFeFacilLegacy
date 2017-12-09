@@ -13,7 +13,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoPIS
 
         public DetalharAliquota()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

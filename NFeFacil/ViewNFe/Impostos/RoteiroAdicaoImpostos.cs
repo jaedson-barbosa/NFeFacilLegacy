@@ -44,6 +44,19 @@ namespace NFeFacil.ViewNFe.Impostos
                 {
                     Telas[i] = AssociacoesSimples.IPI[ipi.TipoCalculo];
                 }
+                else if (atual is DetalhamentoISSQN.Detalhamento issqn)
+                {
+                    Telas[i] = AssociacoesSimples.ISSQN[issqn.Exterior];
+                }
+                else if (atual is DetalhamentoII.Detalhamento ii)
+                {
+                    Telas[i] = typeof(DetalhamentoII.Detalhar);
+                }
+                else if (atual is DetalhamentoICMSUFDest.Detalhamento icmsUFDest)
+                {
+                    Telas[i] = typeof(DetalhamentoICMSUFDest.Detalhar);
+                }
+
             }
         }
 

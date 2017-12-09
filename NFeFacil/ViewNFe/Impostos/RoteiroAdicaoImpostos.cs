@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -56,7 +57,24 @@ namespace NFeFacil.ViewNFe.Impostos
                 {
                     Telas[i] = typeof(DetalhamentoICMSUFDest.Detalhar);
                 }
-
+                else if (atual is DetalhamentoICMS.Detalhamento icms)
+                {
+                    if (icms.Regime == CaixasImpostos.EscolherTipoICMS.Regimes.Simples)
+                    {
+                        if (AssociacoesSimples.ICMSSimples.Contains(int.Parse(icms.TipoICMSSN)))
+                        {
+                            Telas[i] = null;
+                        }
+                        else
+                        {
+                            Telas[i] = typeof(DetalhamentoICMS.DetalharSN);
+                        }
+                    }
+                    else
+                    {
+                        Telas[i] = typeof(DetalhamentoICMS.DetalharRN);
+                    }
+                }
             }
         }
 

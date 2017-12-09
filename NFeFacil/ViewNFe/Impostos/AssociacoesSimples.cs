@@ -47,6 +47,8 @@ namespace NFeFacil.ViewNFe.Impostos
             { false, typeof(DetalhamentoISSQN.DetalharNacional) }
         };
 
+        public static readonly int[] ICMSSimples = { 102, 103, 300, 400, 500 };
+
         public static readonly Type COFINSPadrao = typeof(DetalhamentoCOFINS.DetalharAmbos);
         public static readonly Type PISPadrao = typeof(DetalhamentoPIS.DetalharAmbos);
     }

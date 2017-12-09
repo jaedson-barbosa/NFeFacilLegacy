@@ -226,6 +226,13 @@
     </Compile>
     <Compile Include="ViewNFe\Impostos\DetalhamentoICMSUFDest\IDadosICMSUFDest.cs" />
     <Compile Include="ViewNFe\Impostos\DetalhamentoICMSUFDest\Processamento.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\DetalharRN.xaml.cs">
+      <DependentUpon>DetalharRN.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\DetalharSN.xaml.cs">
+      <DependentUpon>DetalharSN.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\Processamento.cs" />
     <Compile Include="ViewNFe\Impostos\DetalhamentoII\Detalhar.xaml.cs">
       <DependentUpon>Detalhar.xaml</DependentUpon>
     </Compile>
@@ -818,6 +825,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ViewNFe\Impostos\DetalhamentoICMSUFDest\Detalhar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\DetalharRN.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\DetalharSN.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

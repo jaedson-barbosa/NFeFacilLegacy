@@ -204,6 +204,13 @@
     </Compile>
     <Compile Include="ViewModel\MascaraDocumento.cs" />
     <Compile Include="ViewNFe\Impostos\AssociacoesSimples.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS\DadosAliq.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS\DadosCOFINS.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS\DadosDuplos.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS\DadosNT.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS\DadosOutr.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS\DadosQtde.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS\DadosST.cs" />
     <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS\DetalharAliquota.xaml.cs">
       <DependentUpon>DetalharAliquota.xaml</DependentUpon>
     </Compile>
@@ -214,6 +221,26 @@
       <DependentUpon>DetalharQtde.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS\Processamento.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoIPI\DadosIPI.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoIPI\DadosNT.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoIPI\DadosTrib.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoIPI\DetalharAliquota.xaml.cs">
+      <DependentUpon>DetalharAliquota.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\Impostos\DetalhamentoIPI\DetalharSimples.xaml.cs">
+      <DependentUpon>DetalharSimples.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\Impostos\DetalhamentoIPI\DetalharQtde.xaml.cs">
+      <DependentUpon>DetalharQtde.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\Impostos\DetalhamentoIPI\Processamento.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoPIS\DadosAliq.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoPIS\DadosDuplos.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoPIS\DadosNT.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoPIS\DadosOutr.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoPIS\DadosPIS.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoPIS\DadosQtde.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoPIS\DadosST.cs" />
     <Compile Include="ViewNFe\Impostos\DetalhamentoPIS\DetalharAliquota.xaml.cs">
       <DependentUpon>DetalharAliquota.xaml</DependentUpon>
     </Compile>
@@ -235,7 +262,7 @@
       <DependentUpon>EscolhaImpostos.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewNFe\Impostos\DetalhamentoPIS\Processamento.cs" />
-    <Compile Include="ViewNFe\Impostos\IProcessamentoImposto.cs" />
+    <Compile Include="ViewNFe\Impostos\ProcessamentoImposto.cs" />
     <Compile Include="ViewNFe\Impostos\RoteiroAdicaoImpostos.cs" />
     <Compile Include="ViewRegistroVenda\CalcularTroco.xaml.cs">
       <DependentUpon>CalcularTroco.xaml</DependentUpon>
@@ -771,6 +798,18 @@
     <Page Include="ViewNFe\Impostos\DetalhamentoCOFINS\DetalharQtde.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ViewNFe\Impostos\DetalhamentoIPI\DetalharAliquota.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\Impostos\DetalhamentoIPI\DetalharSimples.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\Impostos\DetalhamentoIPI\DetalharQtde.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ViewNFe\Impostos\DetalhamentoPIS\DetalharAliquota.xaml">
       <SubType>Designer</SubType>

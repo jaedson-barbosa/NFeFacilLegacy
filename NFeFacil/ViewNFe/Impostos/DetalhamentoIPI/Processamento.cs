@@ -2,22 +2,19 @@
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
 
-// O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
-
-namespace NFeFacil.ViewNFe.Impostos.DetalhamentoCOFINS
+namespace NFeFacil.ViewNFe.Impostos.DetalhamentoIPI
 {
     public sealed class Processamento : ProcessamentoImposto
     {
-        DadosCOFINS dados;
+        DadosIPI dados;
 
         public override Imposto[] Processar(ProdutoOuServico prod)
         {
             var resultado = dados.Processar(prod);
-            if (resultado is Imposto[] list) return list;
-            else return new Imposto[1] { (COFINS)resultado };
+            return new Imposto[1] { (IPI)resultado };
         }
 
-        public override bool ValidarDados(ILog log) => true;
+        public override bool ValidarDados(ILog log) => !string.IsNullOrEmpty(dados.PreImposto.cEnq);
 
         public override bool ValidarEntradaDados(ILog log)
         {
@@ -31,40 +28,31 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoCOFINS
                     var cst = detalhamento.CST.ToString("00");
                     if (Tela is DetalharAliquota aliq)
                     {
-                        dados = new DadosAliq()
+                        dados = new DadosTrib()
                         {
                             CST = cst,
-                            Aliquota = aliq.Aliquota
+                            Aliquota = aliq.Aliquota,
+                            PreImposto = aliq.Conjunto,
+                            TipoCalculo = CaixasImpostos.TiposCalculo.PorAliquota
                         };
                     }
                     else if (Tela is DetalharQtde valor)
                     {
-                        dados = new DadosQtde()
+                        dados = new DadosTrib()
                         {
                             CST = cst,
-                            Valor = valor.Valor
+                            Valor = valor.ValorUnitario,
+                            PreImposto = valor.Conjunto,
+                            TipoCalculo = CaixasImpostos.TiposCalculo.PorValor
                         };
                     }
-                    else if (Tela is DetalharAmbos outr)
+                    else if (Tela is DetalharSimples outr)
                     {
-                        if (detalhamento.CST == 5) dados = new DadosST()
+                        dados = new DadosNT
                         {
                             CST = cst,
-                            Aliquota = outr.Aliquota,
-                            Valor = outr.Valor,
-                            TipoCalculo = outr.TipoCalculo
+                            PreImposto = outr.Conjunto
                         };
-                        else dados = new DadosOutr()
-                        {
-                            CST = cst,
-                            Aliquota = outr.Aliquota,
-                            Valor = outr.Valor,
-                            TipoCalculo = outr.TipoCalculo
-                        };
-                    }
-                    else
-                    {
-                        dados = new DadosNT();
                     }
                 }
             }

@@ -156,7 +156,7 @@ namespace NFeFacil.ViewNFe.Impostos
             {
                 Escolhidos.Add(new DetalhamentoIPI.Detalhamento
                 {
-                    CST = caixa.CST,
+                    CST = int.Parse(caixa.CST),
                     TipoCalculo = caixa.TipoCalculo
                 });
                 return true;
@@ -182,7 +182,7 @@ namespace NFeFacil.ViewNFe.Impostos
             {
                 Escolhidos.Add(new DetalhamentoPIS.Detalhamento
                 {
-                    CST = caixa.CST,
+                    CST = int.Parse(caixa.CST),
                     TipoCalculo = caixa.TipoCalculo,
                     TipoCalculoST = caixa.TipoCalculoST
                 });

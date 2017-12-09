@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NFeFacil.ViewNFe.CaixasImpostos;
+using System;
 using System.Collections.Generic;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
@@ -31,6 +32,13 @@ namespace NFeFacil.ViewNFe.Impostos
             { 7, null },
             { 8, null },
             { 9, null }
+        };
+
+        public static readonly Dictionary<TiposCalculo, Type> IPI = new Dictionary<TiposCalculo, Type>
+        {
+            { TiposCalculo.Inexistente, typeof(DetalhamentoIPI.DetalharSimples) },
+            { TiposCalculo.PorAliquota, typeof(DetalhamentoIPI.DetalharAliquota) },
+            { TiposCalculo.PorValor, typeof(DetalhamentoIPI.DetalharQtde) }
         };
 
         public static readonly Type COFINSPadrao = typeof(DetalhamentoCOFINS.DetalharAmbos);

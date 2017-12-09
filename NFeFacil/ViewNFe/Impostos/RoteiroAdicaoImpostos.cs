@@ -9,12 +9,12 @@ namespace NFeFacil.ViewNFe.Impostos
     {
         Type Current { get; }
         Type[] Telas { get; }
-        IProcessamentoImposto[] Processamentos { get; }
+        ProcessamentoImposto[] Processamentos { get; }
 
         public RoteiroAdicaoImpostos(List<IDetalhamentoImposto> impostos)
         {
             Telas = new Type[impostos.Count];
-            Processamentos = new IProcessamentoImposto[impostos.Count];
+            Processamentos = new ProcessamentoImposto[impostos.Count];
             for (int i = 0; i < impostos.Count; i++)
             {
                 var atual = impostos[i];
@@ -28,6 +28,21 @@ namespace NFeFacil.ViewNFe.Impostos
                     {
                         Telas[i] = AssociacoesSimples.COFINSPadrao;
                     }
+                }
+                else if (atual is DetalhamentoPIS.Detalhamento pis)
+                {
+                    if (AssociacoesSimples.PIS.ContainsKey(pis.CST))
+                    {
+                        Telas[i] = AssociacoesSimples.PIS[pis.CST];
+                    }
+                    else
+                    {
+                        Telas[i] = AssociacoesSimples.PISPadrao;
+                    }
+                }
+                else if (atual is DetalhamentoIPI.Detalhamento ipi)
+                {
+                    Telas[i] = AssociacoesSimples.IPI[ipi.TipoCalculo];
                 }
             }
         }

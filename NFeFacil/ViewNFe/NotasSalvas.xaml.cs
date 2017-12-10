@@ -177,10 +177,7 @@ namespace NFeFacil.ViewNFe
             var nfe = processo.NFe;
             var analisador = new AnalisadorNFe(ref nfe);
             analisador.Desnormalizar();
-            if (await new CriadorNFe(nfe).ShowAsync() == ContentDialogResult.Primary)
-            {
-                Popup.Current.Escrever(TitulosComuns.Sucesso, "Nota de entrada criada. Agora verifique se todas as informações estão corretas.");
-            }
+            await new CriadorNFe(nfe).ShowAsync();
         }
     }
 

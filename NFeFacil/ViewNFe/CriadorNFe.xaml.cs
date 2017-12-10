@@ -78,6 +78,7 @@ namespace NFeFacil.ViewNFe
                 identificacao.TipoAmbiente = (ushort)(AmbienteHomolocagao ? 2 : 1);
                 identificacao.CódigoUF = Estados.Buscar(Propriedades.EmitenteAtivo.SiglaUF).Codigo;
                 identificacao.CodigoMunicipio = Propriedades.EmitenteAtivo.CodigoMunicipio;
+                identificacao.ChaveNF = default(int);
                 identificacao.DefinirVersãoAplicativo();
             }
             else
@@ -93,7 +94,7 @@ namespace NFeFacil.ViewNFe
                 identificacao.DefinirVersãoAplicativo();
                 PreNota.Informacoes.identificacao = identificacao;
             }
-
+            PreNota.Informacoes.ChaveAcesso = null;
             MainPage.Current.Navegar<ManipulacaoNotaFiscal>(PreNota);
         }
 

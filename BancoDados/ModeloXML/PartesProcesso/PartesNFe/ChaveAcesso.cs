@@ -21,7 +21,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe
             var numero = detalhes.identificacao.Numero.ToString().PadLeft(9, '0');
             var tipoEmissao = detalhes.identificacao.TipoEmissão;
 
-            if (detalhes.identificacao.ChaveNF == default(long))
+            if (detalhes.identificacao.ChaveNF == default(int))
             {
                 var random = new Random();
                 detalhes.identificacao.ChaveNF = random.Next(10000000, 100000000);

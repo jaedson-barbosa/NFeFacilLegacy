@@ -146,7 +146,7 @@ namespace NFeFacil.ViewNFe
             {
                 ProdutoCompleto.ImpostoDevol = null;
             }
-            MainPage.Current.Navegar<Impostos.EscolhaImpostos>(ProdutoCompleto);
+            MainPage.Current.Navegar<ImpostosProduto>(ProdutoCompleto);
         }
 
         private void Cancelar_Click(object sender, RoutedEventArgs e)

@@ -365,7 +365,6 @@ namespace NFeFacil.Sincronizacao.Pacotes
                     for (int i = 0; i < Vendas.Count; i++)
                     {
                         var novo = Vendas[i];
-                        var original = db.Vendas.Include(x => x.Produtos).FirstOrDefault(x => x.Id == novo.Id);
                         var produtos = ProdutosVendas[i];
                         produtos.ForEach(x => x.Id = default(Guid));
                         novo.Produtos = produtos.ToList();

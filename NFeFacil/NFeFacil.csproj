@@ -166,7 +166,6 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Backup.cs" />
-    <Compile Include="Calculos\CalculoICMS.cs" />
     <Compile Include="Certificacao\ConfiguracoesCertificadoImportado.xaml.cs">
       <DependentUpon>ConfiguracoesCertificadoImportado.xaml</DependentUpon>
     </Compile>

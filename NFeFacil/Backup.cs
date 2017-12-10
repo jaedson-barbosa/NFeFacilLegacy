@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using NFeFacil.ItensBD;
 using NFeFacil.Log;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -102,6 +103,9 @@ namespace NFeFacil
 
             public void AnalisarESalvar()
             {
+                List<AlteracaoEstoque>[] AlteracoesEstoque = null;
+                List<ProdutoSimplesVenda>[] ProdutosVendas = null;
+
                 using (var db = new AplicativoContext())
                 {
                     if (Clientes.Length > 0) db.AddRange(Clientes);
@@ -109,13 +113,63 @@ namespace NFeFacil
                     if (Motoristas.Length > 0) db.AddRange(Motoristas);
                     if (Vendedores.Length > 0) db.AddRange(Vendedores);
                     if (Produtos.Length > 0) db.AddRange(Produtos);
-                    if (Estoque.Length > 0) db.AddRange(Estoque);
                     if (Veiculos.Length > 0) db.AddRange(Veiculos);
                     if (NotasFiscais.Length > 0) db.AddRange(NotasFiscais);
-                    if (Vendas.Length > 0) db.AddRange(Vendas);
                     if (Cancelamentos.Length > 0) db.AddRange(Cancelamentos);
                     if (CancelamentosRegistroVenda.Length > 0) db.AddRange(CancelamentosRegistroVenda);
                     if (Imagens.Length > 0) db.AddRange(Imagens);
+                    db.SaveChanges();
+
+                    if (Estoque.Length > 0)
+                    {
+                        AlteracoesEstoque = new List<AlteracaoEstoque>[Estoque.Length];
+                        for (int i = 0; i < Estoque.Length; i++)
+                        {
+                            var novo = Estoque[i];
+                            AlteracoesEstoque[i] = novo.Alteracoes;
+                            novo.Alteracoes = null;
+                            db.Add(novo);
+                        }
+                    }
+
+                    if (Vendas.Length > 0)
+                    {
+                        ProdutosVendas = new List<ProdutoSimplesVenda>[Vendas.Length];
+                        for (int i = 0; i < Vendas.Length; i++)
+                        {
+                            var novo = Vendas[i];
+                            ProdutosVendas[i] = novo.Produtos;
+                            novo.Produtos = null;
+                            db.Add(novo);
+                        }
+                    }
+                }
+
+                using (var db = new AplicativoContext())
+                {
+                    if (AlteracoesEstoque != null)
+                    {
+                        for (int i = 0; i < Estoque.Length; i++)
+                        {
+                            var novo = Estoque[i];
+                            var alteracoes = AlteracoesEstoque[i];
+                            alteracoes.ForEach(x => x.Id = default(Guid));
+                            db.Estoque.Update(novo);
+                        }
+                    }
+
+                    if (ProdutosVendas != null)
+                    {
+                        for (int i = 0; i < Vendas.Length; i++)
+                        {
+                            var novo = Vendas[i];
+                            var produtos = ProdutosVendas[i];
+                            produtos.ForEach(x => x.Id = default(Guid));
+                            novo.Produtos = produtos.ToList();
+                            db.Vendas.Update(novo);
+                        }
+                    }
+
                     db.SaveChanges();
                 }
             }

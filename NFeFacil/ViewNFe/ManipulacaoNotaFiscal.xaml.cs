@@ -200,7 +200,9 @@ namespace NFeFacil.ViewNFe
             {
                 if (string.IsNullOrEmpty(NotaSalva.Informacoes.identificacao.DataHoraSaídaEntrada))
                 {
-                    return DataEmissao;
+                    var agora = Propriedades.DateTimeNow;
+                    NotaSalva.Informacoes.identificacao.DataHoraSaídaEntrada = agora.ToStringPersonalizado();
+                    return agora;
                 }
                 return DateTimeOffset.Parse(NotaSalva.Informacoes.identificacao.DataHoraSaídaEntrada);
             }

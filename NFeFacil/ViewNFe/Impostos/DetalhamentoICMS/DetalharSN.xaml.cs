@@ -4,9 +4,7 @@
 
 namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [DetalhePagina("ICMS - Simples nacional")]
     public sealed partial class DetalharSN : Page
     {
         bool SimplesGrupoInicio { get; set; }
@@ -29,7 +27,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS
 
         public DetalharSN()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

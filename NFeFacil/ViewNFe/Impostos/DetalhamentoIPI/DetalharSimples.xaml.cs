@@ -5,9 +5,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil.ViewNFe.Impostos.DetalhamentoIPI
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [DetalhePagina("IPI")]
     public sealed partial class DetalharSimples : Page
     {
         public IPI Conjunto { get; } = new IPI()

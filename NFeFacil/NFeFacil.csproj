@@ -181,6 +181,7 @@
     <Compile Include="Controles\MultView.xaml.cs">
       <DependentUpon>MultView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DetalhePagina.cs" />
     <Compile Include="PaginasPrincipais.cs" />
     <Compile Include="Sincronizacao\Pacotes\ConjuntoNotasFiscais.cs" />
     <Compile Include="Validacao\ValidadorComprador.cs" />
@@ -221,6 +222,9 @@
       <DependentUpon>DetalharQtde.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS\Processamento.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoGeral.xaml.cs">
+      <DependentUpon>DetalhamentoGeral.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewNFe\Impostos\DetalhamentoICMSUFDest\Detalhar.xaml.cs">
       <DependentUpon>Detalhar.xaml</DependentUpon>
     </Compile>
@@ -823,6 +827,10 @@
     <Page Include="ViewNFe\Impostos\DetalhamentoCOFINS\DetalharQtde.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ViewNFe\Impostos\DetalhamentoGeral.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ViewNFe\Impostos\DetalhamentoICMSUFDest\Detalhar.xaml">
       <SubType>Designer</SubType>

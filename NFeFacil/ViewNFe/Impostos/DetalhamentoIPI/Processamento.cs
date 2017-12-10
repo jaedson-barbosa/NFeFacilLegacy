@@ -20,7 +20,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoIPI
         {
             if (Detalhamento is Detalhamento detalhamento)
             {
-                var valida = AssociacoesSimples.IPI[detalhamento.TipoCalculo] == Tela.GetType();
+                var valida = AssociacoesSimples.IPI[detalhamento.TipoCalculo] == Tela?.GetType();
                 if (valida)
                 {
                     var cst = detalhamento.CST.ToString("00");

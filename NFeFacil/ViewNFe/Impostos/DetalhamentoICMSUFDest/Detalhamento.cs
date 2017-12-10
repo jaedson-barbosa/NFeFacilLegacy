@@ -4,5 +4,6 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMSUFDest
 {
     public struct Detalhamento : IDetalhamentoImposto
     {
+        public PrincipaisImpostos Tipo => PrincipaisImpostos.ICMSUFDest;
     }
 }

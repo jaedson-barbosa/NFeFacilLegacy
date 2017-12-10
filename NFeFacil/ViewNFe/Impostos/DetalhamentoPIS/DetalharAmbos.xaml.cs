@@ -5,9 +5,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil.ViewNFe.Impostos.DetalhamentoPIS
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [DetalhePagina("PIS")]
     public sealed partial class DetalharAmbos : Page
     {
         public double Aliquota { get; private set; }

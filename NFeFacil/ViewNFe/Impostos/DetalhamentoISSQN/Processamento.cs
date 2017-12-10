@@ -53,7 +53,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoISSQN
         {
             if (Detalhamento is Detalhamento detalhamento)
             {
-                return AssociacoesSimples.ISSQN[detalhamento.Exterior] == Tela.GetType();
+                return AssociacoesSimples.ISSQN[detalhamento.Exterior] == Tela?.GetType();
             }
             return false;
         }

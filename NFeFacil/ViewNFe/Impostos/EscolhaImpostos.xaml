@@ -19,4 +19,11 @@
             </DataTemplate>
         </GridView.ItemTemplate>
     </GridView>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Label="Avançar"
+                          Icon="Forward"
+                          Click="Avancar" />
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>

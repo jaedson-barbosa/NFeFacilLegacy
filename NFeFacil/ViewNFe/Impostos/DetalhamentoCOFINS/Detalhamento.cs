@@ -7,6 +7,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoCOFINS
     public struct Detalhamento : IDetalhamentoImposto
     {
         public int CST { get; set; }
+        public PrincipaisImpostos Tipo => PrincipaisImpostos.COFINS;
         internal TiposCalculo TipoCalculo { get; set; }
         internal TiposCalculo TipoCalculoST { get; set; }
     }

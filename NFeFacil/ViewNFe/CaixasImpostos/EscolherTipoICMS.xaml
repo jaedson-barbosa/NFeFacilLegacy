@@ -52,8 +52,7 @@
             <ComboBoxItem Tag="90">90. Outros</ComboBoxItem>
             <ComboBoxItem Tag="9090">90. Outros (Partilha - ICMSPart)</ComboBoxItem>
         </ComboBox>
-        <ComboBox SelectedValue="{x:Bind Origem, Mode=TwoWay}"
-                  SelectedValuePath="Tag"
+        <ComboBox SelectedIndex="{x:Bind Origem, Mode=TwoWay}"
                   Header="Origem"
                   HorizontalAlignment="Stretch">
             <ComboBoxItem Tag='0'>0 - Nacional, exceto as indicadas nos códigos 3, 4, 5 e 8</ComboBoxItem>

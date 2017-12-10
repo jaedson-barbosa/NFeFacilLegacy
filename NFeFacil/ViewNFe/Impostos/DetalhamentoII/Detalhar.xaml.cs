@@ -5,9 +5,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil.ViewNFe.Impostos.DetalhamentoII
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [DetalhePagina("Imposto de importação")]
     public sealed partial class Detalhar : Page, IDadosII
     {
         public II Imposto { get; } = new II();

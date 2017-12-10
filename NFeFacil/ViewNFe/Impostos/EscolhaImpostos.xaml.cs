@@ -1,9 +1,11 @@
-﻿using NFeFacil.ViewNFe.CaixasImpostos;
+﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
+using NFeFacil.ViewNFe.CaixasImpostos;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -29,8 +31,12 @@ namespace NFeFacil.ViewNFe.Impostos
 
         List<IDetalhamentoImposto> Escolhidos { get; set; } = new List<IDetalhamentoImposto>();
 
+        DetalhesProdutos ProdutoCompleto;
+
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
+            ProdutoCompleto = (DetalhesProdutos)e.Parameter;
+
             var caixa = new MessageDialog("Qual o tipo de imposto que é usado neste dado?", "Entrada");
             caixa.Commands.Add(new UICommand("ICMS"));
             caixa.Commands.Add(new UICommand("ISSQN"));
@@ -205,6 +211,12 @@ namespace NFeFacil.ViewNFe.Impostos
                 return true;
             }
             return false;
+        }
+
+        private void Avancar(object sender, RoutedEventArgs e)
+        {
+            var roteiro = new RoteiroAdicaoImpostos(Escolhidos, ProdutoCompleto);
+            MainPage.Current.Navegar<DetalhamentoGeral>(roteiro);
         }
     }
 }

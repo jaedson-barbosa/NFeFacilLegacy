@@ -5,9 +5,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMSUFDest
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [DetalhePagina("ICMS para a UF de destino")]
     public sealed partial class Detalhar : Page, IDadosICMSUFDest
     {
         public ICMSUFDest Imposto { get; } = new ICMSUFDest();

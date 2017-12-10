@@ -4,9 +4,7 @@
 
 namespace NFeFacil.ViewNFe.Impostos.DetalhamentoCOFINS
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [DetalhePagina("COFINS")]
     public sealed partial class DetalharAliquota : Page
     {
         public double Aliquota { get; private set; }

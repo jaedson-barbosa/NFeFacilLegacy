@@ -5,5 +5,6 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoISSQN
     public struct Detalhamento : IDetalhamentoImposto
     {
         public bool Exterior { get; set; }
+        public PrincipaisImpostos Tipo => PrincipaisImpostos.ISSQN;
     }
 }

@@ -7,6 +7,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoIPI
     public struct Detalhamento : IDetalhamentoImposto
     {
         public int CST { get; set; }
+        public PrincipaisImpostos Tipo => PrincipaisImpostos.IPI;
         internal TiposCalculo TipoCalculo { get; set; }
     }
 }

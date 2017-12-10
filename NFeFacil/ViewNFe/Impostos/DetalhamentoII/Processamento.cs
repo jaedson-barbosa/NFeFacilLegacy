@@ -40,7 +40,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoII
         public override bool ValidarEntradaDados(ILog log)
         {
             return Detalhamento is Detalhamento detalhamento
-                && Tela.GetType() == typeof(Detalhar);
+                && Tela?.GetType() == typeof(Detalhar);
         }
     }
 }

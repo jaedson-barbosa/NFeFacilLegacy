@@ -24,8 +24,8 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoPIS
             if (Detalhamento is Detalhamento detalhamento)
             {
                 var valida = (AssociacoesSimples.PIS.ContainsKey(detalhamento.CST)
-                    && AssociacoesSimples.PIS[detalhamento.CST] == Tela.GetType())
-                    || AssociacoesSimples.PISPadrao == Tela.GetType();
+                    && AssociacoesSimples.PIS[detalhamento.CST] == Tela?.GetType())
+                    || AssociacoesSimples.PISPadrao == Tela?.GetType();
                 if (valida)
                 {
                     var cst = detalhamento.CST.ToString("00");

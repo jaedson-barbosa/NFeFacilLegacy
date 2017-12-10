@@ -24,8 +24,8 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoCOFINS
             if (Detalhamento is Detalhamento detalhamento)
             {
                 var valida = (AssociacoesSimples.COFINS.ContainsKey(detalhamento.CST)
-                    && AssociacoesSimples.COFINS[detalhamento.CST] == Tela.GetType())
-                    || AssociacoesSimples.COFINSPadrao == Tela.GetType();
+                    && AssociacoesSimples.COFINS[detalhamento.CST] == Tela?.GetType())
+                    || AssociacoesSimples.COFINSPadrao == Tela?.GetType();
                 if (valida)
                 {
                     var cst = detalhamento.CST.ToString("00");

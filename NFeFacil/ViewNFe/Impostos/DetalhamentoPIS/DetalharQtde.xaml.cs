@@ -4,9 +4,7 @@
 
 namespace NFeFacil.ViewNFe.Impostos.DetalhamentoPIS
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [DetalhePagina("PIS")]
     public sealed partial class DetalharQtde : Page
     {
         public double Valor { get; private set; }

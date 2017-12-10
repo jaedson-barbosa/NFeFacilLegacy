@@ -4,9 +4,7 @@
 
 namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [DetalhePagina("ICMS - Regime normal")]
     public sealed partial class DetalharRN : Page
     {
         bool NormalICMSDesonerado { get; set; }
@@ -43,7 +41,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS
 
         public DetalharRN()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

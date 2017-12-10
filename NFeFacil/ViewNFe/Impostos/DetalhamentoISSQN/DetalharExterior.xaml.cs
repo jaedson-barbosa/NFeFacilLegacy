@@ -7,9 +7,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil.ViewNFe.Impostos.DetalhamentoISSQN
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [DetalhePagina("ISSQN")]
     public sealed partial class DetalharExterior : Page, IDadosISSQN
     {
         public ISSQN Imposto { get; } = new ISSQN()

@@ -2,5 +2,8 @@
 
 namespace NFeFacil.ViewNFe.Impostos
 {
-    public interface IDetalhamentoImposto { }
+    public interface IDetalhamentoImposto
+    {
+        PrincipaisImpostos Tipo { get; }
+    }
 }

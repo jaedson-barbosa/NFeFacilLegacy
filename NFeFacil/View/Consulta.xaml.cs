@@ -42,7 +42,7 @@ namespace NFeFacil.View
                 }
                 catch (Exception erro)
                 {
-                    Resultados.Insert(0, $"Erro: {erro.Message}");
+                    erro.ManipularErro();
                 }
                 btnAnalisar.IsEnabled = true;
                 carregamento.IsActive = false;

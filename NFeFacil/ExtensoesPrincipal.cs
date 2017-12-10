@@ -10,7 +10,9 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Xml.Serialization;
+using Windows.Storage.Pickers;
 using Windows.Storage.Streams;
+using Windows.UI.Popups;
 using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -46,10 +48,17 @@ namespace NFeFacil
 
         public static T FromXElement<T>(this XNode xElement)
         {
-            var xmlSerializer = new XmlSerializer(typeof(T));
-            using (var reader = xElement.CreateReader())
+            try
             {
-                return (T)xmlSerializer.Deserialize(reader);
+                var xmlSerializer = new XmlSerializer(typeof(T));
+                using (var reader = xElement.CreateReader())
+                {
+                    return (T)xmlSerializer.Deserialize(reader);
+                }
+            }
+            catch (Exception e)
+            {
+                throw new ErroDesserializacao($"Ocorreu um erro ao desserializar o objeto de tipo {nameof(T)}", e, xElement);
             }
         }
 
@@ -79,12 +88,22 @@ namespace NFeFacil
             return loader.GetString(recurso);
         }
 
-        static ILog Log = Popup.Current;
-
-        internal static void ManipularErro(this Exception erro)
+        internal static async void ManipularErro(this Exception erro)
         {
-            Log.Escrever(TitulosComuns.Erro, $"{erro.Message}\r\n" +
-                $"Detalhes adicionais: {erro.InnerException?.Message ?? "Não há detalhes"}");
+            if (erro is ErroDesserializacao dess)
+            {
+                var caixa = new MessageDialog($"{dess.Message}\r\n" +
+                    $"Detalhes adicionais: {dess.InnerException.Message}\r\n" +
+                    $"Você deseja exportar o XML para que seja feita a análise?", "Erro de desserialização");
+                caixa.Commands.Add(new UICommand("Sim", x => dess.ExportarXML()));
+                caixa.Commands.Add(new UICommand("Não"));
+                await caixa.ShowAsync();
+            }
+            else
+            {
+                Popup.Current.Escrever(TitulosComuns.Erro, $"{erro.Message}\r\n" +
+                    $"Detalhes adicionais: {erro.InnerException?.Message ?? "Não há detalhes"}");
+            }
         }
 
         internal static double CentimeterToPixel(double Centimeter)
@@ -183,6 +202,31 @@ namespace NFeFacil
         static CultureInfo culturaPadrao = CultureInfo.InvariantCulture;
         public static string ToStr(double valor) => valor.ToString("F2", culturaPadrao);
         public static double Parse(string str) => double.Parse(str, NumberStyles.Number, culturaPadrao);
+
+        public class ErroDesserializacao : Exception
+        {
+            XNode XML { get; }
+
+            public ErroDesserializacao(XNode xml) => XML = xml;
+            public ErroDesserializacao(string message, XNode xml) : base(message) => XML = xml;
+            public ErroDesserializacao(string message, Exception innerException, XNode xml) : base(message, innerException) => XML = xml;
+
+            public async void ExportarXML()
+            {
+                var caixa = new FileSavePicker();
+                caixa.FileTypeChoices.Add("Arquivo XML", new string[] { ".xml" });
+                var arq = await caixa.PickSaveFileAsync();
+                if (arq != null)
+                {
+                    var stream = await arq.OpenStreamForWriteAsync();
+                    using (StreamWriter escritor = new StreamWriter(stream))
+                    {
+                        await escritor.WriteAsync(XML.ToString());
+                        await escritor.FlushAsync();
+                    }
+                }
+            }
+        }
     }
 
     enum Estilo

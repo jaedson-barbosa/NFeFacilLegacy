@@ -28,12 +28,10 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoCOFINS
                     || AssociacoesSimples.COFINSPadrao == Tela?.GetType();
                 if (valida)
                 {
-                    var cst = detalhamento.CST.ToString("00");
                     if (Tela is DetalharAliquota aliq)
                     {
                         dados = new DadosAliq()
                         {
-                            CST = cst,
                             Aliquota = aliq.Aliquota
                         };
                     }
@@ -41,7 +39,6 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoCOFINS
                     {
                         dados = new DadosQtde()
                         {
-                            CST = cst,
                             Valor = valor.Valor
                         };
                     }
@@ -49,14 +46,12 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoCOFINS
                     {
                         if (detalhamento.CST == 5) dados = new DadosST()
                         {
-                            CST = cst,
                             Aliquota = outr.Aliquota,
                             Valor = outr.Valor,
                             TipoCalculo = outr.TipoCalculo
                         };
                         else dados = new DadosOutr()
                         {
-                            CST = cst,
                             Aliquota = outr.Aliquota,
                             Valor = outr.Valor,
                             TipoCalculo = outr.TipoCalculo
@@ -66,6 +61,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoCOFINS
                     {
                         dados = new DadosNT();
                     }
+                    dados.CST = detalhamento.CST.ToString("00");
                     return true;
                 }
             }

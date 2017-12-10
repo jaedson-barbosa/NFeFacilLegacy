@@ -33,7 +33,6 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoPIS
                     {
                         dados = new DadosAliq()
                         {
-                            CST = cst,
                             Aliquota = aliq.Aliquota
                         };
                     }
@@ -41,7 +40,6 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoPIS
                     {
                         dados = new DadosQtde()
                         {
-                            CST = cst,
                             Valor = valor.Valor
                         };
                     }
@@ -49,14 +47,12 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoPIS
                     {
                         if (detalhamento.CST == 5) dados = new DadosST()
                         {
-                            CST = cst,
                             Aliquota = outr.Aliquota,
                             Valor = outr.Valor,
                             TipoCalculo = outr.TipoCalculo
                         };
                         else dados = new DadosOutr()
                         {
-                            CST = cst,
                             Aliquota = outr.Aliquota,
                             Valor = outr.Valor,
                             TipoCalculo = outr.TipoCalculo
@@ -66,6 +62,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoPIS
                     {
                         dados = new DadosNT();
                     }
+                    dados.CST = cst;
                     return true;
                 }
             }

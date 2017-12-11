@@ -382,7 +382,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS
 
         public CalculoICMS(ProdutoOuServico prod)
         {
-            var totalBruto = Parse(prod.ValorTotal);
+            var totalBruto = prod.ValorTotal;
             var frete = string.IsNullOrEmpty(prod.Frete) ? 0 : Parse(prod.Frete);
             var seguro = string.IsNullOrEmpty(prod.Seguro) ? 0 : Parse(prod.Seguro);
             var despesas = string.IsNullOrEmpty(prod.DespesasAcessorias) ? 0 : Parse(prod.DespesasAcessorias);

@@ -12,7 +12,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoCOFINS
         {
             if (TipoCalculo == TiposCalculo.PorAliquota)
             {
-                var vBC = prod.ValorTotalDouble;
+                var vBC = prod.ValorTotal;
                 return new COFINS
                 {
                     Corpo = new COFINSOutr

@@ -283,8 +283,8 @@ namespace NFeFacil.View
                 {
                     Descricao = x.Produto.Descricao,
                     Quantidade = x.Produto.QuantidadeComercializada,
-                    TotalBruto = x.Produto.ValorTotalDouble,
-                    TotalLiquido = x.Produto.ValorTotalDouble + Convert(x.Produto.Frete) + Convert(x.Produto.DespesasAcessorias) + Convert(x.Produto.Seguro) - Convert(x.Produto.Desconto)
+                    TotalBruto = x.Produto.ValorTotal,
+                    TotalLiquido = x.Produto.ValorTotal + Convert(x.Produto.Frete) + Convert(x.Produto.DespesasAcessorias) + Convert(x.Produto.Seguro) - Convert(x.Produto.Desconto)
                 });
             }
         }

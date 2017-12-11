@@ -40,42 +40,35 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
         [XmlElement(ElementName = "uCom", Order = 8), DescricaoPropriedade("Unidade de comercialização")]
         public string UnidadeComercializacao { get; set; }
 
-        double quantidadeComercializada;
-        [XmlElement(ElementName = "qCom", Order = 9), DescricaoPropriedade("Quantidade comercializada")]
+        [XmlIgnore]
         public double QuantidadeComercializada
         {
-            get => quantidadeComercializada;
-            set
-            {
-                quantidadeComercializada = value;
-                DadoImpostoChanged?.Invoke(this, null);
-            }
+            get => string.IsNullOrEmpty(QuantidadeComercializadaString) ? ValorTotal = 0 : Parse(QuantidadeComercializadaString);
+            set => QuantidadeComercializadaString = ToStr(value);
         }
 
-        double valorUnitario;
-        [XmlElement(ElementName = "vUnCom", Order = 10), DescricaoPropriedade("Valor unitário de comercialização")]
-        public double ValorUnitario
-        {
-            get => valorUnitario;
-            set
-            {
-                valorUnitario = value;
-                DadoImpostoChanged?.Invoke(this, null);
-            }
-        }
+        [XmlElement(ElementName = "qCom", Order = 9), DescricaoPropriedade("Quantidade comercializada")]
+        public string QuantidadeComercializadaString { get; set; }
 
         [XmlIgnore]
-        public double ValorTotalDouble
+        public double ValorUnitario
         {
-            get => string.IsNullOrEmpty(ValorTotal) ? ValorTotalDouble = 0 : Parse(ValorTotal);
-            set
-            {
-                ValorTotal = ToStr(value);
-                DadoImpostoChanged?.Invoke(this, null);
-            }
+            get => string.IsNullOrEmpty(ValorUnitarioString) ? ValorTotal = 0 : Parse(ValorUnitarioString);
+            set => ValorUnitarioString = ToStr(value);
         }
+
+        [XmlElement(ElementName = "vUnCom", Order = 10), DescricaoPropriedade("Valor unitário de comercialização")]
+        public string ValorUnitarioString { get; set; }
+
+        [XmlIgnore]
+        public double ValorTotal
+        {
+            get => string.IsNullOrEmpty(ValorTotalString) ? ValorTotal = 0 : Parse(ValorTotalString);
+            set => ValorTotalString = ToStr(value);
+        }
+
         [XmlElement(ElementName = "vProd", Order = 11), DescricaoPropriedade("Valor total bruto")]
-        public string ValorTotal { get; set; }
+        public string ValorTotalString { get; set; }
 
         [XmlElement(ElementName = "cEANTrib", Order = 12), DescricaoPropriedade("Global Trade Item Number (código de barras do tributo)")]
         public string CodigoBarrasTributo { get; set; } = "";
@@ -83,29 +76,25 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
         [XmlElement(ElementName = "uTrib", Order = 13), DescricaoPropriedade("Unidade de tributação")]
         public string UnidadeTributacao { get; set; }
 
-        double quantidadeTributada;
-        [XmlElement(ElementName = "qTrib", Order = 14), DescricaoPropriedade("Quantidade tributada")]
+        [XmlIgnore]
         public double QuantidadeTributada
         {
-            get => quantidadeTributada;
-            set
-            {
-                quantidadeTributada = value;
-                DadoImpostoChanged?.Invoke(this, null);
-            }
+            get => string.IsNullOrEmpty(QuantidadeTributadaString) ? ValorTotal = 0 : Parse(QuantidadeTributadaString);
+            set => QuantidadeTributadaString = ToStr(value);
         }
 
-        double valorUnitarioTributo;
-        [XmlElement(ElementName = "vUnTrib", Order = 15), DescricaoPropriedade("Valor unitário de tributação")]
+        [XmlElement(ElementName = "qTrib", Order = 14), DescricaoPropriedade("Quantidade tributada")]
+        public string QuantidadeTributadaString { get; set; }
+
+        [XmlIgnore]
         public double ValorUnitarioTributo
         {
-            get => valorUnitarioTributo;
-            set
-            {
-                valorUnitarioTributo = value;
-                DadoImpostoChanged?.Invoke(this, null);
-            }
+            get => string.IsNullOrEmpty(ValorUnitarioTributoString) ? ValorTotal = 0 : Parse(ValorUnitarioTributoString);
+            set => ValorUnitarioTributoString = ToStr(value);
         }
+
+        [XmlElement(ElementName = "vUnTrib", Order = 15), DescricaoPropriedade("Valor unitário de tributação")]
+        public string ValorUnitarioTributoString { get; set; }
 
         [XmlElement(ElementName = "vFrete", Order = 16)]
         public string Frete { get; set; }
@@ -145,7 +134,5 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
 
         [XmlElement("nRECOPI", Order = 28), DescricaoPropriedade("Número RECOPI")]
         public string NRECOPI { get; set; }
-
-        public event EventHandler DadoImpostoChanged;
     }
 }

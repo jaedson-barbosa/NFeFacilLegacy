@@ -12,7 +12,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoPIS
         {
             if (TipoCalculo == TiposCalculo.PorAliquota)
             {
-                var vBC = prod.ValorTotalDouble;
+                var vBC = prod.ValorTotal;
                 return new Imposto[2]
                 {
                         new PIS

@@ -74,15 +74,15 @@
             <RichTextBlock>
                 <Paragraph>
                     <Bold>Anel:</Bold>
-                    <Run>Insider</Run>
+                    <Run>Público</Run>
                 </Paragraph>
                 <Paragraph>
                     <Bold>Número:</Bold>
-                    <Run>1.6</Run>
+                    <Run>1.7</Run>
                 </Paragraph>
                 <Paragraph>
-                    <Bold>Compilação:</Bold>
-                    <Run>13</Run>
+                    <Bold>Revisão:</Bold>
+                    <Run>0</Run>
                 </Paragraph>
             </RichTextBlock>
             <TextBlock Style="{StaticResource TitleTextBlockStyle}">Ajude o desenvolvedor</TextBlock>

@@ -15,7 +15,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoIPI
             ComumIPI corpo;
             if (TipoCalculo == TiposCalculo.PorAliquota)
             {
-                var vBC = prod.ValorTotalDouble;
+                var vBC = prod.ValorTotal;
                 var pIPI = Aliquota;
                 corpo = new IPITrib
                 {

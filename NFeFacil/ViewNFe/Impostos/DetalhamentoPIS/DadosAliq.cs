@@ -11,7 +11,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoPIS
 
         public override object Processar(ProdutoOuServico prod)
         {
-            var vBC = prod.ValorTotalDouble;
+            var vBC = prod.ValorTotal;
             var pPIS = Aliquota;
             return new PIS
             {

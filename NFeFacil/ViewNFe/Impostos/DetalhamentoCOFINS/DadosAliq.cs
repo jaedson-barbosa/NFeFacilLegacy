@@ -11,7 +11,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoCOFINS
 
         public override object Processar(ProdutoOuServico prod)
         {
-            var vBC = prod.ValorTotalDouble;
+            var vBC = prod.ValorTotal;
             var pCOFINS = Aliquota;
             return new COFINS
             {

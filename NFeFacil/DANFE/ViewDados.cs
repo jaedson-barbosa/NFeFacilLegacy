@@ -258,7 +258,7 @@ namespace NFeFacil.DANFE
                     UCom = prod.Produto.UnidadeComercializacao,
                     VUnCom = prod.Produto.ValorUnitario.ToString("N4"),
                     BCICMS = consult.AgregarValor("vBC", 0).ToString("N2"),
-                    VProd = prod.Produto.ValorTotalDouble.ToString("N2"),
+                    VProd = prod.Produto.ValorTotal.ToString("N2"),
                     XProd = prod.Produto.Descricao,
                     PICMS = consult.AgregarValor("pICMS", 0).ToString("N2"),
                     VICMS = consult.AgregarValor("vICMS", 0).ToString("N2"),

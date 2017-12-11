@@ -22,10 +22,8 @@ namespace NFeFacil.Certificacao.LAN
                 var uri = new Uri($"http://{RootUri}:1010/ObterCertificados");
 
                 var resposta = await cliente.GetAsync(uri);
-                using (var stream = await resposta.Content.ReadAsStreamAsync())
-                {
-                    return stream.FromXElement<CertificadosExibicaoDTO>().Registro;
-                }
+                var xmlResposta = XElement.Load(await resposta.Content.ReadAsStreamAsync());
+                return xmlResposta.FromXElement<CertificadosExibicaoDTO>().Registro;
             }
         }
 
@@ -38,11 +36,8 @@ namespace NFeFacil.Certificacao.LAN
                 var conteudo = new StringContent(xml, Encoding.UTF8, "text/xml");
 
                 var resposta = await cliente.PostAsync(uri, conteudo);
-                var str = await resposta.Content.ReadAsStringAsync();
-                using (var stream = await resposta.Content.ReadAsStreamAsync())
-                {
-                    return stream.FromXElement<Assinatura>();
-                }
+                var xmlResposta = XElement.Load(await resposta.Content.ReadAsStreamAsync());
+                return xmlResposta.FromXElement<Assinatura>();
             }
         }
     }

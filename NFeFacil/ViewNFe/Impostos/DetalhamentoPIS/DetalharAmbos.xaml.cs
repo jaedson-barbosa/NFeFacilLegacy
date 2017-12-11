@@ -1,5 +1,4 @@
-﻿using NFeFacil.ViewNFe.Impostos;
-using Windows.UI.Xaml.Controls;
+﻿using Windows.UI.Xaml.Controls;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 

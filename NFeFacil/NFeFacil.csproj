@@ -239,6 +239,21 @@
       <DependentUpon>DetalharSN.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\Processamento.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\SimplesNacional\Tipo101.xaml.cs">
+      <DependentUpon>Tipo101.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\SimplesNacional\Tipo201.xaml.cs">
+      <DependentUpon>Tipo201.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\SimplesNacional\Tipo202.xaml.cs">
+      <DependentUpon>Tipo202.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\SimplesNacional\Tipo500.xaml.cs">
+      <DependentUpon>Tipo500.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\SimplesNacional\Tipo900.xaml.cs">
+      <DependentUpon>Tipo900.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewNFe\Impostos\DetalhamentoII\Detalhar.xaml.cs">
       <DependentUpon>Detalhar.xaml</DependentUpon>
     </Compile>
@@ -815,6 +830,26 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\SimplesNacional\Tipo101.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\SimplesNacional\Tipo201.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\SimplesNacional\Tipo202.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\SimplesNacional\Tipo500.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\SimplesNacional\Tipo900.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ViewNFe\Impostos\DetalhamentoII\Detalhar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1308,7 +1343,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewNFe\Impostos\DetalhamentoICMS\RegimeNormal\" />
-    <Folder Include="ViewNFe\Impostos\DetalhamentoICMS\SimplesNacional\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

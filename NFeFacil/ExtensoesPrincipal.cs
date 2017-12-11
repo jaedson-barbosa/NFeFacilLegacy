@@ -40,12 +40,6 @@ namespace NFeFacil
             }
         }
 
-        public static T FromXElement<T>(this Stream streamXMl)
-        {
-            var xmlSerializer = new XmlSerializer(typeof(T));
-            return (T)xmlSerializer.Deserialize(streamXMl);
-        }
-
         public static T FromXElement<T>(this XNode xElement)
         {
             try

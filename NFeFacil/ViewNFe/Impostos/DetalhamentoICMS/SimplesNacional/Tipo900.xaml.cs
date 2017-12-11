@@ -1,17 +1,14 @@
 ﻿using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Navigation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS
+namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS.SimplesNacional
 {
-    [DetalhePagina("ICMS - Simples nacional")]
-    public sealed partial class DetalharSN : Page
+    /// <summary>
+    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
+    /// </summary>
+    public sealed partial class Tipo900 : Page
     {
-        bool SimplesGrupoInicio { get; set; }
-        bool SimplesICMSST { get; set; }
-        bool SimplesGrupoFim { get; set; }
-
         public string pCredSN { get; private set; }
         public string vCredICMSSN { get; private set; }
         public int modBC { get; private set; }
@@ -26,18 +23,9 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS
         public string pICMSST { get; private set; }
         public string vICMSST { get; private set; }
 
-        public DetalharSN()
+        public Tipo900()
         {
-            InitializeComponent();
-        }
-
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            var csosn = (int)e.Parameter;
-            var visibilidade = VisibilidadesSimplesNacional.Buscar(csosn);
-            SimplesGrupoInicio = visibilidade.GrupoInicio;
-            SimplesICMSST = visibilidade.ICMSST;
-            SimplesGrupoFim = visibilidade.GrupoFim;
+            this.InitializeComponent();
         }
     }
 }

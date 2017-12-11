@@ -1,0 +1,68 @@
+﻿<Page x:Class="NFeFacil.ViewNFe.Impostos.DetalhamentoICMS.SimplesNacional.Tipo900"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d">
+    <ScrollViewer>
+        <StackPanel>
+            <ItemsControl Style="{StaticResource ItensResponsivos}">
+                <TextBox Text="{x:Bind pCredSN, Mode=TwoWay}"
+                         Header="Alíquota aplicável de cálculo do crédito"
+                         InputScope="Number" />
+                <TextBox Text="{x:Bind vCredICMSSN, Mode=TwoWay}"
+                         Header="Crédito do ICMS que pode ser aproveitado"
+                         InputScope="Number" />
+                <ComboBox SelectedIndex="{x:Bind modBC, Mode=TwoWay}"
+                          Header="Modalidade de determinação da BC do ICMS"
+                          HorizontalAlignment="Stretch">
+                    <ComboBoxItem>Margem Valor Agregado (%)</ComboBoxItem>
+                    <ComboBoxItem>Pauta (Valor)</ComboBoxItem>
+                    <ComboBoxItem>Preço Tabelado Máx (valor)</ComboBoxItem>
+                    <ComboBoxItem>Valor da operação</ComboBoxItem>
+                </ComboBox>
+                <TextBox Text="{x:Bind vBC, Mode=TwoWay}"
+                         Header="Valor da BC do ICMS"
+                         InputScope="Number" />
+                <TextBox Text="{x:Bind pRedBC, Mode=TwoWay}"
+                         Header="Percentual da Redução de BC"
+                         InputScope="Number" />
+                <TextBox Text="{x:Bind pICMS, Mode=TwoWay}"
+                         Header="Alíquota do imposto"
+                         InputScope="Number" />
+                <TextBox Text="{x:Bind vICMS, Mode=TwoWay}"
+                         Header="Valor do ICMS"
+                         InputScope="Number" />
+            </ItemsControl>
+            <TextBlock Text="ICMS ST"
+                       Style="{StaticResource SubtitleTextBlockStyle}" />
+            <ItemsControl Style="{StaticResource ItensResponsivos}">
+                <ComboBox SelectedIndex="{x:Bind modBCST, Mode=TwoWay}"
+                          Header="Modalidade de determinação da BC do ICMS ST"
+                          HorizontalAlignment="Stretch">
+                    <ComboBoxItem Content="Preço tabelado ou máximo sugerido" />
+                    <ComboBoxItem Content="Lista negativa (valor)" />
+                    <ComboBoxItem Content="Lista positiva (valor)" />
+                    <ComboBoxItem Content="Lista neutra (valor)" />
+                    <ComboBoxItem Content="Margem Valor Agregado (%)" />
+                    <ComboBoxItem Content="Pauta (valor)" />
+                </ComboBox>
+                <TextBox Text="{x:Bind pMVAST, Mode=TwoWay}"
+                         Header="Percentual da margem de valor adicionado"
+                         InputScope="Number" />
+                <TextBox Text="{x:Bind pRedBCST, Mode=TwoWay}"
+                         Header="Percentual da Redução de BC"
+                         InputScope="Number" />
+                <TextBox Text="{x:Bind vBCST, Mode=TwoWay}"
+                         Header="Valor da BC"
+                         InputScope="Number" />
+                <TextBox Text="{x:Bind pICMSST, Mode=TwoWay}"
+                         Header="Alíquota do imposto"
+                         InputScope="Number" />
+                <TextBox Text="{x:Bind vICMSST, Mode=TwoWay}"
+                         Header="Valor do ICMS ST"
+                         InputScope="Number" />
+            </ItemsControl>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

@@ -292,6 +292,7 @@
     <Compile Include="ViewNFe\Impostos\DetalhamentoPIS\Processamento.cs" />
     <Compile Include="ViewNFe\Impostos\ProcessamentoImposto.cs" />
     <Compile Include="ViewNFe\Impostos\RoteiroAdicaoImpostos.cs" />
+    <Compile Include="ViewNFe\PrincipaisImpostos.cs" />
     <Compile Include="ViewRegistroVenda\CalcularTroco.xaml.cs">
       <DependentUpon>CalcularTroco.xaml</DependentUpon>
     </Compile>

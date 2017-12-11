@@ -4,7 +4,6 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS
 {
     public struct Detalhamento : IDetalhamentoImposto
     {
-        public CaixasImpostos.EscolherTipoICMS.Regimes Regime { get; set; }
         public PrincipaisImpostos Tipo => PrincipaisImpostos.ICMS;
         public string TipoICMSSN { get; set; }
         public string TipoICMSRN { get; set; }

@@ -146,7 +146,6 @@ namespace NFeFacil.ViewNFe.Impostos
                 Escolhidos.Add(new DetalhamentoICMS.Detalhamento
                 {
                     Origem = caixa.Origem,
-                    Regime = caixa.Regime,
                     TipoICMSRN = caixa.TipoICMSRN,
                     TipoICMSSN = caixa.TipoICMSSN
                 });

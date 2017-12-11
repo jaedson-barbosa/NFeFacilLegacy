@@ -1,4 +1,6 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using NFeFacil.ViewNFe.CaixasImpostos;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -28,6 +30,15 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS
         public DetalharSN()
         {
             InitializeComponent();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            var csosn = (int)e.Parameter;
+            var visibilidade = VisibilidadesSimplesNacional.Buscar(csosn);
+            SimplesGrupoInicio = visibilidade.GrupoInicio;
+            SimplesICMSST = visibilidade.ICMSST;
+            SimplesGrupoFim = visibilidade.GrupoFim;
         }
     }
 }

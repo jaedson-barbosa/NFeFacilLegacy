@@ -14,7 +14,8 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS
             var detalhamento = (Detalhamento)Detalhamento;
             var origem = detalhamento.Origem;
             ComumICMS returno = null;
-            if (detalhamento.Regime == CaixasImpostos.EscolherTipoICMS.Regimes.Simples)
+            var normal = Propriedades.EmitenteAtivo.RegimeTributario == 3;
+            if (!normal)
             {
                 var tipoICMSSN = int.Parse(detalhamento.TipoICMSSN);
                 var simp = AssociacoesSimples.ICMSSimples;
@@ -355,7 +356,8 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS
         {
             if (Detalhamento is Detalhamento detalhamento)
             {
-                if (detalhamento.Regime == CaixasImpostos.EscolherTipoICMS.Regimes.Simples)
+                var normal = Propriedades.EmitenteAtivo.RegimeTributario == 3;
+                if (!normal)
                 {
                     var simp = AssociacoesSimples.ICMSSimples;
                     if (simp.Contains(int.Parse(detalhamento.TipoICMSSN)))

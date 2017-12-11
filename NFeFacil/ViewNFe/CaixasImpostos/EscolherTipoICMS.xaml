@@ -7,14 +7,11 @@
                Title="Escolha de ICMS"
                PrimaryButtonText="Adicionar"
                SecondaryButtonText="Cancelar">
-    <StackPanel>
-        <ComboBox SelectedIndex="{x:Bind RegimeSelecionado, Mode=TwoWay}"
-                  Header="Regime"
-                  HorizontalAlignment="Stretch"
-                  PlaceholderText="Qual o regime de sua empresa?">
-            <ComboBoxItem Content="Simples nacional" />
-            <ComboBoxItem Content="Regime normal" />
-        </ComboBox>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
         <ComboBox x:Name="cmbTipoICMSSN"
                   SelectedValue="{x:Bind TipoICMSSN, Mode=TwoWay}"
                   SelectedValuePath="Tag"
@@ -33,7 +30,6 @@
         </ComboBox>
         <ComboBox x:Name="cmbTipoICMSRN"
                   SelectedValue="{x:Bind TipoICMSRN, Mode=TwoWay}"
-                  IsEnabled="False"
                   SelectedValuePath="Tag"
                   Header="Situação tributária"
                   HorizontalAlignment="Stretch">
@@ -52,7 +48,8 @@
             <ComboBoxItem Tag="90">90. Outros</ComboBoxItem>
             <ComboBoxItem Tag="9090">90. Outros (Partilha - ICMSPart)</ComboBoxItem>
         </ComboBox>
-        <ComboBox SelectedIndex="{x:Bind Origem, Mode=TwoWay}"
+        <ComboBox Grid.Row="1"
+                  SelectedIndex="{x:Bind Origem, Mode=TwoWay}"
                   Header="Origem"
                   HorizontalAlignment="Stretch">
             <ComboBoxItem Tag='0'>0 - Nacional, exceto as indicadas nos códigos 3, 4, 5 e 8</ComboBoxItem>
@@ -65,5 +62,5 @@
             <ComboBoxItem Tag='7'>7 - Estrangeira - Adquirida no mercado interno, sem similar nacional, constante lista CAMEX e gás natural</ComboBoxItem>
             <ComboBoxItem Tag='8'>8 - Nacional, mercadoria ou bem com Conteúdo de Importação superior a 70%</ComboBoxItem>
         </ComboBox>
-    </StackPanel>
+    </Grid>
 </ContentDialog>

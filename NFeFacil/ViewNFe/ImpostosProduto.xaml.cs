@@ -162,7 +162,8 @@ namespace NFeFacil.ViewNFe
             var caixa = new EscolherTipoICMS();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
-                if (caixa.Regime == EscolherTipoICMS.Regimes.Normal)
+                var normal = Propriedades.EmitenteAtivo.RegimeTributario == 3;
+                if (normal)
                 {
                     var caixa2 = new AdicionarICMSRN(int.Parse(caixa.TipoICMSRN));
                     if (await caixa2.ShowAsync() == ContentDialogResult.Primary)
@@ -1104,16 +1105,5 @@ namespace NFeFacil.ViewNFe
             }
             Oficial = original;
         }
-    }
-
-    public enum PrincipaisImpostos
-    {
-        ICMS,
-        IPI,
-        II,
-        ISSQN,
-        PIS,
-        COFINS,
-        ICMSUFDest
     }
 }

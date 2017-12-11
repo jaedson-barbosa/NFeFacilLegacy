@@ -52,7 +52,7 @@
                                            Number="{x:Bind ProdutoCompleto.Produto.ValorUnitario, Mode=TwoWay}"
                                            Header="Valor unid. comercial" />
                 <controles:EntradaNumerica Format="13:2"
-                                           Number="{x:Bind ProdutoCompleto.Produto.ValorTotalDouble, Mode=TwoWay}"
+                                           Number="{x:Bind ProdutoCompleto.Produto.ValorTotal, Mode=TwoWay}"
                                            Header="Total bruto" />
                 <controles:EntradaRestrita Pattern="[^\d]"
                                            Text="{x:Bind ProdutoCompleto.Produto.CodigoBarrasTributo, Mode=TwoWay}"

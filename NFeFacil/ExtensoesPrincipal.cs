@@ -3,13 +3,16 @@ using NFeFacil.Log;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Xml.Serialization;
+using Windows.Storage.Pickers;
 using Windows.Storage.Streams;
+using Windows.UI.Popups;
 using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -43,6 +46,22 @@ namespace NFeFacil
             return (T)xmlSerializer.Deserialize(streamXMl);
         }
 
+        public static T FromXElement<T>(this XNode xElement)
+        {
+            try
+            {
+                var xmlSerializer = new XmlSerializer(typeof(T));
+                using (var reader = xElement.CreateReader())
+                {
+                    return (T)xmlSerializer.Deserialize(reader);
+                }
+            }
+            catch (Exception e)
+            {
+                throw new ErroDesserializacao($"Ocorreu um erro ao desserializar o objeto de tipo {nameof(T)}", e, xElement);
+            }
+        }
+
         public static string ToStringPersonalizado(this DateTime dataHora)
         {
             double horas = TimeZoneInfo.Local.BaseUtcOffset.TotalHours;
@@ -69,12 +88,22 @@ namespace NFeFacil
             return loader.GetString(recurso);
         }
 
-        static ILog Log = Popup.Current;
-
-        internal static void ManipularErro(this Exception erro)
+        internal static async void ManipularErro(this Exception erro)
         {
-            Log.Escrever(TitulosComuns.Erro, $"{erro.Message}\r\n" +
-                $"Detalhes adicionais: {erro.InnerException?.Message ?? "Não há detalhes"}");
+            if (erro is ErroDesserializacao dess)
+            {
+                var caixa = new MessageDialog($"{dess.Message}\r\n" +
+                    $"Detalhes adicionais: {dess.InnerException.Message}\r\n" +
+                    $"Você deseja exportar o XML para que seja feita a análise?", "Erro de desserialização");
+                caixa.Commands.Add(new UICommand("Sim", x => dess.ExportarXML()));
+                caixa.Commands.Add(new UICommand("Não"));
+                await caixa.ShowAsync();
+            }
+            else
+            {
+                Popup.Current.Escrever(TitulosComuns.Erro, $"{erro.Message}\r\n" +
+                    $"Detalhes adicionais: {erro.InnerException?.Message ?? "Não há detalhes"}");
+            }
         }
 
         internal static double CentimeterToPixel(double Centimeter)
@@ -85,7 +114,7 @@ namespace NFeFacil
 
         internal static GridLength CentimeterToLength(double Centimeter)
         {
-            return new GridLength(CentimeterToPixel(Centimeter));
+            return new GridLength(CentimeterToPixel(Centimeter), GridUnitType.Pixel);
         }
 
         public static void AddBloco(this RichTextBlock visualizacao, string titulo, params (string, string)[] filhos)
@@ -139,6 +168,63 @@ namespace NFeFacil
                 stream.Seek(0);
                 retorno.SetSource(stream);
                 return retorno;
+            }
+        }
+
+        public static string AplicarMáscaraDocumento(string original)
+        {
+            if (string.IsNullOrEmpty(original))
+            {
+                return string.Empty;
+            }
+            else if (original.Length == 14)
+            {
+                // É CNPJ
+                return $"{original.Substring(0, 2)}.{original.Substring(2, 3)}.{original.Substring(5, 3)}/{original.Substring(8, 4)}.{original.Substring(12, 2)}";
+            }
+            else if (original.Length == 11)
+            {
+                // É CPF
+                return $"{original.Substring(0, 3)}.{original.Substring(3, 3)}.{original.Substring(6, 3)}-{original.Substring(9, 2)}";
+            }
+            else if (original.Length == 8)
+            {
+                // É CEP
+                return $"{original.Substring(0, 5)}-{original.Substring(5, 3)}";
+            }
+            else
+            {
+                // Não é nem CNPJ nem CPF
+                return original;
+            }
+        }
+
+        static CultureInfo culturaPadrao = CultureInfo.InvariantCulture;
+        public static string ToStr(double valor) => valor.ToString("F2", culturaPadrao);
+        public static double Parse(string str) => double.Parse(str, NumberStyles.Number, culturaPadrao);
+
+        public class ErroDesserializacao : Exception
+        {
+            XNode XML { get; }
+
+            public ErroDesserializacao(XNode xml) => XML = xml;
+            public ErroDesserializacao(string message, XNode xml) : base(message) => XML = xml;
+            public ErroDesserializacao(string message, Exception innerException, XNode xml) : base(message, innerException) => XML = xml;
+
+            public async void ExportarXML()
+            {
+                var caixa = new FileSavePicker();
+                caixa.FileTypeChoices.Add("Arquivo XML", new string[] { ".xml" });
+                var arq = await caixa.PickSaveFileAsync();
+                if (arq != null)
+                {
+                    var stream = await arq.OpenStreamForWriteAsync();
+                    using (StreamWriter escritor = new StreamWriter(stream))
+                    {
+                        await escritor.WriteAsync(XML.ToString());
+                        await escritor.FlushAsync();
+                    }
+                }
             }
         }
     }

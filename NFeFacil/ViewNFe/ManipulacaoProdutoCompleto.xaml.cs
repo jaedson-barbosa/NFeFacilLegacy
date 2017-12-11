@@ -37,40 +37,40 @@ namespace NFeFacil.ViewNFe
             }
         }
 
-        string TipoEspecialEscolhido
+        int TipoEspecialEscolhido
         {
             get
             {
                 var prod = ProdutoCompleto.Produto;
                 if (prod.veicProd != null)
                 {
-                    return "1";
+                    return 1;
                 }
-                else if (prod.medicamentos != null)
+                else if (prod.medicamentos != null && prod.medicamentos.Count > 0)
                 {
-                    return "2";
+                    return 2;
                 }
-                else if (prod.armas != null)
+                else if (prod.armas != null && prod.armas.Count > 0)
                 {
-                    return "3";
+                    return 3;
                 }
                 else if (prod.comb != null)
                 {
-                    return "4";
+                    return 4;
                 }
                 else if (prod.NRECOPI != null)
                 {
-                    return "5";
+                    return 5;
                 }
                 else
                 {
-                    return "0";
+                    return 0;
                 }
             }
             set
             {
                 var prod = ProdutoCompleto.Produto;
-                switch (int.Parse(value))
+                switch (value)
                 {
                     case 0:
                         prod.veicProd = null;
@@ -122,14 +122,6 @@ namespace NFeFacil.ViewNFe
         {
             var produto = (DetalhesProdutos)e.Parameter;
             ProdutoCompleto = produto;
-            if (produto.Impostos.impostos.Count > 0)
-            {
-                MainPage.Current.SeAtualizar(Symbol.Edit, "Produto");
-            }
-            else
-            {
-                MainPage.Current.SeAtualizar(Symbol.Add, "Produto");
-            }
         }
 
         public ObservableCollection<ItemHambuguer> ConteudoMenu => new ObservableCollection<ItemHambuguer>
@@ -142,7 +134,7 @@ namespace NFeFacil.ViewNFe
             new ItemHambuguer(Symbol.Target, "Produto específico")
         };
 
-        public void AtualizarMain(int index) => main.SelectedIndex = index;
+        public int SelectedIndex { set => main.SelectedIndex = value; }
 
         private void Concluir_Click(object sender, RoutedEventArgs e)
         {
@@ -170,12 +162,6 @@ namespace NFeFacil.ViewNFe
             mensagem.Commands.Add(new UICommand("Cancelar"));
             var resultado = await mensagem.ShowAsync();
             return resultado.Label == "Sair";
-        }
-
-        private void TelaMudou(object sender, SelectionChangedEventArgs e)
-        {
-            var index = ((FlipView)sender).SelectedIndex;
-            MainPage.Current.AlterarSelectedIndexHamburguer(index);
         }
 
         async void AdicionarDeclaracaoImportacao(object sender, RoutedEventArgs e)

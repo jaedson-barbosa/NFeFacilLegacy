@@ -1,7 +1,6 @@
 ﻿using System.Windows;
-using Comum.Pacotes;
+using ServidorCertificacao.Pacotes;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -12,6 +11,7 @@ using System.Xml.Serialization;
 using System.Windows.Threading;
 using System.Threading.Tasks;
 using System.IO;
+using System.Collections.Generic;
 
 namespace ServidorCertificacao
 {
@@ -72,16 +72,48 @@ namespace ServidorCertificacao
             var metodos = new Metodos();
             try
             {
-                var bytes = new List<byte>();
-                while (stream.DataAvailable)
+                List<string> Cabecalho = new List<string>();
+                string Corpo = string.Empty;
+                var leitor = new StreamReader(stream);
+                int tam = 0;
+                while (true)
                 {
-                    bytes.Add((byte)stream.ReadByte());
+                    var str = leitor.ReadLine();
+                    Cabecalho.Add(str);
+                    if (str.Contains("Content-Length"))
+                    {
+                        tam = int.Parse(str.Substring(str.IndexOf(' ') + 1));
+                    }
+                    else if (string.IsNullOrEmpty(str))
+                    {
+                        if (tam == 0)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            tam -= 2;
+                            char[] letras = new char[tam];
+                            leitor.ReadBlock(letras, 0, tam);
+                            Corpo = new string(letras);
+                            if (letras.Last() != '>')
+                            {
+                                letras = new char[2];
+                                leitor.ReadBlock(letras, 0, 2);
+                                Corpo += new string(letras);
+                            }
+                            break;
+                        }
+                    }
                 }
-                var requisicao = Encoding.UTF8.GetString(bytes.ToArray());
+                if (Cabecalho.Count == 0)
+                {
+                    throw new Exception("Falha ao processar requisição.");
+                }
 
-                var primeiraLinha = requisicao.Substring(0, requisicao.IndexOf("\r\n"));
-                var parametros = primeiraLinha.Split(' ')[1].Replace('/', ' ').Trim().Split(' ');
+                var parametros = Cabecalho[0].Split(' ')[1].Replace('/', ' ').Trim().Split(' ');
                 var nomeMetodo = parametros[0];
+
                 lstMetodos.Dispatcher.Invoke(() => lstMetodos.Items.Insert(0, $"Nome metodo: {nomeMetodo};"), DispatcherPriority.Normal);
                 string texto;
                 switch (nomeMetodo)
@@ -90,17 +122,15 @@ namespace ServidorCertificacao
                         texto = metodos.ObterCertificados(stream);
                         break;
                     case "AssinarRemotamente":
-                        var conteudo0 = requisicao.Substring(requisicao.IndexOf("\r\n\r\n") + 4);
-                        var xml0 = XElement.Parse(conteudo0);
+                        var xml0 = XElement.Parse(Corpo);
+                        lstMetodos.Dispatcher.Invoke(() => lstMetodos.Items.Insert(0, $"XML Requisição: {xml0.ToString()};"), DispatcherPriority.Normal);
                         var cert = Desserializar<CertificadoAssinaturaDTO>(xml0);
-
                         texto = metodos.AssinarRemotamente(stream, cert);
                         break;
                     case "EnviarRequisicao":
-                        var conteudo1 = requisicao.Substring(requisicao.IndexOf("\r\n\r\n") + 4);
-                        var xml1 = XElement.Parse(conteudo1);
+                        var xml1 = XElement.Parse(Corpo);
+                        lstMetodos.Dispatcher.Invoke(() => lstMetodos.Items.Insert(0, $"XML Requisição: {xml1.ToString()};"), DispatcherPriority.Normal);
                         var envio = Desserializar<RequisicaoEnvioDTO>(xml1);
-
                         texto = await metodos.EnviarRequisicaoAsync(stream, envio);
                         break;
                     default:

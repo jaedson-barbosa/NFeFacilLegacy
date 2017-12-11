@@ -4,7 +4,6 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Navigation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -35,24 +34,19 @@ namespace NFeFacil.ViewRegistroVenda
             }
         }
 
-        public struct ExibicaoVenda
-        {
-            public RegistroVenda Base { get; set; }
-            public string NomeVendedor { get; set; }
-            public string NomeCliente { get; set; }
-            public string DataHoraVenda { get; set; }
-        }
-
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            MainPage.Current.SeAtualizar(Symbol.Library, "Vendas");
-        }
-
         private void Exibir(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             var item = (MenuFlyoutItem)sender;
             var venda = (ExibicaoVenda)item.DataContext;
             MainPage.Current.Navegar<VisualizacaoRegistroVenda>(venda.Base);
         }
+    }
+
+    public struct ExibicaoVenda
+    {
+        public RegistroVenda Base { get; set; }
+        public string NomeVendedor { get; set; }
+        public string NomeCliente { get; set; }
+        public string DataHoraVenda { get; set; }
     }
 }

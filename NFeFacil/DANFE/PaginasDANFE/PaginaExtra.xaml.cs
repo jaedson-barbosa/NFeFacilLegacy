@@ -72,7 +72,7 @@ namespace NFeFacil.DANFE.PaginasDANFE
                     total += item.DesiredSize.Height;
                     return total <= maximo;
                 });
-                campoProdutos.DataContext = produtosNestaPagina.ToArray();
+                produtosNestaPagina.ToList().ForEach(campoProdutos.Contexto.Add);
 
                 bool excessoProdutos = produtos.Count() - produtosNestaPagina.Count() > 0;
 
@@ -87,7 +87,7 @@ namespace NFeFacil.DANFE.PaginasDANFE
 
         public void DefinirPagina(int atual, int total)
         {
-            
+            parteDadosNFe.DefinirPagina(atual, total);
         }
     }
 }

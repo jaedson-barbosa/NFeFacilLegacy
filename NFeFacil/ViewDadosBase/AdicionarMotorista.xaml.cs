@@ -73,12 +73,10 @@ namespace NFeFacil.ViewDadosBase
             if (e.Parameter == null)
             {
                 Motorista = new MotoristaDI();
-                MainPage.Current.SeAtualizar(Symbol.Add, "Motorista");
             }
             else
             {
                 Motorista = (MotoristaDI)e.Parameter;
-                MainPage.Current.SeAtualizar(Symbol.Edit, "Motorista");
             }
             TipoDocumento = (int)Motorista.TipoDocumento;
         }

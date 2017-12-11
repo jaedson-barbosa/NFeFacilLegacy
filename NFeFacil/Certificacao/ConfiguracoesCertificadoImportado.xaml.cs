@@ -1,4 +1,4 @@
-﻿using Comum.Primitivos;
+﻿using NFeFacil.Primitivos;
 using System;
 using System.Collections.ObjectModel;
 using System.Security.Cryptography.X509Certificates;
@@ -27,7 +27,6 @@ namespace NFeFacil.Certificacao
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             ListaCertificados = await Certificados.ObterCertificadosAsync(OrigemCertificado.Importado);
-            MainPage.Current.SeAtualizar(Symbol.Permissions, "Certificação");
         }
 
         async void ImportarCertificado(object sender, RoutedEventArgs e)

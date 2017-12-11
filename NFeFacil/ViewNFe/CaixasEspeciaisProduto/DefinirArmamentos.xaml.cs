@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Navigation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -23,19 +22,12 @@ namespace NFeFacil.ViewNFe.CaixasEspeciaisProduto
             InitializeComponent();
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            var usarDark = Application.Current.RequestedTheme == ApplicationTheme.Dark;
-            string caminho = usarDark ? "ms-appx:///Assets/ArmaDark.png" : "ms-appx:///Assets/Arma.png";
-            MainPage.Current.SeAtualizar(new Uri(caminho), "Armamento");
-        }
-
         async void AdicionarArmamento(object sender, RoutedEventArgs e)
         {
             var caixa = new CaixasDialogoProduto.AdicionarArmamento();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
-                var novoArmamento = (Arma)caixa.DataContext;
+                var novoArmamento = caixa.Contexto;
                 Armas.Add(novoArmamento);
             }
         }

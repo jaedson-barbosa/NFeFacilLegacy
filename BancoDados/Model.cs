@@ -17,6 +17,7 @@ namespace NFeFacil
         public DbSet<RegistroCancelamento> Cancelamentos { get; set; }
         public DbSet<CancelamentoRegistroVenda> CancelamentosRegistroVenda { get; set; }
         public DbSet<Imagem> Imagens { get; set; }
+        public DbSet<Comprador> Compradores { get; set; }
 
         public AplicativoContext()
         {

@@ -9,7 +9,7 @@
     <UserControl.Resources>
         <ResourceDictionary Source="EstilosPadrao.xaml" />
     </UserControl.Resources>
-    <StackPanel Margin="{Binding Source={StaticResource dimensoes}, Path=MargemBloco}">
+    <StackPanel Margin="{x:Bind Dimensoes.MargemBloco}">
         <TextBlock Style="{StaticResource DescritivoBloco}">CÁLCULO DO ISSQN</TextBlock>
         <Grid BorderThickness="1"
               BorderBrush="Black"
@@ -21,20 +21,20 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="{Binding Source={StaticResource dimensoes}, Path=AlturaLinhaPadrao}" />
+                <RowDefinition Height="{x:Bind Dimensoes.AlturaLinhaPadrao}" />
             </Grid.RowDefinitions>
             <StackPanel Padding="{StaticResource PaddingPadrao}"
                         BorderThickness="0,0,1,0"
                         BorderBrush="Black">
                 <TextBlock Style="{StaticResource Cabecalho}">INSCRIÇÃO MUNICIPAL</TextBlock>
                 <TextBlock Style="{StaticResource Conteudo}"
-                           Text="{Binding IM}" />
+                           Text="{x:Bind Contexto.IM}" />
             </StackPanel>
             <StackPanel Padding="{StaticResource PaddingPadrao}"
                         Grid.Column="1">
                 <TextBlock Style="{StaticResource Cabecalho}">VALOR TOTAL DOS SERVIÇOS</TextBlock>
                 <TextBlock Style="{StaticResource Conteudo}"
-                           Text="{Binding TotalServiços}" />
+                           Text="{x:Bind TotalServicos}" />
             </StackPanel>
             <StackPanel Padding="{StaticResource PaddingPadrao}"
                         Grid.Column="2"
@@ -42,13 +42,13 @@
                         BorderBrush="Black">
                 <TextBlock Style="{StaticResource Cabecalho}">BASE DE CÁLCULO DO ISSQN</TextBlock>
                 <TextBlock Style="{StaticResource Conteudo}"
-                           Text="{Binding BC}" />
+                           Text="{x:Bind Contexto.BC}" />
             </StackPanel>
             <StackPanel Padding="{StaticResource PaddingPadrao}"
                         Grid.Column="3">
                 <TextBlock Style="{StaticResource Cabecalho}">VALOR DO ISSQN</TextBlock>
                 <TextBlock Style="{StaticResource Conteudo}"
-                           Text="{Binding ValorISSQN}" />
+                           Text="{x:Bind Contexto.ValorISSQN}" />
             </StackPanel>
         </Grid>
     </StackPanel>

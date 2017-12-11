@@ -96,6 +96,28 @@ namespace NFeFacil.Migrations
                     b.ToTable("Clientes");
                 });
 
+            modelBuilder.Entity("NFeFacil.ItensBD.Comprador", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("Ativo");
+
+                    b.Property<string>("Email");
+
+                    b.Property<Guid>("IdEmpresa");
+
+                    b.Property<string>("Nome");
+
+                    b.Property<string>("Telefone");
+
+                    b.Property<DateTime>("UltimaData");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Compradores");
+                });
+
             modelBuilder.Entity("NFeFacil.ItensBD.EmitenteDI", b =>
                 {
                     b.Property<Guid>("Id")
@@ -114,6 +136,8 @@ namespace NFeFacil.Migrations
                     b.Property<int>("CodigoMunicipio");
 
                     b.Property<string>("Complemento");
+
+                    b.Property<string>("Email");
 
                     b.Property<string>("IEST");
 
@@ -338,17 +362,27 @@ namespace NFeFacil.Migrations
 
                     b.Property<Guid>("Cliente");
 
+                    b.Property<Guid>("Comprador");
+
                     b.Property<DateTime>("DataHoraVenda");
 
                     b.Property<double>("DescontoTotal");
 
                     b.Property<Guid>("Emitente");
 
+                    b.Property<string>("FormaPagamento");
+
                     b.Property<Guid>("Motorista");
 
                     b.Property<string>("NotaFiscalRelacionada");
 
                     b.Property<string>("Observações");
+
+                    b.Property<DateTime>("PrazoEntrega");
+
+                    b.Property<string>("PrazoPagamento");
+
+                    b.Property<string>("TipoFrete");
 
                     b.Property<DateTime>("UltimaData");
 
@@ -385,6 +419,8 @@ namespace NFeFacil.Migrations
                     b.Property<bool>("Ativo");
 
                     b.Property<long>("CPF");
+
+                    b.Property<string>("CPFStr");
 
                     b.Property<string>("Endereço")
                         .IsRequired();

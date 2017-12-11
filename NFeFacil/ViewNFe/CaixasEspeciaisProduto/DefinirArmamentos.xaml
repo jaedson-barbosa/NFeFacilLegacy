@@ -1,6 +1,7 @@
 ﻿<Page x:Class="NFeFacil.ViewNFe.CaixasEspeciaisProduto.DefinirArmamentos"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:caminho="using:NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesProdutoOuServico"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
@@ -20,8 +21,8 @@
             </Grid>
         </ListView.Header>
         <ListView.ItemTemplate>
-            <DataTemplate>
-                <TextBlock Text="{Binding descr, Mode=OneTime}"
+            <DataTemplate x:DataType="caminho:Arma">
+                <TextBlock Text="{x:Bind Descr, Mode=OneTime}"
                            TextWrapping="Wrap">
                     <TextBlock.ContextFlyout>
                         <MenuFlyout>

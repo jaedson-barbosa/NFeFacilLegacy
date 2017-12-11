@@ -3,7 +3,6 @@ using System;
 using System.Runtime.InteropServices;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Navigation;
 using static NFeFacil.Sincronizacao.ConfiguracoesSincronizacao;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
@@ -18,11 +17,6 @@ namespace NFeFacil.Sincronizacao
         public SincronizacaoServidor()
         {
             InitializeComponent();
-        }
-
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            MainPage.Current.SeAtualizar("\uE977", "Sincronização");
         }
 
         public bool IniciarAutomaticamente

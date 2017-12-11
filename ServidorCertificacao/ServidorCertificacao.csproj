@@ -15,7 +15,7 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>C:\Users\jaeds\Documents\</PublishUrl>
+    <PublishUrl>C:\Users\jaeds\Desktop\SaidaPublica3\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -25,8 +25,8 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>17</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <ApplicationRevision>2</ApplicationRevision>
+    <ApplicationVersion>1.2.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -77,11 +77,15 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Security.Cryptography.Algorithms, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net461\System.Security.Cryptography.Algorithms.dll</HintPath>
+      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.1\lib\net461\System.Security.Cryptography.Algorithms.dll</HintPath>
     </Reference>
     <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Xml, Version=4.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Xml.4.4.0\lib\net461\System.Security.Cryptography.Xml.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -109,27 +113,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="CodigoNet\AttributeSortOrder.cs" />
-    <Compile Include="CodigoNet\C14NAncestralNamespaceContextManager.cs" />
-    <Compile Include="CodigoNet\CanonicalizationDispatcher.cs" />
-    <Compile Include="CodigoNet\CanonicalXml.cs" />
-    <Compile Include="CodigoNet\CanonicalXmlAttribute.cs" />
-    <Compile Include="CodigoNet\CanonicalXmlDocument.cs" />
-    <Compile Include="CodigoNet\CanonicalXmlElement.cs" />
-    <Compile Include="CodigoNet\CanonicalXmlNodeList.cs" />
-    <Compile Include="CodigoNet\CanonicalXmlText.cs" />
-    <Compile Include="CodigoNet\ICanonicalizableNode.cs" />
-    <Compile Include="CodigoNet\NamespaceFrame.cs" />
-    <Compile Include="CodigoNet\NamespaceSortOrder.cs" />
-    <Compile Include="CodigoNet\Reference.cs" />
-    <Compile Include="CodigoNet\Signature.cs" />
-    <Compile Include="CodigoNet\SignatureFormatter.cs" />
-    <Compile Include="CodigoNet\SignedXml.cs" />
-    <Compile Include="CodigoNet\Transform.cs" />
-    <Compile Include="CodigoNet\TransformChain.cs" />
-    <Compile Include="CodigoNet\Utils.cs" />
-    <Compile Include="CodigoNet\XmlDsigC14NTransform.cs" />
-    <Compile Include="CodigoNet\XmlDsigEnvelopedSignatureTransform.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -140,14 +123,6 @@
     <Compile Include="Pacotes\CertificadoAssinaturaDTO.cs" />
     <Compile Include="Pacotes\CertificadosExibicaoDTO.cs" />
     <Compile Include="Pacotes\RequisicaoEnvioDTO.cs" />
-    <Compile Include="PartesAssinatura\Algoritmo.cs" />
-    <Compile Include="PartesAssinatura\Assinatura.cs" />
-    <Compile Include="PartesAssinatura\DadosChave.cs" />
-    <Compile Include="PartesAssinatura\DetalhesChave.cs" />
-    <Compile Include="PartesAssinatura\Referencia.cs" />
-    <Compile Include="PartesAssinatura\SignedInfo.cs" />
-    <Compile Include="Primitivos\CertificadoAssinatura.cs" />
-    <Compile Include="Primitivos\CertificadoExibicao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

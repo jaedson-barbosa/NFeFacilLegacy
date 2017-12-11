@@ -1,0 +1,29 @@
+﻿<Page x:Class="NFeFacil.ViewNFe.Impostos.EscolhaImpostos"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d">
+    <GridView SelectionChanged="Grd_SelectionChanged"
+              ItemsSource="{x:Bind Impostos}"
+              SelectionMode="Multiple"
+              Padding="16">
+        <GridView.ItemTemplate>
+            <DataTemplate x:DataType="x:String">
+                <TextBlock Text="{x:Bind}"
+                           Width="160"
+                           Margin="16"
+                           VerticalAlignment="Center"
+                           TextAlignment="Center"
+                           Style="{StaticResource TitleTextBlockStyle}" />
+            </DataTemplate>
+        </GridView.ItemTemplate>
+    </GridView>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Label="Avançar"
+                          Icon="Forward"
+                          Click="Avancar" />
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>

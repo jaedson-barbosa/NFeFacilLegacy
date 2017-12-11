@@ -1,6 +1,7 @@
 ﻿<Page x:Class="NFeFacil.ViewNFe.ImpostosProduto"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="using:NFeFacil.ViewNFe"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:controles="using:NFeFacil.Controles"
@@ -33,16 +34,16 @@
                 </Grid>
             </ListView.Header>
             <ListView.ItemTemplate>
-                <DataTemplate>
+                <DataTemplate x:DataType="local:VisualizacaoImposto">
                     <StackPanel Padding="0,2">
                         <StackPanel.ContextFlyout>
                             <MenuFlyout>
                                 <MenuFlyoutItem Click="RemoverImposto">Remover</MenuFlyoutItem>
                             </MenuFlyout>
                         </StackPanel.ContextFlyout>
-                        <TextBlock Text="{Binding Titulo}"
+                        <TextBlock Text="{x:Bind Titulo}"
                                    Style="{StaticResource SubtitleTextBlockStyle}" />
-                        <TextBlock Text="{Binding InformacaoAdicional}"
+                        <TextBlock Text="{x:Bind InformacaoAdicional}"
                                    Style="{StaticResource CaptionTextBlockStyle}" />
                     </StackPanel>
                 </DataTemplate>

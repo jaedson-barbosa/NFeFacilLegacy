@@ -3,9 +3,9 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:VM="using:NFeFacil.ViewModel"
       xmlns:controles="using:NFeFacil.Controles"
+      xmlns:partesProduto="using:NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesProdutoOuServico"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      x:Name="root"
       mc:Ignorable="d">
     <Page.Resources>
         <ResourceDictionary>
@@ -18,12 +18,10 @@
                 </ResourceDictionary>
             </ResourceDictionary.ThemeDictionaries>
             <VM:StringToDateTime x:Key="data" />
-            <VM:DadosEstadosParaView x:Key="estados" />
         </ResourceDictionary>
     </Page.Resources>
-    <FlipView Name="main"
-              Padding="16"
-              SelectionChanged="TelaMudou">
+    <controles:MultView x:Name="main"
+                        Padding="16">
         <ScrollViewer>
             <ItemsControl Style="{StaticResource ItensResponsivos}">
                 <TextBox Text="{x:Bind ProdutoCompleto.Produto.CodigoProduto, Mode=TwoWay}"
@@ -89,6 +87,9 @@
                 <TextBox Text="{x:Bind ProdutoCompleto.Produto.NFCI, Mode=TwoWay}"
                          InputScope="Number"
                          Header="Nº de controle da FCI" />
+                <controles:EntradaRestrita Pattern="[^\d]"
+                                           Text="{x:Bind ProdutoCompleto.Produto.CEST, Mode=TwoWay}"
+                                           Header="CEST" />
             </ItemsControl>
         </ScrollViewer>
         <StackPanel>
@@ -120,7 +121,7 @@
                 </Grid>
             </ListView.Header>
             <ListView.ItemTemplate>
-                <DataTemplate>
+                <DataTemplate x:DataType="partesProduto:DeclaracaoImportacao">
                     <Grid MinWidth="300">
                         <Grid.ContextFlyout>
                             <MenuFlyout>
@@ -131,8 +132,8 @@
                             <ColumnDefinition />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="{Binding CNPJ, Mode=TwoWay}" />
-                        <TextBlock Text="{Binding NDI, Mode=TwoWay}"
+                        <TextBlock Text="{x:Bind CNPJ, Mode=TwoWay}" />
+                        <TextBlock Text="{x:Bind NDI, Mode=TwoWay}"
                                    Grid.Column="1" />
                     </Grid>
                 </DataTemplate>
@@ -154,53 +155,45 @@
                 </Grid>
             </ListView.Header>
             <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Grid.ContextFlyout>
+                <DataTemplate x:DataType="partesProduto:GrupoExportacao">
+                    <TextBlock Text="{x:Bind NDraw}">
+                        <TextBlock.ContextFlyout>
                             <MenuFlyout>
                                 <MenuFlyoutItem Click="RemoverDeclaracaoExportacao">Remover</MenuFlyoutItem>
                             </MenuFlyout>
-                        </Grid.ContextFlyout>
-                        <TextBlock Text="{Binding NDraw}" />
-                    </Grid>
+                        </TextBlock.ContextFlyout>
+                    </TextBlock>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
         <GridView Style="{StaticResource ItensMediosGrid}"
-                  SelectedValue="{x:Bind TipoEspecialEscolhido, Mode=TwoWay}"
-                  SelectedValuePath="Tag">
-            <controles:ItemPadraoSimples Tag="0"
-                                         Titulo="Produto simples"
+                  SelectedIndex="{x:Bind TipoEspecialEscolhido, Mode=TwoWay}">
+            <controles:ItemPadraoSimples Titulo="Produto simples"
                                          Descricao="Produto que não se encaixa nas categorias especiais">
                 <SymbolIcon Symbol="Shop" />
             </controles:ItemPadraoSimples>
-            <controles:ItemPadraoSimples Tag="1"
-                                         Titulo="Veículo"
+            <controles:ItemPadraoSimples Titulo="Veículo"
                                          Descricao="Algum tipo de veículo">
                 <FontIcon Glyph="&#xE804;" />
             </controles:ItemPadraoSimples>
-            <controles:ItemPadraoSimples Tag="2"
-                                         Titulo="Medicamento"
+            <controles:ItemPadraoSimples Titulo="Medicamento"
                                          Descricao="Remédios e afins">
                 <FontIcon Glyph="&#xE95E;" />
             </controles:ItemPadraoSimples>
-            <controles:ItemPadraoSimples Tag="3"
-                                         Titulo="Armamento"
+            <controles:ItemPadraoSimples Titulo="Armamento"
                                          Descricao="Armas">
                 <BitmapIcon UriSource="{ThemeResource ImagemArma}" />
             </controles:ItemPadraoSimples>
-            <controles:ItemPadraoSimples Tag="4"
-                                         Titulo="Combustível"
+            <controles:ItemPadraoSimples Titulo="Combustível"
                                          Descricao="Combustíveis">
                 <FontIcon Glyph="&#xEB42;" />
             </controles:ItemPadraoSimples>
-            <controles:ItemPadraoSimples Tag="5"
-                                         Titulo="Papel"
+            <controles:ItemPadraoSimples Titulo="Papel"
                                          Descricao="Papel imune">
                 <FontIcon Glyph="&#xE82D;" />
             </controles:ItemPadraoSimples>
         </GridView>
-    </FlipView>
+    </controles:MultView>
     <Page.BottomAppBar>
         <CommandBar>
             <AppBarButton Icon="Accept"

@@ -5,16 +5,22 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
-    <ItemsControl Grid.ColumnSpan="2"
-                  Style="{StaticResource ItensResponsivos}">
+    <Grid Padding="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
         <TextBox Header="Nome"
-                 Text="{Binding Nome, Mode=TwoWay}" />
-        <controles:EntradaNumerica Format="11"
+                 Text="{x:Bind Vendedor.Nome, Mode=TwoWay}" />
+        <controles:EntradaRestrita Grid.Row="1"
+                                   Pattern="[^\d]"
                                    Header="CPF"
-                                   Number="{Binding CPF, Mode=TwoWay}" />
-        <TextBox Header="Endereço"
-                 Text="{Binding Endereço, Mode=TwoWay}" />
-    </ItemsControl>
+                                   Text="{x:Bind Vendedor.CPFStr, Mode=TwoWay}" />
+        <TextBox Grid.Row="2"
+                 Header="Endereço"
+                 Text="{x:Bind Endereco, Mode=TwoWay}" />
+    </Grid>
     <Page.BottomAppBar>
         <CommandBar>
             <AppBarButton x:Name="Confirmar"

@@ -15,7 +15,7 @@ namespace NFeFacil.AuxiliaresEstilos
 
         protected override Size MeasureOverride(Size availableSize)
         {
-            if (Children.Count > 0)
+            if (Children.Count > 1)
             {
                 var tamanhoComparacao = TamanhoDesejado == 0 ? availableSize : new Size(TamanhoDesejado, availableSize.Height);
                 _maxWidth = Children.Max(x =>
@@ -24,6 +24,18 @@ namespace NFeFacil.AuxiliaresEstilos
                     return x.DesiredSize.Width;
                 });
                 _maxHeight = Children.Max(x => x.DesiredSize.Height);
+
+                colunas = Math.Floor(availableSize.Width / _maxWidth);
+                _maxWidth = Math.Floor(availableSize.Width / colunas);
+                return new Size(_maxWidth * colunas, _maxHeight * Math.Ceiling(Children.Count / colunas));
+            }
+            else if (Children.Count == 1)
+            {
+                var tamanhoComparacao = TamanhoDesejado == 0 ? availableSize : new Size(TamanhoDesejado, availableSize.Height);
+                var filho = Children[0];
+                filho.Measure(tamanhoComparacao);
+                _maxWidth =  filho.DesiredSize.Width;
+                _maxHeight = filho.DesiredSize.Height;
 
                 colunas = Math.Floor(availableSize.Width / _maxWidth);
                 _maxWidth = Math.Floor(availableSize.Width / colunas);

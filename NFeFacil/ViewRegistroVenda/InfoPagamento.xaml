@@ -1,0 +1,35 @@
+﻿<ContentDialog x:Class="NFeFacil.ViewRegistroVenda.InfoPagamento"
+               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+               mc:Ignorable="d"
+               Title="Informações de pagamento"
+               PrimaryButtonText="Concluir"
+               SecondaryButtonText="Cancelar"
+               PrimaryButtonClick="ContentDialog_PrimaryButtonClick">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <CalendarDatePicker Header="Prazo de pagamento"
+                            Date="{x:Bind Prazo, Mode=TwoWay}"
+                            Grid.Column="2" />
+        <ComboBox Grid.Row="1"
+                  Header="Forma de pagamento"
+                  SelectedValue="{x:Bind FormaPagamentoIntermediada, Mode=TwoWay}"
+                  SelectedValuePath="Content">
+            <ComboBoxItem>Em dinheiro à vista</ComboBoxItem>
+            <ComboBoxItem>Cartão</ComboBoxItem>
+            <ComboBoxItem>Boleto bancário</ComboBoxItem>
+            <ComboBoxItem>Outro</ComboBoxItem>
+        </ComboBox>
+        <TextBox Grid.Row="2"
+                 x:Name="txt"
+                 IsEnabled="False"
+                 Header="Forma de pagamento especial"
+                 Text="{x:Bind FormaPagamentoEspecial, Mode=TwoWay}" />
+    </Grid>
+</ContentDialog>

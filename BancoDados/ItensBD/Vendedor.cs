@@ -11,8 +11,10 @@ namespace NFeFacil.ItensBD
         [Required]
         public string Nome { get; set; }
 
-        [Required]
+        [Required, Obsolete]
         public long CPF { get; set; }
+
+        public string CPFStr { get; set; }
 
         [Required]
         public string Endereço { get; set; }

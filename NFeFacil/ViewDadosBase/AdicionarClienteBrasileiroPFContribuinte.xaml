@@ -5,10 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
-    <Page.Resources>
-        <VM:DadosEstadosParaView x:Key="estados" />
-    </Page.Resources>
-    <StackPanel>
+    <StackPanel Padding="16">
         <ItemsControl Style="{StaticResource ItensResponsivos}">
             <TextBox Text="{x:Bind Base.Cliente.Nome, Mode=TwoWay}"
                      InputScope="Text"
@@ -27,7 +24,7 @@
                    Style="{StaticResource TitleTextBlockStyle}"
                    Margin="4,0,0,0" />
         <ItemsControl Style="{StaticResource ItensResponsivos}">
-            <ComboBox ItemsSource="{Binding Source={StaticResource estados}, Path=Siglas}"
+            <ComboBox ItemsSource="{x:Bind VM:DadosEstadosParaView.Siglas}"
                       SelectedItem="{x:Bind Base.UFEscolhida, Mode=TwoWay}"
                       Header="Estado" />
             <ComboBox ItemsSource="{x:Bind Base.ListaMunicipios}"

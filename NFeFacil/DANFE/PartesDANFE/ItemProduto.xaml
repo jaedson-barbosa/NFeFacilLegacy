@@ -12,7 +12,6 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="EstilosPadrao.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <local:DimensoesCampoProdutos x:Key="dimensoesLocal" />
             <local:EsconderCasoNulo x:Key="linhaInfoAdicional" />
         </ResourceDictionary>
     </UserControl.Resources>
@@ -32,43 +31,42 @@
             </Style>
         </Grid.Resources>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="{Binding Source={StaticResource dimensoesLocal}, Path=Coluna0}" />
-            <ColumnDefinition Width="{Binding Source={StaticResource dimensoesLocal}, Path=Coluna1}" />
-            <ColumnDefinition Width="{Binding Source={StaticResource dimensoesLocal}, Path=Coluna2}" />
-            <ColumnDefinition Width="{Binding Source={StaticResource dimensoesLocal}, Path=ColunaGeral3}" />
-            <ColumnDefinition Width="{Binding Source={StaticResource dimensoesLocal}, Path=ColunaGeral4}" />
-            <ColumnDefinition Width="{Binding Source={StaticResource dimensoesLocal}, Path=ColunaGeral5}" />
-            <ColumnDefinition Width="{Binding Source={StaticResource dimensoesLocal}, Path=ColunaGeral6}" />
+            <ColumnDefinition Width="{x:Bind DimensoesLocal.Coluna0}" />
+            <ColumnDefinition Width="{x:Bind DimensoesLocal.Coluna1}" />
+            <ColumnDefinition Width="{x:Bind DimensoesLocal.Coluna2}" />
+            <ColumnDefinition Width="{x:Bind DimensoesLocal.ColunaGeral3}" />
+            <ColumnDefinition Width="{x:Bind DimensoesLocal.ColunaGeral4}" />
+            <ColumnDefinition Width="{x:Bind DimensoesLocal.ColunaGeral5}" />
+            <ColumnDefinition Width="{x:Bind DimensoesLocal.ColunaGeral6}" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition MinHeight="{Binding Source={StaticResource dimensoesLocal}, Path=AlturaPadrao}" />
+            <RowDefinition MinHeight="{x:Bind DimensoesLocal.AlturaPadrao}" />
         </Grid.RowDefinitions>
         <Border BorderThickness="0,0,1,0"
                 BorderBrush="Black">
-            <TextBlock Text="{Binding CProd}" />
+            <TextBlock Text="{x:Bind Contexto.CProd}" />
         </Border>
         <StackPanel Grid.Column="1"
                     VerticalAlignment="Center">
-            <TextBlock Text="{Binding XProd}" />
-            <TextBlock Text="{Binding InfoAdicional}"
-                       TextWrapping="Wrap"
-                       Visibility="{Binding InfoAdicional, Converter={StaticResource linhaInfoAdicional}}" />
+            <TextBlock Text="{x:Bind Contexto.XProd}" />
+            <TextBlock Text="{x:Bind Contexto.InfoAdicional}"
+                       Visibility="{x:Bind Contexto.InfoAdicional, Converter={StaticResource linhaInfoAdicional}}" />
         </StackPanel>
         <Border Grid.Column="2"
                 BorderThickness="1,0,1,0"
                 BorderBrush="Black">
-            <TextBlock Text="{Binding NCM}" />
+            <TextBlock Text="{x:Bind Contexto.NCM}" />
         </Border>
         <Grid Grid.Column="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <TextBlock Text="{Binding CSTICMS}" />
+            <TextBlock Text="{x:Bind Contexto.CSTICMS}" />
             <Border Grid.Column="1"
                     BorderThickness="1,0,1,0"
                     BorderBrush="Black">
-                <TextBlock Text="{Binding CFOP}" />
+                <TextBlock Text="{x:Bind Contexto.CFOP}" />
             </Border>
         </Grid>
         <Grid Grid.Column="4">
@@ -76,11 +74,11 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <TextBlock Text="{Binding UCom}" />
+            <TextBlock Text="{x:Bind Contexto.UCom}" />
             <Border Grid.Column="1"
                     BorderThickness="1,0,1,0"
                     BorderBrush="Black">
-                <TextBlock Text="{Binding QCom}" />
+                <TextBlock Text="{x:Bind Contexto.QCom}" />
             </Border>
         </Grid>
         <Grid Grid.Column="5">
@@ -91,21 +89,21 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <TextBlock Text="{Binding VUnCom}" />
+            <TextBlock Text="{x:Bind Contexto.VUnCom}" />
             <Border Grid.Column="1"
                     BorderThickness="1,0,1,0"
                     BorderBrush="Black">
-                <TextBlock Text="{Binding VProd}" />
+                <TextBlock Text="{x:Bind Contexto.VProd}" />
             </Border>
             <TextBlock Grid.Column="2"
-                       Text="{Binding BCICMS}" />
+                       Text="{x:Bind Contexto.BCICMS}" />
             <Border Grid.Column="3"
                     BorderThickness="1,0,1,0"
                     BorderBrush="Black">
-                <TextBlock Text="{Binding VICMS}" />
+                <TextBlock Text="{x:Bind Contexto.VICMS}" />
             </Border>
             <TextBlock Grid.Column="4"
-                       Text="{Binding VIPI}" />
+                       Text="{x:Bind Contexto.VIPI}" />
         </Grid>
         <Grid Grid.Column="6">
             <Grid.ColumnDefinitions>
@@ -114,10 +112,10 @@
             </Grid.ColumnDefinitions>
             <Border BorderThickness="1,0,1,0"
                     BorderBrush="Black">
-                <TextBlock Text="{Binding PICMS}" />
+                <TextBlock Text="{x:Bind Contexto.PICMS}" />
             </Border>
             <TextBlock Grid.Column="1"
-                       Text="{Binding PIPI}" />
+                       Text="{x:Bind Contexto.PIPI}" />
         </Grid>
     </Grid>
 </UserControl>

@@ -24,7 +24,6 @@ namespace NFeFacil.ViewRegistroVenda
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            MainPage.Current.SeAtualizar(Symbol.View, "Registro de venda");
             ItemBanco = (RegistroVenda)e.Parameter;
             using (var db = new AplicativoContext())
             {
@@ -72,7 +71,7 @@ namespace NFeFacil.ViewRegistroVenda
                 if (vendedor != null)
                 {
                     visualizacao.AddBloco("Vendedor", ("Nome", vendedor.Nome),
-                        ("CPF", vendedor.CPF.ToString("000,000,000-00")),
+                        ("CPF", ExtensoesPrincipal.AplicarMáscaraDocumento(vendedor.CPFStr)),
                         ("Endereço", vendedor.Endereço));
                 }
 

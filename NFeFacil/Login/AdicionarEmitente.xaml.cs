@@ -62,12 +62,10 @@ namespace NFeFacil.Login
             if (e.Parameter == null)
             {
                 Emit = new EmitenteDI();
-                MainPage.Current.SeAtualizar(Symbol.Add, "Emitente");
             }
             else
             {
                 Emit = (EmitenteDI)e.Parameter;
-                MainPage.Current.SeAtualizar(Symbol.Edit, "Emitente");
             }
             ListaMunicipios = new ObservableCollection<Municipio>(Municipios.Get(Emit.SiglaUF));
         }

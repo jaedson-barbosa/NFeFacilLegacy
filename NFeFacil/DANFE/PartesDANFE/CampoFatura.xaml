@@ -9,17 +9,17 @@
     <UserControl.Resources>
         <ResourceDictionary Source="EstilosPadrao.xaml" />
     </UserControl.Resources>
-    <StackPanel Margin="{Binding Source={StaticResource dimensoes}, Path=MargemBloco}">
+    <StackPanel Margin="{x:Bind Dimensoes.MargemBloco}">
         <TextBlock Style="{StaticResource DescritivoBloco}">FATURA</TextBlock>
         <Grid BorderThickness="1"
               BorderBrush="Black"
               CornerRadius="2"
               Padding="{StaticResource PaddingPadrao}">
             <Grid.RowDefinitions>
-                <RowDefinition Height="{Binding Source={StaticResource dimensoes}, Path=AlturaLinhaPadrao}" />
+                <RowDefinition Height="{x:Bind Dimensoes.AlturaLinhaPadrao}" />
             </Grid.RowDefinitions>
             <TextBlock Style="{StaticResource Conteudo}"
-                       Text="{Binding}"
+                       Text="{x:Bind Contexto}"
                        VerticalAlignment="Center" />
         </Grid>
     </StackPanel>

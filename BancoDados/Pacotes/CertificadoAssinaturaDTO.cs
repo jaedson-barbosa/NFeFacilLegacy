@@ -1,7 +1,7 @@
-﻿using Comum.Primitivos;
+﻿using NFeFacil.Primitivos;
 using System.Security.Cryptography.X509Certificates;
 
-namespace Comum.Pacotes
+namespace NFeFacil.Pacotes
 {
     public struct CertificadoAssinaturaDTO
     {

@@ -1,6 +1,5 @@
 ﻿using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Navigation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -14,11 +13,6 @@ namespace NFeFacil.Certificacao
         public ConfiguracoesClienteServidor()
         {
             InitializeComponent();
-        }
-
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            MainPage.Current.SeAtualizar(Symbol.Permissions, "Certificação");
         }
 
         async void ConectarServidor(object sender, TappedRoutedEventArgs e)

@@ -9,11 +9,11 @@ namespace NFeFacil.ViewDadosBase
     /// <summary>
     /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
     /// </summary>
-    public sealed partial class AdicionarClienteBrasileiro : Page
+    public sealed partial class AdicionarClienteBrasileiroPF : Page
     {
         BaseAdicaoDestinatario Base { get; set; }
 
-        public AdicionarClienteBrasileiro()
+        public AdicionarClienteBrasileiroPF()
         {
             InitializeComponent();
         }

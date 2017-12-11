@@ -6,6 +6,7 @@ using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.P
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using static NFeFacil.ExtensoesPrincipal;
 
 namespace NFeFacil.DANFE
 {
@@ -56,11 +57,11 @@ namespace NFeFacil.DANFE
             var itens = new List<ItemDadosAdicionais>();
             if (retirada != null)
             {
-                itens.Add(new ItemDadosAdicionais("ENDEREÇO DE RETIRADA:", $"{retirada.Logradouro}, {retirada.Numero}", retirada.Bairro, $"{retirada.NomeMunicipio} - {retirada.SiglaUF}", retirada.CNPJ != null ? $"CNPJ: {AplicatMascaraDocumento(retirada.CNPJ)}" : $"CPF: {AplicatMascaraDocumento(retirada.CPF)}"));
+                itens.Add(new ItemDadosAdicionais("ENDEREÇO DE RETIRADA:", $"{retirada.Logradouro}, {retirada.Numero}", retirada.Bairro, $"{retirada.NomeMunicipio} - {retirada.SiglaUF}", retirada.CNPJ != null ? $"CNPJ: {AplicarMáscaraDocumento(retirada.CNPJ)}" : $"CPF: {AplicarMáscaraDocumento(retirada.CPF)}"));
             }
             if (entrega != null)
             {
-                itens.Add(new ItemDadosAdicionais("ENDEREÇO DE ENTREGA:", $"{entrega.Logradouro}, {entrega.Numero}", entrega.Bairro, $"{entrega.NomeMunicipio} - {entrega.SiglaUF}", entrega.CNPJ != null ? $"CNPJ: {AplicatMascaraDocumento(entrega.CNPJ)}" : $"CPF: {AplicatMascaraDocumento(entrega.CPF)}"));
+                itens.Add(new ItemDadosAdicionais("ENDEREÇO DE ENTREGA:", $"{entrega.Logradouro}, {entrega.Numero}", entrega.Bairro, $"{entrega.NomeMunicipio} - {entrega.SiglaUF}", entrega.CNPJ != null ? $"CNPJ: {AplicarMáscaraDocumento(entrega.CNPJ)}" : $"CPF: {AplicarMáscaraDocumento(entrega.CPF)}"));
             }
             if (cobr?.Dup != null)
             {
@@ -95,7 +96,7 @@ namespace NFeFacil.DANFE
             var dest = Dados.NFe.Informacoes.destinatário;
             return new DadosCliente
             {
-                DocCliente = AplicatMascaraDocumento(dest.Documento),
+                DocCliente = AplicarMáscaraDocumento(dest.Documento),
                 DataEmissao = Convert.ToDateTime(ident.DataHoraEmissão).ToString("dd-MM-yyyy"),
                 DataEntradaSaida = !string.IsNullOrEmpty(ident.DataHoraSaídaEntrada) ? Analisar(Convert.ToDateTime(ident.DataHoraSaídaEntrada).ToString("dd-MM-yyyy")) : string.Empty,
                 HoraEntradaSaida = !string.IsNullOrEmpty(ident.DataHoraSaídaEntrada) ? Analisar(Convert.ToDateTime(ident.DataHoraSaídaEntrada).ToString("HH:mm:ss")) : string.Empty,
@@ -110,17 +111,17 @@ namespace NFeFacil.DANFE
             var tot = Dados.NFe.Informacoes.total;
             return new DadosImposto
             {
-                BaseCalculoICMS = tot.ICMSTot.VBC.ToString("N2"),
-                BaseCalculoICMSST = tot.ICMSTot.VBCST.ToString("N2"),
-                Desconto = tot.ICMSTot.VDesc.ToString("N2"),
-                DespesasAcessorias = tot.ICMSTot.VOutro.ToString("N2"),
-                TotalNota = tot.ICMSTot.VNF.ToString("N2"),
-                ValorFrete = tot.ICMSTot.VFrete.ToString("N2"),
-                ValorICMS = tot.ICMSTot.VICMS.ToString("N2"),
-                ValorICMSST = tot.ICMSTot.VST.ToString("N2"),
-                ValorIPI = tot.ICMSTot.VIPI.ToString("N2"),
-                ValorSeguro = tot.ICMSTot.VSeg.ToString("N2"),
-                ValorTotalProdutos = tot.ICMSTot.VProd.ToString("N2")
+                BaseCalculoICMS = tot.ICMSTot.vBC.ToString("N2"),
+                BaseCalculoICMSST = tot.ICMSTot.vBCST.ToString("N2"),
+                Desconto = tot.ICMSTot.vDesc.ToString("N2"),
+                DespesasAcessorias = tot.ICMSTot.vOutro.ToString("N2"),
+                TotalNota = tot.ICMSTot.vNF.ToString("N2"),
+                ValorFrete = tot.ICMSTot.vFrete.ToString("N2"),
+                ValorICMS = tot.ICMSTot.vICMS.ToString("N2"),
+                ValorICMSST = tot.ICMSTot.vST.ToString("N2"),
+                ValorIPI = tot.ICMSTot.vIPI.ToString("N2"),
+                ValorSeguro = tot.ICMSTot.vSeg.ToString("N2"),
+                ValorTotalProdutos = tot.ICMSTot.vProd.ToString("N2")
             };
         }
 
@@ -130,7 +131,7 @@ namespace NFeFacil.DANFE
             var retorno = new DadosMotorista
             {
                 CodigoANTT = Analisar(transp.VeicTransp?.RNTC),
-                DocumentoMotorista = transp.Transporta?.Documento != null ? AplicatMascaraDocumento(transp.Transporta?.Documento) : null,
+                DocumentoMotorista = transp.Transporta?.Documento != null ? AplicarMáscaraDocumento(transp.Transporta?.Documento) : null,
                 EnderecoMotorista = Analisar(transp.Transporta?.XEnder),
                 EspecieVolume = Analisar(transp.Vol.FirstOrDefault()?.Esp),
                 IEMotorista = Analisar(transp.Transporta?.InscricaoEstadual),
@@ -157,7 +158,7 @@ namespace NFeFacil.DANFE
                 retorno.NumeroVolume = transp.Vol[0].NVol;
                 retorno.PesoBrutoVolume = transp.Vol[0].PesoB.ToString("N3");
                 retorno.PesoLiquidoVolume = transp.Vol[0].PesoL.ToString("N3");
-                retorno.QuantidadeVolume = transp.Vol[0].QVol.ToString("N3");
+                retorno.QuantidadeVolume = transp.Vol[0].QVol != null ? long.Parse(transp.Vol[0].QVol).ToString("N3") : string.Empty;
             }
             else
             {
@@ -166,7 +167,7 @@ namespace NFeFacil.DANFE
                 retorno.NumeroVolume = string.Empty;
                 retorno.PesoBrutoVolume = transp.Vol.Sum(x => x.PesoB).ToString("N3");
                 retorno.PesoLiquidoVolume = transp.Vol.Sum(x => x.PesoL).ToString("N3");
-                retorno.QuantidadeVolume = transp.Vol.Sum(x => x.QVol).ToString("N3");
+                retorno.QuantidadeVolume = transp.Vol.Sum(x => x.QVol != null ? long.Parse(x.QVol) : 0).ToString("N3");
             }
 
             switch (transp.ModFrete)
@@ -200,7 +201,7 @@ namespace NFeFacil.DANFE
             {
                 Chave = codigoBarras,
                 ChaveComMascara = AplicarMascaraChave(codigoBarras),
-                CNPJEmit = AplicatMascaraDocumento(detalhes.emitente.CNPJ),
+                CNPJEmit = AplicarMáscaraDocumento(detalhes.emitente.CNPJ),
                 DataHoraRecibo = prot.InfProt.dhRecbto.Replace('T', ' '),
                 Endereco = detalhes.emitente.Endereco,
                 IE = detalhes.emitente.InscricaoEstadual.ToString(),
@@ -327,45 +328,5 @@ namespace NFeFacil.DANFE
         }
 
         string Analisar(object str) => str != null ? (string)str : string.Empty;
-
-        string AplicatMascaraDocumento(string original)
-        {
-            original = original.Trim();
-            if (original.Length == 14)
-            {
-                // É CNPJ
-                return $"{original.Substring(0, 2)}.{original.Substring(2, 3)}.{original.Substring(5, 3)}/{original.Substring(8, 4)}.{original.Substring(12, 2)}";
-            }
-            else if (original.Length == 11)
-            {
-                // É CPF
-                return $"{original.Substring(0, 3)}.{original.Substring(3, 3)}.{original.Substring(6, 3)}-{original.Substring(9, 2)}";
-            }
-            else
-            {
-                // Não é nem CNPJ nem CPF
-                return original;
-            }
-        }
-
-        string AplicatMascaraDocumento(long numero)
-        {
-            var original = numero.ToString();
-            if (original.Length == 14)
-            {
-                // É CNPJ
-                return $"{original.Substring(0, 2)}.{original.Substring(2, 3)}.{original.Substring(5, 3)}/{original.Substring(8, 4)}.{original.Substring(12, 2)}";
-            }
-            else if (original.Length == 11)
-            {
-                // É CPF
-                return $"{original.Substring(0, 3)}.{original.Substring(3, 3)}.{original.Substring(6, 3)}-{original.Substring(9, 2)}";
-            }
-            else
-            {
-                // Não é nem CNPJ nem CPF
-                return original;
-            }
-        }
     }
 }

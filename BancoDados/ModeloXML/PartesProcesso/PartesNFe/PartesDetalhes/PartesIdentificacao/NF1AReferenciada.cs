@@ -17,7 +17,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesIdent
         public string AAMM { get; set; }
 
         [XmlElement(Order = 2)]
-        public long CNPJ { get; set; }
+        public string CNPJ { get; set; }
 
         /// <summary>
         /// Modelo do Documento Fiscal.

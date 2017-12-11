@@ -7,7 +7,7 @@ namespace NFeFacil
     internal interface IHambuguer
     {
         ObservableCollection<ItemHambuguer> ConteudoMenu { get; }
-        void AtualizarMain(int index);
+        int SelectedIndex { set; }
     }
 
     internal class NewIndexEventArgs : EventArgs

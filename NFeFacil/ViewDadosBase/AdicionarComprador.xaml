@@ -1,0 +1,38 @@
+﻿<Page x:Class="NFeFacil.ViewDadosBase.AdicionarComprador"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d">
+    <Grid Padding="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <ComboBox Header="Empresas"
+                  ItemsSource="{x:Bind ClientesDisponiveis}"
+                  DisplayMemberPath="Nome"
+                  SelectedValue="{x:Bind Comprador.IdEmpresa, Mode=TwoWay}"
+                  SelectedValuePath="Id" />
+        <TextBox Grid.Row="1"
+                 Header="Nome"
+                 Text="{x:Bind Comprador.Nome, Mode=TwoWay}" />
+        <TextBox Grid.Row="2"
+                 Header="Telefone"
+                 Text="{x:Bind Comprador.Telefone, Mode=TwoWay}" />
+        <TextBox Grid.Row="3"
+                 Header="Email"
+                 InputScope="EmailNameOrAddress"
+                 Text="{x:Bind Comprador.Email, Mode=TwoWay}" />
+    </Grid>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton x:Name="Confirmar"
+                          Icon="Accept"
+                          Label="Confirmar"
+                          Click="Confirmar_Click" />
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>

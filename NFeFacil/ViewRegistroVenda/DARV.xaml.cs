@@ -1,12 +1,11 @@
-﻿using NFeFacil.ItensBD;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe;
-using System;
-using System.Linq;
-using System.Text;
-using Windows.UI.Xaml;
+﻿using System;
+using NFeFacil.ItensBD;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Navigation;
 using static NFeFacil.ExtensoesPrincipal;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Navigation;
+using System.Linq;
+using System.Collections.ObjectModel;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -17,185 +16,187 @@ namespace NFeFacil.ViewRegistroVenda
     /// </summary>
     public sealed partial class DARV : Page
     {
-        GerenciadorImpressao gerenciador = new GerenciadorImpressao();
-        ConjuntoDadosDARV Dados { get; set; }
-        DadosImpressaoDARV DadosImpressao { get; set; }
-        const int paddingPadrao = 1;
+        internal double AlturaEscolhida { get; private set; }
+        internal double LarguraEscolhida { get; private set; }
+        internal Thickness PaddingEscolhido { get; private set; }
+
+        internal RegistroVenda Registro { get; private set; }
+        internal EmitenteDI Emitente { get; private set; }
+        internal ClienteDI Cliente { get; private set; }
+        internal string Vendedor { get; private set; }
+        internal Comprador Comprador { get; private set; }
+        internal MotoristaDI Motorista { get; private set; }
+
+        internal string Subtotal { get; private set; }
+        internal string Acrescimos { get; private set; }
+        internal string Desconto { get; private set; }
+        internal string Total { get; private set; }
+
+        string Id => Registro.Id.ToString().ToUpper();
+        internal string NomeAssinatura => Comprador?.Nome ?? Cliente.Nome;
+        internal string Observacoes => Registro.Observações;
+
+        internal DataTemplate TemplateCliente { get; private set; }
+        internal DataTemplate TemplateTransporte { get; private set; }
+
+        ExibicaoProduto[] ListaProdutos;
+
+        internal Visibility VisibilidadeNFeRelacionada { get; private set; }
+        internal Visibility VisibilidadeComprador { get; private set; }
+        internal Visibility VisibilidadePagamento { get; private set; }
+        internal Visibility VisibilidadeObservacoes { get; private set; }
+
+        readonly GerenciadorImpressao Gerenciador = new GerenciadorImpressao();
+        DARV This { get; }
 
         public DARV()
         {
             InitializeComponent();
+            This = this;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            DadosImpressao = (DadosImpressaoDARV)e.Parameter;
-            var original = DadosImpressao.Venda;
+            DadosImpressaoDARV venda = (DadosImpressaoDARV)e.Parameter;
+            var dimensoes = venda.Dimensoes;
+            var registro = venda.Venda;
 
+            AlturaEscolhida = dimensoes.AlturaProcessada;
+            LarguraEscolhida = dimensoes.LarguraProcessada;
+            PaddingEscolhido = new Thickness(dimensoes.PaddingProcessado);
+
+            Registro = registro;
+            Emitente = Propriedades.EmitenteAtivo;
+            ExibicaoProduto[] produtos = new ExibicaoProduto[registro.Produtos.Count];
+            double subtotal = 0;
+            double acrescimos = 0;
+            double desconto = 0;
             using (var db = new AplicativoContext())
             {
-                var emitente = db.Emitentes.Find(original.Emitente);
-                var vendedor = original.Vendedor != Guid.Empty ? db.Vendedores.Find(original.Vendedor) : null;
-                var cliente = db.Clientes.Find(original.Cliente);
-                var motorista = original.Motorista != Guid.Empty ? db.Motoristas.Find(original.Motorista) : null;
+                Cliente = db.Clientes.Find(registro.Cliente);
+                Vendedor = db.Vendedores.Find(registro.Vendedor)?.Nome ?? "Dono da empresa";
+                Comprador = db.Compradores.Find(registro.Comprador);
+                Motorista = db.Motoristas.Find(registro.Motorista);
 
-                var produtos = original.Produtos.Select(x => new DadosProduto
+                for (var i = 0; i < registro.Produtos.Count; i++)
                 {
-                    Descricao = db.Produtos.Find(x.IdBase).Descricao,
-                    Quantidade = x.Quantidade.ToString("N2"),
-                    ValorUnitario = x.ValorUnitario.ToString("C2"),
-                    Desconto = x.Desconto.ToString("C2"),
-                    Adicionais = (x.DespesasExtras + x.Frete + x.Seguro).ToString("C2"),
-                    Total = x.TotalLíquido.ToString("C2")
-                });
-                var array = original.Id.ToByteArray();
-                var construtor = new StringBuilder();
-                for (int i = 0; i < array.Length; i++)
-                {
-                    construtor.Append(array[i].ToString("000"));
+                    var atual = registro.Produtos[i];
+                    var completo = db.Produtos.Find(atual.IdBase);
+                    var totBruto = atual.Quantidade * atual.ValorUnitario;
+                    subtotal += totBruto;
+                    acrescimos += atual.DespesasExtras + atual.Frete + atual.Seguro;
+                    desconto += atual.Desconto;
+                    produtos[i] = new ExibicaoProduto
+                    {
+                        Quantidade = atual.Quantidade.ToString("N2"),
+                        CodigoProduto = completo.CodigoProduto,
+                        Descricao = completo.Descricao,
+                        ValorUnitario = atual.ValorUnitario.ToString("C2"),
+                        TotalBruto = totBruto.ToString("C2")
+                    };
                 }
-                var idSimplificado = construtor.ToString();
-                construtor.Clear();
-                var idOriginal = original.Id.ToString().ToUpper();
-
-                Dados = new ConjuntoDadosDARV
-                {
-                    Emitente = new DadosEmitente
-                    {
-                        NomeFicticio = emitente.NomeFantasia,
-                        Endereco = emitente.ToEmitente().Endereco
-                    },
-                    Cliente = new DadosCliente
-                    {
-                        Nome = cliente.Nome,
-                        Endereco = cliente.ToDestinatario().Endereco
-                    },
-                    DataVenda = original.DataHoraVenda.ToString("dd-MM-yyyy"),
-                    IdVenda = idOriginal,
-                    ChaveNFeRelacionada = original.NotaFiscalRelacionada,
-                    Vendedor = vendedor?.Nome ?? string.Empty,
-                    CPFVendedor = vendedor?.CPF.ToString("000,000,000-00") ?? string.Empty,
-                    Motorista = motorista?.Nome ?? string.Empty,
-                    Produtos = produtos.ToArray(),
-                    Desconto = original.DescontoTotal.ToString("C2"),
-                    Adicionais = original.Produtos.Sum(x => x.DespesasExtras + x.Frete + x.Seguro).ToString("C2"),
-                    Total = original.Produtos.Sum(x => x.TotalLíquido).ToString("C2"),
-                    Observacoes = original.Observações
-                };
             }
+
+            Subtotal = subtotal.ToString("C2");
+            Acrescimos = acrescimos.ToString("C2");
+            Desconto = desconto.ToString("C2");
+            Total = (subtotal + acrescimos + desconto).ToString("C2");
+
+            ListaProdutos = produtos;
+
+            if (!string.IsNullOrEmpty(Cliente.CPF))
+                TemplateCliente = ClienteFisico;
+            else if (!string.IsNullOrEmpty(Cliente.CNPJ))
+                TemplateCliente = ClienteJuridico;
+            else
+                TemplateCliente = ClienteExterior;
+
+            if (!string.IsNullOrEmpty(Motorista.CPF))
+                TemplateTransporte = TransporteFisico;
+            else if (!string.IsNullOrEmpty(Motorista.CNPJ))
+                TemplateTransporte = TransporteJuridico;
+
+            VisibilidadeNFeRelacionada = string.IsNullOrEmpty(Registro.NotaFiscalRelacionada) ? Visibility.Collapsed : Visibility.Visible;
+            VisibilidadeComprador = Comprador == null ? Visibility.Collapsed : Visibility.Visible;
+            VisibilidadePagamento = string.IsNullOrEmpty(Registro.FormaPagamento) ? Visibility.Collapsed : Visibility.Visible;
+            VisibilidadeObservacoes = string.IsNullOrEmpty(Registro.Observações) ? Visibility.Collapsed : Visibility.Visible;
         }
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
-            gerenciador.Dispose();
-            base.OnNavigatingFrom(e);
+            Gerenciador.Dispose();
         }
 
-        void PaginaPrincipalCarregada(object sender, RoutedEventArgs e)
+        private void Pagina0Carregada(object sender, RoutedEventArgs e)
         {
-            var dimensoes = DadosImpressao.Dimensoes;
-            DefinirTamanho(dimensoes);
-            var grid = (Grid)sender;
-            if (double.IsNaN(grid.Height))
+            var alturaDisponivel = alturaLinhaProdutos.ActualHeight - 20;
+            int quantMaxima = (int)Math.Floor(alturaDisponivel / 20) - 1;
+            if (quantMaxima <= ListaProdutos.Length)
             {
-                listaPrincipal.ItemsSource = Dados.Produtos.GerarObs();
-                linhaProdutos.Height = new GridLength(1, GridUnitType.Auto);
-                grdPaginaPrincipal.VerticalAlignment = VerticalAlignment.Top;
+                produtosPagina0.Content = new ProdutosDARV() { Produtos = ListaProdutos.GerarObs() };
             }
             else
             {
-                var altura = linhaProdutos.ActualHeight;
-                int nItens1Pag = (int)((altura / 22) - 1);
-                if (Dados.Produtos.Length <= nItens1Pag)
+                produtosPagina0.Content = new ProdutosDARV() { Produtos = ListaProdutos.Take(quantMaxima).GerarObs() };
+
+                var espacoDisponivelPaginaExtra = AlturaEscolhida - (PaddingEscolhido.Bottom * 2);
+                var quantMaximaPaginaExtra = Math.Floor(espacoDisponivelPaginaExtra / 20);
+                var quantProdutosRestantes = ListaProdutos.Length - quantMaxima;
+                int quantPaginasExtras = (int)Math.Ceiling(quantProdutosRestantes / quantMaximaPaginaExtra);
+                for (int i = 0; i < quantPaginasExtras; i++)
                 {
-                    listaPrincipal.ItemsSource = Dados.Produtos.GerarObs();
-                }
-                else if (nItens1Pag <= 0)
-                {
-                    grdPaginaPrincipal.Children.Remove(listaPrincipal);
-                    linhaProdutos.Height = new GridLength(1, GridUnitType.Auto);
-                    int nItens2Pag = (int)(((dimensoes.AlturaProcessada - (2 * paddingPadrao)) / 22) - 1);
-                    var nPaginas = Math.Ceiling((float)Dados.Produtos.Length / nItens2Pag);
-                    for (int i = 0; i < nPaginas; i++)
+                    var quantProdutosIgnorados = quantMaxima + ((int)quantMaximaPaginaExtra * i);
+                    ConteinerPaginas.Children.Add(new ContentPresenter
                     {
-                        var quantRestante = Dados.Produtos.Length - nItens2Pag * i;
-                        var nItensAtual = quantRestante > nItens2Pag ? nItens2Pag : quantRestante;
-                        var produtos = new DadosProduto[nItensAtual];
-                        for (int k = 0; k < nItensAtual; k++)
+                        ContentTemplate = Produtos,
+                        Padding = PaddingEscolhido,
+                        Height = AlturaEscolhida,
+                        Width = LarguraEscolhida,
+                        Content = new ProdutosDARV
                         {
-                            produtos[k] = Dados.Produtos[nItens2Pag * i + k];
+                            Produtos = ListaProdutos.Skip(quantProdutosIgnorados).Take((int)quantMaximaPaginaExtra).GerarObs()
                         }
-                        CriarPaginaFilho(produtos);
-                    }
-                    DefinirTamanho(dimensoes);
-                }
-                else
-                {
-                    listaPrincipal.ItemsSource = Dados.Produtos.Take(nItens1Pag).GerarObs();
-                    int nItens2Pag = (int)(((dimensoes.AlturaProcessada - (2  * paddingPadrao)) / 22) - 1);
-                    var nPaginas = Math.Ceiling((float)Dados.Produtos.Length / nItens2Pag);
-                    for (int i = 0; i < nPaginas; i++)
-                    {
-                        var quantRestante = Dados.Produtos.Length - nItens1Pag - (nItens2Pag * i);
-                        var nItensAtual = quantRestante > nItens2Pag ? nItens2Pag : quantRestante;
-                        var produtos = new DadosProduto[nItensAtual];
-                        for (int k = 0; k < nItensAtual; k++)
-                        {
-                            produtos[k] = Dados.Produtos[nItens1Pag + (nItens2Pag * i) + k];
-                        }
-                        CriarPaginaFilho(produtos);
-                    }
-                    DefinirTamanho(dimensoes);
+                    });
                 }
             }
+
+            alturaLinhaProdutos.Height = new GridLength(1, GridUnitType.Auto);
+            alturaLinhaFinalProdutos.Height = new GridLength(1, GridUnitType.Star);
         }
 
-        void DefinirTamanho(Dimensoes dimensoes)
+        async void Imprimir(object sender, RoutedEventArgs e)
         {
-            var filhos = paiPaginas.Children;
-            for (int i = 0; i < filhos.Count; i++)
-            {
-                var filho = (Grid)filhos[i];
-                filho.Width = dimensoes.LarguraProcessada;
-                filho.Height = dimensoes.AlturaProcessada;
-                filho.Padding = new Thickness(dimensoes.PaddingProcessado);
-            }
+            await Gerenciador.Imprimir(ConteinerPaginas.Children);
         }
+    }
 
-        void CriarPaginaFilho(DadosProduto[] produtos)
-        {
-            var lista = new ListView()
-            {
-                VerticalAlignment = VerticalAlignment.Top,
-                Style = listaPadrao
-            };
-            lista.ItemsSource = produtos.GerarObs();
+    public struct ExibicaoProduto
+    {
+        public string Quantidade { get; set; }
+        public string CodigoProduto { get; set; }
+        public string Descricao { get; set; }
+        public string ValorUnitario { get; set; }
+        public string TotalBruto { get; set; }
+    }
 
-            var grid = new Grid();
-            grid.Children.Add(lista);
-            paiPaginas.Children.Add(grid);
-        }
+    public sealed class ProdutosDARV
+    {
+        public ObservableCollection<ExibicaoProduto> Produtos { get; set; }
 
-        private async void Imprimir(object sender, RoutedEventArgs e)
-        {
-            await gerenciador.Imprimir(paiPaginas.Children);
-        }
+        public static GridLength Largura2 { get; } = CentimeterToLength(2);
+        public static GridLength Largura3 { get; } = CentimeterToLength(3);
     }
 
     public struct Dimensoes
     {
         public Dimensoes(double largura, double altura, double padding)
         {
-            var novaLargura = CentimeterToPixel(largura);
-            var novaAltura = altura != 0 ? CentimeterToPixel(altura) : double.NaN;
-            var novoPadding = CentimeterToPixel(padding);
-
             LarguraOriginal = largura;
-            LarguraProcessada = novaLargura;
+            LarguraProcessada = CentimeterToPixel(largura);
             AlturaOriginal = altura;
-            AlturaProcessada = novaAltura;
+            AlturaProcessada = altura != 0 ? CentimeterToPixel(altura) : double.NaN;
             PaddingOriginal = padding;
-            PaddingProcessado = novoPadding;
+            PaddingProcessado = CentimeterToPixel(padding);
         }
 
         public double LarguraOriginal { get; set; }
@@ -205,45 +206,6 @@ namespace NFeFacil.ViewRegistroVenda
         public double LarguraProcessada { get; set; }
         public double AlturaProcessada { get; set; }
         public double PaddingProcessado { get; set; }
-    }
-
-    public struct ConjuntoDadosDARV
-    {
-        public DadosEmitente Emitente { get; set; }
-        public DadosCliente Cliente { get; set; }
-        public string DataVenda { get; set; }
-        public string IdVenda { get; set; }
-        public string ChaveNFeRelacionada { get; set; }
-        public string Vendedor { get; set; }
-        public string CPFVendedor { get; set; }
-        public string Motorista { get; set; }
-        public DadosProduto[] Produtos { get; set; }
-        public string Desconto { get; set; }
-        public string Adicionais { get; set; }
-        public string Total { get; set; }
-        public string Observacoes { get; set; }
-    }
-
-    public struct DadosEmitente
-    {
-        public string NomeFicticio { get; set; }
-        public EnderecoCompleto Endereco { get; set; }
-    }
-
-    public struct DadosCliente
-    {
-        public string Nome { get; set; }
-        public EnderecoCompleto Endereco { get; set; }
-    }
-
-    public struct DadosProduto
-    {
-        public string Descricao { get; set; }
-        public string Quantidade { get; set; }
-        public string ValorUnitario { get; set; }
-        public string Desconto { get; set; }
-        public string Adicionais { get; set; }
-        public string Total { get; set; }
     }
 
     public struct DadosImpressaoDARV

@@ -23,6 +23,12 @@ namespace NFeFacil.ItensBD
         public double DescontoTotal { get; set; }
         public bool Cancelado { get; set; }
 
+        public string TipoFrete { get; set; }
+        public DateTime PrazoEntrega { get; set; }
+        public string PrazoPagamento { get; set; }
+        public string FormaPagamento { get; set; }
+        public Guid Comprador { get; set; }
+
         public NFe ToNFe()
         {
             using (var db = new AplicativoContext())

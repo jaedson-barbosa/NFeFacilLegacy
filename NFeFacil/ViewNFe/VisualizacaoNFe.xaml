@@ -34,7 +34,6 @@
             </AppBarButton>
             <CommandBar.SecondaryCommands>
                 <AppBarButton Label="Exportar XML"
-                              Command="{Binding ExportarXMLCommand}"
                               Click="Exportar">
                     <AppBarButton.Icon>
                         <FontIcon Glyph="&#xEDE1;" />

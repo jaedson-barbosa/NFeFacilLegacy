@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Navigation;
 using ZXing.Mobile;
 using static NFeFacil.Sincronizacao.ConfiguracoesSincronizacao;
 
@@ -20,11 +19,6 @@ namespace NFeFacil.Sincronizacao
         public SincronizacaoCliente()
         {
             InitializeComponent();
-        }
-
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            MainPage.Current.SeAtualizar("\uE975", "Sincronização");
         }
 
         async void LerQRTemporario(object sender, TappedRoutedEventArgs e)

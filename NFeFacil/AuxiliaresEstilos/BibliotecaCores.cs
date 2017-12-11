@@ -6,31 +6,15 @@ namespace NFeFacil.AuxiliaresEstilos
 {
     public class BibliotecaCores
     {
-        public Color Cor0
-        {
-            get { return ObterCor(UIColorType.Accent, UIColorType.Accent); }
-        }
+        public Color Cor0 { get; } = ObterCor(UIColorType.Accent, UIColorType.Accent);
+        public Color Cor1 { get; } = ObterCor(UIColorType.AccentDark1, UIColorType.AccentLight1);
+        public Color Cor2 { get; } = ObterCor(UIColorType.AccentDark2, UIColorType.AccentLight2);
+        public Color Cor3 { get; } = ObterCor(UIColorType.AccentDark3, UIColorType.AccentLight3);
 
-        public Color Cor1
+        static Color ObterCor(UIColorType casoEscuro, UIColorType casoClaro)
         {
-            get { return ObterCor(UIColorType.AccentDark1, UIColorType.AccentLight1); }
-        }
-
-        public Color Cor2
-        {
-            get { return ObterCor(UIColorType.AccentDark2, UIColorType.AccentLight2); }
-        }
-
-        public Color Cor3
-        {
-            get { return ObterCor(UIColorType.AccentDark3, UIColorType.AccentLight3); }
-        }
-
-        public ApplicationTheme Tema { get; } = Application.Current.RequestedTheme;
-
-        private Color ObterCor(UIColorType casoEscuro, UIColorType casoClaro)
-        {
-            var cor = Tema == ApplicationTheme.Dark ? casoEscuro : casoClaro;
+            var tema = Application.Current.RequestedTheme;
+            var cor = tema == ApplicationTheme.Dark ? casoEscuro : casoClaro;
             return new UISettings().GetColorValue(cor);
         }
     }

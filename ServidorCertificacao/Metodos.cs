@@ -1,49 +1,36 @@
-﻿using Comum.Pacotes;
-using ServidorCertificacao.PartesAssinatura;
+﻿using ServidorCertificacao.Pacotes;
 using System;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
-using ServidorCertificacao.CodigoNet;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using System.Xml;
-using Comum.Primitivos;
+using System.Security.Cryptography.Xml;
 
 namespace ServidorCertificacao
 {
     class Metodos
     {
-        X509Store Loja { get; }
-
-        public Metodos()
-        {
-            Loja = new X509Store(StoreName.My, StoreLocation.CurrentUser);
-            Loja.Open(OpenFlags.ReadOnly);
-        }
-
         public string ObterCertificados(Stream stream)
         {
-            var retorno = new CertificadosExibicaoDTO(Loja.Certificates.Count);
-            foreach (var item in Loja.Certificates)
-            {
-                retorno.Registro.Add(new CertificadoExibicao
-                {
-                    SerialNumber = item.SerialNumber,
-                    Subject = item.Subject
-                });
-            }
+            var retorno = new CertificadosExibicaoDTO();
             var xml = Serializar(retorno);
             return xml.ToString(SaveOptions.DisableFormatting);
         }
 
         public string AssinarRemotamente(Stream stream, CertificadoAssinaturaDTO cert)
         {
-            var xml = Serializar(AssinarXML((CertificadoAssinatura)cert));
-            return xml.ToString(SaveOptions.DisableFormatting);
+            using (var loja = new X509Store())
+            {
+                loja.Open(OpenFlags.ReadOnly);
+                var x509 = loja.Certificates.Find(X509FindType.FindBySerialNumber, cert.Serial, true)[0];
+                var assinatura = AssinarXML(cert.XML, x509, cert.Tag);
+                var xml = Serializar(assinatura);
+                return assinatura;
+            }
         }
 
         static XElement Serializar<T>(T objeto)
@@ -91,58 +78,48 @@ namespace ServidorCertificacao
             }
         }
 
-        public Assinatura AssinarXML(CertificadoAssinatura certificado)
+        public string AssinarXML(string xml, X509Certificate2 certificado, string tag)
         {
             var doc = new XmlDocument();
-            doc.LoadXml(certificado.XML);
-            var signedXml = new SignedXml(doc)
+            doc.LoadXml(xml);
+            XmlNodeList ListInfNFe = doc.GetElementsByTagName(tag);
+            XmlElement infNFe = (XmlElement)ListInfNFe[0];
+            string id = infNFe.Attributes.GetNamedItem("Id").Value;
+            var signedXml = new SignedXml(infNFe)
             {
-                Key = certificado.ChavePrivada
+                SigningKey = certificado.PrivateKey
             };
 
-            Reference reference = new Reference($"#{certificado.Id}", certificado.Tag, signedXml);
+            // Transformações p/ DigestValue da Nota
+            Reference reference = new Reference("#" + id);
             reference.AddTransform(new XmlDsigEnvelopedSignatureTransform());
             reference.AddTransform(new XmlDsigC14NTransform());
             signedXml.AddReference(reference);
 
+            KeyInfo keyInfo = new KeyInfo();
+            keyInfo.AddClause(new KeyInfoX509Data(certificado));
+            signedXml.KeyInfo = keyInfo;
+
             signedXml.ComputeSignature();
 
-            return new Assinatura()
-            {
-                SignatureValue = Convert.ToBase64String(signedXml.Signature.SignatureValue),
-                KeyInfo = new DetalhesChave
-                {
-                    X509Data = new DadosChave
-                    {
-                        X509Certificate = Convert.ToBase64String(certificado.RawData)
-                    }
-                },
-                SignedInfo = new SignedInfo
-                {
-                    CanonicalizationMethod = new Algoritmo
-                    {
-                        Algorithm = signedXml.Signature.CanonicalizationMethod
-                    },
-                    SignatureMethod = new Algoritmo
-                    {
-                        Algorithm = signedXml.Signature.SignatureMethod
-                    },
-                    Reference = new Referencia
-                    {
-                        DigestMethod = new Algoritmo
-                        {
-                            Algorithm = signedXml.Signature.Reference.DigestMethod
-                        },
-                        DigestValue = Convert.ToBase64String(signedXml.Signature.Reference.DigestValue),
-                        URI = signedXml.Signature.Reference.Uri,
-                        Transforms = (from t in signedXml.Signature.Reference.TransformChain
-                                      select new Algoritmo
-                                      {
-                                          Algorithm = t.Algorithm
-                                      }).ToArray()
-                    }
-                }
-            };
+            XmlElement xmlSignedInfo = signedXml.SignedInfo.GetXml();
+            XmlElement xmlKeyInfo = signedXml.KeyInfo.GetXml();
+
+            XmlElement xmlSignatureValue = doc.CreateElement("SignatureValue");
+            string signBase64 = Convert.ToBase64String(signedXml.Signature.SignatureValue);
+            XmlText text = doc.CreateTextNode(signBase64);
+            xmlSignatureValue.AppendChild(text);
+
+            XElement xmlSignature = new XElement("Assinatura");
+            var xSignedInfo = XElement.Parse(xmlSignedInfo.OuterXml);
+            var xSignatureValue = XElement.Parse(xmlSignatureValue.OuterXml);
+            var xKeyInfo = XElement.Parse(xmlKeyInfo.OuterXml);
+
+            xmlSignature.Add(xSignedInfo);
+            xmlSignature.Add(xSignatureValue);
+            xmlSignature.Add(xKeyInfo);
+            var str = xmlSignature.ToString(SaveOptions.DisableFormatting);
+            return str.Replace("xmlns=\"http://www.w3.org/2000/09/xmldsig#\"", string.Empty);
         }
     }
 }

@@ -62,11 +62,6 @@ namespace NFeFacil.Sincronizacao
             }
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            MainPage.Current.SeAtualizar(Symbol.View, "QR");
-        }
-
         protected override async void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
             await PararDeAceitarNovasConexoes();

@@ -13,7 +13,6 @@ using System.Threading.Tasks;
 using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
@@ -32,7 +31,6 @@ namespace NFeFacil.View
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            MainPage.Current.SeAtualizar(Symbol.Home, nameof(Inicio));
             grdPrincipal.SelectedIndex = -1;
         }
 
@@ -44,17 +42,20 @@ namespace NFeFacil.View
                 case "GerenciarDadosBase":
                     MainPage.Current.Navegar<GerenciarDadosBase>();
                     break;
-                case "ControleEstoque":
-                    MainPage.Current.Navegar<ControleEstoque>();
-                    break;
                 case "ManipulacaoRegistroVenda":
                     MainPage.Current.Navegar<ManipulacaoRegistroVenda>();
                     break;
                 case "CriadorNFe":
-                    await new ViewNFe.CriadorNFe().ShowAsync();
+                    if (await new ViewNFe.CriadorNFe().ShowAsync() == ContentDialogResult.Secondary)
+                    {
+                        grdPrincipal.SelectedIndex = -1;
+                    }
                     break;
                 case "CriarNFeEntrada":
-                    await CriarNFeEntrada();
+                    if (!await CriarNFeEntrada())
+                    {
+                        grdPrincipal.SelectedIndex = -1;
+                    }
                     break;
                 case "NotasSalvas":
                     MainPage.Current.Navegar<ViewNFe.NotasSalvas>();
@@ -98,15 +99,15 @@ namespace NFeFacil.View
                         MainPage.Current.Navegar<SincronizacaoServidor>();
                     }
                     break;
-                case "Backup":
-                    MainPage.Current.Navegar<Backup>();
+                case "Informacoes":
+                    MainPage.Current.Navegar<Informacoes>();
                     break;
                 default:
                     break;
             }
         }
 
-        async Task CriarNFeEntrada()
+        async Task<bool> CriarNFeEntrada()
         {
             var caixa = new FileOpenPicker();
             caixa.FileTypeFilter.Add(".xml");
@@ -133,6 +134,7 @@ namespace NFeFacil.View
                                 if (await new ViewNFe.CriadorNFe(nfe).ShowAsync() == ContentDialogResult.Primary)
                                 {
                                     Popup.Current.Escrever(TitulosComuns.Sucesso, "Nota de entrada criada. Agora verifique se todas as informações estão corretas.");
+                                    return true;
                                 }
                             }
                             else
@@ -141,6 +143,7 @@ namespace NFeFacil.View
                                     "Após concluir o cadastro tente novamente criar a nota de entrada.");
                                 var di = new ClienteDI(nfe.Informacoes.emitente);
                                 MainPage.Current.Navegar<AdicionarClienteBrasileiroPJ>(di);
+                                return true;
                             }
                         }
                     }
@@ -154,6 +157,7 @@ namespace NFeFacil.View
                     erro.ManipularErro();
                 }
             }
+            return false;
         }
     }
 }

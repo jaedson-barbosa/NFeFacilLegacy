@@ -109,7 +109,7 @@ namespace NFeFacil.ItensBD
                 {
                     Logradouro = Logradouro,
                     Numero = Numero,
-                    Complemento = Complemento,
+                    Complemento = string.IsNullOrWhiteSpace(Complemento) ? null : Complemento,
                     Bairro = Bairro,
                     CodigoMunicipio = CodigoMunicipio,
                     NomeMunicipio = NomeMunicipio,
@@ -117,7 +117,7 @@ namespace NFeFacil.ItensBD
                     CEP = CEP,
                     CPais = CPais,
                     XPais = XPais,
-                    Telefone = Telefone
+                    Telefone = string.IsNullOrEmpty(Telefone) ? null : Telefone
                 }
             };
         }

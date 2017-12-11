@@ -2,7 +2,6 @@
 using System.Text;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Navigation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -16,11 +15,6 @@ namespace NFeFacil.Importacao
         public ImportacaoDados()
         {
             InitializeComponent();
-        }
-
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            MainPage.Current.SeAtualizar(Symbol.Import, "Importação");
         }
 
         private void ImportarCliente(object sender, TappedRoutedEventArgs e)

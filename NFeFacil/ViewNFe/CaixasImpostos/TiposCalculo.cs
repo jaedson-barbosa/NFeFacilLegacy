@@ -1,6 +1,6 @@
 ﻿namespace NFeFacil.ViewNFe.CaixasImpostos
 {
-    enum TiposCalculo
+    public enum TiposCalculo
     {
         PorAliquota,
         PorValor,

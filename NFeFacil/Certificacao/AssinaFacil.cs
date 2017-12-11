@@ -2,12 +2,12 @@
 using System.Threading.Tasks;
 using System.Xml;
 using Windows.UI.Xaml.Controls;
-using Comum.Primitivos;
+using NFeFacil.Primitivos;
 using System.Linq;
 using System.Security.Cryptography.Xml;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesAssinatura;
 using System.Security.Cryptography.X509Certificates;
-using Comum.Pacotes;
+using NFeFacil.Pacotes;
 
 namespace NFeFacil.Certificacao
 {

@@ -39,7 +39,6 @@ namespace NFeFacil.ViewNFe
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            MainPage.Current.SeAtualizar(Symbol.View, "Visualizar NFe");
             ItemBanco = (NFeDI)e.Parameter;
             var xml = XElement.Parse(ItemBanco.XML);
             if (ItemBanco.Status < (int)StatusNFe.Emitida)
@@ -150,6 +149,7 @@ namespace NFeFacil.ViewNFe
             var nfe = (NFe)ObjetoItemBanco;
             var analisador = new AnalisadorNFe(ref nfe);
             analisador.Desnormalizar();
+            ItemBanco.Status = (int)StatusNFe.Edição;
             MainPage.Current.Navegar<ManipulacaoNotaFiscal>(nfe);
         }
 

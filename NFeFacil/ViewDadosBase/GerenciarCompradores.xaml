@@ -1,0 +1,44 @@
+﻿<Page x:Class="NFeFacil.ViewDadosBase.GerenciarCompradores"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="using:NFeFacil.ViewDadosBase"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d">
+    <GridView ItemsSource="{x:Bind Compradores}"
+              Style="{StaticResource ItensMediosGrid}"
+              Margin="8">
+        <GridView.ItemTemplate>
+            <DataTemplate x:DataType="local:ExibicaoComprador">
+                <Grid Padding="8">
+                    <Grid.ContextFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Click="EditarComprador">Editar</MenuFlyoutItem>
+                            <MenuFlyoutItem Click="InativarComprador">Inativar</MenuFlyoutItem>
+                        </MenuFlyout>
+                    </Grid.ContextFlyout>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
+                               Text="{x:Bind NomeEmpresa}" />
+                    <TextBlock Grid.Row="1"
+                               Style="{StaticResource BodyTextBlockStyle}"
+                               Text="{x:Bind Root.Nome}" />
+                    <TextBlock Grid.Row="2"
+                               Style="{StaticResource BodyTextBlockStyle}"
+                               Text="{x:Bind Root.Telefone}" />
+                </Grid>
+            </DataTemplate>
+        </GridView.ItemTemplate>
+    </GridView>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Icon="Add"
+                          Label="Adicionar"
+                          Click="AdicionarComprador" />
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>

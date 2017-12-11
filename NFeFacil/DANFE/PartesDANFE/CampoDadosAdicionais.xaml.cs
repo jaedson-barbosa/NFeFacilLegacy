@@ -14,22 +14,18 @@ namespace NFeFacil.DANFE.PartesDANFE
 
         public RichTextBlock CampoObservacoes => bloco;
 
-        public DadosAdicionais ContextoComplexo
+        public DadosAdicionais Contexto
         {
             set
             {
-                LimparBloco();
-                for (int i = 0; i < value.Itens.Count; i++)
-                {
-                    var paragrafo = CriarParagrafo(value.Itens[i]);
-                    bloco.Blocks.Add(paragrafo);
-                }
+                bloco.Blocks.Clear();
+                value.Itens.ForEach(x => CriarParagrafo(x));
             }
         }
 
         Paragraph CriarParagrafo(ItemDadosAdicionais item)
         {
-            var paragrafo = new Paragraph() { FontSize = 8 };
+            var paragrafo = new Paragraph() { FontSize = 10 };
             paragrafo.Inlines.Add(new Run() { Text = item.Titulo });
             paragrafo.Inlines.Add(new LineBreak());
             foreach (var linha in item.Linhas)
@@ -43,17 +39,6 @@ namespace NFeFacil.DANFE.PartesDANFE
         public CampoDadosAdicionais()
         {
             InitializeComponent();
-        }
-
-        private void LimparBloco()
-        {
-            if (bloco.Blocks.Count > 1)
-            {
-                for (int i = 1; i < bloco.Blocks.Count; i++)
-                {
-                    bloco.Blocks.RemoveAt(i);
-                }
-            }
         }
     }
 }

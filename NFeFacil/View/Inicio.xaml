@@ -16,11 +16,6 @@
                                      Descricao="Emissor, cliente, transportador e produto.">
             <SymbolIcon Symbol="Manage" />
         </controles:ItemPadraoSimples>
-        <controles:ItemPadraoSimples Tag="ControleEstoque"
-                                     Titulo="Estoque"
-                                     Descricao="Visualizar e editar os dados de cada estoque.">
-            <SymbolIcon Symbol="Manage" />
-        </controles:ItemPadraoSimples>
         <controles:ItemPadraoSimples Tag="ManipulacaoRegistroVenda"
                                      Titulo="Criar nova venda"
                                      Descricao="Criar um registro de venda (Sem valor fiscal).">
@@ -58,7 +53,7 @@
         </controles:ItemPadraoSimples>
         <controles:ItemPadraoSimples Tag="Configuracoes"
                                      Titulo="Configurações"
-                                     Descricao="Configure detalhes do aplicativo em uma única tela">
+                                     Descricao="Configurações gerais, background e backup">
             <SymbolIcon Symbol="Setting" />
         </controles:ItemPadraoSimples>
         <controles:ItemPadraoSimples Tag="Certificado"
@@ -76,10 +71,10 @@
                                      Descricao="Configure a sincronização entre dispositivos.">
             <SymbolIcon Symbol="Sync" />
         </controles:ItemPadraoSimples>
-        <controles:ItemPadraoSimples Tag="Backup"
-                                     Titulo="Backup"
-                                     Descricao="Guarde uma cópia dos princiapais dados">
-            <FontIcon Glyph="&#xEA35;" />
+        <controles:ItemPadraoSimples Tag="Informacoes"
+                                     Titulo="Informações"
+                                     Descricao="Algumas informações úteis que podem lhe ajudar">
+            <FontIcon Glyph="&#xE946;" />
         </controles:ItemPadraoSimples>
     </GridView>
 </Page>

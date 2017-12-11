@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Navigation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -23,17 +22,12 @@ namespace NFeFacil.ViewNFe.CaixasEspeciaisProduto
             InitializeComponent();
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            MainPage.Current.SeAtualizar("\uE95E", "Medicamentos");
-        }
-
         async void AdicionarMedicamento(object sender, RoutedEventArgs e)
         {
             var caixa = new CaixasDialogoProduto.AdicionarMedicamento();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
-                var novoMedicamento = (Medicamento)caixa.DataContext;
+                var novoMedicamento = caixa.Contexto;
                 Medicamentos.Add(novoMedicamento);
             }
         }

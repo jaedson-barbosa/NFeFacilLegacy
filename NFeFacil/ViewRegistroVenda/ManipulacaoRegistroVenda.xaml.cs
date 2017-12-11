@@ -33,6 +33,34 @@ namespace NFeFacil.ViewRegistroVenda
             txtTotal.Text = ItemBanco.Produtos.Sum(x => x.TotalLíquido).ToString("C");
         }
 
+        ClienteDI Cliente
+        {
+            get => Clientes.FirstOrDefault(x => x.Id == ItemBanco.Cliente);
+            set
+            {
+                ItemBanco.Cliente = value.Id;
+                if (!string.IsNullOrEmpty(value.CNPJ))
+                {
+                    DefinirComprador(value);
+                }
+            }
+        }
+
+        async void DefinirComprador(ClienteDI client)
+        {
+            using (var db = new AplicativoContext())
+            {
+                var compradores = db.Compradores.Where(x => x.Ativo && x.IdEmpresa == client.Id);
+                var nomes = compradores.Select(x => x.Nome);
+                var caixa = new DefinirComprador(nomes);
+                if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+                {
+                    var escolhido = compradores.First(x => x.Nome == caixa.Escolhido);
+                    ItemBanco.Comprador = escolhido.Id;
+                }
+            }
+        }
+
         Guid Motorista
         {
             get => ItemBanco.Motorista;
@@ -45,10 +73,10 @@ namespace NFeFacil.ViewRegistroVenda
             set => ItemBanco.Observações = value;
         }
 
-        DateTimeOffset DataHoraVenda
+        DateTimeOffset PrazoEntrega
         {
-            get => ItemBanco.DataHoraVenda;
-            set => ItemBanco.DataHoraVenda = value.DateTime;
+            get => ItemBanco.PrazoEntrega;
+            set => ItemBanco.PrazoEntrega = value.DateTime;
         }
 
         public ManipulacaoRegistroVenda()
@@ -63,13 +91,13 @@ namespace NFeFacil.ViewRegistroVenda
                 Clientes = db.Clientes.Where(x => x.Ativo).OrderBy(x => x.Nome).GerarObs();
                 Motoristas = db.Motoristas.Where(x => x.Ativo).OrderBy(x => x.Nome).GerarObs();
 
-                MainPage.Current.SeAtualizar("\uEC59", "Registro de venda");
                 ItemBanco = new RegistroVenda
                 {
                     Emitente = Propriedades.EmitenteAtivo.Id,
                     Vendedor = Propriedades.VendedorAtivo?.Id ?? Guid.Empty,
                     Produtos = new System.Collections.Generic.List<ProdutoSimplesVenda>(),
-                    DataHoraVenda = Propriedades.DateTimeNow
+                    DataHoraVenda = Propriedades.DateTimeNow,
+                    PrazoEntrega = Propriedades.DateTimeNow
                 };
                 ListaProdutos = new ObservableCollection<ExibicaoProdutoVenda>();
                 AtualizarTotal();
@@ -91,9 +119,9 @@ namespace NFeFacil.ViewRegistroVenda
                 var novoProdBanco = new ProdutoSimplesVenda
                 {
                     IdBase = caixa.ProdutoSelecionado.Base.Id,
-                    ValorUnitario = caixa.ProdutoSelecionado.PreçoDouble,
+                    ValorUnitario = caixa.ProdutoSelecionado.PrecoDouble,
                     Quantidade = caixa.Quantidade,
-                    Frete = caixa.Frete,
+                    Frete = 0,
                     Seguro = caixa.Seguro,
                     DespesasExtras = caixa.DespesasExtras
                 };
@@ -196,6 +224,38 @@ namespace NFeFacil.ViewRegistroVenda
                     ItemBanco.Produtos[i] = atual.Base;
                 }
                 AtualizarTotal();
+
+                ItemBanco.TipoFrete = caixa.TipoFrete;
+            }
+        }
+
+        async void DefinirPagamento(object sender, RoutedEventArgs e)
+        {
+            var caixa = new InfoPagamento();
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+            {
+                ItemBanco.PrazoPagamento = caixa.Prazo.ToString("dd/MM/yyyy");
+                ItemBanco.FormaPagamento = caixa.FormaPagamento;
+            }
+            else
+            {
+                var input = (AppBarToggleButton)sender;
+                input.IsChecked = false;
+            }
+        }
+
+        void RemoverPagamento(object sender, RoutedEventArgs e)
+        {
+            ItemBanco.PrazoPagamento = null;
+            ItemBanco.FormaPagamento = null;
+        }
+
+        async void DefinirDataVenda(object sender, RoutedEventArgs e)
+        {
+            var caixa = new DefinirDataVenda();
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+            {
+                ItemBanco.DataHoraVenda = caixa.Data.DateTime;
             }
         }
     }
@@ -205,6 +265,6 @@ namespace NFeFacil.ViewRegistroVenda
         public ProdutoSimplesVenda Base { get; set; }
         public string Descricao { get; set; }
         public double Quantidade { get; set; }
-        public string TotalLíquido => Base.TotalLíquido.ToString("C");
+        public string TotalLiquido => Base.TotalLíquido.ToString("C");
     }
 }

@@ -3,7 +3,6 @@
                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                xmlns:controles="using:NFeFacil.Controles"
                xmlns:Conversores="using:NFeFacil.ViewModel"
-               xmlns:Detalhes="using:NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes"
                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                mc:Ignorable="d"
@@ -13,17 +12,14 @@
     <ContentDialog.Resources>
         <Conversores:StringToDateTime x:Key="obterDateTime" />
     </ContentDialog.Resources>
-    <ContentDialog.DataContext>
-        <Detalhes:Duplicata />
-    </ContentDialog.DataContext>
     <StackPanel>
-        <TextBox Text="{Binding NDup, Mode=TwoWay}"
+        <TextBox Text="{x:Bind Contexto.NDup, Mode=TwoWay}"
                  Header="Número" />
-        <DatePicker Date="{Binding DVenc, Converter={StaticResource obterDateTime}, Mode=TwoWay}"
+        <DatePicker Date="{x:Bind Contexto.DVenc, Converter={StaticResource obterDateTime}, Mode=TwoWay}"
                     Header="Data vencimento"
                     HorizontalAlignment="Stretch" />
         <controles:EntradaNumerica Format="13:2"
-                                   Number="{Binding VDup, Mode=TwoWay}"
+                                   Number="{x:Bind Contexto.VDup, Mode=TwoWay}"
                                    Header="Valor" />
     </StackPanel>
 </ContentDialog>

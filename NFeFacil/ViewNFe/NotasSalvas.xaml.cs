@@ -7,7 +7,6 @@ using System.Xml.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Navigation;
 using NFeFacil.Controles;
 using System.Xml.Serialization;
 using NFeFacil.Log;
@@ -48,11 +47,6 @@ namespace NFeFacil.ViewNFe
                                orderby nota.DataEmissao descending
                                select nota).GerarObs();
             }
-        }
-
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            MainPage.Current.SeAtualizar(Symbol.Library, "Notas salvas");
         }
 
         ObservableCollection<NFeDI> NotasEmitidas { get; }
@@ -161,13 +155,7 @@ namespace NFeFacil.ViewNFe
             }
         }
 
-        public void AtualizarMain(int index) => main.SelectedIndex = index;
-
-        private void TelaMudou(object sender, SelectionChangedEventArgs e)
-        {
-            var index = ((FlipView)sender).SelectedIndex;
-            MainPage.Current.AlterarSelectedIndexHamburguer(index);
-        }
+        public int SelectedIndex { set => main.SelectedIndex = value; }
 
         [XmlRoot("procEventoNFe", Namespace = "http://www.portalfiscal.inf.br/nfe")]
         public struct ProcEventoCancelamento
@@ -189,10 +177,7 @@ namespace NFeFacil.ViewNFe
             var nfe = processo.NFe;
             var analisador = new AnalisadorNFe(ref nfe);
             analisador.Desnormalizar();
-            if (await new CriadorNFe(nfe).ShowAsync() == ContentDialogResult.Primary)
-            {
-                Popup.Current.Escrever(TitulosComuns.Sucesso, "Nota de entrada criada. Agora verifique se todas as informações estão corretas.");
-            }
+            await new CriadorNFe(nfe).ShowAsync();
         }
     }
 

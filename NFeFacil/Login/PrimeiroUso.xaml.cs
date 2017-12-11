@@ -1,5 +1,4 @@
 ﻿using NFeFacil.Sincronizacao;
-using NFeFacil.View;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
@@ -31,31 +30,19 @@ namespace NFeFacil.Login
                         await Task.Delay(500);
                         MainPage.Current.Navegar<EscolhaEmitente>();
                     }
-                    else
-                    {
-                        MainPage.Current.SeAtualizar(Symbol.Emoji, "Bem-vindo");
-                    }
                 }
             }
-            else
+        }
+
+        void Manualmente(object sender, TappedRoutedEventArgs e) => MainPage.Current.Navegar<AdicionarEmitente>();
+        void Sincronizar(object sender, TappedRoutedEventArgs e) => MainPage.Current.Navegar<SincronizacaoCliente>();
+        async void RestaurarBackup(object sender, TappedRoutedEventArgs e)
+        {
+            if (await Backup.RestaurarBackup())
             {
-                MainPage.Current.SeAtualizar(Symbol.Emoji, "Bem-vindo");
+                await Task.Delay(500);
+                MainPage.Current.Navegar<EscolhaEmitente>();
             }
-        }
-
-        private void Manualmente(object sender, TappedRoutedEventArgs e)
-        {
-            MainPage.Current.Navegar<AdicionarEmitente>();
-        }
-
-        private void Sincronizar(object sender, TappedRoutedEventArgs e)
-        {
-            MainPage.Current.Navegar<SincronizacaoCliente>();
-        }
-
-        private void Backup(object sender, TappedRoutedEventArgs e)
-        {
-            MainPage.Current.Navegar<Backup>();
         }
     }
 }

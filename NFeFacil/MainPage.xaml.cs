@@ -2,6 +2,7 @@
 using NFeFacil.ItensBD;
 using System;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.System.Profile;
@@ -11,6 +12,7 @@ using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Navigation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x416
 
@@ -47,6 +49,7 @@ namespace NFeFacil
 
         internal void DefinirOpacidadeBackground(double opacidade)
         {
+            var backgroundFrame = (SolidColorBrush)frmPrincipal.Background;
             backgroundFrame.Opacity = opacidade;
         }
 
@@ -81,7 +84,15 @@ namespace NFeFacil
                 await db.Clientes.ForEachAsync(x => AnalisarItem(x));
                 await db.Emitentes.ForEachAsync(x => AnalisarItem(x));
                 await db.Motoristas.ForEachAsync(x => AnalisarItem(x));
-                await db.Vendedores.ForEachAsync(x => AnalisarItem(x));
+                await db.Vendedores.ForEachAsync(x =>
+                {
+                    if (string.IsNullOrEmpty(x.CPFStr))
+                    {
+                        x.CPFStr = x.CPF.ToString();
+                        db.Update(x);
+                    }
+                    AnalisarItem(x);
+                });
                 await db.Produtos.ForEachAsync(x => AnalisarItem(x));
                 await db.Estoque.Include(x => x.Alteracoes).ForEachAsync(x =>
                 {
@@ -152,7 +163,6 @@ namespace NFeFacil
             }
             else if (familia.Contains("Desktop"))
             {
-                Window.Current.CoreWindow.KeyDown += (x, y) => System.Diagnostics.Debug.WriteLine(y.VirtualKey);
                 CoreApplicationViewTitleBar tb = CoreApplication.GetCurrentView().TitleBar;
                 tb.ExtendViewIntoTitleBar = true;
                 tb.LayoutMetricsChanged += (sender, e) => TitleBar.Height = sender.Height;
@@ -171,50 +181,6 @@ namespace NFeFacil
         public void Navegar<T>(object parametro = null) where T : Page
         {
             frmPrincipal.Navigate(typeof(T), parametro);
-        }
-
-        public void SeAtualizar(Symbol símbolo, string texto)
-        {
-            txtTitulo.Text = texto;
-            symTitulo.Content = new SymbolIcon(símbolo);
-            AnalisarMenuHamburguer();
-        }
-
-        public void SeAtualizar(string glyph, string texto)
-        {
-            txtTitulo.Text = texto;
-            symTitulo.Content = new FontIcon { Glyph = glyph };
-            AnalisarMenuHamburguer();
-        }
-
-        internal void SeAtualizar(Uri caminho, string texto)
-        {
-            txtTitulo.Text = texto;
-            symTitulo.Content = new BitmapIcon { UriSource = caminho };
-            AnalisarMenuHamburguer();
-        }
-
-        void AnalisarMenuHamburguer()
-        {
-            if (frmPrincipal.Content is IHambuguer hambuguer)
-            {
-                menuTemporario.ItemsSource = hambuguer.ConteudoMenu;
-                menuTemporario.SelectedIndex = 0;
-                splitView.CompactPaneLength = 48;
-            }
-            else
-            {
-                menuTemporario.ItemsSource = null;
-                splitView.CompactPaneLength = 0;
-            }
-        }
-
-        internal void AlterarSelectedIndexHamburguer(int index)
-        {
-            if (menuTemporario.ItemsSource != null)
-            {
-                menuTemporario.SelectedIndex = index;
-            }
         }
 
         public async void Retornar(bool suprimirValidacao = false)
@@ -245,12 +211,9 @@ namespace NFeFacil
 
         private void MudouSubpaginaEscolhida(object sender, SelectionChangedEventArgs e)
         {
-            if (menuTemporario.ItemsSource != null)
+            if (frmPrincipal.Content is IHambuguer hamb)
             {
-                if (frmPrincipal.Content is IHambuguer hamb)
-                {
-                    hamb.AtualizarMain(menuTemporario.SelectedIndex);
-                }
+                hamb.SelectedIndex = menuTemporario.SelectedIndex;
             }
         }
 
@@ -280,6 +243,47 @@ namespace NFeFacil
                 {
                     txtNomeVendedor.Text = "Administrador";
                 }
+            }
+        }
+
+        private void NavegacaoConcluida(object sender, NavigationEventArgs e)
+        {
+            var navegada = e.Content;
+            if (PaginasPrincipais.Lista.Keys.Contains(navegada.GetType()))
+            {
+                var pag = PaginasPrincipais.Lista[navegada.GetType()];
+                txtTitulo.Text = pag.Titulo;
+                symTitulo.Content = pag.ObterIcone();
+            }
+            else
+            {
+                var infoTipo = e.Content.GetType().GetTypeInfo();
+                var pag = infoTipo.GetCustomAttribute<DetalhePagina>();
+
+                if (pag == null)
+                {
+                    txtTitulo.Text = "Erro, informar desenvolvedor";
+                    symTitulo.Content = new SymbolIcon(Symbol.Help);
+                }
+                else
+                {
+                    txtTitulo.Text = pag.Titulo;
+                    symTitulo.Content = pag.ObterIcone();
+                }
+            }
+
+            if (navegada is IHambuguer hambuguer)
+            {
+                btnHamburguer.Visibility = Visibility.Visible;
+                menuTemporario.ItemsSource = hambuguer.ConteudoMenu;
+                menuTemporario.SelectedIndex = 0;
+                splitView.CompactPaneLength = 48;
+            }
+            else
+            {
+                btnHamburguer.Visibility = Visibility.Collapsed;
+                menuTemporario.ItemsSource = null;
+                splitView.CompactPaneLength = 0;
             }
         }
     }

@@ -1,0 +1,60 @@
+﻿<Page x:Class="NFeFacil.ViewDadosBase.GerenciamentoProdutos.AdicionarProduto"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d">
+    <Grid Padding="16">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <ScrollViewer VerticalScrollBarVisibility="Hidden">
+            <ItemsControl Style="{StaticResource ItensResponsivos}">
+                <TextBox Text="{x:Bind Produto.Descricao, Mode=TwoWay}"
+                         InputScope="Text"
+                         Header="Descrição *" />
+                <TextBox Text="{x:Bind Produto.CodigoProduto, Mode=TwoWay}"
+                         InputScope="Text"
+                         Header="Código *" />
+                <TextBox Text="{x:Bind Produto.CodigoBarras, Mode=TwoWay}"
+                         InputScope="Number"
+                         Header="EAN" />
+                <TextBox Text="{x:Bind Produto.EXTIPI, Mode=TwoWay}"
+                         InputScope="Number"
+                         Header="EX TIPI" />
+                <TextBox Text="{x:Bind Produto.UnidadeComercializacao, Mode=TwoWay}"
+                         InputScope="Text"
+                         Header="Unidade comercial" />
+                <TextBox Text="{x:Bind Produto.UnidadeTributacao, Mode=TwoWay}"
+                         InputScope="Text"
+                         Header="Unidade tributária" />
+                <TextBox Text="{x:Bind Produto.CFOP, Mode=TwoWay}"
+                         InputScope="Number"
+                         Header="CFOP *" />
+                <TextBox Text="{x:Bind Produto.CodigoBarrasTributo, Mode=TwoWay}"
+                         InputScope="Number"
+                         Header="EAN Unid. Tributável" />
+                <TextBox Text="{x:Bind Produto.NCM, Mode=TwoWay}"
+                         InputScope="Number"
+                         Header="NCM" />
+                <TextBox Text="{x:Bind Produto.ValorUnitario, Mode=TwoWay}"
+                         InputScope="Number"
+                         Header="Valor unid. comercial" />
+                <TextBox Text="{x:Bind Produto.ValorUnitarioTributo, Mode=TwoWay}"
+                         InputScope="Number"
+                         Header="Valor unid. tributária" />
+            </ItemsControl>
+        </ScrollViewer>
+        <CommandBar Grid.Row="1">
+            <AppBarButton x:Name="Confirmar"
+                          Icon="Accept"
+                          Label="Confirmar"
+                          Click="Confirmar_Click" />
+            <AppBarButton x:Name="Cancelar"
+                          Icon="Cancel"
+                          Label="Cancelar"
+                          Click="Cancelar_Click" />
+        </CommandBar>
+    </Grid>
+</Page>

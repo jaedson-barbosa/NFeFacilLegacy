@@ -34,7 +34,6 @@ namespace NFeFacil.Login
             {
                 this.emitente = db.Emitentes.Find(emitente.Id);
             }
-            MainPage.Current.SeAtualizar(Symbol.Home, "Dados da empresa");
         }
 
         private void Confirmar(object sender, Windows.UI.Xaml.RoutedEventArgs e)

@@ -1,0 +1,34 @@
+﻿<Page x:Class="NFeFacil.ViewDadosBase.GerenciarVendedores"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="using:NFeFacil.ViewDadosBase"
+      xmlns:controles="using:NFeFacil.Controles"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d">
+    <GridView ItemsSource="{x:Bind Vendedores}"
+              Margin="16">
+        <GridView.ItemTemplate>
+            <DataTemplate x:DataType="local:ExibicaoVendedor">
+                <controles:ExibicaoImagem Imagem="{x:Bind Imagem}"
+                                          Principal="{x:Bind Principal}"
+                                          Secundario="{x:Bind Secundario}">
+                    <controles:ExibicaoImagem.ContextFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Click="EditarVendedor">Editar</MenuFlyoutItem>
+                            <MenuFlyoutItem Click="InativarVendedor">Inativar</MenuFlyoutItem>
+                            <MenuFlyoutItem Click="ImagemVendedor">Imagem do perfil</MenuFlyoutItem>
+                        </MenuFlyout>
+                    </controles:ExibicaoImagem.ContextFlyout>
+                </controles:ExibicaoImagem>
+            </DataTemplate>
+        </GridView.ItemTemplate>
+    </GridView>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Icon="Add"
+                          Label="Adicionar"
+                          Click="AdicionarVendedor" />
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>

@@ -6,7 +6,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTrans
     public class Volume
     {
         [XmlElement("qVol", Order = 0), DescricaoPropriedade("Quantidade")]
-        public long QVol { get; set; }
+        public string QVol { get; set; }
 
         [XmlElement("esp", Order = 1), DescricaoPropriedade("Espécie")]
         public string Esp { get; set; }

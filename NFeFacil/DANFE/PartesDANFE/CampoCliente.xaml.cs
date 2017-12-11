@@ -1,4 +1,5 @@
-﻿using Windows.UI.Xaml;
+﻿using NFeFacil.DANFE.Pacotes;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using static NFeFacil.ExtensoesPrincipal;
 
@@ -8,6 +9,8 @@ namespace NFeFacil.DANFE.PartesDANFE
 {
     public sealed partial class CampoCliente : UserControl
     {
+        DimensoesPadrao Dimensoes { get; } = new DimensoesPadrao();
+
         GridLength Coluna00 => CentimeterToLength(12.5);
         GridLength Coluna01 => CentimeterToLength(3.5);
 
@@ -21,6 +24,8 @@ namespace NFeFacil.DANFE.PartesDANFE
         GridLength Coluna23 => CentimeterToLength(3.5);
 
         GridLength Coluna3 => CentimeterToLength(3);
+
+        public DadosCliente Contexto { get; set; }
 
         public CampoCliente()
         {

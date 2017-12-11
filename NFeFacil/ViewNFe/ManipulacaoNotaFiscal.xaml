@@ -3,19 +3,17 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:VM="using:NFeFacil.ViewModel"
       xmlns:controles="using:NFeFacil.Controles"
+      xmlns:partesDetalhes="using:NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes"
+      xmlns:partesTransporte="using:NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte"
+      xmlns:partesIdentif="using:NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesIdentificacao"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      mc:Ignorable="d"
-      x:Name="root">
+      mc:Ignorable="d">
     <Page.Resources>
-        <ResourceDictionary>
-            <VM:DadosEstadosParaView x:Key="estados" />
-            <VM:StringToDateTime x:Key="data" />
-            <VM:NumeroString x:Key="numStr" />
-        </ResourceDictionary>
+        <VM:StringToDateTime x:Key="data" />
+        <VM:NumeroString x:Key="numStr" />
     </Page.Resources>
-    <FlipView x:Name="pvtPrincipal"
-              SelectionChanged="TelaMudou">
+    <controles:MultView x:Name="main">
         <Pivot Margin="16">
             <PivotItem Header="NFe">
                 <ScrollViewer>
@@ -98,8 +96,8 @@
                         </Grid>
                     </ListView.Header>
                     <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding RefNFe}">
+                        <DataTemplate x:DataType="partesIdentif:DocumentoFiscalReferenciado">
+                            <TextBlock Text="{x:Bind RefNFe}">
                                 <TextBlock.ContextFlyout>
                                     <MenuFlyout>
                                         <MenuFlyoutItem Click="RemoverDocReferenciado">Remover</MenuFlyoutItem>
@@ -138,7 +136,7 @@
                         </Grid>
                     </ListView.Header>
                     <ListView.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:DataType="partesIdentif:DocumentoFiscalReferenciado">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition />
@@ -150,11 +148,11 @@
                                         <MenuFlyoutItem Click="RemoverDocReferenciado">Remover</MenuFlyoutItem>
                                     </MenuFlyout>
                                 </Grid.ContextFlyout>
-                                <TextBlock Text="{Binding RefNF.CNPJ}" />
+                                <TextBlock Text="{x:Bind RefNF.CNPJ}" />
                                 <TextBlock Grid.Column="1"
-                                           Text="{Binding RefNF.Serie}" />
+                                           Text="{x:Bind RefNF.Serie}" />
                                 <TextBlock Grid.Column="2"
-                                           Text="{Binding RefNF.NNF}" />
+                                           Text="{x:Bind RefNF.NNF}" />
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
@@ -221,7 +219,7 @@
                     </Grid>
                 </ListView.Header>
                 <ListView.ItemTemplate>
-                    <DataTemplate>
+                    <DataTemplate x:DataType="partesDetalhes:DetalhesProdutos">
                         <StackPanel Margin="0,5">
                             <StackPanel.ContextFlyout>
                                 <MenuFlyout Placement="Bottom">
@@ -229,8 +227,8 @@
                                     <MenuFlyoutItem Click="RemoverProduto">Remover</MenuFlyoutItem>
                                 </MenuFlyout>
                             </StackPanel.ContextFlyout>
-                            <TextBlock Text="{Binding Produto.Descricao}" />
-                            <TextBlock Text="{Binding Produto.QuantidadeComercializada}" />
+                            <TextBlock Text="{x:Bind Produto.Descricao}" />
+                            <TextBlock Text="{x:Bind Produto.QuantidadeComercializada}" />
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
@@ -412,10 +410,11 @@
                     </StackPanel>
                 </PivotItem>
                 <PivotItem Header="Veículo">
-                    <ItemsControl x:Name="ctrPaiVeiculo" Style="{StaticResource ItensResponsivos}">
+                    <ItemsControl x:Name="ctrPaiVeiculo"
+                                  Style="{StaticResource ItensResponsivos}">
                         <TextBox Text="{Binding Placa, Mode=TwoWay}"
                                  Header="Placa" />
-                        <ComboBox ItemsSource="{Binding Source={StaticResource estados}, Path=Siglas}"
+                        <ComboBox ItemsSource="{x:Bind VM:DadosEstadosParaView.Siglas}"
                                   SelectedItem="{Binding UF, Mode=TwoWay}"
                                   Header="Estado"
                                   HorizontalAlignment="Stretch" />
@@ -447,8 +446,8 @@
                             </Grid>
                         </ListView.Header>
                         <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Placa}">
+                            <DataTemplate x:DataType="partesTransporte:Reboque">
+                                <TextBlock Text="{x:Bind Placa}">
                                     <TextBlock.ContextFlyout>
                                         <MenuFlyout>
                                             <MenuFlyoutItem Click="RemoverReboque">Remover</MenuFlyoutItem>
@@ -483,16 +482,16 @@
                             </Grid>
                         </ListView.Header>
                         <ListView.ItemTemplate>
-                            <DataTemplate>
+                            <DataTemplate x:DataType="partesTransporte:Volume">
                                 <Grid>
                                     <Grid.ContextFlyout>
                                         <MenuFlyout>
                                             <MenuFlyoutItem Click="RemoverVolume">Remover</MenuFlyoutItem>
                                         </MenuFlyout>
                                     </Grid.ContextFlyout>
-                                    <TextBlock Text="{Binding Esp, Mode=OneTime}" />
+                                    <TextBlock Text="{x:Bind Esp, Mode=OneTime}" />
                                     <TextBlock HorizontalAlignment="Right"
-                                               Text="{Binding Marca, Mode=OneTime}" />
+                                               Text="{x:Bind Marca, Mode=OneTime}" />
                                 </Grid>
                             </DataTemplate>
                         </ListView.ItemTemplate>
@@ -515,12 +514,12 @@
                         <controles:EntradaNumerica Header="CFOP"
                                                    Format="4"
                                                    Number="{x:Bind CFOP, Mode=TwoWay}" />
-                        <ComboBox ItemsSource="{Binding Source={StaticResource estados}, Path=EstadosCompletos}"
+                        <ComboBox ItemsSource="{x:Bind VM:DadosEstadosParaView.EstadosCompletos}"
                                   SelectedItem="{x:Bind UFEscolhida, Mode=TwoWay}"
                                   DisplayMemberPath="Nome"
                                   Header="Estado"
                                   HorizontalAlignment="Stretch" />
-                        <ComboBox ItemsSource="{Binding MunicipiosTransporte}"
+                        <ComboBox ItemsSource="{x:Bind MunicipiosTransporte}"
                                   SelectedValue="{x:Bind NotaSalva.Informacoes.transp.RetTransp.CMunFG, Mode=TwoWay}"
                                   SelectedValuePath="Codigo"
                                   DisplayMemberPath="Nome"
@@ -566,14 +565,14 @@
                         </Grid>
                     </ListView.Header>
                     <ListView.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:DataType="partesDetalhes:Duplicata">
                             <Grid>
                                 <Grid.ContextFlyout>
                                     <MenuFlyout>
                                         <MenuFlyoutItem Click="RemoverDuplicata">Remover</MenuFlyoutItem>
                                     </MenuFlyout>
                                 </Grid.ContextFlyout>
-                                <TextBlock Text="{Binding NDup, Mode=OneTime}" />
+                                <TextBlock Text="{x:Bind NDup, Mode=OneTime}" />
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
@@ -582,14 +581,18 @@
         </Pivot>
         <Pivot Margin="16">
             <PivotItem Header="Informacoes adicionais">
-                <ScrollViewer>
-                    <StackPanel DataContext="{x:Bind NotaSalva.Informacoes.infAdic}">
-                        <TextBox Text="{Binding InfAdFisco, Mode=TwoWay}"
-                                 Header="Informacoes adicionais de interesse do fisco" />
-                        <TextBox Text="{Binding InfCpl, Mode=TwoWay}"
-                                 Header="Informacoes complementares de interesse do contribuinte" />
-                    </StackPanel>
-                </ScrollViewer>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <TextBox Text="{x:Bind NotaSalva.Informacoes.infAdic.InfAdFisco, Mode=TwoWay}"
+                             Header="Informacoes adicionais de interesse do fisco" />
+                    <TextBox Grid.Row="1"
+                             Text="{x:Bind NotaSalva.Informacoes.infAdic.InfCpl, Mode=TwoWay}"
+                             Header="Informacoes complementares de interesse do contribuinte" />
+                </Grid>
             </PivotItem>
             <PivotItem Header="Observações do contribuinte">
                 <ListView Margin="0,8,0,0"
@@ -616,7 +619,7 @@
                         </Grid>
                     </ListView.Header>
                     <ListView.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:DataType="partesDetalhes:Observacao">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition />
@@ -628,10 +631,10 @@
                                     </MenuFlyout>
                                 </Grid.ContextFlyout>
                                 <TextBlock TextWrapping="Wrap"
-                                           Text="{Binding XCampo}" />
+                                           Text="{x:Bind XCampo}" />
                                 <TextBlock Grid.Column="1"
                                            TextWrapping="Wrap"
-                                           Text="{Binding XTexto}" />
+                                           Text="{x:Bind XTexto}" />
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
@@ -662,7 +665,7 @@
                         </Grid>
                     </ListView.Header>
                     <ListView.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:DataType="partesDetalhes:ProcessoReferenciado">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition />
@@ -674,10 +677,10 @@
                                     </MenuFlyout>
                                 </Grid.ContextFlyout>
                                 <TextBlock TextWrapping="Wrap"
-                                           Text="{Binding NProc}" />
+                                           Text="{x:Bind NProc}" />
                                 <TextBlock Grid.Column="1"
                                            TextWrapping="Wrap"
-                                           Text="{Binding IndProc}" />
+                                           Text="{x:Bind IndProc}" />
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
@@ -687,22 +690,22 @@
         <Pivot Margin="16">
             <PivotItem Header="Exportação">
                 <StackPanel DataContext="{x:Bind NotaSalva.Informacoes.exporta}">
-                    <ComboBox ItemsSource="{Binding Source={StaticResource estados}, Path=Siglas}"
-                              SelectedItem="{Binding UFSaidaPais, Mode=TwoWay}"
+                    <ComboBox ItemsSource="{x:Bind VM:DadosEstadosParaView.Siglas}"
+                              SelectedItem="{x:Bind NotaSalva.Informacoes.exporta.UFSaidaPais, Mode=TwoWay}"
                               Header="UF embarque/transposição de fronteira" />
-                    <TextBox Text="{Binding XLocExporta, Mode=TwoWay}"
+                    <TextBox Text="{x:Bind NotaSalva.Informacoes.exporta.XLocExporta, Mode=TwoWay}"
                              Header="Local de embarque/transposição de fronteira" />
-                    <TextBox Text="{Binding XLocDespacho, Mode=TwoWay}"
+                    <TextBox Text="{x:Bind NotaSalva.Informacoes.exporta.XLocDespacho, Mode=TwoWay}"
                              Header="Local de despacho" />
                 </StackPanel>
             </PivotItem>
             <PivotItem Header="Compra">
                 <StackPanel DataContext="{x:Bind NotaSalva.Informacoes.compra}">
-                    <TextBox Text="{Binding XNEmp, Mode=TwoWay}"
+                    <TextBox Text="{x:Bind NotaSalva.Informacoes.compra.XNEmp, Mode=TwoWay}"
                              Header="Nota de empenho" />
-                    <TextBox Text="{Binding XPed, Mode=TwoWay}"
+                    <TextBox Text="{x:Bind NotaSalva.Informacoes.compra.XPed, Mode=TwoWay}"
                              Header="Pedido" />
-                    <TextBox Text="{Binding XCont, Mode=TwoWay}"
+                    <TextBox Text="{x:Bind NotaSalva.Informacoes.compra.XCont, Mode=TwoWay}"
                              Header="Contrato" />
                 </StackPanel>
             </PivotItem>
@@ -762,7 +765,7 @@
                         </Grid>
                     </ListView.Header>
                     <ListView.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:DataType="partesDetalhes:FornecimentoDiario">
                             <Grid>
                                 <Grid.ContextFlyout>
                                     <MenuFlyout>
@@ -773,8 +776,8 @@
                                     <ColumnDefinition />
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Text="{Binding Dia, Mode=OneTime}" />
-                                <TextBlock Text="{Binding Qtde, Mode=OneTime}"
+                                <TextBlock Text="{x:Bind Dia, Mode=OneTime}" />
+                                <TextBlock Text="{x:Bind Qtde, Mode=OneTime}"
                                            Grid.Column="1" />
                             </Grid>
                         </DataTemplate>
@@ -806,7 +809,7 @@
                         </Grid>
                     </ListView.Header>
                     <ListView.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:DataType="partesDetalhes:Deducoes">
                             <Grid>
                                 <Grid.ContextFlyout>
                                     <MenuFlyout>
@@ -817,20 +820,19 @@
                                     <ColumnDefinition />
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Text="{Binding XDed, Mode=OneTime}" />
+                                <TextBlock Text="{x:Bind XDed, Mode=OneTime}" />
                                 <TextBlock Grid.Column="1"
-                                           Text="{Binding VDed, Mode=OneTime}" />
+                                           Text="{x:Bind VDed, Mode=OneTime}" />
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
             </PivotItem>
         </Pivot>
-    </FlipView>
+    </controles:MultView>
     <Page.BottomAppBar>
         <CommandBar>
-            <AppBarButton IsEnabled="{Binding BotaoConfirmarVisivel}"
-                          Icon="Accept"
+            <AppBarButton Icon="Accept"
                           Label="Confirmar e validar"
                           Click="Confirmar" />
         </CommandBar>

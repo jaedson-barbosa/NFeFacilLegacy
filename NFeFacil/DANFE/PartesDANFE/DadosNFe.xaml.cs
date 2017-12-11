@@ -8,6 +8,10 @@ namespace NFeFacil.DANFE.PartesDANFE
 {
     public sealed partial class DadosNFe : UserControl
     {
+        public Pacotes.DadosNFe Contexto { get; set; }
+
+        DimensoesPadrao Dimensoes { get; } = new DimensoesPadrao();
+
         GridLength Coluna0 => CentimeterToLength(8);
         GridLength Coluna1 => CentimeterToLength(3);
         GridLength Coluna2 => CentimeterToLength(8);
@@ -17,6 +21,12 @@ namespace NFeFacil.DANFE.PartesDANFE
         public DadosNFe()
         {
             InitializeComponent();
+        }
+
+        public void DefinirPagina(int paginaAtual, int total)
+        {
+            txtPagAtual.Text = paginaAtual.ToString();
+            txtPagTotal.Text = total.ToString();
         }
     }
 }

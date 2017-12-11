@@ -12,12 +12,11 @@ namespace NFeFacil.ViewRegistroVenda
 {
     public sealed partial class AdicionarProduto : ContentDialog
     {
-        List<ExibicaoProduto> ListaCompletaProdutos { get; }
-        public ObservableCollection<ExibicaoProduto> Produtos { get; }
-        public ExibicaoProduto ProdutoSelecionado { get; set; }
+        List<ExibicaoProdutoAdicao> ListaCompletaProdutos { get; }
+        public ObservableCollection<ExibicaoProdutoAdicao> Produtos { get; }
+        public ExibicaoProdutoAdicao ProdutoSelecionado { get; set; }
 
         public double Quantidade { get; set; }
-        public double Frete { get; set; }
         public double Seguro { get; set; }
         public double DespesasExtras { get; set; }
 
@@ -27,7 +26,7 @@ namespace NFeFacil.ViewRegistroVenda
 
             using (var db = new AplicativoContext())
             {
-                ListaCompletaProdutos = new List<ExibicaoProduto>();
+                ListaCompletaProdutos = new List<ExibicaoProdutoAdicao>();
                 var estoque = db.Estoque.Include(x => x.Alteracoes);
                 foreach (var item in db.Produtos)
                 {
@@ -37,14 +36,14 @@ namespace NFeFacil.ViewRegistroVenda
                         var quant = est != null ? est.Alteracoes.Sum(x => x.Alteração) : 0;
                         if (est == null || quant > 0)
                         {
-                            var novoProd = new ExibicaoProduto
+                            var novoProd = new ExibicaoProdutoAdicao
                             {
                                 Base = item,
                                 Codigo = item.CodigoProduto,
                                 Nome = item.Descricao,
                                 Estoque = est == null ? "Infinito" : quant.ToString("N"),
-                                Preço = item.ValorUnitario.ToString("C"),
-                                PreçoDouble = item.ValorUnitario
+                                Preco = item.ValorUnitario.ToString("C"),
+                                PrecoDouble = item.ValorUnitario
                             };
                             ListaCompletaProdutos.Add(novoProd);
                         }
@@ -77,16 +76,6 @@ namespace NFeFacil.ViewRegistroVenda
             }
         }
 
-        public struct ExibicaoProduto
-        {
-            public ProdutoDI Base { get; set; }
-            public string Codigo { get; set; }
-            public string Nome { get; set; }
-            public string Estoque { get; set; }
-            public double PreçoDouble { get; set; }
-            public string Preço { get; set; }
-        }
-
         private void VerificarConformidadeEstoque(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             var log = Log.Popup.Current;
@@ -104,5 +93,15 @@ namespace NFeFacil.ViewRegistroVenda
                 log.Escrever(Log.TitulosComuns.Atenção, "A quantidade vendida não pode ser maior que a quantidade em estoque.");
             }
         }
+    }
+
+    public struct ExibicaoProdutoAdicao
+    {
+        public ProdutoDI Base { get; set; }
+        public string Codigo { get; set; }
+        public string Nome { get; set; }
+        public string Estoque { get; set; }
+        public double PrecoDouble { get; set; }
+        public string Preco { get; set; }
     }
 }

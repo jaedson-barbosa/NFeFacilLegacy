@@ -1,15 +1,33 @@
-﻿using Comum.Primitivos;
-using System.Collections.Generic;
+﻿using System.Security.Cryptography.X509Certificates;
 
-namespace Comum.Pacotes
+namespace ServidorCertificacao.Pacotes
 {
-    public struct CertificadosExibicaoDTO
+    public sealed class CertificadosExibicaoDTO
     {
-        public List<CertificadoExibicao> Registro { get; set; }
+        public CertificadoExibicao[] Registro { get; set; }
 
-        public CertificadosExibicaoDTO(int capacidade)
+        public CertificadosExibicaoDTO()
         {
-            Registro = new List<CertificadoExibicao>(capacidade);
+            var Loja = new X509Store(StoreName.My, StoreLocation.CurrentUser);
+            Loja.Open(OpenFlags.ReadOnly);
+            var quant = Loja.Certificates.Count;
+            Registro = new CertificadoExibicao[quant];
+            for (int i = 0; i < quant; i++)
+            {
+                var item = Loja.Certificates[i];
+                Registro[i] = new CertificadoExibicao
+                {
+                    SerialNumber = item.SerialNumber,
+                    Subject = item.Subject
+                };
+            }
+        }
+
+        public struct CertificadoExibicao
+        {
+            public string Subject { get; set; }
+            public string SerialNumber { get; set; }
+            public bool Local { get; set; }
         }
     }
 }

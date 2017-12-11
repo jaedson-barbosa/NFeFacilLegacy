@@ -119,6 +119,7 @@
     <Content Include="Assets\LargeTile.scale-150.png" />
     <Content Include="Assets\LargeTile.scale-200.png" />
     <Content Include="Assets\LargeTile.scale-400.png" />
+    <Content Include="Assets\Minha foto.jpg" />
     <Content Include="Assets\SmallTile.scale-100.png" />
     <Content Include="Assets\SmallTile.scale-125.png" />
     <Content Include="Assets\SmallTile.scale-150.png" />
@@ -150,8 +151,6 @@
     <Content Include="Assets\StoreLogo.scale-150.png" />
     <Content Include="Assets\StoreLogo.scale-200.png" />
     <Content Include="Assets\StoreLogo.scale-400.png" />
-    <Content Include="Assets\VolanteDark.png" />
-    <Content Include="Assets\Volante.png" />
     <Content Include="Assets\Wide310x150Logo.scale-100.png" />
     <Content Include="Assets\Wide310x150Logo.scale-125.png" />
     <Content Include="Assets\Wide310x150Logo.scale-150.png" />
@@ -166,6 +165,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Backup.cs" />
     <Compile Include="Certificacao\ConfiguracoesCertificadoImportado.xaml.cs">
       <DependentUpon>ConfiguracoesCertificadoImportado.xaml</DependentUpon>
     </Compile>
@@ -174,14 +174,141 @@
     </Compile>
     <Compile Include="ConfiguracoesPermanentes.cs" />
     <Compile Include="ConjuntoBasicoExibicao.cs" />
+    <Compile Include="Controles\ExibicaoImagem.xaml.cs">
+      <DependentUpon>ExibicaoImagem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\MultView.xaml.cs">
+      <DependentUpon>MultView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DetalhePagina.cs" />
+    <Compile Include="PaginasPrincipais.cs" />
     <Compile Include="Sincronizacao\Pacotes\ConjuntoNotasFiscais.cs" />
+    <Compile Include="Validacao\ValidadorComprador.cs" />
+    <Compile Include="ViewDadosBase\AdicionarComprador.xaml.cs">
+      <DependentUpon>AdicionarComprador.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewDadosBase\GerenciarClientes.xaml.cs">
+      <DependentUpon>GerenciarClientes.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewDadosBase\GerenciarCompradores.xaml.cs">
+      <DependentUpon>GerenciarCompradores.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewDadosBase\GerenciarMotoristas.xaml.cs">
+      <DependentUpon>GerenciarMotoristas.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewDadosBase\GerenciamentoProdutos\GerenciarProdutos.xaml.cs">
+      <DependentUpon>GerenciarProdutos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewDadosBase\GerenciarVendedores.xaml.cs">
+      <DependentUpon>GerenciarVendedores.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\MascaraDocumento.cs" />
+    <Compile Include="ViewNFe\Impostos\AssociacoesSimples.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS\DadosAliq.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS\DadosCOFINS.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS\DadosDuplos.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS\DadosNT.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS\DadosOutr.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS\DadosQtde.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS\DadosST.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS\DetalharAliquota.xaml.cs">
+      <DependentUpon>DetalharAliquota.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS\DetalharAmbos.xaml.cs">
+      <DependentUpon>DetalharAmbos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS\DetalharQtde.xaml.cs">
+      <DependentUpon>DetalharQtde.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS\Processamento.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoGeral.xaml.cs">
+      <DependentUpon>DetalhamentoGeral.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMSUFDest\Detalhar.xaml.cs">
+      <DependentUpon>Detalhar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMSUFDest\IDadosICMSUFDest.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMSUFDest\Processamento.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\DetalharRN.xaml.cs">
+      <DependentUpon>DetalharRN.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\DetalharSN.xaml.cs">
+      <DependentUpon>DetalharSN.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\Processamento.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoII\Detalhar.xaml.cs">
+      <DependentUpon>Detalhar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\Impostos\DetalhamentoII\IDadosII.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoII\Processamento.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoIPI\DadosIPI.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoIPI\DadosNT.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoIPI\DadosTrib.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoIPI\DetalharAliquota.xaml.cs">
+      <DependentUpon>DetalharAliquota.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\Impostos\DetalhamentoIPI\DetalharSimples.xaml.cs">
+      <DependentUpon>DetalharSimples.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\Impostos\DetalhamentoIPI\DetalharQtde.xaml.cs">
+      <DependentUpon>DetalharQtde.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\Impostos\DetalhamentoIPI\Processamento.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoISSQN\DetalharExterior.xaml.cs">
+      <DependentUpon>DetalharExterior.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\Impostos\DetalhamentoISSQN\DetalharNacional.xaml.cs">
+      <DependentUpon>DetalharNacional.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\Impostos\DetalhamentoISSQN\IDadosISSQN.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoISSQN\Processamento.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoPIS\DadosAliq.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoPIS\DadosDuplos.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoPIS\DadosNT.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoPIS\DadosOutr.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoPIS\DadosPIS.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoPIS\DadosQtde.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoPIS\DadosST.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoPIS\DetalharAliquota.xaml.cs">
+      <DependentUpon>DetalharAliquota.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\Impostos\DetalhamentoPIS\DetalharAmbos.xaml.cs">
+      <DependentUpon>DetalharAmbos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\Impostos\DetalhamentoPIS\DetalharQtde.xaml.cs">
+      <DependentUpon>DetalharQtde.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\Impostos\IDetalhamentoImposto.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS\Detalhamento.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\Detalhamento.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMSUFDest\Detalhamento.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoII\Detalhamento.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoIPI\Detalhamento.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoISSQN\Detalhamento.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoPIS\Detalhamento.cs" />
+    <Compile Include="ViewNFe\Impostos\EscolhaImpostos.xaml.cs">
+      <DependentUpon>EscolhaImpostos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\Impostos\DetalhamentoPIS\Processamento.cs" />
+    <Compile Include="ViewNFe\Impostos\ProcessamentoImposto.cs" />
+    <Compile Include="ViewNFe\Impostos\RoteiroAdicaoImpostos.cs" />
+    <Compile Include="ViewNFe\PrincipaisImpostos.cs" />
     <Compile Include="ViewRegistroVenda\CalcularTroco.xaml.cs">
       <DependentUpon>CalcularTroco.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Ano.cs" />
-    <Compile Include="View\Backup.xaml.cs">
-      <DependentUpon>Backup.xaml</DependentUpon>
+    <Compile Include="ViewRegistroVenda\DARV.xaml.cs">
+      <DependentUpon>DARV.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewRegistroVenda\DefinirComprador.xaml.cs">
+      <DependentUpon>DefinirComprador.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewRegistroVenda\DefinirDataVenda.xaml.cs">
+      <DependentUpon>DefinirDataVenda.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewRegistroVenda\InfoPagamento.xaml.cs">
+      <DependentUpon>InfoPagamento.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewDadosBase\GerenciamentoProdutos\Ano.cs" />
     <Compile Include="Controles\NumeroChangedEventArgs.cs" />
     <Compile Include="IdentificacaoExtensoes.cs" />
     <Compile Include="Login\EscolhaEmitente.xaml.cs">
@@ -307,9 +434,6 @@
     <Compile Include="ViewRegistroVenda\AplicarFrete.xaml.cs">
       <DependentUpon>AplicarFrete.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewRegistroVenda\DARV.xaml.cs">
-      <DependentUpon>DARV.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ViewRegistroVenda\EscolherDimensão.xaml.cs">
       <DependentUpon>EscolherDimensão.xaml</DependentUpon>
     </Compile>
@@ -328,7 +452,7 @@
     <Compile Include="ViewNFe\CaixasDialogoProduto\AdicionarMedicamento.xaml.cs">
       <DependentUpon>AdicionarMedicamento.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\AdicionarAlteracaoEstoque.xaml.cs">
+    <Compile Include="ViewDadosBase\GerenciamentoProdutos\AdicionarAlteracaoEstoque.xaml.cs">
       <DependentUpon>AdicionarAlteracaoEstoque.xaml</DependentUpon>
     </Compile>
     <Compile Include="Certificacao\LAN\ConectarServidor.xaml.cs">
@@ -424,7 +548,7 @@
     <Compile Include="ViewDadosBase\AdicionarMotorista.xaml.cs">
       <DependentUpon>AdicionarMotorista.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewDadosBase\AdicionarProduto.xaml.cs">
+    <Compile Include="ViewDadosBase\GerenciamentoProdutos\AdicionarProduto.xaml.cs">
       <DependentUpon>AdicionarProduto.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewDadosBase\AdicionarVendedor.xaml.cs">
@@ -473,7 +597,7 @@
     <Compile Include="View\Consulta.xaml.cs">
       <DependentUpon>Consulta.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ControleEstoque.xaml.cs">
+    <Compile Include="ViewDadosBase\GerenciamentoProdutos\ControleEstoque.xaml.cs">
       <DependentUpon>ControleEstoque.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controles\EntradaNumerica.xaml.cs">
@@ -525,6 +649,9 @@
     </Compile>
     <Compile Include="View\EscolherTransparencia.xaml.cs">
       <DependentUpon>EscolherTransparencia.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Informacoes.xaml.cs">
+      <DependentUpon>Informacoes.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Inicio.xaml.cs">
       <DependentUpon>Inicio.xaml</DependentUpon>
@@ -657,11 +784,123 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controles\ExibicaoImagem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controles\MultView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewDadosBase\AdicionarComprador.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewDadosBase\GerenciarClientes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewDadosBase\GerenciarCompradores.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewDadosBase\GerenciarMotoristas.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewDadosBase\GerenciamentoProdutos\GerenciarProdutos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewDadosBase\GerenciarVendedores.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\Impostos\DetalhamentoCOFINS\DetalharAliquota.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ViewNFe\Impostos\DetalhamentoCOFINS\DetalharAmbos.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ViewNFe\Impostos\DetalhamentoCOFINS\DetalharQtde.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ViewNFe\Impostos\DetalhamentoGeral.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\Impostos\DetalhamentoICMSUFDest\Detalhar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\DetalharRN.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\DetalharSN.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\Impostos\DetalhamentoII\Detalhar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\Impostos\DetalhamentoIPI\DetalharAliquota.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\Impostos\DetalhamentoIPI\DetalharSimples.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\Impostos\DetalhamentoIPI\DetalharQtde.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\Impostos\DetalhamentoISSQN\DetalharExterior.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\Impostos\DetalhamentoISSQN\DetalharNacional.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\Impostos\DetalhamentoPIS\DetalharAliquota.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\Impostos\DetalhamentoPIS\DetalharAmbos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\Impostos\DetalhamentoPIS\DetalharQtde.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\Impostos\EscolhaImpostos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ViewRegistroVenda\CalcularTroco.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Backup.xaml">
+    <Page Include="ViewRegistroVenda\DARV.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewRegistroVenda\DefinirComprador.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewRegistroVenda\DefinirDataVenda.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewRegistroVenda\InfoPagamento.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -821,10 +1060,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewRegistroVenda\DARV.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="ViewRegistroVenda\EscolherDimensão.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -849,7 +1084,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\AdicionarAlteracaoEstoque.xaml">
+    <Page Include="ViewDadosBase\GerenciamentoProdutos\AdicionarAlteracaoEstoque.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -873,7 +1108,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewDadosBase\AdicionarProduto.xaml">
+    <Page Include="ViewDadosBase\GerenciamentoProdutos\AdicionarProduto.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -953,7 +1188,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ControleEstoque.xaml">
+    <Page Include="ViewDadosBase\GerenciamentoProdutos\ControleEstoque.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -986,6 +1221,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\EscolherTransparencia.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Informacoes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1144,6 +1383,7 @@
       <Name>Windows Mobile Extensions for the UWP</Name>
     </SDKReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

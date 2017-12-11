@@ -12,7 +12,7 @@ namespace NFeFacil.ViewModel
             {
                 return targetType == typeof(DateTime) ? Propriedades.DateTimeNow : Propriedades.DateTimeOffsetNow;
             }
-            if (value is string valor)
+            else if (value is string valor)
             {
                 string formato = "yyyy-MM-dd";
                 if (parameter is string parametro)
@@ -42,6 +42,14 @@ namespace NFeFacil.ViewModel
                     }
                 }
             }
+            else if (value is DateTime dataHora)
+            {
+                return dataHora.ToString((string)parameter);
+            }
+            else if (value is DateTimeOffset dataHoraOffset)
+            {
+                return dataHoraOffset.ToString((string)parameter);
+            }
             throw new ArgumentException();
         }
 
@@ -52,7 +60,7 @@ namespace NFeFacil.ViewModel
             {
                 formato = parametro;
             }
-            if (value is DateTime dataHora)
+            else if (value is DateTime dataHora)
             {
                 return dataHora.ToString(formato);
             }

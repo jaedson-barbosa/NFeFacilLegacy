@@ -1,10 +1,10 @@
 ﻿using NFeFacil.Log;
 using System;
 using System.IO;
+using System.Reflection;
 using Windows.Storage.Pickers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Navigation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -18,11 +18,6 @@ namespace NFeFacil.Certificacao
         public ConfiguracoesServidorCertificacao()
         {
             InitializeComponent();
-        }
-
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            MainPage.Current.SeAtualizar(Symbol.Permissions, "Certificação");
         }
 
         void InstalarServidor(object sender, TappedRoutedEventArgs e)
@@ -48,7 +43,8 @@ namespace NFeFacil.Certificacao
             {
                 using (var stream = await arquivo.OpenStreamForWriteAsync())
                 {
-                    var recurso = Extensoes.Retornar(this, caminho);
+                    var assembly = GetType().GetTypeInfo().Assembly;
+                    var recurso = assembly.GetManifestResourceStream(caminho);
                     recurso.CopyTo(stream);
                 }
                 Popup.Current.Escrever(TitulosComuns.Sucesso, "Arquivo salvo com sucesso.\r\n" +

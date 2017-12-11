@@ -43,11 +43,13 @@
                     BorderThickness="0">
                 <SymbolIcon Symbol="Back" />
             </Button>
-            <Button Grid.Column="1"
+            <Button x:Name="btnHamburguer"
+                    Grid.Column="1"
                     VerticalAlignment="Stretch"
                     Background="#00000000"
                     Width="48"
                     BorderThickness="0"
+                    Visibility="Collapsed"
                     Click="AbrirHamburguer">
                 <FontIcon Glyph="&#xE700;" />
             </Button>
@@ -137,11 +139,9 @@
                            VerticalAlignment="Stretch" />
                 <Frame Name="frmPrincipal"
                        Grid.Column="1"
-                       Canvas.ZIndex="1">
-                    <Frame.Background>
-                        <SolidColorBrush x:Name="backgroundFrame"
-                                         Color="{Binding Color, Source={ThemeResource ApplicationPageBackgroundThemeBrush}}" />
-                    </Frame.Background>
+                       Canvas.ZIndex="1"
+                       Navigated="NavegacaoConcluida"
+                       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
                     <Frame.ContentTransitions>
                         <TransitionCollection>
                             <NavigationThemeTransition>

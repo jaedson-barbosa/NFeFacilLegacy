@@ -1,4 +1,5 @@
-﻿using System.Xml.Linq;
+﻿using System.Reflection;
+using System.Xml.Linq;
 
 namespace NFeFacil.IBGE
 {
@@ -14,7 +15,8 @@ namespace NFeFacil.IBGE
 
         public XElement Retornar()
         {
-            using (var stream = Extensoes.Retornar(this, "BancoDados.IBGE." + NomeArquivo))
+            var assembly = GetType().GetTypeInfo().Assembly;
+            using (var stream = assembly.GetManifestResourceStream("BancoDados.IBGE." + NomeArquivo))
             {
                 return XElement.Load(stream);
             }

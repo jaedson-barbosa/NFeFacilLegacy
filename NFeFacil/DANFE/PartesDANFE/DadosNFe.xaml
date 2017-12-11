@@ -13,7 +13,7 @@
     <StackPanel BorderThickness="1"
                 CornerRadius="2"
                 BorderBrush="Black"
-                Margin="{Binding Source={StaticResource dimensoes},Path=MargemBloco}">
+                Margin="{x:Bind Dimensoes.MargemBloco}">
         <Grid BorderBrush="Black"
               BorderThickness="0,0,0,1">
             <Grid.ColumnDefinitions>
@@ -23,14 +23,14 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="{x:Bind Linha0}" />
-                <RowDefinition Height="{Binding Source={StaticResource dimensoes}, Path=AlturaLinhaPadrao}" />
+                <RowDefinition Height="{x:Bind Dimensoes.AlturaLinhaPadrao}" />
             </Grid.RowDefinitions>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <Image Source="{Binding Logotipo}" />
+                <Image Source="{x:Bind Contexto.Logotipo}" />
                 <StackPanel Grid.Column="1"
                             Padding="{StaticResource PaddingPadrao}">
                     <TextBlock TextAlignment="Center"
@@ -38,14 +38,14 @@
                                FontWeight="Bold"
                                Margin="0,10"
                                TextWrapping="Wrap"
-                               Text="{Binding NomeEmitente}" />
+                               Text="{x:Bind Contexto.NomeEmitente}" />
                     <TextBlock FontSize="12"
-                               TextWrapping="Wrap"><Run Text="{Binding Endereco.Logradouro}" />, <Run Text="{Binding Endereco.Numero}" /></TextBlock>
+                               TextWrapping="Wrap"><Run Text="{x:Bind Contexto.Endereco.Logradouro}" />, <Run Text="{x:Bind Contexto.Endereco.Numero}" /></TextBlock>
                     <TextBlock FontSize="12"
-                               Text="{Binding Endereco.Bairro}" />
-                    <TextBlock FontSize="12"><Run Text="{Binding Endereco.NomeMunicipio}" /> - <Run Text="{Binding Endereco.SiglaUF}" /></TextBlock>
-                    <TextBlock FontSize="12">CEP: <Run Text="{Binding Endereco.CEP}" /></TextBlock>
-                    <TextBlock FontSize="12">FONE: <Run Text="{Binding Endereco.Telefone, TargetNullValue=''}" /></TextBlock>
+                               Text="{x:Bind Contexto.Endereco.Bairro}" />
+                    <TextBlock FontSize="12"><Run Text="{x:Bind Contexto.Endereco.NomeMunicipio}" /> - <Run Text="{x:Bind Contexto.Endereco.SiglaUF}" /></TextBlock>
+                    <TextBlock FontSize="12">CEP: <Run Text="{x:Bind Contexto.Endereco.CEP}" /></TextBlock>
+                    <TextBlock FontSize="12">FONE: <Run Text="{x:Bind Contexto.Endereco.Telefone, TargetNullValue=''}" /></TextBlock>
                 </StackPanel>
             </Grid>
             <StackPanel Grid.Column="1"
@@ -79,15 +79,15 @@
                         <TextBlock FontWeight="Bold"
                                    Margin="2,1,1,1"
                                    FontSize="12"
-                                   Text="{Binding TipoEmissao}" />
+                                   Text="{x:Bind Contexto.TipoEmissao}" />
                     </Border>
                 </Grid>
                 <TextBlock FontSize="12"
-                           FontWeight="Bold">Nº: <Run Text="{Binding NumeroNota}" /></TextBlock>
+                           FontWeight="Bold">Nº: <Run Text="{x:Bind Contexto.NumeroNota}" /></TextBlock>
                 <TextBlock FontSize="12"
-                           FontWeight="Bold">Série: <Run Text="{Binding SerieNota}" /></TextBlock>
+                           FontWeight="Bold">Série: <Run Text="{x:Bind Contexto.SerieNota}" /></TextBlock>
                 <TextBlock FontSize="12"
-                           FontWeight="Bold">Folha: <Run Text="{Binding PaginaAtual}" />/<Run Text="{Binding QuantPaginas}" /></TextBlock>
+                           FontWeight="Bold">Folha: <Run x:Name="txtPagAtual" />/<Run x:Name="txtPagTotal" /></TextBlock>
             </StackPanel>
             <StackPanel Grid.Column="2"
                         BorderThickness="1,0,0,0"
@@ -96,7 +96,7 @@
                             BorderBrush="Black">
                     <TextBlock Style="{StaticResource Cabecalho}"
                                Margin="{StaticResource PaddingPadrao}">CONTROLE DO FISCO</TextBlock>
-                    <barcode:Code128 Data="{Binding Chave}"
+                    <barcode:Code128 Data="{x:Bind Contexto.Chave}"
                                      Margin="0,2,0,4" />
                 </StackPanel>
                 <StackPanel BorderThickness="0,0,0,1"
@@ -107,7 +107,7 @@
                                TextAlignment="Center"
                                FontWeight="Bold"
                                Margin="0,2"
-                               Text="{Binding ChaveComMascara}" />
+                               Text="{x:Bind Contexto.ChaveComMascara}" />
                 </StackPanel>
                 <TextBlock FontSize="12"
                            Margin="{StaticResource PaddingPadrao}"
@@ -120,7 +120,7 @@
                         Padding="{StaticResource PaddingPadrao}">
                 <TextBlock Style="{StaticResource Cabecalho}">NATUREZA DA OPERAÇÃO</TextBlock>
                 <TextBlock Style="{StaticResource Conteudo}"
-                           Text="{Binding NatOp}" />
+                           Text="{x:Bind Contexto.NatOp}" />
             </StackPanel>
             <StackPanel Grid.Column="2"
                         Grid.Row="1"
@@ -128,7 +128,7 @@
                         BorderBrush="Black"
                         Padding="{StaticResource PaddingPadrao}">
                 <TextBlock Style="{StaticResource Cabecalho}">PROTOCOLO DE AUTORIZAÇÃO DE USO</TextBlock>
-                <TextBlock Style="{StaticResource Conteudo}"><Run Text="{Binding NumeroProtocolo}" /> <Run Text="{Binding DataHoraRecibo}" /></TextBlock>
+                <TextBlock Style="{StaticResource Conteudo}"><Run Text="{x:Bind Contexto.NumeroProtocolo}" /> <Run Text="{x:Bind Contexto.DataHoraRecibo}" /></TextBlock>
             </StackPanel>
         </Grid>
         <Grid>
@@ -138,12 +138,12 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="{Binding Source={StaticResource dimensoes}, Path=AlturaLinhaPadrao}" />
+                <RowDefinition Height="{x:Bind Dimensoes.AlturaLinhaPadrao}" />
             </Grid.RowDefinitions>
             <StackPanel Padding="{StaticResource PaddingPadrao}">
                 <TextBlock Style="{StaticResource Cabecalho}">INSCRIÇÃO ESTADUAL</TextBlock>
                 <TextBlock Style="{StaticResource Conteudo}"
-                           Text="{Binding IE}" />
+                           Text="{x:Bind Contexto.IE}" />
             </StackPanel>
             <StackPanel Grid.Column="1"
                         BorderThickness="1,0,1,0"
@@ -151,13 +151,13 @@
                         Padding="{StaticResource PaddingPadrao}">
                 <TextBlock Style="{StaticResource Cabecalho}">INSCR.ESTADUAL SUBSTITUTO</TextBlock>
                 <TextBlock Style="{StaticResource Conteudo}"
-                           Text="{Binding IEST}" />
+                           Text="{x:Bind Contexto.IEST}" />
             </StackPanel>
             <StackPanel Grid.Column="2"
                         Padding="{StaticResource PaddingPadrao}">
                 <TextBlock Style="{StaticResource Cabecalho}">CNPJ</TextBlock>
                 <TextBlock Style="{StaticResource Conteudo}"
-                           Text="{Binding CNPJEmit}" />
+                           Text="{x:Bind Contexto.CNPJEmit}" />
             </StackPanel>
         </Grid>
     </StackPanel>

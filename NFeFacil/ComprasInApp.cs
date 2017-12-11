@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NFeFacil.Log;
+using System;
 using System.Threading.Tasks;
 using Windows.Services.Store;
 
@@ -10,7 +11,9 @@ namespace NFeFacil
     {
         public enum Compras
         {
-            Personalizacao
+            Personalizacao,
+            Doacao25,
+            Doacao10
         }
 
         public Compras Escolhida { get; }
@@ -23,28 +26,45 @@ namespace NFeFacil
         bool Comprado = false;
         public async Task<bool> AnalisarCompra()
         {
-            if (Comprado == false)
+            try
             {
-                var prod = await ObterProduto();
-                if (prod.IsInUserCollection)
+                if (Comprado == false)
                 {
-                    Comprado = true;
+                    var prod = await ObterProduto();
+                    if (prod.IsInUserCollection)
+                    {
+                        Comprado = true;
+                    }
+                    else
+                    {
+                        StoreContext storeContext = StoreContext.GetDefault();
+                        var resultadoAquisicao = await storeContext.RequestPurchaseAsync(prod.StoreId);
+                        Comprado = resultadoAquisicao.Status == StorePurchaseStatus.Succeeded
+                            || resultadoAquisicao.Status == StorePurchaseStatus.AlreadyPurchased;
+                    }
                 }
-                else
-                {
-                    StoreContext storeContext = StoreContext.GetDefault();
-                    var resultadoAquisicao = await storeContext.RequestPurchaseAsync(prod.StoreId);
-                    Comprado = resultadoAquisicao.Status == StorePurchaseStatus.Succeeded
-                        || resultadoAquisicao.Status == StorePurchaseStatus.AlreadyPurchased;
-                }
+                return Comprado;
             }
-            return Comprado;
+            catch (Exception e)
+            {
+                Popup.Current.Escrever(TitulosComuns.Erro, e.Message);
+                return false;
+            }
+        }
+
+        public async Task<bool> Comprar()
+        {
+            var prod = await ObterProduto();
+            StoreContext storeContext = StoreContext.GetDefault();
+            var resultadoAquisicao = await storeContext.RequestPurchaseAsync(prod.StoreId);
+            return Comprado = resultadoAquisicao.Status == StorePurchaseStatus.Succeeded
+                || resultadoAquisicao.Status == StorePurchaseStatus.AlreadyPurchased;
         }
 
         async Task<StoreProduct> ObterProduto()
         {
             StoreContext storeContext = StoreContext.GetDefault();
-            string[] productKinds = new string[] { "Consumable", "Durable", "UnmanagedConsumable" };
+            string[] productKinds = new string[] { "Consumable", "Durable" };
             StoreProductQueryResult addOns = await storeContext.GetAssociatedStoreProductsAsync(productKinds);
             foreach (var item in addOns.Products.Values)
             {

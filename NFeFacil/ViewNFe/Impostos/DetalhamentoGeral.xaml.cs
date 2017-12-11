@@ -84,6 +84,10 @@ namespace NFeFacil.ViewNFe.Impostos
             {
                 produto.Impostos.vTotTrib = caixa.ValorTotalTributos;
             }
+            else
+            {
+                produto.Impostos.vTotTrib = null;
+            }
 
             //Remove tela de manipulação do produto e de escolha dos impostos
             Frame.BackStack.RemoveAt(Frame.BackStack.Count - 1);

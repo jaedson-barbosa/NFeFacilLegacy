@@ -31,7 +31,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoIPI
                             CST = cst,
                             Aliquota = aliq.Aliquota,
                             PreImposto = aliq.Conjunto,
-                            TipoCalculo = CaixasImpostos.TiposCalculo.PorAliquota
+                            TipoCalculo = TiposCalculo.PorAliquota
                         };
                     }
                     else if (Tela is DetalharQtde valor)
@@ -41,7 +41,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoIPI
                             CST = cst,
                             Valor = valor.ValorUnitario,
                             PreImposto = valor.Conjunto,
-                            TipoCalculo = CaixasImpostos.TiposCalculo.PorValor
+                            TipoCalculo = TiposCalculo.PorValor
                         };
                     }
                     else if (Tela is DetalharSimples outr)

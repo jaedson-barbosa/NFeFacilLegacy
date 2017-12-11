@@ -1,4 +1,4 @@
-﻿using NFeFacil.ViewNFe.CaixasImpostos;
+﻿using NFeFacil.ViewNFe.Impostos;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 

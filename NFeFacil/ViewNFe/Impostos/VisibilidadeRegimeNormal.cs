@@ -1,4 +1,4 @@
-﻿namespace NFeFacil.ViewNFe.CaixasImpostos
+﻿namespace NFeFacil.ViewNFe.Impostos
 {
     struct VisibilidadeRegimeNormal
     {

@@ -204,6 +204,9 @@
     </Compile>
     <Compile Include="ViewModel\MascaraDocumento.cs" />
     <Compile Include="ViewNFe\Impostos\AssociacoesSimples.cs" />
+    <Compile Include="ViewNFe\Impostos\DefinirTotalImpostos.xaml.cs">
+      <DependentUpon>DefinirTotalImpostos.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS\DadosAliq.cs" />
     <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS\DadosCOFINS.cs" />
     <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS\DadosDuplos.cs" />
@@ -355,10 +358,10 @@
     <Compile Include="ViewNFe\CaixasEspeciaisProduto\DefinirVeiculo.xaml.cs">
       <DependentUpon>DefinirVeiculo.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\CaixasImpostos\VisibilidadeRegimeNormal.cs" />
-    <Compile Include="ViewNFe\CaixasImpostos\VisibilidadeSimplesNacional.cs" />
-    <Compile Include="ViewNFe\CaixasImpostos\VisibilidadesRegimeNormal.cs" />
-    <Compile Include="ViewNFe\CaixasImpostos\VisibilidadesSimplesNacional.cs" />
+    <Compile Include="ViewNFe\Impostos\VisibilidadeRegimeNormal.cs" />
+    <Compile Include="ViewNFe\Impostos\VisibilidadeSimplesNacional.cs" />
+    <Compile Include="ViewNFe\Impostos\VisibilidadesRegimeNormal.cs" />
+    <Compile Include="ViewNFe\Impostos\VisibilidadesSimplesNacional.cs" />
     <Compile Include="ViewNFe\CaixasDialogoNFe\EnderecoDiferenteExterior.xaml.cs">
       <DependentUpon>EnderecoDiferenteExterior.xaml</DependentUpon>
     </Compile>
@@ -374,37 +377,10 @@
     <Compile Include="ViewNFe\CaixasDialogoProduto\EscolherTipoDeclaracaoExportacao.xaml.cs">
       <DependentUpon>EscolherTipoDeclaracaoExportacao.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\CaixasImpostos\AddPISouCOFINSAliquota.xaml.cs">
-      <DependentUpon>AddPISouCOFINSAliquota.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewNFe\CaixasImpostos\AddPISouCOFINSValor.xaml.cs">
-      <DependentUpon>AddPISouCOFINSValor.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewNFe\CaixasImpostos\AdicionarICMSDestino.xaml.cs">
-      <DependentUpon>AdicionarICMSDestino.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewNFe\CaixasImpostos\AdicionarII.xaml.cs">
-      <DependentUpon>AdicionarII.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewNFe\CaixasImpostos\AdicionarIPISimples.xaml.cs">
-      <DependentUpon>AdicionarIPISimples.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewNFe\CaixasImpostos\AdicionarIPIAliquota.xaml.cs">
-      <DependentUpon>AdicionarIPIAliquota.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewNFe\CaixasImpostos\AdicionarIPIValor.xaml.cs">
-      <DependentUpon>AdicionarIPIValor.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewNFe\CaixasImpostos\AdicionarISSQNExterior.xaml.cs">
-      <DependentUpon>AdicionarISSQNExterior.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewNFe\CaixasImpostos\AdicionarISSQNNacional.xaml.cs">
-      <DependentUpon>AdicionarISSQNNacional.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewNFe\CaixasImpostos\EscolherTipoIPI.xaml.cs">
+    <Compile Include="ViewNFe\Impostos\EscolherTipoIPI.xaml.cs">
       <DependentUpon>EscolherTipoIPI.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\CaixasImpostos\EscolherTipoPISouCOFINS.xaml.cs">
+    <Compile Include="ViewNFe\Impostos\EscolherTipoPISouCOFINS.xaml.cs">
       <DependentUpon>EscolherTipoPISouCOFINS.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewNFe\CriadorNFe.xaml.cs">
@@ -413,20 +389,11 @@
     <Compile Include="ViewNFe\CaixasDialogoNFe\EnderecoDiferenteNacional.xaml.cs">
       <DependentUpon>EnderecoDiferenteNacional.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\CaixasImpostos\AdicionarICMSRN.xaml.cs">
-      <DependentUpon>AdicionarICMSRN.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewNFe\CaixasImpostos\AdicionarICMSSN.xaml.cs">
-      <DependentUpon>AdicionarICMSSN.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewNFe\CaixasImpostos\EscolherTipoICMS.xaml.cs">
+    <Compile Include="ViewNFe\Impostos\EscolherTipoICMS.xaml.cs">
       <DependentUpon>EscolherTipoICMS.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewNFe\EscolhaImposto.xaml.cs">
       <DependentUpon>EscolhaImposto.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewNFe\ImpostosProduto.xaml.cs">
-      <DependentUpon>ImpostosProduto.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewNFe\VisualizacaoNFe.xaml.cs">
       <DependentUpon>VisualizacaoNFe.xaml</DependentUpon>
@@ -541,7 +508,7 @@
     <Compile Include="Validacao\ValidadorVendedor.cs" />
     <Compile Include="Validacao\ValidarDados.cs" />
     <Compile Include="ViewModel\StringToDateTime.cs" />
-    <Compile Include="ViewNFe\CaixasImpostos\TiposCalculo.cs" />
+    <Compile Include="ViewNFe\Impostos\TiposCalculo.cs" />
     <Compile Include="Login\AdicionarEmitente.xaml.cs">
       <DependentUpon>AdicionarEmitente.xaml</DependentUpon>
     </Compile>
@@ -816,6 +783,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ViewNFe\Impostos\DefinirTotalImpostos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ViewNFe\Impostos\DetalhamentoCOFINS\DetalharAliquota.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -980,47 +951,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\CaixasImpostos\AddPISouCOFINSAliquota.xaml">
+    <Page Include="ViewNFe\Impostos\EscolherTipoIPI.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\CaixasImpostos\AddPISouCOFINSValor.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ViewNFe\CaixasImpostos\AdicionarICMSDestino.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ViewNFe\CaixasImpostos\AdicionarII.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ViewNFe\CaixasImpostos\AdicionarIPISimples.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ViewNFe\CaixasImpostos\AdicionarIPIAliquota.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ViewNFe\CaixasImpostos\AdicionarIPIValor.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ViewNFe\CaixasImpostos\AdicionarISSQNExterior.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ViewNFe\CaixasImpostos\AdicionarISSQNNacional.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ViewNFe\CaixasImpostos\EscolherTipoIPI.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ViewNFe\CaixasImpostos\EscolherTipoPISouCOFINS.xaml">
+    <Page Include="ViewNFe\Impostos\EscolherTipoPISouCOFINS.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1032,23 +967,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\CaixasImpostos\AdicionarICMSRN.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ViewNFe\CaixasImpostos\AdicionarICMSSN.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ViewNFe\CaixasImpostos\EscolherTipoICMS.xaml">
+    <Page Include="ViewNFe\Impostos\EscolherTipoICMS.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ViewNFe\EscolhaImposto.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ViewNFe\ImpostosProduto.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

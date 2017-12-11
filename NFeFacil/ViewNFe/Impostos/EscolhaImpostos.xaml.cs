@@ -1,5 +1,5 @@
 ﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
-using NFeFacil.ViewNFe.CaixasImpostos;
+using NFeFacil.ViewNFe.Impostos;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

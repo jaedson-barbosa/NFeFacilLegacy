@@ -1,5 +1,6 @@
 ﻿using NFeFacil.ModeloXML.PartesProcesso;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
+using System;
 using System.Reflection;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
@@ -76,6 +77,13 @@ namespace NFeFacil.ViewNFe.Impostos
         {
             await Task.Delay(500);
             var produto = roteiro.Finalizar();
+
+            var caixa = new DefinirTotalImpostos();
+            await caixa.ShowAsync();
+            if (!string.IsNullOrEmpty(caixa.ValorTotalTributos))
+            {
+                produto.Impostos.vTotTrib = caixa.ValorTotalTributos;
+            }
 
             //Remove tela de manipulação do produto e de escolha dos impostos
             Frame.BackStack.RemoveAt(Frame.BackStack.Count - 1);

@@ -1,6 +1,6 @@
 ﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
-using NFeFacil.ViewNFe.CaixasImpostos;
+using NFeFacil.ViewNFe.Impostos;
 
 namespace NFeFacil.ViewNFe.Impostos.DetalhamentoIPI
 {

@@ -1,0 +1,24 @@
+﻿<ContentDialog x:Class="NFeFacil.ViewNFe.Impostos.DefinirTotalImpostos"
+               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:controles="using:NFeFacil.Controles"
+               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+               mc:Ignorable="d"
+               Title="Concluir detalhamento"
+               PrimaryButtonText="Concluir"
+               SecondaryButtonText="Cancelar">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <controles:EntradaRestrita Text="{x:Bind ValorTotalTributos, Mode=TwoWay}"
+                                   Header="Valor total dos tributos"
+                                   Pattern="[^\d.,]"
+                                   InputScope="Number"
+                                   Grid.Column="1"
+                                   Margin="0,0,0,8" />
+        <TextBlock Grid.Row="1"><Bold>Obs.:</Bold> Esta informação é opcional e seu preenchimento fica por sua conta.</TextBlock>
+    </Grid>
+</ContentDialog>

@@ -42,7 +42,7 @@ namespace NFeFacil
             { typeof(DefinirCombustivel), ("\uEB42", "Combustivel") },
             { typeof(DefinirMedicamentos), ("\uE95E", "Medicamentos") },
             { typeof(DefinirVeiculo), ("\uE804", "Veículo") },
-            { typeof(ImpostosProduto), ("\uE825", "Impostos") },
+            { typeof(ViewNFe.Impostos.EscolhaImpostos), ("\uE825", "Impostos") },
             { typeof(ManipulacaoNotaFiscal), (Symbol.Document, "Nota fiscal") },
             { typeof(ManipulacaoProdutoCompleto), (Symbol.Shop, "Produto") },
             { typeof(NotasSalvas), (Symbol.Library, "Notas salvas") },

@@ -2,7 +2,7 @@
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
-using NFeFacil.ViewNFe.CaixasImpostos;
+using NFeFacil.ViewNFe.Impostos;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

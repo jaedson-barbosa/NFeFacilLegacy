@@ -4,12 +4,13 @@
 
 namespace NFeFacil.ViewNFe.Impostos.DetalhamentoPIS
 {
-    abstract class DadosDuplos : DadosPIS
+    abstract class DadosDuplos : IDadosPIS
     {
+        public string CST { protected get; set; }
         public double Aliquota { protected get; set; }
         public double Valor { protected get; set; }
         public TiposCalculo TipoCalculo { protected get; set; }
 
-        public override abstract object Processar(ProdutoOuServico prod);
+        public abstract object Processar(ProdutoOuServico prod);
     }
 }

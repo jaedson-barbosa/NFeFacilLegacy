@@ -4,9 +4,9 @@
 
 namespace NFeFacil.ViewNFe.Impostos.DetalhamentoPIS
 {
-    abstract class DadosPIS
+    interface IDadosPIS
     {
-        public string CST { protected get; set; }
-        public abstract object Processar(ProdutoOuServico prod);
+        string CST { set; }
+        object Processar(ProdutoOuServico prod);
     }
 }

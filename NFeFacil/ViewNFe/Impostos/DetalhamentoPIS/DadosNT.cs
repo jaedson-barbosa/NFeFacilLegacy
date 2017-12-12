@@ -5,9 +5,11 @@ using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.P
 
 namespace NFeFacil.ViewNFe.Impostos.DetalhamentoPIS
 {
-    sealed class DadosNT : DadosPIS
+    sealed class DadosNT : IDadosPIS
     {
-        public override object Processar(ProdutoOuServico prod)
+        public string CST { private get; set; }
+
+        public object Processar(ProdutoOuServico prod)
         {
             return new PIS
             {

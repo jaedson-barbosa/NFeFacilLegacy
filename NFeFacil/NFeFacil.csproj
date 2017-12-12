@@ -328,7 +328,7 @@
     <Compile Include="ViewNFe\Impostos\DetalhamentoPIS\DadosDuplos.cs" />
     <Compile Include="ViewNFe\Impostos\DetalhamentoPIS\DadosNT.cs" />
     <Compile Include="ViewNFe\Impostos\DetalhamentoPIS\DadosOutr.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoPIS\DadosPIS.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoPIS\IDadosPIS.cs" />
     <Compile Include="ViewNFe\Impostos\DetalhamentoPIS\DadosQtde.cs" />
     <Compile Include="ViewNFe\Impostos\DetalhamentoPIS\DadosST.cs" />
     <Compile Include="ViewNFe\Impostos\DetalhamentoPIS\DetalharAliquota.xaml.cs">

@@ -8,7 +8,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoCOFINS
 {
     public sealed class Processamento : ProcessamentoImposto
     {
-        DadosCOFINS dados;
+        IDadosCOFINS dados;
 
         public override Imposto[] Processar(ProdutoOuServico prod)
         {

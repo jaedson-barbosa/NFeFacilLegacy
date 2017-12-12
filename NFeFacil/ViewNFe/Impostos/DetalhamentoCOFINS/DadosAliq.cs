@@ -6,11 +6,12 @@ using static NFeFacil.ExtensoesPrincipal;
 
 namespace NFeFacil.ViewNFe.Impostos.DetalhamentoCOFINS
 {
-    sealed class DadosAliq : DadosCOFINS
+    sealed class DadosAliq : IDadosCOFINS
     {
+        public string CST { private get; set; }
         public double Aliquota { private get; set; }
 
-        public override object Processar(ProdutoOuServico prod)
+        public object Processar(ProdutoOuServico prod)
         {
             var vBC = prod.ValorTotal;
             var pCOFINS = Aliquota;

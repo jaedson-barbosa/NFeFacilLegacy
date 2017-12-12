@@ -5,13 +5,14 @@ using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 
 namespace NFeFacil.ViewNFe.Impostos.DetalhamentoCOFINS
 {
-    abstract class DadosDuplos : DadosCOFINS
+    abstract class DadosDuplos : IDadosCOFINS
     {
+        public string CST { protected get; set; }
         public double Aliquota { protected get; set; }
         public double Valor { protected get; set; }
         public TiposCalculo TipoCalculo { protected get; set; }
 
-        public override abstract object Processar(ProdutoOuServico prod);
+        public abstract object Processar(ProdutoOuServico prod);
 
         public bool Validar(ILog log) => true;
     }

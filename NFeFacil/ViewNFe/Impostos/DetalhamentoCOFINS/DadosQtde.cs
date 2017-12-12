@@ -6,11 +6,12 @@ using static NFeFacil.ExtensoesPrincipal;
 
 namespace NFeFacil.ViewNFe.Impostos.DetalhamentoCOFINS
 {
-    sealed class DadosQtde : DadosCOFINS
+    sealed class DadosQtde : IDadosCOFINS
     {
+        public string CST { private get; set; }
         public double Valor { private get; set; }
 
-        public override object Processar(ProdutoOuServico prod)
+        public object Processar(ProdutoOuServico prod)
         {
             var qBCProd = prod.QuantidadeComercializada;
             var vAliqProd = Valor;

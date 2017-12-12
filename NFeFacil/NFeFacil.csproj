@@ -208,7 +208,7 @@
       <DependentUpon>DefinirTotalImpostos.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS\DadosAliq.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS\DadosCOFINS.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS\IDadosCOFINS.cs" />
     <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS\DadosDuplos.cs" />
     <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS\DadosNT.cs" />
     <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS\DadosOutr.cs" />

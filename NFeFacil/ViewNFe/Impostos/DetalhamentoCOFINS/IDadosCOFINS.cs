@@ -4,9 +4,9 @@
 
 namespace NFeFacil.ViewNFe.Impostos.DetalhamentoCOFINS
 {
-    abstract class DadosCOFINS
+    interface IDadosCOFINS
     {
-        public string CST { protected get; set; }
-        public abstract object Processar(ProdutoOuServico prod);
+        string CST { set; }
+        object Processar(ProdutoOuServico prod);
     }
 }

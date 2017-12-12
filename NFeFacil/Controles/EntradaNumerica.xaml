@@ -12,5 +12,6 @@
              TextChanged="TextBox_TextChanged"
              GotFocus="TextBox_GotFocus"
              LostFocus="TextBox_LostFocus"
-             Paste="TextBox_Paste" />
+             Paste="TextBox_Paste"
+             VerticalAlignment="Top" />
 </UserControl>

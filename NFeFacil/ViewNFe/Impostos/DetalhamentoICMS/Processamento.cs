@@ -370,7 +370,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS
                 if (!normal)
                 {
                     var csosn = int.Parse(detalhamento.TipoICMSSN);
-                    return Tela.GetType() == AssociacoesSimples.ICMSSN[csosn];
+                    return Tela?.GetType() == AssociacoesSimples.ICMSSN[csosn];
                 }
                 else
                 {

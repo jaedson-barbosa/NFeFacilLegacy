@@ -25,13 +25,13 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
                 foreach (var item in xml.Elements())
                 {
                     var elementosFilho = item.Elements(nomeElemento);
-                    if (elementos.Count() > 0)
+                    if (elementosFilho.Count() > 0)
                     {
-                        var valor = double.Parse(elementos.First().Value);
+                        var valor = double.Parse(elementosFilho.First().Value);
                         return valorAlterado + valor;
                     }
                 }
-                return 0;
+                return valorAlterado;
             }
         }
     }

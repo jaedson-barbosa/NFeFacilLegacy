@@ -31,33 +31,53 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTotal
                         if (imposto is ICMS)
                         {
                             var alterar = new ConsultarImpostos(xmlImposto);
-                            vBC = alterar.AgregarValor(nameof(VBC), vBC);
-                            vICMS = alterar.AgregarValor(nameof(VICMS), vICMS);
-                            vICMSDeson = alterar.AgregarValor(nameof(VICMSDeson), vICMSDeson);
-                            vFCPUFDest = alterar.AgregarValor(nameof(VFCPUFDest), vFCPUFDest);
-                            vICMSUFDest = alterar.AgregarValor(nameof(VICMSUFDest), vICMSUFDest);
-                            vICMSUFRemet = alterar.AgregarValor(nameof(VICMSUFRemet), vICMSUFRemet);
-                            vBCST = alterar.AgregarValor(nameof(VBCST), vBCST);
+                            vBC = alterar.AgregarValor(nameof(vBC), vBC);
+                            vICMS = alterar.AgregarValor(nameof(vICMS), vICMS);
+                            vICMSDeson = alterar.AgregarValor(nameof(vICMSDeson), vICMSDeson);
+                            vFCPUFDest = alterar.AgregarValor(nameof(vFCPUFDest), vFCPUFDest);
+                            vICMSUFDest = alterar.AgregarValor(nameof(vICMSUFDest), vICMSUFDest);
+                            vICMSUFRemet = alterar.AgregarValor(nameof(vICMSUFRemet), vICMSUFRemet);
+                            vBCST = alterar.AgregarValor(nameof(vBCST), vBCST);
                             vST = alterar.AgregarValor("vICMSST", vST);
                         }
                         else if (imposto is II)
                         {
                             vII += Parse((imposto as II).vII);
                         }
-                        else if (imposto is IPI && (imposto as IPI).Corpo is IPITrib)
+                        else if (imposto is IPI ipi && ipi.Corpo is IPITrib trib)
                         {
-                            var temp = ((imposto as IPI).Corpo as IPITrib).vIPI;
+                            var temp = trib.vIPI;
                             vIPI += string.IsNullOrEmpty(temp) ? 0 : Parse(temp);
                         }
-                        else if (imposto is PIS)
+                        else if (imposto is PIS pis)
                         {
-                            var alterar = new ConsultarImpostos(xmlImposto);
-                            vPIS = alterar.AgregarValor(nameof(VPIS), vPIS);
+                            if (pis.Corpo is PISAliq aliq)
+                            {
+                                vPIS += Parse(aliq.vPIS);
+                            }
+                            else if (pis.Corpo is PISQtde qtde)
+                            {
+                                vPIS += Parse(qtde.vPIS);
+                            }
+                            else if (pis.Corpo is PISOutr outr)
+                            {
+                                vPIS += Parse(outr.vPIS);
+                            }
                         }
-                        else if (imposto is COFINS)
+                        else if (imposto is COFINS cofins)
                         {
-                            var alterar = new ConsultarImpostos(xmlImposto);
-                            vCOFINS = alterar.AgregarValor(nameof(VCOFINS), vCOFINS);
+                            if (cofins.Corpo is COFINSAliq aliq)
+                            {
+                                vCOFINS += Parse(aliq.vCOFINS);
+                            }
+                            else if (cofins.Corpo is COFINSQtde qtde)
+                            {
+                                vCOFINS += Parse(qtde.vCOFINS);
+                            }
+                            else if (cofins.Corpo is COFINSOutr outr)
+                            {
+                                vCOFINS += Parse(outr.vCOFINS);
+                            }
                         }
                     }
                 }

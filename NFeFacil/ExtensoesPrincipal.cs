@@ -13,10 +13,7 @@ using System.Xml.Serialization;
 using Windows.Storage.Pickers;
 using Windows.Storage.Streams;
 using Windows.UI.Popups;
-using Windows.UI.Text;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 
@@ -111,48 +108,6 @@ namespace NFeFacil
             return new GridLength(CentimeterToPixel(Centimeter), GridUnitType.Pixel);
         }
 
-        public static void AddBloco(this RichTextBlock visualizacao, string titulo, params (string, string)[] filhos)
-        {
-            const string EntreLabelTexto = ": ";
-            var paragrafo = new Paragraph();
-            AddInline(titulo, Estilo.TituloBloco);
-            for (int i = 0; i < filhos.Length; i++)
-            {
-                var atual = filhos[i];
-                if (!string.IsNullOrEmpty(atual.Item2))
-                {
-                    AddInline(atual.Item1 + EntreLabelTexto, Estilo.Label);
-                    AddInline(atual.Item2, Estilo.Texto);
-                }
-            }
-            visualizacao.Blocks.Add(paragrafo);
-
-            void AddInline(string texto, Estilo estilo)
-            {
-                var run = new Run() { Text = texto };
-                switch (estilo)
-                {
-                    case Estilo.TituloBloco:
-                        run.FontSize = 16;
-                        run.FontWeight = FontWeights.ExtraBlack;
-                        break;
-                    case Estilo.Label:
-                        run.FontWeight = FontWeights.Bold;
-                        break;
-                }
-                paragrafo.Inlines.Add(run);
-                if (estilo != Estilo.Label)
-                {
-                    CriarQuebraDeLinha();
-                }
-            }
-
-            void CriarQuebraDeLinha()
-            {
-                paragrafo.Inlines.Add(new LineBreak());
-            }
-        }
-
         public static async Task<ImageSource> GetSourceAsync(this Imagem imagem)
         {
             var retorno = new BitmapImage();
@@ -221,12 +176,5 @@ namespace NFeFacil
                 }
             }
         }
-    }
-
-    enum Estilo
-    {
-        TituloBloco,
-        Label,
-        Texto
     }
 }

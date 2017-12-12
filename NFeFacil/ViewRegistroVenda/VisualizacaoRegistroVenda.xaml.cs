@@ -2,8 +2,10 @@
 using NFeFacil.ItensBD;
 using System;
 using System.Linq;
+using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Navigation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
@@ -32,7 +34,7 @@ namespace NFeFacil.ViewRegistroVenda
                 var motorista = ItemBanco.Motorista != Guid.Empty ? db.Motoristas.Find(ItemBanco.Motorista) : null;
                 var vendedor = ItemBanco.Vendedor != Guid.Empty ? db.Vendedores.Find(ItemBanco.Vendedor) : null;
 
-                visualizacao.AddBloco("Emitente", ("Nome", emitente.Nome),
+                AddBloco("Emitente", ("Nome", emitente.Nome),
                     ("Nome fantasia", emitente.NomeFantasia),
                     ("Bairro", emitente.Bairro),
                     ("CEP", emitente.CEP),
@@ -45,7 +47,7 @@ namespace NFeFacil.ViewRegistroVenda
                     ("UF", emitente.SiglaUF),
                     ("Telefone", emitente.Telefone));
 
-                visualizacao.AddBloco("Cliente", ("Nome", cliente.Nome),
+                AddBloco("Cliente", ("Nome", cliente.Nome),
                     ("Bairro", cliente.Bairro),
                     ("CEP", cliente.CEP),
                     ("CNPJ", cliente.CNPJ),
@@ -60,7 +62,7 @@ namespace NFeFacil.ViewRegistroVenda
 
                 if (motorista != null)
                 {
-                    visualizacao.AddBloco("Motorista", ("Nome", motorista.Nome),
+                    AddBloco("Motorista", ("Nome", motorista.Nome),
                         ("CNPJ", motorista.CNPJ),
                         ("CPF", motorista.CPF),
                         ("Inscrição Estadual", motorista.InscricaoEstadual),
@@ -70,17 +72,17 @@ namespace NFeFacil.ViewRegistroVenda
 
                 if (vendedor != null)
                 {
-                    visualizacao.AddBloco("Vendedor", ("Nome", vendedor.Nome),
+                    AddBloco("Vendedor", ("Nome", vendedor.Nome),
                         ("CPF", ExtensoesPrincipal.AplicarMáscaraDocumento(vendedor.CPFStr)),
                         ("Endereço", vendedor.Endereço));
                 }
 
-                visualizacao.AddBloco("Outras informações", ("Observações", ItemBanco.Observações),
+                AddBloco("Outras informações", ("Observações", ItemBanco.Observações),
                     ("Data", ItemBanco.DataHoraVenda.ToString("dd-MM-yyyy")),
                     ("ID", ItemBanco.Id.ToString().ToUpper()),
                     ("NFe relacionada", ItemBanco.NotaFiscalRelacionada));
 
-                visualizacao.AddBloco("Produtos", ItemBanco.Produtos.Select(x =>
+                AddBloco("Produtos", ItemBanco.Produtos.Select(x =>
                 {
                     var label = db.Produtos.Find(x.IdBase).Descricao;
                     var texto = $"Quantidade - {x.Quantidade}, Total - {x.TotalLíquido}";
@@ -93,6 +95,55 @@ namespace NFeFacil.ViewRegistroVenda
             btnCriarDarv.IsEnabled = btnCriarNFe.IsEnabled =
                 btnCancelar.IsEnabled = btnCalcularTroco.IsEnabled = !ItemBanco.Cancelado;
             btnVisualizarCancelamento.IsEnabled = ItemBanco.Cancelado;
+        }
+
+        public void AddBloco(string titulo, params (string, string)[] filhos)
+        {
+            const string EntreLabelTexto = ": ";
+            var paragrafo = new Paragraph();
+            AddInline(titulo, Estilo.TituloBloco);
+            for (int i = 0; i < filhos.Length; i++)
+            {
+                var atual = filhos[i];
+                if (!string.IsNullOrEmpty(atual.Item2))
+                {
+                    AddInline(atual.Item1 + EntreLabelTexto, Estilo.Label);
+                    AddInline(atual.Item2, Estilo.Texto);
+                }
+            }
+            visualizacao.Blocks.Add(paragrafo);
+
+            void AddInline(string texto, Estilo estilo)
+            {
+                var run = new Run() { Text = texto };
+                switch (estilo)
+                {
+                    case Estilo.TituloBloco:
+                        run.FontSize = 16;
+                        run.FontWeight = FontWeights.ExtraBlack;
+                        break;
+                    case Estilo.Label:
+                        run.FontWeight = FontWeights.Bold;
+                        break;
+                }
+                paragrafo.Inlines.Add(run);
+                if (estilo != Estilo.Label)
+                {
+                    CriarQuebraDeLinha();
+                }
+            }
+
+            void CriarQuebraDeLinha()
+            {
+                paragrafo.Inlines.Add(new LineBreak());
+            }
+        }
+
+        enum Estilo
+        {
+            TituloBloco,
+            Label,
+            Texto
         }
 
         private async void CriarNFe(object sender, RoutedEventArgs e)

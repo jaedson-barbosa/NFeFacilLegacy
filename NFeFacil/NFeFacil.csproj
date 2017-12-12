@@ -232,6 +232,22 @@
     </Compile>
     <Compile Include="ViewNFe\Impostos\DetalhamentoICMSUFDest\IDadosICMSUFDest.cs" />
     <Compile Include="ViewNFe\Impostos\DetalhamentoICMSUFDest\Processamento.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\DadosRN\Tipo0.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\DadosRN\Tipo10.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\DadosRN\Tipo20.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\DadosRN\Tipo30.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\DadosRN\Tipo40_41_50.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\DadosRN\Tipo51.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\DadosRN\Tipo60.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\DadosRN\Tipo70.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\DadosRN\Tipo90.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\DadosRN\TipoICMSST.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\DadosRN\TipoPart.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\DadosSN\Tipo101.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\DadosSN\Tipo201.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\DadosSN\Tipo202.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\DadosSN\Tipo500.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\DadosSN\Tipo900.cs" />
     <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\Processamento.cs" />
     <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\TelasRN\Tipo0.xaml.cs">
       <DependentUpon>Tipo0.xaml</DependentUpon>

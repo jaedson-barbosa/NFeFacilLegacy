@@ -10,7 +10,7 @@ namespace NFeFacil.ViewNFe.Impostos
 
         public DefinirTotalImpostos()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

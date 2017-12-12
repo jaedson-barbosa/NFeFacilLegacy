@@ -239,6 +239,39 @@
       <DependentUpon>DetalharSN.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\Processamento.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\RegimeNormal\Tipo0.xaml.cs">
+      <DependentUpon>Tipo0.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\RegimeNormal\Tipo10.xaml.cs">
+      <DependentUpon>Tipo10.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\RegimeNormal\Tipo20.xaml.cs">
+      <DependentUpon>Tipo20.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\RegimeNormal\Tipo30.xaml.cs">
+      <DependentUpon>Tipo30.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\RegimeNormal\Tipo51.xaml.cs">
+      <DependentUpon>Tipo51.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\RegimeNormal\Tipo60.xaml.cs">
+      <DependentUpon>Tipo60.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\RegimeNormal\Tipo70.xaml.cs">
+      <DependentUpon>Tipo70.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\RegimeNormal\Tipo90.xaml.cs">
+      <DependentUpon>Tipo90.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\RegimeNormal\TipoICMSST.xaml.cs">
+      <DependentUpon>TipoICMSST.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\RegimeNormal\TipoPart.xaml.cs">
+      <DependentUpon>TipoPart.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\RegimeNormal\Tipo40_41_50.xaml.cs">
+      <DependentUpon>Tipo40_41_50.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\SimplesNacional\Tipo101.xaml.cs">
       <DependentUpon>Tipo101.xaml</DependentUpon>
     </Compile>
@@ -830,6 +863,50 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\RegimeNormal\Tipo0.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\RegimeNormal\Tipo10.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\RegimeNormal\Tipo20.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\RegimeNormal\Tipo30.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\RegimeNormal\Tipo51.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\RegimeNormal\Tipo60.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\RegimeNormal\Tipo70.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\RegimeNormal\Tipo90.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\RegimeNormal\TipoICMSST.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\RegimeNormal\TipoPart.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\RegimeNormal\Tipo40_41_50.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ViewNFe\Impostos\DetalhamentoICMS\SimplesNacional\Tipo101.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1341,9 +1418,7 @@
       <Name>Windows Mobile Extensions for the UWP</Name>
     </SDKReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewNFe\Impostos\DetalhamentoICMS\RegimeNormal\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

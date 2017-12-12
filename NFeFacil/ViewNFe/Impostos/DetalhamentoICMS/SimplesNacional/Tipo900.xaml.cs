@@ -25,7 +25,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS.SimplesNacional
 
         public Tipo900()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

@@ -12,7 +12,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS.SimplesNacional
 
         public Tipo101()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

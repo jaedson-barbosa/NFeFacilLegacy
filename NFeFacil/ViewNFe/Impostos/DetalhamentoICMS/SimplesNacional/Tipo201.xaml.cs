@@ -21,7 +21,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS.SimplesNacional
 
         public Tipo201()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

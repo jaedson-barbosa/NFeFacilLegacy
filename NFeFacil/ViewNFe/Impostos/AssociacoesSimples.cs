@@ -46,7 +46,37 @@ namespace NFeFacil.ViewNFe.Impostos
             { false, typeof(DetalhamentoISSQN.DetalharNacional) }
         };
 
-        public static readonly int[] ICMSSimples = { 102, 103, 300, 400, 500 };
+        public static readonly Dictionary<int, Type> ICMSSN = new Dictionary<int, Type>
+        {
+            { 101, typeof(DetalhamentoICMS.SimplesNacional.Tipo101) },
+            { 102, null },
+            { 103, null },
+            { 201, typeof(DetalhamentoICMS.SimplesNacional.Tipo201) },
+            { 202, typeof(DetalhamentoICMS.SimplesNacional.Tipo202) },
+            { 203, typeof(DetalhamentoICMS.SimplesNacional.Tipo202) },
+            { 300, null },
+            { 400, null },
+            { 500, typeof(DetalhamentoICMS.SimplesNacional.Tipo500) },
+            { 900, typeof(DetalhamentoICMS.SimplesNacional.Tipo900) }
+        };
+
+        public static readonly Dictionary<int, Type> ICMSRN = new Dictionary<int, Type>
+        {
+            { 0, typeof(DetalhamentoICMS.RegimeNormal.Tipo0) },
+            { 10, typeof(DetalhamentoICMS.RegimeNormal.Tipo10) },
+            { 1010, typeof(DetalhamentoICMS.RegimeNormal.TipoPart) },
+            { 20, typeof(DetalhamentoICMS.RegimeNormal.Tipo20) },
+            { 30, typeof(DetalhamentoICMS.RegimeNormal.Tipo30) },
+            { 40, typeof(DetalhamentoICMS.RegimeNormal.Tipo40_41_50) },
+            { 41, typeof(DetalhamentoICMS.RegimeNormal.Tipo40_41_50) },
+            { 4141, typeof(DetalhamentoICMS.RegimeNormal.TipoICMSST) },
+            { 50, typeof(DetalhamentoICMS.RegimeNormal.Tipo40_41_50) },
+            { 51, typeof(DetalhamentoICMS.RegimeNormal.Tipo51) },
+            { 60, typeof(DetalhamentoICMS.RegimeNormal.Tipo60) },
+            { 70, typeof(DetalhamentoICMS.RegimeNormal.Tipo70) },
+            { 90, typeof(DetalhamentoICMS.RegimeNormal.Tipo90) },
+            { 9090, typeof(DetalhamentoICMS.RegimeNormal.TipoPart) },
+        };
 
         public static readonly Type COFINSPadrao = typeof(DetalhamentoCOFINS.DetalharAmbos);
         public static readonly Type PISPadrao = typeof(DetalhamentoPIS.DetalharAmbos);

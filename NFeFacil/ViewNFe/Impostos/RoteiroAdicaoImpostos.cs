@@ -92,18 +92,13 @@ namespace NFeFacil.ViewNFe.Impostos
                     var normal = Propriedades.EmitenteAtivo.RegimeTributario == 3;
                     if (!normal)
                     {
-                        if (AssociacoesSimples.ICMSSimples.Contains(int.Parse(icms.TipoICMSSN)))
-                        {
-                            Telas[i] = null;
-                        }
-                        else
-                        {
-                            Telas[i] = typeof(DetalhamentoICMS.DetalharSN);
-                        }
+                        var csosn = int.Parse(icms.TipoICMSSN);
+                        Telas[i] = AssociacoesSimples.ICMSSN[csosn];
                     }
                     else
                     {
-                        Telas[i] = typeof(DetalhamentoICMS.DetalharRN);
+                        var cst = int.Parse(icms.TipoICMSRN);
+                        Telas[i] = AssociacoesSimples.ICMSRN[cst];
                     }
                     Processamentos[i] = new DetalhamentoICMS.Processamento()
                     {

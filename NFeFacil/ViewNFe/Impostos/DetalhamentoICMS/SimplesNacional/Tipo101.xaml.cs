@@ -2,9 +2,7 @@
 
 namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS.SimplesNacional
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [DetalhePagina("ICMS")]
     public sealed partial class Tipo101 : Page
     {
         public string pCredSN { get; private set; }

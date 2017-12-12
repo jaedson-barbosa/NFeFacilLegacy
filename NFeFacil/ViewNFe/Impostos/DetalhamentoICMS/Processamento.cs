@@ -18,330 +18,340 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS
             if (!normal)
             {
                 var tipoICMSSN = int.Parse(detalhamento.TipoICMSSN);
-                var simp = AssociacoesSimples.ICMSSimples;
                 var csosn = detalhamento.TipoICMSSN;
-                if (simp.Contains(tipoICMSSN))
+                switch (tipoICMSSN)
                 {
-                    switch (tipoICMSSN)
-                    {
-                        case 102:
-                            returno = new ICMSSN102()
-                            {
-                                CSOSN = csosn,
-                                Orig = origem
-                            };
-                            break;
-                        case 103:
-                            returno = new ICMSSN102()
-                            {
-                                CSOSN = csosn,
-                                Orig = origem
-                            };
-                            break;
-                        case 300:
-                            returno = new ICMSSN102()
-                            {
-                                CSOSN = csosn,
-                                Orig = origem
-                            };
-                            break;
-                        case 400:
-                            returno = new ICMSSN102()
-                            {
-                                CSOSN = csosn,
-                                Orig = origem
-                            };
-                            break;
-                        case 500:
-                            returno = new ICMSSN500()
-                            {
-                                CSOSN = csosn,
-                                Orig = origem
-                            };
-                            break;
-                    }
-                }
-                else
-                {
-                    var caixa2 = (DetalharSN)Tela;
-                    switch (tipoICMSSN)
-                    {
-                        case 101:
-                            returno = new ICMSSN101()
-                            {
-                                CSOSN = csosn,
-                                Orig = origem,
-                                pCredSN = caixa2.pCredSN,
-                                vCredICMSSN = caixa2.vCredICMSSN
-                            };
-                            break;
-                        case 201:
-                            returno = new ICMSSN201()
-                            {
-                                CSOSN = csosn,
-                                modBCST = caixa2.modBCST.ToString(),
-                                Orig = origem,
-                                pCredSN = caixa2.pCredSN,
-                                pICMSST = caixa2.pICMSST,
-                                pMVAST = caixa2.pMVAST,
-                                pRedBCST = caixa2.pRedBCST,
-                                vBCST = caixa2.vBCST,
-                                vCredICMSSN = caixa2.vCredICMSSN,
-                                vICMSST = caixa2.vICMSST
-                            };
-                            break;
-                        case 202:
-                            returno = new ICMSSN202()
-                            {
-                                CSOSN = csosn,
-                                modBCST = caixa2.modBCST.ToString(),
-                                Orig = origem,
-                                pICMSST = caixa2.pICMSST,
-                                pMVAST = caixa2.pMVAST,
-                                pRedBCST = caixa2.pRedBCST,
-                                vBCST = caixa2.vBCST,
-                                vICMSST = caixa2.vICMSST
-                            };
-                            break;
-                        case 203:
-                            returno = new ICMSSN202()
-                            {
-                                CSOSN = csosn,
-                                modBCST = caixa2.modBCST.ToString(),
-                                Orig = origem,
-                                pICMSST = caixa2.pICMSST,
-                                pMVAST = caixa2.pMVAST,
-                                pRedBCST = caixa2.pRedBCST,
-                                vBCST = caixa2.vBCST,
-                                vICMSST = caixa2.vICMSST
-                            };
-                            break;
-                        case 900:
-                            returno = new ICMSSN900()
-                            {
-                                CSOSN = csosn,
-                                modBC = caixa2.modBC.ToString(),
-                                modBCST = caixa2.modBCST.ToString(),
-                                Orig = origem,
-                                pCredSN = caixa2.pCredSN,
-                                pICMS = caixa2.pICMS,
-                                pICMSST = caixa2.pICMSST,
-                                pMVAST = caixa2.pMVAST,
-                                pRedBC = caixa2.pRedBC,
-                                pRedBCST = caixa2.pRedBCST,
-                                vBC = caixa2.vBC,
-                                vBCST = caixa2.vBCST,
-                                vCredICMSSN = caixa2.vCredICMSSN,
-                                vICMS = caixa2.vICMS,
-                                vICMSST = caixa2.vICMSST
-                            };
-                            break;
-                    }
+                    case 102:
+                        returno = new ICMSSN102()
+                        {
+                            CSOSN = csosn,
+                            Orig = origem
+                        };
+                        break;
+                    case 103:
+                        returno = new ICMSSN102()
+                        {
+                            CSOSN = csosn,
+                            Orig = origem
+                        };
+                        break;
+                    case 300:
+                        returno = new ICMSSN102()
+                        {
+                            CSOSN = csosn,
+                            Orig = origem
+                        };
+                        break;
+                    case 400:
+                        returno = new ICMSSN102()
+                        {
+                            CSOSN = csosn,
+                            Orig = origem
+                        };
+                        break;
+                    case 101:
+                        var tipo101 = (SimplesNacional.Tipo101)Tela;
+                        returno = new ICMSSN101()
+                        {
+                            CSOSN = csosn,
+                            Orig = origem,
+                            pCredSN = tipo101.pCredSN,
+                            vCredICMSSN = tipo101.vCredICMSSN
+                        };
+                        break;
+                    case 201:
+                        var tipo201 = (SimplesNacional.Tipo201)Tela;
+                        returno = new ICMSSN201()
+                        {
+                            CSOSN = csosn,
+                            modBCST = tipo201.modBCST.ToString(),
+                            Orig = origem,
+                            pCredSN = tipo201.pCredSN,
+                            pICMSST = tipo201.pICMSST,
+                            pMVAST = tipo201.pMVAST,
+                            pRedBCST = tipo201.pRedBCST,
+                            vBCST = tipo201.vBCST,
+                            vCredICMSSN = tipo201.vCredICMSSN,
+                            vICMSST = tipo201.vICMSST
+                        };
+                        break;
+                    case 202:
+                        var tipo202 = (SimplesNacional.Tipo202)Tela;
+                        returno = new ICMSSN202()
+                        {
+                            CSOSN = csosn,
+                            modBCST = tipo202.modBCST.ToString(),
+                            Orig = origem,
+                            pICMSST = tipo202.pICMSST,
+                            pMVAST = tipo202.pMVAST,
+                            pRedBCST = tipo202.pRedBCST,
+                            vBCST = tipo202.vBCST,
+                            vICMSST = tipo202.vICMSST
+                        };
+                        break;
+                    case 203:
+                        tipo202 = (SimplesNacional.Tipo202)Tela;
+                        returno = new ICMSSN202()
+                        {
+                            CSOSN = csosn,
+                            modBCST = tipo202.modBCST.ToString(),
+                            Orig = origem,
+                            pICMSST = tipo202.pICMSST,
+                            pMVAST = tipo202.pMVAST,
+                            pRedBCST = tipo202.pRedBCST,
+                            vBCST = tipo202.vBCST,
+                            vICMSST = tipo202.vICMSST
+                        };
+                        break;
+                    case 500:
+                        var tipo500 = (SimplesNacional.Tipo500)Tela;
+                        returno = new ICMSSN500()
+                        {
+                            CSOSN = csosn,
+                            Orig = origem,
+                            vBCSTRet = tipo500.vBCSTRet,
+                            vICMSSTRet = tipo500.vICMSSTRet
+                        };
+                        break;
+                    case 900:
+                        var tipo900 = (SimplesNacional.Tipo900)Tela;
+                        returno = new ICMSSN900()
+                        {
+                            CSOSN = csosn,
+                            modBC = tipo900.modBC.ToString(),
+                            modBCST = tipo900.modBCST.ToString(),
+                            Orig = origem,
+                            pCredSN = tipo900.pCredSN,
+                            pICMS = tipo900.pICMS,
+                            pICMSST = tipo900.pICMSST,
+                            pMVAST = tipo900.pMVAST,
+                            pRedBC = tipo900.pRedBC,
+                            pRedBCST = tipo900.pRedBCST,
+                            vBC = tipo900.vBC,
+                            vBCST = tipo900.vBCST,
+                            vCredICMSSN = tipo900.vCredICMSSN,
+                            vICMS = tipo900.vICMS,
+                            vICMSST = tipo900.vICMSST
+                        };
+                        break;
                 }
             }
             else
             {
                 var cst = detalhamento.TipoICMSRN;
-                var caixa2 = (DetalharRN)Tela;
                 switch (int.Parse(detalhamento.TipoICMSRN))
                 {
                     case 0:
+                        var tipo00 = (RegimeNormal.Tipo0)Tela;
                         returno = new ICMS00()
                         {
                             CST = cst,
-                            modBC = caixa2.modBC.ToString(),
+                            modBC = tipo00.modBC.ToString(),
                             Orig = origem,
-                            pICMS = caixa2.pICMS,
-                            vBC = caixa2.vBC,
-                            vICMS = caixa2.vICMS
+                            pICMS = tipo00.pICMS,
+                            vBC = tipo00.vBC,
+                            vICMS = tipo00.vICMS
                         };
                         break;
                     case 10:
+                        var tipo10 = (RegimeNormal.Tipo10)Tela;
                         returno = new ICMS10()
                         {
                             CST = cst,
-                            modBC = caixa2.modBC.ToString(),
-                            modBCST = caixa2.modBCST.ToString(),
+                            modBC = tipo10.modBC.ToString(),
+                            modBCST = tipo10.modBCST.ToString(),
                             Orig = origem,
-                            pICMS = caixa2.pICMS,
-                            pICMSST = caixa2.pICMSST,
-                            pMVAST = caixa2.pMVAST,
-                            pRedBCST = caixa2.pRedBCST,
-                            vBC = caixa2.vBC,
-                            vBCST = caixa2.vBCST,
-                            vICMS = caixa2.vICMS,
-                            vICMSST = caixa2.vICMSST
+                            pICMS = tipo10.pICMS,
+                            pICMSST = tipo10.pICMSST,
+                            pMVAST = tipo10.pMVAST,
+                            pRedBCST = tipo10.pRedBCST,
+                            vBC = tipo10.vBC,
+                            vBCST = tipo10.vBCST,
+                            vICMS = tipo10.vICMS,
+                            vICMSST = tipo10.vICMSST
                         };
                         break;
                     case 1010:
+                        var tipoPart = (RegimeNormal.TipoPart)Tela;
                         returno = new ICMSPart()
                         {
                             CST = "10",
-                            modBC = caixa2.modBC.ToString(),
-                            modBCST = caixa2.modBCST.ToString(),
+                            modBC = tipoPart.modBC.ToString(),
+                            modBCST = tipoPart.modBCST.ToString(),
                             Orig = origem,
-                            pICMS = caixa2.pICMS,
-                            pICMSST = caixa2.pICMSST,
-                            pMVAST = caixa2.pMVAST,
-                            pRedBC = caixa2.pRedBC,
-                            pRedBCST = caixa2.pRedBCST,
-                            vBC = caixa2.vBC,
-                            vBCST = caixa2.vBCST,
-                            vICMS = caixa2.vICMS,
-                            vICMSST = caixa2.vICMSST,
-                            pBCOp = caixa2.pBCOp,
-                            UFST = caixa2.UFST
+                            pICMS = tipoPart.pICMS,
+                            pICMSST = tipoPart.pICMSST,
+                            pMVAST = tipoPart.pMVAST,
+                            pRedBC = tipoPart.pRedBC,
+                            pRedBCST = tipoPart.pRedBCST,
+                            vBC = tipoPart.vBC,
+                            vBCST = tipoPart.vBCST,
+                            vICMS = tipoPart.vICMS,
+                            vICMSST = tipoPart.vICMSST,
+                            pBCOp = tipoPart.pBCOp,
+                            UFST = tipoPart.UFST
                         };
                         break;
                     case 20:
+                        var tipo20 = (RegimeNormal.Tipo20)Tela;
                         returno = new ICMS20()
                         {
                             CST = cst,
-                            modBC = caixa2.modBC.ToString(),
-                            motDesICMS = caixa2.motDesICMS,
+                            modBC = tipo20.modBC.ToString(),
+                            motDesICMS = tipo20.motDesICMS,
                             Orig = origem,
-                            pICMS = caixa2.pICMS,
-                            vBC = caixa2.vBC,
-                            vICMS = caixa2.vICMS,
-                            vICMSDeson = caixa2.vICMSDeson,
-                            pRedBC = caixa2.pRedBC
+                            pICMS = tipo20.pICMS,
+                            vBC = tipo20.vBC,
+                            vICMS = tipo20.vICMS,
+                            vICMSDeson = tipo20.vICMSDeson,
+                            pRedBC = tipo20.pRedBC
                         };
                         break;
                     case 30:
+                        var tipo30 = (RegimeNormal.Tipo30)Tela;
                         returno = new ICMS30()
                         {
                             CST = cst,
-                            modBCST = caixa2.modBCST.ToString(),
-                            motDesICMS = caixa2.motDesICMS,
+                            modBCST = tipo30.modBCST.ToString(),
+                            motDesICMS = tipo30.motDesICMS,
                             Orig = origem,
-                            pICMSST = caixa2.pICMSST,
-                            pMVAST = caixa2.pMVAST,
-                            pRedBCST = caixa2.pRedBCST,
-                            vBCST = caixa2.vBCST,
-                            vICMSDeson = caixa2.vICMSDeson,
-                            vICMSST = caixa2.vICMSST
+                            pICMSST = tipo30.pICMSST,
+                            pMVAST = tipo30.pMVAST,
+                            pRedBCST = tipo30.pRedBCST,
+                            vBCST = tipo30.vBCST,
+                            vICMSDeson = tipo30.vICMSDeson,
+                            vICMSST = tipo30.vICMSST
                         };
                         break;
                     case 40:
+                        var tipo40 = (RegimeNormal.Tipo40_41_50)Tela;
                         returno = new ICMS40()
                         {
                             CST = cst,
-                            motDesICMS = caixa2.motDesICMS,
+                            motDesICMS = tipo40.motDesICMS,
                             Orig = origem,
-                            vICMSDeson = caixa2.vICMSDeson
+                            vICMSDeson = tipo40.vICMSDeson
                         };
                         break;
                     case 41:
+                        tipo40 = (RegimeNormal.Tipo40_41_50)Tela;
                         returno = new ICMS41()
                         {
                             CST = cst,
-                            motDesICMS = caixa2.motDesICMS,
+                            motDesICMS = tipo40.motDesICMS,
                             Orig = origem,
-                            vICMSDeson = caixa2.vICMSDeson
+                            vICMSDeson = tipo40.vICMSDeson
                         };
                         break;
                     case 4141:
+                        var tipoST = (RegimeNormal.TipoICMSST)Tela;
                         returno = new ICMSST()
                         {
                             CST = "41",
                             Orig = origem,
-                            vBCSTDest = caixa2.vBCSTDest,
-                            vBCSTRet = caixa2.vBCSTRet,
-                            vICMSSTDest = caixa2.vICMSSTDest,
-                            vICMSSTRet = caixa2.vICMSSTRet
+                            vBCSTDest = tipoST.vBCSTDest,
+                            vBCSTRet = tipoST.vBCSTRet,
+                            vICMSSTDest = tipoST.vICMSSTDest,
+                            vICMSSTRet = tipoST.vICMSSTRet
                         };
                         break;
                     case 50:
+                        tipo40 = (RegimeNormal.Tipo40_41_50)Tela;
                         returno = new ICMS50()
                         {
                             CST = cst,
-                            motDesICMS = caixa2.motDesICMS,
+                            motDesICMS = tipo40.motDesICMS,
                             Orig = origem,
-                            vICMSDeson = caixa2.vICMSDeson
+                            vICMSDeson = tipo40.vICMSDeson
                         };
                         break;
                     case 51:
+                        var tipo51 = (RegimeNormal.Tipo51)Tela;
                         returno = new ICMS51()
                         {
                             CST = cst,
-                            modBC = caixa2.modBC.ToString(),
+                            modBC = tipo51.modBC.ToString(),
                             Orig = origem,
-                            pICMS = caixa2.pICMS,
-                            pRedBC = caixa2.pRedBC,
-                            vBC = caixa2.vBC,
-                            vICMS = caixa2.vICMS,
-                            pDif = caixa2.pDif,
-                            vICMSDif = caixa2.vICMSDif,
-                            vICMSOp = caixa2.vICMSOp
+                            pICMS = tipo51.pICMS,
+                            pRedBC = tipo51.pRedBC,
+                            vBC = tipo51.vBC,
+                            vICMS = tipo51.vICMS,
+                            pDif = tipo51.pDif,
+                            vICMSDif = tipo51.vICMSDif,
+                            vICMSOp = tipo51.vICMSOp
                         };
                         break;
                     case 60:
+                        var tipo60 = (RegimeNormal.Tipo60)Tela;
                         returno = new ICMS60()
                         {
                             CST = cst,
                             Orig = origem,
-                            vBCSTRet = caixa2.vBCSTRet,
-                            vICMSSTRet = caixa2.vICMSSTRet
+                            vBCSTRet = tipo60.vBCSTRet,
+                            vICMSSTRet = tipo60.vICMSSTRet
                         };
                         break;
                     case 70:
+                        var tipo70 = (RegimeNormal.Tipo70)Tela;
                         returno = new ICMS70()
                         {
                             CST = cst,
-                            modBC = caixa2.modBC.ToString(),
-                            modBCST = caixa2.modBCST.ToString(),
-                            motDesICMS = caixa2.motDesICMS,
+                            modBC = tipo70.modBC.ToString(),
+                            modBCST = tipo70.modBCST.ToString(),
+                            motDesICMS = tipo70.motDesICMS,
                             Orig = origem,
-                            pICMS = caixa2.pICMS,
-                            pICMSST = caixa2.pICMSST,
-                            pMVAST = caixa2.pMVAST,
-                            pRedBC = caixa2.pRedBC,
-                            pRedBCST = caixa2.pRedBCST,
-                            vBC = caixa2.vBC,
-                            vBCST = caixa2.vBCST,
-                            vICMS = caixa2.vICMS,
-                            vICMSDeson = caixa2.vICMSDeson,
-                            vICMSST = caixa2.vICMSST
+                            pICMS = tipo70.pICMS,
+                            pICMSST = tipo70.pICMSST,
+                            pMVAST = tipo70.pMVAST,
+                            pRedBC = tipo70.pRedBC,
+                            pRedBCST = tipo70.pRedBCST,
+                            vBC = tipo70.vBC,
+                            vBCST = tipo70.vBCST,
+                            vICMS = tipo70.vICMS,
+                            vICMSDeson = tipo70.vICMSDeson,
+                            vICMSST = tipo70.vICMSST
                         };
                         break;
                     case 90:
+                        var tipo90 = (RegimeNormal.Tipo90)Tela;
                         returno = new ICMS90()
                         {
                             CST = cst,
-                            modBC = caixa2.modBC.ToString(),
-                            modBCST = caixa2.modBCST.ToString(),
-                            motDesICMS = caixa2.motDesICMS,
+                            modBC = tipo90.modBC.ToString(),
+                            modBCST = tipo90.modBCST.ToString(),
+                            motDesICMS = tipo90.motDesICMS,
                             Orig = origem,
-                            pICMS = caixa2.pICMS,
-                            pICMSST = caixa2.pICMSST,
-                            pMVAST = caixa2.pMVAST,
-                            pRedBC = caixa2.pRedBC,
-                            pRedBCST = caixa2.pRedBCST,
-                            vBC = caixa2.vBC,
-                            vBCST = caixa2.vBCST,
-                            vICMS = caixa2.vICMS,
-                            vICMSDeson = caixa2.vICMSDeson,
-                            vICMSST = caixa2.vICMSST
+                            pICMS = tipo90.pICMS,
+                            pICMSST = tipo90.pICMSST,
+                            pMVAST = tipo90.pMVAST,
+                            pRedBC = tipo90.pRedBC,
+                            pRedBCST = tipo90.pRedBCST,
+                            vBC = tipo90.vBC,
+                            vBCST = tipo90.vBCST,
+                            vICMS = tipo90.vICMS,
+                            vICMSDeson = tipo90.vICMSDeson,
+                            vICMSST = tipo90.vICMSST
                         };
                         break;
                     case 9090:
+                        tipoPart = (RegimeNormal.TipoPart)Tela;
                         returno = new ICMSPart()
                         {
                             CST = "90",
-                            modBC = caixa2.modBC.ToString(),
-                            modBCST = caixa2.modBCST.ToString(),
+                            modBC = tipoPart.modBC.ToString(),
+                            modBCST = tipoPart.modBCST.ToString(),
                             Orig = origem,
-                            pICMS = caixa2.pICMS,
-                            pICMSST = caixa2.pICMSST,
-                            pMVAST = caixa2.pMVAST,
-                            pRedBC = caixa2.pRedBC,
-                            pRedBCST = caixa2.pRedBCST,
-                            vBC = caixa2.vBC,
-                            vBCST = caixa2.vBCST,
-                            vICMS = caixa2.vICMS,
-                            vICMSST = caixa2.vICMSST,
-                            pBCOp = caixa2.pBCOp,
-                            UFST = caixa2.UFST
+                            pICMS = tipoPart.pICMS,
+                            pICMSST = tipoPart.pICMSST,
+                            pMVAST = tipoPart.pMVAST,
+                            pRedBC = tipoPart.pRedBC,
+                            pRedBCST = tipoPart.pRedBCST,
+                            vBC = tipoPart.vBC,
+                            vBCST = tipoPart.vBCST,
+                            vICMS = tipoPart.vICMS,
+                            vICMSST = tipoPart.vICMSST,
+                            pBCOp = tipoPart.pBCOp,
+                            UFST = tipoPart.UFST
                         };
                         break;
                 }
@@ -359,19 +369,13 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS
                 var normal = Propriedades.EmitenteAtivo.RegimeTributario == 3;
                 if (!normal)
                 {
-                    var simp = AssociacoesSimples.ICMSSimples;
-                    if (simp.Contains(int.Parse(detalhamento.TipoICMSSN)))
-                    {
-                        return Tela == null;
-                    }
-                    else
-                    {
-                        return Tela.GetType() == typeof(DetalharSN);
-                    }
+                    var csosn = int.Parse(detalhamento.TipoICMSSN);
+                    return Tela.GetType() == AssociacoesSimples.ICMSSN[csosn];
                 }
                 else
                 {
-                    return Tela.GetType() == typeof(DetalharRN);
+                    var cst = int.Parse(detalhamento.TipoICMSRN);
+                    return Tela.GetType() == AssociacoesSimples.ICMSRN[cst];
                 }
             }
             return false;

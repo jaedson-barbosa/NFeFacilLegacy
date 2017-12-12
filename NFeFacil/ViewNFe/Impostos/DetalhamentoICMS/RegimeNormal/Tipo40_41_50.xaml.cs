@@ -4,9 +4,7 @@
 
 namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS.RegimeNormal
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [DetalhePagina("ICMS")]
     public sealed partial class Tipo40_41_50 : Page
     {
         public string vICMSDeson { get; set; }

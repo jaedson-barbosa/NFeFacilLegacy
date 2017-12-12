@@ -21,7 +21,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoCOFINS
                     CST = CST,
                     vBC = ToStr(vBC),
                     pCOFINS = ToStr(pCOFINS, "F4"),
-                    vCOFINS = ToStr(vBC * pCOFINS / 100);
+                    vCOFINS = ToStr(vBC * pCOFINS / 100)
                 }
             };
         }

@@ -1,5 +1,6 @@
 ﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
+using static NFeFacil.ExtensoesPrincipal;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -18,9 +19,9 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoPIS
                 Corpo = new PISQtde
                 {
                     CST = CST,
-                    qBCProd = qBCProd.ToString("F4", CulturaPadrao),
-                    vAliqProd = vAliqProd.ToString("F4", CulturaPadrao),
-                    vPIS = (qBCProd * vAliqProd).ToString("F2", CulturaPadrao)
+                    qBCProd = ToStr(qBCProd, "F4"),
+                    vAliqProd = ToStr(vAliqProd, "F4"),
+                    vPIS = ToStr(qBCProd * vAliqProd)
                 }
             };
         }

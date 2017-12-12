@@ -1,5 +1,6 @@
 ﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
+using static NFeFacil.ExtensoesPrincipal;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -18,9 +19,9 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoPIS
                 Corpo = new PISAliq
                 {
                     CST = CST,
-                    vBC = vBC.ToString("F2", CulturaPadrao),
-                    pPIS = pPIS.ToString("F4", CulturaPadrao),
-                    vPIS = (vBC * pPIS / 100).ToString("F2", CulturaPadrao)
+                    vBC = ToStr(vBC),
+                    pPIS = ToStr(pPIS, "F4"),
+                    vPIS = ToStr(vBC * pPIS / 100)
                 }
             };
         }

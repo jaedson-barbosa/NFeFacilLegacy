@@ -233,52 +233,52 @@
     <Compile Include="ViewNFe\Impostos\DetalhamentoICMSUFDest\IDadosICMSUFDest.cs" />
     <Compile Include="ViewNFe\Impostos\DetalhamentoICMSUFDest\Processamento.cs" />
     <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\Processamento.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\RegimeNormal\Tipo0.xaml.cs">
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\TelasRN\Tipo0.xaml.cs">
       <DependentUpon>Tipo0.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\RegimeNormal\Tipo10.xaml.cs">
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\TelasRN\Tipo10.xaml.cs">
       <DependentUpon>Tipo10.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\RegimeNormal\Tipo20.xaml.cs">
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\TelasRN\Tipo20.xaml.cs">
       <DependentUpon>Tipo20.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\RegimeNormal\Tipo30.xaml.cs">
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\TelasRN\Tipo30.xaml.cs">
       <DependentUpon>Tipo30.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\RegimeNormal\Tipo51.xaml.cs">
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\TelasRN\Tipo51.xaml.cs">
       <DependentUpon>Tipo51.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\RegimeNormal\Tipo60.xaml.cs">
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\TelasRN\Tipo60.xaml.cs">
       <DependentUpon>Tipo60.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\RegimeNormal\Tipo70.xaml.cs">
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\TelasRN\Tipo70.xaml.cs">
       <DependentUpon>Tipo70.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\RegimeNormal\Tipo90.xaml.cs">
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\TelasRN\Tipo90.xaml.cs">
       <DependentUpon>Tipo90.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\RegimeNormal\TipoICMSST.xaml.cs">
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\TelasRN\TipoICMSST.xaml.cs">
       <DependentUpon>TipoICMSST.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\RegimeNormal\TipoPart.xaml.cs">
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\TelasRN\TipoPart.xaml.cs">
       <DependentUpon>TipoPart.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\RegimeNormal\Tipo40_41_50.xaml.cs">
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\TelasRN\Tipo40_41_50.xaml.cs">
       <DependentUpon>Tipo40_41_50.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\SimplesNacional\Tipo101.xaml.cs">
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\TelasSN\Tipo101.xaml.cs">
       <DependentUpon>Tipo101.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\SimplesNacional\Tipo201.xaml.cs">
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\TelasSN\Tipo201.xaml.cs">
       <DependentUpon>Tipo201.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\SimplesNacional\Tipo202.xaml.cs">
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\TelasSN\Tipo202.xaml.cs">
       <DependentUpon>Tipo202.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\SimplesNacional\Tipo500.xaml.cs">
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\TelasSN\Tipo500.xaml.cs">
       <DependentUpon>Tipo500.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\SimplesNacional\Tipo900.xaml.cs">
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\TelasSN\Tipo900.xaml.cs">
       <DependentUpon>Tipo900.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewNFe\Impostos\DetalhamentoII\Detalhar.xaml.cs">
@@ -845,67 +845,67 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\RegimeNormal\Tipo0.xaml">
+    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\TelasRN\Tipo0.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\RegimeNormal\Tipo10.xaml">
+    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\TelasRN\Tipo10.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\RegimeNormal\Tipo20.xaml">
+    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\TelasRN\Tipo20.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\RegimeNormal\Tipo30.xaml">
+    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\TelasRN\Tipo30.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\RegimeNormal\Tipo51.xaml">
+    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\TelasRN\Tipo51.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\RegimeNormal\Tipo60.xaml">
+    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\TelasRN\Tipo60.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\RegimeNormal\Tipo70.xaml">
+    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\TelasRN\Tipo70.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\RegimeNormal\Tipo90.xaml">
+    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\TelasRN\Tipo90.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\RegimeNormal\TipoICMSST.xaml">
+    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\TelasRN\TipoICMSST.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\RegimeNormal\TipoPart.xaml">
+    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\TelasRN\TipoPart.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\RegimeNormal\Tipo40_41_50.xaml">
+    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\TelasRN\Tipo40_41_50.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\SimplesNacional\Tipo101.xaml">
+    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\TelasSN\Tipo101.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\SimplesNacional\Tipo201.xaml">
+    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\TelasSN\Tipo201.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\SimplesNacional\Tipo202.xaml">
+    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\TelasSN\Tipo202.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\SimplesNacional\Tipo500.xaml">
+    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\TelasSN\Tipo500.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\SimplesNacional\Tipo900.xaml">
+    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\TelasSN\Tipo900.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

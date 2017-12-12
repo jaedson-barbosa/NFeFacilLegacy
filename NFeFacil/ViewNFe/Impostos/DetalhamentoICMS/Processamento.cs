@@ -4,7 +4,6 @@ using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
 using static NFeFacil.ExtensoesPrincipal;
 
-
 namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS
 {
     public sealed class Processamento : ProcessamentoImposto
@@ -50,7 +49,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS
                         };
                         break;
                     case 101:
-                        var tipo101 = (SimplesNacional.Tipo101)Tela;
+                        var tipo101 = (TelasSN.Tipo101)Tela;
                         returno = new ICMSSN101()
                         {
                             CSOSN = csosn,
@@ -60,7 +59,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS
                         };
                         break;
                     case 201:
-                        var tipo201 = (SimplesNacional.Tipo201)Tela;
+                        var tipo201 = (TelasSN.Tipo201)Tela;
                         returno = new ICMSSN201()
                         {
                             CSOSN = csosn,
@@ -76,7 +75,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS
                         };
                         break;
                     case 202:
-                        var tipo202 = (SimplesNacional.Tipo202)Tela;
+                        var tipo202 = (TelasSN.Tipo202)Tela;
                         returno = new ICMSSN202()
                         {
                             CSOSN = csosn,
@@ -90,7 +89,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS
                         };
                         break;
                     case 203:
-                        tipo202 = (SimplesNacional.Tipo202)Tela;
+                        tipo202 = (TelasSN.Tipo202)Tela;
                         returno = new ICMSSN202()
                         {
                             CSOSN = csosn,
@@ -104,7 +103,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS
                         };
                         break;
                     case 500:
-                        var tipo500 = (SimplesNacional.Tipo500)Tela;
+                        var tipo500 = (TelasSN.Tipo500)Tela;
                         returno = new ICMSSN500()
                         {
                             CSOSN = csosn,
@@ -114,7 +113,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS
                         };
                         break;
                     case 900:
-                        var tipo900 = (SimplesNacional.Tipo900)Tela;
+                        var tipo900 = (TelasSN.Tipo900)Tela;
                         returno = new ICMSSN900()
                         {
                             CSOSN = csosn,
@@ -142,7 +141,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS
                 switch (int.Parse(detalhamento.TipoICMSRN))
                 {
                     case 0:
-                        var tipo00 = (RegimeNormal.Tipo0)Tela;
+                        var tipo00 = (TelasRN.Tipo0)Tela;
                         returno = new ICMS00()
                         {
                             CST = cst,
@@ -154,7 +153,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS
                         };
                         break;
                     case 10:
-                        var tipo10 = (RegimeNormal.Tipo10)Tela;
+                        var tipo10 = (TelasRN.Tipo10)Tela;
                         returno = new ICMS10()
                         {
                             CST = cst,
@@ -172,7 +171,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS
                         };
                         break;
                     case 1010:
-                        var tipoPart = (RegimeNormal.TipoPart)Tela;
+                        var tipoPart = (TelasRN.TipoPart)Tela;
                         returno = new ICMSPart()
                         {
                             CST = "10",
@@ -193,7 +192,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS
                         };
                         break;
                     case 20:
-                        var tipo20 = (RegimeNormal.Tipo20)Tela;
+                        var tipo20 = (TelasRN.Tipo20)Tela;
                         returno = new ICMS20()
                         {
                             CST = cst,
@@ -208,7 +207,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS
                         };
                         break;
                     case 30:
-                        var tipo30 = (RegimeNormal.Tipo30)Tela;
+                        var tipo30 = (TelasRN.Tipo30)Tela;
                         returno = new ICMS30()
                         {
                             CST = cst,
@@ -224,7 +223,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS
                         };
                         break;
                     case 40:
-                        var tipo40 = (RegimeNormal.Tipo40_41_50)Tela;
+                        var tipo40 = (TelasRN.Tipo40_41_50)Tela;
                         returno = new ICMS40()
                         {
                             CST = cst,
@@ -234,7 +233,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS
                         };
                         break;
                     case 41:
-                        tipo40 = (RegimeNormal.Tipo40_41_50)Tela;
+                        tipo40 = (TelasRN.Tipo40_41_50)Tela;
                         returno = new ICMS41()
                         {
                             CST = cst,
@@ -244,7 +243,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS
                         };
                         break;
                     case 4141:
-                        var tipoST = (RegimeNormal.TipoICMSST)Tela;
+                        var tipoST = (TelasRN.TipoICMSST)Tela;
                         returno = new ICMSST()
                         {
                             CST = "41",
@@ -256,7 +255,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS
                         };
                         break;
                     case 50:
-                        tipo40 = (RegimeNormal.Tipo40_41_50)Tela;
+                        tipo40 = (TelasRN.Tipo40_41_50)Tela;
                         returno = new ICMS50()
                         {
                             CST = cst,
@@ -266,7 +265,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS
                         };
                         break;
                     case 51:
-                        var tipo51 = (RegimeNormal.Tipo51)Tela;
+                        var tipo51 = (TelasRN.Tipo51)Tela;
                         returno = new ICMS51()
                         {
                             CST = cst,
@@ -282,7 +281,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS
                         };
                         break;
                     case 60:
-                        var tipo60 = (RegimeNormal.Tipo60)Tela;
+                        var tipo60 = (TelasRN.Tipo60)Tela;
                         returno = new ICMS60()
                         {
                             CST = cst,
@@ -292,7 +291,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS
                         };
                         break;
                     case 70:
-                        var tipo70 = (RegimeNormal.Tipo70)Tela;
+                        var tipo70 = (TelasRN.Tipo70)Tela;
                         returno = new ICMS70()
                         {
                             CST = cst,
@@ -313,7 +312,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS
                         };
                         break;
                     case 90:
-                        var tipo90 = (RegimeNormal.Tipo90)Tela;
+                        var tipo90 = (TelasRN.Tipo90)Tela;
                         returno = new ICMS90()
                         {
                             CST = cst,
@@ -334,7 +333,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS
                         };
                         break;
                     case 9090:
-                        tipoPart = (RegimeNormal.TipoPart)Tela;
+                        tipoPart = (TelasRN.TipoPart)Tela;
                         returno = new ICMSPart()
                         {
                             CST = "90",

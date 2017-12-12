@@ -5,15 +5,17 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoII
 {
     sealed class Processamento : ProcessamentoImposto
     {
+        IDadosII dados;
+
         public override Imposto[] Processar(ProdutoOuServico prod)
         {
-            var imposto = ((IDadosII)Tela).Imposto;
+            var imposto = dados.Imposto;
             return new Imposto[1] { imposto };
         }
 
         public override bool ValidarDados(ILog log)
         {
-            var imposto = ((IDadosII)Tela).Imposto;
+            var imposto = dados.Imposto;
             if (string.IsNullOrEmpty(imposto.vBC))
             {
                 log.Escrever(TitulosComuns.Atenção, "O valor da base de cálculo é obrigatório.");
@@ -39,8 +41,13 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoII
 
         public override bool ValidarEntradaDados(ILog log)
         {
-            return Detalhamento is Detalhamento detalhamento
-                && Tela?.GetType() == typeof(Detalhar);
+            if (Detalhamento is Detalhamento detalhamento
+                && Tela?.GetType() == typeof(Detalhar))
+            {
+                dados = (IDadosII)Tela;
+                return true;
+            }
+            return false;
         }
     }
 }

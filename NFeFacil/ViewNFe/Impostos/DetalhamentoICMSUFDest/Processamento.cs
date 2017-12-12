@@ -5,15 +5,17 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMSUFDest
 {
     sealed class Processamento : ProcessamentoImposto
     {
+        IDadosICMSUFDest dados;
+
         public override Imposto[] Processar(ProdutoOuServico prod)
         {
-            var imposto = ((IDadosICMSUFDest)Tela).Imposto;
+            var imposto = dados.Imposto;
             return new Imposto[1] { imposto };
         }
 
         public override bool ValidarDados(ILog log)
         {
-            var imposto = ((IDadosICMSUFDest)Tela).Imposto;
+            var imposto = dados.Imposto;
             var valido = imposto.IsValido;
             if (!valido)
             {
@@ -24,8 +26,13 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMSUFDest
 
         public override bool ValidarEntradaDados(ILog log)
         {
-            return Detalhamento is Detalhamento detalhamento
-                && Tela?.GetType() == typeof(Detalhar);
+            if (Detalhamento is Detalhamento detalhamento
+                && Tela?.GetType() == typeof(Detalhar))
+            {
+                dados = (IDadosICMSUFDest)Tela;
+                return true;
+            }
+            return false;
         }
     }
 }

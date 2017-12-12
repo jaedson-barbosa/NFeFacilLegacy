@@ -5,15 +5,17 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoISSQN
 {
     public sealed class Processamento : ProcessamentoImposto
     {
+        IDadosISSQN dados;
+
         public override Imposto[] Processar(ProdutoOuServico prod)
         {
-            var imposto = ((IDadosISSQN)Tela).Imposto;
+            var imposto = dados.Imposto;
             return new Imposto[1] { imposto };
         }
 
         public override bool ValidarDados(ILog log)
         {
-            var imposto = ((IDadosISSQN)Tela).Imposto;
+            var imposto = dados.Imposto;
             if (string.IsNullOrEmpty(imposto.vBC))
             {
                 log.Escrever(TitulosComuns.Atenção, "Valor da base de cálculo não pode ficar em branco.");
@@ -51,9 +53,11 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoISSQN
 
         public override bool ValidarEntradaDados(ILog log)
         {
-            if (Detalhamento is Detalhamento detalhamento)
+            if (Detalhamento is Detalhamento detalhamento
+                && AssociacoesSimples.ISSQN[detalhamento.Exterior] == Tela?.GetType())
             {
-                return AssociacoesSimples.ISSQN[detalhamento.Exterior] == Tela?.GetType();
+                dados = (IDadosISSQN)Tela;
+                return true;
             }
             return false;
         }

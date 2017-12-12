@@ -1,5 +1,6 @@
 ﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
+using static NFeFacil.ExtensoesPrincipal;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -18,9 +19,9 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoCOFINS
                 Corpo = new COFINSAliq
                 {
                     CST = CST,
-                    vBC = vBC.ToString("F2", CulturaPadrao),
-                    pCOFINS = pCOFINS.ToString("F4", CulturaPadrao),
-                    vCOFINS = (vBC * pCOFINS / 100).ToString("F2", CulturaPadrao)
+                    vBC = ToStr(vBC),
+                    pCOFINS = ToStr(pCOFINS, "F4"),
+                    vCOFINS = ToStr(vBC * pCOFINS / 100);
                 }
             };
         }

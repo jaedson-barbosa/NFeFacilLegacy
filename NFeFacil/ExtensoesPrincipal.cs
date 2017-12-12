@@ -193,9 +193,9 @@ namespace NFeFacil
             }
         }
 
-        static CultureInfo culturaPadrao = CultureInfo.InvariantCulture;
-        public static string ToStr(double valor) => valor.ToString("F2", culturaPadrao);
-        public static double Parse(string str) => double.Parse(str, NumberStyles.Number, culturaPadrao);
+        static CultureInfo defCult = CultureInfo.InvariantCulture;
+        public static string ToStr(double valor, string format = "F2") => valor.ToString(format, defCult);
+        public static double Parse(string str) => double.Parse(str, NumberStyles.Number, defCult);
 
         public class ErroDesserializacao : Exception
         {

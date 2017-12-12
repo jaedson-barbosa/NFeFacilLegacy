@@ -232,12 +232,6 @@
     </Compile>
     <Compile Include="ViewNFe\Impostos\DetalhamentoICMSUFDest\IDadosICMSUFDest.cs" />
     <Compile Include="ViewNFe\Impostos\DetalhamentoICMSUFDest\Processamento.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\DetalharRN.xaml.cs">
-      <DependentUpon>DetalharRN.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\DetalharSN.xaml.cs">
-      <DependentUpon>DetalharSN.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\Processamento.cs" />
     <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\RegimeNormal\Tipo0.xaml.cs">
       <DependentUpon>Tipo0.xaml</DependentUpon>
@@ -406,10 +400,6 @@
     <Compile Include="ViewNFe\CaixasEspeciaisProduto\DefinirVeiculo.xaml.cs">
       <DependentUpon>DefinirVeiculo.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Impostos\VisibilidadeRegimeNormal.cs" />
-    <Compile Include="ViewNFe\Impostos\VisibilidadeSimplesNacional.cs" />
-    <Compile Include="ViewNFe\Impostos\VisibilidadesRegimeNormal.cs" />
-    <Compile Include="ViewNFe\Impostos\VisibilidadesSimplesNacional.cs" />
     <Compile Include="ViewNFe\CaixasDialogoNFe\EnderecoDiferenteExterior.xaml.cs">
       <DependentUpon>EnderecoDiferenteExterior.xaml</DependentUpon>
     </Compile>
@@ -852,14 +842,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ViewNFe\Impostos\DetalhamentoICMSUFDest\Detalhar.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\DetalharRN.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\DetalharSN.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

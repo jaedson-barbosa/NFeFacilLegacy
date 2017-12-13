@@ -8,9 +8,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS.TelasRN
     public sealed partial class Tipo0 : Page
     {
         public int modBC { get; set; }
-        public string vBC { get; set; }
-        public string pICMS { get; set; }
-        public string vICMS { get; set; }
+        public double pICMS { get; set; }
 
         public Tipo0()
         {

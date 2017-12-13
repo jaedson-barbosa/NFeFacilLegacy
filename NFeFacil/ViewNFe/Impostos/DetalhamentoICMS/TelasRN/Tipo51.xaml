@@ -13,26 +13,16 @@
             <ComboBoxItem>Preço Tabelado Máx (valor)</ComboBoxItem>
             <ComboBoxItem>Valor da operação</ComboBoxItem>
         </ComboBox>
-        <TextBox Text="{x:Bind vBC, Mode=TwoWay}"
-                 Header="Valor da BC do ICMS"
-                 InputScope="Number" />
         <TextBox Text="{x:Bind pRedBC, Mode=TwoWay}"
                  Header="Percentual da Redução de BC"
                  InputScope="Number" />
         <TextBox Text="{x:Bind pICMS, Mode=TwoWay}"
                  Header="Alíquota do imposto"
                  InputScope="Number" />
-        <TextBox Text="{x:Bind vICMS, Mode=TwoWay}"
-                 Header="Valor do ICMS"
-                 InputScope="Number" />
-        <TextBox Text="{x:Bind vICMSOp, Mode=TwoWay}"
-                 Header="Valor do ICMS da Operação"
-                 InputScope="Number" />
         <TextBox Text="{x:Bind pDif, Mode=TwoWay}"
                  Header="Percentual do diferimento"
                  InputScope="Number" />
-        <TextBox Text="{x:Bind vICMSDif, Mode=TwoWay}"
-                 Header="Valor do ICMS diferido"
-                 InputScope="Number" />
+        <CheckBox IsChecked="{x:Bind Calcular, Mode=TwoWay}"
+                  VerticalAlignment="Bottom">Calcular e preencher informações</CheckBox>
     </ItemsControl>
 </Page>

@@ -15,25 +15,19 @@
                     <ComboBoxItem>Preço Tabelado Máx (valor)</ComboBoxItem>
                     <ComboBoxItem>Valor da operação</ComboBoxItem>
                 </ComboBox>
-                <TextBox Text="{x:Bind vBC, Mode=TwoWay}"
-                         Header="Valor da BC do ICMS"
-                         InputScope="Number" />
                 <TextBox Text="{x:Bind pRedBC, Mode=TwoWay}"
                          Header="Percentual da Redução de BC"
                          InputScope="Number" />
                 <TextBox Text="{x:Bind pICMS, Mode=TwoWay}"
                          Header="Alíquota do imposto"
                          InputScope="Number" />
-                <TextBox Text="{x:Bind vICMS, Mode=TwoWay}"
-                         Header="Valor do ICMS"
-                         InputScope="Number" />
-                <TextBox Text="{x:Bind vICMSDeson, Mode=TwoWay}"
-                         Header="Valor do ICMS desonerado"
-                         InputScope="Number" />
-                <TextBox Text="{x:Bind motDesICMS, Mode=TwoWay}"
-                         Header="Motivo da desoneração do ICMS"
-                         InputScope="Number"
-                         ToolTipService.ToolTip="3 p/ agropecuária; 9 p/ outros e 12 p/ fomento e desenv. agropecuário." />
+                <ComboBox Header="Motivo da desoneração do ICMS"
+                          SelectedValue="{x:Bind motDesICMS, Mode=TwoWay}"
+                          SelectedValuePath="Tag">
+                    <ComboBoxItem Tag="3">Agropecuária</ComboBoxItem>
+                    <ComboBoxItem Tag="9">Outros</ComboBoxItem>
+                    <ComboBoxItem Tag="12">Fomento e desenvolvimento agropecuário</ComboBoxItem>
+                </ComboBox>
             </ItemsControl>
             <TextBlock Text="ICMS ST"
                        Style="{StaticResource SubtitleTextBlockStyle}" />
@@ -54,14 +48,8 @@
                 <TextBox Text="{x:Bind pRedBCST, Mode=TwoWay}"
                          Header="Percentual da Redução de BC"
                          InputScope="Number" />
-                <TextBox Text="{x:Bind vBCST, Mode=TwoWay}"
-                         Header="Valor da BC"
-                         InputScope="Number" />
                 <TextBox Text="{x:Bind pICMSST, Mode=TwoWay}"
                          Header="Alíquota do imposto"
-                         InputScope="Number" />
-                <TextBox Text="{x:Bind vICMSST, Mode=TwoWay}"
-                         Header="Valor do ICMS ST"
                          InputScope="Number" />
             </ItemsControl>
         </StackPanel>

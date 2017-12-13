@@ -7,67 +7,53 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS.DadosRN
     class Tipo10 : BaseRN
     {
         public int modBC { get; set; }
-        public string vBC { get; set; }
-        public string pICMS { get; set; }
-        public string vICMS { get; set; }
+        public double pICMS { get; set; }
 
         public int modBCST { get; set; }
         public string pMVAST { get; set; }
         public string pRedBCST { get; set; }
-        public string vBCST { get; set; }
-        public string pICMSST { get; set; }
-        public string vICMSST { get; set; }
+        public double pICMSST { get; set; }
+
+        double valorTabela = double.NaN;
 
         public Tipo10(TelasRN.Tipo10 tela)
         {
             modBC = tela.modBC;
-            vBC = tela.vBC;
             pICMS = tela.pICMS;
-            vICMS = tela.vICMS;
 
             modBCST = tela.modBCST;
             pMVAST = tela.pMVAST;
             pRedBCST = tela.pRedBCST;
-            vBCST = tela.vBCST;
             pICMSST = tela.pICMSST;
-            vICMSST = tela.vICMSST;
         }
 
         public override object Processar(DetalhesProdutos prod)
         {
+            var vBC = CalcularBC(prod);
+            var vICMS = vBC * pICMS / 100;
+
+            var pMVASTd = string.IsNullOrEmpty(pMVAST) ? 0 : Parse(pMVAST);
+            var pRedBCSTd = string.IsNullOrEmpty(pRedBCST) ? 0 : Parse(pRedBCST);
+            var vBCST = double.IsNaN(valorTabela) ? (vBC + ObterIPI(prod)) * (100 + pMVASTd) / 100 : valorTabela;
+            vBCST *= 1 - (pRedBCSTd / 100);
+
+            var vICMSST = (vBCST * pICMSST / 100) - vICMS;
+
             return new ICMS10()
             {
                 CST = CST,
                 modBC = modBC.ToString(),
                 modBCST = modBCST.ToString(),
                 Orig = Origem,
-                pICMS = pICMS,
-                pICMSST = pICMSST,
-                pMVAST = pMVAST,
-                pRedBCST = pRedBCST,
-                vBC = vBC,
-                vBCST = vBCST,
-                vICMS = vICMS,
-                vICMSST = vICMSST
+                pICMS = ToStr(pICMS, "F4"),
+                pICMSST = ToStr(pICMSST, "F4"),
+                pMVAST = string.IsNullOrEmpty(pMVAST) ? null : ToStr(pMVASTd, "F4"),
+                pRedBCST = string.IsNullOrEmpty(pRedBCST) ? null : ToStr(pRedBCSTd, "F4"),
+                vBC = ToStr(vBC),
+                vBCST = ToStr(vBCST),
+                vICMS = ToStr(vICMS),
+                vICMSST = ToStr(vICMSST)
             };
-        }
-
-        void CalcularICMS(ref ICMS10 icms, DetalhesProdutos prod, double valorTabela)
-        {
-            var vBC = CalcularBC(prod);
-            var pICMS = Parse(icms.pICMS);
-            var vICMS = vBC * pICMS / 100;
-            icms.vICMS = ToStr(vICMS);
-
-            var pMVAST = string.IsNullOrEmpty(icms.pMVAST) ? 0 : Parse(icms.pMVAST);
-            var pRedBCST = string.IsNullOrEmpty(icms.pRedBCST) ? 0 : Parse(icms.pRedBCST);
-            var vBCST = double.IsNaN(valorTabela) ? (vBC + ObterIPI(prod)) * (100 + pMVAST) / 100 : valorTabela;
-            vBCST *= 1 - (pRedBCST / 100);
-            icms.vBCST = ToStr(vBCST);
-
-            var pICMSST = Parse(icms.pICMSST);
-            var vICMSST = (vBCST * pICMSST / 100) - vICMS;
-            icms.vICMSST = ToStr(vICMSST);
         }
     }
 }

@@ -7,95 +7,66 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS.DadosRN
     class Tipo70 : BaseRN
     {
         public int modBC { get; set; }
-        public string vBC { get; set; }
-        public string pRedBC { get; set; }
-        public string pICMS { get; set; }
-        public string vICMS { get; set; }
-
-        public string vICMSDeson { get; set; }
-        public string motDesICMS { get; set; }
+        public double pRedBC { get; set; }
+        public double pICMS { get; set; }
 
         public int modBCST { get; set; }
         public string pMVAST { get; set; }
         public string pRedBCST { get; set; }
-        public string vBCST { get; set; }
-        public string pICMSST { get; set; }
-        public string vICMSST { get; set; }
+        public double pICMSST { get; set; }
+
+        public string motDesICMS { get; set; }
 
         public Tipo70(TelasRN.Tipo70 tela)
         {
             modBC = tela.modBC;
-            vBC = tela.vBC;
             pRedBC = tela.pRedBC;
             pICMS = tela.pICMS;
-            vICMS = tela.vICMS;
-
-            vICMSDeson = tela.vICMSDeson;
-            motDesICMS = tela.motDesICMS;
 
             modBCST = tela.modBCST;
             pMVAST = tela.pMVAST;
             pRedBCST = tela.pRedBCST;
-            vBCST = tela.vBCST;
             pICMSST = tela.pICMSST;
-            vICMSST = tela.vICMSST;
+
+            motDesICMS = tela.motDesICMS;
         }
 
         public override object Processar(DetalhesProdutos prod)
         {
+            var vBC = CalcularBC(prod);
+            var bcSemReducao = vBC * pICMS / 100;
+            vBC *= 1 - (pRedBC / 100);
+            var vICMS = vBC * pICMS / 100;
+
+            var pMVASTd = string.IsNullOrEmpty(pMVAST) ? 0 : Parse(pMVAST);
+            var pRedBCSTd = string.IsNullOrEmpty(pRedBCST) ? 0 : Parse(pRedBCST);
+            var vBCST = (vBC + ObterIPI(prod)) * (100 + pMVASTd) / 100;
+            var bcstSemReducao = (vBCST * pICMSST / 100) - vICMS;
+
+            vBCST *= 1 - (pRedBCSTd / 100);
+
+            var vICMSST = (vBCST * pICMSST / 100) - vICMS;
+
+            var vICMSDeson = (bcSemReducao - vICMS) + (bcstSemReducao - vICMSST);
+            bool infDeson = vICMSDeson > 0 && !string.IsNullOrEmpty(motDesICMS);
+
             return new ICMS70()
             {
                 CST = CST,
                 modBC = modBC.ToString(),
                 modBCST = modBCST.ToString(),
-                motDesICMS = motDesICMS,
+                motDesICMS = infDeson ? motDesICMS : null,
                 Orig = Origem,
-                pICMS = pICMS,
-                pICMSST = pICMSST,
-                pMVAST = pMVAST,
-                pRedBC = pRedBC,
-                pRedBCST = pRedBCST,
-                vBC = vBC,
-                vBCST = vBCST,
-                vICMS = vICMS,
-                vICMSDeson = vICMSDeson,
-                vICMSST = vICMSST
+                pICMS = ToStr(pICMS, "F4"),
+                pICMSST = ToStr(pICMSST, "F4"),
+                pMVAST = string.IsNullOrEmpty(pMVAST) ? null : ToStr(pMVASTd, "F4"),
+                pRedBCST = string.IsNullOrEmpty(pRedBCST) ? null : ToStr(pRedBCSTd, "F4"),
+                vBC = ToStr(vBC),
+                vBCST = ToStr(vBCST),
+                vICMS = ToStr(vICMS),
+                vICMSDeson = infDeson ? ToStr(vICMSDeson) : null,
+                vICMSST = ToStr(vICMSST)
             };
-        }
-
-        void CalcularICMS(ref ICMS70 icms, DetalhesProdutos prod)
-        {
-            var vBC = CalcularBC(prod);
-            var pICMS = Parse(icms.pICMS);
-            var bcSemReducao = vBC * pICMS / 100;
-            var pRedBC = Parse(icms.pRedBC);
-            vBC *= 1 - (pRedBC / 100);
-            icms.vBC = ToStr(vBC);
-            var vICMS = vBC * pICMS / 100;
-            icms.vICMS = ToStr(vICMS);
-
-            var pMVAST = string.IsNullOrEmpty(icms.pMVAST) ? 0 : Parse(icms.pMVAST);
-            var pRedBCST = string.IsNullOrEmpty(icms.pRedBCST) ? 0 : Parse(icms.pRedBCST);
-            var pICMSST = Parse(icms.pICMSST);
-            var vBCST = (vBC + ObterIPI(prod)) * (100 + pMVAST) / 100;
-            var bcstSemReducao = (vBCST * pICMSST / 100) - vICMS;
-
-            vBCST *= 1 - (pRedBCST / 100);
-            icms.vBCST = ToStr(vBCST);
-
-            var vICMSST = (vBCST * pICMSST / 100) - vICMS;
-            icms.vICMSST = ToStr(vICMSST);
-
-            var vICMSDeson = (bcSemReducao - vICMS) + (bcstSemReducao - vICMSST);
-            if (vICMSDeson == 0)
-            {
-                icms.vICMSDeson = null;
-                icms.motDesICMS = null;
-            }
-            else
-            {
-                icms.vICMSDeson = ToStr(vICMSDeson);
-            }
         }
     }
 }

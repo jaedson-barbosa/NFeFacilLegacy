@@ -130,15 +130,7 @@ namespace NFeFacil.ViewNFe.Impostos
             if (index >= 0)
             {
                 var proc = Processamentos[index];
-                proc.Tela = pagina;
-                if (proc.ValidarEntradaDados(log))
-                {
-                    return proc.ValidarDados(log);
-                }
-                else
-                {
-                    return false;
-                }
+                return proc.ValidarEntradaDados(pagina) ? proc.ValidarDados(log) : false;
             }
             else
             {

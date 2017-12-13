@@ -52,7 +52,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoISSQN
             return false;
         }
 
-        public override bool ValidarEntradaDados(ILog log)
+        public override bool ValidarEntradaDados(object Tela)
         {
             if (Detalhamento is Detalhamento detalhamento
                 && AssociacoesSimples.ISSQN[detalhamento.Exterior] == Tela?.GetType())

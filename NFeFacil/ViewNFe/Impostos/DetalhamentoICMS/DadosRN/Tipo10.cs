@@ -1,6 +1,9 @@
-﻿namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS.DadosRN
+﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
+using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
+
+namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS.DadosRN
 {
-    class Tipo10
+    class Tipo10 : BaseRN
     {
         public int modBC { get; set; }
         public string vBC { get; set; }
@@ -13,5 +16,39 @@
         public string vBCST { get; set; }
         public string pICMSST { get; set; }
         public string vICMSST { get; set; }
+
+        public Tipo10(TelasRN.Tipo10 tela)
+        {
+            modBC = tela.modBC;
+            vBC = tela.vBC;
+            pICMS = tela.pICMS;
+            vICMS = tela.vICMS;
+
+            modBCST = tela.modBCST;
+            pMVAST = tela.pMVAST;
+            pRedBCST = tela.pRedBCST;
+            vBCST = tela.vBCST;
+            pICMSST = tela.pICMSST;
+            vICMSST = tela.vICMSST;
+        }
+
+        public override object Processar(DetalhesProdutos prod)
+        {
+            return new ICMS10()
+            {
+                CST = CST,
+                modBC = modBC.ToString(),
+                modBCST = modBCST.ToString(),
+                Orig = Origem,
+                pICMS = pICMS,
+                pICMSST = pICMSST,
+                pMVAST = pMVAST,
+                pRedBCST = pRedBCST,
+                vBC = vBC,
+                vBCST = vBCST,
+                vICMS = vICMS,
+                vICMSST = vICMSST
+            };
+        }
     }
 }

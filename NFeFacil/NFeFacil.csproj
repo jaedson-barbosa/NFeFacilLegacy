@@ -232,6 +232,8 @@
     </Compile>
     <Compile Include="ViewNFe\Impostos\DetalhamentoICMSUFDest\IDadosICMSUFDest.cs" />
     <Compile Include="ViewNFe\Impostos\DetalhamentoICMSUFDest\Processamento.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\DadosRN\BaseRN.cs" />
+    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\DadosSN\BaseSN.cs" />
     <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\IDadosICMS.cs" />
     <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\DadosRN\Tipo0.cs" />
     <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\DadosRN\Tipo10.cs" />

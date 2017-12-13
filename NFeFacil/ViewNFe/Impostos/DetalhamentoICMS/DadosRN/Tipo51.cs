@@ -1,5 +1,6 @@
 ﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
+using static NFeFacil.ExtensoesPrincipal;
 
 namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS.DadosRN
 {
@@ -43,6 +44,24 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS.DadosRN
                 vICMSDif = vICMSDif,
                 vICMSOp = vICMSOp
             };
+        }
+
+        void CalcularICMS(ref ICMS51 icms, DetalhesProdutos prod)
+        {
+            var vBC = CalcularBC(prod);
+            var pICMS = Parse(icms.pICMS);
+            var pRedBC = Parse(icms.pRedBC);
+            vBC *= 1 - (pRedBC / 100);
+            icms.vBC = ToStr(vBC);
+            var vICMSOp = vBC * pICMS / 100;
+            icms.vICMSOp = ToStr(vICMSOp);
+
+            var pDif = Parse(icms.pDif);
+            var vICMSDif = vBC * pDif;
+            icms.vICMSDif = ToStr(vICMSDif);
+
+            var vICMS = vICMSOp - vICMSDif;
+            icms.vICMS = ToStr(vICMS);
         }
     }
 }

@@ -47,6 +47,7 @@ namespace NFeFacil.ViewNFe.Impostos
                 {
                     if (roteiro.Current == null)
                     {
+                        frmImposto.Content = null;
                         Avancar();
                     }
                     else

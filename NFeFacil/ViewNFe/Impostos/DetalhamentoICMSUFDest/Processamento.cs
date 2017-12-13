@@ -1,4 +1,5 @@
 ﻿using NFeFacil.Log;
+using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 
 namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMSUFDest
@@ -7,7 +8,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMSUFDest
     {
         IDadosICMSUFDest dados;
 
-        public override Imposto[] Processar(ProdutoOuServico prod)
+        public override Imposto[] Processar(DetalhesProdutos prod)
         {
             var imposto = dados.Imposto;
             return new Imposto[1] { imposto };
@@ -24,7 +25,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMSUFDest
             return valido;
         }
 
-        public override bool ValidarEntradaDados(ILog log)
+        public override bool ValidarEntradaDados(object Tela)
         {
             if (Detalhamento is Detalhamento detalhamento
                 && Tela?.GetType() == typeof(Detalhar))

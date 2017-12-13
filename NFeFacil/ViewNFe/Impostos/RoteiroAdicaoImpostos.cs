@@ -153,7 +153,7 @@ namespace NFeFacil.ViewNFe.Impostos
             var impostos = Produto.Impostos.impostos;
             foreach (var item in Processamentos.OrderBy(x => (int)x.Tipo))
             {
-                impostos.AddRange(item.Processar(Produto.Produto));
+                impostos.AddRange(item.Processar(Produto));
             }
             finalizado = true;
             return Produto;

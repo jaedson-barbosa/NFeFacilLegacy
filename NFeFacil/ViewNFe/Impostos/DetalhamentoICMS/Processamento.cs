@@ -1,4 +1,5 @@
 ﻿using NFeFacil.Log;
+using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
 using static NFeFacil.ExtensoesPrincipal;
@@ -7,360 +8,17 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS
 {
     public sealed class Processamento : ProcessamentoImposto
     {
-        public override Imposto[] Processar(ProdutoOuServico prod)
+        IDadosICMS dados;
+
+        public override Imposto[] Processar(DetalhesProdutos prod)
         {
-            var detalhamento = (Detalhamento)Detalhamento;
-            var origem = detalhamento.Origem;
-            ComumICMS returno = null;
-            var normal = Propriedades.EmitenteAtivo.RegimeTributario == 3;
-            if (!normal)
-            {
-                var tipoICMSSN = int.Parse(detalhamento.TipoICMSSN);
-                var csosn = detalhamento.TipoICMSSN;
-                switch (tipoICMSSN)
-                {
-                    case 102:
-                        returno = new ICMSSN102()
-                        {
-                            CSOSN = csosn,
-                            Orig = origem
-                        };
-                        break;
-                    case 103:
-                        returno = new ICMSSN102()
-                        {
-                            CSOSN = csosn,
-                            Orig = origem
-                        };
-                        break;
-                    case 300:
-                        returno = new ICMSSN102()
-                        {
-                            CSOSN = csosn,
-                            Orig = origem
-                        };
-                        break;
-                    case 400:
-                        returno = new ICMSSN102()
-                        {
-                            CSOSN = csosn,
-                            Orig = origem
-                        };
-                        break;
-                    case 101:
-                        var tipo101 = (TelasSN.Tipo101)Tela;
-                        returno = new ICMSSN101()
-                        {
-                            CSOSN = csosn,
-                            Orig = origem,
-                            pCredSN = tipo101.pCredSN,
-                            vCredICMSSN = tipo101.vCredICMSSN
-                        };
-                        break;
-                    case 201:
-                        var tipo201 = (TelasSN.Tipo201)Tela;
-                        returno = new ICMSSN201()
-                        {
-                            CSOSN = csosn,
-                            modBCST = tipo201.modBCST.ToString(),
-                            Orig = origem,
-                            pCredSN = tipo201.pCredSN,
-                            pICMSST = tipo201.pICMSST,
-                            pMVAST = tipo201.pMVAST,
-                            pRedBCST = tipo201.pRedBCST,
-                            vBCST = tipo201.vBCST,
-                            vCredICMSSN = tipo201.vCredICMSSN,
-                            vICMSST = tipo201.vICMSST
-                        };
-                        break;
-                    case 202:
-                        var tipo202 = (TelasSN.Tipo202)Tela;
-                        returno = new ICMSSN202()
-                        {
-                            CSOSN = csosn,
-                            modBCST = tipo202.modBCST.ToString(),
-                            Orig = origem,
-                            pICMSST = tipo202.pICMSST,
-                            pMVAST = tipo202.pMVAST,
-                            pRedBCST = tipo202.pRedBCST,
-                            vBCST = tipo202.vBCST,
-                            vICMSST = tipo202.vICMSST
-                        };
-                        break;
-                    case 203:
-                        tipo202 = (TelasSN.Tipo202)Tela;
-                        returno = new ICMSSN202()
-                        {
-                            CSOSN = csosn,
-                            modBCST = tipo202.modBCST.ToString(),
-                            Orig = origem,
-                            pICMSST = tipo202.pICMSST,
-                            pMVAST = tipo202.pMVAST,
-                            pRedBCST = tipo202.pRedBCST,
-                            vBCST = tipo202.vBCST,
-                            vICMSST = tipo202.vICMSST
-                        };
-                        break;
-                    case 500:
-                        var tipo500 = (TelasSN.Tipo500)Tela;
-                        returno = new ICMSSN500()
-                        {
-                            CSOSN = csosn,
-                            Orig = origem,
-                            vBCSTRet = tipo500.vBCSTRet,
-                            vICMSSTRet = tipo500.vICMSSTRet
-                        };
-                        break;
-                    case 900:
-                        var tipo900 = (TelasSN.Tipo900)Tela;
-                        returno = new ICMSSN900()
-                        {
-                            CSOSN = csosn,
-                            modBC = tipo900.modBC.ToString(),
-                            modBCST = tipo900.modBCST.ToString(),
-                            Orig = origem,
-                            pCredSN = tipo900.pCredSN,
-                            pICMS = tipo900.pICMS,
-                            pICMSST = tipo900.pICMSST,
-                            pMVAST = tipo900.pMVAST,
-                            pRedBC = tipo900.pRedBC,
-                            pRedBCST = tipo900.pRedBCST,
-                            vBC = tipo900.vBC,
-                            vBCST = tipo900.vBCST,
-                            vCredICMSSN = tipo900.vCredICMSSN,
-                            vICMS = tipo900.vICMS,
-                            vICMSST = tipo900.vICMSST
-                        };
-                        break;
-                }
-            }
-            else
-            {
-                var cst = detalhamento.TipoICMSRN;
-                switch (int.Parse(detalhamento.TipoICMSRN))
-                {
-                    case 0:
-                        var tipo00 = (TelasRN.Tipo0)Tela;
-                        returno = new ICMS00()
-                        {
-                            CST = cst,
-                            modBC = tipo00.modBC.ToString(),
-                            Orig = origem,
-                            pICMS = tipo00.pICMS,
-                            vBC = tipo00.vBC,
-                            vICMS = tipo00.vICMS
-                        };
-                        break;
-                    case 10:
-                        var tipo10 = (TelasRN.Tipo10)Tela;
-                        returno = new ICMS10()
-                        {
-                            CST = cst,
-                            modBC = tipo10.modBC.ToString(),
-                            modBCST = tipo10.modBCST.ToString(),
-                            Orig = origem,
-                            pICMS = tipo10.pICMS,
-                            pICMSST = tipo10.pICMSST,
-                            pMVAST = tipo10.pMVAST,
-                            pRedBCST = tipo10.pRedBCST,
-                            vBC = tipo10.vBC,
-                            vBCST = tipo10.vBCST,
-                            vICMS = tipo10.vICMS,
-                            vICMSST = tipo10.vICMSST
-                        };
-                        break;
-                    case 1010:
-                        var tipoPart = (TelasRN.TipoPart)Tela;
-                        returno = new ICMSPart()
-                        {
-                            CST = "10",
-                            modBC = tipoPart.modBC.ToString(),
-                            modBCST = tipoPart.modBCST.ToString(),
-                            Orig = origem,
-                            pICMS = tipoPart.pICMS,
-                            pICMSST = tipoPart.pICMSST,
-                            pMVAST = tipoPart.pMVAST,
-                            pRedBC = tipoPart.pRedBC,
-                            pRedBCST = tipoPart.pRedBCST,
-                            vBC = tipoPart.vBC,
-                            vBCST = tipoPart.vBCST,
-                            vICMS = tipoPart.vICMS,
-                            vICMSST = tipoPart.vICMSST,
-                            pBCOp = tipoPart.pBCOp,
-                            UFST = tipoPart.UFST
-                        };
-                        break;
-                    case 20:
-                        var tipo20 = (TelasRN.Tipo20)Tela;
-                        returno = new ICMS20()
-                        {
-                            CST = cst,
-                            modBC = tipo20.modBC.ToString(),
-                            motDesICMS = tipo20.motDesICMS,
-                            Orig = origem,
-                            pICMS = tipo20.pICMS,
-                            vBC = tipo20.vBC,
-                            vICMS = tipo20.vICMS,
-                            vICMSDeson = tipo20.vICMSDeson,
-                            pRedBC = tipo20.pRedBC
-                        };
-                        break;
-                    case 30:
-                        var tipo30 = (TelasRN.Tipo30)Tela;
-                        returno = new ICMS30()
-                        {
-                            CST = cst,
-                            modBCST = tipo30.modBCST.ToString(),
-                            motDesICMS = tipo30.motDesICMS,
-                            Orig = origem,
-                            pICMSST = tipo30.pICMSST,
-                            pMVAST = tipo30.pMVAST,
-                            pRedBCST = tipo30.pRedBCST,
-                            vBCST = tipo30.vBCST,
-                            vICMSDeson = tipo30.vICMSDeson,
-                            vICMSST = tipo30.vICMSST
-                        };
-                        break;
-                    case 40:
-                        var tipo40 = (TelasRN.Tipo40_41_50)Tela;
-                        returno = new ICMS40()
-                        {
-                            CST = cst,
-                            motDesICMS = tipo40.motDesICMS,
-                            Orig = origem,
-                            vICMSDeson = tipo40.vICMSDeson
-                        };
-                        break;
-                    case 41:
-                        tipo40 = (TelasRN.Tipo40_41_50)Tela;
-                        returno = new ICMS41()
-                        {
-                            CST = cst,
-                            motDesICMS = tipo40.motDesICMS,
-                            Orig = origem,
-                            vICMSDeson = tipo40.vICMSDeson
-                        };
-                        break;
-                    case 4141:
-                        var tipoST = (TelasRN.TipoICMSST)Tela;
-                        returno = new ICMSST()
-                        {
-                            CST = "41",
-                            Orig = origem,
-                            vBCSTDest = tipoST.vBCSTDest,
-                            vBCSTRet = tipoST.vBCSTRet,
-                            vICMSSTDest = tipoST.vICMSSTDest,
-                            vICMSSTRet = tipoST.vICMSSTRet
-                        };
-                        break;
-                    case 50:
-                        tipo40 = (TelasRN.Tipo40_41_50)Tela;
-                        returno = new ICMS50()
-                        {
-                            CST = cst,
-                            motDesICMS = tipo40.motDesICMS,
-                            Orig = origem,
-                            vICMSDeson = tipo40.vICMSDeson
-                        };
-                        break;
-                    case 51:
-                        var tipo51 = (TelasRN.Tipo51)Tela;
-                        returno = new ICMS51()
-                        {
-                            CST = cst,
-                            modBC = tipo51.modBC.ToString(),
-                            Orig = origem,
-                            pICMS = tipo51.pICMS,
-                            pRedBC = tipo51.pRedBC,
-                            vBC = tipo51.vBC,
-                            vICMS = tipo51.vICMS,
-                            pDif = tipo51.pDif,
-                            vICMSDif = tipo51.vICMSDif,
-                            vICMSOp = tipo51.vICMSOp
-                        };
-                        break;
-                    case 60:
-                        var tipo60 = (TelasRN.Tipo60)Tela;
-                        returno = new ICMS60()
-                        {
-                            CST = cst,
-                            Orig = origem,
-                            vBCSTRet = tipo60.vBCSTRet,
-                            vICMSSTRet = tipo60.vICMSSTRet
-                        };
-                        break;
-                    case 70:
-                        var tipo70 = (TelasRN.Tipo70)Tela;
-                        returno = new ICMS70()
-                        {
-                            CST = cst,
-                            modBC = tipo70.modBC.ToString(),
-                            modBCST = tipo70.modBCST.ToString(),
-                            motDesICMS = tipo70.motDesICMS,
-                            Orig = origem,
-                            pICMS = tipo70.pICMS,
-                            pICMSST = tipo70.pICMSST,
-                            pMVAST = tipo70.pMVAST,
-                            pRedBC = tipo70.pRedBC,
-                            pRedBCST = tipo70.pRedBCST,
-                            vBC = tipo70.vBC,
-                            vBCST = tipo70.vBCST,
-                            vICMS = tipo70.vICMS,
-                            vICMSDeson = tipo70.vICMSDeson,
-                            vICMSST = tipo70.vICMSST
-                        };
-                        break;
-                    case 90:
-                        var tipo90 = (TelasRN.Tipo90)Tela;
-                        returno = new ICMS90()
-                        {
-                            CST = cst,
-                            modBC = tipo90.modBC.ToString(),
-                            modBCST = tipo90.modBCST.ToString(),
-                            motDesICMS = tipo90.motDesICMS,
-                            Orig = origem,
-                            pICMS = tipo90.pICMS,
-                            pICMSST = tipo90.pICMSST,
-                            pMVAST = tipo90.pMVAST,
-                            pRedBC = tipo90.pRedBC,
-                            pRedBCST = tipo90.pRedBCST,
-                            vBC = tipo90.vBC,
-                            vBCST = tipo90.vBCST,
-                            vICMS = tipo90.vICMS,
-                            vICMSDeson = tipo90.vICMSDeson,
-                            vICMSST = tipo90.vICMSST
-                        };
-                        break;
-                    case 9090:
-                        tipoPart = (TelasRN.TipoPart)Tela;
-                        returno = new ICMSPart()
-                        {
-                            CST = "90",
-                            modBC = tipoPart.modBC.ToString(),
-                            modBCST = tipoPart.modBCST.ToString(),
-                            Orig = origem,
-                            pICMS = tipoPart.pICMS,
-                            pICMSST = tipoPart.pICMSST,
-                            pMVAST = tipoPart.pMVAST,
-                            pRedBC = tipoPart.pRedBC,
-                            pRedBCST = tipoPart.pRedBCST,
-                            vBC = tipoPart.vBC,
-                            vBCST = tipoPart.vBCST,
-                            vICMS = tipoPart.vICMS,
-                            vICMSST = tipoPart.vICMSST,
-                            pBCOp = tipoPart.pBCOp,
-                            UFST = tipoPart.UFST
-                        };
-                        break;
-                }
-            }
-            var imposto = new ICMS { Corpo = returno };
+            var imposto = new ICMS { Corpo = (ComumICMS)dados.Processar(prod) };
             return new Imposto[1] { imposto };
         }
 
         public override bool ValidarDados(ILog log) => true;
 
-        public override bool ValidarEntradaDados(ILog log)
+        public override bool ValidarEntradaDados(object Tela)
         {
             if (Detalhamento is Detalhamento detalhamento)
             {
@@ -368,12 +26,117 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS
                 if (!normal)
                 {
                     var csosn = int.Parse(detalhamento.TipoICMSSN);
-                    return Tela?.GetType() == AssociacoesSimples.ICMSSN[csosn];
+                    DadosSN.BaseSN baseSN;
+                    if (Tela?.GetType() == AssociacoesSimples.ICMSSN[csosn])
+                    {
+                        switch (csosn)
+                        {
+                            case 101:
+                                var tipo101 = (TelasSN.Tipo101)Tela;
+                                baseSN = new DadosSN.Tipo101(tipo101);
+                                break;
+                            case 201:
+                                var tipo201 = (TelasSN.Tipo201)Tela;
+                                baseSN = new DadosSN.Tipo201(tipo201);
+                                break;
+                            case 202:
+                                var tipo202 = (TelasSN.Tipo202)Tela;
+                                baseSN = new DadosSN.Tipo202(tipo202);
+                                break;
+                            case 203:
+                                tipo202 = (TelasSN.Tipo202)Tela;
+                                baseSN = new DadosSN.Tipo202(tipo202);
+                                break;
+                            case 500:
+                                var tipo500 = (TelasSN.Tipo500)Tela;
+                                baseSN = new DadosSN.Tipo500(tipo500);
+                                break;
+                            case 900:
+                                var tipo900 = (TelasSN.Tipo900)Tela;
+                                baseSN = new DadosSN.Tipo900(tipo900);
+                                break;
+                            default:
+                                baseSN = new DadosSN.TipoNT();
+                                break;
+                        }
+                        baseSN.CSOSN = detalhamento.TipoICMSSN;
+                        baseSN.Origem = detalhamento.Origem;
+                        dados = baseSN;
+                        return true;
+                    }
                 }
                 else
                 {
                     var cst = int.Parse(detalhamento.TipoICMSRN);
-                    return Tela.GetType() == AssociacoesSimples.ICMSRN[cst];
+                    DadosRN.BaseRN baseRN;
+                    if(Tela.GetType() == AssociacoesSimples.ICMSRN[cst])
+                    {
+                        switch (int.Parse(detalhamento.TipoICMSRN))
+                        {
+                            case 0:
+                                var tipo00 = (TelasRN.Tipo0)Tela;
+                                baseRN = new DadosRN.Tipo0(tipo00);
+                                break;
+                            case 10:
+                                var tipo10 = (TelasRN.Tipo10)Tela;
+                                baseRN = new DadosRN.Tipo10(tipo10);
+                                break;
+                            case 1010:
+                                var tipoPart = (TelasRN.TipoPart)Tela;
+                                baseRN = new DadosRN.TipoPart(tipoPart);
+                                break;
+                            case 20:
+                                var tipo20 = (TelasRN.Tipo20)Tela;
+                                baseRN = new DadosRN.Tipo20(tipo20);
+                                break;
+                            case 30:
+                                var tipo30 = (TelasRN.Tipo30)Tela;
+                                baseRN = new DadosRN.Tipo30(tipo30);
+                                break;
+                            case 40:
+                                var tipo40 = (TelasRN.Tipo40_41_50)Tela;
+                                baseRN = new DadosRN.Tipo40_41_50(tipo40);
+                                break;
+                            case 41:
+                                tipo40 = (TelasRN.Tipo40_41_50)Tela;
+                                baseRN = new DadosRN.Tipo40_41_50(tipo40);
+                                break;
+                            case 4141:
+                                var tipoST = (TelasRN.TipoICMSST)Tela;
+                                baseRN = new DadosRN.TipoICMSST(tipoST);
+                                break;
+                            case 50:
+                                tipo40 = (TelasRN.Tipo40_41_50)Tela;
+                                baseRN = new DadosRN.Tipo40_41_50(tipo40);
+                                break;
+                            case 51:
+                                var tipo51 = (TelasRN.Tipo51)Tela;
+                                baseRN = new DadosRN.Tipo51(tipo51);
+                                break;
+                            case 60:
+                                var tipo60 = (TelasRN.Tipo60)Tela;
+                                baseRN = new DadosRN.Tipo60(tipo60);
+                                break;
+                            case 70:
+                                var tipo70 = (TelasRN.Tipo70)Tela;
+                                baseRN = new DadosRN.Tipo70(tipo70);
+                                break;
+                            case 90:
+                                var tipo90 = (TelasRN.Tipo90)Tela;
+                                baseRN = new DadosRN.Tipo90(tipo90);
+                                break;
+                            case 9090:
+                                tipoPart = (TelasRN.TipoPart)Tela;
+                                baseRN = new DadosRN.TipoPart(tipoPart);
+                                break;
+                            default:
+                                throw new System.Exception("CST desconhecido.");
+                        }
+                        baseRN.CST = detalhamento.TipoICMSRN.Substring(0, 2);
+                        baseRN.Origem = detalhamento.Origem;
+                        dados = baseRN;
+                        return true;
+                    }
                 }
             }
             return false;

@@ -1,4 +1,5 @@
 ﻿using NFeFacil.Log;
+using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 
 namespace NFeFacil.ViewNFe.Impostos.DetalhamentoISSQN
@@ -7,7 +8,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoISSQN
     {
         IDadosISSQN dados;
 
-        public override Imposto[] Processar(ProdutoOuServico prod)
+        public override Imposto[] Processar(DetalhesProdutos prod)
         {
             var imposto = dados.Imposto;
             return new Imposto[1] { imposto };

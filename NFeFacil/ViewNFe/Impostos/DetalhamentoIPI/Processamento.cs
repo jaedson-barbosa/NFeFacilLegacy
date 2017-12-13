@@ -1,4 +1,5 @@
 ﻿using NFeFacil.Log;
+using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
 
@@ -8,15 +9,15 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoIPI
     {
         DadosIPI dados;
 
-        public override Imposto[] Processar(ProdutoOuServico prod)
+        public override Imposto[] Processar(DetalhesProdutos prod)
         {
-            var resultado = dados.Processar(prod);
+            var resultado = dados.Processar(prod.Produto);
             return new Imposto[1] { (IPI)resultado };
         }
 
         public override bool ValidarDados(ILog log) => !string.IsNullOrEmpty(dados.PreImposto.cEnq);
 
-        public override bool ValidarEntradaDados(ILog log)
+        public override bool ValidarEntradaDados(object Tela)
         {
             if (Detalhamento is Detalhamento detalhamento)
             {

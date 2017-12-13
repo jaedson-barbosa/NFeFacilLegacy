@@ -42,7 +42,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS.DadosSN
         {
             var pMVAST = string.IsNullOrEmpty(icms.pMVAST) ? 0 : Parse(icms.pMVAST);
             var pRedBCST = string.IsNullOrEmpty(icms.pRedBCST) ? 0 : Parse(icms.pRedBCST);
-            var vBCST = (CalcularBC(prod) + ObterIPI(prod)) * (100 + pMVAST) / 100;
+            var vBCST = (CalcularBC(prod)) * (100 + pMVAST) / 100;
             vBCST *= 1 - (pRedBCST / 100);
             icms.vBCST = ToStr(vBCST);
 

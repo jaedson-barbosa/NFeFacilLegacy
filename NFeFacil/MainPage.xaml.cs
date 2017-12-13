@@ -88,7 +88,9 @@ namespace NFeFacil
                 {
                     if (string.IsNullOrEmpty(x.CPFStr))
                     {
+#pragma warning disable CS0612 // O tipo ou membro é obsoleto
                         x.CPFStr = x.CPF.ToString();
+#pragma warning restore CS0612 // O tipo ou membro é obsoleto
                         db.Update(x);
                     }
                     AnalisarItem(x);
@@ -158,8 +160,7 @@ namespace NFeFacil
             if (familia.Contains("Mobile"))
             {
                 btnRetornar.Visibility = Visibility.Collapsed;
-                var barra = StatusBar.GetForCurrentView();
-                await barra.HideAsync();
+                await StatusBar.GetForCurrentView().HideAsync();
             }
             else if (familia.Contains("Desktop"))
             {

@@ -11,7 +11,10 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS
 
         public override Imposto[] Processar(DetalhesProdutos prod)
         {
-            var imposto = new ICMS { Corpo = (ComumICMS)dados.Processar(prod) };
+            var imposto = new ICMS
+            {
+                Corpo = (ComumICMS)dados.Processar(prod)
+            };
             return new Imposto[1] { imposto };
         }
 

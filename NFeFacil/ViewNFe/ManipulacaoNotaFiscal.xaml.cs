@@ -45,14 +45,8 @@ namespace NFeFacil.ViewNFe
             new ItemHambuguer("\uE825", "Cobrança"),
             new ItemHambuguer(Symbol.Comment, "Informações adicionais"),
             new ItemHambuguer(Symbol.World, "Exportação e compras"),
-            new ItemHambuguer(new Uri(GetUriCana()), "Cana-de-açúcar")
+            new ItemHambuguer("\uEC0A", "Cana-de-açúcar")
         };
-
-        string GetUriCana()
-        {
-            var usarDark = Application.Current.RequestedTheme == ApplicationTheme.Dark;
-            return usarDark ? "ms-appx:///Assets/CanaAcucarDark.png" : "ms-appx:///Assets/CanaAcucar.png";
-        }
 
         public int SelectedIndex { set => main.SelectedIndex = value; }
 
@@ -90,7 +84,7 @@ namespace NFeFacil.ViewNFe
 
         const string NomeClienteHomologacao = "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL";
 
-        public NFe NotaSalva { get; private set; }
+        NFe NotaSalva { get; set; }
 
         #region Dados base
 

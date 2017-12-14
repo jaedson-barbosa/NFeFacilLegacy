@@ -11,10 +11,10 @@
         <ResourceDictionary>
             <ResourceDictionary.ThemeDictionaries>
                 <ResourceDictionary x:Key="Dark">
-                    <x:String x:Key="ImagemArma">ms-appx:///Assets/ArmaEscuro.png</x:String>
+                    <x:String x:Key="ImagemArma">ms-appx:///Assets/Arma.png</x:String>
                 </ResourceDictionary>
                 <ResourceDictionary x:Key="Light">
-                    <x:String x:Key="ImagemArma">ms-appx:///Assets/ArmaClaro.png</x:String>
+                    <x:String x:Key="ImagemArma">ms-appx:///Assets/ArmaDark.png</x:String>
                 </ResourceDictionary>
             </ResourceDictionary.ThemeDictionaries>
             <VM:StringToDateTime x:Key="data" />
@@ -66,16 +66,16 @@
                 <controles:EntradaNumerica Format="11:10"
                                            Number="{x:Bind ProdutoCompleto.Produto.ValorUnitarioTributo, Mode=TwoWay}"
                                            Header="Valor unid. tributária" />
-                <controles:EntradaRestrita Pattern="[^\d]"
+                <controles:EntradaRestrita Pattern="[^\d.,]"
                                            Text="{x:Bind ProdutoCompleto.Produto.Frete, Mode=TwoWay}"
                                            Header="Frete" />
-                <controles:EntradaRestrita Pattern="[^\d]"
+                <controles:EntradaRestrita Pattern="[^\d.,]"
                                            Text="{x:Bind ProdutoCompleto.Produto.Seguro, Mode=TwoWay}"
                                            Header="Seguro" />
-                <controles:EntradaRestrita Pattern="[^\d]"
+                <controles:EntradaRestrita Pattern="[^\d.,]"
                                            Text="{x:Bind ProdutoCompleto.Produto.Desconto, Mode=TwoWay}"
                                            Header="Desconto" />
-                <controles:EntradaRestrita Pattern="[^\d]"
+                <controles:EntradaRestrita Pattern="[^\d.,]"
                                            Text="{x:Bind ProdutoCompleto.Produto.DespesasAcessorias, Mode=TwoWay}"
                                            Header="Desp. acessórias" />
                 <ComboBox Header="O valor do item..."

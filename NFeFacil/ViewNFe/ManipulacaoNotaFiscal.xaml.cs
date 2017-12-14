@@ -83,7 +83,6 @@ namespace NFeFacil.ViewNFe
             Deducoes = new ObservableCollection<Deducoes>(NotaSalva.Informacoes.cana.Deduc);
             Observacoes = new ObservableCollection<Observacao>(NotaSalva.Informacoes.infAdic.ObsCont);
             ProcessosReferenciados = new ObservableCollection<ProcessoReferenciado>(NotaSalva.Informacoes.infAdic.ProcRef);
-            Modalidades = ExtensoesPrincipal.ObterItens<ModalidadesTransporte>();
 
             AtualizarVeiculo();
             AtualizarTotais();
@@ -265,10 +264,10 @@ namespace NFeFacil.ViewNFe
             }
         }
 
-        public ModalidadesTransporte ModFrete
+        public string ModFrete
         {
-            get => (ModalidadesTransporte)NotaSalva.Informacoes.transp.ModFrete;
-            set => NotaSalva.Informacoes.transp.ModFrete = (ushort)value;
+            get => NotaSalva.Informacoes.transp.ModFrete.ToString();
+            set => NotaSalva.Informacoes.transp.ModFrete = ushort.Parse(value);
         }
 
         public double CFOP
@@ -399,7 +398,6 @@ namespace NFeFacil.ViewNFe
         ObservableCollection<Deducoes> Deducoes { get; set; }
         ObservableCollection<Observacao> Observacoes { get; set; }
         ObservableCollection<ProcessoReferenciado> ProcessosReferenciados { get; set; }
-        ObservableCollection<ModalidadesTransporte> Modalidades { get; set; }
 
         #endregion
 
@@ -738,7 +736,7 @@ namespace NFeFacil.ViewNFe
                 if (await caixa.ShowAsync() == ContentDialogResult.Primary)
                 {
                     var tipo = caixa.TipoEscolhido;
-                    if (tipo == TipoEndereco.Exterior)
+                    if (!caixa.Nacional)
                     {
                         var caixa2 = new EnderecoDiferenteExterior();
                         if (await caixa2.ShowAsync() == ContentDialogResult.Primary)
@@ -776,7 +774,7 @@ namespace NFeFacil.ViewNFe
                 if (await caixa.ShowAsync() == ContentDialogResult.Primary)
                 {
                     var tipo = caixa.TipoEscolhido;
-                    if (tipo == TipoEndereco.Exterior)
+                    if (!caixa.Nacional)
                     {
                         var caixa2 = new EnderecoDiferenteExterior();
                         if (await caixa2.ShowAsync() == ContentDialogResult.Primary)

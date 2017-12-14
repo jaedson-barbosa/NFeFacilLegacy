@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 
 namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos
 {
-    public sealed class ICMSUFDest : Imposto
+    public sealed class ICMSUFDest : IImposto
     {
         [XmlElement("vBCUFDest", Order = 0), DescricaoPropriedade("Valor da BC do ICMS na UF destino")]
         public double VBCUFDest { get; set; }
@@ -28,8 +28,6 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
 
         [XmlElement("vICMSUFRemet", Order = 7), DescricaoPropriedade("Valor do ICMS interestadual para a UF remetente")]
         public double VICMSUFRemet { get; set; }
-
-        public override bool IsValido => NaoNulos(VBCUFDest, PFCPUFDest, PICMSUFDest, PICMSInter, PICMSInterPart, VFCPUFDest, VICMSUFDest, VICMSUFRemet);
 
         public ICMSUFDest()
         {

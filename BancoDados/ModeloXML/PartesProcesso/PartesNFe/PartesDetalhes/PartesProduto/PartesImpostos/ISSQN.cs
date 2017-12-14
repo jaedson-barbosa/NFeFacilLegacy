@@ -2,7 +2,7 @@
 
 namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos
 {
-    public sealed class ISSQN : Imposto
+    public sealed class ISSQN : IImposto
     {
         [XmlElement(Order = 0), DescricaoPropriedade("Informar o Valor da BC do ISSQN")]
         public string vBC { get; set; }
@@ -51,14 +51,5 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
 
         [XmlElement(Order = 15), DescricaoPropriedade("Informar Indicador de incentivo Fiscal")]
         public string indIncentivo { get; set; }
-
-        public override bool IsValido
-        {
-            get
-            {
-                return NaoNulos(cListServ, cMun, cMunFG, cPais, cServico, indIncentivo, indISS, nProcesso,
-                    vAliq, vBC, vDeducao, vDescCond, vDescIncond, vISSQN, vISSRet, vOutro);
-            }
-        }
     }
 }

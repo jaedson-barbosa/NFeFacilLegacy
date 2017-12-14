@@ -16,6 +16,6 @@ namespace NFeFacil.ViewNFe.Impostos
 
         public abstract bool ValidarEntradaDados(object Tela);
         public abstract bool ValidarDados(ILog log);
-        public abstract Imposto[] Processar(DetalhesProdutos prod);
+        public abstract IImposto[] Processar(DetalhesProdutos prod);
     }
 }

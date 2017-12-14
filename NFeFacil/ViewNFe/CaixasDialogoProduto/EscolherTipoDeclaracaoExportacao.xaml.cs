@@ -6,18 +6,12 @@ namespace NFeFacil.ViewNFe.CaixasDialogoProduto
 {
     public sealed partial class EscolherTipoDeclaracaoExportacao : ContentDialog
     {
-        public TiposDeclaracaoExportacao TipoEscolhido { get; private set; }
+        int TipoEscolhido { get; set; }
+        public bool Direta => TipoEscolhido == 0;
 
         public EscolherTipoDeclaracaoExportacao()
         {
             InitializeComponent();
-            cmbTipo.ItemsSource = ExtensoesPrincipal.ObterItens<TiposDeclaracaoExportacao>();
         }
-    }
-
-    public enum TiposDeclaracaoExportacao
-    {
-        Direta,
-        Indireta
     }
 }

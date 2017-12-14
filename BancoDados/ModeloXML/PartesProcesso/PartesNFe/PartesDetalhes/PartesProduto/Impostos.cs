@@ -8,7 +8,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
     public sealed class Impostos
     {
         public Impostos() { }
-        public Impostos(IEnumerable<Imposto> lista)
+        public Impostos(IEnumerable<IImposto> lista)
         {
             impostos = lista.ToList();
         }
@@ -24,6 +24,6 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
             XmlElement(nameof(ISSQN), Type = typeof(ISSQN)),
             XmlElement(nameof(PIS), Type = typeof(PIS)),
             XmlElement(nameof(PISST), Type = typeof(PISST))]
-        public List<Imposto> impostos { get; set; } = new List<Imposto>();
+        public List<IImposto> impostos { get; set; } = new List<IImposto>();
     }
 }

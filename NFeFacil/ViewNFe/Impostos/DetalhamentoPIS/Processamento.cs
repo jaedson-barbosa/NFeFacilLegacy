@@ -11,11 +11,11 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoPIS
     {
         IDadosPIS dados;
 
-        public override Imposto[] Processar(DetalhesProdutos prod)
+        public override IImposto[] Processar(DetalhesProdutos prod)
         {
             var resultado = dados.Processar(prod.Produto);
-            if (resultado is Imposto[] list) return list;
-            else return new Imposto[1] { (PIS)resultado };
+            if (resultado is IImposto[] list) return list;
+            else return new IImposto[1] { (PIS)resultado };
         }
 
         public override bool ValidarDados(ILog log) => true;

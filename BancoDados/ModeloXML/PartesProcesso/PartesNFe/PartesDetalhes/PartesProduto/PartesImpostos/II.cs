@@ -2,7 +2,7 @@
 
 namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos
 {
-    public sealed class II : Imposto
+    public sealed class II : IImposto
     {
         [XmlElement(Order = 0), DescricaoPropriedade("Valor BC do Imposto de Importação")]
         public string vBC { get; set; }
@@ -15,7 +15,5 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
 
         [XmlElement(Order = 3), DescricaoPropriedade("Valor Imposto sobre Operações Financeiras")]
         public string vIOF { get; set; }
-
-        public override bool IsValido => NaoNulos(vBC, vDespAdu, vII, vIOF);
     }
 }

@@ -6,6 +6,7 @@ using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.P
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using static NFeFacil.ExtensoesPrincipal;
 
 namespace NFeFacil.DANFE
@@ -247,7 +248,8 @@ namespace NFeFacil.DANFE
 
             DadosProduto GetProd(DetalhesProdutos prod)
             {
-                var consult = new ConsultarImpostos(prod.Impostos.ToXElement<Impostos>());
+                var corpo = prod.Impostos;
+                var tipo = corpo.GetType();
                 return new DadosProduto
                 {
                     CFOP = prod.Produto.CFOP.ToString(),
@@ -257,16 +259,21 @@ namespace NFeFacil.DANFE
                     QCom = prod.Produto.QuantidadeComercializada.ToString("N4"),
                     UCom = prod.Produto.UnidadeComercializacao,
                     VUnCom = prod.Produto.ValorUnitario.ToString("N4"),
-                    BCICMS = consult.AgregarValor("vBC", 0).ToString("N2"),
+                    BCICMS = AgregarValor("vBC").ToString("N2"),
                     VProd = prod.Produto.ValorTotal.ToString("N2"),
                     XProd = prod.Produto.Descricao,
-                    PICMS = consult.AgregarValor("pICMS", 0).ToString("N2"),
-                    VICMS = consult.AgregarValor("vICMS", 0).ToString("N2"),
-                    PIPI = consult.AgregarValor("pIPI", 0).ToString("N2"),
-                    VIPI = consult.AgregarValor("vIPI", 0).ToString("N2"),
+                    PICMS = AgregarValor("pICMS").ToString("N2"),
+                    VICMS = AgregarValor("vICMS").ToString("N2"),
+                    PIPI = AgregarValor("pIPI").ToString("N2"),
+                    VIPI = AgregarValor("vIPI").ToString("N2"),
                     InfoAdicional = prod.InfAdProd
                 };
 
+                double AgregarValor(string nomeElemento)
+                {
+                    var valor = tipo.GetProperty(nomeElemento).GetValue(corpo);
+                    return (double)valor;
+                }
 
                 string GetCSTICMS()
                 {

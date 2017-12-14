@@ -5,7 +5,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
     /// <summary>
     /// Grupo PIS Substituição Tributária.
     /// </summary>
-    public sealed class PISST : Imposto
+    public sealed class PISST : IImposto
     {
         [XmlElement(Order = 0), DescricaoPropriedade("Valor da Base de Cálculo do PIS")]
         public string vBC { get; set; }
@@ -21,7 +21,5 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
 
         [XmlElement(Order = 4), DescricaoPropriedade("Valor do PIS")]
         public string vPIS { get; set; }
-
-        public override bool IsValido => NaoNulos(vBC, pPIS, qBCProd, vAliqProd, vPIS);
     }
 }

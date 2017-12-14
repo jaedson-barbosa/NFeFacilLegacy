@@ -2,7 +2,7 @@
 
 namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos
 {
-    public sealed class PIS : Imposto
+    public sealed class PIS : IImposto
     {
         [XmlElement(nameof(PISAliq), Type = typeof(PISAliq), Order = 0),
             XmlElement(nameof(PISNT), Type = typeof(PISNT), Order = 0),
@@ -10,20 +10,5 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
             XmlElement(nameof(PISQtde), Type = typeof(PISQtde), Order = 0),
             DescricaoPropriedade("Corpo do PIS")]
         public ComumPIS Corpo { get; set; }
-
-        public override bool IsValido
-        {
-            get
-            {
-                if (Corpo != null)
-                {
-                    return Corpo.ToXElement(Corpo.GetType()).HasElements;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-        }
     }
 }

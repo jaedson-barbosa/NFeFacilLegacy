@@ -1,6 +1,7 @@
 ﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using static NFeFacil.Extensoes;
 
 namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTotal
 {
@@ -30,16 +31,35 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTotal
                     }
                     else
                     {
-                        var xmlImposto = imposto.ToXElement(imposto.GetType());
-                        if (imposto is PIS)
+                        if (imposto is PIS pis)
                         {
-                            var alterar = new ConsultarImpostos(xmlImposto);
-                            VPIS = alterar.AgregarValor(nameof(VPIS), VPIS);
+                            if (pis.Corpo is PISAliq aliq)
+                            {
+                                vPIS += Parse(aliq.vPIS);
+                            }
+                            else if (pis.Corpo is PISQtde qtde)
+                            {
+                                vPIS += Parse(qtde.vPIS);
+                            }
+                            else if (pis.Corpo is PISOutr outr)
+                            {
+                                vPIS += Parse(outr.vPIS);
+                            }
                         }
-                        else if (imposto is COFINS)
+                        else if (imposto is COFINS cofins)
                         {
-                            var alterar = new ConsultarImpostos(xmlImposto);
-                            VCOFINS = alterar.AgregarValor(nameof(VCOFINS), VCOFINS);
+                            if (cofins.Corpo is COFINSAliq aliq)
+                            {
+                                vCOFINS += Parse(aliq.vCOFINS);
+                            }
+                            else if (cofins.Corpo is COFINSQtde qtde)
+                            {
+                                vCOFINS += Parse(qtde.vCOFINS);
+                            }
+                            else if (cofins.Corpo is COFINSOutr outr)
+                            {
+                                vCOFINS += Parse(outr.vCOFINS);
+                            }
                         }
                     }
                 }
@@ -57,11 +77,13 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTotal
         [XmlElement("vISS", Order = 2), DescricaoPropriedade("Somatório de ISS")]
         public double VISS { get; set; }
 
+        double vPIS;
         [XmlElement("vPIS", Order = 3), DescricaoPropriedade("Somatório de PIS")]
-        public double VPIS { get; set; }
+        public string VPIS { get => ToStr(vPIS); set => vPIS = Parse(value); }
 
+        double vCOFINS;
         [XmlElement("vCOFINS", Order = 4), DescricaoPropriedade("Somatório de COFINS")]
-        public double VCOFINS { get; set; }
+        public string VCOFINS { get => ToStr(vCOFINS); set => vCOFINS = Parse(value); }
 
         [XmlElement("dCompet", Order = 5), DescricaoPropriedade("Data da prestação do serviço")]
         public string DCompet { get; set; }

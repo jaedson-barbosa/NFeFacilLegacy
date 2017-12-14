@@ -395,10 +395,15 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <ComboBox ItemsSource="{x:Bind Modalidades}"
-                      SelectedItem="{x:Bind ModFrete, Mode=TwoWay}"
+            <ComboBox SelectedItem="{x:Bind ModFrete, Mode=TwoWay}"
+                      SelectedValuePath="Tag"
                       HorizontalAlignment="Stretch"
-                      Header="Modalidade do frete" />
+                      Header="Modalidade do frete">
+                <ComboBoxItem Tag="0">Emitente</ComboBoxItem>
+                <ComboBoxItem Tag="1">Destinatário ou remetente</ComboBoxItem>
+                <ComboBoxItem Tag="2">Terceiros</ComboBoxItem>
+                <ComboBoxItem Tag="9">Inexistente</ComboBoxItem>
+            </ComboBox>
             <Pivot Grid.Row="1"
                    Margin="0,4,0,0">
                 <PivotItem Header="Motorista">

@@ -5,7 +5,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
     /// <summary>
     /// Imposto sobre Produtos Industrializados.
     /// </summary>
-    public class IPI : Imposto
+    public class IPI : IImposto
     {
         [XmlElement(Order = 0), DescricaoPropriedade("Classe de enquadramento do IPI para Cigarros e Bebidas")]
         public string clEnq { get; set; }
@@ -25,8 +25,5 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
         [XmlElement(nameof(IPINT), Type = typeof(IPINT), Order = 5),
             XmlElement(nameof(IPITrib), Type = typeof(IPITrib), Order = 5)]
         public ComumIPI Corpo { get; set; }
-
-        public override bool IsValido => Corpo != null && !string.IsNullOrEmpty(Corpo.CST)
-            && !string.IsNullOrEmpty(cEnq);
     }
 }

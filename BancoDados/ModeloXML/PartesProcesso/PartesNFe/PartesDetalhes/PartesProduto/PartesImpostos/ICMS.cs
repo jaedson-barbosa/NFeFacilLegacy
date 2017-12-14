@@ -2,7 +2,7 @@
 
 namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos
 {
-    public sealed class ICMS : Imposto
+    public sealed class ICMS : IImposto
     {
         [XmlElement(nameof(ICMS00), Type = typeof(ICMS00), Order = 0),
             XmlElement(nameof(ICMS10), Type = typeof(ICMS10), Order = 0),
@@ -23,7 +23,5 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
             XmlElement(nameof(ICMSSN900), Type = typeof(ICMSSN900)),
             DescricaoPropriedade("Corpo do ICMS")]
         public ComumICMS Corpo { get; set; }
-
-        public override bool IsValido => Corpo.ToXElement(Corpo.GetType()).HasElements;
     }
 }

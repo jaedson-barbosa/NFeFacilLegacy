@@ -104,8 +104,10 @@ namespace NFeFacil.WebService
                 const string namespaceNFe = "http://www.portalfiscal.inf.br/nfe";
                 xml.Element(XName.Get("NFe", namespaceNFe)).SetAttributeValue("xmlns", namespaceNFe);
             }
-            return string.Format(ExtensoesPrincipal.ObterRecurso("RequisicaoSOAP"),
-                Enderecos.Servico, CodigoUF, VersaoDados,
+            var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+            var recurso = loader.GetString("RequisicaoSOAP");
+
+            return string.Format(recurso, Enderecos.Servico, CodigoUF, VersaoDados,
                 xml.ToString(SaveOptions.DisableFormatting));
         }
     }

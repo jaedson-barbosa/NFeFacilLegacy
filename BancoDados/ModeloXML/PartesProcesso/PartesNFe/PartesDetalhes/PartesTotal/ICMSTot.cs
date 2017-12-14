@@ -1,6 +1,7 @@
 ﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Xml.Serialization;
 using static NFeFacil.Extensoes;
 
@@ -27,18 +28,24 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTotal
                     }
                     else
                     {
-                        var xmlImposto = imposto.ToXElement(imposto.GetType());
-                        if (imposto is ICMS)
+                        if (imposto is ICMS icms)
                         {
-                            var alterar = new ConsultarImpostos(xmlImposto);
-                            vBC = alterar.AgregarValor(nameof(vBC), vBC);
-                            vICMS = alterar.AgregarValor(nameof(vICMS), vICMS);
-                            vICMSDeson = alterar.AgregarValor(nameof(vICMSDeson), vICMSDeson);
-                            vFCPUFDest = alterar.AgregarValor(nameof(vFCPUFDest), vFCPUFDest);
-                            vICMSUFDest = alterar.AgregarValor(nameof(vICMSUFDest), vICMSUFDest);
-                            vICMSUFRemet = alterar.AgregarValor(nameof(vICMSUFRemet), vICMSUFRemet);
-                            vBCST = alterar.AgregarValor(nameof(vBCST), vBCST);
-                            vST = alterar.AgregarValor("vICMSST", vST);
+                            var corpo = icms.Corpo;
+                            var tipo = corpo.GetType();
+                            vBC += AgregarValor(nameof(vBC));
+                            vICMS += AgregarValor(nameof(vICMS));
+                            vICMSDeson += AgregarValor(nameof(vICMSDeson));
+                            vFCPUFDest += AgregarValor(nameof(vFCPUFDest));
+                            vICMSUFDest += AgregarValor(nameof(vICMSUFDest));
+                            vICMSUFRemet += AgregarValor(nameof(vICMSUFRemet));
+                            vBCST += AgregarValor(nameof(vBCST));
+                            vST += AgregarValor("vICMSST");
+
+                            double AgregarValor(string nomeElemento)
+                            {
+                                var valor = tipo.GetProperty(nomeElemento).GetValue(corpo);
+                                return (double)valor;
+                            }
                         }
                         else if (imposto is II)
                         {
@@ -167,13 +174,11 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTotal
         [XmlElement("vIPI", Order = 13), DescricaoPropriedade("Somatório de IPI")]
         public string VIPI { get => ToStr(vIPI); set => vIPI = Parse(value); }
 
-        [XmlIgnore]
-        public double vPIS;
+        double vPIS;
         [XmlElement("vPIS", Order = 14), DescricaoPropriedade("Somatório de PIS")]
         public string VPIS { get => ToStr(vPIS); set => vPIS = Parse(value); }
 
-        [XmlIgnore]
-        public double vCOFINS;
+        double vCOFINS;
         [XmlElement("vCOFINS", Order = 15), DescricaoPropriedade("Somatório de COFINS")]
         public string VCOFINS { get => ToStr(vCOFINS); set => vCOFINS = Parse(value); }
 

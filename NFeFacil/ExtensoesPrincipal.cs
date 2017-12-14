@@ -68,17 +68,6 @@ namespace NFeFacil
             return new ObservableCollection<T>(aqui);
         }
 
-        public static ObservableCollection<T> ObterItens<T>()
-        {
-            return Enum.GetValues(typeof(T)).Cast<T>().GerarObs();
-        }
-
-        internal static string ObterRecurso(string recurso)
-        {
-            var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
-            return loader.GetString(recurso);
-        }
-
         internal static async void ManipularErro(this Exception erro)
         {
             if (erro is ErroDesserializacao dess)
@@ -97,11 +86,7 @@ namespace NFeFacil
             }
         }
 
-        internal static double CentimeterToPixel(double Centimeter)
-        {
-            const double fator = 96 / 2.54;
-            return Centimeter * fator;
-        }
+        internal static double CentimeterToPixel(double CM) => CM * (96 / 2.54);
 
         internal static GridLength CentimeterToLength(double Centimeter)
         {
@@ -122,30 +107,16 @@ namespace NFeFacil
 
         public static string AplicarMáscaraDocumento(string original)
         {
-            if (string.IsNullOrEmpty(original))
-            {
-                return string.Empty;
-            }
-            else if (original.Length == 14)
-            {
-                // É CNPJ
-                return $"{original.Substring(0, 2)}.{original.Substring(2, 3)}.{original.Substring(5, 3)}/{original.Substring(8, 4)}.{original.Substring(12, 2)}";
-            }
-            else if (original.Length == 11)
-            {
-                // É CPF
-                return $"{original.Substring(0, 3)}.{original.Substring(3, 3)}.{original.Substring(6, 3)}-{original.Substring(9, 2)}";
-            }
-            else if (original.Length == 8)
-            {
-                // É CEP
-                return $"{original.Substring(0, 5)}-{original.Substring(5, 3)}";
-            }
-            else
-            {
-                // Não é nem CNPJ nem CPF
-                return original;
-            }
+            if (string.IsNullOrEmpty(original)) return string.Empty;
+            else if (original.Length == 14) // É CNPJ
+                return $"{sub(0, 2)}.{sub(2, 3)}.{sub(5, 3)}/{sub(8, 4)}.{sub(12, 2)}";
+            else if (original.Length == 11) // É CPF
+                return $"{sub(0, 3)}.{sub(3, 3)}.{sub(6, 3)}-{sub(9, 2)}";
+            else if (original.Length == 8) // É CEP
+                return $"{sub(0, 5)}-{sub(5, 3)}";
+            else return original;
+
+            string sub(int start, int len) => original.Substring(start, len);
         }
 
         static CultureInfo defCult = CultureInfo.InvariantCulture;

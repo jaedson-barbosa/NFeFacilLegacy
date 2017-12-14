@@ -7,9 +7,9 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
         public COFINS COFINS = new COFINS();
         public COFINSST COFINSST = new COFINSST();
 
-        public IEnumerable<Imposto> SepararImpostos()
+        public IEnumerable<IImposto> SepararImpostos()
         {
-            return new Imposto[] { COFINS, COFINSST };
+            return new IImposto[] { COFINS, COFINSST };
         }
     }
 }

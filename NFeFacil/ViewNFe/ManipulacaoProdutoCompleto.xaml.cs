@@ -184,8 +184,7 @@ namespace NFeFacil.ViewNFe
             var caixa = new CaixasDialogoProduto.EscolherTipoDeclaracaoExportacao();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
-                var tipo = caixa.TipoEscolhido;
-                if (tipo == CaixasDialogoProduto.TiposDeclaracaoExportacao.Direta)
+                if (caixa.Direta)
                 {
                     var caixa2 = new CaixasDialogoProduto.AddDeclaracaoExportacaoDireta();
                     if (await caixa2.ShowAsync() == ContentDialogResult.Primary)

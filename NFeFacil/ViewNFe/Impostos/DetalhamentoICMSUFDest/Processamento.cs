@@ -8,22 +8,13 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMSUFDest
     {
         IDadosICMSUFDest dados;
 
-        public override Imposto[] Processar(DetalhesProdutos prod)
+        public override IImposto[] Processar(DetalhesProdutos prod)
         {
             var imposto = dados.Imposto;
-            return new Imposto[1] { imposto };
+            return new IImposto[1] { imposto };
         }
 
-        public override bool ValidarDados(ILog log)
-        {
-            var imposto = dados.Imposto;
-            var valido = imposto.IsValido;
-            if (!valido)
-            {
-                log.Escrever(TitulosComuns.Atenção, "Dados inválidos");
-            }
-            return valido;
-        }
+        public override bool ValidarDados(ILog log) => true;
 
         public override bool ValidarEntradaDados(object Tela)
         {

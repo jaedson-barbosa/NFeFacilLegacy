@@ -4,6 +4,6 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
 {
     public interface IImpostosUnidos
     {
-        IEnumerable<Imposto> SepararImpostos();
+        IEnumerable<IImposto> SepararImpostos();
     }
 }

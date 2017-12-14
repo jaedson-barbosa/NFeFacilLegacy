@@ -6,18 +6,12 @@ namespace NFeFacil.ViewNFe.CaixasDialogoNFe
 {
     public sealed partial class EscolherTipoEndereco : ContentDialog
     {
-        public TipoEndereco TipoEscolhido { get; private set; }
+        public int TipoEscolhido { get; private set; }
+        public bool Nacional => TipoEscolhido == 0;
 
         public EscolherTipoEndereco()
         {
             InitializeComponent();
-            cmbTipo.ItemsSource = ExtensoesPrincipal.ObterItens<TipoEndereco>();
         }
-    }
-
-    public enum TipoEndereco
-    {
-        Nacional,
-        Exterior
     }
 }

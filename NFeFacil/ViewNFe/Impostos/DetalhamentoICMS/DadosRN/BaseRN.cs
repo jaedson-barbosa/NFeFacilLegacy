@@ -1,4 +1,5 @@
-﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
+﻿using NFeFacil.Log;
+using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
 using static NFeFacil.ExtensoesPrincipal;
 
@@ -9,6 +10,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS.DadosRN
         public string CST { protected get; set; }
         public int Origem { protected get; set; }
         public abstract object Processar(DetalhesProdutos prod);
+        //public abstract bool Validar(ILog log);
 
         protected double CalcularBC(DetalhesProdutos detalhes)
         {

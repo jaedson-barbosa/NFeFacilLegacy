@@ -7,7 +7,7 @@ namespace NFeFacil
 {
     internal class ConjuntoBasicoExibicao
     {
-        public Guid Id { get; set; }
+        public object Objeto { get; set; }
         public ImageSource Imagem { get; set; }
         public string Principal { get; set; }
         public string Secundario { get; set; }

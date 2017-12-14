@@ -14,7 +14,7 @@ namespace NFeFacil.ViewDadosBase
     /// </summary>
     public sealed partial class GerenciarVendedores : Page
     {
-        ObservableCollection<ExibicaoVendedor> Vendedores { get; }
+        ObservableCollection<ConjuntoBasicoExibicao> Vendedores { get; }
 
         public GerenciarVendedores()
         {
@@ -24,16 +24,15 @@ namespace NFeFacil.ViewDadosBase
                 var vendedores = db.Vendedores.Where(x => x.Ativo).ToArray();
                 var imagens = db.Imagens;
                 var quantVendedores = vendedores.Length;
-                var conjuntos = new ObservableCollection<ExibicaoVendedor>();
+                var conjuntos = new ObservableCollection<ConjuntoBasicoExibicao>();
                 for (int i = 0; i < quantVendedores; i++)
                 {
                     var atual = vendedores[i];
-                    var novoConjunto = new ExibicaoVendedor
+                    var novoConjunto = new ConjuntoBasicoExibicao
                     {
-                        Id = atual.Id,
+                        Objeto = atual,
                         Principal = atual.Nome,
-                        Secundario = ExtensoesPrincipal.AplicarMáscaraDocumento(atual.CPFStr),
-                        Vendedor = atual
+                        Secundario = ExtensoesPrincipal.AplicarMáscaraDocumento(atual.CPFStr)
                     };
                     var img = imagens.Find(atual.Id);
                     if (img != null && img.Bytes != null)
@@ -56,19 +55,20 @@ namespace NFeFacil.ViewDadosBase
         private void EditarVendedor(object sender, RoutedEventArgs e)
         {
             var contexto = ((FrameworkElement)sender).DataContext;
-            MainPage.Current.Navegar<AdicionarVendedor>(((ExibicaoVendedor)contexto).Vendedor);
+            var obj = ((ConjuntoBasicoExibicao)contexto).Objeto;
+            MainPage.Current.Navegar<AdicionarVendedor>((Vendedor)obj);
         }
 
         private void InativarVendedor(object sender, RoutedEventArgs e)
         {
             var contexto = ((FrameworkElement)sender).DataContext;
-            var exib = (ExibicaoVendedor)contexto;
+            var exib = (ConjuntoBasicoExibicao)contexto;
+            var obj = (Vendedor)exib.Objeto;
 
-            var vend = exib.Vendedor;
             using (var db = new AplicativoContext())
             {
-                vend.Ativo = false;
-                db.Update(vend);
+                obj.Ativo = false;
+                db.Update(obj);
                 db.SaveChanges();
                 Vendedores.Remove(exib);
             }
@@ -77,8 +77,10 @@ namespace NFeFacil.ViewDadosBase
         async void ImagemVendedor(object sender, RoutedEventArgs e)
         {
             var contexto = ((FrameworkElement)sender).DataContext;
-            var vend = (ExibicaoVendedor)contexto;
-            var caixa = new View.DefinirImagem(vend.Id, vend.Imagem);
+            var vend = (ConjuntoBasicoExibicao)contexto;
+            var obj = (Vendedor)vend.Objeto;
+
+            var caixa = new View.DefinirImagem(obj.Id, vend.Imagem);
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
                 var index = Vendedores.IndexOf(vend);
@@ -86,11 +88,5 @@ namespace NFeFacil.ViewDadosBase
                 Vendedores[index] = vend;
             }
         }
-    }
-
-    sealed class ExibicaoVendedor : ConjuntoBasicoExibicao
-    {
-        public Vendedor Vendedor { get; set; }
-        public string Endereco => Vendedor.Endereço;
     }
 }

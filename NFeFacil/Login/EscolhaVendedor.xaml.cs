@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using NFeFacil.ItensBD;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.UI.Xaml;
@@ -29,7 +30,7 @@ namespace NFeFacil.Login
                     var atual = vendedores[i];
                     var novoConjunto = new ConjuntoBasicoExibicao
                     {
-                        Id = atual.Id,
+                        Objeto = atual,
                         Principal = atual.Nome,
                         Secundario = ExtensoesPrincipal.AplicarMáscaraDocumento(atual.CPFStr)
                     };
@@ -65,11 +66,7 @@ namespace NFeFacil.Login
             if (e.AddedItems.Count > 0)
             {
                 var item = (ConjuntoBasicoExibicao)e.AddedItems[0];
-                using (var db = new AplicativoContext())
-                {
-                    var vend = db.Vendedores.Find(item.Id);
-                    Propriedades.VendedorAtivo = vend;
-                }
+                Propriedades.VendedorAtivo = (Vendedor)item.Objeto;
                 MainPage.Current.Navegar<View.Inicio>();
                 await MainPage.Current.AtualizarInformaçõesGerais();
             }

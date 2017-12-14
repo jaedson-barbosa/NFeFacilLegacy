@@ -30,7 +30,7 @@ namespace NFeFacil.Login
                     var atual = emitentes[i];
                     var novoConjunto = new ConjuntoBasicoExibicao
                     {
-                        Id = atual.Id,
+                        Objeto = atual,
                         Principal = atual.NomeFantasia,
                         Secundario = atual.Nome
                     };

@@ -30,10 +30,7 @@ namespace NFeFacil.Login
             imgLogotipo.Background = brush;
             txtNomeFantasia.Text = emitente.Principal;
             txtNome.Text = emitente.Secundario;
-            using (var db = new AplicativoContext())
-            {
-                this.emitente = db.Emitentes.Find(emitente.Id);
-            }
+            this.emitente = (EmitenteDI)emitente.Objeto;
         }
 
         private void Confirmar(object sender, Windows.UI.Xaml.RoutedEventArgs e)

@@ -84,9 +84,6 @@ namespace NFeFacil
             }
         }
 
-        internal static double CMToPixel(double CM) => CM * (96 / 2.54);
-        internal static GridLength CMToLength(double CM) => new GridLength(CMToPixel(CM));
-
         public static async Task<ImageSource> GetSourceAsync(this Imagem imagem)
         {
             var retorno = new BitmapImage();
@@ -112,6 +109,9 @@ namespace NFeFacil
 
             string sub(int start, int len) => original.Substring(start, len);
         }
+
+        internal static double CMToPixel(double CM) => CM * (96 / 2.54);
+        internal static GridLength CMToLength(double CM) => new GridLength(CMToPixel(CM));
 
         static CultureInfo defCult = CultureInfo.InvariantCulture;
         public static string ToStr(double valor, string format = "F2") => valor.ToString(format, defCult);

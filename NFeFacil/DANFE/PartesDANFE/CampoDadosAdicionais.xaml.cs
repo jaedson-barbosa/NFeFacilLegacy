@@ -18,19 +18,19 @@ namespace NFeFacil.DANFE.PartesDANFE
         {
             set
             {
-                bloco.Blocks.Clear();
-                value.Itens.ForEach(x => CriarParagrafo(x));
+                for (int i = 1; i < bloco.Blocks.Count; i++) bloco.Blocks.RemoveAt(i);
+                value.Itens.ForEach(x => bloco.Blocks.Add(CriarParagrafo(x)));
             }
         }
 
         Paragraph CriarParagrafo(ItemDadosAdicionais item)
         {
             var paragrafo = new Paragraph() { FontSize = 10 };
-            paragrafo.Inlines.Add(new Run() { Text = item.Titulo });
+            paragrafo.Inlines.Add(new Run() { Text = $"    {item.Titulo}" });
             paragrafo.Inlines.Add(new LineBreak());
             foreach (var linha in item.Linhas)
             {
-                paragrafo.Inlines.Add(new Run { Text = $"  {linha}" });
+                paragrafo.Inlines.Add(new Run { Text = $"{linha}" });
                 paragrafo.Inlines.Add(new LineBreak());
             }
             return paragrafo;

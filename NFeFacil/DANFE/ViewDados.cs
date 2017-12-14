@@ -76,6 +76,11 @@ namespace NFeFacil.DANFE
             {
                 itens.Add(new ItemDadosAdicionais("DE INTERESSE DO FISCO:", extras.InfAdFisco));
             }
+            if (extras?.ProcRef?.Count > 0)
+            {
+                var proc = new ItemDadosAdicionais("PROCESSOS REFERENCIADOS:", extras.ProcRef.Select(x => x.ToString()));
+                itens.Add(proc);
+            }
             return new DadosAdicionais(itens);
         }
 
@@ -271,7 +276,7 @@ namespace NFeFacil.DANFE
 
                 double AgregarValor(string nomeElemento)
                 {
-                    var valor = tipo.GetProperty(nomeElemento).GetValue(corpo);
+                    var valor = tipo.GetProperty(nomeElemento)?.GetValue(corpo) ?? 0d;
                     return (double)valor;
                 }
 

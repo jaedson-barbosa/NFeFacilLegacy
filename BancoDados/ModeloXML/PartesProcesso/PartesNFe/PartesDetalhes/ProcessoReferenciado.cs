@@ -15,5 +15,32 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
         /// </summary>
         [XmlElement("indProc", Order = 1), DescricaoPropriedade("Indicador da origem do processo")]
         public int IndProc { get; set; }
+
+        public override string ToString()
+        {
+            string origem;
+            switch (IndProc)
+            {
+                case 0:
+                    origem = "SEFAZ";
+                    break;
+                case 1:
+                    origem = "Justiça Federal";
+                    break;
+                case 2:
+                    origem = "Justiça Estadual";
+                    break;
+                case 3:
+                    origem = "Secex/RFB";
+                    break;
+                case 9:
+                    origem = "Outros";
+                    break;
+                default:
+                    origem = "Desconhecida";
+                    break;
+            }
+            return $"Identificados: {NProc}; Origem: {origem}";
+        }
     }
 }

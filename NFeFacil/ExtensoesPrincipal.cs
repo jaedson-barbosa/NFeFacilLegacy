@@ -86,12 +86,8 @@ namespace NFeFacil
             }
         }
 
-        internal static double CentimeterToPixel(double CM) => CM * (96 / 2.54);
-
-        internal static GridLength CentimeterToLength(double Centimeter)
-        {
-            return new GridLength(CentimeterToPixel(Centimeter), GridUnitType.Pixel);
-        }
+        internal static double CMToPixel(double CM) => CM * (96 / 2.54);
+        internal static GridLength CMToLength(double CM) => new GridLength(CMToPixel(CM));
 
         public static async Task<ImageSource> GetSourceAsync(this Imagem imagem)
         {

@@ -14,9 +14,9 @@ namespace NFeFacil.DANFE.PaginasDANFE
     /// </summary>
     public sealed partial class PaginaExtra : UserControl, IPagina
     {
-        double LarguraPagina => CentimeterToPixel(21);
-        double AlturaPagina => CentimeterToPixel(29.7);
-        Thickness MargemPadrao => new Thickness(CentimeterToPixel(1));
+        double LarguraPagina => CMToPixel(21);
+        double AlturaPagina => CMToPixel(29.7);
+        Thickness MargemPadrao => new Thickness(CMToPixel(1));
 
         DadosNFe ContextoNFe { get; }
 

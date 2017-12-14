@@ -10,9 +10,9 @@ namespace NFeFacil.DANFE.PaginasDANFE
 {
     public sealed partial class PaginaPrincipal : UserControl, IPagina
     {
-        double LarguraPagina => ExtensoesPrincipal.CentimeterToPixel(21);
-        double AlturaPagina => ExtensoesPrincipal.CentimeterToPixel(29.7);
-        Thickness MargemPadrao => new Thickness(ExtensoesPrincipal.CentimeterToPixel(1));
+        double LarguraPagina => ExtensoesPrincipal.CMToPixel(21);
+        double AlturaPagina => ExtensoesPrincipal.CMToPixel(29.7);
+        Thickness MargemPadrao => new Thickness(ExtensoesPrincipal.CMToPixel(1));
 
         DadosCabecalho ContextoCanhoto { get; }
         DadosAdicionais ContextoDadosAdicionais { get; }

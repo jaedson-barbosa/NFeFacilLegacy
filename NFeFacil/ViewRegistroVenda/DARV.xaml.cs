@@ -183,8 +183,8 @@ namespace NFeFacil.ViewRegistroVenda
     {
         public ObservableCollection<ExibicaoProduto> Produtos { get; set; }
 
-        public static GridLength Largura2 { get; } = CentimeterToLength(2);
-        public static GridLength Largura3 { get; } = CentimeterToLength(3);
+        public static GridLength Largura2 { get; } = CMToLength(2);
+        public static GridLength Largura3 { get; } = CMToLength(3);
     }
 
     public struct Dimensoes
@@ -192,11 +192,11 @@ namespace NFeFacil.ViewRegistroVenda
         public Dimensoes(double largura, double altura, double padding)
         {
             LarguraOriginal = largura;
-            LarguraProcessada = CentimeterToPixel(largura);
+            LarguraProcessada = CMToPixel(largura);
             AlturaOriginal = altura;
-            AlturaProcessada = altura != 0 ? CentimeterToPixel(altura) : double.NaN;
+            AlturaProcessada = altura != 0 ? CMToPixel(altura) : double.NaN;
             PaddingOriginal = padding;
-            PaddingProcessado = CentimeterToPixel(padding);
+            PaddingProcessado = CMToPixel(padding);
         }
 
         public double LarguraOriginal { get; set; }

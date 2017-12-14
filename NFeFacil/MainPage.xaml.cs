@@ -8,6 +8,7 @@ using Windows.ApplicationModel.Core;
 using Windows.System.Profile;
 using Windows.UI;
 using Windows.UI.Core;
+using Windows.UI.Popups;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -186,15 +187,16 @@ namespace NFeFacil
 
         public async void Retornar(bool suprimirValidacao = false)
         {
-            if (!suprimirValidacao && frmPrincipal.Content is IValida retorna && !await retorna.Verificar())
+            if (!suprimirValidacao && frmPrincipal.Content is IValida)
             {
-                return;
+                var mensagem = new MessageDialog("Se você sair agora, os dados serão perdidos, se tiver certeza, escolha Sair, caso contrário, escolha Cancelar.", "Atenção");
+                mensagem.Commands.Add(new UICommand("Sair"));
+                mensagem.Commands.Add(new UICommand("Cancelar"));
+                var resultado = await mensagem.ShowAsync();
+                if (resultado.Label == "Cancelar") return;
             }
 
-            if (frmPrincipal.CanGoBack)
-            {
-                frmPrincipal.GoBack();
-            }
+            if (frmPrincipal.CanGoBack) frmPrincipal.GoBack();
             else
             {
                 var familia = AnalyticsInfo.VersionInfo.DeviceFamily;

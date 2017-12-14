@@ -12,7 +12,7 @@ namespace NFeFacil.DANFE.PartesDANFE
         public DadosCabecalho Contexto { get; set; }
 
         DimensoesPadrao Dimensoes { get; } = new DimensoesPadrao();
-        GridLength ColunaMeio => CentimeterToLength(10);
+        GridLength ColunaMeio => CMToLength(10);
 
         public Canhoto()
         {

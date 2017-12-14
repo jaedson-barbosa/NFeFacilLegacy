@@ -16,8 +16,8 @@ namespace NFeFacil.DANFE
     {
         private GerenciadorImpressao gerenciadorImpressão;
 
-        public double Largura => CentimeterToPixel(21);
-        public double Altura => CentimeterToPixel(29.7);
+        public double Largura => CMToPixel(21);
+        public double Altura => CMToPixel(29.7);
 
         public ViewDANFE()
         {

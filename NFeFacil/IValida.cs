@@ -2,8 +2,5 @@
 
 namespace NFeFacil
 {
-    interface IValida
-    {
-        Task<bool> Verificar();
-    }
+    interface IValida { }
 }

@@ -10,7 +10,7 @@ namespace NFeFacil.DANFE.PartesDANFE
 {
     public sealed partial class CampoDadosAdicionais : UserControl
     {
-        GridLength AlturaCampo => CentimeterToLength(3.2);
+        GridLength AlturaCampo => CMToLength(3.2);
 
         public RichTextBlock CampoObservacoes => bloco;
 

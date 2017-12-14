@@ -13,16 +13,16 @@ namespace NFeFacil.DANFE.PartesDANFE
 
         DimensoesPadrao Dimensoes { get; } = new DimensoesPadrao();
 
-        GridLength Coluna00 => CentimeterToLength(6.5);
-        GridLength Coluna01 => CentimeterToLength(3);
-        GridLength Coluna02 => CentimeterToLength(2.5);
-        GridLength Coluna03 => CentimeterToLength(2.5);
+        GridLength Coluna00 => CMToLength(6.5);
+        GridLength Coluna01 => CMToLength(3);
+        GridLength Coluna02 => CMToLength(2.5);
+        GridLength Coluna03 => CMToLength(2.5);
 
-        GridLength Coluna10 => CentimeterToLength(8.5);
-        GridLength Coluna11 => CentimeterToLength(6);
+        GridLength Coluna10 => CMToLength(8.5);
+        GridLength Coluna11 => CMToLength(6);
 
-        GridLength Coluna4 => CentimeterToLength(1);
-        GridLength Coluna5 => CentimeterToLength(3.5);
+        GridLength Coluna4 => CMToLength(1);
+        GridLength Coluna5 => CMToLength(3.5);
 
         public CampoTransporte()
         {

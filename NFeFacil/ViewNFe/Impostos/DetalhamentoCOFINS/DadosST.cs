@@ -13,7 +13,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoCOFINS
             if (TipoCalculo == TiposCalculo.PorAliquota)
             {
                 var vBC = prod.ValorTotal;
-                return new IImposto[2]
+                return new ImpostoBase[2]
                 {
                         new COFINS
                         {
@@ -33,7 +33,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoCOFINS
             else
             {
                 var qBCProd = prod.QuantidadeComercializada;
-                return new IImposto[2]
+                return new ImpostoBase[2]
                 {
                         new COFINS
                         {

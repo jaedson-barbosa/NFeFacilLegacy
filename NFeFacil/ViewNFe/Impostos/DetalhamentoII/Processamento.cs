@@ -8,10 +8,10 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoII
     {
         IDadosII dados;
 
-        public override IImposto[] Processar(DetalhesProdutos prod)
+        public override ImpostoBase[] Processar(DetalhesProdutos prod)
         {
             var imposto = dados.Imposto;
-            return new IImposto[1] { imposto };
+            return new ImpostoBase[1] { imposto };
         }
 
         public override bool ValidarDados(ILog log)

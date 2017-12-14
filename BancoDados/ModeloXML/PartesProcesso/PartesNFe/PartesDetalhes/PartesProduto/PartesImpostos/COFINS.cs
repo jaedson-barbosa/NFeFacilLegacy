@@ -2,7 +2,7 @@
 
 namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos
 {
-    public sealed class COFINS : IImposto
+    public sealed class COFINS : ImpostoBase
     {
         [XmlElement(nameof(COFINSAliq), Type = typeof(COFINSAliq), Order = 0),
             XmlElement(nameof(COFINSNT), Type = typeof(COFINSNT), Order = 0),

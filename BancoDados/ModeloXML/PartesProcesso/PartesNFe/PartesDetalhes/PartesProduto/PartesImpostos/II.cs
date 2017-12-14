@@ -2,7 +2,7 @@
 
 namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos
 {
-    public sealed class II : IImposto
+    public sealed class II : ImpostoBase
     {
         [XmlElement(Order = 0), DescricaoPropriedade("Valor BC do Imposto de Importação")]
         public string vBC { get; set; }

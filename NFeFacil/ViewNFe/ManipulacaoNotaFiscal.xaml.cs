@@ -321,31 +321,34 @@ namespace NFeFacil.ViewNFe
                         }
                         else
                         {
-                            using (var db = new AplicativoContext())
-                            {
-                                var venda = db.Vendas.FirstOrDefault(x => x.NotaFiscalRelacionada == NotaSalva.Informacoes.Id);
-                                if (venda != null)
-                                {
-                                    NotaSalva.Informacoes.AtualizarChave();
-                                    venda.NotaFiscalRelacionada = NotaSalva.Informacoes.Id;
-                                    db.Vendas.Update(venda);
-                                    db.SaveChanges();
-                                }
-                                else
-                                {
-                                    NotaSalva.Informacoes.AtualizarChave();
-                                }
-                            }
+                            AnalisarVenda();
                         }
 
                         var novoDI = new NFeDI(nota, nota.ToXElement<NFe>().ToString())
                         {
                             Status = (int)StatusNFe.Validada
                         };
-                        PageStackEntry entrada = new PageStackEntry(typeof(VisualizacaoNFe), novoDI, new Windows.UI.Xaml.Media.Animation.SlideNavigationTransitionInfo());
+                        PageStackEntry entrada = new PageStackEntry(typeof(VisualizacaoNFe), novoDI, null);
                         Frame.BackStack.Add(entrada);
                     }
                     else
+                    {
+                        AnalisarVenda();
+                        var di = (NFeDI)ultPage.Parameter;
+                        di.Id = nota.Informacoes.Id;
+                        di.NomeCliente = nota.Informacoes.destinatário.Nome;
+                        di.NomeEmitente = nota.Informacoes.emitente.Nome;
+                        di.CNPJEmitente = nota.Informacoes.emitente.CNPJ.ToString();
+                        di.DataEmissao = DateTime.Parse(nota.Informacoes.identificacao.DataHoraEmissão).ToString("yyyy-MM-dd HH:mm:ss");
+                        di.NumeroNota = nota.Informacoes.identificacao.Numero;
+                        di.SerieNota = nota.Informacoes.identificacao.Serie;
+                        di.Status = (int)StatusNFe.Validada;
+                        di.XML = nota.ToXElement<NFe>().ToString();
+                    }
+
+                    MainPage.Current.Retornar(true);
+
+                    void AnalisarVenda()
                     {
                         using (var db = new AplicativoContext())
                         {
@@ -362,20 +365,7 @@ namespace NFeFacil.ViewNFe
                                 NotaSalva.Informacoes.AtualizarChave();
                             }
                         }
-
-                        var di = (NFeDI)ultPage.Parameter;
-                        di.Id = nota.Informacoes.Id;
-                        di.NomeCliente = nota.Informacoes.destinatário.Nome;
-                        di.NomeEmitente = nota.Informacoes.emitente.Nome;
-                        di.CNPJEmitente = nota.Informacoes.emitente.CNPJ.ToString();
-                        di.DataEmissao = DateTime.Parse(nota.Informacoes.identificacao.DataHoraEmissão).ToString("yyyy-MM-dd HH:mm:ss");
-                        di.NumeroNota = nota.Informacoes.identificacao.Numero;
-                        di.SerieNota = nota.Informacoes.identificacao.Serie;
-                        di.Status = (int)StatusNFe.Validada;
-                        di.XML = nota.ToXElement<NFe>().ToString();
                     }
-
-                    MainPage.Current.Retornar(true);
                 }
             }
             catch (Exception e)

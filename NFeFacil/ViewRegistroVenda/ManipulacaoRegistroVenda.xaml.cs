@@ -184,7 +184,7 @@ namespace NFeFacil.ViewRegistroVenda
                 }
 
                 var ultPage = Frame.BackStack[Frame.BackStack.Count - 1];
-                PageStackEntry entrada = new PageStackEntry(typeof(VisualizacaoRegistroVenda), ItemBanco, new Windows.UI.Xaml.Media.Animation.SlideNavigationTransitionInfo());
+                PageStackEntry entrada = new PageStackEntry(typeof(VisualizacaoRegistroVenda), ItemBanco, null);
                 Frame.BackStack.Add(entrada);
                 MainPage.Current.Retornar(true);
             }

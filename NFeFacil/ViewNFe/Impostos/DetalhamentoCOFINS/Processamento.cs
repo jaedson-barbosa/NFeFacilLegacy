@@ -11,11 +11,11 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoCOFINS
     {
         IDadosCOFINS dados;
 
-        public override IImposto[] Processar(DetalhesProdutos prod)
+        public override ImpostoBase[] Processar(DetalhesProdutos prod)
         {
             var resultado = dados.Processar(prod.Produto);
-            if (resultado is IImposto[] list) return list;
-            else return new IImposto[1] { (COFINS)resultado };
+            if (resultado is ImpostoBase[] list) return list;
+            else return new ImpostoBase[1] { (COFINS)resultado };
         }
 
         public override bool ValidarDados(ILog log) => true;

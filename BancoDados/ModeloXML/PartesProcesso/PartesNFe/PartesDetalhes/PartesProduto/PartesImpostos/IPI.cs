@@ -5,7 +5,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
     /// <summary>
     /// Imposto sobre Produtos Industrializados.
     /// </summary>
-    public class IPI : IImposto
+    public class IPI : ImpostoBase
     {
         [XmlElement(Order = 0), DescricaoPropriedade("Classe de enquadramento do IPI para Cigarros e Bebidas")]
         public string clEnq { get; set; }

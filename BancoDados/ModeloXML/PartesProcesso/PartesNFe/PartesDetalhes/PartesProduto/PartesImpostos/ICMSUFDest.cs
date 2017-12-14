@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 
 namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos
 {
-    public sealed class ICMSUFDest : IImposto
+    public sealed class ICMSUFDest : ImpostoBase
     {
         [XmlElement("vBCUFDest", Order = 0), DescricaoPropriedade("Valor da BC do ICMS na UF destino")]
         public double VBCUFDest { get; set; }

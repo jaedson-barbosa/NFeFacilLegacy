@@ -2,7 +2,7 @@
 
 namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos
 {
-    public sealed class ISSQN : IImposto
+    public sealed class ISSQN : ImpostoBase
     {
         [XmlElement(Order = 0), DescricaoPropriedade("Informar o Valor da BC do ISSQN")]
         public string vBC { get; set; }

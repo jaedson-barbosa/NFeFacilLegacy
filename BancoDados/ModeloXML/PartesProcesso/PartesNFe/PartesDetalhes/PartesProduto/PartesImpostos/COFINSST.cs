@@ -6,7 +6,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
     /// Grupo COFINS Substituição Tributária.
     /// Só deve ser informado se o Produto for sujeito a COFINS por ST (CST = 05).
     /// </summary>
-    public class COFINSST : IImposto
+    public class COFINSST : ImpostoBase
     {
         [DescricaoPropriedade("Valor da Base de Cálculo da COFINS")]
         [XmlElement(Order = 0)]

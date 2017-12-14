@@ -43,7 +43,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTotal
 
                             double AgregarValor(string nomeElemento)
                             {
-                                var valor = tipo.GetProperty(nomeElemento).GetValue(corpo);
+                                var valor = tipo.GetProperty(nomeElemento)?.GetValue(corpo) ?? 0d;
                                 return (double)valor;
                             }
                         }

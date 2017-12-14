@@ -2,7 +2,7 @@
 
 namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos
 {
-    public sealed class ICMS : IImposto
+    public sealed class ICMS : ImpostoBase
     {
         [XmlElement(nameof(ICMS00), Type = typeof(ICMS00), Order = 0),
             XmlElement(nameof(ICMS10), Type = typeof(ICMS10), Order = 0),

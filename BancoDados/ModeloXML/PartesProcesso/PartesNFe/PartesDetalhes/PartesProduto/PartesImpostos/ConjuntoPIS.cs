@@ -7,9 +7,9 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
         public PIS PIS = new PIS();
         public PISST PISST = new PISST();
 
-        public IEnumerable<IImposto> SepararImpostos()
+        public IEnumerable<ImpostoBase> SepararImpostos()
         {
-            return new IImposto[] { PIS, PISST };
+            return new ImpostoBase[] { PIS, PISST };
         }
     }
 }

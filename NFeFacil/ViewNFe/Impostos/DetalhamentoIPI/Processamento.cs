@@ -9,10 +9,10 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoIPI
     {
         DadosIPI dados;
 
-        public override IImposto[] Processar(DetalhesProdutos prod)
+        public override ImpostoBase[] Processar(DetalhesProdutos prod)
         {
             var resultado = dados.Processar(prod.Produto);
-            return new IImposto[1] { (IPI)resultado };
+            return new ImpostoBase[1] { (IPI)resultado };
         }
 
         public override bool ValidarDados(ILog log) => !string.IsNullOrEmpty(dados.PreImposto.cEnq);

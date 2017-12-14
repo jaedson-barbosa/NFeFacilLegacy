@@ -2,7 +2,7 @@
 
 namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos
 {
-    public sealed class PIS : IImposto
+    public sealed class PIS : ImpostoBase
     {
         [XmlElement(nameof(PISAliq), Type = typeof(PISAliq), Order = 0),
             XmlElement(nameof(PISNT), Type = typeof(PISNT), Order = 0),

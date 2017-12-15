@@ -29,7 +29,6 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
             ISSQNtot = new ISSQNtot(from p in produtos
                                     where p.Impostos.impostos.Count(x => x is ISSQN) > 0
                                     select p);
-            RetTrib = new RetTrib();
         }
     }
 }

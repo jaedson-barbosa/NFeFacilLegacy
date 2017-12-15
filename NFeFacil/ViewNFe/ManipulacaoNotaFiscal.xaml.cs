@@ -19,6 +19,7 @@ using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using NFeFacil.ViewNFe.CaixasDialogoNFe;
+using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTotal;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -78,8 +79,14 @@ namespace NFeFacil.ViewNFe
             Observacoes = new ObservableCollection<Observacao>(NotaSalva.Informacoes.infAdic.ObsCont);
             ProcessosReferenciados = new ObservableCollection<ProcessoReferenciado>(NotaSalva.Informacoes.infAdic.ProcRef);
 
+            DataPrestacao = string.IsNullOrEmpty(NotaSalva.Informacoes.total.ISSQNtot.DCompet)
+                ? DateTimeOffset.Now
+                : DateTimeOffset.Parse(NotaSalva.Informacoes.total.ISSQNtot.DCompet);
+            CRegTrib = NotaSalva.Informacoes.total.ISSQNtot.CRegTrib - 1;
+            RetTrib = NotaSalva.Informacoes.total.RetTrib ?? new RetTrib();
+
             AtualizarVeiculo();
-            AtualizarTotais();
+            NotaSalva.Informacoes.total = new Total(NotaSalva.Informacoes.produtos);
         }
 
         const string NomeClienteHomologacao = "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL";
@@ -272,6 +279,14 @@ namespace NFeFacil.ViewNFe
 
         #endregion
 
+        #region Totais
+
+        DateTimeOffset DataPrestacao { get; set; }
+        int CRegTrib { get; set; }
+        RetTrib RetTrib { get; set; }
+
+        #endregion
+
         void Confirmar()
         {
             try
@@ -292,6 +307,10 @@ namespace NFeFacil.ViewNFe
                             db.SaveChanges();
                         }
                     }
+
+                    NotaSalva.Informacoes.total.ISSQNtot.DCompet = DataPrestacao.ToString("yyyy-MM-dd");
+                    NotaSalva.Informacoes.total.ISSQNtot.CRegTrib = CRegTrib + 1;
+                    NotaSalva.Informacoes.total.RetTrib = RetTrib;
 
                     var nota = NotaSalva;
                     var analisador = new AnalisadorNFe(ref nota);
@@ -411,13 +430,7 @@ namespace NFeFacil.ViewNFe
         {
             NotaSalva.Informacoes.produtos.Remove(produto);
             Produtos.Remove(produto);
-            AtualizarTotais();
-        }
-
-        void AtualizarTotais()
-        {
             NotaSalva.Informacoes.total = new Total(NotaSalva.Informacoes.produtos);
-            pvtTotais.DataContext = NotaSalva.Informacoes.total;
         }
 
         async void AdicionarNFeReferenciada()

@@ -235,160 +235,56 @@
             </ListView>
         </Grid>
         <ScrollViewer Padding="16">
-            <Pivot x:Name="pvtTotais">
-                <PivotItem Header="ICMS">
-                    <ItemsControl DataContext="{Binding ICMSTot}"
-                                  Style="{StaticResource ItensResponsivos}">
-                        <controles:EntradaNumerica Format="13:2"
-                                                   Number="{Binding VBC}"
-                                                   Header="Base de cálculo do ICMS"
-                                                   IsReadOnly="True" />
-                        <controles:EntradaNumerica Format="13:2"
-                                                   Number="{Binding VICMS}"
-                                                   Header="Total do ICMS"
-                                                   IsReadOnly="True" />
-                        <controles:EntradaNumerica Format="13:2"
-                                                   Number="{Binding VICMSDeson}"
-                                                   Header="Total do ICMS desonerado"
-                                                   IsReadOnly="True" />
-                        <controles:EntradaNumerica Format="13:2"
-                                                   Number="{Binding VBCST}"
-                                                   Header="Base de cálculo do ICMS ST"
-                                                   IsReadOnly="True" />
-                        <controles:EntradaNumerica Format="13:2"
-                                                   Number="{Binding VST}"
-                                                   Header="Total do ICMS ST"
-                                                   IsReadOnly="True" />
-                        <controles:EntradaNumerica Format="13:2"
-                                                   Number="{Binding VProd}"
-                                                   Header="Total dos produtos e serviços"
-                                                   IsReadOnly="True" />
-                        <controles:EntradaNumerica Format="13:2"
-                                                   Number="{Binding VFrete}"
-                                                   Header="Total do frete"
-                                                   IsReadOnly="True" />
-                        <controles:EntradaNumerica Format="13:2"
-                                                   Number="{Binding VSeg}"
-                                                   Header="Total do seguro"
-                                                   IsReadOnly="True" />
-                        <controles:EntradaNumerica Format="13:2"
-                                                   Number="{Binding VDesc}"
-                                                   Header="Total do desconto"
-                                                   IsReadOnly="True" />
-                        <controles:EntradaNumerica Format="13:2"
-                                                   Number="{Binding VII}"
-                                                   Header="Total do II"
-                                                   IsReadOnly="True" />
-                        <controles:EntradaNumerica Format="13:2"
-                                                   Number="{Binding VIPI}"
-                                                   Header="Total do IPI"
-                                                   IsReadOnly="True" />
-                        <controles:EntradaNumerica Format="13:2"
-                                                   Number="{Binding VPIS}"
-                                                   Header="Valor do PIS"
-                                                   IsReadOnly="True" />
-                        <controles:EntradaNumerica Format="13:2"
-                                                   Number="{Binding VCOFINS}"
-                                                   Header="Valor do COFINS"
-                                                   IsReadOnly="True" />
-                        <controles:EntradaNumerica Format="13:2"
-                                                   Number="{Binding VOutro}"
-                                                   Header="Outras despesas acessórias"
-                                                   IsReadOnly="True" />
-                        <controles:EntradaNumerica Format="13:2"
-                                                   Number="{Binding VNF}"
-                                                   Header="Total da NF-e"
-                                                   IsReadOnly="True" />
-                        <controles:EntradaNumerica Format="13:2"
-                                                   Number="{Binding VTotTrib}"
-                                                   Header="Total de tributos federais, estaduais e municipais"
-                                                   IsReadOnly="True" />
-                    </ItemsControl>
-                </PivotItem>
-                <PivotItem Header="ISSQN">
-                    <ItemsControl DataContext="{Binding ISSQNtot}"
-                                  Style="{StaticResource ItensResponsivos}">
-                        <controles:EntradaNumerica Format="13:2"
-                                                   Number="{Binding VServ, Mode=TwoWay}"
-                                                   Header="Valor total dos serviços não tributados pelo ICMS"
-                                                   IsReadOnly="True" />
-                        <controles:EntradaNumerica Format="13:2"
-                                                   Number="{Binding VBC, Mode=TwoWay}"
-                                                   Header="Base de cálculo do ISSQN"
-                                                   IsReadOnly="True" />
-                        <controles:EntradaNumerica Format="13:2"
-                                                   Number="{Binding VISS, Mode=TwoWay}"
-                                                   Header="Valor total do ISS"
-                                                   IsReadOnly="True" />
-                        <controles:EntradaNumerica Format="13:2"
-                                                   Number="{Binding VPIS, Mode=TwoWay}"
-                                                   Header="Valor total do PIS"
-                                                   IsReadOnly="True" />
-                        <controles:EntradaNumerica Format="13:2"
-                                                   Number="{Binding VCOFINS, Mode=TwoWay}"
-                                                   Header="Valor total do COFINS"
-                                                   IsReadOnly="True" />
-                        <DatePicker Date="{Binding DCompet, Converter={StaticResource data}, ConverterParameter='yyyy-MM-dd', Mode=TwoWay}"
-                                    Header="Data da prestação do serviço" />
-                        <controles:EntradaNumerica Format="13:2"
-                                                   Number="{Binding VDeducao, Mode=TwoWay}"
-                                                   Header="Dedução para redução da base de cálculo"
-                                                   IsReadOnly="True" />
-                        <controles:EntradaNumerica Format="13:2"
-                                                   Number="{Binding VOutro, Mode=TwoWay}"
-                                                   Header="Outras retenções"
-                                                   IsReadOnly="True" />
-                        <controles:EntradaNumerica Format="13:2"
-                                                   Number="{Binding VDescIncond, Mode=TwoWay}"
-                                                   Header="Desconto incondicionado"
-                                                   IsReadOnly="True" />
-                        <controles:EntradaNumerica Format="13:2"
-                                                   Number="{Binding VDescCond, Mode=TwoWay}"
-                                                   Header="Desconto condicionado"
-                                                   IsReadOnly="True" />
-                        <controles:EntradaNumerica Format="13:2"
-                                                   Number="{Binding VISSRet, Mode=TwoWay}"
-                                                   Header="Retenção ISS"
-                                                   IsReadOnly="True" />
-                        <ComboBox SelectedValue="{Binding CRegTrib, Mode=TwoWay, Converter={StaticResource numStr}}"
-                                  SelectedValuePath="Tag"
-                                  Header="Regime especial de tributação">
-                            <ComboBoxItem Tag="1">Microempresa municipal</ComboBoxItem>
-                            <ComboBoxItem Tag="2">Estimativa</ComboBoxItem>
-                            <ComboBoxItem Tag="3">Sociedade de profissionais</ComboBoxItem>
-                            <ComboBoxItem Tag="4">Cooperativa</ComboBoxItem>
-                            <ComboBoxItem Tag="5">Microempresário individual (MEI)</ComboBoxItem>
-                            <ComboBoxItem Tag="6">Microempresário e empresa de pequeno porte</ComboBoxItem>
-                        </ComboBox>
-                    </ItemsControl>
-                </PivotItem>
-                <PivotItem Header="Retenções de tributos">
-                    <ItemsControl DataContext="{Binding RetTrib}"
-                                  Style="{StaticResource ItensResponsivos}">
-                        <controles:EntradaNumerica Format="13:2"
-                                                   Number="{Binding VRetPIS, Mode=TwoWay}"
-                                                   Header="Valor retido de PIS" />
-                        <controles:EntradaNumerica Format="13:2"
-                                                   Number="{Binding VRetCOFINS, Mode=TwoWay}"
-                                                   Header="Valor retido de COFINS" />
-                        <controles:EntradaNumerica Format="13:2"
-                                                   Number="{Binding VRetCSLL, Mode=TwoWay}"
-                                                   Header="Valor retido de CSLL" />
-                        <controles:EntradaNumerica Format="13:2"
-                                                   Number="{Binding VBCIRRF, Mode=TwoWay}"
-                                                   Header="Base de cálculo do IRRF" />
-                        <controles:EntradaNumerica Format="13:2"
-                                                   Number="{Binding VIRRF, Mode=TwoWay}"
-                                                   Header="Valor retido do IRRF" />
-                        <controles:EntradaNumerica Format="13:2"
-                                                   Number="{Binding VBCRetPrev, Mode=TwoWay}"
-                                                   Header="BC da retenção da Previdência soial" />
-                        <controles:EntradaNumerica Format="13:2"
-                                                   Number="{Binding VRetPrev, Mode=TwoWay}"
-                                                   Header="Valor da retenção da PS" />
-                    </ItemsControl>
-                </PivotItem>
-            </Pivot>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">ISSQN</TextBlock>
+                <ItemsControl Grid.Row="1"
+                              Style="{StaticResource ItensResponsivos}">
+                    <DatePicker Date="{x:Bind DataPrestacao, Mode=TwoWay}"
+                                Header="Data da prestação do serviço" />
+                    <ComboBox SelectedIndex="{x:Bind CRegTrib, Mode=TwoWay}"
+                              Header="Regime especial de tributação">
+                        <ComboBoxItem>Microempresa municipal</ComboBoxItem>
+                        <ComboBoxItem>Estimativa</ComboBoxItem>
+                        <ComboBoxItem>Sociedade de profissionais</ComboBoxItem>
+                        <ComboBoxItem>Cooperativa</ComboBoxItem>
+                        <ComboBoxItem>Microempresário individual (MEI)</ComboBoxItem>
+                        <ComboBoxItem>Microempresário e empresa de pequeno porte</ComboBoxItem>
+                    </ComboBox>
+                </ItemsControl>
+                <TextBlock Grid.Row="2"
+                           Style="{StaticResource SubtitleTextBlockStyle}"
+                           Margin="0,10,0,0">Retenção de tributos</TextBlock>
+                <ItemsControl Grid.Row="3"
+                              Style="{StaticResource ItensResponsivos}">
+                    <controles:EntradaNumerica Format="13:2"
+                                               Number="{x:Bind RetTrib.VRetPIS, Mode=TwoWay}"
+                                               Header="Valor retido de PIS" />
+                    <controles:EntradaNumerica Format="13:2"
+                                               Number="{x:Bind RetTrib.VRetCOFINS, Mode=TwoWay}"
+                                               Header="Valor retido de COFINS" />
+                    <controles:EntradaNumerica Format="13:2"
+                                               Number="{x:Bind RetTrib.VRetCSLL, Mode=TwoWay}"
+                                               Header="Valor retido de CSLL" />
+                    <controles:EntradaNumerica Format="13:2"
+                                               Number="{x:Bind RetTrib.VBCIRRF, Mode=TwoWay}"
+                                               Header="Base de cálculo do IRRF" />
+                    <controles:EntradaNumerica Format="13:2"
+                                               Number="{x:Bind RetTrib.VIRRF, Mode=TwoWay}"
+                                               Header="Valor retido do IRRF" />
+                    <controles:EntradaNumerica Format="13:2"
+                                               Number="{x:Bind RetTrib.VBCRetPrev, Mode=TwoWay}"
+                                               Header="BC da retenção da Previdência soial" />
+                    <controles:EntradaNumerica Format="13:2"
+                                               Number="{x:Bind RetTrib.VRetPrev, Mode=TwoWay}"
+                                               Header="Valor da retenção da PS" />
+                </ItemsControl>
+            </Grid>
         </ScrollViewer>
         <Grid Padding="16">
             <Grid.RowDefinitions>

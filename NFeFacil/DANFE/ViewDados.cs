@@ -318,10 +318,10 @@ namespace NFeFacil.DANFE
             var issqn = Dados.NFe.Informacoes.total.ISSQNtot;
             return issqn != null ? new DadosISSQN
             {
-                BC = issqn.VBC.ToString("N2"),
+                BC = issqn.vBC.ToString("N2"),
                 IM = emit.IM,
-                TotalServiços = issqn.VServ.ToString("N2"),
-                ValorISSQN = issqn.VISS.ToString("N2")
+                TotalServiços = issqn.vServ.ToString("N2"),
+                ValorISSQN = issqn.vISS.ToString("N2")
             } : new DadosISSQN();
         }
 

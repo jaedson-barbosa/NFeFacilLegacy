@@ -23,7 +23,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTotal
                     {
                         var imp = imposto as ISSQN;
                         VBC += imp.vBC.ToDouble();
-                        VISS += imp.vISSQN.ToDouble();
+                        vISS += imp.vISSQN.ToDouble();
                         VDeducao += imp.vDeducao.ToDouble();
                         VDescCond += imp.vDescCond.ToDouble();
                         VDescIncond += imp.vDescIncond.ToDouble();
@@ -68,14 +68,20 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTotal
             }
         }
 
+        [XmlIgnore]
+        public double vServ;
         [XmlElement("vServ", Order = 0), DescricaoPropriedade("Valor total do serviços prestados")]
-        public double VServ { get; set; }
+        public string VServ { get => ToStr(vServ); set => vServ = Parse(value); }
 
+        [XmlIgnore]
+        public double vBC;
         [XmlElement("vBC", Order = 1), DescricaoPropriedade("Somatório da BC do ISS")]
-        public double VBC { get; set; }
+        public string VBC { get => ToStr(vBC); set => vBC = Parse(value); }
 
+        [XmlIgnore]
+        public double vISS;
         [XmlElement("vISS", Order = 2), DescricaoPropriedade("Somatório de ISS")]
-        public double VISS { get; set; }
+        public string VISS { get => ToStr(vISS); set => vISS = Parse(value); }
 
         double vPIS;
         [XmlElement("vPIS", Order = 3), DescricaoPropriedade("Somatório de PIS")]
@@ -88,22 +94,27 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTotal
         [XmlElement("dCompet", Order = 5), DescricaoPropriedade("Data da prestação do serviço")]
         public string DCompet { get; set; }
 
+        double vDeducao;
         [XmlElement("vDeducao", Order = 6), DescricaoPropriedade("Valor total da dedução")]
-        public double VDeducao { get; set; }
+        public string VDeducao { get => ToStr(vDeducao); set => vDeducao = Parse(value); }
 
+        double vOutro;
         [XmlElement("vOutro", Order = 7), DescricaoPropriedade("Valor total de outras retenções")]
-        public double VOutro { get; set; }
+        public string VOutro { get => ToStr(vOutro); set => vOutro = Parse(value); }
 
+        double vDescIncond;
         [XmlElement("vDescIncond", Order = 8), DescricaoPropriedade("Valor total do desconto incondicionado")]
-        public double VDescIncond { get; set; }
+        public string VDescIncond { get => ToStr(vDescIncond); set => vDescIncond = Parse(value); }
 
+        double vDescCond;
         [XmlElement("vDescCond", Order = 9), DescricaoPropriedade("Valor total do desconto condicionado")]
-        public double VDescCond { get; set; }
+        public string VDescCond { get => ToStr(vDescCond); set => vDescCond = Parse(value); }
 
+        double vISSRet;
         [XmlElement("vISSRet", Order = 10), DescricaoPropriedade("Valor total da retenção ISS")]
-        public double VISSRet { get; set; }
+        public string VISSRet { get => ToStr(vISSRet); set => vISSRet = Parse(value); }
 
         [XmlElement("cRegTrib", Order = 11), DescricaoPropriedade("Código do Regime Especial de Tributação")]
-        public string CRegTrib { get; set; }
+        public int CRegTrib { get; set; }
     }
 }

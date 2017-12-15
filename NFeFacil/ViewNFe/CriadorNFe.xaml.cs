@@ -14,7 +14,6 @@ namespace NFeFacil.ViewNFe
 {
     public sealed partial class CriadorNFe : ContentDialog
     {
-        bool PodeUsarAmbienteHomolocagao { get; }
         bool ambienteHomolocagao;
         bool AmbienteHomolocagao
         {
@@ -54,7 +53,6 @@ namespace NFeFacil.ViewNFe
                     cana = new RegistroAquisicaoCana()
                 }
             };
-            PodeUsarAmbienteHomolocagao = true;
             if (ConfiguracoesPermanentes.CalcularNumeroNFe)
             {
                 CalcularNumero_Click(null, null);
@@ -65,7 +63,6 @@ namespace NFeFacil.ViewNFe
         {
             InitializeComponent();
             PreNota = preNota;
-            PodeUsarAmbienteHomolocagao = false;
         }
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)

@@ -11,8 +11,7 @@
                PrimaryButtonClick="ContentDialog_PrimaryButtonClick">
 
     <StackPanel>
-        <CheckBox IsChecked="{x:Bind AmbienteHomolocagao, Mode=TwoWay}"
-                  IsEnabled="{x:Bind PodeUsarAmbienteHomolocagao}">Usar ambiente de homologação</CheckBox>
+        <CheckBox IsChecked="{x:Bind AmbienteHomolocagao, Mode=TwoWay}">Usar ambiente de homologação</CheckBox>
         <controles:EntradaNumerica Header="Série"
                                    Format="3"
                                    Number="{x:Bind Serie, Mode=TwoWay}" />

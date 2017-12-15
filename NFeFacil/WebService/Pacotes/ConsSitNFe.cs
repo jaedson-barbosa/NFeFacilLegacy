@@ -11,10 +11,10 @@ namespace NFeFacil.WebService.Pacotes
         public string xServ { get; set; }
         public string chNFe { get; set; }
 
-        public ConsSitNFe(string chave)
+        public ConsSitNFe(string chave, bool teste)
         {
             versao = "3.10";
-            tpAmb = 1;
+            tpAmb = teste ? 2 : 1;
             xServ = "CONSULTAR";
             chNFe = chave;
         }

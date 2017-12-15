@@ -118,7 +118,7 @@ namespace NFeFacil.Validacao
             }
             else
             {
-                return !string.IsNullOrEmpty(tot.DCompet);
+                return tot.vServ != 0;
             }
         }
 

@@ -79,10 +79,10 @@ namespace NFeFacil.ViewNFe
             Observacoes = new ObservableCollection<Observacao>(NotaSalva.Informacoes.infAdic.ObsCont);
             ProcessosReferenciados = new ObservableCollection<ProcessoReferenciado>(NotaSalva.Informacoes.infAdic.ProcRef);
 
-            DataPrestacao = string.IsNullOrEmpty(NotaSalva.Informacoes.total.ISSQNtot.DCompet)
+            DataPrestacao = string.IsNullOrEmpty(NotaSalva.Informacoes.total.ISSQNtot?.DCompet)
                 ? DateTimeOffset.Now
                 : DateTimeOffset.Parse(NotaSalva.Informacoes.total.ISSQNtot.DCompet);
-            CRegTrib = NotaSalva.Informacoes.total.ISSQNtot.CRegTrib - 1;
+            CRegTrib = (NotaSalva.Informacoes.total.ISSQNtot?.CRegTrib - 1) ?? 0;
             RetTrib = NotaSalva.Informacoes.total.RetTrib ?? new RetTrib();
 
             AtualizarVeiculo();

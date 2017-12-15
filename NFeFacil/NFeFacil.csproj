@@ -373,7 +373,7 @@
     </Compile>
     <Compile Include="ViewDadosBase\GerenciamentoProdutos\Ano.cs" />
     <Compile Include="Controles\NumeroChangedEventArgs.cs" />
-    <Compile Include="IdentificacaoExtensoes.cs" />
+    <Compile Include="ExtensoesProjetoAuxiliar.cs" />
     <Compile Include="Login\EscolhaEmitente.xaml.cs">
       <DependentUpon>EscolhaEmitente.xaml</DependentUpon>
     </Compile>

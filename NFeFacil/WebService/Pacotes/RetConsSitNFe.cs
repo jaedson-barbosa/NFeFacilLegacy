@@ -14,5 +14,6 @@ namespace NFeFacil.WebService.Pacotes
         public int cUF { get; set; }
         public string dhRecbto { get; set; }
         public string chNFe { get; set; }
+        public ModeloXML.PartesProcesso.ProtocoloNFe protNFe { get; set; }
     }
 }

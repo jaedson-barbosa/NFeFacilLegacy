@@ -1,7 +1,10 @@
-﻿namespace NFeFacil.ModeloXML.PartesProcesso
+﻿using System.Xml.Serialization;
+
+namespace NFeFacil.ModeloXML.PartesProcesso
 {
     public sealed class InfoProtocolo
     {
+        [XmlAttribute]
         public string Id;
         public int tpAmb;
         public string verAplic;

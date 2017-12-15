@@ -15,17 +15,24 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition />
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <TextBox TextWrapping="Wrap"
                  Header="Chave da NFe"
                  Text="{x:Bind Chave, Mode=TwoWay}"
                  Grid.ColumnSpan="2" />
+        <CheckBox Grid.Column="2"
+                  Margin="8,0,0,0"
+                  IsChecked="{x:Bind Homologacao, Mode=TwoWay}">
+            <TextBlock>Ambiente de<LineBreak />homologação</TextBlock>
+        </CheckBox>
         <ComboBox ItemsSource="{x:Bind vm:DadosEstadosParaView.EstadosCompletos}"
                   DisplayMemberPath="Nome"
                   HorizontalAlignment="Stretch"
                   Header="Estado"
                   SelectedItem="{x:Bind UF, Mode=TwoWay}"
                   Grid.Row="1"
+                  Grid.ColumnSpan="2"
                   Margin="0,8" />
         <Button x:Name="btnAnalisar"
                 Content="Analisar nota"
@@ -41,7 +48,13 @@
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="x:String">
                     <TextBlock TextWrapping="Wrap"
-                               Text="{x:Bind}" />
+                               Text="{x:Bind}">
+                        <TextBlock.ContextFlyout>
+                            <MenuFlyout>
+                                <MenuFlyoutItem Click="CopiarXML">Copiar XML</MenuFlyoutItem>
+                            </MenuFlyout>
+                        </TextBlock.ContextFlyout>
+                    </TextBlock>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

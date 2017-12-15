@@ -6,6 +6,5 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS
     interface IDadosICMS
     {
         object Processar(DetalhesProdutos prod);
-        //bool Validar(ILog log);
     }
 }

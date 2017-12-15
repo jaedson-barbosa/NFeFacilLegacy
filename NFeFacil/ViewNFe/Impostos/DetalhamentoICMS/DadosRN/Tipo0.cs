@@ -31,7 +31,5 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS.DadosRN
                 vICMS = ToStr(vICMS)
             };
         }
-
-        //public override bool Validar(ILog log) => true;
     }
 }

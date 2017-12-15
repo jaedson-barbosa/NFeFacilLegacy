@@ -38,8 +38,10 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS.DadosRN
             vBC *= 1 - (pRedBC / 100);
             var vICMS = vBC * pICMS / 100;
 
-            var pMVASTd = string.IsNullOrEmpty(pMVAST) ? 0 : Parse(pMVAST);
-            var pRedBCSTd = string.IsNullOrEmpty(pRedBCST) ? 0 : Parse(pRedBCST);
+            double pMVASTd;
+            bool usarpMVAST = TryParse(pMVAST, out pMVASTd);
+            double pRedBCSTd;
+            bool usarpRedBCST = TryParse(pRedBCST, out pRedBCSTd);
             var vBCST = (vBC + ObterIPI(prod)) * (100 + pMVASTd) / 100;
             var bcstSemReducao = (vBCST * pICMSST / 100) - vICMS;
 
@@ -59,8 +61,8 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS.DadosRN
                 Orig = Origem,
                 pICMS = ToStr(pICMS, "F4"),
                 pICMSST = ToStr(pICMSST, "F4"),
-                pMVAST = string.IsNullOrEmpty(pMVAST) ? null : ToStr(pMVASTd, "F4"),
-                pRedBCST = string.IsNullOrEmpty(pRedBCST) ? null : ToStr(pRedBCSTd, "F4"),
+                pMVAST = usarpMVAST ? ToStr(pMVASTd, "F4") : null,
+                pRedBCST = usarpRedBCST ? ToStr(pRedBCSTd, "F4") : null,
                 vBC = ToStr(vBC),
                 vBCST = ToStr(vBCST),
                 vICMS = ToStr(vICMS),

@@ -23,8 +23,10 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS.DadosRN
 
         public override object Processar(DetalhesProdutos prod)
         {
-            var pMVASTd = string.IsNullOrEmpty(pMVAST) ? 0 : Parse(pMVAST);
-            var pRedBCSTd = string.IsNullOrEmpty(pRedBCST) ? 0 : Parse(pRedBCST);
+            double pMVASTd;
+            bool usarpMVAST = TryParse(pMVAST, out pMVASTd);
+            double pRedBCSTd;
+            bool usarpRedBCST = TryParse(pRedBCST, out pRedBCSTd);
             var vBCST = (CalcularBC(prod) + ObterIPI(prod)) * (100 + pMVASTd) / 100;
             var valorSemReducao = vBCST * pICMSST / 100;
             vBCST *= 1 - (pRedBCSTd / 100);
@@ -40,8 +42,8 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS.DadosRN
                 motDesICMS = infDeson ? motDesICMS : null,
                 Orig = Origem,
                 pICMSST = ToStr(pICMSST, "F4"),
-                pMVAST = string.IsNullOrEmpty(pMVAST) ? null : ToStr(pMVASTd, "F4"),
-                pRedBCST = string.IsNullOrEmpty(pRedBCST) ? null : ToStr(pRedBCSTd, "F4"),
+                pMVAST = usarpMVAST ? ToStr(pMVASTd, "F4") : null,
+                pRedBCST = usarpRedBCST ? ToStr(pRedBCSTd, "F4") : null,
                 vBCST = ToStr(vBCST),
                 vICMSDeson = infDeson ? ToStr(vICMSDeson) : null,
                 vICMSST = ToStr(vICMSST)

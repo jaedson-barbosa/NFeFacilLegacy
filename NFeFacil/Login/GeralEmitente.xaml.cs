@@ -55,6 +55,7 @@ namespace NFeFacil.Login
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
                 brush.ImageSource = caixa.Imagem;
+                imagem = caixa.Imagem;
             }
         }
     }

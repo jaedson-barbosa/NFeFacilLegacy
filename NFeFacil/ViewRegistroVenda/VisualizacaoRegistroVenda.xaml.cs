@@ -18,6 +18,11 @@ namespace NFeFacil.ViewRegistroVenda
     public sealed partial class VisualizacaoRegistroVenda : Page
     {
         RegistroVenda ItemBanco;
+        ClienteDI cliente;
+        MotoristaDI motorista;
+        Vendedor vendedor;
+        Comprador comprador;
+        ProdutoDI[] produtosCompletos;
 
         public VisualizacaoRegistroVenda()
         {
@@ -29,10 +34,12 @@ namespace NFeFacil.ViewRegistroVenda
             ItemBanco = (RegistroVenda)e.Parameter;
             using (var db = new AplicativoContext())
             {
-                var cliente = db.Clientes.Find(ItemBanco.Cliente);
-                var emitente = db.Emitentes.Find(ItemBanco.Emitente);
-                var motorista = ItemBanco.Motorista != Guid.Empty ? db.Motoristas.Find(ItemBanco.Motorista) : null;
-                var vendedor = ItemBanco.Vendedor != Guid.Empty ? db.Vendedores.Find(ItemBanco.Vendedor) : null;
+                cliente = db.Clientes.Find(ItemBanco.Cliente);
+                motorista = ItemBanco.Motorista != Guid.Empty ? db.Motoristas.Find(ItemBanco.Motorista) : null;
+                vendedor = ItemBanco.Vendedor != Guid.Empty ? db.Vendedores.Find(ItemBanco.Vendedor) : null;
+                comprador = ItemBanco.Comprador != Guid.Empty ? db.Compradores.Find(ItemBanco.Comprador) : null;
+                produtosCompletos = db.Produtos.Where(x => ItemBanco.Produtos.Count(y => x.Id == y.IdBase) > 0).ToArray();
+                var emitente = Propriedades.EmitenteAtivo;
 
                 AddBloco("Emitente", ("Nome", emitente.Nome),
                     ("Nome fantasia", emitente.NomeFantasia),
@@ -60,6 +67,13 @@ namespace NFeFacil.ViewRegistroVenda
                     ("UF", cliente.SiglaUF),
                     ("Telefone", cliente.Telefone));
 
+                if (comprador != null)
+                {
+                    AddBloco("Comprador", ("Nome", comprador.Nome),
+                        ("Telefone", comprador.Telefone),
+                        ("Email", comprador.Email));
+                }
+
                 if (motorista != null)
                 {
                     AddBloco("Motorista", ("Nome", motorista.Nome),
@@ -84,7 +98,7 @@ namespace NFeFacil.ViewRegistroVenda
 
                 AddBloco("Produtos", ItemBanco.Produtos.Select(x =>
                 {
-                    var label = db.Produtos.Find(x.IdBase).Descricao;
+                    var label = produtosCompletos.First(k => k.Id == x.IdBase).Descricao;
                     var texto = $"Quantidade - {x.Quantidade}, Total - {x.TotalLíquido}";
                     return (label, texto);
                 }).ToArray());
@@ -165,7 +179,12 @@ namespace NFeFacil.ViewRegistroVenda
                 MainPage.Current.Navegar<DARV>(new DadosImpressaoDARV
                 {
                     Venda = ItemBanco,
-                    Dimensoes = new Dimensoes(largura, altura, 1)
+                    Dimensoes = new Dimensoes(largura, altura, 1),
+                    Cliente = cliente,
+                    Motorista = motorista,
+                    Vendedor = vendedor,
+                    Comprador = comprador,
+                    ProdutosCompletos = produtosCompletos
                 });
             }
         }

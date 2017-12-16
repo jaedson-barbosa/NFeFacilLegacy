@@ -67,34 +67,31 @@ namespace NFeFacil.ViewRegistroVenda
 
             Registro = registro;
             Emitente = Propriedades.EmitenteAtivo;
+            Cliente = venda.Cliente;
+            Vendedor = venda.Vendedor?.Nome ?? "Dono da empresa";
+            Comprador = venda.Comprador;
+            Motorista = venda.Motorista;
+
             ExibicaoProduto[] produtos = new ExibicaoProduto[registro.Produtos.Count];
             double subtotal = 0;
             double acrescimos = 0;
             double desconto = 0;
-            using (var db = new AplicativoContext())
+            for (var i = 0; i < registro.Produtos.Count; i++)
             {
-                Cliente = db.Clientes.Find(registro.Cliente);
-                Vendedor = db.Vendedores.Find(registro.Vendedor)?.Nome ?? "Dono da empresa";
-                Comprador = db.Compradores.Find(registro.Comprador);
-                Motorista = db.Motoristas.Find(registro.Motorista);
-
-                for (var i = 0; i < registro.Produtos.Count; i++)
+                var atual = registro.Produtos[i];
+                var completo = venda.ProdutosCompletos.First(x => x.Id == atual.IdBase);
+                var totBruto = atual.Quantidade * atual.ValorUnitario;
+                subtotal += totBruto;
+                acrescimos += atual.DespesasExtras + atual.Frete + atual.Seguro;
+                desconto += atual.Desconto;
+                produtos[i] = new ExibicaoProduto
                 {
-                    var atual = registro.Produtos[i];
-                    var completo = db.Produtos.Find(atual.IdBase);
-                    var totBruto = atual.Quantidade * atual.ValorUnitario;
-                    subtotal += totBruto;
-                    acrescimos += atual.DespesasExtras + atual.Frete + atual.Seguro;
-                    desconto += atual.Desconto;
-                    produtos[i] = new ExibicaoProduto
-                    {
-                        Quantidade = atual.Quantidade.ToString("N2"),
-                        CodigoProduto = completo.CodigoProduto,
-                        Descricao = completo.Descricao,
-                        ValorUnitario = atual.ValorUnitario.ToString("C2"),
-                        TotalBruto = totBruto.ToString("C2")
-                    };
-                }
+                    Quantidade = atual.Quantidade.ToString("N2"),
+                    CodigoProduto = completo.CodigoProduto,
+                    Descricao = completo.Descricao,
+                    ValorUnitario = atual.ValorUnitario.ToString("C2"),
+                    TotalBruto = totBruto.ToString("C2")
+                };
             }
 
             Subtotal = subtotal.ToString("C2");
@@ -212,5 +209,10 @@ namespace NFeFacil.ViewRegistroVenda
     {
         public RegistroVenda Venda { get; set; }
         public Dimensoes Dimensoes { get; set; }
+        public ClienteDI Cliente { get; set; }
+        public MotoristaDI Motorista { get; set; }
+        public Vendedor Vendedor { get; set; }
+        public Comprador Comprador { get; set; }
+        public ProdutoDI[] ProdutosCompletos { get; set; }
     }
 }

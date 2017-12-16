@@ -48,24 +48,20 @@ namespace NFeFacil.View
                     {
                         using (var db = new AplicativoContext())
                         {
-                            var nota = db.NotasFiscais.Find(resp.chNFe);
-                            if (nota != null)
+                            var nota = db.NotasFiscais.Find($"NFe{resp.chNFe}");
+                            if (nota != null && nota.Status < 4)
                             {
-                                if (nota.Status == (int)StatusNFe.Emitida || nota.Status == (int)StatusNFe.Cancelada) { }
-                                else
+                                nota.Status = (int)StatusNFe.Emitida;
+                                var original = XElement.Parse(nota.XML).FromXElement<NFe>();
+                                var novo = new Processo()
                                 {
-                                    nota.Status = (int)StatusNFe.Emitida;
-                                    var original = XElement.Parse(nota.XML).FromXElement<NFe>();
-                                    var novo = new Processo()
-                                    {
-                                        NFe = original,
-                                        ProtNFe = resp.protNFe
-                                    };
-                                    nota.XML = novo.ToXElement<Processo>().ToString();
-                                    nota.UltimaData = Propriedades.DateTimeNow;
-                                    db.NotasFiscais.Update(nota);
-                                    db.SaveChanges();
-                                }
+                                    NFe = original,
+                                    ProtNFe = resp.protNFe
+                                };
+                                nota.XML = novo.ToXElement<Processo>().ToString();
+                                nota.UltimaData = Propriedades.DateTimeNow;
+                                db.NotasFiscais.Update(nota);
+                                db.SaveChanges();
                                 Resultados.Insert(0, "Detectada e atualizada nota fiscal.");
                             }
                         }

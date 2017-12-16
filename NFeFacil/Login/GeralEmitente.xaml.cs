@@ -1,5 +1,6 @@
 ﻿using NFeFacil.ItensBD;
 using System;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
@@ -14,6 +15,7 @@ namespace NFeFacil.Login
     public sealed partial class GeralEmitente : Page
     {
         EmitenteDI emitente;
+        ImageSource imagem;
 
         public GeralEmitente()
         {
@@ -31,20 +33,22 @@ namespace NFeFacil.Login
             txtNomeFantasia.Text = emitente.Principal;
             txtNome.Text = emitente.Secundario;
             this.emitente = (EmitenteDI)emitente.Objeto;
+            imagem = emitente.Imagem;
         }
 
-        private void Confirmar(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void Confirmar(object sender, RoutedEventArgs e)
         {
             Propriedades.EmitenteAtivo = emitente;
+            Propriedades.Logotipo = imagem;
             MainPage.Current.Navegar<EscolhaVendedor>();
         }
 
-        private void Editar(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void Editar(object sender, RoutedEventArgs e)
         {
             MainPage.Current.Navegar<AdicionarEmitente>(emitente);
         }
 
-        async void Logotipo(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        async void Logotipo(object sender, RoutedEventArgs e)
         {
             var brush = (ImageBrush)imgLogotipo.Background;
             var caixa = new View.DefinirImagem(emitente.Id, brush.ImageSource);

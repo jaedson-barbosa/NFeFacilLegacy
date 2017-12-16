@@ -222,30 +222,18 @@ namespace NFeFacil
 
         public async Task AtualizarInformaçõesGerais()
         {
-            grdInfoGeral.Visibility = Visibility.Visible;
-            using (var db = new AplicativoContext())
-            {
-                var img = db.Imagens.Find(Propriedades.EmitenteAtivo.Id);
-                if (img != null && img.Bytes != null)
-                {
-                    imgLogotipo.Source = await img.GetSourceAsync();
-                }
-                txtNomeEmitente.Text = Propriedades.EmitenteAtivo.Nome;
-                txtNomeEmpresa.Text = Propriedades.EmitenteAtivo.NomeFantasia;
+            imgLogotipo.Source = Propriedades.Logotipo;
+            txtNomeEmitente.Text = Propriedades.EmitenteAtivo.Nome;
+            txtNomeEmpresa.Text = Propriedades.EmitenteAtivo.NomeFantasia;
 
-                if (Propriedades.VendedorAtivo != null)
-                {
-                    img = db.Imagens.Find(Propriedades.VendedorAtivo.Id);
-                    if (img != null && img.Bytes != null)
-                    {
-                        imgVendedor.Source = await img.GetSourceAsync();
-                    }
-                    txtNomeVendedor.Text = Propriedades.VendedorAtivo.Nome;
-                }
-                else
-                {
-                    txtNomeVendedor.Text = "Administrador";
-                }
+            if (Propriedades.VendedorAtivo != null)
+            {
+                imgVendedor.Source = Propriedades.FotoVendedor;
+                txtNomeVendedor.Text = Propriedades.VendedorAtivo.Nome;
+            }
+            else
+            {
+                txtNomeVendedor.Text = "Administrador";
             }
         }
 

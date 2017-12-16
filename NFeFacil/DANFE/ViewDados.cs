@@ -203,7 +203,7 @@ namespace NFeFacil.DANFE
             var detalhes = Dados.NFe.Informacoes;
             var prot = Dados.ProtNFe;
             var codigoBarras = detalhes.Id.Substring(detalhes.Id.IndexOf('e') + 1);
-            var retorno = new DadosNFe
+            return new DadosNFe
             {
                 Chave = codigoBarras,
                 ChaveComMascara = AplicarMascaraChave(codigoBarras),
@@ -217,23 +217,9 @@ namespace NFeFacil.DANFE
                 NumeroNota = detalhes.identificacao.Numero.ToString("000,000,000"),
                 NumeroProtocolo = prot.InfProt.nProt.ToString(),
                 SerieNota = detalhes.identificacao.Serie.ToString(),
-                TipoEmissao = detalhes.identificacao.TipoEmissão.ToString()
+                TipoEmissao = detalhes.identificacao.TipoEmissão.ToString(),
+                Logotipo = Propriedades.Logotipo
             };
-            using (var db = new AplicativoContext())
-            {
-                var di = db.Emitentes.FirstOrDefault(x => x.CNPJ == detalhes.emitente.CNPJ);
-                if (di != null)
-                {
-                    var img = db.Imagens.Find(di.Id);
-                    if (img != null && img.Bytes != null)
-                    {
-                        var task = img.GetSourceAsync();
-                        task.Wait();
-                        retorno.Logotipo = task.Result;
-                    }
-                }
-                return retorno;
-            }
 
             string AplicarMascaraChave(string original)
             {

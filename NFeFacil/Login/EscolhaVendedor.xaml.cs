@@ -67,6 +67,7 @@ namespace NFeFacil.Login
             {
                 var item = (ConjuntoBasicoExibicao)e.AddedItems[0];
                 Propriedades.VendedorAtivo = (Vendedor)item.Objeto;
+                Propriedades.FotoVendedor = item.Imagem;
                 MainPage.Current.Navegar<View.Inicio>();
                 await MainPage.Current.AtualizarInformaçõesGerais();
             }

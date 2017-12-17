@@ -22,6 +22,6 @@
         <TextBox Header="Placa"
                  Text="{x:Bind Item.Placa, Mode=TwoWay}" />
         <TextBox Header="RNTC"
-                 Text="{x:Bind Item.RNTC, Mode=TwoWay}" />
+                 Text="{x:Bind RNTC, Mode=TwoWay}" />
     </StackPanel>
 </ContentDialog>

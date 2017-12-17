@@ -55,17 +55,28 @@ namespace NFeFacil.ViewNFe
             using (var db = new AplicativoContext())
             {
                 ClientesDisponiveis = db.Clientes.Where(x => x.Ativo).OrderBy(x => x.Nome).ToList();
-                MotoristasDisponiveis = (from mot in db.Motoristas
-                                         where mot.Ativo
-                                         orderby mot.Nome
-                                         let temVSecundarios = !string.IsNullOrEmpty(mot.VeiculosSecundarios)
-                                         let listaVeiculos = temVSecundarios ? mot.VeiculosSecundarios.Split('&').Where(x => !string.IsNullOrEmpty(x)) : null
-                                         select new MotoristaManipulacaoNFe
-                                         {
-                                             Root = mot,
-                                             Principal = db.Veiculos.Find(mot.Veiculo),
-                                             Secundarios = temVSecundarios ? db.Veiculos.Where(x => listaVeiculos.Contains(x.Placa)).ToArray() : null
-                                         }).GerarObs();
+                MotoristasDisponiveis = new ObservableCollection<MotoristaManipulacaoNFe>();
+                var mots = db.Motoristas.Where(x => x.Ativo).OrderBy(x => x.Nome).ToArray();
+                for (int i = 0; i < mots.Length; i++)
+                {
+                    var atual = new MotoristaManipulacaoNFe()
+                    {
+                        Root = mots[i]
+                    };
+                    var secs = mots[i].VeiculosSecundarios;
+                    if (!string.IsNullOrEmpty(secs))
+                    {
+                        var placas = secs.Split('&');
+                        var veics = new VeiculoDI[placas.Length - 1];
+                        for (int k = 0; k < veics.Length; k++)
+                        {
+                            veics[k] = db.Veiculos.First(x => x.Placa == placas[k]);
+                        }
+                        atual.Secundarios = veics;
+                    }
+                    atual.Principal = db.Veiculos.Find(mots[i].Veiculo);
+                    MotoristasDisponiveis.Add(atual);
+                }
                 ProdutosDisponiveis = db.Produtos.Where(x => x.Ativo).OrderBy(x => x.Descricao).ToList();
             }
 

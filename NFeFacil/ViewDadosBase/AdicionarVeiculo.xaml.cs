@@ -11,6 +11,12 @@ namespace NFeFacil.ViewDadosBase
     {
         public VeiculoDI Item { get; } = new VeiculoDI();
 
+        string RNTC
+        {
+            get => Item.RNTC;
+            set => Item.RNTC = string.IsNullOrEmpty(value) ? null : value;
+        }
+
         public AdicionarVeiculo()
         {
             InitializeComponent();

@@ -9,7 +9,7 @@ namespace NFeFacil.ViewNFe.CaixasDialogoNFe
     public sealed partial class EscolherVeiculo : ContentDialog
     {
         ObservableCollection<VeiculoDI> Veiculos { get; }
-        public VeiculoDI Escolhido { get; }
+        public VeiculoDI Escolhido { get; private set; }
 
         public EscolherVeiculo(VeiculoDI[] veiculos, VeiculoDI escolhido)
         {

@@ -82,24 +82,6 @@ namespace NFeFacil.ViewNFe
         {
             var nota = (NFeDI)((MenuFlyoutItem)sender).DataContext;
             var processo = XElement.Parse(nota.XML).FromXElement<Processo>();
-            if (await Cancelar(processo))
-            {
-                nota.Status = (int)StatusNFe.Cancelada;
-                using (var db = new AplicativoContext())
-                {
-                    nota.UltimaData = Propriedades.DateTimeNow;
-                    db.Update(nota);
-                    db.SaveChanges();
-
-                    NotasEmitidas.Remove(nota);
-                    NotasCanceladas.Insert(0, nota);
-                }
-            }
-        }
-
-        public async Task<bool> Cancelar(Processo Processo)
-        {
-            ILog Log = Popup.Current;
 
             try
             {
@@ -122,9 +104,9 @@ namespace NFeFacil.ViewNFe
                     var resposta = await gerenciador.EnviarAsync(envio);
                     if (resposta.RetEvento[0].InfEvento.CStat == 135)
                     {
-                        using (var contexto = new AplicativoContext())
+                        using (var db = new AplicativoContext())
                         {
-                            contexto.Cancelamentos.Add(new RegistroCancelamento()
+                            db.Cancelamentos.Add(new RegistroCancelamento()
                             {
                                 ChaveNFe = chave,
                                 DataHoraEvento = resposta.RetEvento[0].InfEvento.DhRegEvento,
@@ -136,22 +118,26 @@ namespace NFeFacil.ViewNFe
                                     Versao = resposta.Versao
                                 }.ToXElement<ProcEventoCancelamento>().ToString()
                             });
-                            contexto.SaveChanges();
+
+                            nota.Status = (int)StatusNFe.Cancelada;
+                            nota.UltimaData = Propriedades.DateTimeNow;
+                            db.Update(nota);
+                            db.SaveChanges();
+
+                            NotasEmitidas.Remove(nota);
+                            NotasCanceladas.Insert(0, nota);
                         }
-                        Log.Escrever(TitulosComuns.Sucesso, "NFe cancelada com sucesso.");
-                        return true;
+                        Popup.Current.Escrever(TitulosComuns.Sucesso, "NFe cancelada com sucesso.");
                     }
                     else
                     {
-                        Log.Escrever(TitulosComuns.Erro, resposta.RetEvento[0].InfEvento.XMotivo);
+                        Popup.Current.Escrever(TitulosComuns.Erro, resposta.RetEvento[0].InfEvento.XMotivo);
                     }
                 }
-                return false;
             }
-            catch (Exception e)
+            catch (Exception erro)
             {
-                Log.Escrever(TitulosComuns.Erro, e.Message);
-                return false;
+                erro.ManipularErro();
             }
         }
 

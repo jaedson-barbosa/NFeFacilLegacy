@@ -8,6 +8,7 @@ using NFeFacil.ItensBD;
 using System.Collections.ObjectModel;
 using NFeFacil.IBGE;
 using NFeFacil.ModeloXML;
+using System.Linq;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -89,6 +90,8 @@ namespace NFeFacil.ViewDadosBase
                 {
                     using (var db = new AplicativoContext())
                     {
+                        Motorista.VeiculosSecundarios = string.Concat(from VeiculoDI item in grdVeisSec.SelectedItems
+                                                                      select item.Placa + '&');
                         Motorista.UltimaData = Propriedades.DateTimeNow;
                         if (Motorista.Id == Guid.Empty)
                         {
@@ -127,6 +130,21 @@ namespace NFeFacil.ViewDadosBase
                     db.Veiculos.Add(veic);
                     db.SaveChanges();
                     Veiculos.Add(veic);
+                }
+            }
+        }
+
+        void grdVeisSec_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (Motorista.VeiculosSecundarios?.Length > 0)
+            {
+                var veics = Motorista.VeiculosSecundarios.Split('&');
+                foreach (var item in veics)
+                {
+                    if (!string.IsNullOrEmpty(item))
+                    {
+                        grdVeisSec.SelectedItems.Add(Veiculos.First(x => x.Placa == item));
+                    }
                 }
             }
         }

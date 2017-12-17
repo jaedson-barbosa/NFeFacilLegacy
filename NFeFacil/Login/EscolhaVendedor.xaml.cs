@@ -61,7 +61,7 @@ namespace NFeFacil.Login
             }
         }
 
-        private async void VendedorEscolhido(object sender, SelectionChangedEventArgs e)
+        private void VendedorEscolhido(object sender, SelectionChangedEventArgs e)
         {
             if (e.AddedItems.Count > 0)
             {
@@ -69,15 +69,15 @@ namespace NFeFacil.Login
                 Propriedades.VendedorAtivo = (Vendedor)item.Objeto;
                 Propriedades.FotoVendedor = item.Imagem;
                 MainPage.Current.Navegar<View.Inicio>();
-                await MainPage.Current.AtualizarInformaçõesGerais();
+                MainPage.Current.AtualizarInformaçõesGerais();
             }
         }
 
-        private async void LogarAdiministrador(object sender, RoutedEventArgs e)
+        private void LogarAdiministrador(object sender, RoutedEventArgs e)
         {
             Propriedades.VendedorAtivo = null;
             MainPage.Current.Navegar<View.Inicio>();
-            await MainPage.Current.AtualizarInformaçõesGerais();
+            MainPage.Current.AtualizarInformaçõesGerais();
         }
     }
 }

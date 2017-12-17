@@ -15,6 +15,7 @@
                  Text="{x:Bind Item.Descricao, Mode=TwoWay}" />
         <ComboBox ItemsSource="{x:Bind VM:DadosEstadosParaView.EstadosCompletos}"
                   SelectedValue="{x:Bind Item.UF, Mode=TwoWay}"
+                  Header="Estado"
                   DisplayMemberPath="Nome"
                   SelectedValuePath="Sigla"
                   HorizontalAlignment="Stretch" />

@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20171217200113_Loja1.7.9.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="IBGE\Estados.xml" />
     <None Remove="IBGE\Municipios.xml" />
   </ItemGroup>

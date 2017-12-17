@@ -17,6 +17,7 @@ namespace NFeFacil.Validacao
             return new ValidarDados().ValidarTudo(log,
                 new ConjuntoAnalise(string.IsNullOrEmpty(Veiculo.Descricao), "Informe uma breve descrição do veículo."),
                 new ConjuntoAnalise(string.IsNullOrEmpty(Veiculo.Placa), "Informe a placa do veículo"),
+                new ConjuntoAnalise(Veiculo.Placa.Contains("&"), "O caractere & não pode ser usado."),
                 new ConjuntoAnalise(string.IsNullOrEmpty(Veiculo.UF), "Informe a UF da placa do veículo"));
         }
     }

@@ -11,7 +11,6 @@ using NFeFacil.Controles;
 using System.Xml.Serialization;
 using NFeFacil.Log;
 using NFeFacil.WebService.Pacotes;
-using System.Threading.Tasks;
 using NFeFacil.WebService;
 using NFeFacil.Validacao;
 using Windows.UI.Xaml.Media;
@@ -85,14 +84,14 @@ namespace NFeFacil.ViewNFe
 
             try
             {
-                var estado = Processo.NFe.Informacoes.identificacao.CódigoUF;
-                var tipoAmbiente = Processo.ProtNFe.InfProt.tpAmb;
+                var estado = processo.NFe.Informacoes.identificacao.CódigoUF;
+                var tipoAmbiente = processo.ProtNFe.InfProt.tpAmb;
 
                 var gerenciador = new GerenciadorGeral<EnvEvento, RetEnvEvento>(estado, Operacoes.RecepcaoEvento, tipoAmbiente == 2);
 
-                var cnpj = Processo.NFe.Informacoes.emitente.CNPJ;
-                var chave = Processo.NFe.Informacoes.ChaveAcesso;
-                var nProtocolo = Processo.ProtNFe.InfProt.nProt;
+                var cnpj = processo.NFe.Informacoes.emitente.CNPJ;
+                var chave = processo.NFe.Informacoes.ChaveAcesso;
+                var nProtocolo = processo.ProtNFe.InfProt.nProt;
                 var versao = gerenciador.Enderecos.VersaoRecepcaoEvento;
                 var entrada = new CancelarNFe();
 

@@ -5,8 +5,6 @@ using System.Collections.ObjectModel;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using System;
 using NFeFacil.Controles;
-using System.Threading.Tasks;
-using Windows.UI.Popups;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 using System.Collections.Generic;

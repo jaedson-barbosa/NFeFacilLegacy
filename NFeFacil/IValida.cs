@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace NFeFacil
+﻿namespace NFeFacil
 {
     interface IValida { }
 }

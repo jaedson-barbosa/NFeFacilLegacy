@@ -40,8 +40,7 @@
             <TextBox Text="{x:Bind Base.Cliente.Bairro, Mode=TwoWay}"
                      InputScope="Text"
                      Header="Bairro *" />
-            <TextBox 
-                     Text="{x:Bind Base.Cliente.CEP, Mode=TwoWay}"
+            <TextBox Text="{x:Bind Base.Cliente.CEP, Mode=TwoWay}"
                      InputScope="Number"
                      Header="CEP" />
             <TextBox Text="{x:Bind Base.Cliente.Telefone, Mode=TwoWay}"

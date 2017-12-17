@@ -3,7 +3,6 @@ using NFeFacil.ItensBD;
 using System;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.System.Profile;
 using Windows.UI;
@@ -220,7 +219,7 @@ namespace NFeFacil
             }
         }
 
-        public async Task AtualizarInformaçõesGerais()
+        public void AtualizarInformaçõesGerais()
         {
             imgLogotipo.Source = Propriedades.Logotipo;
             txtNomeEmitente.Text = Propriedades.EmitenteAtivo.Nome;

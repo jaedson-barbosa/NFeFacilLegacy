@@ -201,6 +201,9 @@
       <DependentUpon>GerenciarVendedores.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\MascaraDocumento.cs" />
+    <Compile Include="ViewNFe\EscolherPlaca.xaml.cs">
+      <DependentUpon>EscolherPlaca.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewNFe\Impostos\AssociacoesSimples.cs" />
     <Compile Include="ViewNFe\Impostos\DefinirTotalImpostos.xaml.cs">
       <DependentUpon>DefinirTotalImpostos.xaml</DependentUpon>
@@ -836,6 +839,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ViewDadosBase\GerenciarVendedores.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\EscolherPlaca.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

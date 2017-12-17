@@ -10,6 +10,7 @@ namespace NFeFacil.ItensBD
         public DateTime UltimaData { get; set; }
 
         public Guid Veiculo { get; set; }
+        public string VeiculosSecundarios { get; set; }
 
         public string CPF { get; set; }
         public string CNPJ { get; set; }
@@ -20,6 +21,8 @@ namespace NFeFacil.ItensBD
         public string UF { get; set; }
 
         public bool Ativo { get; set; } = true;
+        public string Email { get; set; }
+        public string Telefone { get; set; }
 
         public string Documento => CPF ?? CNPJ;
 

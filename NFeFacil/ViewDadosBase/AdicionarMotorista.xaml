@@ -58,7 +58,8 @@
             <TextBlock Text="Veiculo"
                        Style="{StaticResource TitleTextBlockStyle}"
                        Margin="4,0,0,0" />
-            <ComboBox ItemsSource="{x:Bind Veiculos}"
+            <ComboBox Header="Veiculo principal"
+                      ItemsSource="{x:Bind Veiculos}"
                       SelectedValuePath="Id"
                       SelectedValue="{x:Bind Motorista.Veiculo, Mode=TwoWay}">
                 <ComboBox.ItemTemplate>

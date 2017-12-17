@@ -55,7 +55,17 @@ namespace NFeFacil.ViewNFe
             using (var db = new AplicativoContext())
             {
                 ClientesDisponiveis = db.Clientes.Where(x => x.Ativo).OrderBy(x => x.Nome).ToList();
-                MotoristasDisponiveis = db.Motoristas.Where(x => x.Ativo).OrderBy(x => x.Nome).ToList();
+                MotoristasDisponiveis = (from mot in db.Motoristas
+                                         where mot.Ativo
+                                         orderby mot.Nome
+                                         let temVSecundarios = !string.IsNullOrEmpty(mot.VeiculosSecundarios)
+                                         let listaVeiculos = temVSecundarios ? mot.VeiculosSecundarios.Split('&').Where(x => !string.IsNullOrEmpty(x)) : null
+                                         select new MotoristaManipulacaoNFe
+                                         {
+                                             Root = mot,
+                                             Principal = db.Veiculos.Find(mot.Veiculo),
+                                             Secundarios = temVSecundarios ? db.Veiculos.Where(x => listaVeiculos.Contains(x.Placa)).ToArray() : null
+                                         }).GerarObs();
                 ProdutosDisponiveis = db.Produtos.Where(x => x.Ativo).OrderBy(x => x.Descricao).ToList();
             }
 
@@ -94,7 +104,7 @@ namespace NFeFacil.ViewNFe
 
         public List<ClienteDI> ClientesDisponiveis { get; set; }
         public List<ProdutoDI> ProdutosDisponiveis { get; set; }
-        public List<MotoristaDI> MotoristasDisponiveis { get; set; }
+        ObservableCollection<MotoristaManipulacaoNFe> MotoristasDisponiveis { get; set; }
 
         private ClienteDI clienteSelecionado;
         public ClienteDI ClienteSelecionado
@@ -121,34 +131,42 @@ namespace NFeFacil.ViewNFe
 
         public ProdutoDI ProdutoSelecionado { get; set; }
 
-        private MotoristaDI motoristaSelecionado;
-        public MotoristaDI MotoristaSelecionado
+        private MotoristaManipulacaoNFe motoristaSelecionado;
+        MotoristaManipulacaoNFe MotoristaSelecionado
         {
             get
             {
                 var mot = NotaSalva.Informacoes.transp?.Transporta;
-                if (motoristaSelecionado == null && mot != null && mot.Documento != null)
+                if (motoristaSelecionado.Equals(default(MotoristaManipulacaoNFe)) && mot?.Documento != null)
                 {
-                    motoristaSelecionado = MotoristasDisponiveis.FirstOrDefault(x => x.Documento == mot.Documento);
+                    motoristaSelecionado = MotoristasDisponiveis.FirstOrDefault(x => x.Root.Documento == mot.Documento);
                 }
                 return motoristaSelecionado;
             }
             set
             {
                 motoristaSelecionado = value;
-                var transporte = NotaSalva.Informacoes.transp;
-                transporte.Transporta = value.ToMotorista();
-                if (value.Veiculo != default(Guid))
-                {
-                    using (var db = new AplicativoContext())
-                        transporte.VeicTransp = db.Veiculos.Find(value.Veiculo).ToVeiculo();
-                }
-                else
-                {
-                    transporte.VeicTransp = new Veiculo();
-                }
-                AtualizarVeiculo();
+                NotaSalva.Informacoes.transp.Transporta = value.Root.ToMotorista();
+                ProcessarVeiculo(value);
             }
+        }
+
+        async void ProcessarVeiculo(MotoristaManipulacaoNFe mot)
+        {
+            VeiculoDI escolhido = null;
+            if (mot.Secundarios != null)
+            {
+                var caixa = new EscolherVeiculo(mot.Secundarios, mot.Principal);
+                await caixa.ShowAsync();
+                escolhido = caixa.Escolhido;
+            }
+            else if (mot.Principal != null)
+            {
+                escolhido = mot.Principal;
+            }
+
+            NotaSalva.Informacoes.transp.VeicTransp = escolhido != null ? escolhido.ToVeiculo() : new Veiculo();
+            AtualizarVeiculo();
         }
 
         void AtualizarVeiculo()
@@ -749,5 +767,12 @@ namespace NFeFacil.ViewNFe
                 controle.IsOn = false;
             }
         }
+    }
+
+    struct MotoristaManipulacaoNFe
+    {
+        public MotoristaDI Root { get; set; }
+        public VeiculoDI Principal { get; set; }
+        public VeiculoDI[] Secundarios { get; set; }
     }
 }

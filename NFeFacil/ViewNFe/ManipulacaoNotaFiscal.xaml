@@ -1,6 +1,7 @@
 ﻿<Page x:Class="NFeFacil.ViewNFe.ManipulacaoNotaFiscal"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="using:NFeFacil.ViewNFe"
       xmlns:VM="using:NFeFacil.ViewModel"
       xmlns:controles="using:NFeFacil.Controles"
       xmlns:partesDetalhes="using:NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes"
@@ -303,12 +304,10 @@
             <Pivot Grid.Row="1"
                    Margin="0,4,0,0">
                 <PivotItem Header="Motorista">
-                    <StackPanel>
-                        <ComboBox ItemsSource="{x:Bind MotoristasDisponiveis}"
-                                  HorizontalAlignment="Stretch"
-                                  SelectedItem="{x:Bind MotoristaSelecionado, Mode=TwoWay}"
-                                  DisplayMemberPath="Nome" />
-                    </StackPanel>
+                    <ComboBox ItemsSource="{x:Bind MotoristasDisponiveis}"
+                              HorizontalAlignment="Stretch"
+                              SelectedValue="{x:Bind MotoristaSelecionado, Mode=TwoWay}"
+                              DisplayMemberPath="Root.Nome" />
                 </PivotItem>
                 <PivotItem Header="Veículo">
                     <ItemsControl x:Name="ctrPaiVeiculo"

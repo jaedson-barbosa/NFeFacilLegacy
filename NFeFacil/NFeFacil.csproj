@@ -201,8 +201,8 @@
       <DependentUpon>GerenciarVendedores.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\MascaraDocumento.cs" />
-    <Compile Include="ViewNFe\EscolherPlaca.xaml.cs">
-      <DependentUpon>EscolherPlaca.xaml</DependentUpon>
+    <Compile Include="ViewNFe\CaixasDialogoNFe\EscolherVeiculo.xaml.cs">
+      <DependentUpon>EscolherVeiculo.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewNFe\Impostos\AssociacoesSimples.cs" />
     <Compile Include="ViewNFe\Impostos\DefinirTotalImpostos.xaml.cs">
@@ -842,7 +842,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\EscolherPlaca.xaml">
+    <Page Include="ViewNFe\CaixasDialogoNFe\EscolherVeiculo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

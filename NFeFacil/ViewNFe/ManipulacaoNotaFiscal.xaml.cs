@@ -291,95 +291,58 @@ namespace NFeFacil.ViewNFe
         {
             try
             {
-                if (new ValidarDados(new ValidadorEmitente(NotaSalva.Informacoes.emitente),
-                    new ValidadorDestinatario(NotaSalva.Informacoes.destinatário)).ValidarTudo(Popup.Current))
+                var ultPage = Frame.BackStack[Frame.BackStack.Count - 1];
+                if (ultPage.SourcePageType == typeof(ViewRegistroVenda.VisualizacaoRegistroVenda))
                 {
-                    Popup.Current.Escrever(TitulosComuns.ValidaçãoConcluída, "A nota fiscal foi validada.\r\n" +
-                        "Aparentemente, não há irregularidades.\r\n" +
-                        "Agora salve para que as alterações fiquem gravadas.");
-
-                    using (var db = new AplicativoContext())
-                    {
-                        var notaAnterior = db.NotasFiscais.Find(NotaSalva.Informacoes.Id);
-                        if (notaAnterior != null)
-                        {
-                            db.NotasFiscais.Remove(notaAnterior);
-                            db.SaveChanges();
-                        }
-                    }
-
-                    NotaSalva.Informacoes.total.ISSQNtot.DCompet = DataPrestacao.ToString("yyyy-MM-dd");
-                    NotaSalva.Informacoes.total.ISSQNtot.CRegTrib = CRegTrib + 1;
-                    NotaSalva.Informacoes.total.RetTrib = RetTrib;
-
-                    var nota = NotaSalva;
-                    var analisador = new AnalisadorNFe(ref nota);
-                    analisador.Normalizar();
-
-                    var ultPage = Frame.BackStack[Frame.BackStack.Count - 1];
-                    if (ultPage.SourcePageType != typeof(VisualizacaoNFe))
-                    {
-                        if (ultPage.SourcePageType == typeof(ViewRegistroVenda.VisualizacaoRegistroVenda))
-                        {
-                            var venda = (RegistroVenda)ultPage.Parameter;
-                            NotaSalva.Informacoes.AtualizarChave();
-                            venda.NotaFiscalRelacionada = NotaSalva.Informacoes.Id;
-                            using (var db = new AplicativoContext())
-                            {
-                                db.Vendas.Update(venda);
-                                db.SaveChanges();
-                            }
-                            Frame.BackStack.Remove(ultPage);
-                            ultPage = Frame.BackStack[Frame.BackStack.Count - 1];
-                        }
-                        else
-                        {
-                            AnalisarVenda();
-                        }
-
-                        var novoDI = new NFeDI(nota, nota.ToXElement<NFe>().ToString())
-                        {
-                            Status = (int)StatusNFe.Validada
-                        };
-                        PageStackEntry entrada = new PageStackEntry(typeof(VisualizacaoNFe), novoDI, null);
-                        Frame.BackStack.Add(entrada);
-                    }
-                    else
-                    {
-                        AnalisarVenda();
-                        var di = (NFeDI)ultPage.Parameter;
-                        di.Id = nota.Informacoes.Id;
-                        di.NomeCliente = nota.Informacoes.destinatário.Nome;
-                        di.NomeEmitente = nota.Informacoes.emitente.Nome;
-                        di.CNPJEmitente = nota.Informacoes.emitente.CNPJ.ToString();
-                        di.DataEmissao = DateTime.Parse(nota.Informacoes.identificacao.DataHoraEmissão).ToString("yyyy-MM-dd HH:mm:ss");
-                        di.NumeroNota = nota.Informacoes.identificacao.Numero;
-                        di.SerieNota = nota.Informacoes.identificacao.Serie;
-                        di.Status = (int)StatusNFe.Validada;
-                        di.XML = nota.ToXElement<NFe>().ToString();
-                    }
-
-                    MainPage.Current.Retornar(true);
-
-                    void AnalisarVenda()
-                    {
-                        using (var db = new AplicativoContext())
-                        {
-                            var venda = db.Vendas.FirstOrDefault(x => x.NotaFiscalRelacionada == NotaSalva.Informacoes.Id);
-                            if (venda != null)
-                            {
-                                NotaSalva.Informacoes.AtualizarChave();
-                                venda.NotaFiscalRelacionada = NotaSalva.Informacoes.Id;
-                                db.Vendas.Update(venda);
-                                db.SaveChanges();
-                            }
-                            else
-                            {
-                                NotaSalva.Informacoes.AtualizarChave();
-                            }
-                        }
-                    }
+                    Frame.BackStack.Remove(ultPage);
+                    ultPage = Frame.BackStack[Frame.BackStack.Count - 1];
                 }
+
+                NotaSalva.Informacoes.total.ISSQNtot.DCompet = DataPrestacao.ToString("yyyy-MM-dd");
+                NotaSalva.Informacoes.total.ISSQNtot.CRegTrib = CRegTrib + 1;
+                NotaSalva.Informacoes.total.RetTrib = RetTrib;
+
+                var nota = NotaSalva;
+                new AnalisadorNFe(ref nota).Normalizar();
+
+                using (var db = new AplicativoContext())
+                {
+                    var notaAnterior = db.NotasFiscais.Find(nota.Informacoes.Id);
+                    if (notaAnterior != null)
+                    {
+                        db.NotasFiscais.Remove(notaAnterior);
+                    }
+
+                    var venda = db.Vendas.FirstOrDefault(x => x.NotaFiscalRelacionada == nota.Informacoes.Id);
+                    nota.Informacoes.AtualizarChave();
+                    if (venda != null)
+                    {
+                        venda.NotaFiscalRelacionada = nota.Informacoes.Id;
+                        db.Vendas.Update(venda);
+                    }
+
+                    db.SaveChanges();
+                }
+
+                if (ultPage.SourcePageType != typeof(VisualizacaoNFe))
+                {
+                    var novoDI = new NFeDI(nota, nota.ToXElement<NFe>().ToString())
+                    {
+                        Status = (int)StatusNFe.Validada
+                    };
+                    Frame.BackStack.Add(new PageStackEntry(typeof(VisualizacaoNFe), novoDI, null));
+                }
+                else
+                {
+                    var di = (NFeDI)ultPage.Parameter;
+                    di.Id = nota.Informacoes.Id;
+                    di.NomeCliente = nota.Informacoes.destinatário.Nome;
+                    di.DataEmissao = DateTime.Parse(nota.Informacoes.identificacao.DataHoraEmissão).ToString("yyyy-MM-dd HH:mm:ss");
+                    di.Status = (int)StatusNFe.Validada;
+                    di.XML = nota.ToXElement<NFe>().ToString();
+                }
+
+                MainPage.Current.Retornar(true);
             }
             catch (Exception e)
             {

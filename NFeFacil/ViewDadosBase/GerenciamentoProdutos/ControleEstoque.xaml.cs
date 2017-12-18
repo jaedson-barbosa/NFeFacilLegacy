@@ -110,6 +110,7 @@ namespace NFeFacil.ViewDadosBase.GerenciamentoProdutos
             {
                 using (var db = new AplicativoContext())
                 {
+                    Estoque.UltimaData = Propriedades.DateTimeNow;
                     db.Update(Estoque);
                     db.SaveChanges();
                 }

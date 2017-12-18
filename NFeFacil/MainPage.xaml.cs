@@ -63,10 +63,6 @@ namespace NFeFacil
         {
             InitializeComponent();
             Current = this;
-            using (var db = new AplicativoContext())
-            {
-                db.Database.Migrate();
-            }
             Analisar();
             AnalisarBarraTitulo();
             btnRetornar.Click += (x, y) => Retornar();
@@ -81,6 +77,8 @@ namespace NFeFacil
         {
             using (var db = new AplicativoContext())
             {
+                db.Database.Migrate();
+
                 await db.Clientes.ForEachAsync(x => AnalisarItem(x));
                 await db.Emitentes.ForEachAsync(x => AnalisarItem(x));
                 await db.Motoristas.ForEachAsync(x => AnalisarItem(x));

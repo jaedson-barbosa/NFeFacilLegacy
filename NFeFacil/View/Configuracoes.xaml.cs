@@ -91,19 +91,6 @@ namespace NFeFacil.View
         {
             if (await Compra.AnalisarCompra())
             {
-                using (var db = new AplicativoContext())
-                {
-                    if (ConfiguracoesPermanentes.IDBackgroung != default(Guid))
-                    {
-                        var img = db.Imagens.Find(ConfiguracoesPermanentes.IDBackgroung);
-                        if (img?.Bytes != null)
-                        {
-                            img.Bytes = null;
-                            db.Update(img);
-                            db.SaveChanges();
-                        }
-                    }
-                }
                 ConfiguracoesPermanentes.OpacidadeBackground = 1;
                 MainPage.Current.DefinirTipoBackground(TiposBackground.Padrao);
             }

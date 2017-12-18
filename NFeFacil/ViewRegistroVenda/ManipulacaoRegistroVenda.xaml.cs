@@ -20,7 +20,7 @@ namespace NFeFacil.ViewRegistroVenda
         RegistroVenda ItemBanco { get; set; } = new RegistroVenda();
 
         ObservableCollection<ExibicaoProdutoVenda> ListaProdutos { get; set; }
-        ObservableCollection<ClienteDI> Clientes { get; set; }
+        ObservableCollection<ClienteManipulacaoRV> Clientes { get; set; }
         ObservableCollection<MotoristaDI> Motoristas { get; set; }
 
         void AtualizarTotal()
@@ -33,31 +33,28 @@ namespace NFeFacil.ViewRegistroVenda
             txtTotal.Text = ItemBanco.Produtos.Sum(x => x.TotalLíquido).ToString("C");
         }
 
-        ClienteDI Cliente
+        ClienteManipulacaoRV Cliente
         {
-            get => Clientes.FirstOrDefault(x => x.Id == ItemBanco.Cliente);
+            get => Clientes.FirstOrDefault(x => x.Root.Id == ItemBanco.Cliente);
             set
             {
-                ItemBanco.Cliente = value.Id;
-                if (!string.IsNullOrEmpty(value.CNPJ))
+                ItemBanco.Cliente = value.Root.Id;
+                if (!string.IsNullOrEmpty(value.Root.CNPJ))
                 {
                     DefinirComprador(value);
                 }
             }
         }
 
-        async void DefinirComprador(ClienteDI client)
+        async void DefinirComprador(ClienteManipulacaoRV client)
         {
-            using (var db = new AplicativoContext())
+            var compradores = client.Compradores;
+            var nomes = compradores.Select(x => x.Nome);
+            var caixa = new DefinirComprador(nomes);
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
-                var compradores = db.Compradores.Where(x => x.Ativo && x.IdEmpresa == client.Id);
-                var nomes = compradores.Select(x => x.Nome);
-                var caixa = new DefinirComprador(nomes);
-                if (await caixa.ShowAsync() == ContentDialogResult.Primary)
-                {
-                    var escolhido = compradores.First(x => x.Nome == caixa.Escolhido);
-                    ItemBanco.Comprador = escolhido.Id;
-                }
+                var escolhido = compradores.First(x => x.Nome == caixa.Escolhido);
+                ItemBanco.Comprador = escolhido.Id;
             }
         }
 
@@ -88,7 +85,17 @@ namespace NFeFacil.ViewRegistroVenda
         {
             using (var db = new AplicativoContext())
             {
-                Clientes = db.Clientes.Where(x => x.Ativo).OrderBy(x => x.Nome).GerarObs();
+                var clients = db.Clientes.Where(x => x.Ativo).OrderBy(x => x.Nome).ToArray();
+                Clientes = new ObservableCollection<ClienteManipulacaoRV>();
+                for (int i = 0; i < clients.Length; i++)
+                {
+                    var compradores = string.IsNullOrEmpty(clients[i].CNPJ) ? null : db.Compradores.Where(x => x.IdEmpresa == clients[i].Id).ToArray();
+                    Clientes.Add(new ClienteManipulacaoRV
+                    {
+                        Root = clients[i],
+                        Compradores = compradores
+                    });
+                }
                 Motoristas = db.Motoristas.Where(x => x.Ativo).OrderBy(x => x.Nome).GerarObs();
 
                 ItemBanco = new RegistroVenda
@@ -266,5 +273,11 @@ namespace NFeFacil.ViewRegistroVenda
         public string Descricao { get; set; }
         public double Quantidade { get; set; }
         public string TotalLiquido => Base.TotalLíquido.ToString("C");
+    }
+
+    struct ClienteManipulacaoRV
+    {
+        public ClienteDI Root { get; set; }
+        public Comprador[] Compradores { get; set; }
     }
 }

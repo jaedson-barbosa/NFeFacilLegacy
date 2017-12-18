@@ -102,13 +102,19 @@ namespace NFeFacil.ViewRegistroVenda
                     var texto = $"Quantidade - {x.Quantidade}, Total - {x.TotalLíquido}";
                     return (label, texto);
                 }).ToArray());
+
+                if (ItemBanco.Cancelado)
+                {
+                    var item = db.CancelamentosRegistroVenda.Find(ItemBanco.Id);
+                    AddBloco("Cancelamento", ("Motivo", item.Motivo),
+                        ("Data", item.MomentoCancelamento.ToString("dd/MM/yyyy")));
+                }
             }
             var semNota = string.IsNullOrEmpty(ItemBanco.NotaFiscalRelacionada);
             btnCriarNFe.IsEnabled = semNota;
             btnVerNFe.IsEnabled = !semNota;
             btnCriarDarv.IsEnabled = btnCriarNFe.IsEnabled =
                 btnCancelar.IsEnabled = btnCalcularTroco.IsEnabled = !ItemBanco.Cancelado;
-            btnVisualizarCancelamento.IsEnabled = ItemBanco.Cancelado;
         }
 
         public void AddBloco(string titulo, params (string, string)[] filhos)
@@ -224,20 +230,13 @@ namespace NFeFacil.ViewRegistroVenda
                     };
                     db.CancelamentosRegistroVenda.Add(cancelamento);
 
+                    AddBloco("Cancelamento", ("Motivo", cancelamento.Motivo),
+                        ("Data", cancelamento.MomentoCancelamento.ToString("dd/MM/yyyy")));
+
                     db.SaveChanges();
                     btnCriarDarv.IsEnabled = btnCriarNFe.IsEnabled
                         = btnCancelar.IsEnabled = btnCalcularTroco.IsEnabled = false;
-                    btnVisualizarCancelamento.IsEnabled = true;
                 }
-            }
-        }
-
-        private async void VisualizarCancelamento(object sender, RoutedEventArgs e)
-        {
-            using (var db = new AplicativoContext())
-            {
-                var item = db.CancelamentosRegistroVenda.Find(ItemBanco.Id);
-                await new VisualizarDetalhesCancelamento(item).ShowAsync();
             }
         }
 

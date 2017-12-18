@@ -34,10 +34,6 @@
                               Label="Cancelar registro"
                               Icon="Cancel"
                               Click="Cancelar" />
-                <AppBarButton x:Name="btnVisualizarCancelamento"
-                              Label="Detalhes do cancelamento"
-                              Icon="View"
-                              Click="VisualizarCancelamento" />
             </CommandBar.SecondaryCommands>
         </CommandBar>
     </Page.BottomAppBar>

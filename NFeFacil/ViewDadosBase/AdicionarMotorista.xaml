@@ -76,8 +76,8 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
+            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Veiculos secundários</TextBlock>
             <GridView x:Name="grdVeisSec"
-                      Header="Veiculos secundários"
                       Loaded="grdVeisSec_Loaded"
                       SelectionMode="Multiple"
                       ItemsSource="{x:Bind Veiculos}"

@@ -21,7 +21,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
         public RetTrib RetTrib { get; set; }
 
         public Total() { }
-        public Total(List<DetalhesProdutos> produtos)
+        public Total(IEnumerable<DetalhesProdutos> produtos)
         {
             ICMSTot = new ICMSTot(from p in produtos
                                   where p.Impostos.impostos.Count(x => x is ICMS) > 0

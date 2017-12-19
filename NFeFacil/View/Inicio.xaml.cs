@@ -63,7 +63,7 @@ namespace NFeFacil.View
                     MainPage.Current.Navegar<RegistrosVenda>();
                     break;
                 case "Consulta":
-                    MainPage.Current.Navegar<Consulta>();
+                    MainPage.Current.Navegar<ViewNFe.Consulta>();
                     break;
                 case "VendasAnuais":
                     MainPage.Current.Navegar<VendasAnuais>();

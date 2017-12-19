@@ -33,14 +33,14 @@ namespace NFeFacil.ItensBD
             using (var db = new AplicativoContext())
             {
                 var ProdutoBase = db.Produtos.Find(IdBase);
-                return new ProdutoOuServico
+                var retorno = new ProdutoOuServico
                 {
                     CodigoProduto = ProdutoBase.CodigoProduto,
                     CodigoBarras = ProdutoBase.CodigoBarras,
                     Descricao = ProdutoBase.Descricao,
                     NCM = ProdutoBase.NCM,
                     EXTIPI = ProdutoBase.EXTIPI,
-                    CFOP = !string.IsNullOrEmpty(ProdutoBase.CFOP) ? int.Parse(ProdutoBase.CFOP) : 0,
+                    CFOP = 0,
                     UnidadeComercializacao = ProdutoBase.UnidadeComercializacao,
                     CodigoBarrasTributo = ProdutoBase.CodigoBarrasTributo,
                     UnidadeTributacao = ProdutoBase.UnidadeTributacao,
@@ -54,6 +54,11 @@ namespace NFeFacil.ItensBD
                     Desconto = Desconto != 0 ? Desconto.ToString("0.00") : null,
                     ValorTotal = Quantidade * ProdutoBase.ValorUnitario
                 };
+                if (int.TryParse(ProdutoBase.CFOP, out int cfop))
+                {
+                    retorno.CFOP = cfop;
+                }
+                return retorno;
             }
         }
     }

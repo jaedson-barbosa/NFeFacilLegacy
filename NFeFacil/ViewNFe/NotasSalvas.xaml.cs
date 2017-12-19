@@ -2,7 +2,6 @@
 using NFeFacil.ModeloXML;
 using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Xml.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -27,7 +26,7 @@ namespace NFeFacil.ViewNFe
         public NotasSalvas()
         {
             InitializeComponent();
-            using (var repo = new Repositorio.MEGACLASSE())
+            using (var repo = new Repositorio.Leitura())
             {
                 var (emitidas, outras, canceladas) = repo.ObterNotas(Propriedades.EmitenteAtivo.CNPJ);
                 NotasEmitidas = emitidas.GerarObs();
@@ -56,7 +55,7 @@ namespace NFeFacil.ViewNFe
         private void Excluir(object sender, RoutedEventArgs e)
         {
             var nota = (NFeDI)((MenuFlyoutItem)sender).DataContext;
-            using (var repo = new Repositorio.MEGACLASSE())
+            using (var repo = new Repositorio.OperacoesExtras())
             {
                 repo.ExcluirNFe(nota);
                 OutrasNotas.Remove(nota);
@@ -90,7 +89,7 @@ namespace NFeFacil.ViewNFe
                     var resposta = await gerenciador.EnviarAsync(envio);
                     if (resposta.RetEvento[0].InfEvento.CStat == 135)
                     {
-                        using (var repo = new Repositorio.MEGACLASSE())
+                        using (var repo = new Repositorio.Escrita())
                         {
                             repo.AdicionarRC(new RegistroCancelamento()
                             {

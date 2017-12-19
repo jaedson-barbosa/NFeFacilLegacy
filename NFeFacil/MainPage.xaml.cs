@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using NFeFacil.ItensBD;
-using System;
+﻿using System;
 using System.Linq;
 using System.Reflection;
 using Windows.ApplicationModel.Core;
@@ -75,9 +73,12 @@ namespace NFeFacil
 
         async void Analisar()
         {
-            using (var repo = new Repositorio.MEGACLASSE())
+            using (var analise = new Repositorio.OperacoesExtras())
             {
-                await repo.AnalisarBanco(Propriedades.DateTimeNow);
+                await analise.AnalisarBanco(Propriedades.DateTimeNow);
+            }
+            using (var repo = new Repositorio.Leitura())
+            {
                 switch (ConfiguracoesPermanentes.TipoBackground)
                 {
                     case TiposBackground.Imagem:

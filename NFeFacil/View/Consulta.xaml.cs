@@ -46,10 +46,14 @@ namespace NFeFacil.View
                     Resultados.Insert(0, resp.xMotivo);
                     if (resp.cStat == 100)
                     {
-                        using (var repo = new Repositorio.MEGACLASSE())
+                        NFeDI nota = null;
+                        using (var leit = new Repositorio.Leitura())
                         {
-                            var nota = repo.ObterNFe($"NFe{resp.chNFe}");
-                            if (nota != null && nota.Status < 4)
+                            nota = leit.ObterNFe($"NFe{resp.chNFe}");
+                        }
+                        if (nota != null && nota.Status < 4)
+                        {
+                            using (var esc = new Repositorio.Escrita())
                             {
                                 nota.Status = (int)StatusNFe.Emitida;
                                 var original = XElement.Parse(nota.XML).FromXElement<NFe>();
@@ -59,7 +63,7 @@ namespace NFeFacil.View
                                     ProtNFe = resp.protNFe
                                 };
                                 nota.XML = novo.ToXElement<Processo>().ToString();
-                                repo.SalvarNFe(nota, Propriedades.DateTimeNow);
+                                esc.SalvarNFe(nota, Propriedades.DateTimeNow);
                                 Resultados.Insert(0, "Detectada e atualizada nota fiscal.");
                             }
                         }

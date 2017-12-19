@@ -10,7 +10,6 @@ using LiveCharts;
 using LiveCharts.Uwp;
 using LiveCharts.Configurations;
 using static NFeFacil.ExtensoesPrincipal;
-using NFeFacil.ModeloXML;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -74,7 +73,7 @@ namespace NFeFacil.View
         {
             InitializeComponent();
 
-            using (var repo = new Repositorio.MEGACLASSE())
+            using (var repo = new Repositorio.Leitura())
             {
                 AnosDisponiveis = repo.ObterAnosNFe(Propriedades.EmitenteAtivo.CNPJ).GerarObs();
                 NotasFiscais = repo.ObterNFesPorAno(Propriedades.EmitenteAtivo.CNPJ)

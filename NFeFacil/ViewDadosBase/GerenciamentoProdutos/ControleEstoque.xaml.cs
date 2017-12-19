@@ -108,7 +108,7 @@ namespace NFeFacil.ViewDadosBase.GerenciamentoProdutos
         {
             if (AlteracoesNaoSalvas)
             {
-                using (var repo = new Repositorio.MEGACLASSE())
+                using (var repo = new Repositorio.Escrita())
                 {
                     repo.AtualizarEstoque(Estoque, Propriedades.DateTimeNow);
                 }

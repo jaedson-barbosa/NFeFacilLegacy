@@ -52,7 +52,7 @@ namespace NFeFacil.ViewNFe
         {
             var Dados = (NFe)e.Parameter;
 
-            using (var repo = new Repositorio.MEGACLASSE())
+            using (var repo = new Repositorio.Leitura())
             {
                 ClientesDisponiveis = repo.ObterClientes().ToList();
                 MotoristasDisponiveis = repo.ObterMotoristasComVeiculos().Select(x => new MotoristaManipulacaoNFe
@@ -315,7 +315,7 @@ namespace NFeFacil.ViewNFe
                 var nota = NotaSalva;
                 new AnalisadorNFe(ref nota).Normalizar();
 
-                using (var repo = new Repositorio.MEGACLASSE())
+                using (var repo = new Repositorio.OperacoesExtras())
                 {
                     string IDOriginal = nota.Informacoes.Id;
                     nota.Informacoes.AtualizarChave();

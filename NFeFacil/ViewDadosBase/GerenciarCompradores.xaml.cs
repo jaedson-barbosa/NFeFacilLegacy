@@ -1,6 +1,5 @@
 ﻿using NFeFacil.ItensBD;
 using System.Collections.ObjectModel;
-using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -18,11 +17,10 @@ namespace NFeFacil.ViewDadosBase
         public GerenciarCompradores()
         {
             InitializeComponent();
-            using (var repo = new Repositorio.MEGACLASSE())
+            using (var repo = new Repositorio.Leitura())
             {
-                var original = repo.ObterCompradores();
                 Compradores = new ObservableCollection<ExibicaoComprador>();
-                foreach (var atual in original)
+                foreach (var atual in repo.ObterCompradores())
                 {
                     Compradores.Add(new ExibicaoComprador()
                     {
@@ -49,7 +47,7 @@ namespace NFeFacil.ViewDadosBase
             var contexto = ((FrameworkElement)sender).DataContext;
             var compr = (ExibicaoComprador)contexto;
 
-            using (var repo = new Repositorio.MEGACLASSE())
+            using (var repo = new Repositorio.Escrita())
             {
                 repo.InativarComprador(compr.Root, Propriedades.DateTimeNow);
                 Compradores.Remove(compr);

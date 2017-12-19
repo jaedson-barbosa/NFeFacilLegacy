@@ -63,7 +63,7 @@ namespace NFeFacil.ViewDadosBase
         public AdicionarMotorista()
         {
             InitializeComponent();
-            using (var repo = new Repositorio.MEGACLASSE())
+            using (var repo = new Repositorio.Leitura())
             {
                 Veiculos = repo.ObterVeiculos().GerarObs();
             }
@@ -88,7 +88,7 @@ namespace NFeFacil.ViewDadosBase
             {
                 if (new ValidadorMotorista(Motorista).Validar(Log))
                 {
-                    using (var repo = new Repositorio.MEGACLASSE())
+                    using (var repo = new Repositorio.Escrita())
                     {
                         Motorista.VeiculosSecundarios = string.Concat(from VeiculoDI item in grdVeisSec.SelectedItems
                                                                       select item.Placa + '&');
@@ -114,7 +114,7 @@ namespace NFeFacil.ViewDadosBase
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
                 var veic = caixa.Item;
-                using (var repo = new Repositorio.MEGACLASSE())
+                using (var repo = new Repositorio.Escrita())
                 {
                     repo.SalvarVeiculo(veic);
                     Veiculos.Add(veic);

@@ -1,8 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using NFeFacil.ItensBD;
+﻿using NFeFacil.ItensBD;
 using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -21,7 +19,7 @@ namespace NFeFacil.ViewDadosBase.GerenciamentoProdutos
         public GerenciarProdutos()
         {
             InitializeComponent();
-            using (var repo = new Repositorio.MEGACLASSE())
+            using (var repo = new Repositorio.Leitura())
             {
                 Produtos = repo.ObterProdutos().GerarObs();
             }
@@ -42,10 +40,14 @@ namespace NFeFacil.ViewDadosBase.GerenciamentoProdutos
         {
             var contexto = ((FrameworkElement)sender).DataContext;
             var produto = (ProdutoDI)contexto;
-            using (var repo = new Repositorio.MEGACLASSE())
+            Estoque estoque = null;
+            using (var leit = new Repositorio.Leitura())
             {
-                var estoque = repo.ObterEstoque(produto.Id);
-                if (estoque == null)
+                estoque = leit.ObterEstoque(produto.Id);
+            }
+            if (estoque == null)
+            {
+                using (var repo = new Repositorio.Escrita())
                 {
                     var caixa = new MessageDialog("Essa é uma operação sem volta, uma vez adicionado ao controle de estoque este produto será permanentemente parte dele. Certeza que você realmente quer isso?", "Atenção");
                     caixa.Commands.Add(new UICommand("Sim", x =>
@@ -66,7 +68,7 @@ namespace NFeFacil.ViewDadosBase.GerenciamentoProdutos
             var contexto = ((FrameworkElement)sender).DataContext;
             var prod = (ProdutoDI)contexto;
 
-            using (var repo = new Repositorio.MEGACLASSE())
+            using (var repo = new Repositorio.Escrita())
             {
                 repo.InativarProduto(prod, Propriedades.DateTimeNow);
                 Produtos.Remove(prod);

@@ -76,7 +76,7 @@ namespace NFeFacil.Login
             {
                 if (new ValidadorEmitente(Emit).Validar(Log))
                 {
-                    using (var repo = new Repositorio.MEGACLASSE())
+                    using (var repo = new Repositorio.Escrita())
                     {
                         repo.SalvarEmitente(Emit, Propriedades.DateTimeNow);
                     }

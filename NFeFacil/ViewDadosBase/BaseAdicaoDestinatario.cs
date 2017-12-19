@@ -70,7 +70,7 @@ namespace NFeFacil.ViewDadosBase
             {
                 if (new ValidadorDestinatario(Cliente).Validar(Log))
                 {
-                    using (var repo = new Repositorio.MEGACLASSE())
+                    using (var repo = new Repositorio.Escrita())
                     {
                         repo.SalvarCliente(Cliente, Propriedades.DateTimeNow);
                     }

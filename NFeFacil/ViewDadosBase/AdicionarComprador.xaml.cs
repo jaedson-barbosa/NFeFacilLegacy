@@ -3,7 +3,6 @@ using NFeFacil.Log;
 using NFeFacil.Validacao;
 using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -24,7 +23,7 @@ namespace NFeFacil.ViewDadosBase
         public AdicionarComprador()
         {
             InitializeComponent();
-            using (var repo = new Repositorio.MEGACLASSE())
+            using (var repo = new Repositorio.Leitura())
             {
                 ClientesDisponiveis = repo.ObterClientes(x => !string.IsNullOrEmpty(x.CNPJ)).GerarObs();
             }
@@ -49,7 +48,7 @@ namespace NFeFacil.ViewDadosBase
             {
                 if (new ValidadorComprador(Comprador).Validar(Log))
                 {
-                    using (var repo = new Repositorio.MEGACLASSE())
+                    using (var repo = new Repositorio.Escrita())
                     {
                         repo.SalvarComprador(Comprador, Propriedades.DateTimeNow);
                     }

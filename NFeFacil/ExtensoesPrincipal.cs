@@ -1,12 +1,9 @@
-﻿using NFeFacil.ItensBD;
-using NFeFacil.Log;
+﻿using NFeFacil.Log;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using Windows.Storage.Pickers;

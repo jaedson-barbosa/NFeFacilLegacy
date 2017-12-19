@@ -1,5 +1,4 @@
 ﻿using NFeFacil.Sincronizacao;
-using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -23,7 +22,7 @@ namespace NFeFacil.Login
         {
             if (e.NavigationMode == NavigationMode.Back)
             {
-                using (var repo = new Repositorio.MEGACLASSE())
+                using (var repo = new Repositorio.Leitura())
                 {
                     if (repo.EmitentesCadastrados)
                     {

@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using NFeFacil.ItensBD;
+﻿using NFeFacil.ItensBD;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -24,7 +23,7 @@ namespace NFeFacil.ViewRegistroVenda
         {
             InitializeComponent();
 
-            using (var repo = new Repositorio.MEGACLASSE())
+            using (var repo = new Repositorio.Leitura())
             {
                 ListaCompletaProdutos = new List<ExibicaoProdutoAdicao>();
                 var estoque = repo.ObterEstoques();

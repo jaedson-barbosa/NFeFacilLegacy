@@ -41,7 +41,7 @@ namespace NFeFacil.ViewDadosBase.GerenciamentoProdutos
             {
                 if (new ValidadorProduto(Produto).Validar(Log))
                 {
-                    using (var repo = new Repositorio.MEGACLASSE())
+                    using (var repo = new Repositorio.Escrita())
                     {
                         repo.SalvarProduto(Produto, Propriedades.DateTimeNow);
                     }

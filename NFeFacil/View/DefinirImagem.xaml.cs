@@ -30,7 +30,7 @@ namespace NFeFacil.View
             {
                 return;
             }
-            using (var repo = new Repositorio.MEGACLASSE())
+            using (var repo = new Repositorio.Escrita())
             {
                 repo.SalvarImagem(Id, Propriedades.DateTimeNow, bytes);
             }

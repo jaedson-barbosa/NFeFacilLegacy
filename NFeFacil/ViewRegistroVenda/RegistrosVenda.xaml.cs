@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using NFeFacil.ItensBD;
-using System;
+﻿using NFeFacil.ItensBD;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Windows.UI.Xaml.Controls;
@@ -19,7 +17,7 @@ namespace NFeFacil.ViewRegistroVenda
         public RegistrosVenda()
         {
             InitializeComponent();
-            using (var repo = new Repositorio.MEGACLASSE())
+            using (var repo = new Repositorio.Leitura())
             {
                 Vendas = repo.ObterRegistrosVenda(Propriedades.EmitenteAtivo.Id).Select(x => new ExibicaoVenda
                 {

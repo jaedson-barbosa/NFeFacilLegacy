@@ -19,11 +19,10 @@ namespace NFeFacil.ViewDadosBase
         public GerenciarVendedores()
         {
             InitializeComponent();
-            using (var repo = new Repositorio.MEGACLASSE())
+            using (var repo = new Repositorio.Leitura())
             {
-                var vendedores = repo.ObterVendedores();
                 var conjuntos = new ObservableCollection<ConjuntoBasicoExibicao>();
-                foreach (var atual in vendedores)
+                foreach (var atual in repo.ObterVendedores())
                 {
                     var novoConjunto = new ConjuntoBasicoExibicao
                     {
@@ -56,7 +55,7 @@ namespace NFeFacil.ViewDadosBase
             var exib = (ConjuntoBasicoExibicao)contexto;
             var obj = (Vendedor)exib.Objeto;
 
-            using (var repo = new Repositorio.MEGACLASSE())
+            using (var repo = new Repositorio.Escrita())
             {
                 repo.InativarVendedor(obj, Propriedades.DateTimeNow);
                 Vendedores.Remove(exib);

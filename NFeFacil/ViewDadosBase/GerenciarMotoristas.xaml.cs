@@ -1,6 +1,5 @@
 ﻿using NFeFacil.ItensBD;
 using System.Collections.ObjectModel;
-using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -18,7 +17,7 @@ namespace NFeFacil.ViewDadosBase
         public GerenciarMotoristas()
         {
             InitializeComponent();
-            using (var repo = new Repositorio.MEGACLASSE())
+            using (var repo = new Repositorio.Leitura())
             {
                 Motoristas = repo.ObterMotoristas().GerarObs();
             }
@@ -40,7 +39,7 @@ namespace NFeFacil.ViewDadosBase
             var contexto = ((FrameworkElement)sender).DataContext;
             var mot = (MotoristaDI)contexto;
 
-            using (var repo = new Repositorio.MEGACLASSE())
+            using (var repo = new Repositorio.Escrita())
             {
                 repo.InativarMotorista(mot, Propriedades.DateTimeNow);
                 Motoristas.Remove(mot);

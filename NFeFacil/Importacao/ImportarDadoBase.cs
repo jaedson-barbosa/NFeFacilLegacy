@@ -33,7 +33,7 @@ namespace NFeFacil.Importacao
                     return XElement.Load(stream);
                 }
             }));
-            using (var repo = new MEGACLASSE())
+            using (var repo = new Escrita())
             {
                 switch (TipoDado)
                 {

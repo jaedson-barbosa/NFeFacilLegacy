@@ -283,7 +283,7 @@ namespace NFeFacil.ViewNFe
         {
             try
             {
-                using (var repo = new Repositorio.MEGACLASSE())
+                using (var repo = new Repositorio.Escrita())
                 {
                     if (ItemBanco.Status < (int)StatusNFe.Emitida)
                     {

@@ -1,7 +1,6 @@
 ﻿using NFeFacil.ItensBD;
 using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -19,8 +18,10 @@ namespace NFeFacil.ViewDadosBase
         public GerenciarClientes()
         {
             InitializeComponent();
-            using (var repo = new Repositorio.MEGACLASSE())
+            using (var repo = new Repositorio.Leitura())
+            {
                 Clientes = repo.ObterClientes().GerarObs();
+            }
         }
 
         async void AdicionarCliente(object sender, RoutedEventArgs e)
@@ -77,7 +78,7 @@ namespace NFeFacil.ViewDadosBase
             var contexto = ((FrameworkElement)sender).DataContext;
             var dest = (ClienteDI)contexto;
 
-            using (var repo = new Repositorio.MEGACLASSE())
+            using (var repo = new Repositorio.Escrita())
             {
                 repo.InativarCliente(dest, Propriedades.DateTimeNow);
                 Clientes.Remove(dest);

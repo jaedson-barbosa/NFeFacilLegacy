@@ -18,11 +18,10 @@ namespace NFeFacil.Login
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            using (var repo = new Repositorio.MEGACLASSE())
+            using (var repo = new Repositorio.Leitura())
             {
-                var dados = repo.ObterEmitentes();
                 var conjuntos = new ObservableCollection<ConjuntoBasicoExibicao>();
-                foreach (var atual in dados)
+                foreach (var atual in repo.ObterEmitentes())
                 {
                     var novoConjunto = new ConjuntoBasicoExibicao
                     {

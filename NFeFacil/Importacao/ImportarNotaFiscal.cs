@@ -45,7 +45,7 @@ namespace NFeFacil.Importacao
                     retorno.Add(e);
                 }
             }
-            using (var repo = new Repositorio.MEGACLASSE())
+            using (var repo = new Repositorio.Escrita())
             {
                 repo.AdicionarNotasFiscais(conjuntos, Propriedades.DateTimeNow);
             }

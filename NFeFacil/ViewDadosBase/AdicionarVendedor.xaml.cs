@@ -47,7 +47,7 @@ namespace NFeFacil.ViewDadosBase
             {
                 if (new ValidadorVendedor(Vendedor).Validar(Log))
                 {
-                    using (var repo = new Repositorio.MEGACLASSE())
+                    using (var repo = new Repositorio.Escrita())
                     {
                         repo.SalvarVendedor(Vendedor, Propriedades.DateTimeNow);
                     }

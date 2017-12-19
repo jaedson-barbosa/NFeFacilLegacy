@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using NFeFacil.ItensBD;
+﻿using NFeFacil.ItensBD;
 using NFeFacil.Log;
 using System;
 using System.Collections.ObjectModel;
@@ -83,7 +82,7 @@ namespace NFeFacil.ViewRegistroVenda
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            using (var repo = new Repositorio.MEGACLASSE())
+            using (var repo = new Repositorio.Leitura())
             {
                 Clientes = repo.ObterClientesComCompradores().Select(x => new ClienteManipulacaoRV()
                 {
@@ -146,7 +145,7 @@ namespace NFeFacil.ViewRegistroVenda
             }
             else
             {
-                using (var repo = new Repositorio.MEGACLASSE())
+                using (var repo = new Repositorio.Escrita())
                 {
                     repo.AdicionarRV(ItemBanco, Propriedades.DateTimeNow);
                 }

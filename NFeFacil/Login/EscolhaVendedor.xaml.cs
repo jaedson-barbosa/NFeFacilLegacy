@@ -1,7 +1,5 @@
 ﻿using NFeFacil.ItensBD;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -19,11 +17,10 @@ namespace NFeFacil.Login
         {
             InitializeComponent();
 
-            using (var repo = new Repositorio.MEGACLASSE())
+            using (var repo = new Repositorio.Leitura())
             {
-                var dados = repo.ObterVendedores();
                 var conjuntos = new ObservableCollection<ConjuntoBasicoExibicao>();
-                foreach (var atual in dados)
+                foreach (var atual in repo.ObterVendedores())
                 {
                     var novoConjunto = new ConjuntoBasicoExibicao
                     {

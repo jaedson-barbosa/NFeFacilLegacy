@@ -8,7 +8,6 @@ using NFeFacil.Validacao;
 using NFeFacil.ViewDadosBase;
 using NFeFacil.ViewRegistroVenda;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
@@ -121,7 +120,7 @@ namespace NFeFacil.View
                     var nfe = proc.NFe;
                     if (nfe.Informacoes.destinatário.CNPJ == Propriedades.EmitenteAtivo.CNPJ)
                     {
-                        using (var repo = new Repositorio.MEGACLASSE())
+                        using (var repo = new Repositorio.Leitura())
                         {
                             var c = repo.ObterClienteViaCNPJ(nfe.Informacoes.emitente.CNPJ);
                             if (c != null)

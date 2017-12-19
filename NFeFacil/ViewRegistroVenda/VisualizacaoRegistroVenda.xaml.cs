@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using NFeFacil.ItensBD;
+﻿using NFeFacil.ItensBD;
 using System;
 using System.Linq;
 using Windows.UI.Text;
@@ -32,7 +31,7 @@ namespace NFeFacil.ViewRegistroVenda
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             ItemBanco = (RegistroVenda)e.Parameter;
-            using (var repo = new Repositorio.MEGACLASSE())
+            using (var repo = new Repositorio.Leitura())
             {
                 cliente = repo.ObterCliente(ItemBanco.Cliente);
                 motorista = ItemBanco.Motorista != Guid.Empty ? repo.ObterMotorista(ItemBanco.Motorista) : null;
@@ -206,7 +205,7 @@ namespace NFeFacil.ViewRegistroVenda
                     MomentoCancelamento = Propriedades.DateTimeNow,
                     Id = ItemBanco.Id
                 };
-                using (var repo = new Repositorio.MEGACLASSE())
+                using (var repo = new Repositorio.Escrita())
                 {
                     repo.CancelarRV(ItemBanco, cancelamento, Propriedades.DateTimeNow);
                 }
@@ -220,7 +219,7 @@ namespace NFeFacil.ViewRegistroVenda
 
         private void VerNFe(object sender, RoutedEventArgs e)
         {
-            using (var repo = new Repositorio.MEGACLASSE())
+            using (var repo = new Repositorio.Leitura())
             {
                 var item = repo.ObterNFe(ItemBanco.NotaFiscalRelacionada);
                 MainPage.Current.Navegar<ViewNFe.VisualizacaoNFe>(item);

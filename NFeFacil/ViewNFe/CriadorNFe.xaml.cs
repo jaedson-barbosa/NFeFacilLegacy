@@ -4,7 +4,6 @@ using NFeFacil.ModeloXML.PartesProcesso.PartesNFe;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
 using System.Collections.Generic;
-using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -98,7 +97,7 @@ namespace NFeFacil.ViewNFe
         private void CalcularNumero_Click(object sender, RoutedEventArgs e)
         {
             var cnpj = Propriedades.EmitenteAtivo.CNPJ;
-            using (var repo = new Repositorio.MEGACLASSE())
+            using (var repo = new Repositorio.Leitura())
             {
                 txtNumero.Number = repo.ObterMaiorNumeroNFe(cnpj, Serie, AmbienteHomolocagao) + 1;
             }

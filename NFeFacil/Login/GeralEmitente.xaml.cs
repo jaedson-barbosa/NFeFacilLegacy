@@ -24,7 +24,7 @@ namespace NFeFacil.Login
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var emitente = (ConjuntoBasicoExibicao)e.Parameter;
+            var emitente = (ConjuntoBasicoExibicao<EmitenteDI>)e.Parameter;
             var brush = new ImageBrush
             {
                 ImageSource = emitente.Imagem
@@ -32,7 +32,7 @@ namespace NFeFacil.Login
             imgLogotipo.Background = brush;
             txtNomeFantasia.Text = emitente.Principal;
             txtNome.Text = emitente.Secundario;
-            this.emitente = (EmitenteDI)emitente.Objeto;
+            this.emitente = emitente.Objeto;
             imagem = emitente.Imagem;
         }
 

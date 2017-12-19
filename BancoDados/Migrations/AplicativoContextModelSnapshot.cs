@@ -404,6 +404,8 @@ namespace NFeFacil.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<bool>("Ativo");
+
                     b.Property<string>("Descricao");
 
                     b.Property<string>("Placa");
@@ -411,6 +413,8 @@ namespace NFeFacil.Migrations
                     b.Property<string>("RNTC");
 
                     b.Property<string>("UF");
+
+                    b.Property<DateTime>("UltimaData");
 
                     b.HasKey("Id");
 

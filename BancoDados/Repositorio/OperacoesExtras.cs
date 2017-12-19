@@ -20,6 +20,10 @@ namespace NFeFacil.Repositorio
         {
             db.Database.Migrate();
 
+            //db.SaveChanges();
+            //db.Dispose();
+            //db = new AplicativoContext();
+
             await db.Clientes.ForEachAsync(x => AnalisarItem(x));
             await db.Emitentes.ForEachAsync(x => AnalisarItem(x));
             await db.Motoristas.ForEachAsync(x => AnalisarItem(x));
@@ -49,6 +53,7 @@ namespace NFeFacil.Repositorio
             });
             await db.Vendas.ForEachAsync(x => AnalisarItem(x));
             await db.Imagens.ForEachAsync(x => AnalisarItem(x));
+            await db.Veiculos.ForEachAsync(x => AnalisarItem(x));
 
             void AnalisarItem(IUltimaData item)
             {

@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using NFeFacil.ItensBD;
+using System.Collections.ObjectModel;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -20,12 +21,12 @@ namespace NFeFacil.Login
         {
             using (var repo = new Repositorio.Leitura())
             {
-                var conjuntos = new ObservableCollection<ConjuntoBasicoExibicao>();
+                var conjuntos = new ObservableCollection<ConjuntoBasicoExibicao<EmitenteDI>>();
                 foreach (var atual in repo.ObterEmitentes())
                 {
-                    var novoConjunto = new ConjuntoBasicoExibicao
+                    var novoConjunto = new ConjuntoBasicoExibicao<EmitenteDI>
                     {
-                        Objeto = atual,
+                        Objeto = atual.Item1,
                         Principal = atual.Item1.NomeFantasia,
                         Secundario = atual.Item1.Nome,
                         Imagem = atual.Item2?.GetSource()

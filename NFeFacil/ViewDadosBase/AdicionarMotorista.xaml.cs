@@ -116,7 +116,7 @@ namespace NFeFacil.ViewDadosBase
                 var veic = caixa.Item;
                 using (var repo = new Repositorio.Escrita())
                 {
-                    repo.SalvarVeiculo(veic);
+                    repo.SalvarDadoBase(veic, Propriedades.DateTimeNow);
                     Veiculos.Add(veic);
                 }
             }
@@ -135,6 +135,31 @@ namespace NFeFacil.ViewDadosBase
                     }
                 }
             }
+        }
+
+        async void EditarVeiculo(object sender, RoutedEventArgs e)
+        {
+            var veic = (VeiculoDI)((FrameworkElement)sender).DataContext;
+            var caixa = new AdicionarVeiculo();
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+            {
+                veic = caixa.Item;
+                using (var repo = new Repositorio.Escrita())
+                {
+                    repo.SalvarDadoBase(veic, Propriedades.DateTimeNow);
+                    Veiculos.Add(veic);
+                }
+            }
+        }
+
+        private void InativarVeiculo(object sender, RoutedEventArgs e)
+        {
+            var veic = (VeiculoDI)((FrameworkElement)sender).DataContext;
+            using (var repo = new Repositorio.Escrita())
+            {
+                repo.InativarDadoBase(veic, Propriedades.DateTimeNow);
+            }
+            Veiculos.Remove(veic);
         }
     }
 }

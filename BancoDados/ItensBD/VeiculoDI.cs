@@ -3,7 +3,7 @@ using System;
 
 namespace NFeFacil.ItensBD
 {
-    public sealed class VeiculoDI
+    public sealed class VeiculoDI : IStatusAtivacao
     {
         public Guid Id { get; set; }
 
@@ -11,6 +11,8 @@ namespace NFeFacil.ItensBD
         public string Placa { get; set; }
         public string UF { get; set; }
         public string RNTC { get; set; }
+        public bool Ativo { get; set; } = true;
+        public DateTime UltimaData { get; set; }
 
         public Veiculo ToVeiculo()
         {

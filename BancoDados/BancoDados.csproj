@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <Compile Remove="Migrations\20171217200113_Loja1.7.9.cs" />
+    <Compile Remove="Migrations\20171217201307_Loja1.7.9.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -126,7 +126,12 @@ namespace NFeFacil.Repositorio
             else db.Update(item);
         }
 
-        public void SalvarVeiculo(VeiculoDI item) => db.Veiculos.Add(item);
+        public void InativarDadoBase(IStatusAtivacao item, DateTime atual)
+        {
+            item.Ativo = false;
+            item.UltimaData = atual;
+            db.Update(item);
+        }
 
         public void SalvarNFe(NFeDI item, DateTime atual)
         {
@@ -151,13 +156,6 @@ namespace NFeFacil.Repositorio
         {
             item.UltimaData = atual;
             db.Add(item);
-        }
-
-        public void InativarDadoBase(IStatusAtivacao item, DateTime atual)
-        {
-            item.Ativo = false;
-            item.UltimaData = atual;
-            db.Update(item);
         }
 
         public void AdicionarRC(RegistroCancelamento item) => db.Add(item);

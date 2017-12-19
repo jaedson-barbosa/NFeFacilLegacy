@@ -9,7 +9,7 @@ namespace NFeFacil.ViewDadosBase
 {
     public sealed partial class AdicionarVeiculo : ContentDialog
     {
-        public VeiculoDI Item { get; } = new VeiculoDI();
+        public VeiculoDI Item { get; }
 
         string RNTC
         {
@@ -17,8 +17,9 @@ namespace NFeFacil.ViewDadosBase
             set => Item.RNTC = string.IsNullOrEmpty(value) ? null : value;
         }
 
-        public AdicionarVeiculo()
+        public AdicionarVeiculo(VeiculoDI item = null)
         {
+            Item = item ?? new VeiculoDI();
             InitializeComponent();
         }
 

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace NFeFacil.Migrations
 {
@@ -6,6 +7,18 @@ namespace NFeFacil.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AddColumn<bool>(
+                name: "Ativo",
+                table: "Veiculos",
+                nullable: false,
+                defaultValue: false);
+
+            migrationBuilder.AddColumn<DateTime>(
+                name: "UltimaData",
+                table: "Veiculos",
+                nullable: false,
+                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+
             migrationBuilder.AddColumn<string>(
                 name: "Email",
                 table: "Motoristas",
@@ -24,6 +37,14 @@ namespace NFeFacil.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropColumn(
+                name: "Ativo",
+                table: "Veiculos");
+
+            migrationBuilder.DropColumn(
+                name: "UltimaData",
+                table: "Veiculos");
+
             migrationBuilder.DropColumn(
                 name: "Email",
                 table: "Motoristas");

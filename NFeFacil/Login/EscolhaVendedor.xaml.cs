@@ -19,12 +19,12 @@ namespace NFeFacil.Login
 
             using (var repo = new Repositorio.Leitura())
             {
-                var conjuntos = new ObservableCollection<ConjuntoBasicoExibicao>();
+                var conjuntos = new ObservableCollection<ConjuntoBasicoExibicao<Vendedor>>();
                 foreach (var atual in repo.ObterVendedores())
                 {
-                    var novoConjunto = new ConjuntoBasicoExibicao
+                    var novoConjunto = new ConjuntoBasicoExibicao<Vendedor>
                     {
-                        Objeto = atual,
+                        Objeto = atual.Item1,
                         Principal = atual.Item1.Nome,
                         Secundario = ExtensoesPrincipal.AplicarMáscaraDocumento(atual.Item1.CPFStr),
                         Imagem = atual.Item2?.GetSource()
@@ -53,8 +53,8 @@ namespace NFeFacil.Login
         {
             if (e.AddedItems.Count > 0)
             {
-                var item = (ConjuntoBasicoExibicao)e.AddedItems[0];
-                Propriedades.VendedorAtivo = (Vendedor)item.Objeto;
+                var item = (ConjuntoBasicoExibicao<Vendedor>)e.AddedItems[0];
+                Propriedades.VendedorAtivo = item.Objeto;
                 Propriedades.FotoVendedor = item.Imagem;
                 MainPage.Current.Navegar<View.Inicio>();
                 MainPage.Current.AtualizarInformaçõesGerais();

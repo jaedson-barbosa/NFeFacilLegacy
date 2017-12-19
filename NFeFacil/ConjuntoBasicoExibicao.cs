@@ -4,9 +4,9 @@
 
 namespace NFeFacil
 {
-    internal class ConjuntoBasicoExibicao
+    internal class ConjuntoBasicoExibicao<T>
     {
-        public object Objeto { get; set; }
+        public T Objeto { get; set; }
         public ImageSource Imagem { get; set; }
         public string Principal { get; set; }
         public string Secundario { get; set; }

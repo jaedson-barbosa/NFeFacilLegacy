@@ -8,7 +8,7 @@ using NFeFacil;
 namespace NFeFacil.Migrations
 {
     [DbContext(typeof(AplicativoContext))]
-    [Migration("20171217201307_Loja1.7.9")]
+    [Migration("20171219130436_Loja1.7.9")]
     partial class Loja179
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -408,6 +408,8 @@ namespace NFeFacil.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<bool>("Ativo");
+
                     b.Property<string>("Descricao");
 
                     b.Property<string>("Placa");
@@ -415,6 +417,8 @@ namespace NFeFacil.Migrations
                     b.Property<string>("RNTC");
 
                     b.Property<string>("UF");
+
+                    b.Property<DateTime>("UltimaData");
 
                     b.HasKey("Id");
 

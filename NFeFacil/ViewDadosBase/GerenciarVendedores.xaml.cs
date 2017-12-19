@@ -14,19 +14,19 @@ namespace NFeFacil.ViewDadosBase
     /// </summary>
     public sealed partial class GerenciarVendedores : Page
     {
-        ObservableCollection<ConjuntoBasicoExibicao> Vendedores { get; }
+        ObservableCollection<ConjuntoBasicoExibicao<Vendedor>> Vendedores { get; }
 
         public GerenciarVendedores()
         {
             InitializeComponent();
             using (var repo = new Repositorio.Leitura())
             {
-                var conjuntos = new ObservableCollection<ConjuntoBasicoExibicao>();
+                var conjuntos = new ObservableCollection<ConjuntoBasicoExibicao<Vendedor>>();
                 foreach (var atual in repo.ObterVendedores())
                 {
-                    var novoConjunto = new ConjuntoBasicoExibicao
+                    var novoConjunto = new ConjuntoBasicoExibicao<Vendedor>
                     {
-                        Objeto = atual,
+                        Objeto = atual.Item1,
                         Principal = atual.Item1.Nome,
                         Secundario = ExtensoesPrincipal.AplicarMáscaraDocumento(atual.Item1.CPFStr),
                         Imagem = atual.Item2?.GetSource()
@@ -45,15 +45,15 @@ namespace NFeFacil.ViewDadosBase
         private void EditarVendedor(object sender, RoutedEventArgs e)
         {
             var contexto = ((FrameworkElement)sender).DataContext;
-            var obj = ((ConjuntoBasicoExibicao)contexto).Objeto;
+            var obj = ((ConjuntoBasicoExibicao<Vendedor>)contexto).Objeto;
             MainPage.Current.Navegar<AdicionarVendedor>((Vendedor)obj);
         }
 
         private void InativarVendedor(object sender, RoutedEventArgs e)
         {
             var contexto = ((FrameworkElement)sender).DataContext;
-            var exib = (ConjuntoBasicoExibicao)contexto;
-            var obj = (Vendedor)exib.Objeto;
+            var exib = (ConjuntoBasicoExibicao<Vendedor>)contexto;
+            var obj = exib.Objeto;
 
             using (var repo = new Repositorio.Escrita())
             {
@@ -65,8 +65,8 @@ namespace NFeFacil.ViewDadosBase
         async void ImagemVendedor(object sender, RoutedEventArgs e)
         {
             var contexto = ((FrameworkElement)sender).DataContext;
-            var vend = (ConjuntoBasicoExibicao)contexto;
-            var obj = (Vendedor)vend.Objeto;
+            var vend = (ConjuntoBasicoExibicao<Vendedor>)contexto;
+            var obj = vend.Objeto;
 
             var caixa = new View.DefinirImagem(obj.Id, vend.Imagem);
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)

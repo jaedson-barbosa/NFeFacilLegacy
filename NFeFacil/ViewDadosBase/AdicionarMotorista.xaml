@@ -88,6 +88,12 @@
                     <DataTemplate x:DataType="db:VeiculoDI">
                         <Grid Background="Transparent"
                               Padding="16">
+                            <Grid.ContextFlyout>
+                                <MenuFlyout>
+                                    <MenuFlyoutItem Click="EditarVeiculo">Editar</MenuFlyoutItem>
+                                    <MenuFlyoutItem Click="InativarVeiculo">Inativar</MenuFlyoutItem>
+                                </MenuFlyout>
+                            </Grid.ContextFlyout>
                             <Grid.RowDefinitions>
                                 <RowDefinition />
                                 <RowDefinition Height="Auto" />

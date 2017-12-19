@@ -91,7 +91,7 @@ namespace NFeFacil.ViewNFe
                     {
                         using (var repo = new Repositorio.Escrita())
                         {
-                            repo.AdicionarRC(new RegistroCancelamento()
+                            repo.SalvarItemSimples(new RegistroCancelamento()
                             {
                                 ChaveNFe = chave,
                                 DataHoraEvento = resposta.RetEvento[0].InfEvento.DhRegEvento,
@@ -102,10 +102,10 @@ namespace NFeFacil.ViewNFe
                                     RetEvento = resposta.RetEvento,
                                     Versao = resposta.Versao
                                 }.ToXElement<ProcEventoCancelamento>().ToString()
-                            });
+                            }, Propriedades.DateTimeNow);
 
                             nota.Status = (int)StatusNFe.Cancelada;
-                            repo.SalvarDadoBase(nota, Propriedades.DateTimeNow);
+                            repo.SalvarItemSimples(nota, Propriedades.DateTimeNow);
 
                             NotasEmitidas.Remove(nota);
                             NotasCanceladas.Insert(0, nota);

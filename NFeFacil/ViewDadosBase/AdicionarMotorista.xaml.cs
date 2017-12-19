@@ -92,7 +92,7 @@ namespace NFeFacil.ViewDadosBase
                     {
                         Motorista.VeiculosSecundarios = string.Concat(from VeiculoDI item in grdVeisSec.SelectedItems
                                                                       select item.Placa + '&');
-                        repo.SalvarDadoBase(Motorista, Propriedades.DateTimeNow);
+                        repo.SalvarItemSimples(Motorista, Propriedades.DateTimeNow);
                     }
                     MainPage.Current.Retornar();
                 }
@@ -116,7 +116,7 @@ namespace NFeFacil.ViewDadosBase
                 var veic = caixa.Item;
                 using (var repo = new Repositorio.Escrita())
                 {
-                    repo.SalvarDadoBase(veic, Propriedades.DateTimeNow);
+                    repo.SalvarItemSimples(veic, Propriedades.DateTimeNow);
                     Veiculos.Add(veic);
                 }
             }
@@ -146,7 +146,7 @@ namespace NFeFacil.ViewDadosBase
                 veic = caixa.Item;
                 using (var repo = new Repositorio.Escrita())
                 {
-                    repo.SalvarDadoBase(veic, Propriedades.DateTimeNow);
+                    repo.SalvarItemSimples(veic, Propriedades.DateTimeNow);
                     Veiculos.Add(veic);
                 }
             }

@@ -293,7 +293,7 @@ namespace NFeFacil.ViewNFe
                     {
                         ItemBanco.XML = ObjetoItemBanco.ToXElement<Processo>().ToString();
                     }
-                    repo.SalvarDadoBase(ItemBanco, Propriedades.DateTimeNow);
+                    repo.SalvarItemSimples(ItemBanco, Propriedades.DateTimeNow);
                 }
             }
             catch (Exception e)

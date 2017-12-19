@@ -119,19 +119,23 @@ namespace NFeFacil.Repositorio
             }
         }
 
-        public void SalvarDadoBase(IUltimaData item, DateTime atual)
+        public void SalvarItemSimples(object item, DateTime atual)
         {
-            if (item is Estoque && item.UltimaData == DateTime.MinValue)
+            if (item is Estoque est && est.UltimaData == DateTime.MinValue)
             {
-                item.UltimaData = atual;
-                db.Add(item);
+                est.UltimaData = atual;
+                db.Add(est);
+            }
+            else if (item is IUltimaData data)
+            {
+                data.UltimaData = atual;
+                if (data is IGuidId guid && guid.Id == Guid.Empty) db.Add(data);
+                else if (data is IStatusAtual sts && sts.Status == sts.StatusAdd) db.Add(data);
+                else db.Update(data);
             }
             else
             {
-                item.UltimaData = atual;
-                if (item is IGuidId guid && guid.Id == Guid.Empty) db.Add(item);
-                else if (item is IStatusAtual sts && sts.Status == sts.StatusAdd) db.Add(item);
-                else db.Update(item);
+                db.Add(item);
             }
         }
 
@@ -141,8 +145,6 @@ namespace NFeFacil.Repositorio
             item.UltimaData = atual;
             db.Update(item);
         }
-
-        public void AdicionarRC(RegistroCancelamento item) => db.Add(item);
 
         public void SalvarImagem(Guid id, DateTime atual, byte[] bytes)
         {

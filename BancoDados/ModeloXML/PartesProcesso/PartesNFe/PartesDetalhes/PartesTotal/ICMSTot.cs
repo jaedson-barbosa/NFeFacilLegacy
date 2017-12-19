@@ -44,15 +44,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTotal
                             double AgregarValor(string nomeElemento)
                             {
                                 var valor = tipo.GetProperty(nomeElemento)?.GetValue(corpo) ?? 0d;
-                                try
-                                {
-                                    return (double)valor;
-                                }
-                                catch (System.Exception)
-                                {
-                                    if (double.TryParse(valor.ToString(), out double ret)) return ret;
-                                    else return 0;
-                                }
+                                return (double)valor;
                             }
                         }
                         else if (imposto is II)

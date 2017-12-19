@@ -170,7 +170,6 @@
     <Compile Include="Certificacao\ConfiguracoesServidorCertificacao.xaml.cs">
       <DependentUpon>ConfiguracoesServidorCertificacao.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Certificacao\ISignature.cs" />
     <Compile Include="ConfiguracoesPermanentes.cs" />
     <Compile Include="ConjuntoBasicoExibicao.cs" />
     <Compile Include="Controles\ExibicaoImagem.xaml.cs">
@@ -179,189 +178,8 @@
     <Compile Include="Controles\MultView.xaml.cs">
       <DependentUpon>MultView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DescricaoPropriedade.cs" />
     <Compile Include="DetalhePagina.cs" />
-    <Compile Include="Extensoes.cs" />
-    <Compile Include="IBGE\Estado.cs" />
-    <Compile Include="IBGE\Estados.cs" />
-    <Compile Include="IBGE\Municipio.cs" />
-    <Compile Include="IBGE\Municipios.cs" />
-    <Compile Include="IBGE\XML.cs" />
-    <Compile Include="ItensBD\AlteracaoEstoque.cs" />
-    <Compile Include="ItensBD\CancelamentoRegistroVenda.cs" />
-    <Compile Include="ItensBD\ClienteDI.cs" />
-    <Compile Include="ItensBD\Comprador.cs" />
-    <Compile Include="ItensBD\EmitenteDI.cs" />
-    <Compile Include="ItensBD\Estoque.cs" />
-    <Compile Include="ItensBD\Imagem.cs" />
-    <Compile Include="ItensBD\IUltimaData.cs" />
-    <Compile Include="ItensBD\MotoristaDI.cs" />
-    <Compile Include="ItensBD\NFeDI.cs" />
-    <Compile Include="ItensBD\ProdutoDI.cs" />
-    <Compile Include="ItensBD\ProdutoSimplesVenda.cs" />
-    <Compile Include="ItensBD\RegistroCancelamento.cs" />
-    <Compile Include="ItensBD\RegistroVenda.cs" />
-    <Compile Include="ItensBD\StatusNFe.cs" />
-    <Compile Include="ItensBD\VeiculoDI.cs" />
-    <Compile Include="ItensBD\Vendedor.cs" />
-    <Compile Include="Migrations\20170603122440_Loja1.cs" />
-    <Compile Include="Migrations\20170603122440_Loja1.Designer.cs">
-      <DependentUpon>20170603122440_Loja1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20170617125032_CancelamentoAdicionado.cs" />
-    <Compile Include="Migrations\20170617125032_CancelamentoAdicionado.Designer.cs">
-      <DependentUpon>20170617125032_CancelamentoAdicionado.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20170617182941_RegistroCancelamentoAdicionado.cs" />
-    <Compile Include="Migrations\20170617182941_RegistroCancelamentoAdicionado.Designer.cs">
-      <DependentUpon>20170617182941_RegistroCancelamentoAdicionado.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20170705012424_Loja1.2.7.cs" />
-    <Compile Include="Migrations\20170705012424_Loja1.2.7.Designer.cs">
-      <DependentUpon>20170705012424_Loja1.2.7.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20170708170014_AdicionadoVendedores.cs" />
-    <Compile Include="Migrations\20170708170014_AdicionadoVendedores.Designer.cs">
-      <DependentUpon>20170708170014_AdicionadoVendedores.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20170813023052_Loja1.2.8.cs" />
-    <Compile Include="Migrations\20170813023052_Loja1.2.8.Designer.cs">
-      <DependentUpon>20170813023052_Loja1.2.8.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20170920141821_Loja1.3.3.cs" />
-    <Compile Include="Migrations\20170920141821_Loja1.3.3.Designer.cs">
-      <DependentUpon>20170920141821_Loja1.3.3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20171025211607_DataAlteracaoEstoque.cs" />
-    <Compile Include="Migrations\20171025211607_DataAlteracaoEstoque.Designer.cs">
-      <DependentUpon>20171025211607_DataAlteracaoEstoque.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20171202001612_Loja1.6.cs" />
-    <Compile Include="Migrations\20171202001612_Loja1.6.Designer.cs">
-      <DependentUpon>20171202001612_Loja1.6.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20171219130436_Loja1.7.9.cs" />
-    <Compile Include="Migrations\20171219130436_Loja1.7.9.Designer.cs">
-      <DependentUpon>20171219130436_Loja1.7.9.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\AplicativoContextModelSnapshot.cs" />
-    <Compile Include="Model.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\InfoProtocolo.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\NFe.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\ChaveAcesso.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\Detalhes.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\EnderecoCompleto.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesAssinatura\Algoritmo.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesAssinatura\Assinatura.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesAssinatura\DadosChave.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesAssinatura\DetalhesChave.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesAssinatura\Referencia.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesAssinatura\SignedInfo.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\Cobranca.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\Compra.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\Deducoes.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\Destinatario.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\DetalhesProdutos.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\Duplicata.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\Emitente.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\Exportacao.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\Fatura.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\FornecimentoDiario.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\Identificacao.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\InformacoesAdicionais.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\Observacao.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesIdentificacao\DocumentoFiscalReferenciado.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesIdentificacao\NF1AReferenciada.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesIdentificacao\NFProdutorRuralReferenciada.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\Imposto.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\impostoDevol.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\Impostos.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\COFINS.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\COFINSAliq.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\COFINSNT.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\COFINSOutr.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\COFINSQtde.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\COFINSST.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\ComumCOFINS.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\ComumICMS.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\ComumIPI.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\ComumPIS.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\ConjuntoCOFINS.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\ConjuntoPIS.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\ICMS.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\ICMS00.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\ICMS10.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\ICMS20.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\ICMS30.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\ICMS40.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\ICMS41 .cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\ICMS50 .cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\ICMS51.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\ICMS60.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\ICMS70.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\ICMS90.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\ICMSPart.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\ICMSSN101.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\ICMSSN102.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\ICMSSN201.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\ICMSSN202.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\ICMSSN500.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\ICMSSN900.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\ICMSST.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\ICMSUFDest.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\II.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\IImpostosUnidos.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\IPI.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\IPINT.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\IPITrib.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\IRegimeNormal.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\ISimplesNacional.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\ISSQN.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\PIS.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\PISAliq.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\PISNT.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\PISOutr.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\PISQtde.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesImpostos\PISST.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesProdutoOuServico\Arma.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesProdutoOuServico\CIDE.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesProdutoOuServico\Combustivel.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesProdutoOuServico\DeclaracaoImportacao.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesProdutoOuServico\DIAdicao.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesProdutoOuServico\ExportacaoIndireta.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesProdutoOuServico\GrupoExportacao.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesProdutoOuServico\Medicamento.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\PartesProdutoOuServico\VeiculoNovo.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesProduto\ProdutoOuServico.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesTotal\ICMSTot.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesTotal\ISSQNtot.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesTotal\RetTrib.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesTransporte\ICMSTransporte.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesTransporte\Motorista.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesTransporte\Reboque.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesTransporte\Veiculo.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\PartesTransporte\Volume.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\ProcessoReferenciado.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\RegistroAquisicaoCana.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\RetiradaOuEntrega.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\Total.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\PartesNFe\PartesDetalhes\Transporte.cs" />
-    <Compile Include="ModeloXML\PartesProcesso\ProtocoloNFe.cs" />
-    <Compile Include="ModeloXML\Processo.cs" />
-    <Compile Include="ModeloXML\TiposDocumento.cs" />
-    <Compile Include="PacotesBanco\ConjuntoBanco.cs" />
-    <Compile Include="PacotesBanco\ConjuntoDadosBase.cs" />
-    <Compile Include="PacotesBanco\ConjuntoNotasFiscais.cs" />
-    <Compile Include="Pacotes\CertificadoAssinaturaDTO.cs" />
-    <Compile Include="Pacotes\CertificadosExibicaoDTO.cs" />
-    <Compile Include="Pacotes\RequisicaoEnvioDTO.cs" />
     <Compile Include="PaginasPrincipais.cs" />
-    <Compile Include="Primitivos\CertificadoAssinatura.cs" />
-    <Compile Include="Primitivos\CertificadoExibicao.cs" />
-    <Compile Include="PropriedadeExtensivel.cs" />
-    <Compile Include="Repositorio\Escrita.cs" />
-    <Compile Include="Repositorio\Leitura.cs" />
-    <Compile Include="Repositorio\OperacoesExtras.cs" />
     <Compile Include="Validacao\ValidadorComprador.cs" />
     <Compile Include="ViewDadosBase\AdicionarComprador.xaml.cs">
       <DependentUpon>AdicionarComprador.xaml</DependentUpon>
@@ -800,7 +618,7 @@
     <Compile Include="View\Configuracoes.xaml.cs">
       <DependentUpon>Configuracoes.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Consulta.xaml.cs">
+    <Compile Include="View\Consulta.xaml.cs">
       <DependentUpon>Consulta.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewDadosBase\GerenciamentoProdutos\ControleEstoque.xaml.cs">
@@ -970,8 +788,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Package.StoreAssociation.xml" />
-    <EmbeddedResource Include="IBGE\Estados.xml" />
-    <EmbeddedResource Include="IBGE\Municipios.xml" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
     <Content Include="Assets\Square150x150Logo.scale-200.png" />
@@ -1408,7 +1224,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\Consulta.xaml">
+    <Page Include="View\Consulta.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1574,13 +1390,16 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BancoDados\BancoDados.csproj">
+      <Project>{f4827e33-77a7-43c8-8f3a-e712e92653cd}</Project>
+      <Name>BancoDados</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="LiveCharts.Uwp">
       <Version>0.8.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite">
-      <Version>1.1.2</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools">
       <Version>1.1.2</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">

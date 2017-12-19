@@ -45,7 +45,7 @@ namespace NFeFacil.ItensBD
                         {
                             InfCpl = Observações
                         },
-                        produtos = new List<DetalhesProdutos>(prods),
+                        produtos = prods,
                         total = new Total(prods),
                         transp = new Transporte()
                         {
@@ -63,16 +63,18 @@ namespace NFeFacil.ItensBD
                 };
             }
 
-            IEnumerable<DetalhesProdutos> ObterProdutosProcessados()
+            List<DetalhesProdutos> ObterProdutosProcessados()
             {
+                var retorno = new List<DetalhesProdutos>(Produtos.Count);
                 for (int i = 0; i < Produtos.Count; i++)
                 {
-                    yield return new DetalhesProdutos
+                    retorno.Add(new DetalhesProdutos
                     {
                         Número = i + 1,
                         Produto = Produtos[i].ToProdutoOuServico()
-                    };
+                    });
                 }
+                return retorno;
             }
         }
     }

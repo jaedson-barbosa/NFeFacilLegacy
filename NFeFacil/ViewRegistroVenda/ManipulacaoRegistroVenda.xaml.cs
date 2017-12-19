@@ -83,32 +83,25 @@ namespace NFeFacil.ViewRegistroVenda
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            using (var db = new AplicativoContext())
+            using (var repo = new Repositorio.MEGACLASSE())
             {
-                var clients = db.Clientes.Where(x => x.Ativo).OrderBy(x => x.Nome).ToArray();
-                Clientes = new ObservableCollection<ClienteManipulacaoRV>();
-                for (int i = 0; i < clients.Length; i++)
+                Clientes = repo.ObterClientesComCompradores().Select(x => new ClienteManipulacaoRV()
                 {
-                    var compradores = string.IsNullOrEmpty(clients[i].CNPJ) ? null : db.Compradores.Where(x => x.IdEmpresa == clients[i].Id).ToArray();
-                    Clientes.Add(new ClienteManipulacaoRV
-                    {
-                        Root = clients[i],
-                        Compradores = compradores
-                    });
-                }
-                Motoristas = db.Motoristas.Where(x => x.Ativo).OrderBy(x => x.Nome).GerarObs();
-
-                ItemBanco = new RegistroVenda
-                {
-                    Emitente = Propriedades.EmitenteAtivo.Id,
-                    Vendedor = Propriedades.VendedorAtivo?.Id ?? Guid.Empty,
-                    Produtos = new System.Collections.Generic.List<ProdutoSimplesVenda>(),
-                    DataHoraVenda = Propriedades.DateTimeNow,
-                    PrazoEntrega = Propriedades.DateTimeNow
-                };
-                ListaProdutos = new ObservableCollection<ExibicaoProdutoVenda>();
-                AtualizarTotal();
+                    Root = x.Item1,
+                    Compradores = x.Item2
+                }).GerarObs();
+                Motoristas = repo.ObterMotoristas().GerarObs();
             }
+            ItemBanco = new RegistroVenda
+            {
+                Emitente = Propriedades.EmitenteAtivo.Id,
+                Vendedor = Propriedades.VendedorAtivo?.Id ?? Guid.Empty,
+                Produtos = new System.Collections.Generic.List<ProdutoSimplesVenda>(),
+                DataHoraVenda = Propriedades.DateTimeNow,
+                PrazoEntrega = Propriedades.DateTimeNow
+            };
+            ListaProdutos = new ObservableCollection<ExibicaoProdutoVenda>();
+            AtualizarTotal();
         }
 
         private void RemoverProduto(object sender, RoutedEventArgs e)
@@ -153,41 +146,9 @@ namespace NFeFacil.ViewRegistroVenda
             }
             else
             {
-                var produtosOrignal = ItemBanco.Produtos;
-                using (var db = new AplicativoContext())
+                using (var repo = new Repositorio.MEGACLASSE())
                 {
-                    ItemBanco.UltimaData = Propriedades.DateTimeNow;
-                    ItemBanco.Produtos = null;
-                    db.Vendas.Add(ItemBanco);
-                    db.SaveChanges();
-
-                    for (int i = 0; i < produtosOrignal.Count; i++)
-                    {
-                        var produto = produtosOrignal[i];
-                        var estoque = db.Estoque.Include(x => x.Alteracoes).FirstOrDefault(x => x.Id == produto.IdBase);
-                        if (estoque != null)
-                        {
-                            estoque.UltimaData = Propriedades.DateTimeNow;
-                            estoque.Alteracoes.Add(new AlteracaoEstoque
-                            {
-                                Alteração = produto.Quantidade * -1,
-                                MomentoRegistro = Propriedades.DateTimeNow
-                            });
-
-                            db.Estoque.Update(estoque);
-                        }
-                    }
-                    db.SaveChanges();
-                }
-
-                using (var db = new AplicativoContext())
-                {
-                    ItemBanco.Produtos = produtosOrignal;
-                    db.Vendas.Update(ItemBanco);
-                    db.SaveChanges();
-
-                    var log = Popup.Current;
-                    log.Escrever(TitulosComuns.Sucesso, "Registro de venda salvo com sucesso.");
+                    repo.AdicionarRV(ItemBanco, Propriedades.DateTimeNow);
                 }
 
                 var ultPage = Frame.BackStack[Frame.BackStack.Count - 1];

@@ -27,24 +27,12 @@ namespace NFeFacil.ViewNFe
         public NotasSalvas()
         {
             InitializeComponent();
-            using (var db = new AplicativoContext())
+            using (var repo = new Repositorio.MEGACLASSE())
             {
-                var notasFiscais = db.NotasFiscais.ToArray();
-                NotasEmitidas = (from nota in notasFiscais
-                                 where nota.Status == (int)StatusNFe.Emitida
-                                 where nota.CNPJEmitente == Propriedades.EmitenteAtivo.CNPJ
-                                 orderby nota.DataEmissao descending
-                                 select nota).GerarObs();
-                OutrasNotas = (from nota in notasFiscais
-                               where nota.Status != (int)StatusNFe.Emitida && nota.Status != (int)StatusNFe.Cancelada
-                               where nota.CNPJEmitente == Propriedades.EmitenteAtivo.CNPJ
-                               orderby nota.DataEmissao descending
-                               select nota).GerarObs();
-                NotasCanceladas = (from nota in notasFiscais
-                               where nota.Status == (int)StatusNFe.Cancelada
-                               where nota.CNPJEmitente == Propriedades.EmitenteAtivo.CNPJ
-                               orderby nota.DataEmissao descending
-                               select nota).GerarObs();
+                var (emitidas, outras, canceladas) = repo.ObterNotas(Propriedades.EmitenteAtivo.CNPJ);
+                NotasEmitidas = emitidas.GerarObs();
+                OutrasNotas = outras.GerarObs();
+                NotasCanceladas = canceladas.GerarObs();
             }
         }
 
@@ -68,11 +56,10 @@ namespace NFeFacil.ViewNFe
         private void Excluir(object sender, RoutedEventArgs e)
         {
             var nota = (NFeDI)((MenuFlyoutItem)sender).DataContext;
-            using (var db = new AplicativoContext())
+            using (var repo = new Repositorio.MEGACLASSE())
             {
-                db.NotasFiscais.Remove(nota);
+                repo.ExcluirNFe(nota);
                 OutrasNotas.Remove(nota);
-                db.SaveChanges();
             }
             Popup.Current.Escrever(TitulosComuns.Sucesso, "Nota excluída com sucesso.");
         }
@@ -103,9 +90,9 @@ namespace NFeFacil.ViewNFe
                     var resposta = await gerenciador.EnviarAsync(envio);
                     if (resposta.RetEvento[0].InfEvento.CStat == 135)
                     {
-                        using (var db = new AplicativoContext())
+                        using (var repo = new Repositorio.MEGACLASSE())
                         {
-                            db.Cancelamentos.Add(new RegistroCancelamento()
+                            repo.AdicionarRC(new RegistroCancelamento()
                             {
                                 ChaveNFe = chave,
                                 DataHoraEvento = resposta.RetEvento[0].InfEvento.DhRegEvento,
@@ -119,9 +106,7 @@ namespace NFeFacil.ViewNFe
                             });
 
                             nota.Status = (int)StatusNFe.Cancelada;
-                            nota.UltimaData = Propriedades.DateTimeNow;
-                            db.Update(nota);
-                            db.SaveChanges();
+                            repo.AtualizarNFe(nota, Propriedades.DateTimeNow);
 
                             NotasEmitidas.Remove(nota);
                             NotasCanceladas.Insert(0, nota);

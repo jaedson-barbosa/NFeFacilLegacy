@@ -24,11 +24,11 @@ namespace NFeFacil.ViewRegistroVenda
         {
             InitializeComponent();
 
-            using (var db = new AplicativoContext())
+            using (var repo = new Repositorio.MEGACLASSE())
             {
                 ListaCompletaProdutos = new List<ExibicaoProdutoAdicao>();
-                var estoque = db.Estoque.Include(x => x.Alteracoes);
-                foreach (var item in db.Produtos)
+                var estoque = repo.ObterEstoques();
+                foreach (var item in repo.ObterProdutos())
                 {
                     if (!produtosJaAdicionados.Contains(item.Id))
                     {

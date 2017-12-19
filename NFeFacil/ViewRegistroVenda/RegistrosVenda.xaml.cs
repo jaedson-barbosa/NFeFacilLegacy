@@ -19,18 +19,15 @@ namespace NFeFacil.ViewRegistroVenda
         public RegistrosVenda()
         {
             InitializeComponent();
-            using (var db = new AplicativoContext())
+            using (var repo = new Repositorio.MEGACLASSE())
             {
-                Vendas = (from venda in db.Vendas.Include(x => x.Produtos).ToArray()
-                          where venda.Emitente == Propriedades.EmitenteAtivo.Id
-                          orderby venda.DataHoraVenda descending
-                          select new ExibicaoVenda
-                          {
-                              Base = venda,
-                              NomeVendedor = venda.Vendedor != default(Guid) ? db.Vendedores.Find(venda.Vendedor).Nome : "Indisponível",
-                              NomeCliente = venda.Cliente != default(Guid) ? db.Clientes.Find(venda.Cliente).Nome : "Indisponível",
-                              DataHoraVenda = venda.DataHoraVenda.ToString("HH:mm:ss dd-MM-yyyy")
-                          }).GerarObs();
+                Vendas = repo.ObterRegistrosVenda(Propriedades.EmitenteAtivo.Id).Select(x => new ExibicaoVenda
+                {
+                    Base = x.rv,
+                    NomeCliente = x.cliente,
+                    NomeVendedor = x.vendedor,
+                    DataHoraVenda = x.momento
+                }).GerarObs();
             }
         }
 

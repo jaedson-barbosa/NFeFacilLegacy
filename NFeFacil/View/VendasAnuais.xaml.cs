@@ -10,6 +10,7 @@ using LiveCharts;
 using LiveCharts.Uwp;
 using LiveCharts.Configurations;
 using static NFeFacil.ExtensoesPrincipal;
+using NFeFacil.ModeloXML;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -73,21 +74,17 @@ namespace NFeFacil.View
         {
             InitializeComponent();
 
-            using (var db = new AplicativoContext())
+            using (var repo = new Repositorio.MEGACLASSE())
             {
-                AnosDisponiveis = (from dado in db.NotasFiscais
-                                   where dado.Status == (int)ItensBD.StatusNFe.Emitida
-                                   where dado.CNPJEmitente == Propriedades.EmitenteAtivo.CNPJ
-                                   let ano = DateTime.Parse(dado.DataEmissao).Year
-                                   orderby ano ascending
-                                   select ano).Distinct().GerarObs();
-                NotasFiscais = (from item in db.NotasFiscais
-                                where item.Status == (int)ItensBD.StatusNFe.Emitida
-                                where item.CNPJEmitente == Propriedades.EmitenteAtivo.CNPJ
-                                let data = DateTime.Parse(item.DataEmissao)
-                                let xml = XElement.Parse(item.XML)
-                                let nota = xml.FirstNode.FromXElement<NFe>()
-                                group new NotaProcessada(data, nota) by data.Year).ToDictionary(x => x.Key, x => x.ToArray());
+                AnosDisponiveis = repo.ObterAnosNFe(Propriedades.EmitenteAtivo.CNPJ).GerarObs();
+                NotasFiscais = repo.ObterNFesPorAno(Propriedades.EmitenteAtivo.CNPJ)
+                    .ToDictionary(x => x.Key, x => x.Value.Select(Processar).ToArray());
+
+                NotaProcessada Processar((DateTime data, string xml) k)
+                {
+                    var noNFe = XElement.Parse(k.xml).FirstNode;
+                    return new NotaProcessada(k.data, noNFe.FromXElement<NFe>());
+                }
             }
 
             ResultadoMes = new SeriesCollection

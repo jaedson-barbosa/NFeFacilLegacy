@@ -21,9 +21,9 @@ namespace NFeFacil.ViewDadosBase.GerenciamentoProdutos
         public GerenciarProdutos()
         {
             InitializeComponent();
-            using (var db = new AplicativoContext())
+            using (var repo = new Repositorio.MEGACLASSE())
             {
-                Produtos = db.Produtos.Where(x => x.Ativo).OrderBy(x => x.Descricao).GerarObs();
+                Produtos = repo.ObterProdutos().GerarObs();
             }
         }
 
@@ -42,17 +42,17 @@ namespace NFeFacil.ViewDadosBase.GerenciamentoProdutos
         {
             var contexto = ((FrameworkElement)sender).DataContext;
             var produto = (ProdutoDI)contexto;
-            using (var db = new AplicativoContext())
+            using (var repo = new Repositorio.MEGACLASSE())
             {
-                var estoque = db.Estoque.Include(x => x.Alteracoes).FirstOrDefault(x => x.Id == produto.Id);
+                var estoque = repo.ObterEstoque(produto.Id);
                 if (estoque == null)
                 {
                     var caixa = new MessageDialog("Essa é uma operação sem volta, uma vez adicionado ao controle de estoque este produto será permanentemente parte dele. Certeza que você realmente quer isso?", "Atenção");
                     caixa.Commands.Add(new UICommand("Sim", x =>
                     {
                         estoque = new Estoque() { Id = produto.Id };
-                        db.Estoque.Add(estoque);
-                        db.SaveChanges();
+                        repo.AdicionarEstoque(estoque, Propriedades.DateTimeNow);
+                        repo.SalvarComTotalCerteza();
                     }));
                     caixa.Commands.Add(new UICommand("Não"));
                     if ((await caixa.ShowAsync()).Label == "Não") return;
@@ -66,11 +66,9 @@ namespace NFeFacil.ViewDadosBase.GerenciamentoProdutos
             var contexto = ((FrameworkElement)sender).DataContext;
             var prod = (ProdutoDI)contexto;
 
-            using (var db = new AplicativoContext())
+            using (var repo = new Repositorio.MEGACLASSE())
             {
-                prod.Ativo = false;
-                db.Update(prod);
-                db.SaveChanges();
+                repo.InativarProduto(prod, Propriedades.DateTimeNow);
                 Produtos.Remove(prod);
             }
         }

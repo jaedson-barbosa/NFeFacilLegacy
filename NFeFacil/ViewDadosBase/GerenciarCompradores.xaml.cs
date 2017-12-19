@@ -18,16 +18,16 @@ namespace NFeFacil.ViewDadosBase
         public GerenciarCompradores()
         {
             InitializeComponent();
-            using (var db = new AplicativoContext())
+            using (var repo = new Repositorio.MEGACLASSE())
             {
-                var original = db.Compradores.Where(x => x.Ativo).OrderBy(x => x.Nome).ToArray();
+                var original = repo.ObterCompradores();
                 Compradores = new ObservableCollection<ExibicaoComprador>();
-                for (int i = 0; i < original.Length; i++)
+                foreach (var atual in original)
                 {
                     Compradores.Add(new ExibicaoComprador()
                     {
-                        Root = original[i],
-                        NomeEmpresa = db.Clientes.Find(original[i].IdEmpresa).Nome
+                        Root = atual.Item2,
+                        NomeEmpresa = atual.Item1
                     });
                 }
             }
@@ -49,11 +49,9 @@ namespace NFeFacil.ViewDadosBase
             var contexto = ((FrameworkElement)sender).DataContext;
             var compr = (ExibicaoComprador)contexto;
 
-            using (var db = new AplicativoContext())
+            using (var repo = new Repositorio.MEGACLASSE())
             {
-                compr.Root.Ativo = false;
-                db.Update(compr.Root);
-                db.SaveChanges();
+                repo.InativarComprador(compr.Root, Propriedades.DateTimeNow);
                 Compradores.Remove(compr);
             }
         }

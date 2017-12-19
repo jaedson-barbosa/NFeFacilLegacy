@@ -30,26 +30,9 @@ namespace NFeFacil.View
             {
                 return;
             }
-            using (var db = new AplicativoContext())
+            using (var repo = new Repositorio.MEGACLASSE())
             {
-                var img = db.Imagens.Find(Id);
-                if (img != null)
-                {
-                    img.UltimaData = Propriedades.DateTimeNow;
-                    img.Bytes = bytes;
-                    db.Imagens.Update(img);
-                }
-                else
-                {
-                    img = new ItensBD.Imagem()
-                    {
-                        Id = Id,
-                        UltimaData = Propriedades.DateTimeNow,
-                        Bytes = bytes
-                    };
-                    db.Imagens.Add(img);
-                }
-                db.SaveChanges();
+                repo.SalvarImagem(Id, Propriedades.DateTimeNow, bytes);
             }
             Imagem = imgAtual.Source;
         }

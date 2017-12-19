@@ -52,32 +52,16 @@ namespace NFeFacil.ViewNFe
         {
             var Dados = (NFe)e.Parameter;
 
-            using (var db = new AplicativoContext())
+            using (var repo = new Repositorio.MEGACLASSE())
             {
-                ClientesDisponiveis = db.Clientes.Where(x => x.Ativo).OrderBy(x => x.Nome).ToList();
-                MotoristasDisponiveis = new ObservableCollection<MotoristaManipulacaoNFe>();
-                var mots = db.Motoristas.Where(x => x.Ativo).OrderBy(x => x.Nome).ToArray();
-                for (int i = 0; i < mots.Length; i++)
+                ClientesDisponiveis = repo.ObterClientes().ToList();
+                MotoristasDisponiveis = repo.ObterMotoristasComVeiculos().Select(x => new MotoristaManipulacaoNFe
                 {
-                    var atual = new MotoristaManipulacaoNFe()
-                    {
-                        Root = mots[i]
-                    };
-                    var secs = mots[i].VeiculosSecundarios;
-                    if (!string.IsNullOrEmpty(secs))
-                    {
-                        var placas = secs.Split('&');
-                        var veics = new VeiculoDI[placas.Length - 1];
-                        for (int k = 0; k < veics.Length; k++)
-                        {
-                            veics[k] = db.Veiculos.First(x => x.Placa == placas[k]);
-                        }
-                        atual.Secundarios = veics;
-                    }
-                    atual.Principal = db.Veiculos.Find(mots[i].Veiculo);
-                    MotoristasDisponiveis.Add(atual);
-                }
-                ProdutosDisponiveis = db.Produtos.Where(x => x.Ativo).OrderBy(x => x.Descricao).ToList();
+                    Root = x.Item1,
+                    Principal = x.Item2,
+                    Secundarios = x.Item3
+                }).GerarObs();
+                ProdutosDisponiveis = repo.ObterProdutos().ToList();
             }
 
             if (Dados.Informacoes.total == null)
@@ -331,23 +315,13 @@ namespace NFeFacil.ViewNFe
                 var nota = NotaSalva;
                 new AnalisadorNFe(ref nota).Normalizar();
 
-                using (var db = new AplicativoContext())
+                using (var repo = new Repositorio.MEGACLASSE())
                 {
-                    var notaAnterior = db.NotasFiscais.Find(nota.Informacoes.Id);
-                    if (notaAnterior != null)
-                    {
-                        db.NotasFiscais.Remove(notaAnterior);
-                    }
-
-                    var venda = db.Vendas.FirstOrDefault(x => x.NotaFiscalRelacionada == nota.Informacoes.Id);
+                    string IDOriginal = nota.Informacoes.Id;
                     nota.Informacoes.AtualizarChave();
-                    if (venda != null)
-                    {
-                        venda.NotaFiscalRelacionada = nota.Informacoes.Id;
-                        db.Vendas.Update(venda);
-                    }
+                    string NovoId = nota.Informacoes.Id;
 
-                    db.SaveChanges();
+                    repo.ProcessarNFeLocal(IDOriginal, NovoId);
                 }
 
                 if (ultPage.SourcePageType != typeof(VisualizacaoNFe))

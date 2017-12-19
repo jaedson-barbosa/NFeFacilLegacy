@@ -32,13 +32,13 @@ namespace NFeFacil.ViewRegistroVenda
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             ItemBanco = (RegistroVenda)e.Parameter;
-            using (var db = new AplicativoContext())
+            using (var repo = new Repositorio.MEGACLASSE())
             {
-                cliente = db.Clientes.Find(ItemBanco.Cliente);
-                motorista = ItemBanco.Motorista != Guid.Empty ? db.Motoristas.Find(ItemBanco.Motorista) : null;
-                vendedor = ItemBanco.Vendedor != Guid.Empty ? db.Vendedores.Find(ItemBanco.Vendedor) : null;
-                comprador = ItemBanco.Comprador != Guid.Empty ? db.Compradores.Find(ItemBanco.Comprador) : null;
-                produtosCompletos = db.Produtos.Where(x => ItemBanco.Produtos.Count(y => x.Id == y.IdBase) > 0).ToArray();
+                cliente = repo.ObterCliente(ItemBanco.Cliente);
+                motorista = ItemBanco.Motorista != Guid.Empty ? repo.ObterMotorista(ItemBanco.Motorista) : null;
+                vendedor = ItemBanco.Vendedor != Guid.Empty ? repo.ObterVendedor(ItemBanco.Vendedor) : null;
+                comprador = ItemBanco.Comprador != Guid.Empty ? repo.ObterComprador(ItemBanco.Comprador) : null;
+                produtosCompletos = ItemBanco.Produtos.Select(x => repo.ObterProduto(x.IdBase)).ToArray();
                 var emitente = Propriedades.EmitenteAtivo;
 
                 AddBloco("Emitente", ("Nome", emitente.Nome),
@@ -105,7 +105,7 @@ namespace NFeFacil.ViewRegistroVenda
 
                 if (ItemBanco.Cancelado)
                 {
-                    var item = db.CancelamentosRegistroVenda.Find(ItemBanco.Id);
+                    var item = repo.ObterCRV(ItemBanco.Id);
                     AddBloco("Cancelamento", ("Motivo", item.Motivo),
                         ("Data", item.MomentoCancelamento.ToString("dd/MM/yyyy")));
                 }
@@ -200,51 +200,29 @@ namespace NFeFacil.ViewRegistroVenda
             var caixa = new MotivoCancelamento();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
-                using (var db = new AplicativoContext())
+                var cancelamento = new CancelamentoRegistroVenda()
                 {
-                    ItemBanco.UltimaData = Propriedades.DateTimeNow;
-                    ItemBanco.Cancelado = true;
-                    db.Update(ItemBanco);
-
-                    for (int i = 0; i < ItemBanco.Produtos.Count; i++)
-                    {
-                        var produto = ItemBanco.Produtos[i];
-                        var estoque = db.Estoque.Include(x => x.Alteracoes).FirstOrDefault(x => x.Id == produto.IdBase);
-                        if (estoque != null)
-                        {
-                            estoque.UltimaData = Propriedades.DateTimeNow;
-                            estoque.Alteracoes.Add(new AlteracaoEstoque
-                            {
-                                Alteração = produto.Quantidade,
-                                MomentoRegistro = Propriedades.DateTimeNow
-                            });
-                            db.Estoque.Update(estoque);
-                        }
-                    }
-
-                    var cancelamento = new CancelamentoRegistroVenda()
-                    {
-                        Motivo = caixa.Motivo,
-                        MomentoCancelamento = Propriedades.DateTimeNow,
-                        Id = ItemBanco.Id
-                    };
-                    db.CancelamentosRegistroVenda.Add(cancelamento);
-
-                    AddBloco("Cancelamento", ("Motivo", cancelamento.Motivo),
-                        ("Data", cancelamento.MomentoCancelamento.ToString("dd/MM/yyyy")));
-
-                    db.SaveChanges();
-                    btnCriarDarv.IsEnabled = btnCriarNFe.IsEnabled
-                        = btnCancelar.IsEnabled = btnCalcularTroco.IsEnabled = false;
+                    Motivo = caixa.Motivo,
+                    MomentoCancelamento = Propriedades.DateTimeNow,
+                    Id = ItemBanco.Id
+                };
+                using (var repo = new Repositorio.MEGACLASSE())
+                {
+                    repo.CancelarRV(ItemBanco, cancelamento, Propriedades.DateTimeNow);
                 }
+                AddBloco("Cancelamento", ("Motivo", cancelamento.Motivo),
+                    ("Data", cancelamento.MomentoCancelamento.ToString("dd/MM/yyyy")));
+
+                btnCriarDarv.IsEnabled = btnCriarNFe.IsEnabled
+                    = btnCancelar.IsEnabled = btnCalcularTroco.IsEnabled = false;
             }
         }
 
         private void VerNFe(object sender, RoutedEventArgs e)
         {
-            using (var db = new AplicativoContext())
+            using (var repo = new Repositorio.MEGACLASSE())
             {
-                var item = db.NotasFiscais.Find(ItemBanco.NotaFiscalRelacionada);
+                var item = repo.ObterNFe(ItemBanco.NotaFiscalRelacionada);
                 MainPage.Current.Navegar<ViewNFe.VisualizacaoNFe>(item);
             }
         }

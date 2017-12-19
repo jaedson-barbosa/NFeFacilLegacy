@@ -1,6 +1,7 @@
 ﻿using NFeFacil.ItensBD;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
+using NFeFacil.Repositorio;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -32,22 +33,25 @@ namespace NFeFacil.Importacao
                     return XElement.Load(stream);
                 }
             }));
-            switch (TipoDado)
+            using (var repo = new MEGACLASSE())
             {
-                case TiposDadoBasico.Cliente:
-                    var clientes = AnaliseCompletaXml<Destinatario>(listaXML, "dest");
-                    AnalisarAdicionarClientes(clientes.Item2.Select(dest => new ClienteDI(dest)));
-                    return clientes.Item1;
-                case TiposDadoBasico.Motorista:
-                    var motoristas = AnaliseCompletaXml<Motorista>(listaXML, "transporta");
-                    AnalisarAdicionarMotoristas(motoristas.Item2.Select(mot => new MotoristaDI(mot)));
-                    return motoristas.Item1;
-                case TiposDadoBasico.Produto:
-                    var produtos = AnaliseCompletaXml<ProdutoOuServicoGenerico>(listaXML, "prod");
-                    AnalisarAdicionarProdutos(produtos.Item2.Select(prod => new ProdutoDI(prod)));
-                    return produtos.Item1;
-                default:
-                    return null;
+                switch (TipoDado)
+                {
+                    case TiposDadoBasico.Cliente:
+                        var clientes = AnaliseCompletaXml<Destinatario>(listaXML, "dest");
+                        repo.AnalisarAdicionarClientes(clientes.Item2.Select(dest => new ClienteDI(dest)), Propriedades.DateTimeNow);
+                        return clientes.Item1;
+                    case TiposDadoBasico.Motorista:
+                        var motoristas = AnaliseCompletaXml<Motorista>(listaXML, "transporta");
+                        repo.AnalisarAdicionarMotoristas(motoristas.Item2.Select(mot => new MotoristaDI(mot)), Propriedades.DateTimeNow);
+                        return motoristas.Item1;
+                    case TiposDadoBasico.Produto:
+                        var produtos = AnaliseCompletaXml<ProdutoOuServicoGenerico>(listaXML, "prod");
+                        repo.AnalisarAdicionarProdutos(produtos.Item2.Select(prod => new ProdutoDI(prod)), Propriedades.DateTimeNow);
+                        return produtos.Item1;
+                    default:
+                        return null;
+                }
             }
         }
 
@@ -114,96 +118,5 @@ namespace NFeFacil.Importacao
                     (object)xmlBruto.Value);
         }
 
-        internal void AnalisarAdicionarClientes(IEnumerable<ClienteDI> clientes)
-        {
-            using (var db = new AplicativoContext())
-            {
-                foreach (var dest in clientes)
-                {
-                    if (dest.Id != null && db.Clientes.Find(dest.Id) != null)
-                    {
-                        dest.UltimaData = Propriedades.DateTimeNow;
-                        db.Update(dest);
-                    }
-                    else
-                    {
-                        var busca = db.Clientes.FirstOrDefault(x => x.Documento == dest.Documento);
-                        dest.UltimaData = Propriedades.DateTimeNow;
-                        if (busca != default(ClienteDI))
-                        {
-                            dest.Id = busca.Id;
-                            db.Update(dest);
-                        }
-                        else
-                        {
-                            db.Add(dest);
-                        }
-                    }
-                }
-                db.SaveChanges();
-            }
-        }
-
-        internal void AnalisarAdicionarMotoristas(IEnumerable<MotoristaDI> motoristas)
-        {
-            using(var db = new AplicativoContext())
-            {
-                foreach (var mot in motoristas)
-                {
-                    if (mot.Id != null && db.Motoristas.Find(mot.Id) != null)
-                    {
-                        mot.UltimaData = Propriedades.DateTimeNow;
-                        db.Update(mot);
-                    }
-                    else
-                    {
-                        var busca = db.Motoristas.FirstOrDefault(x => x.Documento == mot.Documento
-                            || (x.Nome == mot.Nome && x.XEnder == mot.XEnder));
-                        mot.UltimaData = Propriedades.DateTimeNow;
-                        if (busca != default(MotoristaDI))
-                        {
-                            mot.Id = busca.Id;
-                            db.Update(mot);
-                        }
-                        else
-                        {
-                            db.Add(mot);
-                        }
-                    }
-                }
-                db.SaveChanges();
-            }
-        }
-
-        internal void AnalisarAdicionarProdutos(IEnumerable<ProdutoDI> produtos)
-        {
-            using (var db = new AplicativoContext())
-            {
-                foreach (var prod in produtos)
-                {
-                    if (prod.Id != null && db.Produtos.Find(prod.Id) != null)
-                    {
-                        prod.UltimaData = Propriedades.DateTimeNow;
-                        db.Update(prod);
-                    }
-                    else
-                    {
-                        var busca = db.Produtos.FirstOrDefault(x => x.Descricao == prod.Descricao
-                            || (x.CodigoProduto == prod.CodigoProduto && x.CFOP == prod.CFOP));
-                        prod.UltimaData = Propriedades.DateTimeNow;
-                        if (busca != default(ProdutoDI))
-                        {
-                            prod.Id = busca.Id;
-                            db.Update(prod);
-                        }
-                        else
-                        {
-                            db.Add(prod);
-                        }
-                    }
-                }
-                db.SaveChanges();
-            }
-        }
     }
 }

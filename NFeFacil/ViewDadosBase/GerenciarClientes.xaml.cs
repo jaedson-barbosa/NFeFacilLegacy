@@ -19,8 +19,8 @@ namespace NFeFacil.ViewDadosBase
         public GerenciarClientes()
         {
             InitializeComponent();
-            using (var db = new AplicativoContext())
-                Clientes = db.Clientes.Where(x => x.Ativo).OrderBy(x => x.Nome).GerarObs();
+            using (var repo = new Repositorio.MEGACLASSE())
+                Clientes = repo.ObterClientes().GerarObs();
         }
 
         async void AdicionarCliente(object sender, RoutedEventArgs e)
@@ -77,11 +77,9 @@ namespace NFeFacil.ViewDadosBase
             var contexto = ((FrameworkElement)sender).DataContext;
             var dest = (ClienteDI)contexto;
 
-            using (var db = new AplicativoContext())
+            using (var repo = new Repositorio.MEGACLASSE())
             {
-                dest.Ativo = false;
-                db.Update(dest);
-                db.SaveChanges();
+                repo.InativarCliente(dest, Propriedades.DateTimeNow);
                 Clientes.Remove(dest);
             }
         }

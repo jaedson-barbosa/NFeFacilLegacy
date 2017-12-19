@@ -1,4 +1,4 @@
-﻿using NFeFacil.Sincronizacao.Pacotes;
+﻿using NFeFacil.PacotesBanco;
 using Restup.Webserver.Attributes;
 using Restup.Webserver.Models.Contracts;
 using Restup.Webserver.Models.Schemas;

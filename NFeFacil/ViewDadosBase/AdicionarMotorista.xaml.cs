@@ -63,9 +63,9 @@ namespace NFeFacil.ViewDadosBase
         public AdicionarMotorista()
         {
             InitializeComponent();
-            using (var db = new AplicativoContext())
+            using (var repo = new Repositorio.MEGACLASSE())
             {
-                Veiculos = new ObservableCollection<VeiculoDI>(db.Veiculos);
+                Veiculos = repo.ObterVeiculos().GerarObs();
             }
         }
 
@@ -88,22 +88,11 @@ namespace NFeFacil.ViewDadosBase
             {
                 if (new ValidadorMotorista(Motorista).Validar(Log))
                 {
-                    using (var db = new AplicativoContext())
+                    using (var repo = new Repositorio.MEGACLASSE())
                     {
                         Motorista.VeiculosSecundarios = string.Concat(from VeiculoDI item in grdVeisSec.SelectedItems
                                                                       select item.Placa + '&');
-                        Motorista.UltimaData = Propriedades.DateTimeNow;
-                        if (Motorista.Id == Guid.Empty)
-                        {
-                            db.Add(Motorista);
-                            Log.Escrever(TitulosComuns.Sucesso, "Motorista salvo com sucesso.");
-                        }
-                        else
-                        {
-                            db.Update(Motorista);
-                            Log.Escrever(TitulosComuns.Sucesso, "Motorista alterado com sucesso.");
-                        }
-                        db.SaveChanges();
+                        repo.SalvarMotorista(Motorista, Propriedades.DateTimeNow);
                     }
                     MainPage.Current.Retornar();
                 }
@@ -125,10 +114,9 @@ namespace NFeFacil.ViewDadosBase
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
                 var veic = caixa.Item;
-                using (var db = new AplicativoContext())
+                using (var repo = new Repositorio.MEGACLASSE())
                 {
-                    db.Veiculos.Add(veic);
-                    db.SaveChanges();
+                    repo.SalvarVeiculo(veic);
                     Veiculos.Add(veic);
                 }
             }

@@ -283,9 +283,8 @@ namespace NFeFacil.ViewNFe
         {
             try
             {
-                using (var db = new AplicativoContext())
+                using (var repo = new Repositorio.MEGACLASSE())
                 {
-                    ItemBanco.UltimaData = Propriedades.DateTimeNow;
                     if (ItemBanco.Status < (int)StatusNFe.Emitida)
                     {
                         ItemBanco.XML = ObjetoItemBanco.ToXElement<NFe>().ToString();
@@ -294,16 +293,7 @@ namespace NFeFacil.ViewNFe
                     {
                         ItemBanco.XML = ObjetoItemBanco.ToXElement<Processo>().ToString();
                     }
-
-                    if (ItemBanco.Status == (int)StatusNFe.Salva)
-                    {
-                        db.Add(ItemBanco);
-                    }
-                    else
-                    {
-                        db.Update(ItemBanco);
-                    }
-                    db.SaveChanges();
+                    repo.SalvarNFe(ItemBanco, Propriedades.DateTimeNow);
                 }
             }
             catch (Exception e)

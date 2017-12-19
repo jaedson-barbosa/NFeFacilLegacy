@@ -18,9 +18,9 @@ namespace NFeFacil.ViewDadosBase
         public GerenciarMotoristas()
         {
             InitializeComponent();
-            using (var db = new AplicativoContext())
+            using (var repo = new Repositorio.MEGACLASSE())
             {
-                Motoristas = db.Motoristas.Where(x => x.Ativo).OrderBy(x => x.Nome).GerarObs();
+                Motoristas = repo.ObterMotoristas().GerarObs();
             }
         }
 
@@ -40,11 +40,9 @@ namespace NFeFacil.ViewDadosBase
             var contexto = ((FrameworkElement)sender).DataContext;
             var mot = (MotoristaDI)contexto;
 
-            using (var db = new AplicativoContext())
+            using (var repo = new Repositorio.MEGACLASSE())
             {
-                mot.Ativo = false;
-                db.Update(mot);
-                db.SaveChanges();
+                repo.InativarMotorista(mot, Propriedades.DateTimeNow);
                 Motoristas.Remove(mot);
             }
         }

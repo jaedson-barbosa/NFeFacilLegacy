@@ -70,20 +70,9 @@ namespace NFeFacil.ViewDadosBase
             {
                 if (new ValidadorDestinatario(Cliente).Validar(Log))
                 {
-                    using (var db = new AplicativoContext())
+                    using (var repo = new Repositorio.MEGACLASSE())
                     {
-                        Cliente.UltimaData = Propriedades.DateTimeNow;
-                        if (Cliente.Id == Guid.Empty)
-                        {
-                            db.Add(Cliente);
-                            Log.Escrever(TitulosComuns.Sucesso, "Cliente salvo com sucesso.");
-                        }
-                        else
-                        {
-                            db.Update(Cliente);
-                            Log.Escrever(TitulosComuns.Sucesso, "Cliente alterado com sucesso.");
-                        }
-                        db.SaveChanges();
+                        repo.SalvarCliente(Cliente, Propriedades.DateTimeNow);
                     }
                     MainPage.Current.Retornar();
                 }

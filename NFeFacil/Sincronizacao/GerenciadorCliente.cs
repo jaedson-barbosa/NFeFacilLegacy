@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using System.Text;
 using System;
+using NFeFacil.PacotesBanco;
 
 namespace NFeFacil.Sincronizacao
 {
@@ -20,15 +21,15 @@ namespace NFeFacil.Sincronizacao
 
         public async Task EstabelecerConexao(int senha)
         {
-            var info = await RequestAsync<InfoSegurancaConexao>("BrechaSeguranca", senha, null);
-            if (info.objeto != null)
+            var (objeto, mensagem) = await RequestAsync<InfoSegurancaConexao>("BrechaSeguranca", senha, null);
+            if (objeto != null)
             {
-                SenhaPermanente = info.objeto.Senha;
+                SenhaPermanente = objeto.Senha;
                 Log.Escrever(TitulosComuns.Sucesso, "Chave de segurança decodificada e salva com sucesso.");
             }
             else
             {
-                Log.Escrever(TitulosComuns.Erro, info.mensagem);
+                Log.Escrever(TitulosComuns.Erro, mensagem);
             }
         }
 
@@ -37,15 +38,15 @@ namespace NFeFacil.Sincronizacao
             string mensagemErro = null;
 
             var envio = new ConjuntoDadosBase(UltimaSincronizacao);
-            var receb = await RequestAsync<ConjuntoDadosBase>(
+            var (objeto, mensagem) = await RequestAsync<ConjuntoDadosBase>(
                 $"SincronizarDadosBase",
                 SenhaPermanente,
                 envio,
                 UltimaSincronizacao.ToBinary().ToString());
-            if (receb.objeto != null)
+            if (objeto != null)
             {
-                receb.objeto.AnalisarESalvar(UltimaSincronizacao);
-                UltimaSincronizacao = receb.objeto.InstanteSincronizacao;
+                objeto.AnalisarESalvar(UltimaSincronizacao);
+                UltimaSincronizacao = objeto.InstanteSincronizacao;
 
                 var envioNotas = new ConjuntoNotasFiscais(UltimaSincronizacaoNotas);
                 var recebNotas = await RequestAsync<ConjuntoNotasFiscais>(
@@ -65,7 +66,7 @@ namespace NFeFacil.Sincronizacao
             }
             else
             {
-                mensagemErro = receb.mensagem;
+                mensagemErro = mensagem;
             }
 
             if (string.IsNullOrEmpty(mensagemErro))
@@ -84,15 +85,15 @@ namespace NFeFacil.Sincronizacao
 
             var envio = new ConjuntoDadosBase();
             envio.AtualizarPadrao();
-            var receb = await RequestAsync<ConjuntoDadosBase>(
+            var (objeto, mensagem) = await RequestAsync<ConjuntoDadosBase>(
                 $"SincronizarDadosBase",
                 SenhaPermanente,
                 envio,
                 DateTime.MinValue.ToBinary().ToString());
-            if (receb.objeto != null)
+            if (objeto != null)
             {
-                receb.objeto.AnalisarESalvar(DateTime.MinValue);
-                UltimaSincronizacao = receb.objeto.InstanteSincronizacao;
+                objeto.AnalisarESalvar(DateTime.MinValue);
+                UltimaSincronizacao = objeto.InstanteSincronizacao;
 
                 var envioNotas = new ConjuntoNotasFiscais();
                 envioNotas.AtualizarPadrao();
@@ -113,7 +114,7 @@ namespace NFeFacil.Sincronizacao
             }
             else
             {
-                mensagemErro = receb.mensagem;
+                mensagemErro = mensagem;
             }
 
             if (string.IsNullOrEmpty(mensagemErro))

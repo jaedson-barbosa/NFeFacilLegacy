@@ -19,28 +19,19 @@ namespace NFeFacil.Login
         {
             InitializeComponent();
 
-            using (var db = new AplicativoContext())
+            using (var repo = new Repositorio.MEGACLASSE())
             {
-                var vendedores = db.Vendedores.Where(x => x.Ativo).ToArray();
-                var imagens = db.Imagens;
-                var quantVendedores = vendedores.Length;
+                var dados = repo.ObterVendedores();
                 var conjuntos = new ObservableCollection<ConjuntoBasicoExibicao>();
-                for (int i = 0; i < quantVendedores; i++)
+                foreach (var atual in dados)
                 {
-                    var atual = vendedores[i];
                     var novoConjunto = new ConjuntoBasicoExibicao
                     {
                         Objeto = atual,
-                        Principal = atual.Nome,
-                        Secundario = ExtensoesPrincipal.AplicarMáscaraDocumento(atual.CPFStr)
+                        Principal = atual.Item1.Nome,
+                        Secundario = ExtensoesPrincipal.AplicarMáscaraDocumento(atual.Item1.CPFStr),
+                        Imagem = atual.Item2?.GetSource()
                     };
-                    var img = imagens.Find(atual.Id);
-                    if (img != null && img.Bytes != null)
-                    {
-                        var task = img.GetSourceAsync();
-                        task.Wait();
-                        novoConjunto.Imagem = task.Result;
-                    }
                     conjuntos.Add(novoConjunto);
                 }
                 grdVendedores.ItemsSource = conjuntos;

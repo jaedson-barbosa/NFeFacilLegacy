@@ -121,9 +121,9 @@ namespace NFeFacil.View
                     var nfe = proc.NFe;
                     if (nfe.Informacoes.destinatário.CNPJ == Propriedades.EmitenteAtivo.CNPJ)
                     {
-                        using (var db = new AplicativoContext())
+                        using (var repo = new Repositorio.MEGACLASSE())
                         {
-                            var c = db.Clientes.FirstOrDefault(x => x.CNPJ == nfe.Informacoes.emitente.CNPJ);
+                            var c = repo.ObterClienteViaCNPJ(nfe.Informacoes.emitente.CNPJ);
                             if (c != null)
                             {
                                 nfe.Informacoes.destinatário = c.ToDestinatario();

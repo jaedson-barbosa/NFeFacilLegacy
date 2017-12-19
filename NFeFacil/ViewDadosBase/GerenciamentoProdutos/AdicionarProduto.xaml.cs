@@ -41,20 +41,9 @@ namespace NFeFacil.ViewDadosBase.GerenciamentoProdutos
             {
                 if (new ValidadorProduto(Produto).Validar(Log))
                 {
-                    using (var db = new AplicativoContext())
+                    using (var repo = new Repositorio.MEGACLASSE())
                     {
-                        Produto.UltimaData = Propriedades.DateTimeNow;
-                        if (Produto.Id == Guid.Empty)
-                        {
-                            db.Add(Produto);
-                            Log.Escrever(TitulosComuns.Sucesso, "Produto salvo com sucesso.");
-                        }
-                        else
-                        {
-                            db.Update(Produto);
-                            Log.Escrever(TitulosComuns.Sucesso, "Produto alterado com sucesso.");
-                        }
-                        db.SaveChanges();
+                        repo.SalvarProduto(Produto, Propriedades.DateTimeNow);
                     }
                     MainPage.Current.Retornar();
                 }

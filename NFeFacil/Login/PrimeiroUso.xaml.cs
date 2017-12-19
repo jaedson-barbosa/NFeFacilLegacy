@@ -23,9 +23,9 @@ namespace NFeFacil.Login
         {
             if (e.NavigationMode == NavigationMode.Back)
             {
-                using (var db = new AplicativoContext())
+                using (var repo = new Repositorio.MEGACLASSE())
                 {
-                    if (db.Emitentes.Count() > 0)
+                    if (repo.EmitentesCadastrados)
                     {
                         await Task.Delay(500);
                         MainPage.Current.Navegar<EscolhaEmitente>();

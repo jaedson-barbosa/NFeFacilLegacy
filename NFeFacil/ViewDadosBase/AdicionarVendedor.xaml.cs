@@ -47,20 +47,9 @@ namespace NFeFacil.ViewDadosBase
             {
                 if (new ValidadorVendedor(Vendedor).Validar(Log))
                 {
-                    using (var db = new AplicativoContext())
+                    using (var repo = new Repositorio.MEGACLASSE())
                     {
-                        Vendedor.UltimaData = Propriedades.DateTimeNow;
-                        if (Vendedor.Id == Guid.Empty)
-                        {
-                            db.Add(Vendedor);
-                            Log.Escrever(TitulosComuns.Sucesso, "Vendedor salvo com sucesso.");
-                        }
-                        else
-                        {
-                            db.Update(Vendedor);
-                            Log.Escrever(TitulosComuns.Sucesso, "Vendedor alterado com sucesso.");
-                        }
-                        db.SaveChanges();
+                        repo.SalvarVendedor(Vendedor, Propriedades.DateTimeNow);
                     }
                     MainPage.Current.Retornar();
                 }

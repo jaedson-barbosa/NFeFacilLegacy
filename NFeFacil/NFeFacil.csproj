@@ -180,7 +180,6 @@
     </Compile>
     <Compile Include="DetalhePagina.cs" />
     <Compile Include="PaginasPrincipais.cs" />
-    <Compile Include="Sincronizacao\Pacotes\ConjuntoNotasFiscais.cs" />
     <Compile Include="Validacao\ValidadorComprador.cs" />
     <Compile Include="ViewDadosBase\AdicionarComprador.xaml.cs">
       <DependentUpon>AdicionarComprador.xaml</DependentUpon>
@@ -547,7 +546,6 @@
     <Compile Include="Sincronizacao\ConfiguracoesSincronizacao.cs" />
     <Compile Include="Sincronizacao\GerenciadorCliente.cs" />
     <Compile Include="Sincronizacao\GerenciadorServidor.cs" />
-    <Compile Include="Sincronizacao\Pacotes\ConjuntoDadosBase.cs" />
     <Compile Include="Sincronizacao\Pacotes\InfoEstabelecerConexao.cs" />
     <Compile Include="Sincronizacao\Pacotes\InfoSegurancaConexao.cs" />
     <Compile Include="Sincronizacao\Servidor\ControllerInformacoes.cs" />

@@ -76,20 +76,9 @@ namespace NFeFacil.Login
             {
                 if (new ValidadorEmitente(Emit).Validar(Log))
                 {
-                    using (var db = new AplicativoContext())
+                    using (var repo = new Repositorio.MEGACLASSE())
                     {
-                        Emit.UltimaData = Propriedades.DateTimeNow;
-                        if (Emit.Id == Guid.Empty)
-                        {
-                            db.Add(Emit);
-                            Log.Escrever(TitulosComuns.Sucesso, "Emitente salvo com sucesso.");
-                        }
-                        else
-                        {
-                            db.Update(Emit);
-                            Log.Escrever(TitulosComuns.Sucesso, "Emitente alterado com sucesso.");
-                        }
-                        db.SaveChanges();
+                        repo.SalvarEmitente(Emit, Propriedades.DateTimeNow);
                     }
                     MainPage.Current.Retornar();
                 }

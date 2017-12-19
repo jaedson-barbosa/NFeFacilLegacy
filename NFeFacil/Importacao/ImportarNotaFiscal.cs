@@ -45,22 +45,9 @@ namespace NFeFacil.Importacao
                     retorno.Add(e);
                 }
             }
-            using (var db = new AplicativoContext())
+            using (var repo = new Repositorio.MEGACLASSE())
             {
-                foreach (var item in conjuntos)
-                {
-                    item.UltimaData = Propriedades.DateTimeNow;
-                    if (db.NotasFiscais.Count(x => x.Id == item.Id) > 0)
-                    {
-                        db.Update(item);
-                    }
-                    else
-                    {
-                        db.Add(item);
-                    }
-                }
-
-                db.SaveChanges();
+                repo.AdicionarNotasFiscais(conjuntos, Propriedades.DateTimeNow);
             }
             return retorno;
         }

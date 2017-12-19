@@ -75,62 +75,16 @@ namespace NFeFacil
 
         async void Analisar()
         {
-            using (var db = new AplicativoContext())
+            using (var repo = new Repositorio.MEGACLASSE())
             {
-                db.Database.Migrate();
-
-                await db.Clientes.ForEachAsync(x => AnalisarItem(x));
-                await db.Emitentes.ForEachAsync(x => AnalisarItem(x));
-                await db.Motoristas.ForEachAsync(x => AnalisarItem(x));
-                await db.Vendedores.ForEachAsync(x =>
-                {
-                    if (string.IsNullOrEmpty(x.CPFStr))
-                    {
-#pragma warning disable CS0612 // O tipo ou membro é obsoleto
-                        x.CPFStr = x.CPF.ToString();
-#pragma warning restore CS0612 // O tipo ou membro é obsoleto
-                        db.Update(x);
-                    }
-                    AnalisarItem(x);
-                });
-                await db.Produtos.ForEachAsync(x => AnalisarItem(x));
-                await db.Estoque.Include(x => x.Alteracoes).ForEachAsync(x =>
-                {
-                    x.Alteracoes?.ForEach(alt =>
-                    {
-                        if (alt.MomentoRegistro == default(DateTime))
-                        {
-                            alt.MomentoRegistro = Propriedades.DateTimeNow;
-                            db.Update(alt);
-                        }
-                    });
-                    AnalisarItem(x);
-                });
-                await db.Vendas.ForEachAsync(x => AnalisarItem(x));
-                await db.Imagens.ForEachAsync(x => AnalisarItem(x));
-                db.SaveChanges();
-
-                void AnalisarItem(IUltimaData item)
-                {
-                    if (item.UltimaData == DateTime.MinValue)
-                    {
-                        item.UltimaData = Propriedades.DateTimeNow;
-                        db.Update(item);
-                    }
-                }
-
-                Propriedades.EmitenteAtivo = db.Emitentes.FirstOrDefault();
-
+                await repo.AnalisarBanco(Propriedades.DateTimeNow);
                 switch (ConfiguracoesPermanentes.TipoBackground)
                 {
                     case TiposBackground.Imagem:
                         if (ConfiguracoesPermanentes.IDBackgroung != default(Guid))
                         {
-                            var img = db.Imagens.Find(ConfiguracoesPermanentes.IDBackgroung);
-                            if (img?.Bytes != null)
-                            {
-                                ImagemBackground = await img.GetSourceAsync();
-                            }
+                            var img = repo.ProcurarImagem(ConfiguracoesPermanentes.IDBackgroung);
+                            ImagemBackground = img?.Bytes?.GetSource();
                         }
                         DefinirTipoBackground(TiposBackground.Imagem);
                         DefinirOpacidadeBackground(ConfiguracoesPermanentes.OpacidadeBackground);
@@ -141,7 +95,7 @@ namespace NFeFacil
                         break;
                 }
 
-                if (db.Emitentes.Count() > 0)
+                if (repo.EmitentesCadastrados)
                 {
                     Navegar<Login.EscolhaEmitente>();
                 }

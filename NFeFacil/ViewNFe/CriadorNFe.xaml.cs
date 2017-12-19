@@ -98,14 +98,9 @@ namespace NFeFacil.ViewNFe
         private void CalcularNumero_Click(object sender, RoutedEventArgs e)
         {
             var cnpj = Propriedades.EmitenteAtivo.CNPJ;
-            using (var Contexto = new AplicativoContext())
+            using (var repo = new Repositorio.MEGACLASSE())
             {
-                txtNumero.Number = (from nota in Contexto.NotasFiscais
-                                    where nota.CNPJEmitente == cnpj.ToString()
-                                    where nota.SerieNota == Serie
-                                    let notaHomologacao = nota.NomeCliente.Trim().ToUpper() == "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL"
-                                    where AmbienteHomolocagao ? notaHomologacao : !notaHomologacao
-                                    select nota.NumeroNota).Max() + 1;
+                txtNumero.Number = repo.ObterMaiorNumeroNFe(cnpj, Serie, AmbienteHomolocagao) + 1;
             }
         }
     }

@@ -19,28 +19,19 @@ namespace NFeFacil.ViewDadosBase
         public GerenciarVendedores()
         {
             InitializeComponent();
-            using (var db = new AplicativoContext())
+            using (var repo = new Repositorio.MEGACLASSE())
             {
-                var vendedores = db.Vendedores.Where(x => x.Ativo).ToArray();
-                var imagens = db.Imagens;
-                var quantVendedores = vendedores.Length;
+                var vendedores = repo.ObterVendedores();
                 var conjuntos = new ObservableCollection<ConjuntoBasicoExibicao>();
-                for (int i = 0; i < quantVendedores; i++)
+                foreach (var atual in vendedores)
                 {
-                    var atual = vendedores[i];
                     var novoConjunto = new ConjuntoBasicoExibicao
                     {
                         Objeto = atual,
-                        Principal = atual.Nome,
-                        Secundario = ExtensoesPrincipal.AplicarMáscaraDocumento(atual.CPFStr)
+                        Principal = atual.Item1.Nome,
+                        Secundario = ExtensoesPrincipal.AplicarMáscaraDocumento(atual.Item1.CPFStr),
+                        Imagem = atual.Item2?.GetSource()
                     };
-                    var img = imagens.Find(atual.Id);
-                    if (img != null && img.Bytes != null)
-                    {
-                        var task = img.GetSourceAsync();
-                        task.Wait();
-                        novoConjunto.Imagem = task.Result;
-                    }
                     conjuntos.Add(novoConjunto);
                 }
                 Vendedores = conjuntos.OrderBy(x => x.Principal).GerarObs();
@@ -65,11 +56,9 @@ namespace NFeFacil.ViewDadosBase
             var exib = (ConjuntoBasicoExibicao)contexto;
             var obj = (Vendedor)exib.Objeto;
 
-            using (var db = new AplicativoContext())
+            using (var repo = new Repositorio.MEGACLASSE())
             {
-                obj.Ativo = false;
-                db.Update(obj);
-                db.SaveChanges();
+                repo.InativarVendedor(obj, Propriedades.DateTimeNow);
                 Vendedores.Remove(exib);
             }
         }

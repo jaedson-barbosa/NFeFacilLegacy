@@ -24,11 +24,9 @@ namespace NFeFacil.ViewDadosBase
         public AdicionarComprador()
         {
             InitializeComponent();
-            using (var db = new AplicativoContext())
+            using (var repo = new Repositorio.MEGACLASSE())
             {
-                ClientesDisponiveis = (from cli in db.Clientes
-                                       where cli.Ativo && !string.IsNullOrEmpty(cli.CNPJ)
-                                       select cli).GerarObs();
+                ClientesDisponiveis = repo.ObterClientes(x => !string.IsNullOrEmpty(x.CNPJ)).GerarObs();
             }
         }
 
@@ -51,20 +49,9 @@ namespace NFeFacil.ViewDadosBase
             {
                 if (new ValidadorComprador(Comprador).Validar(Log))
                 {
-                    using (var db = new AplicativoContext())
+                    using (var repo = new Repositorio.MEGACLASSE())
                     {
-                        Comprador.UltimaData = Propriedades.DateTimeNow;
-                        if (Comprador.Id == Guid.Empty)
-                        {
-                            db.Add(Comprador);
-                            Log.Escrever(TitulosComuns.Sucesso, "Vendedor salvo com sucesso.");
-                        }
-                        else
-                        {
-                            db.Update(Comprador);
-                            Log.Escrever(TitulosComuns.Sucesso, "Vendedor alterado com sucesso.");
-                        }
-                        db.SaveChanges();
+                        repo.SalvarComprador(Comprador, Propriedades.DateTimeNow);
                     }
                     MainPage.Current.Retornar();
                 }

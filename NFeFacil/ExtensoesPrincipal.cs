@@ -83,12 +83,12 @@ namespace NFeFacil
             }
         }
 
-        public static async Task<ImageSource> GetSourceAsync(this Imagem imagem)
+        public static ImageSource GetSource(this byte[] imagem)
         {
             var retorno = new BitmapImage();
             using (var stream = new InMemoryRandomAccessStream())
             {
-                await stream.WriteAsync(imagem.Bytes.AsBuffer());
+                new StreamWriter(stream.AsStreamForWrite()).Write(imagem);
                 stream.Seek(0);
                 retorno.SetSource(stream);
                 return retorno;

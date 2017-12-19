@@ -108,11 +108,9 @@ namespace NFeFacil.ViewDadosBase.GerenciamentoProdutos
         {
             if (AlteracoesNaoSalvas)
             {
-                using (var db = new AplicativoContext())
+                using (var repo = new Repositorio.MEGACLASSE())
                 {
-                    Estoque.UltimaData = Propriedades.DateTimeNow;
-                    db.Update(Estoque);
-                    db.SaveChanges();
+                    repo.AtualizarEstoque(Estoque, Propriedades.DateTimeNow);
                 }
             }
         }

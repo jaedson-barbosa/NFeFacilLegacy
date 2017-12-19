@@ -9,6 +9,7 @@ namespace NFeFacil.Repositorio
     public sealed class Leitura : IDisposable
     {
         AplicativoContext db = new AplicativoContext();
+
         public void Dispose() => db.Dispose();
 
         public IEnumerable<(EmitenteDI, byte[])> ObterEmitentes()

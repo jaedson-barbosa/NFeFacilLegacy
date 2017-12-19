@@ -20,10 +20,6 @@ namespace NFeFacil.Repositorio
         {
             db.Database.Migrate();
 
-            //db.SaveChanges();
-            //db.Dispose();
-            //db = new AplicativoContext();
-
             await db.Clientes.ForEachAsync(x => AnalisarItem(x));
             await db.Emitentes.ForEachAsync(x => AnalisarItem(x));
             await db.Motoristas.ForEachAsync(x => AnalisarItem(x));

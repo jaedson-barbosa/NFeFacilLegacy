@@ -110,7 +110,7 @@ namespace NFeFacil.ViewDadosBase.GerenciamentoProdutos
             {
                 using (var repo = new Repositorio.Escrita())
                 {
-                    repo.AtualizarEstoque(Estoque, Propriedades.DateTimeNow);
+                    repo.SalvarDadoBase(Estoque, Propriedades.DateTimeNow);
                 }
             }
         }

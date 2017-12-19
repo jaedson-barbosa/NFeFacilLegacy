@@ -121,9 +121,17 @@ namespace NFeFacil.Repositorio
 
         public void SalvarDadoBase(IUltimaData item, DateTime atual)
         {
-            item.UltimaData = atual;
-            if (item.Id == Guid.Empty) db.Add(item);
-            else db.Update(item);
+            if (item is Estoque && item.UltimaData == DateTime.MinValue)
+            {
+                item.UltimaData = atual;
+                db.Add(item);
+            }
+            else
+            {
+                item.UltimaData = atual;
+                if (item.Id == Guid.Empty) db.Add(item);
+                else db.Update(item);
+            }
         }
 
         public void InativarDadoBase(IStatusAtivacao item, DateTime atual)
@@ -136,26 +144,8 @@ namespace NFeFacil.Repositorio
         public void SalvarNFe(NFeDI item, DateTime atual)
         {
             item.UltimaData = atual;
-            if (item.Status == (int)StatusNFe.Salva)
-            {
-                db.Add(item);
-            }
-            else
-            {
-                db.Update(item);
-            }
-        }
-
-        public void AtualizarEstoque(Estoque item, DateTime atual)
-        {
-            item.UltimaData = atual;
-            db.Update(item);
-        }
-
-        public void AdicionarEstoque(Estoque item, DateTime atual)
-        {
-            item.UltimaData = atual;
-            db.Add(item);
+            if (item.Status == (int)StatusNFe.Salva) db.Add(item);
+            else db.Update(item);
         }
 
         public void AdicionarRC(RegistroCancelamento item) => db.Add(item);

@@ -119,72 +119,14 @@ namespace NFeFacil.Repositorio
             }
         }
 
-        public void SalvarComprador(Comprador item, DateTime atual)
+        public void SalvarDadoBase(IUltimaData item, DateTime atual)
         {
             item.UltimaData = atual;
-            if (item.Id == Guid.Empty)
-            {
-                db.Add(item);
-            }
-            else
-            {
-                db.Update(item);
-            }
-        }
-
-        public void SalvarMotorista(MotoristaDI item, DateTime atual)
-        {
-            item.UltimaData = atual;
-            if (item.Id == Guid.Empty)
-            {
-                db.Add(item);
-            }
-            else
-            {
-                db.Update(item);
-            }
+            if (item.Id == Guid.Empty) db.Add(item);
+            else db.Update(item);
         }
 
         public void SalvarVeiculo(VeiculoDI item) => db.Veiculos.Add(item);
-
-        public void SalvarVendedor(Vendedor item, DateTime atual)
-        {
-            item.UltimaData = atual;
-            if (item.Id == Guid.Empty)
-            {
-                db.Add(item);
-            }
-            else
-            {
-                db.Update(item);
-            }
-        }
-
-        public void SalvarCliente(ClienteDI item, DateTime atual)
-        {
-            item.UltimaData = atual;
-            if (item.Id == Guid.Empty)
-            {
-                db.Add(item);
-            }
-            else
-            {
-                db.Update(item);
-            }
-        }
-
-        public void SalvarProduto(ProdutoDI item, DateTime atual)
-        {
-            item.UltimaData = atual;
-            if (item.Id == Guid.Empty)
-            {
-                db.Add(item);
-            }
-            else
-            {
-                db.Update(item);
-            }
-        }
 
         public void SalvarNFe(NFeDI item, DateTime atual)
         {
@@ -224,43 +166,9 @@ namespace NFeFacil.Repositorio
             db.Add(item);
         }
 
-        public void InativarProduto(ProdutoDI item, DateTime atual)
+        public void InativarDadoBase(IStatusAtivacao item, DateTime atual)
         {
             item.Ativo = false;
-            item.UltimaData = atual;
-            db.Update(item);
-        }
-
-        public void InativarCliente(ClienteDI item, DateTime atual)
-        {
-            item.Ativo = false;
-            item.UltimaData = atual;
-            db.Update(item);
-        }
-
-        public void InativarComprador(Comprador item, DateTime atual)
-        {
-            item.Ativo = false;
-            item.UltimaData = atual;
-            db.Update(item);
-        }
-
-        public void InativarMotorista(MotoristaDI item, DateTime atual)
-        {
-            item.Ativo = false;
-            item.UltimaData = atual;
-            db.Update(item);
-        }
-
-        public void InativarVendedor(Vendedor item, DateTime atual)
-        {
-            item.Ativo = false;
-            item.UltimaData = atual;
-            db.Update(item);
-        }
-
-        public void AtualizarNFe(NFeDI item, DateTime atual)
-        {
             item.UltimaData = atual;
             db.Update(item);
         }

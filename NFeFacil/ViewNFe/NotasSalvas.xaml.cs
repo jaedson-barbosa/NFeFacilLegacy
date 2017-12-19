@@ -105,7 +105,7 @@ namespace NFeFacil.ViewNFe
                             });
 
                             nota.Status = (int)StatusNFe.Cancelada;
-                            repo.AtualizarNFe(nota, Propriedades.DateTimeNow);
+                            repo.SalvarNFe(nota, Propriedades.DateTimeNow);
 
                             NotasEmitidas.Remove(nota);
                             NotasCanceladas.Insert(0, nota);

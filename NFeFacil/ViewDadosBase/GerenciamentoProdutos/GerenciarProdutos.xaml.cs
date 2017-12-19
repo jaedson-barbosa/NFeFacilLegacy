@@ -70,7 +70,7 @@ namespace NFeFacil.ViewDadosBase.GerenciamentoProdutos
 
             using (var repo = new Repositorio.Escrita())
             {
-                repo.InativarProduto(prod, Propriedades.DateTimeNow);
+                repo.InativarDadoBase(prod, Propriedades.DateTimeNow);
                 Produtos.Remove(prod);
             }
         }

@@ -49,7 +49,7 @@ namespace NFeFacil.ViewDadosBase
                 {
                     using (var repo = new Repositorio.Escrita())
                     {
-                        repo.SalvarVendedor(Vendedor, Propriedades.DateTimeNow);
+                        repo.SalvarDadoBase(Vendedor, Propriedades.DateTimeNow);
                     }
                     MainPage.Current.Retornar();
                 }

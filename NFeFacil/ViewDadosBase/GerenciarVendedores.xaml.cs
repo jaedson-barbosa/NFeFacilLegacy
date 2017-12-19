@@ -57,7 +57,7 @@ namespace NFeFacil.ViewDadosBase
 
             using (var repo = new Repositorio.Escrita())
             {
-                repo.InativarVendedor(obj, Propriedades.DateTimeNow);
+                repo.InativarDadoBase(obj, Propriedades.DateTimeNow);
                 Vendedores.Remove(exib);
             }
         }

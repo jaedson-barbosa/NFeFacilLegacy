@@ -41,7 +41,7 @@ namespace NFeFacil.ViewDadosBase
 
             using (var repo = new Repositorio.Escrita())
             {
-                repo.InativarMotorista(mot, Propriedades.DateTimeNow);
+                repo.InativarDadoBase(mot, Propriedades.DateTimeNow);
                 Motoristas.Remove(mot);
             }
         }

@@ -92,7 +92,7 @@ namespace NFeFacil.ViewDadosBase
                     {
                         Motorista.VeiculosSecundarios = string.Concat(from VeiculoDI item in grdVeisSec.SelectedItems
                                                                       select item.Placa + '&');
-                        repo.SalvarMotorista(Motorista, Propriedades.DateTimeNow);
+                        repo.SalvarDadoBase(Motorista, Propriedades.DateTimeNow);
                     }
                     MainPage.Current.Retornar();
                 }

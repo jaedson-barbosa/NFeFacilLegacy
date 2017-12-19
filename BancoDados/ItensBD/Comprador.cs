@@ -2,7 +2,7 @@
 
 namespace NFeFacil.ItensBD
 {
-    public sealed class Comprador : IStatusAtivacao
+    public sealed class Comprador : IStatusAtivacao, IGuidId
     {
         public Guid Id { get; set; }
         public Guid IdEmpresa { get; set; }

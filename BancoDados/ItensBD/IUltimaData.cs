@@ -4,8 +4,18 @@ namespace NFeFacil.ItensBD
 {
     public interface IUltimaData
     {
-        Guid Id { get; set; }
         DateTime UltimaData { get; set; }
+    }
+
+    public interface IGuidId
+    {
+        Guid Id { get; set; }
+    }
+
+    public interface IStatusAtual
+    {
+        int Status { get; set; }
+        int StatusAdd { get; }
     }
 
     public interface IStatusAtivacao : IUltimaData

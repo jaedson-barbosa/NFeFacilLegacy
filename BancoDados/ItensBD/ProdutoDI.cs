@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 
 namespace NFeFacil.ItensBD
 {
-    public sealed class ProdutoDI : IStatusAtivacao
+    public sealed class ProdutoDI : IStatusAtivacao, IGuidId
     {
         public Guid Id { get; set; }
         public DateTime UltimaData { get; set; }

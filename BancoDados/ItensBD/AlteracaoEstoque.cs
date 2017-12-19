@@ -2,7 +2,7 @@
 
 namespace NFeFacil.ItensBD
 {
-    public sealed class AlteracaoEstoque
+    public sealed class AlteracaoEstoque : IGuidId
     {
         public Guid Id { get; set; }
         public double Alteração { get; set; }

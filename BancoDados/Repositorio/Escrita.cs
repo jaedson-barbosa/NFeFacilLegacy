@@ -129,7 +129,8 @@ namespace NFeFacil.Repositorio
             else
             {
                 item.UltimaData = atual;
-                if (item.Id == Guid.Empty) db.Add(item);
+                if (item is IGuidId guid && guid.Id == Guid.Empty) db.Add(item);
+                else if (item is IStatusAtual sts && sts.Status == sts.StatusAdd) db.Add(item);
                 else db.Update(item);
             }
         }
@@ -139,13 +140,6 @@ namespace NFeFacil.Repositorio
             item.Ativo = false;
             item.UltimaData = atual;
             db.Update(item);
-        }
-
-        public void SalvarNFe(NFeDI item, DateTime atual)
-        {
-            item.UltimaData = atual;
-            if (item.Status == (int)StatusNFe.Salva) db.Add(item);
-            else db.Update(item);
         }
 
         public void AdicionarRC(RegistroCancelamento item) => db.Add(item);

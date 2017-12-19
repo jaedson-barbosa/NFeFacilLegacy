@@ -2,7 +2,7 @@
 
 namespace NFeFacil.ItensBD
 {
-    public sealed class Imagem : IUltimaData
+    public sealed class Imagem : IUltimaData, IGuidId
     {
         public Guid Id { get; set; }
         public DateTime UltimaData { get; set; }

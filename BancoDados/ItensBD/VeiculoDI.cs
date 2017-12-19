@@ -3,7 +3,7 @@ using System;
 
 namespace NFeFacil.ItensBD
 {
-    public sealed class VeiculoDI : IStatusAtivacao
+    public sealed class VeiculoDI : IStatusAtivacao, IGuidId
     {
         public Guid Id { get; set; }
 

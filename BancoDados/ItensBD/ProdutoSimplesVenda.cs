@@ -3,7 +3,7 @@ using System;
 
 namespace NFeFacil.ItensBD
 {
-    public sealed class ProdutoSimplesVenda
+    public sealed class ProdutoSimplesVenda : IGuidId
     {
         public Guid Id { get; set; }
         public Guid IdBase { get; set; }

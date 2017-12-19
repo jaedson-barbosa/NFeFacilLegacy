@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace NFeFacil.ItensBD
 {
-    public sealed class Estoque : IUltimaData
+    public sealed class Estoque : IUltimaData, IGuidId
     {
         public Guid Id { get; set; }
         public DateTime UltimaData { get; set; }

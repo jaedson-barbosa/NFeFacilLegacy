@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 
 namespace NFeFacil.ItensBD
 {
-    public sealed class NFeDI
+    public sealed class NFeDI : IUltimaData, IStatusAtual
     {
         public string Id { get; set; }
         public DateTime UltimaData { get; set; }
@@ -31,6 +31,8 @@ namespace NFeFacil.ItensBD
 
         public bool Impressa { get; set; }
         public bool Exportada { get; set; }
+
+        public int StatusAdd => (int)StatusNFe.Salva;
 
         public static NFeDI Converter(XElement xml)
         {

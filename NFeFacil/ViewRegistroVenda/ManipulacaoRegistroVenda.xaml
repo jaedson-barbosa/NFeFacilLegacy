@@ -48,7 +48,7 @@
                 </Grid.ColumnDefinitions>
                 <ComboBox Header="Cliente"
                           ItemsSource="{x:Bind Clientes}"
-                          DisplayMemberPath="Nome"
+                          DisplayMemberPath="Root.Nome"
                           SelectedValue="{x:Bind Cliente, Mode=TwoWay}"
                           HorizontalAlignment="Stretch" />
                 <ComboBox Header="Transporte"

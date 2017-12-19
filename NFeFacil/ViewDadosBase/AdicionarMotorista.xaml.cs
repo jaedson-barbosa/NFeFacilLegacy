@@ -19,12 +19,11 @@ namespace NFeFacil.ViewDadosBase
     /// </summary>
     public sealed partial class AdicionarMotorista : Page
     {
-        public MotoristaDI Motorista { get; set; }
-        public ObservableCollection<VeiculoDI> Veiculos { get; }
-        ObservableCollection<Municipio> ListaMunicipios { get; } = new ObservableCollection<Municipio>();
-        private ILog Log = Popup.Current;
+        MotoristaDI Motorista { get; set; }
+        ObservableCollection<VeiculoDI> Veiculos { get; }
+        ObservableCollection<string> ListaMunicipios { get; set; }
 
-        public string UFEscolhida
+        string UFEscolhida
         {
             get => Motorista.UF;
             set
@@ -33,7 +32,7 @@ namespace NFeFacil.ViewDadosBase
                 ListaMunicipios.Clear();
                 foreach (var item in Municipios.Get(value))
                 {
-                    ListaMunicipios.Add(item);
+                    ListaMunicipios.Add(item.Nome);
                 }
             }
         }
@@ -78,6 +77,7 @@ namespace NFeFacil.ViewDadosBase
             else
             {
                 Motorista = (MotoristaDI)e.Parameter;
+                ListaMunicipios = new ObservableCollection<string>(Municipios.Get(Motorista.UF).Select(x => x.Nome));
             }
             TipoDocumento = (int)Motorista.TipoDocumento;
         }
@@ -86,7 +86,7 @@ namespace NFeFacil.ViewDadosBase
         {
             try
             {
-                if (new ValidadorMotorista(Motorista).Validar(Log))
+                if (new ValidadorMotorista(Motorista).Validar(Popup.Current))
                 {
                     using (var repo = new Repositorio.Escrita())
                     {

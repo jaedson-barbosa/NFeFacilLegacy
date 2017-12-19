@@ -139,14 +139,12 @@ namespace NFeFacil.Repositorio
 
         public IEnumerable<(MotoristaDI, VeiculoDI, VeiculoDI[])> ObterMotoristasComVeiculos()
         {
-            var mots = db.Motoristas.Where(x => x.Ativo).OrderBy(x => x.Nome).ToArray();
-            for (int i = 0; i < mots.Length; i++)
+            foreach (var item1 in db.Motoristas.Where(x => x.Ativo).OrderBy(x => x.Nome))
             {
-                var item1 = mots[i];
                 VeiculoDI item2;
                 VeiculoDI[] item3 = null;
 
-                var secs = mots[i].VeiculosSecundarios;
+                var secs = item1.VeiculosSecundarios;
                 if (!string.IsNullOrEmpty(secs))
                 {
                     var placas = secs.Split('&');
@@ -157,7 +155,7 @@ namespace NFeFacil.Repositorio
                     }
                     item3 = veics;
                 }
-                item2 = db.Veiculos.Find(mots[i].Veiculo);
+                item2 = db.Veiculos.Find(item1.Veiculo);
                 yield return (item1, item2, item3);
             }
         }

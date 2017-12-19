@@ -44,10 +44,8 @@
                           SelectedItem="{x:Bind UFEscolhida, Mode=TwoWay}"
                           Header="Estado" />
                 <ComboBox ItemsSource="{x:Bind ListaMunicipios}"
-                          SelectedValue="{x:Bind Motorista.XMun, Mode=TwoWay}"
-                          SelectedValuePath="Nome"
-                          DisplayMemberPath="Nome"
-                          Header="Município" />
+                          Header="Município"
+                          SelectedItem="{x:Bind Motorista.XMun, Mode=TwoWay}" />
                 <TextBox Text="{x:Bind Motorista.XEnder, Mode=TwoWay}"
                          InputScope="Text"
                          Header="Logradouro" />

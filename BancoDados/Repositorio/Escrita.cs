@@ -141,19 +141,6 @@ namespace NFeFacil.Repositorio
             }
         }
 
-        public void SalvarEmitente(EmitenteDI item, DateTime atual)
-        {
-            item.UltimaData = atual;
-            if (item.Id == Guid.Empty)
-            {
-                db.Add(item);
-            }
-            else
-            {
-                db.Update(item);
-            }
-        }
-
         public void AtualizarEstoque(Estoque item, DateTime atual)
         {
             item.UltimaData = atual;

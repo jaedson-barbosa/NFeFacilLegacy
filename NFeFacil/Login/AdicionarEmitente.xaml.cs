@@ -78,7 +78,7 @@ namespace NFeFacil.Login
                 {
                     using (var repo = new Repositorio.Escrita())
                     {
-                        repo.SalvarEmitente(Emit, Propriedades.DateTimeNow);
+                        repo.SalvarDadoBase(Emit, Propriedades.DateTimeNow);
                     }
                     MainPage.Current.Retornar();
                 }

@@ -28,6 +28,7 @@
         </VisualStateManager.VisualStateGroups>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
@@ -85,55 +86,37 @@
                            Margin="4,0,0,0"><Run>Total líquido:</Run><LineBreak /><Run x:Name="txtTotal" /></TextBlock>
             </Grid>
         </Grid>
-        <ListView ItemsSource="{x:Bind ListaProdutos}"
-                  Grid.Row="1">
-            <ListView.Header>
-                <Grid Style="{StaticResource Cabecalho}">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*" />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
-                               Text="Nome"
-                               VerticalAlignment="Bottom"
-                               HorizontalAlignment="Center" />
-                    <TextBlock Grid.Column="1"
-                               Style="{StaticResource SubtitleTextBlockStyle}"
-                               Text="Quantidade"
-                               VerticalAlignment="Bottom"
-                               HorizontalAlignment="Center" />
-                    <TextBlock Grid.Column="2"
-                               Style="{StaticResource SubtitleTextBlockStyle}"
-                               Text="Total"
-                               VerticalAlignment="Bottom"
-                               HorizontalAlignment="Center" />
-                </Grid>
-            </ListView.Header>
-            <ListView.ItemTemplate>
+        <TextBlock Grid.Row="1"
+                   Style="{StaticResource SubtitleTextBlockStyle}">Produtos</TextBlock>
+        <GridView ItemsSource="{x:Bind ListaProdutos}"
+                  Style="{StaticResource ItensMediosGrid}"
+                  Grid.Row="2">
+            <GridView.ItemTemplate>
                 <DataTemplate x:DataType="local:ExibicaoProdutoVenda">
-                    <Grid>
+                    <Grid Background="Transparent"
+                          Padding="16">
                         <Grid.ContextFlyout>
                             <MenuFlyout>
                                 <MenuFlyoutItem Click="RemoverProduto">Remover</MenuFlyoutItem>
                             </MenuFlyout>
                         </Grid.ContextFlyout>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*" />
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Text="{x:Bind Descricao}" />
-                        <TextBlock Grid.Column="1"
-                                   Text="{x:Bind Quantidade}" />
-                        <TextBlock Grid.Column="2"
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
                                    Text="{x:Bind TotalLiquido}" />
+                        <TextBlock Grid.Row="1"
+                                   Text="{x:Bind Descricao}"
+                                   TextWrapping="Wrap" />
+                        <TextBlock Grid.Row="2"><Bold>Quant:</Bold> <Run Text="{x:Bind Quantidade}" /></TextBlock>
                     </Grid>
                 </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+            </GridView.ItemTemplate>
+        </GridView>
         <TextBox PlaceholderText="Observações"
-                 Grid.Row="2"
+                 Grid.Row="3"
                  Text="{x:Bind Observacoes, Mode=TwoWay}"
                  Margin="0,4,0,0" />
     </Grid>

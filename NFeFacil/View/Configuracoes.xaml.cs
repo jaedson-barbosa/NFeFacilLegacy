@@ -1,6 +1,10 @@
-﻿using NFeFacil.Certificacao;
+﻿using Newtonsoft.Json;
+using NFeFacil.Certificacao;
+using NFeFacil.PacotesBanco;
 using NFeFacil.Sincronizacao;
 using System;
+using System.IO;
+using Windows.Storage.Pickers;
 using Windows.System.Profile;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -96,6 +100,24 @@ namespace NFeFacil.View
             }
         }
 
-        private void SalvarBackup(object sender, TappedRoutedEventArgs e) => Backup.SalvarBackup();
+        async void SalvarBackup(object sender, TappedRoutedEventArgs e)
+        {
+            var objeto = new ConjuntoBanco();
+            objeto.AtualizarPadrao();
+            var json = JsonConvert.SerializeObject(objeto);
+
+            var caixa = new FileSavePicker();
+            caixa.FileTypeChoices.Add("Arquivo JSON", new string[] { ".json" });
+            var arq = await caixa.PickSaveFileAsync();
+            if (arq != null)
+            {
+                var stream = await arq.OpenStreamForWriteAsync();
+                using (StreamWriter escritor = new StreamWriter(stream))
+                {
+                    await escritor.WriteAsync(json);
+                    await escritor.FlushAsync();
+                }
+            }
+        }
     }
 }

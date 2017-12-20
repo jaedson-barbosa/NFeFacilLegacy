@@ -1,5 +1,11 @@
-﻿using NFeFacil.Sincronizacao;
+﻿using Newtonsoft.Json;
+using NFeFacil.Log;
+using NFeFacil.PacotesBanco;
+using NFeFacil.Sincronizacao;
+using System;
+using System.IO;
 using System.Threading.Tasks;
+using Windows.Storage.Pickers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
@@ -37,10 +43,29 @@ namespace NFeFacil.Login
         void Sincronizar(object sender, TappedRoutedEventArgs e) => MainPage.Current.Navegar<SincronizacaoCliente>();
         async void RestaurarBackup(object sender, TappedRoutedEventArgs e)
         {
-            if (await Backup.RestaurarBackup())
+            var caixa = new FileOpenPicker();
+            caixa.FileTypeFilter.Add(".json");
+            var arq = await caixa.PickSingleFileAsync();
+            if (arq != null)
             {
-                await Task.Delay(500);
-                MainPage.Current.Navegar<EscolhaEmitente>();
+                var stream = await arq.OpenStreamForReadAsync();
+                using (var leitor = new StreamReader(stream))
+                {
+                    try
+                    {
+                        var texto = await leitor.ReadToEndAsync();
+                        var conjunto = JsonConvert.DeserializeObject<ConjuntoBanco>(texto);
+                        conjunto.AnalisarESalvar();
+                        Popup.Current.Escrever(TitulosComuns.Sucesso, "Backup restaurado com sucesso.");
+
+                        await Task.Delay(500);
+                        MainPage.Current.Navegar<EscolhaEmitente>();
+                    }
+                    catch (Exception erro)
+                    {
+                        erro.ManipularErro();
+                    }
+                }
             }
         }
     }

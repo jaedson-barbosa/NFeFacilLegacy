@@ -14,7 +14,7 @@ namespace NFeFacil.ViewRegistroVenda
     /// <summary>
     /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
     /// </summary>
-    public sealed partial class ManipulacaoRegistroVenda : Page
+    public sealed partial class ManipulacaoRegistroVenda : Page, IValida
     {
         RegistroVenda ItemBanco { get; set; } = new RegistroVenda();
 
@@ -74,6 +74,8 @@ namespace NFeFacil.ViewRegistroVenda
             get => ItemBanco.PrazoEntrega;
             set => ItemBanco.PrazoEntrega = value.DateTime;
         }
+
+        public bool Concluido { get; private set; }
 
         public ManipulacaoRegistroVenda()
         {
@@ -153,7 +155,9 @@ namespace NFeFacil.ViewRegistroVenda
                 var ultPage = Frame.BackStack[Frame.BackStack.Count - 1];
                 PageStackEntry entrada = new PageStackEntry(typeof(VisualizacaoRegistroVenda), ItemBanco, null);
                 Frame.BackStack.Add(entrada);
-                MainPage.Current.Retornar(true);
+
+                Concluido = true;
+                MainPage.Current.Retornar();
             }
         }
 

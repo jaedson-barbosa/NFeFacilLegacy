@@ -199,9 +199,6 @@
             <AppBarButton Icon="Accept"
                           Label="Concluir"
                           Click="Concluir_Click" />
-            <AppBarButton Icon="Cancel"
-                          Label="Cancelar"
-                          Click="Cancelar_Click" />
         </CommandBar>
     </Page.BottomAppBar>
 </Page>

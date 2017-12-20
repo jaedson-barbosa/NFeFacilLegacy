@@ -1,4 +1,7 @@
 ﻿namespace NFeFacil
 {
-    interface IValida { }
+    interface IValida
+    {
+        bool Concluido { get; }
+    }
 }

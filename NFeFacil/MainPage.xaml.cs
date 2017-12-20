@@ -137,9 +137,9 @@ namespace NFeFacil
             frmPrincipal.Navigate(typeof(T), parametro);
         }
 
-        public async void Retornar(bool suprimirValidacao = false)
+        public async void Retornar()
         {
-            if (!suprimirValidacao && frmPrincipal.Content is IValida)
+            if (frmPrincipal.Content is IValida valida && !valida.Concluido)
             {
                 var mensagem = new MessageDialog("Se você sair agora, os dados serão perdidos, se tiver certeza, escolha Sair, caso contrário, escolha Cancelar.", "Atenção");
                 mensagem.Commands.Add(new UICommand("Sair"));

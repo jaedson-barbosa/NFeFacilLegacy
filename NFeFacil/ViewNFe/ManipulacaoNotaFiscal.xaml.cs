@@ -342,7 +342,8 @@ namespace NFeFacil.ViewNFe
                     di.XML = nota.ToXElement<NFe>().ToString();
                 }
 
-                MainPage.Current.Retornar(true);
+                Concluido = true;
+                MainPage.Current.Retornar();
             }
             catch (Exception e)
             {
@@ -364,6 +365,8 @@ namespace NFeFacil.ViewNFe
         ObservableCollection<Deducoes> Deducoes { get; set; }
         ObservableCollection<Observacao> Observacoes { get; set; }
         ObservableCollection<ProcessoReferenciado> ProcessosReferenciados { get; set; }
+
+        public bool Concluido { get; private set; }
 
         #endregion
 

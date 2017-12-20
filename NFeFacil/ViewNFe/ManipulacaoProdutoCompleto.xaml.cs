@@ -134,6 +134,8 @@ namespace NFeFacil.ViewNFe
 
         public int SelectedIndex { set => main.SelectedIndex = value; }
 
+        public bool Concluido => false;
+
         private void Concluir_Click(object sender, RoutedEventArgs e)
         {
             ProdutoCompleto.Produto.DI = new List<DeclaracaoImportacao>(ListaDI);
@@ -145,11 +147,6 @@ namespace NFeFacil.ViewNFe
                 ProdutoCompleto.ImpostoDevol = null;
             }
             MainPage.Current.Navegar<Impostos.EscolhaImpostos>(ProdutoCompleto);
-        }
-
-        private void Cancelar_Click(object sender, RoutedEventArgs e)
-        {
-            MainPage.Current.Retornar();
         }
 
         async void AdicionarDeclaracaoImportacao(object sender, RoutedEventArgs e)

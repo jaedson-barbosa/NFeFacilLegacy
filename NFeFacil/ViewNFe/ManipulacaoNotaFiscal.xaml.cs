@@ -241,6 +241,18 @@ namespace NFeFacil.ViewNFe
             set => NotaSalva.Informacoes.identificacao.CodigoMunicipio = value;
         }
 
+        public int FinalidadeEmissao
+        {
+            get => NotaSalva.Informacoes.identificacao.FinalidadeEmissao - 1;
+            set => NotaSalva.Informacoes.identificacao.FinalidadeEmissao = value + 1;
+        }
+
+        public int IdentificadorDestino
+        {
+            get => NotaSalva.Informacoes.identificacao.IdentificadorDestino - 1;
+            set => NotaSalva.Informacoes.identificacao.IdentificadorDestino = value + 1;
+        }
+
         #endregion
 
         #region Transporte

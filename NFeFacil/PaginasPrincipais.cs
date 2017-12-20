@@ -53,7 +53,6 @@ namespace NFeFacil
             { typeof(ControleEstoque), (Symbol.Manage, "Controle de estoque") },
             { typeof(Inicio), (Symbol.Home, "Início") },
             { typeof(VendasAnuais), (Symbol.Calendar, "Vendas") },
-            { typeof(Backup), ("\uEA35", "Backup") },
             { typeof(Consulta), (Symbol.Find, "Consulta") },
             { typeof(AdicionarClienteBrasileiroPFContribuinte), (Symbol.People, "Cliente") },
             { typeof(AdicionarClienteEstrangeiro), (Symbol.People, "Cliente") },

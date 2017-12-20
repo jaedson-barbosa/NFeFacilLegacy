@@ -37,7 +37,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
         public ushort TipoOperacao { get; set; } = 1;
 
         [XmlElement(ElementName = "idDest", Order = 10), DescricaoPropriedade("Identificador de destino")]
-        public ushort IdentificadorDestino { get; set; } = 1;
+        public int IdentificadorDestino { get; set; } = 1;
 
         [XmlElement(ElementName = "cMunFG", Order = 11), PropriedadeExtensivel("Município", MetodosObtencao.Municipio)]
         public int CodigoMunicipio { get; set; }
@@ -55,7 +55,7 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
         public ushort TipoAmbiente { get; set; } = 1;
 
         [XmlElement(ElementName = "finNFe", Order = 16), DescricaoPropriedade("Finalidade de emissão")]
-        public ushort FinalidadeEmissao { get; set; } = 1;
+        public int FinalidadeEmissao { get; set; } = 1;
 
         [XmlElement(ElementName = "indFinal", Order = 17), DescricaoPropriedade("Operação com consumidor final")]
         public ushort OperacaoConsumidorFinal { get; set; } = 1;

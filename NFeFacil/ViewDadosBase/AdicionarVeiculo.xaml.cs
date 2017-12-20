@@ -1,5 +1,4 @@
 ﻿using NFeFacil.ItensBD;
-using NFeFacil.Log;
 using NFeFacil.Validacao;
 using Windows.UI.Xaml.Controls;
 

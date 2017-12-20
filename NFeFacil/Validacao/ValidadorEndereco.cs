@@ -1,6 +1,4 @@
-﻿using NFeFacil.Log;
-
-namespace NFeFacil.Validacao
+﻿namespace NFeFacil.Validacao
 {
     internal sealed class ValidadorEndereco : IValidavel
     {

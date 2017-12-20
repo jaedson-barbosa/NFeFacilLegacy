@@ -1,5 +1,4 @@
-﻿using NFeFacil.Log;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
+﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using System;
 using System.Collections.Generic;
 using System.Linq;

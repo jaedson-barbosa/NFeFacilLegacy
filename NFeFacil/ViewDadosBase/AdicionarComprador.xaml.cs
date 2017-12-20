@@ -1,5 +1,4 @@
 ﻿using NFeFacil.ItensBD;
-using NFeFacil.Log;
 using NFeFacil.Validacao;
 using System;
 using System.Collections.ObjectModel;

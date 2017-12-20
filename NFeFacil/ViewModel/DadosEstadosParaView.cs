@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace NFeFacil.ViewModel
 {
-    public sealed class DadosEstadosParaView
+    public static class DadosEstadosParaView
     {
         public static ObservableCollection<Estado> EstadosCompletos { get; private set; }
         public static ObservableCollection<string> Siglas { get; private set; }

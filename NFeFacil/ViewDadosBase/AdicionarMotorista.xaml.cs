@@ -1,5 +1,4 @@
-﻿using NFeFacil.Log;
-using NFeFacil.Validacao;
+﻿using NFeFacil.Validacao;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;

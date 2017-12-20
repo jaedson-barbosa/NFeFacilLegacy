@@ -1,7 +1,6 @@
 ﻿<Page x:Class="NFeFacil.ViewNFe.ManipulacaoNotaFiscal"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:local="using:NFeFacil.ViewNFe"
       xmlns:VM="using:NFeFacil.ViewModel"
       xmlns:controles="using:NFeFacil.Controles"
       xmlns:partesDetalhes="using:NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes"
@@ -12,7 +11,6 @@
       mc:Ignorable="d">
     <Page.Resources>
         <VM:StringToDateTime x:Key="data" />
-        <VM:NumeroString x:Key="numStr" />
     </Page.Resources>
     <controles:MultView x:Name="main">
         <Pivot Margin="16">
@@ -33,12 +31,11 @@
                             <ComboBoxItem Content="Saída" />
                         </ComboBox>
                         <ComboBox Header="Finalidade de emissão *"
-                                  SelectedValue="{x:Bind NotaSalva.Informacoes.identificacao.FinalidadeEmissao, Mode=TwoWay, Converter={StaticResource numStr}}"
-                                  SelectedValuePath="Tag">
-                            <ComboBoxItem Tag='1'>Normal</ComboBoxItem>
-                            <ComboBoxItem Tag='2'>Complementar</ComboBoxItem>
-                            <ComboBoxItem Tag='3'>De ajuste</ComboBoxItem>
-                            <ComboBoxItem Tag='4'>Devolução de mercadoria</ComboBoxItem>
+                                  SelectedIndex="{x:Bind FinalidadeEmissao, Mode=TwoWay}">
+                            <ComboBoxItem>Normal</ComboBoxItem>
+                            <ComboBoxItem>Complementar</ComboBoxItem>
+                            <ComboBoxItem>De ajuste</ComboBoxItem>
+                            <ComboBoxItem>Devolução de mercadoria</ComboBoxItem>
                         </ComboBox>
                         <ComboBox Header="Consumidor final *"
                                   SelectedIndex="{x:Bind NotaSalva.Informacoes.identificacao.OperacaoConsumidorFinal, Mode=TwoWay}">
@@ -59,14 +56,11 @@
                             <ComboBoxItem Content="Outros" />
                         </ComboBox>
                         <ComboBox Header="Destino da operação *"
-                                  SelectedValue="{x:Bind NotaSalva.Informacoes.identificacao.IdentificadorDestino, Mode=TwoWay, Converter={StaticResource numStr}}"
+                                  SelectedValue="{x:Bind IdentificadorDestino, Mode=TwoWay}"
                                   SelectedValuePath="Tag">
-                            <ComboBoxItem Tag="1"
-                                          Content="Operação interna" />
-                            <ComboBoxItem Tag="2"
-                                          Content="Operação interestadual" />
-                            <ComboBoxItem Tag="3"
-                                          Content="Operação com o exterior" />
+                            <ComboBoxItem Content="Operação interna" />
+                            <ComboBoxItem Content="Operação interestadual" />
+                            <ComboBoxItem Content="Operação com o exterior" />
                         </ComboBox>
                         <TextBox Header="Natureza da operação *"
                                  Text="{x:Bind NotaSalva.Informacoes.identificacao.NaturezaDaOperacao, Mode=TwoWay}" />

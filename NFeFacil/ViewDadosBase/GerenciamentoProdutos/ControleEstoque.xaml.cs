@@ -101,6 +101,10 @@ namespace NFeFacil.ViewDadosBase.GerenciamentoProdutos
                         Labels[i] = atual.MomentoRegistro.ToString("dd/MM/yyyy");
                     }
                 }
+                else
+                {
+                    for (int i = 0; i < 10; i++) Valores.Add(0);
+                }
             }
         }
 

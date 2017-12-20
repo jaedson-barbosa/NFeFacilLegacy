@@ -61,6 +61,10 @@ namespace NFeFacil.ViewDadosBase.GerenciamentoProdutos
                 }
                 MainPage.Current.Navegar<ControleEstoque>(estoque);
             }
+            else
+            {
+                MainPage.Current.Navegar<ControleEstoque>(estoque);
+            }
         }
 
         private void InativarProduto(object sender, RoutedEventArgs e)

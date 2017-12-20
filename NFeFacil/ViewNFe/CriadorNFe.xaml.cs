@@ -66,30 +66,16 @@ namespace NFeFacil.ViewNFe
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            if (PreNota.Informacoes.identificacao != null)
+            var identificacao = new Identificacao()
             {
-                var identificacao = PreNota.Informacoes.identificacao;
-                identificacao.Serie = Serie;
-                identificacao.Numero = (int)txtNumero.Number;
-                identificacao.TipoAmbiente = (ushort)(AmbienteHomolocagao ? 2 : 1);
-                identificacao.CódigoUF = Estados.Buscar(Propriedades.EmitenteAtivo.SiglaUF).Codigo;
-                identificacao.CodigoMunicipio = Propriedades.EmitenteAtivo.CodigoMunicipio;
-                identificacao.ChaveNF = default(int);
-                identificacao.DefinirVersãoAplicativo();
-            }
-            else
-            {
-                var identificacao = new Identificacao()
-                {
-                    Serie = Serie,
-                    Numero = (int)txtNumero.Number,
-                    TipoAmbiente = (ushort)(AmbienteHomolocagao ? 2 : 1),
-                    CódigoUF = Estados.Buscar(Propriedades.EmitenteAtivo.SiglaUF).Codigo,
-                    CodigoMunicipio = Propriedades.EmitenteAtivo.CodigoMunicipio
-                };
-                identificacao.DefinirVersãoAplicativo();
-                PreNota.Informacoes.identificacao = identificacao;
-            }
+                Serie = Serie,
+                Numero = (int)txtNumero.Number,
+                TipoAmbiente = (ushort)(AmbienteHomolocagao ? 2 : 1),
+                CódigoUF = Estados.Buscar(Propriedades.EmitenteAtivo.SiglaUF).Codigo,
+                CodigoMunicipio = Propriedades.EmitenteAtivo.CodigoMunicipio
+            };
+            identificacao.DefinirVersãoAplicativo();
+            PreNota.Informacoes.identificacao = identificacao;
             PreNota.Informacoes.ChaveAcesso = null;
             MainPage.Current.Navegar<ManipulacaoNotaFiscal>(PreNota);
         }

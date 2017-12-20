@@ -292,7 +292,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <ComboBox SelectedItem="{x:Bind ModFrete, Mode=TwoWay}"
+            <ComboBox SelectedValue="{x:Bind ModFrete, Mode=TwoWay}"
                       SelectedValuePath="Tag"
                       HorizontalAlignment="Stretch"
                       Header="Modalidade do frete">

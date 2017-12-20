@@ -180,7 +180,6 @@
     </Compile>
     <Compile Include="DetalhePagina.cs" />
     <Compile Include="PaginasPrincipais.cs" />
-    <Compile Include="Validacao\ValidadorComprador.cs" />
     <Compile Include="ViewDadosBase\AdicionarComprador.xaml.cs">
       <DependentUpon>AdicionarComprador.xaml</DependentUpon>
     </Compile>
@@ -553,16 +552,8 @@
     <Compile Include="Sincronizacao\Servidor\SenhaErrada.cs" />
     <Compile Include="Sincronizacao\TipoAppSincronizacao.cs" />
     <Compile Include="Validacao\AnalisadorNFe.cs" />
-    <Compile Include="Validacao\ConjuntoAnalise.cs" />
     <Compile Include="Validacao\IValidavel.cs" />
-    <Compile Include="Validacao\ValidadorDestinatario.cs" />
-    <Compile Include="Validacao\ValidadorEmitente.cs" />
     <Compile Include="Validacao\ValidadorEndereco.cs" />
-    <Compile Include="Validacao\ValidadorExportacao.cs" />
-    <Compile Include="Validacao\ValidadorMotorista.cs" />
-    <Compile Include="Validacao\ValidadorProduto.cs" />
-    <Compile Include="Validacao\ValidadorVeiculo.cs" />
-    <Compile Include="Validacao\ValidadorVendedor.cs" />
     <Compile Include="Validacao\ValidarDados.cs" />
     <Compile Include="ViewModel\StringToDateTime.cs" />
     <Compile Include="ViewNFe\Impostos\TiposCalculo.cs" />

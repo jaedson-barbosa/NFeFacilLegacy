@@ -50,8 +50,6 @@ namespace NFeFacil.Login
             }
         }
 
-        ILog Log = Popup.Current;
-
         public AdicionarEmitente()
         {
             InitializeComponent();
@@ -74,7 +72,11 @@ namespace NFeFacil.Login
         {
             try
             {
-                if (new ValidadorEmitente(Emit).Validar(Log))
+                if (new ValidarDados(new ValidadorEndereco(Emit)).ValidarTudo(Popup.Current,
+                    (string.IsNullOrEmpty(Emit.Nome), "Não foi informado o nome do emitente"),
+                    (string.IsNullOrEmpty(Emit.CNPJ), "Não foi informado o CNPJ do emitente"),
+                    (string.IsNullOrEmpty(Emit.InscricaoEstadual), "Não foi informada a inscrição estadual do emitente"),
+                    (string.IsNullOrEmpty(Emit.CEP), "O CEP é obrigatório")))
                 {
                     using (var repo = new Repositorio.Escrita())
                     {

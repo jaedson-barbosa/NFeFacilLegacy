@@ -20,14 +20,14 @@ namespace NFeFacil.Validacao
             return true;
         }
 
-        internal bool ValidarTudo(ILog log, params ConjuntoAnalise[] itensExtras)
+        internal bool ValidarTudo(ILog log, params (bool isErrado, string msg)[] itensExtras)
         {
             if (!ValidarTudo(log)) return false;
-            foreach (var item in itensExtras)
+            foreach (var (isErrado, msg) in itensExtras)
             {
-                if (item.EstáErrado)
+                if (isErrado)
                 {
-                    log?.Escrever(TitulosComuns.Erro, item.Mensagem);
+                    log?.Escrever(TitulosComuns.Atenção, msg);
                     return false;
                 }
             }

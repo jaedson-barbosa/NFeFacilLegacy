@@ -126,11 +126,10 @@ namespace NFeFacil.ViewNFe.Impostos
 
         public bool Validar(Page pagina)
         {
-            var log = Popup.Current;
             if (index >= 0)
             {
                 var proc = Processamentos[index];
-                return proc.ValidarEntradaDados(pagina) ? proc.ValidarDados(log) : false;
+                return proc.ValidarEntradaDados(pagina) ? proc.ValidarDados(Popup.Current) : false;
             }
             return true;
         }

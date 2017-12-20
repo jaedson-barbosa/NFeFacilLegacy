@@ -17,7 +17,6 @@ namespace NFeFacil.ViewDadosBase
     public sealed partial class AdicionarComprador : Page
     {
         Comprador Comprador;
-        ILog Log = Popup.Current;
         ObservableCollection<ClienteDI> ClientesDisponiveis { get; }
 
         public AdicionarComprador()
@@ -46,7 +45,11 @@ namespace NFeFacil.ViewDadosBase
         {
             try
             {
-                if (new ValidadorComprador(Comprador).Validar(Log))
+                if (new ValidarDados().ValidarTudo(Popup.Current,
+                    (Comprador.IdEmpresa == default(Guid), "Selecione uma empresa 'dona' deste comprador"),
+                    (string.IsNullOrEmpty(Comprador.Telefone), "Telefone não pode estar em branco"),
+                    (string.IsNullOrWhiteSpace(Comprador.Nome), "Nome não pode estar em branco"),
+                    (string.IsNullOrWhiteSpace(Comprador.Email), "Email não pode estar em branco")))
                 {
                     using (var repo = new Repositorio.Escrita())
                     {

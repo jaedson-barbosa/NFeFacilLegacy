@@ -12,12 +12,7 @@ namespace NFeFacil.Sincronizacao
 {
     public sealed class GerenciadorCliente
     {
-        private ILog Log { get; }
-
-        public GerenciadorCliente()
-        {
-            Log = Popup.Current;
-        }
+        private ILog Log { get; } = Popup.Current;
 
         public async Task EstabelecerConexao(int senha)
         {

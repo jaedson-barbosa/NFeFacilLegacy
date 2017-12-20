@@ -86,7 +86,10 @@ namespace NFeFacil.ViewDadosBase
         {
             try
             {
-                if (new ValidadorMotorista(Motorista).Validar(Popup.Current))
+                if (new ValidarDados().ValidarTudo(Popup.Current,
+                    (string.IsNullOrEmpty(Motorista.UF), "Não foi definido uma UF"),
+                    (string.IsNullOrEmpty(Motorista.XMun), "Não foi definido um município"),
+                    (string.IsNullOrEmpty(Motorista.Nome), "Não foi informado o nome do motorista")))
                 {
                     using (var repo = new Repositorio.Escrita())
                     {

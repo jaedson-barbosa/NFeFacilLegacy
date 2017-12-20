@@ -13,7 +13,6 @@ namespace NFeFacil.ViewDadosBase
     {
         internal ClienteDI Cliente { get; private set; }
         internal ObservableCollection<Municipio> ListaMunicipios { get; }
-        readonly ILog Log = Popup.Current;
 
         public string UFEscolhida
         {
@@ -68,7 +67,9 @@ namespace NFeFacil.ViewDadosBase
         {
             try
             {
-                if (new ValidadorDestinatario(Cliente).Validar(Log))
+                if (new ValidarDados(new ValidadorEndereco(Cliente)).ValidarTudo(Popup.Current,
+                    (string.IsNullOrEmpty(Cliente.Nome), "Não foi informado o nome do cliente"),
+                    (string.IsNullOrEmpty(Cliente.Documento), "Não foi informado nenhum documento de identificação do cliente")))
                 {
                     using (var repo = new Repositorio.Escrita())
                     {

@@ -16,7 +16,6 @@ namespace NFeFacil.ViewDadosBase
     public sealed partial class AdicionarVendedor : Page
     {
         private Vendedor Vendedor { get; set; }
-        private ILog Log = Popup.Current;
 
         string Endereco
         {
@@ -45,7 +44,10 @@ namespace NFeFacil.ViewDadosBase
         {
             try
             {
-                if (new ValidadorVendedor(Vendedor).Validar(Log))
+                if (new ValidarDados().ValidarTudo(Popup.Current,
+                    (string.IsNullOrWhiteSpace(Vendedor.CPFStr), "CPF inválido"),
+                    (string.IsNullOrWhiteSpace(Vendedor.Nome), "Nome não pode estar em branco"),
+                    (string.IsNullOrWhiteSpace(Vendedor.Endereço), "Endereço não pode estar em branco")))
                 {
                     using (var repo = new Repositorio.Escrita())
                     {

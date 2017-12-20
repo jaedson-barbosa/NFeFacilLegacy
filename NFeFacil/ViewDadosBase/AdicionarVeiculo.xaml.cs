@@ -25,7 +25,11 @@ namespace NFeFacil.ViewDadosBase
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            if (!new ValidadorVeiculo(Item).Validar(Popup.Current))
+            if (!new ValidarDados().ValidarTudo(Popup.Current,
+                (string.IsNullOrEmpty(Item.Descricao), "Informe uma breve descrição do veículo."),
+                (string.IsNullOrEmpty(Item.Placa), "Informe a placa do veículo"),
+                (Item.Placa.Contains("&"), "O caractere & não pode ser usado."),
+                (string.IsNullOrEmpty(Item.UF), "Informe a UF da placa do veículo")))
             {
                 args.Cancel = true;
             }

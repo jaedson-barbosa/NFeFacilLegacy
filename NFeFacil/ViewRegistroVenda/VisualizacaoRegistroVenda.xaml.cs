@@ -167,10 +167,17 @@ namespace NFeFacil.ViewRegistroVenda
 
         private async void CriarNFe(object sender, RoutedEventArgs e)
         {
-            var caixa = new ViewNFe.CriadorNFe(ItemBanco.ToNFe());
-            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+            try
             {
-                Log.Popup.Current.Escrever(Log.TitulosComuns.Atenção, "Os impostos dos produtos não são adicionados automaticamente, por favor, insira-os editando cada produto.");
+                var caixa = new ViewNFe.CriadorNFe(ItemBanco.ToNFe());
+                if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+                {
+                    Log.Popup.Current.Escrever(Log.TitulosComuns.Atenção, "Os impostos dos produtos não são adicionados automaticamente, por favor, insira-os editando cada produto.");
+                }
+            }
+            catch (Exception erro)
+            {
+                erro.ManipularErro();
             }
         }
 

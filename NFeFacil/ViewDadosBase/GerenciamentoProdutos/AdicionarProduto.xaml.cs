@@ -16,7 +16,6 @@ namespace NFeFacil.ViewDadosBase.GerenciamentoProdutos
     public sealed partial class AdicionarProduto : Page
     {
         private ProdutoDI Produto;
-        private ILog Log = Popup.Current;
 
         public AdicionarProduto()
         {
@@ -39,7 +38,10 @@ namespace NFeFacil.ViewDadosBase.GerenciamentoProdutos
         {
             try
             {
-                if (new ValidadorProduto(Produto).Validar(Log))
+                if (new ValidarDados().ValidarTudo(Popup.Current,
+                    (string.IsNullOrEmpty(Produto.CodigoProduto), "Não foi informado o código do Produto"),
+                    (string.IsNullOrEmpty(Produto.Descricao), "Não foi informada uma breve descrição do Produto"),
+                    (string.IsNullOrEmpty(Produto.CFOP), "Não foi informado o CFOP do Produto")))
                 {
                     using (var repo = new Repositorio.Escrita())
                     {

@@ -2,7 +2,7 @@
 
 namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe
 {
-    public sealed class EnderecoCompleto
+    public sealed class EnderecoCompleto : IEnderecoCompleto
     {
         public EnderecoCompleto() { }
 

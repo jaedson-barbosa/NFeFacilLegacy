@@ -14,8 +14,9 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoII
             return new ImpostoBase[1] { imposto };
         }
 
-        public override bool ValidarDados(ILog log)
+        public override bool ValidarDados()
         {
+            var log = Popup.Current;
             var imposto = dados.Imposto;
             if (string.IsNullOrEmpty(imposto.vBC))
             {

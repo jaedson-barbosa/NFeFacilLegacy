@@ -129,7 +129,7 @@ namespace NFeFacil.ViewNFe.Impostos
             if (index >= 0)
             {
                 var proc = Processamentos[index];
-                return proc.ValidarEntradaDados(pagina) ? proc.ValidarDados(Popup.Current) : false;
+                return proc.ValidarEntradaDados(pagina) ? proc.ValidarDados() : false;
             }
             return true;
         }

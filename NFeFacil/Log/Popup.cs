@@ -5,7 +5,7 @@ using Windows.UI.Popups;
 
 namespace NFeFacil.Log
 {
-    public sealed class Popup : ILog
+    public sealed class Popup
     {
         const CoreDispatcherPriority Prioridade = CoreDispatcherPriority.Normal;
 

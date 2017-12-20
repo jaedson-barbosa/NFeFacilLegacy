@@ -18,7 +18,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoPIS
             else return new ImpostoBase[1] { (PIS)resultado };
         }
 
-        public override bool ValidarDados(ILog log) => true;
+        public override bool ValidarDados() => true;
 
         public override bool ValidarEntradaDados(object Tela)
         {

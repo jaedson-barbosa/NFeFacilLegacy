@@ -15,7 +15,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoIPI
             return new ImpostoBase[1] { (IPI)resultado };
         }
 
-        public override bool ValidarDados(ILog log) => !string.IsNullOrEmpty(dados.PreImposto.cEnq);
+        public override bool ValidarDados() => !string.IsNullOrEmpty(dados.PreImposto.cEnq);
 
         public override bool ValidarEntradaDados(object Tela)
         {

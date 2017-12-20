@@ -13,7 +13,5 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoCOFINS
         public TiposCalculo TipoCalculo { protected get; set; }
 
         public abstract object Processar(ProdutoOuServico prod);
-
-        public bool Validar(ILog log) => true;
     }
 }

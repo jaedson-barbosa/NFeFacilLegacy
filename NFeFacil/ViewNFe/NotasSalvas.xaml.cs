@@ -60,7 +60,6 @@ namespace NFeFacil.ViewNFe
                 repo.ExcluirNFe(nota);
                 OutrasNotas.Remove(nota);
             }
-            Popup.Current.Escrever(TitulosComuns.Sucesso, "Nota excluída com sucesso.");
         }
 
         private async void Cancelar(object sender, RoutedEventArgs e)

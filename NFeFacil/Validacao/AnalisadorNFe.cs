@@ -29,7 +29,7 @@ namespace NFeFacil.Validacao
             var info = Nota.Informacoes;
             info.cobr = ValidarFatura(info.cobr?.Fat) ? info.cobr : null;
             info.infAdic = ValidarInfoAdicional(info.infAdic) ? info.infAdic : null;
-            info.exporta = new ValidarDados().ValidarTudo(null,
+            info.exporta = new ValidarDados().ValidarTudo(false,
                 (string.IsNullOrEmpty(info.exporta?.UFSaidaPais), "Não foi definida uma UF de saída."),
                 (string.IsNullOrEmpty(info.exporta?.XLocExporta), "Não foi definido o local de exportação")) ? info.exporta : null;
             info.compra = ValidarCompra(info.compra) ? info.compra : null;

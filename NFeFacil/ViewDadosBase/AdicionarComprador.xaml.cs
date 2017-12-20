@@ -45,7 +45,7 @@ namespace NFeFacil.ViewDadosBase
         {
             try
             {
-                if (new ValidarDados().ValidarTudo(Popup.Current,
+                if (new ValidarDados().ValidarTudo(true,
                     (Comprador.IdEmpresa == default(Guid), "Selecione uma empresa 'dona' deste comprador"),
                     (string.IsNullOrEmpty(Comprador.Telefone), "Telefone não pode estar em branco"),
                     (string.IsNullOrWhiteSpace(Comprador.Nome), "Nome não pode estar em branco"),

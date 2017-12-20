@@ -11,18 +11,14 @@ namespace NFeFacil.Validacao
             itens = conjuntosItens;
         }
 
-        public bool ValidarTudo(ILog log)
+        internal bool ValidarTudo(bool exibirMensagem, params (bool isErrado, string msg)[] itensExtras)
         {
-            foreach (var item in itens)
+            for (int i = 0; i < itens.Length; i++)
             {
-                if (!item.Validar(log)) return false;
+                if (!itens[i].Validar(exibirMensagem)) return false;
             }
-            return true;
-        }
 
-        internal bool ValidarTudo(ILog log, params (bool isErrado, string msg)[] itensExtras)
-        {
-            if (!ValidarTudo(log)) return false;
+            var log = exibirMensagem ? Popup.Current : null;
             foreach (var (isErrado, msg) in itensExtras)
             {
                 if (isErrado)

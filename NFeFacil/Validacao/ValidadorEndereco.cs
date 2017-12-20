@@ -11,9 +11,9 @@ namespace NFeFacil.Validacao
             End = end;
         }
 
-        public bool Validar(ILog log)
+        public bool Validar(bool exibirMensagem)
         {
-            return new ValidarDados().ValidarTudo(log,
+            return new ValidarDados().ValidarTudo(exibirMensagem,
                 (string.IsNullOrEmpty(End.SiglaUF), "Não foi escolhida uma UF"),
                 (string.IsNullOrEmpty(End.NomeMunicipio), "Não foi selecionado um município"),
                 (string.IsNullOrEmpty(End.Logradouro), "Não foi informado o logradouro"),

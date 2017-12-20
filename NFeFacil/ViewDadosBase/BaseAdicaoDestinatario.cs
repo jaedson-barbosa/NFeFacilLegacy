@@ -67,7 +67,7 @@ namespace NFeFacil.ViewDadosBase
         {
             try
             {
-                if (new ValidarDados(new ValidadorEndereco(Cliente)).ValidarTudo(Popup.Current,
+                if (new ValidarDados(new ValidadorEndereco(Cliente)).ValidarTudo(true,
                     (string.IsNullOrEmpty(Cliente.Nome), "Não foi informado o nome do cliente"),
                     (string.IsNullOrEmpty(Cliente.Documento), "Não foi informado nenhum documento de identificação do cliente")))
                 {

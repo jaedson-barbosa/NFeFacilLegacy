@@ -38,7 +38,7 @@ namespace NFeFacil.ViewDadosBase.GerenciamentoProdutos
         {
             try
             {
-                if (new ValidarDados().ValidarTudo(Popup.Current,
+                if (new ValidarDados().ValidarTudo(true,
                     (string.IsNullOrEmpty(Produto.CodigoProduto), "Não foi informado o código do Produto"),
                     (string.IsNullOrEmpty(Produto.Descricao), "Não foi informada uma breve descrição do Produto"),
                     (string.IsNullOrEmpty(Produto.CFOP), "Não foi informado o CFOP do Produto")))

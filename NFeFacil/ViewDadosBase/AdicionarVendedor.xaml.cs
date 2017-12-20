@@ -44,7 +44,7 @@ namespace NFeFacil.ViewDadosBase
         {
             try
             {
-                if (new ValidarDados().ValidarTudo(Popup.Current,
+                if (new ValidarDados().ValidarTudo(true,
                     (string.IsNullOrWhiteSpace(Vendedor.CPFStr), "CPF inválido"),
                     (string.IsNullOrWhiteSpace(Vendedor.Nome), "Nome não pode estar em branco"),
                     (string.IsNullOrWhiteSpace(Vendedor.Endereço), "Endereço não pode estar em branco")))

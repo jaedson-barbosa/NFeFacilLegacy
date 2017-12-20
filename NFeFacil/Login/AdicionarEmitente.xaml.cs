@@ -72,7 +72,7 @@ namespace NFeFacil.Login
         {
             try
             {
-                if (new ValidarDados(new ValidadorEndereco(Emit)).ValidarTudo(Popup.Current,
+                if (new ValidarDados(new ValidadorEndereco(Emit)).ValidarTudo(true,
                     (string.IsNullOrEmpty(Emit.Nome), "Não foi informado o nome do emitente"),
                     (string.IsNullOrEmpty(Emit.CNPJ), "Não foi informado o CNPJ do emitente"),
                     (string.IsNullOrEmpty(Emit.InscricaoEstadual), "Não foi informada a inscrição estadual do emitente"),

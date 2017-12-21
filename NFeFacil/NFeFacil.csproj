@@ -400,19 +400,19 @@
     <Compile Include="ViewDadosBase\EscolherTipoCliente.xaml.cs">
       <DependentUpon>EscolherTipoCliente.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\CaixasEspeciaisProduto\DefinirArmamentos.xaml.cs">
+    <Compile Include="ViewNFe\ProdutoEspecial\DefinirArmamentos.xaml.cs">
       <DependentUpon>DefinirArmamentos.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\CaixasEspeciaisProduto\DefinirCombustivel.xaml.cs">
+    <Compile Include="ViewNFe\ProdutoEspecial\DefinirCombustivel.xaml.cs">
       <DependentUpon>DefinirCombustivel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\CaixasEspeciaisProduto\DefinirMedicamentos.xaml.cs">
+    <Compile Include="ViewNFe\ProdutoEspecial\DefinirMedicamentos.xaml.cs">
       <DependentUpon>DefinirMedicamentos.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\CaixasEspeciaisProduto\DefinirPapel.xaml.cs">
+    <Compile Include="ViewNFe\ProdutoEspecial\DefinirPapel.xaml.cs">
       <DependentUpon>DefinirPapel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\CaixasEspeciaisProduto\DefinirVeiculo.xaml.cs">
+    <Compile Include="ViewNFe\ProdutoEspecial\DefinirVeiculo.xaml.cs">
       <DependentUpon>DefinirVeiculo.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewNFe\CaixasDialogoNFe\EnderecoDiferenteExterior.xaml.cs">
@@ -512,18 +512,18 @@
       <DependentUpon>Code128.xaml</DependentUpon>
     </Compile>
     <Compile Include="GerenciadorImpressao.cs" />
-    <Compile Include="DANFE\Pacotes\DadosAdicionais.cs" />
-    <Compile Include="DANFE\Pacotes\DadosCabecalho.cs" />
-    <Compile Include="DANFE\Pacotes\DadosCliente.cs" />
-    <Compile Include="DANFE\Pacotes\DadosDuplicata.cs" />
-    <Compile Include="DANFE\Pacotes\DadosImposto.cs" />
-    <Compile Include="DANFE\Pacotes\DadosISSQN.cs" />
-    <Compile Include="DANFE\Pacotes\DadosMotorista.cs" />
-    <Compile Include="DANFE\Pacotes\DadosNFe.cs" />
-    <Compile Include="DANFE\Pacotes\DadosProduto.cs" />
-    <Compile Include="DANFE\Pacotes\Geral.cs" />
-    <Compile Include="DANFE\Pacotes\ItemDadosAdicionais.cs" />
-    <Compile Include="DANFE\ViewDados.cs" />
+    <Compile Include="ViewNFe\DANFE\Pacotes\DadosAdicionais.cs" />
+    <Compile Include="ViewNFe\DANFE\Pacotes\DadosCabecalho.cs" />
+    <Compile Include="ViewNFe\DANFE\Pacotes\DadosCliente.cs" />
+    <Compile Include="ViewNFe\DANFE\Pacotes\DadosDuplicata.cs" />
+    <Compile Include="ViewNFe\DANFE\Pacotes\DadosImposto.cs" />
+    <Compile Include="ViewNFe\DANFE\Pacotes\DadosISSQN.cs" />
+    <Compile Include="ViewNFe\DANFE\Pacotes\DadosMotorista.cs" />
+    <Compile Include="ViewNFe\DANFE\Pacotes\DadosNFe.cs" />
+    <Compile Include="ViewNFe\DANFE\Pacotes\DadosProduto.cs" />
+    <Compile Include="ViewNFe\DANFE\Pacotes\Geral.cs" />
+    <Compile Include="ViewNFe\DANFE\Pacotes\ItemDadosAdicionais.cs" />
+    <Compile Include="ViewNFe\DANFE\ViewDados.cs" />
     <Compile Include="ExtensoesPrincipal.cs" />
     <Compile Include="IHambuguer.cs" />
     <Compile Include="Log\Popup.cs" />
@@ -680,43 +680,43 @@
     <Compile Include="Sincronizacao\SincronizacaoCliente.xaml.cs">
       <DependentUpon>SincronizacaoCliente.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DANFE\PaginasDANFE\IPagina.cs" />
-    <Compile Include="DANFE\PaginasDANFE\MotivoCriacaoPaginaExtra.cs" />
-    <Compile Include="DANFE\PaginasDANFE\PaginaExtra.xaml.cs">
+    <Compile Include="ViewNFe\DANFE\PaginasDANFE\IPagina.cs" />
+    <Compile Include="ViewNFe\DANFE\PaginasDANFE\MotivoCriacaoPaginaExtra.cs" />
+    <Compile Include="ViewNFe\DANFE\PaginasDANFE\PaginaExtra.xaml.cs">
       <DependentUpon>PaginaExtra.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DANFE\PaginasDANFE\PaginaPrincipal.xaml.cs">
+    <Compile Include="ViewNFe\DANFE\PaginasDANFE\PaginaPrincipal.xaml.cs">
       <DependentUpon>PaginaPrincipal.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DANFE\PartesDANFE\CampoCliente.xaml.cs">
+    <Compile Include="ViewNFe\DANFE\PartesDANFE\CampoCliente.xaml.cs">
       <DependentUpon>CampoCliente.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DANFE\PartesDANFE\CampoDadosAdicionais.xaml.cs">
+    <Compile Include="ViewNFe\DANFE\PartesDANFE\CampoDadosAdicionais.xaml.cs">
       <DependentUpon>CampoDadosAdicionais.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DANFE\PartesDANFE\CampoFatura.xaml.cs">
+    <Compile Include="ViewNFe\DANFE\PartesDANFE\CampoFatura.xaml.cs">
       <DependentUpon>CampoFatura.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DANFE\PartesDANFE\CampoImposto.xaml.cs">
+    <Compile Include="ViewNFe\DANFE\PartesDANFE\CampoImposto.xaml.cs">
       <DependentUpon>CampoImposto.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DANFE\PartesDANFE\CampoISSQN.xaml.cs">
+    <Compile Include="ViewNFe\DANFE\PartesDANFE\CampoISSQN.xaml.cs">
       <DependentUpon>CampoISSQN.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DANFE\PartesDANFE\CampoProdutos.xaml.cs">
+    <Compile Include="ViewNFe\DANFE\PartesDANFE\CampoProdutos.xaml.cs">
       <DependentUpon>CampoProdutos.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DANFE\PartesDANFE\CampoTransporte.xaml.cs">
+    <Compile Include="ViewNFe\DANFE\PartesDANFE\CampoTransporte.xaml.cs">
       <DependentUpon>CampoTransporte.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DANFE\PartesDANFE\Canhoto.xaml.cs">
+    <Compile Include="ViewNFe\DANFE\PartesDANFE\Canhoto.xaml.cs">
       <DependentUpon>Canhoto.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DANFE\PartesDANFE\DadosNFe.xaml.cs">
+    <Compile Include="ViewNFe\DANFE\PartesDANFE\DadosNFe.xaml.cs">
       <DependentUpon>DadosNFe.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DANFE\PartesDANFE\DimensoesPadrao.cs" />
-    <Compile Include="DANFE\PartesDANFE\ItemProduto.xaml.cs">
+    <Compile Include="ViewNFe\DANFE\PartesDANFE\DimensoesPadrao.cs" />
+    <Compile Include="ViewNFe\DANFE\PartesDANFE\ItemProduto.xaml.cs">
       <DependentUpon>ItemProduto.xaml</DependentUpon>
     </Compile>
     <Compile Include="Sincronizacao\QRConexao.xaml.cs">
@@ -731,7 +731,7 @@
     <Compile Include="ViewNFe\VendasAnuais.xaml.cs">
       <DependentUpon>VendasAnuais.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DANFE\ViewDANFE.xaml.cs">
+    <Compile Include="ViewNFe\DANFE\ViewDANFE.xaml.cs">
       <DependentUpon>ViewDANFE.xaml</DependentUpon>
     </Compile>
     <Compile Include="WebService\DadosServico.cs" />
@@ -1027,23 +1027,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\CaixasEspeciaisProduto\DefinirArmamentos.xaml">
+    <Page Include="ViewNFe\ProdutoEspecial\DefinirArmamentos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\CaixasEspeciaisProduto\DefinirCombustivel.xaml">
+    <Page Include="ViewNFe\ProdutoEspecial\DefinirCombustivel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\CaixasEspeciaisProduto\DefinirMedicamentos.xaml">
+    <Page Include="ViewNFe\ProdutoEspecial\DefinirMedicamentos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\CaixasEspeciaisProduto\DefinirPapel.xaml">
+    <Page Include="ViewNFe\ProdutoEspecial\DefinirPapel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\CaixasEspeciaisProduto\DefinirVeiculo.xaml">
+    <Page Include="ViewNFe\ProdutoEspecial\DefinirVeiculo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1291,56 +1291,56 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DANFE\PaginasDANFE\PaginaExtra.xaml">
+    <Page Include="ViewNFe\DANFE\PaginasDANFE\PaginaExtra.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DANFE\PaginasDANFE\PaginaPrincipal.xaml">
+    <Page Include="ViewNFe\DANFE\PaginasDANFE\PaginaPrincipal.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DANFE\PartesDANFE\CampoCliente.xaml">
+    <Page Include="ViewNFe\DANFE\PartesDANFE\CampoCliente.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DANFE\PartesDANFE\CampoDadosAdicionais.xaml">
+    <Page Include="ViewNFe\DANFE\PartesDANFE\CampoDadosAdicionais.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DANFE\PartesDANFE\CampoFatura.xaml">
+    <Page Include="ViewNFe\DANFE\PartesDANFE\CampoFatura.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DANFE\PartesDANFE\CampoImposto.xaml">
+    <Page Include="ViewNFe\DANFE\PartesDANFE\CampoImposto.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DANFE\PartesDANFE\CampoISSQN.xaml">
+    <Page Include="ViewNFe\DANFE\PartesDANFE\CampoISSQN.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DANFE\PartesDANFE\CampoProdutos.xaml">
+    <Page Include="ViewNFe\DANFE\PartesDANFE\CampoProdutos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DANFE\PartesDANFE\CampoTransporte.xaml">
+    <Page Include="ViewNFe\DANFE\PartesDANFE\CampoTransporte.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DANFE\PartesDANFE\Canhoto.xaml">
+    <Page Include="ViewNFe\DANFE\PartesDANFE\Canhoto.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DANFE\PartesDANFE\DadosNFe.xaml">
+    <Page Include="ViewNFe\DANFE\PartesDANFE\DadosNFe.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DANFE\PartesDANFE\EstilosPadrao.xaml">
+    <Page Include="ViewNFe\DANFE\PartesDANFE\EstilosPadrao.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
-    <Page Include="DANFE\PartesDANFE\ItemProduto.xaml">
+    <Page Include="ViewNFe\DANFE\PartesDANFE\ItemProduto.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1360,7 +1360,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DANFE\ViewDANFE.xaml">
+    <Page Include="ViewNFe\DANFE\ViewDANFE.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

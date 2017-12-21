@@ -1,0 +1,45 @@
+﻿<Page x:Class="NFeFacil.ViewNFe.ProdutoEspecial.DefinirArmamentos"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:caminho="using:NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesProdutoOuServico"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d">
+    <ListView ItemsSource="{x:Bind Armas}">
+        <ListView.Header>
+            <Grid Style="{StaticResource Cabecalho}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Descrição</TextBlock>
+                <Button Grid.Column="1"
+                        Style="{StaticResource BotaoAdd}"
+                        Click="AdicionarArmamento">
+                    <SymbolIcon Symbol="Add" />
+                </Button>
+            </Grid>
+        </ListView.Header>
+        <ListView.ItemTemplate>
+            <DataTemplate x:DataType="caminho:Arma">
+                <TextBlock Text="{x:Bind Descr, Mode=OneTime}"
+                           TextWrapping="Wrap">
+                    <TextBlock.ContextFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Click="RemoverArmamento">Remover</MenuFlyoutItem>
+                        </MenuFlyout>
+                    </TextBlock.ContextFlyout></TextBlock>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Label="Concluido"
+                          Icon="Accept"
+                          Click="Concluido" />
+            <AppBarButton Label="Cancelar"
+                          Icon="Cancel"
+                          Click="Cancelar" />
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>

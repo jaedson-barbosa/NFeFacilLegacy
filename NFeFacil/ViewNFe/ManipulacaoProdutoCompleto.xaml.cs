@@ -76,16 +76,16 @@ namespace NFeFacil.ViewNFe
                         prod.NRECOPI = null;
                         break;
                     case 1:
-                        MainPage.Current.Navegar<CaixasEspeciaisProduto.DefinirVeiculo>();
+                        MainPage.Current.Navegar<ProdutoEspecial.DefinirVeiculo>();
                         break;
                     case 2:
-                        MainPage.Current.Navegar<CaixasEspeciaisProduto.DefinirMedicamentos>();
+                        MainPage.Current.Navegar<ProdutoEspecial.DefinirMedicamentos>();
                         break;
                     case 3:
-                        MainPage.Current.Navegar<CaixasEspeciaisProduto.DefinirArmamentos>();
+                        MainPage.Current.Navegar<ProdutoEspecial.DefinirArmamentos>();
                         break;
                     case 4:
-                        MainPage.Current.Navegar<CaixasEspeciaisProduto.DefinirCombustivel>();
+                        MainPage.Current.Navegar<ProdutoEspecial.DefinirCombustivel>();
                         break;
                     case 5:
                         DefinirPapel();
@@ -96,7 +96,7 @@ namespace NFeFacil.ViewNFe
 
                 async void DefinirPapel()
                 {
-                    var caixa = new CaixasEspeciaisProduto.DefinirPapel();
+                    var caixa = new ProdutoEspecial.DefinirPapel();
                     if (await caixa.ShowAsync() == ContentDialogResult.Primary)
                     {
                         prod.veicProd = null;

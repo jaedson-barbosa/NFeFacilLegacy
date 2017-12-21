@@ -168,6 +168,9 @@
     <Compile Include="Certificacao\ConfiguracoesServidorCertificacao.xaml.cs">
       <DependentUpon>ConfiguracoesServidorCertificacao.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controles\VisualizacaoGenerica.xaml.cs">
+      <DependentUpon>VisualizacaoGenerica.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DefinicoesPermanentes.cs" />
     <Compile Include="View\ConjuntoBasicoExibicao.cs" />
     <Compile Include="Controles\ExibicaoImagem.xaml.cs">
@@ -792,6 +795,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controles\MultView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controles\VisualizacaoGenerica.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

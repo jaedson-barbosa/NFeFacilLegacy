@@ -14,7 +14,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil.ViewNFe
 {
-    [DetalhePagina(Symbol.Find, "Consulta")]
+    [View.DetalhePagina(Symbol.Find, "Consulta")]
     public sealed partial class Consulta : Page
     {
         string Chave { get; set; }

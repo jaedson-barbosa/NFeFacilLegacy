@@ -13,6 +13,7 @@ using NFeFacil.WebService.Pacotes;
 using NFeFacil.WebService;
 using NFeFacil.Validacao;
 using Windows.UI.Xaml.Media;
+using NFeFacil.View;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 

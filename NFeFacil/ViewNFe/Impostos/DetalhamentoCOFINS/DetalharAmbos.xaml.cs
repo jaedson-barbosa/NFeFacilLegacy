@@ -4,7 +4,7 @@
 
 namespace NFeFacil.ViewNFe.Impostos.DetalhamentoCOFINS
 {
-    [DetalhePagina("COFINS")]
+    [View.DetalhePagina("COFINS")]
     public sealed partial class DetalharAmbos : Page
     {
         public double Aliquota { get; private set; }

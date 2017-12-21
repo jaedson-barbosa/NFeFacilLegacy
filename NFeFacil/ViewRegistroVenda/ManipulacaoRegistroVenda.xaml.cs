@@ -1,5 +1,6 @@
 ﻿using NFeFacil.ItensBD;
 using NFeFacil.Log;
+using NFeFacil.View;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;

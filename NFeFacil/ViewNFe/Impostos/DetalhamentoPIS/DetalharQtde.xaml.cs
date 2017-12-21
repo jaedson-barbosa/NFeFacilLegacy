@@ -4,7 +4,7 @@
 
 namespace NFeFacil.ViewNFe.Impostos.DetalhamentoPIS
 {
-    [DetalhePagina("PIS")]
+    [View.DetalhePagina("PIS")]
     public sealed partial class DetalharQtde : Page
     {
         public double Valor { get; private set; }

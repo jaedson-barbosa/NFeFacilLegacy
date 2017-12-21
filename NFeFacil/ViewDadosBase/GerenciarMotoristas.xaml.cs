@@ -7,7 +7,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil.ViewDadosBase
 {
-    [DetalhePagina(Symbol.Manage, "Gerenciar motoristas")]
+    [View.DetalhePagina(Symbol.Manage, "Gerenciar motoristas")]
     public sealed partial class GerenciarMotoristas : Page
     {
         ObservableCollection<MotoristaDI> Motoristas { get; }

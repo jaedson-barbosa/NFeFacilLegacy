@@ -13,7 +13,7 @@ using ZXing.Mobile;
 
 namespace NFeFacil.Sincronizacao
 {
-    [DetalhePagina(Symbol.View, "QR")]
+    [View.DetalhePagina(Symbol.View, "QR")]
     public sealed partial class QRConexao : Page
     {
         readonly InfoEstabelecerConexao Informacoes;

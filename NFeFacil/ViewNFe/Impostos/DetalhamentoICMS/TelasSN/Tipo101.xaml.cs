@@ -2,7 +2,7 @@
 
 namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS.TelasSN
 {
-    [DetalhePagina("ICMS")]
+    [View.DetalhePagina("ICMS")]
     public sealed partial class Tipo101 : Page
     {
         public string pCredSN { get; private set; }

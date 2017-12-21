@@ -12,7 +12,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NFeFacil.ViewNFe.Impostos
 {
-    [DetalhePagina("\uE825", "Impostos")]
+    [View.DetalhePagina("\uE825", "Impostos")]
     public sealed partial class EscolhaImpostos : Page
     {
         ObservableCollection<string> impostos;

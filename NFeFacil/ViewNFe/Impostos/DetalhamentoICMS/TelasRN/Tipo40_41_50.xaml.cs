@@ -4,7 +4,7 @@
 
 namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS.TelasRN
 {
-    [DetalhePagina("ICMS")]
+    [View.DetalhePagina("ICMS")]
     public sealed partial class Tipo40_41_50 : Page
     {
         public string vICMSDeson { get; set; }

@@ -7,7 +7,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil.ViewDadosBase
 {
-    [DetalhePagina(Symbol.Manage, "Gerenciar compradores")]
+    [View.DetalhePagina(Symbol.Manage, "Gerenciar compradores")]
     public sealed partial class GerenciarCompradores : Page
     {
         ObservableCollection<ExibicaoComprador> Compradores { get; }

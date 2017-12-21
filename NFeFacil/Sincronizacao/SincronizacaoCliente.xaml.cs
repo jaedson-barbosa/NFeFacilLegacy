@@ -11,7 +11,7 @@ using static NFeFacil.Sincronizacao.ConfiguracoesSincronizacao;
 
 namespace NFeFacil.Sincronizacao
 {
-    [DetalhePagina("\uE975", "Sincronização")]
+    [View.DetalhePagina("\uE975", "Sincronização")]
     public sealed partial class SincronizacaoCliente : Page
     {
         public SincronizacaoCliente()

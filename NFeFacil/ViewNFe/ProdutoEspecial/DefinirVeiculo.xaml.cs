@@ -7,7 +7,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil.ViewNFe.ProdutoEspecial
 {
-    [DetalhePagina("\uE804", "Veículo")]
+    [View.DetalhePagina("\uE804", "Veículo")]
     public sealed partial class DefinirVeiculo : Page
     {
         VeiculoNovo Veiculo { get; } = new VeiculoNovo();

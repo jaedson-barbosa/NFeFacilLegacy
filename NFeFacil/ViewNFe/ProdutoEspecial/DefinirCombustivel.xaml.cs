@@ -7,7 +7,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil.ViewNFe.ProdutoEspecial
 {
-    [DetalhePagina("\uEB42", "Combustivel")]
+    [View.DetalhePagina("\uEB42", "Combustivel")]
     public sealed partial class DefinirCombustivel : Page
     {
         Combustivel Comb { get; } = new Combustivel();

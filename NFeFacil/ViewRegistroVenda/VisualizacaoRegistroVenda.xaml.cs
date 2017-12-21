@@ -11,7 +11,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NFeFacil.ViewRegistroVenda
 {
-    [DetalhePagina(Symbol.View, "Registro de venda")]
+    [View.DetalhePagina(Symbol.View, "Registro de venda")]
     public sealed partial class VisualizacaoRegistroVenda : Page
     {
         RegistroVenda ItemBanco;

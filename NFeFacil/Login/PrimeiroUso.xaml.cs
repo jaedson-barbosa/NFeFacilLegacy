@@ -14,7 +14,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NFeFacil.Login
 {
-    [DetalhePagina(Symbol.Emoji, "Bem-vindo")]
+    [View.DetalhePagina(Symbol.Emoji, "Bem-vindo")]
     public sealed partial class PrimeiroUso : Page
     {
         public PrimeiroUso()

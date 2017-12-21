@@ -169,14 +169,14 @@
       <DependentUpon>ConfiguracoesServidorCertificacao.xaml</DependentUpon>
     </Compile>
     <Compile Include="ConfiguracoesPermanentes.cs" />
-    <Compile Include="ConjuntoBasicoExibicao.cs" />
+    <Compile Include="View\ConjuntoBasicoExibicao.cs" />
     <Compile Include="Controles\ExibicaoImagem.xaml.cs">
       <DependentUpon>ExibicaoImagem.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controles\MultView.xaml.cs">
       <DependentUpon>MultView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DetalhePagina.cs" />
+    <Compile Include="View\DetalhePagina.cs" />
     <Compile Include="ViewDadosBase\AdicionarComprador.xaml.cs">
       <DependentUpon>AdicionarComprador.xaml</DependentUpon>
     </Compile>
@@ -525,7 +525,7 @@
     <Compile Include="ViewNFe\DANFE\Pacotes\ItemDadosAdicionais.cs" />
     <Compile Include="ViewNFe\DANFE\ViewDados.cs" />
     <Compile Include="ExtensoesPrincipal.cs" />
-    <Compile Include="IHambuguer.cs" />
+    <Compile Include="View\IHambuguer.cs" />
     <Compile Include="Log\Popup.cs" />
     <Compile Include="Log\Titulos.cs" />
     <Compile Include="Log\TitulosComuns.cs" />
@@ -618,7 +618,7 @@
     <Compile Include="ViewDadosBase\GerenciarDadosBase.xaml.cs">
       <DependentUpon>GerenciarDadosBase.xaml</DependentUpon>
     </Compile>
-    <Compile Include="IValida.cs" />
+    <Compile Include="View\IValida.cs" />
     <Compile Include="ViewNFe\ManipulacaoNotaFiscal.xaml.cs">
       <DependentUpon>ManipulacaoNotaFiscal.xaml</DependentUpon>
     </Compile>

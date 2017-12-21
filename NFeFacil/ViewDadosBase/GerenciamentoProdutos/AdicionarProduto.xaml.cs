@@ -9,7 +9,7 @@ using NFeFacil.ItensBD;
 
 namespace NFeFacil.ViewDadosBase.GerenciamentoProdutos
 {
-    [DetalhePagina(Symbol.Shop, "Produto")]
+    [View.DetalhePagina(Symbol.Shop, "Produto")]
     public sealed partial class AdicionarProduto : Page
     {
         private ProdutoDI Produto;

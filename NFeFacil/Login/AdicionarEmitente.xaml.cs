@@ -12,7 +12,7 @@ using System.Linq;
 
 namespace NFeFacil.Login
 {
-    [DetalhePagina(Symbol.People, "Emitente")]
+    [View.DetalhePagina(Symbol.People, "Emitente")]
     public sealed partial class AdicionarEmitente : Page
     {
         EmitenteDI Emit { get; set; }

@@ -1,4 +1,5 @@
 ﻿using NFeFacil.ItensBD;
+using NFeFacil.View;
 using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -23,10 +24,7 @@ namespace NFeFacil.Login
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             var emitente = (ConjuntoBasicoExibicao<EmitenteDI>)e.Parameter;
-            var brush = new ImageBrush
-            {
-                ImageSource = emitente.Imagem
-            };
+            var brush = new ImageBrush { ImageSource = emitente.Imagem };
             imgLogotipo.Background = brush;
             txtNomeFantasia.Text = emitente.Principal;
             txtNome.Text = emitente.Secundario;

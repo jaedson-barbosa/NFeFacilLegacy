@@ -5,7 +5,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil.ViewNFe.Impostos.DetalhamentoIPI
 {
-    [DetalhePagina("IPI")]
+    [View.DetalhePagina("IPI")]
     public sealed partial class DetalharQtde : Page
     {
         public IPI Conjunto { get; } = new IPI();

@@ -10,7 +10,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil.ViewNFe.ProdutoEspecial
 {
-    [DetalhePagina(DetalhePagina.SimbolosEspeciais.Arma, "Armamento")]
+    [View.DetalhePagina(View.DetalhePagina.SimbolosEspeciais.Arma, "Armamento")]
     public sealed partial class DefinirArmamentos : Page
     {
         ObservableCollection<Arma> Armas { get; } = new ObservableCollection<Arma>();

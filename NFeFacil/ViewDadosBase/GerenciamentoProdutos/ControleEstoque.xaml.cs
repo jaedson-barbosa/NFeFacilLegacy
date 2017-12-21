@@ -11,7 +11,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NFeFacil.ViewDadosBase.GerenciamentoProdutos
 {
-    [DetalhePagina(Symbol.Manage, "Controle de estoque")]
+    [View.DetalhePagina(Symbol.Manage, "Controle de estoque")]
     public sealed partial class ControleEstoque : Page
     {
         bool AlteracoesNaoSalvas = false;

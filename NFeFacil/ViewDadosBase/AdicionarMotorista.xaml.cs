@@ -13,7 +13,7 @@ using System.Linq;
 
 namespace NFeFacil.ViewDadosBase
 {
-    [DetalhePagina("\uE806", "Motorista")]
+    [View.DetalhePagina("\uE806", "Motorista")]
     public sealed partial class AdicionarMotorista : Page
     {
         MotoristaDI Motorista { get; set; }

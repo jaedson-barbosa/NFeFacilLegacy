@@ -8,7 +8,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil.ViewDadosBase
 {
-    [DetalhePagina(Symbol.Manage, "Gerenciar clientes")]
+    [View.DetalhePagina(Symbol.Manage, "Gerenciar clientes")]
     public sealed partial class GerenciarClientes : Page
     {
         ObservableCollection<ClienteDI> Clientes { get; }

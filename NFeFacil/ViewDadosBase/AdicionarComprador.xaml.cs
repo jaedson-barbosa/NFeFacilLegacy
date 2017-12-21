@@ -10,7 +10,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NFeFacil.ViewDadosBase
 {
-    [DetalhePagina(Symbol.People, "Comprador")]
+    [View.DetalhePagina(Symbol.People, "Comprador")]
     public sealed partial class AdicionarComprador : Page
     {
         Comprador Comprador;

@@ -11,7 +11,7 @@ using System.Collections.ObjectModel;
 
 namespace NFeFacil.ViewRegistroVenda
 {
-    [DetalhePagina(Symbol.View, "DARV")]
+    [View.DetalhePagina(Symbol.View, "DARV")]
     public sealed partial class DARV : Page
     {
         internal double AlturaEscolhida { get; private set; }

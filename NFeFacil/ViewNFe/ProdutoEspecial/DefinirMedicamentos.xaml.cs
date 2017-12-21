@@ -10,7 +10,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil.ViewNFe.ProdutoEspecial
 {
-    [DetalhePagina("\uE95E", "Medicamentos")]
+    [View.DetalhePagina("\uE95E", "Medicamentos")]
     public sealed partial class DefinirMedicamentos : Page
     {
         ObservableCollection<Medicamento> Medicamentos { get; } = new ObservableCollection<Medicamento>();

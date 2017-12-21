@@ -23,7 +23,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NFeFacil.ViewNFe
 {
-    [DetalhePagina(Symbol.View, "Visualizar NFe")]
+    [View.DetalhePagina(Symbol.View, "Visualizar NFe")]
     public sealed partial class VisualizacaoNFe : Page
     {
         Popup Log = Popup.Current;

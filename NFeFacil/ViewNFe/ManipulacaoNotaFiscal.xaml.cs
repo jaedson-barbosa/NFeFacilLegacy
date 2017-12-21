@@ -17,6 +17,7 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using NFeFacil.ViewNFe.CaixasDialogoNFe;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTotal;
+using NFeFacil.View;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 

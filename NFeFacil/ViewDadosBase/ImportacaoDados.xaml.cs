@@ -18,7 +18,7 @@ using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransport
 
 namespace NFeFacil.ViewDadosBase
 {
-    [DetalhePagina(Symbol.Import, "Importação")]
+    [View.DetalhePagina(Symbol.Import, "Importação")]
     public sealed partial class ImportacaoDados : Page
     {
         public ImportacaoDados()

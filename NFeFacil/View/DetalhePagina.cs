@@ -2,7 +2,7 @@
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace NFeFacil
+namespace NFeFacil.View
 {
     [AttributeUsage(AttributeTargets.Class, Inherited = false)]
     sealed class DetalhePagina : Attribute

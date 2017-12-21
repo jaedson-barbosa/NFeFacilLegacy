@@ -7,7 +7,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NFeFacil.ViewDadosBase
 {
-    [DetalhePagina(Symbol.Manage, "Dados base")]
+    [View.DetalhePagina(Symbol.Manage, "Dados base")]
     public sealed partial class GerenciarDadosBase : Page
     {
         public GerenciarDadosBase()

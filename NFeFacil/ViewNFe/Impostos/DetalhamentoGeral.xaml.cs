@@ -11,7 +11,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NFeFacil.ViewNFe.Impostos
 {
-    [DetalhePagina("Detalhamento de impostos", SimboloSymbol = Symbol.List)]
+    [View.DetalhePagina("Detalhamento de impostos", SimboloSymbol = Symbol.List)]
     public sealed partial class DetalhamentoGeral : Page
     {
         RoteiroAdicaoImpostos roteiro;
@@ -114,7 +114,7 @@ namespace NFeFacil.ViewNFe.Impostos
         private void ImpostoTrocado(object sender, NavigationEventArgs e)
         {
             var infoTipo = e.Content.GetType().GetTypeInfo();
-            var detalhe = infoTipo.GetCustomAttribute<DetalhePagina>();
+            var detalhe = infoTipo.GetCustomAttribute<View.DetalhePagina>();
             txtTitulo.Text = detalhe.Titulo;
         }
     }

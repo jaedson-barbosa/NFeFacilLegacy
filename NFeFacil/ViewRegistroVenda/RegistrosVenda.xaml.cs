@@ -7,7 +7,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil.ViewRegistroVenda
 {
-    [DetalhePagina(Symbol.Library, "Vendas")]
+    [View.DetalhePagina(Symbol.Library, "Vendas")]
     public sealed partial class RegistrosVenda : Page
     {
         ObservableCollection<ExibicaoVenda> Vendas { get; }

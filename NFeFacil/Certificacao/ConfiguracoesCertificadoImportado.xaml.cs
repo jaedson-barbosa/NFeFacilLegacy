@@ -12,7 +12,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NFeFacil.Certificacao
 {
-    [DetalhePagina(Symbol.Permissions, "Certificação")]
+    [View.DetalhePagina(Symbol.Permissions, "Certificação")]
     public sealed partial class ConfiguracoesCertificadoImportado : Page
     {
         ObservableCollection<CertificadoExibicao> ListaCertificados { get; set; }

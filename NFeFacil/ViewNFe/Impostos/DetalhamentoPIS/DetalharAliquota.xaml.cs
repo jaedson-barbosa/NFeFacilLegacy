@@ -4,7 +4,7 @@
 
 namespace NFeFacil.ViewNFe.Impostos.DetalhamentoPIS
 {
-    [DetalhePagina("PIS")]
+    [View.DetalhePagina("PIS")]
     public sealed partial class DetalharAliquota : Page
     {
         public double Aliquota { get; private set; }

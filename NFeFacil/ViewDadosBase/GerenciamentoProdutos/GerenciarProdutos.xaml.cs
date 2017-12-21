@@ -9,7 +9,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil.ViewDadosBase.GerenciamentoProdutos
 {
-    [DetalhePagina(Symbol.Manage, "Gerenciar produtos")]
+    [View.DetalhePagina(Symbol.Manage, "Gerenciar produtos")]
     public sealed partial class GerenciarProdutos : Page
     {
         ObservableCollection<ProdutoDI> Produtos { get; }

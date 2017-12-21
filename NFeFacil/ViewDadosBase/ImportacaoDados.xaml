@@ -1,4 +1,4 @@
-﻿<Page x:Class="NFeFacil.Importacao.ImportacaoDados"
+﻿<Page x:Class="NFeFacil.ViewDadosBase.ImportacaoDados"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:my="using:NFeFacil.Controles"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -28,7 +28,7 @@
             </ItemsControl>
             <TextBlock Margin="0,10,0,0"
                        Style="{StaticResource SubtitleTextBlockStyle}">Importar nota fiscal</TextBlock>
-            <TextBlock TextWrapping="Wrap">Para importar notas fiscais você só precisa clicar no botão abaixo e, na janela que se abrirá, escolha as notas fiscais que deverão ser importadas.</TextBlock>
+            <TextBlock TextWrapping="Wrap">Para importar notas fiscais você só precisa clicar no botão abaixo e, na janela que se abrirá, escolha as notas fiscais que deverão ser importadas. Atenção, apenas notas com layout 3.10 são aceitas.</TextBlock>
             <Button HorizontalAlignment="Stretch"
                     Click="ImportarNotaFiscal">Importar</Button>
         </StackPanel>

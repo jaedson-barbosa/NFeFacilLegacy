@@ -1,5 +1,4 @@
 ﻿using NFeFacil.Certificacao;
-using NFeFacil.Importacao;
 using NFeFacil.ItensBD;
 using NFeFacil.Log;
 using NFeFacil.ModeloXML;
@@ -113,7 +112,7 @@ namespace NFeFacil.View
             {
                 try
                 {
-                    var xml = await ImportarNotaFiscal.ObterXML(arq);
+                    var xml = await ImportacaoDados.ObterXMLNFe(arq);
                     var proc = xml.FromXElement<Processo>();
                     var nfe = proc.NFe;
                     if (nfe.Informacoes.destinatário.CNPJ == Propriedades.EmitenteAtivo.CNPJ)

@@ -526,11 +526,6 @@
     <Compile Include="DANFE\ViewDados.cs" />
     <Compile Include="ExtensoesPrincipal.cs" />
     <Compile Include="IHambuguer.cs" />
-    <Compile Include="Importacao\Importacao.cs" />
-    <Compile Include="Importacao\ImportarDadoBase.cs" />
-    <Compile Include="Importacao\ImportarNotaFiscal.cs" />
-    <Compile Include="Importacao\TiposDadoBasico.cs" />
-    <Compile Include="Importacao\XmlNaoReconhecido.cs" />
     <Compile Include="Log\Popup.cs" />
     <Compile Include="Log\Titulos.cs" />
     <Compile Include="Log\TitulosComuns.cs" />
@@ -646,7 +641,7 @@
     <Compile Include="View\DefinirImagem.xaml.cs">
       <DependentUpon>DefinirImagem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Importacao\ImportacaoDados.xaml.cs">
+    <Compile Include="ViewDadosBase\ImportacaoDados.xaml.cs">
       <DependentUpon>ImportacaoDados.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controles\CarregamentoCircular.xaml.cs">
@@ -1200,7 +1195,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Importacao\ImportacaoDados.xaml">
+    <Page Include="ViewDadosBase\ImportacaoDados.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -22,12 +22,18 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTotal
                     if (imposto is ISSQN)
                     {
                         var imp = imposto as ISSQN;
-                        VBC += imp.vBC.ToDouble();
-                        vISS += imp.vISSQN.ToDouble();
-                        VDeducao += imp.vDeducao.ToDouble();
-                        VDescCond += imp.vDescCond.ToDouble();
-                        VDescIncond += imp.vDescIncond.ToDouble();
-                        VISSRet += imp.vISSRet.ToDouble();
+                        TryParse(imp.vBC, out double addBC);
+                        VBC += addBC;
+                        TryParse(imp.vISSQN, out double addISS);
+                        vISS += addISS;
+                        TryParse(imp.vDeducao, out double addDeducao);
+                        VDeducao += addDeducao;
+                        TryParse(imp.vDescCond, out double addDescCond);
+                        VDescCond += addDescCond;
+                        TryParse(imp.vDescIncond, out double addDescIncond);
+                        VDescIncond += addDescIncond;
+                        TryParse(imp.vISSRet, out double addISSRet);
+                        VISSRet += addISSRet;
                     }
                     else
                     {
@@ -64,7 +70,8 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTotal
                     }
                 }
                 VServ += prod.ValorTotal;
-                VOutro += prod.DespesasAcessorias.ToDouble();
+                TryParse(prod.DespesasAcessorias, out double addOutro);
+                VOutro += addOutro;
             }
         }
 

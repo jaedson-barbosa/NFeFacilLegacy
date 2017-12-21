@@ -91,11 +91,16 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTotal
                 if (prod.InclusaoTotal == 1 && !temISSQN)
                 {
                     vProd += prod.ValorTotal;
-                    vFrete += prod.Frete.ToDouble();
-                    vSeg += prod.Seguro.ToDouble();
-                    vDesc += prod.Desconto.ToDouble();
-                    vOutro += prod.DespesasAcessorias.ToDouble();
-                    vTotTrib += Produto.Impostos.vTotTrib.ToDouble();
+                    TryParse(prod.Frete, out double addFrete);
+                    vFrete += addFrete;
+                    TryParse(prod.Seguro, out double addSeguro);
+                    vSeg += addSeguro;
+                    TryParse(prod.Desconto, out double addDesconto);
+                    vDesc += addDesconto;
+                    TryParse(prod.DespesasAcessorias, out double addOutro);
+                    vOutro += addOutro;
+                    TryParse(Produto.Impostos.vTotTrib, out double addTotTrib);
+                    vTotTrib += addTotTrib;
                 }
                 else if (temISSQN)
                 {

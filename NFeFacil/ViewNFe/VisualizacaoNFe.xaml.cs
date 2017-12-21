@@ -7,17 +7,12 @@ using NFeFacil.Validacao;
 using NFeFacil.WebService;
 using NFeFacil.WebService.Pacotes;
 using System;
-using System.Collections;
 using System.IO;
-using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Windows.Storage.Pickers;
-using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Navigation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238

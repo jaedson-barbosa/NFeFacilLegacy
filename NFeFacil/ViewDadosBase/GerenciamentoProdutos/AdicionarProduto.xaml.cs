@@ -9,9 +9,7 @@ using NFeFacil.ItensBD;
 
 namespace NFeFacil.ViewDadosBase.GerenciamentoProdutos
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [DetalhePagina(Symbol.Shop, "Produto")]
     public sealed partial class AdicionarProduto : Page
     {
         private ProdutoDI Produto;

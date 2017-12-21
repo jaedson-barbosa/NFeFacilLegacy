@@ -15,9 +15,7 @@ using static NFeFacil.ExtensoesPrincipal;
 
 namespace NFeFacil.ViewNFe
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [DetalhePagina(Symbol.Calendar, "Vendas")]
     public sealed partial class VendasAnuais : Page
     {
         Func<double, string> GetMonth { get; set; } = x => NomesMeses[(int)x] ?? string.Empty;

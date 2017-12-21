@@ -13,9 +13,7 @@ using ZXing.Mobile;
 
 namespace NFeFacil.Sincronizacao
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [DetalhePagina(Symbol.View, "QR")]
     public sealed partial class QRConexao : Page
     {
         readonly InfoEstabelecerConexao Informacoes;

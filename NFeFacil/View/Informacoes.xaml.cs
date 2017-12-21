@@ -6,9 +6,7 @@ using Windows.UI.Xaml.Input;
 
 namespace NFeFacil.View
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [DetalhePagina("\uE946", "Informações")]
     public sealed partial class Informacoes : Page
     {
         public Informacoes()

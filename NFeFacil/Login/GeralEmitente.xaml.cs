@@ -9,9 +9,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NFeFacil.Login
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [DetalhePagina(Symbol.Home, "Dados da empresa")]
     public sealed partial class GeralEmitente : Page
     {
         EmitenteDI emitente;

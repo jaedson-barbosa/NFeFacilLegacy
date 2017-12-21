@@ -12,9 +12,7 @@ using System.Linq;
 
 namespace NFeFacil.Login
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [DetalhePagina(Symbol.People, "Emitente")]
     public sealed partial class AdicionarEmitente : Page
     {
         EmitenteDI Emit { get; set; }

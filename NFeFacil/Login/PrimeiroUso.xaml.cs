@@ -14,9 +14,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NFeFacil.Login
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [DetalhePagina(Symbol.Emoji, "Bem-vindo")]
     public sealed partial class PrimeiroUso : Page
     {
         public PrimeiroUso()

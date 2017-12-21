@@ -12,9 +12,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NFeFacil.ViewNFe.Impostos
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [DetalhePagina("\uE825", "Impostos")]
     public sealed partial class EscolhaImpostos : Page
     {
         ObservableCollection<string> impostos;

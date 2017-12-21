@@ -7,9 +7,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil.ViewNFe.CaixasEspeciaisProduto
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [DetalhePagina("\uE804", "Veículo")]
     public sealed partial class DefinirVeiculo : Page
     {
         VeiculoNovo Veiculo { get; } = new VeiculoNovo();

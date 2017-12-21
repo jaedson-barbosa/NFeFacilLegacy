@@ -7,9 +7,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil.ViewDadosBase
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [DetalhePagina(Symbol.Manage, "Gerenciar motoristas")]
     public sealed partial class GerenciarMotoristas : Page
     {
         ObservableCollection<MotoristaDI> Motoristas { get; }

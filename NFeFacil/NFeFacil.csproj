@@ -177,7 +177,6 @@
       <DependentUpon>MultView.xaml</DependentUpon>
     </Compile>
     <Compile Include="DetalhePagina.cs" />
-    <Compile Include="PaginasPrincipais.cs" />
     <Compile Include="ViewDadosBase\AdicionarComprador.xaml.cs">
       <DependentUpon>AdicionarComprador.xaml</DependentUpon>
     </Compile>

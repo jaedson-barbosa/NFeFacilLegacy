@@ -10,9 +10,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil.ViewNFe.CaixasEspeciaisProduto
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [DetalhePagina("\uE95E", "Medicamentos")]
     public sealed partial class DefinirMedicamentos : Page
     {
         ObservableCollection<Medicamento> Medicamentos { get; } = new ObservableCollection<Medicamento>();

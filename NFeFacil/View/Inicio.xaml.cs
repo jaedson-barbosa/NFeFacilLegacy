@@ -18,9 +18,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NFeFacil.View
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [DetalhePagina(Symbol.Home, "Início")]
     public sealed partial class Inicio : Page
     {
         public Inicio()

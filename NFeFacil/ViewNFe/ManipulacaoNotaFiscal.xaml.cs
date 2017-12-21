@@ -22,9 +22,7 @@ using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTotal;
 
 namespace NFeFacil.ViewNFe
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [DetalhePagina(Symbol.Document, "Nota fiscal")]
     public sealed partial class ManipulacaoNotaFiscal : Page, IHambuguer, IValida
     {
         public ManipulacaoNotaFiscal()

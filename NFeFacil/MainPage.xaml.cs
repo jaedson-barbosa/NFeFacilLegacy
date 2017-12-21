@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Reflection;
 using Windows.ApplicationModel.Core;
 using Windows.System.Profile;
@@ -192,27 +191,18 @@ namespace NFeFacil
         private void NavegacaoConcluida(object sender, NavigationEventArgs e)
         {
             var navegada = e.Content;
-            if (PaginasPrincipais.Lista.Keys.Contains(navegada.GetType()))
+            var infoTipo = e.Content.GetType().GetTypeInfo();
+            var pag = infoTipo.GetCustomAttribute<DetalhePagina>();
+
+            if (pag == null)
             {
-                var pag = PaginasPrincipais.Lista[navegada.GetType()];
-                txtTitulo.Text = pag.Titulo;
-                symTitulo.Content = pag.ObterIcone();
+                txtTitulo.Text = "Erro, informar desenvolvedor";
+                symTitulo.Content = new SymbolIcon(Symbol.Help);
             }
             else
             {
-                var infoTipo = e.Content.GetType().GetTypeInfo();
-                var pag = infoTipo.GetCustomAttribute<DetalhePagina>();
-
-                if (pag == null)
-                {
-                    txtTitulo.Text = "Erro, informar desenvolvedor";
-                    symTitulo.Content = new SymbolIcon(Symbol.Help);
-                }
-                else
-                {
-                    txtTitulo.Text = pag.Titulo;
-                    symTitulo.Content = pag.ObterIcone();
-                }
+                txtTitulo.Text = pag.Titulo;
+                symTitulo.Content = pag.ObterIcone();
             }
 
             if (navegada is IHambuguer hambuguer)

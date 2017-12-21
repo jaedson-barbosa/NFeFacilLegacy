@@ -13,9 +13,7 @@ using System.Linq;
 
 namespace NFeFacil.ViewDadosBase
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [DetalhePagina("\uE806", "Motorista")]
     public sealed partial class AdicionarMotorista : Page
     {
         MotoristaDI Motorista { get; set; }

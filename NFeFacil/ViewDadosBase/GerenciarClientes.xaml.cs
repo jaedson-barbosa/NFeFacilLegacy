@@ -8,9 +8,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil.ViewDadosBase
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [DetalhePagina(Symbol.Manage, "Gerenciar clientes")]
     public sealed partial class GerenciarClientes : Page
     {
         ObservableCollection<ClienteDI> Clientes { get; }

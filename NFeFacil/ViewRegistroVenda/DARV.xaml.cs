@@ -11,9 +11,7 @@ using System.Collections.ObjectModel;
 
 namespace NFeFacil.ViewRegistroVenda
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [DetalhePagina(Symbol.View, "DARV")]
     public sealed partial class DARV : Page
     {
         internal double AlturaEscolhida { get; private set; }

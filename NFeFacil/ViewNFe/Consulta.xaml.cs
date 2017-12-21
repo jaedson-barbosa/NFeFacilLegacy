@@ -14,9 +14,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil.ViewNFe
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [DetalhePagina(Symbol.Find, "Consulta")]
     public sealed partial class Consulta : Page
     {
         string Chave { get; set; }

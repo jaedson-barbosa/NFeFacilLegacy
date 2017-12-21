@@ -7,9 +7,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil.ViewNFe.CaixasEspeciaisProduto
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [DetalhePagina("\uEB42", "Combustivel")]
     public sealed partial class DefinirCombustivel : Page
     {
         Combustivel Comb { get; } = new Combustivel();

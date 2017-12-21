@@ -11,9 +11,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NFeFacil.ViewDadosBase.GerenciamentoProdutos
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [DetalhePagina(Symbol.Manage, "Controle de estoque")]
     public sealed partial class ControleEstoque : Page
     {
         bool AlteracoesNaoSalvas = false;

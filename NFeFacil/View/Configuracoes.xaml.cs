@@ -13,9 +13,7 @@ using Windows.UI.Xaml.Input;
 
 namespace NFeFacil.View
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [DetalhePagina(Symbol.Setting, "Configurações")]
     public sealed partial class Configuracoes : Page
     {
         readonly ComprasInApp Compra = new ComprasInApp(ComprasInApp.Compras.Personalizacao);

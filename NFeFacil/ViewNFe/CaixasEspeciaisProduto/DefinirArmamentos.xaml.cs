@@ -10,9 +10,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil.ViewNFe.CaixasEspeciaisProduto
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [DetalhePagina(DetalhePagina.SimbolosEspeciais.Arma, "Armamento")]
     public sealed partial class DefinirArmamentos : Page
     {
         ObservableCollection<Arma> Armas { get; } = new ObservableCollection<Arma>();

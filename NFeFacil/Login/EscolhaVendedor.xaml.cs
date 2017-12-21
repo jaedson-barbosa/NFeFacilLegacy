@@ -8,9 +8,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NFeFacil.Login
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [DetalhePagina(Symbol.Home, "Escolher vendedor")]
     public sealed partial class EscolhaVendedor : Page
     {
         public EscolhaVendedor()

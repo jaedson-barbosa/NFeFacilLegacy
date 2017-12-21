@@ -18,9 +18,7 @@ using Windows.UI.Xaml.Media;
 
 namespace NFeFacil.ViewNFe
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [DetalhePagina(Symbol.Library, "Notas salvas")]
     public sealed partial class NotasSalvas : Page, IHambuguer
     {
         public NotasSalvas()

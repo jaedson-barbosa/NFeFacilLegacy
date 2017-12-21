@@ -9,9 +9,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NFeFacil.ViewDadosBase
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [DetalhePagina(Symbol.People, "Vendedor")]
     public sealed partial class AdicionarVendedor : Page
     {
         private Vendedor Vendedor { get; set; }

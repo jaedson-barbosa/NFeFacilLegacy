@@ -23,9 +23,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NFeFacil.ViewNFe
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [DetalhePagina(Symbol.View, "Visualizar NFe")]
     public sealed partial class VisualizacaoNFe : Page
     {
         Popup Log = Popup.Current;

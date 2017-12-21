@@ -7,9 +7,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil.ViewRegistroVenda
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [DetalhePagina(Symbol.Library, "Vendas")]
     public sealed partial class RegistrosVenda : Page
     {
         ObservableCollection<ExibicaoVenda> Vendas { get; }

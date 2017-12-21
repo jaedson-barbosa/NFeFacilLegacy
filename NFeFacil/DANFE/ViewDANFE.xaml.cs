@@ -9,9 +9,7 @@ using static NFeFacil.ExtensoesPrincipal;
 
 namespace NFeFacil.DANFE
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [DetalhePagina(Symbol.View, "DANFE")]
     public sealed partial class ViewDANFE : Page
     {
         private GerenciadorImpressao gerenciadorImpressão;

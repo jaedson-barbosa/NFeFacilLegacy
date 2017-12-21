@@ -13,9 +13,7 @@ using System.Collections.Generic;
 
 namespace NFeFacil.ViewNFe
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [DetalhePagina(Symbol.Shop, "Produto")]
     public sealed partial class ManipulacaoProdutoCompleto : Page, IHambuguer, IValida
     {
         public DetalhesProdutos ProdutoCompleto { get; private set; }

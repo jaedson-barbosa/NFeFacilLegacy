@@ -1,7 +1,7 @@
 ﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using static NFeFacil.Extensoes;
+using static NFeFacil.ExtensoesPrincipal;
 
 namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto
 {

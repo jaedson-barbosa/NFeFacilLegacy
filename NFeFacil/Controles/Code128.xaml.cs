@@ -61,7 +61,7 @@ namespace NFeFacil.Controles
 
             i = 0;
             int sum = formattedData.Sum(x => int.Parse(Find(x, 0)) * (i == 0 ? i = 1 : i++));
-            formattedData.Add((sum % 103).ToString());
+            formattedData.Add((sum % 103).ToString("00"));
             formattedData.Add("STOP");
 
             var EncodedValue = string.Concat(formattedData.Select(s => Find(s, 2)));

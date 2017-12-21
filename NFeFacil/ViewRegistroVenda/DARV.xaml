@@ -278,6 +278,10 @@
                                Grid.Column="1">Email: <Run Text="{x:Bind Comprador.Email}" /></TextBlock>
                 </Grid>
                 <Grid Grid.Row="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition />
@@ -286,12 +290,18 @@
                         <RowDefinition />
                     </Grid.RowDefinitions>
                     <TextBlock Style="{StaticResource Subtitulo}">Transporte</TextBlock>
-                    <TextBlock Grid.Row="1">Tipo de frete: <Run Text="{x:Bind Registro.TipoFrete}" /></TextBlock>
-                    <TextBlock Grid.Row="2">Nome: <Run Text="{x:Bind Motorista.Nome}" /></TextBlock>
-                    <ContentPresenter Grid.Row="3"
+                    <TextBlock Grid.Row="1">Nome: <Run Text="{x:Bind Motorista.Nome}" /></TextBlock>
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="1">Tipo de frete: <Run Text="{x:Bind Registro.TipoFrete}" /></TextBlock>
+                    <ContentPresenter Grid.Row="2"
                                       ContentTemplate="{x:Bind TemplateTransporte}"
-                                      Content="{x:Bind Motorista}" />
-                    <TextBlock Grid.Row="4">Endereço: <Run Text="{x:Bind Motorista.XEnder}" /> - <Run Text="{x:Bind Motorista.XMun}" />/<Run Text="{x:Bind Motorista.UF}" /></TextBlock>
+                                      Content="{x:Bind Motorista}"
+                                      Grid.ColumnSpan="2" />
+                    <TextBlock Grid.Row="3"
+                               Grid.ColumnSpan="2">Endereço: <Run Text="{x:Bind Motorista.XEnder}" /> - <Run Text="{x:Bind Motorista.XMun}" />/<Run Text="{x:Bind Motorista.UF}" /></TextBlock>
+                    <TextBlock Grid.Row="4">Telefone: <Run Text="{x:Bind Motorista.Telefone}" /></TextBlock>
+                    <TextBlock Grid.Row="4"
+                               Grid.Column="1">Email: <Run Text="{x:Bind Motorista.Email}" /></TextBlock>
                 </Grid>
                 <ContentPresenter x:Name="produtosPagina0"
                                   Grid.Row="5"

@@ -9,19 +9,32 @@
                PrimaryButtonText="Concluir"
                SecondaryButtonText="Cancelar"
                PrimaryButtonClick="ContentDialog_PrimaryButtonClick">
-    <StackPanel>
-        <TextBox Header="Descrição breve"
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <TextBox Grid.ColumnSpan="2"
+                 Header="Descrição breve"
                  TextWrapping="Wrap"
                  Text="{x:Bind Item.Descricao, Mode=TwoWay}" />
-        <ComboBox ItemsSource="{x:Bind VM:DadosEstadosParaView.EstadosCompletos}"
-                  SelectedValue="{x:Bind Item.UF, Mode=TwoWay}"
+        <ComboBox Grid.Row="1"
+                  ItemsSource="{x:Bind VM:DadosEstadosParaView.Siglas}"
+                  SelectedItem="{x:Bind Item.UF, Mode=TwoWay}"
                   Header="Estado"
-                  DisplayMemberPath="Nome"
-                  SelectedValuePath="Sigla"
                   HorizontalAlignment="Stretch" />
-        <TextBox Header="Placa"
+        <TextBox Grid.Row="1"
+                 Grid.Column="1"
+                 Header="Placa"
                  Text="{x:Bind Item.Placa, Mode=TwoWay}" />
-        <TextBox Header="RNTC"
+        <TextBox Grid.Row="2"
+                 Grid.ColumnSpan="2"
+                 Header="RNTC"
                  Text="{x:Bind RNTC, Mode=TwoWay}" />
-    </StackPanel>
+    </Grid>
 </ContentDialog>

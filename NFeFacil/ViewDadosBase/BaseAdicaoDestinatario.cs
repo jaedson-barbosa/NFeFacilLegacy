@@ -10,7 +10,7 @@ namespace NFeFacil.ViewDadosBase
 {
     internal sealed class BaseAdicaoDestinatario
     {
-        internal ClienteDI Cliente { get; private set; }
+        internal ClienteDI Cliente { get; }
         internal ObservableCollection<Municipio> ListaMunicipios { get; }
 
         public string UFEscolhida

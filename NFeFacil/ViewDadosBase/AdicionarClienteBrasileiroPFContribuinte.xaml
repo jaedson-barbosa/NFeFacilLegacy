@@ -5,52 +5,54 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
-    <StackPanel Padding="16">
-        <ItemsControl Style="{StaticResource ItensResponsivos}">
-            <TextBox Text="{x:Bind Base.Cliente.Nome, Mode=TwoWay}"
-                     InputScope="Text"
-                     Header="Nome/Razão social *" />
-            <TextBox Text="{x:Bind Base.Cliente.CPF, Mode=TwoWay}"
-                     InputScope="Number"
-                     Header="CPF *" />
-            <TextBox Text="{x:Bind Base.Cliente.InscricaoEstadual, Mode=TwoWay}"
-                     InputScope="Number"
-                     Header="Inscrição estadual" />
-            <TextBox Text="{x:Bind Base.Cliente.Email, Mode=TwoWay}"
-                     InputScope="EmailNameOrAddress"
-                     Header="Email" />
-        </ItemsControl>
-        <TextBlock Text="Endereço"
-                   Style="{StaticResource TitleTextBlockStyle}"
-                   Margin="4,0,0,0" />
-        <ItemsControl Style="{StaticResource ItensResponsivos}">
-            <ComboBox ItemsSource="{x:Bind VM:DadosEstadosParaView.Siglas}"
-                      SelectedItem="{x:Bind Base.UFEscolhida, Mode=TwoWay}"
-                      Header="Estado" />
-            <ComboBox ItemsSource="{x:Bind Base.ListaMunicipios}"
-                      SelectedItem="{x:Bind Base.ConjuntoMunicipio, Mode=TwoWay}"
-                      DisplayMemberPath="Nome"
-                      Header="Município" />
-            <TextBox Text="{x:Bind Base.Cliente.Logradouro, Mode=TwoWay}"
-                     InputScope="Text"
-                     Header="Logradouro *" />
-            <TextBox Text="{x:Bind Base.Cliente.Numero, Mode=TwoWay}"
-                     InputScope="Text"
-                     Header="Número *" />
-            <TextBox Text="{x:Bind Base.Cliente.Complemento, Mode=TwoWay}"
-                     InputScope="Text"
-                     Header="Complemento" />
-            <TextBox Text="{x:Bind Base.Cliente.Bairro, Mode=TwoWay}"
-                     InputScope="Text"
-                     Header="Bairro *" />
-            <TextBox Text="{x:Bind Base.Cliente.CEP, Mode=TwoWay}"
-                     InputScope="Number"
-                     Header="CEP" />
-            <TextBox Text="{x:Bind Base.Cliente.Telefone, Mode=TwoWay}"
-                     InputScope="Number"
-                     Header="Telefone" />
-        </ItemsControl>
-    </StackPanel>
+    <ItemsControl Padding="16">
+        <StackPanel>
+            <ItemsControl Style="{StaticResource ItensResponsivos}">
+                <TextBox Text="{x:Bind Base.Cliente.Nome, Mode=TwoWay}"
+                         InputScope="Text"
+                         Header="Nome/Razão social *" />
+                <TextBox Text="{x:Bind Base.Cliente.CPF, Mode=TwoWay}"
+                         InputScope="Number"
+                         Header="CPF *" />
+                <TextBox Text="{x:Bind Base.Cliente.InscricaoEstadual, Mode=TwoWay}"
+                         InputScope="Number"
+                         Header="Inscrição estadual" />
+                <TextBox Text="{x:Bind Base.Cliente.Email, Mode=TwoWay}"
+                         InputScope="EmailNameOrAddress"
+                         Header="Email" />
+            </ItemsControl>
+            <TextBlock Text="Endereço"
+                       Style="{StaticResource TitleTextBlockStyle}"
+                       Margin="4,0,0,0" />
+            <ItemsControl Style="{StaticResource ItensResponsivos}">
+                <ComboBox ItemsSource="{x:Bind VM:DadosEstadosParaView.Siglas}"
+                          SelectedItem="{x:Bind Base.UFEscolhida, Mode=TwoWay}"
+                          Header="Estado" />
+                <ComboBox ItemsSource="{x:Bind Base.ListaMunicipios}"
+                          SelectedItem="{x:Bind Base.ConjuntoMunicipio, Mode=TwoWay}"
+                          DisplayMemberPath="Nome"
+                          Header="Município" />
+                <TextBox Text="{x:Bind Base.Cliente.Logradouro, Mode=TwoWay}"
+                         InputScope="Text"
+                         Header="Logradouro *" />
+                <TextBox Text="{x:Bind Base.Cliente.Numero, Mode=TwoWay}"
+                         InputScope="Text"
+                         Header="Número *" />
+                <TextBox Text="{x:Bind Base.Cliente.Complemento, Mode=TwoWay}"
+                         InputScope="Text"
+                         Header="Complemento" />
+                <TextBox Text="{x:Bind Base.Cliente.Bairro, Mode=TwoWay}"
+                         InputScope="Text"
+                         Header="Bairro *" />
+                <TextBox Text="{x:Bind Base.Cliente.CEP, Mode=TwoWay}"
+                         InputScope="Number"
+                         Header="CEP" />
+                <TextBox Text="{x:Bind Base.Cliente.Telefone, Mode=TwoWay}"
+                         InputScope="Number"
+                         Header="Telefone" />
+            </ItemsControl>
+        </StackPanel>
+    </ItemsControl>
     <Page.BottomAppBar>
         <CommandBar>
             <AppBarButton x:Name="Confirmar"

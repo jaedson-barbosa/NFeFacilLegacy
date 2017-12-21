@@ -7,6 +7,7 @@ using System.Xml.Linq;
 using NFeFacil.IBGE;
 using System;
 using NFeFacil.Certificacao.LAN;
+using System.Net;
 
 namespace NFeFacil.WebService
 {
@@ -47,7 +48,8 @@ namespace NFeFacil.WebService
                 using (var proxy = new HttpClient(new HttpClientHandler()
                 {
                     ClientCertificateOptions = ClientCertificateOption.Automatic,
-                    UseDefaultCredentials = true
+                    UseDefaultCredentials = true,
+                    AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip
                 }, true))
                 {
                     proxy.DefaultRequestHeaders.Add("SOAPAction", Enderecos.Metodo);
@@ -73,6 +75,7 @@ namespace NFeFacil.WebService
 
                 using (var cliente = new HttpClient())
                 {
+                    
                     var uri = new Uri($"http://{OperacoesServidor.RootUri}:1010/EnviarRequisicao");
                     var xml = envio.ToXElement<RequisicaoEnvioDTO>().ToString(SaveOptions.DisableFormatting);
                     var conteudo = new StringContent(xml, Encoding.UTF8, "text/xml");
@@ -99,18 +102,17 @@ namespace NFeFacil.WebService
         string ObterConteudoRequisicao(Envio corpo, bool addNamespace)
         {
             var xml = corpo.ToXElement<Envio>();
-            if (addNamespace)
-            {
-                const string namespaceNFe = "http://www.portalfiscal.inf.br/nfe";
-                xml.Element(XName.Get("NFe", namespaceNFe)).SetAttributeValue("xmlns", namespaceNFe);
-            }
-            var recurso = "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">" +
-                "<soap:Header><nfeCabecMsg xmlns=\"{0}\"><cUF>{1}</cUF><versaoDados>{2}</versaoDados></nfeCabecMsg></soap:Header>" +
-                "<soap:Body><nfeDadosMsg xmlns=\"{0}\">{3}</nfeDadosMsg></soap:Body>" +
-                "</soap:Envelope>";
+            var servico = Enderecos.Servico;
+            var teste = new XElement("{http://schemas.xmlsoap.org/soap/envelope/}Envelope",
+                new XElement("{http://schemas.xmlsoap.org/soap/envelope/}Header",
+                    new XElement(Name("nfeCabecMsg"),
+                        new XElement(Name("cUF"), CodigoUF),
+                        new XElement(Name("versaoDados"), VersaoDados))),
+                new XElement("{http://schemas.xmlsoap.org/soap/envelope/}Body",
+                    new XElement(Name("nfeDadosMsg"), xml)));
+            return teste.ToString(SaveOptions.DisableFormatting);
 
-            return string.Format(recurso, Enderecos.Servico, CodigoUF, VersaoDados,
-                xml.ToString(SaveOptions.DisableFormatting));
+            XName Name(string original) => XName.Get(original, servico);
         }
     }
 }

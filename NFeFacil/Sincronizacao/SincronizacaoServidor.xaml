@@ -8,8 +8,7 @@
         <StackPanel>
             <TextBlock Margin="0,8,0,0"
                        Style="{StaticResource SubtitleTextBlockStyle}">Inicialização do servidor</TextBlock>
-            <TextBlock TextWrapping="Wrap"
-                       x:Uid="txtInicializaçãoServidor" />
+            <TextBlock TextWrapping="Wrap">Para que haja sincronização de dados deve haver um servidor. Já que este dispositivo será o servidor da rede local, clique o botão abaixo para que ele o servidor inicie. Se quiser, ligue a inicialização automática para que o servidor inicie sempre junto à aplicação.</TextBlock>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
@@ -25,8 +24,7 @@
             </Grid>
             <TextBlock Margin="0,8,0,0"
                        Style="{StaticResource SubtitleTextBlockStyle}">Conexão ao servidor</TextBlock>
-            <TextBlock TextWrapping="Wrap"
-                       x:Uid="txtConexaoServidor" />
+            <TextBlock TextWrapping="Wrap">Para garantir a total segurança do sistema de sincronização é gerado um servidor temporário que serve para liberar o acesso ao servidor permanente. Para se conectar ao servidor leia o código QR abaixo usando o leitor QR do aplicativo no dispositivo cliente.</TextBlock>
             <Button HorizontalAlignment="Stretch"
                     Margin="0,0,0,10"
                     Click="ExibirQR">Gerar código QR temporário</Button>

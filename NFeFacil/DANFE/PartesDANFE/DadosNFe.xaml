@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:barcode="using:NFeFacil.CodigoBarras"
+             xmlns:controles="using:NFeFacil.Controles"
              mc:Ignorable="d"
              d:DesignHeight="300"
              d:DesignWidth="400">
@@ -96,7 +96,7 @@
                             BorderBrush="Black">
                     <TextBlock Style="{StaticResource Cabecalho}"
                                Margin="{StaticResource PaddingPadrao}">CONTROLE DO FISCO</TextBlock>
-                    <barcode:Code128 Data="{x:Bind Contexto.Chave}"
+                    <controles:Code128 Data="{x:Bind Contexto.Chave}"
                                      Margin="0,2,0,4" />
                 </StackPanel>
                 <StackPanel BorderThickness="0,0,0,1"

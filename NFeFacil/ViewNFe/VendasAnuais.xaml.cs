@@ -73,8 +73,8 @@ namespace NFeFacil.ViewNFe
 
             using (var repo = new Repositorio.Leitura())
             {
-                AnosDisponiveis = repo.ObterAnosNFe(Propriedades.EmitenteAtivo.CNPJ).GerarObs();
-                NotasFiscais = repo.ObterNFesPorAno(Propriedades.EmitenteAtivo.CNPJ)
+                AnosDisponiveis = repo.ObterAnosNFe(DefinicoesTemporarias.EmitenteAtivo.CNPJ).GerarObs();
+                NotasFiscais = repo.ObterNFesPorAno(DefinicoesTemporarias.EmitenteAtivo.CNPJ)
                     .ToDictionary(x => x.Key, x => x.Value.Select(Processar).ToArray());
 
                 NotaProcessada Processar((DateTime data, string xml) k)

@@ -51,7 +51,7 @@ namespace NFeFacil.ViewDadosBase.GerenciamentoProdutos
                     caixa.Commands.Add(new UICommand("Sim", x =>
                     {
                         estoque = new Estoque() { Id = produto.Id };
-                        repo.SalvarItemSimples(estoque, Propriedades.DateTimeNow);
+                        repo.SalvarItemSimples(estoque, DefinicoesTemporarias.DateTimeNow);
                         repo.SalvarComTotalCerteza();
                     }));
                     caixa.Commands.Add(new UICommand("Não"));
@@ -72,7 +72,7 @@ namespace NFeFacil.ViewDadosBase.GerenciamentoProdutos
 
             using (var repo = new Repositorio.Escrita())
             {
-                repo.InativarDadoBase(prod, Propriedades.DateTimeNow);
+                repo.InativarDadoBase(prod, DefinicoesTemporarias.DateTimeNow);
                 Produtos.Remove(prod);
             }
         }

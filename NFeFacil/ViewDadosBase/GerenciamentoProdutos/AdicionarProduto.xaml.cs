@@ -42,7 +42,7 @@ namespace NFeFacil.ViewDadosBase.GerenciamentoProdutos
                 {
                     using (var repo = new Repositorio.Escrita())
                     {
-                        repo.SalvarItemSimples(Produto, Propriedades.DateTimeNow);
+                        repo.SalvarItemSimples(Produto, DefinicoesTemporarias.DateTimeNow);
                     }
                     MainPage.Current.Retornar();
                 }

@@ -27,7 +27,7 @@ namespace NFeFacil.ViewNFe
             InitializeComponent();
             using (var repo = new Repositorio.Leitura())
             {
-                var (emitidas, outras, canceladas) = repo.ObterNotas(Propriedades.EmitenteAtivo.CNPJ);
+                var (emitidas, outras, canceladas) = repo.ObterNotas(DefinicoesTemporarias.EmitenteAtivo.CNPJ);
                 NotasEmitidas = emitidas.GerarObs();
                 OutrasNotas = outras.GerarObs();
                 NotasCanceladas = canceladas.GerarObs();
@@ -100,10 +100,10 @@ namespace NFeFacil.ViewNFe
                                     RetEvento = resposta.RetEvento,
                                     Versao = resposta.Versao
                                 }.ToXElement<ProcEventoCancelamento>().ToString()
-                            }, Propriedades.DateTimeNow);
+                            }, DefinicoesTemporarias.DateTimeNow);
 
                             nota.Status = (int)StatusNFe.Cancelada;
-                            repo.SalvarItemSimples(nota, Propriedades.DateTimeNow);
+                            repo.SalvarItemSimples(nota, DefinicoesTemporarias.DateTimeNow);
 
                             NotasEmitidas.Remove(nota);
                             NotasCanceladas.Insert(0, nota);

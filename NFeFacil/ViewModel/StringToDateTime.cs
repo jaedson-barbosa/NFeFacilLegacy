@@ -10,7 +10,7 @@ namespace NFeFacil.ViewModel
         {
             if (value is null)
             {
-                return targetType == typeof(DateTime) ? Propriedades.DateTimeNow : Propriedades.DateTimeOffsetNow;
+                return targetType == typeof(DateTime) ? DefinicoesTemporarias.DateTimeNow : DefinicoesTemporarias.DateTimeOffsetNow;
             }
             else if (value is string valor)
             {
@@ -23,7 +23,7 @@ namespace NFeFacil.ViewModel
                 {
                     if (string.IsNullOrEmpty(valor))
                     {
-                        return Propriedades.DateTimeNow;
+                        return DefinicoesTemporarias.DateTimeNow;
                     }
                     else
                     {
@@ -34,7 +34,7 @@ namespace NFeFacil.ViewModel
                 {
                     if (string.IsNullOrEmpty(valor))
                     {
-                        return Propriedades.DateTimeOffsetNow;
+                        return DefinicoesTemporarias.DateTimeOffsetNow;
                     }
                     else
                     {

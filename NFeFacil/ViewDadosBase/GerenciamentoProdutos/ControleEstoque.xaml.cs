@@ -112,7 +112,7 @@ namespace NFeFacil.ViewDadosBase.GerenciamentoProdutos
             {
                 using (var repo = new Repositorio.Escrita())
                 {
-                    repo.SalvarItemSimples(Estoque, Propriedades.DateTimeNow);
+                    repo.SalvarItemSimples(Estoque, DefinicoesTemporarias.DateTimeNow);
                 }
             }
         }
@@ -125,11 +125,11 @@ namespace NFeFacil.ViewDadosBase.GerenciamentoProdutos
                 var valor = caixa.ValorProcessado;
                 if (valor != 0)
                 {
-                    Estoque.UltimaData = Propriedades.DateTimeNow;
+                    Estoque.UltimaData = DefinicoesTemporarias.DateTimeNow;
                     var alt = new AlteracaoEstoque()
                     {
                         Alteração = valor,
-                        MomentoRegistro = Propriedades.DateTimeNow
+                        MomentoRegistro = DefinicoesTemporarias.DateTimeNow
                     };
                     if (Estoque.Alteracoes == null)
                     {

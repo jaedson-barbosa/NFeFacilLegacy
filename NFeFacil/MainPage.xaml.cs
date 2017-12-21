@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NFeFacil.View;
+using System;
 using System.Reflection;
 using Windows.ApplicationModel.Core;
 using Windows.System.Profile;
@@ -41,7 +42,7 @@ namespace NFeFacil
                 default:
                     break;
             }
-            ConfiguracoesPermanentes.TipoBackground = tipo;
+            DefinicoesPermanentes.TipoBackground = tipo;
         }
 
         internal void DefinirOpacidadeBackground(double opacidade)
@@ -74,24 +75,24 @@ namespace NFeFacil
         {
             using (var analise = new Repositorio.OperacoesExtras())
             {
-                await analise.AnalisarBanco(Propriedades.DateTimeNow);
+                await analise.AnalisarBanco(DefinicoesTemporarias.DateTimeNow);
             }
             using (var repo = new Repositorio.Leitura())
             {
-                switch (ConfiguracoesPermanentes.TipoBackground)
+                switch (DefinicoesPermanentes.TipoBackground)
                 {
                     case TiposBackground.Imagem:
-                        if (ConfiguracoesPermanentes.IDBackgroung != default(Guid))
+                        if (DefinicoesPermanentes.IDBackgroung != default(Guid))
                         {
-                            var img = repo.ProcurarImagem(ConfiguracoesPermanentes.IDBackgroung);
+                            var img = repo.ProcurarImagem(DefinicoesPermanentes.IDBackgroung);
                             ImagemBackground = img?.Bytes?.GetSource();
                         }
                         DefinirTipoBackground(TiposBackground.Imagem);
-                        DefinirOpacidadeBackground(ConfiguracoesPermanentes.OpacidadeBackground);
+                        DefinirOpacidadeBackground(DefinicoesPermanentes.OpacidadeBackground);
                         break;
                     case TiposBackground.Cor:
                         DefinirTipoBackground(TiposBackground.Cor);
-                        DefinirOpacidadeBackground(ConfiguracoesPermanentes.OpacidadeBackground);
+                        DefinirOpacidadeBackground(DefinicoesPermanentes.OpacidadeBackground);
                         break;
                 }
 
@@ -173,14 +174,14 @@ namespace NFeFacil
 
         public void AtualizarInformaçõesGerais()
         {
-            imgLogotipo.Source = Propriedades.Logotipo;
-            txtNomeEmitente.Text = Propriedades.EmitenteAtivo.Nome;
-            txtNomeEmpresa.Text = Propriedades.EmitenteAtivo.NomeFantasia;
+            imgLogotipo.Source = DefinicoesTemporarias.Logotipo;
+            txtNomeEmitente.Text = DefinicoesTemporarias.EmitenteAtivo.Nome;
+            txtNomeEmpresa.Text = DefinicoesTemporarias.EmitenteAtivo.NomeFantasia;
 
-            if (Propriedades.VendedorAtivo != null)
+            if (DefinicoesTemporarias.VendedorAtivo != null)
             {
-                imgVendedor.Source = Propriedades.FotoVendedor;
-                txtNomeVendedor.Text = Propriedades.VendedorAtivo.Nome;
+                imgVendedor.Source = DefinicoesTemporarias.FotoVendedor;
+                txtNomeVendedor.Text = DefinicoesTemporarias.VendedorAtivo.Nome;
             }
             else
             {

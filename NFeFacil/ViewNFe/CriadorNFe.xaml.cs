@@ -20,7 +20,7 @@ namespace NFeFacil.ViewNFe
             set
             {
                 ambienteHomolocagao = value;
-                if (ConfiguracoesPermanentes.CalcularNumeroNFe)
+                if (DefinicoesPermanentes.CalcularNumeroNFe)
                 {
                     CalcularNumero_Click(null, null);
                 }
@@ -36,7 +36,7 @@ namespace NFeFacil.ViewNFe
             {
                 Informacoes = new Detalhes()
                 {
-                    emitente = Propriedades.EmitenteAtivo.ToEmitente(),
+                    emitente = DefinicoesTemporarias.EmitenteAtivo.ToEmitente(),
                     destinatário = new Destinatario(),
                     produtos = new List<DetalhesProdutos>(),
                     transp = new Transporte()
@@ -52,7 +52,7 @@ namespace NFeFacil.ViewNFe
                     cana = new RegistroAquisicaoCana()
                 }
             };
-            if (ConfiguracoesPermanentes.CalcularNumeroNFe)
+            if (DefinicoesPermanentes.CalcularNumeroNFe)
             {
                 CalcularNumero_Click(null, null);
             }
@@ -71,8 +71,8 @@ namespace NFeFacil.ViewNFe
                 Serie = Serie,
                 Numero = (int)txtNumero.Number,
                 TipoAmbiente = (ushort)(AmbienteHomolocagao ? 2 : 1),
-                CódigoUF = Estados.Buscar(Propriedades.EmitenteAtivo.SiglaUF).Codigo,
-                CodigoMunicipio = Propriedades.EmitenteAtivo.CodigoMunicipio
+                CódigoUF = Estados.Buscar(DefinicoesTemporarias.EmitenteAtivo.SiglaUF).Codigo,
+                CodigoMunicipio = DefinicoesTemporarias.EmitenteAtivo.CodigoMunicipio
             };
             identificacao.DefinirVersãoAplicativo();
             PreNota.Informacoes.identificacao = identificacao;
@@ -82,7 +82,7 @@ namespace NFeFacil.ViewNFe
 
         private void CalcularNumero_Click(object sender, RoutedEventArgs e)
         {
-            var cnpj = Propriedades.EmitenteAtivo.CNPJ;
+            var cnpj = DefinicoesTemporarias.EmitenteAtivo.CNPJ;
             using (var repo = new Repositorio.Leitura())
             {
                 txtNumero.Number = repo.ObterMaiorNumeroNFe(cnpj, Serie, AmbienteHomolocagao) + 1;

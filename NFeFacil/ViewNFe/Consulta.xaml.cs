@@ -61,7 +61,7 @@ namespace NFeFacil.ViewNFe
                                     ProtNFe = resp.protNFe
                                 };
                                 nota.XML = novo.ToXElement<Processo>().ToString();
-                                esc.SalvarItemSimples(nota, Propriedades.DateTimeNow);
+                                esc.SalvarItemSimples(nota, DefinicoesTemporarias.DateTimeNow);
                                 Resultados.Insert(0, "Detectada e atualizada nota fiscal.");
                             }
                         }

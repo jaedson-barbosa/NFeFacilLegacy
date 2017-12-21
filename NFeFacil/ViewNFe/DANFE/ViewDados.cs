@@ -217,7 +217,7 @@ namespace NFeFacil.ViewNFe.DANFE
                 NumeroProtocolo = prot.InfProt.nProt.ToString(),
                 SerieNota = detalhes.identificacao.Serie.ToString(),
                 TipoEmissao = detalhes.identificacao.TipoEmissão.ToString(),
-                Logotipo = Propriedades.Logotipo
+                Logotipo = DefinicoesTemporarias.Logotipo
             };
 
             string AplicarMascaraChave(string original)

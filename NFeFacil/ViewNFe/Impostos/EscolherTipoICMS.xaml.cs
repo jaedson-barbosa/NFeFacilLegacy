@@ -10,7 +10,7 @@ namespace NFeFacil.ViewNFe.Impostos
         public EscolherTipoICMS()
         {
             InitializeComponent();
-            var normal = Propriedades.EmitenteAtivo.RegimeTributario == 3;
+            var normal = DefinicoesTemporarias.EmitenteAtivo.RegimeTributario == 3;
             cmbTipoICMSRN.Visibility = normal ? Visibility.Visible : Visibility.Collapsed;
             cmbTipoICMSSN.Visibility = normal ? Visibility.Collapsed : Visibility.Visible;
         }

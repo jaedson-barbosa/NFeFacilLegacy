@@ -31,7 +31,7 @@ namespace NFeFacil.ViewDadosBase
             using (var repo = new Escrita())
             {
                 var clientes = await Entrada<Destinatario>("dest");
-                repo.AnalisarAdicionarClientes(clientes.Select(dest => new ClienteDI(dest)), Propriedades.DateTimeNow);
+                repo.AnalisarAdicionarClientes(clientes.Select(dest => new ClienteDI(dest)), DefinicoesTemporarias.DateTimeNow);
             }
         }
 
@@ -40,7 +40,7 @@ namespace NFeFacil.ViewDadosBase
             using (var repo = new Escrita())
             {
                 var motoristas = await Entrada<Motorista>("transporta");
-                repo.AnalisarAdicionarMotoristas(motoristas.Select(mot => new MotoristaDI(mot)), Propriedades.DateTimeNow);
+                repo.AnalisarAdicionarMotoristas(motoristas.Select(mot => new MotoristaDI(mot)), DefinicoesTemporarias.DateTimeNow);
             }
         }
 
@@ -49,7 +49,7 @@ namespace NFeFacil.ViewDadosBase
             using (var repo = new Escrita())
             {
                 var produtos = await Entrada<ProdutoDI.ProdutoOuServicoGenerico>("prod");
-                repo.AnalisarAdicionarProdutos(produtos.Select(prod => new ProdutoDI(prod)), Propriedades.DateTimeNow);
+                repo.AnalisarAdicionarProdutos(produtos.Select(prod => new ProdutoDI(prod)), DefinicoesTemporarias.DateTimeNow);
             }
         }
 
@@ -85,7 +85,7 @@ namespace NFeFacil.ViewDadosBase
             }
             using (var repo = new Escrita())
             {
-                repo.AdicionarNotasFiscais(conjuntos, Propriedades.DateTimeNow);
+                repo.AdicionarNotasFiscais(conjuntos, DefinicoesTemporarias.DateTimeNow);
             }
             Popup.Current.Escrever(TitulosComuns.Atenção, "Caso algum dado não tenha sido importado é porque ele não tem o formado aceito pelo aplicativo.");
         }

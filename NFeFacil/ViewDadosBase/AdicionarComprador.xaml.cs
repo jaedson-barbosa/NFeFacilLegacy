@@ -50,7 +50,7 @@ namespace NFeFacil.ViewDadosBase
                 {
                     using (var repo = new Repositorio.Escrita())
                     {
-                        repo.SalvarItemSimples(Comprador, Propriedades.DateTimeNow);
+                        repo.SalvarItemSimples(Comprador, DefinicoesTemporarias.DateTimeNow);
                     }
                     MainPage.Current.Retornar();
                 }

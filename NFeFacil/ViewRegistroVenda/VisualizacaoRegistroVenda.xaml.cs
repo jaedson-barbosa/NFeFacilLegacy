@@ -36,7 +36,7 @@ namespace NFeFacil.ViewRegistroVenda
                 vendedor = ItemBanco.Vendedor != Guid.Empty ? repo.ObterVendedor(ItemBanco.Vendedor) : null;
                 comprador = ItemBanco.Comprador != Guid.Empty ? repo.ObterComprador(ItemBanco.Comprador) : null;
                 produtosCompletos = ItemBanco.Produtos.Select(x => repo.ObterProduto(x.IdBase)).ToArray();
-                var emitente = Propriedades.EmitenteAtivo;
+                var emitente = DefinicoesTemporarias.EmitenteAtivo;
 
                 AddBloco("Emitente", ("Nome", emitente.Nome),
                     ("Nome fantasia", emitente.NomeFantasia),
@@ -207,12 +207,12 @@ namespace NFeFacil.ViewRegistroVenda
                 var cancelamento = new CancelamentoRegistroVenda()
                 {
                     Motivo = caixa.Motivo,
-                    MomentoCancelamento = Propriedades.DateTimeNow,
+                    MomentoCancelamento = DefinicoesTemporarias.DateTimeNow,
                     Id = ItemBanco.Id
                 };
                 using (var repo = new Repositorio.Escrita())
                 {
-                    repo.CancelarRV(ItemBanco, cancelamento, Propriedades.DateTimeNow);
+                    repo.CancelarRV(ItemBanco, cancelamento, DefinicoesTemporarias.DateTimeNow);
                 }
                 AddBloco("Cancelamento", ("Motivo", cancelamento.Motivo),
                     ("Data", cancelamento.MomentoCancelamento.ToString("dd/MM/yyyy")));

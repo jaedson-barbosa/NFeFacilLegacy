@@ -25,7 +25,7 @@ namespace NFeFacil.ViewNFe.CaixasDialogoProduto
         {
             get
             {
-                if (Declaracao.DDI == null) Declaracao.DDI = Propriedades.DateTimeOffsetNow.ToString("yyyy-MM-dd");
+                if (Declaracao.DDI == null) Declaracao.DDI = DefinicoesTemporarias.DateTimeOffsetNow.ToString("yyyy-MM-dd");
                 return DateTimeOffset.Parse(Declaracao.DDI);
             }
             set { Declaracao.DDI = value.ToString("yyyy-MM-dd"); }
@@ -35,7 +35,7 @@ namespace NFeFacil.ViewNFe.CaixasDialogoProduto
         {
             get
             {
-                if (Declaracao.DDesemb == null) Declaracao.DDesemb = Propriedades.DateTimeOffsetNow.ToString("yyyy-MM-dd");
+                if (Declaracao.DDesemb == null) Declaracao.DDesemb = DefinicoesTemporarias.DateTimeOffsetNow.ToString("yyyy-MM-dd");
                 return DateTimeOffset.Parse(Declaracao.DDesemb);
             }
             set { Declaracao.DDesemb = value.ToString("yyyy-MM-dd"); }

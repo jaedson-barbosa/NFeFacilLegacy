@@ -64,7 +64,7 @@ namespace NFeFacil.ViewRegistroVenda
             PaddingEscolhido = new Thickness(dimensoes.PaddingProcessado);
 
             Registro = registro;
-            Emitente = Propriedades.EmitenteAtivo;
+            Emitente = DefinicoesTemporarias.EmitenteAtivo;
             Cliente = venda.Cliente;
             Vendedor = venda.Vendedor?.Nome ?? "Dono da empresa";
             Comprador = venda.Comprador;

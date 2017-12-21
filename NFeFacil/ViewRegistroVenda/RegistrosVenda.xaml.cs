@@ -17,7 +17,7 @@ namespace NFeFacil.ViewRegistroVenda
             InitializeComponent();
             using (var repo = new Repositorio.Leitura())
             {
-                Vendas = repo.ObterRegistrosVenda(Propriedades.EmitenteAtivo.Id).Select(x => new ExibicaoVenda
+                Vendas = repo.ObterRegistrosVenda(DefinicoesTemporarias.EmitenteAtivo.Id).Select(x => new ExibicaoVenda
                 {
                     Base = x.rv,
                     NomeCliente = x.cliente,

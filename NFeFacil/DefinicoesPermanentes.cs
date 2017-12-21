@@ -3,7 +3,7 @@ using Windows.Storage;
 
 namespace NFeFacil
 {
-    public static class ConfiguracoesPermanentes
+    public static class DefinicoesPermanentes
     {
         static ApplicationDataContainer Pasta = ApplicationData.Current.LocalSettings;
 

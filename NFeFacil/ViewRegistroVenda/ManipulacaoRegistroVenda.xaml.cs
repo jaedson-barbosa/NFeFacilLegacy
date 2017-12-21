@@ -94,11 +94,11 @@ namespace NFeFacil.ViewRegistroVenda
             }
             ItemBanco = new RegistroVenda
             {
-                Emitente = Propriedades.EmitenteAtivo.Id,
-                Vendedor = Propriedades.VendedorAtivo?.Id ?? Guid.Empty,
+                Emitente = DefinicoesTemporarias.EmitenteAtivo.Id,
+                Vendedor = DefinicoesTemporarias.VendedorAtivo?.Id ?? Guid.Empty,
                 Produtos = new System.Collections.Generic.List<ProdutoSimplesVenda>(),
-                DataHoraVenda = Propriedades.DateTimeNow,
-                PrazoEntrega = Propriedades.DateTimeNow
+                DataHoraVenda = DefinicoesTemporarias.DateTimeNow,
+                PrazoEntrega = DefinicoesTemporarias.DateTimeNow
             };
             ListaProdutos = new ObservableCollection<ExibicaoProdutoVenda>();
             AtualizarTotal();
@@ -148,7 +148,7 @@ namespace NFeFacil.ViewRegistroVenda
             {
                 using (var repo = new Repositorio.Escrita())
                 {
-                    repo.AdicionarRV(ItemBanco, Propriedades.DateTimeNow);
+                    repo.AdicionarRV(ItemBanco, DefinicoesTemporarias.DateTimeNow);
                 }
 
                 var ultPage = Frame.BackStack[Frame.BackStack.Count - 1];

@@ -32,7 +32,7 @@ namespace NFeFacil.View
             }
             using (var repo = new Repositorio.Escrita())
             {
-                repo.SalvarImagem(Id, Propriedades.DateTimeNow, bytes);
+                repo.SalvarImagem(Id, DefinicoesTemporarias.DateTimeNow, bytes);
             }
             Imagem = imgAtual.Source;
         }

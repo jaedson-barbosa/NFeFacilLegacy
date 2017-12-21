@@ -4,7 +4,7 @@ using Windows.UI.Xaml.Media;
 
 namespace NFeFacil
 {
-    public static class Propriedades
+    public static class DefinicoesTemporarias
     {
         public static EmitenteDI EmitenteAtivo { get; set; }
         public static ImageSource Logotipo { get; set; }
@@ -16,7 +16,7 @@ namespace NFeFacil
             get
             {
                 var atual = DateTime.Now;
-                if (atual.IsDaylightSavingTime() && ConfiguracoesPermanentes.SuprimirHorarioVerao)
+                if (atual.IsDaylightSavingTime() && DefinicoesPermanentes.SuprimirHorarioVerao)
                 {
                     return atual.AddHours(-1);
                 }
@@ -29,7 +29,7 @@ namespace NFeFacil
             get
             {
                 var atual = DateTime.Now;
-                if (atual.IsDaylightSavingTime() && ConfiguracoesPermanentes.SuprimirHorarioVerao)
+                if (atual.IsDaylightSavingTime() && DefinicoesPermanentes.SuprimirHorarioVerao)
                 {
                     return atual.AddHours(-1);
                 }

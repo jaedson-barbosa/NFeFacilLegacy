@@ -88,7 +88,7 @@ namespace NFeFacil.ViewNFe.Impostos
                 }
                 else if (atual is DetalhamentoICMS.Detalhamento icms)
                 {
-                    var normal = Propriedades.EmitenteAtivo.RegimeTributario == 3;
+                    var normal = DefinicoesTemporarias.EmitenteAtivo.RegimeTributario == 3;
                     if (!normal)
                     {
                         var csosn = int.Parse(icms.TipoICMSSN);

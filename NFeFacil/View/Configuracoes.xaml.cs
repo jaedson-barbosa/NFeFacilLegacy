@@ -40,14 +40,14 @@ namespace NFeFacil.View
 
         bool DesconsiderarHorarioVerao
         {
-            get => ConfiguracoesPermanentes.SuprimirHorarioVerao;
-            set => ConfiguracoesPermanentes.SuprimirHorarioVerao = value;
+            get => DefinicoesPermanentes.SuprimirHorarioVerao;
+            set => DefinicoesPermanentes.SuprimirHorarioVerao = value;
         }
 
         bool CalcularNumeroNFe
         {
-            get => ConfiguracoesPermanentes.CalcularNumeroNFe;
-            set => ConfiguracoesPermanentes.CalcularNumeroNFe = value;
+            get => DefinicoesPermanentes.CalcularNumeroNFe;
+            set => DefinicoesPermanentes.CalcularNumeroNFe = value;
         }
 
         async void UsarImagem(object sender, TappedRoutedEventArgs e)
@@ -55,11 +55,11 @@ namespace NFeFacil.View
             if (await Compra.AnalisarCompra())
             {
                 var brushAtual = MainPage.Current.ImagemBackground;
-                if (ConfiguracoesPermanentes.IDBackgroung == default(Guid))
+                if (DefinicoesPermanentes.IDBackgroung == default(Guid))
                 {
-                    ConfiguracoesPermanentes.IDBackgroung = Guid.NewGuid();
+                    DefinicoesPermanentes.IDBackgroung = Guid.NewGuid();
                 }
-                var caixa = new DefinirImagem(ConfiguracoesPermanentes.IDBackgroung, brushAtual);
+                var caixa = new DefinirImagem(DefinicoesPermanentes.IDBackgroung, brushAtual);
                 if (await caixa.ShowAsync() == ContentDialogResult.Primary)
                 {
                     MainPage.Current.ImagemBackground = caixa.Imagem;
@@ -80,10 +80,10 @@ namespace NFeFacil.View
         {
             if (await Compra.AnalisarCompra())
             {
-                var caixa = new EscolherTransparencia(ConfiguracoesPermanentes.OpacidadeBackground);
+                var caixa = new EscolherTransparencia(DefinicoesPermanentes.OpacidadeBackground);
                 if (await caixa.ShowAsync() == ContentDialogResult.Primary)
                 {
-                    ConfiguracoesPermanentes.OpacidadeBackground = caixa.Opacidade;
+                    DefinicoesPermanentes.OpacidadeBackground = caixa.Opacidade;
                     MainPage.Current.DefinirOpacidadeBackground(caixa.Opacidade);
                 }
             }
@@ -93,7 +93,7 @@ namespace NFeFacil.View
         {
             if (await Compra.AnalisarCompra())
             {
-                ConfiguracoesPermanentes.OpacidadeBackground = 1;
+                DefinicoesPermanentes.OpacidadeBackground = 1;
                 MainPage.Current.DefinirTipoBackground(TiposBackground.Padrao);
             }
         }

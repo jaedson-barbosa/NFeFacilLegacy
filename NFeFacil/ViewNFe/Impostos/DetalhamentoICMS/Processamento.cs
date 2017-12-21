@@ -23,7 +23,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS
         {
             if (Detalhamento is Detalhamento detalhamento)
             {
-                var normal = Propriedades.EmitenteAtivo.RegimeTributario == 3;
+                var normal = DefinicoesTemporarias.EmitenteAtivo.RegimeTributario == 3;
                 if (!normal)
                 {
                     var csosn = int.Parse(detalhamento.TipoICMSSN);

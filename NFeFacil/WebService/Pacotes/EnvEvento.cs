@@ -102,7 +102,7 @@ namespace NFeFacil.WebService.Pacotes
             TpAmb = tipoAmbiente;
             this.CNPJ = CNPJ;
             ChNFe = chaveNFe;
-            DhEvento = Propriedades.DateTimeNow.ToStringPersonalizado();
+            DhEvento = DefinicoesTemporarias.DateTimeNow.ToStringPersonalizado();
             TpEvento = 110111;
             NSeqEvento = 1;
             VerEvento = versaoEvento;

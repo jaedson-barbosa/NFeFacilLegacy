@@ -53,8 +53,8 @@ namespace NFeFacil.Login
             if (e.AddedItems.Count > 0)
             {
                 var item = (ConjuntoBasicoExibicao<Vendedor>)e.AddedItems[0];
-                Propriedades.VendedorAtivo = item.Objeto;
-                Propriedades.FotoVendedor = item.Imagem;
+                DefinicoesTemporarias.VendedorAtivo = item.Objeto;
+                DefinicoesTemporarias.FotoVendedor = item.Imagem;
                 MainPage.Current.Navegar<View.Inicio>();
                 MainPage.Current.AtualizarInformaçõesGerais();
             }
@@ -62,7 +62,7 @@ namespace NFeFacil.Login
 
         private void LogarAdiministrador(object sender, RoutedEventArgs e)
         {
-            Propriedades.VendedorAtivo = null;
+            DefinicoesTemporarias.VendedorAtivo = null;
             MainPage.Current.Navegar<View.Inicio>();
             MainPage.Current.AtualizarInformaçõesGerais();
         }

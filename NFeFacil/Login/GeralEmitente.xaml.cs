@@ -34,8 +34,8 @@ namespace NFeFacil.Login
 
         private void Confirmar(object sender, RoutedEventArgs e)
         {
-            Propriedades.EmitenteAtivo = emitente;
-            Propriedades.Logotipo = imagem;
+            DefinicoesTemporarias.EmitenteAtivo = emitente;
+            DefinicoesTemporarias.Logotipo = imagem;
             MainPage.Current.Navegar<EscolhaVendedor>();
         }
 

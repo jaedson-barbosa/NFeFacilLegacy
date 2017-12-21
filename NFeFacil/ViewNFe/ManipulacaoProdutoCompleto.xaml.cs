@@ -127,7 +127,6 @@ namespace NFeFacil.ViewNFe
             new ItemHambuguer(Symbol.Comment, "Info adicional"),
             new ItemHambuguer(Symbol.World, "Importação"),
             new ItemHambuguer(Symbol.World, "Exportação"),
-            new ItemHambuguer(Symbol.Target, "Produto específico")
         };
 
         public int SelectedIndex { set => main.SelectedIndex = value; }

@@ -13,8 +13,8 @@ namespace NFeFacil
         public Symbol SimboloSymbol { get; set; }
 
         public DetalhePagina(string titulo) => Titulo = titulo;
-        public DetalhePagina(string glyph, string texto) => SimboloGlyph = glyph;
-        public DetalhePagina(Symbol símbolo, string texto) => SimboloSymbol = símbolo;
+        public DetalhePagina(string glyph, string texto) : this(texto) => SimboloGlyph = glyph;
+        public DetalhePagina(Symbol símbolo, string texto) : this(texto) => SimboloSymbol = símbolo;
 
         public DetalhePagina(SimbolosEspeciais simbolo, string texto) : this(texto)
         {

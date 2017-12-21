@@ -26,75 +26,68 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Grid Margin="0,0,0,4">
+        <Grid x:Name="grd0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition />
+                <ColumnDefinition MaxWidth="256" />
+                <ColumnDefinition MaxWidth="256" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <Grid x:Name="grd0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition MaxWidth="256" />
-                    <ColumnDefinition MaxWidth="256" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <ComboBox Header="Cliente"
-                          ItemsSource="{x:Bind Clientes}"
-                          DisplayMemberPath="Root.Nome"
-                          SelectedValue="{x:Bind Cliente, Mode=TwoWay}"
-                          HorizontalAlignment="Stretch" />
-                <ComboBox Header="Transporte"
-                          ItemsSource="{x:Bind Motoristas}"
-                          DisplayMemberPath="Nome"
-                          SelectedValue="{x:Bind Motorista, Mode=TwoWay}"
-                          SelectedValuePath="Id"
-                          HorizontalAlignment="Stretch"
-                          Grid.Column="1"
-                          Margin="4,0"/>
-                <CalendarDatePicker Header="Prazo de entrega"
-                                    Date="{x:Bind PrazoEntrega, Mode=TwoWay}"
-                                    Grid.Column="2" />
-            </Grid>
-            <Grid x:Name="grd1"
-                  Grid.Column="1">
-                <Grid.Transitions>
-                    <TransitionCollection>
-                        <RepositionThemeTransition />
-                    </TransitionCollection>
-                </Grid.Transitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <TextBlock><Run>Total bruto:</Run><LineBreak /><Run x:Name="txtTotalBruto" /></TextBlock>
-                <TextBlock ToolTipService.ToolTip="Frete, despesas acessórias e seguro"
-                           Grid.Column="1"
-                           Margin="4,0"><Run>Adicionais:</Run><LineBreak /><Run x:Name="txtAdicionais" /></TextBlock>
-                <TextBlock Grid.Column="2"><Run>Desconto total:</Run><LineBreak /><Run x:Name="txtDescontoTotal" /></TextBlock>
-                <TextBlock Grid.Column="3"
-                           Margin="4,0,0,0"><Run>Total líquido:</Run><LineBreak /><Run x:Name="txtTotal" /></TextBlock>
-            </Grid>
+            <ComboBox Header="Cliente"
+                      ItemsSource="{x:Bind Clientes}"
+                      DisplayMemberPath="Root.Nome"
+                      SelectedValue="{x:Bind Cliente, Mode=TwoWay}"
+                      HorizontalAlignment="Stretch" />
+            <ComboBox Header="Transporte"
+                      ItemsSource="{x:Bind Motoristas}"
+                      DisplayMemberPath="Nome"
+                      SelectedValue="{x:Bind Motorista, Mode=TwoWay}"
+                      SelectedValuePath="Id"
+                      HorizontalAlignment="Stretch"
+                      Grid.Column="1"
+                      Margin="4,0" />
+            <CalendarDatePicker Header="Prazo de entrega"
+                                Date="{x:Bind PrazoEntrega, Mode=TwoWay}"
+                                Grid.Column="2" />
         </Grid>
-        <TextBlock Grid.Row="1"
-                   Style="{StaticResource SubtitleTextBlockStyle}">Produtos</TextBlock>
+        <Grid x:Name="grd1"
+              Grid.Column="1">
+            <Grid.Transitions>
+                <TransitionCollection>
+                    <RepositionThemeTransition />
+                </TransitionCollection>
+            </Grid.Transitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <TextBlock><Run>Total bruto:</Run><LineBreak /><Run x:Name="txtTotalBruto" /></TextBlock>
+            <TextBlock ToolTipService.ToolTip="Frete, despesas acessórias e seguro"
+                       Grid.Column="1"
+                       Margin="4,0"><Run>Adicionais:</Run><LineBreak /><Run x:Name="txtAdicionais" /></TextBlock>
+            <TextBlock Grid.Column="2"><Run>Desconto total:</Run><LineBreak /><Run x:Name="txtDescontoTotal" /></TextBlock>
+            <TextBlock Grid.Column="3"
+                       Margin="4,0,0,0"><Run>Total líquido:</Run><LineBreak /><Run x:Name="txtTotal" /></TextBlock>
+        </Grid>
         <GridView ItemsSource="{x:Bind ListaProdutos}"
                   Style="{StaticResource ItensMediosGrid}"
-                  Grid.Row="2">
+                  Grid.Row="2"
+                  Grid.ColumnSpan="2">
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType="local:ExibicaoProdutoVenda">
                     <Grid Background="Transparent"
-                          Padding="16">
+                          Padding="8">
                         <Grid.ContextFlyout>
                             <MenuFlyout>
                                 <MenuFlyoutItem Click="RemoverProduto">Remover</MenuFlyoutItem>
@@ -117,6 +110,7 @@
         </GridView>
         <TextBox PlaceholderText="Observações"
                  Grid.Row="3"
+                 Grid.ColumnSpan="2"
                  Text="{x:Bind Observacoes, Mode=TwoWay}"
                  Margin="0,4,0,0" />
     </Grid>

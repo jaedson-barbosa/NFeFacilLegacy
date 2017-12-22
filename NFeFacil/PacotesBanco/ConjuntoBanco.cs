@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace NFeFacil.Certificacao.LAN.PacotesBanco
 {
-    public struct ConjuntoBanco
+    public sealed class ConjuntoBanco
     {
         public ClienteDI[] Clientes { get; set; }
         public EmitenteDI[] Emitentes { get; set; }

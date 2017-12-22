@@ -7,7 +7,7 @@ namespace NFeFacil.Certificacao.LAN.PacotesBanco
 {
     public sealed class ConjuntoNotasFiscais
     {
-        public List<NFeDI> NotasFiscais { get; set; }
+        public NFeDI[] NotasFiscais { get; set; }
         bool VerificarEmissao(int atual) => atual >= (int)StatusNFe.Emitida;
 
         public DateTime InstanteSincronizacao { get; set; }
@@ -17,7 +17,7 @@ namespace NFeFacil.Certificacao.LAN.PacotesBanco
         {
             using (var db = new AplicativoContext())
             {
-                NotasFiscais = db.NotasFiscais.Where(x => x.UltimaData > minimo && VerificarEmissao(x.Status)).ToList();
+                NotasFiscais = db.NotasFiscais.Where(x => x.UltimaData > minimo && VerificarEmissao(x.Status)).ToArray();
             }
         }
 
@@ -26,16 +26,11 @@ namespace NFeFacil.Certificacao.LAN.PacotesBanco
             InstanteSincronizacao = atual;
             using (var db = new AplicativoContext())
             {
-                NotasFiscais = new List<NFeDI>();
-                foreach (var local in db.NotasFiscais)
-                {
-                    var servidor = existente.NotasFiscais.FirstOrDefault(x => x.Id == local.Id);
-                    if (VerificarEmissao(local.Status) &&
-                        local.UltimaData > (servidor == null ? minimo : servidor.UltimaData))
-                    {
-                        NotasFiscais.Add(local);
-                    }
-                }
+                NotasFiscais = (from local in db.NotasFiscais
+                                let servidor = existente.NotasFiscais.FirstOrDefault(x => x.Id == local.Id)
+                                where VerificarEmissao(local.Status)
+                                where local.UltimaData > (servidor == null ? minimo : servidor.UltimaData)
+                                select local).ToArray();
             }
         }
 
@@ -48,7 +43,7 @@ namespace NFeFacil.Certificacao.LAN.PacotesBanco
 
                 if (NotasFiscais != null)
                 {
-                    for (int i = 0; i < NotasFiscais.Count; i++)
+                    for (int i = 0; i < NotasFiscais.Length; i++)
                     {
                         var novo = NotasFiscais[i];
                         var atual = db.NotasFiscais.FirstOrDefault(x => x.Id == novo.Id);
@@ -75,7 +70,7 @@ namespace NFeFacil.Certificacao.LAN.PacotesBanco
         {
             using (var db = new AplicativoContext())
             {
-                NotasFiscais = db.NotasFiscais.Where(x => VerificarEmissao(x.Status)).ToList();
+                NotasFiscais = db.NotasFiscais.Where(x => VerificarEmissao(x.Status)).ToArray();
             }
         }
     }

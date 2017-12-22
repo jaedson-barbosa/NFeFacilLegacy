@@ -15,21 +15,7 @@ namespace NFeFacil.IBGE
             Codigo = ushort.Parse(xmlEstado.Element(nameof(Codigo)).Value);
         }
 
-        public override bool Equals(object obj)
-        {
-            if (obj is Estado est)
-            {
-                return GetHashCode() == est.GetHashCode();
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        public override int GetHashCode()
-        {
-            return Nome?.GetHashCode() ?? 0 + Sigla?.GetHashCode() ?? 0 + Codigo.GetHashCode();
-        }
+        public override bool Equals(object obj) => obj is Estado est ? Codigo == est.Codigo : false;
+        public override int GetHashCode() => Codigo;
     }
 }

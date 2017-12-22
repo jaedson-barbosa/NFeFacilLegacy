@@ -11,13 +11,7 @@ namespace NFeFacil.IBGE
             if (EstadosCache == null)
             {
                 var xml = new XML(nameof(Estados)).Retornar();
-                var filhos = xml.Elements().ToArray();
-                var quant = filhos.Length;
-                EstadosCache = new Estado[quant];
-                for (int i = 0; i < quant; i++)
-                {
-                    EstadosCache[i] = new Estado(filhos[i]);
-                }
+                EstadosCache = xml.Elements().Select(x => new Estado(x)).ToArray();
             }
         }
 

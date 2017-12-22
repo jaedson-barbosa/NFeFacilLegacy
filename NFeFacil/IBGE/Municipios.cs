@@ -40,13 +40,7 @@ namespace NFeFacil.IBGE
             if (MunicipiosCache == null)
             {
                 var xml = new XML(nameof(Municipios)).Retornar();
-                var filhos = xml.Elements().ToArray();
-                var quant = filhos.Length;
-                MunicipiosCache = new Municipio[quant];
-                for (int i = 0; i < quant; i++)
-                {
-                    MunicipiosCache[i] = new Municipio(filhos[i]);
-                }
+                var filhos = xml.Elements().Select(x => new Municipio(x)).ToArray();
             }
         }
     }

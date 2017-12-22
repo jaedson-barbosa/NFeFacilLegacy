@@ -25,19 +25,8 @@ namespace NFeFacil.IBGE
             elementos.Dispose();
         }
 
-        public override bool Equals(object obj)
-        {
-            if (obj is Municipio mun)
-            {
-                return GetHashCode() == mun.GetHashCode();
-            }
-            return false;
-        }
-
-        public override int GetHashCode()
-        {
-            return CodigoUF * Codigo * Nome.Length;
-        }
+        public override bool Equals(object obj) => obj is Municipio mun ? Codigo == mun.Codigo : false;
+        public override int GetHashCode() => Codigo;
 
         private static string RemoverAcentuacao(string text)
         {

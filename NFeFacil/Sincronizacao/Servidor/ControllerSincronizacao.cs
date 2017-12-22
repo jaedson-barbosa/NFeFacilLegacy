@@ -1,4 +1,4 @@
-﻿using NFeFacil.PacotesBanco;
+﻿using NFeFacil.Certificacao.LAN.PacotesBanco;
 using Restup.Webserver.Attributes;
 using Restup.Webserver.Models.Contracts;
 using Restup.Webserver.Models.Schemas;

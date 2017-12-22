@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using System.Text;
 using System;
-using NFeFacil.PacotesBanco;
+using NFeFacil.Certificacao.LAN.PacotesBanco;
 
 namespace NFeFacil.Sincronizacao
 {

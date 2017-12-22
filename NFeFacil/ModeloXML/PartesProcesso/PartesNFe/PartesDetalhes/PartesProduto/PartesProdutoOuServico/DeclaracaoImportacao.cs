@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using NFeFacil.AtributosVisualizacao;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesProdutoOuServico

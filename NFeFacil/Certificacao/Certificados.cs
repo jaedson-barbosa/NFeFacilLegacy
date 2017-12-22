@@ -1,4 +1,4 @@
-﻿using NFeFacil.Primitivos;
+﻿using NFeFacil.Certificacao.LAN.Primitivos;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;

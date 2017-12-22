@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NFeFacil.AtributosVisualizacao;
+using System;
 using System.Xml.Serialization;
 
 namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos

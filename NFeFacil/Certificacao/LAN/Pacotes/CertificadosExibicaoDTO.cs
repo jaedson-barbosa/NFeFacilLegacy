@@ -1,7 +1,7 @@
-﻿using NFeFacil.Primitivos;
+﻿using NFeFacil.Certificacao.LAN.Primitivos;
 using System.Collections.Generic;
 
-namespace NFeFacil.Pacotes
+namespace NFeFacil.Certificacao.LAN.Pacotes
 {
     public struct CertificadosExibicaoDTO
     {

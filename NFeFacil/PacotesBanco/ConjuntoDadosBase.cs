@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace NFeFacil.PacotesBanco
+namespace NFeFacil.Certificacao.LAN.PacotesBanco
 {
     public sealed class ConjuntoDadosBase
     {

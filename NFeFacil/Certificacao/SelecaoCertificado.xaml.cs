@@ -1,4 +1,4 @@
-﻿using NFeFacil.Primitivos;
+﻿using NFeFacil.Certificacao.LAN.Primitivos;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;

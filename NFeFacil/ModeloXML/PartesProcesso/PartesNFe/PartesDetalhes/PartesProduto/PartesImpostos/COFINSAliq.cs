@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using NFeFacil.AtributosVisualizacao;
+using System.Xml.Serialization;
 
 namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos
 {
@@ -7,7 +8,6 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProdu
     /// </summary>
     public sealed class COFINSAliq : ComumCOFINS
     {
-
         [DescricaoPropriedade("Valor da Base de Cálculo da COFINS")]
         [XmlElement(Order = 1)]
         public string vBC { get; set; }

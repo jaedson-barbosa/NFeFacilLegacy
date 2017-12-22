@@ -1,5 +1,5 @@
-﻿using NFeFacil.Pacotes;
-using NFeFacil.Primitivos;
+﻿using NFeFacil.Certificacao.LAN.Pacotes;
+using NFeFacil.Certificacao.LAN.Primitivos;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesAssinatura;
 using System;
 using System.Collections.Generic;

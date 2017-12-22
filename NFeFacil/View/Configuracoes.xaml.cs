@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 using NFeFacil.Certificacao;
-using NFeFacil.PacotesBanco;
+using NFeFacil.Certificacao.LAN.PacotesBanco;
 using NFeFacil.Sincronizacao;
 using System;
 using System.IO;

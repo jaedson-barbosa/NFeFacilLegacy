@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using NFeFacil.AtributosVisualizacao;
+using System.Xml.Serialization;
 
 namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
 {

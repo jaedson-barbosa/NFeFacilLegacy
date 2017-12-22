@@ -2,7 +2,7 @@
 using System;
 using System.Linq;
 
-namespace NFeFacil
+namespace NFeFacil.AtributosVisualizacao
 {
     [AttributeUsage(AttributeTargets.All, Inherited = false, AllowMultiple = true)]
     public sealed class PropriedadeExtensivel : Attribute
@@ -47,11 +47,5 @@ namespace NFeFacil
         {
             return Municipios.MunicipiosCache.First(x => x.Codigo == (int)valor).Nome;
         }
-    }
-
-    public enum MetodosObtencao
-    {
-        Estado,
-        Municipio
     }
 }

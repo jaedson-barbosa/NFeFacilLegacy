@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using NFeFacil.AtributosVisualizacao;
+using System.Collections;
 using System.Linq;
 using System.Reflection;
 using Windows.UI.Text;

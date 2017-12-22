@@ -1,6 +1,8 @@
-﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesIdentificacao;
+﻿using NFeFacil.AtributosVisualizacao;
+using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesIdentificacao;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using Windows.ApplicationModel;
 
 namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
 {
@@ -71,5 +73,11 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
 
         [XmlElement("NFref", Order = 21)]
         public List<DocumentoFiscalReferenciado> DocumentosReferenciados { get; } = new List<DocumentoFiscalReferenciado>();
+
+        internal void DefinirVersãoAplicativo()
+        {
+            var version = Package.Current.Id.Version;
+            VersaoAplicativo = $"{version.Major}.{version.Minor}.{version.Build}";
+        }
     }
 }

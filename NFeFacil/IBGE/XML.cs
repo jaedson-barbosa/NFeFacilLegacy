@@ -16,7 +16,7 @@ namespace NFeFacil.IBGE
         public XElement Retornar()
         {
             var assembly = GetType().GetTypeInfo().Assembly;
-            using (var stream = assembly.GetManifestResourceStream("BancoDados.IBGE." + NomeArquivo))
+            using (var stream = assembly.GetManifestResourceStream("NFeFacil.IBGE." + NomeArquivo))
             {
                 return XElement.Load(stream);
             }

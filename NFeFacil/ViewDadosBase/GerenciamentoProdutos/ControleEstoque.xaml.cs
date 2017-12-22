@@ -104,6 +104,10 @@ namespace NFeFacil.ViewDadosBase.GerenciamentoProdutos
                     for (int i = 0; i < 10; i++) Valores.Add(0);
                 }
             }
+            else
+            {
+                for (int i = 0; i < 10; i++) Valores.Add(0);
+            }
         }
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)

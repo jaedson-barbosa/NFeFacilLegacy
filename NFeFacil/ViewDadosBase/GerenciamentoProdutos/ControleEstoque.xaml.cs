@@ -75,7 +75,7 @@ namespace NFeFacil.ViewDadosBase.GerenciamentoProdutos
                 if (quant > 10)
                 {
                     var totInicial = alteracoes.Take(quant - 10).Sum(x => x.Alteração);
-                    Valores[0] = totInicial;
+                    Valores.Add(totInicial);
                     Labels[0] = "Inicial";
                     for (int i = 1; i < 10; i++)
                     {
@@ -89,7 +89,7 @@ namespace NFeFacil.ViewDadosBase.GerenciamentoProdutos
                     var salto = 10 - quant;
                     for (int i = 0; i < salto; i++)
                     {
-                        Valores.Add(alteracoes[0].Alteração);
+                        Valores.Add(0);
                         Labels[i] = "Inicial";
                     }
                     for (int i = salto, j = 0; i < 10; i++, j++)
@@ -101,12 +101,20 @@ namespace NFeFacil.ViewDadosBase.GerenciamentoProdutos
                 }
                 else
                 {
-                    for (int i = 0; i < 10; i++) Valores.Add(0);
+                    for (int i = 0; i < 10; i++)
+                    {
+                        Valores.Add(0);
+                        Labels[i] = "Inicial";
+                    }
                 }
             }
             else
             {
-                for (int i = 0; i < 10; i++) Valores.Add(0);
+                for (int i = 0; i < 10; i++)
+                {
+                    Valores.Add(0);
+                    Labels[i] = "Inicial";
+                }
             }
         }
 

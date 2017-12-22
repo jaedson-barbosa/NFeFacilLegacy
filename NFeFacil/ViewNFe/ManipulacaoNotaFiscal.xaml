@@ -56,8 +56,7 @@
                             <ComboBoxItem Content="Outros" />
                         </ComboBox>
                         <ComboBox Header="Destino da operação *"
-                                  SelectedValue="{x:Bind IdentificadorDestino, Mode=TwoWay}"
-                                  SelectedValuePath="Tag">
+                                  SelectedIndex="{x:Bind IdentificadorDestino, Mode=TwoWay}">
                             <ComboBoxItem Content="Operação interna" />
                             <ComboBoxItem Content="Operação interestadual" />
                             <ComboBoxItem Content="Operação com o exterior" />

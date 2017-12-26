@@ -32,7 +32,14 @@ namespace NFeFacil.ViewNFe.Impostos
                     }
                     else
                     {
-                        Telas[i] = AssociacoesSimples.COFINSPadrao;
+                        if (cofins.TipoCalculo == TiposCalculo.PorAliquota)
+                        {
+                            Telas[i] = typeof(DetalhamentoCOFINS.DetalharAliquota);
+                        }
+                        else
+                        {
+                            Telas[i] = typeof(DetalhamentoCOFINS.DetalharQtde);
+                        }
                     }
                     Processamentos[i] = new DetalhamentoCOFINS.Processamento()
                     {
@@ -47,7 +54,14 @@ namespace NFeFacil.ViewNFe.Impostos
                     }
                     else
                     {
-                        Telas[i] = AssociacoesSimples.PISPadrao;
+                        if (pis.TipoCalculo == TiposCalculo.PorAliquota)
+                        {
+                            Telas[i] = typeof(DetalhamentoPIS.DetalharAliquota);
+                        }
+                        else
+                        {
+                            Telas[i] = typeof(DetalhamentoPIS.DetalharQtde);
+                        }
                     }
                     Processamentos[i] = new DetalhamentoPIS.Processamento()
                     {

@@ -30,7 +30,7 @@ namespace NFeFacil.ViewNFe.Impostos
                     TipoCalculo = TiposCalculo.PorValor;
                     cmbTipoCalculo.IsEnabled = false;
                 }
-                else if (valor >= 4 && valor <= 9)
+                else if (valor >= 4 && valor <= 9 && valor != 5)
                 {
                     TipoCalculo = TiposCalculo.Inexistente;
                     cmbTipoCalculo.IsEnabled = false;
@@ -40,28 +40,17 @@ namespace NFeFacil.ViewNFe.Impostos
                     cmbTipoCalculo.IsEnabled = true;
                 }
 
-                cmbTipoCalculoST.IsEnabled = valor == 5;
-
-                cmbTipoCalculo.SelectedIndex = -1;
                 cmbTipoCalculo.SelectedIndex = -1;
             }
         }
 
         internal TiposCalculo TipoCalculo { get; private set; }
-        internal TiposCalculo TipoCalculoST { get; private set; }
 
         private void TipoCalculoMudou(object sender, SelectionChangedEventArgs e)
         {
             var novoItem = (ComboBoxItem)e.AddedItems[0];
             var tag = int.Parse(novoItem.Tag.ToString());
             if (tag != -1) TipoCalculo = (TiposCalculo)tag;
-        }
-
-        private void TipoCalculoSTMudou(object sender, SelectionChangedEventArgs e)
-        {
-            var novoItem = (ComboBoxItem)e.AddedItems[0];
-            var tag = int.Parse(novoItem.Tag.ToString());
-            if (tag != -1) TipoCalculoST = (TiposCalculo)tag;
         }
     }
 }

@@ -54,13 +54,5 @@
             <ComboBoxItem Tag="0">Por alíquota</ComboBoxItem>
             <ComboBoxItem Tag="1">Pelo valor por unidade</ComboBoxItem>
         </ComboBox>
-        <ComboBox x:Name="cmbTipoCalculoST"
-                  IsEnabled="False"
-                  Header="Tipo de cálculo"
-                  SelectionChanged="TipoCalculoSTMudou"
-                  HorizontalAlignment="Stretch">
-            <ComboBoxItem Tag="0">Por alíquota</ComboBoxItem>
-            <ComboBoxItem Tag="1">Pelo valor por unidade</ComboBoxItem>
-        </ComboBox>
     </StackPanel>
 </ContentDialog>

@@ -14,17 +14,51 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoPIS
         public object Processar(ProdutoOuServico prod)
         {
             var vBC = prod.ValorTotal;
-            var pPIS = Aliquota;
-            return new PIS
+            if (CST == "01" || CST == "02")
             {
-                Corpo = new PISAliq
+                return new PIS
                 {
-                    CST = CST,
-                    vBC = ToStr(vBC),
-                    pPIS = ToStr(pPIS, "F4"),
-                    vPIS = ToStr(vBC * pPIS / 100)
-                }
-            };
+                    Corpo = new PISAliq
+                    {
+                        CST = CST,
+                        vBC = ToStr(vBC),
+                        pPIS = ToStr(Aliquota, "F4"),
+                        vPIS = ToStr(vBC * Aliquota / 100)
+                    }
+                };
+            }
+            else if (CST == "05")
+            {
+                return new ImpostoBase[2]
+                {
+                    new PIS
+                    {
+                        Corpo = new PISNT()
+                        {
+                            CST = CST
+                        }
+                    },
+                    new PISST
+                    {
+                        vBC = ToStr(vBC),
+                        pPIS = ToStr(Aliquota, "F4"),
+                        vPIS = ToStr(vBC * Aliquota/ 100)
+                    }
+                };
+            }
+            else
+            {
+                return new PIS
+                {
+                    Corpo = new PISOutr
+                    {
+                        CST = CST,
+                        vBC = ToStr(vBC),
+                        pPIS = ToStr(Aliquota, "F4"),
+                        vPIS = ToStr(vBC * Aliquota / 100)
+                    }
+                };
+            }
         }
     }
 }

@@ -7,6 +7,5 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoPIS
         public int CST { get; set; }
         public PrincipaisImpostos Tipo => PrincipaisImpostos.PIS;
         internal TiposCalculo TipoCalculo { get; set; }
-        internal TiposCalculo TipoCalculoST { get; set; }
     }
 }

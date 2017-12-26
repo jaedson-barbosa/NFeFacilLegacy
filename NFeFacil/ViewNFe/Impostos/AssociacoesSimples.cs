@@ -13,7 +13,6 @@ namespace NFeFacil.ViewNFe.Impostos
             { 2, typeof(DetalhamentoCOFINS.DetalharAliquota) },
             { 3, typeof(DetalhamentoCOFINS.DetalharQtde) },
             { 4, null },
-            { 5, COFINSPadrao },
             { 6, null },
             { 7, null },
             { 8, null },
@@ -26,7 +25,6 @@ namespace NFeFacil.ViewNFe.Impostos
             { 2, typeof(DetalhamentoPIS.DetalharAliquota) },
             { 3, typeof(DetalhamentoPIS.DetalharQtde) },
             { 4, null },
-            { 5, PISPadrao },
             { 6, null },
             { 7, null },
             { 8, null },
@@ -77,8 +75,5 @@ namespace NFeFacil.ViewNFe.Impostos
             { 90, typeof(DetalhamentoICMS.TelasRN.Tipo90) },
             { 9090, typeof(DetalhamentoICMS.TelasRN.TipoPart) },
         };
-
-        public static readonly Type COFINSPadrao = typeof(DetalhamentoCOFINS.DetalharAmbos);
-        public static readonly Type PISPadrao = typeof(DetalhamentoPIS.DetalharAmbos);
     }
 }

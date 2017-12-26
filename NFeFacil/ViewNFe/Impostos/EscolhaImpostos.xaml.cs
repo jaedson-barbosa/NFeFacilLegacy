@@ -186,7 +186,6 @@ namespace NFeFacil.ViewNFe.Impostos
                 {
                     CST = int.Parse(caixa.CST),
                     TipoCalculo = caixa.TipoCalculo,
-                    TipoCalculoST = caixa.TipoCalculoST
                 });
                 return true;
             }
@@ -202,7 +201,6 @@ namespace NFeFacil.ViewNFe.Impostos
                 {
                     CST = int.Parse(caixa.CST),
                     TipoCalculo = caixa.TipoCalculo,
-                    TipoCalculoST = caixa.TipoCalculoST
                 });
                 return true;
             }

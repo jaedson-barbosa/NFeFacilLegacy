@@ -54,9 +54,6 @@
                     <TextBox Text="{x:Bind ProdutoCompleto.Produto.NFCI, Mode=TwoWay}"
                              InputScope="Number"
                              Header="Nº de controle da FCI" />
-                    <controles:EntradaRestrita Pattern="[^\d]"
-                                               Text="{x:Bind ProdutoCompleto.Produto.CEST, Mode=TwoWay}"
-                                               Header="CEST" />
                 </ItemsControl>
                 <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
                            Margin="0,16,0,0">Categoria do produto</TextBlock>

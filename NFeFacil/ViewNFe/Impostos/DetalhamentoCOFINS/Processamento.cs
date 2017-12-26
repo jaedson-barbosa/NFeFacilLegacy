@@ -23,10 +23,8 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoCOFINS
         {
             if (Detalhamento is Detalhamento detalhamento)
             {
-                var valida = (AssociacoesSimples.COFINS.ContainsKey(detalhamento.CST)
+                if (AssociacoesSimples.COFINS.ContainsKey(detalhamento.CST)
                     && AssociacoesSimples.COFINS[detalhamento.CST] == Tela?.GetType())
-                    || AssociacoesSimples.COFINSPadrao == Tela?.GetType();
-                if (valida)
                 {
                     if (Tela is DetalharAliquota aliq)
                     {
@@ -42,28 +40,34 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoCOFINS
                             Valor = valor.Valor
                         };
                     }
-                    else if (Tela is DetalharAmbos outr)
-                    {
-                        if (detalhamento.CST == 5) dados = new DadosST()
-                        {
-                            Aliquota = outr.Aliquota,
-                            Valor = outr.Valor,
-                            TipoCalculo = outr.TipoCalculo
-                        };
-                        else dados = new DadosOutr()
-                        {
-                            Aliquota = outr.Aliquota,
-                            Valor = outr.Valor,
-                            TipoCalculo = outr.TipoCalculo
-                        };
-                    }
                     else
                     {
                         dados = new DadosNT();
                     }
-                    dados.CST = detalhamento.CST.ToString("00");
-                    return true;
                 }
+                else
+                {
+                    if (detalhamento.TipoCalculo == TiposCalculo.PorAliquota && Tela is DetalharAliquota aliq)
+                    {
+                        dados = new DadosAliq()
+                        {
+                            Aliquota = aliq.Aliquota
+                        };
+                    }
+                    else if (detalhamento.TipoCalculo == TiposCalculo.PorValor && Tela is DetalharQtde valor)
+                    {
+                        dados = new DadosQtde()
+                        {
+                            Valor = valor.Valor
+                        };
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                dados.CST = detalhamento.CST.ToString("00");
+                return true;
             }
             return false;
         }

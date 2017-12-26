@@ -23,12 +23,9 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoPIS
         {
             if (Detalhamento is Detalhamento detalhamento)
             {
-                var valida = (AssociacoesSimples.PIS.ContainsKey(detalhamento.CST)
+                if (AssociacoesSimples.PIS.ContainsKey(detalhamento.CST)
                     && AssociacoesSimples.PIS[detalhamento.CST] == Tela?.GetType())
-                    || AssociacoesSimples.PISPadrao == Tela?.GetType();
-                if (valida)
                 {
-                    var cst = detalhamento.CST.ToString("00");
                     if (Tela is DetalharAliquota aliq)
                     {
                         dados = new DadosAliq()
@@ -43,28 +40,34 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoPIS
                             Valor = valor.Valor
                         };
                     }
-                    else if (Tela is DetalharAmbos outr)
-                    {
-                        if (detalhamento.CST == 5) dados = new DadosST()
-                        {
-                            Aliquota = outr.Aliquota,
-                            Valor = outr.Valor,
-                            TipoCalculo = outr.TipoCalculo
-                        };
-                        else dados = new DadosOutr()
-                        {
-                            Aliquota = outr.Aliquota,
-                            Valor = outr.Valor,
-                            TipoCalculo = outr.TipoCalculo
-                        };
-                    }
                     else
                     {
                         dados = new DadosNT();
                     }
-                    dados.CST = cst;
-                    return true;
                 }
+                else
+                {
+                    if (detalhamento.TipoCalculo == TiposCalculo.PorAliquota && Tela is DetalharAliquota aliq)
+                    {
+                        dados = new DadosAliq()
+                        {
+                            Aliquota = aliq.Aliquota
+                        };
+                    }
+                    else if (detalhamento.TipoCalculo == TiposCalculo.PorValor && Tela is DetalharQtde valor)
+                    {
+                        dados = new DadosQtde()
+                        {
+                            Valor = valor.Valor
+                        };
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                dados.CST = detalhamento.CST.ToString("00");
+                return true;
             }
             return false;
         }

@@ -14,17 +14,51 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoCOFINS
         public object Processar(ProdutoOuServico prod)
         {
             var qBCProd = prod.QuantidadeComercializada;
-            var vAliqProd = Valor;
-            return new COFINS
+            if (CST == "03")
             {
-                Corpo = new COFINSQtde
+                return new COFINS
                 {
-                    CST = CST,
-                    qBCProd = ToStr(qBCProd, "F4"),
-                    vAliqProd = ToStr(vAliqProd, "F4"),
-                    vCOFINS = ToStr(qBCProd * vAliqProd)
-                }
-            };
+                    Corpo = new COFINSQtde
+                    {
+                        CST = CST,
+                        qBCProd = ToStr(qBCProd, "F4"),
+                        vAliqProd = ToStr(Valor, "F4"),
+                        vCOFINS = ToStr(qBCProd * Valor)
+                    }
+                };
+            }
+            else if (CST == "05")
+            {
+                return new ImpostoBase[2]
+                {
+                    new COFINS
+                    {
+                        Corpo = new COFINSNT()
+                        {
+                            CST = CST
+                        }
+                    },
+                    new COFINSST
+                    {
+                        qBCProd = ToStr(qBCProd, "F4"),
+                        vAliqProd = ToStr(Valor, "F4"),
+                        vCOFINS = ToStr(qBCProd * Valor)
+                    }
+                };
+            }
+            else
+            {
+                return new COFINS
+                {
+                    Corpo = new COFINSOutr
+                    {
+                        CST = CST,
+                        qBCProd = ToStr(qBCProd, "F4"),
+                        vAliqProd = ToStr(Valor, "F4"),
+                        vCOFINS = ToStr(qBCProd * Valor)
+                    }
+                };
+            }
         }
     }
 }

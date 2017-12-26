@@ -7,9 +7,9 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS.DadosRN
     class Tipo30 : BaseRN
     {
         public int modBCST { get; set; }
+        public double pICMSST { get; set; }
         public string pMVAST { get; set; }
         public string pRedBCST { get; set; }
-        public double pICMSST { get; set; }
         public string motDesICMS { get; set; }
 
         public Tipo30(TelasRN.Tipo30 tela)
@@ -23,10 +23,8 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS.DadosRN
 
         public override object Processar(DetalhesProdutos prod)
         {
-            double pMVASTd;
-            bool usarpMVAST = TryParse(pMVAST, out pMVASTd);
-            double pRedBCSTd;
-            bool usarpRedBCST = TryParse(pRedBCST, out pRedBCSTd);
+            bool usarpMVAST = TryParse(pMVAST, out double pMVASTd);
+            bool usarpRedBCST = TryParse(pRedBCST, out double pRedBCSTd);
             var vBCST = (CalcularBC(prod) + ObterIPI(prod)) * (100 + pMVASTd) / 100;
             var valorSemReducao = vBCST * pICMSST / 100;
             vBCST *= 1 - (pRedBCSTd / 100);

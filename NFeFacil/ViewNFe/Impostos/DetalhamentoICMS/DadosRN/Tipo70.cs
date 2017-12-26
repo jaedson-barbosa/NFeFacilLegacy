@@ -7,8 +7,8 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS.DadosRN
     class Tipo70 : BaseRN
     {
         public int modBC { get; set; }
-        public double pRedBC { get; set; }
         public double pICMS { get; set; }
+        public double pRedBC { get; set; }
 
         public int modBCST { get; set; }
         public string pMVAST { get; set; }
@@ -38,10 +38,8 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS.DadosRN
             vBC *= 1 - (pRedBC / 100);
             var vICMS = vBC * pICMS / 100;
 
-            double pMVASTd;
-            bool usarpMVAST = TryParse(pMVAST, out pMVASTd);
-            double pRedBCSTd;
-            bool usarpRedBCST = TryParse(pRedBCST, out pRedBCSTd);
+            bool usarpMVAST = TryParse(pMVAST, out double pMVASTd);
+            bool usarpRedBCST = TryParse(pRedBCST, out double pRedBCSTd);
             var vBCST = (vBC + ObterIPI(prod)) * (100 + pMVASTd) / 100;
             var bcstSemReducao = (vBCST * pICMSST / 100) - vICMS;
 

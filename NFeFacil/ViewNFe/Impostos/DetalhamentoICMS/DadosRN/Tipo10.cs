@@ -30,10 +30,8 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS.DadosRN
             var vBC = CalcularBC(prod);
             var vICMS = vBC * pICMS / 100;
 
-            double pMVASTd;
-            bool usarpMVAST = TryParse(pMVAST, out pMVASTd);
-            double pRedBCSTd;
-            bool usarpRedBCST = TryParse(pRedBCST, out pRedBCSTd);
+            bool usarpMVAST = TryParse(pMVAST, out double pMVASTd);
+            bool usarpRedBCST = TryParse(pRedBCST, out double pRedBCSTd);
             var vBCST = (vBC + ObterIPI(prod)) * (100 + pMVASTd) / 100;
             vBCST *= 1 - (pRedBCSTd / 100);
 

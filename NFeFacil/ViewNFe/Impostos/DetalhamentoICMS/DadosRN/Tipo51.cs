@@ -7,8 +7,9 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS.DadosRN
     class Tipo51 : BaseRN
     {
         public int modBC { get; set; }
-        public double pRedBC { get; set; }
         public double pICMS { get; set; }
+
+        public double pRedBC { get; set; }
         public double pDif { get; set; }
         public bool Calcular { get; set; }
 

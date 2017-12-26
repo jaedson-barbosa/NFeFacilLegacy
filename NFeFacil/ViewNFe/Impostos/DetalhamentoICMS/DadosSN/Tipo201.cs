@@ -6,13 +6,13 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS.DadosSN
 {
     class Tipo201 : BaseSN
     {
-        public int modBCST { get; private set; }
-        public string pMVAST { get; private set; }
-        public string pRedBCST { get; private set; }
-        public double pICMSST { get; private set; }
+        public int modBCST { get; }
+        public string pMVAST { get; }
+        public string pRedBCST { get; }
+        public double pICMSST { get; }
 
-        public string pCredSN { get; private set; }
-        public string vCredICMSSN { get; private set; }
+        public string pCredSN { get; }
+        public string vCredICMSSN { get; }
 
         public Tipo201(TelasSN.Tipo201 tela)
         {
@@ -27,10 +27,8 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS.DadosSN
 
         public override object Processar(DetalhesProdutos prod)
         {
-            double pMVASTd;
-            bool usarpMVAST = TryParse(pMVAST, out pMVASTd);
-            double pRedBCSTd;
-            bool usarpRedBCST = TryParse(pRedBCST, out pRedBCSTd);
+            bool usarpMVAST = TryParse(pMVAST, out double pMVASTd);
+            bool usarpRedBCST = TryParse(pRedBCST, out double pRedBCSTd);
             var vBCST = CalcularBC(prod) * (100 + pMVASTd) / 100;
             vBCST *= 1 - (pRedBCSTd / 100);
             var vICMSST = vBCST * pICMSST / 100;

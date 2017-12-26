@@ -21,10 +21,8 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS.DadosSN
 
         public override object Processar(DetalhesProdutos prod)
         {
-            double pMVASTd;
-            bool usarpMVAST = TryParse(pMVAST, out pMVASTd);
-            double pRedBCSTd;
-            bool usarpRedBCST = TryParse(pRedBCST, out pRedBCSTd);
+            bool usarpMVAST = TryParse(pMVAST, out double pMVASTd);
+            bool usarpRedBCST = TryParse(pRedBCST, out double pRedBCSTd);
             var vBCST = CalcularBC(prod) * (100 + pMVASTd) / 100;
             vBCST *= 1 - (pRedBCSTd / 100);
             var vICMSST = vBCST * pICMSST / 100;

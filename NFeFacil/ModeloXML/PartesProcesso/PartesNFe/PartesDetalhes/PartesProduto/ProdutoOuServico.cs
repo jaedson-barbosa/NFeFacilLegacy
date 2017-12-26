@@ -6,7 +6,7 @@ using static NFeFacil.ExtensoesPrincipal;
 
 namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto
 {
-    public sealed class ProdutoOuServico
+    public sealed class ProdutoOuServico : IProdutoEspecial
     {
         [XmlElement(ElementName = "cProd", Order = 0), DescricaoPropriedade("Código")]
         public string CodigoProduto { get; set; }

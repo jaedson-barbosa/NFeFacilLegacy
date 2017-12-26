@@ -25,7 +25,7 @@ namespace NFeFacil.ViewDadosBase.GerenciamentoProdutos
 
         private void AdicionarProduto(object sender, RoutedEventArgs e)
         {
-            MainPage.Current.Navegar<AdicionarProduto>();
+            MainPage.Current.Navegar<AdicionarProduto>(new ProdutoDI());
         }
 
         private void EditarProduto(object sender, RoutedEventArgs e)

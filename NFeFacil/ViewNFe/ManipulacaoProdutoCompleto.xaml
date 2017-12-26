@@ -8,44 +8,16 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
     <Page.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.ThemeDictionaries>
-                <ResourceDictionary x:Key="Dark">
-                    <x:String x:Key="ImagemArma">ms-appx:///Assets/Arma.png</x:String>
-                </ResourceDictionary>
-                <ResourceDictionary x:Key="Light">
-                    <x:String x:Key="ImagemArma">ms-appx:///Assets/ArmaDark.png</x:String>
-                </ResourceDictionary>
-            </ResourceDictionary.ThemeDictionaries>
-            <VM:StringToDateTime x:Key="data" />
-        </ResourceDictionary>
+        <VM:StringToDateTime x:Key="data" />
     </Page.Resources>
     <controles:MultView x:Name="main"
                         Padding="16">
         <ScrollViewer>
             <StackPanel>
                 <ItemsControl Style="{StaticResource ItensResponsivos}">
-                    <TextBox Text="{x:Bind ProdutoCompleto.Produto.CodigoProduto, Mode=TwoWay}"
-                             InputScope="Text"
-                             Header="Código *" />
-                    <controles:EntradaRestrita Pattern="[^\d]"
-                                               Text="{x:Bind ProdutoCompleto.Produto.CodigoBarras, Mode=TwoWay}"
-                                               Header="EAN" />
-                    <TextBox Text="{x:Bind ProdutoCompleto.Produto.Descricao, Mode=TwoWay}"
-                             InputScope="Text"
-                             Header="Descrição *" />
-                    <controles:EntradaRestrita Pattern="[^\d]"
-                                               Text="{x:Bind ProdutoCompleto.Produto.NCM, Mode=TwoWay}"
-                                               Header="NCM" />
-                    <controles:EntradaRestrita Pattern="[^\d]"
-                                               Text="{x:Bind ProdutoCompleto.Produto.EXTIPI, Mode=TwoWay}"
-                                               Header="EX TIPI" />
                     <controles:EntradaNumerica Format="4"
                                                Number="{x:Bind ProdutoCompleto.Produto.CFOP, Mode=TwoWay}"
                                                Header="CFOP *" />
-                    <TextBox Text="{x:Bind ProdutoCompleto.Produto.UnidadeComercializacao, Mode=TwoWay}"
-                             InputScope="Text"
-                             Header="Unidade comercial" />
                     <controles:EntradaNumerica Format="11:4"
                                                Number="{x:Bind ProdutoCompleto.Produto.QuantidadeComercializada, Mode=TwoWay}"
                                                Header="Qtd. comercial" />
@@ -55,12 +27,6 @@
                     <controles:EntradaNumerica Format="13:2"
                                                Number="{x:Bind ProdutoCompleto.Produto.ValorTotal, Mode=TwoWay}"
                                                Header="Total bruto" />
-                    <controles:EntradaRestrita Pattern="[^\d]"
-                                               Text="{x:Bind ProdutoCompleto.Produto.CodigoBarrasTributo, Mode=TwoWay}"
-                                               Header="EAN Unid. Tributável" />
-                    <TextBox Text="{x:Bind ProdutoCompleto.Produto.UnidadeTributacao, Mode=TwoWay}"
-                             InputScope="Text"
-                             Header="Unidade tributária" />
                     <controles:EntradaNumerica Format="11:4"
                                                Number="{x:Bind ProdutoCompleto.Produto.QuantidadeTributada, Mode=TwoWay}"
                                                Header="Qtd. tributária" />
@@ -92,7 +58,8 @@
                                                Text="{x:Bind ProdutoCompleto.Produto.CEST, Mode=TwoWay}"
                                                Header="CEST" />
                 </ItemsControl>
-                <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Categoria do produto</TextBlock>
+                <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
+                           Margin="0,16,0,0">Categoria do produto</TextBlock>
                 <GridView Style="{StaticResource ItensMediosGrid}"
                           SelectedIndex="{x:Bind TipoEspecialEscolhido, Mode=TwoWay}">
                     <controles:ItemPadraoSimples Titulo="Produto simples"

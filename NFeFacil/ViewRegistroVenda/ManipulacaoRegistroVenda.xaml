@@ -99,7 +99,7 @@
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
-                                   Text="{x:Bind TotalLiquido}" />
+                                   Text="{x:Bind TotalBruto}" />
                         <TextBlock Grid.Row="1"
                                    Text="{x:Bind Descricao}"
                                    TextWrapping="Wrap" />

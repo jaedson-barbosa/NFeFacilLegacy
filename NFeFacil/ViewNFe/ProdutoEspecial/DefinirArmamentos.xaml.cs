@@ -1,10 +1,11 @@
-﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
+﻿using NFeFacil.ModeloXML;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -13,11 +14,17 @@ namespace NFeFacil.ViewNFe.ProdutoEspecial
     [View.DetalhePagina(View.DetalhePagina.SimbolosEspeciais.Arma, "Armamento")]
     public sealed partial class DefinirArmamentos : Page
     {
-        ObservableCollection<Arma> Armas { get; } = new ObservableCollection<Arma>();
+        ObservableCollection<Arma> Armas { get; set; }
 
         public DefinirArmamentos()
         {
             InitializeComponent();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            var prod = e.Parameter as IProdutoEspecial;
+            Armas = prod?.armas?.GerarObs() ?? new ObservableCollection<Arma>();
         }
 
         async void AdicionarArmamento(object sender, RoutedEventArgs e)
@@ -39,7 +46,7 @@ namespace NFeFacil.ViewNFe.ProdutoEspecial
         private void Concluido(object sender, RoutedEventArgs e)
         {
             var ultFrame = Frame.BackStack[Frame.BackStack.Count - 1];
-            var prod = ((DetalhesProdutos)ultFrame.Parameter).Produto;
+            var prod = (IProdutoEspecial)ultFrame.Parameter;
             prod.veicProd = null;
             prod.medicamentos = null;
             prod.armas = new List<Arma>(Armas);

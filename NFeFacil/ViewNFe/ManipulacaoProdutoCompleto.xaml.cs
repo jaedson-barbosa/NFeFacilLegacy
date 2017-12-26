@@ -97,7 +97,7 @@ namespace NFeFacil.ViewNFe
 
                 async void DefinirPapel()
                 {
-                    var caixa = new ProdutoEspecial.DefinirPapel();
+                    var caixa = new ProdutoEspecial.DefinirPapel(prod);
                     if (await caixa.ShowAsync() == ContentDialogResult.Primary)
                     {
                         prod.veicProd = null;

@@ -6,11 +6,12 @@ namespace NFeFacil.ViewNFe.ProdutoEspecial
 {
     public sealed partial class DefinirPapel : ContentDialog
     {
-        public DefinirPapel()
+        public string NRECOPI { get; private set; }
+
+        public DefinirPapel(ModeloXML.IProdutoEspecial prod)
         {
             InitializeComponent();
+            NRECOPI = prod?.NRECOPI;
         }
-
-        public string NRECOPI { get; private set; }
     }
 }

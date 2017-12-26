@@ -235,7 +235,7 @@ namespace NFeFacil.ViewRegistroVenda
         public ProdutoSimplesVenda Base { get; set; }
         public string Descricao { get; set; }
         public double Quantidade { get; set; }
-        public string TotalLiquido => Base.TotalLíquido.ToString("C");
+        public string TotalBruto => (Base.ValorUnitario * Quantidade + Base.Seguro + Base.DespesasExtras).ToString("C");
     }
 
     struct ClienteManipulacaoRV

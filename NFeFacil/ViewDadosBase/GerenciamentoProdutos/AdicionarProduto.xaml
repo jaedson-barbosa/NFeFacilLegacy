@@ -1,15 +1,12 @@
 ﻿<Page x:Class="NFeFacil.ViewDadosBase.GerenciamentoProdutos.AdicionarProduto"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:controles="using:NFeFacil.Controles"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
-    <Grid Padding="16">
-        <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <ScrollViewer VerticalScrollBarVisibility="Hidden">
+    <ScrollViewer Padding="16">
+        <StackPanel>
             <ItemsControl Style="{StaticResource ItensResponsivos}">
                 <TextBox Text="{x:Bind Produto.Descricao, Mode=TwoWay}"
                          InputScope="Text"
@@ -44,9 +41,48 @@
                 <TextBox Text="{x:Bind Produto.ValorUnitarioTributo, Mode=TwoWay}"
                          InputScope="Number"
                          Header="Valor unid. tributária" />
+                <controles:EntradaRestrita Pattern="[^\d]"
+                                           Text="{x:Bind Produto.CEST, Mode=TwoWay}"
+                                           Header="CEST" />
             </ItemsControl>
-        </ScrollViewer>
-        <CommandBar Grid.Row="1">
+            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
+                       Margin="0,16,0,0">Categoria do produto</TextBlock>
+            <GridView Style="{StaticResource ItensMediosGrid}"
+                      SelectedIndex="{x:Bind TipoEspecialEscolhido, Mode=TwoWay}">
+                <GridView.ContextFlyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem Click="MenuFlyoutItem_Click">Editar</MenuFlyoutItem>
+                    </MenuFlyout>
+                </GridView.ContextFlyout>
+                <controles:ItemPadraoSimples Titulo="Produto simples"
+                                             Descricao="Produto que não se encaixa nas categorias especiais">
+                    <SymbolIcon Symbol="Shop" />
+                </controles:ItemPadraoSimples>
+                <controles:ItemPadraoSimples Titulo="Veículo"
+                                             Descricao="Algum tipo de veículo">
+                    <FontIcon Glyph="&#xE804;" />
+                </controles:ItemPadraoSimples>
+                <controles:ItemPadraoSimples Titulo="Medicamento"
+                                             Descricao="Remédios e afins">
+                    <FontIcon Glyph="&#xE95E;" />
+                </controles:ItemPadraoSimples>
+                <controles:ItemPadraoSimples Titulo="Armamento"
+                                             Descricao="Armas">
+                    <BitmapIcon UriSource="{ThemeResource ImagemArma}" />
+                </controles:ItemPadraoSimples>
+                <controles:ItemPadraoSimples Titulo="Combustível"
+                                             Descricao="Combustíveis">
+                    <FontIcon Glyph="&#xEB42;" />
+                </controles:ItemPadraoSimples>
+                <controles:ItemPadraoSimples Titulo="Papel"
+                                             Descricao="Papel imune">
+                    <FontIcon Glyph="&#xE82D;" />
+                </controles:ItemPadraoSimples>
+            </GridView>
+        </StackPanel>
+    </ScrollViewer>
+    <Page.BottomAppBar>
+        <CommandBar>
             <AppBarButton x:Name="Confirmar"
                           Icon="Accept"
                           Label="Confirmar"
@@ -56,5 +92,5 @@
                           Label="Cancelar"
                           Click="Cancelar_Click" />
         </CommandBar>
-    </Grid>
+    </Page.BottomAppBar>
 </Page>

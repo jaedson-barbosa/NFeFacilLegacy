@@ -13,7 +13,7 @@ namespace NFeFacil.ViewNFe.Impostos
         public IDetalhamentoImposto Detalhamento { protected get; set; }
         public PrincipaisImpostos Tipo => Detalhamento.Tipo;
 
-        public abstract bool ValidarEntradaDados(object Tela);
+        public abstract void ProcessarEntradaDados(object Tela);
         public abstract bool ValidarDados();
         public abstract ImpostoBase[] Processar(DetalhesProdutos prod);
     }

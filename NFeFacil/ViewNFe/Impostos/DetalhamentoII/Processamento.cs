@@ -41,15 +41,13 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoII
             return false;
         }
 
-        public override bool ValidarEntradaDados(object Tela)
+        public override void ProcessarEntradaDados(object Tela)
         {
             if (Detalhamento is Detalhamento detalhamento
                 && Tela?.GetType() == typeof(Detalhar))
             {
                 dados = (IDadosII)Tela;
-                return true;
             }
-            return false;
         }
     }
 }

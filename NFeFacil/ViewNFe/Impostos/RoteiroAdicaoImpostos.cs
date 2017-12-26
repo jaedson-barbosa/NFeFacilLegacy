@@ -26,21 +26,7 @@ namespace NFeFacil.ViewNFe.Impostos
                 var atual = impostos[i];
                 if (atual is DetalhamentoCOFINS.Detalhamento cofins)
                 {
-                    if (AssociacoesSimples.COFINS.ContainsKey(cofins.CST))
-                    {
-                        Telas[i] = AssociacoesSimples.COFINS[cofins.CST];
-                    }
-                    else
-                    {
-                        if (cofins.TipoCalculo == TiposCalculo.PorAliquota)
-                        {
-                            Telas[i] = typeof(DetalhamentoCOFINS.DetalharAliquota);
-                        }
-                        else
-                        {
-                            Telas[i] = typeof(DetalhamentoCOFINS.DetalharQtde);
-                        }
-                    }
+                    Telas[i] = AssociacoesSimples.COFINS[cofins.TipoCalculo];
                     Processamentos[i] = new DetalhamentoCOFINS.Processamento()
                     {
                         Detalhamento = cofins,
@@ -48,21 +34,7 @@ namespace NFeFacil.ViewNFe.Impostos
                 }
                 else if (atual is DetalhamentoPIS.Detalhamento pis)
                 {
-                    if (AssociacoesSimples.PIS.ContainsKey(pis.CST))
-                    {
-                        Telas[i] = AssociacoesSimples.PIS[pis.CST];
-                    }
-                    else
-                    {
-                        if (pis.TipoCalculo == TiposCalculo.PorAliquota)
-                        {
-                            Telas[i] = typeof(DetalhamentoPIS.DetalharAliquota);
-                        }
-                        else
-                        {
-                            Telas[i] = typeof(DetalhamentoPIS.DetalharQtde);
-                        }
-                    }
+                    Telas[i] = AssociacoesSimples.PIS[pis.TipoCalculo];
                     Processamentos[i] = new DetalhamentoPIS.Processamento()
                     {
                         Detalhamento = pis,
@@ -142,7 +114,8 @@ namespace NFeFacil.ViewNFe.Impostos
             if (index >= 0)
             {
                 var proc = Processamentos[index];
-                return proc.ValidarEntradaDados(pagina) ? proc.ValidarDados() : false;
+                proc.ProcessarEntradaDados(pagina);
+                return proc.ValidarDados();
             }
             return true;
         }

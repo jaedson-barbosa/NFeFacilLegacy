@@ -15,15 +15,13 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMSUFDest
 
         public override bool ValidarDados() => true;
 
-        public override bool ValidarEntradaDados(object Tela)
+        public override void ProcessarEntradaDados(object Tela)
         {
             if (Detalhamento is Detalhamento detalhamento
                 && Tela?.GetType() == typeof(Detalhar))
             {
                 dados = (IDadosICMSUFDest)Tela;
-                return true;
             }
-            return false;
         }
     }
 }

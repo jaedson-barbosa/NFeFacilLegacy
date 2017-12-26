@@ -19,7 +19,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS
 
         public override bool ValidarDados() => true;
 
-        public override bool ValidarEntradaDados(object Tela)
+        public override void ProcessarEntradaDados(object Tela)
         {
             if (Detalhamento is Detalhamento detalhamento)
             {
@@ -63,7 +63,6 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS
                         baseSN.CSOSN = detalhamento.TipoICMSSN;
                         baseSN.Origem = detalhamento.Origem;
                         dados = baseSN;
-                        return true;
                     }
                 }
                 else
@@ -136,11 +135,9 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS
                         baseRN.CST = detalhamento.TipoICMSRN.Substring(0, 2);
                         baseRN.Origem = detalhamento.Origem;
                         dados = baseRN;
-                        return true;
                     }
                 }
             }
-            return false;
         }
     }
 }

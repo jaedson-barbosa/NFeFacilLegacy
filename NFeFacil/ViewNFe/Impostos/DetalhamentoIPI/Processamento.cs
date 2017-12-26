@@ -16,7 +16,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoIPI
 
         public override bool ValidarDados() => !string.IsNullOrEmpty(dados.PreImposto.cEnq);
 
-        public override bool ValidarEntradaDados(object Tela)
+        public override void ProcessarEntradaDados(object Tela)
         {
             if (Detalhamento is Detalhamento detalhamento)
             {
@@ -52,10 +52,8 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoIPI
                             PreImposto = outr.Conjunto
                         };
                     }
-                    return true;
                 }
             }
-            return false;
         }
     }
 }

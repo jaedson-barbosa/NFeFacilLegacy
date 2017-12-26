@@ -19,57 +19,30 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoCOFINS
 
         public override bool ValidarDados() => true;
 
-        public override bool ValidarEntradaDados(object Tela)
+        public override void ProcessarEntradaDados(object Tela)
         {
             if (Detalhamento is Detalhamento detalhamento)
             {
-                if (AssociacoesSimples.COFINS.ContainsKey(detalhamento.CST)
-                    && AssociacoesSimples.COFINS[detalhamento.CST] == Tela?.GetType())
+                if (Tela is DetalharAliquota aliq)
                 {
-                    if (Tela is DetalharAliquota aliq)
+                    dados = new DadosAliq()
                     {
-                        dados = new DadosAliq()
-                        {
-                            Aliquota = aliq.Aliquota
-                        };
-                    }
-                    else if (Tela is DetalharQtde valor)
+                        Aliquota = aliq.Aliquota
+                    };
+                }
+                else if (Tela is DetalharQtde valor)
+                {
+                    dados = new DadosQtde()
                     {
-                        dados = new DadosQtde()
-                        {
-                            Valor = valor.Valor
-                        };
-                    }
-                    else
-                    {
-                        dados = new DadosNT();
-                    }
+                        Valor = valor.Valor
+                    };
                 }
                 else
                 {
-                    if (detalhamento.TipoCalculo == TiposCalculo.PorAliquota && Tela is DetalharAliquota aliq)
-                    {
-                        dados = new DadosAliq()
-                        {
-                            Aliquota = aliq.Aliquota
-                        };
-                    }
-                    else if (detalhamento.TipoCalculo == TiposCalculo.PorValor && Tela is DetalharQtde valor)
-                    {
-                        dados = new DadosQtde()
-                        {
-                            Valor = valor.Valor
-                        };
-                    }
-                    else
-                    {
-                        return false;
-                    }
+                    dados = new DadosNT();
                 }
                 dados.CST = detalhamento.CST.ToString("00");
-                return true;
             }
-            return false;
         }
     }
 }

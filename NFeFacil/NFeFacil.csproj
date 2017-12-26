@@ -194,7 +194,7 @@
     <Compile Include="ItensBD\ProdutoDI.cs" />
     <Compile Include="ItensBD\ProdutoSimplesVenda.cs" />
     <Compile Include="ItensBD\Produto\ImpostoArmazenado.cs" />
-    <Compile Include="ItensBD\Produto\PISouCOFINSArmazenado.cs" />
+    <Compile Include="ItensBD\Produto\ImpSimplesArmazenado.cs" />
     <Compile Include="ItensBD\RegistroCancelamento.cs" />
     <Compile Include="ItensBD\RegistroVenda.cs" />
     <Compile Include="ItensBD\StatusNFe.cs" />

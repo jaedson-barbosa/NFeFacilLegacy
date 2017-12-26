@@ -7,28 +7,18 @@ namespace NFeFacil.ViewNFe.Impostos
 {
     public static class AssociacoesSimples
     {
-        public static readonly Dictionary<int, Type> COFINS = new Dictionary<int, Type>
+        public static readonly Dictionary<TiposCalculo, Type> COFINS = new Dictionary<TiposCalculo, Type>
         {
-            { 1, typeof(DetalhamentoCOFINS.DetalharAliquota) },
-            { 2, typeof(DetalhamentoCOFINS.DetalharAliquota) },
-            { 3, typeof(DetalhamentoCOFINS.DetalharQtde) },
-            { 4, null },
-            { 6, null },
-            { 7, null },
-            { 8, null },
-            { 9, null }
+            { TiposCalculo.Inexistente, null },
+            { TiposCalculo.PorAliquota, typeof(DetalhamentoCOFINS.DetalharAliquota) },
+            { TiposCalculo.PorValor, typeof(DetalhamentoCOFINS.DetalharQtde) }
         };
 
-        public static readonly Dictionary<int, Type> PIS = new Dictionary<int, Type>
+        public static readonly Dictionary<TiposCalculo, Type> PIS = new Dictionary<TiposCalculo, Type>
         {
-            { 1, typeof(DetalhamentoPIS.DetalharAliquota) },
-            { 2, typeof(DetalhamentoPIS.DetalharAliquota) },
-            { 3, typeof(DetalhamentoPIS.DetalharQtde) },
-            { 4, null },
-            { 6, null },
-            { 7, null },
-            { 8, null },
-            { 9, null }
+            { TiposCalculo.Inexistente, null },
+            { TiposCalculo.PorAliquota, typeof(DetalhamentoPIS.DetalharAliquota) },
+            { TiposCalculo.PorValor, typeof(DetalhamentoPIS.DetalharQtde) }
         };
 
         public static readonly Dictionary<TiposCalculo, Type> IPI = new Dictionary<TiposCalculo, Type>

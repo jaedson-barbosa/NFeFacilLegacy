@@ -102,6 +102,12 @@ namespace NFeFacil.WebService
         string ObterConteudoRequisicao(Envio corpo, bool addNamespace)
         {
             var xml = corpo.ToXElement<Envio>();
+            if (addNamespace)
+            {
+                const string namespaceNFe = "http://www.portalfiscal.inf.br/nfe";
+                xml.Element(XName.Get("NFe", namespaceNFe)).SetAttributeValue("xmlns", namespaceNFe);
+            }
+
             var servico = Enderecos.Servico;
             var teste = new XElement("{http://schemas.xmlsoap.org/soap/envelope/}Envelope",
                 new XElement("{http://schemas.xmlsoap.org/soap/envelope/}Header",

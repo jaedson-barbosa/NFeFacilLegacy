@@ -28,10 +28,10 @@ namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
         [XmlElement("infAdProd", Order = 3), DescricaoPropriedade("Informações adicionais")]
         public string InfAdProd { get; set; }
 
-        public List<Arma> armas { get => Produto.armas; set => Produto.armas = value; }
-        public Combustivel comb { get => Produto.comb; set => Produto.comb = value; }
-        public List<Medicamento> medicamentos { get => Produto.medicamentos; set => Produto.medicamentos = value; }
-        public string NRECOPI { get => Produto.NRECOPI; set => Produto.NRECOPI = value; }
-        public VeiculoNovo veicProd { get => Produto.veicProd; set => Produto.veicProd = value; }
+        List<Arma> IProdutoEspecial.armas { get => Produto.armas; set => Produto.armas = value; }
+        Combustivel IProdutoEspecial.comb { get => Produto.comb; set => Produto.comb = value; }
+        List<Medicamento> IProdutoEspecial.medicamentos { get => Produto.medicamentos; set => Produto.medicamentos = value; }
+        string IProdutoEspecial.NRECOPI { get => Produto.NRECOPI; set => Produto.NRECOPI = value; }
+        VeiculoNovo IProdutoEspecial.veicProd { get => Produto.veicProd; set => Produto.veicProd = value; }
     }
 }

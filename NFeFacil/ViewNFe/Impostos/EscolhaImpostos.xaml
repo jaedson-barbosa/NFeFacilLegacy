@@ -1,6 +1,7 @@
 ﻿<Page x:Class="NFeFacil.ViewNFe.Impostos.EscolhaImpostos"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="using:NFeFacil.ViewNFe.Impostos"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
@@ -8,14 +9,41 @@
               ItemsSource="{x:Bind Impostos}"
               SelectionMode="Multiple"
               Padding="16">
+        <GridView.GroupStyle>
+            <GroupStyle HidesIfEmpty="True">
+                <GroupStyle.HeaderTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Key}"
+                                   TextAlignment="Center"
+                                   Style="{StaticResource SubheaderTextBlockStyle}" />
+                    </DataTemplate>
+                </GroupStyle.HeaderTemplate>
+                <GroupStyle.HeaderContainerStyle>
+                    <Style TargetType="GridViewHeaderItem">
+                        <Setter Property="BorderThickness"
+                                Value="0" />
+                        <Setter Property="Margin"
+                                Value="0" />
+                        <Setter Property="HorizontalContentAlignment"
+                                Value="Stretch" />
+                    </Style>
+                </GroupStyle.HeaderContainerStyle>
+            </GroupStyle>
+        </GridView.GroupStyle>
         <GridView.ItemTemplate>
-            <DataTemplate x:DataType="x:String">
-                <TextBlock Text="{x:Bind}"
-                           Width="160"
-                           Margin="16"
-                           VerticalAlignment="Center"
-                           TextAlignment="Center"
-                           Style="{StaticResource TitleTextBlockStyle}" />
+            <DataTemplate x:DataType="local:ImpostoEscolhivel">
+                <Grid Padding="16">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="{x:Bind Template.Tipo}"
+                               Width="160"
+                               TextAlignment="Center"
+                               Style="{StaticResource TitleTextBlockStyle}" />
+                    <TextBlock Text="{x:Bind Template.NomeTemplate}"
+                               Style="{StaticResource BodyTextBlockStyle}" />
+                </Grid>
             </DataTemplate>
         </GridView.ItemTemplate>
     </GridView>

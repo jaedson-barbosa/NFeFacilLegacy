@@ -1,11 +1,14 @@
-﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
+﻿using NFeFacil.ItensBD.Produto;
+using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Navigation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
@@ -15,16 +18,7 @@ namespace NFeFacil.ViewNFe.Impostos
     [View.DetalhePagina("\uE825", "Impostos")]
     public sealed partial class EscolhaImpostos : Page
     {
-        ObservableCollection<string> impostos;
-        ObservableCollection<string> Impostos
-        {
-            get => impostos;
-            set
-            {
-                impostos = value;
-                InitializeComponent();
-            }
-        }
+        ICollectionView Impostos { get; set; }
 
         List<IDetalhamentoImposto> Escolhidos { get; set; } = new List<IDetalhamentoImposto>();
 
@@ -37,29 +31,39 @@ namespace NFeFacil.ViewNFe.Impostos
             var caixa = new MessageDialog("Qual o tipo de imposto que é usado neste dado?", "Entrada");
             caixa.Commands.Add(new UICommand("ICMS"));
             caixa.Commands.Add(new UICommand("ISSQN"));
+            ImpostoEscolhivel[] impostos;
             if ((await caixa.ShowAsync()).Label == "ICMS")
             {
-                Impostos = new ObservableCollection<string>
+                impostos = new ImpostoEscolhivel[]
                 {
-                    "ICMS",
-                    "IPI",
-                    "PIS",
-                    "COFINS",
-                    "II",
-                    "ICMSUFDest"
+                    new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.ICMS)),
+                    new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.IPI)),
+                    new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.PIS)),
+                    new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.COFINS)),
+                    new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.II)),
+                    new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.ICMSUFDest))
                 };
             }
             else
             {
-                Impostos = new ObservableCollection<string>
+                impostos = new ImpostoEscolhivel[]
                 {
-                    "IPI",
-                    "PIS",
-                    "COFINS",
-                    "ISSQN",
-                    "ICMSUFDest"
+                    new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.IPI)),
+                    new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.PIS)),
+                    new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.COFINS)),
+                    new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.ISSQN)),
+                    new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.ICMSUFDest))
                 };
             }
+            
+            for (int i = 0; i < impostos.Length; i++) impostos[i].Id = i;
+            Impostos = new CollectionViewSource()
+            {
+                IsSourceGrouped = true,
+                Source = from imp in impostos
+                         group imp by imp.Template.Tipo
+            }.View;
+            InitializeComponent();
         }
 
         async void Grd_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -71,9 +75,8 @@ namespace NFeFacil.ViewNFe.Impostos
             {
                 for (int i = 0; i < quantRemovida; i++)
                 {
-                    var item = (string)e.RemovedItems[i];
-                    var imposto = (PrincipaisImpostos)Enum.Parse(typeof(PrincipaisImpostos), item);
-                    switch (imposto)
+                    var item = (ImpostoEscolhivel)e.RemovedItems[i];
+                    switch (item.Template.Tipo)
                     {
                         case PrincipaisImpostos.ICMS:
                             Escolhidos.RemoveAll(x => x is DetalhamentoICMS.Detalhamento);
@@ -103,10 +106,9 @@ namespace NFeFacil.ViewNFe.Impostos
             {
                 for (int i = 0; i < quantAdicionada; i++)
                 {
-                    var item = (string)e.AddedItems[i];
-                    var imposto = (PrincipaisImpostos)Enum.Parse(typeof(PrincipaisImpostos), item);
+                    var item = (ImpostoEscolhivel)e.AddedItems[i];
                     bool sucesso = true;
-                    switch (imposto)
+                    switch (item.Template.Tipo)
                     {
                         case PrincipaisImpostos.ICMS:
                             sucesso = await DetalharICMS();
@@ -212,5 +214,26 @@ namespace NFeFacil.ViewNFe.Impostos
             var roteiro = new RoteiroAdicaoImpostos(Escolhidos, ProdutoCompleto);
             MainPage.Current.Navegar<DetalhamentoGeral>(roteiro);
         }
+
+        sealed class ImpostoPadrao : ImpostoArmazenado
+        {
+            public ImpostoPadrao(PrincipaisImpostos tipo)
+            {
+                Tipo = tipo;
+                NomeTemplate = "Template padrão";
+            }
+        }
+    }
+
+    struct ImpostoEscolhivel
+    {
+        public ImpostoEscolhivel(ImpostoArmazenado template)
+        {
+            Id = 0;
+            Template = template;
+        }
+
+        public int Id { get; set; }
+        public ImpostoArmazenado Template { get; set; }
     }
 }

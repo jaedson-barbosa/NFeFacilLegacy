@@ -1,6 +1,5 @@
 ﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Windows.UI.Xaml.Controls;
 
@@ -16,12 +15,12 @@ namespace NFeFacil.ViewNFe.Impostos
         ProcessamentoImposto[] Processamentos { get; }
         DetalhesProdutos Produto { get; }
 
-        public RoteiroAdicaoImpostos(List<IDetalhamentoImposto> impostos, DetalhesProdutos prod)
+        public RoteiroAdicaoImpostos(IDetalhamentoImposto[] impostos, DetalhesProdutos prod)
         {
             Produto = prod;
-            Telas = new Type[impostos.Count];
-            Processamentos = new ProcessamentoImposto[impostos.Count];
-            for (int i = 0; i < impostos.Count; i++)
+            Telas = new Type[impostos.Length];
+            Processamentos = new ProcessamentoImposto[impostos.Length];
+            for (int i = 0; i < impostos.Length; i++)
             {
                 var atual = impostos[i];
                 if (atual is DetalhamentoCOFINS.Detalhamento cofins)

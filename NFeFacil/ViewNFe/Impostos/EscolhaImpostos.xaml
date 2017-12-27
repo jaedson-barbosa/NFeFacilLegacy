@@ -42,6 +42,7 @@
                                TextAlignment="Center"
                                Style="{StaticResource TitleTextBlockStyle}" />
                     <TextBlock Text="{x:Bind Template.NomeTemplate}"
+                               Grid.Row="1"
                                Style="{StaticResource BodyTextBlockStyle}" />
                 </Grid>
             </DataTemplate>

@@ -85,6 +85,11 @@ namespace NFeFacil.Controles
                     if (C128Code[k, 1] == str)
                         return C128Code[k, colunaRetornada];
                 }
+                for (int k = 0; k < 107; k++)
+                {
+                    if (C128Code[k, 0] == str)
+                        return C128Code[k, colunaRetornada];
+                }
                 throw new Exception($"EC128-5: Could not find encoding of a value in C128 type C");
             }
         }

@@ -39,6 +39,7 @@ namespace NFeFacil.ViewRegistroVenda
 
         ExibicaoProduto[] ListaProdutos;
 
+        Visibility VisibilidadeTransporte { get; set; }
         internal Visibility VisibilidadeNFeRelacionada { get; private set; }
         internal Visibility VisibilidadeComprador { get; private set; }
         internal Visibility VisibilidadePagamento { get; private set; }
@@ -106,10 +107,17 @@ namespace NFeFacil.ViewRegistroVenda
             else
                 TemplateCliente = ClienteExterior;
 
-            if (!string.IsNullOrEmpty(Motorista.CPF))
-                TemplateTransporte = TransporteFisico;
-            else if (!string.IsNullOrEmpty(Motorista.CNPJ))
-                TemplateTransporte = TransporteJuridico;
+            if (Motorista != null)
+            {
+                if (!string.IsNullOrEmpty(Motorista.CPF))
+                    TemplateTransporte = TransporteFisico;
+                else if (!string.IsNullOrEmpty(Motorista.CNPJ))
+                    TemplateTransporte = TransporteJuridico;
+            }
+            else
+            {
+                VisibilidadeTransporte = Visibility.Collapsed;
+            }
 
             VisibilidadeNFeRelacionada = string.IsNullOrEmpty(Registro.NotaFiscalRelacionada) ? Visibility.Collapsed : Visibility.Visible;
             VisibilidadeComprador = Comprador == null ? Visibility.Collapsed : Visibility.Visible;

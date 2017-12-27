@@ -115,6 +115,13 @@
                     <Grid BorderBrush="Black"
                           Height="20"
                           BorderThickness="0,0,0,1">
+                        <Grid.Resources>
+                            <Style TargetType="TextBlock"
+                                   BasedOn="{StaticResource Padrao}">
+                                <Setter Property="VerticalAlignment"
+                                        Value="Center" />
+                            </Style>
+                        </Grid.Resources>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="{x:Bind local:ProdutosDARV.Largura2}" />
                             <ColumnDefinition Width="{x:Bind local:ProdutosDARV.Largura2}" />
@@ -134,7 +141,10 @@
                         <Grid Height="20">
                             <Grid.Resources>
                                 <Style TargetType="TextBlock"
-                                       BasedOn="{StaticResource Padrao}" />
+                                       BasedOn="{StaticResource Padrao}">
+                                    <Setter Property="VerticalAlignment"
+                                            Value="Center" />
+                                </Style>
                             </Grid.Resources>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="{x:Bind local:ProdutosDARV.Largura2}" />
@@ -277,7 +287,8 @@
                     <TextBlock Grid.Row="2"
                                Grid.Column="1">Email: <Run Text="{x:Bind Comprador.Email}" /></TextBlock>
                 </Grid>
-                <Grid Grid.Row="4">
+                <Grid Grid.Row="4"
+                      Visibility="{x:Bind VisibilidadeTransporte}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition />

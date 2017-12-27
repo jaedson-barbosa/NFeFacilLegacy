@@ -47,17 +47,16 @@ namespace NFeFacil.Certificacao.LAN.PacotesBanco
 
             using (var db = new AplicativoContext())
             {
-                if (Clientes.Length > 0) db.AddRange(Clientes);
-                if (Emitentes.Length > 0) db.AddRange(Emitentes);
-                if (Motoristas.Length > 0) db.AddRange(Motoristas);
-                if (Vendedores.Length > 0) db.AddRange(Vendedores);
-                if (Produtos.Length > 0) db.AddRange(Produtos);
-                if (Veiculos.Length > 0) db.AddRange(Veiculos);
-                if (NotasFiscais.Length > 0) db.AddRange(NotasFiscais);
-                if (Cancelamentos.Length > 0) db.AddRange(Cancelamentos);
-                if (CancelamentosRegistroVenda.Length > 0) db.AddRange(CancelamentosRegistroVenda);
-                if (Imagens.Length > 0) db.AddRange(Imagens);
-                db.SaveChanges();
+                if (Clientes.Length > 0) db.Clientes.AddRange(Clientes);
+                if (Emitentes.Length > 0) db.Emitentes.AddRange(Emitentes);
+                if (Motoristas.Length > 0) db.Motoristas.AddRange(Motoristas);
+                if (Vendedores.Length > 0) db.Vendedores.AddRange(Vendedores);
+                if (Produtos.Length > 0) db.Produtos.AddRange(Produtos);
+                if (Veiculos.Length > 0) db.Veiculos.AddRange(Veiculos);
+                if (NotasFiscais.Length > 0) db.NotasFiscais.AddRange(NotasFiscais);
+                if (Cancelamentos.Length > 0) db.Cancelamentos.AddRange(Cancelamentos);
+                if (CancelamentosRegistroVenda.Length > 0) db.CancelamentosRegistroVenda.AddRange(CancelamentosRegistroVenda);
+                if (Imagens.Length > 0) db.Imagens.AddRange(Imagens);
 
                 if (Estoque.Length > 0)
                 {
@@ -67,7 +66,7 @@ namespace NFeFacil.Certificacao.LAN.PacotesBanco
                         var novo = Estoque[i];
                         AlteracoesEstoque[i] = novo.Alteracoes;
                         novo.Alteracoes = null;
-                        db.Add(novo);
+                        db.Estoque.Add(novo);
                     }
                 }
 
@@ -79,9 +78,11 @@ namespace NFeFacil.Certificacao.LAN.PacotesBanco
                         var novo = Vendas[i];
                         ProdutosVendas[i] = novo.Produtos;
                         novo.Produtos = null;
-                        db.Add(novo);
+                        db.Vendas.Add(novo);
                     }
                 }
+
+                db.SaveChanges();
             }
 
             using (var db = new AplicativoContext())
@@ -93,6 +94,7 @@ namespace NFeFacil.Certificacao.LAN.PacotesBanco
                         var novo = Estoque[i];
                         var alteracoes = AlteracoesEstoque[i];
                         alteracoes.ForEach(x => x.Id = default(Guid));
+                        novo.Alteracoes = alteracoes;
                         db.Estoque.Update(novo);
                     }
                 }

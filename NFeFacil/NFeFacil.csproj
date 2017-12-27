@@ -633,9 +633,6 @@
     <Compile Include="ViewNFe\Impostos\EscolherTipoICMS.xaml.cs">
       <DependentUpon>EscolherTipoICMS.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\EscolhaImposto.xaml.cs">
-      <DependentUpon>EscolhaImposto.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ViewNFe\VisualizacaoNFe.xaml.cs">
       <DependentUpon>VisualizacaoNFe.xaml</DependentUpon>
     </Compile>
@@ -1258,10 +1255,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ViewNFe\Impostos\EscolherTipoICMS.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ViewNFe\EscolhaImposto.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

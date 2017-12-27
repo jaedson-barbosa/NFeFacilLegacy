@@ -241,9 +241,9 @@
     <Compile Include="Migrations\20171219130436_Loja1.7.9.Designer.cs">
       <DependentUpon>20171219130436_Loja1.7.9.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\20171222192219_Loja1.8.cs" />
-    <Compile Include="Migrations\20171222192219_Loja1.8.designer.cs">
-      <DependentUpon>20171222192219_Loja1.8.cs</DependentUpon>
+    <Compile Include="Migrations\20171226171240_Loja1.8.cs" />
+    <Compile Include="Migrations\20171226171240_Loja1.8.designer.cs">
+      <DependentUpon>20171226171240_Loja1.8.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\AplicativoContextModelSnapshot.cs" />
     <Compile Include="Model.cs" />
@@ -363,6 +363,13 @@
     <Compile Include="Repositorio\Escrita.cs" />
     <Compile Include="Repositorio\Leitura.cs" />
     <Compile Include="Repositorio\OperacoesExtras.cs" />
+    <Compile Include="ViewDadosBase\GerenciamentoProdutos\CadastroICMS.xaml.cs">
+      <DependentUpon>CadastroICMS.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewDadosBase\GerenciamentoProdutos\CadastroImpSimples.xaml.cs">
+      <DependentUpon>CadastroImpSimples.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\Impostos\IEscolherImpSimples.cs" />
     <Compile Include="View\ConjuntoBasicoExibicao.cs" />
     <Compile Include="Controles\ExibicaoImagem.xaml.cs">
       <DependentUpon>ExibicaoImagem.xaml</DependentUpon>
@@ -983,6 +990,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ViewDadosBase\AdicionarComprador.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewDadosBase\GerenciamentoProdutos\CadastroICMS.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewDadosBase\GerenciamentoProdutos\CadastroImpSimples.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

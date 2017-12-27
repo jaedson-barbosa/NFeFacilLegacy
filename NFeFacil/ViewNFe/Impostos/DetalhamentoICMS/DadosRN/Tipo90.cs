@@ -3,7 +3,7 @@ using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.P
 
 namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS.DadosRN
 {
-    class Tipo90 : BaseRN
+    public class Tipo90 : BaseRN
     {
         public int modBC { get; set; }
         public string vBC { get; set; }
@@ -21,6 +21,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS.DadosRN
         public string pICMSST { get; set; }
         public string vICMSST { get; set; }
 
+        public Tipo90() { }
         public Tipo90(TelasRN.Tipo90 tela)
         {
             modBC = tela.modBC;

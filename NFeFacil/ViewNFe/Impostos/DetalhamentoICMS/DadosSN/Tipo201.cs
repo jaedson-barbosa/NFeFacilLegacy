@@ -4,16 +4,17 @@ using static NFeFacil.ExtensoesPrincipal;
 
 namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS.DadosSN
 {
-    class Tipo201 : BaseSN
+    public class Tipo201 : BaseSN
     {
-        public int modBCST { get; }
-        public string pMVAST { get; }
-        public string pRedBCST { get; }
-        public double pICMSST { get; }
+        public int modBCST { get; set; }
+        public string pMVAST { get; set; }
+        public string pRedBCST { get; set; }
+        public double pICMSST { get; set; }
 
-        public string pCredSN { get; }
-        public string vCredICMSSN { get; }
+        public string pCredSN { get; set; }
+        public string vCredICMSSN { get; set; }
 
+        public Tipo201() { }
         public Tipo201(TelasSN.Tipo201 tela)
         {
             modBCST = tela.modBCST;

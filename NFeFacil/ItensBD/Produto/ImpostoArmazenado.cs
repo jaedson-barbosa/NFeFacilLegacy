@@ -6,5 +6,7 @@ namespace NFeFacil.ItensBD.Produto
     {
         public PrincipaisImpostos Tipo { get; set; }
         public string CST { get; set; }
+        public string NomeTemplate { get; set; }
+        public bool EdicaoAtivada { get; set; }
     }
 }

@@ -4,7 +4,7 @@
 
 namespace NFeFacil.ViewNFe.Impostos
 {
-    public sealed partial class EscolherTipoPISouCOFINS : ContentDialog
+    public sealed partial class EscolherTipoPISouCOFINS : ContentDialog, IEscolherImpSimples
     {
         public EscolherTipoPISouCOFINS()
         {
@@ -44,7 +44,7 @@ namespace NFeFacil.ViewNFe.Impostos
             }
         }
 
-        internal TiposCalculo TipoCalculo { get; private set; }
+        public TiposCalculo TipoCalculo { get; private set; }
 
         private void TipoCalculoMudou(object sender, SelectionChangedEventArgs e)
         {

@@ -4,7 +4,7 @@ using static NFeFacil.ExtensoesPrincipal;
 
 namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS.DadosRN
 {
-    class Tipo70 : BaseRN
+    public class Tipo70 : BaseRN
     {
         public int modBC { get; set; }
         public double pICMS { get; set; }
@@ -17,6 +17,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS.DadosRN
 
         public string motDesICMS { get; set; }
 
+        public Tipo70() { }
         public Tipo70(TelasRN.Tipo70 tela)
         {
             modBC = tela.modBC;

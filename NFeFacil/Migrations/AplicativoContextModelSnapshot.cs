@@ -298,6 +298,10 @@ namespace NFeFacil.Migrations
 
                     b.Property<string>("EXTIPI");
 
+                    b.Property<string>("ICMS");
+
+                    b.Property<string>("ImpostosSimples");
+
                     b.Property<string>("NCM");
 
                     b.Property<string>("ProdutoEspecial");

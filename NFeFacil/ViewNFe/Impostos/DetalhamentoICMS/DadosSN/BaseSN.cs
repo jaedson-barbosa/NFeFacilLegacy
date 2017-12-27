@@ -4,10 +4,11 @@ using static NFeFacil.ExtensoesPrincipal;
 
 namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS.DadosSN
 {
-    abstract class BaseSN : IDadosICMS
+    public abstract class BaseSN : IDadosICMS
     {
-        public string CSOSN { protected get; set; }
-        public int Origem { protected get; set; }
+        public string CSOSN { get; set; }
+        public int Origem { get; set; }
+
         public abstract object Processar(DetalhesProdutos prod);
 
         protected double CalcularBC(DetalhesProdutos detalhes)

@@ -1,4 +1,5 @@
-﻿using NFeFacil.ModeloXML;
+﻿using NFeFacil.ItensBD.Produto;
+using NFeFacil.ModeloXML;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
 using System;
@@ -136,6 +137,11 @@ namespace NFeFacil.ItensBD
             }
         }
 
+        public string ImpostosSimples { get; set; }
+        public string ICMS { get; set; }
+        List<ImpSimplesArmazenado> impostosSimples;
+        List<ICMSArmazenado> icms;
+
         public ProdutoDI() { }
         public ProdutoDI(ProdutoOuServicoGenerico other)
         {
@@ -175,6 +181,82 @@ namespace NFeFacil.ItensBD
         {
             DetalheEspecial = null;
             ProdutoEspecial = null;
+        }
+
+        public IEnumerable<ImpSimplesArmazenado> GetImpSimplesArmazenados()
+        {
+            if (impostosSimples == null)
+            {
+                if (!string.IsNullOrEmpty(ImpostosSimples))
+                {
+                    var xml = XElement.Parse(ImpostosSimples);
+                    impostosSimples = xml.FromXElement<List<ImpSimplesArmazenado>>();
+                }
+                else
+                {
+                    impostosSimples = new List<ImpSimplesArmazenado>();
+                }
+            }
+            return impostosSimples;
+        }
+
+        public IEnumerable<ICMSArmazenado> GetICMSArmazenados()
+        {
+            if (icms == null)
+            {
+                if (!string.IsNullOrEmpty(ICMS))
+                {
+                    var xml = XElement.Parse(ICMS);
+                    icms = xml.FromXElement<List<ICMSArmazenado>>();
+                }
+                else
+                {
+                    icms = new List<ICMSArmazenado>();
+                }
+            }
+            return icms;
+        }
+
+        public void AdicionarImpostoSimples(ImpSimplesArmazenado imp)
+        {
+            impostosSimples.Add(imp);
+            ImpostosSimples = impostosSimples.ToXElement<List<ImpSimplesArmazenado>>()
+                .ToString(SaveOptions.DisableFormatting);
+        }
+
+        public void AdicionarICMS(ICMSArmazenado imp)
+        {
+            icms.Add(imp);
+            ICMS = icms.ToXElement<List<ICMSArmazenado>>()
+                .ToString(SaveOptions.DisableFormatting);
+        }
+
+        public void RemoverImpostoSimples(ImpSimplesArmazenado imp)
+        {
+            impostosSimples.Remove(imp);
+            if (impostosSimples.Count > 0)
+            {
+                ImpostosSimples = impostosSimples.ToXElement<List<ImpSimplesArmazenado>>()
+                    .ToString(SaveOptions.DisableFormatting);
+            }
+            else
+            {
+                ImpostosSimples = null;
+            }
+        }
+
+        public void RemoverICMS(ICMSArmazenado imp)
+        {
+            icms.Remove(imp);
+            if (icms.Count > 0)
+            {
+                ICMS = icms.ToXElement<List<ICMSArmazenado>>()
+                    .ToString(SaveOptions.DisableFormatting);
+            }
+            else
+            {
+                ICMS = null;
+            }
         }
 
         public sealed class ProdutoOuServicoGenerico

@@ -4,11 +4,12 @@ using static NFeFacil.ExtensoesPrincipal;
 
 namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS.DadosRN
 {
-    class Tipo0 : BaseRN
+    public class Tipo0 : BaseRN
     {
         public int modBC { get; set; }
         public double pICMS { get; set; }
 
+        public Tipo0() { }
         public Tipo0(TelasRN.Tipo0 tela)
         {
             modBC = tela.modBC;

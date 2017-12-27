@@ -4,7 +4,7 @@ using static NFeFacil.ExtensoesPrincipal;
 
 namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS.DadosRN
 {
-    class Tipo30 : BaseRN
+    public class Tipo30 : BaseRN
     {
         public int modBCST { get; set; }
         public double pICMSST { get; set; }
@@ -12,6 +12,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS.DadosRN
         public string pRedBCST { get; set; }
         public string motDesICMS { get; set; }
 
+        public Tipo30() { }
         public Tipo30(TelasRN.Tipo30 tela)
         {
             modBCST = tela.modBCST;

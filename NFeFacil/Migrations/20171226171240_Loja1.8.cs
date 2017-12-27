@@ -12,6 +12,16 @@ namespace NFeFacil.Migrations
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
+                name: "ICMS",
+                table: "Produtos",
+                nullable: true);
+
+            migrationBuilder.AddColumn<string>(
+                name: "ImpostosSimples",
+                table: "Produtos",
+                nullable: true);
+
+            migrationBuilder.AddColumn<string>(
                 name: "ProdutoEspecial",
                 table: "Produtos",
                 nullable: true);
@@ -21,6 +31,14 @@ namespace NFeFacil.Migrations
         {
             migrationBuilder.DropColumn(
                 name: "CEST",
+                table: "Produtos");
+
+            migrationBuilder.DropColumn(
+                name: "ICMS",
+                table: "Produtos");
+
+            migrationBuilder.DropColumn(
+                name: "ImpostosSimples",
                 table: "Produtos");
 
             migrationBuilder.DropColumn(

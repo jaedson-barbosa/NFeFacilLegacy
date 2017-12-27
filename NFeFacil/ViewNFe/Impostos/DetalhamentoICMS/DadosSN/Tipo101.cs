@@ -3,11 +3,12 @@ using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.P
 
 namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS.DadosSN
 {
-    class Tipo101 : BaseSN
+    public class Tipo101 : BaseSN
     {
-        public string pCredSN { get; private set; }
-        public string vCredICMSSN { get; private set; }
+        public string pCredSN { get; set; }
+        public string vCredICMSSN { get; set; }
 
+        public Tipo101() { }
         public Tipo101(TelasSN.Tipo101 tela)
         {
             pCredSN = tela.pCredSN;

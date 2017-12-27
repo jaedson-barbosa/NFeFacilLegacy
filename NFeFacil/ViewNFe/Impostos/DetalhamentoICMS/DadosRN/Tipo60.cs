@@ -3,11 +3,12 @@ using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.P
 
 namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS.DadosRN
 {
-    class Tipo60 : BaseRN
+    public class Tipo60 : BaseRN
     {
         public string vBCSTRet { get; set; }
         public string vICMSSTRet { get; set; }
 
+        public Tipo60() { }
         public Tipo60(TelasRN.Tipo60 tela)
         {
             vBCSTRet = tela.vBCSTRet;

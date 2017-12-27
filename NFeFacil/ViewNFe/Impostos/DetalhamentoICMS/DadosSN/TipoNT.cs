@@ -3,7 +3,7 @@ using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.P
 
 namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS.DadosSN
 {
-    class TipoNT : BaseSN
+    public class TipoNT : BaseSN
     {
         public override object Processar(DetalhesProdutos prod)
         {

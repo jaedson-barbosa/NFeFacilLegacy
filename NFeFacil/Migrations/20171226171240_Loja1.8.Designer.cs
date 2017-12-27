@@ -8,7 +8,7 @@ using NFeFacil;
 namespace NFeFacil.Migrations
 {
     [DbContext(typeof(AplicativoContext))]
-    [Migration("20171222192219_Loja1.8")]
+    [Migration("20171226171240_Loja1.8")]
     partial class Loja18
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -301,6 +301,10 @@ namespace NFeFacil.Migrations
                     b.Property<string>("Descricao");
 
                     b.Property<string>("EXTIPI");
+
+                    b.Property<string>("ICMS");
+
+                    b.Property<string>("ImpostosSimples");
 
                     b.Property<string>("NCM");
 

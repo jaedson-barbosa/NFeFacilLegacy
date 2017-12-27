@@ -3,7 +3,7 @@ using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.P
 
 namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS.DadosRN
 {
-    class TipoPart : BaseRN
+    public class TipoPart : BaseRN
     {
         public string vICMSDeson { get; set; }
         public string motDesICMS { get; set; }
@@ -22,6 +22,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS.DadosRN
         public string pICMSST { get; set; }
         public string vICMSST { get; set; }
 
+        public TipoPart() { }
         public TipoPart(TelasRN.TipoPart tela)
         {
             vICMSDeson = tela.vICMSDeson;

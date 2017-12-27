@@ -12,16 +12,13 @@
     <StackPanel>
         <TextBox Header="Nome do modelo"
                  Text="{x:Bind NomeModelo, Mode=TwoWay}" />
-        <controles:EntradaNumerica Grid.Row="1"
-                                   Format="5:4"
+        <controles:EntradaNumerica Format="5:4"
                                    Header="Alíquota"
                                    Number="{x:Bind Aliquota, Mode=TwoWay}"
                                    IsEnabled="{x:Bind UsarAliquota}" />
-        <controles:EntradaNumerica Grid.Row="2"
-                                   Format="15:4"
+        <controles:EntradaNumerica Format="15:4"
                                    Header="Valor por unidade"
                                    Number="{x:Bind Valor, Mode=TwoWay}"
                                    IsEnabled="{x:Bind UsarValor}" />
-        <CheckBox IsChecked="{x:Bind EdicaoAtivada, Mode=TwoWay}">Editar durante criação da NFe</CheckBox>
     </StackPanel>
 </ContentDialog>

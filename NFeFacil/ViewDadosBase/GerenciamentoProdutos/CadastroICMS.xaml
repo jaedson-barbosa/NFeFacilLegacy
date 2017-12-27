@@ -12,13 +12,10 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
-            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <TextBox Header="Nome do modelo"
                  Text="{x:Bind NomeModelo, Mode=TwoWay}" />
-        <CheckBox Grid.Row="1"
-                  IsChecked="{x:Bind EdicaoAtivada, Mode=TwoWay}">Editar durante criação da NFe</CheckBox>
         <Frame x:Name="frmManipulacao"
-               Grid.Row="2" />
+               Grid.Row="1" />
     </Grid>
 </ContentDialog>

@@ -59,6 +59,11 @@
                            Margin="0,16,0,0">Categoria do produto</TextBlock>
                 <GridView Style="{StaticResource ItensMediosGrid}"
                           SelectedIndex="{x:Bind TipoEspecialEscolhido, Mode=TwoWay}">
+                    <GridView.ContextFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Click="EditarEspecial">Editar ativo</MenuFlyoutItem>
+                        </MenuFlyout>
+                    </GridView.ContextFlyout>
                     <controles:ItemPadraoSimples Titulo="Produto simples"
                                                  Descricao="Produto que não se encaixa nas categorias especiais">
                         <SymbolIcon Symbol="Shop" />

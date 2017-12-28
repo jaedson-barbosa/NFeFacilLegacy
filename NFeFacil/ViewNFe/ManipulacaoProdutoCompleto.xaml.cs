@@ -149,6 +149,8 @@ namespace NFeFacil.ViewNFe
             MainPage.Current.Navegar<Impostos.EscolhaImpostos>(Conjunto);
         }
 
+        void EditarEspecial(object sender, RoutedEventArgs e) => TipoEspecialEscolhido = TipoEspecialEscolhido;
+
         async void AdicionarDeclaracaoImportacao(object sender, RoutedEventArgs e)
         {
             var caixa = new CaixasDialogoProduto.AdicionarDeclaracaoImportacao();

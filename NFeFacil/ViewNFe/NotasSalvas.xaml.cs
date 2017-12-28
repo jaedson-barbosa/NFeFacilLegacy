@@ -14,6 +14,8 @@ using NFeFacil.WebService;
 using NFeFacil.Validacao;
 using Windows.UI.Xaml.Media;
 using NFeFacil.View;
+using NFeFacil.WebService.Pacotes.PartesEnvEvento;
+using NFeFacil.WebService.Pacotes.PartesRetEnvEvento;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 

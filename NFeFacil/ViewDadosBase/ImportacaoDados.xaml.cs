@@ -81,7 +81,7 @@ namespace NFeFacil.ViewDadosBase
                         }
                     }
                 }
-                catch (Exception erro) { }
+                catch (Exception) { }
             }
             using (var repo = new Escrita())
             {

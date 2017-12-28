@@ -1,4 +1,5 @@
-﻿using NFeFacil.Log;
+﻿using NFeFacil.ItensBD.Produto;
+using NFeFacil.Log;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 
@@ -17,38 +18,45 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoISSQN
         public override bool ValidarDados()
         {
             var log = Popup.Current;
-            var imposto = dados.Imposto;
-            if (string.IsNullOrEmpty(imposto.vBC))
+            var imposto = dados?.Imposto;
+            if (imposto != null)
             {
-                log.Escrever(TitulosComuns.Atenção, "Valor da base de cálculo não pode ficar em branco.");
-            }
-            else if (string.IsNullOrEmpty(imposto.vAliq))
-            {
-                log.Escrever(TitulosComuns.Atenção, "Alíquota não pode ficar em branco.");
-            }
-            else if (string.IsNullOrEmpty(imposto.vISSQN))
-            {
-                log.Escrever(TitulosComuns.Atenção, "Valor do ISSQN não pode ficar em branco.");
-            }
-            else if (string.IsNullOrEmpty(imposto.cMunFG))
-            {
-                log.Escrever(TitulosComuns.Atenção, "O município de ocorrência deve ser informado.");
-            }
-            else if (string.IsNullOrEmpty(imposto.cListServ))
-            {
-                log.Escrever(TitulosComuns.Atenção, "Item da lista de serviços deve ser informado.");
-            }
-            else if (string.IsNullOrEmpty(imposto.indISS))
-            {
-                log.Escrever(TitulosComuns.Atenção, "Indicador da exigibilidade do ISS é obrigatório.");
-            }
-            else if (string.IsNullOrEmpty(imposto.indIncentivo))
-            {
-                log.Escrever(TitulosComuns.Atenção, "O indicado de incentivo fiscal deve ser informado.");
+                if (string.IsNullOrEmpty(imposto.vBC))
+                {
+                    log.Escrever(TitulosComuns.Atenção, "Valor da base de cálculo não pode ficar em branco.");
+                }
+                else if (string.IsNullOrEmpty(imposto.vAliq))
+                {
+                    log.Escrever(TitulosComuns.Atenção, "Alíquota não pode ficar em branco.");
+                }
+                else if (string.IsNullOrEmpty(imposto.vISSQN))
+                {
+                    log.Escrever(TitulosComuns.Atenção, "Valor do ISSQN não pode ficar em branco.");
+                }
+                else if (string.IsNullOrEmpty(imposto.cMunFG))
+                {
+                    log.Escrever(TitulosComuns.Atenção, "O município de ocorrência deve ser informado.");
+                }
+                else if (string.IsNullOrEmpty(imposto.cListServ))
+                {
+                    log.Escrever(TitulosComuns.Atenção, "Item da lista de serviços deve ser informado.");
+                }
+                else if (string.IsNullOrEmpty(imposto.indISS))
+                {
+                    log.Escrever(TitulosComuns.Atenção, "Indicador da exigibilidade do ISS é obrigatório.");
+                }
+                else if (string.IsNullOrEmpty(imposto.indIncentivo))
+                {
+                    log.Escrever(TitulosComuns.Atenção, "O indicado de incentivo fiscal deve ser informado.");
+                }
+                else
+                {
+                    return true;
+                }
             }
             else
             {
-                return true;
+                log.Escrever(TitulosComuns.Erro, "Erro ao obter os dados do imposto.");
             }
             return false;
         }
@@ -60,6 +68,12 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoISSQN
             {
                 dados = (IDadosISSQN)Tela;
             }
+            else if (Detalhamento is DadoPronto pronto)
+            {
+                ProcessarDadosProntos(pronto.ImpostoPronto);
+            }
         }
+
+        protected override void ProcessarDadosProntos(ImpostoArmazenado imposto) { }
     }
 }

@@ -12,6 +12,7 @@ using System.Collections.ObjectModel;
 using NFeFacil.ItensBD.Produto;
 using NFeFacil.ViewNFe.Impostos;
 using NFeFacil.ViewNFe;
+using System.Threading.Tasks;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -128,19 +129,40 @@ namespace NFeFacil.ViewDadosBase.GerenciamentoProdutos
             Produto.RemoverICMS(imp);
         }
 
-        void AdicionarPIS(object sender, RoutedEventArgs e)
+        async void AdicionarPIS(object sender, RoutedEventArgs e)
         {
-            AdicionarImpSimples<EscolherTipoPISouCOFINS>(PrincipaisImpostos.PIS);
+            var imp = await AdicionarImpSimples<EscolherTipoPISouCOFINS>(PrincipaisImpostos.PIS);
+            if (imp != null)
+            {
+                Produto.AdicionarImpostoSimples(imp);
+                ImpostosSimples.Add(imp);
+            }
         }
 
-        void AdicionarCOFINS(object sender, RoutedEventArgs e)
+        async void AdicionarCOFINS(object sender, RoutedEventArgs e)
         {
-            AdicionarImpSimples<EscolherTipoPISouCOFINS>(PrincipaisImpostos.COFINS);
+            var imp = await AdicionarImpSimples<EscolherTipoPISouCOFINS>(PrincipaisImpostos.COFINS);
+            if (imp != null)
+            {
+                Produto.AdicionarImpostoSimples(imp);
+                ImpostosSimples.Add(imp);
+            }
         }
 
-        void AdicionarIPI(object sender, RoutedEventArgs e)
+        async void AdicionarIPI(object sender, RoutedEventArgs e)
         {
-            AdicionarImpSimples<EscolherTipoIPI>(PrincipaisImpostos.IPI);
+            var imp = await AdicionarImpSimples<EscolherTipoIPI>(PrincipaisImpostos.IPI);
+            if (imp != null)
+            {
+                var caixa = new CadastroIPI();
+                if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+                {
+                    imp.IPI = caixa.Dados.ToXElement<ImpSimplesArmazenado.XMLIPIArmazenado>()
+                        .ToString(SaveOptions.DisableFormatting);
+                    Produto.AdicionarImpostoSimples(imp);
+                    ImpostosSimples.Add(imp);
+                }
+            }
         }
 
         async void AdicionarICMS(object sender, RoutedEventArgs e)
@@ -155,7 +177,7 @@ namespace NFeFacil.ViewDadosBase.GerenciamentoProdutos
                         escolha.TipoICMSSN, escolha.TipoICMSRN, escolha.Origem);
                     var imp = new ICMSArmazenado
                     {
-                        CST = rn?.CST ?? sn?.CSOSN,
+                        CST = int.Parse(rn?.CST ?? sn?.CSOSN),
                         IsRegimeNormal = cadastro.IsRegimeNormal,
                         NomeTemplate = cadastro.NomeModelo,
                         RegimeNormal = rn,
@@ -170,7 +192,7 @@ namespace NFeFacil.ViewDadosBase.GerenciamentoProdutos
             }
         }
 
-        async void AdicionarImpSimples<T>(PrincipaisImpostos tipo) where T : ContentDialog, IEscolherImpSimples, new()
+        async Task<ImpSimplesArmazenado> AdicionarImpSimples<T>(PrincipaisImpostos tipo) where T : ContentDialog, IEscolherImpSimples, new()
         {
             var escolha = new T();
             if (await escolha.ShowAsync() == ContentDialogResult.Primary)
@@ -178,20 +200,19 @@ namespace NFeFacil.ViewDadosBase.GerenciamentoProdutos
                 var cadastro = new CadastroImpSimples(escolha.TipoCalculo);
                 if (await cadastro.ShowAsync() == ContentDialogResult.Primary)
                 {
-                    var imp = new ImpSimplesArmazenado
+                    return new ImpSimplesArmazenado
                     {
                         Aliquota = cadastro.Aliquota,
-                        CST = escolha.CST,
+                        CST = int.Parse(escolha.CST),
                         NomeTemplate = cadastro.NomeModelo,
                         Tipo = tipo,
                         TipoCalculo = escolha.TipoCalculo,
                         Valor = cadastro.Valor,
                         EdicaoAtivada = cadastro.EdicaoAtivada
                     };
-                    Produto.AdicionarImpostoSimples(imp);
-                    ImpostosSimples.Add(imp);
                 }
             }
+            return null;
         }
     }
 }

@@ -369,6 +369,9 @@
     <Compile Include="ViewDadosBase\GerenciamentoProdutos\CadastroImpSimples.xaml.cs">
       <DependentUpon>CadastroImpSimples.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewDadosBase\GerenciamentoProdutos\CadastroIPI.xaml.cs">
+      <DependentUpon>CadastroIPI.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewNFe\DadosAdicaoProduto.cs" />
     <Compile Include="ViewNFe\Impostos\DadoPronto.cs" />
     <Compile Include="ViewNFe\Impostos\IEscolherImpSimples.cs" />
@@ -997,6 +1000,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ViewDadosBase\GerenciamentoProdutos\CadastroImpSimples.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewDadosBase\GerenciamentoProdutos\CadastroIPI.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

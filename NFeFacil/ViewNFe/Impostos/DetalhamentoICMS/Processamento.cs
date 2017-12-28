@@ -1,4 +1,5 @@
-﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
+﻿using NFeFacil.ItensBD.Produto;
+using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
 
@@ -17,7 +18,7 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS
             return new ImpostoBase[1] { imposto };
         }
 
-        public override bool ValidarDados() => true;
+        public override bool ValidarDados() => dados != null;
 
         public override void ProcessarEntradaDados(object Tela)
         {
@@ -26,6 +27,10 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS
                 var normal = DefinicoesTemporarias.EmitenteAtivo.RegimeTributario == 3;
                 var (rn, sn) = ProcessarTela(Tela, normal, det.TipoICMSSN, det.TipoICMSRN, det.Origem);
                 dados = (IDadosICMS)rn ?? sn;
+            }
+            else if (Detalhamento is DadoPronto pronto)
+            {
+                ProcessarDadosProntos(pronto.ImpostoPronto);
             }
         }
 
@@ -137,6 +142,14 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoICMS
                 baseRN.CST = CST.Substring(0, 2);
                 baseRN.Origem = origem;
                 return (baseRN, null);
+            }
+        }
+
+        protected override void ProcessarDadosProntos(ImpostoArmazenado imposto)
+        {
+            if (imposto is ICMSArmazenado icms)
+            {
+                dados = icms.IsRegimeNormal ? (IDadosICMS)icms.RegimeNormal : icms.SimplesNacional;
             }
         }
     }

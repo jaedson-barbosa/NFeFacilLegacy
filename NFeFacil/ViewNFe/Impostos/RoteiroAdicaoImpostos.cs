@@ -89,6 +89,36 @@ namespace NFeFacil.ViewNFe.Impostos
                         Detalhamento = icms,
                     };
                 }
+                else if (atual is DadoPronto pronto)
+                {
+                    switch (pronto.Tipo)
+                    {
+                        case PrincipaisImpostos.ICMS:
+                            Processamentos[i] = new DetalhamentoICMS.Processamento()
+                            {
+                                Detalhamento = pronto,
+                            };
+                            break;
+                        case PrincipaisImpostos.IPI:
+                            Processamentos[i] = new DetalhamentoIPI.Processamento()
+                            {
+                                Detalhamento = pronto,
+                            };
+                            break;
+                        case PrincipaisImpostos.PIS:
+                            Processamentos[i] = new DetalhamentoPIS.Processamento()
+                            {
+                                Detalhamento = pronto,
+                            };
+                            break;
+                        case PrincipaisImpostos.COFINS:
+                            Processamentos[i] = new DetalhamentoCOFINS.Processamento()
+                            {
+                                Detalhamento = pronto,
+                            };
+                            break;
+                    }
+                }
             }
         }
 

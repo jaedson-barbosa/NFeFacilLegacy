@@ -47,12 +47,19 @@ namespace NFeFacil.ViewRegistroVenda
         async void DefinirComprador(ClienteManipulacaoRV client)
         {
             var compradores = client.Compradores;
-            var nomes = compradores.Select(x => x.Nome);
-            var caixa = new DefinirComprador(nomes);
-            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+            if (compradores?.Length > 0)
             {
-                var escolhido = compradores.First(x => x.Nome == caixa.Escolhido);
-                ItemBanco.Comprador = escolhido.Id;
+                var nomes = compradores.Select(x => x.Nome);
+                var caixa = new DefinirComprador(nomes);
+                if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+                {
+                    var escolhido = compradores.First(x => x.Nome == caixa.Escolhido);
+                    ItemBanco.Comprador = escolhido.Id;
+                }
+            }
+            else
+            {
+                ItemBanco.Comprador = default(Guid);
             }
         }
 

@@ -17,6 +17,7 @@ namespace NFeFacil.ViewNFe
     [DetalhePagina(Symbol.Shop, "Produto")]
     public sealed partial class ManipulacaoProdutoCompleto : Page, IHambuguer, IValida
     {
+        DadosAdicaoProduto Conjunto;
         public DetalhesProdutos ProdutoCompleto { get; private set; }
 
         public ObservableCollection<DeclaracaoImportacao> ListaDI { get; } = new ObservableCollection<DeclaracaoImportacao>();
@@ -117,8 +118,9 @@ namespace NFeFacil.ViewNFe
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var produto = (DetalhesProdutos)e.Parameter;
-            ProdutoCompleto = produto;
+            var produto = (DadosAdicaoProduto)e.Parameter;
+            Conjunto = produto;
+            ProdutoCompleto = produto.Completo;
         }
 
         public ObservableCollection<ItemHambuguer> ConteudoMenu => new ObservableCollection<ItemHambuguer>
@@ -144,7 +146,7 @@ namespace NFeFacil.ViewNFe
             {
                 ProdutoCompleto.ImpostoDevol = null;
             }
-            MainPage.Current.Navegar<Impostos.EscolhaImpostos>(ProdutoCompleto);
+            MainPage.Current.Navegar<Impostos.EscolhaImpostos>(Conjunto);
         }
 
         async void AdicionarDeclaracaoImportacao(object sender, RoutedEventArgs e)

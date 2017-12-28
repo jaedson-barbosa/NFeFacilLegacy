@@ -369,6 +369,8 @@
     <Compile Include="ViewDadosBase\GerenciamentoProdutos\CadastroImpSimples.xaml.cs">
       <DependentUpon>CadastroImpSimples.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewNFe\DadosAdicaoProduto.cs" />
+    <Compile Include="ViewNFe\Impostos\DadoPronto.cs" />
     <Compile Include="ViewNFe\Impostos\IEscolherImpSimples.cs" />
     <Compile Include="View\ConjuntoBasicoExibicao.cs" />
     <Compile Include="Controles\ExibicaoImagem.xaml.cs">

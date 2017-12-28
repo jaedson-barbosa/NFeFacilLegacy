@@ -12,7 +12,6 @@ using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesIdentific
 using NFeFacil.IBGE;
 using NFeFacil.Validacao;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using NFeFacil.ViewNFe.CaixasDialogoNFe;
@@ -122,8 +121,6 @@ namespace NFeFacil.ViewNFe
                 }
             }
         }
-
-        public ProdutoDI ProdutoSelecionado { get; set; }
 
         private MotoristaManipulacaoNFe motoristaSelecionado;
         MotoristaManipulacaoNFe MotoristaSelecionado
@@ -383,15 +380,6 @@ namespace NFeFacil.ViewNFe
 
         #region Adição e remoção básica
 
-        void AdicionarProduto()
-        {
-            var detCompleto = new DetalhesProdutos
-            {
-                Produto = ProdutoSelecionado != null ? ProdutoSelecionado.ToProdutoOuServico() : new ProdutoOuServico()
-            };
-            MainPage.Current.Navegar<ManipulacaoProdutoCompleto>(detCompleto);
-        }
-
         async void EditarProduto(DetalhesProdutos produto)
         {
             var caixa = new MessageDialog("A edição de um produto causa a perda de todos os impostos cadastrados atualmente neste produto, tem certeza que quer continuar?", "Atenção");
@@ -590,11 +578,6 @@ namespace NFeFacil.ViewNFe
             AdicionarNFReferenciada();
         }
 
-        private void AdicionarProduto(object sender, RoutedEventArgs e)
-        {
-            AdicionarProduto();
-        }
-
         private void EditarProduto(object sender, RoutedEventArgs e)
         {
             var contexto = ((FrameworkElement)sender).DataContext;
@@ -765,6 +748,13 @@ namespace NFeFacil.ViewNFe
             {
                 controle.IsOn = false;
             }
+        }
+
+        private void AdicionarProduto(object sender, ItemClickEventArgs e)
+        {
+            var prod = (ProdutoDI)e.ClickedItem;
+            var dados = new DadosAdicaoProduto(prod);
+            MainPage.Current.Navegar<ManipulacaoProdutoCompleto>(dados);
         }
     }
 

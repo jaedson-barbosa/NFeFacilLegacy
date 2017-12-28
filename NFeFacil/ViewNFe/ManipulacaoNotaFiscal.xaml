@@ -1,6 +1,7 @@
 ﻿<Page x:Class="NFeFacil.ViewNFe.ManipulacaoNotaFiscal"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:db="using:NFeFacil.ItensBD"
       xmlns:VM="using:NFeFacil.ViewModel"
       xmlns:controles="using:NFeFacil.Controles"
       xmlns:partesDetalhes="using:NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes"
@@ -170,25 +171,31 @@
                           Toggled="AlterarEnderecoEntrega" />
         </StackPanel>
         <Grid Padding="16">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <ComboBox x:Name="cmbProdutos"
-                      ItemsSource="{x:Bind ProdutosDisponiveis}"
-                      SelectedItem="{x:Bind ProdutoSelecionado, Mode=TwoWay}"
-                      DisplayMemberPath="Descricao"
-                      HorizontalAlignment="Stretch"
-                      Margin="0,0,2,0"
-                      PlaceholderText="Escolha um Produto" />
-            <Button Grid.Column="1"
-                    HorizontalAlignment="Stretch"
-                    Margin="2,0,0,0"
-                    Click="AdicionarProduto">Adicionar</Button>
+            <GridView ItemsSource="{x:Bind ProdutosDisponiveis}"
+                      ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                      ScrollViewer.HorizontalScrollMode="Enabled"
+                      IsItemClickEnabled="True"
+                      ItemClick="AdicionarProduto">
+                <GridView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <ItemsWrapGrid Orientation="Vertical"
+                                       MaximumRowsOrColumns="1" />
+                    </ItemsPanelTemplate>
+                </GridView.ItemsPanel>
+                <GridView.ItemTemplate>
+                    <DataTemplate x:DataType="db:ProdutoDI">
+                        <TextBlock Width="200"
+                                   Height="100"
+                                   Padding="16"
+                                   Style="{StaticResource SubtitleTextBlockStyle}"
+                                   Text="{x:Bind Descricao}" />
+                    </DataTemplate>
+                </GridView.ItemTemplate>
+            </GridView>
             <ListView Grid.Row="1"
                       Grid.ColumnSpan="2"
                       Margin="0,4,0,0"

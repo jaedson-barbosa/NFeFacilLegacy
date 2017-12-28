@@ -1,5 +1,6 @@
 ﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
+using static NFeFacil.ExtensoesPrincipal;
 
 namespace NFeFacil.ViewNFe.Impostos.DetalhamentoIPI
 {
@@ -18,9 +19,9 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoIPI
                 var pIPI = Aliquota;
                 corpo = new IPITrib
                 {
-                    vBC = vBC.ToString("F2", CulturaPadrao),
-                    pIPI = pIPI.ToString("F4", CulturaPadrao),
-                    vIPI = (vBC * pIPI / 100).ToString("F2", CulturaPadrao)
+                    vBC = ToStr(vBC),
+                    pIPI = ToStr(pIPI, "F4"),
+                    vIPI = ToStr(vBC * pIPI / 100)
                 };
             }
             else
@@ -29,9 +30,9 @@ namespace NFeFacil.ViewNFe.Impostos.DetalhamentoIPI
                 var vUnid = Valor;
                 corpo = new IPITrib
                 {
-                    qUnid = qUnid.ToString("F4", CulturaPadrao),
-                    vUnid = vUnid.ToString("F4", CulturaPadrao),
-                    vIPI = (qUnid * vUnid).ToString("F2", CulturaPadrao)
+                    qUnid = ToStr(qUnid, "F4"),
+                    vUnid = ToStr(vUnid, "F4"),
+                    vIPI = ToStr(qUnid * vUnid)
                 };
             }
             PreImposto.Corpo = corpo;

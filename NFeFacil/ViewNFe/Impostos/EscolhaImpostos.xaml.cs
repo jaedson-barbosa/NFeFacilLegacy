@@ -25,15 +25,16 @@ namespace NFeFacil.ViewNFe.Impostos
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            ProdutoCompleto = (DetalhesProdutos)e.Parameter;
+            var conjunto = (DadosAdicaoProduto)e.Parameter;
+            ProdutoCompleto = conjunto.Completo;
 
             var caixa = new MessageDialog("Qual o tipo de imposto que é usado neste dado?", "Entrada");
             caixa.Commands.Add(new UICommand("ICMS"));
             caixa.Commands.Add(new UICommand("ISSQN"));
-            ImpostoEscolhivel[] impostos;
+            List<ImpostoEscolhivel> impostos;
             if ((await caixa.ShowAsync()).Label == "ICMS")
             {
-                impostos = new ImpostoEscolhivel[]
+                impostos = new List<ImpostoEscolhivel>
                 {
                     new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.ICMS)),
                     new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.IPI)),
@@ -42,10 +43,12 @@ namespace NFeFacil.ViewNFe.Impostos
                     new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.II)),
                     new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.ICMSUFDest))
                 };
+                var icms = conjunto.Auxiliar.GetICMSArmazenados().Select(x => new ImpostoEscolhivel(x));
+                impostos.AddRange(icms);
             }
             else
             {
-                impostos = new ImpostoEscolhivel[]
+                impostos = new List<ImpostoEscolhivel>
                 {
                     new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.IPI)),
                     new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.PIS)),
@@ -54,8 +57,11 @@ namespace NFeFacil.ViewNFe.Impostos
                     new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.ICMSUFDest))
                 };
             }
-            
-            for (int i = 0; i < impostos.Length; i++) impostos[i].Id = i;
+            var imps = conjunto.Auxiliar.GetImpSimplesArmazenados().Select(x => new ImpostoEscolhivel(x));
+            impostos.AddRange(imps);
+
+            int i = 0;
+            impostos.ForEach(x => x.Id = i++);
             Impostos = new CollectionViewSource()
             {
                 IsSourceGrouped = true,
@@ -84,34 +90,53 @@ namespace NFeFacil.ViewNFe.Impostos
                 {
                     var item = (ImpostoEscolhivel)e.AddedItems[i];
                     bool sucesso = true;
-                    switch (item.Template.Tipo)
+                    if (item.Template is ImpostoPadrao)
                     {
-                        case PrincipaisImpostos.ICMS:
-                            sucesso = await DetalharICMS(item.Id);
-                            break;
-                        case PrincipaisImpostos.IPI:
-                            sucesso = await DetalharIPI(item.Id);
-                            break;
-                        case PrincipaisImpostos.II:
-                            Escolhidos.Add(item.Id, new DetalhamentoII.Detalhamento());
-                            break;
-                        case PrincipaisImpostos.ISSQN:
-                            await DetalharISSQN(item.Id);
-                            break;
-                        case PrincipaisImpostos.PIS:
-                            sucesso = await DetalharPIS(item.Id);
-                            break;
-                        case PrincipaisImpostos.COFINS:
-                            sucesso = await DetalharCOFINS(item.Id);
-                            break;
-                        case PrincipaisImpostos.ICMSUFDest:
-                            Escolhidos.Add(item.Id, new DetalhamentoICMSUFDest.Detalhamento());
-                            break;
+                        switch (item.Template.Tipo)
+                        {
+                            case PrincipaisImpostos.ICMS:
+                                sucesso = await DetalharICMS(item.Id);
+                                break;
+                            case PrincipaisImpostos.IPI:
+                                sucesso = await DetalharIPI(item.Id);
+                                break;
+                            case PrincipaisImpostos.II:
+                                Escolhidos.Add(item.Id, new DetalhamentoII.Detalhamento());
+                                break;
+                            case PrincipaisImpostos.ISSQN:
+                                await DetalharISSQN(item.Id);
+                                break;
+                            case PrincipaisImpostos.PIS:
+                                sucesso = await DetalharPIS(item.Id);
+                                break;
+                            case PrincipaisImpostos.COFINS:
+                                sucesso = await DetalharCOFINS(item.Id);
+                                break;
+                            case PrincipaisImpostos.ICMSUFDest:
+                                Escolhidos.Add(item.Id, new DetalhamentoICMSUFDest.Detalhamento());
+                                break;
+                        }
                     }
-                    if (!sucesso) input.SelectedItems.Remove(item);
                     else
                     {
+                        Escolhidos.Add(item.Id, new DadoPronto { ImpostoPronto = item.Template });
+                    }
 
+                    if (sucesso)
+                    {
+                        var antigo = Escolhidos
+                            .FirstOrDefault(x => x.Value.Tipo == item.Template.Tipo && x.Key != item.Id);
+                        if (antigo.Value != null)
+                        {
+                            var itemExib = input.Items.FirstOrDefault(x => ((ImpostoEscolhivel)x).Id == antigo.Key);
+                            var index = input.Items.IndexOf(itemExib);
+                            input.DeselectRange(new ItemIndexRange(index, 1));
+                        }
+                    }
+                    else
+                    {
+                        var index = input.Items.IndexOf(item);
+                        input.DeselectRange(new ItemIndexRange(index, 1));
                     }
                 }
             }
@@ -205,7 +230,7 @@ namespace NFeFacil.ViewNFe.Impostos
         }
     }
 
-    struct ImpostoEscolhivel
+    sealed class ImpostoEscolhivel
     {
         public ImpostoEscolhivel(ImpostoArmazenado template)
         {

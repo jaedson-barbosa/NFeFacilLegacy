@@ -93,7 +93,7 @@ namespace NFeFacil.ViewNFe
             try
             {
                 var resultadoTransmissao = await new GerenciadorGeral<EnviNFe, RetEnviNFe>(nota.Informacoes.emitente.Endereco.SiglaUF, Operacoes.Autorizar, nota.AmbienteTestes)
-                    .EnviarAsync(new EnviNFe(nota.Informacoes.identificacao.Numero, nota), true);
+                    .EnviarAsync(new EnviNFe(nota), true);
                 if (resultadoTransmissao.cStat == 103)
                 {
                     await Task.Delay(new TimeSpan(0, 0, 10));

@@ -930,6 +930,7 @@
     <Compile Include="WebService\IWebService.cs" />
     <Compile Include="WebService\Pacotes\ConsReciNFe.cs" />
     <Compile Include="WebService\Pacotes\ConsSitNFe.cs" />
+    <Compile Include="WebService\Pacotes\InutNFe.cs" />
     <Compile Include="WebService\Pacotes\PartesRetEnvEvento\InformacoesRegistroEvento.cs" />
     <Compile Include="WebService\Pacotes\PartesEnvEvento\DetalhamentoEvento.cs" />
     <Compile Include="WebService\Pacotes\EnvEvento.cs" />

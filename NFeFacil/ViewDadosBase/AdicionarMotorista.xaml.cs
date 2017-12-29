@@ -70,6 +70,7 @@ namespace NFeFacil.ViewDadosBase
             if (e.Parameter == null)
             {
                 Motorista = new MotoristaDI();
+                ListaMunicipios = new ObservableCollection<string>();
             }
             else
             {

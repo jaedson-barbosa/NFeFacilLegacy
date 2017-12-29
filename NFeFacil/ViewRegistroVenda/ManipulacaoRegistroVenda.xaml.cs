@@ -136,8 +136,9 @@ namespace NFeFacil.ViewRegistroVenda
                 var novoProdExib = new ExibicaoProdutoVenda
                 {
                     Base = novoProdBanco,
+                    Codigo = caixa.ProdutoSelecionado.Codigo,
                     Descricao = caixa.ProdutoSelecionado.Nome,
-                    Quantidade = novoProdBanco.Quantidade,
+                    Quantidade = novoProdBanco.Quantidade
                 };
                 ListaProdutos.Add(novoProdExib);
                 ItemBanco.Produtos.Add(novoProdBanco);
@@ -240,8 +241,10 @@ namespace NFeFacil.ViewRegistroVenda
     struct ExibicaoProdutoVenda
     {
         public ProdutoSimplesVenda Base { get; set; }
+        public string Codigo { get; set; }
         public string Descricao { get; set; }
         public double Quantidade { get; set; }
+        public string ValorUnitario => Base.ValorUnitario.ToString("C");
         public string TotalBruto => (Base.ValorUnitario * Quantidade + Base.Seguro + Base.DespesasExtras).ToString("C");
     }
 

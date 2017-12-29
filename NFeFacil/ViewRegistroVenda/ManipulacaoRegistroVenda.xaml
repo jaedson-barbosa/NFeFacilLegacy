@@ -80,39 +80,72 @@
             <TextBlock Grid.Column="3"
                        Margin="4,0,0,0"><Run>Total líquido:</Run><LineBreak /><Run x:Name="txtTotal" /></TextBlock>
         </Grid>
-        <GridView ItemsSource="{x:Bind ListaProdutos}"
-                  Style="{StaticResource ItensMediosGrid}"
+        <ListView ItemsSource="{x:Bind ListaProdutos}"
                   Grid.Row="2"
-                  Grid.ColumnSpan="2">
-            <GridView.ItemTemplate>
+                  Grid.ColumnSpan="2"
+                  Margin="0,4">
+            <ListView.Header>
+                <Grid Style="{StaticResource Cabecalho}">
+                    <Grid.Resources>
+                        <Style TargetType="TextBlock"
+                               BasedOn="{StaticResource SubtitleTextBlockStyle}">
+                            <Setter Property="VerticalAlignment"
+                                    Value="Center" />
+                            <Setter Property="TextAlignment"
+                                    Value="Center" />
+                        </Style>
+                    </Grid.Resources>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="128" />
+                        <ColumnDefinition Width="128" />
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="180" />
+                        <ColumnDefinition Width="180" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock>Código</TextBlock>
+                    <TextBlock Grid.Column="1">Quantidade</TextBlock>
+                    <TextBlock Grid.Column="2">Descrição</TextBlock>
+                    <TextBlock Grid.Column="3">Valor unitário</TextBlock>
+                    <TextBlock Grid.Column="4">Valor total</TextBlock>
+                </Grid>
+            </ListView.Header>
+            <ListView.ItemTemplate>
                 <DataTemplate x:DataType="local:ExibicaoProdutoVenda">
-                    <Grid Background="Transparent"
-                          Padding="8">
-                        <Grid.ContextFlyout>
-                            <MenuFlyout>
-                                <MenuFlyoutItem Click="RemoverProduto">Remover</MenuFlyoutItem>
-                            </MenuFlyout>
-                        </Grid.ContextFlyout>
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
-                                   Text="{x:Bind TotalBruto}" />
-                        <TextBlock Grid.Row="1"
+                    <Grid>
+                        <Grid.Resources>
+                            <Style TargetType="TextBlock"
+                                   BasedOn="{StaticResource BodyTextBlockStyle}">
+                                <Setter Property="VerticalAlignment"
+                                        Value="Center" />
+                            </Style>
+                        </Grid.Resources>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="128" />
+                            <ColumnDefinition Width="128" />
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="180" />
+                            <ColumnDefinition Width="180" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{x:Bind Codigo}" />
+                        <TextBlock Grid.Column="1"
+                                   Text="{x:Bind Quantidade}" />
+                        <TextBlock Grid.Column="2"
                                    Text="{x:Bind Descricao}"
                                    TextWrapping="Wrap" />
-                        <TextBlock Grid.Row="2"><Bold>Quant:</Bold> <Run Text="{x:Bind Quantidade}" /></TextBlock>
+                        <TextBlock Grid.Column="3"
+                                   HorizontalAlignment="Right"
+                                   Text="{x:Bind ValorUnitario}" />
+                        <TextBlock Grid.Column="4"
+                                   HorizontalAlignment="Right"
+                                   Text="{x:Bind TotalBruto}" />
                     </Grid>
                 </DataTemplate>
-            </GridView.ItemTemplate>
-        </GridView>
+            </ListView.ItemTemplate>
+        </ListView>
         <TextBox PlaceholderText="Observações"
                  Grid.Row="3"
                  Grid.ColumnSpan="2"
-                 Text="{x:Bind Observacoes, Mode=TwoWay}"
-                 Margin="0,4,0,0" />
+                 Text="{x:Bind Observacoes, Mode=TwoWay}" />
     </Grid>
     <Page.BottomAppBar>
         <CommandBar>

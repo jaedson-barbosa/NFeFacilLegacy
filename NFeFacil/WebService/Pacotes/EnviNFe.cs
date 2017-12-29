@@ -13,10 +13,10 @@ namespace NFeFacil.WebService.Pacotes
         [XmlElement(ElementName = nameof(NFe), Namespace = "http://www.portalfiscal.inf.br/nfe", IsNullable = false)]
         public NFe[] NFe { get; set; }
 
-        public EnviNFe(long numeroPrimeiraNota, params NFe[] xmls)
+        public EnviNFe(params NFe[] xmls)
         {
             versao = "3.10";
-            idLote = numeroPrimeiraNota;
+            idLote = xmls[0].Informacoes.identificacao.Numero;
             indSinc = 0;
             NFe = xmls;
         }

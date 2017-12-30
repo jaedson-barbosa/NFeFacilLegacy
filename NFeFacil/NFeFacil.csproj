@@ -930,6 +930,8 @@
     <Compile Include="WebService\IWebService.cs" />
     <Compile Include="WebService\Pacotes\ConsReciNFe.cs" />
     <Compile Include="WebService\Pacotes\ConsSitNFe.cs" />
+    <Compile Include="WebService\Pacotes\PartesRetInutNFe\InfInut.cs" />
+    <Compile Include="WebService\Pacotes\PartesInutNFe\InfInut.cs" />
     <Compile Include="WebService\Pacotes\InutNFe.cs" />
     <Compile Include="WebService\Pacotes\PartesRetEnvEvento\InformacoesRegistroEvento.cs" />
     <Compile Include="WebService\Pacotes\PartesEnvEvento\DetalhamentoEvento.cs" />
@@ -938,10 +940,12 @@
     <Compile Include="WebService\Pacotes\PartesEnvEvento\Evento.cs" />
     <Compile Include="WebService\Pacotes\PartesEnvEvento\InformacoesEvento.cs" />
     <Compile Include="WebService\Pacotes\PartesRetEnvEvento\ResultadoEvento.cs" />
+    <Compile Include="WebService\Pacotes\PartesRetEnviNFe\ReciboLote.cs" />
     <Compile Include="WebService\Pacotes\RetConsReciNFe.cs" />
     <Compile Include="WebService\Pacotes\RetConsSitNFe.cs" />
     <Compile Include="WebService\Pacotes\RetEnvEvento.cs" />
     <Compile Include="WebService\Pacotes\RetEnviNFe.cs" />
+    <Compile Include="WebService\Pacotes\RetInutNFe.cs" />
     <Compile Include="WebService\WebServices\AM.cs" />
     <Compile Include="WebService\WebServices\BA.cs" />
     <Compile Include="WebService\WebServices\CE.cs" />

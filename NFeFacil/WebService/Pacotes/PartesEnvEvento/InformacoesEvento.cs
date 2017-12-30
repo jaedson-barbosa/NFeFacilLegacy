@@ -9,31 +9,31 @@ namespace NFeFacil.WebService.Pacotes.PartesEnvEvento
         [XmlAttribute]
         public string Id { get; set; }
 
-        [XmlElement("cOrgao")]
+        [XmlElement("cOrgao", Order = 0)]
         public int COrgao { get; set; }
 
-        [XmlElement("tpAmb")]
+        [XmlElement("tpAmb", Order = 1)]
         public int TpAmb { get; set; }
 
-        [XmlElement]
+        [XmlElement(Order = 2)]
         public string CNPJ { get; set; }
 
-        [XmlElement("chNFe")]
+        [XmlElement("chNFe", Order = 3)]
         public string ChNFe { get; set; }
 
-        [XmlElement("dhEvento")]
+        [XmlElement("dhEvento", Order = 4)]
         public string DhEvento { get; set; }
 
-        [XmlElement("tpEvento")]
+        [XmlElement("tpEvento", Order = 5)]
         public int TpEvento { get; set; }
 
-        [XmlElement("nSeqEvento")]
+        [XmlElement("nSeqEvento", Order = 6)]
         public int NSeqEvento { get; set; }
 
-        [XmlElement("verEvento")]
+        [XmlElement("verEvento", Order = 7)]
         public string VerEvento { get; set; }
 
-        [XmlElement("detEvento")]
+        [XmlElement("detEvento", Order = 8)]
         public DetalhamentoEvento DetEvento { get; set; }
 
         public InformacoesEvento(int cOrgao, string CNPJ, string chaveNFe, string versaoEvento, ulong numeroProtocolo, string justificativa, int tipoAmbiente)

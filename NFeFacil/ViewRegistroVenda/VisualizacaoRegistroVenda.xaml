@@ -10,7 +10,7 @@
         <CommandBar>
             <AppBarButton x:Name="btnCriarNFe"
                           Label="Criar NFe"
-                          Icon="Page"
+                          Icon="Add"
                           Click="CriarNFe" />
             <AppBarButton x:Name="btnVerNFe"
                           Label="Ver NFe relacionada"

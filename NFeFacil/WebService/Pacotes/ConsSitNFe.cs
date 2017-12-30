@@ -5,18 +5,24 @@ namespace NFeFacil.WebService.Pacotes
     [XmlRoot("consSitNFe", Namespace = "http://www.portalfiscal.inf.br/nfe")]
     public struct ConsSitNFe
     {
-        [XmlAttribute]
-        public string versao { get; set; }
-        public int tpAmb { get; set; }
-        public string xServ { get; set; }
-        public string chNFe { get; set; }
+        [XmlAttribute("versao")]
+        public string Versao { get; set; }
+
+        [XmlElement("tpAmb", Order = 0)]
+        public int TipoAmbiente { get; set; }
+
+        [XmlElement("xServ", Order = 1)]
+        public string DescricaoServico { get; set; }
+
+        [XmlElement("chNFe", Order = 2)]
+        public string ChaveNFe { get; set; }
 
         public ConsSitNFe(string chave, bool teste)
         {
-            versao = "3.10";
-            tpAmb = teste ? 2 : 1;
-            xServ = "CONSULTAR";
-            chNFe = chave;
+            Versao = "3.10";
+            TipoAmbiente = teste ? 2 : 1;
+            DescricaoServico = "CONSULTAR";
+            ChaveNFe = chave;
         }
     }
 }

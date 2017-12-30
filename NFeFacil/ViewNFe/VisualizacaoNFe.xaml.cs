@@ -92,21 +92,22 @@ namespace NFeFacil.ViewNFe
             var nota = (NFe)ObjetoItemBanco;
             try
             {
-                var resultadoTransmissao = await new GerenciadorGeral<EnviNFe, RetEnviNFe>(nota.Informacoes.emitente.Endereco.SiglaUF, Operacoes.Autorizar, nota.AmbienteTestes)
+                var retTransmissao = await new GerenciadorGeral<EnviNFe, RetEnviNFe>(nota.Informacoes.emitente.Endereco.SiglaUF, Operacoes.Autorizar, nota.AmbienteTestes)
                     .EnviarAsync(new EnviNFe(nota), true);
-                if (resultadoTransmissao.cStat == 103)
+                if (retTransmissao.StatusResposta == 103)
                 {
-                    await Task.Delay(new TimeSpan(0, 0, 10));
-                    var resultadoResposta = await new GerenciadorGeral<ConsReciNFe, RetConsReciNFe>(resultadoTransmissao.cUF, Operacoes.RespostaAutorizar, nota.AmbienteTestes)
-                        .EnviarAsync(new ConsReciNFe(resultadoTransmissao.tpAmb, resultadoTransmissao.infRec.nRec));
-                    if (resultadoResposta.protNFe.InfProt.cStat == 100)
+                    var tempoResposta = retTransmissao.DadosRecibo.TempoMedioResposta;
+                    await Task.Delay(TimeSpan.FromSeconds(tempoResposta + 5));
+                    var resultadoResposta = await new GerenciadorGeral<ConsReciNFe, RetConsReciNFe>(retTransmissao.Estado, Operacoes.RespostaAutorizar, nota.AmbienteTestes)
+                        .EnviarAsync(new ConsReciNFe(retTransmissao.TipoAmbiente, retTransmissao.DadosRecibo.NumeroRecibo));
+                    if (resultadoResposta.Protocolo.InfProt.cStat == 100)
                     {
-                        Log.Escrever(TitulosComuns.Sucesso, resultadoResposta.xMotivo);
+                        Log.Escrever(TitulosComuns.Sucesso, resultadoResposta.DescricaoResposta);
 
                         ObjetoItemBanco = new Processo()
                         {
                             NFe = nota,
-                            ProtNFe = resultadoResposta.protNFe
+                            ProtNFe = resultadoResposta.Protocolo
                         };
                         ItemBanco.Status = (int)StatusNFe.Emitida;
                         AtualizarDI();
@@ -115,13 +116,13 @@ namespace NFeFacil.ViewNFe
                     else
                     {
                         Log.Escrever(TitulosComuns.Erro, $"A nota fiscal foi processada, mas recusada. Mensagem de retorno:\r\n" +
-                            $"{resultadoResposta.protNFe.InfProt.xMotivo}");
+                            $"{resultadoResposta.Protocolo.InfProt.xMotivo}");
                     }
                 }
                 else
                 {
                     Log.Escrever(TitulosComuns.Erro, $"A NFe não foi aceita. Mensagem de retorno:\r\n" +
-                        $"{resultadoTransmissao.xMotivo}\r\n" +
+                        $"{retTransmissao.DescricaoResposta}\r\n" +
                         $"Por favor, exporte esta nota fiscal e envie o XML gerado para o desenvolvedor do aplicativo para que o erro possa ser corrigido.");
                 }
             }

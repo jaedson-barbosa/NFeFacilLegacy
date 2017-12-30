@@ -87,19 +87,19 @@ namespace NFeFacil.ViewNFe
                     var envio = new EnvEvento(gerenciador.Enderecos.VersaoRecepcaoEvento, infoEvento);
                     await envio.PrepararEventos();
                     var resposta = await gerenciador.EnviarAsync(envio);
-                    if (resposta.RetEvento[0].InfEvento.CStat == 135)
+                    if (resposta.ResultadorEventos[0].InfEvento.CStat == 135)
                     {
                         using (var repo = new Repositorio.Escrita())
                         {
                             repo.SalvarItemSimples(new RegistroCancelamento()
                             {
                                 ChaveNFe = chave,
-                                DataHoraEvento = resposta.RetEvento[0].InfEvento.DhRegEvento,
+                                DataHoraEvento = resposta.ResultadorEventos[0].InfEvento.DhRegEvento,
                                 TipoAmbiente = tipoAmbiente,
                                 XML = new ProcEventoCancelamento()
                                 {
                                     Eventos = envio.Eventos,
-                                    RetEvento = resposta.RetEvento,
+                                    RetEvento = resposta.ResultadorEventos,
                                     Versao = resposta.Versao
                                 }.ToXElement<ProcEventoCancelamento>().ToString()
                             }, DefinicoesTemporarias.DateTimeNow);
@@ -114,7 +114,7 @@ namespace NFeFacil.ViewNFe
                     }
                     else
                     {
-                        Popup.Current.Escrever(TitulosComuns.Erro, resposta.RetEvento[0].InfEvento.XMotivo);
+                        Popup.Current.Escrever(TitulosComuns.Erro, resposta.ResultadorEventos[0].InfEvento.XMotivo);
                     }
                 }
             }

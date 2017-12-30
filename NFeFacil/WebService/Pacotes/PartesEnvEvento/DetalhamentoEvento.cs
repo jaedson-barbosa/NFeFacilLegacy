@@ -8,21 +8,21 @@ namespace NFeFacil.WebService.Pacotes.PartesEnvEvento
         [XmlAttribute("versao")]
         public string Versao { get; set; }
 
-        [XmlElement("descEvento")]
-        public string DescEvento { get; set; }
+        [XmlElement("descEvento", Order = 0)]
+        public string DescricaoEvento { get; set; }
 
-        [XmlElement("nProt")]
+        [XmlElement("nProt", Order = 1)]
         public ulong NProt { get; set; }
 
-        [XmlElement("xJust")]
-        public string XJust { get; set; }
+        [XmlElement("xJust", Order = 2)]
+        public string Justificativa { get; set; }
 
         public DetalhamentoEvento(string versao, ulong numeroProtocolo, string justificativa)
         {
             Versao = versao;
-            DescEvento = "Cancelamento";
+            DescricaoEvento = "Cancelamento";
             NProt = numeroProtocolo;
-            XJust = justificativa;
+            Justificativa = justificativa;
         }
     }
 }

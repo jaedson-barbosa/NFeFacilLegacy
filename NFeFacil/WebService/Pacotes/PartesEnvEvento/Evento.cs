@@ -12,10 +12,10 @@ namespace NFeFacil.WebService.Pacotes.PartesEnvEvento
         [XmlAttribute("versao")]
         public string Versao { get; set; }
 
-        [XmlElement("infEvento")]
+        [XmlElement("infEvento", Order = 0)]
         public InformacoesEvento InfEvento { get; set; }
 
-        [XmlElement("Signature", Namespace = "http://www.w3.org/2000/09/xmldsig#")]
+        [XmlElement("Signature", Namespace = "http://www.w3.org/2000/09/xmldsig#", Order = 1)]
         public Assinatura Signature { get; set; }
 
         public Evento() { }

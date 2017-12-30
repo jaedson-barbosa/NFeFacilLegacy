@@ -41,13 +41,13 @@ namespace NFeFacil.ViewNFe
                 {
                     var resp = await new GerenciadorGeral<ConsSitNFe, RetConsSitNFe>(UF, Operacoes.Consultar, Homologacao)
                         .EnviarAsync(new ConsSitNFe(Chave, Homologacao));
-                    Resultados.Insert(0, resp.xMotivo);
-                    if (resp.cStat == 100)
+                    Resultados.Insert(0, resp.DescricaoResposta);
+                    if (resp.StatusResposta == 100)
                     {
                         NFeDI nota = null;
                         using (var leit = new Repositorio.Leitura())
                         {
-                            nota = leit.ObterNFe($"NFe{resp.chNFe}");
+                            nota = leit.ObterNFe($"NFe{resp.ChaveNFe}");
                         }
                         if (nota != null && nota.Status < 4)
                         {
@@ -58,7 +58,7 @@ namespace NFeFacil.ViewNFe
                                 var novo = new Processo()
                                 {
                                     NFe = original,
-                                    ProtNFe = resp.protNFe
+                                    ProtNFe = resp.Protocolo
                                 };
                                 nota.XML = novo.ToXElement<Processo>().ToString();
                                 esc.SalvarItemSimples(nota, DefinicoesTemporarias.DateTimeNow);

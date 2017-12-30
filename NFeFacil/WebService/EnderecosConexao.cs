@@ -19,7 +19,6 @@ namespace NFeFacil.WebService
             string end;
             string metodo;
             string servico;
-            string versao = conjunto.VersaoRecepcaoEvento;
             switch (operacaoRequirida)
             {
                 case Operacoes.Consultar:
@@ -45,7 +44,7 @@ namespace NFeFacil.WebService
                 default:
                     throw new ArgumentException();
             }
-            return new DadosServico(end, servico, metodo, versao);
+            return new DadosServico(end, servico, metodo);
         }
 
         private IWebService ObterEnderecoConexao()

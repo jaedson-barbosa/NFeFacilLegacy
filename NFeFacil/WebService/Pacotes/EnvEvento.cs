@@ -17,14 +17,14 @@ namespace NFeFacil.WebService.Pacotes
         [XmlElement("evento")]
         public Evento[] Eventos { get; set; }
 
-        public EnvEvento(string versao, params InformacoesEvento[] eventos)
+        public EnvEvento(params InformacoesEvento[] eventos)
         {
-            Versao = versao;
+            Versao = "1.00";
             IdLote = 0;
             Eventos = new Evento[eventos.Length];
             for (int i = 0; i < eventos.Length; i++)
             {
-                Eventos[i] = new Evento(versao, eventos[i]);
+                Eventos[i] = new Evento("1.00", eventos[i]);
             }
         }
 

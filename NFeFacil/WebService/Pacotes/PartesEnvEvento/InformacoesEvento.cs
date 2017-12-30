@@ -36,7 +36,7 @@ namespace NFeFacil.WebService.Pacotes.PartesEnvEvento
         [XmlElement("detEvento", Order = 8)]
         public DetalhamentoEvento DetEvento { get; set; }
 
-        public InformacoesEvento(int cOrgao, string CNPJ, string chaveNFe, string versaoEvento, ulong numeroProtocolo, string justificativa, int tipoAmbiente)
+        public InformacoesEvento(int cOrgao, string CNPJ, string chaveNFe, ulong numeroProtocolo, string justificativa, int tipoAmbiente)
         {
             COrgao = cOrgao;
             TpAmb = tipoAmbiente;
@@ -45,8 +45,8 @@ namespace NFeFacil.WebService.Pacotes.PartesEnvEvento
             DhEvento = DefinicoesTemporarias.DateTimeNow.ToStringPersonalizado();
             TpEvento = 110111;
             NSeqEvento = 1;
-            VerEvento = versaoEvento;
-            DetEvento = new DetalhamentoEvento(versaoEvento, numeroProtocolo, justificativa);
+            VerEvento = "1.00";
+            DetEvento = new DetalhamentoEvento("1.00", numeroProtocolo, justificativa);
             Id = "ID" + TpEvento + chaveNFe + NSeqEvento.ToString("00");
         }
     }

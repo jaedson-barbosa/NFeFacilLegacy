@@ -78,13 +78,12 @@ namespace NFeFacil.ViewNFe
                 var cnpj = processo.NFe.Informacoes.emitente.CNPJ;
                 var chave = processo.NFe.Informacoes.ChaveAcesso;
                 var nProtocolo = processo.ProtNFe.InfProt.nProt;
-                var versao = gerenciador.Enderecos.VersaoRecepcaoEvento;
                 var entrada = new CancelarNFe();
 
                 if (await entrada.ShowAsync() == ContentDialogResult.Primary)
                 {
-                    var infoEvento = new InformacoesEvento(estado, cnpj, chave, versao, nProtocolo, entrada.Motivo, tipoAmbiente);
-                    var envio = new EnvEvento(gerenciador.Enderecos.VersaoRecepcaoEvento, infoEvento);
+                    var infoEvento = new InformacoesEvento(estado, cnpj, chave, nProtocolo, entrada.Motivo, tipoAmbiente);
+                    var envio = new EnvEvento(infoEvento);
                     await envio.PrepararEventos();
                     var resposta = await gerenciador.EnviarAsync(envio);
                     if (resposta.ResultadorEventos[0].InfEvento.CStat == 135)

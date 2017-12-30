@@ -21,7 +21,7 @@ namespace NFeFacil.WebService
         {
             Enderecos = new EnderecosConexao(uf.Sigla).ObterConjuntoConexao(teste, operacao);
             CodigoUF = uf.Codigo;
-            VersaoDados = operacao == Operacoes.RecepcaoEvento ? Enderecos.VersaoRecepcaoEvento : "3.10";
+            VersaoDados = operacao == Operacoes.RecepcaoEvento ? "1.00" : "3.10";
         }
 
         public GerenciadorGeral(string siglaOuNome, Operacoes operacao, bool teste)
@@ -29,7 +29,7 @@ namespace NFeFacil.WebService
             var uf = Estados.Buscar(siglaOuNome);
             Enderecos = new EnderecosConexao(uf.Sigla).ObterConjuntoConexao(teste, operacao);
             CodigoUF = uf.Codigo;
-            VersaoDados = operacao == Operacoes.RecepcaoEvento ? Enderecos.VersaoRecepcaoEvento : "3.10";
+            VersaoDados = operacao == Operacoes.RecepcaoEvento ? "1.00" : "3.10";
         }
 
         public GerenciadorGeral(ushort codigo, Operacoes operacao, bool teste)
@@ -37,7 +37,7 @@ namespace NFeFacil.WebService
             var uf = Estados.Buscar(codigo);
             Enderecos = new EnderecosConexao(uf.Sigla).ObterConjuntoConexao(teste, operacao);
             CodigoUF = uf.Codigo;
-            VersaoDados = operacao == Operacoes.RecepcaoEvento ? Enderecos.VersaoRecepcaoEvento : "3.10";
+            VersaoDados = operacao == Operacoes.RecepcaoEvento ? "1.00" : "3.10";
         }
 
         public async Task<Resposta> EnviarAsync(Envio corpo, bool addNamespace = false)

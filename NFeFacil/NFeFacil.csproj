@@ -188,6 +188,7 @@
     <Compile Include="ItensBD\EmitenteDI.cs" />
     <Compile Include="ItensBD\Estoque.cs" />
     <Compile Include="ItensBD\Imagem.cs" />
+    <Compile Include="ItensBD\Inutilizacao.cs" />
     <Compile Include="ItensBD\IUltimaData.cs" />
     <Compile Include="ItensBD\MotoristaDI.cs" />
     <Compile Include="ItensBD\NFeDI.cs" />
@@ -244,6 +245,10 @@
     <Compile Include="Migrations\20171226171240_Loja1.8.cs" />
     <Compile Include="Migrations\20171226171240_Loja1.8.designer.cs">
       <DependentUpon>20171226171240_Loja1.8.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20171230131957_Loja1.8.5.cs" />
+    <Compile Include="Migrations\20171230131957_Loja1.8.5.designer.cs">
+      <DependentUpon>20171230131957_Loja1.8.5.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\AplicativoContextModelSnapshot.cs" />
     <Compile Include="Model.cs" />
@@ -375,6 +380,9 @@
     <Compile Include="ViewNFe\DadosAdicaoProduto.cs" />
     <Compile Include="ViewNFe\Impostos\DadoPronto.cs" />
     <Compile Include="ViewNFe\Impostos\IEscolherImpSimples.cs" />
+    <Compile Include="ViewNFe\Inutilizacoes.xaml.cs">
+      <DependentUpon>Inutilizacoes.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ConjuntoBasicoExibicao.cs" />
     <Compile Include="Controles\ExibicaoImagem.xaml.cs">
       <DependentUpon>ExibicaoImagem.xaml</DependentUpon>
@@ -1158,6 +1166,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ViewNFe\Impostos\EscolhaImpostos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\Inutilizacoes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

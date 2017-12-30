@@ -191,5 +191,8 @@ namespace NFeFacil.Repositorio
                     let data = DateTime.Parse(item.DataEmissao)
                     group new { Data = data, item.XML } by data.Year).ToDictionary(x => x.Key, x => x.Select(k => (k.Data, k.XML)));
         }
+
+        public IEnumerable<Inutilizacao> ObterInutilizacoes(bool homologacao = false) => db.Inutilizacoes
+            .Where(x => x.CNPJ == DefinicoesTemporarias.EmitenteAtivo.CNPJ && x.Homologacao == homologacao);
     }
 }

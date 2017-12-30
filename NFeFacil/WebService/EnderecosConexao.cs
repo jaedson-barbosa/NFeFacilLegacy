@@ -41,6 +41,11 @@ namespace NFeFacil.WebService
                     metodo = RecepcaoEventoMetodo;
                     servico = RecepcaoEventoServico;
                     break;
+                case Operacoes.Inutilizacao:
+                    end = homologacao ? conjunto.InutilizacaoHomologacao : conjunto.InutilizacaoProducao;
+                    metodo = InutilizacaoMetodo;
+                    servico = InutilizacaoServico;
+                    break;
                 default:
                     throw new ArgumentException();
             }
@@ -92,24 +97,19 @@ namespace NFeFacil.WebService
             }
         }
 
-        internal const string ConsultarServico = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta2";
-        internal const string ConsultarMetodo = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta2/nfeConsultaNF2";
+        const string ConsultarServico = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta2";
+        const string ConsultarMetodo = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta2/nfeConsultaNF2";
 
-        internal const string AutorizarServico = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeAutorizacao";
-        internal const string AutorizarMetodo = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeAutorizacao/nfeAutorizacaoLote";
+        const string AutorizarServico = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeAutorizacao";
+        const string AutorizarMetodo = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeAutorizacao/nfeAutorizacaoLote";
 
-        internal const string RespostaAutorizarServico = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeRetAutorizacao";
-        internal const string RespostaAutorizarMetodo = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeRetAutorizacao/nfeRetAutorizacaoLote";
+        const string RespostaAutorizarServico = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeRetAutorizacao";
+        const string RespostaAutorizarMetodo = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeRetAutorizacao/nfeRetAutorizacaoLote";
 
-        internal const string RecepcaoEventoServico = "http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento";
-        internal const string RecepcaoEventoMetodo = "http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento/nfeRecepcaoEvento";
-    }
+        const string RecepcaoEventoServico = "http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento";
+        const string RecepcaoEventoMetodo = "http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento/nfeRecepcaoEvento";
 
-    public enum Operacoes
-    {
-        Consultar,
-        Autorizar,
-        RespostaAutorizar,
-        RecepcaoEvento
+        const string InutilizacaoServico = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeInutilizacao2";
+        const string InutilizacaoMetodo = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeInutilizacao2/nfeInutilizacaoNF2";
     }
 }

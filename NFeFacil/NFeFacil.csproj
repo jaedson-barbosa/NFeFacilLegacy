@@ -383,6 +383,12 @@
     <Compile Include="ViewNFe\Inutilizacoes.xaml.cs">
       <DependentUpon>Inutilizacoes.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewNFe\PartesInutilizacoes\InfoInutilizacao.xaml.cs">
+      <DependentUpon>InfoInutilizacao.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFe\PartesInutilizacoes\Progresso.xaml.cs">
+      <DependentUpon>Progresso.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ConjuntoBasicoExibicao.cs" />
     <Compile Include="Controles\ExibicaoImagem.xaml.cs">
       <DependentUpon>ExibicaoImagem.xaml</DependentUpon>
@@ -936,6 +942,7 @@
     <Compile Include="WebService\EnderecosConexao.cs" />
     <Compile Include="WebService\GerenciadorGeral.cs" />
     <Compile Include="WebService\IWebService.cs" />
+    <Compile Include="WebService\Operacoes.cs" />
     <Compile Include="WebService\Pacotes\ConsReciNFe.cs" />
     <Compile Include="WebService\Pacotes\ConsSitNFe.cs" />
     <Compile Include="WebService\Pacotes\PartesRetInutNFe\InfInut.cs" />
@@ -1170,6 +1177,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ViewNFe\Inutilizacoes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\PartesInutilizacoes\InfoInutilizacao.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFe\PartesInutilizacoes\Progresso.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

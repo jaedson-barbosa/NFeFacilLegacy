@@ -25,7 +25,7 @@ namespace NFeFacil.ViewDadosBase.GerenciamentoProdutos
 
         public CadastroIPI()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             frmPrincipal.Navigate(typeof(ViewNFe.Impostos.DetalhamentoIPI.DetalharSimples));
         }
     }

@@ -11,11 +11,11 @@ using System.Net;
 
 namespace NFeFacil.WebService
 {
-    public struct GerenciadorGeral<Envio, Resposta>
+    public sealed class GerenciadorGeral<Envio, Resposta>
     {
         public DadosServico Enderecos { get; }
         int CodigoUF { get; }
-        string VersaoDados{get;}
+        string VersaoDados { get; }
 
         public GerenciadorGeral(Estado uf, Operacoes operacao, bool teste)
         {

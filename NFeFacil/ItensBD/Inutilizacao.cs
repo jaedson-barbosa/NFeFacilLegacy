@@ -12,6 +12,7 @@ namespace NFeFacil.ItensBD
         public int FimRange { get; set; }
         public long NumeroProtocolo { get; set; }
         public DateTime MomentoProcessamento { get; set; }
+        public string XMLCompleto { get; set; }
 
         public string ExibicaoMomentoProcessamento => MomentoProcessamento.ToString("dd/MM/yyyy hh:mm:ss");
     }

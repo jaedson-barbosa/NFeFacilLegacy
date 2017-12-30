@@ -1,5 +1,6 @@
 ﻿using NFeFacil.Certificacao;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesAssinatura;
+using NFeFacil.WebService.Pacotes.PartesInutNFe;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
@@ -12,10 +13,17 @@ namespace NFeFacil.WebService.Pacotes
         public string Versao { get; set; }
 
         [XmlElement("infInut", Order = 0)]
-        public PartesInutNFe.InfInut Info { get; set; }
+        public InfInut Info { get; set; }
 
         [XmlElement("Signature", Order = 1, Namespace = "http://www.w3.org/2000/09/xmldsig#")]
         public Assinatura Signature { get; set; }
+
+        public InutNFe(InfInut info)
+        {
+            Versao = "3.10";
+            Info = info;
+            Signature = null;
+        }
 
         public async Task PrepararEventos()
         {

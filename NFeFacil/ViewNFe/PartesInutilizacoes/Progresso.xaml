@@ -1,0 +1,41 @@
+﻿<ContentDialog x:Class="NFeFacil.ViewNFe.PartesInutilizacoes.Progresso"
+               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:local="using:NFeFacil.ViewNFe.PartesInutilizacoes"
+               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+               mc:Ignorable="d"
+               Title="Progresso"
+               PrimaryButtonText="Concluir"
+               SecondaryButtonText="Tentar novamente"
+               IsPrimaryButtonEnabled="False"
+               IsSecondaryButtonEnabled="False"
+               SecondaryButtonClick="ContentDialog_SecondaryButtonClick">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <ProgressBar x:Name="barGeral"
+                     Maximum="100" />
+        <ListView>
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="local:EtapaProcesso">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="48" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <ProgressRing IsEnabled="{x:Bind EmAndamento}" />
+                        <SymbolIcon Symbol="Accept"
+                                    Visibility="{x:Bind Concluido}" />
+                        <SymbolIcon Symbol="Cancel"
+                                    Visibility="{x:Bind Pendente}" />
+                        <TextBlock Grid.Column="1"
+                                   Text="{x:Bind Descricao}" />
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</ContentDialog>

@@ -53,6 +53,9 @@ namespace NFeFacil.View
                         grdPrincipal.SelectedIndex = -1;
                     }
                     break;
+                case "Inutilizacoes":
+                    MainPage.Current.Navegar<ViewNFe.Inutilizacoes>();
+                    break;
                 case "NotasSalvas":
                     MainPage.Current.Navegar<ViewNFe.NotasSalvas>();
                     break;

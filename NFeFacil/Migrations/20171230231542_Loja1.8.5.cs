@@ -18,7 +18,8 @@ namespace NFeFacil.Migrations
                     InicioRange = table.Column<int>(nullable: false),
                     MomentoProcessamento = table.Column<DateTime>(nullable: false),
                     NumeroProtocolo = table.Column<long>(nullable: false),
-                    Serie = table.Column<int>(nullable: false)
+                    Serie = table.Column<int>(nullable: false),
+                    XMLCompleto = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

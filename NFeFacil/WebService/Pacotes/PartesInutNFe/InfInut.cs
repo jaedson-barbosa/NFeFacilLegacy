@@ -2,6 +2,7 @@
 
 namespace NFeFacil.WebService.Pacotes.PartesInutNFe
 {
+    [XmlRoot("infInut", Namespace = "http://www.portalfiscal.inf.br/nfe")]
     public struct InfInut
     {
         [XmlAttribute]

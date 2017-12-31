@@ -223,6 +223,8 @@ namespace NFeFacil.Migrations
 
                     b.Property<int>("Serie");
 
+                    b.Property<string>("XMLCompleto");
+
                     b.HasKey("Id");
 
                     b.ToTable("Inutilizacoes");

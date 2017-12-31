@@ -17,8 +17,10 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <ProgressBar x:Name="barGeral"
+                     Height="10"
                      Maximum="100" />
-        <ListView>
+        <ListView Grid.Row="1"
+                  ItemsSource="{x:Bind Etapas}">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="local:EtapaProcesso">
                     <Grid>

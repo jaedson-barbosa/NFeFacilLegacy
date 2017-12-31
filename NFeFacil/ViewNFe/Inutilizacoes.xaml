@@ -6,14 +6,25 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
     <GridView ItemsSource="{x:Bind Itens}"
-              Style="{StaticResource ItensMediosGrid}"
               Margin="8">
+        <GridView.GroupStyle>
+            <GroupStyle HidesIfEmpty="True">
+                <GroupStyle.HeaderTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Key}"
+                                   TextAlignment="Center"
+                                   Style="{StaticResource SubheaderTextBlockStyle}" />
+                    </DataTemplate>
+                </GroupStyle.HeaderTemplate>
+            </GroupStyle>
+        </GridView.GroupStyle>
         <GridView.ItemTemplate>
             <DataTemplate x:DataType="db:Inutilizacao">
                 <Grid Background="Transparent"
                       Padding="16">
                     <Grid.RowDefinitions>
                         <RowDefinition />
+                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
@@ -25,19 +36,18 @@
                     <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
                                Text="{x:Bind InicioRange}" />
                     <TextBlock Grid.Column="1"
-                               Style="{StaticResource SubtitleTextBlockStyle}">-</TextBlock>
+                               Style="{StaticResource SubtitleTextBlockStyle}">à</TextBlock>
                     <TextBlock Grid.Column="2"
                                Style="{StaticResource SubtitleTextBlockStyle}"
                                TextAlignment="Right"
                                Text="{x:Bind FimRange}" />
                     <TextBlock Grid.Row="1"
-                               Style="{StaticResource SubtitleTextBlockStyle}"
-                               Text="{x:Bind Serie}" />
-                    <TextBlock Grid.Row="1"
-                               Grid.Column="2"
-                               Style="{StaticResource CaptionTextBlockStyle}"
-                               Text="{x:Bind NumeroProtocolo}" />
+                               Grid.ColumnSpan="3"
+                               Style="{StaticResource SubtitleTextBlockStyle}">Série: <Run Text="{x:Bind Serie}" /></TextBlock>
                     <TextBlock Grid.Row="2"
+                               Grid.ColumnSpan="3"
+                               Style="{StaticResource CaptionTextBlockStyle}">Prot.: <Run Text="{x:Bind NumeroProtocolo}" /></TextBlock>
+                    <TextBlock Grid.Row="3"
                                Grid.ColumnSpan="3"
                                Text="{x:Bind ExibicaoMomentoProcessamento}" />
                 </Grid>

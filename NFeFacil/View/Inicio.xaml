@@ -31,6 +31,11 @@
                                      Descricao="Use o XML de uma nota de saída para criar a de entrada">
             <SymbolIcon Symbol="Add" />
         </controles:ItemPadraoSimples>
+        <controles:ItemPadraoSimples Tag="Inutilizacoes"
+                                     Titulo="Inutilizações"
+                                     Descricao="Inutile intervalores de números de NFe">
+            <SymbolIcon Symbol="Delete" />
+        </controles:ItemPadraoSimples>
         <controles:ItemPadraoSimples Tag="NotasSalvas"
                                      Titulo="Notas salvas"
                                      Descricao="Visialize, edite e cancelar as notas desta aplicação.">

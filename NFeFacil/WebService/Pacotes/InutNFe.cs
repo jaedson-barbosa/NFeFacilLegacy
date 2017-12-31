@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 namespace NFeFacil.WebService.Pacotes
 {
     [XmlRoot("inutNFe", Namespace = "http://www.portalfiscal.inf.br/nfe")]
-    public struct InutNFe : ISignature
+    public sealed class InutNFe : ISignature
     {
         [XmlAttribute("versao")]
         public string Versao { get; set; }
@@ -18,6 +18,7 @@ namespace NFeFacil.WebService.Pacotes
         [XmlElement("Signature", Order = 1, Namespace = "http://www.w3.org/2000/09/xmldsig#")]
         public Assinatura Signature { get; set; }
 
+        public InutNFe() { }
         public InutNFe(InfInut info)
         {
             Versao = "3.10";

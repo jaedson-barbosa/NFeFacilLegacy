@@ -1,11 +1,11 @@
 ﻿using NFeFacil.Certificacao;
 using NFeFacil.Certificacao.LAN.Pacotes;
+using System;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using NFeFacil.IBGE;
-using System;
 using NFeFacil.Certificacao.LAN;
 using System.Net;
 
@@ -17,14 +17,33 @@ namespace NFeFacil.WebService
         int CodigoUF { get; }
         string VersaoDados { get; }
 
-        public GerenciadorGeral(Estado uf, Operacoes operacao, bool teste)
+        public event ProgressChangedEventHandler ProgressChanged;
+        public readonly string[] Etapas = new string[4]
+        {
+            "Preparar conexão",
+            "Obter conteúdo da requisição",
+            "Enviar requisição",
+            "Processar resposta"
+        };
+
+        private GerenciadorGeral()
+        {
+            ProgressChanged += GerenciadorGeral_ProgressChanged;
+
+            async Task GerenciadorGeral_ProgressChanged(object sender, ProgressChangedEventArgs e)
+            {
+                System.Diagnostics.Debug.WriteLine($"{e.EtapasConcluidas}/{e.TotalEtapas}");
+            }
+        }
+
+        public GerenciadorGeral(Estado uf, Operacoes operacao, bool teste) : this()
         {
             Enderecos = new EnderecosConexao(uf.Sigla).ObterConjuntoConexao(teste, operacao);
             CodigoUF = uf.Codigo;
             VersaoDados = operacao == Operacoes.RecepcaoEvento ? "1.00" : "3.10";
         }
 
-        public GerenciadorGeral(string siglaOuNome, Operacoes operacao, bool teste)
+        public GerenciadorGeral(string siglaOuNome, Operacoes operacao, bool teste) : this()
         {
             var uf = Estados.Buscar(siglaOuNome);
             Enderecos = new EnderecosConexao(uf.Sigla).ObterConjuntoConexao(teste, operacao);
@@ -32,7 +51,7 @@ namespace NFeFacil.WebService
             VersaoDados = operacao == Operacoes.RecepcaoEvento ? "1.00" : "3.10";
         }
 
-        public GerenciadorGeral(ushort codigo, Operacoes operacao, bool teste)
+        public GerenciadorGeral(ushort codigo, Operacoes operacao, bool teste) : this()
         {
             var uf = Estados.Buscar(codigo);
             Enderecos = new EnderecosConexao(uf.Sigla).ObterConjuntoConexao(teste, operacao);
@@ -53,11 +72,20 @@ namespace NFeFacil.WebService
                 }, true))
                 {
                     proxy.DefaultRequestHeaders.Add("SOAPAction", Enderecos.Metodo);
+                    await ProgressChanged(this, new ProgressChangedEventArgs(1, 4));
+
                     var str = ObterConteudoRequisicao(corpo, addNamespace);
                     var conteudo = new StringContent(str, Encoding.UTF8, "text/xml");
+                    await ProgressChanged(this, new ProgressChangedEventArgs(2, 4));
+
                     var resposta = await proxy.PostAsync(Enderecos.Endereco, conteudo);
+                    await ProgressChanged(this, new ProgressChangedEventArgs(3, 4));
+
                     var xml = XElement.Load(await resposta.Content.ReadAsStreamAsync());
-                    return ObterConteudoCorpo(xml).FromXElement<Resposta>();
+                    var retorno = ObterConteudoCorpo(xml).FromXElement<Resposta>();
+                    await ProgressChanged(this, new ProgressChangedEventArgs(4, 4));
+
+                    return retorno;
                 }
             }
             else
@@ -75,13 +103,21 @@ namespace NFeFacil.WebService
 
                 using (var cliente = new HttpClient())
                 {
-                    
                     var uri = new Uri($"http://{OperacoesServidor.RootUri}:1010/EnviarRequisicao");
+                    await ProgressChanged(this, new ProgressChangedEventArgs(1, 4));
+
                     var xml = envio.ToXElement<RequisicaoEnvioDTO>().ToString(SaveOptions.DisableFormatting);
                     var conteudo = new StringContent(xml, Encoding.UTF8, "text/xml");
+                    await ProgressChanged(this, new ProgressChangedEventArgs(2, 4));
+
                     var resposta = await cliente.PostAsync(uri, conteudo);
+                    await ProgressChanged(this, new ProgressChangedEventArgs(3, 4));
+
                     var xmlResposta = XElement.Load(await resposta.Content.ReadAsStreamAsync());
-                    return xmlResposta.FromXElement<Resposta>();
+                    var retorno = xmlResposta.FromXElement<Resposta>();
+                    await ProgressChanged(this, new ProgressChangedEventArgs(4, 4));
+
+                    return retorno;
                 }
             }
 
@@ -121,4 +157,19 @@ namespace NFeFacil.WebService
             XName Name(string original) => XName.Get(original, servico);
         }
     }
+
+    public delegate Task ProgressChangedEventHandler(object sender, ProgressChangedEventArgs e);
+
+    public sealed class ProgressChangedEventArgs : EventArgs
+    {
+        public int EtapasConcluidas { get; }
+        public int TotalEtapas { get; }
+
+        public ProgressChangedEventArgs(int etapasConcluidas, int totalEtapas)
+        {
+            EtapasConcluidas = etapasConcluidas;
+            TotalEtapas = totalEtapas;
+        }
+    }
+
 }

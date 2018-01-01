@@ -56,7 +56,7 @@ namespace NFeFacil.ViewNFe
                     resultado = await gerenciador.EnviarAsync(envio);
                     sucesso = resultado.Info.StatusResposta == 102;
                     return (sucesso, resultado.Info.DescricaoResposta);
-                }, gerenciador.Etapas.Select(x => new EtapaProcesso(x)));
+                }, gerenciador.Etapas.Select(x => new EtapaProcesso(x)).ToArray());
                 gerenciador.ProgressChanged += async (x, y) => await progresso.Update(y.EtapasConcluidas);
                 progresso.Start();
                 await progresso.ShowAsync();

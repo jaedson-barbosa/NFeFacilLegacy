@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -11,15 +12,15 @@ namespace NFeFacil.ViewNFe.PartesInutilizacoes
 {
     public sealed partial class Progresso : ContentDialog
     {
-        ObservableCollection<EtapaProcesso> Etapas { get; }
+        EtapaProcesso[] Etapas { get; }
         int TotalEtapas { get; }
         Func<Task<(bool, string)>> Acao { get; }
 
-        public Progresso(Func<Task<(bool, string)>> acao, IEnumerable<EtapaProcesso> etapas)
+        public Progresso(Func<Task<(bool, string)>> acao, EtapaProcesso[] etapas)
         {
             InitializeComponent();
-            Etapas = etapas.GerarObs();
-            TotalEtapas = Etapas.Count;
+            Etapas = etapas;
+            TotalEtapas = Etapas.Length;
             Acao = acao;
         }
 
@@ -35,11 +36,11 @@ namespace NFeFacil.ViewNFe.PartesInutilizacoes
             var tot = TotalEtapas;
             barGeral.Value = at * 100 / tot;
             Etapas[at - 1].Atual = EtapaProcesso.Status.Concluido;
-            UpdateExibicaoItem(at - 1);
+            Etapas[at - 1].Update();
             if (at < tot)
             {
                 Etapas[at].Atual = EtapaProcesso.Status.EmAndamento;
-                UpdateExibicaoItem(at);
+                Etapas[at].Update();
             }
             await Task.Delay(500);
         }
@@ -48,10 +49,10 @@ namespace NFeFacil.ViewNFe.PartesInutilizacoes
         {
             barGeral.Value = 0;
             barGeral.ShowError = false;
-            for (int i = 0; i < Etapas.Count; i++)
+            for (int i = 0; i < Etapas.Length; i++)
             {
                 Etapas[i].Atual = EtapaProcesso.Status.Pendente;
-                UpdateExibicaoItem(i);
+                Etapas[i].Update();
             }
 
             IsPrimaryButtonEnabled = false;
@@ -84,16 +85,9 @@ namespace NFeFacil.ViewNFe.PartesInutilizacoes
             IsPrimaryButtonEnabled = true;
             txtResultado.Text = mensagem;
         }
-
-        void UpdateExibicaoItem(int index)
-        {
-            var item = Etapas[index];
-            Etapas.RemoveAt(index);
-            Etapas.Insert(index, item);
-        }
     }
 
-    public sealed class EtapaProcesso
+    public sealed class EtapaProcesso : INotifyPropertyChanged
     {
         public EtapaProcesso(string descricao)
         {
@@ -107,6 +101,14 @@ namespace NFeFacil.ViewNFe.PartesInutilizacoes
         public string Descricao { get; set; }
 
         internal Status Atual { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void Update()
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Concluido)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Pendente)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(EmAndamento)));
+        }
 
         public enum Status { Pendente, EmAndamento, Concluido }
     }

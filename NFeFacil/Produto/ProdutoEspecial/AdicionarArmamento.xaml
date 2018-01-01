@@ -1,0 +1,24 @@
+﻿<ContentDialog x:Class="NFeFacil.Produto.ProdutoEspecial.AdicionarArmamento"
+               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+               mc:Ignorable="d"
+               Title="Adicionar armamento"
+               PrimaryButtonText="Adicionar"
+               SecondaryButtonText="Cancelar">
+    <ItemsControl Style="{StaticResource ItensResponsivos}">
+        <ComboBox SelectedIndex="{x:Bind Contexto.TpArma, Mode=TwoWay}"
+                  Header="Tipo de arma"
+                  HorizontalAlignment="Stretch">
+            <ComboBoxItem>Uso permitido</ComboBoxItem>
+            <ComboBoxItem>Uso restrito</ComboBoxItem>
+        </ComboBox>
+        <TextBox Text="{x:Bind Contexto.NSerie, Mode=TwoWay}"
+                 Header="Série da arma" />
+        <TextBox Text="{x:Bind Contexto.NCano, Mode=TwoWay}"
+                 Header="Série do cano" />
+        <TextBox Text="{x:Bind Contexto.Descr, Mode=TwoWay}"
+                 Header="Descrição" />
+    </ItemsControl>
+</ContentDialog>

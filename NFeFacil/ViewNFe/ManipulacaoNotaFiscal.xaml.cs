@@ -7,15 +7,15 @@ using NFeFacil.Controles;
 using NFeFacil.ItensBD;
 using System.Collections.Generic;
 using System.Linq;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
+using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesIdentificacao;
+using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTotal;
+using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
 using NFeFacil.IBGE;
 using NFeFacil.Validacao;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using NFeFacil.ViewNFe.CaixasDialogoNFe;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTotal;
 using NFeFacil.View;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238

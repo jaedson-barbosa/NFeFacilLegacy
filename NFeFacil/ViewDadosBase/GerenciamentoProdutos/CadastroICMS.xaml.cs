@@ -1,4 +1,4 @@
-﻿using static NFeFacil.ViewNFe.Impostos.AssociacoesSimples;
+﻿using static NFeFacil.Produto.Impostos.AssociacoesSimples;
 using Windows.UI.Xaml.Controls;
 
 // O modelo de item de Caixa de Diálogo de Conteúdo está documentado em https://go.microsoft.com/fwlink/?LinkId=234238

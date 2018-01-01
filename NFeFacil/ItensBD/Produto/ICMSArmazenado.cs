@@ -1,5 +1,5 @@
-﻿using NFeFacil.ViewNFe.Impostos.DetalhamentoICMS.DadosRN;
-using NFeFacil.ViewNFe.Impostos.DetalhamentoICMS.DadosSN;
+﻿using NFeFacil.Produto.Impostos.DetalhamentoICMS.DadosRN;
+using NFeFacil.Produto.Impostos.DetalhamentoICMS.DadosSN;
 using System.Xml.Serialization;
 
 namespace NFeFacil.ItensBD.Produto

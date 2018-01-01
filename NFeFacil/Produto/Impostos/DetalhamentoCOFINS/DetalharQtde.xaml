@@ -1,0 +1,13 @@
+﻿<Page x:Class="NFeFacil.Produto.Impostos.DetalhamentoCOFINS.DetalharQtde"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:controles="using:NFeFacil.Controles"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d">
+    <Grid>
+        <controles:EntradaNumerica Format="15:4"
+                                   Header="Valor por unidade"
+                                   Number="{x:Bind Valor, Mode=TwoWay}" />
+    </Grid>
+</Page>

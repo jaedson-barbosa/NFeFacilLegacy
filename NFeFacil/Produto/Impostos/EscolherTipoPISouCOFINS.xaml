@@ -1,0 +1,58 @@
+﻿<ContentDialog x:Class="NFeFacil.Produto.Impostos.EscolherTipoPISouCOFINS"
+               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+               mc:Ignorable="d"
+               Title="Escolha de PIS/COFINS"
+               PrimaryButtonText="Adicionar"
+               SecondaryButtonText="Cancelar">
+    <StackPanel>
+        <ComboBox SelectedValue="{x:Bind CST, Mode=TwoWay}"
+                  SelectedValuePath="Tag"
+                  Header="Situação tributária"
+                  HorizontalAlignment="Stretch">
+            <ComboBoxItem Tag="01">01=Operação Tributável (base de cálculo = valor da operação alíquota normal (cumulativo/não cumulativo))</ComboBoxItem>
+            <ComboBoxItem Tag="02">02=Operação Tributável (base de cálculo = valor da operação (alíquota diferenciada))</ComboBoxItem>
+            <ComboBoxItem Tag="03">03=Operação Tributável (base de cálculo = quantidade vendida x alíquota por unidade de Produto)</ComboBoxItem>
+            <ComboBoxItem Tag="04">04=Operação Tributável (tributação monofásica (alíquota zero))</ComboBoxItem>
+            <ComboBoxItem Tag="05">05=Operação Tributável (Substituição Tributária)</ComboBoxItem>
+            <ComboBoxItem Tag="06">06=Operação Tributável (alíquota zero)</ComboBoxItem>
+            <ComboBoxItem Tag="07">07=Operação Isenta da Contribuição</ComboBoxItem>
+            <ComboBoxItem Tag="08">08=Operação Sem Incidência da Contribuição</ComboBoxItem>
+            <ComboBoxItem Tag="09">09=Operação com Suspensão da Contribuição</ComboBoxItem>
+            <ComboBoxItem Tag="49">49=Outras Operações de Saída</ComboBoxItem>
+            <ComboBoxItem Tag="50">50=Operação com Direito a Crédito - Vinculada Exclusivamente a Receita Tributada no Mercado Interno</ComboBoxItem>
+            <ComboBoxItem Tag="51">51=Operação com Direito a Crédito - Vinculada Exclusivamente a Receita Não Tributada no Mercado Interno</ComboBoxItem>
+            <ComboBoxItem Tag="52">52=Operação com Direito a Crédito – Vinculada Exclusivamente a Receita de Exportação</ComboBoxItem>
+            <ComboBoxItem Tag="53">53=Operação com Direito a Crédito - Vinculada a Receitas Tributadas e Não-Tributadas no Mercado Interno</ComboBoxItem>
+            <ComboBoxItem Tag="54">54=Operação com Direito a Crédito - Vinculada a Receitas Tributadas no Mercado Interno e de Exportação</ComboBoxItem>
+            <ComboBoxItem Tag="55">55=Operação com Direito a Crédito - Vinculada a Receitas NãoTributadas no Mercado Interno e de Exportação</ComboBoxItem>
+            <ComboBoxItem Tag="56">56=Operação com Direito a Crédito - Vinculada a Receitas Tributadas e Não-Tributadas no Mercado Interno, e de Exportação</ComboBoxItem>
+            <ComboBoxItem Tag="60">60=Crédito Presumido - Operação de Aquisição Vinculada Exclusivamente a Receita Tributada no Mercado Interno</ComboBoxItem>
+            <ComboBoxItem Tag="61">61=Crédito Presumido - Operação de Aquisição Vinculada Exclusivamente a Receita Não-Tributada no Mercado Interno</ComboBoxItem>
+            <ComboBoxItem Tag="62">62=Crédito Presumido - Operação de Aquisição Vinculada Exclusivamente a Receita de Exportação</ComboBoxItem>
+            <ComboBoxItem Tag="63">63=Crédito Presumido - Operação de Aquisição Vinculada a Receitas Tributadas e Não-Tributadas no Mercado Interno</ComboBoxItem>
+            <ComboBoxItem Tag="64">64=Crédito Presumido - Operação de Aquisição Vinculada a Receitas Tributadas no Mercado Interno e de Exportação</ComboBoxItem>
+            <ComboBoxItem Tag="65">65=Crédito Presumido - Operação de Aquisição Vinculada a Receitas Não-Tributadas no Mercado Interno e de Exportação</ComboBoxItem>
+            <ComboBoxItem Tag="66">66=Crédito Presumido - Operação de Aquisição Vinculada a Receitas Tributadas e Não-Tributadas no Mercado Interno, e de Exportação</ComboBoxItem>
+            <ComboBoxItem Tag="67">67=Crédito Presumido - Outras Operações</ComboBoxItem>
+            <ComboBoxItem Tag="70">70=Operação de Aquisição sem Direito a Crédito</ComboBoxItem>
+            <ComboBoxItem Tag="71">71=Operação de Aquisição com Isenção</ComboBoxItem>
+            <ComboBoxItem Tag="72">72=Operação de Aquisição com Suspensão</ComboBoxItem>
+            <ComboBoxItem Tag="73">73=Operação de Aquisição a Alíquota Zero</ComboBoxItem>
+            <ComboBoxItem Tag="74">74=Operação de Aquisição; sem Incidência da Contribuição</ComboBoxItem>
+            <ComboBoxItem Tag="75">75=Operação de Aquisição por Substituição Tributária</ComboBoxItem>
+            <ComboBoxItem Tag="98">98=Outras Operações de Entrada</ComboBoxItem>
+            <ComboBoxItem Tag="99">99=Outras Operações</ComboBoxItem>
+        </ComboBox>
+        <ComboBox x:Name="cmbTipoCalculo"
+                  IsEnabled="False"
+                  Header="Tipo de cálculo"
+                  SelectionChanged="TipoCalculoMudou"
+                  HorizontalAlignment="Stretch">
+            <ComboBoxItem Tag="0">Por alíquota</ComboBoxItem>
+            <ComboBoxItem Tag="1">Pelo valor por unidade</ComboBoxItem>
+        </ComboBox>
+    </StackPanel>
+</ContentDialog>

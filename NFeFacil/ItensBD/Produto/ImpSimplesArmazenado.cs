@@ -1,4 +1,4 @@
-﻿using NFeFacil.ViewNFe.Impostos;
+﻿using NFeFacil.Produto.Impostos;
 
 namespace NFeFacil.ItensBD.Produto
 {

@@ -378,8 +378,8 @@
       <DependentUpon>CadastroIPI.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewNFe\DadosAdicaoProduto.cs" />
-    <Compile Include="ViewNFe\Impostos\DadoPronto.cs" />
-    <Compile Include="ViewNFe\Impostos\IEscolherImpSimples.cs" />
+    <Compile Include="Produto\Impostos\DadoPronto.cs" />
+    <Compile Include="Produto\Impostos\IEscolherImpSimples.cs" />
     <Compile Include="ViewNFe\Inutilizacoes.xaml.cs">
       <DependentUpon>Inutilizacoes.xaml</DependentUpon>
     </Compile>
@@ -419,149 +419,149 @@
     <Compile Include="ViewNFe\CaixasDialogoNFe\EscolherVeiculo.xaml.cs">
       <DependentUpon>EscolherVeiculo.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Impostos\AssociacoesSimples.cs" />
-    <Compile Include="ViewNFe\Impostos\DefinirTotalImpostos.xaml.cs">
+    <Compile Include="Produto\Impostos\AssociacoesSimples.cs" />
+    <Compile Include="Produto\Impostos\DefinirTotalImpostos.xaml.cs">
       <DependentUpon>DefinirTotalImpostos.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS\DadosAliq.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS\IDadosCOFINS.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS\DadosNT.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS\DadosQtde.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS\DetalharAliquota.xaml.cs">
+    <Compile Include="Produto\Impostos\DetalhamentoCOFINS\DadosAliq.cs" />
+    <Compile Include="Produto\Impostos\DetalhamentoCOFINS\IDadosCOFINS.cs" />
+    <Compile Include="Produto\Impostos\DetalhamentoCOFINS\DadosNT.cs" />
+    <Compile Include="Produto\Impostos\DetalhamentoCOFINS\DadosQtde.cs" />
+    <Compile Include="Produto\Impostos\DetalhamentoCOFINS\DetalharAliquota.xaml.cs">
       <DependentUpon>DetalharAliquota.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS\DetalharQtde.xaml.cs">
+    <Compile Include="Produto\Impostos\DetalhamentoCOFINS\DetalharQtde.xaml.cs">
       <DependentUpon>DetalharQtde.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS\Processamento.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoGeral.xaml.cs">
+    <Compile Include="Produto\Impostos\DetalhamentoCOFINS\Processamento.cs" />
+    <Compile Include="Produto\Impostos\DetalhamentoGeral.xaml.cs">
       <DependentUpon>DetalhamentoGeral.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMSUFDest\Detalhar.xaml.cs">
+    <Compile Include="Produto\Impostos\DetalhamentoICMSUFDest\Detalhar.xaml.cs">
       <DependentUpon>Detalhar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMSUFDest\IDadosICMSUFDest.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMSUFDest\Processamento.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\DadosRN\BaseRN.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\DadosSN\BaseSN.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\DadosSN\TipoNT.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\IDadosICMS.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\DadosRN\Tipo0.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\DadosRN\Tipo10.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\DadosRN\Tipo20.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\DadosRN\Tipo30.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\DadosRN\Tipo40_41_50.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\DadosRN\Tipo51.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\DadosRN\Tipo60.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\DadosRN\Tipo70.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\DadosRN\Tipo90.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\DadosRN\TipoICMSST.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\DadosRN\TipoPart.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\DadosSN\Tipo101.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\DadosSN\Tipo201.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\DadosSN\Tipo202.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\DadosSN\Tipo500.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\DadosSN\Tipo900.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\Processamento.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\TelasRN\Tipo0.xaml.cs">
+    <Compile Include="Produto\Impostos\DetalhamentoICMSUFDest\IDadosICMSUFDest.cs" />
+    <Compile Include="Produto\Impostos\DetalhamentoICMSUFDest\Processamento.cs" />
+    <Compile Include="Produto\Impostos\DetalhamentoICMS\DadosRN\BaseRN.cs" />
+    <Compile Include="Produto\Impostos\DetalhamentoICMS\DadosSN\BaseSN.cs" />
+    <Compile Include="Produto\Impostos\DetalhamentoICMS\DadosSN\TipoNT.cs" />
+    <Compile Include="Produto\Impostos\DetalhamentoICMS\IDadosICMS.cs" />
+    <Compile Include="Produto\Impostos\DetalhamentoICMS\DadosRN\Tipo0.cs" />
+    <Compile Include="Produto\Impostos\DetalhamentoICMS\DadosRN\Tipo10.cs" />
+    <Compile Include="Produto\Impostos\DetalhamentoICMS\DadosRN\Tipo20.cs" />
+    <Compile Include="Produto\Impostos\DetalhamentoICMS\DadosRN\Tipo30.cs" />
+    <Compile Include="Produto\Impostos\DetalhamentoICMS\DadosRN\Tipo40_41_50.cs" />
+    <Compile Include="Produto\Impostos\DetalhamentoICMS\DadosRN\Tipo51.cs" />
+    <Compile Include="Produto\Impostos\DetalhamentoICMS\DadosRN\Tipo60.cs" />
+    <Compile Include="Produto\Impostos\DetalhamentoICMS\DadosRN\Tipo70.cs" />
+    <Compile Include="Produto\Impostos\DetalhamentoICMS\DadosRN\Tipo90.cs" />
+    <Compile Include="Produto\Impostos\DetalhamentoICMS\DadosRN\TipoICMSST.cs" />
+    <Compile Include="Produto\Impostos\DetalhamentoICMS\DadosRN\TipoPart.cs" />
+    <Compile Include="Produto\Impostos\DetalhamentoICMS\DadosSN\Tipo101.cs" />
+    <Compile Include="Produto\Impostos\DetalhamentoICMS\DadosSN\Tipo201.cs" />
+    <Compile Include="Produto\Impostos\DetalhamentoICMS\DadosSN\Tipo202.cs" />
+    <Compile Include="Produto\Impostos\DetalhamentoICMS\DadosSN\Tipo500.cs" />
+    <Compile Include="Produto\Impostos\DetalhamentoICMS\DadosSN\Tipo900.cs" />
+    <Compile Include="Produto\Impostos\DetalhamentoICMS\Processamento.cs" />
+    <Compile Include="Produto\Impostos\DetalhamentoICMS\TelasRN\Tipo0.xaml.cs">
       <DependentUpon>Tipo0.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\TelasRN\Tipo10.xaml.cs">
+    <Compile Include="Produto\Impostos\DetalhamentoICMS\TelasRN\Tipo10.xaml.cs">
       <DependentUpon>Tipo10.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\TelasRN\Tipo20.xaml.cs">
+    <Compile Include="Produto\Impostos\DetalhamentoICMS\TelasRN\Tipo20.xaml.cs">
       <DependentUpon>Tipo20.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\TelasRN\Tipo30.xaml.cs">
+    <Compile Include="Produto\Impostos\DetalhamentoICMS\TelasRN\Tipo30.xaml.cs">
       <DependentUpon>Tipo30.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\TelasRN\Tipo51.xaml.cs">
+    <Compile Include="Produto\Impostos\DetalhamentoICMS\TelasRN\Tipo51.xaml.cs">
       <DependentUpon>Tipo51.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\TelasRN\Tipo60.xaml.cs">
+    <Compile Include="Produto\Impostos\DetalhamentoICMS\TelasRN\Tipo60.xaml.cs">
       <DependentUpon>Tipo60.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\TelasRN\Tipo70.xaml.cs">
+    <Compile Include="Produto\Impostos\DetalhamentoICMS\TelasRN\Tipo70.xaml.cs">
       <DependentUpon>Tipo70.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\TelasRN\Tipo90.xaml.cs">
+    <Compile Include="Produto\Impostos\DetalhamentoICMS\TelasRN\Tipo90.xaml.cs">
       <DependentUpon>Tipo90.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\TelasRN\TipoICMSST.xaml.cs">
+    <Compile Include="Produto\Impostos\DetalhamentoICMS\TelasRN\TipoICMSST.xaml.cs">
       <DependentUpon>TipoICMSST.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\TelasRN\TipoPart.xaml.cs">
+    <Compile Include="Produto\Impostos\DetalhamentoICMS\TelasRN\TipoPart.xaml.cs">
       <DependentUpon>TipoPart.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\TelasRN\Tipo40_41_50.xaml.cs">
+    <Compile Include="Produto\Impostos\DetalhamentoICMS\TelasRN\Tipo40_41_50.xaml.cs">
       <DependentUpon>Tipo40_41_50.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\TelasSN\Tipo101.xaml.cs">
+    <Compile Include="Produto\Impostos\DetalhamentoICMS\TelasSN\Tipo101.xaml.cs">
       <DependentUpon>Tipo101.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\TelasSN\Tipo201.xaml.cs">
+    <Compile Include="Produto\Impostos\DetalhamentoICMS\TelasSN\Tipo201.xaml.cs">
       <DependentUpon>Tipo201.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\TelasSN\Tipo202.xaml.cs">
+    <Compile Include="Produto\Impostos\DetalhamentoICMS\TelasSN\Tipo202.xaml.cs">
       <DependentUpon>Tipo202.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\TelasSN\Tipo500.xaml.cs">
+    <Compile Include="Produto\Impostos\DetalhamentoICMS\TelasSN\Tipo500.xaml.cs">
       <DependentUpon>Tipo500.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\TelasSN\Tipo900.xaml.cs">
+    <Compile Include="Produto\Impostos\DetalhamentoICMS\TelasSN\Tipo900.xaml.cs">
       <DependentUpon>Tipo900.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Impostos\DetalhamentoII\Detalhar.xaml.cs">
+    <Compile Include="Produto\Impostos\DetalhamentoII\Detalhar.xaml.cs">
       <DependentUpon>Detalhar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Impostos\DetalhamentoII\IDadosII.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoII\Processamento.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoIPI\DadosIPI.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoIPI\DadosNT.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoIPI\DadosTrib.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoIPI\DetalharAliquota.xaml.cs">
+    <Compile Include="Produto\Impostos\DetalhamentoII\IDadosII.cs" />
+    <Compile Include="Produto\Impostos\DetalhamentoII\Processamento.cs" />
+    <Compile Include="Produto\Impostos\DetalhamentoIPI\DadosIPI.cs" />
+    <Compile Include="Produto\Impostos\DetalhamentoIPI\DadosNT.cs" />
+    <Compile Include="Produto\Impostos\DetalhamentoIPI\DadosTrib.cs" />
+    <Compile Include="Produto\Impostos\DetalhamentoIPI\DetalharAliquota.xaml.cs">
       <DependentUpon>DetalharAliquota.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Impostos\DetalhamentoIPI\DetalharSimples.xaml.cs">
+    <Compile Include="Produto\Impostos\DetalhamentoIPI\DetalharSimples.xaml.cs">
       <DependentUpon>DetalharSimples.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Impostos\DetalhamentoIPI\DetalharQtde.xaml.cs">
+    <Compile Include="Produto\Impostos\DetalhamentoIPI\DetalharQtde.xaml.cs">
       <DependentUpon>DetalharQtde.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Impostos\DetalhamentoIPI\Processamento.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoISSQN\DetalharExterior.xaml.cs">
+    <Compile Include="Produto\Impostos\DetalhamentoIPI\Processamento.cs" />
+    <Compile Include="Produto\Impostos\DetalhamentoISSQN\DetalharExterior.xaml.cs">
       <DependentUpon>DetalharExterior.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Impostos\DetalhamentoISSQN\DetalharNacional.xaml.cs">
+    <Compile Include="Produto\Impostos\DetalhamentoISSQN\DetalharNacional.xaml.cs">
       <DependentUpon>DetalharNacional.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Impostos\DetalhamentoISSQN\IDadosISSQN.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoISSQN\Processamento.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoPIS\DadosAliq.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoPIS\DadosNT.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoPIS\IDadosPIS.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoPIS\DadosQtde.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoPIS\DetalharAliquota.xaml.cs">
+    <Compile Include="Produto\Impostos\DetalhamentoISSQN\IDadosISSQN.cs" />
+    <Compile Include="Produto\Impostos\DetalhamentoISSQN\Processamento.cs" />
+    <Compile Include="Produto\Impostos\DetalhamentoPIS\DadosAliq.cs" />
+    <Compile Include="Produto\Impostos\DetalhamentoPIS\DadosNT.cs" />
+    <Compile Include="Produto\Impostos\DetalhamentoPIS\IDadosPIS.cs" />
+    <Compile Include="Produto\Impostos\DetalhamentoPIS\DadosQtde.cs" />
+    <Compile Include="Produto\Impostos\DetalhamentoPIS\DetalharAliquota.xaml.cs">
       <DependentUpon>DetalharAliquota.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Impostos\DetalhamentoPIS\DetalharQtde.xaml.cs">
+    <Compile Include="Produto\Impostos\DetalhamentoPIS\DetalharQtde.xaml.cs">
       <DependentUpon>DetalharQtde.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Impostos\IDetalhamentoImposto.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoCOFINS\Detalhamento.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMS\Detalhamento.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoICMSUFDest\Detalhamento.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoII\Detalhamento.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoIPI\Detalhamento.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoISSQN\Detalhamento.cs" />
-    <Compile Include="ViewNFe\Impostos\DetalhamentoPIS\Detalhamento.cs" />
-    <Compile Include="ViewNFe\Impostos\EscolhaImpostos.xaml.cs">
+    <Compile Include="Produto\Impostos\IDetalhamentoImposto.cs" />
+    <Compile Include="Produto\Impostos\DetalhamentoCOFINS\Detalhamento.cs" />
+    <Compile Include="Produto\Impostos\DetalhamentoICMS\Detalhamento.cs" />
+    <Compile Include="Produto\Impostos\DetalhamentoICMSUFDest\Detalhamento.cs" />
+    <Compile Include="Produto\Impostos\DetalhamentoII\Detalhamento.cs" />
+    <Compile Include="Produto\Impostos\DetalhamentoIPI\Detalhamento.cs" />
+    <Compile Include="Produto\Impostos\DetalhamentoISSQN\Detalhamento.cs" />
+    <Compile Include="Produto\Impostos\DetalhamentoPIS\Detalhamento.cs" />
+    <Compile Include="Produto\Impostos\EscolhaImpostos.xaml.cs">
       <DependentUpon>EscolhaImpostos.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Impostos\DetalhamentoPIS\Processamento.cs" />
-    <Compile Include="ViewNFe\Impostos\ProcessamentoImposto.cs" />
-    <Compile Include="ViewNFe\Impostos\RoteiroAdicaoImpostos.cs" />
-    <Compile Include="ViewNFe\PrincipaisImpostos.cs" />
+    <Compile Include="Produto\Impostos\DetalhamentoPIS\Processamento.cs" />
+    <Compile Include="Produto\Impostos\ProcessamentoImposto.cs" />
+    <Compile Include="Produto\Impostos\RoteiroAdicaoImpostos.cs" />
+    <Compile Include="Produto\Impostos\PrincipaisImpostos.cs" />
     <Compile Include="ViewRegistroVenda\CalcularTroco.xaml.cs">
       <DependentUpon>CalcularTroco.xaml</DependentUpon>
     </Compile>
@@ -607,19 +607,19 @@
     <Compile Include="ViewDadosBase\EscolherTipoCliente.xaml.cs">
       <DependentUpon>EscolherTipoCliente.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\ProdutoEspecial\DefinirArmamentos.xaml.cs">
+    <Compile Include="Produto\ProdutoEspecial\DefinirArmamentos.xaml.cs">
       <DependentUpon>DefinirArmamentos.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\ProdutoEspecial\DefinirCombustivel.xaml.cs">
+    <Compile Include="Produto\ProdutoEspecial\DefinirCombustivel.xaml.cs">
       <DependentUpon>DefinirCombustivel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\ProdutoEspecial\DefinirMedicamentos.xaml.cs">
+    <Compile Include="Produto\ProdutoEspecial\DefinirMedicamentos.xaml.cs">
       <DependentUpon>DefinirMedicamentos.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\ProdutoEspecial\DefinirPapel.xaml.cs">
+    <Compile Include="Produto\ProdutoEspecial\DefinirPapel.xaml.cs">
       <DependentUpon>DefinirPapel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\ProdutoEspecial\DefinirVeiculo.xaml.cs">
+    <Compile Include="Produto\ProdutoEspecial\DefinirVeiculo.xaml.cs">
       <DependentUpon>DefinirVeiculo.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewNFe\CaixasDialogoNFe\EnderecoDiferenteExterior.xaml.cs">
@@ -637,10 +637,10 @@
     <Compile Include="ViewNFe\CaixasDialogoProduto\EscolherTipoDeclaracaoExportacao.xaml.cs">
       <DependentUpon>EscolherTipoDeclaracaoExportacao.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Impostos\EscolherTipoIPI.xaml.cs">
+    <Compile Include="Produto\Impostos\EscolherTipoIPI.xaml.cs">
       <DependentUpon>EscolherTipoIPI.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Impostos\EscolherTipoPISouCOFINS.xaml.cs">
+    <Compile Include="Produto\Impostos\EscolherTipoPISouCOFINS.xaml.cs">
       <DependentUpon>EscolherTipoPISouCOFINS.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewNFe\CriadorNFe.xaml.cs">
@@ -649,7 +649,7 @@
     <Compile Include="ViewNFe\CaixasDialogoNFe\EnderecoDiferenteNacional.xaml.cs">
       <DependentUpon>EnderecoDiferenteNacional.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Impostos\EscolherTipoICMS.xaml.cs">
+    <Compile Include="Produto\Impostos\EscolherTipoICMS.xaml.cs">
       <DependentUpon>EscolherTipoICMS.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewNFe\VisualizacaoNFe.xaml.cs">
@@ -670,10 +670,10 @@
     <Compile Include="ViewRegistroVenda\VisualizarDetalhesCancelamento.xaml.cs">
       <DependentUpon>VisualizarDetalhesCancelamento.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\CaixasDialogoProduto\AdicionarArmamento.xaml.cs">
+    <Compile Include="Produto\ProdutoEspecial\AdicionarArmamento.xaml.cs">
       <DependentUpon>AdicionarArmamento.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\CaixasDialogoProduto\AdicionarMedicamento.xaml.cs">
+    <Compile Include="Produto\ProdutoEspecial\AdicionarMedicamento.xaml.cs">
       <DependentUpon>AdicionarMedicamento.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewDadosBase\GerenciamentoProdutos\AdicionarAlteracaoEstoque.xaml.cs">
@@ -748,7 +748,7 @@
     <Compile Include="Validacao\ValidadorEndereco.cs" />
     <Compile Include="Validacao\ValidarDados.cs" />
     <Compile Include="ViewModel\StringToDateTime.cs" />
-    <Compile Include="ViewNFe\Impostos\TiposCalculo.cs" />
+    <Compile Include="Produto\Impostos\TiposCalculo.cs" />
     <Compile Include="Login\AdicionarEmitente.xaml.cs">
       <DependentUpon>AdicionarEmitente.xaml</DependentUpon>
     </Compile>
@@ -1056,123 +1056,123 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\Impostos\DefinirTotalImpostos.xaml">
+    <Page Include="Produto\Impostos\DefinirTotalImpostos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\Impostos\DetalhamentoCOFINS\DetalharAliquota.xaml">
+    <Page Include="Produto\Impostos\DetalhamentoCOFINS\DetalharAliquota.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ViewNFe\Impostos\DetalhamentoCOFINS\DetalharQtde.xaml">
+    <Page Include="Produto\Impostos\DetalhamentoCOFINS\DetalharQtde.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ViewNFe\Impostos\DetalhamentoGeral.xaml">
+    <Page Include="Produto\Impostos\DetalhamentoGeral.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\Impostos\DetalhamentoICMSUFDest\Detalhar.xaml">
+    <Page Include="Produto\Impostos\DetalhamentoICMSUFDest\Detalhar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\TelasRN\Tipo0.xaml">
+    <Page Include="Produto\Impostos\DetalhamentoICMS\TelasRN\Tipo0.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\TelasRN\Tipo10.xaml">
+    <Page Include="Produto\Impostos\DetalhamentoICMS\TelasRN\Tipo10.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\TelasRN\Tipo20.xaml">
+    <Page Include="Produto\Impostos\DetalhamentoICMS\TelasRN\Tipo20.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\TelasRN\Tipo30.xaml">
+    <Page Include="Produto\Impostos\DetalhamentoICMS\TelasRN\Tipo30.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\TelasRN\Tipo51.xaml">
+    <Page Include="Produto\Impostos\DetalhamentoICMS\TelasRN\Tipo51.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\TelasRN\Tipo60.xaml">
+    <Page Include="Produto\Impostos\DetalhamentoICMS\TelasRN\Tipo60.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\TelasRN\Tipo70.xaml">
+    <Page Include="Produto\Impostos\DetalhamentoICMS\TelasRN\Tipo70.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\TelasRN\Tipo90.xaml">
+    <Page Include="Produto\Impostos\DetalhamentoICMS\TelasRN\Tipo90.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\TelasRN\TipoICMSST.xaml">
+    <Page Include="Produto\Impostos\DetalhamentoICMS\TelasRN\TipoICMSST.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\TelasRN\TipoPart.xaml">
+    <Page Include="Produto\Impostos\DetalhamentoICMS\TelasRN\TipoPart.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\TelasRN\Tipo40_41_50.xaml">
+    <Page Include="Produto\Impostos\DetalhamentoICMS\TelasRN\Tipo40_41_50.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\TelasSN\Tipo101.xaml">
+    <Page Include="Produto\Impostos\DetalhamentoICMS\TelasSN\Tipo101.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\TelasSN\Tipo201.xaml">
+    <Page Include="Produto\Impostos\DetalhamentoICMS\TelasSN\Tipo201.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\TelasSN\Tipo202.xaml">
+    <Page Include="Produto\Impostos\DetalhamentoICMS\TelasSN\Tipo202.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\TelasSN\Tipo500.xaml">
+    <Page Include="Produto\Impostos\DetalhamentoICMS\TelasSN\Tipo500.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\Impostos\DetalhamentoICMS\TelasSN\Tipo900.xaml">
+    <Page Include="Produto\Impostos\DetalhamentoICMS\TelasSN\Tipo900.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\Impostos\DetalhamentoII\Detalhar.xaml">
+    <Page Include="Produto\Impostos\DetalhamentoII\Detalhar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\Impostos\DetalhamentoIPI\DetalharAliquota.xaml">
+    <Page Include="Produto\Impostos\DetalhamentoIPI\DetalharAliquota.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\Impostos\DetalhamentoIPI\DetalharSimples.xaml">
+    <Page Include="Produto\Impostos\DetalhamentoIPI\DetalharSimples.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\Impostos\DetalhamentoIPI\DetalharQtde.xaml">
+    <Page Include="Produto\Impostos\DetalhamentoIPI\DetalharQtde.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\Impostos\DetalhamentoISSQN\DetalharExterior.xaml">
+    <Page Include="Produto\Impostos\DetalhamentoISSQN\DetalharExterior.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\Impostos\DetalhamentoISSQN\DetalharNacional.xaml">
+    <Page Include="Produto\Impostos\DetalhamentoISSQN\DetalharNacional.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\Impostos\DetalhamentoPIS\DetalharAliquota.xaml">
+    <Page Include="Produto\Impostos\DetalhamentoPIS\DetalharAliquota.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\Impostos\DetalhamentoPIS\DetalharQtde.xaml">
+    <Page Include="Produto\Impostos\DetalhamentoPIS\DetalharQtde.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\Impostos\EscolhaImpostos.xaml">
+    <Page Include="Produto\Impostos\EscolhaImpostos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1264,31 +1264,31 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\ProdutoEspecial\DefinirArmamentos.xaml">
+    <Page Include="Produto\ProdutoEspecial\DefinirArmamentos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\ProdutoEspecial\DefinirCombustivel.xaml">
+    <Page Include="Produto\ProdutoEspecial\DefinirCombustivel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\ProdutoEspecial\DefinirMedicamentos.xaml">
+    <Page Include="Produto\ProdutoEspecial\DefinirMedicamentos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\ProdutoEspecial\DefinirPapel.xaml">
+    <Page Include="Produto\ProdutoEspecial\DefinirPapel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\ProdutoEspecial\DefinirVeiculo.xaml">
+    <Page Include="Produto\ProdutoEspecial\DefinirVeiculo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\Impostos\EscolherTipoIPI.xaml">
+    <Page Include="Produto\Impostos\EscolherTipoIPI.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\Impostos\EscolherTipoPISouCOFINS.xaml">
+    <Page Include="Produto\Impostos\EscolherTipoPISouCOFINS.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1300,7 +1300,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\Impostos\EscolherTipoICMS.xaml">
+    <Page Include="Produto\Impostos\EscolherTipoICMS.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1328,11 +1328,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\CaixasDialogoProduto\AdicionarArmamento.xaml">
+    <Page Include="Produto\ProdutoEspecial\AdicionarArmamento.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\CaixasDialogoProduto\AdicionarMedicamento.xaml">
+    <Page Include="Produto\ProdutoEspecial\AdicionarMedicamento.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

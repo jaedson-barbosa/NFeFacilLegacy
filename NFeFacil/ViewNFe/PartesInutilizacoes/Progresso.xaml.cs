@@ -1,9 +1,6 @@
-﻿using NFeFacil.Log;
-using NFeFacil.WebService;
-using NFeFacil.WebService.Pacotes;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -14,103 +11,67 @@ namespace NFeFacil.ViewNFe.PartesInutilizacoes
 {
     public sealed partial class Progresso : ContentDialog
     {
-        InutNFe Envio { get; }
-        bool Homologacao { get; }
-        public bool Sucesso { get; private set; }
-        public RetInutNFe Resultado { get; private set; }
-
-        GerenciadorGeral<InutNFe, RetInutNFe> Gerenciador { get; }
-
         ObservableCollection<EtapaProcesso> Etapas { get; }
-        int EtapasExtras { get; }
+        int TotalEtapas { get; }
+        Func<Task<(bool, string)>> Acao { get; }
 
-        public Progresso(InutNFe envio, bool homologacao, params EtapaProcesso[] etapasAdicionais)
+        public Progresso(Func<Task<(bool, string)>> acao, IEnumerable<EtapaProcesso> etapas)
         {
             InitializeComponent();
-            Envio = envio;
-            Homologacao = homologacao;
-
-            var uf = DefinicoesTemporarias.EmitenteAtivo.SiglaUF;
-            Gerenciador = new GerenciadorGeral<InutNFe, RetInutNFe>(uf, Operacoes.Inutilizacao, Homologacao);
-
-            Etapas = Gerenciador.Etapas.Select(x => new EtapaProcesso(x)).Concat(etapasAdicionais).GerarObs();
-            EtapasExtras = etapasAdicionais.Length;
-            Gerenciador.ProgressChanged += Gerenciador_ProgressChanged;
-
-            Inutilizar();
+            Etapas = etapas.GerarObs();
+            TotalEtapas = Etapas.Count;
+            Acao = acao;
         }
 
-        async Task Gerenciador_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            var at = e.EtapasConcluidas;
-            var tot = e.TotalEtapas + EtapasExtras;
+            args.Cancel = true;
+            Start();
+        }
+
+        public async Task Update(int EtapasConcluidas)
+        {
+            var at = EtapasConcluidas;
+            var tot = TotalEtapas;
             barGeral.Value = at * 100 / tot;
             Etapas[at - 1].Atual = EtapaProcesso.Status.Concluido;
-            Update(at - 1);
+            UpdateExibicaoItem(at - 1);
             if (at < tot)
             {
                 Etapas[at].Atual = EtapaProcesso.Status.EmAndamento;
-                Update(at);
+                UpdateExibicaoItem(at);
             }
             await Task.Delay(500);
         }
 
-        void Update(int index)
-        {
-            var item = Etapas[index];
-            Etapas.RemoveAt(index);
-            Etapas.Insert(index, item);
-        }
-
-        private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
-        {
-            args.Cancel = true;
-            Inutilizar();
-        }
-
-        void Reset()
+        public async void Start()
         {
             barGeral.Value = 0;
             barGeral.ShowError = false;
             for (int i = 0; i < Etapas.Count; i++)
             {
                 Etapas[i].Atual = EtapaProcesso.Status.Pendente;
-                Update(i);
+                UpdateExibicaoItem(i);
             }
-        }
 
-        async void Inutilizar()
-        {
-            Reset();
             IsPrimaryButtonEnabled = false;
             IsSecondaryButtonEnabled = false;
+            txtResultado.Text = string.Empty;
 
             try
             {
-                Resultado = await Gerenciador.EnviarAsync(Envio);
-                if (Resultado.Info.StatusResposta == 102)
-                {
-                    Sucesso = true;
-                }
-                else
-                {
-                    barGeral.ShowError = true;
-                    Popup.Current.Escrever(TitulosComuns.Atenção, $"A mensagem de retorno é: {Resultado.Info.DescricaoResposta}");
-                    Sucesso = false;
-                }
+                var result = await Acao();
+                Stop(result.Item1, result.Item2);
             }
             catch (Exception e)
             {
-                barGeral.ShowError = true;
-                e.ManipularErro();
-                Sucesso = false;
+                Stop(false, e.Message);
             }
-            AtualizarBotoes();
         }
 
-        void AtualizarBotoes()
+        void Stop(bool sucesso, string mensagem)
         {
-            if (Sucesso)
+            if (sucesso)
             {
                 PrimaryButtonText = "Concluir";
                 IsSecondaryButtonEnabled = false;
@@ -121,6 +82,14 @@ namespace NFeFacil.ViewNFe.PartesInutilizacoes
                 IsSecondaryButtonEnabled = true;
             }
             IsPrimaryButtonEnabled = true;
+            txtResultado.Text = mensagem;
+        }
+
+        void UpdateExibicaoItem(int index)
+        {
+            var item = Etapas[index];
+            Etapas.RemoveAt(index);
+            Etapas.Insert(index, item);
         }
     }
 

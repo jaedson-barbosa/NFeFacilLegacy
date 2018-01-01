@@ -50,10 +50,6 @@ namespace NFeFacil.ViewNFe
                 var uf = DefinicoesTemporarias.EmitenteAtivo.SiglaUF;
                 var gerenciador = new GerenciadorGeral<InutNFe, RetInutNFe>(uf, Operacoes.Inutilizacao, caixa.Homologacao);
 
-                var etapas = gerenciador.Etapas.Select(x => new EtapaProcesso(x));
-                var extra = new EtapaProcesso("Salvar retorno no banco de dados");
-                etapas = etapas.Concat(new EtapaProcesso[1] { extra });
-
                 RetInutNFe resultado = default(RetInutNFe);
                 bool sucesso = false;
                 Progresso progresso = null;
@@ -64,11 +60,11 @@ namespace NFeFacil.ViewNFe
                     if (sucesso)
                     {
                         Concluir();
-                        await progresso.Update(etapas.Count() - 1);
+                        await progresso.Update(5);
                     }
                     return (sucesso, resultado.Info.DescricaoResposta);
-                }, etapas.ToArray());
-                gerenciador.ProgressChanged += async (x, y) => await progresso.Update(y.EtapasConcluidas);
+                }, gerenciador.Etapas, "Salvar retorno no banco de dados");
+                gerenciador.ProgressChanged += async (x, y) => await progresso.Update(y);
                 progresso.Start();
                 await progresso.ShowAsync();
 

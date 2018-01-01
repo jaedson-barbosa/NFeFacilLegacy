@@ -14,11 +14,15 @@ namespace NFeFacil.View
         int TotalEtapas { get; }
         Func<Task<(bool, string)>> Acao { get; }
 
-        public Progresso(Func<Task<(bool, string)>> acao, EtapaProcesso[] etapas)
+        public Progresso(Func<Task<(bool, string)>> acao, string[] conjuntoEtapas, params string[] extras)
         {
             InitializeComponent();
-            Etapas = etapas;
-            TotalEtapas = Etapas.Length;
+            var inicial = conjuntoEtapas.Length;
+            var tot = conjuntoEtapas.Length + extras.Length;
+            Etapas = new EtapaProcesso[tot];
+            for (int i = 0; i < inicial; i++) Etapas[i] = new EtapaProcesso(conjuntoEtapas[i]);
+            for (int i = 0; i < extras.Length; i++) Etapas[i + inicial] = new EtapaProcesso(extras[i]);
+            TotalEtapas = tot;
             Acao = acao;
         }
 

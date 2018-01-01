@@ -113,28 +113,28 @@ namespace NFeFacil
         public static string ToStr(double valor, string format = "F2") => valor.ToString(format, defCult);
         public static double Parse(string str) => double.Parse(str, NumberStyles.Number, defCult);
         public static bool TryParse(string str, out double valor) => double.TryParse(str, NumberStyles.Number, defCult, out valor);
+    }
 
-        public class ErroDesserializacao : Exception
+    public class ErroDesserializacao : Exception
+    {
+        XNode XML { get; }
+
+        public ErroDesserializacao(XNode xml) => XML = xml;
+        public ErroDesserializacao(string message, XNode xml) : base(message) => XML = xml;
+        public ErroDesserializacao(string message, Exception innerException, XNode xml) : base(message, innerException) => XML = xml;
+
+        public async void ExportarXML()
         {
-            XNode XML { get; }
-
-            public ErroDesserializacao(XNode xml) => XML = xml;
-            public ErroDesserializacao(string message, XNode xml) : base(message) => XML = xml;
-            public ErroDesserializacao(string message, Exception innerException, XNode xml) : base(message, innerException) => XML = xml;
-
-            public async void ExportarXML()
+            var caixa = new FileSavePicker();
+            caixa.FileTypeChoices.Add("Arquivo XML", new string[] { ".xml" });
+            var arq = await caixa.PickSaveFileAsync();
+            if (arq != null)
             {
-                var caixa = new FileSavePicker();
-                caixa.FileTypeChoices.Add("Arquivo XML", new string[] { ".xml" });
-                var arq = await caixa.PickSaveFileAsync();
-                if (arq != null)
+                var stream = await arq.OpenStreamForWriteAsync();
+                using (StreamWriter escritor = new StreamWriter(stream))
                 {
-                    var stream = await arq.OpenStreamForWriteAsync();
-                    using (StreamWriter escritor = new StreamWriter(stream))
-                    {
-                        await escritor.WriteAsync(XML.ToString());
-                        await escritor.FlushAsync();
-                    }
+                    await escritor.WriteAsync(XML.ToString());
+                    await escritor.FlushAsync();
                 }
             }
         }

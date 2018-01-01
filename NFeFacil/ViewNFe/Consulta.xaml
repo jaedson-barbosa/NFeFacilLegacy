@@ -9,64 +9,24 @@
           Padding="16">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
-        <TextBox TextWrapping="Wrap"
-                 Header="Chave da NFe"
+        <TextBox Header="Chave da NFe"
                  Text="{x:Bind Chave, Mode=TwoWay}"
                  Grid.ColumnSpan="2" />
-        <CheckBox Grid.Column="2"
-                  Margin="8,0,0,0"
-                  IsChecked="{x:Bind Homologacao, Mode=TwoWay}">
-            <TextBlock>Ambiente de<LineBreak />homologação</TextBlock>
-        </CheckBox>
-        <ComboBox ItemsSource="{x:Bind vm:DadosEstadosParaView.EstadosCompletos}"
-                  DisplayMemberPath="Nome"
-                  HorizontalAlignment="Stretch"
-                  Header="Estado"
-                  SelectedItem="{x:Bind UF, Mode=TwoWay}"
-                  Grid.Row="1"
-                  Grid.ColumnSpan="2"
-                  Margin="0,8" />
-        <Button x:Name="btnAnalisar"
-                Content="Analisar nota"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Stretch"
-                Click="Analisar"
-                Grid.Column="2"
-                Grid.Row="1"
-                Margin="0,8" />
-        <ListView Grid.Row="2"
-                  Grid.ColumnSpan="2"
-                  ItemsSource="{x:Bind Resultados}">
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="x:String">
-                    <TextBlock TextWrapping="Wrap"
-                               Text="{x:Bind}">
-                        <TextBlock.ContextFlyout>
-                            <MenuFlyout>
-                                <MenuFlyoutItem Click="CopiarXML">Copiar XML</MenuFlyoutItem>
-                            </MenuFlyout>
-                        </TextBlock.ContextFlyout>
-                    </TextBlock>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        <ProgressRing x:Name="carregamento"
-                      Grid.ColumnSpan="2"
-                      Grid.Row="2"
-                      RenderTransformOrigin="0.5,0.5"
-                      IsActive="False">
-            <ProgressRing.RenderTransform>
-                <CompositeTransform ScaleY="4"
-                                    ScaleX="4" />
-            </ProgressRing.RenderTransform>
-        </ProgressRing>
+        <ItemsControl Grid.Row="1"
+                      Margin="0,8"
+                      Style="{StaticResource ItensResponsivos}">
+            <CheckBox IsChecked="{x:Bind Homologacao, Mode=TwoWay}">
+                <TextBlock>Ambiente de homologação</TextBlock>
+            </CheckBox>
+            <ComboBox ItemsSource="{x:Bind vm:DadosEstadosParaView.EstadosCompletos}"
+                      DisplayMemberPath="Nome"
+                      PlaceholderText="Estado"
+                      SelectedItem="{x:Bind UF, Mode=TwoWay}" />
+            <Button x:Name="btnAnalisar"
+                    Content="Analisar nota"
+                    Click="Analisar" />
+        </ItemsControl>
     </Grid>
 </Page>

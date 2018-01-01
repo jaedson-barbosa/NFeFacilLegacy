@@ -10,7 +10,6 @@ using Windows.UI.Xaml.Data;
 using System.Linq;
 using NFeFacil.WebService;
 using System.Collections.ObjectModel;
-using System.Threading.Tasks;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 

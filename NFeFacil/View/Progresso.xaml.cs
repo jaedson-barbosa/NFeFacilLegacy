@@ -66,6 +66,11 @@ namespace NFeFacil.View
                 var result = await Acao();
                 Stop(result.Item1, result.Item2);
             }
+            catch (ErroDesserializacao e)
+            {
+                e.ExportarXML();
+                Stop(false, e.Message);
+            }
             catch (Exception e)
             {
                 Stop(false, e.Message);

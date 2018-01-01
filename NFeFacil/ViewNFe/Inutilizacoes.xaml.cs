@@ -1,5 +1,5 @@
 ﻿using NFeFacil.ItensBD;
-using NFeFacil.ViewNFe.PartesInutilizacoes;
+using NFeFacil.View;
 using System;
 using Windows.UI.Xaml;
 using NFeFacil.WebService.Pacotes;

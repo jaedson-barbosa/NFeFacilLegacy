@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
@@ -8,7 +6,7 @@ using Windows.UI.Xaml.Controls;
 
 // O modelo de item de Caixa de Diálogo de Conteúdo está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace NFeFacil.ViewNFe.PartesInutilizacoes
+namespace NFeFacil.View
 {
     public sealed partial class Progresso : ContentDialog
     {

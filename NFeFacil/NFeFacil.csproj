@@ -383,10 +383,10 @@
     <Compile Include="ViewNFe\Inutilizacoes.xaml.cs">
       <DependentUpon>Inutilizacoes.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\PartesInutilizacoes\InfoInutilizacao.xaml.cs">
+    <Compile Include="ViewNFe\InfoInutilizacao.xaml.cs">
       <DependentUpon>InfoInutilizacao.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\PartesInutilizacoes\Progresso.xaml.cs">
+    <Compile Include="View\Progresso.xaml.cs">
       <DependentUpon>Progresso.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ConjuntoBasicoExibicao.cs" />
@@ -1180,11 +1180,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\PartesInutilizacoes\InfoInutilizacao.xaml">
+    <Page Include="ViewNFe\InfoInutilizacao.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\PartesInutilizacoes\Progresso.xaml">
+    <Page Include="View\Progresso.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

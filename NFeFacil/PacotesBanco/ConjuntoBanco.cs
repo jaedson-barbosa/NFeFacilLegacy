@@ -20,6 +20,7 @@ namespace NFeFacil.Certificacao.LAN.PacotesBanco
         public RegistroCancelamento[] Cancelamentos { get; set; }
         public CancelamentoRegistroVenda[] CancelamentosRegistroVenda { get; set; }
         public Imagem[] Imagens { get; set; }
+        public Inutilizacao[] Inutilizacoes { get; set; }
 
         public void AtualizarPadrao()
         {
@@ -37,6 +38,7 @@ namespace NFeFacil.Certificacao.LAN.PacotesBanco
                 Cancelamentos = db.Cancelamentos.ToArray();
                 CancelamentosRegistroVenda = db.CancelamentosRegistroVenda.ToArray();
                 Imagens = db.Imagens.ToArray();
+                Inutilizacoes = db.Inutilizacoes.ToArray();
             }
         }
 
@@ -57,6 +59,7 @@ namespace NFeFacil.Certificacao.LAN.PacotesBanco
                 if (Cancelamentos.Length > 0) db.Cancelamentos.AddRange(Cancelamentos);
                 if (CancelamentosRegistroVenda.Length > 0) db.CancelamentosRegistroVenda.AddRange(CancelamentosRegistroVenda);
                 if (Imagens.Length > 0) db.Imagens.AddRange(Imagens);
+                if (Inutilizacoes.Length > 0) db.Inutilizacoes.AddRange(Inutilizacoes);
 
                 if (Estoque.Length > 0)
                 {

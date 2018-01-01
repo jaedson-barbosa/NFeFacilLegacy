@@ -20,6 +20,7 @@ namespace NFeFacil.Certificacao.LAN.PacotesBanco
         public CancelamentoRegistroVenda[] CancelamentosRegistroVenda { get; set; }
         public Imagem[] Imagens { get; set; }
         public Comprador[] Compradores { get; set; }
+        public Inutilizacao[] Inutilizacoes { get; set; }
 
         public DateTime InstanteSincronizacao { get; set; }
 
@@ -41,6 +42,7 @@ namespace NFeFacil.Certificacao.LAN.PacotesBanco
                 CancelamentosRegistroVenda = db.CancelamentosRegistroVenda.ToArray();
                 Imagens = db.Imagens.Where(x => x.UltimaData > minimo).ToArray();
                 Compradores = db.Compradores.Where(x => x.UltimaData > minimo).ToArray();
+                Inutilizacoes = db.Inutilizacoes.ToArray();
             }
         }
 
@@ -90,11 +92,11 @@ namespace NFeFacil.Certificacao.LAN.PacotesBanco
                           select local).ToArray();
 
                 Cancelamentos = (from local in db.Cancelamentos
-                                 where existente.Cancelamentos.Count(x => x.ChaveNFe == local.ChaveNFe) == 0
+                                 where !existente.Cancelamentos.Any(x => x.ChaveNFe == local.ChaveNFe)
                                  select local).ToArray();
 
                 CancelamentosRegistroVenda = (from local in db.CancelamentosRegistroVenda
-                                              where existente.CancelamentosRegistroVenda.Count(x => x.Id == local.Id) == 0
+                                              where !existente.CancelamentosRegistroVenda.Any(x => x.Id == local.Id)
                                               select local).ToArray();
 
                 Imagens = (from local in db.Imagens
@@ -106,6 +108,10 @@ namespace NFeFacil.Certificacao.LAN.PacotesBanco
                                let servidor = existente.Compradores.FirstOrDefault(x => x.Id == local.Id)
                                where local.UltimaData > (servidor == null ? minimo : servidor.UltimaData)
                                select local).ToArray();
+
+                Inutilizacoes = (from local in db.Inutilizacoes
+                                 where !existente.Inutilizacoes.Any(x => x.Id == local.Id)
+                                 select local).ToArray();
             }
         }
 
@@ -253,6 +259,19 @@ namespace NFeFacil.Certificacao.LAN.PacotesBanco
                     }
                 }
 
+                if (Inutilizacoes != null)
+                {
+                    for (int i = 0; i < Inutilizacoes.Length; i++)
+                    {
+                        var novo = Inutilizacoes[i];
+                        var atual = db.Inutilizacoes.FirstOrDefault(x => x.Id == novo.Id);
+                        if (atual == null)
+                        {
+                            Adicionar.Add(novo);
+                        }
+                    }
+                }
+
                 if (Imagens != null)
                 {
                     for (int i = 0; i < Imagens.Length; i++)
@@ -392,6 +411,7 @@ namespace NFeFacil.Certificacao.LAN.PacotesBanco
                 CancelamentosRegistroVenda = db.CancelamentosRegistroVenda.ToArray();
                 Imagens = db.Imagens.ToArray();
                 Compradores = db.Compradores.ToArray();
+                Inutilizacoes = db.Inutilizacoes.ToArray();
             }
         }
     }

@@ -2,17 +2,17 @@
 
 // O modelo de item de Caixa de Diálogo de Conteúdo está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace NFeFacil.ViewDadosBase.GerenciamentoProdutos
+namespace NFeFacil.Produto.GerenciamentoProdutos
 {
     public sealed partial class CadastroIPI : ContentDialog
     {
-        public ItensBD.Produto.ImpSimplesArmazenado.XMLIPIArmazenado Dados
+        public ImpSimplesArmazenado.XMLIPIArmazenado Dados
         {
             get
             {
-                var page = (ViewNFe.Impostos.DetalhamentoIPI.DetalharSimples)frmPrincipal.Content;
+                var page = (Impostos.DetalhamentoIPI.DetalharSimples)frmPrincipal.Content;
                 var ipi = page.Conjunto;
-                return new ItensBD.Produto.ImpSimplesArmazenado.XMLIPIArmazenado
+                return new ImpSimplesArmazenado.XMLIPIArmazenado
                 {
                     CEnq = ipi.cEnq,
                     ClEnq = ipi.clEnq,
@@ -26,7 +26,7 @@ namespace NFeFacil.ViewDadosBase.GerenciamentoProdutos
         public CadastroIPI()
         {
             InitializeComponent();
-            frmPrincipal.Navigate(typeof(ViewNFe.Impostos.DetalhamentoIPI.DetalharSimples));
+            frmPrincipal.Navigate(typeof(Impostos.DetalhamentoIPI.DetalharSimples));
         }
     }
 }

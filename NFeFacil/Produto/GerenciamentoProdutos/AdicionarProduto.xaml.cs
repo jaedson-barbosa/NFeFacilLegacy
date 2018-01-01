@@ -9,13 +9,12 @@ using NFeFacil.ModeloXML;
 using NFeFacil.Produto.Impostos.DetalhamentoICMS;
 using NFeFacil.Produto.ProdutoEspecial;
 using System.Collections.ObjectModel;
-using NFeFacil.ItensBD.Produto;
 using NFeFacil.Produto.Impostos;
 using System.Threading.Tasks;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace NFeFacil.ViewDadosBase.GerenciamentoProdutos
+namespace NFeFacil.Produto.GerenciamentoProdutos
 {
     [View.DetalhePagina(Symbol.Shop, "Produto")]
     public sealed partial class AdicionarProduto : Page

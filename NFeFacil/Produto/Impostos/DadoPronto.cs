@@ -1,6 +1,4 @@
-﻿using NFeFacil.ItensBD.Produto;
-
-namespace NFeFacil.Produto.Impostos
+﻿namespace NFeFacil.Produto.Impostos
 {
     public struct DadoPronto : IDetalhamentoImposto
     {

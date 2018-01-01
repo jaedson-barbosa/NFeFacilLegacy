@@ -10,6 +10,7 @@ using Windows.UI.Xaml.Data;
 using System.Linq;
 using NFeFacil.WebService;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -49,19 +50,29 @@ namespace NFeFacil.ViewNFe
                 var uf = DefinicoesTemporarias.EmitenteAtivo.SiglaUF;
                 var gerenciador = new GerenciadorGeral<InutNFe, RetInutNFe>(uf, Operacoes.Inutilizacao, caixa.Homologacao);
 
+                var etapas = gerenciador.Etapas.Select(x => new EtapaProcesso(x));
+                var extra = new EtapaProcesso("Salvar retorno no banco de dados");
+                etapas = etapas.Concat(new EtapaProcesso[1] { extra });
+
                 RetInutNFe resultado = default(RetInutNFe);
                 bool sucesso = false;
-                var progresso = new Progresso(async () =>
+                Progresso progresso = null;
+                progresso = new Progresso(async () =>
                 {
                     resultado = await gerenciador.EnviarAsync(envio);
                     sucesso = resultado.Info.StatusResposta == 102;
+                    if (sucesso)
+                    {
+                        Concluir();
+                        await progresso.Update(etapas.Count() - 1);
+                    }
                     return (sucesso, resultado.Info.DescricaoResposta);
-                }, gerenciador.Etapas.Select(x => new EtapaProcesso(x)).ToArray());
+                }, etapas.ToArray());
                 gerenciador.ProgressChanged += async (x, y) => await progresso.Update(y.EtapasConcluidas);
                 progresso.Start();
                 await progresso.ShowAsync();
 
-                if (sucesso)
+                void Concluir()
                 {
                     var info = resultado.Info;
                     var xml = resultado.ToXElement<RetInutNFe>();

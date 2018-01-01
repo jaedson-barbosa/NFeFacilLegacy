@@ -1,7 +1,7 @@
-﻿using NFeFacil.ItensBD.Produto;
-using NFeFacil.ModeloXML;
+﻿using NFeFacil.ModeloXML;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
+using NFeFacil.Produto;
 using System;
 using System.Collections.Generic;
 using System.Xml.Linq;

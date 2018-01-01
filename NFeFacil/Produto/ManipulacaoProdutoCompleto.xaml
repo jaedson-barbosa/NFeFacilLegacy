@@ -1,4 +1,4 @@
-﻿<Page x:Class="NFeFacil.ViewNFe.ManipulacaoProdutoCompleto"
+﻿<Page x:Class="NFeFacil.Produto.ManipulacaoProdutoCompleto"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:VM="using:NFeFacil.ViewModel"

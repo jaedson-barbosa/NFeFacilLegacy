@@ -2,7 +2,7 @@
 using NFeFacil.Produto.Impostos.DetalhamentoICMS.DadosSN;
 using System.Xml.Serialization;
 
-namespace NFeFacil.ItensBD.Produto
+namespace NFeFacil.Produto
 {
     public sealed class ICMSArmazenado : ImpostoArmazenado
     {

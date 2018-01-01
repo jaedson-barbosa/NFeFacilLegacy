@@ -1,6 +1,6 @@
 ﻿using NFeFacil.Produto.Impostos;
 
-namespace NFeFacil.ItensBD.Produto
+namespace NFeFacil.Produto
 {
     public abstract class ImpostoArmazenado
     {

@@ -12,7 +12,7 @@ using NFeFacil.View;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace NFeFacil.ViewNFe
+namespace NFeFacil.Produto
 {
     [DetalhePagina(Symbol.Shop, "Produto")]
     public sealed partial class ManipulacaoProdutoCompleto : Page, IHambuguer, IValida

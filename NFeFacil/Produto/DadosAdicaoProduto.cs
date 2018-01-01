@@ -4,7 +4,7 @@ using NFeFacil.ModeloXML;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
 
-namespace NFeFacil.ViewNFe
+namespace NFeFacil.Produto
 {
     class DadosAdicaoProduto : IProdutoEspecial
     {

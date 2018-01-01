@@ -1,5 +1,6 @@
 ﻿using NFeFacil.ModeloXML;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Windows.UI.Xaml;
@@ -28,7 +29,7 @@ namespace NFeFacil.Produto.ProdutoEspecial
 
         async void AdicionarArmamento(object sender, RoutedEventArgs e)
         {
-            var caixa = new CaixasDialogoProduto.AdicionarArmamento();
+            var caixa = new AdicionarArmamento();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
                 var novoArmamento = caixa.Contexto;

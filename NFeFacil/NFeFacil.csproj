@@ -194,9 +194,9 @@
     <Compile Include="ItensBD\NFeDI.cs" />
     <Compile Include="ItensBD\ProdutoDI.cs" />
     <Compile Include="ItensBD\ProdutoSimplesVenda.cs" />
-    <Compile Include="ItensBD\Produto\ICMSArmazenado.cs" />
-    <Compile Include="ItensBD\Produto\ImpostoArmazenado.cs" />
-    <Compile Include="ItensBD\Produto\ImpSimplesArmazenado.cs" />
+    <Compile Include="Produto\ICMSArmazenado.cs" />
+    <Compile Include="Produto\ImpostoArmazenado.cs" />
+    <Compile Include="Produto\ImpSimplesArmazenado.cs" />
     <Compile Include="ItensBD\RegistroCancelamento.cs" />
     <Compile Include="ItensBD\RegistroVenda.cs" />
     <Compile Include="ItensBD\StatusNFe.cs" />
@@ -368,16 +368,16 @@
     <Compile Include="Repositorio\Escrita.cs" />
     <Compile Include="Repositorio\Leitura.cs" />
     <Compile Include="Repositorio\OperacoesExtras.cs" />
-    <Compile Include="ViewDadosBase\GerenciamentoProdutos\CadastroICMS.xaml.cs">
+    <Compile Include="Produto\GerenciamentoProdutos\CadastroICMS.xaml.cs">
       <DependentUpon>CadastroICMS.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewDadosBase\GerenciamentoProdutos\CadastroImpSimples.xaml.cs">
+    <Compile Include="Produto\GerenciamentoProdutos\CadastroImpSimples.xaml.cs">
       <DependentUpon>CadastroImpSimples.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewDadosBase\GerenciamentoProdutos\CadastroIPI.xaml.cs">
+    <Compile Include="Produto\GerenciamentoProdutos\CadastroIPI.xaml.cs">
       <DependentUpon>CadastroIPI.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\DadosAdicaoProduto.cs" />
+    <Compile Include="Produto\DadosAdicaoProduto.cs" />
     <Compile Include="Produto\Impostos\DadoPronto.cs" />
     <Compile Include="Produto\Impostos\IEscolherImpSimples.cs" />
     <Compile Include="ViewNFe\Inutilizacoes.xaml.cs">
@@ -409,7 +409,7 @@
     <Compile Include="ViewDadosBase\GerenciarMotoristas.xaml.cs">
       <DependentUpon>GerenciarMotoristas.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewDadosBase\GerenciamentoProdutos\GerenciarProdutos.xaml.cs">
+    <Compile Include="Produto\GerenciamentoProdutos\GerenciarProdutos.xaml.cs">
       <DependentUpon>GerenciarProdutos.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewDadosBase\GerenciarVendedores.xaml.cs">
@@ -577,7 +577,7 @@
     <Compile Include="ViewRegistroVenda\InfoPagamento.xaml.cs">
       <DependentUpon>InfoPagamento.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewDadosBase\GerenciamentoProdutos\Ano.cs" />
+    <Compile Include="Produto\GerenciamentoProdutos\Ano.cs" />
     <Compile Include="Controles\NumeroChangedEventArgs.cs" />
     <Compile Include="Login\EscolhaEmitente.xaml.cs">
       <DependentUpon>EscolhaEmitente.xaml</DependentUpon>
@@ -628,13 +628,13 @@
     <Compile Include="ViewNFe\CaixasDialogoNFe\EscolherTipoEndereco.xaml.cs">
       <DependentUpon>EscolherTipoEndereco.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\CaixasDialogoProduto\AddDeclaracaoExportacaoDireta.xaml.cs">
+    <Compile Include="Produto\CaixasDialogoProduto\AddDeclaracaoExportacaoDireta.xaml.cs">
       <DependentUpon>AddDeclaracaoExportacaoDireta.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\CaixasDialogoProduto\AddDeclaracaoExportacaoIndireta.xaml.cs">
+    <Compile Include="Produto\CaixasDialogoProduto\AddDeclaracaoExportacaoIndireta.xaml.cs">
       <DependentUpon>AddDeclaracaoExportacaoIndireta.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\CaixasDialogoProduto\EscolherTipoDeclaracaoExportacao.xaml.cs">
+    <Compile Include="Produto\CaixasDialogoProduto\EscolherTipoDeclaracaoExportacao.xaml.cs">
       <DependentUpon>EscolherTipoDeclaracaoExportacao.xaml</DependentUpon>
     </Compile>
     <Compile Include="Produto\Impostos\EscolherTipoIPI.xaml.cs">
@@ -676,7 +676,7 @@
     <Compile Include="Produto\ProdutoEspecial\AdicionarMedicamento.xaml.cs">
       <DependentUpon>AdicionarMedicamento.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewDadosBase\GerenciamentoProdutos\AdicionarAlteracaoEstoque.xaml.cs">
+    <Compile Include="Produto\GerenciamentoProdutos\AdicionarAlteracaoEstoque.xaml.cs">
       <DependentUpon>AdicionarAlteracaoEstoque.xaml</DependentUpon>
     </Compile>
     <Compile Include="Certificacao\LAN\ConectarServidor.xaml.cs">
@@ -755,7 +755,7 @@
     <Compile Include="ViewDadosBase\AdicionarMotorista.xaml.cs">
       <DependentUpon>AdicionarMotorista.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewDadosBase\GerenciamentoProdutos\AdicionarProduto.xaml.cs">
+    <Compile Include="Produto\GerenciamentoProdutos\AdicionarProduto.xaml.cs">
       <DependentUpon>AdicionarProduto.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewDadosBase\AdicionarVendedor.xaml.cs">
@@ -804,7 +804,7 @@
     <Compile Include="ViewNFe\Consulta.xaml.cs">
       <DependentUpon>Consulta.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewDadosBase\GerenciamentoProdutos\ControleEstoque.xaml.cs">
+    <Compile Include="Produto\GerenciamentoProdutos\ControleEstoque.xaml.cs">
       <DependentUpon>ControleEstoque.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controles\EntradaNumerica.xaml.cs">
@@ -826,7 +826,7 @@
     <Compile Include="ViewNFe\ManipulacaoNotaFiscal.xaml.cs">
       <DependentUpon>ManipulacaoNotaFiscal.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\ManipulacaoProdutoCompleto.xaml.cs">
+    <Compile Include="Produto\ManipulacaoProdutoCompleto.xaml.cs">
       <DependentUpon>ManipulacaoProdutoCompleto.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewRegistroVenda\ManipulacaoRegistroVenda.xaml.cs">
@@ -870,7 +870,7 @@
     <Compile Include="ViewNFe\CaixasDialogoNFe\AdicionarVolume.xaml.cs">
       <DependentUpon>AdicionarVolume.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\CaixasDialogoProduto\DeclaracaoImportacao.xaml.cs">
+    <Compile Include="Produto\CaixasDialogoProduto\DeclaracaoImportacao.xaml.cs">
       <DependentUpon>DeclaracaoImportacao.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewNFe\CaixasDialogoNFe\AdicionarDeducao.xaml.cs">
@@ -1020,15 +1020,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewDadosBase\GerenciamentoProdutos\CadastroICMS.xaml">
+    <Page Include="Produto\GerenciamentoProdutos\CadastroICMS.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewDadosBase\GerenciamentoProdutos\CadastroImpSimples.xaml">
+    <Page Include="Produto\GerenciamentoProdutos\CadastroImpSimples.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewDadosBase\GerenciamentoProdutos\CadastroIPI.xaml">
+    <Page Include="Produto\GerenciamentoProdutos\CadastroIPI.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1044,7 +1044,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewDadosBase\GerenciamentoProdutos\GerenciarProdutos.xaml">
+    <Page Include="Produto\GerenciamentoProdutos\GerenciarProdutos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1252,15 +1252,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\CaixasDialogoProduto\AddDeclaracaoExportacaoDireta.xaml">
+    <Page Include="Produto\CaixasDialogoProduto\AddDeclaracaoExportacaoDireta.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\CaixasDialogoProduto\AddDeclaracaoExportacaoIndireta.xaml">
+    <Page Include="Produto\CaixasDialogoProduto\AddDeclaracaoExportacaoIndireta.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\CaixasDialogoProduto\EscolherTipoDeclaracaoExportacao.xaml">
+    <Page Include="Produto\CaixasDialogoProduto\EscolherTipoDeclaracaoExportacao.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1336,7 +1336,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewDadosBase\GerenciamentoProdutos\AdicionarAlteracaoEstoque.xaml">
+    <Page Include="Produto\GerenciamentoProdutos\AdicionarAlteracaoEstoque.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1360,7 +1360,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewDadosBase\GerenciamentoProdutos\AdicionarProduto.xaml">
+    <Page Include="Produto\GerenciamentoProdutos\AdicionarProduto.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1440,7 +1440,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewDadosBase\GerenciamentoProdutos\ControleEstoque.xaml">
+    <Page Include="Produto\GerenciamentoProdutos\ControleEstoque.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1492,7 +1492,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ViewNFe\CaixasDialogoProduto\DeclaracaoImportacao.xaml">
+    <Page Include="Produto\CaixasDialogoProduto\DeclaracaoImportacao.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1508,7 +1508,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\ManipulacaoProdutoCompleto.xaml">
+    <Page Include="Produto\ManipulacaoProdutoCompleto.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1631,6 +1631,9 @@
     <SDKReference Include="WindowsMobile, Version=10.0.14393.0">
       <Name>Windows Mobile Extensions for the UWP</Name>
     </SDKReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Produto\BD\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

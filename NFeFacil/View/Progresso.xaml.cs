@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
@@ -13,7 +14,7 @@ namespace NFeFacil.View
         EtapaProcesso[] Etapas { get; }
         int TotalEtapas { get; }
         Func<Task<(bool, string)>> Acao { get; }
-        string ItemEscolhido { get; set; }
+        object ItemEscolhido { get; set; }
 
         private Progresso(string[] conjuntoEtapas)
         {
@@ -30,12 +31,14 @@ namespace NFeFacil.View
             Acao = acao;
         }
 
-        public Progresso(Func<string, Task<(bool, string)>> acao, string[] escolhaItens, params string[] extras)
+        public Progresso(Func<object, Task<(bool, string)>> acao, IEnumerable escolhaItens, string displayPath, params string[] extras)
             : this(extras)
         {
             cmbEscolha.ItemsSource = escolhaItens;
+            cmbEscolha.DisplayMemberPath = displayPath;
             Acao = () => acao(ItemEscolhido);
             SecondaryButtonText = "Iniciar";
+            IsSecondaryButtonEnabled = true;
         }
 
         void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)

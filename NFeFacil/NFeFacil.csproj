@@ -682,9 +682,6 @@
     <Compile Include="Certificacao\LAN\ConectarServidor.xaml.cs">
       <DependentUpon>ConectarServidor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Certificacao\SelecaoCertificado.xaml.cs">
-      <DependentUpon>SelecaoCertificado.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Certificacao\AssinaFacil.cs" />
     <Compile Include="Certificacao\Certificados.cs" />
     <Compile Include="Certificacao\CodigoNet\AttributeSortOrder.cs" />
@@ -1341,10 +1338,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Certificacao\LAN\ConectarServidor.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Certificacao\SelecaoCertificado.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -24,7 +24,8 @@ namespace NFeFacil.Certificacao
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            ListaCertificados = await Certificados.ObterCertificadosAsync(OrigemCertificado.Importado);
+            var certs = await Certificados.ObterCertificadosAsync(OrigemCertificado.Importado);
+            ListaCertificados = certs.GerarObs();
         }
 
         async void ImportarCertificado(object sender, RoutedEventArgs e)

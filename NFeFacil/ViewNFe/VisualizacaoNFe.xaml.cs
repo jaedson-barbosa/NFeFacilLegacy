@@ -4,6 +4,7 @@ using NFeFacil.ModeloXML;
 using NFeFacil.ModeloXML.PartesProcesso;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe;
 using NFeFacil.Validacao;
+using NFeFacil.View;
 using NFeFacil.WebService;
 using NFeFacil.WebService.Pacotes;
 using System;
@@ -89,47 +90,67 @@ namespace NFeFacil.ViewNFe
 
         private async void Transmitir(object sender, RoutedEventArgs e)
         {
-            var nota = (NFe)ObjetoItemBanco;
-            try
+            Progresso progresso = null;
+            progresso = new Progresso(async () =>
             {
-                var retTransmissao = await new GerenciadorGeral<EnviNFe, RetEnviNFe>(nota.Informacoes.emitente.Endereco.SiglaUF, Operacoes.Autorizar, nota.AmbienteTestes)
-                    .EnviarAsync(new EnviNFe(nota), true);
+                var retTransmissao = await ConsultarRespostaInicial(true);
+                await progresso.Update(1);
                 if (retTransmissao.StatusResposta == 103)
                 {
                     var tempoResposta = retTransmissao.DadosRecibo.TempoMedioResposta;
                     await Task.Delay(TimeSpan.FromSeconds(tempoResposta + 5));
-                    var resultadoResposta = await new GerenciadorGeral<ConsReciNFe, RetConsReciNFe>(retTransmissao.Estado, Operacoes.RespostaAutorizar, nota.AmbienteTestes)
-                        .EnviarAsync(new ConsReciNFe(retTransmissao.TipoAmbiente, retTransmissao.DadosRecibo.NumeroRecibo));
+                    await progresso.Update(2);
+
+                    var homologacao = ((NFe)ObjetoItemBanco).AmbienteTestes;
+                    var resultadoResposta = await ConsultarRespostaFinal(retTransmissao, homologacao);
+                    await progresso.Update(3);
+
                     if (resultadoResposta.Protocolo.InfProt.cStat == 100)
                     {
-                        Log.Escrever(TitulosComuns.Sucesso, resultadoResposta.DescricaoResposta);
-
                         ObjetoItemBanco = new Processo()
                         {
-                            NFe = nota,
+                            NFe = (NFe)ObjetoItemBanco,
                             ProtNFe = resultadoResposta.Protocolo
                         };
                         ItemBanco.Status = (int)StatusNFe.Emitida;
                         AtualizarDI();
                         AtualizarBotoesComando();
+                        await progresso.Update(4);
+
+                        return (true, resultadoResposta.DescricaoResposta);
                     }
                     else
                     {
-                        Log.Escrever(TitulosComuns.Erro, $"A nota fiscal foi processada, mas recusada. Mensagem de retorno:\r\n" +
-                            $"{resultadoResposta.Protocolo.InfProt.xMotivo}");
+                        return (false, resultadoResposta.DescricaoResposta);
                     }
                 }
                 else
                 {
-                    Log.Escrever(TitulosComuns.Erro, $"A NFe não foi aceita. Mensagem de retorno:\r\n" +
-                        $"{retTransmissao.DescricaoResposta}\r\n" +
-                        $"Por favor, exporte esta nota fiscal e envie o XML gerado para o desenvolvedor do aplicativo para que o erro possa ser corrigido.");
+                    return (false, retTransmissao.DescricaoResposta);
                 }
-            }
-            catch (Exception erro)
-            {
-                erro.ManipularErro();
-            }
+            }, new string[0], "Processar e enviar requisição inicial",
+            "Aguardar tempo médio de resposta",
+            "Processar e enviar requisição final",
+            "Processar e analisar resposta final");
+            progresso.Start();
+            await progresso.ShowAsync();
+        }
+
+        async Task<RetEnviNFe> ConsultarRespostaInicial(bool homologacao)
+        {
+            var nota = (NFe)ObjetoItemBanco;
+            var uf = nota.Informacoes.emitente.Endereco.SiglaUF;
+            var gerenciador = new GerenciadorGeral<EnviNFe, RetEnviNFe>(uf, Operacoes.Autorizar, nota.AmbienteTestes);
+            var envio = new EnviNFe(nota);
+            return await gerenciador.EnviarAsync(envio, true);
+        }
+
+        async Task<RetConsReciNFe> ConsultarRespostaFinal(RetEnviNFe retTransmissao, bool homologacao)
+        {
+            var gerenciador = new GerenciadorGeral<ConsReciNFe, RetConsReciNFe>(
+                retTransmissao.Estado, Operacoes.RespostaAutorizar, homologacao);
+            var envio = new ConsReciNFe(retTransmissao.TipoAmbiente, retTransmissao.DadosRecibo.NumeroRecibo);
+            return await gerenciador.EnviarAsync(envio);
         }
 
         private void Imprimir(object sender, RoutedEventArgs e)
@@ -193,14 +214,9 @@ namespace NFeFacil.ViewNFe
             {
                 using (var repo = new Repositorio.Escrita())
                 {
-                    if (ItemBanco.Status < (int)StatusNFe.Emitida)
-                    {
-                        ItemBanco.XML = ObjetoItemBanco.ToXElement<NFe>().ToString();
-                    }
-                    else
-                    {
-                        ItemBanco.XML = ObjetoItemBanco.ToXElement<Processo>().ToString();
-                    }
+                    ItemBanco.XML = ItemBanco.Status < (int)StatusNFe.Emitida
+                        ? ObjetoItemBanco.ToXElement<NFe>().ToString()
+                        : ObjetoItemBanco.ToXElement<Processo>().ToString();
                     repo.SalvarItemSimples(ItemBanco, DefinicoesTemporarias.DateTimeNow);
                 }
             }

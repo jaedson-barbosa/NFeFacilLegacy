@@ -24,8 +24,7 @@
                       DisplayMemberPath="Nome"
                       PlaceholderText="Estado"
                       SelectedItem="{x:Bind UF, Mode=TwoWay}" />
-            <Button x:Name="btnAnalisar"
-                    Content="Analisar nota"
+            <Button Content="Analisar nota"
                     Click="Analisar" />
         </ItemsControl>
     </Grid>

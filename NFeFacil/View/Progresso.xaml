@@ -44,5 +44,8 @@
         <TextBlock x:Name="txtResultado"
                    Grid.Row="2"
                    Style="{StaticResource BaseTextBlockStyle}" />
+        <ComboBox x:Name="cmbEscolha"
+                  Grid.Row="3"
+                  SelectedItem="{x:Bind ItemEscolhido, Mode=TwoWay}" />
     </Grid>
 </ContentDialog>

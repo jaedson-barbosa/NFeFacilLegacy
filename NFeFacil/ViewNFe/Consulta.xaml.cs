@@ -42,7 +42,7 @@ namespace NFeFacil.ViewNFe
                 resultado = await gerenciador.EnviarAsync(envio);
                 await progresso.Update(5);
                 return (true, resultado.DescricaoResposta);
-            }, gerenciador.Etapas, "Analisar resultado no banco de dados");
+            }, gerenciador.Etapas.Concat("Analisar resultado no banco de dados"));
             gerenciador.ProgressChanged += async (x, y) => await progresso.Update(y);
             progresso.Start();
             await progresso.ShowAsync();

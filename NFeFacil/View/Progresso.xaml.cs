@@ -13,17 +13,29 @@ namespace NFeFacil.View
         EtapaProcesso[] Etapas { get; }
         int TotalEtapas { get; }
         Func<Task<(bool, string)>> Acao { get; }
+        string ItemEscolhido { get; set; }
 
-        public Progresso(Func<Task<(bool, string)>> acao, string[] conjuntoEtapas, params string[] extras)
+        private Progresso(string[] conjuntoEtapas)
         {
             InitializeComponent();
-            var inicial = conjuntoEtapas.Length;
-            var tot = conjuntoEtapas.Length + extras.Length;
-            Etapas = new EtapaProcesso[tot];
-            for (int i = 0; i < inicial; i++) Etapas[i] = new EtapaProcesso(conjuntoEtapas[i]);
-            for (int i = 0; i < extras.Length; i++) Etapas[i + inicial] = new EtapaProcesso(extras[i]);
-            TotalEtapas = tot;
+            Etapas = new EtapaProcesso[conjuntoEtapas.Length];
+            for (int i = 0; i < conjuntoEtapas.Length; i++) Etapas[i] = new EtapaProcesso(conjuntoEtapas[i]);
+            TotalEtapas = conjuntoEtapas.Length;
+        }
+
+        public Progresso(Func<Task<(bool, string)>> acao, params string[] extras)
+            : this(extras)
+        {
+            cmbEscolha.Visibility = Visibility.Collapsed;
             Acao = acao;
+        }
+
+        public Progresso(Func<string, Task<(bool, string)>> acao, string[] escolhaItens, params string[] extras)
+            : this(extras)
+        {
+            cmbEscolha.ItemsSource = escolhaItens;
+            Acao = () => acao(ItemEscolhido);
+            SecondaryButtonText = "Iniciar";
         }
 
         void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
@@ -90,6 +102,7 @@ namespace NFeFacil.View
                 IsSecondaryButtonEnabled = true;
             }
             IsPrimaryButtonEnabled = true;
+            SecondaryButtonText = "Tentar novamente";
             txtResultado.Text = mensagem;
         }
     }

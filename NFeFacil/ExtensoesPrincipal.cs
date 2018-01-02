@@ -106,6 +106,17 @@ namespace NFeFacil
             string sub(int start, int len) => original.Substring(start, len);
         }
 
+        internal static string[] Concat(this string[] original, params string[] extras)
+        {
+            var inicial = original.Length;
+            var tot = original.Length + extras.Length;
+
+            var retorno = new string[tot];
+            for (int i = 0; i < inicial; i++) retorno[i] = original[i];
+            for (int i = 0; i < extras.Length; i++) retorno[i + inicial] = extras[i];
+            return retorno;
+        }
+
         internal static double CMToPixel(double CM) => CM * (96 / 2.54);
         internal static GridLength CMToLength(double CM) => new GridLength(CMToPixel(CM));
 

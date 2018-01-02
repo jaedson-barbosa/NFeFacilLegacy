@@ -62,7 +62,7 @@ namespace NFeFacil.ViewNFe
                         await progresso.Update(5);
                     }
                     return (sucesso, resultado.Info.DescricaoResposta);
-                }, gerenciador.Etapas, "Salvar retorno no banco de dados");
+                }, gerenciador.Etapas.Concat("Salvar retorno no banco de dados"));
                 gerenciador.ProgressChanged += async (x, y) => await progresso.Update(y);
                 progresso.Start();
                 await progresso.ShowAsync();

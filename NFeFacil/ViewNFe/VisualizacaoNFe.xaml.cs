@@ -128,7 +128,7 @@ namespace NFeFacil.ViewNFe
                 {
                     return (false, retTransmissao.DescricaoResposta);
                 }
-            }, new string[0], "Processar e enviar requisição inicial",
+            }, "Processar e enviar requisição inicial",
             "Aguardar tempo médio de resposta",
             "Processar e enviar requisição final",
             "Processar e analisar resposta final");

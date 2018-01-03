@@ -1,7 +1,4 @@
-﻿using NFeFacil.Certificacao.LAN.Primitivos;
-using System.Security.Cryptography.X509Certificates;
-
-namespace NFeFacil.Certificacao.LAN.Pacotes
+﻿namespace NFeFacil.Certificacao.LAN.Pacotes
 {
     public struct CertificadoAssinaturaDTO
     {

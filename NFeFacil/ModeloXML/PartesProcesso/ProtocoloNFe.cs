@@ -16,9 +16,12 @@ namespace NFeFacil.ModeloXML.PartesProcesso
         [XmlElement("Signature", Order = 1, Namespace = "http://www.w3.org/2000/09/xmldsig#")]
         public Assinatura Signature { get; set; }
 
-        internal async Task Assinar()
+        internal async Task Assinar(object cert)
         {
-            await new AssinaFacil(this).Assinar<ProtocoloNFe>(InfProt.Id, "infProt");
+            await new AssinaFacil()
+            {
+                Nota = this
+            }.Assinar<ProtocoloNFe>(cert, InfProt.Id, "infProt");
         }
     }
 }

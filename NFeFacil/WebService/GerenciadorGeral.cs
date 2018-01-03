@@ -18,6 +18,8 @@ namespace NFeFacil.WebService
         string VersaoDados { get; }
 
         public event ProgressChangedEventHandler ProgressChanged;
+        async Task OnProgressChanged(int conc) => await ProgressChanged?.Invoke(this, conc);
+
         public readonly string[] Etapas = new string[4]
         {
             "Preparar conexão",
@@ -25,11 +27,6 @@ namespace NFeFacil.WebService
             "Enviar requisição",
             "Processar resposta"
         };
-
-        async Task OnProgressChanged(int concluidos)
-        {
-            if (ProgressChanged != null) await ProgressChanged(this, concluidos);
-        }
 
         public GerenciadorGeral(Estado uf, Operacoes operacao, bool teste)
         {
@@ -152,6 +149,4 @@ namespace NFeFacil.WebService
             XName Name(string original) => XName.Get(original, servico);
         }
     }
-
-    public delegate Task ProgressChangedEventHandler(object sender, int Concluidos);
 }

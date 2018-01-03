@@ -1,4 +1,5 @@
 ﻿using NFeFacil.Sincronizacao;
+using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 
@@ -44,4 +45,6 @@ namespace NFeFacil
             }
         }
     }
+
+    public delegate Task ProgressChangedEventHandler(object sender, int Concluidos);
 }

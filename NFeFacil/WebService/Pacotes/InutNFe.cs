@@ -26,9 +26,10 @@ namespace NFeFacil.WebService.Pacotes
             Signature = null;
         }
 
-        public async Task PrepararEventos()
+        public async Task<(bool, string)> PrepararEvento(AssinaFacil assinador, object cert)
         {
-            await new AssinaFacil(this).Assinar<InutNFe>(Info.Id, "infInut");
+            assinador.Nota = this;
+            return await assinador.Assinar<InutNFe>(cert, Info.Id, "infInut");
         }
     }
 }

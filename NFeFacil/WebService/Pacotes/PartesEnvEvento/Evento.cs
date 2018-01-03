@@ -1,6 +1,5 @@
 ﻿using NFeFacil.Certificacao;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesAssinatura;
-using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -23,11 +22,6 @@ namespace NFeFacil.WebService.Pacotes.PartesEnvEvento
         {
             Versao = versao;
             InfEvento = infEvento;
-        }
-
-        public async Task Preparar()
-        {
-            await new AssinaFacil(this).Assinar<Evento>(InfEvento.Id, "infEvento");
         }
     }
 }

@@ -74,13 +74,24 @@ namespace NFeFacil.ViewNFe
             var nfe = (NFe)ObjetoItemBanco;
             try
             {
-                var assina = new Certificacao.AssinaFacil(nfe);
-                await assina.Assinar<NFe>(nfe.Informacoes.Id, "infNFe");
-
-                ItemBanco.Status = (int)StatusNFe.Assinada;
-                AtualizarDI();
-                AtualizarBotoesComando();
-                Log.Escrever(TitulosComuns.Sucesso, "Nota fiscal assinada com sucesso.");
+                var assina = new Certificacao.AssinaFacil()
+                {
+                    Nota = nfe
+                };
+                Progresso progresso = null;
+                progresso = new Progresso(async x =>
+                {
+                    var result = await assina.Assinar<NFe>(x, nfe.Informacoes.Id, "infNFe");
+                    if (result.Item1)
+                    {
+                        ItemBanco.Status = (int)StatusNFe.Assinada;
+                        AtualizarDI();
+                        AtualizarBotoesComando();
+                    }
+                    return result;
+                }, assina.CertificadosDisponiveis, "Subject", Certificacao.AssinaFacil.Etapas);
+                assina.ProgressChanged += async (x, y) => await progresso.Update(y);
+                await progresso.ShowAsync();
             }
             catch (Exception erro)
             {

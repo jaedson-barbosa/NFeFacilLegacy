@@ -7,75 +7,78 @@ using System.Security.Cryptography.Xml;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesAssinatura;
 using System.Security.Cryptography.X509Certificates;
 using NFeFacil.Certificacao.LAN.Pacotes;
-using NFeFacil.View;
 using System.Security.Cryptography;
 
 namespace NFeFacil.Certificacao
 {
-    public sealed class AssinaFacil
+    public struct AssinaFacil
     {
-        private ISignature Nota;
+        public ISignature Nota { get; set; }
 
-        public AssinaFacil(ISignature nfe)
+        public static readonly string[] Etapas = new string[2]
         {
-            Nota = nfe;
+            "Obter informações da assinatura",
+            "Processar assinatura"
+        };
+        public CertificadoExibicao[] CertificadosDisponiveis { get; private set; }
+
+        public event ProgressChangedEventHandler ProgressChanged;
+        async Task OnProgressChanged(int conc) => await ProgressChanged?.Invoke(this, conc);
+
+        public async Task Preparar()
+        {
+            var certs = await Certificados.ObterCertificadosAsync(ConfiguracoesCertificacao.Origem);
+            CertificadosDisponiveis = certs.ToArray();
         }
 
-        public async Task Assinar<T>(string id, string tag)
+        public async Task<(bool, string)> Assinar<T>(object x, string id, string tag)
         {
             var xml = new XmlDocument();
             using (var reader = Nota.ToXElement<T>().CreateReader())
             {
                 xml.Load(reader);
 
-                var listaCertificados = await Certificados.ObterCertificadosAsync(ConfiguracoesCertificacao.Origem);
-                Progresso progresso = null;
-                progresso = new Progresso(async x =>
+                if (x == null)
                 {
-                    if (x == null)
-                    {
-                        return (false, "Selecione um certificado.");
-                    }
-                    try
-                    {
-                        var cert = (CertificadoExibicao)x;
-                        var serial = cert.SerialNumber;
-                        await progresso.Update(1);
+                    return (false, "Selecione um certificado.");
+                }
+                try
+                {
+                    var cert = (CertificadoExibicao)x;
+                    var serial = cert.SerialNumber;
+                    await OnProgressChanged(1);
 
-                        if (ConfiguracoesCertificacao.Origem == OrigemCertificado.Importado)
+                    if (ConfiguracoesCertificacao.Origem == OrigemCertificado.Importado)
+                    {
+                        using (var loja = new X509Store())
                         {
-                            using (var loja = new X509Store())
-                            {
-                                loja.Open(OpenFlags.ReadOnly);
-                                var temp = loja.Certificates.Find(X509FindType.FindBySerialNumber, serial, true)[0];
-                                Nota.Signature = AssinarXML(temp.GetRSAPrivateKey(), temp.RawData, id, tag, xml.OuterXml);
-                                await progresso.Update(2);
-
-                                return (true, "Documento assinado com sucesso.");
-                            }
-                        }
-                        else
-                        {
-                            var operacoes = new LAN.OperacoesServidor();
-                            Nota.Signature = await operacoes.AssinarRemotamente(new CertificadoAssinaturaDTO
-                            {
-                                Id = id,
-                                Tag = tag,
-                                XML = xml.OuterXml,
-                                Serial = serial
-                            });
-                            await progresso.Update(2);
+                            loja.Open(OpenFlags.ReadOnly);
+                            var temp = loja.Certificates.Find(X509FindType.FindBySerialNumber, serial, true)[0];
+                            Nota.Signature = AssinarXML(temp.GetRSAPrivateKey(), temp.RawData, id, tag, xml.OuterXml);
+                            await OnProgressChanged(2);
 
                             return (true, "Documento assinado com sucesso.");
                         }
                     }
-                    catch (Exception e)
+                    else
                     {
-                        return (false, e.Message);
+                        var operacoes = new LAN.OperacoesServidor();
+                        Nota.Signature = await operacoes.AssinarRemotamente(new CertificadoAssinaturaDTO
+                        {
+                            Id = id,
+                            Tag = tag,
+                            XML = xml.OuterXml,
+                            Serial = serial
+                        });
+                        await OnProgressChanged(2);
+
+                        return (true, "Documento assinado com sucesso.");
                     }
-                }, listaCertificados, "Subject",
-                "Obter informações da assinatura",
-                "Processar assinatura");
+                }
+                catch (Exception e)
+                {
+                    return (false, e.Message);
+                }
             }
         }
 

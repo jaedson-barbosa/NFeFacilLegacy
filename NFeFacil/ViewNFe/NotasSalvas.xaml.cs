@@ -8,7 +8,6 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 using NFeFacil.Controles;
 using System.Xml.Serialization;
-using NFeFacil.Log;
 using NFeFacil.WebService.Pacotes;
 using NFeFacil.WebService;
 using NFeFacil.Validacao;
@@ -16,6 +15,7 @@ using Windows.UI.Xaml.Media;
 using NFeFacil.View;
 using NFeFacil.WebService.Pacotes.PartesEnvEvento;
 using NFeFacil.WebService.Pacotes.PartesRetEnvEvento;
+using NFeFacil.Certificacao;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -68,23 +68,34 @@ namespace NFeFacil.ViewNFe
             var nota = (NFeDI)((MenuFlyoutItem)sender).DataContext;
             var processo = XElement.Parse(nota.XML).FromXElement<Processo>();
 
-            try
+            var estado = processo.NFe.Informacoes.identificacao.CódigoUF;
+            var tipoAmbiente = processo.ProtNFe.InfProt.tpAmb;
+
+            var gerenciador = new GerenciadorGeral<EnvEvento, RetEnvEvento>(estado, Operacoes.RecepcaoEvento, tipoAmbiente == 2);
+
+            var cnpj = processo.NFe.Informacoes.emitente.CNPJ;
+            var chave = processo.NFe.Informacoes.ChaveAcesso;
+            var nProtocolo = processo.ProtNFe.InfProt.nProt;
+            var entrada = new CancelarNFe();
+
+            if (await entrada.ShowAsync() == ContentDialogResult.Primary)
             {
-                var estado = processo.NFe.Informacoes.identificacao.CódigoUF;
-                var tipoAmbiente = processo.ProtNFe.InfProt.tpAmb;
+                var infoEvento = new InformacoesEvento(estado, cnpj, chave, nProtocolo, entrada.Motivo, tipoAmbiente);
+                var envio = new EnvEvento(infoEvento);
 
-                var gerenciador = new GerenciadorGeral<EnvEvento, RetEnvEvento>(estado, Operacoes.RecepcaoEvento, tipoAmbiente == 2);
+                AssinaFacil assinador = new AssinaFacil();
+                await assinador.Preparar();
 
-                var cnpj = processo.NFe.Informacoes.emitente.CNPJ;
-                var chave = processo.NFe.Informacoes.ChaveAcesso;
-                var nProtocolo = processo.ProtNFe.InfProt.nProt;
-                var entrada = new CancelarNFe();
-
-                if (await entrada.ShowAsync() == ContentDialogResult.Primary)
+                Progresso progresso = null;
+                progresso = new Progresso(async x =>
                 {
-                    var infoEvento = new InformacoesEvento(estado, cnpj, chave, nProtocolo, entrada.Motivo, tipoAmbiente);
-                    var envio = new EnvEvento(infoEvento);
-                    await envio.PrepararEventos();
+                    var resultado = await envio.PrepararEventos(assinador, x);
+                    if (!resultado.Item1)
+                    {
+                        return resultado;
+                    }
+                    await progresso.Update(1);
+
                     var resposta = await gerenciador.EnviarAsync(envio);
                     if (resposta.ResultadorEventos[0].InfEvento.CStat == 135)
                     {
@@ -105,21 +116,26 @@ namespace NFeFacil.ViewNFe
 
                             nota.Status = (int)StatusNFe.Cancelada;
                             repo.SalvarItemSimples(nota, DefinicoesTemporarias.DateTimeNow);
+                            await progresso.Update(6);
 
                             NotasEmitidas.Remove(nota);
                             NotasCanceladas.Insert(0, nota);
                         }
-                        Popup.Current.Escrever(TitulosComuns.Sucesso, "NFe cancelada com sucesso.");
+                        return (true, "NFe cancelada com sucesso.");
                     }
                     else
                     {
-                        Popup.Current.Escrever(TitulosComuns.Erro, resposta.ResultadorEventos[0].InfEvento.XMotivo);
+                        return (false, resposta.ResultadorEventos[0].InfEvento.XMotivo);
                     }
-                }
-            }
-            catch (Exception erro)
-            {
-                erro.ManipularErro();
+                }, assinador.CertificadosDisponiveis, "Subject",
+                "Preparar eventos com assinatura do emitente",
+                "Preparar conexão",
+                "Obter conteúdo da requisição",
+                "Enviar requisição",
+                "Processar resposta",
+                "Salvar registro de cancelamento no banco de dados");
+                gerenciador.ProgressChanged += async (x, y) => await progresso.Update(y + 1);
+                await progresso.ShowAsync();
             }
         }
 

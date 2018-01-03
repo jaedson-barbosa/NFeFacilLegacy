@@ -1,4 +1,5 @@
-﻿using NFeFacil.WebService.Pacotes.PartesEnvEvento;
+﻿using NFeFacil.Certificacao;
+using NFeFacil.WebService.Pacotes.PartesEnvEvento;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
@@ -6,7 +7,7 @@ using System.Xml.Serialization;
 namespace NFeFacil.WebService.Pacotes
 {
     [XmlRoot("envEvento", Namespace = "http://www.portalfiscal.inf.br/nfe")]
-    public struct EnvEvento
+    public sealed class EnvEvento
     {
         [XmlAttribute("versao")]
         public string Versao { get; set; }
@@ -28,12 +29,19 @@ namespace NFeFacil.WebService.Pacotes
             }
         }
 
-        public async Task PrepararEventos()
+        public async Task<(bool, string)> PrepararEventos(AssinaFacil assinador, object cert)
         {
             for (int i = 0; i < Eventos.Length; i++)
             {
-                await Eventos[i].Preparar();
+                var evento = Eventos[i];
+                assinador.Nota = evento;
+                var resposta = await assinador.Assinar<Evento>(cert, evento.InfEvento.Id, "infEvento");
+                if (!resposta.Item1)
+                {
+                    return (false, resposta.Item2);
+                }
             }
+            return (true, "Documento assinado com sucesso.");
         }
     }
 }

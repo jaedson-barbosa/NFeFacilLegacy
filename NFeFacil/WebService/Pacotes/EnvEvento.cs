@@ -18,6 +18,7 @@ namespace NFeFacil.WebService.Pacotes
         [XmlElement("evento")]
         public Evento[] Eventos { get; set; }
 
+        public EnvEvento() { }
         public EnvEvento(params InformacoesEvento[] eventos)
         {
             Versao = "1.00";

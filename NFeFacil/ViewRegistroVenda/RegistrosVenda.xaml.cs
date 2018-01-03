@@ -1,4 +1,7 @@
-﻿using NFeFacil.ItensBD;
+﻿using NFeFacil.Controles;
+using NFeFacil.ItensBD;
+using NFeFacil.View;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Windows.UI.Xaml.Controls;
@@ -8,22 +11,43 @@ using Windows.UI.Xaml.Controls;
 namespace NFeFacil.ViewRegistroVenda
 {
     [View.DetalhePagina(Symbol.Library, "Vendas")]
-    public sealed partial class RegistrosVenda : Page
+    public sealed partial class RegistrosVenda : Page, IHambuguer
     {
-        ObservableCollection<ExibicaoVenda> Vendas { get; }
+        ObservableCollection<ExibicaoVenda> Vendas { get; } = new ObservableCollection<ExibicaoVenda>();
+        List<ExibicaoVenda> Validas { get; } = new List<ExibicaoVenda>();
+        List<ExibicaoVenda> Canceladas { get; } = new List<ExibicaoVenda>();
+
+        public ObservableCollection<ItemHambuguer> ConteudoMenu => new ObservableCollection<ItemHambuguer>
+        {
+            new ItemHambuguer(Symbol.Accept, "Válidas"),
+            new ItemHambuguer(Symbol.Cancel, "Canceladas")
+        };
+
+        public int SelectedIndex
+        {
+            set
+            {
+                Vendas.Clear();
+                (value == 0 ? Validas : Canceladas).ForEach(Vendas.Add);
+            }
+        }
 
         public RegistrosVenda()
         {
             InitializeComponent();
             using (var repo = new Repositorio.Leitura())
             {
-                Vendas = repo.ObterRegistrosVenda(DefinicoesTemporarias.EmitenteAtivo.Id).Select(x => new ExibicaoVenda
+                var registros = repo.ObterRegistrosVenda(DefinicoesTemporarias.EmitenteAtivo.Id);
+                foreach (var (rv, vendedor, cliente, momento) in registros)
                 {
-                    Base = x.rv,
-                    NomeCliente = x.cliente,
-                    NomeVendedor = x.vendedor,
-                    DataHoraVenda = x.momento
-                }).GerarObs();
+                    (rv.Cancelado ? Canceladas : Validas).Add(new ExibicaoVenda
+                    {
+                        Base = rv,
+                        NomeCliente = cliente,
+                        NomeVendedor = vendedor,
+                        DataHoraVenda = momento
+                    });
+                }
             }
         }
 

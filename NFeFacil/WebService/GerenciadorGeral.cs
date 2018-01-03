@@ -18,7 +18,10 @@ namespace NFeFacil.WebService
         string VersaoDados { get; }
 
         public event ProgressChangedEventHandler ProgressChanged;
-        async Task OnProgressChanged(int conc) => await ProgressChanged?.Invoke(this, conc);
+        async Task OnProgressChanged(int conc)
+        {
+            if (ProgressChanged != null) await ProgressChanged(this, conc);
+        }
 
         public readonly string[] Etapas = new string[4]
         {

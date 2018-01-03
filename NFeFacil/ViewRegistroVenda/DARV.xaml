@@ -221,6 +221,7 @@
                     <RowDefinition x:Name="alturaLinhaFinalProdutos" Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <ContentPresenter ContentTemplate="{StaticResource Cabecalho}"
                                   Content="{x:Bind Emitente}" />
@@ -331,6 +332,17 @@
                     <TextBlock Grid.Column="3">TOTAL: <Run Text="{x:Bind Total}" /></TextBlock>
                 </Grid>
                 <Grid Grid.Row="7"
+                      Visibility="{x:Bind VisibilidadeObservacoes}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Style="{StaticResource Subtitulo}">Observações</TextBlock>
+                    <TextBlock Grid.Row="1"
+                               MinHeight="50"
+                               Text="{x:Bind Observacoes}" />
+                </Grid>
+                <Grid Grid.Row="8"
                       Visibility="{x:Bind VisibilidadePagamento}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -341,9 +353,8 @@
                     <TextBlock Grid.Row="1">Forma de pagamento: <Run Text="{x:Bind Registro.FormaPagamento}" /></TextBlock>
                     <TextBlock Grid.Row="2">Prazo de pagamento: <Run Text="{x:Bind Registro.PrazoPagamento}" /></TextBlock>
                 </Grid>
-                <Grid Grid.Row="8">
+                <Grid Grid.Row="9">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
@@ -351,8 +362,6 @@
                     <TextBlock Grid.Row="1"
                                HorizontalAlignment="Center"
                                Text="{x:Bind NomeAssinatura}" />
-                    <TextBlock Grid.Row="2"
-                               Visibility="{x:Bind VisibilidadeObservacoes}"><Bold>Observações: </Bold><Run Text="{x:Bind Observacoes}" /></TextBlock>
                 </Grid>
             </Grid>
         </StackPanel>

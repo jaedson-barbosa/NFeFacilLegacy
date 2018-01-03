@@ -126,6 +126,11 @@
                             <ColumnDefinition Width="180" />
                             <ColumnDefinition Width="180" />
                         </Grid.ColumnDefinitions>
+                        <Grid.ContextFlyout>
+                            <MenuFlyout>
+                                <MenuFlyoutItem Click="RemoverProduto">Remover</MenuFlyoutItem>
+                            </MenuFlyout>
+                        </Grid.ContextFlyout>
                         <TextBlock Text="{x:Bind Codigo}" />
                         <TextBlock Grid.Column="1"
                                    Text="{x:Bind Quantidade}" />

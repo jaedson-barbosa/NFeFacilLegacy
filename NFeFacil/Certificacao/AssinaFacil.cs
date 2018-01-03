@@ -11,7 +11,7 @@ using System.Security.Cryptography;
 
 namespace NFeFacil.Certificacao
 {
-    public struct AssinaFacil
+    public sealed class AssinaFacil
     {
         public ISignature Nota { get; set; }
 
@@ -23,7 +23,10 @@ namespace NFeFacil.Certificacao
         public CertificadoExibicao[] CertificadosDisponiveis { get; private set; }
 
         public event ProgressChangedEventHandler ProgressChanged;
-        async Task OnProgressChanged(int conc) => await ProgressChanged?.Invoke(this, conc);
+        async Task OnProgressChanged(int conc)
+        {
+            if (ProgressChanged != null) await ProgressChanged(this, conc);
+        }
 
         public async Task Preparar()
         {

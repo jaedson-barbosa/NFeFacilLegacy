@@ -19,9 +19,12 @@ namespace NFeFacil.ViewRegistroVenda
         public double Seguro { get; set; }
         public double DespesasExtras { get; set; }
 
-        public AdicionarProduto(Guid[] produtosJaAdicionados)
+        Action Adicionar { get; }
+
+        public AdicionarProduto(Guid[] produtosJaAdicionados, Action adicionar)
         {
             InitializeComponent();
+            Adicionar = adicionar;
 
             using (var repo = new Repositorio.Leitura())
             {
@@ -63,7 +66,15 @@ namespace NFeFacil.ViewRegistroVenda
             for (int i = 0; i < ListaCompletaProdutos.Count; i++)
             {
                 var atual = ListaCompletaProdutos[i];
-                var valido = atual.Nome.ToUpper().Contains(busca.ToUpper());
+                bool valido;
+                if (DefinicoesPermanentes.ModoBuscaProduto == 0)
+                {
+                    valido = atual.Nome.ToUpper().Contains(busca.ToUpper());
+                }
+                else
+                {
+                    valido = atual.Codigo.ToUpper().Contains(busca.ToUpper());
+                }
                 if (valido && !Produtos.Contains(atual))
                 {
                     Produtos.Add(atual);
@@ -77,6 +88,7 @@ namespace NFeFacil.ViewRegistroVenda
 
         private void VerificarConformidadeEstoque(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
+            args.Cancel = true;
             var log = Log.Popup.Current;
             if (ProdutoSelecionado.Base == null)
             {
@@ -88,13 +100,18 @@ namespace NFeFacil.ViewRegistroVenda
             }
             else if (ProdutoSelecionado.Estoque != "Infinito" && Quantidade > double.Parse(ProdutoSelecionado.Estoque))
             {
-                args.Cancel = true;
                 log.Escrever(Log.TitulosComuns.Atenção, "A quantidade vendida não pode ser maior que a quantidade em estoque.");
+            }
+            else
+            {
+                Adicionar?.Invoke();
+                ListaCompletaProdutos.Remove(ProdutoSelecionado);
+                Produtos.Remove(ProdutoSelecionado);
             }
         }
     }
 
-    public struct ExibicaoProdutoAdicao
+    public sealed class ExibicaoProdutoAdicao
     {
         public ProdutoDI Base { get; set; }
         public string Codigo { get; set; }

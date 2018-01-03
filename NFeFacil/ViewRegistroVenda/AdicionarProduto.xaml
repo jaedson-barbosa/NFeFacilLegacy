@@ -8,7 +8,7 @@
                mc:Ignorable="d"
                Title="Adicionar produto"
                PrimaryButtonText="Adicionar"
-               SecondaryButtonText="Cancelar"
+               SecondaryButtonText="Finalizar"
                PrimaryButtonClick="VerificarConformidadeEstoque">
     <Grid>
         <Grid.RowDefinitions>
@@ -16,9 +16,9 @@
             <RowDefinition />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <TextBox Header="Buscar por nome"
+        <TextBox Header="Buscar"
                  TextChanged="Buscar" />
-        <ListView ItemsSource="{x:Bind Produtos, Mode=OneTime}"
+        <ListView ItemsSource="{x:Bind Produtos}"
                   SelectedItem="{x:Bind ProdutoSelecionado, Mode=TwoWay}"
                   Grid.Row="1"
                   Margin="0,2,0,4">

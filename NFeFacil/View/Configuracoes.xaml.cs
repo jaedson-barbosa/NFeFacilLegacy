@@ -50,6 +50,12 @@ namespace NFeFacil.View
             set => DefinicoesPermanentes.CalcularNumeroNFe = value;
         }
 
+        int ModoBuscaProduto
+        {
+            get => DefinicoesPermanentes.ModoBuscaProduto;
+            set => DefinicoesPermanentes.ModoBuscaProduto = value;
+        }
+
         async void UsarImagem(object sender, TappedRoutedEventArgs e)
         {
             if (await Compra.AnalisarCompra())

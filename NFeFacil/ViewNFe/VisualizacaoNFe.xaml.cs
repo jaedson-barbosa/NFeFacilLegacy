@@ -78,6 +78,7 @@ namespace NFeFacil.ViewNFe
                 {
                     Nota = nfe
                 };
+                await assina.Preparar();
                 Progresso progresso = null;
                 progresso = new Progresso(async x =>
                 {

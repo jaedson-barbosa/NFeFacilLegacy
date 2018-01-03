@@ -27,6 +27,16 @@ namespace NFeFacil
             set => Pasta.Values[nameof(CalcularNumeroNFe)] = value;
         }
 
+        public static int ModoBuscaProduto
+        {
+            get
+            {
+                var tipo = Pasta.Values[nameof(ModoBuscaProduto)];
+                return tipo == null ? 0 : (int)tipo;
+            }
+            set => Pasta.Values[nameof(ModoBuscaProduto)] = value;
+        }
+
         internal static Guid IDBackgroung
         {
             get

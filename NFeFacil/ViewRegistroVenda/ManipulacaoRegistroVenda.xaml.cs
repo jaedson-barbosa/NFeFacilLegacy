@@ -120,8 +120,8 @@ namespace NFeFacil.ViewRegistroVenda
 
         private async void AdicionarProduto(object sender, RoutedEventArgs e)
         {
-            var caixa = new AdicionarProduto(ListaProdutos.Select(x => x.Base.IdBase).ToArray());
-            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+            AdicionarProduto caixa = null;
+            caixa = new AdicionarProduto(ListaProdutos.Select(x => x.Base.IdBase).ToArray(), () =>
             {
                 var novoProdBanco = new ProdutoSimplesVenda
                 {
@@ -143,7 +143,8 @@ namespace NFeFacil.ViewRegistroVenda
                 ListaProdutos.Add(novoProdExib);
                 ItemBanco.Produtos.Add(novoProdBanco);
                 AtualizarTotal();
-            }
+            });
+            await caixa.ShowAsync();
         }
 
         private void Finalizar(object sender, RoutedEventArgs e)

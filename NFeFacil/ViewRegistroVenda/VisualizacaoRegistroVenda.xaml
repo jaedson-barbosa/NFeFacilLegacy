@@ -8,6 +8,10 @@
     <controles:VisualizacaoGenerica x:Name="ctrVisualizacao" />
     <Page.BottomAppBar>
         <CommandBar>
+            <AppBarButton x:Name="btnEditar"
+                          Label="Editar"
+                          Icon="Edit"
+                          Click="Editar" />
             <AppBarButton x:Name="btnCriarNFe"
                           Label="Criar NFe"
                           Icon="Add"

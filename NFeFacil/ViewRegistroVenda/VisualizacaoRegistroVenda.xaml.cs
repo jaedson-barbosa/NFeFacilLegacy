@@ -29,7 +29,8 @@ namespace NFeFacil.ViewRegistroVenda
             var semNota = string.IsNullOrEmpty(ItemBanco.NotaFiscalRelacionada);
             btnCriarNFe.IsEnabled = semNota && !ItemBanco.Cancelado;
             btnVerNFe.IsEnabled = !semNota;
-            btnCriarDarv.IsEnabled = btnCancelar.IsEnabled = btnCalcularTroco.IsEnabled = !ItemBanco.Cancelado;
+            btnEditar.IsEnabled = btnCriarDarv.IsEnabled = btnCancelar.IsEnabled =
+                btnCalcularTroco.IsEnabled = !ItemBanco.Cancelado;
         }
 
         public sealed class Visualizacao
@@ -135,7 +136,7 @@ namespace NFeFacil.ViewRegistroVenda
                 }
                 Registro.Cancelamento = cancelamento;
                 ctrVisualizacao.Content = Registro;
-                btnCriarDarv.IsEnabled = btnCriarNFe.IsEnabled
+                btnEditar.IsEnabled = btnCriarDarv.IsEnabled = btnCriarNFe.IsEnabled
                     = btnCancelar.IsEnabled = btnCalcularTroco.IsEnabled = false;
             }
         }
@@ -153,6 +154,16 @@ namespace NFeFacil.ViewRegistroVenda
         {
             var total = ItemBanco.Produtos.Sum(x => x.TotalLíquido);
             await new CalcularTroco(total).ShowAsync();
+        }
+
+        async void Editar(object sender, RoutedEventArgs e)
+        {
+            var caixa = new MotivoEdicaoRV();
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+            {
+                ItemBanco.MotivoEdicao = caixa.Motivo;
+                MainPage.Current.Navegar<ManipulacaoProdutosRV>(ItemBanco);
+            }
         }
     }
 }

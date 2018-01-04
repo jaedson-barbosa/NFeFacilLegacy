@@ -19,7 +19,9 @@ namespace NFeFacil.ViewRegistroVenda
         RegistroVenda ItemBanco;
         ObservableCollection<ExibicaoProdutoVenda> ListaProdutos { get; set; }
 
-        public bool Concluido => false;
+        public bool Concluido { get; set; }
+        Visibility VisibilidadeAvancar { get; set; }
+        Visibility VisibilidadeConcluir { get; set; }
 
         public ManipulacaoProdutosRV()
         {
@@ -29,18 +31,20 @@ namespace NFeFacil.ViewRegistroVenda
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             ItemBanco = (RegistroVenda)e.Parameter;
+            var novo = string.IsNullOrEmpty(ItemBanco.MotivoEdicao);
+            VisibilidadeAvancar = novo ? Visibility.Visible : Visibility.Collapsed;
+            VisibilidadeConcluir = novo ? Visibility.Collapsed : Visibility.Visible;
             using (var leitura = new Repositorio.Leitura())
             {
-                var prods = from prod in ItemBanco.Produtos
-                            let comp = leitura.ObterProduto(prod.IdBase)
-                            select new ExibicaoProdutoVenda
-                            {
-                                Base = prod,
-                                Quantidade = prod.Quantidade,
-                                Codigo = comp.CodigoProduto,
-                                Descricao = comp.Descricao
-                            };
-                ListaProdutos = prods.GerarObs();
+                ListaProdutos = (from prod in ItemBanco.Produtos
+                                 let comp = leitura.ObterProduto(prod.IdBase)
+                                 select new ExibicaoProdutoVenda
+                                 {
+                                     Base = prod,
+                                     Quantidade = prod.Quantidade,
+                                     Codigo = comp.CodigoProduto,
+                                     Descricao = comp.Descricao
+                                 }).GerarObs();
             }
         }
 
@@ -79,9 +83,19 @@ namespace NFeFacil.ViewRegistroVenda
             await caixa.ShowAsync();
         }
 
-        private void AppBarButton_Click(object sender, RoutedEventArgs e)
+        private void Avancar(object sender, RoutedEventArgs e)
         {
             MainPage.Current.Navegar<ManipulacaoRegistroVenda>();
+        }
+
+        private void Concluir(object sender, RoutedEventArgs e)
+        {
+            using (var repo = new Repositorio.Escrita())
+            {
+                repo.SalvarRV(ItemBanco, DefinicoesTemporarias.DateTimeNow);
+                Concluido = true;
+                MainPage.Current.Retornar();
+            }
         }
     }
 }

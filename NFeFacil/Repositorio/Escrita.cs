@@ -167,27 +167,58 @@ namespace NFeFacil.Repositorio
             }
         }
 
-        public void AdicionarRV(RegistroVenda ItemBanco, DateTime atual)
+        public void SalvarRV(RegistroVenda ItemBanco, DateTime atual)
         {
             var produtosOrignal = ItemBanco.Produtos;
             ItemBanco.UltimaData = atual;
             ItemBanco.Produtos = null;
-            db.Vendas.Add(ItemBanco);
 
-            for (int i = 0; i < produtosOrignal.Count; i++)
+            if (string.IsNullOrEmpty(ItemBanco.MotivoEdicao))
             {
-                var produto = produtosOrignal[i];
-                var estoque = db.Estoque.Include(x => x.Alteracoes).FirstOrDefault(x => x.Id == produto.IdBase);
-                if (estoque != null)
-                {
-                    estoque.UltimaData = atual;
-                    estoque.Alteracoes.Add(new AlteracaoEstoque
-                    {
-                        Alteração = produto.Quantidade * -1,
-                        MomentoRegistro = atual
-                    });
+                db.Vendas.Add(ItemBanco);
 
-                    db.Estoque.Update(estoque);
+                for (int i = 0; i < produtosOrignal.Count; i++)
+                {
+                    var produto = produtosOrignal[i];
+                    var estoque = db.Estoque.Include(x => x.Alteracoes).FirstOrDefault(x => x.Id == produto.IdBase);
+                    if (estoque != null)
+                    {
+                        estoque.UltimaData = atual;
+                        estoque.Alteracoes.Add(new AlteracaoEstoque
+                        {
+                            Alteração = produto.Quantidade * -1,
+                            MomentoRegistro = atual
+                        });
+
+                        db.Estoque.Update(estoque);
+                    }
+                }
+            }
+            else
+            {
+                RegistroVenda vendaAntiga = db.Vendas.Include(x => x.Produtos).First(x => x.Id == ItemBanco.Id);
+                var produtos = (from prod in db.Produtos
+                                join antigo in vendaAntiga.Produtos on prod.Id equals antigo.IdBase
+                                join novo in ItemBanco.Produtos on prod.Id equals novo.Id
+                                select new { Produto = prod, Antigo = antigo, Novo = novo })
+                                    .ToDictionary(x => x.Produto.Id, y => (y.Antigo.Quantidade, y.Novo.Quantidade));
+                foreach (var item in produtos)
+                {
+                    if (item.Value.Item1 != item.Value.Item2)
+                    {
+                        var estoque = db.Estoque.Include(x => x.Alteracoes).FirstOrDefault(x => x.Id == item.Key);
+                        if (estoque != null)
+                        {
+                            estoque.UltimaData = atual;
+                            estoque.Alteracoes.Add(new AlteracaoEstoque
+                            {
+                                Alteração = item.Value.Item1 - item.Value.Item2,
+                                MomentoRegistro = atual
+                            });
+
+                            db.Estoque.Update(estoque);
+                        }
+                    }
                 }
             }
             SalvarComTotalCerteza();

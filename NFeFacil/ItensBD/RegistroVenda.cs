@@ -29,6 +29,8 @@ namespace NFeFacil.ItensBD
         public string FormaPagamento { get; set; }
         public Guid Comprador { get; set; }
 
+        public string MotivoEdicao { get; set; }
+
         public NFe ToNFe()
         {
             using (var db = new AplicativoContext())

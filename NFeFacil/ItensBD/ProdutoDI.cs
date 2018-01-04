@@ -142,6 +142,8 @@ namespace NFeFacil.ItensBD
         List<ImpSimplesArmazenado> impostosSimples;
         List<ICMSArmazenado> icms;
 
+        public string ImpostosPadrao { get; set; }
+
         public ProdutoDI() { }
         public ProdutoDI(ProdutoOuServicoGenerico other)
         {

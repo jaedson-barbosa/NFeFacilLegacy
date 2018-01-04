@@ -75,9 +75,13 @@
             <AppBarButton Label="Adicionar produto"
                           Icon="Add"
                           Click="AdicionarProduto" />
-            <AppBarButton Icon="Forward"
+            <AppBarButton Visibility="{x:Bind VisibilidadeAvancar}" Icon="Forward"
                           Label="Avançar"
-                          Click="AppBarButton_Click" />
+                          Click="Avancar" />
+            <AppBarButton Visibility="{x:Bind VisibilidadeConcluir}"
+                          Icon="Accept"
+                          Label="Concluir"
+                          Click="Concluir" />
         </CommandBar>
     </Page.BottomAppBar>
 </Page>

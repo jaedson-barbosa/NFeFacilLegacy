@@ -194,6 +194,10 @@
     <Compile Include="ItensBD\NFeDI.cs" />
     <Compile Include="ItensBD\ProdutoDI.cs" />
     <Compile Include="ItensBD\ProdutoSimplesVenda.cs" />
+    <Compile Include="Migrations\20180104183502_Loja1.8.8.cs" />
+    <Compile Include="Migrations\20180104183502_Loja1.8.8.designer.cs">
+      <DependentUpon>20180104183502_Loja1.8.8.cs</DependentUpon>
+    </Compile>
     <Compile Include="Produto\ICMSArmazenado.cs" />
     <Compile Include="Produto\ImpostoArmazenado.cs" />
     <Compile Include="Produto\ImpSimplesArmazenado.cs" />
@@ -389,6 +393,9 @@
     <Compile Include="ViewRegistroVenda\ExibicaoProdutoVenda.cs" />
     <Compile Include="ViewRegistroVenda\ManipulacaoProdutosRV.xaml.cs">
       <DependentUpon>ManipulacaoProdutosRV.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewRegistroVenda\MotivoEdicaoRV.xaml.cs">
+      <DependentUpon>MotivoEdicaoRV.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Progresso.xaml.cs">
       <DependentUpon>Progresso.xaml</DependentUpon>
@@ -658,9 +665,6 @@
     </Compile>
     <Compile Include="ViewRegistroVenda\VisualizacaoRegistroVenda.xaml.cs">
       <DependentUpon>VisualizacaoRegistroVenda.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewRegistroVenda\VisualizarDetalhesCancelamento.xaml.cs">
-      <DependentUpon>VisualizarDetalhesCancelamento.xaml</DependentUpon>
     </Compile>
     <Compile Include="Produto\ProdutoEspecial\AdicionarArmamento.xaml.cs">
       <DependentUpon>AdicionarArmamento.xaml</DependentUpon>
@@ -1174,6 +1178,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ViewRegistroVenda\MotivoEdicaoRV.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Progresso.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1295,10 +1303,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ViewRegistroVenda\VisualizacaoRegistroVenda.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ViewRegistroVenda\VisualizarDetalhesCancelamento.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

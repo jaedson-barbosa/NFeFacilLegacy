@@ -142,7 +142,7 @@ namespace NFeFacil.ViewRegistroVenda
             {
                 using (var repo = new Repositorio.Escrita())
                 {
-                    repo.AdicionarRV(ItemBanco, DefinicoesTemporarias.DateTimeNow);
+                    repo.SalvarRV(ItemBanco, DefinicoesTemporarias.DateTimeNow);
                 }
 
                 Frame.BackStack.RemoveAt(Frame.BackStack.Count - 1);

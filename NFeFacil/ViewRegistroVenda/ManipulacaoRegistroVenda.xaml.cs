@@ -2,6 +2,7 @@
 using NFeFacil.Log;
 using NFeFacil.View;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Windows.UI.Xaml;
@@ -13,42 +14,44 @@ using Windows.UI.Xaml.Navigation;
 namespace NFeFacil.ViewRegistroVenda
 {
     [DetalhePagina("\uEC59", "Registro de venda")]
-    public sealed partial class ManipulacaoRegistroVenda : Page, IValida
+    public sealed partial class ManipulacaoRegistroVenda : Page
     {
-        RegistroVenda ItemBanco { get; set; } = new RegistroVenda();
+        RegistroVenda ItemBanco { get; set; }
 
-        ObservableCollection<ClienteManipulacaoRV> Clientes { get; set; }
+        ObservableCollection<ClienteDI> Clientes { get; set; }
         ObservableCollection<MotoristaDI> Motoristas { get; set; }
         ObservableCollection<Comprador> Compradores { get; set; }
+
+        Dictionary<Guid, Comprador[]> CompradoresPorCliente;
 
         void AtualizarTotal()
         {
             ItemBanco.DescontoTotal = ItemBanco.Produtos.Sum(x => x.Desconto);
 
             txtTotalAdicionais.Text = ItemBanco.Produtos.Sum(x => x.DespesasExtras).ToString("C");
-            txtTotalBruto.Text = ItemBanco.Produtos.Sum(x => x.Quantidade * x.ValorUnitario).ToString("C");
             txtTotalDesconto.Text = ItemBanco.DescontoTotal.ToString("C");
             txtTotalFrete.Text = ItemBanco.Produtos.Sum(x => x.Frete).ToString("C");
             txtTotalLiquido.Text = ItemBanco.Produtos.Sum(x => x.TotalLíquido).ToString("C");
             txtTotalSeguro.Text = ItemBanco.Produtos.Sum(x => x.Seguro).ToString("C");
         }
 
-        ClienteManipulacaoRV Cliente
+        ClienteDI Cliente
         {
-            get => Clientes.FirstOrDefault(x => x.Root.Id == ItemBanco.Cliente);
+            get => Clientes.FirstOrDefault(x => x.Id == ItemBanco.Cliente);
             set
             {
-                ItemBanco.Cliente = value.Root.Id;
+                ItemBanco.Cliente = value.Id;
                 ItemBanco.Comprador = default(Guid);
-                if (value.Compradores.Length > 0)
+                var compradores = CompradoresPorCliente[value.Id];
+                if (compradores?.Length > 0)
                 {
                     Compradores.Clear();
-                    for (int i = 0; i < value.Compradores.Length; i++)
+                    for (int i = 0; i < compradores.Length; i++)
                     {
                         Compradores.Add(Compradores[i]);
                     }
                 }
-                cmbComprador.IsEnabled = value.Compradores.Length > 0;
+                cmbComprador.IsEnabled = compradores?.Length > 0;
             }
         }
 
@@ -64,13 +67,50 @@ namespace NFeFacil.ViewRegistroVenda
             set => ItemBanco.Observações = value;
         }
 
+        internal double ValorFrete
+        {
+            get => ItemBanco.Produtos.Sum(x => x.Frete);
+            set
+            {
+                for (int i = 0; i < ItemBanco.Produtos.Count; i++)
+                {
+                    var atual = ItemBanco.Produtos[i];
+                    atual.Frete = value / ItemBanco.Produtos.Count;
+                    atual.CalcularTotalLíquido();
+                    ItemBanco.Produtos[i] = atual;
+                }
+                AtualizarTotal();
+            }
+        }
+        internal string TipoFrete
+        {
+            get => ItemBanco.TipoFrete;
+            set => ItemBanco.TipoFrete = value;
+        }
+
         DateTimeOffset PrazoEntrega
         {
             get => ItemBanco.PrazoEntrega;
             set => ItemBanco.PrazoEntrega = value.DateTime;
         }
 
-        public bool Concluido { get; private set; }
+        internal DateTimeOffset PrazoPagamento
+        {
+            get => ItemBanco.PrazoPagamento == null ? PrazoPagamento = DefinicoesTemporarias.DateTimeOffsetNow : DateTimeOffset.Parse(ItemBanco.PrazoPagamento);
+            set => ItemBanco.PrazoPagamento = value.ToString("dd/MM/yyyy");
+        }
+
+        string FormaPagamento
+        {
+            get => ItemBanco.FormaPagamento;
+            set => ItemBanco.FormaPagamento = value;
+        }
+
+        DateTimeOffset DataHoraVenda
+        {
+            get => ItemBanco.DataHoraVenda;
+            set => ItemBanco.DataHoraVenda = value.DateTime;
+        }
 
         public ManipulacaoRegistroVenda()
         {
@@ -81,16 +121,15 @@ namespace NFeFacil.ViewRegistroVenda
         {
             using (var repo = new Repositorio.Leitura())
             {
-                Clientes = repo.ObterClientesComCompradores().Select(x => new ClienteManipulacaoRV()
-                {
-                    Root = x.Item1,
-                    Compradores = x.Item2
-                }).GerarObs();
+                Clientes = repo.ObterClientes().GerarObs();
                 Motoristas = repo.ObterMotoristas().GerarObs();
                 Compradores = new ObservableCollection<Comprador>();
+                CompradoresPorCliente = repo.ObterCompradoresPorCliente();
             }
-            ItemBanco = (RegistroVenda)e.Parameter;
+            ItemBanco = (RegistroVenda)Frame.BackStack[Frame.BackStack.Count - 1].Parameter;
             AtualizarTotal();
+            txtValorDesejado.Number = ItemBanco.Produtos.Sum(x => x.Quantidade * x.ValorUnitario);
+            cmbComprador.IsEnabled = ItemBanco.Comprador != default(Guid);
         }
 
         private void Finalizar(object sender, RoutedEventArgs e)
@@ -106,94 +145,49 @@ namespace NFeFacil.ViewRegistroVenda
                     repo.AdicionarRV(ItemBanco, DefinicoesTemporarias.DateTimeNow);
                 }
 
-                var ultPage = Frame.BackStack[Frame.BackStack.Count - 1];
+                Frame.BackStack.RemoveAt(Frame.BackStack.Count - 1);
                 PageStackEntry entrada = new PageStackEntry(typeof(VisualizacaoRegistroVenda), ItemBanco, null);
                 Frame.BackStack.Add(entrada);
-
-                Concluido = true;
+                
                 MainPage.Current.Retornar();
             }
         }
 
-        private async void AplicarDesconto(object sender, RoutedEventArgs e)
+        private void ValorDesejadoChanged(Controles.EntradaNumerica sender, Controles.NumeroChangedEventArgs e)
         {
-            var caixa = new CalculoDesconto(ItemBanco.Produtos);
-            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+            var totalOriginal = ItemBanco.Produtos.Sum(x => x.Quantidade * x.ValorUnitario);
+            var porcentagemDesejada = e.NovoNumero / totalOriginal;
+            for (int i = 0; i < ItemBanco.Produtos.Count; i++)
             {
-                var prods = caixa.Produtos;
-                for (int i = 0; i < prods.Count; i++)
-                {
-                    var atual = prods[i];
-                    atual.CalcularTotalLíquido();
-                    ItemBanco.Produtos[i] = atual;
-                }
-                ItemBanco.DescontoTotal = prods.Sum(x => x.Desconto);
-                AtualizarTotal();
+                var atual = ItemBanco.Produtos[i];
+                var valorOriginal = atual.ValorUnitario * atual.Quantidade;
+                var desconto = valorOriginal * porcentagemDesejada;
+                atual.Desconto = desconto;
+                atual.CalcularTotalLíquido();
             }
+            var porcentagem = 100 - (porcentagemDesejada * 100);
+            sldDesconto.Value = porcentagem;
+
+            ItemBanco.DescontoTotal = ItemBanco.Produtos.Sum(x => x.Desconto);
+            AtualizarTotal();
         }
 
-        async void AplicarFrete(object sender, RoutedEventArgs e)
+        private void sldDesconto_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
         {
-            var caixa = new AplicarFrete();
-            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+            for (int i = 0; i < ItemBanco.Produtos.Count; i++)
             {
-                for (int i = 0; i < ItemBanco.Produtos.Count; i++)
-                {
-                    var atual = ItemBanco.Produtos[i];
-                    atual.Frete = caixa.Valor / ItemBanco.Produtos.Count;
-                    atual.CalcularTotalLíquido();
-                    ItemBanco.Produtos[i] = atual;
-                }
-                AtualizarTotal();
-
-                ItemBanco.TipoFrete = caixa.TipoFrete;
+                var atual = ItemBanco.Produtos[i];
+                var valorOriginal = atual.ValorUnitario * atual.Quantidade;
+                var porcentagemUsada = e.NewValue / 100;
+                var desconto = valorOriginal * porcentagemUsada;
+                atual.Desconto = desconto;
+                atual.CalcularTotalLíquido();
             }
+            var valorDesejado = ItemBanco.Produtos.Sum(x => x.Quantidade * x.ValorUnitario - x.Desconto);
+            txtValorDesejado.Number = valorDesejado;
+
+            ItemBanco.DescontoTotal = ItemBanco.Produtos.Sum(x => x.Desconto);
+            AtualizarTotal();
         }
-
-        async void DefinirPagamento(object sender, RoutedEventArgs e)
-        {
-            var caixa = new InfoPagamento();
-            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
-            {
-                ItemBanco.PrazoPagamento = caixa.Prazo.ToString("dd/MM/yyyy");
-                ItemBanco.FormaPagamento = caixa.FormaPagamento;
-            }
-            else
-            {
-                var input = (AppBarToggleButton)sender;
-                input.IsChecked = false;
-            }
-        }
-
-        void RemoverPagamento(object sender, RoutedEventArgs e)
-        {
-            ItemBanco.PrazoPagamento = null;
-            ItemBanco.FormaPagamento = null;
-        }
-
-        async void DefinirDataVenda(object sender, RoutedEventArgs e)
-        {
-            var caixa = new DefinirDataVenda();
-            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
-            {
-                ItemBanco.DataHoraVenda = caixa.Data.DateTime;
-            }
-        }
-    }
-
-    struct ExibicaoProdutoVenda
-    {
-        public ProdutoSimplesVenda Base { get; set; }
-        public string Codigo { get; set; }
-        public string Descricao { get; set; }
-        public double Quantidade { get; set; }
-        public string ValorUnitario => Base.ValorUnitario.ToString("C");
-        public string TotalBruto => (Base.ValorUnitario * Quantidade + Base.Seguro + Base.DespesasExtras).ToString("C");
-    }
-
-    struct ClienteManipulacaoRV
-    {
-        public ClienteDI Root { get; set; }
-        public Comprador[] Compradores { get; set; }
     }
 }

@@ -118,14 +118,12 @@ namespace NFeFacil.Repositorio
             return (notasEmitidas, outrasNotas, notasCanceladas);
         }
 
-        public IEnumerable<(ClienteDI, Comprador[])> ObterClientesComCompradores()
+        public Dictionary<Guid, Comprador[]> ObterCompradoresPorCliente()
         {
-            var clients = db.Clientes.Where(x => x.Ativo).OrderBy(x => x.Nome).ToArray();
-            for (int i = 0; i < clients.Length; i++)
-            {
-                var compradores = string.IsNullOrEmpty(clients[i].CNPJ) ? null : db.Compradores.Where(x => x.IdEmpresa == clients[i].Id).ToArray();
-                yield return (clients[i], compradores);
-            }
+            return (from cli in db.Clientes.Where(x => x.Ativo).OrderBy(x => x.Nome)
+                    join comprador in db.Compradores on cli.Id equals comprador.IdEmpresa into compradores
+                    select new { Cliente = cli.Id, Compradores = compradores })
+                          .ToDictionary(x => x.Cliente, y => y.Compradores.ToArray());
         }
 
         public NFeDI ObterNFe(string id) => db.NotasFiscais.Find(id);

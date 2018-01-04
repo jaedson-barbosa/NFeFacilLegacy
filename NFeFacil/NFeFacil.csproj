@@ -386,6 +386,7 @@
     <Compile Include="ViewNFe\InfoInutilizacao.xaml.cs">
       <DependentUpon>InfoInutilizacao.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewRegistroVenda\ExibicaoProdutoVenda.cs" />
     <Compile Include="ViewRegistroVenda\ManipulacaoProdutosRV.xaml.cs">
       <DependentUpon>ManipulacaoProdutosRV.xaml</DependentUpon>
     </Compile>
@@ -571,12 +572,6 @@
     <Compile Include="ViewRegistroVenda\DARV.xaml.cs">
       <DependentUpon>DARV.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewRegistroVenda\DefinirDataVenda.xaml.cs">
-      <DependentUpon>DefinirDataVenda.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewRegistroVenda\InfoPagamento.xaml.cs">
-      <DependentUpon>InfoPagamento.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Produto\GerenciamentoProdutos\Ano.cs" />
     <Compile Include="Controles\NumeroChangedEventArgs.cs" />
     <Compile Include="Login\EscolhaEmitente.xaml.cs">
@@ -654,9 +649,6 @@
     </Compile>
     <Compile Include="ViewNFe\VisualizacaoNFe.xaml.cs">
       <DependentUpon>VisualizacaoNFe.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewRegistroVenda\AplicarFrete.xaml.cs">
-      <DependentUpon>AplicarFrete.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewRegistroVenda\EscolherDimensão.xaml.cs">
       <DependentUpon>EscolherDimensão.xaml</DependentUpon>
@@ -784,9 +776,6 @@
     </Compile>
     <Compile Include="ViewRegistroVenda\AdicionarProduto.xaml.cs">
       <DependentUpon>AdicionarProduto.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewRegistroVenda\CalculoDesconto.xaml.cs">
-      <DependentUpon>CalculoDesconto.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewNFe\CancelarNFe.xaml.cs">
       <DependentUpon>CancelarNFe.xaml</DependentUpon>
@@ -1197,14 +1186,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewRegistroVenda\DefinirDataVenda.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ViewRegistroVenda\InfoPagamento.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Login\EscolhaEmitente.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1305,10 +1286,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewRegistroVenda\AplicarFrete.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="ViewRegistroVenda\EscolherDimensão.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1394,10 +1371,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ViewRegistroVenda\AdicionarProduto.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ViewRegistroVenda\CalculoDesconto.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,4 +1,5 @@
 ﻿using NFeFacil.ItensBD;
+using NFeFacil.View;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -13,10 +14,12 @@ namespace NFeFacil.ViewRegistroVenda
     /// <summary>
     /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
     /// </summary>
-    public sealed partial class ManipulacaoProdutosRV : Page
+    public sealed partial class ManipulacaoProdutosRV : Page, IValida
     {
         RegistroVenda ItemBanco;
         ObservableCollection<ExibicaoProdutoVenda> ListaProdutos { get; set; }
+
+        public bool Concluido => false;
 
         public ManipulacaoProdutosRV()
         {
@@ -78,7 +81,7 @@ namespace NFeFacil.ViewRegistroVenda
 
         private void AppBarButton_Click(object sender, RoutedEventArgs e)
         {
-            MainPage.Current.Navegar<ManipulacaoRegistroVenda>(ItemBanco);
+            MainPage.Current.Navegar<ManipulacaoRegistroVenda>();
         }
     }
 }

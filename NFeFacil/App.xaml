@@ -556,7 +556,7 @@
                             <Setter Property="HorizontalContentAlignment"
                                     Value="Stretch" />
                             <Setter Property="MinHeight"
-                                    Value="30" />
+                                    Value="32" />
                         </Style>
                     </Setter.Value>
                 </Setter>

@@ -92,15 +92,18 @@ namespace ServidorCertificacao
                         }
                         else
                         {
-                            tam -= 2;
+                            tam -= 6;
                             char[] letras = new char[tam];
                             leitor.ReadBlock(letras, 0, tam);
                             Corpo = new string(letras);
                             if (letras.Last() != '>')
                             {
-                                letras = new char[2];
-                                leitor.ReadBlock(letras, 0, 2);
-                                Corpo += new string(letras);
+                                string letra;
+                                do
+                                {
+                                    letra = char.ConvertFromUtf32(leitor.Read());
+                                    Corpo += letra;
+                                } while (letra != ">");
                             }
                             break;
                         }

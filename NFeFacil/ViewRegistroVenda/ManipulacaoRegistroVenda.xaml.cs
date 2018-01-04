@@ -17,18 +17,20 @@ namespace NFeFacil.ViewRegistroVenda
     {
         RegistroVenda ItemBanco { get; set; } = new RegistroVenda();
 
-        ObservableCollection<ExibicaoProdutoVenda> ListaProdutos { get; set; }
         ObservableCollection<ClienteManipulacaoRV> Clientes { get; set; }
         ObservableCollection<MotoristaDI> Motoristas { get; set; }
+        ObservableCollection<Comprador> Compradores { get; set; }
 
         void AtualizarTotal()
         {
             ItemBanco.DescontoTotal = ItemBanco.Produtos.Sum(x => x.Desconto);
 
+            txtTotalAdicionais.Text = ItemBanco.Produtos.Sum(x => x.DespesasExtras).ToString("C");
             txtTotalBruto.Text = ItemBanco.Produtos.Sum(x => x.Quantidade * x.ValorUnitario).ToString("C");
-            txtAdicionais.Text = ItemBanco.Produtos.Sum(x => x.Seguro + x.Frete + x.DespesasExtras).ToString("C");
-            txtDescontoTotal.Text = ItemBanco.DescontoTotal.ToString("C");
-            txtTotal.Text = ItemBanco.Produtos.Sum(x => x.TotalLíquido).ToString("C");
+            txtTotalDesconto.Text = ItemBanco.DescontoTotal.ToString("C");
+            txtTotalFrete.Text = ItemBanco.Produtos.Sum(x => x.Frete).ToString("C");
+            txtTotalLiquido.Text = ItemBanco.Produtos.Sum(x => x.TotalLíquido).ToString("C");
+            txtTotalSeguro.Text = ItemBanco.Produtos.Sum(x => x.Seguro).ToString("C");
         }
 
         ClienteManipulacaoRV Cliente
@@ -37,29 +39,16 @@ namespace NFeFacil.ViewRegistroVenda
             set
             {
                 ItemBanco.Cliente = value.Root.Id;
-                if (!string.IsNullOrEmpty(value.Root.CNPJ))
-                {
-                    DefinirComprador(value);
-                }
-            }
-        }
-
-        async void DefinirComprador(ClienteManipulacaoRV client)
-        {
-            var compradores = client.Compradores;
-            if (compradores?.Length > 0)
-            {
-                var nomes = compradores.Select(x => x.Nome);
-                var caixa = new DefinirComprador(nomes);
-                if (await caixa.ShowAsync() == ContentDialogResult.Primary)
-                {
-                    var escolhido = compradores.First(x => x.Nome == caixa.Escolhido);
-                    ItemBanco.Comprador = escolhido.Id;
-                }
-            }
-            else
-            {
                 ItemBanco.Comprador = default(Guid);
+                if (value.Compradores.Length > 0)
+                {
+                    Compradores.Clear();
+                    for (int i = 0; i < value.Compradores.Length; i++)
+                    {
+                        Compradores.Add(Compradores[i]);
+                    }
+                }
+                cmbComprador.IsEnabled = value.Compradores.Length > 0;
             }
         }
 
@@ -98,53 +87,10 @@ namespace NFeFacil.ViewRegistroVenda
                     Compradores = x.Item2
                 }).GerarObs();
                 Motoristas = repo.ObterMotoristas().GerarObs();
+                Compradores = new ObservableCollection<Comprador>();
             }
-            ItemBanco = new RegistroVenda
-            {
-                Emitente = DefinicoesTemporarias.EmitenteAtivo.Id,
-                Vendedor = DefinicoesTemporarias.VendedorAtivo?.Id ?? Guid.Empty,
-                Produtos = new System.Collections.Generic.List<ProdutoSimplesVenda>(),
-                DataHoraVenda = DefinicoesTemporarias.DateTimeNow,
-                PrazoEntrega = DefinicoesTemporarias.DateTimeNow
-            };
-            ListaProdutos = new ObservableCollection<ExibicaoProdutoVenda>();
+            ItemBanco = (RegistroVenda)e.Parameter;
             AtualizarTotal();
-        }
-
-        private void RemoverProduto(object sender, RoutedEventArgs e)
-        {
-            var prod = (ExibicaoProdutoVenda)((FrameworkElement)sender).DataContext;
-            ListaProdutos.Remove(prod);
-            ItemBanco.Produtos.Remove(prod.Base);
-        }
-
-        private async void AdicionarProduto(object sender, RoutedEventArgs e)
-        {
-            AdicionarProduto caixa = null;
-            caixa = new AdicionarProduto(ListaProdutos.Select(x => x.Base.IdBase).ToArray(), () =>
-            {
-                var novoProdBanco = new ProdutoSimplesVenda
-                {
-                    IdBase = caixa.ProdutoSelecionado.Base.Id,
-                    ValorUnitario = caixa.ProdutoSelecionado.PrecoDouble,
-                    Quantidade = caixa.Quantidade,
-                    Frete = 0,
-                    Seguro = caixa.Seguro,
-                    DespesasExtras = caixa.DespesasExtras
-                };
-                novoProdBanco.CalcularTotalLíquido();
-                var novoProdExib = new ExibicaoProdutoVenda
-                {
-                    Base = novoProdBanco,
-                    Codigo = caixa.ProdutoSelecionado.Codigo,
-                    Descricao = caixa.ProdutoSelecionado.Nome,
-                    Quantidade = novoProdBanco.Quantidade
-                };
-                ListaProdutos.Add(novoProdExib);
-                ItemBanco.Produtos.Add(novoProdBanco);
-                AtualizarTotal();
-            });
-            await caixa.ShowAsync();
         }
 
         private void Finalizar(object sender, RoutedEventArgs e)
@@ -179,10 +125,7 @@ namespace NFeFacil.ViewRegistroVenda
                 {
                     var atual = prods[i];
                     atual.CalcularTotalLíquido();
-                    var antigo = ListaProdutos[i];
-                    antigo.Base = atual;
-                    ListaProdutos[i] = antigo;
-                    ItemBanco.Produtos[i] = antigo.Base;
+                    ItemBanco.Produtos[i] = atual;
                 }
                 ItemBanco.DescontoTotal = prods.Sum(x => x.Desconto);
                 AtualizarTotal();
@@ -194,13 +137,12 @@ namespace NFeFacil.ViewRegistroVenda
             var caixa = new AplicarFrete();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
-                for (int i = 0; i < ListaProdutos.Count; i++)
+                for (int i = 0; i < ItemBanco.Produtos.Count; i++)
                 {
-                    var atual = ListaProdutos[i];
-                    atual.Base.Frete = caixa.Valor / ListaProdutos.Count;
-                    atual.Base.CalcularTotalLíquido();
-                    ListaProdutos[i] = atual;
-                    ItemBanco.Produtos[i] = atual.Base;
+                    var atual = ItemBanco.Produtos[i];
+                    atual.Frete = caixa.Valor / ItemBanco.Produtos.Count;
+                    atual.CalcularTotalLíquido();
+                    ItemBanco.Produtos[i] = atual;
                 }
                 AtualizarTotal();
 

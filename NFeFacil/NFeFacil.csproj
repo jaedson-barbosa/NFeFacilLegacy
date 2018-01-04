@@ -386,6 +386,9 @@
     <Compile Include="ViewNFe\InfoInutilizacao.xaml.cs">
       <DependentUpon>InfoInutilizacao.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewRegistroVenda\ManipulacaoProdutosRV.xaml.cs">
+      <DependentUpon>ManipulacaoProdutosRV.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Progresso.xaml.cs">
       <DependentUpon>Progresso.xaml</DependentUpon>
     </Compile>
@@ -567,9 +570,6 @@
     </Compile>
     <Compile Include="ViewRegistroVenda\DARV.xaml.cs">
       <DependentUpon>DARV.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewRegistroVenda\DefinirComprador.xaml.cs">
-      <DependentUpon>DefinirComprador.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewRegistroVenda\DefinirDataVenda.xaml.cs">
       <DependentUpon>DefinirDataVenda.xaml</DependentUpon>
@@ -1181,6 +1181,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ViewRegistroVenda\ManipulacaoProdutosRV.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Progresso.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1190,10 +1194,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ViewRegistroVenda\DARV.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ViewRegistroVenda\DefinirComprador.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

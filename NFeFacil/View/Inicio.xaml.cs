@@ -39,7 +39,14 @@ namespace NFeFacil.View
                     MainPage.Current.Navegar<GerenciarDadosBase>();
                     break;
                 case "ManipulacaoRegistroVenda":
-                    MainPage.Current.Navegar<ManipulacaoRegistroVenda>();
+                    MainPage.Current.Navegar<ManipulacaoProdutosRV>(new RegistroVenda
+                    {
+                        Emitente = DefinicoesTemporarias.EmitenteAtivo.Id,
+                        Vendedor = DefinicoesTemporarias.VendedorAtivo?.Id ?? Guid.Empty,
+                        Produtos = new System.Collections.Generic.List<ProdutoSimplesVenda>(),
+                        DataHoraVenda = DefinicoesTemporarias.DateTimeNow,
+                        PrazoEntrega = DefinicoesTemporarias.DateTimeNow
+                    });
                     break;
                 case "CriadorNFe":
                     if (await new ViewNFe.CriadorNFe().ShowAsync() == ContentDialogResult.Secondary)

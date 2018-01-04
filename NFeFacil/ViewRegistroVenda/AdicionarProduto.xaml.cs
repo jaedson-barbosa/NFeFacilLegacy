@@ -90,7 +90,7 @@ namespace NFeFacil.ViewRegistroVenda
         {
             args.Cancel = true;
             var log = Log.Popup.Current;
-            if (ProdutoSelecionado.Base == null)
+            if (ProdutoSelecionado?.Base == null)
             {
                 log.Escrever(Log.TitulosComuns.Atenção, "Escolha um produto.");
             }

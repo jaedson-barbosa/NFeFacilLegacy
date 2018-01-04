@@ -7,7 +7,7 @@ namespace NFeFacil.ViewRegistroVenda
 {
     public sealed partial class InfoPagamento : ContentDialog
     {
-        internal DateTimeOffset Prazo { get; private set; }
+        internal DateTimeOffset Prazo { get; private set; } = DefinicoesTemporarias.DateTimeOffsetNow;
         internal string FormaPagamento => FormaPagamentoEspecial ?? FormaPagamentoIntermediada;
 
         string formaPagamentoIntermediada;

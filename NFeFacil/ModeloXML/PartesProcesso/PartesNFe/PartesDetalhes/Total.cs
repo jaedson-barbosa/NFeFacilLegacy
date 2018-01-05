@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTotal;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
 using System.Xml.Serialization;
-using NFeFacil.AtributosVisualizacao;
+using NFeFacil.View;
 
 namespace NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes
 {

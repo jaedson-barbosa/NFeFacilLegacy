@@ -1,4 +1,4 @@
-﻿using NFeFacil.AtributosVisualizacao;
+﻿using NFeFacil.View;
 using System.Collections;
 using System.Linq;
 using System.Reflection;

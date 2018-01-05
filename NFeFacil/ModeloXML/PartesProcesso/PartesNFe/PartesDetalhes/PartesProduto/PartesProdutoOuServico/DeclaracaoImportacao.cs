@@ -1,4 +1,4 @@
-﻿using NFeFacil.AtributosVisualizacao;
+﻿using NFeFacil.View;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 

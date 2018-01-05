@@ -1,4 +1,4 @@
-﻿namespace NFeFacil.AtributosVisualizacao
+﻿namespace NFeFacil.View
 {
     public enum MetodosObtencao
     {

@@ -162,7 +162,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AtributosVisualizacao\MetodosObtencao.cs" />
+    <Compile Include="View\MetodosObtencao.cs" />
     <Compile Include="Certificacao\ConfiguracoesCertificadoImportado.xaml.cs">
       <DependentUpon>ConfiguracoesCertificadoImportado.xaml</DependentUpon>
     </Compile>
@@ -174,7 +174,7 @@
       <DependentUpon>VisualizacaoGenerica.xaml</DependentUpon>
     </Compile>
     <Compile Include="DefinicoesPermanentes.cs" />
-    <Compile Include="AtributosVisualizacao\DescricaoPropriedade.cs" />
+    <Compile Include="View\DescricaoPropriedade.cs" />
     <Compile Include="IBGE\Estado.cs" />
     <Compile Include="IBGE\Estados.cs" />
     <Compile Include="IBGE\Municipio.cs" />
@@ -360,15 +360,15 @@
     <Compile Include="ModeloXML\PartesProcesso\ProtocoloNFe.cs" />
     <Compile Include="ModeloXML\Processo.cs" />
     <Compile Include="ModeloXML\TiposDocumento.cs" />
-    <Compile Include="PacotesBanco\ConjuntoBanco.cs" />
-    <Compile Include="PacotesBanco\ConjuntoDadosBase.cs" />
-    <Compile Include="PacotesBanco\ConjuntoNotasFiscais.cs" />
+    <Compile Include="ConjuntoBanco.cs" />
+    <Compile Include="Sincronizacao\Pacotes\ConjuntoDadosBase.cs" />
+    <Compile Include="Sincronizacao\Pacotes\ConjuntoNotasFiscais.cs" />
     <Compile Include="Certificacao\LAN\Pacotes\CertificadoAssinaturaDTO.cs" />
     <Compile Include="Certificacao\LAN\Pacotes\CertificadosExibicaoDTO.cs" />
     <Compile Include="Certificacao\LAN\Pacotes\RequisicaoEnvioDTO.cs" />
     <Compile Include="Certificacao\LAN\Primitivos\CertificadoAssinatura.cs" />
     <Compile Include="Certificacao\LAN\Primitivos\CertificadoExibicao.cs" />
-    <Compile Include="AtributosVisualizacao\PropriedadeExtensivel.cs" />
+    <Compile Include="View\PropriedadeExtensivel.cs" />
     <Compile Include="Repositorio\Escrita.cs" />
     <Compile Include="Repositorio\Leitura.cs" />
     <Compile Include="Repositorio\OperacoesExtras.cs" />
@@ -869,8 +869,8 @@
     <Compile Include="ViewNFe\CaixasDialogoNFe\AdicionarFornecimentoDiario.xaml.cs">
       <DependentUpon>AdicionarFornecimentoDiario.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AuxiliaresEstilos\BibliotecaCores.cs" />
-    <Compile Include="AuxiliaresEstilos\PainelAdaptavel.cs" />
+    <Compile Include="View\BibliotecaCores.cs" />
+    <Compile Include="View\PainelAdaptavel.cs" />
     <Compile Include="Sincronizacao\SincronizacaoCliente.xaml.cs">
       <DependentUpon>SincronizacaoCliente.xaml</DependentUpon>
     </Compile>

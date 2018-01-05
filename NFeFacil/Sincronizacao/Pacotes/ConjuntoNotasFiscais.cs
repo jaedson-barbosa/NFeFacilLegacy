@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace NFeFacil.Certificacao.LAN.PacotesBanco
+namespace NFeFacil.Sincronizacao.Pacotes
 {
     public sealed class ConjuntoNotasFiscais
     {

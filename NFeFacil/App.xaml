@@ -1,8 +1,7 @@
 ﻿<Application x:Class="NFeFacil.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:aux="using:NFeFacil.AuxiliaresEstilos"
-             xmlns:estilos="using:NFeFacil.AuxiliaresEstilos">
+             xmlns:aux="using:NFeFacil.View">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.ThemeDictionaries>
@@ -84,7 +83,7 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-            <estilos:BibliotecaCores x:Key="cores" />
+            <aux:BibliotecaCores x:Key="cores" />
             <SolidColorBrush x:Key="Normal"
                              Color="{Binding Source={StaticResource cores}, Path=Cor0, Mode=OneTime}" />
             <SolidColorBrush x:Key="PoucoVariada"

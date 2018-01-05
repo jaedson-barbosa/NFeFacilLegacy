@@ -167,7 +167,7 @@ namespace NFeFacil.ViewNFe
 
     sealed class BoolToColor : IValueConverter
     {
-        static readonly Brush Ativo = new SolidColorBrush(new AuxiliaresEstilos.BibliotecaCores().Cor1);
+        static readonly Brush Ativo = new SolidColorBrush(new BibliotecaCores().Cor1);
         static readonly Brush Inativo = new SolidColorBrush(Windows.UI.Colors.Transparent);
 
         public object Convert(object value, Type targetType, object parameter, string language)

@@ -3,7 +3,7 @@ using System.Linq;
 using Windows.Foundation;
 using Windows.UI.Xaml.Controls;
 
-namespace NFeFacil.AuxiliaresEstilos
+namespace NFeFacil.View
 {
     public sealed class PainelAdaptavel : Panel
     {

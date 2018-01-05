@@ -1,4 +1,4 @@
-﻿using NFeFacil.AtributosVisualizacao;
+﻿using NFeFacil.View;
 using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
 using System.Collections.Generic;
 using System.Xml.Serialization;

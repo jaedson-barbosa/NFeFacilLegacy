@@ -2,7 +2,7 @@
 using System;
 using System.Linq;
 
-namespace NFeFacil.AtributosVisualizacao
+namespace NFeFacil.View
 {
     [AttributeUsage(AttributeTargets.All, Inherited = false, AllowMultiple = true)]
     public sealed class PropriedadeExtensivel : Attribute

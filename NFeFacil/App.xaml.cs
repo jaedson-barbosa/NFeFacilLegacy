@@ -19,7 +19,7 @@ namespace NFeFacil
             InitializeComponent();
             IBGE.Estados.Buscar();
             IBGE.Municipios.Buscar();
-            ViewModel.DadosEstadosParaView.Iniciar();
+            View.DadosEstadosParaView.Iniciar();
             if (ConfiguracoesSincronizacao.InícioAutomático)
             {
                 GerenciadorServidor.Current.IniciarServer().ConfigureAwait(false);

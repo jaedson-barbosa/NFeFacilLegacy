@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace NFeFacil.ViewModel
+namespace NFeFacil.View
 {
     public static class DadosEstadosParaView
     {

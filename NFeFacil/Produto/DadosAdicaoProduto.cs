@@ -3,6 +3,7 @@ using NFeFacil.ItensBD;
 using NFeFacil.ModeloXML;
 using NFeFacil.ModeloXML.PartesDetalhes;
 using NFeFacil.ModeloXML.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
+using NFeFacil.Produto.Impostos;
 
 namespace NFeFacil.Produto
 {
@@ -15,10 +16,12 @@ namespace NFeFacil.Produto
                 Produto = auxiliar.ToProdutoOuServico()
             };
             Auxiliar = auxiliar;
+            ImpostosPadrao = auxiliar.GetImpostosPadrao();
         }
 
         public DetalhesProdutos Completo { get; }
         public ProdutoDI Auxiliar { get; }
+        public (PrincipaisImpostos Tipo, string NomeTemplate, int CST)[] ImpostosPadrao { get; }
 
         List<Arma> IProdutoEspecial.armas
         {

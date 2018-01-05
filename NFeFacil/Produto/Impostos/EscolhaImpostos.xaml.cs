@@ -21,11 +21,13 @@ namespace NFeFacil.Produto.Impostos
         Dictionary<int, IDetalhamentoImposto> Escolhidos { get; set; } = new Dictionary<int, IDetalhamentoImposto>();
 
         DetalhesProdutos ProdutoCompleto;
+        (PrincipaisImpostos Tipo, string NomeTemplate, int CST)[] ImpostosPadrao;
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             var conjunto = (DadosAdicaoProduto)e.Parameter;
             ProdutoCompleto = conjunto.Completo;
+            ImpostosPadrao = conjunto.ImpostosPadrao;
 
             var caixa = new MessageDialog("Qual o tipo de imposto que é usado neste dado?", "Entrada");
             caixa.Commands.Add(new UICommand("ICMS"));
@@ -225,6 +227,18 @@ namespace NFeFacil.Produto.Impostos
             {
                 Tipo = tipo;
                 NomeTemplate = "Template padrão";
+            }
+        }
+
+        private void GridView_Loaded(object sender, RoutedEventArgs e)
+        {
+            var grdImpostosSimples = (GridView)sender;
+            var imps = ImpostosPadrao;
+            for (int i = 0; i < grdImpostosSimples.Items.Count; i++)
+            {
+                var atual = ((ImpostoEscolhivel)grdImpostosSimples.Items[i]).Template;
+                var (Tipo, NomeTemplate, CST) = imps.FirstOrDefault(x => x.Tipo == atual.Tipo && x.NomeTemplate == atual.NomeTemplate && x.CST == atual.CST);
+                if (!string.IsNullOrEmpty(NomeTemplate)) grdImpostosSimples.SelectRange(new ItemIndexRange(i, 1));
             }
         }
     }

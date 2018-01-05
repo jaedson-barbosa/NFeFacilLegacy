@@ -5,7 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
-    <GridView SelectionChanged="Grd_SelectionChanged"
+    <GridView Loaded="GridView_Loaded"
+              SelectionChanged="Grd_SelectionChanged"
               ItemsSource="{x:Bind Impostos}"
               SelectionMode="Multiple"
               Padding="16">

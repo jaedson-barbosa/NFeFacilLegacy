@@ -169,8 +169,13 @@
     <Page.BottomAppBar>
         <CommandBar>
             <AppBarButton Icon="Accept"
+                          IsEnabled="{x:Bind PodeConcluir}"
                           Label="Concluir"
-                          Click="Concluir_Click" />
+                          Click="Concluir"
+                          ToolTipService.ToolTip="Usar impostos padrão" />
+            <AppBarButton Icon="Forward"
+                          Label="Avançar"
+                          Click="Avancar" />
         </CommandBar>
     </Page.BottomAppBar>
 </Page>

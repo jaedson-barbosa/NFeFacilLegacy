@@ -11,8 +11,8 @@ using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using NFeFacil.Repositorio;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
+using NFeFacil.ModeloXML.PartesDetalhes;
+using NFeFacil.ModeloXML.PartesDetalhes.PartesTransporte;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 

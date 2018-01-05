@@ -1,4 +1,4 @@
-﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
+﻿using NFeFacil.ModeloXML.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
 using Windows.UI.Xaml.Controls;
 
 // O modelo de item de Caixa de Diálogo de Conteúdo está documentado em https://go.microsoft.com/fwlink/?LinkId=234238

@@ -1,5 +1,5 @@
-﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
+﻿using NFeFacil.ModeloXML.PartesDetalhes.PartesProduto;
+using NFeFacil.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos;
 using static NFeFacil.ExtensoesPrincipal;
 
 namespace NFeFacil.Produto.Impostos.DetalhamentoIPI

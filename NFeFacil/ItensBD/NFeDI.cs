@@ -1,5 +1,4 @@
 ﻿using NFeFacil.ModeloXML;
-using NFeFacil.ModeloXML.PartesProcesso;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;

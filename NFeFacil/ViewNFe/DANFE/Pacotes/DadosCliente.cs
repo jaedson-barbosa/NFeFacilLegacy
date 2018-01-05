@@ -1,4 +1,4 @@
-﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe;
+﻿using NFeFacil.ModeloXML;
 
 namespace NFeFacil.ViewNFe.DANFE.Pacotes
 {

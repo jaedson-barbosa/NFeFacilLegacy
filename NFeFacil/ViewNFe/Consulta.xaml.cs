@@ -1,7 +1,6 @@
 ﻿using NFeFacil.IBGE;
 using NFeFacil.ItensBD;
 using NFeFacil.ModeloXML;
-using NFeFacil.ModeloXML.PartesProcesso;
 using NFeFacil.View;
 using NFeFacil.WebService;
 using NFeFacil.WebService.Pacotes;

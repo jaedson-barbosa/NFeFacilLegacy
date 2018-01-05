@@ -1,5 +1,5 @@
 ﻿using NFeFacil.ModeloXML;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
+using NFeFacil.ModeloXML.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;

@@ -4,7 +4,7 @@ using System.Xml;
 using NFeFacil.Certificacao.LAN.Primitivos;
 using System.Linq;
 using System.Security.Cryptography.Xml;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesAssinatura;
+using NFeFacil.ModeloXML.PartesAssinatura;
 using System.Security.Cryptography.X509Certificates;
 using NFeFacil.Certificacao.LAN.Pacotes;
 using System.Security.Cryptography;

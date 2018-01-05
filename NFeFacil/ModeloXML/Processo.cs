@@ -1,5 +1,4 @@
-﻿using NFeFacil.ModeloXML.PartesProcesso;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 
 namespace NFeFacil.ModeloXML
 {

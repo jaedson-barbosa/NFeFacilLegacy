@@ -1,4 +1,4 @@
-﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
+﻿using NFeFacil.ModeloXML.PartesDetalhes;
 using System;
 
 namespace NFeFacil.ItensBD
@@ -43,7 +43,7 @@ namespace NFeFacil.ItensBD
                 IM = string.IsNullOrWhiteSpace(IM) ? null : IM,
                 CNAE = string.IsNullOrWhiteSpace(CNAE) ? null : CNAE,
                 RegimeTributario = RegimeTributario,
-                Endereco = new ModeloXML.PartesProcesso.PartesNFe.EnderecoCompleto
+                Endereco = new ModeloXML.EnderecoCompleto
                 {
                     Logradouro = Logradouro,
                     Numero = Numero,

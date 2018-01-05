@@ -1,4 +1,4 @@
-﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
+﻿using NFeFacil.ModeloXML.PartesDetalhes;
 
 namespace NFeFacil.Produto.Impostos.DetalhamentoICMS
 {

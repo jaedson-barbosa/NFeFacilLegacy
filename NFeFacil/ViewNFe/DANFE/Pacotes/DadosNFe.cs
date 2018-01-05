@@ -1,4 +1,4 @@
-﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe;
+﻿using NFeFacil.ModeloXML;
 using Windows.UI.Xaml.Media;
 
 namespace NFeFacil.ViewNFe.DANFE.Pacotes

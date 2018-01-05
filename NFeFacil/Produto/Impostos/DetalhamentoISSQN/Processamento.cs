@@ -1,6 +1,6 @@
 ﻿using NFeFacil.Log;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
+using NFeFacil.ModeloXML.PartesDetalhes;
+using NFeFacil.ModeloXML.PartesDetalhes.PartesProduto;
 
 namespace NFeFacil.Produto.Impostos.DetalhamentoISSQN
 {

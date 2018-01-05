@@ -4,9 +4,9 @@
       xmlns:db="using:NFeFacil.ItensBD"
       xmlns:VM="using:NFeFacil.ViewModel"
       xmlns:controles="using:NFeFacil.Controles"
-      xmlns:partesDetalhes="using:NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes"
-      xmlns:partesTransporte="using:NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte"
-      xmlns:partesIdentif="using:NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesIdentificacao"
+      xmlns:partesDetalhes="using:NFeFacil.ModeloXML.PartesDetalhes"
+      xmlns:partesTransporte="using:NFeFacil.ModeloXML.PartesDetalhes.PartesTransporte"
+      xmlns:partesIdentif="using:NFeFacil.ModeloXML.PartesDetalhes.PartesIdentificacao"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">

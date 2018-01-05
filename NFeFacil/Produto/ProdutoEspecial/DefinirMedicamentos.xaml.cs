@@ -1,5 +1,5 @@
 ﻿using NFeFacil.ModeloXML;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
+using NFeFacil.ModeloXML.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

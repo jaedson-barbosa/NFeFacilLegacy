@@ -1,7 +1,7 @@
-﻿using NFeFacil.ModeloXML.PartesProcesso;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTotal;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
+﻿using NFeFacil.ModeloXML;
+using NFeFacil.ModeloXML.PartesDetalhes;
+using NFeFacil.ModeloXML.PartesDetalhes.PartesTotal;
+using NFeFacil.ModeloXML.PartesDetalhes.PartesTransporte;
 using System.Linq;
 
 namespace NFeFacil.Validacao

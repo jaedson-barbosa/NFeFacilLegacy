@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
+using NFeFacil.ModeloXML.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
 
 namespace NFeFacil.ModeloXML
 {

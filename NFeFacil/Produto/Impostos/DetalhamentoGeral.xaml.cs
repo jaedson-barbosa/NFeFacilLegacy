@@ -1,5 +1,5 @@
-﻿using NFeFacil.ModeloXML.PartesProcesso;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
+﻿using NFeFacil.ModeloXML;
+using NFeFacil.ModeloXML.PartesDetalhes;
 using System;
 using System.Reflection;
 using System.Threading.Tasks;

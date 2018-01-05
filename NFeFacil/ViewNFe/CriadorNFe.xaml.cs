@@ -1,8 +1,7 @@
 ﻿using NFeFacil.IBGE;
-using NFeFacil.ModeloXML.PartesProcesso;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
+using NFeFacil.ModeloXML;
+using NFeFacil.ModeloXML.PartesDetalhes;
+using NFeFacil.ModeloXML.PartesDetalhes.PartesTransporte;
 using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;

@@ -2,11 +2,11 @@
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using System.Collections.ObjectModel;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
+using NFeFacil.ModeloXML.PartesDetalhes;
 using System;
 using NFeFacil.Controles;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
+using NFeFacil.ModeloXML.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
+using NFeFacil.ModeloXML.PartesDetalhes.PartesProduto;
 using System.Collections.Generic;
 using NFeFacil.View;
 

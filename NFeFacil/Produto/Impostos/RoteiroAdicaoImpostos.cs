@@ -1,4 +1,4 @@
-﻿using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
+﻿using NFeFacil.ModeloXML.PartesDetalhes;
 using System;
 using System.Linq;
 using Windows.UI.Xaml.Controls;

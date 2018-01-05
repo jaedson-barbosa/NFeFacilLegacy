@@ -1,4 +1,4 @@
-﻿using NFeFacil.ModeloXML.PartesProcesso;
+﻿using NFeFacil.ModeloXML;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

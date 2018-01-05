@@ -1,7 +1,7 @@
 ﻿using NFeFacil.ViewNFe.DANFE.Pacotes;
 using NFeFacil.ModeloXML;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto.PartesImpostos;
+using NFeFacil.ModeloXML.PartesDetalhes;
+using NFeFacil.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos;
 using System;
 using System.Collections.Generic;
 using System.Linq;

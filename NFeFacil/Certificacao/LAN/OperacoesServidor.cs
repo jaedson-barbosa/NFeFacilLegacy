@@ -1,6 +1,6 @@
 ﻿using NFeFacil.Certificacao.LAN.Pacotes;
 using NFeFacil.Certificacao.LAN.Primitivos;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesAssinatura;
+using NFeFacil.ModeloXML.PartesAssinatura;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;

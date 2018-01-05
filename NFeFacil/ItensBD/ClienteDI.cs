@@ -1,5 +1,5 @@
 ﻿using NFeFacil.ModeloXML;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
+using NFeFacil.ModeloXML.PartesDetalhes;
 using System;
 
 namespace NFeFacil.ItensBD
@@ -105,7 +105,7 @@ namespace NFeFacil.ItensBD
                 InscricaoEstadual = InscricaoEstadual,
                 ISUF = string.IsNullOrWhiteSpace(ISUF) ? null : ISUF,
                 Email = string.IsNullOrWhiteSpace(Email) ? null : Email,
-                Endereco = new ModeloXML.PartesProcesso.PartesNFe.EnderecoCompleto
+                Endereco = new EnderecoCompleto
                 {
                     Logradouro = Logradouro,
                     Numero = Numero,

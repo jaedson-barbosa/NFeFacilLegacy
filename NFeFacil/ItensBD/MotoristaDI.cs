@@ -1,5 +1,5 @@
 ﻿using NFeFacil.ModeloXML;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
+using NFeFacil.ModeloXML.PartesDetalhes.PartesTransporte;
 using System;
 
 namespace NFeFacil.ItensBD

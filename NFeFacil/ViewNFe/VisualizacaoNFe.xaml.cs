@@ -1,8 +1,6 @@
 ﻿using NFeFacil.ItensBD;
 using NFeFacil.Log;
 using NFeFacil.ModeloXML;
-using NFeFacil.ModeloXML.PartesProcesso;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe;
 using NFeFacil.Validacao;
 using NFeFacil.View;
 using NFeFacil.WebService;

@@ -11,6 +11,8 @@ using NFeFacil.Produto.ProdutoEspecial;
 using System.Collections.ObjectModel;
 using NFeFacil.Produto.Impostos;
 using System.Threading.Tasks;
+using System.Linq;
+using Windows.UI.Xaml.Data;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -96,6 +98,9 @@ namespace NFeFacil.Produto.GerenciamentoProdutos
                     (string.IsNullOrEmpty(Produto.Descricao), "Não foi informada uma breve descrição do Produto"),
                     (string.IsNullOrEmpty(Produto.CFOP), "Não foi informado o CFOP do Produto")))
                 {
+                    var simples = grdImpostosSimples.SelectedItems.Cast<ImpostoArmazenado>();
+                    var icmss = grdICMSs.SelectedItems.Cast<ImpostoArmazenado>();
+                    Produto.SetImpostosPadrao(simples.Concat(icmss));
                     using (var repo = new Repositorio.Escrita())
                     {
                         repo.SalvarItemSimples(Produto, DefinicoesTemporarias.DateTimeNow);
@@ -211,6 +216,28 @@ namespace NFeFacil.Produto.GerenciamentoProdutos
                 }
             }
             return null;
+        }
+
+        private void grdImpostosSimples_Loaded(object sender, RoutedEventArgs e)
+        {
+            var imps = Produto.GetImpostosPadrao().Where(x => x.Tipo != PrincipaisImpostos.ICMS);
+            for (int i = 0; i < grdImpostosSimples.Items.Count; i++)
+            {
+                var atual = (ImpostoArmazenado)grdImpostosSimples.Items[i];
+                var (Tipo, NomeTemplate, CST) = imps.FirstOrDefault(x => x.Tipo == atual.Tipo && x.NomeTemplate == atual.NomeTemplate && x.CST == atual.CST);
+                if (!string.IsNullOrEmpty(NomeTemplate)) grdImpostosSimples.SelectRange(new ItemIndexRange(i, 1));
+            }
+        }
+
+        private void grdICMSs_Loaded(object sender, RoutedEventArgs e)
+        {
+            var imps = Produto.GetImpostosPadrao().Where(x => x.Tipo == PrincipaisImpostos.ICMS);
+            for (int i = 0; i < grdICMSs.Items.Count; i++)
+            {
+                var atual = (ImpostoArmazenado)grdICMSs.Items[i];
+                var (Tipo, NomeTemplate, CST) = imps.FirstOrDefault(x => x.Tipo == atual.Tipo && x.NomeTemplate == atual.NomeTemplate && x.CST == atual.CST);
+                if (!string.IsNullOrEmpty(NomeTemplate)) grdICMSs.SelectRange(new ItemIndexRange(i, 1));
+            }
         }
     }
 }

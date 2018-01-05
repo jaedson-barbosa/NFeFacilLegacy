@@ -82,8 +82,10 @@
             </GridView>
             <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
                        Margin="0,16,0,0">Impostos simples: IPI, PIS e COFINS</TextBlock>
-            <GridView Style="{StaticResource ItensMediosGrid}"
-                      ItemsSource="{x:Bind ImpostosSimples}">
+            <GridView x:Name="grdImpostosSimples"
+                      Style="{StaticResource ItensMediosGrid}"
+                      SelectionMode="Multiple"
+                      ItemsSource="{x:Bind ImpostosSimples}" Loaded="grdImpostosSimples_Loaded">
                 <GridView.ItemTemplate>
                     <DataTemplate x:DataType="db:ImpSimplesArmazenado">
                         <Grid Background="Transparent"
@@ -107,8 +109,10 @@
             </GridView>
             <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
                        Margin="0,16,0,0">Imposto complexo: ICMS</TextBlock>
-            <GridView Style="{StaticResource ItensMediosGrid}"
-                      ItemsSource="{x:Bind ICMS}">
+            <GridView x:Name="grdICMSs"
+                      Style="{StaticResource ItensMediosGrid}"
+                      SelectionMode="Multiple"
+                      ItemsSource="{x:Bind ICMS}" Loaded="grdICMSs_Loaded">
                 <GridView.ItemTemplate>
                     <DataTemplate x:DataType="db:ICMSArmazenado">
                         <Grid Background="Transparent"

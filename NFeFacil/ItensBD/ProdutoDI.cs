@@ -2,8 +2,10 @@
 using NFeFacil.ModeloXML.PartesDetalhes.PartesProduto;
 using NFeFacil.ModeloXML.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
 using NFeFacil.Produto;
+using NFeFacil.Produto.Impostos;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 
@@ -259,6 +261,23 @@ namespace NFeFacil.ItensBD
             {
                 ICMS = null;
             }
+        }
+
+        public (PrincipaisImpostos Tipo, string NomeTemplate, int CST)[] GetImpostosPadrao()
+        {
+            return string.IsNullOrEmpty(ImpostosPadrao)
+                ? null
+                : ImpostosPadrao.Split(new string[1] { "&#&" }, StringSplitOptions.RemoveEmptyEntries).Select(x =>
+                {
+                    var strs = x.Split(new string[1] { "&|&" }, StringSplitOptions.RemoveEmptyEntries);
+                    return ((PrincipaisImpostos)int.Parse(strs[0]), strs[1], int.Parse(strs[2]));
+                }).ToArray();
+        }
+
+        public void SetImpostosPadrao(IEnumerable<ImpostoArmazenado> impostos)
+        {
+            var imps = impostos.Select(x => $"{(int)x.Tipo}&|&{x.NomeTemplate}&|&{x.CST}&#&");
+            ImpostosPadrao = string.Concat(imps);
         }
 
         public sealed class ProdutoOuServicoGenerico

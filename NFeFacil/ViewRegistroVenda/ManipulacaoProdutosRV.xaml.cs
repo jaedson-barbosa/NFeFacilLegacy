@@ -11,9 +11,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NFeFacil.ViewRegistroVenda
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [DetalhePagina("\uEC59", "Registro de venda")]
     public sealed partial class ManipulacaoProdutosRV : Page, IValida
     {
         RegistroVenda ItemBanco;

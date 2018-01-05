@@ -197,22 +197,19 @@ namespace NFeFacil.Repositorio
             else
             {
                 RegistroVenda vendaAntiga = db.Vendas.Include(x => x.Produtos).First(x => x.Id == ItemBanco.Id);
-                var produtos = (from prod in db.Produtos
-                                join antigo in vendaAntiga.Produtos on prod.Id equals antigo.IdBase
-                                join novo in ItemBanco.Produtos on prod.Id equals novo.Id
-                                select new { Produto = prod, Antigo = antigo, Novo = novo })
-                                    .ToDictionary(x => x.Produto.Id, y => (y.Antigo.Quantidade, y.Novo.Quantidade));
-                foreach (var item in produtos)
+                foreach (var prod in db.Produtos)
                 {
-                    if (item.Value.Item1 != item.Value.Item2)
+                    var antigo = vendaAntiga.Produtos.FirstOrDefault(x => prod.Id == x.IdBase)?.Quantidade ?? 0;
+                    var novo = produtosOrignal.FirstOrDefault(x => prod.Id == x.Id)?.Quantidade ?? 0;
+                    if (antigo != novo)
                     {
-                        var estoque = db.Estoque.Include(x => x.Alteracoes).FirstOrDefault(x => x.Id == item.Key);
+                        var estoque = db.Estoque.Include(x => x.Alteracoes).FirstOrDefault(x => x.Id == prod.Id);
                         if (estoque != null)
                         {
                             estoque.UltimaData = atual;
                             estoque.Alteracoes.Add(new AlteracaoEstoque
                             {
-                                Alteração = item.Value.Item1 - item.Value.Item2,
+                                Alteração = antigo - novo,
                                 MomentoRegistro = atual
                             });
 

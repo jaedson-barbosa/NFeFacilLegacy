@@ -14,7 +14,8 @@
             <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <TextBlock>Informe, em poucas palavras, o principal motivo desta edição nos produtos deste registro de venda.</TextBlock>
-        <TextBox Text="{x:Bind Motivo, Mode=TwoWay}" />
+        <TextBlock TextWrapping="Wrap">Informe, em poucas palavras (no mínimo 10 caracteres), o principal motivo desta edição nos produtos deste registro de venda.</TextBlock>
+        <TextBox Grid.Row="1"
+                 Text="{x:Bind Motivo, Mode=TwoWay}" />
     </Grid>
 </ContentDialog>

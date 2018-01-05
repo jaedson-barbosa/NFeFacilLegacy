@@ -55,6 +55,30 @@ namespace NFeFacil.View
             set => DefinicoesPermanentes.ModoBuscaProduto = value;
         }
 
+        int ModoBuscaCliente
+        {
+            get => DefinicoesPermanentes.ModoBuscaCliente;
+            set => DefinicoesPermanentes.ModoBuscaCliente = value;
+        }
+
+        int ModoBuscaComprador
+        {
+            get => DefinicoesPermanentes.ModoBuscaComprador;
+            set => DefinicoesPermanentes.ModoBuscaComprador = value;
+        }
+
+        int ModoBuscaMotorista
+        {
+            get => DefinicoesPermanentes.ModoBuscaMotorista;
+            set => DefinicoesPermanentes.ModoBuscaMotorista = value;
+        }
+
+        int ModoBuscaVendedor
+        {
+            get => DefinicoesPermanentes.ModoBuscaVendedor;
+            set => DefinicoesPermanentes.ModoBuscaVendedor = value;
+        }
+        
         async void UsarImagem(object sender, TappedRoutedEventArgs e)
         {
             if (await Compra.AnalisarCompra())

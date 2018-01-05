@@ -26,6 +26,15 @@
     </GridView>
     <Page.BottomAppBar>
         <CommandBar>
+            <CommandBar.Content>
+                <Grid Height="48">
+                    <TextBox Margin="8,0"
+                             PlaceholderText="Buscar"
+                             TextChanged="Buscar"
+                             VerticalAlignment="Center"
+                             MinWidth="256" />
+                </Grid>
+            </CommandBar.Content>
             <AppBarButton Icon="Add"
                           Label="Adicionar"
                           Click="AdicionarVendedor" />

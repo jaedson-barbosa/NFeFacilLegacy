@@ -1,5 +1,6 @@
 ﻿using NFeFacil.ItensBD;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -10,6 +11,7 @@ namespace NFeFacil.ViewDadosBase
     [View.DetalhePagina(Symbol.Manage, "Gerenciar compradores")]
     public sealed partial class GerenciarCompradores : Page
     {
+        ExibicaoComprador[] TodosCompradores { get; }
         ObservableCollection<ExibicaoComprador> Compradores { get; }
 
         public GerenciarCompradores()
@@ -17,15 +19,12 @@ namespace NFeFacil.ViewDadosBase
             InitializeComponent();
             using (var repo = new Repositorio.Leitura())
             {
-                Compradores = new ObservableCollection<ExibicaoComprador>();
-                foreach (var atual in repo.ObterCompradores())
+                TodosCompradores = repo.ObterCompradores().Select(x => new ExibicaoComprador
                 {
-                    Compradores.Add(new ExibicaoComprador()
-                    {
-                        Root = atual.Item2,
-                        NomeEmpresa = atual.Item1
-                    });
-                }
+                    Root = x.Item2,
+                    NomeEmpresa = x.Item1
+                }).ToArray();
+                Compradores = TodosCompradores.GerarObs();
             }
         }
 
@@ -49,6 +48,25 @@ namespace NFeFacil.ViewDadosBase
             {
                 repo.InativarDadoBase(compr.Root, DefinicoesTemporarias.DateTimeNow);
                 Compradores.Remove(compr);
+            }
+        }
+
+        private void Buscar(object sender, TextChangedEventArgs e)
+        {
+            var busca = ((TextBox)sender).Text;
+            for (int i = 0; i < TodosCompradores.Length; i++)
+            {
+                var atual = TodosCompradores[i];
+                bool valido = (DefinicoesPermanentes.ModoBuscaComprador == 0
+                    ? atual.Root.Nome : atual.NomeEmpresa).ToUpper().Contains(busca.ToUpper());
+                if (valido && !Compradores.Contains(atual))
+                {
+                    Compradores.Add(atual);
+                }
+                else if (!valido && Compradores.Contains(atual))
+                {
+                    Compradores.Remove(atual);
+                }
             }
         }
     }

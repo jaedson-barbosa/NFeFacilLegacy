@@ -13,6 +13,7 @@ namespace NFeFacil.ViewDadosBase
     [DetalhePagina(Symbol.Manage, "Gerenciar vendedores")]
     public sealed partial class GerenciarVendedores : Page
     {
+        ConjuntoBasicoExibicao<Vendedor>[] TodosVendedores { get; }
         ObservableCollection<ConjuntoBasicoExibicao<Vendedor>> Vendedores { get; }
 
         public GerenciarVendedores()
@@ -20,19 +21,14 @@ namespace NFeFacil.ViewDadosBase
             InitializeComponent();
             using (var repo = new Repositorio.Leitura())
             {
-                var conjuntos = new ObservableCollection<ConjuntoBasicoExibicao<Vendedor>>();
-                foreach (var atual in repo.ObterVendedores())
+                TodosVendedores = repo.ObterVendedores().Select(atual => new ConjuntoBasicoExibicao<Vendedor>
                 {
-                    var novoConjunto = new ConjuntoBasicoExibicao<Vendedor>
-                    {
-                        Objeto = atual.Item1,
-                        Principal = atual.Item1.Nome,
-                        Secundario = ExtensoesPrincipal.AplicarMáscaraDocumento(atual.Item1.CPFStr),
-                        Imagem = atual.Item2?.GetSource()
-                    };
-                    conjuntos.Add(novoConjunto);
-                }
-                Vendedores = conjuntos.OrderBy(x => x.Principal).GerarObs();
+                    Objeto = atual.Item1,
+                    Principal = atual.Item1.Nome,
+                    Secundario = ExtensoesPrincipal.AplicarMáscaraDocumento(atual.Item1.CPFStr),
+                    Imagem = atual.Item2?.GetSource()
+                }).OrderBy(x => x.Principal).ToArray();
+                Vendedores = TodosVendedores.GerarObs();
             }
         }
 
@@ -45,7 +41,7 @@ namespace NFeFacil.ViewDadosBase
         {
             var contexto = ((FrameworkElement)sender).DataContext;
             var obj = ((ConjuntoBasicoExibicao<Vendedor>)contexto).Objeto;
-            MainPage.Current.Navegar<AdicionarVendedor>((Vendedor)obj);
+            MainPage.Current.Navegar<AdicionarVendedor>(obj);
         }
 
         private void InativarVendedor(object sender, RoutedEventArgs e)
@@ -73,6 +69,26 @@ namespace NFeFacil.ViewDadosBase
                 var index = Vendedores.IndexOf(vend);
                 vend.Imagem = caixa.Imagem;
                 Vendedores[index] = vend;
+            }
+        }
+
+        private void Buscar(object sender, TextChangedEventArgs e)
+        {
+            var busca = ((TextBox)sender).Text;
+            for (int i = 0; i < TodosVendedores.Length; i++)
+            {
+                var atual = TodosVendedores[i];
+                bool valido = DefinicoesPermanentes.ModoBuscaVendedor == 0
+                    ? atual.Principal.ToUpper().Contains(busca.ToUpper())
+                    : atual.Objeto.CPFStr.Contains(busca);
+                if (valido && !Vendedores.Contains(atual))
+                {
+                    Vendedores.Add(atual);
+                }
+                else if (!valido && Vendedores.Contains(atual))
+                {
+                    Vendedores.Remove(atual);
+                }
             }
         }
     }

@@ -37,6 +37,46 @@ namespace NFeFacil
             set => Pasta.Values[nameof(ModoBuscaProduto)] = value;
         }
 
+        public static int ModoBuscaCliente
+        {
+            get
+            {
+                var tipo = Pasta.Values[nameof(ModoBuscaCliente)];
+                return tipo == null ? 0 : (int)tipo;
+            }
+            set => Pasta.Values[nameof(ModoBuscaCliente)] = value;
+        }
+
+        public static int ModoBuscaComprador
+        {
+            get
+            {
+                var tipo = Pasta.Values[nameof(ModoBuscaComprador)];
+                return tipo == null ? 0 : (int)tipo;
+            }
+            set => Pasta.Values[nameof(ModoBuscaComprador)] = value;
+        }
+
+        public static int ModoBuscaMotorista
+        {
+            get
+            {
+                var tipo = Pasta.Values[nameof(ModoBuscaMotorista)];
+                return tipo == null ? 0 : (int)tipo;
+            }
+            set => Pasta.Values[nameof(ModoBuscaMotorista)] = value;
+        }
+
+        public static int ModoBuscaVendedor
+        {
+            get
+            {
+                var tipo = Pasta.Values[nameof(ModoBuscaVendedor)];
+                return tipo == null ? 0 : (int)tipo;
+            }
+            set => Pasta.Values[nameof(ModoBuscaVendedor)] = value;
+        }
+        
         internal static Guid IDBackgroung
         {
             get

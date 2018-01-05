@@ -1,6 +1,7 @@
 ﻿using NFeFacil.ItensBD;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -12,6 +13,7 @@ namespace NFeFacil.Produto.GerenciamentoProdutos
     [View.DetalhePagina(Symbol.Manage, "Gerenciar produtos")]
     public sealed partial class GerenciarProdutos : Page
     {
+        ProdutoDI[] TodosProdutos { get; }
         ObservableCollection<ProdutoDI> Produtos { get; }
 
         public GerenciarProdutos()
@@ -19,7 +21,8 @@ namespace NFeFacil.Produto.GerenciamentoProdutos
             InitializeComponent();
             using (var repo = new Repositorio.Leitura())
             {
-                Produtos = repo.ObterProdutos().GerarObs();
+                TodosProdutos = repo.ObterProdutos().ToArray();
+                Produtos = TodosProdutos.GerarObs();
             }
         }
 
@@ -74,6 +77,25 @@ namespace NFeFacil.Produto.GerenciamentoProdutos
             {
                 repo.InativarDadoBase(prod, DefinicoesTemporarias.DateTimeNow);
                 Produtos.Remove(prod);
+            }
+        }
+
+        private void Buscar(object sender, TextChangedEventArgs e)
+        {
+            var busca = ((TextBox)sender).Text;
+            for (int i = 0; i < TodosProdutos.Length; i++)
+            {
+                var atual = TodosProdutos[i];
+                bool valido = (DefinicoesPermanentes.ModoBuscaVendedor == 0
+                    ? atual.Descricao : atual.CodigoProduto).ToUpper().Contains(busca.ToUpper());
+                if (valido && !Produtos.Contains(atual))
+                {
+                    Produtos.Add(atual);
+                }
+                else if (!valido && Produtos.Contains(atual))
+                {
+                    Produtos.Remove(atual);
+                }
             }
         }
     }

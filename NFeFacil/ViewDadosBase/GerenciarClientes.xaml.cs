@@ -1,6 +1,7 @@
 ﻿using NFeFacil.ItensBD;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -11,6 +12,7 @@ namespace NFeFacil.ViewDadosBase
     [View.DetalhePagina(Symbol.Manage, "Gerenciar clientes")]
     public sealed partial class GerenciarClientes : Page
     {
+        ClienteDI[] TodosClientes { get; }
         ObservableCollection<ClienteDI> Clientes { get; }
 
         public GerenciarClientes()
@@ -18,7 +20,8 @@ namespace NFeFacil.ViewDadosBase
             InitializeComponent();
             using (var repo = new Repositorio.Leitura())
             {
-                Clientes = repo.ObterClientes().GerarObs();
+                TodosClientes = repo.ObterClientes().ToArray();
+                Clientes = TodosClientes.GerarObs();
             }
         }
 
@@ -80,6 +83,25 @@ namespace NFeFacil.ViewDadosBase
             {
                 repo.InativarDadoBase(dest, DefinicoesTemporarias.DateTimeNow);
                 Clientes.Remove(dest);
+            }
+        }
+
+        private void Buscar(object sender, TextChangedEventArgs e)
+        {
+            var busca = ((TextBox)sender).Text;
+            for (int i = 0; i < TodosClientes.Length; i++)
+            {
+                var atual = TodosClientes[i];
+                bool valido = (DefinicoesPermanentes.ModoBuscaCliente == 0
+                    ? atual.Nome : atual.Documento).ToUpper().Contains(busca.ToUpper());
+                if (valido && !Clientes.Contains(atual))
+                {
+                    Clientes.Add(atual);
+                }
+                else if (!valido && Clientes.Contains(atual))
+                {
+                    Clientes.Remove(atual);
+                }
             }
         }
     }

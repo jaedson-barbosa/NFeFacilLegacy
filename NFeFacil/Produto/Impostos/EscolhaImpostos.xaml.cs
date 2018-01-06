@@ -44,8 +44,12 @@ namespace NFeFacil.Produto.Impostos
                     new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.II)),
                     new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.ICMSUFDest))
                 };
-                var icms = conjunto.Auxiliar.GetICMSArmazenados().Select(x => new ImpostoEscolhivel(x));
-                impostos.AddRange(icms);
+                var icmsArmazenado = conjunto.Auxiliar.GetICMSArmazenados();
+                if (icmsArmazenado != null && icmsArmazenado.Count() > 0)
+                {
+                    var icms = icmsArmazenado.Select(x => new ImpostoEscolhivel(x));
+                    impostos.AddRange(icms);
+                }
             }
             else
             {
@@ -58,8 +62,12 @@ namespace NFeFacil.Produto.Impostos
                     new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.ICMSUFDest))
                 };
             }
-            var imps = conjunto.Auxiliar.GetImpSimplesArmazenados().Select(x => new ImpostoEscolhivel(x));
-            impostos.AddRange(imps);
+            var impsArmazenado = conjunto.Auxiliar.GetImpSimplesArmazenados();
+            if (impsArmazenado != null && impsArmazenado.Count() > 0)
+            {
+                var imps = impsArmazenado.Select(x => new ImpostoEscolhivel(x));
+                impostos.AddRange(imps);
+            }
 
             int i = 0;
             impostos.ForEach(x => x.Id = i++);

@@ -220,7 +220,7 @@ namespace NFeFacil.Produto.GerenciamentoProdutos
 
         private void grdImpostosSimples_Loaded(object sender, RoutedEventArgs e)
         {
-            var imps = Produto.GetImpostosPadrao().Where(x => x.Tipo != PrincipaisImpostos.ICMS);
+            var imps = Produto.GetImpostosPadrao();
             for (int i = 0; i < grdImpostosSimples.Items.Count; i++)
             {
                 var atual = (ImpostoArmazenado)grdImpostosSimples.Items[i];
@@ -231,7 +231,7 @@ namespace NFeFacil.Produto.GerenciamentoProdutos
 
         private void grdICMSs_Loaded(object sender, RoutedEventArgs e)
         {
-            var imps = Produto.GetImpostosPadrao().Where(x => x.Tipo == PrincipaisImpostos.ICMS);
+            var imps = Produto.GetImpostosPadrao();
             for (int i = 0; i < grdICMSs.Items.Count; i++)
             {
                 var atual = (ImpostoArmazenado)grdICMSs.Items[i];

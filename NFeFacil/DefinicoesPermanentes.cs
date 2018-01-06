@@ -5,108 +5,79 @@ namespace NFeFacil
 {
     public static class DefinicoesPermanentes
     {
-        static ApplicationDataContainer Pasta = ApplicationData.Current.LocalSettings;
-
         public static bool SuprimirHorarioVerao
         {
-            get
-            {
-                var tipo = Pasta.Values[nameof(SuprimirHorarioVerao)];
-                return tipo == null ? SuprimirHorarioVerao = false : (bool)tipo;
-            }
-            set => Pasta.Values[nameof(SuprimirHorarioVerao)] = value;
+            get => AssistenteConfig.Get(nameof(SuprimirHorarioVerao), false);
+            set => AssistenteConfig.Set(nameof(SuprimirHorarioVerao), value);
         }
 
         public static bool CalcularNumeroNFe
         {
-            get
-            {
-                var tipo = Pasta.Values[nameof(CalcularNumeroNFe)];
-                return tipo == null ? CalcularNumeroNFe = true : (bool)tipo;
-            }
-            set => Pasta.Values[nameof(CalcularNumeroNFe)] = value;
+            get => AssistenteConfig.Get(nameof(CalcularNumeroNFe), true);
+            set => AssistenteConfig.Set(nameof(CalcularNumeroNFe), value);
         }
 
         public static int ModoBuscaProduto
         {
-            get
-            {
-                var tipo = Pasta.Values[nameof(ModoBuscaProduto)];
-                return tipo == null ? 0 : (int)tipo;
-            }
-            set => Pasta.Values[nameof(ModoBuscaProduto)] = value;
+            get => AssistenteConfig.Get(nameof(ModoBuscaProduto), 0);
+            set => AssistenteConfig.Set(nameof(ModoBuscaProduto), value);
         }
 
         public static int ModoBuscaCliente
         {
-            get
-            {
-                var tipo = Pasta.Values[nameof(ModoBuscaCliente)];
-                return tipo == null ? 0 : (int)tipo;
-            }
-            set => Pasta.Values[nameof(ModoBuscaCliente)] = value;
+            get => AssistenteConfig.Get(nameof(ModoBuscaCliente), 0);
+            set => AssistenteConfig.Set(nameof(ModoBuscaCliente), value);
         }
 
         public static int ModoBuscaComprador
         {
-            get
-            {
-                var tipo = Pasta.Values[nameof(ModoBuscaComprador)];
-                return tipo == null ? 0 : (int)tipo;
-            }
-            set => Pasta.Values[nameof(ModoBuscaComprador)] = value;
+            get => AssistenteConfig.Get(nameof(ModoBuscaComprador), 0);
+            set => AssistenteConfig.Set(nameof(ModoBuscaComprador), value);
         }
 
         public static int ModoBuscaMotorista
         {
-            get
-            {
-                var tipo = Pasta.Values[nameof(ModoBuscaMotorista)];
-                return tipo == null ? 0 : (int)tipo;
-            }
-            set => Pasta.Values[nameof(ModoBuscaMotorista)] = value;
+            get => AssistenteConfig.Get(nameof(ModoBuscaMotorista), 0);
+            set => AssistenteConfig.Set(nameof(ModoBuscaMotorista), value);
         }
 
         public static int ModoBuscaVendedor
         {
-            get
-            {
-                var tipo = Pasta.Values[nameof(ModoBuscaVendedor)];
-                return tipo == null ? 0 : (int)tipo;
-            }
-            set => Pasta.Values[nameof(ModoBuscaVendedor)] = value;
+            get => AssistenteConfig.Get(nameof(ModoBuscaVendedor), 0);
+            set => AssistenteConfig.Set(nameof(ModoBuscaVendedor), value);
         }
         
         internal static Guid IDBackgroung
         {
-            get
-            {
-                var valor = Pasta.Values["IDBackgroung"];
-                return valor != null ? (Guid)valor : Guid.Empty;
-            }
-            set => Pasta.Values["IDBackgroung"] = value;
+            get => AssistenteConfig.Get(nameof(IDBackgroung), Guid.Empty);
+            set => AssistenteConfig.Set(nameof(IDBackgroung), value);
         }
 
         internal static TiposBackground TipoBackground
         {
-            get
-            {
-                var atual = Pasta.Values[nameof(TipoBackground)];
-                return atual == null ? TiposBackground.Padrao : (TiposBackground)atual;
-            }
-            set => Pasta.Values[nameof(TipoBackground)] = (int)value;
+            get => AssistenteConfig.Get(nameof(TipoBackground), TiposBackground.Padrao);
+            set => AssistenteConfig.Set(nameof(TipoBackground), value);
         }
 
         internal static double OpacidadeBackground
         {
-            get
-            {
-                var atual = Pasta.Values[nameof(OpacidadeBackground)];
-                return atual == null ? 1 : (double)atual;
-            }
-            set => Pasta.Values[nameof(OpacidadeBackground)] = value;
+            get => AssistenteConfig.Get(nameof(OpacidadeBackground), 1);
+            set => AssistenteConfig.Set(nameof(OpacidadeBackground), value);
         }
     }
 
     internal enum TiposBackground { Imagem, Cor, Padrao }
+
+    static class AssistenteConfig
+    {
+        static ApplicationDataContainer Pasta = ApplicationData.Current.LocalSettings;
+
+        public static T Get<T>(string nome, T padrao)
+        {
+            var atual = Pasta.Values[nome];
+            return atual == null ? padrao : (T)atual;
+        }
+
+        public static void Set(string nome, object valor) => Pasta.Values[nome] = valor;
+    }
 }

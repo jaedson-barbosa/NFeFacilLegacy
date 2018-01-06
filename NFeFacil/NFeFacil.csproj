@@ -1569,9 +1569,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Connected Services\" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="LiveCharts.Uwp">
       <Version>0.8.0</Version>
     </PackageReference>

@@ -131,8 +131,10 @@
                             <ColumnDefinition Width="{x:Bind local:ProdutosDARV.Largura3}" />
                         </Grid.ColumnDefinitions>
                         <TextBlock>Código</TextBlock>
-                        <TextBlock Grid.Column="1">Quantidade</TextBlock>
-                        <TextBlock Grid.Column="2">Descrição</TextBlock>
+                        <TextBlock Grid.Column="1"
+                                   TextAlignment="Right">Quantidade</TextBlock>
+                        <TextBlock Grid.Column="2"
+                                   Margin="8,0,0,0">Descrição</TextBlock>
                         <TextBlock Grid.Column="3" HorizontalAlignment="Right">Valor unitário</TextBlock>
                         <TextBlock Grid.Column="4" HorizontalAlignment="Right">Valor total</TextBlock>
                     </Grid>
@@ -156,9 +158,10 @@
                             </Grid.ColumnDefinitions>
                             <TextBlock Text="{x:Bind CodigoProduto}" />
                             <TextBlock Grid.Column="1"
-                                       Text="{x:Bind Quantidade}" />
+                                       Text="{x:Bind Quantidade}"
+                                       TextAlignment="Right" />
                             <TextBlock Grid.Column="2"
-                                       Text="{x:Bind Descricao}"
+                                       Text="{x:Bind Descricao}" Margin="8,0,0,0"
                                        TextWrapping="Wrap" />
                             <TextBlock Grid.Column="3"
                                        HorizontalAlignment="Right"
@@ -182,14 +185,14 @@
         <Style TargetType="TextBlock"
                x:Key="Padrao">
             <Setter Property="FontFamily"
-                    Value="Times New Roman" />
+                    Value="Arial" />
             <Setter Property="FontSize"
-                    Value="14" />
+                    Value="16" />
         </Style>
         <Style TargetType="TextBlock"
                x:Key="Titulo">
             <Setter Property="FontFamily"
-                    Value="Times New Roman" />
+                    Value="Arial" />
             <Setter Property="FontSize"
                     Value="20" />
             <Setter Property="FontWeight"
@@ -198,7 +201,7 @@
         <Style TargetType="TextBlock"
                x:Key="Subtitulo">
             <Setter Property="FontFamily"
-                    Value="Times New Roman" />
+                    Value="Arial" />
             <Setter Property="FontSize"
                     Value="20" />
         </Style>
@@ -219,7 +222,7 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition x:Name="alturaLinhaProdutos" />
-                    <RowDefinition x:Name="alturaLinhaFinalProdutos" Height="Auto" />
+                    <RowDefinition x:Name="alturaFinalProdutos" Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />

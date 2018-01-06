@@ -164,7 +164,7 @@ namespace NFeFacil.ViewRegistroVenda
             }
 
             alturaLinhaProdutos.Height = new GridLength(1, GridUnitType.Auto);
-            alturaLinhaFinalProdutos.Height = new GridLength(1, GridUnitType.Star);
+            alturaFinalProdutos.Height = new GridLength(1, GridUnitType.Star);
         }
 
         async void Imprimir(object sender, RoutedEventArgs e)
@@ -186,7 +186,7 @@ namespace NFeFacil.ViewRegistroVenda
     {
         public ObservableCollection<ExibicaoProduto> Produtos { get; set; }
 
-        public static GridLength Largura2 { get; } = CMToLength(2);
+        public static GridLength Largura2 { get; } = CMToLength(2.5);
         public static GridLength Largura3 { get; } = CMToLength(3);
     }
 

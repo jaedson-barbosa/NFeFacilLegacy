@@ -241,12 +241,14 @@ namespace NFeFacil.Produto.Impostos
         private void GridView_Loaded(object sender, RoutedEventArgs e)
         {
             var grdImpostosSimples = (GridView)sender;
-            var imps = ImpostosPadrao;
-            for (int i = 0; i < grdImpostosSimples.Items.Count; i++)
+            if (ImpostosPadrao != null)
             {
-                var atual = ((ImpostoEscolhivel)grdImpostosSimples.Items[i]).Template;
-                var (Tipo, NomeTemplate, CST) = imps.FirstOrDefault(x => x.Tipo == atual.Tipo && x.NomeTemplate == atual.NomeTemplate && x.CST == atual.CST);
-                if (!string.IsNullOrEmpty(NomeTemplate)) grdImpostosSimples.SelectRange(new ItemIndexRange(i, 1));
+                for (int i = 0; i < grdImpostosSimples.Items.Count; i++)
+                {
+                    var atual = ((ImpostoEscolhivel)grdImpostosSimples.Items[i]).Template;
+                    var (Tipo, NomeTemplate, CST) = ImpostosPadrao.FirstOrDefault(x => x.Tipo == atual.Tipo && x.NomeTemplate == atual.NomeTemplate && x.CST == atual.CST);
+                    if (!string.IsNullOrEmpty(NomeTemplate)) grdImpostosSimples.SelectRange(new ItemIndexRange(i, 1));
+                }
             }
         }
     }

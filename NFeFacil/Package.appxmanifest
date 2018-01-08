@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="642Jabasoft.NFeFcil" Publisher="CN=C2D7C8B5-576A-4555-BF26-0D4B12E8FBC1" Version="1.8.10.0" />
+  <Identity Name="642Jabasoft.NFeFcil" Publisher="CN=C2D7C8B5-576A-4555-BF26-0D4B12E8FBC1" Version="1.8.11.0" />
   <mp:PhoneIdentity PhoneProductId="5fe3da84-a899-474f-9ff7-ce8de0436cd9" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>NFe Fácil</DisplayName>

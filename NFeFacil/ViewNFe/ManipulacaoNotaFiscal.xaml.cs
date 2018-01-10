@@ -381,6 +381,13 @@ namespace NFeFacil.ViewNFe
 
         #region Adição e remoção básica
 
+        private void AdicionarProduto(object sender, ItemClickEventArgs e)
+        {
+            var prod = (ProdutoDI)e.ClickedItem;
+            var dados = new DadosAdicaoProduto(prod);
+            MainPage.Current.Navegar<ManipulacaoProdutoCompleto>(dados);
+        }
+
         async void EditarProduto(DetalhesProdutos produto)
         {
             var caixa = new MessageDialog("A edição de um produto causa a perda de todos os impostos cadastrados atualmente neste produto, tem certeza que quer continuar?", "Atenção");
@@ -388,7 +395,12 @@ namespace NFeFacil.ViewNFe
             caixa.Commands.Add(new UICommand("Não"));
             if ((await caixa.ShowAsync()).Label == "Sim")
             {
-                MainPage.Current.Navegar<ManipulacaoProdutoCompleto>(produto);
+                using (var repo = new Repositorio.Leitura())
+                {
+                    var prodDI = repo.ObterProduto(produto.Produto.CodigoProduto);
+                    var dados = new DadosAdicaoProduto(prodDI, produto);
+                    MainPage.Current.Navegar<ManipulacaoProdutoCompleto>(produto);
+                }
             }
         }
 
@@ -749,13 +761,6 @@ namespace NFeFacil.ViewNFe
             {
                 controle.IsOn = false;
             }
-        }
-
-        private void AdicionarProduto(object sender, ItemClickEventArgs e)
-        {
-            var prod = (ProdutoDI)e.ClickedItem;
-            var dados = new DadosAdicaoProduto(prod);
-            MainPage.Current.Navegar<ManipulacaoProdutoCompleto>(dados);
         }
     }
 

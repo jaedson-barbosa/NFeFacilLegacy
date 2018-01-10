@@ -39,25 +39,29 @@ namespace NFeFacil.View
 
         async void Buscar(object sender, RoutedEventArgs e)
         {
-            var open = new Windows.Storage.Pickers.FileOpenPicker();
-            open.FileTypeFilter.Add(".jpg");
-            open.FileTypeFilter.Add(".jpeg");
-            open.FileTypeFilter.Add(".png");
-            var arq = await open.PickSingleFileAsync();
-            if (arq != null)
+            try
             {
-                var buffer = await FileIO.ReadBufferAsync(arq);
-                bytes = buffer.ToArray();
-
-                var source = new BitmapImage();
-                using (var stream = new InMemoryRandomAccessStream())
+                var open = new Windows.Storage.Pickers.FileOpenPicker();
+                open.FileTypeFilter.Add(".jpg");
+                open.FileTypeFilter.Add(".jpeg");
+                open.FileTypeFilter.Add(".png");
+                var arq = await open.PickSingleFileAsync();
+                if (arq != null)
                 {
-                    await stream.WriteAsync(buffer);
-                    stream.Seek(0);
-                    source.SetSource(stream);
-                    imgAtual.Source = source;
+                    var buffer = await FileIO.ReadBufferAsync(arq);
+                    bytes = buffer.ToArray();
+
+                    var source = new BitmapImage();
+                    using (var stream = new InMemoryRandomAccessStream())
+                    {
+                        await stream.WriteAsync(buffer);
+                        stream.Seek(0);
+                        source.SetSource(stream);
+                        imgAtual.Source = source;
+                    }
                 }
             }
+            catch { }
         }
 
         void Apagar(object sender, RoutedEventArgs e)

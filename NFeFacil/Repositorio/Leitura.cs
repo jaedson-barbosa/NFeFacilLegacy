@@ -133,6 +133,7 @@ namespace NFeFacil.Repositorio
         public Vendedor ObterVendedor(Guid id) => db.Vendedores.Find(id);
         public Comprador ObterComprador(Guid id) => db.Compradores.Find(id);
         public ProdutoDI ObterProduto(Guid id) => db.Produtos.Find(id);
+        public ProdutoDI ObterProduto(string id) => db.Produtos.FirstOrDefault(x => x.CodigoProduto == id);
         public CancelamentoRegistroVenda ObterCRV(Guid id) => db.CancelamentosRegistroVenda.Find(id);
 
         public IEnumerable<(MotoristaDI, VeiculoDI, VeiculoDI[])> ObterMotoristasComVeiculos()

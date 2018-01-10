@@ -19,6 +19,13 @@ namespace NFeFacil.Produto
             ImpostosPadrao = auxiliar.GetImpostosPadrao();
         }
 
+        public DadosAdicaoProduto(ProdutoDI auxiliar, DetalhesProdutos completo)
+        {
+            Completo = completo;
+            Auxiliar = auxiliar;
+            ImpostosPadrao = auxiliar.GetImpostosPadrao();
+        }
+
         public DetalhesProdutos Completo { get; }
         public ProdutoDI Auxiliar { get; }
         public (PrincipaisImpostos Tipo, string NomeTemplate, int CST)[] ImpostosPadrao { get; }

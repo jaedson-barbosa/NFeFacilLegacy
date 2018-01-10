@@ -10,7 +10,7 @@
             <DoubleAnimation Storyboard.TargetName="carregamento"
                              Storyboard.TargetProperty="ActualValue"
                              EnableDependentAnimation="True"
-                             Duration="0:1:0"
+                             Duration="0:2:0"
                              To="10" />
         </Storyboard>
     </Page.Resources>

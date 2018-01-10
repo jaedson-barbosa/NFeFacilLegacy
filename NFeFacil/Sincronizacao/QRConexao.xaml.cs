@@ -72,7 +72,7 @@ namespace NFeFacil.Sincronizacao
             {
                 brechaAberta = true;
                 teste.Begin();
-                await Task.Delay(60000);
+                await Task.Delay(TimeSpan.FromMinutes(2));
                 await PararDeAceitarNovasConexoes();
                 MainPage.Current.Retornar();
             }

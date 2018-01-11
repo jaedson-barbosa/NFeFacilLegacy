@@ -1,5 +1,6 @@
 ﻿using NFeFacil.View;
 using System;
+using System.Globalization;
 using System.Reflection;
 using Windows.ApplicationModel.Core;
 using Windows.System.Profile;
@@ -69,6 +70,11 @@ namespace NFeFacil
                 e.Handled = true;
                 Retornar();
             };
+
+            CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
+            CultureInfo.CurrentUICulture = CultureInfo.InvariantCulture;
+            CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
+            CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.InvariantCulture;
         }
 
         async void Analisar()

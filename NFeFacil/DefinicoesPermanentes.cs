@@ -74,8 +74,12 @@ namespace NFeFacil
 
         public static T Get<T>(string nome, T padrao)
         {
-            var atual = Pasta.Values[nome];
-            return atual == null ? padrao : (T)atual;
+            try
+            {
+                var atual = Pasta.Values[nome];
+                return atual == null ? padrao : (T)atual;
+            }
+            catch { return padrao; }
         }
 
         public static void Set(string nome, object valor) => Pasta.Values[nome] = valor;

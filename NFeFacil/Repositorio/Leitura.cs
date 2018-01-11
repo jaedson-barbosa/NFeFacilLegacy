@@ -89,12 +89,13 @@ namespace NFeFacil.Repositorio
 
         public int ObterMaiorNumeroNFe(string cnpj, ushort serie, bool homologacao)
         {
-            return (from nota in db.NotasFiscais
-                    where nota.CNPJEmitente == cnpj
-                    where nota.SerieNota == serie
-                    let notaHomologacao = nota.NomeCliente.Trim().ToUpper() == "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL"
-                    where homologacao ? notaHomologacao : !notaHomologacao
-                    select nota.NumeroNota).Max();
+            var numeros = from nota in db.NotasFiscais
+                          where nota.CNPJEmitente == cnpj
+                          where nota.SerieNota == serie
+                          let notaHomologacao = nota.NomeCliente.Trim().ToUpper() == "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL"
+                          where homologacao ? notaHomologacao : !notaHomologacao
+                          select nota.NumeroNota;
+            return numeros.Count() == 0 ? 1 : numeros.Max();
         }
 
         public (IEnumerable<NFeDI> emitidas, IEnumerable<NFeDI> outras, IEnumerable<NFeDI> canceladas) ObterNotas(string cnpj)

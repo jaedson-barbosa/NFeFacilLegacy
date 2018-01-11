@@ -48,8 +48,8 @@ namespace NFeFacil.Sincronizacao
 
         public static bool InícioAutomático
         {
-            get => AssistenteConfig.Get(nameof(IPServidor), false);
-            set => AssistenteConfig.Set(nameof(IPServidor), value);
+            get => AssistenteConfig.Get(nameof(InícioAutomático), false);
+            set => AssistenteConfig.Set(nameof(InícioAutomático), value);
         }
     }
 }

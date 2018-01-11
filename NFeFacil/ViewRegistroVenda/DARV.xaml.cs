@@ -96,7 +96,7 @@ namespace NFeFacil.ViewRegistroVenda
             Subtotal = subtotal.ToString("C2");
             Acrescimos = acrescimos.ToString("C2");
             Desconto = desconto.ToString("C2");
-            Total = (subtotal + acrescimos + desconto).ToString("C2");
+            Total = (subtotal + acrescimos - desconto).ToString("C2");
 
             ListaProdutos = produtos;
 

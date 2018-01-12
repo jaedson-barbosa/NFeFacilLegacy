@@ -7,7 +7,7 @@ namespace NFeFacil
     {
         static ApplicationDataContainer Pasta = ApplicationData.Current.LocalSettings;
 
-        public static T Get<T>(string nome, T padrao) where T : struct
+        public static T Get<T>(string nome, T padrao)
         {
             try
             {

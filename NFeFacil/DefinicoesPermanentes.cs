@@ -1,5 +1,4 @@
 ﻿using System;
-using Windows.Storage;
 
 namespace NFeFacil
 {
@@ -67,21 +66,4 @@ namespace NFeFacil
     }
 
     internal enum TiposBackground { Imagem, Cor, Padrao }
-
-    static class AssistenteConfig
-    {
-        static ApplicationDataContainer Pasta = ApplicationData.Current.LocalSettings;
-
-        public static T Get<T>(string nome, T padrao)
-        {
-            try
-            {
-                var atual = Pasta.Values[nome];
-                return atual == null ? padrao : (T)atual;
-            }
-            catch { return padrao; }
-        }
-
-        public static void Set(string nome, object valor) => Pasta.Values[nome] = valor;
-    }
 }

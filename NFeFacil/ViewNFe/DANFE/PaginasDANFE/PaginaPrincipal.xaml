@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="NFeFacil.ViewNFe.DANFE.PaginasDANFE.PaginaPrincipal"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:partes="using:NFeFacil.ViewNFe.DANFE.PartesDANFE"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignHeight="300"
+             d:DesignWidth="400">
+    <Grid Width="{x:Bind LarguraPagina}"
+          Height="{x:Bind AlturaPagina}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition x:Name="espacoParaProdutos" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <StackPanel Padding="{x:Bind MargemPadrao}">
+            <partes:Canhoto Contexto="{x:Bind ContextoCanhoto}" />
+            <partes:DadosNFe x:Name="parteDadosNFe" Contexto="{x:Bind ContextoNFe}" />
+            <partes:CampoCliente Contexto="{x:Bind ContextoCliente}" />
+            <partes:CampoFatura Contexto="{x:Bind ContextoGeral.Fatura}" />
+            <partes:CampoImposto Contexto="{x:Bind ContextoImposto}" />
+            <partes:CampoTransporte Contexto="{x:Bind ContextoTransporte}" />
+            <partes:CampoProdutos Loaded="CampoProdutos_Loaded" />
+        </StackPanel>
+        <StackPanel Padding="{x:Bind MargemPadrao}"
+                    Grid.Row="2">
+            <partes:CampoISSQN Contexto="{x:Bind ContextoISSQN}" />
+            <partes:CampoDadosAdicionais x:Name="infoAdicional"
+                                         Contexto="{x:Bind ContextoDadosAdicionais}" />
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -1,25 +1,22 @@
-﻿using NFeFacil.Log;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe;
-
-namespace NFeFacil.Validacao
+﻿namespace NFeFacil.Validacao
 {
-    internal sealed class Validadorendereco : IValidavel
+    internal sealed class ValidadorEndereco : IValidavel
     {
-        private EnderecoCompleto End;
+        private IEnderecoCompleto End;
 
-        public Validadorendereco(EnderecoCompleto end)
+        public ValidadorEndereco(IEnderecoCompleto end)
         {
             End = end;
         }
 
-        public bool Validar(ILog log)
+        public bool Validar(bool exibirMensagem)
         {
-            return new ValidarDados().ValidarTudo(log,
-                new ConjuntoAnalise(string.IsNullOrEmpty(End.SiglaUF), "Não foi escolhida uma UF"),
-                new ConjuntoAnalise(string.IsNullOrEmpty(End.NomeMunicipio), "Não foi selecionado um município"),
-                new ConjuntoAnalise(string.IsNullOrEmpty(End.Logradouro), "Não foi informado o logradouro"),
-                new ConjuntoAnalise(string.IsNullOrEmpty(End.Numero), "Não foi informado o número do endereco"),
-                new ConjuntoAnalise(string.IsNullOrEmpty(End.Bairro), "Não foi informado o bairro"));
+            return new ValidarDados().ValidarTudo(exibirMensagem,
+                (string.IsNullOrEmpty(End.SiglaUF), "Não foi escolhida uma UF"),
+                (string.IsNullOrEmpty(End.NomeMunicipio), "Não foi selecionado um município"),
+                (string.IsNullOrEmpty(End.Logradouro), "Não foi informado o logradouro"),
+                (string.IsNullOrEmpty(End.Numero), "Não foi informado o número do endereco"),
+                (string.IsNullOrEmpty(End.Bairro), "Não foi informado o bairro"));
         }
     }
 }

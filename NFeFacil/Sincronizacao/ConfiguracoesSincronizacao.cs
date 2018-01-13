@@ -1,22 +1,15 @@
 ﻿using System;
-using Windows.Storage;
 
 namespace NFeFacil.Sincronizacao
 {
     public static class ConfiguracoesSincronizacao
     {
-        private static ApplicationDataContainer Pasta = ApplicationData.Current.LocalSettings;
-
         public static TipoAppSincronizacao Tipo
         {
-            get
-            {
-                var tipo = Pasta.Values[nameof(Tipo)];
-                return tipo == null ? Tipo = TipoAppSincronizacao.Cliente : (TipoAppSincronizacao)tipo;
-            }
+            get => AssistenteConfig.Get(nameof(Tipo), TipoAppSincronizacao.Cliente);
             set
             {
-                Pasta.Values[nameof(Tipo)] = (int)value;
+                AssistenteConfig.Set(nameof(Tipo), (int)value);
                 SenhaPermanente = default(int);
                 SenhaTemporária = default(int);
                 IPServidor = null;
@@ -25,72 +18,38 @@ namespace NFeFacil.Sincronizacao
 
         public static DateTime UltimaSincronizacao
         {
-            get
-            {
-                var valor = Pasta.Values[nameof(UltimaSincronizacao)];
-                if (valor == null) return DateTime.MinValue;
-                else return DateTime.FromBinary((long)valor);
-            }
-            set
-            {
-                Pasta.Values[nameof(UltimaSincronizacao)] = value.ToBinary();
-            }
+            get => DateTime.FromBinary(AssistenteConfig.Get<long>(nameof(UltimaSincronizacao), 0));
+            set => AssistenteConfig.Set(nameof(UltimaSincronizacao), value.ToBinary());
         }
 
         public static DateTime UltimaSincronizacaoNotas
         {
-            get
-            {
-                var valor = Pasta.Values[nameof(UltimaSincronizacaoNotas)];
-                if (valor == null) return DateTime.MinValue;
-                else return DateTime.FromBinary((long)valor);
-            }
-            set
-            {
-                Pasta.Values[nameof(UltimaSincronizacaoNotas)] = value.ToBinary();
-            }
+            get => DateTime.FromBinary(AssistenteConfig.Get<long>(nameof(UltimaSincronizacaoNotas), 0));
+            set => AssistenteConfig.Set(nameof(UltimaSincronizacaoNotas), value.ToBinary());
         }
 
         public static int SenhaPermanente
         {
             get
             {
-                var senha = Pasta.Values[nameof(SenhaPermanente)];
-                if (senha == null || (int)senha == 0)
-                {
-                    var random = new Random();
-                    return SenhaPermanente = random.Next(10000, 100000);
-                }
-                else
-                {
-                    return (int)senha;
-                }
+                var senha = AssistenteConfig.Get(nameof(SenhaPermanente), 0);
+                return senha != 0 ? senha : SenhaPermanente = new Random().Next(10000, 100000);
             }
-            set
-            {
-                Pasta.Values[nameof(SenhaPermanente)] = value;
-            }
+            set => AssistenteConfig.Set(nameof(SenhaPermanente), value);
         }
 
         public static int SenhaTemporária { get; set; }
 
         public static string IPServidor
         {
-            get { return (string)Pasta.Values[nameof(IPServidor)]; }
-            set { Pasta.Values[nameof(IPServidor)] = value; }
+            get => AssistenteConfig.Get<string>(nameof(IPServidor), null);
+            set => AssistenteConfig.Set(nameof(IPServidor), value);
         }
 
         public static bool InícioAutomático
         {
-            get
-            {
-                var tipo = Pasta.Values[nameof(InícioAutomático)];
-                return tipo == null ? InícioAutomático = false : (bool)tipo;
-            }
-            set
-            {
-                Pasta.Values[nameof(InícioAutomático)] = value;
-            }
+            get => AssistenteConfig.Get(nameof(InícioAutomático), false);
+            set => AssistenteConfig.Set(nameof(InícioAutomático), value);
         }
     }
 }

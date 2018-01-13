@@ -11,9 +11,7 @@ using System.Collections.ObjectModel;
 
 namespace NFeFacil.ViewRegistroVenda
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [View.DetalhePagina(Symbol.View, "DARV")]
     public sealed partial class DARV : Page
     {
         internal double AlturaEscolhida { get; private set; }
@@ -41,6 +39,7 @@ namespace NFeFacil.ViewRegistroVenda
 
         ExibicaoProduto[] ListaProdutos;
 
+        Visibility VisibilidadeTransporte { get; set; }
         internal Visibility VisibilidadeNFeRelacionada { get; private set; }
         internal Visibility VisibilidadeComprador { get; private set; }
         internal Visibility VisibilidadePagamento { get; private set; }
@@ -66,41 +65,38 @@ namespace NFeFacil.ViewRegistroVenda
             PaddingEscolhido = new Thickness(dimensoes.PaddingProcessado);
 
             Registro = registro;
-            Emitente = Propriedades.EmitenteAtivo;
+            Emitente = DefinicoesTemporarias.EmitenteAtivo;
+            Cliente = venda.Cliente;
+            Vendedor = venda.Vendedor?.Nome ?? "Dono da empresa";
+            Comprador = venda.Comprador;
+            Motorista = venda.Motorista;
+
             ExibicaoProduto[] produtos = new ExibicaoProduto[registro.Produtos.Count];
             double subtotal = 0;
             double acrescimos = 0;
             double desconto = 0;
-            using (var db = new AplicativoContext())
+            for (var i = 0; i < registro.Produtos.Count; i++)
             {
-                Cliente = db.Clientes.Find(registro.Cliente);
-                Vendedor = db.Vendedores.Find(registro.Vendedor)?.Nome ?? "Dono da empresa";
-                Comprador = db.Compradores.Find(registro.Comprador);
-                Motorista = db.Motoristas.Find(registro.Motorista);
-
-                for (var i = 0; i < registro.Produtos.Count; i++)
+                var atual = registro.Produtos[i];
+                var completo = venda.ProdutosCompletos.First(x => x.Id == atual.IdBase);
+                var totBruto = atual.Quantidade * atual.ValorUnitario;
+                subtotal += totBruto;
+                acrescimos += atual.DespesasExtras + atual.Frete + atual.Seguro;
+                desconto += atual.Desconto;
+                produtos[i] = new ExibicaoProduto
                 {
-                    var atual = registro.Produtos[i];
-                    var completo = db.Produtos.Find(atual.IdBase);
-                    var totBruto = atual.Quantidade * atual.ValorUnitario;
-                    subtotal += totBruto;
-                    acrescimos += atual.DespesasExtras + atual.Frete + atual.Seguro;
-                    desconto += atual.Desconto;
-                    produtos[i] = new ExibicaoProduto
-                    {
-                        Quantidade = atual.Quantidade.ToString("N2"),
-                        CodigoProduto = completo.CodigoProduto,
-                        Descricao = completo.Descricao,
-                        ValorUnitario = atual.ValorUnitario.ToString("C2"),
-                        TotalBruto = totBruto.ToString("C2")
-                    };
-                }
+                    Quantidade = atual.Quantidade.ToString("N2"),
+                    CodigoProduto = completo.CodigoProduto,
+                    Descricao = completo.Descricao,
+                    ValorUnitario = atual.ValorUnitario.ToString("C2"),
+                    TotalBruto = totBruto.ToString("C2")
+                };
             }
 
             Subtotal = subtotal.ToString("C2");
             Acrescimos = acrescimos.ToString("C2");
             Desconto = desconto.ToString("C2");
-            Total = (subtotal + acrescimos + desconto).ToString("C2");
+            Total = (subtotal + acrescimos - desconto).ToString("C2");
 
             ListaProdutos = produtos;
 
@@ -111,10 +107,17 @@ namespace NFeFacil.ViewRegistroVenda
             else
                 TemplateCliente = ClienteExterior;
 
-            if (!string.IsNullOrEmpty(Motorista.CPF))
-                TemplateTransporte = TransporteFisico;
-            else if (!string.IsNullOrEmpty(Motorista.CNPJ))
-                TemplateTransporte = TransporteJuridico;
+            if (Motorista != null)
+            {
+                if (!string.IsNullOrEmpty(Motorista.CPF))
+                    TemplateTransporte = TransporteFisico;
+                else if (!string.IsNullOrEmpty(Motorista.CNPJ))
+                    TemplateTransporte = TransporteJuridico;
+            }
+            else
+            {
+                VisibilidadeTransporte = Visibility.Collapsed;
+            }
 
             VisibilidadeNFeRelacionada = string.IsNullOrEmpty(Registro.NotaFiscalRelacionada) ? Visibility.Collapsed : Visibility.Visible;
             VisibilidadeComprador = Comprador == null ? Visibility.Collapsed : Visibility.Visible;
@@ -161,7 +164,7 @@ namespace NFeFacil.ViewRegistroVenda
             }
 
             alturaLinhaProdutos.Height = new GridLength(1, GridUnitType.Auto);
-            alturaLinhaFinalProdutos.Height = new GridLength(1, GridUnitType.Star);
+            alturaFinalProdutos.Height = new GridLength(1, GridUnitType.Star);
         }
 
         async void Imprimir(object sender, RoutedEventArgs e)
@@ -183,8 +186,8 @@ namespace NFeFacil.ViewRegistroVenda
     {
         public ObservableCollection<ExibicaoProduto> Produtos { get; set; }
 
-        public static GridLength Largura2 { get; } = CentimeterToLength(2);
-        public static GridLength Largura3 { get; } = CentimeterToLength(3);
+        public static GridLength Largura2 { get; } = CMToLength(2.5);
+        public static GridLength Largura3 { get; } = CMToLength(3);
     }
 
     public struct Dimensoes
@@ -192,11 +195,11 @@ namespace NFeFacil.ViewRegistroVenda
         public Dimensoes(double largura, double altura, double padding)
         {
             LarguraOriginal = largura;
-            LarguraProcessada = CentimeterToPixel(largura);
+            LarguraProcessada = CMToPixel(largura);
             AlturaOriginal = altura;
-            AlturaProcessada = altura != 0 ? CentimeterToPixel(altura) : double.NaN;
+            AlturaProcessada = altura != 0 ? CMToPixel(altura) : double.NaN;
             PaddingOriginal = padding;
-            PaddingProcessado = CentimeterToPixel(padding);
+            PaddingProcessado = CMToPixel(padding);
         }
 
         public double LarguraOriginal { get; set; }
@@ -212,5 +215,10 @@ namespace NFeFacil.ViewRegistroVenda
     {
         public RegistroVenda Venda { get; set; }
         public Dimensoes Dimensoes { get; set; }
+        public ClienteDI Cliente { get; set; }
+        public MotoristaDI Motorista { get; set; }
+        public Vendedor Vendedor { get; set; }
+        public Comprador Comprador { get; set; }
+        public ProdutoDI[] ProdutosCompletos { get; set; }
     }
 }

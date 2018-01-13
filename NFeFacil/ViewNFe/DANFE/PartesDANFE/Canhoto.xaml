@@ -1,0 +1,67 @@
+﻿<UserControl x:Class="NFeFacil.ViewNFe.DANFE.PartesDANFE.Canhoto"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignHeight="100"
+             d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary Source="EstilosPadrao.xaml" />
+    </UserControl.Resources>
+    <StackPanel Margin="{x:Bind Dimensoes.MargemBloco}">
+        <Grid BorderThickness="1"
+              CornerRadius="2"
+              BorderBrush="Black"
+              Margin="{x:Bind Dimensoes.MargemBloco}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="{x:Bind ColunaMeio}" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="{x:Bind Dimensoes.AlturaLinhaPadrao}" />
+                <RowDefinition Height="{x:Bind Dimensoes.AlturaLinhaPadrao}" />
+            </Grid.RowDefinitions>
+            <Border Grid.ColumnSpan="2"
+                    BorderThickness="0,0,1,1"
+                    BorderBrush="Black"
+                    Padding="{StaticResource PaddingPadrao}">
+                <TextBlock FontSize="8">RECEBEMOS DE <Run Text="{x:Bind Contexto.NomeEmitente}" /> OS PRODUTOS/SERVIÇOS CONSTANTES DA NOTA FISCAL INDICADA AO LADO</TextBlock>
+            </Border>
+            <Border Grid.Row="1"
+                    BorderThickness="0,0,1,0"
+                    BorderBrush="Black"
+                    Padding="{StaticResource PaddingPadrao}">
+                <TextBlock FontSize="8">DATA DE RECEBIMENTO</TextBlock>
+            </Border>
+            <Border Grid.Row="1"
+                    Grid.Column="1"
+                    BorderThickness="0,0,1,0"
+                    BorderBrush="Black"
+                    Padding="{StaticResource PaddingPadrao}">
+                <TextBlock FontSize="8">IDENTIFICAÇÃO E ASSINATURA DO RECEBEDOR</TextBlock>
+            </Border>
+            <StackPanel Grid.Column="2"
+                        Grid.RowSpan="2"
+                        Padding="{StaticResource PaddingPadrao}">
+                <TextBlock FontSize="10"
+                           TextAlignment="Center"
+                           FontWeight="Bold">NF-e</TextBlock>
+                <TextBlock FontSize="12"
+                           Margin="0,4,0,8">Nº <Run Text="{x:Bind Contexto.NumeroNota}" /></TextBlock>
+                <TextBlock FontSize="12">Série <Run Text="{x:Bind Contexto.SerieNota}" /></TextBlock>
+            </StackPanel>
+        </Grid>
+        <Path Height="1"
+              Stroke="Black"
+              StrokeThickness="1"
+              StrokeDashArray="4 4"
+              Stretch="UniformToFill">
+            <Path.Data>
+                <LineGeometry StartPoint="0,0"
+                              EndPoint="1,0" />
+            </Path.Data>
+        </Path>
+    </StackPanel>
+</UserControl>

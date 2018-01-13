@@ -1,35 +1,55 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Xml;
-using Windows.UI.Xaml.Controls;
-using NFeFacil.Primitivos;
+using NFeFacil.Certificacao.LAN.Primitivos;
 using System.Linq;
 using System.Security.Cryptography.Xml;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesAssinatura;
+using NFeFacil.ModeloXML.PartesAssinatura;
 using System.Security.Cryptography.X509Certificates;
-using NFeFacil.Pacotes;
+using NFeFacil.Certificacao.LAN.Pacotes;
+using System.Security.Cryptography;
 
 namespace NFeFacil.Certificacao
 {
-    public struct AssinaFacil
+    public sealed class AssinaFacil
     {
-        private ISignature Nota;
+        public ISignature Nota { get; set; }
 
-        public AssinaFacil(ISignature nfe)
+        public static readonly string[] Etapas = new string[2]
         {
-            Nota = nfe;
+            "Obter informações da assinatura",
+            "Processar assinatura"
+        };
+        public CertificadoExibicao[] CertificadosDisponiveis { get; private set; }
+
+        public event ProgressChangedEventHandler ProgressChanged;
+        async Task OnProgressChanged(int conc)
+        {
+            if (ProgressChanged != null) await ProgressChanged(this, conc);
         }
 
-        public async Task Assinar<T>(string id, string tag)
+        public async Task Preparar()
+        {
+            var certs = await Certificados.ObterCertificadosAsync(ConfiguracoesCertificacao.Origem);
+            CertificadosDisponiveis = certs.ToArray();
+        }
+
+        public async Task<(bool, string)> Assinar<T>(object x, string id, string tag)
         {
             var xml = new XmlDocument();
             using (var reader = Nota.ToXElement<T>().CreateReader())
             {
                 xml.Load(reader);
-                var caixa = new SelecaoCertificado();
-                if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+
+                if (x == null)
                 {
-                    var serial = caixa.CertificadoEscolhido;
+                    return (false, "Selecione um certificado.");
+                }
+                try
+                {
+                    var cert = (CertificadoExibicao)x;
+                    var serial = cert.SerialNumber;
+                    await OnProgressChanged(1);
 
                     if (ConfiguracoesCertificacao.Origem == OrigemCertificado.Importado)
                     {
@@ -37,14 +57,10 @@ namespace NFeFacil.Certificacao
                         {
                             loja.Open(OpenFlags.ReadOnly);
                             var temp = loja.Certificates.Find(X509FindType.FindBySerialNumber, serial, true)[0];
-                            Nota.Signature = AssinarXML(new CertificadoAssinatura
-                            {
-                                ChavePrivada = temp.GetRSAPrivateKey(),
-                                RawData = temp.RawData,
-                                Id = id,
-                                Tag = tag,
-                                XML = xml.OuterXml
-                            });
+                            Nota.Signature = AssinarXML(temp.GetRSAPrivateKey(), temp.RawData, id, tag, xml.OuterXml);
+                            await OnProgressChanged(2);
+
+                            return (true, "Documento assinado com sucesso.");
                         }
                     }
                     else
@@ -57,21 +73,28 @@ namespace NFeFacil.Certificacao
                             XML = xml.OuterXml,
                             Serial = serial
                         });
+                        await OnProgressChanged(2);
+
+                        return (true, "Documento assinado com sucesso.");
                     }
+                }
+                catch (Exception e)
+                {
+                    return (false, e.Message);
                 }
             }
         }
 
-        public Assinatura AssinarXML(CertificadoAssinatura certificado)
+        public Assinatura AssinarXML(RSA ChavePrivada, byte[] RawData, string Id, string Tag, string XML)
         {
             var doc = new XmlDocument();
-            doc.LoadXml(certificado.XML);
+            doc.LoadXml(XML);
             var signedXml = new SignedXml(doc)
             {
-                Key = certificado.ChavePrivada
+                Key = ChavePrivada
             };
 
-            Reference reference = new Reference($"#{certificado.Id}", certificado.Tag, signedXml);
+            Reference reference = new Reference($"#{Id}", Tag, signedXml);
             reference.AddTransform(new XmlDsigEnvelopedSignatureTransform());
             reference.AddTransform(new XmlDsigC14NTransform());
             signedXml.AddReference(reference);
@@ -85,7 +108,7 @@ namespace NFeFacil.Certificacao
                 {
                     X509Data = new DadosChave
                     {
-                        X509Certificate = Convert.ToBase64String(certificado.RawData)
+                        X509Certificate = Convert.ToBase64String(RawData)
                     }
                 },
                 SignedInfo = new SignedInfo

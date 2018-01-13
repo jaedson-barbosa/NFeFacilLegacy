@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using NFeFacil.ItensBD;
+﻿using NFeFacil.ItensBD;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -20,15 +19,18 @@ namespace NFeFacil.ViewRegistroVenda
         public double Seguro { get; set; }
         public double DespesasExtras { get; set; }
 
-        public AdicionarProduto(Guid[] produtosJaAdicionados)
+        Action Adicionar { get; }
+
+        public AdicionarProduto(Guid[] produtosJaAdicionados, Action adicionar)
         {
             InitializeComponent();
+            Adicionar = adicionar;
 
-            using (var db = new AplicativoContext())
+            using (var repo = new Repositorio.Leitura())
             {
                 ListaCompletaProdutos = new List<ExibicaoProdutoAdicao>();
-                var estoque = db.Estoque.Include(x => x.Alteracoes);
-                foreach (var item in db.Produtos)
+                var estoque = repo.ObterEstoques();
+                foreach (var item in repo.ObterProdutos())
                 {
                     if (!produtosJaAdicionados.Contains(item.Id))
                     {
@@ -64,7 +66,15 @@ namespace NFeFacil.ViewRegistroVenda
             for (int i = 0; i < ListaCompletaProdutos.Count; i++)
             {
                 var atual = ListaCompletaProdutos[i];
-                var valido = atual.Nome.ToUpper().Contains(busca.ToUpper());
+                bool valido;
+                if (DefinicoesPermanentes.ModoBuscaProduto == 0)
+                {
+                    valido = atual.Nome.ToUpper().Contains(busca.ToUpper());
+                }
+                else
+                {
+                    valido = atual.Codigo.ToUpper().Contains(busca.ToUpper());
+                }
                 if (valido && !Produtos.Contains(atual))
                 {
                     Produtos.Add(atual);
@@ -78,8 +88,9 @@ namespace NFeFacil.ViewRegistroVenda
 
         private void VerificarConformidadeEstoque(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
+            args.Cancel = true;
             var log = Log.Popup.Current;
-            if (ProdutoSelecionado.Base == null)
+            if (ProdutoSelecionado?.Base == null)
             {
                 log.Escrever(Log.TitulosComuns.Atenção, "Escolha um produto.");
             }
@@ -89,13 +100,18 @@ namespace NFeFacil.ViewRegistroVenda
             }
             else if (ProdutoSelecionado.Estoque != "Infinito" && Quantidade > double.Parse(ProdutoSelecionado.Estoque))
             {
-                args.Cancel = true;
                 log.Escrever(Log.TitulosComuns.Atenção, "A quantidade vendida não pode ser maior que a quantidade em estoque.");
+            }
+            else
+            {
+                Adicionar?.Invoke();
+                ListaCompletaProdutos.Remove(ProdutoSelecionado);
+                Produtos.Remove(ProdutoSelecionado);
             }
         }
     }
 
-    public struct ExibicaoProdutoAdicao
+    public sealed class ExibicaoProdutoAdicao
     {
         public ProdutoDI Base { get; set; }
         public string Codigo { get; set; }

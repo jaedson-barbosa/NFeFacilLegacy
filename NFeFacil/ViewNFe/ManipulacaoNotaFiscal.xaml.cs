@@ -2,31 +2,28 @@
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using System.Collections.ObjectModel;
-using NFeFacil.ModeloXML.PartesProcesso;
+using NFeFacil.ModeloXML;
 using NFeFacil.Controles;
 using NFeFacil.ItensBD;
 using System.Collections.Generic;
 using System.Linq;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesIdentificacao;
+using NFeFacil.ModeloXML.PartesDetalhes;
+using NFeFacil.ModeloXML.PartesDetalhes.PartesIdentificacao;
+using NFeFacil.ModeloXML.PartesDetalhes.PartesTotal;
+using NFeFacil.ModeloXML.PartesDetalhes.PartesTransporte;
 using NFeFacil.IBGE;
-using NFeFacil.ModeloXML;
-using NFeFacil.Log;
 using NFeFacil.Validacao;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesProduto;
-using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using NFeFacil.ViewNFe.CaixasDialogoNFe;
+using NFeFacil.View;
+using NFeFacil.Produto;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace NFeFacil.ViewNFe
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [DetalhePagina(Symbol.Document, "Nota fiscal")]
     public sealed partial class ManipulacaoNotaFiscal : Page, IHambuguer, IValida
     {
         public ManipulacaoNotaFiscal()
@@ -45,14 +42,8 @@ namespace NFeFacil.ViewNFe
             new ItemHambuguer("\uE825", "Cobrança"),
             new ItemHambuguer(Symbol.Comment, "Informações adicionais"),
             new ItemHambuguer(Symbol.World, "Exportação e compras"),
-            new ItemHambuguer(new Uri(GetUriCana()), "Cana-de-açúcar")
+            new ItemHambuguer("\uEC0A", "Cana-de-açúcar")
         };
-
-        string GetUriCana()
-        {
-            var usarDark = Application.Current.RequestedTheme == ApplicationTheme.Dark;
-            return usarDark ? "ms-appx:///Assets/CanaAcucarDark.png" : "ms-appx:///Assets/CanaAcucar.png";
-        }
 
         public int SelectedIndex { set => main.SelectedIndex = value; }
 
@@ -60,11 +51,16 @@ namespace NFeFacil.ViewNFe
         {
             var Dados = (NFe)e.Parameter;
 
-            using (var db = new AplicativoContext())
+            using (var repo = new Repositorio.Leitura())
             {
-                ClientesDisponiveis = db.Clientes.Where(x => x.Ativo).OrderBy(x => x.Nome).ToList();
-                MotoristasDisponiveis = db.Motoristas.Where(x => x.Ativo).OrderBy(x => x.Nome).ToList();
-                ProdutosDisponiveis = db.Produtos.Where(x => x.Ativo).OrderBy(x => x.Descricao).ToList();
+                ClientesDisponiveis = repo.ObterClientes().ToList();
+                MotoristasDisponiveis = repo.ObterMotoristasComVeiculos().Select(x => new MotoristaManipulacaoNFe
+                {
+                    Root = x.Item1,
+                    Principal = x.Item2,
+                    Secundarios = x.Item3
+                }).GerarObs();
+                ProdutosDisponiveis = repo.ObterProdutos().ToList();
             }
 
             if (Dados.Informacoes.total == null)
@@ -83,21 +79,26 @@ namespace NFeFacil.ViewNFe
             Deducoes = new ObservableCollection<Deducoes>(NotaSalva.Informacoes.cana.Deduc);
             Observacoes = new ObservableCollection<Observacao>(NotaSalva.Informacoes.infAdic.ObsCont);
             ProcessosReferenciados = new ObservableCollection<ProcessoReferenciado>(NotaSalva.Informacoes.infAdic.ProcRef);
-            Modalidades = ExtensoesPrincipal.ObterItens<ModalidadesTransporte>();
+
+            DataPrestacao = string.IsNullOrEmpty(NotaSalva.Informacoes.total.ISSQNtot?.DCompet)
+                ? DateTimeOffset.Now
+                : DateTimeOffset.Parse(NotaSalva.Informacoes.total.ISSQNtot.DCompet);
+            CRegTrib = (NotaSalva.Informacoes.total.ISSQNtot?.CRegTrib - 1) ?? 0;
+            RetTrib = NotaSalva.Informacoes.total.RetTrib ?? new RetTrib();
 
             AtualizarVeiculo();
-            AtualizarTotais();
+            NotaSalva.Informacoes.total = new Total(NotaSalva.Informacoes.produtos);
         }
 
         const string NomeClienteHomologacao = "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL";
 
-        public NFe NotaSalva { get; private set; }
+        NFe NotaSalva { get; set; }
 
         #region Dados base
 
         public List<ClienteDI> ClientesDisponiveis { get; set; }
         public List<ProdutoDI> ProdutosDisponiveis { get; set; }
-        public List<MotoristaDI> MotoristasDisponiveis { get; set; }
+        ObservableCollection<MotoristaManipulacaoNFe> MotoristasDisponiveis { get; set; }
 
         private ClienteDI clienteSelecionado;
         public ClienteDI ClienteSelecionado
@@ -122,36 +123,42 @@ namespace NFeFacil.ViewNFe
             }
         }
 
-        public ProdutoDI ProdutoSelecionado { get; set; }
-
-        private MotoristaDI motoristaSelecionado;
-        public MotoristaDI MotoristaSelecionado
+        private MotoristaManipulacaoNFe motoristaSelecionado;
+        MotoristaManipulacaoNFe MotoristaSelecionado
         {
             get
             {
                 var mot = NotaSalva.Informacoes.transp?.Transporta;
-                if (motoristaSelecionado == null && mot != null && mot.Documento != null)
+                if (motoristaSelecionado.Equals(default(MotoristaManipulacaoNFe)) && mot?.Documento != null)
                 {
-                    motoristaSelecionado = MotoristasDisponiveis.FirstOrDefault(x => x.Documento == mot.Documento);
+                    motoristaSelecionado = MotoristasDisponiveis.FirstOrDefault(x => x.Root.Documento == mot.Documento);
                 }
                 return motoristaSelecionado;
             }
             set
             {
                 motoristaSelecionado = value;
-                var transporte = NotaSalva.Informacoes.transp;
-                transporte.Transporta = value.ToMotorista();
-                if (value.Veiculo != default(Guid))
-                {
-                    using (var db = new AplicativoContext())
-                        transporte.VeicTransp = db.Veiculos.Find(value.Veiculo).ToVeiculo();
-                }
-                else
-                {
-                    transporte.VeicTransp = new Veiculo();
-                }
-                AtualizarVeiculo();
+                NotaSalva.Informacoes.transp.Transporta = value.Root.ToMotorista();
+                ProcessarVeiculo(value);
             }
+        }
+
+        async void ProcessarVeiculo(MotoristaManipulacaoNFe mot)
+        {
+            VeiculoDI escolhido = null;
+            if (mot.Secundarios != null)
+            {
+                var caixa = new EscolherVeiculo(mot.Secundarios, mot.Principal);
+                await caixa.ShowAsync();
+                escolhido = caixa.Escolhido;
+            }
+            else if (mot.Principal != null)
+            {
+                escolhido = mot.Principal;
+            }
+
+            NotaSalva.Informacoes.transp.VeicTransp = escolhido != null ? escolhido.ToVeiculo() : new Veiculo();
+            AtualizarVeiculo();
         }
 
         void AtualizarVeiculo()
@@ -169,7 +176,7 @@ namespace NFeFacil.ViewNFe
             {
                 if (string.IsNullOrEmpty(NotaSalva.Informacoes.identificacao.DataHoraEmissão))
                 {
-                    var agora = Propriedades.DateTimeNow;
+                    var agora = DefinicoesTemporarias.DateTimeNow;
                     NotaSalva.Informacoes.identificacao.DataHoraEmissão = agora.ToStringPersonalizado();
                     return agora;
                 }
@@ -200,7 +207,7 @@ namespace NFeFacil.ViewNFe
             {
                 if (string.IsNullOrEmpty(NotaSalva.Informacoes.identificacao.DataHoraSaídaEntrada))
                 {
-                    var agora = Propriedades.DateTimeNow;
+                    var agora = DefinicoesTemporarias.DateTimeNow;
                     NotaSalva.Informacoes.identificacao.DataHoraSaídaEntrada = agora.ToStringPersonalizado();
                     return agora;
                 }
@@ -229,6 +236,18 @@ namespace NFeFacil.ViewNFe
         {
             get => NotaSalva.Informacoes.identificacao.CodigoMunicipio;
             set => NotaSalva.Informacoes.identificacao.CodigoMunicipio = value;
+        }
+
+        public int FinalidadeEmissao
+        {
+            get => NotaSalva.Informacoes.identificacao.FinalidadeEmissao - 1;
+            set => NotaSalva.Informacoes.identificacao.FinalidadeEmissao = value + 1;
+        }
+
+        public int IdentificadorDestino
+        {
+            get => NotaSalva.Informacoes.identificacao.IdentificadorDestino - 1;
+            set => NotaSalva.Informacoes.identificacao.IdentificadorDestino = value + 1;
         }
 
         #endregion
@@ -265,10 +284,10 @@ namespace NFeFacil.ViewNFe
             }
         }
 
-        public ModalidadesTransporte ModFrete
+        public string ModFrete
         {
-            get => (ModalidadesTransporte)NotaSalva.Informacoes.transp.ModFrete;
-            set => NotaSalva.Informacoes.transp.ModFrete = (ushort)value;
+            get => NotaSalva.Informacoes.transp.ModFrete.ToString();
+            set => NotaSalva.Informacoes.transp.ModFrete = ushort.Parse(value);
         }
 
         public double CFOP
@@ -279,105 +298,61 @@ namespace NFeFacil.ViewNFe
 
         #endregion
 
+        #region Totais
+
+        DateTimeOffset DataPrestacao { get; set; }
+        int CRegTrib { get; set; }
+        RetTrib RetTrib { get; set; }
+
+        #endregion
+
         void Confirmar()
         {
             try
             {
-                if (new ValidarDados(new ValidadorEmitente(NotaSalva.Informacoes.emitente),
-                    new ValidadorDestinatario(NotaSalva.Informacoes.destinatário)).ValidarTudo(Popup.Current))
+                var ultPage = Frame.BackStack[Frame.BackStack.Count - 1];
+                if (ultPage.SourcePageType == typeof(ViewRegistroVenda.VisualizacaoRegistroVenda))
                 {
-                    Popup.Current.Escrever(TitulosComuns.ValidaçãoConcluída, "A nota fiscal foi validada.\r\n" +
-                        "Aparentemente, não há irregularidades.\r\n" +
-                        "Agora salve para que as alterações fiquem gravadas.");
-
-                    using (var db = new AplicativoContext())
-                    {
-                        var notaAnterior = db.NotasFiscais.Find(NotaSalva.Informacoes.Id);
-                        if (notaAnterior != null)
-                        {
-                            db.NotasFiscais.Remove(notaAnterior);
-                            db.SaveChanges();
-                        }
-                    }
-
-                    var nota = NotaSalva;
-                    var analisador = new AnalisadorNFe(ref nota);
-                    analisador.Normalizar();
-
-                    var ultPage = Frame.BackStack[Frame.BackStack.Count - 1];
-                    if (ultPage.SourcePageType != typeof(VisualizacaoNFe))
-                    {
-                        if (ultPage.SourcePageType == typeof(ViewRegistroVenda.VisualizacaoRegistroVenda))
-                        {
-                            var venda = (RegistroVenda)ultPage.Parameter;
-                            NotaSalva.Informacoes.AtualizarChave();
-                            venda.NotaFiscalRelacionada = NotaSalva.Informacoes.Id;
-                            using (var db = new AplicativoContext())
-                            {
-                                db.Vendas.Update(venda);
-                                db.SaveChanges();
-                            }
-                            Frame.BackStack.Remove(ultPage);
-                            ultPage = Frame.BackStack[Frame.BackStack.Count - 1];
-                        }
-                        else
-                        {
-                            using (var db = new AplicativoContext())
-                            {
-                                var venda = db.Vendas.FirstOrDefault(x => x.NotaFiscalRelacionada == NotaSalva.Informacoes.Id);
-                                if (venda != null)
-                                {
-                                    NotaSalva.Informacoes.AtualizarChave();
-                                    venda.NotaFiscalRelacionada = NotaSalva.Informacoes.Id;
-                                    db.Vendas.Update(venda);
-                                    db.SaveChanges();
-                                }
-                                else
-                                {
-                                    NotaSalva.Informacoes.AtualizarChave();
-                                }
-                            }
-                        }
-
-                        var novoDI = new NFeDI(nota, nota.ToXElement<NFe>().ToString())
-                        {
-                            Status = (int)StatusNFe.Validada
-                        };
-                        PageStackEntry entrada = new PageStackEntry(typeof(VisualizacaoNFe), novoDI, new Windows.UI.Xaml.Media.Animation.SlideNavigationTransitionInfo());
-                        Frame.BackStack.Add(entrada);
-                    }
-                    else
-                    {
-                        using (var db = new AplicativoContext())
-                        {
-                            var venda = db.Vendas.FirstOrDefault(x => x.NotaFiscalRelacionada == NotaSalva.Informacoes.Id);
-                            if (venda != null)
-                            {
-                                NotaSalva.Informacoes.AtualizarChave();
-                                venda.NotaFiscalRelacionada = NotaSalva.Informacoes.Id;
-                                db.Vendas.Update(venda);
-                                db.SaveChanges();
-                            }
-                            else
-                            {
-                                NotaSalva.Informacoes.AtualizarChave();
-                            }
-                        }
-
-                        var di = (NFeDI)ultPage.Parameter;
-                        di.Id = nota.Informacoes.Id;
-                        di.NomeCliente = nota.Informacoes.destinatário.Nome;
-                        di.NomeEmitente = nota.Informacoes.emitente.Nome;
-                        di.CNPJEmitente = nota.Informacoes.emitente.CNPJ.ToString();
-                        di.DataEmissao = DateTime.Parse(nota.Informacoes.identificacao.DataHoraEmissão).ToString("yyyy-MM-dd HH:mm:ss");
-                        di.NumeroNota = nota.Informacoes.identificacao.Numero;
-                        di.SerieNota = nota.Informacoes.identificacao.Serie;
-                        di.Status = (int)StatusNFe.Validada;
-                        di.XML = nota.ToXElement<NFe>().ToString();
-                    }
-
-                    MainPage.Current.Retornar(true);
+                    Frame.BackStack.Remove(ultPage);
+                    ultPage = Frame.BackStack[Frame.BackStack.Count - 1];
                 }
+
+                NotaSalva.Informacoes.total.ISSQNtot.DCompet = DataPrestacao.ToString("yyyy-MM-dd");
+                NotaSalva.Informacoes.total.ISSQNtot.CRegTrib = CRegTrib + 1;
+                NotaSalva.Informacoes.total.RetTrib = RetTrib;
+
+                var nota = NotaSalva;
+                new AnalisadorNFe(ref nota).Normalizar();
+
+                using (var repo = new Repositorio.OperacoesExtras())
+                {
+                    string IDOriginal = nota.Informacoes.Id;
+                    nota.Informacoes.AtualizarChave();
+                    string NovoId = nota.Informacoes.Id;
+
+                    repo.ProcessarNFeLocal(IDOriginal, NovoId);
+                }
+
+                if (ultPage.SourcePageType != typeof(VisualizacaoNFe))
+                {
+                    var novoDI = new NFeDI(nota, nota.ToXElement<NFe>().ToString())
+                    {
+                        Status = (int)StatusNFe.Validada
+                    };
+                    Frame.BackStack.Add(new PageStackEntry(typeof(VisualizacaoNFe), novoDI, null));
+                }
+                else
+                {
+                    var di = (NFeDI)ultPage.Parameter;
+                    di.Id = nota.Informacoes.Id;
+                    di.NomeCliente = nota.Informacoes.destinatário.Nome;
+                    di.DataEmissao = DateTime.Parse(nota.Informacoes.identificacao.DataHoraEmissão).ToString("yyyy-MM-dd HH:mm:ss");
+                    di.Status = (int)StatusNFe.Validada;
+                    di.XML = nota.ToXElement<NFe>().ToString();
+                }
+
+                Concluido = true;
+                MainPage.Current.Retornar();
             }
             catch (Exception e)
             {
@@ -399,19 +374,18 @@ namespace NFeFacil.ViewNFe
         ObservableCollection<Deducoes> Deducoes { get; set; }
         ObservableCollection<Observacao> Observacoes { get; set; }
         ObservableCollection<ProcessoReferenciado> ProcessosReferenciados { get; set; }
-        ObservableCollection<ModalidadesTransporte> Modalidades { get; set; }
+
+        public bool Concluido { get; private set; }
 
         #endregion
 
         #region Adição e remoção básica
 
-        void AdicionarProduto()
+        private void AdicionarProduto(object sender, ItemClickEventArgs e)
         {
-            var detCompleto = new DetalhesProdutos
-            {
-                Produto = ProdutoSelecionado != null ? ProdutoSelecionado.ToProdutoOuServico() : new ProdutoOuServico()
-            };
-            MainPage.Current.Navegar<ManipulacaoProdutoCompleto>(detCompleto);
+            var prod = (ProdutoDI)e.ClickedItem;
+            var dados = new DadosAdicaoProduto(prod);
+            MainPage.Current.Navegar<ManipulacaoProdutoCompleto>(dados);
         }
 
         async void EditarProduto(DetalhesProdutos produto)
@@ -421,7 +395,12 @@ namespace NFeFacil.ViewNFe
             caixa.Commands.Add(new UICommand("Não"));
             if ((await caixa.ShowAsync()).Label == "Sim")
             {
-                MainPage.Current.Navegar<ManipulacaoProdutoCompleto>(produto);
+                using (var repo = new Repositorio.Leitura())
+                {
+                    var prodDI = repo.ObterProduto(produto.Produto.CodigoProduto);
+                    var dados = new DadosAdicaoProduto(prodDI, produto);
+                    MainPage.Current.Navegar<ManipulacaoProdutoCompleto>(produto);
+                }
             }
         }
 
@@ -429,13 +408,7 @@ namespace NFeFacil.ViewNFe
         {
             NotaSalva.Informacoes.produtos.Remove(produto);
             Produtos.Remove(produto);
-            AtualizarTotais();
-        }
-
-        void AtualizarTotais()
-        {
             NotaSalva.Informacoes.total = new Total(NotaSalva.Informacoes.produtos);
-            pvtTotais.DataContext = NotaSalva.Informacoes.total;
         }
 
         async void AdicionarNFeReferenciada()
@@ -600,16 +573,6 @@ namespace NFeFacil.ViewNFe
 
         #endregion
 
-        async Task<bool> IValida.Verificar()
-        {
-            var mensagem = new MessageDialog("Se você sair agora, os dados serão perdidos, se tiver certeza, escolha Sair, caso contrário, escolha Cancelar.\r\n" +
-                "Mas lembre-se que, caso a nota ainda não tenha sido salva, a nota será totalmente excluida e, caso ela já tenha sida salva, as alterações serão descartadas.", "Atenção");
-            mensagem.Commands.Add(new UICommand("Sair"));
-            mensagem.Commands.Add(new UICommand("Cancelar"));
-            var resultado = await mensagem.ShowAsync();
-            return resultado.Label == "Sair";
-        }
-
         #region Métodos View - Backcode
 
         private void AdicionarNFeReferenciada(object sender, RoutedEventArgs e)
@@ -626,11 +589,6 @@ namespace NFeFacil.ViewNFe
         private void AdicionarNFReferenciada(object sender, RoutedEventArgs e)
         {
             AdicionarNFReferenciada();
-        }
-
-        private void AdicionarProduto(object sender, RoutedEventArgs e)
-        {
-            AdicionarProduto();
         }
 
         private void EditarProduto(object sender, RoutedEventArgs e)
@@ -738,7 +696,7 @@ namespace NFeFacil.ViewNFe
                 if (await caixa.ShowAsync() == ContentDialogResult.Primary)
                 {
                     var tipo = caixa.TipoEscolhido;
-                    if (tipo == TipoEndereco.Exterior)
+                    if (!caixa.Nacional)
                     {
                         var caixa2 = new EnderecoDiferenteExterior();
                         if (await caixa2.ShowAsync() == ContentDialogResult.Primary)
@@ -776,7 +734,7 @@ namespace NFeFacil.ViewNFe
                 if (await caixa.ShowAsync() == ContentDialogResult.Primary)
                 {
                     var tipo = caixa.TipoEscolhido;
-                    if (tipo == TipoEndereco.Exterior)
+                    if (!caixa.Nacional)
                     {
                         var caixa2 = new EnderecoDiferenteExterior();
                         if (await caixa2.ShowAsync() == ContentDialogResult.Primary)
@@ -804,5 +762,12 @@ namespace NFeFacil.ViewNFe
                 controle.IsOn = false;
             }
         }
+    }
+
+    struct MotoristaManipulacaoNFe
+    {
+        public MotoristaDI Root { get; set; }
+        public VeiculoDI Principal { get; set; }
+        public VeiculoDI[] Secundarios { get; set; }
     }
 }

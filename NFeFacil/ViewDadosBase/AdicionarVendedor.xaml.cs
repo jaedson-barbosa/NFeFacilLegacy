@@ -1,5 +1,4 @@
 ﻿using NFeFacil.ItensBD;
-using NFeFacil.Log;
 using NFeFacil.Validacao;
 using System;
 using Windows.UI.Xaml;
@@ -10,13 +9,10 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NFeFacil.ViewDadosBase
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [View.DetalhePagina(Symbol.People, "Vendedor")]
     public sealed partial class AdicionarVendedor : Page
     {
         private Vendedor Vendedor { get; set; }
-        private ILog Log = Popup.Current;
 
         string Endereco
         {
@@ -45,22 +41,14 @@ namespace NFeFacil.ViewDadosBase
         {
             try
             {
-                if (new ValidadorVendedor(Vendedor).Validar(Log))
+                if (new ValidarDados().ValidarTudo(true,
+                    (string.IsNullOrWhiteSpace(Vendedor.CPFStr), "CPF inválido"),
+                    (string.IsNullOrWhiteSpace(Vendedor.Nome), "Nome não pode estar em branco"),
+                    (string.IsNullOrWhiteSpace(Vendedor.Endereço), "Endereço não pode estar em branco")))
                 {
-                    using (var db = new AplicativoContext())
+                    using (var repo = new Repositorio.Escrita())
                     {
-                        Vendedor.UltimaData = Propriedades.DateTimeNow;
-                        if (Vendedor.Id == Guid.Empty)
-                        {
-                            db.Add(Vendedor);
-                            Log.Escrever(TitulosComuns.Sucesso, "Vendedor salvo com sucesso.");
-                        }
-                        else
-                        {
-                            db.Update(Vendedor);
-                            Log.Escrever(TitulosComuns.Sucesso, "Vendedor alterado com sucesso.");
-                        }
-                        db.SaveChanges();
+                        repo.SalvarItemSimples(Vendedor, DefinicoesTemporarias.DateTimeNow);
                     }
                     MainPage.Current.Retornar();
                 }

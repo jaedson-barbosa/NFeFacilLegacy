@@ -1,5 +1,4 @@
-﻿using NFeFacil.Log;
-using NFeFacil.Validacao;
+﻿using NFeFacil.Validacao;
 using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -13,9 +12,7 @@ using System.Linq;
 
 namespace NFeFacil.Login
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [View.DetalhePagina(Symbol.People, "Emitente")]
     public sealed partial class AdicionarEmitente : Page
     {
         EmitenteDI Emit { get; set; }
@@ -50,8 +47,6 @@ namespace NFeFacil.Login
             }
         }
 
-        ILog Log = Popup.Current;
-
         public AdicionarEmitente()
         {
             InitializeComponent();
@@ -74,22 +69,15 @@ namespace NFeFacil.Login
         {
             try
             {
-                if (new ValidadorEmitente(Emit).Validar(Log))
+                if (new ValidarDados(new ValidadorEndereco(Emit)).ValidarTudo(true,
+                    (string.IsNullOrEmpty(Emit.Nome), "Não foi informado o nome do emitente"),
+                    (string.IsNullOrEmpty(Emit.CNPJ), "Não foi informado o CNPJ do emitente"),
+                    (string.IsNullOrEmpty(Emit.InscricaoEstadual), "Não foi informada a inscrição estadual do emitente"),
+                    (string.IsNullOrEmpty(Emit.CEP), "O CEP é obrigatório")))
                 {
-                    using (var db = new AplicativoContext())
+                    using (var repo = new Repositorio.Escrita())
                     {
-                        Emit.UltimaData = Propriedades.DateTimeNow;
-                        if (Emit.Id == Guid.Empty)
-                        {
-                            db.Add(Emit);
-                            Log.Escrever(TitulosComuns.Sucesso, "Emitente salvo com sucesso.");
-                        }
-                        else
-                        {
-                            db.Update(Emit);
-                            Log.Escrever(TitulosComuns.Sucesso, "Emitente alterado com sucesso.");
-                        }
-                        db.SaveChanges();
+                        repo.SalvarItemSimples(Emit, DefinicoesTemporarias.DateTimeNow);
                     }
                     MainPage.Current.Retornar();
                 }

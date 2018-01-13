@@ -1,18 +1,20 @@
 ﻿<Page x:Class="NFeFacil.ViewRegistroVenda.VisualizacaoRegistroVenda"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:local="using:NFeFacil.ViewRegistroVenda"
+      xmlns:controles="using:NFeFacil.Controles"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
-    <ScrollViewer>
-        <RichTextBlock x:Name="visualizacao" />
-    </ScrollViewer>
+    <controles:VisualizacaoGenerica x:Name="ctrVisualizacao" />
     <Page.BottomAppBar>
         <CommandBar>
+            <AppBarButton x:Name="btnEditar"
+                          Label="Editar"
+                          Icon="Edit"
+                          Click="Editar" />
             <AppBarButton x:Name="btnCriarNFe"
                           Label="Criar NFe"
-                          Icon="Page"
+                          Icon="Add"
                           Click="CriarNFe" />
             <AppBarButton x:Name="btnVerNFe"
                           Label="Ver NFe relacionada"
@@ -34,10 +36,6 @@
                               Label="Cancelar registro"
                               Icon="Cancel"
                               Click="Cancelar" />
-                <AppBarButton x:Name="btnVisualizarCancelamento"
-                              Label="Detalhes do cancelamento"
-                              Icon="View"
-                              Click="VisualizarCancelamento" />
             </CommandBar.SecondaryCommands>
         </CommandBar>
     </Page.BottomAppBar>

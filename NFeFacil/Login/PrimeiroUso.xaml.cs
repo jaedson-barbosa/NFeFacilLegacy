@@ -1,6 +1,10 @@
-﻿using NFeFacil.Sincronizacao;
-using System.Linq;
+﻿using Newtonsoft.Json;
+using NFeFacil.Log;
+using NFeFacil.Sincronizacao;
+using System;
+using System.IO;
 using System.Threading.Tasks;
+using Windows.Storage.Pickers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
@@ -9,9 +13,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NFeFacil.Login
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [View.DetalhePagina(Symbol.Emoji, "Bem-vindo")]
     public sealed partial class PrimeiroUso : Page
     {
         public PrimeiroUso()
@@ -23,9 +25,9 @@ namespace NFeFacil.Login
         {
             if (e.NavigationMode == NavigationMode.Back)
             {
-                using (var db = new AplicativoContext())
+                using (var repo = new Repositorio.Leitura())
                 {
-                    if (db.Emitentes.Count() > 0)
+                    if (repo.EmitentesCadastrados)
                     {
                         await Task.Delay(500);
                         MainPage.Current.Navegar<EscolhaEmitente>();
@@ -38,10 +40,29 @@ namespace NFeFacil.Login
         void Sincronizar(object sender, TappedRoutedEventArgs e) => MainPage.Current.Navegar<SincronizacaoCliente>();
         async void RestaurarBackup(object sender, TappedRoutedEventArgs e)
         {
-            if (await Backup.RestaurarBackup())
+            var caixa = new FileOpenPicker();
+            caixa.FileTypeFilter.Add(".json");
+            var arq = await caixa.PickSingleFileAsync();
+            if (arq != null)
             {
-                await Task.Delay(500);
-                MainPage.Current.Navegar<EscolhaEmitente>();
+                var stream = await arq.OpenStreamForReadAsync();
+                using (var leitor = new StreamReader(stream))
+                {
+                    try
+                    {
+                        var texto = await leitor.ReadToEndAsync();
+                        var conjunto = JsonConvert.DeserializeObject<ConjuntoBanco>(texto);
+                        conjunto.AnalisarESalvar();
+                        Popup.Current.Escrever(TitulosComuns.Sucesso, "Backup restaurado com sucesso.");
+
+                        await Task.Delay(500);
+                        MainPage.Current.Navegar<EscolhaEmitente>();
+                    }
+                    catch (Exception erro)
+                    {
+                        erro.ManipularErro();
+                    }
+                }
             }
         }
     }

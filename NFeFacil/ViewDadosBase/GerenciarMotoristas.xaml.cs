@@ -8,19 +8,19 @@ using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil.ViewDadosBase
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [View.DetalhePagina(Symbol.Manage, "Gerenciar motoristas")]
     public sealed partial class GerenciarMotoristas : Page
     {
+        MotoristaDI[] TodosMotoristas { get; }
         ObservableCollection<MotoristaDI> Motoristas { get; }
 
         public GerenciarMotoristas()
         {
             InitializeComponent();
-            using (var db = new AplicativoContext())
+            using (var repo = new Repositorio.Leitura())
             {
-                Motoristas = db.Motoristas.Where(x => x.Ativo).OrderBy(x => x.Nome).GerarObs();
+                TodosMotoristas = repo.ObterMotoristas().ToArray();
+                Motoristas = TodosMotoristas.GerarObs();
             }
         }
 
@@ -40,12 +40,30 @@ namespace NFeFacil.ViewDadosBase
             var contexto = ((FrameworkElement)sender).DataContext;
             var mot = (MotoristaDI)contexto;
 
-            using (var db = new AplicativoContext())
+            using (var repo = new Repositorio.Escrita())
             {
-                mot.Ativo = false;
-                db.Update(mot);
-                db.SaveChanges();
+                repo.InativarDadoBase(mot, DefinicoesTemporarias.DateTimeNow);
                 Motoristas.Remove(mot);
+            }
+        }
+
+        private void Buscar(object sender, TextChangedEventArgs e)
+        {
+            var busca = ((TextBox)sender).Text;
+            for (int i = 0; i < TodosMotoristas.Length; i++)
+            {
+                var atual = TodosMotoristas[i];
+                bool valido = DefinicoesPermanentes.ModoBuscaMotorista == 0
+                    ? atual.Nome.ToUpper().Contains(busca.ToUpper())
+                    : atual.Documento.Contains(busca);
+                if (valido && !Motoristas.Contains(atual))
+                {
+                    Motoristas.Add(atual);
+                }
+                else if (!valido && Motoristas.Contains(atual))
+                {
+                    Motoristas.Remove(atual);
+                }
             }
         }
     }

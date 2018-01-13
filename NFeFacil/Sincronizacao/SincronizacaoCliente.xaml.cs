@@ -11,9 +11,7 @@ using static NFeFacil.Sincronizacao.ConfiguracoesSincronizacao;
 
 namespace NFeFacil.Sincronizacao
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [View.DetalhePagina("\uE975", "Sincronização")]
     public sealed partial class SincronizacaoCliente : Page
     {
         public SincronizacaoCliente()

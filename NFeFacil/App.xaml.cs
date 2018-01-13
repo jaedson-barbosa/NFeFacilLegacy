@@ -1,4 +1,5 @@
 ﻿using NFeFacil.Sincronizacao;
+using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 
@@ -18,7 +19,7 @@ namespace NFeFacil
             InitializeComponent();
             IBGE.Estados.Buscar();
             IBGE.Municipios.Buscar();
-            ViewModel.DadosEstadosParaView.Iniciar();
+            View.DadosEstadosParaView.Iniciar();
             if (ConfiguracoesSincronizacao.InícioAutomático)
             {
                 GerenciadorServidor.Current.IniciarServer().ConfigureAwait(false);
@@ -44,4 +45,6 @@ namespace NFeFacil
             }
         }
     }
+
+    public delegate Task ProgressChangedEventHandler(object sender, int Concluidos);
 }

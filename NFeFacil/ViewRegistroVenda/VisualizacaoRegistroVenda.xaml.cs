@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using NFeFacil.ItensBD;
+﻿using NFeFacil.ItensBD;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -10,12 +10,12 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NFeFacil.ViewRegistroVenda
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [View.DetalhePagina(Symbol.View, "Registro de venda")]
     public sealed partial class VisualizacaoRegistroVenda : Page
     {
         RegistroVenda ItemBanco;
+
+        Visualizacao Registro { get; set; }
 
         public VisualizacaoRegistroVenda()
         {
@@ -25,82 +25,77 @@ namespace NFeFacil.ViewRegistroVenda
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             ItemBanco = (RegistroVenda)e.Parameter;
-            using (var db = new AplicativoContext())
-            {
-                var cliente = db.Clientes.Find(ItemBanco.Cliente);
-                var emitente = db.Emitentes.Find(ItemBanco.Emitente);
-                var motorista = ItemBanco.Motorista != Guid.Empty ? db.Motoristas.Find(ItemBanco.Motorista) : null;
-                var vendedor = ItemBanco.Vendedor != Guid.Empty ? db.Vendedores.Find(ItemBanco.Vendedor) : null;
-
-                visualizacao.AddBloco("Emitente", ("Nome", emitente.Nome),
-                    ("Nome fantasia", emitente.NomeFantasia),
-                    ("Bairro", emitente.Bairro),
-                    ("CEP", emitente.CEP),
-                    ("CNPJ", emitente.CNPJ),
-                    ("Complemento", emitente.Complemento),
-                    ("Inscrição Estadual", emitente.InscricaoEstadual),
-                    ("Logradouro", emitente.Logradouro),
-                    ("Municipio", emitente.NomeMunicipio),
-                    ("Numero", emitente.Numero),
-                    ("UF", emitente.SiglaUF),
-                    ("Telefone", emitente.Telefone));
-
-                visualizacao.AddBloco("Cliente", ("Nome", cliente.Nome),
-                    ("Bairro", cliente.Bairro),
-                    ("CEP", cliente.CEP),
-                    ("CNPJ", cliente.CNPJ),
-                    ("CPF", cliente.CPF),
-                    ("Complemento", cliente.Complemento),
-                    ("Inscrição Estadual", cliente.InscricaoEstadual),
-                    ("Logradouro", cliente.Logradouro),
-                    ("Municipio", cliente.NomeMunicipio),
-                    ("Numero", cliente.Numero),
-                    ("UF", cliente.SiglaUF),
-                    ("Telefone", cliente.Telefone));
-
-                if (motorista != null)
-                {
-                    visualizacao.AddBloco("Motorista", ("Nome", motorista.Nome),
-                        ("CNPJ", motorista.CNPJ),
-                        ("CPF", motorista.CPF),
-                        ("Inscrição Estadual", motorista.InscricaoEstadual),
-                        ("Endereço", motorista.XEnder),
-                        ("Municipio", motorista.XMun));
-                }
-
-                if (vendedor != null)
-                {
-                    visualizacao.AddBloco("Vendedor", ("Nome", vendedor.Nome),
-                        ("CPF", ExtensoesPrincipal.AplicarMáscaraDocumento(vendedor.CPFStr)),
-                        ("Endereço", vendedor.Endereço));
-                }
-
-                visualizacao.AddBloco("Outras informações", ("Observações", ItemBanco.Observações),
-                    ("Data", ItemBanco.DataHoraVenda.ToString("dd-MM-yyyy")),
-                    ("ID", ItemBanco.Id.ToString().ToUpper()),
-                    ("NFe relacionada", ItemBanco.NotaFiscalRelacionada));
-
-                visualizacao.AddBloco("Produtos", ItemBanco.Produtos.Select(x =>
-                {
-                    var label = db.Produtos.Find(x.IdBase).Descricao;
-                    var texto = $"Quantidade - {x.Quantidade}, Total - {x.TotalLíquido}";
-                    return (label, texto);
-                }).ToArray());
-            }
+            ctrVisualizacao.Content = Registro = new Visualizacao(ItemBanco);
             var semNota = string.IsNullOrEmpty(ItemBanco.NotaFiscalRelacionada);
-            btnCriarNFe.IsEnabled = semNota;
+            btnCriarNFe.IsEnabled = semNota && !ItemBanco.Cancelado;
             btnVerNFe.IsEnabled = !semNota;
-            btnCriarDarv.IsEnabled = btnCriarNFe.IsEnabled =
-                btnCancelar.IsEnabled = btnCalcularTroco.IsEnabled = !ItemBanco.Cancelado;
-            btnVisualizarCancelamento.IsEnabled = ItemBanco.Cancelado;
+            btnEditar.IsEnabled = btnCriarDarv.IsEnabled = btnCancelar.IsEnabled =
+                btnCalcularTroco.IsEnabled = !ItemBanco.Cancelado;
+        }
+
+        public sealed class Visualizacao
+        {
+            public string ID { get; set; }
+            public string NFeRelacionada { get; set; }
+            public string DataVenda { get; set; }
+            public EmitenteDI Emitente { get; set; }
+            public ClienteDI Cliente { get; set; }
+            public Comprador Comprador { get; set; }
+            public MotoristaDI Motorista { get; set; }
+            public Vendedor Vendedor { get; set; }
+            public ProdutoDI[] ProdutosCompletos { get; }
+            public List<Produto> Produtos { get; set; }
+            public CancelamentoRegistroVenda Cancelamento { get; set; }
+            public string Observacoes { get; set; }
+
+            public struct Produto
+            {
+                public string Descricao { get; set; }
+                public string Quantidade { get; set; }
+                public string TotalBruto { get; set; }
+            }
+
+            public Visualizacao(RegistroVenda venda)
+            {
+                using (var repo = new Repositorio.Leitura())
+                {
+                    ID = venda.Id.ToString().ToUpper();
+                    NFeRelacionada = venda.NotaFiscalRelacionada;
+                    DataVenda = venda.DataHoraVenda.ToString("dd-MM-yyyy");
+                    Emitente = DefinicoesTemporarias.EmitenteAtivo;
+                    Cliente = repo.ObterCliente(venda.Cliente);
+                    Comprador = venda.Comprador != Guid.Empty ? repo.ObterComprador(venda.Comprador) : null;
+                    Motorista = venda.Motorista != Guid.Empty ? repo.ObterMotorista(venda.Motorista) : null;
+                    Vendedor = venda.Vendedor != Guid.Empty ? repo.ObterVendedor(venda.Vendedor) : null;
+                    ProdutosCompletos = venda.Produtos.Select(x => repo.ObterProduto(x.IdBase)).ToArray();
+                    Produtos = venda.Produtos.Select(x => new Produto
+                    {
+                        Descricao = ProdutosCompletos.First(k => k.Id == x.IdBase).Descricao,
+                        Quantidade = x.Quantidade.ToString("N2"),
+                        TotalBruto = (x.Quantidade * x.ValorUnitario).ToString("N2")
+                    }).ToList();
+                    if (venda.Cancelado)
+                    {
+                        Cancelamento = repo.ObterCRV(venda.Id);
+                    }
+                    Observacoes = venda.Observações;
+                }
+            }
         }
 
         private async void CriarNFe(object sender, RoutedEventArgs e)
         {
-            var caixa = new ViewNFe.CriadorNFe(ItemBanco.ToNFe());
-            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+            try
             {
-                Log.Popup.Current.Escrever(Log.TitulosComuns.Atenção, "Os impostos dos produtos não são adicionados automaticamente, por favor, insira-os editando cada produto.");
+                var caixa = new ViewNFe.CriadorNFe(ItemBanco.ToNFe());
+                if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+                {
+                    Log.Popup.Current.Escrever(Log.TitulosComuns.Atenção, "Os impostos dos produtos não são adicionados automaticamente, por favor, insira-os editando cada produto.");
+                }
+            }
+            catch (Exception erro)
+            {
+                erro.ManipularErro();
             }
         }
 
@@ -114,7 +109,12 @@ namespace NFeFacil.ViewRegistroVenda
                 MainPage.Current.Navegar<DARV>(new DadosImpressaoDARV
                 {
                     Venda = ItemBanco,
-                    Dimensoes = new Dimensoes(largura, altura, 1)
+                    Dimensoes = new Dimensoes(largura, altura, 1),
+                    Cliente = Registro.Cliente,
+                    Motorista = Registro.Motorista,
+                    Vendedor = Registro.Vendedor,
+                    Comprador = Registro.Comprador,
+                    ProdutosCompletos = Registro.ProdutosCompletos
                 });
             }
         }
@@ -124,58 +124,28 @@ namespace NFeFacil.ViewRegistroVenda
             var caixa = new MotivoCancelamento();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
-                using (var db = new AplicativoContext())
+                var cancelamento = new CancelamentoRegistroVenda()
                 {
-                    ItemBanco.UltimaData = Propriedades.DateTimeNow;
-                    ItemBanco.Cancelado = true;
-                    db.Update(ItemBanco);
-
-                    for (int i = 0; i < ItemBanco.Produtos.Count; i++)
-                    {
-                        var produto = ItemBanco.Produtos[i];
-                        var estoque = db.Estoque.Include(x => x.Alteracoes).FirstOrDefault(x => x.Id == produto.IdBase);
-                        if (estoque != null)
-                        {
-                            estoque.UltimaData = Propriedades.DateTimeNow;
-                            estoque.Alteracoes.Add(new AlteracaoEstoque
-                            {
-                                Alteração = produto.Quantidade,
-                                MomentoRegistro = Propriedades.DateTimeNow
-                            });
-                            db.Estoque.Update(estoque);
-                        }
-                    }
-
-                    var cancelamento = new CancelamentoRegistroVenda()
-                    {
-                        Motivo = caixa.Motivo,
-                        MomentoCancelamento = Propriedades.DateTimeNow,
-                        Id = ItemBanco.Id
-                    };
-                    db.CancelamentosRegistroVenda.Add(cancelamento);
-
-                    db.SaveChanges();
-                    btnCriarDarv.IsEnabled = btnCriarNFe.IsEnabled
-                        = btnCancelar.IsEnabled = btnCalcularTroco.IsEnabled = false;
-                    btnVisualizarCancelamento.IsEnabled = true;
+                    Motivo = caixa.Motivo,
+                    MomentoCancelamento = DefinicoesTemporarias.DateTimeNow,
+                    Id = ItemBanco.Id
+                };
+                using (var repo = new Repositorio.Escrita())
+                {
+                    repo.CancelarRV(ItemBanco, cancelamento, DefinicoesTemporarias.DateTimeNow);
                 }
-            }
-        }
-
-        private async void VisualizarCancelamento(object sender, RoutedEventArgs e)
-        {
-            using (var db = new AplicativoContext())
-            {
-                var item = db.CancelamentosRegistroVenda.Find(ItemBanco.Id);
-                await new VisualizarDetalhesCancelamento(item).ShowAsync();
+                Registro.Cancelamento = cancelamento;
+                ctrVisualizacao.Content = Registro;
+                btnEditar.IsEnabled = btnCriarDarv.IsEnabled = btnCriarNFe.IsEnabled
+                    = btnCancelar.IsEnabled = btnCalcularTroco.IsEnabled = false;
             }
         }
 
         private void VerNFe(object sender, RoutedEventArgs e)
         {
-            using (var db = new AplicativoContext())
+            using (var repo = new Repositorio.Leitura())
             {
-                var item = db.NotasFiscais.Find(ItemBanco.NotaFiscalRelacionada);
+                var item = repo.ObterNFe(ItemBanco.NotaFiscalRelacionada);
                 MainPage.Current.Navegar<ViewNFe.VisualizacaoNFe>(item);
             }
         }
@@ -184,6 +154,16 @@ namespace NFeFacil.ViewRegistroVenda
         {
             var total = ItemBanco.Produtos.Sum(x => x.TotalLíquido);
             await new CalcularTroco(total).ShowAsync();
+        }
+
+        async void Editar(object sender, RoutedEventArgs e)
+        {
+            var caixa = new MotivoEdicaoRV();
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+            {
+                ItemBanco.MotivoEdicao = caixa.Motivo;
+                MainPage.Current.Navegar<ManipulacaoProdutosRV>(ItemBanco);
+            }
         }
     }
 }

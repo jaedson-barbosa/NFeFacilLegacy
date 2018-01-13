@@ -7,8 +7,9 @@
                Title="Escolher tipo"
                PrimaryButtonText="Concluido"
                SecondaryButtonText="Cancelar">
-
-    <ComboBox x:Name="cmbTipo"
-              Header="Tipo de endereço"
-              SelectedItem="{x:Bind TipoEscolhido, Mode=TwoWay}" />
+    <ComboBox Header="Tipo de endereço"
+              SelectedIndex="{x:Bind TipoEscolhido, Mode=TwoWay}">
+        <ComboBoxItem>Nacional</ComboBoxItem>
+        <ComboBoxItem>Exterior</ComboBoxItem>
+    </ComboBox>
 </ContentDialog>

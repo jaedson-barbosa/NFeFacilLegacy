@@ -1,0 +1,33 @@
+﻿<Page x:Class="NFeFacil.Produto.Impostos.DetalhamentoICMS.TelasRN.Tipo20"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:controles="using:NFeFacil.Controles"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d">
+    <ScrollViewer>
+        <ItemsControl Style="{StaticResource ItensResponsivos}">
+            <ComboBox SelectedIndex="{x:Bind modBC, Mode=TwoWay}"
+                      Header="Modalidade de determinação da BC do ICMS"
+                      HorizontalAlignment="Stretch">
+                <ComboBoxItem>Margem Valor Agregado (%)</ComboBoxItem>
+                <ComboBoxItem>Pauta (Valor)</ComboBoxItem>
+                <ComboBoxItem>Preço Tabelado Máx (valor)</ComboBoxItem>
+                <ComboBoxItem>Valor da operação</ComboBoxItem>
+            </ComboBox>
+            <controles:EntradaNumerica Number="{x:Bind pRedBC, Mode=TwoWay}"
+                                       Header="Percentual da Redução de BC"
+                                       Format="3:4" />
+            <controles:EntradaNumerica Number="{x:Bind pICMS, Mode=TwoWay}"
+                                       Header="Alíquota do imposto"
+                                       Format="3:4" />
+            <ComboBox Header="Motivo da desoneração do ICMS"
+                      SelectedValue="{x:Bind motDesICMS, Mode=TwoWay}"
+                      SelectedValuePath="Tag">
+                <ComboBoxItem Tag="3">Agropecuária</ComboBoxItem>
+                <ComboBoxItem Tag="9">Outros</ComboBoxItem>
+                <ComboBoxItem Tag="12">Fomento e desenvolvimento agropecuário</ComboBoxItem>
+            </ComboBox>
+        </ItemsControl>
+    </ScrollViewer>
+</Page>

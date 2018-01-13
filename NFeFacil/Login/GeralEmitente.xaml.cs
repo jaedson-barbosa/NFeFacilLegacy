@@ -1,5 +1,7 @@
 ﻿using NFeFacil.ItensBD;
+using NFeFacil.View;
 using System;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
@@ -8,12 +10,11 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NFeFacil.Login
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [DetalhePagina(Symbol.Home, "Dados da empresa")]
     public sealed partial class GeralEmitente : Page
     {
         EmitenteDI emitente;
+        ImageSource imagem;
 
         public GeralEmitente()
         {
@@ -22,38 +23,35 @@ namespace NFeFacil.Login
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var emitente = (ConjuntoBasicoExibicao)e.Parameter;
-            var brush = new ImageBrush
-            {
-                ImageSource = emitente.Imagem
-            };
+            var emitente = (ConjuntoBasicoExibicao<EmitenteDI>)e.Parameter;
+            var brush = new ImageBrush { ImageSource = emitente.Imagem };
             imgLogotipo.Background = brush;
             txtNomeFantasia.Text = emitente.Principal;
             txtNome.Text = emitente.Secundario;
-            using (var db = new AplicativoContext())
-            {
-                this.emitente = db.Emitentes.Find(emitente.Id);
-            }
+            this.emitente = emitente.Objeto;
+            imagem = emitente.Imagem;
         }
 
-        private void Confirmar(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void Confirmar(object sender, RoutedEventArgs e)
         {
-            Propriedades.EmitenteAtivo = emitente;
+            DefinicoesTemporarias.EmitenteAtivo = emitente;
+            DefinicoesTemporarias.Logotipo = imagem;
             MainPage.Current.Navegar<EscolhaVendedor>();
         }
 
-        private void Editar(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void Editar(object sender, RoutedEventArgs e)
         {
             MainPage.Current.Navegar<AdicionarEmitente>(emitente);
         }
 
-        async void Logotipo(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        async void Logotipo(object sender, RoutedEventArgs e)
         {
             var brush = (ImageBrush)imgLogotipo.Background;
             var caixa = new View.DefinirImagem(emitente.Id, brush.ImageSource);
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
                 brush.ImageSource = caixa.Imagem;
+                imagem = caixa.Imagem;
             }
         }
     }

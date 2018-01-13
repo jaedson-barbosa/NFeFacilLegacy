@@ -82,8 +82,7 @@
                     </Grid.RowDefinitions>
                     <ListView x:Name="menuTemporario"
                               SelectionChanged="MudouSubpaginaEscolhida" />
-                    <Grid x:Name="grdInfoGeral"
-                          Grid.Row="1">
+                    <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="48" />
                             <ColumnDefinition />

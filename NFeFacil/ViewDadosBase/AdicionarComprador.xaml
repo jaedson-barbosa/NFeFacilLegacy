@@ -4,29 +4,21 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
-    <Grid Padding="16">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
+    <ItemsControl Style="{StaticResource ItensResponsivos}"
+                  Padding="16">
         <ComboBox Header="Empresas"
                   ItemsSource="{x:Bind ClientesDisponiveis}"
                   DisplayMemberPath="Nome"
                   SelectedValue="{x:Bind Comprador.IdEmpresa, Mode=TwoWay}"
                   SelectedValuePath="Id" />
-        <TextBox Grid.Row="1"
-                 Header="Nome"
+        <TextBox Header="Nome"
                  Text="{x:Bind Comprador.Nome, Mode=TwoWay}" />
-        <TextBox Grid.Row="2"
-                 Header="Telefone"
+        <TextBox Header="Telefone"
                  Text="{x:Bind Comprador.Telefone, Mode=TwoWay}" />
-        <TextBox Grid.Row="3"
-                 Header="Email"
+        <TextBox Header="Email"
                  InputScope="EmailNameOrAddress"
                  Text="{x:Bind Comprador.Email, Mode=TwoWay}" />
-    </Grid>
+    </ItemsControl>
     <Page.BottomAppBar>
         <CommandBar>
             <AppBarButton x:Name="Confirmar"

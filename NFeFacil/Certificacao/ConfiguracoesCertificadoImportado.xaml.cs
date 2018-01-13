@@ -1,4 +1,4 @@
-﻿using NFeFacil.Primitivos;
+﻿using NFeFacil.Certificacao.LAN.Primitivos;
 using System;
 using System.Collections.ObjectModel;
 using System.Security.Cryptography.X509Certificates;
@@ -12,9 +12,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NFeFacil.Certificacao
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [View.DetalhePagina(Symbol.Permissions, "Certificação")]
     public sealed partial class ConfiguracoesCertificadoImportado : Page
     {
         ObservableCollection<CertificadoExibicao> ListaCertificados { get; set; }
@@ -26,7 +24,8 @@ namespace NFeFacil.Certificacao
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            ListaCertificados = await Certificados.ObterCertificadosAsync(OrigemCertificado.Importado);
+            var certs = await Certificados.ObterCertificadosAsync(OrigemCertificado.Importado);
+            ListaCertificados = certs.GerarObs();
         }
 
         async void ImportarCertificado(object sender, RoutedEventArgs e)

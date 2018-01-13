@@ -1,9 +1,7 @@
-﻿using NFeFacil.Log;
-
-namespace NFeFacil.Validacao
+﻿namespace NFeFacil.Validacao
 {
     public interface IValidavel
     {
-        bool Validar(ILog log);
+        bool Validar(bool exibirMensagem);
     }
 }

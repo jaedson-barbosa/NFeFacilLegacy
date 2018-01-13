@@ -6,12 +6,12 @@
         public string AutorizarProducao => "https://nfe.fazenda.ms.gov.br/producao/services2/NfeAutorizacao";
         public string RespostaAutorizarProducao => "https://nfe.fazenda.ms.gov.br/producao/services2/NfeRetAutorizacao";
         public string RecepcaoEventoProducao => "https://nfe.fazenda.ms.gov.br/producao/services2/RecepcaoEvento";
+        public string InutilizacaoProducao => "https://nfe.fazenda.ms.gov.br/producao/services2/NfeInutilizacao2";
 
         public string ConsultarHomologacao => "https://homologacao.nfe.ms.gov.br/homologacao/services2/NfeConsulta2";
         public string AutorizarHomologacao => "https://homologacao.nfe.ms.gov.br/homologacao/services2/NfeAutorizacao";
         public string RespostaAutorizarHomologacao => "https://homologacao.nfe.ms.gov.br/homologacao/services2/NfeRetAutorizacao";
         public string RecepcaoEventoHomologacao => "https://homologacao.nfe.ms.gov.br/homologacao/services2/RecepcaoEvento";
-
-        public string VersaoRecepcaoEvento => "1.00";
+        public string InutilizacaoHomologacao => "https://homologacao.nfe.ms.gov.br/homologacao/services2/NfeInutilizacao2";
     }
 }

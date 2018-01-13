@@ -13,9 +13,7 @@ using ZXing.Mobile;
 
 namespace NFeFacil.Sincronizacao
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [View.DetalhePagina(Symbol.View, "QR")]
     public sealed partial class QRConexao : Page
     {
         readonly InfoEstabelecerConexao Informacoes;
@@ -74,7 +72,7 @@ namespace NFeFacil.Sincronizacao
             {
                 brechaAberta = true;
                 teste.Begin();
-                await Task.Delay(60000);
+                await Task.Delay(TimeSpan.FromMinutes(2));
                 await PararDeAceitarNovasConexoes();
                 MainPage.Current.Retornar();
             }

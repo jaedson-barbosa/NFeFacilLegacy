@@ -9,18 +9,20 @@ using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil.ViewDadosBase
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [View.DetalhePagina(Symbol.Manage, "Gerenciar clientes")]
     public sealed partial class GerenciarClientes : Page
     {
+        ClienteDI[] TodosClientes { get; }
         ObservableCollection<ClienteDI> Clientes { get; }
 
         public GerenciarClientes()
         {
             InitializeComponent();
-            using (var db = new AplicativoContext())
-                Clientes = db.Clientes.Where(x => x.Ativo).OrderBy(x => x.Nome).GerarObs();
+            using (var repo = new Repositorio.Leitura())
+            {
+                TodosClientes = repo.ObterClientes().ToArray();
+                Clientes = TodosClientes.GerarObs();
+            }
         }
 
         async void AdicionarCliente(object sender, RoutedEventArgs e)
@@ -77,12 +79,29 @@ namespace NFeFacil.ViewDadosBase
             var contexto = ((FrameworkElement)sender).DataContext;
             var dest = (ClienteDI)contexto;
 
-            using (var db = new AplicativoContext())
+            using (var repo = new Repositorio.Escrita())
             {
-                dest.Ativo = false;
-                db.Update(dest);
-                db.SaveChanges();
+                repo.InativarDadoBase(dest, DefinicoesTemporarias.DateTimeNow);
                 Clientes.Remove(dest);
+            }
+        }
+
+        private void Buscar(object sender, TextChangedEventArgs e)
+        {
+            var busca = ((TextBox)sender).Text;
+            for (int i = 0; i < TodosClientes.Length; i++)
+            {
+                var atual = TodosClientes[i];
+                bool valido = (DefinicoesPermanentes.ModoBuscaCliente == 0
+                    ? atual.Nome : atual.Documento).ToUpper().Contains(busca.ToUpper());
+                if (valido && !Clientes.Contains(atual))
+                {
+                    Clientes.Add(atual);
+                }
+                else if (!valido && Clientes.Contains(atual))
+                {
+                    Clientes.Remove(atual);
+                }
             }
         }
     }

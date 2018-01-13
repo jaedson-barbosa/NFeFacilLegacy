@@ -1,36 +1,30 @@
 ﻿using NFeFacil.ItensBD;
 using NFeFacil.Log;
 using NFeFacil.ModeloXML;
-using NFeFacil.ModeloXML.PartesProcesso;
 using NFeFacil.Validacao;
+using NFeFacil.View;
 using NFeFacil.WebService;
 using NFeFacil.WebService.Pacotes;
 using System;
-using System.Collections;
 using System.IO;
-using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Windows.Storage.Pickers;
-using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Navigation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace NFeFacil.ViewNFe
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [View.DetalhePagina(Symbol.View, "Visualizar NFe")]
     public sealed partial class VisualizacaoNFe : Page
     {
         Popup Log = Popup.Current;
         NFeDI ItemBanco { get; set; }
         object ObjetoItemBanco { get; set; }
+        Detalhes Visualizacao { get; set; }
 
         public VisualizacaoNFe()
         {
@@ -45,103 +39,15 @@ namespace NFeFacil.ViewNFe
             {
                 var nfe = xml.FromXElement<NFe>();
                 ObjetoItemBanco = nfe;
-                ObterPropriedades(nfe.Informacoes, 0);
+                Visualizacao = nfe.Informacoes;
             }
             else
             {
                 var processo = xml.FromXElement<Processo>();
                 ObjetoItemBanco = processo;
-                ObterPropriedades(processo.NFe.Informacoes, 0);
+                Visualizacao = processo.NFe.Informacoes;
             }
             AtualizarBotoesComando();
-        }
-
-        void ObterPropriedades(object obj, int profundidade)
-        {
-            foreach (var prop in obj.GetType().GetProperties().Where(x => x.CanWrite
-                && x.GetCustomAttribute<System.Xml.Serialization.XmlIgnoreAttribute>() == null))
-            {
-                var valor = prop.GetValue(obj);
-                if (valor != null)
-                {
-                    var desc = prop.GetCustomAttribute<DescricaoPropriedade>();
-                    if (valor.GetType().Namespace.Contains("NFeFacil"))
-                    {
-                        AdicionarCampo(desc?.Descricao ?? prop.Name, (EstilosTexto)profundidade);
-                        ObterPropriedades(valor, profundidade + 1);
-                    }
-                    else if (valor is IEnumerable listaFilha && !(valor is string))
-                    {
-                        var tipoItem = listaFilha.GetType().GenericTypeArguments[0];
-                        var itemPersonalizado = tipoItem.Namespace.Contains("NFeFacil");
-                        foreach (var item in listaFilha)
-                        {
-                            if (itemPersonalizado)
-                            {
-                                AdicionarCampo(desc?.Descricao ?? tipoItem.Name, (EstilosTexto)profundidade);
-                                ObterPropriedades(item, profundidade + 1);
-                            }
-                            else
-                            {
-                                AdicionarCampo(desc?.Descricao ?? tipoItem.Name,
-                                    (EstilosTexto)profundidade, item.ToString());
-                            }
-                        }
-                    }
-                    else
-                    {
-                        var ext = prop.GetCustomAttribute<PropriedadeExtensivel>();
-                        AdicionarCampo(ext?.NomeExtensão ?? desc?.Descricao ?? prop.Name,
-                            EstilosTexto.BodyTextBlockStyle, (ext?.ObterValor(valor) ?? valor).ToString());
-                    }
-                }
-            }
-        }
-
-        void AdicionarCampo(string texto, EstilosTexto estilo, string textoComplementar = null)
-        {
-            visualizacao.Inlines.Add(CriarRun(texto, textoComplementar != null));
-
-            if (textoComplementar != null)
-                visualizacao.Inlines.Add(CriarRun(textoComplementar));
-
-            visualizacao.Inlines.Add(new LineBreak());
-
-            Run CriarRun(string conteudo, bool label = false)
-            {
-                var retorno = new Run() { Text = label ? conteudo + ": " : conteudo };
-                switch (estilo)
-                {
-                    case EstilosTexto.HeaderTextBlockStyle:
-                        retorno.FontWeight = FontWeights.Light;
-                        retorno.FontSize = 46;
-                        return retorno;
-                    case EstilosTexto.SubheaderTextBlockStyle:
-                        retorno.FontWeight = FontWeights.Light;
-                        retorno.FontSize = 34;
-                        return retorno;
-                    case EstilosTexto.TitleTextBlockStyle:
-                        retorno.FontWeight = FontWeights.SemiLight;
-                        retorno.FontSize = 24;
-                        return retorno;
-                    case EstilosTexto.SubtitleTextBlockStyle:
-                        retorno.FontWeight = FontWeights.Normal;
-                        retorno.FontSize = 20;
-                        return retorno;
-                    default:
-                        retorno.FontWeight = label ? FontWeights.Bold : FontWeights.Normal;
-                        return retorno;
-                }
-            }
-        }
-
-        enum EstilosTexto
-        {
-            HeaderTextBlockStyle,
-            SubheaderTextBlockStyle,
-            TitleTextBlockStyle,
-            SubtitleTextBlockStyle,
-            BodyTextBlockStyle
         }
 
         private void Editar(object sender, RoutedEventArgs e)
@@ -166,13 +72,25 @@ namespace NFeFacil.ViewNFe
             var nfe = (NFe)ObjetoItemBanco;
             try
             {
-                var assina = new Certificacao.AssinaFacil(nfe);
-                await assina.Assinar<NFe>(nfe.Informacoes.Id, "infNFe");
-
-                ItemBanco.Status = (int)StatusNFe.Assinada;
-                AtualizarDI();
-                AtualizarBotoesComando();
-                Log.Escrever(TitulosComuns.Sucesso, "Nota fiscal assinada com sucesso.");
+                var assina = new Certificacao.AssinaFacil()
+                {
+                    Nota = nfe
+                };
+                await assina.Preparar();
+                Progresso progresso = null;
+                progresso = new Progresso(async x =>
+                {
+                    var result = await assina.Assinar<NFe>(x, nfe.Informacoes.Id, "infNFe");
+                    if (result.Item1)
+                    {
+                        ItemBanco.Status = (int)StatusNFe.Assinada;
+                        AtualizarDI();
+                        AtualizarBotoesComando();
+                    }
+                    return result;
+                }, assina.CertificadosDisponiveis, "Subject", Certificacao.AssinaFacil.Etapas);
+                assina.ProgressChanged += async (x, y) => await progresso.Update(y);
+                await progresso.ShowAsync();
             }
             catch (Exception erro)
             {
@@ -182,46 +100,67 @@ namespace NFeFacil.ViewNFe
 
         private async void Transmitir(object sender, RoutedEventArgs e)
         {
-            var nota = (NFe)ObjetoItemBanco;
-            try
+            Progresso progresso = null;
+            progresso = new Progresso(async () =>
             {
-                var resultadoTransmissao = await new GerenciadorGeral<EnviNFe, RetEnviNFe>(nota.Informacoes.emitente.Endereco.SiglaUF, Operacoes.Autorizar, nota.AmbienteTestes)
-                    .EnviarAsync(new EnviNFe(nota.Informacoes.identificacao.Numero, nota), true);
-                if (resultadoTransmissao.cStat == 103)
+                var retTransmissao = await ConsultarRespostaInicial(true);
+                await progresso.Update(1);
+                if (retTransmissao.StatusResposta == 103)
                 {
-                    await Task.Delay(new TimeSpan(0, 0, 10));
-                    var resultadoResposta = await new GerenciadorGeral<ConsReciNFe, RetConsReciNFe>(resultadoTransmissao.cUF, Operacoes.RespostaAutorizar, nota.AmbienteTestes)
-                        .EnviarAsync(new ConsReciNFe(resultadoTransmissao.tpAmb, resultadoTransmissao.infRec.nRec));
-                    if (resultadoResposta.protNFe.InfProt.cStat == 100)
-                    {
-                        Log.Escrever(TitulosComuns.Sucesso, resultadoResposta.xMotivo);
+                    var tempoResposta = retTransmissao.DadosRecibo.TempoMedioResposta;
+                    await Task.Delay(TimeSpan.FromSeconds(tempoResposta + 5));
+                    await progresso.Update(2);
 
+                    var homologacao = ((NFe)ObjetoItemBanco).AmbienteTestes;
+                    var resultadoResposta = await ConsultarRespostaFinal(retTransmissao, homologacao);
+                    await progresso.Update(3);
+
+                    if (resultadoResposta.Protocolo.InfProt.cStat == 100)
+                    {
                         ObjetoItemBanco = new Processo()
                         {
-                            NFe = nota,
-                            ProtNFe = resultadoResposta.protNFe
+                            NFe = (NFe)ObjetoItemBanco,
+                            ProtNFe = resultadoResposta.Protocolo
                         };
                         ItemBanco.Status = (int)StatusNFe.Emitida;
                         AtualizarDI();
                         AtualizarBotoesComando();
+                        await progresso.Update(4);
+
+                        return (true, resultadoResposta.DescricaoResposta);
                     }
                     else
                     {
-                        Log.Escrever(TitulosComuns.Erro, $"A nota fiscal foi processada, mas recusada. Mensagem de retorno:\r\n" +
-                            $"{resultadoResposta.protNFe.InfProt.xMotivo}");
+                        return (false, resultadoResposta.DescricaoResposta);
                     }
                 }
                 else
                 {
-                    Log.Escrever(TitulosComuns.Erro, $"A NFe não foi aceita. Mensagem de retorno:\r\n" +
-                        $"{resultadoTransmissao.xMotivo}\r\n" +
-                        $"Por favor, exporte esta nota fiscal e envie o XML gerado para o desenvolvedor do aplicativo para que o erro possa ser corrigido.");
+                    return (false, retTransmissao.DescricaoResposta);
                 }
-            }
-            catch (Exception erro)
-            {
-                erro.ManipularErro();
-            }
+            }, "Processar e enviar requisição inicial",
+            "Aguardar tempo médio de resposta",
+            "Processar e enviar requisição final",
+            "Processar e analisar resposta final");
+            progresso.Start();
+            await progresso.ShowAsync();
+        }
+
+        async Task<RetEnviNFe> ConsultarRespostaInicial(bool homologacao)
+        {
+            var nota = (NFe)ObjetoItemBanco;
+            var uf = nota.Informacoes.emitente.Endereco.SiglaUF;
+            var gerenciador = new GerenciadorGeral<EnviNFe, RetEnviNFe>(uf, Operacoes.Autorizar, nota.AmbienteTestes);
+            var envio = new EnviNFe(nota);
+            return await gerenciador.EnviarAsync(envio, true);
+        }
+
+        async Task<RetConsReciNFe> ConsultarRespostaFinal(RetEnviNFe retTransmissao, bool homologacao)
+        {
+            var gerenciador = new GerenciadorGeral<ConsReciNFe, RetConsReciNFe>(
+                retTransmissao.Estado, Operacoes.RespostaAutorizar, homologacao);
+            var envio = new ConsReciNFe(retTransmissao.TipoAmbiente, retTransmissao.DadosRecibo.NumeroRecibo);
+            return await gerenciador.EnviarAsync(envio);
         }
 
         private void Imprimir(object sender, RoutedEventArgs e)
@@ -283,27 +222,12 @@ namespace NFeFacil.ViewNFe
         {
             try
             {
-                using (var db = new AplicativoContext())
+                using (var repo = new Repositorio.Escrita())
                 {
-                    ItemBanco.UltimaData = Propriedades.DateTimeNow;
-                    if (ItemBanco.Status < (int)StatusNFe.Emitida)
-                    {
-                        ItemBanco.XML = ObjetoItemBanco.ToXElement<NFe>().ToString();
-                    }
-                    else
-                    {
-                        ItemBanco.XML = ObjetoItemBanco.ToXElement<Processo>().ToString();
-                    }
-
-                    if (ItemBanco.Status == (int)StatusNFe.Salva)
-                    {
-                        db.Add(ItemBanco);
-                    }
-                    else
-                    {
-                        db.Update(ItemBanco);
-                    }
-                    db.SaveChanges();
+                    ItemBanco.XML = ItemBanco.Status < (int)StatusNFe.Emitida
+                        ? ObjetoItemBanco.ToXElement<NFe>().ToString()
+                        : ObjetoItemBanco.ToXElement<Processo>().ToString();
+                    repo.SalvarItemSimples(ItemBanco, DefinicoesTemporarias.DateTimeNow);
                 }
             }
             catch (Exception e)

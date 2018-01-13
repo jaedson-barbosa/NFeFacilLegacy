@@ -1,4 +1,4 @@
-﻿using NFeFacil.ModeloXML.PartesProcesso;
+﻿using NFeFacil.ModeloXML;
 using System.Xml.Serialization;
 
 namespace NFeFacil.WebService.Pacotes
@@ -6,18 +6,23 @@ namespace NFeFacil.WebService.Pacotes
     [XmlRoot("enviNFe", Namespace = "http://www.portalfiscal.inf.br/nfe")]
     public struct EnviNFe
     {
-        [XmlAttribute]
-        public string versao { get; set; }
-        public long idLote { get; set; }
-        public int indSinc { get; set; }
-        [XmlElement(ElementName = nameof(NFe), Namespace = "http://www.portalfiscal.inf.br/nfe", IsNullable = false)]
+        [XmlAttribute("versao")]
+        public string Versao { get; set; }
+
+        [XmlElement("idLote", Order = 0)]
+        public long IdLote { get; set; }
+
+        [XmlElement("indSinc", Order = 1)]
+        public int IndicadorSincronismo { get; set; }
+
+        [XmlElement(ElementName = nameof(NFe), Namespace = "http://www.portalfiscal.inf.br/nfe", Order = 2, IsNullable = false)]
         public NFe[] NFe { get; set; }
 
-        public EnviNFe(long numeroPrimeiraNota, params NFe[] xmls)
+        public EnviNFe(params NFe[] xmls)
         {
-            versao = "3.10";
-            idLote = numeroPrimeiraNota;
-            indSinc = 0;
+            Versao = "3.10";
+            IdLote = xmls[0].Informacoes.identificacao.Numero;
+            IndicadorSincronismo = 0;
             NFe = xmls;
         }
     }

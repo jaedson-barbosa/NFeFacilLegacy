@@ -1,5 +1,6 @@
-﻿using System.Collections.ObjectModel;
-using System.Linq;
+﻿using NFeFacil.ItensBD;
+using NFeFacil.View;
+using System.Collections.ObjectModel;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -7,9 +8,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NFeFacil.Login
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [DetalhePagina(Symbol.Home, "Escolher empresa")]
     public sealed partial class EscolhaEmitente : Page
     {
         public EscolhaEmitente()
@@ -19,28 +18,18 @@ namespace NFeFacil.Login
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            using (var db = new AplicativoContext())
+            using (var repo = new Repositorio.Leitura())
             {
-                var emitentes = db.Emitentes.ToArray();
-                var imagens = db.Imagens;
-                var quantEmitentes = emitentes.Length;
-                var conjuntos = new ObservableCollection<ConjuntoBasicoExibicao>();
-                for (int i = 0; i < quantEmitentes; i++)
+                var conjuntos = new ObservableCollection<ConjuntoBasicoExibicao<EmitenteDI>>();
+                foreach (var atual in repo.ObterEmitentes())
                 {
-                    var atual = emitentes[i];
-                    var novoConjunto = new ConjuntoBasicoExibicao
+                    var novoConjunto = new ConjuntoBasicoExibicao<EmitenteDI>
                     {
-                        Id = atual.Id,
-                        Principal = atual.NomeFantasia,
-                        Secundario = atual.Nome
+                        Objeto = atual.Item1,
+                        Principal = atual.Item1.NomeFantasia,
+                        Secundario = atual.Item1.Nome,
+                        Imagem = atual.Item2?.GetSource()
                     };
-                    var img = imagens.Find(atual.Id);
-                    if (img != null && img.Bytes != null)
-                    {
-                        var task = img.GetSourceAsync();
-                        task.Wait();
-                        novoConjunto.Imagem = task.Result;
-                    }
                     conjuntos.Add(novoConjunto);
                 }
                 grdEmitentes.ItemsSource = conjuntos;
@@ -61,4 +50,5 @@ namespace NFeFacil.Login
             MainPage.Current.Navegar<AdicionarEmitente>();
         }
     }
+
 }

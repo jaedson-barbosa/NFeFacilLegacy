@@ -1,5 +1,4 @@
 ﻿using NFeFacil.Certificacao;
-using NFeFacil.Importacao;
 using NFeFacil.ItensBD;
 using NFeFacil.Log;
 using NFeFacil.ModeloXML;
@@ -8,7 +7,6 @@ using NFeFacil.Validacao;
 using NFeFacil.ViewDadosBase;
 using NFeFacil.ViewRegistroVenda;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
@@ -19,9 +17,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NFeFacil.View
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [DetalhePagina(Symbol.Home, "Início")]
     public sealed partial class Inicio : Page
     {
         public Inicio()
@@ -43,7 +39,14 @@ namespace NFeFacil.View
                     MainPage.Current.Navegar<GerenciarDadosBase>();
                     break;
                 case "ManipulacaoRegistroVenda":
-                    MainPage.Current.Navegar<ManipulacaoRegistroVenda>();
+                    MainPage.Current.Navegar<ManipulacaoProdutosRV>(new RegistroVenda
+                    {
+                        Emitente = DefinicoesTemporarias.EmitenteAtivo.Id,
+                        Vendedor = DefinicoesTemporarias.VendedorAtivo?.Id ?? Guid.Empty,
+                        Produtos = new System.Collections.Generic.List<ProdutoSimplesVenda>(),
+                        DataHoraVenda = DefinicoesTemporarias.DateTimeNow,
+                        PrazoEntrega = DefinicoesTemporarias.DateTimeNow
+                    });
                     break;
                 case "CriadorNFe":
                     if (await new ViewNFe.CriadorNFe().ShowAsync() == ContentDialogResult.Secondary)
@@ -57,6 +60,9 @@ namespace NFeFacil.View
                         grdPrincipal.SelectedIndex = -1;
                     }
                     break;
+                case "Inutilizacoes":
+                    MainPage.Current.Navegar<ViewNFe.Inutilizacoes>();
+                    break;
                 case "NotasSalvas":
                     MainPage.Current.Navegar<ViewNFe.NotasSalvas>();
                     break;
@@ -64,10 +70,10 @@ namespace NFeFacil.View
                     MainPage.Current.Navegar<RegistrosVenda>();
                     break;
                 case "Consulta":
-                    MainPage.Current.Navegar<Consulta>();
+                    MainPage.Current.Navegar<ViewNFe.Consulta>();
                     break;
                 case "VendasAnuais":
-                    MainPage.Current.Navegar<VendasAnuais>();
+                    MainPage.Current.Navegar < ViewNFe.VendasAnuais>();
                     break;
                 case "Configuracoes":
                     MainPage.Current.Navegar<Configuracoes>();
@@ -116,18 +122,18 @@ namespace NFeFacil.View
             {
                 try
                 {
-                    var xml = await ImportarNotaFiscal.ObterXML(arq);
+                    var xml = await ImportacaoDados.ObterXMLNFe(arq);
                     var proc = xml.FromXElement<Processo>();
                     var nfe = proc.NFe;
-                    if (nfe.Informacoes.destinatário.CNPJ == Propriedades.EmitenteAtivo.CNPJ)
+                    if (nfe.Informacoes.destinatário.CNPJ == DefinicoesTemporarias.EmitenteAtivo.CNPJ)
                     {
-                        using (var db = new AplicativoContext())
+                        using (var repo = new Repositorio.Leitura())
                         {
-                            var c = db.Clientes.FirstOrDefault(x => x.CNPJ == nfe.Informacoes.emitente.CNPJ);
+                            var c = repo.ObterClienteViaCNPJ(nfe.Informacoes.emitente.CNPJ);
                             if (c != null)
                             {
                                 nfe.Informacoes.destinatário = c.ToDestinatario();
-                                nfe.Informacoes.emitente = Propriedades.EmitenteAtivo.ToEmitente();
+                                nfe.Informacoes.emitente = DefinicoesTemporarias.EmitenteAtivo.ToEmitente();
                                 nfe.Informacoes.identificacao.TipoOperacao = 0;
                                 var analisador = new AnalisadorNFe(ref nfe);
                                 analisador.Desnormalizar();

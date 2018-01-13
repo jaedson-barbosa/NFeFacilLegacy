@@ -1,4 +1,4 @@
-﻿using NFeFacil.ViewDadosBase.GerenciamentoProdutos;
+﻿using NFeFacil.Produto.GerenciamentoProdutos;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -7,9 +7,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NFeFacil.ViewDadosBase
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [View.DetalhePagina(Symbol.Manage, "Dados base")]
     public sealed partial class GerenciarDadosBase : Page
     {
         public GerenciarDadosBase()

@@ -1,13 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
-using NFeFacil.ItensBD;
+﻿using NFeFacil.View;
 using System;
-using System.Linq;
+using System.Globalization;
 using System.Reflection;
-using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.System.Profile;
 using Windows.UI;
 using Windows.UI.Core;
+using Windows.UI.Popups;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -44,7 +43,7 @@ namespace NFeFacil
                 default:
                     break;
             }
-            ConfiguracoesPermanentes.TipoBackground = tipo;
+            DefinicoesPermanentes.TipoBackground = tipo;
         }
 
         internal void DefinirOpacidadeBackground(double opacidade)
@@ -63,10 +62,6 @@ namespace NFeFacil
         {
             InitializeComponent();
             Current = this;
-            using (var db = new AplicativoContext())
-            {
-                db.Database.Migrate();
-            }
             Analisar();
             AnalisarBarraTitulo();
             btnRetornar.Click += (x, y) => Retornar();
@@ -75,73 +70,39 @@ namespace NFeFacil
                 e.Handled = true;
                 Retornar();
             };
+
+            CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
+            CultureInfo.CurrentUICulture = CultureInfo.InvariantCulture;
+            CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
+            CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.InvariantCulture;
         }
 
         async void Analisar()
         {
-            using (var db = new AplicativoContext())
+            using (var analise = new Repositorio.OperacoesExtras())
             {
-                await db.Clientes.ForEachAsync(x => AnalisarItem(x));
-                await db.Emitentes.ForEachAsync(x => AnalisarItem(x));
-                await db.Motoristas.ForEachAsync(x => AnalisarItem(x));
-                await db.Vendedores.ForEachAsync(x =>
-                {
-                    if (string.IsNullOrEmpty(x.CPFStr))
-                    {
-                        x.CPFStr = x.CPF.ToString();
-                        db.Update(x);
-                    }
-                    AnalisarItem(x);
-                });
-                await db.Produtos.ForEachAsync(x => AnalisarItem(x));
-                await db.Estoque.Include(x => x.Alteracoes).ForEachAsync(x =>
-                {
-                    x.Alteracoes?.ForEach(alt =>
-                    {
-                        if (alt.MomentoRegistro == default(DateTime))
-                        {
-                            alt.MomentoRegistro = Propriedades.DateTimeNow;
-                            db.Update(alt);
-                        }
-                    });
-                    AnalisarItem(x);
-                });
-                await db.Vendas.ForEachAsync(x => AnalisarItem(x));
-                await db.Imagens.ForEachAsync(x => AnalisarItem(x));
-                db.SaveChanges();
-
-                void AnalisarItem(IUltimaData item)
-                {
-                    if (item.UltimaData == DateTime.MinValue)
-                    {
-                        item.UltimaData = Propriedades.DateTimeNow;
-                        db.Update(item);
-                    }
-                }
-
-                Propriedades.EmitenteAtivo = db.Emitentes.FirstOrDefault();
-
-                switch (ConfiguracoesPermanentes.TipoBackground)
+                await analise.AnalisarBanco(DefinicoesTemporarias.DateTimeNow);
+            }
+            using (var repo = new Repositorio.Leitura())
+            {
+                switch (DefinicoesPermanentes.TipoBackground)
                 {
                     case TiposBackground.Imagem:
-                        if (ConfiguracoesPermanentes.IDBackgroung != default(Guid))
+                        if (DefinicoesPermanentes.IDBackgroung != default(Guid))
                         {
-                            var img = db.Imagens.Find(ConfiguracoesPermanentes.IDBackgroung);
-                            if (img?.Bytes != null)
-                            {
-                                ImagemBackground = await img.GetSourceAsync();
-                            }
+                            var img = repo.ProcurarImagem(DefinicoesPermanentes.IDBackgroung);
+                            ImagemBackground = img?.Bytes?.GetSource();
                         }
                         DefinirTipoBackground(TiposBackground.Imagem);
-                        DefinirOpacidadeBackground(ConfiguracoesPermanentes.OpacidadeBackground);
+                        DefinirOpacidadeBackground(DefinicoesPermanentes.OpacidadeBackground);
                         break;
                     case TiposBackground.Cor:
                         DefinirTipoBackground(TiposBackground.Cor);
-                        DefinirOpacidadeBackground(ConfiguracoesPermanentes.OpacidadeBackground);
+                        DefinirOpacidadeBackground(DefinicoesPermanentes.OpacidadeBackground);
                         break;
                 }
 
-                if (db.Emitentes.Count() > 0)
+                if (repo.EmitentesCadastrados)
                 {
                     Navegar<Login.EscolhaEmitente>();
                 }
@@ -158,8 +119,7 @@ namespace NFeFacil
             if (familia.Contains("Mobile"))
             {
                 btnRetornar.Visibility = Visibility.Collapsed;
-                var barra = StatusBar.GetForCurrentView();
-                await barra.HideAsync();
+                await StatusBar.GetForCurrentView().HideAsync();
             }
             else if (familia.Contains("Desktop"))
             {
@@ -183,17 +143,18 @@ namespace NFeFacil
             frmPrincipal.Navigate(typeof(T), parametro);
         }
 
-        public async void Retornar(bool suprimirValidacao = false)
+        public async void Retornar()
         {
-            if (!suprimirValidacao && frmPrincipal.Content is IValida retorna && !await retorna.Verificar())
+            if (frmPrincipal.Content is IValida valida && !valida.Concluido)
             {
-                return;
+                var mensagem = new MessageDialog("Se você sair agora, os dados serão perdidos, se tiver certeza, escolha Sair, caso contrário, escolha Cancelar.", "Atenção");
+                mensagem.Commands.Add(new UICommand("Sair"));
+                mensagem.Commands.Add(new UICommand("Cancelar"));
+                var resultado = await mensagem.ShowAsync();
+                if (resultado.Label == "Cancelar") return;
             }
 
-            if (frmPrincipal.CanGoBack)
-            {
-                frmPrincipal.GoBack();
-            }
+            if (frmPrincipal.CanGoBack) frmPrincipal.GoBack();
             else
             {
                 var familia = AnalyticsInfo.VersionInfo.DeviceFamily;
@@ -217,59 +178,38 @@ namespace NFeFacil
             }
         }
 
-        public async Task AtualizarInformaçõesGerais()
+        public void AtualizarInformaçõesGerais()
         {
-            grdInfoGeral.Visibility = Visibility.Visible;
-            using (var db = new AplicativoContext())
-            {
-                var img = db.Imagens.Find(Propriedades.EmitenteAtivo.Id);
-                if (img != null && img.Bytes != null)
-                {
-                    imgLogotipo.Source = await img.GetSourceAsync();
-                }
-                txtNomeEmitente.Text = Propriedades.EmitenteAtivo.Nome;
-                txtNomeEmpresa.Text = Propriedades.EmitenteAtivo.NomeFantasia;
+            imgLogotipo.Source = DefinicoesTemporarias.Logotipo;
+            txtNomeEmitente.Text = DefinicoesTemporarias.EmitenteAtivo.Nome;
+            txtNomeEmpresa.Text = DefinicoesTemporarias.EmitenteAtivo.NomeFantasia;
 
-                if (Propriedades.VendedorAtivo != null)
-                {
-                    img = db.Imagens.Find(Propriedades.VendedorAtivo.Id);
-                    if (img != null && img.Bytes != null)
-                    {
-                        imgVendedor.Source = await img.GetSourceAsync();
-                    }
-                    txtNomeVendedor.Text = Propriedades.VendedorAtivo.Nome;
-                }
-                else
-                {
-                    txtNomeVendedor.Text = "Administrador";
-                }
+            if (DefinicoesTemporarias.VendedorAtivo != null)
+            {
+                imgVendedor.Source = DefinicoesTemporarias.FotoVendedor;
+                txtNomeVendedor.Text = DefinicoesTemporarias.VendedorAtivo.Nome;
+            }
+            else
+            {
+                txtNomeVendedor.Text = "Administrador";
             }
         }
 
         private void NavegacaoConcluida(object sender, NavigationEventArgs e)
         {
             var navegada = e.Content;
-            if (PaginasPrincipais.Lista.Keys.Contains(navegada.GetType()))
+            var infoTipo = e.Content.GetType().GetTypeInfo();
+            var pag = infoTipo.GetCustomAttribute<View.DetalhePagina>();
+
+            if (pag == null)
             {
-                var pag = PaginasPrincipais.Lista[navegada.GetType()];
-                txtTitulo.Text = pag.Titulo;
-                symTitulo.Content = pag.ObterIcone();
+                txtTitulo.Text = "Erro, informar desenvolvedor";
+                symTitulo.Content = new SymbolIcon(Symbol.Help);
             }
             else
             {
-                var infoTipo = e.Content.GetType().GetTypeInfo();
-                var pag = infoTipo.GetCustomAttribute<DetalhePagina>();
-
-                if (pag == null)
-                {
-                    txtTitulo.Text = "Erro, informar desenvolvedor";
-                    symTitulo.Content = new SymbolIcon(Symbol.Help);
-                }
-                else
-                {
-                    txtTitulo.Text = pag.Titulo;
-                    symTitulo.Content = pag.ObterIcone();
-                }
+                txtTitulo.Text = pag.Titulo;
+                symTitulo.Content = pag.ObterIcone();
             }
 
             if (navegada is IHambuguer hambuguer)

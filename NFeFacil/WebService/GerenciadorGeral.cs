@@ -1,26 +1,41 @@
 ﻿using NFeFacil.Certificacao;
-using NFeFacil.Pacotes;
+using NFeFacil.Certificacao.LAN.Pacotes;
+using System;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using NFeFacil.IBGE;
-using System;
 using NFeFacil.Certificacao.LAN;
+using System.Net;
 
 namespace NFeFacil.WebService
 {
-    public struct GerenciadorGeral<Envio, Resposta>
+    public sealed class GerenciadorGeral<Envio, Resposta>
     {
         public DadosServico Enderecos { get; }
         int CodigoUF { get; }
-        string VersaoDados{get;}
+        string VersaoDados { get; }
+
+        public event ProgressChangedEventHandler ProgressChanged;
+        async Task OnProgressChanged(int conc)
+        {
+            if (ProgressChanged != null) await ProgressChanged(this, conc);
+        }
+
+        public readonly string[] Etapas = new string[4]
+        {
+            "Preparar conexão",
+            "Obter conteúdo da requisição",
+            "Enviar requisição",
+            "Processar resposta"
+        };
 
         public GerenciadorGeral(Estado uf, Operacoes operacao, bool teste)
         {
             Enderecos = new EnderecosConexao(uf.Sigla).ObterConjuntoConexao(teste, operacao);
             CodigoUF = uf.Codigo;
-            VersaoDados = operacao == Operacoes.RecepcaoEvento ? Enderecos.VersaoRecepcaoEvento : "3.10";
+            VersaoDados = operacao == Operacoes.RecepcaoEvento ? "1.00" : "3.10";
         }
 
         public GerenciadorGeral(string siglaOuNome, Operacoes operacao, bool teste)
@@ -28,7 +43,7 @@ namespace NFeFacil.WebService
             var uf = Estados.Buscar(siglaOuNome);
             Enderecos = new EnderecosConexao(uf.Sigla).ObterConjuntoConexao(teste, operacao);
             CodigoUF = uf.Codigo;
-            VersaoDados = operacao == Operacoes.RecepcaoEvento ? Enderecos.VersaoRecepcaoEvento : "3.10";
+            VersaoDados = operacao == Operacoes.RecepcaoEvento ? "1.00" : "3.10";
         }
 
         public GerenciadorGeral(ushort codigo, Operacoes operacao, bool teste)
@@ -36,7 +51,7 @@ namespace NFeFacil.WebService
             var uf = Estados.Buscar(codigo);
             Enderecos = new EnderecosConexao(uf.Sigla).ObterConjuntoConexao(teste, operacao);
             CodigoUF = uf.Codigo;
-            VersaoDados = operacao == Operacoes.RecepcaoEvento ? Enderecos.VersaoRecepcaoEvento : "3.10";
+            VersaoDados = operacao == Operacoes.RecepcaoEvento ? "1.00" : "3.10";
         }
 
         public async Task<Resposta> EnviarAsync(Envio corpo, bool addNamespace = false)
@@ -47,15 +62,25 @@ namespace NFeFacil.WebService
                 using (var proxy = new HttpClient(new HttpClientHandler()
                 {
                     ClientCertificateOptions = ClientCertificateOption.Automatic,
-                    UseDefaultCredentials = true
+                    UseDefaultCredentials = true,
+                    AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip
                 }, true))
                 {
                     proxy.DefaultRequestHeaders.Add("SOAPAction", Enderecos.Metodo);
+                    await OnProgressChanged(1);
+
                     var str = ObterConteudoRequisicao(corpo, addNamespace);
                     var conteudo = new StringContent(str, Encoding.UTF8, "text/xml");
+                    await OnProgressChanged(2);
+
                     var resposta = await proxy.PostAsync(Enderecos.Endereco, conteudo);
+                    await OnProgressChanged(3);
+
                     var xml = XElement.Load(await resposta.Content.ReadAsStreamAsync());
-                    return ObterConteudoCorpo(xml).FromXElement<Resposta>();
+                    var retorno = ObterConteudoCorpo(xml).FromXElement<Resposta>();
+                    await OnProgressChanged(4);
+
+                    return retorno;
                 }
             }
             else
@@ -74,13 +99,20 @@ namespace NFeFacil.WebService
                 using (var cliente = new HttpClient())
                 {
                     var uri = new Uri($"http://{OperacoesServidor.RootUri}:1010/EnviarRequisicao");
+                    await OnProgressChanged(1);
+
                     var xml = envio.ToXElement<RequisicaoEnvioDTO>().ToString(SaveOptions.DisableFormatting);
                     var conteudo = new StringContent(xml, Encoding.UTF8, "text/xml");
+                    await OnProgressChanged(2);
+
                     var resposta = await cliente.PostAsync(uri, conteudo);
-                    using (var stream = await resposta.Content.ReadAsStreamAsync())
-                    {
-                        return stream.FromXElement<Resposta>();
-                    }
+                    await OnProgressChanged(3);
+
+                    var xmlResposta = XElement.Load(await resposta.Content.ReadAsStreamAsync());
+                    var retorno = xmlResposta.FromXElement<Resposta>();
+                    await OnProgressChanged(4);
+
+                    return retorno;
                 }
             }
 
@@ -106,9 +138,18 @@ namespace NFeFacil.WebService
                 const string namespaceNFe = "http://www.portalfiscal.inf.br/nfe";
                 xml.Element(XName.Get("NFe", namespaceNFe)).SetAttributeValue("xmlns", namespaceNFe);
             }
-            return string.Format(ExtensoesPrincipal.ObterRecurso("RequisicaoSOAP"),
-                Enderecos.Servico, CodigoUF, VersaoDados,
-                xml.ToString(SaveOptions.DisableFormatting));
+
+            var servico = Enderecos.Servico;
+            var teste = new XElement("{http://schemas.xmlsoap.org/soap/envelope/}Envelope",
+                new XElement("{http://schemas.xmlsoap.org/soap/envelope/}Header",
+                    new XElement(Name("nfeCabecMsg"),
+                        new XElement(Name("cUF"), CodigoUF),
+                        new XElement(Name("versaoDados"), VersaoDados))),
+                new XElement("{http://schemas.xmlsoap.org/soap/envelope/}Body",
+                    new XElement(Name("nfeDadosMsg"), xml)));
+            return teste.ToString(SaveOptions.DisableFormatting);
+
+            XName Name(string original) => XName.Get(original, servico);
         }
     }
 }

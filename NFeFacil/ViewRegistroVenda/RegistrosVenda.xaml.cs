@@ -1,36 +1,52 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using NFeFacil.Controles;
 using NFeFacil.ItensBD;
-using System;
+using NFeFacil.View;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using Windows.UI.Xaml.Controls;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace NFeFacil.ViewRegistroVenda
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
-    public sealed partial class RegistrosVenda : Page
+    [View.DetalhePagina(Symbol.Library, "Vendas")]
+    public sealed partial class RegistrosVenda : Page, IHambuguer
     {
-        ObservableCollection<ExibicaoVenda> Vendas { get; }
+        ObservableCollection<ExibicaoVenda> Vendas { get; } = new ObservableCollection<ExibicaoVenda>();
+        List<ExibicaoVenda> Validas { get; } = new List<ExibicaoVenda>();
+        List<ExibicaoVenda> Canceladas { get; } = new List<ExibicaoVenda>();
+
+        public ObservableCollection<ItemHambuguer> ConteudoMenu => new ObservableCollection<ItemHambuguer>
+        {
+            new ItemHambuguer(Symbol.Accept, "Válidas"),
+            new ItemHambuguer(Symbol.Cancel, "Canceladas")
+        };
+
+        public int SelectedIndex
+        {
+            set
+            {
+                Vendas.Clear();
+                (value == 0 ? Validas : Canceladas).ForEach(Vendas.Add);
+            }
+        }
 
         public RegistrosVenda()
         {
             InitializeComponent();
-            using (var db = new AplicativoContext())
+            using (var repo = new Repositorio.Leitura())
             {
-                Vendas = (from venda in db.Vendas.Include(x => x.Produtos).ToArray()
-                          where venda.Emitente == Propriedades.EmitenteAtivo.Id
-                          orderby venda.DataHoraVenda descending
-                          select new ExibicaoVenda
-                          {
-                              Base = venda,
-                              NomeVendedor = venda.Vendedor != default(Guid) ? db.Vendedores.Find(venda.Vendedor).Nome : "Indisponível",
-                              NomeCliente = venda.Cliente != default(Guid) ? db.Clientes.Find(venda.Cliente).Nome : "Indisponível",
-                              DataHoraVenda = venda.DataHoraVenda.ToString("HH:mm:ss dd-MM-yyyy")
-                          }).GerarObs();
+                var registros = repo.ObterRegistrosVenda(DefinicoesTemporarias.EmitenteAtivo.Id);
+                foreach (var (rv, vendedor, cliente, momento) in registros)
+                {
+                    (rv.Cancelado ? Canceladas : Validas).Add(new ExibicaoVenda
+                    {
+                        Base = rv,
+                        NomeCliente = cliente,
+                        NomeVendedor = vendedor,
+                        DataHoraVenda = momento
+                    });
+                }
             }
         }
 

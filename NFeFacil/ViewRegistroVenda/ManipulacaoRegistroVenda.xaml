@@ -2,174 +2,128 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:local="using:NFeFacil.ViewRegistroVenda"
+      xmlns:controles="using:NFeFacil.Controles"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
-    <Grid Padding="16">
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup>
-                <VisualState>
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="800" />
-                    </VisualState.StateTriggers>
-                </VisualState>
-                <VisualState>
-                    <VisualState.Setters>
-                        <Setter Target="grd1.(Grid.Column)"
-                                Value="0" />
-                        <Setter Target="grd1.(Grid.Row)"
-                                Value="1" />
-                    </VisualState.Setters>
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="0" />
-                    </VisualState.StateTriggers>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <Grid Margin="0,0,0,4">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <Grid x:Name="grd0">
+    <ScrollViewer Padding="16">
+        <StackPanel>
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}">Totais</TextBlock>
+            <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition MaxWidth="256" />
-                    <ColumnDefinition MaxWidth="256" />
-                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <TextBlock>Frete:</TextBlock>
+                <TextBlock x:Name="txtTotalFrete"
+                           Grid.Row="1" />
+                <TextBlock Grid.Column="1">Seguro:</TextBlock>
+                <TextBlock x:Name="txtTotalSeguro"
+                           Grid.Column="1"
+                           Grid.Row="1" />
+                <TextBlock Grid.Column="2">Adicionais:</TextBlock>
+                <TextBlock x:Name="txtTotalAdicionais"
+                           Grid.Column="2"
+                           Grid.Row="1" />
+                <TextBlock Grid.Column="3">Desconto:</TextBlock>
+                <TextBlock x:Name="txtTotalDesconto"
+                           Grid.Column="3"
+                           Grid.Row="1" />
+                <TextBlock Grid.Column="4">Líquido:</TextBlock>
+                <TextBlock x:Name="txtTotalLiquido"
+                           Grid.Column="4"
+                           Grid.Row="1" />
+            </Grid>
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}">Cliente</TextBlock>
+            <ItemsControl Style="{StaticResource ItensResponsivos}">
                 <ComboBox Header="Cliente"
                           ItemsSource="{x:Bind Clientes}"
                           DisplayMemberPath="Nome"
                           SelectedValue="{x:Bind Cliente, Mode=TwoWay}"
-                          HorizontalAlignment="Stretch" />
+                          MinWidth="256"
+                          MaxWidth="512" />
+                <ComboBox x:Name="cmbComprador"
+                          Header="Comprador"
+                          ItemsSource="{x:Bind Compradores}"
+                          DisplayMemberPath="Nome"
+                          SelectedValue="{x:Bind ItemBanco.Comprador, Mode=TwoWay}"
+                          SelectedValuePath="Id"
+                          MinWidth="256"
+                          MaxWidth="512" />
+                <CalendarDatePicker Header="Prazo de entrega"
+                                    Date="{x:Bind PrazoEntrega, Mode=TwoWay}" />
+            </ItemsControl>
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}">Transporte</TextBlock>
+            <ItemsControl Style="{StaticResource ItensResponsivos}">
                 <ComboBox Header="Transporte"
                           ItemsSource="{x:Bind Motoristas}"
                           DisplayMemberPath="Nome"
                           SelectedValue="{x:Bind Motorista, Mode=TwoWay}"
                           SelectedValuePath="Id"
-                          HorizontalAlignment="Stretch"
-                          Grid.Column="1"
-                          Margin="4,0"/>
-                <CalendarDatePicker Header="Prazo de entrega"
-                                    Date="{x:Bind PrazoEntrega, Mode=TwoWay}"
-                                    Grid.Column="2" />
-            </Grid>
-            <Grid x:Name="grd1"
-                  Grid.Column="1">
-                <Grid.Transitions>
-                    <TransitionCollection>
-                        <RepositionThemeTransition />
-                    </TransitionCollection>
-                </Grid.Transitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <TextBlock><Run>Total bruto:</Run><LineBreak /><Run x:Name="txtTotalBruto" /></TextBlock>
-                <TextBlock ToolTipService.ToolTip="Frete, despesas acessórias e seguro"
-                           Grid.Column="1"
-                           Margin="4,0"><Run>Adicionais:</Run><LineBreak /><Run x:Name="txtAdicionais" /></TextBlock>
-                <TextBlock Grid.Column="2"><Run>Desconto total:</Run><LineBreak /><Run x:Name="txtDescontoTotal" /></TextBlock>
-                <TextBlock Grid.Column="3"
-                           Margin="4,0,0,0"><Run>Total líquido:</Run><LineBreak /><Run x:Name="txtTotal" /></TextBlock>
-            </Grid>
-        </Grid>
-        <ListView ItemsSource="{x:Bind ListaProdutos}"
-                  Grid.Row="1">
-            <ListView.Header>
-                <Grid Style="{StaticResource Cabecalho}">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*" />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
-                               Text="Nome"
-                               VerticalAlignment="Bottom"
-                               HorizontalAlignment="Center" />
-                    <TextBlock Grid.Column="1"
-                               Style="{StaticResource SubtitleTextBlockStyle}"
-                               Text="Quantidade"
-                               VerticalAlignment="Bottom"
-                               HorizontalAlignment="Center" />
-                    <TextBlock Grid.Column="2"
-                               Style="{StaticResource SubtitleTextBlockStyle}"
-                               Text="Total"
-                               VerticalAlignment="Bottom"
-                               HorizontalAlignment="Center" />
-                </Grid>
-            </ListView.Header>
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="local:ExibicaoProdutoVenda">
-                    <Grid>
-                        <Grid.ContextFlyout>
-                            <MenuFlyout>
-                                <MenuFlyoutItem Click="RemoverProduto">Remover</MenuFlyoutItem>
-                            </MenuFlyout>
-                        </Grid.ContextFlyout>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*" />
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Text="{x:Bind Descricao}" />
-                        <TextBlock Grid.Column="1"
-                                   Text="{x:Bind Quantidade}" />
-                        <TextBlock Grid.Column="2"
-                                   Text="{x:Bind TotalLiquido}" />
-                    </Grid>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        <TextBox PlaceholderText="Observações"
-                 Grid.Row="2"
-                 Text="{x:Bind Observacoes, Mode=TwoWay}"
-                 Margin="0,4,0,0" />
-    </Grid>
+                          MinWidth="256"
+                          MaxWidth="512" />
+                <controles:EntradaNumerica Format="8:2"
+                                           Number="{x:Bind ValorFrete, Mode=TwoWay}"
+                                           Header="Valor do frete" />
+                <ComboBox Grid.Row="1"
+                          Header="Tipo de frete"
+                          SelectedValue="{x:Bind TipoFrete, Mode=TwoWay}"
+                          SelectedValuePath="Content">
+                    <ComboBoxItem>Por conta do cliente</ComboBoxItem>
+                    <ComboBoxItem>Por conta da loja</ComboBoxItem>
+                    <ComboBoxItem>A combinar</ComboBoxItem>
+                </ComboBox>
+            </ItemsControl>
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}">Pagamento</TextBlock>
+            <ItemsControl Style="{StaticResource ItensResponsivos}">
+                <CalendarDatePicker Header="Prazo de pagamento"
+                                    Date="{x:Bind PrazoPagamento, Mode=TwoWay}"
+                                    Grid.Column="2"
+                                    MinWidth="256" />
+                <ComboBox Grid.Row="1"
+                          Header="Forma de pagamento"
+                          SelectedValue="{x:Bind FormaPagamento, Mode=TwoWay}"
+                          SelectedValuePath="Content">
+                    <ComboBoxItem>Em dinheiro à vista</ComboBoxItem>
+                    <ComboBoxItem>Cartão</ComboBoxItem>
+                    <ComboBoxItem>Boleto bancário</ComboBoxItem>
+                </ComboBox>
+            </ItemsControl>
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}">Desconto</TextBlock>
+            <ItemsControl Style="{StaticResource ItensResponsivos}">
+                <Slider x:Name="sldDesconto"
+                        Header="Desconto %"
+                        StepFrequency="0.5"
+                        ValueChanged="sldDesconto_ValueChanged"
+                        MinWidth="256" />
+                <controles:EntradaNumerica x:Name="txtValorDesejado"
+                                           Grid.Row="1"
+                                           Number="0"
+                                           Format="13:2"
+                                           Header="Valor desejado"
+                                           NumeroChanged="ValorDesejadoChanged" />
+            </ItemsControl>
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}">Detalhes adicionais</TextBlock>
+            <CalendarDatePicker Header="Data da venda"
+                                MinWidth="256"
+                                Date="{x:Bind DataHoraVenda, Mode=TwoWay}" />
+            <TextBox Header="Observações"
+                     TextWrapping="Wrap"
+                     Text="{x:Bind Observacoes, Mode=TwoWay}" />
+        </StackPanel>
+    </ScrollViewer>
     <Page.BottomAppBar>
         <CommandBar>
-            <AppBarButton Label="Adicionar produto"
-                          Icon="Add"
-                          Click="AdicionarProduto" />
-            <AppBarToggleButton Label="Dados do pagamento"
-                                Checked="DefinirPagamento"
-                                Unchecked="RemoverPagamento">
-                <AppBarToggleButton.Icon>
-                    <FontIcon Glyph="&#xEC59;" />
-                </AppBarToggleButton.Icon>
-            </AppBarToggleButton>
-            <AppBarButton Label="Aplicar frete"
-                          Click="AplicarFrete">
-                <AppBarButton.Icon>
-                    <FontIcon Glyph="&#xE806;" />
-                </AppBarButton.Icon>
-            </AppBarButton>
-            <AppBarButton Label="Aplicar desconto"
-                          Click="AplicarDesconto">
-                <AppBarButton.Icon>
-                    <FontIcon Glyph="%"
-                              FontFamily="Segoe UI" />
-                </AppBarButton.Icon>
-            </AppBarButton>
             <AppBarButton Label="Finalizar e registrar"
                           Icon="Accept"
                           Click="Finalizar" />
-            <CommandBar.SecondaryCommands>
-                <AppBarButton Icon="Calendar"
-                              Label="Definir data de venda"
-                              Click="DefinirDataVenda" />
-            </CommandBar.SecondaryCommands>
         </CommandBar>
     </Page.BottomAppBar>
 </Page>

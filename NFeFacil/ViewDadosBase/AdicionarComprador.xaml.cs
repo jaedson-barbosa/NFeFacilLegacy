@@ -1,9 +1,7 @@
 ﻿using NFeFacil.ItensBD;
-using NFeFacil.Log;
 using NFeFacil.Validacao;
 using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -12,23 +10,18 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NFeFacil.ViewDadosBase
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [View.DetalhePagina(Symbol.People, "Comprador")]
     public sealed partial class AdicionarComprador : Page
     {
         Comprador Comprador;
-        ILog Log = Popup.Current;
         ObservableCollection<ClienteDI> ClientesDisponiveis { get; }
 
         public AdicionarComprador()
         {
             InitializeComponent();
-            using (var db = new AplicativoContext())
+            using (var repo = new Repositorio.Leitura())
             {
-                ClientesDisponiveis = (from cli in db.Clientes
-                                       where cli.Ativo && !string.IsNullOrEmpty(cli.CNPJ)
-                                       select cli).GerarObs();
+                ClientesDisponiveis = repo.ObterClientes(x => !string.IsNullOrEmpty(x.CNPJ)).GerarObs();
             }
         }
 
@@ -49,22 +42,15 @@ namespace NFeFacil.ViewDadosBase
         {
             try
             {
-                if (new ValidadorComprador(Comprador).Validar(Log))
+                if (new ValidarDados().ValidarTudo(true,
+                    (Comprador.IdEmpresa == default(Guid), "Selecione uma empresa 'dona' deste comprador"),
+                    (string.IsNullOrEmpty(Comprador.Telefone), "Telefone não pode estar em branco"),
+                    (string.IsNullOrWhiteSpace(Comprador.Nome), "Nome não pode estar em branco"),
+                    (string.IsNullOrWhiteSpace(Comprador.Email), "Email não pode estar em branco")))
                 {
-                    using (var db = new AplicativoContext())
+                    using (var repo = new Repositorio.Escrita())
                     {
-                        Comprador.UltimaData = Propriedades.DateTimeNow;
-                        if (Comprador.Id == Guid.Empty)
-                        {
-                            db.Add(Comprador);
-                            Log.Escrever(TitulosComuns.Sucesso, "Vendedor salvo com sucesso.");
-                        }
-                        else
-                        {
-                            db.Update(Comprador);
-                            Log.Escrever(TitulosComuns.Sucesso, "Vendedor alterado com sucesso.");
-                        }
-                        db.SaveChanges();
+                        repo.SalvarItemSimples(Comprador, DefinicoesTemporarias.DateTimeNow);
                     }
                     MainPage.Current.Retornar();
                 }

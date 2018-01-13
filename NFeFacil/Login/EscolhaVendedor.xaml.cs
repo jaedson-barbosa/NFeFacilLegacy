@@ -1,6 +1,6 @@
-﻿using System.Collections.ObjectModel;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
+﻿using NFeFacil.ItensBD;
+using NFeFacil.View;
+using System.Collections.ObjectModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -9,37 +9,25 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NFeFacil.Login
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [DetalhePagina(Symbol.Home, "Escolher vendedor")]
     public sealed partial class EscolhaVendedor : Page
     {
         public EscolhaVendedor()
         {
             InitializeComponent();
 
-            using (var db = new AplicativoContext())
+            using (var repo = new Repositorio.Leitura())
             {
-                var vendedores = db.Vendedores.Where(x => x.Ativo).ToArray();
-                var imagens = db.Imagens;
-                var quantVendedores = vendedores.Length;
-                var conjuntos = new ObservableCollection<ConjuntoBasicoExibicao>();
-                for (int i = 0; i < quantVendedores; i++)
+                var conjuntos = new ObservableCollection<ConjuntoBasicoExibicao<Vendedor>>();
+                foreach (var atual in repo.ObterVendedores())
                 {
-                    var atual = vendedores[i];
-                    var novoConjunto = new ConjuntoBasicoExibicao
+                    var novoConjunto = new ConjuntoBasicoExibicao<Vendedor>
                     {
-                        Id = atual.Id,
-                        Principal = atual.Nome,
-                        Secundario = ExtensoesPrincipal.AplicarMáscaraDocumento(atual.CPFStr)
+                        Objeto = atual.Item1,
+                        Principal = atual.Item1.Nome,
+                        Secundario = ExtensoesPrincipal.AplicarMáscaraDocumento(atual.Item1.CPFStr),
+                        Imagem = atual.Item2?.GetSource()
                     };
-                    var img = imagens.Find(atual.Id);
-                    if (img != null && img.Bytes != null)
-                    {
-                        var task = img.GetSourceAsync();
-                        task.Wait();
-                        novoConjunto.Imagem = task.Result;
-                    }
                     conjuntos.Add(novoConjunto);
                 }
                 grdVendedores.ItemsSource = conjuntos;
@@ -60,26 +48,23 @@ namespace NFeFacil.Login
             }
         }
 
-        private async void VendedorEscolhido(object sender, SelectionChangedEventArgs e)
+        private void VendedorEscolhido(object sender, SelectionChangedEventArgs e)
         {
             if (e.AddedItems.Count > 0)
             {
-                var item = (ConjuntoBasicoExibicao)e.AddedItems[0];
-                using (var db = new AplicativoContext())
-                {
-                    var vend = db.Vendedores.Find(item.Id);
-                    Propriedades.VendedorAtivo = vend;
-                }
+                var item = (ConjuntoBasicoExibicao<Vendedor>)e.AddedItems[0];
+                DefinicoesTemporarias.VendedorAtivo = item.Objeto;
+                DefinicoesTemporarias.FotoVendedor = item.Imagem;
                 MainPage.Current.Navegar<View.Inicio>();
-                await MainPage.Current.AtualizarInformaçõesGerais();
+                MainPage.Current.AtualizarInformaçõesGerais();
             }
         }
 
-        private async void LogarAdiministrador(object sender, RoutedEventArgs e)
+        private void LogarAdiministrador(object sender, RoutedEventArgs e)
         {
-            Propriedades.VendedorAtivo = null;
+            DefinicoesTemporarias.VendedorAtivo = null;
             MainPage.Current.Navegar<View.Inicio>();
-            await MainPage.Current.AtualizarInformaçõesGerais();
+            MainPage.Current.AtualizarInformaçõesGerais();
         }
     }
 }

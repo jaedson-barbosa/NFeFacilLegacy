@@ -1,0 +1,21 @@
+﻿<ContentDialog x:Class="NFeFacil.Produto.GerenciamentoProdutos.CadastroICMS"
+               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:local="using:NFeFacil.Produto.GerenciamentoProdutos"
+               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+               mc:Ignorable="d"
+               Title="Cadastro ICMS"
+               PrimaryButtonText="Concluir"
+               SecondaryButtonText="Cancelar">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <TextBox Header="Nome do modelo"
+                 Text="{x:Bind NomeModelo, Mode=TwoWay}" />
+        <Frame x:Name="frmManipulacao"
+               Grid.Row="1" />
+    </Grid>
+</ContentDialog>

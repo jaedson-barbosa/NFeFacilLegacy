@@ -5,9 +5,7 @@ using Windows.UI.Xaml.Input;
 
 namespace NFeFacil.Certificacao
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [View.DetalhePagina(Symbol.Permissions, "Certificação")]
     public sealed partial class ConfiguracoesClienteServidor : Page
     {
         public ConfiguracoesClienteServidor()

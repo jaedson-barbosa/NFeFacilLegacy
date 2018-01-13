@@ -1,7 +1,7 @@
-﻿using NFeFacil.ModeloXML.PartesProcesso;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTotal;
-using NFeFacil.ModeloXML.PartesProcesso.PartesNFe.PartesDetalhes.PartesTransporte;
+﻿using NFeFacil.ModeloXML;
+using NFeFacil.ModeloXML.PartesDetalhes;
+using NFeFacil.ModeloXML.PartesDetalhes.PartesTotal;
+using NFeFacil.ModeloXML.PartesDetalhes.PartesTransporte;
 using System.Linq;
 
 namespace NFeFacil.Validacao
@@ -17,17 +17,23 @@ namespace NFeFacil.Validacao
 
         public void Normalizar()
         {
-            Nota.Informacoes.transp.Transporta = Nota.Informacoes.transp.Transporta?.ToXElement<Motorista>().HasElements ?? false ? Nota.Informacoes.transp.Transporta : null;
-            Nota.Informacoes.transp.VeicTransp = ValidarVeiculo(Nota.Informacoes.transp.VeicTransp) ? Nota.Informacoes.transp.VeicTransp : null;
-            Nota.Informacoes.transp.RetTransp = ValidarRetencaoTransporte(Nota.Informacoes.transp.RetTransp) ? Nota.Informacoes.transp.RetTransp : null;
+            var transp = Nota.Informacoes.transp;
+            transp.Transporta = ValidarMotorista(transp.Transporta) ? transp.Transporta : null;
+            transp.VeicTransp = ValidarVeiculo(transp.VeicTransp) ? transp.VeicTransp : null;
+            transp.RetTransp = ValidarRetencaoTransporte(transp.RetTransp) ? transp.RetTransp : null;
 
-            Nota.Informacoes.total.ISSQNtot = ValidarISSQN(Nota.Informacoes.total.ISSQNtot) ? Nota.Informacoes.total.ISSQNtot : null;
-            Nota.Informacoes.total.RetTrib = ValidarRetencaoTributaria(Nota.Informacoes.total.RetTrib) ? Nota.Informacoes.total.RetTrib : null;
-            Nota.Informacoes.cobr = ValidarFatura(Nota.Informacoes.cobr?.Fat) ? Nota.Informacoes.cobr : null;
-            Nota.Informacoes.infAdic = ValidarInfoAdicional(Nota.Informacoes.infAdic) ? Nota.Informacoes.infAdic : null;
-            Nota.Informacoes.exporta = new ValidadorExportacao(Nota.Informacoes.exporta).Validar(null) ? Nota.Informacoes.exporta : null;
-            Nota.Informacoes.compra = ValidarCompra(Nota.Informacoes.compra) ? Nota.Informacoes.compra : null;
-            Nota.Informacoes.cana = ValidarCana(Nota.Informacoes.cana) ? Nota.Informacoes.cana : null;
+            var total = Nota.Informacoes.total;
+            total.ISSQNtot = ValidarISSQN(total.ISSQNtot) ? total.ISSQNtot : null;
+            total.RetTrib = ValidarRetencaoTributaria(total.RetTrib) ? total.RetTrib : null;
+
+            var info = Nota.Informacoes;
+            info.cobr = ValidarFatura(info.cobr?.Fat) ? info.cobr : null;
+            info.infAdic = ValidarInfoAdicional(info.infAdic) ? info.infAdic : null;
+            info.exporta = new ValidarDados().ValidarTudo(false,
+                (string.IsNullOrEmpty(info.exporta?.UFSaidaPais), "Não foi definida uma UF de saída."),
+                (string.IsNullOrEmpty(info.exporta?.XLocExporta), "Não foi definido o local de exportação")) ? info.exporta : null;
+            info.compra = ValidarCompra(info.compra) ? info.compra : null;
+            info.cana = ValidarCana(info.cana) ? info.cana : null;
         }
 
         public void Desnormalizar()
@@ -69,6 +75,18 @@ namespace NFeFacil.Validacao
             Nota.Signature = null;
         }
 
+        bool ValidarMotorista(Motorista mot)
+        {
+            if (mot == null)
+            {
+                return false;
+            }
+            else
+            {
+                return !string.IsNullOrEmpty(mot.Nome);
+            }
+        }
+
         bool ValidarVeiculo(Veiculo veic)
         {
             if (veic == null)
@@ -102,7 +120,7 @@ namespace NFeFacil.Validacao
             }
             else
             {
-                return !string.IsNullOrEmpty(tot.DCompet);
+                return tot.vServ != 0;
             }
         }
 

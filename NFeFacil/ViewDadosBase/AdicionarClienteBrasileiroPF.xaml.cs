@@ -6,9 +6,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NFeFacil.ViewDadosBase
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [View.DetalhePagina(Symbol.People, "Cliente")]
     public sealed partial class AdicionarClienteBrasileiroPF : Page
     {
         BaseAdicaoDestinatario Base { get; set; }

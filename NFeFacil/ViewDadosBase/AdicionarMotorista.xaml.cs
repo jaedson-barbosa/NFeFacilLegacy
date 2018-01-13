@@ -1,5 +1,4 @@
-﻿using NFeFacil.Log;
-using NFeFacil.Validacao;
+﻿using NFeFacil.Validacao;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -8,22 +7,20 @@ using NFeFacil.ItensBD;
 using System.Collections.ObjectModel;
 using NFeFacil.IBGE;
 using NFeFacil.ModeloXML;
+using System.Linq;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace NFeFacil.ViewDadosBase
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [View.DetalhePagina("\uE806", "Motorista")]
     public sealed partial class AdicionarMotorista : Page
     {
-        public MotoristaDI Motorista { get; set; }
-        public ObservableCollection<VeiculoDI> Veiculos { get; }
-        ObservableCollection<Municipio> ListaMunicipios { get; } = new ObservableCollection<Municipio>();
-        private ILog Log = Popup.Current;
+        MotoristaDI Motorista { get; set; }
+        ObservableCollection<VeiculoDI> Veiculos { get; }
+        ObservableCollection<string> ListaMunicipios { get; set; }
 
-        public string UFEscolhida
+        string UFEscolhida
         {
             get => Motorista.UF;
             set
@@ -32,7 +29,7 @@ namespace NFeFacil.ViewDadosBase
                 ListaMunicipios.Clear();
                 foreach (var item in Municipios.Get(value))
                 {
-                    ListaMunicipios.Add(item);
+                    ListaMunicipios.Add(item.Nome);
                 }
             }
         }
@@ -62,9 +59,9 @@ namespace NFeFacil.ViewDadosBase
         public AdicionarMotorista()
         {
             InitializeComponent();
-            using (var db = new AplicativoContext())
+            using (var repo = new Repositorio.Leitura())
             {
-                Veiculos = new ObservableCollection<VeiculoDI>(db.Veiculos);
+                Veiculos = repo.ObterVeiculos().GerarObs();
             }
         }
 
@@ -73,10 +70,12 @@ namespace NFeFacil.ViewDadosBase
             if (e.Parameter == null)
             {
                 Motorista = new MotoristaDI();
+                ListaMunicipios = new ObservableCollection<string>();
             }
             else
             {
                 Motorista = (MotoristaDI)e.Parameter;
+                ListaMunicipios = new ObservableCollection<string>(Municipios.Get(Motorista.UF).Select(x => x.Nome));
             }
             TipoDocumento = (int)Motorista.TipoDocumento;
         }
@@ -85,22 +84,16 @@ namespace NFeFacil.ViewDadosBase
         {
             try
             {
-                if (new ValidadorMotorista(Motorista).Validar(Log))
+                if (new ValidarDados().ValidarTudo(true,
+                    (string.IsNullOrEmpty(Motorista.UF), "Não foi definido uma UF"),
+                    (string.IsNullOrEmpty(Motorista.XMun), "Não foi definido um município"),
+                    (string.IsNullOrEmpty(Motorista.Nome), "Não foi informado o nome do motorista")))
                 {
-                    using (var db = new AplicativoContext())
+                    using (var repo = new Repositorio.Escrita())
                     {
-                        Motorista.UltimaData = Propriedades.DateTimeNow;
-                        if (Motorista.Id == Guid.Empty)
-                        {
-                            db.Add(Motorista);
-                            Log.Escrever(TitulosComuns.Sucesso, "Motorista salvo com sucesso.");
-                        }
-                        else
-                        {
-                            db.Update(Motorista);
-                            Log.Escrever(TitulosComuns.Sucesso, "Motorista alterado com sucesso.");
-                        }
-                        db.SaveChanges();
+                        Motorista.VeiculosSecundarios = string.Concat(from VeiculoDI item in grdVeisSec.SelectedItems
+                                                                      select item.Placa + '&');
+                        repo.SalvarItemSimples(Motorista, DefinicoesTemporarias.DateTimeNow);
                     }
                     MainPage.Current.Retornar();
                 }
@@ -122,13 +115,52 @@ namespace NFeFacil.ViewDadosBase
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
                 var veic = caixa.Item;
-                using (var db = new AplicativoContext())
+                using (var repo = new Repositorio.Escrita())
                 {
-                    db.Veiculos.Add(veic);
-                    db.SaveChanges();
+                    repo.SalvarItemSimples(veic, DefinicoesTemporarias.DateTimeNow);
                     Veiculos.Add(veic);
                 }
             }
+        }
+
+        void grdVeisSec_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (Motorista.VeiculosSecundarios?.Length > 0)
+            {
+                var veics = Motorista.VeiculosSecundarios.Split('&');
+                foreach (var item in veics)
+                {
+                    if (!string.IsNullOrEmpty(item))
+                    {
+                        grdVeisSec.SelectedItems.Add(Veiculos.First(x => x.Placa == item));
+                    }
+                }
+            }
+        }
+
+        async void EditarVeiculo(object sender, RoutedEventArgs e)
+        {
+            var veic = (VeiculoDI)((FrameworkElement)sender).DataContext;
+            var caixa = new AdicionarVeiculo();
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+            {
+                veic = caixa.Item;
+                using (var repo = new Repositorio.Escrita())
+                {
+                    repo.SalvarItemSimples(veic, DefinicoesTemporarias.DateTimeNow);
+                    Veiculos.Add(veic);
+                }
+            }
+        }
+
+        private void InativarVeiculo(object sender, RoutedEventArgs e)
+        {
+            var veic = (VeiculoDI)((FrameworkElement)sender).DataContext;
+            using (var repo = new Repositorio.Escrita())
+            {
+                repo.InativarDadoBase(veic, DefinicoesTemporarias.DateTimeNow);
+            }
+            Veiculos.Remove(veic);
         }
     }
 }

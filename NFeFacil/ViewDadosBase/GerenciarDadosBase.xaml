@@ -22,11 +22,13 @@
             <FontIcon Glyph="&#xE806;" />
         </controles:ItemPadraoSimples>
         <controles:ItemPadraoSimples Tag="Produtos"
-                                     Titulo="Produtos">
+                                     Titulo="Produtos"
+                                     Descricao="Cadastre tudo (inclusive os impostos)">
             <SymbolIcon Symbol="Shop" />
         </controles:ItemPadraoSimples>
         <controles:ItemPadraoSimples Tag="Vendedores"
-                                     Titulo="Vendedores">
+                                     Titulo="Vendedores"
+                                     Descricao="Identifique quem atende os clientes">
             <SymbolIcon Symbol="People" />
         </controles:ItemPadraoSimples>
         <controles:ItemPadraoSimples Tag="Compradores"

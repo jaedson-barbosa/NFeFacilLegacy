@@ -1,5 +1,4 @@
-﻿using NFeFacil.Log;
-using NFeFacil.Validacao;
+﻿using NFeFacil.Validacao;
 using Windows.UI.Xaml.Navigation;
 using System;
 using NFeFacil.ItensBD;
@@ -11,9 +10,8 @@ namespace NFeFacil.ViewDadosBase
 {
     internal sealed class BaseAdicaoDestinatario
     {
-        internal ClienteDI Cliente { get; private set; }
+        internal ClienteDI Cliente { get; }
         internal ObservableCollection<Municipio> ListaMunicipios { get; }
-        readonly ILog Log = Popup.Current;
 
         public string UFEscolhida
         {
@@ -68,22 +66,13 @@ namespace NFeFacil.ViewDadosBase
         {
             try
             {
-                if (new ValidadorDestinatario(Cliente).Validar(Log))
+                if (new ValidarDados(new ValidadorEndereco(Cliente)).ValidarTudo(true,
+                    (string.IsNullOrEmpty(Cliente.Nome), "Não foi informado o nome do cliente"),
+                    (string.IsNullOrEmpty(Cliente.Documento), "Não foi informado nenhum documento de identificação do cliente")))
                 {
-                    using (var db = new AplicativoContext())
+                    using (var repo = new Repositorio.Escrita())
                     {
-                        Cliente.UltimaData = Propriedades.DateTimeNow;
-                        if (Cliente.Id == Guid.Empty)
-                        {
-                            db.Add(Cliente);
-                            Log.Escrever(TitulosComuns.Sucesso, "Cliente salvo com sucesso.");
-                        }
-                        else
-                        {
-                            db.Update(Cliente);
-                            Log.Escrever(TitulosComuns.Sucesso, "Cliente alterado com sucesso.");
-                        }
-                        db.SaveChanges();
+                        repo.SalvarItemSimples(Cliente, DefinicoesTemporarias.DateTimeNow);
                     }
                     MainPage.Current.Retornar();
                 }

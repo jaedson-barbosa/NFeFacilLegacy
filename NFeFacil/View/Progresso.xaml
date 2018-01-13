@@ -1,0 +1,51 @@
+﻿<ContentDialog x:Class="NFeFacil.View.Progresso"
+               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:local="using:NFeFacil.View"
+               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+               mc:Ignorable="d"
+               Title="Progresso"
+               PrimaryButtonText="Concluir"
+               SecondaryButtonText="Tentar novamente"
+               IsPrimaryButtonEnabled="False"
+               IsSecondaryButtonEnabled="False"
+               SecondaryButtonClick="ContentDialog_SecondaryButtonClick">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <ComboBox x:Name="cmbEscolha"
+                  SelectedItem="{x:Bind ItemEscolhido, Mode=TwoWay}" />
+        <ProgressBar x:Name="barGeral"
+                     Grid.Row="1"
+                     Height="10"
+                     Maximum="100" />
+        <ItemsControl Grid.Row="2"
+                      ItemsSource="{x:Bind Etapas}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate x:DataType="local:EtapaProcesso">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="48" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <ProgressRing IsActive="{x:Bind EmAndamento, Mode=OneWay}" />
+                        <SymbolIcon Symbol="Accept"
+                                    Visibility="{x:Bind Concluido, Mode=OneWay}" />
+                        <SymbolIcon Symbol="Cancel"
+                                    Visibility="{x:Bind Pendente, Mode=OneWay}" />
+                        <TextBlock Grid.Column="1"
+                                   Text="{x:Bind Descricao}" />
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <TextBlock x:Name="txtResultado"
+                   Grid.Row="3"
+                   Style="{StaticResource BaseTextBlockStyle}" />
+    </Grid>
+</ContentDialog>

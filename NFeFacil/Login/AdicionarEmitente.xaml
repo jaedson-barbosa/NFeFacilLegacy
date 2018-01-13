@@ -1,7 +1,8 @@
 ﻿<Page x:Class="NFeFacil.Login.AdicionarEmitente"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:VM="using:NFeFacil.ViewModel"
+      xmlns:VM="using:NFeFacil.View"
+      xmlns:controles="using:NFeFacil.Controles"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
@@ -15,21 +16,21 @@
                 <TextBox Text="{x:Bind Emit.NomeFantasia, Mode=TwoWay}"
                          InputScope="Text"
                          Header="Nome fantasia" />
-                <TextBox Text="{x:Bind Emit.CNPJ, Mode=TwoWay}"
-                         InputScope="Number"
-                         Header="CNPJ *" />
+                <controles:EntradaRestrita Text="{x:Bind Emit.CNPJ, Mode=TwoWay}"
+                                           Pattern="[^\d]"
+                                           Header="CNPJ *" />
                 <TextBox Text="{x:Bind Emit.InscricaoEstadual, Mode=TwoWay}"
-                         InputScope="Number"
-                         Header="Inscrição estadual *" />
-                <TextBox Text="{x:Bind Emit.CNAE, Mode=TwoWay}"
-                         InputScope="Number"
-                         Header="CNAE Fiscal" />
-                <TextBox Text="{x:Bind Emit.IM, Mode=TwoWay}"
-                         InputScope="Number"
-                         Header="Inscrição municipal" />
-                <TextBox Text="{x:Bind Emit.IEST, Mode=TwoWay}"
-                         InputScope="Number"
-                         Header="Inscrição estadual (Subst. tributário)" />
+                                           InputScope="Number"
+                                           Header="Inscrição estadual *" />
+                <controles:EntradaRestrita Text="{x:Bind Emit.CNAE, Mode=TwoWay}"
+                                           Pattern="[^\d]"
+                                           Header="CNAE Fiscal" />
+                <controles:EntradaRestrita Text="{x:Bind Emit.IM, Mode=TwoWay}"
+                                           Pattern="[^\d]"
+                                           Header="Inscrição municipal" />
+                <controles:EntradaRestrita Text="{x:Bind Emit.IEST, Mode=TwoWay}"
+                                           Pattern="[^\d]"
+                                           Header="Inscrição estadual (Subst. tributário)" />
                 <ComboBox SelectedValue="{x:Bind RegimeTributario, Mode=TwoWay}"
                           SelectedValuePath="Tag"
                           Header="Código do Regime Tributário *">
@@ -67,12 +68,12 @@
                 <TextBox Text="{x:Bind Emit.Bairro, Mode=TwoWay}"
                          InputScope="Text"
                          Header="Bairro *" />
-                <TextBox Text="{x:Bind Emit.CEP, Mode=TwoWay}"
-                         InputScope="Number"
-                         Header="CEP *" />
-                <TextBox Text="{x:Bind Emit.Telefone, Mode=TwoWay}"
-                         InputScope="Number"
-                         Header="Telefone" />
+                <controles:EntradaRestrita Text="{x:Bind Emit.CEP, Mode=TwoWay}"
+                                           Pattern="[^\d]"
+                                           Header="CEP *" />
+                <controles:EntradaRestrita Text="{x:Bind Emit.Telefone, Mode=TwoWay}"
+                                           Pattern="[^\d]"
+                                           Header="Telefone" />
             </ItemsControl>
         </StackPanel>
     </ScrollViewer>

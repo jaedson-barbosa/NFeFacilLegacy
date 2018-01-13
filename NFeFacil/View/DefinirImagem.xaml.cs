@@ -30,51 +30,38 @@ namespace NFeFacil.View
             {
                 return;
             }
-            using (var db = new AplicativoContext())
+            using (var repo = new Repositorio.Escrita())
             {
-                var img = db.Imagens.Find(Id);
-                if (img != null)
-                {
-                    img.UltimaData = Propriedades.DateTimeNow;
-                    img.Bytes = bytes;
-                    db.Imagens.Update(img);
-                }
-                else
-                {
-                    img = new ItensBD.Imagem()
-                    {
-                        Id = Id,
-                        UltimaData = Propriedades.DateTimeNow,
-                        Bytes = bytes
-                    };
-                    db.Imagens.Add(img);
-                }
-                db.SaveChanges();
+                repo.SalvarImagem(Id, DefinicoesTemporarias.DateTimeNow, bytes);
             }
             Imagem = imgAtual.Source;
         }
 
         async void Buscar(object sender, RoutedEventArgs e)
         {
-            var open = new Windows.Storage.Pickers.FileOpenPicker();
-            open.FileTypeFilter.Add(".jpg");
-            open.FileTypeFilter.Add(".jpeg");
-            open.FileTypeFilter.Add(".png");
-            var arq = await open.PickSingleFileAsync();
-            if (arq != null)
+            try
             {
-                var buffer = await FileIO.ReadBufferAsync(arq);
-                bytes = buffer.ToArray();
-
-                var source = new BitmapImage();
-                using (var stream = new InMemoryRandomAccessStream())
+                var open = new Windows.Storage.Pickers.FileOpenPicker();
+                open.FileTypeFilter.Add(".jpg");
+                open.FileTypeFilter.Add(".jpeg");
+                open.FileTypeFilter.Add(".png");
+                var arq = await open.PickSingleFileAsync();
+                if (arq != null)
                 {
-                    await stream.WriteAsync(buffer);
-                    stream.Seek(0);
-                    source.SetSource(stream);
-                    imgAtual.Source = source;
+                    var buffer = await FileIO.ReadBufferAsync(arq);
+                    bytes = buffer.ToArray();
+
+                    var source = new BitmapImage();
+                    using (var stream = new InMemoryRandomAccessStream())
+                    {
+                        await stream.WriteAsync(buffer);
+                        stream.Seek(0);
+                        source.SetSource(stream);
+                        imgAtual.Source = source;
+                    }
                 }
             }
+            catch { }
         }
 
         void Apagar(object sender, RoutedEventArgs e)

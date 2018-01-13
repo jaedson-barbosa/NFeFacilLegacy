@@ -1,22 +1,15 @@
-﻿using NFeFacil.ItensBD;
-using NFeFacil.Log;
+﻿using NFeFacil.Log;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using Windows.Storage.Pickers;
 using Windows.Storage.Streams;
 using Windows.UI.Popups;
-using Windows.UI.Text;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 
@@ -24,26 +17,18 @@ namespace NFeFacil
 {
     internal static class ExtensoesPrincipal
     {
-        public static XElement ToXElement<T>(this object obj, string nameSpace = "http://www.portalfiscal.inf.br/nfe") => ToXElement(obj, typeof(T), nameSpace);
-
-        public static XElement ToXElement(this object obj, Type T, string nameSpace = "http://www.portalfiscal.inf.br/nfe")
+        public static XElement ToXElement<T>(this object obj, string nameSpace = "http://www.portalfiscal.inf.br/nfe")
         {
             using (var memoryStream = new MemoryStream())
             {
                 var name = new XmlSerializerNamespaces();
                 name.Add(string.Empty, string.Empty);
                 name.Add(string.Empty, nameSpace);
-                var xmlSerializer = new XmlSerializer(T);
+                var xmlSerializer = new XmlSerializer(typeof(T));
                 xmlSerializer.Serialize(memoryStream, obj, name);
                 memoryStream.Position = 0;
                 return XElement.Load(memoryStream);
             }
-        }
-
-        public static T FromXElement<T>(this Stream streamXMl)
-        {
-            var xmlSerializer = new XmlSerializer(typeof(T));
-            return (T)xmlSerializer.Deserialize(streamXMl);
         }
 
         public static T FromXElement<T>(this XNode xElement)
@@ -77,17 +62,6 @@ namespace NFeFacil
             return new ObservableCollection<T>(aqui);
         }
 
-        public static ObservableCollection<T> ObterItens<T>()
-        {
-            return Enum.GetValues(typeof(T)).Cast<T>().GerarObs();
-        }
-
-        internal static string ObterRecurso(string recurso)
-        {
-            var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
-            return loader.GetString(recurso);
-        }
-
         internal static async void ManipularErro(this Exception erro)
         {
             if (erro is ErroDesserializacao dess)
@@ -106,65 +80,12 @@ namespace NFeFacil
             }
         }
 
-        internal static double CentimeterToPixel(double Centimeter)
-        {
-            const double fator = 96 / 2.54;
-            return Centimeter * fator;
-        }
-
-        internal static GridLength CentimeterToLength(double Centimeter)
-        {
-            return new GridLength(CentimeterToPixel(Centimeter), GridUnitType.Pixel);
-        }
-
-        public static void AddBloco(this RichTextBlock visualizacao, string titulo, params (string, string)[] filhos)
-        {
-            const string EntreLabelTexto = ": ";
-            var paragrafo = new Paragraph();
-            AddInline(titulo, Estilo.TituloBloco);
-            for (int i = 0; i < filhos.Length; i++)
-            {
-                var atual = filhos[i];
-                if (!string.IsNullOrEmpty(atual.Item2))
-                {
-                    AddInline(atual.Item1 + EntreLabelTexto, Estilo.Label);
-                    AddInline(atual.Item2, Estilo.Texto);
-                }
-            }
-            visualizacao.Blocks.Add(paragrafo);
-
-            void AddInline(string texto, Estilo estilo)
-            {
-                var run = new Run() { Text = texto };
-                switch (estilo)
-                {
-                    case Estilo.TituloBloco:
-                        run.FontSize = 16;
-                        run.FontWeight = FontWeights.ExtraBlack;
-                        break;
-                    case Estilo.Label:
-                        run.FontWeight = FontWeights.Bold;
-                        break;
-                }
-                paragrafo.Inlines.Add(run);
-                if (estilo != Estilo.Label)
-                {
-                    CriarQuebraDeLinha();
-                }
-            }
-
-            void CriarQuebraDeLinha()
-            {
-                paragrafo.Inlines.Add(new LineBreak());
-            }
-        }
-
-        public static async Task<ImageSource> GetSourceAsync(this Imagem imagem)
+        public static ImageSource GetSource(this byte[] imagem)
         {
             var retorno = new BitmapImage();
             using (var stream = new InMemoryRandomAccessStream())
             {
-                await stream.WriteAsync(imagem.Bytes.AsBuffer());
+                new StreamWriter(stream.AsStreamForWrite()).Write(imagem);
                 stream.Seek(0);
                 retorno.SetSource(stream);
                 return retorno;
@@ -173,66 +94,60 @@ namespace NFeFacil
 
         public static string AplicarMáscaraDocumento(string original)
         {
-            if (string.IsNullOrEmpty(original))
-            {
-                return string.Empty;
-            }
-            else if (original.Length == 14)
-            {
-                // É CNPJ
-                return $"{original.Substring(0, 2)}.{original.Substring(2, 3)}.{original.Substring(5, 3)}/{original.Substring(8, 4)}.{original.Substring(12, 2)}";
-            }
-            else if (original.Length == 11)
-            {
-                // É CPF
-                return $"{original.Substring(0, 3)}.{original.Substring(3, 3)}.{original.Substring(6, 3)}-{original.Substring(9, 2)}";
-            }
-            else if (original.Length == 8)
-            {
-                // É CEP
-                return $"{original.Substring(0, 5)}-{original.Substring(5, 3)}";
-            }
-            else
-            {
-                // Não é nem CNPJ nem CPF
-                return original;
-            }
+            if (string.IsNullOrEmpty(original)) return string.Empty;
+            else if (original.Length == 14) // É CNPJ
+                return $"{sub(0, 2)}.{sub(2, 3)}.{sub(5, 3)}/{sub(8, 4)}.{sub(12, 2)}";
+            else if (original.Length == 11) // É CPF
+                return $"{sub(0, 3)}.{sub(3, 3)}.{sub(6, 3)}-{sub(9, 2)}";
+            else if (original.Length == 8) // É CEP
+                return $"{sub(0, 5)}-{sub(5, 3)}";
+            else return original;
+
+            string sub(int start, int len) => original.Substring(start, len);
         }
 
-        static CultureInfo culturaPadrao = CultureInfo.InvariantCulture;
-        public static string ToStr(double valor) => valor.ToString("F2", culturaPadrao);
-        public static double Parse(string str) => double.Parse(str, NumberStyles.Number, culturaPadrao);
-
-        public class ErroDesserializacao : Exception
+        internal static string[] Concat(this string[] original, params string[] extras)
         {
-            XNode XML { get; }
+            var inicial = original.Length;
+            var tot = original.Length + extras.Length;
 
-            public ErroDesserializacao(XNode xml) => XML = xml;
-            public ErroDesserializacao(string message, XNode xml) : base(message) => XML = xml;
-            public ErroDesserializacao(string message, Exception innerException, XNode xml) : base(message, innerException) => XML = xml;
+            var retorno = new string[tot];
+            for (int i = 0; i < inicial; i++) retorno[i] = original[i];
+            for (int i = 0; i < extras.Length; i++) retorno[i + inicial] = extras[i];
+            return retorno;
+        }
 
-            public async void ExportarXML()
+        internal static double CMToPixel(double CM) => CM * (96 / 2.54);
+        internal static GridLength CMToLength(double CM) => new GridLength(CMToPixel(CM));
+
+        static CultureInfo defCult = CultureInfo.InvariantCulture;
+        public static string ToStr(double valor, string format = "F2") => valor.ToString(format, defCult);
+        public static double Parse(string str) => double.Parse(str, NumberStyles.Number, defCult);
+        public static bool TryParse(string str, out double valor) => double.TryParse(str, NumberStyles.Number, defCult, out valor);
+    }
+
+    public class ErroDesserializacao : Exception
+    {
+        XNode XML { get; }
+
+        public ErroDesserializacao(XNode xml) => XML = xml;
+        public ErroDesserializacao(string message, XNode xml) : base(message) => XML = xml;
+        public ErroDesserializacao(string message, Exception innerException, XNode xml) : base(message, innerException) => XML = xml;
+
+        public async void ExportarXML()
+        {
+            var caixa = new FileSavePicker();
+            caixa.FileTypeChoices.Add("Arquivo XML", new string[] { ".xml" });
+            var arq = await caixa.PickSaveFileAsync();
+            if (arq != null)
             {
-                var caixa = new FileSavePicker();
-                caixa.FileTypeChoices.Add("Arquivo XML", new string[] { ".xml" });
-                var arq = await caixa.PickSaveFileAsync();
-                if (arq != null)
+                var stream = await arq.OpenStreamForWriteAsync();
+                using (StreamWriter escritor = new StreamWriter(stream))
                 {
-                    var stream = await arq.OpenStreamForWriteAsync();
-                    using (StreamWriter escritor = new StreamWriter(stream))
-                    {
-                        await escritor.WriteAsync(XML.ToString());
-                        await escritor.FlushAsync();
-                    }
+                    await escritor.WriteAsync(XML.ToString());
+                    await escritor.FlushAsync();
                 }
             }
         }
-    }
-
-    enum Estilo
-    {
-        TituloBloco,
-        Label,
-        Texto
     }
 }

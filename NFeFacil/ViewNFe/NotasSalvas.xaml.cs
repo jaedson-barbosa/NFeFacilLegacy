@@ -2,50 +2,37 @@
 using NFeFacil.ModeloXML;
 using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Xml.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 using NFeFacil.Controles;
 using System.Xml.Serialization;
-using NFeFacil.Log;
 using NFeFacil.WebService.Pacotes;
-using System.Threading.Tasks;
 using NFeFacil.WebService;
 using NFeFacil.Validacao;
 using Windows.UI.Xaml.Media;
+using NFeFacil.View;
+using NFeFacil.WebService.Pacotes.PartesEnvEvento;
+using NFeFacil.WebService.Pacotes.PartesRetEnvEvento;
+using NFeFacil.Certificacao;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace NFeFacil.ViewNFe
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [DetalhePagina(Symbol.Library, "Notas salvas")]
     public sealed partial class NotasSalvas : Page, IHambuguer
     {
         public NotasSalvas()
         {
             InitializeComponent();
-            using (var db = new AplicativoContext())
+            using (var repo = new Repositorio.Leitura())
             {
-                var notasFiscais = db.NotasFiscais.ToArray();
-                NotasEmitidas = (from nota in notasFiscais
-                                 where nota.Status == (int)StatusNFe.Emitida
-                                 where nota.CNPJEmitente == Propriedades.EmitenteAtivo.CNPJ
-                                 orderby nota.DataEmissao descending
-                                 select nota).GerarObs();
-                OutrasNotas = (from nota in notasFiscais
-                               where nota.Status != (int)StatusNFe.Emitida && nota.Status != (int)StatusNFe.Cancelada
-                               where nota.CNPJEmitente == Propriedades.EmitenteAtivo.CNPJ
-                               orderby nota.DataEmissao descending
-                               select nota).GerarObs();
-                NotasCanceladas = (from nota in notasFiscais
-                               where nota.Status == (int)StatusNFe.Cancelada
-                               where nota.CNPJEmitente == Propriedades.EmitenteAtivo.CNPJ
-                               orderby nota.DataEmissao descending
-                               select nota).GerarObs();
+                var (emitidas, outras, canceladas) = repo.ObterNotas(DefinicoesTemporarias.EmitenteAtivo.CNPJ);
+                NotasEmitidas = emitidas.GerarObs();
+                OutrasNotas = outras.GerarObs();
+                NotasCanceladas = canceladas.GerarObs();
             }
         }
 
@@ -69,89 +56,86 @@ namespace NFeFacil.ViewNFe
         private void Excluir(object sender, RoutedEventArgs e)
         {
             var nota = (NFeDI)((MenuFlyoutItem)sender).DataContext;
-            using (var db = new AplicativoContext())
+            using (var repo = new Repositorio.OperacoesExtras())
             {
-                db.NotasFiscais.Remove(nota);
+                repo.ExcluirNFe(nota);
                 OutrasNotas.Remove(nota);
-                db.SaveChanges();
             }
-            Popup.Current.Escrever(TitulosComuns.Sucesso, "Nota excluída com sucesso.");
         }
 
         private async void Cancelar(object sender, RoutedEventArgs e)
         {
             var nota = (NFeDI)((MenuFlyoutItem)sender).DataContext;
             var processo = XElement.Parse(nota.XML).FromXElement<Processo>();
-            if (await Cancelar(processo))
+
+            var estado = processo.NFe.Informacoes.identificacao.CódigoUF;
+            var tipoAmbiente = processo.ProtNFe.InfProt.tpAmb;
+
+            var gerenciador = new GerenciadorGeral<EnvEvento, RetEnvEvento>(estado, Operacoes.RecepcaoEvento, tipoAmbiente == 2);
+
+            var cnpj = processo.NFe.Informacoes.emitente.CNPJ;
+            var chave = processo.NFe.Informacoes.ChaveAcesso;
+            var nProtocolo = processo.ProtNFe.InfProt.nProt;
+            var entrada = new CancelarNFe();
+
+            if (await entrada.ShowAsync() == ContentDialogResult.Primary)
             {
-                nota.Status = (int)StatusNFe.Cancelada;
-                using (var db = new AplicativoContext())
+                var infoEvento = new InformacoesEvento(estado, cnpj, chave, nProtocolo, entrada.Motivo, tipoAmbiente);
+                var envio = new EnvEvento(infoEvento);
+
+                AssinaFacil assinador = new AssinaFacil();
+                await assinador.Preparar();
+
+                Progresso progresso = null;
+                progresso = new Progresso(async x =>
                 {
-                    nota.UltimaData = Propriedades.DateTimeNow;
-                    db.Update(nota);
-                    db.SaveChanges();
-
-                    NotasEmitidas.Remove(nota);
-                    NotasCanceladas.Insert(0, nota);
-                }
-            }
-        }
-
-        public async Task<bool> Cancelar(Processo Processo)
-        {
-            ILog Log = Popup.Current;
-
-            try
-            {
-                var estado = Processo.NFe.Informacoes.identificacao.CódigoUF;
-                var tipoAmbiente = Processo.ProtNFe.InfProt.tpAmb;
-
-                var gerenciador = new GerenciadorGeral<EnvEvento, RetEnvEvento>(estado, Operacoes.RecepcaoEvento, tipoAmbiente == 2);
-
-                var cnpj = Processo.NFe.Informacoes.emitente.CNPJ;
-                var chave = Processo.NFe.Informacoes.ChaveAcesso;
-                var nProtocolo = Processo.ProtNFe.InfProt.nProt;
-                var versao = gerenciador.Enderecos.VersaoRecepcaoEvento;
-                var entrada = new CancelarNFe();
-
-                if (await entrada.ShowAsync() == ContentDialogResult.Primary)
-                {
-                    var infoEvento = new InformacoesEvento(estado, cnpj, chave, versao, nProtocolo, entrada.Motivo, tipoAmbiente);
-                    var envio = new EnvEvento(gerenciador.Enderecos.VersaoRecepcaoEvento, infoEvento);
-                    await envio.PrepararEventos();
-                    var resposta = await gerenciador.EnviarAsync(envio);
-                    if (resposta.RetEvento[0].InfEvento.CStat == 135)
+                    var resultado = await envio.PrepararEventos(assinador, x);
+                    if (!resultado.Item1)
                     {
-                        using (var contexto = new AplicativoContext())
+                        return resultado;
+                    }
+                    await progresso.Update(1);
+
+                    var resposta = await gerenciador.EnviarAsync(envio);
+                    if (resposta.ResultadorEventos[0].InfEvento.CStat == 135)
+                    {
+                        using (var repo = new Repositorio.Escrita())
                         {
-                            contexto.Cancelamentos.Add(new RegistroCancelamento()
+                            repo.SalvarItemSimples(new RegistroCancelamento()
                             {
                                 ChaveNFe = chave,
-                                DataHoraEvento = resposta.RetEvento[0].InfEvento.DhRegEvento,
+                                DataHoraEvento = resposta.ResultadorEventos[0].InfEvento.DhRegEvento,
                                 TipoAmbiente = tipoAmbiente,
                                 XML = new ProcEventoCancelamento()
                                 {
                                     Eventos = envio.Eventos,
-                                    RetEvento = resposta.RetEvento,
+                                    RetEvento = resposta.ResultadorEventos,
                                     Versao = resposta.Versao
                                 }.ToXElement<ProcEventoCancelamento>().ToString()
-                            });
-                            contexto.SaveChanges();
+                            }, DefinicoesTemporarias.DateTimeNow);
+
+                            nota.Status = (int)StatusNFe.Cancelada;
+                            repo.SalvarItemSimples(nota, DefinicoesTemporarias.DateTimeNow);
+                            await progresso.Update(6);
+
+                            NotasEmitidas.Remove(nota);
+                            NotasCanceladas.Insert(0, nota);
                         }
-                        Log.Escrever(TitulosComuns.Sucesso, "NFe cancelada com sucesso.");
-                        return true;
+                        return (true, "NFe cancelada com sucesso.");
                     }
                     else
                     {
-                        Log.Escrever(TitulosComuns.Erro, resposta.RetEvento[0].InfEvento.XMotivo);
+                        return (false, resposta.ResultadorEventos[0].InfEvento.XMotivo);
                     }
-                }
-                return false;
-            }
-            catch (Exception e)
-            {
-                Log.Escrever(TitulosComuns.Erro, e.Message);
-                return false;
+                }, assinador.CertificadosDisponiveis, "Subject",
+                "Preparar eventos com assinatura do emitente",
+                "Preparar conexão",
+                "Obter conteúdo da requisição",
+                "Enviar requisição",
+                "Processar resposta",
+                "Salvar registro de cancelamento no banco de dados");
+                gerenciador.ProgressChanged += async (x, y) => await progresso.Update(y + 1);
+                await progresso.ShowAsync();
             }
         }
 
@@ -183,7 +167,7 @@ namespace NFeFacil.ViewNFe
 
     sealed class BoolToColor : IValueConverter
     {
-        static readonly Brush Ativo = new SolidColorBrush(new AuxiliaresEstilos.BibliotecaCores().Cor1);
+        static readonly Brush Ativo = new SolidColorBrush(new BibliotecaCores().Cor1);
         static readonly Brush Inativo = new SolidColorBrush(Windows.UI.Colors.Transparent);
 
         public object Convert(object value, Type targetType, object parameter, string language)

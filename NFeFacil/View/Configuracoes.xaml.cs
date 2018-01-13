@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using NFeFacil.Certificacao;
+﻿using NFeFacil.Certificacao;
 using NFeFacil.Sincronizacao;
 using System;
 using System.IO;
@@ -131,17 +130,17 @@ namespace NFeFacil.View
         {
             var objeto = new ConjuntoBanco();
             objeto.AtualizarPadrao();
-            var json = JsonConvert.SerializeObject(objeto);
+            var xml = objeto.ToXElement<ConjuntoBanco>().ToString();
 
             var caixa = new FileSavePicker();
-            caixa.FileTypeChoices.Add("Arquivo JSON", new string[] { ".json" });
+            caixa.FileTypeChoices.Add("Arquivo XML", new string[] { ".xml" });
             var arq = await caixa.PickSaveFileAsync();
             if (arq != null)
             {
                 var stream = await arq.OpenStreamForWriteAsync();
                 using (StreamWriter escritor = new StreamWriter(stream))
                 {
-                    await escritor.WriteAsync(json);
+                    await escritor.WriteAsync(xml);
                     await escritor.FlushAsync();
                 }
             }

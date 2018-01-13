@@ -95,10 +95,9 @@ namespace NFeFacil.Sincronizacao.FastServer
                 };
             }
 
-            var retorno = new XElement("RestResponse",
+            return new XElement("RestResponse",
                 new XElement("Sucesso", result.Sucesso),
                 new XElement("ContentData", result.ContentData)).ToString(SaveOptions.DisableFormatting);
-            return $"{retorno.Length.ToString("0000000000")}{retorno}";
         }
 
         private object ExecuteAnonymousMethod(RestControllerMethodInfo info, RestRequest request, ParsedUri requestUri)

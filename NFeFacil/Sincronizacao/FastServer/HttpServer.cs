@@ -43,7 +43,7 @@ namespace NFeFacil.Sincronizacao.FastServer
         {
             using (var socket = args.Socket)
             {
-                byte[] httpResponse;
+                string httpResponse;
                 try
                 {
                     using (var input = socket.InputStream)
@@ -61,18 +61,18 @@ namespace NFeFacil.Sincronizacao.FastServer
                             Content = xml.Element("Content"),
                             Uri = xml.Element("Uri").Value
                         };
-                        var str = await _requestHandler.HandleRequestAsync(request);
-                        httpResponse = Encoding.UTF8.GetBytes(str);
+                        httpResponse = await _requestHandler.HandleRequestAsync(request);
                     }
                 }
                 catch (Exception e)
                 {
-                    httpResponse = Encoding.UTF8.GetBytes(e.Message);
+                    httpResponse = e.Message;
                 }
 
+                httpResponse = $"{httpResponse.Length.ToString("0000000000")}{httpResponse}";
                 using (var output = socket.OutputStream)
                 {
-                    await output.WriteAsync(httpResponse.AsBuffer());
+                    await output.WriteAsync(Encoding.UTF8.GetBytes(httpResponse).AsBuffer());
                     await output.FlushAsync();
                 }
             }

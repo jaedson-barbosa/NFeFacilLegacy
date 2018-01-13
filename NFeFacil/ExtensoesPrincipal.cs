@@ -47,6 +47,35 @@ namespace NFeFacil
             }
         }
 
+        public static T FromStream<T>(this Stream str)
+        {
+            try
+            {
+                var xmlSerializer = new XmlSerializer(typeof(T));
+                return (T)xmlSerializer.Deserialize(str);
+            }
+            catch (Exception e)
+            {
+                throw new ErroDesserializacao($"Ocorreu um erro ao desserializar o objeto de tipo {nameof(T)}", e, XElement.Load(str));
+            }
+        }
+
+        public static T FromString<T>(this string str)
+        {
+            try
+            {
+                var xmlSerializer = new XmlSerializer(typeof(T));
+                using (var reader = new StringReader(str))
+                {
+                    return (T)xmlSerializer.Deserialize(reader);
+                }
+            }
+            catch (Exception e)
+            {
+                throw new ErroDesserializacao($"Ocorreu um erro ao desserializar o objeto de tipo {nameof(T)}", e, XElement.Parse(str));
+            }
+        }
+
         public static string ToStringPersonalizado(this DateTime dataHora)
         {
             double horas = TimeZoneInfo.Local.BaseUtcOffset.TotalHours;

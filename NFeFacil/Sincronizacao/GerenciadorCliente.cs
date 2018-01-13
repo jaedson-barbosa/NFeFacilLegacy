@@ -1,11 +1,15 @@
 ﻿using static NFeFacil.Sincronizacao.ConfiguracoesSincronizacao;
 using NFeFacil.Log;
 using NFeFacil.Sincronizacao.Pacotes;
-using Newtonsoft.Json;
 using System.Threading.Tasks;
-using System.Net.Http;
 using System.Text;
 using System;
+using NFeFacil.Sincronizacao.FastServer;
+using System.Xml.Linq;
+using Windows.Networking.Sockets;
+using Windows.Networking;
+using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Storage.Streams;
 
 namespace NFeFacil.Sincronizacao
 {
@@ -35,7 +39,7 @@ namespace NFeFacil.Sincronizacao
             var (objeto, mensagem) = await RequestAsync<ConjuntoDadosBase>(
                 $"SincronizarDadosBase",
                 SenhaPermanente,
-                envio,
+                envio.ToXElement<ConjuntoDadosBase>(),
                 UltimaSincronizacao.ToBinary().ToString());
             if (objeto != null)
             {
@@ -46,7 +50,7 @@ namespace NFeFacil.Sincronizacao
                 var recebNotas = await RequestAsync<ConjuntoNotasFiscais>(
                     $"SincronizarNotasFiscais",
                     SenhaPermanente,
-                    envioNotas,
+                    envioNotas.ToXElement<ConjuntoNotasFiscais>(),
                     UltimaSincronizacaoNotas.ToBinary().ToString());
                 if (recebNotas.objeto != null)
                 {
@@ -82,7 +86,7 @@ namespace NFeFacil.Sincronizacao
             var (objeto, mensagem) = await RequestAsync<ConjuntoDadosBase>(
                 $"SincronizarDadosBase",
                 SenhaPermanente,
-                envio,
+                envio.ToXElement<ConjuntoDadosBase>(),
                 DateTime.MinValue.ToBinary().ToString());
             if (objeto != null)
             {
@@ -94,7 +98,7 @@ namespace NFeFacil.Sincronizacao
                 var recebNotas = await RequestAsync<ConjuntoNotasFiscais>(
                     $"SincronizarNotasFiscais",
                     SenhaPermanente,
-                    envioNotas,
+                    envioNotas.ToXElement<ConjuntoNotasFiscais>(),
                     DateTime.MinValue.ToBinary().ToString());
                 if (recebNotas.objeto != null)
                 {
@@ -121,39 +125,36 @@ namespace NFeFacil.Sincronizacao
             }
         }
 
-        async Task<(T objeto,string mensagem)> RequestAsync<T>(string nomeMetodo, int senha, object corpo, string parametroExtra = null) where T : class
+        async Task<(T objeto,string mensagem)> RequestAsync<T>(string nomeMetodo, int senha, XNode corpo, string parametroExtra = null) where T : class
         {
-            string caminho = $"http://{IPServidor}:8080/{nomeMetodo}/{senha}";
+            string caminho = $"/{nomeMetodo}/{senha}";
             if (parametroExtra != null) caminho += $"/{parametroExtra}";
-            using (var proxy = new HttpClient())
+            var envio = new XElement("Envio",
+                new XElement("Content", corpo),
+                new XElement("Uri", caminho));
+            var str = envio.ToString(SaveOptions.DisableFormatting);
+            byte[] bytes = Encoding.UTF8.GetBytes($"{str.Length.ToString("0000000000")}{str}");
+
+            using (var socket = new StreamSocket())
             {
-                var mensagem = new HttpRequestMessage(HttpMethod.Get, caminho);
-                if (corpo != null)
+                await socket.ConnectAsync(new HostName(IPServidor), "8080");
+                using (var output = socket.OutputStream)
                 {
-                    var json = JsonConvert.SerializeObject(corpo);
-                    mensagem.Content = new StringContent(json, Encoding.UTF8, "application/json");
+                    await output.WriteAsync(bytes.AsBuffer());
                 }
-                var resposta = await proxy.SendAsync(mensagem);
-                var texto = await resposta.Content.ReadAsStringAsync();
-                if (resposta.IsSuccessStatusCode)
+                using (var input = socket.InputStream)
                 {
-                    var objeto = JsonConvert.DeserializeObject<T>(texto);
-                    return (objeto, null);
-                }
-                else
-                {
-                    var objeto = JsonConvert.DeserializeXmlNode(texto, "XML");
-                    var partes = objeto.ChildNodes.Item(0).ChildNodes;
-                    string detalhesErro = null;
-                    for (int i = 0; i < partes.Count; i++)
-                    {
-                        if (partes[i].Name == "Message")
-                        {
-                            detalhesErro = partes[i].InnerText;
-                        }
-                    }
-                    return (null, $"Ocorreu um erro durante a execução da requisição de identificação \"{nomeMetodo}\".\r\n" +
-                        $"Esta é a mensagem do servidor: {detalhesErro}");
+                    var buffer = new Windows.Storage.Streams.Buffer(10);
+                    var result = await input.ReadAsync(buffer, 10, InputStreamOptions.None);
+                    var tamStr = Encoding.UTF8.GetString(result.ToArray());
+                    var tamanho = uint.Parse(tamStr);
+
+                    buffer = new Windows.Storage.Streams.Buffer(tamanho);
+                    result = await input.ReadAsync(buffer, tamanho, InputStreamOptions.None);
+                    var response = result.AsStream().FromStream<RestResponse>();
+                    if (response.Sucesso)
+                        return (response.ContentData.FromString<T>(), null);
+                    else return (null, response.ContentData);
                 }
             }
         }

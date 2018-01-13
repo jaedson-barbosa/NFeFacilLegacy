@@ -9,12 +9,24 @@ namespace NFeFacil
 
         public static T Get<T>(string nome, T padrao)
         {
-            try
+            var contem = Pasta.Values.ContainsKey(nome);
+            if (contem)
             {
-                var contem = Pasta.Values.ContainsKey(nome);
-                return contem ? (T)Pasta.Values[nome] : padrao;
+                try
+                {
+                    var valor = Pasta.Values[nome];
+                    if (valor is T convertido)
+                    {
+                        return convertido;
+                    }
+                    Pasta.Values.Remove(nome);
+                }
+                catch (Exception)
+                {
+                    Pasta.Values.Remove(nome);
+                }
             }
-            catch (Exception) { return padrao; }
+            return padrao;
         }
 
         public static void Set(string nome, object valor)

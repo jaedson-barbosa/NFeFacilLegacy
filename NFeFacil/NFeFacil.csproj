@@ -165,6 +165,17 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="AssistenteConfig.cs" />
+    <Compile Include="Sincronizacao\FastServer\FromContentAttribute.cs" />
+    <Compile Include="Sincronizacao\FastServer\HttpServer.cs" />
+    <Compile Include="Sincronizacao\FastServer\ParameterValueGetter.cs" />
+    <Compile Include="Sincronizacao\FastServer\ParsedUri.cs" />
+    <Compile Include="Sincronizacao\FastServer\PathPart.cs" />
+    <Compile Include="Sincronizacao\FastServer\RestControllerMethodInfo.cs" />
+    <Compile Include="Sincronizacao\FastServer\RestControllerRequestHandler.cs" />
+    <Compile Include="Sincronizacao\FastServer\RestRequest.cs" />
+    <Compile Include="Sincronizacao\FastServer\RestResponse.cs" />
+    <Compile Include="Sincronizacao\FastServer\UriFormatAttribute.cs" />
+    <Compile Include="Sincronizacao\FastServer\UriParser.cs" />
     <Compile Include="View\MetodosObtencao.cs" />
     <Compile Include="Certificacao\ConfiguracoesCertificadoImportado.xaml.cs">
       <DependentUpon>ConfiguracoesCertificadoImportado.xaml</DependentUpon>
@@ -737,7 +748,6 @@
     <Compile Include="Sincronizacao\Pacotes\InfoSegurancaConexao.cs" />
     <Compile Include="Sincronizacao\Servidor\ControllerInformacoes.cs" />
     <Compile Include="Sincronizacao\Servidor\ControllerSincronizacao.cs" />
-    <Compile Include="Sincronizacao\Servidor\SenhaErrada.cs" />
     <Compile Include="Sincronizacao\TipoAppSincronizacao.cs" />
     <Compile Include="Validacao\AnalisadorNFe.cs" />
     <Compile Include="Validacao\IValidavel.cs" />
@@ -1586,9 +1596,6 @@
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>10.0.3</Version>
-    </PackageReference>
-    <PackageReference Include="Restup">
-      <Version>1.0.0</Version>
     </PackageReference>
     <PackageReference Include="System.ValueTuple">
       <Version>4.4.0</Version>

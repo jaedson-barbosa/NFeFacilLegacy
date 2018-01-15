@@ -6,7 +6,7 @@ namespace NFeFacil.Sincronizacao
     {
         public static TipoAppSincronizacao Tipo
         {
-            get => AssistenteConfig.Get(nameof(Tipo), TipoAppSincronizacao.Cliente);
+            get => (TipoAppSincronizacao)AssistenteConfig.Get(nameof(Tipo), 1);
             set
             {
                 AssistenteConfig.Set(nameof(Tipo), (int)value);

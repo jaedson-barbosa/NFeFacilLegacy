@@ -399,7 +399,7 @@ namespace NFeFacil.ViewNFe
                 {
                     var prodDI = repo.ObterProduto(produto.Produto.CodigoProduto);
                     var dados = new DadosAdicaoProduto(prodDI, produto);
-                    MainPage.Current.Navegar<ManipulacaoProdutoCompleto>(produto);
+                    MainPage.Current.Navegar<ManipulacaoProdutoCompleto>(dados);
                 }
             }
         }

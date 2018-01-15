@@ -31,18 +31,17 @@ namespace NFeFacil
 
         public static void Set(string nome, object valor)
         {
-            var contem = Pasta.Values.ContainsKey(nome);
             try
             {
-                if (contem) Pasta.Values[nome] = valor;
-                else Pasta.Values.Add(nome, valor);
+                Pasta.Values[nome] = valor;
             }
             catch (Exception)
             {
                 try
                 {
+                    var contem = Pasta.Values.ContainsKey(nome);
                     if (contem) Pasta.Values.Remove(nome);
-                    Pasta.Values.Add(nome, valor);
+                    Pasta.Values[nome] = valor;
                 }
                 catch (Exception) { }
             }

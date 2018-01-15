@@ -10,8 +10,8 @@
 
         public static OrigemCertificado Origem
         {
-            get => AssistenteConfig.Get(nameof(Origem), OrigemCertificado.Importado);
-            set => AssistenteConfig.Set(nameof(Origem), value);
+            get => (OrigemCertificado)AssistenteConfig.Get(nameof(Origem), 0);
+            set => AssistenteConfig.Set(nameof(Origem), (int)value);
         }
     }
 }

@@ -109,8 +109,9 @@ namespace NFeFacil.Sincronizacao.FastServer
             {
                 try
                 {
+                    var content = (XElement)request.Content;
                     var xmlSerializer = new XmlSerializer(info.ContentParameterType);
-                    using (var reader = request.Content.CreateReader())
+                    using (var reader = content.FirstNode.CreateReader())
                     {
                         object contentObj = xmlSerializer.Deserialize(reader);
                         parameters = info.GetParametersFromUri(requestUri).Concat(new[] { contentObj }).ToArray();

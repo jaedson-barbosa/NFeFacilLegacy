@@ -19,10 +19,10 @@ namespace NFeFacil.Sincronizacao
 
         public async Task EstabelecerConexao(int senha)
         {
-            var (objeto, mensagem) = await RequestAsync<InfoSegurancaConexao>("BrechaSeguranca", senha, null);
+            var (objeto, mensagem) = await RequestAsync<string>("BrechaSeguranca", senha, null);
             if (objeto != null)
             {
-                SenhaPermanente = objeto.Senha;
+                SenhaPermanente = int.Parse(objeto);
                 Log.Escrever(TitulosComuns.Sucesso, "Chave de segurança decodificada e salva com sucesso.");
             }
             else
@@ -152,9 +152,13 @@ namespace NFeFacil.Sincronizacao
                     buffer = new Windows.Storage.Streams.Buffer(tamanho);
                     result = await input.ReadAsync(buffer, tamanho, InputStreamOptions.None);
                     var response = result.AsStream().FromStream<RestResponse>();
+                    var respCont = response.ContentData;
                     if (response.Sucesso)
-                        return (response.ContentData.FromString<T>(), null);
-                    else return (null, response.ContentData);
+                    {
+                        var retorno = typeof(T) == typeof(string) ? respCont as T : respCont.FromString<T>();
+                        return (retorno, null);
+                    }
+                    else return (null, respCont);
                 }
             }
         }

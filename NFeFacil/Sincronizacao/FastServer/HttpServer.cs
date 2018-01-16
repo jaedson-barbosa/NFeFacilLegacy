@@ -69,7 +69,8 @@ namespace NFeFacil.Sincronizacao.FastServer
                     httpResponse = e.Message;
                 }
 
-                httpResponse = $"{httpResponse.Length.ToString("0000000000")}{httpResponse}";
+                var bytes = Encoding.UTF8.GetBytes(httpResponse);
+                httpResponse = $"{bytes.Length.ToString("0000000000")}{httpResponse}";
                 using (var output = socket.OutputStream)
                 {
                     await output.WriteAsync(Encoding.UTF8.GetBytes(httpResponse).AsBuffer());

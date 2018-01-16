@@ -745,7 +745,6 @@
     <Compile Include="Sincronizacao\GerenciadorCliente.cs" />
     <Compile Include="Sincronizacao\GerenciadorServidor.cs" />
     <Compile Include="Sincronizacao\Pacotes\InfoEstabelecerConexao.cs" />
-    <Compile Include="Sincronizacao\Pacotes\InfoSegurancaConexao.cs" />
     <Compile Include="Sincronizacao\Servidor\ControllerInformacoes.cs" />
     <Compile Include="Sincronizacao\Servidor\ControllerSincronizacao.cs" />
     <Compile Include="Sincronizacao\TipoAppSincronizacao.cs" />

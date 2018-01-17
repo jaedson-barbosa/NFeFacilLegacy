@@ -47,19 +47,6 @@ namespace NFeFacil
             }
         }
 
-        public static T FromStream<T>(this Stream str)
-        {
-            try
-            {
-                var xmlSerializer = new XmlSerializer(typeof(T));
-                return (T)xmlSerializer.Deserialize(str);
-            }
-            catch (Exception e)
-            {
-                throw new ErroDesserializacao($"Ocorreu um erro ao desserializar o objeto de tipo {nameof(T)}", e, XElement.Load(str));
-            }
-        }
-
         public static T FromString<T>(this string str)
         {
             try
@@ -72,7 +59,7 @@ namespace NFeFacil
             }
             catch (Exception e)
             {
-                throw new ErroDesserializacao($"Ocorreu um erro ao desserializar o objeto de tipo {nameof(T)}", e, XElement.Parse(str));
+                throw new ErroDesserializacao($"Ocorreu um erro ao desserializar o objeto de tipo {nameof(T)}", e, str);
             }
         }
 
@@ -158,10 +145,10 @@ namespace NFeFacil
     public class ErroDesserializacao : Exception
     {
         XNode XML { get; }
+        string StrXML { get; }
 
-        public ErroDesserializacao(XNode xml) => XML = xml;
-        public ErroDesserializacao(string message, XNode xml) : base(message) => XML = xml;
         public ErroDesserializacao(string message, Exception innerException, XNode xml) : base(message, innerException) => XML = xml;
+        public ErroDesserializacao(string message, Exception innerException, string strXml) : base(message, innerException) => StrXML = strXml;
 
         public async void ExportarXML()
         {
@@ -173,7 +160,7 @@ namespace NFeFacil
                 var stream = await arq.OpenStreamForWriteAsync();
                 using (StreamWriter escritor = new StreamWriter(stream))
                 {
-                    await escritor.WriteAsync(XML.ToString());
+                    await escritor.WriteAsync(StrXML ?? XML.ToString());
                     await escritor.FlushAsync();
                 }
             }

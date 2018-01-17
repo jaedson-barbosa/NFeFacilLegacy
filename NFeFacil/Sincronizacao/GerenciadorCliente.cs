@@ -151,7 +151,7 @@ namespace NFeFacil.Sincronizacao
 
                     buffer = new Windows.Storage.Streams.Buffer(tamanho);
                     result = await input.ReadAsync(buffer, tamanho, InputStreamOptions.None);
-                    var response = result.AsStream().FromStream<RestResponse>();
+                    var response = Encoding.UTF8.GetString(result.ToArray()).FromString<RestResponse>();
                     var respCont = response.ContentData;
                     if (response.Sucesso)
                     {

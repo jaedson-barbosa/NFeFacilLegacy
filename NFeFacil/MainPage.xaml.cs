@@ -71,10 +71,11 @@ namespace NFeFacil
                 Retornar();
             };
 
-            CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
-            CultureInfo.CurrentUICulture = CultureInfo.InvariantCulture;
-            CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
-            CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.InvariantCulture;
+            var info = new CultureInfo("pt-BR");
+            CultureInfo.CurrentCulture = info;
+            CultureInfo.CurrentUICulture = info;
+            CultureInfo.DefaultThreadCurrentCulture = info;
+            CultureInfo.DefaultThreadCurrentUICulture = info;
         }
 
         async void Analisar()

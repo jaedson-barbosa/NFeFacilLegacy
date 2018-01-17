@@ -208,7 +208,9 @@
         <Style TargetType="TextBlock"
                BasedOn="{StaticResource Padrao}" />
     </Page.Resources>
-    <ScrollViewer>
+    <ScrollViewer Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                  HorizontalScrollMode="Enabled"
+                  HorizontalScrollBarVisibility="Visible">
         <StackPanel x:Name="ConteinerPaginas"
                     Orientation="Horizontal">
             <Grid Height="{x:Bind AlturaEscolhida}"

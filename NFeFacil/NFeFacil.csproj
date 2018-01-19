@@ -821,9 +821,6 @@
     <Compile Include="Controles\ItemPadrao.xaml.cs">
       <DependentUpon>ItemPadrao.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewDadosBase\GerenciarDadosBase.xaml.cs">
-      <DependentUpon>GerenciarDadosBase.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\IValida.cs" />
     <Compile Include="ViewNFe\ManipulacaoNotaFiscal.xaml.cs">
       <DependentUpon>ManipulacaoNotaFiscal.xaml</DependentUpon>
@@ -1443,10 +1440,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controles\ItemPadrao.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ViewDadosBase\GerenciarDadosBase.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -2,16 +2,17 @@
 using NFeFacil.ItensBD;
 using NFeFacil.Log;
 using NFeFacil.ModeloXML;
+using NFeFacil.Produto.GerenciamentoProdutos;
 using NFeFacil.Sincronizacao;
 using NFeFacil.Validacao;
 using NFeFacil.ViewDadosBase;
+using NFeFacil.ViewNFe;
 using NFeFacil.ViewRegistroVenda;
 using System;
 using System.Threading.Tasks;
 using Windows.Storage.Pickers;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Navigation;
+using Windows.UI.Xaml.Input;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -25,93 +26,69 @@ namespace NFeFacil.View
             InitializeComponent();
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        void AbrirClientes(object sender, TappedRoutedEventArgs e) => Navegar<GerenciarClientes>();
+        void AbrirMotoristas(object sender, TappedRoutedEventArgs e) => Navegar<GerenciarMotoristas>();
+        void AbrirProdutos(object sender, TappedRoutedEventArgs e) => Navegar<GerenciarProdutos>();
+        void AbrirVendedores(object sender, TappedRoutedEventArgs e) => Navegar<GerenciarVendedores>();
+        void AbrirCompradores(object sender, TappedRoutedEventArgs e) => Navegar<GerenciarCompradores>();
+
+#pragma warning disable CS4014
+        void CriarNFe(object sender, TappedRoutedEventArgs e) => new CriadorNFe().ShowAsync();
+        void CriarNFeEntrada(object sender, TappedRoutedEventArgs e) => CriarNFeEntrada();
+#pragma warning restore CS4014
+
+        void AbrirInutilizacoes(object sender, TappedRoutedEventArgs e) => Navegar<Inutilizacoes>();
+        void AbrirNotasSalvas(object sender, TappedRoutedEventArgs e) => Navegar<NotasSalvas>();
+        void AbrirConsulta(object sender, TappedRoutedEventArgs e) => Navegar<Consulta>();
+        void AbrirVendasAnuais(object sender, TappedRoutedEventArgs e) => Navegar<VendasAnuais>();
+
+        void AbrirVendasSalvas(object sender, TappedRoutedEventArgs e) => Navegar<RegistrosVenda>();
+        void CriarVenda(object sender, TappedRoutedEventArgs e)
         {
-            grdPrincipal.SelectedIndex = -1;
+            var rv = new RegistroVenda
+            {
+                Emitente = DefinicoesTemporarias.EmitenteAtivo.Id,
+                Vendedor = DefinicoesTemporarias.VendedorAtivo?.Id ?? Guid.Empty,
+                Produtos = new System.Collections.Generic.List<ProdutoSimplesVenda>(),
+                DataHoraVenda = DefinicoesTemporarias.DateTimeNow,
+                PrazoEntrega = DefinicoesTemporarias.DateTimeNow
+            };
+            MainPage.Current.Navegar<ManipulacaoProdutosRV>(rv);
         }
 
-        private async void grdPrincipal_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        void AbrirConfiguracoes(object sender, TappedRoutedEventArgs e) => Navegar<Configuracoes>();
+        void AbrirImportacao(object sender, TappedRoutedEventArgs e) => Navegar<ImportacaoDados>();
+        void AbrirInformacoes(object sender, TappedRoutedEventArgs e) => Navegar<Informacoes>();
+
+        void AbrirCertificacao(object sender, TappedRoutedEventArgs e)
         {
-            if (e.AddedItems.Count == 0) return;
-            switch ((e.AddedItems[0] as FrameworkElement).Tag)
+            switch (ConfiguracoesCertificacao.Origem)
             {
-                case "GerenciarDadosBase":
-                    MainPage.Current.Navegar<GerenciarDadosBase>();
+                case OrigemCertificado.Importado:
+                    MainPage.Current.Navegar<ConfiguracoesCertificadoImportado>();
                     break;
-                case "ManipulacaoRegistroVenda":
-                    MainPage.Current.Navegar<ManipulacaoProdutosRV>(new RegistroVenda
-                    {
-                        Emitente = DefinicoesTemporarias.EmitenteAtivo.Id,
-                        Vendedor = DefinicoesTemporarias.VendedorAtivo?.Id ?? Guid.Empty,
-                        Produtos = new System.Collections.Generic.List<ProdutoSimplesVenda>(),
-                        DataHoraVenda = DefinicoesTemporarias.DateTimeNow,
-                        PrazoEntrega = DefinicoesTemporarias.DateTimeNow
-                    });
+                case OrigemCertificado.Servidor:
+                    MainPage.Current.Navegar<ConfiguracoesServidorCertificacao>();
                     break;
-                case "CriadorNFe":
-                    if (await new ViewNFe.CriadorNFe().ShowAsync() == ContentDialogResult.Secondary)
-                    {
-                        grdPrincipal.SelectedIndex = -1;
-                    }
-                    break;
-                case "CriarNFeEntrada":
-                    if (!await CriarNFeEntrada())
-                    {
-                        grdPrincipal.SelectedIndex = -1;
-                    }
-                    break;
-                case "Inutilizacoes":
-                    MainPage.Current.Navegar<ViewNFe.Inutilizacoes>();
-                    break;
-                case "NotasSalvas":
-                    MainPage.Current.Navegar<ViewNFe.NotasSalvas>();
-                    break;
-                case "RegistrosVenda":
-                    MainPage.Current.Navegar<RegistrosVenda>();
-                    break;
-                case "Consulta":
-                    MainPage.Current.Navegar<ViewNFe.Consulta>();
-                    break;
-                case "VendasAnuais":
-                    MainPage.Current.Navegar < ViewNFe.VendasAnuais>();
-                    break;
-                case "Configuracoes":
-                    MainPage.Current.Navegar<Configuracoes>();
-                    break;
-                case "Certificado":
-                    switch (ConfiguracoesCertificacao.Origem)
-                    {
-                        case OrigemCertificado.Importado:
-                            MainPage.Current.Navegar<ConfiguracoesCertificadoImportado>();
-                            break;
-                        case OrigemCertificado.Servidor:
-                            MainPage.Current.Navegar<ConfiguracoesServidorCertificacao>();
-                            break;
-                        case OrigemCertificado.Cliente:
-                            MainPage.Current.Navegar<ConfiguracoesClienteServidor>();
-                            break;
-                    }
-                    break;
-                case "ImportacaoDados":
-                    MainPage.Current.Navegar<ImportacaoDados>();
-                    break;
-                case "Sincronizacao":
-                    if (ConfiguracoesSincronizacao.Tipo == TipoAppSincronizacao.Cliente)
-                    {
-                        MainPage.Current.Navegar<SincronizacaoCliente>();
-                    }
-                    else
-                    {
-                        MainPage.Current.Navegar<SincronizacaoServidor>();
-                    }
-                    break;
-                case "Informacoes":
-                    MainPage.Current.Navegar<Informacoes>();
-                    break;
-                default:
+                case OrigemCertificado.Cliente:
+                    MainPage.Current.Navegar<ConfiguracoesClienteServidor>();
                     break;
             }
         }
+
+        void AbrirSincronizacao(object sender, TappedRoutedEventArgs e)
+        {
+            if (ConfiguracoesSincronizacao.Tipo == TipoAppSincronizacao.Cliente)
+            {
+                MainPage.Current.Navegar<SincronizacaoCliente>();
+            }
+            else
+            {
+                MainPage.Current.Navegar<SincronizacaoServidor>();
+            }
+        }
+
+        void Navegar<T>(object param = null) where T : Page => MainPage.Current.Navegar<T>(param);
 
         async Task<bool> CriarNFeEntrada()
         {
@@ -137,7 +114,7 @@ namespace NFeFacil.View
                                 nfe.Informacoes.identificacao.TipoOperacao = 0;
                                 var analisador = new AnalisadorNFe(ref nfe);
                                 analisador.Desnormalizar();
-                                if (await new ViewNFe.CriadorNFe(nfe).ShowAsync() == ContentDialogResult.Primary)
+                                if (await new CriadorNFe(nfe).ShowAsync() == ContentDialogResult.Primary)
                                 {
                                     Popup.Current.Escrever(TitulosComuns.Sucesso, "Nota de entrada criada. Agora verifique se todas as informações estão corretas.");
                                     return true;

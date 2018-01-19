@@ -38,85 +38,36 @@ namespace NFeFacil.Produto
             }
         }
 
-        int TipoEspecialEscolhido
+        double QuantidadeComercializada
         {
-            get
-            {
-                var prod = ProdutoCompleto.Produto;
-                if (prod.veicProd != null)
-                {
-                    return 1;
-                }
-                else if (prod.medicamentos != null && prod.medicamentos.Count > 0)
-                {
-                    return 2;
-                }
-                else if (prod.armas != null && prod.armas.Count > 0)
-                {
-                    return 3;
-                }
-                else if (prod.comb != null)
-                {
-                    return 4;
-                }
-                else if (prod.NRECOPI != null)
-                {
-                    return 5;
-                }
-                else
-                {
-                    return 0;
-                }
-            }
+            get => ProdutoCompleto.Produto.QuantidadeComercializada;
             set
             {
-                var prod = ProdutoCompleto.Produto;
-                switch (value)
-                {
-                    case 0:
-                        prod.veicProd = null;
-                        prod.medicamentos = null;
-                        prod.armas = null;
-                        prod.comb = null;
-                        prod.NRECOPI = null;
-                        break;
-                    case 1:
-                        MainPage.Current.Navegar<ProdutoEspecial.DefinirVeiculo>();
-                        break;
-                    case 2:
-                        MainPage.Current.Navegar<ProdutoEspecial.DefinirMedicamentos>();
-                        break;
-                    case 3:
-                        MainPage.Current.Navegar<ProdutoEspecial.DefinirArmamentos>();
-                        break;
-                    case 4:
-                        MainPage.Current.Navegar<ProdutoEspecial.DefinirCombustivel>();
-                        break;
-                    case 5:
-                        DefinirPapel();
-                        break;
-                    default:
-                        break;
-                }
+                ProdutoCompleto.Produto.QuantidadeComercializada = value;
+                CalcularTotalBruto();
+            }
+        }
 
-                async void DefinirPapel()
-                {
-                    var caixa = new ProdutoEspecial.DefinirPapel(prod);
-                    if (await caixa.ShowAsync() == ContentDialogResult.Primary)
-                    {
-                        prod.veicProd = null;
-                        prod.medicamentos = null;
-                        prod.armas = null;
-                        prod.comb = null;
-                        prod.NRECOPI = caixa.NRECOPI;
-                    }
-                }
+        double ValorUnitario
+        {
+            get => ProdutoCompleto.Produto.ValorUnitario;
+            set
+            {
+                ProdutoCompleto.Produto.ValorUnitario = value;
+                CalcularTotalBruto();
             }
         }
 
         public ManipulacaoProdutoCompleto()
         {
             InitializeComponent();
+        }
+
+        void CalcularTotalBruto()
+        {
+            var valorTotal = QuantidadeComercializada * ValorUnitario;
+            ProdutoCompleto.Produto.ValorTotal = valorTotal;
+            txtTotalBruto.Text = valorTotal.ToString("C");
         }
 
         bool PodeConcluir { get; set; }
@@ -126,6 +77,7 @@ namespace NFeFacil.Produto
             Conjunto = produto;
             ProdutoCompleto = produto.Completo;
             PodeConcluir = produto.ImpostosPadrao?.Length > 0;
+            CalcularTotalBruto();
         }
 
         public ObservableCollection<ItemHambuguer> ConteudoMenu => new ObservableCollection<ItemHambuguer>
@@ -153,8 +105,6 @@ namespace NFeFacil.Produto
             }
             MainPage.Current.Navegar<EscolhaImpostos>(Conjunto);
         }
-
-        void EditarEspecial(object sender, RoutedEventArgs e) => TipoEspecialEscolhido = TipoEspecialEscolhido;
 
         async void AdicionarDeclaracaoImportacao(object sender, RoutedEventArgs e)
         {

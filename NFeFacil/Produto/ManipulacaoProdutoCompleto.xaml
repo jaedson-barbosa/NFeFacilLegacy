@@ -13,83 +13,47 @@
     <controles:MultView x:Name="main"
                         Padding="16">
         <ScrollViewer>
-            <StackPanel>
-                <ItemsControl Style="{StaticResource ItensResponsivos}">
-                    <controles:EntradaNumerica Format="4"
-                                               Number="{x:Bind ProdutoCompleto.Produto.CFOP, Mode=TwoWay}"
-                                               Header="CFOP *" />
-                    <controles:EntradaNumerica Format="11:4"
-                                               Number="{x:Bind ProdutoCompleto.Produto.QuantidadeComercializada, Mode=TwoWay}"
-                                               Header="Qtd. comercial" />
-                    <controles:EntradaNumerica Format="11:10"
-                                               Number="{x:Bind ProdutoCompleto.Produto.ValorUnitario, Mode=TwoWay}"
-                                               Header="Valor unid. comercial" />
-                    <controles:EntradaNumerica Format="13:2"
-                                               Number="{x:Bind ProdutoCompleto.Produto.ValorTotal, Mode=TwoWay}"
-                                               Header="Total bruto" />
-                    <controles:EntradaNumerica Format="11:4"
-                                               Number="{x:Bind ProdutoCompleto.Produto.QuantidadeTributada, Mode=TwoWay}"
-                                               Header="Qtd. tributária" />
-                    <controles:EntradaNumerica Format="11:10"
-                                               Number="{x:Bind ProdutoCompleto.Produto.ValorUnitarioTributo, Mode=TwoWay}"
-                                               Header="Valor unid. tributária" />
-                    <controles:EntradaRestrita Pattern="[^\d.,]"
-                                               Text="{x:Bind ProdutoCompleto.Produto.Frete, Mode=TwoWay}"
-                                               Header="Frete" />
-                    <controles:EntradaRestrita Pattern="[^\d.,]"
-                                               Text="{x:Bind ProdutoCompleto.Produto.Seguro, Mode=TwoWay}"
-                                               Header="Seguro" />
-                    <controles:EntradaRestrita Pattern="[^\d.,]"
-                                               Text="{x:Bind ProdutoCompleto.Produto.Desconto, Mode=TwoWay}"
-                                               Header="Desconto" />
-                    <controles:EntradaRestrita Pattern="[^\d.,]"
-                                               Text="{x:Bind ProdutoCompleto.Produto.DespesasAcessorias, Mode=TwoWay}"
-                                               Header="Desp. acessórias" />
-                    <ComboBox Header="O valor do item..."
-                              SelectedIndex="{x:Bind ProdutoCompleto.Produto.InclusaoTotal, Mode=TwoWay}"
-                              HorizontalAlignment="Stretch">
-                        <ComboBoxItem>Não compõe o valor total da NF-e</ComboBoxItem>
-                        <ComboBoxItem>compõe o valor total da NF-e</ComboBoxItem>
-                    </ComboBox>
-                    <TextBox Text="{x:Bind ProdutoCompleto.Produto.NFCI, Mode=TwoWay}"
-                             InputScope="Number"
-                             Header="Nº de controle da FCI" />
-                </ItemsControl>
-                <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
-                           Margin="0,16,0,0">Categoria do produto</TextBlock>
-                <GridView Style="{StaticResource ItensMediosGrid}"
-                          SelectedIndex="{x:Bind TipoEspecialEscolhido, Mode=TwoWay}">
-                    <GridView.ContextFlyout>
-                        <MenuFlyout>
-                            <MenuFlyoutItem Click="EditarEspecial">Editar ativo</MenuFlyoutItem>
-                        </MenuFlyout>
-                    </GridView.ContextFlyout>
-                    <controles:ItemPadraoSimples Titulo="Produto simples"
-                                                 Descricao="Produto que não se encaixa nas categorias especiais">
-                        <SymbolIcon Symbol="Shop" />
-                    </controles:ItemPadraoSimples>
-                    <controles:ItemPadraoSimples Titulo="Veículo"
-                                                 Descricao="Algum tipo de veículo">
-                        <FontIcon Glyph="&#xE804;" />
-                    </controles:ItemPadraoSimples>
-                    <controles:ItemPadraoSimples Titulo="Medicamento"
-                                                 Descricao="Remédios e afins">
-                        <FontIcon Glyph="&#xE95E;" />
-                    </controles:ItemPadraoSimples>
-                    <controles:ItemPadraoSimples Titulo="Armamento"
-                                                 Descricao="Armas">
-                        <BitmapIcon UriSource="{ThemeResource ImagemArma}" />
-                    </controles:ItemPadraoSimples>
-                    <controles:ItemPadraoSimples Titulo="Combustível"
-                                                 Descricao="Combustíveis">
-                        <FontIcon Glyph="&#xEB42;" />
-                    </controles:ItemPadraoSimples>
-                    <controles:ItemPadraoSimples Titulo="Papel"
-                                                 Descricao="Papel imune">
-                        <FontIcon Glyph="&#xE82D;" />
-                    </controles:ItemPadraoSimples>
-                </GridView>
-            </StackPanel>
+            <ItemsControl Style="{StaticResource ItensResponsivos}">
+                <controles:EntradaNumerica Format="4"
+                                           Number="{x:Bind ProdutoCompleto.Produto.CFOP, Mode=TwoWay}"
+                                           Header="CFOP *" />
+                <controles:EntradaNumerica Format="11:4"
+                                           Number="{x:Bind QuantidadeComercializada, Mode=TwoWay}"
+                                           Header="Qtd. comercial" />
+                <controles:EntradaNumerica Format="11:10"
+                                           Number="{x:Bind ValorUnitario, Mode=TwoWay}"
+                                           Header="Valor unid. comercial" />
+                <controles:EntradaNumerica Format="11:4"
+                                           Number="{x:Bind ProdutoCompleto.Produto.QuantidadeTributada, Mode=TwoWay}"
+                                           Header="Qtd. tributária" />
+                <controles:EntradaNumerica Format="11:10"
+                                           Number="{x:Bind ProdutoCompleto.Produto.ValorUnitarioTributo, Mode=TwoWay}"
+                                           Header="Valor unid. tributária" />
+                <controles:EntradaRestrita Pattern="[^\d.,]"
+                                           Text="{x:Bind ProdutoCompleto.Produto.Frete, Mode=TwoWay}"
+                                           Header="Frete" />
+                <controles:EntradaRestrita Pattern="[^\d.,]"
+                                           Text="{x:Bind ProdutoCompleto.Produto.Seguro, Mode=TwoWay}"
+                                           Header="Seguro" />
+                <controles:EntradaRestrita Pattern="[^\d.,]"
+                                           Text="{x:Bind ProdutoCompleto.Produto.Desconto, Mode=TwoWay}"
+                                           Header="Desconto" />
+                <controles:EntradaRestrita Pattern="[^\d.,]"
+                                           Text="{x:Bind ProdutoCompleto.Produto.DespesasAcessorias, Mode=TwoWay}"
+                                           Header="Desp. acessórias" />
+                <ComboBox Header="O valor do item..."
+                          SelectedIndex="{x:Bind ProdutoCompleto.Produto.InclusaoTotal, Mode=TwoWay}"
+                          HorizontalAlignment="Stretch">
+                    <ComboBoxItem>Não compõe o valor total da NF-e</ComboBoxItem>
+                    <ComboBoxItem>compõe o valor total da NF-e</ComboBoxItem>
+                </ComboBox>
+                <TextBox Text="{x:Bind ProdutoCompleto.Produto.NFCI, Mode=TwoWay}"
+                         InputScope="Number"
+                         Header="Nº de controle da FCI" />
+                <TextBlock>Total bruto:<LineBreak /><Run FontSize="24"
+                                                         FontWeight="Bold"
+                                                         x:Name="txtTotalBruto" /></TextBlock>
+            </ItemsControl>
         </ScrollViewer>
         <StackPanel>
             <TextBox Header="Percentual da mercadoria devolvida *"

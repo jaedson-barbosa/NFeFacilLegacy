@@ -3,6 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:db="using:NFeFacil.ItensBD"
       xmlns:VM="using:NFeFacil.View"
+      xmlns:local="using:NFeFacil.ViewNFe"
       xmlns:controles="using:NFeFacil.Controles"
       xmlns:partesDetalhes="using:NFeFacil.ModeloXML.PartesDetalhes"
       xmlns:partesTransporte="using:NFeFacil.ModeloXML.PartesDetalhes.PartesTransporte"
@@ -12,6 +13,7 @@
       mc:Ignorable="d">
     <Page.Resources>
         <VM:StringToDateTime x:Key="data" />
+        <VM:MascaraDocumento x:Key="mascara" />
     </Page.Resources>
     <controles:MultView x:Name="main">
         <Pivot Margin="16">
@@ -154,12 +156,33 @@
                 </ListView>
             </PivotItem>
         </Pivot>
-        <StackPanel Margin="16">
-            <ComboBox HorizontalAlignment="Stretch"
-                      ItemsSource="{x:Bind ClientesDisponiveis}"
-                      SelectedItem="{x:Bind ClienteSelecionado, Mode=TwoWay}"
-                      DisplayMemberPath="Nome" />
-        </StackPanel>
+        <GridView HorizontalAlignment="Stretch" Loaded="GridView_Loaded"
+                  Margin="8"
+                  Style="{StaticResource ItensMediosGrid}"
+                  ItemsSource="{x:Bind ClientesDisponiveis}"
+                  SelectedItem="{x:Bind ClienteSelecionado, Mode=TwoWay}">
+            <GridView.ItemTemplate>
+                <DataTemplate x:DataType="db:ClienteDI">
+                    <Grid Background="Transparent"
+                          Padding="16">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
+                                   Text="{x:Bind Documento, Converter={StaticResource mascara}}"
+                                   MaxLines="1" />
+                        <TextBlock Grid.Row="1"
+                                   Style="{StaticResource BodyTextBlockStyle}"
+                                   Text="{x:Bind Nome}" />
+                        <TextBlock Grid.Row="2"
+                                   Style="{StaticResource BodyTextBlockStyle}"
+                                   Text="{x:Bind NomeMunicipio}" />
+                    </Grid>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+        </GridView>
         <StackPanel Margin="16">
             <ToggleSwitch Header="Endereço de retirada"
                           OnContent="Diferente registrado"
@@ -188,11 +211,17 @@
                 </GridView.ItemsPanel>
                 <GridView.ItemTemplate>
                     <DataTemplate x:DataType="db:ProdutoDI">
-                        <TextBlock Width="200"
-                                   Height="100"
-                                   Padding="16"
-                                   Style="{StaticResource SubtitleTextBlockStyle}"
-                                   Text="{x:Bind Descricao}" />
+                        <Grid Padding="8">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
+                                       Text="{x:Bind CodigoProduto}" />
+                            <TextBlock Grid.Row="1"
+                                       Style="{StaticResource BodyTextBlockStyle}"
+                                       Text="{x:Bind Descricao}" />
+                        </Grid>
                     </DataTemplate>
                 </GridView.ItemTemplate>
             </GridView>
@@ -304,10 +333,30 @@
             <Pivot Grid.Row="1"
                    Margin="0,4,0,0">
                 <PivotItem Header="Motorista">
-                    <ComboBox ItemsSource="{x:Bind MotoristasDisponiveis}"
-                              HorizontalAlignment="Stretch"
-                              SelectedValue="{x:Bind MotoristaSelecionado, Mode=TwoWay}"
-                              DisplayMemberPath="Root.Nome" />
+                    <GridView ItemsSource="{x:Bind MotoristasDisponiveis}"
+                              Style="{StaticResource ItensMediosGrid}"
+                              SelectedItem="{x:Bind MotoristaSelecionado, Mode=TwoWay}"
+                              Loaded="GridView_Loaded">
+                        <GridView.ItemTemplate>
+                            <DataTemplate x:DataType="local:MotoristaManipulacaoNFe">
+                                <Grid Padding="8">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
+                                               Text="{x:Bind Root.Documento, Converter={StaticResource mascara}}" />
+                                    <TextBlock Grid.Row="1"
+                                               Style="{StaticResource BodyTextBlockStyle}"
+                                               Text="{x:Bind Root.Nome}" />
+                                    <TextBlock Grid.Row="2"
+                                               Style="{StaticResource BodyTextBlockStyle}"
+                                               Text="{x:Bind Root.XMun}" />
+                                </Grid>
+                            </DataTemplate>
+                        </GridView.ItemTemplate>
+                    </GridView>
                 </PivotItem>
                 <PivotItem Header="Veículo">
                     <ItemsControl x:Name="ctrPaiVeiculo"

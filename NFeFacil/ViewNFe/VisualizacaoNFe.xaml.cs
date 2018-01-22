@@ -238,7 +238,7 @@ namespace NFeFacil.ViewNFe
 
         void AtualizarBotoesComando()
         {
-            var status = (StatusNFe)ItemBanco.Status;
+            var status = (StatusNFe)(ItemBanco.Status == 0 ? ItemBanco.Status = 1 : ItemBanco.Status);
             btnEditar.IsEnabled = status == StatusNFe.Validada || status == StatusNFe.Salva || status == StatusNFe.Assinada;
             btnSalvar.IsEnabled = status == StatusNFe.Validada;
             btnAssinar.IsEnabled = status == StatusNFe.Salva;

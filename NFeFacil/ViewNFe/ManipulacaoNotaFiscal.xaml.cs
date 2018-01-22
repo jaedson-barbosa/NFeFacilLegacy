@@ -53,7 +53,7 @@ namespace NFeFacil.ViewNFe
 
             using (var repo = new Repositorio.Leitura())
             {
-                ClientesDisponiveis = repo.ObterClientes().ToList();
+                ClientesDisponiveis = repo.ObterClientes().GerarObs();
                 MotoristasDisponiveis = repo.ObterMotoristasComVeiculos().Select(x => new MotoristaManipulacaoNFe
                 {
                     Root = x.Item1,
@@ -96,7 +96,7 @@ namespace NFeFacil.ViewNFe
 
         #region Dados base
 
-        public List<ClienteDI> ClientesDisponiveis { get; set; }
+        ObservableCollection<ClienteDI> ClientesDisponiveis { get; set; }
         public List<ProdutoDI> ProdutosDisponiveis { get; set; }
         ObservableCollection<MotoristaManipulacaoNFe> MotoristasDisponiveis { get; set; }
 
@@ -146,7 +146,7 @@ namespace NFeFacil.ViewNFe
         async void ProcessarVeiculo(MotoristaManipulacaoNFe mot)
         {
             VeiculoDI escolhido = null;
-            if (mot.Secundarios != null)
+            if (mot.Secundarios?.Length > 0)
             {
                 var caixa = new EscolherVeiculo(mot.Secundarios, mot.Principal);
                 await caixa.ShowAsync();
@@ -760,6 +760,16 @@ namespace NFeFacil.ViewNFe
             if (controle.IsOn && NotaSalva.Informacoes.Entrega == null)
             {
                 controle.IsOn = false;
+            }
+        }
+
+        private void GridView_Loaded(object sender, RoutedEventArgs e)
+        {
+            var input = (GridView)sender;
+            var cliente = input.SelectedItem;
+            if (cliente != null)
+            {
+                input.ScrollIntoView(cliente, ScrollIntoViewAlignment.Leading);
             }
         }
     }

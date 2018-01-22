@@ -176,7 +176,8 @@ namespace NFeFacil.Repositorio
         public IEnumerable<int> ObterAnosNFe(string cnpjEmitente)
         {
             return (from dado in db.NotasFiscais
-                    where dado.Status == (int)StatusNFe.Emitida
+                    let notaHomologacao = dado.NomeCliente.Trim().ToUpper() == "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL"
+                    where dado.Status == (int)StatusNFe.Emitida && !notaHomologacao
                     where dado.CNPJEmitente == cnpjEmitente
                     let ano = DateTime.Parse(dado.DataEmissao).Year
                     orderby ano ascending
@@ -186,7 +187,8 @@ namespace NFeFacil.Repositorio
         public Dictionary<int, IEnumerable<(DateTime, string)>> ObterNFesPorAno(string cnpjEmitente)
         {
             return (from item in db.NotasFiscais
-                    where item.Status == (int)StatusNFe.Emitida
+                    let notaHomologacao = item.NomeCliente.Trim().ToUpper() == "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL"
+                    where item.Status == (int)StatusNFe.Emitida && !notaHomologacao
                     where item.CNPJEmitente == cnpjEmitente
                     let data = DateTime.Parse(item.DataEmissao)
                     group new { Data = data, item.XML } by data.Year).ToDictionary(x => x.Key, x => x.Select(k => (k.Data, k.XML)));

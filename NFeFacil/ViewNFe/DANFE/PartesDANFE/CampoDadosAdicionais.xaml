@@ -28,14 +28,13 @@
                                FontFamily="Times New Roman"
                                FontSize="8">
                     <Paragraph>
-                        <Run FontSize="10">INFORMAÇÕES COMPLEMENTARES</Run>
+                        <Run>INFORMAÇÕES COMPLEMENTARES</Run>
                     </Paragraph>
                 </RichTextBlock>
             </StackPanel>
             <StackPanel Padding="{StaticResource PaddingPadrao}"
                         Grid.Column="1">
-                <TextBlock Style="{StaticResource Cabecalho}"
-                           FontSize="10">RESERVADO AO FISCO</TextBlock>
+                <TextBlock Style="{StaticResource Cabecalho}">RESERVADO AO FISCO</TextBlock>
             </StackPanel>
         </Grid>
     </StackPanel>

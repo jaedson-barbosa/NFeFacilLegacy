@@ -14,16 +14,7 @@ namespace NFeFacil.Controles
     {
         public new object Content
         {
-            set
-            {
-                var tipoBase = value.GetType().GetTypeInfo().BaseType;
-                if (tipoBase != null && tipoBase != typeof(object))
-                {
-                    var propriedades = tipoBase.GetProperties();
-                    AnalisarPropriedades(propriedades, value, 0);
-                }
-                ObterPropriedades(value, 0);
-            }
+            set => ObterPropriedades(value, 0);
         }
 
         public VisualizacaoGenerica()
@@ -34,11 +25,6 @@ namespace NFeFacil.Controles
         void ObterPropriedades(object obj, int profundidade)
         {
             var propriedades = obj.GetType().GetProperties();
-            AnalisarPropriedades(propriedades, obj, profundidade);
-        }
-
-        void AnalisarPropriedades(PropertyInfo[] propriedades, object obj, int profundidade)
-        {
             foreach (var prop in propriedades.Where(x => x.CanWrite
                 && x.GetCustomAttribute<System.Xml.Serialization.XmlIgnoreAttribute>() == null))
             {

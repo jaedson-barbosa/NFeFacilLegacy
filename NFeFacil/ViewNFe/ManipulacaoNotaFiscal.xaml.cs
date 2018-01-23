@@ -314,6 +314,11 @@ namespace NFeFacil.ViewNFe
         {
             try
             {
+                if (NotaSalva.AmbienteTestes)
+                {
+                    NotaSalva.Informacoes.destinatário.Nome = NomeClienteHomologacao;
+                }
+
                 var ultPage = Frame.BackStack[Frame.BackStack.Count - 1];
                 if (ultPage.SourcePageType == typeof(ViewRegistroVenda.VisualizacaoRegistroVenda))
                 {

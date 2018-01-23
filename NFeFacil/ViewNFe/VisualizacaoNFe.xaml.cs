@@ -105,17 +105,22 @@ namespace NFeFacil.ViewNFe
             {
                 var retTransmissao = await ConsultarRespostaInicial(true);
                 await progresso.Update(1);
-                if (retTransmissao.StatusResposta == 103)
+                var status = retTransmissao.StatusResposta;
+                if (status == 103 || status == 104)
                 {
-                    var tempoResposta = retTransmissao.DadosRecibo.TempoMedioResposta;
-                    await Task.Delay(TimeSpan.FromSeconds(tempoResposta + 5));
+                    if (status == 103)
+                    {
+                        var tempoResposta = retTransmissao.DadosRecibo.TempoMedioResposta;
+                        await Task.Delay(TimeSpan.FromSeconds(tempoResposta + 5));
+                    }
                     await progresso.Update(2);
 
                     var homologacao = ((NFe)ObjetoItemBanco).AmbienteTestes;
                     var resultadoResposta = await ConsultarRespostaFinal(retTransmissao, homologacao);
                     await progresso.Update(3);
 
-                    if (resultadoResposta.Protocolo.InfProt.cStat == 100)
+                    var protocoloResposta = resultadoResposta.Protocolo.InfProt;
+                    if (protocoloResposta?.cStat == 100)
                     {
                         ObjetoItemBanco = new ProcessoNFe()
                         {
@@ -127,7 +132,11 @@ namespace NFeFacil.ViewNFe
                         AtualizarBotoesComando();
                         await progresso.Update(4);
 
-                        return (true, resultadoResposta.DescricaoResposta);
+                        return (true, protocoloResposta.xMotivo);
+                    }
+                    else if (protocoloResposta != null)
+                    {
+                        return (false, $"{protocoloResposta.cStat}: {protocoloResposta.xMotivo}");
                     }
                     else
                     {

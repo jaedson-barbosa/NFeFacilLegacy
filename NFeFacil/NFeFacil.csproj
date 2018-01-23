@@ -165,6 +165,10 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="AssistenteConfig.cs" />
+    <Compile Include="ModeloXML\IInformacoes.cs" />
+    <Compile Include="ModeloXML\InformacoesNFCe .cs" />
+    <Compile Include="ModeloXML\NFCe.cs" />
+    <Compile Include="ModeloXML\PartesDetalhes\IIdentificacao.cs" />
     <Compile Include="Sincronizacao\FastServer\FromContentAttribute.cs" />
     <Compile Include="Sincronizacao\FastServer\HttpServer.cs" />
     <Compile Include="Sincronizacao\FastServer\ParameterValueGetter.cs" />
@@ -273,7 +277,7 @@
     <Compile Include="ModeloXML\InfoProtocolo.cs" />
     <Compile Include="ModeloXML\NFe.cs" />
     <Compile Include="ModeloXML\ChaveAcesso.cs" />
-    <Compile Include="ModeloXML\Detalhes.cs" />
+    <Compile Include="ModeloXML\InformacoesNFe.cs" />
     <Compile Include="ModeloXML\EnderecoCompleto.cs" />
     <Compile Include="ModeloXML\PartesAssinatura\Algoritmo.cs" />
     <Compile Include="ModeloXML\PartesAssinatura\Assinatura.cs" />
@@ -1598,7 +1602,9 @@
       <Name>Windows Mobile Extensions for the UWP</Name>
     </SDKReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="ViewNFCe\" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

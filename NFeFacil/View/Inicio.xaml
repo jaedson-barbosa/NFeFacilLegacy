@@ -54,7 +54,7 @@
             </DataTemplate>
         </HubSection>
         <HubSection Width="400"
-                    Header="Fiscal">
+                    Header="NF-e">
             <DataTemplate>
                 <Grid>
                     <Grid.ColumnDefinitions>

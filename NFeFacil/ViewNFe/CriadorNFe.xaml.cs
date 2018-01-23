@@ -33,9 +33,9 @@ namespace NFeFacil.ViewNFe
             InitializeComponent();
             PreNota = new NFe()
             {
-                Informacoes = new Detalhes()
+                Informacoes = new InformacoesNFe()
                 {
-                    emitente = DefinicoesTemporarias.EmitenteAtivo.ToEmitente(),
+                    Emitente = DefinicoesTemporarias.EmitenteAtivo.ToEmitente(),
                     destinatário = new Destinatario(),
                     produtos = new List<DetalhesProdutos>(),
                     transp = new Transporte()

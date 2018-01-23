@@ -86,7 +86,7 @@ namespace NFeFacil.ViewNFe.DANFE
         DadosCabecalho GetCabecalho()
         {
             var ident = Dados.NFe.Informacoes.identificacao;
-            var emit = Dados.NFe.Informacoes.emitente;
+            var emit = Dados.NFe.Informacoes.Emitente;
             return new DadosCabecalho
             {
                 NomeEmitente = emit.Nome,
@@ -206,13 +206,13 @@ namespace NFeFacil.ViewNFe.DANFE
             {
                 Chave = codigoBarras,
                 ChaveComMascara = AplicarMascaraChave(codigoBarras),
-                CNPJEmit = AplicarMáscaraDocumento(detalhes.emitente.CNPJ),
+                CNPJEmit = AplicarMáscaraDocumento(detalhes.Emitente.CNPJ),
                 DataHoraRecibo = prot.InfProt.dhRecbto.Replace('T', ' '),
-                Endereco = detalhes.emitente.Endereco,
-                IE = detalhes.emitente.InscricaoEstadual.ToString(),
-                IEST = detalhes.emitente.IEST,
+                Endereco = detalhes.Emitente.Endereco,
+                IE = detalhes.Emitente.InscricaoEstadual.ToString(),
+                IEST = detalhes.Emitente.IEST,
                 NatOp = detalhes.identificacao.NaturezaDaOperacao,
-                NomeEmitente = detalhes.emitente.Nome,
+                NomeEmitente = detalhes.Emitente.Nome,
                 NumeroNota = detalhes.identificacao.Numero.ToString("000,000,000"),
                 NumeroProtocolo = prot.InfProt.nProt.ToString(),
                 SerieNota = detalhes.identificacao.Serie.ToString(),
@@ -299,7 +299,7 @@ namespace NFeFacil.ViewNFe.DANFE
 
         DadosISSQN GetISSQN()
         {
-            var emit = Dados.NFe.Informacoes.emitente;
+            var emit = Dados.NFe.Informacoes.Emitente;
             var issqn = Dados.NFe.Informacoes.total.ISSQNtot;
             return issqn != null ? new DadosISSQN
             {

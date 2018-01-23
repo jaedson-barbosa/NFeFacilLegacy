@@ -24,7 +24,7 @@ namespace NFeFacil.ViewNFe
         Popup Log = Popup.Current;
         NFeDI ItemBanco { get; set; }
         object ObjetoItemBanco { get; set; }
-        Detalhes Visualizacao { get; set; }
+        InformacoesNFe Visualizacao { get; set; }
 
         public VisualizacaoNFe()
         {
@@ -149,7 +149,7 @@ namespace NFeFacil.ViewNFe
         async Task<RetEnviNFe> ConsultarRespostaInicial(bool homologacao)
         {
             var nota = (NFe)ObjetoItemBanco;
-            var uf = nota.Informacoes.emitente.Endereco.SiglaUF;
+            var uf = nota.Informacoes.Emitente.Endereco.SiglaUF;
             var gerenciador = new GerenciadorGeral<EnviNFe, RetEnviNFe>(uf, Operacoes.Autorizar, nota.AmbienteTestes);
             var envio = new EnviNFe(nota);
             return await gerenciador.EnviarAsync(envio, true);

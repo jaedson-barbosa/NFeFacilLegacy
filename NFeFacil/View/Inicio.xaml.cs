@@ -106,11 +106,11 @@ namespace NFeFacil.View
                     {
                         using (var repo = new Repositorio.Leitura())
                         {
-                            var c = repo.ObterClienteViaCNPJ(nfe.Informacoes.emitente.CNPJ);
+                            var c = repo.ObterClienteViaCNPJ(nfe.Informacoes.Emitente.CNPJ);
                             if (c != null)
                             {
                                 nfe.Informacoes.destinatário = c.ToDestinatario();
-                                nfe.Informacoes.emitente = DefinicoesTemporarias.EmitenteAtivo.ToEmitente();
+                                nfe.Informacoes.Emitente = DefinicoesTemporarias.EmitenteAtivo.ToEmitente();
                                 nfe.Informacoes.identificacao.TipoOperacao = 0;
                                 var analisador = new AnalisadorNFe(ref nfe);
                                 analisador.Desnormalizar();
@@ -124,7 +124,7 @@ namespace NFeFacil.View
                             {
                                 Popup.Current.Escrever(TitulosComuns.Atenção, "Para uma melhor esperiência na edição da NFe é preciso cadastrar o emitente da nota fiscal como cliente.\r\n" +
                                     "Após concluir o cadastro tente novamente criar a nota de entrada.");
-                                var di = new ClienteDI(nfe.Informacoes.emitente);
+                                var di = new ClienteDI(nfe.Informacoes.Emitente);
                                 MainPage.Current.Navegar<AdicionarClienteBrasileiroPJ>(di);
                                 return true;
                             }

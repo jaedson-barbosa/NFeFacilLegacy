@@ -51,8 +51,8 @@ namespace NFeFacil.ItensBD
         {
             Id = nota.Informacoes.Id;
             NomeCliente = nota.Informacoes.destinatário.Nome;
-            NomeEmitente = nota.Informacoes.emitente.Nome;
-            CNPJEmitente = nota.Informacoes.emitente.CNPJ.ToString();
+            NomeEmitente = nota.Informacoes.Emitente.Nome;
+            CNPJEmitente = nota.Informacoes.Emitente.CNPJ.ToString();
             DataEmissao = DateTime.Parse(nota.Informacoes.identificacao.DataHoraEmissão).ToString("yyyy-MM-dd HH:mm:ss");
             NumeroNota = nota.Informacoes.identificacao.Numero;
             SerieNota = nota.Informacoes.identificacao.Serie;
@@ -64,8 +64,8 @@ namespace NFeFacil.ItensBD
         {
             Id = nota.NFe.Informacoes.Id;
             NomeCliente = nota.NFe.Informacoes.destinatário.Nome;
-            NomeEmitente = nota.NFe.Informacoes.emitente.Nome;
-            CNPJEmitente = nota.NFe.Informacoes.emitente.CNPJ.ToString();
+            NomeEmitente = nota.NFe.Informacoes.Emitente.Nome;
+            CNPJEmitente = nota.NFe.Informacoes.Emitente.CNPJ.ToString();
             DataEmissao = DateTime.Parse(nota.NFe.Informacoes.identificacao.DataHoraEmissão).ToString("yyyy-MM-dd HH:mm:ss");
             NumeroNota = nota.NFe.Informacoes.identificacao.Numero;
             SerieNota = nota.NFe.Informacoes.identificacao.Serie;

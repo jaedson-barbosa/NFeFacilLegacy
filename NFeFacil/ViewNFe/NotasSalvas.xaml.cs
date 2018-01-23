@@ -73,7 +73,7 @@ namespace NFeFacil.ViewNFe
 
             var gerenciador = new GerenciadorGeral<EnvEvento, RetEnvEvento>(estado, Operacoes.RecepcaoEvento, tipoAmbiente == 2);
 
-            var cnpj = processo.NFe.Informacoes.emitente.CNPJ;
+            var cnpj = processo.NFe.Informacoes.Emitente.CNPJ;
             var chave = processo.NFe.Informacoes.ChaveAcesso;
             var nProtocolo = processo.ProtNFe.InfProt.nProt;
             var entrada = new CancelarNFe();

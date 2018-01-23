@@ -131,12 +131,12 @@ namespace NFeFacil.ViewNFe
                     }
                     else
                     {
-                        return (false, resultadoResposta.DescricaoResposta);
+                        return (false, $"{resultadoResposta.StatusResposta}: {resultadoResposta.DescricaoResposta}");
                     }
                 }
                 else
                 {
-                    return (false, retTransmissao.DescricaoResposta);
+                    return (false, $"{retTransmissao.StatusResposta}: {retTransmissao.DescricaoResposta}");
                 }
             }, "Processar e enviar requisição inicial",
             "Aguardar tempo médio de resposta",

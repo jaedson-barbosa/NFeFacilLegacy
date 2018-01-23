@@ -43,7 +43,7 @@ namespace NFeFacil.ViewNFe
             }
             else
             {
-                var processo = xml.FromXElement<Processo>();
+                var processo = xml.FromXElement<ProcessoNFe>();
                 ObjetoItemBanco = processo;
                 Visualizacao = processo.NFe.Informacoes;
             }
@@ -117,7 +117,7 @@ namespace NFeFacil.ViewNFe
 
                     if (resultadoResposta.Protocolo.InfProt.cStat == 100)
                     {
-                        ObjetoItemBanco = new Processo()
+                        ObjetoItemBanco = new ProcessoNFe()
                         {
                             NFe = (NFe)ObjetoItemBanco,
                             ProtNFe = resultadoResposta.Protocolo
@@ -165,7 +165,7 @@ namespace NFeFacil.ViewNFe
 
         private void Imprimir(object sender, RoutedEventArgs e)
         {
-            var processo = (Processo)ObjetoItemBanco;
+            var processo = (ProcessoNFe)ObjetoItemBanco;
             MainPage.Current.Navegar<DANFE.ViewDANFE>(processo);
             ItemBanco.Impressa = true;
             AtualizarDI();
@@ -184,9 +184,9 @@ namespace NFeFacil.ViewNFe
             }
             else
             {
-                var processo = (Processo)ObjetoItemBanco;
+                var processo = (ProcessoNFe)ObjetoItemBanco;
                 id = processo.NFe.Informacoes.Id;
-                xml = ObjetoItemBanco.ToXElement<Processo>();
+                xml = ObjetoItemBanco.ToXElement<ProcessoNFe>();
             }
 
             try
@@ -226,7 +226,7 @@ namespace NFeFacil.ViewNFe
                 {
                     ItemBanco.XML = ItemBanco.Status < (int)StatusNFe.Emitida
                         ? ObjetoItemBanco.ToXElement<NFe>().ToString()
-                        : ObjetoItemBanco.ToXElement<Processo>().ToString();
+                        : ObjetoItemBanco.ToXElement<ProcessoNFe>().ToString();
                     repo.SalvarItemSimples(ItemBanco, DefinicoesTemporarias.DateTimeNow);
                 }
             }

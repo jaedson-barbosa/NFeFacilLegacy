@@ -66,7 +66,7 @@ namespace NFeFacil.ViewNFe
         private async void Cancelar(object sender, RoutedEventArgs e)
         {
             var nota = (NFeDI)((MenuFlyoutItem)sender).DataContext;
-            var processo = XElement.Parse(nota.XML).FromXElement<Processo>();
+            var processo = XElement.Parse(nota.XML).FromXElement<ProcessoNFe>();
 
             var estado = processo.NFe.Informacoes.identificacao.CódigoUF;
             var tipoAmbiente = processo.ProtNFe.InfProt.tpAmb;
@@ -157,7 +157,7 @@ namespace NFeFacil.ViewNFe
         async void CriarCopia(object sender, RoutedEventArgs e)
         {
             var nota = (NFeDI)((MenuFlyoutItem)sender).DataContext;
-            var processo = XElement.Parse(nota.XML).FromXElement<Processo>();
+            var processo = XElement.Parse(nota.XML).FromXElement<ProcessoNFe>();
             var nfe = processo.NFe;
             var analisador = new AnalisadorNFe(ref nfe);
             analisador.Desnormalizar();

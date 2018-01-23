@@ -41,7 +41,7 @@ namespace NFeFacil.ItensBD
             }
             else
             {
-                return new NFeDI(FromXElement<Processo>(xml), xml.ToString());
+                return new NFeDI(FromXElement<ProcessoNFe>(xml), xml.ToString());
             }
         }
 
@@ -60,7 +60,7 @@ namespace NFeFacil.ItensBD
             XML = xml;
         }
 
-        public NFeDI(Processo nota, string xml)
+        public NFeDI(ProcessoNFe nota, string xml)
         {
             Id = nota.NFe.Informacoes.Id;
             NomeCliente = nota.NFe.Informacoes.destinatário.Nome;

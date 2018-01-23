@@ -169,6 +169,7 @@
     <Compile Include="ModeloXML\InformacoesNFCe .cs" />
     <Compile Include="ModeloXML\NFCe.cs" />
     <Compile Include="ModeloXML\PartesDetalhes\IIdentificacao.cs" />
+    <Compile Include="ModeloXML\ProcessoNFCe .cs" />
     <Compile Include="Sincronizacao\FastServer\FromContentAttribute.cs" />
     <Compile Include="Sincronizacao\FastServer\HttpServer.cs" />
     <Compile Include="Sincronizacao\FastServer\ParameterValueGetter.cs" />
@@ -376,7 +377,7 @@
     <Compile Include="ModeloXML\PartesDetalhes\Total.cs" />
     <Compile Include="ModeloXML\PartesDetalhes\Transporte.cs" />
     <Compile Include="ModeloXML\ProtocoloNFe.cs" />
-    <Compile Include="ModeloXML\Processo.cs" />
+    <Compile Include="ModeloXML\ProcessoNFe.cs" />
     <Compile Include="ModeloXML\TiposDocumento.cs" />
     <Compile Include="ConjuntoBanco.cs" />
     <Compile Include="Sincronizacao\Pacotes\ConjuntoDadosBase.cs" />

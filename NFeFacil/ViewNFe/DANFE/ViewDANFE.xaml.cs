@@ -26,7 +26,7 @@ namespace NFeFacil.ViewNFe.DANFE
         {
             gerenciadorImpressão = new GerenciadorImpressao();
 
-            var processo = (Processo)e.Parameter;
+            var processo = (ProcessoNFe)e.Parameter;
             var principal = new PaginaPrincipal(processo, stk.Children);
             principal.PaginasCarregadas += Principal_PaginasCarregadas;
             stk.Children.Add(principal);

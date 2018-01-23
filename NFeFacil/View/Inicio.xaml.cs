@@ -100,7 +100,7 @@ namespace NFeFacil.View
                 try
                 {
                     var xml = await ImportacaoDados.ObterXMLNFe(arq);
-                    var proc = xml.FromXElement<Processo>();
+                    var proc = xml.FromXElement<ProcessoNFe>();
                     var nfe = proc.NFe;
                     if (nfe.Informacoes.destinatário.CNPJ == DefinicoesTemporarias.EmitenteAtivo.CNPJ)
                     {

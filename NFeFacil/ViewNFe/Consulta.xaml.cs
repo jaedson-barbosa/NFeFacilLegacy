@@ -59,12 +59,12 @@ namespace NFeFacil.ViewNFe
                     {
                         nota.Status = (int)StatusNFe.Emitida;
                         var original = XElement.Parse(nota.XML).FromXElement<NFe>();
-                        var novo = new Processo()
+                        var novo = new ProcessoNFe()
                         {
                             NFe = original,
                             ProtNFe = resultado.Protocolo
                         };
-                        nota.XML = novo.ToXElement<Processo>().ToString();
+                        nota.XML = novo.ToXElement<ProcessoNFe>().ToString();
                         esc.SalvarItemSimples(nota, DefinicoesTemporarias.DateTimeNow);
                     }
                 }

@@ -12,9 +12,9 @@ namespace NFeFacil.ViewNFe.DANFE
 {
     public struct ViewDados
     {
-        Processo Dados { get; }
+        ProcessoNFe Dados { get; }
 
-        public ViewDados(Processo processo)
+        public ViewDados(ProcessoNFe processo)
         {
             Dados = processo;
         }

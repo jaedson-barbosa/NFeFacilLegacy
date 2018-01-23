@@ -31,7 +31,7 @@ namespace NFeFacil.ViewNFe.DANFE.PaginasDANFE
             PaginasCarregadas?.Invoke(this, null);
         }
 
-        public PaginaPrincipal(ModeloXML.Processo processo, UIElementCollection paiPaginas)
+        public PaginaPrincipal(ModeloXML.ProcessoNFe processo, UIElementCollection paiPaginas)
         {
             InitializeComponent();
             var geral = new ViewDados(processo).ObterDadosConvertidos();

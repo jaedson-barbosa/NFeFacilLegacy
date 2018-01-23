@@ -53,13 +53,15 @@ namespace NFeFacil.ViewNFe
 
             using (var repo = new Repositorio.Leitura())
             {
-                ClientesDisponiveis = repo.ObterClientes().GerarObs();
-                MotoristasDisponiveis = repo.ObterMotoristasComVeiculos().Select(x => new MotoristaManipulacaoNFe
+                TodosClientes = repo.ObterClientes().ToArray();
+                ClientesDisponiveis = TodosClientes.GerarObs();
+                TodosMotoristas = repo.ObterMotoristasComVeiculos().Select(x => new MotoristaManipulacaoNFe
                 {
                     Root = x.Item1,
                     Principal = x.Item2,
                     Secundarios = x.Item3
-                }).GerarObs();
+                }).ToArray();
+                MotoristasDisponiveis = TodosMotoristas.GerarObs();
                 ProdutosDisponiveis = repo.ObterProdutos().ToList();
             }
 
@@ -96,8 +98,10 @@ namespace NFeFacil.ViewNFe
 
         #region Dados base
 
+        ClienteDI[] TodosClientes;
         ObservableCollection<ClienteDI> ClientesDisponiveis { get; set; }
         public List<ProdutoDI> ProdutosDisponiveis { get; set; }
+        MotoristaManipulacaoNFe[] TodosMotoristas;
         ObservableCollection<MotoristaManipulacaoNFe> MotoristasDisponiveis { get; set; }
 
         private ClienteDI clienteSelecionado;
@@ -770,6 +774,44 @@ namespace NFeFacil.ViewNFe
             if (cliente != null)
             {
                 input.ScrollIntoView(cliente, ScrollIntoViewAlignment.Leading);
+            }
+        }
+        
+        private void BuscarCliente(object sender, TextChangedEventArgs e)
+        {
+            var busca = ((TextBox)sender).Text;
+            for (int i = 0; i < TodosClientes.Length; i++)
+            {
+                var atual = TodosClientes[i];
+                bool valido = (DefinicoesPermanentes.ModoBuscaCliente == 0
+                    ? atual.Nome : atual.Documento).ToUpper().Contains(busca.ToUpper());
+                if (valido && !ClientesDisponiveis.Contains(atual))
+                {
+                    ClientesDisponiveis.Add(atual);
+                }
+                else if (!valido && ClientesDisponiveis.Contains(atual))
+                {
+                    ClientesDisponiveis.Remove(atual);
+                }
+            }
+        }
+
+        private void BuscarMotorista(object sender, TextChangedEventArgs e)
+        {
+            var busca = ((TextBox)sender).Text;
+            for (int i = 0; i < TodosMotoristas.Length; i++)
+            {
+                var atual = TodosMotoristas[i];
+                bool valido = (DefinicoesPermanentes.ModoBuscaMotorista == 0
+                    ? atual.Root.Nome : atual.Root.Documento).ToUpper().Contains(busca.ToUpper());
+                if (valido && !MotoristasDisponiveis.Contains(atual))
+                {
+                    MotoristasDisponiveis.Add(atual);
+                }
+                else if (!valido && MotoristasDisponiveis.Contains(atual))
+                {
+                    MotoristasDisponiveis.Remove(atual);
+                }
             }
         }
     }

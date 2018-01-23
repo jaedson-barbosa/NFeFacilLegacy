@@ -156,33 +156,42 @@
                 </ListView>
             </PivotItem>
         </Pivot>
-        <GridView HorizontalAlignment="Stretch" Loaded="GridView_Loaded"
-                  Margin="8"
-                  Style="{StaticResource ItensMediosGrid}"
-                  ItemsSource="{x:Bind ClientesDisponiveis}"
-                  SelectedItem="{x:Bind ClienteSelecionado, Mode=TwoWay}">
-            <GridView.ItemTemplate>
-                <DataTemplate x:DataType="db:ClienteDI">
-                    <Grid Background="Transparent"
-                          Padding="16">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
-                                   Text="{x:Bind Documento, Converter={StaticResource mascara}}"
-                                   MaxLines="1" />
-                        <TextBlock Grid.Row="1"
-                                   Style="{StaticResource BodyTextBlockStyle}"
-                                   Text="{x:Bind Nome}" />
-                        <TextBlock Grid.Row="2"
-                                   Style="{StaticResource BodyTextBlockStyle}"
-                                   Text="{x:Bind NomeMunicipio}" />
-                    </Grid>
-                </DataTemplate>
-            </GridView.ItemTemplate>
-        </GridView>
+        <Grid Padding="16">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <TextBox PlaceholderText="Buscar"
+                     TextChanged="BuscarCliente"
+                     HorizontalAlignment="Stretch" />
+            <GridView Grid.Row="1"
+                      Loaded="GridView_Loaded"
+                      Style="{StaticResource ItensMediosGrid}"
+                      ItemsSource="{x:Bind ClientesDisponiveis}"
+                      SelectedItem="{x:Bind ClienteSelecionado, Mode=TwoWay}">
+                <GridView.ItemTemplate>
+                    <DataTemplate x:DataType="db:ClienteDI">
+                        <Grid Background="Transparent"
+                              Padding="16">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
+                                       Text="{x:Bind Documento, Converter={StaticResource mascara}}"
+                                       MaxLines="1" />
+                            <TextBlock Grid.Row="1"
+                                       Style="{StaticResource BodyTextBlockStyle}"
+                                       Text="{x:Bind Nome}" />
+                            <TextBlock Grid.Row="2"
+                                       Style="{StaticResource BodyTextBlockStyle}"
+                                       Text="{x:Bind NomeMunicipio}" />
+                        </Grid>
+                    </DataTemplate>
+                </GridView.ItemTemplate>
+            </GridView>
+        </Grid>
         <StackPanel Margin="16">
             <ToggleSwitch Header="Endereço de retirada"
                           OnContent="Diferente registrado"
@@ -333,30 +342,40 @@
             <Pivot Grid.Row="1"
                    Margin="0,4,0,0">
                 <PivotItem Header="Motorista">
-                    <GridView ItemsSource="{x:Bind MotoristasDisponiveis}"
-                              Style="{StaticResource ItensMediosGrid}"
-                              SelectedItem="{x:Bind MotoristaSelecionado, Mode=TwoWay}"
-                              Loaded="GridView_Loaded">
-                        <GridView.ItemTemplate>
-                            <DataTemplate x:DataType="local:MotoristaManipulacaoNFe">
-                                <Grid Padding="8">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition />
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
-                                    <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
-                                               Text="{x:Bind Root.Documento, Converter={StaticResource mascara}}" />
-                                    <TextBlock Grid.Row="1"
-                                               Style="{StaticResource BodyTextBlockStyle}"
-                                               Text="{x:Bind Root.Nome}" />
-                                    <TextBlock Grid.Row="2"
-                                               Style="{StaticResource BodyTextBlockStyle}"
-                                               Text="{x:Bind Root.XMun}" />
-                                </Grid>
-                            </DataTemplate>
-                        </GridView.ItemTemplate>
-                    </GridView>
+                    <Grid Padding="16">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <TextBox PlaceholderText="Buscar"
+                                 TextChanged="BuscarMotorista"
+                                 HorizontalAlignment="Stretch" />
+                        <GridView Grid.Row="1"
+                                  ItemsSource="{x:Bind MotoristasDisponiveis}"
+                                  Style="{StaticResource ItensMediosGrid}"
+                                  SelectedItem="{x:Bind MotoristaSelecionado, Mode=TwoWay}"
+                                  Loaded="GridView_Loaded">
+                            <GridView.ItemTemplate>
+                                <DataTemplate x:DataType="local:MotoristaManipulacaoNFe">
+                                    <Grid Padding="8">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
+                                                   Text="{x:Bind Root.Documento, Converter={StaticResource mascara}}" />
+                                        <TextBlock Grid.Row="1"
+                                                   Style="{StaticResource BodyTextBlockStyle}"
+                                                   Text="{x:Bind Root.Nome}" />
+                                        <TextBlock Grid.Row="2"
+                                                   Style="{StaticResource BodyTextBlockStyle}"
+                                                   Text="{x:Bind Root.XMun}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </GridView.ItemTemplate>
+                        </GridView>
+                    </Grid>
                 </PivotItem>
                 <PivotItem Header="Veículo">
                     <ItemsControl x:Name="ctrPaiVeiculo"

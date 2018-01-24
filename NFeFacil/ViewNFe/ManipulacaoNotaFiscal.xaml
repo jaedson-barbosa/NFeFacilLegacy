@@ -221,7 +221,6 @@
                 <GridView.ItemTemplate>
                     <DataTemplate x:DataType="db:ProdutoDI">
                         <Grid Width="200"
-                              Height="200"
                               Padding="8">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />

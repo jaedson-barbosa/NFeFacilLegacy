@@ -1,7 +1,5 @@
 ﻿using NFeFacil.View;
 using NFeFacil.ModeloXML.PartesDetalhes.PartesProduto;
-using NFeFacil.ModeloXML.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
-using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace NFeFacil.ModeloXML.PartesDetalhes

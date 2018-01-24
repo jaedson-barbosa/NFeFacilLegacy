@@ -1,8 +1,5 @@
-﻿using System.Collections.Generic;
-using NFeFacil.ItensBD;
-using NFeFacil.ModeloXML;
+﻿using NFeFacil.ItensBD;
 using NFeFacil.ModeloXML.PartesDetalhes;
-using NFeFacil.ModeloXML.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
 using NFeFacil.Produto.Impostos;
 
 namespace NFeFacil.Produto

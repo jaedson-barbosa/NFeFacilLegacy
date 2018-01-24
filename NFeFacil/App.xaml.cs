@@ -1,5 +1,4 @@
-﻿using NFeFacil.Sincronizacao;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 
@@ -17,13 +16,6 @@ namespace NFeFacil
         public App()
         {
             InitializeComponent();
-            IBGE.Estados.Buscar();
-            IBGE.Municipios.Buscar();
-            View.DadosEstadosParaView.Iniciar();
-            if (ConfiguracoesSincronizacao.InícioAutomático)
-            {
-                GerenciadorServidor.Current.IniciarServer().ConfigureAwait(false);
-            }
         }
 
         /// <summary>

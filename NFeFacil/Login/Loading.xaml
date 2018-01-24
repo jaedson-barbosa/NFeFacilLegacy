@@ -16,7 +16,8 @@
                Stretch="None" />
         <TextBlock x:Name="txtAtual"
                    Grid.Row="1"
-                   Style="{StaticResource SubtitleTextBlockStyle}" />
+                   FontWeight="Bold"
+                   TextAlignment="Center">Iniciando sistemas do aplicativo...</TextBlock>
         <ItemsControl Grid.Row="2"
                       ItemsSource="{x:Bind Etapas}"
                       HorizontalAlignment="Center"
@@ -42,6 +43,6 @@
         <ProgressBar x:Name="barGeral"
                      Grid.Row="3"
                      Height="16"
-                     Maximum="16" />
+                     Maximum="7" />
     </Grid>
 </Page>

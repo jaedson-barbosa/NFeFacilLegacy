@@ -50,5 +50,4 @@ namespace NFeFacil.Login
             MainPage.Current.Navegar<AdicionarEmitente>();
         }
     }
-
 }

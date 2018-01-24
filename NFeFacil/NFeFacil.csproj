@@ -165,6 +165,9 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="AssistenteConfig.cs" />
+    <Compile Include="Login\Loading.xaml.cs">
+      <DependentUpon>Loading.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ModeloXML\IInformacoes.cs" />
     <Compile Include="ModeloXML\InformacoesNFCe .cs" />
     <Compile Include="ModeloXML\NFCe.cs" />
@@ -181,6 +184,7 @@
     <Compile Include="Sincronizacao\FastServer\RestResponse.cs" />
     <Compile Include="Sincronizacao\FastServer\UriFormatAttribute.cs" />
     <Compile Include="Sincronizacao\FastServer\UriParser.cs" />
+    <Compile Include="View\EtapaProcesso.cs" />
     <Compile Include="View\MetodosObtencao.cs" />
     <Compile Include="Certificacao\ConfiguracoesCertificadoImportado.xaml.cs">
       <DependentUpon>ConfiguracoesCertificadoImportado.xaml</DependentUpon>
@@ -1017,6 +1021,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controles\VisualizacaoGenerica.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Login\Loading.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

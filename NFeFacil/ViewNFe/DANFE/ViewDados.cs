@@ -53,6 +53,7 @@ namespace NFeFacil.ViewNFe.DANFE
             var cobr = Dados.NFe.Informacoes.cobr;
             var entrega = Dados.NFe.Informacoes.Entrega;
             var retirada = Dados.NFe.Informacoes.Retirada;
+            var total = Dados.NFe.Informacoes.total.ICMSTot;
 
             var itens = new List<ItemDadosAdicionais>();
             if (retirada != null)
@@ -78,6 +79,11 @@ namespace NFeFacil.ViewNFe.DANFE
             if (extras?.ProcRef?.Count > 0)
             {
                 var proc = new ItemDadosAdicionais("PROCESSOS REFERENCIADOS:", extras.ProcRef.Select(x => x.ToString()));
+                itens.Add(proc);
+            }
+            if (total.vICMSDeson != 0)
+            {
+                var proc = new ItemDadosAdicionais("ICMS DESONERADO:", total.vICMSDeson.ToString("C"));
                 itens.Add(proc);
             }
             return new DadosAdicionais(itens);

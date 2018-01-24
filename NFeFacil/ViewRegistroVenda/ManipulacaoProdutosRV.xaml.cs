@@ -23,7 +23,7 @@ namespace NFeFacil.ViewRegistroVenda
 
         public ManipulacaoProdutosRV()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

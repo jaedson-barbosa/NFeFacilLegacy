@@ -7,7 +7,7 @@ using NFeFacil.Produto.Impostos;
 
 namespace NFeFacil.Produto
 {
-    class DadosAdicaoProduto : IProdutoEspecial
+    class DadosAdicaoProduto
     {
         public DadosAdicaoProduto(ProdutoDI auxiliar)
         {
@@ -29,31 +29,5 @@ namespace NFeFacil.Produto
         public DetalhesProdutos Completo { get; }
         public ProdutoDI Auxiliar { get; }
         public (PrincipaisImpostos Tipo, string NomeTemplate, int CST)[] ImpostosPadrao { get; }
-
-        List<Arma> IProdutoEspecial.armas
-        {
-            get => ((IProdutoEspecial)Completo).armas;
-            set => ((IProdutoEspecial)Completo).armas = value;
-        }
-        Combustivel IProdutoEspecial.comb
-        {
-            get => ((IProdutoEspecial)Completo).comb;
-            set => ((IProdutoEspecial)Completo).comb = value;
-        }
-        List<Medicamento> IProdutoEspecial.medicamentos
-        {
-            get => ((IProdutoEspecial)Completo).medicamentos;
-            set => ((IProdutoEspecial)Completo).medicamentos = value;
-        }
-        string IProdutoEspecial.NRECOPI
-        {
-            get => ((IProdutoEspecial)Completo).NRECOPI;
-            set => ((IProdutoEspecial)Completo).NRECOPI = value;
-        }
-        VeiculoNovo IProdutoEspecial.veicProd
-        {
-            get => ((IProdutoEspecial)Completo).veicProd;
-            set => ((IProdutoEspecial)Completo).veicProd = value;
-        }
     }
 }

@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 namespace NFeFacil.ModeloXML.PartesDetalhes
 {
     [XmlRoot(ElementName = "det", Namespace = "http://www.portalfiscal.inf.br/nfe")]
-    public class DetalhesProdutos : IProdutoEspecial
+    public class DetalhesProdutos
     {
         [XmlAttribute(AttributeName = "nItem")]
         public int Número { get; set; }
@@ -27,11 +27,5 @@ namespace NFeFacil.ModeloXML.PartesDetalhes
         /// </summary>
         [XmlElement("infAdProd", Order = 3), DescricaoPropriedade("Informações adicionais")]
         public string InfAdProd { get; set; }
-
-        List<Arma> IProdutoEspecial.armas { get => Produto.armas; set => Produto.armas = value; }
-        Combustivel IProdutoEspecial.comb { get => Produto.comb; set => Produto.comb = value; }
-        List<Medicamento> IProdutoEspecial.medicamentos { get => Produto.medicamentos; set => Produto.medicamentos = value; }
-        string IProdutoEspecial.NRECOPI { get => Produto.NRECOPI; set => Produto.NRECOPI = value; }
-        VeiculoNovo IProdutoEspecial.veicProd { get => Produto.veicProd; set => Produto.veicProd = value; }
     }
 }

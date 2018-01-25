@@ -184,6 +184,13 @@
     <Compile Include="Sincronizacao\FastServer\RestResponse.cs" />
     <Compile Include="Sincronizacao\FastServer\UriFormatAttribute.cs" />
     <Compile Include="Sincronizacao\FastServer\UriParser.cs" />
+    <Compile Include="Validacao\AnalisadorNFCe.cs" />
+    <Compile Include="ViewNFCe\ManipulacaoNFCe.xaml.cs">
+      <DependentUpon>ManipulacaoNFCe.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNFCe\ProdutoNFCe.xaml.cs">
+      <DependentUpon>ProdutoNFCe.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\EtapaProcesso.cs" />
     <Compile Include="View\MetodosObtencao.cs" />
     <Compile Include="Certificacao\ConfiguracoesCertificadoImportado.xaml.cs">
@@ -834,7 +841,7 @@
     <Compile Include="ViewNFe\ManipulacaoNotaFiscal.xaml.cs">
       <DependentUpon>ManipulacaoNotaFiscal.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Produto\ManipulacaoProdutoCompleto.xaml.cs">
+    <Compile Include="ViewNFe\ManipulacaoProdutoCompleto.xaml.cs">
       <DependentUpon>ManipulacaoProdutoCompleto.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewRegistroVenda\ManipulacaoRegistroVenda.xaml.cs">
@@ -1061,6 +1068,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ViewDadosBase\GerenciarVendedores.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFCe\ManipulacaoNFCe.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewNFCe\ProdutoNFCe.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1496,7 +1511,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Produto\ManipulacaoProdutoCompleto.xaml">
+    <Page Include="ViewNFe\ManipulacaoProdutoCompleto.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1611,9 +1626,7 @@
       <Name>Windows Mobile Extensions for the UWP</Name>
     </SDKReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewNFCe\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

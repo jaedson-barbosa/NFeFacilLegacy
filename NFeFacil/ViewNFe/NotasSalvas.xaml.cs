@@ -111,7 +111,7 @@ namespace NFeFacil.ViewNFe
                                     Eventos = envio.Eventos,
                                     RetEvento = resposta.ResultadorEventos,
                                     Versao = resposta.Versao
-                                }.ToXElement<ProcEventoCancelamento>().ToString()
+                                }.ToXElement().ToString()
                             }, DefinicoesTemporarias.DateTimeNow);
 
                             nota.Status = (int)StatusNFe.Cancelada;

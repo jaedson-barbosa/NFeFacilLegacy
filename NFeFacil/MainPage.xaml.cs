@@ -122,7 +122,7 @@ namespace NFeFacil
         {
             var navegada = e.Content;
             var infoTipo = e.Content.GetType().GetTypeInfo();
-            var pag = infoTipo.GetCustomAttribute<View.DetalhePagina>();
+            var pag = infoTipo.GetCustomAttribute<DetalhePagina>();
 
             if (pag == null)
             {

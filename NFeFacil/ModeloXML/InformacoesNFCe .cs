@@ -23,9 +23,5 @@ namespace NFeFacil.ModeloXML
         [DescricaoPropriedade("Informações Adicionais")]
         [XmlElement(Order = 8)]
         public InformacoesAdicionais infAdic { get; set; }
-
-        [DescricaoPropriedade("Exportação")]
-        [XmlElement(Order = 9)]
-        public Exportacao exporta { get; set; }
     }
 }

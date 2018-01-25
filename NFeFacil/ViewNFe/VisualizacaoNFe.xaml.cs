@@ -18,7 +18,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NFeFacil.ViewNFe
 {
-    [View.DetalhePagina(Symbol.View, "Visualizar NFe")]
+    [DetalhePagina(Symbol.View, "Visualizar NFe")]
     public sealed partial class VisualizacaoNFe : Page
     {
         Popup Log = Popup.Current;
@@ -80,7 +80,7 @@ namespace NFeFacil.ViewNFe
                 Progresso progresso = null;
                 progresso = new Progresso(async x =>
                 {
-                    var result = await assina.Assinar<NFe>(x, nfe.Informacoes.Id, "infNFe");
+                    var result = await assina.Assinar(x, nfe.Informacoes.Id, "infNFe");
                     if (result.Item1)
                     {
                         ItemBanco.Status = (int)StatusNFe.Assinada;
@@ -189,13 +189,13 @@ namespace NFeFacil.ViewNFe
             {
                 var nfe = (NFe)ObjetoItemBanco;
                 id = nfe.Informacoes.Id;
-                xml = ObjetoItemBanco.ToXElement<NFe>();
+                xml = ObjetoItemBanco.ToXElement();
             }
             else
             {
                 var processo = (ProcessoNFe)ObjetoItemBanco;
                 id = processo.NFe.Informacoes.Id;
-                xml = ObjetoItemBanco.ToXElement<ProcessoNFe>();
+                xml = ObjetoItemBanco.ToXElement();
             }
 
             try
@@ -234,8 +234,8 @@ namespace NFeFacil.ViewNFe
                 using (var repo = new Repositorio.Escrita())
                 {
                     ItemBanco.XML = ItemBanco.Status < (int)StatusNFe.Emitida
-                        ? ObjetoItemBanco.ToXElement<NFe>().ToString()
-                        : ObjetoItemBanco.ToXElement<ProcessoNFe>().ToString();
+                        ? ObjetoItemBanco.ToXElement().ToString()
+                        : ObjetoItemBanco.ToXElement().ToString();
                     repo.SalvarItemSimples(ItemBanco, DefinicoesTemporarias.DateTimeNow);
                 }
             }

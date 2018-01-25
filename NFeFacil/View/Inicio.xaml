@@ -107,6 +107,28 @@
             </DataTemplate>
         </HubSection>
         <HubSection Width="200"
+                    Header="Fiscal (NFC-e)">
+            <DataTemplate>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <controles:ItemPadrao Titulo="Criar NFC-e"
+                                          Descricao="Criar uma nota fiscal do consumidor."
+                                          Tapped="CriarNFCe">
+                        <SymbolIcon Symbol="Add" />
+                    </controles:ItemPadrao>
+                    <!--<controles:ItemPadrao Grid.Row="1"
+                                          Titulo="Vendas salvas"
+                                          Descricao="Visualize os registros de venda cadastrados."
+                                          Tapped="AbrirVendasSalvas">
+                        <SymbolIcon Symbol="Library" />
+                    </controles:ItemPadrao>-->
+                </Grid>
+            </DataTemplate>
+        </HubSection>
+        <HubSection Width="200"
                     Header="Não fiscal">
             <DataTemplate>
                 <Grid>

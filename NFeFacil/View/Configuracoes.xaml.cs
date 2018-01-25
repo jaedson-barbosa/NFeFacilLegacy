@@ -130,7 +130,7 @@ namespace NFeFacil.View
         {
             var objeto = new ConjuntoBanco();
             objeto.AtualizarPadrao();
-            var xml = objeto.ToXElement<ConjuntoBanco>().ToString();
+            var xml = objeto.ToXElement().ToString();
 
             var caixa = new FileSavePicker();
             caixa.FileTypeChoices.Add("Arquivo XML", new string[] { ".xml" });

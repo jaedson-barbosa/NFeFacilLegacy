@@ -84,7 +84,7 @@ namespace NFeFacil.ViewNFe
         void Concluir(RetInutNFe resultado, bool homologacao)
         {
             var info = resultado.Info;
-            var xml = resultado.ToXElement<RetInutNFe>();
+            var xml = resultado.ToXElement();
             var itemDB = new Inutilizacao
             {
                 CNPJ = info.CNPJ,

@@ -160,7 +160,7 @@ namespace NFeFacil.Produto.GerenciamentoProdutos
                 var caixa = new CadastroIPI();
                 if (await caixa.ShowAsync() == ContentDialogResult.Primary)
                 {
-                    imp.IPI = caixa.Dados.ToXElement<ImpSimplesArmazenado.XMLIPIArmazenado>()
+                    imp.IPI = caixa.Dados.ToXElement()
                         .ToString(SaveOptions.DisableFormatting);
                     Produto.AdicionarImpostoSimples(imp);
                     ImpostosSimples.Add(imp);

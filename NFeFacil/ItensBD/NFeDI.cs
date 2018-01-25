@@ -32,6 +32,7 @@ namespace NFeFacil.ItensBD
         public bool Exportada { get; set; }
 
         public int StatusAdd => (int)StatusNFe.Salva;
+        public bool IsNFCe { get; set; }
 
         public static NFeDI Converter(XElement xml)
         {
@@ -57,6 +58,21 @@ namespace NFeFacil.ItensBD
             NumeroNota = nota.Informacoes.identificacao.Numero;
             SerieNota = nota.Informacoes.identificacao.Serie;
             Status = nota.Signature != null && nota.Signature != null ? (int)StatusNFe.Assinada : (int)StatusNFe.Salva;
+            IsNFCe = nota.Informacoes.identificacao.Modelo == 65;
+            XML = xml;
+        }
+
+        public NFeDI(NFCe nota, string xml)
+        {
+            Id = nota.Informacoes.Id;
+            NomeCliente = nota.Informacoes.destinatário.Nome;
+            NomeEmitente = nota.Informacoes.Emitente.Nome;
+            CNPJEmitente = nota.Informacoes.Emitente.CNPJ.ToString();
+            DataEmissao = DateTime.Parse(nota.Informacoes.identificacao.DataHoraEmissão).ToString("yyyy-MM-dd HH:mm:ss");
+            NumeroNota = nota.Informacoes.identificacao.Numero;
+            SerieNota = nota.Informacoes.identificacao.Serie;
+            Status = nota.Signature != null && nota.Signature != null ? (int)StatusNFe.Assinada : (int)StatusNFe.Salva;
+            IsNFCe = nota.Informacoes.identificacao.Modelo == 65;
             XML = xml;
         }
 
@@ -70,6 +86,21 @@ namespace NFeFacil.ItensBD
             NumeroNota = nota.NFe.Informacoes.identificacao.Numero;
             SerieNota = nota.NFe.Informacoes.identificacao.Serie;
             Status = nota.ProtNFe != null ? (int)StatusNFe.Emitida : nota.NFe.Signature != null ? (int)StatusNFe.Assinada : (int)StatusNFe.Salva;
+            IsNFCe = nota.NFe.Informacoes.identificacao.Modelo == 65;
+            XML = xml;
+        }
+
+        public NFeDI(ProcessoNFCe nota, string xml)
+        {
+            Id = nota.NFe.Informacoes.Id;
+            NomeCliente = nota.NFe.Informacoes.destinatário.Nome;
+            NomeEmitente = nota.NFe.Informacoes.Emitente.Nome;
+            CNPJEmitente = nota.NFe.Informacoes.Emitente.CNPJ.ToString();
+            DataEmissao = DateTime.Parse(nota.NFe.Informacoes.identificacao.DataHoraEmissão).ToString("yyyy-MM-dd HH:mm:ss");
+            NumeroNota = nota.NFe.Informacoes.identificacao.Numero;
+            SerieNota = nota.NFe.Informacoes.identificacao.Serie;
+            Status = nota.ProtNFe != null ? (int)StatusNFe.Emitida : nota.NFe.Signature != null ? (int)StatusNFe.Assinada : (int)StatusNFe.Salva;
+            IsNFCe = nota.NFe.Informacoes.identificacao.Modelo == 65;
             XML = xml;
         }
 

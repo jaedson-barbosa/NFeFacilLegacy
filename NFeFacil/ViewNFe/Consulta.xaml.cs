@@ -13,7 +13,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil.ViewNFe
 {
-    [View.DetalhePagina(Symbol.Find, "Consulta")]
+    [DetalhePagina(Symbol.Find, "Consulta")]
     public sealed partial class Consulta : Page
     {
         string Chave { get; set; }
@@ -64,7 +64,7 @@ namespace NFeFacil.ViewNFe
                             NFe = original,
                             ProtNFe = resultado.Protocolo
                         };
-                        nota.XML = novo.ToXElement<ProcessoNFe>().ToString();
+                        nota.XML = novo.ToXElement().ToString();
                         esc.SalvarItemSimples(nota, DefinicoesTemporarias.DateTimeNow);
                     }
                 }

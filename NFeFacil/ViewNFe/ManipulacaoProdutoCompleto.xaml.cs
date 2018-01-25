@@ -12,10 +12,12 @@ using NFeFacil.View;
 using NFeFacil.Produto.Impostos;
 using System.Linq;
 using NFeFacil.ModeloXML;
+using NFeFacil.Produto;
+using NFeFacil.Produto.CaixasDialogoProduto;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace NFeFacil.Produto
+namespace NFeFacil.ViewNFe
 {
     [DetalhePagina(Symbol.Shop, "Produto")]
     public sealed partial class ManipulacaoProdutoCompleto : Page, IHambuguer, IValida
@@ -108,7 +110,7 @@ namespace NFeFacil.Produto
 
         async void AdicionarDeclaracaoImportacao(object sender, RoutedEventArgs e)
         {
-            var caixa = new CaixasDialogoProduto.AdicionarDeclaracaoImportacao();
+            var caixa = new AdicionarDeclaracaoImportacao();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
                 ListaDI.Add(caixa.Declaracao);
@@ -123,12 +125,12 @@ namespace NFeFacil.Produto
 
         async void AdicionarDeclaracaoExportacao(object sender, RoutedEventArgs e)
         {
-            var caixa = new CaixasDialogoProduto.EscolherTipoDeclaracaoExportacao();
+            var caixa = new EscolherTipoDeclaracaoExportacao();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
                 if (caixa.Direta)
                 {
-                    var caixa2 = new CaixasDialogoProduto.AddDeclaracaoExportacaoDireta();
+                    var caixa2 = new AddDeclaracaoExportacaoDireta();
                     if (await caixa2.ShowAsync() == ContentDialogResult.Primary)
                     {
                         ListaGE.Add(caixa2.Declaracao);
@@ -136,7 +138,7 @@ namespace NFeFacil.Produto
                 }
                 else
                 {
-                    var caixa2 = new CaixasDialogoProduto.AddDeclaracaoExportacaoIndireta();
+                    var caixa2 = new AddDeclaracaoExportacaoIndireta();
                     if (await caixa2.ShowAsync() == ContentDialogResult.Primary)
                     {
                         ListaGE.Add(caixa2.Declaracao);

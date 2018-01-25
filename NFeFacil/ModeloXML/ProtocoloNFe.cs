@@ -21,7 +21,7 @@ namespace NFeFacil.ModeloXML
             await new AssinaFacil()
             {
                 Nota = this
-            }.Assinar<ProtocoloNFe>(cert, InfProt.Id, "infProt");
+            }.Assinar(cert, InfProt.Id, "infProt");
         }
     }
 }

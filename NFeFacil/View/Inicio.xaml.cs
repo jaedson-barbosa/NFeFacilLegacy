@@ -6,6 +6,7 @@ using NFeFacil.Produto.GerenciamentoProdutos;
 using NFeFacil.Sincronizacao;
 using NFeFacil.Validacao;
 using NFeFacil.ViewDadosBase;
+using NFeFacil.ViewNFCe;
 using NFeFacil.ViewNFe;
 using NFeFacil.ViewRegistroVenda;
 using System;
@@ -41,6 +42,8 @@ namespace NFeFacil.View
         void AbrirNotasSalvas(object sender, TappedRoutedEventArgs e) => Navegar<NotasSalvas>();
         void AbrirConsulta(object sender, TappedRoutedEventArgs e) => Navegar<Consulta>();
         void AbrirVendasAnuais(object sender, TappedRoutedEventArgs e) => Navegar<VendasAnuais>();
+
+        void CriarNFCe(object sender, TappedRoutedEventArgs e) => Navegar<ManipulacaoNFCe>();
 
         void AbrirVendasSalvas(object sender, TappedRoutedEventArgs e) => Navegar<RegistrosVenda>();
         void CriarVenda(object sender, TappedRoutedEventArgs e)

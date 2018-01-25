@@ -346,7 +346,7 @@ namespace NFeFacil.ViewNFe
 
                 if (ultPage.SourcePageType != typeof(VisualizacaoNFe))
                 {
-                    var novoDI = new NFeDI(nota, nota.ToXElement<NFe>().ToString())
+                    var novoDI = new NFeDI(nota, nota.ToXElement().ToString())
                     {
                         Status = (int)StatusNFe.Validada
                     };
@@ -359,7 +359,7 @@ namespace NFeFacil.ViewNFe
                     di.NomeCliente = nota.Informacoes.destinatário.Nome;
                     di.DataEmissao = DateTime.Parse(nota.Informacoes.identificacao.DataHoraEmissão).ToString("yyyy-MM-dd HH:mm:ss");
                     di.Status = (int)StatusNFe.Validada;
-                    di.XML = nota.ToXElement<NFe>().ToString();
+                    di.XML = nota.ToXElement().ToString();
                 }
 
                 Concluido = true;

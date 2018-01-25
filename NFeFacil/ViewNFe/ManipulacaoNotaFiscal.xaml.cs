@@ -62,7 +62,8 @@ namespace NFeFacil.ViewNFe
                     Secundarios = x.Item3
                 }).ToArray();
                 MotoristasDisponiveis = TodosMotoristas.GerarObs();
-                ProdutosDisponiveis = repo.ObterProdutos().ToList();
+                TodosProdutos = repo.ObterProdutos().ToArray();
+                ProdutosDisponiveis = TodosProdutos.GerarObs();
             }
 
             if (Dados.Informacoes.total == null)
@@ -100,7 +101,8 @@ namespace NFeFacil.ViewNFe
 
         ClienteDI[] TodosClientes;
         ObservableCollection<ClienteDI> ClientesDisponiveis { get; set; }
-        public List<ProdutoDI> ProdutosDisponiveis { get; set; }
+        ProdutoDI[] TodosProdutos;
+        ObservableCollection<ProdutoDI> ProdutosDisponiveis { get; set; }
         MotoristaManipulacaoNFe[] TodosMotoristas;
         ObservableCollection<MotoristaManipulacaoNFe> MotoristasDisponiveis { get; set; }
 
@@ -816,6 +818,25 @@ namespace NFeFacil.ViewNFe
                 else if (!valido && MotoristasDisponiveis.Contains(atual))
                 {
                     MotoristasDisponiveis.Remove(atual);
+                }
+            }
+        }
+
+        private void BuscarProduto(object sender, TextChangedEventArgs e)
+        {
+            var busca = ((TextBox)sender).Text;
+            for (int i = 0; i < TodosProdutos.Length; i++)
+            {
+                var atual = TodosProdutos[i];
+                bool valido = (DefinicoesPermanentes.ModoBuscaProduto == 0
+                    ? atual.Descricao : atual.CodigoProduto).ToUpper().Contains(busca.ToUpper());
+                if (valido && !ProdutosDisponiveis.Contains(atual))
+                {
+                    ProdutosDisponiveis.Add(atual);
+                }
+                else if (!valido && ProdutosDisponiveis.Contains(atual))
+                {
+                    ProdutosDisponiveis.Remove(atual);
                 }
             }
         }

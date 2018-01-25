@@ -205,9 +205,14 @@
         <Grid Padding="16">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <GridView ItemsSource="{x:Bind ProdutosDisponiveis}"
+            <TextBox PlaceholderText="Buscar"
+                     TextChanged="BuscarProduto"
+                     HorizontalAlignment="Stretch" />
+            <GridView Grid.Row="1"
+                      ItemsSource="{x:Bind ProdutosDisponiveis}"
                       ScrollViewer.HorizontalScrollBarVisibility="Visible"
                       ScrollViewer.HorizontalScrollMode="Enabled"
                       IsItemClickEnabled="True"
@@ -235,7 +240,7 @@
                     </DataTemplate>
                 </GridView.ItemTemplate>
             </GridView>
-            <ListView Grid.Row="1"
+            <ListView Grid.Row="2"
                       Grid.ColumnSpan="2"
                       Margin="0,4,0,0"
                       ItemsSource="{x:Bind Produtos}">

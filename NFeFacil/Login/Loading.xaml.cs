@@ -3,12 +3,7 @@ using NFeFacil.View;
 using System;
 using System.Globalization;
 using System.Threading.Tasks;
-using Windows.ApplicationModel.Core;
-using Windows.System.Profile;
-using Windows.UI;
 using Windows.UI.Core;
-using Windows.UI.ViewManagement;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
@@ -32,8 +27,7 @@ namespace NFeFacil.Login
                 new EtapaProcesso("Ajustar background"),
                 new EtapaProcesso("Verificar início do servidor"),
                 new EtapaProcesso("Adicionar evento de retorno"),
-                new EtapaProcesso("Ajustar definições de globalização"),
-                new EtapaProcesso("Personalizar barra de título")
+                new EtapaProcesso("Ajustar definições de globalização")
             };
             Start();
         }
@@ -71,8 +65,6 @@ namespace NFeFacil.Login
                 await Update(5);
                 AjustarGlobalizacao();
                 await Update(6);
-                await PersonalisarBarraTitulo();
-                await Update(7);
                 Finalizar();
             }
             catch (Exception e)
@@ -117,37 +109,6 @@ namespace NFeFacil.Login
                     current.DefinirTipoBackground(TiposBackground.Cor);
                     current.DefinirOpacidadeBackground(DefinicoesPermanentes.OpacidadeBackground);
                     break;
-            }
-        }
-
-        async Task PersonalisarBarraTitulo()
-        {
-            MainPage current = MainPage.Current;
-            var familia = AnalyticsInfo.VersionInfo.DeviceFamily;
-            if (familia.Contains("Mobile"))
-            {
-                await StatusBar.GetForCurrentView().HideAsync();
-            }
-            else if (familia.Contains("Desktop"))
-            {
-                var view = CoreApplication.GetCurrentView();
-                CoreApplicationViewTitleBar tb = view.TitleBar;
-                if (tb.Height == 0)
-                {
-                    throw new Exception("A altura da barra de título é igual à 0. Reinicie a aplicação.");
-                }
-                current.TitleBar.Height = tb.Height;
-                tb.ExtendViewIntoTitleBar = true;
-                tb.LayoutMetricsChanged += (sender, e) => current.TitleBar.Height = sender.Height;
-
-                Window.Current.SetTitleBar(current.MainTitleBar);
-                Window.Current.Activated += (sender, e) => current.TitleBar.Opacity = e.WindowActivationState != CoreWindowActivationState.Deactivated ? 1 : 0.5;
-
-                var novoTB = ApplicationView.GetForCurrentView().TitleBar;
-                novoTB.ButtonBackgroundColor = Colors.Transparent;
-                novoTB.ButtonInactiveBackgroundColor = Colors.Transparent;
-                novoTB.ButtonHoverBackgroundColor = new Color { A = 50 };
-                novoTB.ButtonPressedBackgroundColor = new Color { A = 100 };
             }
         }
 

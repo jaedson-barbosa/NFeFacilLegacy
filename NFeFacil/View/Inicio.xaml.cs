@@ -7,7 +7,7 @@ using NFeFacil.Sincronizacao;
 using NFeFacil.Validacao;
 using NFeFacil.ViewDadosBase;
 using NFeFacil.ViewNFCe;
-using NFeFacil.ViewNFe;
+using NFeFacil.Fiscal.ViewNFe;
 using NFeFacil.ViewRegistroVenda;
 using System;
 using System.Threading.Tasks;

@@ -6,7 +6,6 @@ using NFeFacil.ModeloXML.PartesDetalhes;
 using NFeFacil.Produto;
 using NFeFacil.Validacao;
 using NFeFacil.View;
-using NFeFacil.Fiscal.ViewNFe;
 using NFeFacil.Fiscal.ViewNFe.CaixasDialogo;
 using System;
 using System.Collections.ObjectModel;
@@ -17,7 +16,7 @@ using Windows.UI.Xaml.Navigation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace NFeFacil.ViewNFCe
+namespace NFeFacil.Fiscal.ViewNFCe
 {
     /// <summary>
     /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.

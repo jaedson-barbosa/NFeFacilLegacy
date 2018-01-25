@@ -1,4 +1,5 @@
-﻿using NFeFacil.IBGE;
+﻿using NFeFacil.Fiscal.ViewNFe;
+using NFeFacil.IBGE;
 using NFeFacil.ModeloXML;
 using NFeFacil.ModeloXML.PartesDetalhes;
 using NFeFacil.ModeloXML.PartesDetalhes.PartesTransporte;
@@ -8,7 +9,7 @@ using Windows.UI.Xaml.Controls;
 
 // O modelo de item de Caixa de Diálogo de Conteúdo está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace NFeFacil.Fiscal.ViewNFe
+namespace NFeFacil.Fiscal
 {
     public sealed partial class CriadorNFe : ContentDialog
     {

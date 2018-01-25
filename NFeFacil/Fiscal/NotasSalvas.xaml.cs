@@ -5,21 +5,20 @@ using System.Collections.ObjectModel;
 using System.Xml.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Data;
 using NFeFacil.Controles;
 using System.Xml.Serialization;
 using NFeFacil.WebService.Pacotes;
 using NFeFacil.WebService;
 using NFeFacil.Validacao;
-using Windows.UI.Xaml.Media;
 using NFeFacil.View;
 using NFeFacil.WebService.Pacotes.PartesEnvEvento;
 using NFeFacil.WebService.Pacotes.PartesRetEnvEvento;
 using NFeFacil.Certificacao;
+using NFeFacil.Fiscal.ViewNFe;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace NFeFacil.Fiscal.ViewNFe
+namespace NFeFacil.Fiscal
 {
     [DetalhePagina(Symbol.Library, "Notas salvas")]
     public sealed partial class NotasSalvas : Page, IHambuguer
@@ -162,23 +161,6 @@ namespace NFeFacil.Fiscal.ViewNFe
             var analisador = new AnalisadorNFe(ref nfe);
             analisador.Desnormalizar();
             await new CriadorNFe(nfe).ShowAsync();
-        }
-    }
-
-    sealed class BoolToColor : IValueConverter
-    {
-        static readonly Brush Ativo = new SolidColorBrush(new BibliotecaCores().Cor1);
-        static readonly Brush Inativo = new SolidColorBrush(Windows.UI.Colors.Transparent);
-
-        public object Convert(object value, Type targetType, object parameter, string language)
-        {
-            var booleano = (bool)value;
-            return booleano ? Ativo : Inativo;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, string language)
-        {
-            throw new NotImplementedException();
         }
     }
 }

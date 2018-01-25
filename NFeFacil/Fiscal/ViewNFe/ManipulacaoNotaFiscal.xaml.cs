@@ -5,7 +5,6 @@ using System.Collections.ObjectModel;
 using NFeFacil.ModeloXML;
 using NFeFacil.Controles;
 using NFeFacil.ItensBD;
-using System.Collections.Generic;
 using System.Linq;
 using NFeFacil.ModeloXML.PartesDetalhes;
 using NFeFacil.ModeloXML.PartesDetalhes.PartesIdentificacao;

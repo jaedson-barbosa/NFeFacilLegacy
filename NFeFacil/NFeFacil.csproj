@@ -165,6 +165,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="AssistenteConfig.cs" />
+    <Compile Include="Fiscal\BoolToColor.cs" />
     <Compile Include="Login\Loading.xaml.cs">
       <DependentUpon>Loading.xaml</DependentUpon>
     </Compile>
@@ -675,7 +676,7 @@
     <Compile Include="Produto\Impostos\EscolherTipoPISouCOFINS.xaml.cs">
       <DependentUpon>EscolherTipoPISouCOFINS.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Fiscal\ViewNFe\CriadorNFe.xaml.cs">
+    <Compile Include="Fiscal\CriadorNFe.xaml.cs">
       <DependentUpon>CriadorNFe.xaml</DependentUpon>
     </Compile>
     <Compile Include="Fiscal\ViewNFe\CaixasDialogo\EnderecoDiferenteNacional.xaml.cs">
@@ -684,7 +685,7 @@
     <Compile Include="Produto\Impostos\EscolherTipoICMS.xaml.cs">
       <DependentUpon>EscolherTipoICMS.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Fiscal\ViewNFe\VisualizacaoNFe.xaml.cs">
+    <Compile Include="Fiscal\VisualizacaoNFe.xaml.cs">
       <DependentUpon>VisualizacaoNFe.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewRegistroVenda\EscolherDimensão.xaml.cs">
@@ -847,7 +848,7 @@
     <Compile Include="ViewRegistroVenda\ManipulacaoRegistroVenda.xaml.cs">
       <DependentUpon>ManipulacaoRegistroVenda.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Fiscal\ViewNFe\NotasSalvas.xaml.cs">
+    <Compile Include="Fiscal\NotasSalvas.xaml.cs">
       <DependentUpon>NotasSalvas.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\DadosEstadosParaView.cs" />
@@ -1315,7 +1316,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Fiscal\ViewNFe\CriadorNFe.xaml">
+    <Page Include="Fiscal\CriadorNFe.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1327,7 +1328,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Fiscal\ViewNFe\VisualizacaoNFe.xaml">
+    <Page Include="Fiscal\VisualizacaoNFe.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1519,7 +1520,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Fiscal\ViewNFe\NotasSalvas.xaml">
+    <Page Include="Fiscal\NotasSalvas.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,4 +1,4 @@
-﻿<Page x:Class="NFeFacil.ViewNFCe.ProdutoNFCe"
+﻿<Page x:Class="NFeFacil.Fiscal.ViewNFCe.ProdutoNFCe"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:controles="using:NFeFacil.Controles"

@@ -87,7 +87,7 @@ namespace NFeFacil.ViewRegistroVenda
         {
             try
             {
-                var caixa = new Fiscal.ViewNFe.CriadorNFe(ItemBanco.ToNFe());
+                var caixa = new Fiscal.CriadorNFe(ItemBanco.ToNFe());
                 if (await caixa.ShowAsync() == ContentDialogResult.Primary)
                 {
                     Log.Popup.Current.Escrever(Log.TitulosComuns.Atenção, "Os impostos dos produtos não são adicionados automaticamente, por favor, insira-os editando cada produto.");
@@ -146,7 +146,7 @@ namespace NFeFacil.ViewRegistroVenda
             using (var repo = new Repositorio.Leitura())
             {
                 var item = repo.ObterNFe(ItemBanco.NotaFiscalRelacionada);
-                MainPage.Current.Navegar<Fiscal.ViewNFe.VisualizacaoNFe>(item);
+                MainPage.Current.Navegar<Fiscal.VisualizacaoNFe>(item);
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using NFeFacil.ItensBD;
+﻿using NFeFacil.Fiscal.ViewNFe;
+using NFeFacil.ItensBD;
 using NFeFacil.Log;
 using NFeFacil.ModeloXML;
 using NFeFacil.Validacao;
@@ -16,7 +17,7 @@ using Windows.UI.Xaml.Navigation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace NFeFacil.Fiscal.ViewNFe
+namespace NFeFacil.Fiscal
 {
     [DetalhePagina(Symbol.View, "Visualizar NFe")]
     public sealed partial class VisualizacaoNFe : Page

@@ -1,5 +1,6 @@
 ﻿using NFeFacil.Fiscal;
 using NFeFacil.ItensBD;
+using NFeFacil.ViewRegistroVenda.DARV;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -108,7 +109,7 @@ namespace NFeFacil.ViewRegistroVenda
             {
                 double largura = caixa.Largura, altura = caixa.Predefinicao == 0 ? 0 : caixa.Altura;
 
-                MainPage.Current.Navegar<DARV>(new DadosImpressaoDARV
+                MainPage.Current.Navegar<ViewDARV>(new DadosImpressaoDARV
                 {
                     Venda = ItemBanco,
                     Dimensoes = new Dimensoes(largura, altura, 1),

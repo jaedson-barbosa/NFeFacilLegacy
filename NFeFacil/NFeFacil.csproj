@@ -199,6 +199,10 @@
     <Compile Include="Fiscal\NFCe\ProdutoNFCe.xaml.cs">
       <DependentUpon>ProdutoNFCe.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewRegistroVenda\DARV\DadosImpressaoDARV.cs" />
+    <Compile Include="ViewRegistroVenda\DARV\Dimensoes.cs" />
+    <Compile Include="ViewRegistroVenda\DARV\ExibicaoProduto.cs" />
+    <Compile Include="ViewRegistroVenda\DARV\ProdutosDARV.cs" />
     <Compile Include="View\EtapaProcesso.cs" />
     <Compile Include="View\MetodosObtencao.cs" />
     <Compile Include="Certificacao\ConfiguracoesCertificadoImportado.xaml.cs">
@@ -614,8 +618,8 @@
     <Compile Include="ViewRegistroVenda\CalcularTroco.xaml.cs">
       <DependentUpon>CalcularTroco.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewRegistroVenda\DARV.xaml.cs">
-      <DependentUpon>DARV.xaml</DependentUpon>
+    <Compile Include="ViewRegistroVenda\DARV\ViewDARV.xaml.cs">
+      <DependentUpon>ViewDARV.xaml</DependentUpon>
     </Compile>
     <Compile Include="Produto\GerenciamentoProdutos\Ano.cs" />
     <Compile Include="Controles\NumeroChangedEventArgs.cs" />
@@ -1235,7 +1239,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewRegistroVenda\DARV.xaml">
+    <Page Include="ViewRegistroVenda\DARV\ViewDARV.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

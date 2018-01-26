@@ -1,7 +1,7 @@
-﻿<Page x:Class="NFeFacil.ViewRegistroVenda.DARV"
+﻿<Page x:Class="NFeFacil.ViewRegistroVenda.DARV.ViewDARV"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:local="using:NFeFacil.ViewRegistroVenda"
+      xmlns:local="using:NFeFacil.ViewRegistroVenda.DARV"
       xmlns:vml="using:NFeFacil.View"
       xmlns:bd="using:NFeFacil.ItensBD"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -39,57 +39,6 @@
                 <TextBlock Grid.Row="3">Telefone: <Run Text="{x:Bind Telefone}" /></TextBlock>
                 <TextBlock Grid.Row="3"
                            Grid.Column="1">Email: <Run Text="{x:Bind Email}" /></TextBlock>
-            </Grid>
-        </DataTemplate>
-        <DataTemplate x:Name="ClienteFisico"
-                      x:DataType="bd:ClienteDI">
-            <Grid>
-                <Grid.Resources>
-                    <Style TargetType="TextBlock"
-                           BasedOn="{StaticResource Padrao}" />
-                </Grid.Resources>
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <TextBlock>CPF: <Run Text="{x:Bind CPF, Converter={StaticResource mascara}}" /></TextBlock>
-                <TextBlock Grid.Row="1">End.: <Run Text="{x:Bind Logradouro}" />, <Run Text="{x:Bind Numero}" /> - <Run Text="{x:Bind Bairro}" /> - <Run Text="{x:Bind NomeMunicipio}" />/<Run Text="{x:Bind SiglaUF}" />; CEP: <Run Text="{x:Bind CEP, Converter={StaticResource mascara}}" /></TextBlock>
-            </Grid>
-        </DataTemplate>
-        <DataTemplate x:Name="ClienteJuridico"
-                      x:DataType="bd:ClienteDI">
-            <Grid>
-                <Grid.Resources>
-                    <Style TargetType="TextBlock"
-                           BasedOn="{StaticResource Padrao}" />
-                </Grid.Resources>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <TextBlock>CNPJ: <Run Text="{x:Bind CNPJ, Converter={StaticResource mascara}}" /></TextBlock>
-                <TextBlock Grid.Column="1">IE: <Run Text="{x:Bind InscricaoEstadual}" /></TextBlock>
-                <TextBlock Grid.Row="1"
-                           Grid.ColumnSpan="2">End.: <Run Text="{x:Bind Logradouro}" />, <Run Text="{x:Bind Numero}" /> - <Run Text="{x:Bind Bairro}" /> - <Run Text="{x:Bind NomeMunicipio}" />/<Run Text="{x:Bind SiglaUF}" />; CEP: <Run Text="{x:Bind CEP, Converter={StaticResource mascara}}" /></TextBlock>
-            </Grid>
-        </DataTemplate>
-        <DataTemplate x:Name="ClienteExterior"
-                      x:DataType="bd:ClienteDI">
-            <Grid>
-                <Grid.Resources>
-                    <Style TargetType="TextBlock"
-                           BasedOn="{StaticResource Padrao}" />
-                </Grid.Resources>
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <TextBlock>Documento de identificação: <Run Text="{x:Bind IdEstrangeiro, Converter={StaticResource mascara}}" /></TextBlock>
-                <TextBlock Grid.Row="1">End.: <Run Text="{x:Bind Logradouro}" />, <Run Text="{x:Bind Numero}" /> - <Run Text="{x:Bind Bairro}" /> - País: <Run Text="{x:Bind XPais}" /></TextBlock>
             </Grid>
         </DataTemplate>
         <DataTemplate x:Name="Produtos"
@@ -141,7 +90,7 @@
                 </ListView.Header>
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="local:ExibicaoProduto">
-                        <Grid Height="20">
+                        <Grid MinHeight="20">
                             <Grid.Resources>
                                 <Style TargetType="TextBlock"
                                        BasedOn="{StaticResource Padrao}">
@@ -174,36 +123,26 @@
                 </ListView.ItemTemplate>
             </ListView>
         </DataTemplate>
-        <DataTemplate x:Name="TransporteFisico"
-                      x:DataType="bd:MotoristaDI">
-            <TextBlock Grid.Row="3" Style="{StaticResource Padrao}">CPF: <Run Text="{x:Bind CPF, Converter={StaticResource mascara}}" /></TextBlock>
-        </DataTemplate>
-        <DataTemplate x:Name="TransporteJuridico"
-                      x:DataType="bd:MotoristaDI">
-            <TextBlock Grid.Row="3" Style="{StaticResource Padrao}">CNPJ/IE: <Run Text="{x:Bind CNPJ,Converter={StaticResource mascara}}" /> / <Run Text="{x:Bind InscricaoEstadual}" /></TextBlock>
-        </DataTemplate>
         <Style TargetType="TextBlock"
                x:Key="Padrao">
             <Setter Property="FontFamily"
                     Value="Arial" />
             <Setter Property="FontSize"
-                    Value="16" />
+                    Value="12" />
         </Style>
         <Style TargetType="TextBlock"
-               x:Key="Titulo">
-            <Setter Property="FontFamily"
-                    Value="Arial" />
+               BasedOn="{StaticResource Padrao}"
+               x:Key="Subtitulo">
             <Setter Property="FontSize"
-                    Value="20" />
+                    Value="14" />
             <Setter Property="FontWeight"
                     Value="Bold" />
         </Style>
         <Style TargetType="TextBlock"
-               x:Key="Subtitulo">
-            <Setter Property="FontFamily"
-                    Value="Arial" />
+               BasedOn="{StaticResource Subtitulo}"
+               x:Key="Titulo">
             <Setter Property="FontSize"
-                    Value="20" />
+                    Value="16" />
         </Style>
         <Style TargetType="TextBlock"
                BasedOn="{StaticResource Padrao}" />
@@ -235,6 +174,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition />
+                        <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -246,13 +186,15 @@
                                Style="{StaticResource Subtitulo}">Cliente</TextBlock>
                     <TextBlock Grid.ColumnSpan="2"
                                Grid.Row="1">Nome: <Run Text="{x:Bind Cliente.Nome}" /></TextBlock>
-                    <ContentPresenter Grid.ColumnSpan="2"
-                                      Grid.Row="2"
-                                      ContentTemplate="{x:Bind TemplateCliente}"
-                                      Content="{x:Bind Cliente}" />
-                    <TextBlock Grid.Row="3">Telefone: <Run Text="{x:Bind Cliente.Telefone}" /></TextBlock>
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="2">IE: <Run Text="{x:Bind Cliente.InscricaoEstadual}" /></TextBlock>
+                    <TextBlock Grid.Row="2">Documento: <Run Text="{x:Bind Cliente.Documento, Converter={StaticResource mascara}}" /></TextBlock>
+                    <TextBlock Grid.Row="2"
+                               Grid.Column="1">Telefone: <Run Text="{x:Bind Cliente.Telefone}" /></TextBlock>
+                    <TextBlock Grid.Row="2"
+                               Grid.Column="2">Email: <Run Text="{x:Bind Cliente.Email}" /></TextBlock>
                     <TextBlock Grid.Row="3"
-                               Grid.Column="1">Email: <Run Text="{x:Bind Cliente.Email}" /></TextBlock>
+                               Grid.ColumnSpan="3">Endereço: <Run Text="{x:Bind EnderecoCliente}" /></TextBlock>
                 </Grid>
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
@@ -263,17 +205,15 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <TextBlock Grid.ColumnSpan="2"
                                Style="{StaticResource Subtitulo}">Pedido</TextBlock>
-                    <TextBlock Grid.ColumnSpan="2"
-                               Grid.Row="1">Identificação: <Run Text="{x:Bind Id}" /></TextBlock>
-                    <TextBlock Grid.ColumnSpan="2"
-                               Visibility="{x:Bind VisibilidadeNFeRelacionada}"
-                               Grid.Row="2">NFe relacionada: <Run Text="{x:Bind Registro.NotaFiscalRelacionada}" /></TextBlock>
-                    <TextBlock Grid.Row="3">Data da venda: <Run Text="{x:Bind Registro.DataHoraVenda, Converter={StaticResource data}, ConverterParameter='dd/MM/yyyy'}" /></TextBlock>
-                    <TextBlock Grid.Row="3"
+                    <TextBlock Grid.Row="1">Identificação: <Run Text="{x:Bind Id}" /></TextBlock>
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="1"
+                               Visibility="{x:Bind VisibilidadeNFeRelacionada}">NFe relacionada: <Run Text="{x:Bind Registro.NotaFiscalRelacionada}" /></TextBlock>
+                    <TextBlock Grid.Row="2">Data da venda: <Run Text="{x:Bind Registro.DataHoraVenda, Converter={StaticResource data}, ConverterParameter='dd/MM/yyyy'}" /></TextBlock>
+                    <TextBlock Grid.Row="2"
                                Grid.Column="1">Vendedor: <Run Text="{x:Bind Vendedor}" /></TextBlock>
                 </Grid>
                 <Grid Grid.Row="3"
@@ -299,27 +239,28 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition />
+                        <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition />
                         <RowDefinition />
                         <RowDefinition />
-                        <RowDefinition />
                     </Grid.RowDefinitions>
                     <TextBlock Style="{StaticResource Subtitulo}">Transporte</TextBlock>
-                    <TextBlock Grid.Row="1">Nome: <Run Text="{x:Bind Motorista.Nome}" /></TextBlock>
                     <TextBlock Grid.Row="1"
-                               Grid.Column="1">Tipo de frete: <Run Text="{x:Bind Registro.TipoFrete}" /></TextBlock>
-                    <ContentPresenter Grid.Row="2"
-                                      ContentTemplate="{x:Bind TemplateTransporte}"
-                                      Content="{x:Bind Motorista}"
-                                      Grid.ColumnSpan="2" />
+                               Grid.ColumnSpan="2">Nome: <Run Text="{x:Bind Motorista.Nome}" /></TextBlock>
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="2">Tipo de frete: <Run Text="{x:Bind Registro.TipoFrete}" /></TextBlock>
+                    <TextBlock Grid.Row="2">Documento: <Run Text="{x:Bind Motorista.Documento, Converter={StaticResource mascara}}" /></TextBlock>
+                    <TextBlock Grid.Row="2"
+                               Grid.Column="1">IE: <Run Text="{x:Bind Motorista.InscricaoEstadual}" /></TextBlock>
+                    <TextBlock Grid.Row="2"
+                               Grid.Column="2">Telefone: <Run Text="{x:Bind Motorista.Telefone}" /></TextBlock>
                     <TextBlock Grid.Row="3"
                                Grid.ColumnSpan="2">Endereço: <Run Text="{x:Bind Motorista.XEnder}" /> - <Run Text="{x:Bind Motorista.XMun}" />/<Run Text="{x:Bind Motorista.UF}" /></TextBlock>
-                    <TextBlock Grid.Row="4">Telefone: <Run Text="{x:Bind Motorista.Telefone}" /></TextBlock>
-                    <TextBlock Grid.Row="4"
-                               Grid.Column="1">Email: <Run Text="{x:Bind Motorista.Email}" /></TextBlock>
+                    <TextBlock Grid.Row="3"
+                               Grid.Column="2">Email: <Run Text="{x:Bind Motorista.Email}" /></TextBlock>
                 </Grid>
                 <ContentPresenter x:Name="produtosPagina0"
                                   Grid.Row="5"

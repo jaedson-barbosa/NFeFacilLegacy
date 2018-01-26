@@ -1,54 +1,50 @@
 ﻿using System;
 using NFeFacil.ItensBD;
 using Windows.UI.Xaml.Controls;
-using static NFeFacil.ExtensoesPrincipal;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
 using System.Linq;
-using System.Collections.ObjectModel;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace NFeFacil.ViewRegistroVenda
+namespace NFeFacil.ViewRegistroVenda.DARV
 {
     [View.DetalhePagina(Symbol.View, "DARV")]
-    public sealed partial class DARV : Page
+    public sealed partial class ViewDARV : Page
     {
-        internal double AlturaEscolhida { get; private set; }
-        internal double LarguraEscolhida { get; private set; }
-        internal Thickness PaddingEscolhido { get; private set; }
+        double AlturaEscolhida { get; set; }
+        double LarguraEscolhida { get; set; }
+        Thickness PaddingEscolhido { get; set; }
 
-        internal RegistroVenda Registro { get; private set; }
-        internal EmitenteDI Emitente { get; private set; }
-        internal ClienteDI Cliente { get; private set; }
-        internal string Vendedor { get; private set; }
-        internal Comprador Comprador { get; private set; }
-        internal MotoristaDI Motorista { get; private set; }
+        RegistroVenda Registro { get; set; }
+        EmitenteDI Emitente { get; set; }
+        ClienteDI Cliente { get; set; }
+        string Vendedor { get; set; }
+        Comprador Comprador { get; set; }
+        MotoristaDI Motorista { get; set; }
 
-        internal string Subtotal { get; private set; }
-        internal string Acrescimos { get; private set; }
-        internal string Desconto { get; private set; }
-        internal string Total { get; private set; }
+        string Subtotal { get; set; }
+        string Acrescimos { get; set; }
+        string Desconto { get; set; }
+        string Total { get; set; }
 
         string Id => Registro.Id.ToString().ToUpper();
-        internal string NomeAssinatura => Comprador?.Nome ?? Cliente.Nome;
-        internal string Observacoes => Registro.Observações;
+        string NomeAssinatura => Comprador?.Nome ?? Cliente.Nome;
+        string Observacoes => Registro.Observações;
 
-        internal DataTemplate TemplateCliente { get; private set; }
-        internal DataTemplate TemplateTransporte { get; private set; }
-
+        string EnderecoCliente { get; set; }
         ExibicaoProduto[] ListaProdutos;
 
         Visibility VisibilidadeTransporte { get; set; }
-        internal Visibility VisibilidadeNFeRelacionada { get; private set; }
-        internal Visibility VisibilidadeComprador { get; private set; }
-        internal Visibility VisibilidadePagamento { get; private set; }
-        internal Visibility VisibilidadeObservacoes { get; private set; }
+        Visibility VisibilidadeNFeRelacionada { get; set; }
+        Visibility VisibilidadeComprador { get; set; }
+        Visibility VisibilidadePagamento { get; set; }
+        Visibility VisibilidadeObservacoes { get; set; }
 
         readonly GerenciadorImpressao Gerenciador = new GerenciadorImpressao();
-        DARV This { get; }
+        ViewDARV This { get; }
 
-        public DARV()
+        public ViewDARV()
         {
             InitializeComponent();
             This = this;
@@ -101,28 +97,37 @@ namespace NFeFacil.ViewRegistroVenda
             ListaProdutos = produtos;
 
             if (!string.IsNullOrEmpty(Cliente.CPF))
-                TemplateCliente = ClienteFisico;
+                EnderecoCliente = ObterEnderecoClienteFisico(Cliente);
             else if (!string.IsNullOrEmpty(Cliente.CNPJ))
-                TemplateCliente = ClienteJuridico;
+                EnderecoCliente = ObterEnderecoClienteJuridico(Cliente);
             else
-                TemplateCliente = ClienteExterior;
+                EnderecoCliente = ObterEnderecoClienteExterior(Cliente);
 
-            if (Motorista != null)
-            {
-                if (!string.IsNullOrEmpty(Motorista.CPF))
-                    TemplateTransporte = TransporteFisico;
-                else if (!string.IsNullOrEmpty(Motorista.CNPJ))
-                    TemplateTransporte = TransporteJuridico;
-            }
-            else
-            {
-                VisibilidadeTransporte = Visibility.Collapsed;
-            }
+            VisibilidadeTransporte = ToVis(Motorista == null);
+            VisibilidadeNFeRelacionada = ToVis(string.IsNullOrEmpty(Registro.NotaFiscalRelacionada));
+            VisibilidadeComprador = ToVis(Comprador == null);
+            VisibilidadePagamento = ToVis(string.IsNullOrEmpty(Registro.FormaPagamento));
+            VisibilidadeObservacoes = ToVis(string.IsNullOrEmpty(Registro.Observações));
 
-            VisibilidadeNFeRelacionada = string.IsNullOrEmpty(Registro.NotaFiscalRelacionada) ? Visibility.Collapsed : Visibility.Visible;
-            VisibilidadeComprador = Comprador == null ? Visibility.Collapsed : Visibility.Visible;
-            VisibilidadePagamento = string.IsNullOrEmpty(Registro.FormaPagamento) ? Visibility.Collapsed : Visibility.Visible;
-            VisibilidadeObservacoes = string.IsNullOrEmpty(Registro.Observações) ? Visibility.Collapsed : Visibility.Visible;
+            Visibility ToVis(bool esconde) => esconde ? Visibility.Collapsed : Visibility.Visible;
+        }
+
+        static string ObterEnderecoClienteFisico(ClienteDI cliente)
+        {
+            var cep = ExtensoesPrincipal.AplicarMáscaraDocumento(cliente.CEP);
+            return $"{cliente.Logradouro}, {cliente.Numero} - {cliente.Bairro} - {cliente.NomeMunicipio}/{cliente.SiglaUF} (CEP: {cep})";
+        }
+
+        static string ObterEnderecoClienteJuridico(ClienteDI cliente)
+        {
+            var cep = ExtensoesPrincipal.AplicarMáscaraDocumento(cliente.CEP);
+            return $"{cliente.Logradouro}, {cliente.Numero} - {cliente.Bairro} - {cliente.NomeMunicipio}/{cliente.SiglaUF} (CEP: {cep})";
+        }
+
+        static string ObterEnderecoClienteExterior(ClienteDI cliente)
+        {
+            var cep = ExtensoesPrincipal.AplicarMáscaraDocumento(cliente.CEP);
+            return $"{cliente.Logradouro}, {cliente.Numero} - {cliente.Bairro} - {cliente.XPais}";
         }
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
@@ -130,7 +135,7 @@ namespace NFeFacil.ViewRegistroVenda
             Gerenciador.Dispose();
         }
 
-        private void Pagina0Carregada(object sender, RoutedEventArgs e)
+        void Pagina0Carregada(object sender, RoutedEventArgs e)
         {
             var alturaDisponivel = alturaLinhaProdutos.ActualHeight - 20;
             int quantMaxima = (int)Math.Floor(alturaDisponivel / 20) - 1;
@@ -171,54 +176,5 @@ namespace NFeFacil.ViewRegistroVenda
         {
             await Gerenciador.Imprimir(ConteinerPaginas.Children);
         }
-    }
-
-    public struct ExibicaoProduto
-    {
-        public string Quantidade { get; set; }
-        public string CodigoProduto { get; set; }
-        public string Descricao { get; set; }
-        public string ValorUnitario { get; set; }
-        public string TotalBruto { get; set; }
-    }
-
-    public sealed class ProdutosDARV
-    {
-        public ObservableCollection<ExibicaoProduto> Produtos { get; set; }
-
-        public static GridLength Largura2 { get; } = CMToLength(2.5);
-        public static GridLength Largura3 { get; } = CMToLength(3);
-    }
-
-    public struct Dimensoes
-    {
-        public Dimensoes(double largura, double altura, double padding)
-        {
-            LarguraOriginal = largura;
-            LarguraProcessada = CMToPixel(largura);
-            AlturaOriginal = altura;
-            AlturaProcessada = altura != 0 ? CMToPixel(altura) : double.NaN;
-            PaddingOriginal = padding;
-            PaddingProcessado = CMToPixel(padding);
-        }
-
-        public double LarguraOriginal { get; set; }
-        public double AlturaOriginal { get; set; }
-        public double PaddingOriginal { get; set; }
-
-        public double LarguraProcessada { get; set; }
-        public double AlturaProcessada { get; set; }
-        public double PaddingProcessado { get; set; }
-    }
-
-    public struct DadosImpressaoDARV
-    {
-        public RegistroVenda Venda { get; set; }
-        public Dimensoes Dimensoes { get; set; }
-        public ClienteDI Cliente { get; set; }
-        public MotoristaDI Motorista { get; set; }
-        public Vendedor Vendedor { get; set; }
-        public Comprador Comprador { get; set; }
-        public ProdutoDI[] ProdutosCompletos { get; set; }
     }
 }

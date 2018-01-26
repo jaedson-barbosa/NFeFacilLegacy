@@ -27,7 +27,7 @@
         </DataTemplate>
     </Page.Resources>
     <controles:MultView x:Name="main">
-        <ScrollViewer>
+        <ScrollViewer Padding="16">
             <ItemsControl Style="{StaticResource ItensResponsivos}">
                 <DatePicker Header="Data de emissão"
                             Date="{x:Bind DataEmissao, Mode=TwoWay}" />
@@ -132,8 +132,9 @@
                     </ItemsPanelTemplate>
                 </GridView.ItemsPanel>
             </GridView>
-            <TextBlock Style="{StaticResource TitleTextBlockStyle}">Produtos adicionados</TextBlock>
-            <GridView Grid.Row="2"
+            <TextBlock Grid.Row="2"
+                       Style="{StaticResource TitleTextBlockStyle}">Produtos adicionados</TextBlock>
+            <GridView Grid.Row="3"
                       Grid.ColumnSpan="2"
                       Margin="0,4,0,0"
                       ItemsSource="{x:Bind Produtos}"

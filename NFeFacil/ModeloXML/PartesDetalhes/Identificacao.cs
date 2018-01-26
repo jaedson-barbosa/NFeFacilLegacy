@@ -11,7 +11,7 @@ namespace NFeFacil.ModeloXML.PartesDetalhes
         public Identificacao() : this(true) { }
         public Identificacao(bool nfe)
         {
-            if (nfe)
+            if (nfe && Modelo == default(ushort))
             {
                 Modelo = 55;
                 DocumentosReferenciados = new List<DocumentoFiscalReferenciado>();

@@ -24,12 +24,22 @@ namespace NFeFacil.Fiscal.ViewNFCe
     public sealed partial class ManipulacaoNFCe : Page, IHambuguer, IValida
     {
         const string NomeClienteHomologacao = "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL";
-        NFCe NotaSalva { get; set; } = new NFCe();
+        NFCe NotaSalva { get; set; }
         public bool Concluido { get; set; }
 
         public ManipulacaoNFCe()
         {
             InitializeComponent();
+
+            using (var repo = new Repositorio.Leitura())
+            {
+                TodosClientes = repo.ObterClientes().ToArray();
+                ClientesDisponiveis = TodosClientes.GerarObs();
+                TodosMotoristas = repo.ObterMotoristas().ToArray();
+                MotoristasDisponiveis = TodosMotoristas.GerarObs();
+                TodosProdutos = repo.ObterProdutos().ToArray();
+                ProdutosDisponiveis = TodosProdutos.GerarObs();
+            }
         }
 
         public ObservableCollection<ItemHambuguer> ConteudoMenu => new ObservableCollection<ItemHambuguer>
@@ -46,7 +56,9 @@ namespace NFeFacil.Fiscal.ViewNFCe
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            NotaSalva = (NFCe)e.Parameter;
             MunicipiosIdentificacao = Municipios.Get(NotaSalva.Informacoes.identificacao.CódigoUF).GerarObs();
+            Produtos = new ObservableCollection<DetalhesProdutos>(NotaSalva.Informacoes.produtos);
         }
 
         string DataHoraEmissão
@@ -136,7 +148,7 @@ namespace NFeFacil.Fiscal.ViewNFCe
             get
             {
                 var mot = NotaSalva.Informacoes.transp?.Transporta;
-                if (motoristaSelecionado.Equals(default(MotoristaDI)) && mot?.Documento != null)
+                if (motoristaSelecionado == null && mot?.Documento != null)
                 {
                     motoristaSelecionado = MotoristasDisponiveis.FirstOrDefault(x => x.Documento == mot.Documento);
                 }

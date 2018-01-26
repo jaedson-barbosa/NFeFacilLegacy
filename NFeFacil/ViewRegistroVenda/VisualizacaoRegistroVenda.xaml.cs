@@ -1,4 +1,5 @@
-﻿using NFeFacil.ItensBD;
+﻿using NFeFacil.Fiscal;
+using NFeFacil.ItensBD;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -87,7 +88,8 @@ namespace NFeFacil.ViewRegistroVenda
         {
             try
             {
-                var caixa = new Fiscal.CriadorNFe(ItemBanco.ToNFe());
+                var controle = new ControleNFe(ItemBanco.ToNFe());
+                var caixa = new CriadorNFe(controle);
                 if (await caixa.ShowAsync() == ContentDialogResult.Primary)
                 {
                     Log.Popup.Current.Escrever(Log.TitulosComuns.Atenção, "Os impostos dos produtos não são adicionados automaticamente, por favor, insira-os editando cada produto.");

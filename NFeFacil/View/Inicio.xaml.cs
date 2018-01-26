@@ -35,7 +35,12 @@ namespace NFeFacil.View
         void AbrirCompradores(object sender, TappedRoutedEventArgs e) => Navegar<GerenciarCompradores>();
 
 #pragma warning disable CS4014
-        void CriarNFe(object sender, TappedRoutedEventArgs e) => new CriadorNFe().ShowAsync();
+        void CriarNFe(object sender, TappedRoutedEventArgs e)
+        {
+            var controle = new ControleNFe();
+            new CriadorNFe(controle).ShowAsync();
+        }
+
         void CriarNFeEntrada(object sender, TappedRoutedEventArgs e) => CriarNFeEntrada();
 #pragma warning restore CS4014
 
@@ -44,7 +49,11 @@ namespace NFeFacil.View
         void AbrirConsulta(object sender, TappedRoutedEventArgs e) => Navegar<Consulta>();
         void AbrirVendasAnuais(object sender, TappedRoutedEventArgs e) => Navegar<VendasAnuais>();
 
-        void CriarNFCe(object sender, TappedRoutedEventArgs e) => Navegar<ManipulacaoNFCe>();
+        async void CriarNFCe(object sender, TappedRoutedEventArgs e)
+        {
+            var controle = new ControleNFCe();
+            await new CriadorNFe(controle).ShowAsync();
+        }
 
         void AbrirVendasSalvas(object sender, TappedRoutedEventArgs e) => Navegar<RegistrosVenda>();
         void CriarVenda(object sender, TappedRoutedEventArgs e)
@@ -118,7 +127,8 @@ namespace NFeFacil.View
                                 nfe.Informacoes.identificacao.TipoOperacao = 0;
                                 var analisador = new AnalisadorNFe(ref nfe);
                                 analisador.Desnormalizar();
-                                if (await new CriadorNFe(nfe).ShowAsync() == ContentDialogResult.Primary)
+                                var controle = new ControleNFe(nfe);
+                                if (await new CriadorNFe(controle).ShowAsync() == ContentDialogResult.Primary)
                                 {
                                     Popup.Current.Escrever(TitulosComuns.Sucesso, "Nota de entrada criada. Agora verifique se todas as informações estão corretas.");
                                     return true;

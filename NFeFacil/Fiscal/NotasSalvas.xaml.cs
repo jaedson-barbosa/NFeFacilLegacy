@@ -160,7 +160,8 @@ namespace NFeFacil.Fiscal
             var nfe = processo.NFe;
             var analisador = new AnalisadorNFe(ref nfe);
             analisador.Desnormalizar();
-            await new CriadorNFe(nfe).ShowAsync();
+            var controle = new ControleNFe(nfe);
+            await new CriadorNFe(controle).ShowAsync();
         }
     }
 }

@@ -43,6 +43,6 @@
         <ProgressBar x:Name="barGeral"
                      Grid.Row="3"
                      Height="16"
-                     Maximum="7" />
+                     Maximum="6" />
     </Grid>
 </Page>

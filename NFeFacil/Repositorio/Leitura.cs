@@ -89,13 +89,23 @@ namespace NFeFacil.Repositorio
 
         public int ObterMaiorNumeroNFe(string cnpj, ushort serie, bool homologacao)
         {
+            return ObterMaiorNumeroNFCe(cnpj, serie, homologacao, false);
+        }
+
+        public int ObterMaiorNumeroNFCe(string cnpj, ushort serie, bool homologacao)
+        {
+            return ObterMaiorNumeroNFCe(cnpj, serie, homologacao, true);
+        }
+
+        int ObterMaiorNumeroNFCe(string cnpj, ushort serie, bool homologacao, bool isNFCe)
+        {
             var numeros = from nota in db.NotasFiscais
-                          where nota.CNPJEmitente == cnpj
+                          where nota.CNPJEmitente == cnpj && nota.IsNFCe == isNFCe
                           where nota.SerieNota == serie
                           let notaHomologacao = nota.NomeCliente.Trim().ToUpper() == "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL"
                           where homologacao ? notaHomologacao : !notaHomologacao
                           select nota.NumeroNota;
-            return numeros.Count() == 0 ? 1 : numeros.Max();
+            return numeros.Count() == 0 ? 0 : numeros.Max();
         }
 
         public (IEnumerable<NFeDI> emitidas, IEnumerable<NFeDI> outras, IEnumerable<NFeDI> canceladas) ObterNotas(string cnpj)

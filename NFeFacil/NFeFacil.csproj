@@ -166,8 +166,15 @@
     </Compile>
     <Compile Include="AssistenteConfig.cs" />
     <Compile Include="Fiscal\BoolToColor.cs" />
+    <Compile Include="Fiscal\ControleNFCe.cs" />
+    <Compile Include="Fiscal\ControleNFe.cs" />
+    <Compile Include="Fiscal\IControleCriacao.cs" />
     <Compile Include="Login\Loading.xaml.cs">
       <DependentUpon>Loading.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20180126003304_Loja1.9.cs" />
+    <Compile Include="Migrations\20180126003304_Loja1.9.designer.cs">
+      <DependentUpon>20180126003304_Loja1.9.cs</DependentUpon>
     </Compile>
     <Compile Include="ModeloXML\IInformacoes.cs" />
     <Compile Include="ModeloXML\InformacoesNFCe .cs" />
@@ -685,8 +692,8 @@
     <Compile Include="Produto\Impostos\EscolherTipoICMS.xaml.cs">
       <DependentUpon>EscolherTipoICMS.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Fiscal\VisualizacaoNFe.xaml.cs">
-      <DependentUpon>VisualizacaoNFe.xaml</DependentUpon>
+    <Compile Include="Fiscal\Visualizacao.xaml.cs">
+      <DependentUpon>Visualizacao.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewRegistroVenda\EscolherDimensão.xaml.cs">
       <DependentUpon>EscolherDimensão.xaml</DependentUpon>
@@ -1328,7 +1335,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Fiscal\VisualizacaoNFe.xaml">
+    <Page Include="Fiscal\Visualizacao.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

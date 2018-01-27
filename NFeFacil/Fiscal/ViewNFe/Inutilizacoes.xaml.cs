@@ -24,6 +24,7 @@ namespace NFeFacil.Fiscal.ViewNFe
     {
         ObservableCollection<IGrouping<string, Inutilizacao>> Lista { get; set; }
         ICollectionView Itens { get; set; }
+        bool isNFCe;
 
         public Inutilizacoes()
         {
@@ -32,7 +33,7 @@ namespace NFeFacil.Fiscal.ViewNFe
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var isNFCe = e.Parameter != null ? (bool)e.Parameter : false;
+            isNFCe = e.Parameter != null ? (bool)e.Parameter : false;
             using (var repo = new Repositorio.Leitura())
             {
                 Lista = (from imp in repo.ObterInutilizacoes(isNFCe)
@@ -53,7 +54,7 @@ namespace NFeFacil.Fiscal.ViewNFe
                 var envio = new InutNFe(new InfInut(caixa.Homologacao, caixa.Serie, caixa.InicioNum, caixa.FimNum, caixa.Justificativa));
 
                 var uf = DefinicoesTemporarias.EmitenteAtivo.SiglaUF;
-                var gerenciador = new GerenciadorGeral<InutNFe, RetInutNFe>(uf, Operacoes.Inutilizacao, caixa.Homologacao);
+                var gerenciador = new GerenciadorGeral<InutNFe, RetInutNFe>(uf, Operacoes.Inutilizacao, caixa.Homologacao, isNFCe);
 
                 AssinaFacil assinador = new AssinaFacil();
                 await assinador.Preparar();

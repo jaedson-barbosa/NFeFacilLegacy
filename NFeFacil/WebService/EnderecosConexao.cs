@@ -13,9 +13,10 @@ namespace NFeFacil.WebService
             this.siglaUF = siglaUF;
         }
 
-        internal DadosServico ObterConjuntoConexao(bool homologacao, Operacoes operacaoRequirida)
+        internal DadosServico ObterConjuntoConexao(bool homologacao, Operacoes operacaoRequirida, bool isNFCe)
         {
             var conjunto = ObterEnderecoConexao();
+            conjunto = new GenericWebService(conjunto, isNFCe);
             string end;
             string metodo;
             string servico;
@@ -54,8 +55,8 @@ namespace NFeFacil.WebService
 
         private IWebService ObterEnderecoConexao()
         {
-            string[] SVAN = { "MA", "PA", "PI" };
-            string[] SVRS = { "AC", "AL", "AP", "DF", "ES", "PB", "RJ", "RN", "RO", "RR", "SC", "SE", "TO" };
+            string[] SVAN = { "MA", "PA" };
+            string[] SVRS = { "AC", "AL", "AP", "DF", "ES", "PB", "RJ", "RN", "RO", "RR", "SC", "SE", "TO", "PI" };
 
             if (SVAN.Contains(siglaUF))
             {

@@ -8,6 +8,7 @@ using System;
 using System.Xml.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -19,10 +20,16 @@ namespace NFeFacil.Fiscal.ViewNFe
         string Chave { get; set; }
         bool Homologacao { get; set; }
         Estado UF { get; set; }
+        bool isNFCe;
 
         public Consulta()
         {
             InitializeComponent();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            isNFCe = e.Parameter != null ? (bool)e.Parameter : false;
         }
 
         private async void Analisar(object sender, RoutedEventArgs e)
@@ -31,7 +38,7 @@ namespace NFeFacil.Fiscal.ViewNFe
             {
                 return;
             }
-            var gerenciador = new GerenciadorGeral<ConsSitNFe, RetConsSitNFe>(UF, Operacoes.Consultar, Homologacao);
+            var gerenciador = new GerenciadorGeral<ConsSitNFe, RetConsSitNFe>(UF, Operacoes.Consultar, Homologacao, isNFCe);
             var envio = new ConsSitNFe(Chave, Homologacao);
 
             RetConsSitNFe resultado = default(RetConsSitNFe);

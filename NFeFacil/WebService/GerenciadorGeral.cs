@@ -31,28 +31,20 @@ namespace NFeFacil.WebService
             "Processar resposta"
         };
 
-        public GerenciadorGeral(Estado uf, Operacoes operacao, bool teste)
+        public GerenciadorGeral(Estado uf, Operacoes operacao, bool teste, bool isNFCe)
         {
-            Enderecos = new EnderecosConexao(uf.Sigla).ObterConjuntoConexao(teste, operacao);
+            Enderecos = new EnderecosConexao(uf.Sigla).ObterConjuntoConexao(teste, operacao, isNFCe);
             CodigoUF = uf.Codigo;
             VersaoDados = operacao == Operacoes.RecepcaoEvento ? "1.00" : "3.10";
         }
 
-        public GerenciadorGeral(string siglaOuNome, Operacoes operacao, bool teste)
-        {
-            var uf = Estados.Buscar(siglaOuNome);
-            Enderecos = new EnderecosConexao(uf.Sigla).ObterConjuntoConexao(teste, operacao);
-            CodigoUF = uf.Codigo;
-            VersaoDados = operacao == Operacoes.RecepcaoEvento ? "1.00" : "3.10";
-        }
+        public GerenciadorGeral(string siglaOuNome, Operacoes operacao, bool teste, bool isNFCe)
+            : this(Estados.Buscar(siglaOuNome), operacao, teste, isNFCe)
+        { }
 
-        public GerenciadorGeral(ushort codigo, Operacoes operacao, bool teste)
-        {
-            var uf = Estados.Buscar(codigo);
-            Enderecos = new EnderecosConexao(uf.Sigla).ObterConjuntoConexao(teste, operacao);
-            CodigoUF = uf.Codigo;
-            VersaoDados = operacao == Operacoes.RecepcaoEvento ? "1.00" : "3.10";
-        }
+        public GerenciadorGeral(ushort codigo, Operacoes operacao, bool teste, bool isNFCe)
+            : this(Estados.Buscar(codigo), operacao, teste, isNFCe)
+        { }
 
         public async Task<Resposta> EnviarAsync(Envio corpo, bool addNamespace = false)
         {

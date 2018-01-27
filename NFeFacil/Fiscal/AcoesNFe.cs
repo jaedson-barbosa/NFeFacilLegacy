@@ -198,7 +198,7 @@ namespace NFeFacil.Fiscal
         {
             var nota = (NFe)ItemCompleto;
             var uf = nota.Informacoes.Emitente.Endereco.SiglaUF;
-            var gerenciador = new GerenciadorGeral<EnviNFe, RetEnviNFe>(uf, Operacoes.Autorizar, nota.AmbienteTestes);
+            var gerenciador = new GerenciadorGeral<EnviNFe, RetEnviNFe>(uf, Operacoes.Autorizar, nota.AmbienteTestes, false);
             var envio = new EnviNFe(nota);
             return await gerenciador.EnviarAsync(envio, true);
         }
@@ -206,7 +206,7 @@ namespace NFeFacil.Fiscal
         async Task<RetConsReciNFe> ConsultarRespostaFinal(RetEnviNFe retTransmissao, bool homologacao)
         {
             var gerenciador = new GerenciadorGeral<ConsReciNFe, RetConsReciNFe>(
-                retTransmissao.Estado, Operacoes.RespostaAutorizar, homologacao);
+                retTransmissao.Estado, Operacoes.RespostaAutorizar, homologacao, false);
             var envio = new ConsReciNFe(retTransmissao.TipoAmbiente, retTransmissao.DadosRecibo.NumeroRecibo);
             return await gerenciador.EnviarAsync(envio);
         }

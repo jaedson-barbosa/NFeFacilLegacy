@@ -398,5 +398,17 @@ namespace NFeFacil.Fiscal.ViewNFCe
                 erro.ManipularErro();
             }
         }
+
+        private void EditarProduto(object sender, RoutedEventArgs e)
+        {
+            var contexto = ((FrameworkElement)sender).DataContext;
+            EditarProduto((DetalhesProdutos)contexto);
+        }
+
+        private void RemoverProduto(object sender, RoutedEventArgs e)
+        {
+            var contexto = ((FrameworkElement)sender).DataContext;
+            RemoverProduto((DetalhesProdutos)contexto);
+        }
     }
 }

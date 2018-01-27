@@ -971,8 +971,11 @@
     </Compile>
     <Compile Include="WebService\DadosServico.cs" />
     <Compile Include="WebService\EnderecosConexao.cs" />
+    <Compile Include="WebService\GenericWebService.cs" />
     <Compile Include="WebService\GerenciadorGeral.cs" />
     <Compile Include="WebService\IWebService.cs" />
+    <Compile Include="WebService\IWebServiceHomologacaoNFCe.cs" />
+    <Compile Include="WebService\IWebServiceProducaoNFCe.cs" />
     <Compile Include="WebService\Operacoes.cs" />
     <Compile Include="WebService\Pacotes\ConsReciNFe.cs" />
     <Compile Include="WebService\Pacotes\ConsSitNFe.cs" />

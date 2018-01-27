@@ -25,21 +25,6 @@
                            Text="{x:Bind Descricao}" />
             </Grid>
         </DataTemplate>
-        <DataTemplate x:Key="produtoAdicionado"
-                      x:DataType="detalhes:DetalhesProdutos">
-            <Grid Width="200"
-                  Padding="8">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
-                           Text="{x:Bind Produto.CodigoProduto}" />
-                <TextBlock Grid.Row="1"
-                           Style="{StaticResource BodyTextBlockStyle}"
-                           Text="{x:Bind Produto.Descricao}" />
-            </Grid>
-        </DataTemplate>
     </Page.Resources>
     <controles:MultView x:Name="main">
         <ScrollViewer Padding="16">
@@ -155,8 +140,30 @@
             <GridView Grid.Row="3"
                       Grid.ColumnSpan="2"
                       Margin="0,4,0,0"
-                      ItemsSource="{x:Bind Produtos}"
-                      ItemTemplate="{StaticResource produtoAdicionado}" />
+                      ItemsSource="{x:Bind Produtos}">
+                <GridView.ItemTemplate>
+                    <DataTemplate x:DataType="detalhes:DetalhesProdutos">
+                        <Grid Width="200"
+                              Padding="8">
+                            <Grid.ContextFlyout>
+                                <MenuFlyout>
+                                    <MenuFlyoutItem Click="EditarProduto">Editar</MenuFlyoutItem>
+                                    <MenuFlyoutItem Click="RemoverProduto">Remover</MenuFlyoutItem>
+                                </MenuFlyout>
+                            </Grid.ContextFlyout>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
+                                       Text="{x:Bind Produto.CodigoProduto}" />
+                            <TextBlock Grid.Row="1"
+                                       Style="{StaticResource BodyTextBlockStyle}"
+                                       Text="{x:Bind Produto.Descricao}" />
+                        </Grid>
+                    </DataTemplate>
+                </GridView.ItemTemplate>
+            </GridView>
         </Grid>
         <Grid Padding="16">
             <Grid.RowDefinitions>

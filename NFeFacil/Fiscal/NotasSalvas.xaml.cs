@@ -24,6 +24,8 @@ namespace NFeFacil.Fiscal
     [DetalhePagina(Symbol.Library, "Notas salvas")]
     public sealed partial class NotasSalvas : Page, IHambuguer
     {
+        bool isNFCe;
+
         public NotasSalvas()
         {
             InitializeComponent();
@@ -31,7 +33,7 @@ namespace NFeFacil.Fiscal
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var isNFCe = e.Parameter != null ? (bool)e.Parameter : false;
+            isNFCe = e.Parameter != null ? (bool)e.Parameter : false;
             using (var repo = new Repositorio.Leitura())
             {
                 var (emitidas, outras, canceladas) = repo.ObterNotas(DefinicoesTemporarias.EmitenteAtivo.CNPJ, isNFCe);
@@ -55,7 +57,7 @@ namespace NFeFacil.Fiscal
         private void Exibir(object sender, RoutedEventArgs e)
         {
             var nota = (NFeDI)((MenuFlyoutItem)sender).DataContext;
-            var acoes = new AcoesNFe(nota);
+            var acoes = isNFCe ? (AcoesVisualizacao)new AcoesNFCe(nota) : new AcoesNFe(nota);
             MainPage.Current.Navegar<Visualizacao>(acoes);
         }
 
@@ -77,7 +79,7 @@ namespace NFeFacil.Fiscal
             var estado = processo.NFe.Informacoes.identificacao.CódigoUF;
             var tipoAmbiente = processo.ProtNFe.InfProt.tpAmb;
 
-            var gerenciador = new GerenciadorGeral<EnvEvento, RetEnvEvento>(estado, Operacoes.RecepcaoEvento, tipoAmbiente == 2);
+            var gerenciador = new GerenciadorGeral<EnvEvento, RetEnvEvento>(estado, Operacoes.RecepcaoEvento, tipoAmbiente == 2, isNFCe);
 
             var cnpj = processo.NFe.Informacoes.Emitente.CNPJ;
             var chave = processo.NFe.Informacoes.ChaveAcesso;

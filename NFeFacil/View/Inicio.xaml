@@ -117,6 +117,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition />
                         <RowDefinition />
+                        <RowDefinition />
                     </Grid.RowDefinitions>
                     <controles:ItemPadrao Titulo="Criar NFC-e"
                                           Descricao="Criar uma nota fiscal do consumidor."
@@ -139,8 +140,14 @@
                                           Grid.Column="1"
                                           Titulo="Consultar NFC-e"
                                           Descricao="Consulte dados básicos de uma nota fiscal do consumidor emitida."
-                                          Tapped="AbrirConsulta">
+                                          Tapped="AbrirConsultaNFCe">
                         <SymbolIcon Symbol="Find" />
+                    </controles:ItemPadrao>
+                    <controles:ItemPadrao Grid.Row="2"
+                                          Titulo="Análise anual"
+                                          Descricao="Veja uma análise das NFCes de um ano."
+                                          Tapped="AbrirVendasAnuaisNFCe">
+                        <SymbolIcon Symbol="Calendar" />
                     </controles:ItemPadrao>
                 </Grid>
             </DataTemplate>

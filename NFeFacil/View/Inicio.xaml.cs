@@ -55,6 +55,8 @@ namespace NFeFacil.View
         }
         void AbrirInutilizacoesNFCe(object sender, TappedRoutedEventArgs e) => Navegar<Inutilizacoes>(true);
         void AbrirNFCesSalvas(object sender, TappedRoutedEventArgs e) => Navegar<NotasSalvas>(true);
+        void AbrirConsultaNFCe(object sender, TappedRoutedEventArgs e) => Navegar<Consulta>(true);
+        void AbrirVendasAnuaisNFCe(object sender, TappedRoutedEventArgs e) => Navegar<VendasAnuais>(true);
 
         void AbrirVendasSalvas(object sender, TappedRoutedEventArgs e) => Navegar<RegistrosVenda>();
         void CriarVenda(object sender, TappedRoutedEventArgs e)

@@ -1,4 +1,4 @@
-﻿using NFeFacil.Fiscal.ViewNFe;
+﻿using NFeFacil.Fiscal.ViewNFCe;
 using NFeFacil.ItensBD;
 using NFeFacil.ModeloXML;
 using NFeFacil.Validacao;
@@ -74,7 +74,7 @@ namespace NFeFacil.Fiscal
             var analisador = new AnalisadorNFCe(ref nfe);
             analisador.Desnormalizar();
             ItemBanco.Status = (int)StatusNota.Edição;
-            MainPage.Current.Navegar<ManipulacaoNotaFiscal>(nfe);
+            MainPage.Current.Navegar<ManipulacaoNFCe>(nfe);
         }
 
         public override async Task Exportar()
@@ -124,10 +124,10 @@ namespace NFeFacil.Fiscal
 
         public override void Imprimir()
         {
-            var processo = (ProcessoNFCe)ItemCompleto;
-            MainPage.Current.Navegar<ViewDANFE>(processo);
-            ItemBanco.Impressa = true;
-            AtualizarDI(ItemCompleto);
+            //var processo = (ProcessoNFCe)ItemCompleto;
+            //MainPage.Current.Navegar<ViewDANFE>(processo);
+            //ItemBanco.Impressa = true;
+            //AtualizarDI(ItemCompleto);
         }
 
         public override void Salvar()
@@ -198,7 +198,7 @@ namespace NFeFacil.Fiscal
         {
             var nota = (NFCe)ItemCompleto;
             var uf = nota.Informacoes.Emitente.Endereco.SiglaUF;
-            var gerenciador = new GerenciadorGeral<EnviNFCe, RetEnviNFe>(uf, Operacoes.Autorizar, nota.AmbienteTestes);
+            var gerenciador = new GerenciadorGeral<EnviNFCe, RetEnviNFe>(uf, Operacoes.Autorizar, nota.AmbienteTestes, true);
             var envio = new EnviNFCe(nota);
             return await gerenciador.EnviarAsync(envio, true);
         }
@@ -206,7 +206,7 @@ namespace NFeFacil.Fiscal
         async Task<RetConsReciNFe> ConsultarRespostaFinal(RetEnviNFe retTransmissao, bool homologacao)
         {
             var gerenciador = new GerenciadorGeral<ConsReciNFe, RetConsReciNFe>(
-                retTransmissao.Estado, Operacoes.RespostaAutorizar, homologacao);
+                retTransmissao.Estado, Operacoes.RespostaAutorizar, homologacao, true);
             var envio = new ConsReciNFe(retTransmissao.TipoAmbiente, retTransmissao.DadosRecibo.NumeroRecibo);
             return await gerenciador.EnviarAsync(envio);
         }

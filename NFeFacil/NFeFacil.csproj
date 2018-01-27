@@ -165,10 +165,14 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="AssistenteConfig.cs" />
+    <Compile Include="Fiscal\AcoesNFCe.cs" />
+    <Compile Include="Fiscal\AcoesNFe.cs" />
+    <Compile Include="Fiscal\AcoesVisualizacao.cs" />
     <Compile Include="Fiscal\BoolToColor.cs" />
     <Compile Include="Fiscal\ControleNFCe.cs" />
     <Compile Include="Fiscal\ControleNFe.cs" />
     <Compile Include="Fiscal\IControleCriacao.cs" />
+    <Compile Include="Fiscal\StatusChangedEventArgs.cs" />
     <Compile Include="Login\Loading.xaml.cs">
       <DependentUpon>Loading.xaml</DependentUpon>
     </Compile>
@@ -195,10 +199,10 @@
     <Compile Include="Sincronizacao\FastServer\UriFormatAttribute.cs" />
     <Compile Include="Sincronizacao\FastServer\UriParser.cs" />
     <Compile Include="Validacao\AnalisadorNFCe.cs" />
-    <Compile Include="Fiscal\NFCe\ManipulacaoNFCe.xaml.cs">
+    <Compile Include="Fiscal\ViewNFCe\ManipulacaoNFCe.xaml.cs">
       <DependentUpon>ManipulacaoNFCe.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Fiscal\NFCe\ProdutoNFCe.xaml.cs">
+    <Compile Include="Fiscal\ViewNFCe\ProdutoNFCe.xaml.cs">
       <DependentUpon>ProdutoNFCe.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewRegistroVenda\DARV\DadosImpressaoDARV.cs" />
@@ -1083,11 +1087,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Fiscal\NFCe\ManipulacaoNFCe.xaml">
+    <Page Include="Fiscal\ViewNFCe\ManipulacaoNFCe.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Fiscal\NFCe\ProdutoNFCe.xaml">
+    <Page Include="Fiscal\ViewNFCe\ProdutoNFCe.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

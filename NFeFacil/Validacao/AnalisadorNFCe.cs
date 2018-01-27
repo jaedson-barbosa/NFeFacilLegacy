@@ -1,7 +1,6 @@
 ﻿using NFeFacil.ModeloXML;
 using NFeFacil.ModeloXML.PartesDetalhes;
 using NFeFacil.ModeloXML.PartesDetalhes.PartesTransporte;
-using System.Linq;
 
 namespace NFeFacil.Validacao
 {
@@ -61,38 +60,8 @@ namespace NFeFacil.Validacao
             }
             else
             {
-                var errados = new bool[3]
-                {
-                        string.IsNullOrEmpty(info.InfCpl),
-                        info.ObsCont.Count == 0,
-                        info.ProcRef.Count == 0
-                };
-                return errados.Count(x => x) < 3;
+                return !string.IsNullOrEmpty(info.InfCpl);
             }
-        }
-
-        bool NumerosNaoNulos(params double[] numeros)
-        {
-            for (int i = 0; i < numeros.Length; i++)
-            {
-                if (numeros[i] != 0)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        bool StringsNaoNulas(params string[] strings)
-        {
-            for (int i = 0; i < strings.Length; i++)
-            {
-                if (string.IsNullOrEmpty(strings[i]))
-                {
-                    return false;
-                }
-            }
-            return true;
         }
     }
 }

@@ -14,7 +14,6 @@ using Windows.Storage.Pickers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using NFeFacil.Fiscal;
-using NFeFacil.Fiscal.ViewNFCe;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 

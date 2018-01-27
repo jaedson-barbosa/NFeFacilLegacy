@@ -878,7 +878,7 @@
     <Compile Include="Controles\CarregamentoCircular.xaml.cs">
       <DependentUpon>CarregamentoCircular.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Fiscal\ViewNFe\EscolhaProdutos.xaml.cs">
+    <Compile Include="Fiscal\EscolhaProdutos.xaml.cs">
       <DependentUpon>EscolhaProdutos.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\EscolherTransparencia.xaml.cs">
@@ -959,7 +959,7 @@
     <Compile Include="Sincronizacao\SincronizacaoServidor.xaml.cs">
       <DependentUpon>SincronizacaoServidor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Fiscal\ViewNFe\VendasAnuais.xaml.cs">
+    <Compile Include="Fiscal\VendasAnuais.xaml.cs">
       <DependentUpon>VendasAnuais.xaml</DependentUpon>
     </Compile>
     <Compile Include="Fiscal\ViewNFe\ViewDANFE.xaml.cs">
@@ -1483,7 +1483,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Fiscal\ViewNFe\EscolhaProdutos.xaml">
+    <Page Include="Fiscal\EscolhaProdutos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1604,7 +1604,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Fiscal\ViewNFe\VendasAnuais.xaml">
+    <Page Include="Fiscal\VendasAnuais.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

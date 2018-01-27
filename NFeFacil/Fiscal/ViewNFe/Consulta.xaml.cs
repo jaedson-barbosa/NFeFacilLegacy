@@ -51,7 +51,7 @@ namespace NFeFacil.Fiscal.ViewNFe
                 NFeDI nota = null;
                 using (var leit = new Repositorio.Leitura())
                 {
-                    nota = leit.ObterNFe($"NFe{resultado.ChaveNFe}");
+                    nota = leit.ObterNota($"NFe{resultado.ChaveNFe}");
                 }
                 if (nota != null && nota.Status < 4)
                 {

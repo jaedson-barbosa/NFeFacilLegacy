@@ -148,7 +148,7 @@ namespace NFeFacil.ViewRegistroVenda
         {
             using (var repo = new Repositorio.Leitura())
             {
-                var item = repo.ObterNFe(ItemBanco.NotaFiscalRelacionada);
+                var item = repo.ObterNota(ItemBanco.NotaFiscalRelacionada);
                 MainPage.Current.Navegar<Fiscal.VisualizacaoNFe>(item);
             }
         }

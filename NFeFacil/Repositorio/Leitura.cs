@@ -89,15 +89,15 @@ namespace NFeFacil.Repositorio
 
         public int ObterMaiorNumeroNFe(string cnpj, ushort serie, bool homologacao)
         {
-            return ObterMaiorNumeroNFCe(cnpj, serie, homologacao, false);
+            return ObterMaiorNumeroFiscal(cnpj, serie, homologacao, false);
         }
 
         public int ObterMaiorNumeroNFCe(string cnpj, ushort serie, bool homologacao)
         {
-            return ObterMaiorNumeroNFCe(cnpj, serie, homologacao, true);
+            return ObterMaiorNumeroFiscal(cnpj, serie, homologacao, true);
         }
 
-        int ObterMaiorNumeroNFCe(string cnpj, ushort serie, bool homologacao, bool isNFCe)
+        int ObterMaiorNumeroFiscal(string cnpj, ushort serie, bool homologacao, bool isNFCe)
         {
             var numeros = from nota in db.NotasFiscais
                           where nota.CNPJEmitente == cnpj && nota.IsNFCe == isNFCe
@@ -108,11 +108,11 @@ namespace NFeFacil.Repositorio
             return numeros.Count() == 0 ? 0 : numeros.Max();
         }
 
-        public (IEnumerable<NFeDI> emitidas, IEnumerable<NFeDI> outras, IEnumerable<NFeDI> canceladas) ObterNotas(string cnpj)
+        public (IEnumerable<NFeDI> emitidas, IEnumerable<NFeDI> outras, IEnumerable<NFeDI> canceladas) ObterNotas(string cnpj, bool isNFCe)
         {
             var notasFiscais = db.NotasFiscais.ToArray();
             var notasEmitidas = (from nota in notasFiscais
-                                 where nota.Status == (int)StatusNFe.Emitida
+                                 where nota.Status == (int)StatusNFe.Emitida && nota.IsNFCe == isNFCe
                                  where nota.CNPJEmitente == cnpj
                                  orderby nota.DataEmissao descending
                                  select nota);
@@ -137,7 +137,7 @@ namespace NFeFacil.Repositorio
                           .ToDictionary(x => x.Cliente, y => y.Compradores.ToArray());
         }
 
-        public NFeDI ObterNFe(string id) => db.NotasFiscais.Find(id);
+        public NFeDI ObterNota(string id) => db.NotasFiscais.Find(id);
         public ClienteDI ObterCliente(Guid id) => db.Clientes.Find(id);
         public ClienteDI ObterClienteViaCNPJ(string cnpj) => db.Clientes.FirstOrDefault(x => x.CNPJ == cnpj);
         public MotoristaDI ObterMotorista(Guid id) => db.Motoristas.Find(id);
@@ -183,22 +183,22 @@ namespace NFeFacil.Repositorio
 
         public IEnumerable<Estoque> ObterEstoques() => db.Estoque.Include(x => x.Alteracoes);
 
-        public IEnumerable<int> ObterAnosNFe(string cnpjEmitente)
+        public IEnumerable<int> ObterAnosNotas(string cnpjEmitente, bool isNFCe)
         {
             return (from dado in db.NotasFiscais
                     let notaHomologacao = dado.NomeCliente.Trim().ToUpper() == "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL"
-                    where dado.Status == (int)StatusNFe.Emitida && !notaHomologacao
+                    where dado.Status == (int)StatusNFe.Emitida && !notaHomologacao && dado.IsNFCe == isNFCe
                     where dado.CNPJEmitente == cnpjEmitente
                     let ano = DateTime.Parse(dado.DataEmissao).Year
                     orderby ano ascending
                     select ano).Distinct();
         }
 
-        public Dictionary<int, IEnumerable<(DateTime, string)>> ObterNFesPorAno(string cnpjEmitente)
+        public Dictionary<int, IEnumerable<(DateTime, string)>> ObterNFesPorAno(string cnpjEmitente, bool isNFCe)
         {
             return (from item in db.NotasFiscais
                     let notaHomologacao = item.NomeCliente.Trim().ToUpper() == "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL"
-                    where item.Status == (int)StatusNFe.Emitida && !notaHomologacao
+                    where item.Status == (int)StatusNFe.Emitida && !notaHomologacao && item.IsNFCe == isNFCe
                     where item.CNPJEmitente == cnpjEmitente
                     let data = DateTime.Parse(item.DataEmissao)
                     group new { Data = data, item.XML } by data.Year).ToDictionary(x => x.Key, x => x.Select(k => (k.Data, k.XML)));

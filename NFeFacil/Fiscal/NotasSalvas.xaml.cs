@@ -15,6 +15,7 @@ using NFeFacil.WebService.Pacotes.PartesEnvEvento;
 using NFeFacil.WebService.Pacotes.PartesRetEnvEvento;
 using NFeFacil.Certificacao;
 using NFeFacil.Fiscal.ViewNFe;
+using Windows.UI.Xaml.Navigation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -26,18 +27,23 @@ namespace NFeFacil.Fiscal
         public NotasSalvas()
         {
             InitializeComponent();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            var isNFCe = e.Parameter != null ? (bool)e.Parameter : false;
             using (var repo = new Repositorio.Leitura())
             {
-                var (emitidas, outras, canceladas) = repo.ObterNotas(DefinicoesTemporarias.EmitenteAtivo.CNPJ);
+                var (emitidas, outras, canceladas) = repo.ObterNotas(DefinicoesTemporarias.EmitenteAtivo.CNPJ, isNFCe);
                 NotasEmitidas = emitidas.GerarObs();
                 OutrasNotas = outras.GerarObs();
                 NotasCanceladas = canceladas.GerarObs();
             }
         }
 
-        ObservableCollection<NFeDI> NotasEmitidas { get; }
-        ObservableCollection<NFeDI> OutrasNotas { get; }
-        ObservableCollection<NFeDI> NotasCanceladas { get; }
+        ObservableCollection<NFeDI> NotasEmitidas { get; set; }
+        ObservableCollection<NFeDI> OutrasNotas { get; set; }
+        ObservableCollection<NFeDI> NotasCanceladas { get; set; }
 
         public ObservableCollection<ItemHambuguer> ConteudoMenu => new ObservableCollection<ItemHambuguer>
         {

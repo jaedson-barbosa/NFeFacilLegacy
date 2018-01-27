@@ -10,10 +10,11 @@ using LiveCharts;
 using LiveCharts.Uwp;
 using LiveCharts.Configurations;
 using static NFeFacil.ExtensoesPrincipal;
+using Windows.UI.Xaml.Navigation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace NFeFacil.Fiscal.ViewNFe
+namespace NFeFacil.Fiscal
 {
     [View.DetalhePagina(Symbol.Calendar, "Vendas")]
     public sealed partial class VendasAnuais : Page
@@ -21,14 +22,14 @@ namespace NFeFacil.Fiscal.ViewNFe
         Func<double, string> GetMonth { get; set; } = x => NomesMeses[(int)x] ?? string.Empty;
         Func<double, string> GetNome { get; set; } = x => NomesClientes?[(int)x] ?? string.Empty;
 
-        SeriesCollection ResultadoMes { get; }
-        SeriesCollection ResultadoCliente { get; }
+        SeriesCollection ResultadoMes { get; set; }
+        SeriesCollection ResultadoCliente { get; set; }
 
         static string[] NomesMeses = new string[12];
         static string[] NomesClientes = new string[12];
 
-        readonly Dictionary<int, NotaProcessada[]> NotasFiscais;
-        readonly ObservableCollection<int> AnosDisponiveis;
+        Dictionary<int, NotaProcessada[]> NotasFiscais;
+        ObservableCollection<int> AnosDisponiveis;
 
         int anoEscolhido;
         int AnoEscolhido
@@ -70,11 +71,15 @@ namespace NFeFacil.Fiscal.ViewNFe
         public VendasAnuais()
         {
             InitializeComponent();
+        }
 
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            var isNFCe = e.Parameter != null ? (bool)e.Parameter : false;
             using (var repo = new Repositorio.Leitura())
             {
-                AnosDisponiveis = repo.ObterAnosNFe(DefinicoesTemporarias.EmitenteAtivo.CNPJ).GerarObs();
-                NotasFiscais = repo.ObterNFesPorAno(DefinicoesTemporarias.EmitenteAtivo.CNPJ)
+                AnosDisponiveis = repo.ObterAnosNotas(DefinicoesTemporarias.EmitenteAtivo.CNPJ, isNFCe).GerarObs();
+                NotasFiscais = repo.ObterNFesPorAno(DefinicoesTemporarias.EmitenteAtivo.CNPJ, isNFCe)
                     .ToDictionary(x => x.Key, x => x.Value.Select(Processar).ToArray());
 
                 NotaProcessada Processar((DateTime data, string xml) k)

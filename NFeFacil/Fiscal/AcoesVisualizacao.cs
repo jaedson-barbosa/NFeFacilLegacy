@@ -15,7 +15,7 @@ namespace NFeFacil.Fiscal
             ItemBanco = nota;
         }
 
-        public StatusNFe Status { get; }
+        public StatusNota Status { get; }
         public abstract void Editar();
         public abstract void Salvar();
         public abstract Task Assinar();
@@ -24,7 +24,7 @@ namespace NFeFacil.Fiscal
         public abstract Task Exportar();
         public abstract InformacoesBase ObterVisualizacao();
 
-        protected void OnStatusChanged(StatusNFe novoStatus)
+        protected void OnStatusChanged(StatusNota novoStatus)
         {
             StatusChanged?.Invoke(this, new StatusChangedEventArgs(novoStatus));
         }
@@ -35,7 +35,7 @@ namespace NFeFacil.Fiscal
             {
                 using (var repo = new Repositorio.Escrita())
                 {
-                    ItemBanco.XML = ItemBanco.Status < (int)StatusNFe.Emitida
+                    ItemBanco.XML = ItemBanco.Status < (int)StatusNota.Emitida
                         ? itemCompleto.ToXElement().ToString()
                         : itemCompleto.ToXElement().ToString();
                     repo.SalvarItemSimples(ItemBanco, DefinicoesTemporarias.DateTimeNow);

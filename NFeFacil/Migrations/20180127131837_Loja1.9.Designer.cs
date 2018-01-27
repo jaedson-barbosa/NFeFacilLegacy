@@ -8,7 +8,7 @@ using NFeFacil;
 namespace NFeFacil.Migrations
 {
     [DbContext(typeof(AplicativoContext))]
-    [Migration("20180126003304_Loja1.9")]
+    [Migration("20180127131837_Loja1.9")]
     partial class Loja19
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -220,6 +220,8 @@ namespace NFeFacil.Migrations
                     b.Property<bool>("Homologacao");
 
                     b.Property<int>("InicioRange");
+
+                    b.Property<bool>("IsNFCe");
 
                     b.Property<DateTime>("MomentoProcessamento");
 

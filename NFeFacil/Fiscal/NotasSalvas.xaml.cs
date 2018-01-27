@@ -55,7 +55,8 @@ namespace NFeFacil.Fiscal
         private void Exibir(object sender, RoutedEventArgs e)
         {
             var nota = (NFeDI)((MenuFlyoutItem)sender).DataContext;
-            MainPage.Current.Navegar<VisualizacaoNFe>(nota);
+            var acoes = new AcoesNFe(nota);
+            MainPage.Current.Navegar<Visualizacao>(acoes);
         }
 
         private void Excluir(object sender, RoutedEventArgs e)
@@ -119,7 +120,7 @@ namespace NFeFacil.Fiscal
                                 }.ToXElement().ToString()
                             }, DefinicoesTemporarias.DateTimeNow);
 
-                            nota.Status = (int)StatusNFe.Cancelada;
+                            nota.Status = (int)StatusNota.Cancelada;
                             repo.SalvarItemSimples(nota, DefinicoesTemporarias.DateTimeNow);
                             await progresso.Update(6);
 

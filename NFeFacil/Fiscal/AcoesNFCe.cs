@@ -1,49 +1,221 @@
-﻿using System.Threading.Tasks;
+﻿using NFeFacil.Fiscal.ViewNFe;
 using NFeFacil.ItensBD;
 using NFeFacil.ModeloXML;
+using NFeFacil.Validacao;
+using NFeFacil.View;
+using NFeFacil.WebService;
+using NFeFacil.WebService.Pacotes;
+using System;
+using System.IO;
+using System.Threading.Tasks;
+using System.Xml.Linq;
+using Windows.Storage.Pickers;
 
 namespace NFeFacil.Fiscal
 {
     sealed class AcoesNFCe : AcoesVisualizacao
     {
+        public object ItemCompleto { get; private set; }
+
         public AcoesNFCe(NFeDI nota) : base(nota)
         {
-
+            var xml = XElement.Parse(nota.XML);
+            if (ItemBanco.Status < (int)StatusNota.Emitida)
+            {
+                var nfe = xml.FromXElement<NFCe>();
+                ItemCompleto = nfe;
+            }
+            else
+            {
+                var processo = xml.FromXElement<ProcessoNFCe>();
+                ItemCompleto = processo;
+            }
         }
 
-        public override Task Assinar()
+        public AcoesNFCe(NFeDI banco, object manipulacao) : base(banco)
         {
-            throw new System.NotImplementedException();
+            ItemCompleto = manipulacao;
+        }
+
+        public override async Task Assinar()
+        {
+            var nfe = (NFCe)ItemCompleto;
+            try
+            {
+                var assina = new Certificacao.AssinaFacil()
+                {
+                    Nota = nfe
+                };
+                await assina.Preparar();
+                Progresso progresso = null;
+                progresso = new Progresso(async x =>
+                {
+                    var result = await assina.Assinar(x, nfe.Informacoes.Id, "infNFe");
+                    if (result.Item1)
+                    {
+                        ItemBanco.Status = (int)StatusNota.Assinada;
+                        AtualizarDI(ItemCompleto);
+                        OnStatusChanged(StatusNota.Assinada);
+                    }
+                    return result;
+                }, assina.CertificadosDisponiveis, "Subject", Certificacao.AssinaFacil.Etapas);
+                assina.ProgressChanged += async (x, y) => await progresso.Update(y);
+                await progresso.ShowAsync();
+            }
+            catch (Exception erro)
+            {
+                erro.ManipularErro();
+            }
         }
 
         public override void Editar()
         {
-            throw new System.NotImplementedException();
+            var nfe = (NFCe)ItemCompleto;
+            var analisador = new AnalisadorNFCe(ref nfe);
+            analisador.Desnormalizar();
+            ItemBanco.Status = (int)StatusNota.Edição;
+            MainPage.Current.Navegar<ManipulacaoNotaFiscal>(nfe);
         }
 
-        public override Task Exportar()
+        public override async Task Exportar()
         {
-            throw new System.NotImplementedException();
+            XElement xml;
+            string id;
+            if (ItemBanco.Status < (int)StatusNota.Emitida)
+            {
+                var nfe = (NFCe)ItemCompleto;
+                id = nfe.Informacoes.Id;
+                xml = nfe.ToXElement();
+            }
+            else
+            {
+                var processo = (ProcessoNFCe)ItemCompleto;
+                id = processo.NFe.Informacoes.Id;
+                xml = processo.ToXElement();
+            }
+
+            try
+            {
+                FileSavePicker salvador = new FileSavePicker
+                {
+                    DefaultFileExtension = ".xml",
+                    SuggestedFileName = $"{id}.xml",
+                    SuggestedStartLocation = PickerLocationId.DocumentsLibrary
+                };
+                salvador.FileTypeChoices.Add("Arquivo XML", new string[] { ".xml" });
+                var arquivo = await salvador.PickSaveFileAsync();
+                if (arquivo != null)
+                {
+                    using (var stream = await arquivo.OpenStreamForWriteAsync())
+                    {
+                        xml.Save(stream);
+                        await stream.FlushAsync();
+                    }
+
+                    ItemBanco.Exportada = true;
+                    AtualizarDI(ItemCompleto);
+                }
+            }
+            catch (Exception erro)
+            {
+                erro.ManipularErro();
+            }
         }
 
         public override void Imprimir()
         {
-            throw new System.NotImplementedException();
-        }
-
-        public override InformacoesBase ObterVisualizacao()
-        {
-            throw new System.NotImplementedException();
+            var processo = (ProcessoNFCe)ItemCompleto;
+            MainPage.Current.Navegar<ViewDANFE>(processo);
+            ItemBanco.Impressa = true;
+            AtualizarDI(ItemCompleto);
         }
 
         public override void Salvar()
         {
-            throw new System.NotImplementedException();
+            ItemBanco.Status = (int)StatusNota.Salva;
+            AtualizarDI(ItemCompleto);
+            OnStatusChanged(StatusNota.Salva);
         }
 
-        public override Task Transmitir()
+        public override async Task Transmitir()
         {
-            throw new System.NotImplementedException();
+            Progresso progresso = null;
+            progresso = new Progresso(async () =>
+            {
+                var retTransmissao = await ConsultarRespostaInicial(true);
+                await progresso.Update(1);
+                var status = retTransmissao.StatusResposta;
+                if (status == 103 || status == 104)
+                {
+                    if (status == 103)
+                    {
+                        var tempoResposta = retTransmissao.DadosRecibo.TempoMedioResposta;
+                        await Task.Delay(TimeSpan.FromSeconds(tempoResposta + 5));
+                    }
+                    await progresso.Update(2);
+
+                    var homologacao = ((NFCe)ItemCompleto).AmbienteTestes;
+                    var resultadoResposta = await ConsultarRespostaFinal(retTransmissao, homologacao);
+                    await progresso.Update(3);
+
+                    var protocoloResposta = resultadoResposta.Protocolo.InfProt;
+                    if (protocoloResposta?.cStat == 100)
+                    {
+                        ItemCompleto = new ProcessoNFCe()
+                        {
+                            NFe = (NFCe)ItemCompleto,
+                            ProtNFe = resultadoResposta.Protocolo
+                        };
+                        ItemBanco.Status = (int)StatusNota.Emitida;
+                        AtualizarDI(ItemCompleto);
+                        OnStatusChanged(StatusNota.Emitida);
+                        await progresso.Update(4);
+
+                        return (true, protocoloResposta.xMotivo);
+                    }
+                    else if (protocoloResposta != null)
+                    {
+                        return (false, $"{protocoloResposta.cStat}: {protocoloResposta.xMotivo}");
+                    }
+                    else
+                    {
+                        return (false, $"{resultadoResposta.StatusResposta}: {resultadoResposta.DescricaoResposta}");
+                    }
+                }
+                else
+                {
+                    return (false, $"{retTransmissao.StatusResposta}: {retTransmissao.DescricaoResposta}");
+                }
+            }, "Processar e enviar requisição inicial",
+            "Aguardar tempo médio de resposta",
+            "Processar e enviar requisição final",
+            "Processar e analisar resposta final");
+            progresso.Start();
+            await progresso.ShowAsync();
+        }
+
+        async Task<RetEnviNFe> ConsultarRespostaInicial(bool homologacao)
+        {
+            var nota = (NFCe)ItemCompleto;
+            var uf = nota.Informacoes.Emitente.Endereco.SiglaUF;
+            var gerenciador = new GerenciadorGeral<EnviNFCe, RetEnviNFe>(uf, Operacoes.Autorizar, nota.AmbienteTestes);
+            var envio = new EnviNFCe(nota);
+            return await gerenciador.EnviarAsync(envio, true);
+        }
+
+        async Task<RetConsReciNFe> ConsultarRespostaFinal(RetEnviNFe retTransmissao, bool homologacao)
+        {
+            var gerenciador = new GerenciadorGeral<ConsReciNFe, RetConsReciNFe>(
+                retTransmissao.Estado, Operacoes.RespostaAutorizar, homologacao);
+            var envio = new ConsReciNFe(retTransmissao.TipoAmbiente, retTransmissao.DadosRecibo.NumeroRecibo);
+            return await gerenciador.EnviarAsync(envio);
+        }
+
+        public override InformacoesBase ObterVisualizacao()
+        {
+            if (ItemCompleto is NFCe nfe) return nfe.Informacoes;
+            else if (ItemCompleto is ProcessoNFCe proc) return proc.NFe.Informacoes;
+            throw new Exception();
         }
     }
 }

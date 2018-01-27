@@ -217,6 +217,8 @@ namespace NFeFacil.Migrations
 
                     b.Property<int>("InicioRange");
 
+                    b.Property<bool>("IsNFCe");
+
                     b.Property<DateTime>("MomentoProcessamento");
 
                     b.Property<long>("NumeroProtocolo");

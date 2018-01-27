@@ -1,6 +1,6 @@
 ﻿namespace NFeFacil.ItensBD
 {
-    public enum StatusNFe
+    public enum StatusNota
     {
         Edição,
         Validada,

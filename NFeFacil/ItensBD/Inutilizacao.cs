@@ -14,6 +14,8 @@ namespace NFeFacil.ItensBD
         public DateTime MomentoProcessamento { get; set; }
         public string XMLCompleto { get; set; }
 
+        public bool IsNFCe { get; set; }
+
         public string ExibicaoMomentoProcessamento => MomentoProcessamento.ToString("dd/MM/yyyy hh:mm:ss");
     }
 }

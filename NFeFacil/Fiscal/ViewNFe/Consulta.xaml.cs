@@ -57,7 +57,7 @@ namespace NFeFacil.Fiscal.ViewNFe
                 {
                     using (var esc = new Repositorio.Escrita())
                     {
-                        nota.Status = (int)StatusNFe.Emitida;
+                        nota.Status = (int)StatusNota.Emitida;
                         var original = XElement.Parse(nota.XML).FromXElement<NFe>();
                         var novo = new ProcessoNFe()
                         {

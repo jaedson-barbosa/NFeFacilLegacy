@@ -112,17 +112,17 @@ namespace NFeFacil.Repositorio
         {
             var notasFiscais = db.NotasFiscais.ToArray();
             var notasEmitidas = (from nota in notasFiscais
-                                 where nota.Status == (int)StatusNFe.Emitida && nota.IsNFCe == isNFCe
+                                 where nota.Status == (int)StatusNota.Emitida && nota.IsNFCe == isNFCe
                                  where nota.CNPJEmitente == cnpj
                                  orderby nota.DataEmissao descending
                                  select nota);
             var outrasNotas = (from nota in notasFiscais
-                               where nota.Status != (int)StatusNFe.Emitida && nota.Status != (int)StatusNFe.Cancelada
+                               where nota.Status != (int)StatusNota.Emitida && nota.Status != (int)StatusNota.Cancelada
                                where nota.CNPJEmitente == cnpj
                                orderby nota.DataEmissao descending
                                select nota);
             var notasCanceladas = (from nota in notasFiscais
-                                   where nota.Status == (int)StatusNFe.Cancelada
+                                   where nota.Status == (int)StatusNota.Cancelada
                                    where nota.CNPJEmitente == cnpj
                                    orderby nota.DataEmissao descending
                                    select nota);
@@ -187,7 +187,7 @@ namespace NFeFacil.Repositorio
         {
             return (from dado in db.NotasFiscais
                     let notaHomologacao = dado.NomeCliente.Trim().ToUpper() == "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL"
-                    where dado.Status == (int)StatusNFe.Emitida && !notaHomologacao && dado.IsNFCe == isNFCe
+                    where dado.Status == (int)StatusNota.Emitida && !notaHomologacao && dado.IsNFCe == isNFCe
                     where dado.CNPJEmitente == cnpjEmitente
                     let ano = DateTime.Parse(dado.DataEmissao).Year
                     orderby ano ascending
@@ -198,12 +198,12 @@ namespace NFeFacil.Repositorio
         {
             return (from item in db.NotasFiscais
                     let notaHomologacao = item.NomeCliente.Trim().ToUpper() == "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL"
-                    where item.Status == (int)StatusNFe.Emitida && !notaHomologacao && item.IsNFCe == isNFCe
+                    where item.Status == (int)StatusNota.Emitida && !notaHomologacao && item.IsNFCe == isNFCe
                     where item.CNPJEmitente == cnpjEmitente
                     let data = DateTime.Parse(item.DataEmissao)
                     group new { Data = data, item.XML } by data.Year).ToDictionary(x => x.Key, x => x.Select(k => (k.Data, k.XML)));
         }
 
-        public IEnumerable<Inutilizacao> ObterInutilizacoes() => db.Inutilizacoes.Where(x => x.CNPJ == DefinicoesTemporarias.EmitenteAtivo.CNPJ);
+        public IEnumerable<Inutilizacao> ObterInutilizacoes(bool isNFCe) => db.Inutilizacoes.Where(x => x.CNPJ == DefinicoesTemporarias.EmitenteAtivo.CNPJ && x.IsNFCe == isNFCe);
     }
 }

@@ -53,6 +53,8 @@ namespace NFeFacil.View
             var controle = new ControleNFCe();
             await new Criador(controle).ShowAsync();
         }
+        void AbrirInutilizacoesNFCe(object sender, TappedRoutedEventArgs e) => Navegar<Inutilizacoes>(true);
+        void AbrirNFCesSalvas(object sender, TappedRoutedEventArgs e) => Navegar<NotasSalvas>(true);
 
         void AbrirVendasSalvas(object sender, TappedRoutedEventArgs e) => Navegar<RegistrosVenda>();
         void CriarVenda(object sender, TappedRoutedEventArgs e)

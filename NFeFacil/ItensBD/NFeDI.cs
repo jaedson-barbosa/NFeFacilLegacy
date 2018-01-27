@@ -31,7 +31,7 @@ namespace NFeFacil.ItensBD
         public bool Impressa { get; set; }
         public bool Exportada { get; set; }
 
-        public int StatusAdd => (int)StatusNFe.Salva;
+        public int StatusAdd => (int)StatusNota.Salva;
         public bool IsNFCe { get; set; }
 
         public static NFeDI Converter(XElement xml)
@@ -57,7 +57,7 @@ namespace NFeFacil.ItensBD
             DataEmissao = DateTime.Parse(nota.Informacoes.identificacao.DataHoraEmissão).ToString("yyyy-MM-dd HH:mm:ss");
             NumeroNota = nota.Informacoes.identificacao.Numero;
             SerieNota = nota.Informacoes.identificacao.Serie;
-            Status = nota.Signature != null && nota.Signature != null ? (int)StatusNFe.Assinada : (int)StatusNFe.Salva;
+            Status = nota.Signature != null && nota.Signature != null ? (int)StatusNota.Assinada : (int)StatusNota.Salva;
             IsNFCe = nota.Informacoes.identificacao.Modelo == 65;
             XML = xml;
         }
@@ -71,7 +71,7 @@ namespace NFeFacil.ItensBD
             DataEmissao = DateTime.Parse(nota.Informacoes.identificacao.DataHoraEmissão).ToString("yyyy-MM-dd HH:mm:ss");
             NumeroNota = nota.Informacoes.identificacao.Numero;
             SerieNota = nota.Informacoes.identificacao.Serie;
-            Status = nota.Signature != null && nota.Signature != null ? (int)StatusNFe.Assinada : (int)StatusNFe.Salva;
+            Status = nota.Signature != null && nota.Signature != null ? (int)StatusNota.Assinada : (int)StatusNota.Salva;
             IsNFCe = nota.Informacoes.identificacao.Modelo == 65;
             XML = xml;
         }
@@ -85,7 +85,7 @@ namespace NFeFacil.ItensBD
             DataEmissao = DateTime.Parse(nota.NFe.Informacoes.identificacao.DataHoraEmissão).ToString("yyyy-MM-dd HH:mm:ss");
             NumeroNota = nota.NFe.Informacoes.identificacao.Numero;
             SerieNota = nota.NFe.Informacoes.identificacao.Serie;
-            Status = nota.ProtNFe != null ? (int)StatusNFe.Emitida : nota.NFe.Signature != null ? (int)StatusNFe.Assinada : (int)StatusNFe.Salva;
+            Status = nota.ProtNFe != null ? (int)StatusNota.Emitida : nota.NFe.Signature != null ? (int)StatusNota.Assinada : (int)StatusNota.Salva;
             IsNFCe = nota.NFe.Informacoes.identificacao.Modelo == 65;
             XML = xml;
         }
@@ -99,7 +99,7 @@ namespace NFeFacil.ItensBD
             DataEmissao = DateTime.Parse(nota.NFe.Informacoes.identificacao.DataHoraEmissão).ToString("yyyy-MM-dd HH:mm:ss");
             NumeroNota = nota.NFe.Informacoes.identificacao.Numero;
             SerieNota = nota.NFe.Informacoes.identificacao.Serie;
-            Status = nota.ProtNFe != null ? (int)StatusNFe.Emitida : nota.NFe.Signature != null ? (int)StatusNFe.Assinada : (int)StatusNFe.Salva;
+            Status = nota.ProtNFe != null ? (int)StatusNota.Emitida : nota.NFe.Signature != null ? (int)StatusNota.Assinada : (int)StatusNota.Salva;
             IsNFCe = nota.NFe.Informacoes.identificacao.Modelo == 65;
             XML = xml;
         }

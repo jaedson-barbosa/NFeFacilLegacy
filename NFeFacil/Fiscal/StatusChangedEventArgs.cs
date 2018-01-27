@@ -5,9 +5,9 @@ namespace NFeFacil.Fiscal
 {
     public sealed class StatusChangedEventArgs : EventArgs
     {
-        public StatusNFe NovoStatus { get; }
+        public StatusNota NovoStatus { get; }
 
-        public StatusChangedEventArgs(StatusNFe novoStatus)
+        public StatusChangedEventArgs(StatusNota novoStatus)
         {
             NovoStatus = novoStatus;
         }

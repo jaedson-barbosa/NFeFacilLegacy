@@ -20,7 +20,7 @@ namespace NFeFacil.Fiscal
         public AcoesNFe(NFeDI nota) : base(nota)
         {
             var xml = XElement.Parse(nota.XML);
-            if (ItemBanco.Status < (int)StatusNFe.Emitida)
+            if (ItemBanco.Status < (int)StatusNota.Emitida)
             {
                 var nfe = xml.FromXElement<NFe>();
                 ItemCompleto = nfe;
@@ -53,9 +53,9 @@ namespace NFeFacil.Fiscal
                     var result = await assina.Assinar(x, nfe.Informacoes.Id, "infNFe");
                     if (result.Item1)
                     {
-                        ItemBanco.Status = (int)StatusNFe.Assinada;
+                        ItemBanco.Status = (int)StatusNota.Assinada;
                         AtualizarDI(ItemCompleto);
-                        OnStatusChanged(StatusNFe.Assinada);
+                        OnStatusChanged(StatusNota.Assinada);
                     }
                     return result;
                 }, assina.CertificadosDisponiveis, "Subject", Certificacao.AssinaFacil.Etapas);
@@ -73,7 +73,7 @@ namespace NFeFacil.Fiscal
             var nfe = (NFe)ItemCompleto;
             var analisador = new AnalisadorNFe(ref nfe);
             analisador.Desnormalizar();
-            ItemBanco.Status = (int)StatusNFe.Edição;
+            ItemBanco.Status = (int)StatusNota.Edição;
             MainPage.Current.Navegar<ManipulacaoNotaFiscal>(nfe);
         }
 
@@ -81,7 +81,7 @@ namespace NFeFacil.Fiscal
         {
             XElement xml;
             string id;
-            if (ItemBanco.Status < (int)StatusNFe.Emitida)
+            if (ItemBanco.Status < (int)StatusNota.Emitida)
             {
                 var nfe = (NFe)ItemCompleto;
                 id = nfe.Informacoes.Id;
@@ -132,9 +132,9 @@ namespace NFeFacil.Fiscal
 
         public override void Salvar()
         {
-            ItemBanco.Status = (int)StatusNFe.Salva;
+            ItemBanco.Status = (int)StatusNota.Salva;
             AtualizarDI(ItemCompleto);
-            OnStatusChanged(StatusNFe.Salva);
+            OnStatusChanged(StatusNota.Salva);
         }
 
         public override async Task Transmitir()
@@ -166,9 +166,9 @@ namespace NFeFacil.Fiscal
                             NFe = (NFe)ItemCompleto,
                             ProtNFe = resultadoResposta.Protocolo
                         };
-                        ItemBanco.Status = (int)StatusNFe.Emitida;
+                        ItemBanco.Status = (int)StatusNota.Emitida;
                         AtualizarDI(ItemCompleto);
-                        OnStatusChanged(StatusNFe.Emitida);
+                        OnStatusChanged(StatusNota.Emitida);
                         await progresso.Update(4);
 
                         return (true, protocoloResposta.xMotivo);

@@ -1,11 +1,11 @@
-﻿<Page x:Class="NFeFacil.Fiscal.VisualizacaoNFe"
+﻿<Page x:Class="NFeFacil.Fiscal.Visualizacao"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:controles="using:NFeFacil.Controles"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
-    <controles:VisualizacaoGenerica Content="{x:Bind Visualizacao}" />
+    <controles:VisualizacaoGenerica Content="{x:Bind ObjetoVisualizado}" />
     <Page.BottomAppBar>
         <CommandBar>
             <AppBarButton x:Name="btnEditar"

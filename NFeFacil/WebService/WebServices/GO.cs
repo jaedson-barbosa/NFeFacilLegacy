@@ -1,5 +1,6 @@
 ﻿namespace NFeFacil.WebService.WebServices
 {
+    // Os web services são iguais
     internal struct GO : IWebService
     {
         public string ConsultarProducao => "https://nfe.sefaz.go.gov.br/nfe/services/v2/NfeConsulta2?wsdl";

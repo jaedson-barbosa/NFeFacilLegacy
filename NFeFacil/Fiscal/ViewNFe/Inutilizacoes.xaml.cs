@@ -11,6 +11,7 @@ using System.Linq;
 using NFeFacil.WebService;
 using System.Collections.ObjectModel;
 using NFeFacil.Certificacao;
+using Windows.UI.Xaml.Navigation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -21,15 +22,20 @@ namespace NFeFacil.Fiscal.ViewNFe
     /// </summary>
     public sealed partial class Inutilizacoes : Page
     {
-        ObservableCollection<IGrouping<string, Inutilizacao>> Lista { get; }
-        ICollectionView Itens { get; }
+        ObservableCollection<IGrouping<string, Inutilizacao>> Lista { get; set; }
+        ICollectionView Itens { get; set; }
 
         public Inutilizacoes()
         {
             InitializeComponent();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            var isNFCe = e.Parameter != null ? (bool)e.Parameter : false;
             using (var repo = new Repositorio.Leitura())
             {
-                Lista = (from imp in repo.ObterInutilizacoes()
+                Lista = (from imp in repo.ObterInutilizacoes(isNFCe)
                          group imp by imp.Homologacao ? "Homologação" : "Produção").GerarObs();
                 Itens = new CollectionViewSource()
                 {

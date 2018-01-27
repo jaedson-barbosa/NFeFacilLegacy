@@ -11,6 +11,12 @@ namespace NFeFacil.Migrations
                 table: "NotasFiscais",
                 nullable: false,
                 defaultValue: false);
+
+            migrationBuilder.AddColumn<bool>(
+                name: "IsNFCe",
+                table: "Inutilizacoes",
+                nullable: false,
+                defaultValue: false);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -18,6 +24,10 @@ namespace NFeFacil.Migrations
             migrationBuilder.DropColumn(
                 name: "IsNFCe",
                 table: "NotasFiscais");
+
+            migrationBuilder.DropColumn(
+                name: "IsNFCe",
+                table: "Inutilizacoes");
         }
     }
 }

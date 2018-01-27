@@ -11,12 +11,12 @@ using Windows.UI.Xaml.Navigation;
 namespace NFeFacil.Fiscal
 {
     [DetalhePagina(Symbol.View, "Visualizar NFe")]
-    public sealed partial class VisualizacaoNFe : Page
+    public sealed partial class Visualizacao : Page
     {
         AcoesVisualizacao Acoes;
-        InformacoesBase Visualizacao { get; set; }
+        InformacoesBase ObjetoVisualizado { get; set; }
 
-        public VisualizacaoNFe()
+        public Visualizacao()
         {
             InitializeComponent();
         }
@@ -24,8 +24,8 @@ namespace NFeFacil.Fiscal
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             Acoes = (AcoesVisualizacao)e.Parameter;
-            Visualizacao = Acoes.ObterVisualizacao();
-            AtualizarBotoesComando((StatusNFe)Acoes.ItemBanco.Status);
+            ObjetoVisualizado = Acoes.ObterVisualizacao();
+            AtualizarBotoesComando((StatusNota)Acoes.ItemBanco.Status);
             Acoes.StatusChanged += Acoes_StatusChanged;
         }
 
@@ -47,14 +47,14 @@ namespace NFeFacil.Fiscal
         void Imprimir(object sender, RoutedEventArgs e) => Acoes.Imprimir();
         async void Exportar(object sender, RoutedEventArgs e) => await Acoes.Exportar();
 
-        void AtualizarBotoesComando(StatusNFe status)
+        void AtualizarBotoesComando(StatusNota status)
         {
-            if (status == StatusNFe.Edição) status = StatusNFe.Validada;
-            btnEditar.IsEnabled = status == StatusNFe.Validada || status == StatusNFe.Salva || status == StatusNFe.Assinada;
-            btnSalvar.IsEnabled = status == StatusNFe.Validada;
-            btnAssinar.IsEnabled = status == StatusNFe.Salva;
-            btnTransmitir.IsEnabled = status == StatusNFe.Assinada;
-            btnImprimir.IsEnabled = status == StatusNFe.Emitida;
+            if (status == StatusNota.Edição) status = StatusNota.Validada;
+            btnEditar.IsEnabled = status == StatusNota.Validada || status == StatusNota.Salva || status == StatusNota.Assinada;
+            btnSalvar.IsEnabled = status == StatusNota.Validada;
+            btnAssinar.IsEnabled = status == StatusNota.Salva;
+            btnTransmitir.IsEnabled = status == StatusNota.Assinada;
+            btnImprimir.IsEnabled = status == StatusNota.Emitida;
         }
     }
 }

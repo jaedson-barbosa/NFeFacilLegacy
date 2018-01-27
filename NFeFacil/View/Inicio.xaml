@@ -66,7 +66,7 @@
                         <RowDefinition />
                         <RowDefinition />
                     </Grid.RowDefinitions>
-                    <controles:ItemPadrao Titulo="Criar nota fiscal"
+                    <controles:ItemPadrao Titulo="Criar NF-e"
                                           Descricao="Criar uma nova fiscal e realizar operações."
                                           Tapped="CriarNFe">
                         <SymbolIcon Symbol="Add" />
@@ -86,7 +86,7 @@
                     <controles:ItemPadrao Grid.Row="1"
                                           Grid.Column="1"
                                           Titulo="Notas salvas"
-                                          Descricao="Visialize, edite e cancelar as notas desta aplicação."
+                                          Descricao="Visialize, edite e cancele as NFes desta aplicação."
                                           Tapped="AbrirNotasSalvas">
                         <SymbolIcon Symbol="Library" />
                     </controles:ItemPadrao>
@@ -106,10 +106,14 @@
                 </Grid>
             </DataTemplate>
         </HubSection>
-        <HubSection Width="200"
+        <HubSection Width="400"
                     Header="Fiscal (NFC-e)">
             <DataTemplate>
                 <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition />
                         <RowDefinition />
@@ -119,12 +123,25 @@
                                           Tapped="CriarNFCe">
                         <SymbolIcon Symbol="Add" />
                     </controles:ItemPadrao>
-                    <!--<controles:ItemPadrao Grid.Row="1"
-                                          Titulo="Vendas salvas"
-                                          Descricao="Visualize os registros de venda cadastrados."
-                                          Tapped="AbrirVendasSalvas">
+                    <controles:ItemPadrao Grid.Column="1"
+                                          Titulo="Inutilizações"
+                                          Descricao="Inutile intervalores de números de NFCe"
+                                          Tapped="AbrirInutilizacoesNFCe">
+                        <SymbolIcon Symbol="Delete" />
+                    </controles:ItemPadrao>
+                    <controles:ItemPadrao Grid.Row="1"
+                                          Titulo="Notas salvas"
+                                          Descricao="Visialize, edite e cancele as NFCes desta aplicação."
+                                          Tapped="AbrirNFCesSalvas">
                         <SymbolIcon Symbol="Library" />
-                    </controles:ItemPadrao>-->
+                    </controles:ItemPadrao>
+                    <controles:ItemPadrao Grid.Row="1"
+                                          Grid.Column="1"
+                                          Titulo="Consultar NFC-e"
+                                          Descricao="Consulte dados básicos de uma nota fiscal do consumidor emitida."
+                                          Tapped="AbrirConsulta">
+                        <SymbolIcon Symbol="Find" />
+                    </controles:ItemPadrao>
                 </Grid>
             </DataTemplate>
         </HubSection>

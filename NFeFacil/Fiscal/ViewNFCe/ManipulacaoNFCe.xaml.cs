@@ -370,21 +370,23 @@ namespace NFeFacil.Fiscal.ViewNFCe
                     repo.ProcessarNFeLocal(IDOriginal, NovoId);
                 }
 
-                if (ultPage.SourcePageType != typeof(VisualizacaoNFe))
+                if (ultPage.SourcePageType != typeof(Visualizacao))
                 {
                     var novoDI = new NFeDI(nota, nota.ToXElement().ToString())
                     {
-                        Status = (int)StatusNFe.Validada
+                        Status = (int)StatusNota.Validada
                     };
-                    Frame.BackStack.Add(new PageStackEntry(typeof(VisualizacaoNFe), novoDI, null));
+                    var acoes = new AcoesNFCe(novoDI, nota);
+                    Frame.BackStack.Add(new PageStackEntry(typeof(Visualizacao), acoes, null));
                 }
                 else
                 {
-                    var di = (NFeDI)ultPage.Parameter;
+                    var acoes = (AcoesNFCe)ultPage.Parameter;
+                    var di = acoes.ItemBanco;
                     di.Id = nota.Informacoes.Id;
                     di.NomeCliente = nota.Informacoes.destinatário.Nome;
                     di.DataEmissao = DateTime.Parse(nota.Informacoes.identificacao.DataHoraEmissão).ToString("yyyy-MM-dd HH:mm:ss");
-                    di.Status = (int)StatusNFe.Validada;
+                    di.Status = (int)StatusNota.Validada;
                     di.XML = nota.ToXElement().ToString();
                 }
 

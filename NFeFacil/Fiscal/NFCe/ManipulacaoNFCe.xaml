@@ -1,7 +1,7 @@
 ﻿<Page x:Class="NFeFacil.Fiscal.ViewNFCe.ManipulacaoNFCe"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:local="using:NFeFacil.ViewNFCe"
+      xmlns:detalhes="using:NFeFacil.ModeloXML.PartesDetalhes"
       xmlns:db="using:NFeFacil.ItensBD"
       xmlns:VM="using:NFeFacil.View"
       xmlns:controles="using:NFeFacil.Controles"
@@ -25,6 +25,21 @@
                            Text="{x:Bind Descricao}" />
             </Grid>
         </DataTemplate>
+        <DataTemplate x:Key="produtoAdicionado"
+                      x:DataType="detalhes:DetalhesProdutos">
+            <Grid Width="200"
+                  Padding="8">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
+                           Text="{x:Bind Produto.CodigoProduto}" />
+                <TextBlock Grid.Row="1"
+                           Style="{StaticResource BodyTextBlockStyle}"
+                           Text="{x:Bind Produto.Descricao}" />
+            </Grid>
+        </DataTemplate>
     </Page.Resources>
     <controles:MultView x:Name="main">
         <ScrollViewer Padding="16">
@@ -41,11 +56,14 @@
                     <ComboBoxItem>Devolução de mercadoria</ComboBoxItem>
                 </ComboBox>
                 <ComboBox Header="Tipo de atendimento *"
-                          SelectedIndex="{x:Bind NotaSalva.Informacoes.identificacao.IndicadorPresenca, Mode=TwoWay}">
-                    <ComboBoxItem Content="Não se aplica" />
-                    <ComboBoxItem Content="Presencial" />
-                    <ComboBoxItem Content="Não presencial - Internet" />
-                    <ComboBoxItem Content="Não presencial - Teleatendimento" />
+                          SelectedValue="{x:Bind IndicadorPresenca, Mode=TwoWay}"
+                          SelectedValuePath="Tag">
+                    <ComboBoxItem Tag="0">Não se aplica</ComboBoxItem>
+                    <ComboBoxItem Tag="1">Presencial</ComboBoxItem>
+                    <ComboBoxItem Tag="2">Não presencial - Internet</ComboBoxItem>
+                    <ComboBoxItem Tag="3">Não presencial - Teleatendimento</ComboBoxItem>
+                    <ComboBoxItem Tag="4">Entrega a domicílio</ComboBoxItem>
+                    <ComboBoxItem Tag="9">Não presencial - Outros</ComboBoxItem>
                 </ComboBox>
                 <ComboBox Header="Forma de pagamento *"
                           SelectedIndex="{x:Bind NotaSalva.Informacoes.identificacao.FormaPagamento, Mode=TwoWay}">
@@ -138,7 +156,7 @@
                       Grid.ColumnSpan="2"
                       Margin="0,4,0,0"
                       ItemsSource="{x:Bind Produtos}"
-                      ItemTemplate="{StaticResource produto}" />
+                      ItemTemplate="{StaticResource produtoAdicionado}" />
         </Grid>
         <Grid Padding="16">
             <Grid.RowDefinitions>

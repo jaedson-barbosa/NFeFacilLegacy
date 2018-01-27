@@ -1,5 +1,6 @@
 ﻿using NFeFacil.ModeloXML;
 using NFeFacil.ModeloXML.PartesDetalhes;
+using NFeFacil.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos;
 using NFeFacil.Produto;
 using NFeFacil.Produto.Impostos;
 using NFeFacil.View;
@@ -7,6 +8,7 @@ using System;
 using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -18,13 +20,21 @@ namespace NFeFacil.Fiscal.ViewNFCe
     public sealed partial class ProdutoNFCe : Page, IValida
     {
         DadosAdicaoProduto Conjunto;
-        public DetalhesProdutos ProdutoCompleto { get; private set; }
+        DetalhesProdutos ProdutoCompleto { get; set; }
         bool PodeConcluir { get; set; }
         public bool Concluido { get; set; }
 
         public ProdutoNFCe()
         {
             InitializeComponent();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            Conjunto = (DadosAdicaoProduto)e.Parameter;
+            ProdutoCompleto = Conjunto.Completo;
+            PodeConcluir = Conjunto.ImpostosPadrao?.Length > 0;
+            CalcularTotalBruto();
         }
 
         double QuantidadeComercializada
@@ -77,9 +87,10 @@ namespace NFeFacil.Fiscal.ViewNFCe
             while (roteiro.Avancar()) roteiro.Validar(null);
 
             var produto = roteiro.Finalizar();
+            produto.Impostos.impostos.RemoveAll(x => x.GetType() == typeof(PISST) || x.GetType() == typeof(COFINSST));
+
             var caixa = new DefinirTotalImpostos();
-            await caixa.ShowAsync();
-            if (!string.IsNullOrEmpty(caixa.ValorTotalTributos))
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary && !string.IsNullOrEmpty(caixa.ValorTotalTributos))
             {
                 produto.Impostos.vTotTrib = caixa.ValorTotalTributos;
             }
@@ -88,7 +99,7 @@ namespace NFeFacil.Fiscal.ViewNFCe
                 produto.Impostos.vTotTrib = null;
             }
 
-            var info = ((NFe)Frame.BackStack[Frame.BackStack.Count - 1].Parameter).Informacoes;
+            var info = ((NFCe)Frame.BackStack[Frame.BackStack.Count - 1].Parameter).Informacoes;
             if (produto.Número == 0)
             {
                 produto.Número = info.produtos.Count + 1;

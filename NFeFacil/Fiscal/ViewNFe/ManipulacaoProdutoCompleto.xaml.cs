@@ -181,8 +181,7 @@ namespace NFeFacil.Fiscal.ViewNFe
 
             var produto = roteiro.Finalizar();
             var caixa = new DefinirTotalImpostos();
-            await caixa.ShowAsync();
-            if (!string.IsNullOrEmpty(caixa.ValorTotalTributos))
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary && !string.IsNullOrEmpty(caixa.ValorTotalTributos))
             {
                 produto.Impostos.vTotTrib = caixa.ValorTotalTributos;
             }

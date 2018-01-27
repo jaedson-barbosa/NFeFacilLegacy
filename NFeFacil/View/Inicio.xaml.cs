@@ -38,7 +38,7 @@ namespace NFeFacil.View
         void CriarNFe(object sender, TappedRoutedEventArgs e)
         {
             var controle = new ControleNFe();
-            new CriadorNFe(controle).ShowAsync();
+            new Criador(controle).ShowAsync();
         }
 
         void CriarNFeEntrada(object sender, TappedRoutedEventArgs e) => CriarNFeEntrada();
@@ -52,7 +52,7 @@ namespace NFeFacil.View
         async void CriarNFCe(object sender, TappedRoutedEventArgs e)
         {
             var controle = new ControleNFCe();
-            await new CriadorNFe(controle).ShowAsync();
+            await new Criador(controle).ShowAsync();
         }
 
         void AbrirVendasSalvas(object sender, TappedRoutedEventArgs e) => Navegar<RegistrosVenda>();
@@ -128,7 +128,7 @@ namespace NFeFacil.View
                                 var analisador = new AnalisadorNFe(ref nfe);
                                 analisador.Desnormalizar();
                                 var controle = new ControleNFe(nfe);
-                                if (await new CriadorNFe(controle).ShowAsync() == ContentDialogResult.Primary)
+                                if (await new Criador(controle).ShowAsync() == ContentDialogResult.Primary)
                                 {
                                     Popup.Current.Escrever(TitulosComuns.Sucesso, "Nota de entrada criada. Agora verifique se todas as informações estão corretas.");
                                     return true;

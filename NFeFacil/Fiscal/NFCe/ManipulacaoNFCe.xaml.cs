@@ -61,6 +61,12 @@ namespace NFeFacil.Fiscal.ViewNFCe
             Produtos = new ObservableCollection<DetalhesProdutos>(NotaSalva.Informacoes.produtos);
         }
 
+        string IndicadorPresenca
+        {
+            get => NotaSalva.Informacoes.identificacao.IndicadorPresenca.ToString();
+            set => NotaSalva.Informacoes.identificacao.IndicadorPresenca = ushort.Parse(value);
+        }
+
         string DataHoraEmissão
         {
             get => NotaSalva.Informacoes.identificacao.DataHoraEmissão;
@@ -166,7 +172,10 @@ namespace NFeFacil.Fiscal.ViewNFCe
         void AdicionarProduto(object sender, ItemClickEventArgs e)
         {
             var prod = (ProdutoDI)e.ClickedItem;
-            var dados = new DadosAdicaoProduto(prod);
+            var dados = new DadosAdicaoProduto(prod)
+            {
+                IsNFCe = true
+            };
             MainPage.Current.Navegar<ProdutoNFCe>(dados);
         }
 
@@ -175,7 +184,10 @@ namespace NFeFacil.Fiscal.ViewNFCe
             using (var repo = new Repositorio.Leitura())
             {
                 var prodDI = repo.ObterProduto(produto.Produto.CodigoProduto);
-                var dados = new DadosAdicaoProduto(prodDI, produto);
+                var dados = new DadosAdicaoProduto(prodDI, produto)
+                {
+                    IsNFCe = true
+                };
                 MainPage.Current.Navegar<ProdutoNFCe>(dados);
             }
         }

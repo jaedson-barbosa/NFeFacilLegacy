@@ -5,7 +5,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil.Fiscal
 {
-    public sealed partial class CriadorNFe : ContentDialog
+    public sealed partial class Criador : ContentDialog
     {
         bool ambienteHomolocagao;
         bool AmbienteHomolocagao
@@ -25,7 +25,7 @@ namespace NFeFacil.Fiscal
 
         IControleCriacao Controle { get; }
 
-        public CriadorNFe(IControleCriacao controle)
+        public Criador(IControleCriacao controle)
         {
             Controle = controle;
             InitializeComponent();

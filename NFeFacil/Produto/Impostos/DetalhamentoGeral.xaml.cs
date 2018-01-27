@@ -1,6 +1,7 @@
 ﻿using NFeFacil.ModeloXML;
 using NFeFacil.ModeloXML.PartesDetalhes;
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
@@ -80,8 +81,7 @@ namespace NFeFacil.Produto.Impostos
             var produto = roteiro.Finalizar();
 
             var caixa = new DefinirTotalImpostos();
-            await caixa.ShowAsync();
-            if (!string.IsNullOrEmpty(caixa.ValorTotalTributos))
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary && !string.IsNullOrEmpty(caixa.ValorTotalTributos))
             {
                 produto.Impostos.vTotTrib = caixa.ValorTotalTributos;
             }
@@ -94,21 +94,41 @@ namespace NFeFacil.Produto.Impostos
             Frame.BackStack.RemoveAt(Frame.BackStack.Count - 1);
             Frame.BackStack.RemoveAt(Frame.BackStack.Count - 1);
 
-            var parametro = Frame.BackStack[Frame.BackStack.Count - 1].Parameter as NFe;
-            var info = parametro.Informacoes;
-
-            if (produto.Número == 0)
+            List<DetalhesProdutos> produtos;
+            var parametro = Frame.BackStack[Frame.BackStack.Count - 1].Parameter;
+            if (parametro is NFe nfe)
             {
-                produto.Número = info.produtos.Count + 1;
-                info.produtos.Add(produto);
+                var info = nfe.Informacoes;
+                produtos = info.produtos;
+                AddProduto();
+                info.total = new Total(produtos);
+            }
+            else if (parametro is NFCe nfce)
+            {
+                var info = nfce.Informacoes;
+                produtos = info.produtos;
+                AddProduto();
+                info.total = new Total(produtos);
             }
             else
             {
-                info.produtos[produto.Número - 1] = produto;
+                throw new Exception();
             }
-            info.total = new Total(info.produtos);
 
             MainPage.Current.Retornar();
+
+            void AddProduto()
+            {
+                if (produto.Número == 0)
+                {
+                    produto.Número = produtos.Count + 1;
+                    produtos.Add(produto);
+                }
+                else
+                {
+                    produtos[produto.Número - 1] = produto;
+                }
+            }
         }
 
         private void ImpostoTrocado(object sender, NavigationEventArgs e)

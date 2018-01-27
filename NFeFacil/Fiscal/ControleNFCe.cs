@@ -22,6 +22,7 @@ namespace NFeFacil.Fiscal
                     produtos = new List<DetalhesProdutos>(),
                     transp = new Transporte()
                     {
+                        ModFrete = 9,
                         Transporta = new Motorista()
                     },
                     infAdic = new InformacoesAdicionais(),
@@ -51,7 +52,8 @@ namespace NFeFacil.Fiscal
                 Numero = numero,
                 TipoAmbiente = (ushort)(homologacao ? 2 : 1),
                 CódigoUF = Estados.Buscar(DefinicoesTemporarias.EmitenteAtivo.SiglaUF).Codigo,
-                CodigoMunicipio = DefinicoesTemporarias.EmitenteAtivo.CodigoMunicipio
+                CodigoMunicipio = DefinicoesTemporarias.EmitenteAtivo.CodigoMunicipio,
+                TipoImpressão = 4
             };
             identificacao.DefinirVersãoAplicativo();
             PreNota.Informacoes.identificacao = identificacao;

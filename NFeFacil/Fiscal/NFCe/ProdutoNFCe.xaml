@@ -39,7 +39,8 @@
                                                          FontWeight="Bold"
                                                          x:Name="txtTotalBruto" /></TextBlock>
             </ItemsControl>
-            <TextBox Text="{x:Bind ProdutoCompleto.InfAdProd, Mode=TwoWay}"
+            <TextBox Header="Informações adicionais do produto"
+                     Text="{x:Bind ProdutoCompleto.InfAdProd, Mode=TwoWay}"
                      TextWrapping="Wrap" />
         </StackPanel>
     </ScrollViewer>

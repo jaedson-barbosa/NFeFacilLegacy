@@ -181,6 +181,8 @@
     <Compile Include="ModeloXML\NFCe.cs" />
     <Compile Include="ModeloXML\PartesDetalhes\IIdentificacao.cs" />
     <Compile Include="ModeloXML\ProcessoNFCe .cs" />
+    <Compile Include="Produto\Impostos\ImpostoEscolhivel.cs" />
+    <Compile Include="Produto\Impostos\ImpostoPadrao.cs" />
     <Compile Include="Sincronizacao\FastServer\FromContentAttribute.cs" />
     <Compile Include="Sincronizacao\FastServer\HttpServer.cs" />
     <Compile Include="Sincronizacao\FastServer\ParameterValueGetter.cs" />
@@ -339,8 +341,6 @@
     <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\ComumICMS.cs" />
     <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\ComumIPI.cs" />
     <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\ComumPIS.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\ConjuntoCOFINS.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\ConjuntoPIS.cs" />
     <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\ICMS.cs" />
     <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\ICMS00.cs" />
     <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\ICMS10.cs" />
@@ -687,8 +687,8 @@
     <Compile Include="Produto\Impostos\EscolherTipoPISouCOFINS.xaml.cs">
       <DependentUpon>EscolherTipoPISouCOFINS.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Fiscal\CriadorNFe.xaml.cs">
-      <DependentUpon>CriadorNFe.xaml</DependentUpon>
+    <Compile Include="Fiscal\Criador.xaml.cs">
+      <DependentUpon>Criador.xaml</DependentUpon>
     </Compile>
     <Compile Include="Fiscal\ViewNFe\CaixasDialogo\EnderecoDiferenteNacional.xaml.cs">
       <DependentUpon>EnderecoDiferenteNacional.xaml</DependentUpon>
@@ -1327,7 +1327,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Fiscal\CriadorNFe.xaml">
+    <Page Include="Fiscal\Criador.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

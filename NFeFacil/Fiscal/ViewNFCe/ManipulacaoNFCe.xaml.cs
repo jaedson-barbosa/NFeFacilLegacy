@@ -23,7 +23,6 @@ namespace NFeFacil.Fiscal.ViewNFCe
     /// </summary>
     public sealed partial class ManipulacaoNFCe : Page, IHambuguer, IValida
     {
-        const string NomeClienteHomologacao = "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL";
         NFCe NotaSalva { get; set; }
         public bool Concluido { get; set; }
 
@@ -141,10 +140,6 @@ namespace NFeFacil.Fiscal.ViewNFCe
             {
                 clienteSelecionado = value;
                 NotaSalva.Informacoes.destinatário = value.ToDestinatario();
-                if (NotaSalva.AmbienteTestes)
-                {
-                    NotaSalva.Informacoes.destinatário.Nome = NomeClienteHomologacao;
-                }
             }
         }
 
@@ -342,15 +337,20 @@ namespace NFeFacil.Fiscal.ViewNFCe
             }
         }
 
-        void Confirmar(object sender, RoutedEventArgs e)
+        async void Confirmar(object sender, RoutedEventArgs e)
         {
+            var caixa = new InfoSuplementarNFCe();
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+            {
+                NotaSalva.PrepararInformacoesSuplementares(caixa.IdToken, caixa.CSC);
+            }
+            else
+            {
+                return;
+            }
+
             try
             {
-                if (NotaSalva.AmbienteTestes)
-                {
-                    NotaSalva.Informacoes.destinatário.Nome = NomeClienteHomologacao;
-                }
-
                 var ultPage = Frame.BackStack[Frame.BackStack.Count - 1];
                 if (ultPage.SourcePageType == typeof(ViewRegistroVenda.VisualizacaoRegistroVenda))
                 {

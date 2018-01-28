@@ -173,6 +173,11 @@
     <Compile Include="Fiscal\ControleNFe.cs" />
     <Compile Include="Fiscal\IControleCriacao.cs" />
     <Compile Include="Fiscal\StatusChangedEventArgs.cs" />
+    <Compile Include="Fiscal\ViewNFCe\InfoSuplementarNFCe.xaml.cs">
+      <DependentUpon>InfoSuplementarNFCe.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Fiscal\ViewNFCe\UrlsChaveAcesso.cs" />
+    <Compile Include="Fiscal\ViewNFCe\UrlsQR.cs" />
     <Compile Include="Login\Loading.xaml.cs">
       <DependentUpon>Loading.xaml</DependentUpon>
     </Compile>
@@ -182,6 +187,7 @@
     </Compile>
     <Compile Include="ModeloXML\IInformacoes.cs" />
     <Compile Include="ModeloXML\InformacoesNFCe .cs" />
+    <Compile Include="ModeloXML\InformacoesSuplementaresNFCe.cs" />
     <Compile Include="ModeloXML\NFCe.cs" />
     <Compile Include="ModeloXML\PartesDetalhes\IIdentificacao.cs" />
     <Compile Include="ModeloXML\ProcessoNFCe .cs" />
@@ -1047,6 +1053,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controles\VisualizacaoGenerica.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Fiscal\ViewNFCe\InfoSuplementarNFCe.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

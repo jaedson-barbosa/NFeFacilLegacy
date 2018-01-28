@@ -74,18 +74,28 @@ namespace NFeFacil.Fiscal
         private async void Cancelar(object sender, RoutedEventArgs e)
         {
             var nota = (NFeDI)((MenuFlyoutItem)sender).DataContext;
-            var processo = XElement.Parse(nota.XML).FromXElement<ProcessoNFe>();
+            InformacoesBase informacoes;
+            ProtocoloNFe protNFe;
+            if (nota.IsNFCe)
+            {
+                var processo = XElement.Parse(nota.XML).FromXElement<ProcessoNFCe>();
+                informacoes = processo.NFe.Informacoes;
+                protNFe = processo.ProtNFe;
+            }
+            else
+            {
+                var processo = XElement.Parse(nota.XML).FromXElement<ProcessoNFe>();
+                informacoes = processo.NFe.Informacoes;
+                protNFe = processo.ProtNFe;
+            }
 
-            var estado = processo.NFe.Informacoes.identificacao.CódigoUF;
-            var tipoAmbiente = processo.ProtNFe.InfProt.tpAmb;
+            var estado = informacoes.identificacao.CódigoUF;
+            var cnpj = informacoes.Emitente.CNPJ;
+            var chave = informacoes.ChaveAcesso;
+            var tipoAmbiente = protNFe.InfProt.tpAmb;
+            var nProtocolo = protNFe.InfProt.nProt;
 
-            var gerenciador = new GerenciadorGeral<EnvEvento, RetEnvEvento>(estado, Operacoes.RecepcaoEvento, tipoAmbiente == 2, isNFCe);
-
-            var cnpj = processo.NFe.Informacoes.Emitente.CNPJ;
-            var chave = processo.NFe.Informacoes.ChaveAcesso;
-            var nProtocolo = processo.ProtNFe.InfProt.nProt;
             var entrada = new CancelarNFe();
-
             if (await entrada.ShowAsync() == ContentDialogResult.Primary)
             {
                 var infoEvento = new InformacoesEvento(estado, cnpj, chave, nProtocolo, entrada.Motivo, tipoAmbiente);
@@ -94,6 +104,7 @@ namespace NFeFacil.Fiscal
                 AssinaFacil assinador = new AssinaFacil();
                 await assinador.Preparar();
 
+                var gerenciador = new GerenciadorGeral<EnvEvento, RetEnvEvento>(estado, Operacoes.RecepcaoEvento, tipoAmbiente == 2, isNFCe);
                 Progresso progresso = null;
                 progresso = new Progresso(async x =>
                 {
@@ -165,12 +176,24 @@ namespace NFeFacil.Fiscal
         async void CriarCopia(object sender, RoutedEventArgs e)
         {
             var nota = (NFeDI)((MenuFlyoutItem)sender).DataContext;
-            var processo = XElement.Parse(nota.XML).FromXElement<ProcessoNFe>();
-            var nfe = processo.NFe;
-            var analisador = new AnalisadorNFe(ref nfe);
-            analisador.Desnormalizar();
-            var controle = new ControleNFe(nfe);
-            await new Criador(controle).ShowAsync();
+            if (nota.IsNFCe)
+            {
+                var processo = XElement.Parse(nota.XML).FromXElement<ProcessoNFCe>();
+                var nfe = processo.NFe;
+                var analisador = new AnalisadorNFCe(ref nfe);
+                analisador.Desnormalizar();
+                var controle = new ControleNFCe(nfe);
+                await new Criador(controle).ShowAsync();
+            }
+            else
+            {
+                var processo = XElement.Parse(nota.XML).FromXElement<ProcessoNFe>();
+                var nfe = processo.NFe;
+                var analisador = new AnalisadorNFe(ref nfe);
+                analisador.Desnormalizar();
+                var controle = new ControleNFe(nfe);
+                await new Criador(controle).ShowAsync();
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using NFeFacil.Certificacao;
+using NFeFacil.Fiscal.ViewNFCe;
 using NFeFacil.ModeloXML.PartesAssinatura;
 using System;
 using System.Text;
@@ -57,9 +58,16 @@ namespace NFeFacil.ModeloXML
             stringsConcatenacao[9, 0] = nameof(cHashQRCode);
             stringsConcatenacao[9, 1] = cHashQRCode;
 
+            var enderecos = AmbienteTestes ? UrlsQR.Homologacao : UrlsQR.Producao;
+            var ufEmitente = Informacoes.Emitente.Endereco.SiglaUF;
+            var enderecoConsultaQR = enderecos[ufEmitente];
+            if (enderecoConsultaQR[enderecoConsultaQR.Length - 1] != '&')
+            {
+                enderecoConsultaQR += '?';
+            }
             InfoSuplementares = new InformacoesSuplementaresNFCe()
             {
-                Uri = ConcatenarStrings(stringsConcatenacao)
+                Uri = enderecoConsultaQR + ConcatenarStrings(stringsConcatenacao)
             };
 
             string ToHex(string str) => BitConverter.ToString(Encoding.ASCII.GetBytes(str));

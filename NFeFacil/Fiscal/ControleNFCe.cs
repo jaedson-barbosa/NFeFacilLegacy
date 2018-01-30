@@ -25,6 +25,7 @@ namespace NFeFacil.Fiscal
                         ModFrete = 9,
                         Transporta = new Motorista()
                     },
+                    FormasPagamento = new List<Pagamento>(),
                     infAdic = new InformacoesAdicionais(),
                 }
             };

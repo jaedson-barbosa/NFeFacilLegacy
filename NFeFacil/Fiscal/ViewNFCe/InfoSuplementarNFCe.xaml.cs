@@ -11,7 +11,7 @@ namespace NFeFacil.Fiscal.ViewNFCe
 
         public InfoSuplementarNFCe()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)

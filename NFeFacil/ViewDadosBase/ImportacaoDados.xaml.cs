@@ -13,6 +13,8 @@ using System.Xml.Linq;
 using NFeFacil.Repositorio;
 using NFeFacil.ModeloXML.PartesDetalhes;
 using NFeFacil.ModeloXML.PartesDetalhes.PartesTransporte;
+using NFeFacil.ModeloXML;
+using System.Xml.Serialization;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -53,7 +55,7 @@ namespace NFeFacil.ViewDadosBase
             }
         }
 
-        async void ImportarNotaFiscal(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        async void ImportarNotaFiscal(object sender, TappedRoutedEventArgs e)
         {
             var arquivos = await ImportarArquivos();
             List<NFeDI> conjuntos = new List<NFeDI>();
@@ -64,7 +66,59 @@ namespace NFeFacil.ViewDadosBase
                     var xmlAtual = await ObterXMLNFe(arquivos[i]);
                     if (xmlAtual != null)
                     {
-                        var diAtual = NFeDI.Converter(xmlAtual);
+                        NFeDI diAtual;
+                        if (xmlAtual.Name.LocalName == nameof(NFe))
+                        {
+                            diAtual = new NFeDI(FromXElement<NFe>(xmlAtual), xmlAtual.ToString());
+                        }
+                        else
+                        {
+                            diAtual = new NFeDI(FromXElement<ProcessoNFe>(xmlAtual), xmlAtual.ToString());
+                        }
+                        if (conjuntos.Count(x => x.Id == diAtual.Id) == 0)
+                        {
+                            conjuntos.Add(diAtual);
+                        }
+                        else
+                        {
+                            var atual = conjuntos.Single(x => x.Id == diAtual.Id);
+                            if (atual.Status < diAtual.Status)
+                            {
+                                conjuntos.Remove(atual);
+                                conjuntos.Add(diAtual);
+                            }
+                        }
+                    }
+                }
+                catch (Exception) { }
+            }
+            using (var repo = new Escrita())
+            {
+                repo.AdicionarNotasFiscais(conjuntos, DefinicoesTemporarias.DateTimeNow);
+            }
+            Popup.Current.Escrever(TitulosComuns.Atenção, "Caso algum dado não tenha sido importado é porque ele não tem o formado aceito pelo aplicativo.");
+        }
+
+        async void ImportarNFCe(object sender, TappedRoutedEventArgs e)
+        {
+            var arquivos = await ImportarArquivos();
+            List<NFeDI> conjuntos = new List<NFeDI>();
+            for (int i = 0; i < arquivos.Count; i++)
+            {
+                try
+                {
+                    var xmlAtual = await ObterXMLNFe(arquivos[i]);
+                    if (xmlAtual != null)
+                    {
+                        NFeDI diAtual;
+                        if (xmlAtual.Name.LocalName == nameof(NFe))
+                        {
+                            diAtual = new NFeDI(FromXElement<NFCe>(xmlAtual), xmlAtual.ToString());
+                        }
+                        else
+                        {
+                            diAtual = new NFeDI(FromXElement<ProcessoNFCe>(xmlAtual), xmlAtual.ToString());
+                        }
 
                         if (conjuntos.Count(x => x.Id == diAtual.Id) == 0)
                         {
@@ -88,6 +142,15 @@ namespace NFeFacil.ViewDadosBase
                 repo.AdicionarNotasFiscais(conjuntos, DefinicoesTemporarias.DateTimeNow);
             }
             Popup.Current.Escrever(TitulosComuns.Atenção, "Caso algum dado não tenha sido importado é porque ele não tem o formado aceito pelo aplicativo.");
+        }
+
+        static T FromXElement<T>(XNode xElement)
+        {
+            var xmlSerializer = new XmlSerializer(typeof(T));
+            using (var reader = xElement.CreateReader())
+            {
+                return (T)xmlSerializer.Deserialize(reader);
+            }
         }
 
         public static async Task<XElement> ObterXMLNFe(StorageFile arquivo)

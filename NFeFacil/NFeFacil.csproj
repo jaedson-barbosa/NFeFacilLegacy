@@ -11,7 +11,7 @@
     <AssemblyName>NFeFacil</AssemblyName>
     <DefaultLanguage>pt-BR</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion>10.0.16299.0</TargetPlatformVersion>
+    <TargetPlatformVersion>10.0.15063.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.14393.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
@@ -173,11 +173,17 @@
     <Compile Include="Fiscal\ControleNFe.cs" />
     <Compile Include="Fiscal\IControleCriacao.cs" />
     <Compile Include="Fiscal\StatusChangedEventArgs.cs" />
+    <Compile Include="Fiscal\ViewNFCe\DimensoesDANFE.xaml.cs">
+      <DependentUpon>DimensoesDANFE.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Fiscal\ViewNFCe\InfoSuplementarNFCe.xaml.cs">
       <DependentUpon>InfoSuplementarNFCe.xaml</DependentUpon>
     </Compile>
     <Compile Include="Fiscal\ViewNFCe\UrlsChaveAcesso.cs" />
     <Compile Include="Fiscal\ViewNFCe\UrlsQR.cs" />
+    <Compile Include="Fiscal\ViewNFCe\ViewDANFE.xaml.cs">
+      <DependentUpon>ViewDANFE.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Login\Loading.xaml.cs">
       <DependentUpon>Loading.xaml</DependentUpon>
     </Compile>
@@ -1056,7 +1062,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Fiscal\ViewNFCe\DimensoesDANFE.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Fiscal\ViewNFCe\InfoSuplementarNFCe.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Fiscal\ViewNFCe\ViewDANFE.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1651,11 +1665,10 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <SDKReference Include="WindowsMobile, Version=10.0.14393.0">
+    <SDKReference Include="WindowsMobile, Version=10.0.15063.0">
       <Name>Windows Mobile Extensions for the UWP</Name>
     </SDKReference>
   </ItemGroup>
-  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

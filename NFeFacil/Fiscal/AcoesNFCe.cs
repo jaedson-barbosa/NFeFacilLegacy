@@ -10,6 +10,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Windows.Storage.Pickers;
+using Windows.UI.Xaml;
 
 namespace NFeFacil.Fiscal
 {
@@ -122,12 +123,19 @@ namespace NFeFacil.Fiscal
             }
         }
 
-        public override void Imprimir()
+        public override async void Imprimir()
         {
-            //var processo = (ProcessoNFCe)ItemCompleto;
-            //MainPage.Current.Navegar<ViewDANFE>(processo);
-            //ItemBanco.Impressa = true;
-            //AtualizarDI(ItemCompleto);
+            var caixa = new DimensoesDANFE();
+            if (await caixa.ShowAsync() == Windows.UI.Xaml.Controls.ContentDialogResult.Primary)
+            {
+                var processo = (ProcessoNFCe)ItemCompleto;
+                var margem = ExtensoesPrincipal.CMToPixel(caixa.Margem / 10);
+                var largura = ExtensoesPrincipal.CMToPixel(caixa.Largura / 10);
+                var dados = new DadosImpressao(processo, new Thickness(margem), largura);
+                MainPage.Current.Navegar<ViewDANFE>(dados);
+                ItemBanco.Impressa = true;
+                AtualizarDI(ItemCompleto);
+            }
         }
 
         public override void Salvar()
@@ -217,5 +225,23 @@ namespace NFeFacil.Fiscal
             else if (ItemCompleto is ProcessoNFCe proc) return proc.NFe.Informacoes;
             throw new Exception();
         }
+    }
+
+    struct DadosImpressao
+    {
+        public DadosImpressao(ProcessoNFCe processo, Thickness margem, double largura)
+        {
+            Processo = processo;
+            Margem = margem;
+            Largura = largura;
+        }
+
+        ProcessoNFCe Processo { get; }
+        Thickness Margem { get; }
+        double Largura { get; }
+
+        public static implicit operator ProcessoNFCe(DadosImpressao dados) => dados.Processo;
+        public static implicit operator Thickness(DadosImpressao dados) => dados.Margem;
+        public static implicit operator double(DadosImpressao dados) => dados.Largura;
     }
 }

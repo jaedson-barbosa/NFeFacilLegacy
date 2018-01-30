@@ -140,6 +140,7 @@ namespace NFeFacil
         public static string ToStr(double valor, string format = "F2") => valor.ToString(format, defCult);
         public static double Parse(string str) => double.Parse(str, NumberStyles.Number, defCult);
         public static bool TryParse(string str, out double valor) => double.TryParse(str, NumberStyles.Number, defCult, out valor);
+        public static double TryParse(string str) { TryParse(str, out double valor); return valor; }
     }
 
     public class ErroDesserializacao : Exception

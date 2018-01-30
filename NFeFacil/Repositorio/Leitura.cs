@@ -113,7 +113,7 @@ namespace NFeFacil.Repositorio
             var notasFiscais = db.NotasFiscais.ToArray();
             var notasEmitidas = (from nota in notasFiscais
                                  where nota.Status == (int)StatusNota.Emitida && nota.IsNFCe == isNFCe
-                                 where nota.CNPJEmitente == cnpj
+                                 //where nota.CNPJEmitente == cnpj
                                  orderby nota.DataEmissao descending
                                  select nota);
             var outrasNotas = (from nota in notasFiscais

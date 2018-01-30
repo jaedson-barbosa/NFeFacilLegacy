@@ -208,6 +208,13 @@
                          Header="Informacoes complementares de interesse do contribuinte" />
             </StackPanel>
         </ScrollViewer>
+        <ListView>
+            <ListView.Header>
+                <Grid>
+                    
+                </Grid>
+            </ListView.Header>
+        </ListView>
     </controles:MultView>
     <Page.BottomAppBar>
         <CommandBar>

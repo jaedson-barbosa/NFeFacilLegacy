@@ -13,6 +13,7 @@ using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using System.Collections.Generic;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -48,7 +49,8 @@ namespace NFeFacil.Fiscal.ViewNFCe
             new ItemHambuguer(Symbol.Street, "Retirada/Entrega"),
             new ItemHambuguer(Symbol.Shop, "Produtos"),
             new ItemHambuguer("\uE806", "Motorista"),
-            new ItemHambuguer(Symbol.Comment, "Informações adicionais")
+            new ItemHambuguer(Symbol.Comment, "Informações adicionais"),
+            new ItemHambuguer(Symbol.Repair, "Pagamento")
         };
 
         public int SelectedIndex { set => main.SelectedIndex = value; }
@@ -58,6 +60,7 @@ namespace NFeFacil.Fiscal.ViewNFCe
             NotaSalva = (NFCe)e.Parameter;
             MunicipiosIdentificacao = Municipios.Get(NotaSalva.Informacoes.identificacao.CódigoUF).GerarObs();
             Produtos = new ObservableCollection<DetalhesProdutos>(NotaSalva.Informacoes.produtos);
+            FormasPagamento = NotaSalva.Informacoes.FormasPagamento.Select(x => new FormaPagamento(x)).GerarObs();
         }
 
         string IndicadorPresenca
@@ -409,6 +412,54 @@ namespace NFeFacil.Fiscal.ViewNFCe
         {
             var contexto = ((FrameworkElement)sender).DataContext;
             RemoverProduto((DetalhesProdutos)contexto);
+        }
+
+        ObservableCollection<FormaPagamento> FormasPagamento { get; set; }
+
+        async void AdicionarFormaPagamento(object sender, RoutedEventArgs e)
+        {
+            var caixa = new AddFormaPagamento();
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+            {
+                NotaSalva.Informacoes.FormasPagamento.Add(caixa.Pagamento);
+                FormasPagamento.Add(new FormaPagamento(caixa.Pagamento));
+            }
+        }
+
+        private void RemoverFormaPagamento(object sender, RoutedEventArgs e)
+        {
+            var forma = (FormaPagamento)((FrameworkElement)sender).DataContext;
+            NotaSalva.Informacoes.FormasPagamento.Remove(forma.Original);
+            FormasPagamento.Remove(forma);
+        }
+    }
+
+    sealed class FormaPagamento
+    {
+        static Dictionary<string, string> DescCodigo = new Dictionary<string, string>
+        {
+            { "01", "Dinheiro" },
+            { "02", "Cheque" },
+            { "03", "Cartão de Crédito" },
+            { "04", "Cartão de Débito" },
+            { "05", "Crédito Loja" },
+            { "10", "Vale Alimentação" },
+            { "11", "Vale Refeição" },
+            { "12", "Vale Presente" },
+            { "13", "Vale Combustível" },
+            { "99", "Outros" }
+        };
+
+
+        public Pagamento Original { get; }
+        public string Tipo { get; }
+        public string Valor { get; set; }
+
+        public FormaPagamento(Pagamento pagamento)
+        {
+            Original = pagamento;
+            Tipo = DescCodigo[pagamento.Forma];
+            Valor = pagamento.VPag;
         }
     }
 }

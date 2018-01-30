@@ -33,7 +33,7 @@ namespace NFeFacil.ModeloXML
     public sealed class Pagamento
     {
         [XmlElement("tPag", Order = 0)]
-        public string Forma { get; set; }
+        public string Forma { get; set; } = "01";
 
         [XmlIgnore]
         public double vPag { get; set; }

@@ -173,6 +173,9 @@
     <Compile Include="Fiscal\ControleNFe.cs" />
     <Compile Include="Fiscal\IControleCriacao.cs" />
     <Compile Include="Fiscal\StatusChangedEventArgs.cs" />
+    <Compile Include="Fiscal\ViewNFCe\AddFormaPagamento.xaml.cs">
+      <DependentUpon>AddFormaPagamento.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Fiscal\ViewNFCe\DimensoesDANFE.xaml.cs">
       <DependentUpon>DimensoesDANFE.xaml</DependentUpon>
     </Compile>
@@ -1059,6 +1062,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controles\VisualizacaoGenerica.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Fiscal\ViewNFCe\AddFormaPagamento.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

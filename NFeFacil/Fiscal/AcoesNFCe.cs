@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil.Fiscal
 {
@@ -126,7 +127,7 @@ namespace NFeFacil.Fiscal
         public override async void Imprimir()
         {
             var caixa = new DimensoesDANFE();
-            if (await caixa.ShowAsync() == Windows.UI.Xaml.Controls.ContentDialogResult.Primary)
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
                 var processo = (ProcessoNFCe)ItemCompleto;
                 var margem = ExtensoesPrincipal.CMToPixel(caixa.Margem / 10);
@@ -147,6 +148,14 @@ namespace NFeFacil.Fiscal
 
         public override async Task Transmitir()
         {
+            var caixa = new InfoSuplementarNFCe();
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+            {
+                var notaSalva = (NFCe)ItemCompleto;
+                notaSalva.PrepararInformacoesSuplementares(caixa.IdToken, caixa.CSC);
+            }
+            else return;
+
             Progresso progresso = null;
             progresso = new Progresso(async () =>
             {

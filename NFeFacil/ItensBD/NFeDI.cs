@@ -1,8 +1,6 @@
 ﻿using NFeFacil.ModeloXML;
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.Xml.Linq;
-using System.Xml.Serialization;
 
 namespace NFeFacil.ItensBD
 {

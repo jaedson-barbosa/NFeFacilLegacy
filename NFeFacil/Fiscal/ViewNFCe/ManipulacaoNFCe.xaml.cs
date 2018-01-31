@@ -340,18 +340,8 @@ namespace NFeFacil.Fiscal.ViewNFCe
             }
         }
 
-        async void Confirmar(object sender, RoutedEventArgs e)
+        void Confirmar(object sender, RoutedEventArgs e)
         {
-            var caixa = new InfoSuplementarNFCe();
-            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
-            {
-                NotaSalva.PrepararInformacoesSuplementares(caixa.IdToken, caixa.CSC);
-            }
-            else
-            {
-                return;
-            }
-
             try
             {
                 var ultPage = Frame.BackStack[Frame.BackStack.Count - 1];

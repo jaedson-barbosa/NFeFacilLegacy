@@ -18,7 +18,6 @@ namespace NFeFacil.Fiscal
                 Informacoes = new InformacoesNFCe()
                 {
                     Emitente = DefinicoesTemporarias.EmitenteAtivo.ToEmitente(),
-                    destinatário = new Destinatario(),
                     produtos = new List<DetalhesProdutos>(),
                     transp = new Transporte()
                     {

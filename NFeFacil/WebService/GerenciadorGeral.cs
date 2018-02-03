@@ -132,12 +132,15 @@ namespace NFeFacil.WebService
             }
 
             var servico = Enderecos.Servico;
-            var teste = new XElement("{http://schemas.xmlsoap.org/soap/envelope/}Envelope",
-                new XElement("{http://schemas.xmlsoap.org/soap/envelope/}Header",
+            string namespaceXML = DefinicoesPermanentes.UsarSOAP12
+                ? "http://www.w3.org/2003/05/soap-envelope"
+                : "http://schemas.xmlsoap.org/soap/envelope/";
+            var teste = new XElement(XName.Get("Envelope", namespaceXML),
+                new XElement(XName.Get("Header", namespaceXML),
                     new XElement(Name("nfeCabecMsg"),
                         new XElement(Name("cUF"), CodigoUF),
                         new XElement(Name("versaoDados"), VersaoDados))),
-                new XElement("{http://schemas.xmlsoap.org/soap/envelope/}Body",
+                new XElement(XName.Get("Body", namespaceXML),
                     new XElement(Name("nfeDadosMsg"), xml)));
             return teste.ToString(SaveOptions.DisableFormatting);
 

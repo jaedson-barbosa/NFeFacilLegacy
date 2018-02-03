@@ -63,6 +63,12 @@ namespace NFeFacil
             get => AssistenteConfig.Get(nameof(OpacidadeBackground), 1);
             set => AssistenteConfig.Set(nameof(OpacidadeBackground), value);
         }
+
+        internal static bool UsarSOAP12
+        {
+            get => AssistenteConfig.Get(nameof(UsarSOAP12), false);
+            set => AssistenteConfig.Set(nameof(UsarSOAP12), value);
+        }
     }
 
     internal enum TiposBackground { Imagem, Cor, Padrao }

@@ -48,6 +48,13 @@ namespace NFeFacil.View
             set => DefinicoesPermanentes.CalcularNumeroNFe = value;
         }
 
+        bool UsarSOAP11 => !UsarSOAP12;
+        bool UsarSOAP12
+        {
+            get => DefinicoesPermanentes.UsarSOAP12;
+            set => DefinicoesPermanentes.UsarSOAP12 = value;
+        }
+
         int ModoBuscaProduto
         {
             get => DefinicoesPermanentes.ModoBuscaProduto;

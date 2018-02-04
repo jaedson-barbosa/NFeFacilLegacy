@@ -1,14 +1,19 @@
-﻿using System.Xml.Serialization;
+﻿using System.Xml;
+using System.Xml.Serialization;
 
 namespace NFeFacil.ModeloXML
 {
     public sealed class InformacoesSuplementaresNFCe
     {
         [XmlElement("qrCode", Order = 0)]
-        public string QR
+        public XmlCDataSection QR
         {
-            get => $"<![CDATA[{Uri}]]>";
-            set => Uri = value.Replace("<![CDATA[", string.Empty).Replace("]]>", string.Empty);
+            get
+            {
+                var doc = new XmlDocument();
+                return doc.CreateCDataSection(Uri);
+            }
+            set => Uri = value.Value;
         }
 
         [XmlIgnore]

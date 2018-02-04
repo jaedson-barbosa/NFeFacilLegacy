@@ -85,9 +85,10 @@ namespace NFeFacil.View
                 e.ExportarXML();
                 Stop(false, e.Message);
             }
-            catch (Exception e)
+            catch (Exception erro)
             {
-                Stop(false, e.Message);
+                Stop(false, $"{erro.Message}\r\n" +
+                    $"Detalhes adicionais: {erro.InnerException?.Message ?? "Não há detalhes"}");
             }
         }
 

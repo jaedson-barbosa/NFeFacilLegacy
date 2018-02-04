@@ -146,15 +146,21 @@ namespace NFeFacil.Fiscal
             OnStatusChanged(StatusNota.Salva);
         }
 
-        public override async Task Transmitir()
+        async Task<bool> AdicionarInfoSuplementares()
         {
             var caixa = new InfoSuplementarNFCe();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
                 var notaSalva = (NFCe)ItemCompleto;
                 notaSalva.PrepararInformacoesSuplementares(caixa.IdToken, caixa.CSC);
+                return true;
             }
-            else return;
+            return false;
+        }
+
+        public override async Task Transmitir()
+        {
+            if (!await AdicionarInfoSuplementares()) return;
 
             Progresso progresso = null;
             progresso = new Progresso(async () =>

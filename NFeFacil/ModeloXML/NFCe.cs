@@ -30,8 +30,8 @@ namespace NFeFacil.ModeloXML
             var cDest = Informacoes.destinatário?.Documento;
             cDest = string.IsNullOrEmpty(cDest) ? null : cDest;
             var dhEmi = ToHex(Informacoes.identificacao.DataHoraEmissão);
-            var vNF = ToStr(Informacoes.total.ICMSTot.vNF, 13, 2);
-            var vICMS = ToStr(Informacoes.total.ICMSTot.vICMS, 13, 2);
+            var vNF = ExtensoesPrincipal.ToStr(Informacoes.total.ICMSTot.vNF);
+            var vICMS = ExtensoesPrincipal.ToStr(Informacoes.total.ICMSTot.vICMS);
             var digVal = ToHex(Signature.SignedInfo.Reference.DigestValue);
             string cHashQRCode;
             string[,] stringsConcatenacao;
@@ -50,7 +50,7 @@ namespace NFeFacil.ModeloXML
                     { nameof(cIdToken), cIdToken },
                     { nameof(CSC), CSC }
                 };
-                var concatenacao = ConcatenarStrings(stringsConcatenacao);
+                var concatenacao = ConcatenarStrings(stringsConcatenacao, true);
                 var bytes = Encoding.UTF8.GetBytes(concatenacao);
                 cHashQRCode = Encoding.UTF8.GetString(hash.ComputeHash(bytes, 0, bytes.Length));
             }
@@ -67,28 +67,30 @@ namespace NFeFacil.ModeloXML
             }
             InfoSuplementares = new InformacoesSuplementaresNFCe()
             {
-                Uri = enderecoConsultaQR + ConcatenarStrings(stringsConcatenacao)
+                Uri = enderecoConsultaQR + ConcatenarStrings(stringsConcatenacao, false)
             };
 
-            string ToHex(string str) => BitConverter.ToString(Encoding.ASCII.GetBytes(str));
-            string ToStr(double num, int parteInteira, int parteDecimal)
-            {
-                var tamInt = new string('0', parteInteira);
-                var tamDec = new string('0', parteDecimal);
-                return ExtensoesPrincipal.ToStr(num, $"{tamInt},{tamDec}");
-            }
+            string ToHex(string str) => BitConverter.ToString(Encoding.ASCII.GetBytes(str)).Replace("-", "").ToLower();
         }
 
-        static string ConcatenarStrings(string[,] strings)
+        static string ConcatenarStrings(string[,] strings, bool envolveCalculoHash)
         {
             StringBuilder builder = new StringBuilder();
             for (int i = 0; i < strings.GetLength(0); i++)
             {
-                if (i > 0)
+                string titulo = strings[i, 0];
+                string valor = strings[i, 1];
+
+                if (!envolveCalculoHash && string.IsNullOrEmpty(valor)) continue;
+                else if (i > 0)
                 {
                     builder.Append('&');
                 }
-                builder.Append($"{strings[i,0]}={strings[i,1]}");
+                else if (envolveCalculoHash && titulo.StartsWith("v"))
+                {
+                    valor.PadLeft(16, '0');
+                }
+                builder.Append($"{titulo}={valor}");
             }
             return builder.ToString();
         }

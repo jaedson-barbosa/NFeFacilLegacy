@@ -62,7 +62,7 @@ namespace NFeFacil.WebService
                     await OnProgressChanged(1);
 
                     var str = ObterConteudoRequisicao(corpo, addNamespace);
-                    var conteudo = new StringContent(str, Encoding.UTF8, "text/xml");
+                    var conteudo = new StringContent(str, Encoding.UTF8, ObterTipoConteudo());
                     await OnProgressChanged(2);
 
                     var resposta = await proxy.PostAsync(Enderecos.Endereco, conteudo);
@@ -85,7 +85,8 @@ namespace NFeFacil.WebService
                         Valor = Enderecos.Metodo
                     },
                     Conteudo = XElement.Parse(ObterConteudoRequisicao(corpo, addNamespace)),
-                    Uri = Enderecos.Endereco
+                    Uri = Enderecos.Endereco,
+                    TipoConteudo = ObterTipoConteudo()
                 };
 
                 using (var cliente = new HttpClient())
@@ -145,6 +146,13 @@ namespace NFeFacil.WebService
             return teste.ToString(SaveOptions.DisableFormatting);
 
             XName Name(string original) => XName.Get(original, servico);
+        }
+
+        string ObterTipoConteudo()
+        {
+            const string Soap11 = "text/xml";
+            const string Soap12 = "application/soap+xml";
+            return DefinicoesPermanentes.UsarSOAP12 ? Soap12 : Soap11;
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 namespace NFeFacil.WebService.Pacotes
 {
     [XmlRoot("retEnviNFe", Namespace = "http://www.portalfiscal.inf.br/nfe")]
-    public struct RetEnviNFe
+    public sealed class RetEnviNFe
     {
         [XmlAttribute("versao")]
         public string Versao { get; set; }

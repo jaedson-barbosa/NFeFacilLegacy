@@ -154,11 +154,19 @@ namespace NFeFacil.Fiscal
                     }
                     await progresso.Update(2);
 
-                    var homologacao = ((NFe)ItemCompleto).AmbienteTestes;
+                    bool homologacao;
+                    try
+                    {
+                        homologacao = ((NFe)ItemCompleto).AmbienteTestes;
+                    }
+                    catch (Exception e)
+                    {
+                        throw new AnaliseErro("Erro durante a obtenção do ambiente de testes.", e);
+                    }
                     var resultadoResposta = await ConsultarRespostaFinal(retTransmissao, homologacao);
                     await progresso.Update(3);
 
-                    var protocoloResposta = resultadoResposta.Protocolo.InfProt;
+                    var protocoloResposta = resultadoResposta.Protocolo?.InfProt;
                     if (protocoloResposta?.cStat == 100)
                     {
                         ItemCompleto = new ProcessoNFe()
@@ -205,10 +213,45 @@ namespace NFeFacil.Fiscal
 
         async Task<RetConsReciNFe> ConsultarRespostaFinal(RetEnviNFe retTransmissao, bool homologacao)
         {
-            var gerenciador = new GerenciadorGeral<ConsReciNFe, RetConsReciNFe>(
-                retTransmissao.Estado, Operacoes.RespostaAutorizar, homologacao, false);
-            var envio = new ConsReciNFe(retTransmissao.TipoAmbiente, retTransmissao.DadosRecibo.NumeroRecibo);
-            return await gerenciador.EnviarAsync(envio);
+            if (retTransmissao == null)
+            {
+                throw new AnaliseErro("O resultado da transmissão inicial não é válido.");
+            }
+            GerenciadorGeral<ConsReciNFe, RetConsReciNFe> gerenciador;
+            try
+            {
+                gerenciador = new GerenciadorGeral<ConsReciNFe, RetConsReciNFe>(
+                    retTransmissao.Estado, Operacoes.RespostaAutorizar, homologacao, false);
+            }
+            catch (Exception e)
+            {
+                throw new AnaliseErro("Erro durante a criação do gerenciador.", e);
+            }
+
+            ConsReciNFe envio;
+            try
+            {
+                envio = new ConsReciNFe(retTransmissao.TipoAmbiente, retTransmissao.DadosRecibo.NumeroRecibo);
+            }
+            catch (Exception e)
+            {
+                throw new AnaliseErro("Erro durante a criação do envio.", e);
+            }
+
+            try
+            {
+                return await gerenciador.EnviarAsync(envio);
+            }
+            catch (Exception e)
+            {
+                throw new AnaliseErro("Erro durante o envio.", e);
+            }
+        }
+
+        sealed class AnaliseErro : Exception
+        {
+            public AnaliseErro(string message) : base(message) { }
+            public AnaliseErro(string message, Exception inner) : base(message, inner) { }
         }
 
         public override InformacoesBase ObterVisualizacao()

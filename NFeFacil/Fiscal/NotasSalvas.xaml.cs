@@ -54,14 +54,14 @@ namespace NFeFacil.Fiscal
             new ItemHambuguer(Symbol.Cancel, "Canceladas")
         };
 
-        private void Exibir(object sender, RoutedEventArgs e)
+        void Exibir(object sender, RoutedEventArgs e)
         {
             var nota = (NFeDI)((MenuFlyoutItem)sender).DataContext;
             var acoes = isNFCe ? (AcoesVisualizacao)new AcoesNFCe(nota) : new AcoesNFe(nota);
             MainPage.Current.Navegar<Visualizacao>(acoes);
         }
 
-        private void Excluir(object sender, RoutedEventArgs e)
+        void Excluir(object sender, RoutedEventArgs e)
         {
             var nota = (NFeDI)((MenuFlyoutItem)sender).DataContext;
             using (var repo = new Repositorio.OperacoesExtras())
@@ -71,7 +71,7 @@ namespace NFeFacil.Fiscal
             }
         }
 
-        private async void Cancelar(object sender, RoutedEventArgs e)
+        async void Cancelar(object sender, RoutedEventArgs e)
         {
             var nota = (NFeDI)((MenuFlyoutItem)sender).DataContext;
             InformacoesBase informacoes;

@@ -48,10 +48,10 @@ namespace NFeFacil.ModeloXML
                     { nameof(vICMS), vICMS },
                     { nameof(digVal), digVal },
                     { nameof(cIdToken), cIdToken },
-                    { nameof(CSC), CSC }
+                    { string.Empty, string.Empty }
                 };
                 var concatenacao = ConcatenarStrings(stringsConcatenacao, true);
-                var bytes = Encoding.UTF8.GetBytes(concatenacao);
+                var bytes = Encoding.UTF8.GetBytes(concatenacao + CSC);
                 cHashQRCode = Encoding.UTF8.GetString(hash.ComputeHash(bytes, 0, bytes.Length));
             }
             cHashQRCode = ToHex(cHashQRCode);
@@ -81,14 +81,11 @@ namespace NFeFacil.ModeloXML
                 string titulo = strings[i, 0];
                 string valor = strings[i, 1];
 
-                if (!envolveCalculoHash && string.IsNullOrEmpty(valor)) continue;
+                if (string.IsNullOrEmpty(valor) &&
+                    (!envolveCalculoHash || string.IsNullOrEmpty(titulo))) continue;
                 else if (i > 0)
                 {
                     builder.Append('&');
-                }
-                else if (envolveCalculoHash && titulo.StartsWith("v"))
-                {
-                    valor.PadLeft(16, '0');
                 }
                 builder.Append($"{titulo}={valor}");
             }

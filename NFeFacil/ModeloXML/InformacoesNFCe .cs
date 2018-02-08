@@ -10,23 +10,23 @@ namespace NFeFacil.ModeloXML
     public sealed class InformacoesNFCe : InformacoesBase
     {
         [DescricaoPropriedade("Produtos")]
-        [XmlElement(ElementName = "det", Namespace = "http://www.portalfiscal.inf.br/nfe", Order = 5)]
+        [XmlElement(ElementName = "det", Namespace = "http://www.portalfiscal.inf.br/nfe", Order = 3)]
         public List<DetalhesProdutos> produtos { get; set; }
 
         [DescricaoPropriedade("Total")]
-        [XmlElement(Order = 6)]
+        [XmlElement(Order = 4)]
         public Total total { get; set; }
 
         [DescricaoPropriedade("Transporte")]
-        [XmlElement(Order = 7)]
+        [XmlElement(Order = 5)]
         public Transporte transp { get; set; }
 
         [DescricaoPropriedade("Formas de pagamento")]
-        [XmlElement("pag", Namespace = "http://www.portalfiscal.inf.br/nfe", Order = 8)]
+        [XmlElement("pag", Namespace = "http://www.portalfiscal.inf.br/nfe", Order = 6)]
         public List<Pagamento> FormasPagamento { get; set; }
 
         [DescricaoPropriedade("Informações Adicionais")]
-        [XmlElement(Order = 9)]
+        [XmlElement(Order = 7)]
         public InformacoesAdicionais infAdic { get; set; }
     }
 

@@ -36,7 +36,7 @@ namespace NFeFacil.WebService.Pacotes
             {
                 var evento = Eventos[i];
                 assinador.Nota = evento;
-                var resposta = await assinador.Assinar(cert, evento.InfEvento.Id, "infEvento");
+                var resposta = await assinador.Assinar<Evento>(cert, evento.InfEvento.Id, "infEvento");
                 if (!resposta.Item1)
                 {
                     return (false, resposta.Item2);

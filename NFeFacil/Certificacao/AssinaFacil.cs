@@ -34,10 +34,10 @@ namespace NFeFacil.Certificacao
             CertificadosDisponiveis = certs.ToArray();
         }
 
-        public async Task<(bool, string)> Assinar(object x, string id, string tag)
+        public async Task<(bool, string)> Assinar<T>(object x, string id, string tag)
         {
             var xml = new XmlDocument();
-            using (var reader = Nota.ToXElement().CreateReader())
+            using (var reader = Nota.ToXElement<T>().CreateReader())
             {
                 xml.Load(reader);
 

@@ -102,16 +102,6 @@
                 </GridView.ItemTemplate>
             </GridView>
         </Grid>
-        <StackPanel Margin="16">
-            <ToggleSwitch Header="Endereço de retirada"
-                          OnContent="Diferente registrado"
-                          OffContent="Igual ao do emitente"
-                          Toggled="AlterarEnderecoRetirada" />
-            <ToggleSwitch Header="Endereço de entrega"
-                          OnContent="Diferente registrado"
-                          OffContent="Igual ao do emitente"
-                          Toggled="AlterarEnderecoEntrega" />
-        </StackPanel>
         <Grid Padding="16">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />

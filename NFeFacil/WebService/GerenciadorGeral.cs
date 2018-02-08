@@ -94,7 +94,7 @@ namespace NFeFacil.WebService
                     var uri = new Uri($"http://{OperacoesServidor.RootUri}:1010/EnviarRequisicao");
                     await OnProgressChanged(1);
 
-                    var xml = envio.ToXElement().ToString(SaveOptions.DisableFormatting);
+                    var xml = envio.ToXElement<RequisicaoEnvioDTO>().ToString(SaveOptions.DisableFormatting);
                     var conteudo = new StringContent(xml, Encoding.UTF8, "text/xml");
                     await OnProgressChanged(2);
 
@@ -125,7 +125,7 @@ namespace NFeFacil.WebService
 
         string ObterConteudoRequisicao(Envio corpo, bool addNamespace)
         {
-            var xml = corpo.ToXElement();
+            var xml = corpo.ToXElement<Envio>();
             if (addNamespace)
             {
                 const string namespaceNFe = "http://www.portalfiscal.inf.br/nfe";

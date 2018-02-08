@@ -33,7 +33,7 @@ namespace NFeFacil.ModeloXML
             var vNF = ExtensoesPrincipal.ToStr(Informacoes.total.ICMSTot.vNF);
             var vICMS = ExtensoesPrincipal.ToStr(Informacoes.total.ICMSTot.vICMS);
             var digVal = ToHex(Signature.SignedInfo.Reference.DigestValue);
-            string cHashQRCode;
+            byte[] cHashQRCode;
             string[,] stringsConcatenacao;
             using (var hash = System.Security.Cryptography.SHA1.Create())
             {
@@ -48,15 +48,15 @@ namespace NFeFacil.ModeloXML
                     { nameof(vICMS), vICMS },
                     { nameof(digVal), digVal },
                     { nameof(cIdToken), cIdToken },
-                    { string.Empty, string.Empty }
+                    { null, null }
                 };
                 var concatenacao = ConcatenarStrings(stringsConcatenacao, true);
-                var bytes = Encoding.UTF8.GetBytes(concatenacao + CSC);
-                cHashQRCode = Encoding.UTF8.GetString(hash.ComputeHash(bytes, 0, bytes.Length));
+                var bytes = Encoding.ASCII.GetBytes(concatenacao + CSC);
+                cHashQRCode = hash.ComputeHash(bytes, 0, bytes.Length);
             }
-            cHashQRCode = ToHex(cHashQRCode);
+            var hashCalculado = BitConverter.ToString(cHashQRCode).Replace("-", "").ToLower();
             stringsConcatenacao[9, 0] = nameof(cHashQRCode);
-            stringsConcatenacao[9, 1] = cHashQRCode;
+            stringsConcatenacao[9, 1] = hashCalculado;
 
             var enderecos = AmbienteTestes ? UrlsQR.Homologacao : UrlsQR.Producao;
             var ufEmitente = Informacoes.Emitente.Endereco.SiglaUF;

@@ -39,7 +39,7 @@ namespace NFeFacil.Sincronizacao
             var (objeto, mensagem) = await RequestAsync<ConjuntoDadosBase>(
                 $"SincronizarDadosBase",
                 SenhaPermanente,
-                envio.ToXElement(),
+                envio.ToXElement<ConjuntoDadosBase>(),
                 UltimaSincronizacao.ToBinary().ToString());
             if (objeto != null)
             {
@@ -50,7 +50,7 @@ namespace NFeFacil.Sincronizacao
                 var recebNotas = await RequestAsync<ConjuntoNotasFiscais>(
                     $"SincronizarNotasFiscais",
                     SenhaPermanente,
-                    envioNotas.ToXElement(),
+                    envioNotas.ToXElement<ConjuntoNotasFiscais>(),
                     UltimaSincronizacaoNotas.ToBinary().ToString());
                 if (recebNotas.objeto != null)
                 {
@@ -86,7 +86,7 @@ namespace NFeFacil.Sincronizacao
             var (objeto, mensagem) = await RequestAsync<ConjuntoDadosBase>(
                 $"SincronizarDadosBase",
                 SenhaPermanente,
-                envio.ToXElement(),
+                envio.ToXElement<ConjuntoDadosBase>(),
                 DateTime.MinValue.ToBinary().ToString());
             if (objeto != null)
             {
@@ -98,7 +98,7 @@ namespace NFeFacil.Sincronizacao
                 var recebNotas = await RequestAsync<ConjuntoNotasFiscais>(
                     $"SincronizarNotasFiscais",
                     SenhaPermanente,
-                    envioNotas.ToXElement(),
+                    envioNotas.ToXElement<ConjuntoNotasFiscais>(),
                     DateTime.MinValue.ToBinary().ToString());
                 if (recebNotas.objeto != null)
                 {

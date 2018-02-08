@@ -50,7 +50,7 @@ namespace NFeFacil.Fiscal
                 Progresso progresso = null;
                 progresso = new Progresso(async x =>
                 {
-                    var result = await assina.Assinar(x, nfe.Informacoes.Id, "infNFe");
+                    var result = await assina.Assinar<NFe>(x, nfe.Informacoes.Id, "infNFe");
                     if (result.Item1)
                     {
                         ItemBanco.Status = (int)StatusNota.Assinada;

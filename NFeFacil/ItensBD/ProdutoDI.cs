@@ -82,7 +82,7 @@ namespace NFeFacil.ItensBD
                 {
                     DetalheEspecial = value;
                     ProdutoEspecial = new XElement(TiposProduto.Armamento.ToString(),
-                        value.ToXElement()).ToString(SaveOptions.DisableFormatting);
+                        value.ToXElement<List<Arma>>()).ToString(SaveOptions.DisableFormatting);
                 }
             }
         }
@@ -95,7 +95,7 @@ namespace NFeFacil.ItensBD
                 {
                     DetalheEspecial = value;
                     ProdutoEspecial = new XElement(TiposProduto.Combustivel.ToString(),
-                        value.ToXElement()).ToString(SaveOptions.DisableFormatting);
+                        value.ToXElement<Combustivel>()).ToString(SaveOptions.DisableFormatting);
                 }
             }
         }
@@ -108,7 +108,7 @@ namespace NFeFacil.ItensBD
                 {
                     DetalheEspecial = value;
                     ProdutoEspecial = new XElement(TiposProduto.Medicamento.ToString(),
-                        value.ToXElement()).ToString(SaveOptions.DisableFormatting);
+                        value.ToXElement<List<Medicamento>>()).ToString(SaveOptions.DisableFormatting);
                 }
             }
         }
@@ -134,7 +134,7 @@ namespace NFeFacil.ItensBD
                 {
                     DetalheEspecial = value;
                     ProdutoEspecial = new XElement(TiposProduto.Veiculo.ToString(),
-                        value.ToXElement()).ToString(SaveOptions.DisableFormatting);
+                        value.ToXElement<VeiculoNovo>()).ToString(SaveOptions.DisableFormatting);
                 }
             }
         }
@@ -230,14 +230,14 @@ namespace NFeFacil.ItensBD
         public void AdicionarImpostoSimples(ImpSimplesArmazenado imp)
         {
             impostosSimples.Add(imp);
-            ImpostosSimples = impostosSimples.ToXElement()
+            ImpostosSimples = impostosSimples.ToXElement<List<ImpSimplesArmazenado>>()
                 .ToString(SaveOptions.DisableFormatting);
         }
 
         public void AdicionarICMS(ICMSArmazenado imp)
         {
             icms.Add(imp);
-            ICMS = icms.ToXElement()
+            ICMS = icms.ToXElement<List<ICMSArmazenado>>()
                 .ToString(SaveOptions.DisableFormatting);
         }
 
@@ -246,7 +246,7 @@ namespace NFeFacil.ItensBD
             impostosSimples.Remove(imp);
             if (impostosSimples.Count > 0)
             {
-                ImpostosSimples = impostosSimples.ToXElement()
+                ImpostosSimples = impostosSimples.ToXElement<List<ImpSimplesArmazenado>>()
                     .ToString(SaveOptions.DisableFormatting);
             }
             else
@@ -260,7 +260,7 @@ namespace NFeFacil.ItensBD
             icms.Remove(imp);
             if (icms.Count > 0)
             {
-                ICMS = icms.ToXElement()
+                ICMS = icms.ToXElement<List<ICMSArmazenado>>()
                     .ToString(SaveOptions.DisableFormatting);
             }
             else

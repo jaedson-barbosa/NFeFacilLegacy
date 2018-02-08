@@ -30,7 +30,7 @@ namespace NFeFacil.Sincronizacao.Servidor
                 return new RestResponse
                 {
                     Sucesso = true,
-                    ContentData = retorno.ToXElement().ToString(SaveOptions.DisableFormatting)
+                    ContentData = retorno.ToXElement<ConjuntoDadosBase>().ToString(SaveOptions.DisableFormatting)
                 };
             }
             catch (Exception e)
@@ -65,7 +65,7 @@ namespace NFeFacil.Sincronizacao.Servidor
                 return new RestResponse
                 {
                     Sucesso = true,
-                    ContentData = retorno.ToXElement().ToString(SaveOptions.DisableFormatting)
+                    ContentData = retorno.ToXElement<ConjuntoNotasFiscais>().ToString(SaveOptions.DisableFormatting)
                 };
             }
             catch (Exception e)

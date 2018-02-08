@@ -32,7 +32,7 @@ namespace NFeFacil.Login
             Start();
         }
 
-        async Task Update(int etapasConcluidas)
+        void Update(int etapasConcluidas)
         {
             barGeral.Value = etapasConcluidas;
             if (etapasConcluidas > 0)
@@ -45,26 +45,25 @@ namespace NFeFacil.Login
                 Etapas[etapasConcluidas].Atual = EtapaProcesso.Status.EmAndamento;
                 Etapas[etapasConcluidas].Update();
             }
-            await Task.Delay(100);
         }
 
         async void Start()
         {
             try
             {
-                await Update(0);
+                Update(0);
                 ProcessarIBGE();
-                await Update(1);
+                Update(1);
                 await AnalisarBanco();
-                await Update(2);
+                Update(2);
                 AjustarBackground();
-                await Update(3);
+                Update(3);
                 VerificarInicioServidor();
-                await Update(4);
+                Update(4);
                 AdicionarEventoRetorno();
-                await Update(5);
+                Update(5);
                 AjustarGlobalizacao();
-                await Update(6);
+                Update(6);
                 Finalizar();
             }
             catch (Exception e)
@@ -141,7 +140,7 @@ namespace NFeFacil.Login
         async void Finalizar()
         {
             txtAtual.Text = "Sistemas carregados. E obrigado pelo apoio 😃";
-            await Task.Delay(1000);
+            await Task.Delay(500);
 
             MainPage current = MainPage.Current;
             using (var repo = new Repositorio.Leitura())

@@ -31,7 +31,7 @@ namespace NFeFacil.Sincronizacao
                 {
                     Informacoes = new InfoEstabelecerConexao
                     {
-                        IP = hosts.First(x => x.IPInformation != null && x.Type == HostNameType.Ipv4).ToString(),
+                        IP = hosts.Last(x => x.IPInformation != null && x.Type == HostNameType.Ipv4).ToString(),
                         SenhaTemporaria = ConfiguracoesSincronizacao.SenhaTemporária = new Random().Next(1000, 10000)
                     };
                 }

@@ -8,6 +8,14 @@ namespace NFeFacil.ModeloXML
     [XmlRoot("infNFe", Namespace = "http://www.portalfiscal.inf.br/nfe")]
     public sealed class InformacoesNFe : InformacoesBase
     {
+        [DescricaoPropriedade("Local de retirada")]
+        [XmlElement("retirada", Order = 3)]
+        public RetiradaOuEntrega Retirada { get; set; }
+
+        [DescricaoPropriedade("Local de entrega")]
+        [XmlElement("entrega", Order = 4)]
+        public RetiradaOuEntrega Entrega { get; set; }
+
         [DescricaoPropriedade("Produtos")]
         [XmlElement(ElementName = "det", Namespace = "http://www.portalfiscal.inf.br/nfe", Order = 5)]
         public List<DetalhesProdutos> produtos { get; set; }

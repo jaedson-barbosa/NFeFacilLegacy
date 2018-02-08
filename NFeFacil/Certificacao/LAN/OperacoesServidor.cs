@@ -32,7 +32,7 @@ namespace NFeFacil.Certificacao.LAN
             using (var cliente = new HttpClient())
             {
                 var uri = new Uri($"http://{RootUri}:1010/AssinarRemotamente");
-                var xml = envio.ToXElement().ToString(SaveOptions.DisableFormatting);
+                var xml = envio.ToXElement<CertificadoAssinaturaDTO>().ToString(SaveOptions.DisableFormatting);
                 var conteudo = new StringContent(xml, Encoding.UTF8, "text/xml");
 
                 var resposta = await cliente.PostAsync(uri, conteudo);

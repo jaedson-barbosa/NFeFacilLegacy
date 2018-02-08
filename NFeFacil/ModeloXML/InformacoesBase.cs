@@ -31,14 +31,6 @@ namespace NFeFacil.ModeloXML
         [XmlElement("dest", Order = 2)]
         public Destinatario destinatário { get; set; }
 
-        [DescricaoPropriedade("Local de retirada")]
-        [XmlElement("retirada", Order = 3)]
-        public RetiradaOuEntrega Retirada { get; set; }
-
-        [DescricaoPropriedade("Local de entrega")]
-        [XmlElement("entrega", Order = 4)]
-        public RetiradaOuEntrega Entrega { get; set; }
-
         public string AtualizarChave() => ChaveAcesso = new ChaveAcesso(this).CriarChaveAcesso();
     }
 }

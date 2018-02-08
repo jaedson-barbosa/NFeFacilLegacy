@@ -57,7 +57,9 @@ namespace NFeFacil.Fiscal
         void Exibir(object sender, RoutedEventArgs e)
         {
             var nota = (NFeDI)((MenuFlyoutItem)sender).DataContext;
-            var acoes = isNFCe ? (AcoesVisualizacao)new AcoesNFCe(nota) : new AcoesNFe(nota);
+            AcoesVisualizacao acoes;
+            if (isNFCe) acoes = new AcoesNFCe(nota);
+            else acoes = new AcoesNFe(nota);
             MainPage.Current.Navegar<Visualizacao>(acoes);
         }
 
@@ -130,7 +132,7 @@ namespace NFeFacil.Fiscal
                                     Eventos = envio.Eventos,
                                     RetEvento = resposta.ResultadorEventos,
                                     Versao = resposta.Versao
-                                }.ToXElement().ToString()
+                                }.ToXElement<ProcEventoCancelamento>().ToString()
                             }, DefinicoesTemporarias.DateTimeNow);
 
                             nota.Status = (int)StatusNota.Cancelada;

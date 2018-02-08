@@ -6,7 +6,6 @@ using NFeFacil.ModeloXML.PartesDetalhes;
 using NFeFacil.Produto;
 using NFeFacil.Validacao;
 using NFeFacil.View;
-using NFeFacil.Fiscal.ViewNFe.CaixasDialogo;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -46,7 +45,6 @@ namespace NFeFacil.Fiscal.ViewNFCe
         {
             new ItemHambuguer(Symbol.Tag, "Identificação"),
             new ItemHambuguer(Symbol.People, "Cliente"),
-            new ItemHambuguer(Symbol.Street, "Retirada/Entrega"),
             new ItemHambuguer(Symbol.Shop, "Produtos"),
             new ItemHambuguer("\uE806", "Motorista"),
             new ItemHambuguer(Symbol.Comment, "Informações adicionais"),
@@ -195,82 +193,6 @@ namespace NFeFacil.Fiscal.ViewNFCe
             NotaSalva.Informacoes.produtos.Remove(produto);
             Produtos.Remove(produto);
             NotaSalva.Informacoes.total = new Total(NotaSalva.Informacoes.produtos);
-        }
-
-        private async void AlterarEnderecoRetirada(object sender, RoutedEventArgs e)
-        {
-            var controle = (ToggleSwitch)sender;
-            if (controle.IsOn)
-            {
-                var caixa = new EscolherTipoEndereco();
-                if (await caixa.ShowAsync() == ContentDialogResult.Primary)
-                {
-                    var tipo = caixa.TipoEscolhido;
-                    if (!caixa.Nacional)
-                    {
-                        var caixa2 = new EnderecoDiferenteExterior();
-                        if (await caixa2.ShowAsync() == ContentDialogResult.Primary)
-                        {
-                            NotaSalva.Informacoes.Retirada = caixa2.Endereco;
-                        }
-                    }
-                    else
-                    {
-                        var caixa2 = new EnderecoDiferenteNacional();
-                        if (await caixa2.ShowAsync() == ContentDialogResult.Primary)
-                        {
-                            NotaSalva.Informacoes.Retirada = caixa2.Endereco;
-                        }
-                    }
-                }
-            }
-            else
-            {
-                NotaSalva.Informacoes.Retirada = null;
-            }
-
-            if (controle.IsOn && NotaSalva.Informacoes.Retirada == null)
-            {
-                controle.IsOn = false;
-            }
-        }
-
-        private async void AlterarEnderecoEntrega(object sender, RoutedEventArgs e)
-        {
-            var controle = (ToggleSwitch)sender;
-            if (controle.IsOn)
-            {
-                var caixa = new EscolherTipoEndereco();
-                if (await caixa.ShowAsync() == ContentDialogResult.Primary)
-                {
-                    var tipo = caixa.TipoEscolhido;
-                    if (!caixa.Nacional)
-                    {
-                        var caixa2 = new EnderecoDiferenteExterior();
-                        if (await caixa2.ShowAsync() == ContentDialogResult.Primary)
-                        {
-                            NotaSalva.Informacoes.Entrega = caixa2.Endereco;
-                        }
-                    }
-                    else
-                    {
-                        var caixa2 = new EnderecoDiferenteNacional();
-                        if (await caixa2.ShowAsync() == ContentDialogResult.Primary)
-                        {
-                            NotaSalva.Informacoes.Entrega = caixa2.Endereco;
-                        }
-                    }
-                }
-            }
-            else
-            {
-                NotaSalva.Informacoes.Entrega = null;
-            }
-
-            if (controle.IsOn && NotaSalva.Informacoes.Entrega == null)
-            {
-                controle.IsOn = false;
-            }
         }
 
         private void GridView_Loaded(object sender, RoutedEventArgs e)

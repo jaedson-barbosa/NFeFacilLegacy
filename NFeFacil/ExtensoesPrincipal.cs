@@ -19,15 +19,43 @@ namespace NFeFacil
     {
         public static XElement ToXElement(this object obj, string nameSpace = "http://www.portalfiscal.inf.br/nfe")
         {
-            using (var memoryStream = new MemoryStream())
+            try
             {
-                var name = new XmlSerializerNamespaces();
-                name.Add(string.Empty, string.Empty);
-                name.Add(string.Empty, nameSpace);
-                var xmlSerializer = new XmlSerializer(obj.GetType());
-                xmlSerializer.Serialize(memoryStream, obj, name);
-                memoryStream.Position = 0;
-                return XElement.Load(memoryStream);
+                using (var memoryStream = new MemoryStream())
+                {
+                    var name = new XmlSerializerNamespaces();
+                    name.Add(string.Empty, string.Empty);
+                    name.Add(string.Empty, nameSpace);
+                    var xmlSerializer = new XmlSerializer(obj.GetType());
+                    xmlSerializer.Serialize(memoryStream, obj, name);
+                    memoryStream.Position = 0;
+                    return XElement.Load(memoryStream);
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public static XElement ToXElement<T>(this object obj, string nameSpace = "http://www.portalfiscal.inf.br/nfe")
+        {
+            try
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    var name = new XmlSerializerNamespaces();
+                    name.Add(string.Empty, string.Empty);
+                    name.Add(string.Empty, nameSpace);
+                    var xmlSerializer = new XmlSerializer(typeof(T));
+                    xmlSerializer.Serialize(memoryStream, obj, name);
+                    memoryStream.Position = 0;
+                    return XElement.Load(memoryStream);
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
             }
         }
 

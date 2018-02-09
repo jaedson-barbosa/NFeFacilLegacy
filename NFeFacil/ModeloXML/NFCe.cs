@@ -50,11 +50,11 @@ namespace NFeFacil.ModeloXML
                     { nameof(cIdToken), cIdToken },
                     { null, null }
                 };
-                var concatenacao = ConcatenarStrings(stringsConcatenacao, true);
-                var bytes = Encoding.ASCII.GetBytes(concatenacao + CSC);
+                var concatenacao = ConcatenarStrings(stringsConcatenacao) + CSC;
+                var bytes = Encoding.ASCII.GetBytes(concatenacao);
                 cHashQRCode = hash.ComputeHash(bytes, 0, bytes.Length);
             }
-            var hashCalculado = BitConverter.ToString(cHashQRCode).Replace("-", "").ToLower();
+            var hashCalculado = BitConverter.ToString(cHashQRCode).Replace("-", "");
             stringsConcatenacao[9, 0] = nameof(cHashQRCode);
             stringsConcatenacao[9, 1] = hashCalculado;
 
@@ -67,13 +67,13 @@ namespace NFeFacil.ModeloXML
             }
             InfoSuplementares = new InformacoesSuplementaresNFCe()
             {
-                Uri = enderecoConsultaQR + ConcatenarStrings(stringsConcatenacao, false)
+                Uri = enderecoConsultaQR + ConcatenarStrings(stringsConcatenacao)
             };
 
-            string ToHex(string str) => BitConverter.ToString(Encoding.ASCII.GetBytes(str)).Replace("-", "").ToLower();
+            string ToHex(string str) => BitConverter.ToString(Encoding.ASCII.GetBytes(str)).Replace("-", "");
         }
 
-        static string ConcatenarStrings(string[,] strings, bool envolveCalculoHash)
+        static string ConcatenarStrings(string[,] strings)
         {
             StringBuilder builder = new StringBuilder();
             for (int i = 0; i < strings.GetLength(0); i++)
@@ -81,8 +81,7 @@ namespace NFeFacil.ModeloXML
                 string titulo = strings[i, 0];
                 string valor = strings[i, 1];
 
-                if (string.IsNullOrEmpty(valor) &&
-                    (!envolveCalculoHash || string.IsNullOrEmpty(titulo))) continue;
+                if (string.IsNullOrEmpty(valor)) continue;
                 else if (i > 0)
                 {
                     builder.Append('&');

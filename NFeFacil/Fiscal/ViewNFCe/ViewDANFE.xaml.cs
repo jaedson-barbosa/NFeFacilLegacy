@@ -6,7 +6,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using ZXing.Mobile;
+using OptimizedZXing;
 using static NFeFacil.ExtensoesPrincipal;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
@@ -180,10 +180,9 @@ namespace NFeFacil.Fiscal.ViewNFCe
         void ProcessarQR()
         {
             var dim = 130;
-            QR = new BarcodeWriter
+            QR = new BarcodeWriter(BarcodeFormat.QR_CODE)
             {
-                Format = ZXing.BarcodeFormat.QR_CODE,
-                Options = new ZXing.Common.EncodingOptions
+                Options = new EncodingOptions
                 {
                     Width = dim,
                     Height = dim,

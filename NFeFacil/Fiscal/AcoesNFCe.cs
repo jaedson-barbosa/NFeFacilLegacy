@@ -146,21 +146,29 @@ namespace NFeFacil.Fiscal
             OnStatusChanged(StatusNota.Salva);
         }
 
-        async Task<bool> AdicionarInfoSuplementares()
+        bool AdicionarInfoSuplementares()
         {
-            var caixa = new InfoSuplementarNFCe();
-            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+            try
             {
                 var notaSalva = (NFCe)ItemCompleto;
-                notaSalva.PrepararInformacoesSuplementares(caixa.IdToken, caixa.CSC);
+                var emit = DefinicoesTemporarias.EmitenteAtivo;
+                if (string.IsNullOrEmpty(emit.IdToken) || string.IsNullOrEmpty(emit.CSC))
+                {
+                    throw new ErroCadastro("O CSC e seu identificador são informações obrigatórias, por favor, cadastre elas no cadastro deste emitente.");
+                }
+                notaSalva.PrepararInformacoesSuplementares(emit.IdToken, emit.CSC);
                 return true;
             }
-            return false;
+            catch (Exception e)
+            {
+                e.ManipularErro();
+                return false;
+            }
         }
 
         public override async Task Transmitir()
         {
-            if (!await AdicionarInfoSuplementares()) return;
+            if (!AdicionarInfoSuplementares()) return;
 
             Progresso progresso = null;
             progresso = new Progresso(async () =>

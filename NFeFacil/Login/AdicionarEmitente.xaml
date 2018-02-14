@@ -75,6 +75,13 @@
                                            Pattern="[^\d]"
                                            Header="Telefone" />
             </ItemsControl>
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}">NFCe</TextBlock>
+            <TextBlock TextWrapping="Wrap">Caso você vá emitir notas fiscais do consumidor eletrônicas é necessário preencher os dois campos abaixo.</TextBlock>
+            <TextBox Header="Identificador do CSC"
+                     Text="{x:Bind Emit.IdToken, Mode=TwoWay}" />
+            <TextBox Grid.Row="1"
+                     Header="CSC"
+                     Text="{x:Bind Emit.CSC, Mode=TwoWay}" />
         </StackPanel>
     </ScrollViewer>
     <Page.BottomAppBar>

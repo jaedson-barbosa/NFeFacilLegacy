@@ -165,6 +165,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="AssistenteConfig.cs" />
+    <Compile Include="ErroCadastro.cs" />
     <Compile Include="Fiscal\AcoesNFCe.cs" />
     <Compile Include="Fiscal\AcoesNFe.cs" />
     <Compile Include="Fiscal\AcoesVisualizacao.cs" />
@@ -179,9 +180,6 @@
     <Compile Include="Fiscal\ViewNFCe\DimensoesDANFE.xaml.cs">
       <DependentUpon>DimensoesDANFE.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Fiscal\ViewNFCe\InfoSuplementarNFCe.xaml.cs">
-      <DependentUpon>InfoSuplementarNFCe.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Fiscal\ViewNFCe\UrlsChaveAcesso.cs" />
     <Compile Include="Fiscal\ViewNFCe\UrlsQR.cs" />
     <Compile Include="Fiscal\ViewNFCe\ViewDANFE.xaml.cs">
@@ -193,6 +191,10 @@
     <Compile Include="Migrations\20180127131837_Loja1.9.cs" />
     <Compile Include="Migrations\20180127131837_Loja1.9.designer.cs">
       <DependentUpon>20180127131837_Loja1.9.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20180214173711_Loja1.9.15.cs" />
+    <Compile Include="Migrations\20180214173711_Loja1.9.15.designer.cs">
+      <DependentUpon>20180214173711_Loja1.9.15.cs</DependentUpon>
     </Compile>
     <Compile Include="ModeloXML\InformacoesBase.cs" />
     <Compile Include="ModeloXML\InformacoesNFCe .cs" />
@@ -1070,10 +1072,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Fiscal\ViewNFCe\DimensoesDANFE.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Fiscal\ViewNFCe\InfoSuplementarNFCe.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

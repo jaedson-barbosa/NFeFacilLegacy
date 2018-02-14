@@ -1,13 +1,17 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
+using NFeFacil;
 
 namespace NFeFacil.Migrations
 {
     [DbContext(typeof(AplicativoContext))]
-    partial class AplicativoContextModelSnapshot : ModelSnapshot
+    [Migration("20180214173711_Loja1.9.15")]
+    partial class Loja1915
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.5");

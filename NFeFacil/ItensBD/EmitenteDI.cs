@@ -31,6 +31,9 @@ namespace NFeFacil.ItensBD
 
         public string Email { get; set; }
 
+        public string IdToken { get; set; }
+        public string CSC { get; set; }
+
         public Emitente ToEmitente()
         {
             return new Emitente

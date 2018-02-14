@@ -9,7 +9,7 @@
                SecondaryButtonText="Cancelar">
     <StackPanel>
         <Slider Header="Largura (mm)"
-                Minimum="60"
+                Minimum="80"
                 Maximum="210"
                 Value="{x:Bind Largura, Mode=TwoWay}" />
         <Slider Header="Margem interna (mm)"

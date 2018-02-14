@@ -6,7 +6,7 @@ namespace NFeFacil.Fiscal.ViewNFCe
 {
     public sealed partial class DimensoesDANFE : ContentDialog
     {
-        public double Largura { get; private set; } = 60;
+        public double Largura { get; private set; } = 80;
         public double Margem { get; private set; } = 3;
 
         public DimensoesDANFE()

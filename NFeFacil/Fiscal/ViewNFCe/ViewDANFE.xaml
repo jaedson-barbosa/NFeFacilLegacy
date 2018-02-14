@@ -98,7 +98,8 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock FontWeight="Bold">Código</TextBlock>
                 <TextBlock Grid.Column="1"
-                           FontWeight="Bold">Descrição</TextBlock>
+                           FontWeight="Bold"
+                           TextAlignment="Center">Descrição</TextBlock>
                 <TextBlock Grid.Column="2"
                            FontWeight="Bold"
                            TextAlignment="Right">Qtde</TextBlock>
@@ -126,7 +127,9 @@
                             </Grid.ColumnDefinitions>
                             <TextBlock Text="{x:Bind Codigo}" />
                             <TextBlock Grid.Column="1"
-                                       Text="{x:Bind Descricao}" />
+                                       Text="{x:Bind Descricao}"
+                                       TextWrapping="Wrap"
+                                       MaxLines="3" />
                             <TextBlock Grid.Column="2"
                                        TextAlignment="Right"
                                        Text="{x:Bind Quantidade}" />
@@ -204,11 +207,11 @@
                     <Bold>
                         <Run>NFC-e nº</Run>
                         <Run Text="{x:Bind Numero}" />
-                        <Run Text="   Série   " />
+                        <Run Text="  Série  " />
                         <Run Text="{x:Bind Serie}" />
-                        <Run Text="   " />
+                        <Run Text="  " />
                         <Run Text="{x:Bind Data}" />
-                        <Run Text="   " />
+                        <Run Text="  " />
                         <Run Text="{x:Bind Hora}" />
                     </Bold>
                 </Paragraph>

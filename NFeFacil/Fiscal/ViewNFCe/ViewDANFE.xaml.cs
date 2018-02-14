@@ -240,9 +240,9 @@ namespace NFeFacil.Fiscal.ViewNFCe
             Serie = ident.Serie.ToString("000");
             var dataHora = DateTime.Parse(ident.DataHoraEmissão);
             Data = dataHora.ToString("dd/MM/yyyy");
-            Hora = dataHora.ToString("HH/mm/ss");
+            Hora = dataHora.ToString("HH:mm:ss");
             dataHora = DateTime.Parse(Processo.ProtNFe.InfProt.dhRecbto);
-            DataHoraAutorizacao = dataHora.ToString("dd/MM/yyyy HH/mm/ss");
+            DataHoraAutorizacao = dataHora.ToString("dd/MM/yyyy HH:mm:ss");
         }
 
         void ProcessarInformacoesAdicionais()

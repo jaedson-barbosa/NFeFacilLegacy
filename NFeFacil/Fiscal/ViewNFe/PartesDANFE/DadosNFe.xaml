@@ -97,7 +97,7 @@
                     <TextBlock Style="{StaticResource Cabecalho}"
                                Margin="{StaticResource PaddingPadrao}">CONTROLE DO FISCO</TextBlock>
                     <controles:Code128 Data="{x:Bind Contexto.Chave}"
-                                     Margin="0,2,0,4" />
+                                       Margin="0,2,0,4" />
                 </StackPanel>
                 <StackPanel BorderThickness="0,0,0,1"
                             BorderBrush="Black"

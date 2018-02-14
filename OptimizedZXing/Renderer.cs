@@ -43,7 +43,8 @@ namespace OptimizedZXing
                     Margin = new Thickness(block.Column * pixelSize, block.Line * pixelSize, 0, 0),
                     Fill = Black,
                     HorizontalAlignment = HorizontalAlignment.Left,
-                    VerticalAlignment = VerticalAlignment.Top
+                    VerticalAlignment = VerticalAlignment.Top,
+                    UseLayoutRounding = false
                 };
             }
             return retorno;

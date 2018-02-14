@@ -9,12 +9,14 @@
                SecondaryButtonText="Cancelar">
     <StackPanel>
         <Slider Header="Largura (mm)"
-                Minimum="80"
-                Maximum="210"
+                Minimum="70"
+                Maximum="100"
+                StepFrequency="5"
                 Value="{x:Bind Largura, Mode=TwoWay}" />
         <Slider Header="Margem interna (mm)"
-                Minimum="3"
+                Minimum="0"
                 Maximum="10"
+                StepFrequency="5"
                 Value="{x:Bind Margem, Mode=TwoWay}" />
     </StackPanel>
 </ContentDialog>

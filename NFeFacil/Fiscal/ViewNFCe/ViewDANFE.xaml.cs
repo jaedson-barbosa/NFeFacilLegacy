@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using OptimizedZXing;
 using static NFeFacil.ExtensoesPrincipal;
@@ -36,7 +35,6 @@ namespace NFeFacil.Fiscal.ViewNFCe
 
         string UriConsultaChave { get; set; }
         string ChaveAcesso { get; set; }
-        ImageSource QR { get; set; }
 
         string Numero { get; set; }
         string Serie { get; set; }
@@ -180,7 +178,7 @@ namespace NFeFacil.Fiscal.ViewNFCe
         void ProcessarQR()
         {
             var dim = 130;
-            QR = new BarcodeWriter(BarcodeFormat.QR_CODE)
+            var writer = new BarcodeWriter(BarcodeFormat.QR_CODE)
             {
                 Options = new EncodingOptions
                 {
@@ -188,8 +186,13 @@ namespace NFeFacil.Fiscal.ViewNFCe
                     Height = dim,
                     Margin = 0
                 }
-            }.Write(NFCe.InfoSuplementares.Uri);
+            };
+            var encoded = writer.Encode(NFCe.InfoSuplementares.Uri);
             MargemQR = new Thickness(13);
+            foreach (var item in writer.WriteToUI(encoded))
+            {
+                imgQR.Children.Add(item);
+            }
         }
 
         void ProcessarConsumidor()

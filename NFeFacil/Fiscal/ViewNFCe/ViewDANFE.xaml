@@ -28,9 +28,7 @@
                     Value="10" />
         </Style>
     </Page.Resources>
-    <StackPanel x:Name="pagina" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-                Width="{x:Bind Largura}"
-                Padding="{x:Bind Margem}">
+    <ScrollViewer ZoomMode="Enabled">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
                 <VisualState>
@@ -51,182 +49,186 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <RichTextBlock TextAlignment="Center">
-                <Paragraph>
-                    <Run Text="{x:Bind NFCe.Informacoes.Emitente.CNPJ, Converter={StaticResource documento}}" />
-                    <Run></Run>
-                    <Bold>
-                        <Run Text="{x:Bind NFCe.Informacoes.Emitente.Nome}" />
-                    </Bold>
-                </Paragraph>
-                <Paragraph>
-                    <Run Text="{x:Bind NFCe.Informacoes.Emitente.Endereco.Logradouro}" />
-                    <Run>,</Run>
-                    <Run Text="{x:Bind NFCe.Informacoes.Emitente.Endereco.Numero}" />
-                    <Run>,</Run>
-                    <Run Text="{x:Bind NFCe.Informacoes.Emitente.Endereco.Bairro}" />
-                    <Run>,</Run>
-                    <Run Text="{x:Bind NFCe.Informacoes.Emitente.Endereco.NomeMunicipio}" />
-                    <Run>,</Run>
-                    <Run Text="{x:Bind NFCe.Informacoes.Emitente.Endereco.SiglaUF}" />
-                </Paragraph>
-                <Paragraph>
-                    <Run>Documento Auxiliar da Nota Fiscal de Consumidor Eletrônica</Run>
-                </Paragraph>
-            </RichTextBlock>
-            <Grid Grid.Row="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="{x:Bind Largura1}" />
-                    <ColumnDefinition />
-                    <ColumnDefinition Width="{x:Bind Largura1}" />
-                    <ColumnDefinition Width="{x:Bind LarguraReduzida}" />
-                    <ColumnDefinition Width="{x:Bind Largura1}" />
-                    <ColumnDefinition Width="{x:Bind Largura1}" />
-                </Grid.ColumnDefinitions>
-                <TextBlock FontWeight="Bold">Código</TextBlock>
-                <TextBlock Grid.Column="1"
-                           FontWeight="Bold">Descrição</TextBlock>
-                <TextBlock Grid.Column="2"
-                           FontWeight="Bold"
-                           TextAlignment="Right">Qtde</TextBlock>
-                <TextBlock Grid.Column="3"
-                           FontWeight="Bold">Un</TextBlock>
-                <TextBlock Grid.Column="4"
-                           FontWeight="Bold"
-                           TextAlignment="Right">Vl Unit</TextBlock>
-                <TextBlock Grid.Column="5"
-                           FontWeight="Bold"
-                           TextAlignment="Right">Vl Total</TextBlock>
-            </Grid>
-            <ItemsControl Grid.Row="2"
-                          ItemsSource="{x:Bind Produtos}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate x:DataType="local:ProdutoDANFE">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="{x:Bind Largura1}" />
-                                <ColumnDefinition />
-                                <ColumnDefinition Width="{x:Bind Largura1}" />
-                                <ColumnDefinition Width="{x:Bind LarguraReduzida}" />
-                                <ColumnDefinition Width="{x:Bind Largura1}" />
-                                <ColumnDefinition Width="{x:Bind Largura1}" />
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Text="{x:Bind Codigo}" />
-                            <TextBlock Grid.Column="1"
-                                       Text="{x:Bind Descricao}" />
-                            <TextBlock Grid.Column="2"
-                                       TextAlignment="Right"
-                                       Text="{x:Bind Quantidade}" />
-                            <TextBlock Grid.Column="3"
-                                       Text="{x:Bind Unidade}" />
-                            <TextBlock Grid.Column="4"
-                                       Text="{x:Bind ValorUnitario}"
-                                       TextAlignment="Right" />
-                            <TextBlock Grid.Column="5"
-                                       Text="{x:Bind ValorTotal}"
-                                       TextAlignment="Right" />
-                        </Grid>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-            <TextBlock x:Name="txtEsq"
-                       Grid.Row="3"
-                       TextAlignment="Left">
+        <StackPanel x:Name="pagina"
+                    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                    Width="{x:Bind Largura}"
+                    Padding="{x:Bind Margem}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <RichTextBlock TextAlignment="Center">
+                    <Paragraph>
+                        <Run Text="{x:Bind NFCe.Informacoes.Emitente.CNPJ, Converter={StaticResource documento}}" />
+                        <Run></Run>
+                        <Bold>
+                            <Run Text="{x:Bind NFCe.Informacoes.Emitente.Nome}" />
+                        </Bold>
+                    </Paragraph>
+                    <Paragraph>
+                        <Run Text="{x:Bind NFCe.Informacoes.Emitente.Endereco.Logradouro}" />
+                        <Run>,</Run>
+                        <Run Text="{x:Bind NFCe.Informacoes.Emitente.Endereco.Numero}" />
+                        <Run>,</Run>
+                        <Run Text="{x:Bind NFCe.Informacoes.Emitente.Endereco.Bairro}" />
+                        <Run>,</Run>
+                        <Run Text="{x:Bind NFCe.Informacoes.Emitente.Endereco.NomeMunicipio}" />
+                        <Run>,</Run>
+                        <Run Text="{x:Bind NFCe.Informacoes.Emitente.Endereco.SiglaUF}" />
+                    </Paragraph>
+                    <Paragraph>
+                        <Run>Documento Auxiliar da Nota Fiscal de Consumidor Eletrônica</Run>
+                    </Paragraph>
+                </RichTextBlock>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="{x:Bind Largura1}" />
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="{x:Bind Largura1}" />
+                        <ColumnDefinition Width="{x:Bind LarguraReduzida}" />
+                        <ColumnDefinition Width="{x:Bind Largura1}" />
+                        <ColumnDefinition Width="{x:Bind Largura1}" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock FontWeight="Bold">Código</TextBlock>
+                    <TextBlock Grid.Column="1"
+                               FontWeight="Bold">Descrição</TextBlock>
+                    <TextBlock Grid.Column="2"
+                               FontWeight="Bold"
+                               TextAlignment="Right">Qtde</TextBlock>
+                    <TextBlock Grid.Column="3"
+                               FontWeight="Bold">Un</TextBlock>
+                    <TextBlock Grid.Column="4"
+                               FontWeight="Bold"
+                               TextAlignment="Right">Vl Unit</TextBlock>
+                    <TextBlock Grid.Column="5"
+                               FontWeight="Bold"
+                               TextAlignment="Right">Vl Total</TextBlock>
+                </Grid>
+                <ItemsControl Grid.Row="2"
+                              ItemsSource="{x:Bind Produtos}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="local:ProdutoDANFE">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="{x:Bind Largura1}" />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="{x:Bind Largura1}" />
+                                    <ColumnDefinition Width="{x:Bind LarguraReduzida}" />
+                                    <ColumnDefinition Width="{x:Bind Largura1}" />
+                                    <ColumnDefinition Width="{x:Bind Largura1}" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{x:Bind Codigo}" />
+                                <TextBlock Grid.Column="1"
+                                           Text="{x:Bind Descricao}" />
+                                <TextBlock Grid.Column="2"
+                                           TextAlignment="Right"
+                                           Text="{x:Bind Quantidade}" />
+                                <TextBlock Grid.Column="3"
+                                           Text="{x:Bind Unidade}" />
+                                <TextBlock Grid.Column="4"
+                                           Text="{x:Bind ValorUnitario}"
+                                           TextAlignment="Right" />
+                                <TextBlock Grid.Column="5"
+                                           Text="{x:Bind ValorTotal}"
+                                           TextAlignment="Right" />
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <TextBlock x:Name="txtEsq"
+                           Grid.Row="3"
+                           TextAlignment="Left">
             <Run>Qtde. total de Itens</Run>
             <LineBreak />
             <Run>Valor total R$</Run>
             <LineBreak />
             <Run FontWeight="Bold">Valor a Pagar R$</Run></TextBlock>
-            <TextBlock x:Name="txtDir"
-                       Grid.Row="3"
-                       TextAlignment="Right">
+                <TextBlock x:Name="txtDir"
+                           Grid.Row="3"
+                           TextAlignment="Right">
             <Run Text="{x:Bind QuantidadeProdutos}" />
             <LineBreak />
             <Run Text="{x:Bind TotalBruto}" />
             <LineBreak />
             <Run FontWeight="Bold"
-                 Text="{x:Bind TotalLiquido}" /></TextBlock>
-            <TextBlock Grid.Row="4">FORMA PAGAMENTO</TextBlock>
-            <TextBlock Grid.Row="4"
-                       TextAlignment="Right">VALOR PAGO</TextBlock>
-            <ItemsControl ItemsSource="{x:Bind FormasPagamento}"
-                          
-                          Grid.Row="5" />
-            <ItemsControl ItemsSource="{x:Bind ValoresPagamento}"
-                          HorizontalAlignment="Right"
-                          HorizontalContentAlignment="Right"
-                          Grid.Row="5" />
-            <TextBlock Grid.Row="6">Troco R$</TextBlock>
-            <TextBlock Grid.Row="6"
-                       TextAlignment="Right"
-                       Text="{x:Bind Troco}" />
-            <RichTextBlock Grid.Row="7"
-                           TextAlignment="Center">
-                <Paragraph>
-                    <Run>Consulte pela Chave de Acesso em</Run>
-                </Paragraph>
-                <Paragraph>
-                    <Run Text="{x:Bind UriConsultaChave}" />
-                </Paragraph>
-                <Paragraph>
-                    <Run Text="{x:Bind ChaveAcesso}" />
-                </Paragraph>
-            </RichTextBlock>
-        </Grid>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <Image x:Name="imgQR" Stretch="None"
-                   Source="{x:Bind QR}"
-                   Margin="{x:Bind MargemQR}" />
-            <RichTextBlock Grid.Column="1"
-                           TextAlignment="Center">
-                <Paragraph x:Name="txtConsumidor" />
-                <Paragraph>
-                    <Bold>
-                        <Run>NFC-e nº</Run>
-                        <Run Text="{x:Bind Numero}" />
-                        <Run Text="   Série   " />
-                        <Run Text="{x:Bind Serie}" />
-                        <Run Text="   " />
-                        <Run Text="{x:Bind Data}" />
-                        <Run Text="   " />
-                        <Run Text="{x:Bind Hora}" />
-                    </Bold>
-                </Paragraph>
-                <Paragraph>
-                    <Run Text="Protocolo de autorização: " />
-                    <Run Text="{x:Bind Processo.ProtNFe.InfProt.nProt}" />
-                </Paragraph>
-                <Paragraph>
-                    <Run Text="Data de autorização: " />
-                    <Run Text="{x:Bind DataHoraAutorizacao}" />
-                </Paragraph>
-            </RichTextBlock>
-        </Grid>
-        <TextBlock Visibility="{x:Bind InformacoesFisco}"
-                   Text="{x:Bind NFCe.Informacoes.infAdic.InfAdFisco}" />
-        <TextBlock Visibility="{x:Bind InformacoesContr}"
-                   Text="{x:Bind NFCe.Informacoes.infAdic.InfCpl}" />
-    </StackPanel>
+                    Text="{x:Bind TotalLiquido}" /></TextBlock>
+                <TextBlock Grid.Row="4">FORMA PAGAMENTO</TextBlock>
+                <TextBlock Grid.Row="4"
+                           TextAlignment="Right">VALOR PAGO</TextBlock>
+                <ItemsControl ItemsSource="{x:Bind FormasPagamento}"
+                              Grid.Row="5" />
+                <ItemsControl ItemsSource="{x:Bind ValoresPagamento}"
+                              HorizontalAlignment="Right"
+                              HorizontalContentAlignment="Right"
+                              Grid.Row="5" />
+                <TextBlock Grid.Row="6">Troco R$</TextBlock>
+                <TextBlock Grid.Row="6"
+                           TextAlignment="Right"
+                           Text="{x:Bind Troco}" />
+                <RichTextBlock Grid.Row="7"
+                               TextAlignment="Center">
+                    <Paragraph>
+                        <Run>Consulte pela Chave de Acesso em</Run>
+                    </Paragraph>
+                    <Paragraph>
+                        <Run Text="{x:Bind UriConsultaChave}" />
+                    </Paragraph>
+                    <Paragraph>
+                        <Run Text="{x:Bind ChaveAcesso}" />
+                    </Paragraph>
+                </RichTextBlock>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid x:Name="imgQR"
+                      Margin="{x:Bind MargemQR}"
+                      HorizontalAlignment="Center" />
+                <RichTextBlock Grid.Column="1"
+                               TextAlignment="Center">
+                    <Paragraph x:Name="txtConsumidor" />
+                    <Paragraph>
+                        <Bold>
+                            <Run>NFC-e nº</Run>
+                            <Run Text="{x:Bind Numero}" />
+                            <Run Text="   Série   " />
+                            <Run Text="{x:Bind Serie}" />
+                            <Run Text="   " />
+                            <Run Text="{x:Bind Data}" />
+                            <Run Text="   " />
+                            <Run Text="{x:Bind Hora}" />
+                        </Bold>
+                    </Paragraph>
+                    <Paragraph>
+                        <Run Text="Protocolo de autorização: " />
+                        <Run Text="{x:Bind Processo.ProtNFe.InfProt.nProt}" />
+                    </Paragraph>
+                    <Paragraph>
+                        <Run Text="Data de autorização: " />
+                        <Run Text="{x:Bind DataHoraAutorizacao}" />
+                    </Paragraph>
+                </RichTextBlock>
+            </Grid>
+            <TextBlock Visibility="{x:Bind InformacoesFisco}"
+                       Text="{x:Bind NFCe.Informacoes.infAdic.InfAdFisco}" />
+            <TextBlock Visibility="{x:Bind InformacoesContr}"
+                       Text="{x:Bind NFCe.Informacoes.infAdic.InfCpl}" />
+        </StackPanel>
+    </ScrollViewer>
     <Page.BottomAppBar>
         <CommandBar>
             <AppBarButton x:Name="btnImprimir"

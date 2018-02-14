@@ -1,17 +1,16 @@
-﻿using Windows.UI.Xaml.Media.Imaging;
+﻿using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Shapes;
 
 namespace OptimizedZXing
 {
     public class BarcodeWriter
     {
-        WriteableBitmapRenderer Renderer { get; }
         public BarcodeFormat Format { get; }
         public EncodingOptions Options { get; set; }
         public IWriter Encoder { get; set; }
 
         public BarcodeWriter(BarcodeFormat format)
         {
-            Renderer = new WriteableBitmapRenderer();
             Format = format;
             Options = new EncodingOptions { Height = 100, Width = 100 };
             switch (format)
@@ -31,29 +30,9 @@ namespace OptimizedZXing
             }
         }
 
-        /// <summary>
-        /// Encodes the specified contents and returns a rendered instance of the barcode.
-        /// For rendering the instance of the property Renderer is used and has to be set before
-        /// calling that method.
-        /// </summary>
-        /// <param name="contents">The contents.</param>
-        /// <returns></returns>
-        public WriteableBitmap Write(string contents)
+        public Rectangle[] WriteToUI(BitMatrix matrix)
         {
-            var matrix = Encode(contents);
-            return Renderer.Render(matrix, Format, contents, Options);
-        }
-
-        /// <summary>
-        /// Returns a rendered instance of the barcode which is given by a BitMatrix.
-        /// For rendering the instance of the property Renderer is used and has to be set before
-        /// calling that method.
-        /// </summary>
-        /// <param name="matrix">The matrix.</param>
-        /// <returns></returns>
-        public WriteableBitmap Write(BitMatrix matrix)
-        {
-            return Renderer.Render(matrix, Format, null, Options);
+            return Renderer.RenderUI(matrix, Options);
         }
 
         public BitMatrix Encode(string contents)
@@ -61,6 +40,11 @@ namespace OptimizedZXing
             var encoder = Encoder;
             var currentOptions = Options;
             return encoder.Encode(contents, Format, currentOptions.Width, currentOptions.Height, currentOptions.Margin);
+        }
+
+        public ImageSource WriteToBitmap(BitMatrix encoded)
+        {
+            return Renderer.RenderBitmap(encoded, Options);
         }
     }
 }

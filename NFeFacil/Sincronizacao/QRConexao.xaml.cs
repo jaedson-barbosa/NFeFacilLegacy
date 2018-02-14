@@ -41,7 +41,7 @@ namespace NFeFacil.Sincronizacao
                 }
                 GerenciadorServidor.Current.AbrirBrecha(TimeSpan.FromSeconds(60));
 
-                QRGerado = new BarcodeWriter(BarcodeFormat.QR_CODE)
+                var writer = new BarcodeWriter(BarcodeFormat.QR_CODE)
                 {
                     Options = new EncodingOptions
                     {
@@ -49,7 +49,9 @@ namespace NFeFacil.Sincronizacao
                         Height = 1920,
                         Margin = 0
                     }
-                }.Write($"{Informacoes.IP}:{Informacoes.SenhaTemporaria}");
+                };
+                var encoded = writer.Encode($"{Informacoes.IP}:{Informacoes.SenhaTemporaria}");
+                QRGerado = writer.WriteToBitmap(encoded);
 
                 Iniciar();
             }

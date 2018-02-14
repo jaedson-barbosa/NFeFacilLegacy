@@ -173,7 +173,7 @@
     </Compile>
     <Compile Include="SoftwareBitmapLuminanceSource.cs" />
     <Compile Include="StringUtils.cs" />
-    <Compile Include="WriteableBitmapRenderer.cs" />
+    <Compile Include="Renderer.cs" />
     <Compile Include="WriterException.cs" />
     <Compile Include="ZXingScannerControl.xaml.cs">
       <DependentUpon>ZXingScannerControl.xaml</DependentUpon>
@@ -183,6 +183,9 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.0.6</Version>
+    </PackageReference>
+    <PackageReference Include="System.ValueTuple">
+      <Version>4.4.0</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

@@ -9,14 +9,20 @@ namespace NFeFacil
 {
     sealed class ComprasInApp
     {
-        public enum Compras
+        public struct Compras
         {
-            Personalizacao,
-            Doacao25,
-            Doacao10
+            public const string Personalizacao = "9P70MWLRCS54";
+            public const string Doacao25 = "9NJNJTZQ85G5";
+            public const string Doacao10 = "9MXJQH2JC335";
+
+            string Value;
+            private Compras(string value) => Value = value;
+
+            public static implicit operator Compras(string str) => new Compras(str);
+            public static implicit operator string(Compras compra) => compra.Value;
         }
 
-        public Compras Escolhida { get; }
+        Compras Escolhida { get; }
 
         public ComprasInApp(Compras compra)
         {
@@ -63,17 +69,11 @@ namespace NFeFacil
 
         async Task<StoreProduct> ObterProduto()
         {
-            StoreContext storeContext = StoreContext.GetDefault();
+            var storeContext = StoreContext.GetDefault();
             string[] productKinds = new string[] { "Consumable", "Durable" };
-            StoreProductQueryResult addOns = await storeContext.GetAssociatedStoreProductsAsync(productKinds);
-            foreach (var item in addOns.Products.Values)
-            {
-                if (item.InAppOfferToken == Escolhida.ToString())
-                {
-                    return item;
-                }
-            }
-            throw new Exception("Erro ao buscar o produto especificado.");
+            var addOns = await storeContext.GetAssociatedStoreProductsAsync(productKinds);
+            var keys = addOns.Products.Keys;
+            return addOns.Products[Escolhida];
         }
     }
 }

@@ -103,7 +103,7 @@
                 <Slider Header="Largura (mm)"
                         Minimum="70"
                         Maximum="100"
-                        StepFrequency="5"
+                        StepFrequency="2"
                         Value="{x:Bind LarguraDANFENFCe, Mode=TwoWay}" />
                 <Slider Header="Margem interna (mm)"
                         Minimum="0"

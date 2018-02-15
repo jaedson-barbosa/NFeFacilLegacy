@@ -19,7 +19,10 @@ namespace NFeFacil
                     {
                         return convertido;
                     }
-                    Pasta.Values.Remove(nome);
+                    else
+                    {
+                        return (T)Convert.ChangeType(valor, typeof(T));
+                    }
                 }
                 catch (Exception)
                 {

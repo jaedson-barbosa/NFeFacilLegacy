@@ -103,20 +103,20 @@ namespace NFeFacil.Fiscal.ViewNFCe
             TotalBruto = totalBruto.ToString("N2");
             var totLiquido = totalBruto + acrescimos - desconto;
             TotalLiquido = totLiquido.ToString("N2");
+            const string strAcrescimos = "Acréscimos (frete, seguro e outras despesas) R$";
+            const string strDesconto = "Desconto R$";
             if (acrescimos != 0 && desconto != 0)
             {
-                const string TxtEsq = "Acréscimos (frete, seguro e outras despesas)/Desconto R$";
-                AddDetalheTotal(TxtEsq, (acrescimos + desconto).ToString("N2"));
+                AddDetalheTotal(strDesconto, desconto.ToString("N2"));
+                AddDetalheTotal(strAcrescimos, acrescimos.ToString("N2"));
             }
             else if (acrescimos != 0)
             {
-                const string TxtEsq = "Acréscimos (frete, seguro e outras despesas) R$";
-                AddDetalheTotal(TxtEsq, (acrescimos).ToString("N2"));
+                AddDetalheTotal(strAcrescimos, acrescimos.ToString("N2"));
             }
             else if (desconto != 0)
             {
-                const string TxtEsq = "Desconto R$";
-                AddDetalheTotal(TxtEsq, (desconto).ToString("N2"));
+                AddDetalheTotal(strDesconto, desconto.ToString("N2"));
             }
             return totLiquido;
             void AddDetalheTotal(string esq, string dir)

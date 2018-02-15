@@ -299,7 +299,7 @@ namespace NFeFacil.Fiscal.ViewNFCe
                     var acoes = (AcoesNFCe)ultPage.Parameter;
                     var di = acoes.ItemBanco;
                     di.Id = nota.Informacoes.Id;
-                    di.NomeCliente = nota.Informacoes.destinatário.Nome;
+                    di.NomeCliente = nota.Informacoes.destinatário?.Nome ?? "Desconhecido";
                     di.DataEmissao = DateTime.Parse(nota.Informacoes.identificacao.DataHoraEmissão).ToString("yyyy-MM-dd HH:mm:ss");
                     di.Status = (int)StatusNota.Validada;
                     di.XML = nota.ToXElement().ToString();

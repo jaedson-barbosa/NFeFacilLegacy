@@ -15,17 +15,7 @@ namespace NFeFacil.Controles
             Children = grdPrincipal.Children;
         }
 
-        public static readonly DependencyProperty ChildrenProperty = DependencyProperty.Register(
-           nameof(Children), 
-           typeof(UIElementCollection),
-           typeof(MultView),
-           new PropertyMetadata(null));
-
-        public UIElementCollection Children
-        {
-            get => (UIElementCollection)GetValue(ChildrenProperty);
-            private set => SetValue(ChildrenProperty, value);
-        }
+        public UIElementCollection Children { get; }
 
         public int SelectedIndex
         {

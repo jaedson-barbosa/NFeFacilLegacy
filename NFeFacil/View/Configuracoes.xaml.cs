@@ -19,6 +19,20 @@ namespace NFeFacil.View
         public Configuracoes()
         {
             InitializeComponent();
+            ItensMenu = new string[]
+            {
+                "Geral",
+                "Modos de busca",
+                "Background",
+                "DANFE NFCe"
+            };
+        }
+
+        string[] ItensMenu { get; }
+        int ItemMenuSelecionado
+        {
+            get => mvwPrincipal.SelectedIndex;
+            set => mvwPrincipal.SelectedIndex = value;
         }
 
         bool Servidor
@@ -84,7 +98,19 @@ namespace NFeFacil.View
             get => DefinicoesPermanentes.ModoBuscaVendedor;
             set => DefinicoesPermanentes.ModoBuscaVendedor = value;
         }
-        
+
+        double LarguraDANFENFCe
+        {
+            get => DefinicoesPermanentes.LarguraDANFENFCe;
+            set => DefinicoesPermanentes.LarguraDANFENFCe = value;
+        }
+
+        double MargemDANFENFCe
+        {
+            get => DefinicoesPermanentes.MargemDANFENFCe;
+            set => DefinicoesPermanentes.MargemDANFENFCe = value;
+        }
+
         async void UsarImagem(object sender, TappedRoutedEventArgs e)
         {
             if (await Compra.AnalisarCompra())

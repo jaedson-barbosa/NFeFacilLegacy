@@ -5,91 +5,112 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
-    <ScrollViewer>
-        <StackPanel Padding="16">
-            <TextBlock Style="{StaticResource TitleTextBlockStyle}">Função do dispositivo na sincronização</TextBlock>
-            <RadioButton IsChecked="{x:Bind Servidor, Mode=TwoWay}"
-                         GroupName="Sincronizacao">Servidor</RadioButton>
-            <RadioButton IsChecked="{x:Bind Cliente}"
-                         GroupName="Sincronizacao">Cliente</RadioButton>
-            <TextBlock Style="{StaticResource TitleTextBlockStyle}">Modo de certificação</TextBlock>
-            <ComboBox SelectedIndex="{x:Bind OrigemCertificacao, Mode=TwoWay}">
-                <ComboBoxItem ToolTipService.ToolTip="Ideal para quem usa certificado A1">Via certificado A1 importado</ComboBoxItem>
-                <ComboBoxItem ToolTipService.ToolTip="Ideal para quem usa certificado A3" IsEnabled="{x:Bind InstalacaoLiberada}">Servidor de certificação</ComboBoxItem>
-                <ComboBoxItem ToolTipService.ToolTip="Ideal para quem usa certificado A3">Cliente de um servidor</ComboBoxItem>
-            </ComboBox>
-            <TextBlock Style="{StaticResource TitleTextBlockStyle}">Desconsiderar horário de verão</TextBlock>
-            <TextBlock TextWrapping="Wrap">Desconsidere o horário de verão caso você esteja tendo problemas ao transmitir as notas fiscais. Em muitos estados os servidores da SEFAZ não mudam com o horário de verão, então ative esta função para que o app se adeque a eles. Se a hora não está de acordo com o horário de verão, essa configuração será ignorada.</TextBlock>
-            <ToggleSwitch IsOn="{x:Bind DesconsiderarHorarioVerao, Mode=TwoWay}" />
-            <TextBlock Style="{StaticResource TitleTextBlockStyle}">Calcular número da NFe automaticamente</TextBlock>
-            <ToggleSwitch IsOn="{x:Bind CalcularNumeroNFe, Mode=TwoWay}"
-                          OnContent="Sempre"
-                          OffContent="Nunca" />
-            <TextBlock Style="{StaticResource TitleTextBlockStyle}">Versão do protocolo SOAP</TextBlock>
-            <RadioButton GroupName="versaoSOAP"
-                         IsChecked="{x:Bind UsarSOAP11}">SOAP 1.1</RadioButton>
-            <RadioButton GroupName="versaoSOAP"
-                         IsChecked="{x:Bind UsarSOAP12, Mode=TwoWay}">SOAP 1.2</RadioButton>
-            <TextBlock Style="{StaticResource TitleTextBlockStyle}">Configurações de busca</TextBlock>
-            <ItemsControl Style="{StaticResource ItensResponsivos}">
-                <ComboBox Header="Modo de busca do produto"
-                          SelectedIndex="{x:Bind ModoBuscaProduto, Mode=TwoWay}">
-                    <ComboBoxItem>Pela descrição</ComboBoxItem>
-                    <ComboBoxItem>Pelo código</ComboBoxItem>
+    <controles:DuplaView>
+        <controles:DuplaView.Menu>
+            <ListView ItemsSource="{x:Bind ItensMenu}"
+                      SelectedIndex="{x:Bind ItemMenuSelecionado, Mode=TwoWay}" />
+        </controles:DuplaView.Menu>
+        <controles:MultView x:Name="mvwPrincipal">
+            <StackPanel>
+                <TextBlock Style="{StaticResource TitleTextBlockStyle}">Função do dispositivo na sincronização</TextBlock>
+                <RadioButton IsChecked="{x:Bind Servidor, Mode=TwoWay}"
+                             GroupName="Sincronizacao">Servidor</RadioButton>
+                <RadioButton IsChecked="{x:Bind Cliente}"
+                             GroupName="Sincronizacao">Cliente</RadioButton>
+                <TextBlock Style="{StaticResource TitleTextBlockStyle}">Modo de certificação</TextBlock>
+                <ComboBox SelectedIndex="{x:Bind OrigemCertificacao, Mode=TwoWay}">
+                    <ComboBoxItem ToolTipService.ToolTip="Ideal para quem usa certificado A1">Via certificado A1 importado</ComboBoxItem>
+                    <ComboBoxItem ToolTipService.ToolTip="Ideal para quem usa certificado A3"
+                                  IsEnabled="{x:Bind InstalacaoLiberada}">Servidor de certificação</ComboBoxItem>
+                    <ComboBoxItem ToolTipService.ToolTip="Ideal para quem usa certificado A3">Cliente de um servidor</ComboBoxItem>
                 </ComboBox>
-                <ComboBox Header="Modo de busca do cliente"
-                          SelectedIndex="{x:Bind ModoBuscaCliente, Mode=TwoWay}">
-                    <ComboBoxItem>Pelo nome</ComboBoxItem>
-                    <ComboBoxItem>Pelo documento</ComboBoxItem>
-                </ComboBox>
-                <ComboBox Header="Modo de busca do comprador"
-                          SelectedIndex="{x:Bind ModoBuscaComprador, Mode=TwoWay}">
-                    <ComboBoxItem>Pelo nome do comprador</ComboBoxItem>
-                    <ComboBoxItem>Pelo nome da empresa</ComboBoxItem>
-                </ComboBox>
-                <ComboBox Header="Modo de busca do motorista"
-                          SelectedIndex="{x:Bind ModoBuscaMotorista, Mode=TwoWay}">
-                    <ComboBoxItem>Pelo nome</ComboBoxItem>
-                    <ComboBoxItem>Pelo documento</ComboBoxItem>
-                </ComboBox>
-                <ComboBox Header="Modo de busca do vendedor"
-                          SelectedIndex="{x:Bind ModoBuscaVendedor, Mode=TwoWay}">
-                    <ComboBoxItem>Pelo nome</ComboBoxItem>
-                    <ComboBoxItem>Pelo CPF</ComboBoxItem>
-                </ComboBox>
-            </ItemsControl>
-            <TextBlock Style="{StaticResource TitleTextBlockStyle}">Backup</TextBlock>
-            <TextBlock TextWrapping="Wrap">No backup local é gerado um arquivo json com todas as informações salvas atualmente no aplicativo já que nele não há limite de tamanho. É recomendado que seja guardado em um local seguro, como no seu OneDrive. Ele só pode ser restaurado quando não há informações guardadas no aplicativo.</TextBlock>
-            <ItemsControl Style="{StaticResource ItensMedios}">
-                <controles:ItemPadrao Titulo="Salvar backup"
-                                      Descricao="Guarde todas as informações do aplicativo em um único arquivo."
-                                      Tapped="SalvarBackup">
-                    <SymbolIcon Symbol="Save" />
-                </controles:ItemPadrao>
-            </ItemsControl>
-            <TextBlock Style="{StaticResource TitleTextBlockStyle}">Background</TextBlock>
-            <ItemsControl Style="{StaticResource ItensMedios}">
-                <controles:ItemPadrao Titulo="Usar imagem"
-                                      Descricao="Escolha uma imagem para servir de background para o aplicativo"
-                                      Tapped="UsarImagem">
-                    <FontIcon Glyph="&#xEB9F;" />
-                </controles:ItemPadrao>
-                <controles:ItemPadrao Titulo="Usar cor"
-                                      Descricao="Use a cor de destaque como background para o aplicativo"
-                                      Tapped="UsarCor">
-                    <FontIcon Glyph="&#xE790;" />
-                </controles:ItemPadrao>
-                <controles:ItemPadrao Titulo="Escolher transparência"
-                                      Descricao="Defina a porcentagem de transparência do background"
-                                      Tapped="EscolherTransparencia">
-                    <FontIcon Glyph="&#xE706;" />
-                </controles:ItemPadrao>
-                <controles:ItemPadrao Titulo="Restaurar padrão"
-                                      Descricao="Resete todas as configurações do background"
-                                      Tapped="Resetar">
-                    <FontIcon Glyph="&#xED10;" />
-                </controles:ItemPadrao>
-            </ItemsControl>
-        </StackPanel>
-    </ScrollViewer>
+                <TextBlock Style="{StaticResource TitleTextBlockStyle}">Desconsiderar horário de verão</TextBlock>
+                <TextBlock TextWrapping="Wrap">Desconsidere o horário de verão caso você esteja tendo problemas ao transmitir as notas fiscais. Em muitos estados os servidores da SEFAZ não mudam com o horário de verão, então ative esta função para que o app se adeque a eles. Se a hora não está de acordo com o horário de verão, essa configuração será ignorada.</TextBlock>
+                <ToggleSwitch IsOn="{x:Bind DesconsiderarHorarioVerao, Mode=TwoWay}" />
+                <TextBlock Style="{StaticResource TitleTextBlockStyle}">Calcular número da NFe automaticamente</TextBlock>
+                <ToggleSwitch IsOn="{x:Bind CalcularNumeroNFe, Mode=TwoWay}"
+                              OnContent="Sempre"
+                              OffContent="Nunca" />
+                <TextBlock Style="{StaticResource TitleTextBlockStyle}">Versão do protocolo SOAP</TextBlock>
+                <RadioButton GroupName="versaoSOAP"
+                             IsChecked="{x:Bind UsarSOAP11}">SOAP 1.1</RadioButton>
+                <RadioButton GroupName="versaoSOAP"
+                             IsChecked="{x:Bind UsarSOAP12, Mode=TwoWay}">SOAP 1.2</RadioButton>
+                <TextBlock Style="{StaticResource TitleTextBlockStyle}">Backup</TextBlock>
+                <TextBlock TextWrapping="Wrap">No backup local é gerado um arquivo json com todas as informações salvas atualmente no aplicativo já que nele não há limite de tamanho. É recomendado que seja guardado em um local seguro, como no seu OneDrive. Ele só pode ser restaurado quando não há informações guardadas no aplicativo.</TextBlock>
+                <ItemsControl Style="{StaticResource ItensMedios}">
+                    <controles:ItemPadrao Titulo="Salvar backup"
+                                          Descricao="Guarde todas as informações do aplicativo em um único arquivo."
+                                          Tapped="SalvarBackup">
+                        <SymbolIcon Symbol="Save" />
+                    </controles:ItemPadrao>
+                </ItemsControl>
+            </StackPanel>
+            <StackPanel>
+                <ItemsControl Style="{StaticResource ItensResponsivos}">
+                    <ComboBox Header="Modo de busca do produto"
+                              SelectedIndex="{x:Bind ModoBuscaProduto, Mode=TwoWay}">
+                        <ComboBoxItem>Pela descrição</ComboBoxItem>
+                        <ComboBoxItem>Pelo código</ComboBoxItem>
+                    </ComboBox>
+                    <ComboBox Header="Modo de busca do cliente"
+                              SelectedIndex="{x:Bind ModoBuscaCliente, Mode=TwoWay}">
+                        <ComboBoxItem>Pelo nome</ComboBoxItem>
+                        <ComboBoxItem>Pelo documento</ComboBoxItem>
+                    </ComboBox>
+                    <ComboBox Header="Modo de busca do comprador"
+                              SelectedIndex="{x:Bind ModoBuscaComprador, Mode=TwoWay}">
+                        <ComboBoxItem>Pelo nome do comprador</ComboBoxItem>
+                        <ComboBoxItem>Pelo nome da empresa</ComboBoxItem>
+                    </ComboBox>
+                    <ComboBox Header="Modo de busca do motorista"
+                              SelectedIndex="{x:Bind ModoBuscaMotorista, Mode=TwoWay}">
+                        <ComboBoxItem>Pelo nome</ComboBoxItem>
+                        <ComboBoxItem>Pelo documento</ComboBoxItem>
+                    </ComboBox>
+                    <ComboBox Header="Modo de busca do vendedor"
+                              SelectedIndex="{x:Bind ModoBuscaVendedor, Mode=TwoWay}">
+                        <ComboBoxItem>Pelo nome</ComboBoxItem>
+                        <ComboBoxItem>Pelo CPF</ComboBoxItem>
+                    </ComboBox>
+                </ItemsControl>
+            </StackPanel>
+            <StackPanel>
+                <ItemsControl Style="{StaticResource ItensMedios}">
+                    <controles:ItemPadrao Titulo="Usar imagem"
+                                          Descricao="Escolha uma imagem para servir de background para o aplicativo"
+                                          Tapped="UsarImagem">
+                        <FontIcon Glyph="&#xEB9F;" />
+                    </controles:ItemPadrao>
+                    <controles:ItemPadrao Titulo="Usar cor"
+                                          Descricao="Use a cor de destaque como background para o aplicativo"
+                                          Tapped="UsarCor">
+                        <FontIcon Glyph="&#xE790;" />
+                    </controles:ItemPadrao>
+                    <controles:ItemPadrao Titulo="Escolher transparência"
+                                          Descricao="Defina a porcentagem de transparência do background"
+                                          Tapped="EscolherTransparencia">
+                        <FontIcon Glyph="&#xE706;" />
+                    </controles:ItemPadrao>
+                    <controles:ItemPadrao Titulo="Restaurar padrão"
+                                          Descricao="Resete todas as configurações do background"
+                                          Tapped="Resetar">
+                        <FontIcon Glyph="&#xED10;" />
+                    </controles:ItemPadrao>
+                </ItemsControl>
+            </StackPanel>
+            <StackPanel>
+                <Slider Header="Largura (mm)"
+                        Minimum="70"
+                        Maximum="100"
+                        StepFrequency="5"
+                        Value="{x:Bind LarguraDANFENFCe, Mode=TwoWay}" />
+                <Slider Header="Margem interna (mm)"
+                        Minimum="0"
+                        Maximum="10"
+                        StepFrequency="5"
+                        Value="{x:Bind MargemDANFENFCe, Mode=TwoWay}" />
+            </StackPanel>
+        </controles:MultView>
+    </controles:DuplaView>
 </Page>

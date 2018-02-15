@@ -124,19 +124,15 @@ namespace NFeFacil.Fiscal
             }
         }
 
-        public override async void Imprimir()
+        public override void Imprimir()
         {
-            var caixa = new DimensoesDANFE();
-            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
-            {
-                var processo = (ProcessoNFCe)ItemCompleto;
-                var margem = ExtensoesPrincipal.CMToPixel(caixa.Margem / 10);
-                var largura = ExtensoesPrincipal.CMToPixel(caixa.Largura / 10);
-                var dados = new DadosImpressao(processo, new Thickness(margem), largura);
-                MainPage.Current.Navegar<ViewDANFE>(dados);
-                ItemBanco.Impressa = true;
-                AtualizarDI(ItemCompleto);
-            }
+            var processo = (ProcessoNFCe)ItemCompleto;
+            var margem = ExtensoesPrincipal.CMToPixel(DefinicoesPermanentes.MargemDANFENFCe / 10);
+            var largura = ExtensoesPrincipal.CMToPixel(DefinicoesPermanentes.LarguraDANFENFCe / 10);
+            var dados = new DadosImpressao(processo, new Thickness(margem), largura);
+            MainPage.Current.Navegar<ViewDANFE>(dados);
+            ItemBanco.Impressa = true;
+            AtualizarDI(ItemCompleto);
         }
 
         public override void Salvar()

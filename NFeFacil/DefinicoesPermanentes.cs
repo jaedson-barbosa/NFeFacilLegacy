@@ -69,6 +69,18 @@ namespace NFeFacil
             get => AssistenteConfig.Get(nameof(UsarSOAP12), false);
             set => AssistenteConfig.Set(nameof(UsarSOAP12), value);
         }
+
+        internal static double LarguraDANFENFCe
+        {
+            get => AssistenteConfig.Get(nameof(LarguraDANFENFCe), 70);
+            set => AssistenteConfig.Set(nameof(LarguraDANFENFCe), value);
+        }
+
+        internal static double MargemDANFENFCe
+        {
+            get => AssistenteConfig.Get(nameof(MargemDANFENFCe), 3);
+            set => AssistenteConfig.Set(nameof(MargemDANFENFCe), value);
+        }
     }
 
     internal enum TiposBackground { Imagem, Cor, Padrao }

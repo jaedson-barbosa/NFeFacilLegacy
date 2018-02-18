@@ -13,6 +13,7 @@ namespace NFeFacil.Login
     /// <summary>
     /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
     /// </summary>
+    [DetalhePagina("Carregamento inicial", "\uE9F3")]
     public sealed partial class Loading : Page
     {
         EtapaProcesso[] Etapas { get; }

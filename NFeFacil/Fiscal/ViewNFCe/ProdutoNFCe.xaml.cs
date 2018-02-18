@@ -17,6 +17,7 @@ namespace NFeFacil.Fiscal.ViewNFCe
     /// <summary>
     /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
     /// </summary>
+    [DetalhePagina(Symbol.Shop, "Produto")]
     public sealed partial class ProdutoNFCe : Page, IValida
     {
         DadosAdicaoProduto Conjunto;

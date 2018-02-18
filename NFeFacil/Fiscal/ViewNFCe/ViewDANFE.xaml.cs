@@ -15,6 +15,7 @@ namespace NFeFacil.Fiscal.ViewNFCe
     /// <summary>
     /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
     /// </summary>
+    [View.DetalhePagina(Symbol.View, "DANFE")]
     public sealed partial class ViewDANFE : Page
     {
         double Largura { get; set; }

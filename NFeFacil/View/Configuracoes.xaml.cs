@@ -37,13 +37,11 @@ namespace NFeFacil.View
             set => mvwPrincipal.SelectedIndex = value;
         }
 
-        bool Servidor
+        int FuncaoSincronizacao
         {
-            get => ConfiguracoesSincronizacao.Tipo == TipoAppSincronizacao.Servidor;
-            set => ConfiguracoesSincronizacao.Tipo = value ? TipoAppSincronizacao.Servidor : TipoAppSincronizacao.Cliente;
+            get => (int)ConfiguracoesSincronizacao.Tipo;
+            set => ConfiguracoesSincronizacao.Tipo = (TipoAppSincronizacao)value;
         }
-
-        bool Cliente => !Servidor;
 
         int OrigemCertificacao
         {
@@ -64,11 +62,10 @@ namespace NFeFacil.View
             set => DefinicoesPermanentes.CalcularNumeroNFe = value;
         }
 
-        bool UsarSOAP11 => !UsarSOAP12;
-        bool UsarSOAP12
+        int VersaoSoap
         {
-            get => DefinicoesPermanentes.UsarSOAP12;
-            set => DefinicoesPermanentes.UsarSOAP12 = value;
+            get => DefinicoesPermanentes.UsarSOAP12 ? 1 : 0;
+            set => DefinicoesPermanentes.UsarSOAP12 = value == 1;
         }
 
         int ModoBuscaProduto

@@ -28,10 +28,10 @@ namespace NFeFacil.View
             InitializeComponent();
         }
 
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var comprado = await ComprasInApp.ObterProduto(Compras.NFCe);
-            hubNFCe.IsEnabled = comprado.IsInUserCollection;
+            var comprado = ComprasInApp.Resumo[Compras.NFCe];
+            hubNFCe.IsEnabled = comprado;
         }
 
         void AbrirClientes(object sender, TappedRoutedEventArgs e) => Navegar<GerenciarClientes>();

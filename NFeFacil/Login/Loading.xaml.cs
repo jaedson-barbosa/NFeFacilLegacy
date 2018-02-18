@@ -27,7 +27,8 @@ namespace NFeFacil.Login
                 new EtapaProcesso("Ajustar background"),
                 new EtapaProcesso("Verificar início do servidor"),
                 new EtapaProcesso("Adicionar evento de retorno"),
-                new EtapaProcesso("Ajustar definições de globalização")
+                new EtapaProcesso("Ajustar definições de globalização"),
+                new EtapaProcesso("Analisar compras")
             };
             Start();
         }
@@ -64,6 +65,8 @@ namespace NFeFacil.Login
                 Update(5);
                 AjustarGlobalizacao();
                 Update(6);
+                await AnalisarCompras();
+                Update(7);
                 Finalizar();
             }
             catch (Exception e)
@@ -128,6 +131,8 @@ namespace NFeFacil.Login
             CultureInfo.DefaultThreadCurrentCulture = info;
             CultureInfo.DefaultThreadCurrentUICulture = info;
         }
+
+        async Task AnalisarCompras() => await ComprasInApp.AnalisarCompras();
 
         void VerificarInicioServidor()
         {

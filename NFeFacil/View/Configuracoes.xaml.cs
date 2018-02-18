@@ -168,13 +168,13 @@ namespace NFeFacil.View
             }
         }
 
-        async void AnalisarCompras()
+        void AnalisarCompras()
         {
-            var comprado = await ComprasInApp.ObterProduto(Compras.NFCe);
-            btnComprarNFCe.IsEnabled = !comprado.IsInUserCollection;
-            comprado = await ComprasInApp.ObterProduto(Compras.Personalizacao);
-            btnComprarBackground.IsEnabled = !comprado.IsInUserCollection;
-            itnBackground.IsEnabled = comprado.IsInUserCollection;
+            var comprado = ComprasInApp.Resumo[Compras.NFCe];
+            btnComprarNFCe.IsEnabled = !comprado;
+            comprado = ComprasInApp.Resumo[Compras.Personalizacao];
+            btnComprarBackground.IsEnabled = !comprado;
+            itnBackground.IsEnabled = comprado;
         }
 
         async void ComprarNFCe(object sender, RoutedEventArgs e)
@@ -188,6 +188,11 @@ namespace NFeFacil.View
             var comprado = await ComprasInApp.Comprar(Compras.Personalizacao);
             btnComprarBackground.IsEnabled = !comprado;
             itnBackground.IsEnabled = comprado;
+        }
+
+        async void ReanalizarCompras(object sender, RoutedEventArgs e)
+        {
+            await ComprasInApp.AnalisarCompras();
         }
     }
 }

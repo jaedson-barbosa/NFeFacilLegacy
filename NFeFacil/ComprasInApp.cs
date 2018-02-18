@@ -1,5 +1,5 @@
-﻿using NFeFacil.Log;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.Services.Store;
 
@@ -9,12 +9,37 @@ namespace NFeFacil
 {
     static class ComprasInApp
     {
+        public static Dictionary<Compras, bool> Resumo { get; private set; }
+
+        public static async Task AnalisarCompras()
+        {
+            try
+            {
+                var storeContext = StoreContext.GetDefault();
+                string[] productKinds = { "Durable" };
+                var addOns = await storeContext.GetAssociatedStoreProductsAsync(productKinds);
+                Resumo.Add(Compras.NFCe, addOns.Products[Compras.NFCe].IsInUserCollection);
+                Resumo.Add(Compras.Personalizacao, addOns.Products[Compras.Personalizacao].IsInUserCollection);
+            }
+            catch (Exception e)
+            {
+                Resumo.Add(Compras.NFCe, false);
+                Resumo.Add(Compras.Personalizacao, false);
+                e.ManipularErro();
+            }
+        }
+
         public static async Task<bool> Comprar(Compras compra)
         {
             var prod = await ObterProduto(compra);
             var resultadoAquisicao = await prod.RequestPurchaseAsync();
-            return resultadoAquisicao.Status == StorePurchaseStatus.Succeeded
-                || resultadoAquisicao.Status == StorePurchaseStatus.AlreadyPurchased;
+            if (resultadoAquisicao.Status == StorePurchaseStatus.Succeeded
+                || resultadoAquisicao.Status == StorePurchaseStatus.AlreadyPurchased)
+            {
+                if (Resumo.ContainsKey(compra)) Resumo[compra] = true;
+                return true;
+            }
+            return false;
         }
 
         public static async Task<StoreProduct> ObterProduto(Compras compra)

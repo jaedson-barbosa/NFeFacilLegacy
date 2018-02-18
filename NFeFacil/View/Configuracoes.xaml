@@ -141,6 +141,20 @@
                                    Style="{StaticResource BodyTextBlockStyle}">Personalize a tela de fundo do aplicativo pra deixá-lo com sua cara.</TextBlock>
                     </Grid>
                 </Button>
+                <Button Width="200"
+                        MinHeight="200"
+                        Padding="16"
+                        Click="ReanalizarCompras">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Reanalizar compras</TextBlock>
+                        <TextBlock Grid.Row="1"
+                                   Style="{StaticResource BodyTextBlockStyle}">Caso a análise não tenha ocorrido corretamente no início do app, reanalize.</TextBlock>
+                    </Grid>
+                </Button>
             </ItemsControl>
         </controles:MultView>
     </controles:DuplaView>

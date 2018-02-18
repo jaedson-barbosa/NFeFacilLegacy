@@ -14,6 +14,7 @@ using Windows.Storage.Pickers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using NFeFacil.Fiscal;
+using Windows.UI.Xaml.Navigation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -25,6 +26,12 @@ namespace NFeFacil.View
         public Inicio()
         {
             InitializeComponent();
+        }
+
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        {
+            var comprado = await ComprasInApp.ObterProduto(Compras.NFCe);
+            hubNFCe.IsEnabled = comprado.IsInUserCollection;
         }
 
         void AbrirClientes(object sender, TappedRoutedEventArgs e) => Navegar<GerenciarClientes>();

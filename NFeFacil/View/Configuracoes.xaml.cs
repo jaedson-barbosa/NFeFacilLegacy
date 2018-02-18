@@ -4,6 +4,7 @@ using System;
 using System.IO;
 using Windows.Storage.Pickers;
 using Windows.System.Profile;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 
@@ -14,8 +15,6 @@ namespace NFeFacil.View
     [DetalhePagina(Symbol.Setting, "Configurações")]
     public sealed partial class Configuracoes : Page
     {
-        readonly ComprasInApp Compra = new ComprasInApp(ComprasInApp.Compras.Personalizacao);
-
         public Configuracoes()
         {
             InitializeComponent();
@@ -24,8 +23,10 @@ namespace NFeFacil.View
                 "Geral",
                 "Modos de busca",
                 "Background",
-                "DANFE NFCe"
+                "DANFE NFCe",
+                "Compras"
             };
+            AnalisarCompras();
         }
 
         string[] ItensMenu { get; }
@@ -113,50 +114,38 @@ namespace NFeFacil.View
 
         async void UsarImagem(object sender, TappedRoutedEventArgs e)
         {
-            if (await Compra.AnalisarCompra())
+            var brushAtual = MainPage.Current.ImagemBackground;
+            if (DefinicoesPermanentes.IDBackgroung == default(Guid))
             {
-                var brushAtual = MainPage.Current.ImagemBackground;
-                if (DefinicoesPermanentes.IDBackgroung == default(Guid))
-                {
-                    DefinicoesPermanentes.IDBackgroung = Guid.NewGuid();
-                }
-                var caixa = new DefinirImagem(DefinicoesPermanentes.IDBackgroung, brushAtual);
-                if (await caixa.ShowAsync() == ContentDialogResult.Primary)
-                {
-                    MainPage.Current.ImagemBackground = caixa.Imagem;
-                    MainPage.Current.DefinirTipoBackground(TiposBackground.Imagem);
-                }
+                DefinicoesPermanentes.IDBackgroung = Guid.NewGuid();
+            }
+            var caixa = new DefinirImagem(DefinicoesPermanentes.IDBackgroung, brushAtual);
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+            {
+                MainPage.Current.ImagemBackground = caixa.Imagem;
+                MainPage.Current.DefinirTipoBackground(TiposBackground.Imagem);
             }
         }
 
         async void UsarCor(object sender, TappedRoutedEventArgs e)
         {
-            if (await Compra.AnalisarCompra())
-            {
-                MainPage.Current.DefinirTipoBackground(TiposBackground.Cor);
-            }
+            MainPage.Current.DefinirTipoBackground(TiposBackground.Cor);
         }
 
         async void EscolherTransparencia(object sender, TappedRoutedEventArgs e)
         {
-            if (await Compra.AnalisarCompra())
+            var caixa = new EscolherTransparencia(DefinicoesPermanentes.OpacidadeBackground);
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
-                var caixa = new EscolherTransparencia(DefinicoesPermanentes.OpacidadeBackground);
-                if (await caixa.ShowAsync() == ContentDialogResult.Primary)
-                {
-                    DefinicoesPermanentes.OpacidadeBackground = caixa.Opacidade;
-                    MainPage.Current.DefinirOpacidadeBackground(caixa.Opacidade);
-                }
+                DefinicoesPermanentes.OpacidadeBackground = caixa.Opacidade;
+                MainPage.Current.DefinirOpacidadeBackground(caixa.Opacidade);
             }
         }
 
         async void Resetar(object sender, TappedRoutedEventArgs e)
         {
-            if (await Compra.AnalisarCompra())
-            {
-                DefinicoesPermanentes.OpacidadeBackground = 1;
-                MainPage.Current.DefinirTipoBackground(TiposBackground.Padrao);
-            }
+            DefinicoesPermanentes.OpacidadeBackground = 1;
+            MainPage.Current.DefinirTipoBackground(TiposBackground.Padrao);
         }
 
         async void SalvarBackup(object sender, TappedRoutedEventArgs e)
@@ -177,6 +166,28 @@ namespace NFeFacil.View
                     await escritor.FlushAsync();
                 }
             }
+        }
+
+        async void AnalisarCompras()
+        {
+            var comprado = await ComprasInApp.ObterProduto(Compras.NFCe);
+            btnComprarNFCe.IsEnabled = !comprado.IsInUserCollection;
+            comprado = await ComprasInApp.ObterProduto(Compras.Personalizacao);
+            btnComprarBackground.IsEnabled = !comprado.IsInUserCollection;
+            itnBackground.IsEnabled = comprado.IsInUserCollection;
+        }
+
+        async void ComprarNFCe(object sender, RoutedEventArgs e)
+        {
+            var comprado = await ComprasInApp.Comprar(Compras.NFCe);
+            btnComprarNFCe.IsEnabled = !comprado;
+        }
+
+        async void ComprarBackground(object sender, RoutedEventArgs e)
+        {
+            var comprado = await ComprasInApp.Comprar(Compras.Personalizacao);
+            btnComprarBackground.IsEnabled = !comprado;
+            itnBackground.IsEnabled = comprado;
         }
     }
 }

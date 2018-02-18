@@ -46,59 +46,56 @@
                     </controles:ItemPadrao>
                 </ItemsControl>
             </StackPanel>
-            <StackPanel>
-                <ItemsControl Style="{StaticResource ItensResponsivos}">
-                    <ComboBox Header="Modo de busca do produto"
-                              SelectedIndex="{x:Bind ModoBuscaProduto, Mode=TwoWay}">
-                        <ComboBoxItem>Pela descrição</ComboBoxItem>
-                        <ComboBoxItem>Pelo código</ComboBoxItem>
-                    </ComboBox>
-                    <ComboBox Header="Modo de busca do cliente"
-                              SelectedIndex="{x:Bind ModoBuscaCliente, Mode=TwoWay}">
-                        <ComboBoxItem>Pelo nome</ComboBoxItem>
-                        <ComboBoxItem>Pelo documento</ComboBoxItem>
-                    </ComboBox>
-                    <ComboBox Header="Modo de busca do comprador"
-                              SelectedIndex="{x:Bind ModoBuscaComprador, Mode=TwoWay}">
-                        <ComboBoxItem>Pelo nome do comprador</ComboBoxItem>
-                        <ComboBoxItem>Pelo nome da empresa</ComboBoxItem>
-                    </ComboBox>
-                    <ComboBox Header="Modo de busca do motorista"
-                              SelectedIndex="{x:Bind ModoBuscaMotorista, Mode=TwoWay}">
-                        <ComboBoxItem>Pelo nome</ComboBoxItem>
-                        <ComboBoxItem>Pelo documento</ComboBoxItem>
-                    </ComboBox>
-                    <ComboBox Header="Modo de busca do vendedor"
-                              SelectedIndex="{x:Bind ModoBuscaVendedor, Mode=TwoWay}">
-                        <ComboBoxItem>Pelo nome</ComboBoxItem>
-                        <ComboBoxItem>Pelo CPF</ComboBoxItem>
-                    </ComboBox>
-                </ItemsControl>
-            </StackPanel>
-            <StackPanel>
-                <ItemsControl Style="{StaticResource ItensMedios}">
-                    <controles:ItemPadrao Titulo="Usar imagem"
-                                          Descricao="Escolha uma imagem para servir de background para o aplicativo"
-                                          Tapped="UsarImagem">
-                        <FontIcon Glyph="&#xEB9F;" />
-                    </controles:ItemPadrao>
-                    <controles:ItemPadrao Titulo="Usar cor"
-                                          Descricao="Use a cor de destaque como background para o aplicativo"
-                                          Tapped="UsarCor">
-                        <FontIcon Glyph="&#xE790;" />
-                    </controles:ItemPadrao>
-                    <controles:ItemPadrao Titulo="Escolher transparência"
-                                          Descricao="Defina a porcentagem de transparência do background"
-                                          Tapped="EscolherTransparencia">
-                        <FontIcon Glyph="&#xE706;" />
-                    </controles:ItemPadrao>
-                    <controles:ItemPadrao Titulo="Restaurar padrão"
-                                          Descricao="Resete todas as configurações do background"
-                                          Tapped="Resetar">
-                        <FontIcon Glyph="&#xED10;" />
-                    </controles:ItemPadrao>
-                </ItemsControl>
-            </StackPanel>
+            <ItemsControl Style="{StaticResource ItensResponsivos}">
+                <ComboBox Header="Modo de busca do produto"
+                          SelectedIndex="{x:Bind ModoBuscaProduto, Mode=TwoWay}">
+                    <ComboBoxItem>Pela descrição</ComboBoxItem>
+                    <ComboBoxItem>Pelo código</ComboBoxItem>
+                </ComboBox>
+                <ComboBox Header="Modo de busca do cliente"
+                          SelectedIndex="{x:Bind ModoBuscaCliente, Mode=TwoWay}">
+                    <ComboBoxItem>Pelo nome</ComboBoxItem>
+                    <ComboBoxItem>Pelo documento</ComboBoxItem>
+                </ComboBox>
+                <ComboBox Header="Modo de busca do comprador"
+                          SelectedIndex="{x:Bind ModoBuscaComprador, Mode=TwoWay}">
+                    <ComboBoxItem>Pelo nome do comprador</ComboBoxItem>
+                    <ComboBoxItem>Pelo nome da empresa</ComboBoxItem>
+                </ComboBox>
+                <ComboBox Header="Modo de busca do motorista"
+                          SelectedIndex="{x:Bind ModoBuscaMotorista, Mode=TwoWay}">
+                    <ComboBoxItem>Pelo nome</ComboBoxItem>
+                    <ComboBoxItem>Pelo documento</ComboBoxItem>
+                </ComboBox>
+                <ComboBox Header="Modo de busca do vendedor"
+                          SelectedIndex="{x:Bind ModoBuscaVendedor, Mode=TwoWay}">
+                    <ComboBoxItem>Pelo nome</ComboBoxItem>
+                    <ComboBoxItem>Pelo CPF</ComboBoxItem>
+                </ComboBox>
+            </ItemsControl>
+            <ItemsControl x:Name="itnBackground"
+                          Style="{StaticResource ItensMedios}">
+                <controles:ItemPadrao Titulo="Usar imagem"
+                                      Descricao="Escolha uma imagem para servir de background para o aplicativo"
+                                      Tapped="UsarImagem">
+                    <FontIcon Glyph="&#xEB9F;" />
+                </controles:ItemPadrao>
+                <controles:ItemPadrao Titulo="Usar cor"
+                                      Descricao="Use a cor de destaque como background para o aplicativo"
+                                      Tapped="UsarCor">
+                    <FontIcon Glyph="&#xE790;" />
+                </controles:ItemPadrao>
+                <controles:ItemPadrao Titulo="Escolher transparência"
+                                      Descricao="Defina a porcentagem de transparência do background"
+                                      Tapped="EscolherTransparencia">
+                    <FontIcon Glyph="&#xE706;" />
+                </controles:ItemPadrao>
+                <controles:ItemPadrao Titulo="Restaurar padrão"
+                                      Descricao="Resete todas as configurações do background"
+                                      Tapped="Resetar">
+                    <FontIcon Glyph="&#xED10;" />
+                </controles:ItemPadrao>
+            </ItemsControl>
             <StackPanel>
                 <Slider Header="Largura (mm)"
                         Minimum="70"
@@ -111,6 +108,40 @@
                         StepFrequency="5"
                         Value="{x:Bind MargemDANFENFCe, Mode=TwoWay}" />
             </StackPanel>
+            <ItemsControl Style="{StaticResource ItensMedios}">
+                <Button x:Name="btnComprarNFCe"
+                        Width="200"
+                        MinHeight="200"
+                        Padding="16"
+                        IsEnabled="False"
+                        Click="ComprarNFCe">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">NFCe</TextBlock>
+                        <TextBlock Grid.Row="1"
+                                   Style="{StaticResource BodyTextBlockStyle}">Por uma pequena quantia libere a criação de NFCe no aplicativo.</TextBlock>
+                    </Grid>
+                </Button>
+                <Button x:Name="btnComprarBackground"
+                        Width="200"
+                        MinHeight="200"
+                        Padding="16"
+                        IsEnabled="False"
+                        Click="ComprarBackground">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Background</TextBlock>
+                        <TextBlock Grid.Row="1"
+                                   Style="{StaticResource BodyTextBlockStyle}">Personalize a tela de fundo do aplicativo pra deixá-lo com sua cara.</TextBlock>
+                    </Grid>
+                </Button>
+            </ItemsControl>
         </controles:MultView>
     </controles:DuplaView>
 </Page>

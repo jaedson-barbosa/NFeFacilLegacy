@@ -7,73 +7,36 @@ using Windows.Services.Store;
 
 namespace NFeFacil
 {
-    sealed class ComprasInApp
+    static class ComprasInApp
     {
-        public struct Compras
+        public static async Task<bool> Comprar(Compras compra)
         {
-            public const string Personalizacao = "9P70MWLRCS54";
-            public const string Doacao25 = "9NJNJTZQ85G5";
-            public const string Doacao10 = "9MXJQH2JC335";
-
-            string Value;
-            private Compras(string value) => Value = value;
-
-            public static implicit operator Compras(string str) => new Compras(str);
-            public static implicit operator string(Compras compra) => compra.Value;
-        }
-
-        Compras Escolhida { get; }
-
-        public ComprasInApp(Compras compra)
-        {
-            Escolhida = compra;
-        }
-
-        bool Comprado = false;
-        public async Task<bool> AnalisarCompra()
-        {
-            try
-            {
-                if (Comprado == false)
-                {
-                    var prod = await ObterProduto();
-                    if (prod.IsInUserCollection)
-                    {
-                        Comprado = true;
-                    }
-                    else
-                    {
-                        StoreContext storeContext = StoreContext.GetDefault();
-                        var resultadoAquisicao = await storeContext.RequestPurchaseAsync(prod.StoreId);
-                        Comprado = resultadoAquisicao.Status == StorePurchaseStatus.Succeeded
-                            || resultadoAquisicao.Status == StorePurchaseStatus.AlreadyPurchased;
-                    }
-                }
-                return Comprado;
-            }
-            catch (Exception e)
-            {
-                Popup.Current.Escrever(TitulosComuns.Erro, e.Message);
-                return false;
-            }
-        }
-
-        public async Task<bool> Comprar()
-        {
-            var prod = await ObterProduto();
-            StoreContext storeContext = StoreContext.GetDefault();
-            var resultadoAquisicao = await storeContext.RequestPurchaseAsync(prod.StoreId);
-            return Comprado = resultadoAquisicao.Status == StorePurchaseStatus.Succeeded
+            var prod = await ObterProduto(compra);
+            var resultadoAquisicao = await prod.RequestPurchaseAsync();
+            return resultadoAquisicao.Status == StorePurchaseStatus.Succeeded
                 || resultadoAquisicao.Status == StorePurchaseStatus.AlreadyPurchased;
         }
 
-        async Task<StoreProduct> ObterProduto()
+        public static async Task<StoreProduct> ObterProduto(Compras compra)
         {
             var storeContext = StoreContext.GetDefault();
-            string[] productKinds = new string[] { "Consumable", "Durable" };
+            string[] productKinds = { "Consumable", "Durable" };
             var addOns = await storeContext.GetAssociatedStoreProductsAsync(productKinds);
-            var keys = addOns.Products.Keys;
-            return addOns.Products[Escolhida];
+            return addOns.Products[compra];
         }
+    }
+
+    struct Compras
+    {
+        public const string Personalizacao = "9P70MWLRCS54";
+        public const string Doacao25 = "9NJNJTZQ85G5";
+        public const string Doacao10 = "9MXJQH2JC335";
+        public const string NFCe = "9NPT3PV6BT0X";
+
+        string Value;
+        private Compras(string value) => Value = value;
+
+        public static implicit operator Compras(string str) => new Compras(str);
+        public static implicit operator string(Compras compra) => compra.Value;
     }
 }

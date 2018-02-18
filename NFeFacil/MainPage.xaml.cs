@@ -77,7 +77,7 @@ namespace NFeFacil
                 if (resultado.Label == "Cancelar") return;
             }
 
-            if (frmPrincipal.BackStackDepth > 1) frmPrincipal.GoBack();
+            if (frmPrincipal.BackStackDepth >= 1) frmPrincipal.GoBack();
             else
             {
                 var familia = AnalyticsInfo.VersionInfo.DeviceFamily;

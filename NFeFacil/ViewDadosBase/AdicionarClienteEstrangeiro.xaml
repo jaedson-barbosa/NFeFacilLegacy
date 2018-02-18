@@ -1,6 +1,7 @@
 ﻿<Page x:Class="NFeFacil.ViewDadosBase.AdicionarClienteEstrangeiro"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:controles="using:NFeFacil.Controles"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
@@ -33,15 +34,17 @@
                 <TextBox Text="{x:Bind Base.Cliente.Bairro, Mode=TwoWay}"
                          InputScope="Text"
                          Header="Bairro *" />
-                <TextBox Text="{x:Bind Base.Cliente.Telefone, Mode=TwoWay}"
-                         InputScope="Number"
-                         Header="Telefone" />
+                <controles:EntradaRestrita Text="{x:Bind Base.Cliente.Telefone, Mode=TwoWay}"
+                                           Pattern="[^\d]"
+                                           InputScope="Number"
+                                           Header="Telefone" />
                 <TextBox Text="{x:Bind Base.Cliente.XPais, Mode=TwoWay}"
                          InputScope="Text"
                          Header="Nome do país" />
-                <TextBox Text="{x:Bind Base.Cliente.CPais, Mode=TwoWay}"
-                         InputScope="Number"
-                         Header="Codigo do país" />
+                <controles:EntradaRestrita Text="{x:Bind Base.Cliente.CPais, Mode=TwoWay}"
+                                           Pattern="[^\d]"
+                                           InputScope="Number"
+                                           Header="Codigo do país" />
             </ItemsControl>
         </StackPanel>
     </ScrollViewer>

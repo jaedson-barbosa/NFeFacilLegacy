@@ -122,7 +122,7 @@
                         </Grid.RowDefinitions>
                         <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">NFCe</TextBlock>
                         <TextBlock Grid.Row="1"
-                                   Style="{StaticResource BodyTextBlockStyle}">Por uma pequena quantia libere a criação de NFCe no aplicativo.</TextBlock>
+                                   Style="{StaticResource BodyTextBlockStyle}">Libere a criação de notas fiscais do consumidor no aplicativo.</TextBlock>
                     </Grid>
                 </Button>
                 <Button x:Name="btnComprarBackground"

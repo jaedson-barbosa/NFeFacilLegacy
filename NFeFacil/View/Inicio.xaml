@@ -53,8 +53,7 @@
                 </Grid>
             </DataTemplate>
         </HubSection>
-        <HubSection x:Name="hubNFCe"
-                    Width="400"
+        <HubSection Width="400"
                     Header="Fiscal (NF-e)">
             <DataTemplate>
                 <Grid>
@@ -107,9 +106,9 @@
                 </Grid>
             </DataTemplate>
         </HubSection>
-        <HubSection Width="400"
-                    Header="Fiscal (NFC-e)"
-                    IsEnabled="False">
+        <HubSection x:Name="hubNFCe"
+                    Width="400"
+                    Header="Fiscal (NFC-e)">
             <DataTemplate>
                 <Grid>
                     <Grid.ColumnDefinitions>

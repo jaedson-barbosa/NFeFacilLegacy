@@ -19,7 +19,8 @@
                 <controles:EntradaRestrita Text="{x:Bind Emit.CNPJ, Mode=TwoWay}"
                                            Pattern="[^\d]"
                                            Header="CNPJ *" />
-                <TextBox Text="{x:Bind Emit.InscricaoEstadual, Mode=TwoWay}"
+                <controles:EntradaRestrita Text="{x:Bind Emit.InscricaoEstadual, Mode=TwoWay}"
+                                           Pattern="[^\d]"
                                            InputScope="Number"
                                            Header="Inscrição estadual *" />
                 <controles:EntradaRestrita Text="{x:Bind Emit.CNAE, Mode=TwoWay}"

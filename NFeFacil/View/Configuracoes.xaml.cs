@@ -127,7 +127,7 @@ namespace NFeFacil.View
             }
         }
 
-        async void UsarCor(object sender, TappedRoutedEventArgs e)
+        void UsarCor(object sender, TappedRoutedEventArgs e)
         {
             MainPage.Current.DefinirTipoBackground(TiposBackground.Cor);
         }
@@ -142,7 +142,7 @@ namespace NFeFacil.View
             }
         }
 
-        async void Resetar(object sender, TappedRoutedEventArgs e)
+        void Resetar(object sender, TappedRoutedEventArgs e)
         {
             DefinicoesPermanentes.OpacidadeBackground = 1;
             MainPage.Current.DefinirTipoBackground(TiposBackground.Padrao);

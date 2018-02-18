@@ -18,8 +18,19 @@ namespace NFeFacil
                 var storeContext = StoreContext.GetDefault();
                 string[] productKinds = { "Durable" };
                 var addOns = await storeContext.GetAssociatedStoreProductsAsync(productKinds);
-                Resumo.Add(Compras.NFCe, addOns.Products[Compras.NFCe].IsInUserCollection);
-                Resumo.Add(Compras.Personalizacao, addOns.Products[Compras.Personalizacao].IsInUserCollection);
+                if (Resumo == null)
+                {
+                    Resumo = new Dictionary<Compras, bool>(2)
+                    {
+                        { Compras.NFCe, addOns.Products[Compras.NFCe].IsInUserCollection },
+                        { Compras.Personalizacao, addOns.Products[Compras.Personalizacao].IsInUserCollection }
+                    };
+                }
+                else
+                {
+                    Resumo[Compras.NFCe] = addOns.Products[Compras.NFCe].IsInUserCollection;
+                    Resumo[Compras.Personalizacao] = addOns.Products[Compras.Personalizacao].IsInUserCollection;
+                }
             }
             catch (Exception e)
             {

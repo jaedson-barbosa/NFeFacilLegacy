@@ -168,7 +168,6 @@
     <Compile Include="Controles\DuplaView.xaml.cs">
       <DependentUpon>DuplaView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ErroCadastro.cs" />
     <Compile Include="Fiscal\AcoesNFCe.cs" />
     <Compile Include="Fiscal\AcoesNFe.cs" />
     <Compile Include="Fiscal\AcoesVisualizacao.cs" />

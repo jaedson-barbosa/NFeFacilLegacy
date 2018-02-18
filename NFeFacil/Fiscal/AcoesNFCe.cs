@@ -149,7 +149,7 @@ namespace NFeFacil.Fiscal
                 var emit = DefinicoesTemporarias.EmitenteAtivo;
                 if (string.IsNullOrEmpty(emit.IdToken) || string.IsNullOrEmpty(emit.CSC))
                 {
-                    throw new ErroCadastro("O CSC e seu identificador são informações obrigatórias, por favor, cadastre elas no cadastro deste emitente.");
+                    throw new Exception("O CSC e seu identificador são informações obrigatórias, por favor, cadastre elas no cadastro deste emitente.");
                 }
                 notaSalva.PrepararInformacoesSuplementares(emit.IdToken, emit.CSC);
                 return true;

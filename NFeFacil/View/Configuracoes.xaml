@@ -36,8 +36,9 @@
                              IsChecked="{x:Bind UsarSOAP11}">SOAP 1.1</RadioButton>
                 <RadioButton GroupName="versaoSOAP"
                              IsChecked="{x:Bind UsarSOAP12, Mode=TwoWay}">SOAP 1.2</RadioButton>
-                <TextBlock Style="{StaticResource TitleTextBlockStyle}">Backup</TextBlock>
-                <TextBlock TextWrapping="Wrap">No backup local é gerado um arquivo json com todas as informações salvas atualmente no aplicativo já que nele não há limite de tamanho. É recomendado que seja guardado em um local seguro, como no seu OneDrive. Ele só pode ser restaurado quando não há informações guardadas no aplicativo.</TextBlock>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock TextWrapping="Wrap">No backup local é gerado um arquivo XML com todas as informações salvas atualmente no aplicativo já que nele não há limite de tamanho. É recomendado que seja guardado em um local seguro, como no seu OneDrive. Ele só pode ser restaurado quando não há informações guardadas no aplicativo.</TextBlock>
                 <ItemsControl Style="{StaticResource ItensMedios}">
                     <controles:ItemPadrao Titulo="Salvar backup"
                                           Descricao="Guarde todas as informações do aplicativo em um único arquivo."

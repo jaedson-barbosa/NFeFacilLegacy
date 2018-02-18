@@ -21,6 +21,7 @@ namespace NFeFacil.View
             ItensMenu = new string[]
             {
                 "Geral",
+                "Backup",
                 "Modos de busca",
                 "Background",
                 "DANFE NFCe",

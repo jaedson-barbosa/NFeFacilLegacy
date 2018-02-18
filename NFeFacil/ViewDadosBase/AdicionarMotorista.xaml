@@ -3,6 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:VM="using:NFeFacil.View"
       xmlns:db="using:NFeFacil.ItensBD"
+      xmlns:controles="using:NFeFacil.Controles"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
@@ -17,19 +18,21 @@
                     <ComboBoxItem Content="CPF" />
                     <ComboBoxItem Content="CNPJ" />
                 </ComboBox>
-                <TextBox Text="{x:Bind Documento, Mode=TwoWay}"
-                         InputScope="Number"
-                         Header="Documento *" />
+                <controles:EntradaRestrita Text="{x:Bind Documento, Mode=TwoWay}"
+                                           Pattern="[^\d]"
+                                           InputScope="Number"
+                                           Header="Documento *" />
                 <Grid MinWidth="240">
                     <CheckBox Content="Isento do ICMS"
                               Margin="0,-6,0,0"
                               IsChecked="{x:Bind IsentoICMS, Mode=TwoWay}"
                               HorizontalAlignment="Right"
                               VerticalAlignment="Top" />
-                    <TextBox x:Name="txtIE"
-                             Text="{x:Bind Motorista.InscricaoEstadual, Mode=TwoWay}"
-                             InputScope="Number"
-                             Header="Inscrição estadual" />
+                    <controles:EntradaRestrita x:Name="txtIE"
+                                               Pattern="[^\d]"
+                                               Text="{x:Bind Motorista.InscricaoEstadual, Mode=TwoWay}"
+                                               InputScope="Number"
+                                               Header="Inscrição estadual" />
                 </Grid>
                 <TextBox Text="{x:Bind Motorista.Email, Mode=TwoWay}"
                          InputScope="EmailNameOrAddress"
@@ -48,9 +51,10 @@
                 <TextBox Text="{x:Bind Motorista.XEnder, Mode=TwoWay}"
                          InputScope="Text"
                          Header="Logradouro" />
-                <TextBox Text="{x:Bind Motorista.Telefone, Mode=TwoWay}"
-                         InputScope="Number"
-                         Header="Telefone" />
+                <controles:EntradaRestrita Text="{x:Bind Motorista.Telefone, Mode=TwoWay}"
+                                           Pattern="[^\d]"
+                                           InputScope="Number"
+                                           Header="Telefone" />
             </ItemsControl>
             <TextBlock Text="Veiculo"
                        Style="{StaticResource TitleTextBlockStyle}"

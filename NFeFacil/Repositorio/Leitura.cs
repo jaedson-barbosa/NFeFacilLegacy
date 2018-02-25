@@ -112,18 +112,18 @@ namespace NFeFacil.Repositorio
         {
             var notasFiscais = db.NotasFiscais.ToArray();
             var notasEmitidas = (from nota in notasFiscais
-                                 where nota.Status == (int)StatusNota.Emitida && nota.IsNFCe == isNFCe
-                                 where nota.CNPJEmitente == cnpj
+                                 where nota.Status == (int)StatusNota.Emitida
+                                 where nota.CNPJEmitente == cnpj && nota.IsNFCe == isNFCe
                                  orderby nota.DataEmissao descending
                                  select nota);
             var outrasNotas = (from nota in notasFiscais
                                where nota.Status != (int)StatusNota.Emitida && nota.Status != (int)StatusNota.Cancelada
-                               where nota.CNPJEmitente == cnpj
+                               where nota.CNPJEmitente == cnpj && nota.IsNFCe == isNFCe
                                orderby nota.DataEmissao descending
                                select nota);
             var notasCanceladas = (from nota in notasFiscais
                                    where nota.Status == (int)StatusNota.Cancelada
-                                   where nota.CNPJEmitente == cnpj
+                                   where nota.CNPJEmitente == cnpj && nota.IsNFCe == isNFCe
                                    orderby nota.DataEmissao descending
                                    select nota);
             return (notasEmitidas, outrasNotas, notasCanceladas);

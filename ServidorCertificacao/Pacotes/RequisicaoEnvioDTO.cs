@@ -7,6 +7,7 @@ namespace ServidorCertificacao.Pacotes
         public XElement Conteudo { get; set; }
         public CabecalhoRequisicao Cabecalho { get; set; }
         public string Uri { get; set; }
+        public string TipoConteudo { get; set; }
     }
 
     public struct CabecalhoRequisicao

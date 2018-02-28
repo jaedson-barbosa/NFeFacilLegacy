@@ -17,7 +17,7 @@ namespace NFeFacil.View
         async void Doar10(object sender, TappedRoutedEventArgs e)
         {
             grdCompra.IsEnabled = false;
-            if (await new ComprasInApp(ComprasInApp.Compras.Doacao10).Comprar())
+            if (await ComprasInApp.Comprar(Compras.Doacao10))
             {
                 Popup.Current.Escrever(TitulosComuns.Sucesso, "Muito obrigado pela contribuição.");
             }
@@ -27,7 +27,7 @@ namespace NFeFacil.View
         async void Doar25(object sender, TappedRoutedEventArgs e)
         {
             grdCompra.IsEnabled = false;
-            if (await new ComprasInApp(ComprasInApp.Compras.Doacao25).Comprar())
+            if (await ComprasInApp.Comprar(Compras.Doacao25))
             {
                 Popup.Current.Escrever(TitulosComuns.Sucesso, "Muito obrigado pela contribuição.");
             }

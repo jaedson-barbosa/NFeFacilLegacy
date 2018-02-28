@@ -1,8 +1,6 @@
 ﻿using NFeFacil.ModeloXML;
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.Xml.Linq;
-using System.Xml.Serialization;
 
 namespace NFeFacil.ItensBD
 {
@@ -31,55 +29,77 @@ namespace NFeFacil.ItensBD
         public bool Impressa { get; set; }
         public bool Exportada { get; set; }
 
-        public int StatusAdd => (int)StatusNFe.Salva;
-
-        public static NFeDI Converter(XElement xml)
-        {
-            if (xml.Name.LocalName == nameof(NFe))
-            {
-                return new NFeDI(FromXElement<NFe>(xml), xml.ToString());
-            }
-            else
-            {
-                return new NFeDI(FromXElement<Processo>(xml), xml.ToString());
-            }
-        }
+        public int StatusAdd => (int)StatusNota.Salva;
+        public bool IsNFCe { get; set; }
 
         public NFeDI() { }
 
         public NFeDI(NFe nota, string xml)
         {
+            if (nota.Informacoes.identificacao.Modelo == 65)
+                throw new Exception();
+
             Id = nota.Informacoes.Id;
             NomeCliente = nota.Informacoes.destinatário.Nome;
-            NomeEmitente = nota.Informacoes.emitente.Nome;
-            CNPJEmitente = nota.Informacoes.emitente.CNPJ.ToString();
+            NomeEmitente = nota.Informacoes.Emitente.Nome;
+            CNPJEmitente = nota.Informacoes.Emitente.CNPJ.ToString();
             DataEmissao = DateTime.Parse(nota.Informacoes.identificacao.DataHoraEmissão).ToString("yyyy-MM-dd HH:mm:ss");
             NumeroNota = nota.Informacoes.identificacao.Numero;
             SerieNota = nota.Informacoes.identificacao.Serie;
-            Status = nota.Signature != null && nota.Signature != null ? (int)StatusNFe.Assinada : (int)StatusNFe.Salva;
+            Status = nota.Signature != null && nota.Signature != null ? (int)StatusNota.Assinada : (int)StatusNota.Salva;
+            IsNFCe = false;
             XML = xml;
         }
 
-        public NFeDI(Processo nota, string xml)
+        public NFeDI(NFCe nota, string xml)
         {
+            if (nota.Informacoes.identificacao.Modelo == 55)
+                throw new Exception();
+
+            Id = nota.Informacoes.Id;
+            NomeCliente = nota.Informacoes.destinatário?.Nome ?? "Desconhecido";
+            NomeEmitente = nota.Informacoes.Emitente.Nome;
+            CNPJEmitente = nota.Informacoes.Emitente.CNPJ.ToString();
+            DataEmissao = DateTime.Parse(nota.Informacoes.identificacao.DataHoraEmissão).ToString("yyyy-MM-dd HH:mm:ss");
+            NumeroNota = nota.Informacoes.identificacao.Numero;
+            SerieNota = nota.Informacoes.identificacao.Serie;
+            Status = nota.Signature != null && nota.Signature != null ? (int)StatusNota.Assinada : (int)StatusNota.Salva;
+            IsNFCe = true;
+            XML = xml;
+        }
+
+        public NFeDI(ProcessoNFe nota, string xml)
+        {
+            if (nota.NFe.Informacoes.identificacao.Modelo == 65)
+                throw new Exception();
+
             Id = nota.NFe.Informacoes.Id;
             NomeCliente = nota.NFe.Informacoes.destinatário.Nome;
-            NomeEmitente = nota.NFe.Informacoes.emitente.Nome;
-            CNPJEmitente = nota.NFe.Informacoes.emitente.CNPJ.ToString();
+            NomeEmitente = nota.NFe.Informacoes.Emitente.Nome;
+            CNPJEmitente = nota.NFe.Informacoes.Emitente.CNPJ.ToString();
             DataEmissao = DateTime.Parse(nota.NFe.Informacoes.identificacao.DataHoraEmissão).ToString("yyyy-MM-dd HH:mm:ss");
             NumeroNota = nota.NFe.Informacoes.identificacao.Numero;
             SerieNota = nota.NFe.Informacoes.identificacao.Serie;
-            Status = nota.ProtNFe != null ? (int)StatusNFe.Emitida : nota.NFe.Signature != null ? (int)StatusNFe.Assinada : (int)StatusNFe.Salva;
+            Status = nota.ProtNFe != null ? (int)StatusNota.Emitida : nota.NFe.Signature != null ? (int)StatusNota.Assinada : (int)StatusNota.Salva;
+            IsNFCe = false;
             XML = xml;
         }
 
-        static T FromXElement<T>(XNode xElement)
+        public NFeDI(ProcessoNFCe nota, string xml)
         {
-            var xmlSerializer = new XmlSerializer(typeof(T));
-            using (var reader = xElement.CreateReader())
-            {
-                return (T)xmlSerializer.Deserialize(reader);
-            }
+            if (nota.NFe.Informacoes.identificacao.Modelo == 55)
+                throw new Exception();
+
+            Id = nota.NFe.Informacoes.Id;
+            NomeCliente = nota.NFe.Informacoes.destinatário?.Nome ?? "Desconhecido";
+            NomeEmitente = nota.NFe.Informacoes.Emitente.Nome;
+            CNPJEmitente = nota.NFe.Informacoes.Emitente.CNPJ.ToString();
+            DataEmissao = DateTime.Parse(nota.NFe.Informacoes.identificacao.DataHoraEmissão).ToString("yyyy-MM-dd HH:mm:ss");
+            NumeroNota = nota.NFe.Informacoes.identificacao.Numero;
+            SerieNota = nota.NFe.Informacoes.identificacao.Serie;
+            Status = nota.ProtNFe != null ? (int)StatusNota.Emitida : nota.NFe.Signature != null ? (int)StatusNota.Assinada : (int)StatusNota.Salva;
+            IsNFCe = true;
+            XML = xml;
         }
     }
 }

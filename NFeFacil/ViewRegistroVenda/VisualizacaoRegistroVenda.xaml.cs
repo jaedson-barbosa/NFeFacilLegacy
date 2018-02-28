@@ -1,4 +1,6 @@
-﻿using NFeFacil.ItensBD;
+﻿using NFeFacil.Fiscal;
+using NFeFacil.ItensBD;
+using NFeFacil.ViewRegistroVenda.DARV;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -87,7 +89,8 @@ namespace NFeFacil.ViewRegistroVenda
         {
             try
             {
-                var caixa = new ViewNFe.CriadorNFe(ItemBanco.ToNFe());
+                var controle = new ControleNFe(ItemBanco.ToNFe());
+                var caixa = new Criador(controle);
                 if (await caixa.ShowAsync() == ContentDialogResult.Primary)
                 {
                     Log.Popup.Current.Escrever(Log.TitulosComuns.Atenção, "Os impostos dos produtos não são adicionados automaticamente, por favor, insira-os editando cada produto.");
@@ -106,7 +109,7 @@ namespace NFeFacil.ViewRegistroVenda
             {
                 double largura = caixa.Largura, altura = caixa.Predefinicao == 0 ? 0 : caixa.Altura;
 
-                MainPage.Current.Navegar<DARV>(new DadosImpressaoDARV
+                MainPage.Current.Navegar<ViewDARV>(new DadosImpressaoDARV
                 {
                     Venda = ItemBanco,
                     Dimensoes = new Dimensoes(largura, altura, 1),
@@ -145,8 +148,9 @@ namespace NFeFacil.ViewRegistroVenda
         {
             using (var repo = new Repositorio.Leitura())
             {
-                var item = repo.ObterNFe(ItemBanco.NotaFiscalRelacionada);
-                MainPage.Current.Navegar<ViewNFe.VisualizacaoNFe>(item);
+                var item = repo.ObterNota(ItemBanco.NotaFiscalRelacionada);
+                var acoes = new AcoesNFe(item);
+                MainPage.Current.Navegar<Fiscal.Visualizacao>(acoes);
             }
         }
 

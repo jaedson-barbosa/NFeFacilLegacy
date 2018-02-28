@@ -6,8 +6,22 @@ using Windows.ApplicationModel;
 
 namespace NFeFacil.ModeloXML.PartesDetalhes
 {
-    public class Identificacao
+    public sealed class Identificacao : IIdentificacao
     {
+        public Identificacao() : this(true) { }
+        public Identificacao(bool nfe)
+        {
+            if (nfe && Modelo == default(ushort))
+            {
+                Modelo = 55;
+                DocumentosReferenciados = new List<DocumentoFiscalReferenciado>();
+            }
+            else
+            {
+                Modelo = 65;
+            }
+        }
+
         [XmlElement(ElementName = "cUF", Order = 0), PropriedadeExtensivel("Estado", MetodosObtencao.Estado)]
         public ushort CódigoUF { get; set; }
 
@@ -21,7 +35,7 @@ namespace NFeFacil.ModeloXML.PartesDetalhes
         public ushort FormaPagamento { get; set; } = 0;
 
         [XmlElement(ElementName = "mod", Order = 4)]
-        public ushort Modelo { get; set; } = 55;
+        public ushort Modelo { get; set; }
 
         [XmlElement(ElementName = "serie", Order = 5), DescricaoPropriedade("Série")]
         public ushort Serie { get; set; } = 1;
@@ -72,7 +86,7 @@ namespace NFeFacil.ModeloXML.PartesDetalhes
         public string VersaoAplicativo { get; set; }
 
         [XmlElement("NFref", Order = 21)]
-        public List<DocumentoFiscalReferenciado> DocumentosReferenciados { get; } = new List<DocumentoFiscalReferenciado>();
+        public List<DocumentoFiscalReferenciado> DocumentosReferenciados { get; set; }
 
         internal void DefinirVersãoAplicativo()
         {

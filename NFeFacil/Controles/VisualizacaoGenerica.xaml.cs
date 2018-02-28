@@ -24,7 +24,8 @@ namespace NFeFacil.Controles
 
         void ObterPropriedades(object obj, int profundidade)
         {
-            foreach (var prop in obj.GetType().GetProperties().Where(x => x.CanWrite
+            var propriedades = obj.GetType().GetProperties();
+            foreach (var prop in propriedades.Where(x => x.CanWrite
                 && x.GetCustomAttribute<System.Xml.Serialization.XmlIgnoreAttribute>() == null))
             {
                 var valor = prop.GetValue(obj);

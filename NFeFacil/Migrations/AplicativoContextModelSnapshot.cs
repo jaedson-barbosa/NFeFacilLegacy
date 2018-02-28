@@ -133,6 +133,8 @@ namespace NFeFacil.Migrations
 
                     b.Property<int>("CPais");
 
+                    b.Property<string>("CSC");
+
                     b.Property<int>("CodigoMunicipio");
 
                     b.Property<string>("Complemento");
@@ -142,6 +144,8 @@ namespace NFeFacil.Migrations
                     b.Property<string>("IEST");
 
                     b.Property<string>("IM");
+
+                    b.Property<string>("IdToken");
 
                     b.Property<string>("InscricaoEstadual");
 
@@ -217,6 +221,8 @@ namespace NFeFacil.Migrations
 
                     b.Property<int>("InicioRange");
 
+                    b.Property<bool>("IsNFCe");
+
                     b.Property<DateTime>("MomentoProcessamento");
 
                     b.Property<long>("NumeroProtocolo");
@@ -280,6 +286,8 @@ namespace NFeFacil.Migrations
                     b.Property<bool>("Exportada");
 
                     b.Property<bool>("Impressa");
+
+                    b.Property<bool>("IsNFCe");
 
                     b.Property<string>("NomeCliente")
                         .IsRequired();

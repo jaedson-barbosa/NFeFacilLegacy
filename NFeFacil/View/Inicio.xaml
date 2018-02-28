@@ -6,80 +6,220 @@
       x:Class="NFeFacil.View.Inicio"
       NavigationCacheMode="Required"
       mc:Ignorable="d">
-    <GridView x:Name="grdPrincipal"
-              Padding="8"
-              Style="{StaticResource ItensMediosGrid}"
-              SelectionChanged="grdPrincipal_SelectionChanged"
-              IsTabStop="False">
-        <controles:ItemPadraoSimples Tag="GerenciarDadosBase"
-                                     Titulo="Cadastros"
-                                     Descricao="Emissor, cliente, transportador e produto.">
-            <SymbolIcon Symbol="Manage" />
-        </controles:ItemPadraoSimples>
-        <controles:ItemPadraoSimples Tag="ManipulacaoRegistroVenda"
-                                     Titulo="Criar nova venda"
-                                     Descricao="Criar um registro de venda (Sem valor fiscal).">
-            <FontIcon Glyph="&#xEC59;" />
-        </controles:ItemPadraoSimples>
-        <controles:ItemPadraoSimples Tag="CriadorNFe"
-                                     Titulo="Criar nota fiscal"
-                                     Descricao="Criar uma nova fiscal e realizar operações.">
-            <SymbolIcon Symbol="Add" />
-        </controles:ItemPadraoSimples>
-        <controles:ItemPadraoSimples Tag="CriarNFeEntrada"
-                                     Titulo="NFe de entrada"
-                                     Descricao="Use o XML de uma nota de saída para criar a de entrada">
-            <SymbolIcon Symbol="Add" />
-        </controles:ItemPadraoSimples>
-        <controles:ItemPadraoSimples Tag="Inutilizacoes"
-                                     Titulo="Inutilizações"
-                                     Descricao="Inutile intervalores de números de NFe">
-            <SymbolIcon Symbol="Delete" />
-        </controles:ItemPadraoSimples>
-        <controles:ItemPadraoSimples Tag="NotasSalvas"
-                                     Titulo="Notas salvas"
-                                     Descricao="Visialize, edite e cancelar as notas desta aplicação.">
-            <SymbolIcon Symbol="Library" />
-        </controles:ItemPadraoSimples>
-        <controles:ItemPadraoSimples Tag="RegistrosVenda"
-                                     Titulo="Vendas salvas"
-                                     Descricao="Visualize os registros de venda cadastrados.">
-            <SymbolIcon Symbol="Library" />
-        </controles:ItemPadraoSimples>
-        <controles:ItemPadraoSimples Tag="Consulta"
-                                     Titulo="Consultar NF-e"
-                                     Descricao="Consulte dados básicos de qualquer nota fiscal emitida.">
-            <SymbolIcon Symbol="Find" />
-        </controles:ItemPadraoSimples>
-        <controles:ItemPadraoSimples Tag="VendasAnuais"
-                                     Titulo="Análise anual"
-                                     Descricao="Veja uma análise das notas fiscais de um ano.">
-            <SymbolIcon Symbol="Calendar" />
-        </controles:ItemPadraoSimples>
-        <controles:ItemPadraoSimples Tag="Configuracoes"
-                                     Titulo="Configurações"
-                                     Descricao="Configurações gerais, background e backup">
-            <SymbolIcon Symbol="Setting" />
-        </controles:ItemPadraoSimples>
-        <controles:ItemPadraoSimples Tag="Certificado"
-                                     Titulo="Certificado"
-                                     Descricao="Importe certificados ou instale e se conecte a um servidor.">
-            <SymbolIcon Symbol="Permissions" />
-        </controles:ItemPadraoSimples>
-        <controles:ItemPadraoSimples Tag="ImportacaoDados"
-                                     Titulo="Importação"
-                                     Descricao="Importe dados base ou notas fiscais.">
-            <SymbolIcon Symbol="Import" />
-        </controles:ItemPadraoSimples>
-        <controles:ItemPadraoSimples Tag="Sincronizacao"
-                                     Titulo="Sincronização"
-                                     Descricao="Configure a sincronização entre dispositivos.">
-            <SymbolIcon Symbol="Sync" />
-        </controles:ItemPadraoSimples>
-        <controles:ItemPadraoSimples Tag="Informacoes"
-                                     Titulo="Informações"
-                                     Descricao="Algumas informações úteis que podem lhe ajudar">
-            <FontIcon Glyph="&#xE946;" />
-        </controles:ItemPadraoSimples>
-    </GridView>
+    <Hub>
+        <HubSection Width="400"
+                    Header="Cadastros">
+            <DataTemplate>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <controles:ItemPadrao Titulo="Clientes"
+                                          Descricao="Pessoa física, jurídica e extrangeira"
+                                          Tapped="AbrirClientes">
+                        <SymbolIcon Symbol="People" />
+                    </controles:ItemPadrao>
+                    <controles:ItemPadrao Grid.Column="1"
+                                          Titulo="Motoristas"
+                                          Descricao="Pessoa física e jurídica"
+                                          Tapped="AbrirMotoristas">
+                        <FontIcon Glyph="&#xE806;" />
+                    </controles:ItemPadrao>
+                    <controles:ItemPadrao Grid.Row="1"
+                                          Titulo="Produtos"
+                                          Descricao="Cadastre tudo (inclusive os impostos)"
+                                          Tapped="AbrirProdutos">
+                        <SymbolIcon Symbol="Shop" />
+                    </controles:ItemPadrao>
+                    <controles:ItemPadrao Grid.Row="1"
+                                          Grid.Column="1"
+                                          Titulo="Vendedores"
+                                          Descricao="Identifique quem atende os clientes"
+                                          Tapped="AbrirVendedores">
+                        <SymbolIcon Symbol="People" />
+                    </controles:ItemPadrao>
+                    <controles:ItemPadrao Grid.Row="2"
+                                          Titulo="Compradores"
+                                          Descricao="Pessoas que representam as empresas"
+                                          Tapped="AbrirCompradores">
+                        <SymbolIcon Symbol="People" />
+                    </controles:ItemPadrao>
+                </Grid>
+            </DataTemplate>
+        </HubSection>
+        <HubSection Width="400"
+                    Header="Fiscal (NF-e)">
+            <DataTemplate>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <controles:ItemPadrao Titulo="Criar NF-e"
+                                          Descricao="Criar uma nova fiscal e realizar operações."
+                                          Tapped="CriarNFe">
+                        <SymbolIcon Symbol="Add" />
+                    </controles:ItemPadrao>
+                    <controles:ItemPadrao Grid.Column="1"
+                                          Titulo="NFe de entrada"
+                                          Descricao="Use o XML de uma nota de saída para criar a de entrada"
+                                          Tapped="CriarNFeEntrada">
+                        <SymbolIcon Symbol="Add" />
+                    </controles:ItemPadrao>
+                    <controles:ItemPadrao Grid.Row="1"
+                                          Titulo="Inutilizações"
+                                          Descricao="Inutile intervalores de números de NFe"
+                                          Tapped="AbrirInutilizacoes">
+                        <SymbolIcon Symbol="Delete" />
+                    </controles:ItemPadrao>
+                    <controles:ItemPadrao Grid.Row="1"
+                                          Grid.Column="1"
+                                          Titulo="Notas salvas"
+                                          Descricao="Visialize, edite e cancele as NFes desta aplicação."
+                                          Tapped="AbrirNotasSalvas">
+                        <SymbolIcon Symbol="Library" />
+                    </controles:ItemPadrao>
+                    <controles:ItemPadrao Grid.Row="2"
+                                          Titulo="Consultar NF-e"
+                                          Descricao="Consulte dados básicos de qualquer nota fiscal emitida."
+                                          Tapped="AbrirConsulta">
+                        <SymbolIcon Symbol="Find" />
+                    </controles:ItemPadrao>
+                    <controles:ItemPadrao Grid.Row="2"
+                                          Grid.Column="1"
+                                          Titulo="Análise anual"
+                                          Descricao="Veja uma análise das notas fiscais de um ano."
+                                          Tapped="AbrirVendasAnuais">
+                        <SymbolIcon Symbol="Calendar" />
+                    </controles:ItemPadrao>
+                </Grid>
+            </DataTemplate>
+        </HubSection>
+        <HubSection x:Name="hubNFCe"
+                    Width="400"
+                    Header="Fiscal (NFC-e)">
+            <DataTemplate>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <controles:ItemPadrao Titulo="Criar NFC-e"
+                                          Descricao="Criar uma nota fiscal do consumidor."
+                                          Tapped="CriarNFCe">
+                        <SymbolIcon Symbol="Add" />
+                    </controles:ItemPadrao>
+                    <controles:ItemPadrao Grid.Column="1"
+                                          Titulo="Inutilizações"
+                                          Descricao="Inutile intervalores de números de NFCe"
+                                          Tapped="AbrirInutilizacoesNFCe">
+                        <SymbolIcon Symbol="Delete" />
+                    </controles:ItemPadrao>
+                    <controles:ItemPadrao Grid.Row="1"
+                                          Titulo="Notas salvas"
+                                          Descricao="Visialize, edite e cancele as NFCes desta aplicação."
+                                          Tapped="AbrirNFCesSalvas">
+                        <SymbolIcon Symbol="Library" />
+                    </controles:ItemPadrao>
+                    <controles:ItemPadrao Grid.Row="1"
+                                          Grid.Column="1"
+                                          Titulo="Consultar NFC-e"
+                                          Descricao="Consulte dados básicos de uma nota fiscal do consumidor emitida."
+                                          Tapped="AbrirConsultaNFCe">
+                        <SymbolIcon Symbol="Find" />
+                    </controles:ItemPadrao>
+                    <controles:ItemPadrao Grid.Row="2"
+                                          Titulo="Análise anual"
+                                          Descricao="Veja uma análise das NFCes de um ano."
+                                          Tapped="AbrirVendasAnuaisNFCe">
+                        <SymbolIcon Symbol="Calendar" />
+                    </controles:ItemPadrao>
+                </Grid>
+            </DataTemplate>
+        </HubSection>
+        <HubSection Width="200"
+                    Header="Não fiscal">
+            <DataTemplate>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <controles:ItemPadrao Titulo="Criar nova venda"
+                                          Descricao="Criar um registro de venda (Sem valor fiscal)."
+                                          Tapped="CriarVenda">
+                        <FontIcon Glyph="&#xEC59;" />
+                    </controles:ItemPadrao>
+                    <controles:ItemPadrao Grid.Row="1"
+                                          Titulo="Vendas salvas"
+                                          Descricao="Visualize os registros de venda cadastrados."
+                                          Tapped="AbrirVendasSalvas">
+                        <SymbolIcon Symbol="Library" />
+                    </controles:ItemPadrao>
+                </Grid>
+            </DataTemplate>
+        </HubSection>
+        <HubSection Width="400"
+                    Header="Extras">
+            <DataTemplate>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <controles:ItemPadrao Titulo="Configurações"
+                                          Descricao="Configurações gerais, background e backup"
+                                          Tapped="AbrirConfiguracoes">
+                        <SymbolIcon Symbol="Setting" />
+                    </controles:ItemPadrao>
+                    <controles:ItemPadrao Grid.Column="1"
+                                          Titulo="Certificação"
+                                          Descricao="Importe certificados ou instale e se conecte a um servidor."
+                                          Tapped="AbrirCertificacao">
+                        <SymbolIcon Symbol="Permissions" />
+                    </controles:ItemPadrao>
+                    <controles:ItemPadrao Grid.Row="1"
+                                          Titulo="Importação"
+                                          Descricao="Importe dados base ou notas fiscais."
+                                          Tapped="AbrirImportacao">
+                        <SymbolIcon Symbol="Import" />
+                    </controles:ItemPadrao>
+                    <controles:ItemPadrao Grid.Row="1"
+                                          Grid.Column="1"
+                                          Titulo="Sincronização"
+                                          Descricao="Configure a sincronização entre dispositivos."
+                                          Tapped="AbrirSincronizacao">
+                        <SymbolIcon Symbol="Sync" />
+                    </controles:ItemPadrao>
+                    <controles:ItemPadrao Grid.Row="2"
+                                          Titulo="Informações"
+                                          Descricao="Algumas informações úteis que podem lhe ajudar"
+                                          Tapped="AbrirInformacoes">
+                        <FontIcon Glyph="&#xE946;" />
+                    </controles:ItemPadrao>
+                </Grid>
+            </DataTemplate>
+        </HubSection>
+    </Hub>
 </Page>

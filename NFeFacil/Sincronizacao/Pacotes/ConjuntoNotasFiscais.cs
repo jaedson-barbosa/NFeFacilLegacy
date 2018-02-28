@@ -8,7 +8,7 @@ namespace NFeFacil.Sincronizacao.Pacotes
     public sealed class ConjuntoNotasFiscais
     {
         public NFeDI[] NotasFiscais { get; set; }
-        bool VerificarEmissao(int atual) => atual >= (int)StatusNFe.Emitida;
+        bool VerificarEmissao(int atual) => atual >= (int)StatusNota.Emitida;
 
         public DateTime InstanteSincronizacao { get; set; }
 

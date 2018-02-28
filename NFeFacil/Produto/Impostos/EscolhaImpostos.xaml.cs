@@ -29,48 +29,19 @@ namespace NFeFacil.Produto.Impostos
             ProdutoCompleto = conjunto.Completo;
             ImpostosPadrao = conjunto.ImpostosPadrao;
 
-            var caixa = new MessageDialog("Qual o tipo de imposto que é usado neste dado?", "Entrada");
-            caixa.Commands.Add(new UICommand("ICMS"));
-            caixa.Commands.Add(new UICommand("ISSQN"));
             List<ImpostoEscolhivel> impostos;
-            if ((await caixa.ShowAsync()).Label == "ICMS")
+            if (conjunto.IsNFCe)
             {
-                impostos = new List<ImpostoEscolhivel>
-                {
-                    new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.ICMS)),
-                    new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.IPI)),
-                    new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.PIS)),
-                    new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.COFINS)),
-                    new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.II)),
-                    new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.ICMSUFDest))
-                };
-                var icmsArmazenado = conjunto.Auxiliar.GetICMSArmazenados();
-                if (icmsArmazenado != null && icmsArmazenado.Count() > 0)
-                {
-                    var icms = icmsArmazenado.Select(x => new ImpostoEscolhivel(x));
-                    impostos.AddRange(icms);
-                }
+                impostos = conjunto.GetImpostosPadraoNFCe();
             }
             else
             {
-                impostos = new List<ImpostoEscolhivel>
-                {
-                    new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.IPI)),
-                    new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.PIS)),
-                    new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.COFINS)),
-                    new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.ISSQN)),
-                    new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.ICMSUFDest))
-                };
+                var caixa = new MessageDialog("Qual o tipo de imposto que é usado neste dado?", "Entrada");
+                caixa.Commands.Add(new UICommand("ICMS"));
+                caixa.Commands.Add(new UICommand("ISSQN"));
+                var isProduto = (await caixa.ShowAsync()).Label == "ICMS";
+                impostos = conjunto.GetImpostosPadraoNFe(isProduto);
             }
-            var impsArmazenado = conjunto.Auxiliar.GetImpSimplesArmazenados();
-            if (impsArmazenado != null && impsArmazenado.Count() > 0)
-            {
-                var imps = impsArmazenado.Select(x => new ImpostoEscolhivel(x));
-                impostos.AddRange(imps);
-            }
-
-            int i = 0;
-            impostos.ForEach(x => x.Id = i++);
             Impostos = new CollectionViewSource()
             {
                 IsSourceGrouped = true,
@@ -229,15 +200,6 @@ namespace NFeFacil.Produto.Impostos
             MainPage.Current.Navegar<DetalhamentoGeral>(roteiro);
         }
 
-        sealed class ImpostoPadrao : ImpostoArmazenado
-        {
-            public ImpostoPadrao(PrincipaisImpostos tipo)
-            {
-                Tipo = tipo;
-                NomeTemplate = "Template padrão";
-            }
-        }
-
         private void GridView_Loaded(object sender, RoutedEventArgs e)
         {
             var grdImpostosSimples = (GridView)sender;
@@ -251,17 +213,5 @@ namespace NFeFacil.Produto.Impostos
                 }
             }
         }
-    }
-
-    sealed class ImpostoEscolhivel
-    {
-        public ImpostoEscolhivel(ImpostoArmazenado template)
-        {
-            Id = 0;
-            Template = template;
-        }
-
-        public int Id { get; set; }
-        public ImpostoArmazenado Template { get; set; }
     }
 }

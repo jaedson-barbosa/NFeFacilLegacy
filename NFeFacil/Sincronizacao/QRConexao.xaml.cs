@@ -7,7 +7,7 @@ using Windows.Networking.Connectivity;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using ZXing.Mobile;
+using OptimizedZXing;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -31,7 +31,7 @@ namespace NFeFacil.Sincronizacao
                 {
                     Informacoes = new InfoEstabelecerConexao
                     {
-                        IP = hosts.First(x => x.IPInformation != null && x.Type == HostNameType.Ipv4).ToString(),
+                        IP = hosts.Last(x => x.IPInformation != null && x.Type == HostNameType.Ipv4).ToString(),
                         SenhaTemporaria = ConfiguracoesSincronizacao.SenhaTemporária = new Random().Next(1000, 10000)
                     };
                 }
@@ -41,16 +41,17 @@ namespace NFeFacil.Sincronizacao
                 }
                 GerenciadorServidor.Current.AbrirBrecha(TimeSpan.FromSeconds(60));
 
-                QRGerado = new BarcodeWriter
+                var writer = new BarcodeWriter(BarcodeFormat.QR_CODE)
                 {
-                    Format = ZXing.BarcodeFormat.QR_CODE,
-                    Options = new ZXing.Common.EncodingOptions
+                    Options = new EncodingOptions
                     {
                         Width = 1920,
                         Height = 1920,
                         Margin = 0
                     }
-                }.Write($"{Informacoes.IP}:{Informacoes.SenhaTemporaria}");
+                };
+                var encoded = writer.Encode($"{Informacoes.IP}:{Informacoes.SenhaTemporaria}");
+                QRGerado = writer.WriteToBitmap(encoded);
 
                 Iniciar();
             }

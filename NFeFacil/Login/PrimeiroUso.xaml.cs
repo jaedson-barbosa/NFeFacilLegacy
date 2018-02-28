@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using NFeFacil.Log;
+﻿using NFeFacil.Log;
 using NFeFacil.Sincronizacao;
 using System;
 using System.IO;
@@ -41,7 +40,7 @@ namespace NFeFacil.Login
         async void RestaurarBackup(object sender, TappedRoutedEventArgs e)
         {
             var caixa = new FileOpenPicker();
-            caixa.FileTypeFilter.Add(".json");
+            caixa.FileTypeFilter.Add(".xml");
             var arq = await caixa.PickSingleFileAsync();
             if (arq != null)
             {
@@ -51,7 +50,7 @@ namespace NFeFacil.Login
                     try
                     {
                         var texto = await leitor.ReadToEndAsync();
-                        var conjunto = JsonConvert.DeserializeObject<ConjuntoBanco>(texto);
+                        var conjunto = texto.FromString<ConjuntoBanco>();
                         conjunto.AnalisarESalvar();
                         Popup.Current.Escrever(TitulosComuns.Sucesso, "Backup restaurado com sucesso.");
 

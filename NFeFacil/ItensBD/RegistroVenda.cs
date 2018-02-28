@@ -38,10 +38,10 @@ namespace NFeFacil.ItensBD
                 var motDI = Motorista != default(Guid) ? db.Motoristas.Find(Motorista) : null;
                 return new NFe()
                 {
-                    Informacoes = new Detalhes
+                    Informacoes = new InformacoesNFe
                     {
                         destinatário = db.Clientes.Find(Cliente).ToDestinatario(),
-                        emitente = db.Emitentes.Find(Emitente).ToEmitente(),
+                        Emitente = db.Emitentes.Find(Emitente).ToEmitente(),
                         infAdic = new InformacoesAdicionais
                         {
                             InfCpl = Observações

@@ -57,7 +57,7 @@ namespace ServidorCertificacao
             {
                 proxy.DefaultRequestHeaders.Add(req.Cabecalho.Nome, req.Cabecalho.Valor);
                 var resposta = await proxy.PostAsync(req.Uri,
-                    new StringContent(req.Conteudo.ToString(SaveOptions.DisableFormatting), Encoding.UTF8, "text/xml"));
+                    new StringContent(req.Conteudo.ToString(SaveOptions.DisableFormatting), Encoding.UTF8, req.TipoConteudo));
                 var str = await resposta.Content.ReadAsStringAsync();
                 var xmlPrimario = XElement.Load(await resposta.Content.ReadAsStreamAsync());
                 var xml = ObterConteudoCorpo(xmlPrimario);

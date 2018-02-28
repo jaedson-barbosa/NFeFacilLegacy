@@ -1,0 +1,59 @@
+﻿<Page x:Class="NFeFacil.Fiscal.ViewNFCe.ProdutoNFCe"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:controles="using:NFeFacil.Controles"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d">
+    <ScrollViewer Padding="16">
+        <StackPanel>
+            <ItemsControl Style="{StaticResource ItensResponsivos}">
+                <controles:EntradaNumerica Format="4"
+                                           Number="{x:Bind ProdutoCompleto.Produto.CFOP, Mode=TwoWay}"
+                                           Header="CFOP *" />
+                <controles:EntradaNumerica Format="11:4"
+                                           Number="{x:Bind QuantidadeComercializada, Mode=TwoWay}"
+                                           Header="Qtd. comercial" />
+                <controles:EntradaNumerica Format="11:10"
+                                           Number="{x:Bind ValorUnitario, Mode=TwoWay}"
+                                           Header="Valor unid. comercial" />
+                <controles:EntradaNumerica Format="11:4"
+                                           Number="{x:Bind ProdutoCompleto.Produto.QuantidadeTributada, Mode=TwoWay}"
+                                           Header="Qtd. tributária" />
+                <controles:EntradaNumerica Format="11:10"
+                                           Number="{x:Bind ProdutoCompleto.Produto.ValorUnitarioTributo, Mode=TwoWay}"
+                                           Header="Valor unid. tributária" />
+                <controles:EntradaRestrita Pattern="[^\d.,]"
+                                           Text="{x:Bind ProdutoCompleto.Produto.Frete, Mode=TwoWay}"
+                                           Header="Frete" />
+                <controles:EntradaRestrita Pattern="[^\d.,]"
+                                           Text="{x:Bind ProdutoCompleto.Produto.Seguro, Mode=TwoWay}"
+                                           Header="Seguro" />
+                <controles:EntradaRestrita Pattern="[^\d.,]"
+                                           Text="{x:Bind ProdutoCompleto.Produto.Desconto, Mode=TwoWay}"
+                                           Header="Desconto" />
+                <controles:EntradaRestrita Pattern="[^\d.,]"
+                                           Text="{x:Bind ProdutoCompleto.Produto.DespesasAcessorias, Mode=TwoWay}"
+                                           Header="Desp. acessórias" />
+                <TextBlock>Total bruto:<LineBreak /><Run FontSize="24"
+                                                         FontWeight="Bold"
+                                                         x:Name="txtTotalBruto" /></TextBlock>
+            </ItemsControl>
+            <TextBox Header="Informações adicionais do produto"
+                     Text="{x:Bind ProdutoCompleto.InfAdProd, Mode=TwoWay}"
+                     TextWrapping="Wrap" />
+        </StackPanel>
+    </ScrollViewer>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Icon="Accept"
+                          IsEnabled="{x:Bind PodeConcluir}"
+                          Label="Concluir"
+                          Click="Concluir"
+                          ToolTipService.ToolTip="Usar impostos padrão" />
+            <AppBarButton Icon="Forward"
+                          Label="Avançar"
+                          Click="Avancar" />
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>

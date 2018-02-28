@@ -1,5 +1,5 @@
-﻿using NFeFacil.Log;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.Services.Store;
 
@@ -7,73 +7,72 @@ using Windows.Services.Store;
 
 namespace NFeFacil
 {
-    sealed class ComprasInApp
+    static class ComprasInApp
     {
-        public enum Compras
-        {
-            Personalizacao,
-            Doacao25,
-            Doacao10
-        }
+        public static Dictionary<Compras, bool> Resumo { get; private set; }
 
-        public Compras Escolhida { get; }
-
-        public ComprasInApp(Compras compra)
-        {
-            Escolhida = compra;
-        }
-
-        bool Comprado = false;
-        public async Task<bool> AnalisarCompra()
+        public static async Task AnalisarCompras()
         {
             try
             {
-                if (Comprado == false)
+                var storeContext = StoreContext.GetDefault();
+                string[] productKinds = { "Durable" };
+                var addOns = await storeContext.GetAssociatedStoreProductsAsync(productKinds);
+                if (Resumo == null)
                 {
-                    var prod = await ObterProduto();
-                    if (prod.IsInUserCollection)
+                    Resumo = new Dictionary<Compras, bool>(2)
                     {
-                        Comprado = true;
-                    }
-                    else
-                    {
-                        StoreContext storeContext = StoreContext.GetDefault();
-                        var resultadoAquisicao = await storeContext.RequestPurchaseAsync(prod.StoreId);
-                        Comprado = resultadoAquisicao.Status == StorePurchaseStatus.Succeeded
-                            || resultadoAquisicao.Status == StorePurchaseStatus.AlreadyPurchased;
-                    }
+                        { Compras.NFCe, addOns.Products[Compras.NFCe].IsInUserCollection },
+                        { Compras.Personalizacao, addOns.Products[Compras.Personalizacao].IsInUserCollection }
+                    };
                 }
-                return Comprado;
+                else
+                {
+                    Resumo[Compras.NFCe] = addOns.Products[Compras.NFCe].IsInUserCollection;
+                    Resumo[Compras.Personalizacao] = addOns.Products[Compras.Personalizacao].IsInUserCollection;
+                }
             }
             catch (Exception e)
             {
-                Popup.Current.Escrever(TitulosComuns.Erro, e.Message);
-                return false;
+                Resumo.Add(Compras.NFCe, false);
+                Resumo.Add(Compras.Personalizacao, false);
+                e.ManipularErro();
             }
         }
 
-        public async Task<bool> Comprar()
+        public static async Task<bool> Comprar(Compras compra)
         {
-            var prod = await ObterProduto();
-            StoreContext storeContext = StoreContext.GetDefault();
-            var resultadoAquisicao = await storeContext.RequestPurchaseAsync(prod.StoreId);
-            return Comprado = resultadoAquisicao.Status == StorePurchaseStatus.Succeeded
-                || resultadoAquisicao.Status == StorePurchaseStatus.AlreadyPurchased;
-        }
-
-        async Task<StoreProduct> ObterProduto()
-        {
-            StoreContext storeContext = StoreContext.GetDefault();
-            string[] productKinds = new string[] { "Consumable", "Durable" };
-            StoreProductQueryResult addOns = await storeContext.GetAssociatedStoreProductsAsync(productKinds);
-            foreach (var item in addOns.Products.Values)
+            var prod = await ObterProduto(compra);
+            var resultadoAquisicao = await prod.RequestPurchaseAsync();
+            if (resultadoAquisicao.Status == StorePurchaseStatus.Succeeded
+                || resultadoAquisicao.Status == StorePurchaseStatus.AlreadyPurchased)
             {
-                if (item.InAppOfferToken == Escolhida.ToString())
-                {
-                    return item;
-                }
+                if (Resumo.ContainsKey(compra)) Resumo[compra] = true;
+                return true;
             }
-            throw new Exception("Erro ao buscar o produto especificado.");
+            return false;
         }
+
+        public static async Task<StoreProduct> ObterProduto(Compras compra)
+        {
+            var storeContext = StoreContext.GetDefault();
+            string[] productKinds = { "Consumable", "Durable" };
+            var addOns = await storeContext.GetAssociatedStoreProductsAsync(productKinds);
+            return addOns.Products[compra];
+        }
+    }
+
+    struct Compras
+    {
+        public const string Personalizacao = "9P70MWLRCS54";
+        public const string Doacao25 = "9NJNJTZQ85G5";
+        public const string Doacao10 = "9MXJQH2JC335";
+        public const string NFCe = "9NPT3PV6BT0X";
+
+        string Value;
+        private Compras(string value) => Value = value;
+
+        public static implicit operator Compras(string str) => new Compras(str);
+        public static implicit operator string(Compras compra) => compra.Value;
     }
 }

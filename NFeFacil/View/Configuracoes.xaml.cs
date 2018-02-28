@@ -1,10 +1,10 @@
-﻿using Newtonsoft.Json;
-using NFeFacil.Certificacao;
+﻿using NFeFacil.Certificacao;
 using NFeFacil.Sincronizacao;
 using System;
 using System.IO;
 using Windows.Storage.Pickers;
 using Windows.System.Profile;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 
@@ -15,20 +15,33 @@ namespace NFeFacil.View
     [DetalhePagina(Symbol.Setting, "Configurações")]
     public sealed partial class Configuracoes : Page
     {
-        readonly ComprasInApp Compra = new ComprasInApp(ComprasInApp.Compras.Personalizacao);
-
         public Configuracoes()
         {
             InitializeComponent();
+            ItensMenu = new string[]
+            {
+                "Geral",
+                "Backup",
+                "Modos de busca",
+                "Background",
+                "DANFE NFCe",
+                "Compras"
+            };
+            AnalisarCompras();
         }
 
-        bool Servidor
+        string[] ItensMenu { get; }
+        int ItemMenuSelecionado
         {
-            get => ConfiguracoesSincronizacao.Tipo == TipoAppSincronizacao.Servidor;
-            set => ConfiguracoesSincronizacao.Tipo = value ? TipoAppSincronizacao.Servidor : TipoAppSincronizacao.Cliente;
+            get => mvwPrincipal.SelectedIndex;
+            set => mvwPrincipal.SelectedIndex = value;
         }
 
-        bool Cliente => !Servidor;
+        int FuncaoSincronizacao
+        {
+            get => (int)ConfiguracoesSincronizacao.Tipo;
+            set => ConfiguracoesSincronizacao.Tipo = (TipoAppSincronizacao)value;
+        }
 
         int OrigemCertificacao
         {
@@ -47,6 +60,12 @@ namespace NFeFacil.View
         {
             get => DefinicoesPermanentes.CalcularNumeroNFe;
             set => DefinicoesPermanentes.CalcularNumeroNFe = value;
+        }
+
+        int VersaoSoap
+        {
+            get => DefinicoesPermanentes.UsarSOAP12 ? 1 : 0;
+            set => DefinicoesPermanentes.UsarSOAP12 = value == 1;
         }
 
         int ModoBuscaProduto
@@ -78,73 +97,100 @@ namespace NFeFacil.View
             get => DefinicoesPermanentes.ModoBuscaVendedor;
             set => DefinicoesPermanentes.ModoBuscaVendedor = value;
         }
-        
+
+        double LarguraDANFENFCe
+        {
+            get => DefinicoesPermanentes.LarguraDANFENFCe;
+            set => DefinicoesPermanentes.LarguraDANFENFCe = value;
+        }
+
+        double MargemDANFENFCe
+        {
+            get => DefinicoesPermanentes.MargemDANFENFCe;
+            set => DefinicoesPermanentes.MargemDANFENFCe = value;
+        }
+
         async void UsarImagem(object sender, TappedRoutedEventArgs e)
         {
-            if (await Compra.AnalisarCompra())
+            var brushAtual = MainPage.Current.ImagemBackground;
+            if (DefinicoesPermanentes.IDBackgroung == default(Guid))
             {
-                var brushAtual = MainPage.Current.ImagemBackground;
-                if (DefinicoesPermanentes.IDBackgroung == default(Guid))
-                {
-                    DefinicoesPermanentes.IDBackgroung = Guid.NewGuid();
-                }
-                var caixa = new DefinirImagem(DefinicoesPermanentes.IDBackgroung, brushAtual);
-                if (await caixa.ShowAsync() == ContentDialogResult.Primary)
-                {
-                    MainPage.Current.ImagemBackground = caixa.Imagem;
-                    MainPage.Current.DefinirTipoBackground(TiposBackground.Imagem);
-                }
+                DefinicoesPermanentes.IDBackgroung = Guid.NewGuid();
+            }
+            var caixa = new DefinirImagem(DefinicoesPermanentes.IDBackgroung, brushAtual);
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+            {
+                MainPage.Current.ImagemBackground = caixa.Imagem;
+                MainPage.Current.DefinirTipoBackground(TiposBackground.Imagem);
             }
         }
 
-        async void UsarCor(object sender, TappedRoutedEventArgs e)
+        void UsarCor(object sender, TappedRoutedEventArgs e)
         {
-            if (await Compra.AnalisarCompra())
-            {
-                MainPage.Current.DefinirTipoBackground(TiposBackground.Cor);
-            }
+            MainPage.Current.DefinirTipoBackground(TiposBackground.Cor);
         }
 
         async void EscolherTransparencia(object sender, TappedRoutedEventArgs e)
         {
-            if (await Compra.AnalisarCompra())
+            var caixa = new EscolherTransparencia(DefinicoesPermanentes.OpacidadeBackground);
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
-                var caixa = new EscolherTransparencia(DefinicoesPermanentes.OpacidadeBackground);
-                if (await caixa.ShowAsync() == ContentDialogResult.Primary)
-                {
-                    DefinicoesPermanentes.OpacidadeBackground = caixa.Opacidade;
-                    MainPage.Current.DefinirOpacidadeBackground(caixa.Opacidade);
-                }
+                DefinicoesPermanentes.OpacidadeBackground = caixa.Opacidade;
+                MainPage.Current.DefinirOpacidadeBackground(caixa.Opacidade);
             }
         }
 
-        async void Resetar(object sender, TappedRoutedEventArgs e)
+        void Resetar(object sender, TappedRoutedEventArgs e)
         {
-            if (await Compra.AnalisarCompra())
-            {
-                DefinicoesPermanentes.OpacidadeBackground = 1;
-                MainPage.Current.DefinirTipoBackground(TiposBackground.Padrao);
-            }
+            DefinicoesPermanentes.OpacidadeBackground = 1;
+            MainPage.Current.DefinirTipoBackground(TiposBackground.Padrao);
         }
 
         async void SalvarBackup(object sender, TappedRoutedEventArgs e)
         {
             var objeto = new ConjuntoBanco();
             objeto.AtualizarPadrao();
-            var json = JsonConvert.SerializeObject(objeto);
+            var xml = objeto.ToXElement<ConjuntoBanco>().ToString();
 
             var caixa = new FileSavePicker();
-            caixa.FileTypeChoices.Add("Arquivo JSON", new string[] { ".json" });
+            caixa.FileTypeChoices.Add("Arquivo XML", new string[] { ".xml" });
             var arq = await caixa.PickSaveFileAsync();
             if (arq != null)
             {
                 var stream = await arq.OpenStreamForWriteAsync();
                 using (StreamWriter escritor = new StreamWriter(stream))
                 {
-                    await escritor.WriteAsync(json);
+                    await escritor.WriteAsync(xml);
                     await escritor.FlushAsync();
                 }
             }
+        }
+
+        void AnalisarCompras()
+        {
+            var comprado = ComprasInApp.Resumo[Compras.NFCe];
+            btnComprarNFCe.IsEnabled = !comprado;
+            comprado = ComprasInApp.Resumo[Compras.Personalizacao];
+            btnComprarBackground.IsEnabled = !comprado;
+            itnBackground.IsEnabled = comprado;
+        }
+
+        async void ComprarNFCe(object sender, RoutedEventArgs e)
+        {
+            var comprado = await ComprasInApp.Comprar(Compras.NFCe);
+            btnComprarNFCe.IsEnabled = !comprado;
+        }
+
+        async void ComprarBackground(object sender, RoutedEventArgs e)
+        {
+            var comprado = await ComprasInApp.Comprar(Compras.Personalizacao);
+            btnComprarBackground.IsEnabled = !comprado;
+            itnBackground.IsEnabled = comprado;
+        }
+
+        async void ReanalizarCompras(object sender, RoutedEventArgs e)
+        {
+            await ComprasInApp.AnalisarCompras();
         }
     }
 }

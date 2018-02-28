@@ -89,31 +89,41 @@ namespace NFeFacil.Repositorio
 
         public int ObterMaiorNumeroNFe(string cnpj, ushort serie, bool homologacao)
         {
+            return ObterMaiorNumeroFiscal(cnpj, serie, homologacao, false);
+        }
+
+        public int ObterMaiorNumeroNFCe(string cnpj, ushort serie, bool homologacao)
+        {
+            return ObterMaiorNumeroFiscal(cnpj, serie, homologacao, true);
+        }
+
+        int ObterMaiorNumeroFiscal(string cnpj, ushort serie, bool homologacao, bool isNFCe)
+        {
             var numeros = from nota in db.NotasFiscais
-                          where nota.CNPJEmitente == cnpj
+                          where nota.CNPJEmitente == cnpj && nota.IsNFCe == isNFCe
                           where nota.SerieNota == serie
                           let notaHomologacao = nota.NomeCliente.Trim().ToUpper() == "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL"
                           where homologacao ? notaHomologacao : !notaHomologacao
                           select nota.NumeroNota;
-            return numeros.Count() == 0 ? 1 : numeros.Max();
+            return numeros.Count() == 0 ? 0 : numeros.Max();
         }
 
-        public (IEnumerable<NFeDI> emitidas, IEnumerable<NFeDI> outras, IEnumerable<NFeDI> canceladas) ObterNotas(string cnpj)
+        public (IEnumerable<NFeDI> emitidas, IEnumerable<NFeDI> outras, IEnumerable<NFeDI> canceladas) ObterNotas(string cnpj, bool isNFCe)
         {
             var notasFiscais = db.NotasFiscais.ToArray();
             var notasEmitidas = (from nota in notasFiscais
-                                 where nota.Status == (int)StatusNFe.Emitida
-                                 where nota.CNPJEmitente == cnpj
+                                 where nota.Status == (int)StatusNota.Emitida
+                                 where nota.CNPJEmitente == cnpj && nota.IsNFCe == isNFCe
                                  orderby nota.DataEmissao descending
                                  select nota);
             var outrasNotas = (from nota in notasFiscais
-                               where nota.Status != (int)StatusNFe.Emitida && nota.Status != (int)StatusNFe.Cancelada
-                               where nota.CNPJEmitente == cnpj
+                               where nota.Status != (int)StatusNota.Emitida && nota.Status != (int)StatusNota.Cancelada
+                               where nota.CNPJEmitente == cnpj && nota.IsNFCe == isNFCe
                                orderby nota.DataEmissao descending
                                select nota);
             var notasCanceladas = (from nota in notasFiscais
-                                   where nota.Status == (int)StatusNFe.Cancelada
-                                   where nota.CNPJEmitente == cnpj
+                                   where nota.Status == (int)StatusNota.Cancelada
+                                   where nota.CNPJEmitente == cnpj && nota.IsNFCe == isNFCe
                                    orderby nota.DataEmissao descending
                                    select nota);
             return (notasEmitidas, outrasNotas, notasCanceladas);
@@ -127,7 +137,7 @@ namespace NFeFacil.Repositorio
                           .ToDictionary(x => x.Cliente, y => y.Compradores.ToArray());
         }
 
-        public NFeDI ObterNFe(string id) => db.NotasFiscais.Find(id);
+        public NFeDI ObterNota(string id) => db.NotasFiscais.Find(id);
         public ClienteDI ObterCliente(Guid id) => db.Clientes.Find(id);
         public ClienteDI ObterClienteViaCNPJ(string cnpj) => db.Clientes.FirstOrDefault(x => x.CNPJ == cnpj);
         public MotoristaDI ObterMotorista(Guid id) => db.Motoristas.Find(id);
@@ -173,25 +183,27 @@ namespace NFeFacil.Repositorio
 
         public IEnumerable<Estoque> ObterEstoques() => db.Estoque.Include(x => x.Alteracoes);
 
-        public IEnumerable<int> ObterAnosNFe(string cnpjEmitente)
+        public IEnumerable<int> ObterAnosNotas(string cnpjEmitente, bool isNFCe)
         {
             return (from dado in db.NotasFiscais
-                    where dado.Status == (int)StatusNFe.Emitida
+                    let notaHomologacao = dado.NomeCliente.Trim().ToUpper() == "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL"
+                    where dado.Status == (int)StatusNota.Emitida && !notaHomologacao && dado.IsNFCe == isNFCe
                     where dado.CNPJEmitente == cnpjEmitente
                     let ano = DateTime.Parse(dado.DataEmissao).Year
                     orderby ano ascending
                     select ano).Distinct();
         }
 
-        public Dictionary<int, IEnumerable<(DateTime, string)>> ObterNFesPorAno(string cnpjEmitente)
+        public Dictionary<int, IEnumerable<(DateTime, string)>> ObterNFesPorAno(string cnpjEmitente, bool isNFCe)
         {
             return (from item in db.NotasFiscais
-                    where item.Status == (int)StatusNFe.Emitida
+                    let notaHomologacao = item.NomeCliente.Trim().ToUpper() == "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL"
+                    where item.Status == (int)StatusNota.Emitida && !notaHomologacao && item.IsNFCe == isNFCe
                     where item.CNPJEmitente == cnpjEmitente
                     let data = DateTime.Parse(item.DataEmissao)
                     group new { Data = data, item.XML } by data.Year).ToDictionary(x => x.Key, x => x.Select(k => (k.Data, k.XML)));
         }
 
-        public IEnumerable<Inutilizacao> ObterInutilizacoes() => db.Inutilizacoes.Where(x => x.CNPJ == DefinicoesTemporarias.EmitenteAtivo.CNPJ);
+        public IEnumerable<Inutilizacao> ObterInutilizacoes(bool isNFCe) => db.Inutilizacoes.Where(x => x.CNPJ == DefinicoesTemporarias.EmitenteAtivo.CNPJ && x.IsNFCe == isNFCe);
     }
 }

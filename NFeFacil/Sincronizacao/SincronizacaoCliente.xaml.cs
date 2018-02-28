@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using ZXing.Mobile;
+using OptimizedZXing;
 using static NFeFacil.Sincronizacao.ConfiguracoesSincronizacao;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
@@ -23,12 +23,11 @@ namespace NFeFacil.Sincronizacao
         {
             try
             {
-                var resposta = await new MobileBarcodeScanner
+                var resposta = await new MobileBarcodeScanner(Window.Current.Dispatcher, MainPage.Current.Frame)
                 {
-                    UseCustomOverlay = false,
                     TopText = "Coloque a câmera em frente ao código QR",
                     BottomText = "A câmera irá lê-lo automaticamente"
-                }.Scan();
+                }.Scan(new MobileBarcodeScanningOptions(BarcodeFormat.QR_CODE));
                 var str = resposta.Text;
 
                 var partes = str.Split(':');

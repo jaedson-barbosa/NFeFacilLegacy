@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.Graphics.Printing;
-using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Printing;
 
 namespace NFeFacil
@@ -10,7 +11,7 @@ namespace NFeFacil
     {
         private PrintDocument printDoc;
         private IPrintDocumentSource printDocSource;
-        private UIElementCollection paginas;
+        private IList<UIElement> paginas;
 
         public GerenciadorImpressao()
         {
@@ -70,7 +71,7 @@ namespace NFeFacil
         }
         #endregion
 
-        public async Task Imprimir(UIElementCollection paginas)
+        public async Task Imprimir(IList<UIElement> paginas)
         {
             this.paginas = paginas;
             await PrintManager.ShowPrintUIAsync();

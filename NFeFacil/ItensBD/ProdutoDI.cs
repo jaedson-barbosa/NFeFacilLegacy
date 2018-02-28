@@ -82,7 +82,7 @@ namespace NFeFacil.ItensBD
                 {
                     DetalheEspecial = value;
                     ProdutoEspecial = new XElement(TiposProduto.Armamento.ToString(),
-                        value.ToXElement<List<XElement>>()).ToString(SaveOptions.DisableFormatting);
+                        value.ToXElement<List<Arma>>()).ToString(SaveOptions.DisableFormatting);
                 }
             }
         }
@@ -164,6 +164,7 @@ namespace NFeFacil.ItensBD
 
         public ProdutoOuServico ToProdutoOuServico()
         {
+            var especial = (IProdutoEspecial)this;
             return new ProdutoOuServico
             {
                 CodigoProduto = CodigoProduto,
@@ -177,7 +178,12 @@ namespace NFeFacil.ItensBD
                 CodigoBarrasTributo = CodigoBarrasTributo,
                 UnidadeTributacao = UnidadeTributacao,
                 ValorUnitarioTributo = ValorUnitarioTributo,
-                CEST = string.IsNullOrEmpty(CEST) ? null : CEST
+                CEST = string.IsNullOrEmpty(CEST) ? null : CEST,
+                armas = especial.armas,
+                comb = especial.comb,
+                medicamentos = especial.medicamentos,
+                NRECOPI = especial.NRECOPI,
+                veicProd = especial.veicProd
             };
         }
 

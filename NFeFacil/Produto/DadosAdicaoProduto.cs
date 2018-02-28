@@ -1,13 +1,12 @@
-﻿using System.Collections.Generic;
-using NFeFacil.ItensBD;
-using NFeFacil.ModeloXML;
+﻿using NFeFacil.ItensBD;
 using NFeFacil.ModeloXML.PartesDetalhes;
-using NFeFacil.ModeloXML.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
 using NFeFacil.Produto.Impostos;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace NFeFacil.Produto
 {
-    class DadosAdicaoProduto : IProdutoEspecial
+    class DadosAdicaoProduto
     {
         public DadosAdicaoProduto(ProdutoDI auxiliar)
         {
@@ -29,31 +28,78 @@ namespace NFeFacil.Produto
         public DetalhesProdutos Completo { get; }
         public ProdutoDI Auxiliar { get; }
         public (PrincipaisImpostos Tipo, string NomeTemplate, int CST)[] ImpostosPadrao { get; }
+        public bool IsNFCe { get; set; }
 
-        List<Arma> IProdutoEspecial.armas
+        public List<ImpostoEscolhivel> GetImpostosPadraoNFe(bool produto)
         {
-            get => ((IProdutoEspecial)Completo).armas;
-            set => ((IProdutoEspecial)Completo).armas = value;
+            List<ImpostoEscolhivel> impostos;
+            if (produto)
+            {
+                impostos = new List<ImpostoEscolhivel>
+                {
+                    new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.ICMS)),
+                    new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.IPI)),
+                    new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.PIS)),
+                    new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.COFINS)),
+                    new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.II)),
+                    new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.ICMSUFDest))
+                };
+                var icmsArmazenado = Auxiliar.GetICMSArmazenados();
+                if (icmsArmazenado != null && icmsArmazenado.Count() > 0)
+                {
+                    var icms = icmsArmazenado.Select(x => new ImpostoEscolhivel(x));
+                    impostos.AddRange(icms);
+                }
+            }
+            else
+            {
+                impostos = new List<ImpostoEscolhivel>
+                {
+                    new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.IPI)),
+                    new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.PIS)),
+                    new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.COFINS)),
+                    new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.ISSQN)),
+                    new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.ICMSUFDest))
+                };
+            }
+            var impsArmazenado = Auxiliar.GetImpSimplesArmazenados();
+            if (impsArmazenado != null && impsArmazenado.Count() > 0)
+            {
+                var imps = impsArmazenado.Select(x => new ImpostoEscolhivel(x));
+                impostos.AddRange(imps);
+            }
+
+            int i = 0;
+            impostos.ForEach(x => x.Id = i++);
+            return impostos;
         }
-        Combustivel IProdutoEspecial.comb
+
+        public List<ImpostoEscolhivel> GetImpostosPadraoNFCe()
         {
-            get => ((IProdutoEspecial)Completo).comb;
-            set => ((IProdutoEspecial)Completo).comb = value;
-        }
-        List<Medicamento> IProdutoEspecial.medicamentos
-        {
-            get => ((IProdutoEspecial)Completo).medicamentos;
-            set => ((IProdutoEspecial)Completo).medicamentos = value;
-        }
-        string IProdutoEspecial.NRECOPI
-        {
-            get => ((IProdutoEspecial)Completo).NRECOPI;
-            set => ((IProdutoEspecial)Completo).NRECOPI = value;
-        }
-        VeiculoNovo IProdutoEspecial.veicProd
-        {
-            get => ((IProdutoEspecial)Completo).veicProd;
-            set => ((IProdutoEspecial)Completo).veicProd = value;
+            List<ImpostoEscolhivel> impostos = new List<ImpostoEscolhivel>
+            {
+                new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.ICMS)),
+                new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.PIS)),
+                new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.COFINS)),
+            };
+            var icmsArmazenado = Auxiliar.GetICMSArmazenados();
+            if (icmsArmazenado != null && icmsArmazenado.Count() > 0)
+            {
+                var icms = icmsArmazenado.Select(x => new ImpostoEscolhivel(x));
+                impostos.AddRange(icms);
+            }
+
+            var impsArmazenado = Auxiliar.GetImpSimplesArmazenados();
+            if (impsArmazenado != null && impsArmazenado.Count() > 0)
+            {
+                impostos.AddRange(from x in impsArmazenado
+                                  where x.Tipo != PrincipaisImpostos.IPI
+                                  select new ImpostoEscolhivel(x));
+            }
+
+            int i = 0;
+            impostos.ForEach(x => x.Id = i++);
+            return impostos;
         }
     }
 }

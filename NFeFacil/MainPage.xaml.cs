@@ -1,13 +1,8 @@
 ﻿using NFeFacil.View;
 using System;
-using System.Globalization;
 using System.Reflection;
-using Windows.ApplicationModel.Core;
 using Windows.System.Profile;
-using Windows.UI;
-using Windows.UI.Core;
 using Windows.UI.Popups;
-using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
@@ -62,80 +57,7 @@ namespace NFeFacil
         {
             InitializeComponent();
             Current = this;
-            Analisar();
-            AnalisarBarraTitulo();
-            btnRetornar.Click += (x, y) => Retornar();
-            SystemNavigationManager.GetForCurrentView().BackRequested += (x,e) =>
-            {
-                e.Handled = true;
-                Retornar();
-            };
-
-            CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
-            CultureInfo.CurrentUICulture = CultureInfo.InvariantCulture;
-            CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
-            CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.InvariantCulture;
-        }
-
-        async void Analisar()
-        {
-            using (var analise = new Repositorio.OperacoesExtras())
-            {
-                await analise.AnalisarBanco(DefinicoesTemporarias.DateTimeNow);
-            }
-            using (var repo = new Repositorio.Leitura())
-            {
-                switch (DefinicoesPermanentes.TipoBackground)
-                {
-                    case TiposBackground.Imagem:
-                        if (DefinicoesPermanentes.IDBackgroung != default(Guid))
-                        {
-                            var img = repo.ProcurarImagem(DefinicoesPermanentes.IDBackgroung);
-                            ImagemBackground = img?.Bytes?.GetSource();
-                        }
-                        DefinirTipoBackground(TiposBackground.Imagem);
-                        DefinirOpacidadeBackground(DefinicoesPermanentes.OpacidadeBackground);
-                        break;
-                    case TiposBackground.Cor:
-                        DefinirTipoBackground(TiposBackground.Cor);
-                        DefinirOpacidadeBackground(DefinicoesPermanentes.OpacidadeBackground);
-                        break;
-                }
-
-                if (repo.EmitentesCadastrados)
-                {
-                    Navegar<Login.EscolhaEmitente>();
-                }
-                else
-                {
-                    Navegar<Login.PrimeiroUso>();
-                }
-            }
-        }
-
-        private async void AnalisarBarraTitulo()
-        {
-            var familia = AnalyticsInfo.VersionInfo.DeviceFamily;
-            if (familia.Contains("Mobile"))
-            {
-                btnRetornar.Visibility = Visibility.Collapsed;
-                await StatusBar.GetForCurrentView().HideAsync();
-            }
-            else if (familia.Contains("Desktop"))
-            {
-                CoreApplicationViewTitleBar tb = CoreApplication.GetCurrentView().TitleBar;
-                tb.ExtendViewIntoTitleBar = true;
-                tb.LayoutMetricsChanged += (sender, e) => TitleBar.Height = sender.Height;
-
-                Window.Current.SetTitleBar(MainTitleBar);
-                Window.Current.Activated += (sender, e) => TitleBar.Opacity = e.WindowActivationState != CoreWindowActivationState.Deactivated ? 1 : 0.5;
-
-                var novoTB = ApplicationView.GetForCurrentView().TitleBar;
-                novoTB.ButtonBackgroundColor = Colors.Transparent;
-                novoTB.ButtonInactiveBackgroundColor = Colors.Transparent;
-                novoTB.ButtonHoverBackgroundColor = new Color { A = 50 };
-                novoTB.ButtonPressedBackgroundColor = new Color { A = 100 };
-            }
+            Navegar<Login.Loading>();
         }
 
         public void Navegar<T>(object parametro = null) where T : Page
@@ -143,6 +65,7 @@ namespace NFeFacil
             frmPrincipal.Navigate(typeof(T), parametro);
         }
 
+        private void Retornar(object sender, RoutedEventArgs e) => Retornar();
         public async void Retornar()
         {
             if (frmPrincipal.Content is IValida valida && !valida.Concluido)
@@ -154,7 +77,7 @@ namespace NFeFacil
                 if (resultado.Label == "Cancelar") return;
             }
 
-            if (frmPrincipal.CanGoBack) frmPrincipal.GoBack();
+            if (frmPrincipal.BackStackDepth >= 1) frmPrincipal.GoBack();
             else
             {
                 var familia = AnalyticsInfo.VersionInfo.DeviceFamily;
@@ -199,7 +122,7 @@ namespace NFeFacil
         {
             var navegada = e.Content;
             var infoTipo = e.Content.GetType().GetTypeInfo();
-            var pag = infoTipo.GetCustomAttribute<View.DetalhePagina>();
+            var pag = infoTipo.GetCustomAttribute<DetalhePagina>();
 
             if (pag == null)
             {

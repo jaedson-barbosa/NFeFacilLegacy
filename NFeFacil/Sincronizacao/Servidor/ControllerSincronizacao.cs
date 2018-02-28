@@ -1,22 +1,24 @@
-﻿using NFeFacil.Sincronizacao.Pacotes;
-using Restup.Webserver.Attributes;
-using Restup.Webserver.Models.Contracts;
-using Restup.Webserver.Models.Schemas;
+﻿using NFeFacil.Sincronizacao.FastServer;
+using NFeFacil.Sincronizacao.Pacotes;
 using System;
+using System.Xml.Linq;
 
 namespace NFeFacil.Sincronizacao.Servidor
 {
-    [RestController(InstanceCreationType.Singleton)]
     internal sealed class ControllerSincronizacao
     {
         [UriFormat("/SincronizarDadosBase/{senha}/{minimo}")]
-        public IGetResponse SincronizarDadosBase(int senha, long minimo, [FromContent] ConjuntoDadosBase pacote)
+        public RestResponse SincronizarDadosBase(int senha, long minimo, [FromContent] ConjuntoDadosBase pacote)
         {
             try
             {
                 if (senha != ConfiguracoesSincronizacao.SenhaPermanente)
                 {
-                    throw new SenhaErrada(senha);
+                    return new RestResponse
+                    {
+                        Sucesso = false,
+                        ContentData = "A senha informada não está certa."
+                    };
                 }
 
                 DateTime atual = DefinicoesTemporarias.DateTimeNow;
@@ -25,22 +27,34 @@ namespace NFeFacil.Sincronizacao.Servidor
                 pacote.AnalisarESalvar(minimoProcessado);
 
                 var retorno = new ConjuntoDadosBase(pacote, minimoProcessado, atual);
-                return new GetResponse(GetResponse.ResponseStatus.OK, retorno);
+                return new RestResponse
+                {
+                    Sucesso = true,
+                    ContentData = retorno.ToXElement<ConjuntoDadosBase>().ToString(SaveOptions.DisableFormatting)
+                };
             }
             catch (Exception e)
             {
-                return new GetResponse(GetResponse.ResponseStatus.NotFound, e);
+                return new RestResponse
+                {
+                    Sucesso = false,
+                    ContentData = e.Message
+                };
             }
         }
 
         [UriFormat("/SincronizarNotasFiscais/{senha}/{minimo}")]
-        public IGetResponse SincronizarNotasFiscais(int senha, long minimo, [FromContent] ConjuntoNotasFiscais pacote)
+        public RestResponse SincronizarNotasFiscais(int senha, long minimo, [FromContent] ConjuntoNotasFiscais pacote)
         {
             try
             {
                 if (senha != ConfiguracoesSincronizacao.SenhaPermanente)
                 {
-                    throw new SenhaErrada(senha);
+                    return new RestResponse
+                    {
+                        Sucesso = false,
+                        ContentData = "A senha informada não está certa."
+                    };
                 }
 
                 DateTime atual = DefinicoesTemporarias.DateTimeNow;
@@ -48,11 +62,19 @@ namespace NFeFacil.Sincronizacao.Servidor
                 pacote.AnalisarESalvar();
 
                 var retorno = new ConjuntoNotasFiscais(pacote, DateTime.FromBinary(minimo), atual);
-                return new GetResponse(GetResponse.ResponseStatus.OK, retorno);
+                return new RestResponse
+                {
+                    Sucesso = true,
+                    ContentData = retorno.ToXElement<ConjuntoNotasFiscais>().ToString(SaveOptions.DisableFormatting)
+                };
             }
             catch (Exception e)
             {
-                return new GetResponse(GetResponse.ResponseStatus.NotFound, e);
+                return new RestResponse
+                {
+                    Sucesso = false,
+                    ContentData = e.Message
+                };
             }
         }
     }

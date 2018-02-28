@@ -1,6 +1,5 @@
-﻿using NFeFacil.Sincronizacao.Servidor;
-using Restup.Webserver.Http;
-using Restup.Webserver.Rest;
+﻿using NFeFacil.Sincronizacao.FastServer;
+using NFeFacil.Sincronizacao.Servidor;
 using System;
 using System.Threading.Tasks;
 
@@ -16,14 +15,10 @@ namespace NFeFacil.Sincronizacao
 
         public async Task IniciarServer()
         {
-            var rest = new RestRouteHandler();
-            rest.RegisterController<ControllerInformacoes>();
-            rest.RegisterController<ControllerSincronizacao>();
-
-            await new HttpServer(new HttpServerConfiguration()
-                .RegisterRoute(rest)
-                .ListenOnPort(8080)
-                .EnableCors()).StartServerAsync();
+            var server = new HttpServer(8080);
+            server.RegisterController<ControllerInformacoes>();
+            server.RegisterController<ControllerSincronizacao>();
+            await server.StartServerAsync();
             Rodando = true;
         }
 

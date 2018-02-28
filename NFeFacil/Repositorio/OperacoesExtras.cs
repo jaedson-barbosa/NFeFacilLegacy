@@ -20,9 +20,9 @@ namespace NFeFacil.Repositorio
         {
             db.Database.Migrate();
 
-            await db.Clientes.ForEachAsync(x => AnalisarItem(x));
-            await db.Emitentes.ForEachAsync(x => AnalisarItem(x));
-            await db.Motoristas.ForEachAsync(x => AnalisarItem(x));
+            await db.Clientes.ForEachAsync(AnalisarItem);
+            await db.Emitentes.ForEachAsync(AnalisarItem);
+            await db.Motoristas.ForEachAsync(AnalisarItem);
             await db.Vendedores.ForEachAsync(x =>
             {
                 if (string.IsNullOrEmpty(x.CPFStr))
@@ -34,7 +34,7 @@ namespace NFeFacil.Repositorio
                 }
                 AnalisarItem(x);
             });
-            await db.Produtos.ForEachAsync(x => AnalisarItem(x));
+            await db.Produtos.ForEachAsync(AnalisarItem);
             await db.Estoque.Include(x => x.Alteracoes).ForEachAsync(x =>
             {
                 x.Alteracoes?.ForEach(alt =>
@@ -47,9 +47,9 @@ namespace NFeFacil.Repositorio
                 });
                 AnalisarItem(x);
             });
-            await db.Vendas.ForEachAsync(x => AnalisarItem(x));
-            await db.Imagens.ForEachAsync(x => AnalisarItem(x));
-            await db.Veiculos.ForEachAsync(x => AnalisarItem(x));
+            await db.Vendas.ForEachAsync(AnalisarItem);
+            await db.Imagens.ForEachAsync(AnalisarItem);
+            await db.Veiculos.ForEachAsync(AnalisarItem);
 
             void AnalisarItem(IUltimaData item)
             {

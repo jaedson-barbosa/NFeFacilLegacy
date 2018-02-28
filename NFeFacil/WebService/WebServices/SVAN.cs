@@ -1,5 +1,6 @@
 ﻿namespace NFeFacil.WebService.WebServices
 {
+    // Para NFCe é usada a SVRS
     internal struct SVAN : IWebService
     {
         public string ConsultarProducao => "https://www.sefazvirtual.fazenda.gov.br/NfeConsulta2/NfeConsulta2.asmx";

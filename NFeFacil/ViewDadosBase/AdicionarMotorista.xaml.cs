@@ -141,14 +141,16 @@ namespace NFeFacil.ViewDadosBase
         async void EditarVeiculo(object sender, RoutedEventArgs e)
         {
             var veic = (VeiculoDI)((FrameworkElement)sender).DataContext;
-            var caixa = new AdicionarVeiculo();
+            var index = Veiculos.IndexOf(veic);
+            var caixa = new AdicionarVeiculo(veic);
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
                 veic = caixa.Item;
                 using (var repo = new Repositorio.Escrita())
                 {
                     repo.SalvarItemSimples(veic, DefinicoesTemporarias.DateTimeNow);
-                    Veiculos.Add(veic);
+                    Veiculos.RemoveAt(index);
+                    Veiculos.Insert(index, veic);
                 }
             }
         }

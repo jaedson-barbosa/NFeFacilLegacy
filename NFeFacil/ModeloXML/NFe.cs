@@ -8,7 +8,7 @@ namespace NFeFacil.ModeloXML
     public sealed class NFe : ISignature
     {
         [XmlElement("infNFe")]
-        public Detalhes Informacoes { get; set; }
+        public InformacoesNFe Informacoes { get; set; }
 
         [XmlElement("Signature", Namespace = "http://www.w3.org/2000/09/xmldsig#")]
         public Assinatura Signature { get; set; }

@@ -18,6 +18,7 @@ namespace NFeFacil.Login
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            Frame.BackStack.Clear();
             using (var repo = new Repositorio.Leitura())
             {
                 var conjuntos = new ObservableCollection<ConjuntoBasicoExibicao<EmitenteDI>>();
@@ -50,5 +51,4 @@ namespace NFeFacil.Login
             MainPage.Current.Navegar<AdicionarEmitente>();
         }
     }
-
 }

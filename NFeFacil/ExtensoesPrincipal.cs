@@ -17,17 +17,45 @@ namespace NFeFacil
 {
     internal static class ExtensoesPrincipal
     {
+        public static XElement ToXElement(this object obj, string nameSpace = "http://www.portalfiscal.inf.br/nfe")
+        {
+            try
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    var name = new XmlSerializerNamespaces();
+                    name.Add(string.Empty, string.Empty);
+                    name.Add(string.Empty, nameSpace);
+                    var xmlSerializer = new XmlSerializer(obj.GetType());
+                    xmlSerializer.Serialize(memoryStream, obj, name);
+                    memoryStream.Position = 0;
+                    return XElement.Load(memoryStream);
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
         public static XElement ToXElement<T>(this object obj, string nameSpace = "http://www.portalfiscal.inf.br/nfe")
         {
-            using (var memoryStream = new MemoryStream())
+            try
             {
-                var name = new XmlSerializerNamespaces();
-                name.Add(string.Empty, string.Empty);
-                name.Add(string.Empty, nameSpace);
-                var xmlSerializer = new XmlSerializer(typeof(T));
-                xmlSerializer.Serialize(memoryStream, obj, name);
-                memoryStream.Position = 0;
-                return XElement.Load(memoryStream);
+                using (var memoryStream = new MemoryStream())
+                {
+                    var name = new XmlSerializerNamespaces();
+                    name.Add(string.Empty, string.Empty);
+                    name.Add(string.Empty, nameSpace);
+                    var xmlSerializer = new XmlSerializer(typeof(T));
+                    xmlSerializer.Serialize(memoryStream, obj, name);
+                    memoryStream.Position = 0;
+                    return XElement.Load(memoryStream);
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
             }
         }
 
@@ -44,6 +72,22 @@ namespace NFeFacil
             catch (Exception e)
             {
                 throw new ErroDesserializacao($"Ocorreu um erro ao desserializar o objeto de tipo {nameof(T)}", e, xElement);
+            }
+        }
+
+        public static T FromString<T>(this string str)
+        {
+            try
+            {
+                var xmlSerializer = new XmlSerializer(typeof(T));
+                using (var reader = new StringReader(str))
+                {
+                    return (T)xmlSerializer.Deserialize(reader);
+                }
+            }
+            catch (Exception e)
+            {
+                throw new ErroDesserializacao($"Ocorreu um erro ao desserializar o objeto de tipo {nameof(T)}", e, str);
             }
         }
 
@@ -124,15 +168,16 @@ namespace NFeFacil
         public static string ToStr(double valor, string format = "F2") => valor.ToString(format, defCult);
         public static double Parse(string str) => double.Parse(str, NumberStyles.Number, defCult);
         public static bool TryParse(string str, out double valor) => double.TryParse(str, NumberStyles.Number, defCult, out valor);
+        public static double TryParse(string str) { TryParse(str, out double valor); return valor; }
     }
 
     public class ErroDesserializacao : Exception
     {
         XNode XML { get; }
+        string StrXML { get; }
 
-        public ErroDesserializacao(XNode xml) => XML = xml;
-        public ErroDesserializacao(string message, XNode xml) : base(message) => XML = xml;
         public ErroDesserializacao(string message, Exception innerException, XNode xml) : base(message, innerException) => XML = xml;
+        public ErroDesserializacao(string message, Exception innerException, string strXml) : base(message, innerException) => StrXML = strXml;
 
         public async void ExportarXML()
         {
@@ -144,7 +189,7 @@ namespace NFeFacil
                 var stream = await arq.OpenStreamForWriteAsync();
                 using (StreamWriter escritor = new StreamWriter(stream))
                 {
-                    await escritor.WriteAsync(XML.ToString());
+                    await escritor.WriteAsync(StrXML ?? XML.ToString());
                     await escritor.FlushAsync();
                 }
             }

@@ -1,5 +1,6 @@
 ﻿namespace NFeFacil.WebService.WebServices
 {
+    // Falta verificar os web services porque o site ainda está em construção
     internal struct MG : IWebService
     {
         public string ConsultarProducao => "https://nfe.fazenda.mg.gov.br/nfe2/services/NfeConsulta2";

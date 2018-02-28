@@ -12,7 +12,7 @@
     <DefaultLanguage>pt-BR</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.16299.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.14393.0</TargetPlatformMinVersion>
+    <TargetPlatformMinVersion>10.0.15063.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -165,6 +165,67 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="AssistenteConfig.cs" />
+    <Compile Include="Controles\DuplaView.xaml.cs">
+      <DependentUpon>DuplaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Fiscal\AcoesNFCe.cs" />
+    <Compile Include="Fiscal\AcoesNFe.cs" />
+    <Compile Include="Fiscal\AcoesVisualizacao.cs" />
+    <Compile Include="Fiscal\BoolToColor.cs" />
+    <Compile Include="Fiscal\ControleNFCe.cs" />
+    <Compile Include="Fiscal\ControleNFe.cs" />
+    <Compile Include="Fiscal\IControleCriacao.cs" />
+    <Compile Include="Fiscal\StatusChangedEventArgs.cs" />
+    <Compile Include="Fiscal\ViewNFCe\AddFormaPagamento.xaml.cs">
+      <DependentUpon>AddFormaPagamento.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Fiscal\ViewNFCe\UrlsChaveAcesso.cs" />
+    <Compile Include="Fiscal\ViewNFCe\UrlsQR.cs" />
+    <Compile Include="Fiscal\ViewNFCe\ViewDANFE.xaml.cs">
+      <DependentUpon>ViewDANFE.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Login\Loading.xaml.cs">
+      <DependentUpon>Loading.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20180127131837_Loja1.9.cs" />
+    <Compile Include="Migrations\20180127131837_Loja1.9.designer.cs">
+      <DependentUpon>20180127131837_Loja1.9.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20180214173711_Loja1.9.15.cs" />
+    <Compile Include="Migrations\20180214173711_Loja1.9.15.designer.cs">
+      <DependentUpon>20180214173711_Loja1.9.15.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ModeloXML\InformacoesBase.cs" />
+    <Compile Include="ModeloXML\InformacoesNFCe .cs" />
+    <Compile Include="ModeloXML\InformacoesSuplementaresNFCe.cs" />
+    <Compile Include="ModeloXML\NFCe.cs" />
+    <Compile Include="ModeloXML\PartesDetalhes\IIdentificacao.cs" />
+    <Compile Include="ModeloXML\ProcessoNFCe .cs" />
+    <Compile Include="Produto\Impostos\ImpostoEscolhivel.cs" />
+    <Compile Include="Produto\Impostos\ImpostoPadrao.cs" />
+    <Compile Include="Sincronizacao\FastServer\FromContentAttribute.cs" />
+    <Compile Include="Sincronizacao\FastServer\HttpServer.cs" />
+    <Compile Include="Sincronizacao\FastServer\ParameterValueGetter.cs" />
+    <Compile Include="Sincronizacao\FastServer\ParsedUri.cs" />
+    <Compile Include="Sincronizacao\FastServer\PathPart.cs" />
+    <Compile Include="Sincronizacao\FastServer\RestControllerMethodInfo.cs" />
+    <Compile Include="Sincronizacao\FastServer\RestControllerRequestHandler.cs" />
+    <Compile Include="Sincronizacao\FastServer\RestRequest.cs" />
+    <Compile Include="Sincronizacao\FastServer\RestResponse.cs" />
+    <Compile Include="Sincronizacao\FastServer\UriFormatAttribute.cs" />
+    <Compile Include="Sincronizacao\FastServer\UriParser.cs" />
+    <Compile Include="Validacao\AnalisadorNFCe.cs" />
+    <Compile Include="Fiscal\ViewNFCe\ManipulacaoNFCe.xaml.cs">
+      <DependentUpon>ManipulacaoNFCe.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Fiscal\ViewNFCe\ProdutoNFCe.xaml.cs">
+      <DependentUpon>ProdutoNFCe.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewRegistroVenda\DARV\DadosImpressaoDARV.cs" />
+    <Compile Include="ViewRegistroVenda\DARV\Dimensoes.cs" />
+    <Compile Include="ViewRegistroVenda\DARV\ExibicaoProduto.cs" />
+    <Compile Include="ViewRegistroVenda\DARV\ProdutosDARV.cs" />
+    <Compile Include="View\EtapaProcesso.cs" />
     <Compile Include="View\MetodosObtencao.cs" />
     <Compile Include="Certificacao\ConfiguracoesCertificadoImportado.xaml.cs">
       <DependentUpon>ConfiguracoesCertificadoImportado.xaml</DependentUpon>
@@ -262,7 +323,7 @@
     <Compile Include="ModeloXML\InfoProtocolo.cs" />
     <Compile Include="ModeloXML\NFe.cs" />
     <Compile Include="ModeloXML\ChaveAcesso.cs" />
-    <Compile Include="ModeloXML\Detalhes.cs" />
+    <Compile Include="ModeloXML\InformacoesNFe.cs" />
     <Compile Include="ModeloXML\EnderecoCompleto.cs" />
     <Compile Include="ModeloXML\PartesAssinatura\Algoritmo.cs" />
     <Compile Include="ModeloXML\PartesAssinatura\Assinatura.cs" />
@@ -300,8 +361,6 @@
     <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\ComumICMS.cs" />
     <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\ComumIPI.cs" />
     <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\ComumPIS.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\ConjuntoCOFINS.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\ConjuntoPIS.cs" />
     <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\ICMS.cs" />
     <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\ICMS00.cs" />
     <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\ICMS10.cs" />
@@ -361,7 +420,7 @@
     <Compile Include="ModeloXML\PartesDetalhes\Total.cs" />
     <Compile Include="ModeloXML\PartesDetalhes\Transporte.cs" />
     <Compile Include="ModeloXML\ProtocoloNFe.cs" />
-    <Compile Include="ModeloXML\Processo.cs" />
+    <Compile Include="ModeloXML\ProcessoNFe.cs" />
     <Compile Include="ModeloXML\TiposDocumento.cs" />
     <Compile Include="ConjuntoBanco.cs" />
     <Compile Include="Sincronizacao\Pacotes\ConjuntoDadosBase.cs" />
@@ -387,10 +446,10 @@
     <Compile Include="Produto\DadosAdicaoProduto.cs" />
     <Compile Include="Produto\Impostos\DadoPronto.cs" />
     <Compile Include="Produto\Impostos\IEscolherImpSimples.cs" />
-    <Compile Include="ViewNFe\Inutilizacoes.xaml.cs">
+    <Compile Include="Fiscal\ViewNFe\Inutilizacoes.xaml.cs">
       <DependentUpon>Inutilizacoes.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\InfoInutilizacao.xaml.cs">
+    <Compile Include="Fiscal\ViewNFe\InfoInutilizacao.xaml.cs">
       <DependentUpon>InfoInutilizacao.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewRegistroVenda\ExibicaoProdutoVenda.cs" />
@@ -430,7 +489,7 @@
       <DependentUpon>GerenciarVendedores.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MascaraDocumento.cs" />
-    <Compile Include="ViewNFe\CaixasDialogoNFe\EscolherVeiculo.xaml.cs">
+    <Compile Include="Fiscal\ViewNFe\CaixasDialogo\EscolherVeiculo.xaml.cs">
       <DependentUpon>EscolherVeiculo.xaml</DependentUpon>
     </Compile>
     <Compile Include="Produto\Impostos\AssociacoesSimples.cs" />
@@ -579,8 +638,8 @@
     <Compile Include="ViewRegistroVenda\CalcularTroco.xaml.cs">
       <DependentUpon>CalcularTroco.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewRegistroVenda\DARV.xaml.cs">
-      <DependentUpon>DARV.xaml</DependentUpon>
+    <Compile Include="ViewRegistroVenda\DARV\ViewDARV.xaml.cs">
+      <DependentUpon>ViewDARV.xaml</DependentUpon>
     </Compile>
     <Compile Include="Produto\GerenciamentoProdutos\Ano.cs" />
     <Compile Include="Controles\NumeroChangedEventArgs.cs" />
@@ -627,10 +686,10 @@
     <Compile Include="Produto\ProdutoEspecial\DefinirVeiculo.xaml.cs">
       <DependentUpon>DefinirVeiculo.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\CaixasDialogoNFe\EnderecoDiferenteExterior.xaml.cs">
+    <Compile Include="Fiscal\ViewNFe\CaixasDialogo\EnderecoDiferenteExterior.xaml.cs">
       <DependentUpon>EnderecoDiferenteExterior.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\CaixasDialogoNFe\EscolherTipoEndereco.xaml.cs">
+    <Compile Include="Fiscal\ViewNFe\CaixasDialogo\EscolherTipoEndereco.xaml.cs">
       <DependentUpon>EscolherTipoEndereco.xaml</DependentUpon>
     </Compile>
     <Compile Include="Produto\CaixasDialogoProduto\AddDeclaracaoExportacaoDireta.xaml.cs">
@@ -648,17 +707,17 @@
     <Compile Include="Produto\Impostos\EscolherTipoPISouCOFINS.xaml.cs">
       <DependentUpon>EscolherTipoPISouCOFINS.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\CriadorNFe.xaml.cs">
-      <DependentUpon>CriadorNFe.xaml</DependentUpon>
+    <Compile Include="Fiscal\Criador.xaml.cs">
+      <DependentUpon>Criador.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\CaixasDialogoNFe\EnderecoDiferenteNacional.xaml.cs">
+    <Compile Include="Fiscal\ViewNFe\CaixasDialogo\EnderecoDiferenteNacional.xaml.cs">
       <DependentUpon>EnderecoDiferenteNacional.xaml</DependentUpon>
     </Compile>
     <Compile Include="Produto\Impostos\EscolherTipoICMS.xaml.cs">
       <DependentUpon>EscolherTipoICMS.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\VisualizacaoNFe.xaml.cs">
-      <DependentUpon>VisualizacaoNFe.xaml</DependentUpon>
+    <Compile Include="Fiscal\Visualizacao.xaml.cs">
+      <DependentUpon>Visualizacao.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewRegistroVenda\EscolherDimensão.xaml.cs">
       <DependentUpon>EscolherDimensão.xaml</DependentUpon>
@@ -712,18 +771,18 @@
       <DependentUpon>Code128.xaml</DependentUpon>
     </Compile>
     <Compile Include="GerenciadorImpressao.cs" />
-    <Compile Include="ViewNFe\DANFE\Pacotes\DadosAdicionais.cs" />
-    <Compile Include="ViewNFe\DANFE\Pacotes\DadosCabecalho.cs" />
-    <Compile Include="ViewNFe\DANFE\Pacotes\DadosCliente.cs" />
-    <Compile Include="ViewNFe\DANFE\Pacotes\DadosDuplicata.cs" />
-    <Compile Include="ViewNFe\DANFE\Pacotes\DadosImposto.cs" />
-    <Compile Include="ViewNFe\DANFE\Pacotes\DadosISSQN.cs" />
-    <Compile Include="ViewNFe\DANFE\Pacotes\DadosMotorista.cs" />
-    <Compile Include="ViewNFe\DANFE\Pacotes\DadosNFe.cs" />
-    <Compile Include="ViewNFe\DANFE\Pacotes\DadosProduto.cs" />
-    <Compile Include="ViewNFe\DANFE\Pacotes\Geral.cs" />
-    <Compile Include="ViewNFe\DANFE\Pacotes\ItemDadosAdicionais.cs" />
-    <Compile Include="ViewNFe\DANFE\ViewDados.cs" />
+    <Compile Include="Fiscal\ViewNFe\PacotesDANFE\DadosAdicionais.cs" />
+    <Compile Include="Fiscal\ViewNFe\PacotesDANFE\DadosCabecalho.cs" />
+    <Compile Include="Fiscal\ViewNFe\PacotesDANFE\DadosCliente.cs" />
+    <Compile Include="Fiscal\ViewNFe\PacotesDANFE\DadosDuplicata.cs" />
+    <Compile Include="Fiscal\ViewNFe\PacotesDANFE\DadosImposto.cs" />
+    <Compile Include="Fiscal\ViewNFe\PacotesDANFE\DadosISSQN.cs" />
+    <Compile Include="Fiscal\ViewNFe\PacotesDANFE\DadosMotorista.cs" />
+    <Compile Include="Fiscal\ViewNFe\PacotesDANFE\DadosNFe.cs" />
+    <Compile Include="Fiscal\ViewNFe\PacotesDANFE\DadosProduto.cs" />
+    <Compile Include="Fiscal\ViewNFe\PacotesDANFE\Geral.cs" />
+    <Compile Include="Fiscal\ViewNFe\PacotesDANFE\ItemDadosAdicionais.cs" />
+    <Compile Include="Fiscal\ViewNFe\DadosDANFE.cs" />
     <Compile Include="ExtensoesPrincipal.cs" />
     <Compile Include="View\IHambuguer.cs" />
     <Compile Include="Log\Popup.cs" />
@@ -734,10 +793,8 @@
     <Compile Include="Sincronizacao\GerenciadorCliente.cs" />
     <Compile Include="Sincronizacao\GerenciadorServidor.cs" />
     <Compile Include="Sincronizacao\Pacotes\InfoEstabelecerConexao.cs" />
-    <Compile Include="Sincronizacao\Pacotes\InfoSegurancaConexao.cs" />
     <Compile Include="Sincronizacao\Servidor\ControllerInformacoes.cs" />
     <Compile Include="Sincronizacao\Servidor\ControllerSincronizacao.cs" />
-    <Compile Include="Sincronizacao\Servidor\SenhaErrada.cs" />
     <Compile Include="Sincronizacao\TipoAppSincronizacao.cs" />
     <Compile Include="Validacao\AnalisadorNFe.cs" />
     <Compile Include="Validacao\IValidavel.cs" />
@@ -757,22 +814,22 @@
     <Compile Include="ViewDadosBase\AdicionarVendedor.xaml.cs">
       <DependentUpon>AdicionarVendedor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\CaixasDialogoNFe\AdicionarDuplicata.xaml.cs">
+    <Compile Include="Fiscal\ViewNFe\CaixasDialogo\AdicionarDuplicata.xaml.cs">
       <DependentUpon>AdicionarDuplicata.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\CaixasDialogoNFe\AdicionarNF1AReferenciada.xaml.cs">
+    <Compile Include="Fiscal\ViewNFe\CaixasDialogo\AdicionarNF1AReferenciada.xaml.cs">
       <DependentUpon>AdicionarNF1AReferenciada.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\CaixasDialogoNFe\AdicionarObservacaoContribuinte.xaml.cs">
+    <Compile Include="Fiscal\ViewNFe\CaixasDialogo\AdicionarObservacaoContribuinte.xaml.cs">
       <DependentUpon>AdicionarObservacaoContribuinte.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\CaixasDialogoNFe\AdicionarProcessoReferenciado.xaml.cs">
+    <Compile Include="Fiscal\ViewNFe\CaixasDialogo\AdicionarProcessoReferenciado.xaml.cs">
       <DependentUpon>AdicionarProcessoReferenciado.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\CaixasDialogoNFe\AdicionarReboque.xaml.cs">
+    <Compile Include="Fiscal\ViewNFe\CaixasDialogo\AdicionarReboque.xaml.cs">
       <DependentUpon>AdicionarReboque.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\CaixasDialogoNFe\AdicionarReferenciaEletronica.xaml.cs">
+    <Compile Include="Fiscal\ViewNFe\CaixasDialogo\AdicionarReferenciaEletronica.xaml.cs">
       <DependentUpon>AdicionarReferenciaEletronica.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewDadosBase\AdicionarVeiculo.xaml.cs">
@@ -784,7 +841,7 @@
     <Compile Include="ViewRegistroVenda\AdicionarProduto.xaml.cs">
       <DependentUpon>AdicionarProduto.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\CancelarNFe.xaml.cs">
+    <Compile Include="Fiscal\ViewNFe\CancelarNFe.xaml.cs">
       <DependentUpon>CancelarNFe.xaml</DependentUpon>
     </Compile>
     <Compile Include="Certificacao\ConfiguracoesClienteServidor.xaml.cs">
@@ -794,7 +851,7 @@
     <Compile Include="View\Configuracoes.xaml.cs">
       <DependentUpon>Configuracoes.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\Consulta.xaml.cs">
+    <Compile Include="Fiscal\ViewNFe\Consulta.xaml.cs">
       <DependentUpon>Consulta.xaml</DependentUpon>
     </Compile>
     <Compile Include="Produto\GerenciamentoProdutos\ControleEstoque.xaml.cs">
@@ -812,20 +869,17 @@
     <Compile Include="Controles\ItemPadrao.xaml.cs">
       <DependentUpon>ItemPadrao.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewDadosBase\GerenciarDadosBase.xaml.cs">
-      <DependentUpon>GerenciarDadosBase.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\IValida.cs" />
-    <Compile Include="ViewNFe\ManipulacaoNotaFiscal.xaml.cs">
+    <Compile Include="Fiscal\ViewNFe\ManipulacaoNotaFiscal.xaml.cs">
       <DependentUpon>ManipulacaoNotaFiscal.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Produto\ManipulacaoProdutoCompleto.xaml.cs">
+    <Compile Include="Fiscal\ViewNFe\ManipulacaoProdutoCompleto.xaml.cs">
       <DependentUpon>ManipulacaoProdutoCompleto.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewRegistroVenda\ManipulacaoRegistroVenda.xaml.cs">
       <DependentUpon>ManipulacaoRegistroVenda.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\NotasSalvas.xaml.cs">
+    <Compile Include="Fiscal\NotasSalvas.xaml.cs">
       <DependentUpon>NotasSalvas.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\DadosEstadosParaView.cs" />
@@ -844,7 +898,7 @@
     <Compile Include="Controles\CarregamentoCircular.xaml.cs">
       <DependentUpon>CarregamentoCircular.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\EscolhaProdutos.xaml.cs">
+    <Compile Include="Fiscal\EscolhaProdutos.xaml.cs">
       <DependentUpon>EscolhaProdutos.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\EscolherTransparencia.xaml.cs">
@@ -860,16 +914,16 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewNFe\CaixasDialogoNFe\AdicionarVolume.xaml.cs">
+    <Compile Include="Fiscal\ViewNFe\CaixasDialogo\AdicionarVolume.xaml.cs">
       <DependentUpon>AdicionarVolume.xaml</DependentUpon>
     </Compile>
     <Compile Include="Produto\CaixasDialogoProduto\DeclaracaoImportacao.xaml.cs">
       <DependentUpon>DeclaracaoImportacao.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\CaixasDialogoNFe\AdicionarDeducao.xaml.cs">
+    <Compile Include="Fiscal\ViewNFe\CaixasDialogo\AdicionarDeducao.xaml.cs">
       <DependentUpon>AdicionarDeducao.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\CaixasDialogoNFe\AdicionarFornecimentoDiario.xaml.cs">
+    <Compile Include="Fiscal\ViewNFe\CaixasDialogo\AdicionarFornecimentoDiario.xaml.cs">
       <DependentUpon>AdicionarFornecimentoDiario.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\BibliotecaCores.cs" />
@@ -877,43 +931,43 @@
     <Compile Include="Sincronizacao\SincronizacaoCliente.xaml.cs">
       <DependentUpon>SincronizacaoCliente.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\DANFE\PaginasDANFE\IPagina.cs" />
-    <Compile Include="ViewNFe\DANFE\PaginasDANFE\MotivoCriacaoPaginaExtra.cs" />
-    <Compile Include="ViewNFe\DANFE\PaginasDANFE\PaginaExtra.xaml.cs">
+    <Compile Include="Fiscal\ViewNFe\PaginasDANFE\IPagina.cs" />
+    <Compile Include="Fiscal\ViewNFe\PaginasDANFE\MotivoCriacaoPaginaExtra.cs" />
+    <Compile Include="Fiscal\ViewNFe\PaginasDANFE\PaginaExtra.xaml.cs">
       <DependentUpon>PaginaExtra.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\DANFE\PaginasDANFE\PaginaPrincipal.xaml.cs">
+    <Compile Include="Fiscal\ViewNFe\PaginasDANFE\PaginaPrincipal.xaml.cs">
       <DependentUpon>PaginaPrincipal.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\DANFE\PartesDANFE\CampoCliente.xaml.cs">
+    <Compile Include="Fiscal\ViewNFe\PartesDANFE\CampoCliente.xaml.cs">
       <DependentUpon>CampoCliente.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\DANFE\PartesDANFE\CampoDadosAdicionais.xaml.cs">
+    <Compile Include="Fiscal\ViewNFe\PartesDANFE\CampoDadosAdicionais.xaml.cs">
       <DependentUpon>CampoDadosAdicionais.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\DANFE\PartesDANFE\CampoFatura.xaml.cs">
+    <Compile Include="Fiscal\ViewNFe\PartesDANFE\CampoFatura.xaml.cs">
       <DependentUpon>CampoFatura.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\DANFE\PartesDANFE\CampoImposto.xaml.cs">
+    <Compile Include="Fiscal\ViewNFe\PartesDANFE\CampoImposto.xaml.cs">
       <DependentUpon>CampoImposto.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\DANFE\PartesDANFE\CampoISSQN.xaml.cs">
+    <Compile Include="Fiscal\ViewNFe\PartesDANFE\CampoISSQN.xaml.cs">
       <DependentUpon>CampoISSQN.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\DANFE\PartesDANFE\CampoProdutos.xaml.cs">
+    <Compile Include="Fiscal\ViewNFe\PartesDANFE\CampoProdutos.xaml.cs">
       <DependentUpon>CampoProdutos.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\DANFE\PartesDANFE\CampoTransporte.xaml.cs">
+    <Compile Include="Fiscal\ViewNFe\PartesDANFE\CampoTransporte.xaml.cs">
       <DependentUpon>CampoTransporte.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\DANFE\PartesDANFE\Canhoto.xaml.cs">
+    <Compile Include="Fiscal\ViewNFe\PartesDANFE\Canhoto.xaml.cs">
       <DependentUpon>Canhoto.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\DANFE\PartesDANFE\DadosNFe.xaml.cs">
+    <Compile Include="Fiscal\ViewNFe\PartesDANFE\DadosNFe.xaml.cs">
       <DependentUpon>DadosNFe.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\DANFE\PartesDANFE\DimensoesPadrao.cs" />
-    <Compile Include="ViewNFe\DANFE\PartesDANFE\ItemProduto.xaml.cs">
+    <Compile Include="Fiscal\ViewNFe\PartesDANFE\DimensoesPadrao.cs" />
+    <Compile Include="Fiscal\ViewNFe\PartesDANFE\ItemProduto.xaml.cs">
       <DependentUpon>ItemProduto.xaml</DependentUpon>
     </Compile>
     <Compile Include="Sincronizacao\QRConexao.xaml.cs">
@@ -925,16 +979,19 @@
     <Compile Include="Sincronizacao\SincronizacaoServidor.xaml.cs">
       <DependentUpon>SincronizacaoServidor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\VendasAnuais.xaml.cs">
+    <Compile Include="Fiscal\VendasAnuais.xaml.cs">
       <DependentUpon>VendasAnuais.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewNFe\DANFE\ViewDANFE.xaml.cs">
+    <Compile Include="Fiscal\ViewNFe\ViewDANFE.xaml.cs">
       <DependentUpon>ViewDANFE.xaml</DependentUpon>
     </Compile>
     <Compile Include="WebService\DadosServico.cs" />
     <Compile Include="WebService\EnderecosConexao.cs" />
+    <Compile Include="WebService\GenericWebService.cs" />
     <Compile Include="WebService\GerenciadorGeral.cs" />
     <Compile Include="WebService\IWebService.cs" />
+    <Compile Include="WebService\IWebServiceHomologacaoNFCe.cs" />
+    <Compile Include="WebService\IWebServiceProducaoNFCe.cs" />
     <Compile Include="WebService\Operacoes.cs" />
     <Compile Include="WebService\Pacotes\ConsReciNFe.cs" />
     <Compile Include="WebService\Pacotes\ConsSitNFe.cs" />
@@ -997,6 +1054,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controles\DuplaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controles\ExibicaoImagem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1006,6 +1067,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controles\VisualizacaoGenerica.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Fiscal\ViewNFCe\AddFormaPagamento.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Fiscal\ViewNFCe\ViewDANFE.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Login\Loading.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1045,7 +1118,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\CaixasDialogoNFe\EscolherVeiculo.xaml">
+    <Page Include="Fiscal\ViewNFCe\ManipulacaoNFCe.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Fiscal\ViewNFCe\ProdutoNFCe.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Fiscal\ViewNFe\CaixasDialogo\EscolherVeiculo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1169,11 +1250,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\Inutilizacoes.xaml">
+    <Page Include="Fiscal\ViewNFe\Inutilizacoes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\InfoInutilizacao.xaml">
+    <Page Include="Fiscal\ViewNFe\InfoInutilizacao.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1193,7 +1274,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewRegistroVenda\DARV.xaml">
+    <Page Include="ViewRegistroVenda\DARV\ViewDARV.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1233,11 +1314,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\CaixasDialogoNFe\EnderecoDiferenteExterior.xaml">
+    <Page Include="Fiscal\ViewNFe\CaixasDialogo\EnderecoDiferenteExterior.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\CaixasDialogoNFe\EscolherTipoEndereco.xaml">
+    <Page Include="Fiscal\ViewNFe\CaixasDialogo\EscolherTipoEndereco.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1281,11 +1362,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\CriadorNFe.xaml">
+    <Page Include="Fiscal\Criador.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\CaixasDialogoNFe\EnderecoDiferenteNacional.xaml">
+    <Page Include="Fiscal\ViewNFe\CaixasDialogo\EnderecoDiferenteNacional.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1293,7 +1374,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\VisualizacaoNFe.xaml">
+    <Page Include="Fiscal\Visualizacao.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1345,27 +1426,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\CaixasDialogoNFe\AdicionarDuplicata.xaml">
+    <Page Include="Fiscal\ViewNFe\CaixasDialogo\AdicionarDuplicata.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\CaixasDialogoNFe\AdicionarNF1AReferenciada.xaml">
+    <Page Include="Fiscal\ViewNFe\CaixasDialogo\AdicionarNF1AReferenciada.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\CaixasDialogoNFe\AdicionarObservacaoContribuinte.xaml">
+    <Page Include="Fiscal\ViewNFe\CaixasDialogo\AdicionarObservacaoContribuinte.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\CaixasDialogoNFe\AdicionarProcessoReferenciado.xaml">
+    <Page Include="Fiscal\ViewNFe\CaixasDialogo\AdicionarProcessoReferenciado.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\CaixasDialogoNFe\AdicionarReboque.xaml">
+    <Page Include="Fiscal\ViewNFe\CaixasDialogo\AdicionarReboque.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ViewNFe\CaixasDialogoNFe\AdicionarReferenciaEletronica.xaml">
+    <Page Include="Fiscal\ViewNFe\CaixasDialogo\AdicionarReferenciaEletronica.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1381,7 +1462,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\CancelarNFe.xaml">
+    <Page Include="Fiscal\ViewNFe\CancelarNFe.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1409,7 +1490,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\Consulta.xaml">
+    <Page Include="Fiscal\ViewNFe\Consulta.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1437,11 +1518,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewDadosBase\GerenciarDadosBase.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ViewNFe\EscolhaProdutos.xaml">
+    <Page Include="Fiscal\EscolhaProdutos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1461,7 +1538,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ViewNFe\CaixasDialogoNFe\AdicionarVolume.xaml">
+    <Page Include="Fiscal\ViewNFe\CaixasDialogo\AdicionarVolume.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1469,19 +1546,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ViewNFe\CaixasDialogoNFe\AdicionarDeducao.xaml">
+    <Page Include="Fiscal\ViewNFe\CaixasDialogo\AdicionarDeducao.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ViewNFe\CaixasDialogoNFe\AdicionarFornecimentoDiario.xaml">
+    <Page Include="Fiscal\ViewNFe\CaixasDialogo\AdicionarFornecimentoDiario.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ViewNFe\ManipulacaoNotaFiscal.xaml">
+    <Page Include="Fiscal\ViewNFe\ManipulacaoNotaFiscal.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Produto\ManipulacaoProdutoCompleto.xaml">
+    <Page Include="Fiscal\ViewNFe\ManipulacaoProdutoCompleto.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1489,7 +1566,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\NotasSalvas.xaml">
+    <Page Include="Fiscal\NotasSalvas.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1497,56 +1574,56 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\DANFE\PaginasDANFE\PaginaExtra.xaml">
+    <Page Include="Fiscal\ViewNFe\PaginasDANFE\PaginaExtra.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\DANFE\PaginasDANFE\PaginaPrincipal.xaml">
+    <Page Include="Fiscal\ViewNFe\PaginasDANFE\PaginaPrincipal.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\DANFE\PartesDANFE\CampoCliente.xaml">
+    <Page Include="Fiscal\ViewNFe\PartesDANFE\CampoCliente.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\DANFE\PartesDANFE\CampoDadosAdicionais.xaml">
+    <Page Include="Fiscal\ViewNFe\PartesDANFE\CampoDadosAdicionais.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\DANFE\PartesDANFE\CampoFatura.xaml">
+    <Page Include="Fiscal\ViewNFe\PartesDANFE\CampoFatura.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\DANFE\PartesDANFE\CampoImposto.xaml">
+    <Page Include="Fiscal\ViewNFe\PartesDANFE\CampoImposto.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\DANFE\PartesDANFE\CampoISSQN.xaml">
+    <Page Include="Fiscal\ViewNFe\PartesDANFE\CampoISSQN.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\DANFE\PartesDANFE\CampoProdutos.xaml">
+    <Page Include="Fiscal\ViewNFe\PartesDANFE\CampoProdutos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\DANFE\PartesDANFE\CampoTransporte.xaml">
+    <Page Include="Fiscal\ViewNFe\PartesDANFE\CampoTransporte.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\DANFE\PartesDANFE\Canhoto.xaml">
+    <Page Include="Fiscal\ViewNFe\PartesDANFE\Canhoto.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\DANFE\PartesDANFE\DadosNFe.xaml">
+    <Page Include="Fiscal\ViewNFe\PartesDANFE\DadosNFe.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\DANFE\PartesDANFE\EstilosPadrao.xaml">
+    <Page Include="Fiscal\ViewNFe\PartesDANFE\EstilosPadrao.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
-    <Page Include="ViewNFe\DANFE\PartesDANFE\ItemProduto.xaml">
+    <Page Include="Fiscal\ViewNFe\PartesDANFE\ItemProduto.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1562,11 +1639,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\VendasAnuais.xaml">
+    <Page Include="Fiscal\VendasAnuais.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewNFe\DANFE\ViewDANFE.xaml">
+    <Page Include="Fiscal\ViewNFe\ViewDANFE.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1584,25 +1661,21 @@
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.0.6</Version>
     </PackageReference>
-    <PackageReference Include="Newtonsoft.Json">
-      <Version>10.0.3</Version>
-    </PackageReference>
-    <PackageReference Include="Restup">
-      <Version>1.0.0</Version>
-    </PackageReference>
     <PackageReference Include="System.ValueTuple">
       <Version>4.4.0</Version>
     </PackageReference>
-    <PackageReference Include="ZXing.Net.Mobile">
-      <Version>2.3.2</Version>
-    </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <SDKReference Include="WindowsMobile, Version=10.0.14393.0">
+    <SDKReference Include="WindowsMobile, Version=10.0.16299.0">
       <Name>Windows Mobile Extensions for the UWP</Name>
     </SDKReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\OptimizedZXing\OptimizedZXing.csproj">
+      <Project>{831236cd-f989-48d9-987e-a8a6a2cf5f6e}</Project>
+      <Name>OptimizedZXing</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

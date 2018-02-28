@@ -5,31 +5,32 @@ namespace NFeFacil.ModeloXML
 {
     internal sealed class ChaveAcesso
     {
-        private Detalhes detalhes;
-        internal ChaveAcesso(Detalhes detalhes)
+        private InformacoesBase detalhes;
+        internal ChaveAcesso(InformacoesBase detalhes)
         {
             this.detalhes = detalhes;
         }
 
         internal string CriarChaveAcesso()
         {
-            var codigoUF = Estados.Buscar(detalhes.emitente.Endereco.SiglaUF).Codigo;
-            var dhEmissao = Convert.ToDateTime(detalhes.identificacao.DataHoraEmissão).ToString("yyMM");
-            var CNPJEmitente = detalhes.emitente.CNPJ;
-            var modeloIdentificacao = detalhes.identificacao.Modelo;
-            var serie = detalhes.identificacao.Serie.ToString().PadLeft(3, '0');
-            var numero = detalhes.identificacao.Numero.ToString().PadLeft(9, '0');
-            var tipoEmissao = detalhes.identificacao.TipoEmissão;
+            var identificacao = detalhes.identificacao;
+            var codigoUF = Estados.Buscar(detalhes.Emitente.Endereco.SiglaUF).Codigo;
+            var dhEmissao = Convert.ToDateTime(identificacao.DataHoraEmissão).ToString("yyMM");
+            var CNPJEmitente = detalhes.Emitente.CNPJ;
+            var modeloIdentificacao = identificacao.Modelo;
+            var serie = identificacao.Serie.ToString().PadLeft(3, '0');
+            var numero = identificacao.Numero.ToString().PadLeft(9, '0');
+            var tipoEmissao = identificacao.TipoEmissão;
 
-            if (detalhes.identificacao.ChaveNF == default(int))
+            if (identificacao.ChaveNF == default(int))
             {
                 var random = new Random();
-                detalhes.identificacao.ChaveNF = random.Next(10000000, 100000000);
+                identificacao.ChaveNF = random.Next(10000000, 100000000);
             }
-            var randomico = detalhes.identificacao.ChaveNF;
+            var randomico = identificacao.ChaveNF;
             var chave = $"{codigoUF}{dhEmissao}{CNPJEmitente}{modeloIdentificacao}{serie}{numero}{tipoEmissao}{randomico}";
 
-            var dv = detalhes.identificacao.DígitoVerificador = CalcularDV(chave);
+            var dv = identificacao.DígitoVerificador = CalcularDV(chave);
             return chave + dv;
         }
 

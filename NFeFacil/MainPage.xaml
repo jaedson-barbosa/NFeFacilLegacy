@@ -28,6 +28,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid x:Name="TitleBar"
+              x:FieldModifier="Internal"
               Background="{StaticResource PoucoVariada}"
               Height="40">
             <Grid.ColumnDefinitions>
@@ -36,11 +37,11 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Button x:Name="btnRetornar"
-                    Background="#00000000"
+            <Button Background="#00000000"
                     VerticalAlignment="Stretch"
                     Width="48"
-                    BorderThickness="0">
+                    BorderThickness="0"
+                    Click="Retornar">
                 <SymbolIcon Symbol="Back" />
             </Button>
             <Button x:Name="btnHamburguer"
@@ -54,6 +55,7 @@
                 <FontIcon Glyph="&#xE700;" />
             </Button>
             <Grid x:Name="MainTitleBar"
+                  x:FieldModifier="Internal"
                   Grid.Column="3"
                   Background="#00000000">
                 <Grid.ColumnDefinitions>

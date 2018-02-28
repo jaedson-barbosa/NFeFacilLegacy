@@ -5,65 +5,86 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
-    <ScrollViewer>
-        <StackPanel Padding="16">
-            <TextBlock Style="{StaticResource TitleTextBlockStyle}">Função do dispositivo na sincronização</TextBlock>
-            <RadioButton IsChecked="{x:Bind Servidor, Mode=TwoWay}"
-                         GroupName="Sincronizacao">Servidor</RadioButton>
-            <RadioButton IsChecked="{x:Bind Cliente}"
-                         GroupName="Sincronizacao">Cliente</RadioButton>
-            <TextBlock Style="{StaticResource TitleTextBlockStyle}">Modo de certificação</TextBlock>
-            <ComboBox SelectedIndex="{x:Bind OrigemCertificacao, Mode=TwoWay}">
-                <ComboBoxItem ToolTipService.ToolTip="Ideal para quem usa certificado A1">Via certificado A1 importado</ComboBoxItem>
-                <ComboBoxItem ToolTipService.ToolTip="Ideal para quem usa certificado A3" IsEnabled="{x:Bind InstalacaoLiberada}">Servidor de certificação</ComboBoxItem>
-                <ComboBoxItem ToolTipService.ToolTip="Ideal para quem usa certificado A3">Cliente de um servidor</ComboBoxItem>
-            </ComboBox>
-            <TextBlock Style="{StaticResource TitleTextBlockStyle}">Desconsiderar horário de verão</TextBlock>
-            <TextBlock TextWrapping="Wrap">Desconsidere o horário de verão caso você esteja tendo problemas ao transmitir as notas fiscais. Em muitos estados os servidores da SEFAZ não mudam com o horário de verão, então ative esta função para que o app se adeque a eles. Se a hora não está de acordo com o horário de verão, essa configuração será ignorada.</TextBlock>
-            <ToggleSwitch IsOn="{x:Bind DesconsiderarHorarioVerao, Mode=TwoWay}" />
-            <TextBlock Style="{StaticResource TitleTextBlockStyle}">Calcular número da NFe automaticamente</TextBlock>
-            <ToggleSwitch IsOn="{x:Bind CalcularNumeroNFe, Mode=TwoWay}"
-                          OnContent="Sempre"
-                          OffContent="Nunca" />
-            <TextBlock Style="{StaticResource TitleTextBlockStyle}">Configurações de busca</TextBlock>
-            <ItemsControl Style="{StaticResource ItensResponsivos}">
+    <controles:DuplaView>
+        <controles:DuplaView.Menu>
+            <ListView ItemsSource="{x:Bind ItensMenu}"
+                      SelectedIndex="{x:Bind ItemMenuSelecionado, Mode=TwoWay}"
+                      FontWeight="Light"
+                      FontSize="24" />
+        </controles:DuplaView.Menu>
+        <controles:MultView x:Name="mvwPrincipal">
+            <StackPanel>
+                <ComboBox Header="Função na sincronização"
+                          MinWidth="320"
+                          SelectedIndex="{x:Bind FuncaoSincronizacao, Mode=TwoWay}">
+                    <ComboBoxItem>Servidor</ComboBoxItem>
+                    <ComboBoxItem>Cliente</ComboBoxItem>
+                </ComboBox>
+                <ComboBox Header="Modo de certificação"
+                          MinWidth="320"
+                          SelectedIndex="{x:Bind OrigemCertificacao, Mode=TwoWay}">
+                    <ComboBoxItem ToolTipService.ToolTip="Ideal para quem usa certificado A1">Via certificado A1 importado</ComboBoxItem>
+                    <ComboBoxItem ToolTipService.ToolTip="Ideal para quem usa certificado A3"
+                                  IsEnabled="{x:Bind InstalacaoLiberada}">Servidor de certificação</ComboBoxItem>
+                    <ComboBoxItem ToolTipService.ToolTip="Ideal para quem usa certificado A3">Cliente de um servidor</ComboBoxItem>
+                </ComboBox>
+                <ToggleSwitch Header="Desconsiderar horário de verão"
+                              MinWidth="320"
+                              ToolTipService.ToolTip="Desconsidere o horário de verão caso você esteja tendo problemas ao transmitir as notas fiscais"
+                              IsOn="{x:Bind DesconsiderarHorarioVerao, Mode=TwoWay}" />
+                <ToggleSwitch Header="Calcular número da NFe automaticamente"
+                              MinWidth="320"
+                              IsOn="{x:Bind CalcularNumeroNFe, Mode=TwoWay}" />
+                <ComboBox Header="Versão do protocolo SOAP"
+                          MinWidth="320"
+                          SelectedIndex="{x:Bind VersaoSoap, Mode=TwoWay}">
+                    <ComboBoxItem>SOAP 1.1</ComboBoxItem>
+                    <ComboBoxItem>SOAP 1.2</ComboBoxItem>
+                </ComboBox>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock TextWrapping="Wrap">No backup local é gerado um arquivo XML com todas as informações salvas atualmente no aplicativo já que nele não há limite de tamanho. É recomendado que seja guardado em um local seguro, como no seu OneDrive. Ele só pode ser restaurado quando não há informações guardadas no aplicativo.</TextBlock>
+                <controles:ItemPadrao Width="200"
+                                      Titulo="Salvar backup"
+                                      Descricao="Guarde todas as informações do aplicativo em um único arquivo."
+                                      Tapped="SalvarBackup">
+                    <SymbolIcon Symbol="Save" />
+                </controles:ItemPadrao>
+            </StackPanel>
+            <StackPanel>
                 <ComboBox Header="Modo de busca do produto"
+                          MinWidth="320"
                           SelectedIndex="{x:Bind ModoBuscaProduto, Mode=TwoWay}">
                     <ComboBoxItem>Pela descrição</ComboBoxItem>
                     <ComboBoxItem>Pelo código</ComboBoxItem>
                 </ComboBox>
                 <ComboBox Header="Modo de busca do cliente"
+                          MinWidth="320"
                           SelectedIndex="{x:Bind ModoBuscaCliente, Mode=TwoWay}">
                     <ComboBoxItem>Pelo nome</ComboBoxItem>
                     <ComboBoxItem>Pelo documento</ComboBoxItem>
                 </ComboBox>
                 <ComboBox Header="Modo de busca do comprador"
+                          MinWidth="320"
                           SelectedIndex="{x:Bind ModoBuscaComprador, Mode=TwoWay}">
                     <ComboBoxItem>Pelo nome do comprador</ComboBoxItem>
                     <ComboBoxItem>Pelo nome da empresa</ComboBoxItem>
                 </ComboBox>
                 <ComboBox Header="Modo de busca do motorista"
+                          MinWidth="320"
                           SelectedIndex="{x:Bind ModoBuscaMotorista, Mode=TwoWay}">
                     <ComboBoxItem>Pelo nome</ComboBoxItem>
                     <ComboBoxItem>Pelo documento</ComboBoxItem>
                 </ComboBox>
                 <ComboBox Header="Modo de busca do vendedor"
+                          MinWidth="320"
                           SelectedIndex="{x:Bind ModoBuscaVendedor, Mode=TwoWay}">
                     <ComboBoxItem>Pelo nome</ComboBoxItem>
                     <ComboBoxItem>Pelo CPF</ComboBoxItem>
                 </ComboBox>
-            </ItemsControl>
-            <TextBlock Style="{StaticResource TitleTextBlockStyle}">Backup</TextBlock>
-            <TextBlock TextWrapping="Wrap">No backup local é gerado um arquivo json com todas as informações salvas atualmente no aplicativo já que nele não há limite de tamanho. É recomendado que seja guardado em um local seguro, como no seu OneDrive. Ele só pode ser restaurado quando não há informações guardadas no aplicativo.</TextBlock>
-            <ItemsControl Style="{StaticResource ItensMedios}">
-                <controles:ItemPadrao Titulo="Salvar backup"
-                                      Descricao="Guarde todas as informações do aplicativo em um único arquivo."
-                                      Tapped="SalvarBackup">
-                    <SymbolIcon Symbol="Save" />
-                </controles:ItemPadrao>
-            </ItemsControl>
-            <TextBlock Style="{StaticResource TitleTextBlockStyle}">Background</TextBlock>
-            <ItemsControl Style="{StaticResource ItensMedios}">
+            </StackPanel>
+            <ItemsControl x:Name="itnBackground"
+                          Style="{StaticResource ItensMedios}">
                 <controles:ItemPadrao Titulo="Usar imagem"
                                       Descricao="Escolha uma imagem para servir de background para o aplicativo"
                                       Tapped="UsarImagem">
@@ -85,6 +106,66 @@
                     <FontIcon Glyph="&#xED10;" />
                 </controles:ItemPadrao>
             </ItemsControl>
-        </StackPanel>
-    </ScrollViewer>
+            <StackPanel>
+                <Slider Header="Largura (mm)"
+                        Minimum="70"
+                        Maximum="100"
+                        StepFrequency="2"
+                        Value="{x:Bind LarguraDANFENFCe, Mode=TwoWay}" />
+                <Slider Header="Margem interna (mm)"
+                        Minimum="0"
+                        Maximum="10"
+                        StepFrequency="5"
+                        Value="{x:Bind MargemDANFENFCe, Mode=TwoWay}" />
+            </StackPanel>
+            <ItemsControl Style="{StaticResource ItensMedios}">
+                <Button x:Name="btnComprarNFCe"
+                        Width="200"
+                        MinHeight="200"
+                        Padding="16"
+                        IsEnabled="False"
+                        Click="ComprarNFCe">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">NFCe</TextBlock>
+                        <TextBlock Grid.Row="1"
+                                   Style="{StaticResource BodyTextBlockStyle}">Libere a criação de notas fiscais do consumidor no aplicativo.</TextBlock>
+                    </Grid>
+                </Button>
+                <Button x:Name="btnComprarBackground"
+                        Width="200"
+                        MinHeight="200"
+                        Padding="16"
+                        IsEnabled="False"
+                        Click="ComprarBackground">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Background</TextBlock>
+                        <TextBlock Grid.Row="1"
+                                   Style="{StaticResource BodyTextBlockStyle}">Personalize a tela de fundo do aplicativo pra deixá-lo com sua cara.</TextBlock>
+                    </Grid>
+                </Button>
+                <Button Width="200"
+                        MinHeight="200"
+                        Padding="16"
+                        Click="ReanalizarCompras">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Reanalizar compras</TextBlock>
+                        <TextBlock Grid.Row="1"
+                                   Style="{StaticResource BodyTextBlockStyle}">Caso a análise não tenha ocorrido corretamente no início do app, reanalize.</TextBlock>
+                    </Grid>
+                </Button>
+            </ItemsControl>
+        </controles:MultView>
+    </controles:DuplaView>
 </Page>

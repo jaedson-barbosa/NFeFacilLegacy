@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.ComponentModel;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -59,7 +58,7 @@ namespace NFeFacil.View
                 Etapas[at].Atual = EtapaProcesso.Status.EmAndamento;
                 Etapas[at].Update();
             }
-            await Task.Delay(500);
+            await Task.Delay(250);
         }
 
         public async void Start()
@@ -86,9 +85,10 @@ namespace NFeFacil.View
                 e.ExportarXML();
                 Stop(false, e.Message);
             }
-            catch (Exception e)
+            catch (Exception erro)
             {
-                Stop(false, e.Message);
+                Stop(false, $"{erro.Message}\r\n" +
+                    $"Detalhes adicionais: {erro.InnerException?.Message ?? "Não há detalhes"}");
             }
         }
 
@@ -108,31 +108,5 @@ namespace NFeFacil.View
             SecondaryButtonText = "Tentar novamente";
             txtResultado.Text = mensagem;
         }
-    }
-
-    public sealed class EtapaProcesso : INotifyPropertyChanged
-    {
-        public EtapaProcesso(string descricao)
-        {
-            Descricao = descricao;
-            Atual = Status.Pendente;
-        }
-
-        public Visibility Concluido => Atual == Status.Concluido ? Visibility.Visible : Visibility.Collapsed;
-        public Visibility Pendente => Atual == Status.Pendente ? Visibility.Visible : Visibility.Collapsed;
-        public bool EmAndamento => Atual == Status.EmAndamento;
-        public string Descricao { get; set; }
-
-        internal Status Atual { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void Update()
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Concluido)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Pendente)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(EmAndamento)));
-        }
-
-        public enum Status { Pendente, EmAndamento, Concluido }
     }
 }

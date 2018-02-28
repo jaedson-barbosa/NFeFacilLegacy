@@ -1,6 +1,11 @@
-﻿using NFeFacil.Sincronizacao;
+﻿using System;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Core;
+using Windows.System.Profile;
+using Windows.UI;
+using Windows.UI.Core;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 
 namespace NFeFacil
@@ -17,13 +22,6 @@ namespace NFeFacil
         public App()
         {
             InitializeComponent();
-            IBGE.Estados.Buscar();
-            IBGE.Municipios.Buscar();
-            View.DadosEstadosParaView.Iniciar();
-            if (ConfiguracoesSincronizacao.InícioAutomático)
-            {
-                GerenciadorServidor.Current.IniciarServer().ConfigureAwait(false);
-            }
         }
 
         /// <summary>
@@ -43,6 +41,35 @@ namespace NFeFacil
             {
                 Window.Current.Activate();
             }
+
+            PersonalisarBarraTitulo();
+        }
+
+        void PersonalisarBarraTitulo()
+        {
+            MainPage current = MainPage.Current;
+            var familia = AnalyticsInfo.VersionInfo.DeviceFamily;
+            if (familia.Contains("Mobile"))
+            {
+                EsconderBarraCelular();
+            }
+            else if (familia.Contains("Desktop"))
+            {
+                CoreApplicationViewTitleBar tb = CoreApplication.GetCurrentView().TitleBar;
+                tb.ExtendViewIntoTitleBar = true;
+                tb.LayoutMetricsChanged += (sender, e) => current.TitleBar.Height = sender.Height;
+
+                Window.Current.SetTitleBar(current.MainTitleBar);
+                Window.Current.Activated += (sender, e) => current.TitleBar.Opacity = e.WindowActivationState != CoreWindowActivationState.Deactivated ? 1 : 0.5;
+
+                var novoTB = ApplicationView.GetForCurrentView().TitleBar;
+                novoTB.ButtonBackgroundColor = Colors.Transparent;
+                novoTB.ButtonInactiveBackgroundColor = Colors.Transparent;
+                novoTB.ButtonHoverBackgroundColor = new Color { A = 50 };
+                novoTB.ButtonPressedBackgroundColor = new Color { A = 100 };
+            }
+
+            async void EsconderBarraCelular() => await StatusBar.GetForCurrentView().HideAsync();
         }
     }
 

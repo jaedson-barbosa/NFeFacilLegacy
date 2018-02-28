@@ -10,7 +10,7 @@ namespace NFeFacil.ViewRegistroVenda
 
         public MotivoEdicaoRV()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)

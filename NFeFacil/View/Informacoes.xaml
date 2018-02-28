@@ -55,11 +55,11 @@
                     </Paragraph>
                     <Paragraph>
                         <Run>Celular e WhatsApp:</Run>
-                        <Italic>(83) 98885-6440</Italic>
+                        <Hyperlink NavigateUri="tel:8398885-6440">(83) 98885-6440</Hyperlink>
                     </Paragraph>
                     <Paragraph>
                         <Run>E-mail:</Run>
-                        <Italic>jaedson_9@hotmail.com</Italic>
+                        <Hyperlink NavigateUri="mailto:jaedson_9@hotmail.com">jaedson_9@hotmail.com</Hyperlink>
                     </Paragraph>
                 </RichTextBlock>
                 <Image x:Name="imgEu"
@@ -74,15 +74,15 @@
             <RichTextBlock>
                 <Paragraph>
                     <Bold>Anel:</Bold>
-                    <Run>Insider</Run>
+                    <Run>Público</Run>
                 </Paragraph>
                 <Paragraph>
                     <Bold>Número:</Bold>
-                    <Run>1.8</Run>
+                    <Run>1.9</Run>
                 </Paragraph>
                 <Paragraph>
                     <Bold>Revisão:</Bold>
-                    <Run>15</Run>
+                    <Run>20</Run>
                 </Paragraph>
             </RichTextBlock>
             <TextBlock Style="{StaticResource TitleTextBlockStyle}">Ajude o desenvolvedor</TextBlock>

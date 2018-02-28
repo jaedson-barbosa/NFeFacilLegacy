@@ -1,0 +1,41 @@
+﻿<ContentDialog x:Class="NFeFacil.Fiscal.ViewNFe.CaixasDialogo.EnderecoDiferenteNacional"
+               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:controles="using:NFeFacil.Controles"
+               xmlns:VM="using:NFeFacil.View"
+               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+               mc:Ignorable="d"
+               Title="Endereço nacional"
+               PrimaryButtonText="Definir"
+               SecondaryButtonText="Cancelar">
+    <ItemsControl Style="{StaticResource ItensResponsivos}">
+        <ComboBox SelectedIndex="{x:Bind TipoDocumento, Mode=TwoWay}"
+                  Header="Tipo">
+            <ComboBoxItem Content="CPF" />
+            <ComboBoxItem Content="CNPJ" />
+        </ComboBox>
+        <controles:EntradaRestrita Text="{x:Bind Documento, Mode=TwoWay}"
+                                   Pattern="[^\d]"
+                                   Header="Documento *" />
+        <TextBox Text="{x:Bind Endereco.Logradouro, Mode=TwoWay}"
+                 InputScope="Text"
+                 Header="Logradouro *" />
+        <TextBox Text="{x:Bind Endereco.Numero, Mode=TwoWay}"
+                 InputScope="Text"
+                 Header="Número *" />
+        <TextBox Text="{x:Bind Endereco.Complemento, Mode=TwoWay}"
+                 InputScope="Text"
+                 Header="Complemento" />
+        <TextBox Text="{x:Bind Endereco.Bairro, Mode=TwoWay}"
+                 InputScope="Text"
+                 Header="Bairro *" />
+        <ComboBox ItemsSource="{x:Bind VM:DadosEstadosParaView.Siglas}"
+                  SelectedItem="{x:Bind UFEscolhida, Mode=TwoWay}"
+                  Header="Estado" />
+        <ComboBox ItemsSource="{x:Bind MunicipiosDoEstado}"
+                  SelectedItem="{x:Bind ConjuntoMunicipio, Mode=TwoWay}"
+                  DisplayMemberPath="Nome"
+                  Header="Município" />
+    </ItemsControl>
+</ContentDialog>

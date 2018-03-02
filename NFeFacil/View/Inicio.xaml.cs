@@ -113,7 +113,7 @@ namespace NFeFacil.View
 
         void Navegar<T>(object param = null) where T : Page => MainPage.Current.Navegar<T>(param);
 
-        async Task<bool> CriarNFeEntrada()
+        async Task CriarNFeEntrada()
         {
             var caixa = new FileOpenPicker();
             caixa.FileTypeFilter.Add(".xml");
@@ -127,30 +127,30 @@ namespace NFeFacil.View
                     var nfe = proc.NFe;
                     if (nfe.Informacoes.destinatário.CNPJ == DefinicoesTemporarias.EmitenteAtivo.CNPJ)
                     {
+                        ClienteDI c;
                         using (var repo = new Repositorio.Leitura())
                         {
-                            var c = repo.ObterClienteViaCNPJ(nfe.Informacoes.Emitente.CNPJ);
-                            if (c != null)
+                            c = repo.ObterClienteViaCNPJ(nfe.Informacoes.Emitente.CNPJ);
+                        }
+                        if (c != null)
+                        {
+                            nfe.Informacoes.destinatário = c.ToDestinatario();
+                            nfe.Informacoes.Emitente = DefinicoesTemporarias.EmitenteAtivo.ToEmitente();
+                            nfe.Informacoes.identificacao.TipoOperacao = 0;
+                            var analisador = new AnalisadorNFe(ref nfe);
+                            analisador.Desnormalizar();
+                            var controle = new ControleNFe(nfe);
+                            if (await new Criador(controle).ShowAsync() == ContentDialogResult.Primary)
                             {
-                                nfe.Informacoes.destinatário = c.ToDestinatario();
-                                nfe.Informacoes.Emitente = DefinicoesTemporarias.EmitenteAtivo.ToEmitente();
-                                nfe.Informacoes.identificacao.TipoOperacao = 0;
-                                var analisador = new AnalisadorNFe(ref nfe);
-                                analisador.Desnormalizar();
-                                var controle = new ControleNFe(nfe);
-                                if (await new Criador(controle).ShowAsync() == ContentDialogResult.Primary)
-                                {
-                                    Popup.Current.Escrever(TitulosComuns.Sucesso, "Nota de entrada criada. Agora verifique se todas as informações estão corretas.");
-                                    return true;
-                                }
+                                Popup.Current.Escrever(TitulosComuns.Sucesso, "Nota de entrada criada. Agora verifique se todas as informações estão corretas.");
                             }
-                            else
+                        }
+                        else
+                        {
+                            using (var repo = new Repositorio.Escrita())
                             {
-                                Popup.Current.Escrever(TitulosComuns.Atenção, "Para uma melhor esperiência na edição da NFe é preciso cadastrar o emitente da nota fiscal como cliente.\r\n" +
-                                    "Após concluir o cadastro tente novamente criar a nota de entrada.");
-                                var di = new ClienteDI(nfe.Informacoes.Emitente);
-                                MainPage.Current.Navegar<AdicionarClienteBrasileiroPJ>(di);
-                                return true;
+                                repo.SalvarItemSimples(new ClienteDI(nfe.Informacoes.Emitente),
+                                    DefinicoesTemporarias.DateTimeNow);
                             }
                         }
                     }
@@ -164,7 +164,6 @@ namespace NFeFacil.View
                     erro.ManipularErro();
                 }
             }
-            return false;
         }
     }
 }

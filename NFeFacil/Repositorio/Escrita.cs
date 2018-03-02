@@ -176,23 +176,7 @@ namespace NFeFacil.Repositorio
             if (string.IsNullOrEmpty(ItemBanco.MotivoEdicao))
             {
                 db.Vendas.Add(ItemBanco);
-
-                for (int i = 0; i < produtosOrignal.Count; i++)
-                {
-                    var produto = produtosOrignal[i];
-                    var estoque = db.Estoque.Include(x => x.Alteracoes).FirstOrDefault(x => x.Id == produto.IdBase);
-                    if (estoque != null)
-                    {
-                        estoque.UltimaData = atual;
-                        estoque.Alteracoes.Add(new AlteracaoEstoque
-                        {
-                            Alteração = produto.Quantidade * -1,
-                            MomentoRegistro = atual
-                        });
-
-                        db.Estoque.Update(estoque);
-                    }
-                }
+                AtualizarEstoques(atual, produtosOrignal.Select(x => (x.IdBase, x.Quantidade * -1)).ToArray());
             }
             else
             {
@@ -201,27 +185,33 @@ namespace NFeFacil.Repositorio
                 {
                     var antigo = vendaAntiga.Produtos.FirstOrDefault(x => prod.Id == x.IdBase)?.Quantidade ?? 0;
                     var novo = produtosOrignal.FirstOrDefault(x => prod.Id == x.Id)?.Quantidade ?? 0;
-                    if (antigo != novo)
-                    {
-                        var estoque = db.Estoque.Include(x => x.Alteracoes).FirstOrDefault(x => x.Id == prod.Id);
-                        if (estoque != null)
-                        {
-                            estoque.UltimaData = atual;
-                            estoque.Alteracoes.Add(new AlteracaoEstoque
-                            {
-                                Alteração = antigo - novo,
-                                MomentoRegistro = atual
-                            });
-
-                            db.Estoque.Update(estoque);
-                        }
-                    }
+                    AtualizarEstoques(atual, (prod.Id, antigo - novo));
                 }
             }
             SalvarComTotalCerteza();
 
             ItemBanco.Produtos = produtosOrignal;
             db.Vendas.Update(ItemBanco);
+        }
+
+        public void AtualizarEstoques(DateTime atual, params (Guid, double)[] alteracoes)
+        {
+            for (int i = 0; i < alteracoes.Length; i++)
+            {
+                var produto = alteracoes[i];
+                var estoque = db.Estoque.Include(x => x.Alteracoes).FirstOrDefault(x => x.Id == produto.Item1);
+                if (estoque != null)
+                {
+                    estoque.UltimaData = atual;
+                    estoque.Alteracoes.Add(new AlteracaoEstoque
+                    {
+                        Alteração = produto.Item2,
+                        MomentoRegistro = atual
+                    });
+
+                    db.Estoque.Update(estoque);
+                }
+            }
         }
 
         public void CancelarRV(RegistroVenda ItemBanco, CancelamentoRegistroVenda cancel, DateTime atual)

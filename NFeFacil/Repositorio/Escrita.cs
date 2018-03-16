@@ -176,7 +176,8 @@ namespace NFeFacil.Repositorio
             if (string.IsNullOrEmpty(ItemBanco.MotivoEdicao))
             {
                 db.Vendas.Add(ItemBanco);
-                AtualizarEstoques(atual, produtosOrignal.Select(x => (x.IdBase, x.Quantidade * -1)).ToArray());
+                if (DefinicoesPermanentes.ConfiguracoesEstoque.RV)
+                    AtualizarEstoques(atual, produtosOrignal.Select(x => (x.IdBase, x.Quantidade * -1)).ToArray());
             }
             else
             {
@@ -185,7 +186,8 @@ namespace NFeFacil.Repositorio
                 {
                     var antigo = vendaAntiga.Produtos.FirstOrDefault(x => prod.Id == x.IdBase)?.Quantidade ?? 0;
                     var novo = produtosOrignal.FirstOrDefault(x => prod.Id == x.Id)?.Quantidade ?? 0;
-                    AtualizarEstoques(atual, (prod.Id, antigo - novo));
+                    if (DefinicoesPermanentes.ConfiguracoesEstoque.RV)
+                        AtualizarEstoques(atual, (prod.Id, antigo - novo));
                 }
             }
             SalvarComTotalCerteza();
@@ -219,23 +221,8 @@ namespace NFeFacil.Repositorio
             ItemBanco.UltimaData = atual;
             ItemBanco.Cancelado = true;
             db.Update(ItemBanco);
-
-            for (int i = 0; i < ItemBanco.Produtos.Count; i++)
-            {
-                var produto = ItemBanco.Produtos[i];
-                var estoque = db.Estoque.Include(x => x.Alteracoes).FirstOrDefault(x => x.Id == produto.IdBase);
-                if (estoque != null)
-                {
-                    estoque.UltimaData = atual;
-                    estoque.Alteracoes.Add(new AlteracaoEstoque
-                    {
-                        Alteração = produto.Quantidade,
-                        MomentoRegistro = atual
-                    });
-                    db.Estoque.Update(estoque);
-                }
-            }
-
+            if (DefinicoesPermanentes.ConfiguracoesEstoque.RVCancel)
+                AtualizarEstoques(atual, ItemBanco.Produtos.Select(x => (x.IdBase, x.Quantidade)).ToArray());
             db.CancelamentosRegistroVenda.Add(cancel);
         }
     }

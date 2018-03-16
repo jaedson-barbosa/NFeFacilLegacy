@@ -36,12 +36,12 @@
                 <TextBox Text="{x:Bind Produto.NCM, Mode=TwoWay}"
                          InputScope="Number"
                          Header="NCM" />
-                <TextBox Text="{x:Bind Produto.ValorUnitario, Mode=TwoWay}"
-                         InputScope="Number"
-                         Header="Valor unid. comercial" />
-                <TextBox Text="{x:Bind Produto.ValorUnitarioTributo, Mode=TwoWay}"
-                         InputScope="Number"
-                         Header="Valor unid. tributária" />
+                <controles:EntradaNumerica Number="{x:Bind Produto.ValorUnitario, Mode=TwoWay}"
+                                           Format="11:10"
+                                           Header="Valor unid. comercial" />
+                <controles:EntradaNumerica Number="{x:Bind Produto.ValorUnitarioTributo, Mode=TwoWay}"
+                                           Format="11:10"
+                                           Header="Valor unid. tributária" />
                 <controles:EntradaRestrita Pattern="[^\d]"
                                            Text="{x:Bind Produto.CEST, Mode=TwoWay}"
                                            Header="CEST" />

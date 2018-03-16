@@ -11,6 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Windows.Storage.Pickers;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
 namespace NFeFacil.Fiscal
@@ -199,16 +200,45 @@ namespace NFeFacil.Fiscal
                         OnStatusChanged(StatusNota.Emitida);
                         await progresso.Update(4);
 
-                        if (DefinicoesPermanentes.ConfiguracoesEstoque.NFCe)
+                        using (var opEx = new Repositorio.OperacoesExtras())
                         {
-                            using (var leit = new Repositorio.Leitura())
-                            using (var escr = new Repositorio.Escrita())
+                            var rvVinculado = opEx.GetRVVinculado(nfce.Informacoes.Id);
+                            if (rvVinculado != null)
                             {
-                                escr.AtualizarEstoques(DefinicoesTemporarias.DateTimeNow,
-                                    (from prod in nfce.Informacoes.produtos
-                                     let orig = leit.ObterProduto(prod.Produto.CodigoProduto)
-                                     where orig != null
-                                     select (orig.Id, prod.Produto.QuantidadeComercializada * -1)).ToArray());
+                                if (rvVinculado.Cancelado)
+                                {
+                                    var dialog = new MessageDialog("Um registro de venda já cancelado está vinculado a esta nota fiscal, você ainda deseja aplicar as alterações no estoque?", "Aviso");
+                                    dialog.Commands.Add(new UICommand("Sim", x => AtualizarEstoques()));
+                                    dialog.Commands.Add(new UICommand("Não"));
+                                    await dialog.ShowAsync();
+                                }
+                                else
+                                {
+                                    var dialog = new MessageDialog("Um registro de venda válido está vinculado a esta nota fiscal, você ainda deseja aplicar as alterações no estoque?", "Aviso");
+                                    dialog.Commands.Add(new UICommand("Sim", x => AtualizarEstoques()));
+                                    dialog.Commands.Add(new UICommand("Não"));
+                                    await dialog.ShowAsync();
+                                }
+                            }
+                            else
+                            {
+                                AtualizarEstoques();
+                            }
+                        }
+
+                        void AtualizarEstoques()
+                        {
+                            if (DefinicoesPermanentes.ConfiguracoesEstoque.NFCe)
+                            {
+                                using (var leit = new Repositorio.Leitura())
+                                using (var escr = new Repositorio.Escrita())
+                                {
+                                    escr.AtualizarEstoques(DefinicoesTemporarias.DateTimeNow,
+                                        (from prod in nfce.Informacoes.produtos
+                                         let orig = leit.ObterProduto(prod.Produto.CodigoProduto)
+                                         where orig != null
+                                         select (orig.Id, prod.Produto.QuantidadeComercializada * -1)).ToArray());
+                                }
                             }
                         }
 

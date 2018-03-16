@@ -17,6 +17,7 @@ using NFeFacil.WebService.Pacotes.PartesRetEnvEvento;
 using NFeFacil.Certificacao;
 using NFeFacil.Fiscal.ViewNFe;
 using Windows.UI.Xaml.Navigation;
+using Windows.UI.Popups;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -140,42 +141,87 @@ namespace NFeFacil.Fiscal
                             repo.SalvarItemSimples(nota, DefinicoesTemporarias.DateTimeNow);
                             await progresso.Update(6);
 
-                            if (informacoes is InformacoesNFe nfe)
+                            using (var opEx = new Repositorio.OperacoesExtras())
                             {
-                                var tpOp = nfe.identificacao.TipoOperacao;
-                                if (tpOp == 1 && DefinicoesPermanentes.ConfiguracoesEstoque.NFeSCancel)
+                                var rvVinculado = opEx.GetRVVinculado(informacoes.Id);
+                                if (rvVinculado != null)
+                                {
+                                    if (rvVinculado.Cancelado)
+                                    {
+                                        var dialog = new MessageDialog("Um registro de venda já cancelado está vinculado a esta nota fiscal, você ainda deseja aplicar as alterações no estoque?", "Aviso");
+                                        dialog.Commands.Add(new UICommand("Sim", y => AtualizarEstoques()));
+                                        dialog.Commands.Add(new UICommand("Não"));
+                                        await dialog.ShowAsync();
+                                    }
+                                    else
+                                    {
+                                        var dialog = new MessageDialog("Um registro de venda válido está vinculado a esta nota fiscal, você ainda deseja aplicar as alterações no estoque?", "Aviso");
+                                        dialog.Commands.Add(new UICommand("Sim", y => AtualizarEstoques()));
+                                        dialog.Commands.Add(new UICommand("Não"));
+                                        await dialog.ShowAsync();
+
+                                        dialog = new MessageDialog("Esta nota foi cancelada com sucesso, você deseja também cancelar o registro de venda?", "Aviso");
+                                        dialog.Commands.Add(new UICommand("Sim", y =>
+                                        {
+                                            using (var escr = new Repositorio.Escrita())
+                                            {
+                                                escr.CancelarRV(rvVinculado, new CancelamentoRegistroVenda()
+                                                {
+                                                    Id = rvVinculado.Id,
+                                                    MomentoCancelamento = DefinicoesTemporarias.DateTimeNow,
+                                                    Motivo = "Cancelamento decorrente de cancelamento da nota fiscal correspondente."
+                                                }, DefinicoesTemporarias.DateTimeNow);
+                                            }
+                                        }));
+                                        dialog.Commands.Add(new UICommand("Não"));
+                                        await dialog.ShowAsync();
+                                    }
+                                }
+                                else
+                                {
+                                    AtualizarEstoques();
+                                }
+                            }
+
+                            void AtualizarEstoques()
+                            {
+                                if (informacoes is InformacoesNFe nfe)
+                                {
+                                    var tpOp = nfe.identificacao.TipoOperacao;
+                                    if (tpOp == 1 && DefinicoesPermanentes.ConfiguracoesEstoque.NFeSCancel)
+                                    {
+                                        using (var leit = new Repositorio.Leitura())
+                                        {
+                                            repo.AtualizarEstoques(DefinicoesTemporarias.DateTimeNow,
+                                                (from prod in nfe.produtos
+                                                 let orig = leit.ObterProduto(prod.Produto.CodigoProduto)
+                                                 where orig != null
+                                                 select (orig.Id, prod.Produto.QuantidadeComercializada)).ToArray());
+                                        }
+                                    }
+                                    else if (tpOp == 0 && DefinicoesPermanentes.ConfiguracoesEstoque.NFeECancel)
+                                    {
+                                        using (var leit = new Repositorio.Leitura())
+                                        {
+                                            repo.AtualizarEstoques(DefinicoesTemporarias.DateTimeNow,
+                                                (from prod in nfe.produtos
+                                                 let orig = leit.ObterProduto(prod.Produto.CodigoProduto)
+                                                 where orig != null
+                                                 select (orig.Id, prod.Produto.QuantidadeComercializada * -1)).ToArray());
+                                        }
+                                    }
+                                }
+                                else if (informacoes is InformacoesNFCe nfce
+                                    && DefinicoesPermanentes.ConfiguracoesEstoque.NFCeCancel)
                                 {
                                     using (var leit = new Repositorio.Leitura())
                                     {
                                         repo.AtualizarEstoques(DefinicoesTemporarias.DateTimeNow,
-                                            (from prod in nfe.produtos
+                                            (from prod in nfce.produtos
                                              let orig = leit.ObterProduto(prod.Produto.CodigoProduto)
                                              where orig != null
                                              select (orig.Id, prod.Produto.QuantidadeComercializada)).ToArray());
                                     }
-                                }
-                                else if (tpOp == 0 && DefinicoesPermanentes.ConfiguracoesEstoque.NFeECancel)
-                                {
-                                    using (var leit = new Repositorio.Leitura())
-                                    {
-                                        repo.AtualizarEstoques(DefinicoesTemporarias.DateTimeNow,
-                                            (from prod in nfe.produtos
-                                             let orig = leit.ObterProduto(prod.Produto.CodigoProduto)
-                                             where orig != null
-                                             select (orig.Id, prod.Produto.QuantidadeComercializada * -1)).ToArray());
-                                    }
-                                }
-                            }
-                            else if (informacoes is InformacoesNFCe nfce
-                                && DefinicoesPermanentes.ConfiguracoesEstoque.NFCeCancel)
-                            {
-                                using (var leit = new Repositorio.Leitura())
-                                {
-                                    repo.AtualizarEstoques(DefinicoesTemporarias.DateTimeNow,
-                                        (from prod in nfce.produtos
-                                         let orig = leit.ObterProduto(prod.Produto.CodigoProduto)
-                                         where orig != null
-                                         select (orig.Id, prod.Produto.QuantidadeComercializada)).ToArray());
                                 }
                             }
 

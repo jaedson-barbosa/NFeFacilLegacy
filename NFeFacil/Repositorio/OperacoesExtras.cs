@@ -78,5 +78,10 @@ namespace NFeFacil.Repositorio
                 db.Vendas.Update(venda);
             }
         }
+
+        public RegistroVenda GetRVVinculado(string id)
+        {
+            return db.Vendas.FirstOrDefault(x => x.NotaFiscalRelacionada == id)l;
+        }
     }
 }

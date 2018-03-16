@@ -7,6 +7,7 @@ using NFeFacil.WebService;
 using NFeFacil.WebService.Pacotes;
 using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Windows.Storage.Pickers;
@@ -169,15 +170,42 @@ namespace NFeFacil.Fiscal
                     var protocoloResposta = resultadoResposta.Protocolo?.InfProt;
                     if (protocoloResposta?.cStat == 100)
                     {
+                        var nfe = (NFe)ItemCompleto;
                         ItemCompleto = new ProcessoNFe()
                         {
-                            NFe = (NFe)ItemCompleto,
+                            NFe = nfe,
                             ProtNFe = resultadoResposta.Protocolo
                         };
                         ItemBanco.Status = (int)StatusNota.Emitida;
                         AtualizarDI(ItemCompleto);
                         OnStatusChanged(StatusNota.Emitida);
                         await progresso.Update(4);
+
+                        var tpOp = nfe.Informacoes.identificacao.TipoOperacao;
+                        if (tpOp == 1 && DefinicoesPermanentes.ConfiguracoesEstoque.NFeS)
+                        {
+                            using (var leit = new Repositorio.Leitura())
+                            using (var escr = new Repositorio.Escrita())
+                            {
+                                escr.AtualizarEstoques(DefinicoesTemporarias.DateTimeNow,
+                                    (from prod in nfe.Informacoes.produtos
+                                     let orig = leit.ObterProduto(prod.Produto.CodigoProduto)
+                                     where orig != null
+                                     select (orig.Id, prod.Produto.QuantidadeComercializada * -1)).ToArray());
+                            }
+                        }
+                        else if (tpOp == 0 && DefinicoesPermanentes.ConfiguracoesEstoque.NFeE)
+                        {
+                            using (var leit = new Repositorio.Leitura())
+                            using (var escr = new Repositorio.Escrita())
+                            {
+                                escr.AtualizarEstoques(DefinicoesTemporarias.DateTimeNow,
+                                    (from prod in nfe.Informacoes.produtos
+                                     let orig = leit.ObterProduto(prod.Produto.CodigoProduto)
+                                     where orig != null
+                                     select (orig.Id, prod.Produto.QuantidadeComercializada)).ToArray());
+                            }
+                        }
 
                         return (true, protocoloResposta.xMotivo);
                     }

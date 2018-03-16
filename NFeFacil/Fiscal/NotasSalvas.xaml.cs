@@ -2,6 +2,7 @@
 using NFeFacil.ModeloXML;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Xml.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -139,9 +140,50 @@ namespace NFeFacil.Fiscal
                             repo.SalvarItemSimples(nota, DefinicoesTemporarias.DateTimeNow);
                             await progresso.Update(6);
 
+                            if (informacoes is InformacoesNFe nfe)
+                            {
+                                var tpOp = nfe.identificacao.TipoOperacao;
+                                if (tpOp == 1 && DefinicoesPermanentes.ConfiguracoesEstoque.NFeSCancel)
+                                {
+                                    using (var leit = new Repositorio.Leitura())
+                                    {
+                                        repo.AtualizarEstoques(DefinicoesTemporarias.DateTimeNow,
+                                            (from prod in nfe.produtos
+                                             let orig = leit.ObterProduto(prod.Produto.CodigoProduto)
+                                             where orig != null
+                                             select (orig.Id, prod.Produto.QuantidadeComercializada)).ToArray());
+                                    }
+                                }
+                                else if (tpOp == 0 && DefinicoesPermanentes.ConfiguracoesEstoque.NFeECancel)
+                                {
+                                    using (var leit = new Repositorio.Leitura())
+                                    {
+                                        repo.AtualizarEstoques(DefinicoesTemporarias.DateTimeNow,
+                                            (from prod in nfe.produtos
+                                             let orig = leit.ObterProduto(prod.Produto.CodigoProduto)
+                                             where orig != null
+                                             select (orig.Id, prod.Produto.QuantidadeComercializada * -1)).ToArray());
+                                    }
+                                }
+                            }
+                            else if (informacoes is InformacoesNFCe nfce
+                                && DefinicoesPermanentes.ConfiguracoesEstoque.NFCeCancel)
+                            {
+                                using (var leit = new Repositorio.Leitura())
+                                {
+                                    repo.AtualizarEstoques(DefinicoesTemporarias.DateTimeNow,
+                                        (from prod in nfce.produtos
+                                         let orig = leit.ObterProduto(prod.Produto.CodigoProduto)
+                                         where orig != null
+                                         select (orig.Id, prod.Produto.QuantidadeComercializada)).ToArray());
+                                }
+                            }
+
                             NotasEmitidas.Remove(nota);
                             NotasCanceladas.Insert(0, nota);
                         }
+
+
                         return (true, "NFe cancelada com sucesso.");
                     }
                     else

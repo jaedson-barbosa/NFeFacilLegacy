@@ -1,6 +1,7 @@
 ﻿<Page x:Class="NFeFacil.View.Configuracoes"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:root="using:NFeFacil"
       xmlns:controles="using:NFeFacil.Controles"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -117,6 +118,17 @@
                         Maximum="10"
                         StepFrequency="5"
                         Value="{x:Bind MargemDANFENFCe, Mode=TwoWay}" />
+            </StackPanel>
+            <StackPanel>
+                <TextBlock>Escolha todas as situações em que devem ser geradas alterações no estoque:</TextBlock>
+                <ToggleSwitch IsOn="{x:Bind root:DefinicoesPermanentes.ConfiguracoesEstoque.RV, Mode=TwoWay}">Registro de venda não-fiscal</ToggleSwitch>
+                <ToggleSwitch IsOn="{x:Bind root:DefinicoesPermanentes.ConfiguracoesEstoque.RVCancel, Mode=TwoWay}">Cancelamento de registro de venda não-fiscal</ToggleSwitch>
+                <ToggleSwitch IsOn="{x:Bind root:DefinicoesPermanentes.ConfiguracoesEstoque.NFeS, Mode=TwoWay}">Emissão de NFe de saída</ToggleSwitch>
+                <ToggleSwitch IsOn="{x:Bind root:DefinicoesPermanentes.ConfiguracoesEstoque.NFeSCancel, Mode=TwoWay}">Cancelamento de NFe de saída</ToggleSwitch>
+                <ToggleSwitch IsOn="{x:Bind root:DefinicoesPermanentes.ConfiguracoesEstoque.NFeE, Mode=TwoWay}">Emissão de NFe de entrada</ToggleSwitch>
+                <ToggleSwitch IsOn="{x:Bind root:DefinicoesPermanentes.ConfiguracoesEstoque.NFeECancel, Mode=TwoWay}">Cancelamento de NFe de entrada</ToggleSwitch>
+                <ToggleSwitch IsOn="{x:Bind root:DefinicoesPermanentes.ConfiguracoesEstoque.NFCe, Mode=TwoWay}">Emissão de NFCe</ToggleSwitch>
+                <ToggleSwitch IsOn="{x:Bind root:DefinicoesPermanentes.ConfiguracoesEstoque.NFCeCancel, Mode=TwoWay}">Cancelamento de NFCe</ToggleSwitch>
             </StackPanel>
             <ItemsControl Style="{StaticResource ItensMedios}">
                 <Button x:Name="btnComprarNFCe"

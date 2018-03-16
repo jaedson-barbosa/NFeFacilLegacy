@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 
 namespace NFeFacil
 {
@@ -81,7 +82,48 @@ namespace NFeFacil
             get => AssistenteConfig.Get(nameof(MargemDANFENFCe), 3);
             set => AssistenteConfig.Set(nameof(MargemDANFENFCe), value);
         }
+
+        internal static SituacoesAlteracaoEstoque ConfiguracoesEstoque { get; set; } = new SituacoesAlteracaoEstoque();
     }
 
     internal enum TiposBackground { Imagem, Cor, Padrao }
+
+    sealed class SituacoesAlteracaoEstoque
+    {
+        public SituacoesAlteracaoEstoque()
+        {
+            RV = ConfiguracoesEstoque / 1 << 7 == 1;
+            RVCancel = ConfiguracoesEstoque / 1 << 6 == 1;
+            NFeS = ConfiguracoesEstoque / 1 << 5 == 1;
+            NFeSCancel = ConfiguracoesEstoque / 1 << 4 == 1;
+            NFeE = ConfiguracoesEstoque / 1 << 3 == 1;
+            NFeECancel = ConfiguracoesEstoque / 1 << 2 == 1;
+            NFCe = ConfiguracoesEstoque / 1 << 1 == 1;
+            NFCeCancel = ConfiguracoesEstoque / 1 << 0 == 1;
+        }
+
+        public bool RV { get; set; }
+        public bool RVCancel { get; set; }
+        public bool NFeS { get; set; }
+        public bool NFeSCancel { get; set; }
+        public bool NFeE { get; set; }
+        public bool NFeECancel { get; set; }
+        public bool NFCe { get; set; }
+        public bool NFCeCancel { get; set; }
+
+        static byte ConfiguracoesEstoque
+        {
+            get => AssistenteConfig.Get(nameof(ConfiguracoesEstoque), byte.MinValue);
+            set => AssistenteConfig.Set(nameof(ConfiguracoesEstoque), value);
+        }
+
+        public void SalvarModificacoes()
+        {
+            var bools = new bool[] { RV, RVCancel, NFeS, NFeSCancel, NFeE, NFeECancel, NFCe, NFCeCancel };
+            var array = new BitArray(bools);
+            byte[] bytes = new byte[1];
+            array.CopyTo(bytes, 0);
+            ConfiguracoesEstoque = bytes[0];
+        }
+    }
 }

@@ -30,8 +30,8 @@
                                     Time="{x:Bind HoraSaidaEntrada, Mode=TwoWay}" />
                         <ComboBox Header="Tipo de operação *"
                                   SelectedIndex="{x:Bind NotaSalva.Informacoes.identificacao.TipoOperacao, Mode=TwoWay}">
-                            <ComboBoxItem Content="Entrada" />
-                            <ComboBoxItem Content="Saída" />
+                            <ComboBoxItem>Entrada</ComboBoxItem>
+                            <ComboBoxItem>Saída</ComboBoxItem>
                         </ComboBox>
                         <ComboBox Header="Finalidade de emissão *"
                                   SelectedIndex="{x:Bind FinalidadeEmissao, Mode=TwoWay}">
@@ -42,27 +42,27 @@
                         </ComboBox>
                         <ComboBox Header="Consumidor final *"
                                   SelectedIndex="{x:Bind NotaSalva.Informacoes.identificacao.OperacaoConsumidorFinal, Mode=TwoWay}">
-                            <ComboBoxItem Content="Não" />
-                            <ComboBoxItem Content="Sim" />
+                            <ComboBoxItem>Não</ComboBoxItem>
+                            <ComboBoxItem>Sim</ComboBoxItem>
                         </ComboBox>
                         <ComboBox Header="Tipo de atendimento *"
                                   SelectedIndex="{x:Bind NotaSalva.Informacoes.identificacao.IndicadorPresenca, Mode=TwoWay}">
-                            <ComboBoxItem Content="Não se aplica" />
-                            <ComboBoxItem Content="Presencial" />
-                            <ComboBoxItem Content="Não presencial - Internet" />
-                            <ComboBoxItem Content="Não presencial - Teleatendimento" />
+                            <ComboBoxItem>Não se aplica</ComboBoxItem>
+                            <ComboBoxItem>Presencial</ComboBoxItem>
+                            <ComboBoxItem>Não presencial - Internet</ComboBoxItem>
+                            <ComboBoxItem>Não presencial - Teleatendimento</ComboBoxItem>
                         </ComboBox>
                         <ComboBox Header="Forma de pagamento *"
                                   SelectedIndex="{x:Bind NotaSalva.Informacoes.identificacao.FormaPagamento, Mode=TwoWay}">
-                            <ComboBoxItem Content="Pagamento à vista" />
-                            <ComboBoxItem Content="Pagamento a prazo" />
-                            <ComboBoxItem Content="Outros" />
+                            <ComboBoxItem>Pagamento à vista</ComboBoxItem>
+                            <ComboBoxItem>Pagamento a prazo</ComboBoxItem>
+                            <ComboBoxItem>Outros</ComboBoxItem>
                         </ComboBox>
                         <ComboBox Header="Destino da operação *"
                                   SelectedIndex="{x:Bind IdentificadorDestino, Mode=TwoWay}">
-                            <ComboBoxItem Content="Operação interna" />
-                            <ComboBoxItem Content="Operação interestadual" />
-                            <ComboBoxItem Content="Operação com o exterior" />
+                            <ComboBoxItem>Operação interna</ComboBoxItem>
+                            <ComboBoxItem>Operação interestadual</ComboBoxItem>
+                            <ComboBoxItem>Operação com o exterior</ComboBoxItem>
                         </ComboBox>
                         <TextBox Header="Natureza da operação *"
                                  Text="{x:Bind NotaSalva.Informacoes.identificacao.NaturezaDaOperacao, Mode=TwoWay}" />

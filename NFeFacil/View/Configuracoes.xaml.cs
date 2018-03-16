@@ -7,6 +7,7 @@ using Windows.System.Profile;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Navigation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -25,9 +26,15 @@ namespace NFeFacil.View
                 "Modos de busca",
                 "Background",
                 "DANFE NFCe",
+                "Controle de estoque",
                 "Compras"
             };
             AnalisarCompras();
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            DefinicoesPermanentes.ConfiguracoesEstoque.SalvarModificacoes();
         }
 
         string[] ItensMenu { get; }

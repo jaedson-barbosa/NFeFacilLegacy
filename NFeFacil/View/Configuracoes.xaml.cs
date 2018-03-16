@@ -57,66 +57,6 @@ namespace NFeFacil.View
         }
         bool InstalacaoLiberada => AnalyticsInfo.VersionInfo.DeviceFamily.Contains("Desktop");
 
-        bool DesconsiderarHorarioVerao
-        {
-            get => DefinicoesPermanentes.SuprimirHorarioVerao;
-            set => DefinicoesPermanentes.SuprimirHorarioVerao = value;
-        }
-
-        bool CalcularNumeroNFe
-        {
-            get => DefinicoesPermanentes.CalcularNumeroNFe;
-            set => DefinicoesPermanentes.CalcularNumeroNFe = value;
-        }
-
-        int VersaoSoap
-        {
-            get => DefinicoesPermanentes.UsarSOAP12 ? 1 : 0;
-            set => DefinicoesPermanentes.UsarSOAP12 = value == 1;
-        }
-
-        int ModoBuscaProduto
-        {
-            get => DefinicoesPermanentes.ModoBuscaProduto;
-            set => DefinicoesPermanentes.ModoBuscaProduto = value;
-        }
-
-        int ModoBuscaCliente
-        {
-            get => DefinicoesPermanentes.ModoBuscaCliente;
-            set => DefinicoesPermanentes.ModoBuscaCliente = value;
-        }
-
-        int ModoBuscaComprador
-        {
-            get => DefinicoesPermanentes.ModoBuscaComprador;
-            set => DefinicoesPermanentes.ModoBuscaComprador = value;
-        }
-
-        int ModoBuscaMotorista
-        {
-            get => DefinicoesPermanentes.ModoBuscaMotorista;
-            set => DefinicoesPermanentes.ModoBuscaMotorista = value;
-        }
-
-        int ModoBuscaVendedor
-        {
-            get => DefinicoesPermanentes.ModoBuscaVendedor;
-            set => DefinicoesPermanentes.ModoBuscaVendedor = value;
-        }
-
-        double LarguraDANFENFCe
-        {
-            get => DefinicoesPermanentes.LarguraDANFENFCe;
-            set => DefinicoesPermanentes.LarguraDANFENFCe = value;
-        }
-
-        double MargemDANFENFCe
-        {
-            get => DefinicoesPermanentes.MargemDANFENFCe;
-            set => DefinicoesPermanentes.MargemDANFENFCe = value;
-        }
-
         async void UsarImagem(object sender, TappedRoutedEventArgs e)
         {
             var brushAtual = MainPage.Current.ImagemBackground;

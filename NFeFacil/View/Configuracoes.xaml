@@ -32,16 +32,15 @@
                 <ToggleSwitch Header="Desconsiderar horário de verão"
                               MinWidth="320"
                               ToolTipService.ToolTip="Desconsidere o horário de verão caso você esteja tendo problemas ao transmitir as notas fiscais"
-                              IsOn="{x:Bind DesconsiderarHorarioVerao, Mode=TwoWay}" />
+                              IsOn="{x:Bind root:DefinicoesPermanentes.SuprimirHorarioVerao, Mode=TwoWay}" />
                 <ToggleSwitch Header="Calcular número da NFe automaticamente"
                               MinWidth="320"
-                              IsOn="{x:Bind CalcularNumeroNFe, Mode=TwoWay}" />
-                <ComboBox Header="Versão do protocolo SOAP"
-                          MinWidth="320"
-                          SelectedIndex="{x:Bind VersaoSoap, Mode=TwoWay}">
-                    <ComboBoxItem>SOAP 1.1</ComboBoxItem>
-                    <ComboBoxItem>SOAP 1.2</ComboBoxItem>
-                </ComboBox>
+                              IsOn="{x:Bind root:DefinicoesPermanentes.CalcularNumeroNFe, Mode=TwoWay}" />
+                <ToggleSwitch Header="Usar versão atualizada do protocolo SOAP"
+                              MinWidth="320"
+                              IsOn="{x:Bind root:DefinicoesPermanentes.UsarSOAP12, Mode=TwoWay}"
+                              OffContent="SOAP 1.1"
+                              OnContent="SOAP 1.2" />
             </StackPanel>
             <StackPanel>
                 <TextBlock TextWrapping="Wrap">No backup local é gerado um arquivo XML com todas as informações salvas atualmente no aplicativo já que nele não há limite de tamanho. É recomendado que seja guardado em um local seguro, como no seu OneDrive. Ele só pode ser restaurado quando não há informações guardadas no aplicativo.</TextBlock>
@@ -55,31 +54,31 @@
             <StackPanel>
                 <ComboBox Header="Modo de busca do produto"
                           MinWidth="320"
-                          SelectedIndex="{x:Bind ModoBuscaProduto, Mode=TwoWay}">
+                          SelectedIndex="{x:Bind root:DefinicoesPermanentes.ModoBuscaProduto, Mode=TwoWay}">
                     <ComboBoxItem>Pela descrição</ComboBoxItem>
                     <ComboBoxItem>Pelo código</ComboBoxItem>
                 </ComboBox>
                 <ComboBox Header="Modo de busca do cliente"
                           MinWidth="320"
-                          SelectedIndex="{x:Bind ModoBuscaCliente, Mode=TwoWay}">
+                          SelectedIndex="{x:Bind root:DefinicoesPermanentes.ModoBuscaCliente, Mode=TwoWay}">
                     <ComboBoxItem>Pelo nome</ComboBoxItem>
                     <ComboBoxItem>Pelo documento</ComboBoxItem>
                 </ComboBox>
                 <ComboBox Header="Modo de busca do comprador"
                           MinWidth="320"
-                          SelectedIndex="{x:Bind ModoBuscaComprador, Mode=TwoWay}">
+                          SelectedIndex="{x:Bind root:DefinicoesPermanentes.ModoBuscaComprador, Mode=TwoWay}">
                     <ComboBoxItem>Pelo nome do comprador</ComboBoxItem>
                     <ComboBoxItem>Pelo nome da empresa</ComboBoxItem>
                 </ComboBox>
                 <ComboBox Header="Modo de busca do motorista"
                           MinWidth="320"
-                          SelectedIndex="{x:Bind ModoBuscaMotorista, Mode=TwoWay}">
+                          SelectedIndex="{x:Bind root:DefinicoesPermanentes.ModoBuscaMotorista, Mode=TwoWay}">
                     <ComboBoxItem>Pelo nome</ComboBoxItem>
                     <ComboBoxItem>Pelo documento</ComboBoxItem>
                 </ComboBox>
                 <ComboBox Header="Modo de busca do vendedor"
                           MinWidth="320"
-                          SelectedIndex="{x:Bind ModoBuscaVendedor, Mode=TwoWay}">
+                          SelectedIndex="{x:Bind root:DefinicoesPermanentes.ModoBuscaVendedor, Mode=TwoWay}">
                     <ComboBoxItem>Pelo nome</ComboBoxItem>
                     <ComboBoxItem>Pelo CPF</ComboBoxItem>
                 </ComboBox>
@@ -112,12 +111,12 @@
                         Minimum="70"
                         Maximum="100"
                         StepFrequency="2"
-                        Value="{x:Bind LarguraDANFENFCe, Mode=TwoWay}" />
+                        Value="{x:Bind root:DefinicoesPermanentes.LarguraDANFENFCe, Mode=TwoWay}" />
                 <Slider Header="Margem interna (mm)"
                         Minimum="0"
                         Maximum="10"
                         StepFrequency="5"
-                        Value="{x:Bind MargemDANFENFCe, Mode=TwoWay}" />
+                        Value="{x:Bind root:DefinicoesPermanentes.MargemDANFENFCe, Mode=TwoWay}" />
             </StackPanel>
             <StackPanel>
                 <TextBlock>Escolha todas as situações em que devem ser geradas alterações no estoque:</TextBlock>

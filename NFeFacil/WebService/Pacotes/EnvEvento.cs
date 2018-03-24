@@ -1,4 +1,5 @@
-﻿using NFeFacil.Certificacao;
+﻿using BaseGeral.Certificacao;
+using NFeFacil.Certificacao;
 using NFeFacil.WebService.Pacotes.PartesEnvEvento;
 using System.Threading.Tasks;
 using System.Xml;

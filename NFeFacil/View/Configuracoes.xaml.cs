@@ -1,4 +1,7 @@
-﻿using NFeFacil.Certificacao;
+﻿using BaseGeral;
+using BaseGeral.Certificacao;
+using BaseGeral.Sincronizacao;
+using NFeFacil.Certificacao;
 using NFeFacil.Sincronizacao;
 using System;
 using System.IO;

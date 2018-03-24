@@ -1,9 +1,10 @@
 ﻿using System;
-using NFeFacil.ItensBD;
+using BaseGeral.ItensBD;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
 using System.Linq;
+using BaseGeral;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 

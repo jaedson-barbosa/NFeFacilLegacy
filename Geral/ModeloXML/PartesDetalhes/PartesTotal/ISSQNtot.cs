@@ -1,10 +1,10 @@
-﻿using NFeFacil.View;
-using NFeFacil.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos;
+﻿using BaseGeral.View;
+using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos;
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using static NFeFacil.ExtensoesPrincipal;
+using static BaseGeral.ExtensoesPrincipal;
 
-namespace NFeFacil.ModeloXML.PartesDetalhes.PartesTotal
+namespace BaseGeral.ModeloXML.PartesDetalhes.PartesTotal
 {
     public sealed class ISSQNtot
     {

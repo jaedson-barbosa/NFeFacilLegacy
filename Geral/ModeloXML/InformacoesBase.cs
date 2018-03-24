@@ -1,8 +1,8 @@
-﻿using NFeFacil.View;
-using NFeFacil.ModeloXML.PartesDetalhes;
+﻿using BaseGeral.View;
+using BaseGeral.ModeloXML.PartesDetalhes;
 using System.Xml.Serialization;
 
-namespace NFeFacil.ModeloXML
+namespace BaseGeral.ModeloXML
 {
     public abstract class InformacoesBase
     {

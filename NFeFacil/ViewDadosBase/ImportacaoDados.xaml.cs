@@ -1,4 +1,4 @@
-﻿using NFeFacil.Log;
+﻿using BaseGeral.Log;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -6,15 +6,16 @@ using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using NFeFacil.ItensBD;
+using BaseGeral.ItensBD;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
-using NFeFacil.Repositorio;
-using NFeFacil.ModeloXML.PartesDetalhes;
-using NFeFacil.ModeloXML.PartesDetalhes.PartesTransporte;
-using NFeFacil.ModeloXML;
+using BaseGeral.Repositorio;
+using BaseGeral.ModeloXML.PartesDetalhes;
+using BaseGeral.ModeloXML.PartesDetalhes.PartesTransporte;
+using BaseGeral.ModeloXML;
 using System.Xml.Serialization;
+using BaseGeral;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 

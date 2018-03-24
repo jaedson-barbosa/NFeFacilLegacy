@@ -1,6 +1,6 @@
-﻿using NFeFacil.ModeloXML.PartesAssinatura;
+﻿using BaseGeral.ModeloXML.PartesAssinatura;
 
-namespace NFeFacil.Certificacao
+namespace BaseGeral.Certificacao
 {
     public interface ISignature
     {

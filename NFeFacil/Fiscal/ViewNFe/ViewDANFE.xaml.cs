@@ -2,8 +2,8 @@
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using NFeFacil.Fiscal.ViewNFe.PaginasDANFE;
-using NFeFacil.ModeloXML;
-using static NFeFacil.ExtensoesPrincipal;
+using BaseGeral.ModeloXML;
+using static BaseGeral.ExtensoesPrincipal;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 

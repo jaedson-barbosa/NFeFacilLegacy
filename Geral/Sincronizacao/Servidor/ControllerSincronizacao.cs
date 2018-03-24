@@ -1,9 +1,9 @@
-﻿using NFeFacil.Sincronizacao.FastServer;
-using NFeFacil.Sincronizacao.Pacotes;
+﻿using BaseGeral.Sincronizacao.FastServer;
+using BaseGeral.Sincronizacao.Pacotes;
 using System;
 using System.Xml.Linq;
 
-namespace NFeFacil.Sincronizacao.Servidor
+namespace BaseGeral.Sincronizacao.Servidor
 {
     internal sealed class ControllerSincronizacao
     {

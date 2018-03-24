@@ -1,4 +1,4 @@
-﻿namespace NFeFacil.Validacao
+﻿namespace BaseGeral.Validacao
 {
     public sealed class ValidadorEndereco : IValidavel
     {

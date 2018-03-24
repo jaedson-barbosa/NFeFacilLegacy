@@ -1,6 +1,6 @@
-﻿using NFeFacil.Log;
+﻿using BaseGeral.Log;
 
-namespace NFeFacil.Validacao
+namespace BaseGeral.Validacao
 {
     public sealed class ValidarDados
     {

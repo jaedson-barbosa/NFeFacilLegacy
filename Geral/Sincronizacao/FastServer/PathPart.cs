@@ -1,4 +1,4 @@
-namespace NFeFacil.Sincronizacao.FastServer
+namespace BaseGeral.Sincronizacao.FastServer
 {
     struct PathPart
     {

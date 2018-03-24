@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NFeFacil.ItensBD;
+using BaseGeral.ItensBD;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NFeFacil.Repositorio
+namespace BaseGeral.Repositorio
 {
     public sealed class OperacoesExtras : IDisposable
     {

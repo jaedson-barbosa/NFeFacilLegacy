@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NFeFacil.View
+namespace BaseGeral.View
 {
     [AttributeUsage(AttributeTargets.Property, Inherited = false, AllowMultiple = true)]
     public sealed class DescricaoPropriedade : Attribute

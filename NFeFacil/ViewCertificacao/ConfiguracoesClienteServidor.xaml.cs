@@ -1,4 +1,5 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using BaseGeral.Certificacao.LAN;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
@@ -15,12 +16,12 @@ namespace NFeFacil.Certificacao
 
         async void ConectarServidor(object sender, TappedRoutedEventArgs e)
         {
-            await LAN.InformacoesConexao.Cadastrar();
+            await InformacoesConexao.Cadastrar();
         }
 
         void EsquecerServidor(object sender, TappedRoutedEventArgs e)
         {
-            LAN.InformacoesConexao.Esquecer();
+            InformacoesConexao.Esquecer();
         }
     }
 }

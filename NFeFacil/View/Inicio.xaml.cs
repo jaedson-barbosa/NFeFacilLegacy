@@ -1,10 +1,10 @@
 ﻿using NFeFacil.Certificacao;
-using NFeFacil.ItensBD;
-using NFeFacil.Log;
-using NFeFacil.ModeloXML;
+using BaseGeral.ItensBD;
+using BaseGeral.Log;
+using BaseGeral.ModeloXML;
 using NFeFacil.Produto.GerenciamentoProdutos;
 using NFeFacil.Sincronizacao;
-using NFeFacil.Validacao;
+using BaseGeral.Validacao;
 using NFeFacil.ViewDadosBase;
 using NFeFacil.Fiscal.ViewNFe;
 using NFeFacil.ViewRegistroVenda;
@@ -15,6 +15,9 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using NFeFacil.Fiscal;
 using Windows.UI.Xaml.Navigation;
+using BaseGeral.Certificacao;
+using BaseGeral;
+using BaseGeral.Sincronizacao;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -128,7 +131,7 @@ namespace NFeFacil.View
                     if (nfe.Informacoes.destinatário.CNPJ == DefinicoesTemporarias.EmitenteAtivo.CNPJ)
                     {
                         ClienteDI c;
-                        using (var repo = new Repositorio.Leitura())
+                        using (var repo = new BaseGeral.Repositorio.Leitura())
                         {
                             c = repo.ObterClienteViaCNPJ(nfe.Informacoes.Emitente.CNPJ);
                         }
@@ -147,7 +150,7 @@ namespace NFeFacil.View
                         }
                         else
                         {
-                            using (var repo = new Repositorio.Escrita())
+                            using (var repo = new BaseGeral.Repositorio.Escrita())
                             {
                                 repo.SalvarItemSimples(new ClienteDI(nfe.Informacoes.Emitente),
                                     DefinicoesTemporarias.DateTimeNow);

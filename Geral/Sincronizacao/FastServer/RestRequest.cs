@@ -1,6 +1,6 @@
 ﻿using System.Xml.Linq;
 
-namespace NFeFacil.Sincronizacao.FastServer
+namespace BaseGeral.Sincronizacao.FastServer
 {
     public sealed class RestRequest
     {

@@ -1,7 +1,7 @@
 ﻿using System.Xml;
 using System.Xml.Serialization;
 
-namespace NFeFacil.ModeloXML
+namespace BaseGeral.ModeloXML
 {
     public sealed class InformacoesSuplementaresNFCe
     {

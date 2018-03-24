@@ -1,7 +1,7 @@
-﻿using NFeFacil.View;
+﻿using BaseGeral.View;
 using System.Xml.Serialization;
 
-namespace NFeFacil.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos
+namespace BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos
 {
     /// <summary>
     /// Grupo de Partilha do ICMS entre a UF de origem e UF de destino ou a UF definida na legislação. 

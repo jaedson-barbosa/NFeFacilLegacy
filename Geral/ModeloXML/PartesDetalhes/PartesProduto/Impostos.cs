@@ -1,10 +1,10 @@
-﻿using NFeFacil.View;
-using NFeFacil.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos;
+﻿using BaseGeral.View;
+using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
 
-namespace NFeFacil.ModeloXML.PartesDetalhes.PartesProduto
+namespace BaseGeral.ModeloXML.PartesDetalhes.PartesProduto
 {
     public sealed class Impostos
     {

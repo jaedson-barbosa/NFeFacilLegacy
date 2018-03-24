@@ -1,5 +1,5 @@
 ﻿using NFeFacil.Fiscal;
-using NFeFacil.ItensBD;
+using BaseGeral.ItensBD;
 using NFeFacil.ViewRegistroVenda.DARV;
 using System;
 using System.Collections.Generic;
@@ -7,6 +7,8 @@ using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using BaseGeral;
+using BaseGeral.Log;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -59,7 +61,7 @@ namespace NFeFacil.ViewRegistroVenda
 
             public Visualizacao(RegistroVenda venda)
             {
-                using (var repo = new Repositorio.Leitura())
+                using (var repo = new BaseGeral.Repositorio.Leitura())
                 {
                     ID = venda.Id.ToString().ToUpper();
                     NFeRelacionada = venda.NotaFiscalRelacionada;
@@ -93,7 +95,7 @@ namespace NFeFacil.ViewRegistroVenda
                 var caixa = new Criador(controle);
                 if (await caixa.ShowAsync() == ContentDialogResult.Primary)
                 {
-                    Log.Popup.Current.Escrever(Log.TitulosComuns.Atenção, "Os impostos dos produtos não são adicionados automaticamente, por favor, insira-os editando cada produto.");
+                    Popup.Current.Escrever(TitulosComuns.Atenção, "Os impostos dos produtos não são adicionados automaticamente, por favor, insira-os editando cada produto.");
                 }
             }
             catch (Exception erro)
@@ -133,7 +135,7 @@ namespace NFeFacil.ViewRegistroVenda
                     MomentoCancelamento = DefinicoesTemporarias.DateTimeNow,
                     Id = ItemBanco.Id
                 };
-                using (var repo = new Repositorio.Escrita())
+                using (var repo = new BaseGeral.Repositorio.Escrita())
                 {
                     repo.CancelarRV(ItemBanco, cancelamento, DefinicoesTemporarias.DateTimeNow);
                 }
@@ -146,7 +148,7 @@ namespace NFeFacil.ViewRegistroVenda
 
         private void VerNFe(object sender, RoutedEventArgs e)
         {
-            using (var repo = new Repositorio.Leitura())
+            using (var repo = new BaseGeral.Repositorio.Leitura())
             {
                 var item = repo.ObterNota(ItemBanco.NotaFiscalRelacionada);
                 var acoes = new AcoesNFe(item);

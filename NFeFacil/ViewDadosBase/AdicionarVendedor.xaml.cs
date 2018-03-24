@@ -1,5 +1,6 @@
-﻿using NFeFacil.ItensBD;
-using NFeFacil.Validacao;
+﻿using BaseGeral;
+using BaseGeral.ItensBD;
+using BaseGeral.Validacao;
 using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -46,7 +47,7 @@ namespace NFeFacil.ViewDadosBase
                     (string.IsNullOrWhiteSpace(Vendedor.Nome), "Nome não pode estar em branco"),
                     (string.IsNullOrWhiteSpace(Vendedor.Endereço), "Endereço não pode estar em branco")))
                 {
-                    using (var repo = new Repositorio.Escrita())
+                    using (var repo = new BaseGeral.Repositorio.Escrita())
                     {
                         repo.SalvarItemSimples(Vendedor, DefinicoesTemporarias.DateTimeNow);
                     }

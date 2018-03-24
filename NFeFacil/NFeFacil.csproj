@@ -535,7 +535,6 @@
     <Compile Include="Fiscal\ViewNFe\PacotesDANFE\Geral.cs" />
     <Compile Include="Fiscal\ViewNFe\PacotesDANFE\ItemDadosAdicionais.cs" />
     <Compile Include="Fiscal\ViewNFe\DadosDANFE.cs" />
-    <Compile Include="ExtensoesPrincipal.cs" />
     <Compile Include="View\IHambuguer.cs" />
     <Compile Include="View\StringToDateTime.cs" />
     <Compile Include="Produto\Impostos\TiposCalculo.cs" />

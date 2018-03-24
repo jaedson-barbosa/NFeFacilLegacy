@@ -1,4 +1,5 @@
-﻿using NFeFacil.ItensBD;
+﻿using BaseGeral;
+using BaseGeral.ItensBD;
 using NFeFacil.View;
 using System;
 using System.Collections.ObjectModel;
@@ -19,7 +20,7 @@ namespace NFeFacil.ViewDadosBase
         public GerenciarVendedores()
         {
             InitializeComponent();
-            using (var repo = new Repositorio.Leitura())
+            using (var repo = new BaseGeral.Repositorio.Leitura())
             {
                 TodosVendedores = repo.ObterVendedores().Select(atual => new ConjuntoBasicoExibicao<Vendedor>
                 {
@@ -50,7 +51,7 @@ namespace NFeFacil.ViewDadosBase
             var exib = (ConjuntoBasicoExibicao<Vendedor>)contexto;
             var obj = exib.Objeto;
 
-            using (var repo = new Repositorio.Escrita())
+            using (var repo = new BaseGeral.Repositorio.Escrita())
             {
                 repo.InativarDadoBase(obj, DefinicoesTemporarias.DateTimeNow);
                 Vendedores.Remove(exib);

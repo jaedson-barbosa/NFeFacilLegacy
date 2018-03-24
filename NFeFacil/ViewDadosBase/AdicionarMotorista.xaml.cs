@@ -1,13 +1,14 @@
-﻿using NFeFacil.Validacao;
+﻿using BaseGeral.Validacao;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using System;
-using NFeFacil.ItensBD;
+using BaseGeral.ItensBD;
 using System.Collections.ObjectModel;
-using NFeFacil.IBGE;
-using NFeFacil.ModeloXML;
+using BaseGeral.IBGE;
+using BaseGeral.ModeloXML;
 using System.Linq;
+using BaseGeral;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -59,7 +60,7 @@ namespace NFeFacil.ViewDadosBase
         public AdicionarMotorista()
         {
             InitializeComponent();
-            using (var repo = new Repositorio.Leitura())
+            using (var repo = new BaseGeral.Repositorio.Leitura())
             {
                 Veiculos = repo.ObterVeiculos().GerarObs();
             }
@@ -89,7 +90,7 @@ namespace NFeFacil.ViewDadosBase
                     (string.IsNullOrEmpty(Motorista.XMun), "Não foi definido um município"),
                     (string.IsNullOrEmpty(Motorista.Nome), "Não foi informado o nome do motorista")))
                 {
-                    using (var repo = new Repositorio.Escrita())
+                    using (var repo = new BaseGeral.Repositorio.Escrita())
                     {
                         Motorista.VeiculosSecundarios = string.Concat(from VeiculoDI item in grdVeisSec.SelectedItems
                                                                       select item.Placa + '&');
@@ -115,7 +116,7 @@ namespace NFeFacil.ViewDadosBase
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
                 var veic = caixa.Item;
-                using (var repo = new Repositorio.Escrita())
+                using (var repo = new BaseGeral.Repositorio.Escrita())
                 {
                     repo.SalvarItemSimples(veic, DefinicoesTemporarias.DateTimeNow);
                     Veiculos.Add(veic);
@@ -146,7 +147,7 @@ namespace NFeFacil.ViewDadosBase
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
                 veic = caixa.Item;
-                using (var repo = new Repositorio.Escrita())
+                using (var repo = new BaseGeral.Repositorio.Escrita())
                 {
                     repo.SalvarItemSimples(veic, DefinicoesTemporarias.DateTimeNow);
                     Veiculos.RemoveAt(index);
@@ -158,7 +159,7 @@ namespace NFeFacil.ViewDadosBase
         private void InativarVeiculo(object sender, RoutedEventArgs e)
         {
             var veic = (VeiculoDI)((FrameworkElement)sender).DataContext;
-            using (var repo = new Repositorio.Escrita())
+            using (var repo = new BaseGeral.Repositorio.Escrita())
             {
                 repo.InativarDadoBase(veic, DefinicoesTemporarias.DateTimeNow);
             }

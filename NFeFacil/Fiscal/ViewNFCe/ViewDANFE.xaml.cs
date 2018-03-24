@@ -1,4 +1,4 @@
-﻿using NFeFacil.ModeloXML;
+﻿using BaseGeral.ModeloXML;
 using System;
 using System.Collections.Generic;
 using Windows.UI.Xaml;
@@ -6,7 +6,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Navigation;
 using OptimizedZXing;
-using static NFeFacil.ExtensoesPrincipal;
+using static BaseGeral.ExtensoesPrincipal;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 

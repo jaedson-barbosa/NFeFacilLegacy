@@ -1,11 +1,11 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
-using NFeFacil.ModeloXML.PartesDetalhes.PartesTotal;
-using NFeFacil.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos;
+using BaseGeral.ModeloXML.PartesDetalhes.PartesTotal;
+using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos;
 using System.Xml.Serialization;
-using NFeFacil.View;
+using BaseGeral.View;
 
-namespace NFeFacil.ModeloXML.PartesDetalhes
+namespace BaseGeral.ModeloXML.PartesDetalhes
 {
     /// <summary>
     /// Grupo Totais da NF-e.

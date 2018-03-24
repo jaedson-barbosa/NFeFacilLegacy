@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BaseGeral;
+using System;
 using System.Collections;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;

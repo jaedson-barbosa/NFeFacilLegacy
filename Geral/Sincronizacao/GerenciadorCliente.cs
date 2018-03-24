@@ -1,17 +1,17 @@
-﻿using static NFeFacil.Sincronizacao.ConfiguracoesSincronizacao;
-using NFeFacil.Log;
-using NFeFacil.Sincronizacao.Pacotes;
+﻿using static BaseGeral.Sincronizacao.ConfiguracoesSincronizacao;
+using BaseGeral.Log;
+using BaseGeral.Sincronizacao.Pacotes;
 using System.Threading.Tasks;
 using System.Text;
 using System;
-using NFeFacil.Sincronizacao.FastServer;
+using BaseGeral.Sincronizacao.FastServer;
 using System.Xml.Linq;
 using Windows.Networking.Sockets;
 using Windows.Networking;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Storage.Streams;
 
-namespace NFeFacil.Sincronizacao
+namespace BaseGeral.Sincronizacao
 {
     public sealed class GerenciadorCliente
     {

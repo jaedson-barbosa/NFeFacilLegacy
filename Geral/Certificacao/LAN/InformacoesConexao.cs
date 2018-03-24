@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace NFeFacil.Certificacao.LAN
+namespace BaseGeral.Certificacao.LAN
 {
     public static class InformacoesConexao
     {

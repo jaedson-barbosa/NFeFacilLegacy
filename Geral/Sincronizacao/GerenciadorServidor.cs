@@ -1,9 +1,9 @@
-﻿using NFeFacil.Sincronizacao.FastServer;
-using NFeFacil.Sincronizacao.Servidor;
+﻿using BaseGeral.Sincronizacao.FastServer;
+using BaseGeral.Sincronizacao.Servidor;
 using System;
 using System.Threading.Tasks;
 
-namespace NFeFacil.Sincronizacao
+namespace BaseGeral.Sincronizacao
 {
     public sealed class GerenciadorServidor
     {

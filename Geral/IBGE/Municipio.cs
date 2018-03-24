@@ -2,7 +2,7 @@
 using System.Text;
 using System.Xml.Linq;
 
-namespace NFeFacil.IBGE
+namespace BaseGeral.IBGE
 {
     public sealed class Municipio
     {

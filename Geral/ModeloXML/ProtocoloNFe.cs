@@ -1,9 +1,9 @@
-﻿using NFeFacil.Certificacao;
-using NFeFacil.ModeloXML.PartesAssinatura;
+﻿using BaseGeral.Certificacao;
+using BaseGeral.ModeloXML.PartesAssinatura;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace NFeFacil.ModeloXML
+namespace BaseGeral.ModeloXML
 {
     public sealed class ProtocoloNFe : ISignature
     {

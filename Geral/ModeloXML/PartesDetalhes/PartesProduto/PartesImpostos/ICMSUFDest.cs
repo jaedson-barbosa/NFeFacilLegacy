@@ -1,8 +1,8 @@
-﻿using NFeFacil.View;
+﻿using BaseGeral.View;
 using System;
 using System.Xml.Serialization;
 
-namespace NFeFacil.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos
+namespace BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos
 {
     public sealed class ICMSUFDest : ImpostoBase
     {

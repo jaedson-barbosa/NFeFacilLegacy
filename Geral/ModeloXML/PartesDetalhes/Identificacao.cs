@@ -1,10 +1,10 @@
-﻿using NFeFacil.View;
-using NFeFacil.ModeloXML.PartesDetalhes.PartesIdentificacao;
+﻿using BaseGeral.View;
+using BaseGeral.ModeloXML.PartesDetalhes.PartesIdentificacao;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using Windows.ApplicationModel;
 
-namespace NFeFacil.ModeloXML.PartesDetalhes
+namespace BaseGeral.ModeloXML.PartesDetalhes
 {
     public sealed class Identificacao : IIdentificacao
     {

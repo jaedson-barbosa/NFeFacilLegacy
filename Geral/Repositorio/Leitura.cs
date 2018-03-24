@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NFeFacil.ItensBD;
+using BaseGeral.ItensBD;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace NFeFacil.Repositorio
+namespace BaseGeral.Repositorio
 {
     public sealed class Leitura : IDisposable
     {

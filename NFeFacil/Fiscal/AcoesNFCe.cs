@@ -1,7 +1,7 @@
 ﻿using NFeFacil.Fiscal.ViewNFCe;
-using NFeFacil.ItensBD;
-using NFeFacil.ModeloXML;
-using NFeFacil.Validacao;
+using BaseGeral.ItensBD;
+using BaseGeral.ModeloXML;
+using BaseGeral.Validacao;
 using NFeFacil.View;
 using NFeFacil.WebService;
 using NFeFacil.WebService.Pacotes;
@@ -13,6 +13,7 @@ using System.Xml.Linq;
 using Windows.Storage.Pickers;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
+using BaseGeral;
 
 namespace NFeFacil.Fiscal
 {
@@ -45,7 +46,7 @@ namespace NFeFacil.Fiscal
             var nfe = (NFCe)ItemCompleto;
             try
             {
-                var assina = new Certificacao.AssinaFacil()
+                var assina = new BaseGeral.Certificacao.AssinaFacil()
                 {
                     Nota = nfe
                 };
@@ -61,7 +62,7 @@ namespace NFeFacil.Fiscal
                         OnStatusChanged(StatusNota.Assinada);
                     }
                     return result;
-                }, assina.CertificadosDisponiveis, "Subject", Certificacao.AssinaFacil.Etapas);
+                }, assina.CertificadosDisponiveis, "Subject", BaseGeral.Certificacao.AssinaFacil.Etapas);
                 assina.ProgressChanged += async (x, y) => await progresso.Update(y);
                 await progresso.ShowAsync();
             }
@@ -200,7 +201,7 @@ namespace NFeFacil.Fiscal
                         OnStatusChanged(StatusNota.Emitida);
                         await progresso.Update(4);
 
-                        using (var opEx = new Repositorio.OperacoesExtras())
+                        using (var opEx = new BaseGeral.Repositorio.OperacoesExtras())
                         {
                             var rvVinculado = opEx.GetRVVinculado(nfce.Informacoes.Id);
                             if (rvVinculado != null)
@@ -230,8 +231,8 @@ namespace NFeFacil.Fiscal
                         {
                             if (DefinicoesPermanentes.ConfiguracoesEstoque.NFCe)
                             {
-                                using (var leit = new Repositorio.Leitura())
-                                using (var escr = new Repositorio.Escrita())
+                                using (var leit = new BaseGeral.Repositorio.Leitura())
+                                using (var escr = new BaseGeral.Repositorio.Escrita())
                                 {
                                     escr.AtualizarEstoques(DefinicoesTemporarias.DateTimeNow,
                                         (from prod in nfce.Informacoes.produtos

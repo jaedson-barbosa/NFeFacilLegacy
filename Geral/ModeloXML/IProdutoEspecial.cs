@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using NFeFacil.ModeloXML.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
+using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
 
-namespace NFeFacil.ModeloXML
+namespace BaseGeral.ModeloXML
 {
     public interface IProdutoEspecial
     {

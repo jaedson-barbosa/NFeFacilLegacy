@@ -1,4 +1,5 @@
-﻿using NFeFacil.View;
+﻿using BaseGeral;
+using NFeFacil.View;
 using System;
 using System.Reflection;
 using Windows.System.Profile;

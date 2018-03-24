@@ -1,9 +1,10 @@
 ﻿using NFeFacil.Fiscal.ViewNFe;
-using NFeFacil.IBGE;
-using NFeFacil.ModeloXML;
-using NFeFacil.ModeloXML.PartesDetalhes;
-using NFeFacil.ModeloXML.PartesDetalhes.PartesTransporte;
+using BaseGeral.IBGE;
+using BaseGeral.ModeloXML;
+using BaseGeral.ModeloXML.PartesDetalhes;
+using BaseGeral.ModeloXML.PartesDetalhes.PartesTransporte;
 using System.Collections.Generic;
+using BaseGeral;
 
 namespace NFeFacil.Fiscal
 {
@@ -43,7 +44,7 @@ namespace NFeFacil.Fiscal
         public int ObterMaiorNumero(ushort serie, bool homologacao)
         {
             var cnpj = DefinicoesTemporarias.EmitenteAtivo.CNPJ;
-            using (var repo = new Repositorio.Leitura())
+            using (var repo = new BaseGeral.Repositorio.Leitura())
             {
                 return repo.ObterMaiorNumeroNFe(cnpj, serie, homologacao);
             }

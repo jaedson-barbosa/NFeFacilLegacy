@@ -1,10 +1,10 @@
-﻿using NFeFacil.ModeloXML;
-using NFeFacil.ModeloXML.PartesDetalhes;
-using NFeFacil.ModeloXML.PartesDetalhes.PartesTotal;
-using NFeFacil.ModeloXML.PartesDetalhes.PartesTransporte;
+﻿using BaseGeral.ModeloXML;
+using BaseGeral.ModeloXML.PartesDetalhes;
+using BaseGeral.ModeloXML.PartesDetalhes.PartesTotal;
+using BaseGeral.ModeloXML.PartesDetalhes.PartesTransporte;
 using System.Linq;
 
-namespace NFeFacil.Validacao
+namespace BaseGeral.Validacao
 {
     public sealed class AnalisadorNFe
     {

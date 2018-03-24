@@ -1,4 +1,4 @@
-﻿using NFeFacil.View;
+﻿using BaseGeral.View;
 using System.Collections;
 using System.Linq;
 using System.Reflection;
@@ -8,7 +8,7 @@ using Windows.UI.Xaml.Documents;
 
 // O modelo de item de Controle de Usuário está documentado em https://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace NFeFacil.Controles
+namespace BaseGeral.Controles
 {
     public sealed partial class VisualizacaoGenerica : UserControl
     {
@@ -32,7 +32,7 @@ namespace NFeFacil.Controles
                 if (valor != null)
                 {
                     var desc = prop.GetCustomAttribute<DescricaoPropriedade>();
-                    if (valor.GetType().Namespace.Contains("NFeFacil"))
+                    if (valor.GetType().Namespace.Contains("BaseGeral"))
                     {
                         AdicionarCampo(desc?.Descricao ?? prop.Name, (EstilosTexto)profundidade);
                         ObterPropriedades(valor, profundidade + 1);
@@ -40,7 +40,7 @@ namespace NFeFacil.Controles
                     else if (valor is IEnumerable listaFilha && !(valor is string))
                     {
                         var tipoItem = listaFilha.GetType().GenericTypeArguments[0];
-                        var itemPersonalizado = tipoItem.Namespace.Contains("NFeFacil");
+                        var itemPersonalizado = tipoItem.Namespace.Contains("BaseGeral");
                         foreach (var item in listaFilha)
                         {
                             if (itemPersonalizado)

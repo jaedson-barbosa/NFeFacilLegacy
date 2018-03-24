@@ -1,5 +1,5 @@
-﻿using NFeFacil.IBGE;
-using NFeFacil.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos;
+﻿using BaseGeral.IBGE;
+using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos;
 using System.Collections.ObjectModel;
 using Windows.UI.Xaml.Controls;
 

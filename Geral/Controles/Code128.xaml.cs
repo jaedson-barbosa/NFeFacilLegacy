@@ -9,7 +9,7 @@ using Windows.UI.Xaml.Shapes;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace NFeFacil.Controles
+namespace BaseGeral.Controles
 {
     public sealed partial class Code128 : UserControl
     {

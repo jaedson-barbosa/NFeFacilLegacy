@@ -1,9 +1,9 @@
-﻿using NFeFacil.View;
-using NFeFacil.ModeloXML.PartesDetalhes.PartesTransporte;
+﻿using BaseGeral.View;
+using BaseGeral.ModeloXML.PartesDetalhes.PartesTransporte;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace NFeFacil.ModeloXML.PartesDetalhes
+namespace BaseGeral.ModeloXML.PartesDetalhes
 {
     public class Transporte
     {

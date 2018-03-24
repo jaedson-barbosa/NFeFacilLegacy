@@ -4,7 +4,7 @@ using Windows.UI.Xaml.Markup;
 
 // O modelo de item de Controle de Usuário está documentado em https://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace NFeFacil.Controles
+namespace BaseGeral.Controles
 {
     [ContentProperty(Name = "Principal")]
     public sealed partial class DuplaView : UserControl

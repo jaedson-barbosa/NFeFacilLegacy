@@ -1,4 +1,4 @@
-﻿namespace NFeFacil.Sincronizacao
+﻿namespace BaseGeral.Sincronizacao
 {
     public enum TipoAppSincronizacao
     {

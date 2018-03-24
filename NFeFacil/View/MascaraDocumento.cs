@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BaseGeral;
+using System;
 using Windows.UI.Xaml.Data;
 
 namespace NFeFacil.View

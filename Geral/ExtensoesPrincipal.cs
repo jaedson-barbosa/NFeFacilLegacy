@@ -1,4 +1,4 @@
-﻿using NFeFacil.Log;
+﻿using BaseGeral.Log;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,9 +13,9 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 
-namespace NFeFacil
+namespace BaseGeral
 {
-    internal static class ExtensoesPrincipal
+    public static class ExtensoesPrincipal
     {
         public static XElement ToXElement(this object obj, string nameSpace = "http://www.portalfiscal.inf.br/nfe")
         {
@@ -106,7 +106,7 @@ namespace NFeFacil
             return new ObservableCollection<T>(aqui);
         }
 
-        internal static async void ManipularErro(this Exception erro)
+        public static async void ManipularErro(this Exception erro)
         {
             if (erro is ErroDesserializacao dess)
             {
@@ -150,7 +150,7 @@ namespace NFeFacil
             string sub(int start, int len) => original.Substring(start, len);
         }
 
-        internal static string[] Concat(this string[] original, params string[] extras)
+        public static string[] Concat(this string[] original, params string[] extras)
         {
             var inicial = original.Length;
             var tot = original.Length + extras.Length;
@@ -161,8 +161,8 @@ namespace NFeFacil
             return retorno;
         }
 
-        internal static double CMToPixel(double CM) => CM * (96 / 2.54);
-        internal static GridLength CMToLength(double CM) => new GridLength(CMToPixel(CM));
+        public static double CMToPixel(double CM) => CM * (96 / 2.54);
+        public static GridLength CMToLength(double CM) => new GridLength(CMToPixel(CM));
 
         static CultureInfo defCult = CultureInfo.InvariantCulture;
         public static string ToStr(double valor, string format = "F2") => valor.ToString(format, defCult);

@@ -1,16 +1,16 @@
-﻿using NFeFacil.ItensBD;
-using NFeFacil.ModeloXML;
+﻿using BaseGeral.ItensBD;
+using BaseGeral.ModeloXML;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Xml.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using NFeFacil.Controles;
+using BaseGeral.Controles;
 using System.Xml.Serialization;
 using NFeFacil.WebService.Pacotes;
 using NFeFacil.WebService;
-using NFeFacil.Validacao;
+using BaseGeral.Validacao;
 using NFeFacil.View;
 using NFeFacil.WebService.Pacotes.PartesEnvEvento;
 using NFeFacil.WebService.Pacotes.PartesRetEnvEvento;
@@ -18,6 +18,8 @@ using NFeFacil.Certificacao;
 using NFeFacil.Fiscal.ViewNFe;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Popups;
+using BaseGeral;
+using BaseGeral.Certificacao;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -36,7 +38,7 @@ namespace NFeFacil.Fiscal
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             isNFCe = e.Parameter != null ? (bool)e.Parameter : false;
-            using (var repo = new Repositorio.Leitura())
+            using (var repo = new BaseGeral.Repositorio.Leitura())
             {
                 var (emitidas, outras, canceladas) = repo.ObterNotas(DefinicoesTemporarias.EmitenteAtivo.CNPJ, isNFCe);
                 NotasEmitidas = emitidas.GerarObs();
@@ -68,7 +70,7 @@ namespace NFeFacil.Fiscal
         void Excluir(object sender, RoutedEventArgs e)
         {
             var nota = (NFeDI)((MenuFlyoutItem)sender).DataContext;
-            using (var repo = new Repositorio.OperacoesExtras())
+            using (var repo = new BaseGeral.Repositorio.OperacoesExtras())
             {
                 repo.ExcluirNFe(nota);
                 OutrasNotas.Remove(nota);
@@ -122,7 +124,7 @@ namespace NFeFacil.Fiscal
                     var resposta = await gerenciador.EnviarAsync(envio);
                     if (resposta.ResultadorEventos[0].InfEvento.CStat == 135)
                     {
-                        using (var repo = new Repositorio.Escrita())
+                        using (var repo = new BaseGeral.Repositorio.Escrita())
                         {
                             repo.SalvarItemSimples(new RegistroCancelamento()
                             {
@@ -141,7 +143,7 @@ namespace NFeFacil.Fiscal
                             repo.SalvarItemSimples(nota, DefinicoesTemporarias.DateTimeNow);
                             await progresso.Update(6);
 
-                            using (var opEx = new Repositorio.OperacoesExtras())
+                            using (var opEx = new BaseGeral.Repositorio.OperacoesExtras())
                             {
                                 var rvVinculado = opEx.GetRVVinculado(informacoes.Id);
                                 if (rvVinculado != null)
@@ -163,7 +165,7 @@ namespace NFeFacil.Fiscal
                                         dialog = new MessageDialog("Esta nota foi cancelada com sucesso, você deseja também cancelar o registro de venda?", "Aviso");
                                         dialog.Commands.Add(new UICommand("Sim", y =>
                                         {
-                                            using (var escr = new Repositorio.Escrita())
+                                            using (var escr = new BaseGeral.Repositorio.Escrita())
                                             {
                                                 escr.CancelarRV(rvVinculado, new CancelamentoRegistroVenda()
                                                 {
@@ -190,7 +192,7 @@ namespace NFeFacil.Fiscal
                                     var tpOp = nfe.identificacao.TipoOperacao;
                                     if (tpOp == 1 && DefinicoesPermanentes.ConfiguracoesEstoque.NFeSCancel)
                                     {
-                                        using (var leit = new Repositorio.Leitura())
+                                        using (var leit = new BaseGeral.Repositorio.Leitura())
                                         {
                                             repo.AtualizarEstoques(DefinicoesTemporarias.DateTimeNow,
                                                 (from prod in nfe.produtos
@@ -201,7 +203,7 @@ namespace NFeFacil.Fiscal
                                     }
                                     else if (tpOp == 0 && DefinicoesPermanentes.ConfiguracoesEstoque.NFeECancel)
                                     {
-                                        using (var leit = new Repositorio.Leitura())
+                                        using (var leit = new BaseGeral.Repositorio.Leitura())
                                         {
                                             repo.AtualizarEstoques(DefinicoesTemporarias.DateTimeNow,
                                                 (from prod in nfe.produtos
@@ -214,7 +216,7 @@ namespace NFeFacil.Fiscal
                                 else if (informacoes is InformacoesNFCe nfce
                                     && DefinicoesPermanentes.ConfiguracoesEstoque.NFCeCancel)
                                 {
-                                    using (var leit = new Repositorio.Leitura())
+                                    using (var leit = new BaseGeral.Repositorio.Leitura())
                                     {
                                         repo.AtualizarEstoques(DefinicoesTemporarias.DateTimeNow,
                                             (from prod in nfce.produtos

@@ -1,5 +1,6 @@
-﻿using NFeFacil.Controles;
-using NFeFacil.ItensBD;
+﻿using BaseGeral;
+using BaseGeral.Controles;
+using BaseGeral.ItensBD;
 using NFeFacil.View;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -34,7 +35,7 @@ namespace NFeFacil.ViewRegistroVenda
         public RegistrosVenda()
         {
             InitializeComponent();
-            using (var repo = new Repositorio.Leitura())
+            using (var repo = new BaseGeral.Repositorio.Leitura())
             {
                 var registros = repo.ObterRegistrosVenda(DefinicoesTemporarias.EmitenteAtivo.Id);
                 foreach (var (rv, vendedor, cliente, momento) in registros)

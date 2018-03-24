@@ -1,4 +1,4 @@
-﻿using NFeFacil.ModeloXML;
+﻿using BaseGeral.ModeloXML;
 
 namespace NFeFacil.Fiscal.ViewNFe.PacotesDANFE
 {

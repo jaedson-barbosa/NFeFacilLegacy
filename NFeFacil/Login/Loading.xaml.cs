@@ -1,4 +1,7 @@
-﻿using NFeFacil.Sincronizacao;
+﻿using BaseGeral;
+using BaseGeral.IBGE;
+using BaseGeral.Sincronizacao;
+using NFeFacil.Sincronizacao;
 using NFeFacil.View;
 using System;
 using System.Globalization;
@@ -78,14 +81,14 @@ namespace NFeFacil.Login
 
         void ProcessarIBGE()
         {
-            IBGE.Estados.Buscar();
-            IBGE.Municipios.Buscar();
+            Estados.Buscar();
+            Municipios.Buscar();
             DadosEstadosParaView.Iniciar();
         }
 
         async Task AnalisarBanco()
         {
-            using (var analise = new Repositorio.OperacoesExtras())
+            using (var analise = new BaseGeral.Repositorio.OperacoesExtras())
             {
                 await analise.AnalisarBanco(DefinicoesTemporarias.DateTimeNow);
             }
@@ -99,7 +102,7 @@ namespace NFeFacil.Login
                 case TiposBackground.Imagem:
                     if (DefinicoesPermanentes.IDBackgroung != default(Guid))
                     {
-                        using (var repo = new Repositorio.Leitura())
+                        using (var repo = new BaseGeral.Repositorio.Leitura())
                         {
                             var img = repo.ProcurarImagem(DefinicoesPermanentes.IDBackgroung);
                             current.ImagemBackground = img?.Bytes?.GetSource();
@@ -149,7 +152,7 @@ namespace NFeFacil.Login
             await Task.Delay(500);
 
             MainPage current = MainPage.Current;
-            using (var repo = new Repositorio.Leitura())
+            using (var repo = new BaseGeral.Repositorio.Leitura())
             {
                 if (repo.EmitentesCadastrados)
                 {

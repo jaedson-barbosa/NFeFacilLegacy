@@ -1,4 +1,5 @@
-﻿using NFeFacil.Log;
+﻿using BaseGeral;
+using BaseGeral.Log;
 using NFeFacil.Sincronizacao;
 using System;
 using System.IO;
@@ -24,7 +25,7 @@ namespace NFeFacil.Login
         {
             if (e.NavigationMode == NavigationMode.Back)
             {
-                using (var repo = new Repositorio.Leitura())
+                using (var repo = new BaseGeral.Repositorio.Leitura())
                 {
                     if (repo.EmitentesCadastrados)
                     {

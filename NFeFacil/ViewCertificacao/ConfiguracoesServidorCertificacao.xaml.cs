@@ -1,4 +1,4 @@
-﻿using NFeFacil.Log;
+﻿using BaseGeral.Log;
 using System;
 using System.IO;
 using System.Reflection;
@@ -20,12 +20,12 @@ namespace NFeFacil.Certificacao
 
         void InstalarServidor(object sender, TappedRoutedEventArgs e)
         {
-            SalvarArquivoInterno("Servidor de certificação", "NFeFacil.Certificacao.LAN.ServidorCertificacao.zip");
+            SalvarArquivoInterno("Servidor de certificação", "BaseGeral.Certificacao.LAN.ServidorCertificacao.zip");
         }
 
         void RepararProblemas(object sender, TappedRoutedEventArgs e)
         {
-            SalvarArquivoInterno("Gerenciador de Looopback", "NFeFacil.Certificacao.LAN.WindowsLoopbackManager.zip");
+            SalvarArquivoInterno("Gerenciador de Looopback", "BaseGeral.Certificacao.LAN.WindowsLoopbackManager.zip");
         }
 
         async void SalvarArquivoInterno(string nomeSugerido, string caminho)

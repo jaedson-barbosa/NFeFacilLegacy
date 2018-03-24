@@ -1,6 +1,7 @@
-﻿using NFeFacil.IBGE;
-using NFeFacil.ItensBD;
-using NFeFacil.ModeloXML;
+﻿using BaseGeral;
+using BaseGeral.IBGE;
+using BaseGeral.ItensBD;
+using BaseGeral.ModeloXML;
 using NFeFacil.View;
 using NFeFacil.WebService;
 using NFeFacil.WebService.Pacotes;
@@ -56,13 +57,13 @@ namespace NFeFacil.Fiscal.ViewNFe
             if (resultado.StatusResposta == 100)
             {
                 NFeDI nota = null;
-                using (var leit = new Repositorio.Leitura())
+                using (var leit = new BaseGeral.Repositorio.Leitura())
                 {
                     nota = leit.ObterNota($"NFe{resultado.ChaveNFe}");
                 }
                 if (nota != null && nota.Status < 4)
                 {
-                    using (var esc = new Repositorio.Escrita())
+                    using (var esc = new BaseGeral.Repositorio.Escrita())
                     {
                         nota.Status = (int)StatusNota.Emitida;
                         var original = XElement.Parse(nota.XML).FromXElement<NFe>();

@@ -1,11 +1,12 @@
 ﻿using NFeFacil.Fiscal.ViewNFe.PacotesDANFE;
-using NFeFacil.ModeloXML;
-using NFeFacil.ModeloXML.PartesDetalhes;
-using NFeFacil.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos;
+using BaseGeral.ModeloXML;
+using BaseGeral.ModeloXML.PartesDetalhes;
+using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using static NFeFacil.ExtensoesPrincipal;
+using static BaseGeral.ExtensoesPrincipal;
+using BaseGeral;
 
 namespace NFeFacil.Fiscal.ViewNFe
 {

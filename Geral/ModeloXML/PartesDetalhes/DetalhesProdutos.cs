@@ -1,8 +1,8 @@
-﻿using NFeFacil.View;
-using NFeFacil.ModeloXML.PartesDetalhes.PartesProduto;
+﻿using BaseGeral.View;
+using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto;
 using System.Xml.Serialization;
 
-namespace NFeFacil.ModeloXML.PartesDetalhes
+namespace BaseGeral.ModeloXML.PartesDetalhes
 {
     [XmlRoot(ElementName = "det", Namespace = "http://www.portalfiscal.inf.br/nfe")]
     public class DetalhesProdutos

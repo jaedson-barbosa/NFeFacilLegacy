@@ -1,4 +1,4 @@
-﻿using static NFeFacil.ExtensoesPrincipal;
+﻿using static BaseGeral.ExtensoesPrincipal;
 using Windows.UI.Xaml;
 using System.Collections.ObjectModel;
 

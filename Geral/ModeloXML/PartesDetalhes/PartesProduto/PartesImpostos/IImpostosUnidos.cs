@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace NFeFacil.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos
+namespace BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos
 {
     public interface IImpostosUnidos
     {

@@ -1,7 +1,7 @@
-﻿using NFeFacil.View;
+﻿using BaseGeral.View;
 using System.Xml.Serialization;
 
-namespace NFeFacil.ModeloXML.PartesDetalhes.PartesIdentificacao
+namespace BaseGeral.ModeloXML.PartesDetalhes.PartesIdentificacao
 {
     /// <summary>
     /// Apenas um desses "filhos" pode ser diferente de null.

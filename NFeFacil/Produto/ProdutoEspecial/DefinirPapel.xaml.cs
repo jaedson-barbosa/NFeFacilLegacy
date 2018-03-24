@@ -8,7 +8,7 @@ namespace NFeFacil.Produto.ProdutoEspecial
     {
         public string NRECOPI { get; private set; }
 
-        public DefinirPapel(ModeloXML.IProdutoEspecial prod)
+        public DefinirPapel(BaseGeral.ModeloXML.IProdutoEspecial prod)
         {
             InitializeComponent();
             NRECOPI = prod?.NRECOPI;

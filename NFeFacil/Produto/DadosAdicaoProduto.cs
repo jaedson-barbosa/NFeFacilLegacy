@@ -1,5 +1,5 @@
-﻿using NFeFacil.ItensBD;
-using NFeFacil.ModeloXML.PartesDetalhes;
+﻿using BaseGeral.ItensBD;
+using BaseGeral.ModeloXML.PartesDetalhes;
 using NFeFacil.Produto.Impostos;
 using System.Collections.Generic;
 using System.Linq;

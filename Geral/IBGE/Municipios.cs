@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace NFeFacil.IBGE
+namespace BaseGeral.IBGE
 {
     public static class Municipios
     {

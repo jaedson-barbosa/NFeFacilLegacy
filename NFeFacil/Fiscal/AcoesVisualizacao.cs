@@ -1,5 +1,6 @@
-﻿using NFeFacil.ItensBD;
-using NFeFacil.ModeloXML;
+﻿using BaseGeral;
+using BaseGeral.ItensBD;
+using BaseGeral.ModeloXML;
 using System;
 using System.Threading.Tasks;
 
@@ -33,7 +34,7 @@ namespace NFeFacil.Fiscal
         {
             try
             {
-                using (var repo = new Repositorio.Escrita())
+                using (var repo = new BaseGeral.Repositorio.Escrita())
                 {
                     ItemBanco.XML = ItemBanco.Status < (int)StatusNota.Emitida
                         ? itemCompleto.ToXElement().ToString()

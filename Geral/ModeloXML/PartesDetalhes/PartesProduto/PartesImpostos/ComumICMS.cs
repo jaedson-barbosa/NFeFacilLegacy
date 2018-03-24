@@ -1,7 +1,7 @@
-﻿using NFeFacil.View;
+﻿using BaseGeral.View;
 using System.Xml.Serialization;
 
-namespace NFeFacil.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos
+namespace BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos
 {
     /// <summary>
     /// O preenchimento dos campos do grupo de ICMS são variáveis e dependem do CST ou do CSOSN do item de Produto.

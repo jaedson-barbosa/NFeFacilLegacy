@@ -1,4 +1,4 @@
-﻿namespace NFeFacil.ItensBD
+﻿namespace BaseGeral.ItensBD
 {
     public enum StatusNota
     {

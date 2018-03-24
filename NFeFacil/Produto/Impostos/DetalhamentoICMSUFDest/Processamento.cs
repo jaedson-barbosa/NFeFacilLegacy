@@ -1,5 +1,5 @@
-﻿using NFeFacil.ModeloXML.PartesDetalhes;
-using NFeFacil.ModeloXML.PartesDetalhes.PartesProduto;
+﻿using BaseGeral.ModeloXML.PartesDetalhes;
+using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto;
 
 namespace NFeFacil.Produto.Impostos.DetalhamentoICMSUFDest
 {

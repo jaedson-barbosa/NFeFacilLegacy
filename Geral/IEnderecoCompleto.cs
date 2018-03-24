@@ -1,4 +1,4 @@
-﻿namespace NFeFacil
+﻿namespace BaseGeral
 {
     public interface IEnderecoCompleto
     {

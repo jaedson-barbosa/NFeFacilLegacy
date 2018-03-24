@@ -1,4 +1,4 @@
-﻿namespace NFeFacil.Certificacao.LAN.Pacotes
+﻿namespace BaseGeral.Certificacao.LAN.Pacotes
 {
     public struct CertificadoAssinaturaDTO
     {

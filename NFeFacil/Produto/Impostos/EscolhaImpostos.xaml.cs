@@ -1,4 +1,4 @@
-﻿using NFeFacil.ModeloXML.PartesDetalhes;
+﻿using BaseGeral.ModeloXML.PartesDetalhes;
 using System;
 using System.Collections.Generic;
 using System.Linq;

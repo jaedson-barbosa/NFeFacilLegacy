@@ -1,4 +1,4 @@
-﻿using NFeFacil.ModeloXML;
+﻿using BaseGeral.ModeloXML;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,8 +9,10 @@ using System.Globalization;
 using LiveCharts;
 using LiveCharts.Uwp;
 using LiveCharts.Configurations;
-using static NFeFacil.ExtensoesPrincipal;
+using static BaseGeral.ExtensoesPrincipal;
 using Windows.UI.Xaml.Navigation;
+using BaseGeral;
+using BaseGeral.Log;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -76,7 +78,7 @@ namespace NFeFacil.Fiscal
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             var isNFCe = e.Parameter != null ? (bool)e.Parameter : false;
-            using (var repo = new Repositorio.Leitura())
+            using (var repo = new BaseGeral.Repositorio.Leitura())
             {
                 AnosDisponiveis = repo.ObterAnosNotas(DefinicoesTemporarias.EmitenteAtivo.CNPJ, isNFCe).GerarObs();
                 NotasFiscais = repo.ObterNFesPorAno(DefinicoesTemporarias.EmitenteAtivo.CNPJ, isNFCe)
@@ -250,7 +252,7 @@ namespace NFeFacil.Fiscal
             else
             {
                 ((AppBarToggleButton)sender).IsChecked = false;
-                Log.Popup.Current.Escrever(Log.TitulosComuns.Atenção, "Primeiro você deve escolher um ano para ser analisado.");
+                Popup.Current.Escrever(TitulosComuns.Atenção, "Primeiro você deve escolher um ano para ser analisado.");
             }
         }
 

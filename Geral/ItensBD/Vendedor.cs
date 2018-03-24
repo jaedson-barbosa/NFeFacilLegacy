@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace NFeFacil.ItensBD
+namespace BaseGeral.ItensBD
 {
     public sealed class Vendedor : IStatusAtivacao, IGuidId
     {

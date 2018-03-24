@@ -1,4 +1,4 @@
-﻿namespace NFeFacil.Sincronizacao.Pacotes
+﻿namespace BaseGeral.Sincronizacao.Pacotes
 {
     public struct InfoEstabelecerConexao
     {

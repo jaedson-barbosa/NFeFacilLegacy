@@ -1,4 +1,5 @@
-﻿using NFeFacil.Certificacao.LAN.Primitivos;
+﻿using BaseGeral.Certificacao.LAN.Primitivos;
+using BaseGeral.Certificacao;
 using System;
 using System.Collections.ObjectModel;
 using System.Security.Cryptography.X509Certificates;
@@ -7,6 +8,7 @@ using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using BaseGeral;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 

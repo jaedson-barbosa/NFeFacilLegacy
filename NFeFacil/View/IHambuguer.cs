@@ -1,4 +1,4 @@
-﻿using NFeFacil.Controles;
+﻿using BaseGeral.Controles;
 using System.Collections.ObjectModel;
 
 namespace NFeFacil.View

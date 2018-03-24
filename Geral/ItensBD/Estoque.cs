@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace NFeFacil.ItensBD
+namespace BaseGeral.ItensBD
 {
     public sealed class Estoque : IUltimaData, IGuidId
     {

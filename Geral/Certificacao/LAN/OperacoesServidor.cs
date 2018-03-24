@@ -1,6 +1,6 @@
-﻿using NFeFacil.Certificacao.LAN.Pacotes;
-using NFeFacil.Certificacao.LAN.Primitivos;
-using NFeFacil.ModeloXML.PartesAssinatura;
+﻿using BaseGeral.Certificacao.LAN.Pacotes;
+using BaseGeral.Certificacao.LAN.Primitivos;
+using BaseGeral.ModeloXML.PartesAssinatura;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace NFeFacil.Certificacao.LAN
+namespace BaseGeral.Certificacao.LAN
 {
     public struct OperacoesServidor
     {

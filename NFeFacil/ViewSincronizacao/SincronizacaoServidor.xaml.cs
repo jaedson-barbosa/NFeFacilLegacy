@@ -1,9 +1,11 @@
-﻿using NFeFacil.Log;
+﻿using BaseGeral;
+using BaseGeral.Log;
+using BaseGeral.Sincronizacao;
 using System;
 using System.Runtime.InteropServices;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using static NFeFacil.Sincronizacao.ConfiguracoesSincronizacao;
+using static BaseGeral.Sincronizacao.ConfiguracoesSincronizacao;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 

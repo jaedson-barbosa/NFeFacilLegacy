@@ -1,7 +1,7 @@
 ﻿using System;
 using Windows.Storage;
 
-namespace NFeFacil
+namespace BaseGeral
 {
     static class AssistenteConfig
     {

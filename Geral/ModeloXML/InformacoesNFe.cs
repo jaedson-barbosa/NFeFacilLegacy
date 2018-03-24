@@ -1,9 +1,9 @@
-﻿using NFeFacil.View;
-using NFeFacil.ModeloXML.PartesDetalhes;
+﻿using BaseGeral.View;
+using BaseGeral.ModeloXML.PartesDetalhes;
 using System.Xml.Serialization;
 using System.Collections.Generic;
 
-namespace NFeFacil.ModeloXML
+namespace BaseGeral.ModeloXML
 {
     [XmlRoot("infNFe", Namespace = "http://www.portalfiscal.inf.br/nfe")]
     public sealed class InformacoesNFe : InformacoesBase

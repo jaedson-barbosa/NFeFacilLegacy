@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BaseGeral;
+using System;
 using System.Globalization;
 using Windows.UI.Xaml.Data;
 

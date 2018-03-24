@@ -1,6 +1,6 @@
 ﻿using System.Xml.Linq;
 
-namespace NFeFacil.Certificacao.LAN.Pacotes
+namespace BaseGeral.Certificacao.LAN.Pacotes
 {
     public struct RequisicaoEnvioDTO
     {

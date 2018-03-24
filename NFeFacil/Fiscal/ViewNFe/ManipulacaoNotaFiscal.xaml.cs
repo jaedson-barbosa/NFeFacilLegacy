@@ -2,21 +2,22 @@
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using System.Collections.ObjectModel;
-using NFeFacil.ModeloXML;
-using NFeFacil.Controles;
-using NFeFacil.ItensBD;
+using BaseGeral.ModeloXML;
+using BaseGeral.Controles;
+using BaseGeral.ItensBD;
 using System.Linq;
-using NFeFacil.ModeloXML.PartesDetalhes;
-using NFeFacil.ModeloXML.PartesDetalhes.PartesIdentificacao;
-using NFeFacil.ModeloXML.PartesDetalhes.PartesTotal;
-using NFeFacil.ModeloXML.PartesDetalhes.PartesTransporte;
-using NFeFacil.IBGE;
-using NFeFacil.Validacao;
+using BaseGeral.ModeloXML.PartesDetalhes;
+using BaseGeral.ModeloXML.PartesDetalhes.PartesIdentificacao;
+using BaseGeral.ModeloXML.PartesDetalhes.PartesTotal;
+using BaseGeral.ModeloXML.PartesDetalhes.PartesTransporte;
+using BaseGeral.IBGE;
+using BaseGeral.Validacao;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using NFeFacil.Fiscal.ViewNFe.CaixasDialogo;
 using NFeFacil.View;
 using NFeFacil.Produto;
+using BaseGeral;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -50,7 +51,7 @@ namespace NFeFacil.Fiscal.ViewNFe
         {
             var Dados = (NFe)e.Parameter;
 
-            using (var repo = new Repositorio.Leitura())
+            using (var repo = new BaseGeral.Repositorio.Leitura())
             {
                 TodosClientes = repo.ObterClientes().ToArray();
                 ClientesDisponiveis = TodosClientes.GerarObs();
@@ -334,7 +335,7 @@ namespace NFeFacil.Fiscal.ViewNFe
                 var nota = NotaSalva;
                 new AnalisadorNFe(ref nota).Normalizar();
 
-                using (var repo = new Repositorio.OperacoesExtras())
+                using (var repo = new BaseGeral.Repositorio.OperacoesExtras())
                 {
                     string IDOriginal = nota.Informacoes.Id;
                     nota.Informacoes.AtualizarChave();
@@ -407,7 +408,7 @@ namespace NFeFacil.Fiscal.ViewNFe
             caixa.Commands.Add(new UICommand("Não"));
             if ((await caixa.ShowAsync()).Label == "Sim")
             {
-                using (var repo = new Repositorio.Leitura())
+                using (var repo = new BaseGeral.Repositorio.Leitura())
                 {
                     var prodDI = repo.ObterProduto(produto.Produto.CodigoProduto);
                     var dados = new DadosAdicaoProduto(prodDI, produto);

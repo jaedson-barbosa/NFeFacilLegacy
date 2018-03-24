@@ -1,5 +1,5 @@
-﻿using NFeFacil.ItensBD;
-using NFeFacil.ModeloXML;
+﻿using BaseGeral.ItensBD;
+using BaseGeral.ModeloXML;
 using NFeFacil.View;
 using System;
 using Windows.UI.Xaml;

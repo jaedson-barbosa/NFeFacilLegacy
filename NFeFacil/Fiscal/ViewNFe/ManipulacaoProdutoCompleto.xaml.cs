@@ -2,16 +2,16 @@
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using System.Collections.ObjectModel;
-using NFeFacil.ModeloXML.PartesDetalhes;
+using BaseGeral.ModeloXML.PartesDetalhes;
 using System;
-using NFeFacil.Controles;
-using NFeFacil.ModeloXML.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
-using NFeFacil.ModeloXML.PartesDetalhes.PartesProduto;
+using BaseGeral.Controles;
+using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
+using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto;
 using System.Collections.Generic;
 using NFeFacil.View;
 using NFeFacil.Produto.Impostos;
 using System.Linq;
-using NFeFacil.ModeloXML;
+using BaseGeral.ModeloXML;
 using NFeFacil.Produto;
 using NFeFacil.Produto.CaixasDialogoProduto;
 

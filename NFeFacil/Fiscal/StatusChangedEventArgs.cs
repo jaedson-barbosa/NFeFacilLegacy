@@ -1,4 +1,4 @@
-﻿using NFeFacil.ItensBD;
+﻿using BaseGeral.ItensBD;
 using System;
 
 namespace NFeFacil.Fiscal

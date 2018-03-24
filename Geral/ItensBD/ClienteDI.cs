@@ -1,8 +1,8 @@
-﻿using NFeFacil.ModeloXML;
-using NFeFacil.ModeloXML.PartesDetalhes;
+﻿using BaseGeral.ModeloXML;
+using BaseGeral.ModeloXML.PartesDetalhes;
 using System;
 
-namespace NFeFacil.ItensBD
+namespace BaseGeral.ItensBD
 {
     public sealed class ClienteDI : IStatusAtivacao, IGuidId, IEnderecoCompleto
     {

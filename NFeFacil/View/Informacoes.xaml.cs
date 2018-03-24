@@ -1,4 +1,4 @@
-﻿using NFeFacil.Log;
+﻿using BaseGeral.Log;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 

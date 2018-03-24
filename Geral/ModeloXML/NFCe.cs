@@ -1,11 +1,11 @@
-﻿using NFeFacil.Certificacao;
-using NFeFacil.ModeloXML.PartesAssinatura;
+﻿using BaseGeral.Certificacao;
+using BaseGeral.ModeloXML.PartesAssinatura;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace NFeFacil.ModeloXML
+namespace BaseGeral.ModeloXML
 {
     [XmlRoot(nameof(NFe), Namespace = "http://www.portalfiscal.inf.br/nfe")]
     public sealed class NFCe : ISignature

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NFeFacil.Sincronizacao
+namespace BaseGeral.Sincronizacao
 {
     public static class ConfiguracoesSincronizacao
     {

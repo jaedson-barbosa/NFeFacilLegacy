@@ -1,12 +1,12 @@
-﻿using NFeFacil.ModeloXML;
-using NFeFacil.ModeloXML.PartesDetalhes.PartesProduto;
-using NFeFacil.ModeloXML.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
+﻿using BaseGeral.ModeloXML;
+using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto;
+using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
 using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 
-namespace NFeFacil.ItensBD
+namespace BaseGeral.ItensBD
 {
     public class ProdutoDI : IStatusAtivacao, IGuidId, IProdutoEspecial
     {

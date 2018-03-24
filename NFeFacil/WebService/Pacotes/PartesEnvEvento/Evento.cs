@@ -1,7 +1,8 @@
 ﻿using NFeFacil.Certificacao;
-using NFeFacil.ModeloXML.PartesAssinatura;
+using BaseGeral.ModeloXML.PartesAssinatura;
 using System.Xml;
 using System.Xml.Serialization;
+using BaseGeral.Certificacao;
 
 namespace NFeFacil.WebService.Pacotes.PartesEnvEvento
 {

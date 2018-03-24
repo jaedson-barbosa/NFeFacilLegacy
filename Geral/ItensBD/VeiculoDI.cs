@@ -1,7 +1,7 @@
-﻿using NFeFacil.ModeloXML.PartesDetalhes.PartesTransporte;
+﻿using BaseGeral.ModeloXML.PartesDetalhes.PartesTransporte;
 using System;
 
-namespace NFeFacil.ItensBD
+namespace BaseGeral.ItensBD
 {
     public sealed class VeiculoDI : IStatusAtivacao, IGuidId
     {

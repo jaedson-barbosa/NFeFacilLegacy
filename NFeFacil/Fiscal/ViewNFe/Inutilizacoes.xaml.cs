@@ -1,4 +1,4 @@
-﻿using NFeFacil.ItensBD;
+﻿using BaseGeral.ItensBD;
 using NFeFacil.View;
 using System;
 using Windows.UI.Xaml;
@@ -12,6 +12,8 @@ using NFeFacil.WebService;
 using System.Collections.ObjectModel;
 using NFeFacil.Certificacao;
 using Windows.UI.Xaml.Navigation;
+using BaseGeral;
+using BaseGeral.Certificacao;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -34,7 +36,7 @@ namespace NFeFacil.Fiscal.ViewNFe
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             isNFCe = e.Parameter != null ? (bool)e.Parameter : false;
-            using (var repo = new Repositorio.Leitura())
+            using (var repo = new BaseGeral.Repositorio.Leitura())
             {
                 Lista = (from imp in repo.ObterInutilizacoes(isNFCe)
                          group imp by imp.Homologacao ? "Homologação" : "Produção").GerarObs();
@@ -104,7 +106,7 @@ namespace NFeFacil.Fiscal.ViewNFe
                 Serie = info.SerieNFe,
                 XMLCompleto = xml.ToString(SaveOptions.DisableFormatting)
             };
-            using (var db = new Repositorio.Escrita())
+            using (var db = new BaseGeral.Repositorio.Escrita())
             {
                 db.SalvarItemSimples(itemDB, DefinicoesTemporarias.DateTimeNow);
             }

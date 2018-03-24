@@ -7,7 +7,7 @@ using System.Xml.Linq;
 using Windows.Networking.Sockets;
 using Windows.Storage.Streams;
 
-namespace NFeFacil.Sincronizacao.FastServer
+namespace BaseGeral.Sincronizacao.FastServer
 {
     public class HttpServer : IDisposable
     {

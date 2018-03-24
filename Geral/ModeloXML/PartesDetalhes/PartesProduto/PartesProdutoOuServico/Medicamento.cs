@@ -1,7 +1,7 @@
-﻿using NFeFacil.View;
+﻿using BaseGeral.View;
 using System.Xml.Serialization;
 
-namespace NFeFacil.ModeloXML.PartesDetalhes.PartesProduto.PartesProdutoOuServico
+namespace BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesProdutoOuServico
 {
     public sealed class Medicamento
     {

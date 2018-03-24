@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace NFeFacil.ModeloXML
+namespace BaseGeral.ModeloXML
 {
     public sealed class InfoProtocolo
     {

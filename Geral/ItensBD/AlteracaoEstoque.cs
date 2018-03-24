@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NFeFacil.ItensBD
+namespace BaseGeral.ItensBD
 {
     public sealed class AlteracaoEstoque : IGuidId
     {

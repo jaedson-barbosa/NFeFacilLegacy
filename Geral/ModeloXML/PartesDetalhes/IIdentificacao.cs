@@ -1,4 +1,4 @@
-﻿namespace NFeFacil.ModeloXML.PartesDetalhes
+﻿namespace BaseGeral.ModeloXML.PartesDetalhes
 {
     public interface IIdentificacao
     {

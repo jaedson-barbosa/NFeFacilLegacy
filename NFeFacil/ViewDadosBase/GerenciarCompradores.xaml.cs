@@ -1,4 +1,5 @@
-﻿using NFeFacil.ItensBD;
+﻿using BaseGeral;
+using BaseGeral.ItensBD;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Windows.UI.Xaml;
@@ -17,7 +18,7 @@ namespace NFeFacil.ViewDadosBase
         public GerenciarCompradores()
         {
             InitializeComponent();
-            using (var repo = new Repositorio.Leitura())
+            using (var repo = new BaseGeral.Repositorio.Leitura())
             {
                 TodosCompradores = repo.ObterCompradores().Select(x => new ExibicaoComprador
                 {
@@ -44,7 +45,7 @@ namespace NFeFacil.ViewDadosBase
             var contexto = ((FrameworkElement)sender).DataContext;
             var compr = (ExibicaoComprador)contexto;
 
-            using (var repo = new Repositorio.Escrita())
+            using (var repo = new BaseGeral.Repositorio.Escrita())
             {
                 repo.InativarDadoBase(compr.Root, DefinicoesTemporarias.DateTimeNow);
                 Compradores.Remove(compr);

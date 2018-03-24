@@ -1,4 +1,4 @@
-﻿using NFeFacil.ModeloXML;
+﻿using BaseGeral.ModeloXML;
 using System.ComponentModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;

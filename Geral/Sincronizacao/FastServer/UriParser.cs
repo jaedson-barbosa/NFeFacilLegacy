@@ -1,6 +1,6 @@
 using System;
 
-namespace NFeFacil.Sincronizacao.FastServer
+namespace BaseGeral.Sincronizacao.FastServer
 {
     static class UriParser
     {

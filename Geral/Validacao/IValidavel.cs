@@ -1,4 +1,4 @@
-﻿namespace NFeFacil.Validacao
+﻿namespace BaseGeral.Validacao
 {
     public interface IValidavel
     {

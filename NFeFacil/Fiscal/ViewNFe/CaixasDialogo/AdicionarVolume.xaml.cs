@@ -1,4 +1,4 @@
-﻿using NFeFacil.ModeloXML.PartesDetalhes.PartesTransporte;
+﻿using BaseGeral.ModeloXML.PartesDetalhes.PartesTransporte;
 using System.Collections.ObjectModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;

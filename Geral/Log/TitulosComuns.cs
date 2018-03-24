@@ -1,4 +1,4 @@
-﻿namespace NFeFacil.Log
+﻿namespace BaseGeral.Log
 {
     public enum TitulosComuns
     {

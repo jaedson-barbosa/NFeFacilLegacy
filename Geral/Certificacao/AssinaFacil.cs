@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Xml;
-using NFeFacil.Certificacao.LAN.Primitivos;
+using BaseGeral.Certificacao.LAN.Primitivos;
 using System.Linq;
 using System.Security.Cryptography.Xml;
-using NFeFacil.ModeloXML.PartesAssinatura;
+using BaseGeral.ModeloXML.PartesAssinatura;
 using System.Security.Cryptography.X509Certificates;
-using NFeFacil.Certificacao.LAN.Pacotes;
+using BaseGeral.Certificacao.LAN.Pacotes;
 using System.Security.Cryptography;
 
-namespace NFeFacil.Certificacao
+namespace BaseGeral.Certificacao
 {
     public sealed class AssinaFacil
     {

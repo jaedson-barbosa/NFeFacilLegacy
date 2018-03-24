@@ -1,7 +1,7 @@
-﻿using NFeFacil.ModeloXML.PartesDetalhes;
+﻿using BaseGeral.ModeloXML.PartesDetalhes;
 using System;
 
-namespace NFeFacil.ItensBD
+namespace BaseGeral.ItensBD
 {
     public sealed class EmitenteDI : IUltimaData, IGuidId, IEnderecoCompleto
     {

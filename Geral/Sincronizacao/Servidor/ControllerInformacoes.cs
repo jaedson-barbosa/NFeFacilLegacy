@@ -1,8 +1,8 @@
-﻿using static NFeFacil.Sincronizacao.ConfiguracoesSincronizacao;
+﻿using static BaseGeral.Sincronizacao.ConfiguracoesSincronizacao;
 using System;
-using NFeFacil.Sincronizacao.FastServer;
+using BaseGeral.Sincronizacao.FastServer;
 
-namespace NFeFacil.Sincronizacao.Servidor
+namespace BaseGeral.Sincronizacao.Servidor
 {
     internal sealed class ControllerInformacoes
     {

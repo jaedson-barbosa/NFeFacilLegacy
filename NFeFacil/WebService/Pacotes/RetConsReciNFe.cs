@@ -1,4 +1,4 @@
-﻿using NFeFacil.ModeloXML;
+﻿using BaseGeral.ModeloXML;
 using System.Xml.Serialization;
 
 namespace NFeFacil.WebService.Pacotes

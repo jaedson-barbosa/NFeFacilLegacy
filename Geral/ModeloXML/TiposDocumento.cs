@@ -1,4 +1,4 @@
-﻿namespace NFeFacil.ModeloXML
+﻿namespace BaseGeral.ModeloXML
 {
     public enum TiposDocumento : ushort
     {

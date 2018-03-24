@@ -1,8 +1,8 @@
-﻿using NFeFacil.ModeloXML;
+﻿using BaseGeral.ModeloXML;
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace NFeFacil.ItensBD
+namespace BaseGeral.ItensBD
 {
     public sealed class NFeDI : IUltimaData, IStatusAtual
     {

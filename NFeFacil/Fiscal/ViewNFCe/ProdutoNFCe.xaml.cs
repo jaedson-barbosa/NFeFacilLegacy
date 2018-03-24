@@ -1,6 +1,6 @@
-﻿using NFeFacil.ModeloXML;
-using NFeFacil.ModeloXML.PartesDetalhes;
-using NFeFacil.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos;
+﻿using BaseGeral.ModeloXML;
+using BaseGeral.ModeloXML.PartesDetalhes;
+using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos;
 using NFeFacil.Produto;
 using NFeFacil.Produto.Impostos;
 using NFeFacil.View;

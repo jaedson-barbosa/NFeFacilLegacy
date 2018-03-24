@@ -1,7 +1,7 @@
-﻿using NFeFacil.ModeloXML.PartesDetalhes.PartesProduto;
+﻿using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto;
 using System;
 
-namespace NFeFacil.ItensBD
+namespace BaseGeral.ItensBD
 {
     public sealed class ProdutoSimplesVenda : IGuidId
     {

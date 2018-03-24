@@ -1,12 +1,13 @@
-﻿using NFeFacil.Validacao;
+﻿using BaseGeral.Validacao;
 using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using NFeFacil.ItensBD;
-using NFeFacil.IBGE;
+using BaseGeral.ItensBD;
+using BaseGeral.IBGE;
 using System.Collections.ObjectModel;
 using System.Linq;
+using BaseGeral;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -75,7 +76,7 @@ namespace NFeFacil.Login
                     (string.IsNullOrEmpty(Emit.InscricaoEstadual), "Não foi informada a inscrição estadual do emitente"),
                     (string.IsNullOrEmpty(Emit.CEP), "O CEP é obrigatório")))
                 {
-                    using (var repo = new Repositorio.Escrita())
+                    using (var repo = new BaseGeral.Repositorio.Escrita())
                     {
                         repo.SalvarItemSimples(Emit, DefinicoesTemporarias.DateTimeNow);
                     }

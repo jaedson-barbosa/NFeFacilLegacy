@@ -1,6 +1,6 @@
 ﻿using System.Xml.Linq;
 
-namespace NFeFacil.IBGE
+namespace BaseGeral.IBGE
 {
     public sealed class Estado
     {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NFeFacil.ItensBD;
+using BaseGeral.ItensBD;
 
-namespace NFeFacil
+namespace BaseGeral
 {
     public class AplicativoContext : DbContext
     {

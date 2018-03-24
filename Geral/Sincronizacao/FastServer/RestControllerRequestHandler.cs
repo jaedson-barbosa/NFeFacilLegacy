@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 
-namespace NFeFacil.Sincronizacao.FastServer
+namespace BaseGeral.Sincronizacao.FastServer
 {
     class RestControllerRequestHandler
     {

@@ -1,5 +1,7 @@
-﻿using NFeFacil.ItensBD;
-using NFeFacil.Log;
+﻿using BaseGeral;
+using BaseGeral.Controles;
+using BaseGeral.ItensBD;
+using BaseGeral.Log;
 using NFeFacil.View;
 using System;
 using System.Collections.Generic;
@@ -119,7 +121,7 @@ namespace NFeFacil.ViewRegistroVenda
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            using (var repo = new Repositorio.Leitura())
+            using (var repo = new BaseGeral.Repositorio.Leitura())
             {
                 Clientes = repo.ObterClientes().GerarObs();
                 Motoristas = repo.ObterMotoristas().GerarObs();
@@ -140,7 +142,7 @@ namespace NFeFacil.ViewRegistroVenda
             }
             else
             {
-                using (var repo = new Repositorio.Escrita())
+                using (var repo = new BaseGeral.Repositorio.Escrita())
                 {
                     repo.SalvarRV(ItemBanco, DefinicoesTemporarias.DateTimeNow);
                 }
@@ -153,7 +155,7 @@ namespace NFeFacil.ViewRegistroVenda
             }
         }
 
-        private void ValorDesejadoChanged(Controles.EntradaNumerica sender, Controles.NumeroChangedEventArgs e)
+        private void ValorDesejadoChanged(EntradaNumerica sender, NumeroChangedEventArgs e)
         {
             var totalOriginal = ItemBanco.Produtos.Sum(x => x.Quantidade * x.ValorUnitario);
             var porcentagemDesejada = e.NovoNumero / totalOriginal;

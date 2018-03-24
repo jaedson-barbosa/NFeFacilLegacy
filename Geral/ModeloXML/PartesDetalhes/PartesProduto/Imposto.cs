@@ -1,4 +1,4 @@
-﻿namespace NFeFacil.ModeloXML.PartesDetalhes.PartesProduto
+﻿namespace BaseGeral.ModeloXML.PartesDetalhes.PartesProduto
 {
     public abstract class ImpostoBase { }
 }

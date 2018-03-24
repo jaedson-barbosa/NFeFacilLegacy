@@ -1,4 +1,6 @@
-﻿using System.Xml.Serialization;
+﻿using BaseGeral;
+using BaseGeral.IBGE;
+using System.Xml.Serialization;
 
 namespace NFeFacil.WebService.Pacotes.PartesInutNFe
 {
@@ -43,7 +45,7 @@ namespace NFeFacil.WebService.Pacotes.PartesInutNFe
             TipoAmbiente = homologacao ? 2 : 1;
             DescricaoServico = "INUTILIZAR";
             var emit = DefinicoesTemporarias.EmitenteAtivo;
-            CodigoUF = IBGE.Estados.Buscar(emit.SiglaUF).Codigo;
+            CodigoUF = Estados.Buscar(emit.SiglaUF).Codigo;
             Ano = DefinicoesTemporarias.DateTimeNow.Year - 2000;
             CNPJ = emit.CNPJ;
             ModeloDocumento = 55;

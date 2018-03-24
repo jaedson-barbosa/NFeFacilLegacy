@@ -1,4 +1,5 @@
-﻿using NFeFacil.Fiscal.ViewNFe.PacotesDANFE;
+﻿using BaseGeral;
+using NFeFacil.Fiscal.ViewNFe.PacotesDANFE;
 using System;
 using System.Linq;
 using Windows.UI.Xaml;
@@ -31,7 +32,7 @@ namespace NFeFacil.Fiscal.ViewNFe.PaginasDANFE
             PaginasCarregadas?.Invoke(this, null);
         }
 
-        public PaginaPrincipal(ModeloXML.ProcessoNFe processo, UIElementCollection paiPaginas)
+        public PaginaPrincipal(BaseGeral.ModeloXML.ProcessoNFe processo, UIElementCollection paiPaginas)
         {
             InitializeComponent();
             var geral = new DadosDANFE(processo).ObterDadosConvertidos();

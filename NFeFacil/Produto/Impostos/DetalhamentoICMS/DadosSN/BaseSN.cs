@@ -1,6 +1,6 @@
-﻿using NFeFacil.ModeloXML.PartesDetalhes;
-using NFeFacil.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos;
-using static NFeFacil.ExtensoesPrincipal;
+﻿using BaseGeral.ModeloXML.PartesDetalhes;
+using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos;
+using static BaseGeral.ExtensoesPrincipal;
 
 namespace NFeFacil.Produto.Impostos.DetalhamentoICMS.DadosSN
 {

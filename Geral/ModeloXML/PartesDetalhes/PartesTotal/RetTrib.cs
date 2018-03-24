@@ -1,7 +1,7 @@
-﻿using NFeFacil.View;
+﻿using BaseGeral.View;
 using System.Xml.Serialization;
 
-namespace NFeFacil.ModeloXML.PartesDetalhes.PartesTotal
+namespace BaseGeral.ModeloXML.PartesDetalhes.PartesTotal
 {
     public sealed class RetTrib
     {

@@ -1,4 +1,5 @@
-﻿using NFeFacil.ItensBD;
+﻿using BaseGeral;
+using BaseGeral.ItensBD;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace NFeFacil.Produto.GerenciamentoProdutos
         public GerenciarProdutos()
         {
             InitializeComponent();
-            using (var repo = new Repositorio.Leitura())
+            using (var repo = new BaseGeral.Repositorio.Leitura())
             {
                 TodosProdutos = repo.ObterProdutos().ToArray();
                 Produtos = TodosProdutos.GerarObs();
@@ -42,13 +43,13 @@ namespace NFeFacil.Produto.GerenciamentoProdutos
             var contexto = ((FrameworkElement)sender).DataContext;
             var produto = (ProdutoDI)contexto;
             Estoque estoque = null;
-            using (var leit = new Repositorio.Leitura())
+            using (var leit = new BaseGeral.Repositorio.Leitura())
             {
                 estoque = leit.ObterEstoque(produto.Id);
             }
             if (estoque == null)
             {
-                using (var repo = new Repositorio.Escrita())
+                using (var repo = new BaseGeral.Repositorio.Escrita())
                 {
                     var caixa = new MessageDialog("Essa é uma operação sem volta, uma vez adicionado ao controle de estoque este produto será permanentemente parte dele. Certeza que você realmente quer isso?", "Atenção");
                     caixa.Commands.Add(new UICommand("Sim", x =>
@@ -73,7 +74,7 @@ namespace NFeFacil.Produto.GerenciamentoProdutos
             var contexto = ((FrameworkElement)sender).DataContext;
             var prod = (ProdutoDI)contexto;
 
-            using (var repo = new Repositorio.Escrita())
+            using (var repo = new BaseGeral.Repositorio.Escrita())
             {
                 repo.InativarDadoBase(prod, DefinicoesTemporarias.DateTimeNow);
                 Produtos.Remove(prod);

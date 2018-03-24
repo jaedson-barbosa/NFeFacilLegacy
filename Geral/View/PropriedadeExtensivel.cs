@@ -1,8 +1,8 @@
-﻿using NFeFacil.IBGE;
+﻿using BaseGeral.IBGE;
 using System;
 using System.Linq;
 
-namespace NFeFacil.View
+namespace BaseGeral.View
 {
     [AttributeUsage(AttributeTargets.All, Inherited = false, AllowMultiple = true)]
     public sealed class PropriedadeExtensivel : Attribute

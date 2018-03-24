@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace NFeFacil.ModeloXML.PartesDetalhes.PartesTransporte
+namespace BaseGeral.ModeloXML.PartesDetalhes.PartesTransporte
 {
     public class Veiculo
     {

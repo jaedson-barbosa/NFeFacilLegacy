@@ -1,11 +1,11 @@
-﻿using NFeFacil.Validacao;
+﻿using BaseGeral.Validacao;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using System;
-using NFeFacil.ItensBD;
+using BaseGeral.ItensBD;
 using System.Xml.Linq;
-using NFeFacil.ModeloXML;
+using BaseGeral.ModeloXML;
 using NFeFacil.Produto.Impostos.DetalhamentoICMS;
 using NFeFacil.Produto.ProdutoEspecial;
 using System.Collections.ObjectModel;
@@ -13,6 +13,7 @@ using NFeFacil.Produto.Impostos;
 using System.Threading.Tasks;
 using System.Linq;
 using Windows.UI.Xaml.Data;
+using BaseGeral;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -103,7 +104,7 @@ namespace NFeFacil.Produto.GerenciamentoProdutos
                     var simples = grdImpostosSimples.SelectedItems.Cast<ImpostoArmazenado>();
                     var icmss = grdICMSs.SelectedItems.Cast<ImpostoArmazenado>();
                     ExtendedProd.SetImpostosPadrao(simples.Concat(icmss));
-                    using (var repo = new Repositorio.Escrita())
+                    using (var repo = new BaseGeral.Repositorio.Escrita())
                     {
                         repo.SalvarItemSimples(Produto, DefinicoesTemporarias.DateTimeNow);
                     }

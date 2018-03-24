@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace NFeFacil.ModeloXML.PartesAssinatura
+namespace BaseGeral.ModeloXML.PartesAssinatura
 {
     public struct Algoritmo
     {

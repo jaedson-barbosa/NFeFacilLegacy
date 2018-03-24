@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Xml.Linq;
 
-namespace NFeFacil.IBGE
+namespace BaseGeral.IBGE
 {
     internal sealed class XML
     {
@@ -16,7 +16,7 @@ namespace NFeFacil.IBGE
         public XElement Retornar()
         {
             var assembly = GetType().GetTypeInfo().Assembly;
-            using (var stream = assembly.GetManifestResourceStream("NFeFacil.IBGE." + NomeArquivo))
+            using (var stream = assembly.GetManifestResourceStream("BaseGeral.IBGE." + NomeArquivo))
             {
                 return XElement.Load(stream);
             }

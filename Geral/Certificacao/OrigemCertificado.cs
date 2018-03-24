@@ -1,4 +1,4 @@
-﻿namespace NFeFacil.Certificacao
+﻿namespace BaseGeral.Certificacao
 {
     public enum OrigemCertificado
     {

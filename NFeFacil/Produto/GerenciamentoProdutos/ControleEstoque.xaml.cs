@@ -1,11 +1,12 @@
 ﻿using LiveCharts;
-using NFeFacil.ItensBD;
+using BaseGeral.ItensBD;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using BaseGeral;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -122,7 +123,7 @@ namespace NFeFacil.Produto.GerenciamentoProdutos
         {
             if (AlteracoesNaoSalvas)
             {
-                using (var repo = new Repositorio.Escrita())
+                using (var repo = new BaseGeral.Repositorio.Escrita())
                 {
                     repo.SalvarItemSimples(Estoque, DefinicoesTemporarias.DateTimeNow);
                 }

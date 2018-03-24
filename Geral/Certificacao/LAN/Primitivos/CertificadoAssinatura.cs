@@ -1,6 +1,6 @@
 ﻿using System.Security.Cryptography;
 
-namespace NFeFacil.Certificacao.LAN.Primitivos
+namespace BaseGeral.Certificacao.LAN.Primitivos
 {
     public struct CertificadoAssinatura
     {

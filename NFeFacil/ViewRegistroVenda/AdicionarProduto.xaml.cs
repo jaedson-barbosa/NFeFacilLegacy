@@ -1,4 +1,6 @@
-﻿using NFeFacil.ItensBD;
+﻿using BaseGeral;
+using BaseGeral.ItensBD;
+using BaseGeral.Log;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -26,7 +28,7 @@ namespace NFeFacil.ViewRegistroVenda
             InitializeComponent();
             Adicionar = adicionar;
 
-            using (var repo = new Repositorio.Leitura())
+            using (var repo = new BaseGeral.Repositorio.Leitura())
             {
                 ListaCompletaProdutos = new List<ExibicaoProdutoAdicao>();
                 var estoque = repo.ObterEstoques();
@@ -54,7 +56,7 @@ namespace NFeFacil.ViewRegistroVenda
                 ListaCompletaProdutos.Sort((a, b) => a.Nome.CompareTo(b.Nome));
                 if (ListaCompletaProdutos.Count == 0)
                 {
-                    Log.Popup.Current.Escrever(Log.TitulosComuns.Atenção, "Não existem mais produtos adicionáveis.");
+                    Popup.Current.Escrever(TitulosComuns.Atenção, "Não existem mais produtos adicionáveis.");
                 }
                 Produtos = ListaCompletaProdutos.GerarObs();
             }
@@ -89,18 +91,18 @@ namespace NFeFacil.ViewRegistroVenda
         private void VerificarConformidadeEstoque(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             args.Cancel = true;
-            var log = Log.Popup.Current;
+            var log = Popup.Current;
             if (ProdutoSelecionado?.Base == null)
             {
-                log.Escrever(Log.TitulosComuns.Atenção, "Escolha um produto.");
+                log.Escrever(TitulosComuns.Atenção, "Escolha um produto.");
             }
             else if (Quantidade <= 0)
             {
-                log.Escrever(Log.TitulosComuns.Atenção, "Insira uma quantidade maior que 0.");
+                log.Escrever(TitulosComuns.Atenção, "Insira uma quantidade maior que 0.");
             }
             else if (ProdutoSelecionado.Estoque != "Infinito" && Quantidade > double.Parse(ProdutoSelecionado.Estoque))
             {
-                log.Escrever(Log.TitulosComuns.Atenção, "A quantidade vendida não pode ser maior que a quantidade em estoque.");
+                log.Escrever(TitulosComuns.Atenção, "A quantidade vendida não pode ser maior que a quantidade em estoque.");
             }
             else
             {

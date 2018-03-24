@@ -1,4 +1,4 @@
-﻿namespace NFeFacil.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos
+﻿namespace BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos
 {
     public interface IRegimeNormal
     {

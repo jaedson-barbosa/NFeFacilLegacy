@@ -1,4 +1,4 @@
-﻿using NFeFacil.Sincronizacao.Pacotes;
+﻿using BaseGeral.Sincronizacao.Pacotes;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,6 +8,8 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using OptimizedZXing;
+using BaseGeral.Sincronizacao;
+using BaseGeral;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 

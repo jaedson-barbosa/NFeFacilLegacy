@@ -7,7 +7,7 @@ using Windows.UI.Xaml.Input;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace NFeFacil.Controles
+namespace BaseGeral.Controles
 {
     /// <summary>
     /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.

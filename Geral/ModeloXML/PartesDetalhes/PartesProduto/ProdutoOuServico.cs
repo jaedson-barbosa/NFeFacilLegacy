@@ -1,10 +1,10 @@
-﻿using NFeFacil.View;
-using NFeFacil.ModeloXML.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
+﻿using BaseGeral.View;
+using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using static NFeFacil.ExtensoesPrincipal;
+using static BaseGeral.ExtensoesPrincipal;
 
-namespace NFeFacil.ModeloXML.PartesDetalhes.PartesProduto
+namespace BaseGeral.ModeloXML.PartesDetalhes.PartesProduto
 {
     public sealed class ProdutoOuServico : IProdutoEspecial
     {

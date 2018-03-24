@@ -1,4 +1,4 @@
-﻿namespace NFeFacil.ModeloXML.PartesAssinatura
+﻿namespace BaseGeral.ModeloXML.PartesAssinatura
 {
     public sealed class Assinatura
     {

@@ -1,5 +1,5 @@
-﻿using NFeFacil.ModeloXML;
-using NFeFacil.ModeloXML.PartesDetalhes;
+﻿using BaseGeral.ModeloXML;
+using BaseGeral.ModeloXML.PartesDetalhes;
 using System;
 using System.Collections.Generic;
 using System.Reflection;

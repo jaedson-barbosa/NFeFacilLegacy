@@ -1,7 +1,7 @@
-﻿using NFeFacil.View;
+﻿using BaseGeral.View;
 using System.Xml.Serialization;
 
-namespace NFeFacil.ModeloXML.PartesDetalhes
+namespace BaseGeral.ModeloXML.PartesDetalhes
 {
     public sealed class Emitente
     {

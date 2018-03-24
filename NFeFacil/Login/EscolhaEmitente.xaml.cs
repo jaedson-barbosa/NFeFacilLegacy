@@ -1,4 +1,5 @@
-﻿using NFeFacil.ItensBD;
+﻿using BaseGeral;
+using BaseGeral.ItensBD;
 using NFeFacil.View;
 using System.Collections.ObjectModel;
 using Windows.UI.Xaml.Controls;
@@ -19,7 +20,7 @@ namespace NFeFacil.Login
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             Frame.BackStack.Clear();
-            using (var repo = new Repositorio.Leitura())
+            using (var repo = new BaseGeral.Repositorio.Leitura())
             {
                 var conjuntos = new ObservableCollection<ConjuntoBasicoExibicao<EmitenteDI>>();
                 foreach (var atual in repo.ObterEmitentes())

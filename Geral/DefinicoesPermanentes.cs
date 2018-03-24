@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 
-namespace NFeFacil
+namespace BaseGeral
 {
     public static class DefinicoesPermanentes
     {

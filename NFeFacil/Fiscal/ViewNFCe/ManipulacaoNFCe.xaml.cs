@@ -1,10 +1,10 @@
-﻿using NFeFacil.Controles;
-using NFeFacil.IBGE;
-using NFeFacil.ItensBD;
-using NFeFacil.ModeloXML;
-using NFeFacil.ModeloXML.PartesDetalhes;
+﻿using BaseGeral.Controles;
+using BaseGeral.IBGE;
+using BaseGeral.ItensBD;
+using BaseGeral.ModeloXML;
+using BaseGeral.ModeloXML.PartesDetalhes;
 using NFeFacil.Produto;
-using NFeFacil.Validacao;
+using BaseGeral.Validacao;
 using NFeFacil.View;
 using System;
 using System.Collections.ObjectModel;
@@ -13,6 +13,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using System.Collections.Generic;
+using BaseGeral;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -31,7 +32,7 @@ namespace NFeFacil.Fiscal.ViewNFCe
         {
             InitializeComponent();
 
-            using (var repo = new Repositorio.Leitura())
+            using (var repo = new BaseGeral.Repositorio.Leitura())
             {
                 TodosClientes = repo.ObterClientes().ToArray();
                 ClientesDisponiveis = TodosClientes.GerarObs();
@@ -178,7 +179,7 @@ namespace NFeFacil.Fiscal.ViewNFCe
 
         void EditarProduto(DetalhesProdutos produto)
         {
-            using (var repo = new Repositorio.Leitura())
+            using (var repo = new BaseGeral.Repositorio.Leitura())
             {
                 var prodDI = repo.ObterProduto(produto.Produto.CodigoProduto);
                 var dados = new DadosAdicaoProduto(prodDI, produto)
@@ -277,7 +278,7 @@ namespace NFeFacil.Fiscal.ViewNFCe
                 var nota = NotaSalva;
                 new AnalisadorNFCe(ref nota).Normalizar();
 
-                using (var repo = new Repositorio.OperacoesExtras())
+                using (var repo = new BaseGeral.Repositorio.OperacoesExtras())
                 {
                     string IDOriginal = nota.Informacoes.Id;
                     nota.Informacoes.AtualizarChave();

@@ -1,8 +1,8 @@
-﻿using NFeFacil.ItensBD;
+﻿using BaseGeral.ItensBD;
 using System;
 using Windows.UI.Xaml.Media;
 
-namespace NFeFacil
+namespace BaseGeral
 {
     public static class DefinicoesTemporarias
     {

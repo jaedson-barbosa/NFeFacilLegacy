@@ -1,7 +1,7 @@
 ﻿using NFeFacil.Fiscal.ViewNFe;
-using NFeFacil.ItensBD;
-using NFeFacil.ModeloXML;
-using NFeFacil.Validacao;
+using BaseGeral.ItensBD;
+using BaseGeral.ModeloXML;
+using BaseGeral.Validacao;
 using NFeFacil.View;
 using NFeFacil.WebService;
 using NFeFacil.WebService.Pacotes;
@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using Windows.Storage.Pickers;
 using Windows.UI.Popups;
+using BaseGeral;
 
 namespace NFeFacil.Fiscal
 {
@@ -44,7 +45,7 @@ namespace NFeFacil.Fiscal
             var nfe = (NFe)ItemCompleto;
             try
             {
-                var assina = new Certificacao.AssinaFacil()
+                var assina = new BaseGeral.Certificacao.AssinaFacil()
                 {
                     Nota = nfe
                 };
@@ -60,7 +61,7 @@ namespace NFeFacil.Fiscal
                         OnStatusChanged(StatusNota.Assinada);
                     }
                     return result;
-                }, assina.CertificadosDisponiveis, "Subject", Certificacao.AssinaFacil.Etapas);
+                }, assina.CertificadosDisponiveis, "Subject", BaseGeral.Certificacao.AssinaFacil.Etapas);
                 assina.ProgressChanged += async (x, y) => await progresso.Update(y);
                 await progresso.ShowAsync();
             }
@@ -182,7 +183,7 @@ namespace NFeFacil.Fiscal
                         OnStatusChanged(StatusNota.Emitida);
                         await progresso.Update(4);
 
-                        using (var opEx = new Repositorio.OperacoesExtras())
+                        using (var opEx = new BaseGeral.Repositorio.OperacoesExtras())
                         {
                             var rvVinculado = opEx.GetRVVinculado(nfe.Informacoes.Id);
                             if (rvVinculado != null)
@@ -213,8 +214,8 @@ namespace NFeFacil.Fiscal
                             var tpOp = nfe.Informacoes.identificacao.TipoOperacao;
                             if (tpOp == 1 && DefinicoesPermanentes.ConfiguracoesEstoque.NFeS)
                             {
-                                using (var leit = new Repositorio.Leitura())
-                                using (var escr = new Repositorio.Escrita())
+                                using (var leit = new BaseGeral.Repositorio.Leitura())
+                                using (var escr = new BaseGeral.Repositorio.Escrita())
                                 {
                                     escr.AtualizarEstoques(DefinicoesTemporarias.DateTimeNow,
                                         (from prod in nfe.Informacoes.produtos
@@ -225,8 +226,8 @@ namespace NFeFacil.Fiscal
                             }
                             else if (tpOp == 0 && DefinicoesPermanentes.ConfiguracoesEstoque.NFeE)
                             {
-                                using (var leit = new Repositorio.Leitura())
-                                using (var escr = new Repositorio.Escrita())
+                                using (var leit = new BaseGeral.Repositorio.Leitura())
+                                using (var escr = new BaseGeral.Repositorio.Escrita())
                                 {
                                     escr.AtualizarEstoques(DefinicoesTemporarias.DateTimeNow,
                                         (from prod in nfe.Informacoes.produtos

@@ -1,7 +1,7 @@
-﻿using NFeFacil.IBGE;
+﻿using BaseGeral.IBGE;
 using System;
 
-namespace NFeFacil.ModeloXML
+namespace BaseGeral.ModeloXML
 {
     internal sealed class ChaveAcesso
     {

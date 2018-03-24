@@ -1,4 +1,5 @@
-﻿using NFeFacil.ItensBD;
+﻿using BaseGeral;
+using BaseGeral.ItensBD;
 using NFeFacil.View;
 using System;
 using System.Collections.ObjectModel;
@@ -32,7 +33,7 @@ namespace NFeFacil.ViewRegistroVenda
             var novo = string.IsNullOrEmpty(ItemBanco.MotivoEdicao);
             VisibilidadeAvancar = novo ? Visibility.Visible : Visibility.Collapsed;
             VisibilidadeConcluir = novo ? Visibility.Collapsed : Visibility.Visible;
-            using (var leitura = new Repositorio.Leitura())
+            using (var leitura = new BaseGeral.Repositorio.Leitura())
             {
                 ListaProdutos = (from prod in ItemBanco.Produtos
                                  let comp = leitura.ObterProduto(prod.IdBase)
@@ -88,7 +89,7 @@ namespace NFeFacil.ViewRegistroVenda
 
         private void Concluir(object sender, RoutedEventArgs e)
         {
-            using (var repo = new Repositorio.Escrita())
+            using (var repo = new BaseGeral.Repositorio.Escrita())
             {
                 repo.SalvarRV(ItemBanco, DefinicoesTemporarias.DateTimeNow);
                 Concluido = true;

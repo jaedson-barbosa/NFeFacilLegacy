@@ -1,4 +1,4 @@
-﻿namespace NFeFacil.ModeloXML.PartesDetalhes.PartesTransporte
+﻿namespace BaseGeral.ModeloXML.PartesDetalhes.PartesTransporte
 {
     public class Reboque : Veiculo { }
 }

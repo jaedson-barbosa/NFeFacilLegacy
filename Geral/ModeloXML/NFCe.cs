@@ -1,5 +1,4 @@
-﻿using BaseGeral.Certificacao;
-using BaseGeral.ModeloXML.PartesAssinatura;
+﻿using BaseGeral.ModeloXML.PartesAssinatura;
 using System;
 using System.Collections.Generic;
 using System.Text;

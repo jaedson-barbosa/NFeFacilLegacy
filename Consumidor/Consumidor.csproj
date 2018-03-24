@@ -106,10 +106,13 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AcoesNFCe.cs" />
     <Compile Include="AddFormaPagamento.xaml.cs">
       <DependentUpon>AddFormaPagamento.xaml</DependentUpon>
     </Compile>
     <Compile Include="Class1.cs" />
+    <Compile Include="ControleNFCe.cs" />
+    <Compile Include="ControleViewNFCe.cs" />
     <Compile Include="ManipulacaoNFCe.xaml.cs">
       <DependentUpon>ManipulacaoNFCe.xaml</DependentUpon>
     </Compile>
@@ -134,9 +137,21 @@
       <Project>{55579de5-6baa-4eb4-bb85-43deaf18d2b7}</Project>
       <Name>Fiscal</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Geral\BaseGeral.csproj">
+      <Project>{4e1d62ee-996d-46ba-803e-1f46fb59f88c}</Project>
+      <Name>BaseGeral</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OptimizedZXing\OptimizedZXing.csproj">
+      <Project>{831236cd-f989-48d9-987e-a8a6a2cf5f6e}</Project>
+      <Name>OptimizedZXing</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Produto\Produto.csproj">
       <Project>{db69df46-0f24-47c4-9fe8-37d2d569e4e7}</Project>
       <Name>Produto</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Venda\Venda.csproj">
+      <Project>{44672044-74ec-4b1e-bf9f-9ab74e65e73d}</Project>
+      <Name>Venda</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

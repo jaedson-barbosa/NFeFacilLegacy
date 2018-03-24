@@ -10,7 +10,6 @@ using Windows.UI.Xaml.Data;
 using System.Linq;
 using NFeFacil.WebService;
 using System.Collections.ObjectModel;
-using NFeFacil.Certificacao;
 using Windows.UI.Xaml.Navigation;
 using BaseGeral;
 using BaseGeral.Certificacao;

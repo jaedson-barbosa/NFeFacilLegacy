@@ -1,6 +1,7 @@
 ﻿using BaseGeral;
 using BaseGeral.Controles;
 using BaseGeral.ItensBD;
+using BaseGeral.View;
 using NFeFacil.View;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -55,7 +56,7 @@ namespace NFeFacil.ViewRegistroVenda
         {
             var item = (MenuFlyoutItem)sender;
             var venda = (ExibicaoVenda)item.DataContext;
-            MainPage.Current.Navegar<VisualizacaoRegistroVenda>(venda.Base);
+            BasicMainPage.Current.Navegar<VisualizacaoRegistroVenda>(venda.Base);
         }
     }
 

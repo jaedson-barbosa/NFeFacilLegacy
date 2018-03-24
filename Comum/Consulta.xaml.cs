@@ -2,6 +2,7 @@
 using BaseGeral.IBGE;
 using BaseGeral.ItensBD;
 using BaseGeral.ModeloXML;
+using BaseGeral.View;
 using NFeFacil.View;
 using NFeFacil.WebService;
 using NFeFacil.WebService.Pacotes;

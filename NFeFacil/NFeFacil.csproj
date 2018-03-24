@@ -162,7 +162,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ItensBD\ProdutoDI.cs" />
     <Compile Include="Login\Loading.xaml.cs">
       <DependentUpon>Loading.xaml</DependentUpon>
     </Compile>
@@ -193,13 +192,8 @@
     <Compile Include="ViewSincronizacao\SincronizacaoServidor.xaml.cs">
       <DependentUpon>SincronizacaoServidor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\EtapaProcesso.cs" />
     <Compile Include="ConjuntoBanco.cs" />
-    <Compile Include="View\Progresso.xaml.cs">
-      <DependentUpon>Progresso.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\ConjuntoBasicoExibicao.cs" />
-    <Compile Include="View\DetalhePagina.cs" />
     <Compile Include="ViewDadosBase\AdicionarComprador.xaml.cs">
       <DependentUpon>AdicionarComprador.xaml</DependentUpon>
     </Compile>
@@ -215,7 +209,6 @@
     <Compile Include="ViewDadosBase\GerenciarVendedores.xaml.cs">
       <DependentUpon>GerenciarVendedores.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\MascaraDocumento.cs" />
     <Compile Include="Login\EscolhaEmitente.xaml.cs">
       <DependentUpon>EscolhaEmitente.xaml</DependentUpon>
     </Compile>
@@ -244,8 +237,6 @@
     <Compile Include="ViewDadosBase\EscolherTipoCliente.xaml.cs">
       <DependentUpon>EscolherTipoCliente.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\IHambuguer.cs" />
-    <Compile Include="View\StringToDateTime.cs" />
     <Compile Include="Login\AdicionarEmitente.xaml.cs">
       <DependentUpon>AdicionarEmitente.xaml</DependentUpon>
     </Compile>
@@ -262,8 +253,6 @@
     <Compile Include="View\Configuracoes.xaml.cs">
       <DependentUpon>Configuracoes.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\IValida.cs" />
-    <Compile Include="View\DadosEstadosParaView.cs" />
     <Compile Include="View\DefinirImagem.xaml.cs">
       <DependentUpon>DefinirImagem.xaml</DependentUpon>
     </Compile>
@@ -283,7 +272,6 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="View\BibliotecaCores.cs" />
     <Compile Include="View\PainelAdaptavel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -364,10 +352,6 @@
     <Page Include="ViewSincronizacao\SincronizacaoServidor.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\Progresso.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Login\EscolhaEmitente.xaml">
       <SubType>Designer</SubType>

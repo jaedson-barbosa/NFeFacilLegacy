@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace NFeFacil.Produto
 {
-    class DadosAdicaoProduto
+    public sealed class DadosAdicaoProduto
     {
         public DadosAdicaoProduto(ProdutoDI auxiliar)
         {

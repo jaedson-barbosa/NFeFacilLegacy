@@ -14,12 +14,13 @@ using System.Threading.Tasks;
 using System.Linq;
 using Windows.UI.Xaml.Data;
 using BaseGeral;
+using BaseGeral.View;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace NFeFacil.Produto.GerenciamentoProdutos
 {
-    [View.DetalhePagina(Symbol.Shop, "Produto")]
+    [DetalhePagina(Symbol.Shop, "Produto")]
     public sealed partial class AdicionarProduto : Page
     {
         ProdutoDI Produto;
@@ -47,16 +48,16 @@ namespace NFeFacil.Produto.GerenciamentoProdutos
                         Produto.ResetEspecial();
                         break;
                     case 1:
-                        MainPage.Current.Navegar<DefinirVeiculo>(Produto);
+                        BasicMainPage.Current.Navegar<DefinirVeiculo>(Produto);
                         break;
                     case 2:
-                        MainPage.Current.Navegar<DefinirMedicamentos>(Produto);
+                        BasicMainPage.Current.Navegar<DefinirMedicamentos>(Produto);
                         break;
                     case 3:
-                        MainPage.Current.Navegar<DefinirArmamentos>(Produto);
+                        BasicMainPage.Current.Navegar<DefinirArmamentos>(Produto);
                         break;
                     case 4:
-                        MainPage.Current.Navegar<DefinirCombustivel>(Produto);
+                        BasicMainPage.Current.Navegar<DefinirCombustivel>(Produto);
                         break;
                     case 5:
                         DefinirPapel();
@@ -108,7 +109,7 @@ namespace NFeFacil.Produto.GerenciamentoProdutos
                     {
                         repo.SalvarItemSimples(Produto, DefinicoesTemporarias.DateTimeNow);
                     }
-                    MainPage.Current.Retornar();
+                    BasicMainPage.Current.Retornar();
                 }
             }
             catch (Exception erro)
@@ -117,7 +118,7 @@ namespace NFeFacil.Produto.GerenciamentoProdutos
             }
         }
 
-        private void Cancelar_Click(object sender, RoutedEventArgs e) => MainPage.Current.Retornar();
+        private void Cancelar_Click(object sender, RoutedEventArgs e) => BasicMainPage.Current.Retornar();
 
         void EditarEspecial(object sender, RoutedEventArgs e) => TipoEspecialEscolhido = TipoEspecialEscolhido;
 

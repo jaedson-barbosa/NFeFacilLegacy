@@ -14,6 +14,8 @@ using System.Linq;
 using BaseGeral.ModeloXML;
 using NFeFacil.Produto;
 using NFeFacil.Produto.CaixasDialogoProduto;
+using BaseGeral.View;
+using BaseGeral;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -105,7 +107,7 @@ namespace NFeFacil.Fiscal.ViewNFe
             {
                 ProdutoCompleto.ImpostoDevol = null;
             }
-            MainPage.Current.Navegar<EscolhaImpostos>(Conjunto);
+            BasicMainPage.Current.Navegar<EscolhaImpostos>(Conjunto);
         }
 
         async void AdicionarDeclaracaoImportacao(object sender, RoutedEventArgs e)
@@ -203,7 +205,7 @@ namespace NFeFacil.Fiscal.ViewNFe
             info.total = new Total(info.produtos);
 
             Concluido = true;
-            MainPage.Current.Retornar();
+            BasicMainPage.Current.Retornar();
         }
     }
 }

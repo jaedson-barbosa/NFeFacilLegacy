@@ -59,7 +59,7 @@ namespace NFeFacil.Fiscal
             identificacao.DefinirVersãoAplicativo();
             PreNota.Informacoes.identificacao = identificacao;
             PreNota.Informacoes.ChaveAcesso = null;
-            MainPage.Current.Navegar<ManipulacaoNFCe>(PreNota);
+            BasicMainPage.Current.Navegar<ManipulacaoNFCe>(PreNota);
         }
     }
 }

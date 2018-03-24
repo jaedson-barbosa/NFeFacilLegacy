@@ -7,6 +7,7 @@ using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Navigation;
 using OptimizedZXing;
 using static BaseGeral.ExtensoesPrincipal;
+using BaseGeral.View;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -15,7 +16,7 @@ namespace NFeFacil.Fiscal.ViewNFCe
     /// <summary>
     /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
     /// </summary>
-    [View.DetalhePagina(Symbol.View, "DANFE")]
+    [DetalhePagina(Symbol.View, "DANFE")]
     public sealed partial class ViewDANFE : Page
     {
         double Largura { get; set; }

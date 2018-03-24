@@ -1,4 +1,5 @@
-﻿using BaseGeral.Certificacao;
+﻿using BaseGeral;
+using BaseGeral.Certificacao;
 using BaseGeral.ModeloXML.PartesAssinatura;
 using NFeFacil.WebService.Pacotes.PartesInutNFe;
 using System.Threading.Tasks;

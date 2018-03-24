@@ -1,10 +1,11 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using BaseGeral.View;
+using Windows.UI.Xaml.Controls;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace NFeFacil.Produto.Impostos.DetalhamentoICMS.TelasSN
 {
-    [View.DetalhePagina("ICMS")]
+    [DetalhePagina("ICMS")]
     public sealed partial class Tipo202 : Page
     {
         public int modBCST { get; private set; }

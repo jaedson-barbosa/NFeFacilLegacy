@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using System.Collections.Generic;
 using BaseGeral;
+using BaseGeral.View;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -174,7 +175,7 @@ namespace NFeFacil.Fiscal.ViewNFCe
             {
                 IsNFCe = true
             };
-            MainPage.Current.Navegar<ProdutoNFCe>(dados);
+            BasicMainPage.Current.Navegar<ProdutoNFCe>(dados);
         }
 
         void EditarProduto(DetalhesProdutos produto)
@@ -186,7 +187,7 @@ namespace NFeFacil.Fiscal.ViewNFCe
                 {
                     IsNFCe = true
                 };
-                MainPage.Current.Navegar<ProdutoNFCe>(dados);
+                BasicMainPage.Current.Navegar<ProdutoNFCe>(dados);
             }
         }
 
@@ -269,7 +270,7 @@ namespace NFeFacil.Fiscal.ViewNFCe
             try
             {
                 var ultPage = Frame.BackStack[Frame.BackStack.Count - 1];
-                if (ultPage.SourcePageType == typeof(ViewRegistroVenda.VisualizacaoRegistroVenda))
+                if (ultPage.SourcePageType.Name == "VisualizacaoRegistroVenda")
                 {
                     Frame.BackStack.Remove(ultPage);
                     ultPage = Frame.BackStack[Frame.BackStack.Count - 1];
@@ -308,7 +309,7 @@ namespace NFeFacil.Fiscal.ViewNFCe
                 }
 
                 Concluido = true;
-                MainPage.Current.Retornar();
+                BasicMainPage.Current.Retornar();
             }
             catch (Exception erro)
             {

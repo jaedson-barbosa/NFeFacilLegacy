@@ -1,4 +1,6 @@
-﻿using BaseGeral.ModeloXML.PartesDetalhes;
+﻿using BaseGeral;
+using BaseGeral.ModeloXML.PartesDetalhes;
+using BaseGeral.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +15,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NFeFacil.Produto.Impostos
 {
-    [View.DetalhePagina("\uE825", "Impostos")]
+    [DetalhePagina("\uE825", "Impostos")]
     public sealed partial class EscolhaImpostos : Page
     {
         ICollectionView Impostos { get; set; }
@@ -197,7 +199,7 @@ namespace NFeFacil.Produto.Impostos
         private void Avancar(object sender, RoutedEventArgs e)
         {
             var roteiro = new RoteiroAdicaoImpostos(Escolhidos.Values.ToArray(), ProdutoCompleto);
-            MainPage.Current.Navegar<DetalhamentoGeral>(roteiro);
+            BasicMainPage.Current.Navegar<DetalhamentoGeral>(roteiro);
         }
 
         private void GridView_Loaded(object sender, RoutedEventArgs e)

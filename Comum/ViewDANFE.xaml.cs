@@ -4,12 +4,13 @@ using Windows.UI.Xaml.Navigation;
 using NFeFacil.Fiscal.ViewNFe.PaginasDANFE;
 using BaseGeral.ModeloXML;
 using static BaseGeral.ExtensoesPrincipal;
+using BaseGeral.View;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace NFeFacil.Fiscal.ViewNFe
 {
-    [View.DetalhePagina(Symbol.View, "DANFE")]
+    [DetalhePagina(Symbol.View, "DANFE")]
     public sealed partial class ViewDANFE : Page
     {
         private GerenciadorImpressao gerenciadorImpressão;

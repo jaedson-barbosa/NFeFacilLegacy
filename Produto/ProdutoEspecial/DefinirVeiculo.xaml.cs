@@ -1,5 +1,7 @@
-﻿using BaseGeral.ModeloXML;
+﻿using BaseGeral;
+using BaseGeral.ModeloXML;
 using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
+using BaseGeral.View;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -8,7 +10,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NFeFacil.Produto.ProdutoEspecial
 {
-    [View.DetalhePagina("\uE804", "Veículo")]
+    [DetalhePagina("\uE804", "Veículo")]
     public sealed partial class DefinirVeiculo : Page
     {
         VeiculoNovo Veiculo { get; set; }
@@ -34,12 +36,12 @@ namespace NFeFacil.Produto.ProdutoEspecial
             prod.comb = null;
             prod.NRECOPI = null;
 
-            MainPage.Current.Retornar();
+            BasicMainPage.Current.Retornar();
         }
 
         private void Cancelar(object sender, RoutedEventArgs e)
         {
-            MainPage.Current.Retornar();
+            BasicMainPage.Current.Retornar();
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using NFeFacil.Certificacao;
-using BaseGeral.Certificacao.LAN.Pacotes;
+﻿using BaseGeral.Certificacao.LAN.Pacotes;
 using System;
 using System.Net.Http;
 using System.Text;

@@ -1,5 +1,6 @@
 ﻿using BaseGeral;
 using BaseGeral.ItensBD;
+using BaseGeral.View;
 using NFeFacil.View;
 using System;
 using System.Collections.ObjectModel;
@@ -84,7 +85,7 @@ namespace NFeFacil.ViewRegistroVenda
 
         private void Avancar(object sender, RoutedEventArgs e)
         {
-            MainPage.Current.Navegar<ManipulacaoRegistroVenda>();
+            BasicMainPage.Current.Navegar<ManipulacaoRegistroVenda>();
         }
 
         private void Concluir(object sender, RoutedEventArgs e)
@@ -93,7 +94,7 @@ namespace NFeFacil.ViewRegistroVenda
             {
                 repo.SalvarRV(ItemBanco, DefinicoesTemporarias.DateTimeNow);
                 Concluido = true;
-                MainPage.Current.Retornar();
+                BasicMainPage.Current.Retornar();
             }
         }
     }

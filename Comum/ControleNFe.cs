@@ -8,7 +8,7 @@ using BaseGeral;
 
 namespace NFeFacil.Fiscal
 {
-    sealed class ControleNFe : IControleCriacao
+    public sealed class ControleNFe : IControleCriacao
     {
         NFe PreNota { get; }
 
@@ -63,7 +63,7 @@ namespace NFeFacil.Fiscal
             identificacao.DefinirVersãoAplicativo();
             PreNota.Informacoes.identificacao = identificacao;
             PreNota.Informacoes.ChaveAcesso = null;
-            MainPage.Current.Navegar<ManipulacaoNotaFiscal>(PreNota);
+            BasicMainPage.Current.Navegar<ManipulacaoNotaFiscal>(PreNota);
         }
     }
 }

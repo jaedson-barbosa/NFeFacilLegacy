@@ -5,12 +5,13 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
 using System.Linq;
 using BaseGeral;
+using BaseGeral.View;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace NFeFacil.ViewRegistroVenda.DARV
 {
-    [View.DetalhePagina(Symbol.View, "DARV")]
+    [DetalhePagina(Symbol.View, "DARV")]
     public sealed partial class ViewDARV : Page
     {
         double AlturaEscolhida { get; set; }

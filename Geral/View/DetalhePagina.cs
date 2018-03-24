@@ -2,10 +2,10 @@
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace NFeFacil.View
+namespace BaseGeral.View
 {
     [AttributeUsage(AttributeTargets.Class, Inherited = false)]
-    sealed class DetalhePagina : Attribute
+    public sealed class DetalhePagina : Attribute
     {
         public string Titulo { get; }
         public Uri SimboloUri { get; set; }

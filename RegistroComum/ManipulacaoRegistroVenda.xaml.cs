@@ -2,6 +2,7 @@
 using BaseGeral.Controles;
 using BaseGeral.ItensBD;
 using BaseGeral.Log;
+using BaseGeral.View;
 using NFeFacil.View;
 using System;
 using System.Collections.Generic;
@@ -150,8 +151,8 @@ namespace NFeFacil.ViewRegistroVenda
                 Frame.BackStack.RemoveAt(Frame.BackStack.Count - 1);
                 PageStackEntry entrada = new PageStackEntry(typeof(VisualizacaoRegistroVenda), ItemBanco, null);
                 Frame.BackStack.Add(entrada);
-                
-                MainPage.Current.Retornar();
+
+                BasicMainPage.Current.Retornar();
             }
         }
 

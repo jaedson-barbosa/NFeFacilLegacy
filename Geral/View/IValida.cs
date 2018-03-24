@@ -1,6 +1,6 @@
 ﻿namespace NFeFacil.View
 {
-    interface IValida
+    public interface IValida
     {
         bool Concluido { get; }
     }

@@ -16,7 +16,7 @@ using BaseGeral;
 
 namespace NFeFacil.Fiscal
 {
-    sealed class AcoesNFe : AcoesVisualizacao
+    public sealed class AcoesNFe : AcoesVisualizacao
     {
         public object ItemCompleto { get; private set; }
 
@@ -77,7 +77,7 @@ namespace NFeFacil.Fiscal
             var analisador = new AnalisadorNFe(ref nfe);
             analisador.Desnormalizar();
             ItemBanco.Status = (int)StatusNota.Edição;
-            MainPage.Current.Navegar<ManipulacaoNotaFiscal>(nfe);
+            BasicMainPage.Current.Navegar<ManipulacaoNotaFiscal>(nfe);
         }
 
         public override async Task Exportar()
@@ -128,7 +128,7 @@ namespace NFeFacil.Fiscal
         public override void Imprimir()
         {
             var processo = (ProcessoNFe)ItemCompleto;
-            MainPage.Current.Navegar<ViewDANFE>(processo);
+            BasicMainPage.Current.Navegar<ViewDANFE>(processo);
             ItemBanco.Impressa = true;
             AtualizarDI(ItemCompleto);
         }

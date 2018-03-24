@@ -1,6 +1,6 @@
 ﻿using BaseGeral.ItensBD;
 using BaseGeral.ModeloXML;
-using NFeFacil.View;
+using BaseGeral.View;
 using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;

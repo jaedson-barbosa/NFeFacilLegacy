@@ -1,5 +1,7 @@
-﻿using BaseGeral.ModeloXML;
+﻿using BaseGeral;
+using BaseGeral.ModeloXML;
 using BaseGeral.ModeloXML.PartesDetalhes;
+using BaseGeral.View;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -12,7 +14,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NFeFacil.Produto.Impostos
 {
-    [View.DetalhePagina("Detalhamento de impostos", SimboloSymbol = Symbol.List)]
+    [DetalhePagina("Detalhamento de impostos", SimboloSymbol = Symbol.List)]
     public sealed partial class DetalhamentoGeral : Page
     {
         RoteiroAdicaoImpostos roteiro;
@@ -71,7 +73,7 @@ namespace NFeFacil.Produto.Impostos
             }
             else
             {
-                MainPage.Current.Retornar();
+                BasicMainPage.Current.Retornar();
             }
         }
 
@@ -115,7 +117,7 @@ namespace NFeFacil.Produto.Impostos
                 throw new Exception();
             }
 
-            MainPage.Current.Retornar();
+            BasicMainPage.Current.Retornar();
 
             void AddProduto()
             {
@@ -134,7 +136,7 @@ namespace NFeFacil.Produto.Impostos
         private void ImpostoTrocado(object sender, NavigationEventArgs e)
         {
             var infoTipo = e.Content.GetType().GetTypeInfo();
-            var detalhe = infoTipo.GetCustomAttribute<View.DetalhePagina>();
+            var detalhe = infoTipo.GetCustomAttribute<DetalhePagina>();
             txtTitulo.Text = detalhe.Titulo;
         }
     }

@@ -1,4 +1,5 @@
 ﻿using BaseGeral;
+using BaseGeral.View;
 using NFeFacil.View;
 using System;
 using System.Reflection;

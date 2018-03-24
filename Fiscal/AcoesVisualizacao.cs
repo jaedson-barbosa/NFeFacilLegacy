@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NFeFacil.Fiscal
 {
-    abstract class AcoesVisualizacao
+    public abstract class AcoesVisualizacao
     {
         public NFeDI ItemBanco { get; }
         public event EventHandler StatusChanged;

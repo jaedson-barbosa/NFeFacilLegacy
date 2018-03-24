@@ -1,6 +1,8 @@
-﻿using BaseGeral.ModeloXML;
+﻿using BaseGeral;
+using BaseGeral.ModeloXML;
 using BaseGeral.ModeloXML.PartesDetalhes;
 using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos;
+using BaseGeral.View;
 using NFeFacil.Produto;
 using NFeFacil.Produto.Impostos;
 using NFeFacil.View;
@@ -67,7 +69,7 @@ namespace NFeFacil.Fiscal.ViewNFCe
 
         private void Avancar(object sender, RoutedEventArgs e)
         {
-            MainPage.Current.Navegar<EscolhaImpostos>(Conjunto);
+            BasicMainPage.Current.Navegar<EscolhaImpostos>(Conjunto);
         }
 
         async void Concluir(object sender, RoutedEventArgs e)
@@ -113,7 +115,7 @@ namespace NFeFacil.Fiscal.ViewNFCe
             info.total = new Total(info.produtos);
 
             Concluido = true;
-            MainPage.Current.Retornar();
+            BasicMainPage.Current.Retornar();
         }
     }
 }

@@ -9,12 +9,13 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using BaseGeral;
 using BaseGeral.Log;
+using BaseGeral.View;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace NFeFacil.ViewRegistroVenda
 {
-    [View.DetalhePagina(Symbol.View, "Registro de venda")]
+    [DetalhePagina(Symbol.View, "Registro de venda")]
     public sealed partial class VisualizacaoRegistroVenda : Page
     {
         RegistroVenda ItemBanco;
@@ -111,7 +112,7 @@ namespace NFeFacil.ViewRegistroVenda
             {
                 double largura = caixa.Largura, altura = caixa.Predefinicao == 0 ? 0 : caixa.Altura;
 
-                MainPage.Current.Navegar<ViewDARV>(new DadosImpressaoDARV
+                BasicMainPage.Current.Navegar<ViewDARV>(new DadosImpressaoDARV
                 {
                     Venda = ItemBanco,
                     Dimensoes = new Dimensoes(largura, altura, 1),
@@ -152,7 +153,7 @@ namespace NFeFacil.ViewRegistroVenda
             {
                 var item = repo.ObterNota(ItemBanco.NotaFiscalRelacionada);
                 var acoes = new AcoesNFe(item);
-                MainPage.Current.Navegar<Fiscal.Visualizacao>(acoes);
+                BasicMainPage.Current.Navegar<Fiscal.Visualizacao>(acoes);
             }
         }
 
@@ -168,7 +169,7 @@ namespace NFeFacil.ViewRegistroVenda
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
                 ItemBanco.MotivoEdicao = caixa.Motivo;
-                MainPage.Current.Navegar<ManipulacaoProdutosRV>(ItemBanco);
+                BasicMainPage.Current.Navegar<ManipulacaoProdutosRV>(ItemBanco);
             }
         }
     }

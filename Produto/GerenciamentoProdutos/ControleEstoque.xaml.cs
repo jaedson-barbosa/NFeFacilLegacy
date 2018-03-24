@@ -7,12 +7,13 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using BaseGeral;
+using BaseGeral.View;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace NFeFacil.Produto.GerenciamentoProdutos
 {
-    [View.DetalhePagina(Symbol.Manage, "Controle de estoque")]
+    [DetalhePagina(Symbol.Manage, "Controle de estoque")]
     public sealed partial class ControleEstoque : Page
     {
         bool AlteracoesNaoSalvas = false;

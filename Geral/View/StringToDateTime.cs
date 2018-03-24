@@ -3,7 +3,7 @@ using System;
 using System.Globalization;
 using Windows.UI.Xaml.Data;
 
-namespace NFeFacil.View
+namespace BaseGeral.View
 {
     public sealed class StringToDateTime : IValueConverter
     {

@@ -13,12 +13,13 @@ using static BaseGeral.ExtensoesPrincipal;
 using Windows.UI.Xaml.Navigation;
 using BaseGeral;
 using BaseGeral.Log;
+using BaseGeral.View;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace NFeFacil.Fiscal
 {
-    [View.DetalhePagina(Symbol.Calendar, "Vendas")]
+    [DetalhePagina(Symbol.Calendar, "Vendas")]
     public sealed partial class VendasAnuais : Page
     {
         Func<double, string> GetMonth { get; set; } = x => NomesMeses[(int)x] ?? string.Empty;

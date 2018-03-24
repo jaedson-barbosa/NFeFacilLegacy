@@ -18,6 +18,7 @@ using NFeFacil.Fiscal.ViewNFe.CaixasDialogo;
 using NFeFacil.View;
 using NFeFacil.Produto;
 using BaseGeral;
+using BaseGeral.View;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -322,7 +323,7 @@ namespace NFeFacil.Fiscal.ViewNFe
                 }
 
                 var ultPage = Frame.BackStack[Frame.BackStack.Count - 1];
-                if (ultPage.SourcePageType == typeof(ViewRegistroVenda.VisualizacaoRegistroVenda))
+                if (ultPage.SourcePageType.Name == "VisualizacaoRegistroVenda")
                 {
                     Frame.BackStack.Remove(ultPage);
                     ultPage = Frame.BackStack[Frame.BackStack.Count - 1];
@@ -365,7 +366,7 @@ namespace NFeFacil.Fiscal.ViewNFe
                 }
 
                 Concluido = true;
-                MainPage.Current.Retornar();
+                BasicMainPage.Current.Retornar();
             }
             catch (Exception e)
             {
@@ -398,7 +399,7 @@ namespace NFeFacil.Fiscal.ViewNFe
         {
             var prod = (ProdutoDI)e.ClickedItem;
             var dados = new DadosAdicaoProduto(prod);
-            MainPage.Current.Navegar<ManipulacaoProdutoCompleto>(dados);
+            BasicMainPage.Current.Navegar<ManipulacaoProdutoCompleto>(dados);
         }
 
         async void EditarProduto(DetalhesProdutos produto)
@@ -412,7 +413,7 @@ namespace NFeFacil.Fiscal.ViewNFe
                 {
                     var prodDI = repo.ObterProduto(produto.Produto.CodigoProduto);
                     var dados = new DadosAdicaoProduto(prodDI, produto);
-                    MainPage.Current.Navegar<ManipulacaoProdutoCompleto>(dados);
+                    BasicMainPage.Current.Navegar<ManipulacaoProdutoCompleto>(dados);
                 }
             }
         }

@@ -302,6 +302,7 @@
     <Compile Include="Impostos\RoteiroAdicaoImpostos.cs" />
     <Compile Include="Impostos\TiposCalculo.cs" />
     <Compile Include="ImpSimplesArmazenado.cs" />
+    <Compile Include="ProdutoDIExtended.cs" />
     <Compile Include="ProdutoEspecial\AdicionarArmamento.xaml.cs">
       <DependentUpon>AdicionarArmamento.xaml</DependentUpon>
     </Compile>
@@ -327,6 +328,9 @@
     <EmbeddedResource Include="Properties\Produto.rd.xml" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="LiveCharts.Uwp">
+      <Version>0.8.0</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.0.8</Version>
     </PackageReference>
@@ -536,6 +540,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Geral\BaseGeral.csproj">
+      <Project>{4e1d62ee-996d-46ba-803e-1f46fb59f88c}</Project>
+      <Name>BaseGeral</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

@@ -3,7 +3,7 @@ using BaseGeral.IBGE;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace NFeFacil.View
+namespace BaseGeral.View
 {
     public static class DadosEstadosParaView
     {

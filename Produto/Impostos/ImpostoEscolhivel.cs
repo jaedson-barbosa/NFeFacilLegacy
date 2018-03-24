@@ -2,7 +2,7 @@
 
 namespace NFeFacil.Produto.Impostos
 {
-    sealed class ImpostoEscolhivel
+    public sealed class ImpostoEscolhivel
     {
         public ImpostoEscolhivel(ImpostoArmazenado template)
         {

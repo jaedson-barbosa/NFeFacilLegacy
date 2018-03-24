@@ -106,6 +106,7 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AcoesNFe.cs" />
     <Compile Include="CaixasDialogo\AdicionarDeducao.xaml.cs">
       <DependentUpon>AdicionarDeducao.xaml</DependentUpon>
     </Compile>
@@ -145,13 +146,12 @@
     <Compile Include="CaixasDialogo\EscolherVeiculo.xaml.cs">
       <DependentUpon>EscolherVeiculo.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CancelarNFe.xaml.cs">
-      <DependentUpon>CancelarNFe.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Class1.cs" />
     <Compile Include="Consulta.xaml.cs">
       <DependentUpon>Consulta.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ControleNFe.cs" />
+    <Compile Include="ControleViewNFe.cs" />
     <Compile Include="DadosDANFE.cs" />
     <Compile Include="InfoInutilizacao.xaml.cs">
       <DependentUpon>InfoInutilizacao.xaml</DependentUpon>
@@ -231,9 +231,17 @@
       <Project>{55579de5-6baa-4eb4-bb85-43deaf18d2b7}</Project>
       <Name>Fiscal</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Geral\BaseGeral.csproj">
+      <Project>{4e1d62ee-996d-46ba-803e-1f46fb59f88c}</Project>
+      <Name>BaseGeral</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Produto\Produto.csproj">
       <Project>{db69df46-0f24-47c4-9fe8-37d2d569e4e7}</Project>
       <Name>Produto</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Venda\Venda.csproj">
+      <Project>{44672044-74ec-4b1e-bf9f-9ab74e65e73d}</Project>
+      <Name>Venda</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -286,10 +294,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="CaixasDialogo\EscolherVeiculo.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="CancelarNFe.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

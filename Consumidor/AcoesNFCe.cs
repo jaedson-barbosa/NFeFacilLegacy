@@ -78,7 +78,7 @@ namespace NFeFacil.Fiscal
             var analisador = new AnalisadorNFCe(ref nfe);
             analisador.Desnormalizar();
             ItemBanco.Status = (int)StatusNota.Edição;
-            MainPage.Current.Navegar<ManipulacaoNFCe>(nfe);
+            BasicMainPage.Current.Navegar<ManipulacaoNFCe>(nfe);
         }
 
         public override async Task Exportar()
@@ -132,7 +132,7 @@ namespace NFeFacil.Fiscal
             var margem = ExtensoesPrincipal.CMToPixel(DefinicoesPermanentes.MargemDANFENFCe / 10);
             var largura = ExtensoesPrincipal.CMToPixel(DefinicoesPermanentes.LarguraDANFENFCe / 10);
             var dados = new DadosImpressao(processo, new Thickness(margem), largura);
-            MainPage.Current.Navegar<ViewDANFE>(dados);
+            BasicMainPage.Current.Navegar<ViewDANFE>(dados);
             ItemBanco.Impressa = true;
             AtualizarDI(ItemCompleto);
         }

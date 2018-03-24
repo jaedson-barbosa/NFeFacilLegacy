@@ -1,6 +1,7 @@
 ﻿using BaseGeral;
 using BaseGeral.ModeloXML;
 using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
+using BaseGeral.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,7 +13,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NFeFacil.Produto.ProdutoEspecial
 {
-    [View.DetalhePagina("\uE95E", "Medicamentos")]
+    [DetalhePagina("\uE95E", "Medicamentos")]
     public sealed partial class DefinirMedicamentos : Page
     {
         ObservableCollection<Medicamento> Medicamentos { get; set; }
@@ -54,12 +55,12 @@ namespace NFeFacil.Produto.ProdutoEspecial
             prod.comb = null;
             prod.NRECOPI = null;
 
-            MainPage.Current.Retornar();
+            BasicMainPage.Current.Retornar();
         }
 
         private void Cancelar(object sender, RoutedEventArgs e)
         {
-            MainPage.Current.Retornar();
+            BasicMainPage.Current.Retornar();
         }
     }
 }

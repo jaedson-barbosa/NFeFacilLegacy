@@ -4,7 +4,7 @@
       xmlns:local="using:NFeFacil.Fiscal.ViewNFCe"
       xmlns:detalhes="using:BaseGeral.ModeloXML.PartesDetalhes"
       xmlns:db="using:BaseGeral.ItensBD"
-      xmlns:VM="using:NFeFacil.View"
+      xmlns:VM="using:BaseGeral.View"
       xmlns:controles="using:BaseGeral.Controles"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"

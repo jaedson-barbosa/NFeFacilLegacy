@@ -1,5 +1,6 @@
 ﻿using BaseGeral;
 using BaseGeral.ItensBD;
+using BaseGeral.View;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -11,7 +12,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil.Produto.GerenciamentoProdutos
 {
-    [View.DetalhePagina(Symbol.Manage, "Gerenciar produtos")]
+    [DetalhePagina(Symbol.Manage, "Gerenciar produtos")]
     public sealed partial class GerenciarProdutos : Page
     {
         ProdutoDI[] TodosProdutos { get; }
@@ -29,13 +30,13 @@ namespace NFeFacil.Produto.GerenciamentoProdutos
 
         private void AdicionarProduto(object sender, RoutedEventArgs e)
         {
-            MainPage.Current.Navegar<AdicionarProduto>(new ProdutoDI());
+            BasicMainPage.Current.Navegar<AdicionarProduto>(new ProdutoDI());
         }
 
         private void EditarProduto(object sender, RoutedEventArgs e)
         {
             var contexto = ((FrameworkElement)sender).DataContext;
-            MainPage.Current.Navegar<AdicionarProduto>((ProdutoDI)contexto);
+            BasicMainPage.Current.Navegar<AdicionarProduto>((ProdutoDI)contexto);
         }
 
         async void ControlarEstoque(object sender, RoutedEventArgs e)
@@ -61,11 +62,11 @@ namespace NFeFacil.Produto.GerenciamentoProdutos
                     caixa.Commands.Add(new UICommand("Não"));
                     if ((await caixa.ShowAsync()).Label == "Não") return;
                 }
-                MainPage.Current.Navegar<ControleEstoque>(estoque);
+                BasicMainPage.Current.Navegar<ControleEstoque>(estoque);
             }
             else
             {
-                MainPage.Current.Navegar<ControleEstoque>(estoque);
+                BasicMainPage.Current.Navegar<ControleEstoque>(estoque);
             }
         }
 

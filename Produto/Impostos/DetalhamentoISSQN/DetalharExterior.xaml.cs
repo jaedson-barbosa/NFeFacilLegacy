@@ -1,5 +1,6 @@
 ﻿using BaseGeral.IBGE;
 using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos;
+using BaseGeral.View;
 using System.Collections.ObjectModel;
 using Windows.UI.Xaml.Controls;
 
@@ -7,7 +8,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil.Produto.Impostos.DetalhamentoISSQN
 {
-    [View.DetalhePagina("ISSQN")]
+    [DetalhePagina("ISSQN")]
     public sealed partial class DetalharExterior : Page, IDadosISSQN
     {
         public ISSQN Imposto { get; } = new ISSQN()

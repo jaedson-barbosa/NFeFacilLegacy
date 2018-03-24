@@ -5,9 +5,9 @@ using NFeFacil.View;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace NFeFacil.Fiscal
+namespace BaseGeral.View
 {
-    sealed class BoolToColor : IValueConverter
+    public sealed class BoolToColor : IValueConverter
     {
         static readonly Brush Ativo = new SolidColorBrush(new BibliotecaCores().Cor1);
         static readonly Brush Inativo = new SolidColorBrush(Windows.UI.Colors.Transparent);

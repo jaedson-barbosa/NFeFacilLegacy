@@ -1,6 +1,6 @@
 ﻿using BaseGeral.ModeloXML.PartesAssinatura;
 
-namespace BaseGeral.Certificacao
+namespace BaseGeral
 {
     public interface ISignature
     {

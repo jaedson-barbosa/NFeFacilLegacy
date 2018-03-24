@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using static BaseGeral.ExtensoesPrincipal;
 using BaseGeral;
+using System.Reflection;
 
 namespace NFeFacil.Fiscal.ViewNFe
 {

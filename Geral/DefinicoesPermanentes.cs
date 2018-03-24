@@ -119,11 +119,10 @@ namespace BaseGeral
 
         public void SalvarModificacoes()
         {
+            int soma = 0;
             var bools = new bool[] { RV, RVCancel, NFeS, NFeSCancel, NFeE, NFeECancel, NFCe, NFCeCancel };
-            var array = new BitArray(bools);
-            byte[] bytes = new byte[1];
-            array.CopyTo(bytes, 0);
-            ConfiguracoesEstoque = bytes[0];
+            for (int i = 7; i >= 0; i--) if (bools[i]) soma += 1 << i;
+            ConfiguracoesEstoque = (byte)soma;
         }
     }
 }

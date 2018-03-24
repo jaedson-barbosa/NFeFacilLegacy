@@ -88,7 +88,7 @@ namespace NFeFacil.ModeloXML.PartesDetalhes
         [XmlElement("NFref", Order = 21)]
         public List<DocumentoFiscalReferenciado> DocumentosReferenciados { get; set; }
 
-        internal void DefinirVersãoAplicativo()
+        public void DefinirVersãoAplicativo()
         {
             var version = Package.Current.Id.Version;
             VersaoAplicativo = $"{version.Major}.{version.Minor}.{version.Build}";

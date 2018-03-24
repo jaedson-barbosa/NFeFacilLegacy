@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
 using Windows.System.Profile;
@@ -72,6 +71,4 @@ namespace NFeFacil
             async void EsconderBarraCelular() => await StatusBar.GetForCurrentView().HideAsync();
         }
     }
-
-    public delegate Task ProgressChangedEventHandler(object sender, int Concluidos);
 }

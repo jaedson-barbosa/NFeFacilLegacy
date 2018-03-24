@@ -5,7 +5,6 @@ using NFeFacil.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using static NFeFacil.ExtensoesPrincipal;
 
 namespace NFeFacil.Fiscal.ViewNFe

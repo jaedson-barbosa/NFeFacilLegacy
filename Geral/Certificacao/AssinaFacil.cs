@@ -139,4 +139,6 @@ namespace NFeFacil.Certificacao
             };
         }
     }
+
+    public delegate Task ProgressChangedEventHandler(object sender, int Concluidos);
 }

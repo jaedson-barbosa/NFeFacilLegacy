@@ -154,19 +154,13 @@
     <Content Include="Assets\Wide310x150Logo.scale-125.png" />
     <Content Include="Assets\Wide310x150Logo.scale-150.png" />
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
-    <EmbeddedResource Include="Certificacao\LAN\ServidorCertificacao.zip" />
     <Content Include="Assets\ICP-Brasilv5.cer" />
-    <EmbeddedResource Include="Certificacao\LAN\WindowsLoopbackManager.zip" />
     <None Include="NFeFacil_StoreKey.pfx" />
     <None Include="Properties\ServiceReferences.Designer.ClientConfig" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="AssistenteConfig.cs" />
-    <Compile Include="Controles\DuplaView.xaml.cs">
-      <DependentUpon>DuplaView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Fiscal\AcoesNFCe.cs" />
     <Compile Include="Fiscal\AcoesNFe.cs" />
@@ -184,256 +178,54 @@
     <Compile Include="Fiscal\ViewNFCe\ViewDANFE.xaml.cs">
       <DependentUpon>ViewDANFE.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ItensBD\ProdutoDI.cs" />
     <Compile Include="Login\Loading.xaml.cs">
       <DependentUpon>Loading.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\20180127131837_Loja1.9.cs" />
-    <Compile Include="Migrations\20180127131837_Loja1.9.designer.cs">
-      <DependentUpon>20180127131837_Loja1.9.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20180214173711_Loja1.9.15.cs" />
-    <Compile Include="Migrations\20180214173711_Loja1.9.15.designer.cs">
-      <DependentUpon>20180214173711_Loja1.9.15.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ModeloXML\InformacoesBase.cs" />
-    <Compile Include="ModeloXML\InformacoesNFCe .cs" />
-    <Compile Include="ModeloXML\InformacoesSuplementaresNFCe.cs" />
-    <Compile Include="ModeloXML\NFCe.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\IIdentificacao.cs" />
-    <Compile Include="ModeloXML\ProcessoNFCe .cs" />
     <Compile Include="Produto\Impostos\ImpostoEscolhivel.cs" />
     <Compile Include="Produto\Impostos\ImpostoPadrao.cs" />
-    <Compile Include="Sincronizacao\FastServer\FromContentAttribute.cs" />
-    <Compile Include="Sincronizacao\FastServer\HttpServer.cs" />
-    <Compile Include="Sincronizacao\FastServer\ParameterValueGetter.cs" />
-    <Compile Include="Sincronizacao\FastServer\ParsedUri.cs" />
-    <Compile Include="Sincronizacao\FastServer\PathPart.cs" />
-    <Compile Include="Sincronizacao\FastServer\RestControllerMethodInfo.cs" />
-    <Compile Include="Sincronizacao\FastServer\RestControllerRequestHandler.cs" />
-    <Compile Include="Sincronizacao\FastServer\RestRequest.cs" />
-    <Compile Include="Sincronizacao\FastServer\RestResponse.cs" />
-    <Compile Include="Sincronizacao\FastServer\UriFormatAttribute.cs" />
-    <Compile Include="Sincronizacao\FastServer\UriParser.cs" />
-    <Compile Include="Validacao\AnalisadorNFCe.cs" />
     <Compile Include="Fiscal\ViewNFCe\ManipulacaoNFCe.xaml.cs">
       <DependentUpon>ManipulacaoNFCe.xaml</DependentUpon>
     </Compile>
     <Compile Include="Fiscal\ViewNFCe\ProdutoNFCe.xaml.cs">
       <DependentUpon>ProdutoNFCe.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewCertificacao\ConectarServidor.xaml.cs">
+      <DependentUpon>ConectarServidor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewCertificacao\ConfiguracoesCertificadoImportado.xaml.cs">
+      <DependentUpon>ConfiguracoesCertificadoImportado.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewCertificacao\ConfiguracoesClienteServidor.xaml.cs">
+      <DependentUpon>ConfiguracoesClienteServidor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewCertificacao\ConfiguracoesServidorCertificacao.xaml.cs">
+      <DependentUpon>ConfiguracoesServidorCertificacao.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewCertificacao\DefinirSenhaCertificado.xaml.cs">
+      <DependentUpon>DefinirSenhaCertificado.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSincronizacao\ConfigurarDadosConexao.xaml.cs">
+      <DependentUpon>ConfigurarDadosConexao.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSincronizacao\QRConexao.xaml.cs">
+      <DependentUpon>QRConexao.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSincronizacao\SincronizacaoCliente.xaml.cs">
+      <DependentUpon>SincronizacaoCliente.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSincronizacao\SincronizacaoServidor.xaml.cs">
+      <DependentUpon>SincronizacaoServidor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewRegistroVenda\DARV\DadosImpressaoDARV.cs" />
     <Compile Include="ViewRegistroVenda\DARV\Dimensoes.cs" />
     <Compile Include="ViewRegistroVenda\DARV\ExibicaoProduto.cs" />
     <Compile Include="ViewRegistroVenda\DARV\ProdutosDARV.cs" />
     <Compile Include="View\EtapaProcesso.cs" />
-    <Compile Include="View\MetodosObtencao.cs" />
-    <Compile Include="Certificacao\ConfiguracoesCertificadoImportado.xaml.cs">
-      <DependentUpon>ConfiguracoesCertificadoImportado.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Certificacao\ConfiguracoesServidorCertificacao.xaml.cs">
-      <DependentUpon>ConfiguracoesServidorCertificacao.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Certificacao\ISignature.cs" />
-    <Compile Include="Controles\VisualizacaoGenerica.xaml.cs">
-      <DependentUpon>VisualizacaoGenerica.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="DefinicoesPermanentes.cs" />
-    <Compile Include="View\DescricaoPropriedade.cs" />
-    <Compile Include="IBGE\Estado.cs" />
-    <Compile Include="IBGE\Estados.cs" />
-    <Compile Include="IBGE\Municipio.cs" />
-    <Compile Include="IBGE\Municipios.cs" />
-    <Compile Include="IBGE\XML.cs" />
-    <Compile Include="IEnderecoCompleto.cs" />
-    <Compile Include="ItensBD\AlteracaoEstoque.cs" />
-    <Compile Include="ItensBD\CancelamentoRegistroVenda.cs" />
-    <Compile Include="ItensBD\ClienteDI.cs" />
-    <Compile Include="ItensBD\Comprador.cs" />
-    <Compile Include="ItensBD\EmitenteDI.cs" />
-    <Compile Include="ItensBD\Estoque.cs" />
-    <Compile Include="ItensBD\Imagem.cs" />
-    <Compile Include="ItensBD\Inutilizacao.cs" />
-    <Compile Include="ItensBD\IUltimaData.cs" />
-    <Compile Include="ItensBD\MotoristaDI.cs" />
-    <Compile Include="ItensBD\NFeDI.cs" />
-    <Compile Include="ItensBD\ProdutoDI.cs" />
-    <Compile Include="ItensBD\ProdutoSimplesVenda.cs" />
-    <Compile Include="Migrations\20180104183502_Loja1.8.8.cs" />
-    <Compile Include="Migrations\20180104183502_Loja1.8.8.designer.cs">
-      <DependentUpon>20180104183502_Loja1.8.8.cs</DependentUpon>
-    </Compile>
     <Compile Include="Produto\ICMSArmazenado.cs" />
     <Compile Include="Produto\ImpostoArmazenado.cs" />
     <Compile Include="Produto\ImpSimplesArmazenado.cs" />
-    <Compile Include="ItensBD\RegistroCancelamento.cs" />
-    <Compile Include="ItensBD\RegistroVenda.cs" />
-    <Compile Include="ItensBD\StatusNFe.cs" />
-    <Compile Include="ItensBD\VeiculoDI.cs" />
-    <Compile Include="ItensBD\Vendedor.cs" />
-    <Compile Include="Migrations\20170603122440_Loja1.cs" />
-    <Compile Include="Migrations\20170603122440_Loja1.Designer.cs">
-      <DependentUpon>20170603122440_Loja1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20170617125032_CancelamentoAdicionado.cs" />
-    <Compile Include="Migrations\20170617125032_CancelamentoAdicionado.Designer.cs">
-      <DependentUpon>20170617125032_CancelamentoAdicionado.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20170617182941_RegistroCancelamentoAdicionado.cs" />
-    <Compile Include="Migrations\20170617182941_RegistroCancelamentoAdicionado.Designer.cs">
-      <DependentUpon>20170617182941_RegistroCancelamentoAdicionado.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20170705012424_Loja1.2.7.cs" />
-    <Compile Include="Migrations\20170705012424_Loja1.2.7.Designer.cs">
-      <DependentUpon>20170705012424_Loja1.2.7.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20170708170014_AdicionadoVendedores.cs" />
-    <Compile Include="Migrations\20170708170014_AdicionadoVendedores.Designer.cs">
-      <DependentUpon>20170708170014_AdicionadoVendedores.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20170813023052_Loja1.2.8.cs" />
-    <Compile Include="Migrations\20170813023052_Loja1.2.8.Designer.cs">
-      <DependentUpon>20170813023052_Loja1.2.8.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20170920141821_Loja1.3.3.cs" />
-    <Compile Include="Migrations\20170920141821_Loja1.3.3.Designer.cs">
-      <DependentUpon>20170920141821_Loja1.3.3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20171025211607_DataAlteracaoEstoque.cs" />
-    <Compile Include="Migrations\20171025211607_DataAlteracaoEstoque.Designer.cs">
-      <DependentUpon>20171025211607_DataAlteracaoEstoque.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20171202001612_Loja1.6.cs" />
-    <Compile Include="Migrations\20171202001612_Loja1.6.Designer.cs">
-      <DependentUpon>20171202001612_Loja1.6.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20171219130436_Loja1.7.9.cs" />
-    <Compile Include="Migrations\20171219130436_Loja1.7.9.Designer.cs">
-      <DependentUpon>20171219130436_Loja1.7.9.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20171226171240_Loja1.8.cs" />
-    <Compile Include="Migrations\20171226171240_Loja1.8.designer.cs">
-      <DependentUpon>20171226171240_Loja1.8.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20171230231542_Loja1.8.5.cs" />
-    <Compile Include="Migrations\20171230231542_Loja1.8.5.designer.cs">
-      <DependentUpon>20171230231542_Loja1.8.5.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\AplicativoContextModelSnapshot.cs" />
-    <Compile Include="Model.cs" />
-    <Compile Include="ModeloXML\InfoProtocolo.cs" />
-    <Compile Include="ModeloXML\NFe.cs" />
-    <Compile Include="ModeloXML\ChaveAcesso.cs" />
-    <Compile Include="ModeloXML\InformacoesNFe.cs" />
-    <Compile Include="ModeloXML\EnderecoCompleto.cs" />
-    <Compile Include="ModeloXML\PartesAssinatura\Algoritmo.cs" />
-    <Compile Include="ModeloXML\PartesAssinatura\Assinatura.cs" />
-    <Compile Include="ModeloXML\PartesAssinatura\DadosChave.cs" />
-    <Compile Include="ModeloXML\PartesAssinatura\DetalhesChave.cs" />
-    <Compile Include="ModeloXML\PartesAssinatura\Referencia.cs" />
-    <Compile Include="ModeloXML\PartesAssinatura\SignedInfo.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\Cobranca.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\Compra.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\Deducoes.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\Destinatario.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\DetalhesProdutos.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\Duplicata.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\Emitente.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\Exportacao.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\Fatura.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\FornecimentoDiario.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\Identificacao.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\InformacoesAdicionais.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\Observacao.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesIdentificacao\DocumentoFiscalReferenciado.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesIdentificacao\NF1AReferenciada.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesIdentificacao\NFProdutorRuralReferenciada.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\Imposto.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\impostoDevol.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\Impostos.cs" />
-    <Compile Include="ModeloXML\IProdutoEspecial.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\COFINS.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\COFINSAliq.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\COFINSNT.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\COFINSOutr.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\COFINSQtde.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\COFINSST.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\ComumCOFINS.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\ComumICMS.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\ComumIPI.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\ComumPIS.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\ICMS.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\ICMS00.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\ICMS10.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\ICMS20.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\ICMS30.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\ICMS40.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\ICMS41 .cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\ICMS50 .cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\ICMS51.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\ICMS60.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\ICMS70.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\ICMS90.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\ICMSPart.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\ICMSSN101.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\ICMSSN102.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\ICMSSN201.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\ICMSSN202.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\ICMSSN500.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\ICMSSN900.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\ICMSST.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\ICMSUFDest.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\II.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\IImpostosUnidos.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\IPI.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\IPINT.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\IPITrib.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\IRegimeNormal.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\ISimplesNacional.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\ISSQN.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\PIS.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\PISAliq.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\PISNT.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\PISOutr.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\PISQtde.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\PISST.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesProdutoOuServico\Arma.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesProdutoOuServico\CIDE.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesProdutoOuServico\Combustivel.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesProdutoOuServico\DeclaracaoImportacao.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesProdutoOuServico\DIAdicao.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesProdutoOuServico\ExportacaoIndireta.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesProdutoOuServico\GrupoExportacao.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesProdutoOuServico\Medicamento.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesProdutoOuServico\VeiculoNovo.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\ProdutoOuServico.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesTotal\ICMSTot.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesTotal\ISSQNtot.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesTotal\RetTrib.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesTransporte\ICMSTransporte.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesTransporte\Motorista.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesTransporte\Reboque.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesTransporte\Veiculo.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesTransporte\Volume.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\ProcessoReferenciado.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\RegistroAquisicaoCana.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\RetiradaOuEntrega.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\Total.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\Transporte.cs" />
-    <Compile Include="ModeloXML\ProtocoloNFe.cs" />
-    <Compile Include="ModeloXML\ProcessoNFe.cs" />
-    <Compile Include="ModeloXML\TiposDocumento.cs" />
     <Compile Include="ConjuntoBanco.cs" />
-    <Compile Include="Sincronizacao\Pacotes\ConjuntoDadosBase.cs" />
-    <Compile Include="Sincronizacao\Pacotes\ConjuntoNotasFiscais.cs" />
-    <Compile Include="Certificacao\LAN\Pacotes\CertificadoAssinaturaDTO.cs" />
-    <Compile Include="Certificacao\LAN\Pacotes\CertificadosExibicaoDTO.cs" />
-    <Compile Include="Certificacao\LAN\Pacotes\RequisicaoEnvioDTO.cs" />
-    <Compile Include="Certificacao\LAN\Primitivos\CertificadoAssinatura.cs" />
-    <Compile Include="Certificacao\LAN\Primitivos\CertificadoExibicao.cs" />
-    <Compile Include="View\PropriedadeExtensivel.cs" />
-    <Compile Include="Repositorio\Escrita.cs" />
-    <Compile Include="Repositorio\Leitura.cs" />
-    <Compile Include="Repositorio\OperacoesExtras.cs" />
     <Compile Include="Produto\GerenciamentoProdutos\CadastroICMS.xaml.cs">
       <DependentUpon>CadastroICMS.xaml</DependentUpon>
     </Compile>
@@ -463,12 +255,6 @@
       <DependentUpon>Progresso.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ConjuntoBasicoExibicao.cs" />
-    <Compile Include="Controles\ExibicaoImagem.xaml.cs">
-      <DependentUpon>ExibicaoImagem.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controles\MultView.xaml.cs">
-      <DependentUpon>MultView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\DetalhePagina.cs" />
     <Compile Include="ViewDadosBase\AdicionarComprador.xaml.cs">
       <DependentUpon>AdicionarComprador.xaml</DependentUpon>
@@ -642,7 +428,6 @@
       <DependentUpon>ViewDARV.xaml</DependentUpon>
     </Compile>
     <Compile Include="Produto\GerenciamentoProdutos\Ano.cs" />
-    <Compile Include="Controles\NumeroChangedEventArgs.cs" />
     <Compile Include="Login\EscolhaEmitente.xaml.cs">
       <DependentUpon>EscolhaEmitente.xaml</DependentUpon>
     </Compile>
@@ -737,39 +522,6 @@
     <Compile Include="Produto\GerenciamentoProdutos\AdicionarAlteracaoEstoque.xaml.cs">
       <DependentUpon>AdicionarAlteracaoEstoque.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Certificacao\LAN\ConectarServidor.xaml.cs">
-      <DependentUpon>ConectarServidor.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Certificacao\AssinaFacil.cs" />
-    <Compile Include="Certificacao\Certificados.cs" />
-    <Compile Include="Certificacao\CodigoNet\AttributeSortOrder.cs" />
-    <Compile Include="Certificacao\CodigoNet\C14NAncestralNamespaceContextManager.cs" />
-    <Compile Include="Certificacao\CodigoNet\CanonicalizationDispatcher.cs" />
-    <Compile Include="Certificacao\CodigoNet\CanonicalXml.cs" />
-    <Compile Include="Certificacao\CodigoNet\CanonicalXmlAttribute.cs" />
-    <Compile Include="Certificacao\CodigoNet\CanonicalXmlDocument.cs" />
-    <Compile Include="Certificacao\CodigoNet\CanonicalXmlElement.cs" />
-    <Compile Include="Certificacao\CodigoNet\CanonicalXmlNodeList.cs" />
-    <Compile Include="Certificacao\CodigoNet\CanonicalXmlText.cs" />
-    <Compile Include="Certificacao\CodigoNet\ICanonicalizableNode.cs" />
-    <Compile Include="Certificacao\CodigoNet\NamespaceFrame.cs" />
-    <Compile Include="Certificacao\CodigoNet\NamespaceSortOrder.cs" />
-    <Compile Include="Certificacao\CodigoNet\Reference.cs" />
-    <Compile Include="Certificacao\CodigoNet\Signature.cs" />
-    <Compile Include="Certificacao\CodigoNet\SignatureFormatter.cs" />
-    <Compile Include="Certificacao\CodigoNet\SignedXml.cs" />
-    <Compile Include="Certificacao\CodigoNet\Transform.cs" />
-    <Compile Include="Certificacao\CodigoNet\TransformChain.cs" />
-    <Compile Include="Certificacao\CodigoNet\Utils.cs" />
-    <Compile Include="Certificacao\CodigoNet\XmlDsigC14NTransform.cs" />
-    <Compile Include="Certificacao\CodigoNet\XmlDsigEnvelopedSignatureTransform.cs" />
-    <Compile Include="Certificacao\ConfiguracoesCertificacao.cs" />
-    <Compile Include="Certificacao\LAN\InformacoesConexao.cs" />
-    <Compile Include="Certificacao\LAN\OperacoesServidor.cs" />
-    <Compile Include="Certificacao\OrigemCertificado.cs" />
-    <Compile Include="Controles\Code128.xaml.cs">
-      <DependentUpon>Code128.xaml</DependentUpon>
-    </Compile>
     <Compile Include="GerenciadorImpressao.cs" />
     <Compile Include="Fiscal\ViewNFe\PacotesDANFE\DadosAdicionais.cs" />
     <Compile Include="Fiscal\ViewNFe\PacotesDANFE\DadosCabecalho.cs" />
@@ -785,21 +537,6 @@
     <Compile Include="Fiscal\ViewNFe\DadosDANFE.cs" />
     <Compile Include="ExtensoesPrincipal.cs" />
     <Compile Include="View\IHambuguer.cs" />
-    <Compile Include="Log\Popup.cs" />
-    <Compile Include="Log\Titulos.cs" />
-    <Compile Include="Log\TitulosComuns.cs" />
-    <Compile Include="DefinicoesTemporarias.cs" />
-    <Compile Include="Sincronizacao\ConfiguracoesSincronizacao.cs" />
-    <Compile Include="Sincronizacao\GerenciadorCliente.cs" />
-    <Compile Include="Sincronizacao\GerenciadorServidor.cs" />
-    <Compile Include="Sincronizacao\Pacotes\InfoEstabelecerConexao.cs" />
-    <Compile Include="Sincronizacao\Servidor\ControllerInformacoes.cs" />
-    <Compile Include="Sincronizacao\Servidor\ControllerSincronizacao.cs" />
-    <Compile Include="Sincronizacao\TipoAppSincronizacao.cs" />
-    <Compile Include="Validacao\AnalisadorNFe.cs" />
-    <Compile Include="Validacao\IValidavel.cs" />
-    <Compile Include="Validacao\ValidadorEndereco.cs" />
-    <Compile Include="Validacao\ValidarDados.cs" />
     <Compile Include="View\StringToDateTime.cs" />
     <Compile Include="Produto\Impostos\TiposCalculo.cs" />
     <Compile Include="Login\AdicionarEmitente.xaml.cs">
@@ -835,17 +572,11 @@
     <Compile Include="ViewDadosBase\AdicionarVeiculo.xaml.cs">
       <DependentUpon>AdicionarVeiculo.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Sincronizacao\ConfigurarDadosConexao.xaml.cs">
-      <DependentUpon>ConfigurarDadosConexao.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ViewRegistroVenda\AdicionarProduto.xaml.cs">
       <DependentUpon>AdicionarProduto.xaml</DependentUpon>
     </Compile>
     <Compile Include="Fiscal\ViewNFe\CancelarNFe.xaml.cs">
       <DependentUpon>CancelarNFe.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Certificacao\ConfiguracoesClienteServidor.xaml.cs">
-      <DependentUpon>ConfiguracoesClienteServidor.xaml</DependentUpon>
     </Compile>
     <Compile Include="ComprasInApp.cs" />
     <Compile Include="View\Configuracoes.xaml.cs">
@@ -856,18 +587,6 @@
     </Compile>
     <Compile Include="Produto\GerenciamentoProdutos\ControleEstoque.xaml.cs">
       <DependentUpon>ControleEstoque.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controles\EntradaNumerica.xaml.cs">
-      <DependentUpon>EntradaNumerica.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controles\EntradaRestrita.xaml.cs">
-      <DependentUpon>EntradaRestrita.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controles\ItemHambuguer.xaml.cs">
-      <DependentUpon>ItemHambuguer.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controles\ItemPadrao.xaml.cs">
-      <DependentUpon>ItemPadrao.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\IValida.cs" />
     <Compile Include="Fiscal\ViewNFe\ManipulacaoNotaFiscal.xaml.cs">
@@ -883,20 +602,11 @@
       <DependentUpon>NotasSalvas.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\DadosEstadosParaView.cs" />
-    <Compile Include="Controles\ItemPadraoSimples.xaml.cs">
-      <DependentUpon>ItemPadraoSimples.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Certificacao\DefinirSenhaCertificado.xaml.cs">
-      <DependentUpon>DefinirSenhaCertificado.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\DefinirImagem.xaml.cs">
       <DependentUpon>DefinirImagem.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewDadosBase\ImportacaoDados.xaml.cs">
       <DependentUpon>ImportacaoDados.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controles\CarregamentoCircular.xaml.cs">
-      <DependentUpon>CarregamentoCircular.xaml</DependentUpon>
     </Compile>
     <Compile Include="Fiscal\EscolhaProdutos.xaml.cs">
       <DependentUpon>EscolhaProdutos.xaml</DependentUpon>
@@ -928,9 +638,6 @@
     </Compile>
     <Compile Include="View\BibliotecaCores.cs" />
     <Compile Include="View\PainelAdaptavel.cs" />
-    <Compile Include="Sincronizacao\SincronizacaoCliente.xaml.cs">
-      <DependentUpon>SincronizacaoCliente.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Fiscal\ViewNFe\PaginasDANFE\IPagina.cs" />
     <Compile Include="Fiscal\ViewNFe\PaginasDANFE\MotivoCriacaoPaginaExtra.cs" />
     <Compile Include="Fiscal\ViewNFe\PaginasDANFE\PaginaExtra.xaml.cs">
@@ -970,14 +677,8 @@
     <Compile Include="Fiscal\ViewNFe\PartesDANFE\ItemProduto.xaml.cs">
       <DependentUpon>ItemProduto.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Sincronizacao\QRConexao.xaml.cs">
-      <DependentUpon>QRConexao.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ViewRegistroVenda\RegistrosVenda.xaml.cs">
       <DependentUpon>RegistrosVenda.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Sincronizacao\SincronizacaoServidor.xaml.cs">
-      <DependentUpon>SincronizacaoServidor.xaml</DependentUpon>
     </Compile>
     <Compile Include="Fiscal\VendasAnuais.xaml.cs">
       <DependentUpon>VendasAnuais.xaml</DependentUpon>
@@ -1032,8 +733,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Package.StoreAssociation.xml" />
-    <EmbeddedResource Include="IBGE\Estados.xml" />
-    <EmbeddedResource Include="IBGE\Municipios.xml" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
     <Content Include="Assets\Square150x150Logo.scale-200.png" />
@@ -1046,30 +745,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Certificacao\ConfiguracoesCertificadoImportado.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Certificacao\ConfiguracoesServidorCertificacao.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controles\DuplaView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controles\ExibicaoImagem.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controles\MultView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controles\VisualizacaoGenerica.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Fiscal\ViewNFCe\AddFormaPagamento.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1081,6 +756,26 @@
     <Page Include="Login\Loading.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewCertificacao\ConectarServidor.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ViewCertificacao\ConfiguracoesCertificadoImportado.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ViewCertificacao\ConfiguracoesClienteServidor.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ViewCertificacao\ConfiguracoesServidorCertificacao.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ViewCertificacao\DefinirSenhaCertificado.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="ViewDadosBase\AdicionarComprador.xaml">
       <SubType>Designer</SubType>
@@ -1258,6 +953,22 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ViewSincronizacao\ConfigurarDadosConexao.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ViewSincronizacao\QRConexao.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ViewSincronizacao\SincronizacaoCliente.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ViewSincronizacao\SincronizacaoServidor.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ViewRegistroVenda\ManipulacaoProdutosRV.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1402,14 +1113,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Certificacao\LAN\ConectarServidor.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controles\Code128.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Login\AdicionarEmitente.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1454,23 +1157,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Sincronizacao\ConfigurarDadosConexao.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="ViewRegistroVenda\AdicionarProduto.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Fiscal\ViewNFe\CancelarNFe.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controles\ItemPadraoSimples.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Certificacao\DefinirSenhaCertificado.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1486,35 +1177,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Certificacao\ConfiguracoesClienteServidor.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Fiscal\ViewNFe\Consulta.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Produto\GerenciamentoProdutos\ControleEstoque.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controles\CarregamentoCircular.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controles\EntradaNumerica.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controles\EntradaRestrita.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controles\ItemHambuguer.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controles\ItemPadrao.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1567,10 +1234,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Fiscal\NotasSalvas.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Sincronizacao\SincronizacaoCliente.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1627,15 +1290,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Sincronizacao\QRConexao.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="ViewRegistroVenda\RegistrosVenda.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Sincronizacao\SincronizacaoServidor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1671,6 +1326,10 @@
     </SDKReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Geral\BaseGeral.csproj">
+      <Project>{4e1d62ee-996d-46ba-803e-1f46fb59f88c}</Project>
+      <Name>BaseGeral</Name>
+    </ProjectReference>
     <ProjectReference Include="..\OptimizedZXing\OptimizedZXing.csproj">
       <Project>{831236cd-f989-48d9-987e-a8a6a2cf5f6e}</Project>
       <Name>OptimizedZXing</Name>

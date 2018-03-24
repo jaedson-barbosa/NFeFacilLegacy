@@ -31,7 +31,7 @@ namespace NFeFacil.Sincronizacao
             }
         }
 
-        internal async Task Sincronizar()
+        public async Task Sincronizar()
         {
             string mensagemErro = null;
 
@@ -77,7 +77,7 @@ namespace NFeFacil.Sincronizacao
             }
         }
 
-        internal async Task SincronizarTudo()
+        public async Task SincronizarTudo()
         {
             string mensagemErro = null;
 

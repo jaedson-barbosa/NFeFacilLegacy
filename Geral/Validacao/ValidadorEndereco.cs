@@ -1,6 +1,6 @@
 ﻿namespace NFeFacil.Validacao
 {
-    internal sealed class ValidadorEndereco : IValidavel
+    public sealed class ValidadorEndereco : IValidavel
     {
         private IEnderecoCompleto End;
 

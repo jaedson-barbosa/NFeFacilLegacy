@@ -170,4 +170,29 @@ namespace NFeFacil
         public static bool TryParse(string str, out double valor) => double.TryParse(str, NumberStyles.Number, defCult, out valor);
         public static double TryParse(string str) { TryParse(str, out double valor); return valor; }
     }
+
+    public class ErroDesserializacao : Exception
+    {
+        XNode XML { get; }
+        string StrXML { get; }
+
+        public ErroDesserializacao(string message, Exception innerException, XNode xml) : base(message, innerException) => XML = xml;
+        public ErroDesserializacao(string message, Exception innerException, string strXml) : base(message, innerException) => StrXML = strXml;
+
+        public async void ExportarXML()
+        {
+            var caixa = new FileSavePicker();
+            caixa.FileTypeChoices.Add("Arquivo XML", new string[] { ".xml" });
+            var arq = await caixa.PickSaveFileAsync();
+            if (arq != null)
+            {
+                var stream = await arq.OpenStreamForWriteAsync();
+                using (StreamWriter escritor = new StreamWriter(stream))
+                {
+                    await escritor.WriteAsync(StrXML ?? XML.ToString());
+                    await escritor.FlushAsync();
+                }
+            }
+        }
+    }
 }

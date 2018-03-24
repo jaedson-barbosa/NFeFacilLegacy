@@ -3,7 +3,7 @@ using NFeFacil.ItensBD;
 
 namespace NFeFacil
 {
-    internal class AplicativoContext : DbContext
+    public class AplicativoContext : DbContext
     {
         public DbSet<ClienteDI> Clientes { get; set; }
         public DbSet<EmitenteDI> Emitentes { get; set; }

@@ -11,7 +11,7 @@ namespace NFeFacil.Validacao
             itens = conjuntosItens;
         }
 
-        internal bool ValidarTudo(bool exibirMensagem, params (bool isErrado, string msg)[] itensExtras)
+        public bool ValidarTudo(bool exibirMensagem, params (bool isErrado, string msg)[] itensExtras)
         {
             for (int i = 0; i < itens.Length; i++)
             {

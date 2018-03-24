@@ -22,6 +22,7 @@ namespace NFeFacil.Produto.GerenciamentoProdutos
     public sealed partial class AdicionarProduto : Page
     {
         ProdutoDI Produto;
+        ProdutoDIExtended ExtendedProd;
         ObservableCollection<ImpSimplesArmazenado> ImpostosSimples { get; set; }
         ObservableCollection<ICMSArmazenado> ICMS { get; set; }
 
@@ -83,9 +84,10 @@ namespace NFeFacil.Produto.GerenciamentoProdutos
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             Produto = (ProdutoDI)e.Parameter;
-            ImpostosSimples = Produto.GetImpSimplesArmazenados()?.GerarObs()
+            ExtendedProd = Produto;
+            ImpostosSimples = ExtendedProd.GetImpSimplesArmazenados()?.GerarObs()
                 ?? new ObservableCollection<ImpSimplesArmazenado>();
-            ICMS = Produto.GetICMSArmazenados()?.GerarObs()
+            ICMS = ExtendedProd.GetICMSArmazenados()?.GerarObs()
                 ?? new ObservableCollection<ICMSArmazenado>();
         }
 
@@ -100,7 +102,7 @@ namespace NFeFacil.Produto.GerenciamentoProdutos
                 {
                     var simples = grdImpostosSimples.SelectedItems.Cast<ImpostoArmazenado>();
                     var icmss = grdICMSs.SelectedItems.Cast<ImpostoArmazenado>();
-                    Produto.SetImpostosPadrao(simples.Concat(icmss));
+                    ExtendedProd.SetImpostosPadrao(simples.Concat(icmss));
                     using (var repo = new Repositorio.Escrita())
                     {
                         repo.SalvarItemSimples(Produto, DefinicoesTemporarias.DateTimeNow);
@@ -122,14 +124,14 @@ namespace NFeFacil.Produto.GerenciamentoProdutos
         {
             var imp = (ImpSimplesArmazenado)((FrameworkElement)sender).DataContext;
             ImpostosSimples.Remove(imp);
-            Produto.RemoverImpostoSimples(imp);
+            ExtendedProd.RemoverImpostoSimples(imp);
         }
 
         void RemoverImpostoComplexo(object sender, RoutedEventArgs e)
         {
             var imp = (ICMSArmazenado)((FrameworkElement)sender).DataContext;
             ICMS.Remove(imp);
-            Produto.RemoverICMS(imp);
+            ExtendedProd.RemoverICMS(imp);
         }
 
         async void AdicionarPIS(object sender, RoutedEventArgs e)
@@ -137,7 +139,7 @@ namespace NFeFacil.Produto.GerenciamentoProdutos
             var imp = await AdicionarImpSimples<EscolherTipoPISouCOFINS>(PrincipaisImpostos.PIS);
             if (imp != null)
             {
-                Produto.AdicionarImpostoSimples(imp);
+                ExtendedProd.AdicionarImpostoSimples(imp);
                 ImpostosSimples.Add(imp);
             }
         }
@@ -147,7 +149,7 @@ namespace NFeFacil.Produto.GerenciamentoProdutos
             var imp = await AdicionarImpSimples<EscolherTipoPISouCOFINS>(PrincipaisImpostos.COFINS);
             if (imp != null)
             {
-                Produto.AdicionarImpostoSimples(imp);
+                ExtendedProd.AdicionarImpostoSimples(imp);
                 ImpostosSimples.Add(imp);
             }
         }
@@ -162,7 +164,7 @@ namespace NFeFacil.Produto.GerenciamentoProdutos
                 {
                     imp.IPI = caixa.Dados.ToXElement<ImpSimplesArmazenado.XMLIPIArmazenado>()
                         .ToString(SaveOptions.DisableFormatting);
-                    Produto.AdicionarImpostoSimples(imp);
+                    ExtendedProd.AdicionarImpostoSimples(imp);
                     ImpostosSimples.Add(imp);
                 }
             }
@@ -188,7 +190,7 @@ namespace NFeFacil.Produto.GerenciamentoProdutos
                         Tipo = PrincipaisImpostos.ICMS,
                         EdicaoAtivada = cadastro.EdicaoAtivada
                     };
-                    Produto.AdicionarICMS(imp);
+                    ExtendedProd.AdicionarICMS(imp);
                     ICMS.Add(imp);
 
                 }
@@ -222,7 +224,7 @@ namespace NFeFacil.Produto.GerenciamentoProdutos
         {
             if (grdImpostosSimples.Items?.Count > 0)
             {
-                var imps = Produto.GetImpostosPadrao();
+                var imps = ExtendedProd.GetImpostosPadrao();
                 if (imps != null)
                 {
                     for (int i = 0; i < grdImpostosSimples.Items.Count; i++)
@@ -239,7 +241,7 @@ namespace NFeFacil.Produto.GerenciamentoProdutos
         {
             if (grdICMSs.Items?.Count > 0)
             {
-                var imps = Produto.GetImpostosPadrao();
+                var imps = ExtendedProd.GetImpostosPadrao();
                 if (imps != null)
                 {
                     for (int i = 0; i < grdICMSs.Items.Count; i++)

@@ -11,7 +11,7 @@ namespace NFeFacil
         public static Vendedor VendedorAtivo { get; set; }
         public static ImageSource FotoVendedor { get; set; }
 
-        internal static DateTime DateTimeNow
+        public static DateTime DateTimeNow
         {
             get
             {
@@ -24,7 +24,7 @@ namespace NFeFacil
             }
         }
 
-        internal static DateTimeOffset DateTimeOffsetNow
+        public static DateTimeOffset DateTimeOffsetNow
         {
             get
             {

@@ -106,14 +106,56 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AddFormaPagamento.xaml.cs">
+      <DependentUpon>AddFormaPagamento.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Class1.cs" />
+    <Compile Include="ManipulacaoNFCe.xaml.cs">
+      <DependentUpon>ManipulacaoNFCe.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProdutoNFCe.xaml.cs">
+      <DependentUpon>ProdutoNFCe.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UrlsChaveAcesso.cs" />
+    <Compile Include="UrlsQR.cs" />
+    <Compile Include="ViewDANFE.xaml.cs">
+      <DependentUpon>ViewDANFE.xaml</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Properties\Consumidor.rd.xml" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.0.8</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Fiscal\Fiscal.csproj">
+      <Project>{55579de5-6baa-4eb4-bb85-43deaf18d2b7}</Project>
+      <Name>Fiscal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Produto\Produto.csproj">
+      <Project>{db69df46-0f24-47c4-9fe8-37d2d569e4e7}</Project>
+      <Name>Produto</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="AddFormaPagamento.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ManipulacaoNFCe.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ProdutoNFCe.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ViewDANFE.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

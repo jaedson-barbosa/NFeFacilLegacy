@@ -107,6 +107,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="GerenciadorImpressao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Venda.rd.xml" />
   </ItemGroup>

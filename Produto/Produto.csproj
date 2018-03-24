@@ -1,0 +1,551 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DB69DF46-0F24-47C4-9FE8-37D2D569E4E7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Produto</RootNamespace>
+    <AssemblyName>Produto</AssemblyName>
+    <DefaultLanguage>pt-BR</DefaultLanguage>
+    <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
+    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.16299.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.15063.0</TargetPlatformMinVersion>
+    <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
+    <PlatformTarget>ARM</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <PlatformTarget>ARM</PlatformTarget>
+    <OutputPath>bin\ARM\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="CaixasDialogoProduto\AddDeclaracaoExportacaoDireta.xaml.cs">
+      <DependentUpon>AddDeclaracaoExportacaoDireta.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CaixasDialogoProduto\AddDeclaracaoExportacaoIndireta.xaml.cs">
+      <DependentUpon>AddDeclaracaoExportacaoIndireta.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CaixasDialogoProduto\DeclaracaoImportacao.xaml.cs">
+      <DependentUpon>DeclaracaoImportacao.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CaixasDialogoProduto\EscolherTipoDeclaracaoExportacao.xaml.cs">
+      <DependentUpon>EscolherTipoDeclaracaoExportacao.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Class1.cs" />
+    <Compile Include="DadosAdicaoProduto.cs" />
+    <Compile Include="GerenciamentoProdutos\AdicionarAlteracaoEstoque.xaml.cs">
+      <DependentUpon>AdicionarAlteracaoEstoque.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GerenciamentoProdutos\AdicionarProduto.xaml.cs">
+      <DependentUpon>AdicionarProduto.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GerenciamentoProdutos\Ano.cs" />
+    <Compile Include="GerenciamentoProdutos\CadastroICMS.xaml.cs">
+      <DependentUpon>CadastroICMS.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GerenciamentoProdutos\CadastroImpSimples.xaml.cs">
+      <DependentUpon>CadastroImpSimples.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GerenciamentoProdutos\CadastroIPI.xaml.cs">
+      <DependentUpon>CadastroIPI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GerenciamentoProdutos\ControleEstoque.xaml.cs">
+      <DependentUpon>ControleEstoque.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GerenciamentoProdutos\GerenciarProdutos.xaml.cs">
+      <DependentUpon>GerenciarProdutos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ICMSArmazenado.cs" />
+    <Compile Include="ImpostoArmazenado.cs" />
+    <Compile Include="Impostos\AssociacoesSimples.cs" />
+    <Compile Include="Impostos\DadoPronto.cs" />
+    <Compile Include="Impostos\DefinirTotalImpostos.xaml.cs">
+      <DependentUpon>DefinirTotalImpostos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Impostos\DetalhamentoCOFINS\DadosAliq.cs" />
+    <Compile Include="Impostos\DetalhamentoCOFINS\DadosNT.cs" />
+    <Compile Include="Impostos\DetalhamentoCOFINS\DadosQtde.cs" />
+    <Compile Include="Impostos\DetalhamentoCOFINS\Detalhamento.cs" />
+    <Compile Include="Impostos\DetalhamentoCOFINS\DetalharAliquota.xaml.cs">
+      <DependentUpon>DetalharAliquota.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Impostos\DetalhamentoCOFINS\DetalharQtde.xaml.cs">
+      <DependentUpon>DetalharQtde.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Impostos\DetalhamentoCOFINS\IDadosCOFINS.cs" />
+    <Compile Include="Impostos\DetalhamentoCOFINS\Processamento.cs" />
+    <Compile Include="Impostos\DetalhamentoGeral.xaml.cs">
+      <DependentUpon>DetalhamentoGeral.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Impostos\DetalhamentoICMSUFDest\Detalhamento.cs" />
+    <Compile Include="Impostos\DetalhamentoICMSUFDest\Detalhar.xaml.cs">
+      <DependentUpon>Detalhar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Impostos\DetalhamentoICMSUFDest\IDadosICMSUFDest.cs" />
+    <Compile Include="Impostos\DetalhamentoICMSUFDest\Processamento.cs" />
+    <Compile Include="Impostos\DetalhamentoICMS\DadosRN\BaseRN.cs" />
+    <Compile Include="Impostos\DetalhamentoICMS\DadosRN\Tipo0.cs" />
+    <Compile Include="Impostos\DetalhamentoICMS\DadosRN\Tipo10.cs" />
+    <Compile Include="Impostos\DetalhamentoICMS\DadosRN\Tipo20.cs" />
+    <Compile Include="Impostos\DetalhamentoICMS\DadosRN\Tipo30.cs" />
+    <Compile Include="Impostos\DetalhamentoICMS\DadosRN\Tipo40_41_50.cs" />
+    <Compile Include="Impostos\DetalhamentoICMS\DadosRN\Tipo51.cs" />
+    <Compile Include="Impostos\DetalhamentoICMS\DadosRN\Tipo60.cs" />
+    <Compile Include="Impostos\DetalhamentoICMS\DadosRN\Tipo70.cs" />
+    <Compile Include="Impostos\DetalhamentoICMS\DadosRN\Tipo90.cs" />
+    <Compile Include="Impostos\DetalhamentoICMS\DadosRN\TipoICMSST.cs" />
+    <Compile Include="Impostos\DetalhamentoICMS\DadosRN\TipoPart.cs" />
+    <Compile Include="Impostos\DetalhamentoICMS\DadosSN\BaseSN.cs" />
+    <Compile Include="Impostos\DetalhamentoICMS\DadosSN\Tipo101.cs" />
+    <Compile Include="Impostos\DetalhamentoICMS\DadosSN\Tipo201.cs" />
+    <Compile Include="Impostos\DetalhamentoICMS\DadosSN\Tipo202.cs" />
+    <Compile Include="Impostos\DetalhamentoICMS\DadosSN\Tipo500.cs" />
+    <Compile Include="Impostos\DetalhamentoICMS\DadosSN\Tipo900.cs" />
+    <Compile Include="Impostos\DetalhamentoICMS\DadosSN\TipoNT.cs" />
+    <Compile Include="Impostos\DetalhamentoICMS\Detalhamento.cs" />
+    <Compile Include="Impostos\DetalhamentoICMS\IDadosICMS.cs" />
+    <Compile Include="Impostos\DetalhamentoICMS\Processamento.cs" />
+    <Compile Include="Impostos\DetalhamentoICMS\TelasRN\Tipo0.xaml.cs">
+      <DependentUpon>Tipo0.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Impostos\DetalhamentoICMS\TelasRN\Tipo10.xaml.cs">
+      <DependentUpon>Tipo10.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Impostos\DetalhamentoICMS\TelasRN\Tipo20.xaml.cs">
+      <DependentUpon>Tipo20.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Impostos\DetalhamentoICMS\TelasRN\Tipo30.xaml.cs">
+      <DependentUpon>Tipo30.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Impostos\DetalhamentoICMS\TelasRN\Tipo40_41_50.xaml.cs">
+      <DependentUpon>Tipo40_41_50.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Impostos\DetalhamentoICMS\TelasRN\Tipo51.xaml.cs">
+      <DependentUpon>Tipo51.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Impostos\DetalhamentoICMS\TelasRN\Tipo60.xaml.cs">
+      <DependentUpon>Tipo60.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Impostos\DetalhamentoICMS\TelasRN\Tipo70.xaml.cs">
+      <DependentUpon>Tipo70.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Impostos\DetalhamentoICMS\TelasRN\Tipo90.xaml.cs">
+      <DependentUpon>Tipo90.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Impostos\DetalhamentoICMS\TelasRN\TipoICMSST.xaml.cs">
+      <DependentUpon>TipoICMSST.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Impostos\DetalhamentoICMS\TelasRN\TipoPart.xaml.cs">
+      <DependentUpon>TipoPart.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Impostos\DetalhamentoICMS\TelasSN\Tipo101.xaml.cs">
+      <DependentUpon>Tipo101.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Impostos\DetalhamentoICMS\TelasSN\Tipo201.xaml.cs">
+      <DependentUpon>Tipo201.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Impostos\DetalhamentoICMS\TelasSN\Tipo202.xaml.cs">
+      <DependentUpon>Tipo202.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Impostos\DetalhamentoICMS\TelasSN\Tipo500.xaml.cs">
+      <DependentUpon>Tipo500.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Impostos\DetalhamentoICMS\TelasSN\Tipo900.xaml.cs">
+      <DependentUpon>Tipo900.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Impostos\DetalhamentoII\Detalhamento.cs" />
+    <Compile Include="Impostos\DetalhamentoII\Detalhar.xaml.cs">
+      <DependentUpon>Detalhar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Impostos\DetalhamentoII\IDadosII.cs" />
+    <Compile Include="Impostos\DetalhamentoII\Processamento.cs" />
+    <Compile Include="Impostos\DetalhamentoIPI\DadosIPI.cs" />
+    <Compile Include="Impostos\DetalhamentoIPI\DadosNT.cs" />
+    <Compile Include="Impostos\DetalhamentoIPI\DadosTrib.cs" />
+    <Compile Include="Impostos\DetalhamentoIPI\Detalhamento.cs" />
+    <Compile Include="Impostos\DetalhamentoIPI\DetalharAliquota.xaml.cs">
+      <DependentUpon>DetalharAliquota.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Impostos\DetalhamentoIPI\DetalharQtde.xaml.cs">
+      <DependentUpon>DetalharQtde.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Impostos\DetalhamentoIPI\DetalharSimples.xaml.cs">
+      <DependentUpon>DetalharSimples.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Impostos\DetalhamentoIPI\Processamento.cs" />
+    <Compile Include="Impostos\DetalhamentoISSQN\Detalhamento.cs" />
+    <Compile Include="Impostos\DetalhamentoISSQN\DetalharExterior.xaml.cs">
+      <DependentUpon>DetalharExterior.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Impostos\DetalhamentoISSQN\DetalharNacional.xaml.cs">
+      <DependentUpon>DetalharNacional.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Impostos\DetalhamentoISSQN\IDadosISSQN.cs" />
+    <Compile Include="Impostos\DetalhamentoISSQN\Processamento.cs" />
+    <Compile Include="Impostos\DetalhamentoPIS\DadosAliq.cs" />
+    <Compile Include="Impostos\DetalhamentoPIS\DadosNT.cs" />
+    <Compile Include="Impostos\DetalhamentoPIS\DadosQtde.cs" />
+    <Compile Include="Impostos\DetalhamentoPIS\Detalhamento.cs" />
+    <Compile Include="Impostos\DetalhamentoPIS\DetalharAliquota.xaml.cs">
+      <DependentUpon>DetalharAliquota.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Impostos\DetalhamentoPIS\DetalharQtde.xaml.cs">
+      <DependentUpon>DetalharQtde.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Impostos\DetalhamentoPIS\IDadosPIS.cs" />
+    <Compile Include="Impostos\DetalhamentoPIS\Processamento.cs" />
+    <Compile Include="Impostos\EscolhaImpostos.xaml.cs">
+      <DependentUpon>EscolhaImpostos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Impostos\EscolherTipoICMS.xaml.cs">
+      <DependentUpon>EscolherTipoICMS.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Impostos\EscolherTipoIPI.xaml.cs">
+      <DependentUpon>EscolherTipoIPI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Impostos\EscolherTipoPISouCOFINS.xaml.cs">
+      <DependentUpon>EscolherTipoPISouCOFINS.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Impostos\IDetalhamentoImposto.cs" />
+    <Compile Include="Impostos\IEscolherImpSimples.cs" />
+    <Compile Include="Impostos\ImpostoEscolhivel.cs" />
+    <Compile Include="Impostos\ImpostoPadrao.cs" />
+    <Compile Include="Impostos\PrincipaisImpostos.cs" />
+    <Compile Include="Impostos\ProcessamentoImposto.cs" />
+    <Compile Include="Impostos\RoteiroAdicaoImpostos.cs" />
+    <Compile Include="Impostos\TiposCalculo.cs" />
+    <Compile Include="ImpSimplesArmazenado.cs" />
+    <Compile Include="ProdutoEspecial\AdicionarArmamento.xaml.cs">
+      <DependentUpon>AdicionarArmamento.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProdutoEspecial\AdicionarMedicamento.xaml.cs">
+      <DependentUpon>AdicionarMedicamento.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProdutoEspecial\DefinirArmamentos.xaml.cs">
+      <DependentUpon>DefinirArmamentos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProdutoEspecial\DefinirCombustivel.xaml.cs">
+      <DependentUpon>DefinirCombustivel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProdutoEspecial\DefinirMedicamentos.xaml.cs">
+      <DependentUpon>DefinirMedicamentos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProdutoEspecial\DefinirPapel.xaml.cs">
+      <DependentUpon>DefinirPapel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProdutoEspecial\DefinirVeiculo.xaml.cs">
+      <DependentUpon>DefinirVeiculo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Properties\Produto.rd.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
+      <Version>6.0.8</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="CaixasDialogoProduto\AddDeclaracaoExportacaoDireta.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CaixasDialogoProduto\AddDeclaracaoExportacaoIndireta.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CaixasDialogoProduto\DeclaracaoImportacao.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CaixasDialogoProduto\EscolherTipoDeclaracaoExportacao.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GerenciamentoProdutos\AdicionarAlteracaoEstoque.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GerenciamentoProdutos\AdicionarProduto.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GerenciamentoProdutos\CadastroICMS.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GerenciamentoProdutos\CadastroImpSimples.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GerenciamentoProdutos\CadastroIPI.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GerenciamentoProdutos\ControleEstoque.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GerenciamentoProdutos\GerenciarProdutos.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Impostos\DefinirTotalImpostos.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Impostos\DetalhamentoCOFINS\DetalharAliquota.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Impostos\DetalhamentoCOFINS\DetalharQtde.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Impostos\DetalhamentoGeral.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Impostos\DetalhamentoICMSUFDest\Detalhar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Impostos\DetalhamentoICMS\TelasRN\Tipo0.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Impostos\DetalhamentoICMS\TelasRN\Tipo10.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Impostos\DetalhamentoICMS\TelasRN\Tipo20.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Impostos\DetalhamentoICMS\TelasRN\Tipo30.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Impostos\DetalhamentoICMS\TelasRN\Tipo40_41_50.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Impostos\DetalhamentoICMS\TelasRN\Tipo51.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Impostos\DetalhamentoICMS\TelasRN\Tipo60.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Impostos\DetalhamentoICMS\TelasRN\Tipo70.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Impostos\DetalhamentoICMS\TelasRN\Tipo90.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Impostos\DetalhamentoICMS\TelasRN\TipoICMSST.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Impostos\DetalhamentoICMS\TelasRN\TipoPart.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Impostos\DetalhamentoICMS\TelasSN\Tipo101.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Impostos\DetalhamentoICMS\TelasSN\Tipo201.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Impostos\DetalhamentoICMS\TelasSN\Tipo202.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Impostos\DetalhamentoICMS\TelasSN\Tipo500.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Impostos\DetalhamentoICMS\TelasSN\Tipo900.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Impostos\DetalhamentoII\Detalhar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Impostos\DetalhamentoIPI\DetalharAliquota.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Impostos\DetalhamentoIPI\DetalharQtde.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Impostos\DetalhamentoIPI\DetalharSimples.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Impostos\DetalhamentoISSQN\DetalharExterior.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Impostos\DetalhamentoISSQN\DetalharNacional.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Impostos\DetalhamentoPIS\DetalharAliquota.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Impostos\DetalhamentoPIS\DetalharQtde.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Impostos\EscolhaImpostos.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Impostos\EscolherTipoICMS.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Impostos\EscolherTipoIPI.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Impostos\EscolherTipoPISouCOFINS.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ProdutoEspecial\AdicionarArmamento.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ProdutoEspecial\AdicionarMedicamento.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ProdutoEspecial\DefinirArmamentos.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ProdutoEspecial\DefinirCombustivel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ProdutoEspecial\DefinirMedicamentos.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ProdutoEspecial\DefinirPapel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ProdutoEspecial\DefinirVeiculo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
+    <VisualStudioVersion>14.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

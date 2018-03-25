@@ -1,6 +1,6 @@
-﻿using NFeFacil.Fiscal;
+﻿using Fiscal;
 using BaseGeral.ItensBD;
-using NFeFacil.ViewRegistroVenda.DARV;
+using RegistroComum.DARV;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +10,11 @@ using Windows.UI.Xaml.Navigation;
 using BaseGeral;
 using BaseGeral.Log;
 using BaseGeral.View;
+using Comum;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace NFeFacil.ViewRegistroVenda
+namespace RegistroComum
 {
     [DetalhePagina(Symbol.View, "Registro de venda")]
     public sealed partial class VisualizacaoRegistroVenda : Page

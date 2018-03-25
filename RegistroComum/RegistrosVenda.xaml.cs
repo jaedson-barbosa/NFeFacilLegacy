@@ -9,7 +9,7 @@ using Windows.UI.Xaml.Controls;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace NFeFacil.ViewRegistroVenda
+namespace RegistroComum
 {
     [DetalhePagina(Symbol.Library, "Vendas")]
     public sealed partial class RegistrosVenda : Page, IHambuguer

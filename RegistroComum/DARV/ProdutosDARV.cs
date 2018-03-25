@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace NFeFacil.ViewRegistroVenda.DARV
+namespace RegistroComum.DARV
 {
     public sealed class ProdutosDARV
     {

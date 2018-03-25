@@ -11,7 +11,7 @@ using Windows.UI.Xaml.Navigation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace NFeFacil.ViewRegistroVenda
+namespace RegistroComum
 {
     [DetalhePagina("\uEC59", "Registro de venda")]
     public sealed partial class ManipulacaoProdutosRV : Page, IValida

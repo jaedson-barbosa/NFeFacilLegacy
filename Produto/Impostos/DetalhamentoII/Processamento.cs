@@ -2,7 +2,7 @@
 using BaseGeral.ModeloXML.PartesDetalhes;
 using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto;
 
-namespace NFeFacil.Produto.Impostos.DetalhamentoII
+namespace Produto.Impostos.DetalhamentoII
 {
     sealed class Processamento : ProcessamentoImposto
     {

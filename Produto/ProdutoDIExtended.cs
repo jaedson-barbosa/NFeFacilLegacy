@@ -1,5 +1,5 @@
-﻿using NFeFacil.Produto;
-using NFeFacil.Produto.Impostos;
+﻿using Produto;
+using Produto.Impostos;
 using System;
 using System.Collections.Generic;
 using System.Linq;

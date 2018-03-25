@@ -1,6 +1,6 @@
 ﻿using BaseGeral.ModeloXML.PartesDetalhes;
 
-namespace NFeFacil.Produto.Impostos.DetalhamentoICMS
+namespace Produto.Impostos.DetalhamentoICMS
 {
     interface IDadosICMS
     {

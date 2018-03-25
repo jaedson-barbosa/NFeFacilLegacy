@@ -4,7 +4,7 @@ using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto;
 using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos;
 using System.Xml.Linq;
 
-namespace NFeFacil.Produto.Impostos.DetalhamentoIPI
+namespace Produto.Impostos.DetalhamentoIPI
 {
     public sealed class Processamento : ProcessamentoImposto
     {

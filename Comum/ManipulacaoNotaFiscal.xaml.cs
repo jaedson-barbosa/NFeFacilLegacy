@@ -16,7 +16,7 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Comum.CaixasDialogo;
 using NFeFacil.View;
-using NFeFacil.Produto;
+using Produto;
 using BaseGeral;
 using BaseGeral.View;
 using Fiscal;

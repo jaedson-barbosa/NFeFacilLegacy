@@ -1,4 +1,4 @@
-﻿<Page x:Class="NFeFacil.Produto.Impostos.DetalhamentoICMS.TelasRN.Tipo20"
+﻿<Page x:Class="Produto.Impostos.DetalhamentoICMS.TelasRN.Tipo20"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:controles="using:BaseGeral.Controles"

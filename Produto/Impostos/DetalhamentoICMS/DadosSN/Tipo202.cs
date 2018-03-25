@@ -2,7 +2,7 @@
 using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos;
 using static BaseGeral.ExtensoesPrincipal;
 
-namespace NFeFacil.Produto.Impostos.DetalhamentoICMS.DadosSN
+namespace Produto.Impostos.DetalhamentoICMS.DadosSN
 {
     public class Tipo202 : BaseSN
     {

@@ -1,7 +1,7 @@
 ﻿using BaseGeral.ModeloXML.PartesDetalhes;
 using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos;
 
-namespace NFeFacil.Produto.Impostos.DetalhamentoICMS.DadosRN
+namespace Produto.Impostos.DetalhamentoICMS.DadosRN
 {
     public class Tipo90 : BaseRN
     {

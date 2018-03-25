@@ -5,7 +5,7 @@ using Windows.Graphics.Printing;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Printing;
 
-namespace NFeFacil
+namespace Venda
 {
     public sealed class GerenciadorImpressao : IDisposable
     {

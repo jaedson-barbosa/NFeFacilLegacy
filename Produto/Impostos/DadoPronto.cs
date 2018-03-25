@@ -1,4 +1,4 @@
-﻿namespace NFeFacil.Produto.Impostos
+﻿namespace Produto.Impostos
 {
     public struct DadoPronto : IDetalhamentoImposto
     {

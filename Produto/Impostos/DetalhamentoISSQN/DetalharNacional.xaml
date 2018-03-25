@@ -1,4 +1,4 @@
-﻿<Page x:Class="NFeFacil.Produto.Impostos.DetalhamentoISSQN.DetalharNacional"
+﻿<Page x:Class="Produto.Impostos.DetalhamentoISSQN.DetalharNacional"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:VM="using:BaseGeral.View"

@@ -12,7 +12,7 @@ using Windows.UI.Xaml.Navigation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace NFeFacil.Produto.Impostos
+namespace Produto.Impostos
 {
     [DetalhePagina("Detalhamento de impostos", SimboloSymbol = Symbol.List)]
     public sealed partial class DetalhamentoGeral : Page

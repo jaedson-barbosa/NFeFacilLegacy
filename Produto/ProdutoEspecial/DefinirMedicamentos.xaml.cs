@@ -11,7 +11,7 @@ using Windows.UI.Xaml.Navigation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace NFeFacil.Produto.ProdutoEspecial
+namespace Produto.ProdutoEspecial
 {
     [DetalhePagina("\uE95E", "Medicamentos")]
     public sealed partial class DefinirMedicamentos : Page

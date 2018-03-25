@@ -1,7 +1,7 @@
 ﻿using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto;
 using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos;
 
-namespace NFeFacil.Produto.Impostos.DetalhamentoIPI
+namespace Produto.Impostos.DetalhamentoIPI
 {
     class DadosNT : DadosIPI
     {

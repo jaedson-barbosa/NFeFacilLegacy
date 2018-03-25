@@ -1,9 +1,9 @@
-﻿using NFeFacil.Produto.Impostos;
+﻿using Produto.Impostos;
 using Windows.UI.Xaml.Controls;
 
 // O modelo de item de Caixa de Diálogo de Conteúdo está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace NFeFacil.Produto.GerenciamentoProdutos
+namespace Produto.GerenciamentoProdutos
 {
     public sealed partial class CadastroImpSimples : ContentDialog
     {

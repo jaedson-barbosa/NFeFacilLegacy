@@ -2,7 +2,7 @@
 using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos;
 using static BaseGeral.ExtensoesPrincipal;
 
-namespace NFeFacil.Produto.Impostos.DetalhamentoIPI
+namespace Produto.Impostos.DetalhamentoIPI
 {
     class DadosTrib : DadosIPI
     {

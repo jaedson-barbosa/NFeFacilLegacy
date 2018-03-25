@@ -4,7 +4,7 @@ using static BaseGeral.ExtensoesPrincipal;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace NFeFacil.Produto.Impostos.DetalhamentoPIS
+namespace Produto.Impostos.DetalhamentoPIS
 {
     sealed class DadosAliq : IDadosPIS
     {

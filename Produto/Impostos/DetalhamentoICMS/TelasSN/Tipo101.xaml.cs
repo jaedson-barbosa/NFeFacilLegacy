@@ -1,7 +1,7 @@
 ﻿using BaseGeral.View;
 using Windows.UI.Xaml.Controls;
 
-namespace NFeFacil.Produto.Impostos.DetalhamentoICMS.TelasSN
+namespace Produto.Impostos.DetalhamentoICMS.TelasSN
 {
     [DetalhePagina("ICMS")]
     public sealed partial class Tipo101 : Page

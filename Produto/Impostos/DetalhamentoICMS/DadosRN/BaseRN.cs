@@ -2,7 +2,7 @@
 using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos;
 using static BaseGeral.ExtensoesPrincipal;
 
-namespace NFeFacil.Produto.Impostos.DetalhamentoICMS.DadosRN
+namespace Produto.Impostos.DetalhamentoICMS.DadosRN
 {
     public abstract class BaseRN : IDadosICMS
     {

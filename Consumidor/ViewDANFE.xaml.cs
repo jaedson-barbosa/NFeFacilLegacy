@@ -9,6 +9,7 @@ using OptimizedZXing;
 using static BaseGeral.ExtensoesPrincipal;
 using BaseGeral.View;
 using NFeFacil;
+using Venda;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 

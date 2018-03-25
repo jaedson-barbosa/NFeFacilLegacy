@@ -3,7 +3,7 @@ using BaseGeral.IBGE;
 using BaseGeral.ItensBD;
 using BaseGeral.ModeloXML;
 using BaseGeral.ModeloXML.PartesDetalhes;
-using NFeFacil.Produto;
+using Produto;
 using BaseGeral.Validacao;
 using NFeFacil.View;
 using System;

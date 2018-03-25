@@ -1,8 +1,8 @@
-﻿using NFeFacil.Produto.Impostos.DetalhamentoICMS.DadosRN;
-using NFeFacil.Produto.Impostos.DetalhamentoICMS.DadosSN;
+﻿using Produto.Impostos.DetalhamentoICMS.DadosRN;
+using Produto.Impostos.DetalhamentoICMS.DadosSN;
 using System.Xml.Serialization;
 
-namespace NFeFacil.Produto
+namespace Produto
 {
     public sealed class ICMSArmazenado : ImpostoArmazenado
     {

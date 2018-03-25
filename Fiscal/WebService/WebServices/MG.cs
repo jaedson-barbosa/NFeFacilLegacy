@@ -1,4 +1,4 @@
-﻿namespace NFeFacil.WebService.WebServices
+﻿namespace Fiscal.WebService.WebServices
 {
     // Falta verificar os web services porque o site ainda está em construção
     internal struct MG : IWebService

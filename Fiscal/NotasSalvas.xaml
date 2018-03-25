@@ -1,4 +1,4 @@
-﻿<Page x:Class="NFeFacil.Fiscal.NotasSalvas"
+﻿<Page x:Class="Fiscal.NotasSalvas"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:local="using:BaseGeral.View"

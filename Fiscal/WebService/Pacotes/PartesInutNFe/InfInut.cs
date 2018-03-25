@@ -2,7 +2,7 @@
 using BaseGeral.IBGE;
 using System.Xml.Serialization;
 
-namespace NFeFacil.WebService.Pacotes.PartesInutNFe
+namespace Fiscal.WebService.Pacotes.PartesInutNFe
 {
     [XmlRoot("infInut", Namespace = "http://www.portalfiscal.inf.br/nfe")]
     public struct InfInut

@@ -1,7 +1,7 @@
-﻿using BaseGeral.Certificacao.LAN.Primitivos;
+﻿using Fiscal.Certificacao.LAN.Primitivos;
 using System.Collections.Generic;
 
-namespace BaseGeral.Certificacao.LAN.Pacotes
+namespace Fiscal.Certificacao.LAN.Pacotes
 {
     public struct CertificadosExibicaoDTO
     {

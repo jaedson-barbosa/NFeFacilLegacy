@@ -1,4 +1,4 @@
-﻿namespace NFeFacil.Fiscal.ViewNFe.PaginasDANFE
+﻿namespace Comum.PaginasDANFE
 {
     interface IPagina
     {

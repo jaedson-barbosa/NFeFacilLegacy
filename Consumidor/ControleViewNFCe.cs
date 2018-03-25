@@ -1,21 +1,20 @@
 ﻿using BaseGeral;
-using BaseGeral.Certificacao;
 using BaseGeral.ItensBD;
 using BaseGeral.ModeloXML;
 using BaseGeral.Validacao;
 using Fiscal;
-using NFeFacil.Fiscal;
 using NFeFacil.View;
-using NFeFacil.WebService;
-using NFeFacil.WebService.Pacotes;
-using NFeFacil.WebService.Pacotes.PartesEnvEvento;
+using Fiscal.WebService;
+using Fiscal.WebService.Pacotes;
+using Fiscal.WebService.Pacotes.PartesEnvEvento;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
-using static NFeFacil.Fiscal.NotasSalvas;
+using static Fiscal.NotasSalvas;
+using Fiscal.Certificacao;
 
 namespace Consumidor
 {

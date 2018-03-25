@@ -1,8 +1,8 @@
-﻿using NFeFacil.WebService.WebServices;
+﻿using Fiscal.WebService.WebServices;
 using System;
 using System.Linq;
 
-namespace NFeFacil.WebService
+namespace Fiscal.WebService
 {
     internal struct EnderecosConexao
     {

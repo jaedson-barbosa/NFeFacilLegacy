@@ -19,7 +19,7 @@ using BaseGeral;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace NFeFacil.Fiscal.ViewNFe
+namespace Comum
 {
     [DetalhePagina(Symbol.Shop, "Produto")]
     public sealed partial class ManipulacaoProdutoCompleto : Page, IHambuguer, IValida

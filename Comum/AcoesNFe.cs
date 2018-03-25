@@ -1,10 +1,9 @@
-﻿using NFeFacil.Fiscal.ViewNFe;
-using BaseGeral.ItensBD;
+﻿using BaseGeral.ItensBD;
 using BaseGeral.ModeloXML;
 using BaseGeral.Validacao;
 using NFeFacil.View;
-using NFeFacil.WebService;
-using NFeFacil.WebService.Pacotes;
+using Fiscal.WebService;
+using Fiscal.WebService.Pacotes;
 using System;
 using System.IO;
 using System.Linq;
@@ -13,8 +12,9 @@ using System.Xml.Linq;
 using Windows.Storage.Pickers;
 using Windows.UI.Popups;
 using BaseGeral;
+using Fiscal;
 
-namespace NFeFacil.Fiscal
+namespace Comum
 {
     public sealed class AcoesNFe : AcoesVisualizacao
     {
@@ -45,7 +45,7 @@ namespace NFeFacil.Fiscal
             var nfe = (NFe)ItemCompleto;
             try
             {
-                var assina = new BaseGeral.Certificacao.AssinaFacil()
+                var assina = new Fiscal.Certificacao.AssinaFacil()
                 {
                     Nota = nfe
                 };
@@ -61,7 +61,7 @@ namespace NFeFacil.Fiscal
                         OnStatusChanged(StatusNota.Assinada);
                     }
                     return result;
-                }, assina.CertificadosDisponiveis, "Subject", BaseGeral.Certificacao.AssinaFacil.Etapas);
+                }, assina.CertificadosDisponiveis, "Subject", Fiscal.Certificacao.AssinaFacil.Etapas);
                 assina.ProgressChanged += async (x, y) => await progresso.Update(y);
                 await progresso.ShowAsync();
             }

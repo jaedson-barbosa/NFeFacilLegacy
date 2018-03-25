@@ -1,4 +1,4 @@
-﻿namespace NFeFacil.WebService.WebServices
+﻿namespace Fiscal.WebService.WebServices
 {
     // Para NFCe é usada a SVRS
     internal struct SVAN : IWebService

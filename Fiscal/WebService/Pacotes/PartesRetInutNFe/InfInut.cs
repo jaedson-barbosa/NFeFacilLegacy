@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace NFeFacil.WebService.Pacotes.PartesRetInutNFe
+namespace Fiscal.WebService.Pacotes.PartesRetInutNFe
 {
     public struct InfInut
     {

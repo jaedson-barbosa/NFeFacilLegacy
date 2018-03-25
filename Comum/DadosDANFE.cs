@@ -1,4 +1,4 @@
-﻿using NFeFacil.Fiscal.ViewNFe.PacotesDANFE;
+﻿using Comum.PacotesDANFE;
 using BaseGeral.ModeloXML;
 using BaseGeral.ModeloXML.PartesDetalhes;
 using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos;
@@ -9,7 +9,7 @@ using static BaseGeral.ExtensoesPrincipal;
 using BaseGeral;
 using System.Reflection;
 
-namespace NFeFacil.Fiscal.ViewNFe
+namespace Comum
 {
     public struct DadosDANFE
     {

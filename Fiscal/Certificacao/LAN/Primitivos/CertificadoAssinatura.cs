@@ -1,6 +1,6 @@
 ﻿using System.Security.Cryptography;
 
-namespace BaseGeral.Certificacao.LAN.Primitivos
+namespace Fiscal.Certificacao.LAN.Primitivos
 {
     public struct CertificadoAssinatura
     {

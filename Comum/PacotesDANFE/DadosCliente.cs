@@ -1,6 +1,6 @@
 ﻿using BaseGeral.ModeloXML;
 
-namespace NFeFacil.Fiscal.ViewNFe.PacotesDANFE
+namespace Comum.PacotesDANFE
 {
     public sealed class DadosCliente
     {

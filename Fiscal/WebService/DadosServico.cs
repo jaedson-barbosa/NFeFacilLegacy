@@ -1,4 +1,4 @@
-﻿namespace NFeFacil.WebService
+﻿namespace Fiscal.WebService
 {
     public struct DadosServico
     {

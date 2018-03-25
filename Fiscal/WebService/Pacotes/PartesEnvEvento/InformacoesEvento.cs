@@ -2,7 +2,7 @@
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace NFeFacil.WebService.Pacotes.PartesEnvEvento
+namespace Fiscal.WebService.Pacotes.PartesEnvEvento
 {
     [XmlRoot("infEvento", Namespace = "http://www.portalfiscal.inf.br/nfe")]
     public struct InformacoesEvento

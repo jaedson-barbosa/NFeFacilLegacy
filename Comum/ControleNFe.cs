@@ -1,12 +1,12 @@
-﻿using NFeFacil.Fiscal.ViewNFe;
-using BaseGeral.IBGE;
+﻿using BaseGeral.IBGE;
 using BaseGeral.ModeloXML;
 using BaseGeral.ModeloXML.PartesDetalhes;
 using BaseGeral.ModeloXML.PartesDetalhes.PartesTransporte;
 using System.Collections.Generic;
 using BaseGeral;
+using Fiscal;
 
-namespace NFeFacil.Fiscal
+namespace Comum
 {
     public sealed class ControleNFe : IControleCriacao
     {

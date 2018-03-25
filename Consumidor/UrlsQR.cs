@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace NFeFacil.Fiscal.ViewNFCe
+namespace Consumidor
 {
     class UrlsQR
     {

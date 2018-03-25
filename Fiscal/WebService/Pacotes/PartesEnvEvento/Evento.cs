@@ -1,10 +1,10 @@
 ﻿using BaseGeral.ModeloXML.PartesAssinatura;
 using System.Xml;
 using System.Xml.Serialization;
-using BaseGeral.Certificacao;
+using Fiscal.Certificacao;
 using BaseGeral;
 
-namespace NFeFacil.WebService.Pacotes.PartesEnvEvento
+namespace Fiscal.WebService.Pacotes.PartesEnvEvento
 {
     [XmlRoot("evento", Namespace = "http://www.portalfiscal.inf.br/nfe")]
     public sealed class Evento : ISignature

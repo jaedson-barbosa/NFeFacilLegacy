@@ -1,16 +1,17 @@
-﻿using BaseGeral.Certificacao.LAN.Pacotes;
+﻿using Fiscal.Certificacao.LAN.Pacotes;
 using System;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using BaseGeral.IBGE;
-using BaseGeral.Certificacao.LAN;
+using Fiscal.Certificacao.LAN;
 using System.Net;
-using BaseGeral.Certificacao;
+using Fiscal.Certificacao;
 using BaseGeral;
+using BaseGeral.Certificacao;
 
-namespace NFeFacil.WebService
+namespace Fiscal.WebService
 {
     public sealed class GerenciadorGeral<Envio, Resposta>
     {

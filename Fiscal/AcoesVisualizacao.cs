@@ -4,7 +4,7 @@ using BaseGeral.ModeloXML;
 using System;
 using System.Threading.Tasks;
 
-namespace NFeFacil.Fiscal
+namespace Fiscal
 {
     public abstract class AcoesVisualizacao
     {

@@ -1,10 +1,11 @@
-﻿using BaseGeral.Certificacao.LAN.Primitivos;
+﻿using BaseGeral.Certificacao;
+using Fiscal.Certificacao.LAN.Primitivos;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
-namespace BaseGeral.Certificacao
+namespace Fiscal.Certificacao
 {
     public static class Certificados
     {

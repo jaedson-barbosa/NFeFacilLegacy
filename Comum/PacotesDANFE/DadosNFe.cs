@@ -1,7 +1,7 @@
 ﻿using BaseGeral.ModeloXML;
 using Windows.UI.Xaml.Media;
 
-namespace NFeFacil.Fiscal.ViewNFe.PacotesDANFE
+namespace Comum.PacotesDANFE
 {
     public sealed class DadosNFe
     {

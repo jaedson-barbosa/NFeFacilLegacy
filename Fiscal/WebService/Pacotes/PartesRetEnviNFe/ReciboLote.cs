@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace NFeFacil.WebService.Pacotes.PartesRetEnviNFe
+namespace Fiscal.WebService.Pacotes.PartesRetEnviNFe
 {
     public struct ReciboLote
     {

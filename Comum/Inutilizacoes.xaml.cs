@@ -2,21 +2,21 @@
 using NFeFacil.View;
 using System;
 using Windows.UI.Xaml;
-using NFeFacil.WebService.Pacotes;
-using NFeFacil.WebService.Pacotes.PartesInutNFe;
+using Fiscal.WebService.Pacotes;
+using Fiscal.WebService.Pacotes.PartesInutNFe;
 using Windows.UI.Xaml.Controls;
 using System.Xml.Linq;
 using Windows.UI.Xaml.Data;
 using System.Linq;
-using NFeFacil.WebService;
+using Fiscal.WebService;
 using System.Collections.ObjectModel;
 using Windows.UI.Xaml.Navigation;
 using BaseGeral;
-using BaseGeral.Certificacao;
+using Fiscal.Certificacao;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace NFeFacil.Fiscal.ViewNFe
+namespace Comum
 {
     /// <summary>
     /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.

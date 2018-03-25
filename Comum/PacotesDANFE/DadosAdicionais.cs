@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace NFeFacil.Fiscal.ViewNFe.PacotesDANFE
+namespace Comum.PacotesDANFE
 {
     public sealed class DadosAdicionais
     {

@@ -1,4 +1,4 @@
-﻿namespace NFeFacil.Fiscal
+﻿namespace Fiscal
 {
     public interface IControleCriacao
     {

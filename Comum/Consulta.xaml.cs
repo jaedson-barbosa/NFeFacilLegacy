@@ -4,8 +4,8 @@ using BaseGeral.ItensBD;
 using BaseGeral.ModeloXML;
 using BaseGeral.View;
 using NFeFacil.View;
-using NFeFacil.WebService;
-using NFeFacil.WebService.Pacotes;
+using Fiscal.WebService;
+using Fiscal.WebService.Pacotes;
 using System;
 using System.Xml.Linq;
 using Windows.UI.Xaml;
@@ -14,7 +14,7 @@ using Windows.UI.Xaml.Navigation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace NFeFacil.Fiscal.ViewNFe
+namespace Comum
 {
     [DetalhePagina(Symbol.Find, "Consulta")]
     public sealed partial class Consulta : Page

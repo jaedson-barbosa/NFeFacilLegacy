@@ -1,4 +1,4 @@
-﻿<ContentDialog x:Class="NFeFacil.Fiscal.ViewNFe.CaixasDialogo.AdicionarFornecimentoDiario"
+﻿<ContentDialog x:Class="Comum.CaixasDialogo.AdicionarFornecimentoDiario"
                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                xmlns:controles="using:BaseGeral.Controles"

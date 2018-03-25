@@ -1,6 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using BaseGeral.Certificacao;
+using System.Threading.Tasks;
 
-namespace BaseGeral.Certificacao.LAN
+namespace Fiscal.Certificacao.LAN
 {
     public static class InformacoesConexao
     {

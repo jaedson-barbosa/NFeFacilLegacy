@@ -1,6 +1,6 @@
 ﻿using System.Xml.Linq;
 
-namespace BaseGeral.Certificacao.LAN.Pacotes
+namespace Fiscal.Certificacao.LAN.Pacotes
 {
     public struct RequisicaoEnvioDTO
     {

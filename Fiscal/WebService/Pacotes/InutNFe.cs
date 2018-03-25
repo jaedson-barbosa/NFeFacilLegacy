@@ -1,11 +1,11 @@
 ﻿using BaseGeral;
-using BaseGeral.Certificacao;
+using Fiscal.Certificacao;
 using BaseGeral.ModeloXML.PartesAssinatura;
-using NFeFacil.WebService.Pacotes.PartesInutNFe;
+using Fiscal.WebService.Pacotes.PartesInutNFe;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace NFeFacil.WebService.Pacotes
+namespace Fiscal.WebService.Pacotes
 {
     [XmlRoot("inutNFe", Namespace = "http://www.portalfiscal.inf.br/nfe")]
     public sealed class InutNFe : ISignature

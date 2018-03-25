@@ -6,8 +6,8 @@ using Windows.UI.Xaml.Controls;
 using BaseGeral.Controles;
 using System.Xml.Serialization;
 using NFeFacil.View;
-using NFeFacil.WebService.Pacotes.PartesEnvEvento;
-using NFeFacil.WebService.Pacotes.PartesRetEnvEvento;
+using Fiscal.WebService.Pacotes.PartesEnvEvento;
+using Fiscal.WebService.Pacotes.PartesRetEnvEvento;
 using Windows.UI.Xaml.Navigation;
 using BaseGeral;
 using BaseGeral.View;
@@ -15,7 +15,7 @@ using Fiscal;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace NFeFacil.Fiscal
+namespace Fiscal
 {
     [DetalhePagina(Symbol.Library, "Notas salvas")]
     public sealed partial class NotasSalvas : Page, IHambuguer

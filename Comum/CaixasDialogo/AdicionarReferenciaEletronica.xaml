@@ -1,4 +1,4 @@
-﻿<ContentDialog x:Class="NFeFacil.Fiscal.ViewNFe.CaixasDialogo.AdicionarReferenciaEletronica"
+﻿<ContentDialog x:Class="Comum.CaixasDialogo.AdicionarReferenciaEletronica"
                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                xmlns:controles="using:BaseGeral.Controles"

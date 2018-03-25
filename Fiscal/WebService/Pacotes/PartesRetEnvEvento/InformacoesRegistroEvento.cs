@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace NFeFacil.WebService.Pacotes.PartesRetEnvEvento
+namespace Fiscal.WebService.Pacotes.PartesRetEnvEvento
 {
     public struct InformacoesRegistroEvento
     {

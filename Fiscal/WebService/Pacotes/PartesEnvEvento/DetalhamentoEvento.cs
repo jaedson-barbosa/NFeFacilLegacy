@@ -1,7 +1,7 @@
 ﻿using System.Xml;
 using System.Xml.Serialization;
 
-namespace NFeFacil.WebService.Pacotes.PartesEnvEvento
+namespace Fiscal.WebService.Pacotes.PartesEnvEvento
 {
     public struct DetalhamentoEvento
     {

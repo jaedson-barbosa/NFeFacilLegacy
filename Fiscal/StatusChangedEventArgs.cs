@@ -1,7 +1,7 @@
 ﻿using BaseGeral.ItensBD;
 using System;
 
-namespace NFeFacil.Fiscal
+namespace Fiscal
 {
     public sealed class StatusChangedEventArgs : EventArgs
     {

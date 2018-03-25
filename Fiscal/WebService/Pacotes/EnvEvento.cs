@@ -1,10 +1,10 @@
-﻿using BaseGeral.Certificacao;
-using NFeFacil.WebService.Pacotes.PartesEnvEvento;
+﻿using Fiscal.Certificacao;
+using Fiscal.WebService.Pacotes.PartesEnvEvento;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace NFeFacil.WebService.Pacotes
+namespace Fiscal.WebService.Pacotes
 {
     [XmlRoot("envEvento", Namespace = "http://www.portalfiscal.inf.br/nfe")]
     public sealed class EnvEvento

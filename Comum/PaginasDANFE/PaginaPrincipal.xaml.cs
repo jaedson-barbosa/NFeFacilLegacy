@@ -1,5 +1,5 @@
 ﻿using BaseGeral;
-using NFeFacil.Fiscal.ViewNFe.PacotesDANFE;
+using Comum.PacotesDANFE;
 using System;
 using System.Linq;
 using Windows.UI.Xaml;
@@ -7,7 +7,7 @@ using Windows.UI.Xaml.Controls;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace NFeFacil.Fiscal.ViewNFe.PaginasDANFE
+namespace Comum.PaginasDANFE
 {
     public sealed partial class PaginaPrincipal : UserControl, IPagina
     {

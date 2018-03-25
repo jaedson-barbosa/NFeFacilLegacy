@@ -14,15 +14,16 @@ using BaseGeral.IBGE;
 using BaseGeral.Validacao;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
-using NFeFacil.Fiscal.ViewNFe.CaixasDialogo;
+using Comum.CaixasDialogo;
 using NFeFacil.View;
 using NFeFacil.Produto;
 using BaseGeral;
 using BaseGeral.View;
+using Fiscal;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace NFeFacil.Fiscal.ViewNFe
+namespace Comum
 {
     [DetalhePagina(Symbol.Document, "Nota fiscal")]
     public sealed partial class ManipulacaoNotaFiscal : Page, IHambuguer, IValida

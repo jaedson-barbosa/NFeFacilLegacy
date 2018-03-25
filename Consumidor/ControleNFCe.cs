@@ -1,12 +1,13 @@
-﻿using NFeFacil.Fiscal.ViewNFCe;
+﻿using Consumidor;
 using BaseGeral.IBGE;
 using BaseGeral.ModeloXML;
 using BaseGeral.ModeloXML.PartesDetalhes;
 using BaseGeral.ModeloXML.PartesDetalhes.PartesTransporte;
 using System.Collections.Generic;
 using BaseGeral;
+using Fiscal;
 
-namespace NFeFacil.Fiscal
+namespace Consumidor
 {
     sealed class ControleNFCe : IControleCriacao
     {

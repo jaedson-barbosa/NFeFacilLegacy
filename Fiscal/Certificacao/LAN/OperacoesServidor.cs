@@ -1,5 +1,5 @@
-﻿using BaseGeral.Certificacao.LAN.Pacotes;
-using BaseGeral.Certificacao.LAN.Primitivos;
+﻿using Fiscal.Certificacao.LAN.Pacotes;
+using Fiscal.Certificacao.LAN.Primitivos;
 using BaseGeral.ModeloXML.PartesAssinatura;
 using System;
 using System.Collections.Generic;
@@ -7,8 +7,10 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using BaseGeral.Certificacao;
+using BaseGeral;
 
-namespace BaseGeral.Certificacao.LAN
+namespace Fiscal.Certificacao.LAN
 {
     public struct OperacoesServidor
     {

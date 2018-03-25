@@ -4,7 +4,7 @@ using static BaseGeral.ExtensoesPrincipal;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace NFeFacil.Fiscal.ViewNFe.PartesDANFE
+namespace Comum.PartesDANFE
 {
     public sealed partial class DadosNFe : UserControl
     {

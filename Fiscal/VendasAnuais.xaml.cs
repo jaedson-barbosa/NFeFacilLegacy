@@ -17,7 +17,7 @@ using BaseGeral.View;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace NFeFacil.Fiscal
+namespace Fiscal
 {
     [DetalhePagina(Symbol.Calendar, "Vendas")]
     public sealed partial class VendasAnuais : Page

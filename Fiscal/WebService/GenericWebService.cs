@@ -1,4 +1,4 @@
-﻿namespace NFeFacil.WebService
+﻿namespace Fiscal.WebService
 {
     sealed class GenericWebService : IWebService
     {

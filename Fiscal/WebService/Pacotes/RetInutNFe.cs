@@ -1,7 +1,7 @@
 ﻿using BaseGeral.ModeloXML.PartesAssinatura;
 using System.Xml.Serialization;
 
-namespace NFeFacil.WebService.Pacotes
+namespace Fiscal.WebService.Pacotes
 {
     [XmlRoot("retInutNFe", Namespace = "http://www.portalfiscal.inf.br/nfe")]
     public struct RetInutNFe

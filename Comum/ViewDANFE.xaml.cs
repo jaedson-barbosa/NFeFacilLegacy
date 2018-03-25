@@ -1,14 +1,15 @@
 ﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using NFeFacil.Fiscal.ViewNFe.PaginasDANFE;
+using Comum.PaginasDANFE;
 using BaseGeral.ModeloXML;
 using static BaseGeral.ExtensoesPrincipal;
 using BaseGeral.View;
+using NFeFacil;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace NFeFacil.Fiscal.ViewNFe
+namespace Comum
 {
     [DetalhePagina(Symbol.View, "DANFE")]
     public sealed partial class ViewDANFE : Page

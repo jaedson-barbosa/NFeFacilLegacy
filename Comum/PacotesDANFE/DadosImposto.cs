@@ -1,4 +1,4 @@
-﻿namespace NFeFacil.Fiscal.ViewNFe.PacotesDANFE
+﻿namespace Comum.PacotesDANFE
 {
     public sealed class DadosImposto
     {

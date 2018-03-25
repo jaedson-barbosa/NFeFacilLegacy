@@ -1,7 +1,7 @@
-﻿using NFeFacil.WebService.Pacotes.PartesRetEnvEvento;
+﻿using Fiscal.WebService.Pacotes.PartesRetEnvEvento;
 using System.Xml.Serialization;
 
-namespace NFeFacil.WebService.Pacotes
+namespace Fiscal.WebService.Pacotes
 {
     [XmlRoot("retEnvEvento", Namespace = "http://www.portalfiscal.inf.br/nfe")]
     public struct RetEnvEvento

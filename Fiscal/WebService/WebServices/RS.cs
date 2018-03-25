@@ -1,4 +1,4 @@
-﻿namespace NFeFacil.WebService.WebServices
+﻿namespace Fiscal.WebService.WebServices
 {
     internal struct RS : IWebService, IWebServiceProducaoNFCe, IWebServiceHomologacaoNFCe
     {

@@ -1,7 +1,7 @@
 ﻿using BaseGeral.ModeloXML;
 using System.Xml.Serialization;
 
-namespace NFeFacil.WebService.Pacotes
+namespace Fiscal.WebService.Pacotes
 {
     [XmlRoot("retConsReciNFe", Namespace = "http://www.portalfiscal.inf.br/nfe")]
     public struct RetConsReciNFe

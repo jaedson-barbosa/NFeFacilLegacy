@@ -1,4 +1,4 @@
-﻿using NFeFacil.Fiscal.ViewNFe.PacotesDANFE;
+﻿using Comum.PacotesDANFE;
 using System.Collections.Generic;
 using System.Linq;
 using Windows.UI.Xaml;
@@ -7,7 +7,7 @@ using static BaseGeral.ExtensoesPrincipal;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace NFeFacil.Fiscal.ViewNFe.PaginasDANFE
+namespace Comum.PaginasDANFE
 {
     /// <summary>
     /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.

@@ -1,7 +1,7 @@
-﻿using NFeFacil.WebService.Pacotes.PartesRetEnviNFe;
+﻿using Fiscal.WebService.Pacotes.PartesRetEnviNFe;
 using System.Xml.Serialization;
 
-namespace NFeFacil.WebService.Pacotes
+namespace Fiscal.WebService.Pacotes
 {
     [XmlRoot("retEnviNFe", Namespace = "http://www.portalfiscal.inf.br/nfe")]
     public sealed class RetEnviNFe

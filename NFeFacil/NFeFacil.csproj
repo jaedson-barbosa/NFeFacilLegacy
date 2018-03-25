@@ -281,6 +281,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Package.StoreAssociation.xml" />
+    <None Include="Package.xml" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
     <Content Include="Assets\Square150x150Logo.scale-200.png" />

@@ -1,5 +1,6 @@
 ﻿using BaseGeral;
 using BaseGeral.Log;
+using BaseGeral.View;
 using NFeFacil.Sincronizacao;
 using System;
 using System.IO;
@@ -13,7 +14,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NFeFacil.Login
 {
-    [View.DetalhePagina(Symbol.Emoji, "Bem-vindo")]
+    [DetalhePagina(Symbol.Emoji, "Bem-vindo")]
     public sealed partial class PrimeiroUso : Page
     {
         public PrimeiroUso()

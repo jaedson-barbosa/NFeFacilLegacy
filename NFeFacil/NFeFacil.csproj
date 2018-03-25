@@ -457,6 +457,18 @@
     </SDKReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Comum\Comum.csproj">
+      <Project>{b3ffe2b7-6a00-4424-8a72-60a36beb6679}</Project>
+      <Name>Comum</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Consumidor\Consumidor.csproj">
+      <Project>{7aeae836-6dd6-4f1a-a204-0daf70e3e92b}</Project>
+      <Name>Consumidor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fiscal\Fiscal.csproj">
+      <Project>{55579de5-6baa-4eb4-bb85-43deaf18d2b7}</Project>
+      <Name>Fiscal</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Geral\BaseGeral.csproj">
       <Project>{4e1d62ee-996d-46ba-803e-1f46fb59f88c}</Project>
       <Name>BaseGeral</Name>
@@ -464,6 +476,14 @@
     <ProjectReference Include="..\OptimizedZXing\OptimizedZXing.csproj">
       <Project>{831236cd-f989-48d9-987e-a8a6a2cf5f6e}</Project>
       <Name>OptimizedZXing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Produto\Produto.csproj">
+      <Project>{db69df46-0f24-47c4-9fe8-37d2d569e4e7}</Project>
+      <Name>Produto</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RegistroComum\RegistroComum.csproj">
+      <Project>{edf47cbb-18ad-483a-83f8-4513f5c7981d}</Project>
+      <Name>RegistroComum</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

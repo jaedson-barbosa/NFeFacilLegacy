@@ -1,5 +1,4 @@
-﻿using BaseGeral.Certificacao.LAN.Primitivos;
-using BaseGeral.Certificacao;
+﻿using BaseGeral.Certificacao;
 using System;
 using System.Collections.ObjectModel;
 using System.Security.Cryptography.X509Certificates;
@@ -9,12 +8,15 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using BaseGeral;
+using BaseGeral.View;
+using Fiscal.Certificacao.LAN.Primitivos;
+using Fiscal.Certificacao;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace NFeFacil.Certificacao
 {
-    [View.DetalhePagina(Symbol.Permissions, "Certificação")]
+    [DetalhePagina(Symbol.Permissions, "Certificação")]
     public sealed partial class ConfiguracoesCertificadoImportado : Page
     {
         ObservableCollection<CertificadoExibicao> ListaCertificados { get; set; }

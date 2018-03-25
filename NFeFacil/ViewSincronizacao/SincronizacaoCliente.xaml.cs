@@ -8,12 +8,13 @@ using OptimizedZXing;
 using static BaseGeral.Sincronizacao.ConfiguracoesSincronizacao;
 using BaseGeral.Sincronizacao;
 using BaseGeral;
+using BaseGeral.View;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace NFeFacil.Sincronizacao
 {
-    [View.DetalhePagina("\uE975", "Sincronização")]
+    [DetalhePagina("\uE975", "Sincronização")]
     public sealed partial class SincronizacaoCliente : Page
     {
         public SincronizacaoCliente()

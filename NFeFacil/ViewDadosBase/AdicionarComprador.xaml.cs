@@ -1,6 +1,7 @@
 ﻿using BaseGeral;
 using BaseGeral.ItensBD;
 using BaseGeral.Validacao;
+using BaseGeral.View;
 using System;
 using System.Collections.ObjectModel;
 using Windows.UI.Xaml;
@@ -11,7 +12,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NFeFacil.ViewDadosBase
 {
-    [View.DetalhePagina(Symbol.People, "Comprador")]
+    [DetalhePagina(Symbol.People, "Comprador")]
     public sealed partial class AdicionarComprador : Page
     {
         Comprador Comprador;

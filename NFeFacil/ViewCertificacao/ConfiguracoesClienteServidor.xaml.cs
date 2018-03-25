@@ -1,4 +1,6 @@
 ﻿using BaseGeral.Certificacao.LAN;
+using BaseGeral.View;
+using Fiscal.Certificacao.LAN;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 
@@ -6,7 +8,7 @@ using Windows.UI.Xaml.Input;
 
 namespace NFeFacil.Certificacao
 {
-    [View.DetalhePagina(Symbol.Permissions, "Certificação")]
+    [DetalhePagina(Symbol.Permissions, "Certificação")]
     public sealed partial class ConfiguracoesClienteServidor : Page
     {
         public ConfiguracoesClienteServidor()

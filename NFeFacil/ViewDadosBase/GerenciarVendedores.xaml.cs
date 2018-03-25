@@ -1,5 +1,6 @@
 ﻿using BaseGeral;
 using BaseGeral.ItensBD;
+using BaseGeral.View;
 using NFeFacil.View;
 using System;
 using System.Collections.ObjectModel;

@@ -10,12 +10,13 @@ using Windows.UI.Xaml.Navigation;
 using OptimizedZXing;
 using BaseGeral.Sincronizacao;
 using BaseGeral;
+using BaseGeral.View;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace NFeFacil.Sincronizacao
 {
-    [View.DetalhePagina(Symbol.View, "QR")]
+    [DetalhePagina(Symbol.View, "QR")]
     public sealed partial class QRConexao : Page
     {
         readonly InfoEstabelecerConexao Informacoes;

@@ -1,4 +1,5 @@
 ﻿using BaseGeral.Log;
+using BaseGeral.View;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 

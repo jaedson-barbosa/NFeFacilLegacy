@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace BaseGeral
@@ -15,12 +11,20 @@ namespace BaseGeral
 
         public void Retornar()
         {
-
+            var rootFrame = Window.Current.Content as IMainPage;
+            rootFrame.Retornar();
         }
 
         public void Navegar<T>(object parametro = null) where T : Page
         {
-
+            var rootFrame = Window.Current.Content as IMainPage;
+            rootFrame.Navegar<T>(parametro);
         }
+    }
+
+    public interface IMainPage
+    {
+        void Retornar();
+        void Navegar<T>(object parametro = null) where T : Page;
     }
 }

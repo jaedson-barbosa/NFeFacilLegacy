@@ -17,7 +17,7 @@ namespace NFeFacil
     /// <summary>
     /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
     /// </summary>
-    public sealed partial class MainPage : Page
+    public sealed partial class MainPage : Page, IMainPage
     {
         internal static MainPage Current { get; private set; }
 

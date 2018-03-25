@@ -18,7 +18,7 @@ namespace NFeFacil.View
         public bool EmAndamento => Atual == Status.EmAndamento;
         public string Descricao { get; set; }
 
-        internal Status Atual { get; set; }
+        public Status Atual { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void Update()

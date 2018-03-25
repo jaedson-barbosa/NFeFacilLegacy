@@ -1,5 +1,6 @@
 ﻿using BaseGeral;
 using BaseGeral.ItensBD;
+using BaseGeral.View;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Windows.UI.Xaml;
@@ -9,7 +10,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil.ViewDadosBase
 {
-    [View.DetalhePagina(Symbol.Manage, "Gerenciar motoristas")]
+    [DetalhePagina(Symbol.Manage, "Gerenciar motoristas")]
     public sealed partial class GerenciarMotoristas : Page
     {
         MotoristaDI[] TodosMotoristas { get; }

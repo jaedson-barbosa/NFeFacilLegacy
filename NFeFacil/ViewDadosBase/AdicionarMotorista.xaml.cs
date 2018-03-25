@@ -9,12 +9,13 @@ using BaseGeral.IBGE;
 using BaseGeral.ModeloXML;
 using System.Linq;
 using BaseGeral;
+using BaseGeral.View;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace NFeFacil.ViewDadosBase
 {
-    [View.DetalhePagina("\uE806", "Motorista")]
+    [DetalhePagina("\uE806", "Motorista")]
     public sealed partial class AdicionarMotorista : Page
     {
         MotoristaDI Motorista { get; set; }

@@ -1,6 +1,7 @@
 ﻿using BaseGeral;
 using BaseGeral.Log;
 using BaseGeral.Sincronizacao;
+using BaseGeral.View;
 using System;
 using System.Runtime.InteropServices;
 using Windows.UI.Xaml;
@@ -11,7 +12,7 @@ using static BaseGeral.Sincronizacao.ConfiguracoesSincronizacao;
 
 namespace NFeFacil.Sincronizacao
 {
-    [View.DetalhePagina("\uE977", "Sincronização")]
+    [DetalhePagina("\uE977", "Sincronização")]
     public sealed partial class SincronizacaoServidor : Page
     {
         public SincronizacaoServidor()

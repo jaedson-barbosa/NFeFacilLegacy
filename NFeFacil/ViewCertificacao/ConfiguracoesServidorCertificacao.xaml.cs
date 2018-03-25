@@ -1,4 +1,5 @@
 ﻿using BaseGeral.Log;
+using BaseGeral.View;
 using System;
 using System.IO;
 using System.Reflection;
@@ -10,7 +11,7 @@ using Windows.UI.Xaml.Input;
 
 namespace NFeFacil.Certificacao
 {
-    [View.DetalhePagina(Symbol.Permissions, "Certificação")]
+    [DetalhePagina(Symbol.Permissions, "Certificação")]
     public sealed partial class ConfiguracoesServidorCertificacao : Page
     {
         public ConfiguracoesServidorCertificacao()

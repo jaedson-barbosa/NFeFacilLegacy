@@ -1,5 +1,6 @@
 ﻿using BaseGeral;
 using BaseGeral.ItensBD;
+using BaseGeral.View;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -10,7 +11,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil.ViewDadosBase
 {
-    [View.DetalhePagina(Symbol.Manage, "Gerenciar clientes")]
+    [DetalhePagina(Symbol.Manage, "Gerenciar clientes")]
     public sealed partial class GerenciarClientes : Page
     {
         ClienteDI[] TodosClientes { get; }

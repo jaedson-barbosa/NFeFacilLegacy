@@ -1,5 +1,6 @@
 ﻿using BaseGeral;
 using BaseGeral.ItensBD;
+using BaseGeral.View;
 using NFeFacil.View;
 using System.Collections.ObjectModel;
 using Windows.UI.Xaml.Controls;

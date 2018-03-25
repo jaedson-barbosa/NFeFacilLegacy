@@ -16,12 +16,13 @@ using BaseGeral.ModeloXML.PartesDetalhes.PartesTransporte;
 using BaseGeral.ModeloXML;
 using System.Xml.Serialization;
 using BaseGeral;
+using BaseGeral.View;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace NFeFacil.ViewDadosBase
 {
-    [View.DetalhePagina(Symbol.Import, "Importação")]
+    [DetalhePagina(Symbol.Import, "Importação")]
     public sealed partial class ImportacaoDados : Page
     {
         public ImportacaoDados()

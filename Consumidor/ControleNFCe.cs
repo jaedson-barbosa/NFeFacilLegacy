@@ -9,7 +9,7 @@ using Fiscal;
 
 namespace Consumidor
 {
-    sealed class ControleNFCe : IControleCriacao
+    public sealed class ControleNFCe : IControleCriacao
     {
         NFCe PreNota { get; }
 

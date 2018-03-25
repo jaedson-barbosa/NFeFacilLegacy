@@ -1,6 +1,7 @@
 ﻿using BaseGeral;
 using BaseGeral.Certificacao;
 using BaseGeral.Sincronizacao;
+using BaseGeral.View;
 using NFeFacil.Certificacao;
 using NFeFacil.Sincronizacao;
 using System;

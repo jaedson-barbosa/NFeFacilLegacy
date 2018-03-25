@@ -2,22 +2,24 @@
 using BaseGeral.ItensBD;
 using BaseGeral.Log;
 using BaseGeral.ModeloXML;
-using NFeFacil.Produto.GerenciamentoProdutos;
+using Produto.GerenciamentoProdutos;
 using NFeFacil.Sincronizacao;
 using BaseGeral.Validacao;
 using NFeFacil.ViewDadosBase;
-using NFeFacil.Fiscal.ViewNFe;
-using NFeFacil.ViewRegistroVenda;
+using Comum;
+using RegistroComum;
 using System;
 using System.Threading.Tasks;
 using Windows.Storage.Pickers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using NFeFacil.Fiscal;
+using Fiscal;
 using Windows.UI.Xaml.Navigation;
 using BaseGeral.Certificacao;
 using BaseGeral;
 using BaseGeral.Sincronizacao;
+using BaseGeral.View;
+using Consumidor;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 

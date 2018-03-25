@@ -112,7 +112,6 @@
     <Compile Include="CalcularTroco.xaml.cs">
       <DependentUpon>CalcularTroco.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Class1.cs" />
     <Compile Include="DARV\DadosImpressaoDARV.cs" />
     <Compile Include="DARV\Dimensoes.cs" />
     <Compile Include="DARV\ExibicaoProduto.cs" />

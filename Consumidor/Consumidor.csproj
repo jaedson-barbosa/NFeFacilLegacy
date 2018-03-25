@@ -110,7 +110,6 @@
     <Compile Include="AddFormaPagamento.xaml.cs">
       <DependentUpon>AddFormaPagamento.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Class1.cs" />
     <Compile Include="ControleNFCe.cs" />
     <Compile Include="ControleViewNFCe.cs" />
     <Compile Include="ManipulacaoNFCe.xaml.cs">

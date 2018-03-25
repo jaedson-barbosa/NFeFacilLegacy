@@ -140,7 +140,6 @@
     <Compile Include="Certificacao\LAN\Pacotes\RequisicaoEnvioDTO.cs" />
     <Compile Include="Certificacao\LAN\Primitivos\CertificadoAssinatura.cs" />
     <Compile Include="Certificacao\LAN\Primitivos\CertificadoExibicao.cs" />
-    <Compile Include="Class1.cs" />
     <Compile Include="Criador.xaml.cs">
       <DependentUpon>Criador.xaml</DependentUpon>
     </Compile>

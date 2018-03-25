@@ -118,7 +118,6 @@
     <Compile Include="CaixasDialogoProduto\EscolherTipoDeclaracaoExportacao.xaml.cs">
       <DependentUpon>EscolherTipoDeclaracaoExportacao.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Class1.cs" />
     <Compile Include="DadosAdicaoProduto.cs" />
     <Compile Include="GerenciamentoProdutos\AdicionarAlteracaoEstoque.xaml.cs">
       <DependentUpon>AdicionarAlteracaoEstoque.xaml</DependentUpon>

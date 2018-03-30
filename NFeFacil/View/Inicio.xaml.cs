@@ -45,18 +45,15 @@ namespace NFeFacil.View
         void AbrirVendedores(object sender, TappedRoutedEventArgs e) => Navegar<GerenciarVendedores>();
         void AbrirCompradores(object sender, TappedRoutedEventArgs e) => Navegar<GerenciarCompradores>();
 
-#pragma warning disable CS4014
-        void CriarNFe(object sender, TappedRoutedEventArgs e)
+        async void CriarNFe(object sender, TappedRoutedEventArgs e)
         {
             var controle = new ControleNFe();
-            new Criador(controle).ShowAsync();
+            await new Criador(controle).ShowAsync();
         }
 
         void CriarNFeEntrada(object sender, TappedRoutedEventArgs e) => CriarNFeEntrada();
-#pragma warning restore CS4014
-
         void AbrirInutilizacoes(object sender, TappedRoutedEventArgs e) => Navegar<Inutilizacoes>();
-        void AbrirNotasSalvas(object sender, TappedRoutedEventArgs e) => Navegar<NotasSalvas>();
+        void AbrirNotasSalvas(object sender, TappedRoutedEventArgs e) => Navegar<NotasSalvas>(new ControleViewNFe());
         void AbrirConsulta(object sender, TappedRoutedEventArgs e) => Navegar<Consulta>();
         void AbrirVendasAnuais(object sender, TappedRoutedEventArgs e) => Navegar<VendasAnuais>();
 
@@ -66,7 +63,7 @@ namespace NFeFacil.View
             await new Criador(controle).ShowAsync();
         }
         void AbrirInutilizacoesNFCe(object sender, TappedRoutedEventArgs e) => Navegar<Inutilizacoes>(true);
-        void AbrirNFCesSalvas(object sender, TappedRoutedEventArgs e) => Navegar<NotasSalvas>(true);
+        void AbrirNFCesSalvas(object sender, TappedRoutedEventArgs e) => Navegar<NotasSalvas>(new ControleViewNFCe());
         void AbrirConsultaNFCe(object sender, TappedRoutedEventArgs e) => Navegar<Consulta>(true);
         void AbrirVendasAnuaisNFCe(object sender, TappedRoutedEventArgs e) => Navegar<VendasAnuais>(true);
 
@@ -107,18 +104,14 @@ namespace NFeFacil.View
         void AbrirSincronizacao(object sender, TappedRoutedEventArgs e)
         {
             if (ConfiguracoesSincronizacao.Tipo == TipoAppSincronizacao.Cliente)
-            {
                 MainPage.Current.Navegar<SincronizacaoCliente>();
-            }
             else
-            {
                 MainPage.Current.Navegar<SincronizacaoServidor>();
-            }
         }
 
         void Navegar<T>(object param = null) where T : Page => MainPage.Current.Navegar<T>(param);
 
-        async Task CriarNFeEntrada()
+        async void CriarNFeEntrada()
         {
             var caixa = new FileOpenPicker();
             caixa.FileTypeFilter.Add(".xml");

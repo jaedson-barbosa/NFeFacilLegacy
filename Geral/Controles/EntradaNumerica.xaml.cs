@@ -41,7 +41,7 @@ namespace BaseGeral.Controles
                 if (formatoOriginal.Contains(":"))
                 {
                     var partesFormato = value.Split(':');
-                    formatoProcessado = $"0.{Criar(partesFormato[1])}";/*Criar(partesFormato[0])*/
+                    formatoProcessado = $"0.{Criar(partesFormato[1])}";
                 }
                 else
                 {

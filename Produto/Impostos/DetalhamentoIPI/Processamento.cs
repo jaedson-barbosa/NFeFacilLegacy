@@ -35,9 +35,9 @@ namespace Venda.Impostos.DetalhamentoIPI
                     ProcessarDados(TiposCalculo.Inexistente, 0, 0, detalhamento.CST, outr.Conjunto);
                 }
             }
-            else if (Detalhamento is DadoPronto pronto)
+            else if (Detalhamento is ImpostoArmazenado pronto)
             {
-                ProcessarDadosProntos(pronto.ImpostoPronto);
+                ProcessarDadosProntos(pronto);
             }
         }
 

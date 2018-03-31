@@ -54,9 +54,9 @@ namespace Venda.Impostos.DetalhamentoII
             {
                 dados = (IDadosII)Tela;
             }
-            else if (Detalhamento is DadoPronto pronto)
+            else if (Detalhamento is ImpostoArmazenado pronto)
             {
-                ProcessarDadosProntos(pronto.ImpostoPronto);
+                ProcessarDadosProntos(pronto);
             }
         }
 

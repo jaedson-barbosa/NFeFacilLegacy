@@ -145,7 +145,6 @@
     <Compile Include="ICMSArmazenado.cs" />
     <Compile Include="ImpostoArmazenado.cs" />
     <Compile Include="Impostos\AssociacoesSimples.cs" />
-    <Compile Include="Impostos\DadoPronto.cs" />
     <Compile Include="Impostos\DefinirTotalImpostos.xaml.cs">
       <DependentUpon>DefinirTotalImpostos.xaml</DependentUpon>
     </Compile>

@@ -67,9 +67,9 @@ namespace Venda.Impostos.DetalhamentoISSQN
             {
                 dados = (IDadosISSQN)Tela;
             }
-            else if (Detalhamento is DadoPronto pronto)
+            else if (Detalhamento is ImpostoArmazenado pronto)
             {
-                ProcessarDadosProntos(pronto.ImpostoPronto);
+                ProcessarDadosProntos(pronto);
             }
         }
 

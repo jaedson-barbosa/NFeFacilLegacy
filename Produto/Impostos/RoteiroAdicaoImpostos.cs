@@ -90,7 +90,7 @@ namespace Venda.Impostos
                         Detalhamento = icms,
                     };
                 }
-                else if (atual is DadoPronto pronto)
+                else if (atual is ImpostoArmazenado pronto)
                 {
                     switch (pronto.Tipo)
                     {

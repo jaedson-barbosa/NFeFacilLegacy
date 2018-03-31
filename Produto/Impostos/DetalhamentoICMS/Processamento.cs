@@ -28,9 +28,9 @@ namespace Venda.Impostos.DetalhamentoICMS
                 var (rn, sn) = ProcessarTela(Tela, normal, det.TipoICMSSN, det.TipoICMSRN, det.Origem);
                 dados = (IDadosICMS)rn ?? sn;
             }
-            else if (Detalhamento is DadoPronto pronto)
+            else if (Detalhamento is ImpostoArmazenado pronto)
             {
-                ProcessarDadosProntos(pronto.ImpostoPronto);
+                ProcessarDadosProntos(pronto);
             }
         }
 

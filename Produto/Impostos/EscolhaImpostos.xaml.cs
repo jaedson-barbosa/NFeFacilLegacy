@@ -101,7 +101,7 @@ namespace Venda.Impostos
                     }
                     else
                     {
-                        Escolhidos.Add(item.Id, new DadoPronto { ImpostoPronto = item.Template });
+                        Escolhidos.Add(item.Id, item.Template);
                     }
 
                     if (sucesso)

@@ -2,7 +2,7 @@
 
 namespace Venda
 {
-    public class ImpostoArmazenado
+    public class ImpostoArmazenado : IDetalhamentoImposto
     {
         public PrincipaisImpostos Tipo { get; set; }
         public int CST { get; set; }

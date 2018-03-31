@@ -21,9 +21,9 @@ namespace Venda.Impostos.DetalhamentoICMSUFDest
             {
                 dados = (IDadosICMSUFDest)Tela;
             }
-            else if (Detalhamento is DadoPronto pronto)
+            else if (Detalhamento is ImpostoArmazenado pronto)
             {
-                ProcessarDadosProntos(pronto.ImpostoPronto);
+                ProcessarDadosProntos(pronto);
             }
         }
 

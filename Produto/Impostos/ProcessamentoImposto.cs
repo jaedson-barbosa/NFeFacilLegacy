@@ -11,7 +11,6 @@ namespace Venda.Impostos
         public PrincipaisImpostos Tipo => Detalhamento.Tipo;
 
         public abstract void ProcessarEntradaDados(object Tela);
-        public abstract bool ValidarDados();
         protected abstract void ProcessarDadosProntos(ImpostoArmazenado imposto);
         public abstract ImpostoBase[] Processar(DetalhesProdutos prod);
     }

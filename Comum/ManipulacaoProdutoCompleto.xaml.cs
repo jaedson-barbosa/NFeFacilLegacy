@@ -10,7 +10,6 @@ using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto;
 using System.Collections.Generic;
 using NFeFacil.View;
 using Venda.Impostos;
-using System.Linq;
 using BaseGeral.ModeloXML;
 using Venda;
 using Venda.CaixasDialogoProduto;
@@ -166,32 +165,7 @@ namespace Comum
                 ProdutoCompleto.ImpostoDevol = null;
             }
 
-            var icms = Conjunto.Auxiliar.GetICMSArmazenados();
-            var imps = Conjunto.Auxiliar.GetImpSimplesArmazenados();
-
-            var padrao = Conjunto.ImpostosPadrao;
-            IDetalhamentoImposto[] detalhamentos = new IDetalhamentoImposto[padrao.Length];
-            for (int i = 0; i < padrao.Length; i++)
-            {
-                var (Tipo, NomeTemplate, CST) = padrao[i];
-                var impPronto = Tipo == PrincipaisImpostos.ICMS ? (ImpostoArmazenado)icms.First(Analisar) : imps.First(Analisar);
-                bool Analisar(ImpostoArmazenado x) => x.Tipo == Tipo && x.NomeTemplate == NomeTemplate && x.CST == CST;
-                detalhamentos[i] = impPronto ;
-            }
-            var roteiro = new RoteiroAdicaoImpostos(detalhamentos, ProdutoCompleto);
-            while (roteiro.Avancar()) roteiro.Validar(null);
-
-            var produto = roteiro.Finalizar();
-            var caixa = new DefinirTotalImpostos();
-            if (await caixa.ShowAsync() == ContentDialogResult.Primary && !string.IsNullOrEmpty(caixa.ValorTotalTributos))
-            {
-                produto.Impostos.vTotTrib = caixa.ValorTotalTributos;
-            }
-            else
-            {
-                produto.Impostos.vTotTrib = null;
-            }
-
+            var produto = await new GerenciadorTributacao(Conjunto).AplicarTributacaoAutomatica();
             var info = ((NFe)Frame.BackStack[Frame.BackStack.Count - 1].Parameter).Informacoes;
             if (produto.Número == 0)
             {

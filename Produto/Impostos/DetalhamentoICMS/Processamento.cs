@@ -18,8 +18,6 @@ namespace Venda.Impostos.DetalhamentoICMS
             return new ImpostoBase[1] { imposto };
         }
 
-        public override bool ValidarDados() => dados != null;
-
         public override void ProcessarEntradaDados(object Tela)
         {
             if (Detalhamento is Detalhamento det)

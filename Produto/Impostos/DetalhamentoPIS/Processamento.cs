@@ -17,8 +17,6 @@ namespace Venda.Impostos.DetalhamentoPIS
             else return new ImpostoBase[1] { (PIS)resultado };
         }
 
-        public override bool ValidarDados() => dados != null;
-
         public override void ProcessarEntradaDados(object Tela)
         {
             if (Detalhamento is Detalhamento detalhamento)

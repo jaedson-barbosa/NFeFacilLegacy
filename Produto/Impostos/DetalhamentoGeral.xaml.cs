@@ -44,24 +44,22 @@ namespace Venda.Impostos
         void Avancar()
         {
             var atual = frmImposto.Content as Page;
-            if (roteiro.Validar(atual))
+            roteiro.ProcessarEntradaDados(atual);
+            if (roteiro.Avancar())
             {
-                if (roteiro.Avancar())
+                if (roteiro.Current == null)
                 {
-                    if (roteiro.Current == null)
-                    {
-                        frmImposto.Content = null;
-                        Avancar();
-                    }
-                    else
-                    {
-                        frmImposto.Navigate(roteiro.Current);
-                    }
+                    frmImposto.Content = null;
+                    Avancar();
                 }
                 else
                 {
-                    Concluir();
+                    frmImposto.Navigate(roteiro.Current);
                 }
+            }
+            else
+            {
+                Concluir();
             }
         }
 

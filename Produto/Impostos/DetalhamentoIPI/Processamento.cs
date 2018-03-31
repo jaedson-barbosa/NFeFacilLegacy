@@ -16,8 +16,6 @@ namespace Venda.Impostos.DetalhamentoIPI
             return new ImpostoBase[1] { (IPI)resultado };
         }
 
-        public override bool ValidarDados() => !string.IsNullOrEmpty(dados?.PreImposto?.cEnq);
-
         public override void ProcessarEntradaDados(object Tela)
         {
             if (Detalhamento is Detalhamento detalhamento)

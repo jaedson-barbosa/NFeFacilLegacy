@@ -292,6 +292,7 @@
     <Compile Include="Impostos\EscolherTipoPISouCOFINS.xaml.cs">
       <DependentUpon>EscolherTipoPISouCOFINS.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Impostos\GerenciadorTributacao.cs" />
     <Compile Include="Impostos\IDetalhamentoImposto.cs" />
     <Compile Include="Impostos\IEscolherImpSimples.cs" />
     <Compile Include="Impostos\PrincipaisImpostos.cs" />

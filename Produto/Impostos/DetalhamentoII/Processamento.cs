@@ -1,6 +1,6 @@
-﻿using BaseGeral.Log;
-using BaseGeral.ModeloXML.PartesDetalhes;
+﻿using BaseGeral.ModeloXML.PartesDetalhes;
 using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto;
+using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos;
 
 namespace Venda.Impostos.DetalhamentoII
 {
@@ -12,40 +12,6 @@ namespace Venda.Impostos.DetalhamentoII
         {
             var imposto = dados.Imposto;
             return new ImpostoBase[1] { imposto };
-        }
-
-        public override bool ValidarDados()
-        {
-            var log = Popup.Current;
-            var imposto = dados?.Imposto;
-            if (imposto != null)
-            {
-                if (string.IsNullOrEmpty(imposto.vBC))
-                {
-                    log.Escrever(TitulosComuns.Atenção, "O valor da base de cálculo é obrigatório.");
-                }
-                else if (string.IsNullOrEmpty(imposto.vDespAdu))
-                {
-                    log.Escrever(TitulosComuns.Atenção, "O valor das despesas aduaneiras é obrigatório.");
-                }
-                else if (string.IsNullOrEmpty(imposto.vII))
-                {
-                    log.Escrever(TitulosComuns.Atenção, "É necessário que o valor do II seja informado.");
-                }
-                else if (string.IsNullOrEmpty(imposto.vIOF))
-                {
-                    log.Escrever(TitulosComuns.Atenção, "O valor do imposto sobre operações financeiras deve ser informado.");
-                }
-                else
-                {
-                    return true;
-                }
-            }
-            else
-            {
-                log.Escrever(TitulosComuns.Erro, "Erro na obtenção dos dados do imposto.");
-            }
-            return false;
         }
 
         public override void ProcessarEntradaDados(object Tela)
@@ -61,5 +27,10 @@ namespace Venda.Impostos.DetalhamentoII
         }
 
         protected override void ProcessarDadosProntos(ImpostoArmazenado imposto) { }
+    }
+
+    sealed class Dados : IDadosII
+    {
+        public II Imposto { get; set; }
     }
 }

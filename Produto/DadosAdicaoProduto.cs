@@ -1,10 +1,10 @@
 ﻿using BaseGeral.ItensBD;
 using BaseGeral.ModeloXML.PartesDetalhes;
-using Produto.Impostos;
+using Venda.Impostos;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Produto
+namespace Venda
 {
     public sealed class DadosAdicaoProduto
     {

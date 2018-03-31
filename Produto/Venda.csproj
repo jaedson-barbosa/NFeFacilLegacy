@@ -7,8 +7,8 @@
     <ProjectGuid>{DB69DF46-0F24-47C4-9FE8-37D2D569E4E7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Produto</RootNamespace>
-    <AssemblyName>Produto</AssemblyName>
+    <RootNamespace>Venda</RootNamespace>
+    <AssemblyName>Venda</AssemblyName>
     <DefaultLanguage>pt-BR</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.16299.0</TargetPlatformVersion>
@@ -119,6 +119,7 @@
       <DependentUpon>EscolherTipoDeclaracaoExportacao.xaml</DependentUpon>
     </Compile>
     <Compile Include="DadosAdicaoProduto.cs" />
+    <Compile Include="GerenciadorImpressao.cs" />
     <Compile Include="GerenciamentoProdutos\AdicionarAlteracaoEstoque.xaml.cs">
       <DependentUpon>AdicionarAlteracaoEstoque.xaml</DependentUpon>
     </Compile>

@@ -6,7 +6,6 @@ using Windows.UI.Xaml.Navigation;
 using System.Linq;
 using BaseGeral;
 using BaseGeral.View;
-using NFeFacil;
 using Venda;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238

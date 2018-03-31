@@ -1,10 +1,10 @@
-﻿using static Produto.Impostos.AssociacoesSimples;
+﻿using static Venda.Impostos.AssociacoesSimples;
 using Windows.UI.Xaml.Controls;
 using BaseGeral;
 
 // O modelo de item de Caixa de Diálogo de Conteúdo está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace Produto.GerenciamentoProdutos
+namespace Venda.GerenciamentoProdutos
 {
     public sealed partial class CadastroICMS : ContentDialog
     {

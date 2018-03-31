@@ -1,11 +1,12 @@
-﻿using Produto;
-using Produto.Impostos;
+﻿using Venda.Impostos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using BaseGeral.ItensBD;
+using BaseGeral;
 
-namespace BaseGeral.ItensBD
+namespace Venda
 {
     public sealed class ProdutoDIExtended
     {

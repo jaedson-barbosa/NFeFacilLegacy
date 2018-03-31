@@ -1,5 +1,4 @@
-﻿using BaseGeral.Certificacao.LAN;
-using BaseGeral.View;
+﻿using BaseGeral.View;
 using Fiscal.Certificacao.LAN;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;

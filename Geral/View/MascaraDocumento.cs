@@ -1,5 +1,4 @@
-﻿using BaseGeral;
-using System;
+﻿using System;
 using Windows.UI.Xaml.Data;
 
 namespace BaseGeral.View

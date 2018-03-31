@@ -1,6 +1,6 @@
 ﻿using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos;
 
-namespace Produto.Impostos.DetalhamentoII
+namespace Venda.Impostos.DetalhamentoII
 {
     interface IDadosII
     {

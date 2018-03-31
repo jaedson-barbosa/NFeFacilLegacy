@@ -3,7 +3,6 @@ using BaseGeral.Controles;
 using BaseGeral.ItensBD;
 using BaseGeral.Log;
 using BaseGeral.View;
-using NFeFacil.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

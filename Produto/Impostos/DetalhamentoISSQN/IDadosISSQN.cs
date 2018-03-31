@@ -1,6 +1,6 @@
 ﻿using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos;
 
-namespace Produto.Impostos.DetalhamentoISSQN
+namespace Venda.Impostos.DetalhamentoISSQN
 {
     interface IDadosISSQN
     {

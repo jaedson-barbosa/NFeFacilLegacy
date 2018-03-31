@@ -1,4 +1,4 @@
-﻿<Page x:Class="Produto.Impostos.DetalhamentoICMS.TelasRN.Tipo40_41_50"
+﻿<Page x:Class="Venda.Impostos.DetalhamentoICMS.TelasRN.Tipo40_41_50"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"

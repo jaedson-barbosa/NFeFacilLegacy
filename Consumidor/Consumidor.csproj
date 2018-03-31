@@ -144,12 +144,8 @@
       <Project>{831236cd-f989-48d9-987e-a8a6a2cf5f6e}</Project>
       <Name>OptimizedZXing</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Produto\Produto.csproj">
+    <ProjectReference Include="..\Produto\Venda.csproj">
       <Project>{db69df46-0f24-47c4-9fe8-37d2d569e4e7}</Project>
-      <Name>Produto</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Venda\Venda.csproj">
-      <Project>{44672044-74ec-4b1e-bf9f-9ab74e65e73d}</Project>
       <Name>Venda</Name>
     </ProjectReference>
   </ItemGroup>

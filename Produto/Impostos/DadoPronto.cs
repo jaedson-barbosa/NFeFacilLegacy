@@ -1,4 +1,4 @@
-﻿namespace Produto.Impostos
+﻿namespace Venda.Impostos
 {
     public struct DadoPronto : IDetalhamentoImposto
     {

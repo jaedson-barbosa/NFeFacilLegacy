@@ -1,7 +1,7 @@
 ﻿using BaseGeral.ModeloXML.PartesDetalhes;
 using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos;
 
-namespace Produto.Impostos.DetalhamentoICMS.DadosRN
+namespace Venda.Impostos.DetalhamentoICMS.DadosRN
 {
     public class Tipo60 : BaseRN
     {

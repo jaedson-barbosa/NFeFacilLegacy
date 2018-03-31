@@ -1,4 +1,4 @@
-﻿<Page x:Class="Produto.Impostos.DetalhamentoCOFINS.DetalharAliquota"
+﻿<Page x:Class="Venda.Impostos.DetalhamentoCOFINS.DetalharAliquota"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:controles="using:BaseGeral.Controles"

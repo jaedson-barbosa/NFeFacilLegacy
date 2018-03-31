@@ -1,4 +1,4 @@
-﻿<ContentDialog x:Class="Produto.GerenciamentoProdutos.CadastroICMS"
+﻿<ContentDialog x:Class="Venda.GerenciamentoProdutos.CadastroICMS"
                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                xmlns:local="using:Produto.GerenciamentoProdutos"

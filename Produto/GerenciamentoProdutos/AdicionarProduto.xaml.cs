@@ -6,10 +6,10 @@ using System;
 using BaseGeral.ItensBD;
 using System.Xml.Linq;
 using BaseGeral.ModeloXML;
-using Produto.Impostos.DetalhamentoICMS;
-using Produto.ProdutoEspecial;
+using Venda.Impostos.DetalhamentoICMS;
+using Venda.ProdutoEspecial;
 using System.Collections.ObjectModel;
-using Produto.Impostos;
+using Venda.Impostos;
 using System.Threading.Tasks;
 using System.Linq;
 using Windows.UI.Xaml.Data;
@@ -18,7 +18,7 @@ using BaseGeral.View;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace Produto.GerenciamentoProdutos
+namespace Venda.GerenciamentoProdutos
 {
     [DetalhePagina(Symbol.Shop, "Produto")]
     public sealed partial class AdicionarProduto : Page

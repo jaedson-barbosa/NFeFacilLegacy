@@ -2,14 +2,13 @@
 using BaseGeral.ItensBD;
 using BaseGeral.Log;
 using BaseGeral.ModeloXML;
-using Produto.GerenciamentoProdutos;
+using Venda.GerenciamentoProdutos;
 using NFeFacil.Sincronizacao;
 using BaseGeral.Validacao;
 using NFeFacil.ViewDadosBase;
 using Comum;
 using RegistroComum;
 using System;
-using System.Threading.Tasks;
 using Windows.Storage.Pickers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;

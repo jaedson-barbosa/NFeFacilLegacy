@@ -9,11 +9,11 @@ using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
 using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto;
 using System.Collections.Generic;
 using NFeFacil.View;
-using Produto.Impostos;
+using Venda.Impostos;
 using System.Linq;
 using BaseGeral.ModeloXML;
-using Produto;
-using Produto.CaixasDialogoProduto;
+using Venda;
+using Venda.CaixasDialogoProduto;
 using BaseGeral.View;
 using BaseGeral;
 

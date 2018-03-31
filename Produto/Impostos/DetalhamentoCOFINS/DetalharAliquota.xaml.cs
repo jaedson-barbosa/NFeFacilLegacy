@@ -3,7 +3,7 @@ using Windows.UI.Xaml.Controls;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace Produto.Impostos.DetalhamentoCOFINS
+namespace Venda.Impostos.DetalhamentoCOFINS
 {
     [DetalhePagina("COFINS")]
     public sealed partial class DetalharAliquota : Page

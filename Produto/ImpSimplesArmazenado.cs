@@ -1,6 +1,6 @@
-﻿using Produto.Impostos;
+﻿using Venda.Impostos;
 
-namespace Produto
+namespace Venda
 {
     public sealed class ImpSimplesArmazenado : ImpostoArmazenado
     {

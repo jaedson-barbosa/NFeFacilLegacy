@@ -10,7 +10,7 @@ using Windows.UI.Xaml.Controls;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace Produto.GerenciamentoProdutos
+namespace Venda.GerenciamentoProdutos
 {
     [DetalhePagina(Symbol.Manage, "Gerenciar produtos")]
     public sealed partial class GerenciarProdutos : Page

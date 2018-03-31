@@ -3,7 +3,7 @@ using BaseGeral.ModeloXML.PartesDetalhes;
 using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto;
 using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos;
 
-namespace Produto.Impostos.DetalhamentoICMS
+namespace Venda.Impostos.DetalhamentoICMS
 {
     public sealed class Processamento : ProcessamentoImposto
     {

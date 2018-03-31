@@ -1,7 +1,7 @@
 ﻿using BaseGeral.ModeloXML.PartesDetalhes;
 using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos;
 
-namespace Produto.Impostos.DetalhamentoICMS.DadosSN
+namespace Venda.Impostos.DetalhamentoICMS.DadosSN
 {
     public class TipoNT : BaseSN
     {

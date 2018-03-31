@@ -11,7 +11,7 @@ using BaseGeral.View;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace Produto.GerenciamentoProdutos
+namespace Venda.GerenciamentoProdutos
 {
     [DetalhePagina(Symbol.Manage, "Controle de estoque")]
     public sealed partial class ControleEstoque : Page

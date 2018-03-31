@@ -1,8 +1,8 @@
-﻿using Produto.Impostos.DetalhamentoICMS.DadosRN;
-using Produto.Impostos.DetalhamentoICMS.DadosSN;
+﻿using Venda.Impostos.DetalhamentoICMS.DadosRN;
+using Venda.Impostos.DetalhamentoICMS.DadosSN;
 using System.Xml.Serialization;
 
-namespace Produto
+namespace Venda
 {
     public sealed class ICMSArmazenado : ImpostoArmazenado
     {

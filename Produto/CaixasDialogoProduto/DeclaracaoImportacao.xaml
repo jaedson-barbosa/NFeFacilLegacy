@@ -1,4 +1,4 @@
-﻿<ContentDialog x:Class="Produto.CaixasDialogoProduto.AdicionarDeclaracaoImportacao"
+﻿<ContentDialog x:Class="Venda.CaixasDialogoProduto.AdicionarDeclaracaoImportacao"
                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                xmlns:controles="using:BaseGeral.Controles"

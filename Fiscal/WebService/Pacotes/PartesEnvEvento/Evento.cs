@@ -1,7 +1,6 @@
 ﻿using BaseGeral.ModeloXML.PartesAssinatura;
 using System.Xml;
 using System.Xml.Serialization;
-using Fiscal.Certificacao;
 using BaseGeral;
 
 namespace Fiscal.WebService.Pacotes.PartesEnvEvento

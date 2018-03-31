@@ -4,7 +4,7 @@ using Windows.UI.Xaml.Controls;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace Produto.Impostos.DetalhamentoII
+namespace Venda.Impostos.DetalhamentoII
 {
     [DetalhePagina("Imposto de importação")]
     public sealed partial class Detalhar : Page, IDadosII

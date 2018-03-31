@@ -1,5 +1,4 @@
-﻿using Consumidor;
-using BaseGeral.ItensBD;
+﻿using BaseGeral.ItensBD;
 using BaseGeral.ModeloXML;
 using BaseGeral.Validacao;
 using NFeFacil.View;

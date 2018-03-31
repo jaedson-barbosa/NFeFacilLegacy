@@ -1,5 +1,4 @@
-﻿using Consumidor;
-using BaseGeral.IBGE;
+﻿using BaseGeral.IBGE;
 using BaseGeral.ModeloXML;
 using BaseGeral.ModeloXML.PartesDetalhes;
 using BaseGeral.ModeloXML.PartesDetalhes.PartesTransporte;

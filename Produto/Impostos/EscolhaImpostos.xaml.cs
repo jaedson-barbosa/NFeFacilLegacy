@@ -13,7 +13,7 @@ using Windows.UI.Xaml.Navigation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace Produto.Impostos
+namespace Venda.Impostos
 {
     [DetalhePagina("\uE825", "Impostos")]
     public sealed partial class EscolhaImpostos : Page

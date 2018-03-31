@@ -3,7 +3,7 @@ using Windows.UI.Xaml.Controls;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace Produto.Impostos.DetalhamentoICMS.TelasSN
+namespace Venda.Impostos.DetalhamentoICMS.TelasSN
 {
     [DetalhePagina("ICMS")]
     public sealed partial class Tipo202 : Page

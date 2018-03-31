@@ -72,7 +72,11 @@ namespace Venda.Impostos
                 {
                     var item = (ImpostoArmazenado)e.AddedItems[i];
                     bool sucesso = true;
-                    if (item is ImpostoPadrao)
+                    if (item is ICMSArmazenado icms)
+                        Escolhidos.Add(item);
+                    else if (item is ImpSimplesArmazenado simples)
+                        Escolhidos.Add(item);
+                    else
                     {
                         switch (item.Tipo)
                         {
@@ -98,10 +102,6 @@ namespace Venda.Impostos
                                 Escolhidos.Add(new DetalhamentoICMSUFDest.Detalhamento());
                                 break;
                         }
-                    }
-                    else
-                    {
-                        Escolhidos.Add(item);
                     }
 
                     if (sucesso)

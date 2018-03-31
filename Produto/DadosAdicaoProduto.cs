@@ -37,12 +37,12 @@ namespace Venda
             {
                 impostos = new List<ImpostoArmazenado>
                 {
-                    new ImpostoPadrao(PrincipaisImpostos.ICMS),
-                    new ImpostoPadrao(PrincipaisImpostos.IPI),
-                    new ImpostoPadrao(PrincipaisImpostos.PIS),
-                    new ImpostoPadrao(PrincipaisImpostos.COFINS),
-                    new ImpostoPadrao(PrincipaisImpostos.II),
-                    new ImpostoPadrao(PrincipaisImpostos.ICMSUFDest)
+                    new ImpostoArmazenado(PrincipaisImpostos.ICMS),
+                    new ImpostoArmazenado(PrincipaisImpostos.IPI),
+                    new ImpostoArmazenado(PrincipaisImpostos.PIS),
+                    new ImpostoArmazenado(PrincipaisImpostos.COFINS),
+                    new ImpostoArmazenado(PrincipaisImpostos.II),
+                    new ImpostoArmazenado(PrincipaisImpostos.ICMSUFDest)
                 };
                 var icmsArmazenado = Auxiliar.GetICMSArmazenados();
                 if (icmsArmazenado != null && icmsArmazenado.Count() > 0)
@@ -54,11 +54,11 @@ namespace Venda
             {
                 impostos = new List<ImpostoArmazenado>
                 {
-                    new ImpostoPadrao(PrincipaisImpostos.IPI),
-                    new ImpostoPadrao(PrincipaisImpostos.PIS),
-                    new ImpostoPadrao(PrincipaisImpostos.COFINS),
-                    new ImpostoPadrao(PrincipaisImpostos.ISSQN),
-                    new ImpostoPadrao(PrincipaisImpostos.ICMSUFDest)
+                    new ImpostoArmazenado(PrincipaisImpostos.IPI),
+                    new ImpostoArmazenado(PrincipaisImpostos.PIS),
+                    new ImpostoArmazenado(PrincipaisImpostos.COFINS),
+                    new ImpostoArmazenado(PrincipaisImpostos.ISSQN),
+                    new ImpostoArmazenado(PrincipaisImpostos.ICMSUFDest)
                 };
             }
             var impsArmazenado = Auxiliar.GetImpSimplesArmazenados();
@@ -73,9 +73,9 @@ namespace Venda
         {
             var impostos = new List<ImpostoArmazenado>
             {
-                new ImpostoPadrao(PrincipaisImpostos.ICMS),
-                new ImpostoPadrao(PrincipaisImpostos.PIS),
-                new ImpostoPadrao(PrincipaisImpostos.COFINS)
+                new ImpostoArmazenado(PrincipaisImpostos.ICMS),
+                new ImpostoArmazenado(PrincipaisImpostos.PIS),
+                new ImpostoArmazenado(PrincipaisImpostos.COFINS)
             };
             var icmsArmazenado = Auxiliar.GetICMSArmazenados();
             if (icmsArmazenado != null && icmsArmazenado.Count() > 0)

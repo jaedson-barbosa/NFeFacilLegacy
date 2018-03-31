@@ -1,5 +1,6 @@
 ﻿using BaseGeral.ModeloXML.PartesDetalhes;
 using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto;
+using Windows.UI.Xaml.Controls;
 
 namespace Venda.Impostos.DetalhamentoISSQN
 {
@@ -13,19 +14,15 @@ namespace Venda.Impostos.DetalhamentoISSQN
             return new ImpostoBase[1] { imposto };
         }
 
-        public override void ProcessarEntradaDados(object Tela)
+        public override void ProcessarEntradaDados(Page Tela)
         {
             if (Detalhamento is Detalhamento detalhamento
                 && AssociacoesSimples.ISSQN[detalhamento.Exterior] == Tela?.GetType())
             {
                 dados = (IDadosISSQN)Tela;
             }
-            else if (Detalhamento is ImpostoArmazenado pronto)
-            {
-                ProcessarDadosProntos(pronto);
-            }
         }
 
-        protected override void ProcessarDadosProntos(ImpostoArmazenado imposto) { }
+        public override void ProcessarDadosProntos() { }
     }
 }

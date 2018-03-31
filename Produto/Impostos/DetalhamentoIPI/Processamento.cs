@@ -3,6 +3,7 @@ using BaseGeral.ModeloXML.PartesDetalhes;
 using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto;
 using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos;
 using System.Xml.Linq;
+using Windows.UI.Xaml.Controls;
 
 namespace Venda.Impostos.DetalhamentoIPI
 {
@@ -16,7 +17,7 @@ namespace Venda.Impostos.DetalhamentoIPI
             return new ImpostoBase[1] { (IPI)resultado };
         }
 
-        public override void ProcessarEntradaDados(object Tela)
+        public override void ProcessarEntradaDados(Page Tela)
         {
             if (Detalhamento is Detalhamento detalhamento)
             {
@@ -33,15 +34,11 @@ namespace Venda.Impostos.DetalhamentoIPI
                     ProcessarDados(TiposCalculo.Inexistente, 0, 0, detalhamento.CST, outr.Conjunto);
                 }
             }
-            else if (Detalhamento is ImpostoArmazenado pronto)
-            {
-                ProcessarDadosProntos(pronto);
-            }
         }
 
-        protected override void ProcessarDadosProntos(ImpostoArmazenado imposto)
+        public override void ProcessarDadosProntos()
         {
-            if (imposto is ImpSimplesArmazenado imp)
+            if (Detalhamento is ImpSimplesArmazenado imp)
             {
                 var bruto = XElement.Parse(imp.IPI).FromXElement<ImpSimplesArmazenado.XMLIPIArmazenado>();
                 var ipi = new IPI()

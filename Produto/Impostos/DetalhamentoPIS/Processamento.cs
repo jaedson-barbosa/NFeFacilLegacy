@@ -1,6 +1,7 @@
 ﻿using BaseGeral.ModeloXML.PartesDetalhes;
 using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto;
 using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos;
+using Windows.UI.Xaml.Controls;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -17,7 +18,7 @@ namespace Venda.Impostos.DetalhamentoPIS
             else return new ImpostoBase[1] { (PIS)resultado };
         }
 
-        public override void ProcessarEntradaDados(object Tela)
+        public override void ProcessarEntradaDados(Page Tela)
         {
             if (Detalhamento is Detalhamento detalhamento)
             {
@@ -34,15 +35,11 @@ namespace Venda.Impostos.DetalhamentoPIS
                     ProcessarDados(TiposCalculo.Inexistente, 0, 0, detalhamento.CST);
                 }
             }
-            else if (Detalhamento is ImpostoArmazenado pronto)
-            {
-                ProcessarDadosProntos(pronto);
-            }
         }
 
-        protected override void ProcessarDadosProntos(ImpostoArmazenado imposto)
+        public override void ProcessarDadosProntos()
         {
-            if (imposto is ImpSimplesArmazenado imp)
+            if (Detalhamento is ImpSimplesArmazenado imp)
             {
                 ProcessarDados(imp.TipoCalculo, imp.Aliquota, imp.Valor, imp.CST);
             }

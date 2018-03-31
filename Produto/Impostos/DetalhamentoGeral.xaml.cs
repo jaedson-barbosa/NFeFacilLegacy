@@ -39,12 +39,12 @@ namespace Venda.Impostos
             }
         }
 
-        private void Avancar(object sender, RoutedEventArgs e) => Avancar();
+        void Avancar(object sender, RoutedEventArgs e) => Avancar();
 
         void Avancar()
         {
-            var atual = frmImposto.Content as Page;
-            roteiro.ProcessarEntradaDados(atual);
+            if (frmImposto.Content is Page atual) roteiro.ProcessarPagina(atual);
+            else roteiro.ProcessarSalvo();
             if (roteiro.Avancar())
             {
                 if (roteiro.Current == null)

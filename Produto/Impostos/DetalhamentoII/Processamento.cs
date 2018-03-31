@@ -1,6 +1,7 @@
 ﻿using BaseGeral.ModeloXML.PartesDetalhes;
 using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto;
 using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos;
+using Windows.UI.Xaml.Controls;
 
 namespace Venda.Impostos.DetalhamentoII
 {
@@ -14,19 +15,15 @@ namespace Venda.Impostos.DetalhamentoII
             return new ImpostoBase[1] { imposto };
         }
 
-        public override void ProcessarEntradaDados(object Tela)
+        public override void ProcessarEntradaDados(Page Tela)
         {
             if (Detalhamento is Detalhamento detalhamento && Tela?.GetType() == typeof(Detalhar))
             {
                 dados = (IDadosII)Tela;
             }
-            else if (Detalhamento is ImpostoArmazenado pronto)
-            {
-                ProcessarDadosProntos(pronto);
-            }
         }
 
-        protected override void ProcessarDadosProntos(ImpostoArmazenado imposto) { }
+        public override void ProcessarDadosProntos() { }
     }
 
     sealed class Dados : IDadosII

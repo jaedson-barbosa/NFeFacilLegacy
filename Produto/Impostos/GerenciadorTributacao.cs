@@ -33,7 +33,7 @@ namespace Venda.Impostos
                 detalhamentos[i] = impPronto;
             }
             var roteiro = new RoteiroAdicaoImpostos(detalhamentos, Produto.Completo);
-            while (roteiro.Avancar()) roteiro.ProcessarEntradaDados(null);
+            while (roteiro.Avancar()) roteiro.ProcessarSalvo();
 
             var produto = roteiro.Finalizar();
             var caixa = new DefinirTotalImpostos();

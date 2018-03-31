@@ -87,7 +87,7 @@ namespace Consumidor
                 detalhamentos[i] = impPronto;
             }
             var roteiro = new RoteiroAdicaoImpostos(detalhamentos, ProdutoCompleto);
-            while (roteiro.Avancar()) roteiro.ProcessarEntradaDados(null);
+            while (roteiro.Avancar()) roteiro.ProcessarSalvo();
 
             var produto = roteiro.Finalizar();
             produto.Impostos.impostos.RemoveAll(x => x.GetType() == typeof(PISST) || x.GetType() == typeof(COFINSST));

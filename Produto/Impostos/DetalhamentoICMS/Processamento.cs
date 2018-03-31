@@ -2,6 +2,7 @@
 using BaseGeral.ModeloXML.PartesDetalhes;
 using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto;
 using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos;
+using Windows.UI.Xaml.Controls;
 
 namespace Venda.Impostos.DetalhamentoICMS
 {
@@ -18,17 +19,13 @@ namespace Venda.Impostos.DetalhamentoICMS
             return new ImpostoBase[1] { imposto };
         }
 
-        public override void ProcessarEntradaDados(object Tela)
+        public override void ProcessarEntradaDados(Page Tela)
         {
             if (Detalhamento is Detalhamento det)
             {
                 var normal = DefinicoesTemporarias.EmitenteAtivo.RegimeTributario == 3;
                 var (rn, sn) = ProcessarTela(Tela, normal, det.TipoICMSSN, det.TipoICMSRN, det.Origem);
                 dados = (IDadosICMS)rn ?? sn;
-            }
-            else if (Detalhamento is ImpostoArmazenado pronto)
-            {
-                ProcessarDadosProntos(pronto);
             }
         }
 
@@ -143,9 +140,9 @@ namespace Venda.Impostos.DetalhamentoICMS
             }
         }
 
-        protected override void ProcessarDadosProntos(ImpostoArmazenado imposto)
+        public override void ProcessarDadosProntos()
         {
-            if (imposto is ICMSArmazenado icms)
+            if (Detalhamento is ICMSArmazenado icms)
             {
                 dados = icms.IsRegimeNormal ? (IDadosICMS)icms.RegimeNormal : icms.SimplesNacional;
             }

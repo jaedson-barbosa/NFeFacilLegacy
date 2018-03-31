@@ -139,10 +139,22 @@ namespace Venda.Impostos
             return false;
         }
 
-        public void ProcessarEntradaDados(Page pagina)
+        public void ProcessarPagina(Page pagina)
         {
             if (index >= 0)
-                Processamentos[index].ProcessarEntradaDados(pagina);
+            {
+                var proc = Processamentos[index];
+                proc.ProcessarEntradaDados(pagina);
+            }
+        }
+
+        public void ProcessarSalvo()
+        {
+            if (index >= 0)
+            {
+                var proc = Processamentos[index];
+                proc.ProcessarDadosProntos();
+            }
         }
 
         bool finalizado;

@@ -176,7 +176,7 @@ namespace Comum
                 var (Tipo, NomeTemplate, CST) = padrao[i];
                 var impPronto = Tipo == PrincipaisImpostos.ICMS ? (ImpostoArmazenado)icms.First(Analisar) : imps.First(Analisar);
                 bool Analisar(ImpostoArmazenado x) => x.Tipo == Tipo && x.NomeTemplate == NomeTemplate && x.CST == CST;
-                detalhamentos[i] = new DadoPronto { ImpostoPronto = impPronto };
+                detalhamentos[i] = impPronto ;
             }
             var roteiro = new RoteiroAdicaoImpostos(detalhamentos, ProdutoCompleto);
             while (roteiro.Avancar()) roteiro.Validar(null);

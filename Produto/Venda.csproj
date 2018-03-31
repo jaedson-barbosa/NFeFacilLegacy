@@ -294,7 +294,6 @@
     </Compile>
     <Compile Include="Impostos\IDetalhamentoImposto.cs" />
     <Compile Include="Impostos\IEscolherImpSimples.cs" />
-    <Compile Include="Impostos\ImpostoEscolhivel.cs" />
     <Compile Include="Impostos\ImpostoPadrao.cs" />
     <Compile Include="Impostos\PrincipaisImpostos.cs" />
     <Compile Include="Impostos\ProcessamentoImposto.cs" />

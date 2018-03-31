@@ -30,63 +30,57 @@ namespace Venda
         public (PrincipaisImpostos Tipo, string NomeTemplate, int CST)[] ImpostosPadrao { get; }
         public bool IsNFCe { get; set; }
 
-        public List<ImpostoEscolhivel> GetImpostosPadraoNFe(bool produto)
+        public List<ImpostoArmazenado> GetImpostosPadraoNFe(bool produto)
         {
-            List<ImpostoEscolhivel> impostos;
+            List<ImpostoArmazenado> impostos;
             if (produto)
             {
-                impostos = new List<ImpostoEscolhivel>
+                impostos = new List<ImpostoArmazenado>
                 {
-                    new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.ICMS)),
-                    new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.IPI)),
-                    new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.PIS)),
-                    new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.COFINS)),
-                    new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.II)),
-                    new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.ICMSUFDest))
+                    new ImpostoPadrao(PrincipaisImpostos.ICMS),
+                    new ImpostoPadrao(PrincipaisImpostos.IPI),
+                    new ImpostoPadrao(PrincipaisImpostos.PIS),
+                    new ImpostoPadrao(PrincipaisImpostos.COFINS),
+                    new ImpostoPadrao(PrincipaisImpostos.II),
+                    new ImpostoPadrao(PrincipaisImpostos.ICMSUFDest)
                 };
                 var icmsArmazenado = Auxiliar.GetICMSArmazenados();
                 if (icmsArmazenado != null && icmsArmazenado.Count() > 0)
                 {
-                    var icms = icmsArmazenado.Select(x => new ImpostoEscolhivel(x));
-                    impostos.AddRange(icms);
+                    impostos.AddRange(icmsArmazenado);
                 }
             }
             else
             {
-                impostos = new List<ImpostoEscolhivel>
+                impostos = new List<ImpostoArmazenado>
                 {
-                    new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.IPI)),
-                    new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.PIS)),
-                    new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.COFINS)),
-                    new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.ISSQN)),
-                    new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.ICMSUFDest))
+                    new ImpostoPadrao(PrincipaisImpostos.IPI),
+                    new ImpostoPadrao(PrincipaisImpostos.PIS),
+                    new ImpostoPadrao(PrincipaisImpostos.COFINS),
+                    new ImpostoPadrao(PrincipaisImpostos.ISSQN),
+                    new ImpostoPadrao(PrincipaisImpostos.ICMSUFDest)
                 };
             }
             var impsArmazenado = Auxiliar.GetImpSimplesArmazenados();
             if (impsArmazenado != null && impsArmazenado.Count() > 0)
             {
-                var imps = impsArmazenado.Select(x => new ImpostoEscolhivel(x));
-                impostos.AddRange(imps);
+                impostos.AddRange(impsArmazenado);
             }
-
-            int i = 0;
-            impostos.ForEach(x => x.Id = i++);
             return impostos;
         }
 
-        public List<ImpostoEscolhivel> GetImpostosPadraoNFCe()
+        public List<ImpostoArmazenado> GetImpostosPadraoNFCe()
         {
-            List<ImpostoEscolhivel> impostos = new List<ImpostoEscolhivel>
+            var impostos = new List<ImpostoArmazenado>
             {
-                new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.ICMS)),
-                new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.PIS)),
-                new ImpostoEscolhivel(new ImpostoPadrao(PrincipaisImpostos.COFINS)),
+                new ImpostoPadrao(PrincipaisImpostos.ICMS),
+                new ImpostoPadrao(PrincipaisImpostos.PIS),
+                new ImpostoPadrao(PrincipaisImpostos.COFINS)
             };
             var icmsArmazenado = Auxiliar.GetICMSArmazenados();
             if (icmsArmazenado != null && icmsArmazenado.Count() > 0)
             {
-                var icms = icmsArmazenado.Select(x => new ImpostoEscolhivel(x));
-                impostos.AddRange(icms);
+                impostos.AddRange(icmsArmazenado);
             }
 
             var impsArmazenado = Auxiliar.GetImpSimplesArmazenados();
@@ -94,11 +88,8 @@ namespace Venda
             {
                 impostos.AddRange(from x in impsArmazenado
                                   where x.Tipo != PrincipaisImpostos.IPI
-                                  select new ImpostoEscolhivel(x));
+                                  select x);
             }
-
-            int i = 0;
-            impostos.ForEach(x => x.Id = i++);
             return impostos;
         }
     }

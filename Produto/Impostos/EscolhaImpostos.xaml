@@ -1,7 +1,7 @@
 ﻿<Page x:Class="Venda.Impostos.EscolhaImpostos"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:local="using:Venda.Impostos"
+      xmlns:local="using:Venda"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
@@ -32,17 +32,17 @@
             </GroupStyle>
         </GridView.GroupStyle>
         <GridView.ItemTemplate>
-            <DataTemplate x:DataType="local:ImpostoEscolhivel">
+            <DataTemplate x:DataType="local:ImpostoArmazenado">
                 <Grid Padding="16">
                     <Grid.RowDefinitions>
                         <RowDefinition />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <TextBlock Text="{x:Bind Template.Tipo}"
+                    <TextBlock Text="{x:Bind Tipo}"
                                Width="160"
                                TextAlignment="Center"
                                Style="{StaticResource TitleTextBlockStyle}" />
-                    <TextBlock Text="{x:Bind Template.NomeTemplate}"
+                    <TextBlock Text="{x:Bind NomeTemplate}"
                                Grid.Row="1"
                                Style="{StaticResource BodyTextBlockStyle}" />
                 </Grid>

@@ -20,7 +20,7 @@ namespace Venda.Impostos
     {
         ICollectionView Impostos { get; set; }
 
-        Dictionary<int, IDetalhamentoImposto> Escolhidos { get; set; } = new Dictionary<int, IDetalhamentoImposto>();
+        List<IDetalhamentoImposto> Escolhidos { get; set; } = new List<IDetalhamentoImposto>();
 
         DetalhesProdutos ProdutoCompleto;
         (PrincipaisImpostos Tipo, string NomeTemplate, int CST)[] ImpostosPadrao;
@@ -31,7 +31,7 @@ namespace Venda.Impostos
             ProdutoCompleto = conjunto.Completo;
             ImpostosPadrao = conjunto.ImpostosPadrao;
 
-            List<ImpostoEscolhivel> impostos;
+            List<ImpostoArmazenado> impostos;
             if (conjunto.IsNFCe)
             {
                 impostos = conjunto.GetImpostosPadraoNFCe();
@@ -48,7 +48,7 @@ namespace Venda.Impostos
             {
                 IsSourceGrouped = true,
                 Source = from imp in impostos
-                         group imp by imp.Template.Tipo
+                         group imp by imp.Tipo
             }.View;
             InitializeComponent();
         }
@@ -62,55 +62,58 @@ namespace Venda.Impostos
             {
                 for (int i = 0; i < quantRemovida; i++)
                 {
-                    var item = (ImpostoEscolhivel)e.RemovedItems[i];
-                    Escolhidos.Remove(item.Id);
+                    var item = (ImpostoArmazenado)e.RemovedItems[i];
+                    Escolhidos.Remove(item);
                 }
             }
             if (quantAdicionada > 0)
             {
                 for (int i = 0; i < quantAdicionada; i++)
                 {
-                    var item = (ImpostoEscolhivel)e.AddedItems[i];
+                    var item = (ImpostoArmazenado)e.AddedItems[i];
                     bool sucesso = true;
-                    if (item.Template is ImpostoPadrao)
+                    if (item is ImpostoPadrao)
                     {
-                        switch (item.Template.Tipo)
+                        switch (item.Tipo)
                         {
                             case PrincipaisImpostos.ICMS:
-                                sucesso = await DetalharICMS(item.Id);
+                                sucesso = await DetalharICMS();
                                 break;
                             case PrincipaisImpostos.IPI:
-                                sucesso = await DetalharIPI(item.Id);
+                                sucesso = await DetalharIPI();
                                 break;
                             case PrincipaisImpostos.II:
-                                Escolhidos.Add(item.Id, new DetalhamentoII.Detalhamento());
+                                Escolhidos.Add(new DetalhamentoII.Detalhamento());
                                 break;
                             case PrincipaisImpostos.ISSQN:
-                                await DetalharISSQN(item.Id);
+                                await DetalharISSQN();
                                 break;
                             case PrincipaisImpostos.PIS:
-                                sucesso = await DetalharPIS(item.Id);
+                                sucesso = await DetalharPIS();
                                 break;
                             case PrincipaisImpostos.COFINS:
-                                sucesso = await DetalharCOFINS(item.Id);
+                                sucesso = await DetalharCOFINS();
                                 break;
                             case PrincipaisImpostos.ICMSUFDest:
-                                Escolhidos.Add(item.Id, new DetalhamentoICMSUFDest.Detalhamento());
+                                Escolhidos.Add(new DetalhamentoICMSUFDest.Detalhamento());
                                 break;
                         }
                     }
                     else
                     {
-                        Escolhidos.Add(item.Id, item.Template);
+                        Escolhidos.Add(item);
                     }
 
                     if (sucesso)
                     {
-                        var antigo = Escolhidos
-                            .FirstOrDefault(x => x.Value.Tipo == item.Template.Tipo && x.Key != item.Id);
-                        if (antigo.Value != null)
+                        var antigo = Escolhidos.FirstOrDefault(x => x.Tipo == item.Tipo && x != item);
+                        if (antigo != null)
                         {
-                            var itemExib = input.Items.FirstOrDefault(x => ((ImpostoEscolhivel)x).Id == antigo.Key);
+                            var itemExib = input.Items.FirstOrDefault(x =>
+                            {
+                                var k = (ImpostoArmazenado)x;
+                                return k.Tipo == item.Tipo && !e.AddedItems.Contains(k);
+                            });
                             var index = input.Items.IndexOf(itemExib);
                             input.DeselectRange(new ItemIndexRange(index, 1));
                         }
@@ -124,12 +127,12 @@ namespace Venda.Impostos
             }
         }
 
-        async Task<bool> DetalharICMS(int id)
+        async Task<bool> DetalharICMS()
         {
             var caixa = new EscolherTipoICMS();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
-                Escolhidos.Add(id, new DetalhamentoICMS.Detalhamento
+                Escolhidos.Add(new DetalhamentoICMS.Detalhamento
                 {
                     Origem = caixa.Origem,
                     TipoICMSRN = caixa.TipoICMSRN,
@@ -140,12 +143,12 @@ namespace Venda.Impostos
             return false;
         }
 
-        async Task<bool> DetalharIPI(int id)
+        async Task<bool> DetalharIPI()
         {
             var caixa = new EscolherTipoIPI();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
-                Escolhidos.Add(id, new DetalhamentoIPI.Detalhamento
+                Escolhidos.Add(new DetalhamentoIPI.Detalhamento
                 {
                     CST = int.Parse(caixa.CST),
                     TipoCalculo = caixa.TipoCalculo
@@ -155,23 +158,23 @@ namespace Venda.Impostos
             return false;
         }
 
-        async Task DetalharISSQN(int id)
+        async Task DetalharISSQN()
         {
             var caixa = new MessageDialog("Qual o tipo de ISSQN desejado?", "Entrada");
             caixa.Commands.Add(new UICommand("Nacional"));
             caixa.Commands.Add(new UICommand("Exterior"));
-            Escolhidos.Add(id, new DetalhamentoISSQN.Detalhamento
+            Escolhidos.Add(new DetalhamentoISSQN.Detalhamento
             {
                 Exterior = (await caixa.ShowAsync()).Label == "Exterior"
             });
         }
 
-        async Task<bool> DetalharPIS(int id)
+        async Task<bool> DetalharPIS()
         {
             var caixa = new EscolherTipoPISouCOFINS();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
-                Escolhidos.Add(id, new DetalhamentoPIS.Detalhamento
+                Escolhidos.Add(new DetalhamentoPIS.Detalhamento
                 {
                     CST = int.Parse(caixa.CST),
                     TipoCalculo = caixa.TipoCalculo,
@@ -181,12 +184,12 @@ namespace Venda.Impostos
             return false;
         }
 
-        async Task<bool> DetalharCOFINS(int id)
+        async Task<bool> DetalharCOFINS()
         {
             var caixa = new EscolherTipoPISouCOFINS();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
-                Escolhidos.Add(id, new DetalhamentoCOFINS.Detalhamento
+                Escolhidos.Add(new DetalhamentoCOFINS.Detalhamento
                 {
                     CST = int.Parse(caixa.CST),
                     TipoCalculo = caixa.TipoCalculo,
@@ -198,7 +201,7 @@ namespace Venda.Impostos
 
         private void Avancar(object sender, RoutedEventArgs e)
         {
-            var roteiro = new RoteiroAdicaoImpostos(Escolhidos.Values.ToArray(), ProdutoCompleto);
+            var roteiro = new RoteiroAdicaoImpostos(Escolhidos.ToArray(), ProdutoCompleto);
             BasicMainPage.Current.Navegar<DetalhamentoGeral>(roteiro);
         }
 
@@ -209,7 +212,7 @@ namespace Venda.Impostos
             {
                 for (int i = 0; i < grdImpostosSimples.Items.Count; i++)
                 {
-                    var atual = ((ImpostoEscolhivel)grdImpostosSimples.Items[i]).Template;
+                    var atual = (ImpostoArmazenado)grdImpostosSimples.Items[i];
                     var (Tipo, NomeTemplate, CST) = ImpostosPadrao.FirstOrDefault(x => x.Tipo == atual.Tipo && x.NomeTemplate == atual.NomeTemplate && x.CST == atual.CST);
                     if (!string.IsNullOrEmpty(NomeTemplate)) grdImpostosSimples.SelectRange(new ItemIndexRange(i, 1));
                 }

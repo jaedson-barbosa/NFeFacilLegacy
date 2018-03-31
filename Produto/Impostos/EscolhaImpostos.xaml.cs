@@ -116,12 +116,14 @@ namespace Venda.Impostos
                             });
                             var index = input.Items.IndexOf(itemExib);
                             input.DeselectRange(new ItemIndexRange(index, 1));
+                            Escolhidos.Remove(antigo);
                         }
                     }
                     else
                     {
                         var index = input.Items.IndexOf(item);
                         input.DeselectRange(new ItemIndexRange(index, 1));
+                        Escolhidos.Remove(item);
                     }
                 }
             }

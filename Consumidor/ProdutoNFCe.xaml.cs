@@ -1,13 +1,10 @@
 ﻿using BaseGeral;
 using BaseGeral.ModeloXML;
 using BaseGeral.ModeloXML.PartesDetalhes;
-using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos;
 using BaseGeral.View;
 using NFeFacil.View;
 using Venda;
 using Venda.Impostos;
-using System;
-using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -74,34 +71,7 @@ namespace Consumidor
 
         async void Concluir(object sender, RoutedEventArgs e)
         {
-            var icms = Conjunto.Auxiliar.GetICMSArmazenados();
-            var imps = Conjunto.Auxiliar.GetImpSimplesArmazenados();
-
-            var padrao = Conjunto.ImpostosPadrao;
-            IDetalhamentoImposto[] detalhamentos = new IDetalhamentoImposto[padrao.Length];
-            for (int i = 0; i < padrao.Length; i++)
-            {
-                var (Tipo, NomeTemplate, CST) = padrao[i];
-                var impPronto = Tipo == PrincipaisImpostos.ICMS ? (ImpostoArmazenado)icms.First(Analisar) : imps.First(Analisar);
-                bool Analisar(ImpostoArmazenado x) => x.Tipo == Tipo && x.NomeTemplate == NomeTemplate && x.CST == CST;
-                detalhamentos[i] = impPronto;
-            }
-            var roteiro = new RoteiroAdicaoImpostos(detalhamentos, ProdutoCompleto);
-            while (roteiro.Avancar()) roteiro.ProcessarSalvo();
-
-            var produto = roteiro.Finalizar();
-            produto.Impostos.impostos.RemoveAll(x => x.GetType() == typeof(PISST) || x.GetType() == typeof(COFINSST));
-
-            var caixa = new DefinirTotalImpostos();
-            if (await caixa.ShowAsync() == ContentDialogResult.Primary && !string.IsNullOrEmpty(caixa.ValorTotalTributos))
-            {
-                produto.Impostos.vTotTrib = caixa.ValorTotalTributos;
-            }
-            else
-            {
-                produto.Impostos.vTotTrib = null;
-            }
-
+            var produto = await new GerenciadorTributacao(Conjunto).AplicarTributacaoAutomatica();
             var info = ((NFCe)Frame.BackStack[Frame.BackStack.Count - 1].Parameter).Informacoes;
             if (produto.Número == 0)
             {

@@ -66,7 +66,7 @@ namespace Consumidor
 
         private void Avancar(object sender, RoutedEventArgs e)
         {
-            BasicMainPage.Current.Navegar<EscolhaImpostos>(Conjunto);
+            new GerenciadorTributacao(Conjunto).AplicarTributacaoManual();
         }
 
         async void Concluir(object sender, RoutedEventArgs e)

@@ -106,7 +106,7 @@ namespace Comum
             {
                 ProdutoCompleto.ImpostoDevol = null;
             }
-            BasicMainPage.Current.Navegar<EscolhaImpostos>(Conjunto);
+            new GerenciadorTributacao(Conjunto).AplicarTributacaoManual();
         }
 
         async void AdicionarDeclaracaoImportacao(object sender, RoutedEventArgs e)

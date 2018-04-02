@@ -323,6 +323,13 @@
       <DependentUpon>DefinirVeiculo.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewProdutoVenda\AdicionarProduto.xaml.cs">
+      <DependentUpon>AdicionarProduto.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewProdutoVenda\ExibicaoProdutoVenda.cs" />
+    <Compile Include="ViewProdutoVenda\ManipulacaoProdutosRV.xaml.cs">
+      <DependentUpon>ManipulacaoProdutosRV.xaml</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Properties\Produto.rd.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -535,6 +542,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ProdutoEspecial\DefinirVeiculo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ViewProdutoVenda\AdicionarProduto.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ViewProdutoVenda\ManipulacaoProdutosRV.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

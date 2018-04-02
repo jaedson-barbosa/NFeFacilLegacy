@@ -25,7 +25,7 @@ namespace Consumidor
     /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
     /// </summary>
     [DetalhePagina(Symbol.Document, "Nota fiscal do consumidor")]
-    public sealed partial class ManipulacaoNFCe : Page, IHambuguer, IValida
+    public sealed partial class ManipulacaoNFCe : Page, IValida
     {
         NFCe NotaSalva { get; set; }
         public bool Concluido { get; set; }
@@ -44,18 +44,6 @@ namespace Consumidor
                 ProdutosDisponiveis = TodosProdutos.GerarObs();
             }
         }
-
-        public ObservableCollection<ItemHambuguer> ConteudoMenu => new ObservableCollection<ItemHambuguer>
-        {
-            new ItemHambuguer(Symbol.Tag, "Identificação"),
-            new ItemHambuguer(Symbol.People, "Cliente"),
-            new ItemHambuguer(Symbol.Shop, "Produtos"),
-            new ItemHambuguer("\uE806", "Motorista"),
-            new ItemHambuguer(Symbol.Comment, "Informações adicionais"),
-            new ItemHambuguer(Symbol.Repair, "Pagamento")
-        };
-
-        public int SelectedIndex { set => main.SelectedIndex = value; }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {

@@ -5,7 +5,6 @@
       xmlns:detalhes="using:BaseGeral.ModeloXML.PartesDetalhes"
       xmlns:db="using:BaseGeral.ItensBD"
       xmlns:VM="using:BaseGeral.View"
-      xmlns:controles="using:BaseGeral.Controles"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
@@ -27,8 +26,10 @@
             </Grid>
         </DataTemplate>
     </Page.Resources>
-    <controles:MultView x:Name="main">
-        <ScrollViewer Padding="16">
+    <ScrollViewer x:Name="main"
+                  Padding="16">
+        <StackPanel>
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}">Identificação</TextBlock>
             <ItemsControl Style="{StaticResource ItensResponsivos}">
                 <DatePicker Header="Data de emissão"
                             Date="{x:Bind DataEmissao, Mode=TwoWay}" />
@@ -65,179 +66,205 @@
                           SelectedValue="{x:Bind CodigoMunicipio, Mode=TwoWay}"
                           SelectedValuePath="Codigo" />
             </ItemsControl>
-        </ScrollViewer>
-        <Grid Padding="16">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <TextBox PlaceholderText="Buscar"
-                     TextChanged="BuscarCliente"
-                     HorizontalAlignment="Stretch" />
-            <GridView Grid.Row="1"
-                      Loaded="GridView_Loaded"
-                      Style="{StaticResource ItensMediosGrid}"
-                      ItemsSource="{x:Bind ClientesDisponiveis}"
-                      SelectedItem="{x:Bind ClienteSelecionado, Mode=TwoWay}">
-                <GridView.ItemTemplate>
-                    <DataTemplate x:DataType="db:ClienteDI">
-                        <Grid Background="Transparent"
-                              Padding="16">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
-                                       Text="{x:Bind Documento, Converter={StaticResource mascara}}"
-                                       MaxLines="1" />
-                            <TextBlock Grid.Row="1"
-                                       Style="{StaticResource BodyTextBlockStyle}"
-                                       Text="{x:Bind Nome}" />
-                            <TextBlock Grid.Row="2"
-                                       Style="{StaticResource BodyTextBlockStyle}"
-                                       Text="{x:Bind NomeMunicipio}" />
-                        </Grid>
-                    </DataTemplate>
-                </GridView.ItemTemplate>
-            </GridView>
-        </Grid>
-        <Grid Padding="16">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <TextBox PlaceholderText="Buscar"
-                     TextChanged="BuscarProduto"
-                     HorizontalAlignment="Stretch" />
-            <GridView Grid.Row="1"
-                      ItemsSource="{x:Bind ProdutosDisponiveis}"
-                      ScrollViewer.HorizontalScrollBarVisibility="Visible"
-                      ScrollViewer.HorizontalScrollMode="Enabled"
-                      IsItemClickEnabled="True"
-                      ItemClick="AdicionarProduto"
-                      ItemTemplate="{StaticResource produto}">
-                <GridView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <ItemsWrapGrid Orientation="Vertical"
-                                       MaximumRowsOrColumns="1" />
-                    </ItemsPanelTemplate>
-                </GridView.ItemsPanel>
-            </GridView>
-            <TextBlock Grid.Row="2"
-                       Style="{StaticResource TitleTextBlockStyle}">Produtos adicionados</TextBlock>
-            <GridView Grid.Row="3"
-                      Grid.ColumnSpan="2"
-                      Margin="0,4,0,0"
-                      ItemsSource="{x:Bind Produtos}">
-                <GridView.ItemTemplate>
-                    <DataTemplate x:DataType="detalhes:DetalhesProdutos">
-                        <Grid Width="200"
-                              Padding="8">
-                            <Grid.ContextFlyout>
-                                <MenuFlyout>
-                                    <MenuFlyoutItem Click="EditarProduto">Editar</MenuFlyoutItem>
-                                    <MenuFlyoutItem Click="RemoverProduto">Remover</MenuFlyoutItem>
-                                </MenuFlyout>
-                            </Grid.ContextFlyout>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
-                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
-                                       Text="{x:Bind Produto.CodigoProduto}" />
-                            <TextBlock Grid.Row="1"
-                                       Style="{StaticResource BodyTextBlockStyle}"
-                                       Text="{x:Bind Produto.Descricao}" />
-                        </Grid>
-                    </DataTemplate>
-                </GridView.ItemTemplate>
-            </GridView>
-        </Grid>
-        <Grid Padding="16">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <TextBox PlaceholderText="Buscar"
-                     TextChanged="BuscarMotorista"
-                     HorizontalAlignment="Stretch" />
-            <GridView Grid.Row="1"
-                      ItemsSource="{x:Bind MotoristasDisponiveis}"
-                      Style="{StaticResource ItensMediosGrid}"
-                      SelectedItem="{x:Bind MotoristaSelecionado, Mode=TwoWay}"
-                      Loaded="GridView_Loaded">
-                <GridView.ItemTemplate>
-                    <DataTemplate x:DataType="db:MotoristaDI">
-                        <Grid Padding="8">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
-                                       Text="{x:Bind Documento, Converter={StaticResource mascara}}" />
-                            <TextBlock Grid.Row="1"
-                                       Style="{StaticResource BodyTextBlockStyle}"
-                                       Text="{x:Bind Nome}" />
-                            <TextBlock Grid.Row="2"
-                                       Style="{StaticResource BodyTextBlockStyle}"
-                                       Text="{x:Bind XMun}" />
-                        </Grid>
-                    </DataTemplate>
-                </GridView.ItemTemplate>
-            </GridView>
-        </Grid>
-        <ScrollViewer Padding="16">
-            <StackPanel>
-                <TextBox Text="{x:Bind NotaSalva.Informacoes.infAdic.InfAdFisco, Mode=TwoWay}"
-                         Header="Informacoes adicionais de interesse do fisco" />
-                <TextBox Grid.Row="1"
-                         Text="{x:Bind NotaSalva.Informacoes.infAdic.InfCpl, Mode=TwoWay}"
-                         Header="Informacoes complementares de interesse do contribuinte" />
-            </StackPanel>
-        </ScrollViewer>
-        <ListView Margin="16">
-            <ListView.Header>
-                <Grid Style="{StaticResource Cabecalho}">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Style="{StaticResource TextoCabecalho}">Tipo</TextBlock>
-                    <TextBlock Grid.Column="1"
-                               Style="{StaticResource TextoCabecalho}">Valor</TextBlock>
-                    <Button Grid.Column="2"
-                            Style="{StaticResource BotaoAdd}"
-                            Click="AdicionarFormaPagamento">
-                        <SymbolIcon Symbol="Add" />
-                    </Button>
-                </Grid>
-            </ListView.Header>
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="local:FormaPagamento">
-                    <Grid Style="{StaticResource Cabecalho}"
-                          Background="Transparent">
-                        <Grid.ContextFlyout>
-                            <MenuFlyout>
-                                <MenuFlyoutItem Click="RemoverFormaPagamento">Remover</MenuFlyoutItem>
-                            </MenuFlyout>
-                        </Grid.ContextFlyout>
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}">Cliente</TextBlock>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <TextBox PlaceholderText="Buscar"
+                         TextChanged="BuscarCliente"
+                         HorizontalAlignment="Stretch" />
+                <GridView Grid.Row="1"
+                          Loaded="GridView_Loaded"
+                          ItemsSource="{x:Bind ClientesDisponiveis}"
+                          SelectedItem="{x:Bind ClienteSelecionado, Mode=TwoWay}"
+                          ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                          ScrollViewer.HorizontalScrollMode="Enabled"
+                          Style="{StaticResource ItensMediosGrid}">
+                    <GridView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <ItemsWrapGrid Orientation="Vertical"
+                                           MaximumRowsOrColumns="2" />
+                        </ItemsPanelTemplate>
+                    </GridView.ItemsPanel>
+                    <GridView.ItemTemplate>
+                        <DataTemplate x:DataType="db:ClienteDI">
+                            <Grid Background="Transparent"
+                                  Padding="16">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
+                                           Text="{x:Bind Documento, Converter={StaticResource mascara}}"
+                                           MaxLines="1" />
+                                <TextBlock Grid.Row="1"
+                                           Style="{StaticResource BodyTextBlockStyle}"
+                                           Text="{x:Bind Nome}" />
+                                <TextBlock Grid.Row="2"
+                                           Style="{StaticResource BodyTextBlockStyle}"
+                                           Text="{x:Bind NomeMunicipio}" />
+                            </Grid>
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+                </GridView>
+            </Grid>
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}">Produtos</TextBlock>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <TextBox PlaceholderText="Buscar"
+                         TextChanged="BuscarProduto"
+                         HorizontalAlignment="Stretch" />
+                <GridView Grid.Row="1"
+                          ItemsSource="{x:Bind ProdutosDisponiveis}"
+                          ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                          ScrollViewer.HorizontalScrollMode="Enabled"
+                          IsItemClickEnabled="True"
+                          ItemClick="AdicionarProduto"
+                          ItemTemplate="{StaticResource produto}">
+                    <GridView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <ItemsWrapGrid Orientation="Vertical"
+                                           MaximumRowsOrColumns="1" />
+                        </ItemsPanelTemplate>
+                    </GridView.ItemsPanel>
+                </GridView>
+                <TextBlock Grid.Row="2"
+                           Style="{StaticResource TitleTextBlockStyle}">Produtos adicionados</TextBlock>
+                <GridView Grid.Row="3"
+                          Grid.ColumnSpan="2"
+                          Margin="0,4,0,0"
+                          ItemsSource="{x:Bind Produtos}"
+                          ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                          ScrollViewer.HorizontalScrollMode="Enabled"
+                          Style="{StaticResource ItensMediosGrid}">
+                    <GridView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <ItemsWrapGrid Orientation="Vertical"
+                                           MaximumRowsOrColumns="2" />
+                        </ItemsPanelTemplate>
+                    </GridView.ItemsPanel>
+                    <GridView.ItemTemplate>
+                        <DataTemplate x:DataType="detalhes:DetalhesProdutos">
+                            <Grid Width="200"
+                                  Padding="8">
+                                <Grid.ContextFlyout>
+                                    <MenuFlyout>
+                                        <MenuFlyoutItem Click="EditarProduto">Editar</MenuFlyoutItem>
+                                        <MenuFlyoutItem Click="RemoverProduto">Remover</MenuFlyoutItem>
+                                    </MenuFlyout>
+                                </Grid.ContextFlyout>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
+                                           Text="{x:Bind Produto.CodigoProduto}" />
+                                <TextBlock Grid.Row="1"
+                                           Style="{StaticResource BodyTextBlockStyle}"
+                                           Text="{x:Bind Produto.Descricao}" />
+                            </Grid>
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+                </GridView>
+            </Grid>
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}">Motorista</TextBlock>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <TextBox PlaceholderText="Buscar"
+                         TextChanged="BuscarMotorista"
+                         HorizontalAlignment="Stretch" />
+                <GridView Grid.Row="1"
+                          ItemsSource="{x:Bind MotoristasDisponiveis}"
+                          Style="{StaticResource ItensMediosGrid}"
+                          SelectedItem="{x:Bind MotoristaSelecionado, Mode=TwoWay}"
+                          ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                          ScrollViewer.HorizontalScrollMode="Enabled"
+                          Loaded="GridView_Loaded">
+                    <GridView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <ItemsWrapGrid Orientation="Vertical"
+                                           MaximumRowsOrColumns="2" />
+                        </ItemsPanelTemplate>
+                    </GridView.ItemsPanel>
+                    <GridView.ItemTemplate>
+                        <DataTemplate x:DataType="db:MotoristaDI">
+                            <Grid Padding="8">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
+                                           Text="{x:Bind Documento, Converter={StaticResource mascara}}" />
+                                <TextBlock Grid.Row="1"
+                                           Style="{StaticResource BodyTextBlockStyle}"
+                                           Text="{x:Bind Nome}" />
+                                <TextBlock Grid.Row="2"
+                                           Style="{StaticResource BodyTextBlockStyle}"
+                                           Text="{x:Bind XMun}" />
+                            </Grid>
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+                </GridView>
+            </Grid>
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}">Informações adicionais</TextBlock>
+            <TextBox Text="{x:Bind NotaSalva.Informacoes.infAdic.InfAdFisco, Mode=TwoWay}"
+                     Header="Informacoes adicionais de interesse do fisco" />
+            <TextBox Grid.Row="1"
+                     Text="{x:Bind NotaSalva.Informacoes.infAdic.InfCpl, Mode=TwoWay}"
+                     Header="Informacoes complementares de interesse do contribuinte" />
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}">Pagamento</TextBlock>
+            <ListView Margin="16">
+                <ListView.Header>
+                    <Grid Style="{StaticResource Cabecalho}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
                             <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="{x:Bind Tipo}">Tipo</TextBlock>
+                        <TextBlock Style="{StaticResource TextoCabecalho}">Tipo</TextBlock>
                         <TextBlock Grid.Column="1"
-                                   Text="{x:Bind Valor}">Valor</TextBlock>
+                                   Style="{StaticResource TextoCabecalho}">Valor</TextBlock>
+                        <Button Grid.Column="2"
+                                Style="{StaticResource BotaoAdd}"
+                                Click="AdicionarFormaPagamento">
+                            <SymbolIcon Symbol="Add" />
+                        </Button>
                     </Grid>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-    </controles:MultView>
+                </ListView.Header>
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="local:FormaPagamento">
+                        <Grid Style="{StaticResource Cabecalho}"
+                              Background="Transparent">
+                            <Grid.ContextFlyout>
+                                <MenuFlyout>
+                                    <MenuFlyoutItem Click="RemoverFormaPagamento">Remover</MenuFlyoutItem>
+                                </MenuFlyout>
+                            </Grid.ContextFlyout>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{x:Bind Tipo}">Tipo</TextBlock>
+                            <TextBlock Grid.Column="1"
+                                       Text="{x:Bind Valor}">Valor</TextBlock>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
+    </ScrollViewer>
     <Page.BottomAppBar>
         <CommandBar>
             <AppBarButton Icon="Accept"

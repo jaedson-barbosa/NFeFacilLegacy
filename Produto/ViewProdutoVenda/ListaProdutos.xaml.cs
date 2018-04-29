@@ -13,7 +13,7 @@ namespace Venda.ViewProdutoVenda
     [DetalhePagina("\uEC59", "Registro de venda")]
     public sealed partial class ManipulacaoProdutosRV : Page, IValida
     {
-        ObservableCollection<ExibicaoProdutoListaGeral> Produtos { get; }
+        ObservableCollection<ExibicaoProdutoListaGeral> Produtos { get; set; }
         IControleViewProduto Controle { get; set; }
 
         public bool Concluido => Controle.Concluido;
@@ -23,20 +23,22 @@ namespace Venda.ViewProdutoVenda
         public ManipulacaoProdutosRV()
         {
             InitializeComponent();
-            Produtos = new ObservableCollection<ExibicaoProdutoListaGeral>();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             Controle = (IControleViewProduto)e.Parameter;
+            Produtos = Controle.ObterProdutosIniciais();
             VisibilidadeAvancar = Controle.PodeConcluir ? Visibility.Collapsed : Visibility.Visible;
             VisibilidadeConcluir = Controle.PodeConcluir ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private void RemoverProduto(object sender, RoutedEventArgs e)
         {
-            var prod = ((FrameworkElement)sender).DataContext;
-            Controle.Remover((ExibicaoProdutoListaGeral)prod);
+            var context = ((FrameworkElement)sender).DataContext;
+            var prod = (ExibicaoProdutoListaGeral)context;
+            Produtos.Remove(prod);
+            Controle.Remover(prod);
         }
 
         private async void AdicionarProduto(object sender, RoutedEventArgs e)
@@ -44,10 +46,16 @@ namespace Venda.ViewProdutoVenda
             var jaAdicionados = Controle.ProdutosAdicionados;
             AdicionarProduto caixa = null;
             caixa = Controle.PodeDetalhar
-                ? new AdicionarProduto(jaAdicionados, () => Controle.Adicionar(caixa), Controle.AnalisarDetalhamentoProduto)
-                : new AdicionarProduto(jaAdicionados, () => Controle.Adicionar(caixa));
+                ? new AdicionarProduto(jaAdicionados, Adicionar, Controle.AnalisarDetalhamento)
+                : new AdicionarProduto(jaAdicionados, Adicionar);
             await caixa.ShowAsync();
             if (caixa.Detalhar) Controle.Detalhar();
+
+            void Adicionar()
+            {
+                var prod = Controle.Adicionar(caixa);
+                Produtos.Add(prod);
+            }
         }
 
         void Avancar(object sender, RoutedEventArgs e)

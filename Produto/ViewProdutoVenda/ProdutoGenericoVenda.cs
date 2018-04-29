@@ -16,8 +16,5 @@ namespace Venda.ViewProdutoVenda
         public double Seguro { get; set; }
         public double DespesasExtras { get; set; }
         public double Desconto { get; set; }
-
-        public string ValorUnitarioStr => ValorUnitario.ToString("C");
-        public string TotalLiquido => (ValorUnitario * Quantidade + Frete + Seguro + DespesasExtras - Desconto).ToString("C");
     }
 }

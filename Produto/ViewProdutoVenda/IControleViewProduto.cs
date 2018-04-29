@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -11,7 +12,8 @@ namespace Venda.ViewProdutoVenda
         bool PodeDetalhar { get; }
         Guid[] ProdutosAdicionados { get; }
 
-        bool AnalisarDetalhamentoProduto(ExibicaoProdutoAdicao produto);
+        ObservableCollection<ExibicaoProdutoListaGeral> ObterProdutosIniciais();
+        bool AnalisarDetalhamento(ExibicaoProdutoAdicao produto);
         ExibicaoProdutoListaGeral Adicionar(AdicionarProduto caixa);
         void Remover(ExibicaoProdutoListaGeral produto);
         void Detalhar();

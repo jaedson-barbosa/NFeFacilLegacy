@@ -106,13 +106,10 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AdicionarProduto.xaml.cs">
-      <DependentUpon>AdicionarProduto.xaml</DependentUpon>
-    </Compile>
     <Compile Include="CalcularTroco.xaml.cs">
       <DependentUpon>CalcularTroco.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ControleProdutosRV.cs" />
+    <Compile Include="ControleViewProduto.cs" />
     <Compile Include="DARV\DadosImpressaoDARV.cs" />
     <Compile Include="DARV\Dimensoes.cs" />
     <Compile Include="DARV\ExibicaoProduto.cs" />
@@ -122,9 +119,6 @@
     </Compile>
     <Compile Include="EscolherDimensão.xaml.cs">
       <DependentUpon>EscolherDimensão.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ManipulacaoProdutosRV.xaml.cs">
-      <DependentUpon>ManipulacaoProdutosRV.xaml</DependentUpon>
     </Compile>
     <Compile Include="ManipulacaoRegistroVenda.xaml.cs">
       <DependentUpon>ManipulacaoRegistroVenda.xaml</DependentUpon>
@@ -168,10 +162,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="AdicionarProduto.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="CalcularTroco.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -181,10 +171,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="EscolherDimensão.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ManipulacaoProdutosRV.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

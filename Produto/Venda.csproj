@@ -326,9 +326,12 @@
     <Compile Include="ViewProdutoVenda\AdicionarProduto.xaml.cs">
       <DependentUpon>AdicionarProduto.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewProdutoVenda\ExibicaoProdutoVenda.cs" />
-    <Compile Include="ViewProdutoVenda\ManipulacaoProdutosRV.xaml.cs">
-      <DependentUpon>ManipulacaoProdutosRV.xaml</DependentUpon>
+    <Compile Include="ViewProdutoVenda\ExibicaoProdutoAdicao.cs" />
+    <Compile Include="ViewProdutoVenda\ExibicaoProdutoListaGeral.cs" />
+    <Compile Include="ViewProdutoVenda\ProdutoGenericoVenda.cs" />
+    <Compile Include="ViewProdutoVenda\IControleViewProduto.cs" />
+    <Compile Include="ViewProdutoVenda\ListaProdutos.xaml.cs">
+      <DependentUpon>ListaProdutos.xaml</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Produto.rd.xml" />
   </ItemGroup>
@@ -549,7 +552,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ViewProdutoVenda\ManipulacaoProdutosRV.xaml">
+    <Page Include="ViewProdutoVenda\ListaProdutos.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

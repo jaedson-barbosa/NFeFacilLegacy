@@ -1,35 +1,40 @@
 ﻿using BaseGeral;
-using BaseGeral.ItensBD;
 using BaseGeral.Log;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 // O modelo de item de Caixa de Diálogo de Conteúdo está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace Venda.ViewProdutoVenda
 {
-    public sealed partial class AdicionarProduto : ContentDialog
+    public sealed partial class AdicionarProduto : ContentDialog, INotifyPropertyChanged
     {
         List<ExibicaoProdutoAdicao> ListaCompletaProdutos { get; }
         public ObservableCollection<ExibicaoProdutoAdicao> Produtos { get; }
         public ExibicaoProdutoAdicao ProdutoSelecionado { get; set; }
 
-        bool PodeDetalhar { get; }
+        bool PodeDetalhar { get; set; } = false;
         public double Quantidade { get; set; }
         public double Seguro { get; set; }
         public double DespesasExtras { get; set; }
-        public bool Detalhar { get; private set; }
+        public bool Detalhar
+        {
+            get => PrimaryButtonText == "Detalhar";
+            private set => PrimaryButtonText = value ? "Detalhar" : "Adicionar";
+        }
 
         Action Adicionar { get; }
+        Func<ExibicaoProdutoAdicao, bool> AnalisarDetalhamento { get; }
 
-        public AdicionarProduto(Guid[] produtosJaAdicionados, Action adicionar, bool podeDetalhar)
+        public AdicionarProduto(Guid[] produtosJaAdicionados, Action adicionar)
         {
             InitializeComponent();
             Adicionar = adicionar;
-            PodeDetalhar = podeDetalhar;
 
             using (var repo = new BaseGeral.Repositorio.Leitura())
             {
@@ -65,6 +70,15 @@ namespace Venda.ViewProdutoVenda
             }
         }
 
+        public AdicionarProduto(Guid[] produtosJaAdicionados, Action adicionar, Func<ExibicaoProdutoAdicao, bool> analisarDetalhamento)
+            : this(produtosJaAdicionados, adicionar)
+        {
+            PodeDetalhar = true;
+            AnalisarDetalhamento = analisarDetalhamento;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
         void Buscar(object sender, TextChangedEventArgs e)
         {
             var busca = ((TextBox)sender).Text;
@@ -73,56 +87,61 @@ namespace Venda.ViewProdutoVenda
                 var atual = ListaCompletaProdutos[i];
                 bool valido;
                 if (DefinicoesPermanentes.ModoBuscaProduto == 0)
-                {
                     valido = atual.Nome.ToUpper().Contains(busca.ToUpper());
-                }
                 else
-                {
                     valido = atual.Codigo.ToUpper().Contains(busca.ToUpper());
-                }
+
                 if (valido && !Produtos.Contains(atual))
-                {
                     Produtos.Add(atual);
-                }
                 else if (!valido && Produtos.Contains(atual))
-                {
                     Produtos.Remove(atual);
-                }
             }
         }
 
-        void VerificarConformidadeEstoque(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        void BotaoPrimario_Click(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            args.Cancel = !Detalhar;
+            args.Cancel = true;
             var log = Popup.Current;
             if (ProdutoSelecionado?.Base == null)
-            {
                 log.Escrever(TitulosComuns.Atenção, "Escolha um produto.");
-            }
             else if (Quantidade <= 0)
-            {
                 log.Escrever(TitulosComuns.Atenção, "Insira uma quantidade maior que 0.");
-            }
             else if (ProdutoSelecionado.Estoque != "Infinito" && Quantidade > double.Parse(ProdutoSelecionado.Estoque))
-            {
                 log.Escrever(TitulosComuns.Atenção, "A quantidade vendida não pode ser maior que a quantidade em estoque.");
-            }
             else
             {
                 Adicionar?.Invoke();
                 ListaCompletaProdutos.Remove(ProdutoSelecionado);
                 Produtos.Remove(ProdutoSelecionado);
             }
+            args.Cancel = !Detalhar;
         }
-    }
 
-    public sealed class ExibicaoProdutoAdicao
-    {
-        public ProdutoDI Base { get; set; }
-        public string Codigo { get; set; }
-        public string Nome { get; set; }
-        public string Estoque { get; set; }
-        public double PrecoDouble { get; set; }
-        public string Preco { get; set; }
+        void ListView_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (PodeDetalhar)
+            {
+                var origin = (ListView)sender;
+                origin.SelectionChanged += NovoProdutoEscolhido;
+            }
+        }
+
+        void NovoProdutoEscolhido(object sender, SelectionChangedEventArgs e)
+        {
+            var esc = (ExibicaoProdutoAdicao)e.AddedItems[0];
+            var necessitaDetalhamento = AnalisarDetalhamento(esc);
+            if (necessitaDetalhamento)
+            {
+                Detalhar = true;
+                PodeDetalhar = false;
+            }
+            else
+            {
+                Detalhar = false;
+                PodeDetalhar = true;
+            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Detalhar)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PodeDetalhar)));
+        }
     }
 }

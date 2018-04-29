@@ -2,7 +2,6 @@
 using NFeFacil.View;
 using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -14,6 +13,7 @@ namespace Venda.ViewProdutoVenda
     [DetalhePagina("\uEC59", "Registro de venda")]
     public sealed partial class ManipulacaoProdutosRV : Page, IValida
     {
+        ObservableCollection<ExibicaoProdutoListaGeral> Produtos { get; }
         IControleViewProduto Controle { get; set; }
 
         public bool Concluido => Controle.Concluido;
@@ -23,6 +23,7 @@ namespace Venda.ViewProdutoVenda
         public ManipulacaoProdutosRV()
         {
             InitializeComponent();
+            Produtos = new ObservableCollection<ExibicaoProdutoListaGeral>();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -34,45 +35,31 @@ namespace Venda.ViewProdutoVenda
 
         private void RemoverProduto(object sender, RoutedEventArgs e)
         {
-            var prod = (ExibicaoProdutoVenda)((FrameworkElement)sender).DataContext;
-            Controle.Produtos.Remove(prod);
+            var prod = ((FrameworkElement)sender).DataContext;
+            Controle.Remover((ExibicaoProdutoListaGeral)prod);
         }
 
         private async void AdicionarProduto(object sender, RoutedEventArgs e)
         {
+            var jaAdicionados = Controle.ProdutosAdicionados;
             AdicionarProduto caixa = null;
-            caixa = new AdicionarProduto(Controle.Produtos.Select(x => x.IdBase).ToArray(), () =>
-            {
-                var novoProdExib = new ExibicaoProdutoVenda
-                {
-                    IdBase = caixa.ProdutoSelecionado.Base.Id,
-                    ValorUnitario = caixa.ProdutoSelecionado.PrecoDouble,
-                    Codigo = caixa.ProdutoSelecionado.Codigo,
-                    Descricao = caixa.ProdutoSelecionado.Nome,
-                    Quantidade = caixa.Quantidade,
-                    Frete = 0,
-                    Seguro = caixa.Seguro,
-                    DespesasExtras = caixa.DespesasExtras,
-                    Desconto = 0
-                };
-                Controle.Produtos.Add(novoProdExib);
-            }, Controle.PodeDetalhar);
+            caixa = Controle.PodeDetalhar
+                ? new AdicionarProduto(jaAdicionados, () => Controle.Adicionar(caixa), Controle.AnalisarDetalhamentoProduto)
+                : new AdicionarProduto(jaAdicionados, () => Controle.Adicionar(caixa));
             await caixa.ShowAsync();
             if (caixa.Detalhar) Controle.Detalhar();
         }
 
-        void Avancar(object sender, RoutedEventArgs e) => Controle.Avancar();
-        void Concluir(object sender, RoutedEventArgs e) => Controle.Concluir();
-    }
+        void Avancar(object sender, RoutedEventArgs e)
+        {
+            if (Controle.Validar())
+                Controle.Avancar();
+        }
 
-    public interface IControleViewProduto
-    {
-        bool Concluido { get; }
-        bool PodeConcluir { get; }
-        bool PodeDetalhar { get; }
-        ObservableCollection<ExibicaoProdutoVenda> Produtos { get; }
-        void Avancar();
-        void Concluir();
-        void Detalhar();
+        void Concluir(object sender, RoutedEventArgs e)
+        {
+            if (Controle.Validar())
+                Controle.Concluir();
+        }
     }
 }

@@ -9,7 +9,7 @@
                Title="Adicionar produto"
                PrimaryButtonText="Adicionar"
                SecondaryButtonText="Finalizar"
-               PrimaryButtonClick="VerificarConformidadeEstoque">
+               PrimaryButtonClick="BotaoPrimario_Click">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -20,6 +20,7 @@
                  TextChanged="Buscar" />
         <ListView ItemsSource="{x:Bind Produtos}"
                   SelectedItem="{x:Bind ProdutoSelecionado, Mode=TwoWay}"
+                  Loaded="ListView_Loaded"
                   Grid.Row="1"
                   Margin="0,2,0,4">
             <ListView.Header>
@@ -74,7 +75,7 @@
             <controles:EntradaNumerica Header="Despesas extras"
                                        Format="10:2"
                                        Number="{x:Bind DespesasExtras, Mode=TwoWay}" />
-            <CheckBox IsEnabled="{x:Bind PodeDetalhar}"
+            <CheckBox IsEnabled="{x:Bind PodeDetalhar, Mode=OneWay}"
                       IsChecked="{x:Bind Detalhar, Mode=TwoWay}">Detalhar</CheckBox>
         </ItemsControl>
     </Grid>

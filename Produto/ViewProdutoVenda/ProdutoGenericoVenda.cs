@@ -4,9 +4,10 @@
 
 namespace Venda.ViewProdutoVenda
 {
-    public struct ExibicaoProdutoVenda
+    public abstract class ProdutoGenericoVenda
     {
         public Guid IdBase { get; set; }
+
         public double ValorUnitario { get; set; }
         public string Codigo { get; set; }
         public string Descricao { get; set; }
@@ -15,6 +16,7 @@ namespace Venda.ViewProdutoVenda
         public double Seguro { get; set; }
         public double DespesasExtras { get; set; }
         public double Desconto { get; set; }
+
         public string ValorUnitarioStr => ValorUnitario.ToString("C");
         public string TotalLiquido => (ValorUnitario * Quantidade + Frete + Seguro + DespesasExtras - Desconto).ToString("C");
     }

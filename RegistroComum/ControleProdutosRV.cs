@@ -1,11 +1,8 @@
 ﻿using BaseGeral;
 using BaseGeral.ItensBD;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Venda.ViewProdutoVenda;
 
 namespace RegistroComum
@@ -17,11 +14,11 @@ namespace RegistroComum
         public bool Concluido { get; private set; }
         public bool PodeConcluir { get; }
         public bool PodeDetalhar { get; }
-        public ObservableCollection<ExibicaoProdutoVenda> Produtos { get; }
+        public ObservableCollection<ProdutoGenericoVenda> Produtos { get; }
 
         public ControleProdutosRV()
         {
-            Produtos = new ObservableCollection<ExibicaoProdutoVenda>();
+            Produtos = new ObservableCollection<ProdutoGenericoVenda>();
             PodeConcluir = false;
             PodeDetalhar = false;
         }
@@ -32,7 +29,7 @@ namespace RegistroComum
             {
                 Produtos = (from prod in ItemBanco.Produtos
                             let comp = leitura.ObterProduto(prod.IdBase)
-                            select new ExibicaoProdutoVenda
+                            select new ProdutoGenericoVenda
                             {
                                 IdBase = prod.IdBase,
                                 Codigo = comp.CodigoProduto,

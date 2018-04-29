@@ -170,7 +170,8 @@ namespace RegistroComum
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
                 ItemBanco.MotivoEdicao = caixa.Motivo;
-                BasicMainPage.Current.Navegar<ManipulacaoProdutosRV>(ItemBanco);
+                var controle = new ControleViewProduto(ItemBanco);
+                BasicMainPage.Current.Navegar<Venda.ViewProdutoVenda.ListaProdutos>(controle);
             }
         }
     }

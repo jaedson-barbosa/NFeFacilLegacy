@@ -11,7 +11,7 @@ using Windows.UI.Xaml.Navigation;
 namespace Venda.ViewProdutoVenda
 {
     [DetalhePagina("\uEC59", "Registro de venda")]
-    public sealed partial class ManipulacaoProdutosRV : Page, IValida
+    public sealed partial class ListaProdutos : Page, IValida
     {
         ObservableCollection<ExibicaoProdutoListaGeral> Produtos { get; set; }
         IControleViewProduto Controle { get; set; }
@@ -20,7 +20,7 @@ namespace Venda.ViewProdutoVenda
         Visibility VisibilidadeAvancar { get; set; }
         Visibility VisibilidadeConcluir { get; set; }
 
-        public ManipulacaoProdutosRV()
+        public ListaProdutos()
         {
             InitializeComponent();
         }

@@ -1,6 +1,7 @@
 ﻿using BaseGeral;
 using BaseGeral.ItensBD;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Venda.ViewProdutoVenda;
@@ -18,7 +19,14 @@ namespace RegistroComum
 
         public ControleViewProduto()
         {
-            Venda = new RegistroVenda();
+            Venda = new RegistroVenda
+            {
+                Emitente = DefinicoesTemporarias.EmitenteAtivo.Id,
+                Vendedor = DefinicoesTemporarias.VendedorAtivo?.Id ?? Guid.Empty,
+                Produtos = new List<ProdutoSimplesVenda>(),
+                DataHoraVenda = DefinicoesTemporarias.DateTimeNow,
+                PrazoEntrega = DefinicoesTemporarias.DateTimeNow
+            };
             PodeConcluir = false;
             PodeDetalhar = true;
         }

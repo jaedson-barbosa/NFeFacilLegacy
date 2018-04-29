@@ -19,6 +19,7 @@ using BaseGeral;
 using BaseGeral.Sincronizacao;
 using BaseGeral.View;
 using Consumidor;
+using System.Collections.Generic;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -69,15 +70,8 @@ namespace NFeFacil.View
         void AbrirVendasSalvas(object sender, TappedRoutedEventArgs e) => Navegar<RegistrosVenda>();
         void CriarVenda(object sender, TappedRoutedEventArgs e)
         {
-            var rv = new RegistroVenda
-            {
-                Emitente = DefinicoesTemporarias.EmitenteAtivo.Id,
-                Vendedor = DefinicoesTemporarias.VendedorAtivo?.Id ?? Guid.Empty,
-                Produtos = new System.Collections.Generic.List<ProdutoSimplesVenda>(),
-                DataHoraVenda = DefinicoesTemporarias.DateTimeNow,
-                PrazoEntrega = DefinicoesTemporarias.DateTimeNow
-            };
-            MainPage.Current.Navegar<ManipulacaoProdutosRV>(rv);
+            var controle = new ControleViewProduto();
+            MainPage.Current.Navegar<Venda.ViewProdutoVenda.ListaProdutos>(controle);
         }
 
         void AbrirConfiguracoes(object sender, TappedRoutedEventArgs e) => Navegar<Configuracoes>();

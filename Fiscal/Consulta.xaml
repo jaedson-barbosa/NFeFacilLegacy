@@ -3,7 +3,7 @@
       xmlns:vm="using:BaseGeral.View"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      x:Class="Comum.Consulta"
+      x:Class="Fiscal.Consulta"
       mc:Ignorable="d">
     <Grid x:Name="grdPrincipal"
           Padding="16">

@@ -146,18 +146,9 @@
     <Compile Include="CaixasDialogo\EscolherVeiculo.xaml.cs">
       <DependentUpon>EscolherVeiculo.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Consulta.xaml.cs">
-      <DependentUpon>Consulta.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ControleNFe.cs" />
     <Compile Include="ControleViewNFe.cs" />
     <Compile Include="DadosDANFE.cs" />
-    <Compile Include="InfoInutilizacao.xaml.cs">
-      <DependentUpon>InfoInutilizacao.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Inutilizacoes.xaml.cs">
-      <DependentUpon>Inutilizacoes.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ManipulacaoNotaFiscal.xaml.cs">
       <DependentUpon>ManipulacaoNotaFiscal.xaml</DependentUpon>
     </Compile>
@@ -289,18 +280,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="CaixasDialogo\EscolherVeiculo.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Consulta.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="InfoInutilizacao.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Inutilizacoes.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

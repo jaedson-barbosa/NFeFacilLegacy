@@ -140,6 +140,9 @@
     <Compile Include="Certificacao\LAN\Pacotes\RequisicaoEnvioDTO.cs" />
     <Compile Include="Certificacao\LAN\Primitivos\CertificadoAssinatura.cs" />
     <Compile Include="Certificacao\LAN\Primitivos\CertificadoExibicao.cs" />
+    <Compile Include="Consulta.xaml.cs">
+      <DependentUpon>Consulta.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ControleViewProduto.cs" />
     <Compile Include="Criador.xaml.cs">
       <DependentUpon>Criador.xaml</DependentUpon>
@@ -149,6 +152,12 @@
     </Compile>
     <Compile Include="IControleCriacao.cs" />
     <Compile Include="IControleView.cs" />
+    <Compile Include="InfoInutilizacao.xaml.cs">
+      <DependentUpon>InfoInutilizacao.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Inutilizacoes.xaml.cs">
+      <DependentUpon>Inutilizacoes.xaml</DependentUpon>
+    </Compile>
     <Compile Include="NotasSalvas.xaml.cs">
       <DependentUpon>NotasSalvas.xaml</DependentUpon>
     </Compile>
@@ -221,11 +230,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Consulta.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Criador.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="EscolhaProdutos.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="InfoInutilizacao.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Inutilizacoes.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

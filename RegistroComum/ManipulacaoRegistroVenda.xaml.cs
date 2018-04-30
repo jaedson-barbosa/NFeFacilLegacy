@@ -128,7 +128,7 @@ namespace RegistroComum
                 Compradores = new ObservableCollection<Comprador>();
                 CompradoresPorCliente = repo.ObterCompradoresPorCliente();
             }
-            ItemBanco = (RegistroVenda)Frame.BackStack[Frame.BackStack.Count - 1].Parameter;
+            ItemBanco = (RegistroVenda)e.Parameter;
             AtualizarTotal();
             txtValorDesejado.Number = ItemBanco.Produtos.Sum(x => x.Quantidade * x.ValorUnitario);
             cmbComprador.IsEnabled = ItemBanco.Comprador != default(Guid);

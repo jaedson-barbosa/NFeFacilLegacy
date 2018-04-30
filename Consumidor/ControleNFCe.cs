@@ -10,7 +10,7 @@ namespace Consumidor
 {
     public sealed class ControleNFCe : IControleCriacao
     {
-        NFCe PreNota { get; }
+        public NFCe PreNota { get; }
 
         public ControleNFCe()
         {
@@ -59,7 +59,8 @@ namespace Consumidor
             identificacao.DefinirVersãoAplicativo();
             PreNota.Informacoes.identificacao = identificacao;
             PreNota.Informacoes.ChaveAcesso = null;
-            BasicMainPage.Current.Navegar<ManipulacaoNFCe>(PreNota);
+            var controle = new ControleViewProduto(PreNota);
+            BasicMainPage.Current.Navegar<Venda.ViewProdutoVenda.ListaProdutos>(controle);
         }
     }
 }

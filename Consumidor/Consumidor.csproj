@@ -112,6 +112,8 @@
     </Compile>
     <Compile Include="ControleNFCe.cs" />
     <Compile Include="ControleViewNFCe.cs" />
+    <Compile Include="ControleViewProduto.cs" />
+    <Compile Include="FormaPagamento.cs" />
     <Compile Include="ManipulacaoNFCe.xaml.cs">
       <DependentUpon>ManipulacaoNFCe.xaml</DependentUpon>
     </Compile>

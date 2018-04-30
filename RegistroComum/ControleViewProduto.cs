@@ -76,6 +76,9 @@ namespace RegistroComum
             };
         }
 
+        public bool EdicaoLiberada { get; } = false;
+        public void Editar(ExibicaoProdutoListaGeral produto) => throw new NotImplementedException();
+
         public void Remover(ExibicaoProdutoListaGeral produto)
         {
             var valorUnit = double.Parse(produto.ValorUnitario);
@@ -86,9 +89,9 @@ namespace RegistroComum
         }
 
         public bool AnalisarDetalhamento(ExibicaoProdutoAdicao produto) => throw new NotImplementedException();
-        public void Detalhar() => throw new NotImplementedException();
+        public void Detalhar(AdicionarProduto caixa) => throw new NotImplementedException();
 
-        public void Avancar() => BasicMainPage.Current.Navegar<ManipulacaoRegistroVenda>();
+        public void Avancar() => BasicMainPage.Current.Navegar<ManipulacaoRegistroVenda>(Venda);
 
         public void Concluir()
         {
@@ -99,7 +102,5 @@ namespace RegistroComum
         }
 
         public bool Validar() => true;
-
-        sealed class ProdutoVenda : ProdutoGenericoVenda { }
     }
 }

@@ -70,7 +70,7 @@ namespace NFeFacil.View
         void AbrirVendasSalvas(object sender, TappedRoutedEventArgs e) => Navegar<RegistrosVenda>();
         void CriarVenda(object sender, TappedRoutedEventArgs e)
         {
-            var controle = new ControleViewProduto();
+            var controle = new RegistroComum.ControleViewProduto();
             MainPage.Current.Navegar<Venda.ViewProdutoVenda.ListaProdutos>(controle);
         }
 

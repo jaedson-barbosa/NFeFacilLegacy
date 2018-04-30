@@ -328,7 +328,6 @@
     </Compile>
     <Compile Include="ViewProdutoVenda\ExibicaoProdutoAdicao.cs" />
     <Compile Include="ViewProdutoVenda\ExibicaoProdutoListaGeral.cs" />
-    <Compile Include="ViewProdutoVenda\ProdutoGenericoVenda.cs" />
     <Compile Include="ViewProdutoVenda\IControleViewProduto.cs" />
     <Compile Include="ViewProdutoVenda\ListaProdutos.xaml.cs">
       <DependentUpon>ListaProdutos.xaml</DependentUpon>

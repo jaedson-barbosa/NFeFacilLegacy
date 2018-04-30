@@ -78,7 +78,8 @@ namespace Consumidor
             var analisador = new AnalisadorNFCe(ref nfe);
             analisador.Desnormalizar();
             ItemBanco.Status = (int)StatusNota.Edição;
-            BasicMainPage.Current.Navegar<ManipulacaoNFCe>(nfe);
+            var controle = new ControleViewProduto(nfe);
+            BasicMainPage.Current.Navegar<Venda.ViewProdutoVenda.ListaProdutos>(controle);
         }
 
         public override async Task Exportar()

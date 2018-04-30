@@ -11,7 +11,6 @@ using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using System.Collections.Generic;
 using BaseGeral;
 using BaseGeral.View;
 using Fiscal;
@@ -39,8 +38,6 @@ namespace Consumidor
                 ClientesDisponiveis = TodosClientes.GerarObs();
                 TodosMotoristas = repo.ObterMotoristas().ToArray();
                 MotoristasDisponiveis = TodosMotoristas.GerarObs();
-                TodosProdutos = repo.ObterProdutos().ToArray();
-                ProdutosDisponiveis = TodosProdutos.GerarObs();
             }
         }
 
@@ -48,7 +45,6 @@ namespace Consumidor
         {
             NotaSalva = (NFCe)e.Parameter;
             MunicipiosIdentificacao = Municipios.Get(NotaSalva.Informacoes.identificacao.CódigoUF).GerarObs();
-            Produtos = new ObservableCollection<DetalhesProdutos>(NotaSalva.Informacoes.produtos);
             FormasPagamento = NotaSalva.Informacoes.FormasPagamento.Select(x => new FormaPagamento(x)).GerarObs();
         }
 
@@ -111,8 +107,6 @@ namespace Consumidor
 
         ClienteDI[] TodosClientes;
         ObservableCollection<ClienteDI> ClientesDisponiveis { get; set; }
-        ProdutoDI[] TodosProdutos;
-        ObservableCollection<ProdutoDI> ProdutosDisponiveis { get; set; }
         MotoristaDI[] TodosMotoristas;
         ObservableCollection<MotoristaDI> MotoristasDisponiveis { get; set; }
 
@@ -152,38 +146,6 @@ namespace Consumidor
                 motoristaSelecionado = value;
                 NotaSalva.Informacoes.transp.Transporta = value.ToMotorista();
             }
-        }
-
-        ObservableCollection<DetalhesProdutos> Produtos { get; set; }
-
-        void AdicionarProduto(object sender, ItemClickEventArgs e)
-        {
-            var prod = (ProdutoDI)e.ClickedItem;
-            var dados = new DadosAdicaoProduto(prod)
-            {
-                IsNFCe = true
-            };
-            BasicMainPage.Current.Navegar<ProdutoNFCe>(dados);
-        }
-
-        void EditarProduto(DetalhesProdutos produto)
-        {
-            using (var repo = new BaseGeral.Repositorio.Leitura())
-            {
-                var prodDI = repo.ObterProduto(produto.Produto.CodigoProduto);
-                var dados = new DadosAdicaoProduto(prodDI, produto)
-                {
-                    IsNFCe = true
-                };
-                BasicMainPage.Current.Navegar<ProdutoNFCe>(dados);
-            }
-        }
-
-        void RemoverProduto(DetalhesProdutos produto)
-        {
-            NotaSalva.Informacoes.produtos.Remove(produto);
-            Produtos.Remove(produto);
-            NotaSalva.Informacoes.total = new Total(NotaSalva.Informacoes.produtos);
         }
 
         private void GridView_Loaded(object sender, RoutedEventArgs e)
@@ -230,25 +192,6 @@ namespace Consumidor
                 else if (!valido && MotoristasDisponiveis.Contains(atual))
                 {
                     MotoristasDisponiveis.Remove(atual);
-                }
-            }
-        }
-
-        private void BuscarProduto(object sender, TextChangedEventArgs e)
-        {
-            var busca = ((TextBox)sender).Text;
-            for (int i = 0; i < TodosProdutos.Length; i++)
-            {
-                var atual = TodosProdutos[i];
-                bool valido = (DefinicoesPermanentes.ModoBuscaProduto == 0
-                    ? atual.Descricao : atual.CodigoProduto).ToUpper().Contains(busca.ToUpper());
-                if (valido && !ProdutosDisponiveis.Contains(atual))
-                {
-                    ProdutosDisponiveis.Add(atual);
-                }
-                else if (!valido && ProdutosDisponiveis.Contains(atual))
-                {
-                    ProdutosDisponiveis.Remove(atual);
                 }
             }
         }
@@ -305,18 +248,6 @@ namespace Consumidor
             }
         }
 
-        private void EditarProduto(object sender, RoutedEventArgs e)
-        {
-            var contexto = ((FrameworkElement)sender).DataContext;
-            EditarProduto((DetalhesProdutos)contexto);
-        }
-
-        private void RemoverProduto(object sender, RoutedEventArgs e)
-        {
-            var contexto = ((FrameworkElement)sender).DataContext;
-            RemoverProduto((DetalhesProdutos)contexto);
-        }
-
         ObservableCollection<FormaPagamento> FormasPagamento { get; set; }
 
         async void AdicionarFormaPagamento(object sender, RoutedEventArgs e)
@@ -334,35 +265,6 @@ namespace Consumidor
             var forma = (FormaPagamento)((FrameworkElement)sender).DataContext;
             NotaSalva.Informacoes.FormasPagamento.Remove(forma.Original);
             FormasPagamento.Remove(forma);
-        }
-    }
-
-    sealed class FormaPagamento
-    {
-        static Dictionary<string, string> DescCodigo = new Dictionary<string, string>
-        {
-            { "01", "Dinheiro" },
-            { "02", "Cheque" },
-            { "03", "Cartão de Crédito" },
-            { "04", "Cartão de Débito" },
-            { "05", "Crédito Loja" },
-            { "10", "Vale Alimentação" },
-            { "11", "Vale Refeição" },
-            { "12", "Vale Presente" },
-            { "13", "Vale Combustível" },
-            { "99", "Outros" }
-        };
-
-
-        public Pagamento Original { get; }
-        public string Tipo { get; }
-        public string Valor { get; set; }
-
-        public FormaPagamento(Pagamento pagamento)
-        {
-            Original = pagamento;
-            Tipo = DescCodigo[pagamento.Forma];
-            Valor = pagamento.VPag;
         }
     }
 }

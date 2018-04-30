@@ -1,4 +1,5 @@
-﻿using BaseGeral.View;
+﻿using BaseGeral.Log;
+using BaseGeral.View;
 using NFeFacil.View;
 using System;
 using System.Collections.ObjectModel;
@@ -41,6 +42,18 @@ namespace Venda.ViewProdutoVenda
             Controle.Remover(prod);
         }
 
+        private void Editar(object sender, RoutedEventArgs e)
+        {
+            if (Controle.EdicaoLiberada)
+            {
+                var context = ((FrameworkElement)sender).DataContext;
+                var prod = (ExibicaoProdutoListaGeral)context;
+                Controle.Editar(prod);
+            }
+            else
+                Popup.Current.Escrever(TitulosComuns.Atenção, "Não é permitida edição neste tipo de registro, por favor, remova o item e adicione-o novamente com os dados desejados.");
+        }
+
         private async void AdicionarProduto(object sender, RoutedEventArgs e)
         {
             var jaAdicionados = Controle.ProdutosAdicionados;
@@ -49,7 +62,7 @@ namespace Venda.ViewProdutoVenda
                 ? new AdicionarProduto(jaAdicionados, Adicionar, Controle.AnalisarDetalhamento)
                 : new AdicionarProduto(jaAdicionados, Adicionar);
             await caixa.ShowAsync();
-            if (caixa.Detalhar) Controle.Detalhar();
+            if (caixa.Detalhar) Controle.Detalhar(caixa);
 
             void Adicionar()
             {

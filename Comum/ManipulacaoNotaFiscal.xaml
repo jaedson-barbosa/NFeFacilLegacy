@@ -729,6 +729,9 @@
     </controles:MultView>
     <Page.BottomAppBar>
         <CommandBar>
+            <AppBarButton Label="Voltar"
+                          Icon="Back"
+                          Click="Voltar" />
             <AppBarButton Icon="Accept"
                           Label="Confirmar e validar"
                           Click="Confirmar" />

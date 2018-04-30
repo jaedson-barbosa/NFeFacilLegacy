@@ -199,5 +199,12 @@ namespace Fiscal
             }
             return numero;
         }
+
+        public void Voltar()
+        {
+            BasicMainPage.Current.Retornar();
+        }
+
+        public abstract void AtualizarControle(object atualizacao);
     }
 }

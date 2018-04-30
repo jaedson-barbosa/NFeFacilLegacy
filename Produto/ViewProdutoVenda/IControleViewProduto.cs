@@ -22,6 +22,9 @@ namespace Venda.ViewProdutoVenda
         void Remover(ExibicaoProdutoListaGeral produto);
         void Detalhar(AdicionarProduto caixa);
 
+        void Voltar();
+        void AtualizarControle(object atualizacao);
+
         bool Validar();
         void Avancar();
         void Concluir();

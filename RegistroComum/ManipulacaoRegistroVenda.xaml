@@ -121,6 +121,9 @@
     </ScrollViewer>
     <Page.BottomAppBar>
         <CommandBar>
+            <AppBarButton Label="Voltar"
+                          Icon="Back"
+                          Click="Voltar" />
             <AppBarButton Label="Finalizar e registrar"
                           Icon="Accept"
                           Click="Finalizar" />

@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Navigation;
 using BaseGeral;
 using BaseGeral.View;
 using Fiscal;
+using System.ComponentModel;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -21,15 +22,18 @@ namespace Consumidor
     /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
     /// </summary>
     [DetalhePagina(Symbol.Document, "Nota fiscal do consumidor")]
-    public sealed partial class ManipulacaoNFCe : Page, IValida
+    public sealed partial class ManipulacaoNFCe : Page, IValida, INotifyPropertyChanged
     {
         NFCe NotaSalva { get; set; }
+        Visibility VisibilitadeTransportador { get; set; }
         public bool Concluido { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public ManipulacaoNFCe()
         {
             InitializeComponent();
-
+            VisibilitadeTransportador = Visibility.Collapsed;
             using (var repo = new BaseGeral.Repositorio.Leitura())
             {
                 TodosClientes = repo.ObterClientes().ToArray();
@@ -49,7 +53,17 @@ namespace Consumidor
         string IndicadorPresenca
         {
             get => NotaSalva.Informacoes.identificacao.IndicadorPresenca.ToString();
-            set => NotaSalva.Informacoes.identificacao.IndicadorPresenca = ushort.Parse(value);
+            set
+            {
+                var parsedValue = ushort.Parse(value);
+                NotaSalva.Informacoes.identificacao.IndicadorPresenca = parsedValue;
+                Visibility antiga = VisibilitadeTransportador, nova = (Visibility)(parsedValue == 4 ? 0 : 1);
+                if (antiga != nova)
+                {
+                    VisibilitadeTransportador = nova;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(VisibilitadeTransportador)));
+                }
+            }
         }
 
         string DataHoraEmissão
@@ -204,6 +218,8 @@ namespace Consumidor
                     Frame.BackStack.Remove(ultPage);
                     ultPage = Frame.BackStack[Frame.BackStack.Count - 1];
                 }
+                Frame.BackStack.Remove(ultPage);
+                ultPage = Frame.BackStack[Frame.BackStack.Count - 1];
 
                 var nota = NotaSalva;
                 new AnalisadorNFCe(ref nota).Normalizar();
@@ -263,6 +279,14 @@ namespace Consumidor
             var forma = (FormaPagamento)((FrameworkElement)sender).DataContext;
             NotaSalva.Informacoes.FormasPagamento.Remove(forma.Original);
             FormasPagamento.Remove(forma);
+        }
+
+        void Voltar(object sender, RoutedEventArgs e)
+        {
+            var ultPage = Frame.BackStack[Frame.BackStack.Count - 1];
+            var controle = (ControleViewProduto)ultPage.Parameter;
+            controle.AtualizarControle(NotaSalva);
+            controle.Voltar();
         }
     }
 }

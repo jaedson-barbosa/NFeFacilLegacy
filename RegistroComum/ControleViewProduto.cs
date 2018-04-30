@@ -14,7 +14,7 @@ namespace RegistroComum
         public bool PodeConcluir { get; }
         public bool PodeDetalhar { get; }
 
-        RegistroVenda Venda { get; }
+        RegistroVenda Venda { get; set; }
         public Dictionary<Guid, double> ProdutosAdicionados => Venda.Produtos.ToDictionary(x => x.IdBase, y => y.Quantidade);
 
         public ControleViewProduto()
@@ -102,5 +102,16 @@ namespace RegistroComum
         }
 
         public bool Validar() => true;
+
+        public void Voltar()
+        {
+            BasicMainPage.Current.Retornar();
+        }
+
+        public void AtualizarControle(object atualizacao)
+        {
+            if (atualizacao is RegistroVenda venda) Venda = venda;
+            else throw new InvalidCastException();
+        }
     }
 }

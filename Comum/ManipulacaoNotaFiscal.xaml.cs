@@ -321,6 +321,8 @@ namespace Comum
                     Frame.BackStack.Remove(ultPage);
                     ultPage = Frame.BackStack[Frame.BackStack.Count - 1];
                 }
+                Frame.BackStack.Remove(ultPage);
+                ultPage = Frame.BackStack[Frame.BackStack.Count - 1];
 
                 NotaSalva.Informacoes.total.ISSQNtot.DCompet = DataPrestacao.ToString("yyyy-MM-dd");
                 NotaSalva.Informacoes.total.ISSQNtot.CRegTrib = CRegTrib + 1;
@@ -773,6 +775,14 @@ namespace Comum
                     MotoristasDisponiveis.Remove(atual);
                 }
             }
+        }
+
+        void Voltar(object sender, RoutedEventArgs e)
+        {
+            var ultPage = Frame.BackStack[Frame.BackStack.Count - 1];
+            var controle = (ControleViewProduto)ultPage.Parameter;
+            controle.AtualizarControle(NotaSalva);
+            controle.Voltar();
         }
     }
 }

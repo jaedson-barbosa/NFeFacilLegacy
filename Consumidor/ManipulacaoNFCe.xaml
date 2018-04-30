@@ -96,8 +96,9 @@
                     </GridView.ItemTemplate>
                 </GridView>
             </Grid>
-            <TextBlock Style="{StaticResource TitleTextBlockStyle}">Motorista</TextBlock>
-            <Grid>
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}"
+                       Visibility="{x:Bind VisibilitadeTransportador, Mode=OneWay}">Motorista</TextBlock>
+            <Grid Visibility="{x:Bind VisibilitadeTransportador, Mode=OneWay}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition />
@@ -188,6 +189,9 @@
     </ScrollViewer>
     <Page.BottomAppBar>
         <CommandBar>
+            <AppBarButton Label="Voltar"
+                          Icon="Back"
+                          Click="Voltar" />
             <AppBarButton Icon="Accept"
                           Label="Confirmar e validar"
                           Click="Confirmar" />

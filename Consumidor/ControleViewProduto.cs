@@ -2,6 +2,7 @@
 using BaseGeral.ModeloXML;
 using BaseGeral.ModeloXML.PartesDetalhes;
 using Fiscal;
+using System;
 using System.Collections.Generic;
 using Venda;
 
@@ -9,7 +10,7 @@ namespace Consumidor
 {
     public sealed class ControleViewProduto : ControleGenericoViewProdutoFiscal
     {
-        NFCe Venda { get; }
+        NFCe Venda { get; set; }
 
         protected override List<DetalhesProdutos> Produtos => Venda.Informacoes.produtos;
         protected override Total Total { set => Venda.Informacoes.total = value; }
@@ -27,6 +28,12 @@ namespace Consumidor
         protected override void AbrirTelaEspecifica()
         {
             BasicMainPage.Current.Navegar<ManipulacaoNFCe>(Venda);
+        }
+
+        public override void AtualizarControle(object atualizacao)
+        {
+            if (atualizacao is NFCe venda) Venda = venda;
+            else throw new InvalidCastException();
         }
     }
 }

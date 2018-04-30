@@ -191,5 +191,13 @@ namespace RegistroComum
             ItemBanco.DescontoTotal = ItemBanco.Produtos.Sum(x => x.Desconto);
             AtualizarTotal();
         }
+
+        void Voltar(object sender, RoutedEventArgs e)
+        {
+            var ultPage = Frame.BackStack[Frame.BackStack.Count - 1];
+            var controle = (ControleViewProduto)ultPage.Parameter;
+            controle.AtualizarControle(ItemBanco);
+            controle.Voltar();
+        }
     }
 }

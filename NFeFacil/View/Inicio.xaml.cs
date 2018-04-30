@@ -19,7 +19,6 @@ using BaseGeral;
 using BaseGeral.Sincronizacao;
 using BaseGeral.View;
 using Consumidor;
-using System.Collections.Generic;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 

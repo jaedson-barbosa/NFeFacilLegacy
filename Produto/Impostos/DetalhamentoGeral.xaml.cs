@@ -1,9 +1,6 @@
 ﻿using BaseGeral;
-using BaseGeral.ModeloXML;
-using BaseGeral.ModeloXML.PartesDetalhes;
 using BaseGeral.View;
 using System;
-using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;

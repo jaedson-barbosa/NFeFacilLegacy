@@ -1,8 +1,6 @@
 ﻿using BaseGeral.IBGE;
 using BaseGeral.ItensBD;
 using BaseGeral.ModeloXML;
-using BaseGeral.ModeloXML.PartesDetalhes;
-using Venda;
 using BaseGeral.Validacao;
 using NFeFacil.View;
 using System;

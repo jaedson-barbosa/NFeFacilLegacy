@@ -28,7 +28,7 @@ namespace RegistroComum
                 PrazoEntrega = DefinicoesTemporarias.DateTimeNow
             };
             PodeConcluir = false;
-            PodeDetalhar = true;
+            PodeDetalhar = false;
         }
 
         public ControleViewProduto(RegistroVenda venda)

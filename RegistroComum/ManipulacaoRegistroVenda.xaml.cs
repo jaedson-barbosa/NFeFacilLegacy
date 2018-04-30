@@ -132,6 +132,7 @@ namespace RegistroComum
             AtualizarTotal();
             txtValorDesejado.Number = ItemBanco.Produtos.Sum(x => x.Quantidade * x.ValorUnitario);
             cmbComprador.IsEnabled = ItemBanco.Comprador != default(Guid);
+            sldDesconto.Value = ItemBanco.DescontoTotal * 100 / ItemBanco.Produtos.Sum(x => x.ValorUnitario * x.Quantidade);
         }
 
         private void Finalizar(object sender, RoutedEventArgs e)

@@ -24,7 +24,7 @@ using Fiscal;
 namespace Comum
 {
     [DetalhePagina(Symbol.Document, "Nota fiscal")]
-    public sealed partial class ManipulacaoNotaFiscal : Page, IHambuguer, IValida
+    public sealed partial class ManipulacaoNotaFiscal : Page, IHambuguer
     {
         public ManipulacaoNotaFiscal()
         {
@@ -360,7 +360,6 @@ namespace Comum
                     di.XML = nota.ToXElement().ToString();
                 }
 
-                Concluido = true;
                 BasicMainPage.Current.Retornar();
             }
             catch (Exception e)
@@ -382,8 +381,6 @@ namespace Comum
         ObservableCollection<Deducoes> Deducoes { get; set; }
         ObservableCollection<Observacao> Observacoes { get; set; }
         ObservableCollection<ProcessoReferenciado> ProcessosReferenciados { get; set; }
-
-        public bool Concluido { get; private set; }
 
         #endregion
 

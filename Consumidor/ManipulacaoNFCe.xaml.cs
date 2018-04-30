@@ -22,11 +22,10 @@ namespace Consumidor
     /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
     /// </summary>
     [DetalhePagina(Symbol.Document, "Nota fiscal do consumidor")]
-    public sealed partial class ManipulacaoNFCe : Page, IValida, INotifyPropertyChanged
+    public sealed partial class ManipulacaoNFCe : Page, INotifyPropertyChanged
     {
         NFCe NotaSalva { get; set; }
         Visibility VisibilitadeTransportador { get; set; }
-        public bool Concluido { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -253,7 +252,6 @@ namespace Consumidor
                     di.XML = nota.ToXElement().ToString();
                 }
 
-                Concluido = true;
                 BasicMainPage.Current.Retornar();
             }
             catch (Exception erro)

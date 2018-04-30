@@ -480,15 +480,14 @@
             <PivotItem Header="Informacoes adicionais">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <TextBox Text="{x:Bind NotaSalva.Informacoes.infAdic.InfAdFisco, Mode=TwoWay}"
-                             Header="Informacoes adicionais de interesse do fisco" />
-                    <TextBox Grid.Row="1"
-                             Text="{x:Bind NotaSalva.Informacoes.infAdic.InfCpl, Mode=TwoWay}"
-                             Header="Informacoes complementares de interesse do contribuinte" />
+                    <controles:RichEditBoxExtended Text="{x:Bind NotaSalva.Informacoes.infAdic.InfAdFisco, Mode=TwoWay}"
+                                                   Header="Informacoes adicionais de interesse do fisco" />
+                    <controles:RichEditBoxExtended Grid.Row="1"
+                                                   Text="{x:Bind NotaSalva.Informacoes.infAdic.InfCpl, Mode=TwoWay}"
+                                                   Header="Informacoes complementares de interesse do contribuinte" />
                 </Grid>
             </PivotItem>
             <PivotItem Header="Observações do contribuinte">

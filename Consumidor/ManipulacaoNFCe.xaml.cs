@@ -2,7 +2,6 @@
 using BaseGeral.ItensBD;
 using BaseGeral.ModeloXML;
 using BaseGeral.Validacao;
-using NFeFacil.View;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;

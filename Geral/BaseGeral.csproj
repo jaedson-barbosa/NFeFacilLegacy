@@ -109,6 +109,7 @@
   <ItemGroup>
     <Compile Include="AssistenteConfig.cs" />
     <Compile Include="BasicMainPage.cs" />
+    <Compile Include="Controles\RichEditBoxExtended.cs" />
     <Compile Include="View\BoolToColor.cs" />
     <Compile Include="ConfiguracoesCertificacao.cs" />
     <Compile Include="Controles\CarregamentoCircular.xaml.cs">

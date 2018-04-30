@@ -1,7 +1,6 @@
 ﻿<Page x:Class="RegistroComum.ManipulacaoRegistroVenda"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:local="using:RegistroComum"
       xmlns:controles="using:BaseGeral.Controles"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -114,9 +113,9 @@
             <CalendarDatePicker Header="Data da venda"
                                 MinWidth="256"
                                 Date="{x:Bind DataHoraVenda, Mode=TwoWay}" />
-            <TextBox Header="Observações"
-                     TextWrapping="Wrap"
-                     Text="{x:Bind Observacoes, Mode=TwoWay}" />
+            <controles:RichEditBoxExtended Header="Observações"
+                                           TextWrapping="Wrap"
+                                           Text="{x:Bind Observacoes, Mode=TwoWay}" />
         </StackPanel>
     </ScrollViewer>
     <Page.BottomAppBar>

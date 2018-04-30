@@ -12,11 +12,9 @@ using BaseGeral.ModeloXML.PartesDetalhes.PartesTotal;
 using BaseGeral.ModeloXML.PartesDetalhes.PartesTransporte;
 using BaseGeral.IBGE;
 using BaseGeral.Validacao;
-using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Comum.CaixasDialogo;
 using NFeFacil.View;
-using Venda;
 using BaseGeral;
 using BaseGeral.View;
 using Fiscal;
@@ -38,7 +36,6 @@ namespace Comum
             new ItemHambuguer(Symbol.Tag, "Identificação"),
             new ItemHambuguer(Symbol.People, "Cliente"),
             new ItemHambuguer(Symbol.Street, "Retirada/Entrega"),
-            new ItemHambuguer(Symbol.Shop, "Produtos"),
             new ItemHambuguer(Symbol.Calculator, "Totais"),
             new ItemHambuguer("\uE806", "Transporte"),
             new ItemHambuguer("\uE825", "Cobrança"),
@@ -64,8 +61,6 @@ namespace Comum
                     Secundarios = x.Item3
                 }).ToArray();
                 MotoristasDisponiveis = TodosMotoristas.GerarObs();
-                TodosProdutos = repo.ObterProdutos().ToArray();
-                ProdutosDisponiveis = TodosProdutos.GerarObs();
             }
 
             if (Dados.Informacoes.total == null)
@@ -76,7 +71,6 @@ namespace Comum
             MunicipiosTransporte = new ObservableCollection<Municipio>(Municipios.Get(UFEscolhida));
             NFesReferenciadas = new ObservableCollection<DocumentoFiscalReferenciado>(NotaSalva.Informacoes.identificacao.DocumentosReferenciados.Where(x => !string.IsNullOrEmpty(x.RefNFe)));
             NFsReferenciadas = new ObservableCollection<DocumentoFiscalReferenciado>(NotaSalva.Informacoes.identificacao.DocumentosReferenciados.Where(x => x.RefNF != null));
-            Produtos = new ObservableCollection<DetalhesProdutos>(NotaSalva.Informacoes.produtos);
             Reboques = new ObservableCollection<Reboque>(NotaSalva.Informacoes.transp.Reboque);
             Volumes = new ObservableCollection<Volume>(NotaSalva.Informacoes.transp.Vol);
             Duplicatas = new ObservableCollection<Duplicata>(NotaSalva.Informacoes.cobr.Dup);
@@ -103,8 +97,6 @@ namespace Comum
 
         ClienteDI[] TodosClientes;
         ObservableCollection<ClienteDI> ClientesDisponiveis { get; set; }
-        ProdutoDI[] TodosProdutos;
-        ObservableCollection<ProdutoDI> ProdutosDisponiveis { get; set; }
         MotoristaManipulacaoNFe[] TodosMotoristas;
         ObservableCollection<MotoristaManipulacaoNFe> MotoristasDisponiveis { get; set; }
 
@@ -381,7 +373,6 @@ namespace Comum
         public ObservableCollection<Municipio> MunicipiosTransporte { get; set; }
         ObservableCollection<DocumentoFiscalReferenciado> NFesReferenciadas { get; set; }
         ObservableCollection<DocumentoFiscalReferenciado> NFsReferenciadas { get; set; }
-        ObservableCollection<DetalhesProdutos> Produtos { get; set; }
         ObservableCollection<Reboque> Reboques { get; set; }
         ObservableCollection<Volume> Volumes { get; set; }
         ObservableCollection<Duplicata> Duplicatas { get; set; }
@@ -395,36 +386,6 @@ namespace Comum
         #endregion
 
         #region Adição e remoção básica
-
-        private void AdicionarProduto(object sender, ItemClickEventArgs e)
-        {
-            var prod = (ProdutoDI)e.ClickedItem;
-            var dados = new DadosAdicaoProduto(prod);
-            BasicMainPage.Current.Navegar<ManipulacaoProdutoCompleto>(dados);
-        }
-
-        async void EditarProduto(DetalhesProdutos produto)
-        {
-            var caixa = new MessageDialog("A edição de um produto causa a perda de todos os impostos cadastrados atualmente neste produto, tem certeza que quer continuar?", "Atenção");
-            caixa.Commands.Add(new UICommand("Sim"));
-            caixa.Commands.Add(new UICommand("Não"));
-            if ((await caixa.ShowAsync()).Label == "Sim")
-            {
-                using (var repo = new BaseGeral.Repositorio.Leitura())
-                {
-                    var prodDI = repo.ObterProduto(produto.Produto.CodigoProduto);
-                    var dados = new DadosAdicaoProduto(prodDI, produto);
-                    BasicMainPage.Current.Navegar<ManipulacaoProdutoCompleto>(dados);
-                }
-            }
-        }
-
-        void RemoverProduto(DetalhesProdutos produto)
-        {
-            NotaSalva.Informacoes.produtos.Remove(produto);
-            Produtos.Remove(produto);
-            NotaSalva.Informacoes.total = new Total(NotaSalva.Informacoes.produtos);
-        }
 
         async void AdicionarNFeReferenciada()
         {
@@ -604,18 +565,6 @@ namespace Comum
         private void AdicionarNFReferenciada(object sender, RoutedEventArgs e)
         {
             AdicionarNFReferenciada();
-        }
-
-        private void EditarProduto(object sender, RoutedEventArgs e)
-        {
-            var contexto = ((FrameworkElement)sender).DataContext;
-            EditarProduto((DetalhesProdutos)contexto);
-        }
-
-        private void RemoverProduto(object sender, RoutedEventArgs e)
-        {
-            var contexto = ((FrameworkElement)sender).DataContext;
-            RemoverProduto((DetalhesProdutos)contexto);
         }
 
         private void AdicionarReboque(object sender, RoutedEventArgs e)
@@ -825,31 +774,5 @@ namespace Comum
                 }
             }
         }
-
-        private void BuscarProduto(object sender, TextChangedEventArgs e)
-        {
-            var busca = ((TextBox)sender).Text;
-            for (int i = 0; i < TodosProdutos.Length; i++)
-            {
-                var atual = TodosProdutos[i];
-                bool valido = (DefinicoesPermanentes.ModoBuscaProduto == 0
-                    ? atual.Descricao : atual.CodigoProduto).ToUpper().Contains(busca.ToUpper());
-                if (valido && !ProdutosDisponiveis.Contains(atual))
-                {
-                    ProdutosDisponiveis.Add(atual);
-                }
-                else if (!valido && ProdutosDisponiveis.Contains(atual))
-                {
-                    ProdutosDisponiveis.Remove(atual);
-                }
-            }
-        }
-    }
-
-    struct MotoristaManipulacaoNFe
-    {
-        public MotoristaDI Root { get; set; }
-        public VeiculoDI Principal { get; set; }
-        public VeiculoDI[] Secundarios { get; set; }
     }
 }

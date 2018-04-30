@@ -5,28 +5,28 @@ using Fiscal;
 using System.Collections.Generic;
 using Venda;
 
-namespace Consumidor
+namespace Comum
 {
     public sealed class ControleViewProduto : ControleGenericoViewProdutoFiscal
     {
-        NFCe Venda { get; }
+        NFe Venda { get; }
 
         protected override List<DetalhesProdutos> Produtos => Venda.Informacoes.produtos;
         protected override Total Total { set => Venda.Informacoes.total = value; }
 
-        public ControleViewProduto(NFCe venda)
+        public ControleViewProduto(NFe venda)
         {
             Venda = venda;
         }
 
         protected override void AbrirTelaDetalhamento(DadosAdicaoProduto dados)
         {
-            BasicMainPage.Current.Navegar<ProdutoNFCe>(dados);
+            BasicMainPage.Current.Navegar<ManipulacaoProdutoCompleto>(dados);
         }
 
         protected override void AbrirTelaEspecifica()
         {
-            BasicMainPage.Current.Navegar<ManipulacaoNFCe>(Venda);
+            BasicMainPage.Current.Navegar<ManipulacaoNotaFiscal>(Venda);
         }
     }
 }

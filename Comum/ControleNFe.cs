@@ -63,7 +63,8 @@ namespace Comum
             identificacao.DefinirVersãoAplicativo();
             PreNota.Informacoes.identificacao = identificacao;
             PreNota.Informacoes.ChaveAcesso = null;
-            BasicMainPage.Current.Navegar<ManipulacaoNotaFiscal>(PreNota);
+            var controle = new ControleViewProduto(PreNota);
+            BasicMainPage.Current.Navegar<Venda.ViewProdutoVenda.ListaProdutos>(controle);
         }
     }
 }

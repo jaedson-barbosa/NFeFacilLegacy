@@ -77,7 +77,8 @@ namespace Comum
             var analisador = new AnalisadorNFe(ref nfe);
             analisador.Desnormalizar();
             ItemBanco.Status = (int)StatusNota.Edição;
-            BasicMainPage.Current.Navegar<ManipulacaoNotaFiscal>(nfe);
+            var controle = new ControleViewProduto(nfe);
+            BasicMainPage.Current.Navegar<Venda.ViewProdutoVenda.ListaProdutos>(controle);
         }
 
         public override async Task Exportar()

@@ -143,7 +143,7 @@
     <Compile Include="Consulta.xaml.cs">
       <DependentUpon>Consulta.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ControleViewProduto.cs" />
+    <Compile Include="ControleGenericoViewProdutoFiscal.cs" />
     <Compile Include="Criador.xaml.cs">
       <DependentUpon>Criador.xaml</DependentUpon>
     </Compile>

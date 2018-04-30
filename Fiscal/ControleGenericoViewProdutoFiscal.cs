@@ -10,7 +10,7 @@ using Venda;
 using Venda.Impostos;
 using Venda.ViewProdutoVenda;
 
-namespace Consumidor
+namespace Fiscal
 {
     public abstract class ControleGenericoViewProdutoFiscal : IControleViewProdutoFiscal
     {

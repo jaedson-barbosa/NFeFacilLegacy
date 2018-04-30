@@ -148,6 +148,7 @@
     </Compile>
     <Compile Include="ControleNFe.cs" />
     <Compile Include="ControleViewNFe.cs" />
+    <Compile Include="ControleViewProduto.cs" />
     <Compile Include="DadosDANFE.cs" />
     <Compile Include="ManipulacaoNotaFiscal.xaml.cs">
       <DependentUpon>ManipulacaoNotaFiscal.xaml</DependentUpon>
@@ -155,6 +156,7 @@
     <Compile Include="ManipulacaoProdutoCompleto.xaml.cs">
       <DependentUpon>ManipulacaoProdutoCompleto.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MotoristaManipulacaoNFe.cs" />
     <Compile Include="PacotesDANFE\DadosAdicionais.cs" />
     <Compile Include="PacotesDANFE\DadosCabecalho.cs" />
     <Compile Include="PacotesDANFE\DadosCliente.cs" />

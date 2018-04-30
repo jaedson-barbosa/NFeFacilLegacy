@@ -4,6 +4,7 @@ using BaseGeral.Log;
 using BaseGeral.ModeloXML;
 using BaseGeral.ModeloXML.PartesDetalhes;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Venda;
@@ -12,20 +13,23 @@ using Venda.ViewProdutoVenda;
 
 namespace Consumidor
 {
-    public sealed class ControleViewProduto : IControleViewProduto
+    public sealed class ControleViewProduto : IControleViewProdutoFiscal
     {
         public bool Concluido { get; private set; }
         public bool PodeConcluir { get; }
         public bool PodeDetalhar { get; }
 
         NFCe Venda { get; }
-        public Guid[] ProdutosAdicionados
+        public Dictionary<Guid, double> ProdutosAdicionados
         {
             get
             {
                 using (var leitura = new BaseGeral.Repositorio.Leitura())
                     return (from x in Venda.Informacoes.produtos
-                            select leitura.ObterProduto(x.Produto.CodigoProduto).Id).ToArray();
+                            let id = leitura.ObterProduto(x.Produto.CodigoProduto).Id
+                            let qt = x.Produto.QuantidadeComercializada
+                            group qt by id)
+                            .ToDictionary(x => x.Key, y => y.Sum());
             }
         }
 
@@ -71,8 +75,16 @@ namespace Consumidor
                 Descricao = caixa.ProdutoSelecionado.Nome,
                 Quantidade = caixa.Quantidade,
                 TotalLiquido = simples.TotalLíquido.ToString("C"),
-                ValorUnitario = caixa.ProdutoSelecionado.PrecoDouble.ToString("C")
+                ValorUnitario = caixa.ProdutoSelecionado.Preco
             };
+        }
+
+        public void Adicionar(DetalhesProdutos produto)
+        {
+            var produtos = Venda.Informacoes.produtos;
+            var index = produtos.FindIndex(x => x.Número == produto.Número);
+            if (index == -1) produtos.Add(produto);
+            else produtos[index] = produto;
         }
 
         DadosAdicaoProduto ObterDadosAdicao(ProdutoDI prodBase, ProdutoSimplesVenda simples)
@@ -80,10 +92,10 @@ namespace Consumidor
             var produto = simples.ToProdutoOuServico();
             return new DadosAdicaoProduto(
                     prodBase,
-                    new BaseGeral.ModeloXML.PartesDetalhes.DetalhesProdutos()
+                    new DetalhesProdutos()
                     {
                         Produto = produto,
-                        Número = Venda.Informacoes.produtos.Max(x => x.Número) + 1
+                        Número = ObterNovoNumero()
                     })
             {
                 IsNFCe = true
@@ -94,7 +106,7 @@ namespace Consumidor
         {
             var dadosAdicao = ObterDadosAdicao(prodBase, simples);
             var tributador = new GerenciadorTributacao(dadosAdicao);
-            var produtoTributado = await tributador.AplicarTributacaoAutomatica();
+            var produtoTributado = await tributador.AplicarTributacaoAutomatica(false);
             Venda.Informacoes.produtos.Add(produtoTributado);
         }
 
@@ -115,22 +127,22 @@ namespace Consumidor
 
         public void Remover(ExibicaoProdutoListaGeral produto)
         {
-            var valorUnit = double.Parse(produto.ValorUnitario);
             var index = FindProduto(produto);
             Venda.Informacoes.produtos.RemoveAt(index);
         }
 
         int FindProduto(ExibicaoProdutoListaGeral produto)
         {
-            var valorUnit = double.Parse(produto.ValorUnitario);
             return Venda.Informacoes.produtos.FindIndex(x => produto.Quantidade == x.Produto.QuantidadeComercializada
-                && valorUnit == x.Produto.ValorUnitario && produto.Codigo == x.Produto.CodigoProduto);
+                && produto.ValorUnitario == x.Produto.ValorUnitario.ToString("C")
+                && produto.Codigo == x.Produto.CodigoProduto);
         }
 
-        public bool AnalisarDetalhamento(ExibicaoProdutoAdicao produto)
+        public bool AnalisarDetalhamento(ProdutoAdicao produto)
         {
-            return produto.Base.ImpostosPadrao.Length < 5
-                && produto.Base.ImpostosSimples.Length == 0;            
+            var bProd = produto.Base;
+            return (bProd.ImpostosPadrao == null || bProd.ImpostosPadrao.Length < 5)
+                && (bProd.ImpostosSimples == null || bProd.ImpostosSimples.Length == 0);
         }
 
         public void Detalhar(AdicionarProduto caixa)
@@ -151,6 +163,7 @@ namespace Consumidor
 
         public void Avancar()
         {
+            Venda.Informacoes.produtos.Sort((x, y) => x.Número > y.Número ? 1 : x.Número < y.Número ? - 1 : 0);
             Venda.Informacoes.total = new Total(Venda.Informacoes.produtos);
             BasicMainPage.Current.Navegar<ManipulacaoNFCe>(Venda);
         }
@@ -165,6 +178,24 @@ namespace Consumidor
                 return false;
             }
             return true;
+        }
+
+        int ObterNovoNumero()
+        {
+            var produtos = Venda.Informacoes.produtos;
+            int numero = 0;
+            if (produtos.Count == 0) numero = 1;
+            else
+            {
+                var numeros = produtos.Select(x => x.Número);
+                var maximo = produtos.Max(x => x.Número);
+                for (int i = 1; i < maximo; i++)
+                {
+                    if (!numeros.Contains(i)) numero = i;
+                }
+                if (numero == 0) numero = maximo + 1;
+            }
+            return numero;
         }
     }
 }

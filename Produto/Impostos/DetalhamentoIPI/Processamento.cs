@@ -17,26 +17,7 @@ namespace Venda.Impostos.DetalhamentoIPI
             return new ImpostoBase[1] { (IPI)resultado };
         }
 
-        public override void ProcessarEntradaDados(Page Tela)
-        {
-            if (Detalhamento is Detalhamento detalhamento)
-            {
-                if (Tela is DetalharAliquota aliq)
-                {
-                    ProcessarDados(TiposCalculo.PorAliquota, aliq.Aliquota, 0, detalhamento.CST, aliq.Conjunto);
-                }
-                else if (Tela is DetalharQtde valor)
-                {
-                    ProcessarDados(TiposCalculo.PorValor, 0, valor.ValorUnitario, detalhamento.CST, valor.Conjunto);
-                }
-                else if (Tela is DetalharSimples outr)
-                {
-                    ProcessarDados(TiposCalculo.Inexistente, 0, 0, detalhamento.CST, outr.Conjunto);
-                }
-            }
-        }
-
-        public override void ProcessarDadosProntos()
+        public override void ProcessarDados(Page Tela)
         {
             if (Detalhamento is ImpSimplesArmazenado imp)
             {
@@ -51,6 +32,21 @@ namespace Venda.Impostos.DetalhamentoIPI
                     Corpo = new IPINT()
                 };
                 ProcessarDados(imp.TipoCalculo, imp.Aliquota, imp.Valor, imp.CST, ipi);
+            }
+            else if (Detalhamento is Detalhamento detalhamento)
+            {
+                if (Tela is DetalharAliquota aliq)
+                {
+                    ProcessarDados(TiposCalculo.PorAliquota, aliq.Aliquota, 0, detalhamento.CST, aliq.Conjunto);
+                }
+                else if (Tela is DetalharQtde valor)
+                {
+                    ProcessarDados(TiposCalculo.PorValor, 0, valor.ValorUnitario, detalhamento.CST, valor.Conjunto);
+                }
+                else if (Tela is DetalharSimples outr)
+                {
+                    ProcessarDados(TiposCalculo.Inexistente, 0, 0, detalhamento.CST, outr.Conjunto);
+                }
             }
         }
 

@@ -14,7 +14,7 @@ namespace Venda.Impostos.DetalhamentoISSQN
             return new ImpostoBase[1] { imposto };
         }
 
-        public override void ProcessarEntradaDados(Page Tela)
+        public override void ProcessarDados(Page Tela)
         {
             if (Detalhamento is Detalhamento detalhamento
                 && AssociacoesSimples.ISSQN[detalhamento.Exterior] == Tela?.GetType())
@@ -22,7 +22,5 @@ namespace Venda.Impostos.DetalhamentoISSQN
                 dados = (IDadosISSQN)Tela;
             }
         }
-
-        public override void ProcessarDadosProntos() { }
     }
 }

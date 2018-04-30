@@ -18,9 +18,13 @@ namespace Venda.Impostos.DetalhamentoCOFINS
             else return new ImpostoBase[1] { (COFINS)resultado };
         }
 
-        public override void ProcessarEntradaDados(Page Tela)
+        public override void ProcessarDados(Page Tela)
         {
-            if (Detalhamento is Detalhamento detalhamento)
+            if (Detalhamento is ImpSimplesArmazenado imp)
+            {
+                ProcessarDados(imp.TipoCalculo, imp.Aliquota, imp.Valor, imp.CST);
+            }
+            else if (Detalhamento is Detalhamento detalhamento)
             {
                 if (Tela is DetalharAliquota aliq)
                 {
@@ -34,14 +38,6 @@ namespace Venda.Impostos.DetalhamentoCOFINS
                 {
                     ProcessarDados(TiposCalculo.Inexistente, 0, 0, detalhamento.CST);
                 }
-            }
-        }
-
-        public override void ProcessarDadosProntos()
-        {
-            if (Detalhamento is ImpSimplesArmazenado imp)
-            {
-                ProcessarDados(imp.TipoCalculo, imp.Aliquota, imp.Valor, imp.CST);
             }
         }
 

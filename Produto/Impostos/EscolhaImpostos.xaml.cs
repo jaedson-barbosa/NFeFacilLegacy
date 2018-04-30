@@ -106,8 +106,8 @@ namespace Venda.Impostos
 
                     if (sucesso)
                     {
-                        var antigo = Escolhidos.FirstOrDefault(x => x.Tipo == item.Tipo && x != item);
-                        if (antigo != null)
+                        var antigo = Escolhidos.FindIndex(x => x.Tipo == item.Tipo);
+                        if (antigo != Escolhidos.Count - 1)
                         {
                             var itemExib = input.Items.FirstOrDefault(x =>
                             {
@@ -116,7 +116,7 @@ namespace Venda.Impostos
                             });
                             var index = input.Items.IndexOf(itemExib);
                             input.DeselectRange(new ItemIndexRange(index, 1));
-                            Escolhidos.Remove(antigo);
+                            Escolhidos.RemoveAt(antigo);
                         }
                     }
                     else

@@ -15,7 +15,7 @@ namespace RegistroComum
         public bool PodeDetalhar { get; }
 
         RegistroVenda Venda { get; }
-        public Guid[] ProdutosAdicionados => Venda.Produtos.Select(x => x.IdBase).ToArray();
+        public Dictionary<Guid, double> ProdutosAdicionados => Venda.Produtos.ToDictionary(x => x.IdBase, y => y.Quantidade);
 
         public ControleViewProduto()
         {
@@ -88,7 +88,7 @@ namespace RegistroComum
             Venda.Produtos.RemoveAt(index);
         }
 
-        public bool AnalisarDetalhamento(ExibicaoProdutoAdicao produto) => throw new NotImplementedException();
+        public bool AnalisarDetalhamento(ProdutoAdicao produto) => throw new NotImplementedException();
         public void Detalhar(AdicionarProduto caixa) => throw new NotImplementedException();
 
         public void Avancar() => BasicMainPage.Current.Navegar<ManipulacaoRegistroVenda>(Venda);

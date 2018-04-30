@@ -46,7 +46,7 @@
             </ListView.Header>
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="local:ExibicaoProdutoAdicao">
-                    <Grid>
+                    <Grid Visibility="{x:Bind Ativo}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
                             <ColumnDefinition Width="2*" />
@@ -57,7 +57,7 @@
                         <TextBlock Grid.Column="1"
                                    Text="{x:Bind Nome}" />
                         <TextBlock Grid.Column="2"
-                                   Text="{x:Bind Estoque}" />
+                                   Text="{x:Bind Estoque, Mode=OneWay}" />
                         <TextBlock Grid.Column="3"
                                    Text="{x:Bind Preco}" />
                     </Grid>

@@ -11,8 +11,7 @@ namespace Venda.Impostos
         public IDetalhamentoImposto Detalhamento { protected get; set; }
         public PrincipaisImpostos Tipo => Detalhamento.Tipo;
 
-        public abstract void ProcessarEntradaDados(Page Tela);
-        public abstract void ProcessarDadosProntos();
+        public abstract void ProcessarDados(Page Tela);
         public abstract ImpostoBase[] Processar(DetalhesProdutos prod);
     }
 }

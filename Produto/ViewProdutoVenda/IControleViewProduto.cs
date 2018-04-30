@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BaseGeral.ModeloXML.PartesDetalhes;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
@@ -10,10 +12,10 @@ namespace Venda.ViewProdutoVenda
         bool Concluido { get; }
         bool PodeConcluir { get; }
         bool PodeDetalhar { get; }
-        Guid[] ProdutosAdicionados { get; }
+        Dictionary<Guid, double> ProdutosAdicionados { get; }
 
         ObservableCollection<ExibicaoProdutoListaGeral> ObterProdutosIniciais();
-        bool AnalisarDetalhamento(ExibicaoProdutoAdicao produto);
+        bool AnalisarDetalhamento(ProdutoAdicao produto);
         ExibicaoProdutoListaGeral Adicionar(AdicionarProduto caixa);
         bool EdicaoLiberada { get; }
         void Editar(ExibicaoProdutoListaGeral produto);
@@ -23,5 +25,10 @@ namespace Venda.ViewProdutoVenda
         bool Validar();
         void Avancar();
         void Concluir();
+    }
+
+    public interface IControleViewProdutoFiscal : IControleViewProduto
+    {
+        void Adicionar(DetalhesProdutos produto);
     }
 }

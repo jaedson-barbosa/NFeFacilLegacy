@@ -43,8 +43,7 @@ namespace Venda.Impostos
 
         void Avancar()
         {
-            if (frmImposto.Content is Page atual) roteiro.ProcessarPagina(atual);
-            else roteiro.ProcessarSalvo();
+            roteiro.Processar(frmImposto.Content as Page);
             if (roteiro.Avancar())
             {
                 if (roteiro.Current == null)
@@ -94,21 +93,10 @@ namespace Venda.Impostos
             Frame.BackStack.RemoveAt(Frame.BackStack.Count - 1);
             Frame.BackStack.RemoveAt(Frame.BackStack.Count - 1);
 
-            List<DetalhesProdutos> produtos;
             var parametro = Frame.BackStack[Frame.BackStack.Count - 1].Parameter;
-            if (parametro is NFe nfe)
+            if (parametro is ViewProdutoVenda.IControleViewProdutoFiscal controle)
             {
-                var info = nfe.Informacoes;
-                produtos = info.produtos;
-                AddProduto();
-                info.total = new Total(produtos);
-            }
-            else if (parametro is NFCe nfce)
-            {
-                var info = nfce.Informacoes;
-                produtos = info.produtos;
-                AddProduto();
-                info.total = new Total(produtos);
+                controle.Adicionar(produto);
             }
             else
             {
@@ -116,19 +104,6 @@ namespace Venda.Impostos
             }
 
             BasicMainPage.Current.Retornar();
-
-            void AddProduto()
-            {
-                if (produto.Número == 0)
-                {
-                    produto.Número = produtos.Count + 1;
-                    produtos.Add(produto);
-                }
-                else
-                {
-                    produtos[produto.Número - 1] = produto;
-                }
-            }
         }
 
         private void ImpostoTrocado(object sender, NavigationEventArgs e)

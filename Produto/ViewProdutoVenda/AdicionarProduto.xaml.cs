@@ -14,8 +14,8 @@ namespace Venda.ViewProdutoVenda
 {
     public sealed partial class AdicionarProduto : ContentDialog, INotifyPropertyChanged
     {
-        List<ExibicaoProdutoAdicao> ListaCompletaProdutos { get; }
-        public ObservableCollection<ExibicaoProdutoAdicao> Produtos { get; }
+        List<ProdutoAdicao> ListaCompletaProdutos { get; }
+        ObservableCollection<ExibicaoProdutoAdicao> Produtos { get; }
         public ExibicaoProdutoAdicao ProdutoSelecionado { get; set; }
 
         bool PodeDetalhar { get; set; } = false;
@@ -29,36 +29,34 @@ namespace Venda.ViewProdutoVenda
         }
 
         Action Adicionar { get; }
-        Func<ExibicaoProdutoAdicao, bool> AnalisarDetalhamento { get; }
+        Func<ProdutoAdicao, bool> AnalisarDetalhamento { get; }
 
-        public AdicionarProduto(Guid[] produtosJaAdicionados, Action adicionar)
+        public AdicionarProduto(Dictionary<Guid, double> produtosJaAdicionados, Action adicionar)
         {
             InitializeComponent();
             Adicionar = adicionar;
 
             using (var repo = new BaseGeral.Repositorio.Leitura())
             {
-                ListaCompletaProdutos = new List<ExibicaoProdutoAdicao>();
+                ListaCompletaProdutos = new List<ProdutoAdicao>();
                 var estoque = repo.ObterEstoques();
                 foreach (var item in repo.ObterProdutos())
                 {
-                    if (!produtosJaAdicionados.Contains(item.Id))
+                    var jaAdicionado = produtosJaAdicionados.TryGetValue(item.Id, out double quantAdicionada);
+                    var est = estoque.FirstOrDefault(x => x.Id == item.Id);
+                    double quant = est != null ? est.Alteracoes.Sum(x => x.Alteração) : double.PositiveInfinity,
+                        quantRestante = quant - (jaAdicionado ? quantAdicionada : 0);
+                    if (quantRestante > 0)
                     {
-                        var est = estoque.FirstOrDefault(x => x.Id == item.Id);
-                        var quant = est != null ? est.Alteracoes.Sum(x => x.Alteração) : 0;
-                        if (est == null || quant > 0)
+                        var novoProd = new ProdutoAdicao
                         {
-                            var novoProd = new ExibicaoProdutoAdicao
-                            {
-                                Base = item,
-                                Codigo = item.CodigoProduto,
-                                Nome = item.Descricao,
-                                Estoque = est == null ? "Infinito" : quant.ToString("N"),
-                                Preco = item.ValorUnitario.ToString("C"),
-                                PrecoDouble = item.ValorUnitario
-                            };
-                            ListaCompletaProdutos.Add(novoProd);
-                        }
+                            Base = item,
+                            Codigo = item.CodigoProduto,
+                            Nome = item.Descricao,
+                            Estoque = quantRestante,
+                            Preco = item.ValorUnitario
+                        };
+                        ListaCompletaProdutos.Add(novoProd);
                     }
                 }
                 ListaCompletaProdutos.Sort((a, b) => a.Nome.CompareTo(b.Nome));
@@ -66,11 +64,11 @@ namespace Venda.ViewProdutoVenda
                 {
                     Popup.Current.Escrever(TitulosComuns.Atenção, "Não existem mais produtos adicionáveis.");
                 }
-                Produtos = ListaCompletaProdutos.GerarObs();
+                Produtos = ListaCompletaProdutos.Select(x => (ExibicaoProdutoAdicao)x).GerarObs();
             }
         }
 
-        public AdicionarProduto(Guid[] produtosJaAdicionados, Action adicionar, Func<ExibicaoProdutoAdicao, bool> analisarDetalhamento)
+        public AdicionarProduto(Dictionary<Guid, double> produtosJaAdicionados, Action adicionar, Func<ProdutoAdicao, bool> analisarDetalhamento)
             : this(produtosJaAdicionados, adicionar)
         {
             PodeDetalhar = true;
@@ -102,19 +100,30 @@ namespace Venda.ViewProdutoVenda
         {
             args.Cancel = true;
             var log = Popup.Current;
-            if (ProdutoSelecionado?.Base == null)
+            if (ProdutoSelecionado.Base == null)
                 log.Escrever(TitulosComuns.Atenção, "Escolha um produto.");
             else if (Quantidade <= 0)
                 log.Escrever(TitulosComuns.Atenção, "Insira uma quantidade maior que 0.");
-            else if (ProdutoSelecionado.Estoque != "Infinito" && Quantidade > double.Parse(ProdutoSelecionado.Estoque))
+            else if (ProdutoSelecionado.EstoqueDouble != double.PositiveInfinity && Quantidade > ProdutoSelecionado.EstoqueDouble)
                 log.Escrever(TitulosComuns.Atenção, "A quantidade vendida não pode ser maior que a quantidade em estoque.");
+            else if (Detalhar)
+                args.Cancel = false;
             else
             {
                 Adicionar?.Invoke();
-                ListaCompletaProdutos.Remove(ProdutoSelecionado);
-                Produtos.Remove(ProdutoSelecionado);
+                var novoEstoque = ProdutoSelecionado.EstoqueDouble - Quantidade;
+                if (novoEstoque == 0)
+                {
+                    ListaCompletaProdutos.RemoveAll(x => x.Base == ProdutoSelecionado.Base);
+                    Produtos.Remove(ProdutoSelecionado);
+                }
+                else
+                {
+                    ProdutoSelecionado.EstoqueDouble = novoEstoque;
+                    ProdutoSelecionado.AplicarAlteracoes();
+                    ListaCompletaProdutos.First(x => x.Base == ProdutoSelecionado.Base).Estoque = novoEstoque;
+                }
             }
-            args.Cancel = !Detalhar;
         }
 
         void ListView_Loaded(object sender, RoutedEventArgs e)
@@ -128,8 +137,9 @@ namespace Venda.ViewProdutoVenda
 
         void NovoProdutoEscolhido(object sender, SelectionChangedEventArgs e)
         {
+            if (e.AddedItems.Count == 0) return;
             var esc = (ExibicaoProdutoAdicao)e.AddedItems[0];
-            var necessitaDetalhamento = AnalisarDetalhamento(esc);
+            var necessitaDetalhamento = AnalisarDetalhamento((ProdutoAdicao)esc);
             if (necessitaDetalhamento)
             {
                 Detalhar = true;

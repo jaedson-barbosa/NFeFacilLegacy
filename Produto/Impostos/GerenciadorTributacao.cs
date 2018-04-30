@@ -16,7 +16,7 @@ namespace Venda.Impostos
             Produto = produto;
         }
 
-        public async Task<DetalhesProdutos> AplicarTributacaoAutomatica()
+        public async Task<DetalhesProdutos> AplicarTributacaoAutomatica(bool definirTotalImpostos = true)
         {
             var icms = Produto.Auxiliar.GetICMSArmazenados();
             var imps = Produto.Auxiliar.GetImpSimplesArmazenados();
@@ -33,18 +33,20 @@ namespace Venda.Impostos
                 detalhamentos[i] = impPronto;
             }
             var roteiro = new RoteiroAdicaoImpostos(detalhamentos, Produto.Completo);
-            while (roteiro.Avancar()) roteiro.ProcessarSalvo();
+            while (roteiro.Avancar()) roteiro.Processar(null);
 
             var produto = roteiro.Finalizar();
-            var caixa = new DefinirTotalImpostos();
-            if (await caixa.ShowAsync() == ContentDialogResult.Primary && !string.IsNullOrEmpty(caixa.ValorTotalTributos))
+            if (definirTotalImpostos)
             {
-                produto.Impostos.vTotTrib = caixa.ValorTotalTributos;
+                var caixa = new DefinirTotalImpostos();
+                if (await caixa.ShowAsync() == ContentDialogResult.Primary
+                    && !string.IsNullOrEmpty(caixa.ValorTotalTributos))
+                    produto.Impostos.vTotTrib = caixa.ValorTotalTributos;
+                else
+                    produto.Impostos.vTotTrib = null;
             }
             else
-            {
                 produto.Impostos.vTotTrib = null;
-            }
             return produto;
         }
 

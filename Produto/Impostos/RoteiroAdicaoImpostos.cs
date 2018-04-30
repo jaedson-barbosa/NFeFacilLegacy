@@ -139,29 +139,20 @@ namespace Venda.Impostos
             return false;
         }
 
-        public void ProcessarPagina(Page pagina)
+        public void Processar(Page pagina)
         {
             if (index >= 0)
             {
                 var proc = Processamentos[index];
-                proc.ProcessarEntradaDados(pagina);
-            }
-        }
-
-        public void ProcessarSalvo()
-        {
-            if (index >= 0)
-            {
-                var proc = Processamentos[index];
-                proc.ProcessarDadosProntos();
+                proc.ProcessarDados(pagina);
             }
         }
 
         bool finalizado;
         public DetalhesProdutos Finalizar()
         {
-            Produto.Impostos.impostos.Clear();
             var impostos = Produto.Impostos.impostos;
+            impostos.Clear();
             foreach (var item in Processamentos.OrderBy(x => (int)x.Tipo))
             {
                 impostos.AddRange(item.Processar(Produto));

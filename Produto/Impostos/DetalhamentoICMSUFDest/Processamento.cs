@@ -14,14 +14,12 @@ namespace Venda.Impostos.DetalhamentoICMSUFDest
             return new ImpostoBase[1] { imposto };
         }
 
-        public override void ProcessarEntradaDados(Page Tela)
+        public override void ProcessarDados(Page Tela)
         {
             if (Detalhamento is Detalhamento detalhamento && Tela?.GetType() == typeof(Detalhar))
             {
                 dados = (IDadosICMSUFDest)Tela;
             }
         }
-
-        public override void ProcessarDadosProntos() { }
     }
 }

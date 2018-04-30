@@ -15,15 +15,13 @@ namespace Venda.Impostos.DetalhamentoII
             return new ImpostoBase[1] { imposto };
         }
 
-        public override void ProcessarEntradaDados(Page Tela)
+        public override void ProcessarDados(Page Tela)
         {
             if (Detalhamento is Detalhamento detalhamento && Tela?.GetType() == typeof(Detalhar))
             {
                 dados = (IDadosII)Tela;
             }
         }
-
-        public override void ProcessarDadosProntos() { }
     }
 
     sealed class Dados : IDadosII

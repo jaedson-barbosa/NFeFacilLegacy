@@ -19,9 +19,13 @@ namespace Venda.Impostos.DetalhamentoICMS
             return new ImpostoBase[1] { imposto };
         }
 
-        public override void ProcessarEntradaDados(Page Tela)
+        public override void ProcessarDados(Page Tela)
         {
-            if (Detalhamento is Detalhamento det)
+            if (Detalhamento is ICMSArmazenado icms)
+            {
+                dados = icms.IsRegimeNormal ? (IDadosICMS)icms.RegimeNormal : icms.SimplesNacional;
+            }
+            else if (Detalhamento is Detalhamento det)
             {
                 var normal = DefinicoesTemporarias.EmitenteAtivo.RegimeTributario == 3;
                 var (rn, sn) = ProcessarTela(Tela, normal, det.TipoICMSSN, det.TipoICMSRN, det.Origem);
@@ -137,14 +141,6 @@ namespace Venda.Impostos.DetalhamentoICMS
                 baseRN.CST = CST.Substring(0, 2);
                 baseRN.Origem = origem;
                 return (baseRN, null);
-            }
-        }
-
-        public override void ProcessarDadosProntos()
-        {
-            if (Detalhamento is ICMSArmazenado icms)
-            {
-                dados = icms.IsRegimeNormal ? (IDadosICMS)icms.RegimeNormal : icms.SimplesNacional;
             }
         }
     }

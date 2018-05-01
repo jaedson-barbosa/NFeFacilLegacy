@@ -103,8 +103,8 @@ namespace Comum
             set
             {
                 clienteSelecionado = value;
-                NotaSalva.Informacoes.destinatário = value.ToDestinatario();
-                if (NotaSalva.AmbienteTestes)
+                NotaSalva.Informacoes.destinatário = value?.ToDestinatario();
+                if (NotaSalva.AmbienteTestes && NotaSalva.Informacoes.destinatário != null)
                 {
                     NotaSalva.Informacoes.destinatário.Nome = NomeClienteHomologacao;
                 }
@@ -126,7 +126,7 @@ namespace Comum
             set
             {
                 motoristaSelecionado = value;
-                NotaSalva.Informacoes.transp.Transporta = value.Root.ToMotorista();
+                NotaSalva.Informacoes.transp.Transporta = value.Root?.ToMotorista();
                 ProcessarVeiculo(value);
             }
         }

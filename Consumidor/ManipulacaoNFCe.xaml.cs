@@ -128,7 +128,7 @@ namespace Consumidor
             set
             {
                 clienteSelecionado = value;
-                NotaSalva.Informacoes.destinatário = value.ToDestinatario();
+                NotaSalva.Informacoes.destinatário = value?.ToDestinatario();
             }
         }
 
@@ -147,7 +147,7 @@ namespace Consumidor
             set
             {
                 motoristaSelecionado = value;
-                NotaSalva.Informacoes.transp.Transporta = value.ToMotorista();
+                NotaSalva.Informacoes.transp.Transporta = value?.ToMotorista();
             }
         }
 

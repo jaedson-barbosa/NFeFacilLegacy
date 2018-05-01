@@ -12,17 +12,21 @@ namespace BaseGeral.Buscador
         {
             for (int i = 0; i < TodosItens.Length; i++)
             {
-                var atual = TodosItens[i];
-                bool valido = ItemComparado(atual, DefinicoesPermanentes.ModoBuscaProduto)
-                    .ToUpper().Contains(busca.ToUpper());
-                if (valido && !Itens.Contains(atual))
+                try
                 {
-                    Itens.Add(atual);
+                    var atual = TodosItens[i];
+                    bool valido = ItemComparado(atual, DefinicoesPermanentes.ModoBuscaProduto)
+                        .ToUpper().Contains(busca.ToUpper());
+                    if (valido && !Itens.Contains(atual))
+                    {
+                        Itens.Add(atual);
+                    }
+                    else if (!valido && Itens.Contains(atual))
+                    {
+                        Itens.Remove(atual);
+                    }
                 }
-                else if (!valido && Itens.Contains(atual))
-                {
-                    Itens.Remove(atual);
-                }
+                catch (System.Exception) { }
             }
         }
 

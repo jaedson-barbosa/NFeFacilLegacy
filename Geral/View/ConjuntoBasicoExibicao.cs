@@ -2,14 +2,14 @@
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace NFeFacil.View
+namespace BaseGeral.View
 {
-    internal class ConjuntoBasicoExibicao<T> : ConjuntoBasicoExibicao
+    public sealed class ConjuntoBasicoExibicao<T> : ConjuntoBasicoExibicao
     {
         public T Objeto { get; set; }
     }
 
-    internal class ConjuntoBasicoExibicao
+    public class ConjuntoBasicoExibicao
     {
         public ImageSource Imagem { get; set; }
         public string Principal { get; set; }

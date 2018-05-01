@@ -193,7 +193,6 @@
       <DependentUpon>SincronizacaoServidor.xaml</DependentUpon>
     </Compile>
     <Compile Include="ConjuntoBanco.cs" />
-    <Compile Include="View\ConjuntoBasicoExibicao.cs" />
     <Compile Include="ViewDadosBase\AdicionarComprador.xaml.cs">
       <DependentUpon>AdicionarComprador.xaml</DependentUpon>
     </Compile>

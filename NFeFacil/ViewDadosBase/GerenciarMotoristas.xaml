@@ -9,7 +9,7 @@
     <Page.Resources>
         <vm:MascaraDocumento x:Key="mascara" />
     </Page.Resources>
-    <GridView ItemsSource="{x:Bind Motoristas}"
+    <GridView ItemsSource="{x:Bind Motoristas.Itens}"
               Style="{StaticResource ItensMediosGrid}"
               Margin="8">
         <GridView.ItemTemplate>

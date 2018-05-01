@@ -109,6 +109,12 @@
   <ItemGroup>
     <Compile Include="AssistenteConfig.cs" />
     <Compile Include="BasicMainPage.cs" />
+    <Compile Include="Buscador\BaseBuscador.cs" />
+    <Compile Include="Buscador\BuscadorCliente.cs" />
+    <Compile Include="Buscador\BuscadorComprador.cs" />
+    <Compile Include="Buscador\BuscadorMotorista.cs" />
+    <Compile Include="Buscador\BuscadorProduto.cs" />
+    <Compile Include="Buscador\BuscadorVendedor.cs" />
     <Compile Include="Controles\RichEditBoxExtended.cs" />
     <Compile Include="View\BoolToColor.cs" />
     <Compile Include="ConfiguracoesCertificacao.cs" />
@@ -378,6 +384,7 @@
     <Compile Include="Validacao\ValidadorEndereco.cs" />
     <Compile Include="Validacao\ValidarDados.cs" />
     <Compile Include="View\BibliotecaCores.cs" />
+    <Compile Include="View\ConjuntoBasicoExibicao.cs" />
     <Compile Include="View\DadosEstadosParaView.cs" />
     <Compile Include="View\DescricaoPropriedade.cs" />
     <Compile Include="View\DetalhePagina.cs" />

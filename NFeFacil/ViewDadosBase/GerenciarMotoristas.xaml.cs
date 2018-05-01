@@ -1,4 +1,5 @@
 ﻿using BaseGeral;
+using BaseGeral.Buscador;
 using BaseGeral.ItensBD;
 using BaseGeral.View;
 using System.Collections.ObjectModel;
@@ -13,17 +14,12 @@ namespace NFeFacil.ViewDadosBase
     [DetalhePagina(Symbol.Manage, "Gerenciar motoristas")]
     public sealed partial class GerenciarMotoristas : Page
     {
-        MotoristaDI[] TodosMotoristas { get; }
-        ObservableCollection<MotoristaDI> Motoristas { get; }
+        BuscadorMotorista Motoristas { get; }
 
         public GerenciarMotoristas()
         {
             InitializeComponent();
-            using (var repo = new BaseGeral.Repositorio.Leitura())
-            {
-                TodosMotoristas = repo.ObterMotoristas().ToArray();
-                Motoristas = TodosMotoristas.GerarObs();
-            }
+            Motoristas = new BuscadorMotorista();
         }
 
         private void AdicionarMotorista(object sender, RoutedEventArgs e)
@@ -45,28 +41,14 @@ namespace NFeFacil.ViewDadosBase
             using (var repo = new BaseGeral.Repositorio.Escrita())
             {
                 repo.InativarDadoBase(mot, DefinicoesTemporarias.DateTimeNow);
-                Motoristas.Remove(mot);
+                Motoristas.Remover(mot);
             }
         }
 
         private void Buscar(object sender, TextChangedEventArgs e)
         {
             var busca = ((TextBox)sender).Text;
-            for (int i = 0; i < TodosMotoristas.Length; i++)
-            {
-                var atual = TodosMotoristas[i];
-                bool valido = DefinicoesPermanentes.ModoBuscaMotorista == 0
-                    ? atual.Nome.ToUpper().Contains(busca.ToUpper())
-                    : atual.Documento.Contains(busca);
-                if (valido && !Motoristas.Contains(atual))
-                {
-                    Motoristas.Add(atual);
-                }
-                else if (!valido && Motoristas.Contains(atual))
-                {
-                    Motoristas.Remove(atual);
-                }
-            }
+            Motoristas.Buscar(busca);
         }
     }
 }

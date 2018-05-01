@@ -14,6 +14,11 @@ namespace BaseGeral.Buscador
             }
         }
 
+        public ClienteDI BuscarViaDocumento(string documento)
+        {
+            return TodosItens.FirstOrDefault(x => x.Documento == documento);
+        }
+
         protected override string ItemComparado(ClienteDI item, int modoBusca) =>
             DefinicoesPermanentes.ModoBuscaCliente == 0 ? item.Nome : item.Documento;
 

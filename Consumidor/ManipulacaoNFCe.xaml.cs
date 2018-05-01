@@ -12,6 +12,7 @@ using BaseGeral;
 using BaseGeral.View;
 using Fiscal;
 using System.ComponentModel;
+using BaseGeral.Buscador;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -25,6 +26,8 @@ namespace Consumidor
     {
         NFCe NotaSalva { get; set; }
         Visibility VisibilitadeTransportador { get; set; }
+        BuscadorCliente Clientes { get; }
+        BuscadorMotorista Motoristas { get; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -32,13 +35,8 @@ namespace Consumidor
         {
             InitializeComponent();
             VisibilitadeTransportador = Visibility.Collapsed;
-            using (var repo = new BaseGeral.Repositorio.Leitura())
-            {
-                TodosClientes = repo.ObterClientes().ToArray();
-                ClientesDisponiveis = TodosClientes.GerarObs();
-                TodosMotoristas = repo.ObterMotoristas().ToArray();
-                MotoristasDisponiveis = TodosMotoristas.GerarObs();
-            }
+            Clientes = new BuscadorCliente();
+            Motoristas = new BuscadorMotorista();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -115,11 +113,6 @@ namespace Consumidor
             set => NotaSalva.Informacoes.identificacao.CodigoMunicipio = value;
         }
 
-        ClienteDI[] TodosClientes;
-        ObservableCollection<ClienteDI> ClientesDisponiveis { get; set; }
-        MotoristaDI[] TodosMotoristas;
-        ObservableCollection<MotoristaDI> MotoristasDisponiveis { get; set; }
-
         ClienteDI clienteSelecionado;
         ClienteDI ClienteSelecionado
         {
@@ -128,7 +121,7 @@ namespace Consumidor
                 var dest = NotaSalva.Informacoes.destinatário;
                 if (clienteSelecionado == null && dest != null)
                 {
-                    clienteSelecionado = ClientesDisponiveis.FirstOrDefault(x => x.Documento == dest.Documento);
+                    clienteSelecionado = Clientes.BuscarViaDocumento(dest.Documento);
                 }
                 return clienteSelecionado;
             }
@@ -147,7 +140,7 @@ namespace Consumidor
                 var mot = NotaSalva.Informacoes.transp?.Transporta;
                 if (motoristaSelecionado == null && mot?.Documento != null)
                 {
-                    motoristaSelecionado = MotoristasDisponiveis.FirstOrDefault(x => x.Documento == mot.Documento);
+                    motoristaSelecionado = Motoristas.BuscarViaDocumento(mot.Documento);
                 }
                 return motoristaSelecionado;
             }
@@ -171,39 +164,13 @@ namespace Consumidor
         private void BuscarCliente(object sender, TextChangedEventArgs e)
         {
             var busca = ((TextBox)sender).Text;
-            for (int i = 0; i < TodosClientes.Length; i++)
-            {
-                var atual = TodosClientes[i];
-                bool valido = (DefinicoesPermanentes.ModoBuscaCliente == 0
-                    ? atual.Nome : atual.Documento).ToUpper().Contains(busca.ToUpper());
-                if (valido && !ClientesDisponiveis.Contains(atual))
-                {
-                    ClientesDisponiveis.Add(atual);
-                }
-                else if (!valido && ClientesDisponiveis.Contains(atual))
-                {
-                    ClientesDisponiveis.Remove(atual);
-                }
-            }
+            Clientes.Buscar(busca);
         }
 
         private void BuscarMotorista(object sender, TextChangedEventArgs e)
         {
             var busca = ((TextBox)sender).Text;
-            for (int i = 0; i < TodosMotoristas.Length; i++)
-            {
-                var atual = TodosMotoristas[i];
-                bool valido = (DefinicoesPermanentes.ModoBuscaMotorista == 0
-                    ? atual.Nome : atual.Documento).ToUpper().Contains(busca.ToUpper());
-                if (valido && !MotoristasDisponiveis.Contains(atual))
-                {
-                    MotoristasDisponiveis.Add(atual);
-                }
-                else if (!valido && MotoristasDisponiveis.Contains(atual))
-                {
-                    MotoristasDisponiveis.Remove(atual);
-                }
-            }
+            Motoristas.Buscar(busca);
         }
 
         void Confirmar(object sender, RoutedEventArgs e)

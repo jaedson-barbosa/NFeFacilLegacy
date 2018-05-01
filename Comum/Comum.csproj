@@ -156,7 +156,6 @@
     <Compile Include="ManipulacaoProdutoCompleto.xaml.cs">
       <DependentUpon>ManipulacaoProdutoCompleto.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MotoristaManipulacaoNFe.cs" />
     <Compile Include="PacotesDANFE\DadosAdicionais.cs" />
     <Compile Include="PacotesDANFE\DadosCabecalho.cs" />
     <Compile Include="PacotesDANFE\DadosCliente.cs" />

@@ -116,6 +116,7 @@
     <Compile Include="Buscador\BuscadorProduto.cs" />
     <Compile Include="Buscador\BuscadorVendedor.cs" />
     <Compile Include="Controles\RichEditBoxExtended.cs" />
+    <Compile Include="MotoristaManipulacaoNFe.cs" />
     <Compile Include="View\BoolToColor.cs" />
     <Compile Include="ConfiguracoesCertificacao.cs" />
     <Compile Include="Controles\CarregamentoCircular.xaml.cs">

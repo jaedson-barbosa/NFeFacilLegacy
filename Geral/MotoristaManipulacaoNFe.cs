@@ -2,9 +2,9 @@
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace Comum
+namespace BaseGeral
 {
-    struct MotoristaManipulacaoNFe
+    public struct MotoristaManipulacaoNFe
     {
         public MotoristaDI Root { get; set; }
         public VeiculoDI Principal { get; set; }

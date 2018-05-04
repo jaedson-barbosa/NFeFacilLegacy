@@ -22,8 +22,15 @@ namespace BaseGeral.Buscador
             }
         }
 
-        protected override string ItemComparado(ConjuntoBasicoExibicao<Vendedor> item, int modoBusca) =>
-            DefinicoesPermanentes.ModoBuscaVendedor == 0 ? item.Principal : item.Objeto.CPFStr;
+        protected override (string, string) ItemComparado(ConjuntoBasicoExibicao<Vendedor> item, int modoBusca)
+        {
+            switch (modoBusca)
+            {
+                case 0: return (item.Principal, null);
+                case 1: return (item.Objeto.CPFStr, null);
+                default: return (item.Principal, item.Objeto.CPFStr);
+            }
+        }
 
         protected override void InvalidarItem(ConjuntoBasicoExibicao<Vendedor> item, int modoBusca)
         {

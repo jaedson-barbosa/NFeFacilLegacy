@@ -113,6 +113,7 @@
     <Compile Include="Buscador\BuscadorCliente.cs" />
     <Compile Include="Buscador\BuscadorComprador.cs" />
     <Compile Include="Buscador\BuscadorMotorista.cs" />
+    <Compile Include="Buscador\BuscadorMotoristaComVeiculos.cs" />
     <Compile Include="Buscador\BuscadorProduto.cs" />
     <Compile Include="Buscador\BuscadorVendedor.cs" />
     <Compile Include="Controles\RichEditBoxExtended.cs" />

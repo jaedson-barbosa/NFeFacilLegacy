@@ -33,5 +33,6 @@ namespace Venda.ViewProdutoVenda
     public interface IControleViewProdutoFiscal : IControleViewProduto
     {
         void Adicionar(DetalhesProdutos produto);
+        void AplicarTributacaoAutomatica(DadosAdicaoProduto dadosAdicao);
     }
 }

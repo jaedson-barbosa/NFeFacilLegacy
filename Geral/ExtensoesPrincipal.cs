@@ -169,6 +169,9 @@ namespace BaseGeral
         public static double Parse(string str) => double.Parse(str, NumberStyles.Number, defCult);
         public static bool TryParse(string str, out double valor) => double.TryParse(str, NumberStyles.Number, defCult, out valor);
         public static double TryParse(string str) { TryParse(str, out double valor); return valor; }
+
+        public static string[] ToArray(this string str) => new string[1] { str };
+        public static string[] ToArray(this string str0, string str1) => new string[2] { str0, str1 };
     }
 
     public class ErroDesserializacao : Exception

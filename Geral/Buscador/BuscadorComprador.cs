@@ -18,8 +18,15 @@ namespace BaseGeral.Buscador
             }
         }
 
-        protected override string ItemComparado(ExibicaoComprador item, int modoBusca) =>
-            DefinicoesPermanentes.ModoBuscaComprador == 0 ? item.Root.Nome : item.NomeEmpresa;
+        protected override (string, string) ItemComparado(ExibicaoComprador item, int modoBusca)
+        {
+            switch (modoBusca)
+            {
+                case 0: return (item.Root.Nome, null);
+                case 1: return (item.NomeEmpresa, null);
+                default: return (item.Root.Nome, item.NomeEmpresa);
+            }
+        }
 
         protected override void InvalidarItem(ExibicaoComprador item, int modoBusca)
         {

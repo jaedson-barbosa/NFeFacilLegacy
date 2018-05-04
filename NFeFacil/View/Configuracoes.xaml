@@ -57,30 +57,35 @@
                           SelectedIndex="{x:Bind root:DefinicoesPermanentes.ModoBuscaProduto, Mode=TwoWay}">
                     <ComboBoxItem>Pela descrição</ComboBoxItem>
                     <ComboBoxItem>Pelo código</ComboBoxItem>
+                    <ComboBoxItem>Ambos</ComboBoxItem>
                 </ComboBox>
                 <ComboBox Header="Modo de busca do cliente"
                           MinWidth="320"
                           SelectedIndex="{x:Bind root:DefinicoesPermanentes.ModoBuscaCliente, Mode=TwoWay}">
                     <ComboBoxItem>Pelo nome</ComboBoxItem>
                     <ComboBoxItem>Pelo documento</ComboBoxItem>
+                    <ComboBoxItem>Ambos</ComboBoxItem>
                 </ComboBox>
                 <ComboBox Header="Modo de busca do comprador"
                           MinWidth="320"
                           SelectedIndex="{x:Bind root:DefinicoesPermanentes.ModoBuscaComprador, Mode=TwoWay}">
                     <ComboBoxItem>Pelo nome do comprador</ComboBoxItem>
                     <ComboBoxItem>Pelo nome da empresa</ComboBoxItem>
+                    <ComboBoxItem>Ambos</ComboBoxItem>
                 </ComboBox>
                 <ComboBox Header="Modo de busca do motorista"
                           MinWidth="320"
                           SelectedIndex="{x:Bind root:DefinicoesPermanentes.ModoBuscaMotorista, Mode=TwoWay}">
                     <ComboBoxItem>Pelo nome</ComboBoxItem>
                     <ComboBoxItem>Pelo documento</ComboBoxItem>
+                    <ComboBoxItem>Ambos</ComboBoxItem>
                 </ComboBox>
                 <ComboBox Header="Modo de busca do vendedor"
                           MinWidth="320"
                           SelectedIndex="{x:Bind root:DefinicoesPermanentes.ModoBuscaVendedor, Mode=TwoWay}">
                     <ComboBoxItem>Pelo nome</ComboBoxItem>
                     <ComboBoxItem>Pelo CPF</ComboBoxItem>
+                    <ComboBoxItem>Ambos</ComboBoxItem>
                 </ComboBox>
             </StackPanel>
             <ItemsControl x:Name="itnBackground"

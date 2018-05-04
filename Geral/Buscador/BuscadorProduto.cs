@@ -14,8 +14,15 @@ namespace BaseGeral.Buscador
             }
         }
 
-        protected override string ItemComparado(ProdutoDI item, int modoBusca) =>
-            DefinicoesPermanentes.ModoBuscaProduto == 0 ? item.Descricao : item.CodigoProduto;
+        protected override (string, string) ItemComparado(ProdutoDI item, int modoBusca)
+        {
+            switch (modoBusca)
+            {
+                case 0: return (item.Descricao, null);
+                case 1: return (item.CodigoProduto, null);
+                default: return (item.Descricao, item.CodigoProduto);
+            }
+        }
 
         protected override void InvalidarItem(ProdutoDI item, int modoBusca)
         {

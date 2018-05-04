@@ -19,8 +19,15 @@ namespace BaseGeral.Buscador
             return TodosItens.FirstOrDefault(x => x.Documento == documento);
         }
 
-        protected override string ItemComparado(ClienteDI item, int modoBusca) =>
-            DefinicoesPermanentes.ModoBuscaCliente == 0 ? item.Nome : item.Documento;
+        protected override (string, string) ItemComparado(ClienteDI item, int modoBusca)
+        {
+            switch (modoBusca)
+            {
+                case 0: return (item.Nome, null);
+                case 1: return (item.Documento, null);
+                default: return (item.Nome, item.Documento);
+            }
+        }
 
         protected override void InvalidarItem(ClienteDI item, int modoBusca)
         {

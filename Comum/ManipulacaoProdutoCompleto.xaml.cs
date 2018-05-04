@@ -15,6 +15,7 @@ using Venda;
 using Venda.CaixasDialogoProduto;
 using BaseGeral.View;
 using BaseGeral;
+using Venda.ViewProdutoVenda;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -154,7 +155,7 @@ namespace Comum
             ListaGE.Remove((GrupoExportacao)contexto);
         }
 
-        async void Concluir(object sender, RoutedEventArgs e)
+        void Concluir(object sender, RoutedEventArgs e)
         {
             ProdutoCompleto.Produto.DI = new List<DeclaracaoImportacao>(ListaDI);
             ProdutoCompleto.Produto.GrupoExportação = new List<GrupoExportacao>(ListaGE);
@@ -165,18 +166,9 @@ namespace Comum
                 ProdutoCompleto.ImpostoDevol = null;
             }
 
-            var produto = await new GerenciadorTributacao(Conjunto).AplicarTributacaoAutomatica();
-            var info = ((NFe)Frame.BackStack[Frame.BackStack.Count - 1].Parameter).Informacoes;
-            if (produto.Número == 0)
-            {
-                produto.Número = info.produtos.Count + 1;
-                info.produtos.Add(produto);
-            }
-            else
-            {
-                info.produtos[produto.Número - 1] = produto;
-            }
-            info.total = new Total(info.produtos);
+            var parametro = Frame.BackStack[Frame.BackStack.Count - 1].Parameter;
+            var controle = (IControleViewProdutoFiscal)parametro;
+            controle.AplicarTributacaoAutomatica(Conjunto);
 
             Concluido = true;
             BasicMainPage.Current.Retornar();

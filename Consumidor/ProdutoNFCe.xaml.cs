@@ -5,6 +5,7 @@ using BaseGeral.View;
 using NFeFacil.View;
 using Venda;
 using Venda.Impostos;
+using Venda.ViewProdutoVenda;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -69,20 +70,11 @@ namespace Consumidor
             new GerenciadorTributacao(Conjunto).AplicarTributacaoManual();
         }
 
-        async void Concluir(object sender, RoutedEventArgs e)
+        void Concluir(object sender, RoutedEventArgs e)
         {
-            var produto = await new GerenciadorTributacao(Conjunto).AplicarTributacaoAutomatica();
-            var info = ((NFCe)Frame.BackStack[Frame.BackStack.Count - 1].Parameter).Informacoes;
-            if (produto.Número == 0)
-            {
-                produto.Número = info.produtos.Count + 1;
-                info.produtos.Add(produto);
-            }
-            else
-            {
-                info.produtos[produto.Número - 1] = produto;
-            }
-            info.total = new Total(info.produtos);
+            var parametro = Frame.BackStack[Frame.BackStack.Count - 1].Parameter;
+            var controle = (IControleViewProdutoFiscal)parametro;
+            controle.AplicarTributacaoAutomatica(Conjunto);
 
             Concluido = true;
             BasicMainPage.Current.Retornar();

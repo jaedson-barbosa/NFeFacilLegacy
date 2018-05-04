@@ -15,8 +15,10 @@ namespace BaseGeral.Buscador
                 try
                 {
                     var atual = TodosItens[i];
-                    bool valido = ItemComparado(atual, DefinicoesPermanentes.ModoBuscaProduto)
-                        .ToUpper().Contains(busca.ToUpper());
+                    busca = busca.ToUpper();
+                    var comparados = ItemComparado(atual, DefinicoesPermanentes.ModoBuscaProduto);
+                    bool valido = comparados.Item1.ToUpper().Contains(busca)
+                        || (comparados.Item2?.ToUpper().Contains(busca) ?? false);
                     if (valido && !Itens.Contains(atual))
                     {
                         Itens.Add(atual);
@@ -30,7 +32,7 @@ namespace BaseGeral.Buscador
             }
         }
 
-        protected abstract string ItemComparado(TipoBusca item, int modoBusca);
+        protected abstract (string, string) ItemComparado(TipoBusca item, int modoBusca);
         protected abstract void InvalidarItem(TipoBusca item, int modoBusca);
         public void Remover(TipoBusca produto)
         {
@@ -38,7 +40,8 @@ namespace BaseGeral.Buscador
             for (int i = 0; i < TodosItens.Length; i++)
             {
                 var at = TodosItens[i];
-                if (ItemComparado(at, modoBusca) == ItemComparado(produto, modoBusca))
+                (string, string) comp1 = ItemComparado(at, modoBusca), comp2 = ItemComparado(produto, modoBusca);
+                if (comp1.Item1 == comp2.Item1 && comp1.Item2 == comp2.Item2)
                     InvalidarItem(at, modoBusca);
             }
             Itens.Remove(produto);

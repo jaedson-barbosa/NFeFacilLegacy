@@ -84,9 +84,17 @@ namespace Fiscal
         public void Adicionar(DetalhesProdutos produto)
         {
             var produtos = Produtos;
-            var index = produtos.FindIndex(x => x.Número == produto.Número);
-            if (index == -1) produtos.Add(produto);
-            else produtos[index] = produto;
+            if (produto.Número == 0)
+            {
+                produto.Número = ObterNovoNumero();
+                produtos.Add(produto);
+            }
+            else
+            {
+                var index = produtos.FindIndex(x => x.Número == produto.Número);
+                if (index == -1) produtos.Add(produto);
+                else produtos[index] = produto;
+            }
         }
 
         DadosAdicaoProduto ObterDadosAdicao(ProdutoDI prodBase, ProdutoSimplesVenda simples)
@@ -97,19 +105,23 @@ namespace Fiscal
                     new DetalhesProdutos()
                     {
                         Produto = produto,
-                        Número = ObterNovoNumero()
                     })
             {
                 IsNFCe = true
             };
         }
 
-        async void AplicarTributacaoAutomatica(ProdutoDI prodBase, ProdutoSimplesVenda simples)
+        public void AplicarTributacaoAutomatica(ProdutoDI prodBase, ProdutoSimplesVenda simples)
         {
             var dadosAdicao = ObterDadosAdicao(prodBase, simples);
+            AplicarTributacaoAutomatica(dadosAdicao);
+        }
+
+        public async void AplicarTributacaoAutomatica(DadosAdicaoProduto dadosAdicao)
+        {
             var tributador = new GerenciadorTributacao(dadosAdicao);
             var produtoTributado = await tributador.AplicarTributacaoAutomatica(false);
-            Produtos.Add(produtoTributado);
+            Adicionar(produtoTributado);
         }
 
         public bool EdicaoLiberada { get; } = true;

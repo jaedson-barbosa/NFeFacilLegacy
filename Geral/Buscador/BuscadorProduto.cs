@@ -26,8 +26,18 @@ namespace BaseGeral.Buscador
 
         protected override void InvalidarItem(ProdutoDI item, int modoBusca)
         {
-            if (DefinicoesPermanentes.ModoBuscaProduto == 0) item.Descricao = InvalidProduct;
-            else item.CodigoProduto = InvalidProduct;
+            switch (modoBusca)
+            {
+                case 0:
+                    item.Descricao = InvalidProduct;
+                    break;
+                case 1:
+                    item.CodigoProduto = InvalidProduct;
+                    break;
+                default:
+                    item.Descricao = item.CodigoProduto = InvalidProduct;
+                    break;
+            }
         }
     }
 }

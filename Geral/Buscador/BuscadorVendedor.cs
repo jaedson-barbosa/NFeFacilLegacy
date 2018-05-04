@@ -34,8 +34,18 @@ namespace BaseGeral.Buscador
 
         protected override void InvalidarItem(ConjuntoBasicoExibicao<Vendedor> item, int modoBusca)
         {
-            if (DefinicoesPermanentes.ModoBuscaProduto == 0) item.Principal = InvalidProduct;
-            else item.Objeto.CPFStr = InvalidProduct;
+            switch (modoBusca)
+            {
+                case 0:
+                    item.Principal = InvalidProduct;
+                    break;
+                case 1:
+                    item.Objeto.CPFStr = InvalidProduct;
+                    break;
+                default:
+                    item.Principal = item.Objeto.CPFStr = InvalidProduct;
+                    break;
+            }
         }
 
         public void AtualizarImagem(ImageSource imagem, ConjuntoBasicoExibicao<Vendedor> vendedor)

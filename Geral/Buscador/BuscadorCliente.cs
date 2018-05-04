@@ -31,8 +31,18 @@ namespace BaseGeral.Buscador
 
         protected override void InvalidarItem(ClienteDI item, int modoBusca)
         {
-            if (DefinicoesPermanentes.ModoBuscaProduto == 0) item.Nome = InvalidProduct;
-            else item.CPF = item.CNPJ = item.IdEstrangeiro = InvalidProduct;
+            switch (modoBusca)
+            {
+                case 0:
+                    item.Nome = InvalidProduct;
+                    break;
+                case 1:
+                    item.CPF = item.CNPJ = item.IdEstrangeiro = InvalidProduct;
+                    break;
+                default:
+                    item.Nome = item.CPF = item.CNPJ = item.IdEstrangeiro = InvalidProduct;
+                    break;
+            }
         }
     }
 }

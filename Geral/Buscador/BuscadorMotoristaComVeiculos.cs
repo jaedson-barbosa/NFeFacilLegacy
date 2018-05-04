@@ -35,8 +35,18 @@ namespace BaseGeral.Buscador
 
         protected override void InvalidarItem(MotoristaManipulacaoNFe item, int modoBusca)
         {
-            if (DefinicoesPermanentes.ModoBuscaMotorista == 0) item.Root.Nome = InvalidProduct;
-            else item.Root.CPF = item.Root.CNPJ = InvalidProduct;
+            switch (modoBusca)
+            {
+                case 0:
+                    item.Root.Nome = InvalidProduct;
+                    break;
+                case 1:
+                    item.Root.CPF = item.Root.CNPJ = InvalidProduct;
+                    break;
+                default:
+                    item.Root.Nome = item.Root.CPF = item.Root.CNPJ = InvalidProduct;
+                    break;
+            }
         }
     }
 }

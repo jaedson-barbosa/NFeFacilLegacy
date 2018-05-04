@@ -30,8 +30,18 @@ namespace BaseGeral.Buscador
 
         protected override void InvalidarItem(ExibicaoComprador item, int modoBusca)
         {
-            if (DefinicoesPermanentes.ModoBuscaComprador == 0) item.Root.Nome = InvalidProduct;
-            else item.NomeEmpresa = InvalidProduct;
+            switch (modoBusca)
+            {
+                case 0:
+                    item.Root.Nome = InvalidProduct;
+                    break;
+                case 1:
+                    item.NomeEmpresa = InvalidProduct;
+                    break;
+                default:
+                    item.Root.Nome = item.NomeEmpresa = InvalidProduct;
+                    break;
+            }
         }
     }
 

@@ -167,8 +167,7 @@ namespace Venda.ViewProdutoVenda
                         item.Codigo = InvalidProduct;
                         break;
                     default:
-                        item.Nome = InvalidProduct;
-                        item.Codigo = InvalidProduct;
+                        item.Nome = item.Codigo = InvalidProduct;
                         break;
                 }
             }

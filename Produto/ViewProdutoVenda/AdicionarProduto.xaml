@@ -18,7 +18,7 @@
         </Grid.RowDefinitions>
         <TextBox Header="Buscar"
                  TextChanged="Buscar" />
-        <ListView ItemsSource="{x:Bind Produtos}"
+        <ListView ItemsSource="{x:Bind Produtos.Itens}"
                   SelectedItem="{x:Bind ProdutoSelecionado, Mode=TwoWay}"
                   Loaded="ListView_Loaded"
                   Grid.Row="1"

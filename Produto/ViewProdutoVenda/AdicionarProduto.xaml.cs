@@ -14,8 +14,7 @@ namespace Venda.ViewProdutoVenda
 {
     public sealed partial class AdicionarProduto : ContentDialog, INotifyPropertyChanged
     {
-        List<ProdutoAdicao> ListaCompletaProdutos { get; }
-        ObservableCollection<ExibicaoProdutoAdicao> Produtos { get; }
+        BuscadorProduto Produtos { get; }
         public ExibicaoProdutoAdicao ProdutoSelecionado { get; set; }
 
         bool PodeDetalhar { get; set; } = false;
@@ -35,37 +34,7 @@ namespace Venda.ViewProdutoVenda
         {
             InitializeComponent();
             Adicionar = adicionar;
-
-            using (var repo = new BaseGeral.Repositorio.Leitura())
-            {
-                ListaCompletaProdutos = new List<ProdutoAdicao>();
-                var estoque = repo.ObterEstoques();
-                foreach (var item in repo.ObterProdutos())
-                {
-                    var jaAdicionado = produtosJaAdicionados.TryGetValue(item.Id, out double quantAdicionada);
-                    var est = estoque.FirstOrDefault(x => x.Id == item.Id);
-                    double quant = est != null ? est.Alteracoes.Sum(x => x.Alteração) : double.PositiveInfinity,
-                        quantRestante = quant - (jaAdicionado ? quantAdicionada : 0);
-                    if (quantRestante > 0)
-                    {
-                        var novoProd = new ProdutoAdicao
-                        {
-                            Base = item,
-                            Codigo = item.CodigoProduto,
-                            Nome = item.Descricao,
-                            Estoque = quantRestante,
-                            Preco = item.ValorUnitario
-                        };
-                        ListaCompletaProdutos.Add(novoProd);
-                    }
-                }
-                ListaCompletaProdutos.Sort((a, b) => a.Nome.CompareTo(b.Nome));
-                if (ListaCompletaProdutos.Count == 0)
-                {
-                    Popup.Current.Escrever(TitulosComuns.Atenção, "Não existem mais produtos adicionáveis.");
-                }
-                Produtos = ListaCompletaProdutos.Select(x => (ExibicaoProdutoAdicao)x).GerarObs();
-            }
+            Produtos = new BuscadorProduto(produtosJaAdicionados);
         }
 
         public AdicionarProduto(Dictionary<Guid, double> produtosJaAdicionados, Action adicionar, Func<ProdutoAdicao, bool> analisarDetalhamento)
@@ -80,20 +49,7 @@ namespace Venda.ViewProdutoVenda
         void Buscar(object sender, TextChangedEventArgs e)
         {
             var busca = ((TextBox)sender).Text;
-            for (int i = 0; i < ListaCompletaProdutos.Count; i++)
-            {
-                var atual = ListaCompletaProdutos[i];
-                bool valido;
-                if (DefinicoesPermanentes.ModoBuscaProduto == 0)
-                    valido = atual.Nome.ToUpper().Contains(busca.ToUpper());
-                else
-                    valido = atual.Codigo.ToUpper().Contains(busca.ToUpper());
-
-                if (valido && !Produtos.Contains(atual))
-                    Produtos.Add(atual);
-                else if (!valido && Produtos.Contains(atual))
-                    Produtos.Remove(atual);
-            }
+            Produtos.Buscar(busca);
         }
 
         void BotaoPrimario_Click(ContentDialog sender, ContentDialogButtonClickEventArgs args)
@@ -114,14 +70,13 @@ namespace Venda.ViewProdutoVenda
                 var novoEstoque = ProdutoSelecionado.EstoqueDouble - Quantidade;
                 if (novoEstoque == 0)
                 {
-                    ListaCompletaProdutos.RemoveAll(x => x.Base == ProdutoSelecionado.Base);
-                    Produtos.Remove(ProdutoSelecionado);
+                    Produtos.Remover(ProdutoSelecionado);
                 }
                 else
                 {
                     ProdutoSelecionado.EstoqueDouble = novoEstoque;
                     ProdutoSelecionado.AplicarAlteracoes();
-                    ListaCompletaProdutos.First(x => x.Base == ProdutoSelecionado.Base).Estoque = novoEstoque;
+                    Produtos.AplicarAlteracaoEstoque(ProdutoSelecionado, novoEstoque);
                 }
             }
         }
@@ -152,6 +107,76 @@ namespace Venda.ViewProdutoVenda
             }
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Detalhar)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PodeDetalhar)));
+        }
+
+        sealed class BuscadorProduto : BaseGeral.Buscador.BaseBuscador<ExibicaoProdutoAdicao>
+        {
+            public BuscadorProduto(Dictionary<Guid, double> produtosJaAdicionados)
+            {
+                using (var repo = new BaseGeral.Repositorio.Leitura())
+                {
+                    var ListaCompletaProdutos = new List<ProdutoAdicao>();
+                    var estoque = repo.ObterEstoques();
+                    foreach (var item in repo.ObterProdutos())
+                    {
+                        var jaAdicionado = produtosJaAdicionados.TryGetValue(item.Id, out double quantAdicionada);
+                        var est = estoque.FirstOrDefault(x => x.Id == item.Id);
+                        double quant = est != null ? est.Alteracoes.Sum(x => x.Alteração) : double.PositiveInfinity,
+                            quantRestante = quant - (jaAdicionado ? quantAdicionada : 0);
+                        if (quantRestante > 0)
+                        {
+                            var novoProd = new ProdutoAdicao
+                            {
+                                Base = item,
+                                Codigo = item.CodigoProduto,
+                                Nome = item.Descricao,
+                                Estoque = quantRestante,
+                                Preco = item.ValorUnitario
+                            };
+                            ListaCompletaProdutos.Add(novoProd);
+                        }
+                    }
+                    ListaCompletaProdutos.Sort((a, b) => a.Nome.CompareTo(b.Nome));
+                    if (ListaCompletaProdutos.Count == 0)
+                    {
+                        Popup.Current.Escrever(TitulosComuns.Atenção, "Não existem mais produtos adicionáveis.");
+                    }
+                    TodosItens = ListaCompletaProdutos.Select(x => (ExibicaoProdutoAdicao)x).ToArray();
+                    Itens = TodosItens.GerarObs();
+                }
+            }
+
+            protected override (string, string) ItemComparado(ExibicaoProdutoAdicao item, int modoBusca)
+            {
+                switch (modoBusca)
+                {
+                    case 0: return (item.Nome, null);
+                    case 1: return (item.Codigo, null);
+                    default: return (item.Nome, item.Codigo);
+                }
+            }
+
+            protected override void InvalidarItem(ExibicaoProdutoAdicao item, int modoBusca)
+            {
+                switch (modoBusca)
+                {
+                    case 0:
+                        item.Nome = InvalidProduct;
+                        break;
+                    case 1:
+                        item.Codigo = InvalidProduct;
+                        break;
+                    default:
+                        item.Nome = InvalidProduct;
+                        item.Codigo = InvalidProduct;
+                        break;
+                }
+            }
+
+            public void AplicarAlteracaoEstoque(ExibicaoProdutoAdicao exibicaoProduto, double novoEstoque)
+            {
+                TodosItens.First(x => x.Base == exibicaoProduto.Base).EstoqueDouble = novoEstoque;
+            }
         }
     }
 }

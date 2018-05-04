@@ -57,5 +57,27 @@ namespace Venda.ViewProdutoVenda
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Ativo)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Estoque)));
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is ProdutoAdicao produto)
+            {
+                return Base == produto.Base && Codigo == produto.Codigo
+                    && Nome == produto.Nome && EstoqueDouble == produto.Estoque
+                    && PrecoDouble == produto.Preco;
+            }
+            else if (obj is ExibicaoProdutoAdicao exibicaoProduto)
+            {
+                return Base == exibicaoProduto.Base && Codigo == exibicaoProduto.Codigo
+                    && Nome == exibicaoProduto.Nome && EstoqueDouble == exibicaoProduto.EstoqueDouble
+                    && PrecoDouble == exibicaoProduto.PrecoDouble;
+            }
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return Base.GetHashCode();
+        }
     }
 }

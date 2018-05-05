@@ -77,6 +77,7 @@ namespace RegistroComum
         }
 
         public bool EdicaoLiberada { get; } = false;
+
         public void Editar(ExibicaoProdutoListaGeral produto) => throw new NotImplementedException();
 
         public void Remover(ExibicaoProdutoListaGeral produto)
@@ -89,6 +90,7 @@ namespace RegistroComum
         }
 
         public bool AnalisarDetalhamento(ProdutoAdicao produto) => throw new NotImplementedException();
+        public bool AnalMudançaValorUnit(ProdutoAdicao produto) => throw new NotImplementedException();
         public void Detalhar(AdicionarProduto caixa) => throw new NotImplementedException();
 
         public void Avancar() => BasicMainPage.Current.Navegar<ManipulacaoRegistroVenda>(Venda);

@@ -32,28 +32,17 @@ namespace BaseGeral.ItensBD
         {
             using (var db = new AplicativoContext())
             {
-                var ProdutoBase = db.Produtos.Find(IdBase);
-                return new ProdutoOuServico
-                {
-                    CodigoProduto = ProdutoBase.CodigoProduto,
-                    CodigoBarras = ProdutoBase.CodigoBarras,
-                    Descricao = ProdutoBase.Descricao,
-                    NCM = ProdutoBase.NCM,
-                    EXTIPI = ProdutoBase.EXTIPI,
-                    CFOP = !string.IsNullOrEmpty(ProdutoBase.CFOP) ? int.Parse(ProdutoBase.CFOP) : 0,
-                    UnidadeComercializacao = ProdutoBase.UnidadeComercializacao,
-                    CodigoBarrasTributo = ProdutoBase.CodigoBarrasTributo,
-                    UnidadeTributacao = ProdutoBase.UnidadeTributacao,
-                    ValorUnitarioTributo = ProdutoBase.ValorUnitarioTributo,
-                    ValorUnitario = ProdutoBase.ValorUnitario,
-                    QuantidadeComercializada = Quantidade,
-                    QuantidadeTributada = Quantidade,
-                    Frete = Frete != 0 ? Frete.ToString("0.00") : null,
-                    Seguro = Seguro != 0 ? Seguro.ToString("0.00") : null,
-                    DespesasAcessorias = DespesasExtras != 0 ? DespesasExtras.ToString("0.00") : null,
-                    Desconto = Desconto != 0 ? Desconto.ToString("0.00") : null,
-                    ValorTotal = Quantidade * ProdutoBase.ValorUnitario
-                };
+                var produtoBase = db.Produtos.Find(IdBase);
+                var produto = produtoBase.ToProdutoOuServico();
+                produto.ValorUnitario = ValorUnitario;
+                produto.QuantidadeComercializada = Quantidade;
+                produto.QuantidadeTributada = Quantidade;
+                produto.Frete = Frete != 0 ? Frete.ToString("0.00") : null;
+                produto.Seguro = Seguro != 0 ? Seguro.ToString("0.00") : null;
+                produto.DespesasAcessorias = DespesasExtras != 0 ? DespesasExtras.ToString("0.00") : null;
+                produto.Desconto = Desconto != 0 ? Desconto.ToString("0.00") : null;
+                produto.ValorTotal = Quantidade * ValorUnitario;
+                return produto;
             }
         }
     }

@@ -59,7 +59,7 @@ namespace Venda.ViewProdutoVenda
             var jaAdicionados = Controle.ProdutosAdicionados;
             AdicionarProduto caixa = null;
             caixa = Controle.PodeDetalhar
-                ? new AdicionarProduto(jaAdicionados, Adicionar, Controle.AnalisarDetalhamento)
+                ? new AdicionarProduto(jaAdicionados, Adicionar, Controle.AnalisarDetalhamento, Controle.AnalMudançaValorUnit)
                 : new AdicionarProduto(jaAdicionados, Adicionar);
             await caixa.ShowAsync();
             if (caixa.Detalhar) Controle.Detalhar(caixa);

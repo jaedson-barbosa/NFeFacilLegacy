@@ -35,7 +35,7 @@ namespace NFeFacil.View
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             var comprado = ComprasInApp.Resumo[Compras.NFCe];
-            //hubNFCe.IsEnabled = comprado;
+            hubNFCe.IsEnabled = comprado;
         }
 
         void AbrirClientes(object sender, TappedRoutedEventArgs e) => Navegar<GerenciarClientes>();

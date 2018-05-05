@@ -75,8 +75,15 @@
             <controles:EntradaNumerica Header="Despesas extras"
                                        Format="10:2"
                                        Number="{x:Bind DespesasExtras, Mode=TwoWay}" />
-            <CheckBox IsEnabled="{x:Bind PodeDetalhar, Mode=OneWay}"
-                      IsChecked="{x:Bind Detalhar, Mode=TwoWay}">Detalhar</CheckBox>
+            <controles:EntradaNumerica Header="Valor unitário"
+                                       Format="10:2"
+                                       IsEnabled="{x:Bind PodeEspecificarValorUnitario, Mode=OneWay}"
+                                       Number="{x:Bind ValorUnitario, Mode=TwoWay}" />
+            <ToggleSwitch IsEnabled="{x:Bind PodeDetalhar, Mode=OneWay}"
+                          IsOn="{x:Bind Detalhar, Mode=TwoWay}"
+                          Header="Detalhar produto"
+                          OnContent="Sim"
+                          OffContent="Não" />
         </ItemsControl>
     </Grid>
 </ContentDialog>

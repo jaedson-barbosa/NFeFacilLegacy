@@ -17,10 +17,14 @@ namespace Venda.ViewProdutoVenda
         BuscadorProduto Produtos { get; }
         public ExibicaoProdutoAdicao ProdutoSelecionado { get; set; }
 
-        bool PodeDetalhar { get; set; } = false;
         public double Quantidade { get; set; }
         public double Seguro { get; set; }
         public double DespesasExtras { get; set; }
+
+        bool PodeEspecificarValorUnitario { get; set; } = true;
+        public double ValorUnitario { get; set; }
+
+        bool PodeDetalhar { get; set; } = false;
         public bool Detalhar
         {
             get => PrimaryButtonText == "Detalhar";
@@ -29,6 +33,7 @@ namespace Venda.ViewProdutoVenda
 
         Action Adicionar { get; }
         Func<ProdutoAdicao, bool> AnalisarDetalhamento { get; }
+        Func<ProdutoAdicao, bool> AnalisarVlUnitario { get; }
 
         public AdicionarProduto(Dictionary<Guid, double> produtosJaAdicionados, Action adicionar)
         {
@@ -37,11 +42,13 @@ namespace Venda.ViewProdutoVenda
             Produtos = new BuscadorProduto(produtosJaAdicionados);
         }
 
-        public AdicionarProduto(Dictionary<Guid, double> produtosJaAdicionados, Action adicionar, Func<ProdutoAdicao, bool> analisarDetalhamento)
+        public AdicionarProduto(Dictionary<Guid, double> produtosJaAdicionados, Action adicionar,
+            Func<ProdutoAdicao, bool> analisarDetalhamento, Func<ProdutoAdicao, bool> analisarVlUnitario)
             : this(produtosJaAdicionados, adicionar)
         {
             PodeDetalhar = true;
             AnalisarDetalhamento = analisarDetalhamento;
+            AnalisarVlUnitario = analisarVlUnitario;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -93,8 +100,9 @@ namespace Venda.ViewProdutoVenda
         void NovoProdutoEscolhido(object sender, SelectionChangedEventArgs e)
         {
             if (e.AddedItems.Count == 0) return;
-            var esc = (ExibicaoProdutoAdicao)e.AddedItems[0];
-            var necessitaDetalhamento = AnalisarDetalhamento((ProdutoAdicao)esc);
+            var exibicaoProduto = (ExibicaoProdutoAdicao)e.AddedItems[0];
+            var produto = (ProdutoAdicao)exibicaoProduto;
+            var necessitaDetalhamento = AnalisarDetalhamento(produto);
             if (necessitaDetalhamento)
             {
                 Detalhar = true;
@@ -107,6 +115,11 @@ namespace Venda.ViewProdutoVenda
             }
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Detalhar)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PodeDetalhar)));
+
+            PodeEspecificarValorUnitario = AnalisarVlUnitario(produto);
+            ValorUnitario = produto.Preco;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PodeEspecificarValorUnitario)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ValorUnitario)));
         }
 
         sealed class BuscadorProduto : BaseGeral.Buscador.BaseBuscador<ExibicaoProdutoAdicao>

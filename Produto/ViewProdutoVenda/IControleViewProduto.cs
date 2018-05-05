@@ -16,6 +16,7 @@ namespace Venda.ViewProdutoVenda
 
         ObservableCollection<ExibicaoProdutoListaGeral> ObterProdutosIniciais();
         bool AnalisarDetalhamento(ProdutoAdicao produto);
+        bool AnalMudançaValorUnit(ProdutoAdicao produto);
         ExibicaoProdutoListaGeral Adicionar(AdicionarProduto caixa);
         bool EdicaoLiberada { get; }
         void Editar(ExibicaoProdutoListaGeral produto);

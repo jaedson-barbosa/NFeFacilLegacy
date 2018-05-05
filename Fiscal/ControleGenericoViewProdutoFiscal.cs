@@ -218,5 +218,8 @@ namespace Fiscal
         }
 
         public abstract void AtualizarControle(object atualizacao);
+
+        public bool AnalMudançaValorUnit(ProdutoAdicao produto)
+            => produto.Base.ValorUnitario == produto.Base.ValorUnitarioTributo;
     }
 }

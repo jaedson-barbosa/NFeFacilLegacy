@@ -45,7 +45,7 @@ namespace BaseGeral.View
 
         static string ObterMunicipio(object valor)
         {
-            return Municipios.MunicipiosCache.First(x => x.Codigo == (int)valor).Nome;
+            return Municipios.MunicipiosCache.FirstOrDefault(x => x.Codigo == (int)valor)?.Nome ?? string.Empty;
         }
     }
 }

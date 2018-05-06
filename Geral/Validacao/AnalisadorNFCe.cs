@@ -24,8 +24,11 @@ namespace BaseGeral.Validacao
             var info = Nota.Informacoes;
             info.infAdic = ValidarInfoAdicional(info.infAdic) ? info.infAdic : null;
 
-            var prod = Nota.Informacoes.produtos[0];
-            prod.Produto.Descricao = "NOTA FISCAL EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL";
+            if (Nota.AmbienteTestes)
+            {
+                var prod = Nota.Informacoes.produtos[0];
+                prod.Produto.Descricao = "NOTA FISCAL EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL";
+            }
         }
 
         public void Desnormalizar()

@@ -10,7 +10,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace Fiscal
 {
-    [DetalhePagina(Symbol.View, "Visualizar NFe")]
+    [DetalhePagina(Symbol.View, "Visualizar NFe/NFCe")]
     public sealed partial class Visualizacao : Page
     {
         AcoesVisualizacao Acoes;

@@ -13,6 +13,7 @@ using System.Collections.ObjectModel;
 using Windows.UI.Xaml.Navigation;
 using BaseGeral;
 using Fiscal.Certificacao;
+using BaseGeral.View;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -21,6 +22,7 @@ namespace Fiscal
     /// <summary>
     /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
     /// </summary>
+    [DetalhePagina(Symbol.Delete, "Inutilizações")]
     public sealed partial class Inutilizacoes : Page
     {
         ObservableCollection<IGrouping<string, Inutilizacao>> Lista { get; set; }

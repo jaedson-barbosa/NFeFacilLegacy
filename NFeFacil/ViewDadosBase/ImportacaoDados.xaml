@@ -29,16 +29,18 @@
             <TextBlock Margin="0,10,0,0"
                        Style="{StaticResource SubtitleTextBlockStyle}">Importar nota fiscal</TextBlock>
             <TextBlock TextWrapping="Wrap">Atenção, apenas notas com layout 3.10 são aceitas.</TextBlock>
-            <my:ItemPadrao Titulo="NF-e"
-                           Descricao="Importar notas fiscais"
-                           Tapped="ImportarNotaFiscal">
-                <SymbolIcon Symbol="Document" />
-            </my:ItemPadrao>
-            <my:ItemPadrao Titulo="NFC-e"
-                           Descricao="Importar notas fiscais do consumidor"
-                           Tapped="ImportarNFCe">
-                <SymbolIcon Symbol="Document" />
-            </my:ItemPadrao>
+            <ItemsControl Style="{StaticResource ItensMedios}">
+                <my:ItemPadrao Titulo="NF-e"
+                               Descricao="Importar notas fiscais"
+                               Tapped="ImportarNotaFiscal">
+                    <SymbolIcon Symbol="Document" />
+                </my:ItemPadrao>
+                <my:ItemPadrao Titulo="NFC-e"
+                               Descricao="Importar notas fiscais do consumidor"
+                               Tapped="ImportarNFCe">
+                    <SymbolIcon Symbol="Document" />
+                </my:ItemPadrao>
+            </ItemsControl>
         </StackPanel>
     </ScrollViewer>
 </Page>

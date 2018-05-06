@@ -11,7 +11,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <TextBox Header="Chave da NFe"
+        <TextBox Header="Chave da NFe/NFCe"
                  Text="{x:Bind Chave, Mode=TwoWay}"
                  Grid.ColumnSpan="2" />
         <ItemsControl Grid.Row="1"

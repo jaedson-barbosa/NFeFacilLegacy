@@ -9,7 +9,7 @@
         <StackPanel>
             <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
                        Margin="0,0,8,0">Importar dado base</TextBlock>
-            <ItemsControl Style="{StaticResource ItensMedios}">
+            <ItemsControl ItemContainerTransitions="{StaticResource TransicoesLista}">
                 <my:ItemPadrao Titulo="Clientes"
                                Descricao="Importar clientes a partir de XMLs que adotam o padrão da SEFAZ"
                                Tapped="ImportarCliente">
@@ -29,7 +29,7 @@
             <TextBlock Margin="0,10,0,0"
                        Style="{StaticResource SubtitleTextBlockStyle}">Importar nota fiscal</TextBlock>
             <TextBlock TextWrapping="Wrap">Atenção, apenas notas com layout 3.10 são aceitas.</TextBlock>
-            <ItemsControl Style="{StaticResource ItensMedios}">
+            <ItemsControl ItemContainerTransitions="{StaticResource TransicoesLista}">
                 <my:ItemPadrao Titulo="NF-e"
                                Descricao="Importar notas fiscais"
                                Tapped="ImportarNotaFiscal">

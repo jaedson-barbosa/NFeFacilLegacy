@@ -15,7 +15,7 @@
         <TextBlock Grid.Row="1"
                    Style="{StaticResource BodyTextBlockStyle}">Esta é a primeira vez que você usa este aplicativo neste dispositivo, portanto é normal que hajam dúvidas quanto ao funcionamento do aplicativo, para evitar dificuldades, entre em contato comigo, pode ser pelo <Hyperlink NavigateUri="mailto:jaedson_9@hotmail.com">email</Hyperlink> ou pelo <Hyperlink NavigateUri="tel:8398885-6440">telefone</Hyperlink> (preferencialmente WhatsApp). De preferência, entre em contato antes mesmo de fazer qualquer ação no aplicativo para garantirmos que tudo será feito corretamente.</TextBlock>
         <ItemsControl Grid.Row="2"
-                      Style="{StaticResource ItensMedios}">
+                      ItemContainerTransitions="{StaticResource TransicoesLista}">
             <controles:ItemPadrao Titulo="Cadastrar-se"
                                   Descricao="Caso você nunca tenha usado o NFe Fácil (este é seu 1° uso)"
                                   Tapped="Manualmente">

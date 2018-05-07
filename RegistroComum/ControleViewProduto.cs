@@ -82,10 +82,9 @@ namespace RegistroComum
 
         public void Remover(ExibicaoProdutoListaGeral produto)
         {
-            var valorUnit = double.Parse(produto.ValorUnitario);
-            var totalLiqu = double.Parse(produto.TotalLiquido);
             var index = Venda.Produtos.FindIndex(x => produto.Quantidade == x.Quantidade
-                && valorUnit == x.ValorUnitario && totalLiqu == x.TotalLíquido);
+                && produto.ValorUnitario == x.ValorUnitario.ToString("C")
+                && produto.TotalLiquido == x.TotalLíquido.ToString("C"));
             Venda.Produtos.RemoveAt(index);
         }
 

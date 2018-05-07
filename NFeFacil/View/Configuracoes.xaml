@@ -89,7 +89,7 @@
                 </ComboBox>
             </StackPanel>
             <ItemsControl x:Name="itnBackground"
-                          Style="{StaticResource ItensMedios}">
+                          ItemContainerTransitions="{StaticResource TransicoesLista}">
                 <controles:ItemPadrao Titulo="Usar imagem"
                                       Descricao="Escolha uma imagem para servir de background para o aplicativo"
                                       Tapped="UsarImagem">
@@ -134,7 +134,7 @@
                 <ToggleSwitch IsOn="{x:Bind root:DefinicoesPermanentes.ConfiguracoesEstoque.NFCe, Mode=TwoWay}">Emissão de NFCe</ToggleSwitch>
                 <ToggleSwitch IsOn="{x:Bind root:DefinicoesPermanentes.ConfiguracoesEstoque.NFCeCancel, Mode=TwoWay}">Cancelamento de NFCe</ToggleSwitch>
             </StackPanel>
-            <ItemsControl Style="{StaticResource ItensMedios}">
+            <ItemsControl ItemContainerTransitions="{StaticResource TransicoesLista}">
                 <Button x:Name="btnComprarNFCe"
                         Width="200"
                         MinHeight="200"

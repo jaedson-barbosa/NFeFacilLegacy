@@ -15,7 +15,8 @@
         <controles:EntradaNumerica Header="Série"
                                    Format="3"
                                    Number="{x:Bind Serie, Mode=TwoWay}" />
-        <Button Click="CalcularNumero_Click">Calcular número da NFe</Button>
+        <Button Click="CalcularNumero_Click"
+                HorizontalAlignment="Stretch">Calcular número da NFe</Button>
         <controles:EntradaNumerica x:Name="txtNumero"
                                    Header="Número"
                                    Format="9" />

@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
-    <ItemsControl Style="{StaticResource ItensMedios}"
+    <ItemsControl ItemContainerTransitions="{StaticResource TransicoesLista}"
                   Margin="16">
         <my:ItemPadrao Titulo="Instalar servidor"
                        Descricao="Salve o instalador do servidor de certificação."

@@ -8,7 +8,7 @@
     <ScrollViewer Padding="16">
         <StackPanel>
             <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Registro em servidor</TextBlock>
-            <ItemsControl Style="{StaticResource ItensMedios}">
+            <ItemsControl ItemContainerTransitions="{StaticResource TransicoesLista}">
                 <my:ItemPadrao Titulo="Automaticamente"
                                Descricao="Ler código QR temporário com os dados para conexão"
                                Tapped="LerQRTemporario">

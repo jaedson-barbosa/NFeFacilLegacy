@@ -35,8 +35,14 @@ namespace NFeFacil
             }
             catch (Exception e)
             {
-                Resumo.Add(Compras.NFCe, false);
-                Resumo.Add(Compras.Personalizacao, false);
+                if (Resumo == null)
+                {
+                    Resumo = new Dictionary<Compras, bool>(2)
+                    {
+                        { Compras.NFCe, false },
+                        { Compras.Personalizacao, false }
+                    };
+                }
                 e.ManipularErro();
             }
         }

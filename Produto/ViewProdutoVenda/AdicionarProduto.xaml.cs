@@ -61,30 +61,41 @@ namespace Venda.ViewProdutoVenda
 
         void BotaoPrimario_Click(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            args.Cancel = true;
-            var log = Popup.Current;
-            if (ProdutoSelecionado.Base == null)
-                log.Escrever(TitulosComuns.Atenção, "Escolha um produto.");
-            else if (Quantidade <= 0)
-                log.Escrever(TitulosComuns.Atenção, "Insira uma quantidade maior que 0.");
-            else if (ProdutoSelecionado.EstoqueDouble != double.PositiveInfinity && Quantidade > ProdutoSelecionado.EstoqueDouble)
-                log.Escrever(TitulosComuns.Atenção, "A quantidade vendida não pode ser maior que a quantidade em estoque.");
-            else if (Detalhar)
-                args.Cancel = false;
-            else
+            try
             {
-                Adicionar?.Invoke();
-                var novoEstoque = ProdutoSelecionado.EstoqueDouble - Quantidade;
-                if (novoEstoque == 0)
-                {
-                    Produtos.Remover(ProdutoSelecionado);
-                }
+                args.Cancel = true;
+                var log = Popup.Current;
+                if (ProdutoSelecionado?.Base == null)
+                    log.Escrever(TitulosComuns.Atenção, "Escolha um produto.");
+                else if (Quantidade <= 0)
+                    log.Escrever(TitulosComuns.Atenção, "Insira uma quantidade maior que 0.");
+                else if (ProdutoSelecionado.EstoqueDouble != double.PositiveInfinity && Quantidade > ProdutoSelecionado.EstoqueDouble)
+                    log.Escrever(TitulosComuns.Atenção, "A quantidade vendida não pode ser maior que a quantidade em estoque.");
+                else if (Detalhar)
+                    args.Cancel = false;
                 else
                 {
-                    ProdutoSelecionado.EstoqueDouble = novoEstoque;
-                    ProdutoSelecionado.AplicarAlteracoes();
-                    Produtos.AplicarAlteracaoEstoque(ProdutoSelecionado, novoEstoque);
+                    Adicionar?.Invoke();
+                    var novoEstoque = ProdutoSelecionado.EstoqueDouble - Quantidade;
+                    if (novoEstoque == 0)
+                    {
+                        Produtos.Remover(ProdutoSelecionado);
+                    }
+                    else
+                    {
+                        ProdutoSelecionado.EstoqueDouble = novoEstoque;
+                        ProdutoSelecionado.AplicarAlteracoes();
+                        Produtos.AplicarAlteracaoEstoque(ProdutoSelecionado, novoEstoque);
+                    }
                 }
+            }
+            catch (Exception e)
+            {
+                try
+                {
+                    e.ManipularErro();
+                }
+                catch (Exception) { }
             }
         }
 

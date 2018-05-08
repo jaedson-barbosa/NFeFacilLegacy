@@ -17,6 +17,7 @@ namespace Fiscal
         public bool Concluido { get; private set; }
         public bool PodeConcluir { get; }
         public bool PodeDetalhar { get; }
+        protected abstract bool IsNFCe { get; }
 
         protected abstract List<DetalhesProdutos> Produtos { get; }
         protected abstract Total Total { set; }
@@ -107,7 +108,7 @@ namespace Fiscal
                         Produto = produto,
                     })
             {
-                IsNFCe = true
+                IsNFCe = IsNFCe
             };
         }
 
@@ -133,7 +134,7 @@ namespace Fiscal
                 var completo = Produtos[FindProduto(produto)];
                 var dados = new DadosAdicaoProduto(prodDI, completo)
                 {
-                    IsNFCe = true
+                    IsNFCe = IsNFCe
                 };
                 AbrirTelaDetalhamento(dados);
             }
@@ -188,7 +189,7 @@ namespace Fiscal
         {
             if (Produtos.Any(x => x.Impostos.impostos.Count == 0))
             {
-                Popup.Current.Escrever(TitulosComuns.Atenção, "Algum produto não tem nenhum imposto cadastrado, por favor, os insira para que possamos continuar com a criação da NFCe.");
+                Popup.Current.Escrever(TitulosComuns.Atenção, "Algum produto não tem nenhum imposto cadastrado, por favor, os insira para que possamos continuar com a criação da NFe/NFCe.");
                 return false;
             }
             return true;

@@ -11,6 +11,7 @@ namespace Comum
     public sealed class ControleViewProduto : ControleGenericoViewProdutoFiscal
     {
         NFe Venda { get; set; }
+        protected override bool IsNFCe { get; } = false;
 
         protected override List<DetalhesProdutos> Produtos => Venda.Informacoes.produtos;
         protected override Total Total { set => Venda.Informacoes.total = value; }

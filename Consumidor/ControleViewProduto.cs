@@ -11,6 +11,7 @@ namespace Consumidor
     public sealed class ControleViewProduto : ControleGenericoViewProdutoFiscal
     {
         NFCe Venda { get; set; }
+        protected override bool IsNFCe { get; } = true;
 
         protected override List<DetalhesProdutos> Produtos => Venda.Informacoes.produtos;
         protected override Total Total { set => Venda.Informacoes.total = value; }

@@ -48,7 +48,7 @@
             </ItemsControl>
             <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
                        Margin="0,16,0,0">Categoria do produto</TextBlock>
-            <GridView Style="{StaticResource ItensMediosGrid}"
+            <GridView ItemContainerTransitions="{StaticResource TransicoesLista}" ItemContainerStyle="{StaticResource ItensMedios}"
                       SelectedIndex="{x:Bind TipoEspecialEscolhido, Mode=TwoWay}">
                 <GridView.ContextFlyout>
                     <MenuFlyout>
@@ -83,7 +83,7 @@
             <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
                        Margin="0,16,0,0">Impostos simples: IPI, PIS e COFINS</TextBlock>
             <GridView x:Name="grdImpostosSimples"
-                      Style="{StaticResource ItensMediosGrid}"
+                      ItemContainerTransitions="{StaticResource TransicoesLista}" ItemContainerStyle="{StaticResource ItensMedios}"
                       SelectionMode="Multiple"
                       ItemsSource="{x:Bind ImpostosSimples}" Loaded="grdImpostosSimples_Loaded">
                 <GridView.ItemTemplate>
@@ -110,7 +110,7 @@
             <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
                        Margin="0,16,0,0">Imposto complexo: ICMS</TextBlock>
             <GridView x:Name="grdICMSs"
-                      Style="{StaticResource ItensMediosGrid}"
+                      ItemContainerTransitions="{StaticResource TransicoesLista}" ItemContainerStyle="{StaticResource ItensMedios}"
                       SelectionMode="Multiple"
                       ItemsSource="{x:Bind ICMS}" Loaded="grdICMSs_Loaded">
                 <GridView.ItemTemplate>

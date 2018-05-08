@@ -93,12 +93,12 @@
                         Padding="16">
         <GridView ItemsSource="{x:Bind NotasEmitidas}"
                   ItemTemplate="{StaticResource ExibicaoNFeEmitida}"
-                  Style="{StaticResource ItensMediosGrid}" />
+                  ItemContainerTransitions="{StaticResource TransicoesLista}" ItemContainerStyle="{StaticResource ItensMedios}" />
         <GridView ItemsSource="{x:Bind OutrasNotas}"
                   ItemTemplate="{StaticResource ExibicaoNFeLocal}"
-                  Style="{StaticResource ItensMediosGrid}" />
+                  ItemContainerTransitions="{StaticResource TransicoesLista}" ItemContainerStyle="{StaticResource ItensMedios}" />
         <GridView ItemsSource="{x:Bind NotasCanceladas}"
                   ItemTemplate="{StaticResource ExibicaoNFeCancelada}"
-                  Style="{StaticResource ItensMediosGrid}" />
+                  ItemContainerTransitions="{StaticResource TransicoesLista}" ItemContainerStyle="{StaticResource ItensMedios}" />
     </controles:MultView>
 </Page>

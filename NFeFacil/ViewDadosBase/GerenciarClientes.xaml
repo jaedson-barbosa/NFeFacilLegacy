@@ -10,7 +10,8 @@
         <vm:MascaraDocumento x:Key="mascara" />
     </Page.Resources>
     <GridView ItemsSource="{x:Bind Clientes.Itens}"
-              Style="{StaticResource ItensMediosGrid}"
+              ItemContainerTransitions="{StaticResource TransicoesLista}"
+              ItemContainerStyle="{StaticResource ItensMedios}"
               Margin="8">
         <GridView.ItemTemplate>
             <DataTemplate x:DataType="db:ClienteDI">

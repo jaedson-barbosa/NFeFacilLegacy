@@ -12,17 +12,16 @@
                     <x:String x:Key="ImagemArma">ms-appx:///Assets/ArmaDark.png</x:String>
                 </ResourceDictionary>
             </ResourceDictionary.ThemeDictionaries>
+            <TransitionCollection x:Key="TransicoesLista">
+                <EntranceThemeTransition IsStaggeringEnabled="True" />
+                <RepositionThemeTransition IsStaggeringEnabled="False" />
+            </TransitionCollection>
             <Style x:Key="ItensResponsivos"
                    TargetType="ItemsControl">
                 <Setter Property="Margin"
                         Value="-4" />
-                <Setter Property="ItemContainerTransitions">
-                    <Setter.Value>
-                        <TransitionCollection>
-                            <RepositionThemeTransition IsStaggeringEnabled="False" />
-                        </TransitionCollection>
-                    </Setter.Value>
-                </Setter>
+                <Setter Property="ItemContainerTransitions"
+                        Value="{StaticResource TransicoesLista}" />
                 <Setter Property="ItemsPanel">
                     <Setter.Value>
                         <ItemsPanelTemplate>
@@ -43,36 +42,24 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-            <TransitionCollection x:Key="TransicoesLista">
-                <EntranceThemeTransition IsStaggeringEnabled="True" />
-                <RepositionThemeTransition IsStaggeringEnabled="False" />
-            </TransitionCollection>
-            <Style x:Key="ItensMediosGrid"
-                   TargetType="GridView">
-                <Setter Property="ItemContainerTransitions"
-                        Value="{StaticResource TransicoesLista}" />
-                <Setter Property="ItemContainerStyle">
-                    <Setter.Value>
-                        <Style TargetType="GridViewItem">
-                            <Setter Property="Padding"
-                                    Value="0" />
-                            <Setter Property="Margin"
-                                    Value="8" />
-                            <Setter Property="HorizontalAlignment"
-                                    Value="Stretch" />
-                            <Setter Property="HorizontalContentAlignment"
-                                    Value="Stretch" />
-                            <Setter Property="VerticalAlignment"
-                                    Value="Stretch" />
-                            <Setter Property="VerticalContentAlignment"
-                                    Value="Stretch" />
-                            <Setter Property="Width"
-                                    Value="200" />
-                            <Setter Property="MinHeight"
-                                    Value="100" />
-                        </Style>
-                    </Setter.Value>
-                </Setter>
+            <Style x:Key="ItensMedios"
+                   TargetType="GridViewItem">
+                <Setter Property="Padding"
+                        Value="0" />
+                <Setter Property="Margin"
+                        Value="8" />
+                <Setter Property="HorizontalAlignment"
+                        Value="Stretch" />
+                <Setter Property="HorizontalContentAlignment"
+                        Value="Stretch" />
+                <Setter Property="VerticalAlignment"
+                        Value="Stretch" />
+                <Setter Property="VerticalContentAlignment"
+                        Value="Stretch" />
+                <Setter Property="Width"
+                        Value="200" />
+                <Setter Property="MinHeight"
+                        Value="200" />
             </Style>
             <aux:BibliotecaCores x:Key="cores" />
             <SolidColorBrush x:Key="Normal"

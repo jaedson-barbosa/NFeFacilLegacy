@@ -6,11 +6,13 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
     <GridView ItemsSource="{x:Bind Produtos.Itens}"
-              Style="{StaticResource ItensMediosGrid}"
+              ItemContainerTransitions="{StaticResource TransicoesLista}"
+              ItemContainerStyle="{StaticResource ItensMedios}"
               Margin="8">
         <GridView.ItemTemplate>
             <DataTemplate x:DataType="db:ProdutoDI">
-                <Grid Padding="8">
+                <Grid 
+                      Padding="16">
                     <Grid.ContextFlyout>
                         <MenuFlyout>
                             <MenuFlyoutItem Click="EditarProduto">Editar</MenuFlyoutItem>
@@ -21,10 +23,11 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
                                Text="{x:Bind CodigoProduto}" />
-                    <TextBlock Grid.Row="1"
+                    <TextBlock Grid.Row="2"
                                Style="{StaticResource BodyTextBlockStyle}"
                                Text="{x:Bind Descricao}" />
                 </Grid>

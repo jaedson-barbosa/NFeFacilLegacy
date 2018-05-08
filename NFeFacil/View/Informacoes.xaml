@@ -86,7 +86,7 @@
                 </Paragraph>
             </RichTextBlock>
             <TextBlock Style="{StaticResource TitleTextBlockStyle}">Ajude o desenvolvedor</TextBlock>
-            <GridView Style="{StaticResource ItensMediosGrid}"
+            <GridView ItemContainerTransitions="{StaticResource TransicoesLista}" ItemContainerStyle="{StaticResource ItensMedios}"
                       x:Name="grdCompra">
                 <controles:ItemPadraoSimples Titulo="10 reais"
                                              Descricao="Ajude meu trabalho com essa pequena quantia"

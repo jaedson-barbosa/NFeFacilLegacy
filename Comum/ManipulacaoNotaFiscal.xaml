@@ -166,7 +166,7 @@
                      HorizontalAlignment="Stretch" />
             <GridView Grid.Row="1"
                       Loaded="GridView_Loaded"
-                      Style="{StaticResource ItensMediosGrid}"
+                      ItemContainerTransitions="{StaticResource TransicoesLista}" ItemContainerStyle="{StaticResource ItensMedios}"
                       ItemsSource="{x:Bind Clientes.Itens}"
                       SelectedItem="{x:Bind ClienteSelecionado, Mode=TwoWay}">
                 <GridView.ItemTemplate>
@@ -281,7 +281,7 @@
                                  HorizontalAlignment="Stretch" />
                         <GridView Grid.Row="1"
                                   ItemsSource="{x:Bind Motoristas.Itens}"
-                                  Style="{StaticResource ItensMediosGrid}"
+                                  ItemContainerTransitions="{StaticResource TransicoesLista}" ItemContainerStyle="{StaticResource ItensMedios}"
                                   SelectedItem="{x:Bind MotoristaSelecionado, Mode=TwoWay}"
                                   Loaded="GridView_Loaded">
                             <GridView.ItemTemplate>

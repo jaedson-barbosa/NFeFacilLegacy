@@ -5,72 +5,53 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
-    <ListView ItemsSource="{x:Bind Produtos}"
+    <GridView ItemsSource="{x:Bind Produtos}"
+              ItemContainerTransitions="{StaticResource TransicoesLista}"
+              ItemContainerStyle="{StaticResource ItensMedios}"
               Padding="16">
-        <ListView.Header>
-            <Grid Style="{StaticResource Cabecalho}">
-                <Grid.Resources>
-                    <Style TargetType="TextBlock"
-                           BasedOn="{StaticResource SubtitleTextBlockStyle}">
-                        <Setter Property="VerticalAlignment"
-                                Value="Center" />
-                        <Setter Property="TextAlignment"
-                                Value="Center" />
-                    </Style>
-                </Grid.Resources>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="128" />
-                    <ColumnDefinition Width="128" />
-                    <ColumnDefinition />
-                    <ColumnDefinition Width="180" />
-                    <ColumnDefinition Width="180" />
-                </Grid.ColumnDefinitions>
-                <TextBlock>Código</TextBlock>
-                <TextBlock Grid.Column="1">Quantidade</TextBlock>
-                <TextBlock Grid.Column="2">Descrição</TextBlock>
-                <TextBlock Grid.Column="3">Valor unitário</TextBlock>
-                <TextBlock Grid.Column="4">Valor total</TextBlock>
-            </Grid>
-        </ListView.Header>
-        <ListView.ItemTemplate>
+        <GridView.ItemTemplate>
             <DataTemplate x:DataType="local:ExibicaoProdutoListaGeral">
-                <Grid>
-                    <Grid.Resources>
-                        <Style TargetType="TextBlock"
-                               BasedOn="{StaticResource BodyTextBlockStyle}">
-                            <Setter Property="VerticalAlignment"
-                                    Value="Center" />
-                        </Style>
-                    </Grid.Resources>
+                <Grid Padding="8">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="128" />
-                        <ColumnDefinition Width="128" />
+                        <ColumnDefinition Width="80" />
                         <ColumnDefinition />
-                        <ColumnDefinition Width="180" />
-                        <ColumnDefinition Width="180" />
+                        <ColumnDefinition Width="100" />
                     </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
                     <Grid.ContextFlyout>
                         <MenuFlyout>
                             <MenuFlyoutItem Click="Editar">Editar</MenuFlyoutItem>
                             <MenuFlyoutItem Click="RemoverProduto">Remover</MenuFlyoutItem>
                         </MenuFlyout>
                     </Grid.ContextFlyout>
-                    <TextBlock Text="{x:Bind Codigo}" />
-                    <TextBlock Grid.Column="1"
-                               Text="{x:Bind Quantidade}" />
+                    <TextBlock Text="{x:Bind Codigo}"
+                               Style="{StaticResource SubtitleTextBlockStyle}" />
                     <TextBlock Grid.Column="2"
+                               HorizontalAlignment="Right"
+                               VerticalAlignment="Bottom"
+                               Text="{x:Bind Quantidade}"
+                               Style="{StaticResource BaseTextBlockStyle}" />
+                    <TextBlock Grid.Row="1"
+                               Grid.ColumnSpan="3"
                                Text="{x:Bind Descricao}"
-                               TextWrapping="Wrap" />
-                    <TextBlock Grid.Column="3"
+                               Style="{StaticResource BodyTextBlockStyle}" />
+                    <TextBlock Grid.Row="2"
+                               VerticalAlignment="Bottom"
+                               Text="{x:Bind ValorUnitario}"
+                               Style="{StaticResource BaseTextBlockStyle}" />
+                    <TextBlock Grid.Row="2"
+                               Grid.Column="2"
                                HorizontalAlignment="Right"
-                               Text="{x:Bind ValorUnitario}" />
-                    <TextBlock Grid.Column="4"
-                               HorizontalAlignment="Right"
-                               Text="{x:Bind TotalLiquido}" />
+                               Text="{x:Bind TotalLiquido}"
+                               Style="{StaticResource SubtitleTextBlockStyle}" />
                 </Grid>
             </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>
+        </GridView.ItemTemplate>
+    </GridView>
     <Page.BottomAppBar>
         <CommandBar>
             <AppBarButton Label="Adicionar produto"

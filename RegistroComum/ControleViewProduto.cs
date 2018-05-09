@@ -15,7 +15,9 @@ namespace RegistroComum
         public bool PodeDetalhar { get; }
 
         RegistroVenda Venda { get; set; }
-        public Dictionary<Guid, double> ProdutosAdicionados => Venda.Produtos.ToDictionary(x => x.IdBase, y => y.Quantidade);
+        public Dictionary<Guid, double> ProdutosAdicionados => Venda.Produtos
+            .GroupBy(x => x.IdBase)
+            .ToDictionary(x => x.Key, y => y.Sum(x => x.Quantidade));
 
         public ControleViewProduto()
         {
@@ -47,7 +49,7 @@ namespace RegistroComum
                         {
                             Codigo = comp.CodigoProduto,
                             Descricao = comp.Descricao,
-                            Quantidade = prod.Quantidade,
+                            Quantidade = prod.Quantidade.ToString("N2"),
                             ValorUnitario = prod.ValorUnitario.ToString("C"),
                             TotalLiquido = prod.TotalLíquido.ToString("C")
                         }).GerarObs();
@@ -70,7 +72,7 @@ namespace RegistroComum
             {
                 Codigo = caixa.ProdutoSelecionado.Codigo,
                 Descricao = caixa.ProdutoSelecionado.Nome,
-                Quantidade = caixa.Quantidade,
+                Quantidade = caixa.Quantidade.ToString("N2"),
                 TotalLiquido = novoProdBanco.TotalLíquido.ToString("C"),
                 ValorUnitario = caixa.ProdutoSelecionado.PrecoDouble.ToString("C")
             };
@@ -82,7 +84,7 @@ namespace RegistroComum
 
         public void Remover(ExibicaoProdutoListaGeral produto)
         {
-            var index = Venda.Produtos.FindIndex(x => produto.Quantidade == x.Quantidade
+            var index = Venda.Produtos.FindIndex(x => double.Parse(produto.Quantidade) == x.Quantidade
                 && produto.ValorUnitario == x.ValorUnitario.ToString("C")
                 && produto.TotalLiquido == x.TotalLíquido.ToString("C"));
             Venda.Produtos.RemoveAt(index);

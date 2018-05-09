@@ -64,7 +64,7 @@
                 <Setter Property="Width"
                         Value="200" />
                 <Setter Property="MinHeight"
-                        Value="200" />
+                        Value="160" />
             </Style>
             <aux:BibliotecaCores x:Key="cores" />
             <SolidColorBrush x:Key="Normal"

@@ -11,7 +11,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace Venda.ViewProdutoVenda
 {
-    [DetalhePagina("\uEC59", "Registro de venda")]
+    [DetalhePagina("\uEC59", "Produtos")]
     public sealed partial class ListaProdutos : Page, IValida
     {
         ObservableCollection<ExibicaoProdutoListaGeral> Produtos { get; set; }
@@ -30,6 +30,15 @@ namespace Venda.ViewProdutoVenda
         {
             Controle = (IControleViewProduto)e.Parameter;
             Produtos = Controle.ObterProdutosIniciais();
+            Produtos.Insert(0, new ExibicaoProdutoListaGeral
+            {
+                Codigo = "Código",
+                Descricao = "Descrição",
+                Quantidade = "Quantidade",
+                TotalLiquido = "Total",
+                ValorUnitario = "Valor unit.",
+                IsCabecalho = true
+            });
             VisibilidadeAvancar = Controle.PodeConcluir ? Visibility.Collapsed : Visibility.Visible;
             VisibilidadeConcluir = Controle.PodeConcluir ? Visibility.Visible : Visibility.Collapsed;
         }
@@ -38,20 +47,23 @@ namespace Venda.ViewProdutoVenda
         {
             var context = ((FrameworkElement)sender).DataContext;
             var prod = (ExibicaoProdutoListaGeral)context;
-            Produtos.Remove(prod);
-            Controle.Remover(prod);
+            if (prod.IsCabecalho) Popup.Current.Escrever(TitulosComuns.Iniciando, "Remova algum produto caso não mais o queira dentro desta venda.");
+            else
+            {
+                Produtos.Remove(prod);
+                Controle.Remover(prod);
+            }
         }
 
         private void Editar(object sender, RoutedEventArgs e)
         {
-            if (Controle.EdicaoLiberada)
-            {
-                var context = ((FrameworkElement)sender).DataContext;
-                var prod = (ExibicaoProdutoListaGeral)context;
-                Controle.Editar(prod);
-            }
-            else
-                Popup.Current.Escrever(TitulosComuns.Atenção, "Não é permitida edição neste tipo de registro, por favor, remova o item e adicione-o novamente com os dados desejados.");
+            var log = Popup.Current;
+            var context = ((FrameworkElement)sender).DataContext;
+            var prod = (ExibicaoProdutoListaGeral)context;
+            if (prod.IsCabecalho && Controle.EdicaoLiberada) log.Escrever(TitulosComuns.Iniciando, "A edição pode ser usada nos documentos fiscais para alterar qualquer dado inserido anteriormente.");
+            else if (prod.IsCabecalho && !Controle.EdicaoLiberada) log.Escrever(TitulosComuns.Iniciando, "A edição pode ser usada nos documentos fiscais para alterar qualquer dado inserido anteriormente. Porém neste tipo de documento esta operação não é permitida.");
+            else if (Controle.EdicaoLiberada) Controle.Editar(prod);
+            else log.Escrever(TitulosComuns.Atenção, "Não é permitida edição neste tipo de registro, por favor, remova o item e adicione-o novamente com os dados desejados.");
         }
 
         private async void AdicionarProduto(object sender, RoutedEventArgs e)

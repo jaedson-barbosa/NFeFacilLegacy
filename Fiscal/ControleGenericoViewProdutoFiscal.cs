@@ -53,7 +53,7 @@ namespace Fiscal
                         {
                             Codigo = comp.CodigoProduto,
                             Descricao = comp.Descricao,
-                            Quantidade = intP.QuantidadeComercializada,
+                            Quantidade = intP.QuantidadeComercializada.ToString("N2"),
                             ValorUnitario = intP.ValorUnitario.ToString("C"),
                             TotalLiquido = intP.ValorTotal.ToString("C")
                         }).GerarObs();
@@ -76,7 +76,7 @@ namespace Fiscal
             {
                 Codigo = caixa.ProdutoSelecionado.Codigo,
                 Descricao = caixa.ProdutoSelecionado.Nome,
-                Quantidade = caixa.Quantidade,
+                Quantidade = caixa.Quantidade.ToString("N2"),
                 TotalLiquido = simples.TotalLíquido.ToString("C"),
                 ValorUnitario = caixa.ProdutoSelecionado.Preco
             };
@@ -148,7 +148,7 @@ namespace Fiscal
 
         int FindProduto(ExibicaoProdutoListaGeral produto)
         {
-            return Produtos.FindIndex(x => produto.Quantidade == x.Produto.QuantidadeComercializada
+            return Produtos.FindIndex(x => double.Parse(produto.Quantidade) == x.Produto.QuantidadeComercializada
                 && produto.ValorUnitario == x.Produto.ValorUnitario.ToString("C")
                 && produto.Codigo == x.Produto.CodigoProduto);
         }

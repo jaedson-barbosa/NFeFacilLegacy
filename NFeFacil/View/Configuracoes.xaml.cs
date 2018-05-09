@@ -84,7 +84,6 @@ namespace NFeFacil.View
             var caixa = new EscolherTransparencia(DefinicoesPermanentes.OpacidadeBackground);
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
-                DefinicoesPermanentes.OpacidadeBackground = caixa.Opacidade;
                 MainPage.Current.DefinirOpacidadeBackground(caixa.Opacidade);
             }
         }

@@ -45,8 +45,7 @@
         <Border x:Name="scrMenu"
                 Width="300"
                 Padding="0,16,0,0"
-                Background="{StaticResource MuitoVariada}"
-                BorderBrush="{StaticResource Normal}"
+                BorderBrush="{StaticResource PoucoVariada}"
                 BorderThickness="0,0,2,0" />
         <ScrollViewer x:Name="scrPrincipal"
                       Grid.Column="1"

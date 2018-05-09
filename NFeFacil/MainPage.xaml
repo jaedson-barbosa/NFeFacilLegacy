@@ -131,6 +131,7 @@
             </SplitView.Pane>
             <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
                 <Image Name="backgroundImagem"
+                       Stretch="UniformToFill"
                        Visibility="Collapsed" />
                 <Rectangle Name="backgroundCor"
                            Fill="{StaticResource Variada}"
@@ -142,7 +143,7 @@
                        Grid.Column="1"
                        Canvas.ZIndex="1"
                        Navigated="NavegacaoConcluida"
-                       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                       Background="Transparent">
                     <Frame.ContentTransitions>
                         <TransitionCollection>
                             <NavigationThemeTransition>

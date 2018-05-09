@@ -46,7 +46,10 @@ namespace BaseGeral
                     if (contem) Pasta.Values.Remove(nome);
                     Pasta.Values[nome] = valor;
                 }
-                catch (Exception) { }
+                catch (Exception e)
+                {
+                    e.ManipularErro();
+                }
             }
         }
     }

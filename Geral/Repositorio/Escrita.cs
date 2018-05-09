@@ -165,6 +165,7 @@ namespace BaseGeral.Repositorio
                 };
                 db.Imagens.Add(img);
             }
+            db.SaveChanges();
         }
 
         public void SalvarRV(RegistroVenda ItemBanco, DateTime atual)

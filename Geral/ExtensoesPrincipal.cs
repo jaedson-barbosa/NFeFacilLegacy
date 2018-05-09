@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
+using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using Windows.Storage.Pickers;
@@ -129,11 +131,24 @@ namespace BaseGeral
             var retorno = new BitmapImage();
             using (var stream = new InMemoryRandomAccessStream())
             {
-                new StreamWriter(stream.AsStreamForWrite()).Write(imagem);
+                var otherStream = stream.AsStreamForWrite();
+                otherStream.Write(imagem, 0, imagem.Length);
                 stream.Seek(0);
                 retorno.SetSource(stream);
-                return retorno;
             }
+            return retorno;
+        }
+
+        public async static Task<ImageSource> GetSourceAsync(this byte[] imagem)
+        {
+            var retorno = new BitmapImage();
+            using (var stream = new InMemoryRandomAccessStream())
+            {
+                await stream.WriteAsync(imagem.AsBuffer());
+                stream.Seek(0);
+                retorno.SetSource(stream);
+            }
+            return retorno;
         }
 
         public static string AplicarMáscaraDocumento(string original)

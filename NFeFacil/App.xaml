@@ -16,6 +16,11 @@
                 <EntranceThemeTransition IsStaggeringEnabled="True" />
                 <RepositionThemeTransition IsStaggeringEnabled="False" />
             </TransitionCollection>
+            <Style TargetType="CommandBar"
+                   BasedOn="{StaticResource CommandBarRevealStyle}">
+                <Setter Property="Background"
+                        Value="Transparent" />
+            </Style>
             <Style x:Key="ItensResponsivos"
                    TargetType="ItemsControl">
                 <Setter Property="Margin"

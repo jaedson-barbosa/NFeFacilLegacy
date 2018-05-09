@@ -108,8 +108,8 @@ namespace NFeFacil.Login
                             current.ImagemBackground = img?.Bytes?.GetSource();
                         }
                     }
-                    current.DefinirTipoBackground(TiposBackground.Imagem);
-                    current.DefinirOpacidadeBackground(DefinicoesPermanentes.OpacidadeBackground);
+                    MainPage.Current.DefinirTipoBackground(TiposBackground.Imagem);
+                    MainPage.Current.DefinirOpacidadeBackground(DefinicoesPermanentes.OpacidadeBackground);
                     break;
                 case TiposBackground.Cor:
                     current.DefinirTipoBackground(TiposBackground.Cor);

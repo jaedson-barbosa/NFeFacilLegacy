@@ -54,8 +54,8 @@ namespace BaseGeral
 
         public static TiposBackground TipoBackground
         {
-            get => AssistenteConfig.Get(nameof(TipoBackground), TiposBackground.Padrao);
-            set => AssistenteConfig.Set(nameof(TipoBackground), value);
+            get => (TiposBackground)AssistenteConfig.Get(nameof(TipoBackground), 2);
+            set => AssistenteConfig.Set(nameof(TipoBackground), (int)value);
         }
 
         public static double OpacidadeBackground

@@ -23,8 +23,6 @@
             </Style>
             <Style x:Key="ItensResponsivos"
                    TargetType="ItemsControl">
-                <Setter Property="Margin"
-                        Value="-4" />
                 <Setter Property="ItemContainerTransitions"
                         Value="{StaticResource TransicoesLista}" />
                 <Setter Property="ItemsPanel">
@@ -44,6 +42,18 @@
                             <Setter Property="VerticalAlignment"
                                     Value="Stretch" />
                         </Style>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="ItensSimples"
+                   TargetType="ItemsControl">
+                <Setter Property="ItemContainerTransitions"
+                        Value="{StaticResource TransicoesLista}" />
+                <Setter Property="ItemsPanel">
+                    <Setter.Value>
+                        <ItemsPanelTemplate>
+                            <ItemsWrapGrid Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
                     </Setter.Value>
                 </Setter>
             </Style>

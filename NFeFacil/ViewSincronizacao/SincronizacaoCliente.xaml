@@ -8,28 +8,31 @@
     <ScrollViewer Padding="16">
         <StackPanel>
             <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Registro em servidor</TextBlock>
-            <ItemsControl ItemContainerTransitions="{StaticResource TransicoesLista}">
-                <my:ItemPadrao Titulo="Automaticamente"
+            <ItemsControl Style="{StaticResource ItensSimples}">
+                <my:ItemPadrao Titulo="Automático"
                                Descricao="Ler código QR temporário com os dados para conexão"
-                               Tapped="LerQRTemporario">
+                               Click="LerQRTemporario">
                     <SymbolIcon Symbol="Camera" />
                 </my:ItemPadrao>
-                <my:ItemPadrao Titulo="Manualmente"
+                <my:ItemPadrao Titulo="Manual"
                                Descricao="Digitar o IP e a senha temporária do servidor"
-                               Tapped="InserirDadosManualmente">
+                               Click="InserirDadosManualmente">
                     <SymbolIcon Symbol="Keyboard" />
                 </my:ItemPadrao>
             </ItemsControl>
-            <TextBlock Margin="0,8,0,0"
-                       Style="{StaticResource SubtitleTextBlockStyle}">Sincronização básica</TextBlock>
-            <TextBlock TextWrapping="Wrap">Com a sincronização básica apenas os dados modificados ou adicionados após a última sincronização são transferidos, sendo a recomendada para a maioria dos casos.</TextBlock>
-            <Button HorizontalAlignment="Stretch"
-                    Click="SincronizarAgora">Sincronizar</Button>
-            <TextBlock Margin="0,8,0,0"
-                       Style="{StaticResource SubtitleTextBlockStyle}">Sincronização completa</TextBlock>
-            <TextBlock TextWrapping="Wrap">Na sincronização completa todos os dados existentes no servidor e neste dispositivo serão transferidos e passados por análise, sendo portanto mais lenta e indicada apenas quando o servidor é trocado.</TextBlock>
-            <Button HorizontalAlignment="Stretch"
-                    Click="SincronizarTudo">Sincronizar tudo</Button>
+            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Modo de sincronização</TextBlock>
+            <ItemsControl Style="{StaticResource ItensSimples}">
+                <my:ItemPadrao Titulo="Básica"
+                               Descricao="Apenas os últimos dados criados ou removidos serão transferidos"
+                               Click="SincronizarAgora">
+                    <FontIcon Glyph="&#xEC4A;" />
+                </my:ItemPadrao>
+                <my:ItemPadrao Titulo="Completa"
+                               Descricao="Todos os dados do servidor e deste dispositivo serão transferidos"
+                               Click="SincronizarTudo">
+                    <FontIcon Glyph="&#xEC49;" />
+                </my:ItemPadrao>
+            </ItemsControl>
         </StackPanel>
     </ScrollViewer>
 </Page>

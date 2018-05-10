@@ -3,7 +3,6 @@ using System;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
 using OptimizedZXing;
 using static BaseGeral.Sincronizacao.ConfiguracoesSincronizacao;
 using BaseGeral.Sincronizacao;
@@ -22,7 +21,7 @@ namespace NFeFacil.Sincronizacao
             InitializeComponent();
         }
 
-        async void LerQRTemporario(object sender, TappedRoutedEventArgs e)
+        async void LerQRTemporario(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -47,7 +46,7 @@ namespace NFeFacil.Sincronizacao
             }
         }
 
-        async void InserirDadosManualmente(object sender, TappedRoutedEventArgs e)
+        async void InserirDadosManualmente(object sender, RoutedEventArgs e)
         {
             try
             {

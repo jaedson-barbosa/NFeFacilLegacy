@@ -1,5 +1,4 @@
 ﻿using BaseGeral;
-using BaseGeral.ModeloXML;
 using BaseGeral.ModeloXML.PartesDetalhes;
 using BaseGeral.View;
 using NFeFacil.View;

@@ -9,35 +9,35 @@
         <StackPanel>
             <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
                        Margin="0,0,8,0">Importar dado base</TextBlock>
-            <ItemsControl ItemContainerTransitions="{StaticResource TransicoesLista}">
+            <ItemsControl Style="{StaticResource ItensSimples}">
                 <my:ItemPadrao Titulo="Clientes"
                                Descricao="Importar clientes a partir de XMLs que adotam o padrão da SEFAZ"
-                               Tapped="ImportarCliente">
+                               Click="ImportarCliente">
                     <SymbolIcon Symbol="People" />
                 </my:ItemPadrao>
                 <my:ItemPadrao Titulo="Motoristas"
                                Descricao="Importar motoristas a partir de XMLs que adotam o padrão da SEFAZ"
-                               Tapped="ImportarMotorista">
+                               Click="ImportarMotorista">
                     <SymbolIcon Symbol="People" />
                 </my:ItemPadrao>
                 <my:ItemPadrao Titulo="Produtos"
                                Descricao="Importar produtos a partir de XMLs que adotam o padrão da SEFAZ"
-                               Tapped="ImportarProduto">
+                               Click="ImportarProduto">
                     <SymbolIcon Symbol="Shop" />
                 </my:ItemPadrao>
             </ItemsControl>
             <TextBlock Margin="0,10,0,0"
                        Style="{StaticResource SubtitleTextBlockStyle}">Importar nota fiscal</TextBlock>
             <TextBlock TextWrapping="Wrap">Atenção, apenas notas com layout 3.10 são aceitas.</TextBlock>
-            <ItemsControl ItemContainerTransitions="{StaticResource TransicoesLista}">
+            <ItemsControl Style="{StaticResource ItensSimples}">
                 <my:ItemPadrao Titulo="NF-e"
                                Descricao="Importar notas fiscais"
-                               Tapped="ImportarNotaFiscal">
+                               Click="ImportarNotaFiscal">
                     <SymbolIcon Symbol="Document" />
                 </my:ItemPadrao>
                 <my:ItemPadrao Titulo="NFC-e"
                                Descricao="Importar notas fiscais do consumidor"
-                               Tapped="ImportarNFCe">
+                               Click="ImportarNFCe">
                     <SymbolIcon Symbol="Document" />
                 </my:ItemPadrao>
             </ItemsControl>

@@ -10,7 +10,6 @@ using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto;
 using System.Collections.Generic;
 using NFeFacil.View;
 using Venda.Impostos;
-using BaseGeral.ModeloXML;
 using Venda;
 using Venda.CaixasDialogoProduto;
 using BaseGeral.View;

@@ -84,7 +84,8 @@
                       Loaded="grdVeisSec_Loaded"
                       SelectionMode="Multiple"
                       ItemsSource="{x:Bind Veiculos}"
-                      ItemContainerTransitions="{StaticResource TransicoesLista}" ItemContainerStyle="{StaticResource ItensMedios}">
+                      ItemContainerTransitions="{StaticResource TransicoesLista}"
+                      ItemContainerStyle="{StaticResource ItensMedios}">
                 <GridView.ItemTemplate>
                     <DataTemplate x:DataType="db:VeiculoDI">
                         <Grid Background="Transparent"

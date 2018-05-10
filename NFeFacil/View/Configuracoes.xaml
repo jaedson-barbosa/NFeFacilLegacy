@@ -41,13 +41,10 @@
                               IsOn="{x:Bind root:DefinicoesPermanentes.UsarSOAP12, Mode=TwoWay}"
                               OffContent="SOAP 1.1"
                               OnContent="SOAP 1.2" />
-            </StackPanel>
-            <StackPanel>
-                <TextBlock TextWrapping="Wrap">No backup local é gerado um arquivo XML com todas as informações salvas atualmente no aplicativo já que nele não há limite de tamanho. É recomendado que seja guardado em um local seguro, como no seu OneDrive. Ele só pode ser restaurado quando não há informações guardadas no aplicativo.</TextBlock>
-                <controles:ItemPadrao Width="200"
+                <controles:ItemPadrao HorizontalAlignment="Left"
                                       Titulo="Salvar backup"
                                       Descricao="Guarde todas as informações do aplicativo em um único arquivo."
-                                      Tapped="SalvarBackup">
+                                      Click="SalvarBackup">
                     <SymbolIcon Symbol="Save" />
                 </controles:ItemPadrao>
             </StackPanel>
@@ -89,25 +86,25 @@
                 </ComboBox>
             </StackPanel>
             <ItemsControl x:Name="itnBackground"
-                          ItemContainerTransitions="{StaticResource TransicoesLista}">
+                          Style="{StaticResource ItensSimples}">
                 <controles:ItemPadrao Titulo="Usar imagem"
                                       Descricao="Escolha uma imagem para servir de background para o aplicativo"
-                                      Tapped="UsarImagem">
+                                      Click="UsarImagem">
                     <FontIcon Glyph="&#xEB9F;" />
                 </controles:ItemPadrao>
                 <controles:ItemPadrao Titulo="Usar cor"
                                       Descricao="Use a cor de destaque como background para o aplicativo"
-                                      Tapped="UsarCor">
+                                      Click="UsarCor">
                     <FontIcon Glyph="&#xE790;" />
                 </controles:ItemPadrao>
-                <controles:ItemPadrao Titulo="Escolher transparência"
+                <controles:ItemPadrao Titulo="Transparência"
                                       Descricao="Defina a porcentagem de transparência do background"
-                                      Tapped="EscolherTransparencia">
+                                      Click="EscolherTransparencia">
                     <FontIcon Glyph="&#xE706;" />
                 </controles:ItemPadrao>
-                <controles:ItemPadrao Titulo="Restaurar padrão"
+                <controles:ItemPadrao Titulo="Restaurar"
                                       Descricao="Resete todas as configurações do background"
-                                      Tapped="Resetar">
+                                      Click="Resetar">
                     <FontIcon Glyph="&#xED10;" />
                 </controles:ItemPadrao>
             </ItemsControl>
@@ -134,53 +131,24 @@
                 <ToggleSwitch IsOn="{x:Bind root:DefinicoesPermanentes.ConfiguracoesEstoque.NFCe, Mode=TwoWay}">Emissão de NFCe</ToggleSwitch>
                 <ToggleSwitch IsOn="{x:Bind root:DefinicoesPermanentes.ConfiguracoesEstoque.NFCeCancel, Mode=TwoWay}">Cancelamento de NFCe</ToggleSwitch>
             </StackPanel>
-            <ItemsControl ItemContainerTransitions="{StaticResource TransicoesLista}">
-                <Button x:Name="btnComprarNFCe"
-                        Width="200"
-                        MinHeight="200"
-                        Padding="16"
-                        IsEnabled="False"
-                        Click="ComprarNFCe">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">NFCe</TextBlock>
-                        <TextBlock Grid.Row="1"
-                                   Style="{StaticResource BodyTextBlockStyle}">Libere a criação de notas fiscais do consumidor no aplicativo.</TextBlock>
-                    </Grid>
-                </Button>
-                <Button x:Name="btnComprarBackground"
-                        Width="200"
-                        MinHeight="200"
-                        Padding="16"
-                        IsEnabled="False"
-                        Click="ComprarBackground">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Background</TextBlock>
-                        <TextBlock Grid.Row="1"
-                                   Style="{StaticResource BodyTextBlockStyle}">Personalize a tela de fundo do aplicativo pra deixá-lo com sua cara.</TextBlock>
-                    </Grid>
-                </Button>
-                <Button Width="200"
-                        MinHeight="200"
-                        Padding="16"
-                        Click="ReanalizarCompras">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Reanalizar compras</TextBlock>
-                        <TextBlock Grid.Row="1"
-                                   Style="{StaticResource BodyTextBlockStyle}">Caso a análise não tenha ocorrido corretamente no início do app, reanalize.</TextBlock>
-                    </Grid>
-                </Button>
+            <ItemsControl Style="{StaticResource ItensSimples}">
+                <controles:ItemPadrao x:Name="btnComprarNFCe"
+                                      Titulo="NFCe"
+                                      Descricao="Libere a criação de notas fiscais do consumidor no aplicativo."
+                                      Click="ComprarNFCe">
+                    <SymbolIcon Symbol="Document" />
+                </controles:ItemPadrao>
+                <controles:ItemPadrao x:Name="btnComprarBackground"
+                                      Titulo="Background"
+                                      Descricao="Personalize a tela de fundo do aplicativo pra deixá-lo com sua cara."
+                                      Click="ComprarBackground">
+                    <FontIcon Glyph="&#xEB9F;" />
+                </controles:ItemPadrao>
+                <controles:ItemPadrao Titulo="Reanalizar"
+                                      Descricao="Caso a análise não tenha ocorrido corretamente no início do app, reanalize."
+                                      Click="ReanalizarCompras">
+                    <SymbolIcon Symbol="Refresh" />
+                </controles:ItemPadrao>
             </ItemsControl>
         </controles:MultView>
     </controles:DuplaView>

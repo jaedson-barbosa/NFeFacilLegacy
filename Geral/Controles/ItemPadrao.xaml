@@ -5,11 +5,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             d:DesignHeight="300"
-             d:DesignWidth="400">
-    <GridViewItem>
+             Width="200"
+             Height="186"
+             Margin="8">
+    <Button HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            Click="Clicado"
+            Style="{StaticResource ButtonRevealStyle}">
         <local:ItemPadraoSimples Icone="{x:Bind Icone}"
                                  Titulo="{x:Bind Titulo}"
                                  Descricao="{x:Bind Descricao}" />
-    </GridViewItem>
+    </Button>
 </UserControl>

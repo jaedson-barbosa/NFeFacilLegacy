@@ -5,16 +5,16 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
-    <ItemsControl ItemContainerTransitions="{StaticResource TransicoesLista}"
+    <ItemsControl Style="{StaticResource ItensSimples}"
                   Margin="16">
         <my:ItemPadrao Titulo="Cadastar servidor"
                        Descricao="Conecte-se a um servidor de certificação."
-                       Tapped="ConectarServidor">
+                       Click="ConectarServidor">
             <FontIcon Glyph="&#xE703;" />
         </my:ItemPadrao>
         <my:ItemPadrao Titulo="Esquecer servidor"
                        Descricao="Use apenas os certificados A1 importados."
-                       Tapped="EsquecerServidor">
+                       Click="EsquecerServidor">
             <SymbolIcon Symbol="Delete" />
         </my:ItemPadrao>
     </ItemsControl>

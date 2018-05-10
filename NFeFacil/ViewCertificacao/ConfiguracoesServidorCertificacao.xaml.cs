@@ -4,8 +4,8 @@ using System;
 using System.IO;
 using System.Reflection;
 using Windows.Storage.Pickers;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -19,12 +19,12 @@ namespace NFeFacil.Certificacao
             InitializeComponent();
         }
 
-        void InstalarServidor(object sender, TappedRoutedEventArgs e)
+        void InstalarServidor(object sender, RoutedEventArgs e)
         {
             SalvarArquivoInterno("Servidor de certificação", "BaseGeral.Certificacao.LAN.ServidorCertificacao.zip");
         }
 
-        void RepararProblemas(object sender, TappedRoutedEventArgs e)
+        void RepararProblemas(object sender, RoutedEventArgs e)
         {
             SalvarArquivoInterno("Gerenciador de Looopback", "BaseGeral.Certificacao.LAN.WindowsLoopbackManager.zip");
         }

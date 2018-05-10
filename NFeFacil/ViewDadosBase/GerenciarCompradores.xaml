@@ -6,7 +6,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
     <GridView ItemsSource="{x:Bind Compradores.Itens}"
-              ItemContainerTransitions="{StaticResource TransicoesLista}" ItemContainerStyle="{StaticResource ItensMedios}"
+              ItemContainerTransitions="{StaticResource TransicoesLista}"
+              ItemContainerStyle="{StaticResource ItensMedios}"
               Margin="8">
         <GridView.ItemTemplate>
             <DataTemplate x:DataType="local:ExibicaoComprador">

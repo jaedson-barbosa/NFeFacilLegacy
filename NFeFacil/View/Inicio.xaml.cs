@@ -11,7 +11,6 @@ using RegistroComum;
 using System;
 using Windows.Storage.Pickers;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
 using Fiscal;
 using Windows.UI.Xaml.Navigation;
 using BaseGeral.Certificacao;
@@ -19,6 +18,7 @@ using BaseGeral;
 using BaseGeral.Sincronizacao;
 using BaseGeral.View;
 using Consumidor;
+using Windows.UI.Xaml;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -38,46 +38,46 @@ namespace NFeFacil.View
             hubNFCe.IsEnabled = comprado;
         }
 
-        void AbrirClientes(object sender, TappedRoutedEventArgs e) => Navegar<GerenciarClientes>();
-        void AbrirMotoristas(object sender, TappedRoutedEventArgs e) => Navegar<GerenciarMotoristas>();
-        void AbrirProdutos(object sender, TappedRoutedEventArgs e) => Navegar<GerenciarProdutos>();
-        void AbrirVendedores(object sender, TappedRoutedEventArgs e) => Navegar<GerenciarVendedores>();
-        void AbrirCompradores(object sender, TappedRoutedEventArgs e) => Navegar<GerenciarCompradores>();
+        void AbrirClientes(object sender, RoutedEventArgs e) => Navegar<GerenciarClientes>();
+        void AbrirMotoristas(object sender, RoutedEventArgs e) => Navegar<GerenciarMotoristas>();
+        void AbrirProdutos(object sender, RoutedEventArgs e) => Navegar<GerenciarProdutos>();
+        void AbrirVendedores(object sender, RoutedEventArgs e) => Navegar<GerenciarVendedores>();
+        void AbrirCompradores(object sender, RoutedEventArgs e) => Navegar<GerenciarCompradores>();
 
-        async void CriarNFe(object sender, TappedRoutedEventArgs e)
+        async void CriarNFe(object sender, RoutedEventArgs e)
         {
             var controle = new ControleNFe();
             await new Criador(controle).ShowAsync();
         }
 
-        void CriarNFeEntrada(object sender, TappedRoutedEventArgs e) => CriarNFeEntrada();
-        void AbrirInutilizacoes(object sender, TappedRoutedEventArgs e) => Navegar<Inutilizacoes>();
-        void AbrirNotasSalvas(object sender, TappedRoutedEventArgs e) => Navegar<NotasSalvas>(new ControleViewNFe());
-        void AbrirConsulta(object sender, TappedRoutedEventArgs e) => Navegar<Consulta>();
-        void AbrirVendasAnuais(object sender, TappedRoutedEventArgs e) => Navegar<VendasAnuais>();
+        void CriarNFeEntrada(object sender, RoutedEventArgs e) => CriarNFeEntrada();
+        void AbrirInutilizacoes(object sender, RoutedEventArgs e) => Navegar<Inutilizacoes>();
+        void AbrirNotasSalvas(object sender, RoutedEventArgs e) => Navegar<NotasSalvas>(new ControleViewNFe());
+        void AbrirConsulta(object sender, RoutedEventArgs e) => Navegar<Consulta>();
+        void AbrirVendasAnuais(object sender, RoutedEventArgs e) => Navegar<VendasAnuais>();
 
-        async void CriarNFCe(object sender, TappedRoutedEventArgs e)
+        async void CriarNFCe(object sender, RoutedEventArgs e)
         {
             var controle = new ControleNFCe();
             await new Criador(controle).ShowAsync();
         }
-        void AbrirInutilizacoesNFCe(object sender, TappedRoutedEventArgs e) => Navegar<Inutilizacoes>(true);
-        void AbrirNFCesSalvas(object sender, TappedRoutedEventArgs e) => Navegar<NotasSalvas>(new ControleViewNFCe());
-        void AbrirConsultaNFCe(object sender, TappedRoutedEventArgs e) => Navegar<Consulta>(true);
-        void AbrirVendasAnuaisNFCe(object sender, TappedRoutedEventArgs e) => Navegar<VendasAnuais>(true);
+        void AbrirInutilizacoesNFCe(object sender, RoutedEventArgs e) => Navegar<Inutilizacoes>(true);
+        void AbrirNFCesSalvas(object sender, RoutedEventArgs e) => Navegar<NotasSalvas>(new ControleViewNFCe());
+        void AbrirConsultaNFCe(object sender, RoutedEventArgs e) => Navegar<Consulta>(true);
+        void AbrirVendasAnuaisNFCe(object sender, RoutedEventArgs e) => Navegar<VendasAnuais>(true);
 
-        void AbrirVendasSalvas(object sender, TappedRoutedEventArgs e) => Navegar<RegistrosVenda>();
-        void CriarVenda(object sender, TappedRoutedEventArgs e)
+        void AbrirVendasSalvas(object sender, RoutedEventArgs e) => Navegar<RegistrosVenda>();
+        void CriarVenda(object sender, RoutedEventArgs e)
         {
             var controle = new RegistroComum.ControleViewProduto();
             MainPage.Current.Navegar<Venda.ViewProdutoVenda.ListaProdutos>(controle);
         }
 
-        void AbrirConfiguracoes(object sender, TappedRoutedEventArgs e) => Navegar<Configuracoes>();
-        void AbrirImportacao(object sender, TappedRoutedEventArgs e) => Navegar<ImportacaoDados>();
-        void AbrirInformacoes(object sender, TappedRoutedEventArgs e) => Navegar<Informacoes>();
+        void AbrirConfiguracoes(object sender, RoutedEventArgs e) => Navegar<Configuracoes>();
+        void AbrirImportacao(object sender, RoutedEventArgs e) => Navegar<ImportacaoDados>();
+        void AbrirInformacoes(object sender, RoutedEventArgs e) => Navegar<Informacoes>();
 
-        void AbrirCertificacao(object sender, TappedRoutedEventArgs e)
+        void AbrirCertificacao(object sender, RoutedEventArgs e)
         {
             switch (ConfiguracoesCertificacao.Origem)
             {
@@ -93,7 +93,7 @@ namespace NFeFacil.View
             }
         }
 
-        void AbrirSincronizacao(object sender, TappedRoutedEventArgs e)
+        void AbrirSincronizacao(object sender, RoutedEventArgs e)
         {
             if (ConfiguracoesSincronizacao.Tipo == TipoAppSincronizacao.Cliente)
                 MainPage.Current.Navegar<SincronizacaoCliente>();

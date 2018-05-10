@@ -3,8 +3,6 @@ using BaseGeral.Buscador;
 using BaseGeral.ItensBD;
 using BaseGeral.View;
 using System;
-using System.Collections.ObjectModel;
-using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 

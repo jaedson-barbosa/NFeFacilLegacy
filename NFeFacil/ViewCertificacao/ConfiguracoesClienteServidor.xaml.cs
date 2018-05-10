@@ -1,7 +1,7 @@
 ﻿using BaseGeral.View;
 using Fiscal.Certificacao.LAN;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -15,12 +15,12 @@ namespace NFeFacil.Certificacao
             InitializeComponent();
         }
 
-        async void ConectarServidor(object sender, TappedRoutedEventArgs e)
+        async void ConectarServidor(object sender, RoutedEventArgs e)
         {
             await InformacoesConexao.Cadastrar();
         }
 
-        void EsquecerServidor(object sender, TappedRoutedEventArgs e)
+        void EsquecerServidor(object sender, RoutedEventArgs e)
         {
             InformacoesConexao.Esquecer();
         }

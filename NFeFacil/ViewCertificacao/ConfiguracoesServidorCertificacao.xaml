@@ -5,16 +5,16 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
-    <ItemsControl ItemContainerTransitions="{StaticResource TransicoesLista}"
+    <ItemsControl Style="{StaticResource ItensSimples}"
                   Margin="16">
         <my:ItemPadrao Titulo="Instalar servidor"
                        Descricao="Salve o instalador do servidor de certificação."
-                       Tapped="InstalarServidor">
+                       Click="InstalarServidor">
             <FontIcon Glyph="&#xEC4E;" />
         </my:ItemPadrao>
         <my:ItemPadrao Titulo="Corrigir problemas"
                        Descricao="Usando o gerenciador de loopback do Windows"
-                       Tapped="RepararProblemas">
+                       Click="RepararProblemas">
             <SymbolIcon Symbol="Repair" />
         </my:ItemPadrao>
     </ItemsControl>

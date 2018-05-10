@@ -8,7 +8,6 @@ using Windows.Storage.Pickers;
 using Windows.System.Profile;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
@@ -24,7 +23,6 @@ namespace NFeFacil.View
             ItensMenu = new string[]
             {
                 "Geral",
-                "Backup",
                 "Modos de busca",
                 "Background",
                 "DANFE NFCe",
@@ -59,7 +57,7 @@ namespace NFeFacil.View
         }
         bool InstalacaoLiberada => AnalyticsInfo.VersionInfo.DeviceFamily.Contains("Desktop");
 
-        async void UsarImagem(object sender, TappedRoutedEventArgs e)
+        async void UsarImagem(object sender, RoutedEventArgs e)
         {
             var brushAtual = MainPage.Current.ImagemBackground;
             if (DefinicoesPermanentes.IDBackgroung == default(Guid))
@@ -74,12 +72,12 @@ namespace NFeFacil.View
             }
         }
 
-        void UsarCor(object sender, TappedRoutedEventArgs e)
+        void UsarCor(object sender, RoutedEventArgs e)
         {
             MainPage.Current.DefinirTipoBackground(TiposBackground.Cor);
         }
 
-        async void EscolherTransparencia(object sender, TappedRoutedEventArgs e)
+        async void EscolherTransparencia(object sender, RoutedEventArgs e)
         {
             var caixa = new EscolherTransparencia(DefinicoesPermanentes.OpacidadeBackground);
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
@@ -88,13 +86,13 @@ namespace NFeFacil.View
             }
         }
 
-        void Resetar(object sender, TappedRoutedEventArgs e)
+        void Resetar(object sender, RoutedEventArgs e)
         {
             DefinicoesPermanentes.OpacidadeBackground = 1;
             MainPage.Current.DefinirTipoBackground(TiposBackground.Padrao);
         }
 
-        async void SalvarBackup(object sender, TappedRoutedEventArgs e)
+        async void SalvarBackup(object sender, RoutedEventArgs e)
         {
             var objeto = new ConjuntoBanco();
             objeto.AtualizarPadrao();

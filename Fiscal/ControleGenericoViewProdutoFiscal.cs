@@ -64,7 +64,7 @@ namespace Fiscal
             var simples = new ProdutoSimplesVenda
             {
                 IdBase = caixa.ProdutoSelecionado.Base.Id,
-                ValorUnitario = caixa.ProdutoSelecionado.PrecoDouble,
+                ValorUnitario = caixa.ValorUnitario,
                 Quantidade = caixa.Quantidade,
                 Frete = 0,
                 Seguro = caixa.Seguro,
@@ -78,7 +78,7 @@ namespace Fiscal
                 Descricao = caixa.ProdutoSelecionado.Nome,
                 Quantidade = caixa.Quantidade.ToString("N2"),
                 TotalLiquido = simples.TotalLíquido.ToString("C"),
-                ValorUnitario = caixa.ProdutoSelecionado.Preco
+                ValorUnitario = caixa.ValorUnitario.ToString("C")
             };
         }
 
@@ -165,7 +165,7 @@ namespace Fiscal
             var simples = new ProdutoSimplesVenda
             {
                 IdBase = caixa.ProdutoSelecionado.Base.Id,
-                ValorUnitario = caixa.ProdutoSelecionado.PrecoDouble,
+                ValorUnitario = caixa.ValorUnitario,
                 Quantidade = caixa.Quantidade,
                 Frete = 0,
                 Seguro = caixa.Seguro,

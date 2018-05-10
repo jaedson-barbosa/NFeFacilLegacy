@@ -60,7 +60,7 @@ namespace RegistroComum
             var novoProdBanco = new ProdutoSimplesVenda
             {
                 IdBase = caixa.ProdutoSelecionado.Base.Id,
-                ValorUnitario = caixa.ProdutoSelecionado.PrecoDouble,
+                ValorUnitario = caixa.ValorUnitario,
                 Quantidade = caixa.Quantidade,
                 Frete = 0,
                 Seguro = caixa.Seguro,
@@ -74,7 +74,7 @@ namespace RegistroComum
                 Descricao = caixa.ProdutoSelecionado.Nome,
                 Quantidade = caixa.Quantidade.ToString("N2"),
                 TotalLiquido = novoProdBanco.TotalLíquido.ToString("C"),
-                ValorUnitario = caixa.ProdutoSelecionado.PrecoDouble.ToString("C")
+                ValorUnitario = caixa.ValorUnitario.ToString("C")
             };
         }
 

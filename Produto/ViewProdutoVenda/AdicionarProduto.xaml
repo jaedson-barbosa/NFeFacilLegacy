@@ -22,7 +22,8 @@
                   SelectedItem="{x:Bind ProdutoSelecionado, Mode=TwoWay}"
                   Loaded="ListView_Loaded"
                   Grid.Row="1"
-                  Margin="0,2,0,4">
+                  Margin="0,2,0,4"
+                  SelectionChanged="AnalisarVlNovoProduto">
             <ListView.Header>
                 <Grid Style="{StaticResource Cabecalho}">
                     <Grid.ColumnDefinitions>
@@ -35,7 +36,7 @@
                                VerticalAlignment="Bottom">Codigo</TextBlock>
                     <TextBlock Grid.Column="1"
                                FontWeight="Bold"
-                               VerticalAlignment="Bottom">Nome</TextBlock>
+                               VerticalAlignment="Bottom">Descrição</TextBlock>
                     <TextBlock Grid.Column="2"
                                FontWeight="Bold"
                                VerticalAlignment="Bottom">Estoque</TextBlock>
@@ -55,6 +56,7 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="{x:Bind Codigo}" />
                         <TextBlock Grid.Column="1"
+                                   TextWrapping="Wrap"
                                    Text="{x:Bind Nome}" />
                         <TextBlock Grid.Column="2"
                                    Text="{x:Bind Estoque, Mode=OneWay}" />

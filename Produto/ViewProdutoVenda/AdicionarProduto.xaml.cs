@@ -127,8 +127,16 @@ namespace Venda.ViewProdutoVenda
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PodeDetalhar)));
 
             PodeEspecificarValorUnitario = AnalisarVlUnitario(produto);
-            ValorUnitario = produto.Preco;
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PodeEspecificarValorUnitario)));
+        }
+
+        void AnalisarVlNovoProduto(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count == 0) return;
+            var exibicaoProduto = (ExibicaoProdutoAdicao)e.AddedItems[0];
+            var produto = (ProdutoAdicao)exibicaoProduto;
+
+            ValorUnitario = produto.Preco;
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ValorUnitario)));
         }
 

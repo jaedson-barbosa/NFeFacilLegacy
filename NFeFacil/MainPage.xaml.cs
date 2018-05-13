@@ -65,7 +65,14 @@ namespace NFeFacil
 
         public void Navegar<T>(object parametro = null) where T : Page
         {
-            frmPrincipal.Navigate(typeof(T), parametro);
+            try
+            {
+                frmPrincipal.Navigate(typeof(T), parametro);
+            }
+            catch (Exception e)
+            {
+                e.ManipularErro();
+            }
         }
 
         private void Retornar(object sender, RoutedEventArgs e) => Retornar();

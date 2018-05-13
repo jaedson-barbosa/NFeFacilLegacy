@@ -151,17 +151,24 @@ namespace NFeFacil.Login
             txtAtual.Text = "Sistemas carregados. E obrigado pelo apoio 😃";
             await Task.Delay(500);
 
-            MainPage current = MainPage.Current;
-            using (var repo = new BaseGeral.Repositorio.Leitura())
+            try
             {
-                if (repo.EmitentesCadastrados)
+                MainPage current = MainPage.Current;
+                using (var repo = new BaseGeral.Repositorio.Leitura())
                 {
-                    current.Navegar<EscolhaEmitente>();
+                    if (repo.EmitentesCadastrados)
+                    {
+                        current.Navegar<EscolhaEmitente>();
+                    }
+                    else
+                    {
+                        current.Navegar<PrimeiroUso>();
+                    }
                 }
-                else
-                {
-                    current.Navegar<PrimeiroUso>();
-                }
+            }
+            catch (Exception e)
+            {
+                txtAtual.Text = e.Message;
             }
         }
     }

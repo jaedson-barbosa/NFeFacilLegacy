@@ -16,8 +16,7 @@
                 <EntranceThemeTransition IsStaggeringEnabled="True" />
                 <RepositionThemeTransition IsStaggeringEnabled="False" />
             </TransitionCollection>
-            <Style TargetType="CommandBar"
-                   BasedOn="{StaticResource CommandBarRevealStyle}">
+            <Style TargetType="CommandBar">
                 <Setter Property="Background"
                         Value="Transparent" />
             </Style>

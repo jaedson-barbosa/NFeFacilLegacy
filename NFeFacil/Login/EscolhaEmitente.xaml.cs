@@ -14,7 +14,14 @@ namespace NFeFacil.Login
     {
         public EscolhaEmitente()
         {
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
+            }
+            catch (System.Exception e)
+            {
+                e.ManipularErro();
+            }
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

@@ -45,7 +45,7 @@ namespace NFeFacil
 
         internal void DefinirOpacidadeBackground(double opacidade)
         {
-            var backgroundFrame = (SolidColorBrush)frmPrincipal.Background;
+            var backgroundFrame = (SolidColorBrush)FramePrincipal.Background;
             //backgroundFrame.Opacity = opacidade;
             //DefinicoesPermanentes.OpacidadeBackground = opacidade;
         }
@@ -67,7 +67,7 @@ namespace NFeFacil
         {
             try
             {
-                frmPrincipal.Navigate(typeof(T), parametro);
+                FramePrincipal.Navigate(typeof(T), parametro);
             }
             catch (Exception e)
             {
@@ -78,7 +78,7 @@ namespace NFeFacil
         private void Retornar(object sender, RoutedEventArgs e) => Retornar();
         public async void Retornar()
         {
-            if (frmPrincipal.Content is IValida valida && !valida.Concluido)
+            if (FramePrincipal.Content is IValida valida && !valida.Concluido)
             {
                 var mensagem = new MessageDialog("Se você sair agora, os dados serão perdidos, se tiver certeza, escolha Sair, caso contrário, escolha Cancelar.", "Atenção");
                 mensagem.Commands.Add(new UICommand("Sair"));
@@ -87,7 +87,7 @@ namespace NFeFacil
                 if (resultado.Label == "Cancelar") return;
             }
 
-            if (frmPrincipal.BackStackDepth >= 1) frmPrincipal.GoBack();
+            if (FramePrincipal.BackStackDepth >= 1) FramePrincipal.GoBack();
             else
             {
                 var familia = AnalyticsInfo.VersionInfo.DeviceFamily;
@@ -105,7 +105,7 @@ namespace NFeFacil
 
         private void MudouSubpaginaEscolhida(object sender, SelectionChangedEventArgs e)
         {
-            if (frmPrincipal.Content is IHambuguer hamb)
+            if (FramePrincipal.Content is IHambuguer hamb)
             {
                 hamb.SelectedIndex = menuTemporario.SelectedIndex;
             }

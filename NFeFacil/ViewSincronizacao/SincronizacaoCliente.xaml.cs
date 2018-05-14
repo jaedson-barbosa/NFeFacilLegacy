@@ -25,7 +25,7 @@ namespace NFeFacil.Sincronizacao
         {
             try
             {
-                var resposta = await new MobileBarcodeScanner(Window.Current.Dispatcher, MainPage.Current.Frame)
+                var resposta = await new MobileBarcodeScanner(Window.Current.Dispatcher, MainPage.Current.FramePrincipal)
                 {
                     TopText = "Coloque a câmera em frente ao código QR",
                     BottomText = "A câmera irá lê-lo automaticamente"

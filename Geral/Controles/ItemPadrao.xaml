@@ -10,8 +10,7 @@
              Margin="8">
     <Button HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
-            Click="Clicado"
-            Style="{StaticResource ButtonRevealStyle}">
+            Click="Clicado">
         <local:ItemPadraoSimples Icone="{x:Bind Icone}"
                                  Titulo="{x:Bind Titulo}"
                                  Descricao="{x:Bind Descricao}" />

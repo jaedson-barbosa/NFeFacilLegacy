@@ -22,13 +22,9 @@ namespace OptimizedZXing
 
         public async void ScanContinuously(MobileBarcodeScanningOptions options, Action<Result> scanHandler)
         {
-            //Navigate: /ZxingSharp.WindowsPhone;component/Scan.xaml
-            var rootFrame = RootFrame;
-            var dispatcher = Dispatcher;
-
-            await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                rootFrame.Navigate(typeof(ScanPage), new ScanPageNavigationParameters
+                RootFrame.Navigate(typeof(ScanPage), new ScanPageNavigationParameters
                 {
                     Options = options,
                     ResultHandler = scanHandler,
@@ -40,14 +36,11 @@ namespace OptimizedZXing
 
         public async Task<Result> Scan(MobileBarcodeScanningOptions options)
         {
-            var rootFrame = RootFrame;
-            var dispatcher = Dispatcher;
-
             var tcsScanResult = new TaskCompletionSource<Result>();
 
-            await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                rootFrame.Navigate(typeof(ScanPage), new ScanPageNavigationParameters
+                RootFrame.Navigate(typeof(ScanPage), new ScanPageNavigationParameters
                 {
                     Options = options,
                     ResultHandler = r =>
@@ -61,10 +54,10 @@ namespace OptimizedZXing
 
             var result = await tcsScanResult.Task;
 
-            await dispatcher.RunAsync(CoreDispatcherPriority.High, () =>
+            await Dispatcher.RunAsync(CoreDispatcherPriority.High, () =>
             {
-                if (rootFrame.CanGoBack)
-                    rootFrame.GoBack();
+                if (RootFrame.CanGoBack)
+                    RootFrame.GoBack();
             });
 
             return result;

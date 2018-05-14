@@ -139,7 +139,8 @@
                            Stretch="Fill"
                            HorizontalAlignment="Stretch"
                            VerticalAlignment="Stretch" />
-                <Frame Name="frmPrincipal"
+                <Frame Name="FramePrincipal"
+                       x:FieldModifier="Public"
                        Grid.Column="1"
                        Canvas.ZIndex="1"
                        Navigated="NavegacaoConcluida"

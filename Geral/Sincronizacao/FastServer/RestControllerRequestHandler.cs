@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -111,7 +112,7 @@ namespace BaseGeral.Sincronizacao.FastServer
                 {
                     var content = (XElement)request.Content;
                     var xmlSerializer = new XmlSerializer(info.ContentParameterType);
-                    using (var reader = content.FirstNode.CreateReader())
+                    using (var reader = new StringReader(content.FirstNode.ToString()))
                     {
                         object contentObj = xmlSerializer.Deserialize(reader);
                         parameters = info.GetParametersFromUri(requestUri).Concat(new[] { contentObj }).ToArray();
@@ -119,7 +120,7 @@ namespace BaseGeral.Sincronizacao.FastServer
                 }
                 catch (Exception e)
                 {
-                    throw new Exception($"Ocorreu um erro ao desserializar o objeto de tipo {nameof(info.ContentParameterType)}", e);
+                    throw new Exception($"Ocorreu um erro ao desserializar o objeto de tipo {info.ContentParameterType.Name}", e);
                 }
             }
             else

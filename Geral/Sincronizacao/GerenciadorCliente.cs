@@ -133,7 +133,9 @@ namespace BaseGeral.Sincronizacao
                 new XElement("Content", corpo),
                 new XElement("Uri", caminho));
             var str = envio.ToString(SaveOptions.DisableFormatting);
-            byte[] bytes = Encoding.UTF8.GetBytes($"{str.Length.ToString("0000000000")}{str}");
+            byte[] bytes = Encoding.UTF8.GetBytes(str);
+            str = $"{bytes.Length.ToString("0000000000")}{str}";
+            bytes = Encoding.UTF8.GetBytes(str);
 
             using (var socket = new StreamSocket())
             {
@@ -151,7 +153,8 @@ namespace BaseGeral.Sincronizacao
 
                     buffer = new Windows.Storage.Streams.Buffer(tamanho);
                     result = await input.ReadAsync(buffer, tamanho, InputStreamOptions.None);
-                    var response = Encoding.UTF8.GetString(result.ToArray()).FromString<RestResponse>();
+                    var primStr = Encoding.UTF8.GetString(result.ToArray());
+                    var response = primStr.FromString<RestResponse>();
                     var respCont = response.ContentData;
                     if (response.Sucesso)
                     {

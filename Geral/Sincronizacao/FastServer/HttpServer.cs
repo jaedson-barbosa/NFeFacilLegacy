@@ -69,6 +69,7 @@ namespace BaseGeral.Sincronizacao.FastServer
                     httpResponse = e.Message;
                 }
 
+                await Task.Delay(500);
                 var bytes = Encoding.UTF8.GetBytes(httpResponse);
                 httpResponse = $"{bytes.Length.ToString("0000000000")}{httpResponse}";
                 using (var output = socket.OutputStream)

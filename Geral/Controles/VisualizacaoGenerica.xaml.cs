@@ -40,7 +40,8 @@ namespace BaseGeral.Controles
                     else if (valor is IEnumerable listaFilha && !(valor is string))
                     {
                         var tipoItem = listaFilha.GetType().GenericTypeArguments[0];
-                        var itemPersonalizado = tipoItem.Namespace.Contains("BaseGeral");
+                        var itemPersonalizado = tipoItem.Namespace.Contains("BaseGeral")
+                            || tipoItem.Namespace.Contains("RegistroComum");
                         foreach (var item in listaFilha)
                         {
                             if (itemPersonalizado)

@@ -18,7 +18,6 @@ namespace Venda.ViewProdutoVenda
         IControleViewProduto Controle { get; set; }
 
         public bool Concluido => Controle.Concluido;
-        Visibility VisibilidadeAvancar { get; set; }
         Visibility VisibilidadeConcluir { get; set; }
 
         public ListaProdutos()
@@ -39,7 +38,6 @@ namespace Venda.ViewProdutoVenda
                 ValorUnitario = "Valor unit.",
                 IsCabecalho = true
             });
-            VisibilidadeAvancar = Controle.PodeConcluir ? Visibility.Collapsed : Visibility.Visible;
             VisibilidadeConcluir = Controle.PodeConcluir ? Visibility.Visible : Visibility.Collapsed;
         }
 

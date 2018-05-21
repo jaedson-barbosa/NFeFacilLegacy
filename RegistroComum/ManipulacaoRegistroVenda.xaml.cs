@@ -149,6 +149,8 @@ namespace RegistroComum
                 }
 
                 Frame.BackStack.RemoveAt(Frame.BackStack.Count - 1);
+                if (Frame.BackStack[Frame.BackStack.Count - 1].SourcePageType == typeof(VisualizacaoRegistroVenda))
+                    Frame.BackStack.RemoveAt(Frame.BackStack.Count - 1);
                 PageStackEntry entrada = new PageStackEntry(typeof(VisualizacaoRegistroVenda), ItemBanco, null);
                 Frame.BackStack.Add(entrada);
 

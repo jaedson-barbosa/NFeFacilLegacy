@@ -57,8 +57,7 @@
             <AppBarButton Label="Adicionar produto"
                           Icon="Add"
                           Click="AdicionarProduto" />
-            <AppBarButton Visibility="{x:Bind VisibilidadeAvancar}"
-                          Icon="Forward"
+            <AppBarButton Icon="Forward"
                           Label="Avançar"
                           Click="Avancar" />
             <AppBarButton Visibility="{x:Bind VisibilidadeConcluir}"

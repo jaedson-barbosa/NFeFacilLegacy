@@ -3,6 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:local="using:Consumidor"
       xmlns:controles="using:BaseGeral.Controles"
+      xmlns:controlesAux="using:Venda.ControlesAuxiliares"
       xmlns:db="using:BaseGeral.ItensBD"
       xmlns:VM="using:BaseGeral.View"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -52,50 +53,7 @@
                           SelectedValuePath="Codigo" />
             </ItemsControl>
             <TextBlock Style="{StaticResource TitleTextBlockStyle}">Cliente</TextBlock>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <TextBox PlaceholderText="Buscar"
-                         TextChanged="BuscarCliente"
-                         HorizontalAlignment="Stretch" />
-                <GridView Grid.Row="1"
-                          Loaded="GridView_Loaded"
-                          ItemsSource="{x:Bind Clientes.Itens}"
-                          SelectedItem="{x:Bind ClienteSelecionado, Mode=TwoWay}"
-                          ScrollViewer.HorizontalScrollBarVisibility="Visible"
-                          ScrollViewer.HorizontalScrollMode="Enabled"
-                          ItemContainerTransitions="{StaticResource TransicoesLista}" ItemContainerStyle="{StaticResource ItensMedios}">
-                    <GridView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <ItemsWrapGrid Orientation="Vertical"
-                                           MaximumRowsOrColumns="2" />
-                        </ItemsPanelTemplate>
-                    </GridView.ItemsPanel>
-                    <GridView.ItemTemplate>
-                        <DataTemplate x:DataType="db:ClienteDI">
-                            <Grid Background="Transparent"
-                                  Padding="16">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-                                <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
-                                           Text="{x:Bind Documento, Converter={StaticResource mascara}}"
-                                           MaxLines="1" />
-                                <TextBlock Grid.Row="1"
-                                           Style="{StaticResource BodyTextBlockStyle}"
-                                           Text="{x:Bind Nome}" />
-                                <TextBlock Grid.Row="2"
-                                           Style="{StaticResource BodyTextBlockStyle}"
-                                           Text="{x:Bind NomeMunicipio}" />
-                            </Grid>
-                        </DataTemplate>
-                    </GridView.ItemTemplate>
-                </GridView>
-            </Grid>
+            <controlesAux:EscolhaCliente ClienteSelecionado="{x:Bind ClienteSelecionado, Mode=TwoWay}" />
             <TextBlock Style="{StaticResource TitleTextBlockStyle}"
                        Visibility="{x:Bind VisibilitadeTransportador, Mode=OneWay}">Motorista</TextBlock>
             <Grid Visibility="{x:Bind VisibilitadeTransportador, Mode=OneWay}">

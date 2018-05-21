@@ -118,6 +118,9 @@
     <Compile Include="CaixasDialogoProduto\EscolherTipoDeclaracaoExportacao.xaml.cs">
       <DependentUpon>EscolherTipoDeclaracaoExportacao.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ControlesAuxiliares\EscolhaCliente.xaml.cs">
+      <DependentUpon>EscolhaCliente.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DadosAdicaoProduto.cs" />
     <Compile Include="GerenciadorImpressao.cs" />
     <Compile Include="GerenciamentoProdutos\AdicionarAlteracaoEstoque.xaml.cs">
@@ -358,6 +361,10 @@
     <Page Include="CaixasDialogoProduto\EscolherTipoDeclaracaoExportacao.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ControlesAuxiliares\EscolhaCliente.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GerenciamentoProdutos\AdicionarAlteracaoEstoque.xaml">
       <Generator>MSBuild:Compile</Generator>

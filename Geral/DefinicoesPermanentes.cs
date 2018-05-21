@@ -83,6 +83,12 @@ namespace BaseGeral
         }
 
         public static SituacoesAlteracaoEstoque ConfiguracoesEstoque { get; set; } = new SituacoesAlteracaoEstoque();
+
+        public static bool UsarFluent
+        {
+            get => AssistenteConfig.Get(nameof(UsarFluent), false);
+            set => AssistenteConfig.Set(nameof(UsarFluent), value);
+        }
     }
 
     public enum TiposBackground { Imagem, Cor, Padrao }

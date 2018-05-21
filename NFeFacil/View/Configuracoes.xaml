@@ -85,29 +85,37 @@
                     <ComboBoxItem>Ambos</ComboBoxItem>
                 </ComboBox>
             </StackPanel>
-            <ItemsControl x:Name="itnBackground"
-                          Style="{StaticResource ItensSimples}">
-                <controles:ItemPadrao Titulo="Usar imagem"
-                                      Descricao="Escolha uma imagem para servir de background para o aplicativo"
-                                      Click="UsarImagem">
-                    <FontIcon Glyph="&#xEB9F;" />
-                </controles:ItemPadrao>
-                <controles:ItemPadrao Titulo="Usar cor"
-                                      Descricao="Use a cor de destaque como background para o aplicativo"
-                                      Click="UsarCor">
-                    <FontIcon Glyph="&#xE790;" />
-                </controles:ItemPadrao>
-                <controles:ItemPadrao Titulo="Transparência"
-                                      Descricao="Defina a porcentagem de transparência do background"
-                                      Click="EscolherTransparencia">
-                    <FontIcon Glyph="&#xE706;" />
-                </controles:ItemPadrao>
-                <controles:ItemPadrao Titulo="Restaurar"
-                                      Descricao="Resete todas as configurações do background"
-                                      Click="Resetar">
-                    <FontIcon Glyph="&#xED10;" />
-                </controles:ItemPadrao>
-            </ItemsControl>
+            <StackPanel>
+                <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Background</TextBlock>
+                <ItemsControl IsEnabled="{x:Bind PacotePersonalizacaoComprado, Mode=OneWay}"
+                              Style="{StaticResource ItensSimples}">
+                    <controles:ItemPadrao Titulo="Usar imagem"
+                                          Descricao="Escolha uma imagem para servir de background para o aplicativo"
+                                          Click="UsarImagem">
+                        <FontIcon Glyph="&#xEB9F;" />
+                    </controles:ItemPadrao>
+                    <controles:ItemPadrao Titulo="Usar cor"
+                                          Descricao="Use a cor de destaque como background para o aplicativo"
+                                          Click="UsarCor">
+                        <FontIcon Glyph="&#xE790;" />
+                    </controles:ItemPadrao>
+                    <controles:ItemPadrao Titulo="Transparência"
+                                          Descricao="Defina a porcentagem de transparência do background"
+                                          Click="EscolherTransparencia">
+                        <FontIcon Glyph="&#xE706;" />
+                    </controles:ItemPadrao>
+                    <controles:ItemPadrao Titulo="Restaurar"
+                                          Descricao="Resete todas as configurações do background"
+                                          Click="Resetar">
+                        <FontIcon Glyph="&#xED10;" />
+                    </controles:ItemPadrao>
+                </ItemsControl>
+                <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Extras</TextBlock>
+                <ToggleSwitch IsEnabled="{x:Bind PacotePersonalizacaoComprado, Mode=OneWay}"
+                              Header="Fluent Design"
+                              ToolTipService.ToolTip="As alterações só tem efeito após reiniar o aplicativo."
+                              IsOn="{x:Bind FluentDesign, Mode=TwoWay}" />
+            </StackPanel>
             <StackPanel>
                 <Slider Header="Largura (mm)"
                         Minimum="70"
@@ -139,8 +147,8 @@
                     <SymbolIcon Symbol="Document" />
                 </controles:ItemPadrao>
                 <controles:ItemPadrao x:Name="btnComprarBackground"
-                                      Titulo="Background"
-                                      Descricao="Personalize a tela de fundo do aplicativo pra deixá-lo com sua cara."
+                                      Titulo="Personalizaçao"
+                                      Descricao="Personalize a tela de fundo e ative o Fluent Design."
                                       Click="ComprarBackground">
                     <FontIcon Glyph="&#xEB9F;" />
                 </controles:ItemPadrao>

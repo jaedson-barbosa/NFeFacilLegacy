@@ -1,5 +1,6 @@
 ﻿using BaseGeral;
 using BaseGeral.ItensBD;
+using BaseGeral.Log;
 using BaseGeral.View;
 using System.Collections.ObjectModel;
 using Windows.UI.Xaml.Controls;
@@ -20,7 +21,12 @@ namespace NFeFacil.Login
             }
             catch (System.Exception e)
             {
-                e.ManipularErro();
+                if (DefinicoesPermanentes.UsarFluent)
+                {
+                    var log = Popup.Current;
+                    log.Escrever(TitulosComuns.Erro, "Parece que este dispositivo não suporta o Fluent Design, ele será desativado e o aplicativo será reiniciado. Depois de atualizar o Windows você poderá reativa o Fluent Design.");
+                }
+                else e.ManipularErro();
             }
         }
 

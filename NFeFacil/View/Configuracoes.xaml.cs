@@ -3,6 +3,7 @@ using BaseGeral.Certificacao;
 using BaseGeral.Sincronizacao;
 using BaseGeral.View;
 using System;
+using System.ComponentModel;
 using System.IO;
 using Windows.Storage.Pickers;
 using Windows.System.Profile;
@@ -15,7 +16,7 @@ using Windows.UI.Xaml.Navigation;
 namespace NFeFacil.View
 {
     [DetalhePagina(Symbol.Setting, "Configurações")]
-    public sealed partial class Configuracoes : Page
+    public sealed partial class Configuracoes : Page, INotifyPropertyChanged
     {
         public Configuracoes()
         {
@@ -24,13 +25,15 @@ namespace NFeFacil.View
             {
                 "Geral",
                 "Modos de busca",
-                "Background",
+                "Personalização",
                 "DANFE NFCe",
                 "Controle de estoque",
                 "Compras"
             };
             AnalisarCompras();
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
@@ -56,6 +59,13 @@ namespace NFeFacil.View
             set => ConfiguracoesCertificacao.Origem = (OrigemCertificado)value;
         }
         bool InstalacaoLiberada => AnalyticsInfo.VersionInfo.DeviceFamily.Contains("Desktop");
+
+        bool PacotePersonalizacaoComprado { get; set; }
+        bool FluentDesign
+        {
+            get => DefinicoesPermanentes.UsarFluent;
+            set => DefinicoesPermanentes.UsarFluent = value;
+        }
 
         async void UsarImagem(object sender, RoutedEventArgs e)
         {
@@ -118,7 +128,7 @@ namespace NFeFacil.View
             btnComprarNFCe.IsEnabled = !comprado;
             comprado = ComprasInApp.Resumo[Compras.Personalizacao];
             btnComprarBackground.IsEnabled = !comprado;
-            itnBackground.IsEnabled = comprado;
+            PacotePersonalizacaoComprado = comprado;
         }
 
         async void ComprarNFCe(object sender, RoutedEventArgs e)
@@ -131,7 +141,8 @@ namespace NFeFacil.View
         {
             var comprado = await ComprasInApp.Comprar(Compras.Personalizacao);
             btnComprarBackground.IsEnabled = !comprado;
-            itnBackground.IsEnabled = comprado;
+            PacotePersonalizacaoComprado = comprado;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PacotePersonalizacaoComprado)));
         }
 
         async void ReanalizarCompras(object sender, RoutedEventArgs e)

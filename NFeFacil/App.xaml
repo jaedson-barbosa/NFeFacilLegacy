@@ -16,10 +16,26 @@
                 <EntranceThemeTransition IsStaggeringEnabled="True" />
                 <RepositionThemeTransition IsStaggeringEnabled="False" />
             </TransitionCollection>
-            <Style TargetType="CommandBar">
+            <Style TargetType="CommandBar"
+                   x:Key="FluentCommandBar"
+                   BasedOn="{StaticResource CommandBarRevealStyle}">
                 <Setter Property="Background"
                         Value="Transparent" />
             </Style>
+            <Style TargetType="Button"
+                   x:Key="FluentButton"
+                   BasedOn="{StaticResource ButtonRevealStyle}" />
+            <Style TargetType="CommandBar"
+                   x:Key="DefaultCommandBar">
+                <Setter Property="Background"
+                        Value="Transparent" />
+            </Style>
+            <Style TargetType="Button"
+                   x:Key="DefaultButton" />
+            <Style TargetType="CommandBar"
+                   BasedOn="{StaticResource DefaultCommandBar}" />
+            <Style TargetType="Button"
+                   BasedOn="{StaticResource DefaultButton}" />
             <Style x:Key="ItensResponsivos"
                    TargetType="ItemsControl">
                 <Setter Property="ItemContainerTransitions"

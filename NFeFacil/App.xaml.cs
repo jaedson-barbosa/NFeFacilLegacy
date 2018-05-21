@@ -6,6 +6,7 @@ using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil
 {
@@ -42,6 +43,7 @@ namespace NFeFacil
             }
 
             PersonalisarBarraTitulo();
+            PersonalizarDesign(BaseGeral.DefinicoesPermanentes.UsarFluent);
         }
 
         void PersonalisarBarraTitulo()
@@ -69,6 +71,12 @@ namespace NFeFacil
             }
 
             async void EsconderBarraCelular() => await StatusBar.GetForCurrentView().HideAsync();
+        }
+
+        void PersonalizarDesign(bool usarFluent)
+        {
+            Resources[typeof(CommandBar)] = Resources[usarFluent ? "FluentCommandBar" : "DefaultCommandBar"];
+            Resources[typeof(Button)] = Resources[usarFluent ? "FluentButton" : "DefaultButton"];
         }
     }
 }

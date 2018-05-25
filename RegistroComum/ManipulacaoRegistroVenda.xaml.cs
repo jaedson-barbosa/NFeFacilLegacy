@@ -20,8 +20,6 @@ namespace RegistroComum
     {
         RegistroVenda ItemBanco { get; set; }
 
-        ObservableCollection<ClienteDI> Clientes { get; set; }
-        ObservableCollection<MotoristaDI> Motoristas { get; set; }
         ObservableCollection<Comprador> Compradores { get; set; }
 
         Dictionary<Guid, Comprador[]> CompradoresPorCliente;
@@ -37,14 +35,14 @@ namespace RegistroComum
             txtTotalSeguro.Text = ItemBanco.Produtos.Sum(x => x.Seguro).ToString("C");
         }
 
-        ClienteDI Cliente
+        Guid Cliente
         {
-            get => Clientes.FirstOrDefault(x => x.Id == ItemBanco.Cliente);
+            get => ItemBanco.Cliente;
             set
             {
-                ItemBanco.Cliente = value.Id;
+                ItemBanco.Cliente = value;
                 ItemBanco.Comprador = default(Guid);
-                var compradores = CompradoresPorCliente[value.Id];
+                var compradores = CompradoresPorCliente[value];
                 if (compradores?.Length > 0)
                 {
                     Compradores.Clear();
@@ -123,8 +121,6 @@ namespace RegistroComum
         {
             using (var repo = new BaseGeral.Repositorio.Leitura())
             {
-                Clientes = repo.ObterClientes().GerarObs();
-                Motoristas = repo.ObterMotoristas().GerarObs();
                 Compradores = new ObservableCollection<Comprador>();
                 CompradoresPorCliente = repo.ObterCompradoresPorCliente();
             }

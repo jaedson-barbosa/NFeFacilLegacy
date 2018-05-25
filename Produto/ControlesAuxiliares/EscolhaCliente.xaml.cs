@@ -1,5 +1,8 @@
 ﻿using BaseGeral.Buscador;
 using BaseGeral.ItensBD;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -20,12 +23,35 @@ namespace Venda.ControlesAuxiliares
             get
             {
                 var cliente = (ClienteDI)GetValue(ClienteSelecionadoProperty);
-                if (cliente == null)
+                if (cliente == null && !string.IsNullOrEmpty(BuscaInicial))
                     cliente = Clientes.BuscarViaDocumento(BuscaInicial);
+                else
+                    cliente = Clientes.Itens.FirstOrDefault(x => x.Id == IdClienteSelecionado);
                 MoverParaItemSelecionado(cliente);
                 return cliente;
             }
-            set => SetValue(ClienteSelecionadoProperty, value);
+            set
+            {
+                if (value == null) return;
+                SetValue(ClienteSelecionadoProperty, value);
+                IdClienteSelecionado = value.Id;
+            }
+        }
+
+        public static DependencyProperty IdClienteSelecionadoProperty = DependencyProperty.Register(
+            nameof(IdClienteSelecionado),
+            typeof(Guid),
+            typeof(EscolhaMotorista),
+            new PropertyMetadata(null));
+
+        public Guid IdClienteSelecionado
+        {
+            get
+            {
+                if (GetValue(IdClienteSelecionadoProperty) is Guid guid) return guid;
+                else return Guid.Empty;
+            }
+            set => SetValue(IdClienteSelecionadoProperty, value);
         }
 
         public static DependencyProperty BuscaInicialProperty = DependencyProperty.Register(
@@ -50,10 +76,13 @@ namespace Venda.ControlesAuxiliares
             Clientes.Buscar(busca);
         }
 
-        void MoverParaItemSelecionado(ClienteDI cliente)
+        async void MoverParaItemSelecionado(ClienteDI cliente)
         {
             if (cliente != null)
+            {
+                await Task.Delay(1000);
                 grdView.ScrollIntoView(cliente, ScrollIntoViewAlignment.Leading);
+            }
         }
     }
 }

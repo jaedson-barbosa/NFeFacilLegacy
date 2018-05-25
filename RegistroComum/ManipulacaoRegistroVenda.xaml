@@ -45,6 +45,7 @@
             <controlesAux:EscolhaCliente IdClienteSelecionado="{x:Bind Cliente, Mode=TwoWay}" />
             <TextBlock Style="{StaticResource TitleTextBlockStyle}">Transporte</TextBlock>
             <controlesAux:EscolhaMotorista IdMotoristaSelecionado="{x:Bind ItemBanco.Motorista, Mode=TwoWay}" />
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}">Detalhes adicionais</TextBlock>
             <ItemsControl Style="{StaticResource ItensResponsivos}">
                 <ComboBox x:Name="cmbComprador"
                           Header="Comprador"
@@ -67,9 +68,6 @@
                     <ComboBoxItem>Por conta da loja</ComboBoxItem>
                     <ComboBoxItem>A combinar</ComboBoxItem>
                 </ComboBox>
-            </ItemsControl>
-            <TextBlock Style="{StaticResource TitleTextBlockStyle}">Pagamento</TextBlock>
-            <ItemsControl Style="{StaticResource ItensResponsivos}">
                 <CalendarDatePicker Header="Prazo de pagamento"
                                     Date="{x:Bind PrazoPagamento, Mode=TwoWay}"
                                     Grid.Column="2"
@@ -82,9 +80,6 @@
                     <ComboBoxItem>Cartão</ComboBoxItem>
                     <ComboBoxItem>Boleto bancário</ComboBoxItem>
                 </ComboBox>
-            </ItemsControl>
-            <TextBlock Style="{StaticResource TitleTextBlockStyle}">Desconto</TextBlock>
-            <ItemsControl Style="{StaticResource ItensResponsivos}">
                 <Slider x:Name="sldDesconto"
                         Header="Desconto %"
                         StepFrequency="0.5"
@@ -96,11 +91,10 @@
                                            Format="13:2"
                                            Header="Valor desejado"
                                            NumeroChanged="ValorDesejadoChanged" />
+                <CalendarDatePicker Header="Data da venda"
+                                    MinWidth="256"
+                                    Date="{x:Bind DataHoraVenda, Mode=TwoWay}" />
             </ItemsControl>
-            <TextBlock Style="{StaticResource TitleTextBlockStyle}">Detalhes adicionais</TextBlock>
-            <CalendarDatePicker Header="Data da venda"
-                                MinWidth="256"
-                                Date="{x:Bind DataHoraVenda, Mode=TwoWay}" />
             <controles:RichEditBoxExtended Header="Observações"
                                            TextWrapping="Wrap"
                                            Text="{x:Bind Observacoes, Mode=TwoWay}" />

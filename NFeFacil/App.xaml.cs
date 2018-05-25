@@ -15,6 +15,9 @@ namespace NFeFacil
     /// </summary>
     sealed partial class App : Application
     {
+        bool IsMobile { get; }
+        bool IsDesktop { get; }
+
         /// <summary>
         /// Inicializa o objeto singleton do aplicativo.  Esta é a primeira linha de código criado
         /// executado e, como tal, é o equivalente lógico de main() ou WinMain().
@@ -22,6 +25,9 @@ namespace NFeFacil
         public App()
         {
             InitializeComponent();
+            var familia = AnalyticsInfo.VersionInfo.DeviceFamily;
+            IsMobile = familia.Contains("Mobile");
+            IsDesktop = familia.Contains("Desktop");
         }
 
         /// <summary>
@@ -31,6 +37,8 @@ namespace NFeFacil
         /// <param name="e">Detalhes sobre a solicitação e o processo de inicialização.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
+            PersonalizarDesign(BaseGeral.DefinicoesPermanentes.UsarFluent);
+
             var rootFrame = Window.Current.Content as MainPage;
             if (rootFrame == null)
             {
@@ -43,18 +51,13 @@ namespace NFeFacil
             }
 
             PersonalisarBarraTitulo();
-            PersonalizarDesign(BaseGeral.DefinicoesPermanentes.UsarFluent);
         }
 
         void PersonalisarBarraTitulo()
         {
             MainPage current = MainPage.Current;
-            var familia = AnalyticsInfo.VersionInfo.DeviceFamily;
-            if (familia.Contains("Mobile"))
-            {
-                EsconderBarraCelular();
-            }
-            else if (familia.Contains("Desktop"))
+            if (IsMobile) EsconderBarraCelular();
+            else if (IsDesktop)
             {
                 CoreApplicationViewTitleBar tb = CoreApplication.GetCurrentView().TitleBar;
                 tb.ExtendViewIntoTitleBar = true;
@@ -75,8 +78,11 @@ namespace NFeFacil
 
         void PersonalizarDesign(bool usarFluent)
         {
-            Resources[typeof(CommandBar)] = Resources[usarFluent ? "FluentCommandBar" : "DefaultCommandBar"];
-            Resources[typeof(Button)] = Resources[usarFluent ? "FluentButton" : "DefaultButton"];
+            if (usarFluent && !IsMobile)
+            {
+                ((Style)Resources[typeof(CommandBar)]).BasedOn = (Style)Resources["CommandBarRevealStyle"];
+                ((Style)Resources[typeof(Button)]).BasedOn = (Style)Resources["ButtonRevealStyle"];
+            }
         }
     }
 }

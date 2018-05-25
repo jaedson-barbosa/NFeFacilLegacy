@@ -29,7 +29,7 @@ namespace BaseGeral.ModeloXML
 
         [DescricaoPropriedade("Cliente")]
         [XmlElement("dest", Order = 2)]
-        public Destinatario destinatário { get; set; }
+        public Destinatario destinatario { get; set; }
 
         public string AtualizarChave() => ChaveAcesso = new ChaveAcesso(this).CriarChaveAcesso();
     }

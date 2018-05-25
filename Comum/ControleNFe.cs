@@ -19,7 +19,7 @@ namespace Comum
                 Informacoes = new InformacoesNFe()
                 {
                     Emitente = DefinicoesTemporarias.EmitenteAtivo.ToEmitente(),
-                    destinatário = new Destinatario(),
+                    destinatario = new Destinatario(),
                     produtos = new List<DetalhesProdutos>(),
                     transp = new Transporte()
                     {

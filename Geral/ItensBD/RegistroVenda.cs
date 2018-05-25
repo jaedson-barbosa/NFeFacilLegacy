@@ -40,7 +40,7 @@ namespace BaseGeral.ItensBD
                 {
                     Informacoes = new InformacoesNFe
                     {
-                        destinatário = db.Clientes.Find(Cliente).ToDestinatario(),
+                        destinatario = db.Clientes.Find(Cliente).ToDestinatario(),
                         Emitente = db.Emitentes.Find(Emitente).ToEmitente(),
                         infAdic = new InformacoesAdicionais
                         {

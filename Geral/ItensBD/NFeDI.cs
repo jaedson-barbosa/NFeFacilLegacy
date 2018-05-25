@@ -40,7 +40,7 @@ namespace BaseGeral.ItensBD
                 throw new Exception();
 
             Id = nota.Informacoes.Id;
-            NomeCliente = nota.Informacoes.destinatário.Nome;
+            NomeCliente = nota.Informacoes.destinatario.Nome;
             NomeEmitente = nota.Informacoes.Emitente.Nome;
             CNPJEmitente = nota.Informacoes.Emitente.CNPJ.ToString();
             DataEmissao = DateTime.Parse(nota.Informacoes.identificacao.DataHoraEmissão).ToString("yyyy-MM-dd HH:mm:ss");
@@ -57,7 +57,7 @@ namespace BaseGeral.ItensBD
                 throw new Exception();
 
             Id = nota.Informacoes.Id;
-            NomeCliente = nota.Informacoes.destinatário?.Nome ?? "Desconhecido";
+            NomeCliente = nota.Informacoes.destinatario?.Nome ?? "Desconhecido";
             NomeEmitente = nota.Informacoes.Emitente.Nome;
             CNPJEmitente = nota.Informacoes.Emitente.CNPJ.ToString();
             DataEmissao = DateTime.Parse(nota.Informacoes.identificacao.DataHoraEmissão).ToString("yyyy-MM-dd HH:mm:ss");
@@ -74,7 +74,7 @@ namespace BaseGeral.ItensBD
                 throw new Exception();
 
             Id = nota.NFe.Informacoes.Id;
-            NomeCliente = nota.NFe.Informacoes.destinatário.Nome;
+            NomeCliente = nota.NFe.Informacoes.destinatario.Nome;
             NomeEmitente = nota.NFe.Informacoes.Emitente.Nome;
             CNPJEmitente = nota.NFe.Informacoes.Emitente.CNPJ.ToString();
             DataEmissao = DateTime.Parse(nota.NFe.Informacoes.identificacao.DataHoraEmissão).ToString("yyyy-MM-dd HH:mm:ss");
@@ -91,7 +91,7 @@ namespace BaseGeral.ItensBD
                 throw new Exception();
 
             Id = nota.NFe.Informacoes.Id;
-            NomeCliente = nota.NFe.Informacoes.destinatário?.Nome ?? "Desconhecido";
+            NomeCliente = nota.NFe.Informacoes.destinatario?.Nome ?? "Desconhecido";
             NomeEmitente = nota.NFe.Informacoes.Emitente.Nome;
             CNPJEmitente = nota.NFe.Informacoes.Emitente.CNPJ.ToString();
             DataEmissao = DateTime.Parse(nota.NFe.Informacoes.identificacao.DataHoraEmissão).ToString("yyyy-MM-dd HH:mm:ss");

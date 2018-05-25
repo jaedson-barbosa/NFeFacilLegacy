@@ -105,7 +105,7 @@ namespace Comum
         DadosCliente GetCliente()
         {
             var ident = Dados.NFe.Informacoes.identificacao;
-            var dest = Dados.NFe.Informacoes.destinatário;
+            var dest = Dados.NFe.Informacoes.destinatario;
             return new DadosCliente
             {
                 DocCliente = AplicarMáscaraDocumento(dest.Documento),

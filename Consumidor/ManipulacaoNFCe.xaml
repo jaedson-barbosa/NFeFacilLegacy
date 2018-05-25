@@ -4,7 +4,6 @@
       xmlns:local="using:Consumidor"
       xmlns:controles="using:BaseGeral.Controles"
       xmlns:controlesAux="using:Venda.ControlesAuxiliares"
-      xmlns:db="using:BaseGeral.ItensBD"
       xmlns:VM="using:BaseGeral.View"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -53,51 +52,13 @@
                           SelectedValuePath="Codigo" />
             </ItemsControl>
             <TextBlock Style="{StaticResource TitleTextBlockStyle}">Cliente</TextBlock>
-            <controlesAux:EscolhaCliente ClienteSelecionado="{x:Bind ClienteSelecionado, Mode=TwoWay}" />
+            <controlesAux:EscolhaCliente BuscaInicial="{x:Bind NotaSalva.Informacoes.destinatario.Documento}"
+                                         ClienteSelecionado="{x:Bind ClienteSelecionado, Mode=TwoWay}" />
             <TextBlock Style="{StaticResource TitleTextBlockStyle}"
                        Visibility="{x:Bind VisibilitadeTransportador, Mode=OneWay}">Motorista</TextBlock>
-            <Grid Visibility="{x:Bind VisibilitadeTransportador, Mode=OneWay}">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <TextBox PlaceholderText="Buscar"
-                         TextChanged="BuscarMotorista"
-                         HorizontalAlignment="Stretch" />
-                <GridView Grid.Row="1"
-                          ItemsSource="{x:Bind Motoristas.Itens}"
-                          ItemContainerTransitions="{StaticResource TransicoesLista}" ItemContainerStyle="{StaticResource ItensMedios}"
-                          SelectedItem="{x:Bind MotoristaSelecionado, Mode=TwoWay}"
-                          ScrollViewer.HorizontalScrollBarVisibility="Visible"
-                          ScrollViewer.HorizontalScrollMode="Enabled"
-                          Loaded="GridView_Loaded">
-                    <GridView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <ItemsWrapGrid Orientation="Vertical"
-                                           MaximumRowsOrColumns="2" />
-                        </ItemsPanelTemplate>
-                    </GridView.ItemsPanel>
-                    <GridView.ItemTemplate>
-                        <DataTemplate x:DataType="db:MotoristaDI">
-                            <Grid Padding="8">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-                                <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
-                                           Text="{x:Bind Documento, Converter={StaticResource mascara}}" />
-                                <TextBlock Grid.Row="1"
-                                           Style="{StaticResource BodyTextBlockStyle}"
-                                           Text="{x:Bind Nome}" />
-                                <TextBlock Grid.Row="2"
-                                           Style="{StaticResource BodyTextBlockStyle}"
-                                           Text="{x:Bind XMun}" />
-                            </Grid>
-                        </DataTemplate>
-                    </GridView.ItemTemplate>
-                </GridView>
-            </Grid>
+            <controlesAux:EscolhaMotorista Visibility="{x:Bind VisibilitadeTransportador, Mode=OneWay}"
+                                           BuscaInicial="{x:Bind NotaSalva.Informacoes.transp.Transporta.Documento}"
+                                           MotoristaSelecionado="{x:Bind MotoristaSelecionado, Mode=TwoWay}" />
             <TextBlock Style="{StaticResource TitleTextBlockStyle}">Informações adicionais</TextBlock>
             <controles:RichEditBoxExtended Text="{x:Bind NotaSalva.Informacoes.infAdic.InfAdFisco, Mode=TwoWay}"
                                            Header="Informacoes adicionais de interesse do fisco" />

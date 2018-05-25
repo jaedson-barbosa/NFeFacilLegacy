@@ -200,7 +200,7 @@ namespace Consumidor
 
         void ProcessarConsumidor()
         {
-            var dest = NFCe.Informacoes.destinatário;
+            var dest = NFCe.Informacoes.destinatario;
             var end = dest?.Endereco;
             if (dest == null)
             {

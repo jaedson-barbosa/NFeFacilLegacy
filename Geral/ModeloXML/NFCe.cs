@@ -26,7 +26,7 @@ namespace BaseGeral.ModeloXML
             var chNFe = Informacoes.ChaveAcesso;
             var nVersao = "100";
             var tpAmb = Informacoes.identificacao.TipoAmbiente;
-            var cDest = Informacoes.destinatário?.Documento;
+            var cDest = Informacoes.destinatario?.Documento;
             cDest = string.IsNullOrEmpty(cDest) ? null : cDest;
             var dhEmi = ToHex(Informacoes.identificacao.DataHoraEmissão);
             var vNF = ExtensoesPrincipal.ToStr(Informacoes.total.ICMSTot.vNF);

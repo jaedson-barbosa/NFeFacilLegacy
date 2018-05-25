@@ -115,7 +115,7 @@ namespace NFeFacil.View
                     var xml = await ImportacaoDados.ObterXMLNFe(arq);
                     var proc = xml.FromXElement<ProcessoNFe>();
                     var nfe = proc.NFe;
-                    if (nfe.Informacoes.destinatário.CNPJ == DefinicoesTemporarias.EmitenteAtivo.CNPJ)
+                    if (nfe.Informacoes.destinatario.CNPJ == DefinicoesTemporarias.EmitenteAtivo.CNPJ)
                     {
                         ClienteDI c;
                         using (var repo = new BaseGeral.Repositorio.Leitura())
@@ -124,7 +124,7 @@ namespace NFeFacil.View
                         }
                         if (c != null)
                         {
-                            nfe.Informacoes.destinatário = c.ToDestinatario();
+                            nfe.Informacoes.destinatario = c.ToDestinatario();
                             nfe.Informacoes.Emitente = DefinicoesTemporarias.EmitenteAtivo.ToEmitente();
                             nfe.Informacoes.identificacao.TipoOperacao = 0;
                             var analisador = new AnalisadorNFe(ref nfe);

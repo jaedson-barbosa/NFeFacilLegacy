@@ -93,7 +93,7 @@ namespace Comum
         {
             get
             {
-                var dest = NotaSalva.Informacoes.destinatário;
+                var dest = NotaSalva.Informacoes.destinatario;
                 if (clienteSelecionado == null && dest != null)
                 {
                     clienteSelecionado = Clientes.BuscarViaDocumento(dest.Documento);
@@ -103,10 +103,10 @@ namespace Comum
             set
             {
                 clienteSelecionado = value;
-                NotaSalva.Informacoes.destinatário = value?.ToDestinatario();
-                if (NotaSalva.AmbienteTestes && NotaSalva.Informacoes.destinatário != null)
+                NotaSalva.Informacoes.destinatario = value?.ToDestinatario();
+                if (NotaSalva.AmbienteTestes && NotaSalva.Informacoes.destinatario != null)
                 {
-                    NotaSalva.Informacoes.destinatário.Nome = NomeClienteHomologacao;
+                    NotaSalva.Informacoes.destinatario.Nome = NomeClienteHomologacao;
                 }
             }
         }
@@ -300,7 +300,7 @@ namespace Comum
             {
                 if (NotaSalva.AmbienteTestes)
                 {
-                    NotaSalva.Informacoes.destinatário.Nome = NomeClienteHomologacao;
+                    NotaSalva.Informacoes.destinatario.Nome = NomeClienteHomologacao;
                 }
 
                 var ultPage = Frame.BackStack[Frame.BackStack.Count - 1];
@@ -342,7 +342,7 @@ namespace Comum
                     var acoes = (AcoesNFe)ultPage.Parameter;
                     var di = acoes.ItemBanco;
                     di.Id = nota.Informacoes.Id;
-                    di.NomeCliente = nota.Informacoes.destinatário.Nome;
+                    di.NomeCliente = nota.Informacoes.destinatario.Nome;
                     di.DataEmissao = DateTime.Parse(nota.Informacoes.identificacao.DataHoraEmissão).ToString("yyyy-MM-dd HH:mm:ss");
                     di.Status = (int)StatusNota.Validada;
                     di.XML = nota.ToXElement().ToString();

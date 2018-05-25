@@ -121,6 +121,9 @@
     <Compile Include="ControlesAuxiliares\EscolhaCliente.xaml.cs">
       <DependentUpon>EscolhaCliente.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ControlesAuxiliares\EscolhaMotorista.xaml.cs">
+      <DependentUpon>EscolhaMotorista.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DadosAdicaoProduto.cs" />
     <Compile Include="GerenciadorImpressao.cs" />
     <Compile Include="GerenciamentoProdutos\AdicionarAlteracaoEstoque.xaml.cs">
@@ -363,6 +366,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ControlesAuxiliares\EscolhaCliente.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ControlesAuxiliares\EscolhaMotorista.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

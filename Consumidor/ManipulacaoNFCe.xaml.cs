@@ -12,7 +12,6 @@ using BaseGeral;
 using BaseGeral.View;
 using Fiscal;
 using System.ComponentModel;
-using BaseGeral.Buscador;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -26,17 +25,12 @@ namespace Consumidor
     {
         NFCe NotaSalva { get; set; }
         Visibility VisibilitadeTransportador { get; set; }
-        BuscadorCliente Clientes { get; }
-        BuscadorMotorista Motoristas { get; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         public ManipulacaoNFCe()
         {
             InitializeComponent();
-            VisibilitadeTransportador = Visibility.Collapsed;
-            Clientes = new BuscadorCliente();
-            Motoristas = new BuscadorMotorista();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -44,6 +38,8 @@ namespace Consumidor
             NotaSalva = (NFCe)e.Parameter;
             MunicipiosIdentificacao = Municipios.Get(NotaSalva.Informacoes.identificacao.CódigoUF).GerarObs();
             FormasPagamento = NotaSalva.Informacoes.FormasPagamento.Select(x => new FormaPagamento(x)).GerarObs();
+            var indPresenca = NotaSalva.Informacoes.identificacao.IndicadorPresenca;
+            VisibilitadeTransportador = (Visibility)(indPresenca == 4 ? 0 : 1);
         }
 
         string IndicadorPresenca
@@ -116,34 +112,18 @@ namespace Consumidor
         ClienteDI clienteSelecionado;
         ClienteDI ClienteSelecionado
         {
-            get
-            {
-                var dest = NotaSalva.Informacoes.destinatário;
-                if (clienteSelecionado == null && dest != null)
-                {
-                    clienteSelecionado = Clientes.BuscarViaDocumento(dest.Documento);
-                }
-                return clienteSelecionado;
-            }
+            get => clienteSelecionado;
             set
             {
                 clienteSelecionado = value;
-                NotaSalva.Informacoes.destinatário = value?.ToDestinatario();
+                NotaSalva.Informacoes.destinatario = value?.ToDestinatario();
             }
         }
 
         MotoristaDI motoristaSelecionado;
         MotoristaDI MotoristaSelecionado
         {
-            get
-            {
-                var mot = NotaSalva.Informacoes.transp?.Transporta;
-                if (motoristaSelecionado == null && mot?.Documento != null)
-                {
-                    motoristaSelecionado = Motoristas.BuscarViaDocumento(mot.Documento);
-                }
-                return motoristaSelecionado;
-            }
+            get => motoristaSelecionado;
             set
             {
                 motoristaSelecionado = value;
@@ -159,18 +139,6 @@ namespace Consumidor
             {
                 input.ScrollIntoView(cliente, ScrollIntoViewAlignment.Leading);
             }
-        }
-
-        private void BuscarCliente(object sender, TextChangedEventArgs e)
-        {
-            var busca = ((TextBox)sender).Text;
-            Clientes.Buscar(busca);
-        }
-
-        private void BuscarMotorista(object sender, TextChangedEventArgs e)
-        {
-            var busca = ((TextBox)sender).Text;
-            Motoristas.Buscar(busca);
         }
 
         void Confirmar(object sender, RoutedEventArgs e)
@@ -212,7 +180,7 @@ namespace Consumidor
                     var acoes = (AcoesNFCe)ultPage.Parameter;
                     var di = acoes.ItemBanco;
                     di.Id = nota.Informacoes.Id;
-                    di.NomeCliente = nota.Informacoes.destinatário?.Nome ?? "Desconhecido";
+                    di.NomeCliente = nota.Informacoes.destinatario?.Nome ?? "Desconhecido";
                     di.DataEmissao = DateTime.Parse(nota.Informacoes.identificacao.DataHoraEmissão).ToString("yyyy-MM-dd HH:mm:ss");
                     di.Status = (int)StatusNota.Validada;
                     di.XML = nota.ToXElement().ToString();

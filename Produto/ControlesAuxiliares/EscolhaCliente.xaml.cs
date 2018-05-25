@@ -17,9 +17,24 @@ namespace Venda.ControlesAuxiliares
 
         public ClienteDI ClienteSelecionado
         {
-            get => (ClienteDI)GetValue(ClienteSelecionadoProperty);
+            get
+            {
+                var cliente = (ClienteDI)GetValue(ClienteSelecionadoProperty);
+                if (cliente == null)
+                    cliente = Clientes.BuscarViaDocumento(BuscaInicial);
+                MoverParaItemSelecionado(cliente);
+                return cliente;
+            }
             set => SetValue(ClienteSelecionadoProperty, value);
         }
+
+        public static DependencyProperty BuscaInicialProperty = DependencyProperty.Register(
+            nameof(BuscaInicial),
+            typeof(string),
+            typeof(EscolhaCliente),
+            new PropertyMetadata(null, (x, y) => ((EscolhaCliente)x).BuscaInicial = (string)y.NewValue));
+
+        public string BuscaInicial { get; set; }
 
         BuscadorCliente Clientes { get; }
 
@@ -29,20 +44,16 @@ namespace Venda.ControlesAuxiliares
             Clientes = new BuscadorCliente();
         }
 
-        private void BuscarCliente(object sender, TextChangedEventArgs e)
+        void BuscarCliente(object sender, TextChangedEventArgs e)
         {
             var busca = ((TextBox)sender).Text;
             Clientes.Buscar(busca);
         }
 
-        private void GridView_Loaded(object sender, RoutedEventArgs e)
+        void MoverParaItemSelecionado(ClienteDI cliente)
         {
-            var input = (GridView)sender;
-            var cliente = input.SelectedItem;
             if (cliente != null)
-            {
-                input.ScrollIntoView(cliente, ScrollIntoViewAlignment.Leading);
-            }
+                grdView.ScrollIntoView(cliente, ScrollIntoViewAlignment.Leading);
         }
     }
 }

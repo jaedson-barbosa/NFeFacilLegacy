@@ -278,8 +278,8 @@ namespace Fiscal
             public NotaProcessada(DateTime data, NFe nota)
             {
                 Mes = data.Month;
-                NomeCliente = nota.Informacoes.destinatário.Nome;
-                DocumentoCliente = nota.Informacoes.destinatário.Documento;
+                NomeCliente = nota.Informacoes.destinatario.Nome;
+                DocumentoCliente = nota.Informacoes.destinatario.Documento;
                 Total = nota.Informacoes.total.ICMSTot.vNF;
                 Produtos = nota.Informacoes.produtos.Select(x => new ProdutoProcessado
                 {

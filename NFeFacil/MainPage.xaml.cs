@@ -204,8 +204,8 @@ namespace NFeFacil
                     else if (primarios[index] is Control control)
                         control.Focus(FocusState.Keyboard);
                 }
+                e.Handled = true;
             }
-            e.Handled = true;
         }
     }
 }

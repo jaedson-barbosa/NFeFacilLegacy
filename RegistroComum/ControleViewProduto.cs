@@ -104,7 +104,10 @@ namespace RegistroComum
             BasicMainPage.Current.Retornar();
         }
 
-        public bool Validar() => true;
+        public bool Validar()
+        {
+            return Venda.Produtos.Count > 0;
+        }
 
         public void Voltar()
         {

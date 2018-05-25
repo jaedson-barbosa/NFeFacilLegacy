@@ -2,11 +2,15 @@
 using BaseGeral.View;
 using NFeFacil.View;
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using Windows.System.Profile;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
@@ -158,6 +162,50 @@ namespace NFeFacil
                 menuTemporario.ItemsSource = null;
                 splitView.CompactPaneLength = 0;
             }
+
+            var pagina = (Page)navegada;
+            if (pagina.BottomAppBar is CommandBar bar)
+                BarraSecundaria = bar;
+            else BarraSecundaria = null;
+        }
+
+        CommandBar BarraSecundaria;
+        void TeclaPressionada(object sender, KeyRoutedEventArgs e)
+        {
+            if (BarraSecundaria == null) return;
+            IList<ICommandBarElement> primarios = BarraSecundaria.PrimaryCommands,
+                secundarios = BarraSecundaria.SecondaryCommands;
+            if (primarios.Count == 0) return;
+            int cod = (int)e.Key;
+            if (cod >= 112 && cod <= 135)
+            {
+                int teclaF = (int)e.Key - 111, index = teclaF - 1;
+                if (secundarios?.Count > 0)
+                {
+                    if (teclaF > primarios.Count)
+                    {
+                        BarraSecundaria.IsOpen = true;
+                        if (teclaF - primarios.Count > secundarios.Count)
+                            index = secundarios.Count - 1;
+                        else index = teclaF - primarios.Count - 1;
+                        if (secundarios[index] is Control control)
+                            control.Focus(FocusState.Keyboard);
+                    }
+                    else if (primarios[index] is Control control)
+                    {
+                        BarraSecundaria.IsOpen = false;
+                        control.Focus(FocusState.Keyboard);
+                    }
+                }
+                else
+                {
+                    if (teclaF > primarios.Count)
+                        BarraSecundaria.IsOpen = !BarraSecundaria.IsOpen;
+                    else if (primarios[index] is Control control)
+                        control.Focus(FocusState.Keyboard);
+                }
+            }
+            e.Handled = true;
         }
     }
 }

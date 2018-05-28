@@ -165,20 +165,30 @@ namespace NFeFacil
 
             var pagina = (Page)navegada;
             if (pagina.BottomAppBar is CommandBar bar)
+            {
                 BarraSecundaria = bar;
-            else BarraSecundaria = null;
+                PossuiBotoesPrimarios = bar.PrimaryCommands?.Count > 0;
+                PossuiBotoesSecundarios = bar.SecondaryCommands?.Count > 0;
+            }
+            else
+            {
+                BarraSecundaria = null;
+                PossuiBotoesPrimarios = PossuiBotoesSecundarios = false;
+            }
+            PossuiBotoes = PossuiBotoesPrimarios || PossuiBotoesSecundarios;
         }
 
         CommandBar BarraSecundaria;
+        bool PossuiBotoesPrimarios;
+        bool PossuiBotoesSecundarios;
+        bool PossuiBotoes;
         void TeclaPressionada(object sender, KeyRoutedEventArgs e)
         {
-            if (BarraSecundaria == null) return;
-            IList<ICommandBarElement> primarios = BarraSecundaria.PrimaryCommands,
-                secundarios = BarraSecundaria.SecondaryCommands;
-            if (primarios.Count == 0) return;
             int cod = (int)e.Key;
-            if (cod >= 112 && cod <= 135)
+            if (BarraSecundaria != null && cod >= 112 && cod <= 135 && PossuiBotoes)
             {
+                IList<ICommandBarElement> primarios = BarraSecundaria.PrimaryCommands,
+                    secundarios = BarraSecundaria.SecondaryCommands;
                 int teclaF = (int)e.Key - 111, index = teclaF - 1;
                 if (secundarios?.Count > 0)
                 {

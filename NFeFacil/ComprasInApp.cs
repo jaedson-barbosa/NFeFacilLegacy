@@ -19,6 +19,7 @@ namespace NFeFacil
                 var storeContext = StoreContext.GetDefault();
                 string[] productKinds = { "Durable" };
                 var addOns = await storeContext.GetAssociatedStoreProductsAsync(productKinds);
+                if (addOns.ExtendedError != null) throw addOns.ExtendedError;
                 if (Resumo == null)
                 {
                     Resumo = new Dictionary<Compras, bool>(2)
@@ -43,7 +44,7 @@ namespace NFeFacil
                         { Compras.Personalizacao, false }
                     };
                 }
-                e.ManipularErro();
+                new Exception("Erro ao obter as informações das compras dentro do aplicativo.", e).ManipularErro();
             }
         }
 

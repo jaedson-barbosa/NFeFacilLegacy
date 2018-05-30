@@ -57,6 +57,10 @@ namespace Comum
             var total = Dados.NFe.Informacoes.total.ICMSTot;
 
             var itens = new List<ItemDadosAdicionais>();
+            if (Dados.NFe.AmbienteTestes)
+            {
+                itens.Add(new ItemDadosAdicionais("SEM VALOR FISCAL"));
+            }
             if (retirada != null)
             {
                 itens.Add(new ItemDadosAdicionais("ENDEREÇO DE RETIRADA:", $"{retirada.Logradouro}, {retirada.Numero}", retirada.Bairro, $"{retirada.NomeMunicipio} - {retirada.SiglaUF}", retirada.CNPJ != null ? $"CNPJ: {AplicarMáscaraDocumento(retirada.CNPJ)}" : $"CPF: {AplicarMáscaraDocumento(retirada.CPF)}"));

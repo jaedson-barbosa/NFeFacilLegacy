@@ -48,7 +48,7 @@ namespace RegistroComum
                     Compradores.Clear();
                     for (int i = 0; i < compradores.Length; i++)
                     {
-                        Compradores.Add(Compradores[i]);
+                        Compradores.Add(compradores[i]);
                     }
                 }
                 cmbComprador.IsEnabled = compradores?.Length > 0;

@@ -30,7 +30,8 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <Image Source="{x:Bind Contexto.Logotipo}" />
+                <Image Source="{x:Bind Contexto.Logotipo}"
+                       MaxWidth="150" />
                 <StackPanel Grid.Column="1"
                             Padding="{StaticResource PaddingPadrao}">
                     <TextBlock TextAlignment="Center"

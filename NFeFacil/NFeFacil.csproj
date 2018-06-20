@@ -17,8 +17,8 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
-    <PackageCertificateKeyFile>NFeFacil_TemporaryKey.pfx</PackageCertificateKeyFile>
-    <PackageCertificateThumbprint>EEBEF70997852EE3489F2A8433251C70099085F0</PackageCertificateThumbprint>
+    <PackageCertificateKeyFile>NFeFacil_StoreKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateThumbprint>05AEEE92C53FDB7E46BA2AB22D07F3041840590A</PackageCertificateThumbprint>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
     <AppxBundle>Always</AppxBundle>
@@ -156,7 +156,6 @@
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
     <Content Include="Assets\ICP-Brasilv5.cer" />
     <None Include="NFeFacil_StoreKey.pfx" />
-    <None Include="NFeFacil_TemporaryKey.pfx" />
     <None Include="Properties\ServiceReferences.Designer.ClientConfig" />
   </ItemGroup>
   <ItemGroup>

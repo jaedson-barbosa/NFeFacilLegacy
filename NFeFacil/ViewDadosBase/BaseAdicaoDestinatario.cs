@@ -1,10 +1,11 @@
-﻿using NFeFacil.Validacao;
+﻿using BaseGeral.Validacao;
 using Windows.UI.Xaml.Navigation;
 using System;
-using NFeFacil.ItensBD;
+using BaseGeral.ItensBD;
 using System.Collections.ObjectModel;
-using NFeFacil.IBGE;
+using BaseGeral.IBGE;
 using System.Linq;
+using BaseGeral;
 
 namespace NFeFacil.ViewDadosBase
 {
@@ -70,7 +71,7 @@ namespace NFeFacil.ViewDadosBase
                     (string.IsNullOrEmpty(Cliente.Nome), "Não foi informado o nome do cliente"),
                     (string.IsNullOrEmpty(Cliente.Documento), "Não foi informado nenhum documento de identificação do cliente")))
                 {
-                    using (var repo = new Repositorio.Escrita())
+                    using (var repo = new BaseGeral.Repositorio.Escrita())
                     {
                         repo.SalvarItemSimples(Cliente, DefinicoesTemporarias.DateTimeNow);
                     }

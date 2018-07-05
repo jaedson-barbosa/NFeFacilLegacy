@@ -1,0 +1,52 @@
+﻿<Page x:Class="RegistroComum.RegistrosVenda"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="using:RegistroComum"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d">
+    <ListView ItemsSource="{x:Bind Vendas}"
+              Padding="16">
+        <ListView.Header>
+            <Grid Style="{StaticResource Cabecalho}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
+                           VerticalAlignment="Bottom"
+                           HorizontalAlignment="Center">Vendedor</TextBlock>
+                <TextBlock Grid.Column="1"
+                           Style="{StaticResource SubtitleTextBlockStyle}"
+                           VerticalAlignment="Bottom"
+                           HorizontalAlignment="Center">Cliente</TextBlock>
+                <TextBlock Grid.Column="2"
+                           Style="{StaticResource SubtitleTextBlockStyle}"
+                           VerticalAlignment="Bottom"
+                           HorizontalAlignment="Center">Data</TextBlock>
+            </Grid>
+        </ListView.Header>
+        <ListView.ItemTemplate>
+            <DataTemplate x:DataType="local:ExibicaoVenda">
+                <Grid>
+                    <Grid.ContextFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Click="Exibir">Exibir</MenuFlyoutItem>
+                        </MenuFlyout>
+                    </Grid.ContextFlyout>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="{x:Bind NomeVendedor}" />
+                    <TextBlock Grid.Column="1"
+                               Text="{x:Bind NomeCliente}" />
+                    <TextBlock Grid.Column="2"
+                               Text="{x:Bind DataHoraVenda}" />
+                </Grid>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+</Page>

@@ -1,7 +1,7 @@
 ﻿<Page x:Class="NFeFacil.View.Informacoes"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:controles="using:NFeFacil.Controles"
+      xmlns:controles="using:BaseGeral.Controles"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
@@ -78,29 +78,29 @@
                 </Paragraph>
                 <Paragraph>
                     <Bold>Número:</Bold>
-                    <Run>1.9</Run>
+                    <Run>1.10</Run>
                 </Paragraph>
                 <Paragraph>
                     <Bold>Revisão:</Bold>
-                    <Run>20</Run>
+                    <Run>14</Run>
                 </Paragraph>
             </RichTextBlock>
             <TextBlock Style="{StaticResource TitleTextBlockStyle}">Ajude o desenvolvedor</TextBlock>
-            <GridView Style="{StaticResource ItensMediosGrid}"
-                      x:Name="grdCompra">
-                <controles:ItemPadraoSimples Titulo="10 reais"
-                                             Descricao="Ajude meu trabalho com essa pequena quantia"
-                                             Tapped="Doar10">
+            <ItemsControl x:Name="grdCompra"
+                          Style="{StaticResource ItensSimples}">
+                <controles:ItemPadrao Titulo="10 reais"
+                                      Descricao="Ajude meu trabalho com essa pequena quantia"
+                                      Click="Doar10">
                     <FontIcon FontFamily="Segoe UI"
                               Glyph="10" />
-                </controles:ItemPadraoSimples>
-                <controles:ItemPadraoSimples Titulo="25 reais"
-                                             Descricao="Contribua com essa quantia maior"
-                                             Tapped="Doar25">
+                </controles:ItemPadrao>
+                <controles:ItemPadrao Titulo="25 reais"
+                                      Descricao="Contribua com essa quantia maior"
+                                      Click="Doar25">
                     <FontIcon FontFamily="Segoe UI"
                               Glyph="25" />
-                </controles:ItemPadraoSimples>
-            </GridView>
+                </controles:ItemPadrao>
+            </ItemsControl>
             <TextBlock Style="{StaticResource BodyTextBlockStyle}"><Bold>Atenção: </Bold><Run>Doações para o desenvolvedor não garantem nenhum recurso especial ou libera qualquer adicional pago do aplicativo.</Run></TextBlock>
         </StackPanel>
     </ScrollViewer>

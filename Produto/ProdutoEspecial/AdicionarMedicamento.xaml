@@ -1,0 +1,29 @@
+﻿<ContentDialog x:Class="Venda.ProdutoEspecial.AdicionarMedicamento"
+               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:controles="using:BaseGeral.Controles"
+               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+               xmlns:contexto="using:BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesProdutoOuServico"
+               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+               mc:Ignorable="d"
+               Title="Adicionar medicamento"
+               PrimaryButtonText="Adicionar"
+               SecondaryButtonText="Cancelar">
+    <ContentDialog.DataContext>
+        <contexto:Medicamento />
+    </ContentDialog.DataContext>
+    <ItemsControl Style="{StaticResource ItensResponsivos}">
+        <TextBox Text="{x:Bind Contexto.NLote, Mode=TwoWay}"
+                 Header="Número do Lote" />
+        <controles:EntradaNumerica Format="8:3"
+                                   Number="{x:Bind Contexto.QLote, Mode=TwoWay}"
+                                   Header="Quantidade no lote" />
+        <DatePicker Date="{x:Bind Contexto.DFab, Converter={StaticResource data}, ConverterParameter='yyyy-MM-dd', Mode=TwoWay}"
+                    Header="Data de fabricação" />
+        <DatePicker Date="{x:Bind Contexto.DVal, Converter={StaticResource data}, ConverterParameter='yyyy-MM-dd', Mode=TwoWay}"
+                    Header="Data de validade" />
+        <controles:EntradaNumerica Format="13:2"
+                                   Number="{x:Bind Contexto.VPMC,Mode=TwoWay}"
+                                   Header="Preço máximo consumidor" />
+    </ItemsControl>
+</ContentDialog>

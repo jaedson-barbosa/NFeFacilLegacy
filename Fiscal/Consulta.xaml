@@ -1,0 +1,31 @@
+﻿<Page xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:vm="using:BaseGeral.View"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      x:Class="Fiscal.Consulta"
+      mc:Ignorable="d">
+    <Grid x:Name="grdPrincipal"
+          Padding="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <TextBox Header="Chave da NFe/NFCe"
+                 Text="{x:Bind Chave, Mode=TwoWay}"
+                 Grid.ColumnSpan="2" />
+        <ItemsControl Grid.Row="1"
+                      Margin="0,8"
+                      Style="{StaticResource ItensResponsivos}">
+            <CheckBox IsChecked="{x:Bind Homologacao, Mode=TwoWay}">
+                <TextBlock>Ambiente de homologação</TextBlock>
+            </CheckBox>
+            <ComboBox ItemsSource="{x:Bind vm:DadosEstadosParaView.EstadosCompletos}"
+                      DisplayMemberPath="Nome"
+                      PlaceholderText="Estado"
+                      SelectedItem="{x:Bind UF, Mode=TwoWay}" />
+            <Button Content="Analisar nota"
+                    Click="Analisar" />
+        </ItemsControl>
+    </Grid>
+</Page>

@@ -1,19 +1,22 @@
-﻿using NFeFacil.Certificacao;
-using NFeFacil.Sincronizacao;
+﻿using BaseGeral;
+using BaseGeral.Certificacao;
+using BaseGeral.Sincronizacao;
+using BaseGeral.View;
 using System;
+using System.ComponentModel;
 using System.IO;
 using Windows.Storage.Pickers;
 using Windows.System.Profile;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Navigation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace NFeFacil.View
 {
     [DetalhePagina(Symbol.Setting, "Configurações")]
-    public sealed partial class Configuracoes : Page
+    public sealed partial class Configuracoes : Page, INotifyPropertyChanged
     {
         public Configuracoes()
         {
@@ -21,13 +24,20 @@ namespace NFeFacil.View
             ItensMenu = new string[]
             {
                 "Geral",
-                "Backup",
                 "Modos de busca",
-                "Background",
+                "Personalização",
                 "DANFE NFCe",
+                "Controle de estoque",
                 "Compras"
             };
             AnalisarCompras();
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            DefinicoesPermanentes.ConfiguracoesEstoque.SalvarModificacoes();
         }
 
         string[] ItensMenu { get; }
@@ -50,67 +60,14 @@ namespace NFeFacil.View
         }
         bool InstalacaoLiberada => AnalyticsInfo.VersionInfo.DeviceFamily.Contains("Desktop");
 
-        bool DesconsiderarHorarioVerao
+        bool PacotePersonalizacaoComprado { get; set; }
+        bool FluentDesign
         {
-            get => DefinicoesPermanentes.SuprimirHorarioVerao;
-            set => DefinicoesPermanentes.SuprimirHorarioVerao = value;
+            get => DefinicoesPermanentes.UsarFluent;
+            set => DefinicoesPermanentes.UsarFluent = value;
         }
 
-        bool CalcularNumeroNFe
-        {
-            get => DefinicoesPermanentes.CalcularNumeroNFe;
-            set => DefinicoesPermanentes.CalcularNumeroNFe = value;
-        }
-
-        int VersaoSoap
-        {
-            get => DefinicoesPermanentes.UsarSOAP12 ? 1 : 0;
-            set => DefinicoesPermanentes.UsarSOAP12 = value == 1;
-        }
-
-        int ModoBuscaProduto
-        {
-            get => DefinicoesPermanentes.ModoBuscaProduto;
-            set => DefinicoesPermanentes.ModoBuscaProduto = value;
-        }
-
-        int ModoBuscaCliente
-        {
-            get => DefinicoesPermanentes.ModoBuscaCliente;
-            set => DefinicoesPermanentes.ModoBuscaCliente = value;
-        }
-
-        int ModoBuscaComprador
-        {
-            get => DefinicoesPermanentes.ModoBuscaComprador;
-            set => DefinicoesPermanentes.ModoBuscaComprador = value;
-        }
-
-        int ModoBuscaMotorista
-        {
-            get => DefinicoesPermanentes.ModoBuscaMotorista;
-            set => DefinicoesPermanentes.ModoBuscaMotorista = value;
-        }
-
-        int ModoBuscaVendedor
-        {
-            get => DefinicoesPermanentes.ModoBuscaVendedor;
-            set => DefinicoesPermanentes.ModoBuscaVendedor = value;
-        }
-
-        double LarguraDANFENFCe
-        {
-            get => DefinicoesPermanentes.LarguraDANFENFCe;
-            set => DefinicoesPermanentes.LarguraDANFENFCe = value;
-        }
-
-        double MargemDANFENFCe
-        {
-            get => DefinicoesPermanentes.MargemDANFENFCe;
-            set => DefinicoesPermanentes.MargemDANFENFCe = value;
-        }
-
-        async void UsarImagem(object sender, TappedRoutedEventArgs e)
+        async void UsarImagem(object sender, RoutedEventArgs e)
         {
             var brushAtual = MainPage.Current.ImagemBackground;
             if (DefinicoesPermanentes.IDBackgroung == default(Guid))
@@ -125,28 +82,27 @@ namespace NFeFacil.View
             }
         }
 
-        void UsarCor(object sender, TappedRoutedEventArgs e)
+        void UsarCor(object sender, RoutedEventArgs e)
         {
             MainPage.Current.DefinirTipoBackground(TiposBackground.Cor);
         }
 
-        async void EscolherTransparencia(object sender, TappedRoutedEventArgs e)
+        async void EscolherTransparencia(object sender, RoutedEventArgs e)
         {
             var caixa = new EscolherTransparencia(DefinicoesPermanentes.OpacidadeBackground);
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
-                DefinicoesPermanentes.OpacidadeBackground = caixa.Opacidade;
                 MainPage.Current.DefinirOpacidadeBackground(caixa.Opacidade);
             }
         }
 
-        void Resetar(object sender, TappedRoutedEventArgs e)
+        void Resetar(object sender, RoutedEventArgs e)
         {
             DefinicoesPermanentes.OpacidadeBackground = 1;
             MainPage.Current.DefinirTipoBackground(TiposBackground.Padrao);
         }
 
-        async void SalvarBackup(object sender, TappedRoutedEventArgs e)
+        async void SalvarBackup(object sender, RoutedEventArgs e)
         {
             var objeto = new ConjuntoBanco();
             objeto.AtualizarPadrao();
@@ -172,7 +128,7 @@ namespace NFeFacil.View
             btnComprarNFCe.IsEnabled = !comprado;
             comprado = ComprasInApp.Resumo[Compras.Personalizacao];
             btnComprarBackground.IsEnabled = !comprado;
-            itnBackground.IsEnabled = comprado;
+            PacotePersonalizacaoComprado = comprado;
         }
 
         async void ComprarNFCe(object sender, RoutedEventArgs e)
@@ -185,7 +141,8 @@ namespace NFeFacil.View
         {
             var comprado = await ComprasInApp.Comprar(Compras.Personalizacao);
             btnComprarBackground.IsEnabled = !comprado;
-            itnBackground.IsEnabled = comprado;
+            PacotePersonalizacaoComprado = comprado;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PacotePersonalizacaoComprado)));
         }
 
         async void ReanalizarCompras(object sender, RoutedEventArgs e)

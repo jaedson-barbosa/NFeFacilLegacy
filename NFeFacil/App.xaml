@@ -12,17 +12,19 @@
                     <x:String x:Key="ImagemArma">ms-appx:///Assets/ArmaDark.png</x:String>
                 </ResourceDictionary>
             </ResourceDictionary.ThemeDictionaries>
+            <TransitionCollection x:Key="TransicoesLista">
+                <EntranceThemeTransition IsStaggeringEnabled="True" />
+                <RepositionThemeTransition IsStaggeringEnabled="False" />
+            </TransitionCollection>
+            <Style TargetType="CommandBar">
+                <Setter Property="Background"
+                        Value="Transparent" />
+            </Style>
+            <Style TargetType="Button" />
             <Style x:Key="ItensResponsivos"
                    TargetType="ItemsControl">
-                <Setter Property="Margin"
-                        Value="-4" />
-                <Setter Property="ItemContainerTransitions">
-                    <Setter.Value>
-                        <TransitionCollection>
-                            <RepositionThemeTransition IsStaggeringEnabled="False" />
-                        </TransitionCollection>
-                    </Setter.Value>
-                </Setter>
+                <Setter Property="ItemContainerTransitions"
+                        Value="{StaticResource TransicoesLista}" />
                 <Setter Property="ItemsPanel">
                     <Setter.Value>
                         <ItemsPanelTemplate>
@@ -43,45 +45,36 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-            <Style x:Key="ItensMedios"
+            <Style x:Key="ItensSimples"
                    TargetType="ItemsControl">
-                <Setter Property="ItemContainerTransitions">
-                    <Setter.Value>
-                        <TransitionCollection>
-                            <EntranceThemeTransition IsStaggeringEnabled="True" />
-                            <RepositionThemeTransition IsStaggeringEnabled="False" />
-                        </TransitionCollection>
-                    </Setter.Value>
-                </Setter>
+                <Setter Property="ItemContainerTransitions"
+                        Value="{StaticResource TransicoesLista}" />
                 <Setter Property="ItemsPanel">
                     <Setter.Value>
                         <ItemsPanelTemplate>
-                            <aux:PainelAdaptavel TamanhoDesejado="200" />
+                            <ItemsWrapGrid Orientation="Horizontal" />
                         </ItemsPanelTemplate>
                     </Setter.Value>
                 </Setter>
             </Style>
-            <Style x:Key="ItensMediosGrid"
-                   TargetType="GridView"
-                   BasedOn="{StaticResource ItensMedios}">
-                <Setter Property="ItemContainerStyle">
-                    <Setter.Value>
-                        <Style TargetType="GridViewItem">
-                            <Setter Property="Padding"
-                                    Value="0" />
-                            <Setter Property="Margin"
-                                    Value="8" />
-                            <Setter Property="HorizontalAlignment"
-                                    Value="Stretch" />
-                            <Setter Property="HorizontalContentAlignment"
-                                    Value="Stretch" />
-                            <Setter Property="VerticalAlignment"
-                                    Value="Stretch" />
-                            <Setter Property="VerticalContentAlignment"
-                                    Value="Stretch" />
-                        </Style>
-                    </Setter.Value>
-                </Setter>
+            <Style x:Key="ItensMedios"
+                   TargetType="GridViewItem">
+                <Setter Property="Padding"
+                        Value="0" />
+                <Setter Property="Margin"
+                        Value="8" />
+                <Setter Property="HorizontalAlignment"
+                        Value="Stretch" />
+                <Setter Property="HorizontalContentAlignment"
+                        Value="Stretch" />
+                <Setter Property="VerticalAlignment"
+                        Value="Stretch" />
+                <Setter Property="VerticalContentAlignment"
+                        Value="Stretch" />
+                <Setter Property="Width"
+                        Value="200" />
+                <Setter Property="MinHeight"
+                        Value="160" />
             </Style>
             <aux:BibliotecaCores x:Key="cores" />
             <SolidColorBrush x:Key="Normal"

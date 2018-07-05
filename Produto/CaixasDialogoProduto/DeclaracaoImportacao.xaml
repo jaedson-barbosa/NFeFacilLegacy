@@ -1,0 +1,135 @@
+﻿<ContentDialog x:Class="Venda.CaixasDialogoProduto.AdicionarDeclaracaoImportacao"
+               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:controles="using:BaseGeral.Controles"
+               xmlns:caminho="using:BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesProdutoOuServico"
+               xmlns:VM="using:BaseGeral.View"
+               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+               mc:Ignorable="d"
+               Title="Adicionar dec. importação"
+               PrimaryButtonText="Adicionar"
+               SecondaryButtonText="Cancelar">
+    <ContentDialog.Resources>
+        <ResourceDictionary>
+            <Style TargetType="ItemsControl"
+                   BasedOn="{StaticResource ItensResponsivos}" />
+        </ResourceDictionary>
+    </ContentDialog.Resources>
+    <Pivot>
+        <PivotItem Header="Geral">
+            <ItemsControl>
+                <TextBox Text="{x:Bind Declaracao.NDI, Mode=TwoWay}"
+                         Header="Número DI/DSI/DA/DRI-E"
+                         Margin="0,0,0,10" />
+                <TextBox Text="{x:Bind Declaracao.CExportador, Mode=TwoWay}"
+                         Header="Código do exportador"
+                         Margin="0,0,0,10" />
+                <controles:EntradaRestrita Pattern="[^\d.,]"
+                                           Text="{x:Bind Declaracao.VAFRMM, Mode=TwoWay}"
+                                           Header="Valor da AFRMM"
+                                           Margin="0,0,0,10" />
+                <DatePicker Date="{x:Bind dataRegistro, Mode=TwoWay}"
+                            Header="Data registro"
+                            MinWidth="150"
+                            HorizontalAlignment="Stretch"
+                            Margin="0,0,0,10" />
+                <ComboBox SelectedIndex="{x:Bind transpInternacional, Mode=TwoWay}"
+                          Header="Transp. internacional"
+                          HorizontalAlignment="Stretch"
+                          Margin="0,0,0,10">
+                    <ComboBoxItem>1=Marítima</ComboBoxItem>
+                    <ComboBoxItem>2=Fluvial</ComboBoxItem>
+                    <ComboBoxItem>3=Lacustre</ComboBoxItem>
+                    <ComboBoxItem>4=Aérea</ComboBoxItem>
+                    <ComboBoxItem>5=Postal</ComboBoxItem>
+                    <ComboBoxItem>6=Ferroviária</ComboBoxItem>
+                    <ComboBoxItem>7=Rodoviária</ComboBoxItem>
+                    <ComboBoxItem>8=Conduto / Rede Transmissão</ComboBoxItem>
+                    <ComboBoxItem>9=Meios Próprios</ComboBoxItem>
+                    <ComboBoxItem>10=Entrada / Saída ficta</ComboBoxItem>
+                    <ComboBoxItem>11=Courier</ComboBoxItem>
+                    <ComboBoxItem>12=Handcarry</ComboBoxItem>
+                </ComboBox>
+                <ComboBox SelectedIndex="{x:Bind tipoImportacao, Mode=TwoWay}"
+                          Header="Tipo de importação"
+                          HorizontalAlignment="Stretch"
+                          Margin="0,0,0,10">
+                    <ComboBoxItem>1=Importação por conta própria</ComboBoxItem>
+                    <ComboBoxItem>2=Importação por conta e ordem</ComboBoxItem>
+                    <ComboBoxItem>3=Importação por encomenda</ComboBoxItem>
+                </ComboBox>
+            </ItemsControl>
+        </PivotItem>
+        <PivotItem Header="Desembaraço aduaneiro">
+            <ItemsControl>
+                <ComboBox ItemsSource="{x:Bind VM:DadosEstadosParaView.Siglas}"
+                          SelectedItem="{x:Bind Path=Declaracao.UFDesemb, Mode=TwoWay}"
+                          Header="UF"
+                          HorizontalAlignment="Stretch" />
+                <TextBox Text="{x:Bind Declaracao.XLocDesemb, Mode=TwoWay}"
+                         Header="Local" />
+                <DatePicker Date="{x:Bind dataDesembaraco, Mode=TwoWay}"
+                            Header="Data"
+                            MinWidth="150"
+                            HorizontalAlignment="Stretch" />
+            </ItemsControl>
+        </PivotItem>
+        <PivotItem Header="Adquirente ou encomendante">
+            <ItemsControl>
+                <ComboBox ItemsSource="{x:Bind VM:DadosEstadosParaView.Siglas}"
+                          SelectedItem="{x:Bind Path=Declaracao.UFTerceiro, Mode=TwoWay}"
+                          Header="UF"
+                          HorizontalAlignment="Stretch" />
+                <controles:EntradaRestrita Pattern="[^\d]"
+                                           Text="{x:Bind Declaracao.CNPJ, Mode=TwoWay}"
+                                           Header="CNPJ" />
+            </ItemsControl>
+        </PivotItem>
+        <PivotItem Header="Adições">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <StackPanel Grid.RowSpan="2">
+                    <controles:EntradaNumerica Format="3"
+                                               Number="{x:Bind NovaAdicao.NAdicao, Mode=TwoWay}"
+                                               Header="Número *" />
+                    <TextBox Text="{x:Bind NovaAdicao.CFabricante, Mode=TwoWay}"
+                             Header="Cód. do fabricante *" />
+                    <controles:EntradaRestrita Pattern="[^\d.,]"
+                                               Text="{x:Bind NovaAdicao.VDescDI, Mode=TwoWay}"
+                                               Header="Desconto" />
+                    <controles:EntradaRestrita Pattern="[^\d]"
+                                               Text="{x:Bind NovaAdicao.NDraw, Mode=TwoWay}"
+                                               Header="Número de Drawback" />
+                </StackPanel>
+                <ListView ItemsSource="{x:Bind Adicoes}"
+                          Grid.Column="1"
+                          Grid.ColumnSpan="2">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="caminho:DIAdicao">
+                            <TextBlock Text="{x:Bind NAdicao, Mode=TwoWay}">
+                                <TextBlock.ContextFlyout>
+                                    <MenuFlyout>
+                                        <MenuFlyoutItem Click="Remover">Remover</MenuFlyoutItem>
+                                    </MenuFlyout>
+                                </TextBlock.ContextFlyout>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Button Grid.Column="1"
+                        Grid.Row="1"
+                        HorizontalAlignment="Stretch"
+                        Click="Adicionar">Adicionar adição</Button>
+            </Grid>
+        </PivotItem>
+    </Pivot>
+</ContentDialog>

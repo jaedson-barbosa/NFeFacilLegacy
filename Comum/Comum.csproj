@@ -1,0 +1,364 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B3FFE2B7-6A00-4424-8A72-60A36BEB6679}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Comum</RootNamespace>
+    <AssemblyName>Comum</AssemblyName>
+    <DefaultLanguage>pt-BR</DefaultLanguage>
+    <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
+    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.16299.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.15063.0</TargetPlatformMinVersion>
+    <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
+    <PlatformTarget>ARM</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <PlatformTarget>ARM</PlatformTarget>
+    <OutputPath>bin\ARM\Release\</OutputPath>
+    <DefineConstants>NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="AcoesNFe.cs" />
+    <Compile Include="CaixasDialogo\AdicionarDeducao.xaml.cs">
+      <DependentUpon>AdicionarDeducao.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CaixasDialogo\AdicionarDuplicata.xaml.cs">
+      <DependentUpon>AdicionarDuplicata.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CaixasDialogo\AdicionarFornecimentoDiario.xaml.cs">
+      <DependentUpon>AdicionarFornecimentoDiario.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CaixasDialogo\AdicionarNF1AReferenciada.xaml.cs">
+      <DependentUpon>AdicionarNF1AReferenciada.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CaixasDialogo\AdicionarObservacaoContribuinte.xaml.cs">
+      <DependentUpon>AdicionarObservacaoContribuinte.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CaixasDialogo\AdicionarProcessoReferenciado.xaml.cs">
+      <DependentUpon>AdicionarProcessoReferenciado.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CaixasDialogo\AdicionarReboque.xaml.cs">
+      <DependentUpon>AdicionarReboque.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CaixasDialogo\AdicionarReferenciaEletronica.xaml.cs">
+      <DependentUpon>AdicionarReferenciaEletronica.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CaixasDialogo\AdicionarVolume.xaml.cs">
+      <DependentUpon>AdicionarVolume.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CaixasDialogo\EnderecoDiferenteExterior.xaml.cs">
+      <DependentUpon>EnderecoDiferenteExterior.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CaixasDialogo\EnderecoDiferenteNacional.xaml.cs">
+      <DependentUpon>EnderecoDiferenteNacional.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CaixasDialogo\EscolherTipoEndereco.xaml.cs">
+      <DependentUpon>EscolherTipoEndereco.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CaixasDialogo\EscolherVeiculo.xaml.cs">
+      <DependentUpon>EscolherVeiculo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ControleNFe.cs" />
+    <Compile Include="ControleViewNFe.cs" />
+    <Compile Include="ControleViewProduto.cs" />
+    <Compile Include="DadosDANFE.cs" />
+    <Compile Include="ManipulacaoNotaFiscal.xaml.cs">
+      <DependentUpon>ManipulacaoNotaFiscal.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ManipulacaoProdutoCompleto.xaml.cs">
+      <DependentUpon>ManipulacaoProdutoCompleto.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PacotesDANFE\DadosAdicionais.cs" />
+    <Compile Include="PacotesDANFE\DadosCabecalho.cs" />
+    <Compile Include="PacotesDANFE\DadosCliente.cs" />
+    <Compile Include="PacotesDANFE\DadosDuplicata.cs" />
+    <Compile Include="PacotesDANFE\DadosImposto.cs" />
+    <Compile Include="PacotesDANFE\DadosISSQN.cs" />
+    <Compile Include="PacotesDANFE\DadosMotorista.cs" />
+    <Compile Include="PacotesDANFE\DadosNFe.cs" />
+    <Compile Include="PacotesDANFE\DadosProduto.cs" />
+    <Compile Include="PacotesDANFE\Geral.cs" />
+    <Compile Include="PacotesDANFE\ItemDadosAdicionais.cs" />
+    <Compile Include="PaginasDANFE\IPagina.cs" />
+    <Compile Include="PaginasDANFE\MotivoCriacaoPaginaExtra.cs" />
+    <Compile Include="PaginasDANFE\PaginaExtra.xaml.cs">
+      <DependentUpon>PaginaExtra.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PaginasDANFE\PaginaPrincipal.xaml.cs">
+      <DependentUpon>PaginaPrincipal.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PartesDANFE\CampoCliente.xaml.cs">
+      <DependentUpon>CampoCliente.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PartesDANFE\CampoDadosAdicionais.xaml.cs">
+      <DependentUpon>CampoDadosAdicionais.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PartesDANFE\CampoFatura.xaml.cs">
+      <DependentUpon>CampoFatura.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PartesDANFE\CampoImposto.xaml.cs">
+      <DependentUpon>CampoImposto.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PartesDANFE\CampoISSQN.xaml.cs">
+      <DependentUpon>CampoISSQN.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PartesDANFE\CampoProdutos.xaml.cs">
+      <DependentUpon>CampoProdutos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PartesDANFE\CampoTransporte.xaml.cs">
+      <DependentUpon>CampoTransporte.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PartesDANFE\Canhoto.xaml.cs">
+      <DependentUpon>Canhoto.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PartesDANFE\DadosNFe.xaml.cs">
+      <DependentUpon>DadosNFe.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PartesDANFE\DimensoesPadrao.cs" />
+    <Compile Include="PartesDANFE\ItemProduto.xaml.cs">
+      <DependentUpon>ItemProduto.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewDANFE.xaml.cs">
+      <DependentUpon>ViewDANFE.xaml</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Properties\Comum.rd.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
+      <Version>6.0.8</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Fiscal\Fiscal.csproj">
+      <Project>{55579de5-6baa-4eb4-bb85-43deaf18d2b7}</Project>
+      <Name>Fiscal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Geral\BaseGeral.csproj">
+      <Project>{4e1d62ee-996d-46ba-803e-1f46fb59f88c}</Project>
+      <Name>BaseGeral</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Produto\Venda.csproj">
+      <Project>{db69df46-0f24-47c4-9fe8-37d2d569e4e7}</Project>
+      <Name>Venda</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="CaixasDialogo\AdicionarDeducao.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CaixasDialogo\AdicionarDuplicata.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CaixasDialogo\AdicionarFornecimentoDiario.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CaixasDialogo\AdicionarNF1AReferenciada.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CaixasDialogo\AdicionarObservacaoContribuinte.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CaixasDialogo\AdicionarProcessoReferenciado.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CaixasDialogo\AdicionarReboque.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CaixasDialogo\AdicionarReferenciaEletronica.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CaixasDialogo\AdicionarVolume.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CaixasDialogo\EnderecoDiferenteExterior.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CaixasDialogo\EnderecoDiferenteNacional.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CaixasDialogo\EscolherTipoEndereco.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CaixasDialogo\EscolherVeiculo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ManipulacaoNotaFiscal.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ManipulacaoProdutoCompleto.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PaginasDANFE\PaginaExtra.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PaginasDANFE\PaginaPrincipal.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PartesDANFE\CampoCliente.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PartesDANFE\CampoDadosAdicionais.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PartesDANFE\CampoFatura.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PartesDANFE\CampoImposto.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PartesDANFE\CampoISSQN.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PartesDANFE\CampoProdutos.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PartesDANFE\CampoTransporte.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PartesDANFE\Canhoto.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PartesDANFE\DadosNFe.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PartesDANFE\EstilosPadrao.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="PartesDANFE\ItemProduto.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ViewDANFE.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
+    <VisualStudioVersion>14.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

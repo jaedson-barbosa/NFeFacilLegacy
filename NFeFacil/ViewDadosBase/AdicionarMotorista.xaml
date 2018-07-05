@@ -1,9 +1,9 @@
 ﻿<Page x:Class="NFeFacil.ViewDadosBase.AdicionarMotorista"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:VM="using:NFeFacil.View"
-      xmlns:db="using:NFeFacil.ItensBD"
-      xmlns:controles="using:NFeFacil.Controles"
+      xmlns:VM="using:BaseGeral.View"
+      xmlns:db="using:BaseGeral.ItensBD"
+      xmlns:controles="using:BaseGeral.Controles"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
@@ -84,7 +84,8 @@
                       Loaded="grdVeisSec_Loaded"
                       SelectionMode="Multiple"
                       ItemsSource="{x:Bind Veiculos}"
-                      Style="{StaticResource ItensMediosGrid}">
+                      ItemContainerTransitions="{StaticResource TransicoesLista}"
+                      ItemContainerStyle="{StaticResource ItensMedios}">
                 <GridView.ItemTemplate>
                     <DataTemplate x:DataType="db:VeiculoDI">
                         <Grid Background="Transparent"

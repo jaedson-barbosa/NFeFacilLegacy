@@ -1,4 +1,5 @@
-﻿using Windows.UI.Xaml;
+﻿using BaseGeral.View;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -6,7 +7,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NFeFacil.ViewDadosBase
 {
-    [View.DetalhePagina(Symbol.People, "Cliente")]
+    [DetalhePagina(Symbol.People, "Cliente")]
     public sealed partial class AdicionarClienteBrasileiroPF : Page
     {
         BaseAdicaoDestinatario Base { get; set; }

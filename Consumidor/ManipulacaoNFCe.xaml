@@ -1,0 +1,119 @@
+﻿<Page x:Class="Consumidor.ManipulacaoNFCe"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="using:Consumidor"
+      xmlns:controles="using:BaseGeral.Controles"
+      xmlns:controlesAux="using:Venda.ControlesAuxiliares"
+      xmlns:VM="using:BaseGeral.View"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d">
+    <Page.Resources>
+        <VM:MascaraDocumento x:Key="mascara" />
+    </Page.Resources>
+    <ScrollViewer x:Name="main"
+                  Padding="16">
+        <StackPanel>
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}">Identificação</TextBlock>
+            <ItemsControl Style="{StaticResource ItensResponsivos}">
+                <DatePicker Header="Data de emissão"
+                            Date="{x:Bind DataEmissao, Mode=TwoWay}" />
+                <TimePicker Header="Hora de emissão"
+                            Time="{x:Bind HoraEmissao, Mode=TwoWay}" />
+                <ComboBox Header="Finalidade de emissão *"
+                          SelectedIndex="{x:Bind FinalidadeEmissao, Mode=TwoWay}">
+                    <ComboBoxItem>Normal</ComboBoxItem>
+                    <ComboBoxItem>Complementar</ComboBoxItem>
+                    <ComboBoxItem>De ajuste</ComboBoxItem>
+                    <ComboBoxItem>Devolução de mercadoria</ComboBoxItem>
+                </ComboBox>
+                <ComboBox Header="Tipo de atendimento *"
+                          SelectedValue="{x:Bind IndicadorPresenca, Mode=TwoWay}"
+                          SelectedValuePath="Tag">
+                    <ComboBoxItem Tag="0">Não se aplica</ComboBoxItem>
+                    <ComboBoxItem Tag="1">Presencial</ComboBoxItem>
+                    <ComboBoxItem Tag="2">Não presencial - Internet</ComboBoxItem>
+                    <ComboBoxItem Tag="3">Não presencial - Teleatendimento</ComboBoxItem>
+                    <ComboBoxItem Tag="4">Entrega a domicílio</ComboBoxItem>
+                    <ComboBoxItem Tag="9">Não presencial - Outros</ComboBoxItem>
+                </ComboBox>
+                <ComboBox Header="Forma de pagamento *"
+                          SelectedIndex="{x:Bind NotaSalva.Informacoes.identificacao.FormaPagamento, Mode=TwoWay}">
+                    <ComboBoxItem Content="Pagamento à vista" />
+                    <ComboBoxItem Content="Pagamento a prazo" />
+                    <ComboBoxItem Content="Outros" />
+                </ComboBox>
+                <TextBox Header="Natureza da operação *"
+                         Text="{x:Bind NotaSalva.Informacoes.identificacao.NaturezaDaOperacao, Mode=TwoWay}" />
+                <ComboBox Header="Município do fato *"
+                          DisplayMemberPath="Nome"
+                          ItemsSource="{x:Bind MunicipiosIdentificacao}"
+                          SelectedValue="{x:Bind CodigoMunicipio, Mode=TwoWay}"
+                          SelectedValuePath="Codigo" />
+            </ItemsControl>
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}">Cliente</TextBlock>
+            <controlesAux:EscolhaCliente BuscaInicial="{x:Bind NotaSalva.Informacoes.destinatario.Documento}"
+                                         ClienteSelecionado="{x:Bind ClienteSelecionado, Mode=TwoWay}" />
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}"
+                       Visibility="{x:Bind VisibilitadeTransportador, Mode=OneWay}">Motorista</TextBlock>
+            <controlesAux:EscolhaMotorista Visibility="{x:Bind VisibilitadeTransportador, Mode=OneWay}"
+                                           BuscaInicial="{x:Bind NotaSalva.Informacoes.transp.Transporta.Documento}"
+                                           MotoristaSelecionado="{x:Bind MotoristaSelecionado, Mode=TwoWay}" />
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}">Informações adicionais</TextBlock>
+            <controles:RichEditBoxExtended Text="{x:Bind NotaSalva.Informacoes.infAdic.InfAdFisco, Mode=TwoWay}"
+                                           Header="Informacoes adicionais de interesse do fisco" />
+            <controles:RichEditBoxExtended Grid.Row="1"
+                                           Text="{x:Bind NotaSalva.Informacoes.infAdic.InfCpl, Mode=TwoWay}"
+                                           Header="Informacoes complementares de interesse do contribuinte" />
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}">Pagamento</TextBlock>
+            <ListView Margin="16">
+                <ListView.Header>
+                    <Grid Style="{StaticResource Cabecalho}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Style="{StaticResource TextoCabecalho}">Tipo</TextBlock>
+                        <TextBlock Grid.Column="1"
+                                   Style="{StaticResource TextoCabecalho}">Valor</TextBlock>
+                        <Button Grid.Column="2"
+                                Style="{StaticResource BotaoAdd}"
+                                Click="AdicionarFormaPagamento">
+                            <SymbolIcon Symbol="Add" />
+                        </Button>
+                    </Grid>
+                </ListView.Header>
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="local:FormaPagamento">
+                        <Grid Style="{StaticResource Cabecalho}"
+                              Background="Transparent">
+                            <Grid.ContextFlyout>
+                                <MenuFlyout>
+                                    <MenuFlyoutItem Click="RemoverFormaPagamento">Remover</MenuFlyoutItem>
+                                </MenuFlyout>
+                            </Grid.ContextFlyout>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{x:Bind Tipo}">Tipo</TextBlock>
+                            <TextBlock Grid.Column="1"
+                                       Text="{x:Bind Valor}">Valor</TextBlock>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
+    </ScrollViewer>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Label="Voltar"
+                          Icon="Back"
+                          Click="Voltar" />
+            <AppBarButton Icon="Accept"
+                          Label="Confirmar e validar"
+                          Click="Confirmar" />
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>

@@ -1,26 +1,28 @@
-﻿using NFeFacil.Log;
+﻿using BaseGeral.Log;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
-using NFeFacil.ItensBD;
+using BaseGeral.ItensBD;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
-using NFeFacil.Repositorio;
-using NFeFacil.ModeloXML.PartesDetalhes;
-using NFeFacil.ModeloXML.PartesDetalhes.PartesTransporte;
-using NFeFacil.ModeloXML;
+using BaseGeral.Repositorio;
+using BaseGeral.ModeloXML.PartesDetalhes;
+using BaseGeral.ModeloXML.PartesDetalhes.PartesTransporte;
+using BaseGeral.ModeloXML;
 using System.Xml.Serialization;
+using BaseGeral;
+using BaseGeral.View;
+using Windows.UI.Xaml;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace NFeFacil.ViewDadosBase
 {
-    [View.DetalhePagina(Symbol.Import, "Importação")]
+    [DetalhePagina(Symbol.Import, "Importação")]
     public sealed partial class ImportacaoDados : Page
     {
         public ImportacaoDados()
@@ -28,7 +30,7 @@ namespace NFeFacil.ViewDadosBase
             InitializeComponent();
         }
 
-        async void ImportarCliente(object sender, TappedRoutedEventArgs e)
+        async void ImportarCliente(object sender, RoutedEventArgs e)
         {
             using (var repo = new Escrita())
             {
@@ -37,7 +39,7 @@ namespace NFeFacil.ViewDadosBase
             }
         }
 
-        async void ImportarMotorista(object sender, TappedRoutedEventArgs e)
+        async void ImportarMotorista(object sender, RoutedEventArgs e)
         {
             using (var repo = new Escrita())
             {
@@ -46,7 +48,7 @@ namespace NFeFacil.ViewDadosBase
             }
         }
 
-        async void ImportarProduto(object sender, TappedRoutedEventArgs e)
+        async void ImportarProduto(object sender, RoutedEventArgs e)
         {
             using (var repo = new Escrita())
             {
@@ -55,7 +57,7 @@ namespace NFeFacil.ViewDadosBase
             }
         }
 
-        async void ImportarNotaFiscal(object sender, TappedRoutedEventArgs e)
+        async void ImportarNotaFiscal(object sender, RoutedEventArgs e)
         {
             var arquivos = await ImportarArquivos();
             List<NFeDI> conjuntos = new List<NFeDI>();
@@ -99,7 +101,7 @@ namespace NFeFacil.ViewDadosBase
             Popup.Current.Escrever(TitulosComuns.Atenção, "Caso algum dado não tenha sido importado é porque ele não tem o formado aceito pelo aplicativo.");
         }
 
-        async void ImportarNFCe(object sender, TappedRoutedEventArgs e)
+        async void ImportarNFCe(object sender, RoutedEventArgs e)
         {
             var arquivos = await ImportarArquivos();
             List<NFeDI> conjuntos = new List<NFeDI>();

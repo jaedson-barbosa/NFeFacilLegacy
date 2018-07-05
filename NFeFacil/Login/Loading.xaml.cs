@@ -1,4 +1,7 @@
-﻿using NFeFacil.Sincronizacao;
+﻿using BaseGeral;
+using BaseGeral.IBGE;
+using BaseGeral.Sincronizacao;
+using BaseGeral.View;
 using NFeFacil.View;
 using System;
 using System.Globalization;
@@ -78,14 +81,14 @@ namespace NFeFacil.Login
 
         void ProcessarIBGE()
         {
-            IBGE.Estados.Buscar();
-            IBGE.Municipios.Buscar();
+            Estados.Buscar();
+            Municipios.Buscar();
             DadosEstadosParaView.Iniciar();
         }
 
         async Task AnalisarBanco()
         {
-            using (var analise = new Repositorio.OperacoesExtras())
+            using (var analise = new BaseGeral.Repositorio.OperacoesExtras())
             {
                 await analise.AnalisarBanco(DefinicoesTemporarias.DateTimeNow);
             }
@@ -99,14 +102,14 @@ namespace NFeFacil.Login
                 case TiposBackground.Imagem:
                     if (DefinicoesPermanentes.IDBackgroung != default(Guid))
                     {
-                        using (var repo = new Repositorio.Leitura())
+                        using (var repo = new BaseGeral.Repositorio.Leitura())
                         {
                             var img = repo.ProcurarImagem(DefinicoesPermanentes.IDBackgroung);
                             current.ImagemBackground = img?.Bytes?.GetSource();
                         }
                     }
-                    current.DefinirTipoBackground(TiposBackground.Imagem);
-                    current.DefinirOpacidadeBackground(DefinicoesPermanentes.OpacidadeBackground);
+                    MainPage.Current.DefinirTipoBackground(TiposBackground.Imagem);
+                    MainPage.Current.DefinirOpacidadeBackground(DefinicoesPermanentes.OpacidadeBackground);
                     break;
                 case TiposBackground.Cor:
                     current.DefinirTipoBackground(TiposBackground.Cor);
@@ -148,17 +151,24 @@ namespace NFeFacil.Login
             txtAtual.Text = "Sistemas carregados. E obrigado pelo apoio 😃";
             await Task.Delay(500);
 
-            MainPage current = MainPage.Current;
-            using (var repo = new Repositorio.Leitura())
+            try
             {
-                if (repo.EmitentesCadastrados)
+                MainPage current = MainPage.Current;
+                using (var repo = new BaseGeral.Repositorio.Leitura())
                 {
-                    current.Navegar<EscolhaEmitente>();
+                    if (repo.EmitentesCadastrados)
+                    {
+                        current.Navegar<EscolhaEmitente>();
+                    }
+                    else
+                    {
+                        current.Navegar<PrimeiroUso>();
+                    }
                 }
-                else
-                {
-                    current.Navegar<PrimeiroUso>();
-                }
+            }
+            catch (Exception e)
+            {
+                txtAtual.Text = e.Message;
             }
         }
     }

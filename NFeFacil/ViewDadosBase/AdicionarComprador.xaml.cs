@@ -1,5 +1,7 @@
-﻿using NFeFacil.ItensBD;
-using NFeFacil.Validacao;
+﻿using BaseGeral;
+using BaseGeral.ItensBD;
+using BaseGeral.Validacao;
+using BaseGeral.View;
 using System;
 using System.Collections.ObjectModel;
 using Windows.UI.Xaml;
@@ -10,7 +12,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NFeFacil.ViewDadosBase
 {
-    [View.DetalhePagina(Symbol.People, "Comprador")]
+    [DetalhePagina(Symbol.People, "Comprador")]
     public sealed partial class AdicionarComprador : Page
     {
         Comprador Comprador;
@@ -19,7 +21,7 @@ namespace NFeFacil.ViewDadosBase
         public AdicionarComprador()
         {
             InitializeComponent();
-            using (var repo = new Repositorio.Leitura())
+            using (var repo = new BaseGeral.Repositorio.Leitura())
             {
                 ClientesDisponiveis = repo.ObterClientes(x => !string.IsNullOrEmpty(x.CNPJ)).GerarObs();
             }
@@ -48,7 +50,7 @@ namespace NFeFacil.ViewDadosBase
                     (string.IsNullOrWhiteSpace(Comprador.Nome), "Nome não pode estar em branco"),
                     (string.IsNullOrWhiteSpace(Comprador.Email), "Email não pode estar em branco")))
                 {
-                    using (var repo = new Repositorio.Escrita())
+                    using (var repo = new BaseGeral.Repositorio.Escrita())
                     {
                         repo.SalvarItemSimples(Comprador, DefinicoesTemporarias.DateTimeNow);
                     }

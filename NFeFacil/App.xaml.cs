@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
 using Windows.System.Profile;
@@ -7,6 +6,7 @@ using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil
 {
@@ -15,6 +15,9 @@ namespace NFeFacil
     /// </summary>
     sealed partial class App : Application
     {
+        bool IsMobile { get; }
+        bool IsDesktop { get; }
+
         /// <summary>
         /// Inicializa o objeto singleton do aplicativo.  Esta é a primeira linha de código criado
         /// executado e, como tal, é o equivalente lógico de main() ou WinMain().
@@ -22,6 +25,9 @@ namespace NFeFacil
         public App()
         {
             InitializeComponent();
+            var familia = AnalyticsInfo.VersionInfo.DeviceFamily;
+            IsMobile = familia.Contains("Mobile");
+            IsDesktop = familia.Contains("Desktop");
         }
 
         /// <summary>
@@ -31,6 +37,8 @@ namespace NFeFacil
         /// <param name="e">Detalhes sobre a solicitação e o processo de inicialização.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
+            PersonalizarDesign(BaseGeral.DefinicoesPermanentes.UsarFluent);
+
             var rootFrame = Window.Current.Content as MainPage;
             if (rootFrame == null)
             {
@@ -48,12 +56,8 @@ namespace NFeFacil
         void PersonalisarBarraTitulo()
         {
             MainPage current = MainPage.Current;
-            var familia = AnalyticsInfo.VersionInfo.DeviceFamily;
-            if (familia.Contains("Mobile"))
-            {
-                EsconderBarraCelular();
-            }
-            else if (familia.Contains("Desktop"))
+            if (IsMobile) EsconderBarraCelular();
+            else if (IsDesktop)
             {
                 CoreApplicationViewTitleBar tb = CoreApplication.GetCurrentView().TitleBar;
                 tb.ExtendViewIntoTitleBar = true;
@@ -71,7 +75,14 @@ namespace NFeFacil
 
             async void EsconderBarraCelular() => await StatusBar.GetForCurrentView().HideAsync();
         }
-    }
 
-    public delegate Task ProgressChangedEventHandler(object sender, int Concluidos);
+        void PersonalizarDesign(bool usarFluent)
+        {
+            if (usarFluent && !IsMobile)
+            {
+                ((Style)Resources[typeof(CommandBar)]).BasedOn = (Style)Resources["CommandBarRevealStyle"];
+                ((Style)Resources[typeof(Button)]).BasedOn = (Style)Resources["ButtonRevealStyle"];
+            }
+        }
+    }
 }

@@ -1,5 +1,7 @@
-﻿using NFeFacil.ItensBD;
-using NFeFacil.Validacao;
+﻿using BaseGeral;
+using BaseGeral.ItensBD;
+using BaseGeral.Validacao;
+using BaseGeral.View;
 using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -9,7 +11,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NFeFacil.ViewDadosBase
 {
-    [View.DetalhePagina(Symbol.People, "Vendedor")]
+    [DetalhePagina(Symbol.People, "Vendedor")]
     public sealed partial class AdicionarVendedor : Page
     {
         private Vendedor Vendedor { get; set; }
@@ -46,7 +48,7 @@ namespace NFeFacil.ViewDadosBase
                     (string.IsNullOrWhiteSpace(Vendedor.Nome), "Nome não pode estar em branco"),
                     (string.IsNullOrWhiteSpace(Vendedor.Endereço), "Endereço não pode estar em branco")))
                 {
-                    using (var repo = new Repositorio.Escrita())
+                    using (var repo = new BaseGeral.Repositorio.Escrita())
                     {
                         repo.SalvarItemSimples(Vendedor, DefinicoesTemporarias.DateTimeNow);
                     }

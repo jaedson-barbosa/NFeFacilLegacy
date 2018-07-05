@@ -1,6 +1,7 @@
-﻿using NFeFacil.Log;
+﻿using BaseGeral.Log;
+using BaseGeral.View;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -14,7 +15,7 @@ namespace NFeFacil.View
             InitializeComponent();
         }
 
-        async void Doar10(object sender, TappedRoutedEventArgs e)
+        async void Doar10(object sender, RoutedEventArgs e)
         {
             grdCompra.IsEnabled = false;
             if (await ComprasInApp.Comprar(Compras.Doacao10))
@@ -24,7 +25,7 @@ namespace NFeFacil.View
             grdCompra.IsEnabled = true;
         }
 
-        async void Doar25(object sender, TappedRoutedEventArgs e)
+        async void Doar25(object sender, RoutedEventArgs e)
         {
             grdCompra.IsEnabled = false;
             if (await ComprasInApp.Comprar(Compras.Doacao25))

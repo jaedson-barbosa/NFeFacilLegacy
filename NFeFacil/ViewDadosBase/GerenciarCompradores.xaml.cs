@@ -1,6 +1,6 @@
-﻿using NFeFacil.ItensBD;
-using System.Collections.ObjectModel;
-using System.Linq;
+﻿using BaseGeral;
+using BaseGeral.Buscador;
+using BaseGeral.View;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -8,24 +8,15 @@ using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil.ViewDadosBase
 {
-    [View.DetalhePagina(Symbol.Manage, "Gerenciar compradores")]
+    [DetalhePagina(Symbol.Manage, "Gerenciar compradores")]
     public sealed partial class GerenciarCompradores : Page
     {
-        ExibicaoComprador[] TodosCompradores { get; }
-        ObservableCollection<ExibicaoComprador> Compradores { get; }
+        BuscadorComprador Compradores { get; }
 
         public GerenciarCompradores()
         {
             InitializeComponent();
-            using (var repo = new Repositorio.Leitura())
-            {
-                TodosCompradores = repo.ObterCompradores().Select(x => new ExibicaoComprador
-                {
-                    Root = x.Item2,
-                    NomeEmpresa = x.Item1
-                }).ToArray();
-                Compradores = TodosCompradores.GerarObs();
-            }
+            Compradores = new BuscadorComprador();
         }
 
         private void AdicionarComprador(object sender, RoutedEventArgs e)
@@ -44,36 +35,17 @@ namespace NFeFacil.ViewDadosBase
             var contexto = ((FrameworkElement)sender).DataContext;
             var compr = (ExibicaoComprador)contexto;
 
-            using (var repo = new Repositorio.Escrita())
+            using (var repo = new BaseGeral.Repositorio.Escrita())
             {
                 repo.InativarDadoBase(compr.Root, DefinicoesTemporarias.DateTimeNow);
-                Compradores.Remove(compr);
+                Compradores.Remover(compr);
             }
         }
 
         private void Buscar(object sender, TextChangedEventArgs e)
         {
             var busca = ((TextBox)sender).Text;
-            for (int i = 0; i < TodosCompradores.Length; i++)
-            {
-                var atual = TodosCompradores[i];
-                bool valido = (DefinicoesPermanentes.ModoBuscaComprador == 0
-                    ? atual.Root.Nome : atual.NomeEmpresa).ToUpper().Contains(busca.ToUpper());
-                if (valido && !Compradores.Contains(atual))
-                {
-                    Compradores.Add(atual);
-                }
-                else if (!valido && Compradores.Contains(atual))
-                {
-                    Compradores.Remove(atual);
-                }
-            }
+            Compradores.Buscar(busca);
         }
-    }
-
-    struct ExibicaoComprador
-    {
-        public Comprador Root { get; set; }
-        public string NomeEmpresa { get; set; }
     }
 }

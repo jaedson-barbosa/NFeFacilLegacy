@@ -1,0 +1,91 @@
+﻿<ContentDialog x:Class="Venda.ViewProdutoVenda.AdicionarProduto"
+               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:local="using:Venda.ViewProdutoVenda"
+               xmlns:controles="using:BaseGeral.Controles"
+               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+               mc:Ignorable="d"
+               Title="Adicionar produto"
+               PrimaryButtonText="Adicionar"
+               SecondaryButtonText="Finalizar"
+               PrimaryButtonClick="BotaoPrimario_Click">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <TextBox Header="Buscar"
+                 TextChanged="Buscar" />
+        <ListView ItemsSource="{x:Bind Produtos.Itens}"
+                  SelectedItem="{x:Bind ProdutoSelecionado, Mode=TwoWay}"
+                  Loaded="ListView_Loaded"
+                  Grid.Row="1"
+                  Margin="0,2,0,4"
+                  SelectionChanged="AnalisarVlNovoProduto">
+            <ListView.Header>
+                <Grid Style="{StaticResource Cabecalho}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock FontWeight="Bold"
+                               VerticalAlignment="Bottom">Codigo</TextBlock>
+                    <TextBlock Grid.Column="1"
+                               FontWeight="Bold"
+                               VerticalAlignment="Bottom">Descrição</TextBlock>
+                    <TextBlock Grid.Column="2"
+                               FontWeight="Bold"
+                               VerticalAlignment="Bottom">Estoque</TextBlock>
+                    <TextBlock Grid.Column="3"
+                               FontWeight="Bold"
+                               VerticalAlignment="Bottom">Preço</TextBlock>
+                </Grid>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="local:ExibicaoProdutoAdicao">
+                    <Grid Visibility="{x:Bind Ativo}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{x:Bind Codigo}" />
+                        <TextBlock Grid.Column="1"
+                                   TextWrapping="Wrap"
+                                   Text="{x:Bind Nome}" />
+                        <TextBlock Grid.Column="2"
+                                   Text="{x:Bind Estoque, Mode=OneWay}" />
+                        <TextBlock Grid.Column="3"
+                                   Text="{x:Bind Preco}" />
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <ItemsControl Grid.Row="2"
+                      Style="{StaticResource ItensResponsivos}">
+            <controles:EntradaNumerica Header="Quantidade"
+                                       Format="10:4"
+                                       Number="{x:Bind Quantidade, Mode=TwoWay}" />
+            <controles:EntradaNumerica Header="Seguro"
+                                       Format="10:2"
+                                       Number="{x:Bind Seguro, Mode=TwoWay}" />
+            <controles:EntradaNumerica Header="Despesas extras"
+                                       Format="10:2"
+                                       Number="{x:Bind DespesasExtras, Mode=TwoWay}" />
+            <controles:EntradaNumerica Header="Valor unitário"
+                                       Format="10:2"
+                                       IsEnabled="{x:Bind PodeEspecificarValorUnitario, Mode=OneWay}"
+                                       Number="{x:Bind ValorUnitario, Mode=TwoWay}" />
+            <ToggleSwitch IsEnabled="{x:Bind PodeDetalhar, Mode=OneWay}"
+                          IsOn="{x:Bind Detalhar, Mode=TwoWay}"
+                          Header="Detalhar produto"
+                          OnContent="Sim"
+                          OffContent="Não" />
+        </ItemsControl>
+    </Grid>
+</ContentDialog>

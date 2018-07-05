@@ -1,0 +1,38 @@
+﻿<Page x:Class="NFeFacil.Sincronizacao.SincronizacaoCliente"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:my="using:BaseGeral.Controles"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d">
+    <ScrollViewer Padding="16">
+        <StackPanel>
+            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Registro em servidor</TextBlock>
+            <ItemsControl Style="{StaticResource ItensSimples}">
+                <my:ItemPadrao Titulo="Automático"
+                               Descricao="Ler código QR temporário com os dados para conexão"
+                               Click="LerQRTemporario">
+                    <SymbolIcon Symbol="Camera" />
+                </my:ItemPadrao>
+                <my:ItemPadrao Titulo="Manual"
+                               Descricao="Digitar o IP e a senha temporária do servidor"
+                               Click="InserirDadosManualmente">
+                    <SymbolIcon Symbol="Keyboard" />
+                </my:ItemPadrao>
+            </ItemsControl>
+            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Modo de sincronização</TextBlock>
+            <ItemsControl Style="{StaticResource ItensSimples}">
+                <my:ItemPadrao Titulo="Básica"
+                               Descricao="Apenas os últimos dados criados ou removidos serão transferidos"
+                               Click="SincronizarAgora">
+                    <FontIcon Glyph="&#xEC4A;" />
+                </my:ItemPadrao>
+                <my:ItemPadrao Titulo="Completa"
+                               Descricao="Todos os dados do servidor e deste dispositivo serão transferidos"
+                               Click="SincronizarTudo">
+                    <FontIcon Glyph="&#xEC49;" />
+                </my:ItemPadrao>
+            </ItemsControl>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

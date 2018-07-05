@@ -1,0 +1,31 @@
+﻿<ContentDialog x:Class="Comum.CaixasDialogo.EscolherVeiculo"
+               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:db="using:BaseGeral.ItensBD"
+               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+               mc:Ignorable="d"
+               Title="Escolher veiculo"
+               PrimaryButtonText="Concluir"
+               SecondaryButtonText="Ignorar"
+               IsSecondaryButtonEnabled="False">
+    <ComboBox ItemsSource="{x:Bind Veiculos}"
+              SelectedItem="{x:Bind Escolhido, Mode=TwoWay}"
+              HorizontalAlignment="Stretch">
+        <ComboBox.ItemTemplate>
+            <DataTemplate x:DataType="db:VeiculoDI">
+                <Grid Background="Transparent">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="{x:Bind Placa}"
+                               Style="{StaticResource SubtitleTextBlockStyle}" />
+                    <TextBlock TextWrapping="Wrap"
+                               Grid.Row="1"
+                               Text="{x:Bind Descricao}" />
+                </Grid>
+            </DataTemplate>
+        </ComboBox.ItemTemplate>
+    </ComboBox>
+</ContentDialog>

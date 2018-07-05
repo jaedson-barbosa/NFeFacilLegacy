@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BaseGeral;
+using System;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Storage;
 using Windows.Storage.Streams;
@@ -30,7 +31,7 @@ namespace NFeFacil.View
             {
                 return;
             }
-            using (var repo = new Repositorio.Escrita())
+            using (var repo = new BaseGeral.Repositorio.Escrita())
             {
                 repo.SalvarImagem(Id, DefinicoesTemporarias.DateTimeNow, bytes);
             }

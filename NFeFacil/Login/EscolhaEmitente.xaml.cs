@@ -1,5 +1,7 @@
-﻿using NFeFacil.ItensBD;
-using NFeFacil.View;
+﻿using BaseGeral;
+using BaseGeral.ItensBD;
+using BaseGeral.Log;
+using BaseGeral.View;
 using System.Collections.ObjectModel;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -13,13 +15,25 @@ namespace NFeFacil.Login
     {
         public EscolhaEmitente()
         {
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
+            }
+            catch (System.Exception e)
+            {
+                if (DefinicoesPermanentes.UsarFluent)
+                {
+                    var log = Popup.Current;
+                    log.Escrever(TitulosComuns.Erro, "Parece que este dispositivo não suporta o Fluent Design, ele será desativado e o aplicativo será reiniciado. Depois de atualizar o Windows você poderá reativa o Fluent Design.");
+                }
+                else e.ManipularErro();
+            }
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             Frame.BackStack.Clear();
-            using (var repo = new Repositorio.Leitura())
+            using (var repo = new BaseGeral.Repositorio.Leitura())
             {
                 var conjuntos = new ObservableCollection<ConjuntoBasicoExibicao<EmitenteDI>>();
                 foreach (var atual in repo.ObterEmitentes())

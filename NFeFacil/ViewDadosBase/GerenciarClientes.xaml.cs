@@ -1,7 +1,8 @@
-﻿using NFeFacil.ItensBD;
+﻿using BaseGeral;
+using BaseGeral.Buscador;
+using BaseGeral.ItensBD;
+using BaseGeral.View;
 using System;
-using System.Collections.ObjectModel;
-using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -9,20 +10,15 @@ using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil.ViewDadosBase
 {
-    [View.DetalhePagina(Symbol.Manage, "Gerenciar clientes")]
+    [DetalhePagina(Symbol.Manage, "Gerenciar clientes")]
     public sealed partial class GerenciarClientes : Page
     {
-        ClienteDI[] TodosClientes { get; }
-        ObservableCollection<ClienteDI> Clientes { get; }
+        BuscadorCliente Clientes { get; }
 
         public GerenciarClientes()
         {
             InitializeComponent();
-            using (var repo = new Repositorio.Leitura())
-            {
-                TodosClientes = repo.ObterClientes().ToArray();
-                Clientes = TodosClientes.GerarObs();
-            }
+            Clientes = new BuscadorCliente();
         }
 
         async void AdicionarCliente(object sender, RoutedEventArgs e)
@@ -79,30 +75,17 @@ namespace NFeFacil.ViewDadosBase
             var contexto = ((FrameworkElement)sender).DataContext;
             var dest = (ClienteDI)contexto;
 
-            using (var repo = new Repositorio.Escrita())
+            using (var repo = new BaseGeral.Repositorio.Escrita())
             {
                 repo.InativarDadoBase(dest, DefinicoesTemporarias.DateTimeNow);
-                Clientes.Remove(dest);
+                Clientes.Remover(dest);
             }
         }
 
         private void Buscar(object sender, TextChangedEventArgs e)
         {
             var busca = ((TextBox)sender).Text;
-            for (int i = 0; i < TodosClientes.Length; i++)
-            {
-                var atual = TodosClientes[i];
-                bool valido = (DefinicoesPermanentes.ModoBuscaCliente == 0
-                    ? atual.Nome : atual.Documento).ToUpper().Contains(busca.ToUpper());
-                if (valido && !Clientes.Contains(atual))
-                {
-                    Clientes.Add(atual);
-                }
-                else if (!valido && Clientes.Contains(atual))
-                {
-                    Clientes.Remove(atual);
-                }
-            }
+            Clientes.Buscar(busca);
         }
     }
 }

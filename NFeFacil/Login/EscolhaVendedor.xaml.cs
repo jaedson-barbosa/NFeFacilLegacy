@@ -1,5 +1,6 @@
-﻿using NFeFacil.ItensBD;
-using NFeFacil.View;
+﻿using BaseGeral;
+using BaseGeral.ItensBD;
+using BaseGeral.View;
 using System.Collections.ObjectModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -16,7 +17,7 @@ namespace NFeFacil.Login
         {
             InitializeComponent();
 
-            using (var repo = new Repositorio.Leitura())
+            using (var repo = new BaseGeral.Repositorio.Leitura())
             {
                 var conjuntos = new ObservableCollection<ConjuntoBasicoExibicao<Vendedor>>();
                 foreach (var atual in repo.ObterVendedores())
@@ -62,6 +63,7 @@ namespace NFeFacil.Login
 
         private void LogarAdiministrador(object sender, RoutedEventArgs e)
         {
+
             DefinicoesTemporarias.VendedorAtivo = null;
             MainPage.Current.Navegar<View.Inicio>();
             MainPage.Current.AtualizarInformaçõesGerais();

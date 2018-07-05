@@ -1,0 +1,39 @@
+﻿<ContentDialog x:Class="Venda.Impostos.EscolherTipoIPI"
+               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+               mc:Ignorable="d"
+               Title="Escolha de IPI"
+               PrimaryButtonText="Adicionar"
+               SecondaryButtonText="Cancelar">
+    <StackPanel>
+        <ComboBox Header="Situação tributária"
+                  HorizontalAlignment="Stretch"
+                  SelectedValue="{x:Bind CST, Mode=TwoWay}"
+                  SelectedValuePath="Tag">
+            <ComboBoxItem Tag="00">00=Entrada com recuperação de crédito</ComboBoxItem>
+            <ComboBoxItem Tag="01">01=Entrada tributada com alíquota zero</ComboBoxItem>
+            <ComboBoxItem Tag="02">02=Entrada isenta</ComboBoxItem>
+            <ComboBoxItem Tag="03">03=Entrada não-tributada</ComboBoxItem>
+            <ComboBoxItem Tag="04">04=Entrada imune</ComboBoxItem>
+            <ComboBoxItem Tag="05">05=Entrada com suspensão</ComboBoxItem>
+            <ComboBoxItem Tag="49">49=Outras entradas</ComboBoxItem>
+            <ComboBoxItem Tag="50">50=Saída tributada</ComboBoxItem>
+            <ComboBoxItem Tag="51">51=Saída tributada com alíquota zero</ComboBoxItem>
+            <ComboBoxItem Tag="52">52=Saída isenta</ComboBoxItem>
+            <ComboBoxItem Tag="53">53=Saída não-tributada</ComboBoxItem>
+            <ComboBoxItem Tag="54">54=Saída imune</ComboBoxItem>
+            <ComboBoxItem Tag="55">55=Saída com suspensão</ComboBoxItem>
+            <ComboBoxItem Tag="99">99=Outras saídas</ComboBoxItem>
+        </ComboBox>
+        <ComboBox x:Name="cmbTipoCalculo"
+                  HorizontalAlignment="Stretch"
+                  Header="Tipo de cálculo"
+                  IsEnabled="False"
+                  SelectionChanged="TipoCalculo_SelectionChanged">
+            <ComboBoxItem Tag="0">Alíquota</ComboBoxItem>
+            <ComboBoxItem Tag="1">Valor por unidade</ComboBoxItem>
+        </ComboBox>
+    </StackPanel>
+</ContentDialog>

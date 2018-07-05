@@ -1,0 +1,42 @@
+﻿<Page x:Class="RegistroComum.VisualizacaoRegistroVenda"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:controles="using:BaseGeral.Controles"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d">
+    <controles:VisualizacaoGenerica x:Name="ctrVisualizacao" />
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton x:Name="btnEditar"
+                          Label="Editar"
+                          Icon="Edit"
+                          Click="Editar" />
+            <AppBarButton x:Name="btnCriarNFe"
+                          Label="Criar NFe"
+                          Icon="Add"
+                          Click="CriarNFe" />
+            <AppBarButton x:Name="btnVerNFe"
+                          Label="Ver NFe relacionada"
+                          Icon="View"
+                          Click="VerNFe" />
+            <AppBarButton x:Name="btnCriarDarv"
+                          Label="Imprimir"
+                          Click="CriarDARV">
+                <AppBarButton.Icon>
+                    <FontIcon Glyph="&#xE749;" />
+                </AppBarButton.Icon>
+            </AppBarButton>
+            <AppBarButton x:Name="btnCalcularTroco"
+                          Label="Calcular troco"
+                          Icon="Calculator"
+                          Click="CalcularTroco" />
+            <CommandBar.SecondaryCommands>
+                <AppBarButton x:Name="btnCancelar"
+                              Label="Cancelar registro"
+                              Icon="Cancel"
+                              Click="Cancelar" />
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>

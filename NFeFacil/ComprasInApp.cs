@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BaseGeral;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.Services.Store;
@@ -18,6 +19,7 @@ namespace NFeFacil
                 var storeContext = StoreContext.GetDefault();
                 string[] productKinds = { "Durable" };
                 var addOns = await storeContext.GetAssociatedStoreProductsAsync(productKinds);
+                if (addOns.ExtendedError != null) throw addOns.ExtendedError;
                 if (Resumo == null)
                 {
                     Resumo = new Dictionary<Compras, bool>(2)
@@ -34,9 +36,15 @@ namespace NFeFacil
             }
             catch (Exception e)
             {
-                Resumo.Add(Compras.NFCe, false);
-                Resumo.Add(Compras.Personalizacao, false);
-                e.ManipularErro();
+                if (Resumo == null)
+                {
+                    Resumo = new Dictionary<Compras, bool>(2)
+                    {
+                        { Compras.NFCe, false },
+                        { Compras.Personalizacao, false }
+                    };
+                }
+                new Exception("Erro ao obter as informações das compras dentro do aplicativo.", e).ManipularErro();
             }
         }
 

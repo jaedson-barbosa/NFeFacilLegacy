@@ -89,6 +89,12 @@ namespace BaseGeral
             get => AssistenteConfig.Get(nameof(UsarFluent), false);
             set => AssistenteConfig.Set(nameof(UsarFluent), value);
         }
+
+        public static bool IgnorarProdutosJaAdicionados
+        {
+            get => AssistenteConfig.Get(nameof(IgnorarProdutosJaAdicionados), false);
+            set => AssistenteConfig.Get(nameof(IgnorarProdutosJaAdicionados), value);
+        }
     }
 
     public enum TiposBackground { Imagem, Cor, Padrao }

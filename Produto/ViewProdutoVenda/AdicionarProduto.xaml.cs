@@ -147,10 +147,12 @@ namespace Venda.ViewProdutoVenda
                 using (var repo = new BaseGeral.Repositorio.Leitura())
                 {
                     var ListaCompletaProdutos = new List<ProdutoAdicao>();
-                    var estoque = repo.ObterEstoques();
+                    var bloquearRepeticao = DefinicoesPermanentes.IgnorarProdutosJaAdicionados;
+                    var estoque = bloquearRepeticao ? null : repo.ObterEstoques();
                     foreach (var item in repo.ObterProdutos())
                     {
                         var jaAdicionado = produtosJaAdicionados.TryGetValue(item.Id, out double quantAdicionada);
+                        if (bloquearRepeticao && jaAdicionado) continue;
                         var est = estoque.FirstOrDefault(x => x.Id == item.Id);
                         double quant = est != null ? est.Alteracoes.Sum(x => x.Alteração) : double.PositiveInfinity,
                             quantRestante = quant - (jaAdicionado ? quantAdicionada : 0);

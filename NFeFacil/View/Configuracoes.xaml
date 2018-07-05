@@ -41,6 +41,9 @@
                               IsOn="{x:Bind root:DefinicoesPermanentes.UsarSOAP12, Mode=TwoWay}"
                               OffContent="SOAP 1.1"
                               OnContent="SOAP 1.2" />
+                <ToggleSwitch Header="Bloquear repetição de produtos nas vendas"
+                              MinWidth="320"
+                              IsOn="{x:Bind root:DefinicoesPermanentes.IgnorarProdutosJaAdicionados, Mode=TwoWay}" />
                 <controles:ItemPadrao HorizontalAlignment="Left"
                                       Titulo="Salvar backup"
                                       Descricao="Guarde todas as informações do aplicativo em um único arquivo."

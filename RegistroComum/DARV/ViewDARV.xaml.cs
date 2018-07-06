@@ -97,7 +97,10 @@ namespace RegistroComum.DARV
             Desconto = desconto.ToString("C2");
             Total = (subtotal + acrescimos - desconto).ToString("C2");
 
-            ListaProdutos = produtos;
+            //ListaProdutos = produtos.OrderBy(x => x.Descricao).ToArray();
+            ListaProdutos = new ExibicaoProduto[100];
+            for (int i = 0; i < 100; i++)
+                ListaProdutos[i] = produtos[0];
 
             if (!string.IsNullOrEmpty(Cliente.CPF))
                 EnderecoCliente = ObterEnderecoClienteFisico(Cliente);
@@ -142,7 +145,7 @@ namespace RegistroComum.DARV
         {
             var alturaDisponivel = alturaLinhaProdutos.ActualHeight - 20;
             int quantMaxima = (int)Math.Floor(alturaDisponivel / 20) - 1;
-            if (quantMaxima <= ListaProdutos.Length)
+            if (quantMaxima >= ListaProdutos.Length)
             {
                 produtosPagina0.Content = new ProdutosDARV() { Produtos = ListaProdutos.GerarObs() };
             }
@@ -157,17 +160,20 @@ namespace RegistroComum.DARV
                 for (int i = 0; i < quantPaginasExtras; i++)
                 {
                     var quantProdutosIgnorados = quantMaxima + ((int)quantMaximaPaginaExtra * i);
-                    ConteinerPaginas.Children.Add(new ContentPresenter
-                    {
-                        ContentTemplate = Produtos,
-                        Padding = PaddingEscolhido,
-                        Height = AlturaEscolhida,
-                        Width = LarguraEscolhida,
-                        Content = new ProdutosDARV
+                    ConteinerPaginas.Children.Add(
+                        new PaginaAdicional(
+                            new ProdutosDARV
+                            {
+                                Produtos = ListaProdutos
+                                    .Skip(quantProdutosIgnorados)
+                                    .Take((int)quantMaximaPaginaExtra)
+                                    .GerarObs()
+                            })
                         {
-                            Produtos = ListaProdutos.Skip(quantProdutosIgnorados).Take((int)quantMaximaPaginaExtra).GerarObs()
-                        }
-                    });
+                            Padding = PaddingEscolhido,
+                            Height = AlturaEscolhida,
+                            Width = LarguraEscolhida,
+                        });
                 }
             }
 

@@ -21,6 +21,9 @@ namespace Fiscal
 
         protected abstract List<DetalhesProdutos> Produtos { get; }
         protected abstract Total Total { set; }
+
+        public event EventHandler<(ExibicaoProdutoListaGeral antigo, ExibicaoProdutoListaGeral novo)> ProdutoAtualizado;
+
         protected abstract void AbrirTelaDetalhamento(DadosAdicaoProduto dados);
         protected abstract void AbrirTelaEspecifica();
 
@@ -125,7 +128,6 @@ namespace Fiscal
             Adicionar(produtoTributado);
         }
 
-        public bool EdicaoLiberada { get; } = true;
         public void Editar(ExibicaoProdutoListaGeral produto)
         {
             using (var repo = new BaseGeral.Repositorio.Leitura())

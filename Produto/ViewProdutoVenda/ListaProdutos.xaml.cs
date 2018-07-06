@@ -3,6 +3,7 @@ using BaseGeral.View;
 using NFeFacil.View;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -29,6 +30,7 @@ namespace Venda.ViewProdutoVenda
         {
             Controle = (IControleViewProduto)e.Parameter;
             Produtos = Controle.ObterProdutosIniciais();
+            Controle.ProdutoAtualizado += Controle_ProdutoAtualizado;
             Produtos.Insert(0, new ExibicaoProdutoListaGeral
             {
                 Codigo = "Código",
@@ -39,6 +41,18 @@ namespace Venda.ViewProdutoVenda
                 IsCabecalho = true
             });
             VisibilidadeConcluir = Controle.PodeConcluir ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            Controle.ProdutoAtualizado -= Controle_ProdutoAtualizado;
+        }
+
+        private void Controle_ProdutoAtualizado(object sender, (ExibicaoProdutoListaGeral antigo, ExibicaoProdutoListaGeral novo) e)
+        {
+            int index = Produtos.IndexOf(e.antigo);
+            Produtos.RemoveAt(index);
+            Produtos.Insert(index, e.novo);
         }
 
         private void RemoverProduto(object sender, RoutedEventArgs e)
@@ -58,10 +72,8 @@ namespace Venda.ViewProdutoVenda
             var log = Popup.Current;
             var context = ((FrameworkElement)sender).DataContext;
             var prod = (ExibicaoProdutoListaGeral)context;
-            if (prod.IsCabecalho && Controle.EdicaoLiberada) log.Escrever(TitulosComuns.Iniciando, "A edição pode ser usada nos documentos fiscais para alterar qualquer dado inserido anteriormente.");
-            else if (prod.IsCabecalho && !Controle.EdicaoLiberada) log.Escrever(TitulosComuns.Iniciando, "A edição pode ser usada nos documentos fiscais para alterar qualquer dado inserido anteriormente. Porém neste tipo de documento esta operação não é permitida.");
-            else if (Controle.EdicaoLiberada) Controle.Editar(prod);
-            else log.Escrever(TitulosComuns.Atenção, "Não é permitida edição neste tipo de registro, por favor, remova o item e adicione-o novamente com os dados desejados.");
+            if (prod.IsCabecalho) log.Escrever(TitulosComuns.Iniciando, "A edição pode ser usada nos documentos fiscais para alterar qualquer dado inserido anteriormente.");
+            else Controle.Editar(prod);
         }
 
         private async void AdicionarProduto(object sender, RoutedEventArgs e)

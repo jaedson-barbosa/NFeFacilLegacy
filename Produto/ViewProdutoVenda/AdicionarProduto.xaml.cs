@@ -75,16 +75,21 @@ namespace Venda.ViewProdutoVenda
                 else
                 {
                     Adicionar?.Invoke();
-                    var novoEstoque = ProdutoSelecionado.EstoqueDouble - Quantidade;
-                    if (novoEstoque == 0)
-                    {
+                    if (DefinicoesPermanentes.IgnorarProdutosJaAdicionados)
                         Produtos.Remover(ProdutoSelecionado);
-                    }
                     else
                     {
-                        ProdutoSelecionado.EstoqueDouble = novoEstoque;
-                        ProdutoSelecionado.AplicarAlteracoes();
-                        Produtos.AplicarAlteracaoEstoque(ProdutoSelecionado, novoEstoque);
+                        var novoEstoque = ProdutoSelecionado.EstoqueDouble - Quantidade;
+                        if (novoEstoque == 0)
+                        {
+                            Produtos.Remover(ProdutoSelecionado);
+                        }
+                        else
+                        {
+                            ProdutoSelecionado.EstoqueDouble = novoEstoque;
+                            ProdutoSelecionado.AplicarAlteracoes();
+                            Produtos.AplicarAlteracaoEstoque(ProdutoSelecionado, novoEstoque);
+                        }
                     }
                 }
             }
@@ -148,7 +153,7 @@ namespace Venda.ViewProdutoVenda
                 {
                     var ListaCompletaProdutos = new List<ProdutoAdicao>();
                     var bloquearRepeticao = DefinicoesPermanentes.IgnorarProdutosJaAdicionados;
-                    var estoque = bloquearRepeticao ? null : repo.ObterEstoques();
+                    var estoque = repo.ObterEstoques();
                     foreach (var item in repo.ObterProdutos())
                     {
                         var jaAdicionado = produtosJaAdicionados.TryGetValue(item.Id, out double quantAdicionada);

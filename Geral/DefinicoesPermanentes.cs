@@ -93,7 +93,7 @@ namespace BaseGeral
         public static bool IgnorarProdutosJaAdicionados
         {
             get => AssistenteConfig.Get(nameof(IgnorarProdutosJaAdicionados), false);
-            set => AssistenteConfig.Get(nameof(IgnorarProdutosJaAdicionados), value);
+            set => AssistenteConfig.Set(nameof(IgnorarProdutosJaAdicionados), value);
         }
     }
 

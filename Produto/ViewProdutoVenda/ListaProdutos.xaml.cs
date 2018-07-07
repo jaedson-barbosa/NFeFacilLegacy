@@ -1,9 +1,9 @@
-﻿using BaseGeral.Log;
+﻿using BaseGeral;
+using BaseGeral.Log;
 using BaseGeral.View;
 using NFeFacil.View;
 using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -103,6 +103,23 @@ namespace Venda.ViewProdutoVenda
         {
             if (Controle.Validar())
                 Controle.Concluir();
+        }
+
+        void Ordenar(object sender, RoutedEventArgs e)
+        {
+            popOrdenar.IsOpen = !popOrdenar.IsOpen;
+        }
+
+        void OrdenarPorDescricao(object sender, RoutedEventArgs e)
+        {
+            Produtos.Sort(x => x.Descricao, true);
+            popOrdenar.IsOpen = false;
+        }
+
+        void OrdenarPorCodigo(object sender, RoutedEventArgs e)
+        {
+            Produtos.Sort(x => x.Codigo, true);
+            popOrdenar.IsOpen = false;
         }
     }
 }

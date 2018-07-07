@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -108,6 +109,22 @@ namespace BaseGeral
             return new ObservableCollection<T>(aqui);
         }
 
+        public static void Sort<T, K>(this ObservableCollection<T> observable, Func<T, K> keySelector, bool ignoreFirst)
+        {
+            int ptr = 0, adicional = ignoreFirst ? 1 : 0;
+            List<T> sorted = observable.Skip(adicional).OrderBy(keySelector).ToList();
+            while (ptr < sorted.Count)
+            {
+                if (!observable[ptr + adicional].Equals(sorted[ptr]))
+                {
+                    T t = observable[ptr + adicional];
+                    observable.RemoveAt(ptr + adicional);
+                    observable.Insert(sorted.IndexOf(t) + adicional, t);
+                }
+                else ptr++;
+            }
+        }
+
         public static async void ManipularErro(this Exception erro)
         {
             if (erro is ErroDesserializacao dess)
@@ -155,7 +172,7 @@ namespace BaseGeral
         {
             if (string.IsNullOrEmpty(original)) return string.Empty;
             else if (original.Length == 14) // É CNPJ
-                return $"{sub(0, 2)}.{sub(2, 3)}.{sub(5, 3)}/{sub(8, 4)}.{sub(12, 2)}";
+                return $"{sub(0, 2)}.{sub(2, 3)}.{sub(5, 3)}/{sub(8, 4)}-{sub(12, 2)}";
             else if (original.Length == 11) // É CPF
                 return $"{sub(0, 3)}.{sub(3, 3)}.{sub(6, 3)}-{sub(9, 2)}";
             else if (original.Length == 8) // É CEP

@@ -50,8 +50,8 @@ namespace NFeFacil
         internal void DefinirOpacidadeBackground(double opacidade)
         {
             var backgroundFrame = (SolidColorBrush)FramePrincipal.Background;
-            //backgroundFrame.Opacity = opacidade;
-            //DefinicoesPermanentes.OpacidadeBackground = opacidade;
+            backgroundFrame.Opacity = opacidade;
+            DefinicoesPermanentes.OpacidadeBackground = opacidade;
         }
 
         internal ImageSource ImagemBackground

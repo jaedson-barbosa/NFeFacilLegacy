@@ -145,7 +145,7 @@
                        Grid.Column="1"
                        Canvas.ZIndex="1"
                        Navigated="NavegacaoConcluida"
-                       Background="Transparent">
+                       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
                     <Frame.ContentTransitions>
                         <TransitionCollection>
                             <NavigationThemeTransition>

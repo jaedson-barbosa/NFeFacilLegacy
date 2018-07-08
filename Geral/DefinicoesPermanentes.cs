@@ -60,7 +60,7 @@ namespace BaseGeral
 
         public static double OpacidadeBackground
         {
-            get => AssistenteConfig.Get(nameof(OpacidadeBackground), 1);
+            get => AssistenteConfig.Get(nameof(OpacidadeBackground), 1d);
             set => AssistenteConfig.Set(nameof(OpacidadeBackground), value);
         }
 
@@ -72,13 +72,13 @@ namespace BaseGeral
 
         public static double LarguraDANFENFCe
         {
-            get => AssistenteConfig.Get(nameof(LarguraDANFENFCe), 70);
+            get => AssistenteConfig.Get(nameof(LarguraDANFENFCe), 70d);
             set => AssistenteConfig.Set(nameof(LarguraDANFENFCe), value);
         }
 
         public static double MargemDANFENFCe
         {
-            get => AssistenteConfig.Get(nameof(MargemDANFENFCe), 3);
+            get => AssistenteConfig.Get(nameof(MargemDANFENFCe), 3d);
             set => AssistenteConfig.Set(nameof(MargemDANFENFCe), value);
         }
 

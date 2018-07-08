@@ -167,16 +167,15 @@ namespace RegistroComum.DARV
                 {
                     var quantProdutosIgnorados = quantMaximaPaginaExtra * i;
                     bool isUltima = quantProdutosAdicionados >= ListaProdutos.Length;
-                    var prods = ListaProdutos
-                                    .Skip(quantProdutosIgnorados)
-                                    .Take(isUltima ? quantMaxima : quantMaximaPaginaExtra)
-                                    .GerarObs();
                     if (!isUltima) isUltima = quantProdutosAdicionados + quantMaxima >= ListaProdutos.Length;
                     ConteinerPaginas.Children.Add(
                         new PaginaAdicional(
                             new ProdutosDARV
                             {
-                                Produtos = prods
+                                Produtos = ListaProdutos
+                                    .Skip(quantProdutosIgnorados)
+                                    .Take(isUltima ? quantMaxima : quantMaximaPaginaExtra)
+                                    .GerarObs()
                             })
                         {
                             Padding = PaddingEscolhido,

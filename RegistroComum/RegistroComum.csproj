@@ -110,6 +110,9 @@
       <DependentUpon>CalcularTroco.xaml</DependentUpon>
     </Compile>
     <Compile Include="ControleViewProduto.cs" />
+    <Compile Include="DARV\CabecalhoDARV.xaml.cs">
+      <DependentUpon>CabecalhoDARV.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DARV\DadosImpressaoDARV.cs" />
     <Compile Include="DARV\Dimensoes.cs" />
     <Compile Include="DARV\ExibicaoProduto.cs" />
@@ -117,6 +120,9 @@
       <DependentUpon>PaginaAdicional.xaml</DependentUpon>
     </Compile>
     <Compile Include="DARV\ProdutosDARV.cs" />
+    <Compile Include="DARV\RodapeDARV.xaml.cs">
+      <DependentUpon>RodapeDARV.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DARV\ViewDARV.xaml.cs">
       <DependentUpon>ViewDARV.xaml</DependentUpon>
     </Compile>
@@ -172,7 +178,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="DARV\CabecalhoDARV.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="DARV\PaginaAdicional.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DARV\RecursosDARV.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DARV\RodapeDARV.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

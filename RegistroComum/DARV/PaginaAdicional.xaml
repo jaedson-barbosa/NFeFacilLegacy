@@ -153,9 +153,20 @@
                BasedOn="{StaticResource Padrao}" />
     </UserControl.Resources>
     <Grid Margin="{x:Bind Padding}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition x:Name="alturaLinhaProdutos" />
+            <RowDefinition x:Name="alturaFinalProdutos"
+                           Height="Auto" />
+        </Grid.RowDefinitions>
+        <local:CabecalhoDARV Main="{x:Bind Main}" />
         <ContentPresenter x:Name="produtosPagAd"
-                          Grid.Row="5"
+                          Grid.Row="1"
                           Padding="0,10"
+                          VerticalAlignment="Top"
                           ContentTemplate="{StaticResource Produtos}" />
+        <local:RodapeDARV Grid.Row="2"
+                          Visibility="{x:Bind IsUltimaPagina}"
+                          Main="{x:Bind Main}" />
     </Grid>
 </UserControl>

@@ -7,6 +7,7 @@ using System.Linq;
 using BaseGeral;
 using BaseGeral.View;
 using Venda;
+using System.Threading.Tasks;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -15,34 +16,34 @@ namespace RegistroComum.DARV
     [DetalhePagina(Symbol.View, "DARV")]
     public sealed partial class ViewDARV : Page
     {
-        double AlturaEscolhida { get; set; }
-        double LarguraEscolhida { get; set; }
-        Thickness PaddingEscolhido { get; set; }
+        public double AlturaEscolhida { get; set; }
+        public double LarguraEscolhida { get; set; }
+        public Thickness PaddingEscolhido { get; set; }
 
-        RegistroVenda Registro { get; set; }
-        EmitenteDI Emitente { get; set; }
-        ClienteDI Cliente { get; set; }
-        string Vendedor { get; set; }
-        Comprador Comprador { get; set; }
-        MotoristaDI Motorista { get; set; }
+        public RegistroVenda Registro { get; set; }
+        public EmitenteDI Emitente { get; set; }
+        public ClienteDI Cliente { get; set; }
+        public string Vendedor { get; set; }
+        public Comprador Comprador { get; set; }
+        public MotoristaDI Motorista { get; set; }
 
-        string Subtotal { get; set; }
-        string Acrescimos { get; set; }
-        string Desconto { get; set; }
-        string Total { get; set; }
+        public string Subtotal { get; set; }
+        public string Acrescimos { get; set; }
+        public string Desconto { get; set; }
+        public string Total { get; set; }
 
-        string Id => Registro.Id.ToString().ToUpper();
-        string NomeAssinatura => Comprador?.Nome ?? Cliente.Nome;
-        string Observacoes => Registro.Observações;
+        public string Id => Registro.Id.ToString().ToUpper();
+        public string NomeAssinatura => Comprador?.Nome ?? Cliente.Nome;
+        public string Observacoes => Registro.Observações;
 
-        string EnderecoCliente { get; set; }
-        ExibicaoProduto[] ListaProdutos;
+        public string EnderecoCliente { get; set; }
+        public ExibicaoProduto[] ListaProdutos;
 
-        Visibility VisibilidadeTransporte { get; set; }
-        Visibility VisibilidadeNFeRelacionada { get; set; }
-        Visibility VisibilidadeComprador { get; set; }
-        Visibility VisibilidadePagamento { get; set; }
-        Visibility VisibilidadeObservacoes { get; set; }
+        public Visibility VisibilidadeTransporte { get; set; }
+        public Visibility VisibilidadeNFeRelacionada { get; set; }
+        public Visibility VisibilidadeComprador { get; set; }
+        public Visibility VisibilidadePagamento { get; set; }
+        public Visibility VisibilidadeObservacoes { get; set; }
 
         readonly GerenciadorImpressao Gerenciador = new GerenciadorImpressao();
         ViewDARV This { get; }
@@ -100,7 +101,10 @@ namespace RegistroComum.DARV
             //ListaProdutos = produtos.OrderBy(x => x.Descricao).ToArray();
             ListaProdutos = new ExibicaoProduto[100];
             for (int i = 0; i < 100; i++)
+            {
                 ListaProdutos[i] = produtos[0];
+                ListaProdutos[i].CodigoProduto = i.ToString("000");
+            }
 
             if (!string.IsNullOrEmpty(Cliente.CPF))
                 EnderecoCliente = ObterEnderecoClienteFisico(Cliente);
@@ -141,44 +145,48 @@ namespace RegistroComum.DARV
             Gerenciador.Dispose();
         }
 
-        void Pagina0Carregada(object sender, RoutedEventArgs e)
+        async void Pagina0Carregada(object sender, RoutedEventArgs e)
         {
             var alturaDisponivel = alturaLinhaProdutos.ActualHeight - 20;
-            int quantMaxima = (int)Math.Floor(alturaDisponivel / 20) - 1;
+            int quantMaxima = (int)Math.Floor(alturaDisponivel / 21) - 1;
             if (quantMaxima >= ListaProdutos.Length)
             {
                 produtosPagina0.Content = new ProdutosDARV() { Produtos = ListaProdutos.GerarObs() };
+                alturaLinhaProdutos.Height = new GridLength(1, GridUnitType.Auto);
+                alturaFinalProdutos.Height = new GridLength(1, GridUnitType.Star);
             }
             else
             {
-                produtosPagina0.Content = new ProdutosDARV() { Produtos = ListaProdutos.Take(quantMaxima).GerarObs() };
+                rodMainPag.Visibility = Visibility.Collapsed;
+                await Task.Delay(500);
 
-                var espacoDisponivelPaginaExtra = AlturaEscolhida - (PaddingEscolhido.Bottom * 2);
-                var quantMaximaPaginaExtra = Math.Floor(espacoDisponivelPaginaExtra / 20);
-                var quantProdutosRestantes = ListaProdutos.Length - quantMaxima;
-                int quantPaginasExtras = (int)Math.Ceiling(quantProdutosRestantes / quantMaximaPaginaExtra);
-                for (int i = 0; i < quantPaginasExtras; i++)
+                var quantMaximaPaginaExtra = (int)Math.Floor(alturaLinhaProdutos.ActualHeight / 21);
+                produtosPagina0.Content = new ProdutosDARV() { Produtos = ListaProdutos.Take(quantMaximaPaginaExtra).GerarObs() };
+                var quantProdutosAdicionados = quantMaximaPaginaExtra;
+                for (int i = 1; quantProdutosAdicionados < ListaProdutos.Length; i++, quantProdutosAdicionados += quantMaximaPaginaExtra)
                 {
-                    var quantProdutosIgnorados = quantMaxima + ((int)quantMaximaPaginaExtra * i);
+                    var quantProdutosIgnorados = quantMaximaPaginaExtra * i;
+                    bool isUltima = quantProdutosAdicionados >= ListaProdutos.Length;
+                    var prods = ListaProdutos
+                                    .Skip(quantProdutosIgnorados)
+                                    .Take(isUltima ? quantMaxima : quantMaximaPaginaExtra)
+                                    .GerarObs();
+                    if (!isUltima) isUltima = quantProdutosAdicionados + quantMaxima >= ListaProdutos.Length;
                     ConteinerPaginas.Children.Add(
                         new PaginaAdicional(
                             new ProdutosDARV
                             {
-                                Produtos = ListaProdutos
-                                    .Skip(quantProdutosIgnorados)
-                                    .Take((int)quantMaximaPaginaExtra)
-                                    .GerarObs()
+                                Produtos = prods
                             })
                         {
                             Padding = PaddingEscolhido,
                             Height = AlturaEscolhida,
                             Width = LarguraEscolhida,
+                            Main = this,
+                            IsUltimaPagina = isUltima ? Visibility.Visible : Visibility.Collapsed
                         });
                 }
             }
-
-            alturaLinhaProdutos.Height = new GridLength(1, GridUnitType.Auto);
-            alturaFinalProdutos.Height = new GridLength(1, GridUnitType.Star);
         }
 
         async void Imprimir(object sender, RoutedEventArgs e)

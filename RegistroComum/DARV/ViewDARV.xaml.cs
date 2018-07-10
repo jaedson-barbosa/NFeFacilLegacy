@@ -98,13 +98,13 @@ namespace RegistroComum.DARV
             Desconto = desconto.ToString("C2");
             Total = (subtotal + acrescimos - desconto).ToString("C2");
 
-            //ListaProdutos = produtos.OrderBy(x => x.Descricao).ToArray();
-            ListaProdutos = new ExibicaoProduto[100];
+            ListaProdutos = produtos.OrderBy(x => x.Descricao).ToArray();
+            /*ListaProdutos = new ExibicaoProduto[100];
             for (int i = 0; i < 100; i++)
             {
                 ListaProdutos[i] = produtos[0];
                 ListaProdutos[i].CodigoProduto = i.ToString("000");
-            }
+            }*/
 
             if (!string.IsNullOrEmpty(Cliente.CPF))
                 EnderecoCliente = ObterEnderecoClienteFisico(Cliente);

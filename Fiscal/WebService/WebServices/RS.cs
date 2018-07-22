@@ -14,16 +14,16 @@
         public string RecepcaoEventoHomologacao => "https://nfe-homologacao.sefazrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx";
         public string InutilizacaoHomologacao => "https://nfe-homologacao.sefazrs.rs.gov.br/ws/nfeinutilizacao/nfeinutilizacao4.asmx";
 
-        public string ConsultarProducaoNFCe => "https://nfce.sefazrs.rs.gov.br/ws/NfeConsulta/NfeConsulta2.asmx";
-        public string AutorizarProducaoNFCe => "https://nfce.sefazrs.rs.gov.br/ws/NfeAutorizacao/NFeAutorizacao.asmx";
-        public string RespostaAutorizarProducaoNFCe => "https://nfce.sefazrs.rs.gov.br/ws/NfeRetAutorizacao/NFeRetAutorizacao.asmx";
-        public string RecepcaoEventoProducaoNFCe => "https://nfce.sefazrs.rs.gov.br/ws/recepcaoevento/recepcaoevento.asmx";
-        public string InutilizacaoProducaoNFCe => "https://nfce.sefazrs.rs.gov.br/ws/nfeinutilizacao/nfeinutilizacao2.asmx";
+        public string ConsultarProducaoNFCe => "https://nfce.sefazrs.rs.gov.br/ws/NfeConsulta/NfeConsulta4.asmx";
+        public string AutorizarProducaoNFCe => "https://nfce.sefazrs.rs.gov.br/ws/NfeAutorizacao/NFeAutorizacao4.asmx";
+        public string RespostaAutorizarProducaoNFCe => "https://nfce.sefazrs.rs.gov.br/ws/NfeRetAutorizacao/NFeRetAutorizacao4.asmx";
+        public string RecepcaoEventoProducaoNFCe => "https://nfce.sefazrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx";
+        public string InutilizacaoProducaoNFCe => "https://nfce.sefazrs.rs.gov.br/ws/nfeinutilizacao/nfeinutilizacao4.asmx";
 
-        public string ConsultarHomologacaoNFCe => "https://nfce-homologacao.sefazrs.rs.gov.br/ws/NfeConsulta/NfeConsulta2.asmx";
-        public string AutorizarHomologacaoNFCe => "https://nfce-homologacao.sefazrs.rs.gov.br/ws/NfeAutorizacao/NFeAutorizacao.asmx";
-        public string RespostaAutorizarHomologacaoNFCe => "https://nfce-homologacao.sefazrs.rs.gov.br/ws/NfeRetAutorizacao/NFeRetAutorizacao.asmx";
-        public string RecepcaoEventoHomologacaoNFCe => "https://nfce-homologacao.sefazrs.rs.gov.br/ws/recepcaoevento/recepcaoevento.asmx";
-        public string InutilizacaoHomologacaoNFCe => "https://nfce-homologacao.sefazrs.rs.gov.br/ws/nfeinutilizacao/nfeinutilizacao2.asmx";
+        public string ConsultarHomologacaoNFCe => "https://nfce-homologacao.sefazrs.rs.gov.br/ws/NfeConsulta/NfeConsulta4.asmx";
+        public string AutorizarHomologacaoNFCe => "https://nfce-homologacao.sefazrs.rs.gov.br/ws/NfeAutorizacao/NFeAutorizacao4.asmx";
+        public string RespostaAutorizarHomologacaoNFCe => "https://nfce-homologacao.sefazrs.rs.gov.br/ws/NfeRetAutorizacao/NFeRetAutorizacao4.asmx";
+        public string RecepcaoEventoHomologacaoNFCe => "https://nfce-homologacao.sefazrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx";
+        public string InutilizacaoHomologacaoNFCe => "https://nfce-homologacao.sefazrs.rs.gov.br/ws/nfeinutilizacao/nfeinutilizacao4.asmx";
     }
 }

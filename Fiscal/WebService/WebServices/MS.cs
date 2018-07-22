@@ -14,16 +14,16 @@
         public string RecepcaoEventoHomologacao => "https://hom.nfe.sefaz.ms.gov.br/ws/NFeRecepcaoEvento4";
         public string InutilizacaoHomologacao => "https://hom.nfe.sefaz.ms.gov.br/ws/NFeInutilizacao4";
 
-        public string ConsultarProducaoNFCe => "https://nfce.fazenda.ms.gov.br/producao/services2/NfeConsulta2";
-        public string AutorizarProducaoNFCe => "https://nfce.fazenda.ms.gov.br/producao/services2/NfeAutorizacao";
-        public string RespostaAutorizarProducaoNFCe => "https://nfce.fazenda.ms.gov.br/producao/services2/NfeRetAutorizacao";
-        public string RecepcaoEventoProducaoNFCe => "https://nfce.fazenda.ms.gov.br/producao/services2/RecepcaoEvento";
-        public string InutilizacaoProducaoNFCe => "https://nfce.fazenda.ms.gov.br/producao/services2/NfeInutilizacao2";
+        public string ConsultarProducaoNFCe => "https://nfce.sefaz.ms.gov.br/ws/NFeConsultaProtocolo4";
+        public string AutorizarProducaoNFCe => "https://nfce.sefaz.ms.gov.br/ws/NFeAutorizacao4";
+        public string RespostaAutorizarProducaoNFCe => "https://nfce.sefaz.ms.gov.br/ws/NFeRetAutorizacao4";
+        public string RecepcaoEventoProducaoNFCe => "https://nfce.sefaz.ms.gov.br/ws/NFeRecepcaoEvento4";
+        public string InutilizacaoProducaoNFCe => "https://nfce.sefaz.ms.gov.br/ws/NFeInutilizacao4";
 
-        public string ConsultarHomologacaoNFCe => "https://homologacao.nfce.fazenda.ms.gov.br/homologacao/services2/NfeConsulta2";
-        public string AutorizarHomologacaoNFCe => "https://homologacao.nfce.fazenda.ms.gov.br/homologacao/services2/NfeAutorizacao";
-        public string RespostaAutorizarHomologacaoNFCe => "https://homologacao.nfce.fazenda.ms.gov.br/homologacao/services2/NfeRetAutorizacao";
-        public string RecepcaoEventoHomologacaoNFCe => "https://homologacao.nfce.fazenda.ms.gov.br/homologacao/services2/RecepcaoEvento";
-        public string InutilizacaoHomologacaoNFCe => "https://homologacao.nfce.fazenda.ms.gov.br/homologacao/services2/NfeInutilizacao2";
+        public string ConsultarHomologacaoNFCe => "https://hom.nfce.sefaz.ms.gov.br/ws/NFeConsultaProtocolo4";
+        public string AutorizarHomologacaoNFCe => "https://hom.nfce.sefaz.ms.gov.br/ws/NFeAutorizacao4";
+        public string RespostaAutorizarHomologacaoNFCe => "https://hom.nfce.sefaz.ms.gov.br/ws/NFeRetAutorizacao4";
+        public string RecepcaoEventoHomologacaoNFCe => "https://hom.nfce.sefaz.ms.gov.br/ws/NFeRecepcaoEvento4";
+        public string InutilizacaoHomologacaoNFCe => "https://hom.nfce.sefaz.ms.gov.br/ws/NFeInutilizacao4";
     }
 }

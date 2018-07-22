@@ -14,16 +14,16 @@
         public string RecepcaoEventoHomologacao => "https://homologacao.nfe.sefa.pr.gov.br/nfe/NFeRecepcaoEvento4?wsdl";
         public string InutilizacaoHomologacao => "https://homologacao.nfe.sefa.pr.gov.br/nfe/NFeInutilizacao4?wsdl";
 
-        public string ConsultarProducaoNFCe => "https://nfce.fazenda.pr.gov.br/nfce/NFeConsulta3?wsdl";
-        public string AutorizarProducaoNFCe => "https://nfce.fazenda.pr.gov.br/nfce/NFeAutorizacao3?wsdl";
-        public string RespostaAutorizarProducaoNFCe => "https://nfce.fazenda.pr.gov.br/nfce/NFeRetAutorizacao3?wsdl";
-        public string RecepcaoEventoProducaoNFCe => "https://nfce.fazenda.pr.gov.br/nfce/NFeRecepcaoEvento?wsdl";
-        public string InutilizacaoProducaoNFCe => "https://nfce.fazenda.pr.gov.br/nfce/NFeInutilizacao3?wsdl";
+        public string ConsultarProducaoNFCe => "https://nfce.sefa.pr.gov.br/nfce/NFeConsultaProtocolo4";
+        public string AutorizarProducaoNFCe => "https://nfce.sefa.pr.gov.br/nfce/NFeAutorizacao4";
+        public string RespostaAutorizarProducaoNFCe => "https://nfce.sefa.pr.gov.br/nfce/NFeRetAutorizacao4";
+        public string RecepcaoEventoProducaoNFCe => "https://nfce.sefa.pr.gov.br/nfce/NFeRecepcaoEvento4";
+        public string InutilizacaoProducaoNFCe => "https://nfce.sefa.pr.gov.br/nfce/NFeInutilizacao4";
 
-        public string ConsultarHomologacaoNFCe => "https://homologacao.nfce.fazenda.pr.gov.br/nfce/NFeConsulta3?wsdl";
-        public string AutorizarHomologacaoNFCe => "https://homologacao.nfce.fazenda.pr.gov.br/nfce/NFeAutorizacao3?wsdl";
-        public string RespostaAutorizarHomologacaoNFCe => "https://homologacao.nfce.fazenda.pr.gov.br/nfce/NFeRetAutorizacao3?wsdl";
-        public string RecepcaoEventoHomologacaoNFCe => "https://homologacao.nfce.fazenda.pr.gov.br/nfce/NFeRecepcaoEvento?wsdl";
-        public string InutilizacaoHomologacaoNFCe => "https://nfce.fazenda.pr.gov.br/nfce/NFeInutilizacao3?wsdl";
+        public string ConsultarHomologacaoNFCe => "https://homologacao.nfce.sefa.pr.gov.br/nfce/NFeConsultaProtocolo4";
+        public string AutorizarHomologacaoNFCe => "https://homologacao.nfce.sefa.pr.gov.br/nfce/NFeAutorizacao4";
+        public string RespostaAutorizarHomologacaoNFCe => "https://homologacao.nfce.sefa.pr.gov.br/nfce/NFeRetAutorizacao4";
+        public string RecepcaoEventoHomologacaoNFCe => "https://homologacao.nfce.sefa.pr.gov.br/nfce/NFeRecepcaoEvento4";
+        public string InutilizacaoHomologacaoNFCe => "https://homologacao.nfce.sefa.pr.gov.br/nfce/NFeInutilizacao4";
     }
 }

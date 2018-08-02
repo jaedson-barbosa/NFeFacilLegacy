@@ -10,6 +10,7 @@ using System.Net;
 using Fiscal.Certificacao;
 using BaseGeral;
 using BaseGeral.Certificacao;
+using System.Security.Authentication;
 
 namespace Fiscal.WebService
 {
@@ -56,13 +57,11 @@ namespace Fiscal.WebService
                 using (var proxy = new HttpClient(new HttpClientHandler()
                 {
                     ClientCertificateOptions = ClientCertificateOption.Automatic,
+                    SslProtocols = SslProtocols.Tls12,
                     UseDefaultCredentials = true,
                     AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip
                 }, true))
                 {
-                    proxy.DefaultRequestHeaders.Add("SOAPAction", Enderecos.Metodo);
-                    await OnProgressChanged(1);
-
                     var str = ObterConteudoRequisicao(corpo, addNamespace);
                     var conteudo = new StringContent(str, Encoding.UTF8, ObterTipoConteudo());
                     await OnProgressChanged(2);
@@ -139,10 +138,6 @@ namespace Fiscal.WebService
                 ? "http://www.w3.org/2003/05/soap-envelope"
                 : "http://schemas.xmlsoap.org/soap/envelope/";
             var teste = new XElement(XName.Get("Envelope", namespaceXML),
-                new XElement(XName.Get("Header", namespaceXML),
-                    new XElement(Name("nfeCabecMsg"),
-                        new XElement(Name("cUF"), CodigoUF),
-                        new XElement(Name("versaoDados"), VersaoDados))),
                 new XElement(XName.Get("Body", namespaceXML),
                     new XElement(Name("nfeDadosMsg"), xml)));
             return teste.ToString(SaveOptions.DisableFormatting);

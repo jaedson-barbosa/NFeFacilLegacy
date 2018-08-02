@@ -21,6 +21,8 @@ namespace BaseGeral.ModeloXML.PartesDetalhes.PartesTotal
             {
                 var temISSQN = false;
                 var prod = Produto.Produto;
+                var ipiDevol = Produto.ImpostoDevol?.IPI?.vIPIDevol;
+                vIPIDevol += string.IsNullOrEmpty(ipiDevol) ? 0 : Parse(ipiDevol);
                 foreach (var imposto in Produto.Impostos.impostos)
                 {
                     if (imposto is ISSQN)
@@ -39,8 +41,11 @@ namespace BaseGeral.ModeloXML.PartesDetalhes.PartesTotal
                             vFCPUFDest += AgregarValor(nameof(vFCPUFDest));
                             vICMSUFDest += AgregarValor(nameof(vICMSUFDest));
                             vICMSUFRemet += AgregarValor(nameof(vICMSUFRemet));
+                            vFCP += AgregarValor(nameof(vFCP));
                             vBCST += AgregarValor(nameof(vBCST));
                             vST += AgregarValor("vICMSST");
+                            vFCPST += AgregarValor(nameof(vFCPST));
+                            vFCPSTRet += AgregarValor(nameof(vFCPSTRet));
 
                             double AgregarValor(string nomeElemento)
                             {
@@ -141,56 +146,76 @@ namespace BaseGeral.ModeloXML.PartesDetalhes.PartesTotal
         public string VICMSUFRemet { get => ToStr(vICMSUFRemet); set => vICMSUFRemet = Parse(value); }
 
         [XmlIgnore]
+        public double vFCP;
+        [XmlElement("vFCP", Order = 6), DescricaoPropriedade("Valor Total do FCP")]
+        public string VFCP { get => ToStr(vFCP); set => vFCP = Parse(value); }
+
+        [XmlIgnore]
         public double vBCST;
-        [XmlElement("vBCST", Order = 6), DescricaoPropriedade("Somatório da BC ST")]
+        [XmlElement("vBCST", Order = 7), DescricaoPropriedade("Somatório da BC ST")]
         public string VBCST { get => ToStr(vBCST); set => vBCST = Parse(value); }
 
         [XmlIgnore]
         public double vST;
-        [XmlElement("vST", Order = 7), DescricaoPropriedade("Somatório do ICMS ST")]
+        [XmlElement("vST", Order = 8), DescricaoPropriedade("Somatório do ICMS ST")]
         public string VST { get => ToStr(vST); set => vST = Parse(value); }
 
         [XmlIgnore]
+        public double vFCPST;
+        [XmlElement("vFCPST", Order = 9), DescricaoPropriedade("Valor Total do FCP retido por ST")]
+        public string VFCPST { get => ToStr(vFCPST); set => vFCPST = Parse(value); }
+
+        [XmlIgnore]
+        public double vFCPSTRet;
+        [XmlElement("vFCPSTRet", Order = 10), DescricaoPropriedade("Valor Total do FCP retido anteriormente por ST")]
+        public string VFCPSTRet { get => ToStr(vFCPSTRet); set => vFCPSTRet = Parse(value); }
+
+        [XmlIgnore]
         public double vProd;
-        [XmlElement("vProd", Order = 8), DescricaoPropriedade("Somatório do valor dos produtos")]
+        [XmlElement("vProd", Order = 11), DescricaoPropriedade("Somatório do valor dos produtos")]
         public string VProd { get => ToStr(vProd); set => vProd = Parse(value); }
 
         [XmlIgnore]
         public double vFrete;
-        [XmlElement("vFrete", Order = 9), DescricaoPropriedade("Somatório de valor do Frete")]
+        [XmlElement("vFrete", Order = 12), DescricaoPropriedade("Somatório de valor do Frete")]
         public string VFrete { get => ToStr(vFrete); set => vFrete = Parse(value); }
 
         [XmlIgnore]
         public double vSeg;
-        [XmlElement("vSeg", Order = 10), DescricaoPropriedade("Somatório valor do seguro")]
+        [XmlElement("vSeg", Order = 13), DescricaoPropriedade("Somatório valor do seguro")]
         public string VSeg { get => ToStr(vSeg); set => vSeg = Parse(value); }
 
         [XmlIgnore]
         public double vDesc;
-        [XmlElement("vDesc", Order = 11), DescricaoPropriedade("Somatório do desconto")]
+        [XmlElement("vDesc", Order = 14), DescricaoPropriedade("Somatório do desconto")]
         public string VDesc { get => ToStr(vDesc); set => vDesc = Parse(value); }
 
         [XmlIgnore]
         public double vII;
-        [XmlElement("vII", Order = 12), DescricaoPropriedade("Somatório de II")]
+        [XmlElement("vII", Order = 15), DescricaoPropriedade("Somatório de II")]
         public string VII { get => ToStr(vII); set => vII = Parse(value); }
 
         [XmlIgnore]
         public double vIPI;
-        [XmlElement("vIPI", Order = 13), DescricaoPropriedade("Somatório de IPI")]
+        [XmlElement("vIPI", Order = 16), DescricaoPropriedade("Somatório de IPI")]
         public string VIPI { get => ToStr(vIPI); set => vIPI = Parse(value); }
 
+        [XmlIgnore]
+        public double vIPIDevol;
+        [XmlElement("vIPIDevol", Order = 17), DescricaoPropriedade("Valor total do IPI devolvido")]
+        public string VIPIDevol { get => ToStr(vIPIDevol); set => vIPIDevol = Parse(value); }
+
         double vPIS;
-        [XmlElement("vPIS", Order = 14), DescricaoPropriedade("Somatório de PIS")]
+        [XmlElement("vPIS", Order = 18), DescricaoPropriedade("Somatório de PIS")]
         public string VPIS { get => ToStr(vPIS); set => vPIS = Parse(value); }
 
         double vCOFINS;
-        [XmlElement("vCOFINS", Order = 15), DescricaoPropriedade("Somatório de COFINS")]
+        [XmlElement("vCOFINS", Order = 19), DescricaoPropriedade("Somatório de COFINS")]
         public string VCOFINS { get => ToStr(vCOFINS); set => vCOFINS = Parse(value); }
 
         [XmlIgnore]
         public double vOutro;
-        [XmlElement("vOutro", Order = 16), DescricaoPropriedade("Somatório dos valores adicionais")]
+        [XmlElement("vOutro", Order = 20), DescricaoPropriedade("Somatório dos valores adicionais")]
         public string VOutro { get => ToStr(vOutro); set => vOutro = Parse(value); }
 
         public double vNF
@@ -202,7 +227,7 @@ namespace BaseGeral.ModeloXML.PartesDetalhes.PartesTotal
             }
         }
 
-        [XmlElement("vNF", Order = 17), DescricaoPropriedade("Valor total da NF")]
+        [XmlElement("vNF", Order = 21), DescricaoPropriedade("Valor total da NF")]
         public string VNF
         {
             get => ToStr(vNF);
@@ -211,7 +236,7 @@ namespace BaseGeral.ModeloXML.PartesDetalhes.PartesTotal
 
         [XmlIgnore]
         double vTotTrib;
-        [XmlElement("vTotTrib", Order = 18), DescricaoPropriedade("Valor total dos tributos")]
+        [XmlElement("vTotTrib", Order = 22), DescricaoPropriedade("Valor total dos tributos")]
         public string VTotTrib { get => ToStr(vTotTrib); set => vTotTrib = Parse(value); }
 
         double vProdISSQN;

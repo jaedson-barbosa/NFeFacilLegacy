@@ -31,9 +31,6 @@ namespace BaseGeral.ModeloXML.PartesDetalhes
         [XmlElement(ElementName = "natOp", Order = 2), DescricaoPropriedade("Natureza da operação")]
         public string NaturezaDaOperacao { get; set; }
 
-        [XmlElement(ElementName = "indPag", Order = 3), DescricaoPropriedade("Forma de pagamento")]
-        public ushort FormaPagamento { get; set; } = 0;
-
         [XmlElement(ElementName = "mod", Order = 4)]
         public ushort Modelo { get; set; }
 

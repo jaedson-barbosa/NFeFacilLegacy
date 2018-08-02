@@ -52,12 +52,6 @@
                             <ComboBoxItem>Não presencial - Internet</ComboBoxItem>
                             <ComboBoxItem>Não presencial - Teleatendimento</ComboBoxItem>
                         </ComboBox>
-                        <ComboBox Header="Forma de pagamento *"
-                                  SelectedIndex="{x:Bind NotaSalva.Informacoes.identificacao.FormaPagamento, Mode=TwoWay}">
-                            <ComboBoxItem>Pagamento à vista</ComboBoxItem>
-                            <ComboBoxItem>Pagamento a prazo</ComboBoxItem>
-                            <ComboBoxItem>Outros</ComboBoxItem>
-                        </ComboBox>
                         <ComboBox Header="Destino da operação *"
                                   SelectedIndex="{x:Bind IdentificadorDestino, Mode=TwoWay}">
                             <ComboBoxItem>Operação interna</ComboBoxItem>
@@ -263,10 +257,12 @@
                       SelectedValuePath="Tag"
                       HorizontalAlignment="Stretch"
                       Header="Modalidade do frete">
-                <ComboBoxItem Tag="0">Emitente</ComboBoxItem>
-                <ComboBoxItem Tag="1">Destinatário ou remetente</ComboBoxItem>
-                <ComboBoxItem Tag="2">Terceiros</ComboBoxItem>
-                <ComboBoxItem Tag="9">Inexistente</ComboBoxItem>
+                <ComboBoxItem Tag="0">Contratação por conta do Emitente</ComboBoxItem>
+                <ComboBoxItem Tag="1">Contratação por conta do Destinatário</ComboBoxItem>
+                <ComboBoxItem Tag="2">Contratação por conta de Terceiros</ComboBoxItem>
+                <ComboBoxItem Tag="3">Transporte próprio por conta do Remetente</ComboBoxItem>
+                <ComboBoxItem Tag="4">Transporte próprio por conta do Destinatário</ComboBoxItem>
+                <ComboBoxItem Tag="9">Sem ocorrência de transporte</ComboBoxItem>
             </ComboBox>
             <Pivot Grid.Row="1"
                    Margin="0,4,0,0">

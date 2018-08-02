@@ -7,12 +7,14 @@ namespace Venda.Impostos.DetalhamentoICMS.DadosRN
     {
         public string vBCSTRet { get; set; }
         public string vICMSSTRet { get; set; }
+        public string pST { get; set; }
 
         public Tipo60() { }
         public Tipo60(TelasRN.Tipo60 tela)
         {
             vBCSTRet = tela.vBCSTRet;
             vICMSSTRet = tela.vICMSSTRet;
+            pST = tela.pST;
         }
 
         public override object Processar(DetalhesProdutos prod)
@@ -22,7 +24,8 @@ namespace Venda.Impostos.DetalhamentoICMS.DadosRN
                 CST = CST,
                 Orig = Origem,
                 vBCSTRet = vBCSTRet,
-                vICMSSTRet = vICMSSTRet
+                vICMSSTRet = vICMSSTRet,
+                pST = pST
             };
         }
     }

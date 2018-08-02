@@ -6,9 +6,6 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
     <ItemsControl Style="{StaticResource ItensResponsivos}">
-        <TextBox Text="{x:Bind Conjunto.clEnq, Mode=TwoWay}"
-                 Header="Classe de enquadramento"
-                 InputScope="Number" />
         <TextBox Text="{x:Bind Conjunto.CNPJProd, Mode=TwoWay}"
                  Header="CNPJ do produtor"
                  InputScope="Number" />

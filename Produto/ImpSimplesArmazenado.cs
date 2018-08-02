@@ -12,7 +12,6 @@ namespace Venda
 
         public struct XMLIPIArmazenado
         {
-            public string ClEnq { get; set; }
             public string CNPJProd { get; set; }
             public string CSelo { get; set; }
             public string QSelo { get; set; }

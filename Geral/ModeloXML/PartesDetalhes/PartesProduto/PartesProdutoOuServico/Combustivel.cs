@@ -8,8 +8,8 @@ namespace BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesProdutoOuServic
         [XmlElement("cProdANP", Order = 0), DescricaoPropriedade("Código de Produto da ANP")]
         public int CProdANP { get; set; }
 
-        [XmlElement("pMixGN", Order = 1), DescricaoPropriedade("Percentual de Gás Natural para o Produto GLP")]
-        public string PMixGN { get; set; }
+        [XmlElement("descANP", Order = 1), DescricaoPropriedade("Descrição do produto")]
+        public string DescANP { get; set; }
 
         [XmlElement(Order = 2), DescricaoPropriedade("Sistema de Controle do Diferimento do Imposto nas Operações com AEAC")]
         public string CODIF { get; set; }

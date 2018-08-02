@@ -15,7 +15,6 @@ namespace Venda.GerenciamentoProdutos
                 return new ImpSimplesArmazenado.XMLIPIArmazenado
                 {
                     CEnq = ipi.cEnq,
-                    ClEnq = ipi.clEnq,
                     CNPJProd = ipi.CNPJProd,
                     CSelo = ipi.cSelo,
                     QSelo = ipi.qSelo

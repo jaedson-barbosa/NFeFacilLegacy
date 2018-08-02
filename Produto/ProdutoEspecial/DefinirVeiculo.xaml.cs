@@ -31,7 +31,6 @@ namespace Venda.ProdutoEspecial
             var ultFrame = Frame.BackStack[Frame.BackStack.Count - 1];
             var prod = (IProdutoEspecial)ultFrame.Parameter;
             prod.veicProd = Veiculo;
-            prod.medicamentos = null;
             prod.armas = null;
             prod.comb = null;
             prod.NRECOPI = null;

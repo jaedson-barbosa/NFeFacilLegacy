@@ -27,9 +27,8 @@
             <controles:EntradaRestrita Pattern="[^\d.,]"
                                        Text="{x:Bind Comb.QTemp, Mode=TwoWay}"
                                        Header="Quantidade faturada em temp. ambiente" />
-            <controles:EntradaRestrita Pattern="[^\d.,]"
-                                       Text="{x:Bind Comb.PMixGN, Mode=TwoWay}"
-                                       Header="Quantidade de gás natural" />
+            <TextBox Text="{x:Bind Comb.DescANP, Mode=TwoWay}"
+                     Header="Descrição do produto conforme ANP" />
             <ComboBox ItemsSource="{x:Bind VM:DadosEstadosParaView.Siglas}"
                       SelectedItem="{x:Bind Comb.UFCons, Mode=TwoWay}"
                       Header="UF *"

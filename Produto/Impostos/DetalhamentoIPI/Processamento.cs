@@ -25,7 +25,6 @@ namespace Venda.Impostos.DetalhamentoIPI
                 var ipi = new IPI()
                 {
                     cEnq = bruto.CEnq,
-                    clEnq = bruto.ClEnq,
                     cSelo = bruto.CSelo,
                     CNPJProd = bruto.CNPJProd,
                     qSelo = bruto.QSelo,

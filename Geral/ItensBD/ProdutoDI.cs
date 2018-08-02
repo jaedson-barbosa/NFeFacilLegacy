@@ -49,9 +49,6 @@ namespace BaseGeral.ItensBD
                             case TiposProduto.Veiculo:
                                 detalheEspecial = xml.FirstNode.FromXElement<VeiculoNovo>();
                                 break;
-                            case TiposProduto.Medicamento:
-                                detalheEspecial = xml.FirstNode.FromXElement<List<Medicamento>>();
-                                break;
                             case TiposProduto.Armamento:
                                 detalheEspecial = xml.FirstNode.FromXElement<List<Arma>>();
                                 break;
@@ -93,19 +90,6 @@ namespace BaseGeral.ItensBD
                     DetalheEspecial = value;
                     ProdutoEspecial = new XElement(TiposProduto.Combustivel.ToString(),
                         value.ToXElement<Combustivel>()).ToString(SaveOptions.DisableFormatting);
-                }
-            }
-        }
-        List<Medicamento> IProdutoEspecial.medicamentos
-        {
-            get => DetalheEspecial as List<Medicamento>;
-            set
-            {
-                if (value != null)
-                {
-                    DetalheEspecial = value;
-                    ProdutoEspecial = new XElement(TiposProduto.Medicamento.ToString(),
-                        value.ToXElement<List<Medicamento>>()).ToString(SaveOptions.DisableFormatting);
                 }
             }
         }
@@ -176,7 +160,6 @@ namespace BaseGeral.ItensBD
                 CEST = string.IsNullOrEmpty(CEST) ? null : CEST,
                 armas = especial.armas,
                 comb = especial.comb,
-                medicamentos = especial.medicamentos,
                 NRECOPI = especial.NRECOPI,
                 veicProd = especial.veicProd
             };

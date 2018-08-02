@@ -10,6 +10,7 @@ namespace Venda.Impostos.DetalhamentoICMS.TelasRN
     {
         public string vBCSTRet { get; set; }
         public string vICMSSTRet { get; set; }
+        public string pST { get; set; }
 
         public Tipo60()
         {

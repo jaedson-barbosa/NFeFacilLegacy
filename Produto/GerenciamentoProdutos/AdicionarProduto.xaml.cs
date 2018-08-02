@@ -51,15 +51,12 @@ namespace Venda.GerenciamentoProdutos
                         BasicMainPage.Current.Navegar<DefinirVeiculo>(Produto);
                         break;
                     case 2:
-                        BasicMainPage.Current.Navegar<DefinirMedicamentos>(Produto);
-                        break;
-                    case 3:
                         BasicMainPage.Current.Navegar<DefinirArmamentos>(Produto);
                         break;
-                    case 4:
+                    case 3:
                         BasicMainPage.Current.Navegar<DefinirCombustivel>(Produto);
                         break;
-                    case 5:
+                    case 4:
                         DefinirPapel();
                         break;
                     default:

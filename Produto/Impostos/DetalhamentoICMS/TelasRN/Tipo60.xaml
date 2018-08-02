@@ -8,6 +8,9 @@
         <TextBox Text="{x:Bind vBCSTRet, Mode=TwoWay}"
                  Header="Valor da BC do ICMS ST retido"
                  InputScope="Number" />
+        <TextBox Text="{x:Bind pST, Mode=TwoWay}"
+                 Header="Alíquota suportada pelo Consumidor Final"
+                 InputScope="Number" />
         <TextBox Text="{x:Bind vICMSSTRet, Mode=TwoWay}"
                  Header="Valor do ICMS ST retido"
                  InputScope="Number" />

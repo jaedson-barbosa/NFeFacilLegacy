@@ -12,7 +12,7 @@
     <DefaultLanguage>pt-BR</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.16299.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.15063.0</TargetPlatformMinVersion>
+    <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -310,17 +310,11 @@
     <Compile Include="ProdutoEspecial\AdicionarArmamento.xaml.cs">
       <DependentUpon>AdicionarArmamento.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ProdutoEspecial\AdicionarMedicamento.xaml.cs">
-      <DependentUpon>AdicionarMedicamento.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ProdutoEspecial\DefinirArmamentos.xaml.cs">
       <DependentUpon>DefinirArmamentos.xaml</DependentUpon>
     </Compile>
     <Compile Include="ProdutoEspecial\DefinirCombustivel.xaml.cs">
       <DependentUpon>DefinirCombustivel.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ProdutoEspecial\DefinirMedicamentos.xaml.cs">
-      <DependentUpon>DefinirMedicamentos.xaml</DependentUpon>
     </Compile>
     <Compile Include="ProdutoEspecial\DefinirPapel.xaml.cs">
       <DependentUpon>DefinirPapel.xaml</DependentUpon>
@@ -537,19 +531,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ProdutoEspecial\AdicionarMedicamento.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="ProdutoEspecial\DefinirArmamentos.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ProdutoEspecial\DefinirCombustivel.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ProdutoEspecial\DefinirMedicamentos.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

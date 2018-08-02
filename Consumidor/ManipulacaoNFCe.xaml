@@ -37,12 +37,6 @@
                     <ComboBoxItem Tag="4">Entrega a domicílio</ComboBoxItem>
                     <ComboBoxItem Tag="9">Não presencial - Outros</ComboBoxItem>
                 </ComboBox>
-                <ComboBox Header="Forma de pagamento *"
-                          SelectedIndex="{x:Bind NotaSalva.Informacoes.identificacao.FormaPagamento, Mode=TwoWay}">
-                    <ComboBoxItem Content="Pagamento à vista" />
-                    <ComboBoxItem Content="Pagamento a prazo" />
-                    <ComboBoxItem Content="Outros" />
-                </ComboBox>
                 <TextBox Header="Natureza da operação *"
                          Text="{x:Bind NotaSalva.Informacoes.identificacao.NaturezaDaOperacao, Mode=TwoWay}" />
                 <ComboBox Header="Município do fato *"

@@ -123,16 +123,13 @@ namespace BaseGeral.ModeloXML.PartesDetalhes.PartesProduto
         [XmlElement(Order = 24), DescricaoPropriedade("Veículo")]
         public VeiculoNovo veicProd { get; set; }
 
-        [XmlElement("med", Order = 25)]
-        public List<Medicamento> medicamentos { get; set; }
-
-        [XmlElement("arma", Order = 26)]
+        [XmlElement("arma", Order = 25)]
         public List<Arma> armas { get; set; }
 
-        [XmlElement(Order = 27), DescricaoPropriedade("Combustível")]
+        [XmlElement(Order = 26), DescricaoPropriedade("Combustível")]
         public Combustivel comb { get; set; }
 
-        [XmlElement("nRECOPI", Order = 28), DescricaoPropriedade("Número RECOPI")]
+        [XmlElement("nRECOPI", Order = 27), DescricaoPropriedade("Número RECOPI")]
         public string NRECOPI { get; set; }
     }
 }

@@ -63,10 +63,6 @@
                                              Descricao="Algum tipo de veículo">
                     <FontIcon Glyph="&#xE804;" />
                 </controles:ItemPadraoSimples>
-                <controles:ItemPadraoSimples Titulo="Medicamento"
-                                             Descricao="Remédios e afins">
-                    <FontIcon Glyph="&#xE95E;" />
-                </controles:ItemPadraoSimples>
                 <controles:ItemPadraoSimples Titulo="Armamento"
                                              Descricao="Armas">
                     <BitmapIcon UriSource="{ThemeResource ImagemArma}" />

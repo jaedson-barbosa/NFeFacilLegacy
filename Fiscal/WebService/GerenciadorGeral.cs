@@ -11,6 +11,8 @@ using Fiscal.Certificacao;
 using BaseGeral;
 using BaseGeral.Certificacao;
 using System.Security.Authentication;
+using System.Security.Cryptography.X509Certificates;
+using System.ServiceModel;
 
 namespace Fiscal.WebService
 {
@@ -52,29 +54,29 @@ namespace Fiscal.WebService
         public async Task<Resposta> EnviarAsync(Envio corpo, bool addNamespace = false)
         {
             var origem = ConfiguracoesCertificacao.Origem;
+            
             if (origem == OrigemCertificado.Importado)
             {
-                using (var proxy = new HttpClient(new HttpClientHandler()
-                {
-                    ClientCertificateOptions = ClientCertificateOption.Automatic,
-                    SslProtocols = SslProtocols.Tls12,
-                    UseDefaultCredentials = true,
-                    AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip
-                }, true))
-                {
-                    var str = ObterConteudoRequisicao(corpo, addNamespace);
-                    var conteudo = new StringContent(str, Encoding.UTF8, ObterTipoConteudo());
-                    await OnProgressChanged(2);
+                await OnProgressChanged(1);
+                var bind = new BasicHttpBinding(BasicHttpSecurityMode.Transport);
+                bind.Security.Transport.ClientCredentialType = HttpClientCredentialType.Certificate;
+                var client = new Autorizacao.NFeAutorizacao4SoapClient(bind, new EndpointAddress(Enderecos.Endereco));
+                var loja = new X509Store();
+                loja.Open(OpenFlags.ReadOnly);
+                client.ClientCredentials.ClientCertificate.SetCertificate(StoreLocation.CurrentUser,
+                    StoreName.My,
+                    X509FindType.FindBySerialNumber,
+                    loja.Certificates[0].SerialNumber);
+                await OnProgressChanged(2);
 
-                    var resposta = await proxy.PostAsync(Enderecos.Endereco, conteudo);
-                    await OnProgressChanged(3);
+                await client.OpenAsync();
+                var resp = await client.nfeAutorizacaoLoteAsync(ObterXmlConteudoRequisicao(corpo, addNamespace));
+                await OnProgressChanged(3);
 
-                    var xml = XElement.Load(await resposta.Content.ReadAsStreamAsync());
-                    var retorno = ObterConteudoCorpo(xml).FromXElement<Resposta>();
-                    await OnProgressChanged(4);
-
-                    return retorno;
-                }
+                var nome = typeof(Resposta);
+                var retorno = resp.nfeResultMsg.FromXElement<Resposta>();
+                await OnProgressChanged(4);
+                return retorno;
             }
             else
             {
@@ -126,6 +128,11 @@ namespace Fiscal.WebService
 
         string ObterConteudoRequisicao(Envio corpo, bool addNamespace)
         {
+            return ObterXmlConteudoRequisicao(corpo, addNamespace).ToString(SaveOptions.DisableFormatting);
+        }
+
+        XElement ObterXmlConteudoRequisicao(Envio corpo, bool addNamespace)
+        {
             var xml = corpo.ToXElement<Envio>();
             if (addNamespace)
             {
@@ -140,7 +147,7 @@ namespace Fiscal.WebService
             var teste = new XElement(XName.Get("Envelope", namespaceXML),
                 new XElement(XName.Get("Body", namespaceXML),
                     new XElement(Name("nfeDadosMsg"), xml)));
-            return teste.ToString(SaveOptions.DisableFormatting);
+            return teste;
 
             XName Name(string original) => XName.Get(original, servico);
         }

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<discovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/disco/">
+  <contractRef ref="https://nfe.svrs.rs.gov.br/ws/NfeAutorizacao/NFeAutorizacao4.asmx?wsdl" docRef="https://nfe.svrs.rs.gov.br/ws/NfeAutorizacao/NFeAutorizacao4.asmx" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
+  <soap address="https://nfe.svrs.rs.gov.br/ws/NfeAutorizacao/NFeAutorizacao4.asmx" xmlns:q1="http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4" binding="q1:NFeAutorizacao4Soap" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+  <soap address="https://nfe.svrs.rs.gov.br/ws/NfeAutorizacao/NFeAutorizacao4.asmx" xmlns:q2="http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4" binding="q2:NFeAutorizacao4Soap12" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+</discovery>

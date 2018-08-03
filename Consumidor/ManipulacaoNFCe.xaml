@@ -60,6 +60,9 @@
                                            Text="{x:Bind NotaSalva.Informacoes.infAdic.InfCpl, Mode=TwoWay}"
                                            Header="Informacoes complementares de interesse do contribuinte" />
             <TextBlock Style="{StaticResource TitleTextBlockStyle}">Pagamento</TextBlock>
+            <controles:EntradaNumerica Format="13:2"
+                                       Number="{x:Bind NotaSalva.Informacoes.Pagamento.vTroco, Mode=TwoWay}"
+                                       Header="Valor do troco" />
             <ListView Margin="16"
                       ItemsSource="{x:Bind FormasPagamento}">
                 <ListView.Header>

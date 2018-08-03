@@ -69,7 +69,7 @@ namespace Comum
             Deducoes = new ObservableCollection<Deducoes>(NotaSalva.Informacoes.cana.Deduc);
             Observacoes = new ObservableCollection<Observacao>(NotaSalva.Informacoes.infAdic.ObsCont);
             ProcessosReferenciados = new ObservableCollection<ProcessoReferenciado>(NotaSalva.Informacoes.infAdic.ProcRef);
-            FormasPagamento = NotaSalva.Informacoes.FormasPagamento.Select(x => new FormaPagamento(x)).GerarObs();
+            FormasPagamento = NotaSalva.Informacoes.Pagamento.FormasPagamento.Select(x => new FormaPagamento(x)).GerarObs();
 
             DataPrestacao = string.IsNullOrEmpty(NotaSalva.Informacoes.total.ISSQNtot?.DCompet)
                 ? DateTimeOffset.Now
@@ -745,7 +745,7 @@ namespace Comum
             var caixa = new AddFormaPagamento();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
-                NotaSalva.Informacoes.FormasPagamento.Add(caixa.Pagamento);
+                NotaSalva.Informacoes.Pagamento.FormasPagamento.Add(caixa.Pagamento);
                 FormasPagamento.Add(new FormaPagamento(caixa.Pagamento));
             }
         }
@@ -753,7 +753,7 @@ namespace Comum
         private void RemoverFormaPagamento(object sender, RoutedEventArgs e)
         {
             var forma = (FormaPagamento)((FrameworkElement)sender).DataContext;
-            NotaSalva.Informacoes.FormasPagamento.Remove(forma.Original);
+            NotaSalva.Informacoes.Pagamento.FormasPagamento.Remove(forma.Original);
             FormasPagamento.Remove(forma);
         }
 

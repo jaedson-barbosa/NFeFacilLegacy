@@ -19,9 +19,10 @@ namespace Fiscal.Certificacao.LAN
 
         public async Task<List<CertificadoExibicao>> ObterCertificados()
         {
+            var origem = ConfiguracoesCertificacao.Origem;
             using (var cliente = new HttpClient())
             {
-                var uri = new Uri($"http://{RootUri}:1010/ObterCertificados");
+                var uri = new Uri($"http://{RootUri}:{(origem == OrigemCertificado.Cliente ? 2020 : 1010)}/ObterCertificados");
 
                 var resposta = await cliente.GetAsync(uri);
                 var xmlResposta = XElement.Load(await resposta.Content.ReadAsStreamAsync());
@@ -31,9 +32,10 @@ namespace Fiscal.Certificacao.LAN
 
         public async Task<Assinatura> AssinarRemotamente(CertificadoAssinaturaDTO envio)
         {
+            var origem = ConfiguracoesCertificacao.Origem;
             using (var cliente = new HttpClient())
             {
-                var uri = new Uri($"http://{RootUri}:1010/AssinarRemotamente");
+                var uri = new Uri($"http://{RootUri}:{(origem == OrigemCertificado.Cliente ? 2020 : 1010)}/AssinarRemotamente");
                 var xml = envio.ToXElement<CertificadoAssinaturaDTO>().ToString(SaveOptions.DisableFormatting);
                 var conteudo = new StringContent(xml, Encoding.UTF8, "text/xml");
 

@@ -2,9 +2,7 @@
 using BaseGeral.View;
 using NFeFacil.View;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using Windows.System.Profile;
 using Windows.UI.Popups;

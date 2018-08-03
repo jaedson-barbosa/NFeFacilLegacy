@@ -25,7 +25,7 @@ namespace Consumidor
                         ModFrete = 9,
                         Transporta = new Motorista()
                     },
-                    FormasPagamento = new List<DetalhamentoPagamento>(),
+                    Pagamento = new DetalhamentoPagamento(),
                     infAdic = new InformacoesAdicionais(),
                 }
             };

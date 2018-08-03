@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
 using static BaseGeral.ExtensoesPrincipal;
-using System.Reflection;
 
 namespace BaseGeral.ModeloXML.PartesDetalhes.PartesTotal
 {

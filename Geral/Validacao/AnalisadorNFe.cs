@@ -71,9 +71,9 @@ namespace BaseGeral.Validacao
             {
                 Nota.Informacoes.cana = new RegistroAquisicaoCana();
             }
-            if ((Nota.Informacoes.FormasPagamento?.Count ?? 0) == 0)
+            if (Nota.Informacoes.Pagamento == null)
             {
-                Nota.Informacoes.FormasPagamento = new System.Collections.Generic.List<DetalhamentoPagamento>();
+                Nota.Informacoes.Pagamento = new DetalhamentoPagamento();
             }
 
             Nota.Signature = null;

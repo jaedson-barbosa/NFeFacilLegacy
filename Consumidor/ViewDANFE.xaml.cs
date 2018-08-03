@@ -146,14 +146,14 @@ namespace Consumidor
             };
 
             double totPago = 0;
-            var formas = NFCe.Informacoes.FormasPagamento;
+            var formas = NFCe.Informacoes.Pagamento.FormasPagamento;
             var nForma = formas.Count;
             FormasPagamento = new string[nForma];
             ValoresPagamento = new string[nForma];
             for (int i = 0; i < nForma; i++)
             {
-                FormasPagamento[i] = descCodigo[formas[i].Pagamento.Forma];
-                var vPag = formas[i].Pagamento.vPag;
+                FormasPagamento[i] = descCodigo[formas[i].Forma];
+                var vPag = formas[i].vPag;
                 totPago += vPag;
                 ValoresPagamento[i] = vPag.ToString("N2");
             }

@@ -34,7 +34,7 @@ namespace BaseGeral.ModeloXML
 
         [DescricaoPropriedade("Formas de pagamento")]
         [XmlElement("pag", Namespace = "http://www.portalfiscal.inf.br/nfe", Order = 9)]
-        public List<DetalhamentoPagamento> FormasPagamento { get; set; }
+        public DetalhamentoPagamento Pagamento { get; set; }
 
         [DescricaoPropriedade("Informações Adicionais")]
         [XmlElement(Order = 10)]

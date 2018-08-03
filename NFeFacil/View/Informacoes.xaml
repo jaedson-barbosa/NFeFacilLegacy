@@ -78,11 +78,11 @@
                 </Paragraph>
                 <Paragraph>
                     <Bold>Número:</Bold>
-                    <Run>1.10</Run>
+                    <Run>1.11</Run>
                 </Paragraph>
                 <Paragraph>
                     <Bold>Revisão:</Bold>
-                    <Run>17</Run>
+                    <Run>0</Run>
                 </Paragraph>
             </RichTextBlock>
             <TextBlock Style="{StaticResource TitleTextBlockStyle}">Ajude o desenvolvedor</TextBlock>

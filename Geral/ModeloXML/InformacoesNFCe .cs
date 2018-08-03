@@ -23,7 +23,7 @@ namespace BaseGeral.ModeloXML
 
         [DescricaoPropriedade("Formas de pagamento")]
         [XmlElement("pag", Namespace = "http://www.portalfiscal.inf.br/nfe", Order = 6)]
-        public List<DetalhamentoPagamento> FormasPagamento { get; set; }
+        public DetalhamentoPagamento Pagamento { get; set; }
 
         [DescricaoPropriedade("Informações Adicionais")]
         [XmlElement(Order = 7)]
@@ -33,15 +33,12 @@ namespace BaseGeral.ModeloXML
     public sealed class DetalhamentoPagamento
     {
         [XmlElement("detPag", Order = 0)]
-        public Pagamento Pagamento { get; set; }
+        public List<Pagamento> FormasPagamento { get; set; } = new List<Pagamento>();
 
         [XmlIgnore]
         public double vTroco { get; set; }
         [XmlElement("vTroco", Order = 1)]
         public string VTroco { get => ToStr(vTroco); set => vTroco = Parse(value); }
-
-        public DetalhamentoPagamento() : this(new Pagamento()) { }
-        public DetalhamentoPagamento(Pagamento pagamento) => Pagamento = pagamento;
     }
 
     public sealed class Pagamento

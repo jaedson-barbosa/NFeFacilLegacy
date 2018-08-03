@@ -9,13 +9,13 @@
                PrimaryButtonText="Concluir"
                SecondaryButtonText="Cancelar">
     <StackPanel>
-        <ComboBox SelectedIndex="{x:Bind Pagamento.Pagamento.IndicadorForma, Mode=TwoWay}"
+        <ComboBox SelectedIndex="{x:Bind Pagamento.IndicadorForma, Mode=TwoWay}"
                   Header="Indicador da forma de pagamento"
                   HorizontalAlignment="Stretch">
             <ComboBoxItem>Pagamento à Vista</ComboBoxItem>
             <ComboBoxItem>Pagamento à Prazo</ComboBoxItem>
         </ComboBox>
-        <ComboBox SelectedValue="{x:Bind Pagamento.Pagamento.Forma, Mode=TwoWay}"
+        <ComboBox SelectedValue="{x:Bind Pagamento.Forma, Mode=TwoWay}"
                   SelectedValuePath="Tag"
                   Header="Forma de pagamento"
                   HorizontalAlignment="Stretch">
@@ -33,10 +33,7 @@
             <ComboBoxItem Tag="99">Outros</ComboBoxItem>
         </ComboBox>
         <controles:EntradaNumerica Format="13:2"
-                                   Number="{x:Bind Pagamento.Pagamento.vPag, Mode=TwoWay}"
+                                   Number="{x:Bind Pagamento.vPag, Mode=TwoWay}"
                                    Header="Valor pago" />
-        <controles:EntradaNumerica Format="13:2"
-                                   Number="{x:Bind Pagamento.vTroco, Mode=TwoWay}"
-                                   Header="Valor do troco" />
     </StackPanel>
 </ContentDialog>

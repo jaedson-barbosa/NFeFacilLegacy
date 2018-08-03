@@ -722,45 +722,54 @@
                 </ListView>
             </PivotItem>
         </Pivot>
-        <ListView Margin="16"
-                  ItemsSource="{x:Bind FormasPagamento}">
-            <ListView.Header>
-                <Grid Style="{StaticResource Cabecalho}">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Style="{StaticResource TextoCabecalho}">Tipo</TextBlock>
-                    <TextBlock Grid.Column="1"
-                               Style="{StaticResource TextoCabecalho}">Valor</TextBlock>
-                    <Button Grid.Column="2"
-                            Style="{StaticResource BotaoAdd}"
-                            Click="AdicionarFormaPagamento">
-                        <SymbolIcon Symbol="Add" />
-                    </Button>
-                </Grid>
-            </ListView.Header>
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="fiscal:FormaPagamento">
-                    <Grid Style="{StaticResource Cabecalho}"
-                          Background="Transparent">
-                        <Grid.ContextFlyout>
-                            <MenuFlyout>
-                                <MenuFlyoutItem Click="RemoverFormaPagamento">Remover</MenuFlyoutItem>
-                            </MenuFlyout>
-                        </Grid.ContextFlyout>
+        <Grid Margin="16">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <controles:EntradaNumerica Format="13:2"
+                                       Number="{x:Bind NotaSalva.Informacoes.Pagamento.vTroco, Mode=TwoWay}"
+                                       Header="Valor do troco" />
+            <ListView Grid.Row="1"
+                      ItemsSource="{x:Bind FormasPagamento}">
+                <ListView.Header>
+                    <Grid Style="{StaticResource Cabecalho}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
                             <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="{x:Bind Tipo}">Tipo</TextBlock>
+                        <TextBlock Style="{StaticResource TextoCabecalho}">Tipo</TextBlock>
                         <TextBlock Grid.Column="1"
-                                   Text="{x:Bind Valor}">Valor</TextBlock>
+                                   Style="{StaticResource TextoCabecalho}">Valor</TextBlock>
+                        <Button Grid.Column="2"
+                                Style="{StaticResource BotaoAdd}"
+                                Click="AdicionarFormaPagamento">
+                            <SymbolIcon Symbol="Add" />
+                        </Button>
                     </Grid>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+                </ListView.Header>
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="fiscal:FormaPagamento">
+                        <Grid Style="{StaticResource Cabecalho}"
+                              Background="Transparent">
+                            <Grid.ContextFlyout>
+                                <MenuFlyout>
+                                    <MenuFlyoutItem Click="RemoverFormaPagamento">Remover</MenuFlyoutItem>
+                                </MenuFlyout>
+                            </Grid.ContextFlyout>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{x:Bind Tipo}">Tipo</TextBlock>
+                            <TextBlock Grid.Column="1"
+                                       Text="{x:Bind Valor}">Valor</TextBlock>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
     </controles:MultView>
     <Page.BottomAppBar>
         <CommandBar>

@@ -23,15 +23,15 @@ namespace Fiscal
             { "99", "Outros" }
         };
 
-        public DetalhamentoPagamento Original { get; }
+        public Pagamento Original { get; }
         public string Tipo { get; }
         public string Valor { get; set; }
 
-        public FormaPagamento(DetalhamentoPagamento pagamento)
+        public FormaPagamento(Pagamento pagamento)
         {
             Original = pagamento;
-            Tipo = DescCodigo[pagamento.Pagamento.Forma];
-            Valor = pagamento.Pagamento.VPag;
+            Tipo = DescCodigo[pagamento.Forma];
+            Valor = pagamento.VPag;
         }
     }
 }

@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using BaseGeral.IBGE;
 using Fiscal.Certificacao.LAN;
-using System.Net;
 using Fiscal.Certificacao;
 using BaseGeral;
 using BaseGeral.Certificacao;
-using System.Security.Authentication;
 using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel;
 
@@ -73,7 +71,6 @@ namespace Fiscal.WebService
                 var resp = await client.nfeAutorizacaoLoteAsync(ObterXmlConteudoRequisicao(corpo, addNamespace));
                 await OnProgressChanged(3);
 
-                var nome = typeof(Resposta);
                 var retorno = resp.nfeResultMsg.FromXElement<Resposta>();
                 await OnProgressChanged(4);
                 return retorno;
@@ -94,7 +91,7 @@ namespace Fiscal.WebService
 
                 using (var cliente = new HttpClient())
                 {
-                    var uri = new Uri($"http://{OperacoesServidor.RootUri}:1010/EnviarRequisicao");
+                    var uri = new Uri($"http://{OperacoesServidor.RootUri}:{(origem == OrigemCertificado.Cliente ? 2020 : 1010)}/EnviarRequisicao");
                     await OnProgressChanged(1);
 
                     var xml = envio.ToXElement<RequisicaoEnvioDTO>().ToString(SaveOptions.DisableFormatting);
@@ -110,19 +107,6 @@ namespace Fiscal.WebService
 
                     return retorno;
                 }
-            }
-
-            XNode ObterConteudoCorpo(XElement soap)
-            {
-                var nome = XName.Get("Body", "http://schemas.xmlsoap.org/soap/envelope/");
-                var item = soap.Element(nome);
-                if (item == null)
-                {
-                    nome = XName.Get("Body", "http://www.w3.org/2003/05/soap-envelope");
-                    item = soap.Element(nome);
-                }
-                var casca = (XElement)item.FirstNode;
-                return casca.FirstNode;
             }
         }
 

@@ -32,7 +32,7 @@ namespace Comum
                     exporta = new Exportacao(),
                     compra = new Compra(),
                     cana = new RegistroAquisicaoCana(),
-                    FormasPagamento = new List<DetalhamentoPagamento>()
+                    Pagamento = new DetalhamentoPagamento()
                 }
             };
         }

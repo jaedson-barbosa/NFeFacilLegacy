@@ -40,7 +40,7 @@ namespace Fiscal.WebService
         {
             Enderecos = new EnderecosConexao(uf.Sigla).ObterConjuntoConexao(teste, operacao, isNFCe);
             CodigoUF = uf.Codigo;
-            VersaoDados = operacao == Operacoes.RecepcaoEvento ? "1.00" : "3.10";
+            VersaoDados = operacao == Operacoes.RecepcaoEvento ? "1.00" : "4.00";
         }
 
         public GerenciadorGeral(string siglaOuNome, Operacoes operacao, bool teste, bool isNFCe)

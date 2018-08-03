@@ -32,20 +32,24 @@ namespace BaseGeral.ModeloXML
         [XmlElement(Order = 8)]
         public Cobranca cobr { get; set; }
 
+        [DescricaoPropriedade("Formas de pagamento")]
+        [XmlElement("pag", Namespace = "http://www.portalfiscal.inf.br/nfe", Order = 9)]
+        public List<DetalhamentoPagamento> FormasPagamento { get; set; }
+
         [DescricaoPropriedade("Informações Adicionais")]
-        [XmlElement(Order = 9)]
+        [XmlElement(Order = 10)]
         public InformacoesAdicionais infAdic { get; set; }
 
         [DescricaoPropriedade("Exportação")]
-        [XmlElement(Order = 10)]
+        [XmlElement(Order = 11)]
         public Exportacao exporta { get; set; }
 
         [DescricaoPropriedade("Compra")]
-        [XmlElement(Order = 11)]
+        [XmlElement(Order = 12)]
         public Compra compra { get; set; }
 
         [DescricaoPropriedade("Cana de açúcar")]
-        [XmlElement(Order = 12)]
+        [XmlElement(Order = 13)]
         public RegistroAquisicaoCana cana { get; set; }
     }
 }

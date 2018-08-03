@@ -28,7 +28,7 @@
             </ItemsControl>
             <TextBlock Margin="0,10,0,0"
                        Style="{StaticResource SubtitleTextBlockStyle}">Importar nota fiscal</TextBlock>
-            <TextBlock TextWrapping="Wrap">Atenção, apenas notas com layout 3.10 são aceitas.</TextBlock>
+            <TextBlock TextWrapping="Wrap">Atenção, apenas notas com layout 4.00 são aceitas.</TextBlock>
             <ItemsControl Style="{StaticResource ItensSimples}">
                 <my:ItemPadrao Titulo="NF-e"
                                Descricao="Importar notas fiscais"

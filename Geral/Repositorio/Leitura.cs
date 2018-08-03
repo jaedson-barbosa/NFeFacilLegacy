@@ -149,7 +149,7 @@ namespace BaseGeral.Repositorio
 
         public IEnumerable<(MotoristaDI, VeiculoDI, VeiculoDI[])> ObterMotoristasComVeiculos()
         {
-            foreach (var item1 in db.Motoristas.Where(x => x.Ativo).OrderBy(x => x.Nome))
+            foreach (var item1 in db.Motoristas.Where(x => x.Ativo).OrderBy(x => x.Nome).ToArray())
             {
                 VeiculoDI item2;
                 VeiculoDI[] item3 = null;

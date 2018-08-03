@@ -1,4 +1,4 @@
-﻿<ContentDialog x:Class="Consumidor.AddFormaPagamento"
+﻿<ContentDialog x:Class="Fiscal.AddFormaPagamento"
                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                xmlns:controles="using:BaseGeral.Controles"
@@ -9,7 +9,13 @@
                PrimaryButtonText="Concluir"
                SecondaryButtonText="Cancelar">
     <StackPanel>
-        <ComboBox SelectedValue="{x:Bind Pagamento.Forma, Mode=TwoWay}"
+        <ComboBox SelectedIndex="{x:Bind Pagamento.Pagamento.IndicadorForma, Mode=TwoWay}"
+                  Header="Indicador da forma de pagamento"
+                  HorizontalAlignment="Stretch">
+            <ComboBoxItem>Pagamento à Vista</ComboBoxItem>
+            <ComboBoxItem>Pagamento à Prazo</ComboBoxItem>
+        </ComboBox>
+        <ComboBox SelectedValue="{x:Bind Pagamento.Pagamento.Forma, Mode=TwoWay}"
                   SelectedValuePath="Tag"
                   Header="Forma de pagamento"
                   HorizontalAlignment="Stretch">
@@ -22,28 +28,15 @@
             <ComboBoxItem Tag="11">Vale Refeição</ComboBoxItem>
             <ComboBoxItem Tag="12">Vale Presente</ComboBoxItem>
             <ComboBoxItem Tag="13">Vale Combustível</ComboBoxItem>
+            <ComboBoxItem Tag="15">Boleto Bancário</ComboBoxItem>
+            <ComboBoxItem Tag="90">Sem pagamento</ComboBoxItem>
             <ComboBoxItem Tag="99">Outros</ComboBoxItem>
         </ComboBox>
         <controles:EntradaNumerica Format="13:2"
-                                   Number="{x:Bind Pagamento.vPag, Mode=TwoWay}"
+                                   Number="{x:Bind Pagamento.Pagamento.vPag, Mode=TwoWay}"
                                    Header="Valor pago" />
-        <CheckBox IsChecked="{x:Bind UsarCartao, Mode=TwoWay}">Informações de cartão</CheckBox>
-        <StackPanel x:Name="stkCartao"
-                    Visibility="Collapsed">
-            <TextBox Header="CNPJ da credenciadora"
-                     Text="{x:Bind Pagamento.Cartao.CNPJ, Mode=TwoWay}" />
-            <ComboBox SelectedValue="{x:Bind Pagamento.Cartao.Bandeira, Mode=TwoWay}"
-                      SelectedValuePath="Tag"
-                      Header="Bandeira"
-                      HorizontalAlignment="Stretch">
-                <ComboBoxItem Tag="01">Visa</ComboBoxItem>
-                <ComboBoxItem Tag="02">Mastercard</ComboBoxItem>
-                <ComboBoxItem Tag="03">American Express</ComboBoxItem>
-                <ComboBoxItem Tag="04">Sorocred</ComboBoxItem>
-                <ComboBoxItem Tag="99">Outros</ComboBoxItem>
-            </ComboBox>
-            <TextBox Header="Número da autorização"
-                     Text="{x:Bind Pagamento.Cartao.Autorizacao, Mode=TwoWay}" />
-        </StackPanel>
+        <controles:EntradaNumerica Format="13:2"
+                                   Number="{x:Bind Pagamento.vTroco, Mode=TwoWay}"
+                                   Header="Valor do troco" />
     </StackPanel>
 </ContentDialog>

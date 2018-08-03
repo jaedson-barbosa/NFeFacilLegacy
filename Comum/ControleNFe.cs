@@ -31,7 +31,8 @@ namespace Comum
                     infAdic = new InformacoesAdicionais(),
                     exporta = new Exportacao(),
                     compra = new Compra(),
-                    cana = new RegistroAquisicaoCana()
+                    cana = new RegistroAquisicaoCana(),
+                    FormasPagamento = new List<DetalhamentoPagamento>()
                 }
             };
         }

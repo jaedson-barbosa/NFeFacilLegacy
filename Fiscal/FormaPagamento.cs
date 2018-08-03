@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace Consumidor
+namespace Fiscal
 {
-    sealed class FormaPagamento
+    public sealed class FormaPagamento
     {
         static Dictionary<string, string> DescCodigo = new Dictionary<string, string>
         {
@@ -18,18 +18,20 @@ namespace Consumidor
             { "11", "Vale Refeição" },
             { "12", "Vale Presente" },
             { "13", "Vale Combustível" },
+            { "15", "Boleto Bancário" },
+            { "90", "Sem pagamento" },
             { "99", "Outros" }
         };
 
-        public Pagamento Original { get; }
+        public DetalhamentoPagamento Original { get; }
         public string Tipo { get; }
         public string Valor { get; set; }
 
-        public FormaPagamento(Pagamento pagamento)
+        public FormaPagamento(DetalhamentoPagamento pagamento)
         {
             Original = pagamento;
-            Tipo = DescCodigo[pagamento.Forma];
-            Valor = pagamento.VPag;
+            Tipo = DescCodigo[pagamento.Pagamento.Forma];
+            Valor = pagamento.Pagamento.VPag;
         }
     }
 }

@@ -6,7 +6,7 @@ namespace BaseGeral.ModeloXML
     public sealed class ProtocoloNFe : ISignature
     {
         [XmlAttribute("versao")]
-        public string Versao { get; set; } = "3.10";
+        public string Versao { get; set; } = "4.00";
 
         [XmlElement("infProt", Order = 0)]
         public InfoProtocolo InfProt { get; set; }

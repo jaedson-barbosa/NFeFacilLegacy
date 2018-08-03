@@ -107,6 +107,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AcoesVisualizacao.cs" />
+    <Compile Include="AddFormaPagamento.xaml.cs">
+      <DependentUpon>AddFormaPagamento.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CancelarNFe.xaml.cs">
       <DependentUpon>CancelarNFe.xaml</DependentUpon>
     </Compile>
@@ -155,6 +158,7 @@
     <Compile Include="EscolhaProdutos.xaml.cs">
       <DependentUpon>EscolhaProdutos.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FormaPagamento.cs" />
     <Compile Include="IControleCriacao.cs" />
     <Compile Include="IControleView.cs" />
     <Compile Include="InfoInutilizacao.xaml.cs">
@@ -231,6 +235,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="AddFormaPagamento.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="CancelarNFe.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

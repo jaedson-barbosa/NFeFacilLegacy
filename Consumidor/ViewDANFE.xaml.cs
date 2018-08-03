@@ -152,8 +152,8 @@ namespace Consumidor
             ValoresPagamento = new string[nForma];
             for (int i = 0; i < nForma; i++)
             {
-                FormasPagamento[i] = descCodigo[formas[i].Forma];
-                var vPag = formas[i].vPag;
+                FormasPagamento[i] = descCodigo[formas[i].Pagamento.Forma];
+                var vPag = formas[i].Pagamento.vPag;
                 totPago += vPag;
                 ValoresPagamento[i] = vPag.ToString("N2");
             }

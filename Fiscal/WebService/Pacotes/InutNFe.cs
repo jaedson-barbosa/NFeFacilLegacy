@@ -22,7 +22,7 @@ namespace Fiscal.WebService.Pacotes
         public InutNFe() { }
         public InutNFe(InfInut info)
         {
-            Versao = "3.10";
+            Versao = "4.00";
             Info = info;
             Signature = null;
         }

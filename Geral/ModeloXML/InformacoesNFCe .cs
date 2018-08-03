@@ -23,36 +23,38 @@ namespace BaseGeral.ModeloXML
 
         [DescricaoPropriedade("Formas de pagamento")]
         [XmlElement("pag", Namespace = "http://www.portalfiscal.inf.br/nfe", Order = 6)]
-        public List<Pagamento> FormasPagamento { get; set; }
+        public List<DetalhamentoPagamento> FormasPagamento { get; set; }
 
         [DescricaoPropriedade("Informações Adicionais")]
         [XmlElement(Order = 7)]
         public InformacoesAdicionais infAdic { get; set; }
     }
 
+    public sealed class DetalhamentoPagamento
+    {
+        [XmlElement("detPag", Order = 0)]
+        public Pagamento Pagamento { get; set; }
+
+        [XmlIgnore]
+        public double vTroco { get; set; }
+        [XmlElement("vTroco", Order = 1)]
+        public string VTroco { get => ToStr(vTroco); set => vTroco = Parse(value); }
+
+        public DetalhamentoPagamento() : this(new Pagamento()) { }
+        public DetalhamentoPagamento(Pagamento pagamento) => Pagamento = pagamento;
+    }
+
     public sealed class Pagamento
     {
-        [XmlElement("tPag", Order = 0)]
+        [XmlElement("indPag", Order = 0)]
+        public int IndicadorForma { get; set; }
+
+        [XmlElement("tPag", Order = 1)]
         public string Forma { get; set; } = "01";
 
         [XmlIgnore]
         public double vPag { get; set; }
-        [XmlElement("vPag", Order = 1)]
+        [XmlElement("vPag", Order = 2)]
         public string VPag { get => ToStr(vPag); set => vPag = Parse(value); }
-
-        [XmlElement("card", Order = 2)]
-        public Cartao Cartao { get; set; }
-    }
-
-    public sealed class Cartao
-    {
-        [XmlElement(Order = 0)]
-        public string CNPJ { get; set; }
-
-        [XmlElement("tBand", Order = 1)]
-        public string Bandeira { get; set; }
-
-        [XmlElement("cAut", Order = 2)]
-        public string Autorizacao { get; set; }
     }
 }

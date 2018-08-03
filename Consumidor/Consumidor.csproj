@@ -107,13 +107,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AcoesNFCe.cs" />
-    <Compile Include="AddFormaPagamento.xaml.cs">
-      <DependentUpon>AddFormaPagamento.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ControleNFCe.cs" />
     <Compile Include="ControleViewNFCe.cs" />
     <Compile Include="ControleViewProduto.cs" />
-    <Compile Include="FormaPagamento.cs" />
     <Compile Include="ManipulacaoNFCe.xaml.cs">
       <DependentUpon>ManipulacaoNFCe.xaml</DependentUpon>
     </Compile>
@@ -152,10 +148,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="AddFormaPagamento.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="ManipulacaoNFCe.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -19,7 +19,7 @@ namespace Fiscal.WebService.Pacotes
 
         public ConsSitNFe(string chave, bool teste)
         {
-            Versao = "3.10";
+            Versao = "4.00";
             TipoAmbiente = teste ? 2 : 1;
             DescricaoServico = "CONSULTAR";
             ChaveNFe = chave;

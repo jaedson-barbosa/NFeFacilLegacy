@@ -58,7 +58,7 @@ namespace Fiscal.Certificacao
                         using (var loja = new X509Store())
                         {
                             loja.Open(OpenFlags.ReadOnly);
-                            var temp = loja.Certificates.Find(X509FindType.FindBySerialNumber, serial, false);
+                            var temp = loja.Certificates.Find(X509FindType.FindBySerialNumber, serial, true);
                             Nota.Signature = AssinarXML(temp[0].GetRSAPrivateKey(), temp[0].RawData, id, tag, xml.OuterXml);
                             await OnProgressChanged(2);
 

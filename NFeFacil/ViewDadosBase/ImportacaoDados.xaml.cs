@@ -169,7 +169,7 @@ namespace NFeFacil.ViewDadosBase
                 ? xmlAtual : xmlAtual.Element(XName.Get("NFe", "http://www.portalfiscal.inf.br/nfe"));
                 filhoIdent = filhoIdent.Element(XName.Get("infNFe", "http://www.portalfiscal.inf.br/nfe"));
 
-                return filhoIdent.Attribute("versao").Value == "3.10" ? xmlAtual : null;
+                return filhoIdent.Attribute("versao").Value == "4.00" ? xmlAtual : null;
             }
         }
 

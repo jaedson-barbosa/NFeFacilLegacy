@@ -44,7 +44,8 @@ namespace Comum
             new ItemHambuguer("\uE825", "Cobrança"),
             new ItemHambuguer(Symbol.Comment, "Informações adicionais"),
             new ItemHambuguer(Symbol.World, "Exportação e compras"),
-            new ItemHambuguer("\uEC0A", "Cana-de-açúcar")
+            new ItemHambuguer("\uEC0A", "Cana-de-açúcar"),
+            new ItemHambuguer(Symbol.More, "Pagamento")
         };
 
         public int SelectedIndex { set => main.SelectedIndex = value; }
@@ -68,6 +69,7 @@ namespace Comum
             Deducoes = new ObservableCollection<Deducoes>(NotaSalva.Informacoes.cana.Deduc);
             Observacoes = new ObservableCollection<Observacao>(NotaSalva.Informacoes.infAdic.ObsCont);
             ProcessosReferenciados = new ObservableCollection<ProcessoReferenciado>(NotaSalva.Informacoes.infAdic.ProcRef);
+            FormasPagamento = NotaSalva.Informacoes.FormasPagamento.Select(x => new FormaPagamento(x)).GerarObs();
 
             DataPrestacao = string.IsNullOrEmpty(NotaSalva.Informacoes.total.ISSQNtot?.DCompet)
                 ? DateTimeOffset.Now
@@ -369,6 +371,7 @@ namespace Comum
         ObservableCollection<Deducoes> Deducoes { get; set; }
         ObservableCollection<Observacao> Observacoes { get; set; }
         ObservableCollection<ProcessoReferenciado> ProcessosReferenciados { get; set; }
+        ObservableCollection<FormaPagamento> FormasPagamento { get; set; }
 
         #endregion
 
@@ -734,6 +737,24 @@ namespace Comum
         {
             var busca = ((TextBox)sender).Text;
             Motoristas.Buscar(busca);
+        }
+
+
+        async void AdicionarFormaPagamento(object sender, RoutedEventArgs e)
+        {
+            var caixa = new AddFormaPagamento();
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+            {
+                NotaSalva.Informacoes.FormasPagamento.Add(caixa.Pagamento);
+                FormasPagamento.Add(new FormaPagamento(caixa.Pagamento));
+            }
+        }
+
+        private void RemoverFormaPagamento(object sender, RoutedEventArgs e)
+        {
+            var forma = (FormaPagamento)((FrameworkElement)sender).DataContext;
+            NotaSalva.Informacoes.FormasPagamento.Remove(forma.Original);
+            FormasPagamento.Remove(forma);
         }
 
         void Voltar(object sender, RoutedEventArgs e)

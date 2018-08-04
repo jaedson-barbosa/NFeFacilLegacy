@@ -8,16 +8,10 @@
     <Grid Margin="16">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <ComboBox ItemsSource="{Binding Certificados}"
-                  SelectedItem="{Binding Escolhido, Mode=TwoWay}"
-                  DisplayMemberPath="SubjectName.Name" />
-        <TextBlock Grid.Row="1"
-                   Margin="0,16,0,0">Métodos solicitados</TextBlock>
-        <ScrollViewer Grid.Row="2">
-            <ListView x:Name="lstMetodos" />
-        </ScrollViewer>
+        <TextBlock Margin="0,16,0,0">Métodos solicitados</TextBlock>
+        <ListView Grid.Row="1"
+                  x:Name="lstMetodos" />
     </Grid>
 </Window>

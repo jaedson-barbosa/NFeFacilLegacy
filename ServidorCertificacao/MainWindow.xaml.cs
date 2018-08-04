@@ -12,8 +12,6 @@ using System.Windows.Threading;
 using System.Threading.Tasks;
 using System.IO;
 using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
-using System.Collections.ObjectModel;
 
 namespace ServidorCertificacao
 {
@@ -22,18 +20,8 @@ namespace ServidorCertificacao
     /// </summary>
     public partial class MainWindow : Window
     {
-        public ObservableCollection<X509Certificate2> Certificados { get; }
-        public X509Certificate2 Escolhido { get; set; }
-
         public MainWindow()
         {
-            DataContext = this;
-            using (var loja = new X509Store())
-            {
-                loja.Open(OpenFlags.ReadOnly);
-                Certificados = new ObservableCollection<X509Certificate2>(loja.Certificates.Cast<X509Certificate2>());
-            }
-
             InitializeComponent();
             lstMetodos.Dispatcher.Invoke(() => lstMetodos.Items.Insert(0, "A porta usada é a 1010"), DispatcherPriority.Normal);
             Listener0();
@@ -146,7 +134,7 @@ namespace ServidorCertificacao
                         var xml1 = XElement.Parse(Corpo);
                         lstMetodos.Dispatcher.Invoke(() => lstMetodos.Items.Insert(0, $"XML Requisição: {xml1.ToString()};"), DispatcherPriority.Normal);
                         var envio = Desserializar<RequisicaoEnvioDTO>(xml1);
-                        texto = await metodos.EnviarRequisicaoAsync(stream, envio, Escolhido);
+                        texto = await metodos.EnviarRequisicaoAsync(stream, envio);
                         break;
                     default:
                         texto = "Método não reconhecido.";

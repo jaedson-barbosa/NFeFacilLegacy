@@ -9,7 +9,6 @@ using System.Xml.Linq;
 using System.Xml.Serialization;
 using System.Xml;
 using System.Security.Cryptography.Xml;
-using System.ServiceModel;
 
 namespace ServidorCertificacao
 {
@@ -48,20 +47,35 @@ namespace ServidorCertificacao
             }
         }
 
-        public async Task<string> EnviarRequisicaoAsync(Stream stream, RequisicaoEnvioDTO req, X509Certificate2 cert)
+        public async Task<string> EnviarRequisicaoAsync(Stream stream, RequisicaoEnvioDTO req)
         {
-            var bind = new BasicHttpBinding(BasicHttpSecurityMode.Transport);
-            bind.Security.Transport.ClientCredentialType = HttpClientCredentialType.Certificate;
-            var client = new AutorizacaoSVRS.NFeAutorizacao4SoapClient(bind, new EndpointAddress(req.Uri));
-            client.ClientCredentials.ClientCertificate.Certificate = cert;
+            using (var proxy = new HttpClient(new HttpClientHandler()
+            {
+                ClientCertificateOptions = ClientCertificateOption.Automatic,
+                UseDefaultCredentials = true
+            }, true))
+            {
+                proxy.DefaultRequestHeaders.Add(req.Cabecalho.Nome, req.Cabecalho.Valor);
+                var resposta = await proxy.PostAsync(req.Uri,
+                    new StringContent(req.Conteudo.ToString(SaveOptions.DisableFormatting), Encoding.UTF8, req.TipoConteudo));
+                var str = await resposta.Content.ReadAsStringAsync();
+                var xmlPrimario = XElement.Load(await resposta.Content.ReadAsStreamAsync());
+                var xml = ObterConteudoCorpo(xmlPrimario);
+                return xml.ToString(SaveOptions.DisableFormatting);
+            }
 
-            client.Open();
-            var xml = new XmlDocument();
-            xml.LoadXml(req.Conteudo.ToString(SaveOptions.DisableFormatting));
-            var resp = await client.nfeAutorizacaoLoteAsync(xml);
-
-            var retorno = resp.nfeResultMsg.OuterXml;
-            return retorno;
+            XNode ObterConteudoCorpo(XElement soap)
+            {
+                var nome = XName.Get("Body", "http://schemas.xmlsoap.org/soap/envelope/");
+                var item = soap.Element(nome);
+                if (item == null)
+                {
+                    nome = XName.Get("Body", "http://www.w3.org/2003/05/soap-envelope");
+                    item = soap.Element(nome);
+                }
+                var casca = (XElement)item.FirstNode;
+                return casca.FirstNode;
+            }
         }
 
         public string AssinarXML(string xml, X509Certificate2 certificado, string tag)

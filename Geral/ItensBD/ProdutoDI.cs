@@ -204,6 +204,6 @@ namespace BaseGeral.ItensBD
             public double ValorUnitarioTributo { get; set; }
         }
 
-        public enum TiposProduto { Simples, Veiculo, Medicamento, Armamento, Combustivel, Papel }
+        public enum TiposProduto { Simples, Veiculo, Armamento, Combustivel, Papel }
     }
 }

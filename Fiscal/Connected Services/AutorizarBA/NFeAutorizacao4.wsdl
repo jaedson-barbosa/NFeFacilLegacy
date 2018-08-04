@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4">
       <s:element name="nfeDadosMsg">
@@ -9,7 +9,7 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="nfeResultMsg" nillable="true">
+      <s:element name="nfeResultMsg">
         <s:complexType mixed="true">
           <s:sequence>
             <s:any />
@@ -33,10 +33,12 @@
   </wsdl:message>
   <wsdl:portType name="NFeAutorizacao4Soap">
     <wsdl:operation name="nfeAutorizacaoLote">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Serviço destinado à autorização de NF-e.</wsdl:documentation>
       <wsdl:input message="tns:nfeAutorizacaoLoteSoapIn" />
       <wsdl:output message="tns:nfeAutorizacaoLoteSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="nfeAutorizacaoLoteZip">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Serviço destinado à autorização de NF-e com mensagem compactada.</wsdl:documentation>
       <wsdl:input message="tns:nfeAutorizacaoLoteZipSoapIn" />
       <wsdl:output message="tns:nfeAutorizacaoLoteZipSoapOut" />
     </wsdl:operation>
@@ -85,10 +87,10 @@
   </wsdl:binding>
   <wsdl:service name="NFeAutorizacao4">
     <wsdl:port name="NFeAutorizacao4Soap" binding="tns:NFeAutorizacao4Soap">
-      <soap:address location="https://nfe.svrs.rs.gov.br/ws/NfeAutorizacao/NFeAutorizacao4.asmx" />
+      <soap:address location="https://nfe.sefaz.ba.gov.br/webservices/NFeAutorizacao4/NFeAutorizacao4.asmx" />
     </wsdl:port>
     <wsdl:port name="NFeAutorizacao4Soap12" binding="tns:NFeAutorizacao4Soap12">
-      <soap12:address location="https://nfe.svrs.rs.gov.br/ws/NfeAutorizacao/NFeAutorizacao4.asmx" />
+      <soap12:address location="https://nfe.sefaz.ba.gov.br/webservices/NFeAutorizacao4/NFeAutorizacao4.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

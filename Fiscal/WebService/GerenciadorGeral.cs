@@ -123,17 +123,7 @@ namespace Fiscal.WebService
                 const string namespaceNFe = "http://www.portalfiscal.inf.br/nfe";
                 xml.Element(XName.Get("NFe", namespaceNFe)).SetAttributeValue("xmlns", namespaceNFe);
             }
-
-            var servico = Enderecos.Servico;
-            string namespaceXML = DefinicoesPermanentes.UsarSOAP12
-                ? "http://www.w3.org/2003/05/soap-envelope"
-                : "http://schemas.xmlsoap.org/soap/envelope/";
-            var teste = new XElement(XName.Get("Envelope", namespaceXML),
-                new XElement(XName.Get("Body", namespaceXML),
-                    new XElement(Name("nfeDadosMsg"), xml)));
-            return teste;
-
-            XName Name(string original) => XName.Get(original, servico);
+            return xml;
         }
 
         string ObterTipoConteudo()

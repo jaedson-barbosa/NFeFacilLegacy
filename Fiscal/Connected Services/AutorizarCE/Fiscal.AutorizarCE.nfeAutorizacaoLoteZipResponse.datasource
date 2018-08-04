@@ -6,5 +6,5 @@
     cause the file to be unrecognizable by the program.
 -->
 <GenericObjectDataSource DisplayName="nfeAutorizacaoLoteZipResponse" Version="1.0" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
-   <TypeInfo>Fiscal.Autorizacao.nfeAutorizacaoLoteZipResponse</TypeInfo>
+   <TypeInfo>Fiscal.AutorizarCE.nfeAutorizacaoLoteZipResponse</TypeInfo>
 </GenericObjectDataSource>

@@ -43,15 +43,12 @@ namespace BaseGeral.ModeloXML
 
     public sealed class Pagamento
     {
-        [XmlElement("indPag", Order = 0)]
-        public int IndicadorForma { get; set; }
-
-        [XmlElement("tPag", Order = 1)]
+        [XmlElement("tPag", Order = 0)]
         public string Forma { get; set; } = "01";
 
         [XmlIgnore]
         public double vPag { get; set; }
-        [XmlElement("vPag", Order = 2)]
+        [XmlElement("vPag", Order = 1)]
         public string VPag { get => ToStr(vPag); set => vPag = Parse(value); }
     }
 }

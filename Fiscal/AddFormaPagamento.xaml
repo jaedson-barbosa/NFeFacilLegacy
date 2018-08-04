@@ -9,12 +9,6 @@
                PrimaryButtonText="Concluir"
                SecondaryButtonText="Cancelar">
     <StackPanel>
-        <ComboBox SelectedIndex="{x:Bind Pagamento.IndicadorForma, Mode=TwoWay}"
-                  Header="Indicador da forma de pagamento"
-                  HorizontalAlignment="Stretch">
-            <ComboBoxItem>Pagamento à Vista</ComboBoxItem>
-            <ComboBoxItem>Pagamento à Prazo</ComboBoxItem>
-        </ComboBox>
         <ComboBox SelectedValue="{x:Bind Pagamento.Forma, Mode=TwoWay}"
                   SelectedValuePath="Tag"
                   Header="Forma de pagamento"

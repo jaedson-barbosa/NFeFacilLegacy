@@ -143,7 +143,12 @@
     <Compile Include="Certificacao\LAN\Pacotes\RequisicaoEnvioDTO.cs" />
     <Compile Include="Certificacao\LAN\Primitivos\CertificadoAssinatura.cs" />
     <Compile Include="Certificacao\LAN\Primitivos\CertificadoExibicao.cs" />
-    <Compile Include="Connected Services\Autorizacao\Reference.cs">
+    <Compile Include="Connected Services\AutorizarBA\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\AutorizarCE\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -286,29 +291,49 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\Autorizacao\Fiscal.Autorizacao.nfeAutorizacaoLoteResponse.datasource">
+    <None Include="Connected Services\AutorizarBA\Fiscal.AutorizarBA.nfeAutorizacaoLoteResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\Autorizacao\Fiscal.Autorizacao.nfeAutorizacaoLoteZipResponse.datasource">
+    <None Include="Connected Services\AutorizarBA\Fiscal.AutorizarBA.nfeAutorizacaoLoteZipResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\Autorizacao\NFeAutorizacao4.wsdl" />
+    <None Include="Connected Services\AutorizarBA\NFeAutorizacao4.wsdl" />
+    <None Include="Connected Services\AutorizarCE\Fiscal.AutorizarCE.nfeAutorizacaoLoteResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\AutorizarCE\Fiscal.AutorizarCE.nfeAutorizacaoLoteZipResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\AutorizarCE\NFeAutorizacao4.wsdl" />
     <None Include="Properties\ServiceReferences.Designer.ClientConfig" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Connected Services\Autorizacao\" />
+    <WCFMetadataStorage Include="Connected Services\AutorizarBA\" />
+    <WCFMetadataStorage Include="Connected Services\AutorizarCE\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\Autorizacao\NFeAutorizacao4.disco" />
+    <None Include="Connected Services\AutorizarBA\NFeAutorizacao4.disco" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\Autorizacao\configuration91.svcinfo" />
+    <None Include="Connected Services\AutorizarBA\configuration91.svcinfo" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\Autorizacao\configuration.svcinfo" />
+    <None Include="Connected Services\AutorizarBA\configuration.svcinfo" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\Autorizacao\Reference.svcmap">
+    <None Include="Connected Services\AutorizarBA\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\AutorizarCE\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\AutorizarCE\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\AutorizarCE\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

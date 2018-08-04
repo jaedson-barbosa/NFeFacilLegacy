@@ -130,11 +130,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Connected Services\AutorizacaoSVRS\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -162,13 +157,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Connected Services\AutorizacaoSVRS\NFeAutorizacao4.wsdl" />
-    <None Include="Connected Services\AutorizacaoSVRS\ServidorCertificacao.AutorizacaoSVRS.nfeAutorizacaoLoteResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\AutorizacaoSVRS\ServidorCertificacao.AutorizacaoSVRS.nfeAutorizacaoLoteZipResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\System.Xml.XmlNode.datasource" />
     <None Include="Properties\Settings.settings">
@@ -193,24 +181,6 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Connected Services\AutorizacaoSVRS\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\AutorizacaoSVRS\NFeAutorizacao4.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\AutorizacaoSVRS\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\AutorizacaoSVRS\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\AutorizacaoSVRS\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

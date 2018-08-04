@@ -98,19 +98,19 @@ namespace Fiscal.WebService
             }
         }
 
-        const string ConsultarServico = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta2";
-        const string ConsultarMetodo = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta2/nfeConsultaNF2";
+        const string ConsultarServico = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeConsultaProtocolo4";
+        const string ConsultarMetodo = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeConsultaProtocolo4/nfeConsultaNF";
 
-        const string AutorizarServico = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeAutorizacao4";
-        const string AutorizarMetodo = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeAutorizacao4/nfeAutorizacaoLote";
+        const string AutorizarServico = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4";
+        const string AutorizarMetodo = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4/nfeAutorizacaoLote";
 
-        const string RespostaAutorizarServico = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeRetAutorizacao";
-        const string RespostaAutorizarMetodo = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeRetAutorizacao/nfeRetAutorizacaoLote";
+        const string RespostaAutorizarServico = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeRetAutorizacao4";
+        const string RespostaAutorizarMetodo = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeRetAutorizacao4/nfeRetAutorizacaoLote";
 
-        const string RecepcaoEventoServico = "http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento";
-        const string RecepcaoEventoMetodo = "http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento/nfeRecepcaoEvento";
+        const string RecepcaoEventoServico = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeRecepcaoEvento4";
+        const string RecepcaoEventoMetodo = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeRecepcaoEvento4/nfeRecepcaoEvento";
 
-        const string InutilizacaoServico = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeInutilizacao2";
-        const string InutilizacaoMetodo = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeInutilizacao2/nfeInutilizacaoNF2";
+        const string InutilizacaoServico = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeInutilizacao4";
+        const string InutilizacaoMetodo = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeInutilizacao4/nfeInutilizacaoNF";
     }
 }

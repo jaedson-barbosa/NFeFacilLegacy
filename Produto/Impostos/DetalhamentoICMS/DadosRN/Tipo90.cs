@@ -5,7 +5,7 @@ namespace Venda.Impostos.DetalhamentoICMS.DadosRN
 {
     public class Tipo90 : BaseRN
     {
-        public int modBC { get; set; }
+        public string modBC { get; set; }
         public string vBC { get; set; }
         public string pRedBC { get; set; }
         public string pICMS { get; set; }
@@ -14,7 +14,7 @@ namespace Venda.Impostos.DetalhamentoICMS.DadosRN
         public string vICMSDeson { get; set; }
         public string motDesICMS { get; set; }
 
-        public int modBCST { get; set; }
+        public string modBCST { get; set; }
         public string pMVAST { get; set; }
         public string pRedBCST { get; set; }
         public string vBCST { get; set; }
@@ -24,7 +24,7 @@ namespace Venda.Impostos.DetalhamentoICMS.DadosRN
         public Tipo90() { }
         public Tipo90(TelasRN.Tipo90 tela)
         {
-            modBC = tela.modBC;
+            modBC = tela.modBC == -1 ? null : tela.modBC.ToString();
             vBC = tela.vBC;
             pRedBC = tela.pRedBC;
             pICMS = tela.pICMS;
@@ -33,7 +33,7 @@ namespace Venda.Impostos.DetalhamentoICMS.DadosRN
             vICMSDeson = tela.vICMSDeson;
             motDesICMS = tela.motDesICMS;
 
-            modBCST = tela.modBCST;
+            modBCST = tela.modBCST == -1 ? null : tela.modBCST.ToString();
             pMVAST = tela.pMVAST;
             pRedBCST = tela.pRedBCST;
             vBCST = tela.vBCST;
@@ -46,8 +46,8 @@ namespace Venda.Impostos.DetalhamentoICMS.DadosRN
             return new ICMS90()
             {
                 CST = CST,
-                modBC = modBC.ToString(),
-                modBCST = modBCST.ToString(),
+                modBC = modBC,
+                modBCST = modBCST,
                 motDesICMS = motDesICMS,
                 Orig = Origem,
                 pICMS = pICMS,

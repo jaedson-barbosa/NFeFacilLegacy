@@ -4,8 +4,7 @@
       xmlns:local="using:RegistroComum.DARV"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      mc:Ignorable="d"
-      RequestedTheme="Light">
+      mc:Ignorable="d">
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -98,11 +97,12 @@
             </DataTemplate>
         </ResourceDictionary>
     </Page.Resources>
-    <ScrollViewer Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-                  HorizontalScrollMode="Enabled"
+    <ScrollViewer HorizontalScrollMode="Enabled"
                   HorizontalScrollBarVisibility="Visible">
         <StackPanel x:Name="ConteinerPaginas"
-                    Orientation="Horizontal">
+                    Orientation="Horizontal"
+                    RequestedTheme="Light"
+                    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
             <Grid Height="{x:Bind AlturaEscolhida}"
                   Width="{x:Bind LarguraEscolhida}"
                   Padding="{x:Bind PaddingEscolhido}"

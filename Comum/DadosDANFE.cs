@@ -76,9 +76,30 @@ namespace Comum
             {
                 itens.Add(new ItemDadosAdicionais("DE INTERESSE DO CONTRIBUINTE:", extras.InfCpl));
             }
+            double vFCP = total.vFCP, vFCPST = total.vFCPST;
             if (extras?.InfAdFisco != null)
             {
-                itens.Add(new ItemDadosAdicionais("DE INTERESSE DO FISCO:", extras.InfAdFisco));
+                if (vFCP != 0 && vFCPST != 0)
+                    itens.Add(new ItemDadosAdicionais(
+                        "DE INTERESSE DO FISCO:",
+                        $"{extras.InfAdFisco}\nValor FCP: R$ {total.vFCP}\nValor FCPS: R$ {total.vFCPST}"));
+                else if (vFCP != 0)
+                    itens.Add(new ItemDadosAdicionais(
+                        "DE INTERESSE DO FISCO:",
+                        $"{extras.InfAdFisco}\nValor FCP: R$ {total.vFCP}"));
+                else if (vFCPST != 0)
+                    itens.Add(new ItemDadosAdicionais(
+                        "DE INTERESSE DO FISCO:",
+                        $"{extras.InfAdFisco}\nValor FCPS: R$ {total.vFCPST}"));
+            }
+            else
+            {
+                if (vFCP != 0 && vFCPST != 0)
+                    itens.Add(new ItemDadosAdicionais("DE INTERESSE DO FISCO:", $"Valor FCP: R$ {total.vFCP}\nValor FCPS: R$ {total.vFCPST}"));
+                else if (vFCP != 0)
+                    itens.Add(new ItemDadosAdicionais("DE INTERESSE DO FISCO:", $"Valor FCP: R$ {total.vFCP}"));
+                else if (vFCPST != 0)
+                    itens.Add(new ItemDadosAdicionais("DE INTERESSE DO FISCO:", $"Valor FCPS: R$ {total.vFCPST}"));
             }
             if (extras?.ProcRef?.Count > 0)
             {
@@ -185,6 +206,15 @@ namespace Comum
                 retorno.QuantidadeVolume = transp.Vol.Sum(x => x.QVol != null ? long.Parse(x.QVol) : 0).ToString("N3");
             }
 
+            /*
+                            <ComboBoxItem Tag="0">Contratação por conta do Emitente</ComboBoxItem>
+                <ComboBoxItem Tag="1">Contratação por conta do Destinatário</ComboBoxItem>
+                <ComboBoxItem Tag="2">Contratação por conta de Terceiros</ComboBoxItem>
+                <ComboBoxItem Tag="3">Transporte próprio por conta do Remetente</ComboBoxItem>
+                <ComboBoxItem Tag="4">Transporte próprio por conta do Destinatário</ComboBoxItem>
+                <ComboBoxItem Tag="9">Sem ocorrência de transporte</ComboBoxItem>
+
+    */
             switch (transp.ModFrete)
             {
                 case 0:
@@ -195,6 +225,12 @@ namespace Comum
                     break;
                 case 2:
                     retorno.ModalidadeFrete = "2 – Terceiros";
+                    break;
+                case 3:
+                    retorno.ModalidadeFrete = "3 – Remetente";
+                    break;
+                case 4:
+                    retorno.ModalidadeFrete = "4 - Destinatário";
                     break;
                 case 9:
                     retorno.ModalidadeFrete = "9 – Sem Frete";

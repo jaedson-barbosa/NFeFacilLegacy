@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
+using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using Windows.Storage.Pickers;
@@ -24,16 +25,16 @@ namespace BaseGeral
         {
             try
             {
-                using (var memoryStream = new MemoryStream())
+                var doc = new XDocument();
+                using (var escritor = doc.CreateWriter())
                 {
                     var name = new XmlSerializerNamespaces();
                     name.Add(string.Empty, string.Empty);
                     name.Add(string.Empty, nameSpace);
                     var xmlSerializer = new XmlSerializer(obj.GetType());
-                    xmlSerializer.Serialize(memoryStream, obj, name);
-                    memoryStream.Position = 0;
-                    return XElement.Load(memoryStream);
+                    xmlSerializer.Serialize(escritor, obj, name);
                 }
+                return doc.Root;
             }
             catch (Exception e)
             {
@@ -45,16 +46,16 @@ namespace BaseGeral
         {
             try
             {
-                using (var memoryStream = new MemoryStream())
+                var doc = new XDocument();
+                using (var escritor = doc.CreateWriter())
                 {
                     var name = new XmlSerializerNamespaces();
                     name.Add(string.Empty, string.Empty);
                     name.Add(string.Empty, nameSpace);
                     var xmlSerializer = new XmlSerializer(typeof(T));
-                    xmlSerializer.Serialize(memoryStream, obj, name);
-                    memoryStream.Position = 0;
-                    return XElement.Load(memoryStream);
+                    xmlSerializer.Serialize(escritor, obj, name);
                 }
+                return doc.Root;
             }
             catch (Exception e)
             {

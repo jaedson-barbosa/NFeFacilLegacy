@@ -39,7 +39,7 @@ namespace BaseGeral.Sincronizacao
             var (objeto, mensagem) = await RequestAsync<ConjuntoDadosBase>(
                 $"SincronizarDadosBase",
                 SenhaPermanente,
-                envio.ToXElement<ConjuntoDadosBase>(),
+                envio.ToXElement(),
                 UltimaSincronizacao.ToBinary().ToString());
             if (objeto != null)
             {
@@ -86,7 +86,7 @@ namespace BaseGeral.Sincronizacao
             var (objeto, mensagem) = await RequestAsync<ConjuntoDadosBase>(
                 $"SincronizarDadosBase",
                 SenhaPermanente,
-                envio.ToXElement<ConjuntoDadosBase>(),
+                envio.ToXElement(),
                 DateTime.MinValue.ToBinary().ToString());
             if (objeto != null)
             {
@@ -165,5 +165,13 @@ namespace BaseGeral.Sincronizacao
                 }
             }
         }
+        //async Task<(T objeto, string mensagem)> RequestAsync<T>(string nomeMetodo, int senha, XNode corpo, string parametroExtra = null) where T : class
+        //{
+        //    var ctr = new Servidor.ControllerSincronizacao();
+        //    if (nomeMetodo == "SincronizarDadosBase")
+        //        return (ctr.SincronizarDadosBase(senha, long.Parse(parametroExtra), corpo.FromXElement<ConjuntoDadosBase>()).ContentData.FromString<T>(), null);
+        //    else
+        //        return (ctr.SincronizarNotasFiscais(senha, long.Parse(parametroExtra), corpo.FromXElement<ConjuntoNotasFiscais>()).ContentData.FromString<T>(), null);
+        //}
     }
 }

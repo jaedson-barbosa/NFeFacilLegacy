@@ -206,22 +206,13 @@ namespace Comum
                 retorno.QuantidadeVolume = transp.Vol.Sum(x => x.QVol != null ? long.Parse(x.QVol) : 0).ToString("N3");
             }
 
-            /*
-                            <ComboBoxItem Tag="0">Contratação por conta do Emitente</ComboBoxItem>
-                <ComboBoxItem Tag="1">Contratação por conta do Destinatário</ComboBoxItem>
-                <ComboBoxItem Tag="2">Contratação por conta de Terceiros</ComboBoxItem>
-                <ComboBoxItem Tag="3">Transporte próprio por conta do Remetente</ComboBoxItem>
-                <ComboBoxItem Tag="4">Transporte próprio por conta do Destinatário</ComboBoxItem>
-                <ComboBoxItem Tag="9">Sem ocorrência de transporte</ComboBoxItem>
-
-    */
             switch (transp.ModFrete)
             {
                 case 0:
-                    retorno.ModalidadeFrete = "0 – Emitente";
+                    retorno.ModalidadeFrete = "0 – Rementente";
                     break;
                 case 1:
-                    retorno.ModalidadeFrete = "1 – Dest/Rem";
+                    retorno.ModalidadeFrete = "1 – Destinatário";
                     break;
                 case 2:
                     retorno.ModalidadeFrete = "2 – Terceiros";

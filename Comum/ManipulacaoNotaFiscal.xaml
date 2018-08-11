@@ -258,7 +258,7 @@
                       SelectedValuePath="Tag"
                       HorizontalAlignment="Stretch"
                       Header="Modalidade do frete">
-                <ComboBoxItem Tag="0">Contratação por conta do Emitente</ComboBoxItem>
+                <ComboBoxItem Tag="0">Contratação por conta do Remetente</ComboBoxItem>
                 <ComboBoxItem Tag="1">Contratação por conta do Destinatário</ComboBoxItem>
                 <ComboBoxItem Tag="2">Contratação por conta de Terceiros</ComboBoxItem>
                 <ComboBoxItem Tag="3">Transporte próprio por conta do Remetente</ComboBoxItem>

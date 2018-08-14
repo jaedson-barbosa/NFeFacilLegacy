@@ -50,6 +50,12 @@
                                       Click="SalvarBackup">
                     <SymbolIcon Symbol="Save" />
                 </controles:ItemPadrao>
+                <controles:ItemPadrao HorizontalAlignment="Left"
+                                      Titulo="Salvar BD"
+                                      Descricao="Salve o arquivo do banco de dados."
+                                      Click="SalvarBD">
+                    <SymbolIcon Symbol="Save" />
+                </controles:ItemPadrao>
             </StackPanel>
             <StackPanel>
                 <ComboBox Header="Modo de busca do produto"

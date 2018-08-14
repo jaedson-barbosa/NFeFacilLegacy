@@ -5,6 +5,7 @@ using BaseGeral.View;
 using System;
 using System.ComponentModel;
 using System.IO;
+using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.System.Profile;
 using Windows.UI.Xaml;
@@ -120,6 +121,17 @@ namespace NFeFacil.View
                     await escritor.FlushAsync();
                 }
             }
+        }
+
+        async void SalvarBD(object sender, RoutedEventArgs e)
+        {
+            var files = await ApplicationData.Current.LocalFolder.GetFilesAsync();
+            var file = files[0];
+
+            var caixa = new FileSavePicker();
+            caixa.FileTypeChoices.Add("Arquivo BD", new string[] { ".db" });
+            var arq = await caixa.PickSaveFileAsync();
+            await file.CopyAndReplaceAsync(arq);
         }
 
         void AnalisarCompras()

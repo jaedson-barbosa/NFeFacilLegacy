@@ -5,12 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using BaseGeral.IBGE;
-using Fiscal.Certificacao.LAN;
 using System.Net;
 using Fiscal.Certificacao;
 using BaseGeral;
 using BaseGeral.Certificacao;
 using System.Security.Authentication;
+using Windows.Storage;
 
 namespace Fiscal.WebService
 {
@@ -95,14 +95,14 @@ namespace Fiscal.WebService
 
                 using (var cliente = new HttpClient())
                 {
-                    var uri = new Uri($"http://{OperacoesServidor.RootUri}:1010/EnviarRequisicao");
-                    await OnProgressChanged(1);
-
-                    var xml = envio.ToXElement<RequisicaoEnvioDTO>().ToString(SaveOptions.DisableFormatting);
-                    var conteudo = new StringContent(xml, Encoding.UTF8, "text/xml");
+                    var file = await ApplicationData.Current.TemporaryFolder.GetFileAsync("Data");
+                    envio.ToXElement<RequisicaoEnvioDTO>().Save(file.Path);
                     await OnProgressChanged(2);
 
-                    var resposta = await cliente.PostAsync(uri, conteudo);
+                    var uri = new Uri($"http://localhost:1010/EnviarRequisicao/" + file.Path);
+                    var resposta = await cliente.GetAsync(uri);
+                    var analise = await resposta.Content.ReadAsStringAsync();
+                    
                     await OnProgressChanged(3);
 
                     var xmlResposta = XElement.Load(await resposta.Content.ReadAsStreamAsync());

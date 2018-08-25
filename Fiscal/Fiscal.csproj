@@ -136,7 +136,6 @@
     <Compile Include="Certificacao\CodigoNet\Utils.cs" />
     <Compile Include="Certificacao\CodigoNet\XmlDsigC14NTransform.cs" />
     <Compile Include="Certificacao\CodigoNet\XmlDsigEnvelopedSignatureTransform.cs" />
-    <Compile Include="Certificacao\LAN\InformacoesConexao.cs" />
     <Compile Include="Certificacao\LAN\OperacoesServidor.cs" />
     <Compile Include="Certificacao\LAN\Pacotes\CertificadoAssinaturaDTO.cs" />
     <Compile Include="Certificacao\LAN\Pacotes\CertificadosExibicaoDTO.cs" />
@@ -272,15 +271,15 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Certificacao\LAN\ServidorCertificacao.zip" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Certificacao\LAN\WindowsLoopbackManager.zip" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Certificacao\LAN\ConexaoA3.zip" />
+    <EmbeddedResource Include="Certificacao\LAN\RotinaInstalacao.bat" />
+    <EmbeddedResource Include="Certificacao\LAN\RotinaDesinstalacao.bat" />
     <None Include="Properties\ServiceReferences.Designer.ClientConfig" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

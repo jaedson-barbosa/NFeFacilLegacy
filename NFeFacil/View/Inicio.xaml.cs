@@ -87,9 +87,6 @@ namespace NFeFacil.View
                 case OrigemCertificado.Servidor:
                     MainPage.Current.Navegar<ConfiguracoesServidorCertificacao>();
                     break;
-                case OrigemCertificado.Cliente:
-                    MainPage.Current.Navegar<ConfiguracoesClienteServidor>();
-                    break;
             }
         }
 

@@ -1,9 +1,13 @@
 ﻿using BaseGeral.Log;
 using BaseGeral.View;
+using NFeFacil.ViewCertificacao;
 using System;
 using System.IO;
+using System.IO.Compression;
 using System.Reflection;
+using Windows.Storage;
 using Windows.Storage.Pickers;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -19,21 +23,62 @@ namespace NFeFacil.Certificacao
             InitializeComponent();
         }
 
-        void InstalarServidor(object sender, RoutedEventArgs e)
+        async void InstalarServidor(object sender, RoutedEventArgs e)
         {
-            SalvarArquivoInterno("Servidor de certificação", "BaseGeral.Certificacao.LAN.ServidorCertificacao.zip");
+            var caixaSenha = new SenhaMicrosoft();
+            if (await caixaSenha.ShowAsync() == ContentDialogResult.Secondary)
+                return;
+            var senha = caixaSenha.Senha;
+
+            var log = Popup.Current;
+            var pasta = ApplicationData.Current.LocalFolder;
+            var pastas = await pasta.GetFoldersAsync();
+            if (pastas.Count > 0)
+            {
+                var msg = new MessageDialog("O servidor já foi instalado. Se esta é uma atualização, certifique-se que o servidor já tenha sido desinstalado. O servidor já foi desinstalado?");
+                msg.Commands.Add(new UICommand("Sim"));
+                msg.Commands.Add(new UICommand("Não"));
+                var rst = await msg.ShowAsync();
+                if (rst.Label == "Não") return;
+            }
+            pasta = await pasta.CreateFolderAsync("ConexaoA3", CreationCollisionOption.ReplaceExisting);
+            var zip = await pasta.CreateFileAsync("ConexaoA3.zip");
+            using (Stream original = GetFileStream("Venda.Fiscal.Certificacao.LAN.ConexaoA3.zip"),
+                novo = await zip.OpenStreamForWriteAsync())
+                original.CopyTo(novo);
+            ZipFile.ExtractToDirectory(zip.Path, pasta.Path);
+
+            string file;
+            var stream = GetFileStream("Fiscal.Certificacao.LAN.RotinaInstalacao.bat");
+            using (var leitor = new StreamReader(stream))
+                file = string.Format(leitor.ReadToEnd(), pastas[0].Path, senha);
+            SalvarArquivo("Rotina de instalação", file);
+            log.Escrever(TitulosComuns.Sucesso, "Arquivo salvo com sucesso, agora execute-o para que o serviço seja instalado.");
         }
 
-        void RepararProblemas(object sender, RoutedEventArgs e)
+        async void DesinstalarServidor(object sender, RoutedEventArgs e)
         {
-            SalvarArquivoInterno("Gerenciador de Looopback", "BaseGeral.Certificacao.LAN.WindowsLoopbackManager.zip");
+            var log = Popup.Current;
+            var pasta = ApplicationData.Current.LocalFolder;
+            var pastas = await pasta.GetFoldersAsync();
+            if (pastas.Count > 0)
+            {
+                string file;
+                var stream = GetFileStream("Fiscal.Certificacao.LAN.RotinaDesinstalacao.bat");
+                using (var leitor = new StreamReader(stream))
+                    file = string.Format(leitor.ReadToEnd(), pastas[0].Path);
+                SalvarArquivo("Rotina de desinstalação", file);
+                log.Escrever(TitulosComuns.Sucesso, "Arquivo salvo com sucesso, agora execute-o para que o serviço seja instalado.");
+            }
+            else
+                log.Escrever(TitulosComuns.Atenção, "Não foi encontrada nenhuma pasta com arquivo de instalação.");
         }
 
-        async void SalvarArquivoInterno(string nomeSugerido, string caminho)
+        async void RepararProblemas(object sender, RoutedEventArgs e)
         {
             var salvador = new FileSavePicker()
             {
-                SuggestedFileName = nomeSugerido,
+                SuggestedFileName = "Gerenciador de Looopback",
                 DefaultFileExtension = ".zip"
             };
             salvador.FileTypeChoices.Add("Arquivo comprimido", new string[1] { ".zip" });
@@ -42,13 +87,40 @@ namespace NFeFacil.Certificacao
             {
                 using (var stream = await arquivo.OpenStreamForWriteAsync())
                 {
-                    var assembly = GetType().GetTypeInfo().Assembly;
-                    var recurso = assembly.GetManifestResourceStream(caminho);
+                    var recurso = GetFileStream("Fiscal.Certificacao.LAN.WindowsLoopbackManager.zip");
                     recurso.CopyTo(stream);
                 }
-                Popup.Current.Escrever(TitulosComuns.Sucesso, "Arquivo salvo com sucesso.\r\n" +
-                    "Extraia os arquivos e inicie a instalação");
             }
+
+            Popup.Current.Escrever(TitulosComuns.Sucesso, "Arquivo salvo com sucesso.\r\n" +
+                "Extraia os arquivos e inicie a instalação");
+        }
+
+        async void SalvarArquivo(string nomeSugerido, string save)
+        {
+            var salvador = new FileSavePicker()
+            {
+                SuggestedFileName = nomeSugerido,
+                DefaultFileExtension = ".bat"
+            };
+            salvador.FileTypeChoices.Add("Arquivo em lotes do Windows", new string[1] { ".bat" });
+            var arquivo = await salvador.PickSaveFileAsync();
+            if (arquivo != null)
+            {
+                var stream = await arquivo.OpenStreamForWriteAsync();
+                using (var escritor = new StreamWriter(stream))
+                {
+                    escritor.Write(save);
+                    escritor.Flush();
+                }
+            }
+        }
+
+        Stream GetFileStream(string caminho)
+        {
+            var assembly = GetType().GetTypeInfo().Assembly;
+            var recurso = assembly.GetManifestResourceStream(caminho);
+            return recurso;
         }
     }
 }

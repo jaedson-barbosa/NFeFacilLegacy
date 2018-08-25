@@ -6,6 +6,7 @@ using NFeFacil.View;
 using System;
 using System.Globalization;
 using System.Threading.Tasks;
+using Windows.Storage;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
 
@@ -92,6 +93,7 @@ namespace NFeFacil.Login
             {
                 await analise.AnalisarBanco(DefinicoesTemporarias.DateTimeNow);
             }
+            await ApplicationData.Current.TemporaryFolder.CreateFileAsync("Data", CreationCollisionOption.ReplaceExisting);
         }
 
         void AjustarBackground()

@@ -3,7 +3,6 @@
     public enum OrigemCertificado
     {
         Importado,
-        Servidor,
-        Cliente
+        Servidor
     }
 }

@@ -1,0 +1,17 @@
+﻿<ContentDialog x:Class="NFeFacil.ViewCertificacao.SenhaMicrosoft"
+               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+               mc:Ignorable="d"
+               Title="Senha Microsoft"
+               PrimaryButtonText="Confirmar"
+               SecondaryButtonText="Cancelar"
+               PrimaryButtonClick="ContentDialog_PrimaryButtonClick">
+    <StackPanel>
+        <TextBlock>Qual a senha da sua conta Microsoft?
+            Ela será usada para que o servidor tenha acesso aos seus certificados (e apenas para isso).
+            Ela é a senha que você coloca quando liga o computador.</TextBlock>
+        <PasswordBox Password="{x:Bind Senha, Mode=TwoWay}" />
+    </StackPanel>
+</ContentDialog>

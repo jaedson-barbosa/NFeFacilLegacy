@@ -168,20 +168,17 @@
     <Compile Include="Login\Loading.xaml.cs">
       <DependentUpon>Loading.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewCertificacao\ConectarServidor.xaml.cs">
-      <DependentUpon>ConectarServidor.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ViewCertificacao\ConfiguracoesCertificadoImportado.xaml.cs">
       <DependentUpon>ConfiguracoesCertificadoImportado.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewCertificacao\ConfiguracoesClienteServidor.xaml.cs">
-      <DependentUpon>ConfiguracoesClienteServidor.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewCertificacao\ConfiguracoesServidorCertificacao.xaml.cs">
       <DependentUpon>ConfiguracoesServidorCertificacao.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewCertificacao\DefinirSenhaCertificado.xaml.cs">
       <DependentUpon>DefinirSenhaCertificado.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewCertificacao\SenhaMicrosoft.xaml.cs">
+      <DependentUpon>SenhaMicrosoft.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewSincronizacao\ConfigurarDadosConexao.xaml.cs">
       <DependentUpon>ConfigurarDadosConexao.xaml</DependentUpon>
@@ -300,15 +297,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewCertificacao\ConectarServidor.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="ViewCertificacao\ConfiguracoesCertificadoImportado.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ViewCertificacao\ConfiguracoesClienteServidor.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -319,6 +308,10 @@
     <Page Include="ViewCertificacao\DefinirSenhaCertificado.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ViewCertificacao\SenhaMicrosoft.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ViewDadosBase\AdicionarComprador.xaml">
       <SubType>Designer</SubType>

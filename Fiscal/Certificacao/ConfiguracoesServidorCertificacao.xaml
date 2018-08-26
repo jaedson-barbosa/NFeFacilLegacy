@@ -12,7 +12,7 @@
                        Click="InstalarServidor">
             <FontIcon Glyph="&#xEC4E;" />
         </my:ItemPadrao>
-        <my:ItemPadrao Titulo="Desinstalar servidor"
+        <my:ItemPadrao Titulo="Desinstalar"
                        Descricao="Remova o serviço de conexão A3."
                        Click="DesinstalarServidor">
             <SymbolIcon Symbol="Delete" />

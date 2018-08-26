@@ -27,7 +27,6 @@
                     <ComboBoxItem ToolTipService.ToolTip="Ideal para quem usa certificado A1">Via certificado A1 importado</ComboBoxItem>
                     <ComboBoxItem ToolTipService.ToolTip="Ideal para quem usa certificado A3"
                                   IsEnabled="{x:Bind InstalacaoLiberada}">Servidor de certificação</ComboBoxItem>
-                    <ComboBoxItem ToolTipService.ToolTip="Ideal para quem usa certificado A3">Cliente de um servidor</ComboBoxItem>
                 </ComboBox>
                 <ToggleSwitch Header="Desconsiderar horário de verão"
                               MinWidth="320"

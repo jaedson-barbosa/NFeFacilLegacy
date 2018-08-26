@@ -168,18 +168,6 @@
     <Compile Include="Login\Loading.xaml.cs">
       <DependentUpon>Loading.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewCertificacao\ConfiguracoesCertificadoImportado.xaml.cs">
-      <DependentUpon>ConfiguracoesCertificadoImportado.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewCertificacao\ConfiguracoesServidorCertificacao.xaml.cs">
-      <DependentUpon>ConfiguracoesServidorCertificacao.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewCertificacao\DefinirSenhaCertificado.xaml.cs">
-      <DependentUpon>DefinirSenhaCertificado.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewCertificacao\SenhaMicrosoft.xaml.cs">
-      <DependentUpon>SenhaMicrosoft.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ViewSincronizacao\ConfigurarDadosConexao.xaml.cs">
       <DependentUpon>ConfigurarDadosConexao.xaml</DependentUpon>
     </Compile>
@@ -294,22 +282,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Login\Loading.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ViewCertificacao\ConfiguracoesCertificadoImportado.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ViewCertificacao\ConfiguracoesServidorCertificacao.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ViewCertificacao\DefinirSenhaCertificado.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ViewCertificacao\SenhaMicrosoft.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

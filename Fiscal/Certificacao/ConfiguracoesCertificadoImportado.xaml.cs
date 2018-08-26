@@ -14,7 +14,7 @@ using Fiscal.Certificacao;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace NFeFacil.Certificacao
+namespace Fiscal.Certificacao
 {
     [DetalhePagina(Symbol.Permissions, "Certificação")]
     public sealed partial class ConfiguracoesCertificadoImportado : Page

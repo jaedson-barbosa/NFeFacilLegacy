@@ -1,4 +1,4 @@
-﻿using NFeFacil.Certificacao;
+﻿using Fiscal.Certificacao;
 using BaseGeral.ItensBD;
 using BaseGeral.Log;
 using BaseGeral.ModeloXML;

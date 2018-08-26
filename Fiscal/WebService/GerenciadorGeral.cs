@@ -92,6 +92,7 @@ namespace Fiscal.WebService
                     Uri = Enderecos.Endereco,
                     TipoConteudo = ObterTipoConteudo()
                 };
+                await OnProgressChanged(1);
 
                 using (var cliente = new HttpClient())
                 {
@@ -102,7 +103,6 @@ namespace Fiscal.WebService
                     var uri = new Uri($"http://localhost:1010/EnviarRequisicao/" + file.Path);
                     var resposta = await cliente.GetAsync(uri);
                     var analise = await resposta.Content.ReadAsStringAsync();
-                    
                     await OnProgressChanged(3);
 
                     var xmlResposta = XElement.Load(await resposta.Content.ReadAsStreamAsync());

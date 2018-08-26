@@ -1,10 +1,10 @@
 ﻿using BaseGeral.Log;
 using BaseGeral.View;
-using NFeFacil.ViewCertificacao;
 using System;
 using System.IO;
 using System.IO.Compression;
 using System.Reflection;
+using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.UI.Popups;
@@ -13,7 +13,7 @@ using Windows.UI.Xaml.Controls;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace NFeFacil.Certificacao
+namespace Fiscal.Certificacao
 {
     [DetalhePagina(Symbol.Permissions, "Certificação")]
     public sealed partial class ConfiguracoesServidorCertificacao : Page
@@ -43,16 +43,27 @@ namespace NFeFacil.Certificacao
             }
             pasta = await pasta.CreateFolderAsync("ConexaoA3", CreationCollisionOption.ReplaceExisting);
             var zip = await pasta.CreateFileAsync("ConexaoA3.zip");
-            using (Stream original = GetFileStream("Venda.Fiscal.Certificacao.LAN.ConexaoA3.zip"),
+            using (Stream original = GetFileStream("Fiscal.Certificacao.LAN.ConexaoA3.zip"),
                 novo = await zip.OpenStreamForWriteAsync())
                 original.CopyTo(novo);
             ZipFile.ExtractToDirectory(zip.Path, pasta.Path);
 
+            var salvador = new FolderPicker()
+            {
+                SuggestedStartLocation = PickerLocationId.ComputerFolder,
+                CommitButtonText = "Instalar"
+            };
+            salvador.FileTypeFilter.Add("*");
+            var novaPasta = await salvador.PickSingleFolderAsync();
+            foreach (var item in await pasta.GetFilesAsync()) 
+                await item.CopyAsync(novaPasta, item.Name, NameCollisionOption.ReplaceExisting);
+
             string file;
             var stream = GetFileStream("Fiscal.Certificacao.LAN.RotinaInstalacao.bat");
             using (var leitor = new StreamReader(stream))
-                file = string.Format(leitor.ReadToEnd(), pastas[0].Path, senha);
-            SalvarArquivo("Rotina de instalação", file);
+                file = leitor.ReadToEnd();
+            file = string.Format(file, novaPasta.Path, senha);
+            await SalvarArquivo("Rotina de instalação", file);
             log.Escrever(TitulosComuns.Sucesso, "Arquivo salvo com sucesso, agora execute-o para que o serviço seja instalado.");
         }
 
@@ -67,7 +78,7 @@ namespace NFeFacil.Certificacao
                 var stream = GetFileStream("Fiscal.Certificacao.LAN.RotinaDesinstalacao.bat");
                 using (var leitor = new StreamReader(stream))
                     file = string.Format(leitor.ReadToEnd(), pastas[0].Path);
-                SalvarArquivo("Rotina de desinstalação", file);
+                await SalvarArquivo("Rotina de desinstalação", file);
                 log.Escrever(TitulosComuns.Sucesso, "Arquivo salvo com sucesso, agora execute-o para que o serviço seja instalado.");
             }
             else
@@ -96,7 +107,7 @@ namespace NFeFacil.Certificacao
                 "Extraia os arquivos e inicie a instalação");
         }
 
-        async void SalvarArquivo(string nomeSugerido, string save)
+        async Task SalvarArquivo(string nomeSugerido, string save)
         {
             var salvador = new FileSavePicker()
             {

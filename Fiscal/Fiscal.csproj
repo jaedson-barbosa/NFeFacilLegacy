@@ -136,12 +136,24 @@
     <Compile Include="Certificacao\CodigoNet\Utils.cs" />
     <Compile Include="Certificacao\CodigoNet\XmlDsigC14NTransform.cs" />
     <Compile Include="Certificacao\CodigoNet\XmlDsigEnvelopedSignatureTransform.cs" />
+    <Compile Include="Certificacao\ConfiguracoesCertificadoImportado.xaml.cs">
+      <DependentUpon>ConfiguracoesCertificadoImportado.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Certificacao\ConfiguracoesServidorCertificacao.xaml.cs">
+      <DependentUpon>ConfiguracoesServidorCertificacao.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Certificacao\DefinirSenhaCertificado.xaml.cs">
+      <DependentUpon>DefinirSenhaCertificado.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Certificacao\LAN\OperacoesServidor.cs" />
     <Compile Include="Certificacao\LAN\Pacotes\CertificadoAssinaturaDTO.cs" />
     <Compile Include="Certificacao\LAN\Pacotes\CertificadosExibicaoDTO.cs" />
     <Compile Include="Certificacao\LAN\Pacotes\RequisicaoEnvioDTO.cs" />
     <Compile Include="Certificacao\LAN\Primitivos\CertificadoAssinatura.cs" />
     <Compile Include="Certificacao\LAN\Primitivos\CertificadoExibicao.cs" />
+    <Compile Include="Certificacao\SenhaMicrosoft.xaml.cs">
+      <DependentUpon>SenhaMicrosoft.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Consulta.xaml.cs">
       <DependentUpon>Consulta.xaml</DependentUpon>
     </Compile>
@@ -234,6 +246,22 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="CancelarNFe.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Certificacao\ConfiguracoesCertificadoImportado.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Certificacao\ConfiguracoesServidorCertificacao.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Certificacao\DefinirSenhaCertificado.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Certificacao\SenhaMicrosoft.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

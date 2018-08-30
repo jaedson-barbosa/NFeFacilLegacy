@@ -316,20 +316,26 @@ namespace BaseGeral.Sincronizacao.Pacotes
                     for (int i = 0; i < Estoque.Length; i++)
                     {
                         var novo = Estoque[i];
-
-                        AlteracoesEstoque[i] = novo.Alteracoes;
-                        novo.Alteracoes = null;
-
                         var atual = db.Estoque.FirstOrDefault(x => x.Id == novo.Id);
                         if (atual == null)
                         {
+                            AlteracoesEstoque[i] = novo.Alteracoes;
+                            novo.Alteracoes = null;
+
                             novo.UltimaData = InstanteSincronizacao;
                             Adicionar.Add(novo);
                         }
                         else if (novo.UltimaData > atual.UltimaData)
                         {
+                            AlteracoesEstoque[i] = novo.Alteracoes;
+                            novo.Alteracoes = null;
+
                             novo.UltimaData = InstanteSincronizacao;
                             Atualizar.Add(novo);
+                        }
+                        else
+                        {
+                            AlteracoesEstoque[i] = null;
                         }
                     }
                 }
@@ -340,20 +346,28 @@ namespace BaseGeral.Sincronizacao.Pacotes
                     for (int i = 0; i < Vendas.Length; i++)
                     {
                         var novo = Vendas[i];
-
-                        ProdutosVendas[i] = novo.Produtos;
-                        novo.Produtos = null;
-
                         var atual = db.Vendas.FirstOrDefault(x => x.Id == novo.Id);
                         if (atual == null)
                         {
+                            ProdutosVendas[i] = novo.Produtos;
+                            novo.Produtos = null;
+
                             novo.UltimaData = InstanteSincronizacao;
                             Adicionar.Add(novo);
                         }
                         else if (novo.UltimaData > atual.UltimaData)
                         {
+                            ProdutosVendas[i] = novo.Produtos;
+                            novo.Produtos = null;
+
                             novo.UltimaData = InstanteSincronizacao;
                             Atualizar.Add(novo);
+
+                            db.RemoveRange(atual.Produtos.Where(x => !novo.Produtos.Any(y => x.Id == y.Id)));
+                        }
+                        else
+                        {
+                            ProdutosVendas[i] = null;
                         }
                     }
                 }
@@ -369,8 +383,9 @@ namespace BaseGeral.Sincronizacao.Pacotes
                 {
                     for (int i = 0; i < Estoque.Length; i++)
                     {
-                        var novo = Estoque[i];
                         var alteracoes = AlteracoesEstoque[i];
+                        if (alteracoes == null) continue;
+                        var novo = Estoque[i];
                         alteracoes.ForEach(x => x.Id = default(Guid));
                         var original = db.Estoque.Include(x => x.Alteracoes).FirstOrDefault(x => x.Id == novo.Id);
                         var maiorData = original.Alteracoes.Count > 0 ? original.Alteracoes.Max(k => k.MomentoRegistro) : DateTime.MinValue;
@@ -383,8 +398,9 @@ namespace BaseGeral.Sincronizacao.Pacotes
                 {
                     for (int i = 0; i < Vendas.Length; i++)
                     {
-                        var novo = Vendas[i];
                         var produtos = ProdutosVendas[i];
+                        if (produtos == null) continue;
+                        var novo = Vendas[i];
                         produtos.ForEach(x => x.Id = default(Guid));
                         novo.Produtos = produtos.ToList();
                         db.Vendas.Update(novo);

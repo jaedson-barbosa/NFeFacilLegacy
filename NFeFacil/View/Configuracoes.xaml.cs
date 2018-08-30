@@ -105,33 +105,47 @@ namespace NFeFacil.View
 
         async void SalvarBackup(object sender, RoutedEventArgs e)
         {
-            var objeto = new ConjuntoBanco();
-            objeto.AtualizarPadrao();
-            var xml = objeto.ToXElement<ConjuntoBanco>().ToString();
-
-            var caixa = new FileSavePicker();
-            caixa.FileTypeChoices.Add("Arquivo XML", new string[] { ".xml" });
-            var arq = await caixa.PickSaveFileAsync();
-            if (arq != null)
+            try
             {
-                var stream = await arq.OpenStreamForWriteAsync();
-                using (StreamWriter escritor = new StreamWriter(stream))
+                var objeto = new ConjuntoBanco();
+                objeto.AtualizarPadrao();
+                var xml = objeto.ToXElement<ConjuntoBanco>().ToString();
+
+                var caixa = new FileSavePicker();
+                caixa.FileTypeChoices.Add("Arquivo XML", new string[] { ".xml" });
+                var arq = await caixa.PickSaveFileAsync();
+                if (arq != null)
                 {
-                    await escritor.WriteAsync(xml);
-                    await escritor.FlushAsync();
+                    var stream = await arq.OpenStreamForWriteAsync();
+                    using (StreamWriter escritor = new StreamWriter(stream))
+                    {
+                        await escritor.WriteAsync(xml);
+                        await escritor.FlushAsync();
+                    }
                 }
+            }
+            catch (Exception erro)
+            {
+                erro.ManipularErro();
             }
         }
 
         async void SalvarBD(object sender, RoutedEventArgs e)
         {
-            var files = await ApplicationData.Current.LocalFolder.GetFilesAsync();
-            var file = files[0];
+            try
+            {
+                var files = await ApplicationData.Current.LocalFolder.GetFilesAsync();
+                var file = files[0];
 
-            var caixa = new FileSavePicker();
-            caixa.FileTypeChoices.Add("Arquivo BD", new string[] { ".db" });
-            var arq = await caixa.PickSaveFileAsync();
-            await file.CopyAndReplaceAsync(arq);
+                var caixa = new FileSavePicker();
+                caixa.FileTypeChoices.Add("Arquivo BD", new string[] { ".db" });
+                var arq = await caixa.PickSaveFileAsync();
+                await file.CopyAndReplaceAsync(arq);
+            }
+            catch (Exception erro)
+            {
+                erro.ManipularErro();
+            }
         }
 
         void AnalisarCompras()

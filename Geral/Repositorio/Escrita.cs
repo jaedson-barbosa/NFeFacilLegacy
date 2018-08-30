@@ -183,13 +183,16 @@ namespace BaseGeral.Repositorio
             else
             {
                 RegistroVenda vendaAntiga = db.Vendas.Include(x => x.Produtos).First(x => x.Id == ItemBanco.Id);
-                foreach (var prod in db.Produtos)
+                if (DefinicoesPermanentes.ConfiguracoesEstoque.RV)
                 {
-                    var antigo = vendaAntiga.Produtos.FirstOrDefault(x => prod.Id == x.IdBase)?.Quantidade ?? 0;
-                    var novo = produtosOrignal.FirstOrDefault(x => prod.Id == x.Id)?.Quantidade ?? 0;
-                    if (DefinicoesPermanentes.ConfiguracoesEstoque.RV)
+                    foreach (var prod in db.Produtos)
+                    {
+                        var antigo = vendaAntiga.Produtos.FirstOrDefault(x => prod.Id == x.IdBase)?.Quantidade ?? 0;
+                        var novo = produtosOrignal.FirstOrDefault(x => prod.Id == x.Id)?.Quantidade ?? 0;
                         AtualizarEstoques(atual, (prod.Id, antigo - novo));
+                    }
                 }
+                db.RemoveRange(vendaAntiga.Produtos.Where(x => !produtosOrignal.Any(y => x.Id == y.Id)));
             }
             SalvarComTotalCerteza();
 

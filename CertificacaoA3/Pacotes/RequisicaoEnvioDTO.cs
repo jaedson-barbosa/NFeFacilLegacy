@@ -1,6 +1,6 @@
 ﻿using System.Xml.Linq;
 
-namespace ConexaoA3.Pacotes
+namespace CertificacaoA3.Pacotes
 {
     public struct RequisicaoEnvioDTO
     {

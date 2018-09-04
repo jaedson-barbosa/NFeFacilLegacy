@@ -17,10 +17,19 @@ namespace Fiscal.Certificacao.LAN
         {
             using (var cliente = new HttpClient())
             {
-                var uri = new Uri("http://localhost:1010/ObterCertificados");
+                var file = await ApplicationData.Current.TemporaryFolder.GetFileAsync("Data");
+                var uri = new Uri($"http://localhost:1010/ObterCertificados/{file.Path}");
                 var resposta = await cliente.GetAsync(uri);
-                var xmlResposta = XElement.Load(await resposta.Content.ReadAsStreamAsync());
-                return xmlResposta.FromXElement<CertificadosExibicaoDTO>().Registro;
+                if (resposta.IsSuccessStatusCode)
+                {
+                    var xmlResposta = XElement.Load(file.Path);
+                    return xmlResposta.FromXElement<CertificadosExibicaoDTO>().Registro;
+                }
+                else
+                {
+                    var str = await resposta.Content.ReadAsStringAsync();
+                    throw new Exception(str);
+                }
             }
         }
 
@@ -30,10 +39,17 @@ namespace Fiscal.Certificacao.LAN
             {
                 var file = await ApplicationData.Current.TemporaryFolder.GetFileAsync("Data");
                 envio.ToXElement<CertificadoAssinaturaDTO>().Save(file.Path);
-                var uri = new Uri("http://localhost:1010/AssinarRemotamente/" + file.Path);
+                var uri = new Uri($"http://localhost:1010/AssinarRemotamente/{file.Path}");
                 var resposta = await cliente.GetAsync(uri);
-                var xmlResposta = XElement.Load(await resposta.Content.ReadAsStreamAsync());
-                return xmlResposta.FromXElement<Assinatura>();
+                if (resposta.IsSuccessStatusCode)
+                {
+                    var xmlResposta = XElement.Load(file.Path);
+                    return xmlResposta.FromXElement<Assinatura>();
+                }
+                else
+                {
+                    throw new Exception(await resposta.Content.ReadAsStringAsync());
+                }
             }
         }
     }

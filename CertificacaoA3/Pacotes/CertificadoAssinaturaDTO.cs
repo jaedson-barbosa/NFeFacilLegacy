@@ -1,4 +1,4 @@
-﻿namespace ConexaoA3.Pacotes
+﻿namespace CertificacaoA3.Pacotes
 {
     public struct CertificadoAssinaturaDTO
     {

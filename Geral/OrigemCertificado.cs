@@ -1,4 +1,4 @@
-﻿namespace BaseGeral.Certificacao
+﻿namespace BaseGeral
 {
     public enum OrigemCertificado
     {

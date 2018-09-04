@@ -9,7 +9,6 @@ using System.Security.Cryptography.X509Certificates;
 using Fiscal.Certificacao.LAN.Pacotes;
 using System.Security.Cryptography;
 using BaseGeral;
-using BaseGeral.Certificacao;
 
 namespace Fiscal.Certificacao
 {

@@ -2,14 +2,8 @@
 using BaseGeral.Log;
 using BaseGeral.Sincronizacao.Pacotes;
 using System.Threading.Tasks;
-using System.Text;
 using System;
-using BaseGeral.Sincronizacao.FastServer;
 using System.Xml.Linq;
-using Windows.Networking.Sockets;
-using Windows.Networking;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Storage.Streams;
 
 namespace BaseGeral.Sincronizacao
 {

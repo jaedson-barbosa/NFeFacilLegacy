@@ -1,6 +1,6 @@
 ﻿using System.Security.Cryptography.X509Certificates;
 
-namespace ConexaoA3.Pacotes
+namespace CertificacaoA3.Pacotes
 {
     public sealed class CertificadosExibicaoDTO
     {

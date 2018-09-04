@@ -1,4 +1,4 @@
-﻿using ConexaoA3.Pacotes;
+﻿using CertificacaoA3.Pacotes;
 using System;
 using System.IO;
 using System.Net.Http;
@@ -10,26 +10,25 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 
-namespace ConexaoA3
+namespace CertificacaoA3
 {
     class Metodos
     {
-        public string ObterCertificados(Stream stream)
+        public XElement ObterCertificados()
         {
             var retorno = new CertificadosExibicaoDTO();
             var xml = Serializar(retorno);
-            return xml.ToString(SaveOptions.DisableFormatting);
+            return xml;
         }
 
-        public string AssinarRemotamente(Stream stream, CertificadoAssinaturaDTO cert)
+        public XElement AssinarRemotamente(CertificadoAssinaturaDTO cert)
         {
             using (var loja = new X509Store())
             {
                 loja.Open(OpenFlags.ReadOnly);
                 var x509 = loja.Certificates.Find(X509FindType.FindBySerialNumber, cert.Serial, true)[0];
                 var assinatura = AssinarXML(cert.XML, x509, cert.Tag);
-                var xml = Serializar(assinatura);
-                return assinatura;
+                return XElement.Parse(assinatura);
             }
         }
 
@@ -47,7 +46,7 @@ namespace ConexaoA3
             }
         }
 
-        public async Task<string> EnviarRequisicaoAsync(Stream stream, RequisicaoEnvioDTO req)
+        public async Task<XElement> EnviarRequisicaoAsync(RequisicaoEnvioDTO req)
         {
             using (var proxy = new HttpClient(new HttpClientHandler()
             {
@@ -61,10 +60,10 @@ namespace ConexaoA3
                 var str = await resposta.Content.ReadAsStringAsync();
                 var xmlPrimario = XElement.Load(await resposta.Content.ReadAsStreamAsync());
                 var xml = ObterConteudoCorpo(xmlPrimario);
-                return xml.ToString(SaveOptions.DisableFormatting);
+                return xml;
             }
 
-            XNode ObterConteudoCorpo(XElement soap)
+            XElement ObterConteudoCorpo(XElement soap)
             {
                 var nome = XName.Get("Body", "http://schemas.xmlsoap.org/soap/envelope/");
                 var item = soap.Element(nome);
@@ -74,7 +73,7 @@ namespace ConexaoA3
                     item = soap.Element(nome);
                 }
                 var casca = (XElement)item.FirstNode;
-                return casca.FirstNode;
+                return (XElement)casca.FirstNode;
             }
         }
 

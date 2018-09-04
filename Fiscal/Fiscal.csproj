@@ -305,9 +305,9 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Certificacao\LAN\ConexaoA3.zip" />
     <EmbeddedResource Include="Certificacao\LAN\RotinaInstalacao.bat" />
     <EmbeddedResource Include="Certificacao\LAN\RotinaDesinstalacao.bat" />
+    <EmbeddedResource Include="Certificacao\LAN\ConjuntoA3.zip" />
     <None Include="Properties\ServiceReferences.Designer.ClientConfig" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

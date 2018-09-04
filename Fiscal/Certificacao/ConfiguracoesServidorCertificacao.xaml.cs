@@ -1,8 +1,10 @@
-﻿using BaseGeral.Log;
+﻿using BaseGeral;
+using BaseGeral.Log;
 using BaseGeral.View;
 using System;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Windows.Storage;
@@ -33,7 +35,7 @@ namespace Fiscal.Certificacao
             var log = Popup.Current;
             var pasta = ApplicationData.Current.LocalFolder;
             var pastas = await pasta.GetFoldersAsync();
-            if (pastas.Count > 0)
+            if (pastas.Count(x => x.Name == "ConexaoA3") > 0)
             {
                 var msg = new MessageDialog("O servidor já foi instalado. Se esta é uma atualização, certifique-se que o servidor já tenha sido desinstalado. O servidor já foi desinstalado?");
                 msg.Commands.Add(new UICommand("Sim"));
@@ -41,9 +43,9 @@ namespace Fiscal.Certificacao
                 var rst = await msg.ShowAsync();
                 if (rst.Label == "Não") return;
             }
-            pasta = await pasta.CreateFolderAsync("ConexaoA3", CreationCollisionOption.ReplaceExisting);
-            var zip = await pasta.CreateFileAsync("ConexaoA3.zip");
-            using (Stream original = GetFileStream("Fiscal.Certificacao.LAN.ConexaoA3.zip"),
+            pasta = await pasta.CreateFolderAsync("ConjuntoA3", CreationCollisionOption.ReplaceExisting);
+            var zip = await pasta.CreateFileAsync("ConjuntoA3.zip");
+            using (Stream original = GetFileStream("Fiscal.Certificacao.LAN.ConjuntoA3.zip"),
                 novo = await zip.OpenStreamForWriteAsync())
                 original.CopyTo(novo);
             ZipFile.ExtractToDirectory(zip.Path, pasta.Path);

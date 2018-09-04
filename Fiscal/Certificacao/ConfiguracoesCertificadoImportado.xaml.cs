@@ -1,5 +1,4 @@
-﻿using BaseGeral.Certificacao;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.Security.Cryptography.X509Certificates;
 using Windows.Storage;
@@ -10,7 +9,6 @@ using Windows.UI.Xaml.Navigation;
 using BaseGeral;
 using BaseGeral.View;
 using Fiscal.Certificacao.LAN.Primitivos;
-using Fiscal.Certificacao;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 

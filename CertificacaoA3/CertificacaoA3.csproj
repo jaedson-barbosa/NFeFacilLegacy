@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1A2C196F-06E8-4287-8FA7-48E2D0F5E7CD}</ProjectGuid>
+    <ProjectGuid>{133F8364-2288-4891-BF9D-8D638B8B488C}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>ConexaoA3</RootNamespace>
-    <AssemblyName>ConexaoA3</AssemblyName>
+    <RootNamespace>CertificacaoA3</RootNamespace>
+    <AssemblyName>CertificacaoA3</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -34,7 +34,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Management" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -43,16 +42,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Metodos.cs" />
+    <Compile Include="Pacotes\CertificadoAssinaturaDTO.cs" />
+    <Compile Include="Pacotes\CertificadosExibicaoDTO.cs" />
+    <Compile Include="Pacotes\RequisicaoEnvioDTO.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Servidor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Topshelf">
-      <Version>4.0.4</Version>
+    <PackageReference Include="System.Security.Cryptography.Xml">
+      <Version>4.5.0</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

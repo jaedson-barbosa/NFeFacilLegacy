@@ -13,7 +13,6 @@ using Windows.Storage.Pickers;
 using Windows.UI.Xaml.Controls;
 using Fiscal;
 using Windows.UI.Xaml.Navigation;
-using BaseGeral.Certificacao;
 using BaseGeral;
 using BaseGeral.Sincronizacao;
 using BaseGeral.View;

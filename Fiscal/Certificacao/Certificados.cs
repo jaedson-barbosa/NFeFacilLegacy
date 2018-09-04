@@ -1,4 +1,4 @@
-﻿using BaseGeral.Certificacao;
+﻿using BaseGeral;
 using Fiscal.Certificacao.LAN.Primitivos;
 using System.Collections.Generic;
 using System.Linq;

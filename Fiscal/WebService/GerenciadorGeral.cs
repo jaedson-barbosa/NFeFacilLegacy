@@ -8,7 +8,6 @@ using BaseGeral.IBGE;
 using System.Net;
 using Fiscal.Certificacao;
 using BaseGeral;
-using BaseGeral.Certificacao;
 using System.Security.Authentication;
 using Windows.Storage;
 
@@ -100,16 +99,21 @@ namespace Fiscal.WebService
                     envio.ToXElement<RequisicaoEnvioDTO>().Save(file.Path);
                     await OnProgressChanged(2);
 
-                    var uri = new Uri($"http://localhost:1010/EnviarRequisicao/" + file.Path);
+                    var uri = new Uri($"http://localhost:1010/EnviarRequisicao/{file.Path}");
                     var resposta = await cliente.GetAsync(uri);
-                    var analise = await resposta.Content.ReadAsStringAsync();
                     await OnProgressChanged(3);
-
-                    var xmlResposta = XElement.Load(await resposta.Content.ReadAsStreamAsync());
-                    var retorno = xmlResposta.FromXElement<Resposta>();
-                    await OnProgressChanged(4);
-
-                    return retorno;
+                    if (resposta.IsSuccessStatusCode)
+                    {
+                        var xmlResposta = XElement.Load(file.Path);
+                        var retorno = xmlResposta.FromXElement<Resposta>();
+                        await OnProgressChanged(4);
+                        return retorno;
+                    }
+                    else
+                    {
+                        await OnProgressChanged(4);
+                        throw new Exception(await resposta.Content.ReadAsStringAsync());
+                    }
                 }
             }
 

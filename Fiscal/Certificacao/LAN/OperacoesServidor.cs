@@ -33,6 +33,21 @@ namespace Fiscal.Certificacao.LAN
             }
         }
 
+        public async Task RegistrarInicioAutomatico()
+        {
+            using (var cliente = new HttpClient())
+            {
+                var file = await ApplicationData.Current.TemporaryFolder.GetFileAsync("Data");
+                var uri = new Uri($"http://localhost:1010/Registrar/{file.Path}");
+                var resposta = await cliente.GetAsync(uri);
+                if (!resposta.IsSuccessStatusCode)
+                {
+                    var str = await resposta.Content.ReadAsStringAsync();
+                    throw new Exception(str);
+                }
+            }
+        }
+
         public async Task<Assinatura> AssinarRemotamente(CertificadoAssinaturaDTO envio)
         {
             using (var cliente = new HttpClient())

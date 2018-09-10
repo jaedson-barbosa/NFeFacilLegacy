@@ -1,20 +1,24 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
 
-namespace ConexaoA3
+namespace ServidorCertificacao
 {
     class Servidor
     {
+        public event EventHandler<string> OnError;
+        public event EventHandler<string> OnRequest;
+        TcpListener listener;
+
         public async void Start()
         {
             var ip = Dns.GetHostEntry("localhost").AddressList[0];
-            var listener = new TcpListener(ip, 1010);
+            listener = new TcpListener(ip, 1010);
             listener.Start();
-            Console.WriteLine("Iniciado servidor.");
             while (true)
             {
                 var client = await listener.AcceptTcpClientAsync();
@@ -24,7 +28,6 @@ namespace ConexaoA3
 
         void ProcessarRequisicao(TcpClient client)
         {
-            Console.WriteLine("Requisição recebida.");
             var stream = client.GetStream();
             try
             {
@@ -36,25 +39,31 @@ namespace ConexaoA3
                     .Split(new char[1] { '/' }, 2);
                 var nomeMetodo = parametros[0];
                 var caminhoXml = parametros[1];
-                const string caminhoExe = "CertificacaoA3.exe";
+                OnRequest(this, nomeMetodo);
 
-                Console.WriteLine($"Nome metodo: {nomeMetodo}");
-                Console.WriteLine($"Caminho Xml: {caminhoXml}");
-
-                Process process = new Process();
-                process.StartInfo.FileName = caminhoExe;
-                process.StartInfo.Arguments = $"{nomeMetodo} \"{caminhoXml}\"";
-                process.Start();
-                process.WaitForExit();
-                var codigo = process.ExitCode;
-                process.Close();
-                EscreverCabecalho(0, codigo == 0);
+                if (nomeMetodo == "Registrar")
+                {
+                    var rkApp = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+                    rkApp.SetValue("ConexaoA3", AppDomain.CurrentDomain.BaseDirectory);
+                    EscreverCabecalho(0, true);
+                }
+                else
+                {
+                    Process process = new Process();
+                    process.StartInfo.FileName = "CertificacaoA3.exe";
+                    process.StartInfo.Arguments = $"{nomeMetodo} \"{caminhoXml}\"";
+                    process.Start();
+                    process.WaitForExit();
+                    var codigo = process.ExitCode;
+                    process.Close();
+                    EscreverCabecalho(0, codigo == 0);
+                }
             }
             catch (Exception erro)
             {
                 var mensagem = $"{erro.Message}\r\n" +
                     $"Detalhes adicionais: {erro.InnerException?.Message}";
-                Console.WriteLine($"Erro: {mensagem}.");
+                OnError(this, mensagem);
                 var data = Encoding.UTF8.GetBytes(mensagem);
                 EscreverCabecalho(data.Length, false);
                 stream.Write(data, 0, data.Length);
@@ -76,7 +85,8 @@ namespace ConexaoA3
 
         public void Stop()
         {
-
+            listener.Stop();
+            listener = null;
         }
     }
 }

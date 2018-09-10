@@ -27,22 +27,8 @@ namespace Fiscal.Certificacao
 
         async void InstalarServidor(object sender, RoutedEventArgs e)
         {
-            var caixaSenha = new SenhaMicrosoft();
-            if (await caixaSenha.ShowAsync() == ContentDialogResult.Secondary)
-                return;
-            var senha = caixaSenha.Senha;
-
             var log = Popup.Current;
             var pasta = ApplicationData.Current.LocalFolder;
-            var pastas = await pasta.GetFoldersAsync();
-            if (pastas.Count(x => x.Name == "ConexaoA3") > 0)
-            {
-                var msg = new MessageDialog("O servidor já foi instalado. Se esta é uma atualização, certifique-se que o servidor já tenha sido desinstalado. O servidor já foi desinstalado?");
-                msg.Commands.Add(new UICommand("Sim"));
-                msg.Commands.Add(new UICommand("Não"));
-                var rst = await msg.ShowAsync();
-                if (rst.Label == "Não") return;
-            }
             pasta = await pasta.CreateFolderAsync("ConjuntoA3", CreationCollisionOption.ReplaceExisting);
             var zip = await pasta.CreateFileAsync("ConjuntoA3.zip");
             using (Stream original = GetFileStream("Fiscal.Certificacao.LAN.ConjuntoA3.zip"),
@@ -60,31 +46,21 @@ namespace Fiscal.Certificacao
             foreach (var item in await pasta.GetFilesAsync()) 
                 await item.CopyAsync(novaPasta, item.Name, NameCollisionOption.ReplaceExisting);
 
-            string file;
-            var stream = GetFileStream("Fiscal.Certificacao.LAN.RotinaInstalacao.bat");
-            using (var leitor = new StreamReader(stream))
-                file = leitor.ReadToEnd();
-            file = string.Format(file, novaPasta.Path, senha);
-            await SalvarArquivo("Rotina de instalação", file);
-            log.Escrever(TitulosComuns.Sucesso, "Arquivo salvo com sucesso, agora execute-o para que o serviço seja instalado.");
+            log.Escrever(TitulosComuns.Sucesso, "Arquivo salvo com sucesso, agora execute-o para que o serviço de certificação esteja ativo, se quiser, pode salvar um atalho na área de trabalho ou registrar ele para iniciar automaticamente, se lembre que para registrar ele, é necessário que ele esteja aberto.\nO executável correto é o ServidorCertificacao.");
         }
 
-        async void DesinstalarServidor(object sender, RoutedEventArgs e)
+        async void RegistrarInicioAutomatico(object sender, RoutedEventArgs e)
         {
-            var log = Popup.Current;
-            var pasta = ApplicationData.Current.LocalFolder;
-            var pastas = await pasta.GetFoldersAsync();
-            if (pastas.Count > 0)
+            try
             {
-                string file;
-                var stream = GetFileStream("Fiscal.Certificacao.LAN.RotinaDesinstalacao.bat");
-                using (var leitor = new StreamReader(stream))
-                    file = string.Format(leitor.ReadToEnd(), pastas[0].Path);
-                await SalvarArquivo("Rotina de desinstalação", file);
-                log.Escrever(TitulosComuns.Sucesso, "Arquivo salvo com sucesso, agora execute-o para que o serviço seja instalado.");
+                var log = Popup.Current;
+                await new LAN.OperacoesServidor().RegistrarInicioAutomatico();
+                log.Escrever(TitulosComuns.Sucesso, "Servidor de certificação registrado para iniciar automaticamente junto ao Windows.");
             }
-            else
-                log.Escrever(TitulosComuns.Atenção, "Não foi encontrada nenhuma pasta com arquivo de instalação.");
+            catch (Exception erro)
+            {
+                erro.ManipularErro();
+            }
         }
 
         async void RepararProblemas(object sender, RoutedEventArgs e)

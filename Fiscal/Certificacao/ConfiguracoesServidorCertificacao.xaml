@@ -8,14 +8,14 @@
     <ItemsControl Style="{StaticResource ItensSimples}"
                   Margin="16">
         <my:ItemPadrao Titulo="Instalar servidor"
-                       Descricao="Salve o arquivo bat que instalará o serviço de conexão."
+                       Descricao="Instale o programa de certificação em alguma pasta."
                        Click="InstalarServidor">
             <FontIcon Glyph="&#xEC4E;" />
         </my:ItemPadrao>
-        <my:ItemPadrao Titulo="Desinstalar"
-                       Descricao="Remova o serviço de conexão A3."
-                       Click="DesinstalarServidor">
-            <SymbolIcon Symbol="Delete" />
+        <my:ItemPadrao Titulo="Iniciar automat."
+                       Descricao="Registrar o servidor para iniciar automaticamente."
+                       Click="RegistrarInicioAutomatico">
+            <SymbolIcon Symbol="Add" />
         </my:ItemPadrao>
         <my:ItemPadrao Titulo="Liberar conexão"
                        Descricao="Usando o gerenciador de loopback do Windows"

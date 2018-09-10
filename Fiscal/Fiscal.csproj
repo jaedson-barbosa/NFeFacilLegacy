@@ -151,9 +151,6 @@
     <Compile Include="Certificacao\LAN\Pacotes\RequisicaoEnvioDTO.cs" />
     <Compile Include="Certificacao\LAN\Primitivos\CertificadoAssinatura.cs" />
     <Compile Include="Certificacao\LAN\Primitivos\CertificadoExibicao.cs" />
-    <Compile Include="Certificacao\SenhaMicrosoft.xaml.cs">
-      <DependentUpon>SenhaMicrosoft.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Consulta.xaml.cs">
       <DependentUpon>Consulta.xaml</DependentUpon>
     </Compile>
@@ -261,10 +258,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Certificacao\SenhaMicrosoft.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Consulta.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -305,8 +298,6 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Certificacao\LAN\RotinaInstalacao.bat" />
-    <EmbeddedResource Include="Certificacao\LAN\RotinaDesinstalacao.bat" />
     <EmbeddedResource Include="Certificacao\LAN\ConjuntoA3.zip" />
     <None Include="Properties\ServiceReferences.Designer.ClientConfig" />
   </ItemGroup>

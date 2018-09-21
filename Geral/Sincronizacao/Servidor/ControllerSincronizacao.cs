@@ -24,7 +24,7 @@ namespace BaseGeral.Sincronizacao.Servidor
                 DateTime atual = DefinicoesTemporarias.DateTimeNow;
                 pacote.InstanteSincronizacao = atual;
                 DateTime minimoProcessado = DateTime.FromBinary(minimo);
-                pacote.AnalisarESalvar(minimoProcessado);
+                pacote.AnalisarESalvar();
 
                 var retorno = new ConjuntoDadosBase(pacote, minimoProcessado, atual);
                 return new RestResponse

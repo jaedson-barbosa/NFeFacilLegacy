@@ -44,7 +44,8 @@ namespace ServidorCertificacao
                 if (nomeMetodo == "Registrar")
                 {
                     var rkApp = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
-                    rkApp.SetValue("ConexaoA3", AppDomain.CurrentDomain.BaseDirectory);
+                    var path = AppDomain.CurrentDomain.BaseDirectory + "ServidorCertificacao.exe";
+                    rkApp.SetValue("ConexaoA3", path);
                     EscreverCabecalho(0, true);
                 }
                 else

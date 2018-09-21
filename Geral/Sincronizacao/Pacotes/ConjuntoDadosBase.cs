@@ -115,7 +115,7 @@ namespace BaseGeral.Sincronizacao.Pacotes
             }
         }
 
-        public void AnalisarESalvar(DateTime minimo)
+        public void AnalisarESalvar()
         {
             List<AlteracaoEstoque>[] AlteracoesEstoque = null;
             List<ProdutoSimplesVenda>[] ProdutosVendas = null;

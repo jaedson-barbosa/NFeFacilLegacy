@@ -43,7 +43,7 @@ namespace BaseGeral.Sincronizacao
                 UltimaSincronizacao.ToBinary().ToString());
             if (objeto != null)
             {
-                objeto.AnalisarESalvar(UltimaSincronizacao);
+                objeto.AnalisarESalvar();
                 UltimaSincronizacao = objeto.InstanteSincronizacao;
 
                 var envioNotas = new ConjuntoNotasFiscais(UltimaSincronizacaoNotas);
@@ -90,7 +90,7 @@ namespace BaseGeral.Sincronizacao
                 DateTime.MinValue.ToBinary().ToString());
             if (objeto != null)
             {
-                objeto.AnalisarESalvar(DateTime.MinValue);
+                objeto.AnalisarESalvar();
                 UltimaSincronizacao = objeto.InstanteSincronizacao;
 
                 var envioNotas = new ConjuntoNotasFiscais();

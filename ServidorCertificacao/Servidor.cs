@@ -37,9 +37,9 @@ namespace ServidorCertificacao
                     .Split(' ')[1]
                     .Substring(1)
                     .Split(new char[1] { '/' }, 2);
-                var nomeMetodo = parametros[0];
-                var caminhoXml = parametros[1];
-                OnRequest(this, nomeMetodo);
+                string nomeMetodo = parametros[0],
+                    caminhoXml = WebUtility.UrlDecode(parametros[1]);
+                OnRequest(this, $"{nomeMetodo} \"{caminhoXml}\"");
 
                 if (nomeMetodo == "Registrar")
                 {

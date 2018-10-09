@@ -162,9 +162,7 @@ namespace Consumidor
 
         void ProcessarConsultaChave()
         {
-            bool homologacao = NFCe.AmbienteTestes;
-            var urls = homologacao ? UrlsQR.Homologacao : UrlsQR.Producao;
-            UriConsultaChave = urls[NFCe.Informacoes.Emitente.Endereco.SiglaUF];
+            UriConsultaChave = NFCe.InfoSuplementares.UriChave;
             ChaveAcesso = AplicarMascaraChave(NFCe.Informacoes.ChaveAcesso);
 
             string AplicarMascaraChave(string original)
@@ -193,9 +191,7 @@ namespace Consumidor
             var encoded = writer.Encode(NFCe.InfoSuplementares.Uri);
             MargemQR = new Thickness(13);
             foreach (var item in writer.WriteToUI(encoded))
-            {
                 imgQR.Children.Add(item);
-            }
         }
 
         void ProcessarConsumidor()

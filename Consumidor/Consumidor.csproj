@@ -117,8 +117,6 @@
       <DependentUpon>ProdutoNFCe.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UrlsChaveAcesso.cs" />
-    <Compile Include="UrlsQR.cs" />
     <Compile Include="ViewDANFE.xaml.cs">
       <DependentUpon>ViewDANFE.xaml</DependentUpon>
     </Compile>

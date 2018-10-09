@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Consumidor
+namespace BaseGeral.ModeloXML
 {
     class UrlsQR
     {
@@ -12,7 +12,7 @@ namespace Consumidor
             { "AP", "https://www.sefaz.ap.gov.br/nfce/nfcep.php" },
             { "BA", "http://nfe.sefaz.ba.gov.br/servicos/nfce/modulos/geral/NFCEC_consulta_chave_acesso.aspx" },
             { "CE", "http://nfce.sefaz.ce.gov.br/pages/ShowNFCe.html" },
-            { "DF", "http://www.fazenda.df.gov.br/nfce/qrcode?" },
+            { "DF", "http://dec.fazenda.df.gov.br/ConsultarNFCe.aspx" },
             { "ES", "http://app.sefaz.es.gov.br/ConsultaNFCe/qrcode.aspx" },
             { "GO", "http://nfe.sefaz.go.gov.br/nfeweb/sites/nfce/danfeNFCe" },
             { "MA", "http://www.nfce.sefaz.ma.gov.br/portal/consultaNFe.do?method=preFilterCupom&" },
@@ -23,14 +23,14 @@ namespace Consumidor
             { "PB", "http://www.receita.pb.gov.br/nfce" },
             { "PE", "http://nfce.sefaz.pe.gov.br/nfce-web/consultarNFCe" },
             { "PI", "http://webas.sefaz.pi.gov.br/nfceweb/consultarNFCe.jsf" },
-            { "PR", "http://www.fazenda.pr.gov.br/nfce/qrcode?" },
+            { "PR", "http://www.dfeportal.fazenda.pr.gov.br/dfe-portal/rest/servico/consultaNFCe" },
             { "RJ", "http://www4.fazenda.rj.gov.br/consultaNFCe/QRCode" },
             { "RN", "http://nfce.set.rn.gov.br/consultarNFCe.aspx" },
             { "RO", "http://www.nfce.sefin.ro.gov.br/consultanfce/consulta.jsp" },
             { "RR", "https://www.sefaz.rr.gov.br/nfce/servlet/qrcode" },
             { "RS", "https://www.sefaz.rs.gov.br/NFCE/NFCE-COM.aspx" },
             { "SC", "" },
-            { "SE", "http://www.nfce.se.gov.br/nfce/qrcode?" },
+            { "SE", "http://www.nfce.se.gov.br/portal/consultarNFCe.jsp" },
             { "SP", "https://www.nfce.fazenda.sp.gov.br/NFCeConsultaPublica/Paginas/ConsultaQRCode.aspx" },
             { "TO", "http://apps.sefaz.to.gov.br/portal-nfce/qrcodeNFCe" }
         };
@@ -54,14 +54,14 @@ namespace Consumidor
             { "PB", "http://www.receita.pb.gov.br/nfcehom" },
             { "PE", "http://nfcehomolog.sefaz.pe.gov.br/nfce-web/consultarNFCe" },
             { "PI", "http://webas.sefaz.pi.gov.br/nfceweb-homologacao/consultarNFCe.jsf" },
-            { "PR", "http://www.fazenda.pr.gov.br/nfce/qrcode?" },
+            { "PR", "http://www.dfeportal.fazenda.pr.gov.br/dfe-portal/rest/servico/consultaNFCe" },
             { "RJ", "http://www4.fazenda.rj.gov.br/consultaNFCe/QRCode" },
             { "RN", "http://hom.nfce.set.rn.gov.br/consultarNFCe.aspx" },
             { "RO", "http://www.nfce.sefin.ro.gov.br/consultanfce/consulta.jsp" },
             { "RR", "http://200.174.88.103:8080/nfce/servlet/qrcode" },
             { "RS", "https://www.sefaz.rs.gov.br/NFCE/NFCE-COM.aspx" },
             { "SC", "" },
-            { "SE", "http://www.hom.nfe.se.gov.br/nfce/qrcode?" },
+            { "SE", "http://www.hom.nfe.se.gov.br/portal/consultarNFCe.jsp" },
             { "SP", "https://www.homologacao.nfce.fazenda.sp.gov.br/NFCeConsultaPublica/Paginas/ConsultaQRCode.aspx" },
             { "TO", "http://apps.sefaz.to.gov.br/portal-nfce-homologacao/qrcodeNFCe" }
         };

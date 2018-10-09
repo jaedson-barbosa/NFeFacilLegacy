@@ -50,7 +50,11 @@ namespace ServidorCertificacao
                 }
                 else
                 {
+                    string path = System.Reflection.Assembly.GetExecutingAssembly().Location;
+                    path = path.Substring(0, path.LastIndexOf('\\'));
                     Process process = new Process();
+                    process.StartInfo.Domain = path;
+                    process.StartInfo.WorkingDirectory = path;
                     process.StartInfo.FileName = "CertificacaoA3.exe";
                     process.StartInfo.Arguments = $"{nomeMetodo} \"{caminhoXml}\"";
                     process.Start();
@@ -63,7 +67,7 @@ namespace ServidorCertificacao
             catch (Exception erro)
             {
                 var mensagem = $"{erro.Message}\r\n" +
-                    $"Detalhes adicionais: {erro.InnerException?.Message}";
+                    $"Local: {System.Reflection.Assembly.GetExecutingAssembly().Location}\r\n";
                 OnError(this, mensagem);
                 var data = Encoding.UTF8.GetBytes(mensagem);
                 EscreverCabecalho(data.Length, false);

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Consumidor
+namespace BaseGeral.ModeloXML
 {
     public static class UrlsChaveAcesso
     {

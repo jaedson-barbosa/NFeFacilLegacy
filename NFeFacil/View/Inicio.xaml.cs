@@ -34,7 +34,7 @@ namespace NFeFacil.View
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             var comprado = ComprasInApp.Resumo[Compras.NFCe];
-            hubNFCe.Visibility = comprado ? Visibility.Visible : Visibility.Collapsed;
+            //hubNFCe.Visibility = comprado ? Visibility.Visible : Visibility.Collapsed;
         }
 
         void AbrirClientes(object sender, RoutedEventArgs e) => Navegar<GerenciarClientes>();

@@ -27,15 +27,18 @@ namespace BaseGeral.ModeloXML
             var tpAmb = Informacoes.identificacao.TipoAmbiente;
             byte[] cHashQRCode;
             string[] stringsConcatenacao;
+            string concatenacao;
             using (var hash = System.Security.Cryptography.SHA1.Create())
             {
                 stringsConcatenacao = new string[5] { chNFe, nVersao, tpAmb.ToString(), cIdToken, null };
-                var concatenacao = ConcatenarStrings(stringsConcatenacao) + CSC;
+                concatenacao = ConcatenarStrings(stringsConcatenacao);
+                if (DefinicoesPermanentes.CalculoHASHReserva) concatenacao = concatenacao.Substring(0, concatenacao.Length - 1);
+                concatenacao += CSC;
                 var bytes = Encoding.ASCII.GetBytes(concatenacao);
                 cHashQRCode = hash.ComputeHash(bytes, 0, bytes.Length);
             }
             var hashCalculado = BitConverter.ToString(cHashQRCode).Replace("-", "");
-            stringsConcatenacao[5] = hashCalculado;
+            stringsConcatenacao[4] = hashCalculado;
 
             var enderecos = AmbienteTestes ? UrlsQR.Homologacao : UrlsQR.Producao;
             var ufEmitente = Informacoes.Emitente.Endereco.SiglaUF;
@@ -44,9 +47,10 @@ namespace BaseGeral.ModeloXML
             {
                 enderecoConsultaQR += '?';
             }
+            concatenacao = ConcatenarStrings(stringsConcatenacao);
             InfoSuplementares = new InformacoesSuplementaresNFCe()
             {
-                Uri = enderecoConsultaQR + ConcatenarStrings(stringsConcatenacao),
+                Uri = enderecoConsultaQR + concatenacao,
                 UriChave = tpAmb == 1
                     ? UrlsChaveAcesso.Producao[ufEmitente]
                     : UrlsChaveAcesso.Homologacao[ufEmitente]

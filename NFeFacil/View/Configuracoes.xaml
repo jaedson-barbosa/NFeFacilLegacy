@@ -43,6 +43,9 @@
                 <ToggleSwitch Header="Bloquear repetição de produtos nas vendas"
                               MinWidth="320"
                               IsOn="{x:Bind root:DefinicoesPermanentes.IgnorarProdutosJaAdicionados, Mode=TwoWay}" />
+                <ToggleSwitch Header="Calculo HASH reserva"
+                              MinWidth="320"
+                              IsOn="{x:Bind root:DefinicoesPermanentes.CalculoHASHReserva, Mode=TwoWay}" />
                 <controles:ItemPadrao HorizontalAlignment="Left"
                                       Titulo="Salvar backup"
                                       Descricao="Guarde todas as informações do aplicativo em um único arquivo."

@@ -26,7 +26,7 @@ namespace BaseGeral.ModeloXML
             { "PR", "http://www.dfeportal.fazenda.pr.gov.br/dfe-portal/rest/servico/consultaNFCe" },
             { "RJ", "http://www4.fazenda.rj.gov.br/consultaNFCe/QRCode" },
             { "RN", "http://nfce.set.rn.gov.br/consultarNFCe.aspx" },
-            { "RO", "http://www.nfce.sefin.ro.gov.br/consultanfce/consulta.jsp" },
+            { "RO", "http://www.nfce.sefin.ro.gov.br/consultanfce/consulta.jsp?" },
             { "RR", "https://www.sefaz.rr.gov.br/nfce/servlet/qrcode" },
             { "RS", "https://www.sefaz.rs.gov.br/NFCE/NFCE-COM.aspx" },
             { "SC", "" },

@@ -30,7 +30,7 @@ namespace BaseGeral.ModeloXML
             string concatenacao;
             using (var hash = System.Security.Cryptography.SHA1.Create())
             {
-                stringsConcatenacao = new string[5] { chNFe, nVersao, tpAmb.ToString(), cIdToken, null };
+                stringsConcatenacao = new string[5] { chNFe, nVersao, tpAmb.ToString(), cIdToken.TrimStart('0'), null };
                 concatenacao = ConcatenarStrings(stringsConcatenacao);
                 if (DefinicoesPermanentes.CalculoHASHReserva) concatenacao = concatenacao.Substring(0, concatenacao.Length - 1);
                 concatenacao += CSC;
@@ -43,10 +43,9 @@ namespace BaseGeral.ModeloXML
             var enderecos = AmbienteTestes ? UrlsQR.Homologacao : UrlsQR.Producao;
             var ufEmitente = Informacoes.Emitente.Endereco.SiglaUF;
             var enderecoConsultaQR = enderecos[ufEmitente];
-            if (enderecoConsultaQR[enderecoConsultaQR.Length - 1] != '&')
-            {
+            if (enderecoConsultaQR[enderecoConsultaQR.Length - 1] != '?')
                 enderecoConsultaQR += '?';
-            }
+            enderecoConsultaQR += "p=";
             concatenacao = ConcatenarStrings(stringsConcatenacao);
             InfoSuplementares = new InformacoesSuplementaresNFCe()
             {

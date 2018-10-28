@@ -139,7 +139,17 @@ namespace BaseGeral.Sincronizacao
 
             using (var socket = new StreamSocket())
             {
-                await socket.ConnectAsync(new HostName(IPServidor), "8080");
+                HostName host;
+                try
+                {
+                    host = new HostName(IPServidor);
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Falha ao obter o IP do servidor, por favor, cadastre novamente este dispositivo.", e);
+                }
+
+                await socket.ConnectAsync(host, "8080");
                 using (var output = socket.OutputStream)
                 {
                     await output.WriteAsync(bytes.AsBuffer());

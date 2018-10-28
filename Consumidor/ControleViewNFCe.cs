@@ -61,17 +61,18 @@ namespace Consumidor
                     {
                         using (var repo = new BaseGeral.Repositorio.Escrita())
                         {
+                            var xml = new ProcEventoCancelamento()
+                            {
+                                Eventos = envio.Eventos,
+                                RetEvento = resposta.ResultadorEventos,
+                                Versao = resposta.Versao
+                            }.ToXElement<ProcEventoCancelamento>();
                             repo.SalvarItemSimples(new RegistroCancelamento()
                             {
                                 ChaveNFe = chave,
                                 DataHoraEvento = resposta.ResultadorEventos[0].InfEvento.DhRegEvento,
                                 TipoAmbiente = tipoAmbiente,
-                                XML = new ProcEventoCancelamento()
-                                {
-                                    Eventos = envio.Eventos,
-                                    RetEvento = resposta.ResultadorEventos,
-                                    Versao = resposta.Versao
-                                }.ToXElement<ProcEventoCancelamento>().ToString()
+                                XML = xml.ToString()
                             }, DefinicoesTemporarias.DateTimeNow);
 
                             nota.Status = (int)StatusNota.Cancelada;

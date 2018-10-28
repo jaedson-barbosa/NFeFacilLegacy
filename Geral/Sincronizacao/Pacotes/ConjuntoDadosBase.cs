@@ -346,7 +346,7 @@ namespace BaseGeral.Sincronizacao.Pacotes
                     for (int i = 0; i < Vendas.Length; i++)
                     {
                         var novo = Vendas[i];
-                        var atual = db.Vendas.FirstOrDefault(x => x.Id == novo.Id);
+                        var atual = db.Vendas.Include(x => x.Produtos).FirstOrDefault(x => x.Id == novo.Id);
                         if (atual == null)
                         {
                             ProdutosVendas[i] = novo.Produtos;
@@ -357,13 +357,14 @@ namespace BaseGeral.Sincronizacao.Pacotes
                         }
                         else if (novo.UltimaData > atual.UltimaData)
                         {
-                            ProdutosVendas[i] = novo.Produtos;
+                            var prods = novo.Produtos;
+                            ProdutosVendas[i] = prods;
                             novo.Produtos = null;
 
                             novo.UltimaData = InstanteSincronizacao;
                             Atualizar.Add(novo);
 
-                            db.RemoveRange(atual.Produtos.Where(x => !novo.Produtos.Any(y => x.Id == y.Id)));
+                            db.RemoveRange(atual.Produtos.Where(x => !prods.Any(y => x.Id == y.Id)));
                         }
                         else
                         {

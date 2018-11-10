@@ -72,9 +72,9 @@
                 <Setter Property="VerticalContentAlignment"
                         Value="Stretch" />
                 <Setter Property="Width"
-                        Value="200" />
+                        Value="300" />
                 <Setter Property="MinHeight"
-                        Value="160" />
+                        Value="150" />
             </Style>
             <aux:BibliotecaCores x:Key="cores" />
             <SolidColorBrush x:Key="Normal"

@@ -4,6 +4,7 @@ using BaseGeral.View;
 using NFeFacil.View;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -31,16 +32,8 @@ namespace Venda.ViewProdutoVenda
             Controle = (IControleViewProduto)e.Parameter;
             Produtos = Controle.ObterProdutosIniciais();
             Controle.ProdutoAtualizado += Controle_ProdutoAtualizado;
-            Produtos.Insert(0, new ExibicaoProdutoListaGeral
-            {
-                Codigo = "Código",
-                Descricao = "Descrição",
-                Quantidade = "Quantidade",
-                TotalLiquido = "Total",
-                ValorUnitario = "Valor unit.",
-                IsCabecalho = true
-            });
             VisibilidadeConcluir = Controle.PodeConcluir ? Visibility.Visible : Visibility.Collapsed;
+            AtualizarTotalLiquido();
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
@@ -53,18 +46,16 @@ namespace Venda.ViewProdutoVenda
             int index = Produtos.IndexOf(e.antigo);
             Produtos.RemoveAt(index);
             Produtos.Insert(index, e.novo);
+            AtualizarTotalLiquido();
         }
 
         private void RemoverProduto(object sender, RoutedEventArgs e)
         {
             var context = ((FrameworkElement)sender).DataContext;
             var prod = (ExibicaoProdutoListaGeral)context;
-            if (prod.IsCabecalho) Popup.Current.Escrever(TitulosComuns.Iniciando, "Remova algum produto caso não mais o queira dentro desta venda.");
-            else
-            {
-                Produtos.Remove(prod);
-                Controle.Remover(prod);
-            }
+            Produtos.Remove(prod);
+            Controle.Remover(prod);
+            AtualizarTotalLiquido();
         }
 
         private void Editar(object sender, RoutedEventArgs e)
@@ -72,8 +63,7 @@ namespace Venda.ViewProdutoVenda
             var log = Popup.Current;
             var context = ((FrameworkElement)sender).DataContext;
             var prod = (ExibicaoProdutoListaGeral)context;
-            if (prod.IsCabecalho) log.Escrever(TitulosComuns.Iniciando, "A edição pode ser usada nos documentos fiscais para alterar qualquer dado inserido anteriormente.");
-            else Controle.Editar(prod);
+            Controle.Editar(prod);
         }
 
         private async void AdicionarProduto(object sender, RoutedEventArgs e)
@@ -90,7 +80,13 @@ namespace Venda.ViewProdutoVenda
             {
                 var prod = Controle.Adicionar(caixa);
                 Produtos.Add(prod);
+                AtualizarTotalLiquido();
             }
+        }
+
+        void AtualizarTotalLiquido()
+        {
+            txtTotalLiquido.Text = Produtos.Sum(x => x.TotalLiquidoD).ToString("C");
         }
 
         void Avancar(object sender, RoutedEventArgs e)

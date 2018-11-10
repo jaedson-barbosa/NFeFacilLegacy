@@ -14,9 +14,9 @@
                 <DataTemplate x:DataType="local:ExibicaoProdutoListaGeral">
                     <Grid Padding="8">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="80" />
+                            <ColumnDefinition Width="Auto" />
                             <ColumnDefinition />
-                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -38,6 +38,7 @@
                                    Style="{StaticResource BaseTextBlockStyle}" />
                         <TextBlock Grid.Row="1"
                                    Grid.ColumnSpan="3"
+                                   HorizontalAlignment="Left"
                                    Text="{x:Bind Descricao}"
                                    Style="{StaticResource BodyTextBlockStyle}" />
                         <TextBlock Grid.Row="2"
@@ -75,6 +76,20 @@
     </Grid>
     <Page.BottomAppBar>
         <CommandBar>
+            <CommandBar.Content>
+                <Grid Height="48">
+                    <TextBlock Margin="8,0"
+                               VerticalAlignment="Top"
+                               FontWeight="Light"
+                               MinWidth="256">Total líquido</TextBlock>
+                    <TextBlock x:Name="txtTotalLiquido"
+                               Margin="8,0"
+                               VerticalAlignment="Bottom"
+                               FontWeight="Bold"
+                               FontSize="24"
+                               MinWidth="256" />
+                </Grid>
+            </CommandBar.Content>
             <AppBarButton Label="Ordenar"
                           Icon="Sort"
                           Click="Ordenar" />

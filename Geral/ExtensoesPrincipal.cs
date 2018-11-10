@@ -196,7 +196,7 @@ namespace BaseGeral
         public static double CMToPixel(double CM) => CM * (96 / 2.54);
         public static GridLength CMToLength(double CM) => new GridLength(CMToPixel(CM));
 
-        static CultureInfo defCult = CultureInfo.InvariantCulture;
+        static readonly CultureInfo defCult = CultureInfo.InvariantCulture;
         public static string ToStr(double valor, string format = "F2") => valor.ToString(format, defCult);
         public static double Parse(string str) => double.Parse(str, NumberStyles.Number, defCult);
         public static bool TryParse(string str, out double valor) => double.TryParse(str, NumberStyles.Number, defCult, out valor);

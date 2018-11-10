@@ -53,7 +53,7 @@ namespace RegistroComum
                             Descricao = comp.Descricao,
                             Quantidade = prod.Quantidade.ToString("N2"),
                             ValorUnitario = prod.ValorUnitario.ToString("C"),
-                            TotalLiquido = prod.TotalLíquido.ToString("C")
+                            TotalLiquidoD = prod.TotalLíquido
                         }).GerarObs();
         }
 
@@ -76,7 +76,7 @@ namespace RegistroComum
                 Codigo = caixa.ProdutoSelecionado.Codigo,
                 Descricao = caixa.ProdutoSelecionado.Nome,
                 Quantidade = caixa.Quantidade.ToString("N2"),
-                TotalLiquido = novoProdBanco.TotalLíquido.ToString("C"),
+                TotalLiquidoD = novoProdBanco.TotalLíquido,
                 ValorUnitario = caixa.ValorUnitario.ToString("C")
             };
         }
@@ -109,7 +109,7 @@ namespace RegistroComum
                     Codigo = produto.Codigo,
                     Descricao = produto.Descricao,
                     Quantidade = produtoSalvo.Quantidade.ToString("N2"),
-                    TotalLiquido = produtoSalvo.TotalLíquido.ToString("C"),
+                    TotalLiquidoD = produtoSalvo.TotalLíquido,
                     ValorUnitario = produtoSalvo.ValorUnitario.ToString("C")
                 }));
             }

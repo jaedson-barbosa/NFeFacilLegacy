@@ -58,7 +58,7 @@ namespace Fiscal
                             Descricao = comp.Descricao,
                             Quantidade = intP.QuantidadeComercializada.ToString("N2"),
                             ValorUnitario = intP.ValorUnitario.ToString("C"),
-                            TotalLiquido = intP.ValorTotal.ToString("C")
+                            TotalLiquidoD = intP.ValorTotal
                         }).GerarObs();
         }
 
@@ -80,7 +80,7 @@ namespace Fiscal
                 Codigo = caixa.ProdutoSelecionado.Codigo,
                 Descricao = caixa.ProdutoSelecionado.Nome,
                 Quantidade = caixa.Quantidade.ToString("N2"),
-                TotalLiquido = simples.TotalLíquido.ToString("C"),
+                TotalLiquidoD = simples.TotalLíquido,
                 ValorUnitario = caixa.ValorUnitario.ToString("C")
             };
         }

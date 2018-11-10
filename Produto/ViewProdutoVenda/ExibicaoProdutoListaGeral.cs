@@ -7,11 +7,17 @@ namespace Venda.ViewProdutoVenda
     public struct ExibicaoProdutoListaGeral
     {
         public Guid Id { get; set; }
-        public bool IsCabecalho { get; set; }
         public string Codigo { get; set; }
-        public string Descricao { get; set; }
+
+        string descricao;
+        public string Descricao
+        {
+            get => descricao.Trim();
+            set => descricao = value;
+        }
         public string Quantidade { get; set; }
         public string ValorUnitario { get; set; }
-        public string TotalLiquido { get; set; }
+        public string TotalLiquido => TotalLiquidoD.ToString("C");
+        public double TotalLiquidoD { get; set; }
     }
 }

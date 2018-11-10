@@ -54,6 +54,39 @@
                 </ScrollViewer>
             </DataTemplate>
         </HubSection>
+        <HubSection Header="Produtos">
+            <DataTemplate>
+                <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <controles:ItemPadrao Grid.Row="1"
+                                              Titulo="Produtos"
+                                              Descricao="Cadastre tudo (inclusive os impostos)"
+                                              Click="AbrirProdutos">
+                            <SymbolIcon Symbol="Shop" />
+                        </controles:ItemPadrao>
+                        <controles:ItemPadrao Titulo="Fornecedores"
+                                              Descricao="Cadastre os seus fornecedores"
+                                              Click="AbrirFornecedores">
+                            <SymbolIcon Symbol="People" />
+                        </controles:ItemPadrao>
+                        <controles:ItemPadrao Grid.Row="2"
+                                              Titulo="Categorias"
+                                              Descricao="Que categorias de produtos você possui?"
+                                              Click="AbrirCategorias">
+                            <SymbolIcon Symbol="People" />
+                        </controles:ItemPadrao>
+                    </Grid>
+                </ScrollViewer>
+            </DataTemplate>
+        </HubSection>
         <HubSection Header="Fiscal (NF-e)">
             <DataTemplate>
                 <ScrollViewer VerticalScrollBarVisibility="Hidden">

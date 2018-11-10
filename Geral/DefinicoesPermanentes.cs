@@ -45,7 +45,13 @@ namespace BaseGeral
             get => AssistenteConfig.Get(nameof(ModoBuscaVendedor), 0);
             set => AssistenteConfig.Set(nameof(ModoBuscaVendedor), value);
         }
-        
+
+        public static int ModoBuscaFornecedor
+        {
+            get => AssistenteConfig.Get(nameof(ModoBuscaFornecedor), 0);
+            set => AssistenteConfig.Set(nameof(ModoBuscaFornecedor), value);
+        }
+
         public static Guid IDBackgroung
         {
             get => AssistenteConfig.Get(nameof(IDBackgroung), Guid.Empty);

@@ -95,6 +95,13 @@
                     <ComboBoxItem>Pelo CPF</ComboBoxItem>
                     <ComboBoxItem>Ambos</ComboBoxItem>
                 </ComboBox>
+                <ComboBox Header="Modo de busca do fornecedor"
+                          MinWidth="320"
+                          SelectedIndex="{x:Bind root:DefinicoesPermanentes.ModoBuscaFornecedor, Mode=TwoWay}">
+                    <ComboBoxItem>Pelo nome</ComboBoxItem>
+                    <ComboBoxItem>Pelo CNPJ</ComboBoxItem>
+                    <ComboBoxItem>Ambos</ComboBoxItem>
+                </ComboBox>
             </StackPanel>
             <StackPanel>
                 <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Background</TextBlock>

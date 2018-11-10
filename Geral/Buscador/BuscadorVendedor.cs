@@ -7,7 +7,7 @@ namespace BaseGeral.Buscador
 {
     public sealed class BuscadorVendedor : BaseBuscador<ConjuntoBasicoExibicao<Vendedor>>
     {
-        public BuscadorVendedor()
+        public BuscadorVendedor() : base(DefinicoesPermanentes.ModoBuscaVendedor)
         {
             using (var repo = new Repositorio.Leitura())
             {

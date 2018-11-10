@@ -5,7 +5,7 @@ namespace BaseGeral.Buscador
 {
     public sealed class BuscadorProduto : BaseBuscador<ProdutoDI>
     {
-        public BuscadorProduto()
+        public BuscadorProduto() : base(DefinicoesPermanentes.ModoBuscaProduto)
         {
             using (var repo = new Repositorio.Leitura())
             {

@@ -147,7 +147,7 @@ namespace Venda.ViewProdutoVenda
 
         sealed class BuscadorProduto : BaseGeral.Buscador.BaseBuscador<ExibicaoProdutoAdicao>
         {
-            public BuscadorProduto(Dictionary<Guid, double> produtosJaAdicionados)
+            public BuscadorProduto(Dictionary<Guid, double> produtosJaAdicionados) : base(DefinicoesPermanentes.ModoBuscaProduto)
             {
                 using (var repo = new BaseGeral.Repositorio.Leitura())
                 {

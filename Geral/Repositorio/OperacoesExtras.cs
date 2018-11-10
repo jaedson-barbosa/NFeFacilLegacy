@@ -50,6 +50,8 @@ namespace BaseGeral.Repositorio
             await db.Vendas.ForEachAsync(AnalisarItem);
             await db.Imagens.ForEachAsync(AnalisarItem);
             await db.Veiculos.ForEachAsync(AnalisarItem);
+            await db.Fornecedores.ForEachAsync(AnalisarItem);
+            await db.Categorias.ForEachAsync(AnalisarItem);
 
             void AnalisarItem(IUltimaData item)
             {

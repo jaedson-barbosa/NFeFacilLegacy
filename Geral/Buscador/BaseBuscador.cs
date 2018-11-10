@@ -7,6 +7,9 @@ namespace BaseGeral.Buscador
         protected const string InvalidProduct = "#####";
         protected TipoBusca[] TodosItens { get; set; }
         public ObservableCollection<TipoBusca> Itens { get; protected set; }
+        int ModoBusca { get; }
+
+        public BaseBuscador(int modoBusca) => ModoBusca = modoBusca;
 
         public void Buscar(string busca)
         {
@@ -16,7 +19,7 @@ namespace BaseGeral.Buscador
                 {
                     var atual = TodosItens[i];
                     busca = busca.ToUpper();
-                    var comparados = ItemComparado(atual, DefinicoesPermanentes.ModoBuscaProduto);
+                    var comparados = ItemComparado(atual, ModoBusca);
                     bool valido = comparados.Item1.ToUpper().Contains(busca)
                         || (comparados.Item2?.ToUpper().Contains(busca) ?? false);
                     if (valido && !Itens.Contains(atual))
@@ -36,7 +39,7 @@ namespace BaseGeral.Buscador
         protected abstract void InvalidarItem(TipoBusca item, int modoBusca);
         public void Remover(TipoBusca produto)
         {
-            var modoBusca = DefinicoesPermanentes.ModoBuscaProduto;
+            var modoBusca = ModoBusca;
             for (int i = 0; i < TodosItens.Length; i++)
             {
                 var at = TodosItens[i];

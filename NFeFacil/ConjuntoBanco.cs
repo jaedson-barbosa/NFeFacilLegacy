@@ -22,6 +22,8 @@ namespace NFeFacil
         public CancelamentoRegistroVenda[] CancelamentosRegistroVenda { get; set; }
         public Imagem[] Imagens { get; set; }
         public Inutilizacao[] Inutilizacoes { get; set; }
+        public FornecedorDI[] Fornecedores { get; set; }
+        public CategoriaDI[] Categorias { get; set; }
 
         public void AtualizarPadrao()
         {
@@ -40,6 +42,8 @@ namespace NFeFacil
                 CancelamentosRegistroVenda = db.CancelamentosRegistroVenda.ToArray();
                 Imagens = db.Imagens.ToArray();
                 Inutilizacoes = db.Inutilizacoes.ToArray();
+                Fornecedores = db.Fornecedores.ToArray();
+                Categorias = db.Categorias.ToArray();
             }
         }
 
@@ -61,6 +65,8 @@ namespace NFeFacil
                 if (CancelamentosRegistroVenda.Length > 0) db.CancelamentosRegistroVenda.AddRange(CancelamentosRegistroVenda);
                 if (Imagens.Length > 0) db.Imagens.AddRange(Imagens);
                 if (Inutilizacoes.Length > 0) db.Inutilizacoes.AddRange(Inutilizacoes);
+                if (Fornecedores.Length > 0) db.Fornecedores.AddRange(Fornecedores);
+                if (Categorias.Length > 0) db.Categorias.AddRange(Categorias);
 
                 if (Estoque.Length > 0)
                 {

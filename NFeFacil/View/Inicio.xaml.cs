@@ -34,12 +34,14 @@ namespace NFeFacil.View
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             var comprado = ComprasInApp.Resumo[Compras.NFCe];
-            //hubNFCe.Visibility = comprado ? Visibility.Visible : Visibility.Collapsed;
+            hubNFCe.Visibility = comprado ? Visibility.Visible : Visibility.Collapsed;
         }
 
         void AbrirClientes(object sender, RoutedEventArgs e) => Navegar<GerenciarClientes>();
         void AbrirMotoristas(object sender, RoutedEventArgs e) => Navegar<GerenciarMotoristas>();
         void AbrirProdutos(object sender, RoutedEventArgs e) => Navegar<GerenciarProdutos>();
+        void AbrirFornecedores(object sender, RoutedEventArgs e) => Navegar<GerenciarFornecedores>();
+        void AbrirCategorias(object sender, RoutedEventArgs e) => Navegar<GerenciarCategorias>();
         void AbrirVendedores(object sender, RoutedEventArgs e) => Navegar<GerenciarVendedores>();
         void AbrirCompradores(object sender, RoutedEventArgs e) => Navegar<GerenciarCompradores>();
 

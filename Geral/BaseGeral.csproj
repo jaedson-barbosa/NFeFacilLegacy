@@ -112,12 +112,19 @@
     <Compile Include="Buscador\BaseBuscador.cs" />
     <Compile Include="Buscador\BuscadorCliente.cs" />
     <Compile Include="Buscador\BuscadorComprador.cs" />
+    <Compile Include="Buscador\BuscadorFornecedores.cs" />
     <Compile Include="Buscador\BuscadorMotorista.cs" />
     <Compile Include="Buscador\BuscadorMotoristaComVeiculos.cs" />
     <Compile Include="Buscador\BuscadorProduto.cs" />
     <Compile Include="Buscador\BuscadorVendedor.cs" />
     <Compile Include="Controles\RichEditBoxExtended.cs" />
-    <Compile Include="ItensBD\Fornecedor.cs" />
+    <Compile Include="IEnderecoResumo.cs" />
+    <Compile Include="ItensBD\CategoriaDI.cs" />
+    <Compile Include="ItensBD\FornecedorDI.cs" />
+    <Compile Include="Migrations\20181110192300_Loja1.12.cs" />
+    <Compile Include="Migrations\20181110192300_Loja1.12.Designer.cs">
+      <DependentUpon>20181110192300_Loja1.12.cs</DependentUpon>
+    </Compile>
     <Compile Include="ModeloXML\UrlsChaveAcesso.cs" />
     <Compile Include="ModeloXML\UrlsQR.cs" />
     <Compile Include="MotoristaManipulacaoNFe.cs" />
@@ -405,10 +412,10 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite">
-      <Version>2.1.1</Version>
+      <Version>2.1.4</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools">
-      <Version>2.1.1</Version>
+      <Version>2.1.4</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.1.7</Version>

@@ -1,5 +1,6 @@
 ﻿using BaseGeral;
 using BaseGeral.Buscador;
+using BaseGeral.ItensBD;
 using BaseGeral.View;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -27,7 +28,7 @@ namespace NFeFacil.ViewDadosBase
         private void EditarComprador(object sender, RoutedEventArgs e)
         {
             var contexto = ((FrameworkElement)sender).DataContext;
-            MainPage.Current.Navegar<AdicionarComprador>(((ExibicaoComprador)contexto).Root);
+            MainPage.Current.Navegar<AdicionarFornecedor>((FornecedorDI)contexto);
         }
 
         private void InativarComprador(object sender, RoutedEventArgs e)

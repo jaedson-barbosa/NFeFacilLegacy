@@ -4,7 +4,7 @@ namespace BaseGeral.Buscador
 {
     public sealed class BuscadorMotoristaComVeiculos : BaseBuscador<MotoristaManipulacaoNFe>
     {
-        public BuscadorMotoristaComVeiculos()
+        public BuscadorMotoristaComVeiculos() : base(DefinicoesPermanentes.ModoBuscaMotorista)
         {
             using (var repo = new Repositorio.Leitura())
             {

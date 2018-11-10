@@ -61,6 +61,9 @@ namespace BaseGeral.Repositorio
             }
         }
 
+        public IEnumerable<FornecedorDI> ObterFornecedores() => db.Fornecedores;
+        public IEnumerable<CategoriaDI> ObterCategorias() => db.Categorias;
+
         public IEnumerable<VeiculoDI> ObterVeiculos() => db.Veiculos;
 
         public IEnumerable<ProdutoDI> ObterProdutos()

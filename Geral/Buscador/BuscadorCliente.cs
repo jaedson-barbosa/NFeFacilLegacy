@@ -5,7 +5,7 @@ namespace BaseGeral.Buscador
 {
     public sealed class BuscadorCliente : BaseBuscador<ClienteDI>
     {
-        public BuscadorCliente()
+        public BuscadorCliente() : base(DefinicoesPermanentes.ModoBuscaCliente)
         {
             using (var repo = new Repositorio.Leitura())
             {

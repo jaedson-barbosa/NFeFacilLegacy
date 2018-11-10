@@ -21,6 +21,8 @@ namespace BaseGeral.Sincronizacao.Pacotes
         public Imagem[] Imagens { get; set; }
         public Comprador[] Compradores { get; set; }
         public Inutilizacao[] Inutilizacoes { get; set; }
+        public FornecedorDI[] Fornecedores { get; set; }
+        public CategoriaDI[] Categorias { get; set; }
 
         public DateTime InstanteSincronizacao { get; set; }
 
@@ -43,6 +45,8 @@ namespace BaseGeral.Sincronizacao.Pacotes
                 Imagens = db.Imagens.Where(x => x.UltimaData > minimo).ToArray();
                 Compradores = db.Compradores.Where(x => x.UltimaData > minimo).ToArray();
                 Inutilizacoes = db.Inutilizacoes.ToArray();
+                Fornecedores = db.Fornecedores.ToArray();
+                Categorias = db.Categorias.ToArray();
             }
         }
 
@@ -112,6 +116,16 @@ namespace BaseGeral.Sincronizacao.Pacotes
                 Inutilizacoes = (from local in db.Inutilizacoes
                                  where !existente.Inutilizacoes.Any(x => x.Id == local.Id)
                                  select local).ToArray();
+
+                Fornecedores = (from local in db.Fornecedores
+                                let servidor = existente.Fornecedores.FirstOrDefault(x => x.Id == local.Id)
+                                where local.UltimaData > (servidor == null ? minimo : servidor.UltimaData)
+                                select local).ToArray();
+
+                Categorias = (from local in db.Categorias
+                              let servidor = existente.Categorias.FirstOrDefault(x => x.Id == local.Id)
+                              where local.UltimaData > (servidor == null ? minimo : servidor.UltimaData)
+                              select local).ToArray();
             }
         }
 
@@ -369,6 +383,44 @@ namespace BaseGeral.Sincronizacao.Pacotes
                         else
                         {
                             ProdutosVendas[i] = null;
+                        }
+                    }
+                }
+
+                if (Fornecedores != null)
+                {
+                    for (int i = 0; i < Fornecedores.Length; i++)
+                    {
+                        var novo = Fornecedores[i];
+                        var atual = db.Fornecedores.FirstOrDefault(x => x.Id == novo.Id);
+                        if (atual == null)
+                        {
+                            novo.UltimaData = InstanteSincronizacao;
+                            Adicionar.Add(novo);
+                        }
+                        else if (novo.UltimaData > atual.UltimaData)
+                        {
+                            novo.UltimaData = InstanteSincronizacao;
+                            Atualizar.Add(novo);
+                        }
+                    }
+                }
+
+                if (Categorias != null)
+                {
+                    for (int i = 0; i < Categorias.Length; i++)
+                    {
+                        var novo = Categorias[i];
+                        var atual = db.Categorias.FirstOrDefault(x => x.Id == novo.Id);
+                        if (atual == null)
+                        {
+                            novo.UltimaData = InstanteSincronizacao;
+                            Adicionar.Add(novo);
+                        }
+                        else if (novo.UltimaData > atual.UltimaData)
+                        {
+                            novo.UltimaData = InstanteSincronizacao;
+                            Atualizar.Add(novo);
                         }
                     }
                 }

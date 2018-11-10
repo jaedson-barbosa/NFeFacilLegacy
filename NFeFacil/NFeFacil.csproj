@@ -168,6 +168,18 @@
     <Compile Include="Login\Loading.xaml.cs">
       <DependentUpon>Loading.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewDadosBase\AdicionarCategoria.xaml.cs">
+      <DependentUpon>AdicionarCategoria.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewDadosBase\AdicionarFornecedor.xaml.cs">
+      <DependentUpon>AdicionarFornecedor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewDadosBase\GerenciarCategorias.xaml.cs">
+      <DependentUpon>GerenciarCategorias.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewDadosBase\GerenciarFornecedores.xaml.cs">
+      <DependentUpon>GerenciarFornecedores.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewSincronizacao\ConfigurarDadosConexao.xaml.cs">
       <DependentUpon>ConfigurarDadosConexao.xaml</DependentUpon>
     </Compile>
@@ -285,7 +297,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ViewDadosBase\AdicionarCategoria.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ViewDadosBase\AdicionarComprador.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewDadosBase\AdicionarFornecedor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewDadosBase\GerenciarCategorias.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -294,6 +318,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ViewDadosBase\GerenciarCompradores.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewDadosBase\GerenciarFornecedores.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -407,10 +435,10 @@
       <Version>0.8.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite">
-      <Version>2.1.1</Version>
+      <Version>2.1.4</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools">
-      <Version>2.1.1</Version>
+      <Version>2.1.4</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.1.7</Version>

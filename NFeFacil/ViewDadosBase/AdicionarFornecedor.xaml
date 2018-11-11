@@ -8,35 +8,48 @@
       mc:Ignorable="d">
     <ScrollViewer Padding="16">
         <StackPanel>
-            <ItemsControl Style="{StaticResource ItensResponsivos}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
                 <TextBox Text="{x:Bind Fornecedor.Nome, Mode=TwoWay}"
                          InputScope="Text"
-                         Header="Nome/Razão social *" />
-                <controles:EntradaRestrita Text="{x:Bind Fornecedor.CNPJ, Mode=TwoWay}"
+                         Header="Nome/Razão social *"
+                         Margin="4" />
+                <controles:EntradaRestrita Grid.Column="1"
+                                           Text="{x:Bind Fornecedor.CNPJ, Mode=TwoWay}"
                                            Pattern="[^\d]"
                                            InputScope="Number"
-                                           Header="CNPJ *" />
-                <controles:EntradaRestrita x:Name="txtIE"
+                                           Header="CNPJ *"
+                                           Margin="4" />
+                <controles:EntradaRestrita Grid.Row="1"
+                                           x:Name="txtIE"
                                            Pattern="[^\d]"
                                            Text="{x:Bind Fornecedor.InscricaoEstadual, Mode=TwoWay}"
                                            InputScope="Number"
-                                           Header="Inscrição estadual" />
-                <TextBox Text="{x:Bind Fornecedor.Email, Mode=TwoWay}"
+                                           Header="Inscrição estadual"
+                                           Margin="4" />
+                <TextBox Grid.Row="1"
+                         Grid.Column="1"
+                         Text="{x:Bind Fornecedor.Email, Mode=TwoWay}"
                          InputScope="EmailNameOrAddress"
-                         Header="Email" />
-            </ItemsControl>
+                         Header="Email"
+                         Margin="4" />
+            </Grid>
             <TextBlock Text="Endereço"
                        Style="{StaticResource TitleTextBlockStyle}"
                        Margin="4,0,0,0" />
             <ItemsControl Style="{StaticResource ItensResponsivos}">
-                <ComboBox ItemsSource="{x:Bind VM:DadosEstadosParaView.EstadosCompletos}"
-                          SelectedValuePath="Sigla"
-                          SelectedValue="{x:Bind UFEscolhida, Mode=TwoWay}"
-                          DisplayMemberPath="Nome"
+                <ComboBox ItemsSource="{x:Bind VM:DadosEstadosParaView.Siglas}"
+                          SelectedItem="{x:Bind UFEscolhida, Mode=TwoWay}"
                           Header="Estado" />
                 <ComboBox ItemsSource="{x:Bind ListaMunicipios}"
                           SelectedItem="{x:Bind Fornecedor.NomeMunicipio, Mode=TwoWay}"
-                          DisplayMemberPath="Nome"
                           Header="Município" />
                 <TextBox Text="{x:Bind Fornecedor.Logradouro, Mode=TwoWay}"
                          InputScope="Text"

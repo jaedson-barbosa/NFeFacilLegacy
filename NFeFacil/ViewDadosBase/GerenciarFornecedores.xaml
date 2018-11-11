@@ -14,7 +14,7 @@
               ItemContainerStyle="{StaticResource ItensMedios}"
               Margin="8">
         <GridView.ItemTemplate>
-            <DataTemplate x:DataType="db:ClienteDI">
+            <DataTemplate x:DataType="db:FornecedorDI">
                 <Grid Background="Transparent"
                       Padding="16">
                     <Grid.ContextFlyout>

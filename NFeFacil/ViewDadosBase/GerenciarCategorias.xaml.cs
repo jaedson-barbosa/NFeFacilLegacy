@@ -1,5 +1,6 @@
 ﻿using BaseGeral;
 using BaseGeral.ItensBD;
+using BaseGeral.View;
 using System;
 using System.Collections.ObjectModel;
 using Windows.UI.Xaml;
@@ -9,9 +10,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil.ViewDadosBase
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [DetalhePagina("\uF168", "Gerenciar categorias")]
     public sealed partial class GerenciarCategorias : Page
     {
         ObservableCollection<CategoriaDI> Categorias { get; }
@@ -35,6 +34,7 @@ namespace NFeFacil.ViewDadosBase
                 {
                     repo.SalvarItemSimples(newCategoria, DefinicoesTemporarias.DateTimeNow);
                 }
+                Categorias.Add(newCategoria);
             }
         }
 
@@ -42,6 +42,7 @@ namespace NFeFacil.ViewDadosBase
         {
             var contexto = ((FrameworkElement)sender).DataContext;
             var categoria = (CategoriaDI)contexto;
+            var index = Categorias.IndexOf(categoria);
             var caixa = new AdicionarCategoria(categoria.Nome);
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
@@ -50,6 +51,8 @@ namespace NFeFacil.ViewDadosBase
                 {
                     repo.SalvarItemSimples(categoria, DefinicoesTemporarias.DateTimeNow);
                 }
+                Categorias.RemoveAt(index);
+                Categorias.Insert(index, categoria);
             }
         }
     }

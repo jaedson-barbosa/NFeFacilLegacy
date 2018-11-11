@@ -5,11 +5,10 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
-    <GridView ItemsSource="{x:Bind Categorias}"
+    <ListView ItemsSource="{x:Bind Categorias}"
               ItemContainerTransitions="{StaticResource TransicoesLista}"
-              ItemContainerStyle="{StaticResource ItensMedios}"
               Margin="8">
-        <GridView.ItemTemplate>
+        <ListView.ItemTemplate>
             <DataTemplate x:DataType="db:CategoriaDI">
                 <Grid Padding="8">
                     <Grid.ContextFlyout>
@@ -20,12 +19,11 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
-                               Text="{x:Bind Nome}" />
+                    <TextBlock Text="{x:Bind Nome}" />
                 </Grid>
             </DataTemplate>
-        </GridView.ItemTemplate>
-    </GridView>
+        </ListView.ItemTemplate>
+    </ListView>
     <Page.BottomAppBar>
         <CommandBar>
             <AppBarButton Icon="Add"

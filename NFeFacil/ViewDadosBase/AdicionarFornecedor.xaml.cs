@@ -2,6 +2,7 @@
 using BaseGeral.IBGE;
 using BaseGeral.ItensBD;
 using BaseGeral.Validacao;
+using BaseGeral.View;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -13,9 +14,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NFeFacil.ViewDadosBase
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [DetalhePagina(Symbol.People, "Fornecedor")]
     public sealed partial class AdicionarFornecedor : Page
     {
         FornecedorDI Fornecedor { get; set; }
@@ -35,17 +34,13 @@ namespace NFeFacil.ViewDadosBase
             }
         }
 
-        public AdicionarFornecedor()
-        {
-            InitializeComponent();
-        }
-
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             Fornecedor = (FornecedorDI)e.Parameter ?? new FornecedorDI();
             ListaMunicipios = string.IsNullOrEmpty(Fornecedor.SiglaUF)
                 ? new ObservableCollection<string>()
                 : new ObservableCollection<string>(Municipios.Get(Fornecedor.SiglaUF).Select(x => x.Nome));
+            InitializeComponent();
         }
 
         void Confirmar_Click(object sender, RoutedEventArgs e)

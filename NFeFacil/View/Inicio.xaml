@@ -32,12 +32,6 @@
                             <FontIcon Glyph="&#xE806;" />
                         </controles:ItemPadrao>
                         <controles:ItemPadrao Grid.Row="1"
-                                              Titulo="Produtos"
-                                              Descricao="Cadastre tudo (inclusive os impostos)"
-                                              Click="AbrirProdutos">
-                            <SymbolIcon Symbol="Shop" />
-                        </controles:ItemPadrao>
-                        <controles:ItemPadrao Grid.Row="1"
                                               Grid.Column="1"
                                               Titulo="Vendedores"
                                               Descricao="Identifique quem atende os clientes"
@@ -66,13 +60,13 @@
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
-                        <controles:ItemPadrao Grid.Row="1"
-                                              Titulo="Produtos"
+                        <controles:ItemPadrao Titulo="Produtos"
                                               Descricao="Cadastre tudo (inclusive os impostos)"
                                               Click="AbrirProdutos">
                             <SymbolIcon Symbol="Shop" />
                         </controles:ItemPadrao>
-                        <controles:ItemPadrao Titulo="Fornecedores"
+                        <controles:ItemPadrao Grid.Row="1"
+                                              Titulo="Fornecedores"
                                               Descricao="Cadastre os seus fornecedores"
                                               Click="AbrirFornecedores">
                             <SymbolIcon Symbol="People" />
@@ -81,7 +75,7 @@
                                               Titulo="Categorias"
                                               Descricao="Que categorias de produtos você possui?"
                                               Click="AbrirCategorias">
-                            <SymbolIcon Symbol="People" />
+                            <FontIcon Glyph="&#xF168;" />
                         </controles:ItemPadrao>
                     </Grid>
                 </ScrollViewer>

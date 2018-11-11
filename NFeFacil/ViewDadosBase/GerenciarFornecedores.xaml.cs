@@ -1,4 +1,6 @@
 ﻿using BaseGeral.Buscador;
+using BaseGeral.ItensBD;
+using BaseGeral.View;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -6,9 +8,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil.ViewDadosBase
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [DetalhePagina(Symbol.People, "Gerenciar fornecedores")]
     public sealed partial class GerenciarFornecedores : Page
     {
         BuscadorFornecedores Fornecedores { get; }
@@ -21,13 +21,13 @@ namespace NFeFacil.ViewDadosBase
 
         private void AdicionarFornecedor(object sender, RoutedEventArgs e)
         {
-            MainPage.Current.Navegar<AdicionarComprador>();
+            MainPage.Current.Navegar<AdicionarFornecedor>();
         }
 
         private void EditarFornecedor(object sender, RoutedEventArgs e)
         {
-            var contexto = ((FrameworkElement)sender).DataContext;
-            MainPage.Current.Navegar<AdicionarComprador>(((ExibicaoComprador)contexto).Root);
+            var fornecedor = (FornecedorDI)((FrameworkElement)sender).DataContext;
+            MainPage.Current.Navegar<AdicionarFornecedor>(fornecedor);
         }
 
         private void Buscar(object sender, TextChangedEventArgs e)

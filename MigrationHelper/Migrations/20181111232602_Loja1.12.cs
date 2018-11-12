@@ -7,6 +7,18 @@ namespace BaseGeral.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AddColumn<Guid>(
+                name: "IdCategoria",
+                table: "Produtos",
+                nullable: false,
+                defaultValue: new Guid("00000000-0000-0000-0000-000000000000"));
+
+            migrationBuilder.AddColumn<Guid>(
+                name: "IdFornecedor",
+                table: "Produtos",
+                nullable: false,
+                defaultValue: new Guid("00000000-0000-0000-0000-000000000000"));
+
             migrationBuilder.CreateTable(
                 name: "Categorias",
                 columns: table => new
@@ -50,6 +62,14 @@ namespace BaseGeral.Migrations
 
             migrationBuilder.DropTable(
                 name: "Fornecedores");
+
+            migrationBuilder.DropColumn(
+                name: "IdCategoria",
+                table: "Produtos");
+
+            migrationBuilder.DropColumn(
+                name: "IdFornecedor",
+                table: "Produtos");
         }
     }
 }

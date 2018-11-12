@@ -33,13 +33,13 @@ namespace BaseGeral.Buscador
             switch (modoBusca)
             {
                 case 0:
-                    item.Root.Nome = InvalidProduct;
+                    item.Root.Nome = InvalidItem;
                     break;
                 case 1:
-                    item.NomeEmpresa = InvalidProduct;
+                    item.NomeEmpresa = InvalidItem;
                     break;
                 default:
-                    item.Root.Nome = item.NomeEmpresa = InvalidProduct;
+                    item.Root.Nome = item.NomeEmpresa = InvalidItem;
                     break;
             }
         }

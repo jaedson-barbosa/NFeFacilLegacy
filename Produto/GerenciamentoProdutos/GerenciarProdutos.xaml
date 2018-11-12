@@ -5,13 +5,14 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
-    <GridView ItemsSource="{x:Bind Produtos.Itens}"
+    <GridView x:Name="grdItens"
+              ItemsSource="{x:Bind Produtos.Itens}"
               ItemContainerTransitions="{StaticResource TransicoesLista}"
               ItemContainerStyle="{StaticResource ItensMedios}"
               Margin="8">
         <GridView.ItemTemplate>
             <DataTemplate x:DataType="db:ProdutoDI">
-                <Grid 
+                <Grid Background="Transparent"
                       Padding="16">
                     <Grid.ContextFlyout>
                         <MenuFlyout>
@@ -36,18 +37,58 @@
     </GridView>
     <Page.BottomAppBar>
         <CommandBar>
+            <CommandBar.SecondaryCommands>
+                <AppBarButton Visibility="{x:Bind ClassificavelC}"
+                              Click="AplicarCategorias">
+                    <AppBarButton.Icon>
+                        <FontIcon Glyph="&#xF168;" />
+                    </AppBarButton.Icon> Aplicar categorias
+                </AppBarButton>
+                <AppBarButton Visibility="{x:Bind ClassificavelF}"
+                              Icon="People"
+                              Click="AplicarFornecedores">Aplicar fornecedores</AppBarButton>
+            </CommandBar.SecondaryCommands>
             <CommandBar.Content>
                 <Grid Height="48">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="256" />
+                        <ColumnDefinition Width="256" />
+                    </Grid.ColumnDefinitions>
                     <TextBox Margin="8,0"
                              PlaceholderText="Buscar"
                              TextChanged="Buscar"
-                             VerticalAlignment="Center"
-                             MinWidth="256" />
+                             VerticalAlignment="Center" />
+                    <ComboBox Grid.Column="1"
+                              Header="Fornecedor"
+                              Visibility="Collapsed"
+                              ItemsSource="{x:Bind Fornecedores}"
+                              DisplayMemberPath="Nome"
+                              SelectedValuePath="Id"
+                              MinWidth="256" />
+                    <!--SelectedValue="{x:Bind Produto.IdFornecedor, Mode=TwoWay}"-->
+                    <ComboBox Grid.Column="1"
+                              Header="Categoria"
+                              Visibility="Collapsed"
+                              ItemsSource="{x:Bind Categorias}"
+                              DisplayMemberPath="Nome"
+                              MinWidth="256" />
+                    <!--SelectedIndex="{x:Bind IdCategoria, Mode=TwoWay}"-->
                 </Grid>
             </CommandBar.Content>
-            <AppBarButton Icon="Add"
+            <AppBarButton x:Name="btnAdd"
+                          Icon="Add"
                           Label="Adicionar"
                           Click="AdicionarProduto" />
+            <AppBarButton x:Name="btnConfirmar"
+                          Icon="Accept"
+                          Label="Confirmar"
+                          Visibility="Collapsed"
+                          Click="ConfirmarClassificacao" />
+            <AppBarButton x:Name="btnCancelar"
+                          Icon="Cancel"
+                          Label="Cancelar"
+                          Visibility="Collapsed"
+                          Click="CancelarClassificacao" />
         </CommandBar>
     </Page.BottomAppBar>
 </Page>

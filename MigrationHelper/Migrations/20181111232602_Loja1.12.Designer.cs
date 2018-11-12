@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BaseGeral.Migrations
 {
     [DbContext(typeof(AplicativoContext))]
-    [Migration("20181110192300_Loja1.12")]
+    [Migration("20181111232602_Loja1.12")]
     partial class Loja112
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -385,6 +385,10 @@ namespace BaseGeral.Migrations
                     b.Property<string>("EXTIPI");
 
                     b.Property<string>("ICMS");
+
+                    b.Property<Guid>("IdCategoria");
+
+                    b.Property<Guid>("IdFornecedor");
 
                     b.Property<string>("ImpostosPadrao");
 

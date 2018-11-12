@@ -4,15 +4,18 @@ namespace BaseGeral.Buscador
 {
     public abstract class BaseBuscador<TipoBusca>
     {
-        protected const string InvalidProduct = "#####";
+        protected const string InvalidItem = "#####";
         protected TipoBusca[] TodosItens { get; set; }
         public ObservableCollection<TipoBusca> Itens { get; protected set; }
         int ModoBusca { get; }
 
         public BaseBuscador(int modoBusca) => ModoBusca = modoBusca;
 
+        string lastBusca;
+        public void Buscar() => Buscar(lastBusca);
         public void Buscar(string busca)
         {
+            lastBusca = busca;
             for (int i = 0; i < TodosItens.Length; i++)
             {
                 try

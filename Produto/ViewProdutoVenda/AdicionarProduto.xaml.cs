@@ -199,13 +199,13 @@ namespace Venda.ViewProdutoVenda
                 switch (modoBusca)
                 {
                     case 0:
-                        item.Nome = InvalidProduct;
+                        item.Nome = InvalidItem;
                         break;
                     case 1:
-                        item.Codigo = InvalidProduct;
+                        item.Codigo = InvalidItem;
                         break;
                     default:
-                        item.Nome = item.Codigo = InvalidProduct;
+                        item.Nome = item.Codigo = InvalidItem;
                         break;
                 }
             }

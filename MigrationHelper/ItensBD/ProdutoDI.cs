@@ -26,6 +26,9 @@ namespace BaseGeral.ItensBD
         public string ProdutoEspecial { get; set; }
         public string CEST { get; set; }
 
+        public Guid IdFornecedor { get; set; }
+        public Guid IdCategoria { get; set; }
+
         public string ImpostosSimples { get; set; }
         public string ICMS { get; set; }
 

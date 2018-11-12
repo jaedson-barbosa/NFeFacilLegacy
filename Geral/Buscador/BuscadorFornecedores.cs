@@ -34,13 +34,13 @@ namespace BaseGeral.Buscador
             switch (modoBusca)
             {
                 case 0:
-                    item.Nome = InvalidProduct;
+                    item.Nome = InvalidItem;
                     break;
                 case 1:
-                    item.CNPJ = InvalidProduct;
+                    item.CNPJ = InvalidItem;
                     break;
                 default:
-                    item.Nome = item.CNPJ = InvalidProduct;
+                    item.Nome = item.CNPJ = InvalidItem;
                     break;
             }
         }

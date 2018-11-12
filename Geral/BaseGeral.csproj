@@ -121,9 +121,9 @@
     <Compile Include="IEnderecoResumo.cs" />
     <Compile Include="ItensBD\CategoriaDI.cs" />
     <Compile Include="ItensBD\FornecedorDI.cs" />
-    <Compile Include="Migrations\20181110192300_Loja1.12.cs" />
-    <Compile Include="Migrations\20181110192300_Loja1.12.Designer.cs">
-      <DependentUpon>20181110192300_Loja1.12.cs</DependentUpon>
+    <Compile Include="Migrations\20181111232602_Loja1.12.cs" />
+    <Compile Include="Migrations\20181111232602_Loja1.12.Designer.cs">
+      <DependentUpon>20181111232602_Loja1.12.cs</DependentUpon>
     </Compile>
     <Compile Include="ModeloXML\UrlsChaveAcesso.cs" />
     <Compile Include="ModeloXML\UrlsQR.cs" />

@@ -76,6 +76,7 @@ namespace NFeFacil
         public const string Doacao25 = "9NJNJTZQ85G5";
         public const string Doacao10 = "9MXJQH2JC335";
         public const string NFCe = "9NPT3PV6BT0X";
+        public const string RelatorioProdutos01 = "9NWMBJMKT6VX";
 
         string Value;
         private Compras(string value) => Value = value;

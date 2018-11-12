@@ -25,8 +25,19 @@ namespace Venda.GerenciamentoProdutos
     {
         ProdutoDI Produto;
         ProdutoDIExtended ExtendedProd;
+        ObservableCollection<FornecedorDI> Fornecedores { get; set; }
+        ObservableCollection<CategoriaDI> Categorias { get; set; }
         ObservableCollection<ImpSimplesArmazenado> ImpostosSimples { get; set; }
         ObservableCollection<ICMSArmazenado> ICMS { get; set; }
+        Visibility ClassificavelF { get; set; }
+        Visibility ClassificavelC { get; set; }
+        Visibility NaoClassificavel => ClassificavelF == Visibility.Visible || ClassificavelC == Visibility.Visible
+            ? Visibility.Collapsed : Visibility.Visible;
+        int IdCategoria
+        {
+            get => Categorias.IndexOf(Categorias.First(x => x.Id == Produto.IdCategoria));
+            set => Produto.IdCategoria = Categorias[value].Id;
+        }
 
         int TipoEspecialEscolhido
         {
@@ -75,11 +86,6 @@ namespace Venda.GerenciamentoProdutos
             }
         }
 
-        public AdicionarProduto()
-        {
-            InitializeComponent();
-        }
-
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             Produto = (ProdutoDI)e.Parameter;
@@ -88,6 +94,15 @@ namespace Venda.GerenciamentoProdutos
                 ?? new ObservableCollection<ImpSimplesArmazenado>();
             ICMS = ExtendedProd.GetICMSArmazenados()?.GerarObs()
                 ?? new ObservableCollection<ICMSArmazenado>();
+            using (var leitor = new BaseGeral.Repositorio.Leitura())
+            {
+                Categorias = leitor.ObterCategorias().GerarObs();
+                ClassificavelC = Categorias.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
+                Fornecedores = leitor.ObterFornecedores().GerarObs();
+                ClassificavelF = Fornecedores.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
+            }
+            InitializeComponent();
+
         }
 
         private void Confirmar_Click(object sender, RoutedEventArgs e)

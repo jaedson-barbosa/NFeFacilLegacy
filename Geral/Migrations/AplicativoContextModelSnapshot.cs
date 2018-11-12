@@ -384,6 +384,10 @@ namespace BaseGeral.Migrations
 
                     b.Property<string>("ICMS");
 
+                    b.Property<Guid>("IdCategoria");
+
+                    b.Property<Guid>("IdFornecedor");
+
                     b.Property<string>("ImpostosPadrao");
 
                     b.Property<string>("ImpostosSimples");

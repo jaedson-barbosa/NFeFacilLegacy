@@ -1,10 +1,13 @@
 ﻿using BaseGeral.ItensBD;
+using System;
 using System.Linq;
 
 namespace BaseGeral.Buscador
 {
     public sealed class BuscadorProduto : BaseBuscador<ProdutoDI>
     {
+        public Func<ProdutoDI, bool> ValidacaoAdicional { get; set; }
+
         public BuscadorProduto() : base(DefinicoesPermanentes.ModoBuscaProduto)
         {
             using (var repo = new Repositorio.Leitura())
@@ -16,6 +19,8 @@ namespace BaseGeral.Buscador
 
         protected override (string, string) ItemComparado(ProdutoDI item, int modoBusca)
         {
+            if (!ValidacaoAdicional?.Invoke(item) ?? false)
+                return (InvalidItem, null);
             switch (modoBusca)
             {
                 case 0: return (item.Descricao, null);
@@ -29,13 +34,13 @@ namespace BaseGeral.Buscador
             switch (modoBusca)
             {
                 case 0:
-                    item.Descricao = InvalidProduct;
+                    item.Descricao = InvalidItem;
                     break;
                 case 1:
-                    item.CodigoProduto = InvalidProduct;
+                    item.CodigoProduto = InvalidItem;
                     break;
                 default:
-                    item.Descricao = item.CodigoProduto = InvalidProduct;
+                    item.Descricao = item.CodigoProduto = InvalidItem;
                     break;
             }
         }

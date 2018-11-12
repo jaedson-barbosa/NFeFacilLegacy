@@ -47,6 +47,23 @@
                                            Header="CEST" />
             </ItemsControl>
             <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
+                       Margin="0,16,0,0">Classificação</TextBlock>
+            <TextBlock Visibility="{x:Bind NaoClassificavel}"
+                       Style="{StaticResource BodyTextBlockStyle}">A classificação está apenas disponível quando existem categorias e/ou fornecedores cadastrados.</TextBlock>
+            <ComboBox Header="Fornecedor"
+                      Visibility="{x:Bind ClassificavelF}"
+                      ItemsSource="{x:Bind Fornecedores}"
+                      DisplayMemberPath="Nome"
+                      SelectedValuePath="Id"
+                      SelectedValue="{x:Bind Produto.IdFornecedor, Mode=TwoWay}"
+                      MinWidth="256" />
+            <ComboBox Header="Categoria"
+                      Visibility="{x:Bind ClassificavelC}"
+                      ItemsSource="{x:Bind Categorias}"
+                      DisplayMemberPath="Nome"
+                      SelectedIndex="{x:Bind IdCategoria, Mode=TwoWay}"
+                      MinWidth="256" />
+            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
                        Margin="0,16,0,0">Categoria do produto</TextBlock>
             <GridView ItemContainerTransitions="{StaticResource TransicoesLista}" ItemContainerStyle="{StaticResource ItensMedios}"
                       SelectedIndex="{x:Bind TipoEspecialEscolhido, Mode=TwoWay}">

@@ -37,13 +37,13 @@ namespace BaseGeral.Buscador
             switch (modoBusca)
             {
                 case 0:
-                    item.Principal = InvalidProduct;
+                    item.Principal = InvalidItem;
                     break;
                 case 1:
-                    item.Objeto.CPFStr = InvalidProduct;
+                    item.Objeto.CPFStr = InvalidItem;
                     break;
                 default:
-                    item.Principal = item.Objeto.CPFStr = InvalidProduct;
+                    item.Principal = item.Objeto.CPFStr = InvalidItem;
                     break;
             }
         }

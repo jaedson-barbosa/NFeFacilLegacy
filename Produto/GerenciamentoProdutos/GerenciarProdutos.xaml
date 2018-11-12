@@ -39,14 +39,16 @@
         <CommandBar>
             <CommandBar.SecondaryCommands>
                 <AppBarButton Visibility="{x:Bind ClassificavelC}"
+                              Label="Aplicar categorias"
                               Click="AplicarCategorias">
                     <AppBarButton.Icon>
                         <FontIcon Glyph="&#xF168;" />
-                    </AppBarButton.Icon> Aplicar categorias
+                    </AppBarButton.Icon>
                 </AppBarButton>
                 <AppBarButton Visibility="{x:Bind ClassificavelF}"
                               Icon="People"
-                              Click="AplicarFornecedores">Aplicar fornecedores</AppBarButton>
+                              Label="Aplicar fornecedores"
+                              Click="AplicarFornecedores" />
             </CommandBar.SecondaryCommands>
             <CommandBar.Content>
                 <Grid Height="48">
@@ -58,21 +60,26 @@
                              PlaceholderText="Buscar"
                              TextChanged="Buscar"
                              VerticalAlignment="Center" />
-                    <ComboBox Grid.Column="1"
-                              Header="Fornecedor"
+                    <ComboBox x:Name="cmbFornecedor"
+                              Grid.Column="1"
+                              VerticalAlignment="Center"
                               Visibility="Collapsed"
                               ItemsSource="{x:Bind Fornecedores}"
                               DisplayMemberPath="Nome"
                               SelectedValuePath="Id"
-                              MinWidth="256" />
-                    <!--SelectedValue="{x:Bind Produto.IdFornecedor, Mode=TwoWay}"-->
-                    <ComboBox Grid.Column="1"
-                              Header="Categoria"
+                              PlaceholderText="Selecione o fornecedor"
+                              SelectedValue="{x:Bind IdFornecedor, Mode=TwoWay}"
+                              Width="256" />
+                    <ComboBox x:Name="cmbCategoria"
+                              Grid.Column="1"
+                              VerticalAlignment="Center"
                               Visibility="Collapsed"
                               ItemsSource="{x:Bind Categorias}"
                               DisplayMemberPath="Nome"
-                              MinWidth="256" />
-                    <!--SelectedIndex="{x:Bind IdCategoria, Mode=TwoWay}"-->
+                              SelectedValuePath="Id"
+                              PlaceholderText="Selecione a categoria"
+                              SelectedValue="{x:Bind IdCategoria, Mode=TwoWay}"
+                              Width="256" />
                 </Grid>
             </CommandBar.Content>
             <AppBarButton x:Name="btnAdd"

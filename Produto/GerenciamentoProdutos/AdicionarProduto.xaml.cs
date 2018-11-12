@@ -35,7 +35,7 @@ namespace Venda.GerenciamentoProdutos
             ? Visibility.Collapsed : Visibility.Visible;
         int IdCategoria
         {
-            get => Categorias.IndexOf(Categorias.First(x => x.Id == Produto.IdCategoria));
+            get => Categorias.IndexOf(Categorias.FirstOrDefault(x => x.Id == Produto.IdCategoria));
             set => Produto.IdCategoria = Categorias[value].Id;
         }
 

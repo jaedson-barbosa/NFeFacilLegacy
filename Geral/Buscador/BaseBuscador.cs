@@ -18,11 +18,19 @@ namespace BaseGeral.Buscador
             lastBusca = busca;
             for (int i = 0; i < TodosItens.Length; i++)
             {
+                var atual = TodosItens[i];
+                var comparados = ItemComparado(atual, ModoBusca);
+                if (string.IsNullOrEmpty(busca))
+                {
+                    if (comparados.Item1 == InvalidItem)
+                        Itens.Remove(atual);
+                    else if (!Itens.Contains(atual))
+                        Itens.Add(atual);
+                    continue;
+                }
                 try
                 {
-                    var atual = TodosItens[i];
                     busca = busca.ToUpper();
-                    var comparados = ItemComparado(atual, ModoBusca);
                     bool valido = comparados.Item1.ToUpper().Contains(busca)
                         || (comparados.Item2?.ToUpper().Contains(busca) ?? false);
                     if (valido && !Itens.Contains(atual))

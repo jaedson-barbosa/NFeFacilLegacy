@@ -26,6 +26,8 @@ namespace NFeFacil.View
     [DetalhePagina(Symbol.Home, "Início")]
     public sealed partial class Inicio : Page
     {
+        bool produtosEFornecedoresCadastrados;
+
         public Inicio()
         {
             InitializeComponent();
@@ -35,6 +37,8 @@ namespace NFeFacil.View
         {
             var comprado = ComprasInApp.Resumo[Compras.NFCe];
             hubNFCe.Visibility = comprado ? Visibility.Visible : Visibility.Collapsed;
+            using (var leitura = new BaseGeral.Repositorio.Leitura())
+                produtosEFornecedoresCadastrados = leitura.ExisteCategoria && leitura.ExisteFornecedor;
         }
 
         void AbrirClientes(object sender, RoutedEventArgs e) => Navegar<GerenciarClientes>();
@@ -68,10 +72,18 @@ namespace NFeFacil.View
         void AbrirVendasAnuaisNFCe(object sender, RoutedEventArgs e) => Navegar<VendasAnuais>(true);
 
         void AbrirVendasSalvas(object sender, RoutedEventArgs e) => Navegar<RegistrosVenda>();
+        void AbrirRelatorioProdutos01(object sender, RoutedEventArgs e)
+        {
+            if (produtosEFornecedoresCadastrados)
+                Navegar<GeradorRelatorioProduto01>();
+            else
+                Popup.Current.Escrever(TitulosComuns.Atenção, "Primeiro você precisa cadastrar categorias e fornecedores para os seus produtos.");
+        }
+
         void CriarVenda(object sender, RoutedEventArgs e)
         {
             var controle = new RegistroComum.ControleViewProduto();
-            MainPage.Current.Navegar<Venda.ViewProdutoVenda.ListaProdutos>(controle);
+            Navegar<Venda.ViewProdutoVenda.ListaProdutos>(controle);
         }
 
         void AbrirConfiguracoes(object sender, RoutedEventArgs e) => Navegar<Configuracoes>();

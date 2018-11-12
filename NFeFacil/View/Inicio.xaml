@@ -189,6 +189,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition />
                         <RowDefinition />
+                        <RowDefinition />
                     </Grid.RowDefinitions>
                     <controles:ItemPadrao Titulo="Nova venda"
                                           Descricao="Criar um registro de venda (Sem valor fiscal)."
@@ -200,6 +201,12 @@
                                           Descricao="Visualize os registros de venda cadastrados."
                                           Click="AbrirVendasSalvas">
                         <SymbolIcon Symbol="Library" />
+                    </controles:ItemPadrao>
+                    <controles:ItemPadrao Grid.Row="2"
+                                          Titulo="Relatório de produtos"
+                                          Descricao="Relação dos produtos com as categorias e os fornecedores."
+                                          Click="AbrirRelatorioProdutos01">
+                        <FontIcon Glyph="&#xF0E3;" />
                     </controles:ItemPadrao>
                 </Grid>
             </DataTemplate>

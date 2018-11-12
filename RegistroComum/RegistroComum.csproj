@@ -132,6 +132,9 @@
     <Compile Include="EscolherDimensão.xaml.cs">
       <DependentUpon>EscolherDimensão.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GeradorRelatorioProduto01.xaml.cs">
+      <DependentUpon>GeradorRelatorioProduto01.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ManipulacaoRegistroVenda.xaml.cs">
       <DependentUpon>ManipulacaoRegistroVenda.xaml</DependentUpon>
     </Compile>
@@ -205,6 +208,10 @@
     <Page Include="EscolherDimensão.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GeradorRelatorioProduto01.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ManipulacaoRegistroVenda.xaml">
       <Generator>MSBuild:Compile</Generator>

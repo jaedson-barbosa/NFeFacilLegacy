@@ -34,6 +34,8 @@ namespace BaseGeral.ItensBD
             {
                 var produtoBase = db.Produtos.Find(IdBase);
                 var produto = produtoBase.ToProdutoOuServico();
+                if (produto.ValorUnitarioTributo == produto.ValorUnitario)
+                    produto.ValorUnitarioTributo = ValorUnitario;
                 produto.ValorUnitario = ValorUnitario;
                 produto.QuantidadeComercializada = Quantidade;
                 produto.QuantidadeTributada = Quantidade;

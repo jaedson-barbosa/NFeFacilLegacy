@@ -12,7 +12,7 @@ namespace BaseGeral.Buscador
         {
             using (var repo = new Repositorio.Leitura())
             {
-                TodosItens = repo.ObterProdutos().ToArray();
+                TodosItens = repo.ObterProdutosOrdenados().ToArray();
                 Itens = TodosItens.GerarObs();
             }
         }

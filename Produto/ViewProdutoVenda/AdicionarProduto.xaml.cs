@@ -154,7 +154,7 @@ namespace Venda.ViewProdutoVenda
                     var ListaCompletaProdutos = new List<ProdutoAdicao>();
                     var bloquearRepeticao = DefinicoesPermanentes.IgnorarProdutosJaAdicionados;
                     var estoque = repo.ObterEstoques().ToArray();
-                    foreach (var item in repo.ObterProdutos().ToArray())
+                    foreach (var item in repo.ObterProdutosOrdenados().ToArray())
                     {
                         var jaAdicionado = produtosJaAdicionados.TryGetValue(item.Id, out double quantAdicionada);
                         if (bloquearRepeticao && jaAdicionado) continue;

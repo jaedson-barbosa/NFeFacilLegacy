@@ -38,7 +38,6 @@
     <ScrollViewer Padding="16">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
                 <RowDefinition Height="400" />
                 <RowDefinition Height="400" />
                 <RowDefinition Height="Auto" />
@@ -48,29 +47,25 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.ColumnSpan="2"
-                       Style="{StaticResource TitleTextBlockStyle}">Opções de geração do relatório:</TextBlock>
-            <ListView Grid.Row="1"
-                      DisplayMemberPath="Nome"
+            <ListView DisplayMemberPath="Nome"
                       Header="Categorias disponiveis"
                       ItemsSource="{x:Bind CategoriasDisponiveis}"
                       IsItemClickEnabled="True"
                       ItemClick="CategoriaAdicionada" />
-            <ListView Grid.Row="1"
-                      Grid.Column="1"
+            <ListView Grid.Column="1"
                       DisplayMemberPath="Nome"
                       Header="Fornecedores disponiveis"
                       ItemsSource="{x:Bind FornecedoresDisponiveis}"
                       IsItemClickEnabled="True"
                       ItemClick="FornecedorAdicionado" />
-            <ListView Grid.Row="2"
+            <ListView Grid.Row="1"
                       Margin="0,16"
                       DisplayMemberPath="Nome"
                       Header="Categorias escolhidas"
                       ItemsSource="{x:Bind CategoriasEscolhidas}"
                       IsItemClickEnabled="True"
                       ItemClick="CategoriaRemovida" />
-            <ListView Grid.Row="2"
+            <ListView Grid.Row="1"
                       Grid.Column="1"
                       Margin="0,16"
                       DisplayMemberPath="Nome"
@@ -78,11 +73,11 @@
                       ItemsSource="{x:Bind FornecedoresEscolhidos}"
                       IsItemClickEnabled="True"
                       ItemClick="FornecedorRemovido" />
-            <TextBlock Grid.Row="3"
-                       Style="{StaticResource BodyTextBlockStyle}">Selecionar uma categoria ou um fornecedor disponível adiciona-o(a) à lista de itens escolhidos, que serão os itens usados na geração do relatório.<LineBreak />Já a seleção de um item da lista de escolhidos, o removerá desta lista e o colocará de volta na lista de disponíveis.</TextBlock>
-            <CheckBox Grid.Row="4"
+            <TextBlock Grid.Row="2"
+                       Style="{StaticResource BodyTextBlockStyle}">Selecionar uma categoria ou um fornecedor disponível adiciona-o(a) à lista de itens escolhidos, que serão os itens usados na geração do relatório. Já a seleção de um item da lista de escolhidos, o removerá desta lista e o colocará de volta na lista de disponíveis.</TextBlock>
+            <CheckBox Grid.Row="3"
                       IsChecked="{x:Bind InserirProdutosSemCategoria, Mode=TwoWay}">Inserir produtos sem categoria</CheckBox>
-            <CheckBox Grid.Row="4"
+            <CheckBox Grid.Row="3"
                       Grid.Column="1"
                       IsChecked="{x:Bind InserirProdutosSemFornecedor, Mode=TwoWay}">Inserir produtos sem fornecedor</CheckBox>
         </Grid>
@@ -99,6 +94,9 @@
                 <AppBarButton Label="Limpar fornecedores escolhidos"
                               Click="NenhumFornecedor" />
             </CommandBar.SecondaryCommands>
+            <AppBarButton Icon="Accept"
+                          Label="Confirmar e gerar"
+                          Click="GerarRelatorio" />
         </CommandBar>
     </Page.BottomAppBar>
 </Page>

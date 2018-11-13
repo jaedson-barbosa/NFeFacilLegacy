@@ -1,6 +1,10 @@
 ﻿using BaseGeral;
 using BaseGeral.ItensBD;
+using BaseGeral.View;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -8,14 +12,11 @@ using Windows.UI.Xaml.Controls;
 
 namespace RegistroComum
 {
-    /// <summary>
-    /// Uma página vazia que pode ser usada isoladamente ou navegada dentro de um Quadro.
-    /// </summary>
+    [DetalhePagina("\uF0E3", "Configurações de geração")]
     public sealed partial class GeradorRelatorioProduto01 : Page
     {
         ObservableCollection<CategoriaDI> CategoriasDisponiveis, CategoriasEscolhidas;
         ObservableCollection<FornecedorDI> FornecedoresDisponiveis, FornecedoresEscolhidos;
-
         bool InserirProdutosSemCategoria, InserirProdutosSemFornecedor;
 
         public GeradorRelatorioProduto01()
@@ -86,6 +87,28 @@ namespace RegistroComum
         {
             FornecedoresDisponiveis.Add(fornecedor);
             FornecedoresEscolhidos.Remove(fornecedor);
+        }
+
+        void GerarRelatorio(object sender, RoutedEventArgs e)
+        {
+            var produtos = new Dictionary<ParCategoriaFornecedor, ExibicaoProduto>();
+            using (var leitura = new BaseGeral.Repositorio.Leitura())
+            {
+                foreach (var prod in leitura.ObterProdutos())
+                {
+                    if (prod.IdCategoria == Guid.Empty && !InserirProdutosSemCategoria ||
+                        prod.IdFornecedor == Guid.Empty && !InserirProdutosSemFornecedor) continue;
+                    var estoque = leitura.ObterEstoque(prod.Id);
+                    var exib = new ExibicaoProduto(prod, estoque?.Alteracoes.Sum(x => x.Alteração) ?? double.NaN);
+                    var categoria = CategoriasEscolhidas.FirstOrDefault(x => x.Id == prod.IdCategoria);
+                    if (categoria == null && !InserirProdutosSemCategoria) continue;
+                    var fornecedor = FornecedoresEscolhidos.FirstOrDefault(x => x.Id == prod.IdFornecedor);
+                    if (fornecedor == null && !InserirProdutosSemFornecedor) continue;
+                    var par = new ParCategoriaFornecedor(categoria, fornecedor);
+                    produtos.Add(par, exib);
+                }
+            }
+            var dados = new DadosRelatorioProduto01(produtos);
         }
     }
 }

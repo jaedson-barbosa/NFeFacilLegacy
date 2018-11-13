@@ -203,7 +203,7 @@
                         <SymbolIcon Symbol="Library" />
                     </controles:ItemPadrao>
                     <controles:ItemPadrao Grid.Row="2"
-                                          Titulo="Relatório de produtos"
+                                          Titulo="Resumo produtos"
                                           Descricao="Relação dos produtos com as categorias e os fornecedores."
                                           Click="AbrirRelatorioProdutos01">
                         <FontIcon Glyph="&#xF0E3;" />

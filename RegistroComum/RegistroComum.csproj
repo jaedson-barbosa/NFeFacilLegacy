@@ -110,6 +110,7 @@
       <DependentUpon>CalcularTroco.xaml</DependentUpon>
     </Compile>
     <Compile Include="ControleViewProduto.cs" />
+    <Compile Include="DadosRelatorioProduto01.cs" />
     <Compile Include="DARV\CabecalhoDARV.xaml.cs">
       <DependentUpon>CabecalhoDARV.xaml</DependentUpon>
     </Compile>

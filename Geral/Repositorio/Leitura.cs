@@ -67,11 +67,8 @@ namespace BaseGeral.Repositorio
         public bool ExisteCategoria => db.Categorias.Any();
 
         public IEnumerable<VeiculoDI> ObterVeiculos() => db.Veiculos;
-
-        public IEnumerable<ProdutoDI> ObterProdutos()
-        {
-            return db.Produtos.Where(x => x.Ativo).OrderBy(x => x.Descricao);
-        }
+        public IEnumerable<ProdutoDI> ObterProdutos() => db.Produtos.Where(x => x.Ativo);
+        public IEnumerable<ProdutoDI> ObterProdutosOrdenados() => ObterProdutos().OrderBy(x => x.Descricao);
 
         public Estoque ObterEstoque(Guid id)
         {

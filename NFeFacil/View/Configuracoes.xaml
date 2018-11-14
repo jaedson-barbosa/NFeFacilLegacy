@@ -170,6 +170,12 @@
                                       Click="ComprarBackground">
                     <FontIcon Glyph="&#xEB9F;" />
                 </controles:ItemPadrao>
+                <controles:ItemPadrao x:Name="btnComprarRelatorioProduto01"
+                                      Titulo="Relatório Produto"
+                                      Descricao="Libere o relatório que organiza os produtos com base no fornecedor e categoria."
+                                      Click="ComprarRelatorioProduto01">
+                    <FontIcon Glyph="&#xF0E3;" />
+                </controles:ItemPadrao>
                 <controles:ItemPadrao Titulo="Reanalizar"
                                       Descricao="Caso a análise não tenha ocorrido corretamente no início do app, reanalize."
                                       Click="ReanalizarCompras">

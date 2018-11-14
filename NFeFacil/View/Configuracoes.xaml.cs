@@ -153,6 +153,8 @@ namespace NFeFacil.View
             btnComprarNFCe.IsEnabled = !comprado;
             comprado = ComprasInApp.Resumo[Compras.Personalizacao];
             btnComprarBackground.IsEnabled = !comprado;
+            comprado = ComprasInApp.Resumo[Compras.RelatorioProdutos01];
+            btnComprarRelatorioProduto01.IsEnabled = !comprado;
             PacotePersonalizacaoComprado = comprado;
         }
 
@@ -170,9 +172,16 @@ namespace NFeFacil.View
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PacotePersonalizacaoComprado)));
         }
 
+        async void ComprarRelatorioProduto01(object sender, RoutedEventArgs e)
+        {
+            var comprado = await ComprasInApp.Comprar(Compras.RelatorioProdutos01);
+            btnComprarRelatorioProduto01.IsEnabled = !comprado;
+        }
+
         async void ReanalizarCompras(object sender, RoutedEventArgs e)
         {
             await ComprasInApp.AnalisarCompras();
+            AnalisarCompras();
         }
     }
 }

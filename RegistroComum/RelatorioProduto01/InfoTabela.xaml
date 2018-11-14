@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="RegistroComum.RelatorioProduto01.InfoTabela"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:base="using:BaseGeral"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             Height="16"
+             d:DesignHeight="300"
+             d:DesignWidth="400">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="RecursosRelatorio.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid VerticalAlignment="Bottom">
+        <TextBlock MaxWidth="{x:Bind ConverterParameter=7, Converter={StaticResource dimensao}}"
+                   Text="{x:Bind Categoria}" />
+        <TextBlock HorizontalAlignment="Center"
+                   MaxWidth="{x:Bind ConverterParameter=7, Converter={StaticResource dimensao}}"
+                   Text="{x:Bind Fornecedor}" />
+        <TextBlock HorizontalAlignment="Right"
+                   MaxWidth="{x:Bind ConverterParameter=7, Converter={StaticResource dimensao}}">Data: <Run Text="{x:Bind base:DefinicoesTemporarias.DateTimeNow, Converter={StaticResource data}, ConverterParameter='dd/MM/yyyy'}" /></TextBlock>
+    </Grid>
+</UserControl>

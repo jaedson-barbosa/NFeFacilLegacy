@@ -395,6 +395,7 @@
     <Compile Include="Validacao\ValidadorEndereco.cs" />
     <Compile Include="Validacao\ValidarDados.cs" />
     <Compile Include="View\BibliotecaCores.cs" />
+    <Compile Include="View\CmToPx.cs" />
     <Compile Include="View\ConjuntoBasicoExibicao.cs" />
     <Compile Include="View\DadosEstadosParaView.cs" />
     <Compile Include="View\DescricaoPropriedade.cs" />

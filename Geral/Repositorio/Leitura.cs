@@ -61,8 +61,8 @@ namespace BaseGeral.Repositorio
             }
         }
 
-        public IEnumerable<FornecedorDI> ObterFornecedores() => db.Fornecedores;
-        public IEnumerable<CategoriaDI> ObterCategorias() => db.Categorias;
+        public IEnumerable<FornecedorDI> ObterFornecedores() => db.Fornecedores.OrderBy(x => x.Nome);
+        public IEnumerable<CategoriaDI> ObterCategorias() => db.Categorias.OrderBy(x => x.Nome);
         public bool ExisteFornecedor => db.Fornecedores.Any();
         public bool ExisteCategoria => db.Categorias.Any();
 

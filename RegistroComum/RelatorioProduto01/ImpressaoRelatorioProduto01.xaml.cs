@@ -21,6 +21,10 @@ namespace RegistroComum.RelatorioProduto01
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             var dados = (DadosRelatorioProduto01)e.Parameter;
+            int numPag = 1;
+            AdicionarPagina();
+
+            void AdicionarPagina() => ConteinerPaginas.Children.Add(new PaginaPadrao(dados, AdicionarPagina, numPag++));
         }
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)

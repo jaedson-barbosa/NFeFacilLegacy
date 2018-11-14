@@ -5,9 +5,9 @@ namespace RegistroComum.RelatorioProduto01
 {
     struct DadosRelatorioProduto01
     {
-        internal Dictionary<ParCategoriaFornecedor, ExibicaoProduto> Produtos;
+        internal Dictionary<ParCategoriaFornecedor, ExibicaoProduto[]> Produtos;
 
-        public DadosRelatorioProduto01(Dictionary<ParCategoriaFornecedor, ExibicaoProduto> produtos)
+        public DadosRelatorioProduto01(Dictionary<ParCategoriaFornecedor, ExibicaoProduto[]> produtos)
         {
             Produtos = produtos;
         }
@@ -15,24 +15,28 @@ namespace RegistroComum.RelatorioProduto01
 
     struct ParCategoriaFornecedor
     {
-        internal CategoriaDI Categoria;
-        internal FornecedorDI Fornecedor;
+        internal readonly string Categoria;
+        internal readonly string Fornecedor;
 
         public ParCategoriaFornecedor(CategoriaDI categoria, FornecedorDI fornecedor)
         {
-            Categoria = categoria;
-            Fornecedor = fornecedor;
+            Categoria = categoria?.Nome ?? "Sem categoria";
+            Fornecedor = fornecedor?.Nome ?? "Fornecedor desconhecido";
         }
     }
 
     struct ExibicaoProduto
     {
-        internal string Nome;
-        internal string Preco;
-        internal string Estoque;
+        internal bool Adicionado;
+        internal readonly string Codigo;
+        internal readonly string Nome;
+        internal readonly string Preco;
+        internal readonly string Estoque;
 
         internal ExibicaoProduto(ProdutoDI produto, double estoque)
         {
+            Adicionado = false;
+            Codigo = produto.CodigoProduto;
             Nome = produto.Descricao;
             Preco = produto.ValorUnitario.ToString("C");
             Estoque = double.IsNaN(estoque) ? "Sem dados" : estoque.ToString("C");

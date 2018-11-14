@@ -152,6 +152,15 @@
     <Compile Include="RegistrosVenda.xaml.cs">
       <DependentUpon>RegistrosVenda.xaml</DependentUpon>
     </Compile>
+    <Compile Include="RelatorioProduto01\InfoTabela.xaml.cs">
+      <DependentUpon>InfoTabela.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RelatorioProduto01\PaginaPadrao.xaml.cs">
+      <DependentUpon>PaginaPadrao.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RelatorioProduto01\TabelaSimples.xaml.cs">
+      <DependentUpon>TabelaSimples.xaml</DependentUpon>
+    </Compile>
     <Compile Include="VisualizacaoRegistroVenda.xaml.cs">
       <DependentUpon>VisualizacaoRegistroVenda.xaml</DependentUpon>
     </Compile>
@@ -236,6 +245,22 @@
     <Page Include="RegistrosVenda.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="RelatorioProduto01\InfoTabela.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RelatorioProduto01\PaginaPadrao.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RelatorioProduto01\RecursosRelatorio.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RelatorioProduto01\TabelaSimples.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="VisualizacaoRegistroVenda.xaml">
       <Generator>MSBuild:Compile</Generator>

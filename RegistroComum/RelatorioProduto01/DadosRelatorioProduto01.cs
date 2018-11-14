@@ -1,7 +1,7 @@
 ﻿using BaseGeral.ItensBD;
 using System.Collections.Generic;
 
-namespace RegistroComum
+namespace RegistroComum.RelatorioProduto01
 {
     struct DadosRelatorioProduto01
     {

@@ -6,7 +6,7 @@ using Windows.UI.Xaml.Navigation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace RegistroComum
+namespace RegistroComum.RelatorioProduto01
 {
     [DetalhePagina("\uE749", "Relatório gerado")]
     public sealed partial class ImpressaoRelatorioProduto01 : Page

@@ -10,7 +10,7 @@ using Windows.UI.Xaml.Controls;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace RegistroComum
+namespace RegistroComum.RelatorioProduto01
 {
     [DetalhePagina("\uF0E3", "Configurações de geração")]
     public sealed partial class GeradorRelatorioProduto01 : Page

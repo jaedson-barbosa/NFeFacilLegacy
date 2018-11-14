@@ -77,7 +77,7 @@ namespace NFeFacil.View
             if (!ComprasInApp.Resumo[Compras.RelatorioProdutos01])
                 Popup.Current.Escrever(TitulosComuns.Atenção, "Primeiro você precisa comprar este adicional na aba de compras da tela de configurações.");
             else if (produtosEFornecedoresCadastrados)
-                Navegar<GeradorRelatorioProduto01>();
+                Navegar<RegistroComum.RelatorioProduto01.GeradorRelatorioProduto01>();
             else
                 Popup.Current.Escrever(TitulosComuns.Atenção, "Primeiro você precisa cadastrar categorias e fornecedores para os seus produtos.");
         }

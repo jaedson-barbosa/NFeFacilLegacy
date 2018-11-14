@@ -74,7 +74,9 @@ namespace NFeFacil.View
         void AbrirVendasSalvas(object sender, RoutedEventArgs e) => Navegar<RegistrosVenda>();
         void AbrirRelatorioProdutos01(object sender, RoutedEventArgs e)
         {
-            if (produtosEFornecedoresCadastrados)
+            if (!ComprasInApp.Resumo[Compras.RelatorioProdutos01])
+                Popup.Current.Escrever(TitulosComuns.Atenção, "Primeiro você precisa comprar este adicional na aba de compras da tela de configurações.");
+            else if (produtosEFornecedoresCadastrados)
                 Navegar<GeradorRelatorioProduto01>();
             else
                 Popup.Current.Escrever(TitulosComuns.Atenção, "Primeiro você precisa cadastrar categorias e fornecedores para os seus produtos.");

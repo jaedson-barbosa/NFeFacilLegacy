@@ -137,6 +137,10 @@ namespace RegistroComum
             {
                 Popup.Current.Escrever(TitulosComuns.Atenção, "Escolha primeiro um cliente.");
             }
+            else if (ItemBanco.Produtos.Count == 0)
+            {
+                Popup.Current.Escrever(TitulosComuns.Atenção, "Não é possível salvar um registro de venda que não tenha nenhum produto.");
+            }
             else
             {
                 using (var repo = new BaseGeral.Repositorio.Escrita())

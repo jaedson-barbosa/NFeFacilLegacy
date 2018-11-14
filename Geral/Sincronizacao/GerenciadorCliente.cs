@@ -31,29 +31,33 @@ namespace BaseGeral.Sincronizacao
             }
         }
 
+        const string Local = "cliente", Servidor = "servidor";
         public async Task Sincronizar()
         {
             string mensagemErro = null;
 
+            //AplicativoContext.ArquivoBD = Local;
             var envio = new ConjuntoDadosBase(UltimaSincronizacao);
+            //AplicativoContext.ArquivoBD = Servidor;
             var (objeto, mensagem) = await RequestAsync<ConjuntoDadosBase>(
                 $"SincronizarDadosBase",
                 SenhaPermanente,
-                envio.ToXElement(),
-                UltimaSincronizacao.ToBinary().ToString());
+                envio.ToXElement());
             if (objeto != null)
             {
+                //AplicativoContext.ArquivoBD = Local;
                 objeto.AnalisarESalvar();
                 UltimaSincronizacao = objeto.InstanteSincronizacao;
 
                 var envioNotas = new ConjuntoNotasFiscais(UltimaSincronizacaoNotas);
+                //AplicativoContext.ArquivoBD = Servidor;
                 var recebNotas = await RequestAsync<ConjuntoNotasFiscais>(
                     $"SincronizarNotasFiscais",
                     SenhaPermanente,
-                    envioNotas.ToXElement<ConjuntoNotasFiscais>(),
-                    UltimaSincronizacaoNotas.ToBinary().ToString());
+                    envioNotas.ToXElement<ConjuntoNotasFiscais>());
                 if (recebNotas.objeto != null)
                 {
+                    //AplicativoContext.ArquivoBD = Local;
                     recebNotas.objeto.AnalisarESalvar();
                     UltimaSincronizacaoNotas = recebNotas.objeto.InstanteSincronizacao;
                 }
@@ -80,28 +84,30 @@ namespace BaseGeral.Sincronizacao
         public async Task SincronizarTudo()
         {
             string mensagemErro = null;
-
+            //AplicativoContext.ArquivoBD = Local;
             var envio = new ConjuntoDadosBase();
             envio.AtualizarPadrao();
+            //AplicativoContext.ArquivoBD = Servidor;
             var (objeto, mensagem) = await RequestAsync<ConjuntoDadosBase>(
                 $"SincronizarDadosBase",
                 SenhaPermanente,
-                envio.ToXElement(),
-                DateTime.MinValue.ToBinary().ToString());
+                envio.ToXElement());
             if (objeto != null)
             {
+                //AplicativoContext.ArquivoBD = Local;
                 objeto.AnalisarESalvar();
                 UltimaSincronizacao = objeto.InstanteSincronizacao;
 
                 var envioNotas = new ConjuntoNotasFiscais();
                 envioNotas.AtualizarPadrao();
+                //AplicativoContext.ArquivoBD = Servidor;
                 var recebNotas = await RequestAsync<ConjuntoNotasFiscais>(
                     $"SincronizarNotasFiscais",
                     SenhaPermanente,
-                    envioNotas.ToXElement<ConjuntoNotasFiscais>(),
-                    DateTime.MinValue.ToBinary().ToString());
+                    envioNotas.ToXElement<ConjuntoNotasFiscais>());
                 if (recebNotas.objeto != null)
                 {
+                    //AplicativoContext.ArquivoBD = Local;
                     recebNotas.objeto.AnalisarESalvar();
                     UltimaSincronizacaoNotas = recebNotas.objeto.InstanteSincronizacao;
                 }
@@ -125,10 +131,9 @@ namespace BaseGeral.Sincronizacao
             }
         }
 
-        async Task<(T objeto, string mensagem)> RequestAsync<T>(string nomeMetodo, int senha, XNode corpo, string parametroExtra = null) where T : class
+        async Task<(T objeto, string mensagem)> RequestAsync<T>(string nomeMetodo, int senha, XNode corpo) where T : class
         {
             string caminho = $"/{nomeMetodo}/{senha}";
-            if (parametroExtra != null) caminho += $"/{parametroExtra}";
             var envio = new XElement("Envio",
                 new XElement("Content", corpo),
                 new XElement("Uri", caminho));
@@ -175,5 +180,14 @@ namespace BaseGeral.Sincronizacao
                 }
             }
         }
+
+        //async Task<(T objeto, string mensagem)> RequestAsync<T>(string nomeMetodo, int senha, XNode corpo) where T : class
+        //{
+        //    var ctr = new Servidor.ControllerSincronizacao();
+        //    if (nomeMetodo == "SincronizarDadosBase")
+        //        return (ctr.SincronizarDadosBase(senha, corpo.FromXElement<ConjuntoDadosBase>()).ContentData.FromString<T>(), null);
+        //    else
+        //        return (ctr.SincronizarNotasFiscais(senha, corpo.FromXElement<ConjuntoNotasFiscais>()).ContentData.FromString<T>(), null);
+        //}
     }
 }

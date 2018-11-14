@@ -104,11 +104,11 @@ namespace RegistroComum
                     if (categoria == null && !InserirProdutosSemCategoria) continue;
                     var fornecedor = FornecedoresEscolhidos.FirstOrDefault(x => x.Id == prod.IdFornecedor);
                     if (fornecedor == null && !InserirProdutosSemFornecedor) continue;
-                    var par = new ParCategoriaFornecedor(categoria, fornecedor);
-                    produtos.Add(par, exib);
+                    produtos.Add(new ParCategoriaFornecedor(categoria, fornecedor), exib);
                 }
             }
             var dados = new DadosRelatorioProduto01(produtos);
+            BasicMainPage.Current.Navegar<ImpressaoRelatorioProduto01>(dados);
         }
     }
 }

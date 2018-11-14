@@ -7,8 +7,8 @@ namespace BaseGeral.Sincronizacao.Servidor
 {
     internal sealed class ControllerSincronizacao
     {
-        [UriFormat("/SincronizarDadosBase/{senha}/{minimo}")]
-        public RestResponse SincronizarDadosBase(int senha, long minimo, [FromContent] ConjuntoDadosBase pacote)
+        [UriFormat("/SincronizarDadosBase/{senha}")]
+        public RestResponse SincronizarDadosBase(int senha, [FromContent] ConjuntoDadosBase pacote)
         {
             try
             {
@@ -23,10 +23,9 @@ namespace BaseGeral.Sincronizacao.Servidor
 
                 DateTime atual = DefinicoesTemporarias.DateTimeNow;
                 pacote.InstanteSincronizacao = atual;
-                DateTime minimoProcessado = DateTime.FromBinary(minimo);
                 pacote.AnalisarESalvar();
 
-                var retorno = new ConjuntoDadosBase(pacote, minimoProcessado, atual);
+                var retorno = new ConjuntoDadosBase(pacote, atual);
                 return new RestResponse
                 {
                     Sucesso = true,
@@ -43,8 +42,8 @@ namespace BaseGeral.Sincronizacao.Servidor
             }
         }
 
-        [UriFormat("/SincronizarNotasFiscais/{senha}/{minimo}")]
-        public RestResponse SincronizarNotasFiscais(int senha, long minimo, [FromContent] ConjuntoNotasFiscais pacote)
+        [UriFormat("/SincronizarNotasFiscais/{senha}")]
+        public RestResponse SincronizarNotasFiscais(int senha, [FromContent] ConjuntoNotasFiscais pacote)
         {
             try
             {
@@ -61,7 +60,7 @@ namespace BaseGeral.Sincronizacao.Servidor
                 pacote.InstanteSincronizacao = atual;
                 pacote.AnalisarESalvar();
 
-                var retorno = new ConjuntoNotasFiscais(pacote, DateTime.FromBinary(minimo), atual);
+                var retorno = new ConjuntoNotasFiscais(pacote, atual);
                 return new RestResponse
                 {
                     Sucesso = true,

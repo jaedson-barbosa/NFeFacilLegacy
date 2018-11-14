@@ -39,8 +39,11 @@ namespace RegistroComum
             using (var repo = new BaseGeral.Repositorio.Leitura())
             {
                 var registros = repo.ObterRegistrosVenda(DefinicoesTemporarias.EmitenteAtivo.Id);
+                int contador = 0, quant = 0;
                 foreach (var (rv, vendedor, cliente, momento) in registros)
                 {
+                    quant++;
+                    if (!rv.Cancelado && rv.Produtos.Count == 0) contador++;
                     (rv.Cancelado ? Canceladas : Validas).Add(new ExibicaoVenda
                     {
                         Base = rv,

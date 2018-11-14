@@ -22,6 +22,8 @@ namespace BaseGeral
         public DbSet<FornecedorDI> Fornecedores { get; set; }
         public DbSet<CategoriaDI> Categorias { get; set; }
 
+        static readonly string ArquivoBD = "informacoes";
+
         public AplicativoContext()
         {
             ChangeTracker.AutoDetectChangesEnabled = false;
@@ -30,7 +32,7 @@ namespace BaseGeral
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=informacoes.db");
+            optionsBuilder.UseSqlite($"Data Source={ArquivoBD}.db");
         }
     }
 }

@@ -19,6 +19,7 @@ namespace RegistroComum
     public sealed partial class ManipulacaoRegistroVenda : Page
     {
         RegistroVenda ItemBanco { get; set; }
+        Visibility CondicoesPagamentoVisiveis;
         ObservableCollection<string> CondicoesPagamento;
         ObservableCollection<Comprador> Compradores { get; set; }
         Dictionary<Guid, Comprador[]> CompradoresPorCliente;
@@ -132,6 +133,7 @@ namespace RegistroComum
             var condicoes = await CondicaoPagamento.GerenciadorCondicaoPagamento.Obter();
             foreach (var item in condicoes)
                 CondicoesPagamento.Add(item);
+            CondicoesPagamentoVisiveis = CondicoesPagamento.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private void Finalizar(object sender, RoutedEventArgs e)

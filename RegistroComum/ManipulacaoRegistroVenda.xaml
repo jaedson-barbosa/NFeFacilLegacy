@@ -80,7 +80,8 @@
                 </ComboBox>
                 <ComboBox Header="Condição de pagamento"
                           SelectedItem="{x:Bind ItemBanco.CondicaoPagamento, Mode=TwoWay}"
-                          ItemsSource="{x:Bind CondicoesPagamento}"/>
+                          ItemsSource="{x:Bind CondicoesPagamento}"
+                          Visibility="{x:Bind CondicoesPagamentoVisiveis}" />
                 <Slider x:Name="sldDesconto"
                         Header="Desconto %"
                         StepFrequency="0.5"

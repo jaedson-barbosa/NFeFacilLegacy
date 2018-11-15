@@ -125,6 +125,10 @@
     <Compile Include="Migrations\20181111232602_Loja1.12.Designer.cs">
       <DependentUpon>20181111232602_Loja1.12.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20181114201505_Loja1.12.3.cs" />
+    <Compile Include="Migrations\20181114201505_Loja1.12.3.Designer.cs">
+      <DependentUpon>20181114201505_Loja1.12.3.cs</DependentUpon>
+    </Compile>
     <Compile Include="ModeloXML\UrlsChaveAcesso.cs" />
     <Compile Include="ModeloXML\UrlsQR.cs" />
     <Compile Include="MotoristaManipulacaoNFe.cs" />

@@ -24,6 +24,7 @@ namespace BaseGeral.ItensBD
         public string PrazoPagamento { get; set; }
         public string FormaPagamento { get; set; }
         public Guid Comprador { get; set; }
+        public string CondicaoPagamento { get; set; }
 
         public string MotivoEdicao { get; set; }
     }

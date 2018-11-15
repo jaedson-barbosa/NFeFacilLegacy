@@ -134,6 +134,40 @@
                               ToolTipService.ToolTip="As alterações só tem efeito após reiniar o aplicativo."
                               IsOn="{x:Bind FluentDesign, Mode=TwoWay}" />
             </StackPanel>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock FontWeight="Light"
+                           FontSize="16"
+                           VerticalAlignment="Bottom">Condições de pagamento</TextBlock>
+                <Button Grid.Column="1"
+                        Margin="16,0"
+                        Click="AdicionarCondPagamento">
+                    <SymbolIcon Symbol="Add" />
+                </Button>
+                <ListView Grid.ColumnSpan="2" Grid.Row="1"
+                          ItemsSource="{x:Bind CondicoesPagamento}"
+                          SelectionMode="None">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="x:String">
+                            <TextBlock FontWeight="Bold"
+                                       FontSize="16"
+                                       Text="{x:Bind}">
+                                <TextBlock.ContextFlyout>
+                                    <MenuFlyout>
+                                        <MenuFlyoutItem Click="RemoverCondPagamento">Remover</MenuFlyoutItem>
+                                    </MenuFlyout>
+                                </TextBlock.ContextFlyout></TextBlock>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
             <StackPanel>
                 <Slider Header="Largura (mm)"
                         Minimum="70"

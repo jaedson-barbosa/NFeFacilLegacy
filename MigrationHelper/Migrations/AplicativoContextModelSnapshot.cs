@@ -468,6 +468,8 @@ namespace BaseGeral.Migrations
 
                     b.Property<Guid>("Comprador");
 
+                    b.Property<string>("CondicaoPagamento");
+
                     b.Property<DateTime>("DataHoraVenda");
 
                     b.Property<double>("DescontoTotal");

@@ -19,9 +19,8 @@ namespace RegistroComum
     public sealed partial class ManipulacaoRegistroVenda : Page
     {
         RegistroVenda ItemBanco { get; set; }
-
+        ObservableCollection<string> CondicoesPagamento;
         ObservableCollection<Comprador> Compradores { get; set; }
-
         Dictionary<Guid, Comprador[]> CompradoresPorCliente;
 
         void AtualizarTotal()
@@ -117,7 +116,7 @@ namespace RegistroComum
             InitializeComponent();
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             using (var repo = new BaseGeral.Repositorio.Leitura())
             {
@@ -129,6 +128,10 @@ namespace RegistroComum
             txtValorDesejado.Number = ItemBanco.Produtos.Sum(x => x.Quantidade * x.ValorUnitario);
             cmbComprador.IsEnabled = ItemBanco.Comprador != default(Guid);
             sldDesconto.Value = ItemBanco.DescontoTotal * 100 / ItemBanco.Produtos.Sum(x => x.ValorUnitario * x.Quantidade);
+            CondicoesPagamento = new ObservableCollection<string>();
+            var condicoes = await CondicaoPagamento.GerenciadorCondicaoPagamento.Obter();
+            foreach (var item in condicoes)
+                CondicoesPagamento.Add(item);
         }
 
         private void Finalizar(object sender, RoutedEventArgs e)

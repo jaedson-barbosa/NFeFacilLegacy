@@ -1,7 +1,9 @@
 ﻿using BaseGeral;
 using BaseGeral.Sincronizacao;
 using BaseGeral.View;
+using RegistroComum.CondicaoPagamento;
 using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using Windows.Storage;
@@ -26,11 +28,13 @@ namespace NFeFacil.View
                 "Geral",
                 "Modos de busca",
                 "Personalização",
+                "Registro de venda",
                 "DANFE NFCe",
                 "Controle de estoque",
                 "Compras"
             };
             AnalisarCompras();
+            CarregarCondicoesPagamento();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -153,9 +157,9 @@ namespace NFeFacil.View
             btnComprarNFCe.IsEnabled = !comprado;
             comprado = ComprasInApp.Resumo[Compras.Personalizacao];
             btnComprarBackground.IsEnabled = !comprado;
+            PacotePersonalizacaoComprado = comprado;
             comprado = ComprasInApp.Resumo[Compras.RelatorioProdutos01];
             btnComprarRelatorioProduto01.IsEnabled = !comprado;
-            PacotePersonalizacaoComprado = comprado;
         }
 
         async void ComprarNFCe(object sender, RoutedEventArgs e)
@@ -182,6 +186,33 @@ namespace NFeFacil.View
         {
             await ComprasInApp.AnalisarCompras();
             AnalisarCompras();
+        }
+
+        ObservableCollection<string> CondicoesPagamento { get; set; }
+
+        async void CarregarCondicoesPagamento()
+        {
+            CondicoesPagamento = new ObservableCollection<string>();
+            var condicoes = await GerenciadorCondicaoPagamento.Obter();
+            foreach (var item in condicoes)
+                CondicoesPagamento.Add(item);
+        }
+
+        async void AdicionarCondPagamento(object sender, RoutedEventArgs e)
+        {
+            var caixa = new AddCondPagamento();
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+            {
+                CondicoesPagamento.Add(caixa.Condicao);
+                await GerenciadorCondicaoPagamento.Salvar(CondicoesPagamento);
+            }
+        }
+
+        async void RemoverCondPagamento(object sender, RoutedEventArgs e)
+        {
+            var condicao = (string)((MenuFlyoutItem)e.OriginalSource).DataContext;
+            CondicoesPagamento.Remove(condicao);
+            await GerenciadorCondicaoPagamento.Salvar(CondicoesPagamento);
         }
     }
 }

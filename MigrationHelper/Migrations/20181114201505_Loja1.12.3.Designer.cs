@@ -3,14 +3,16 @@ using System;
 using BaseGeral;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BaseGeral.Migrations
 {
     [DbContext(typeof(AplicativoContext))]
-    partial class AplicativoContextModelSnapshot : ModelSnapshot
+    [Migration("20181114201505_Loja1.12.3")]
+    partial class Loja1123
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

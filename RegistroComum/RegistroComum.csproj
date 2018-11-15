@@ -109,6 +109,10 @@
     <Compile Include="CalcularTroco.xaml.cs">
       <DependentUpon>CalcularTroco.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CondicaoPagamento\AddCondPagamento.xaml.cs">
+      <DependentUpon>AddCondPagamento.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CondicaoPagamento\GerenciadorCondicaoPagamento.cs" />
     <Compile Include="ControleViewProduto.cs" />
     <Compile Include="RelatorioProduto01\DadosRelatorioProduto01.cs" />
     <Compile Include="DARV\CabecalhoDARV.xaml.cs">
@@ -191,6 +195,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="CalcularTroco.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CondicaoPagamento\AddCondPagamento.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

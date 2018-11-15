@@ -60,8 +60,7 @@
                 <controles:EntradaNumerica Format="8:2"
                                            Number="{x:Bind ValorFrete, Mode=TwoWay}"
                                            Header="Valor do frete" />
-                <ComboBox Grid.Row="1"
-                          Header="Tipo de frete"
+                <ComboBox Header="Tipo de frete"
                           SelectedValue="{x:Bind TipoFrete, Mode=TwoWay}"
                           SelectedValuePath="Content">
                     <ComboBoxItem>Por conta do cliente</ComboBoxItem>
@@ -72,14 +71,16 @@
                                     Date="{x:Bind PrazoPagamento, Mode=TwoWay}"
                                     Grid.Column="2"
                                     MinWidth="256" />
-                <ComboBox Grid.Row="1"
-                          Header="Forma de pagamento"
+                <ComboBox Header="Forma de pagamento"
                           SelectedValue="{x:Bind FormaPagamento, Mode=TwoWay}"
                           SelectedValuePath="Content">
                     <ComboBoxItem>Em dinheiro à vista</ComboBoxItem>
                     <ComboBoxItem>Cartão</ComboBoxItem>
                     <ComboBoxItem>Boleto bancário</ComboBoxItem>
                 </ComboBox>
+                <ComboBox Header="Condição de pagamento"
+                          SelectedItem="{x:Bind ItemBanco.CondicaoPagamento, Mode=TwoWay}"
+                          ItemsSource="{x:Bind CondicoesPagamento}"/>
                 <Slider x:Name="sldDesconto"
                         Header="Desconto %"
                         StepFrequency="0.5"

@@ -22,17 +22,22 @@ namespace RegistroComum.RelatorioProduto01
 
         private void stkContent_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            int prodsRestantes = Dados.Produtos.Sum(x => x.Value.Count(y => !y.Adicionado));
+            int prodsRestantes = Dados.Produtos.Sum(x => x.Value.Count(y => !y.Adicionado)), quantSuportada = 52;
             var par = Dados.Produtos.First(x => x.Value.Any(y => !y.Adicionado));
             if (!par.Value.Any(x => x.Adicionado))
+            {
                 stkContent.Children.Add(new InfoTabela(par.Key.Categoria, par.Key.Fornecedor));
+                quantSuportada -= 2;
+            }
             var tabelaAtual = new TabelaSimples(!par.Value.Any(x => x.Adicionado));
             stkContent.Children.Add(tabelaAtual);
-            while (prodsRestantes > 0 && espacoRestante.ActualHeight >= 28)
-            {
+            while (prodsRestantes > 0 && quantSuportada-- > 0)
+            { 
                 if (par.Value.Any(x => !x.Adicionado))
                 {
-                    tabelaAtual.Produtos.Add(par.Value.First(x => !x.Adicionado));
+                    var prod = par.Value.First(x => !x.Adicionado);
+                    prod.Adicionado = true;
+                    tabelaAtual.Produtos.Add(prod);
                     prodsRestantes--;
                 }
                 else
@@ -40,8 +45,9 @@ namespace RegistroComum.RelatorioProduto01
                     par = Dados.Produtos.First(x => x.Value.Any(y => !y.Adicionado));
                     if (!par.Value.Any(x => x.Adicionado))
                         stkContent.Children.Add(new InfoTabela(par.Key.Categoria, par.Key.Fornecedor));
-                    tabelaAtual = new TabelaSimples(!par.Value.Any(x => x.Adicionado));
+                    tabelaAtual = new TabelaSimples(true);
                     stkContent.Children.Add(tabelaAtual);
+                    quantSuportada -= 2;
                 }
             }
             if (prodsRestantes > 0)

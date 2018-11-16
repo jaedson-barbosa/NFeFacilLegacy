@@ -3,7 +3,7 @@
                     xmlns:vml="using:BaseGeral.View">
     <vml:MascaraDocumento x:Key="mascara" />
     <vml:StringToDateTime x:Key="data" />
-    <vml:CmToPx x:Key="dimensao" />
+    <vml:MmToPx x:Key="dimensao" />
     <Style x:Key="Padrao"
            TargetType="TextBlock">
         <Setter Property="FontFamily"

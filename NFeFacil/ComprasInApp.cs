@@ -44,7 +44,7 @@ namespace NFeFacil
                     {
                         { Compras.NFCe, false },
                         { Compras.Personalizacao, false },
-                        { Compras.RelatorioProdutos01, false }
+                        { Compras.RelatorioProdutos01, true }
                     };
                 }
                 new Exception("Erro ao obter as informações das compras dentro do aplicativo.", e).ManipularErro();

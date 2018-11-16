@@ -91,10 +91,10 @@ namespace RegistroComum.RelatorioProduto01
 
         void GerarRelatorio(object sender, RoutedEventArgs e)
         {
-            var produtos = new Dictionary<(CategoriaDI categoria, FornecedorDI fornecedor), ExibicaoProduto>();
+            var produtos = new Dictionary<(CategoriaDI categoria, FornecedorDI fornecedor), List<ExibicaoProduto>>();
             using (var leitura = new BaseGeral.Repositorio.Leitura())
             {
-                foreach (var prod in leitura.ObterProdutos())
+                foreach (var prod in leitura.ObterProdutos().ToArray())
                 {
                     if (prod.IdCategoria == Guid.Empty && !InserirProdutosSemCategoria ||
                         prod.IdFornecedor == Guid.Empty && !InserirProdutosSemFornecedor) continue;
@@ -104,15 +104,18 @@ namespace RegistroComum.RelatorioProduto01
                     if (categoria == null && !InserirProdutosSemCategoria) continue;
                     var fornecedor = FornecedoresEscolhidos.FirstOrDefault(x => x.Id == prod.IdFornecedor);
                     if (fornecedor == null && !InserirProdutosSemFornecedor) continue;
-                    produtos.Add((categoria, fornecedor), exib);
+                    var key = (categoria, fornecedor);
+                    if (produtos.ContainsKey(key))
+                        produtos[key].Add(exib);
+                    else
+                        produtos.Add(key, new List<ExibicaoProduto> { exib });
                 }
             }
             var dados = new DadosRelatorioProduto01(
                 produtos
-                .GroupBy(x => x.Key)
                 .ToDictionary(
                     x => new ParCategoriaFornecedor(x.Key.categoria, x.Key.fornecedor),
-                    y => y.Select(x => x.Value).ToArray()));
+                    y => y.Value.ToArray()));
             BasicMainPage.Current.Navegar<ImpressaoRelatorioProduto01>(dados);
         }
     }

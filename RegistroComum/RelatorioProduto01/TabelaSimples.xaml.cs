@@ -34,8 +34,8 @@ namespace RegistroComum.RelatorioProduto01
                     var atual = (ExibicaoProduto)e.NewItems[i];
                     Codigos.Add(atual.Codigo);
                     Nomes.Add(atual.Nome);
-                    Precos.Add(atual.Nome);
-                    Estoques.Add(atual.Nome);
+                    Precos.Add(atual.Preco);
+                    Estoques.Add(atual.Estoque);
                 }
             }
             else

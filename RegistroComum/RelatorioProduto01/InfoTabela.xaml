@@ -6,6 +6,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              Height="16"
+             IsTextScaleFactorEnabled="False"
              d:DesignHeight="300"
              d:DesignWidth="400">
     <UserControl.Resources>
@@ -16,12 +17,13 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid VerticalAlignment="Bottom">
-        <TextBlock MaxWidth="{x:Bind ConverterParameter=7, Converter={StaticResource dimensao}}"
+        <TextBlock HorizontalAlignment="Left"
+                   MaxWidth="{x:Bind ConverterParameter=50, Converter={StaticResource dimensao}}"
                    Text="{x:Bind Categoria}" />
         <TextBlock HorizontalAlignment="Center"
-                   MaxWidth="{x:Bind ConverterParameter=7, Converter={StaticResource dimensao}}"
+                   MaxWidth="{x:Bind ConverterParameter=50, Converter={StaticResource dimensao}}"
                    Text="{x:Bind Fornecedor}" />
         <TextBlock HorizontalAlignment="Right"
-                   MaxWidth="{x:Bind ConverterParameter=7, Converter={StaticResource dimensao}}">Data: <Run Text="{x:Bind base:DefinicoesTemporarias.DateTimeNow, Converter={StaticResource data}, ConverterParameter='dd/MM/yyyy'}" /></TextBlock>
+                   MaxWidth="{x:Bind ConverterParameter=50, Converter={StaticResource dimensao}}">Data: <Run Text="{x:Bind base:DefinicoesTemporarias.DateTimeNow, Converter={StaticResource data}, ConverterParameter='dd/MM/yyyy'}" /></TextBlock>
     </Grid>
 </UserControl>

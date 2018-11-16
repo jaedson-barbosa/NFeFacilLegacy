@@ -25,7 +25,7 @@ namespace RegistroComum.RelatorioProduto01
         }
     }
 
-    struct ExibicaoProduto
+    sealed class ExibicaoProduto
     {
         internal bool Adicionado;
         internal readonly string Codigo;

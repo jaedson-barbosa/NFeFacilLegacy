@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+             IsTextScaleFactorEnabled="False"
              d:DesignHeight="300"
              d:DesignWidth="400">
     <UserControl.Resources>
@@ -14,9 +15,9 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid Width="{x:Bind ConverterParameter=21, Converter={StaticResource dimensao}}"
-          Height="{x:Bind ConverterParameter=29.7, Converter={StaticResource dimensao}}"
-          Padding="{x:Bind ConverterParameter=2, Converter={StaticResource dimensao}}">
+    <Grid Width="{x:Bind ConverterParameter=210, Converter={StaticResource dimensao}}"
+          Height="{x:Bind ConverterParameter=297, Converter={StaticResource dimensao}}"
+          Padding="{x:Bind ConverterParameter=20, Converter={StaticResource dimensao}}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />

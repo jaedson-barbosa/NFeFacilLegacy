@@ -43,7 +43,8 @@ namespace RegistroComum
                 foreach (var (rv, vendedor, cliente, momento) in registros)
                 {
                     quant++;
-                    if (!rv.Cancelado && rv.Produtos.Count == 0) contador++;
+                    if (!rv.Cancelado && rv.Produtos.Count == 0)
+                        contador++;
                     (rv.Cancelado ? Canceladas : Validas).Add(new ExibicaoVenda
                     {
                         Base = rv,
@@ -52,6 +53,8 @@ namespace RegistroComum
                         DataHoraVenda = momento
                     });
                 }
+                if (contador > 0 && quant > 0)
+                    BaseGeral.Log.Popup.Current.Escrever(BaseGeral.Log.TitulosComuns.Atenção, $"Existem {contador} registros de venda sem produto.");
             }
         }
 

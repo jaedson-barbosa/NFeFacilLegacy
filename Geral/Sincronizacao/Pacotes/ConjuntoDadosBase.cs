@@ -360,29 +360,36 @@ namespace BaseGeral.Sincronizacao.Pacotes
                     for (int i = 0; i < Vendas.Length; i++)
                     {
                         var novo = Vendas[i];
-                        var atual = db.Vendas.Include(x => x.Produtos).FirstOrDefault(x => x.Id == novo.Id);
-                        if (atual == null)
+                        if (novo.Produtos.Count == 0)
                         {
-                            ProdutosVendas[i] = novo.Produtos;
-                            novo.Produtos = null;
-
-                            novo.UltimaData = InstanteSincronizacao;
-                            Adicionar.Add(novo);
-                        }
-                        else if ((novo.UltimaData > atual.UltimaData || atual.Produtos.Count == 0) && novo.Produtos.Count > 0)
-                        {
-                            var prods = novo.Produtos;
-                            ProdutosVendas[i] = prods;
-                            novo.Produtos = null;
-
-                            novo.UltimaData = InstanteSincronizacao;
-                            Atualizar.Add(novo);
-
-                            db.RemoveRange(atual.Produtos);
+                            ProdutosVendas[i] = null;
                         }
                         else
                         {
-                            ProdutosVendas[i] = null;
+                            var atual = db.Vendas.Include(x => x.Produtos).FirstOrDefault(x => x.Id == novo.Id);
+                            if (atual == null)
+                            {
+                                ProdutosVendas[i] = novo.Produtos;
+                                novo.Produtos = null;
+
+                                novo.UltimaData = InstanteSincronizacao;
+                                Adicionar.Add(novo);
+                            }
+                            else if ((novo.UltimaData > atual.UltimaData || atual.Produtos.Count == 0) && novo.Produtos.Count > 0)
+                            {
+                                var prods = novo.Produtos;
+                                ProdutosVendas[i] = prods;
+                                novo.Produtos = null;
+
+                                novo.UltimaData = InstanteSincronizacao;
+                                Atualizar.Add(novo);
+
+                                db.RemoveRange(atual.Produtos);
+                            }
+                            else
+                            {
+                                ProdutosVendas[i] = null;
+                            }
                         }
                     }
                 }
@@ -512,6 +519,8 @@ namespace BaseGeral.Sincronizacao.Pacotes
                 Imagens = db.Imagens.ToArray();
                 Compradores = db.Compradores.ToArray();
                 Inutilizacoes = db.Inutilizacoes.ToArray();
+                Fornecedores = db.Fornecedores.ToArray();
+                Categorias = db.Categorias.ToArray();
             }
         }
     }

@@ -1,0 +1,26 @@
+﻿<ContentDialog x:Class="NFeFacil.ViewDadosBase.AssociarCategoriaFornecedor"
+               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:local="using:NFeFacil.ViewDadosBase"
+               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+               mc:Ignorable="d"
+               Title="Fornecedor - Categoria"
+               PrimaryButtonText="Concluir"
+               SecondaryButtonText="Cancelar"
+               PrimaryButtonClick="ContentDialog_PrimaryButtonClick">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <TextBlock TextWrapping="Wrap">Esta operação se aplica apenas aos produtos classificados com a referida categoria, não afetando quaisquer produto mais tarde cadastrado ou classificado.</TextBlock>
+        <CheckBox Grid.Row="1"
+                  IsChecked="{x:Bind AlterarTodosProdutos, Mode=TwoWay}">Alterar produtos com outro fornecedor cadastrado</CheckBox>
+        <ListView Grid.Row="2"
+                  DisplayMemberPath="Nome"
+                  ItemsSource="{x:Bind FornecedoresDisponiveis}"
+                  SelectedItem="{x:Bind Escolhido, Mode=TwoWay}" />
+    </Grid>
+</ContentDialog>

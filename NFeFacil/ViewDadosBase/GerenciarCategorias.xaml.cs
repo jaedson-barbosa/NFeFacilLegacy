@@ -55,5 +55,12 @@ namespace NFeFacil.ViewDadosBase
                 Categorias.Insert(index, categoria);
             }
         }
+
+        async void AssociarFornecedor(object sender, RoutedEventArgs e)
+        {
+            var categoria = (CategoriaDI)((FrameworkElement)sender).DataContext;
+            var caixa = new AssociarCategoriaFornecedor(categoria);
+            await caixa.ShowAsync();
+        }
     }
 }

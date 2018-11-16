@@ -17,13 +17,17 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid VerticalAlignment="Bottom">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*" />
+            <ColumnDefinition Width="9*" />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
         <TextBlock HorizontalAlignment="Left"
-                   MaxWidth="{x:Bind ConverterParameter=50, Converter={StaticResource dimensao}}"
                    Text="{x:Bind Categoria}" />
-        <TextBlock HorizontalAlignment="Center"
-                   MaxWidth="{x:Bind ConverterParameter=50, Converter={StaticResource dimensao}}"
+        <TextBlock Grid.Column="1"
+                   HorizontalAlignment="Center"
                    Text="{x:Bind Fornecedor}" />
-        <TextBlock HorizontalAlignment="Right"
-                   MaxWidth="{x:Bind ConverterParameter=50, Converter={StaticResource dimensao}}">Data: <Run Text="{x:Bind base:DefinicoesTemporarias.DateTimeNow, Converter={StaticResource data}, ConverterParameter='dd/MM/yyyy'}" /></TextBlock>
+        <TextBlock Grid.Column="2"
+                   HorizontalAlignment="Right">Data: <Run Text="{x:Bind base:DefinicoesTemporarias.DateTimeNow, Converter={StaticResource data}, ConverterParameter='dd/MM/yyyy'}" /></TextBlock>
     </Grid>
 </UserControl>

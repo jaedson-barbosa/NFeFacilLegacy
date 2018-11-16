@@ -14,6 +14,7 @@
                     <Grid.ContextFlyout>
                         <MenuFlyout>
                             <MenuFlyoutItem Click="EditarCategoria">Editar</MenuFlyoutItem>
+                            <MenuFlyoutItem Click="AssociarFornecedor">Associar fornecedor</MenuFlyoutItem>
                         </MenuFlyout>
                     </Grid.ContextFlyout>
                     <Grid.RowDefinitions>

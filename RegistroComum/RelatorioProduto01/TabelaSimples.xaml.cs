@@ -11,12 +11,10 @@ namespace RegistroComum.RelatorioProduto01
     {
         internal ObservableCollection<ExibicaoProduto> Produtos { get; set; }
         ObservableCollection<string> Codigos, Nomes, Precos, Estoques;
-        Visibility LinhaTitulo;
 
-        internal TabelaSimples(bool contemLinhaTitulo)
+        internal TabelaSimples()
         {
             InitializeComponent();
-            LinhaTitulo = contemLinhaTitulo ? Visibility.Visible : Visibility.Collapsed;
             Produtos = new ObservableCollection<ExibicaoProduto>();
             Codigos = new ObservableCollection<string>();
             Nomes = new ObservableCollection<string>();

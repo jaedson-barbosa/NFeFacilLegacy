@@ -22,14 +22,15 @@ namespace RegistroComum.RelatorioProduto01
 
         private void stkContent_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            int prodsRestantes = Dados.Produtos.Sum(x => x.Value.Count(y => !y.Adicionado)), quantSuportada = 52;
+            int prodsRestantes = Dados.Produtos.Sum(x => x.Value.Count(y => !y.Adicionado)),
+                quantSuportada = 51;
             var par = Dados.Produtos.First(x => x.Value.Any(y => !y.Adicionado));
             if (!par.Value.Any(x => x.Adicionado))
             {
                 stkContent.Children.Add(new InfoTabela(par.Key.Categoria, par.Key.Fornecedor));
-                quantSuportada -= 2;
+                quantSuportada -= 1;
             }
-            var tabelaAtual = new TabelaSimples(!par.Value.Any(x => x.Adicionado));
+            var tabelaAtual = new TabelaSimples();
             stkContent.Children.Add(tabelaAtual);
             while (prodsRestantes > 0 && quantSuportada-- > 0)
             { 
@@ -45,9 +46,9 @@ namespace RegistroComum.RelatorioProduto01
                     par = Dados.Produtos.First(x => x.Value.Any(y => !y.Adicionado));
                     if (!par.Value.Any(x => x.Adicionado))
                         stkContent.Children.Add(new InfoTabela(par.Key.Categoria, par.Key.Fornecedor));
-                    tabelaAtual = new TabelaSimples(true);
+                    tabelaAtual = new TabelaSimples();
                     stkContent.Children.Add(tabelaAtual);
-                    quantSuportada -= 2;
+                    quantSuportada -=2;
                 }
             }
             if (prodsRestantes > 0)

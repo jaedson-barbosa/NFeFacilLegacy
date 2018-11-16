@@ -32,13 +32,13 @@
                             <FontIcon Glyph="&#xE806;" />
                         </controles:ItemPadrao>
                         <controles:ItemPadrao Grid.Row="1"
-                                              Grid.Column="1"
                                               Titulo="Vendedores"
                                               Descricao="Identifique quem atende os clientes"
                                               Click="AbrirVendedores">
                             <SymbolIcon Symbol="People" />
                         </controles:ItemPadrao>
-                        <controles:ItemPadrao Grid.Row="2"
+                        <controles:ItemPadrao Grid.Row="1"
+                                              Grid.Column="1"
                                               Titulo="Compradores"
                                               Descricao="Pessoas que representam as empresas"
                                               Click="AbrirCompradores">

@@ -26,7 +26,7 @@ namespace NFeFacil
                     {
                         { Compras.NFCe, addOns.Products[Compras.NFCe].IsInUserCollection },
                         { Compras.Personalizacao, addOns.Products[Compras.Personalizacao].IsInUserCollection },
-                        { Compras.RelatorioProdutos01, true/*addOns.Products[Compras.RelatorioProdutos01].IsInUserCollection*/ }
+                        { Compras.RelatorioProdutos01, addOns.Products[Compras.RelatorioProdutos01].IsInUserCollection }
                     };
                 }
                 else
@@ -44,7 +44,7 @@ namespace NFeFacil
                     {
                         { Compras.NFCe, false },
                         { Compras.Personalizacao, false },
-                        { Compras.RelatorioProdutos01, true }
+                        { Compras.RelatorioProdutos01, false }
                     };
                 }
                 new Exception("Erro ao obter as informações das compras dentro do aplicativo.", e).ManipularErro();

@@ -50,10 +50,12 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition />
                 <RowDefinition />
+                <RowDefinition />
             </Grid.RowDefinitions>
             <TextBlock Style="{StaticResource Subtitulo}">Pagamento</TextBlock>
             <TextBlock Grid.Row="1">Forma de pagamento: <Run Text="{x:Bind Registro.FormaPagamento}" /></TextBlock>
             <TextBlock Grid.Row="2">Prazo de pagamento: <Run Text="{x:Bind Registro.PrazoPagamento}" /></TextBlock>
+            <TextBlock Grid.Row="3">Condição de pagamento: <Run Text="{x:Bind Registro.CondicaoPagamento}" /></TextBlock>
         </Grid>
         <Grid Grid.Row="3">
             <Grid.RowDefinitions>

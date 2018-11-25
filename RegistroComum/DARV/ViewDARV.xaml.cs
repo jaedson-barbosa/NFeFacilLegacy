@@ -116,7 +116,7 @@ namespace RegistroComum.DARV
             VisibilidadeTransporte = ToVis(Motorista == null);
             VisibilidadeNFeRelacionada = ToVis(string.IsNullOrEmpty(Registro.NotaFiscalRelacionada));
             VisibilidadeComprador = ToVis(Comprador == null);
-            VisibilidadePagamento = ToVis(string.IsNullOrEmpty(Registro.FormaPagamento));
+            VisibilidadePagamento = ToVis(string.IsNullOrEmpty(Registro.FormaPagamento) && string.IsNullOrEmpty(Registro.CondicaoPagamento));
             VisibilidadeObservacoes = ToVis(string.IsNullOrEmpty(Registro.Observações));
 
             Visibility ToVis(bool esconde) => esconde ? Visibility.Collapsed : Visibility.Visible;

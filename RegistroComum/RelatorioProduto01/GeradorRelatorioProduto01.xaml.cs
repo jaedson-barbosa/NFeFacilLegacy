@@ -1,5 +1,6 @@
 ﻿using BaseGeral;
 using BaseGeral.ItensBD;
+using BaseGeral.Log;
 using BaseGeral.View;
 using System;
 using System.Collections.Generic;
@@ -91,7 +92,7 @@ namespace RegistroComum.RelatorioProduto01
 
         void GerarRelatorio(object sender, RoutedEventArgs e)
         {
-            var produtos = new Dictionary<(CategoriaDI categoria, FornecedorDI fornecedor), List<ExibicaoProduto>>();
+            var produtos = new Dictionary<ParCategoriaFornecedor, List<ExibicaoProduto>>();
             using (var leitura = new BaseGeral.Repositorio.Leitura())
             {
                 foreach (var prod in leitura.ObterProdutos().ToArray())
@@ -104,19 +105,19 @@ namespace RegistroComum.RelatorioProduto01
                     if (categoria == null && !InserirProdutosSemCategoria) continue;
                     var fornecedor = FornecedoresEscolhidos.FirstOrDefault(x => x.Id == prod.IdFornecedor);
                     if (fornecedor == null && !InserirProdutosSemFornecedor) continue;
-                    var key = (categoria, fornecedor);
+                    var key = new ParCategoriaFornecedor(categoria, fornecedor);
                     if (produtos.ContainsKey(key))
                         produtos[key].Add(exib);
                     else
                         produtos.Add(key, new List<ExibicaoProduto> { exib });
                 }
             }
-            var dados = new DadosRelatorioProduto01(
-                produtos
-                .ToDictionary(
-                    x => new ParCategoriaFornecedor(x.Key.categoria, x.Key.fornecedor),
-                    y => y.Value.ToArray()));
-            BasicMainPage.Current.Navegar<ImpressaoRelatorioProduto01>(dados);
+            if (produtos.Count == 0)
+            {
+                Popup.Current.Escrever(TitulosComuns.Atenção, "Não há nenhum produto que corresponda aos critérios especificados.");
+                return;
+            }
+            BasicMainPage.Current.Navegar<ImpressaoRelatorioProduto01>(produtos);
         }
     }
 }

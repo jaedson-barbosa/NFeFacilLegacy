@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Windows.UI.Xaml.Controls;
 
@@ -8,11 +9,11 @@ namespace RegistroComum.RelatorioProduto01
 {
     public sealed partial class PaginaPadrao : UserControl
     {
-        DadosRelatorioProduto01 Dados;
+        Dictionary<ParCategoriaFornecedor, List<ExibicaoProduto>> Dados;
         Action RequisitarMaisPaginas;
         int NumeroPagina;
 
-        internal PaginaPadrao(DadosRelatorioProduto01 dados, Action requisitarMaisPaginas, int numPagina)
+        internal PaginaPadrao(Dictionary<ParCategoriaFornecedor, List<ExibicaoProduto>> dados, Action requisitarMaisPaginas, int numPagina)
         {
             InitializeComponent();
             Dados = dados;
@@ -22,9 +23,9 @@ namespace RegistroComum.RelatorioProduto01
 
         private void stkContent_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            int prodsRestantes = Dados.Produtos.Sum(x => x.Value.Count(y => !y.Adicionado)),
+            int prodsRestantes = Dados.Sum(x => x.Value.Count(y => !y.Adicionado)),
                 quantSuportada = 51;
-            var par = Dados.Produtos.First(x => x.Value.Any(y => !y.Adicionado));
+            var par = Dados.First(x => x.Value.Any(y => !y.Adicionado));
             if (!par.Value.Any(x => x.Adicionado))
             {
                 stkContent.Children.Add(new InfoTabela(par.Key.Categoria, par.Key.Fornecedor));
@@ -43,7 +44,7 @@ namespace RegistroComum.RelatorioProduto01
                 }
                 else
                 {
-                    par = Dados.Produtos.First(x => x.Value.Any(y => !y.Adicionado));
+                    par = Dados.First(x => x.Value.Any(y => !y.Adicionado));
                     if (!par.Value.Any(x => x.Adicionado))
                         stkContent.Children.Add(new InfoTabela(par.Key.Categoria, par.Key.Fornecedor));
                     tabelaAtual = new TabelaSimples();

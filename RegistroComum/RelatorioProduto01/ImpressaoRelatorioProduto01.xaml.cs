@@ -1,4 +1,5 @@
 ﻿using BaseGeral.View;
+using System.Collections.Generic;
 using Venda;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -20,7 +21,7 @@ namespace RegistroComum.RelatorioProduto01
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var dados = (DadosRelatorioProduto01)e.Parameter;
+            var dados = (Dictionary<ParCategoriaFornecedor, List<ExibicaoProduto>>)e.Parameter;
             int numPag = 1;
             AdicionarPagina();
 

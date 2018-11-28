@@ -114,7 +114,8 @@
     </Compile>
     <Compile Include="CondicaoPagamento\GerenciadorCondicaoPagamento.cs" />
     <Compile Include="ControleViewProduto.cs" />
-    <Compile Include="RelatorioProduto01\DadosRelatorioProduto01.cs" />
+    <Compile Include="RelatorioProduto01\ExibicaoProduto.cs" />
+    <Compile Include="RelatorioProduto01\ParCategoriaFornecedor.cs" />
     <Compile Include="DARV\CabecalhoDARV.xaml.cs">
       <DependentUpon>CabecalhoDARV.xaml</DependentUpon>
     </Compile>

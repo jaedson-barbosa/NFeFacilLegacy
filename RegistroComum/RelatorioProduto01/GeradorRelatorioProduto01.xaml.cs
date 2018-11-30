@@ -102,9 +102,11 @@ namespace RegistroComum.RelatorioProduto01
                     var estoque = leitura.ObterEstoque(prod.Id);
                     var exib = new ExibicaoProduto(prod, estoque?.Alteracoes.Sum(x => x.Alteração) ?? double.NaN);
                     var categoria = CategoriasEscolhidas.FirstOrDefault(x => x.Id == prod.IdCategoria);
-                    if (categoria == null && !InserirProdutosSemCategoria) continue;
+                    if ((prod.IdCategoria != default(Guid) && categoria == null) ||
+                        (prod.IdCategoria == default(Guid) && !InserirProdutosSemCategoria)) continue;
                     var fornecedor = FornecedoresEscolhidos.FirstOrDefault(x => x.Id == prod.IdFornecedor);
-                    if (fornecedor == null && !InserirProdutosSemFornecedor) continue;
+                    if ((prod.IdFornecedor != default(Guid) && fornecedor == null) ||
+                        (prod.IdFornecedor == default(Guid) && !InserirProdutosSemFornecedor)) continue;
                     var key = new ParCategoriaFornecedor(categoria, fornecedor);
                     if (produtos.ContainsKey(key))
                         produtos[key].Add(exib);

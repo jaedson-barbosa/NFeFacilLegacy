@@ -42,14 +42,14 @@ namespace RegistroComum.RelatorioProduto01
                     tabelaAtual.Produtos.Add(prod);
                     prodsRestantes--;
                 }
-                else
+                else if (quantSuportada > 2)
                 {
                     par = Dados.First(x => x.Value.Any(y => !y.Adicionado));
                     if (!par.Value.Any(x => x.Adicionado))
                         stkContent.Children.Add(new InfoTabela(par.Key.Categoria, par.Key.Fornecedor));
                     tabelaAtual = new TabelaSimples();
                     stkContent.Children.Add(tabelaAtual);
-                    quantSuportada -=2;
+                    quantSuportada -=1;
                 }
             }
             if (prodsRestantes > 0)

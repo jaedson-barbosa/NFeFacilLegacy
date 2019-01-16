@@ -13,7 +13,6 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
-using static Fiscal.NotasSalvas;
 using Fiscal.Certificacao;
 
 namespace Consumidor

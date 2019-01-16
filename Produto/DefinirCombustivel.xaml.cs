@@ -8,7 +8,7 @@ using Windows.UI.Xaml.Navigation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace Venda.ProdutoEspecial
+namespace Venda
 {
     [DetalhePagina("\uEB42", "Combustivel")]
     public sealed partial class DefinirCombustivel : Page
@@ -40,10 +40,7 @@ namespace Venda.ProdutoEspecial
         {
             var ultFrame = Frame.BackStack[Frame.BackStack.Count - 1];
             var prod = (IProdutoEspecial)ultFrame.Parameter;
-            prod.veicProd = null;
-            prod.armas = null;
             prod.comb = Comb;
-            prod.NRECOPI = null;
 
             BasicMainPage.Current.Retornar();
         }

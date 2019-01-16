@@ -65,7 +65,8 @@
                       MinWidth="256" />
             <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
                        Margin="0,16,0,0">Categoria do produto</TextBlock>
-            <GridView ItemContainerTransitions="{StaticResource TransicoesLista}" ItemContainerStyle="{StaticResource ItensMedios}"
+            <GridView ItemContainerTransitions="{StaticResource TransicoesLista}"
+                      ItemContainerStyle="{StaticResource ItensMedios}"
                       SelectedIndex="{x:Bind TipoEspecialEscolhido, Mode=TwoWay}">
                 <GridView.ContextFlyout>
                     <MenuFlyout>
@@ -76,21 +77,9 @@
                                              Descricao="Produto que não se encaixa nas categorias especiais">
                     <SymbolIcon Symbol="Shop" />
                 </controles:ItemPadraoSimples>
-                <controles:ItemPadraoSimples Titulo="Veículo"
-                                             Descricao="Algum tipo de veículo">
-                    <FontIcon Glyph="&#xE804;" />
-                </controles:ItemPadraoSimples>
-                <controles:ItemPadraoSimples Titulo="Armamento"
-                                             Descricao="Armas">
-                    <BitmapIcon UriSource="{ThemeResource ImagemArma}" />
-                </controles:ItemPadraoSimples>
                 <controles:ItemPadraoSimples Titulo="Combustível"
                                              Descricao="Combustíveis">
                     <FontIcon Glyph="&#xEB42;" />
-                </controles:ItemPadraoSimples>
-                <controles:ItemPadraoSimples Titulo="Papel"
-                                             Descricao="Papel imune">
-                    <FontIcon Glyph="&#xE82D;" />
                 </controles:ItemPadraoSimples>
             </GridView>
             <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"

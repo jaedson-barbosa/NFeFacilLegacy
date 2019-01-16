@@ -22,13 +22,6 @@ namespace BaseGeral.ModeloXML.PartesDetalhes
 
         /// <summary>
         /// (Opcional)
-        /// Grupo Campo de uso livre do contribuinte.
-        /// </summary>
-        [XmlElement("obsCont", Order = 2)]
-        public List<Observacao> ObsCont { get; } = new List<Observacao>();
-
-        /// <summary>
-        /// (Opcional)
         /// Grupo Processo referenciado.
         /// </summary>
         [XmlElement("procRef", Order = 3)]

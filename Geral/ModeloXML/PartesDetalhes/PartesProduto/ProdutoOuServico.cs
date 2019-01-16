@@ -1,6 +1,5 @@
 ﻿using BaseGeral.View;
 using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
-using System.Collections.Generic;
 using System.Xml.Serialization;
 using static BaseGeral.ExtensoesPrincipal;
 
@@ -111,25 +110,10 @@ namespace BaseGeral.ModeloXML.PartesDetalhes.PartesProduto
         [XmlElement(ElementName = "indTot", Order = 20), DescricaoPropriedade("Inclusão total")]
         public int InclusaoTotal { get; set; } = 1;
 
-        [XmlElement("DI", Order = 21)]
-        public List<DeclaracaoImportacao> DI { get; set; } = new List<DeclaracaoImportacao>();
-
-        [XmlElement("detExport", Order = 22)]
-        public List<GrupoExportacao> GrupoExportação { get; set; } = new List<GrupoExportacao>();
-
         [XmlElement(Order = 23), DescricaoPropriedade("Número da Ficha de Conteúdo de Importação")]
         public string NFCI { get; set; }
 
-        [XmlElement(Order = 24), DescricaoPropriedade("Veículo")]
-        public VeiculoNovo veicProd { get; set; }
-
-        [XmlElement("arma", Order = 25)]
-        public List<Arma> armas { get; set; }
-
         [XmlElement(Order = 26), DescricaoPropriedade("Combustível")]
         public Combustivel comb { get; set; }
-
-        [XmlElement("nRECOPI", Order = 27), DescricaoPropriedade("Número RECOPI")]
-        public string NRECOPI { get; set; }
     }
 }

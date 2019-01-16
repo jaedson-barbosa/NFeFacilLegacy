@@ -1,13 +1,9 @@
-﻿using System.Collections.Generic;
-using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
+﻿using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
 
 namespace BaseGeral.ModeloXML
 {
     public interface IProdutoEspecial
     {
-        List<Arma> armas { get; set; }
         Combustivel comb { get; set; }
-        string NRECOPI { get; set; }
-        VeiculoNovo veicProd { get; set; }
     }
 }

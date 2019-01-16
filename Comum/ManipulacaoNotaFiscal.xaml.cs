@@ -43,7 +43,6 @@ namespace Comum
             new ItemHambuguer("\uE806", "Transporte"),
             new ItemHambuguer("\uE825", "Cobrança"),
             new ItemHambuguer(Symbol.Comment, "Informações adicionais"),
-            new ItemHambuguer(Symbol.World, "Exportação e compras"),
             new ItemHambuguer("\uEC0A", "Cana-de-açúcar"),
             new ItemHambuguer(Symbol.More, "Pagamento")
         };
@@ -61,13 +60,11 @@ namespace Comum
             MunicipiosIdentificacao = new ObservableCollection<Municipio>(Municipios.Get(NotaSalva.Informacoes.identificacao.CódigoUF));
             MunicipiosTransporte = new ObservableCollection<Municipio>(Municipios.Get(UFEscolhida));
             NFesReferenciadas = new ObservableCollection<DocumentoFiscalReferenciado>(NotaSalva.Informacoes.identificacao.DocumentosReferenciados.Where(x => !string.IsNullOrEmpty(x.RefNFe)));
-            NFsReferenciadas = new ObservableCollection<DocumentoFiscalReferenciado>(NotaSalva.Informacoes.identificacao.DocumentosReferenciados.Where(x => x.RefNF != null));
             Reboques = new ObservableCollection<Reboque>(NotaSalva.Informacoes.transp.Reboque);
             Volumes = new ObservableCollection<Volume>(NotaSalva.Informacoes.transp.Vol);
             Duplicatas = new ObservableCollection<Duplicata>(NotaSalva.Informacoes.cobr.Dup);
             FornecimentosDiarios = new ObservableCollection<FornecimentoDiario>(NotaSalva.Informacoes.cana.ForDia);
             Deducoes = new ObservableCollection<Deducoes>(NotaSalva.Informacoes.cana.Deduc);
-            Observacoes = new ObservableCollection<Observacao>(NotaSalva.Informacoes.infAdic.ObsCont);
             ProcessosReferenciados = new ObservableCollection<ProcessoReferenciado>(NotaSalva.Informacoes.infAdic.ProcRef);
             FormasPagamento = NotaSalva.Informacoes.Pagamento.FormasPagamento.Select(x => new FormaPagamento(x)).GerarObs();
 
@@ -363,13 +360,11 @@ namespace Comum
         ObservableCollection<Municipio> MunicipiosIdentificacao { get; set; }
         public ObservableCollection<Municipio> MunicipiosTransporte { get; set; }
         ObservableCollection<DocumentoFiscalReferenciado> NFesReferenciadas { get; set; }
-        ObservableCollection<DocumentoFiscalReferenciado> NFsReferenciadas { get; set; }
         ObservableCollection<Reboque> Reboques { get; set; }
         ObservableCollection<Volume> Volumes { get; set; }
         ObservableCollection<Duplicata> Duplicatas { get; set; }
         ObservableCollection<FornecimentoDiario> FornecimentosDiarios { get; set; }
         ObservableCollection<Deducoes> Deducoes { get; set; }
-        ObservableCollection<Observacao> Observacoes { get; set; }
         ObservableCollection<ProcessoReferenciado> ProcessosReferenciados { get; set; }
         ObservableCollection<FormaPagamento> FormasPagamento { get; set; }
 
@@ -391,31 +386,10 @@ namespace Comum
             }
         }
 
-        async void AdicionarNFReferenciada()
-        {
-            var caixa = new AdicionarNF1AReferenciada();
-            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
-            {
-                var novo = new DocumentoFiscalReferenciado
-                {
-                    RefNF = caixa.Contexto
-                };
-                NotaSalva.Informacoes.identificacao.DocumentosReferenciados.Add(novo);
-                NFsReferenciadas.Add(novo);
-            }
-        }
-
         void RemoverDocReferenciado(DocumentoFiscalReferenciado doc)
         {
             NotaSalva.Informacoes.identificacao.DocumentosReferenciados.Remove(doc);
-            if (string.IsNullOrEmpty(doc.RefNFe))
-            {
-                NFsReferenciadas.Remove(doc);
-            }
-            else
-            {
-                NFesReferenciadas.Remove(doc);
-            }
+            NFesReferenciadas.Remove(doc);
         }
 
         async void AdicionarReboque()
@@ -503,23 +477,6 @@ namespace Comum
             Deducoes.Remove(deducao);
         }
 
-        async void AdicionarObsContribuinte()
-        {
-            var caixa = new AdicionarObservacaoContribuinte();
-            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
-            {
-                var novo = caixa.Contexto;
-                NotaSalva.Informacoes.infAdic.ObsCont.Add(novo);
-                Observacoes.Add(novo);
-            }
-        }
-
-        void RemoverObsContribuinte(Observacao obs)
-        {
-            NotaSalva.Informacoes.infAdic.ObsCont.Remove(obs);
-            Observacoes.Remove(obs);
-        }
-
         async void AdicionarProcReferenciado()
         {
             var caixa = new AdicionarProcessoReferenciado();
@@ -550,11 +507,6 @@ namespace Comum
         {
             var contexto = ((FrameworkElement)sender).DataContext;
             RemoverDocReferenciado((DocumentoFiscalReferenciado)contexto);
-        }
-
-        private void AdicionarNFReferenciada(object sender, RoutedEventArgs e)
-        {
-            AdicionarNFReferenciada();
         }
 
         private void AdicionarReboque(object sender, RoutedEventArgs e)
@@ -588,17 +540,6 @@ namespace Comum
         {
             var contexto = ((FrameworkElement)sender).DataContext;
             RemoverDuplicata((Duplicata)contexto);
-        }
-
-        private void AdicionarObsContribuinte(object sender, RoutedEventArgs e)
-        {
-            AdicionarObsContribuinte();
-        }
-
-        private void RemoverObsContribuinte(object sender, RoutedEventArgs e)
-        {
-            var contexto = ((FrameworkElement)sender).DataContext;
-            RemoverObsContribuinte((Observacao)contexto);
         }
 
         private void AdicionarProcReferenciado(object sender, RoutedEventArgs e)

@@ -58,8 +58,6 @@ namespace BaseGeral.ItensBD
                                 : new Veiculo()
                         },
                         cobr = new Cobranca(),
-                        exporta = new Exportacao(),
-                        compra = new Compra(),
                         cana = new RegistroAquisicaoCana()
                     }
                 };

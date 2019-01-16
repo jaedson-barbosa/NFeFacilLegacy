@@ -106,18 +106,6 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="CaixasDialogoProduto\AddDeclaracaoExportacaoDireta.xaml.cs">
-      <DependentUpon>AddDeclaracaoExportacaoDireta.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="CaixasDialogoProduto\AddDeclaracaoExportacaoIndireta.xaml.cs">
-      <DependentUpon>AddDeclaracaoExportacaoIndireta.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="CaixasDialogoProduto\DeclaracaoImportacao.xaml.cs">
-      <DependentUpon>DeclaracaoImportacao.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="CaixasDialogoProduto\EscolherTipoDeclaracaoExportacao.xaml.cs">
-      <DependentUpon>EscolherTipoDeclaracaoExportacao.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ControlesAuxiliares\EscolhaCliente.xaml.cs">
       <DependentUpon>EscolhaCliente.xaml</DependentUpon>
     </Compile>
@@ -307,20 +295,8 @@
     <Compile Include="Impostos\TiposCalculo.cs" />
     <Compile Include="ImpSimplesArmazenado.cs" />
     <Compile Include="ProdutoDIExtended.cs" />
-    <Compile Include="ProdutoEspecial\AdicionarArmamento.xaml.cs">
-      <DependentUpon>AdicionarArmamento.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ProdutoEspecial\DefinirArmamentos.xaml.cs">
-      <DependentUpon>DefinirArmamentos.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ProdutoEspecial\DefinirCombustivel.xaml.cs">
+    <Compile Include="DefinirCombustivel.xaml.cs">
       <DependentUpon>DefinirCombustivel.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ProdutoEspecial\DefinirPapel.xaml.cs">
-      <DependentUpon>DefinirPapel.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ProdutoEspecial\DefinirVeiculo.xaml.cs">
-      <DependentUpon>DefinirVeiculo.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewProdutoVenda\AdicionarProduto.xaml.cs">
@@ -343,22 +319,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="CaixasDialogoProduto\AddDeclaracaoExportacaoDireta.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="CaixasDialogoProduto\AddDeclaracaoExportacaoIndireta.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="CaixasDialogoProduto\DeclaracaoImportacao.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="CaixasDialogoProduto\EscolherTipoDeclaracaoExportacao.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="ControlesAuxiliares\EscolhaCliente.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -527,23 +487,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ProdutoEspecial\AdicionarArmamento.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ProdutoEspecial\DefinirArmamentos.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ProdutoEspecial\DefinirCombustivel.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ProdutoEspecial\DefinirPapel.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ProdutoEspecial\DefinirVeiculo.xaml">
+    <Page Include="DefinirCombustivel.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

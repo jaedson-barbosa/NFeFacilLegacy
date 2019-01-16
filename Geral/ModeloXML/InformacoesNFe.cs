@@ -40,14 +40,6 @@ namespace BaseGeral.ModeloXML
         [XmlElement(Order = 10)]
         public InformacoesAdicionais infAdic { get; set; }
 
-        [DescricaoPropriedade("Exportação")]
-        [XmlElement(Order = 11)]
-        public Exportacao exporta { get; set; }
-
-        [DescricaoPropriedade("Compra")]
-        [XmlElement(Order = 12)]
-        public Compra compra { get; set; }
-
         [DescricaoPropriedade("Cana de açúcar")]
         [XmlElement(Order = 13)]
         public RegistroAquisicaoCana cana { get; set; }

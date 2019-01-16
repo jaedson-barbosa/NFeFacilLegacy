@@ -99,57 +99,6 @@
                     </ListView.ItemTemplate>
                 </ListView>
             </PivotItem>
-            <PivotItem Header="Notas 1/1A referenciadas">
-                <ListView ItemsSource="{x:Bind NFsReferenciadas}">
-                    <ListView.Header>
-                        <Grid Style="{StaticResource Cabecalho}">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
-                                       TextAlignment="Center"
-                                       VerticalAlignment="Center">CNPJ</TextBlock>
-                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
-                                       TextAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       Grid.Column="1">Serie</TextBlock>
-                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
-                                       TextAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       Grid.Column="2">Numero</TextBlock>
-                            <Button Grid.Column="3"
-                                    Style="{StaticResource BotaoAdd}"
-                                    Click="AdicionarNFReferenciada">
-                                <SymbolIcon Symbol="Add" />
-                            </Button>
-                        </Grid>
-                    </ListView.Header>
-                    <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="partesIdentif:DocumentoFiscalReferenciado">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Grid.ContextFlyout>
-                                    <MenuFlyout>
-                                        <MenuFlyoutItem Click="RemoverDocReferenciado">Remover</MenuFlyoutItem>
-                                    </MenuFlyout>
-                                </Grid.ContextFlyout>
-                                <TextBlock Text="{x:Bind RefNF.CNPJ}" />
-                                <TextBlock Grid.Column="1"
-                                           Text="{x:Bind RefNF.Serie}" />
-                                <TextBlock Grid.Column="2"
-                                           Text="{x:Bind RefNF.NNF}" />
-                            </Grid>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </PivotItem>
         </Pivot>
         <Grid Padding="16">
             <Grid.RowDefinitions>
@@ -487,52 +436,6 @@
                                                    Header="Informacoes complementares de interesse do contribuinte" />
                 </Grid>
             </PivotItem>
-            <PivotItem Header="Observações do contribuinte">
-                <ListView Margin="0,8,0,0"
-                          ItemsSource="{x:Bind Observacoes}">
-                    <ListView.Header>
-                        <Grid Style="{StaticResource Cabecalho}">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
-                                       TextAlignment="Center"
-                                       VerticalAlignment="Center">Nome</TextBlock>
-                            <TextBlock Grid.Column="1"
-                                       Style="{StaticResource SubtitleTextBlockStyle}"
-                                       TextAlignment="Center"
-                                       VerticalAlignment="Center">Observação</TextBlock>
-                            <Button Grid.Column="2"
-                                    Style="{StaticResource BotaoAdd}"
-                                    Click="AdicionarObsContribuinte">
-                                <SymbolIcon Symbol="Add" />
-                            </Button>
-                        </Grid>
-                    </ListView.Header>
-                    <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="partesDetalhes:Observacao">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Grid.ContextFlyout>
-                                    <MenuFlyout>
-                                        <MenuFlyoutItem Click="RemoverObsContribuinte">Remover</MenuFlyoutItem>
-                                    </MenuFlyout>
-                                </Grid.ContextFlyout>
-                                <TextBlock TextWrapping="Wrap"
-                                           Text="{x:Bind XCampo}" />
-                                <TextBlock Grid.Column="1"
-                                           TextWrapping="Wrap"
-                                           Text="{x:Bind XTexto}" />
-                            </Grid>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </PivotItem>
             <PivotItem Header="Processos referenciados">
                 <ListView Margin="0,8,0,0"
                           ItemsSource="{x:Bind ProcessosReferenciados}">
@@ -578,29 +481,6 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-            </PivotItem>
-        </Pivot>
-        <Pivot Margin="16">
-            <PivotItem Header="Exportação">
-                <StackPanel DataContext="{x:Bind NotaSalva.Informacoes.exporta}">
-                    <ComboBox ItemsSource="{x:Bind VM:DadosEstadosParaView.Siglas}"
-                              SelectedItem="{x:Bind NotaSalva.Informacoes.exporta.UFSaidaPais, Mode=TwoWay}"
-                              Header="UF embarque/transposição de fronteira" />
-                    <TextBox Text="{x:Bind NotaSalva.Informacoes.exporta.XLocExporta, Mode=TwoWay}"
-                             Header="Local de embarque/transposição de fronteira" />
-                    <TextBox Text="{x:Bind NotaSalva.Informacoes.exporta.XLocDespacho, Mode=TwoWay}"
-                             Header="Local de despacho" />
-                </StackPanel>
-            </PivotItem>
-            <PivotItem Header="Compra">
-                <StackPanel DataContext="{x:Bind NotaSalva.Informacoes.compra}">
-                    <TextBox Text="{x:Bind NotaSalva.Informacoes.compra.XNEmp, Mode=TwoWay}"
-                             Header="Nota de empenho" />
-                    <TextBox Text="{x:Bind NotaSalva.Informacoes.compra.XPed, Mode=TwoWay}"
-                             Header="Pedido" />
-                    <TextBox Text="{x:Bind NotaSalva.Informacoes.compra.XCont, Mode=TwoWay}"
-                             Header="Contrato" />
-                </StackPanel>
             </PivotItem>
         </Pivot>
         <Pivot Margin="16">

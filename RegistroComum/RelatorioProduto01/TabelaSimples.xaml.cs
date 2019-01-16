@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 // O modelo de item de Controle de Usuário está documentado em https://go.microsoft.com/fwlink/?LinkId=234236

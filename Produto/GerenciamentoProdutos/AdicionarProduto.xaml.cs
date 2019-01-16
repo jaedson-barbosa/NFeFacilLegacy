@@ -5,9 +5,7 @@ using Windows.UI.Xaml.Navigation;
 using System;
 using BaseGeral.ItensBD;
 using System.Xml.Linq;
-using BaseGeral.ModeloXML;
 using Venda.Impostos.DetalhamentoICMS;
-using Venda.ProdutoEspecial;
 using System.Collections.ObjectModel;
 using Venda.Impostos;
 using System.Threading.Tasks;
@@ -52,36 +50,16 @@ namespace Venda.GerenciamentoProdutos
             }
             set
             {
-                var prod = (IProdutoEspecial)Produto;
                 switch (value)
                 {
                     case 0:
                         Produto.ResetEspecial();
                         break;
                     case 1:
-                        BasicMainPage.Current.Navegar<DefinirVeiculo>(Produto);
-                        break;
-                    case 2:
-                        BasicMainPage.Current.Navegar<DefinirArmamentos>(Produto);
-                        break;
-                    case 3:
                         BasicMainPage.Current.Navegar<DefinirCombustivel>(Produto);
-                        break;
-                    case 4:
-                        DefinirPapel();
                         break;
                     default:
                         break;
-                }
-
-                async void DefinirPapel()
-                {
-                    var caixa = new DefinirPapel(Produto);
-                    if (await caixa.ShowAsync() == ContentDialogResult.Primary)
-                    {
-                        Produto.ResetEspecial();
-                        prod.NRECOPI = caixa.NRECOPI;
-                    }
                 }
             }
         }

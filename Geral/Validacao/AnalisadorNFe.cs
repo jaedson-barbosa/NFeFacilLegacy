@@ -29,10 +29,6 @@ namespace BaseGeral.Validacao
             var info = Nota.Informacoes;
             info.cobr = ValidarFatura(info.cobr?.Fat) ? info.cobr : null;
             info.infAdic = ValidarInfoAdicional(info.infAdic) ? info.infAdic : null;
-            info.exporta = new ValidarDados().ValidarTudo(false,
-                (string.IsNullOrEmpty(info.exporta?.UFSaidaPais), "Não foi definida uma UF de saída."),
-                (string.IsNullOrEmpty(info.exporta?.XLocExporta), "Não foi definido o local de exportação")) ? info.exporta : null;
-            info.compra = ValidarCompra(info.compra) ? info.compra : null;
             info.cana = ValidarCana(info.cana) ? info.cana : null;
         }
 
@@ -58,14 +54,6 @@ namespace BaseGeral.Validacao
             if (Nota.Informacoes.infAdic == null)
             {
                 Nota.Informacoes.infAdic = new InformacoesAdicionais();
-            }
-            if (Nota.Informacoes.exporta == null)
-            {
-                Nota.Informacoes.exporta = new Exportacao();
-            }
-            if (Nota.Informacoes.compra == null)
-            {
-                Nota.Informacoes.compra = new Compra();
             }
             if (Nota.Informacoes.cana == null)
             {
@@ -169,25 +157,12 @@ namespace BaseGeral.Validacao
             }
             else
             {
-                var errados = new bool[3]
+                var errados = new bool[2]
                 {
                         string.IsNullOrEmpty(info.InfCpl),
-                        info.ObsCont.Count == 0,
                         info.ProcRef.Count == 0
                 };
-                return errados.Count(x => x) < 3;
-            }
-        }
-
-        bool ValidarCompra(Compra compra)
-        {
-            if (compra == null)
-            {
-                return false;
-            }
-            else
-            {
-                return StringsNaoNulas(compra.XCont, compra.XNEmp, compra.XPed);
+                return errados.Count(x => x) < 2;
             }
         }
 

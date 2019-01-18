@@ -81,7 +81,7 @@ namespace NFeFacil.Login
                     {
                         repo.SalvarItemSimples(Emit, DefinicoesTemporarias.DateTimeNow);
                     }
-                    MainPage.Current.Retornar();
+                    MainPage.Current.Navegar<GeralEmitente>();
                 }
             }
             catch (Exception erro)

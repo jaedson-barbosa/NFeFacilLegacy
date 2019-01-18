@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -35,7 +36,42 @@ namespace NFeFacil.Login
                 new EtapaProcesso("Ajustar definições de globalização"),
                 new EtapaProcesso("Analisar compras")
             };
-            Start();
+        }
+
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        {
+            try
+            {
+
+                if (e.Parameter != null)
+                {
+                    Update(1);
+                    await AnalisarBanco();
+                }
+                else
+                {
+                    Update(0);
+                    ProcessarIBGE();
+                    Update(1);
+                    await AnalisarBanco();
+                    Update(2);
+                    AjustarBackground();
+                    Update(3);
+                    VerificarInicioServidor();
+                    Update(4);
+                    AdicionarEventoRetorno();
+                    Update(5);
+                    AjustarGlobalizacao();
+                    Update(6);
+                    await AnalisarCompras();
+                }
+                Update(7);
+                Finalizar();
+            }
+            catch (Exception erro)
+            {
+                txtAtual.Text = erro.Message;
+            }
         }
 
         void Update(int etapasConcluidas)
@@ -50,33 +86,6 @@ namespace NFeFacil.Login
             {
                 Etapas[etapasConcluidas].Atual = EtapaProcesso.Status.EmAndamento;
                 Etapas[etapasConcluidas].Update();
-            }
-        }
-
-        async void Start()
-        {
-            try
-            {
-                Update(0);
-                ProcessarIBGE();
-                Update(1);
-                await AnalisarBanco();
-                Update(2);
-                AjustarBackground();
-                Update(3);
-                VerificarInicioServidor();
-                Update(4);
-                AdicionarEventoRetorno();
-                Update(5);
-                AjustarGlobalizacao();
-                Update(6);
-                await AnalisarCompras();
-                Update(7);
-                Finalizar();
-            }
-            catch (Exception e)
-            {
-                txtAtual.Text = e.Message;
             }
         }
 
@@ -160,7 +169,7 @@ namespace NFeFacil.Login
                 {
                     if (repo.EmitentesCadastrados)
                     {
-                        current.Navegar<EscolhaEmitente>();
+                        current.Navegar<GeralEmitente>();
                     }
                     else
                     {

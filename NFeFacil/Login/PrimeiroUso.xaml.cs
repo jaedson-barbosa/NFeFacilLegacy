@@ -1,14 +1,9 @@
-﻿using BaseGeral;
-using BaseGeral.Log;
-using BaseGeral.View;
+﻿using BaseGeral.View;
 using NFeFacil.Sincronizacao;
 using System;
-using System.IO;
-using System.Threading.Tasks;
 using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Navigation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -22,48 +17,20 @@ namespace NFeFacil.Login
             InitializeComponent();
         }
 
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
-        {
-            if (e.NavigationMode == NavigationMode.Back)
-            {
-                using (var repo = new BaseGeral.Repositorio.Leitura())
-                {
-                    if (repo.EmitentesCadastrados)
-                    {
-                        await Task.Delay(500);
-                        MainPage.Current.Navegar<EscolhaEmitente>();
-                    }
-                }
-            }
-        }
-
         void Manualmente(object sender, RoutedEventArgs e) => MainPage.Current.Navegar<AdicionarEmitente>();
         void Sincronizar(object sender, RoutedEventArgs e) => MainPage.Current.Navegar<SincronizacaoCliente>();
         async void RestaurarBackup(object sender, RoutedEventArgs e)
         {
             var caixa = new FileOpenPicker();
-            caixa.FileTypeFilter.Add(".xml");
+            caixa.FileTypeFilter.Add(".db");
             var arq = await caixa.PickSingleFileAsync();
             if (arq != null)
             {
-                var stream = await arq.OpenStreamForReadAsync();
-                using (var leitor = new StreamReader(stream))
-                {
-                    try
-                    {
-                        var texto = await leitor.ReadToEndAsync();
-                        var conjunto = texto.FromString<ConjuntoBanco>();
-                        conjunto.AnalisarESalvar();
-                        Popup.Current.Escrever(TitulosComuns.Sucesso, "Backup restaurado com sucesso.");
-
-                        await Task.Delay(500);
-                        MainPage.Current.Navegar<EscolhaEmitente>();
-                    }
-                    catch (Exception erro)
-                    {
-                        erro.ManipularErro();
-                    }
-                }
+                var folder = Windows.Storage.ApplicationData.Current.LocalFolder;
+                await arq.CopyAsync(folder,
+                    "informacoes.db",
+                    Windows.Storage.NameCollisionOption.ReplaceExisting);
+                MainPage.Current.Navegar<Loading>(true);
             }
         }
     }

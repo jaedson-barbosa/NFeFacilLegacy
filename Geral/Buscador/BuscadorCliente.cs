@@ -20,6 +20,9 @@ namespace BaseGeral.Buscador
         }
 
         protected override (string, string) ItemComparado(ClienteDI item, int modoBusca)
+            => StaticItemComparado(item, modoBusca);
+
+        public static (string, string) StaticItemComparado(ClienteDI item, int modoBusca)
         {
             switch (modoBusca)
             {
@@ -30,6 +33,9 @@ namespace BaseGeral.Buscador
         }
 
         protected override void InvalidarItem(ClienteDI item, int modoBusca)
+            => StaticInvalidarItem(item, modoBusca);
+
+        public static void StaticInvalidarItem(ClienteDI item, int modoBusca)
         {
             switch (modoBusca)
             {

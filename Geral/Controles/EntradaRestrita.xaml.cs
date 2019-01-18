@@ -33,8 +33,6 @@ namespace BaseGeral.Controles
         }
 
         public string Pattern { get; set; }
-
-        public bool MultiplePoints { get; set; }
         
         public string Text
         {
@@ -85,12 +83,9 @@ namespace BaseGeral.Controles
             if (dataPackageView.Contains(StandardDataFormats.Text))
             {
                 var texto = await dataPackageView.GetTextAsync();
-                if (!MultiplePoints)
-                {
-                    var regex = new Regex(@"[.,]");
-                    var ocorrencias = regex.Matches(texto);
-                    texto = regex.Replace(texto, string.Empty, ocorrencias.Count - 1);
-                }
+                var regex = new Regex(@"[.,]");
+                var ocorrencias = regex.Matches(texto);
+                texto = regex.Replace(texto, string.Empty, ocorrencias.Count - 1);
                 input.Text = Regex.Replace(texto, Pattern, string.Empty);
                 e.Handled = true;
             }

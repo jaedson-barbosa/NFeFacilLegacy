@@ -50,13 +50,12 @@ namespace BaseGeral.Buscador
         protected abstract void InvalidarItem(TipoBusca item, int modoBusca);
         public void Remover(TipoBusca produto)
         {
-            var modoBusca = ModoBusca;
             for (int i = 0; i < TodosItens.Length; i++)
             {
                 var at = TodosItens[i];
-                (string, string) comp1 = ItemComparado(at, modoBusca), comp2 = ItemComparado(produto, modoBusca);
+                (string, string) comp1 = ItemComparado(at, ModoBusca), comp2 = ItemComparado(produto, ModoBusca);
                 if (comp1.Item1 == comp2.Item1 && comp1.Item2 == comp2.Item2)
-                    InvalidarItem(at, modoBusca);
+                    InvalidarItem(at, ModoBusca);
             }
             Itens.Remove(produto);
         }

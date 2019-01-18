@@ -48,13 +48,7 @@
                               IsOn="{x:Bind root:DefinicoesPermanentes.CalculoHASHReserva, Mode=TwoWay}" />
                 <controles:ItemPadrao HorizontalAlignment="Left"
                                       Titulo="Salvar backup"
-                                      Descricao="Guarde todas as informações do aplicativo em um único arquivo."
-                                      Click="SalvarBackup">
-                    <SymbolIcon Symbol="Save" />
-                </controles:ItemPadrao>
-                <controles:ItemPadrao HorizontalAlignment="Left"
-                                      Titulo="Salvar BD"
-                                      Descricao="Salve o arquivo do banco de dados."
+                                      Descricao="Guarde todas as informações do aplicativo num único arquivo."
                                       Click="SalvarBD">
                     <SymbolIcon Symbol="Save" />
                 </controles:ItemPadrao>

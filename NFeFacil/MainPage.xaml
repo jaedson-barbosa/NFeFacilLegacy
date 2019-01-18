@@ -3,8 +3,47 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      mc:Ignorable="d"
-      KeyDown="TeclaPressionada">
+      mc:Ignorable="d">
+    <Page.Resources>
+        <Storyboard x:Name="RotInfoPane">
+            <DoubleAnimation Duration="0:00:1"
+                             From="-48" To="0"
+                             Storyboard.TargetName="grdInfoPane"
+                             Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)">
+                <DoubleAnimation.EasingFunction>
+                    <CircleEase EasingMode="EaseIn"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation BeginTime="0:00:1"
+                             Duration="0:00:1"
+                             From="-90" To="0"
+                             Storyboard.TargetName="grdInfoPane"
+                             Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)">
+                <DoubleAnimation.EasingFunction>
+                    <CircleEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+        <Storyboard x:Name="RotInfoPaneInverse" Completed="RotInfoPaneInverse_Completed">
+            <DoubleAnimation Duration="0:00:0.5"
+                             From="0" To="-90"
+                             Storyboard.TargetName="grdInfoPane"
+                             Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)">
+                <DoubleAnimation.EasingFunction>
+                    <CircleEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation BeginTime="0:00:0.5"
+                             Duration="0:00:0.5"
+                             From="0" To="-48"
+                             Storyboard.TargetName="grdInfoPane"
+                             Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)">
+                <DoubleAnimation.EasingFunction>
+                    <CircleEase EasingMode="EaseIn"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+    </Page.Resources>
     <Grid>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
@@ -76,7 +115,7 @@
         </Grid>
         <SplitView x:Name="splitView"
                    Grid.Row="1"
-                   DisplayMode="CompactOverlay">
+                   DisplayMode="CompactOverlay" PaneClosing="SplitView_PaneClosing">
             <SplitView.Pane>
                 <Grid Padding="0,0,0,48">
                     <Grid.RowDefinitions>
@@ -90,62 +129,51 @@
                             <ColumnDefinition Width="48" />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="48" />
-                            <RowDefinition Height="48" />
-                        </Grid.RowDefinitions>
                         <SymbolIcon Symbol="Contact"
+                                    Height="48"
+                                    Width="48"
                                     Canvas.ZIndex="0" />
                         <Image x:Name="imgLogotipo"
                                Canvas.ZIndex="1"
+                               Height="48"
+                               Width="48"
                                Stretch="UniformToFill" />
-                        <TextBlock x:Name="txtNomeEmpresa"
-                                   Grid.Column="1"
-                                   Style="{StaticResource BodyTextBlockStyle}"
-                                   TextAlignment="Center"
-                                   Margin="4,0,4,4"
-                                   FontWeight="Bold"
-                                   VerticalAlignment="Top" />
-                        <TextBlock x:Name="txtNomeEmitente"
-                                   Grid.Column="1"
-                                   Style="{StaticResource BodyTextBlockStyle}"
-                                   TextAlignment="Center"
-                                   Margin="4,0,4,4"
-                                   VerticalAlignment="Bottom" />
-                        <SymbolIcon Symbol="Contact"
-                                    Grid.Row="1"
-                                    Canvas.ZIndex="0" />
-                        <Image x:Name="imgVendedor"
-                               Grid.Row="1"
-                               Canvas.ZIndex="1"
-                               Stretch="UniformToFill" />
-                        <TextBlock x:Name="txtNomeVendedor"
-                                   Grid.Row="1"
-                                   Grid.Column="1"
-                                   Style="{StaticResource BodyTextBlockStyle}"
-                                   TextAlignment="Center"
-                                   Margin="4,0,4,4"
-                                   FontWeight="Bold"
-                                   VerticalAlignment="Center" />
+                        <Grid x:Name="grdInfoPane"
+                              Grid.Column="1"
+                              RenderTransformOrigin="0,0">
+                            <Grid.RenderTransform>
+                                <CompositeTransform Rotation="-90" TranslateX="-48" />
+                            </Grid.RenderTransform>
+                            <TextBlock x:Name="txtNomeEmpresa"
+                                       Style="{StaticResource BodyTextBlockStyle}"
+                                       Margin="4"
+                                       FontWeight="Bold"
+                                       VerticalAlignment="Top" Text="AAAAA" />
+                            <TextBlock x:Name="txtNomeEmitente"
+                                       Style="{StaticResource BodyTextBlockStyle}"
+                                       Margin="4"
+                                       VerticalAlignment="Bottom" Text="BBBBB" />
+                        </Grid>
                     </Grid>
                 </Grid>
             </SplitView.Pane>
             <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="899*"/>
+                    <RowDefinition Height="21*"/>
+                </Grid.RowDefinitions>
                 <Image Name="backgroundImagem"
                        Stretch="UniformToFill"
-                       Visibility="Collapsed" />
+                       Visibility="Collapsed" HorizontalAlignment="Stretch" Margin="0,0,0,0" Grid.RowSpan="2" VerticalAlignment="Stretch" />
                 <Rectangle Name="backgroundCor"
                            Fill="{StaticResource Variada}"
                            Visibility="Collapsed"
-                           Stretch="Fill"
-                           HorizontalAlignment="Stretch"
-                           VerticalAlignment="Stretch" />
+                           Stretch="Fill" Margin="0,0,0,0" Grid.RowSpan="2" />
                 <Frame Name="FramePrincipal"
                        x:FieldModifier="Public"
-                       Grid.Column="1"
                        Canvas.ZIndex="1"
                        Navigated="NavegacaoConcluida"
-                       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" HorizontalAlignment="Stretch" Margin="0,0,0,0" Grid.RowSpan="2" VerticalAlignment="Stretch">
                     <Frame.ContentTransitions>
                         <TransitionCollection>
                             <NavigationThemeTransition>
@@ -154,7 +182,7 @@
                         </TransitionCollection>
                     </Frame.ContentTransitions>
                 </Frame>
-                <Image></Image>
+                <Image HorizontalAlignment="Stretch" Margin="0,0,0,0" Grid.RowSpan="2" VerticalAlignment="Stretch"></Image>
             </Grid>
         </SplitView>
     </Grid>

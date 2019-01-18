@@ -41,13 +41,13 @@ namespace NFeFacil.View
                 produtosEFornecedoresCadastrados = leitura.ExisteCategoria && leitura.ExisteFornecedor;
         }
 
-        void AbrirClientes(object sender, RoutedEventArgs e) => Navegar<GerenciarClientes>();
-        void AbrirMotoristas(object sender, RoutedEventArgs e) => Navegar<GerenciarMotoristas>();
+        void AbrirClientes(object sender, RoutedEventArgs e) => Navegar<GerenciadorGenerico>(new ControllerClientes());
+        void AbrirMotoristas(object sender, RoutedEventArgs e) => Navegar<GerenciadorGenerico>(new ControllerMotoristas());
+        void AbrirFornecedores(object sender, RoutedEventArgs e) => Navegar<GerenciadorGenerico>(new ControllerFornecedores());
+        void AbrirCategorias(object sender, RoutedEventArgs e) => Navegar<GerenciadorGenerico>(new ControllerCategorias());
+        void AbrirVendedores(object sender, RoutedEventArgs e) => Navegar<GerenciadorGenerico>(new ControllerVendedores());
+        void AbrirCompradores(object sender, RoutedEventArgs e) => Navegar<GerenciadorGenerico>(new ControllerCompradores());
         void AbrirProdutos(object sender, RoutedEventArgs e) => Navegar<GerenciarProdutos>();
-        void AbrirFornecedores(object sender, RoutedEventArgs e) => Navegar<GerenciarFornecedores>();
-        void AbrirCategorias(object sender, RoutedEventArgs e) => Navegar<GerenciarCategorias>();
-        void AbrirVendedores(object sender, RoutedEventArgs e) => Navegar<GerenciarVendedores>();
-        void AbrirCompradores(object sender, RoutedEventArgs e) => Navegar<GerenciarCompradores>();
 
         async void CriarNFe(object sender, RoutedEventArgs e)
         {

@@ -17,7 +17,7 @@
         <TextBlock x:Name="txtAtual"
                    Grid.Row="1"
                    FontWeight="Bold"
-                   TextAlignment="Center">Iniciando sistemas do aplicativo...</TextBlock>
+                   TextAlignment="Center">Recomendamos usar o aplicativo em tela cheia.</TextBlock>
         <ItemsControl Grid.Row="2"
                       ItemsSource="{x:Bind Etapas}"
                       HorizontalAlignment="Center"

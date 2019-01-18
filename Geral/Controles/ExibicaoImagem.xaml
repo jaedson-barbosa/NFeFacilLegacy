@@ -3,35 +3,29 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d"
-             MinWidth="264"
-             d:DesignWidth="400">
+             mc:Ignorable="d">
     <Grid Background="Transparent">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition />
         </Grid.RowDefinitions>
-        <Border BorderBrush="{StaticResource Normal}"
-                BorderThickness="4"
-                CornerRadius="128"
-                Width="256"
-                Height="256"
-                Margin="4">
-            <Image Source="{x:Bind Imagem}"
-                   Stretch="UniformToFill" />
-        </Border>
-        <TextBlock Grid.Row="1"
+        <Image Source="{x:Bind Imagem}"
+               Grid.RowSpan="2"
+               Stretch="UniformToFill" />
+        <TextBlock Grid.Column="1"
                    Text="{x:Bind Principal}"
                    Style="{StaticResource BodyTextBlockStyle}"
-                   MaxWidth="256"
                    TextAlignment="Center"
                    FontWeight="Bold"
                    FontSize="18" />
-        <TextBlock Grid.Row="2"
+        <TextBlock Grid.Column="1"
+                   Grid.Row="1"
                    Text="{x:Bind Secundario}"
                    Style="{StaticResource BodyTextBlockStyle}"
-                   MaxWidth="256"
                    TextAlignment="Center" />
     </Grid>
 </UserControl>

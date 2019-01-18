@@ -177,11 +177,17 @@
     <Compile Include="ViewDadosBase\AssociarCategoriaFornecedor.xaml.cs">
       <DependentUpon>AssociarCategoriaFornecedor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewDadosBase\GerenciarCategorias.xaml.cs">
-      <DependentUpon>GerenciarCategorias.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewDadosBase\GerenciarFornecedores.xaml.cs">
-      <DependentUpon>GerenciarFornecedores.xaml</DependentUpon>
+    <Compile Include="ViewDadosBase\ControllerCategorias.cs" />
+    <Compile Include="ViewDadosBase\ControllerClientes.cs" />
+    <Compile Include="ViewDadosBase\ControllerCompradores.cs" />
+    <Compile Include="ViewDadosBase\ControllerFornecedores.cs" />
+    <Compile Include="ViewDadosBase\ControllerGerenciadorGeral.cs" />
+    <Compile Include="ViewDadosBase\ControllerMotoristas.cs" />
+    <Compile Include="ViewDadosBase\ControllerVendedores.cs" />
+    <Compile Include="ViewDadosBase\ExibicaoEspecifica.cs" />
+    <Compile Include="ViewDadosBase\ExibicaoGenerica.cs" />
+    <Compile Include="ViewDadosBase\GerenciadorGenerico.xaml.cs">
+      <DependentUpon>GerenciadorGenerico.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewSincronizacao\ConfigurarDadosConexao.xaml.cs">
       <DependentUpon>ConfigurarDadosConexao.xaml</DependentUpon>
@@ -195,27 +201,8 @@
     <Compile Include="ViewSincronizacao\SincronizacaoServidor.xaml.cs">
       <DependentUpon>SincronizacaoServidor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ConjuntoBanco.cs" />
     <Compile Include="ViewDadosBase\AdicionarComprador.xaml.cs">
       <DependentUpon>AdicionarComprador.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewDadosBase\GerenciarClientes.xaml.cs">
-      <DependentUpon>GerenciarClientes.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewDadosBase\GerenciarCompradores.xaml.cs">
-      <DependentUpon>GerenciarCompradores.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewDadosBase\GerenciarMotoristas.xaml.cs">
-      <DependentUpon>GerenciarMotoristas.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewDadosBase\GerenciarVendedores.xaml.cs">
-      <DependentUpon>GerenciarVendedores.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Login\EscolhaEmitente.xaml.cs">
-      <DependentUpon>EscolhaEmitente.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Login\EscolhaVendedor.xaml.cs">
-      <DependentUpon>EscolhaVendedor.xaml</DependentUpon>
     </Compile>
     <Compile Include="Login\GeralEmitente.xaml.cs">
       <DependentUpon>GeralEmitente.xaml</DependentUpon>
@@ -316,27 +303,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewDadosBase\GerenciarCategorias.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ViewDadosBase\GerenciarClientes.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ViewDadosBase\GerenciarCompradores.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ViewDadosBase\GerenciarFornecedores.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ViewDadosBase\GerenciarMotoristas.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ViewDadosBase\GerenciarVendedores.xaml">
+    <Page Include="ViewDadosBase\GerenciadorGenerico.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -355,14 +322,6 @@
     <Page Include="ViewSincronizacao\SincronizacaoServidor.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Login\EscolhaEmitente.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Login\EscolhaVendedor.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Login\GeralEmitente.xaml">
       <SubType>Designer</SubType>
@@ -448,16 +407,11 @@
       <Version>2.1.4</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.1.7</Version>
+      <Version>6.1.9</Version>
     </PackageReference>
     <PackageReference Include="System.ValueTuple">
       <Version>4.5.0</Version>
     </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <SDKReference Include="WindowsMobile, Version=10.0.16299.0">
-      <Name>Windows Mobile Extensions for the UWP</Name>
-    </SDKReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Comum\Comum.csproj">

@@ -12,31 +12,15 @@ namespace BaseGeral.Repositorio
 
         public void Dispose() => db.Dispose();
 
-        public IEnumerable<(EmitenteDI, byte[])> ObterEmitentes()
+        public (EmitenteDI, byte[]) ObterEmitente()
         {
-            var emitentes = db.Emitentes.ToArray();
             var imagens = db.Imagens;
-            var quantEmitentes = emitentes.Length;
-            for (int i = 0; i < quantEmitentes; i++)
-            {
-                var atual = emitentes[i];
-                var img = imagens.Find(atual.Id);
-                yield return (atual, img?.Bytes);
-            }
+            var atual = db.Emitentes.First();
+            var img = imagens.Find(atual.Id);
+            return (atual, img?.Bytes);
         }
 
-        public IEnumerable<(Vendedor, byte[])> ObterVendedores()
-        {
-            var vendedores = db.Vendedores.Where(x => x.Ativo).ToArray();
-            var imagens = db.Imagens;
-            var quantVendedores = vendedores.Length;
-            for (int i = 0; i < quantVendedores; i++)
-            {
-                var atual = vendedores[i];
-                var img = imagens.Find(atual.Id);
-                yield return (atual, img?.Bytes);
-            }
-        }
+        public IEnumerable<Vendedor> ObterVendedores() => db.Vendedores.Where(x => x.Ativo).OrderBy(x => x.Nome);
 
         public bool EmitentesCadastrados => db.Emitentes.Count() > 0;
 

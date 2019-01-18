@@ -5,22 +5,19 @@ using Windows.UI.Xaml.Controls;
 
 namespace NFeFacil.View
 {
-    public sealed class PainelAdaptavel : Panel
+    public class PainelAdaptavel : Panel
     {
         private double _maxWidth;
         private double _maxHeight;
         private double colunas;
 
-        public double TamanhoDesejado { get; set; }
-
         protected override Size MeasureOverride(Size availableSize)
         {
             if (Children.Count > 1)
             {
-                var tamanhoComparacao = TamanhoDesejado == 0 ? availableSize : new Size(TamanhoDesejado, availableSize.Height);
                 _maxWidth = Children.Max(x =>
                 {
-                    x.Measure(tamanhoComparacao);
+                    x.Measure(availableSize);
                     return x.DesiredSize.Width;
                 });
                 _maxHeight = Children.Max(x => x.DesiredSize.Height);
@@ -31,9 +28,8 @@ namespace NFeFacil.View
             }
             else if (Children.Count == 1)
             {
-                var tamanhoComparacao = TamanhoDesejado == 0 ? availableSize : new Size(TamanhoDesejado, availableSize.Height);
                 var filho = Children[0];
-                filho.Measure(tamanhoComparacao);
+                filho.Measure(availableSize);
                 _maxWidth =  filho.DesiredSize.Width;
                 _maxHeight = filho.DesiredSize.Height;
 

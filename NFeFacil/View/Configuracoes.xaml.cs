@@ -5,7 +5,6 @@ using RegistroComum.CondicaoPagamento;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.IO;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.System.Profile;
@@ -104,33 +103,6 @@ namespace NFeFacil.View
         {
             DefinicoesPermanentes.OpacidadeBackground = 1;
             MainPage.Current.DefinirTipoBackground(TiposBackground.Padrao);
-        }
-
-        async void SalvarBackup(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                var objeto = new ConjuntoBanco();
-                objeto.AtualizarPadrao();
-                var xml = objeto.ToXElement<ConjuntoBanco>().ToString();
-
-                var caixa = new FileSavePicker();
-                caixa.FileTypeChoices.Add("Arquivo XML", new string[] { ".xml" });
-                var arq = await caixa.PickSaveFileAsync();
-                if (arq != null)
-                {
-                    var stream = await arq.OpenStreamForWriteAsync();
-                    using (StreamWriter escritor = new StreamWriter(stream))
-                    {
-                        await escritor.WriteAsync(xml);
-                        await escritor.FlushAsync();
-                    }
-                }
-            }
-            catch (Exception erro)
-            {
-                erro.ManipularErro();
-            }
         }
 
         async void SalvarBD(object sender, RoutedEventArgs e)

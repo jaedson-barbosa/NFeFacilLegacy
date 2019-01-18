@@ -1,27 +1,26 @@
 ﻿using BaseGeral;
 using BaseGeral.Buscador;
 using BaseGeral.ItensBD;
-using BaseGeral.View;
 using System;
-using Windows.UI.Xaml;
+using System.Linq;
 using Windows.UI.Xaml.Controls;
-
-// O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace NFeFacil.ViewDadosBase
 {
-    [DetalhePagina(Symbol.Manage, "Gerenciar clientes")]
-    public sealed partial class GerenciarClientes : Page
+    public sealed class ControllerClientes : ControllerGerenciadorGeral
     {
-        BuscadorCliente Clientes { get; }
-
-        public GerenciarClientes()
+        public ControllerClientes() : base("Inativar", DefinicoesPermanentes.ModoBuscaCliente)
         {
-            InitializeComponent();
-            Clientes = new BuscadorCliente();
+            using (var repo = new BaseGeral.Repositorio.Leitura())
+            {
+                TodosItens = repo.ObterClientes()
+                    .Select(x => new ExibicaoEspecifica<ClienteDI>(x, x.Documento, x.NomeMunicipio, x.Nome))
+                    .ToArray();
+                Itens = TodosItens.GerarObs();
+            }
         }
 
-        async void AdicionarCliente(object sender, RoutedEventArgs e)
+        public override async void Adicionar()
         {
             var caixa = new EscolherTipoCliente();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
@@ -44,48 +43,36 @@ namespace NFeFacil.ViewDadosBase
             }
         }
 
-        private void EditarCliente(object sender, RoutedEventArgs e)
+        public override void Editar(ExibicaoGenerica contexto)
         {
-            var contexto = ((FrameworkElement)sender).DataContext;
-            var dest = (ClienteDI)contexto;
-
+            var dest = contexto.Convert<ClienteDI>();
             if (!string.IsNullOrEmpty(dest.CPF))
             {
                 if (dest.IndicadorIE == 1)
-                {
                     MainPage.Current.Navegar<AdicionarClienteBrasileiroPFContribuinte>(dest);
-                }
                 else
-                {
                     MainPage.Current.Navegar<AdicionarClienteBrasileiroPF>(dest);
-                }
             }
             else if (!string.IsNullOrEmpty(dest.CNPJ))
-            {
                 MainPage.Current.Navegar<AdicionarClienteBrasileiroPJ>(dest);
-            }
             else
-            {
                 MainPage.Current.Navegar<AdicionarClienteEstrangeiro>(dest);
-            }
         }
 
-        private void InativarCliente(object sender, RoutedEventArgs e)
+        public override void AcaoSecundaria(ExibicaoGenerica contexto)
         {
-            var contexto = ((FrameworkElement)sender).DataContext;
-            var dest = (ClienteDI)contexto;
-
+            var dest = contexto.Convert<ClienteDI>();
             using (var repo = new BaseGeral.Repositorio.Escrita())
             {
                 repo.InativarDadoBase(dest, DefinicoesTemporarias.DateTimeNow);
-                Clientes.Remover(dest);
+                Remover(contexto);
             }
         }
 
-        private void Buscar(object sender, TextChangedEventArgs e)
-        {
-            var busca = ((TextBox)sender).Text;
-            Clientes.Buscar(busca);
-        }
+        protected override (string, string) ItemComparado(ExibicaoGenerica item, int modoBusca)
+            => BuscadorCliente.StaticItemComparado(item.Convert<ClienteDI>(), modoBusca);
+
+        protected override void InvalidarItem(ExibicaoGenerica item, int modoBusca)
+            => BuscadorCliente.StaticInvalidarItem(item.Convert<ClienteDI>(), modoBusca);
     }
 }

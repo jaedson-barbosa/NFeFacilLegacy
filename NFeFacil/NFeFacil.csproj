@@ -171,12 +171,20 @@
     <Compile Include="ViewDadosBase\AdicionarCategoria.xaml.cs">
       <DependentUpon>AdicionarCategoria.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewDadosBase\AdicionarCliente.xaml.cs">
+      <DependentUpon>AdicionarCliente.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewDadosBase\AdicionarFornecedor.xaml.cs">
       <DependentUpon>AdicionarFornecedor.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewDadosBase\AssociarCategoriaFornecedor.xaml.cs">
       <DependentUpon>AssociarCategoriaFornecedor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewDadosBase\ControllerAdicaoClienteEstrangeiro.cs" />
+    <Compile Include="ViewDadosBase\ControllerAdicaoClienteGeral.cs" />
+    <Compile Include="ViewDadosBase\ControllerAdicaoClientePF.cs" />
+    <Compile Include="ViewDadosBase\ControllerAdicaoClientePFContribuinte.cs" />
+    <Compile Include="ViewDadosBase\ControllerAdicaoClientePJ.cs" />
     <Compile Include="ViewDadosBase\ControllerCategorias.cs" />
     <Compile Include="ViewDadosBase\ControllerClientes.cs" />
     <Compile Include="ViewDadosBase\ControllerCompradores.cs" />
@@ -209,18 +217,6 @@
     </Compile>
     <Compile Include="Login\PrimeiroUso.xaml.cs">
       <DependentUpon>PrimeiroUso.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewDadosBase\AdicionarClienteBrasileiroPF.xaml.cs">
-      <DependentUpon>AdicionarClienteBrasileiroPF.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewDadosBase\AdicionarClienteBrasileiroPFContribuinte.xaml.cs">
-      <DependentUpon>AdicionarClienteBrasileiroPFContribuinte.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewDadosBase\AdicionarClienteBrasileiroPJ.xaml.cs">
-      <DependentUpon>AdicionarClienteBrasileiroPJ.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewDadosBase\AdicionarClienteEstrangeiro.xaml.cs">
-      <DependentUpon>AdicionarClienteEstrangeiro.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewDadosBase\BaseAdicaoDestinatario.cs" />
     <Compile Include="ViewDadosBase\EscolherTipoCliente.xaml.cs">
@@ -291,6 +287,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ViewDadosBase\AdicionarCliente.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ViewDadosBase\AdicionarComprador.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -328,22 +328,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Login\PrimeiroUso.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ViewDadosBase\AdicionarClienteBrasileiroPF.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ViewDadosBase\AdicionarClienteBrasileiroPFContribuinte.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ViewDadosBase\AdicionarClienteBrasileiroPJ.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ViewDadosBase\AdicionarClienteEstrangeiro.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -28,16 +28,16 @@ namespace NFeFacil.ViewDadosBase
                 switch (caixa.TipoCliente)
                 {
                     case 0:
-                        MainPage.Current.Navegar<AdicionarClienteBrasileiroPF>();
+                        MainPage.Current.Navegar<AdicionarCliente>(new ControllerAdicaoClientePF());
                         break;
                     case 1:
-                        MainPage.Current.Navegar<AdicionarClienteBrasileiroPFContribuinte>();
+                        MainPage.Current.Navegar<AdicionarCliente>(new ControllerAdicaoClientePFContribuinte());
                         break;
                     case 2:
-                        MainPage.Current.Navegar<AdicionarClienteBrasileiroPJ>();
+                        MainPage.Current.Navegar<AdicionarCliente>(new ControllerAdicaoClientePJ());
                         break;
                     case 3:
-                        MainPage.Current.Navegar<AdicionarClienteEstrangeiro>();
+                        MainPage.Current.Navegar<AdicionarCliente>(new ControllerAdicaoClienteEstrangeiro());
                         break;
                 }
             }
@@ -49,14 +49,14 @@ namespace NFeFacil.ViewDadosBase
             if (!string.IsNullOrEmpty(dest.CPF))
             {
                 if (dest.IndicadorIE == 1)
-                    MainPage.Current.Navegar<AdicionarClienteBrasileiroPFContribuinte>(dest);
+                    MainPage.Current.Navegar<AdicionarCliente>(new ControllerAdicaoClientePFContribuinte(dest));
                 else
-                    MainPage.Current.Navegar<AdicionarClienteBrasileiroPF>(dest);
+                    MainPage.Current.Navegar<AdicionarCliente>(new ControllerAdicaoClientePF(dest));
             }
             else if (!string.IsNullOrEmpty(dest.CNPJ))
-                MainPage.Current.Navegar<AdicionarClienteBrasileiroPJ>(dest);
+                MainPage.Current.Navegar<AdicionarCliente>(new ControllerAdicaoClientePJ(dest));
             else
-                MainPage.Current.Navegar<AdicionarClienteEstrangeiro>(dest);
+                MainPage.Current.Navegar<AdicionarCliente>(new ControllerAdicaoClienteEstrangeiro(dest));
         }
 
         public override void AcaoSecundaria(ExibicaoGenerica contexto)

@@ -4,21 +4,35 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
-    <ItemsControl Style="{StaticResource ItensResponsivos}"
-                  Padding="16">
-        <ComboBox Header="Empresas"
+	<Grid Padding="16">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition />
+			<ColumnDefinition />
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+		<ComboBox Header="Empresas"
                   ItemsSource="{x:Bind ClientesDisponiveis}"
                   DisplayMemberPath="Nome"
                   SelectedValue="{x:Bind Comprador.IdEmpresa, Mode=TwoWay}"
-                  SelectedValuePath="Id" />
+                  SelectedValuePath="Id"
+				  Margin="0,0,8,0" />
         <TextBox Header="Nome"
+				 Grid.Column="1"
                  Text="{x:Bind Comprador.Nome, Mode=TwoWay}" />
         <TextBox Header="Telefone"
-                 Text="{x:Bind Comprador.Telefone, Mode=TwoWay}" />
+				 Grid.Row="1"
+                 Text="{x:Bind Comprador.Telefone, Mode=TwoWay}"
+				 Margin="0,16,8,0" />
         <TextBox Header="Email"
+				 Grid.Row="1"
+				 Grid.Column="1"
                  InputScope="EmailNameOrAddress"
-                 Text="{x:Bind Comprador.Email, Mode=TwoWay}" />
-    </ItemsControl>
+                 Text="{x:Bind Comprador.Email, Mode=TwoWay}"
+				 Margin="0,16,0,0" />
+    </Grid>
     <Page.BottomAppBar>
         <CommandBar>
             <AppBarButton x:Name="Confirmar"

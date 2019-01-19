@@ -2,70 +2,91 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:VM="using:BaseGeral.View"
-      xmlns:controles="using:BaseGeral.Controles"
+	  xmlns:limTexto="using:BaseGeral"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
     <ScrollViewer Padding="16">
         <StackPanel>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <TextBox Text="{x:Bind Fornecedor.Nome, Mode=TwoWay}"
-                         InputScope="Text"
-                         Header="Nome/Razão social *"
-                         Margin="4" />
-                <controles:EntradaRestrita Grid.Column="1"
-                                           Text="{x:Bind Fornecedor.CNPJ, Mode=TwoWay}"
-                                           Pattern="[^\d]"
-                                           InputScope="Number"
-                                           Header="CNPJ *"
-                                           Margin="4" />
-                <controles:EntradaRestrita Grid.Row="1"
-                                           x:Name="txtIE"
-                                           Pattern="[^\d]"
-                                           Text="{x:Bind Fornecedor.InscricaoEstadual, Mode=TwoWay}"
-                                           InputScope="Number"
-                                           Header="Inscrição estadual"
-                                           Margin="4" />
-                <TextBox Grid.Row="1"
-                         Grid.Column="1"
-                         Text="{x:Bind Fornecedor.Email, Mode=TwoWay}"
-                         InputScope="EmailNameOrAddress"
-                         Header="Email"
-                         Margin="4" />
-            </Grid>
-            <TextBlock Text="Endereço"
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition />
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+				<TextBox Text="{x:Bind Fornecedor.Nome, Mode=TwoWay}"
+						 InputScope="Text"
+						 Header="Nome/Razão social *"
+						 Margin="0,0,8,0" />
+				<TextBox TextChanged="{x:Bind limTexto:LimitadoresTextuais.PermitirNumeros}"
+						 Grid.Column="1"
+						 Text="{x:Bind Fornecedor.CNPJ, Mode=TwoWay}"
+						 InputScope="Number"
+						 Header="CNPJ *" />
+				<TextBox TextChanged="{x:Bind limTexto:LimitadoresTextuais.PermitirNumeros}"
+						 Grid.Row="1"
+						 x:Name="txtIE"
+						 Text="{x:Bind Fornecedor.InscricaoEstadual, Mode=TwoWay}"
+						 InputScope="Number"
+						 Header="Inscrição estadual"
+						 Margin="0,16,8,0" />
+				<TextBox Grid.Row="1"
+						 Grid.Column="1"
+						 Text="{x:Bind Fornecedor.Email, Mode=TwoWay}"
+						 InputScope="EmailNameOrAddress"
+						 Header="Email"
+						 Margin="0,16,0,0" />
+			</Grid>
+			<TextBlock Text="Endereço"
                        Style="{StaticResource TitleTextBlockStyle}"
-                       Margin="4,0,0,0" />
-            <ItemsControl Style="{StaticResource ItensResponsivos}">
-                <ComboBox ItemsSource="{x:Bind VM:DadosEstadosParaView.Siglas}"
-                          SelectedItem="{x:Bind UFEscolhida, Mode=TwoWay}"
-                          Header="Estado" />
-                <ComboBox ItemsSource="{x:Bind ListaMunicipios}"
-                          SelectedItem="{x:Bind Fornecedor.NomeMunicipio, Mode=TwoWay}"
-                          Header="Município" />
-                <TextBox Text="{x:Bind Fornecedor.Logradouro, Mode=TwoWay}"
-                         InputScope="Text"
-                         Header="Logradouro *" />
-                <TextBox Text="{x:Bind Fornecedor.Numero, Mode=TwoWay}"
-                         InputScope="Text"
-                         Header="Número *" />
-                <TextBox Text="{x:Bind Fornecedor.Bairro, Mode=TwoWay}"
-                         InputScope="Text"
-                         Header="Bairro *" />
-                <controles:EntradaRestrita Text="{x:Bind Fornecedor.Telefone, Mode=TwoWay}"
-                                           Pattern="[^\d]"
-                                           InputScope="Number"
-                                           Header="Telefone" />
-            </ItemsControl>
-        </StackPanel>
+					   Margin="0,16,0,0" />
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition />
+					<ColumnDefinition />
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+				<ComboBox ItemsSource="{x:Bind VM:DadosEstadosParaView.Siglas}"
+						  SelectedItem="{x:Bind UFEscolhida, Mode=TwoWay}"
+						  Header="Estado"
+						  Margin="0,0,8,0" />
+				<ComboBox ItemsSource="{x:Bind ListaMunicipios}"
+						  SelectedItem="{x:Bind Fornecedor.NomeMunicipio, Mode=TwoWay}"
+						  Grid.Column="1"
+						  Header="Município"
+						  Margin="0,0,8,0" />
+				<TextBox Text="{x:Bind Fornecedor.Logradouro, Mode=TwoWay}"
+						 Grid.Row="1"
+						 Grid.ColumnSpan="2"
+						 InputScope="Text"
+						 Header="Logradouro *"
+						 Margin="0,16,8,0" />
+				<TextBox Text="{x:Bind Fornecedor.Numero, Mode=TwoWay}"
+						 Grid.Row="1"
+						 Grid.Column="2"
+						 InputScope="Text"
+						 Header="Número *"
+						 Margin="0,16,0,0" />
+				<TextBox Text="{x:Bind Fornecedor.Bairro, Mode=TwoWay}"
+						 Grid.Column="2"
+						 InputScope="Text"
+						 Header="Bairro *" />
+				<TextBox TextChanged="{x:Bind limTexto:LimitadoresTextuais.PermitirNumeros}"
+						 Text="{x:Bind Fornecedor.Telefone, Mode=TwoWay}"
+						 Grid.Row="2"
+						 InputScope="Number"
+						 Header="Telefone"
+						 Margin="0,16,0,0" />
+			</Grid>
+		</StackPanel>
     </ScrollViewer>
     <Page.BottomAppBar>
         <CommandBar>

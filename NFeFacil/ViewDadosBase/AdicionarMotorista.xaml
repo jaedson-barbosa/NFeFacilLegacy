@@ -1,130 +1,165 @@
 ﻿<Page x:Class="NFeFacil.ViewDadosBase.AdicionarMotorista"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:VM="using:BaseGeral.View"
-      xmlns:db="using:BaseGeral.ItensBD"
-      xmlns:controles="using:BaseGeral.Controles"
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      mc:Ignorable="d">
-    <ScrollViewer Padding="16">
-        <StackPanel>
-            <ItemsControl Style="{StaticResource ItensResponsivos}">
-                <TextBox Text="{x:Bind Motorista.Nome, Mode=TwoWay}"
-                         InputScope="Text"
-                         Header="Nome/Razão social *" />
-                <ComboBox SelectedIndex="{x:Bind TipoDocumento, Mode=TwoWay}"
-                          Header="Tipo">
-                    <ComboBoxItem Content="CPF" />
-                    <ComboBoxItem Content="CNPJ" />
-                </ComboBox>
-                <controles:EntradaRestrita Text="{x:Bind Documento, Mode=TwoWay}"
-                                           Pattern="[^\d]"
-                                           InputScope="Number"
-                                           Header="Documento *" />
-                <Grid MinWidth="240">
-                    <CheckBox Content="Isento do ICMS"
-                              Margin="0,-6,0,0"
-                              IsChecked="{x:Bind IsentoICMS, Mode=TwoWay}"
-                              HorizontalAlignment="Right"
-                              VerticalAlignment="Top" />
-                    <controles:EntradaRestrita x:Name="txtIE"
-                                               Pattern="[^\d]"
-                                               Text="{x:Bind Motorista.InscricaoEstadual, Mode=TwoWay}"
-                                               InputScope="Number"
-                                               Header="Inscrição estadual" />
-                </Grid>
-                <TextBox Text="{x:Bind Motorista.Email, Mode=TwoWay}"
-                         InputScope="EmailNameOrAddress"
-                         Header="Email" />
-            </ItemsControl>
-            <TextBlock Text="Endereço"
-                       Style="{StaticResource TitleTextBlockStyle}"
-                       Margin="4,0,0,0" />
-            <ItemsControl Style="{StaticResource ItensResponsivos}">
-                <ComboBox ItemsSource="{x:Bind VM:DadosEstadosParaView.SiglasExpandida}"
-                          SelectedItem="{x:Bind UFEscolhida, Mode=TwoWay}"
-                          Header="Estado" />
-                <ComboBox ItemsSource="{x:Bind ListaMunicipios}"
-                          Header="Município"
-                          SelectedItem="{x:Bind Motorista.XMun, Mode=TwoWay}" />
-                <TextBox Text="{x:Bind Motorista.XEnder, Mode=TwoWay}"
-                         InputScope="Text"
-                         Header="Logradouro" />
-                <controles:EntradaRestrita Text="{x:Bind Motorista.Telefone, Mode=TwoWay}"
-                                           Pattern="[^\d]"
-                                           InputScope="Number"
-                                           Header="Telefone" />
-            </ItemsControl>
-            <TextBlock Text="Veiculo"
-                       Style="{StaticResource TitleTextBlockStyle}"
-                       Margin="4,0,0,0" />
-            <ComboBox Header="Veiculo principal"
-                      ItemsSource="{x:Bind Veiculos}"
-                      SelectedValuePath="Id"
-                      SelectedValue="{x:Bind Motorista.Veiculo, Mode=TwoWay}">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate x:DataType="db:VeiculoDI">
-                        <Grid Background="Transparent">
-                            <Grid.RowDefinitions>
-                                <RowDefinition />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <TextBlock Text="{x:Bind Placa}"
-                                       Style="{StaticResource SubtitleTextBlockStyle}" />
-                            <TextBlock TextWrapping="Wrap"
-                                       Grid.Row="1"
-                                       Text="{x:Bind Descricao}" />
-                        </Grid>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
-            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Veiculos secundários</TextBlock>
-            <GridView x:Name="grdVeisSec"
-                      Loaded="grdVeisSec_Loaded"
-                      SelectionMode="Multiple"
-                      ItemsSource="{x:Bind Veiculos}"
-                      ItemContainerTransitions="{StaticResource TransicoesLista}"
-                      ItemContainerStyle="{StaticResource ItensMedios}">
-                <GridView.ItemTemplate>
-                    <DataTemplate x:DataType="db:VeiculoDI">
-                        <Grid Background="Transparent"
-                              Padding="16">
-                            <Grid.ContextFlyout>
-                                <MenuFlyout>
-                                    <MenuFlyoutItem Click="EditarVeiculo">Editar</MenuFlyoutItem>
-                                    <MenuFlyoutItem Click="InativarVeiculo">Inativar</MenuFlyoutItem>
-                                </MenuFlyout>
-                            </Grid.ContextFlyout>
-                            <Grid.RowDefinitions>
-                                <RowDefinition />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <TextBlock Text="{x:Bind Placa}"
-                                       Style="{StaticResource SubtitleTextBlockStyle}" />
-                            <TextBlock TextWrapping="Wrap"
-                                       Grid.Row="1"
-                                       Text="{x:Bind Descricao}" />
-                        </Grid>
-                    </DataTemplate>
-                </GridView.ItemTemplate>
-            </GridView>
-        </StackPanel>
-    </ScrollViewer>
-    <Page.BottomAppBar>
-        <CommandBar>
-            <AppBarButton Label="Adicionar veículo"
-                          Click="AdicionarVeiculo">
-                <AppBarButton.Icon>
-                    <FontIcon Glyph="&#xE806;" />
-                </AppBarButton.Icon>
-            </AppBarButton>
-            <AppBarButton Icon="Accept"
-                          Label="Confirmar"
-                          Click="Confirmar_Click" />
-            <AppBarButton Icon="Cancel"
-                          Label="Cancelar"
-                          Click="Cancelar_Click" />
-        </CommandBar>
-    </Page.BottomAppBar>
+	  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	  xmlns:VM="using:BaseGeral.View"
+	  xmlns:db="using:BaseGeral.ItensBD"
+	  xmlns:limTexto="using:BaseGeral"
+	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	  mc:Ignorable="d">
+	<ScrollViewer Padding="16">
+		<StackPanel>
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition />
+					<ColumnDefinition />
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+				<TextBox Text="{x:Bind Motorista.Nome, Mode=TwoWay}"
+						 Grid.ColumnSpan="2"
+						 InputScope="Text"
+						 Header="Nome/Razão social *"
+						 Margin="0,0,8,0" />
+				<ComboBox SelectedIndex="{x:Bind TipoDocumento, Mode=TwoWay}"
+						  Grid.Row="1"
+						  Header="Tipo"
+						  Margin="0,16,8,0">
+					<ComboBoxItem Content="CPF" />
+					<ComboBoxItem Content="CNPJ" />
+				</ComboBox>
+				<TextBox TextChanged="{x:Bind limTexto:LimitadoresTextuais.PermitirNumeros}"
+						 Text="{x:Bind Documento, Mode=TwoWay}"
+						 Grid.Row="1"
+						 Grid.Column="1"
+						 InputScope="Number"
+						 Header="Documento *"
+						 Margin="0,16,8,0" />
+				<Grid Grid.Column="2">
+					<CheckBox Content="Isento do ICMS"
+							  Margin="0,-6,0,0"
+							  IsChecked="{x:Bind IsentoICMS, Mode=TwoWay}"
+							  HorizontalAlignment="Right"
+							  VerticalAlignment="Top" />
+					<TextBox TextChanged="{x:Bind limTexto:LimitadoresTextuais.PermitirNumeros}"
+							 x:Name="txtIE"
+							 Text="{x:Bind Motorista.InscricaoEstadual, Mode=TwoWay}"
+							 InputScope="Number"
+							 Header="Inscrição estadual" />
+				</Grid>
+				<TextBox Text="{x:Bind Motorista.Email, Mode=TwoWay}"
+						 Grid.Row="1"
+						 Grid.Column="2"
+						 InputScope="EmailNameOrAddress"
+						 Header="Email"
+						 Margin="0,16,0,0" />
+			</Grid>
+			<TextBlock Text="Endereço"
+					   Style="{StaticResource TitleTextBlockStyle}"
+					   Margin="0,16,0,0" />
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition />
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+				<ComboBox ItemsSource="{x:Bind VM:DadosEstadosParaView.SiglasExpandida}"
+						  SelectedItem="{x:Bind UFEscolhida, Mode=TwoWay}"
+						  Header="Estado"
+						  Margin="0,0,8,0" />
+				<ComboBox ItemsSource="{x:Bind ListaMunicipios}"
+						  Grid.Column="1"
+						  Header="Município"
+						  SelectedItem="{x:Bind Motorista.XMun, Mode=TwoWay}" />
+				<TextBox Text="{x:Bind Motorista.XEnder, Mode=TwoWay}"
+						 Grid.Row="1"
+						 InputScope="Text"
+						 Header="Logradouro"
+						 Margin="0,16,8,0" />
+				<TextBox TextChanged="{x:Bind limTexto:LimitadoresTextuais.PermitirNumeros}"
+						 Text="{x:Bind Motorista.Telefone, Mode=TwoWay}"
+						 Grid.Row="1"
+						 Grid.Column="1"
+						 InputScope="Number"
+						 Header="Telefone"
+						 Margin="0,16,0,0" />
+			</Grid>
+			<TextBlock Text="Veiculo"
+					   Style="{StaticResource TitleTextBlockStyle}"
+					   Margin="0,16,0,0" />
+			<ComboBox Header="Veiculo principal"
+					  ItemsSource="{x:Bind Veiculos}"
+					  SelectedValuePath="Id"
+					  SelectedValue="{x:Bind Motorista.Veiculo, Mode=TwoWay}">
+				<ComboBox.ItemTemplate>
+					<DataTemplate x:DataType="db:VeiculoDI">
+						<Grid Background="Transparent">
+							<Grid.RowDefinitions>
+								<RowDefinition />
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
+							<TextBlock Text="{x:Bind Placa}"
+									   Style="{StaticResource SubtitleTextBlockStyle}" />
+							<TextBlock TextWrapping="Wrap"
+									   Grid.Row="1"
+									   Text="{x:Bind Descricao}" />
+						</Grid>
+					</DataTemplate>
+				</ComboBox.ItemTemplate>
+			</ComboBox>
+			<TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Veiculos secundários</TextBlock>
+			<GridView x:Name="grdVeisSec"
+					  Loaded="grdVeisSec_Loaded"
+					  SelectionMode="Multiple"
+					  ItemsSource="{x:Bind Veiculos}"
+					  ItemContainerTransitions="{StaticResource TransicoesLista}"
+					  ItemContainerStyle="{StaticResource ItensMedios}">
+				<GridView.ItemTemplate>
+					<DataTemplate x:DataType="db:VeiculoDI">
+						<Grid Background="Transparent"
+							  Padding="16">
+							<Grid.ContextFlyout>
+								<MenuFlyout>
+									<MenuFlyoutItem Click="EditarVeiculo">Editar</MenuFlyoutItem>
+									<MenuFlyoutItem Click="InativarVeiculo">Inativar</MenuFlyoutItem>
+								</MenuFlyout>
+							</Grid.ContextFlyout>
+							<Grid.RowDefinitions>
+								<RowDefinition />
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
+							<TextBlock Text="{x:Bind Placa}"
+									   Style="{StaticResource SubtitleTextBlockStyle}" />
+							<TextBlock TextWrapping="Wrap"
+									   Grid.Row="1"
+									   Text="{x:Bind Descricao}" />
+						</Grid>
+					</DataTemplate>
+				</GridView.ItemTemplate>
+			</GridView>
+		</StackPanel>
+	</ScrollViewer>
+	<Page.BottomAppBar>
+		<CommandBar>
+			<AppBarButton Label="Adicionar veículo"
+						  Click="AdicionarVeiculo">
+				<AppBarButton.Icon>
+					<FontIcon Glyph="&#xE806;" />
+				</AppBarButton.Icon>
+			</AppBarButton>
+			<AppBarButton Icon="Accept"
+						  Label="Confirmar"
+						  Click="Confirmar_Click" />
+			<AppBarButton Icon="Cancel"
+						  Label="Cancelar"
+						  Click="Cancelar_Click" />
+		</CommandBar>
+	</Page.BottomAppBar>
 </Page>

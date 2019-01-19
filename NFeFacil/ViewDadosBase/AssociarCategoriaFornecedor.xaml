@@ -9,7 +9,7 @@
                PrimaryButtonText="Concluir"
                SecondaryButtonText="Cancelar"
                PrimaryButtonClick="ContentDialog_PrimaryButtonClick">
-    <Grid>
+    <Grid Width="400">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />

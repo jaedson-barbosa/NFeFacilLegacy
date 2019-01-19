@@ -9,7 +9,7 @@
                PrimaryButtonText="Concluir"
                SecondaryButtonText="Cancelar"
                PrimaryButtonClick="ContentDialog_PrimaryButtonClick">
-    <Grid>
+    <Grid Width="400">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition />
@@ -27,14 +27,17 @@
                   ItemsSource="{x:Bind VM:DadosEstadosParaView.Siglas}"
                   SelectedItem="{x:Bind Item.UF, Mode=TwoWay}"
                   Header="Estado"
-                  HorizontalAlignment="Stretch" />
+                  HorizontalAlignment="Stretch"
+				  Margin="0,16,8,0" />
         <TextBox Grid.Row="1"
                  Grid.Column="1"
                  Header="Placa"
-                 Text="{x:Bind Item.Placa, Mode=TwoWay}" />
+                 Text="{x:Bind Item.Placa, Mode=TwoWay}"
+				 Margin="0,16,0,0" />
         <TextBox Grid.Row="2"
                  Grid.ColumnSpan="2"
                  Header="RNTC"
-                 Text="{x:Bind RNTC, Mode=TwoWay}" />
+                 Text="{x:Bind RNTC, Mode=TwoWay}"
+				 Margin="0,16,0,0" />
     </Grid>
 </ContentDialog>

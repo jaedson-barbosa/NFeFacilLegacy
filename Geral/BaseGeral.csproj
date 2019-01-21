@@ -132,23 +132,14 @@
     <Compile Include="MotoristaManipulacaoNFe.cs" />
     <Compile Include="View\BoolToColor.cs" />
     <Compile Include="ConfiguracoesCertificacao.cs" />
-    <Compile Include="Controles\CarregamentoCircular.xaml.cs">
-      <DependentUpon>CarregamentoCircular.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controles\Code128.xaml.cs">
       <DependentUpon>Code128.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controles\DuplaView.xaml.cs">
-      <DependentUpon>DuplaView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controles\EntradaNumerica.xaml.cs">
       <DependentUpon>EntradaNumerica.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controles\EntradaRestrita.xaml.cs">
       <DependentUpon>EntradaRestrita.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controles\ExibicaoImagem.xaml.cs">
-      <DependentUpon>ExibicaoImagem.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controles\ItemHambuguer.xaml.cs">
       <DependentUpon>ItemHambuguer.xaml</DependentUpon>
@@ -379,7 +370,6 @@
     <Compile Include="Sincronizacao\GerenciadorServidor.cs" />
     <Compile Include="Sincronizacao\Pacotes\ConjuntoDadosBase.cs" />
     <Compile Include="Sincronizacao\Pacotes\ConjuntoNotasFiscais.cs" />
-    <Compile Include="Sincronizacao\Pacotes\InfoEstabelecerConexao.cs" />
     <Compile Include="Sincronizacao\Servidor\ControllerInformacoes.cs" />
     <Compile Include="Sincronizacao\Servidor\ControllerSincronizacao.cs" />
     <Compile Include="Sincronizacao\TipoAppSincronizacao.cs" />
@@ -419,15 +409,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Controles\CarregamentoCircular.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Controles\Code128.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controles\DuplaView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -436,10 +418,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controles\EntradaRestrita.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controles\ExibicaoImagem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -121,7 +121,6 @@
     <Content Include="Assets\LargeTile.scale-150.png" />
     <Content Include="Assets\LargeTile.scale-200.png" />
     <Content Include="Assets\LargeTile.scale-400.png" />
-    <Content Include="Assets\Minha foto.jpg" />
     <Content Include="Assets\SmallTile.scale-100.png" />
     <Content Include="Assets\SmallTile.scale-125.png" />
     <Content Include="Assets\SmallTile.scale-150.png" />
@@ -197,12 +196,6 @@
     <Compile Include="ViewDadosBase\GerenciadorGenerico.xaml.cs">
       <DependentUpon>GerenciadorGenerico.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewSincronizacao\ConfigurarDadosConexao.xaml.cs">
-      <DependentUpon>ConfigurarDadosConexao.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewSincronizacao\QRConexao.xaml.cs">
-      <DependentUpon>QRConexao.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ViewSincronizacao\SincronizacaoCliente.xaml.cs">
       <DependentUpon>SincronizacaoCliente.xaml</DependentUpon>
     </Compile>
@@ -243,9 +236,6 @@
     </Compile>
     <Compile Include="ViewDadosBase\ImportacaoDados.xaml.cs">
       <DependentUpon>ImportacaoDados.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\EscolherTransparencia.xaml.cs">
-      <DependentUpon>EscolherTransparencia.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Informacoes.xaml.cs">
       <DependentUpon>Informacoes.xaml</DependentUpon>
@@ -307,14 +297,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewSincronizacao\ConfigurarDadosConexao.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ViewSincronizacao\QRConexao.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="ViewSincronizacao\SincronizacaoCliente.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -360,10 +342,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ViewDadosBase\ImportacaoDados.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\EscolherTransparencia.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

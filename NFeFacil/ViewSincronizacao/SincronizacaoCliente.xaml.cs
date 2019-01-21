@@ -1,9 +1,6 @@
-﻿using BaseGeral.Sincronizacao.Pacotes;
-using System;
-using System.Threading.Tasks;
+﻿using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using OptimizedZXing;
 using static BaseGeral.Sincronizacao.ConfiguracoesSincronizacao;
 using BaseGeral.Sincronizacao;
 using BaseGeral;
@@ -21,62 +18,36 @@ namespace NFeFacil.Sincronizacao
             InitializeComponent();
         }
 
-        async void LerQRTemporario(object sender, RoutedEventArgs e)
+        bool estabelecendoConexao = false;
+        void ConcluirEdicaoIP(UIElement sender, Windows.UI.Xaml.Input.LosingFocusEventArgs args)
         {
-            try
-            {
-                var resposta = await new MobileBarcodeScanner(Window.Current.Dispatcher, MainPage.Current.FramePrincipal)
-                {
-                    TopText = "Coloque a câmera em frente ao código QR",
-                    BottomText = "A câmera irá lê-lo automaticamente"
-                }.Scan(new MobileBarcodeScanningOptions(BarcodeFormat.QR_CODE));
-                var str = resposta.Text;
-
-                var partes = str.Split(':');
-                var resultado = new InfoEstabelecerConexao
-                {
-                    IP = partes[0],
-                    SenhaTemporaria = int.Parse(partes[1])
-                };
-                await EstabelecerConexaoAsync(resultado);
-            }
-            catch (Exception erro)
-            {
-                erro.ManipularErro();
-            }
+            if (estabelecendoConexao) return;
+            var txtBox = (TextBox)sender;
+            var newIP = txtBox.Text;
+            if (newIP.Length == 0)
+                txtBox.Text = CodigoServidor;
+            else if (newIP.Length != 12)
+                args.Cancel = true;
+            else if (CodigoServidor != newIP)
+                EstabelecerConexaoAsync(txtBox, newIP);
         }
 
-        async void InserirDadosManualmente(object sender, RoutedEventArgs e)
+        async void EstabelecerConexaoAsync(TextBox txtBox, string ip)
         {
+            estabelecendoConexao = true;
             try
             {
-                var caixa = new ConfigurarDadosConexao();
-                if (await caixa.ShowAsync() == ContentDialogResult.Primary)
-                {
-                    await EstabelecerConexaoAsync(new InfoEstabelecerConexao()
-                    {
-                        IP = caixa.IP,
-                        SenhaTemporaria = caixa.SenhaTemporaria
-                    });
-                }
-            }
-            catch (Exception erro)
-            {
-                erro.ManipularErro();
-            }
-        }
-
-        private async Task EstabelecerConexaoAsync(InfoEstabelecerConexao info)
-        {
-            IPServidor = info.IP;
-            try
-            {
-                await new GerenciadorCliente().EstabelecerConexao(info.SenhaTemporaria);
+                if (await new GerenciadorCliente().EstabelecerConexao())
+                    CodigoServidor = ip;
+                else
+                    txtBox.Focus(FocusState.Keyboard);
             }
             catch (Exception ex)
             {
                 ex.ManipularErro();
             }
+            txtBox.Text = CodigoServidor;
+            estabelecendoConexao = false;
         }
 
         async void SincronizarAgora(object sender, RoutedEventArgs e)

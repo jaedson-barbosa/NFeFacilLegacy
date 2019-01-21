@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace BaseGeral.Sincronizacao
 {
@@ -11,8 +12,7 @@ namespace BaseGeral.Sincronizacao
             {
                 AssistenteConfig.Set(nameof(Tipo), (int)value);
                 SenhaPermanente = default(int);
-                SenhaTemporária = default(int);
-                IPServidor = null;
+                CodigoServidor = null;
             }
         }
 
@@ -38,18 +38,22 @@ namespace BaseGeral.Sincronizacao
             set => AssistenteConfig.Set(nameof(SenhaPermanente), value);
         }
 
-        public static int SenhaTemporária { get; set; }
-
-        public static string IPServidor
+        public static string IPServidor => CodigoServidor.CodigoToIP();
+        public static string CodigoServidor
         {
-            get => AssistenteConfig.Get<string>(nameof(IPServidor), null);
+            get
+            {
+                var temp = AssistenteConfig.Get<string>(nameof(IPServidor), null);
+                if (temp.Contains(".")) CodigoServidor = temp = temp.IPToCodigo();
+                return temp;
+            }
             set => AssistenteConfig.Set(nameof(IPServidor), value);
         }
 
-        public static bool InícioAutomático
+        public static bool IniciarAutomaticamente
         {
-            get => AssistenteConfig.Get(nameof(InícioAutomático), false);
-            set => AssistenteConfig.Set(nameof(InícioAutomático), value);
+            get => AssistenteConfig.Get("InícioAutomático", false);
+            set => AssistenteConfig.Set("InícioAutomático", value);
         }
     }
 }

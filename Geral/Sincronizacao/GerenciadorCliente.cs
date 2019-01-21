@@ -17,17 +17,19 @@ namespace BaseGeral.Sincronizacao
     {
         private Popup Log { get; } = Popup.Current;
 
-        public async Task EstabelecerConexao(int senha)
+        public async Task<bool> EstabelecerConexao()
         {
-            var (objeto, mensagem) = await RequestAsync<string>("BrechaSeguranca", senha, null);
+            var (objeto, mensagem) = await RequestAsync<string>("BrechaSeguranca", 9999, null);
             if (objeto != null)
             {
                 SenhaPermanente = int.Parse(objeto);
                 Log.Escrever(TitulosComuns.Sucesso, "Chave de segurança decodificada e salva com sucesso.");
+                return true;
             }
             else
             {
-                Log.Escrever(TitulosComuns.Erro, mensagem);
+                Log.Escrever(TitulosComuns.Erro, $"Erro ao tentar se conectar: {mensagem}");
+                return false;
             }
         }
 

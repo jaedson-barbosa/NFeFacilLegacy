@@ -3,9 +3,13 @@ using BaseGeral.Log;
 using BaseGeral.Sincronizacao;
 using BaseGeral.View;
 using System;
+using System.Linq;
 using System.Runtime.InteropServices;
+using Windows.Networking;
+using Windows.Networking.Connectivity;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 using static BaseGeral.Sincronizacao.ConfiguracoesSincronizacao;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
@@ -15,22 +19,36 @@ namespace NFeFacil.Sincronizacao
     [DetalhePagina("\uE977", "Sincronização")]
     public sealed partial class SincronizacaoServidor : Page
     {
+        readonly string IP;
+
         public SincronizacaoServidor()
         {
             InitializeComponent();
+
+            try
+            {
+                var hosts = NetworkInformation.GetHostNames();
+                IP = hosts.Count > 0
+                    ? hosts.Last(x => x.IPInformation != null && x.Type == HostNameType.Ipv4).ToString().IPToCodigo()
+                    : "Erro";
+                GerenciadorServidor.AceitarNovasConexoes = true;
+            }
+            catch (Exception e)
+            {
+                e.ManipularErro();
+            }
         }
 
-        public bool IniciarAutomaticamente
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
-            get => InícioAutomático;
-            set => InícioAutomático = value;
+            GerenciadorServidor.AceitarNovasConexoes = false;
         }
 
         async void IniciarServidor(object sender, RoutedEventArgs e)
         {
             try
             {
-                await GerenciadorServidor.Current.IniciarServer();
+                await GerenciadorServidor.IniciarServer();
             }
             catch (COMException)
             {
@@ -40,11 +58,7 @@ namespace NFeFacil.Sincronizacao
             {
                 ex.ManipularErro();
             }
-        }
-
-        void ExibirQR(object sender, RoutedEventArgs e)
-        {
-            MainPage.Current.Navegar<QRConexao>();
+            ((Button)sender).IsEnabled = GerenciadorServidor.Inativo;
         }
     }
 }

@@ -151,9 +151,9 @@ namespace NFeFacil.Login
 
         void VerificarInicioServidor()
         {
-            if (ConfiguracoesSincronizacao.InícioAutomático)
+            if (ConfiguracoesSincronizacao.IniciarAutomaticamente)
             {
-                GerenciadorServidor.Current.IniciarServer().ConfigureAwait(false);
+                GerenciadorServidor.IniciarServer().ConfigureAwait(false);
             }
         }
 

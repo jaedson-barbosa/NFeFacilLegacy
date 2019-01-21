@@ -17,22 +17,14 @@ namespace NFeFacil.View
 
         async void Doar10(object sender, RoutedEventArgs e)
         {
-            grdCompra.IsEnabled = false;
             if (await ComprasInApp.Comprar(Compras.Doacao10))
-            {
                 Popup.Current.Escrever(TitulosComuns.Sucesso, "Muito obrigado pela contribuição.");
-            }
-            grdCompra.IsEnabled = true;
         }
 
         async void Doar25(object sender, RoutedEventArgs e)
         {
-            grdCompra.IsEnabled = false;
             if (await ComprasInApp.Comprar(Compras.Doacao25))
-            {
                 Popup.Current.Escrever(TitulosComuns.Sucesso, "Muito obrigado pela contribuição.");
-            }
-            grdCompra.IsEnabled = true;
         }
     }
 }

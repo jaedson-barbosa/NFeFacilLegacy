@@ -30,9 +30,9 @@ namespace BaseGeral.ItensBD
 
         public ProdutoOuServico ToProdutoOuServico()
         {
-            using (var db = new AplicativoContext())
+            using (var leitura = new Repositorio.Leitura())
             {
-                var produtoBase = db.Produtos.Find(IdBase);
+                var produtoBase = leitura.ObterProduto(IdBase);
                 var produto = produtoBase.ToProdutoOuServico();
                 if (produto.ValorUnitarioTributo == produto.ValorUnitario)
                     produto.ValorUnitarioTributo = ValorUnitario;

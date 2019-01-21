@@ -204,6 +204,22 @@ namespace BaseGeral
 
         public static string[] ToArray(this string str) => new string[1] { str };
         public static string[] ToArray(this string str0, string str1) => new string[2] { str0, str1 };
+
+        public static string IPToCodigo(this string ip)
+        {
+            return string.Concat(ip.Split(".").Select(x => byte.Parse(x).ToString("000")));
+        }
+
+        public static string CodigoToIP(this string codigo)
+        {
+            string temp = string.Empty;
+            for (int i = 0; i < 4; i++)
+            {
+                temp += byte.Parse(codigo.Substring(i * 3, 3)).ToString();
+                if (i < 3) temp += '.';
+            }
+            return temp;
+        }
     }
 
     public class ErroDesserializacao : Exception

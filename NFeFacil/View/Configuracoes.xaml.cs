@@ -22,16 +22,6 @@ namespace NFeFacil.View
         public Configuracoes()
         {
             InitializeComponent();
-            ItensMenu = new string[]
-            {
-                "Geral",
-                "Modos de busca",
-                "Personalização",
-                "Registro de venda",
-                "DANFE NFCe",
-                "Controle de estoque",
-                "Compras"
-            };
             AnalisarCompras();
             CarregarCondicoesPagamento();
         }
@@ -41,13 +31,6 @@ namespace NFeFacil.View
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             DefinicoesPermanentes.ConfiguracoesEstoque.SalvarModificacoes();
-        }
-
-        string[] ItensMenu { get; }
-        int ItemMenuSelecionado
-        {
-            get => mvwPrincipal.SelectedIndex;
-            set => mvwPrincipal.SelectedIndex = value;
         }
 
         int FuncaoSincronizacao
@@ -61,9 +44,8 @@ namespace NFeFacil.View
             get => (int)ConfiguracoesCertificacao.Origem;
             set => ConfiguracoesCertificacao.Origem = (OrigemCertificado)value;
         }
-        bool InstalacaoLiberada => AnalyticsInfo.VersionInfo.DeviceFamily.Contains("Desktop");
 
-        bool PacotePersonalizacaoComprado { get; set; }
+        Visibility PacotePersonalizacaoComprado { get; set; }
         bool FluentDesign
         {
             get => DefinicoesPermanentes.UsarFluent;
@@ -90,13 +72,10 @@ namespace NFeFacil.View
             MainPage.Current.DefinirTipoBackground(TiposBackground.Cor);
         }
 
-        async void EscolherTransparencia(object sender, RoutedEventArgs e)
+        double OpacidadeBackground
         {
-            var caixa = new EscolherTransparencia(DefinicoesPermanentes.OpacidadeBackground);
-            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
-            {
-                MainPage.Current.DefinirOpacidadeBackground(caixa.Opacidade);
-            }
+            get => DefinicoesPermanentes.OpacidadeBackground;
+            set => MainPage.Current.DefinirOpacidadeBackground(value);
         }
 
         void Resetar(object sender, RoutedEventArgs e)
@@ -129,7 +108,7 @@ namespace NFeFacil.View
             btnComprarNFCe.IsEnabled = !comprado;
             comprado = ComprasInApp.Resumo[Compras.Personalizacao];
             btnComprarBackground.IsEnabled = !comprado;
-            PacotePersonalizacaoComprado = comprado;
+            PacotePersonalizacaoComprado = comprado ? Visibility.Visible : Visibility.Collapsed;
             comprado = ComprasInApp.Resumo[Compras.RelatorioProdutos01];
             btnComprarRelatorioProduto01.IsEnabled = !comprado;
         }
@@ -144,7 +123,7 @@ namespace NFeFacil.View
         {
             var comprado = await ComprasInApp.Comprar(Compras.Personalizacao);
             btnComprarBackground.IsEnabled = !comprado;
-            PacotePersonalizacaoComprado = comprado;
+            PacotePersonalizacaoComprado = comprado ? Visibility.Visible : Visibility.Collapsed;
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PacotePersonalizacaoComprado)));
         }
 

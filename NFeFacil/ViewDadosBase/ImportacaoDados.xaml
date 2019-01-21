@@ -1,46 +1,51 @@
 ﻿<Page x:Class="NFeFacil.ViewDadosBase.ImportacaoDados"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:my="using:BaseGeral.Controles"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      mc:Ignorable="d">
-    <ScrollViewer Padding="16">
-        <StackPanel>
-            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
-                       Margin="0,0,8,0">Importar dado base</TextBlock>
-            <ItemsControl Style="{StaticResource ItensSimples}">
-                <my:ItemPadrao Titulo="Clientes"
-                               Descricao="Importar clientes a partir de XMLs que adotam o padrão da SEFAZ"
-                               Click="ImportarCliente">
-                    <SymbolIcon Symbol="People" />
-                </my:ItemPadrao>
-                <my:ItemPadrao Titulo="Motoristas"
-                               Descricao="Importar motoristas a partir de XMLs que adotam o padrão da SEFAZ"
-                               Click="ImportarMotorista">
-                    <SymbolIcon Symbol="People" />
-                </my:ItemPadrao>
-                <my:ItemPadrao Titulo="Produtos"
-                               Descricao="Importar produtos a partir de XMLs que adotam o padrão da SEFAZ"
-                               Click="ImportarProduto">
-                    <SymbolIcon Symbol="Shop" />
-                </my:ItemPadrao>
-            </ItemsControl>
-            <TextBlock Margin="0,10,0,0"
-                       Style="{StaticResource SubtitleTextBlockStyle}">Importar nota fiscal</TextBlock>
-            <TextBlock TextWrapping="Wrap">Atenção, apenas notas com layout 4.00 são aceitas.</TextBlock>
-            <ItemsControl Style="{StaticResource ItensSimples}">
-                <my:ItemPadrao Titulo="NF-e"
-                               Descricao="Importar notas fiscais"
-                               Click="ImportarNotaFiscal">
-                    <SymbolIcon Symbol="Document" />
-                </my:ItemPadrao>
-                <my:ItemPadrao Titulo="NFC-e"
-                               Descricao="Importar notas fiscais do consumidor"
-                               Click="ImportarNFCe">
-                    <SymbolIcon Symbol="Document" />
-                </my:ItemPadrao>
-            </ItemsControl>
-        </StackPanel>
-    </ScrollViewer>
+	  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	  xmlns:my="using:BaseGeral.Controles"
+	  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	  mc:Ignorable="d">
+	<StackPanel Padding="16">
+		<TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
+				   Margin="0,0,8,0">Importar dado base</TextBlock>
+		<TextBlock Text="Atenção, apenas há garantia de que dados exportados a partir do emissor gratuito do governo serão aceitos."
+				   TextWrapping="Wrap"
+				   Margin="0,0,0,8" />
+		<StackPanel Orientation="Horizontal">
+			<my:ItemPadrao Titulo="Clientes"
+						   Descricao="Importar clientes a partir de XMLs que adotam o padrão da SEFAZ"
+						   Click="ImportarCliente"
+						   Margin="0,0,8,0">
+				<SymbolIcon Symbol="People" />
+			</my:ItemPadrao>
+			<my:ItemPadrao Titulo="Motoristas"
+						   Descricao="Importar motoristas a partir de XMLs que adotam o padrão da SEFAZ"
+						   Click="ImportarMotorista"
+						   Margin="0,0,8,0">
+				<SymbolIcon Symbol="People" />
+			</my:ItemPadrao>
+			<my:ItemPadrao Titulo="Produtos"
+						   Descricao="Importar produtos a partir de XMLs que adotam o padrão da SEFAZ"
+						   Click="ImportarProduto">
+				<SymbolIcon Symbol="Shop" />
+			</my:ItemPadrao>
+		</StackPanel>
+		<TextBlock Margin="0,16,0,0"
+				   Style="{StaticResource SubtitleTextBlockStyle}">Importar nota fiscal</TextBlock>
+		<TextBlock TextWrapping="Wrap"
+				   Margin="0,0,0,8">Atenção, apenas notas com layout 4.00 são aceitas.</TextBlock>
+		<StackPanel Orientation="Horizontal">
+			<my:ItemPadrao Titulo="NF-e"
+						   Descricao="Importar notas fiscais"
+						   Click="ImportarNotaFiscal"
+						   Margin="0,0,8,0">
+				<SymbolIcon Symbol="Document" />
+			</my:ItemPadrao>
+			<my:ItemPadrao Titulo="NFC-e"
+						   Descricao="Importar notas fiscais do consumidor"
+						   Click="ImportarNFCe">
+				<SymbolIcon Symbol="Document" />
+			</my:ItemPadrao>
+		</StackPanel>
+	</StackPanel>
 </Page>

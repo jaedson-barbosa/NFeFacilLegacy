@@ -50,6 +50,7 @@ namespace BaseGeral.Repositorio
         public bool ExisteFornecedor => db.Fornecedores.Any();
         public bool ExisteCategoria => db.Categorias.Any();
 
+        public VeiculoDI ObterVeiculo(Guid id) => db.Veiculos.Find(id);
         public IEnumerable<VeiculoDI> ObterVeiculos() => db.Veiculos;
         public IEnumerable<ProdutoDI> ObterProdutos() => db.Produtos.Where(x => x.Ativo);
         public IEnumerable<ProdutoDI> ObterProdutosOrdenados() => ObterProdutos().OrderBy(x => x.Descricao);
@@ -159,7 +160,6 @@ namespace BaseGeral.Repositorio
         public IEnumerable<(RegistroVenda rv, string vendedor, string cliente, string momento)> ObterRegistrosVenda(Guid emitente)
         {
             return from venda in db.Vendas.Include(x => x.Produtos).ToArray()
-                   where venda.Emitente == emitente
                    orderby venda.DataHoraVenda descending
                    select (venda,
                        venda.Vendedor != default(Guid) ? db.Vendedores.Find(venda.Vendedor).Nome : "Indisponível",

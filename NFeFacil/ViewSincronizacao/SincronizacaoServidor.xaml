@@ -1,33 +1,36 @@
 ﻿<Page x:Class="NFeFacil.Sincronizacao.SincronizacaoServidor"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      mc:Ignorable="d">
-    <ScrollViewer Padding="16">
-        <StackPanel>
-            <TextBlock Margin="0,8,0,0"
-                       Style="{StaticResource SubtitleTextBlockStyle}">Inicialização do servidor</TextBlock>
-            <TextBlock TextWrapping="Wrap">Para que haja sincronização de dados deve haver um servidor. Já que este dispositivo será o servidor da rede local, clique o botão abaixo para que ele o servidor inicie. Se quiser, ligue a inicialização automática para que o servidor inicie sempre junto à aplicação.</TextBlock>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <Button HorizontalAlignment="Stretch"
-                        Margin="0,0,4,0"
-                        Click="IniciarServidor">Iniciar servidor</Button>
-                <ToggleSwitch  Grid.Column="1"
-                               IsOn="{x:Bind IniciarAutomaticamente, Mode=TwoWay}"
-                               OnContent="Iniciar junto à aplicação"
-                               OffContent="Iniciar manualmente" />
-            </Grid>
-            <TextBlock Margin="0,8,0,0"
-                       Style="{StaticResource SubtitleTextBlockStyle}">Conexão ao servidor</TextBlock>
-            <TextBlock TextWrapping="Wrap">Para garantir a total segurança do sistema de sincronização é gerado um servidor temporário que serve para liberar o acesso ao servidor permanente. Para se conectar ao servidor leia o código QR abaixo usando o leitor QR do aplicativo no dispositivo cliente.</TextBlock>
-            <Button HorizontalAlignment="Stretch"
-                    Margin="0,0,0,10"
-                    Click="ExibirQR">Gerar código QR temporário</Button>
-        </StackPanel>
-    </ScrollViewer>
+	  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	  xmlns:path="using:BaseGeral.Sincronizacao"
+	  mc:Ignorable="d">
+	<StackPanel Padding="16">
+		<TextBlock Style="{StaticResource TitleTextBlockStyle}">Inicialização do servidor</TextBlock>
+		<TextBlock TextWrapping="Wrap">Para que haja sincronização de dados deve haver um servidor. Já que este dispositivo será o servidor da rede local, clique o botão abaixo para que ele o servidor inicie. Se quiser, ligue a inicialização automática para que o servidor inicie sempre junto à aplicação.</TextBlock>
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition />
+				<ColumnDefinition Width="Auto" />
+			</Grid.ColumnDefinitions>
+			<Button HorizontalAlignment="Stretch"
+					IsEnabled="{x:Bind path:GerenciadorServidor.Inativo}"
+					Margin="0,0,8,0"
+					Click="IniciarServidor">Iniciar servidor</Button>
+			<ToggleSwitch  Grid.Column="1"
+						   IsOn="{x:Bind path:ConfiguracoesSincronizacao.IniciarAutomaticamente, Mode=TwoWay}"
+						   OnContent="Iniciar junto à aplicação"
+						   OffContent="Iniciar manualmente" />
+		</Grid>
+		<TextBlock Margin="0,16,0,0"
+				   Style="{StaticResource TitleTextBlockStyle}">Conexão ao servidor</TextBlock>
+		<TextBlock TextWrapping="Wrap">Para garantir a total segurança do sistema de sincronização apenas serão aceitas novas conexões enquanto esta tela estiver aberta.</TextBlock>
+		<TextBlock TextAlignment="Center"
+				   Style="{StaticResource TitleTextBlockStyle}"
+				   Text="{x:Bind IP}"
+				   FontWeight="Bold"
+				   Margin="0,32,0,0" />
+		<TextBlock TextAlignment="Center"
+				   Style="{ThemeResource CaptionTextBlockStyle}">Código de conexão</TextBlock>
+	</StackPanel>
 </Page>

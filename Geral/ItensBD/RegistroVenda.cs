@@ -12,6 +12,7 @@ namespace BaseGeral.ItensBD
         public DateTime UltimaData { get; set; }
         public string NotaFiscalRelacionada { get; set; }
 
+        [Obsolete]
         public Guid Emitente { get; set; }
         public Guid Vendedor { get; set; }
         public Guid Cliente { get; set; }
@@ -33,16 +34,16 @@ namespace BaseGeral.ItensBD
 
         public NFe ToNFe()
         {
-            using (var db = new AplicativoContext())
+            using (var leitura = new Repositorio.Leitura())
             {
                 var prods = ObterProdutosProcessados();
-                var motDI = Motorista != default(Guid) ? db.Motoristas.Find(Motorista) : null;
+                var motDI = Motorista != default(Guid) ? leitura.ObterMotorista(Motorista) : null;
                 return new NFe()
                 {
                     Informacoes = new InformacoesNFe
                     {
-                        destinatario = db.Clientes.Find(Cliente).ToDestinatario(),
-                        Emitente = db.Emitentes.Find(Emitente).ToEmitente(),
+                        destinatario = leitura.ObterCliente(Cliente).ToDestinatario(),
+                        Emitente = DefinicoesTemporarias.EmitenteAtivo.ToEmitente(),
                         infAdic = new InformacoesAdicionais
                         {
                             InfCpl = Observações
@@ -54,7 +55,7 @@ namespace BaseGeral.ItensBD
                             Transporta = motDI != null ? motDI.ToMotorista() : new Motorista(),
                             RetTransp = new ICMSTransporte(),
                             VeicTransp = motDI != null && motDI.Veiculo != default(Guid)
-                                ? db.Veiculos.Find(motDI.Veiculo).ToVeiculo() 
+                                ? leitura.ObterVeiculo(motDI.Veiculo).ToVeiculo() 
                                 : new Veiculo()
                         },
                         cobr = new Cobranca(),

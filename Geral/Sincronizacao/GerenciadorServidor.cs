@@ -1,30 +1,21 @@
 ﻿using BaseGeral.Sincronizacao.FastServer;
 using BaseGeral.Sincronizacao.Servidor;
-using System;
 using System.Threading.Tasks;
 
 namespace BaseGeral.Sincronizacao
 {
-    public sealed class GerenciadorServidor
+    public static class GerenciadorServidor
     {
-        public static GerenciadorServidor Current { get; } = new GerenciadorServidor();
+        public static bool AceitarNovasConexoes { get; set; }
+        public static bool Inativo { get; private set; } = true;
 
-        public bool Rodando { get; private set; } = false;
-
-        private GerenciadorServidor() { }
-
-        public async Task IniciarServer()
+        public static async Task IniciarServer()
         {
             var server = new HttpServer(8080);
             server.RegisterController<ControllerInformacoes>();
             server.RegisterController<ControllerSincronizacao>();
             await server.StartServerAsync();
-            Rodando = true;
+            Inativo = false;
         }
-
-        internal bool BrechaAberta { get; private set; }
-
-        public void AbrirBrecha(TimeSpan tempoLimite) => BrechaAberta = true;
-        public void FecharBrecha() => BrechaAberta = false;
     }
 }

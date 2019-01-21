@@ -24,7 +24,6 @@ namespace RegistroComum
         {
             Venda = new RegistroVenda
             {
-                Emitente = DefinicoesTemporarias.EmitenteAtivo.Id,
                 Vendedor = DefinicoesTemporarias.VendedorAtivo?.Id ?? Guid.Empty,
                 Produtos = new List<ProdutoSimplesVenda>(),
                 DataHoraVenda = DefinicoesTemporarias.DateTimeNow,

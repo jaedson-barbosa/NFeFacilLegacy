@@ -88,14 +88,6 @@ namespace NFeFacil
             }
 
             if (FramePrincipal.BackStackDepth >= 1) FramePrincipal.GoBack();
-            else
-            {
-                var familia = AnalyticsInfo.VersionInfo.DeviceFamily;
-                if (familia.Contains("Mobile"))
-                {
-                    Application.Current.Exit();
-                }
-            }
         }
 
         private void AbrirHamburguer(object sender, RoutedEventArgs e)

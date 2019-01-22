@@ -1,7 +1,6 @@
 ﻿using BaseGeral;
 using BaseGeral.Log;
 using BaseGeral.View;
-using NFeFacil.View;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;

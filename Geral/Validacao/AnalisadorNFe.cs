@@ -23,7 +23,6 @@ namespace BaseGeral.Validacao
             transp.RetTransp = ValidarRetencaoTransporte(transp.RetTransp) ? transp.RetTransp : null;
 
             var total = Nota.Informacoes.total;
-            total.ISSQNtot = ValidarISSQN(total.ISSQNtot) ? total.ISSQNtot : null;
             total.RetTrib = ValidarRetencaoTributaria(total.RetTrib) ? total.RetTrib : null;
 
             var info = Nota.Informacoes;
@@ -101,18 +100,6 @@ namespace BaseGeral.Validacao
             {
                 return (icms.VServ != 0 || icms.VBCRet != 0 || icms.PICMSRet != 0 || icms.VICMSRet != 0)
                     && icms.CFOP != 0 && icms.CMunFG != 0;
-            }
-        }
-
-        bool ValidarISSQN(ISSQNtot tot)
-        {
-            if (tot == null)
-            {
-                return false;
-            }
-            else
-            {
-                return tot.vServ != 0;
             }
         }
 

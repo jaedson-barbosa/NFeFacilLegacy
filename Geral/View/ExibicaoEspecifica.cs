@@ -1,8 +1,8 @@
 ﻿// O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace NFeFacil.ViewDadosBase
+namespace BaseGeral.View
 {
-    sealed class ExibicaoEspecifica<Tipo> : ExibicaoGenerica
+    public sealed class ExibicaoEspecifica<Tipo> : ExibicaoGenerica
     {
         public ExibicaoEspecifica(Tipo old, string principal, string secCurta, string secLonga)
         {

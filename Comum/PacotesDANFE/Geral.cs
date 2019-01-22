@@ -10,7 +10,6 @@
         public DadosNFe _DadosNFe { get; set; }
         public DadosProduto[] _DadosProdutos { get; set; }
         public DadosDuplicata[] _Duplicatas { get; set; }
-        public DadosISSQN _DadosISSQN { get; set; }
         public string Fatura { get; set; }
     }
 }

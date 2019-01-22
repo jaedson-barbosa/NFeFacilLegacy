@@ -1,5 +1,6 @@
 ﻿using BaseGeral;
 using BaseGeral.ItensBD;
+using BaseGeral.View;
 using System.Linq;
 
 namespace NFeFacil.ViewDadosBase

@@ -1,6 +1,7 @@
 ﻿using BaseGeral;
 using BaseGeral.Buscador;
 using BaseGeral.ItensBD;
+using BaseGeral.View;
 using System;
 using System.Linq;
 using Windows.UI.Xaml.Controls;

@@ -191,8 +191,6 @@
     <Compile Include="ViewDadosBase\ControllerGerenciadorGeral.cs" />
     <Compile Include="ViewDadosBase\ControllerMotoristas.cs" />
     <Compile Include="ViewDadosBase\ControllerVendedores.cs" />
-    <Compile Include="ViewDadosBase\ExibicaoEspecifica.cs" />
-    <Compile Include="ViewDadosBase\ExibicaoGenerica.cs" />
     <Compile Include="ViewDadosBase\GerenciadorGenerico.xaml.cs">
       <DependentUpon>GerenciadorGenerico.xaml</DependentUpon>
     </Compile>

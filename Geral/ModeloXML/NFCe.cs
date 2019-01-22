@@ -32,7 +32,7 @@ namespace BaseGeral.ModeloXML
             {
                 stringsConcatenacao = new string[5] { chNFe, nVersao, tpAmb.ToString(), cIdToken.TrimStart('0'), null };
                 concatenacao = ConcatenarStrings(stringsConcatenacao);
-                if (DefinicoesPermanentes.CalculoHASHReserva) concatenacao = concatenacao.Substring(0, concatenacao.Length - 1);
+                concatenacao = concatenacao.Substring(0, concatenacao.Length - 1);
                 concatenacao += CSC;
                 var bytes = Encoding.ASCII.GetBytes(concatenacao);
                 cHashQRCode = hash.ComputeHash(bytes, 0, bytes.Length);

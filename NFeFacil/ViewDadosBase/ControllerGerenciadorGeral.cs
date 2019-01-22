@@ -1,4 +1,5 @@
 ﻿using BaseGeral.Buscador;
+using BaseGeral.View;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 

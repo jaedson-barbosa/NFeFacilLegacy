@@ -18,82 +18,70 @@ namespace BaseGeral.ModeloXML.PartesDetalhes.PartesTotal
         {
             foreach (var Produto in produtos)
             {
-                var temISSQN = false;
                 var prod = Produto.Produto;
                 var ipiDevol = Produto.ImpostoDevol?.IPI?.vIPIDevol;
                 vIPIDevol += string.IsNullOrEmpty(ipiDevol) ? 0 : Parse(ipiDevol);
                 foreach (var imposto in Produto.Impostos.impostos)
                 {
-                    if (imposto is ISSQN)
+                    if (imposto is ICMS icms)
                     {
-                        temISSQN = true;
-                    }
-                    else
-                    {
-                        if (imposto is ICMS icms)
-                        {
-                            var corpo = icms.Corpo;
-                            var tipo = corpo.GetType();
-                            vBC += AgregarValor(nameof(vBC));
-                            vICMS += AgregarValor(nameof(vICMS));
-                            vICMSDeson += AgregarValor(nameof(vICMSDeson));
-                            vFCPUFDest += AgregarValor(nameof(vFCPUFDest));
-                            vICMSUFDest += AgregarValor(nameof(vICMSUFDest));
-                            vICMSUFRemet += AgregarValor(nameof(vICMSUFRemet));
-                            vFCP += AgregarValor(nameof(vFCP));
-                            vBCST += AgregarValor(nameof(vBCST));
-                            vST += AgregarValor("vICMSST");
-                            vFCPST += AgregarValor(nameof(vFCPST));
-                            vFCPSTRet += AgregarValor(nameof(vFCPSTRet));
+                        var corpo = icms.Corpo;
+                        var tipo = corpo.GetType();
+                        vBC += AgregarValor(nameof(vBC));
+                        vICMS += AgregarValor(nameof(vICMS));
+                        vICMSDeson += AgregarValor(nameof(vICMSDeson));
+                        vFCPUFDest += AgregarValor(nameof(vFCPUFDest));
+                        vICMSUFDest += AgregarValor(nameof(vICMSUFDest));
+                        vICMSUFRemet += AgregarValor(nameof(vICMSUFRemet));
+                        vFCP += AgregarValor(nameof(vFCP));
+                        vBCST += AgregarValor(nameof(vBCST));
+                        vST += AgregarValor("vICMSST");
+                        vFCPST += AgregarValor(nameof(vFCPST));
+                        vFCPSTRet += AgregarValor(nameof(vFCPSTRet));
 
-                            double AgregarValor(string nomeElemento)
-                            {
-                                var valor = tipo.GetProperty(nomeElemento)?.GetValue(corpo) ?? 0d;
-                                return (double)valor;
-                            }
-                        }
-                        else if (imposto is II)
+                        double AgregarValor(string nomeElemento)
                         {
-                            vII += Parse((imposto as II).vII);
+                            var valor = tipo.GetProperty(nomeElemento)?.GetValue(corpo) ?? 0d;
+                            return (double)valor;
                         }
-                        else if (imposto is IPI ipi && ipi.Corpo is IPITrib trib)
+                    }
+                    else if (imposto is IPI ipi && ipi.Corpo is IPITrib trib)
+                    {
+                        var temp = trib.vIPI;
+                        vIPI += string.IsNullOrEmpty(temp) ? 0 : Parse(temp);
+                    }
+                    else if (imposto is PIS pis)
+                    {
+                        if (pis.Corpo is PISAliq aliq)
                         {
-                            var temp = trib.vIPI;
-                            vIPI += string.IsNullOrEmpty(temp) ? 0 : Parse(temp);
+                            vPIS += Parse(aliq.vPIS);
                         }
-                        else if (imposto is PIS pis)
+                        else if (pis.Corpo is PISQtde qtde)
                         {
-                            if (pis.Corpo is PISAliq aliq)
-                            {
-                                vPIS += Parse(aliq.vPIS);
-                            }
-                            else if (pis.Corpo is PISQtde qtde)
-                            {
-                                vPIS += Parse(qtde.vPIS);
-                            }
-                            else if (pis.Corpo is PISOutr outr)
-                            {
-                                vPIS += Parse(outr.vPIS);
-                            }
+                            vPIS += Parse(qtde.vPIS);
                         }
-                        else if (imposto is COFINS cofins)
+                        else if (pis.Corpo is PISOutr outr)
                         {
-                            if (cofins.Corpo is COFINSAliq aliq)
-                            {
-                                vCOFINS += Parse(aliq.vCOFINS);
-                            }
-                            else if (cofins.Corpo is COFINSQtde qtde)
-                            {
-                                vCOFINS += Parse(qtde.vCOFINS);
-                            }
-                            else if (cofins.Corpo is COFINSOutr outr)
-                            {
-                                vCOFINS += Parse(outr.vCOFINS);
-                            }
+                            vPIS += Parse(outr.vPIS);
+                        }
+                    }
+                    else if (imposto is COFINS cofins)
+                    {
+                        if (cofins.Corpo is COFINSAliq aliq)
+                        {
+                            vCOFINS += Parse(aliq.vCOFINS);
+                        }
+                        else if (cofins.Corpo is COFINSQtde qtde)
+                        {
+                            vCOFINS += Parse(qtde.vCOFINS);
+                        }
+                        else if (cofins.Corpo is COFINSOutr outr)
+                        {
+                            vCOFINS += Parse(outr.vCOFINS);
                         }
                     }
                 }
-                if (prod.InclusaoTotal == 1 && !temISSQN)
+                if (prod.InclusaoTotal == 1)
                 {
                     vProd += prod.ValorTotal;
                     TryParse(prod.Frete, out double addFrete);
@@ -106,10 +94,6 @@ namespace BaseGeral.ModeloXML.PartesDetalhes.PartesTotal
                     vOutro += addOutro;
                     TryParse(Produto.Impostos.vTotTrib, out double addTotTrib);
                     vTotTrib += addTotTrib;
-                }
-                else if (temISSQN)
-                {
-                    vProdISSQN += prod.ValorTotal;
                 }
             }
         }
@@ -221,7 +205,7 @@ namespace BaseGeral.ModeloXML.PartesDetalhes.PartesTotal
         {
             get
             {
-                var valores = new double[] { vProd, vST, vFrete, vSeg, vOutro, vII, vIPI, vProdISSQN };
+                var valores = new double[] { vProd, vST, vFrete, vSeg, vOutro, vII, vIPI };
                 return valores.Sum() - (vDesc + vICMSDeson);
             }
         }
@@ -237,7 +221,5 @@ namespace BaseGeral.ModeloXML.PartesDetalhes.PartesTotal
         double vTotTrib;
         [XmlElement("vTotTrib", Order = 22), DescricaoPropriedade("Valor total dos tributos")]
         public string VTotTrib { get => ToStr(vTotTrib); set => vTotTrib = Parse(value); }
-
-        double vProdISSQN;
     }
 }

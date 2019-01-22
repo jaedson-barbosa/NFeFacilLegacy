@@ -101,12 +101,6 @@ namespace BaseGeral
             get => AssistenteConfig.Get(nameof(IgnorarProdutosJaAdicionados), false);
             set => AssistenteConfig.Set(nameof(IgnorarProdutosJaAdicionados), value);
         }
-
-        public static bool CalculoHASHReserva
-        {
-            get => AssistenteConfig.Get(nameof(CalculoHASHReserva), false);
-            set => AssistenteConfig.Set(nameof(CalculoHASHReserva), value);
-        }
     }
 
     public enum TiposBackground { Imagem, Cor, Padrao }

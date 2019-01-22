@@ -8,8 +8,7 @@
     <GridView x:Name="grdItens"
               ItemsSource="{x:Bind Produtos.Itens}"
               ItemContainerTransitions="{StaticResource TransicoesLista}"
-              ItemContainerStyle="{StaticResource ItensMedios}"
-              Margin="8">
+              ItemContainerStyle="{StaticResource ItensMedios}">
         <GridView.ItemTemplate>
             <DataTemplate x:DataType="db:ProdutoDI">
                 <Grid Background="Transparent"
@@ -23,12 +22,12 @@
                     </Grid.ContextFlyout>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
-                        <RowDefinition />
-                        <RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition />
                     </Grid.RowDefinitions>
                     <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
                                Text="{x:Bind CodigoProduto}" />
-                    <TextBlock Grid.Row="2"
+                    <TextBlock Grid.Row="1"
                                Style="{StaticResource BodyTextBlockStyle}"
                                Text="{x:Bind Descricao}" />
                 </Grid>

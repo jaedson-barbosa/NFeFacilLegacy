@@ -1,5 +1,4 @@
 ﻿using BaseGeral.ItensBD;
-using NFeFacil.View;
 using System;
 using Windows.UI.Xaml;
 using Fiscal.WebService.Pacotes;

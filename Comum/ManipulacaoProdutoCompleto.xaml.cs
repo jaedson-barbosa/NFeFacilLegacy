@@ -5,7 +5,6 @@ using System.Collections.ObjectModel;
 using BaseGeral.ModeloXML.PartesDetalhes;
 using BaseGeral.Controles;
 using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto;
-using NFeFacil.View;
 using Venda.Impostos;
 using Venda;
 using BaseGeral.View;

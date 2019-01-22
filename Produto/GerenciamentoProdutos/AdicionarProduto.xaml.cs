@@ -13,20 +13,24 @@ using System.Linq;
 using Windows.UI.Xaml.Data;
 using BaseGeral;
 using BaseGeral.View;
+using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
+using System.ComponentModel;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace Venda.GerenciamentoProdutos
 {
     [DetalhePagina(Symbol.Shop, "Produto")]
-    public sealed partial class AdicionarProduto : Page
+    public sealed partial class AdicionarProduto : Page, INotifyPropertyChanged
     {
         ProdutoDI Produto;
         ProdutoDIExtended ExtendedProd;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
         ObservableCollection<FornecedorDI> Fornecedores { get; set; }
         ObservableCollection<CategoriaDI> Categorias { get; set; }
-        ObservableCollection<ImpSimplesArmazenado> ImpostosSimples { get; set; }
-        ObservableCollection<ICMSArmazenado> ICMS { get; set; }
+        ObservableCollection<ExibicaoGenerica> Impostos { get; set; }
         Visibility ClassificavelF { get; set; }
         Visibility ClassificavelC { get; set; }
         Visibility NaoClassificavel => ClassificavelF == Visibility.Visible || ClassificavelC == Visibility.Visible
@@ -37,41 +41,32 @@ namespace Venda.GerenciamentoProdutos
             set => Produto.IdCategoria = Categorias[value].Id;
         }
 
-        int TipoEspecialEscolhido
+        bool IsCombustivel
         {
-            get
-            {
-                if (string.IsNullOrEmpty(Produto.ProdutoEspecial)) return 0;
-                else
-                {
-                    var xml = XElement.Parse(Produto.ProdutoEspecial);
-                    return (int)Enum.Parse(typeof(ProdutoDI.TiposProduto), xml.Name.LocalName);
-                }
-            }
+            get => Combustivel != null;
             set
             {
-                switch (value)
-                {
-                    case 0:
-                        Produto.ResetEspecial();
-                        break;
-                    case 1:
-                        BasicMainPage.Current.Navegar<DefinirCombustivel>(Produto);
-                        break;
-                    default:
-                        break;
-                }
+                if (!value) Produto.ResetEspecial();
+                else Produto.Combustivel = new Combustivel();
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Combustivel)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(VisCombustivel)));
             }
         }
+        Visibility VisCombustivel => IsCombustivel ? Visibility.Visible : Visibility.Collapsed;
+        Combustivel Combustivel => Produto.Combustivel;
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             Produto = (ProdutoDI)e.Parameter;
             ExtendedProd = Produto;
-            ImpostosSimples = ExtendedProd.GetImpSimplesArmazenados()?.GerarObs()
-                ?? new ObservableCollection<ImpSimplesArmazenado>();
-            ICMS = ExtendedProd.GetICMSArmazenados()?.GerarObs()
-                ?? new ObservableCollection<ICMSArmazenado>();
+
+            var impostosSimples = ExtendedProd.GetImpSimplesArmazenados()?.Select(Convert);
+            var icms = ExtendedProd.GetICMSArmazenados()?.Select(Convert);
+            if (impostosSimples != null && icms != null)
+                Impostos = impostosSimples.Concat(icms).GerarObs();
+            else
+                Impostos = (impostosSimples ?? icms).GerarObs() ?? new ObservableCollection<ExibicaoGenerica>();
+
             using (var leitor = new BaseGeral.Repositorio.Leitura())
             {
                 Categorias = leitor.ObterCategorias().GerarObs();
@@ -80,7 +75,6 @@ namespace Venda.GerenciamentoProdutos
                 ClassificavelF = Fornecedores.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
             }
             InitializeComponent();
-
         }
 
         private void Confirmar_Click(object sender, RoutedEventArgs e)
@@ -92,13 +86,12 @@ namespace Venda.GerenciamentoProdutos
                     (string.IsNullOrEmpty(Produto.Descricao), "Não foi informada uma breve descrição do Produto"),
                     (string.IsNullOrEmpty(Produto.CFOP), "Não foi informado o CFOP do Produto")))
                 {
-                    var simples = grdImpostosSimples.SelectedItems.Cast<ImpostoArmazenado>();
-                    var icmss = grdICMSs.SelectedItems.Cast<ImpostoArmazenado>();
-                    ExtendedProd.SetImpostosPadrao(simples.Concat(icmss));
+                    ExtendedProd.SetImpostosPadrao(grdImpostos
+                        .SelectedItems
+                        .Cast<ExibicaoGenerica>()
+                        .Select(x => Convert(x)));
                     using (var repo = new BaseGeral.Repositorio.Escrita())
-                    {
                         repo.SalvarItemSimples(Produto, DefinicoesTemporarias.DateTimeNow);
-                    }
                     BasicMainPage.Current.Retornar();
                 }
             }
@@ -110,20 +103,20 @@ namespace Venda.GerenciamentoProdutos
 
         private void Cancelar_Click(object sender, RoutedEventArgs e) => BasicMainPage.Current.Retornar();
 
-        void EditarEspecial(object sender, RoutedEventArgs e) => TipoEspecialEscolhido = TipoEspecialEscolhido;
-
-        void RemoverImpostoSimples(object sender, RoutedEventArgs e)
+        private void RemoverImposto(object sender, RoutedEventArgs e)
         {
-            var imp = (ImpSimplesArmazenado)((FrameworkElement)sender).DataContext;
-            ImpostosSimples.Remove(imp);
-            ExtendedProd.RemoverImpostoSimples(imp);
-        }
-
-        void RemoverImpostoComplexo(object sender, RoutedEventArgs e)
-        {
-            var imp = (ICMSArmazenado)((FrameworkElement)sender).DataContext;
-            ICMS.Remove(imp);
-            ExtendedProd.RemoverICMS(imp);
+            var contexto = (ExibicaoGenerica)((FrameworkElement)sender).DataContext;
+            if (contexto is ExibicaoEspecifica<ImpSimplesArmazenado> exib)
+            {
+                ImpSimplesArmazenado simples = exib;
+                ExtendedProd.RemoverImpostoSimples(simples);
+            }
+            else if (contexto is ExibicaoEspecifica<ICMSArmazenado> exib1)
+            {
+                ICMSArmazenado icms = exib1;
+                ExtendedProd.RemoverICMS(icms);
+            }
+            Impostos.Remove(contexto);
         }
 
         async void AdicionarPIS(object sender, RoutedEventArgs e)
@@ -132,7 +125,7 @@ namespace Venda.GerenciamentoProdutos
             if (imp != null)
             {
                 ExtendedProd.AdicionarImpostoSimples(imp);
-                ImpostosSimples.Add(imp);
+                Impostos.Add(Convert(imp));
             }
         }
 
@@ -142,7 +135,7 @@ namespace Venda.GerenciamentoProdutos
             if (imp != null)
             {
                 ExtendedProd.AdicionarImpostoSimples(imp);
-                ImpostosSimples.Add(imp);
+                Impostos.Add(Convert(imp));
             }
         }
 
@@ -157,7 +150,7 @@ namespace Venda.GerenciamentoProdutos
                     imp.IPI = caixa.Dados.ToXElement<ImpSimplesArmazenado.XMLIPIArmazenado>()
                         .ToString(SaveOptions.DisableFormatting);
                     ExtendedProd.AdicionarImpostoSimples(imp);
-                    ImpostosSimples.Add(imp);
+                    Impostos.Add(Convert(imp));
                 }
             }
         }
@@ -183,8 +176,7 @@ namespace Venda.GerenciamentoProdutos
                         EdicaoAtivada = cadastro.EdicaoAtivada
                     };
                     ExtendedProd.AdicionarICMS(imp);
-                    ICMS.Add(imp);
-
+                    Impostos.Add(Convert(imp));
                 }
             }
         }
@@ -212,38 +204,56 @@ namespace Venda.GerenciamentoProdutos
             return null;
         }
 
-        private void grdImpostosSimples_Loaded(object sender, RoutedEventArgs e)
+        void GrdImpostos_Loaded(object sender, RoutedEventArgs e)
         {
-            if (grdImpostosSimples.Items?.Count > 0)
+            var grd = (GridView)sender;
+            if (grd.Items?.Count > 0)
             {
                 var imps = ExtendedProd.GetImpostosPadrao();
                 if (imps != null)
                 {
-                    for (int i = 0; i < grdImpostosSimples.Items.Count; i++)
+                    for (int i = 0; i < grd.Items.Count; i++)
                     {
-                        var atual = (ImpostoArmazenado)grdImpostosSimples.Items[i];
+                        var exib = (ExibicaoGenerica)grd.Items[i];
+                        var atual = Convert(exib);
                         var (Tipo, NomeTemplate, CST) = imps.FirstOrDefault(x => x.Tipo == atual.Tipo && x.NomeTemplate == atual.NomeTemplate && x.CST == atual.CST);
-                        if (!string.IsNullOrEmpty(NomeTemplate)) grdImpostosSimples.SelectRange(new ItemIndexRange(i, 1));
+                        if (!string.IsNullOrEmpty(NomeTemplate)) grd.SelectRange(new ItemIndexRange(i, 1));
                     }
                 }
             }
         }
 
-        private void grdICMSs_Loaded(object sender, RoutedEventArgs e)
+        ExibicaoGenerica Convert(ImpSimplesArmazenado imp)
         {
-            if (grdICMSs.Items?.Count > 0)
+            return new ExibicaoEspecifica<ImpSimplesArmazenado>(
+                imp,
+                imp.Tipo.ToString(),
+                imp.NomeTemplate,
+                imp.CST.ToString());
+        }
+
+        ExibicaoGenerica Convert(ICMSArmazenado imp)
+        {
+            return new ExibicaoEspecifica<ICMSArmazenado>(
+                imp,
+                "ICMS",
+                imp.NomeTemplate,
+                imp.CST.ToString());
+        }
+
+        ImpostoArmazenado Convert(ExibicaoGenerica contexto)
+        {
+            if (contexto is ExibicaoEspecifica<ImpSimplesArmazenado> exib)
             {
-                var imps = ExtendedProd.GetImpostosPadrao();
-                if (imps != null)
-                {
-                    for (int i = 0; i < grdICMSs.Items.Count; i++)
-                    {
-                        var atual = (ImpostoArmazenado)grdICMSs.Items[i];
-                        var (Tipo, NomeTemplate, CST) = imps.FirstOrDefault(x => x.Tipo == atual.Tipo && x.NomeTemplate == atual.NomeTemplate && x.CST == atual.CST);
-                        if (!string.IsNullOrEmpty(NomeTemplate)) grdICMSs.SelectRange(new ItemIndexRange(i, 1));
-                    }
-                }
+                ImpSimplesArmazenado simples = exib;
+                return simples;
             }
+            else if (contexto is ExibicaoEspecifica<ICMSArmazenado> exib1)
+            {
+                ICMSArmazenado icms = exib1;
+                return icms;
+            }
+            throw new ArgumentException();
         }
     }
 }

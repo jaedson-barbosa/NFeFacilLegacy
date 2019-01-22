@@ -15,9 +15,6 @@ namespace BaseGeral.ModeloXML.PartesDetalhes
         [XmlElement(Order = 0), DescricaoPropriedade("Total do ICMS")]
         public ICMSTot ICMSTot { get; set; }
 
-        [XmlElement(Order = 1), DescricaoPropriedade("Total do ISSQN")]
-        public ISSQNtot ISSQNtot { get; set; }
-
         [XmlElement("retTrib", Order = 2), DescricaoPropriedade("Total da retenção tributária")]
         public RetTrib RetTrib { get; set; }
 
@@ -27,9 +24,6 @@ namespace BaseGeral.ModeloXML.PartesDetalhes
             ICMSTot = new ICMSTot(from p in produtos
                                   where p.Impostos.impostos.Count(x => x is ICMS) > 0
                                   select p);
-            ISSQNtot = new ISSQNtot(from p in produtos
-                                    where p.Impostos.impostos.Count(x => x is ISSQN) > 0
-                                    select p);
         }
     }
 }

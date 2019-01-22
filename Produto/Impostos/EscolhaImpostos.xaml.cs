@@ -25,25 +25,13 @@ namespace Venda.Impostos
         DetalhesProdutos ProdutoCompleto;
         (PrincipaisImpostos Tipo, string NomeTemplate, int CST)[] ImpostosPadrao;
 
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             var conjunto = (DadosAdicaoProduto)e.Parameter;
             ProdutoCompleto = conjunto.Completo;
             ImpostosPadrao = conjunto.ImpostosPadrao;
 
-            List<ImpostoArmazenado> impostos;
-            if (conjunto.IsNFCe)
-            {
-                impostos = conjunto.GetImpostosPadraoNFCe();
-            }
-            else
-            {
-                var caixa = new MessageDialog("Qual o tipo de imposto que é usado neste dado?", "Entrada");
-                caixa.Commands.Add(new UICommand("ICMS"));
-                caixa.Commands.Add(new UICommand("ISSQN"));
-                var isProduto = (await caixa.ShowAsync()).Label == "ICMS";
-                impostos = conjunto.GetImpostosPadraoNFe(isProduto);
-            }
+            var impostos = conjunto.IsNFCe ? conjunto.GetImpostosPadraoNFCe() : conjunto.GetImpostosPadraoNFe();
             Impostos = new CollectionViewSource()
             {
                 IsSourceGrouped = true,
@@ -85,12 +73,6 @@ namespace Venda.Impostos
                                 break;
                             case PrincipaisImpostos.IPI:
                                 sucesso = await DetalharIPI();
-                                break;
-                            case PrincipaisImpostos.II:
-                                Escolhidos.Add(new DetalhamentoII.Detalhamento());
-                                break;
-                            case PrincipaisImpostos.ISSQN:
-                                await DetalharISSQN();
                                 break;
                             case PrincipaisImpostos.PIS:
                                 sucesso = await DetalharPIS();
@@ -158,17 +140,6 @@ namespace Venda.Impostos
                 return true;
             }
             return false;
-        }
-
-        async Task DetalharISSQN()
-        {
-            var caixa = new MessageDialog("Qual o tipo de ISSQN desejado?", "Entrada");
-            caixa.Commands.Add(new UICommand("Nacional"));
-            caixa.Commands.Add(new UICommand("Exterior"));
-            Escolhidos.Add(new DetalhamentoISSQN.Detalhamento
-            {
-                Exterior = (await caixa.ShowAsync()).Label == "Exterior"
-            });
         }
 
         async Task<bool> DetalharPIS()

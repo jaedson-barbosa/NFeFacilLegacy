@@ -21,7 +21,6 @@ namespace Comum.PaginasDANFE
         DadosImposto ContextoImposto { get; }
         DadosMotorista ContextoTransporte { get; }
         DadosNFe ContextoNFe { get; }
-        DadosISSQN ContextoISSQN { get; }
         Geral ContextoGeral { get; }
 
         UIElementCollection PaiPaginas { get; }
@@ -42,7 +41,6 @@ namespace Comum.PaginasDANFE
             ContextoImposto = geral._DadosImposto;
             ContextoTransporte = geral._DadosMotorista;
             ContextoNFe = geral._DadosNFe;
-            ContextoISSQN = geral._DadosISSQN;
             ContextoGeral = geral;
             
             PaiPaginas = paiPaginas;

@@ -1,5 +1,4 @@
-﻿using BaseGeral.ModeloXML;
-using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto;
+﻿using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto;
 using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
 using System;
 using System.Xml.Linq;
@@ -7,7 +6,7 @@ using System.Xml.Serialization;
 
 namespace BaseGeral.ItensBD
 {
-    public class ProdutoDI : IStatusAtivacao, IGuidId, IProdutoEspecial
+    public class ProdutoDI : IStatusAtivacao, IGuidId
     {
         public Guid Id { get; set; }
         public DateTime UltimaData { get; set; }
@@ -32,7 +31,7 @@ namespace BaseGeral.ItensBD
         public Guid IdCategoria { get; set; }
 
         Combustivel detalheEspecial;
-        Combustivel IProdutoEspecial.comb
+        public Combustivel Combustivel
         {
             get
             {
@@ -84,7 +83,6 @@ namespace BaseGeral.ItensBD
 
         public ProdutoOuServico ToProdutoOuServico()
         {
-            var especial = (IProdutoEspecial)this;
             return new ProdutoOuServico
             {
                 CodigoProduto = CodigoProduto,
@@ -99,7 +97,7 @@ namespace BaseGeral.ItensBD
                 UnidadeTributacao = UnidadeTributacao,
                 ValorUnitarioTributo = ValorUnitarioTributo,
                 CEST = string.IsNullOrEmpty(CEST) ? null : CEST,
-                comb = especial.comb,
+                Combustivel = Combustivel,
             };
         }
 

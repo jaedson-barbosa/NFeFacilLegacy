@@ -3,7 +3,6 @@ using BaseGeral.ItensBD;
 using BaseGeral.ModeloXML;
 using BaseGeral.Validacao;
 using Fiscal;
-using NFeFacil.View;
 using Fiscal.WebService;
 using Fiscal.WebService.Pacotes;
 using Fiscal.WebService.Pacotes.PartesEnvEvento;
@@ -14,6 +13,7 @@ using System.Xml.Linq;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 using Fiscal.Certificacao;
+using BaseGeral.View;
 
 namespace Comum
 {

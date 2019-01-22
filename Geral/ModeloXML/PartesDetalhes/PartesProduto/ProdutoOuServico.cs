@@ -5,7 +5,7 @@ using static BaseGeral.ExtensoesPrincipal;
 
 namespace BaseGeral.ModeloXML.PartesDetalhes.PartesProduto
 {
-    public sealed class ProdutoOuServico : IProdutoEspecial
+    public sealed class ProdutoOuServico
     {
         [XmlElement(ElementName = "cProd", Order = 0), DescricaoPropriedade("Código")]
         public string CodigoProduto { get; set; }
@@ -114,6 +114,6 @@ namespace BaseGeral.ModeloXML.PartesDetalhes.PartesProduto
         public string NFCI { get; set; }
 
         [XmlElement(Order = 26), DescricaoPropriedade("Combustível")]
-        public Combustivel comb { get; set; }
+        public Combustivel Combustivel { get; set; }
     }
 }

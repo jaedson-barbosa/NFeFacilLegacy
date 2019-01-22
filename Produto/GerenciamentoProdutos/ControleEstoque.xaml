@@ -5,40 +5,53 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
-    <Grid Padding="16">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <ItemsControl Style="{StaticResource ItensResponsivos}">
-            <TextBox Header="Localização genérica"
-                     Text="{x:Bind LocalizacaoGenerica, Mode=TwoWay}" />
-            <TextBox Header="Segmento"
-                     Text="{x:Bind Segmento, Mode=TwoWay}" />
-            <TextBox Header="Prateleira"
-                     Text="{x:Bind Prateleira, Mode=TwoWay}" />
-            <TextBox Header="Locação"
-                     Text="{x:Bind Locacao, Mode=TwoWay}" />
-            <Button Click="AlterarQuantidade_Click">Alterar quantidade</Button>
-        </ItemsControl>
-        <lvc:CartesianChart Grid.Row="1"
-                            x:Name="paiGrafico"
-                            Margin="0,0,16,0">
-            <lvc:CartesianChart.Series>
-                <lvc:LineSeries Values="{x:Bind Valores}"
-                                StrokeThickness="2"
-                                LineSmoothness="1"
-                                PointGeometrySize="16"
-                                Title="Total" />
-            </lvc:CartesianChart.Series>
-            <lvc:CartesianChart.AxisX>
-                <lvc:Axis Labels="{x:Bind Labels}"
-                          ShowLabels="False">
-                    <lvc:Axis.Separator>
-                        <lvc:Separator Step="1" />
-                    </lvc:Axis.Separator>
-                </lvc:Axis>
-            </lvc:CartesianChart.AxisX>
-        </lvc:CartesianChart>
-    </Grid>
+	<Grid Padding="16">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition />
+			<ColumnDefinition />
+			<ColumnDefinition />
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition />
+		</Grid.RowDefinitions>
+		<TextBox Header="Locação"
+				 Text="{x:Bind Locacao, Mode=TwoWay}"
+				 Margin="0,0,8,0" />
+		<TextBox Grid.Column="1" Header="Segmento"
+				 Text="{x:Bind Segmento, Mode=TwoWay}"
+				 Margin="0,0,8,0" />
+		<TextBox Grid.Column="2" Header="Prateleira"
+				 Text="{x:Bind Prateleira, Mode=TwoWay}" />
+		<TextBox Grid.Row="1"
+				 Grid.ColumnSpan="2"
+				 Header="Localização genérica"
+				 Text="{x:Bind LocalizacaoGenerica, Mode=TwoWay}"
+				 Margin="0,16,8,0" />
+		<Button Grid.Row="1"
+				Grid.Column="2"
+				Click="AlterarQuantidade_Click"
+				VerticalAlignment="Bottom"
+				HorizontalAlignment="Stretch">Alterar quantidade</Button>
+		<lvc:CartesianChart Grid.Row="2"
+							Grid.ColumnSpan="3"
+							Margin="0,16,0,0">
+			<lvc:CartesianChart.Series>
+				<lvc:LineSeries Values="{x:Bind Valores}"
+								StrokeThickness="2"
+								LineSmoothness="1"
+								PointGeometrySize="16"
+								Title="Total" />
+			</lvc:CartesianChart.Series>
+			<lvc:CartesianChart.AxisX>
+				<lvc:Axis Labels="{x:Bind Labels}"
+						  ShowLabels="False">
+					<lvc:Axis.Separator>
+						<lvc:Separator Step="1" />
+					</lvc:Axis.Separator>
+				</lvc:Axis>
+			</lvc:CartesianChart.AxisX>
+		</lvc:CartesianChart>
+	</Grid>
 </Page>

@@ -48,22 +48,6 @@ namespace Venda.Impostos
                         Detalhamento = ipi,
                     };
                 }
-                else if (atual is DetalhamentoISSQN.Detalhamento issqn)
-                {
-                    Telas[i] = AssociacoesSimples.ISSQN[issqn.Exterior];
-                    Processamentos[i] = new DetalhamentoISSQN.Processamento()
-                    {
-                        Detalhamento = issqn,
-                    };
-                }
-                else if (atual is DetalhamentoII.Detalhamento ii)
-                {
-                    Telas[i] = typeof(DetalhamentoII.Detalhar);
-                    Processamentos[i] = new DetalhamentoII.Processamento()
-                    {
-                        Detalhamento = ii,
-                    };
-                }
                 else if (atual is DetalhamentoICMSUFDest.Detalhamento icmsUFDest)
                 {
                     Telas[i] = typeof(DetalhamentoICMSUFDest.Detalhar);

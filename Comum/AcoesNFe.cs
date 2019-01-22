@@ -1,7 +1,6 @@
 ﻿using BaseGeral.ItensBD;
 using BaseGeral.ModeloXML;
 using BaseGeral.Validacao;
-using NFeFacil.View;
 using Fiscal.WebService;
 using Fiscal.WebService.Pacotes;
 using System;
@@ -13,6 +12,7 @@ using Windows.Storage.Pickers;
 using Windows.UI.Popups;
 using BaseGeral;
 using Fiscal;
+using BaseGeral.View;
 
 namespace Comum
 {

@@ -5,7 +5,6 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using BaseGeral.Controles;
 using System.Xml.Serialization;
-using NFeFacil.View;
 using Fiscal.WebService.Pacotes.PartesEnvEvento;
 using Fiscal.WebService.Pacotes.PartesRetEnvEvento;
 using Windows.UI.Xaml.Navigation;

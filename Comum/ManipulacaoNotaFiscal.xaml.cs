@@ -14,7 +14,6 @@ using BaseGeral.IBGE;
 using BaseGeral.Validacao;
 using Windows.UI.Xaml;
 using Comum.CaixasDialogo;
-using NFeFacil.View;
 using BaseGeral;
 using BaseGeral.View;
 using Fiscal;
@@ -68,10 +67,6 @@ namespace Comum
             ProcessosReferenciados = new ObservableCollection<ProcessoReferenciado>(NotaSalva.Informacoes.infAdic.ProcRef);
             FormasPagamento = NotaSalva.Informacoes.Pagamento.FormasPagamento.Select(x => new FormaPagamento(x)).GerarObs();
 
-            DataPrestacao = string.IsNullOrEmpty(NotaSalva.Informacoes.total.ISSQNtot?.DCompet)
-                ? DateTimeOffset.Now
-                : DateTimeOffset.Parse(NotaSalva.Informacoes.total.ISSQNtot.DCompet);
-            CRegTrib = (NotaSalva.Informacoes.total.ISSQNtot?.CRegTrib - 1) ?? 0;
             RetTrib = NotaSalva.Informacoes.total.RetTrib ?? new RetTrib();
 
             AtualizarVeiculo();
@@ -287,8 +282,6 @@ namespace Comum
 
         #region Totais
 
-        DateTimeOffset DataPrestacao { get; set; }
-        int CRegTrib { get; set; }
         RetTrib RetTrib { get; set; }
 
         #endregion
@@ -311,8 +304,6 @@ namespace Comum
                 Frame.BackStack.Remove(ultPage);
                 ultPage = Frame.BackStack[Frame.BackStack.Count - 1];
 
-                NotaSalva.Informacoes.total.ISSQNtot.DCompet = DataPrestacao.ToString("yyyy-MM-dd");
-                NotaSalva.Informacoes.total.ISSQNtot.CRegTrib = CRegTrib + 1;
                 NotaSalva.Informacoes.total.RetTrib = RetTrib;
 
                 var nota = NotaSalva;

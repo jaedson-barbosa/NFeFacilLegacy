@@ -2,7 +2,6 @@
 using BaseGeral.IBGE;
 using BaseGeral.Sincronizacao;
 using BaseGeral.View;
-using NFeFacil.View;
 using System;
 using System.Globalization;
 using System.Threading.Tasks;

@@ -28,12 +28,6 @@ namespace Venda.Impostos
             { TiposCalculo.PorValor, typeof(DetalhamentoIPI.DetalharQtde) }
         };
 
-        public static readonly Dictionary<bool, Type> ISSQN = new Dictionary<bool, Type>
-        {
-            { true, typeof(DetalhamentoISSQN.DetalharExterior) },
-            { false, typeof(DetalhamentoISSQN.DetalharNacional) }
-        };
-
         public static readonly Dictionary<int, Type> ICMSSN = new Dictionary<int, Type>
         {
             { 101, typeof(DetalhamentoICMS.TelasSN.Tipo101) },

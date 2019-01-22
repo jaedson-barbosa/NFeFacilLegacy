@@ -3,7 +3,6 @@ using BaseGeral.IBGE;
 using BaseGeral.ItensBD;
 using BaseGeral.ModeloXML;
 using BaseGeral.View;
-using NFeFacil.View;
 using Fiscal.WebService;
 using Fiscal.WebService.Pacotes;
 using System;

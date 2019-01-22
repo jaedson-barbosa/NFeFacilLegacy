@@ -1,7 +1,8 @@
 ﻿<Application x:Class="NFeFacil.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:aux="using:NFeFacil.View">
+             xmlns:aux="using:BaseGeral.View"
+			 xmlns:aux1="using:NFeFacil.View">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.ThemeDictionaries>
@@ -37,7 +38,7 @@
                 <Setter Property="ItemsPanel">
                     <Setter.Value>
                         <ItemsPanelTemplate>
-                            <aux:PainelAdaptavel />
+							<aux1:PainelAdaptavel />
                         </ItemsPanelTemplate>
                     </Setter.Value>
                 </Setter>

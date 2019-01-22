@@ -1,9 +1,7 @@
 ﻿using BaseGeral;
 using BaseGeral.View;
-using NFeFacil.View;
 using System;
 using System.Reflection;
-using Windows.System.Profile;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;

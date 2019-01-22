@@ -29,7 +29,6 @@ namespace Comum
             var dadosNFe = GetNFe();
             var dadosProdutos = ObterProdutos();
             var dadosDuplicatas = ObterDuplicatas();
-            var dadosISSQN = GetISSQN();
             var fatura = GetFatura();
 
             return new Geral
@@ -42,7 +41,6 @@ namespace Comum
                 _DadosNFe = dadosNFe,
                 _DadosProdutos = dadosProdutos,
                 _Duplicatas = dadosDuplicatas,
-                _DadosISSQN = dadosISSQN,
                 Fatura = fatura
             };
         }
@@ -70,7 +68,7 @@ namespace Comum
             }
             if (cobr?.Dup != null)
             {
-                itens.Add(new ItemDadosAdicionais("DUPLICATAS:", cobr.Dup.Select(dup => $"Duplicata - Num.: {dup.NDup}, Vec.: {dup.DVenc}, Valor: {dup.VDup.ToString("N2")}")));
+                itens.Add(new ItemDadosAdicionais("DUPLICATAS:", cobr.Dup.Select(dup => $"Duplicata Num.: {dup.NDup}, Venc.: {dup.DVenc}, Valor: {dup.VDup.ToString("N2")}")));
             }
             if (extras?.InfCpl != null)
             {
@@ -334,19 +332,6 @@ namespace Comum
             }
         }
 
-        DadosISSQN GetISSQN()
-        {
-            var emit = Dados.NFe.Informacoes.Emitente;
-            var issqn = Dados.NFe.Informacoes.total.ISSQNtot;
-            return issqn != null ? new DadosISSQN
-            {
-                BC = issqn.vBC.ToString("N2"),
-                IM = emit.IM,
-                TotalServiços = issqn.vServ.ToString("N2"),
-                ValorISSQN = issqn.vISS.ToString("N2")
-            } : new DadosISSQN();
-        }
-
         string GetFatura()
         {
             var cobranca = Dados.NFe.Informacoes.cobr;
@@ -357,7 +342,7 @@ namespace Comum
             else
             {
                 var fat = cobranca.Fat;
-                return $"PAGAMENTO A PRAZO - Num.: {fat.NFat}, V. orig.: {fat.VOrig.ToString("N2")}, V. desc.: {fat.VDesc.ToString("N2")}, V. liq.: {fat.VLiq.ToString("N2")}";
+                return $"PAGAMENTO A PRAZO / Num.: {fat.NFat} / V. orig.: {fat.VOrig.ToString("N2")} / V. desc.: {fat.VDesc.ToString("N2")} / V. liq.: {fat.VLiq.ToString("N2")}";
             }
         }
 

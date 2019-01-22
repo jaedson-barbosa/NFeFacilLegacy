@@ -257,7 +257,6 @@
     <Compile Include="ModeloXML\InformacoesNFCe .cs" />
     <Compile Include="ModeloXML\InformacoesNFe.cs" />
     <Compile Include="ModeloXML\InformacoesSuplementaresNFCe.cs" />
-    <Compile Include="ModeloXML\IProdutoEspecial.cs" />
     <Compile Include="ModeloXML\NFCe.cs" />
     <Compile Include="ModeloXML\NFe.cs" />
     <Compile Include="ModeloXML\PartesAssinatura\Algoritmo.cs" />
@@ -315,14 +314,12 @@
     <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\ICMSSN900.cs" />
     <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\ICMSST.cs" />
     <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\ICMSUFDest.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\II.cs" />
     <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\IImpostosUnidos.cs" />
     <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\IPI.cs" />
     <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\IPINT.cs" />
     <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\IPITrib.cs" />
     <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\IRegimeNormal.cs" />
     <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\ISimplesNacional.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\ISSQN.cs" />
     <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\PIS.cs" />
     <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\PISAliq.cs" />
     <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesImpostos\PISNT.cs" />
@@ -333,7 +330,6 @@
     <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\PartesProdutoOuServico\Combustivel.cs" />
     <Compile Include="ModeloXML\PartesDetalhes\PartesProduto\ProdutoOuServico.cs" />
     <Compile Include="ModeloXML\PartesDetalhes\PartesTotal\ICMSTot.cs" />
-    <Compile Include="ModeloXML\PartesDetalhes\PartesTotal\ISSQNtot.cs" />
     <Compile Include="ModeloXML\PartesDetalhes\PartesTotal\RetTrib.cs" />
     <Compile Include="ModeloXML\PartesDetalhes\PartesTransporte\ICMSTransporte.cs" />
     <Compile Include="ModeloXML\PartesDetalhes\PartesTransporte\Motorista.cs" />
@@ -379,6 +375,8 @@
     <Compile Include="Validacao\ValidadorEndereco.cs" />
     <Compile Include="Validacao\ValidarDados.cs" />
     <Compile Include="View\BibliotecaCores.cs" />
+    <Compile Include="View\ExibicaoEspecifica.cs" />
+    <Compile Include="View\ExibicaoGenerica.cs" />
     <Compile Include="View\MmToPx.cs" />
     <Compile Include="View\DadosEstadosParaView.cs" />
     <Compile Include="View\DescricaoPropriedade.cs" />

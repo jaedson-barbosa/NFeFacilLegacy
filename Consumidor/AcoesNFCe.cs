@@ -1,7 +1,6 @@
 ﻿using BaseGeral.ItensBD;
 using BaseGeral.ModeloXML;
 using BaseGeral.Validacao;
-using NFeFacil.View;
 using Fiscal;
 using Fiscal.WebService;
 using Fiscal.WebService.Pacotes;
@@ -14,6 +13,7 @@ using Windows.Storage.Pickers;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using BaseGeral;
+using BaseGeral.View;
 
 namespace Consumidor
 {

@@ -6,8 +6,6 @@ namespace Venda.Impostos
     {
         ICMS,
         IPI,
-        II,
-        ISSQN,
         PIS,
         COFINS,
         ICMSUFDest

@@ -8,10 +8,10 @@ namespace Venda.Impostos.DetalhamentoICMSUFDest
     {
         IDadosICMSUFDest dados;
 
-        public override ImpostoBase[] Processar(DetalhesProdutos prod)
+        public override IImposto[] Processar(DetalhesProdutos prod)
         {
             var imposto = dados.Imposto;
-            return new ImpostoBase[1] { imposto };
+            return new IImposto[1] { imposto };
         }
 
         public override void ProcessarDados(Page Tela)

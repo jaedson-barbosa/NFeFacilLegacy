@@ -1,5 +1,4 @@
 ﻿using BaseGeral.View;
-using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
 using System.Xml.Serialization;
 using static BaseGeral.ExtensoesPrincipal;
 

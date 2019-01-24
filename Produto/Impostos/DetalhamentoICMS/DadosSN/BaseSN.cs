@@ -23,12 +23,8 @@ namespace Venda.Impostos.DetalhamentoICMS.DadosSN
             var impCriados = detalhes.Impostos.impostos;
             var vIPI = 0d;
             for (int i = 0; i < impCriados.Count; i++)
-            {
                 if (impCriados[i] is IPI ipi && ipi.Corpo is IPITrib trib)
-                {
-                    vIPI = Parse(trib.vIPI);
-                }
-            }
+                    vIPI = Parse(trib.ValorIPI);
 
             return totalBruto + frete + seguro + despesas - desconto + vIPI;
         }

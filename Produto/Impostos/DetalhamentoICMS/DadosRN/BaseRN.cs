@@ -27,12 +27,8 @@ namespace Venda.Impostos.DetalhamentoICMS.DadosRN
         {
             var impCriados = detalhes.Impostos.impostos;
             for (int i = 0; i < impCriados.Count; i++)
-            {
-                if (impCriados[i] is IPI ipi && ipi.Corpo is IPITrib trib)
-                {
-                    return Parse(trib.vIPI);
-                }
-            }
+                if (impCriados[i] is IPI ipi && ipi.Corpo is IPITrib trib && !string.IsNullOrEmpty(trib.ValorIPI))
+                    return Parse(trib.ValorIPI);
             return 0;
         }
     }

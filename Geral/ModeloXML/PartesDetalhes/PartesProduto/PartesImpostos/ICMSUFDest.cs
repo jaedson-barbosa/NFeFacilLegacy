@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 
 namespace BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos
 {
-    public sealed class ICMSUFDest : ImpostoBase
+    public sealed class ICMSUFDest : IImposto
     {
         [XmlElement("vBCUFDest", Order = 0), DescricaoPropriedade("Valor da BC do ICMS na UF destino")]
         public double VBCUFDest { get; set; }

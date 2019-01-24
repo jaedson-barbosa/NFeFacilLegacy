@@ -11,11 +11,11 @@ namespace Venda.Impostos.DetalhamentoCOFINS
     {
         IDadosCOFINS dados;
 
-        public override ImpostoBase[] Processar(DetalhesProdutos prod)
+        public override IImposto[] Processar(DetalhesProdutos prod)
         {
             var resultado = dados.Processar(prod.Produto);
-            if (resultado is ImpostoBase[] list) return list;
-            else return new ImpostoBase[1] { (COFINS)resultado };
+            if (resultado is IImposto[] list) return list;
+            else return new IImposto[1] { (COFINS)resultado };
         }
 
         public override void ProcessarDados(Page Tela)

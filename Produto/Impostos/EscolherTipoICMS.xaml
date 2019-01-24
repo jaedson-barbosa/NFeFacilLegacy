@@ -7,11 +7,7 @@
                Title="Escolha de ICMS"
                PrimaryButtonText="Adicionar"
                SecondaryButtonText="Cancelar">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
-        </Grid.RowDefinitions>
+    <StackPanel>
         <ComboBox x:Name="cmbTipoICMSSN"
                   SelectedValue="{x:Bind TipoICMSSN, Mode=TwoWay}"
                   SelectedValuePath="Tag"
@@ -32,7 +28,8 @@
                   SelectedValue="{x:Bind TipoICMSRN, Mode=TwoWay}"
                   SelectedValuePath="Tag"
                   Header="Situação tributária"
-                  HorizontalAlignment="Stretch">
+                  HorizontalAlignment="Stretch"
+				  Margin="0,16,0,0">
             <ComboBoxItem Tag="00">00. Tributada integralmente</ComboBoxItem>
             <ComboBoxItem Tag="10">10. Tributada e com cobrança por ST</ComboBoxItem>
             <ComboBoxItem Tag="1010">10. Tributada e com cobrança por ST (Partilha - ICMSPart)</ComboBoxItem>
@@ -48,10 +45,10 @@
             <ComboBoxItem Tag="90">90. Outros</ComboBoxItem>
             <ComboBoxItem Tag="9090">90. Outros (Partilha - ICMSPart)</ComboBoxItem>
         </ComboBox>
-        <ComboBox Grid.Row="1"
-                  SelectedIndex="{x:Bind Origem, Mode=TwoWay}"
+        <ComboBox SelectedIndex="{x:Bind Origem, Mode=TwoWay}"
                   Header="Origem"
-                  HorizontalAlignment="Stretch">
+                  HorizontalAlignment="Stretch"
+				  Margin="0,16,0,0">
             <ComboBoxItem Tag='0'>0 - Nacional, exceto as indicadas nos códigos 3, 4, 5 e 8</ComboBoxItem>
             <ComboBoxItem Tag='1'>1 - Estrangeira - Importação direta, exceto a indicada no código 6</ComboBoxItem>
             <ComboBoxItem Tag='2'>2 - Estrangeira - Adquirida no mercado interno, exceto a indicada no código 7</ComboBoxItem>
@@ -62,5 +59,5 @@
             <ComboBoxItem Tag='7'>7 - Estrangeira - Adquirida no mercado interno, sem similar nacional, constante lista CAMEX e gás natural</ComboBoxItem>
             <ComboBoxItem Tag='8'>8 - Nacional, mercadoria ou bem com Conteúdo de Importação superior a 70%</ComboBoxItem>
         </ComboBox>
-    </Grid>
+    </StackPanel>
 </ContentDialog>

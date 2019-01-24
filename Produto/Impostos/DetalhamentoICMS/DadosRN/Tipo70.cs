@@ -34,40 +34,7 @@ namespace Venda.Impostos.DetalhamentoICMS.DadosRN
 
         public override object Processar(DetalhesProdutos prod)
         {
-            var vBC = CalcularBC(prod);
-            var bcSemReducao = vBC * pICMS / 100;
-            vBC *= 1 - (pRedBC / 100);
-            var vICMS = vBC * pICMS / 100;
-
-            bool usarpMVAST = TryParse(pMVAST, out double pMVASTd);
-            bool usarpRedBCST = TryParse(pRedBCST, out double pRedBCSTd);
-            var vBCST = (vBC + ObterIPI(prod)) * (100 + pMVASTd) / 100;
-            var bcstSemReducao = (vBCST * pICMSST / 100) - vICMS;
-
-            vBCST *= 1 - (pRedBCSTd / 100);
-
-            var vICMSST = (vBCST * pICMSST / 100) - vICMS;
-
-            var vICMSDeson = (bcSemReducao - vICMS) + (bcstSemReducao - vICMSST);
-            bool infDeson = vICMSDeson > 0 && !string.IsNullOrEmpty(motDesICMS);
-
-            return new ICMS70()
-            {
-                CST = CST,
-                modBC = modBC.ToString(),
-                modBCST = modBCST.ToString(),
-                motDesICMS = infDeson ? motDesICMS : null,
-                Orig = Origem,
-                pICMS = ToStr(pICMS, "F4"),
-                pICMSST = ToStr(pICMSST, "F4"),
-                pMVAST = usarpMVAST ? ToStr(pMVASTd, "F4") : null,
-                pRedBCST = usarpRedBCST ? ToStr(pRedBCSTd, "F4") : null,
-                vBC = ToStr(vBC),
-                vBCST = ToStr(vBCST),
-                vICMS = ToStr(vICMS),
-                vICMSDeson = infDeson ? ToStr(vICMSDeson) : null,
-                vICMSST = ToStr(vICMSST)
-            };
+            return new ICMS70(Origem, CST, modBC, pICMS, pRedBC, modBCST, pMVAST, pRedBCST, pICMSST, motDesICMS, prod);
         }
     }
 }

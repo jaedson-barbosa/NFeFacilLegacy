@@ -23,26 +23,7 @@ namespace Venda.Impostos.DetalhamentoICMS.DadosRN
 
         public override object Processar(DetalhesProdutos prod)
         {
-            var vBC = CalcularBC(prod);
-            var valorSemReducao = vBC * pICMS / 100;
-            vBC *= 1 - (pRedBC / 100);
-            var vICMS = vBC * pICMS / 100;
-
-            var vICMSDeson = valorSemReducao - vICMS;
-            bool infDeson = vICMSDeson > 0 && !string.IsNullOrEmpty(motDesICMS);
-
-            return new ICMS20()
-            {
-                CST = CST,
-                modBC = modBC.ToString(),
-                motDesICMS = infDeson ? motDesICMS : null,
-                Orig = Origem,
-                pICMS = ToStr(pICMS, "F4"),
-                vBC = ToStr(vBC),
-                vICMS = ToStr(vICMS),
-                vICMSDeson = infDeson ? ToStr(vICMSDeson) : null,
-                pRedBC = ToStr(pRedBC, "F4")
-            };
+            return new ICMS20(Origem, CST, modBC, pICMS, pRedBC, motDesICMS, prod);
         }
     }
 }

@@ -11,10 +11,10 @@ namespace Venda.Impostos.DetalhamentoIPI
     {
         DadosIPI dados;
 
-        public override ImpostoBase[] Processar(DetalhesProdutos prod)
+        public override IImposto[] Processar(DetalhesProdutos prod)
         {
             var resultado = dados.Processar(prod.Produto);
-            return new ImpostoBase[1] { (IPI)resultado };
+            return new IImposto[1] { (IPI)resultado };
         }
 
         public override void ProcessarDados(Page Tela)
@@ -24,11 +24,11 @@ namespace Venda.Impostos.DetalhamentoIPI
                 var bruto = XElement.Parse(imp.IPI).FromXElement<ImpSimplesArmazenado.XMLIPIArmazenado>();
                 var ipi = new IPI()
                 {
-                    cEnq = bruto.CEnq,
-                    cSelo = bruto.CSelo,
+                    CodigoEnquadramento = bruto.CEnq,
+                    CodigoSelo = bruto.CSelo,
                     CNPJProd = bruto.CNPJProd,
-                    qSelo = bruto.QSelo,
-                    Corpo = new IPINT()
+                    QuantidadeSelos = bruto.QSelo,
+                    Corpo = new IPINT(imp.CST.ToString("00"))
                 };
                 ProcessarDados(imp.TipoCalculo, imp.Aliquota, imp.Valor, imp.CST, ipi);
             }

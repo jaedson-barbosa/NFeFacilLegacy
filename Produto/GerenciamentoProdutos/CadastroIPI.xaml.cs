@@ -14,10 +14,10 @@ namespace Venda.GerenciamentoProdutos
                 var ipi = page.Conjunto;
                 return new ImpSimplesArmazenado.XMLIPIArmazenado
                 {
-                    CEnq = ipi.cEnq,
+                    CEnq = ipi.CodigoEnquadramento,
                     CNPJProd = ipi.CNPJProd,
-                    CSelo = ipi.cSelo,
-                    QSelo = ipi.qSelo
+                    CSelo = ipi.CodigoSelo,
+                    QSelo = ipi.QuantidadeSelos
                 };
             }
         }

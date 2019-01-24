@@ -77,9 +77,9 @@ namespace Venda.Impostos
             var produto = roteiro.Finalizar();
 
             var caixa = new DefinirTotalImpostos();
-            if (await caixa.ShowAsync() == ContentDialogResult.Primary && !string.IsNullOrEmpty(caixa.ValorTotalTributos))
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary && caixa.ValorTotalTributos != 0)
             {
-                produto.Impostos.vTotTrib = caixa.ValorTotalTributos;
+                produto.Impostos.vTotTrib = ExtensoesPrincipal.ToStr(caixa.ValorTotalTributos);
             }
             else
             {

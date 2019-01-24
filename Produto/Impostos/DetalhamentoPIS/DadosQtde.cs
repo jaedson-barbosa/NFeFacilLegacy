@@ -18,45 +18,25 @@ namespace Venda.Impostos.DetalhamentoPIS
             {
                 return new PIS
                 {
-                    Corpo = new PISQtde
-                    {
-                        CST = CST,
-                        qBCProd = ToStr(qBCProd, "F4"),
-                        vAliqProd = ToStr(Valor, "F4"),
-                        vPIS = ToStr(qBCProd * Valor)
-                    }
+                    Corpo = new PISQtde(CST, qBCProd, Valor)
                 };
             }
             else if (CST == "05")
             {
-                return new ImpostoBase[2]
+                return new IImposto[2]
                 {
                     new PIS
                     {
-                        Corpo = new PISNT()
-                        {
-                            CST = CST
-                        }
+                        Corpo = new PISNT(CST)
                     },
-                    new PISST
-                    {
-                        qBCProd = ToStr(qBCProd, "F4"),
-                        vAliqProd = ToStr(Valor, "F4"),
-                        vPIS = ToStr(qBCProd * Valor)
-                    }
+                    new PISST(qBCProd, Valor, true)
                 };
             }
             else
             {
                 return new PIS
                 {
-                    Corpo = new PISOutr
-                    {
-                        CST = CST,
-                        qBCProd = ToStr(qBCProd, "F4"),
-                        vAliqProd = ToStr(Valor, "F4"),
-                        vPIS = ToStr(qBCProd * Valor)
-                    }
+                    Corpo = new PISOutr(CST, qBCProd, Valor, true)
                 };
             }
         }

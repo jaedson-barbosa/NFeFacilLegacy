@@ -1,52 +1,32 @@
-﻿using BaseGeral.View;
-using System.Xml.Serialization;
-
+﻿using static BaseGeral.ExtensoesPrincipal;
 namespace BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos
 {
     public class ICMS10 : ComumICMS, IRegimeNormal
     {
-        [DescricaoPropriedade("Tributação do ICMS")]
-        [XmlElement(Order = 1)]
-        public string CST { get; set; }
+        public ICMS10(int origem, string cst, int modBC, double pICMS,
+            int modBCST, string pMVAST, string pRedBCST, double pICMSST, DetalhesProdutos prod) : base(origem, cst, false)
+        {
+            var vBC = CalcularBC(prod);
+            var vICMS = vBC * pICMS / 100;
 
-        [DescricaoPropriedade("Modalidade de determinação da BC do ICMS")]
-        [XmlElement(Order = 2)]
-        public string modBC { get; set; }
+            bool usarpMVAST = TryParse(pMVAST, out double pMVASTd);
+            bool usarpRedBCST = TryParse(pRedBCST, out double pRedBCSTd);
+            var vBCST = (vBC + ObterIPI(prod)) * (100 + pMVASTd) / 100;
+            vBCST *= 1 - (pRedBCSTd / 100);
 
-        [DescricaoPropriedade("Valor da BC do ICMS")]
-        [XmlElement(Order = 3)]
-        public string vBC { get; set; }
+            var vICMSST = (vBCST * pICMSST / 100) - vICMS;
 
-        [DescricaoPropriedade("Alíquota do imposto")]
-        [XmlElement(Order = 4)]
-        public string pICMS { get; set; }
+            this.modBC = modBC.ToString();
+            this.vBC = ToStr(vBC);
+            this.pICMS = ToStr(pICMS, "F4");
+            this.vICMS = ToStr(vICMS);
 
-        [DescricaoPropriedade("Valor do ICMS")]
-        [XmlElement(Order = 5)]
-        public string vICMS { get; set; }
-
-        [DescricaoPropriedade("Modalidade de determinação da BC do ICMS ST")]
-        [XmlElement(Order = 6)]
-        public string modBCST { get; set; }
-
-        [DescricaoPropriedade("Percentual da margem de valor Adicionado do ICMS ST")]
-        [XmlElement(Order = 7)]
-        public string pMVAST { get; set; }
-
-        [DescricaoPropriedade("Percentual da Redução de BC do ICMS ST")]
-        [XmlElement(Order = 8)]
-        public string pRedBCST { get; set; }
-
-        [DescricaoPropriedade("Valor da BC do ICMS ST")]
-        [XmlElement(Order = 9)]
-        public string vBCST { get; set; }
-
-        [DescricaoPropriedade("Alíquota do imposto do ICMS ST")]
-        [XmlElement(Order = 10)]
-        public string pICMSST { get; set; }
-
-        [DescricaoPropriedade("Valor do ICMS ST")]
-        [XmlElement(Order = 11)]
-        public string vICMSST { get; set; }
+            this.modBCST = modBCST.ToString();
+            this.pMVAST = usarpMVAST ? ToStr(pMVASTd, "F4") : null;
+            this.pRedBCST = usarpRedBCST ? ToStr(pRedBCSTd, "F4") : null;
+            this.vBCST = ToStr(vBCST);
+            this.pICMSST = ToStr(pICMSST, "F4");
+            this.vICMSST = ToStr(vICMSST);
+        }
     }
 }

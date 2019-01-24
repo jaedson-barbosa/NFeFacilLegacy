@@ -5,7 +5,7 @@ namespace Venda.Impostos.DetalhamentoICMS.DadosRN
 {
     public class Tipo90 : BaseRN
     {
-        public string modBC { get; set; }
+        public int modBC { get; set; }
         public string vBC { get; set; }
         public string pRedBC { get; set; }
         public string pICMS { get; set; }
@@ -14,7 +14,7 @@ namespace Venda.Impostos.DetalhamentoICMS.DadosRN
         public string vICMSDeson { get; set; }
         public string motDesICMS { get; set; }
 
-        public string modBCST { get; set; }
+        public int modBCST { get; set; }
         public string pMVAST { get; set; }
         public string pRedBCST { get; set; }
         public string vBCST { get; set; }
@@ -24,7 +24,7 @@ namespace Venda.Impostos.DetalhamentoICMS.DadosRN
         public Tipo90() { }
         public Tipo90(TelasRN.Tipo90 tela)
         {
-            modBC = tela.modBC == -1 ? null : tela.modBC.ToString();
+            modBC = tela.modBC;
             vBC = tela.vBC;
             pRedBC = tela.pRedBC;
             pICMS = tela.pICMS;
@@ -33,7 +33,7 @@ namespace Venda.Impostos.DetalhamentoICMS.DadosRN
             vICMSDeson = tela.vICMSDeson;
             motDesICMS = tela.motDesICMS;
 
-            modBCST = tela.modBCST == -1 ? null : tela.modBCST.ToString();
+            modBCST = tela.modBCST;
             pMVAST = tela.pMVAST;
             pRedBCST = tela.pRedBCST;
             vBCST = tela.vBCST;
@@ -43,24 +43,7 @@ namespace Venda.Impostos.DetalhamentoICMS.DadosRN
 
         public override object Processar(DetalhesProdutos prod)
         {
-            return new ICMS90()
-            {
-                CST = CST,
-                modBC = modBC,
-                modBCST = modBCST,
-                motDesICMS = motDesICMS,
-                Orig = Origem,
-                pICMS = pICMS,
-                pICMSST = pICMSST,
-                pMVAST = pMVAST,
-                pRedBC = pRedBC,
-                pRedBCST = pRedBCST,
-                vBC = vBC,
-                vBCST = vBCST,
-                vICMS = vICMS,
-                vICMSDeson = vICMSDeson,
-                vICMSST = vICMSST
-            };
+            return new ICMS90(Origem, CST, modBC, vBC, pICMS, vICMS, modBCST, pMVAST, pRedBCST, vBCST, pICMSST, vICMSST, pRedBC, vICMSDeson, motDesICMS);
         }
     }
 }

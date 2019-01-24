@@ -8,10 +8,9 @@ namespace Venda.Impostos
 {
     public abstract class ProcessamentoImposto
     {
-        public IDetalhamentoImposto Detalhamento { protected get; set; }
-        public PrincipaisImpostos Tipo => Detalhamento.Tipo;
+        public IDetalhamentoImposto Detalhamento { get; set; }
 
         public abstract void ProcessarDados(Page Tela);
-        public abstract ImpostoBase[] Processar(DetalhesProdutos prod);
+        public abstract IImposto[] Processar(DetalhesProdutos prod);
     }
 }

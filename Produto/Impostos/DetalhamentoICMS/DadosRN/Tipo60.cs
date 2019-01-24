@@ -19,14 +19,7 @@ namespace Venda.Impostos.DetalhamentoICMS.DadosRN
 
         public override object Processar(DetalhesProdutos prod)
         {
-            return new ICMS60()
-            {
-                CST = CST,
-                Orig = Origem,
-                vBCSTRet = vBCSTRet,
-                vICMSSTRet = vICMSSTRet,
-                pST = pST
-            };
+            return new ICMS60(Origem, CST, vBCSTRet, pST, vICMSSTRet);
         }
     }
 }

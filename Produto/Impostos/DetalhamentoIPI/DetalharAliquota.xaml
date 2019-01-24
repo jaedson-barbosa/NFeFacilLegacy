@@ -9,13 +9,13 @@
         <TextBox Text="{x:Bind Conjunto.CNPJProd, Mode=TwoWay}"
                  Header="CNPJ do produtor"
                  InputScope="Number" />
-        <TextBox Text="{x:Bind Conjunto.cEnq, Mode=TwoWay}"
+        <TextBox Text="{x:Bind Conjunto.CodigoEnquadramento, Mode=TwoWay}"
                  Header="Código de enquadramento" />
-        <TextBox Text="{x:Bind Conjunto.qSelo, Mode=TwoWay}"
+        <TextBox Text="{x:Bind Conjunto.QuantidadeSelos, Mode=TwoWay}"
                  Header="Qtd. do selo de controle"
                  InputScope="Number" />
         <TextBox Header="Código do selo de controle"
-                 Text="{x:Bind Conjunto.cSelo, Mode=TwoWay}" />
+                 Text="{x:Bind Conjunto.CodigoSelo, Mode=TwoWay}" />
         <controles:EntradaNumerica Number="{x:Bind Aliquota, Mode=TwoWay}"
                                    Header="Alíquota"
                                    Format="5:4" />

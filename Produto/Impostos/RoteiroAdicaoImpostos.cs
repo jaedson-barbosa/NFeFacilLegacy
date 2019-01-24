@@ -137,7 +137,7 @@ namespace Venda.Impostos
         {
             var impostos = Produto.Impostos.impostos;
             impostos.Clear();
-            foreach (var item in Processamentos.OrderBy(x => (int)x.Tipo))
+            foreach (var item in Processamentos.OrderBy(x => (int)x.Detalhamento.Tipo))
             {
                 impostos.AddRange(item.Processar(Produto));
             }

@@ -1,35 +1,28 @@
-﻿using BaseGeral.View;
-using System.Xml.Serialization;
-
+﻿using static BaseGeral.ExtensoesPrincipal;
 namespace BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos
 {
     public class ICMS51 : ComumICMS, IRegimeNormal
     {
-        [XmlElement(Order = 1), DescricaoPropriedade("Tributação do ICMS")]
-        public string CST { get; set; }
+        public ICMS51(int origem, string cst) : base(origem, cst, false) { }
 
-        [XmlElement(Order = 2), DescricaoPropriedade("Modalidade de determinação da BC do ICMS")]
-        public string modBC { get; set; }
+        public ICMS51(int origem, string cst, int modBC, double pICMS,
+            double pRedBC, double pDif, DetalhesProdutos prod) : base(origem, cst, false)
+        {
+            var vBC = CalcularBC(prod);
+            vBC *= 1 - (pRedBC / 100);
+            var vICMSOp = vBC * pICMS / 100;
+            var vICMSDif = vBC * (100 - pDif) / 100;
+            var vICMS = vICMSOp - vICMSDif;
 
-        [XmlElement(Order = 3), DescricaoPropriedade("Percentual da Redução de BC")]
-        public string pRedBC { get; set; }
+            this.modBC = modBC.ToString();
+            this.vBC = ToStr(vBC);
+            this.pICMS = ToStr(pICMS, "F4");
+            this.vICMS = ToStr(vICMS);
 
-        [XmlElement(Order = 4), DescricaoPropriedade("Valor da BC do ICMS")]
-        public string vBC { get; set; }
-
-        [XmlElement(Order = 5), DescricaoPropriedade("Alíquota do imposto")]
-        public string pICMS { get; set; }
-
-        [XmlElement(Order = 6), DescricaoPropriedade("Valor do ICMS da Operação")]
-        public string vICMSOp { get; set; }
-
-        [XmlElement(Order = 7), DescricaoPropriedade("Percentual do diferimento")]
-        public string pDif { get; set; }
-
-        [XmlElement(Order = 8), DescricaoPropriedade("Valor do ICMS Diferido")]
-        public string vICMSDif { get; set; }
-
-        [XmlElement(Order = 9), DescricaoPropriedade("Valor do ICMS")]
-        public string vICMS { get; set; }
+            this.pRedBC = ToStr(pRedBC, "F4");
+            this.vICMSOp = ToStr(vICMSOp);
+            this.pDif = ToStr(pDif, "F4");
+            this.vICMSDif = ToStr(vICMSDif);
+        }
     }
 }

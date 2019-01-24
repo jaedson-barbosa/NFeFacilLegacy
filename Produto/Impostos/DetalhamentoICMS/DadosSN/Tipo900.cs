@@ -39,24 +39,7 @@ namespace Venda.Impostos.DetalhamentoICMS.DadosSN
 
         public override object Processar(DetalhesProdutos prod)
         {
-            return new ICMSSN900()
-            {
-                CSOSN = CSOSN,
-                modBC = modBC.ToString(),
-                modBCST = modBCST.ToString(),
-                Orig = Origem,
-                pCredSN = pCredSN,
-                pICMS = pICMS,
-                pICMSST = pICMSST,
-                pMVAST = pMVAST,
-                pRedBC = pRedBC,
-                pRedBCST = pRedBCST,
-                vBC = vBC,
-                vBCST = vBCST,
-                vCredICMSSN = vCredICMSSN,
-                vICMS = vICMS,
-                vICMSST = vICMSST
-            };
+            return new ICMSSN900(Origem, CSOSN, modBC, vBC, pRedBC, pICMS, vICMS, modBCST, pMVAST, pRedBCST, vBCST, pICMSST, vICMSST, pCredSN, vCredICMSSN);
         }
     }
 }

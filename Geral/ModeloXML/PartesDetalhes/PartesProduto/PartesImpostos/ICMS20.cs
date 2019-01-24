@@ -1,32 +1,27 @@
-﻿using BaseGeral.View;
-using System.Xml.Serialization;
-
+﻿using static BaseGeral.ExtensoesPrincipal;
 namespace BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos
 {
     public class ICMS20 : ComumICMS, IRegimeNormal
     {
-        [XmlElement(Order = 1), DescricaoPropriedade("Tributação do ICMS")]
-        public string CST { get; set; }
+        public ICMS20(int origem, string cst, int modBC, double pICMS,
+            double pRedBC, string motDesICMS, DetalhesProdutos prod) : base(origem, cst, false)
+        {
+            var vBC = CalcularBC(prod);
+            var valorSemReducao = vBC * pICMS / 100;
+            vBC *= 1 - (pRedBC / 100);
+            var vICMS = vBC * pICMS / 100;
 
-        [XmlElement(Order = 2), DescricaoPropriedade("Modalidade de determinação da BC do ICMS")]
-        public string modBC { get; set; }
+            var vICMSDeson = valorSemReducao - vICMS;
+            bool infDeson = vICMSDeson > 0 && !string.IsNullOrEmpty(motDesICMS);
 
-        [XmlElement(Order = 3), DescricaoPropriedade("Percentual da Redução de BC")]
-        public string pRedBC { get; set; }
+            this.modBC = modBC.ToString();
+            this.vBC = ToStr(vBC);
+            this.pICMS = ToStr(pICMS, "F4");
+            this.vICMS = ToStr(vICMS);
 
-        [XmlElement(Order = 4), DescricaoPropriedade("Valor da BC do ICMS")]
-        public string vBC { get; set; }
-
-        [XmlElement(Order = 5), DescricaoPropriedade("Alíquota do imposto")]
-        public string pICMS { get; set; }
-
-        [XmlElement(Order = 6), DescricaoPropriedade("Valor do ICMS")]
-        public string vICMS { get; set; }
-
-        [XmlElement(Order = 7), DescricaoPropriedade("Valor do ICMS da desoneração")]
-        public string vICMSDeson { get; set; }
-
-        [XmlElement(Order = 8), DescricaoPropriedade("Motivo da desoneração do ICMS")]
-        public string motDesICMS { get; set; }
+            this.pRedBC = ToStr(pRedBC, "F4");
+            this.vICMSDeson = infDeson ? ToStr(vICMSDeson) : null;
+            this.motDesICMS = infDeson ? motDesICMS : null;
+        }
     }
 }

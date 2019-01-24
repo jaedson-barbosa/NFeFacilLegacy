@@ -9,7 +9,7 @@ namespace BaseGeral.ModeloXML.PartesDetalhes.PartesProduto
     public sealed class Impostos
     {
         public Impostos() { }
-        public Impostos(IEnumerable<ImpostoBase> lista)
+        public Impostos(IEnumerable<IImposto> lista)
         {
             impostos = lista.ToList();
         }
@@ -23,6 +23,6 @@ namespace BaseGeral.ModeloXML.PartesDetalhes.PartesProduto
             XmlElement(nameof(IPI), Type = typeof(IPI)),
             XmlElement(nameof(PIS), Type = typeof(PIS)),
             XmlElement(nameof(PISST), Type = typeof(PISST))]
-        public List<ImpostoBase> impostos { get; set; } = new List<ImpostoBase>();
+        public List<IImposto> impostos { get; set; } = new List<IImposto>();
     }
 }

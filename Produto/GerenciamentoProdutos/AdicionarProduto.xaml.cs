@@ -13,7 +13,7 @@ using System.Linq;
 using Windows.UI.Xaml.Data;
 using BaseGeral;
 using BaseGeral.View;
-using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
+using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto;
 using System.ComponentModel;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238

@@ -45,41 +45,12 @@ namespace BaseGeral.ModeloXML.PartesDetalhes.PartesTotal
                             return (double)valor;
                         }
                     }
-                    else if (imposto is IPI ipi && ipi.Corpo is IPITrib trib)
-                    {
-                        var temp = trib.vIPI;
-                        vIPI += string.IsNullOrEmpty(temp) ? 0 : Parse(temp);
-                    }
-                    else if (imposto is PIS pis)
-                    {
-                        if (pis.Corpo is PISAliq aliq)
-                        {
-                            vPIS += Parse(aliq.vPIS);
-                        }
-                        else if (pis.Corpo is PISQtde qtde)
-                        {
-                            vPIS += Parse(qtde.vPIS);
-                        }
-                        else if (pis.Corpo is PISOutr outr)
-                        {
-                            vPIS += Parse(outr.vPIS);
-                        }
-                    }
-                    else if (imposto is COFINS cofins)
-                    {
-                        if (cofins.Corpo is COFINSAliq aliq)
-                        {
-                            vCOFINS += Parse(aliq.vCOFINS);
-                        }
-                        else if (cofins.Corpo is COFINSQtde qtde)
-                        {
-                            vCOFINS += Parse(qtde.vCOFINS);
-                        }
-                        else if (cofins.Corpo is COFINSOutr outr)
-                        {
-                            vCOFINS += Parse(outr.vCOFINS);
-                        }
-                    }
+                    else if (imposto is IPI ipi && ipi.Corpo is IPITrib trib && !string.IsNullOrEmpty(trib.ValorIPI))
+                        vIPI += Parse(trib.ValorIPI);
+                    else if (imposto is PIS pis && !string.IsNullOrEmpty(pis.Corpo.ValorPIS))
+                        vPIS += Parse(pis.Corpo.ValorPIS);
+                    else if (imposto is COFINS cofins && !string.IsNullOrEmpty(cofins.Corpo.ValorCOFINS))
+                        vCOFINS += Parse(cofins.Corpo.ValorCOFINS);
                 }
                 if (prod.InclusaoTotal == 1)
                 {

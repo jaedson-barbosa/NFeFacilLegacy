@@ -40,8 +40,8 @@ namespace Venda.Impostos
             {
                 var caixa = new DefinirTotalImpostos();
                 if (await caixa.ShowAsync() == ContentDialogResult.Primary
-                    && !string.IsNullOrEmpty(caixa.ValorTotalTributos))
-                    produto.Impostos.vTotTrib = caixa.ValorTotalTributos;
+                    && caixa.ValorTotalTributos != 0)
+                    produto.Impostos.vTotTrib = ExtensoesPrincipal.ToStr(caixa.ValorTotalTributos);
                 else
                     produto.Impostos.vTotTrib = null;
             }

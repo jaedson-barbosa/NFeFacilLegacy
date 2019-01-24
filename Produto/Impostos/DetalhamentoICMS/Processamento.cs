@@ -10,13 +10,13 @@ namespace Venda.Impostos.DetalhamentoICMS
     {
         IDadosICMS dados;
 
-        public override ImpostoBase[] Processar(DetalhesProdutos prod)
+        public override IImposto[] Processar(DetalhesProdutos prod)
         {
             var imposto = new ICMS
             {
                 Corpo = (ComumICMS)dados.Processar(prod)
             };
-            return new ImpostoBase[1] { imposto };
+            return new IImposto[1] { imposto };
         }
 
         public override void ProcessarDados(Page Tela)

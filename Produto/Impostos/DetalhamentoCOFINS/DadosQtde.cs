@@ -18,45 +18,25 @@ namespace Venda.Impostos.DetalhamentoCOFINS
             {
                 return new COFINS
                 {
-                    Corpo = new COFINSQtde
-                    {
-                        CST = CST,
-                        qBCProd = ToStr(qBCProd, "F4"),
-                        vAliqProd = ToStr(Valor, "F4"),
-                        vCOFINS = ToStr(qBCProd * Valor)
-                    }
+                    Corpo = new COFINSQtde(CST, qBCProd, Valor)
                 };
             }
             else if (CST == "05")
             {
-                return new ImpostoBase[2]
+                return new IImposto[2]
                 {
                     new COFINS
                     {
-                        Corpo = new COFINSNT()
-                        {
-                            CST = CST
-                        }
+                        Corpo = new COFINSNT(CST)
                     },
-                    new COFINSST
-                    {
-                        qBCProd = ToStr(qBCProd, "F4"),
-                        vAliqProd = ToStr(Valor, "F4"),
-                        vCOFINS = ToStr(qBCProd * Valor)
-                    }
+                    new COFINSST(qBCProd, Valor, true)
                 };
             }
             else
             {
                 return new COFINS
                 {
-                    Corpo = new COFINSOutr
-                    {
-                        CST = CST,
-                        qBCProd = ToStr(qBCProd, "F4"),
-                        vAliqProd = ToStr(Valor, "F4"),
-                        vCOFINS = ToStr(qBCProd * Valor)
-                    }
+                    Corpo = new COFINSOutr(CST, qBCProd, Valor, true)
                 };
             }
         }

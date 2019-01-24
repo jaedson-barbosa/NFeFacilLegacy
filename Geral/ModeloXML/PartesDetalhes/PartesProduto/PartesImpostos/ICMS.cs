@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 
 namespace BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos
 {
-    public sealed class ICMS : ImpostoBase
+    public sealed class ICMS : IImposto
     {
         [XmlElement(nameof(ICMS00), Type = typeof(ICMS00), Order = 0),
             XmlElement(nameof(ICMS10), Type = typeof(ICMS10), Order = 0),

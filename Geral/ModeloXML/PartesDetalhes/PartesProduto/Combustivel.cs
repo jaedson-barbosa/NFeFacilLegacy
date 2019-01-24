@@ -1,7 +1,7 @@
 ﻿using BaseGeral.View;
 using System.Xml.Serialization;
 
-namespace BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesProdutoOuServico
+namespace BaseGeral.ModeloXML.PartesDetalhes.PartesProduto
 {
     public sealed class Combustivel
     {
@@ -19,8 +19,5 @@ namespace BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesProdutoOuServic
 
         [XmlElement(Order = 4), DescricaoPropriedade("Informar a UF de consumo")]
         public string UFCons { get; set; }
-
-        [XmlElement(Order = 5), DescricaoPropriedade("Grupo de informações da CIDE")]
-        public CIDE CIDE { get; set; }
     }
 }

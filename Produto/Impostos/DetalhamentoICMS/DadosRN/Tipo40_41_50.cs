@@ -19,33 +19,15 @@ namespace Venda.Impostos.DetalhamentoICMS.DadosRN
         {
             if (CST == "40")
             {
-                return new ICMS40()
-                {
-                    CST = CST,
-                    motDesICMS = motDesICMS,
-                    Orig = Origem,
-                    vICMSDeson = vICMSDeson
-                };
+                return new ICMS40(Origem, CST, vICMSDeson, motDesICMS);
             }
             else if (CST == "41")
             {
-                return new ICMS41()
-                {
-                    CST = CST,
-                    motDesICMS = motDesICMS,
-                    Orig = Origem,
-                    vICMSDeson = vICMSDeson
-                };
+                return new ICMS41(Origem, CST, vICMSDeson, motDesICMS);
             }
             else
             {
-                return new ICMS50()
-                {
-                    CST = CST,
-                    motDesICMS = motDesICMS,
-                    Orig = Origem,
-                    vICMSDeson = vICMSDeson
-                };
+                return new ICMS50(Origem, CST, vICMSDeson, motDesICMS);
             }
         }
     }

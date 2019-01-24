@@ -1,5 +1,4 @@
 ﻿using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto;
-using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
 using System;
 using System.Xml.Linq;
 using System.Xml.Serialization;

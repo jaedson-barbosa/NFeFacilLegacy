@@ -1,4 +1,6 @@
-﻿using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos;
+﻿using BaseGeral.ModeloXML.PartesDetalhes;
+using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto;
+using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos;
 using BaseGeral.View;
 using Windows.UI.Xaml.Controls;
 
@@ -7,16 +9,26 @@ using Windows.UI.Xaml.Controls;
 namespace Venda.Impostos.DetalhamentoIPI
 {
     [DetalhePagina("IPI")]
-    public sealed partial class DetalharSimples : Page
+    public sealed partial class DetalharSimples : UserControl, IProcessamentoImposto
     {
-        public IPI Conjunto { get; } = new IPI()
-        {
-            Corpo = new IPINT()
-        };
+        public readonly IPI Conjunto = new IPI();
+        readonly Detalhamento Detalhamento;
+        public PrincipaisImpostos Tipo => PrincipaisImpostos.IPI;
 
-        public DetalharSimples()
+        public DetalharSimples(Detalhamento detalhamento)
         {
+            Detalhamento = detalhamento;
             InitializeComponent();
+        }
+
+        public IImposto[] Processar(DetalhesProdutos prod)
+        {
+            var resultado = new DadosNT
+            {
+                CST = Detalhamento.CST.ToString("00"),
+                PreImposto = Conjunto
+            }.Processar(prod.Produto);
+            return new IImposto[1] { (IPI)resultado };
         }
     }
 }

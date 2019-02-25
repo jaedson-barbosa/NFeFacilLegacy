@@ -144,7 +144,7 @@ namespace NFeFacil.View
                             var controle = new ControleNFe(nfe);
                             if (await new Criador(controle).ShowAsync() == ContentDialogResult.Primary)
                             {
-                                Popup.Current.Escrever(TitulosComuns.Sucesso, "Nota de entrada criada. Agora verifique se todas as informações estão corretas.");
+                                Popup.Current.Escrever(TitulosComuns.Sucesso, "Nota de entrada criada. Agora verifique se todas as informações estão corretas e se nenhum dado ficou de fora.");
                             }
                         }
                         else

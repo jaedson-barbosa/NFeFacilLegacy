@@ -286,7 +286,7 @@ namespace Fiscal
                     Descricao = x.Produto.Descricao,
                     Quantidade = x.Produto.QuantidadeComercializada,
                     TotalBruto = x.Produto.ValorTotal,
-                    TotalLiquido = x.Produto.ValorTotal + Convert(x.Produto.Frete) + Convert(x.Produto.DespesasAcessorias) + Convert(x.Produto.Seguro) - Convert(x.Produto.Desconto)
+                    TotalLiquido = x.Produto.ValorTotal + x.Produto.Frete + x.Produto.DespesasAcessorias + x.Produto.Seguro - x.Produto.Desconto
                 });
             }
         }

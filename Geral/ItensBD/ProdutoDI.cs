@@ -30,6 +30,7 @@ namespace BaseGeral.ItensBD
         public Guid IdCategoria { get; set; }
 
         Combustivel detalheEspecial;
+        [System.ComponentModel.DataAnnotations.Schema.NotMapped]
         public Combustivel Combustivel
         {
             get

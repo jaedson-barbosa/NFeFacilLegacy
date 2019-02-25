@@ -39,10 +39,10 @@ namespace BaseGeral.ItensBD
                 produto.ValorUnitario = ValorUnitario;
                 produto.QuantidadeComercializada = Quantidade;
                 produto.QuantidadeTributada = Quantidade;
-                produto.Frete = Frete != 0 ? Frete.ToString("0.00") : null;
-                produto.Seguro = Seguro != 0 ? Seguro.ToString("0.00") : null;
-                produto.DespesasAcessorias = DespesasExtras != 0 ? DespesasExtras.ToString("0.00") : null;
-                produto.Desconto = Desconto != 0 ? Desconto.ToString("0.00") : null;
+                produto.Frete = Frete;
+                produto.Seguro = Seguro;
+                produto.DespesasAcessorias = DespesasExtras;
+                produto.Desconto = Desconto;
                 produto.ValorTotal = Quantidade * ValorUnitario;
                 return produto;
             }

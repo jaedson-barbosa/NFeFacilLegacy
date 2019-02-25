@@ -137,7 +137,7 @@
     </Compile>
     <Compile Include="ICMSArmazenado.cs" />
     <Compile Include="ImpostoArmazenado.cs" />
-    <Compile Include="Impostos\AssociacoesSimples.cs" />
+    <Compile Include="Impostos\AssociacoesICMS.cs" />
     <Compile Include="Impostos\DefinirTotalImpostos.xaml.cs">
       <DependentUpon>DefinirTotalImpostos.xaml</DependentUpon>
     </Compile>
@@ -151,8 +151,9 @@
     <Compile Include="Impostos\DetalhamentoCOFINS\DetalharQtde.xaml.cs">
       <DependentUpon>DetalharQtde.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Impostos\DetalhamentoCOFINS\DetalharVazio.cs" />
     <Compile Include="Impostos\DetalhamentoCOFINS\IDadosCOFINS.cs" />
-    <Compile Include="Impostos\DetalhamentoCOFINS\Processamento.cs" />
+    <Compile Include="Impostos\DetalhamentoCOFINS\DetalharArmazenado.cs" />
     <Compile Include="Impostos\DetalhamentoGeral.xaml.cs">
       <DependentUpon>DetalhamentoGeral.xaml</DependentUpon>
     </Compile>
@@ -160,8 +161,6 @@
     <Compile Include="Impostos\DetalhamentoICMSUFDest\Detalhar.xaml.cs">
       <DependentUpon>Detalhar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Impostos\DetalhamentoICMSUFDest\IDadosICMSUFDest.cs" />
-    <Compile Include="Impostos\DetalhamentoICMSUFDest\Processamento.cs" />
     <Compile Include="Impostos\DetalhamentoICMS\DadosRN\BaseRN.cs" />
     <Compile Include="Impostos\DetalhamentoICMS\DadosRN\Tipo0.cs" />
     <Compile Include="Impostos\DetalhamentoICMS\DadosRN\Tipo10.cs" />
@@ -182,8 +181,9 @@
     <Compile Include="Impostos\DetalhamentoICMS\DadosSN\Tipo900.cs" />
     <Compile Include="Impostos\DetalhamentoICMS\DadosSN\TipoNT.cs" />
     <Compile Include="Impostos\DetalhamentoICMS\Detalhamento.cs" />
+    <Compile Include="Impostos\DetalhamentoICMS\DetalharVazio.cs" />
     <Compile Include="Impostos\DetalhamentoICMS\IDadosICMS.cs" />
-    <Compile Include="Impostos\DetalhamentoICMS\Processamento.cs" />
+    <Compile Include="Impostos\DetalhamentoICMS\DetalharArmazenado.cs" />
     <Compile Include="Impostos\DetalhamentoICMS\TelasRN\Tipo0.xaml.cs">
       <DependentUpon>Tipo0.xaml</DependentUpon>
     </Compile>
@@ -245,7 +245,7 @@
     <Compile Include="Impostos\DetalhamentoIPI\DetalharSimples.xaml.cs">
       <DependentUpon>DetalharSimples.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Impostos\DetalhamentoIPI\Processamento.cs" />
+    <Compile Include="Impostos\DetalhamentoIPI\DetalharArmazenado.cs" />
     <Compile Include="Impostos\DetalhamentoPIS\DadosAliq.cs" />
     <Compile Include="Impostos\DetalhamentoPIS\DadosNT.cs" />
     <Compile Include="Impostos\DetalhamentoPIS\DadosQtde.cs" />
@@ -256,8 +256,9 @@
     <Compile Include="Impostos\DetalhamentoPIS\DetalharQtde.xaml.cs">
       <DependentUpon>DetalharQtde.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Impostos\DetalhamentoPIS\DetalharVazio.cs" />
     <Compile Include="Impostos\DetalhamentoPIS\IDadosPIS.cs" />
-    <Compile Include="Impostos\DetalhamentoPIS\Processamento.cs" />
+    <Compile Include="Impostos\DetalhamentoPIS\DetalharArmazenado.cs" />
     <Compile Include="Impostos\EscolhaImpostos.xaml.cs">
       <DependentUpon>EscolhaImpostos.xaml</DependentUpon>
     </Compile>
@@ -274,7 +275,7 @@
     <Compile Include="Impostos\IDetalhamentoImposto.cs" />
     <Compile Include="Impostos\IEscolherImpSimples.cs" />
     <Compile Include="Impostos\PrincipaisImpostos.cs" />
-    <Compile Include="Impostos\ProcessamentoImposto.cs" />
+    <Compile Include="Impostos\IProcessamentoImposto.cs" />
     <Compile Include="Impostos\RoteiroAdicaoImpostos.cs" />
     <Compile Include="Impostos\TiposCalculo.cs" />
     <Compile Include="ImpSimplesArmazenado.cs" />

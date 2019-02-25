@@ -97,8 +97,8 @@ namespace Consumidor
                 var at = prods[i].Produto;
                 var totItem = at.ValorTotal;
                 totalBruto += totItem;
-                acrescimos += TryParse(at.Frete) + TryParse(at.Seguro) + TryParse(at.DespesasAcessorias);
-                desconto += TryParse(at.Desconto);
+                acrescimos += at.Frete + at.Seguro + at.DespesasAcessorias;
+                desconto += at.Desconto;
                 Produtos[i] = new ProdutoDANFE(at.CodigoProduto, at.Descricao,
                     at.QuantidadeComercializada, at.UnidadeComercializacao,
                     at.ValorUnitario, totItem);

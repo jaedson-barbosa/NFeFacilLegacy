@@ -7,8 +7,10 @@ namespace Venda.Impostos.DetalhamentoIPI
     {
         public override object Processar(ProdutoOuServico prod)
         {
-            var corpo = (IPINT)PreImposto.Corpo;
-            corpo.CST = CST;
+            if (PreImposto.Corpo is IPINT corpo)
+                corpo.CST = CST;
+            else
+                corpo = new IPINT(CST);
             return PreImposto;
         }
     }

@@ -15,51 +15,79 @@
                   Padding="16">
         <StackPanel>
             <TextBlock Style="{StaticResource TitleTextBlockStyle}">Identificação</TextBlock>
-            <ItemsControl Style="{StaticResource ItensResponsivos}">
-                <DatePicker Header="Data de emissão"
-                            Date="{x:Bind DataEmissao, Mode=TwoWay}" />
-                <TimePicker Header="Hora de emissão"
-                            Time="{x:Bind HoraEmissao, Mode=TwoWay}" />
-                <ComboBox Header="Finalidade de emissão *"
-                          SelectedIndex="{x:Bind FinalidadeEmissao, Mode=TwoWay}">
-                    <ComboBoxItem>Normal</ComboBoxItem>
-                    <ComboBoxItem>Complementar</ComboBoxItem>
-                    <ComboBoxItem>De ajuste</ComboBoxItem>
-                    <ComboBoxItem>Devolução de mercadoria</ComboBoxItem>
-                </ComboBox>
-                <ComboBox Header="Tipo de atendimento *"
-                          SelectedValue="{x:Bind IndicadorPresenca, Mode=TwoWay}"
-                          SelectedValuePath="Tag">
-                    <ComboBoxItem Tag="0">Não se aplica</ComboBoxItem>
-                    <ComboBoxItem Tag="1">Presencial</ComboBoxItem>
-                    <ComboBoxItem Tag="2">Não presencial - Internet</ComboBoxItem>
-                    <ComboBoxItem Tag="3">Não presencial - Teleatendimento</ComboBoxItem>
-                    <ComboBoxItem Tag="4">Entrega a domicílio</ComboBoxItem>
-                    <ComboBoxItem Tag="9">Não presencial - Outros</ComboBoxItem>
-                </ComboBox>
-                <TextBox Header="Natureza da operação *"
-                         Text="{x:Bind NotaSalva.Informacoes.identificacao.NaturezaDaOperacao, Mode=TwoWay}" />
-                <ComboBox Header="Município do fato *"
-                          DisplayMemberPath="Nome"
-                          ItemsSource="{x:Bind MunicipiosIdentificacao}"
-                          SelectedValue="{x:Bind CodigoMunicipio, Mode=TwoWay}"
-                          SelectedValuePath="Codigo" />
-            </ItemsControl>
-            <TextBlock Style="{StaticResource TitleTextBlockStyle}">Cliente</TextBlock>
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition />
+					<ColumnDefinition />
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+				<DatePicker Header="Data de emissão"
+							Date="{x:Bind DataEmissao, Mode=TwoWay}"
+							HorizontalAlignment="Stretch"
+							Margin="0,0,8,0" />
+				<TimePicker Grid.Column="1"
+							Header="Hora de emissão"
+							Time="{x:Bind HoraEmissao, Mode=TwoWay}"
+							Margin="0,0,8,0"
+							HorizontalAlignment="Stretch" />
+				<ComboBox Grid.Column="2"
+						  Header="Finalidade de emissão *"
+						  SelectedIndex="{x:Bind FinalidadeEmissao, Mode=TwoWay}">
+					<ComboBoxItem>Normal</ComboBoxItem>
+					<ComboBoxItem>Complementar</ComboBoxItem>
+					<ComboBoxItem>De ajuste</ComboBoxItem>
+					<ComboBoxItem>Devolução de mercadoria</ComboBoxItem>
+				</ComboBox>
+				<ComboBox Grid.Row="1"
+						  Header="Tipo de atendimento *"
+						  SelectedValue="{x:Bind IndicadorPresenca, Mode=TwoWay}"
+						  SelectedValuePath="Tag"
+						  Margin="0,16,8,0">
+					<ComboBoxItem Tag="0">Não se aplica</ComboBoxItem>
+					<ComboBoxItem Tag="1">Presencial</ComboBoxItem>
+					<ComboBoxItem Tag="2">Não presencial - Internet</ComboBoxItem>
+					<ComboBoxItem Tag="3">Não presencial - Teleatendimento</ComboBoxItem>
+					<ComboBoxItem Tag="4">Entrega a domicílio</ComboBoxItem>
+					<ComboBoxItem Tag="9">Não presencial - Outros</ComboBoxItem>
+				</ComboBox>
+				<TextBox Grid.Row="1"
+						 Grid.Column="1"
+						 Header="Natureza da operação *"
+						 Text="{x:Bind NotaSalva.Informacoes.identificacao.NaturezaDaOperacao, Mode=TwoWay}"
+						 Margin="0,16,8,0" />
+				<ComboBox Grid.Row="1"
+						  Grid.Column="2"
+						  Header="Município do fato *"
+						  DisplayMemberPath="Nome"
+						  ItemsSource="{x:Bind MunicipiosIdentificacao}"
+						  SelectedValue="{x:Bind CodigoMunicipio, Mode=TwoWay}"
+						  SelectedValuePath="Codigo"
+						  Margin="0,16,0,0" />
+			</Grid>
+			<TextBlock Style="{StaticResource TitleTextBlockStyle}"
+					   Margin="0,16,0,0">Cliente</TextBlock>
             <controlesAux:EscolhaCliente BuscaInicial="{x:Bind NotaSalva.Informacoes.destinatario.Documento}"
                                          ClienteSelecionado="{x:Bind ClienteSelecionado, Mode=TwoWay}" />
             <TextBlock Style="{StaticResource TitleTextBlockStyle}"
-                       Visibility="{x:Bind VisibilitadeTransportador, Mode=OneWay}">Motorista</TextBlock>
+                       Visibility="{x:Bind VisibilitadeTransportador, Mode=OneWay}"
+					   Margin="0,16,0,0">Motorista</TextBlock>
             <controlesAux:EscolhaMotorista Visibility="{x:Bind VisibilitadeTransportador, Mode=OneWay}"
                                            BuscaInicial="{x:Bind NotaSalva.Informacoes.transp.Transporta.Documento}"
                                            MotoristaSelecionado="{x:Bind MotoristaSelecionado, Mode=TwoWay}" />
-            <TextBlock Style="{StaticResource TitleTextBlockStyle}">Informações adicionais</TextBlock>
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}"
+					   Margin="0,16,0,0">Informações adicionais</TextBlock>
             <controles:RichEditBoxExtended Text="{x:Bind NotaSalva.Informacoes.infAdic.InfAdFisco, Mode=TwoWay}"
                                            Header="Informacoes adicionais de interesse do fisco" />
             <controles:RichEditBoxExtended Grid.Row="1"
                                            Text="{x:Bind NotaSalva.Informacoes.infAdic.InfCpl, Mode=TwoWay}"
-                                           Header="Informacoes complementares de interesse do contribuinte" />
-            <TextBlock Style="{StaticResource TitleTextBlockStyle}">Pagamento</TextBlock>
+                                           Header="Informacoes complementares de interesse do contribuinte"
+										   Margin="0,16,0,0" />
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}"
+					   Margin="0,16,0,0">Pagamento</TextBlock>
             <controles:EntradaNumerica Format="13:2"
                                        Number="{x:Bind NotaSalva.Informacoes.Pagamento.vTroco, Mode=TwoWay}"
                                        Header="Valor do troco" />

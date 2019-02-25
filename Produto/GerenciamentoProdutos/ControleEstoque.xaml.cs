@@ -8,6 +8,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using BaseGeral;
 using BaseGeral.View;
+using Windows.UI.Popups;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -154,6 +155,20 @@ namespace Venda.GerenciamentoProdutos
 
                 AlteracoesNaoSalvas = true;
             }
+        }
+
+        async void RemoverControle_Click(object sender, Windows.UI.Xaml.Input.RightTappedRoutedEventArgs e)
+        {
+            var msg = new MessageDialog("Você tem certeza disso?\n" +
+                "A única diferença é que não durante a adição dos produtos na venda não será analisado o estoque, porém ele não será realmente removido.\n" +
+                "A operação poderá ser desfeita sem perda de informação caso se arrependa.", "Certeza?");
+            msg.Commands.Add(new UICommand("Sim"));
+            msg.Commands.Add(new UICommand("Não", x =>
+            {
+                Estoque.IsAtivo = false;
+                AlteracoesNaoSalvas = true;
+            }));
+            await msg.ShowAsync();
         }
     }
 }

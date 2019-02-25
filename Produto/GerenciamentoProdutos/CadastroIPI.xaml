@@ -7,5 +7,5 @@
                Title="Cadastro detalhes IPI"
                PrimaryButtonText="Concluir"
                SecondaryButtonText="Cancelar">
-    <Frame x:Name="frmPrincipal" />
+    <ScrollViewer x:Name="ctnPrincipal" />
 </ContentDialog>

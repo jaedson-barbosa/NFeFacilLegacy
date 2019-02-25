@@ -22,6 +22,8 @@ namespace BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos
             XmlElement(nameof(ICMSSN202), Type = typeof(ICMSSN202), Order = 0),
             XmlElement(nameof(ICMSSN500), Type = typeof(ICMSSN500), Order = 0),
             XmlElement(nameof(ICMSSN900), Type = typeof(ICMSSN900)),
+            XmlElement(nameof(ICMSPart), Type = typeof(ICMSPart)),
+            XmlElement(nameof(ICMSST), Type = typeof(ICMSST)),
             DescricaoPropriedade("Corpo do ICMS")]
         public ComumICMS Corpo { get; set; }
     }

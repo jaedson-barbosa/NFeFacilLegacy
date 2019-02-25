@@ -1,6 +1,7 @@
 ﻿<ContentDialog x:Class="Comum.CaixasDialogo.AdicionarVolume"
                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			   xmlns:limTexto="using:BaseGeral"
                xmlns:controles="using:BaseGeral.Controles"
                xmlns:caminho="using:BaseGeral.ModeloXML.PartesDetalhes.PartesTransporte"
                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -11,10 +12,10 @@
                SecondaryButtonText="Cancelar">
     <ScrollViewer>
         <StackPanel>
-            <controles:EntradaRestrita Pattern="[^\d]"
-                                       Text="{x:Bind Contexto.QVol, Mode=TwoWay}"
-                                       Header="Quantidade" />
-            <TextBox Text="{x:Bind Contexto.Esp, Mode=TwoWay}"
+			<TextBox TextChanged="{x:Bind limTexto:LimitadoresTextuais.PermitirNumeros}"
+					 Text="{x:Bind Contexto.QVol, Mode=TwoWay}"
+					 Header="Quantidade" />
+			<TextBox Text="{x:Bind Contexto.Esp, Mode=TwoWay}"
                      Header="Espécie" />
             <TextBox Text="{x:Bind Contexto.Marca, Mode=TwoWay}"
                      Header="Marca" />

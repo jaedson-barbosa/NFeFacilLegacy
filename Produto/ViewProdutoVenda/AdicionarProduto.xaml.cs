@@ -139,9 +139,8 @@ namespace Venda.ViewProdutoVenda
         {
             if (e.AddedItems.Count == 0) return;
             var exibicaoProduto = (ExibicaoProdutoAdicao)e.AddedItems[0];
-            var produto = (ProdutoAdicao)exibicaoProduto;
 
-            ValorUnitario = produto.Preco;
+            ValorUnitario = exibicaoProduto.PrecoDouble;
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ValorUnitario)));
         }
 

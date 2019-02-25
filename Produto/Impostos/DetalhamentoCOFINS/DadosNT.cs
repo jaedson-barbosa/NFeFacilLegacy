@@ -13,10 +13,7 @@ namespace Venda.Impostos.DetalhamentoCOFINS
         {
             return new COFINS
             {
-                Corpo = new COFINSNT()
-                {
-                    CST = CST
-                }
+                Corpo = new COFINSNT(CST)
             };
         }
     }

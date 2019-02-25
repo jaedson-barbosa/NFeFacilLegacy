@@ -32,15 +32,14 @@ namespace Venda
 
         public List<ImpostoArmazenado> GetImpostosPadraoNFe()
         {
-            List<ImpostoArmazenado> impostos;
-            impostos = new List<ImpostoArmazenado>
-                {
-                    new ImpostoArmazenado(PrincipaisImpostos.ICMS),
-                    new ImpostoArmazenado(PrincipaisImpostos.IPI),
-                    new ImpostoArmazenado(PrincipaisImpostos.PIS),
-                    new ImpostoArmazenado(PrincipaisImpostos.COFINS),
-                    new ImpostoArmazenado(PrincipaisImpostos.ICMSUFDest)
-                };
+            List<ImpostoArmazenado> impostos = new List<ImpostoArmazenado>
+            {
+                new ImpostoArmazenado(PrincipaisImpostos.ICMS),
+                new ImpostoArmazenado(PrincipaisImpostos.IPI),
+                new ImpostoArmazenado(PrincipaisImpostos.PIS),
+                new ImpostoArmazenado(PrincipaisImpostos.COFINS),
+                new ImpostoArmazenado(PrincipaisImpostos.ICMSUFDest)
+            };
             var icmsArmazenado = Auxiliar.GetICMSArmazenados();
             if (icmsArmazenado != null && icmsArmazenado.Count() > 0)
                 impostos.AddRange(icmsArmazenado);

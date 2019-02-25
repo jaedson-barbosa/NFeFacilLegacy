@@ -94,17 +94,45 @@ namespace BaseGeral.ModeloXML.PartesDetalhes.PartesProduto
         [XmlElement(ElementName = "vUnTrib", Order = 15), DescricaoPropriedade("Valor unitário de tributação")]
         public string ValorUnitarioTributoString { get; set; }
 
+        [XmlIgnore]
+        public double Frete
+        {
+            get => string.IsNullOrEmpty(FreteString) ? 0 : Parse(FreteString);
+            set => FreteString = value != 0 ? ToStr(value) : null;
+        }
+
         [XmlElement(ElementName = "vFrete", Order = 16)]
-        public string Frete { get; set; }
+        public string FreteString { get; set; }
+
+        [XmlIgnore]
+        public double Seguro
+        {
+            get => string.IsNullOrEmpty(SeguroString) ? 0 : Parse(SeguroString);
+            set => SeguroString = value != 0 ? ToStr(value) : null;
+        }
 
         [XmlElement(ElementName = "vSeg", Order = 17)]
-        public string Seguro { get; set; }
+        public string SeguroString { get; set; }
+
+        [XmlIgnore]
+        public double Desconto
+        {
+            get => string.IsNullOrEmpty(DescontoString) ? 0 : Parse(DescontoString);
+            set => DescontoString = value != 0 ? ToStr(value) : null;
+        }
 
         [XmlElement(ElementName = "vDesc", Order = 18)]
-        public string Desconto { get; set; }
+        public string DescontoString { get; set; }
+
+        [XmlIgnore]
+        public double DespesasAcessorias
+        {
+            get => string.IsNullOrEmpty(DespesasAcessoriasString) ? 0 : Parse(DespesasAcessoriasString);
+            set => DespesasAcessoriasString = value != 0 ? ToStr(value) : null;
+        }
 
         [XmlElement(ElementName = "vOutro", Order = 19), DescricaoPropriedade("Despesas acessórias")]
-        public string DespesasAcessorias { get; set; }
+        public string DespesasAcessoriasString { get; set; }
 
         [XmlElement(ElementName = "indTot", Order = 20), DescricaoPropriedade("Inclusão total")]
         public int InclusaoTotal { get; set; } = 1;

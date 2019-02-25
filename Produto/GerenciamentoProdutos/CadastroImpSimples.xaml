@@ -15,10 +15,12 @@
         <controles:EntradaNumerica Format="5:4"
                                    Header="Alíquota"
                                    Number="{x:Bind Aliquota, Mode=TwoWay}"
-                                   IsEnabled="{x:Bind UsarAliquota}" />
+                                   IsEnabled="{x:Bind UsarAliquota}"
+								   Margin="0,16,0,0" />
         <controles:EntradaNumerica Format="15:4"
                                    Header="Valor por unidade"
                                    Number="{x:Bind Valor, Mode=TwoWay}"
-                                   IsEnabled="{x:Bind UsarValor}" />
+                                   IsEnabled="{x:Bind UsarValor}"
+								   Margin="0,16,0,0" />
     </StackPanel>
 </ContentDialog>

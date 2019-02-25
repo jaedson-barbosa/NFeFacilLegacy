@@ -1,6 +1,5 @@
 ﻿using BaseGeral;
 using BaseGeral.ModeloXML.PartesDetalhes;
-using System;
 using System.Linq;
 using Windows.UI.Xaml.Controls;
 
@@ -10,138 +9,130 @@ namespace Venda.Impostos
 {
     public sealed class RoteiroAdicaoImpostos
     {
-        int index = -1;
-        public Type Current => index >= 0 ? Telas[index] : null;
-        Type[] Telas { get; }
-        ProcessamentoImposto[] Processamentos { get; }
+        public UserControl[] Telas { get; }
+        IProcessamentoImposto[] Processamentos { get; }
         DetalhesProdutos Produto { get; }
 
         public RoteiroAdicaoImpostos(IDetalhamentoImposto[] impostos, DetalhesProdutos prod)
         {
             Produto = prod;
-            Telas = new Type[impostos.Length];
-            Processamentos = new ProcessamentoImposto[impostos.Length];
+            Telas = new UserControl[impostos.Length];
+            Processamentos = new IProcessamentoImposto[impostos.Length];
             for (int i = 0; i < impostos.Length; i++)
             {
                 var atual = impostos[i];
                 if (atual is DetalhamentoCOFINS.Detalhamento cofins)
                 {
-                    Telas[i] = AssociacoesSimples.COFINS[cofins.TipoCalculo];
-                    Processamentos[i] = new DetalhamentoCOFINS.Processamento()
+                    switch (cofins.TipoCalculo)
                     {
-                        Detalhamento = cofins,
-                    };
+                        case TiposCalculo.PorAliquota:
+                            var aliq = new DetalhamentoCOFINS.DetalharAliquota(cofins);
+                            Telas[i] = aliq;
+                            Processamentos[i] = aliq;
+                            break;
+                        case TiposCalculo.PorValor:
+                            var qtde = new DetalhamentoCOFINS.DetalharQtde(cofins);
+                            Telas[i] = qtde;
+                            Processamentos[i] = qtde;
+                            break;
+                        default:
+                            Telas[i] = null;
+                            Processamentos[i] = new DetalhamentoCOFINS.DetalharVazio(cofins.CST);
+                            break;
+                    }
                 }
                 else if (atual is DetalhamentoPIS.Detalhamento pis)
                 {
-                    Telas[i] = AssociacoesSimples.PIS[pis.TipoCalculo];
-                    Processamentos[i] = new DetalhamentoPIS.Processamento()
+                    switch (pis.TipoCalculo)
                     {
-                        Detalhamento = pis,
-                    };
+                        case TiposCalculo.PorAliquota:
+                            var aliq = new DetalhamentoPIS.DetalharAliquota(pis);
+                            Telas[i] = aliq;
+                            Processamentos[i] = aliq;
+                            break;
+                        case TiposCalculo.PorValor:
+                            var qtde = new DetalhamentoPIS.DetalharQtde(pis);
+                            Telas[i] = qtde;
+                            Processamentos[i] = qtde;
+                            break;
+                        default:
+                            Telas[i] = null;
+                            Processamentos[i] = new DetalhamentoPIS.DetalharVazio(pis.CST);
+                            break;
+                    }
                 }
                 else if (atual is DetalhamentoIPI.Detalhamento ipi)
                 {
-                    Telas[i] = AssociacoesSimples.IPI[ipi.TipoCalculo];
-                    Processamentos[i] = new DetalhamentoIPI.Processamento()
+                    switch (ipi.TipoCalculo)
                     {
-                        Detalhamento = ipi,
-                    };
+                        case TiposCalculo.PorAliquota:
+                            var aliq = new DetalhamentoIPI.DetalharAliquota(ipi);
+                            Telas[i] = aliq;
+                            Processamentos[i] = aliq;
+                            break;
+                        case TiposCalculo.PorValor:
+                            var qtde = new DetalhamentoIPI.DetalharQtde(ipi);
+                            Telas[i] = qtde;
+                            Processamentos[i] = qtde;
+                            break;
+                        case TiposCalculo.Inexistente:
+                            var simp = new DetalhamentoIPI.DetalharSimples(ipi);
+                            Telas[i] = simp;
+                            Processamentos[i] = simp;
+                            break;
+                    }
                 }
                 else if (atual is DetalhamentoICMSUFDest.Detalhamento icmsUFDest)
                 {
-                    Telas[i] = typeof(DetalhamentoICMSUFDest.Detalhar);
-                    Processamentos[i] = new DetalhamentoICMSUFDest.Processamento()
-                    {
-                        Detalhamento = icmsUFDest,
-                    };
+                    var icms = new DetalhamentoICMSUFDest.Detalhar();
+                    Telas[i] = icms;
+                    Processamentos[i] = icms;
                 }
                 else if (atual is DetalhamentoICMS.Detalhamento icms)
                 {
                     var normal = DefinicoesTemporarias.EmitenteAtivo.RegimeTributario == 3;
-                    if (!normal)
+                    if (normal)
                     {
-                        var csosn = int.Parse(icms.TipoICMSSN);
-                        Telas[i] = AssociacoesSimples.ICMSSN[csosn];
+                        var cst = int.Parse(icms.TipoICMSRN);
+                        var norm = AssociacoesICMS.GetRegimeNormal(cst, icms);
+                        Telas[i] = norm;
+                        Processamentos[i] = (IProcessamentoImposto)norm;
                     }
                     else
                     {
-                        var cst = int.Parse(icms.TipoICMSRN);
-                        Telas[i] = AssociacoesSimples.ICMSRN[cst];
+                        var csosn = int.Parse(icms.TipoICMSSN);
+                        var simp = AssociacoesICMS.GetSimplesNacional(csosn, icms);
+                        Telas[i] = simp;
+                        Processamentos[i] = (IProcessamentoImposto)simp;
                     }
-                    Processamentos[i] = new DetalhamentoICMS.Processamento()
-                    {
-                        Detalhamento = icms,
-                    };
                 }
                 else if (atual is ImpostoArmazenado pronto)
                 {
                     switch (pronto.Tipo)
                     {
                         case PrincipaisImpostos.ICMS:
-                            Processamentos[i] = new DetalhamentoICMS.Processamento()
-                            {
-                                Detalhamento = pronto,
-                            };
+                            Processamentos[i] = new DetalhamentoICMS.DetalharArmazenado((ICMSArmazenado)pronto);
                             break;
                         case PrincipaisImpostos.IPI:
-                            Processamentos[i] = new DetalhamentoIPI.Processamento()
-                            {
-                                Detalhamento = pronto,
-                            };
+                            Processamentos[i] = new DetalhamentoIPI.DetalharArmazenado((ImpSimplesArmazenado)pronto);
                             break;
                         case PrincipaisImpostos.PIS:
-                            Processamentos[i] = new DetalhamentoPIS.Processamento()
-                            {
-                                Detalhamento = pronto,
-                            };
+                            Processamentos[i] = new DetalhamentoPIS.DetalharArmazenado((ImpSimplesArmazenado)pronto);
                             break;
                         case PrincipaisImpostos.COFINS:
-                            Processamentos[i] = new DetalhamentoCOFINS.Processamento()
-                            {
-                                Detalhamento = pronto,
-                            };
+                            Processamentos[i] = new DetalhamentoCOFINS.DetalharArmazenado((ImpSimplesArmazenado)pronto);
                             break;
                     }
                 }
             }
         }
 
-        public bool Avancar()
-        {
-            index++;
-            return index != Processamentos.Length;
-        }
-
-        public bool Voltar()
-        {
-            if (index >= 0 && !finalizado)
-            {
-                index--;
-                return index > 0;
-            }
-            return false;
-        }
-
-        public void Processar(Page pagina)
-        {
-            if (index >= 0)
-            {
-                var proc = Processamentos[index];
-                proc.ProcessarDados(pagina);
-            }
-        }
-
-        bool finalizado;
         public DetalhesProdutos Finalizar()
         {
             var impostos = Produto.Impostos.impostos;
             impostos.Clear();
-            foreach (var item in Processamentos.OrderBy(x => (int)x.Detalhamento.Tipo))
-            {
+            foreach (var item in Processamentos.OrderBy(x => (int)x.Tipo))
                 impostos.AddRange(item.Processar(Produto));
-            }
-            finalizado = true;
             return Produto;
         }
     }

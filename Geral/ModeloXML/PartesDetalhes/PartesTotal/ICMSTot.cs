@@ -55,14 +55,10 @@ namespace BaseGeral.ModeloXML.PartesDetalhes.PartesTotal
                 if (prod.InclusaoTotal == 1)
                 {
                     vProd += prod.ValorTotal;
-                    TryParse(prod.Frete, out double addFrete);
-                    vFrete += addFrete;
-                    TryParse(prod.Seguro, out double addSeguro);
-                    vSeg += addSeguro;
-                    TryParse(prod.Desconto, out double addDesconto);
-                    vDesc += addDesconto;
-                    TryParse(prod.DespesasAcessorias, out double addOutro);
-                    vOutro += addOutro;
+                    vFrete += prod.Frete;
+                    vSeg += prod.Seguro;
+                    vDesc += prod.Desconto;
+                    vOutro += prod.DespesasAcessorias;
                     TryParse(Produto.Impostos.vTotTrib, out double addTotTrib);
                     vTotTrib += addTotTrib;
                 }

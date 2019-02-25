@@ -66,10 +66,11 @@
                                            Format="11:10"
                                            Header="Valor unid. tributária"
 										   Margin="0,16,0,0" />
-                <controles:EntradaRestrita Grid.Row="4" Pattern="[^\d]"
-                                           Text="{x:Bind Produto.CEST, Mode=TwoWay}"
-                                           Header="CEST"
-										   Margin="0,16,8,0" />
+				<TextBox TextChanged="{x:Bind limTexto:LimitadoresTextuais.PermitirNumeros}"
+						 Grid.Row="4"
+						 Text="{x:Bind Produto.CEST, Mode=TwoWay}"
+						 Header="CEST"
+						 Margin="0,16,8,0" />
 				<ComboBox Grid.Row="4"
 						  Grid.Column="1"
 						  Header="Fornecedor"
@@ -110,18 +111,18 @@
 										   Number="{x:Bind Combustivel.CProdANP, Mode=TwoWay}"
 										   Header="Código ANP *"
 										   Margin="0,16,8,0" />
-				<controles:EntradaRestrita Grid.Row="2"
-										   Grid.Column="1"
-										   Pattern="[^\d]"
-										   Text="{x:Bind Combustivel.CODIF, Mode=TwoWay}"
-										   Header="CODIF"
-										   Margin="0,16,8,0" />
-				<controles:EntradaRestrita Grid.Row="2"
-										   Grid.Column="2"
-										   Pattern="[^\d.,]"
-										   Text="{x:Bind Combustivel.QTemp, Mode=TwoWay}"
-										   Header="Quantidade faturada"
-										   Margin="0,16,0,0" />
+				<TextBox TextChanged="{x:Bind limTexto:LimitadoresTextuais.PermitirNumeros}"
+						 Grid.Row="2"
+						 Grid.Column="1"
+						 Text="{x:Bind Combustivel.CODIF, Mode=TwoWay}"
+						 Header="CODIF"
+						 Margin="0,16,8,0" />
+				<TextBox TextChanged="{x:Bind limTexto:LimitadoresTextuais.PermitirNumeros}"
+						 Grid.Row="2"
+						 Grid.Column="2"
+						 Text="{x:Bind Combustivel.QTemp, Mode=TwoWay}"
+						 Header="Quantidade faturada"
+						 Margin="0,16,0,0" />
 				<TextBox Grid.Row="1"
 						 Grid.ColumnSpan="2"
 						 Text="{x:Bind Combustivel.DescANP, Mode=TwoWay}"

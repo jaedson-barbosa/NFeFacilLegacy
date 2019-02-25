@@ -397,54 +397,95 @@
         <Pivot Margin="16">
             <PivotItem Header="NFe">
                 <ScrollViewer>
-                    <ItemsControl Style="{StaticResource ItensResponsivos}">
-                        <DatePicker Header="Data de emissão"
-                                    Date="{x:Bind DataEmissao, Mode=TwoWay}" />
-                        <TimePicker Header="Hora de emissão"
-                                    Time="{x:Bind HoraEmissao, Mode=TwoWay}" />
-                        <DatePicker Header="Data de saída/entrada"
-                                    Date="{x:Bind DataSaidaEntrada, Mode=TwoWay}" />
-                        <TimePicker Header="Hora de saída/entrada"
-                                    Time="{x:Bind HoraSaidaEntrada, Mode=TwoWay}" />
-                        <ComboBox Header="Tipo de operação *"
-                                  SelectedIndex="{x:Bind NotaSalva.Informacoes.identificacao.TipoOperacao, Mode=TwoWay}">
-                            <ComboBoxItem>Entrada</ComboBoxItem>
-                            <ComboBoxItem>Saída</ComboBoxItem>
-                        </ComboBox>
-                        <ComboBox Header="Finalidade de emissão *"
-                                  SelectedIndex="{x:Bind FinalidadeEmissao, Mode=TwoWay}">
-                            <ComboBoxItem>Normal</ComboBoxItem>
-                            <ComboBoxItem>Complementar</ComboBoxItem>
-                            <ComboBoxItem>De ajuste</ComboBoxItem>
-                            <ComboBoxItem>Devolução de mercadoria</ComboBoxItem>
-                        </ComboBox>
-                        <ComboBox Header="Consumidor final *"
-                                  SelectedIndex="{x:Bind NotaSalva.Informacoes.identificacao.OperacaoConsumidorFinal, Mode=TwoWay}">
-                            <ComboBoxItem>Não</ComboBoxItem>
-                            <ComboBoxItem>Sim</ComboBoxItem>
-                        </ComboBox>
-                        <ComboBox Header="Tipo de atendimento *"
-                                  SelectedIndex="{x:Bind NotaSalva.Informacoes.identificacao.IndicadorPresenca, Mode=TwoWay}">
-                            <ComboBoxItem>Não se aplica</ComboBoxItem>
-                            <ComboBoxItem>Presencial</ComboBoxItem>
-                            <ComboBoxItem>Não presencial - Internet</ComboBoxItem>
-                            <ComboBoxItem>Não presencial - Teleatendimento</ComboBoxItem>
-                        </ComboBox>
-                        <ComboBox Header="Destino da operação *"
-                                  SelectedIndex="{x:Bind IdentificadorDestino, Mode=TwoWay}">
-                            <ComboBoxItem>Operação interna</ComboBoxItem>
-                            <ComboBoxItem>Operação interestadual</ComboBoxItem>
-                            <ComboBoxItem>Operação com o exterior</ComboBoxItem>
-                        </ComboBox>
-                        <TextBox Header="Natureza da operação *"
-                                 Text="{x:Bind NotaSalva.Informacoes.identificacao.NaturezaDaOperacao, Mode=TwoWay}" />
-                        <ComboBox Header="Município do fato *"
-                                  DisplayMemberPath="Nome"
-                                  ItemsSource="{x:Bind MunicipiosIdentificacao}"
-                                  SelectedValue="{x:Bind CodigoMunicipio, Mode=TwoWay}"
-                                  SelectedValuePath="Codigo" />
-                    </ItemsControl>
-                </ScrollViewer>
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+						</Grid.ColumnDefinitions>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+						</Grid.RowDefinitions>
+						<DatePicker Header="Data de emissão"
+									Date="{x:Bind DataEmissao, Mode=TwoWay}"
+									HorizontalAlignment="Stretch"
+									Margin="0,0,8,0" />
+						<TimePicker Grid.Column="1"
+									Header="Hora de emissão"
+									Time="{x:Bind HoraEmissao, Mode=TwoWay}"
+									HorizontalAlignment="Stretch"
+									Margin="0,0,8,0" />
+						<DatePicker Grid.Column="2"
+									Header="Data de saída/entrada"
+									Date="{x:Bind DataSaidaEntrada, Mode=TwoWay}"
+									HorizontalAlignment="Stretch"
+									Margin="0,0,8,0" />
+						<TimePicker Grid.Row="1"
+									Header="Hora de saída/entrada"
+									Time="{x:Bind HoraSaidaEntrada, Mode=TwoWay}"
+									HorizontalAlignment="Stretch"
+									Margin="0,16,8,0" />
+						<ComboBox Grid.Row="1"
+								  Grid.Column="1"
+								  Header="Tipo de operação *"
+								  SelectedIndex="{x:Bind NotaSalva.Informacoes.identificacao.TipoOperacao, Mode=TwoWay}"
+								  Margin="0,16,8,0">
+							<ComboBoxItem>Entrada</ComboBoxItem>
+							<ComboBoxItem>Saída</ComboBoxItem>
+						</ComboBox>
+						<ComboBox Grid.Row="1"
+								  Grid.Column="2"
+								  Header="Finalidade de emissão *"
+								  SelectedIndex="{x:Bind FinalidadeEmissao, Mode=TwoWay}"
+								  Margin="0,16,0,0">
+							<ComboBoxItem>Normal</ComboBoxItem>
+							<ComboBoxItem>Complementar</ComboBoxItem>
+							<ComboBoxItem>De ajuste</ComboBoxItem>
+							<ComboBoxItem>Devolução de mercadoria</ComboBoxItem>
+						</ComboBox>
+						<ComboBox Grid.Row="2"
+								  Header="Consumidor final *"
+								  SelectedIndex="{x:Bind NotaSalva.Informacoes.identificacao.OperacaoConsumidorFinal, Mode=TwoWay}"
+								  Margin="0,16,8,0">
+							<ComboBoxItem>Não</ComboBoxItem>
+							<ComboBoxItem>Sim</ComboBoxItem>
+						</ComboBox>
+						<ComboBox Grid.Row="2"
+								  Grid.Column="1"
+								  Header="Tipo de atendimento *"
+								  SelectedIndex="{x:Bind NotaSalva.Informacoes.identificacao.IndicadorPresenca, Mode=TwoWay}"
+								  Margin="0,16,8,0">
+							<ComboBoxItem>Não se aplica</ComboBoxItem>
+							<ComboBoxItem>Presencial</ComboBoxItem>
+							<ComboBoxItem>Não presencial - Internet</ComboBoxItem>
+							<ComboBoxItem>Não presencial - Teleatendimento</ComboBoxItem>
+						</ComboBox>
+						<ComboBox Grid.Row="2"
+								  Grid.Column="2"
+								  Header="Destino da operação *"
+								  SelectedIndex="{x:Bind IdentificadorDestino, Mode=TwoWay}"
+								  Margin="0,16,0,0">
+							<ComboBoxItem>Operação interna</ComboBoxItem>
+							<ComboBoxItem>Operação interestadual</ComboBoxItem>
+							<ComboBoxItem>Operação com o exterior</ComboBoxItem>
+						</ComboBox>
+						<TextBox Grid.Row="3"
+								 Header="Natureza da operação *"
+								 Text="{x:Bind NotaSalva.Informacoes.identificacao.NaturezaDaOperacao, Mode=TwoWay}"
+								 Margin="0,16,8,0" />
+						<ComboBox Grid.Row="3"
+								  Grid.Column="1"
+								  Header="Município do fato *"
+								  DisplayMemberPath="Nome"
+								  ItemsSource="{x:Bind MunicipiosIdentificacao}"
+								  SelectedValue="{x:Bind CodigoMunicipio, Mode=TwoWay}"
+								  SelectedValuePath="Codigo"
+								  Margin="0,16,8,0" />
+					</Grid>
+				</ScrollViewer>
             </PivotItem>
             <PivotItem Header="NF-es referenciadas">
                 <ListView ItemsSource="{x:Bind NFesReferenciadas}">
@@ -530,32 +571,55 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
 				<TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
-						   Margin="0,10,0,0">Retenção de tributos</TextBlock>
-				<ItemsControl Grid.Row="1"
-                              Style="{StaticResource ItensResponsivos}">
-                    <controles:EntradaNumerica Format="13:2"
-                                               Number="{x:Bind RetTrib.VRetPIS, Mode=TwoWay}"
-                                               Header="Valor retido de PIS" />
-                    <controles:EntradaNumerica Format="13:2"
-                                               Number="{x:Bind RetTrib.VRetCOFINS, Mode=TwoWay}"
-                                               Header="Valor retido de COFINS" />
-                    <controles:EntradaNumerica Format="13:2"
-                                               Number="{x:Bind RetTrib.VRetCSLL, Mode=TwoWay}"
-                                               Header="Valor retido de CSLL" />
-                    <controles:EntradaNumerica Format="13:2"
-                                               Number="{x:Bind RetTrib.VBCIRRF, Mode=TwoWay}"
-                                               Header="Base de cálculo do IRRF" />
-                    <controles:EntradaNumerica Format="13:2"
-                                               Number="{x:Bind RetTrib.VIRRF, Mode=TwoWay}"
-                                               Header="Valor retido do IRRF" />
-                    <controles:EntradaNumerica Format="13:2"
-                                               Number="{x:Bind RetTrib.VBCRetPrev, Mode=TwoWay}"
-                                               Header="BC da retenção da Previdência soial" />
-                    <controles:EntradaNumerica Format="13:2"
-                                               Number="{x:Bind RetTrib.VRetPrev, Mode=TwoWay}"
-                                               Header="Valor da retenção da PS" />
-                </ItemsControl>
-            </Grid>
+						   Margin="0,16,0,0">Retenção de tributos</TextBlock>
+				<Grid Grid.Row="1">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+					</Grid.ColumnDefinitions>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+					</Grid.RowDefinitions>
+					<controles:EntradaNumerica Format="13:2"
+											   Number="{x:Bind RetTrib.VRetPIS, Mode=TwoWay}"
+											   Header="Valor retido de PIS"
+											   Margin="0,0,8,0" />
+					<controles:EntradaNumerica Grid.Column="1"
+											   Format="13:2"
+											   Number="{x:Bind RetTrib.VRetCOFINS, Mode=TwoWay}"
+											   Header="Valor retido de COFINS"
+											   Margin="0,0,8,0" />
+					<controles:EntradaNumerica Grid.Column="2"
+											   Format="13:2"
+											   Number="{x:Bind RetTrib.VRetCSLL, Mode=TwoWay}"
+											   Header="Valor retido de CSLL"/>
+					<controles:EntradaNumerica Grid.Row="1"
+											   Format="13:2"
+											   Number="{x:Bind RetTrib.VBCIRRF, Mode=TwoWay}"
+											   Header="Base de cálculo do IRRF"
+											   Margin="0,16,8,0" />
+					<controles:EntradaNumerica Grid.Row="1"
+											   Grid.Column="1"
+											   Format="13:2"
+											   Number="{x:Bind RetTrib.VIRRF, Mode=TwoWay}"
+											   Header="Valor retido do IRRF"
+											   Margin="0,16,8,0" />
+					<controles:EntradaNumerica Grid.Row="1"
+											   Grid.Column="2"
+											   Format="13:2"
+											   Number="{x:Bind RetTrib.VBCRetPrev, Mode=TwoWay}"
+											   Header="BC da retenção da Previdência soial"
+											   Margin="0,16,0,0" />
+					<controles:EntradaNumerica Grid.Row="2"
+											   Format="13:2"
+											   Number="{x:Bind RetTrib.VRetPrev, Mode=TwoWay}"
+											   Header="Valor da retenção da PS"
+											   Margin="0,16,0,0" />
+				</Grid>
+			</Grid>
         </ScrollViewer>
         <Grid Padding="16">
             <Grid.RowDefinitions>
@@ -612,22 +676,39 @@
                     </Grid>
                 </PivotItem>
                 <PivotItem Header="Veículo">
-                    <ItemsControl x:Name="ctrPaiVeiculo"
-                                  Style="{StaticResource ItensResponsivos}">
-                        <TextBox Text="{Binding Placa, Mode=TwoWay}"
-                                 Header="Placa" />
-                        <ComboBox ItemsSource="{x:Bind VM:DadosEstadosParaView.Siglas}"
-                                  SelectedItem="{Binding UF, Mode=TwoWay}"
-                                  Header="Estado"
-                                  HorizontalAlignment="Stretch" />
-                        <TextBox Header="RNTC"
-                                 Text="{Binding RNTC, Mode=TwoWay}" />
-                        <TextBox Text="{x:Bind NotaSalva.Informacoes.transp.Balsa, Mode=TwoWay}"
-                                 Header="Identificação da balsa" />
-                        <TextBox Text="{x:Bind NotaSalva.Informacoes.transp.Vagao, Mode=TwoWay}"
-                                 Header="Identificação do vagão" />
-                    </ItemsControl>
-                </PivotItem>
+					<Grid x:Name="ctrPaiVeiculo">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+						</Grid.ColumnDefinitions>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+						</Grid.RowDefinitions>
+						<TextBox Text="{Binding Placa, Mode=TwoWay}"
+								 Header="Placa"
+								 Margin="0,0,8,0" />
+						<ComboBox Grid.Column="1"
+								  ItemsSource="{x:Bind VM:DadosEstadosParaView.Siglas}"
+								  SelectedItem="{Binding UF, Mode=TwoWay}"
+								  Header="Estado"
+								  HorizontalAlignment="Stretch"
+								  Margin="0,0,8,0" />
+						<TextBox Grid.Column="2"
+								 Header="RNTC"
+								 Text="{Binding RNTC, Mode=TwoWay}" />
+						<TextBox Grid.Row="1"
+								 Text="{x:Bind NotaSalva.Informacoes.transp.Balsa, Mode=TwoWay}"
+								 Header="Identificação da balsa"
+								 Margin="0,16,8,0" />
+						<TextBox Grid.Row="1"
+								 Grid.Column="1"
+								 Text="{x:Bind NotaSalva.Informacoes.transp.Vagao, Mode=TwoWay}"
+								 Header="Identificação do vagão"
+								 Margin="0,16,8,0" />
+					</Grid>
+				</PivotItem>
                 <PivotItem Header="Reboques">
                     <ListView ItemsSource="{x:Bind Reboques}"
                               Margin="0,8,0,0">
@@ -700,53 +781,92 @@
                     </ListView>
                 </PivotItem>
                 <PivotItem Header="Retenção ICMS">
-                    <ItemsControl Style="{StaticResource ItensResponsivos}">
-                        <controles:EntradaNumerica Header="Valor do serviço"
-                                                   Format="13:2"
-                                                   Number="{x:Bind NotaSalva.Informacoes.transp.RetTransp.VServ, Mode=TwoWay}" />
-                        <controles:EntradaNumerica Header="BC da retenção do ICMS"
-                                                   Format="13:2"
-                                                   Number="{x:Bind NotaSalva.Informacoes.transp.RetTransp.VBCRet, Mode=TwoWay}" />
-                        <controles:EntradaNumerica Header="Alíquota da retenção"
-                                                   Format="3:4"
-                                                   Number="{x:Bind NotaSalva.Informacoes.transp.RetTransp.PICMSRet, Mode=TwoWay}" />
-                        <controles:EntradaNumerica Header="Valor do ICMS retido"
-                                                   Format="13:2"
-                                                   Number="{x:Bind NotaSalva.Informacoes.transp.RetTransp.VICMSRet, Mode=TwoWay}" />
-                        <controles:EntradaNumerica Header="CFOP"
-                                                   Format="4"
-                                                   Number="{x:Bind CFOP, Mode=TwoWay}" />
-                        <ComboBox ItemsSource="{x:Bind VM:DadosEstadosParaView.EstadosCompletos}"
-                                  SelectedItem="{x:Bind UFEscolhida, Mode=TwoWay}"
-                                  DisplayMemberPath="Nome"
-                                  Header="Estado"
-                                  HorizontalAlignment="Stretch" />
-                        <ComboBox ItemsSource="{x:Bind MunicipiosTransporte}"
-                                  SelectedValue="{x:Bind NotaSalva.Informacoes.transp.RetTransp.CMunFG, Mode=TwoWay}"
-                                  SelectedValuePath="Codigo"
-                                  DisplayMemberPath="Nome"
-                                  Header="Município"
-                                  HorizontalAlignment="Stretch" />
-                    </ItemsControl>
-                </PivotItem>
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+						</Grid.ColumnDefinitions>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+						</Grid.RowDefinitions>
+						<controles:EntradaNumerica Header="Valor do serviço"
+												   Format="13:2"
+												   Number="{x:Bind NotaSalva.Informacoes.transp.RetTransp.VServ, Mode=TwoWay}"
+												   Margin="0,0,8,0" />
+						<controles:EntradaNumerica Grid.Column="1"
+												   Header="BC da retenção do ICMS"
+												   Format="13:2"
+												   Number="{x:Bind NotaSalva.Informacoes.transp.RetTransp.VBCRet, Mode=TwoWay}"
+												   Margin="0,0,8,0" />
+						<controles:EntradaNumerica Grid.Column="2"
+												   Header="Alíquota da retenção"
+												   Format="3:4"
+												   Number="{x:Bind NotaSalva.Informacoes.transp.RetTransp.PICMSRet, Mode=TwoWay}" />
+						<controles:EntradaNumerica Grid.Row="1"
+												   Header="Valor do ICMS retido"
+												   Format="13:2"
+												   Number="{x:Bind NotaSalva.Informacoes.transp.RetTransp.VICMSRet, Mode=TwoWay}"
+												   Margin="0,16,8,0" />
+						<controles:EntradaNumerica Grid.Row="1"
+												   Grid.Column="1"
+												   Header="CFOP"
+												   Format="4"
+												   Number="{x:Bind CFOP, Mode=TwoWay}"
+												   Margin="0,16,8,0" />
+						<ComboBox Grid.Row="1"
+								  Grid.Column="2"
+								  ItemsSource="{x:Bind VM:DadosEstadosParaView.EstadosCompletos}"
+								  SelectedItem="{x:Bind UFEscolhida, Mode=TwoWay}"
+								  DisplayMemberPath="Nome"
+								  Header="Estado"
+								  HorizontalAlignment="Stretch"
+								  Margin="0,16,0,0" />
+						<ComboBox Grid.Row="2"
+								  ItemsSource="{x:Bind MunicipiosTransporte}"
+								  SelectedValue="{x:Bind NotaSalva.Informacoes.transp.RetTransp.CMunFG, Mode=TwoWay}"
+								  SelectedValuePath="Codigo"
+								  DisplayMemberPath="Nome"
+								  Header="Município"
+								  HorizontalAlignment="Stretch"
+								  Margin="0,16,0,0" />
+					</Grid>
+				</PivotItem>
             </Pivot>
         </Grid>
         <Pivot Margin="16">
             <PivotItem Header="Fatura">
-                <ItemsControl Style="{StaticResource ItensResponsivos}">
-                    <TextBox Text="{x:Bind NotaSalva.Informacoes.cobr.Fat.NFat, Mode=TwoWay}"
-                             Header="Número" />
-                    <controles:EntradaNumerica Format="13:2"
-                                               Number="{x:Bind NotaSalva.Informacoes.cobr.Fat.VOrig, Mode=TwoWay}"
-                                               Header="Valor original" />
-                    <controles:EntradaNumerica Format="13:2"
-                                               Number="{x:Bind NotaSalva.Informacoes.cobr.Fat.VDesc, Mode=TwoWay}"
-                                               Header="Valor do desconto" />
-                    <controles:EntradaNumerica Format="13:2"
-                                               Number="{x:Bind NotaSalva.Informacoes.cobr.Fat.VLiq, Mode=TwoWay}"
-                                               Header="Valor líquido" />
-                </ItemsControl>
-            </PivotItem>
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition />
+						<ColumnDefinition />
+					</Grid.ColumnDefinitions>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+					</Grid.RowDefinitions>
+					<TextBox Text="{x:Bind NotaSalva.Informacoes.cobr.Fat.NFat, Mode=TwoWay}"
+							 Header="Número"
+							 Margin="0,0,8,0" />
+					<controles:EntradaNumerica Grid.Column="1"
+											   Format="13:2"
+											   Number="{x:Bind NotaSalva.Informacoes.cobr.Fat.VOrig, Mode=TwoWay}"
+											   Header="Valor original" />
+					<controles:EntradaNumerica Grid.Row="1"
+											   Format="13:2"
+											   Number="{x:Bind NotaSalva.Informacoes.cobr.Fat.VDesc, Mode=TwoWay}"
+											   Header="Valor do desconto"
+											   Margin="0,16,8,0" />
+					<controles:EntradaNumerica Grid.Row="1"
+											   Grid.Column="1"
+											   Format="13:2"
+											   Number="{x:Bind NotaSalva.Informacoes.cobr.Fat.VLiq, Mode=TwoWay}"
+											   Header="Valor líquido"
+											   Margin="0,16,0,0" />
+				</Grid>
+			</PivotItem>
             <PivotItem Header="Duplicatas">
                 <ListView Margin="0,8,0,0"
                           ItemsSource="{x:Bind Duplicatas}">
@@ -845,32 +965,59 @@
         <Pivot Margin="16">
             <PivotItem Header="Geral">
                 <ScrollViewer>
-                    <ItemsControl Style="{StaticResource ItensResponsivos}">
-                        <TextBox Header="Safra"
-                                 Text="{x:Bind NotaSalva.Informacoes.cana.Safra, Mode=TwoWay}" />
-                        <DatePicker DayVisible="False"
-                                    Date="{x:Bind NotaSalva.Informacoes.cana.Referencia, ConverterParameter='MM/yyyy', Converter={StaticResource data}, Mode=TwoWay}"
-                                    Header="Mês e ano de referência" />
-                        <controles:EntradaNumerica Format="11:10"
-                                                   Header="Quant. total do mês"
-                                                   Number="{x:Bind NotaSalva.Informacoes.cana.QTotMes, Mode=TwoWay}" />
-                        <controles:EntradaNumerica Format="11:10"
-                                                   Header="Quant. total anterior"
-                                                   Number="{x:Bind NotaSalva.Informacoes.cana.QTotAnt, Mode=TwoWay}" />
-                        <controles:EntradaNumerica Format="11:10"
-                                                   Header="Quant. total geral"
-                                                   Number="{x:Bind NotaSalva.Informacoes.cana.QTotGer, Mode=TwoWay}" />
-                        <controles:EntradaNumerica Format="13:2"
-                                                   Header="Valor dos fornecimentos"
-                                                   Number="{x:Bind NotaSalva.Informacoes.cana.VFor, Mode=TwoWay}" />
-                        <controles:EntradaNumerica Format="13:2"
-                                                   Header="Valor total da dedução"
-                                                   Number="{x:Bind NotaSalva.Informacoes.cana.VTotDed, Mode=TwoWay}" />
-                        <controles:EntradaNumerica Format="13:2"
-                                                   Header="Valor líquido dos fornecimentos"
-                                                   Number="{x:Bind NotaSalva.Informacoes.cana.VLiqFor, Mode=TwoWay}" />
-                    </ItemsControl>
-                </ScrollViewer>
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+						</Grid.ColumnDefinitions>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+						</Grid.RowDefinitions>
+						<TextBox Header="Safra"
+								 Text="{x:Bind NotaSalva.Informacoes.cana.Safra, Mode=TwoWay}"
+								 Margin="0,0,8,0" />
+						<DatePicker Grid.Column="1"
+									DayVisible="False"
+									Date="{x:Bind NotaSalva.Informacoes.cana.Referencia, ConverterParameter='MM/yyyy', Converter={StaticResource data}, Mode=TwoWay}"
+									Header="Mês e ano de referência"
+									Margin="0,0,8,0" />
+						<controles:EntradaNumerica Grid.Column="2"
+												   Format="11:10"
+												   Header="Quant. total do mês"
+												   Number="{x:Bind NotaSalva.Informacoes.cana.QTotMes, Mode=TwoWay}" />
+						<controles:EntradaNumerica Grid.Row="1"
+												   Format="11:10"
+												   Header="Quant. total anterior"
+												   Number="{x:Bind NotaSalva.Informacoes.cana.QTotAnt, Mode=TwoWay}"
+												   Margin="0,16,8,0" />
+						<controles:EntradaNumerica Grid.Row="1"
+												   Grid.Column="1"
+												   Format="11:10"
+												   Header="Quant. total geral"
+												   Number="{x:Bind NotaSalva.Informacoes.cana.QTotGer, Mode=TwoWay}"
+												   Margin="0,16,8,0" />
+						<controles:EntradaNumerica Grid.Row="1"
+												   Grid.Column="2"
+												   Format="13:2"
+												   Header="Valor dos fornecimentos"
+												   Number="{x:Bind NotaSalva.Informacoes.cana.VFor, Mode=TwoWay}"
+												   Margin="0,16,0,0" />
+						<controles:EntradaNumerica Grid.Row="2"
+												   Format="13:2"
+												   Header="Valor total da dedução"
+												   Number="{x:Bind NotaSalva.Informacoes.cana.VTotDed, Mode=TwoWay}"
+												   Margin="0,16,8,0" />
+						<controles:EntradaNumerica Grid.Row="2"
+												   Grid.Column="1"
+												   Format="13:2"
+												   Header="Valor líquido dos fornecimentos"
+												   Number="{x:Bind NotaSalva.Informacoes.cana.VLiqFor, Mode=TwoWay}"
+												   Margin="0,16,0,0" />
+					</Grid>
+				</ScrollViewer>
             </PivotItem>
             <PivotItem Header="Fornecimento diário de cana">
                 <ListView Margin="0,8,0,0"

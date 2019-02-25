@@ -1,8 +1,7 @@
 ﻿<Application x:Class="NFeFacil.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:aux="using:BaseGeral.View"
-			 xmlns:aux1="using:NFeFacil.View">
+             xmlns:aux="using:BaseGeral.View">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.ThemeDictionaries>
@@ -26,36 +25,12 @@
                 <Setter Property="HorizontalAlignment"
                         Value="Stretch" />
             </Style>
-            <DataTemplate x:Key="DefaultHeader">
-                <TextBlock Style="{StaticResource TitleTextBlockStyle}"
-                           TextAlignment="Center"
-                           Text="{Binding}" />
-            </DataTemplate>
-            <Style x:Key="ItensResponsivos"
-                   TargetType="ItemsControl">
-                <Setter Property="ItemContainerTransitions"
-                        Value="{StaticResource TransicoesLista}" />
-                <Setter Property="ItemsPanel">
-                    <Setter.Value>
-                        <ItemsPanelTemplate>
-							<aux1:PainelAdaptavel />
-                        </ItemsPanelTemplate>
-                    </Setter.Value>
-                </Setter>
-                <Setter Property="ItemContainerStyle">
-                    <Setter.Value>
-                        <Style TargetType="FrameworkElement">
-                            <Setter Property="Margin"
-                                    Value="4" />
-                            <Setter Property="HorizontalAlignment"
-                                    Value="Stretch" />
-                            <Setter Property="VerticalAlignment"
-                                    Value="Stretch" />
-                        </Style>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-            <Style x:Key="ItensSimples"
+			<DataTemplate x:Key="DefaultHeader">
+				<TextBlock Style="{StaticResource TitleTextBlockStyle}"
+						   TextAlignment="Center"
+						   Text="{Binding}" />
+			</DataTemplate>
+			<Style x:Key="ItensSimples"
                    TargetType="ItemsControl">
                 <Setter Property="ItemContainerTransitions"
                         Value="{StaticResource TransicoesLista}" />

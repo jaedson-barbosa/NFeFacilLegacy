@@ -4,25 +4,15 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
-    <Grid Padding="16">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <TextBlock x:Name="txtTitulo"
-                   Style="{StaticResource TitleTextBlockStyle}" />
-        <Frame x:Name="frmImposto"
-               Grid.Row="1"
-               Navigated="ImpostoTrocado" />
-    </Grid>
-    <Page.BottomAppBar>
+	<ScrollViewer>
+		<StackPanel x:Name="stkImpostos"
+					Padding="16,0,16,16" />
+	</ScrollViewer>
+	<Page.BottomAppBar>
         <CommandBar>
-            <AppBarButton Label="Voltar"
-                          Icon="Back"
-                          Click="Voltar" />
-            <AppBarButton Label="Avançar"
-                          Icon="Forward"
-                          Click="Avancar" />
+            <AppBarButton Label="Confirmar"
+                          Icon="Accept"
+						  Click="Concluir" />
         </CommandBar>
     </Page.BottomAppBar>
 </Page>

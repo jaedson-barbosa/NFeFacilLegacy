@@ -113,17 +113,11 @@ namespace BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos
             else CST = cstOuCsosn;
         }
 
-        protected double CalcularBC(DetalhesProdutos detalhes)
-        {
-            var prod = detalhes.Produto;
-            var totalBruto = prod.ValorTotal;
-            var frete = string.IsNullOrEmpty(prod.Frete) ? 0 : Parse(prod.Frete);
-            var seguro = string.IsNullOrEmpty(prod.Seguro) ? 0 : Parse(prod.Seguro);
-            var despesas = string.IsNullOrEmpty(prod.DespesasAcessorias) ? 0 : Parse(prod.DespesasAcessorias);
-            var desconto = string.IsNullOrEmpty(prod.Desconto) ? 0 : Parse(prod.Desconto);
-
-            return totalBruto + frete + seguro + despesas - desconto;
-        }
+        protected double CalcularBC(DetalhesProdutos detalhes) => detalhes.Produto.ValorTotal
+            + detalhes.Produto.Frete
+            + detalhes.Produto.Seguro
+            + detalhes.Produto.DespesasAcessorias
+            - detalhes.Produto.Desconto;
 
         protected double ObterIPI(DetalhesProdutos detalhes)
         {

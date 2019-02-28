@@ -29,6 +29,7 @@ namespace Venda.Impostos
                 ImpostoArmazenado impPronto;
                 if (Tipo == PrincipaisImpostos.ICMS) impPronto = icms.First(Analisar);
                 else impPronto = imps.First(Analisar);
+
                 bool Analisar(ImpostoArmazenado x) => x.Tipo == Tipo && x.NomeTemplate == NomeTemplate && x.CST == CST;
                 detalhamentos[i] = impPronto;
             }

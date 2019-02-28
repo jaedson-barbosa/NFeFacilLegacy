@@ -47,10 +47,11 @@ namespace Venda.Impostos
         {
             get
             {
-                if (_ICMSEscolhido == null && ImpostosPadrao.Any(x => x.Tipo == PrincipaisImpostos.ICMS))
+                if (_ICMSEscolhido == null && (ImpostosPadrao?.Any(x => x.Tipo == PrincipaisImpostos.ICMS) ?? false))
                 {
                     var (Tipo, NomeTemplate, CST) = ImpostosPadrao.First(x => x.Tipo == PrincipaisImpostos.ICMS);
                     _ICMSEscolhido = OpcoesICMS.First(x => x.NomeTemplate == NomeTemplate && x.CST == CST);
+                    Escolhidos.Add(_ICMSEscolhido);
                 }
                 return _ICMSEscolhido;
             }
@@ -71,10 +72,11 @@ namespace Venda.Impostos
         {
             get
             {
-                if (_COFINSEscolhido == null && ImpostosPadrao.Any(x => x.Tipo == PrincipaisImpostos.COFINS))
+                if (_COFINSEscolhido == null && (ImpostosPadrao?.Any(x => x.Tipo == PrincipaisImpostos.COFINS) ?? false))
                 {
                     var (Tipo, NomeTemplate, CST) = ImpostosPadrao.First(x => x.Tipo == PrincipaisImpostos.COFINS);
                     _COFINSEscolhido = OpcoesCOFINS.First(x => x.NomeTemplate == NomeTemplate && x.CST == CST);
+                    Escolhidos.Add(_COFINSEscolhido);
                 }
                 return _COFINSEscolhido;
             }
@@ -95,10 +97,11 @@ namespace Venda.Impostos
         {
             get
             {
-                if (_PISEscolhido == null && ImpostosPadrao.Any(x => x.Tipo == PrincipaisImpostos.PIS))
+                if (_PISEscolhido == null && (ImpostosPadrao?.Any(x => x.Tipo == PrincipaisImpostos.PIS) ?? false))
                 {
                     var (Tipo, NomeTemplate, CST) = ImpostosPadrao.First(x => x.Tipo == PrincipaisImpostos.PIS);
                     _PISEscolhido = OpcoesPIS.First(x => x.NomeTemplate == NomeTemplate && x.CST == CST);
+                    Escolhidos.Add(_PISEscolhido);
                 }
                 return _PISEscolhido;
             }
@@ -119,10 +122,11 @@ namespace Venda.Impostos
         {
             get
             {
-                if (_IPIEscolhido == null && ImpostosPadrao.Any(x => x.Tipo == PrincipaisImpostos.IPI))
+                if (_IPIEscolhido == null && (ImpostosPadrao?.Any(x => x.Tipo == PrincipaisImpostos.IPI) ?? false))
                 {
                     var (Tipo, NomeTemplate, CST) = ImpostosPadrao.First(x => x.Tipo == PrincipaisImpostos.IPI);
                     _IPIEscolhido = OpcoesIPI.First(x => x.NomeTemplate == NomeTemplate && x.CST == CST);
+                    Escolhidos.Add(_IPIEscolhido);
                 }
                 return _IPIEscolhido;
             }

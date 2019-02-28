@@ -5,6 +5,10 @@
     /// </summary>
     public class ICMSSN102 : ComumICMS, ISimplesNacional
     {
+        public ICMSSN102()
+        {
+        }
+
         public ICMSSN102(int origem, string csosn) : base(origem, csosn, true) { }
     }
 }

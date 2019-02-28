@@ -5,6 +5,10 @@
     /// </summary>
     public class ICMS40 : ComumICMS, IRegimeNormal
     {
+        public ICMS40()
+        {
+        }
+
         public ICMS40(int origem, string cst, string vICMSDeson, string motDesICMS) : base(origem, cst, false)
         {
             this.vICMSDeson = vICMSDeson;

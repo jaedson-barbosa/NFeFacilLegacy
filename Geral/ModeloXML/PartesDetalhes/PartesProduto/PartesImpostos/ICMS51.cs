@@ -3,6 +3,10 @@ namespace BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos
 {
     public class ICMS51 : ComumICMS, IRegimeNormal
     {
+        public ICMS51()
+        {
+        }
+
         public ICMS51(int origem, string cst) : base(origem, cst, false) { }
 
         public ICMS51(int origem, string cst, int modBC, double pICMS,

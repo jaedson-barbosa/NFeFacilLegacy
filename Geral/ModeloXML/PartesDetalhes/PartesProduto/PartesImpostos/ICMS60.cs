@@ -2,6 +2,10 @@
 {
     public class ICMS60 : ComumICMS, IRegimeNormal
     {
+        public ICMS60()
+        {
+        }
+
         public ICMS60(int origem, string cst, string vBCSTRet, string pST, string vICMSSTRet) : base(origem, cst, false)
         {
             this.vBCSTRet = vBCSTRet;

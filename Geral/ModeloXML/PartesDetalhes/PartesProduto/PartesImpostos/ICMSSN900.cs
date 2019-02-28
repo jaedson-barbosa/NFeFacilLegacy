@@ -2,6 +2,10 @@
 {
     public class ICMSSN900 : ComumICMS, ISimplesNacional
     {
+        public ICMSSN900()
+        {
+        }
+
         public ICMSSN900(int origem, string csosn, int modBC, string vBC, string pRedBC, string pICMS, string vICMS,
             int modBCST, string pMVAST, string pRedBCST, string vBCST, string pICMSST, string vICMSST, string pCredSN, string vCredICMSSN)
             : base(origem, csosn, true)

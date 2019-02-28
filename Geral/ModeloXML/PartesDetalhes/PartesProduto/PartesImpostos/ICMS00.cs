@@ -3,6 +3,7 @@ namespace BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos
 {
     public class ICMS00 : ComumICMS, IRegimeNormal
     {
+        public ICMS00() { }
         public ICMS00(int origem, string cst, int modBC, double pICMS, DetalhesProdutos prod) : base(origem, cst, false)
         {
             var vBC = CalcularBC(prod);

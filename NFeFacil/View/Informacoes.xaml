@@ -31,7 +31,7 @@
 		<RichTextBlock>
 			<Paragraph>
 				<Bold>Anel:</Bold>
-				<Run>Público</Run>
+				<Run>Insider</Run>
 			</Paragraph>
 			<Paragraph>
 				<Bold>Número:</Bold>
@@ -39,7 +39,7 @@
 			</Paragraph>
 			<Paragraph>
 				<Bold>Revisão:</Bold>
-				<Run>1</Run>
+				<Run>4</Run>
 			</Paragraph>
 		</RichTextBlock>
 		<TextBlock Style="{StaticResource TitleTextBlockStyle}"

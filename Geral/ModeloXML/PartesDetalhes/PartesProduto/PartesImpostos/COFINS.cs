@@ -14,7 +14,7 @@ namespace BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos
         public ComumCOFINS Corpo { get; set; }
     }
 
-    public abstract class ComumCOFINS
+    public abstract class ComumCOFINS : IImposto
     {
         [DescricaoPropriedade("Código de Situação Tributária da COFINS")]
         [XmlElement(Order = 0)]
@@ -108,7 +108,7 @@ namespace BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos
     /// Grupo COFINS Substituição Tributária.
     /// Só deve ser informado se o Produto for sujeito a COFINS por ST (CST = 05).
     /// </summary>
-    public class COFINSST : ComumCOFINS, IImposto
+    public class COFINSST : ComumCOFINS
     {
         [System.Obsolete]
         public COFINSST() : base(null) { }

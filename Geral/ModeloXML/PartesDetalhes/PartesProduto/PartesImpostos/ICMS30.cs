@@ -3,6 +3,10 @@ namespace BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos
 {
     public class ICMS30 : ComumICMS, IRegimeNormal
     {
+        public ICMS30()
+        {
+        }
+
         public ICMS30(int origem, string cst, int modBCST, string pMVAST, string pRedBCST, double pICMSST, string motDesICMS, DetalhesProdutos prod)
             : base(origem, cst, false)
         {

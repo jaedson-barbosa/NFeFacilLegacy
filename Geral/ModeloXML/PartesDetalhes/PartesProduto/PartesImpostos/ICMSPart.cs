@@ -5,6 +5,10 @@
     /// </summary>
     public class ICMSPart : ComumICMS, IRegimeNormal
     {
+        public ICMSPart()
+        {
+        }
+
         public ICMSPart(int origem, string cst, int modBC, string vBC, string pICMS, string vICMS,
             int modBCST, string pMVAST, string pRedBCST, string vBCST, string pICMSST, string vICMSST, string pRedBC, string pBCOp, string UFST)
             : base(origem, cst, false)

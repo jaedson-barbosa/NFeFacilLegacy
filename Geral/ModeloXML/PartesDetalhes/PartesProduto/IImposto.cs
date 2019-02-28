@@ -1,4 +1,4 @@
 ﻿namespace BaseGeral.ModeloXML.PartesDetalhes.PartesProduto
 {
-    public interface IImposto { }
+    public abstract class IImposto { }
 }

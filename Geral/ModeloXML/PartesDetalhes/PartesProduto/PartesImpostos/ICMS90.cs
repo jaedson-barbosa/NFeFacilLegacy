@@ -2,6 +2,10 @@
 {
     public class ICMS90 : ComumICMS, IRegimeNormal
     {
+        public ICMS90()
+        {
+        }
+
         public ICMS90(int origem, string cst, int modBC, string vBC, string pICMS, string vICMS,
             int modBCST, string pMVAST, string pRedBCST, string vBCST, string pICMSST, string vICMSST, string pRedBC, string vICMSDeson, string motDesICMS)
             : base(origem, cst, false)

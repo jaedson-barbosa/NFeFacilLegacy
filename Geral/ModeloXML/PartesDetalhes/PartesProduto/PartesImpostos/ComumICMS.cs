@@ -106,6 +106,8 @@ namespace BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos
 
         #endregion
 
+        protected ComumICMS() { }
+
         protected ComumICMS(int origem, string cstOuCsosn, bool isSimples)
         {
             Origem = origem;

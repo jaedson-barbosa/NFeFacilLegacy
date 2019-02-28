@@ -3,6 +3,10 @@ namespace BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos
 {
     public class ICMSSN201 : ComumICMS, ISimplesNacional
     {
+        public ICMSSN201()
+        {
+        }
+
         public ICMSSN201(int origem, string csosn, int modBCST, string pMVAST, string pRedBCST, double pICMSST, string pCredSN, string vCredICMSSN, DetalhesProdutos prod) : base(origem, csosn, true)
         {
             bool usarpMVAST = TryParse(pMVAST, out double pMVASTd);

@@ -14,7 +14,7 @@ namespace BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos
         public ComumPIS Corpo { get; set; }
     }
 
-    public abstract class ComumPIS
+    public abstract class ComumPIS : IImposto
     {
         [DescricaoPropriedade("Código de Situação Tributária da PIS")]
         [XmlElement(Order = 0)]
@@ -108,7 +108,7 @@ namespace BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos
     /// Grupo PIS Substituição Tributária.
     /// Só deve ser informado se o Produto for sujeito a PIS por ST (CST = 05).
     /// </summary>
-    public class PISST : ComumPIS, IImposto
+    public class PISST : ComumPIS
     {
         [System.Obsolete]
         public PISST() : base(null) { }

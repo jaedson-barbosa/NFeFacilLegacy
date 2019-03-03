@@ -7,7 +7,7 @@ namespace Venda.Impostos
 {
     public static class AssociacoesICMS
     {
-        public static UserControl GetSimplesNacional(int csosn, DetalhamentoICMS.Detalhamento detalhamento)
+        public static IProcessamentoImposto GetSimplesNacional(int csosn, DetalhamentoICMS.Detalhamento detalhamento)
         {
             switch (csosn)
             {
@@ -17,7 +17,7 @@ namespace Venda.Impostos
                 case 203: return new DetalhamentoICMS.TelasSN.Tipo202(detalhamento);
                 case 500: return new DetalhamentoICMS.TelasSN.Tipo500(detalhamento);
                 case 900: return new DetalhamentoICMS.TelasSN.Tipo900(detalhamento);
-                default: return null;
+                default: return new DetalhamentoICMS.DetalharVazio(detalhamento.TipoICMSSN, detalhamento.Origem);
             }
         }
 

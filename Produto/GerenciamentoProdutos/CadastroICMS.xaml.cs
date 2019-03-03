@@ -18,7 +18,7 @@ namespace Venda.GerenciamentoProdutos
             InitializeComponent();
             Pagina = IsRegimeNormal
                 ? GetRegimeNormal(int.Parse(detalhamento.TipoICMSRN), detalhamento)
-                : GetSimplesNacional(int.Parse(detalhamento.TipoICMSSN), detalhamento);
+                : GetSimplesNacional(int.Parse(detalhamento.TipoICMSSN), detalhamento) as UserControl;
             if (Pagina != null) ctnManipulacao.Content = Pagina;
         }
     }

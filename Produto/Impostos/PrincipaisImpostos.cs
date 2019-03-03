@@ -4,10 +4,10 @@ namespace Venda.Impostos
 {
     public enum PrincipaisImpostos
     {
-        ICMS,
-        IPI,
-        PIS,
-        COFINS,
-        ICMSUFDest
+        ICMS = 0,
+        IPI = 1,
+        PIS = 4,
+        COFINS = 5,
+        ICMSUFDest = 6
     }
 }

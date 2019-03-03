@@ -102,8 +102,8 @@ namespace Venda.Impostos
                     {
                         var csosn = int.Parse(icms.TipoICMSSN);
                         var simp = AssociacoesICMS.GetSimplesNacional(csosn, icms);
-                        Telas[i] = simp;
-                        Processamentos[i] = (IProcessamentoImposto)simp;
+                        Telas[i] = simp as UserControl;
+                        Processamentos[i] = simp;
                     }
                 }
                 else if (atual is ImpostoArmazenado pronto)

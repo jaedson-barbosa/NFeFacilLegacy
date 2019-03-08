@@ -105,7 +105,6 @@ namespace NFeFacil
 
         public void AtualizarInformaçõesGerais()
         {
-            imgLogotipo.Source = DefinicoesTemporarias.Logotipo;
             txtNomeEmpresa.Text = DefinicoesTemporarias.EmitenteAtivo.NomeFantasia;
             txtNomeEmitente.Text = DefinicoesTemporarias.VendedorAtivo?.Nome ?? DefinicoesTemporarias.EmitenteAtivo.Nome;
         }

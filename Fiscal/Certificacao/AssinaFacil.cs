@@ -57,10 +57,16 @@ namespace Fiscal.Certificacao
                         using (var loja = new X509Store())
                         {
                             loja.Open(OpenFlags.ReadOnly);
-                            var temp = loja.Certificates.Find(X509FindType.FindBySerialNumber, serial, true);
-                            Nota.Signature = AssinarXML(temp[0].GetRSAPrivateKey(), temp[0].RawData, id, tag, xml.OuterXml);
+                            for (int i = 0; i < loja.Certificates.Count; i++)
+                            {
+                                var temp = loja.Certificates[i];
+                                if (temp.SerialNumber == serial)
+                                {
+                                    Nota.Signature = AssinarXML(temp.GetRSAPrivateKey(), temp.RawData, id, tag, xml.OuterXml);
+                                    break;
+                                }
+                            }
                             await OnProgressChanged(2);
-
                             return (true, "Documento assinado com sucesso.");
                         }
                     }

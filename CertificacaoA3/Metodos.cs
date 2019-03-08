@@ -26,10 +26,17 @@ namespace CertificacaoA3
             using (var loja = new X509Store())
             {
                 loja.Open(OpenFlags.ReadOnly);
-                var x509 = loja.Certificates.Find(X509FindType.FindBySerialNumber, cert.Serial, true)[0];
-                var assinatura = AssinarXML(cert.XML, x509, cert.Tag);
-                return XElement.Parse(assinatura);
+                for (int i = 0; i < loja.Certificates.Count; i++)
+                {
+                    var temp = loja.Certificates[i];
+                    if (temp.SerialNumber == cert.Serial)
+                    {
+                        var assinatura = AssinarXML(cert.XML, temp, cert.Tag);
+                        return XElement.Parse(assinatura);
+                    }
+                }
             }
+            return null;
         }
 
         static XElement Serializar<T>(T objeto)

@@ -203,32 +203,17 @@ namespace Comum
                 retorno.PesoLiquidoVolume = transp.Vol.Sum(x => x.PesoL).ToString("N3");
                 retorno.QuantidadeVolume = transp.Vol.Sum(x => x.QVol != null ? long.Parse(x.QVol) : 0).ToString("N3");
             }
-
-            switch (transp.ModFrete)
+            string[] modalidades = new string[]
             {
-                case 0:
-                    retorno.ModalidadeFrete = "0 – Rementente";
-                    break;
-                case 1:
-                    retorno.ModalidadeFrete = "1 – Destinatário";
-                    break;
-                case 2:
-                    retorno.ModalidadeFrete = "2 – Terceiros";
-                    break;
-                case 3:
-                    retorno.ModalidadeFrete = "3 – Remetente";
-                    break;
-                case 4:
-                    retorno.ModalidadeFrete = "4 - Destinatário";
-                    break;
-                case 9:
-                    retorno.ModalidadeFrete = "9 – Sem Frete";
-                    break;
-                default:
-                    retorno.ModalidadeFrete = "Erro";
-                    break;
-            }
-
+                "0=Contratação do Frete por conta do Remetente (CIF)",
+                "1=Contratação do Frete por conta do Destinatário (FOB)",
+                "2=Contratação do Frete por conta de Terceiros",
+                "3=Transporte Próprio por contado Remetente",
+                "4=Transporte Próprio por conta do Destinatário"
+            };
+            retorno.ModalidadeFrete = transp.ModFrete == 9
+                ? "9=Sem Ocorrência de Transporte"
+                : modalidades[transp.ModFrete];
             return retorno;
         }
 

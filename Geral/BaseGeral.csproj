@@ -131,7 +131,6 @@
     <Compile Include="ModeloXML\UrlsQR.cs" />
     <Compile Include="MotoristaManipulacaoNFe.cs" />
     <Compile Include="View\BoolToColor.cs" />
-    <Compile Include="ConfiguracoesCertificacao.cs" />
     <Compile Include="Controles\Code128.xaml.cs">
       <DependentUpon>Code128.xaml</DependentUpon>
     </Compile>
@@ -326,7 +325,6 @@
     <Compile Include="ModeloXML\ProcessoNFe.cs" />
     <Compile Include="ModeloXML\ProtocoloNFe.cs" />
     <Compile Include="ModeloXML\TiposDocumento.cs" />
-    <Compile Include="OrigemCertificado.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositorio\Escrita.cs" />
     <Compile Include="Repositorio\Leitura.cs" />

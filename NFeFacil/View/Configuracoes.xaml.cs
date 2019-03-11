@@ -38,12 +38,6 @@ namespace NFeFacil.View
             set => ConfiguracoesSincronizacao.Tipo = (TipoAppSincronizacao)value;
         }
 
-        int OrigemCertificacao
-        {
-            get => (int)ConfiguracoesCertificacao.Origem;
-            set => ConfiguracoesCertificacao.Origem = (OrigemCertificado)value;
-        }
-
         Visibility PacotePersonalizacaoComprado { get; set; }
         bool FluentDesign
         {

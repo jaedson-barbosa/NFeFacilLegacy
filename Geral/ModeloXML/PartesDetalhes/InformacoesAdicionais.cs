@@ -14,7 +14,7 @@ namespace BaseGeral.ModeloXML.PartesDetalhes
         [XmlElement("infAdFisco", Order = 0), DescricaoPropriedade("Informações adicionais de interesse do fisco")]
         public string InfAdFisco
         {
-            get => string.IsNullOrEmpty(infAdFisco) ? null : infAdFisco;
+            get => string.IsNullOrWhiteSpace(infAdFisco) ? null : infAdFisco;
             set => infAdFisco = value;
         }
 
@@ -26,7 +26,7 @@ namespace BaseGeral.ModeloXML.PartesDetalhes
         [XmlElement("infCpl", Order = 1), DescricaoPropriedade("Informações complementares de interesse do contribuinte")]
         public string InfCpl
         {
-            get => string.IsNullOrEmpty(infCpl) ? null : infCpl;
+            get => string.IsNullOrWhiteSpace(infCpl) ? null : infCpl;
             set => infCpl = value;
         }
 

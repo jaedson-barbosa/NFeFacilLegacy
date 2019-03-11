@@ -41,8 +41,6 @@ namespace Comum
                 var envio = new EnvEvento(infoEvento);
 
                 AssinaFacil assinador = new AssinaFacil();
-                await assinador.Preparar();
-
                 var gerenciador = new GerenciadorGeral<EnvEvento, RetEnvEvento>(estado, Operacoes.RecepcaoEvento, tipoAmbiente == 2, false);
                 Progresso progresso = null;
                 progresso = new Progresso(async x =>

@@ -26,13 +26,12 @@
 					<ComboBoxItem>Servidor</ComboBoxItem>
 					<ComboBoxItem>Cliente</ComboBoxItem>
 				</ComboBox>
-				<ComboBox Grid.Column="1"
+				<!--<ComboBox Grid.Column="1"
 						  Header="Modo de certificação"
-						  SelectedIndex="{x:Bind OrigemCertificacao, Mode=TwoWay}"
 						  Margin="0,0,8,16">
 					<ComboBoxItem ToolTipService.ToolTip="Ideal para quem usa certificado A1">Via certificado A1 importado</ComboBoxItem>
 					<ComboBoxItem ToolTipService.ToolTip="Ideal para quem usa certificado A3">Servidor de certificação</ComboBoxItem>
-				</ComboBox>
+				</ComboBox>-->
 				<ToggleSwitch Grid.Row="1"
 							  Header="Desconsiderar horário de verão"
 							  ToolTipService.ToolTip="Desconsidere o horário de verão caso você esteja tendo problemas ao transmitir as notas fiscais"

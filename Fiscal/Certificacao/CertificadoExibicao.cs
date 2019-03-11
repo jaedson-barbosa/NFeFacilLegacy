@@ -1,4 +1,4 @@
-﻿namespace Fiscal.Certificacao.LAN.Primitivos
+﻿namespace Fiscal.Certificacao
 {
     public struct CertificadoExibicao
     {

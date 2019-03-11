@@ -49,7 +49,6 @@ namespace Comum
                 {
                     Nota = nfe
                 };
-                await assina.Preparar();
                 Progresso progresso = null;
                 progresso = new Progresso(async x =>
                 {

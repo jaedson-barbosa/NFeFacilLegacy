@@ -59,7 +59,6 @@ namespace Fiscal
                 var gerenciador = new GerenciadorGeral<InutNFe, RetInutNFe>(uf, Operacoes.Inutilizacao, caixa.Homologacao, isNFCe);
 
                 AssinaFacil assinador = new AssinaFacil();
-                await assinador.Preparar();
                 Progresso progresso = null;
                 progresso = new Progresso(async x =>
                 {

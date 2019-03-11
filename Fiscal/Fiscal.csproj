@@ -114,7 +114,7 @@
       <DependentUpon>CancelarNFe.xaml</DependentUpon>
     </Compile>
     <Compile Include="Certificacao\AssinaFacil.cs" />
-    <Compile Include="Certificacao\Certificados.cs" />
+    <Compile Include="Certificacao\CertificadoExibicao.cs" />
     <Compile Include="Certificacao\CodigoNet\AttributeSortOrder.cs" />
     <Compile Include="Certificacao\CodigoNet\C14NAncestralNamespaceContextManager.cs" />
     <Compile Include="Certificacao\CodigoNet\CanonicalizationDispatcher.cs" />
@@ -136,21 +136,6 @@
     <Compile Include="Certificacao\CodigoNet\Utils.cs" />
     <Compile Include="Certificacao\CodigoNet\XmlDsigC14NTransform.cs" />
     <Compile Include="Certificacao\CodigoNet\XmlDsigEnvelopedSignatureTransform.cs" />
-    <Compile Include="Certificacao\ConfiguracoesCertificadoImportado.xaml.cs">
-      <DependentUpon>ConfiguracoesCertificadoImportado.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Certificacao\ConfiguracoesServidorCertificacao.xaml.cs">
-      <DependentUpon>ConfiguracoesServidorCertificacao.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Certificacao\DefinirSenhaCertificado.xaml.cs">
-      <DependentUpon>DefinirSenhaCertificado.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Certificacao\LAN\OperacoesServidor.cs" />
-    <Compile Include="Certificacao\LAN\Pacotes\CertificadoAssinaturaDTO.cs" />
-    <Compile Include="Certificacao\LAN\Pacotes\CertificadosExibicaoDTO.cs" />
-    <Compile Include="Certificacao\LAN\Pacotes\RequisicaoEnvioDTO.cs" />
-    <Compile Include="Certificacao\LAN\Primitivos\CertificadoAssinatura.cs" />
-    <Compile Include="Certificacao\LAN\Primitivos\CertificadoExibicao.cs" />
     <Compile Include="Consulta.xaml.cs">
       <DependentUpon>Consulta.xaml</DependentUpon>
     </Compile>
@@ -246,18 +231,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Certificacao\ConfiguracoesCertificadoImportado.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Certificacao\ConfiguracoesServidorCertificacao.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Certificacao\DefinirSenhaCertificado.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Consulta.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -292,13 +265,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Certificacao\LAN\WindowsLoopbackManager.zip" />
-  </ItemGroup>
-  <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Certificacao\LAN\ConjuntoA3.zip" />
     <None Include="Properties\ServiceReferences.Designer.ClientConfig" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

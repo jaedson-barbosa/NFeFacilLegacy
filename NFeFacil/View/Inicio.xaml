@@ -238,7 +238,6 @@
 					<Grid.RowDefinitions>
 						<RowDefinition />
 						<RowDefinition />
-						<RowDefinition />
 					</Grid.RowDefinitions>
 					<controles:ItemPadrao Titulo="Configurações"
 										  Descricao="Configurações gerais, background e backup"
@@ -247,13 +246,6 @@
 						<SymbolIcon Symbol="Setting" />
 					</controles:ItemPadrao>
 					<controles:ItemPadrao Grid.Column="1"
-										  Titulo="Certificação"
-										  Descricao="Importe certificados ou instale e se conecte a um servidor."
-										  Click="AbrirCertificacao"
-										  Margin="0,0,0,8">
-						<SymbolIcon Symbol="Permissions" />
-					</controles:ItemPadrao>
-					<controles:ItemPadrao Grid.Row="1"
 										  Titulo="Importação"
 										  Descricao="Importe dados base ou notas fiscais."
 										  Click="AbrirImportacao"
@@ -261,14 +253,14 @@
 						<SymbolIcon Symbol="Import" />
 					</controles:ItemPadrao>
 					<controles:ItemPadrao Grid.Row="1"
-										  Grid.Column="1"
 										  Titulo="Sincronização"
 										  Descricao="Configure a sincronização entre dispositivos."
 										  Click="AbrirSincronizacao"
 										  Margin="0,0,0,8">
 						<SymbolIcon Symbol="Sync" />
 					</controles:ItemPadrao>
-					<controles:ItemPadrao Grid.Row="2"
+					<controles:ItemPadrao Grid.Row="1"
+										  Grid.Column="1"
 										  Titulo="Informações"
 										  Descricao="Algumas informações úteis que podem lhe ajudar"
 										  Click="AbrirInformacoes">

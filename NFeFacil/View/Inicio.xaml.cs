@@ -92,19 +92,6 @@ namespace NFeFacil.View
         void AbrirImportacao(object sender, RoutedEventArgs e) => Navegar<ImportacaoDados>();
         void AbrirInformacoes(object sender, RoutedEventArgs e) => Navegar<Informacoes>();
 
-        void AbrirCertificacao(object sender, RoutedEventArgs e)
-        {
-            switch (ConfiguracoesCertificacao.Origem)
-            {
-                case OrigemCertificado.Importado:
-                    MainPage.Current.Navegar<ConfiguracoesCertificadoImportado>();
-                    break;
-                case OrigemCertificado.Servidor:
-                    MainPage.Current.Navegar<ConfiguracoesServidorCertificacao>();
-                    break;
-            }
-        }
-
         void AbrirSincronizacao(object sender, RoutedEventArgs e)
         {
             if (ConfiguracoesSincronizacao.Tipo == TipoAppSincronizacao.Cliente)

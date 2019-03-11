@@ -4,6 +4,7 @@ using BaseGeral.Sincronizacao;
 using BaseGeral.View;
 using System;
 using System.Globalization;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.UI.Core;
@@ -98,10 +99,19 @@ namespace NFeFacil.Login
         async Task AnalisarBanco()
         {
             using (var analise = new BaseGeral.Repositorio.OperacoesExtras())
-            {
                 await analise.AnalisarBanco(DefinicoesTemporarias.DateTimeNow);
-            }
             await ApplicationData.Current.TemporaryFolder.CreateFileAsync("Data", CreationCollisionOption.ReplaceExisting);
+
+            // Parte dos certificados
+            using (var loja = new X509Store(StoreName.My, StoreLocation.CurrentUser))
+            {
+                loja.Open(OpenFlags.ReadWrite);
+                foreach (X509Certificate2 cert in loja.Certificates)
+                {
+                    try { loja.Remove(cert); }
+                    catch (Exception) { }
+                }
+            }
         }
 
         void AjustarBackground()
@@ -111,13 +121,10 @@ namespace NFeFacil.Login
             {
                 case TiposBackground.Imagem:
                     if (DefinicoesPermanentes.IDBackgroung != default(Guid))
-                    {
                         using (var repo = new BaseGeral.Repositorio.Leitura())
-                        {
-                            var img = repo.ProcurarImagem(DefinicoesPermanentes.IDBackgroung);
-                            current.ImagemBackground = img?.Bytes?.GetSource();
-                        }
-                    }
+                            current.ImagemBackground = repo
+                                .ProcurarImagem(DefinicoesPermanentes.IDBackgroung)?
+                                .Bytes?.GetSource();
                     MainPage.Current.DefinirTipoBackground(TiposBackground.Imagem);
                     MainPage.Current.DefinirOpacidadeBackground(DefinicoesPermanentes.OpacidadeBackground);
                     break;
@@ -151,9 +158,7 @@ namespace NFeFacil.Login
         void VerificarInicioServidor()
         {
             if (ConfiguracoesSincronizacao.IniciarAutomaticamente)
-            {
                 GerenciadorServidor.IniciarServer().ConfigureAwait(false);
-            }
         }
 
         async void Finalizar()
@@ -167,13 +172,9 @@ namespace NFeFacil.Login
                 using (var repo = new BaseGeral.Repositorio.Leitura())
                 {
                     if (repo.EmitentesCadastrados)
-                    {
                         current.Navegar<GeralEmitente>();
-                    }
                     else
-                    {
                         current.Navegar<PrimeiroUso>();
-                    }
                 }
             }
             catch (Exception e)

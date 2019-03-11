@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Xml;
-using Fiscal.Certificacao.LAN.Primitivos;
 using System.Linq;
 using System.Security.Cryptography.Xml;
 using BaseGeral.ModeloXML.PartesAssinatura;
 using System.Security.Cryptography.X509Certificates;
-using Fiscal.Certificacao.LAN.Pacotes;
-using System.Security.Cryptography;
 using BaseGeral;
+using System.Security.Cryptography;
 
 namespace Fiscal.Certificacao
 {
@@ -21,18 +19,29 @@ namespace Fiscal.Certificacao
             "Obter informações da assinatura",
             "Processar assinatura"
         };
-        public CertificadoExibicao[] CertificadosDisponiveis { get; private set; }
+
+        public AssinaFacil()
+        {
+            using (var loja = new X509Store(StoreName.My, StoreLocation.CurrentUser))
+            {
+                loja.Open(OpenFlags.ReadOnly);
+                CertificadosDisponiveis = loja.Certificates
+                    .Cast<X509Certificate2>()
+                    .Select(cert => new CertificadoExibicao
+                    {
+                        Subject = cert.Subject,
+                        SerialNumber = cert.SerialNumber,
+                    })
+                    .ToArray();
+            }
+        }
+
+        public readonly CertificadoExibicao[] CertificadosDisponiveis;
 
         public event ProgressChangedEventHandler ProgressChanged;
         async Task OnProgressChanged(int conc)
         {
             if (ProgressChanged != null) await ProgressChanged(this, conc);
-        }
-
-        public async Task Preparar()
-        {
-            var certs = await Certificados.ObterCertificadosAsync(ConfiguracoesCertificacao.Origem);
-            CertificadosDisponiveis = certs.ToArray();
         }
 
         public async Task<(bool, string)> Assinar<T>(object x, string id, string tag)
@@ -52,36 +61,19 @@ namespace Fiscal.Certificacao
                     var serial = cert.SerialNumber;
                     await OnProgressChanged(1);
 
-                    if (ConfiguracoesCertificacao.Origem == OrigemCertificado.Importado)
+                    using (var loja = new X509Store())
                     {
-                        using (var loja = new X509Store())
+                        loja.Open(OpenFlags.ReadOnly);
+                        for (int i = 0; i < loja.Certificates.Count; i++)
                         {
-                            loja.Open(OpenFlags.ReadOnly);
-                            for (int i = 0; i < loja.Certificates.Count; i++)
+                            var temp = loja.Certificates[i];
+                            if (temp.SerialNumber == serial)
                             {
-                                var temp = loja.Certificates[i];
-                                if (temp.SerialNumber == serial)
-                                {
-                                    Nota.Signature = AssinarXML(temp.GetRSAPrivateKey(), temp.RawData, id, tag, xml.OuterXml);
-                                    break;
-                                }
+                                Nota.Signature = AssinarXML(temp.GetRSAPrivateKey(), temp.RawData, id, tag, xml.OuterXml);
+                                break;
                             }
-                            await OnProgressChanged(2);
-                            return (true, "Documento assinado com sucesso.");
                         }
-                    }
-                    else
-                    {
-                        var operacoes = new LAN.OperacoesServidor();
-                        Nota.Signature = await operacoes.AssinarRemotamente(new CertificadoAssinaturaDTO
-                        {
-                            Id = id,
-                            Tag = tag,
-                            XML = xml.OuterXml,
-                            Serial = serial
-                        });
                         await OnProgressChanged(2);
-
                         return (true, "Documento assinado com sucesso.");
                     }
                 }

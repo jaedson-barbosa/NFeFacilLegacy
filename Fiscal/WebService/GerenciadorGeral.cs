@@ -1,6 +1,4 @@
-﻿using Fiscal.Certificacao.LAN.Pacotes;
-using System;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -9,7 +7,6 @@ using System.Net;
 using Fiscal.Certificacao;
 using BaseGeral;
 using System.Security.Authentication;
-using Windows.Storage;
 
 namespace Fiscal.WebService
 {
@@ -50,71 +47,29 @@ namespace Fiscal.WebService
 
         public async Task<Resposta> EnviarAsync(Envio corpo, bool addNamespace = false)
         {
-            var origem = ConfiguracoesCertificacao.Origem;
-            if (origem == OrigemCertificado.Importado)
+            using (var proxy = new HttpClient(new HttpClientHandler()
             {
-                using (var proxy = new HttpClient(new HttpClientHandler()
-                {
-                    ClientCertificateOptions = ClientCertificateOption.Automatic,
-                    SslProtocols = SslProtocols.Tls12,
-                    UseDefaultCredentials = true,
-                    AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip
-                }, true))
-                {
-                    proxy.DefaultRequestHeaders.Add("SOAPAction", Enderecos.Metodo);
-                    await OnProgressChanged(1);
-
-                    var str = ObterConteudoRequisicao(corpo, addNamespace);
-                    var conteudo = new StringContent(str, Encoding.UTF8, ObterTipoConteudo());
-                    await OnProgressChanged(2);
-
-                    var resposta = await proxy.PostAsync(Enderecos.Endereco, conteudo);
-                    await OnProgressChanged(3);
-
-                    var xml = XElement.Load(await resposta.Content.ReadAsStreamAsync());
-                    var retorno = ObterConteudoCorpo(xml).FromXElement<Resposta>();
-                    await OnProgressChanged(4);
-
-                    return retorno;
-                }
-            }
-            else
+                ClientCertificateOptions = ClientCertificateOption.Automatic,
+                SslProtocols = SslProtocols.Tls12,
+                UseDefaultCredentials = true,
+                AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip
+            }, true))
             {
-                var envio = new RequisicaoEnvioDTO()
-                {
-                    Cabecalho = new CabecalhoRequisicao()
-                    {
-                        Nome = "SOAPAction",
-                        Valor = Enderecos.Metodo
-                    },
-                    Conteudo = XElement.Parse(ObterConteudoRequisicao(corpo, addNamespace)),
-                    Uri = Enderecos.Endereco,
-                    TipoConteudo = ObterTipoConteudo()
-                };
+                proxy.DefaultRequestHeaders.Add("SOAPAction", Enderecos.Metodo);
                 await OnProgressChanged(1);
 
-                using (var cliente = new HttpClient())
-                {
-                    var file = await ApplicationData.Current.TemporaryFolder.GetFileAsync("Data");
-                    envio.ToXElement<RequisicaoEnvioDTO>().Save(file.Path);
-                    await OnProgressChanged(2);
+                var str = ObterConteudoRequisicao(corpo, addNamespace);
+                var conteudo = new StringContent(str, Encoding.UTF8, ObterTipoConteudo());
+                await OnProgressChanged(2);
 
-                    var uri = new Uri($"http://localhost:1010/EnviarRequisicao/{file.Path}");
-                    var resposta = await cliente.GetAsync(uri);
-                    await OnProgressChanged(3);
-                    if (resposta.IsSuccessStatusCode)
-                    {
-                        var xmlResposta = XElement.Load(file.Path);
-                        var retorno = xmlResposta.FromXElement<Resposta>();
-                        await OnProgressChanged(4);
-                        return retorno;
-                    }
-                    else
-                    {
-                        await OnProgressChanged(4);
-                        throw new Exception(await resposta.Content.ReadAsStringAsync());
-                    }
-                }
+                var resposta = await proxy.PostAsync(Enderecos.Endereco, conteudo);
+                await OnProgressChanged(3);
+
+                var xml = XElement.Load(await resposta.Content.ReadAsStreamAsync());
+                var retorno = ObterConteudoCorpo(xml).FromXElement<Resposta>();
+                await OnProgressChanged(4);
+
+                return retorno;
             }
 
             XNode ObterConteudoCorpo(XElement soap)

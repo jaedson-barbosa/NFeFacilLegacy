@@ -9,8 +9,13 @@ namespace BaseGeral.ModeloXML.PartesDetalhes.PartesProduto
         [XmlElement(ElementName = "cProd", Order = 0), DescricaoPropriedade("Código")]
         public string CodigoProduto { get; set; }
 
+        string codigoBarras;
         [XmlElement(ElementName = "cEAN", Order = 1), DescricaoPropriedade("Código de barras")]
-        public string CodigoBarras { get; set; } = "";
+        public string CodigoBarras
+        {
+            get => string.IsNullOrEmpty(codigoBarras) ? "SEM GTIN" : codigoBarras;
+            set => codigoBarras = value;
+        }
 
         [XmlElement(ElementName = "xProd", Order = 2), DescricaoPropriedade("Descrição")]
         public string Descricao { get; set; }
@@ -68,8 +73,13 @@ namespace BaseGeral.ModeloXML.PartesDetalhes.PartesProduto
         [XmlElement(ElementName = "vProd", Order = 11), DescricaoPropriedade("Valor total bruto")]
         public string ValorTotalString { get; set; }
 
+        string codigoBarrasTributo;
         [XmlElement(ElementName = "cEANTrib", Order = 12), DescricaoPropriedade("Global Trade Item Number (código de barras do tributo)")]
-        public string CodigoBarrasTributo { get; set; } = "";
+        public string CodigoBarrasTributo
+        {
+            get => string.IsNullOrEmpty(codigoBarrasTributo) ? "SEM GTIN" : codigoBarrasTributo;
+            set => codigoBarrasTributo = value;
+        }
 
         [XmlElement(ElementName = "uTrib", Order = 13), DescricaoPropriedade("Unidade de tributação")]
         public string UnidadeTributacao { get; set; }

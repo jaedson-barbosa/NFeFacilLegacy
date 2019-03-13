@@ -23,15 +23,16 @@ namespace BaseGeral.View
             TotalEtapas = conjuntoEtapas.Length;
         }
 
-        public Progresso(Func<Task<(bool, string)>> acao, params string[] extras)
-            : this(extras)
+        public Progresso(Func<Task<(bool, string)>> acao, params string[] conjuntoEtapas)
+            : this(conjuntoEtapas)
         {
             cmbEscolha.Visibility = Visibility.Collapsed;
             Acao = acao;
         }
 
-        public Progresso(Func<object, Task<(bool, string)>> acao, IEnumerable escolhaItens, string displayPath, params string[] extras)
-            : this(extras)
+        public Progresso(Func<object, Task<(bool, string)>> acao, IEnumerable escolhaItens,
+            string displayPath, params string[] conjuntoEtapas)
+            : this(conjuntoEtapas)
         {
             cmbEscolha.ItemsSource = escolhaItens;
             cmbEscolha.DisplayMemberPath = displayPath;

@@ -114,7 +114,6 @@
       <DependentUpon>CancelarNFe.xaml</DependentUpon>
     </Compile>
     <Compile Include="Certificacao\AssinaFacil.cs" />
-    <Compile Include="Certificacao\CertificadoExibicao.cs" />
     <Compile Include="Certificacao\CodigoNet\AttributeSortOrder.cs" />
     <Compile Include="Certificacao\CodigoNet\C14NAncestralNamespaceContextManager.cs" />
     <Compile Include="Certificacao\CodigoNet\CanonicalizationDispatcher.cs" />

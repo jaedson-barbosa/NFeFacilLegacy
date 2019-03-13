@@ -4,6 +4,7 @@ using BaseGeral.ModeloXML.PartesAssinatura;
 using Fiscal.WebService.Pacotes.PartesInutNFe;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Fiscal.WebService.Pacotes
 {
@@ -27,7 +28,7 @@ namespace Fiscal.WebService.Pacotes
             Signature = null;
         }
 
-        public async Task<(bool, string)> PrepararEvento(AssinaFacil assinador, object cert)
+        public async Task<(bool, string)> PrepararEvento(AssinaFacil assinador, X509Certificate2 cert)
         {
             assinador.Nota = this;
             return await assinador.Assinar<InutNFe>(cert, Info.Id, "infInut");

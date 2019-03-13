@@ -14,6 +14,7 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 using Fiscal.Certificacao;
 using BaseGeral.View;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Comum
 {
@@ -45,7 +46,8 @@ namespace Comum
                 Progresso progresso = null;
                 progresso = new Progresso(async x =>
                 {
-                    var resultado = await envio.PrepararEventos(assinador, x);
+                    var cert = (X509Certificate2)x;
+                    var resultado = await envio.PrepararEventos(assinador, cert);
                     if (!resultado.Item1)
                     {
                         retorno = resultado.Item1;

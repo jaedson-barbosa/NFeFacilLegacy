@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Navigation;
 using BaseGeral;
 using Fiscal.Certificacao;
 using BaseGeral.View;
+using System.Security.Cryptography.X509Certificates;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -62,7 +63,8 @@ namespace Fiscal
                 Progresso progresso = null;
                 progresso = new Progresso(async x =>
                 {
-                    var resultAssina = await envio.PrepararEvento(assinador, x);
+                    var cert = (X509Certificate2)x;
+                    var resultAssina = await envio.PrepararEvento(assinador, cert);
                     if (!resultAssina.Item1)
                     {
                         return resultAssina;

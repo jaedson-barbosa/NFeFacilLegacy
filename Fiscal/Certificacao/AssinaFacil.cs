@@ -26,17 +26,11 @@ namespace Fiscal.Certificacao
             {
                 loja.Open(OpenFlags.ReadOnly);
                 CertificadosDisponiveis = loja.Certificates
-                    .Cast<X509Certificate2>()
-                    .Select(cert => new CertificadoExibicao
-                    {
-                        Subject = cert.Subject,
-                        SerialNumber = cert.SerialNumber,
-                    })
-                    .ToArray();
+                    .Cast<X509Certificate2>().ToArray();
             }
         }
 
-        public readonly CertificadoExibicao[] CertificadosDisponiveis;
+        public readonly X509Certificate2[] CertificadosDisponiveis;
 
         public event ProgressChangedEventHandler ProgressChanged;
         async Task OnProgressChanged(int conc)
@@ -44,38 +38,23 @@ namespace Fiscal.Certificacao
             if (ProgressChanged != null) await ProgressChanged(this, conc);
         }
 
-        public async Task<(bool, string)> Assinar<T>(object x, string id, string tag)
+        public async Task<(bool, string)> Assinar<T>(X509Certificate2 cert, string id, string tag)
         {
             var xml = new XmlDocument();
             using (var reader = Nota.ToXElement<T>().CreateReader())
             {
                 xml.Load(reader);
 
-                if (x == null)
+                if (cert == null)
                 {
                     return (false, "Selecione um certificado.");
                 }
                 try
                 {
-                    var cert = (CertificadoExibicao)x;
-                    var serial = cert.SerialNumber;
                     await OnProgressChanged(1);
-
-                    using (var loja = new X509Store())
-                    {
-                        loja.Open(OpenFlags.ReadOnly);
-                        for (int i = 0; i < loja.Certificates.Count; i++)
-                        {
-                            var temp = loja.Certificates[i];
-                            if (temp.SerialNumber == serial)
-                            {
-                                Nota.Signature = AssinarXML(temp.GetRSAPrivateKey(), temp.RawData, id, tag, xml.OuterXml);
-                                break;
-                            }
-                        }
-                        await OnProgressChanged(2);
-                        return (true, "Documento assinado com sucesso.");
-                    }
+                    Nota.Signature = AssinarXML(cert.GetRSAPrivateKey(), cert.RawData, id, tag, xml.OuterXml);
+                    await OnProgressChanged(2);
+                    return (true, "Documento assinado com sucesso.");
                 }
                 catch (Exception e)
                 {

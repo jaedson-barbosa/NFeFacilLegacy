@@ -1,5 +1,6 @@
 ﻿using Fiscal.Certificacao;
 using Fiscal.WebService.Pacotes.PartesEnvEvento;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
@@ -30,7 +31,7 @@ namespace Fiscal.WebService.Pacotes
             }
         }
 
-        public async Task<(bool, string)> PrepararEventos(AssinaFacil assinador, object cert)
+        public async Task<(bool, string)> PrepararEventos(AssinaFacil assinador, X509Certificate2 cert)
         {
             for (int i = 0; i < Eventos.Length; i++)
             {

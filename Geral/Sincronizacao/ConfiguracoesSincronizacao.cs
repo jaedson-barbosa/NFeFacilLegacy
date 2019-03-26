@@ -43,7 +43,7 @@ namespace BaseGeral.Sincronizacao
             get
             {
                 var temp = AssistenteConfig.Get<string>(nameof(IPServidor), null);
-                if (temp.Contains(".")) CodigoServidor = temp = temp.IPToCodigo();
+                if (temp?.Contains(".") ?? false) CodigoServidor = temp = temp.IPToCodigo();
                 return temp;
             }
             set => AssistenteConfig.Set(nameof(IPServidor), value);

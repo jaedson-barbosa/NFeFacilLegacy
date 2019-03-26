@@ -4,14 +4,6 @@
              xmlns:aux="using:BaseGeral.View">
     <Application.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.ThemeDictionaries>
-                <ResourceDictionary x:Key="Dark">
-                    <x:String x:Key="ImagemArma">ms-appx:///Assets/Arma.png</x:String>
-                </ResourceDictionary>
-                <ResourceDictionary x:Key="Light">
-                    <x:String x:Key="ImagemArma">ms-appx:///Assets/ArmaDark.png</x:String>
-                </ResourceDictionary>
-            </ResourceDictionary.ThemeDictionaries>
             <TransitionCollection x:Key="TransicoesLista">
                 <EntranceThemeTransition IsStaggeringEnabled="True" />
                 <RepositionThemeTransition IsStaggeringEnabled="False" />

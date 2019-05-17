@@ -7,6 +7,7 @@ using System.Net;
 using Fiscal.Certificacao;
 using BaseGeral;
 using System.Security.Authentication;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Fiscal.WebService
 {
@@ -45,15 +46,22 @@ namespace Fiscal.WebService
             : this(Estados.Buscar(codigo), operacao, teste, isNFCe)
         { }
 
-        public async Task<Resposta> EnviarAsync(Envio corpo, bool addNamespace = false)
+        public async Task<Resposta> EnviarAsync(Envio corpo, bool addNamespace = false, X509Certificate2 cert = null)
         {
-            using (var proxy = new HttpClient(new HttpClientHandler()
+            
+            var handler = new HttpClientHandler()
             {
                 ClientCertificateOptions = ClientCertificateOption.Automatic,
                 SslProtocols = SslProtocols.Tls12,
-                UseDefaultCredentials = true,
+                UseDefaultCredentials = cert == null,
                 AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip
-            }, true))
+            };
+            if (cert != null)
+            {
+                handler.ClientCertificateOptions = ClientCertificateOption.Manual;
+                handler.ClientCertificates.Add(cert);
+            }
+            using (var proxy = new HttpClient(handler, true))
             {
                 proxy.DefaultRequestHeaders.Add("SOAPAction", Enderecos.Metodo);
                 await OnProgressChanged(1);

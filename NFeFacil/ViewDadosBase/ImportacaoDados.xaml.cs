@@ -86,7 +86,9 @@ namespace NFeFacil.ViewDadosBase
                         }
                     }
                 }
-                catch (Exception) { }
+                catch (Exception erro) {
+
+                }
             }
             using (var repo = new Escrita())
                 repo.AdicionarNotasFiscais(conjuntos, DefinicoesTemporarias.DateTimeNow);

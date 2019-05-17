@@ -39,7 +39,7 @@
 			</Paragraph>
 			<Paragraph>
 				<Bold>Revisão:</Bold>
-				<Run>13</Run>
+				<Run>15</Run>
 			</Paragraph>
 		</RichTextBlock>
 		<TextBlock Style="{StaticResource TitleTextBlockStyle}"

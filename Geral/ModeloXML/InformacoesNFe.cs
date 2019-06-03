@@ -43,5 +43,40 @@ namespace BaseGeral.ModeloXML
         [DescricaoPropriedade("Cana de açúcar")]
         [XmlElement(Order = 13)]
         public RegistroAquisicaoCana cana { get; set; }
+
+        ResponsavelTecnico responsavel;
+        [DescricaoPropriedade("Responsável técnico")]
+        [XmlElement("infRespTec", Order = 14)]
+        public ResponsavelTecnico Responsavel
+        {
+            get => DefinicoesPermanentes.InformarResponsavelTecnico
+                ? responsavel ?? (responsavel = new ResponsavelTecnico().PreencherPadrao())
+                : null;
+            set => responsavel = value;
+        }
+    }
+
+    public sealed class ResponsavelTecnico
+    {
+        [XmlElement("CNPJ", Order = 0), DescricaoPropriedade("CNPJ")]
+        public string CNPJ { get; set; }
+
+        [XmlElement("xContato", Order = 0), DescricaoPropriedade("Nome para contato")]
+        public string Contato { get; set; }
+
+        [XmlElement("email", Order = 0), DescricaoPropriedade("E-mail para contato")]
+        public string Email { get; set; }
+
+        [XmlElement("fone", Order = 0), DescricaoPropriedade("Fone para contato")]
+        public string Fone { get; set; }
+
+        public ResponsavelTecnico PreencherPadrao()
+        {
+            CNPJ = "12931158000164";
+            Contato = "Jaedson Barbosa Serafim";
+            Email = "jaedson33@gmail.com";
+            Fone = "83988856440";
+            return this;
+        }
     }
 }

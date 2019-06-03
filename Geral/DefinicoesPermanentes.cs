@@ -101,6 +101,12 @@ namespace BaseGeral
             get => AssistenteConfig.Get(nameof(IgnorarProdutosJaAdicionados), false);
             set => AssistenteConfig.Set(nameof(IgnorarProdutosJaAdicionados), value);
         }
+
+        public static bool InformarResponsavelTecnico
+        {
+            get => AssistenteConfig.Get(nameof(InformarResponsavelTecnico), false);
+            set => AssistenteConfig.Set(nameof(InformarResponsavelTecnico), value);
+        }
     }
 
     public enum TiposBackground { Imagem, Cor, Padrao }

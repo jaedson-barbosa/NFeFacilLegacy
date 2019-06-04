@@ -61,13 +61,13 @@ namespace BaseGeral.ModeloXML
         [XmlElement("CNPJ", Order = 0), DescricaoPropriedade("CNPJ")]
         public string CNPJ { get; set; }
 
-        [XmlElement("xContato", Order = 0), DescricaoPropriedade("Nome para contato")]
+        [XmlElement("xContato", Order = 1), DescricaoPropriedade("Nome para contato")]
         public string Contato { get; set; }
 
-        [XmlElement("email", Order = 0), DescricaoPropriedade("E-mail para contato")]
+        [XmlElement("email", Order = 2), DescricaoPropriedade("E-mail para contato")]
         public string Email { get; set; }
 
-        [XmlElement("fone", Order = 0), DescricaoPropriedade("Fone para contato")]
+        [XmlElement("fone", Order = 3), DescricaoPropriedade("Fone para contato")]
         public string Fone { get; set; }
 
         public ResponsavelTecnico PreencherPadrao()

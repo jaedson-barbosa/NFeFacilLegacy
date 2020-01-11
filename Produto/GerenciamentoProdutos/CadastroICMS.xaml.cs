@@ -1,4 +1,4 @@
-﻿using static Venda.Impostos.AssociacoesSimples;
+﻿using static Venda.Impostos.AssociacoesICMS;
 using Windows.UI.Xaml.Controls;
 using BaseGeral;
 
@@ -11,13 +11,15 @@ namespace Venda.GerenciamentoProdutos
         public string NomeModelo { get; private set; }
         public bool EdicaoAtivada { get; private set; }
         public bool IsRegimeNormal { get; } = DefinicoesTemporarias.EmitenteAtivo.RegimeTributario == 3;
-        public Page Pagina => frmManipulacao.Content as Page;
+        public readonly UserControl Pagina;
 
-        public CadastroICMS(string cst, string csosn)
+        public CadastroICMS(Impostos.DetalhamentoICMS.Detalhamento detalhamento)
         {
             InitializeComponent();
-            var page = IsRegimeNormal ? ICMSRN[int.Parse(cst)] : ICMSSN[int.Parse(csosn)];
-            if (page != null) frmManipulacao.Navigate(page);
+            Pagina = IsRegimeNormal
+                ? GetRegimeNormal(int.Parse(detalhamento.TipoICMSRN), detalhamento)
+                : GetSimplesNacional(int.Parse(detalhamento.TipoICMSSN), detalhamento) as UserControl;
+            if (Pagina != null) ctnManipulacao.Content = Pagina;
         }
     }
 }

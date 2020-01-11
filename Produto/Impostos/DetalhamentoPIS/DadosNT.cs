@@ -13,10 +13,7 @@ namespace Venda.Impostos.DetalhamentoPIS
         {
             return new PIS
             {
-                Corpo = new PISNT()
-                {
-                    CST = CST
-                }
+                Corpo = new PISNT(CST)
             };
         }
     }

@@ -1,7 +1,6 @@
 ﻿using BaseGeral.ItensBD;
 using BaseGeral.ModeloXML;
 using BaseGeral.Validacao;
-using NFeFacil.View;
 using Fiscal;
 using Fiscal.WebService;
 using Fiscal.WebService.Pacotes;
@@ -14,6 +13,8 @@ using Windows.Storage.Pickers;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using BaseGeral;
+using BaseGeral.View;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Consumidor
 {
@@ -50,11 +51,11 @@ namespace Consumidor
                 {
                     Nota = nfe
                 };
-                await assina.Preparar();
                 Progresso progresso = null;
                 progresso = new Progresso(async x =>
                 {
-                    var result = await assina.Assinar<NFCe>(x, nfe.Informacoes.Id, "infNFe");
+                    var cert = (X509Certificate2)x;
+                    var result = await assina.Assinar<NFCe>(cert, nfe.Informacoes.Id, "infNFe");
                     if (result.Item1)
                     {
                         ItemBanco.Status = (int)StatusNota.Assinada;

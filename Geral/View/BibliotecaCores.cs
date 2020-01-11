@@ -2,7 +2,7 @@
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 
-namespace NFeFacil.View
+namespace BaseGeral.View
 {
     public class BibliotecaCores
     {

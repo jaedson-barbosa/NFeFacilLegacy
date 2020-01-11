@@ -1,7 +1,6 @@
 ﻿using BaseGeral;
 using BaseGeral.ModeloXML.PartesDetalhes;
 using BaseGeral.View;
-using NFeFacil.View;
 using Venda;
 using Venda.Impostos;
 using Venda.ViewProdutoVenda;

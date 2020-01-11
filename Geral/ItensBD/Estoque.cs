@@ -8,6 +8,18 @@ namespace BaseGeral.ItensBD
         public Guid Id { get; set; }
         public DateTime UltimaData { get; set; }
 
+        const string MarcaInatividade = "#INATIVO#";
+        [System.ComponentModel.DataAnnotations.Schema.NotMapped]
+        public bool IsAtivo
+        {
+            get => LocalizacaoGenerica.StartsWith(MarcaInatividade);
+            set
+            {
+                if (value) LocalizacaoGenerica.Insert(0, MarcaInatividade);
+                else LocalizacaoGenerica.Remove(0, MarcaInatividade.Length);
+            }
+        }
+
         public string LocalizacaoGenerica { get; set; }
 
         public string Segmento { get; set; }

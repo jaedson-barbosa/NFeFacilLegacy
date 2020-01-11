@@ -70,17 +70,11 @@ namespace NFeFacil.ViewDadosBase
                     {
                         NFeDI diAtual;
                         if (xmlAtual.Name.LocalName == nameof(NFe))
-                        {
                             diAtual = new NFeDI(FromXElement<NFe>(xmlAtual), xmlAtual.ToString());
-                        }
                         else
-                        {
                             diAtual = new NFeDI(FromXElement<ProcessoNFe>(xmlAtual), xmlAtual.ToString());
-                        }
                         if (conjuntos.Count(x => x.Id == diAtual.Id) == 0)
-                        {
                             conjuntos.Add(diAtual);
-                        }
                         else
                         {
                             var atual = conjuntos.Single(x => x.Id == diAtual.Id);
@@ -92,13 +86,14 @@ namespace NFeFacil.ViewDadosBase
                         }
                     }
                 }
-                catch (Exception) { }
+                catch (Exception erro) {
+
+                }
             }
             using (var repo = new Escrita())
-            {
                 repo.AdicionarNotasFiscais(conjuntos, DefinicoesTemporarias.DateTimeNow);
-            }
-            Popup.Current.Escrever(TitulosComuns.Atenção, "Caso algum dado não tenha sido importado é porque ele não tem o formado aceito pelo aplicativo.");
+            Popup.Current.Escrever(TitulosComuns.Atenção, "Caso algum dado não tenha sido importado é porque ele não tem o formado aceito pelo aplicativo.\n" +
+                "Verifique se todos os dados da NFe foram corretamente importados e se nenhum dado ficou de fora.");
         }
 
         async void ImportarNFCe(object sender, RoutedEventArgs e)
@@ -169,7 +164,7 @@ namespace NFeFacil.ViewDadosBase
                 ? xmlAtual : xmlAtual.Element(XName.Get("NFe", "http://www.portalfiscal.inf.br/nfe"));
                 filhoIdent = filhoIdent.Element(XName.Get("infNFe", "http://www.portalfiscal.inf.br/nfe"));
 
-                return filhoIdent.Attribute("versao").Value == "3.10" ? xmlAtual : null;
+                return filhoIdent.Attribute("versao").Value == "4.00" ? xmlAtual : null;
             }
         }
 

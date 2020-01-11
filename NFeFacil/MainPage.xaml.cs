@@ -1,16 +1,10 @@
 ﻿using BaseGeral;
 using BaseGeral.View;
-using NFeFacil.View;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using Windows.System.Profile;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
@@ -50,8 +44,8 @@ namespace NFeFacil
         internal void DefinirOpacidadeBackground(double opacidade)
         {
             var backgroundFrame = (SolidColorBrush)FramePrincipal.Background;
-            //backgroundFrame.Opacity = opacidade;
-            //DefinicoesPermanentes.OpacidadeBackground = opacidade;
+            backgroundFrame.Opacity = opacidade;
+            DefinicoesPermanentes.OpacidadeBackground = opacidade;
         }
 
         internal ImageSource ImagemBackground
@@ -92,19 +86,13 @@ namespace NFeFacil
             }
 
             if (FramePrincipal.BackStackDepth >= 1) FramePrincipal.GoBack();
-            else
-            {
-                var familia = AnalyticsInfo.VersionInfo.DeviceFamily;
-                if (familia.Contains("Mobile"))
-                {
-                    Application.Current.Exit();
-                }
-            }
         }
 
         private void AbrirHamburguer(object sender, RoutedEventArgs e)
         {
             splitView.IsPaneOpen = !splitView.IsPaneOpen;
+            if (splitView.IsPaneOpen)
+                RotInfoPane.Begin();
         }
 
         private void MudouSubpaginaEscolhida(object sender, SelectionChangedEventArgs e)
@@ -117,19 +105,8 @@ namespace NFeFacil
 
         public void AtualizarInformaçõesGerais()
         {
-            imgLogotipo.Source = DefinicoesTemporarias.Logotipo;
-            txtNomeEmitente.Text = DefinicoesTemporarias.EmitenteAtivo.Nome;
             txtNomeEmpresa.Text = DefinicoesTemporarias.EmitenteAtivo.NomeFantasia;
-
-            if (DefinicoesTemporarias.VendedorAtivo != null)
-            {
-                imgVendedor.Source = DefinicoesTemporarias.FotoVendedor;
-                txtNomeVendedor.Text = DefinicoesTemporarias.VendedorAtivo.Nome;
-            }
-            else
-            {
-                txtNomeVendedor.Text = "Administrador";
-            }
+            txtNomeEmitente.Text = DefinicoesTemporarias.VendedorAtivo?.Nome ?? DefinicoesTemporarias.EmitenteAtivo.Nome;
         }
 
         private void NavegacaoConcluida(object sender, NavigationEventArgs e)
@@ -162,60 +139,23 @@ namespace NFeFacil
                 menuTemporario.ItemsSource = null;
                 splitView.CompactPaneLength = 0;
             }
-
-            var pagina = (Page)navegada;
-            if (pagina.BottomAppBar is CommandBar bar)
-            {
-                BarraSecundaria = bar;
-                PossuiBotoesPrimarios = bar.PrimaryCommands?.Count > 0;
-                PossuiBotoesSecundarios = bar.SecondaryCommands?.Count > 0;
-            }
-            else
-            {
-                BarraSecundaria = null;
-                PossuiBotoesPrimarios = PossuiBotoesSecundarios = false;
-            }
-            PossuiBotoes = PossuiBotoesPrimarios || PossuiBotoesSecundarios;
         }
 
-        CommandBar BarraSecundaria;
-        bool PossuiBotoesPrimarios;
-        bool PossuiBotoesSecundarios;
-        bool PossuiBotoes;
-        void TeclaPressionada(object sender, KeyRoutedEventArgs e)
+        bool deveExecutarAnimFechamento = true;
+        private void SplitView_PaneClosing(SplitView sender, SplitViewPaneClosingEventArgs args)
         {
-            int cod = (int)e.Key;
-            if (BarraSecundaria != null && cod >= 112 && cod <= 135 && PossuiBotoes)
+            if (!deveExecutarAnimFechamento)
             {
-                IList<ICommandBarElement> primarios = BarraSecundaria.PrimaryCommands,
-                    secundarios = BarraSecundaria.SecondaryCommands;
-                int teclaF = (int)e.Key - 111, index = teclaF - 1;
-                if (secundarios?.Count > 0)
-                {
-                    if (teclaF > primarios.Count)
-                    {
-                        BarraSecundaria.IsOpen = true;
-                        if (teclaF - primarios.Count > secundarios.Count)
-                            index = secundarios.Count - 1;
-                        else index = teclaF - primarios.Count - 1;
-                        if (secundarios[index] is Control control)
-                            control.Focus(FocusState.Keyboard);
-                    }
-                    else if (primarios[index] is Control control)
-                    {
-                        BarraSecundaria.IsOpen = false;
-                        control.Focus(FocusState.Keyboard);
-                    }
-                }
-                else
-                {
-                    if (teclaF > primarios.Count)
-                        BarraSecundaria.IsOpen = !BarraSecundaria.IsOpen;
-                    else if (primarios[index] is Control control)
-                        control.Focus(FocusState.Keyboard);
-                }
-                e.Handled = true;
+                deveExecutarAnimFechamento = true;
+                return;
             }
+            args.Cancel = true;
+            RotInfoPaneInverse.Begin();
+        }
+
+        private void RotInfoPaneInverse_Completed(object sender, object e)
+        {
+            splitView.IsPaneOpen = deveExecutarAnimFechamento = false;
         }
     }
 }

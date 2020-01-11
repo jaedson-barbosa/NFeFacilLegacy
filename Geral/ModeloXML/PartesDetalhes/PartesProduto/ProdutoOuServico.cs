@@ -1,18 +1,21 @@
 ﻿using BaseGeral.View;
-using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
-using System.Collections.Generic;
 using System.Xml.Serialization;
 using static BaseGeral.ExtensoesPrincipal;
 
 namespace BaseGeral.ModeloXML.PartesDetalhes.PartesProduto
 {
-    public sealed class ProdutoOuServico : IProdutoEspecial
+    public sealed class ProdutoOuServico
     {
         [XmlElement(ElementName = "cProd", Order = 0), DescricaoPropriedade("Código")]
         public string CodigoProduto { get; set; }
 
+        string codigoBarras;
         [XmlElement(ElementName = "cEAN", Order = 1), DescricaoPropriedade("Código de barras")]
-        public string CodigoBarras { get; set; } = "";
+        public string CodigoBarras
+        {
+            get => string.IsNullOrEmpty(codigoBarras) ? "SEM GTIN" : codigoBarras;
+            set => codigoBarras = value;
+        }
 
         [XmlElement(ElementName = "xProd", Order = 2), DescricaoPropriedade("Descrição")]
         public string Descricao { get; set; }
@@ -70,8 +73,13 @@ namespace BaseGeral.ModeloXML.PartesDetalhes.PartesProduto
         [XmlElement(ElementName = "vProd", Order = 11), DescricaoPropriedade("Valor total bruto")]
         public string ValorTotalString { get; set; }
 
+        string codigoBarrasTributo;
         [XmlElement(ElementName = "cEANTrib", Order = 12), DescricaoPropriedade("Global Trade Item Number (código de barras do tributo)")]
-        public string CodigoBarrasTributo { get; set; } = "";
+        public string CodigoBarrasTributo
+        {
+            get => string.IsNullOrEmpty(codigoBarrasTributo) ? "SEM GTIN" : codigoBarrasTributo;
+            set => codigoBarrasTributo = value;
+        }
 
         [XmlElement(ElementName = "uTrib", Order = 13), DescricaoPropriedade("Unidade de tributação")]
         public string UnidadeTributacao { get; set; }
@@ -96,43 +104,53 @@ namespace BaseGeral.ModeloXML.PartesDetalhes.PartesProduto
         [XmlElement(ElementName = "vUnTrib", Order = 15), DescricaoPropriedade("Valor unitário de tributação")]
         public string ValorUnitarioTributoString { get; set; }
 
+        [XmlIgnore]
+        public double Frete
+        {
+            get => string.IsNullOrEmpty(FreteString) ? 0 : Parse(FreteString);
+            set => FreteString = value != 0 ? ToStr(value) : null;
+        }
+
         [XmlElement(ElementName = "vFrete", Order = 16)]
-        public string Frete { get; set; }
+        public string FreteString { get; set; }
+
+        [XmlIgnore]
+        public double Seguro
+        {
+            get => string.IsNullOrEmpty(SeguroString) ? 0 : Parse(SeguroString);
+            set => SeguroString = value != 0 ? ToStr(value) : null;
+        }
 
         [XmlElement(ElementName = "vSeg", Order = 17)]
-        public string Seguro { get; set; }
+        public string SeguroString { get; set; }
+
+        [XmlIgnore]
+        public double Desconto
+        {
+            get => string.IsNullOrEmpty(DescontoString) ? 0 : Parse(DescontoString);
+            set => DescontoString = value != 0 ? ToStr(value) : null;
+        }
 
         [XmlElement(ElementName = "vDesc", Order = 18)]
-        public string Desconto { get; set; }
+        public string DescontoString { get; set; }
+
+        [XmlIgnore]
+        public double DespesasAcessorias
+        {
+            get => string.IsNullOrEmpty(DespesasAcessoriasString) ? 0 : Parse(DespesasAcessoriasString);
+            set => DespesasAcessoriasString = value != 0 ? ToStr(value) : null;
+        }
 
         [XmlElement(ElementName = "vOutro", Order = 19), DescricaoPropriedade("Despesas acessórias")]
-        public string DespesasAcessorias { get; set; }
+        public string DespesasAcessoriasString { get; set; }
 
         [XmlElement(ElementName = "indTot", Order = 20), DescricaoPropriedade("Inclusão total")]
         public int InclusaoTotal { get; set; } = 1;
 
-        [XmlElement("DI", Order = 21)]
-        public List<DeclaracaoImportacao> DI { get; set; } = new List<DeclaracaoImportacao>();
-
-        [XmlElement("detExport", Order = 22)]
-        public List<GrupoExportacao> GrupoExportação { get; set; } = new List<GrupoExportacao>();
-
         [XmlElement(Order = 23), DescricaoPropriedade("Número da Ficha de Conteúdo de Importação")]
         public string NFCI { get; set; }
 
-        [XmlElement(Order = 24), DescricaoPropriedade("Veículo")]
-        public VeiculoNovo veicProd { get; set; }
-
-        [XmlElement("med", Order = 25)]
-        public List<Medicamento> medicamentos { get; set; }
-
-        [XmlElement("arma", Order = 26)]
-        public List<Arma> armas { get; set; }
-
-        [XmlElement(Order = 27), DescricaoPropriedade("Combustível")]
-        public Combustivel comb { get; set; }
-
-        [XmlElement("nRECOPI", Order = 28), DescricaoPropriedade("Número RECOPI")]
-        public string NRECOPI { get; set; }
+        [XmlElement(Order = 26), DescricaoPropriedade("Combustível")]
+        public Combustivel Combustivel { get; set; }
     }
 }

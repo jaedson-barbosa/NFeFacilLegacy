@@ -1,26 +1,41 @@
-﻿<Page x:Class="Venda.Impostos.DetalhamentoIPI.DetalharQtde"
+﻿<UserControl x:Class="Venda.Impostos.DetalhamentoIPI.DetalharQtde"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:controles="using:BaseGeral.Controles"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
-    <ItemsControl Style="{StaticResource ItensResponsivos}">
-        <TextBox Text="{x:Bind Conjunto.clEnq, Mode=TwoWay}"
-                 Header="Classe de enquadramento"
-                 InputScope="Number" />
-        <TextBox Text="{x:Bind Conjunto.CNPJProd, Mode=TwoWay}"
-                 Header="CNPJ do produtor"
-                 InputScope="Number" />
-        <TextBox Text="{x:Bind Conjunto.cEnq, Mode=TwoWay}"
-                 Header="Código de enquadramento" />
-        <TextBox Text="{x:Bind Conjunto.qSelo, Mode=TwoWay}"
-                 Header="Qtd. do selo de controle"
-                 InputScope="Number" />
-        <TextBox Header="Código do selo de controle"
-                 Text="{x:Bind Conjunto.cSelo, Mode=TwoWay}" />
-        <controles:EntradaNumerica Format="15:4"
-                                   Number="{x:Bind ValorUnitario, Mode=TwoWay}"
-                                   Header="Valor por unidade" />
-    </ItemsControl>
-</Page>
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition />
+			<ColumnDefinition />
+			<ColumnDefinition />
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+		<TextBox Text="{x:Bind Conjunto.CNPJProd, Mode=TwoWay}"
+				 Header="CNPJ do produtor"
+				 InputScope="Number"
+				 Margin="0,0,8,0" />
+		<TextBox Grid.Column="1"
+				 Text="{x:Bind Conjunto.CodigoEnquadramento, Mode=TwoWay}"
+				 Header="Código de enquadramento"
+				 Margin="0,0,8,0" />
+		<TextBox Grid.Column="2"
+				 Text="{x:Bind Conjunto.QuantidadeSelos, Mode=TwoWay}"
+				 Header="Qtd. do selo de controle"
+				 InputScope="Number" />
+		<TextBox Grid.Row="1"
+				 Header="Código do selo de controle"
+				 Text="{x:Bind Conjunto.CodigoSelo, Mode=TwoWay}"
+				 Margin="0,16,8,0" />
+		<controles:EntradaNumerica Grid.Row="1"
+								   Grid.Column="1"
+								   Format="15:4"
+								   Number="{x:Bind ValorUnitario, Mode=TwoWay}"
+								   Header="Valor por unidade"
+								   Margin="0,16,8,0" />
+	</Grid>
+</UserControl>

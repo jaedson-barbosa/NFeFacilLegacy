@@ -1,4 +1,4 @@
-﻿namespace NFeFacil.View
+﻿namespace BaseGeral.View
 {
     public interface IValida
     {

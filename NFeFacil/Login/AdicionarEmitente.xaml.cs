@@ -74,14 +74,15 @@ namespace NFeFacil.Login
                 if (new ValidarDados(new ValidadorEndereco(Emit)).ValidarTudo(true,
                     (string.IsNullOrEmpty(Emit.Nome), "Não foi informado o nome do emitente"),
                     (string.IsNullOrEmpty(Emit.CNPJ), "Não foi informado o CNPJ do emitente"),
-                    (string.IsNullOrEmpty(Emit.InscricaoEstadual), "Não foi informada a inscrição estadual do emitente"),
                     (string.IsNullOrEmpty(Emit.CEP), "O CEP é obrigatório")))
                 {
+                    if (string.IsNullOrEmpty(Emit.InscricaoEstadual))
+                        Emit.InscricaoEstadual = "ISENTO";
                     using (var repo = new BaseGeral.Repositorio.Escrita())
                     {
                         repo.SalvarItemSimples(Emit, DefinicoesTemporarias.DateTimeNow);
                     }
-                    MainPage.Current.Retornar();
+                    MainPage.Current.Navegar<GeralEmitente>();
                 }
             }
             catch (Exception erro)

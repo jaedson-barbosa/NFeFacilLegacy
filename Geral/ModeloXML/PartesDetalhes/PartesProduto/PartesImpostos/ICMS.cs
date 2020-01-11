@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 
 namespace BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos
 {
-    public sealed class ICMS : ImpostoBase
+    public sealed class ICMS : IImposto
     {
         [XmlElement(nameof(ICMS00), Type = typeof(ICMS00), Order = 0),
             XmlElement(nameof(ICMS10), Type = typeof(ICMS10), Order = 0),
@@ -22,6 +22,8 @@ namespace BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos
             XmlElement(nameof(ICMSSN202), Type = typeof(ICMSSN202), Order = 0),
             XmlElement(nameof(ICMSSN500), Type = typeof(ICMSSN500), Order = 0),
             XmlElement(nameof(ICMSSN900), Type = typeof(ICMSSN900)),
+            XmlElement(nameof(ICMSPart), Type = typeof(ICMSPart)),
+            XmlElement(nameof(ICMSST), Type = typeof(ICMSST)),
             DescricaoPropriedade("Corpo do ICMS")]
         public ComumICMS Corpo { get; set; }
     }

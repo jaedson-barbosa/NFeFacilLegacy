@@ -1,28 +1,18 @@
-﻿using BaseGeral.View;
-using System.Xml.Serialization;
-
+﻿using static BaseGeral.ExtensoesPrincipal;
 namespace BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos
 {
     public class ICMS00 : ComumICMS, IRegimeNormal
     {
-        [DescricaoPropriedade("Tributação do ICMS")]
-        [XmlElement(Order = 1)]
-        public string CST { get; set; }
+        public ICMS00() { }
+        public ICMS00(int origem, string cst, int modBC, double pICMS, DetalhesProdutos prod) : base(origem, cst, false)
+        {
+            var vBC = CalcularBC(prod);
+            var vICMS = vBC * pICMS / 100;
 
-        [DescricaoPropriedade("Modalidade de determinação da BC do ICMS")]
-        [XmlElement(Order = 2)]
-        public string modBC { get; set; }
-
-        [DescricaoPropriedade("Valor da BC do ICMS")]
-        [XmlElement(Order = 3)]
-        public string vBC { get; set; }
-
-        [DescricaoPropriedade("Alíquota do imposto")]
-        [XmlElement(Order = 4)]
-        public string pICMS { get; set; }
-
-        [DescricaoPropriedade("Valor do ICMS")]
-        [XmlElement(Order = 5)]
-        public string vICMS { get; set; }
+            this.modBC = modBC.ToString();
+            this.vBC = ToStr(vBC);
+            this.pICMS = ToStr(pICMS, "F4");
+            this.vICMS = ToStr(vICMS);
+        }
     }
 }

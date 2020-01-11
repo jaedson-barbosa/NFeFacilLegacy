@@ -23,16 +23,11 @@ namespace BaseGeral.Validacao
             transp.RetTransp = ValidarRetencaoTransporte(transp.RetTransp) ? transp.RetTransp : null;
 
             var total = Nota.Informacoes.total;
-            total.ISSQNtot = ValidarISSQN(total.ISSQNtot) ? total.ISSQNtot : null;
             total.RetTrib = ValidarRetencaoTributaria(total.RetTrib) ? total.RetTrib : null;
 
             var info = Nota.Informacoes;
             info.cobr = ValidarFatura(info.cobr?.Fat) ? info.cobr : null;
             info.infAdic = ValidarInfoAdicional(info.infAdic) ? info.infAdic : null;
-            info.exporta = new ValidarDados().ValidarTudo(false,
-                (string.IsNullOrEmpty(info.exporta?.UFSaidaPais), "Não foi definida uma UF de saída."),
-                (string.IsNullOrEmpty(info.exporta?.XLocExporta), "Não foi definido o local de exportação")) ? info.exporta : null;
-            info.compra = ValidarCompra(info.compra) ? info.compra : null;
             info.cana = ValidarCana(info.cana) ? info.cana : null;
         }
 
@@ -59,17 +54,13 @@ namespace BaseGeral.Validacao
             {
                 Nota.Informacoes.infAdic = new InformacoesAdicionais();
             }
-            if (Nota.Informacoes.exporta == null)
-            {
-                Nota.Informacoes.exporta = new Exportacao();
-            }
-            if (Nota.Informacoes.compra == null)
-            {
-                Nota.Informacoes.compra = new Compra();
-            }
             if (Nota.Informacoes.cana == null)
             {
                 Nota.Informacoes.cana = new RegistroAquisicaoCana();
+            }
+            if (Nota.Informacoes.Pagamento == null)
+            {
+                Nota.Informacoes.Pagamento = new DetalhamentoPagamento();
             }
 
             Nota.Signature = null;
@@ -109,18 +100,6 @@ namespace BaseGeral.Validacao
             {
                 return (icms.VServ != 0 || icms.VBCRet != 0 || icms.PICMSRet != 0 || icms.VICMSRet != 0)
                     && icms.CFOP != 0 && icms.CMunFG != 0;
-            }
-        }
-
-        bool ValidarISSQN(ISSQNtot tot)
-        {
-            if (tot == null)
-            {
-                return false;
-            }
-            else
-            {
-                return tot.vServ != 0;
             }
         }
 
@@ -165,25 +144,12 @@ namespace BaseGeral.Validacao
             }
             else
             {
-                var errados = new bool[3]
+                var errados = new bool[2]
                 {
                         string.IsNullOrEmpty(info.InfCpl),
-                        info.ObsCont.Count == 0,
                         info.ProcRef.Count == 0
                 };
-                return errados.Count(x => x) < 3;
-            }
-        }
-
-        bool ValidarCompra(Compra compra)
-        {
-            if (compra == null)
-            {
-                return false;
-            }
-            else
-            {
-                return StringsNaoNulas(compra.XCont, compra.XNEmp, compra.XPed);
+                return errados.Count(x => x) < 2;
             }
         }
 

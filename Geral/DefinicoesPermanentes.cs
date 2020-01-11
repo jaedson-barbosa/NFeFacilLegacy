@@ -45,7 +45,13 @@ namespace BaseGeral
             get => AssistenteConfig.Get(nameof(ModoBuscaVendedor), 0);
             set => AssistenteConfig.Set(nameof(ModoBuscaVendedor), value);
         }
-        
+
+        public static int ModoBuscaFornecedor
+        {
+            get => AssistenteConfig.Get(nameof(ModoBuscaFornecedor), 0);
+            set => AssistenteConfig.Set(nameof(ModoBuscaFornecedor), value);
+        }
+
         public static Guid IDBackgroung
         {
             get => AssistenteConfig.Get(nameof(IDBackgroung), Guid.Empty);
@@ -60,7 +66,7 @@ namespace BaseGeral
 
         public static double OpacidadeBackground
         {
-            get => AssistenteConfig.Get(nameof(OpacidadeBackground), 1);
+            get => AssistenteConfig.Get(nameof(OpacidadeBackground), 1d);
             set => AssistenteConfig.Set(nameof(OpacidadeBackground), value);
         }
 
@@ -72,13 +78,13 @@ namespace BaseGeral
 
         public static double LarguraDANFENFCe
         {
-            get => AssistenteConfig.Get(nameof(LarguraDANFENFCe), 70);
+            get => AssistenteConfig.Get(nameof(LarguraDANFENFCe), 70d);
             set => AssistenteConfig.Set(nameof(LarguraDANFENFCe), value);
         }
 
         public static double MargemDANFENFCe
         {
-            get => AssistenteConfig.Get(nameof(MargemDANFENFCe), 3);
+            get => AssistenteConfig.Get(nameof(MargemDANFENFCe), 3d);
             set => AssistenteConfig.Set(nameof(MargemDANFENFCe), value);
         }
 
@@ -88,6 +94,18 @@ namespace BaseGeral
         {
             get => AssistenteConfig.Get(nameof(UsarFluent), false);
             set => AssistenteConfig.Set(nameof(UsarFluent), value);
+        }
+
+        public static bool IgnorarProdutosJaAdicionados
+        {
+            get => AssistenteConfig.Get(nameof(IgnorarProdutosJaAdicionados), false);
+            set => AssistenteConfig.Set(nameof(IgnorarProdutosJaAdicionados), value);
+        }
+
+        public static bool InformarResponsavelTecnico
+        {
+            get => AssistenteConfig.Get(nameof(InformarResponsavelTecnico), false);
+            set => AssistenteConfig.Set(nameof(InformarResponsavelTecnico), value);
         }
     }
 

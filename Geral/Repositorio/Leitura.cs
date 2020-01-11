@@ -12,31 +12,15 @@ namespace BaseGeral.Repositorio
 
         public void Dispose() => db.Dispose();
 
-        public IEnumerable<(EmitenteDI, byte[])> ObterEmitentes()
+        public (EmitenteDI, byte[]) ObterEmitente()
         {
-            var emitentes = db.Emitentes.ToArray();
             var imagens = db.Imagens;
-            var quantEmitentes = emitentes.Length;
-            for (int i = 0; i < quantEmitentes; i++)
-            {
-                var atual = emitentes[i];
-                var img = imagens.Find(atual.Id);
-                yield return (atual, img?.Bytes);
-            }
+            var atual = db.Emitentes.First();
+            var img = imagens.Find(atual.Id);
+            return (atual, img?.Bytes);
         }
 
-        public IEnumerable<(Vendedor, byte[])> ObterVendedores()
-        {
-            var vendedores = db.Vendedores.Where(x => x.Ativo).ToArray();
-            var imagens = db.Imagens;
-            var quantVendedores = vendedores.Length;
-            for (int i = 0; i < quantVendedores; i++)
-            {
-                var atual = vendedores[i];
-                var img = imagens.Find(atual.Id);
-                yield return (atual, img?.Bytes);
-            }
-        }
+        public IEnumerable<Vendedor> ObterVendedores() => db.Vendedores.Where(x => x.Ativo).OrderBy(x => x.Nome);
 
         public bool EmitentesCadastrados => db.Emitentes.Count() > 0;
 
@@ -61,12 +45,15 @@ namespace BaseGeral.Repositorio
             }
         }
 
-        public IEnumerable<VeiculoDI> ObterVeiculos() => db.Veiculos;
+        public IEnumerable<FornecedorDI> ObterFornecedores() => db.Fornecedores.OrderBy(x => x.Nome);
+        public IEnumerable<CategoriaDI> ObterCategorias() => db.Categorias.OrderBy(x => x.Nome);
+        public bool ExisteFornecedor => db.Fornecedores.Any();
+        public bool ExisteCategoria => db.Categorias.Any();
 
-        public IEnumerable<ProdutoDI> ObterProdutos()
-        {
-            return db.Produtos.Where(x => x.Ativo).OrderBy(x => x.Descricao);
-        }
+        public VeiculoDI ObterVeiculo(Guid id) => db.Veiculos.Find(id);
+        public IEnumerable<VeiculoDI> ObterVeiculos() => db.Veiculos;
+        public IEnumerable<ProdutoDI> ObterProdutos() => db.Produtos.Where(x => x.Ativo);
+        public IEnumerable<ProdutoDI> ObterProdutosOrdenados() => ObterProdutos().OrderBy(x => x.Descricao);
 
         public Estoque ObterEstoque(Guid id)
         {
@@ -149,7 +136,7 @@ namespace BaseGeral.Repositorio
 
         public IEnumerable<(MotoristaDI, VeiculoDI, VeiculoDI[])> ObterMotoristasComVeiculos()
         {
-            foreach (var item1 in db.Motoristas.Where(x => x.Ativo).OrderBy(x => x.Nome))
+            foreach (var item1 in db.Motoristas.Where(x => x.Ativo).OrderBy(x => x.Nome).ToArray())
             {
                 VeiculoDI item2;
                 VeiculoDI[] item3 = null;
@@ -173,7 +160,6 @@ namespace BaseGeral.Repositorio
         public IEnumerable<(RegistroVenda rv, string vendedor, string cliente, string momento)> ObterRegistrosVenda(Guid emitente)
         {
             return from venda in db.Vendas.Include(x => x.Produtos).ToArray()
-                   where venda.Emitente == emitente
                    orderby venda.DataHoraVenda descending
                    select (venda,
                        venda.Vendedor != default(Guid) ? db.Vendedores.Find(venda.Vendedor).Nome : "Indisponível",

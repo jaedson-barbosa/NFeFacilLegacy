@@ -29,9 +29,8 @@ namespace Comum
                     },
                     cobr = new Cobranca(),
                     infAdic = new InformacoesAdicionais(),
-                    exporta = new Exportacao(),
-                    compra = new Compra(),
-                    cana = new RegistroAquisicaoCana()
+                    cana = new RegistroAquisicaoCana(),
+                    Pagamento = new DetalhamentoPagamento()
                 }
             };
         }

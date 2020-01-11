@@ -21,6 +21,9 @@ namespace Fiscal
 
         protected abstract List<DetalhesProdutos> Produtos { get; }
         protected abstract Total Total { set; }
+
+        public event EventHandler<(ExibicaoProdutoListaGeral antigo, ExibicaoProdutoListaGeral novo)> ProdutoAtualizado;
+
         protected abstract void AbrirTelaDetalhamento(DadosAdicaoProduto dados);
         protected abstract void AbrirTelaEspecifica();
 
@@ -55,7 +58,7 @@ namespace Fiscal
                             Descricao = comp.Descricao,
                             Quantidade = intP.QuantidadeComercializada.ToString("N2"),
                             ValorUnitario = intP.ValorUnitario.ToString("C"),
-                            TotalLiquido = intP.ValorTotal.ToString("C")
+                            TotalLiquidoD = intP.ValorTotal
                         }).GerarObs();
         }
 
@@ -77,7 +80,7 @@ namespace Fiscal
                 Codigo = caixa.ProdutoSelecionado.Codigo,
                 Descricao = caixa.ProdutoSelecionado.Nome,
                 Quantidade = caixa.Quantidade.ToString("N2"),
-                TotalLiquido = simples.TotalLíquido.ToString("C"),
+                TotalLiquidoD = simples.TotalLíquido,
                 ValorUnitario = caixa.ValorUnitario.ToString("C")
             };
         }
@@ -125,7 +128,6 @@ namespace Fiscal
             Adicionar(produtoTributado);
         }
 
-        public bool EdicaoLiberada { get; } = true;
         public void Editar(ExibicaoProdutoListaGeral produto)
         {
             using (var repo = new BaseGeral.Repositorio.Leitura())

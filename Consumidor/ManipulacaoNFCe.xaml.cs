@@ -37,7 +37,7 @@ namespace Consumidor
         {
             NotaSalva = (NFCe)e.Parameter;
             MunicipiosIdentificacao = Municipios.Get(NotaSalva.Informacoes.identificacao.CódigoUF).GerarObs();
-            FormasPagamento = NotaSalva.Informacoes.FormasPagamento.Select(x => new FormaPagamento(x)).GerarObs();
+            FormasPagamento = NotaSalva.Informacoes.Pagamento.FormasPagamento.Select(x => new FormaPagamento(x)).GerarObs();
             var indPresenca = NotaSalva.Informacoes.identificacao.IndicadorPresenca;
             VisibilitadeTransportador = (Visibility)(indPresenca == 4 ? 0 : 1);
         }
@@ -201,7 +201,7 @@ namespace Consumidor
             var caixa = new AddFormaPagamento();
             if (await caixa.ShowAsync() == ContentDialogResult.Primary)
             {
-                NotaSalva.Informacoes.FormasPagamento.Add(caixa.Pagamento);
+                NotaSalva.Informacoes.Pagamento.FormasPagamento.Add(caixa.Pagamento);
                 FormasPagamento.Add(new FormaPagamento(caixa.Pagamento));
             }
         }
@@ -209,7 +209,7 @@ namespace Consumidor
         private void RemoverFormaPagamento(object sender, RoutedEventArgs e)
         {
             var forma = (FormaPagamento)((FrameworkElement)sender).DataContext;
-            NotaSalva.Informacoes.FormasPagamento.Remove(forma.Original);
+            NotaSalva.Informacoes.Pagamento.FormasPagamento.Remove(forma.Original);
             FormasPagamento.Remove(forma);
         }
 

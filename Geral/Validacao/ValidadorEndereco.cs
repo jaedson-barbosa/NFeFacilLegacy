@@ -2,9 +2,9 @@
 {
     public sealed class ValidadorEndereco : IValidavel
     {
-        private IEnderecoCompleto End;
+        private IEnderecoResumo End;
 
-        public ValidadorEndereco(IEnderecoCompleto end)
+        public ValidadorEndereco(IEnderecoResumo end)
         {
             End = end;
         }

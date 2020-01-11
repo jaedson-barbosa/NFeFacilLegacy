@@ -54,6 +54,12 @@ namespace RegistroComum
             public CancelamentoRegistroVenda Cancelamento { get; set; }
             public string Observacoes { get; set; }
 
+            public string TipoFrete { get; set; }
+            public string PrazoEntrega { get; set; }
+            public string PrazoPagamento { get; set; }
+            public string FormaPagamento { get; set; }
+            public string CondicaoPagamento { get; set; }
+
             public struct Produto
             {
                 public string Descricao { get; set; }
@@ -63,29 +69,37 @@ namespace RegistroComum
 
             public Visualizacao(RegistroVenda venda)
             {
+                ID = venda.Id.ToString().ToUpper();
+                NFeRelacionada = venda.NotaFiscalRelacionada;
+                DataVenda = venda.DataHoraVenda.ToString("dd-MM-yyyy");
+                Emitente = DefinicoesTemporarias.EmitenteAtivo;
+
+                TipoFrete = venda.TipoFrete;
+                PrazoEntrega = venda.PrazoEntrega != default(DateTime) ? venda.PrazoEntrega.ToString("dd/MM/yyyy") : null;
+                PrazoPagamento = venda.PrazoPagamento;
+                FormaPagamento = venda.FormaPagamento;
+                CondicaoPagamento = venda.CondicaoPagamento;
+                Observacoes = venda.Observações;
+
                 using (var repo = new BaseGeral.Repositorio.Leitura())
                 {
-                    ID = venda.Id.ToString().ToUpper();
-                    NFeRelacionada = venda.NotaFiscalRelacionada;
-                    DataVenda = venda.DataHoraVenda.ToString("dd-MM-yyyy");
-                    Emitente = DefinicoesTemporarias.EmitenteAtivo;
                     Cliente = repo.ObterCliente(venda.Cliente);
                     Comprador = venda.Comprador != Guid.Empty ? repo.ObterComprador(venda.Comprador) : null;
                     Motorista = venda.Motorista != Guid.Empty ? repo.ObterMotorista(venda.Motorista) : null;
                     Vendedor = venda.Vendedor != Guid.Empty ? repo.ObterVendedor(venda.Vendedor) : null;
                     ProdutosCompletos = venda.Produtos.Select(x => repo.ObterProduto(x.IdBase)).ToArray();
-                    Produtos = venda.Produtos.Select(x => new Produto
-                    {
-                        Descricao = ProdutosCompletos.First(k => k.Id == x.IdBase).Descricao,
-                        Quantidade = x.Quantidade.ToString("N2"),
-                        TotalBruto = (x.Quantidade * x.ValorUnitario).ToString("N2")
-                    }).ToList();
                     if (venda.Cancelado)
                     {
                         Cancelamento = repo.ObterCRV(venda.Id);
                     }
-                    Observacoes = venda.Observações;
                 }
+
+                Produtos = venda.Produtos.Select(x => new Produto
+                {
+                    Descricao = ProdutosCompletos.First(k => k.Id == x.IdBase).Descricao,
+                    Quantidade = x.Quantidade.ToString("N2"),
+                    TotalBruto = (x.Quantidade * x.ValorUnitario).ToString("N2")
+                }).ToList();
             }
         }
 

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Venda.ViewProdutoVenda;
+using Windows.UI.Xaml.Controls;
 
 namespace RegistroComum
 {
@@ -23,7 +24,6 @@ namespace RegistroComum
         {
             Venda = new RegistroVenda
             {
-                Emitente = DefinicoesTemporarias.EmitenteAtivo.Id,
                 Vendedor = DefinicoesTemporarias.VendedorAtivo?.Id ?? Guid.Empty,
                 Produtos = new List<ProdutoSimplesVenda>(),
                 DataHoraVenda = DefinicoesTemporarias.DateTimeNow,
@@ -47,11 +47,12 @@ namespace RegistroComum
                         let comp = leitura.ObterProduto(prod.IdBase)
                         select new ExibicaoProdutoListaGeral
                         {
+                            Id = comp.Id,
                             Codigo = comp.CodigoProduto,
                             Descricao = comp.Descricao,
                             Quantidade = prod.Quantidade.ToString("N2"),
                             ValorUnitario = prod.ValorUnitario.ToString("C"),
-                            TotalLiquido = prod.TotalLíquido.ToString("C")
+                            TotalLiquidoD = prod.TotalLíquido
                         }).GerarObs();
         }
 
@@ -70,17 +71,48 @@ namespace RegistroComum
             Venda.Produtos.Add(novoProdBanco);
             return new ExibicaoProdutoListaGeral
             {
+                Id = caixa.ProdutoSelecionado.Base.Id,
                 Codigo = caixa.ProdutoSelecionado.Codigo,
                 Descricao = caixa.ProdutoSelecionado.Nome,
                 Quantidade = caixa.Quantidade.ToString("N2"),
-                TotalLiquido = novoProdBanco.TotalLíquido.ToString("C"),
+                TotalLiquidoD = novoProdBanco.TotalLíquido,
                 ValorUnitario = caixa.ValorUnitario.ToString("C")
             };
         }
 
-        public bool EdicaoLiberada { get; } = false;
+        public event EventHandler<(ExibicaoProdutoListaGeral antigo, ExibicaoProdutoListaGeral novo)> ProdutoAtualizado;
 
-        public void Editar(ExibicaoProdutoListaGeral produto) => throw new NotImplementedException();
+        public async void Editar(ExibicaoProdutoListaGeral produto)
+        {
+            var produtoSalvo = Venda.Produtos
+                .Find(x => x.IdBase == produto.Id && x.TotalLíquido.ToString("C") == produto.TotalLiquido);
+            var caixa = new EditarProduto()
+            {
+                Quantidade = produtoSalvo.Quantidade,
+                Seguro = produtoSalvo.Seguro,
+                DespesasExtras = produtoSalvo.DespesasExtras,
+                ValorUnitario = produtoSalvo.ValorUnitario
+            };
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+            {
+                int index = Venda.Produtos.IndexOf(produtoSalvo);
+                produtoSalvo.Quantidade = caixa.Quantidade;
+                produtoSalvo.Seguro = caixa.Seguro;
+                produtoSalvo.DespesasExtras = caixa.DespesasExtras;
+                produtoSalvo.ValorUnitario = caixa.ValorUnitario;
+                produtoSalvo.CalcularTotalLíquido();
+                Venda.Produtos[index] = produtoSalvo;
+                ProdutoAtualizado(this, (produto, new ExibicaoProdutoListaGeral
+                {
+                    Id = produto.Id,
+                    Codigo = produto.Codigo,
+                    Descricao = produto.Descricao,
+                    Quantidade = produtoSalvo.Quantidade.ToString("N2"),
+                    TotalLiquidoD = produtoSalvo.TotalLíquido,
+                    ValorUnitario = produtoSalvo.ValorUnitario.ToString("C")
+                }));
+            }
+        }
 
         public void Remover(ExibicaoProdutoListaGeral produto)
         {

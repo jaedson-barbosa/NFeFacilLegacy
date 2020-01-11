@@ -19,9 +19,9 @@ namespace RegistroComum
     public sealed partial class ManipulacaoRegistroVenda : Page
     {
         RegistroVenda ItemBanco { get; set; }
-
+        Visibility CondicoesPagamentoVisiveis;
+        ObservableCollection<string> CondicoesPagamento;
         ObservableCollection<Comprador> Compradores { get; set; }
-
         Dictionary<Guid, Comprador[]> CompradoresPorCliente;
 
         void AtualizarTotal()
@@ -117,7 +117,7 @@ namespace RegistroComum
             InitializeComponent();
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             using (var repo = new BaseGeral.Repositorio.Leitura())
             {
@@ -129,6 +129,11 @@ namespace RegistroComum
             txtValorDesejado.Number = ItemBanco.Produtos.Sum(x => x.Quantidade * x.ValorUnitario);
             cmbComprador.IsEnabled = ItemBanco.Comprador != default(Guid);
             sldDesconto.Value = ItemBanco.DescontoTotal * 100 / ItemBanco.Produtos.Sum(x => x.ValorUnitario * x.Quantidade);
+            CondicoesPagamento = new ObservableCollection<string>();
+            var condicoes = await CondicaoPagamento.GerenciadorCondicaoPagamento.Obter();
+            foreach (var item in condicoes)
+                CondicoesPagamento.Add(item);
+            CondicoesPagamentoVisiveis = CondicoesPagamento.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private void Finalizar(object sender, RoutedEventArgs e)
@@ -136,6 +141,10 @@ namespace RegistroComum
             if (ItemBanco.Cliente == default(Guid))
             {
                 Popup.Current.Escrever(TitulosComuns.Atenção, "Escolha primeiro um cliente.");
+            }
+            else if (ItemBanco.Produtos.Count == 0)
+            {
+                Popup.Current.Escrever(TitulosComuns.Atenção, "Não é possível salvar um registro de venda que não tenha nenhum produto.");
             }
             else
             {

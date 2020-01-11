@@ -1,0 +1,63 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.2.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.2.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Migrations\20170603122440_Loja1.Designer.cs">
+      <DependentUpon>20170603122440_Loja1.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Migrations\20170617125032_CancelamentoAdicionado.Designer.cs">
+      <DependentUpon>20170617125032_CancelamentoAdicionado.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Migrations\20170617182941_RegistroCancelamentoAdicionado.Designer.cs">
+      <DependentUpon>20170617182941_RegistroCancelamentoAdicionado.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Migrations\20170705012424_Loja1.2.7.Designer.cs">
+      <DependentUpon>20170705012424_Loja1.2.7.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Migrations\20170708170014_AdicionadoVendedores.Designer.cs">
+      <DependentUpon>20170708170014_AdicionadoVendedores.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Migrations\20170813023052_Loja1.2.8.Designer.cs">
+      <DependentUpon>20170813023052_Loja1.2.8.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Migrations\20170920141821_Loja1.3.3.Designer.cs">
+      <DependentUpon>20170920141821_Loja1.3.3.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Migrations\20171025211607_DataAlteracaoEstoque.Designer.cs">
+      <DependentUpon>20171025211607_DataAlteracaoEstoque.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Migrations\20171202001612_Loja1.6.Designer.cs">
+      <DependentUpon>20171202001612_Loja1.6.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Migrations\20171219130436_Loja1.7.9.Designer.cs">
+      <DependentUpon>20171219130436_Loja1.7.9.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Migrations\20171226171240_Loja1.8.Designer.cs">
+      <DependentUpon>20171226171240_Loja1.8.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Migrations\20171230231542_Loja1.8.5.Designer.cs">
+      <DependentUpon>20171230231542_Loja1.8.5.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Migrations\20180104183502_Loja1.8.8.Designer.cs">
+      <DependentUpon>20180104183502_Loja1.8.8.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Migrations\20180127131837_Loja1.9.Designer.cs">
+      <DependentUpon>20180127131837_Loja1.9.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Migrations\20180214173711_Loja1.9.15.Designer.cs">
+      <DependentUpon>20180214173711_Loja1.9.15.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+</Project>

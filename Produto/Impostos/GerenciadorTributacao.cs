@@ -29,19 +29,18 @@ namespace Venda.Impostos
                 ImpostoArmazenado impPronto;
                 if (Tipo == PrincipaisImpostos.ICMS) impPronto = icms.First(Analisar);
                 else impPronto = imps.First(Analisar);
+
                 bool Analisar(ImpostoArmazenado x) => x.Tipo == Tipo && x.NomeTemplate == NomeTemplate && x.CST == CST;
                 detalhamentos[i] = impPronto;
             }
             var roteiro = new RoteiroAdicaoImpostos(detalhamentos, Produto.Completo);
-            while (roteiro.Avancar()) roteiro.Processar(null);
-
             var produto = roteiro.Finalizar();
             if (definirTotalImpostos)
             {
                 var caixa = new DefinirTotalImpostos();
                 if (await caixa.ShowAsync() == ContentDialogResult.Primary
-                    && !string.IsNullOrEmpty(caixa.ValorTotalTributos))
-                    produto.Impostos.vTotTrib = caixa.ValorTotalTributos;
+                    && caixa.ValorTotalTributos != 0)
+                    produto.Impostos.vTotTrib = ExtensoesPrincipal.ToStr(caixa.ValorTotalTributos);
                 else
                     produto.Impostos.vTotTrib = null;
             }

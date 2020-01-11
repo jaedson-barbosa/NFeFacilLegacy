@@ -2,12 +2,14 @@
 using BaseGeral.IBGE;
 using BaseGeral.Sincronizacao;
 using BaseGeral.View;
-using NFeFacil.View;
 using System;
 using System.Globalization;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
+using Windows.Storage;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -34,7 +36,42 @@ namespace NFeFacil.Login
                 new EtapaProcesso("Ajustar definições de globalização"),
                 new EtapaProcesso("Analisar compras")
             };
-            Start();
+        }
+
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        {
+            try
+            {
+
+                if (e.Parameter != null)
+                {
+                    Update(1);
+                    await AnalisarBanco();
+                }
+                else
+                {
+                    Update(0);
+                    ProcessarIBGE();
+                    Update(1);
+                    await AnalisarBanco();
+                    Update(2);
+                    AjustarBackground();
+                    Update(3);
+                    VerificarInicioServidor();
+                    Update(4);
+                    AdicionarEventoRetorno();
+                    Update(5);
+                    AjustarGlobalizacao();
+                    Update(6);
+                    await AnalisarCompras();
+                }
+                Update(7);
+                Finalizar();
+            }
+            catch (Exception erro)
+            {
+                txtAtual.Text = erro.Message;
+            }
         }
 
         void Update(int etapasConcluidas)
@@ -52,33 +89,6 @@ namespace NFeFacil.Login
             }
         }
 
-        async void Start()
-        {
-            try
-            {
-                Update(0);
-                ProcessarIBGE();
-                Update(1);
-                await AnalisarBanco();
-                Update(2);
-                AjustarBackground();
-                Update(3);
-                VerificarInicioServidor();
-                Update(4);
-                AdicionarEventoRetorno();
-                Update(5);
-                AjustarGlobalizacao();
-                Update(6);
-                await AnalisarCompras();
-                Update(7);
-                Finalizar();
-            }
-            catch (Exception e)
-            {
-                txtAtual.Text = e.Message;
-            }
-        }
-
         void ProcessarIBGE()
         {
             Estados.Buscar();
@@ -89,8 +99,18 @@ namespace NFeFacil.Login
         async Task AnalisarBanco()
         {
             using (var analise = new BaseGeral.Repositorio.OperacoesExtras())
-            {
                 await analise.AnalisarBanco(DefinicoesTemporarias.DateTimeNow);
+            await ApplicationData.Current.TemporaryFolder.CreateFileAsync("Data", CreationCollisionOption.ReplaceExisting);
+
+            // Parte dos certificados
+            using (var loja = new X509Store(StoreName.My, StoreLocation.CurrentUser))
+            {
+                loja.Open(OpenFlags.ReadWrite);
+                foreach (X509Certificate2 cert in loja.Certificates)
+                {
+                    try { loja.Remove(cert); }
+                    catch (Exception) { }
+                }
             }
         }
 
@@ -101,13 +121,10 @@ namespace NFeFacil.Login
             {
                 case TiposBackground.Imagem:
                     if (DefinicoesPermanentes.IDBackgroung != default(Guid))
-                    {
                         using (var repo = new BaseGeral.Repositorio.Leitura())
-                        {
-                            var img = repo.ProcurarImagem(DefinicoesPermanentes.IDBackgroung);
-                            current.ImagemBackground = img?.Bytes?.GetSource();
-                        }
-                    }
+                            current.ImagemBackground = repo
+                                .ProcurarImagem(DefinicoesPermanentes.IDBackgroung)?
+                                .Bytes?.GetSource();
                     MainPage.Current.DefinirTipoBackground(TiposBackground.Imagem);
                     MainPage.Current.DefinirOpacidadeBackground(DefinicoesPermanentes.OpacidadeBackground);
                     break;
@@ -140,10 +157,8 @@ namespace NFeFacil.Login
 
         void VerificarInicioServidor()
         {
-            if (ConfiguracoesSincronizacao.InícioAutomático)
-            {
-                GerenciadorServidor.Current.IniciarServer().ConfigureAwait(false);
-            }
+            if (ConfiguracoesSincronizacao.IniciarAutomaticamente)
+                GerenciadorServidor.IniciarServer().ConfigureAwait(false);
         }
 
         async void Finalizar()
@@ -157,13 +172,9 @@ namespace NFeFacil.Login
                 using (var repo = new BaseGeral.Repositorio.Leitura())
                 {
                     if (repo.EmitentesCadastrados)
-                    {
-                        current.Navegar<EscolhaEmitente>();
-                    }
+                        current.Navegar<GeralEmitente>();
                     else
-                    {
                         current.Navegar<PrimeiroUso>();
-                    }
                 }
             }
             catch (Exception e)

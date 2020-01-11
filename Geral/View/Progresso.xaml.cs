@@ -1,5 +1,4 @@
-﻿using BaseGeral;
-using System;
+﻿using System;
 using System.Collections;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
@@ -7,7 +6,7 @@ using Windows.UI.Xaml.Controls;
 
 // O modelo de item de Caixa de Diálogo de Conteúdo está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace NFeFacil.View
+namespace BaseGeral.View
 {
     public sealed partial class Progresso : ContentDialog
     {
@@ -24,15 +23,16 @@ namespace NFeFacil.View
             TotalEtapas = conjuntoEtapas.Length;
         }
 
-        public Progresso(Func<Task<(bool, string)>> acao, params string[] extras)
-            : this(extras)
+        public Progresso(Func<Task<(bool, string)>> acao, params string[] conjuntoEtapas)
+            : this(conjuntoEtapas)
         {
             cmbEscolha.Visibility = Visibility.Collapsed;
             Acao = acao;
         }
 
-        public Progresso(Func<object, Task<(bool, string)>> acao, IEnumerable escolhaItens, string displayPath, params string[] extras)
-            : this(extras)
+        public Progresso(Func<object, Task<(bool, string)>> acao, IEnumerable escolhaItens,
+            string displayPath, params string[] conjuntoEtapas)
+            : this(conjuntoEtapas)
         {
             cmbEscolha.ItemsSource = escolhaItens;
             cmbEscolha.DisplayMemberPath = displayPath;

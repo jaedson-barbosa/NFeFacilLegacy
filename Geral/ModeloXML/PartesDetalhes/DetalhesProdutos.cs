@@ -19,11 +19,16 @@ namespace BaseGeral.ModeloXML.PartesDetalhes
         [XmlElement("impostoDevol", Order = 2), DescricaoPropriedade("Imposto devolvido")]
         public ImpostoDevol ImpostoDevol { get; set; }
 
+        string infAdProd;
         /// <summary>
         /// (Opcional)
         /// Informações Adicionais do DadosProduto.
         /// </summary>
         [XmlElement("infAdProd", Order = 3), DescricaoPropriedade("Informações adicionais")]
-        public string InfAdProd { get; set; }
+        public string InfAdProd
+        {
+            get => string.IsNullOrEmpty(infAdProd) ? null : infAdProd;
+            set => infAdProd = value;
+        }
     }
 }

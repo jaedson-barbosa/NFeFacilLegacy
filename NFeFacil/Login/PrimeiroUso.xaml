@@ -5,17 +5,11 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
-    <Grid Padding="16">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
+    <StackPanel Padding="16">
         <TextBlock Style="{StaticResource TitleTextBlockStyle}">Olá, obrigado por comprar o NFe Fácil</TextBlock>
-        <TextBlock Grid.Row="1"
-                   Style="{StaticResource BodyTextBlockStyle}">Esta é a primeira vez que você usa este aplicativo neste dispositivo, portanto é normal que hajam dúvidas quanto ao funcionamento do aplicativo, para evitar dificuldades, entre em contato comigo, pode ser pelo <Hyperlink NavigateUri="mailto:jaedson_9@hotmail.com">email</Hyperlink> ou pelo <Hyperlink NavigateUri="tel:8398885-6440">telefone</Hyperlink> (preferencialmente WhatsApp). De preferência, entre em contato antes mesmo de fazer qualquer ação no aplicativo para garantirmos que tudo será feito corretamente.</TextBlock>
-        <ItemsControl Grid.Row="2"
-                      Style="{StaticResource ItensSimples}">
+        <TextBlock Style="{StaticResource BodyTextBlockStyle}">Esta é a primeira vez que você usa este aplicativo neste dispositivo, portanto é normal que hajam dúvidas quanto ao funcionamento do aplicativo, para evitar dificuldades, entre em contato comigo, pode ser pelo <Hyperlink NavigateUri="mailto:jaedson_9@hotmail.com">email</Hyperlink> ou pelo <Hyperlink NavigateUri="tel:8398885-6440">telefone</Hyperlink> (preferencialmente WhatsApp). De preferência, entre em contato antes mesmo de fazer qualquer ação no aplicativo para garantirmos que tudo será feito corretamente.</TextBlock>
+        <StackPanel Orientation="Horizontal"
+                    Margin="0,16,0,0">
             <controles:ItemPadrao Titulo="Cadastrar-se"
                                   Descricao="Caso você nunca tenha usado o NFe Fácil (este é seu 1° uso)"
                                   Click="Manualmente">
@@ -23,7 +17,8 @@
             </controles:ItemPadrao>
             <controles:ItemPadrao Titulo="Sincronize"
                                   Descricao="Caso você esteja cadastrado em outro dispositivo"
-                                  Click="Sincronizar">
+                                  Click="Sincronizar"
+                                  Margin="16,0,16,0">
                 <SymbolIcon Symbol="Sync" />
             </controles:ItemPadrao>
             <controles:ItemPadrao Titulo="Restaure Backup"
@@ -31,6 +26,6 @@
                                   Click="RestaurarBackup">
                 <SymbolIcon Symbol="Import" />
             </controles:ItemPadrao>
-        </ItemsControl>
-    </Grid>
+        </StackPanel>
+    </StackPanel>
 </Page>

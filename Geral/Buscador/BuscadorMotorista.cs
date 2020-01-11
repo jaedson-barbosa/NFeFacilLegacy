@@ -5,7 +5,7 @@ namespace BaseGeral.Buscador
 {
     public sealed class BuscadorMotorista : BaseBuscador<MotoristaDI>
     {
-        public BuscadorMotorista()
+        public BuscadorMotorista() : base(DefinicoesPermanentes.ModoBuscaMotorista)
         {
             using (var repo = new Repositorio.Leitura())
             {
@@ -20,6 +20,9 @@ namespace BaseGeral.Buscador
         }
 
         protected override (string, string) ItemComparado(MotoristaDI item, int modoBusca)
+            => StaticItemComparado(item, modoBusca);
+
+        public static (string, string) StaticItemComparado(MotoristaDI item, int modoBusca)
         {
             switch (modoBusca)
             {
@@ -30,17 +33,20 @@ namespace BaseGeral.Buscador
         }
 
         protected override void InvalidarItem(MotoristaDI item, int modoBusca)
+            => StaticInvalidarItem(item, modoBusca);
+
+        public static void StaticInvalidarItem(MotoristaDI item, int modoBusca)
         {
             switch (modoBusca)
             {
                 case 0:
-                    item.Nome = InvalidProduct;
+                    item.Nome = InvalidItem;
                     break;
                 case 1:
-                    item.CPF = item.CNPJ = InvalidProduct;
+                    item.CPF = item.CNPJ = InvalidItem;
                     break;
                 default:
-                    item.Nome = item.CPF = item.CNPJ = InvalidProduct;
+                    item.Nome = item.CPF = item.CNPJ = InvalidItem;
                     break;
             }
         }

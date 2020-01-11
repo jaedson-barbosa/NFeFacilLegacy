@@ -19,7 +19,14 @@ namespace BaseGeral.IBGE
         public static Estado Buscar(string siglaOuNome)
         {
             bool isSigla = siglaOuNome.Length == 2;
-            return EstadosCache.First(x => isSigla ? x.Sigla == siglaOuNome : x.Nome == siglaOuNome);
+            try
+            {
+                return EstadosCache.First(x => isSigla ? x.Sigla == siglaOuNome : x.Nome == siglaOuNome);
+            }
+            catch (System.Exception)
+            {
+                return Buscar(ushort.Parse(siglaOuNome));
+            }
         }
     }
 }

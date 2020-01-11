@@ -5,7 +5,6 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using BaseGeral.Controles;
 using System.Xml.Serialization;
-using NFeFacil.View;
 using Fiscal.WebService.Pacotes.PartesEnvEvento;
 using Fiscal.WebService.Pacotes.PartesRetEnvEvento;
 using Windows.UI.Xaml.Navigation;
@@ -78,23 +77,23 @@ namespace Fiscal
 
         public int SelectedIndex { set => main.SelectedIndex = value; }
 
-        [XmlRoot("procEventoNFe", Namespace = "http://www.portalfiscal.inf.br/nfe")]
-        public struct ProcEventoCancelamento
-        {
-            [XmlAttribute("versao")]
-            public string Versao { get; set; }
-
-            [XmlElement("evento")]
-            public Evento[] Eventos { get; set; }
-
-            [XmlElement("retEvento")]
-            public ResultadoEvento[] RetEvento { get; set; }
-        }
-
         async void CriarCopia(object sender, RoutedEventArgs e)
         {
             var nota = (NFeDI)((MenuFlyoutItem)sender).DataContext;
             await Controle.CriarCopia(nota);
         }
+    }
+
+    [XmlRoot("procEventoNFe", Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public struct ProcEventoCancelamento
+    {
+        [XmlAttribute("versao")]
+        public string Versao { get; set; }
+
+        [XmlElement("evento")]
+        public Evento[] Eventos { get; set; }
+
+        [XmlElement("retEvento")]
+        public ResultadoEvento[] RetEvento { get; set; }
     }
 }

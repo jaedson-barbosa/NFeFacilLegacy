@@ -1,4 +1,7 @@
-﻿using BaseGeral.View;
+﻿using BaseGeral.ModeloXML.PartesDetalhes;
+using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto;
+using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos;
+using BaseGeral.View;
 using Windows.UI.Xaml.Controls;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
@@ -6,13 +9,27 @@ using Windows.UI.Xaml.Controls;
 namespace Venda.Impostos.DetalhamentoCOFINS
 {
     [DetalhePagina("COFINS")]
-    public sealed partial class DetalharQtde : Page
+    public sealed partial class DetalharQtde : UserControl, IProcessamentoImposto
     {
-        public double Valor { get; private set; }
+        double Valor;
+        readonly Detalhamento Detalhamento;
+        public PrincipaisImpostos Tipo => PrincipaisImpostos.COFINS;
 
-        public DetalharQtde()
+        public DetalharQtde(Detalhamento detalhamento)
         {
+            Detalhamento = detalhamento;
             InitializeComponent();
+        }
+
+        public IImposto[] Processar(DetalhesProdutos prod)
+        {
+            var resultado = new DadosQtde()
+            {
+                Valor = Valor,
+                CST = Detalhamento.CST.ToString("00")
+            }.Processar(prod.Produto);
+            if (resultado is IImposto[] list) return list;
+            else return new IImposto[1] { (COFINS)resultado };
         }
     }
 }

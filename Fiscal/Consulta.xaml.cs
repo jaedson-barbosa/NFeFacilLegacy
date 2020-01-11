@@ -3,10 +3,11 @@ using BaseGeral.IBGE;
 using BaseGeral.ItensBD;
 using BaseGeral.ModeloXML;
 using BaseGeral.View;
-using NFeFacil.View;
 using Fiscal.WebService;
 using Fiscal.WebService.Pacotes;
 using System;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Xml.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -44,15 +45,21 @@ namespace Fiscal
             var envio = new ConsSitNFe(Chave, Homologacao);
 
             RetConsSitNFe resultado = default(RetConsSitNFe);
-            Progresso progresso = null;
-            progresso = new Progresso(async () =>
+
+            X509Certificate2[] certs;
+            using (var loja = new X509Store(StoreName.My, StoreLocation.CurrentUser))
             {
-                resultado = await gerenciador.EnviarAsync(envio);
+                loja.Open(OpenFlags.ReadOnly);
+                certs = loja.Certificates.Cast<X509Certificate2>().ToArray();
+            }
+            Progresso progresso = null;
+            progresso = new Progresso(async x =>
+            {
+                resultado = await gerenciador.EnviarAsync(envio, false, (X509Certificate2)x);
                 await progresso.Update(5);
                 return (true, resultado.DescricaoResposta);
-            }, gerenciador.Etapas.Concat("Analisar resultado no banco de dados"));
+            }, certs, "Subject", gerenciador.Etapas.Concat("Analisar resultado no banco de dados"));
             gerenciador.ProgressChanged += async (x, y) => await progresso.Update(y);
-            progresso.Start();
             await progresso.ShowAsync();
 
             if (resultado.StatusResposta == 100)

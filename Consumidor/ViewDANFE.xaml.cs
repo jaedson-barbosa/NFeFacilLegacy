@@ -97,8 +97,8 @@ namespace Consumidor
                 var at = prods[i].Produto;
                 var totItem = at.ValorTotal;
                 totalBruto += totItem;
-                acrescimos += TryParse(at.Frete) + TryParse(at.Seguro) + TryParse(at.DespesasAcessorias);
-                desconto += TryParse(at.Desconto);
+                acrescimos += at.Frete + at.Seguro + at.DespesasAcessorias;
+                desconto += at.Desconto;
                 Produtos[i] = new ProdutoDANFE(at.CodigoProduto, at.Descricao,
                     at.QuantidadeComercializada, at.UnidadeComercializacao,
                     at.ValorUnitario, totItem);
@@ -146,7 +146,7 @@ namespace Consumidor
             };
 
             double totPago = 0;
-            var formas = NFCe.Informacoes.FormasPagamento;
+            var formas = NFCe.Informacoes.Pagamento.FormasPagamento;
             var nForma = formas.Count;
             FormasPagamento = new string[nForma];
             ValoresPagamento = new string[nForma];
@@ -162,9 +162,7 @@ namespace Consumidor
 
         void ProcessarConsultaChave()
         {
-            bool homologacao = NFCe.AmbienteTestes;
-            var urls = homologacao ? UrlsQR.Homologacao : UrlsQR.Producao;
-            UriConsultaChave = urls[NFCe.Informacoes.Emitente.Endereco.SiglaUF];
+            UriConsultaChave = NFCe.InfoSuplementares.UriChave;
             ChaveAcesso = AplicarMascaraChave(NFCe.Informacoes.ChaveAcesso);
 
             string AplicarMascaraChave(string original)
@@ -193,9 +191,7 @@ namespace Consumidor
             var encoded = writer.Encode(NFCe.InfoSuplementares.Uri);
             MargemQR = new Thickness(13);
             foreach (var item in writer.WriteToUI(encoded))
-            {
                 imgQR.Children.Add(item);
-            }
         }
 
         void ProcessarConsumidor()

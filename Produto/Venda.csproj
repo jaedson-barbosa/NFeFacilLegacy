@@ -11,8 +11,8 @@
     <AssemblyName>Venda</AssemblyName>
     <DefaultLanguage>pt-BR</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.16299.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.15063.0</TargetPlatformMinVersion>
+    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.18362.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -106,18 +106,6 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="CaixasDialogoProduto\AddDeclaracaoExportacaoDireta.xaml.cs">
-      <DependentUpon>AddDeclaracaoExportacaoDireta.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="CaixasDialogoProduto\AddDeclaracaoExportacaoIndireta.xaml.cs">
-      <DependentUpon>AddDeclaracaoExportacaoIndireta.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="CaixasDialogoProduto\DeclaracaoImportacao.xaml.cs">
-      <DependentUpon>DeclaracaoImportacao.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="CaixasDialogoProduto\EscolherTipoDeclaracaoExportacao.xaml.cs">
-      <DependentUpon>EscolherTipoDeclaracaoExportacao.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ControlesAuxiliares\EscolhaCliente.xaml.cs">
       <DependentUpon>EscolhaCliente.xaml</DependentUpon>
     </Compile>
@@ -132,7 +120,6 @@
     <Compile Include="GerenciamentoProdutos\AdicionarProduto.xaml.cs">
       <DependentUpon>AdicionarProduto.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GerenciamentoProdutos\Ano.cs" />
     <Compile Include="GerenciamentoProdutos\CadastroICMS.xaml.cs">
       <DependentUpon>CadastroICMS.xaml</DependentUpon>
     </Compile>
@@ -150,7 +137,7 @@
     </Compile>
     <Compile Include="ICMSArmazenado.cs" />
     <Compile Include="ImpostoArmazenado.cs" />
-    <Compile Include="Impostos\AssociacoesSimples.cs" />
+    <Compile Include="Impostos\AssociacoesICMS.cs" />
     <Compile Include="Impostos\DefinirTotalImpostos.xaml.cs">
       <DependentUpon>DefinirTotalImpostos.xaml</DependentUpon>
     </Compile>
@@ -164,8 +151,9 @@
     <Compile Include="Impostos\DetalhamentoCOFINS\DetalharQtde.xaml.cs">
       <DependentUpon>DetalharQtde.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Impostos\DetalhamentoCOFINS\DetalharVazio.cs" />
     <Compile Include="Impostos\DetalhamentoCOFINS\IDadosCOFINS.cs" />
-    <Compile Include="Impostos\DetalhamentoCOFINS\Processamento.cs" />
+    <Compile Include="Impostos\DetalhamentoCOFINS\DetalharArmazenado.cs" />
     <Compile Include="Impostos\DetalhamentoGeral.xaml.cs">
       <DependentUpon>DetalhamentoGeral.xaml</DependentUpon>
     </Compile>
@@ -173,8 +161,6 @@
     <Compile Include="Impostos\DetalhamentoICMSUFDest\Detalhar.xaml.cs">
       <DependentUpon>Detalhar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Impostos\DetalhamentoICMSUFDest\IDadosICMSUFDest.cs" />
-    <Compile Include="Impostos\DetalhamentoICMSUFDest\Processamento.cs" />
     <Compile Include="Impostos\DetalhamentoICMS\DadosRN\BaseRN.cs" />
     <Compile Include="Impostos\DetalhamentoICMS\DadosRN\Tipo0.cs" />
     <Compile Include="Impostos\DetalhamentoICMS\DadosRN\Tipo10.cs" />
@@ -195,8 +181,9 @@
     <Compile Include="Impostos\DetalhamentoICMS\DadosSN\Tipo900.cs" />
     <Compile Include="Impostos\DetalhamentoICMS\DadosSN\TipoNT.cs" />
     <Compile Include="Impostos\DetalhamentoICMS\Detalhamento.cs" />
+    <Compile Include="Impostos\DetalhamentoICMS\DetalharVazio.cs" />
     <Compile Include="Impostos\DetalhamentoICMS\IDadosICMS.cs" />
-    <Compile Include="Impostos\DetalhamentoICMS\Processamento.cs" />
+    <Compile Include="Impostos\DetalhamentoICMS\DetalharArmazenado.cs" />
     <Compile Include="Impostos\DetalhamentoICMS\TelasRN\Tipo0.xaml.cs">
       <DependentUpon>Tipo0.xaml</DependentUpon>
     </Compile>
@@ -245,12 +232,6 @@
     <Compile Include="Impostos\DetalhamentoICMS\TelasSN\Tipo900.xaml.cs">
       <DependentUpon>Tipo900.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Impostos\DetalhamentoII\Detalhamento.cs" />
-    <Compile Include="Impostos\DetalhamentoII\Detalhar.xaml.cs">
-      <DependentUpon>Detalhar.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Impostos\DetalhamentoII\IDadosII.cs" />
-    <Compile Include="Impostos\DetalhamentoII\Processamento.cs" />
     <Compile Include="Impostos\DetalhamentoIPI\DadosIPI.cs" />
     <Compile Include="Impostos\DetalhamentoIPI\DadosNT.cs" />
     <Compile Include="Impostos\DetalhamentoIPI\DadosTrib.cs" />
@@ -264,16 +245,7 @@
     <Compile Include="Impostos\DetalhamentoIPI\DetalharSimples.xaml.cs">
       <DependentUpon>DetalharSimples.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Impostos\DetalhamentoIPI\Processamento.cs" />
-    <Compile Include="Impostos\DetalhamentoISSQN\Detalhamento.cs" />
-    <Compile Include="Impostos\DetalhamentoISSQN\DetalharExterior.xaml.cs">
-      <DependentUpon>DetalharExterior.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Impostos\DetalhamentoISSQN\DetalharNacional.xaml.cs">
-      <DependentUpon>DetalharNacional.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Impostos\DetalhamentoISSQN\IDadosISSQN.cs" />
-    <Compile Include="Impostos\DetalhamentoISSQN\Processamento.cs" />
+    <Compile Include="Impostos\DetalhamentoIPI\DetalharArmazenado.cs" />
     <Compile Include="Impostos\DetalhamentoPIS\DadosAliq.cs" />
     <Compile Include="Impostos\DetalhamentoPIS\DadosNT.cs" />
     <Compile Include="Impostos\DetalhamentoPIS\DadosQtde.cs" />
@@ -284,8 +256,9 @@
     <Compile Include="Impostos\DetalhamentoPIS\DetalharQtde.xaml.cs">
       <DependentUpon>DetalharQtde.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Impostos\DetalhamentoPIS\DetalharVazio.cs" />
     <Compile Include="Impostos\DetalhamentoPIS\IDadosPIS.cs" />
-    <Compile Include="Impostos\DetalhamentoPIS\Processamento.cs" />
+    <Compile Include="Impostos\DetalhamentoPIS\DetalharArmazenado.cs" />
     <Compile Include="Impostos\EscolhaImpostos.xaml.cs">
       <DependentUpon>EscolhaImpostos.xaml</DependentUpon>
     </Compile>
@@ -302,32 +275,11 @@
     <Compile Include="Impostos\IDetalhamentoImposto.cs" />
     <Compile Include="Impostos\IEscolherImpSimples.cs" />
     <Compile Include="Impostos\PrincipaisImpostos.cs" />
-    <Compile Include="Impostos\ProcessamentoImposto.cs" />
+    <Compile Include="Impostos\IProcessamentoImposto.cs" />
     <Compile Include="Impostos\RoteiroAdicaoImpostos.cs" />
     <Compile Include="Impostos\TiposCalculo.cs" />
     <Compile Include="ImpSimplesArmazenado.cs" />
     <Compile Include="ProdutoDIExtended.cs" />
-    <Compile Include="ProdutoEspecial\AdicionarArmamento.xaml.cs">
-      <DependentUpon>AdicionarArmamento.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ProdutoEspecial\AdicionarMedicamento.xaml.cs">
-      <DependentUpon>AdicionarMedicamento.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ProdutoEspecial\DefinirArmamentos.xaml.cs">
-      <DependentUpon>DefinirArmamentos.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ProdutoEspecial\DefinirCombustivel.xaml.cs">
-      <DependentUpon>DefinirCombustivel.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ProdutoEspecial\DefinirMedicamentos.xaml.cs">
-      <DependentUpon>DefinirMedicamentos.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ProdutoEspecial\DefinirPapel.xaml.cs">
-      <DependentUpon>DefinirPapel.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ProdutoEspecial\DefinirVeiculo.xaml.cs">
-      <DependentUpon>DefinirVeiculo.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewProdutoVenda\AdicionarProduto.xaml.cs">
       <DependentUpon>AdicionarProduto.xaml</DependentUpon>
@@ -345,26 +297,10 @@
       <Version>0.8.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.0.8</Version>
+      <Version>6.1.9</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="CaixasDialogoProduto\AddDeclaracaoExportacaoDireta.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="CaixasDialogoProduto\AddDeclaracaoExportacaoIndireta.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="CaixasDialogoProduto\DeclaracaoImportacao.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="CaixasDialogoProduto\EscolherTipoDeclaracaoExportacao.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="ControlesAuxiliares\EscolhaCliente.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -485,10 +421,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Impostos\DetalhamentoII\Detalhar.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Impostos\DetalhamentoIPI\DetalharAliquota.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -498,14 +430,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Impostos\DetalhamentoIPI\DetalharSimples.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Impostos\DetalhamentoISSQN\DetalharExterior.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Impostos\DetalhamentoISSQN\DetalharNacional.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -530,34 +454,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Impostos\EscolherTipoPISouCOFINS.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ProdutoEspecial\AdicionarArmamento.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ProdutoEspecial\AdicionarMedicamento.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ProdutoEspecial\DefinirArmamentos.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ProdutoEspecial\DefinirCombustivel.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ProdutoEspecial\DefinirMedicamentos.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ProdutoEspecial\DefinirPapel.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ProdutoEspecial\DefinirVeiculo.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

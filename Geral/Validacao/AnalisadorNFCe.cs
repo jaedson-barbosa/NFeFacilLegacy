@@ -18,9 +18,6 @@ namespace BaseGeral.Validacao
             var transp = Nota.Informacoes.transp;
             transp.Transporta = ValidarMotorista(transp.Transporta) ? transp.Transporta : null;
 
-            var total = Nota.Informacoes.total;
-            total.ISSQNtot = null;
-
             var info = Nota.Informacoes;
             info.infAdic = ValidarInfoAdicional(info.infAdic) ? info.infAdic : null;
 

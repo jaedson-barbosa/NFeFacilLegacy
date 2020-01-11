@@ -17,13 +17,7 @@ namespace Venda.Impostos.DetalhamentoICMS.DadosSN
 
         public override object Processar(DetalhesProdutos prod)
         {
-            return new ICMSSN500()
-            {
-                CSOSN = CSOSN,
-                Orig = Origem,
-                vBCSTRet = vBCSTRet,
-                vICMSSTRet = vICMSSTRet
-            };
+            return new ICMSSN500(Origem, CSOSN, vBCSTRet, vICMSSTRet);
         }
     }
 }

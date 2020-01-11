@@ -4,7 +4,7 @@ namespace BaseGeral.Buscador
 {
     public sealed class BuscadorMotoristaComVeiculos : BaseBuscador<MotoristaManipulacaoNFe>
     {
-        public BuscadorMotoristaComVeiculos()
+        public BuscadorMotoristaComVeiculos() : base(DefinicoesPermanentes.ModoBuscaMotorista)
         {
             using (var repo = new Repositorio.Leitura())
             {
@@ -38,13 +38,13 @@ namespace BaseGeral.Buscador
             switch (modoBusca)
             {
                 case 0:
-                    item.Root.Nome = InvalidProduct;
+                    item.Root.Nome = InvalidItem;
                     break;
                 case 1:
-                    item.Root.CPF = item.Root.CNPJ = InvalidProduct;
+                    item.Root.CPF = item.Root.CNPJ = InvalidItem;
                     break;
                 default:
-                    item.Root.Nome = item.Root.CPF = item.Root.CNPJ = InvalidProduct;
+                    item.Root.Nome = item.Root.CPF = item.Root.CNPJ = InvalidItem;
                     break;
             }
         }

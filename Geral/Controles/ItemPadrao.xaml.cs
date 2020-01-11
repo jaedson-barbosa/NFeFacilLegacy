@@ -23,7 +23,6 @@ namespace BaseGeral.Controles
         private void Clicado(object sender, RoutedEventArgs e)
         {
             Click?.Invoke(this, e);
-
         }
     }
 }

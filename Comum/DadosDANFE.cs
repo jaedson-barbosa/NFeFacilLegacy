@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using static BaseGeral.ExtensoesPrincipal;
 using BaseGeral;
-using System.Reflection;
 
 namespace Comum
 {
@@ -30,7 +29,6 @@ namespace Comum
             var dadosNFe = GetNFe();
             var dadosProdutos = ObterProdutos();
             var dadosDuplicatas = ObterDuplicatas();
-            var dadosISSQN = GetISSQN();
             var fatura = GetFatura();
 
             return new Geral
@@ -43,7 +41,6 @@ namespace Comum
                 _DadosNFe = dadosNFe,
                 _DadosProdutos = dadosProdutos,
                 _Duplicatas = dadosDuplicatas,
-                _DadosISSQN = dadosISSQN,
                 Fatura = fatura
             };
         }
@@ -71,15 +68,36 @@ namespace Comum
             }
             if (cobr?.Dup != null)
             {
-                itens.Add(new ItemDadosAdicionais("DUPLICATAS:", cobr.Dup.Select(dup => $"Duplicata - Num.: {dup.NDup}, Vec.: {dup.DVenc}, Valor: {dup.VDup.ToString("N2")}")));
+                itens.Add(new ItemDadosAdicionais("DUPLICATAS:", cobr.Dup.Select(dup => $"Duplicata Num.: {dup.NDup}, Venc.: {dup.DVenc}, Valor: {dup.VDup.ToString("N2")}")));
             }
             if (extras?.InfCpl != null)
             {
                 itens.Add(new ItemDadosAdicionais("DE INTERESSE DO CONTRIBUINTE:", extras.InfCpl));
             }
+            double vFCP = total.vFCP, vFCPST = total.vFCPST;
             if (extras?.InfAdFisco != null)
             {
-                itens.Add(new ItemDadosAdicionais("DE INTERESSE DO FISCO:", extras.InfAdFisco));
+                if (vFCP != 0 && vFCPST != 0)
+                    itens.Add(new ItemDadosAdicionais(
+                        "DE INTERESSE DO FISCO:",
+                        $"{extras.InfAdFisco}\nValor FCP: R$ {total.vFCP}\nValor FCPS: R$ {total.vFCPST}"));
+                else if (vFCP != 0)
+                    itens.Add(new ItemDadosAdicionais(
+                        "DE INTERESSE DO FISCO:",
+                        $"{extras.InfAdFisco}\nValor FCP: R$ {total.vFCP}"));
+                else if (vFCPST != 0)
+                    itens.Add(new ItemDadosAdicionais(
+                        "DE INTERESSE DO FISCO:",
+                        $"{extras.InfAdFisco}\nValor FCPS: R$ {total.vFCPST}"));
+            }
+            else
+            {
+                if (vFCP != 0 && vFCPST != 0)
+                    itens.Add(new ItemDadosAdicionais("DE INTERESSE DO FISCO:", $"Valor FCP: R$ {total.vFCP}\nValor FCPS: R$ {total.vFCPST}"));
+                else if (vFCP != 0)
+                    itens.Add(new ItemDadosAdicionais("DE INTERESSE DO FISCO:", $"Valor FCP: R$ {total.vFCP}"));
+                else if (vFCPST != 0)
+                    itens.Add(new ItemDadosAdicionais("DE INTERESSE DO FISCO:", $"Valor FCPS: R$ {total.vFCPST}"));
             }
             if (extras?.ProcRef?.Count > 0)
             {
@@ -185,26 +203,17 @@ namespace Comum
                 retorno.PesoLiquidoVolume = transp.Vol.Sum(x => x.PesoL).ToString("N3");
                 retorno.QuantidadeVolume = transp.Vol.Sum(x => x.QVol != null ? long.Parse(x.QVol) : 0).ToString("N3");
             }
-
-            switch (transp.ModFrete)
+            string[] modalidades = new string[]
             {
-                case 0:
-                    retorno.ModalidadeFrete = "0 – Emitente";
-                    break;
-                case 1:
-                    retorno.ModalidadeFrete = "1 – Dest/Rem";
-                    break;
-                case 2:
-                    retorno.ModalidadeFrete = "2 – Terceiros";
-                    break;
-                case 9:
-                    retorno.ModalidadeFrete = "9 – Sem Frete";
-                    break;
-                default:
-                    retorno.ModalidadeFrete = "Erro";
-                    break;
-            }
-
+                "0=Contratação do Frete por conta do Remetente (CIF)",
+                "1=Contratação do Frete por conta do Destinatário (FOB)",
+                "2=Contratação do Frete por conta de Terceiros",
+                "3=Transporte Próprio por contado Remetente",
+                "4=Transporte Próprio por conta do Destinatário"
+            };
+            retorno.ModalidadeFrete = transp.ModFrete == 9
+                ? "9=Sem Ocorrência de Transporte"
+                : modalidades[transp.ModFrete];
             return retorno;
         }
 
@@ -308,19 +317,6 @@ namespace Comum
             }
         }
 
-        DadosISSQN GetISSQN()
-        {
-            var emit = Dados.NFe.Informacoes.Emitente;
-            var issqn = Dados.NFe.Informacoes.total.ISSQNtot;
-            return issqn != null ? new DadosISSQN
-            {
-                BC = issqn.vBC.ToString("N2"),
-                IM = emit.IM,
-                TotalServiços = issqn.vServ.ToString("N2"),
-                ValorISSQN = issqn.vISS.ToString("N2")
-            } : new DadosISSQN();
-        }
-
         string GetFatura()
         {
             var cobranca = Dados.NFe.Informacoes.cobr;
@@ -331,7 +327,7 @@ namespace Comum
             else
             {
                 var fat = cobranca.Fat;
-                return $"PAGAMENTO A PRAZO - Num.: {fat.NFat}, V. orig.: {fat.VOrig.ToString("N2")}, V. desc.: {fat.VDesc.ToString("N2")}, V. liq.: {fat.VLiq.ToString("N2")}";
+                return $"PAGAMENTO A PRAZO / Num.: {fat.NFat} / V. orig.: {fat.VOrig.ToString("N2")} / V. desc.: {fat.VDesc.ToString("N2")} / V. liq.: {fat.VLiq.ToString("N2")}";
             }
         }
 

@@ -25,13 +25,15 @@ namespace NFeFacil
                     Resumo = new Dictionary<Compras, bool>(2)
                     {
                         { Compras.NFCe, addOns.Products[Compras.NFCe].IsInUserCollection },
-                        { Compras.Personalizacao, addOns.Products[Compras.Personalizacao].IsInUserCollection }
+                        { Compras.Personalizacao, addOns.Products[Compras.Personalizacao].IsInUserCollection },
+                        { Compras.RelatorioProdutos01, addOns.Products[Compras.RelatorioProdutos01].IsInUserCollection }
                     };
                 }
                 else
                 {
                     Resumo[Compras.NFCe] = addOns.Products[Compras.NFCe].IsInUserCollection;
                     Resumo[Compras.Personalizacao] = addOns.Products[Compras.Personalizacao].IsInUserCollection;
+                    Resumo[Compras.RelatorioProdutos01] = addOns.Products[Compras.RelatorioProdutos01].IsInUserCollection;
                 }
             }
             catch (Exception e)
@@ -41,7 +43,8 @@ namespace NFeFacil
                     Resumo = new Dictionary<Compras, bool>(2)
                     {
                         { Compras.NFCe, false },
-                        { Compras.Personalizacao, false }
+                        { Compras.Personalizacao, false },
+                        { Compras.RelatorioProdutos01, false }
                     };
                 }
                 new Exception("Erro ao obter as informações das compras dentro do aplicativo.", e).ManipularErro();
@@ -76,6 +79,7 @@ namespace NFeFacil
         public const string Doacao25 = "9NJNJTZQ85G5";
         public const string Doacao10 = "9MXJQH2JC335";
         public const string NFCe = "9NPT3PV6BT0X";
+        public const string RelatorioProdutos01 = "9NWMBJMKT6VX";
 
         string Value;
         private Compras(string value) => Value = value;

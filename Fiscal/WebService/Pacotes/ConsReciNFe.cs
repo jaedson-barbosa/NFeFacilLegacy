@@ -16,7 +16,7 @@ namespace Fiscal.WebService.Pacotes
 
         public ConsReciNFe(int tipoAmbiente, string numeroRecibo)
         {
-            Versao = "3.10";
+            Versao = "4.00";
             TipoAmbiente = tipoAmbiente;
             NumeroRecibo = numeroRecibo;
         }

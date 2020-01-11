@@ -1,0 +1,72 @@
+﻿<UserControl x:Class="RegistroComum.DARV.RodapeDARV"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="using:RegistroComum.DARV"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignHeight="300"
+             d:DesignWidth="400">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="RecursosDARV.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <TextBlock>Subtotal: <Run Text="{x:Bind Subtotal}" /></TextBlock>
+            <TextBlock Grid.Column="1">Acréscimos: <Run Text="{x:Bind Acrescimos}" /></TextBlock>
+            <TextBlock Grid.Column="2">Desconto: <Run Text="{x:Bind Desconto}" /></TextBlock>
+            <TextBlock Grid.Column="3">TOTAL: <Run Text="{x:Bind Total}" /></TextBlock>
+        </Grid>
+        <Grid Grid.Row="1"
+              Visibility="{x:Bind VisibilidadeObservacoes}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <TextBlock Style="{StaticResource Subtitulo}">Observações</TextBlock>
+            <TextBlock Grid.Row="1"
+                       MinHeight="50"
+                       Text="{x:Bind Observacoes}" />
+        </Grid>
+        <Grid Grid.Row="2"
+              Visibility="{x:Bind VisibilidadePagamento}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <TextBlock Style="{StaticResource Subtitulo}">Pagamento</TextBlock>
+            <TextBlock Grid.Row="1">Forma de pagamento: <Run Text="{x:Bind Registro.FormaPagamento}" /></TextBlock>
+            <TextBlock Grid.Row="2">Prazo de pagamento: <Run Text="{x:Bind Registro.PrazoPagamento}" /></TextBlock>
+            <TextBlock Grid.Row="3">Condição de pagamento: <Run Text="{x:Bind Registro.CondicaoPagamento}" /></TextBlock>
+        </Grid>
+        <Grid Grid.Row="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <TextBlock Margin="0,20,0,0"
+                       HorizontalAlignment="Center">______________________________________________________________</TextBlock>
+            <TextBlock Grid.Row="1"
+                       HorizontalAlignment="Center"
+                       Text="{x:Bind NomeAssinatura}" />
+        </Grid>
+    </Grid>
+</UserControl>

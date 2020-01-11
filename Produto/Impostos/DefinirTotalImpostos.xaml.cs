@@ -6,7 +6,7 @@ namespace Venda.Impostos
 {
     public sealed partial class DefinirTotalImpostos : ContentDialog
     {
-        public string ValorTotalTributos { get; private set; }
+        public double ValorTotalTributos { get; private set; }
 
         public DefinirTotalImpostos()
         {

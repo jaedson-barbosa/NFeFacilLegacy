@@ -18,7 +18,6 @@ namespace Venda.ViewProdutoVenda
         bool AnalisarDetalhamento(ProdutoAdicao produto);
         bool AnalMudançaValorUnit(ProdutoAdicao produto);
         ExibicaoProdutoListaGeral Adicionar(AdicionarProduto caixa);
-        bool EdicaoLiberada { get; }
         void Editar(ExibicaoProdutoListaGeral produto);
         void Remover(ExibicaoProdutoListaGeral produto);
         void Detalhar(AdicionarProduto caixa);
@@ -29,6 +28,8 @@ namespace Venda.ViewProdutoVenda
         bool Validar();
         void Avancar();
         void Concluir();
+
+        event EventHandler<(ExibicaoProdutoListaGeral antigo, ExibicaoProdutoListaGeral novo)> ProdutoAtualizado;
     }
 
     public interface IControleViewProdutoFiscal : IControleViewProduto

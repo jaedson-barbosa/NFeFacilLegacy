@@ -21,7 +21,7 @@ namespace BaseGeral.Sincronizacao.Pacotes
             }
         }
 
-        public ConjuntoNotasFiscais(ConjuntoNotasFiscais existente, DateTime minimo, DateTime atual)
+        public ConjuntoNotasFiscais(ConjuntoNotasFiscais existente, DateTime atual)
         {
             InstanteSincronizacao = atual;
             using (var db = new AplicativoContext())
@@ -29,7 +29,7 @@ namespace BaseGeral.Sincronizacao.Pacotes
                 NotasFiscais = (from local in db.NotasFiscais
                                 let servidor = existente.NotasFiscais.FirstOrDefault(x => x.Id == local.Id)
                                 where VerificarEmissao(local.Status)
-                                where local.UltimaData > (servidor == null ? minimo : servidor.UltimaData)
+                                where servidor == null || local.UltimaData > servidor.UltimaData
                                 select local).ToArray();
             }
         }

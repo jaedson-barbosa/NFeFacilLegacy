@@ -5,8 +5,7 @@
       xmlns:vm="using:BaseGeral.View"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      mc:Ignorable="d"
-      RequestedTheme="Light">
+      mc:Ignorable="d">
     <Page.Resources>
         <vm:MascaraDocumento x:Key="documento" />
         <Style TargetType="TextBlock">
@@ -30,6 +29,7 @@
     </Page.Resources>
     <StackPanel x:Name="pagina"
                 Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                RequestedTheme="Light"
                 Width="{x:Bind Largura}"
                 Padding="{x:Bind Margem}">
         <VisualStateManager.VisualStateGroups>

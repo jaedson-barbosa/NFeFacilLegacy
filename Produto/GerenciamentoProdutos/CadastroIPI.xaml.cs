@@ -1,4 +1,5 @@
 ﻿using Windows.UI.Xaml.Controls;
+using Venda.Impostos.DetalhamentoIPI;
 
 // O modelo de item de Caixa de Diálogo de Conteúdo está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -10,23 +11,22 @@ namespace Venda.GerenciamentoProdutos
         {
             get
             {
-                var page = (Impostos.DetalhamentoIPI.DetalharSimples)frmPrincipal.Content;
+                var page = (DetalharSimples)ctnPrincipal.Content;
                 var ipi = page.Conjunto;
                 return new ImpSimplesArmazenado.XMLIPIArmazenado
                 {
-                    CEnq = ipi.cEnq,
-                    ClEnq = ipi.clEnq,
+                    CEnq = ipi.CodigoEnquadramento,
                     CNPJProd = ipi.CNPJProd,
-                    CSelo = ipi.cSelo,
-                    QSelo = ipi.qSelo
+                    CSelo = ipi.CodigoSelo,
+                    QSelo = ipi.QuantidadeSelos
                 };
             }
         }
 
-        public CadastroIPI()
+        public CadastroIPI(Detalhamento detalhamento)
         {
             InitializeComponent();
-            frmPrincipal.Navigate(typeof(Impostos.DetalhamentoIPI.DetalharSimples));
+            ctnPrincipal.Content = new DetalharSimples(detalhamento);
         }
     }
 }

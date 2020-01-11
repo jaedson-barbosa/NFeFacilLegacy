@@ -13,8 +13,8 @@ namespace Comum.PartesDANFE
 
         DimensoesPadrao Dimensoes { get; } = new DimensoesPadrao();
 
-        GridLength Coluna00 => CMToLength(6.5);
-        GridLength Coluna01 => CMToLength(3);
+        GridLength Coluna00 => CMToLength(5.5);
+        GridLength Coluna01 => CMToLength(4);
         GridLength Coluna02 => CMToLength(2.5);
         GridLength Coluna03 => CMToLength(2.5);
 

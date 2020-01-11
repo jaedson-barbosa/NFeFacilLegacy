@@ -7,7 +7,7 @@ namespace BaseGeral.ModeloXML
     public abstract class InformacoesBase
     {
         [XmlAttribute(AttributeName = "versao")]
-        public string Versão = "3.10";
+        public string Versão = "4.00";
 
         [XmlAttribute(AttributeName = "Id")]
         public string Id

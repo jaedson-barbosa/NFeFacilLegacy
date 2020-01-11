@@ -1,17 +1,15 @@
-﻿using BaseGeral.View;
-using System.Xml.Serialization;
-
-namespace BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos
+﻿namespace BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos
 {
     public class ICMSSN500 : ComumICMS, ISimplesNacional
     {
-        [XmlElement(Order = 1), DescricaoPropriedade("Código de Situação da Operação – Simples Nacional")]
-        public string CSOSN { get; set; }
+        public ICMSSN500()
+        {
+        }
 
-        [XmlElement(Order = 2), DescricaoPropriedade("Valor da BC do ICMS Retido Anteriormente")]
-        public string vBCSTRet { get; set; }
-
-        [XmlElement(Order = 3), DescricaoPropriedade("Valor do ICMS Retido Anteriormente")]
-        public string vICMSSTRet { get; set; }
+        public ICMSSN500(int origem, string csosn, string vBCSTRet, string vICMSSTRet) : base(origem, csosn, true)
+        {
+            this.vBCSTRet = vBCSTRet;
+            this.vICMSSTRet = vICMSSTRet;
+        }
     }
 }

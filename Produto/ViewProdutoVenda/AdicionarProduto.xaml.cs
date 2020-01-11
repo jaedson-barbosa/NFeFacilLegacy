@@ -75,16 +75,21 @@ namespace Venda.ViewProdutoVenda
                 else
                 {
                     Adicionar?.Invoke();
-                    var novoEstoque = ProdutoSelecionado.EstoqueDouble - Quantidade;
-                    if (novoEstoque == 0)
-                    {
+                    if (DefinicoesPermanentes.IgnorarProdutosJaAdicionados)
                         Produtos.Remover(ProdutoSelecionado);
-                    }
                     else
                     {
-                        ProdutoSelecionado.EstoqueDouble = novoEstoque;
-                        ProdutoSelecionado.AplicarAlteracoes();
-                        Produtos.AplicarAlteracaoEstoque(ProdutoSelecionado, novoEstoque);
+                        var novoEstoque = ProdutoSelecionado.EstoqueDouble - Quantidade;
+                        if (novoEstoque == 0)
+                        {
+                            Produtos.Remover(ProdutoSelecionado);
+                        }
+                        else
+                        {
+                            ProdutoSelecionado.EstoqueDouble = novoEstoque;
+                            ProdutoSelecionado.AplicarAlteracoes();
+                            Produtos.AplicarAlteracaoEstoque(ProdutoSelecionado, novoEstoque);
+                        }
                     }
                 }
             }
@@ -134,23 +139,24 @@ namespace Venda.ViewProdutoVenda
         {
             if (e.AddedItems.Count == 0) return;
             var exibicaoProduto = (ExibicaoProdutoAdicao)e.AddedItems[0];
-            var produto = (ProdutoAdicao)exibicaoProduto;
 
-            ValorUnitario = produto.Preco;
+            ValorUnitario = exibicaoProduto.PrecoDouble;
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ValorUnitario)));
         }
 
         sealed class BuscadorProduto : BaseGeral.Buscador.BaseBuscador<ExibicaoProdutoAdicao>
         {
-            public BuscadorProduto(Dictionary<Guid, double> produtosJaAdicionados)
+            public BuscadorProduto(Dictionary<Guid, double> produtosJaAdicionados) : base(DefinicoesPermanentes.ModoBuscaProduto)
             {
                 using (var repo = new BaseGeral.Repositorio.Leitura())
                 {
                     var ListaCompletaProdutos = new List<ProdutoAdicao>();
-                    var estoque = repo.ObterEstoques();
-                    foreach (var item in repo.ObterProdutos())
+                    var bloquearRepeticao = DefinicoesPermanentes.IgnorarProdutosJaAdicionados;
+                    var estoque = repo.ObterEstoques().ToArray();
+                    foreach (var item in repo.ObterProdutosOrdenados().ToArray())
                     {
                         var jaAdicionado = produtosJaAdicionados.TryGetValue(item.Id, out double quantAdicionada);
+                        if (bloquearRepeticao && jaAdicionado) continue;
                         var est = estoque.FirstOrDefault(x => x.Id == item.Id);
                         double quant = est != null ? est.Alteracoes.Sum(x => x.Alteração) : double.PositiveInfinity,
                             quantRestante = quant - (jaAdicionado ? quantAdicionada : 0);
@@ -192,13 +198,13 @@ namespace Venda.ViewProdutoVenda
                 switch (modoBusca)
                 {
                     case 0:
-                        item.Nome = InvalidProduct;
+                        item.Nome = InvalidItem;
                         break;
                     case 1:
-                        item.Codigo = InvalidProduct;
+                        item.Codigo = InvalidItem;
                         break;
                     default:
-                        item.Nome = item.Codigo = InvalidProduct;
+                        item.Nome = item.Codigo = InvalidItem;
                         break;
                 }
             }

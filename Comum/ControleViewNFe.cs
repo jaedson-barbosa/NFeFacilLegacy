@@ -3,7 +3,6 @@ using BaseGeral.ItensBD;
 using BaseGeral.ModeloXML;
 using BaseGeral.Validacao;
 using Fiscal;
-using NFeFacil.View;
 using Fiscal.WebService;
 using Fiscal.WebService.Pacotes;
 using Fiscal.WebService.Pacotes.PartesEnvEvento;
@@ -13,8 +12,9 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
-using static Fiscal.NotasSalvas;
 using Fiscal.Certificacao;
+using BaseGeral.View;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Comum
 {
@@ -42,13 +42,12 @@ namespace Comum
                 var envio = new EnvEvento(infoEvento);
 
                 AssinaFacil assinador = new AssinaFacil();
-                await assinador.Preparar();
-
                 var gerenciador = new GerenciadorGeral<EnvEvento, RetEnvEvento>(estado, Operacoes.RecepcaoEvento, tipoAmbiente == 2, false);
                 Progresso progresso = null;
                 progresso = new Progresso(async x =>
                 {
-                    var resultado = await envio.PrepararEventos(assinador, x);
+                    var cert = (X509Certificate2)x;
+                    var resultado = await envio.PrepararEventos(assinador, cert);
                     if (!resultado.Item1)
                     {
                         retorno = resultado.Item1;
@@ -61,17 +60,18 @@ namespace Comum
                     {
                         using (var repo = new BaseGeral.Repositorio.Escrita())
                         {
+                            var xml = new ProcEventoCancelamento()
+                            {
+                                Eventos = envio.Eventos,
+                                RetEvento = resposta.ResultadorEventos,
+                                Versao = resposta.Versao
+                            }.ToXElement<ProcEventoCancelamento>();
                             repo.SalvarItemSimples(new RegistroCancelamento()
                             {
                                 ChaveNFe = chave,
                                 DataHoraEvento = resposta.ResultadorEventos[0].InfEvento.DhRegEvento,
                                 TipoAmbiente = tipoAmbiente,
-                                XML = new ProcEventoCancelamento()
-                                {
-                                    Eventos = envio.Eventos,
-                                    RetEvento = resposta.ResultadorEventos,
-                                    Versao = resposta.Versao
-                                }.ToXElement<ProcEventoCancelamento>().ToString()
+                                XML = xml.ToString()
                             }, DefinicoesTemporarias.DateTimeNow);
 
                             nota.Status = (int)StatusNota.Cancelada;

@@ -24,20 +24,45 @@ namespace NFeFacil.Login
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var emitente = (ConjuntoBasicoExibicao<EmitenteDI>)e.Parameter;
-            var brush = new ImageBrush { ImageSource = emitente.Imagem };
-            imgLogotipo.Background = brush;
-            txtNomeFantasia.Text = emitente.Principal;
-            txtNome.Text = emitente.Secundario;
-            this.emitente = emitente.Objeto;
-            imagem = emitente.Imagem;
+            Frame.BackStack.Clear();
+            using (var repo = new BaseGeral.Repositorio.Leitura())
+            {
+                var emit = repo.ObterEmitente();
+                var imagem = emit.Item2?.GetSource();
+
+                var brush = new ImageBrush { ImageSource = imagem };
+                imgLogotipo.Background = brush;
+                txtNomeFantasia.Text = emit.Item1.NomeFantasia;
+                txtNome.Text = emit.Item1.Nome;
+                emitente = emit.Item1;
+                this.imagem = imagem;
+
+                var vendedores = repo.ObterVendedores().GerarObs();
+                if (vendedores.Count == 0)
+                {
+                    lstVendedores.Visibility = Visibility.Collapsed;
+                    chkAdmin.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    lstVendedores.ItemsSource = vendedores;
+                }
+            }
+        }
+
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            base.OnNavigatingFrom(e);
+            if (e.NavigationMode == NavigationMode.Back) e.Cancel = true;
         }
 
         private void Confirmar(object sender, RoutedEventArgs e)
         {
+            DefinicoesTemporarias.VendedorAtivo = lstVendedores.SelectedItem as Vendedor;
             DefinicoesTemporarias.EmitenteAtivo = emitente;
             DefinicoesTemporarias.Logotipo = imagem;
-            MainPage.Current.Navegar<EscolhaVendedor>();
+            MainPage.Current.Navegar<View.Inicio>();
+            MainPage.Current.AtualizarInformaçõesGerais();
         }
 
         private void Editar(object sender, RoutedEventArgs e)
@@ -54,6 +79,13 @@ namespace NFeFacil.Login
                 brush.ImageSource = caixa.Imagem;
                 imagem = caixa.Imagem;
             }
+        }
+
+        void ChkAdmin_Unchecked(object sender, RoutedEventArgs e) => lstVendedores.IsEnabled = true;
+        void ChkAdmin_Checked(object sender, RoutedEventArgs e)
+        {
+            lstVendedores.IsEnabled = false;
+            lstVendedores.SelectedIndex = -1;
         }
     }
 }

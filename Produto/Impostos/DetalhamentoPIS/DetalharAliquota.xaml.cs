@@ -1,4 +1,7 @@
-﻿using BaseGeral.View;
+﻿using BaseGeral.ModeloXML.PartesDetalhes;
+using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto;
+using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos;
+using BaseGeral.View;
 using Windows.UI.Xaml.Controls;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
@@ -6,13 +9,27 @@ using Windows.UI.Xaml.Controls;
 namespace Venda.Impostos.DetalhamentoPIS
 {
     [DetalhePagina("PIS")]
-    public sealed partial class DetalharAliquota : Page
+    public sealed partial class DetalharAliquota : UserControl, IProcessamentoImposto
     {
-        public double Aliquota { get; private set; }
+        double Aliquota;
+        readonly Detalhamento Detalhamento;
+        public PrincipaisImpostos Tipo => PrincipaisImpostos.PIS;
 
-        public DetalharAliquota()
+        public DetalharAliquota(Detalhamento detalhamento)
         {
+            Detalhamento = detalhamento;
             InitializeComponent();
+        }
+
+        public IImposto[] Processar(DetalhesProdutos prod)
+        {
+            var resultado = new DadosAliq()
+            {
+                Aliquota = Aliquota,
+                CST = Detalhamento.CST.ToString("00")
+            }.Processar(prod.Produto);
+            if (resultado is IImposto[] list) return list;
+            else return new IImposto[1] { (PIS)resultado };
         }
     }
 }

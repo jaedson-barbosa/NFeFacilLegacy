@@ -1,6 +1,5 @@
 ﻿using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto;
 using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos;
-using static BaseGeral.ExtensoesPrincipal;
 
 namespace Venda.Impostos.DetalhamentoIPI
 {
@@ -12,29 +11,9 @@ namespace Venda.Impostos.DetalhamentoIPI
 
         public override object Processar(ProdutoOuServico prod)
         {
-            ComumIPI corpo;
-            if (TipoCalculo == TiposCalculo.PorAliquota)
-            {
-                var vBC = prod.ValorTotal;
-                var pIPI = Aliquota;
-                corpo = new IPITrib
-                {
-                    vBC = ToStr(vBC),
-                    pIPI = ToStr(pIPI, "F4"),
-                    vIPI = ToStr(vBC * pIPI / 100)
-                };
-            }
-            else
-            {
-                var qUnid = prod.QuantidadeComercializada;
-                var vUnid = Valor;
-                corpo = new IPITrib
-                {
-                    qUnid = ToStr(qUnid, "F4"),
-                    vUnid = ToStr(vUnid, "F4"),
-                    vIPI = ToStr(qUnid * vUnid)
-                };
-            }
+            ComumIPI corpo = TipoCalculo == TiposCalculo.PorAliquota
+                ? new IPITrib(CST, prod.ValorTotal, Aliquota, false)
+                : new IPITrib(CST, prod.QuantidadeComercializada, Valor, true);
             PreImposto.Corpo = corpo;
             return PreImposto;
         }

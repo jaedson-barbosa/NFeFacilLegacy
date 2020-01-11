@@ -28,31 +28,7 @@ namespace Venda.Impostos.DetalhamentoICMS.DadosRN
 
         public override object Processar(DetalhesProdutos prod)
         {
-            var vBC = CalcularBC(prod);
-            var vICMS = vBC * pICMS / 100;
-
-            bool usarpMVAST = TryParse(pMVAST, out double pMVASTd);
-            bool usarpRedBCST = TryParse(pRedBCST, out double pRedBCSTd);
-            var vBCST = (vBC + ObterIPI(prod)) * (100 + pMVASTd) / 100;
-            vBCST *= 1 - (pRedBCSTd / 100);
-
-            var vICMSST = (vBCST * pICMSST / 100) - vICMS;
-
-            return new ICMS10()
-            {
-                CST = CST,
-                modBC = modBC.ToString(),
-                modBCST = modBCST.ToString(),
-                Orig = Origem,
-                pICMS = ToStr(pICMS, "F4"),
-                pICMSST = ToStr(pICMSST, "F4"),
-                pMVAST = usarpMVAST ? ToStr(pMVASTd, "F4") : null,
-                pRedBCST = usarpRedBCST ? ToStr(pRedBCSTd, "F4") : null,
-                vBC = ToStr(vBC),
-                vBCST = ToStr(vBCST),
-                vICMS = ToStr(vICMS),
-                vICMSST = ToStr(vICMSST)
-            };
+            return new ICMS10(Origem, CST, modBC, pICMS, modBCST, pMVAST, pRedBCST, pICMSST, prod);
         }
     }
 }

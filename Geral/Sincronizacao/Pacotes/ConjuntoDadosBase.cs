@@ -21,6 +21,8 @@ namespace BaseGeral.Sincronizacao.Pacotes
         public Imagem[] Imagens { get; set; }
         public Comprador[] Compradores { get; set; }
         public Inutilizacao[] Inutilizacoes { get; set; }
+        public FornecedorDI[] Fornecedores { get; set; }
+        public CategoriaDI[] Categorias { get; set; }
 
         public DateTime InstanteSincronizacao { get; set; }
 
@@ -37,48 +39,50 @@ namespace BaseGeral.Sincronizacao.Pacotes
                 Produtos = db.Produtos.Where(x => x.UltimaData > minimo).ToArray();
                 Estoque = db.Estoque.Include(x => x.Alteracoes).Where(x => x.UltimaData > minimo).ToArray();
                 Veiculos = db.Veiculos.ToArray();
-                Vendas = db.Vendas.Include(x => x.Produtos).Where(x => x.UltimaData > minimo).ToArray();
+                Vendas = db.Vendas.Include(x => x.Produtos).Where(x => x.UltimaData > minimo && x.Produtos.Count > 0).ToArray();
                 Cancelamentos = db.Cancelamentos.ToArray();
                 CancelamentosRegistroVenda = db.CancelamentosRegistroVenda.ToArray();
                 Imagens = db.Imagens.Where(x => x.UltimaData > minimo).ToArray();
                 Compradores = db.Compradores.Where(x => x.UltimaData > minimo).ToArray();
                 Inutilizacoes = db.Inutilizacoes.ToArray();
+                Fornecedores = db.Fornecedores.ToArray();
+                Categorias = db.Categorias.ToArray();
             }
         }
 
-        public ConjuntoDadosBase(ConjuntoDadosBase existente, DateTime minimo, DateTime atual)
+        public ConjuntoDadosBase(ConjuntoDadosBase existente, DateTime atual)
         {
             InstanteSincronizacao = atual;
             using (var db = new AplicativoContext())
             {
                 Clientes = (from local in db.Clientes
                             let servidor = existente.Clientes.FirstOrDefault(x => x.Id == local.Id)
-                            where local.UltimaData > (servidor == null ? minimo : servidor.UltimaData)
+                            where servidor == null || local.UltimaData > servidor.UltimaData
                             select local).ToArray();
 
                 Emitentes = (from local in db.Emitentes
                              let servidor = existente.Emitentes.FirstOrDefault(x => x.Id == local.Id)
-                             where local.UltimaData > (servidor == null ? minimo : servidor.UltimaData)
+                             where servidor == null || local.UltimaData > servidor.UltimaData
                              select local).ToArray();
 
                 Motoristas = (from local in db.Motoristas
                               let servidor = existente.Motoristas.FirstOrDefault(x => x.Id == local.Id)
-                              where local.UltimaData > (servidor == null ? minimo : servidor.UltimaData)
+                              where servidor == null || local.UltimaData > servidor.UltimaData
                               select local).ToArray();
 
                 Vendedores = (from local in db.Vendedores
                               let servidor = existente.Vendedores.FirstOrDefault(x => x.Id == local.Id)
-                              where local.UltimaData > (servidor == null ? minimo : servidor.UltimaData)
+                              where servidor == null || local.UltimaData > servidor.UltimaData
                               select local).ToArray();
 
                 Produtos = (from local in db.Produtos
                             let servidor = existente.Produtos.FirstOrDefault(x => x.Id == local.Id)
-                            where local.UltimaData > (servidor == null ? minimo : servidor.UltimaData)
+                            where servidor == null || local.UltimaData > servidor.UltimaData
                             select local).ToArray();
 
                 Estoque = (from local in db.Estoque.Include(x => x.Alteracoes)
                            let servidor = existente.Estoque.FirstOrDefault(x => x.Id == local.Id)
-                           where local.UltimaData > (servidor == null ? minimo : servidor.UltimaData)
+                           where servidor == null || local.UltimaData > servidor.UltimaData
                            select local).ToArray();
 
                 Veiculos = (from local in db.Veiculos
@@ -86,9 +90,9 @@ namespace BaseGeral.Sincronizacao.Pacotes
                             where servidor == null
                             select local).ToArray();
 
-                Vendas = (from local in db.Vendas.Include(x => x.Produtos)
+                Vendas = (from local in db.Vendas.Include(x => x.Produtos).ToArray()
                           let servidor = existente.Vendas.FirstOrDefault(x => x.Id == local.Id)
-                          where local.UltimaData > (servidor == null ? minimo : servidor.UltimaData)
+                          where (servidor == null || local.UltimaData > servidor.UltimaData || servidor.Produtos.Count == 0) && local.Produtos.Count > 0
                           select local).ToArray();
 
                 Cancelamentos = (from local in db.Cancelamentos
@@ -101,21 +105,31 @@ namespace BaseGeral.Sincronizacao.Pacotes
 
                 Imagens = (from local in db.Imagens
                            let servidor = existente.Imagens.FirstOrDefault(x => x.Id == local.Id)
-                           where local.UltimaData > (servidor == null ? minimo : servidor.UltimaData)
+                           where servidor == null || local.UltimaData > servidor.UltimaData
                            select local).ToArray();
 
                 Compradores = (from local in db.Compradores
                                let servidor = existente.Compradores.FirstOrDefault(x => x.Id == local.Id)
-                               where local.UltimaData > (servidor == null ? minimo : servidor.UltimaData)
+                               where servidor == null || local.UltimaData > servidor.UltimaData
                                select local).ToArray();
 
                 Inutilizacoes = (from local in db.Inutilizacoes
                                  where !existente.Inutilizacoes.Any(x => x.Id == local.Id)
                                  select local).ToArray();
+
+                Fornecedores = (from local in db.Fornecedores
+                                let servidor = existente.Fornecedores.FirstOrDefault(x => x.Id == local.Id)
+                                where servidor == null || local.UltimaData > servidor.UltimaData
+                                select local).ToArray();
+
+                Categorias = (from local in db.Categorias
+                              let servidor = existente.Categorias.FirstOrDefault(x => x.Id == local.Id)
+                              where servidor == null || local.UltimaData > servidor.UltimaData
+                              select local).ToArray();
             }
         }
 
-        public void AnalisarESalvar(DateTime minimo)
+        public void AnalisarESalvar()
         {
             List<AlteracaoEstoque>[] AlteracoesEstoque = null;
             List<ProdutoSimplesVenda>[] ProdutosVendas = null;
@@ -316,11 +330,76 @@ namespace BaseGeral.Sincronizacao.Pacotes
                     for (int i = 0; i < Estoque.Length; i++)
                     {
                         var novo = Estoque[i];
-
-                        AlteracoesEstoque[i] = novo.Alteracoes;
-                        novo.Alteracoes = null;
-
                         var atual = db.Estoque.FirstOrDefault(x => x.Id == novo.Id);
+                        if (atual == null)
+                        {
+                            AlteracoesEstoque[i] = novo.Alteracoes;
+                            novo.Alteracoes = null;
+
+                            novo.UltimaData = InstanteSincronizacao;
+                            Adicionar.Add(novo);
+                        }
+                        else if (novo.UltimaData > atual.UltimaData || novo.Alteracoes.Count > atual.Alteracoes.Count)
+                        {
+                            AlteracoesEstoque[i] = novo.Alteracoes;
+                            novo.Alteracoes = null;
+
+                            novo.UltimaData = InstanteSincronizacao;
+                            Atualizar.Add(novo);
+                        }
+                        else
+                        {
+                            AlteracoesEstoque[i] = null;
+                        }
+                    }
+                }
+
+                if (Vendas != null)
+                {
+                    ProdutosVendas = new List<ProdutoSimplesVenda>[Vendas.Length];
+                    for (int i = 0; i < Vendas.Length; i++)
+                    {
+                        var novo = Vendas[i];
+                        if (novo.Produtos.Count == 0)
+                        {
+                            ProdutosVendas[i] = null;
+                        }
+                        else
+                        {
+                            var atual = db.Vendas.Include(x => x.Produtos).FirstOrDefault(x => x.Id == novo.Id);
+                            if (atual == null)
+                            {
+                                ProdutosVendas[i] = novo.Produtos;
+                                novo.Produtos = null;
+
+                                novo.UltimaData = InstanteSincronizacao;
+                                Adicionar.Add(novo);
+                            }
+                            else if ((novo.UltimaData > atual.UltimaData || atual.Produtos.Count == 0) && novo.Produtos.Count > 0)
+                            {
+                                var prods = novo.Produtos;
+                                ProdutosVendas[i] = prods;
+                                novo.Produtos = null;
+
+                                novo.UltimaData = InstanteSincronizacao;
+                                Atualizar.Add(novo);
+
+                                db.RemoveRange(atual.Produtos);
+                            }
+                            else
+                            {
+                                ProdutosVendas[i] = null;
+                            }
+                        }
+                    }
+                }
+
+                if (Fornecedores != null)
+                {
+                    for (int i = 0; i < Fornecedores.Length; i++)
+                    {
+                        var novo = Fornecedores[i];
+                        var atual = db.Fornecedores.FirstOrDefault(x => x.Id == novo.Id);
                         if (atual == null)
                         {
                             novo.UltimaData = InstanteSincronizacao;
@@ -334,17 +413,12 @@ namespace BaseGeral.Sincronizacao.Pacotes
                     }
                 }
 
-                if (Vendas != null)
+                if (Categorias != null)
                 {
-                    ProdutosVendas = new List<ProdutoSimplesVenda>[Vendas.Length];
-                    for (int i = 0; i < Vendas.Length; i++)
+                    for (int i = 0; i < Categorias.Length; i++)
                     {
-                        var novo = Vendas[i];
-
-                        ProdutosVendas[i] = novo.Produtos;
-                        novo.Produtos = null;
-
-                        var atual = db.Vendas.FirstOrDefault(x => x.Id == novo.Id);
+                        var novo = Categorias[i];
+                        var atual = db.Categorias.FirstOrDefault(x => x.Id == novo.Id);
                         if (atual == null)
                         {
                             novo.UltimaData = InstanteSincronizacao;
@@ -363,19 +437,26 @@ namespace BaseGeral.Sincronizacao.Pacotes
                 db.SaveChanges();
             }
 
+            // Salvar itens secundários
             using (var db = new AplicativoContext())
             {
                 if (AlteracoesEstoque != null)
                 {
                     for (int i = 0; i < Estoque.Length; i++)
                     {
-                        var novo = Estoque[i];
                         var alteracoes = AlteracoesEstoque[i];
-                        alteracoes.ForEach(x => x.Id = default(Guid));
+                        if (alteracoes == null) continue;
+                        var novo = Estoque[i];
                         var original = db.Estoque.Include(x => x.Alteracoes).FirstOrDefault(x => x.Id == novo.Id);
-                        var maiorData = original.Alteracoes.Count > 0 ? original.Alteracoes.Max(k => k.MomentoRegistro) : DateTime.MinValue;
-                        novo.Alteracoes = alteracoes.Where(x => x.MomentoRegistro > maiorData).ToList();
-                        db.Estoque.Update(novo);
+                        if (original.Alteracoes.Count > 0)
+                        {
+                            db.AddRange(alteracoes);
+                        }
+                        else
+                        {
+                            var maiorData = original.Alteracoes.Max(k => k.MomentoRegistro);
+                            db.AddRange(alteracoes.Where(x => x.MomentoRegistro > maiorData));
+                        }
                     }
                 }
 
@@ -383,14 +464,40 @@ namespace BaseGeral.Sincronizacao.Pacotes
                 {
                     for (int i = 0; i < Vendas.Length; i++)
                     {
-                        var novo = Vendas[i];
                         var produtos = ProdutosVendas[i];
-                        produtos.ForEach(x => x.Id = default(Guid));
-                        novo.Produtos = produtos.ToList();
-                        db.Vendas.Update(novo);
+                        if (produtos == null) continue;
+                        db.AddRange(produtos);
                     }
                 }
 
+                db.SaveChanges();
+            }
+
+            // Associar itens secundários aos itens pai
+            using (var db = new AplicativoContext())
+            {
+                if (AlteracoesEstoque != null)
+                {
+                    for (int i = 0; i < Estoque.Length; i++)
+                    {
+                        if (AlteracoesEstoque[i] == null) continue;
+                        var alteracao = Estoque[i];
+                        alteracao.Alteracoes = AlteracoesEstoque[i];
+                        db.Estoque.Update(alteracao);
+                    }
+                }
+
+                if (ProdutosVendas != null)
+                {
+                    for (int i = 0; i < Vendas.Length; i++)
+                    {
+                        if (ProdutosVendas[i] == null) continue;
+                        var venda = Vendas[i];
+                        venda.Produtos = ProdutosVendas[i];
+                        db.Vendas.Update(venda);
+                    }
+
+                }
                 db.SaveChanges();
             }
         }
@@ -412,6 +519,8 @@ namespace BaseGeral.Sincronizacao.Pacotes
                 Imagens = db.Imagens.ToArray();
                 Compradores = db.Compradores.ToArray();
                 Inutilizacoes = db.Inutilizacoes.ToArray();
+                Fornecedores = db.Fornecedores.ToArray();
+                Categorias = db.Categorias.ToArray();
             }
         }
     }

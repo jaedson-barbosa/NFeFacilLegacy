@@ -5,13 +5,13 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
-    <GridView ItemsSource="{x:Bind Produtos.Itens}"
+    <GridView x:Name="grdItens"
+              ItemsSource="{x:Bind Produtos.Itens}"
               ItemContainerTransitions="{StaticResource TransicoesLista}"
-              ItemContainerStyle="{StaticResource ItensMedios}"
-              Margin="8">
+              ItemContainerStyle="{StaticResource ItensMedios}">
         <GridView.ItemTemplate>
             <DataTemplate x:DataType="db:ProdutoDI">
-                <Grid 
+                <Grid Background="Transparent"
                       Padding="16">
                     <Grid.ContextFlyout>
                         <MenuFlyout>
@@ -22,12 +22,12 @@
                     </Grid.ContextFlyout>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
-                        <RowDefinition />
-                        <RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition />
                     </Grid.RowDefinitions>
                     <TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
                                Text="{x:Bind CodigoProduto}" />
-                    <TextBlock Grid.Row="2"
+                    <TextBlock Grid.Row="1"
                                Style="{StaticResource BodyTextBlockStyle}"
                                Text="{x:Bind Descricao}" />
                 </Grid>
@@ -36,18 +36,65 @@
     </GridView>
     <Page.BottomAppBar>
         <CommandBar>
+            <CommandBar.SecondaryCommands>
+                <AppBarButton Visibility="{x:Bind ClassificavelC}"
+                              Label="Aplicar categorias"
+                              Click="AplicarCategorias">
+                    <AppBarButton.Icon>
+                        <FontIcon Glyph="&#xF168;" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarButton Visibility="{x:Bind ClassificavelF}"
+                              Icon="People"
+                              Label="Aplicar fornecedores"
+                              Click="AplicarFornecedores" />
+            </CommandBar.SecondaryCommands>
             <CommandBar.Content>
                 <Grid Height="48">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="256" />
+                        <ColumnDefinition Width="256" />
+                    </Grid.ColumnDefinitions>
                     <TextBox Margin="8,0"
                              PlaceholderText="Buscar"
                              TextChanged="Buscar"
-                             VerticalAlignment="Center"
-                             MinWidth="256" />
+                             VerticalAlignment="Center" />
+                    <ComboBox x:Name="cmbFornecedor"
+                              Grid.Column="1"
+                              VerticalAlignment="Center"
+                              Visibility="Collapsed"
+                              ItemsSource="{x:Bind Fornecedores}"
+                              DisplayMemberPath="Nome"
+                              SelectedValuePath="Id"
+                              PlaceholderText="Selecione o fornecedor"
+                              SelectedValue="{x:Bind IdFornecedor, Mode=TwoWay}"
+                              Width="256" />
+                    <ComboBox x:Name="cmbCategoria"
+                              Grid.Column="1"
+                              VerticalAlignment="Center"
+                              Visibility="Collapsed"
+                              ItemsSource="{x:Bind Categorias}"
+                              DisplayMemberPath="Nome"
+                              SelectedValuePath="Id"
+                              PlaceholderText="Selecione a categoria"
+                              SelectedValue="{x:Bind IdCategoria, Mode=TwoWay}"
+                              Width="256" />
                 </Grid>
             </CommandBar.Content>
-            <AppBarButton Icon="Add"
+            <AppBarButton x:Name="btnAdd"
+                          Icon="Add"
                           Label="Adicionar"
                           Click="AdicionarProduto" />
+            <AppBarButton x:Name="btnConfirmar"
+                          Icon="Accept"
+                          Label="Confirmar"
+                          Visibility="Collapsed"
+                          Click="ConfirmarClassificacao" />
+            <AppBarButton x:Name="btnCancelar"
+                          Icon="Cancel"
+                          Label="Cancelar"
+                          Visibility="Collapsed"
+                          Click="CancelarClassificacao" />
         </CommandBar>
     </Page.BottomAppBar>
 </Page>

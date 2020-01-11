@@ -1,14 +1,11 @@
-﻿using BaseGeral.ModeloXML;
-using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto;
-using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
+﻿using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto;
 using System;
-using System.Collections.Generic;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 
 namespace BaseGeral.ItensBD
 {
-    public class ProdutoDI : IStatusAtivacao, IGuidId, IProdutoEspecial
+    public class ProdutoDI : IStatusAtivacao, IGuidId
     {
         public Guid Id { get; set; }
         public DateTime UltimaData { get; set; }
@@ -29,109 +26,36 @@ namespace BaseGeral.ItensBD
         public string ProdutoEspecial { get; set; }
         public string CEST { get; set; }
 
-        object detalheEspecial;
-        object DetalheEspecial
+        public Guid IdFornecedor { get; set; }
+        public Guid IdCategoria { get; set; }
+
+        Combustivel detalheEspecial;
+        [System.ComponentModel.DataAnnotations.Schema.NotMapped]
+        public Combustivel Combustivel
         {
             get
             {
                 if (detalheEspecial == null)
                 {
                     if (string.IsNullOrEmpty(ProdutoEspecial))
-                    {
                         detalheEspecial = null;
-                    }
                     else
                     {
                         var xml = XElement.Parse(ProdutoEspecial);
                         var tipo = (TiposProduto)Enum.Parse(typeof(TiposProduto), xml.Name.LocalName);
-                        switch (tipo)
-                        {
-                            case TiposProduto.Veiculo:
-                                detalheEspecial = xml.FirstNode.FromXElement<VeiculoNovo>();
-                                break;
-                            case TiposProduto.Medicamento:
-                                detalheEspecial = xml.FirstNode.FromXElement<List<Medicamento>>();
-                                break;
-                            case TiposProduto.Armamento:
-                                detalheEspecial = xml.FirstNode.FromXElement<List<Arma>>();
-                                break;
-                            case TiposProduto.Combustivel:
-                                detalheEspecial = xml.FirstNode.FromXElement<Combustivel>();
-                                break;
-                            case TiposProduto.Papel:
-                                detalheEspecial = xml.Value;
-                                break;
-                            default:
-                                break;
-                        }
+                        if (tipo == TiposProduto.Combustivel)
+                            detalheEspecial = xml.FirstNode.FromXElement<Combustivel>();
                     }
                 }
                 return detalheEspecial;
             }
-            set => detalheEspecial = value;
-        }
-        List<Arma> IProdutoEspecial.armas
-        {
-            get => DetalheEspecial as List<Arma>;
             set
             {
                 if (value != null)
                 {
-                    DetalheEspecial = value;
-                    ProdutoEspecial = new XElement(TiposProduto.Armamento.ToString(),
-                        value.ToXElement<List<Arma>>()).ToString(SaveOptions.DisableFormatting);
-                }
-            }
-        }
-        Combustivel IProdutoEspecial.comb
-        {
-            get => DetalheEspecial as Combustivel;
-            set
-            {
-                if (value != null)
-                {
-                    DetalheEspecial = value;
+                    detalheEspecial = value;
                     ProdutoEspecial = new XElement(TiposProduto.Combustivel.ToString(),
                         value.ToXElement<Combustivel>()).ToString(SaveOptions.DisableFormatting);
-                }
-            }
-        }
-        List<Medicamento> IProdutoEspecial.medicamentos
-        {
-            get => DetalheEspecial as List<Medicamento>;
-            set
-            {
-                if (value != null)
-                {
-                    DetalheEspecial = value;
-                    ProdutoEspecial = new XElement(TiposProduto.Medicamento.ToString(),
-                        value.ToXElement<List<Medicamento>>()).ToString(SaveOptions.DisableFormatting);
-                }
-            }
-        }
-        string IProdutoEspecial.NRECOPI
-        {
-            get => DetalheEspecial as string;
-            set
-            {
-                if (value != null)
-                {
-                    DetalheEspecial = value;
-                    ProdutoEspecial = new XElement(TiposProduto.Papel.ToString(),
-                        value).ToString(SaveOptions.DisableFormatting);
-                }
-            }
-        }
-        VeiculoNovo IProdutoEspecial.veicProd
-        {
-            get => DetalheEspecial as VeiculoNovo;
-            set
-            {
-                if (value != null)
-                {
-                    DetalheEspecial = value;
-                    ProdutoEspecial = new XElement(TiposProduto.Veiculo.ToString(),
-                        value.ToXElement<VeiculoNovo>()).ToString(SaveOptions.DisableFormatting);
                 }
             }
         }
@@ -159,7 +83,6 @@ namespace BaseGeral.ItensBD
 
         public ProdutoOuServico ToProdutoOuServico()
         {
-            var especial = (IProdutoEspecial)this;
             return new ProdutoOuServico
             {
                 CodigoProduto = CodigoProduto,
@@ -174,17 +97,13 @@ namespace BaseGeral.ItensBD
                 UnidadeTributacao = UnidadeTributacao,
                 ValorUnitarioTributo = ValorUnitarioTributo,
                 CEST = string.IsNullOrEmpty(CEST) ? null : CEST,
-                armas = especial.armas,
-                comb = especial.comb,
-                medicamentos = especial.medicamentos,
-                NRECOPI = especial.NRECOPI,
-                veicProd = especial.veicProd
+                Combustivel = Combustivel,
             };
         }
 
         public void ResetEspecial()
         {
-            DetalheEspecial = null;
+            detalheEspecial = null;
             ProdutoEspecial = null;
         }
 
@@ -221,6 +140,6 @@ namespace BaseGeral.ItensBD
             public double ValorUnitarioTributo { get; set; }
         }
 
-        public enum TiposProduto { Simples, Veiculo, Medicamento, Armamento, Combustivel, Papel }
+        public enum TiposProduto { Simples, Combustivel }
     }
 }

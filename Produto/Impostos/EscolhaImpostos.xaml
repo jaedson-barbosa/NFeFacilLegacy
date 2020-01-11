@@ -5,51 +5,57 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
-    <GridView Loaded="GridView_Loaded"
-              SelectionChanged="Grd_SelectionChanged"
-              ItemsSource="{x:Bind Impostos}"
-              SelectionMode="Multiple"
-              Padding="16">
-        <GridView.GroupStyle>
-            <GroupStyle HidesIfEmpty="True">
-                <GroupStyle.HeaderTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Key}"
-                                   TextAlignment="Center"
-                                   Style="{StaticResource SubheaderTextBlockStyle}" />
-                    </DataTemplate>
-                </GroupStyle.HeaderTemplate>
-                <GroupStyle.HeaderContainerStyle>
-                    <Style TargetType="GridViewHeaderItem">
-                        <Setter Property="BorderThickness"
-                                Value="0" />
-                        <Setter Property="Margin"
-                                Value="0" />
-                        <Setter Property="HorizontalContentAlignment"
-                                Value="Stretch" />
-                    </Style>
-                </GroupStyle.HeaderContainerStyle>
-            </GroupStyle>
-        </GridView.GroupStyle>
-        <GridView.ItemTemplate>
-            <DataTemplate x:DataType="local:ImpostoArmazenado">
-                <Grid Padding="16">
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <TextBlock Text="{x:Bind Tipo}"
-                               Width="160"
-                               TextAlignment="Center"
-                               Style="{StaticResource TitleTextBlockStyle}" />
-                    <TextBlock Text="{x:Bind NomeTemplate}"
-                               Grid.Row="1"
-                               Style="{StaticResource BodyTextBlockStyle}" />
-                </Grid>
-            </DataTemplate>
-        </GridView.ItemTemplate>
-    </GridView>
-    <Page.BottomAppBar>
+	<Grid Padding="16">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition />
+			<ColumnDefinition />
+			<ColumnDefinition />
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+		<TextBlock Grid.ColumnSpan="3" Style="{StaticResource BodyTextBlockStyle}">Escolha entre os modelos cadastrados todos os impostos que serão taxados sobre este produto. Caso nenhum modelo seja adequado para esta situação, escolha a opção "Personalizado".</TextBlock>
+		<ComboBox Grid.Row="1"
+				  Header="ICMS"
+				  ItemsSource="{x:Bind OpcoesICMS}"
+				  SelectedItem="{x:Bind ICMSEscolhido, Mode=TwoWay}"
+				  DisplayMemberPath="NomeTemplate"
+				  Margin="0,16,8,0" />
+		<ComboBox Grid.Column="1"
+				  Grid.Row="1"
+				  Header="PIS"
+				  ItemsSource="{x:Bind OpcoesPIS}"
+				  SelectedItem="{x:Bind PISEscolhido, Mode=TwoWay}"
+				  DisplayMemberPath="NomeTemplate"
+				  Margin="0,16,8,0" />
+		<ComboBox Grid.Column="2"
+				  Grid.Row="1"
+				  Header="COFINS"
+				  ItemsSource="{x:Bind OpcoesCOFINS}"
+				  SelectedItem="{x:Bind COFINSEscolhido, Mode=TwoWay}"
+				  DisplayMemberPath="NomeTemplate"
+				  Margin="0,16,0,0" />
+		<CheckBox Grid.Row="2"
+				  IsChecked="{x:Bind TaxarIPI, Mode=TwoWay}"
+				  Margin="0,16,0,0">Aplicar IPI</CheckBox>
+		<CheckBox Grid.Column="1"
+				  Grid.ColumnSpan="2"
+				  Grid.Row="2"
+				  IsChecked="{x:Bind TaxarICMSUFDest, Mode=TwoWay}"
+				  Margin="0,16,0,0">Aplicar informação do ICMS Interestadual</CheckBox>
+		<ComboBox x:Name="cmbIPI"
+				  Visibility="Collapsed"
+				  Grid.Row="3"
+				  Header="IPI"
+				  ItemsSource="{x:Bind OpcoesIPI}"
+				  SelectedItem="{x:Bind IPIEscolhido, Mode=TwoWay}"
+				  DisplayMemberPath="NomeTemplate"
+				  Margin="0,0,8,0" />
+	</Grid>
+	<Page.BottomAppBar>
         <CommandBar>
             <AppBarButton Label="Avançar"
                           Icon="Forward"

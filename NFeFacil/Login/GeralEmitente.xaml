@@ -1,32 +1,14 @@
-﻿<Page x:Class="NFeFacil.Login.GeralEmitente"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<Page xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:view="using:BaseGeral.View"
+      xmlns:db="using:BaseGeral.ItensBD"
+      x:Class="NFeFacil.Login.GeralEmitente"
       mc:Ignorable="d">
-    <Grid Padding="16">
-        <Border x:Name="imgLogotipo"
-                BorderBrush="{StaticResource Normal}"
-                BorderThickness="4"
-                CornerRadius="128"
-                Margin="4,4,4,54"
-                Width="256"
-                Height="256" />
-        <TextBlock x:Name="txtNomeFantasia"
-                   Style="{StaticResource TitleTextBlockStyle}"
-                   TextAlignment="Center"
-                   Margin="4,0,4,22"
-                   Height="32"
-                   VerticalAlignment="Bottom" />
-        <TextBlock x:Name="txtNome"
-                   Style="{StaticResource BodyTextBlockStyle}"
-                   TextAlignment="Center"
-                   Margin="4,0"
-                   VerticalAlignment="Bottom"
-                   FontWeight="Bold"
-                   FontSize="18"
-                   Height="22" />
-    </Grid>
+	<Page.Resources>
+		<view:MascaraDocumento x:Key="mascara" />
+	</Page.Resources>
     <Page.BottomAppBar>
         <CommandBar>
             <AppBarButton Icon="Accept"
@@ -43,4 +25,62 @@
             </AppBarButton>
         </CommandBar>
     </Page.BottomAppBar>
+    <RelativePanel Padding="16">
+        <Border x:Name="imgLogotipo"
+                BorderBrush="{StaticResource Normal}"
+                BorderThickness="4"
+                CornerRadius="128"
+                Width="256"
+                Height="256"
+                RelativePanel.AlignVerticalCenterWithPanel="True"
+                RelativePanel.AlignHorizontalCenterWithPanel="True" />
+        <TextBlock x:Name="txtNomeFantasia"
+                   Style="{StaticResource TitleTextBlockStyle}"
+                   TextAlignment="Center"
+                   Margin="0,16,0,0"
+                   Height="32"
+                   VerticalAlignment="Bottom"
+                   RelativePanel.Above=""
+                   RelativePanel.Below="imgLogotipo"
+                   RelativePanel.AlignHorizontalCenterWithPanel="True"><Run Text="Areial Barra" /></TextBlock>
+        <TextBlock x:Name="txtNome"
+                   Style="{StaticResource BodyTextBlockStyle}"
+                   TextAlignment="Center"
+                   Margin="0,0,0,0"
+                   VerticalAlignment="Bottom"
+                   FontWeight="Bold"
+                   FontSize="18"
+                   Height="22"
+                   RelativePanel.Above=""
+                   RelativePanel.Below="txtNomeFantasia"
+                   RelativePanel.AlignHorizontalCenterWithPanel="True"><Run Text="Severino Alves Serafim" /></TextBlock>
+        <ListView x:Name="lstVendedores"
+                  RelativePanel.AlignRightWithPanel="True"
+                  Width="300"
+                  RelativePanel.AlignTopWithPanel="True"
+                  Header="Vendedores"
+                  HeaderTemplate="{StaticResource DefaultHeader}"
+                  RelativePanel.Below=""
+                  RelativePanel.Above="chkAdmin"
+                  Margin="0,0,0,8">
+            <ListView.ItemTemplate>
+				<DataTemplate x:DataType="db:Vendedor">
+					<StackPanel>
+						<TextBlock Style="{StaticResource SubtitleTextBlockStyle}"
+								   Text="{x:Bind Nome}" />
+						<TextBlock Style="{StaticResource BodyTextBlockStyle}"
+								   Text="{x:Bind CPFStr, Converter={StaticResource mascara}}" />
+					</StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <CheckBox x:Name="chkAdmin"
+                  Content="Logar como administrador"
+                  RelativePanel.AlignBottomWithPanel="True"
+                  IsChecked="True"
+                  RelativePanel.AlignRightWithPanel="True"
+                  Width="300"
+                  Checked="ChkAdmin_Checked"
+                  Unchecked="ChkAdmin_Unchecked" />
+    </RelativePanel>
 </Page>

@@ -19,6 +19,10 @@ namespace BaseGeral
         public DbSet<Imagem> Imagens { get; set; }
         public DbSet<Comprador> Compradores { get; set; }
         public DbSet<Inutilizacao> Inutilizacoes { get; set; }
+        public DbSet<FornecedorDI> Fornecedores { get; set; }
+        public DbSet<CategoriaDI> Categorias { get; set; }
+
+        static readonly string ArquivoBD = "informacoes";
 
         public AplicativoContext()
         {
@@ -28,7 +32,7 @@ namespace BaseGeral
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=informacoes.db");
+            optionsBuilder.UseSqlite($"Data Source={ArquivoBD}.db");
         }
     }
 }

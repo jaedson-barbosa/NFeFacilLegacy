@@ -43,24 +43,7 @@ namespace Venda.Impostos.DetalhamentoICMS.DadosRN
 
         public override object Processar(DetalhesProdutos prod)
         {
-            return new ICMS90()
-            {
-                CST = CST,
-                modBC = modBC.ToString(),
-                modBCST = modBCST.ToString(),
-                motDesICMS = motDesICMS,
-                Orig = Origem,
-                pICMS = pICMS,
-                pICMSST = pICMSST,
-                pMVAST = pMVAST,
-                pRedBC = pRedBC,
-                pRedBCST = pRedBCST,
-                vBC = vBC,
-                vBCST = vBCST,
-                vICMS = vICMS,
-                vICMSDeson = vICMSDeson,
-                vICMSST = vICMSST
-            };
+            return new ICMS90(Origem, CST, modBC, vBC, pICMS, vICMS, modBCST, pMVAST, pRedBCST, vBCST, pICMSST, vICMSST, pRedBC, vICMSDeson, motDesICMS);
         }
     }
 }

@@ -11,8 +11,8 @@
     <AssemblyName>RegistroComum</AssemblyName>
     <DefaultLanguage>pt-BR</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.16299.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.15063.0</TargetPlatformMinVersion>
+    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.18362.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -109,16 +109,40 @@
     <Compile Include="CalcularTroco.xaml.cs">
       <DependentUpon>CalcularTroco.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CondicaoPagamento\AddCondPagamento.xaml.cs">
+      <DependentUpon>AddCondPagamento.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CondicaoPagamento\GerenciadorCondicaoPagamento.cs" />
     <Compile Include="ControleViewProduto.cs" />
+    <Compile Include="RelatorioProduto01\ExibicaoProduto.cs" />
+    <Compile Include="RelatorioProduto01\ParCategoriaFornecedor.cs" />
+    <Compile Include="DARV\CabecalhoDARV.xaml.cs">
+      <DependentUpon>CabecalhoDARV.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DARV\DadosImpressaoDARV.cs" />
     <Compile Include="DARV\Dimensoes.cs" />
     <Compile Include="DARV\ExibicaoProduto.cs" />
+    <Compile Include="DARV\PaginaAdicional.xaml.cs">
+      <DependentUpon>PaginaAdicional.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DARV\ProdutosDARV.cs" />
+    <Compile Include="DARV\RodapeDARV.xaml.cs">
+      <DependentUpon>RodapeDARV.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DARV\ViewDARV.xaml.cs">
       <DependentUpon>ViewDARV.xaml</DependentUpon>
     </Compile>
+    <Compile Include="EditarProduto.xaml.cs">
+      <DependentUpon>EditarProduto.xaml</DependentUpon>
+    </Compile>
     <Compile Include="EscolherDimensão.xaml.cs">
       <DependentUpon>EscolherDimensão.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RelatorioProduto01\GeradorRelatorioProduto01.xaml.cs">
+      <DependentUpon>GeradorRelatorioProduto01.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RelatorioProduto01\ImpressaoRelatorioProduto01.xaml.cs">
+      <DependentUpon>ImpressaoRelatorioProduto01.xaml</DependentUpon>
     </Compile>
     <Compile Include="ManipulacaoRegistroVenda.xaml.cs">
       <DependentUpon>ManipulacaoRegistroVenda.xaml</DependentUpon>
@@ -133,6 +157,15 @@
     <Compile Include="RegistrosVenda.xaml.cs">
       <DependentUpon>RegistrosVenda.xaml</DependentUpon>
     </Compile>
+    <Compile Include="RelatorioProduto01\InfoTabela.xaml.cs">
+      <DependentUpon>InfoTabela.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RelatorioProduto01\PaginaPadrao.xaml.cs">
+      <DependentUpon>PaginaPadrao.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RelatorioProduto01\TabelaSimples.xaml.cs">
+      <DependentUpon>TabelaSimples.xaml</DependentUpon>
+    </Compile>
     <Compile Include="VisualizacaoRegistroVenda.xaml.cs">
       <DependentUpon>VisualizacaoRegistroVenda.xaml</DependentUpon>
     </Compile>
@@ -140,7 +173,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.0.8</Version>
+      <Version>6.1.9</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -166,13 +199,45 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="CondicaoPagamento\AddCondPagamento.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DARV\CabecalhoDARV.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DARV\PaginaAdicional.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DARV\RecursosDARV.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DARV\RodapeDARV.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="DARV\ViewDARV.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="EditarProduto.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="EscolherDimensão.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="RelatorioProduto01\GeradorRelatorioProduto01.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RelatorioProduto01\ImpressaoRelatorioProduto01.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ManipulacaoRegistroVenda.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -189,6 +254,22 @@
     <Page Include="RegistrosVenda.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="RelatorioProduto01\InfoTabela.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RelatorioProduto01\PaginaPadrao.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RelatorioProduto01\RecursosRelatorio.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RelatorioProduto01\TabelaSimples.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="VisualizacaoRegistroVenda.xaml">
       <Generator>MSBuild:Compile</Generator>

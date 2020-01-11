@@ -7,11 +7,7 @@ namespace Venda.Impostos.DetalhamentoICMS.DadosSN
     {
         public override object Processar(DetalhesProdutos prod)
         {
-            return new ICMSSN102()
-            {
-                CSOSN = CSOSN,
-                Orig = Origem
-            };
+            return new ICMSSN102(Origem, CSOSN);
         }
     }
 }

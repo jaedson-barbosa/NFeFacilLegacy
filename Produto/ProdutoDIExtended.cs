@@ -108,6 +108,8 @@ namespace Venda
 
         public void SetImpostosPadrao(IEnumerable<ImpostoArmazenado> impostos)
         {
+            if (impostos.GroupBy(x => x.Tipo).Any(x => x.Count() > 1))
+                throw new InvalidOperationException("Mais de um imposto selecionado com o mesmo tipo.");
             var imps = impostos.Select(x => $"{(int)x.Tipo}&|&{x.NomeTemplate}&|&{x.CST}&#&");
             Root.ImpostosPadrao = string.Concat(imps);
         }

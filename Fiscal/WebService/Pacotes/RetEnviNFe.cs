@@ -22,7 +22,7 @@ namespace Fiscal.WebService.Pacotes
         public string DescricaoResposta { get; set; }
 
         [XmlElement("cUF", Order = 4)]
-        public ushort Estado { get; set; }
+        public string Estado { get; set; }
 
         [XmlElement("dhRecbto", Order = 5)]
         public string DataHoraProcessamento { get; set; }

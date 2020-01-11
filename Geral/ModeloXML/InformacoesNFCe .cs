@@ -23,11 +23,22 @@ namespace BaseGeral.ModeloXML
 
         [DescricaoPropriedade("Formas de pagamento")]
         [XmlElement("pag", Namespace = "http://www.portalfiscal.inf.br/nfe", Order = 6)]
-        public List<Pagamento> FormasPagamento { get; set; }
+        public DetalhamentoPagamento Pagamento { get; set; }
 
         [DescricaoPropriedade("Informações Adicionais")]
         [XmlElement(Order = 7)]
         public InformacoesAdicionais infAdic { get; set; }
+    }
+
+    public sealed class DetalhamentoPagamento
+    {
+        [XmlElement("detPag", Order = 0)]
+        public List<Pagamento> FormasPagamento { get; set; } = new List<Pagamento>();
+
+        [XmlIgnore]
+        public double vTroco { get; set; }
+        [XmlElement("vTroco", Order = 1)]
+        public string VTroco { get => ToStr(vTroco); set => vTroco = Parse(value); }
     }
 
     public sealed class Pagamento
@@ -39,20 +50,5 @@ namespace BaseGeral.ModeloXML
         public double vPag { get; set; }
         [XmlElement("vPag", Order = 1)]
         public string VPag { get => ToStr(vPag); set => vPag = Parse(value); }
-
-        [XmlElement("card", Order = 2)]
-        public Cartao Cartao { get; set; }
-    }
-
-    public sealed class Cartao
-    {
-        [XmlElement(Order = 0)]
-        public string CNPJ { get; set; }
-
-        [XmlElement("tBand", Order = 1)]
-        public string Bandeira { get; set; }
-
-        [XmlElement("cAut", Order = 2)]
-        public string Autorizacao { get; set; }
     }
 }

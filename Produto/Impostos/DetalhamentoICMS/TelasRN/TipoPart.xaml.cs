@@ -1,4 +1,7 @@
-﻿using BaseGeral.View;
+﻿using BaseGeral.ModeloXML.PartesDetalhes;
+using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto;
+using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos;
+using BaseGeral.View;
 using Windows.UI.Xaml.Controls;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
@@ -6,7 +9,7 @@ using Windows.UI.Xaml.Controls;
 namespace Venda.Impostos.DetalhamentoICMS.TelasRN
 {
     [DetalhePagina("ICMS")]
-    public sealed partial class TipoPart : Page
+    public sealed partial class TipoPart : UserControl, IProcessamentoImposto
     {
         public string vICMSDeson { get; set; }
         public string motDesICMS { get; set; }
@@ -25,9 +28,27 @@ namespace Venda.Impostos.DetalhamentoICMS.TelasRN
         public string pICMSST { get; set; }
         public string vICMSST { get; set; }
 
-        public TipoPart()
+        readonly Detalhamento Detalhamento;
+        public PrincipaisImpostos Tipo => PrincipaisImpostos.ICMS;
+
+        public TipoPart(Detalhamento detalhamento)
         {
+            Detalhamento = detalhamento;
             InitializeComponent();
+        }
+
+        public IImposto[] Processar(DetalhesProdutos prod)
+        {
+            var dados = new DadosRN.TipoPart(this)
+            {
+                CST = Detalhamento.TipoICMSRN.Substring(0, 2),
+                Origem = Detalhamento.Origem
+            };
+            var imposto = new ICMS
+            {
+                Corpo = (ComumICMS)dados.Processar(prod)
+            };
+            return new IImposto[1] { imposto };
         }
     }
 }

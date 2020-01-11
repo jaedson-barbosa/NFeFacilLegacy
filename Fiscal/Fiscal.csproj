@@ -11,8 +11,8 @@
     <AssemblyName>Fiscal</AssemblyName>
     <DefaultLanguage>pt-BR</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.16299.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.15063.0</TargetPlatformMinVersion>
+    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.18362.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -107,11 +107,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AcoesVisualizacao.cs" />
+    <Compile Include="AddFormaPagamento.xaml.cs">
+      <DependentUpon>AddFormaPagamento.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CancelarNFe.xaml.cs">
       <DependentUpon>CancelarNFe.xaml</DependentUpon>
     </Compile>
     <Compile Include="Certificacao\AssinaFacil.cs" />
-    <Compile Include="Certificacao\Certificados.cs" />
     <Compile Include="Certificacao\CodigoNet\AttributeSortOrder.cs" />
     <Compile Include="Certificacao\CodigoNet\C14NAncestralNamespaceContextManager.cs" />
     <Compile Include="Certificacao\CodigoNet\CanonicalizationDispatcher.cs" />
@@ -133,13 +135,6 @@
     <Compile Include="Certificacao\CodigoNet\Utils.cs" />
     <Compile Include="Certificacao\CodigoNet\XmlDsigC14NTransform.cs" />
     <Compile Include="Certificacao\CodigoNet\XmlDsigEnvelopedSignatureTransform.cs" />
-    <Compile Include="Certificacao\LAN\InformacoesConexao.cs" />
-    <Compile Include="Certificacao\LAN\OperacoesServidor.cs" />
-    <Compile Include="Certificacao\LAN\Pacotes\CertificadoAssinaturaDTO.cs" />
-    <Compile Include="Certificacao\LAN\Pacotes\CertificadosExibicaoDTO.cs" />
-    <Compile Include="Certificacao\LAN\Pacotes\RequisicaoEnvioDTO.cs" />
-    <Compile Include="Certificacao\LAN\Primitivos\CertificadoAssinatura.cs" />
-    <Compile Include="Certificacao\LAN\Primitivos\CertificadoExibicao.cs" />
     <Compile Include="Consulta.xaml.cs">
       <DependentUpon>Consulta.xaml</DependentUpon>
     </Compile>
@@ -150,6 +145,7 @@
     <Compile Include="EscolhaProdutos.xaml.cs">
       <DependentUpon>EscolhaProdutos.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FormaPagamento.cs" />
     <Compile Include="IControleCriacao.cs" />
     <Compile Include="IControleView.cs" />
     <Compile Include="InfoInutilizacao.xaml.cs">
@@ -212,7 +208,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.0.8</Version>
+      <Version>6.1.9</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -226,6 +222,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="AddFormaPagamento.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="CancelarNFe.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -264,10 +264,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Certificacao\LAN\ServidorCertificacao.zip" />
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Certificacao\LAN\WindowsLoopbackManager.zip" />
+    <None Include="Properties\ServiceReferences.Designer.ClientConfig" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

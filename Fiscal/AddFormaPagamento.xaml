@@ -1,0 +1,33 @@
+﻿<ContentDialog x:Class="Fiscal.AddFormaPagamento"
+               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:controles="using:BaseGeral.Controles"
+               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+               mc:Ignorable="d"
+               Title="Adicionar pagamento"
+               PrimaryButtonText="Concluir"
+               SecondaryButtonText="Cancelar">
+    <StackPanel>
+        <ComboBox SelectedValue="{x:Bind Pagamento.Forma, Mode=TwoWay}"
+                  SelectedValuePath="Tag"
+                  Header="Forma de pagamento"
+                  HorizontalAlignment="Stretch">
+            <ComboBoxItem Tag="01">Dinheiro</ComboBoxItem>
+            <ComboBoxItem Tag="02">Cheque</ComboBoxItem>
+            <ComboBoxItem Tag="03">Cartão de Crédito</ComboBoxItem>
+            <ComboBoxItem Tag="04">Cartão de Débito</ComboBoxItem>
+            <ComboBoxItem Tag="05">Crédito Loja</ComboBoxItem>
+            <ComboBoxItem Tag="10">Vale Alimentação</ComboBoxItem>
+            <ComboBoxItem Tag="11">Vale Refeição</ComboBoxItem>
+            <ComboBoxItem Tag="12">Vale Presente</ComboBoxItem>
+            <ComboBoxItem Tag="13">Vale Combustível</ComboBoxItem>
+            <ComboBoxItem Tag="15">Boleto Bancário</ComboBoxItem>
+            <ComboBoxItem Tag="90">Sem pagamento</ComboBoxItem>
+            <ComboBoxItem Tag="99">Outros</ComboBoxItem>
+        </ComboBox>
+        <controles:EntradaNumerica Format="13:2"
+                                   Number="{x:Bind Pagamento.vPag, Mode=TwoWay}"
+                                   Header="Valor pago" />
+    </StackPanel>
+</ContentDialog>

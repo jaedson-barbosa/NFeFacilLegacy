@@ -2,7 +2,6 @@
 using BaseGeral.Controles;
 using BaseGeral.ItensBD;
 using BaseGeral.View;
-using NFeFacil.View;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Windows.UI.Xaml.Controls;
@@ -39,8 +38,12 @@ namespace RegistroComum
             using (var repo = new BaseGeral.Repositorio.Leitura())
             {
                 var registros = repo.ObterRegistrosVenda(DefinicoesTemporarias.EmitenteAtivo.Id);
+                int contador = 0, quant = 0;
                 foreach (var (rv, vendedor, cliente, momento) in registros)
                 {
+                    quant++;
+                    if (!rv.Cancelado && rv.Produtos.Count == 0)
+                        contador++;
                     (rv.Cancelado ? Canceladas : Validas).Add(new ExibicaoVenda
                     {
                         Base = rv,
@@ -49,6 +52,8 @@ namespace RegistroComum
                         DataHoraVenda = momento
                     });
                 }
+                if (contador > 0 && quant > 0)
+                    BaseGeral.Log.Popup.Current.Escrever(BaseGeral.Log.TitulosComuns.Atenção, $"Existem {contador} registros de venda sem produto.");
             }
         }
 

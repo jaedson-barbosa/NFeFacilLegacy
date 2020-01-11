@@ -7,41 +7,70 @@
       mc:Ignorable="d">
     <ScrollViewer Padding="16">
         <StackPanel>
-            <ItemsControl Style="{StaticResource ItensResponsivos}">
-                <controles:EntradaNumerica Format="4"
-                                           Number="{x:Bind ProdutoCompleto.Produto.CFOP, Mode=TwoWay}"
-                                           Header="CFOP *" />
-                <controles:EntradaNumerica Format="11:4"
-                                           Number="{x:Bind QuantidadeComercializada, Mode=TwoWay}"
-                                           Header="Qtd. comercial" />
-                <controles:EntradaNumerica Format="11:10"
-                                           Number="{x:Bind ValorUnitario, Mode=TwoWay}"
-                                           Header="Valor unid. comercial" />
-                <controles:EntradaNumerica Format="11:4"
-                                           Number="{x:Bind ProdutoCompleto.Produto.QuantidadeTributada, Mode=TwoWay}"
-                                           Header="Qtd. tributária" />
-                <controles:EntradaNumerica Format="11:10"
-                                           Number="{x:Bind ProdutoCompleto.Produto.ValorUnitarioTributo, Mode=TwoWay}"
-                                           Header="Valor unid. tributária" />
-                <controles:EntradaRestrita Pattern="[^\d.,]"
-                                           Text="{x:Bind ProdutoCompleto.Produto.Frete, Mode=TwoWay}"
-                                           Header="Frete" />
-                <controles:EntradaRestrita Pattern="[^\d.,]"
-                                           Text="{x:Bind ProdutoCompleto.Produto.Seguro, Mode=TwoWay}"
-                                           Header="Seguro" />
-                <controles:EntradaRestrita Pattern="[^\d.,]"
-                                           Text="{x:Bind ProdutoCompleto.Produto.Desconto, Mode=TwoWay}"
-                                           Header="Desconto" />
-                <controles:EntradaRestrita Pattern="[^\d.,]"
-                                           Text="{x:Bind ProdutoCompleto.Produto.DespesasAcessorias, Mode=TwoWay}"
-                                           Header="Desp. acessórias" />
-                <TextBlock>Total bruto:<LineBreak /><Run FontSize="24"
-                                                         FontWeight="Bold"
-                                                         x:Name="txtTotalBruto" /></TextBlock>
-            </ItemsControl>
-            <TextBox Header="Informações adicionais do produto"
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition />
+					<ColumnDefinition />
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+				<controles:EntradaNumerica Format="4"
+										   Number="{x:Bind ProdutoCompleto.Produto.CFOP, Mode=TwoWay}"
+										   Header="CFOP *"
+										   Margin="0,0,8,0" />
+				<controles:EntradaNumerica Grid.Column="1"
+										   Format="11:4"
+										   Number="{x:Bind QuantidadeComercializada, Mode=TwoWay}"
+										   Header="Qtd. comercial"
+										   Margin="0,0,8,0" />
+				<controles:EntradaNumerica Grid.Column="2"
+										   Format="11:10"
+										   Number="{x:Bind ValorUnitario, Mode=TwoWay}"
+										   Header="Valor unid. comercial" />
+				<controles:EntradaNumerica Grid.Row="1"
+										   Format="11:4"
+										   Number="{x:Bind ProdutoCompleto.Produto.QuantidadeTributada, Mode=TwoWay}"
+										   Header="Qtd. tributária"
+										   Margin="0,16,8,0" />
+				<controles:EntradaNumerica Grid.Row="1"
+										   Grid.Column="1"
+										   Format="11:10"
+										   Number="{x:Bind ProdutoCompleto.Produto.ValorUnitarioTributo, Mode=TwoWay}"
+										   Header="Valor unid. tributária"
+										   Margin="0,16,8,0" />
+				<controles:EntradaNumerica Grid.Row="1"
+										   Grid.Column="2"
+										   Number="{x:Bind ProdutoCompleto.Produto.Frete, Mode=TwoWay}"
+										   Header="Frete"
+										   Margin="0,16,0,0" />
+				<controles:EntradaNumerica Grid.Row="2"
+										   Number="{x:Bind ProdutoCompleto.Produto.Seguro, Mode=TwoWay}"
+										   Header="Seguro"
+										   Margin="0,16,8,0" />
+				<controles:EntradaNumerica Grid.Row="2"
+										   Grid.Column="1"
+										   Number="{x:Bind ProdutoCompleto.Produto.Desconto, Mode=TwoWay}"
+										   Header="Desconto"
+										   Margin="0,16,0,0" />
+				<controles:EntradaNumerica Grid.Row="2"
+										   Grid.Column="2"
+										   Number="{x:Bind ProdutoCompleto.Produto.DespesasAcessorias, Mode=TwoWay}"
+										   Header="Desp. acessórias"
+										   Margin="0,16,0,0" />
+				<TextBlock Grid.Row="3"
+						   Margin="0,16,0,0">Total bruto:<LineBreak /><Run FontSize="24"
+																	  FontWeight="Bold"
+																	  x:Name="txtTotalBruto" /></TextBlock>
+			</Grid>
+			<TextBox Header="Informações adicionais do produto"
                      Text="{x:Bind ProdutoCompleto.InfAdProd, Mode=TwoWay}"
-                     TextWrapping="Wrap" />
+                     TextWrapping="Wrap"
+					 Margin="0,16,0,0" />
         </StackPanel>
     </ScrollViewer>
     <Page.BottomAppBar>

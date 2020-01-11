@@ -9,7 +9,6 @@ namespace BaseGeral
         public static EmitenteDI EmitenteAtivo { get; set; }
         public static ImageSource Logotipo { get; set; }
         public static Vendedor VendedorAtivo { get; set; }
-        public static ImageSource FotoVendedor { get; set; }
 
         public static DateTime DateTimeNow
         {

@@ -4,19 +4,33 @@ namespace BaseGeral.Buscador
 {
     public abstract class BaseBuscador<TipoBusca>
     {
-        protected const string InvalidProduct = "#####";
+        protected const string InvalidItem = "#####";
         protected TipoBusca[] TodosItens { get; set; }
         public ObservableCollection<TipoBusca> Itens { get; protected set; }
+        int ModoBusca { get; }
 
+        public BaseBuscador(int modoBusca) => ModoBusca = modoBusca;
+
+        string lastBusca;
+        public void Buscar() => Buscar(lastBusca);
         public void Buscar(string busca)
         {
+            lastBusca = busca;
             for (int i = 0; i < TodosItens.Length; i++)
             {
+                var atual = TodosItens[i];
+                var comparados = ItemComparado(atual, ModoBusca);
+                if (string.IsNullOrEmpty(busca))
+                {
+                    if (comparados.Item1 == InvalidItem)
+                        Itens.Remove(atual);
+                    else if (!Itens.Contains(atual))
+                        Itens.Add(atual);
+                    continue;
+                }
                 try
                 {
-                    var atual = TodosItens[i];
                     busca = busca.ToUpper();
-                    var comparados = ItemComparado(atual, DefinicoesPermanentes.ModoBuscaProduto);
                     bool valido = comparados.Item1.ToUpper().Contains(busca)
                         || (comparados.Item2?.ToUpper().Contains(busca) ?? false);
                     if (valido && !Itens.Contains(atual))
@@ -36,13 +50,12 @@ namespace BaseGeral.Buscador
         protected abstract void InvalidarItem(TipoBusca item, int modoBusca);
         public void Remover(TipoBusca produto)
         {
-            var modoBusca = DefinicoesPermanentes.ModoBuscaProduto;
             for (int i = 0; i < TodosItens.Length; i++)
             {
                 var at = TodosItens[i];
-                (string, string) comp1 = ItemComparado(at, modoBusca), comp2 = ItemComparado(produto, modoBusca);
+                (string, string) comp1 = ItemComparado(at, ModoBusca), comp2 = ItemComparado(produto, ModoBusca);
                 if (comp1.Item1 == comp2.Item1 && comp1.Item2 == comp2.Item2)
-                    InvalidarItem(at, modoBusca);
+                    InvalidarItem(at, ModoBusca);
             }
             Itens.Remove(produto);
         }

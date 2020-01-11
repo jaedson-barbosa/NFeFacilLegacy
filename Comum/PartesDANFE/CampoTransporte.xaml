@@ -16,7 +16,7 @@
               BorderBrush="Black"
               CornerRadius="2">
             <Grid.RowDefinitions>
-                <RowDefinition Height="{x:Bind Dimensoes.AlturaLinhaPadrao}" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="{x:Bind Dimensoes.AlturaLinhaPadrao}" />
                 <RowDefinition Height="{x:Bind Dimensoes.AlturaLinhaPadrao}" />
             </Grid.RowDefinitions>
@@ -34,12 +34,14 @@
                             BorderBrush="Black">
                     <TextBlock Style="{StaticResource Cabecalho}">RAZÃO SOCIAL</TextBlock>
                     <TextBlock Style="{StaticResource Conteudo}"
+							   TextWrapping="Wrap"
                                Text="{x:Bind Contexto.NomeMotorista}" />
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"
                             Grid.Column="1">
                     <TextBlock Style="{StaticResource Cabecalho}">FRETE POR CONTA</TextBlock>
                     <TextBlock Style="{StaticResource Conteudo}"
+							   TextWrapping="Wrap"
                                Text="{x:Bind Contexto.ModalidadeFrete}" />
                 </StackPanel>
                 <StackPanel Padding="{StaticResource PaddingPadrao}"

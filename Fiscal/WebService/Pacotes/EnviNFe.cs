@@ -20,7 +20,7 @@ namespace Fiscal.WebService.Pacotes
 
         public EnviNFe(params NFe[] xmls)
         {
-            Versao = "3.10";
+            Versao = "4.00";
             IdLote = xmls[0].Informacoes.identificacao.Numero;
             IndicadorSincronismo = 0;
             NFe = xmls;
@@ -44,7 +44,7 @@ namespace Fiscal.WebService.Pacotes
 
         public EnviNFCe(params NFCe[] xmls)
         {
-            Versao = "3.10";
+            Versao = "4.00";
             IdLote = xmls[0].Informacoes.identificacao.Numero;
             IndicadorSincronismo = 0;
             NFe = xmls;

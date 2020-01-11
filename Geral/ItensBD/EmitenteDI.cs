@@ -10,7 +10,13 @@ namespace BaseGeral.ItensBD
 
         public string CNPJ { get; set; }
         public string Nome { get; set; }
-        public string NomeFantasia { get; set; }
+
+        string nomeFantasia;
+        public string NomeFantasia
+        {
+            get => string.IsNullOrEmpty(nomeFantasia) ? string.Empty : nomeFantasia;
+            set => nomeFantasia = value;
+        }
         public string InscricaoEstadual { get; set; }
         public string IEST { get; set; }
         public string IM { get; set; }
@@ -40,7 +46,7 @@ namespace BaseGeral.ItensBD
             {
                 CNPJ = CNPJ,
                 Nome = Nome,
-                NomeFantasia = NomeFantasia,
+                NomeFantasia = string.IsNullOrWhiteSpace(NomeFantasia) ? null : NomeFantasia,
                 InscricaoEstadual = InscricaoEstadual,
                 IEST = string.IsNullOrWhiteSpace(IEST) ? null : IEST,
                 IM = string.IsNullOrWhiteSpace(IM) ? null : IM,

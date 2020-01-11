@@ -22,23 +22,7 @@ namespace Venda.Impostos.DetalhamentoICMS.DadosSN
 
         public override object Processar(DetalhesProdutos prod)
         {
-            bool usarpMVAST = TryParse(pMVAST, out double pMVASTd);
-            bool usarpRedBCST = TryParse(pRedBCST, out double pRedBCSTd);
-            var vBCST = CalcularBC(prod) * (100 + pMVASTd) / 100;
-            vBCST *= 1 - (pRedBCSTd / 100);
-            var vICMSST = vBCST * pICMSST / 100;
-
-            return new ICMSSN202()
-            {
-                CSOSN = CSOSN,
-                modBCST = modBCST.ToString(),
-                Orig = Origem,
-                pICMSST = ToStr(pICMSST, "F4"),
-                pMVAST = usarpMVAST ? ToStr(pMVASTd, "F4") : null,
-                pRedBCST = usarpRedBCST ? ToStr(pRedBCSTd, "F4") : null,
-                vBCST = ToStr(vBCST),
-                vICMSST = ToStr(vICMSST)
-            };
+            return new ICMSSN202(Origem, CSOSN, modBCST, pMVAST, pRedBCST, pICMSST, prod);
         }
     }
 }

@@ -6,9 +6,7 @@ namespace Venda.GerenciamentoProdutos
 {
     public sealed partial class AdicionarAlteracaoEstoque : ContentDialog
     {
-        bool Positivo { get; set; } = true;
-        double Valor { get; set; }
-        internal double ValorProcessado => Valor * (Positivo ? 1 : -1);
+        public double Valor { get; set; }
 
         public AdicionarAlteracaoEstoque()
         {

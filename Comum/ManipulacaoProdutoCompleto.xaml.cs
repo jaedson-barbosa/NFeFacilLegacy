@@ -3,15 +3,10 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using System.Collections.ObjectModel;
 using BaseGeral.ModeloXML.PartesDetalhes;
-using System;
 using BaseGeral.Controles;
-using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesProdutoOuServico;
 using BaseGeral.ModeloXML.PartesDetalhes.PartesProduto;
-using System.Collections.Generic;
-using NFeFacil.View;
 using Venda.Impostos;
 using Venda;
-using Venda.CaixasDialogoProduto;
 using BaseGeral.View;
 using BaseGeral;
 using Venda.ViewProdutoVenda;
@@ -25,9 +20,6 @@ namespace Comum
     {
         DadosAdicaoProduto Conjunto;
         public DetalhesProdutos ProdutoCompleto { get; private set; }
-
-        public ObservableCollection<DeclaracaoImportacao> ListaDI { get; } = new ObservableCollection<DeclaracaoImportacao>();
-        public ObservableCollection<GrupoExportacao> ListaGE { get; } = new ObservableCollection<GrupoExportacao>();
 
         public ImpostoDevol ContextoImpostoDevol
         {
@@ -87,9 +79,7 @@ namespace Comum
         {
             new ItemHambuguer(Symbol.Tag, "Dados"),
             new ItemHambuguer("\uE825", "Imposto devolvido"),
-            new ItemHambuguer(Symbol.Comment, "Info adicional"),
-            new ItemHambuguer(Symbol.World, "Importação"),
-            new ItemHambuguer(Symbol.World, "Exportação"),
+            new ItemHambuguer(Symbol.Comment, "Info adicional")
         };
 
         public int SelectedIndex { set => main.SelectedIndex = value; }
@@ -98,9 +88,6 @@ namespace Comum
 
         private void Avancar(object sender, RoutedEventArgs e)
         {
-            ProdutoCompleto.Produto.DI = new List<DeclaracaoImportacao>(ListaDI);
-            ProdutoCompleto.Produto.GrupoExportação = new List<GrupoExportacao>(ListaGE);
-
             var porcentDevolv = ProdutoCompleto.ImpostoDevol.pDevol;
             if (string.IsNullOrEmpty(porcentDevolv) || int.Parse(porcentDevolv) == 0)
             {
@@ -109,56 +96,8 @@ namespace Comum
             new GerenciadorTributacao(Conjunto).AplicarTributacaoManual();
         }
 
-        async void AdicionarDeclaracaoImportacao(object sender, RoutedEventArgs e)
-        {
-            var caixa = new AdicionarDeclaracaoImportacao();
-            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
-            {
-                ListaDI.Add(caixa.Declaracao);
-            }
-        }
-
-        void RemoverDeclaracaoImportacao(object sender, RoutedEventArgs e)
-        {
-            var contexto = ((FrameworkElement)sender).DataContext;
-            ListaDI.Remove((DeclaracaoImportacao)contexto);
-        }
-
-        async void AdicionarDeclaracaoExportacao(object sender, RoutedEventArgs e)
-        {
-            var caixa = new EscolherTipoDeclaracaoExportacao();
-            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
-            {
-                if (caixa.Direta)
-                {
-                    var caixa2 = new AddDeclaracaoExportacaoDireta();
-                    if (await caixa2.ShowAsync() == ContentDialogResult.Primary)
-                    {
-                        ListaGE.Add(caixa2.Declaracao);
-                    }
-                }
-                else
-                {
-                    var caixa2 = new AddDeclaracaoExportacaoIndireta();
-                    if (await caixa2.ShowAsync() == ContentDialogResult.Primary)
-                    {
-                        ListaGE.Add(caixa2.Declaracao);
-                    }
-                }
-            }
-        }
-
-        void RemoverDeclaracaoExportacao(object sender, RoutedEventArgs e)
-        {
-            var contexto = ((FrameworkElement)sender).DataContext;
-            ListaGE.Remove((GrupoExportacao)contexto);
-        }
-
         void Concluir(object sender, RoutedEventArgs e)
         {
-            ProdutoCompleto.Produto.DI = new List<DeclaracaoImportacao>(ListaDI);
-            ProdutoCompleto.Produto.GrupoExportação = new List<GrupoExportacao>(ListaGE);
-
             var porcentDevolv = ProdutoCompleto.ImpostoDevol.pDevol;
             if (string.IsNullOrEmpty(porcentDevolv) || int.Parse(porcentDevolv) == 0)
             {

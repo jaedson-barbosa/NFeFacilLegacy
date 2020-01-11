@@ -32,20 +32,51 @@ namespace BaseGeral.ModeloXML
         [XmlElement(Order = 8)]
         public Cobranca cobr { get; set; }
 
+        [DescricaoPropriedade("Formas de pagamento")]
+        [XmlElement("pag", Namespace = "http://www.portalfiscal.inf.br/nfe", Order = 9)]
+        public DetalhamentoPagamento Pagamento { get; set; }
+
         [DescricaoPropriedade("Informações Adicionais")]
-        [XmlElement(Order = 9)]
+        [XmlElement(Order = 10)]
         public InformacoesAdicionais infAdic { get; set; }
 
-        [DescricaoPropriedade("Exportação")]
-        [XmlElement(Order = 10)]
-        public Exportacao exporta { get; set; }
-
-        [DescricaoPropriedade("Compra")]
-        [XmlElement(Order = 11)]
-        public Compra compra { get; set; }
-
         [DescricaoPropriedade("Cana de açúcar")]
-        [XmlElement(Order = 12)]
+        [XmlElement(Order = 13)]
         public RegistroAquisicaoCana cana { get; set; }
+
+        ResponsavelTecnico responsavel;
+        [DescricaoPropriedade("Responsável técnico")]
+        [XmlElement("infRespTec", Order = 14)]
+        public ResponsavelTecnico Responsavel
+        {
+            get => DefinicoesPermanentes.InformarResponsavelTecnico
+                ? responsavel ?? (responsavel = new ResponsavelTecnico().PreencherPadrao())
+                : null;
+            set => responsavel = value;
+        }
+    }
+
+    public sealed class ResponsavelTecnico
+    {
+        [XmlElement("CNPJ", Order = 0), DescricaoPropriedade("CNPJ")]
+        public string CNPJ { get; set; }
+
+        [XmlElement("xContato", Order = 1), DescricaoPropriedade("Nome para contato")]
+        public string Contato { get; set; }
+
+        [XmlElement("email", Order = 2), DescricaoPropriedade("E-mail para contato")]
+        public string Email { get; set; }
+
+        [XmlElement("fone", Order = 3), DescricaoPropriedade("Fone para contato")]
+        public string Fone { get; set; }
+
+        public ResponsavelTecnico PreencherPadrao()
+        {
+            CNPJ = "12931158000164";
+            Contato = "Jaedson Barbosa Serafim";
+            Email = "jaedson33@gmail.com";
+            Fone = "83988856440";
+            return this;
+        }
     }
 }

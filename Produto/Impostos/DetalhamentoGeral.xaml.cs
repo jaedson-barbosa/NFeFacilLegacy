@@ -24,62 +24,31 @@ namespace Venda.Impostos
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             roteiro = (RoteiroAdicaoImpostos)e.Parameter;
-            Avancar();
-        }
-
-        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
-        {
-            if (roteiro.Voltar())
-            {
-                frmImposto.GoBack();
-                e.Cancel = true;
-            }
-        }
-
-        void Avancar(object sender, RoutedEventArgs e) => Avancar();
-
-        void Avancar()
-        {
-            roteiro.Processar(frmImposto.Content as Page);
-            if (roteiro.Avancar())
-            {
-                if (roteiro.Current == null)
+            var telas = roteiro.Telas;
+            for (int i = 0; i < telas.Length; i++)
+                if (telas[i] != null)
                 {
-                    frmImposto.Content = null;
-                    Avancar();
+                    var infoTipo = telas[i].GetType().GetTypeInfo();
+                    var detalhe = infoTipo.GetCustomAttribute<DetalhePagina>();
+                    stkImpostos.Children.Add(new TextBlock
+                    {
+                        Margin = new Thickness(0, 16, 0, 0),
+                        Text = detalhe.Titulo,
+                        Style = (Style)Resources["TitleTextBlockStyle"]
+                    });
+                    stkImpostos.Children.Add(telas[i]);
                 }
-                else
-                {
-                    frmImposto.Navigate(roteiro.Current);
-                }
-            }
-            else
-            {
-                Concluir();
-            }
         }
 
-        private void Voltar(object sender, RoutedEventArgs e)
-        {
-            if (roteiro.Voltar())
-            {
-                frmImposto.Navigate(roteiro.Current);
-            }
-            else
-            {
-                BasicMainPage.Current.Retornar();
-            }
-        }
-
-        async void Concluir()
+        async void Concluir(object sender, RoutedEventArgs e)
         {
             await Task.Delay(500);
             var produto = roteiro.Finalizar();
 
             var caixa = new DefinirTotalImpostos();
-            if (await caixa.ShowAsync() == ContentDialogResult.Primary && !string.IsNullOrEmpty(caixa.ValorTotalTributos))
+            if (await caixa.ShowAsync() == ContentDialogResult.Primary && caixa.ValorTotalTributos != 0)
             {
-                produto.Impostos.vTotTrib = caixa.ValorTotalTributos;
+                produto.Impostos.vTotTrib = ExtensoesPrincipal.ToStr(caixa.ValorTotalTributos);
             }
             else
             {
@@ -101,13 +70,6 @@ namespace Venda.Impostos
             }
 
             BasicMainPage.Current.Retornar();
-        }
-
-        private void ImpostoTrocado(object sender, NavigationEventArgs e)
-        {
-            var infoTipo = e.Content.GetType().GetTypeInfo();
-            var detalhe = infoTipo.GetCustomAttribute<DetalhePagina>();
-            txtTitulo.Text = detalhe.Titulo;
         }
     }
 }

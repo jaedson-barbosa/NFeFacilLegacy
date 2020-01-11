@@ -41,63 +41,101 @@
                            Grid.Column="4"
                            Grid.Row="1" />
             </Grid>
-            <TextBlock Style="{StaticResource TitleTextBlockStyle}">Cliente</TextBlock>
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}"
+					   Margin="0,16,0,0">Cliente</TextBlock>
             <controlesAux:EscolhaCliente IdClienteSelecionado="{x:Bind Cliente, Mode=TwoWay}" />
-            <TextBlock Style="{StaticResource TitleTextBlockStyle}">Transporte</TextBlock>
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}"
+					   Margin="0,16,0,0">Transporte</TextBlock>
             <controlesAux:EscolhaMotorista IdMotoristaSelecionado="{x:Bind ItemBanco.Motorista, Mode=TwoWay}" />
-            <TextBlock Style="{StaticResource TitleTextBlockStyle}">Detalhes adicionais</TextBlock>
-            <ItemsControl Style="{StaticResource ItensResponsivos}">
-                <ComboBox x:Name="cmbComprador"
-                          Header="Comprador"
-                          ItemsSource="{x:Bind Compradores}"
-                          DisplayMemberPath="Nome"
-                          SelectedValue="{x:Bind ItemBanco.Comprador, Mode=TwoWay}"
-                          SelectedValuePath="Id"
-                          MinWidth="256"
-                          MaxWidth="512" />
-                <CalendarDatePicker Header="Prazo de entrega"
-                                    Date="{x:Bind PrazoEntrega, Mode=TwoWay}" />
-                <controles:EntradaNumerica Format="8:2"
-                                           Number="{x:Bind ValorFrete, Mode=TwoWay}"
-                                           Header="Valor do frete" />
-                <ComboBox Grid.Row="1"
-                          Header="Tipo de frete"
-                          SelectedValue="{x:Bind TipoFrete, Mode=TwoWay}"
-                          SelectedValuePath="Content">
-                    <ComboBoxItem>Por conta do cliente</ComboBoxItem>
-                    <ComboBoxItem>Por conta da loja</ComboBoxItem>
-                    <ComboBoxItem>A combinar</ComboBoxItem>
-                </ComboBox>
-                <CalendarDatePicker Header="Prazo de pagamento"
-                                    Date="{x:Bind PrazoPagamento, Mode=TwoWay}"
-                                    Grid.Column="2"
-                                    MinWidth="256" />
-                <ComboBox Grid.Row="1"
-                          Header="Forma de pagamento"
-                          SelectedValue="{x:Bind FormaPagamento, Mode=TwoWay}"
-                          SelectedValuePath="Content">
-                    <ComboBoxItem>Em dinheiro à vista</ComboBoxItem>
-                    <ComboBoxItem>Cartão</ComboBoxItem>
-                    <ComboBoxItem>Boleto bancário</ComboBoxItem>
-                </ComboBox>
-                <Slider x:Name="sldDesconto"
-                        Header="Desconto %"
-                        StepFrequency="0.5"
-                        ValueChanged="sldDesconto_ValueChanged"
-                        MinWidth="256" />
-                <controles:EntradaNumerica x:Name="txtValorDesejado"
-                                           Grid.Row="1"
-                                           Number="0"
-                                           Format="13:2"
-                                           Header="Valor desejado"
-                                           NumeroChanged="ValorDesejadoChanged" />
-                <CalendarDatePicker Header="Data da venda"
-                                    MinWidth="256"
-                                    Date="{x:Bind DataHoraVenda, Mode=TwoWay}" />
-            </ItemsControl>
-            <controles:RichEditBoxExtended Header="Observações"
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}"
+					   Margin="0,16,0,0">Detalhes adicionais</TextBlock>
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition />
+					<ColumnDefinition />
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+				<ComboBox x:Name="cmbComprador"
+						  Grid.ColumnSpan="2"
+						  Header="Comprador"
+						  ItemsSource="{x:Bind Compradores}"
+						  DisplayMemberPath="Nome"
+						  SelectedValue="{x:Bind ItemBanco.Comprador, Mode=TwoWay}"
+						  SelectedValuePath="Id"
+						  Margin="0,0,8,0" />
+				<CalendarDatePicker Grid.Column="2"
+									Header="Prazo de entrega"
+									Date="{x:Bind PrazoEntrega, Mode=TwoWay}"
+									HorizontalAlignment="Stretch" />
+				<controles:EntradaNumerica Grid.Row="1"
+										   Format="8:2"
+										   Number="{x:Bind ValorFrete, Mode=TwoWay}"
+										   Header="Valor do frete"
+										   Margin="0,16,8,0" />
+				<ComboBox Grid.Row="1"
+						  Grid.Column="1"
+						  Header="Tipo de frete"
+						  SelectedValue="{x:Bind TipoFrete, Mode=TwoWay}"
+						  SelectedValuePath="Content"
+						  Margin="0,16,8,0">
+					<ComboBoxItem>Por conta do cliente</ComboBoxItem>
+					<ComboBoxItem>Por conta da loja</ComboBoxItem>
+					<ComboBoxItem>A combinar</ComboBoxItem>
+				</ComboBox>
+				<CalendarDatePicker Grid.Row="1"
+									Grid.Column="2"
+									Header="Prazo de pagamento"
+									Date="{x:Bind PrazoPagamento, Mode=TwoWay}"
+									Margin="0,16,0,0"
+									HorizontalAlignment="Stretch" />
+				<ComboBox Grid.Row="2"
+						  Header="Forma de pagamento"
+						  SelectedValue="{x:Bind FormaPagamento, Mode=TwoWay}"
+						  SelectedValuePath="Content"
+						  Margin="0,16,8,0">
+					<ComboBoxItem>Em dinheiro à vista</ComboBoxItem>
+					<ComboBoxItem>Cartão</ComboBoxItem>
+					<ComboBoxItem>Boleto bancário</ComboBoxItem>
+				</ComboBox>
+				<ComboBox Grid.Row="2"
+						  Grid.Column="1"
+						  Header="Condição de pagamento"
+						  SelectedItem="{x:Bind ItemBanco.CondicaoPagamento, Mode=TwoWay}"
+						  ItemsSource="{x:Bind CondicoesPagamento}"
+						  Visibility="{x:Bind CondicoesPagamentoVisiveis}"
+						  Margin="0,16,8,0" />
+				<Slider Grid.Row="2"
+						Grid.Column="2"
+						x:Name="sldDesconto"
+						Header="Desconto %"
+						StepFrequency="0.5"
+						ValueChanged="sldDesconto_ValueChanged"
+						Margin="0,16,0,0" />
+				<controles:EntradaNumerica Grid.Row="3"
+										   x:Name="txtValorDesejado"
+										   Number="0"
+										   Format="13:2"
+										   Header="Valor desejado"
+										   NumeroChanged="ValorDesejadoChanged"
+										   Margin="0,16,8,0" />
+				<CalendarDatePicker Grid.Row="3"
+									Grid.Column="1"
+									Header="Data da venda"
+									Date="{x:Bind DataHoraVenda, Mode=TwoWay}"
+									Margin="0,16,0,0"
+									HorizontalAlignment="Stretch" />
+			</Grid>
+			<controles:RichEditBoxExtended Header="Observações"
                                            TextWrapping="Wrap"
-                                           Text="{x:Bind Observacoes, Mode=TwoWay}" />
+                                           Text="{x:Bind Observacoes, Mode=TwoWay}"
+										   Margin="0,16,0,0" />
         </StackPanel>
     </ScrollViewer>
     <Page.BottomAppBar>

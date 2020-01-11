@@ -8,6 +8,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using BaseGeral;
 using BaseGeral.View;
+using Windows.UI.Popups;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -61,15 +62,9 @@ namespace Venda.GerenciamentoProdutos
             }
         }
 
-        public ControleEstoque()
-        {
-            InitializeComponent();
-        }
-
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             Estoque = (Estoque)e.Parameter;
-
             var alteracoes = Estoque.Alteracoes;
             if (alteracoes != null)
             {
@@ -118,57 +113,62 @@ namespace Venda.GerenciamentoProdutos
                     Labels[i] = "Inicial";
                 }
             }
+            InitializeComponent();
         }
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
             if (AlteracoesNaoSalvas)
-            {
                 using (var repo = new BaseGeral.Repositorio.Escrita())
-                {
                     repo.SalvarItemSimples(Estoque, DefinicoesTemporarias.DateTimeNow);
-                }
-            }
         }
 
         private async void AlterarQuantidade_Click(object sender, RoutedEventArgs e)
         {
             var caixa = new AdicionarAlteracaoEstoque();
-            if (await caixa.ShowAsync() == ContentDialogResult.Primary)
+            var resultAdd = await caixa.ShowAsync() == ContentDialogResult.Primary;
+            if (caixa.Valor != 0)
             {
-                var valor = caixa.ValorProcessado;
-                if (valor != 0)
+                var valorProcessado = caixa.Valor * (resultAdd ? 1 : -1);
+                Estoque.UltimaData = DefinicoesTemporarias.DateTimeNow;
+                var alt = new AlteracaoEstoque()
                 {
-                    Estoque.UltimaData = DefinicoesTemporarias.DateTimeNow;
-                    var alt = new AlteracaoEstoque()
-                    {
-                        Alteração = valor,
-                        MomentoRegistro = DefinicoesTemporarias.DateTimeNow
-                    };
-                    if (Estoque.Alteracoes == null)
-                    {
-                        Estoque.Alteracoes = new List<AlteracaoEstoque>() { alt };
-                    }
-                    else
-                    {
-                        Estoque.Alteracoes.Add(alt);
-                    }
+                    Alteração = valorProcessado,
+                    MomentoRegistro = DefinicoesTemporarias.DateTimeNow
+                };
+                if (Estoque.Alteracoes == null)
+                    Estoque.Alteracoes = new List<AlteracaoEstoque>() { alt };
+                else
+                    Estoque.Alteracoes.Add(alt);
 
-                    var novosValores = new double[10];
-                    for (int i = 0; i < 9; i++)
-                    {
-                        novosValores[i] = Valores[i + 1];
-                        Labels[i] = Labels[i + 1];
-                    }
-                    novosValores[9] = novosValores[8] + valor;
-                    Labels[9] = alt.MomentoRegistro.ToString("dd/MM/yyyy");
-
-                    Valores.Clear();
-                    Valores.AddRange(novosValores);
-
-                    AlteracoesNaoSalvas = true;
+                var novosValores = new double[10];
+                for (int i = 0; i < 9; i++)
+                {
+                    novosValores[i] = Valores[i + 1];
+                    Labels[i] = Labels[i + 1];
                 }
+                novosValores[9] = novosValores[8] + valorProcessado;
+                Labels[9] = alt.MomentoRegistro.ToString("dd/MM/yyyy");
+
+                Valores.Clear();
+                Valores.AddRange(novosValores);
+
+                AlteracoesNaoSalvas = true;
             }
+        }
+
+        async void RemoverControle_Click(object sender, Windows.UI.Xaml.Input.RightTappedRoutedEventArgs e)
+        {
+            var msg = new MessageDialog("Você tem certeza disso?\n" +
+                "A única diferença é que não durante a adição dos produtos na venda não será analisado o estoque, porém ele não será realmente removido.\n" +
+                "A operação poderá ser desfeita sem perda de informação caso se arrependa.", "Certeza?");
+            msg.Commands.Add(new UICommand("Sim"));
+            msg.Commands.Add(new UICommand("Não", x =>
+            {
+                Estoque.IsAtivo = false;
+                AlteracoesNaoSalvas = true;
+            }));
+            await msg.ShowAsync();
         }
     }
 }

@@ -1,20 +1,18 @@
-﻿using BaseGeral.View;
-using System.Xml.Serialization;
-
-namespace BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos
+﻿namespace BaseGeral.ModeloXML.PartesDetalhes.PartesProduto.PartesImpostos
 {
     /// <summary>
     /// Grupo Tributação ICMS = 40, 41, 50.
     /// </summary>
     public class ICMS41 : ComumICMS, IRegimeNormal
     {
-        [XmlElement(Order = 1), DescricaoPropriedade("Tributação do ICMS")]
-        public string CST { get; set; }
+        public ICMS41()
+        {
+        }
 
-        [XmlElement(Order = 2), DescricaoPropriedade("Valor do ICMS da desoneração")]
-        public string vICMSDeson { get; set; }
-
-        [XmlElement(Order = 3), DescricaoPropriedade("Motivo da desoneração do ICMS")]
-        public string motDesICMS { get; set; }
+        public ICMS41(int origem, string cst, string vICMSDeson, string motDesICMS) : base(origem, cst, false)
+        {
+            this.vICMSDeson = vICMSDeson;
+            this.motDesICMS = motDesICMS;
+        }
     }
 }

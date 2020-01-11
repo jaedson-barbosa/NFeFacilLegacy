@@ -9,9 +9,9 @@ namespace BaseGeral.Sincronizacao.Servidor
         [UriFormat("/BrechaSeguranca/{senha}")]
         public RestResponse BrechaSeguranca(int senha)
         {
-            if (GerenciadorServidor.Current.BrechaAberta)
+            if (GerenciadorServidor.AceitarNovasConexoes)
             {
-                if (senha != SenhaTemporária)
+                if (senha != 9999)
                 {
                     return new RestResponse
                     {

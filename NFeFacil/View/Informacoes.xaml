@@ -1,107 +1,64 @@
 ﻿<Page x:Class="NFeFacil.View.Informacoes"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:controles="using:BaseGeral.Controles"
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      mc:Ignorable="d">
-    <ScrollViewer Padding="16">
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup>
-                <VisualState>
-                    <VisualState.Setters>
-                        <Setter Target="imgEu.Visibility"
-                                Value="Visible" />
-                    </VisualState.Setters>
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="720" />
-                    </VisualState.StateTriggers>
-                </VisualState>
-                <VisualState>
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="0" />
-                    </VisualState.StateTriggers>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
-        <StackPanel>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <TextBlock Style="{StaticResource TitleTextBlockStyle}">Informações gerais</TextBlock>
-                <RichTextBlock Grid.Row="1"
-                               Style="{StaticResource BodyRichTextBlockStyle}"
-                               MaxWidth="620"
-                               HorizontalAlignment="Left">
-                    <Paragraph>
-                        <Run>Sou um desenolvedor do interior paraibano e criei este aplicativo com o objetivo de modernizar as tecnologias utilizadas atualmente pelas empresas brasileiras.</Run>
-                        <Run>Este aplicativo ainda não está 100% concluído, e nunca estará, ele sempre terá atualizações gratuitas que sempre trarão mais e mais recursos (alguns pagos, outros gratuitos).</Run>
-                    </Paragraph>
-                    <Paragraph>
-                        <Bold>Suporte:</Bold>
-                    </Paragraph>
-                    <Paragraph>
-                        <Run>Ele pode ser feito remotamente ou presencialmente. Geralmente é escolhida a opção remota, em que eu posso te dizer o que pode estar causando o problema via WhatsApp ou pode ser usado o TeamViewer para que seja feita uma conexão remota com o computador.</Run>
-                        <Run>A opção presencial é outra possibilidade, mas os custos envolvidos ficarão a cargo do cliente, portanto essa opção é a menos escolhida.</Run>
-                    </Paragraph>
-                    <Paragraph>
-                        <Bold>Contato:</Bold>
-                    </Paragraph>
-                    <Paragraph>
-                        <Run>Celular e WhatsApp:</Run>
-                        <Hyperlink NavigateUri="tel:8398885-6440">(83) 98885-6440</Hyperlink>
-                    </Paragraph>
-                    <Paragraph>
-                        <Run>E-mail:</Run>
-                        <Hyperlink NavigateUri="mailto:jaedson_9@hotmail.com">jaedson_9@hotmail.com</Hyperlink>
-                    </Paragraph>
-                </RichTextBlock>
-                <Image x:Name="imgEu"
-                       Visibility="Collapsed"
-                       Grid.Column="1"
-                       Grid.RowSpan="2"
-                       MaxHeight="256"
-                       Stretch="Fill"
-                       Source="ms-appx:///Assets/Minha foto.jpg" />
-            </Grid>
-            <TextBlock Style="{StaticResource TitleTextBlockStyle}">Versão atual</TextBlock>
-            <RichTextBlock>
-                <Paragraph>
-                    <Bold>Anel:</Bold>
-                    <Run>Público</Run>
-                </Paragraph>
-                <Paragraph>
-                    <Bold>Número:</Bold>
-                    <Run>1.10</Run>
-                </Paragraph>
-                <Paragraph>
-                    <Bold>Revisão:</Bold>
-                    <Run>14</Run>
-                </Paragraph>
-            </RichTextBlock>
-            <TextBlock Style="{StaticResource TitleTextBlockStyle}">Ajude o desenvolvedor</TextBlock>
-            <ItemsControl x:Name="grdCompra"
-                          Style="{StaticResource ItensSimples}">
-                <controles:ItemPadrao Titulo="10 reais"
-                                      Descricao="Ajude meu trabalho com essa pequena quantia"
-                                      Click="Doar10">
-                    <FontIcon FontFamily="Segoe UI"
-                              Glyph="10" />
-                </controles:ItemPadrao>
-                <controles:ItemPadrao Titulo="25 reais"
-                                      Descricao="Contribua com essa quantia maior"
-                                      Click="Doar25">
-                    <FontIcon FontFamily="Segoe UI"
-                              Glyph="25" />
-                </controles:ItemPadrao>
-            </ItemsControl>
-            <TextBlock Style="{StaticResource BodyTextBlockStyle}"><Bold>Atenção: </Bold><Run>Doações para o desenvolvedor não garantem nenhum recurso especial ou libera qualquer adicional pago do aplicativo.</Run></TextBlock>
-        </StackPanel>
-    </ScrollViewer>
+	  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	  xmlns:controles="using:BaseGeral.Controles"
+	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	  mc:Ignorable="d">
+	<StackPanel Padding="16">
+		<TextBlock Style="{StaticResource TitleTextBlockStyle}">Informações gerais</TextBlock>
+		<RichTextBlock>
+			<Paragraph>
+				<Bold>Suporte:</Bold>
+			</Paragraph>
+			<Paragraph>
+				<Run>Ele apenas pode ser feito remotamente, onde posso te dizer o que pode estar causando o problema via WhatsApp ou pode ser usado o TeamViewer para que seja feita uma conexão remota com o computador.</Run>
+			</Paragraph>
+			<Paragraph>
+				<Bold>Contato:</Bold>
+			</Paragraph>
+			<Paragraph>
+				<Run>Celular e WhatsApp:</Run>
+				<Hyperlink NavigateUri="tel:8398885-6440">(83) 98885-6440</Hyperlink>
+			</Paragraph>
+			<Paragraph>
+				<Run>E-mail:</Run>
+				<Hyperlink NavigateUri="mailto:jaedson_9@hotmail.com">jaedson_9@hotmail.com</Hyperlink>
+			</Paragraph>
+		</RichTextBlock>
+		<TextBlock Style="{StaticResource TitleTextBlockStyle}"
+				   Margin="0,16,0,0">Versão atual</TextBlock>
+		<RichTextBlock>
+			<Paragraph>
+				<Bold>Anel:</Bold>
+				<Run>Insider</Run>
+			</Paragraph>
+			<Paragraph>
+				<Bold>Número:</Bold>
+				<Run>1.13</Run>
+			</Paragraph>
+			<Paragraph>
+				<Bold>Revisão:</Bold>
+				<Run>19</Run>
+			</Paragraph>
+		</RichTextBlock>
+		<TextBlock Style="{StaticResource TitleTextBlockStyle}"
+				   Margin="0,16,0,0">Ajude o desenvolvedor</TextBlock>
+		<StackPanel Orientation="Horizontal">
+			<controles:ItemPadrao Titulo="10 reais"
+								  Descricao="Ajude meu trabalho com essa pequena quantia"
+								  Click="Doar10"
+								  Margin="0,0,8,0">
+				<FontIcon FontFamily="Segoe UI"
+						  Glyph="10" />
+			</controles:ItemPadrao>
+			<controles:ItemPadrao Titulo="25 reais"
+								  Descricao="Contribua com essa quantia maior"
+								  Click="Doar25">
+				<FontIcon FontFamily="Segoe UI"
+						  Glyph="25" />
+			</controles:ItemPadrao>
+		</StackPanel>
+		<TextBlock Style="{StaticResource BodyTextBlockStyle}"><Bold>Atenção: </Bold><Run>Doações para o desenvolvedor não garantem nenhum recurso especial ou libera qualquer adicional pago do aplicativo.</Run></TextBlock>
+	</StackPanel>
 </Page>

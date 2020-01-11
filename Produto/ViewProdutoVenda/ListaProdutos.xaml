@@ -5,55 +5,94 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
-    <GridView ItemsSource="{x:Bind Produtos}"
-              ItemContainerTransitions="{StaticResource TransicoesLista}"
-              ItemContainerStyle="{StaticResource ItensMedios}"
-              Padding="16">
-        <GridView.ItemTemplate>
-            <DataTemplate x:DataType="local:ExibicaoProdutoListaGeral">
-                <Grid Padding="8">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="80" />
-                        <ColumnDefinition />
-                        <ColumnDefinition Width="100" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ContextFlyout>
-                        <MenuFlyout>
-                            <MenuFlyoutItem Click="Editar">Editar</MenuFlyoutItem>
-                            <MenuFlyoutItem Click="RemoverProduto">Remover</MenuFlyoutItem>
-                        </MenuFlyout>
-                    </Grid.ContextFlyout>
-                    <TextBlock Text="{x:Bind Codigo}"
-                               Style="{StaticResource SubtitleTextBlockStyle}" />
-                    <TextBlock Grid.Column="2"
-                               HorizontalAlignment="Right"
-                               VerticalAlignment="Bottom"
-                               Text="{x:Bind Quantidade}"
-                               Style="{StaticResource BaseTextBlockStyle}" />
-                    <TextBlock Grid.Row="1"
-                               Grid.ColumnSpan="3"
-                               Text="{x:Bind Descricao}"
-                               Style="{StaticResource BodyTextBlockStyle}" />
-                    <TextBlock Grid.Row="2"
-                               VerticalAlignment="Bottom"
-                               Text="{x:Bind ValorUnitario}"
-                               Style="{StaticResource BaseTextBlockStyle}" />
-                    <TextBlock Grid.Row="2"
-                               Grid.Column="2"
-                               HorizontalAlignment="Right"
-                               Text="{x:Bind TotalLiquido}"
-                               Style="{StaticResource SubtitleTextBlockStyle}" />
-                </Grid>
-            </DataTemplate>
-        </GridView.ItemTemplate>
-    </GridView>
+    <Grid>
+        <GridView ItemsSource="{x:Bind Produtos}"
+                  ItemContainerTransitions="{StaticResource TransicoesLista}"
+                  ItemContainerStyle="{StaticResource ItensMedios}"
+                  Padding="16">
+            <GridView.ItemTemplate>
+                <DataTemplate x:DataType="local:ExibicaoProdutoListaGeral">
+                    <Grid Padding="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ContextFlyout>
+                            <MenuFlyout>
+                                <MenuFlyoutItem Click="Editar">Editar</MenuFlyoutItem>
+                                <MenuFlyoutItem Click="RemoverProduto">Remover</MenuFlyoutItem>
+                            </MenuFlyout>
+                        </Grid.ContextFlyout>
+                        <TextBlock Text="{x:Bind Codigo}"
+                                   Style="{StaticResource SubtitleTextBlockStyle}" />
+                        <TextBlock Grid.Column="2"
+                                   HorizontalAlignment="Right"
+                                   VerticalAlignment="Bottom"
+                                   Text="{x:Bind Quantidade}"
+                                   Style="{StaticResource BaseTextBlockStyle}" />
+                        <TextBlock Grid.Row="1"
+                                   Grid.ColumnSpan="3"
+                                   HorizontalAlignment="Left"
+                                   Text="{x:Bind Descricao}"
+                                   Style="{StaticResource BodyTextBlockStyle}" />
+                        <TextBlock Grid.Row="2"
+                                   VerticalAlignment="Bottom"
+                                   Text="{x:Bind ValorUnitario}"
+                                   Style="{StaticResource BaseTextBlockStyle}" />
+                        <TextBlock Grid.Row="2"
+                                   Grid.Column="2"
+                                   HorizontalAlignment="Right"
+                                   Text="{x:Bind TotalLiquido}"
+                                   Style="{StaticResource SubtitleTextBlockStyle}" />
+                    </Grid>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+        </GridView>
+        <Popup x:Name="popOrdenar"
+               VerticalAlignment="Bottom"
+               HorizontalAlignment="Right"
+               Margin="0,0,318,142">
+            <Border Background="{StaticResource Variada}"
+                    BorderBrush="{StaticResource Normal}"
+                    BorderThickness="1"
+                    Padding="16"
+                    Width="200">
+                <StackPanel>
+                    <Button Click="OrdenarPorDescricao"
+                            HorizontalAlignment="Stretch"
+                            Margin="4">Por descrição</Button>
+                    <Button Click="OrdenarPorCodigo"
+                            HorizontalAlignment="Stretch"
+                            Margin="4">Por código</Button>
+                </StackPanel>
+            </Border>
+        </Popup>
+    </Grid>
     <Page.BottomAppBar>
         <CommandBar>
+            <CommandBar.Content>
+                <Grid Height="48">
+                    <TextBlock Margin="8,0"
+                               VerticalAlignment="Top"
+                               FontWeight="Light"
+                               MinWidth="256">Total líquido</TextBlock>
+                    <TextBlock x:Name="txtTotalLiquido"
+                               Margin="8,0"
+                               VerticalAlignment="Bottom"
+                               FontWeight="Bold"
+                               FontSize="24"
+                               MinWidth="256" />
+                </Grid>
+            </CommandBar.Content>
+            <AppBarButton Label="Ordenar"
+                          Icon="Sort"
+                          Click="Ordenar" />
             <AppBarButton Label="Adicionar produto"
                           Icon="Add"
                           Click="AdicionarProduto" />

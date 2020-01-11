@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -23,16 +24,16 @@ namespace BaseGeral
         {
             try
             {
-                using (var memoryStream = new MemoryStream())
+                var doc = new XDocument();
+                using (var escritor = doc.CreateWriter())
                 {
                     var name = new XmlSerializerNamespaces();
                     name.Add(string.Empty, string.Empty);
                     name.Add(string.Empty, nameSpace);
                     var xmlSerializer = new XmlSerializer(obj.GetType());
-                    xmlSerializer.Serialize(memoryStream, obj, name);
-                    memoryStream.Position = 0;
-                    return XElement.Load(memoryStream);
+                    xmlSerializer.Serialize(escritor, obj, name);
                 }
+                return doc.Root;
             }
             catch (Exception e)
             {
@@ -44,16 +45,16 @@ namespace BaseGeral
         {
             try
             {
-                using (var memoryStream = new MemoryStream())
+                var doc = new XDocument();
+                using (var escritor = doc.CreateWriter())
                 {
                     var name = new XmlSerializerNamespaces();
                     name.Add(string.Empty, string.Empty);
                     name.Add(string.Empty, nameSpace);
                     var xmlSerializer = new XmlSerializer(typeof(T));
-                    xmlSerializer.Serialize(memoryStream, obj, name);
-                    memoryStream.Position = 0;
-                    return XElement.Load(memoryStream);
+                    xmlSerializer.Serialize(escritor, obj, name);
                 }
+                return doc.Root;
             }
             catch (Exception e)
             {
@@ -108,6 +109,22 @@ namespace BaseGeral
             return new ObservableCollection<T>(aqui);
         }
 
+        public static void Sort<T, K>(this ObservableCollection<T> observable, Func<T, K> keySelector, bool ignoreFirst)
+        {
+            int ptr = 0, adicional = ignoreFirst ? 1 : 0;
+            List<T> sorted = observable.Skip(adicional).OrderBy(keySelector).ToList();
+            while (ptr < sorted.Count)
+            {
+                if (!observable[ptr + adicional].Equals(sorted[ptr]))
+                {
+                    T t = observable[ptr + adicional];
+                    observable.RemoveAt(ptr + adicional);
+                    observable.Insert(sorted.IndexOf(t) + adicional, t);
+                }
+                else ptr++;
+            }
+        }
+
         public static async void ManipularErro(this Exception erro)
         {
             if (erro is ErroDesserializacao dess)
@@ -155,7 +172,7 @@ namespace BaseGeral
         {
             if (string.IsNullOrEmpty(original)) return string.Empty;
             else if (original.Length == 14) // É CNPJ
-                return $"{sub(0, 2)}.{sub(2, 3)}.{sub(5, 3)}/{sub(8, 4)}.{sub(12, 2)}";
+                return $"{sub(0, 2)}.{sub(2, 3)}.{sub(5, 3)}/{sub(8, 4)}-{sub(12, 2)}";
             else if (original.Length == 11) // É CPF
                 return $"{sub(0, 3)}.{sub(3, 3)}.{sub(6, 3)}-{sub(9, 2)}";
             else if (original.Length == 8) // É CEP
@@ -179,7 +196,7 @@ namespace BaseGeral
         public static double CMToPixel(double CM) => CM * (96 / 2.54);
         public static GridLength CMToLength(double CM) => new GridLength(CMToPixel(CM));
 
-        static CultureInfo defCult = CultureInfo.InvariantCulture;
+        static readonly CultureInfo defCult = CultureInfo.InvariantCulture;
         public static string ToStr(double valor, string format = "F2") => valor.ToString(format, defCult);
         public static double Parse(string str) => double.Parse(str, NumberStyles.Number, defCult);
         public static bool TryParse(string str, out double valor) => double.TryParse(str, NumberStyles.Number, defCult, out valor);
@@ -187,6 +204,22 @@ namespace BaseGeral
 
         public static string[] ToArray(this string str) => new string[1] { str };
         public static string[] ToArray(this string str0, string str1) => new string[2] { str0, str1 };
+
+        public static string IPToCodigo(this string ip)
+        {
+            return string.Concat(ip.Split(".").Select(x => byte.Parse(x).ToString("000")));
+        }
+
+        public static string CodigoToIP(this string codigo)
+        {
+            string temp = string.Empty;
+            for (int i = 0; i < 4; i++)
+            {
+                temp += byte.Parse(codigo.Substring(i * 3, 3)).ToString();
+                if (i < 3) temp += '.';
+            }
+            return temp;
+        }
     }
 
     public class ErroDesserializacao : Exception

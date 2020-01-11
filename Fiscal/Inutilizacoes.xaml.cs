@@ -1,5 +1,4 @@
 ﻿using BaseGeral.ItensBD;
-using NFeFacil.View;
 using System;
 using Windows.UI.Xaml;
 using Fiscal.WebService.Pacotes;
@@ -14,6 +13,7 @@ using Windows.UI.Xaml.Navigation;
 using BaseGeral;
 using Fiscal.Certificacao;
 using BaseGeral.View;
+using System.Security.Cryptography.X509Certificates;
 
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -60,11 +60,11 @@ namespace Fiscal
                 var gerenciador = new GerenciadorGeral<InutNFe, RetInutNFe>(uf, Operacoes.Inutilizacao, caixa.Homologacao, isNFCe);
 
                 AssinaFacil assinador = new AssinaFacil();
-                await assinador.Preparar();
                 Progresso progresso = null;
                 progresso = new Progresso(async x =>
                 {
-                    var resultAssina = await envio.PrepararEvento(assinador, x);
+                    var cert = (X509Certificate2)x;
+                    var resultAssina = await envio.PrepararEvento(assinador, cert);
                     if (!resultAssina.Item1)
                     {
                         return resultAssina;

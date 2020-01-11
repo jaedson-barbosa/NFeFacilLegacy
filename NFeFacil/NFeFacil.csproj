@@ -11,8 +11,8 @@
     <AssemblyName>NFeFacil</AssemblyName>
     <DefaultLanguage>pt-BR</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion>10.0.16299.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.15063.0</TargetPlatformMinVersion>
+    <TargetPlatformVersion>10.0.18362.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -24,6 +24,9 @@
     <AppxBundle>Always</AppxBundle>
     <RuntimeIdentifiers>win10-arm;win10-arm-aot;win10-x86;win10-x86-aot;win10-x64;win10-x64-aot</RuntimeIdentifiers>
     <AppxSymbolPackageEnabled>True</AppxSymbolPackageEnabled>
+    <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
+    <AppInstallerUpdateFrequency>1</AppInstallerUpdateFrequency>
+    <AppInstallerCheckForUpdateFrequency>OnApplicationRun</AppInstallerCheckForUpdateFrequency>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -106,8 +109,6 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <Content Include="Assets\ArmaDark.png" />
-    <Content Include="Assets\Arma.png" />
     <Content Include="Assets\BadgeLogo.scale-100.png" />
     <Content Include="Assets\BadgeLogo.scale-125.png" />
     <Content Include="Assets\BadgeLogo.scale-150.png" />
@@ -118,7 +119,6 @@
     <Content Include="Assets\LargeTile.scale-150.png" />
     <Content Include="Assets\LargeTile.scale-200.png" />
     <Content Include="Assets\LargeTile.scale-400.png" />
-    <Content Include="Assets\Minha foto.jpg" />
     <Content Include="Assets\SmallTile.scale-100.png" />
     <Content Include="Assets\SmallTile.scale-125.png" />
     <Content Include="Assets\SmallTile.scale-150.png" />
@@ -165,26 +165,32 @@
     <Compile Include="Login\Loading.xaml.cs">
       <DependentUpon>Loading.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewCertificacao\ConectarServidor.xaml.cs">
-      <DependentUpon>ConectarServidor.xaml</DependentUpon>
+    <Compile Include="ViewDadosBase\AdicionarCategoria.xaml.cs">
+      <DependentUpon>AdicionarCategoria.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewCertificacao\ConfiguracoesCertificadoImportado.xaml.cs">
-      <DependentUpon>ConfiguracoesCertificadoImportado.xaml</DependentUpon>
+    <Compile Include="ViewDadosBase\AdicionarCliente.xaml.cs">
+      <DependentUpon>AdicionarCliente.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewCertificacao\ConfiguracoesClienteServidor.xaml.cs">
-      <DependentUpon>ConfiguracoesClienteServidor.xaml</DependentUpon>
+    <Compile Include="ViewDadosBase\AdicionarFornecedor.xaml.cs">
+      <DependentUpon>AdicionarFornecedor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewCertificacao\ConfiguracoesServidorCertificacao.xaml.cs">
-      <DependentUpon>ConfiguracoesServidorCertificacao.xaml</DependentUpon>
+    <Compile Include="ViewDadosBase\AssociarCategoriaFornecedor.xaml.cs">
+      <DependentUpon>AssociarCategoriaFornecedor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewCertificacao\DefinirSenhaCertificado.xaml.cs">
-      <DependentUpon>DefinirSenhaCertificado.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewSincronizacao\ConfigurarDadosConexao.xaml.cs">
-      <DependentUpon>ConfigurarDadosConexao.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewSincronizacao\QRConexao.xaml.cs">
-      <DependentUpon>QRConexao.xaml</DependentUpon>
+    <Compile Include="ViewDadosBase\ControllerAdicaoClienteEstrangeiro.cs" />
+    <Compile Include="ViewDadosBase\ControllerAdicaoClienteGeral.cs" />
+    <Compile Include="ViewDadosBase\ControllerAdicaoClientePF.cs" />
+    <Compile Include="ViewDadosBase\ControllerAdicaoClientePFContribuinte.cs" />
+    <Compile Include="ViewDadosBase\ControllerAdicaoClientePJ.cs" />
+    <Compile Include="ViewDadosBase\ControllerCategorias.cs" />
+    <Compile Include="ViewDadosBase\ControllerClientes.cs" />
+    <Compile Include="ViewDadosBase\ControllerCompradores.cs" />
+    <Compile Include="ViewDadosBase\ControllerFornecedores.cs" />
+    <Compile Include="ViewDadosBase\ControllerGerenciadorGeral.cs" />
+    <Compile Include="ViewDadosBase\ControllerMotoristas.cs" />
+    <Compile Include="ViewDadosBase\ControllerVendedores.cs" />
+    <Compile Include="ViewDadosBase\GerenciadorGenerico.xaml.cs">
+      <DependentUpon>GerenciadorGenerico.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewSincronizacao\SincronizacaoCliente.xaml.cs">
       <DependentUpon>SincronizacaoCliente.xaml</DependentUpon>
@@ -192,45 +198,14 @@
     <Compile Include="ViewSincronizacao\SincronizacaoServidor.xaml.cs">
       <DependentUpon>SincronizacaoServidor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ConjuntoBanco.cs" />
     <Compile Include="ViewDadosBase\AdicionarComprador.xaml.cs">
       <DependentUpon>AdicionarComprador.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewDadosBase\GerenciarClientes.xaml.cs">
-      <DependentUpon>GerenciarClientes.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewDadosBase\GerenciarCompradores.xaml.cs">
-      <DependentUpon>GerenciarCompradores.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewDadosBase\GerenciarMotoristas.xaml.cs">
-      <DependentUpon>GerenciarMotoristas.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewDadosBase\GerenciarVendedores.xaml.cs">
-      <DependentUpon>GerenciarVendedores.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Login\EscolhaEmitente.xaml.cs">
-      <DependentUpon>EscolhaEmitente.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Login\EscolhaVendedor.xaml.cs">
-      <DependentUpon>EscolhaVendedor.xaml</DependentUpon>
     </Compile>
     <Compile Include="Login\GeralEmitente.xaml.cs">
       <DependentUpon>GeralEmitente.xaml</DependentUpon>
     </Compile>
     <Compile Include="Login\PrimeiroUso.xaml.cs">
       <DependentUpon>PrimeiroUso.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewDadosBase\AdicionarClienteBrasileiroPF.xaml.cs">
-      <DependentUpon>AdicionarClienteBrasileiroPF.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewDadosBase\AdicionarClienteBrasileiroPFContribuinte.xaml.cs">
-      <DependentUpon>AdicionarClienteBrasileiroPFContribuinte.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewDadosBase\AdicionarClienteBrasileiroPJ.xaml.cs">
-      <DependentUpon>AdicionarClienteBrasileiroPJ.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewDadosBase\AdicionarClienteEstrangeiro.xaml.cs">
-      <DependentUpon>AdicionarClienteEstrangeiro.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewDadosBase\BaseAdicaoDestinatario.cs" />
     <Compile Include="ViewDadosBase\EscolherTipoCliente.xaml.cs">
@@ -258,9 +233,6 @@
     <Compile Include="ViewDadosBase\ImportacaoDados.xaml.cs">
       <DependentUpon>ImportacaoDados.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\EscolherTransparencia.xaml.cs">
-      <DependentUpon>EscolherTransparencia.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\Informacoes.xaml.cs">
       <DependentUpon>Informacoes.xaml</DependentUpon>
     </Compile>
@@ -271,7 +243,6 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="View\PainelAdaptavel.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -297,53 +268,29 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewCertificacao\ConectarServidor.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="ViewDadosBase\AdicionarCategoria.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewCertificacao\ConfiguracoesCertificadoImportado.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="ViewDadosBase\AdicionarCliente.xaml">
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ViewCertificacao\ConfiguracoesClienteServidor.xaml">
       <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ViewCertificacao\ConfiguracoesServidorCertificacao.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ViewCertificacao\DefinirSenhaCertificado.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="ViewDadosBase\AdicionarComprador.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewDadosBase\GerenciarClientes.xaml">
+    <Page Include="ViewDadosBase\AdicionarFornecedor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewDadosBase\GerenciarCompradores.xaml">
+    <Page Include="ViewDadosBase\AssociarCategoriaFornecedor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewDadosBase\GerenciarMotoristas.xaml">
+    <Page Include="ViewDadosBase\GerenciadorGenerico.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ViewDadosBase\GerenciarVendedores.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ViewSincronizacao\ConfigurarDadosConexao.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ViewSincronizacao\QRConexao.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="ViewSincronizacao\SincronizacaoCliente.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -353,35 +300,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Login\EscolhaEmitente.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Login\EscolhaVendedor.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Login\GeralEmitente.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Login\PrimeiroUso.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ViewDadosBase\AdicionarClienteBrasileiroPF.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ViewDadosBase\AdicionarClienteBrasileiroPFContribuinte.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ViewDadosBase\AdicionarClienteBrasileiroPJ.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ViewDadosBase\AdicionarClienteEstrangeiro.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -417,10 +340,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\EscolherTransparencia.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View\Informacoes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -439,22 +358,19 @@
       <Version>0.8.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite">
-      <Version>1.1.5</Version>
+      <Version>2.2.2</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools">
-      <Version>1.1.5</Version>
+      <Version>2.2.2</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.0.8</Version>
+      <Version>6.1.9</Version>
     </PackageReference>
     <PackageReference Include="System.ValueTuple">
-      <Version>4.4.0</Version>
+      <Version>4.5.0</Version>
     </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <SDKReference Include="WindowsMobile, Version=10.0.16299.0">
-      <Name>Windows Mobile Extensions for the UWP</Name>
-    </SDKReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Comum\Comum.csproj">

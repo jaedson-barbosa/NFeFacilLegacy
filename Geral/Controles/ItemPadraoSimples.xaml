@@ -6,7 +6,7 @@
              mc:Ignorable="d"
              d:DesignHeight="300"
              d:DesignWidth="400">
-    <StackPanel Padding="16,8">
+    <StackPanel Padding="8">
         <ContentControl Content="{x:Bind Icone}"
                         RenderTransformOrigin="0.5,0.5"
                         Width="24"

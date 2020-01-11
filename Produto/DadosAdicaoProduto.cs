@@ -30,42 +30,22 @@ namespace Venda
         public (PrincipaisImpostos Tipo, string NomeTemplate, int CST)[] ImpostosPadrao { get; }
         public bool IsNFCe { get; set; }
 
-        public List<ImpostoArmazenado> GetImpostosPadraoNFe(bool produto)
+        public List<ImpostoArmazenado> GetImpostosPadraoNFe()
         {
-            List<ImpostoArmazenado> impostos;
-            if (produto)
+            List<ImpostoArmazenado> impostos = new List<ImpostoArmazenado>
             {
-                impostos = new List<ImpostoArmazenado>
-                {
-                    new ImpostoArmazenado(PrincipaisImpostos.ICMS),
-                    new ImpostoArmazenado(PrincipaisImpostos.IPI),
-                    new ImpostoArmazenado(PrincipaisImpostos.PIS),
-                    new ImpostoArmazenado(PrincipaisImpostos.COFINS),
-                    new ImpostoArmazenado(PrincipaisImpostos.II),
-                    new ImpostoArmazenado(PrincipaisImpostos.ICMSUFDest)
-                };
-                var icmsArmazenado = Auxiliar.GetICMSArmazenados();
-                if (icmsArmazenado != null && icmsArmazenado.Count() > 0)
-                {
-                    impostos.AddRange(icmsArmazenado);
-                }
-            }
-            else
-            {
-                impostos = new List<ImpostoArmazenado>
-                {
-                    new ImpostoArmazenado(PrincipaisImpostos.IPI),
-                    new ImpostoArmazenado(PrincipaisImpostos.PIS),
-                    new ImpostoArmazenado(PrincipaisImpostos.COFINS),
-                    new ImpostoArmazenado(PrincipaisImpostos.ISSQN),
-                    new ImpostoArmazenado(PrincipaisImpostos.ICMSUFDest)
-                };
-            }
+                new ImpostoArmazenado(PrincipaisImpostos.ICMS),
+                new ImpostoArmazenado(PrincipaisImpostos.IPI),
+                new ImpostoArmazenado(PrincipaisImpostos.PIS),
+                new ImpostoArmazenado(PrincipaisImpostos.COFINS),
+                new ImpostoArmazenado(PrincipaisImpostos.ICMSUFDest)
+            };
+            var icmsArmazenado = Auxiliar.GetICMSArmazenados();
+            if (icmsArmazenado != null && icmsArmazenado.Count() > 0)
+                impostos.AddRange(icmsArmazenado);
             var impsArmazenado = Auxiliar.GetImpSimplesArmazenados();
             if (impsArmazenado != null && impsArmazenado.Count() > 0)
-            {
                 impostos.AddRange(impsArmazenado);
-            }
             return impostos;
         }
 

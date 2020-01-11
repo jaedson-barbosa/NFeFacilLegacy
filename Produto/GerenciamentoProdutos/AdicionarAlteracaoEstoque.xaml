@@ -6,18 +6,9 @@
                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                mc:Ignorable="d"
                Title="Alteração manual"
-               PrimaryButtonText="Alterar"
-               SecondaryButtonText="Cancelar">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <RadioButton IsChecked="{x:Bind Positivo, Mode=TwoWay}">Adicionar quantidade</RadioButton>
-        <RadioButton Grid.Row="1">Remover quantidade</RadioButton>
-        <controles:EntradaNumerica Grid.Row="2"
-                                   Format="2"
-                                   Number="{x:Bind Valor, Mode=TwoWay}" />
-    </Grid>
+               PrimaryButtonText="Adicionar"
+               SecondaryButtonText="Remover">
+    <controles:EntradaNumerica Format="2"
+							   Header="Quantidade"
+							   Number="{x:Bind Valor, Mode=TwoWay}" />
 </ContentDialog>

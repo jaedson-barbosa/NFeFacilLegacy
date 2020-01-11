@@ -5,7 +5,7 @@ namespace BaseGeral.Buscador
 {
     public sealed class BuscadorCliente : BaseBuscador<ClienteDI>
     {
-        public BuscadorCliente()
+        public BuscadorCliente() : base(DefinicoesPermanentes.ModoBuscaCliente)
         {
             using (var repo = new Repositorio.Leitura())
             {
@@ -20,6 +20,9 @@ namespace BaseGeral.Buscador
         }
 
         protected override (string, string) ItemComparado(ClienteDI item, int modoBusca)
+            => StaticItemComparado(item, modoBusca);
+
+        public static (string, string) StaticItemComparado(ClienteDI item, int modoBusca)
         {
             switch (modoBusca)
             {
@@ -30,17 +33,20 @@ namespace BaseGeral.Buscador
         }
 
         protected override void InvalidarItem(ClienteDI item, int modoBusca)
+            => StaticInvalidarItem(item, modoBusca);
+
+        public static void StaticInvalidarItem(ClienteDI item, int modoBusca)
         {
             switch (modoBusca)
             {
                 case 0:
-                    item.Nome = InvalidProduct;
+                    item.Nome = InvalidItem;
                     break;
                 case 1:
-                    item.CPF = item.CNPJ = item.IdEstrangeiro = InvalidProduct;
+                    item.CPF = item.CNPJ = item.IdEstrangeiro = InvalidItem;
                     break;
                 default:
-                    item.Nome = item.CPF = item.CNPJ = item.IdEstrangeiro = InvalidProduct;
+                    item.Nome = item.CPF = item.CNPJ = item.IdEstrangeiro = InvalidItem;
                     break;
             }
         }

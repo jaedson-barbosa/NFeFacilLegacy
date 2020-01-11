@@ -1,7 +1,7 @@
 ﻿using BaseGeral.Controles;
 using System.Collections.ObjectModel;
 
-namespace NFeFacil.View
+namespace BaseGeral.View
 {
     public interface IHambuguer
     {

@@ -13,3 +13,5 @@ Por causa disso e de alguns outros motivos, decidi encerrar o suporte que eu vin
 E quem sabe, se der certo vossas empreitadas, vocês não se lembrem de mim e venham dar um agrado? Um dinheirinho sempre vai bem ;)
 
 Qualquer dúvida é só perguntar na aba "Issues" ou mandar um email que ficarei feliz em ajudar.
+
+Ah, mais uma coisa, se decidirem continuar o projeto de onde ele parou, dava pra fazer tudo de forma que todo mundo que agora usa pudesse continuar usando sem perder todos os dados cadastrados, tem usuários cujo banco de dados já passa da casa de milhares de itens cadastrados.
